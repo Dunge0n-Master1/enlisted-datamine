@@ -124,9 +124,6 @@ turret_input_local_es{
 turret_input_client_es{
 }
 
-vehicle_seats_update_player_es{
-}
-
 vehicle_phys_calc_controls_tick_delta_es{
 }
 
@@ -290,9 +287,6 @@ before_animchar_update_sync{
 }
 
 after_animchar_update_sync{
-}
-
-kick_walkers_from_vehicle_es{
 }
 
 vehicle_acceleration_es{

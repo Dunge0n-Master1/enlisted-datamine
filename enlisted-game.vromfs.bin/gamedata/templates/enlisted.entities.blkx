@@ -6,7 +6,7 @@ import:t="#content/common_shooter/gamedata/templates/game_objects.blk"
 import:t="#content/common_shooter/gamedata/templates/ui.blk"
 import:t="#content/common_shooter/gamedata/templates/covers.blk"
 import:t="#content/common/gamedata/templates/respawn_bases.blk"
-import:t="#content/common_shooter/gamedata/templates/common_placebale_rendinst.blk"
+import:t="#content/common_shooter/gamedata/templates/common_placeable_rendinst.blk"
 import:t="#content/common_shooter/gamedata/templates/guns.blk"
 import:t="#content/common_shooter/gamedata/templates/mortar_map_markers.blk"
 import:t="game_mods.blk"
@@ -43,7 +43,6 @@ import:t="#content/e_ww2_common/gamedata/templates/ww2_boats.blk"
 import:t="#content/common_shooter/gamedata/templates/bots.blk"
 import:t="#content/e_ww2_common/gamedata/templates/ww2_cars.blk"
 import:t="#content/common_shooter/gamedata/templates/violence.blk"
-import:t="normandy_sounds.blk"
 import:t="tutorial_minimap.blk"
 import:t="tutorial_tank.blk"
 import:t="tutorial_engineer.blk"
@@ -92,7 +91,7 @@ import:t="#content/tanks/gamedata/templates/ww2_tanks.blk"
 import:t="#content/tanks/gamedata/templates/ww2_destroyed_tanks.blk"
 import:t="dummy_body_parts.blk"
 import:t="enlisted_guns.blk"
-import:t="#content/enlisted/gamedata/templates/enlisted_guns_hit_fx.blk"
+import:t="#content/common_shooter/gamedata/templates/guns_hit_fx.blk"
 import:t="#content/enlisted/gamedata/templates/enlisted_explosion_hit_fx.blk"
 import:t="enlisted_items.blk"
 import:t="enlisted_sounds.blk"
@@ -105,6 +104,8 @@ import:t="enlisted_ai.blk"
 import:t="resupply.blk"
 import:t="tutorial.blk"
 import:t="componentFilters.blk"
+import:t="%danetlibs/gpu_benchmark/templates/graphics_autodetect.blk"
+import:t="%danetlibs/assets_import/templates/assets_import.blk"
 
 terraform{
   _extends:t="replicating"
@@ -486,8 +487,6 @@ plane_base{
   _extends:t="enlisted_vehicle_seats_restrictions"
   _extends:t="vehicle_decals"
   hitmarks__showUserHits:b=yes
-  last_offender__shellId:i=-1
-  last_offender__gunPropsId:i=-1
 
   "turret_control__hasAiGunners:tag"{
   }
@@ -500,6 +499,9 @@ plane_base{
 
   "last_offender__builtGunEid:eid"{
     _tags:t="server"
+  }
+
+  "phys_vars__skipVisibilityCheck:tag"{
   }
 
   _group{
@@ -730,8 +732,8 @@ vehicle{
   _override:b=yes
   _extends:t="hud_vehicle_marker"
   _extends:t="vehicle_enter_accessibility"
-  last_offender__shellId:i=-1
-  last_offender__gunPropsId:i=-1
+  _extends:t="hit_track_fx_group"
+  _extends:t="vehicle_effects_common"
 
   "last_offender__builtGunEid:eid"{
     _tags:t="server"
@@ -776,7 +778,6 @@ perf_stat{
 
 xray_context{
   _singleton:b=yes
-  _extends:t="replicating"
 
   xray_context{
     _tags:t="render"
@@ -850,8 +851,8 @@ dof_settings{
   dof__is_filmic:b=no
   dof__focusDistance:r=-1.0
   dof__fStop:r=1.0
-  dof__sensorHeight:r=0.024
-  dof__focalLength:r=-1.0
+  dof__sensorHeight_mm:r=24.0
+  dof__focalLength_mm:r=-1.0
   dof__bokehShape_kernelSize:r=1.0
   dof__bokehShape_bladesCount:r=3.0
   dof__minCheckDistance:r=50.0
@@ -879,7 +880,7 @@ menu_soldier{
   }
 }
 
-menu_vehicle{
+menu_inspected_vehicle_pos{
   _extends:t="menu_transform"
   _track:b=yes
   _singleton:b=yes
@@ -957,6 +958,7 @@ show_briefing_on_hero_change{
 menu_soldier_respawnbase{
   priority_order:i=0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  menuPosFilter:t=""
 
   "menu_soldier_respawnbase:tag"{
   }
@@ -964,8 +966,18 @@ menu_soldier_respawnbase{
 
 menu_vehicle_respawnbase{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  menuPosFilter:t=""
 
   "menu_vehicle_respawnbase:tag"{
+  }
+}
+
+menu_machinegun_respawnbase{
+  priority_order:i=0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  menuPosFilter:t=""
+
+  "menu_machinegun_respawnbase:tag"{
   }
 }
 
@@ -999,6 +1011,12 @@ background_menu_vehicle{
 background_menu_item{
 
   "background_menu_item:tag"{
+  }
+}
+
+menu_vehicle{
+
+  "menuVehicle:tag"{
   }
 }
 
@@ -1235,11 +1253,15 @@ respawn_point_selector{
   _group{
     _tags:t="server"
     respawn_point__lastRespawnTime:r=0.0
+    respawn_point__cachedPathsPos:p3=0.0, 0.0, 0.0
 
     "respawn_point__respawnersQueue:list<eid>"{
     }
 
     "respawn_point__respawnersTimeouts:list<r>"{
+    }
+
+    "respawn_point__cachedPaths:list<p4>"{
     }
   }
 
@@ -1338,10 +1360,10 @@ soldier_revive_points{
   _group{
     _tags:t="server"
 
-    "soldier_revive_points__healPerSquadmate:array"{
+    "soldier_revive_points__healPerSquadmate:list<i>"{
     }
 
-    "soldier_revive_points__afterDeath:array"{
+    "soldier_revive_points__afterDeath:list<i>"{
     }
 
     "soldier_revive_points__respawnsToRestoreByCount:object"{
@@ -1377,6 +1399,7 @@ enlisted_userstat_filter{
     assists:b=yes
     melee_kills:b=yes
     grenade_kills:b=yes
+    ampulomet_kills:b=yes
     aircraft_kills:b=yes
     tank_kills:b=yes
     mortar_kills:b=yes
@@ -1420,9 +1443,14 @@ enlisted_userstat_filter{
     points_captured:b=yes
     mission_objectives_destroyed:b=yes
     infantry_mine_kills:b=yes
+    crew_mine_kills:b=yes
     vehicle_mine_kills:b=yes
     lunge_mine_kills:b=yes
+    lunge_mine_crew_kills:b=yes
     lunge_mine_vehicle_kills:b=yes
+    infantry_tnt_kills:b=yes
+    crew_tnt_kills:b=yes
+    vehicle_tnt_kills:b=yes
     friendly_fire_squad_spawns:b=yes
     friendly_fire_score:b=yes
     battle_group_battle_score:b=yes
@@ -1540,9 +1568,16 @@ ammo_box_limit_engineer_awards{
 heal_limit_awards{
   _tags:t="server"
   heal_awards__awardPerPlayerPerMinute:i=5
+  heal_awards__minAdditionalAwardByHeal:r=1.0
+  heal_awards__maxAdditionalAwardByHeal:r=3.0
 
   "heal_awards__healUses:object"{
   }
+}
+
+revive_awards{
+  _tags:t="server"
+  revive_awards__additionalHealAward:r=3.0
 }
 
 med_box_limit_awards{
@@ -1625,7 +1660,6 @@ respawner{
   _replicated:t="respawner__canRespawnWaitNumber"
   _replicated:t="respawner__respToBot"
   _replicated:t="respawner__chosenRespawn"
-  _replicated:t="respawner__vehicleRespawnsBySquad"
   _replicated:t="respawner__isFirstSpawn"
   _tracked:t="respawner__enabled"
   _tracked:t="respawner__spectatorEnabled"
@@ -1635,7 +1669,6 @@ respawner{
   _tracked:t="respawner__canRespawnWaitNumber"
   _tracked:t="respawner__respToBot"
   _tracked:t="respawner__chosenRespawn"
-  _tracked:t="respawner__vehicleRespawnsBySquad"
   _tracked:t="respawner__isFirstSpawn"
 
   "respawner__chosenRespawn:eid"{
@@ -1649,9 +1682,30 @@ respawner{
 
     "respawner__queuedAtPointGroupId:i"{
     }
+
+    "respawner__vehicleSquadRespawnTypes:array"{
+    }
   }
 
-  "respawner__vehicleRespawnsBySquad:array"{
+  _group{
+    _tags:t="server"
+    _track:b=yes
+
+    "respawner__firstSpawnThresholdBySquad:list<i>"{
+    }
+
+    "respawner__lastSpawnTimeBySquad:list<i>"{
+    }
+  }
+
+  _group{
+    _replicate:b=yes
+
+    "respawner__vehiclesLimitBySquad:list<i>"{
+    }
+
+    "respawner__nextSpawnOnVehicleTimeBySquad:list<i>"{
+    }
   }
 
   "respawner__squad:eid"{
@@ -1712,6 +1766,7 @@ enlisted_player{
   _extends:t="ammo_box_limit_engineer_awards"
   _extends:t="med_box_limit_awards"
   _extends:t="heal_limit_awards"
+  _extends:t="revive_awards"
   _extends:t="userstats_weapon_killstreak"
   _extends:t="friendly_fire_kick"
   _extends:t="friendly_fire_same_player_kill"
@@ -1736,6 +1791,7 @@ enlisted_player{
   _tracked:t="userModsClientData"
   _tracked:t="userModsServerData"
   _tracked:t="userstatsInBattle"
+  _tracked:t="isArmiesReceived"
   _tracked:t="armiesReceivedTime"
   _tracked:t="wallPosters"
   _tracked:t="wallPosters__maxCount"
@@ -1752,7 +1808,6 @@ enlisted_player{
   isArmiesReceived:b=no
   wallPosters__maxCount:i=0
   wallPosters__curCount:i=0
-  customSpawn:b=yes
   isFirstSpawn:b=yes
   connectedAtTime:r=-1.0
   startedAtTime:r=-1.0
@@ -1782,7 +1837,7 @@ enlisted_player{
       4:i=2
     }
 
-    "squads__revivePointsList:array"{
+    "squads__revivePointsList:list<i>"{
     }
 
     "squads__respawnTypeList:array"{
@@ -1832,13 +1887,13 @@ enlisted_player{
     scoring_player__vehicleExtinguishes:i=0
     scoring_player__landings:i=0
     scoring_player__reviveAssists:i=0
-    scoring_player__healAssists:i=0
+    scoring_player__healAssists:r=0.0
     scoring_player__barrageBalloonDestructions:i=0
     scoring_player__enemyBuiltFortificationDestructions:i=0
     scoring_player__enemyBuiltGunDestructions:i=0
     scoring_player__enemyBuiltUtilityDestructions:i=0
     scoring_player__meleeKills:i=0
-    scoring_player__grenadeKills:i=0
+    scoring_player__explosiveKills:i=0
     scoring_player__longRangeKills:i=0
     scoring_player__gunGameLevelup:i=0
     scoring_player__battleTimeLastStartedAt:r=-1.0
@@ -1890,9 +1945,9 @@ enlisted_player{
 
   _group{
     _tags:t="server"
-    afk__disconnectTimeout:r=120.0
-    afk__showWarningTimeout:i=60
-    afk__showDisconnectWarningTimeout:i=90
+    afk__disconnectTimeout:r=180.0
+    afk__showWarningTimeout:i=90
+    afk__showDisconnectWarningTimeout:i=120
   }
 
   _group{
@@ -1915,6 +1970,11 @@ enlisted_player{
   _group{
     _tags:t="server"
     player_bots__nextHealWaitTime:r=0.0
+  }
+
+  "squads__count:i"{
+    _tags:t="server"
+    value:i=0
   }
 
   "userModsServerData:object"{
@@ -1949,9 +2009,6 @@ enlisted_player{
   "shouldValidateSpawnRules:b"{
     value:b=yes
     _tags:t="server"
-  }
-
-  "vehicleRespawnsBySquad:array"{
   }
 
   "availableBuildings:list<i>"{
@@ -2285,17 +2342,6 @@ soldier_info_cache{
   }
 }
 
-shell_info_cache{
-  _singleton:b=yes
-  _tags:t="gameClient"
-  shell_info_cache__expirationTime:r=3.0
-  shell_info_cache__checkInterval:r=1.0
-  shell_info_cache__nextCheckAt:r=0.0
-
-  "shell_info_cache:object"{
-  }
-}
-
 human_hide_slots_in_scope{
   human__isHidingSlotsInScopeEnabled:b=yes
 
@@ -2426,6 +2472,49 @@ ai_aircraft_crew_soldier_base{
   }
 }
 
+ai_aircraft_crew_soldier_ussr_base{
+  killLogName:t=""
+  _extends:t="stats_count_as_kill"
+  _extends:t="disable_update"
+
+  "aiAircraftCrewSoldier:tag"{
+  }
+
+  "notTakeDamageFromBattleArea:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_01_ussr_summer_item:t="face"
+    attachable_wear_tunic_05_pilot_ussr_summer_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_03_ussr_summer_item:t="pants"
+    attachable_wear_lp1_parachute_pilot_ussr_item:t="backpack"
+    attachable_wear_belt_1_07_ussr_summer_item:t="belt_1"
+    attachable_wear_belt_2_01_ussr_summer_item:t="belt_2"
+    attachable_wear_nagan_03_ussr_summer_item:t="front_belt_r"
+  }
+}
+
+ai_aircraft_crew_soldier_usa_base{
+  killLogName:t=""
+  _extends:t="stats_count_as_kill"
+  _extends:t="disable_update"
+
+  "aiAircraftCrewSoldier:tag"{
+  }
+
+  "notTakeDamageFromBattleArea:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_male_05_us_item:t="face"
+    attachable_wear_pilot_a2_jacket_bomb_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_m43_tankers_jacket_item:t="pants"
+    attachable_wear_parachute_tanker_jacket_item:t="backpack"
+  }
+}
+
 ai_aircraft_crew_ger{
 
   _group{
@@ -2502,6 +2591,12 @@ base_equipable_gun{
     gun__reserveAmmoTemplate:t=""
     gun__numReserveAmmo:i=0
     _tags:t="server"
+
+    "gun__additionalReserveAmmoTemplates:list<t>"{
+    }
+
+    "gun__additionalNumReserveAmmos:list<i>"{
+    }
   }
 }
 
@@ -2912,13 +3007,28 @@ gun_game_mode_sounds{
   }
 }
 
-cinematic_mode{
-  _extends:t="cinematic_mode_settings"
-  _extends:t="cinematic_mode_manager"
-  _singleton:b=yes
+settings_override_manager{
+
+  _group{
+
+    "settings_override__manager:SettingsOverride"{
+    }
+  }
+}
+
+settings_override_settings{
+
+  _group{
+    _track:b=yes
+    settings_override__useCustomSettings:b=no
+
+    "settings_override__graphicsSettings:object"{
+    }
+  }
 }
 
 cinematic_mode_manager{
+  _extends:t="settings_override_manager"
 
   "cinematic_mode_tag:tag"{
   }
@@ -2932,21 +3042,28 @@ cinematic_mode_manager{
 }
 
 cinematic_mode_settings{
+  _extends:t="settings_override_settings"
   cinematic_mode__lenseCoveringTex:t="lense_dust"
   cinematic_mode__lenseRadialTex:t=""
 
+  "settings_override__graphicsSettings:object"{
+    "video/antiAliasingMode":i=2
+    "video/fsr":t="off"
+    "video/staticResolutionScale":r=100.0
+  }
+
   _group{
     _track:b=yes
-    cinematic_mode__useCustomSettings:b=no
     cinematic_mode__fps:i=60
     cinematic_mode__fname:t=""
     cinematic_mode__audioDataFName:t=""
     cinematic_mode__bitrate:i=30000000
-    cinematic_mode__subPixels:i=1
+    cinematic_mode__subPixels:i=2
+    cinematic_mode__superPixels:i=2
     cinematic_mode__vignetteStrength:r=0.0
     cinematic_mode__chromaticAberration:p3=0.01, 0.007, 1.0
     cinematic_mode__filmGrain:p3=0.0, 1.0, 1.0
-    cinematic_mode__bloomThreshold:r=0.8
+    cinematic_mode__bloomThreshold:r=1.0
     cinematic_mode__lenseFlareIntensity:r=0.0
     cinematic_mode__lenseDust:b=no
     cinematic_mode__recording:b=no
@@ -2968,9 +3085,7 @@ cinematic_mode_settings{
     cinematic_mode__mb_overscanMul:r=0.01
     cinematic_mode__mb_forwardBlur:r=0.0
     cinematic_mode__colorGradingSelected:t=""
-
-    "cinematic_mode__graphicsSettings:object"{
-    }
+    cinematic_mode__enablePostBloom:b=yes
   }
 
   "cinematic_mode__weatherPresetList:list<t>"{
@@ -2979,6 +3094,12 @@ cinematic_mode_settings{
   "cinematic_mode__colorGradingOptions:shared:list<t>"{
     item:t="postfx_color_grading_tonemap_death_alive_enlisted"
   }
+}
+
+cinematic_mode{
+  _extends:t="cinematic_mode_settings"
+  _extends:t="cinematic_mode_manager"
+  _singleton:b=yes
 }
 
 pushable_object{

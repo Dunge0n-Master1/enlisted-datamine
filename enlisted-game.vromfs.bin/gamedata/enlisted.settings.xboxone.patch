@@ -37,7 +37,7 @@
   enableHdr:b=yes
   "@delete:resolution":t=""
   resolution:t="1600x900"
-  taaUpsamplingRatio:r=100
+  upscaleInPostfx:b=yes
 }
 
 "@override:dx12"{
@@ -71,8 +71,13 @@
   lodsShiftDistMul:r=1.3
   fxTarget:t="lowres"
   giQuality:t="minimum"
+  "@override:staticShadowMaxUpdateAmount":r=0.005
 }
 
 authGameId:t=el
 
 motionMatchingPerFrameLimit:i=8//-1 no limit
+
+"@override:replay"{
+  "@override:storageLimitMB":i=300
+}

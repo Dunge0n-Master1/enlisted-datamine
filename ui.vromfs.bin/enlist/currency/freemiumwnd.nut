@@ -13,7 +13,8 @@ let { bigPadding, commonBtnHeight, soldierLockedLvlColor, activeTxtColor,
   blurBgFillColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Flat } = require("%ui/components/textButton.nut")
-let { CAMPAIGN_NONE, campaignConfigGroup, curCampaignAccessItem, freemiumExpBoost, upgradeSoldiers
+let { CAMPAIGN_NONE, curCampaignAccessItem,
+  freemiumExpBoost, upgradeSoldiers, campPresentation, showCampaignGroup
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { uType, allArmyUnlocks } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
@@ -24,10 +25,8 @@ let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { normal } = require("%ui/style/cursors.nut")
 let { allItemTemplates, findItemTemplate } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 let { decoratorsPresentation } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let {
-  mkPortraitIcon, mkNickFrame, NICKFRAME_SIZE
+let { mkPortraitIcon, mkNickFrame, NICKFRAME_SIZE
 } = require("%enlist/profile/decoratorPkg.nut")
 
 
@@ -43,8 +42,6 @@ const baseColor = 0xFF707070
 const activeColor = 0xFFDBDBDB
 
 let showAnimation = Watched(true)
-
-let campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let hasCampLockedSquads = Computed(@() allArmyUnlocks.value.findindex(function(unlock) {
   let { unlockType, campaignGroup = CAMPAIGN_NONE } = unlock
@@ -143,7 +140,7 @@ let mkDescAnim = @(delay) !showAnimation.value ? {} : {
 }
 
 let mkInfoTitle = @(idx, unitVal, unitDesc = null) function() {
-  let { color } = campPresentation.value
+  let { color = null } = campPresentation.value
   return {
     flow = FLOW_HORIZONTAL
     children = [
@@ -170,7 +167,7 @@ let mkInfoTitle = @(idx, unitVal, unitDesc = null) function() {
 }
 
 let mkInfoStars = @(idx, stars) function() {
-  let { color } = campPresentation.value
+  let { color = null } = campPresentation.value
   return {
     watch = campPresentation
     flow = FLOW_HORIZONTAL
@@ -295,7 +292,7 @@ let function purchaseButton() {
   if (curCampaignAccessItem.value == null)
     return res
 
-  let { color } = campPresentation.value
+  let { color = null } = campPresentation.value
   return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
     children = Flat(loc("freemium/getPack"), @() onPurchase(curCampaignAccessItem.value), {
@@ -351,7 +348,7 @@ let function vehiclesBlock(squads) {
     return null
 
   return function() {
-    let { color } = campPresentation.value
+    let { color = null } = campPresentation.value
     return {
       watch = [squadsCfgById, campPresentation]
       flow = FLOW_HORIZONTAL
@@ -426,7 +423,7 @@ let function armsBlock(squads) {
     return null
 
   return function() {
-    let { color } = campPresentation.value
+    let { color = null } = campPresentation.value
     return {
       watch = [allItemTemplates, squadsCfgById, campPresentation]
       flow = FLOW_HORIZONTAL
@@ -500,7 +497,7 @@ let freemiumBlockContent = {
 }
 
 let function freemiumInfoBlock(config) {
-  let { backImage } = config
+  let { backImage = null } = config
   return {
     size = flex()
     children = [
@@ -517,7 +514,8 @@ let function freemiumInfoBlock(config) {
   }
 }
 
-let function open() {
+let function open(campGroupId = null) {
+  showCampaignGroup(campGroupId)
   showAnimation(true)
   addModalWindow({
     key = WND_UID

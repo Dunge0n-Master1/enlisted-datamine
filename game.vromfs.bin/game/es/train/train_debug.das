@@ -71,9 +71,9 @@ def draw_train_geom_tree(info : UpdateStageInfoRenderDebug;
 
   var wtm : float3x4
   for i in range(animchar.nodeTree.nodeCount)
-    let nodeName = *animchar.nodeTree |> geomnodetree_getNodeName(i)
+    let nodeName = *animchar.nodeTree |> geomtree_getNodeName(i)
 
-    animchar.nodeTree |> geomtree_getNodeWtmScalar(i, wtm)
+    *animchar.nodeTree |> geomtree_getNodeWtmScalar(i, wtm)
 
     draw_debug_sphere_buffered(wtm[3], 0.05, color, 4, 1)
     add_debug_text_mark(wtm[3], "{nodeName}", -1, 0f, color)

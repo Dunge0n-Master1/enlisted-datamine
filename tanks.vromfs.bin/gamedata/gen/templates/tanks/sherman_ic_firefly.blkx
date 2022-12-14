@@ -11,25 +11,29 @@ base_sherman_ic_firefly{
   cockpit__zoomOutFov:r=4.5673
   cockpit__zoomInFov:r=9.2806
   cockpit__sightName:t="sight_model/no43x3_ml_mk3"
-  cockpit__sightFov:r=16.0
+  cockpit__sightFov:r=12.35
   drowningHeight:r=2.248
   damage_model__blk:t="gamedata/gen/units/tanks/sherman_ic_firefly.blk"
   item__name:t="items/uk_sherman_ic_firefly"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="sherman_ic_firefly_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mg_aa_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_80mm_brake"
     fx:t="muzzle_ground_8mm"
     fx:t="muzzle_ground_15mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +43,7 @@ base_sherman_ic_firefly{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
     node:t="bone_mg_aa_v_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -84,6 +89,11 @@ base_sherman_ic_firefly{
       wishYawParamName:t="gun_03_aim:targetYaw"
       wishPitchParamName:t="gun_03_aim:targetPitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -108,6 +118,14 @@ base_sherman_ic_firefly{
     "turretInfo:object"{
       turretName:t="turret_03"
       gun:t="sherman_ic_firefly_turret_03_12_7mm_m2_hb"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sherman_ic_firefly_turret_04_50mm_uk_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -149,11 +167,20 @@ sherman_ic_firefly_turret_03_12_7mm_m2_hb{
   turret__limit:p4=-180.0, 180.0, -10.0, 15.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=150
-    ammo:i=150
-    ammo:i=150
-    ammo:i=150
-    ammo:i=150
+    ammo:i=160
+    ammo:i=160
+    ammo:i=160
+    ammo:i=160
+    ammo:i=160
+  }
+}
+
+sherman_ic_firefly_turret_04_50mm_uk_smoke_mortar_launcher{
+  _extends:t="tankgun_50mm_uk_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=6
   }
 }
 

@@ -1,0 +1,9 @@
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-178.461, 15.3291, -215.958]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-361.667, 4.86051, -444.448]]
+}

@@ -131,4 +131,5 @@ return {
   setMenuVisibility
   switchMenu
   menusUi
+  getHudMenus
 }

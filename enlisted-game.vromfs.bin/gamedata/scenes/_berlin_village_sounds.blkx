@@ -3,5 +3,9 @@ import{
 }
 
 entity{
+  _template:t="battle_music"
+}
+
+entity{
   _template:t="europe_summer_battle_ambient_sound"
 }

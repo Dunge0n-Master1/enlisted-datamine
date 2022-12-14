@@ -10,7 +10,7 @@ def init_nodes(animchar : AnimcharBaseComponent; node_names : Array; var out_nod
     let nodeName = get_string(nodeNameObj, "")
     if nodeName == ""
       continue
-    let nodeId = animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
+    let nodeId = *animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
     if nodeId < 0
       continue
     out_node_ids |> push(nodeId)

@@ -8,6 +8,7 @@ let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
 
+const CONTEXT_UID = "contextMenu"
 
 let function listItem(text, action) {
   let group = ElemGroup()
@@ -74,20 +75,23 @@ let function mkMenu(width, actions, uid) {
   }
 }
 
-local uidCounter = 0
-return function(x, y, width, actions) {
+let function addContextMenu(x, y, width, actions) {
   if (actions.findvalue(@(a) a?.isVisible.value ?? true) == null)
-    return //no need to open empty menu
+    return null //no need to open empty menu
 
-  uidCounter++
-  let uid = $"contextMenu{uidCounter}"
-  return modalPopupWnd.add([x, y], {
-    uid
+  modalPopupWnd.add([x, y], {
+    uid = CONTEXT_UID
     popupHalign = ALIGN_LEFT
     popupValign = y > sh(75) ? ALIGN_BOTTOM : ALIGN_TOP
     popupFlow = FLOW_VERTICAL
     moveDuraton = min(0.12 + 0.03 * actions.len(), 0.3) //0.3 sec opening is too slow for small menus
-
-    children = mkMenu(width, actions, uid)
+    children = mkMenu(width, actions, CONTEXT_UID)
   })
+}
+
+let closeLatestContextMenu = @() modalPopupWnd.remove(CONTEXT_UID)
+
+return {
+  addContextMenu
+  closeLatestContextMenu
 }

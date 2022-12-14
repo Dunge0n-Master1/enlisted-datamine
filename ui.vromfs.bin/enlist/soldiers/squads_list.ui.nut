@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { isNewDesign } = require("%enlSqGlob/wipFeatures.nut")
-let mkCurSquadsList = isNewDesign
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let mkCurSquadsList = isNewDesign.value
   ? require("%enlSqGlob/ui/mkCurSquadsList.nut")
   : require("%enlSqGlob/ui/mkSquadsList.nut")
 let { multySquadPanelSize, listCtors, bigGap, smallPadding
@@ -26,6 +26,7 @@ let {
   mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let mkSquadManagementBtn = require("%enlist/squad/mkSquadManagementBtn.nut")
+let { soundDefault } = require("%ui/components/textButton.nut")
 
 let restSquadsCount = Computed(@()
   max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
@@ -95,6 +96,7 @@ let squadManageButton = watchElemState(function(sf) {
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
+    sound = soundDefault
     children = [
       {
         flow = FLOW_HORIZONTAL
@@ -125,5 +127,7 @@ return mkCurSquadsList({
   curSquadsList
   curSquadId
   setCurSquadId
-  addedObj = isNewDesign ? mkSquadManagementBtn(restSquadsCount) : squadManageButton
+  addedObj = isNewDesign.value
+    ? mkSquadManagementBtn(restSquadsCount)
+    : squadManageButton
 })

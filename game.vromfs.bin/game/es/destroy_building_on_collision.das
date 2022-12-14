@@ -10,13 +10,13 @@ def find_building(tm, box; base_collres : CollisionResource)
                                                transform : float3x4;
                                                ri_extra__bboxMin : float3;
                                                ri_extra__bboxMax : float3;
-                                               previewCollres : CollisionResource?;
-                                               ri_extra__name : das_string?)
+                                               previewCollres : CollisionResource const?;
+                                               ri_extra__name : das_string const?)
     var objectFound = check_bbox3_intersection(box, tm, BBox3(ri_extra__bboxMin, ri_extra__bboxMax), transform)
     let buildingCollres = get_building_collres(previewCollres, ri_extra__name)
     if objectFound && buildingCollres != null
       var intersectPoint : float3
-      objectFound = test_collres_intersection(base_collres, tm, *buildingCollres, transform, intersectPoint, intersectPoint)
+      objectFound = test_collres_intersection(base_collres, tm, *buildingCollres, transform, intersectPoint, intersectPoint, true)
     if objectFound
       res = eid
     return objectFound

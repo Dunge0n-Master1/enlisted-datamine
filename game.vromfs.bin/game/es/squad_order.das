@@ -23,11 +23,11 @@ def squad_order_response(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId)
 
 def squad_order_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; order_type : int) : bool
   if order_type == int(SquadOrder ESO_DEFEND_POINT)
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadDefendOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadDefendOrder"]])
   elif order_type == int(SquadOrder ESO_FOLLOW_ME)
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadRegroupOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadRegroupOrder"]])
   elif order_type == int(SquadOrder ESO_USE_VEHICLE)
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadUseVehicle", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadUseVehicle"]])
   else
     return false
   squad_order_response(squad_eid, leader_eid)
@@ -35,11 +35,11 @@ def squad_order_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; or
 
 def squad_formation_order_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; spread_type : SquadFormationSpread) : bool
   if spread_type == SquadFormationSpread ESFN_CLOSEST
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadClosestFormationOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadClosestFormationOrder"]])
   elif spread_type == SquadFormationSpread ESFN_STANDARD
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadStandardFormationOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadStandardFormationOrder"]])
   elif spread_type == SquadFormationSpread ESFN_WIDE
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadWideFormationOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadWideFormationOrder"]])
   else
     return false
   squad_order_response(squad_eid, leader_eid)
@@ -74,9 +74,9 @@ def squad_formation_es(evt : RequestSquadFormation;
 
 def squad_behaviour_speech(squad_eid : ecs::EntityId; leader_eid : ecs::EntityId; squad_behaviour : int)
   if squad_behaviour == int(SquadBehaviour ESB_AGRESSIVE)
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourAggressiveOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourAggressiveOrder"]])
   elif squad_behaviour == int(SquadBehaviour ESB_PASSIVE)
-    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourPassiveOrder", importance=1.]])
+    sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadBehaviourPassiveOrder"]])
   squad_order_response(squad_eid, leader_eid)
 
 [es(tag=server)]

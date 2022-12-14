@@ -4,6 +4,7 @@ require ecs.common
 require imgui
 require DagorImgui
 require DagorConsole
+require DagorSystem
 require DagorMath
 require DagorEditor
 require DagorDataBlock
@@ -11,6 +12,7 @@ require DagorDebug3D
 require EcsUtils
 require imgui/imgui_boost
 require strings
+require strings_boost
 require math.base
 require daslib/static_let
 require daslib/safe_addr
@@ -19,10 +21,11 @@ require daslib/defer
 require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_common
 require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_macro
 require danetlibs.imgui_daeditor.daEditor.daEditor_common
+require %danetlibs.imgui_daeditor.imgui.imgui_common
 
 
 [unused_argument(eid)]
-def default_menu(eid : array<EntityId> const#; name, typeName : string; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>)
+def default_menu(eid : array<EntityId>#; name, typeName : string; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>)
   imgui::TableSetColumnIndex(2)
   if imgui::Button("*##{name}")
     imgui::OpenPopup("defaultSubMenuPopup_{name}")
@@ -48,7 +51,13 @@ def default_menu(eid : array<EntityId> const#; name, typeName : string; var chan
   return res
 
 [unused_argument(eid)]
-def default_menu(eid : array<EntityId> const#; name, typeName : string; val : block<() : string>; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>)
+def default_menu(eid : array<EntityId>#;
+                 name, typeName : string;
+                 val_to_str : block<() : string>;
+                 str_to_val : block<(str : string) : void>;
+                 blk_val_to_str : block<() : string>;
+                 var changed : bool?;
+                 sub_menu : block<(var changed : bool?) : bool>)
   imgui::TableSetColumnIndex(2)
   if imgui::Button("*##{name}")
     imgui::OpenPopup("defaultSubMenuPopup_{name}")
@@ -70,7 +79,13 @@ def default_menu(eid : array<EntityId> const#; name, typeName : string; val : bl
 
     if imgui::Button("Copy value")
       imgui::CloseCurrentPopup()
-      imgui::SetClipboardText(val |> invoke())
+      imgui::SetClipboardText(val_to_str |> invoke())
+    if imgui::Button("Paste value")
+      imgui::CloseCurrentPopup()
+      str_to_val |> invoke(imgui::GetClipboardText())
+    if imgui::Button("Copy blk value")
+      imgui::CloseCurrentPopup()
+      imgui::SetClipboardText(blk_val_to_str |> invoke())
 
     res = sub_menu |> invoke(changed)
 
@@ -86,251 +101,335 @@ def to_string(val)
 def to_string(val : float3x4)
   return "[[{val[0]}] [{val[1]}] [{val[2]}] [{val[3]}]]"
 
+[no_aot]
+def to_string_via_blk(compName : string; eid : EntityId)
+  var data = ""
+  using <| $(var blk : DataBlock#)
+    let mgr & = getEntityManager()
+    component_to_blk_param(compName, mgr |> getComponentRef(eid, compName), blk)
+    data := string(blk)
+  return data
+
+def to_int2(str : string)
+  let parts <- split(str, ",")
+  return int2(length(parts) > 0 ? to_int(strip(parts[0])) : 0,
+              length(parts) > 1 ? to_int(strip(parts[1])) : 0)
+
+def to_int3(str : string)
+  let parts <- split(str, ",")
+  return int3(length(parts) > 0 ? to_int(strip(parts[0])) : 0,
+              length(parts) > 1 ? to_int(strip(parts[1])) : 0,
+              length(parts) > 2 ? to_int(strip(parts[2])) : 0)
+
+def to_int4(str : string)
+  let parts <- split(str, ",")
+  return int4(length(parts) > 0 ? to_int(strip(parts[0])) : 0,
+              length(parts) > 1 ? to_int(strip(parts[1])) : 0,
+              length(parts) > 2 ? to_int(strip(parts[2])) : 0,
+              length(parts) > 3 ? to_int(strip(parts[3])) : 0)
+
+def to_float2(str : string)
+  let parts <- split(str, ",")
+  return float2(length(parts) > 0 ? to_float(strip(parts[0])) : 0.0,
+                length(parts) > 1 ? to_float(strip(parts[1])) : 0.0)
+
+def to_float3(str : string)
+  let parts <- split(str, ",")
+  return float3(length(parts) > 0 ? to_float(strip(parts[0])) : 0.0,
+                length(parts) > 1 ? to_float(strip(parts[1])) : 0.0,
+                length(parts) > 2 ? to_float(strip(parts[2])) : 0.0)
+
+def to_float4(str : string)
+  let parts <- split(str, ",")
+  return float4(length(parts) > 0 ? to_float(strip(parts[0])) : 0.0,
+                length(parts) > 1 ? to_float(strip(parts[1])) : 0.0,
+                length(parts) > 2 ? to_float(strip(parts[2])) : 0.0,
+                length(parts) > 3 ? to_float(strip(parts[3])) : 0.0)
+
+def to_DPoint3(str : string)
+  let parts <- split(str, ",")
+  return DPoint3(length(parts) > 0 ? double(strip(parts[0])) : 0.0lf,
+                 length(parts) > 1 ? double(strip(parts[1])) : 0.0lf,
+                 length(parts) > 2 ? double(strip(parts[2])) : 0.0lf)
+
+def to_TMatrix(str : string)
+  var value : float3x4
+  let packedStr = str |> replace(" ", "")
+  if packedStr |> starts_with("[[") && packedStr |> ends_with("]]")
+    let rows <- split(packedStr |> chop(2, length(packedStr) - 4), "][")
+    value[0] = length(rows) > 0 ? to_float3(rows[0]) : float3()
+    value[1] = length(rows) > 1 ? to_float3(rows[1]) : float3()
+    value[2] = length(rows) > 2 ? to_float3(rows[2]) : float3()
+    value[3] = length(rows) > 3 ? to_float3(rows[3]) : float3()
+  return value
+
+def update_value(new_val;
+                 var val_ptr;
+                 var changed : bool?)
+  *changed ||= (*val_ptr != new_val)
+  *val_ptr = new_val
+
+def copy_value(new_val;
+               var val_ptr;
+               var changed : bool?)
+  *changed ||= (*val_ptr != new_val)
+  *val_ptr := new_val
+
 
 [ecs_inspector(type_name="ecs::Tag")]
-def draw_tag(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_tag(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   imgui::Text("<Tag>")
   default_menu(eid, name, "ecs::Tag", changed, sub_menu)
 
 
 [ecs_inspector(type_name="int")]
-def draw_int(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<int?> ref.rawData
-    let step = 1
-    let fastStep = 5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType S32, val, safe_addr(step), safe_addr(fastStep), "%d", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "int", $() => to_string(*val), changed, sub_menu)
+def draw_int(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<int?> refs[0].rawData)
+  let step = 1
+  let fastStep = 5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType S32, val, safe_addr(step), safe_addr(fastStep), "%d", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "int", $() => to_string(*val), $(str) { update_value(to_int(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="DPoint3")]
-def draw_DPoint3(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<DPoint3?> ref.rawData
-    let step = 0.1
-    let fastStep = 0.5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalarN("##{name}", ImGuiDataType Double, val, 3, safe_addr(step), safe_addr(fastStep), "%.2lf", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "DPoint3", $() => to_string(*val), changed, sub_menu)
+def draw_DPoint3(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<DPoint3?> refs[0].rawData)
+  let step = 0.1
+  let fastStep = 0.5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalarN("##{name}", ImGuiDataType Double, val, 3, safe_addr(step), safe_addr(fastStep), "%.2lf", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "DPoint3", $() => to_string(*val), $(str) { *val = to_DPoint3(str); *changed = true; }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="uint8_t")]
-def draw_uint8_t(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<uint8?> ref.rawData
-    let step = 1
-    let fastStep = 5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType U8, val, safe_addr(step), safe_addr(fastStep), "%u", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "u8", $() => to_string(*val), changed, sub_menu)
+def draw_uint8_t(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<uint8?> refs[0].rawData)
+  let step = 1
+  let fastStep = 5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType U8, val, safe_addr(step), safe_addr(fastStep), "%u", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "u8", $() => to_string(*val), $(str) { update_value(uint8(to_uint(str)), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="int64_t")]
-def draw_int64(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<int64?> ref.rawData
-    let step = 1
-    let fastStep = 5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType S64, val, safe_addr(step), safe_addr(fastStep), "%lld", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "i64", $() => to_string(*val), changed, sub_menu)
+def draw_int64(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<int64?> refs[0].rawData)
+  let step = 1
+  let fastStep = 5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType S64, val, safe_addr(step), safe_addr(fastStep), "%lld", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "i64", $() => to_string(*val), $(str) { update_value(to_int64(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="uint16")]
-def draw_uint16(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<uint16?> ref.rawData
-    let step = 1
-    let fastStep = 5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType U16, val, safe_addr(step), safe_addr(fastStep), "%u", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "u16", $() => to_string(*val), changed, sub_menu)
+def draw_uint16(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<uint16?> refs[0].rawData)
+  let step = 1
+  let fastStep = 5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType U16, val, safe_addr(step), safe_addr(fastStep), "%u", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "u16", $() => to_string(*val), $(str) { update_value(uint16(to_uint(str)), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="uint64_t")]
-def draw_uint64(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<uint64?> ref.rawData
-    let step = 1
-    let fastStep = 5
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType U64, val, safe_addr(step), safe_addr(fastStep), "%llx", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "u64", $() => to_string(*val), changed, sub_menu)
+def draw_uint64(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<uint64?> refs[0].rawData)
+  let step = 1
+  let fastStep = 5
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType U64, val, safe_addr(step), safe_addr(fastStep), "%llx", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "u64", $() => to_string(*val), $(str) { update_value(to_uint64(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="E3DCOLOR")]
-def draw_E3DCOLOR(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<E3DCOLOR?> ref.rawData
-    let uColor = uint(*val)
-    var color = [[float[4] float((uColor >> 16u)& 0xFF) / 255f; float((uColor >> 8u) & 0xFF) / 255f; float(uColor & 0xFF) / 255f; float(uColor >> 24u) / 255f]]
-    SetNextItemWidth(-FLT_MIN)
-    if ColorEdit4("##{name}", safe_addr(color[0]), ImGuiColorEditFlags None)
-      *changed = true
-      let res = uint(color[3] * 255f) << 24u | uint(color[0] * 255f) << 16u | uint(color[1] * 255f) << 8u | uint(color[2] * 255f)
-      *val = E3DCOLOR(res)
-    default_menu(eid, name, "E3DCOLOR", $() => to_string(*val), changed, sub_menu)
+def draw_E3DCOLOR(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<E3DCOLOR?> refs[0].rawData)
+  let uColor = uint(*val)
+  var color = [[float[4] float((uColor >> 16u)& 0xFF) / 255f; float((uColor >> 8u) & 0xFF) / 255f; float(uColor & 0xFF) / 255f; float(uColor >> 24u) / 255f]]
+  SetNextItemWidth(-FLT_MIN)
+  if ColorEdit4("##{name}", safe_addr(color[0]), ImGuiColorEditFlags None)
+    *changed = true
+    let res = uint(color[3] * 255f) << 24u | uint(color[0] * 255f) << 16u | uint(color[1] * 255f) << 8u | uint(color[2] * 255f)
+    *val = E3DCOLOR(res)
+  default_menu(eid, name, "E3DCOLOR",
+               $() => to_string(*val),
+               $(str) { let newVal = E3DCOLOR(to_uint(str)); *changed ||= (uint(*val) != uint(newVal)); *val = newVal; },
+               $() => to_string_via_blk(name, eid[0]),
+               changed, sub_menu)
 
 
 [ecs_inspector(type_name="float")]
-def draw_float(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<float?> ref.rawData
-    let step = 1f
-    let fastStep = 5f
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputScalar("##{name}", ImGuiDataType Float, val, safe_addr(step), safe_addr(fastStep), "%.4f", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "float", $() => to_string(*val), changed, sub_menu)
+def draw_float(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float?> refs[0].rawData)
+  let step = 1f
+  let fastStep = 5f
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputScalar("##{name}", ImGuiDataType Float, val, safe_addr(step), safe_addr(fastStep), "%.4f", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "float", $() => to_string(*val), $(str) { update_value(to_float(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="bool")]
-def draw_bool(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<bool?> ref.rawData
-    *changed = Checkbox("##{name}", val) || *changed
-    default_menu(eid, name, "bool", $() => to_string(*val), changed, sub_menu)
+def draw_bool(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<bool?> refs[0].rawData)
+  *changed = Checkbox("##{name}", val) || *changed
+  default_menu(eid, name, "bool", $() => to_string(*val), $(str) { update_value(to_int(str) != 0, val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="Point2")]
-def draw_Point2(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<float2?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat2("##{name}", addr((*val).x), "%.4f", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "Point2", $() => to_string(*val), changed, sub_menu)
+def draw_Point2(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float2?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat2("##{name}", unsafe(addr((*val).x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "Point2", $() => to_string(*val), $(str) { update_value(to_float2(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="Point3")]
-def draw_Point3(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<float3?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat3("##{name}", addr((*val).x), "%.4f", ImGuiInputTextFlags None) || *changed
+def draw_Point3(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float3?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat3("##{name}", unsafe(addr((*val).x)), "%.4f", ImGuiInputTextFlags None) || *changed
 
-    default_menu(eid, name, "Point3", $() => to_string(*val), changed) <| $ [unused_argument(sub_changed)] (sub_changed)
-      if imgui::Button("show me##{name}")
-        draw_debug_sphere_buffered(*val, 1.0, E3DCOLOR(0xFFFFFF00), 12, 2500)
-        var upPoint = *val
-        upPoint.y += 150.0
-        draw_debug_line_buffered(*val, upPoint, E3DCOLOR(0xFFFFFF00), 2500)
+  default_menu(eid, name, "Point3", $() => to_string(*val), $(str) { update_value(to_float3(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed) <| $ [unused_argument(sub_changed)] (sub_changed)
 
-      return sub_menu |> invoke(changed)
+    if imgui::Button("show me##{name}")
+      draw_debug_sphere_buffered(*val, 1.0, E3DCOLOR(0xFFFFFF00), 12, 2500)
+      var upPoint = *val
+      upPoint.y += 150.0
+      draw_debug_line_buffered(*val, upPoint, E3DCOLOR(0xFFFFFF00), 2500)
+
+    return sub_menu |> invoke(changed)
 
 
 [ecs_inspector(type_name="Point4")]
-def draw_Point4(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<float4?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat4("##{name}", addr((*val).x), "%.4f", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "Point4", $() => to_string(*val), changed, sub_menu)
+def draw_Point4(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float4?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat4("##{name}", unsafe(addr((*val).x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "Point4", $() => to_string(*val), $(str) { update_value(to_float4(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="IPoint2")]
-def draw_IPoint2(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<int2?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputInt2("##{name}", addr((*val).x), ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "IPoint2", $() => to_string(*val), changed, sub_menu)
+def draw_IPoint2(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<int2?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputInt2("##{name}", unsafe(addr((*val).x)), ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "IPoint2", $() => to_string(*val), $(str) { update_value(to_int2(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="IPoint3")]
-def draw_IPoint3(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<int3?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputInt3("##{name}", addr((*val).x), ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "IPoint3", $() => to_string(*val), changed, sub_menu)
+def draw_IPoint3(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<int3?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputInt3("##{name}", unsafe(addr((*val).x)), ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "IPoint3", $() => to_string(*val), $(str) { update_value(to_int3(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="IPoint4")]
-def draw_IPoint4(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<int4?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputInt4("##{name}", addr((*val).x), ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "IPoint4", $() => to_string(*val), changed, sub_menu)
+def draw_IPoint4(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<int4?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputInt4("##{name}", unsafe(addr((*val).x)), ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "IPoint4", $() => to_string(*val), $(str) { update_value(to_int4(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
+
+
+[ecs_inspector(type_name="vec4f")]
+def draw_vec4f(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float4?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat4("##{name}", unsafe(addr((*val).x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "vec4f", $() => to_string(*val), $(str) { update_value(vec4f(to_float4(str)), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="TMatrix")]
-def draw_TMatrix(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<float3x4?> ref.rawData
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat3("##{name}_0", addr((*val)[0].x), "%.4f", ImGuiInputTextFlags None) || *changed
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat3("##{name}_1", addr((*val)[1].x), "%.4f", ImGuiInputTextFlags None) || *changed
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat3("##{name}_2", addr((*val)[2].x), "%.4f", ImGuiInputTextFlags None) || *changed
-    SetNextItemWidth(-FLT_MIN)
-    *changed = InputFloat3("##{name}_3", addr((*val)[3].x), "%.4f", ImGuiInputTextFlags None) || *changed
-    default_menu(eid, name, "TMatrix", $() => to_string(*val), changed) <| $(var sub_changed)
-      let res = sub_menu |> invoke(sub_changed)
-      if !res
-        return res
-
-      if imgui::Button("Copy position")
-        imgui::CloseCurrentPopup()
-        (*val)[3] |> to_string |> imgui::SetClipboardText
-
-      imgui::Separator()
-
-      if imgui::Button("Identity")
-        imgui::CloseCurrentPopup()
-        let pos = (*val)[3]
-        identity(*val)
-        (*val)[3] = pos
-        *sub_changed = true
-
-      if imgui::Button("Orthonormalize")
-        imgui::CloseCurrentPopup()
-        orthonormalize(*val)
-        *sub_changed = true
-
-      imgui::Separator()
-
-      if imgui::Button("Show me##{name}")
-        let pos = (*val)[3]
-        draw_debug_sphere_buffered(pos, 1.0, E3DCOLOR(0xFFFFFF00), 12, 2500)
-        var upPoint = pos
-        upPoint.y += 150.0
-        draw_debug_line_buffered(pos, upPoint, E3DCOLOR(0xFFFFFF00), 2500)
-
+def draw_TMatrix(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<float3x4?> refs[0].rawData)
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat3("##{name}_0", unsafe(addr((*val)[0].x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat3("##{name}_1", unsafe(addr((*val)[1].x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat3("##{name}_2", unsafe(addr((*val)[2].x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  SetNextItemWidth(-FLT_MIN)
+  *changed = InputFloat3("##{name}_3", unsafe(addr((*val)[3].x)), "%.4f", ImGuiInputTextFlags None) || *changed
+  default_menu(eid, name, "TMatrix", $() => to_string(*val), $(str) { update_value(to_TMatrix(str), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed) <| $(var sub_changed)
+    let res = sub_menu |> invoke(sub_changed)
+    if !res
       return res
+
+    if imgui::Button("Copy position")
+      imgui::CloseCurrentPopup()
+      (*val)[3] |> to_string |> imgui::SetClipboardText
+
+    if imgui::Button("Copy rotation")
+      imgui::CloseCurrentPopup()
+      float4(quat(*val)) |> to_string |> imgui::SetClipboardText
+
+    imgui::Separator()
+
+    if imgui::Button("Identity")
+      imgui::CloseCurrentPopup()
+      let pos = (*val)[3]
+      identity(*val)
+      (*val)[3] = pos
+      *sub_changed = true
+
+    if imgui::Button("Orthonormalize")
+      imgui::CloseCurrentPopup()
+      orthonormalize(*val)
+      *sub_changed = true
+
+    imgui::Separator()
+
+    if imgui::Button("Show me##{name}")
+      let pos = (*val)[3]
+      draw_debug_sphere_buffered(pos, 1.0, E3DCOLOR(0xFFFFFF00), 12, 2500)
+      var upPoint = pos
+      upPoint.y += 150.0
+      draw_debug_line_buffered(pos, upPoint, E3DCOLOR(0xFFFFFF00), 2500)
+
+    return res
 
 
 [ecs_inspector(type_name="ecs::string")]
-def draw_das_string(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<das_string?> ref.rawData
-    var buf <- ImGuiInputTextBuffer("{*val}", length(*val) + 256)
-    SetNextItemWidth(-FLT_MIN)
-    if InputText("##{name}", buf, ImGuiInputTextFlags AutoSelectAll)
-      *changed = true
-      *val := buf |> to_string()
-    buf |> clear()
-    default_menu(eid, name, "string", $() => to_string(*val), changed, sub_menu)
+def draw_das_string(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<das_string?> refs[0].rawData)
+  var buf <- ImGuiInputTextBuffer("{*val}", length(*val) + 256)
+  SetNextItemWidth(-FLT_MIN)
+  if InputText("##{name}", buf, ImGuiInputTextFlags AutoSelectAll)
+    *changed = true
+    *val := buf |> to_string()
+  buf |> clear()
+  default_menu(eid, name, "string", $() => to_string(*val), $(str) { copy_value(str, val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 [ecs_inspector(type_name="ecs::EntityId")]
-def draw_EntityId(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  unsafe
-    var val = reinterpret<EntityId?> ref.rawData
-    var uVal = uint(*val)
-    let TEXT_BASE_WIDTH = CalcTextSize("A").x
-    SetNextItemWidth(imgui::GetColumnWidth() - TEXT_BASE_WIDTH * 10f)
-    if InputScalar("##{name}", ImGuiDataType U32, safe_addr(uVal), [[int? ]], [[int? ]], "%d", ImGuiInputTextFlags None)
-      *val = EntityId(uVal)
-      *changed = true
-    if !!*val
-      imgui_hint <| $
-        return getEntityTemplateName(*val)
-    SameLine()
-    if Button("Select##{name}")
-      editor_select_eid(*val)
-    default_menu(eid, name, "Eid", $() => to_string(*val), changed, sub_menu)
+def draw_EntityId(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<EntityId?> refs[0].rawData)
+  var uVal = uint(*val)
+  let TEXT_BASE_WIDTH = CalcTextSize("A").x
+  SetNextItemWidth(imgui::GetColumnWidth() - TEXT_BASE_WIDTH * 12f)
+  if InputScalar("##{name}", ImGuiDataType U32, safe_addr(uVal), [[int? ]], [[int? ]], "%d", ImGuiInputTextFlags None)
+    *val = EntityId(uVal)
+    *changed = true
+  if !!*val
+    imgui_hint <| $
+      return getEntityTemplateName(*val)
+  SameLine()
+  if imgui::Button("Select##{name}{eid[0]}")
+    editor_select_eid(*val)
+  SameLine()
+  if imgui::Button("*##{name}{eid[0]}")
+    imgui::OpenPopup("eid_menu_{name}{eid[0]}")
+
+  if imgui::BeginPopup("eid_menu_{name}{eid[0]}")
+    for i in range(1, 4)
+      if imgui::Button("Insector #{i+1}##{i+1}")
+        imgui::CloseCurrentPopup()
+        open_inspector(i, *val, "")
+    imgui::EndPopup()
+
+  default_menu(eid, name, "Eid", $() => to_string(*val), $(str) { update_value(EntityId(to_uint(str)), val, changed); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
 
 
 def unique_key(keys : array<string>; name = "key")
@@ -351,19 +450,19 @@ def unique_key(keys : array<string>; name = "key")
 
 
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Object>"), no_aot]
-def draw_shared_object(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var sharedVal = unsafe(reinterpret<ecs::SharedObject?> ref.rawData)
+def draw_shared_object(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var sharedVal = unsafe(reinterpret<ecs::SharedObject?> refs[0].rawData)
   draw_object(eid, flags, name, "shared<Object>", sharedVal.get, level, changed, sub_menu)
 
 
 [ecs_inspector(type_name="ecs::Object"), no_aot]
-def draw_Object(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var val = unsafe(reinterpret<Object?> ref.rawData)
+def draw_Object(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<Object?> refs[0].rawData)
   draw_object(eid, flags, name, "Object", val, level, changed, sub_menu)
 
 
 [no_aot]
-def draw_object(eid : array<EntityId> const#; flags : uint; name, typeName : string; var val : Object?; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_object(eid : array<EntityId>#; flags : uint; name, typeName : string; var val : Object?; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   imgui::PushID(name)
   defer <|
     imgui::PopID()
@@ -405,7 +504,7 @@ def draw_object(eid : array<EntityId> const#; flags : uint; name, typeName : str
     imgui::SameLine()
     imgui::Text("{typeName}: {len}")
 
-  if !default_menu(eid, name, typeName, $() => to_string(*val), changed, sub_menu)
+  if !default_menu(eid, name, typeName, $() => to_string(*val), $(str) { logerr("Object to string not implemented! str={str}"); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
     if open && !isEmpty
       imgui::TreePop()
     return
@@ -426,34 +525,33 @@ def draw_object(eid : array<EntityId> const#; flags : uint; name, typeName : str
       let it & = unsafe(*t)
       imgui::PushID(key)
 
-      unsafe
-        let itRef <- it |> getEntityComponentRef() |> clone()
-        let isCont = is_cont_type(itRef.userType)
+      let isCont = is_cont_type(getEntityComponentRef(it).userType)
 
-        if !isCont
-          imgui::TableNextRow()
-          imgui::TableSetColumnIndex(0)
+      if !isCont
+        imgui::TableNextRow()
+        imgui::TableSetColumnIndex(0)
 
-          let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
-          TreeNodeEx(key, itFlags)
-          imgui_hint(key)
+        let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
+        TreeNodeEx(key, itFlags)
+        imgui_hint(key)
 
-          imgui::TableSetColumnIndex(1)
+        imgui::TableSetColumnIndex(1)
 
-        render_item(eid, 0u, key, itRef, level + 1, changed) <| $(sub_changed)
-          if imgui::Button("dup")
-            imgui::CloseCurrentPopup()
-            using <| $(var cop : ChildComponent#)
-              cop := it
-              *val |> set(unique_key(keys, key), cop)
-              *sub_changed = true
-
-          if imgui::Button("x")
-            imgui::CloseCurrentPopup()
-            *val |> erase(key)
+      let itRefs <- [{auto[] clone(getEntityComponentRef(it)) }]
+      render_item(eid, 0u, key, unsafe(reinterpret<array<EntityComponentRef#>#> itRefs), level + 1, changed) <| $(sub_changed)
+        if imgui::Button("dup")
+          imgui::CloseCurrentPopup()
+          using <| $(var cop : ChildComponent#)
+            cop := it
+            *val |> set(unique_key(keys, key), cop)
             *sub_changed = true
-            return false
-          return true
+
+        if imgui::Button("x")
+          imgui::CloseCurrentPopup()
+          *val |> erase(key)
+          *sub_changed = true
+          return false
+        return true
 
       imgui::PopID()
 
@@ -461,19 +559,19 @@ def draw_object(eid : array<EntityId> const#; flags : uint; name, typeName : str
 
 
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Array>"), no_aot]
-def draw_shared_array(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var sharedVal = unsafe(reinterpret<ecs::SharedArray?> ref.rawData)
+def draw_shared_array(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var sharedVal = unsafe(reinterpret<ecs::SharedArray?> refs[0].rawData)
   draw_array(eid, flags, name, "shared<Array>", sharedVal.get, level, changed, sub_menu)
 
 
 [ecs_inspector(type_name="ecs::Array"), no_aot]
-def draw_Array(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var val = unsafe(reinterpret<Array?> ref.rawData)
+def draw_Array(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<Array?> refs[0].rawData)
   draw_array(eid, flags, name, "Array", val, level, changed, sub_menu)
 
 
 [no_aot]
-def draw_array(eid : array<EntityId> const#; flags : uint; name, typeName : string; var val : Array?; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+def draw_array(eid : array<EntityId>#; flags : uint; name, typeName : string; var val : Array?; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
   imgui::PushID(name)
   defer <|
     imgui::PopID()
@@ -512,7 +610,7 @@ def draw_array(eid : array<EntityId> const#; flags : uint; name, typeName : stri
     imgui::SameLine()
     imgui::Text("{typeName}: {len}")
 
-  if !default_menu(eid, name, typeName, $() => to_string(*val), changed, sub_menu)
+  if !default_menu(eid, name, typeName, $() => to_string(*val), $(str) { logerr("Array to string not implemented! str={str}"); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
     if open && !isEmpty
       imgui::TreePop()
     return
@@ -526,32 +624,31 @@ def draw_array(eid : array<EntityId> const#; flags : uint; name, typeName : stri
       let key = "[{idx}]"
       let it & = unsafe((*val)[idx])
       imgui::PushID(key)
-      unsafe
 
-        let itRef <- it |> getEntityComponentRef() |> clone()
-        let isCont = is_cont_type(itRef.userType)
+      let isCont = is_cont_type(getEntityComponentRef(it).userType)
 
-        if !isCont
-          imgui::TableNextRow()
-          imgui::TableSetColumnIndex(0)
+      if !isCont
+        imgui::TableNextRow()
+        imgui::TableSetColumnIndex(0)
 
-          let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
-          TreeNodeEx(key, itFlags)
+        let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
+        TreeNodeEx(key, itFlags)
 
-          imgui::TableSetColumnIndex(1)
+        imgui::TableSetColumnIndex(1)
 
-        render_item(eid, 0u, key, itRef, level + 1, changed) <| $(sub_changed)
-          if imgui::Button("dup")
-            using <| $(var cop : ChildComponent#)
-              cop := it
-              *val |> push(cop)
-              *sub_changed = true
-
-          if imgui::Button("x")
-            *val |> erase(idx)
+      let itRefs <- [{auto[] clone(getEntityComponentRef(it)) }]
+      render_item(eid, 0u, key, unsafe(reinterpret<array<EntityComponentRef#>#> itRefs), level + 1, changed) <| $(sub_changed)
+        if imgui::Button("dup")
+          using <| $(var cop : ChildComponent#)
+            cop := it
+            *val |> push(cop)
             *sub_changed = true
-            return false
-          return true
+
+        if imgui::Button("x")
+          *val |> erase(idx)
+          *sub_changed = true
+          return false
+        return true
 
       imgui::PopID()
 
@@ -559,8 +656,8 @@ def draw_array(eid : array<EntityId> const#; flags : uint; name, typeName : stri
 
 
 [generic, no_aot]
-def draw_any_list(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var val = unsafe(reinterpret<ContType?> ref.rawData)
+def draw_any_list(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var val = unsafe(reinterpret<ContType?> refs[0].rawData)
   imgui::PushID(name)
   defer <|
     imgui::PopID()
@@ -595,7 +692,7 @@ def draw_any_list(eid : array<EntityId> const#; flags : uint; name : string; ref
     if imgui::Button("Clear##{name}")
       *val |> clear()
 
-  if !default_menu(eid, name, "{typeinfo(typename type<ContType>)}", $() => to_string(*val), changed, sub_menu)
+  if !default_menu(eid, name, "{typeinfo(typename type<ContType>)}", $() => to_string(*val), $(str) { logerr("List to string not implemented! str={str}"); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
     if open && !isEmpty
       imgui::TreePop()
     return
@@ -609,29 +706,28 @@ def draw_any_list(eid : array<EntityId> const#; flags : uint; name : string; ref
       let key = "[{idx}]"
       imgui::PushID(key)
 
-      unsafe
-        let itRef <- *val |> getEntityComponentRef(uint(idx)) |> clone()
-        let isCont = is_cont_type(itRef.userType)
+      let isCont = is_cont_type(getEntityComponentRef(*val, uint(idx)).userType)
 
-        if !isCont
-          imgui::TableNextRow()
-          imgui::TableSetColumnIndex(0)
+      if !isCont
+        imgui::TableNextRow()
+        imgui::TableSetColumnIndex(0)
 
-          let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
-          TreeNodeEx(key, itFlags)
+        let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
+        TreeNodeEx(key, itFlags)
 
-          imgui::TableSetColumnIndex(1)
+        imgui::TableSetColumnIndex(1)
 
-        render_item(eid, 0u, key, itRef, level + 1, changed) <| $(sub_changed)
-          if imgui::Button("dup")
-            *val |> push((*val)[idx])
-            *sub_changed = true
+      let itRefs <- [{auto[] clone(getEntityComponentRef(*val, uint(idx))) }]
+      render_item(eid, 0u, key, unsafe(reinterpret<array<EntityComponentRef#>#> itRefs), level + 1, changed) <| $(sub_changed)
+        if imgui::Button("dup")
+          *val |> push((*val)[idx])
+          *sub_changed = true
 
-          if imgui::Button("x")
-            *val |> erase(idx)
-            *sub_changed = true
-            return false
-          return true
+        if imgui::Button("x")
+          *val |> erase(idx)
+          *sub_changed = true
+          return false
+        return true
 
       imgui::PopID()
 
@@ -639,8 +735,8 @@ def draw_any_list(eid : array<EntityId> const#; flags : uint; name : string; ref
 
 
 [generic, no_aot]
-def draw_any_shared_list(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
-  var sharedVal = unsafe(reinterpret<ContType?> ref.rawData)
+def draw_any_shared_list(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void
+  var sharedVal = unsafe(reinterpret<ContType?> refs[0].rawData)
   var val = sharedVal.get
   imgui::PushID(name)
   defer <|
@@ -676,7 +772,7 @@ def draw_any_shared_list(eid : array<EntityId> const#; flags : uint; name : stri
     if imgui::Button("Clear##{name}")
       *val |> clear()
 
-  if !default_menu(eid, name, "{typeinfo(typename type<ContType>)}", $() => to_string(*val), changed, sub_menu)
+  if !default_menu(eid, name, "{typeinfo(typename type<ContType>)}", $() => to_string(*val), $(str) { logerr("SharedList to string not implemented! str={str}"); }, $() => to_string_via_blk(name, eid[0]), changed, sub_menu)
     if open && !isEmpty
       imgui::TreePop()
     return
@@ -690,41 +786,40 @@ def draw_any_shared_list(eid : array<EntityId> const#; flags : uint; name : stri
       let key = "[{idx}]"
       imgui::PushID(key)
 
-      unsafe
-        let itRef <- *val |> getEntityComponentRef(uint(idx)) |> clone()
-        let isCont = is_cont_type(itRef.userType)
+      let isCont = is_cont_type(getEntityComponentRef(*val, uint(idx)).userType)
 
-        if !isCont
-          imgui::TableNextRow()
-          imgui::TableSetColumnIndex(0)
+      if !isCont
+        imgui::TableNextRow()
+        imgui::TableSetColumnIndex(0)
 
-          let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
-          TreeNodeEx(key, itFlags)
+        let itFlags = ImGuiTreeNodeFlags Leaf | ImGuiTreeNodeFlags NoTreePushOnOpen | ImGuiTreeNodeFlags Bullet
+        TreeNodeEx(key, itFlags)
 
-          imgui::TableSetColumnIndex(1)
+        imgui::TableSetColumnIndex(1)
 
-        render_item(eid, 0u, key, itRef, level + 1, changed) <| $(sub_changed)
-          if imgui::Button("dup")
-            *val |> push((*val)[idx])
-            *sub_changed = true
+      let itRefs <- [{auto[] clone(getEntityComponentRef(*val, uint(idx))) }]
+      render_item(eid, 0u, key, unsafe(reinterpret<array<EntityComponentRef#>#> itRefs), level + 1, changed) <| $(sub_changed)
+        if imgui::Button("dup")
+          *val |> push((*val)[idx])
+          *sub_changed = true
 
-          if imgui::Button("x")
-            *val |> erase(idx)
-            *sub_changed = true
-            return false
-          return true
+        if imgui::Button("x")
+          *val |> erase(idx)
+          *sub_changed = true
+          return false
+        return true
 
       imgui::PopID()
 
     imgui::TreePop()
 
 def getEntityComponentRef(val : Array; idx)
-  unsafe
-    return <- val[idx] |> getEntityComponentRef()
+  return val[idx] |> getEntityComponentRef()
 
 [generic]
 def use_this(blk : block<(val : T#) : void>) { using(blk); }
 def use_this(blk : block<(val : int#) : void>) { blk |> invoke(0); }
+def use_this(blk : block<(val : uint8#) : void>) { blk |> invoke(uint8(0u)); }
 def use_this(blk : block<(val : uint16#) : void>) { blk |> invoke(uint16(0u)); }
 def use_this(blk : block<(val : uint64#) : void>) { blk |> invoke(uint64(0u)); }
 def use_this(blk : block<(val : string#) : void>) { var str : string# = ""; blk |> invoke(str); }
@@ -742,67 +837,71 @@ def use_this(blk : block<(val : int64#) : void>) { blk |> invoke(0l); }
 
 
 [ecs_inspector(type_name="ecs::IntList"), no_aot, instance_function::instance_function(draw_any_list, ContType = IntList, SubType = "int")]
-def draw_IntList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_IntList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+[ecs_inspector(type_name="ecs::UInt8List"), no_aot, instance_function::instance_function(draw_any_list, ContType = UInt8List, SubType = "uint8")]
+def draw_UInt8List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::UInt16List"), no_aot, instance_function::instance_function(draw_any_list, ContType = UInt16List, SubType = "uint16")]
-def draw_UInt16List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_UInt16List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::UInt64List"), no_aot, instance_function::instance_function(draw_any_list, ContType = UInt64List, SubType = "uint64")]
-def draw_UInt64List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_UInt64List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::StringList"), no_aot, instance_function::instance_function(draw_any_list, ContType = StringList, SubType = "string")]
-def draw_StringList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_StringList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::EidList"), no_aot, instance_function::instance_function(draw_any_list, ContType = EidList, SubType = EntityId)]
-def draw_EidList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_EidList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::FloatList"), no_aot, instance_function::instance_function(draw_any_list, ContType = FloatList, SubType = "float")]
-def draw_FloatList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_FloatList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::Point2List"), no_aot, instance_function::instance_function(draw_any_list, ContType = Point2List, SubType = "float2")]
-def draw_Point2List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_Point2List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::Point3List"), no_aot, instance_function::instance_function(draw_any_list, ContType = Point3List, SubType = "float3")]
-def draw_Point3List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_Point3List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::Point4List"), no_aot, instance_function::instance_function(draw_any_list, ContType = Point4List, SubType = "float4")]
-def draw_Point4List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_Point4List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::IPoint2List"), no_aot, instance_function::instance_function(draw_any_list, ContType = IPoint2List, SubType = "int2")]
-def draw_IPoint2List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_IPoint2List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::IPoint3List"), no_aot, instance_function::instance_function(draw_any_list, ContType = IPoint3List, SubType = "int3")]
-def draw_IPoint3List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_IPoint3List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::BoolList"), no_aot, instance_function::instance_function(draw_any_list, ContType = BoolList, SubType = "bool")]
-def draw_BoolList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_BoolList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::TMatrixList"), no_aot, instance_function::instance_function(draw_any_list, ContType = TMatrixList, SubType = "float3x4")]
-def draw_TMatrixList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_TMatrixList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::ColorList"), no_aot, instance_function::instance_function(draw_any_list, ContType = ColorList, SubType = "E3DCOLOR")]
-def draw_ColorList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_ColorList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::Int64List"), no_aot, instance_function::instance_function(draw_any_list, ContType = Int64List, SubType = "int64")]
-def draw_Int64List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_Int64List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 
 
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::IntList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedIntList, SubType = "int")]
-def draw_SharedIntList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedIntList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+[ecs_inspector(type_name="ecs::SharedComponent< ::ecs::UInt8List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedUInt8List, SubType = "uint8")]
+def draw_SharedUInt8List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::UInt16List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedUInt16List, SubType = "uint16")]
-def draw_SharedUInt16List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedUInt16List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::UInt64List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedUInt64List, SubType = "uint64")]
-def draw_SharedUInt64List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedUInt64List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::StringList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedStringList, SubType = "string")]
-def draw_SharedStringList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedStringList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::EidList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedEidList, SubType = EntityId)]
-def draw_SharedEidList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedEidList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::FloatList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedFloatList, SubType = "float")]
-def draw_SharedFloatList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedFloatList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Point2List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedPoint2List, SubType = "float2")]
-def draw_SharedPoint2List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedPoint2List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Point3List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedPoint3List, SubType = "float3")]
-def draw_SharedPoint3List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedPoint3List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Point4List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedPoint4List, SubType = "float4")]
-def draw_SharedPoint4List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedPoint4List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::IPoint2List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedIPoint2List, SubType = "int2")]
-def draw_SharedIPoint2List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedIPoint2List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::IPoint3List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedIPoint3List, SubType = "int3")]
-def draw_SharedIPoint3List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedIPoint3List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::BoolList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedBoolList, SubType = "bool")]
-def draw_SharedBoolList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedBoolList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::TMatrixList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedTMatrixList, SubType = "float3x4")]
-def draw_SharedTMatrixList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedTMatrixList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::ColorList>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedColorList, SubType = "E3DCOLOR")]
-def draw_SharedColorList(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedColorList(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 [ecs_inspector(type_name="ecs::SharedComponent< ::ecs::Int64List>"), no_aot, instance_function::instance_function(draw_any_shared_list, ContType = SharedInt64List, SubType = "int64")]
-def draw_SharedInt64List(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
+def draw_SharedInt64List(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void {}
 
 // TODO: move this to ecs_inspector annotation
 def is_cont_type(user_type : uint) : bool
@@ -811,6 +910,7 @@ def is_cont_type(user_type : uint) : bool
          typeName == "ecs::Object"
       || typeName == "ecs::Array"
       || typeName == "ecs::IntList"
+      || typeName == "ecs::UInt8List"
       || typeName == "ecs::UInt16List"
       || typeName == "ecs::StringList"
       || typeName == "ecs::EidList"
@@ -829,6 +929,7 @@ def is_cont_type(user_type : uint) : bool
       || typeName == "ecs::SharedComponent< ::ecs::Object>"
       || typeName == "ecs::SharedComponent< ::ecs::Array>"
       || typeName == "ecs::SharedComponent< ::ecs::IntList>"
+      || typeName == "ecs::SharedComponent< ::ecs::UInt8List>"
       || typeName == "ecs::SharedComponent< ::ecs::UInt16List>"
       || typeName == "ecs::SharedComponent< ::ecs::StringList>"
       || typeName == "ecs::SharedComponent< ::ecs::EidList>"
@@ -858,21 +959,29 @@ def compare_eids(a, b : array<EntityId>) : int
   return 0
 
 
-def render_item(eid : array<EntityId> const#; flags : uint; name : string implicit; ref : EntityComponentRef# implicit; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool>) : void
-  let typeName = getComponentTypes() |> component_types_findTypeName(ref.userType)
-  render_item(eid, flags, name, typeName, ref, level, changed, sub_menu)
+def render_item(eid : array<EntityId>#; flags : uint; name : string implicit; refs : array<EntityComponentRef#>#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool>) : void
+  let typeName = getComponentTypes() |> component_types_findTypeName(refs[0].userType)
+  render_item(eid, flags, name, typeName, refs, level, changed, sub_menu)
 
-def render_item(eid : array<EntityId> const#; flags : uint; name, type_name : string implicit; ref : EntityComponentRef# implicit; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool>) : void
+def render_item(eid : array<EntityId>#; flags : uint; name, type_name : string implicit; refs : array<EntityComponentRef#>#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool>) : void
   var hasInspector = false
   if has_inspector(type_name)
-    hasInspector = call_inspector(type_name, eid, flags, name, ref, level, changed, sub_menu)
+    hasInspector = call_inspector(type_name, eid, flags, name, refs, level, changed, sub_menu)
   if !hasInspector
-    imgui::Text("{type_name} <{ref.userType}>")
+    hasInspector = get_ecs_enum_values(type_name) <| $(enumValues)
+      var curItem = find_enum_idx(type_name, refs[0])
+      imgui::Text("{type_name} {enumValues[curItem]}")
+      if ListBox("##{name}", safe_addr(curItem), enumValues)
+        update_enum_value(type_name, unsafe(reinterpret<EntityComponentRef> refs[0]), curItem)
+        *changed = true
+
+  if !hasInspector
+    imgui::Text("{type_name} <{refs[0].userType}>")
     default_menu(eid, name, type_name, changed) <| $ [unused_argument(sub_changed)] (sub_changed)
 
       if imgui::Button("copy type id##{name}")
         imgui::CloseCurrentPopup()
-        imgui::SetClipboardText("{ref.userType}")
+        imgui::SetClipboardText("{refs[0].userType}")
 
       return sub_menu |> invoke(changed)
 
@@ -919,24 +1028,43 @@ def match(arr : array<string>; str : string) : bool
       return true
   return false
 
+def open_inspector(idx : int; eid : EntityId; filter_str : string)
+  if idx < 1 || idx > 3
+    logerr("wrong inspector idx {idx}. Expected values are 1, 2, 3")
+
+  imgui_set_blk_val("ecs_inspector_{idx}", "eid", int(uint(eid)))
+  imgui_set_blk_val("ecs_inspector_{idx}", "filter", filter_str)
+  imgui_window_set_visible("Editor", "Inspector {idx+1}", true)
+
 [no_aot]
-def inspect_item(eids : array<EntityId>#; new_selection : bool)
+def inspect_item(uid : int; var filter : ImGuiTextFilter; eids : array<EntityId>#; new_selection : bool)
   if length(eids) == 0
     return
   static_let <|
     var selectedItem = 0
+    var inflateListNum = 0
   if new_selection || selectedItem >= length(eids)
     selectedItem = 0
+    inflateListNum = 0
 
   let eid = eids[selectedItem]
 
   let templateName = getEntityTemplateName(eid)
   let TEXT_BASE_WIDTH = CalcTextSize("A").x
 
+  PushID(uid)
+
   if imgui::Button("*##{templateName}")
     imgui::OpenPopup("template_menu_{templateName}")
 
   if imgui::BeginPopup("template_menu_{templateName}")
+
+    for i in range(1, 4)
+      if i > 1
+        imgui::SameLine()
+      if imgui::Button("Insector #{i+1}##{i+1}")
+        imgui::CloseCurrentPopup()
+        open_inspector(i, eid, imgui_get_blk_val("ecs_inspector_{uid}", "filter", ""))
 
     if imgui::Button("copy eid")
       imgui::CloseCurrentPopup()
@@ -998,15 +1126,22 @@ def inspect_item(eids : array<EntityId>#; new_selection : bool)
 
   DasHelpMarker("Filter (\"incl,-excl\")\nt:typeName (t:EntityId, t:EidList)")
   imgui::SameLine()
-  SetNextItemWidth(-FLT_MIN)
-  static_let_finalize <|
-    var filter = new ImGuiTextFilter
+  SetNextItemWidth(-55.)
 
   let mgr & = getEntityManager()
   let dataComps & = getDataComponents()
   let compTypes & = getComponentTypes()
 
-  *filter |> Draw("##{eid}")
+  filter |> set() <| imgui_get_blk_val("ecs_inspector_{uid}", "filter", "")
+
+  filter |> Draw("##{eid}")
+
+  SameLine()
+  if imgui::Button("Clear")
+    filter |> Clear()
+
+  imgui_set_blk_val("ecs_inspector_{uid}", "filter", to_string(filter))
+
   imgui::BeginChild("sub", float2(0, 0))
   let tmp = getTemplateByName(templateName)
   if BeginTable("split", 3, ImGuiTableFlags Resizable | ImGuiTableFlags BordersOuter | ImGuiTableFlags RowBg)
@@ -1016,11 +1151,9 @@ def inspect_item(eids : array<EntityId>#; new_selection : bool)
 
     let componentsNum = mgr |> getNumComponents(eid)
     var comps : array<tuple<name : string; cid : uint>>
-    for idx in urange(componentsNum)
-      unsafe
-        let type_info <- mgr |> getEntityComponentRef(eid, idx)
-        let name = dataComps |> data_components_getComponentNameById(type_info.componentId)
-        comps |> emplace([[auto name, idx]])
+    for idx in urange(componentsNum >= 0 ? componentsNum : 0)
+      let name = dataComps |> data_components_getComponentNameById((mgr |> getEntityComponentRef(eid, idx)).componentId)
+      comps |> emplace([[auto name, idx]])
 
     comps |> sort() <| $(left; right)
       return left.name < right.name
@@ -1042,8 +1175,9 @@ def inspect_item(eids : array<EntityId>#; new_selection : bool)
       else
         filters |> push(unsafe(filterString |> to_lower_in_place()))
 
-    var skipItems = floori(GetScrollY() / imgui::GetTextLineHeightWithSpacing())
-    var showItems = ceili(GetWindowHeight() / imgui::GetTextLineHeightWithSpacing())
+    var skipItems = max(0, floori(GetScrollY() / imgui::GetTextLineHeightWithSpacing()) - inflateListNum)
+    var showItems = ceili(GetWindowHeight() / imgui::GetTextLineHeightWithSpacing()) + inflateListNum
+    inflateListNum = 0
     for c in comps
       if showItems <= 0
         TableNextRow()
@@ -1051,57 +1185,68 @@ def inspect_item(eids : array<EntityId>#; new_selection : bool)
         imgui::Text("1")
         TableNextColumn()
         continue
-      unsafe
-        let type_info <- mgr |> getEntityComponentRef(eid, c.cid)
-        let comp = dataComps |> data_components_getComponentById(type_info.componentId)
-        if (uint(comp.flags) & uint(IS_COPY)) != 0u
-          continue
 
-        let name = c.name
-        let lowerName = name |> to_lower()
-        if (length(filters) > 0 && !match(filters, lowerName)) || (length(excludeFilters) > 0 && match(excludeFilters, lowerName))
-          continue
+      let type_info <- mgr |> getEntityComponentRef(eid, c.cid)
+      let comp = dataComps |> data_components_getComponentById(type_info.componentId)
+      if (uint(comp.flags) & uint(IS_COPY)) != 0u
+        // if skipItems > 0
+        //   skipItems -= 1
+        continue
 
-        let typeName = compTypes |> component_types_findTypeName(type_info.userType)
-        let lowerTypeName = typeName |> to_lower()
-        if (length(typeFilters) > 0 && !match(typeFilters, lowerTypeName)) || (length(excludeTypeFilters) > 0 && match(excludeTypeFilters, lowerTypeName))
-          continue
+      let name = c.name
+      let lowerName = name |> to_lower()
+      if (length(filters) > 0 && !match(filters, lowerName)) || (length(excludeFilters) > 0 && match(excludeFilters, lowerName))
+        // if skipItems > 0
+        //   skipItems -= 1
+        continue
 
-        if skipItems > 0
-          skipItems -= 1
-          TableNextRow()
-          TableNextColumn()
-          imgui::Text("0")
-          TableNextColumn()
-          continue
+      let typeName = compTypes |> component_types_findTypeName(type_info.userType)
+      let lowerTypeName = typeName |> to_lower()
+      if (length(typeFilters) > 0 && !match(typeFilters, lowerTypeName)) || (length(excludeTypeFilters) > 0 && match(excludeTypeFilters, lowerTypeName))
+        // if skipItems > 0
+        //   skipItems -= 1
+        continue
 
-        let flags = tmp != null && !empty(name) ? getRegExpInheritedFlags(tmp, name) : 0u
-        let idxBefore = TableGetRowIndex()
-        if !is_cont_type(type_info.userType)
-          TableNextRow()
-          TableNextColumn()
-          imgui::Text(item_flags(flags, name))
-          imgui_hint(name)
-          TableNextColumn()
+      if skipItems > 0
+        skipItems -= 1
+        TableNextRow()
+        TableNextColumn()
+        imgui::Text("0")
+        TableNextColumn()
+        continue
 
-        var changed = false
-        render_item(eids, flags, name, typeName, type_info, 0, safe_addr(changed)) <| $ [unused_argument(_)] (_) => true
-        if changed
-          entity_obj_editor_saveComponent(eid, name)
-          invalidate_item(eid, type_info)
+      let flags = tmp != null && !empty(name) ? getRegExpInheritedFlags(tmp, name) : 0u
+      let idxBefore = TableGetRowIndex()
+      if !is_cont_type(type_info.userType)
+        TableNextRow()
+        TableNextColumn()
+        imgui::Text(item_flags(flags, name))
+        imgui_hint(name)
+        TableNextColumn()
 
-        let rowsNum = TableGetRowIndex() - idxBefore
-        showItems -= rowsNum
+      var changed = false
+      let refs <- [{auto[] clone(type_info) }]
+      render_item(eids, flags, name, typeName, unsafe(reinterpret<array<EntityComponentRef#>#> refs), 0, safe_addr(changed)) <| $ [unused_argument(_)] (_) => true
+      if changed
+        entity_obj_editor_saveComponent(eid, name)
+        invalidate_item(eid, unsafe(reinterpret<array<EntityComponentRef#>#> refs))
+
+      let rowsNum = TableGetRowIndex() - idxBefore
+      inflateListNum += rowsNum > 1 ? rowsNum + 5 : 0 // + 5 works, maybe + 10 works too
+      showItems -= rowsNum
 
     EndTable()
 
   call_editor(/*prefix*/false, eids)
   imgui::EndChild()
 
+  PopID()
+
 
 [no_aot]
-def invalidate_item(eid : EntityId; ref : EntityComponentRef# implicit)
-  nada(getEntityManagerRW() |> getComponentRefRW(eid, ref.componentId))
+def invalidate_item(eid : EntityId; refs : array<EntityComponentRef#>#)
+  for ref in refs
+    nada(getEntityManagerRW() |> getComponentRefRW(eid, ref.componentId))
 
 
 [sideeffects, unused_argument(ref)]

@@ -14,6 +14,8 @@ require game.es.events
 require game.es.vehicle.vehicle_events
 require game.utils.net_utils
 require HumanPhys
+require game.utils.team
+require matching
 
 enum VehicleControlTypes : uint8
   VEHICLE_CONTROLS_MOVEMENT = 1 << 0
@@ -293,3 +295,7 @@ def get_last_vehicle_driver_possessed_by_player(vehicle_eid : EntityId; max_time
   query(driver) <| $ [es] (possessedByPlr : EntityId = INVALID_ENTITY_ID; squad_member__squad : EntityId = INVALID_ENTITY_ID)
     res = !!possessedByPlr ? driver : get_Eid(squad_member__squad, "squad__leader") ?? INVALID_ENTITY_ID
   return res
+
+def can_use_vehicle(player_team : int; restrict_to_team : int; player_group : int64; vehicle_group : int64)
+  return ((restrict_to_team == TEAM_UNASSIGNED || is_teams_friendly(player_team, restrict_to_team)) &&
+    (vehicle_group == int64(INVALID_GROUP_ID) || player_group == vehicle_group))

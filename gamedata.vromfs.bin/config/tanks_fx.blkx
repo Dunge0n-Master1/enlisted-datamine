@@ -866,41 +866,41 @@ tank_broken_exhaust{
 }
 
 track_dirt_back{
-  fx:t="pv_track_dirt_back_composite_fx"
+  fx:t="misc_tank_tracks_dirt_bottom_cmps_fx"
   numInstances:i=200
   numReserved:i=8
 }
 
 track_dirt_front{
-  fx:t="pv_track_dirt_front_composite_fx"
+  fx:t="misc_tank_tracks_dirt_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_sand_back{
-  fx:t="pv_track_sand_back_composite_fx"
+  fx:t="misc_tank_tracks_sand_bottom_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_sand_front{
-  fx:t="pv_track_sand_front_composite_fx"
+  fx:t="misc_tank_tracks_sand_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_snow_back{
-  fx:t="pv_track_snow_back_composite_fx"
+  fx:t="misc_tank_tracks_snow_bottom_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_snow_front{
-  fx:t="pv_track_snow_front_composite_fx"
+  fx:t="misc_tank_tracks_snow_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0

@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_usa+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_usa+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -17,7 +17,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_germany+team_narrator_invasion_attack+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -301,7 +301,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_IV_ausf_H"
+  _template:t="germ_panzerjager_iv_l_48_normandy"
   transform:m=[[-0.319913, 0.00253492, -0.947444] [-0.0185749, 0.999788, 0.00894696] [0.947265, 0.0204609, -0.319798] [-242.893, 13.4029, 493.782]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -343,7 +343,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_IV_ausf_J"
+  _template:t="germ_panzerjager_iv_l_48_normandy"
   transform:m=[[0.0166489, 0.00732002, 0.999835] [-0.0207697, 0.99976, -0.00697363] [-0.999646, -0.0206502, 0.0167969] [-37.1877, 16.6643, 359.883]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -406,7 +406,7 @@ entity{
 }
 
 entity{
-  _template:t="germ_pzkpfw_III_ausf_N"
+  _template:t="germ_panzerjager_iv_l_48_normandy"
   transform:m=[[-0.999319, -0.0318455, 0.0186314] [-0.0311773, 0.998897, 0.035117] [-0.0197291, 0.0345122, -0.99921] [-498.743, 10.3768, 465.372]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

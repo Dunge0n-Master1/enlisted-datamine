@@ -8,7 +8,7 @@ let { unitSize, gap, bigGap, bigPadding, smallPadding, soldierWndWidth, fadedTxt
 } = require("%enlSqGlob/ui/viewConst.nut")
 let listTxtColor = listCtors.txtColor
 let listBgColor = listCtors.bgColor
-let { statusHintText, statusIconCtor, statusIconLocked, statusBadgeWarning
+let { statusIconCtor, statusIconLocked, statusBadgeWarning
 } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
@@ -27,7 +27,7 @@ let { unequipItem } = require("%enlist/soldiers/unequipItem.nut")
 let { sound_play } = require("sound")
 let { mkItemUpgradeData } = require("%enlist/soldiers/model/mkItemModifyData.nut")
 let mkAmmo = require("mkAmmo.nut")
-let {getWeaponData} = require("%enlist/soldiers/model/collectWeaponData.nut")
+let { getWeaponData } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
@@ -133,25 +133,6 @@ let defItemCtor = function(
 let defAmountCtor = @(item, sf, selected) (item?.count ?? 1) > 1
   ? amountText(item.count, sf, selected)
   : null
-
-let mkTooltipStatus = @(item, soldierWatch) function() {
-  let demandsWatch = mkItemDemands(item)
-  let res = { watch = [demandsWatch, soldierWatch] }
-  let demands = demandsWatch.value
-  if (demands == null)
-    return res
-  return res.__update({
-    size = [flex(), SIZE_TO_CONTENT]
-    minWidth = SIZE_TO_CONTENT
-    flow = FLOW_HORIZONTAL
-    margin = [bigPadding,0,0,0]
-    valign = ALIGN_CENTER
-    children = [
-      statusHintText(demands)
-      statusIconCtor(demands)
-    ]
-  })
-}
 
 let canEquip = @(item, scheme) item != null && !(item?.isShopItem ?? false)
   && (scheme == null
@@ -277,9 +258,7 @@ let dragAndDropHint = hintWithIcon("hand-paper-o", "hint/equipDragAndDrop")
 let quickEquipHint = hintWithIcon("reply", "hint/equipDoubleClick")
 let quickUnequipHint = hintWithIcon("share", "hint/unequipDoubleClick")
 
-let makeToolTip = kwarg(function(
-  item, canDrag, isEquipped, canChange, soldierWatch, hideStatus = false
-) {
+let function makeToolTip(item, canDrag, isEquipped, canChange) {
   if (!item?.gametemplate)
     return null
 
@@ -318,7 +297,6 @@ let makeToolTip = kwarg(function(
         text = desc
         color = Color(180, 180, 180, 120)
       }
-      hideStatus ? null : mkTooltipStatus(item, soldierWatch)
       hints.len() <= 0 ? null : {
         size = [flex(), SIZE_TO_CONTENT]
         minWidth = SIZE_TO_CONTENT
@@ -330,7 +308,7 @@ let makeToolTip = kwarg(function(
       }
     ]
   })
-})
+}
 
 let defBgStyle = @(sf, selected) { rendObj = ROBJ_SOLID, color = listBgColor(sf, selected) }
 let function defIconCtor(item, soldierWatch) {
@@ -415,7 +393,8 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
   let isDraggable = item != null && canDrag
   let hasDropExceptionCb = onDropExceptionCb != null
 
-  let canEquipBothItems = @(data) canEquip(data?.item, scheme) && ("guid" not in item || canEquip(item, data?.scheme))
+  let canEquipBothItems = @(data)
+    canEquip(data?.item, scheme) && ("guid" not in item || canEquip(item, data?.scheme))
 
   let canDrop = function(data) {
     if (dropData == data)
@@ -434,7 +413,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
     isAvailable = isAvailable ?? ((item?.guid ?? "") != "")
     let children = isAvailable
       ? [
-          itemCtor(item, slotType, itemSize, isSelected, flags, group, isAvailable, ammoBox)
+          itemCtor(item, slotType, itemSize, isSelected, flags, group, true, ammoBox)
           {
             flow = FLOW_HORIZONTAL
             halign = ALIGN_RIGHT
@@ -447,6 +426,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
             ]
           }
           mods
+          hasWarningSign ? statusBadgeWarning : null
         ]
       : item != null ? [
           itemCtor(item, slotType, itemSize, isSelected, flags, group)
@@ -462,6 +442,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
               mkUnseenSign(hasUnseenSign)
             ]
           }
+          hasWarningSign ? statusBadgeWarning : null
         ]
       : {
           size = flex()
@@ -536,14 +517,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
           curHoveredItem(on ? item : null)
           onHoverCb?(on)
           cursors.setTooltip(on && item && !pauseTooltip.value
-            ? makeToolTip({
-                item
-                canDrag
-                isEquipped = slotType != null
-                canChange = canDrag && onDoubleClickCb != null
-                soldierWatch = soldier
-                hideStatus
-              })
+            ? makeToolTip(item, canDrag, slotType != null, canDrag && onDoubleClickCb != null)
             : null)
         }
         dropData = isDraggable ? dropData : null

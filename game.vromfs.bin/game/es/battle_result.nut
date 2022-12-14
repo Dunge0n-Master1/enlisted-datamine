@@ -2,10 +2,9 @@ import "%dngscripts/ecs.nut" as ecs
 let {TEAM_UNASSIGNED} = require("team")
 let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
 let {EventLevelLoaded} = require("gameevents")
-let {EventTeamRoundResult} = require("dasevents")
-let { find_human_player_by_connid, find_local_player } = require("%dngscripts/common_queries.nut")
+let {EventTeamRoundResult, CmdGetBattleResult} = require("dasevents")
 let isDedicated = require_optional("dedicated") != null
-let { has_network, get_sync_time, INVALID_CONNECTION_ID } = require("net")
+let { get_sync_time, INVALID_CONNECTION_ID } = require("net")
 let sendToProfileServer = require("%scripts/game/utils/sendToProfileServer.nut")
 let { INVALID_USER_ID } = require("matching.errors")
 let { isDebugDebriefingMode } = require("%enlSqGlob/wipFeatures.nut")
@@ -371,6 +370,7 @@ let function onRoundResult(evt, _eid, _comp) {
     hero.isFinished <- (disconnectInfo?[hero.playerEid].isFinished ?? true)
     hero.expMult <- isBattleHeroMultApplied(hero.isFinished, realPlayerCount, realPlayerWithEnoughScoreCount) ? getArmyExpBattleHeroMult(hero.awards, hero) : 1.0
     hero.soldier.__update(getBattleHeroSoldierInfo(hero.soldier, getArmyData(hero.playerEid)))
+    hero.playerRank <- getRank(hero.playerEid)
     delete hero.playerEid
   }))
   let battleEndTime = get_sync_time()
@@ -386,11 +386,7 @@ let function onRoundResult(evt, _eid, _comp) {
   }
 }
 
-let function onGetBattleResult(evt, eid, comp) {
-  let net = has_network()
-  let senderEid = net ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
-  if (senderEid != eid)
-    return
+let function onGetBattleResult(_evt, eid, comp) {
   let isNoBots = isNoBotsMode()
   let playersStats = getSoldierStats(isNoBots)
   let currentTime = get_sync_time()
@@ -434,7 +430,7 @@ ecs.register_es("send_battle_result_es",
 
 ecs.register_es("get_battle_result_es",
   {
-    [ecs.sqEvents.CmdGetBattleResult] = onGetBattleResult,
+    [CmdGetBattleResult] = onGetBattleResult,
     onChange = onDisconnectChange,
   },
   {

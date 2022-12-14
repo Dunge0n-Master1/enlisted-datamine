@@ -80,7 +80,7 @@ class InBlindness : BehNodeAdapter
     if timeEnd > get_sync_time()
       if !isStarted
         isStarted = true
-        let agent = beh_tree_entity_agent(*owner)
+        var agent = beh_tree_entity_agent(*owner)
         var phys = agent.phys
         if phys != null
           phys.producedCT |> human_control_state_set_walk_speed(0f)
@@ -174,7 +174,7 @@ class ChooseBestWeapon : BehNodeAdapter
   defaultCombatDist : float = 20.0
 
   changeWeaponTimeParam : int = -1
-  changeWeaponDelay : float = 15.0
+  changeWeaponDelay : float2 = float2(7.0, 15.0)
   switchRadiusCoef : float = 1.0
 
   allowGrenades : bool = false
@@ -186,10 +186,10 @@ class ChooseBestWeapon : BehNodeAdapter
     selectWeapon = data |> datablock_getBool("selectWeapon", selectWeapon)
     defaultCombatDist = data |> datablock_getReal("defaultCombatDist", defaultCombatDist)
 
-    let changeWeaponTimeParamName = data |> datablock_getStr("changeWeaponTimeParam", "changedWeaponTime")
+    let changeWeaponTimeParamName = data |> datablock_getStr("changeWeaponTimeParam", "nextChangeWeaponTime")
     if !empty(changeWeaponTimeParamName)
       changeWeaponTimeParam = owner.blackBoard |> get_or_create(changeWeaponTimeParamName, 0.0)
-    changeWeaponDelay = data |> datablock_getReal("changeWeaponDelay", changeWeaponDelay)
+    changeWeaponDelay = data |> datablock_getPoint2("changeWeaponDelay", changeWeaponDelay)
     switchRadiusCoef = data |> datablock_getReal("switchRadiusCoef", switchRadiusCoef)
 
     allowGrenades = data |> datablock_getBool("allowGrenades", allowGrenades)
@@ -290,14 +290,21 @@ class ChooseBestWeapon : BehNodeAdapter
           return EBehResult ER_SUCCESS
 
     let currWeapon = int(agent.phys.producedCT.chosenWeapon)
+    var currAllowed = false
     var bestWeapons : array<int>
     var goodWeapon = -1
     var otherWeapon = -1
+    var otherWeaponPriority = 0
     query(agent.eid) <| $ [es] (human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId)
       var closestStartFireRange = 0.0
       for i, gunEid in range(int(HUWeaponSlots EWS_NUM)), human_weap__gunEids
         if gunEid == INVALID_ENTITY_ID || i == int(HUWeaponSlots EWS_GRENADE)
           continue
+        if i == int(HUWeaponSlots EWS_MELEE)
+          if otherWeaponPriority == 0 && otherWeapon == -1
+            otherWeapon = i
+          continue
+
         var allowedGun = false
         var firingRange = float2()
         query(gunEid) <| $ [es] (specialAIWeaponType : int const?; combatFiringRange : float2;
@@ -307,8 +314,11 @@ class ChooseBestWeapon : BehNodeAdapter
           if allowedGun && specialAIWeaponType != null
             if *specialAIWeaponType == 1 // rocket launchers (not implemented yet)
               allowedGun = false
-            elif * specialAIWeaponType == 2// pistols
+              if otherWeaponPriority == 0
+                otherWeapon = i
+            elif *specialAIWeaponType == 2 // pistols
               otherWeapon = i
+              otherWeaponPriority = 10
               if !isCurrent
                 allowedGun = false
                 var hasRifleInHands = false
@@ -317,11 +327,21 @@ class ChooseBestWeapon : BehNodeAdapter
                     hasRifleInHands = true
                 if hasRifleInHands && rnd_float(0.0, 1.0) <= 0.75
                   allowedGun = true
+            elif *specialAIWeaponType == 3 // antitank rifles
+              allowedGun = false
+              if otherWeaponPriority < 10
+                otherWeapon = i
+                otherWeaponPriority = 5
           let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
           firingRange = float2(combatFiringRange.x, combatFiringRange.y * rangeCoef)
         if !allowedGun
           continue
+
+        if currWeapon == i
+          currAllowed = true
         if square(firingRange.y) < distToTargetSq
+          if otherWeapon == -1
+            otherWeapon = i
           continue
         if square(firingRange.x) < distToTargetSq
           bestWeapons |> push(i)
@@ -330,18 +350,20 @@ class ChooseBestWeapon : BehNodeAdapter
           goodWeapon = i
 
     var bestWeapon = -1
-    if empty(bestWeapons)
-      bestWeapon = goodWeapon >= 0 ? goodWeapon : otherWeapon
-    elif find_index(bestWeapons, currWeapon) != -1 && changeWeaponTimeParam >= 0 && get_sync_time() < (owner.blackBoard |> datablock_getReal(changeWeaponTimeParam) + changeWeaponDelay)
-      bestWeapon = currWeapon
+    let nextChangeWeaponTime = changeWeaponTimeParam >= 0 ? owner.blackBoard |> datablock_getReal(changeWeaponTimeParam) : 0.0
+    if !currAllowed || get_sync_time() >= nextChangeWeaponTime
+      if !empty(bestWeapons)
+        bestWeapon = bestWeapons[rnd_int(0, length(bestWeapons) - 1)]
+      else
+        bestWeapon = goodWeapon >= 0 ? goodWeapon : otherWeapon
     else
-      bestWeapon = bestWeapons[rnd_int(0, length(bestWeapons) - 1)]
+      bestWeapon = currWeapon
 
     if bestWeapon >= 0
       if selectWeapon && bestWeapon != currWeapon
         set_chosen_weapon(agent.phys.producedCT, HUWeaponSlots(bestWeapon))
         if changeWeaponTimeParam >= 0
-          owner.blackBoard |> set(changeWeaponTimeParam, get_sync_time())
+          owner.blackBoard |> set(changeWeaponTimeParam, get_sync_time() + rnd_float(changeWeaponDelay.x, changeWeaponDelay.y))
       return EBehResult ER_SUCCESS
     return EBehResult ER_FAILED
 
@@ -366,6 +388,12 @@ class IsGrenadeSelected : BehNodeAdapter
   def override update(dt : float) : EBehResult
     let agent = beh_tree_entity_agent(*owner)
     return agent.phys.producedCT.chosenWeapon == HUWeaponSlots EWS_GRENADE ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
+[beh_node(name="isMeleeWeaponSelected")]
+class IsMeleeWeaponSelected : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    return agent.phys.producedCT.chosenWeapon == HUWeaponSlots EWS_MELEE ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 [beh_node(name="isBipodWeaponSelected")]
 class IsBipodWeaponSelected : BehNodeAdapter

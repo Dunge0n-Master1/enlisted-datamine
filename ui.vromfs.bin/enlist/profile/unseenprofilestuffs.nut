@@ -5,7 +5,7 @@ let { isProfileOpened } = require("profileState.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
-let { decorators, medals, wallposters } = require("%enlist/meta/profile.nut")
+let { decorators, medals, wallposters, vehDecorators } = require("%enlist/meta/profile.nut")
 let { mkMedalCard } = require("medalsPkg.nut")
 let { medalsCfg } = require("medalsState.nut")
 let { mkPortraitIcon, mkNickFrame, PORTRAIT_SIZE
@@ -13,13 +13,16 @@ let { mkPortraitIcon, mkNickFrame, PORTRAIT_SIZE
 let { decoratorsCfgByType } = require("decoratorState.nut")
 let { bigPadding, titleTxtColor, tinyOffset, idleBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { mark_decorators_as_seen, mark_medals_as_seen, mark_wallposters_as_seen
+let {
+  mark_decorators_as_seen, mark_medals_as_seen, mark_wallposters_as_seen,
+  mark_veh_decorators_as_seen
 } = require("%enlist/meta/clientApi.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { specialUnlockToReceive } = require("%enlist/unlocks/dailyRewardsState.nut")
 let { activeUnlocks } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { wallpostersCfg } = require("wallpostersState.nut")
 let { mkWallposter } = require("wallpostersPkg.nut")
+let { mkDecalImage, mkDecorImage } = require("%enlist/vehicles/customizePkg.nut")
 
 
 let unseenSize = [fsh(80), fsh(50)]
@@ -54,12 +57,20 @@ let unseenProfileStuffs = Computed(function() {
     .filter(@(w) !(w?.wasSeen ?? false))
     .values()
 
-  return unseenWallposters.len() > 0 ? { unseenWallposters } : null
+  if (unseenWallposters.len() > 0)
+    return { unseenWallposters }
+
+  let vehDecors = vehDecorators.value
+    .filter(@(d) !(d?.wasSeen ?? false) && d?.cType != "vehCamouflage")
+    .values()
+
+  return vehDecors.len() > 0 ? { vehDecors } : null
 })
 
 let unseenTitles = {
   portraits = "unseenPortraitsTitle"
   nickFrames = "unseenNickFramesTitle"
+  vehDecors = "unseenVehDecorsTitle"
   medals = "unseenMedalsTitle"
   wallposters = "unseenWallpostersTitle"
 }
@@ -99,6 +110,22 @@ let wrapParams = {
 
 let withWrap = @(children) wrap(children, wrapParams)
 
+let vehDecorOverride = { iconSize = PORTRAIT_SIZE - 2 * bigPadding }
+
+let mkVehDecors = @(vehDecors)
+  vehDecors.map(function(vehDecor) {
+    let { cType, id } = vehDecor
+    let iconCtor = cType == "vehDecorator" ? mkDecorImage : mkDecalImage
+    return {
+      rendObj = ROBJ_BOX
+      borderWidth = hdpx(1)
+      size = [PORTRAIT_SIZE, PORTRAIT_SIZE]
+      padding = bigPadding
+      borderColor = idleBgColor
+      children = iconCtor({ guid = id }, vehDecorOverride)
+    }
+  })
+
 let mkPortraits = @(portraits) portraits.map(@(portraitCfg) {
   rendObj = ROBJ_BOX
   borderWidth = hdpx(1)
@@ -127,13 +154,18 @@ let mkWallposters = @(unseenWallposters, wpCfgs) {
 
 let function markSeen() {
   let {
-    portraits = [], nickFrames = [], unseenMedals = [], unseenWallposters = []
+    portraits = [], nickFrames = [], vehDecors = [], unseenMedals = [],
+    unseenWallposters = []
   } = unseenProfileStuffs.value
 
   let decoratorsList = portraits.map(@(v) v.guid)
     .extend(nickFrames.map(@(v) v.guid))
   if (decoratorsList.len() > 0)
     mark_decorators_as_seen(decoratorsList)
+
+  let vehDecorsList = vehDecors.map(@(v) v.guid)
+  if (vehDecorsList.len() > 0)
+    mark_veh_decorators_as_seen(vehDecorsList)
 
   let medalsList = unseenMedals.map(@(v) v.guid)
   if (medalsList.len() > 0)
@@ -144,7 +176,7 @@ let function markSeen() {
     mark_wallposters_as_seen(wallpostersList)
 }
 
-let mkUnseenContent = @(portraits, nickFrames, unseenMedals, unseenWallposters, vplace = ALIGN_TOP) {
+let mkUnseenContent = @(portraits, nickFrames, vehDecors, unseenMedals, unseenWallposters, vplace = ALIGN_TOP) {
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   gap = tinyOffset
@@ -154,6 +186,8 @@ let mkUnseenContent = @(portraits, nickFrames, unseenMedals, unseenWallposters, 
       : mkUnseenBlock("portraits", withWrap(mkPortraits(portraits)))
     nickFrames.len() == 0 ? null
       : mkUnseenBlock("nickFrames", withWrap(mkNickFrames(nickFrames)))
+    vehDecors.len() == 0 ? null
+      : mkUnseenBlock("vehDecors", withWrap(mkVehDecors(vehDecors)))
     unseenMedals.len() == 0 ? null
       : mkUnseenBlock("medals", withWrap(mkMedals(unseenMedals)))
     unseenWallposters.len() == 0 ? null
@@ -168,26 +202,33 @@ let mkUnseenContent = @(portraits, nickFrames, unseenMedals, unseenWallposters, 
   ]
 }
 
-let function checkShowUnseenStuffs(needShow) {
-  if (!needShow)
+let canShowUnseenStuffs = keepref(Computed(@()
+  isMainMenuVisible.value || isProfileOpened.value
+))
+
+let function checkShowUnseenStuffs(_ = null) {
+  let canShow = canShowUnseenStuffs.value
+  let unseen = unseenProfileStuffs.value
+  if (!canShow || unseen == null)
     return
 
   showMessageWithContent({
     uid = "unseenProfileMsgbox"
     content = function() {
       let {
-        portraits = [], nickFrames = [], unseenMedals = [], unseenWallposters = []
-      } = unseenProfileStuffs.value
-      let total = portraits.len() + nickFrames.len() + unseenMedals.len()
+        portraits = [], nickFrames = [], vehDecors = [], unseenMedals = [],
+        unseenWallposters = []
+      } = unseen
+      let total = portraits.len() + nickFrames.len() + unseenMedals.len() + vehDecors.len()
       let hasScroll = total > (unseenSize[0] / PORTRAIT_SIZE) * 2
         || (unseenWallposters.len() > 2)
       return {
         watch = unseenProfileStuffs
         size = hasScroll ? unseenSize : [unseenSize[0], SIZE_TO_CONTENT]
         children = hasScroll
-          ? makeVertScroll(mkUnseenContent(portraits, nickFrames, unseenMedals, unseenWallposters),
+          ? makeVertScroll(mkUnseenContent(portraits, nickFrames, vehDecors, unseenMedals, unseenWallposters),
               { styling = thinStyle })
-          : mkUnseenContent(portraits, nickFrames, unseenMedals, unseenWallposters, ALIGN_CENTER)
+          : mkUnseenContent(portraits, nickFrames, vehDecors, unseenMedals, unseenWallposters, ALIGN_CENTER)
       }
     }
     buttons = [{
@@ -196,9 +237,7 @@ let function checkShowUnseenStuffs(needShow) {
   })
 }
 
-let needShowUnseenStuffs = keepref(Computed(@()
-  (isMainMenuVisible.value || isProfileOpened.value)
-    && unseenProfileStuffs.value != null))
+foreach (v in [canShowUnseenStuffs, unseenProfileStuffs])
+  v.subscribe(checkShowUnseenStuffs)
 
-checkShowUnseenStuffs(needShowUnseenStuffs.value)
-needShowUnseenStuffs.subscribe(checkShowUnseenStuffs)
+checkShowUnseenStuffs()

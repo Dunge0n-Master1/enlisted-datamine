@@ -2,6 +2,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_urban_area_biom_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_urban_area_common.blk"
+}
+
 entity{
   _template:t="ri_gpu_object"
   ri_gpu_object__name:t="decal_broken_glass_a"
@@ -340,71 +348,6 @@ entity{
 }
 
 entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="chimney_exhaust"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=32.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_sparkles_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_ashes_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="land_haze"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=35.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="minimap_normandy_urban_area"
-}
-
-entity{
-  _template:t="wind"
-  wind__strength:r=2.0
-}
-
-entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
 }
@@ -412,32 +355,6 @@ entity{
 entity{
   _template:t="door_mult_ent_generator"
   ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
-}
-
-entity{
-  _template:t="shaderVars"
-
-  "shader_vars__vars:object"{
-    hmap_displacement_up:r=0.3
-    ocean1:c=142, 137, 71, 0
-    ocean0:c=76, 63, 5, 0
-    ocean_density:r=0.1
-    puddle_hardness:r=12.0
-    puddle_flat_noise_normal_effect:r=0.015
-    puddle_flat_normal_hardness:r=25.0
-    land_selfillum_worldscale:r=0.9
-    river1:c=142, 137, 71, 0
-    river0:c=76, 63, 5, 0
-    hmap_displacement_down:r=-0.15
-    puddle_flat_hmap_reduce:r=-0.2
-    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
-    paint_details_tex:t="normandy_wall_color_tex_palette*"
-    puddle_increase:r=-0.4
-    land_selfillum_strength:r=32.0
-    water_color_noise_size:r=71.0
-    puddle_flat_noise_height_reduce:r=0.09
-    river_density:r=0.3
-  }
 }
 
 entity{
@@ -494,7 +411,7 @@ entity{
 }
 
 entity{
-  _template:t="team_usa+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
   team__scoreCap:r=3000.0
   team__score:r=3000.0
@@ -510,7 +427,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_germany+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=5000.0
@@ -2743,11 +2660,6 @@ entity{
 entity{
   _template:t="clouds_hole_target"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=0.27
 }
 
 entity{

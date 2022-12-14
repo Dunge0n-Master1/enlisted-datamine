@@ -45,7 +45,7 @@ def turret_sync_shoot_angles_es(info : UpdateStageInfoAct;
                                 turret_control__gunEids : EidList;
                                 vehicle_seats__seatEids : EidList;
                                 turret_aim_sync__interval : float;
-                                replication : NetObject?;
+                                replication : NetObject const?;
                                 var turret_aim_sync__nextSyncAtTime : float&)
   if turret_aim_sync__nextSyncAtTime > info.curTime
     return

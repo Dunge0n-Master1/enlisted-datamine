@@ -32,6 +32,13 @@ i_16_type_24{
         turret:t="turret_09"
         turret:t="turret_10"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -408,4 +415,24 @@ i_16_type_24_driver_cockpit{
   animchar__res:t="i_16_type_24_cockpit_char"
   plane_anim__blk:t="gamedata/units/i_16_type_24.blk"
   plane_sight__blk:t="gamedata/units/i_16_type_24.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.009, 0.001, -0.0025
+    item:p3=0.015, -0.032, -0.015
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=5.25, 2.7
+    item:p2=-41.0, -15.0
+  }
 }

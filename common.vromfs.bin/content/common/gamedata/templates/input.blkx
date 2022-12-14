@@ -80,6 +80,18 @@ human_input_rumble_enabled{
         durationMsec:i=80
       }
 
+      "short_weak_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.05
+        durationMsec:i=15
+      }
+
+      "short_strong_hb:object"{
+        isHighBand:b=yes
+        freq:r=1.0
+        durationMsec:i=160
+      }
+
       "oneshot_weak_lb:object"{
         isHighBand:b=no
         freq:r=0.5
@@ -111,6 +123,18 @@ human_input_rumble_enabled{
         isHighBand:b=yes
         freq:r=0.3
         durationMsec:i=80
+      }
+
+      "short_weak_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.05
+        durationMsec:i=15
+      }
+
+      "short_strong_hb:object"{
+        isHighBand:b=yes
+        freq:r=0.9
+        durationMsec:i=160
       }
 
       "oneshot_weak_lb:object"{
@@ -169,7 +193,10 @@ turret_rumble_events{
 
   "rumbleEvents:object"{
     _tags:t="input"
-    mainTurretShot:t="oneshot_strong_lb"
+    minImpulseTurretShot:t="oneshot_weak_lb"
+    maxImpulseTurretShot:t="oneshot_strong_lb"
+    minImpulseTurretShotHb:t="short_weak_hb"
+    maxImpulseTurretShotHb:t="short_strong_hb"
   }
 }
 

@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_gpu_objects.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_biome_fx.blk"
 }
 
 entity{

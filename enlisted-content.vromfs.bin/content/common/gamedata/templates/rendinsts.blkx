@@ -332,6 +332,9 @@ floating_rendinst_system{
       volumesCount:i=12
     }
   }
+
+  "floatingRiSystem__userVolumePresets:object"{
+  }
 }
 
 floating_rendinst_res_group{

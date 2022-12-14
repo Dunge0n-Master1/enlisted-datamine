@@ -1,6 +1,5 @@
 germ_pzkpfw_38t_ausf_F{
   _extends:t="base_pzkpfw_38t_ausf_f"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/pzkpfw_38t_ausf_f.blk:VehiclePhys"

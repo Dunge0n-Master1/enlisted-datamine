@@ -1,0 +1,81 @@
+base_20mm_oerlikon{
+  item__name:t="guns/20mm_oerlikon"
+  gun__blk:t="gamedata/gen/weapons/20mm_oerlikon.blk"
+  gun__shotFreq:r=7.5
+  gun__reloadTime:r=1.0
+  gun__maxAmmo:i=60
+  gun__locName:t="20mm_oerlikon"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_defaultset_bullet_1.blk"
+        name:t="20mm_oerlikon_ap"
+        type:t="ap_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_defaultset_bullet_2.blk"
+        name:t="20mm_oerlikon_he"
+        type:t="he_frag_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_defaultset_bullet_3.blk"
+        name:t="20mm_oerlikon_ap"
+        type:t="ap_t"
+      }
+    }
+
+    "20mm_Oerlikon_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_20mm_oerlikon_he_bullet_1.blk"
+        name:t="20mm_oerlikon_he_t"
+        type:t="he_frag_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_20mm_oerlikon_he_bullet_2.blk"
+        name:t="20mm_oerlikon_he_i"
+        type:t="he_frag_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_20mm_oerlikon_he_bullet_3.blk"
+        name:t="20mm_oerlikon_he_i"
+        type:t="he_frag_i"
+      }
+    }
+
+    "20mm_Oerlikon_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_oerlikon_20mm_oerlikon_ap.blk"
+        name:t="20mm_oerlikon_ap"
+        type:t="ap_t"
+      }
+    }
+  }
+}
+
+tankgun_20mm_oerlikon{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_20mm_oerlikon"
+  _extends:t="gunsound_20mm_kwk30"
+  turret__triggerGroup:i=0
+}

@@ -57,5 +57,6 @@ tankgun_75mm_m2{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_75mm_m2"
+  _extends:t="gunsound_75mm_m2"
   turret__triggerGroup:i=1
 }

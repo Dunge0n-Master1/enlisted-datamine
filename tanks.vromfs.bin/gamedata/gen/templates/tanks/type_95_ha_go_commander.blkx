@@ -1,0 +1,331 @@
+base_type_95_ha_go_commander{
+  _extends:t="base_tank"
+  _extends:t="type_95_ha_go_commander_ammo_stowages"
+  killLogName:t="jp_type_95_ha_go_commander"
+  animchar__res:t="type_95_ha_go_char"
+  collres__res:t="type_95_ha_go_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/type_95_ha_go_commander.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="type_95_ha_go_dmg_char"
+  xray_resource__modelName:t="type_95_ha_go"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=1.752
+  damage_model__blk:t="gamedata/gen/units/tanks/type_95_ha_go_commander.blk"
+  item__name:t="items/jp_type_95_ha_go_commander"
+  turret_control__grenadeLauncherSalvoSize:i=1
+  skin__template:t="type_95_ha_go_commander_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm_slow"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_v_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+      aimActiveParamName:t="aim_02_active"
+      paramYawSpeed:t="turret_02_yaw_speed"
+      paramYawSpeedMul:t="turret_02_yaw_mul"
+      paramYawAccel:t="turret_02_yaw_accel"
+      paramMinYawAngle:t="turret_02_min_yaw_angle"
+      paramMaxYawAngle:t="turret_02_max_yaw_angle"
+      paramMinPitchAngle:t="turret_02_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_02_max_pitch_angle"
+      paramPitchSpeed:t="gun_02_pitch_speed"
+      paramPitchSpeedMul:t="gun_02_pitch_mul"
+      paramPitchAccel:t="gun_02_pitch_accel"
+      wishYawParamName:t="gun_02_aim:targetYaw"
+      wishPitchParamName:t="gun_02_aim:targetPitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="type_95_ha_go_commander_turret_01_37mm_type_94+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="type_95_ha_go_commander_turret_02_7_7mm_type_97"
+      barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="type_95_ha_go_commander_turret_03_66mm_uk_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="type_95_ha_go_commander_turret_04_66mm_uk_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="type_95_ha_go_commander_turret_05_66mm_uk_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="type_95_ha_go_commander_turret_06_66mm_uk_smoke_grenade_launcher"
+      salt:i=1
+    }
+  }
+}
+
+type_95_ha_go_commander_turret_01_37mm_type_94{
+  _extends:t="tankgun_37mm_type_94"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=15.7
+  turret__pitchSpeed:r=15.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -15.0, 20.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=60
+    ammo:i=59
+  }
+}
+
+type_95_ha_go_commander_turret_02_7_7mm_type_97{
+  _extends:t="tankgun_7_7mm_type_97"
+  gun__shootNodeName:t="bone_mg_v_01"
+  turret__yawSpeed:r=5.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_mg_h_01"
+  turret__limit:p4=-22.0, 22.0, -22.0, 22.0
+
+  "gun__shellsAmmo:array"{
+    ammo:i=3000
+  }
+}
+
+type_95_ha_go_commander_turret_03_66mm_uk_smoke_grenade_launcher{
+  _extends:t="tankgun_66mm_uk_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+type_95_ha_go_commander_turret_04_66mm_uk_smoke_grenade_launcher{
+  _extends:t="tankgun_66mm_uk_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+type_95_ha_go_commander_turret_05_66mm_uk_smoke_grenade_launcher{
+  _extends:t="tankgun_66mm_uk_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_03"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+type_95_ha_go_commander_turret_06_66mm_uk_smoke_grenade_launcher{
+  _extends:t="tankgun_66mm_uk_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_04"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+type_95_ha_go_commander_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="type_95_ha_go_commander_primary_ammo_stowage"
+  }
+}
+
+type_95_ha_go_commander_primary_ammo_stowage{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="type_95_ha_go_commander_primary_shells_ammo_cluster"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+type_95_ha_go_commander_primary_shells_ammo_cluster{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_turret_01"
+    part:t="ammo_turret_02"
+    part:t="ammo_body_l_02"
+    part:t="ammo_body_l_01"
+    part:t="ammo_body_r_02"
+    part:t="ammo_body_r_03"
+    part:t="ammo_body_r_01"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=4
+    count:i=9
+    count:i=13
+    count:i=5
+    count:i=8
+    count:i=32
+    count:i=48
+  }
+}
+
+type_95_ha_go_commander_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_brown"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_grey"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_warship_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_green"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_willow_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_early_era_brown_yellow_lines"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_early_brown_yellow_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_post_era_winter"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_post_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="type_95_ha_go_commander_jp_camo_winter_early"
+
+      "objTexReplace:object"{
+        "jp_camo_artillery_brown*":t="jp_camo_winter_early*"
+      }
+    }
+  }
+}

@@ -9,8 +9,15 @@ require DagorMath
 require DagorSystem
 require common_shooter.events_common_shooter
 
+def convert_damage_type(damage_type_id : int)
+  if damage_type_id == find_damage_type_id_by_name("explosion")
+    return DamageType DM_EXPLOSION
+  elif damage_type_id == find_damage_type_id_by_name("fire")
+    return DamageType DM_FIRE
+  return DamageType DM_PROJECTILE
+
 def transfer_damage_to_hitpoints_by_dm_part(damaged_part_id : int;
-                                            damage_type_id : int;
+                                            damage_type : DamageType;
                                             hp_fixed : uint16;
                                             prev_hp_fixed : uint16;
                                             offender : EntityId;
@@ -21,12 +28,6 @@ def transfer_damage_to_hitpoints_by_dm_part(damaged_part_id : int;
                                             hit_dir : float3 = float3();
                                             shell_id : int = -1;
                                             gun_props_id : int = -1)
-  var damageType = DamageType DM_PROJECTILE
-  if damage_type_id == find_damage_type_id_by_name("explosion")
-    damageType = DamageType DM_EXPLOSION
-  elif damage_type_id == find_damage_type_id_by_name("fire")
-    damageType = DamageType DM_FIRE
-
   for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
     if damaged_part_id == vehicle_seats_receive_damage_from_dm_part[seatNo] && !!ownerEid
@@ -34,12 +35,18 @@ def transfer_damage_to_hitpoints_by_dm_part(damaged_part_id : int;
       if maxHp <= 0.0
         continue
       let damage = maxHp * (int(hp_fixed) == 0 ? 1.0 : rel_hp_fixed_to_float(uint16(max(0, int(prev_hp_fixed) - int(hp_fixed)))))
-      let dd = DamageDesc(damageType, damage, hit_pos, hit_dir, float3(), shell_id, gun_props_id, -1, 0.0)
+      let dd = DamageDesc(damage_type, damage, hit_pos, hit_dir, float3(), shell_id, gun_props_id, -1, 0.0)
       apply_damage(ownerEid, offender, dd)
-      if damageType == DamageType DM_FIRE
-        query(ownerEid) <| $ [es] (var burning__isBurning : bool&; var burning__offender : EntityId&; var burning__tickIncrement : float&)
+      if damage_type == DamageType DM_FIRE
+        query(ownerEid) <| $ [es] (var burning__isBurning : bool&;
+                                   var burning__offender : EntityId&;
+                                   var burning__offenderGunPropsId : int&;
+                                   var burning__offenderShellId : int&;
+                                   var burning__tickIncrement : float&)
           burning__isBurning = true
           burning__offender = offender
+          burning__offenderGunPropsId = gun_props_id
+          burning__offenderShellId = shell_id
           burning__tickIncrement = max(burning__tickIncrement, burn_increment)
       break
 
@@ -99,7 +106,7 @@ def transfer_damage_to_hitpoints_by_dm_part_on_part_damage(evt : EventOnPartDama
   if !selfInflicted && !is_friendly_fire_allowed() && is_teams_friendly(team, offenderTeam)
     return
 
-  transfer_damage_to_hitpoints_by_dm_part(evt.partId, damageTypeId, hpFixed, prevHpFixed, hitData.offender,
+  transfer_damage_to_hitpoints_by_dm_part(evt.partId, convert_damage_type(damageTypeId), hpFixed, prevHpFixed, hitData.offender,
     vehicle_seats__seatEids, vehicle_seats_receive_damage_from_dm_part, fire_damage__burnIncrement, hitData.pos, hitData.dir, int(hitData.shellId), int(hitData.gunPropsId))
 
 [es(tag=server)]
@@ -107,6 +114,8 @@ def transfer_damage_to_hitpoints_by_dm_part_on_volumetric_damage(evt : EventOnVo
                                                                  vehicle_seats__seatEids : EidList;
                                                                  vehicle_seats_receive_damage_from_dm_part : IntList;
                                                                  fire_damage__burnIncrement : float = 0.0;
+                                                                 fire_damage__gunPropsId : int = -1;
+                                                                 fire_damage__shellId : int = -1;
                                                                  eid : EntityId;
                                                                  team : int = TEAM_UNASSIGNED)
   let damageTypeId = evt.damageTypeId
@@ -129,8 +138,15 @@ def transfer_damage_to_hitpoints_by_dm_part_on_volumetric_damage(evt : EventOnVo
       logerr("Received EventOnVolumetricDamage with broken object in damagedParts (partId: {partId}, hpFixed: {hpFixed}, prevHpFixed: {prevHpFixed})")
       continue
 
-    transfer_damage_to_hitpoints_by_dm_part(*partId, damageTypeId, *hpFixed, *prevHpFixed, evt.offender,
-      vehicle_seats__seatEids, vehicle_seats_receive_damage_from_dm_part, fire_damage__burnIncrement)
+    let damageType = convert_damage_type(damageTypeId)
+    var gunPropsId = -1
+    var shellId = -1
+    if damageType == DamageType DM_FIRE
+      gunPropsId = fire_damage__gunPropsId
+      shellId = fire_damage__shellId
+    transfer_damage_to_hitpoints_by_dm_part(*partId, damageType, *hpFixed, *prevHpFixed, evt.offender,
+      vehicle_seats__seatEids, vehicle_seats_receive_damage_from_dm_part, fire_damage__burnIncrement,
+      /*hit_pos*/float3(), /*hit_dir*/float3(), shellId, gunPropsId)
 
 [es(tag=server, after=(transfer_damage_to_hitpoints_by_dm_part_on_part_damage, transfer_damage_to_hitpoints_by_dm_part_on_volumetric_damage))]
 def crew_hp_after_damage_es(evt : EventOnPartDamaged;

@@ -83,7 +83,7 @@ let mkCrosshair = @(turretEid, vehicleEid) {
 let function calculate_crosshairs(turrets, vehicleEid) {
   let children = []
   foreach (turret in turrets) {
-    if (turret.isControlled && !turret.isLocalControlLocked)
+    if (turret.isControlled && !turret.isLocalControlLocked && turret.showCrosshair)
       children.append(mkCrosshair(turret.gunEid, vehicleEid))
   }
 

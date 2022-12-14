@@ -10,6 +10,8 @@ let unseenSignal = require("%ui/components/unseenSignal.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let menuHeaderRightUiList = require("menuHeaderRightUiList.nut")
+let { soundActive } = require("%ui/components/textButton.nut")
+
 
 
 if (sectionsSorted?.len() && !(sectionsSorted ?? []).findvalue(@(s) s?.id == curSection.value))
@@ -84,11 +86,7 @@ let function sectionLink(section) {
       padding = [fsh(1), 0]
       behavior = Behaviors.Button
       skipDirPadNav = true
-      sound = {
-        click  = "ui/enlist/button_click"
-        hover  = "ui/enlist/button_highlight"
-        active = "ui/enlist/button_action"
-      }
+      sound = soundActive
       onClick = @() section?.onClickCb != null ? section.onClickCb() : trySwitchSection(@() setCurSection(section.id))
       onElemState = @(sf) stateFlags(sf)
       group = group

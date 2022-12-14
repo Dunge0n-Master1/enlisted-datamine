@@ -17,7 +17,7 @@ def crew_quipment_hider_in_cockpit(evt : Event;
   if !human_anim__vehicleSelected || !isAlive || isTpsView
     unhide_crew_equipment(hidden_equipment_items_in_vehicle)
     return
-  if !(get_bool(bindedCamera, "isCockpitCam") ?? false)
+  if !(get_bool(bindedCamera, "isHeroCockpitCam") ?? false)
     return
   ecs::query(human_anim__vehicleSelected) <| $ [es] (hide_hero_equipment_slots_in_cockpit : StringList)
     for slotName in hide_hero_equipment_slots_in_cockpit

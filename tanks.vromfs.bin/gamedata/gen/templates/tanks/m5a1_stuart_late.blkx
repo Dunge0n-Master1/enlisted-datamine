@@ -153,7 +153,7 @@ m5a1_stuart_late_turret_03_7_62mm_m1919a4{
   gun__shootNodeName:t="bone_mg_gun_twin"
 
   "gun__shellsAmmo:array"{
-    ammo:i=3000
+    ammo:i=3500
   }
 }
 

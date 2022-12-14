@@ -1,6 +1,5 @@
 germ_panzerjager_tiger{
   _extends:t="base_panzerjager_tiger"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
 

@@ -173,10 +173,29 @@ let showNeedPremiumBox = @() showMsgbox({
   ]
 })
 
+let mkLockedSlotPrice = @(sf, hasPrice, currencies, currencyId, price) {
+  rendObj = ROBJ_SOLID
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = { size = flex() }
+  margin  = hdpx(2)
+  padding = smallPadding
+  vplace = ALIGN_BOTTOM
+  valign = ALIGN_CENTER
+  color = defBgColor
+  children = [
+    mkLockedIcon(sf, false, TXT_SMALL_SIZE)
+    hasPrice ? mkCurrencyView(currencies, currencyId, price) : null
+  ]
+}
 
-let function mkDecorSlot(decorator, isSelected, hasLocked, onClick, onRemove = null) {
+let function mkDecorSlot(decorator, isSelected, hasLocked, onClick,
+  onRemove = null, buyData = null, currencies = null
+) {
   let { cType = "" } = decorator?.cfg
   let iconCtor = cType == "vehDecorator" ? mkDecorImage : mkDecalImage
+  let { price = 0, currencyId = "" } = buyData
+  let hasPrice = currencies != null && price > 0 && currencyId != ""
   return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     size = slotSize
@@ -194,6 +213,7 @@ let function mkDecorSlot(decorator, isSelected, hasLocked, onClick, onRemove = n
           })
         : decorator == null ? mkApplyIcon(sf, isSelected)
         : iconCtor(decorator.cfg)
+      hasPrice ? mkLockedSlotPrice(sf, hasPrice, currencies, currencyId, price) : null
       isSelected ? animFrame : null
       onRemove == null ? null
         : FAButton("times", onRemove, {
@@ -237,20 +257,7 @@ let mkDecorIcon = kwarg(function(cfg,
       cType == "vehDecorator"
         ? mkDecorImage(cfg, { iconSize })
         : mkDecalImage(cfg)
-      countObject ?? {
-        rendObj = ROBJ_SOLID
-        size = [flex(), SIZE_TO_CONTENT]
-        flow = FLOW_HORIZONTAL
-        margin  = hdpx(2)
-        padding = smallPadding
-        valign = ALIGN_CENTER
-        color = defBgColor
-        children = [
-          mkLockedIcon(sf, false, TXT_SMALL_SIZE)
-          { size = flex() }
-          hasPrice ? mkCurrencyView(currencies, currencyId, price) : null
-        ]
-      }
+      countObject ?? mkLockedSlotPrice(sf, hasPrice, currencies, currencyId, price)
     ]
   }.__update(override))
 })
@@ -263,10 +270,12 @@ let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
     : null
   let skinImg = (skinData?.objTexReplace ?? {}).values()?[0]
   let skinLocId = cfg != null ? (skinImg ?? "baseSkinName") : "baseSkinName"
+  let group = ElemGroup()
   return watchElemState(@(sf) {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     size = skinSize
     behavior = Behaviors.Button
+    group
     onClick
     children = [
       mkSlotBox(sf, isSelected)
@@ -279,11 +288,15 @@ let function mkSkinIcon(skinData, isSelected, hasOwned, currencies, onClick) {
         children = [
           skinImg != null ? mkSkinImage(skinImg, sf, isSelected) : null
           hasOwned ? null : mkLockedIcon(sf, isSelected, TXT_SMALL_SIZE)
-          txt({
+          {
+            rendObj = ROBJ_TEXT
+            size = [flex(), SIZE_TO_CONTENT]
+            group
             text = loc(locId ?? $"skin/{cropSkinName(skinLocId)}")
             color = txtColor(sf, isSelected)
-          }).__update(sub_txt)
-          { size = flex() }
+            scrollOnHover = true
+            behavior = Behaviors.Marquee
+          }.__update(sub_txt)
           currencyObject
         ]
       }
@@ -529,4 +542,6 @@ return {
   decorScaleHint
   decorRotationHint
   slotNormalColor
+  mkDecalImage
+  mkDecorImage
 }

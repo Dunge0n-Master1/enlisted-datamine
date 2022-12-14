@@ -34,8 +34,8 @@ def human_breath_sound_hold(evt : Event;
     human_breath_sound__breathStart = get_sync_time() + human_breath_sound__holdBreathEndDelay
 
 
-[es(tag=sound, after=(update_sound_group_es, animchar_render_es, human_voice_enable))]
-def human_breath_sound_base_update(info : ParallelUpdateFrameDelayed;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(update_sound_group_using_animchar_es, animchar_render_es, human_voice_enable))]
+def human_breath_sound_base_update(evt : Event;
                                    var human_breath_sound__canBreath : bool&;
                                    human_voice_enable : bool;
                                    human_voice_effect__type : string;

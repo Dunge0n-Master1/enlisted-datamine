@@ -2,6 +2,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+}
+
 entity{
   _template:t="static_cam"
   camera__active:b=yes
@@ -100,7 +108,7 @@ entity{
 }
 
 entity{
-  _template:t="team_usa+team_captime_balance+team_narrator_invasion_attack"
+  _template:t="team_usa+team_narrator_invasion_attack"
   team__deathPenaltyByMember:r=-5.0
   team__minDeathPenalty:r=10.0
   team__memberCount:r=0.0
@@ -119,7 +127,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_resptime_balance+team_narrator_invasion_defence"
+  _template:t="team_germany+team_narrator_invasion_defence"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=7000.0
@@ -132,12 +140,6 @@ entity{
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
   team__winTitle:t="debriefing/normandy/ger_won_defence_title"
   team__spawnBotArmy:t="normandy_axis"
-}
-
-entity{
-  _template:t="bonfire_effect_big"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [76.8493, 18.9857, 148.388]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{

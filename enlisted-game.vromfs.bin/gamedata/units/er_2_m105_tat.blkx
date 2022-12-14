@@ -32,30 +32,30 @@ DamageParts{
   armor10{
 
     gun1_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     gun2_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     gun3_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
   }
 
   armor8_5{
 
     armor1_dm{
-      hp:r=40.0
+      hp:r=10.0
     }
 
     armor2_dm{
-      hp:r=40.0
+      hp:r=10.0
     }
 
     armor3_dm{
-      hp:r=40.0
+      hp:r=10.0
     }
   }
 
@@ -63,54 +63,54 @@ DamageParts{
 
     engine1_dm{
       genericDamageMult:r=1.6
-      hp:r=30.5
+      hp:r=10.0
     }
 
     engine2_dm{
       genericDamageMult:r=1.6
-      hp:r=30.5
+      hp:r=10.0
     }
   }
 
   c_dural20{
 
     fuse_dm{
-      hp:r=160.5
+      hp:r=50.0
     }
 
     tail_dm{
       genericDamageMult:r=0.6
-      hp:r=160.5
+      hp:r=50.0
     }
 
     wing1_l_dm{
       genericDamageMult:r=0.35
-      hp:r=145.5
+      hp:r=50.0
     }
 
     wing1_r_dm{
       genericDamageMult:r=0.35
-      hp:r=145.5
+      hp:r=50.0
     }
 
     wing2_l_dm{
       genericDamageMult:r=0.35
-      hp:r=121.3
+      hp:r=40.0
     }
 
     wing2_r_dm{
       genericDamageMult:r=0.35
-      hp:r=121.3
+      hp:r=40.0
     }
 
     wing_l_dm{
       genericDamageMult:r=0.35
-      hp:r=125.6
+      hp:r=40.0
     }
 
     wing_r_dm{
       genericDamageMult:r=0.35
-      hp:r=125.6
+      hp:r=40.0
     }
   }
 
@@ -118,247 +118,247 @@ DamageParts{
 
     aileron_l_dm{
       genericDamageMult:r=0.3
-      hp:r=41.7
+      hp:r=15.0
     }
 
     aileron_r_dm{
       genericDamageMult:r=0.3
-      hp:r=41.7
+      hp:r=15.0
     }
 
     elevator0_dm{
       genericDamageMult:r=0.3
-      hp:r=60.5
+      hp:r=20.0
     }
 
     elevator1_dm{
       genericDamageMult:r=0.3
-      hp:r=60.5
+      hp:r=20.0
     }
 
     fin1_dm{
-      hp:r=39.7
+      hp:r=13.0
     }
 
     fin2_dm{
-      hp:r=39.7
+      hp:r=13.0
     }
 
     flap1_l_dm{
-      hp:r=45.1
+      hp:r=15.0
     }
 
     flap1_r_dm{
-      hp:r=45.6
+      hp:r=15.0
     }
 
     flap_l_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
 
     flap_r_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
 
     rudder0_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     rudder1_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     stab1_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
 
     stab2_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
   }
 
   dural{
 
     cover1_dm{
-      hp:r=40.5
+      hp:r=10.0
     }
 
     cover2_dm{
-      hp:r=40.5
+      hp:r=10.0
     }
 
     cover3_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
 
     cover4_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
 
     cover5_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
 
     cover6_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
   }
 
   dural90{
 
     spar1_l_dm{
-      hp:r=109.7
+      hp:r=30.0
     }
 
     spar1_r_dm{
-      hp:r=109.7
+      hp:r=30.0
     }
 
     spar2_l_dm{
-      hp:r=79.5
+      hp:r=30.0
     }
 
     spar2_r_dm{
-      hp:r=79.5
+      hp:r=30.0
     }
 
     spar_l_dm{
-      hp:r=79.5
+      hp:r=30.0
     }
 
     spar_r_dm{
-      hp:r=79.5
+      hp:r=30.0
     }
   }
 
   protected_controls{
 
     tailcontrol_dm{
-      hp:r=80.5
+      hp:r=25.0
     }
 
     wingcontrol_dm{
-      hp:r=59.5
+      hp:r=20.0
     }
 
     wingcontrol_l_dm{
-      hp:r=80.5
+      hp:r=25.0
     }
 
     wingcontrol_r_dm{
-      hp:r=80.5
+      hp:r=25.0
     }
   }
 
   steel{
 
     gear_c_dm{
-      hp:r=49.5
+      hp:r=15.0
     }
 
     gear_l_dm{
-      hp:r=68.5
+      hp:r=22.0
     }
 
     gear_r_dm{
-      hp:r=68.5
+      hp:r=22.0
     }
   }
 
   steel_cooling_sys{
 
     oil1_dm{
-      hp:r=23.5
+      hp:r=7.0
     }
 
     oil2_dm{
-      hp:r=23.5
+      hp:r=7.0
     }
 
     oil3_dm{
-      hp:r=17.5
+      hp:r=6.0
     }
 
     oil4_dm{
-      hp:r=17.5
+      hp:r=6.0
     }
 
     water1_dm{
-      hp:r=21.5
+      hp:r=7.0
     }
 
     water2_dm{
-      hp:r=21.5
+      hp:r=7.0
     }
 
     water3_dm{
-      hp:r=15.5
+      hp:r=5.0
     }
 
     water4_dm{
-      hp:r=15.5
+      hp:r=5.0
     }
   }
 
   steel_pilot{
 
     gunner2_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     gunner3_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     gunner4_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     pilot1_dm{
       fireProtectionHp:r=20.0
-      hp:r=20.0
+      hp:r=6.0
     }
 
     pilot_dm{
       fireProtectionHp:r=20.0
-      hp:r=20.0
+      hp:r=6.0
     }
   }
 
   steel_tank_m{
 
     tank1_dm{
-      hp:r=67.6
+      hp:r=20.0
     }
 
     tank2_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank3_dm{
-      hp:r=73.6
+      hp:r=20.0
     }
 
     tank4_dm{
-      hp:r=95.5
+      hp:r=30.0
     }
 
     tank5_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank6_dm{
-      hp:r=72.1
+      hp:r=20.0
     }
 
     tank7_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank8_dm{
-      hp:r=67.6
+      hp:r=20.0
     }
   }
 }
@@ -1412,7 +1412,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1430,7 +1431,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1457,7 +1458,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1475,7 +1477,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1502,7 +1504,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1520,7 +1523,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1547,7 +1550,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1565,7 +1569,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1592,7 +1596,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1610,7 +1615,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1637,7 +1642,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1655,7 +1661,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1682,7 +1688,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1700,7 +1707,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1727,7 +1734,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -1745,7 +1753,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }

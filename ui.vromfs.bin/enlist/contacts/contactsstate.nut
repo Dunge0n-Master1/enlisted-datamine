@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let charClient = require("%enlSqGlob/charClient.nut")
 let { contactsLists, blockedUids, getCrossnetworkChatEnabled } = require("contactsWatchLists.nut")
 let { pushNotification, removeNotify, subscribeGroup, removeNotifyById
-} = require("%enlist/mailboxState.nut")
+} = require("%enlist/mainScene/invitationsLogState.nut")
 let { Contact, validateNickNames, getContactNick } = require("contact.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { matchingCall } = require("%enlist/matchingClient.nut")

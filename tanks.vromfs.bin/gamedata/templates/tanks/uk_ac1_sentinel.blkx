@@ -4,7 +4,6 @@ uk_ac1_sentinel_pacific_premium{
 
 uk_ac1_sentinel_common{
   _extends:t="base_ac1_sentinel"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.0
 
   "vehicle_seats__seats:shared:array"{

@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let state = Watched({
   orderType = 0
-  orderUseEntity = INVALID_ENTITY_ID
+  orderUseEntity = ecs.INVALID_ENTITY_ID
 })
 
 ecs.register_es("human_context_command_state_es",

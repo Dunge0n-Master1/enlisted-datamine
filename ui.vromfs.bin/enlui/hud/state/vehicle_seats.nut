@@ -27,9 +27,9 @@ let isHeroVehicleQuery = ecs.SqQuery("is_hero_vehicle_query", {
 
 let getVehicleSquad = ecs.SqQuery("vehicle_seats_squad_query", {
   comps_ro = [
-    ["seat__ownerEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
-    ["seat__playerEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
-    ["seat__squadEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+    ["seat__ownerEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+    ["seat__playerEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+    ["seat__squadEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["seat__isPlayer", ecs.TYPE_BOOL, false]
   ]
 })

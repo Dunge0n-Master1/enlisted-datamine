@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
+let { doesLocTextExist } = require("dagor.localize")
 let faComp = require("%ui/components/faComp.nut")
 let { normUnseenNoBlink, normUnseenBlink } = require("%ui/components/unseenComps.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
@@ -14,8 +15,7 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
-let { canShowGameMode, currentGameMode, setGameMode, mainModes, tutorialModes,
-  isGameModeChangedManually } = require("gameModeState.nut")
+let { currentGameMode, setGameMode, mainModes, tutorialModes } = require("gameModeState.nut")
 let {
   seenGamemodes, markSeenGamemode, markOpenedGamemodes
 } = require("seenGameModes.nut")
@@ -25,12 +25,14 @@ let { crossnetworkPlay, needShowCrossnetworkPlayIcon, CrossplayState
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
-let { curSection, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { curSection, jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { Alert } = require("%ui/style/colors.nut")
 let { showVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
-let { curBattleTutorial } = require("%enlist/tutorial/battleTutorial.nut")
+let {
+  curBattleTutorial, curUnfinishedBattleTutorial, markCompleted
+} = require("%enlist/tutorial/battleTutorial.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { hasCustomRooms, openCustomGameMode, openEventsGameMode, eventGameModes
+let { hasCustomRooms, openCustomGameMode, openEventsGameMode, activeEvents
 } = require("eventModesState.nut")
 let { actualizeRoomCfg } = require("%enlist/gameModes/createEventRoomCfg.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
@@ -104,9 +106,9 @@ let customGameMode = Computed(function() {
 
 let mkEventGameMode = @(event) {
   id = "events"
-  image = event?.extraParams.image ?? defCustomGameImage
-  title = loc("events")
-  description = loc(event?.descLocId) ?? loc("events")
+  image = event?.extraParams.imageGameMode ?? defCustomGameImage
+  title = doesLocTextExist(event?.locId) ? loc(event.locId) : loc("events")
+  description = loc(event?.descGameModeLocId ?? "events/descTitle")
   isAvailable = hasValidBalance.value
   isLocal = false
   needShowCrossplayIcon = true
@@ -322,7 +324,7 @@ let showLockedMsgBox = @(level)
       { text = loc("Ok"), isCancel = true}
       { text = loc("GoToCampaign"), action = function() {
         scrollToCampaignLvl(level)
-        setCurSection("SQUADS")
+        jumpToArmyProgress()
       }}
     ]
   })
@@ -330,7 +332,6 @@ let showLockedMsgBox = @(level)
 local gameModeOnClickAction = @(_gameMode) null
 
 gameModeOnClickAction = function(gameMode) {
-  isGameModeChangedManually(true)
   let { id, isAvailable, isLocked, isLocal, lockLevel, isVersionCompatible } = gameMode
 
   if (!isAvailable) {
@@ -359,8 +360,10 @@ gameModeOnClickAction = function(gameMode) {
     showLockedMsgBox(lockLevel)
     return
   }
+  if (curUnfinishedBattleTutorial.value)
+    markCompleted()
+
   setGameMode(id)
-  isGameModeChangedManually(false)
   close()
 }
 
@@ -454,8 +457,8 @@ let function gameModesList() {
     .map(@(mode, idx) mkGameModeButton(mode, idx + 1, seenGM?[mode?.id] ?? false))
     .insert(0, mkTutorialsButton(tutorialUnseen))
 
-  if (eventGameModes.value.len() > 0) {
-    let events = mkEventGameMode(eventGameModes.value[0])
+  if (activeEvents.value.len() > 0) {
+    let events = mkEventGameMode(activeEvents.value[0])
     modes.append(mkCustomGameButton(events,
       seenGM?[events?.id] ?? false,
       mkAnimations(modes.len(), modes.len() + 1)))
@@ -480,7 +483,7 @@ let function gameModesList() {
   return {
     size = flex()
     watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,
-      isTutorialsWndOpened, eventGameModes]
+      isTutorialsWndOpened, activeEvents]
     xmbNode = XmbContainer({
       canFocus = @() false
       scrollSpeed = 10.0
@@ -607,7 +610,6 @@ isOpened.subscribe(function(v) {
 if (isOpened.value)
   sceneWithCameraAdd(changeGameModeWnd, "researches")
 
-canShowGameMode.subscribe(@(v) v ? null : close())
 curSection.subscribe(@(_) close())
 
 return @() isOpened(true)

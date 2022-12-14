@@ -32,7 +32,7 @@ ai_wellington_mk1c{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [-0.3, 0.0, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner1_dm"
       directTurretControl:b=yes
@@ -48,7 +48,7 @@ ai_wellington_mk1c{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner2"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, -2.68221e-07] [0.0, 1.0, 0.0] [2.68221e-07, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, -1.0] [0.4, 0.0, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner2_dm"
       directTurretControl:b=yes
@@ -91,10 +91,10 @@ ai_wellington_mk1c{
   }
 
   "turret_control__emitterNodes:shared:array"{
-    node:t="bomb4"
-    node:t="bomb5"
-    node:t="bomb6"
-    node:t="bomb7"
+    node:t="bomb13"
+    node:t="bomb14"
+    node:t="bomb15"
+    node:t="bomb16"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -103,95 +103,34 @@ ai_wellington_mk1c{
     node:t="flare6"
   }
 
-  "turret_control__animVars:shared:array"{
-
-    "vars:object"{
-      curYawParamName:t="weapon_01_yaw"
-      curPitchParamName:t="weapon_01_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_02_yaw"
-      curPitchParamName:t="weapon_02_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_03_yaw"
-      curPitchParamName:t="weapon_03_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_04_yaw"
-      curPitchParamName:t="weapon_04_pitch"
-    }
-
-    "vars:object"{
-      wishYawParamName:t="gun1_aim:targetYaw"
-      wishPitchParamName:t="gun1_aim:targetPitch"
-      curYawParamName:t="turret1_yaw"
-      curPitchParamName:t="gun1_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="turret1_yaw"
-      curPitchParamName:t="gun1_pitch"
-    }
-
-    "vars:object"{
-      wishYawParamName:t="gun2_aim:targetYaw"
-      wishPitchParamName:t="gun2_aim:targetPitch"
-      curYawParamName:t="turret2_yaw"
-      curPitchParamName:t="gun2_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="turret2_yaw"
-      curPitchParamName:t="gun2_pitch"
-    }
-
-    "vars:object"{
-      wishYawParamName:t="gun3_aim:targetYaw"
-      wishPitchParamName:t="gun3_aim:targetPitch"
-      curYawParamName:t="turret3_yaw"
-      curPitchParamName:t="gun3_pitch"
-    }
-
-    "vars:object"{
-      wishYawParamName:t="gun4_aim:targetYaw"
-      wishPitchParamName:t="gun4_aim:targetPitch"
-      curYawParamName:t="turret4_yaw"
-      curPitchParamName:t="gun4_pitch"
-    }
-  }
-
   "turret_control__turretInfo:shared:array"{
 
     "turretInfo:object"{
       turretName:t="turret_01"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_wellington_mk1c_500lbs_launcher_01"
+      gun:t="planegun_ai_wellington_mk1c_100lb_anm_30_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_02"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_wellington_mk1c_500lbs_launcher_02"
+      gun:t="planegun_ai_wellington_mk1c_100lb_anm_30_launcher_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_wellington_mk1c_500lbs_launcher_03"
+      gun:t="planegun_ai_wellington_mk1c_100lb_anm_30_launcher_03"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_wellington_mk1c_500lbs_launcher_04"
+      gun:t="planegun_ai_wellington_mk1c_100lb_anm_30_launcher_04"
     }
 
     "turretInfo:object"{
@@ -236,13 +175,52 @@ ai_wellington_mk1c{
       gun:t="planegun_ai_wellington_mk1c_7_7mm_vikkersk_turret_02"
     }
   }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb13"
+    node:t="bomb14"
+    node:t="bomb15"
+    node:t="bomb16"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+    node:t="flare4"
+    node:t="flare5"
+    node:t="flare6"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
 }
 
-base_ai_wellington_mk1c_500lbs_launcher{
-  item__name:t="guns/uk_500lbs"
-  gun__blk:t="gamedata/weapons/wellington_mk1c/500lbs_launcher.blk"
+base_ai_wellington_mk1c_100lb_anm_30_launcher{
+  item__name:t="guns/us_100lb_anm30"
+  gun__blk:t="gamedata/weapons/wellington_mk1c/100lb_anm_30_launcher.blk"
   gun__shotFreq:r=10.0
-  gun__locName:t="uk_500lbs"
+  gun__locName:t="us_100lb_anm30"
   gun__shootNodeName:t="bone_mg_gun_twin"
   gun__maxAmmo:i=1
 
@@ -266,8 +244,8 @@ base_ai_wellington_mk1c_500lbs_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/500lbs.blk"
-        name:t="500lbs"
+        blk:t="gamedata/weapons/shells/100lb_anm_30.blk"
+        name:t="100lb_anm_30"
         type:t="he_frag_tank"
       }
     }
@@ -306,36 +284,6 @@ base_ai_wellington_mk1c_7_7mm_browning303_turret{
         name:t="tracer"
         type:t="t_ball"
       }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
-        name:t="ap"
-        type:t="ap_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_api_bullet.blk"
-        name:t="api"
-        type:t="ap_i_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
-        name:t="incendiary"
-        type:t="i_ball"
-      }
     }
   }
 }
@@ -372,67 +320,43 @@ base_ai_wellington_mk1c_7_7mm_vikkersk_turret{
         name:t="tracer"
         type:t="t_ball"
       }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
-        name:t="ap"
-        type:t="ap_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
-        name:t="incendiary"
-        type:t="i_ball"
-      }
     }
   }
 }
 
-planegun_ai_wellington_mk1c_500lbs_launcher_01{
-  _extends:t="ai_500lbs_launcher"
-  _extends:t="base_ai_wellington_mk1c_500lbs_launcher"
-  _extends:t="gunsound_500lbs_launcher_aircraft"
-  gun__shootNodeName:t="bomb4"
-  slot_attach__slotName:t="bomb4"
+planegun_ai_wellington_mk1c_100lb_anm_30_launcher_01{
+  _extends:t="ai_100lb_anm_30_launcher"
+  _extends:t="base_ai_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb13"
+  slot_attach__slotName:t="bomb13"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_wellington_mk1c_500lbs_launcher_02{
-  _extends:t="ai_500lbs_launcher"
-  _extends:t="base_ai_wellington_mk1c_500lbs_launcher"
-  _extends:t="gunsound_500lbs_launcher_aircraft"
-  gun__shootNodeName:t="bomb5"
-  slot_attach__slotName:t="bomb5"
+planegun_ai_wellington_mk1c_100lb_anm_30_launcher_02{
+  _extends:t="ai_100lb_anm_30_launcher"
+  _extends:t="base_ai_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb14"
+  slot_attach__slotName:t="bomb14"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_wellington_mk1c_500lbs_launcher_03{
-  _extends:t="ai_500lbs_launcher"
-  _extends:t="base_ai_wellington_mk1c_500lbs_launcher"
-  _extends:t="gunsound_500lbs_launcher_aircraft"
-  gun__shootNodeName:t="bomb6"
-  slot_attach__slotName:t="bomb6"
+planegun_ai_wellington_mk1c_100lb_anm_30_launcher_03{
+  _extends:t="ai_100lb_anm_30_launcher"
+  _extends:t="base_ai_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb15"
+  slot_attach__slotName:t="bomb15"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_wellington_mk1c_500lbs_launcher_04{
-  _extends:t="ai_500lbs_launcher"
-  _extends:t="base_ai_wellington_mk1c_500lbs_launcher"
-  _extends:t="gunsound_500lbs_launcher_aircraft"
-  gun__shootNodeName:t="bomb7"
-  slot_attach__slotName:t="bomb7"
+planegun_ai_wellington_mk1c_100lb_anm_30_launcher_04{
+  _extends:t="ai_100lb_anm_30_launcher"
+  _extends:t="base_ai_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb16"
+  slot_attach__slotName:t="bomb16"
   gun__maxAmmo:i=1
 }
 

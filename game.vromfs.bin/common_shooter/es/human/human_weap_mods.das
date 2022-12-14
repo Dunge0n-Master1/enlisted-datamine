@@ -65,8 +65,8 @@ def set_lookat_from_sight_node(cur_time : float;
     return
 
   let nodeDir = -DPoint3(gun_tm[2])
-  let wposRelScalar = animchar.nodeTree |> geomtree_getNodeWposRel(optics_cam_node)
-  let wtmOfs = animchar.nodeTree |> geomtree_getWtmOfs()
+  let wposRelScalar = *animchar.nodeTree |> geomtree_getNodeWposRel(optics_cam_node)
+  let wtmOfs = *animchar.nodeTree |> geomtree_getWtmOfs()
   var wpos = DPoint3(wposRelScalar) + DPoint3(wtmOfs)
 
   query(bindedCamera) <| $ [es] (fov : float;
@@ -158,7 +158,7 @@ def human_weap_mod_activate(eid : EntityId;
                              weapon_mod__deactivateTime : float;
                              gun__ammo : int;
                              gun__totalAmmo : int;
-                             ramrodGun : Tag?)
+                             ramrodGun : Tag const?)
       if weapon_mod__active == activate || (
         ramrodGun != null && gun__ammo == 0 && gun__totalAmmo == 0)
         return
@@ -282,6 +282,6 @@ def human_optics_init_cam_node(evt : Event;
                                animchar : AnimcharBaseComponent;
                                gunmod__camNode : string;
                                var gunmod__camNodeId : int&)
-  gunmod__camNodeId = geomtree_findNodeIndex(animchar.nodeTree, gunmod__camNode)
+  gunmod__camNodeId = geomtree_findNodeIndex(*animchar.nodeTree, gunmod__camNode)
   if gunmod__camNodeId < 0
     logerr("node '{gunmod__camNode}' not found in animchar of gun '{getEntityTemplateName(eid)}'")

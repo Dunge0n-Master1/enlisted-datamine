@@ -1,4 +1,5 @@
 require ecs
+require game.es.binocular_common
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
@@ -35,6 +36,8 @@ def binocular_on_switch_event(evt : CmdSwitchBinocular;
   if !human_binocular__eid || isInVehicle && !human_vehicle__canHoldWeapon
     return
 
+  let binocularSlot = HUWeaponSlots EWS_PRIMARY
+
   human_binocular__binocularSwitchRequested = true
   human_binocular__binocularSwitchRequestedMode = !human_binocular__mode
 
@@ -43,14 +46,17 @@ def binocular_on_switch_event(evt : CmdSwitchBinocular;
     reset_weapon_state(human_net_phys.phys)
 
   if human_binocular__mode
-    if human_binocular__prevGunSlot != -1 && evt.choosePrevGunSlot
+    if human_binocular__prevGunSlot != -1 && evt.choosePrevGunSlot == BinocularChooseWeapSlotMode ChoosePrevGunSlot
       set_chosen_weapon(human_net_phys.phys.producedCT, HUWeaponSlots(human_binocular__prevGunSlot))
-    elif !human_binocular__prevGunInBinocSlotEid
-      switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
+    elif evt.choosePrevGunSlot == BinocularChooseWeapSlotMode ChooseFirstWeapWithAmmo
+      using() <| $(var gunEids : EidList#)
+        gunEids := human_weap__gunEids
+        gunEids[int(binocularSlot)] = human_binocular__prevGunInBinocSlotEid
+        switch_to_first_weap_with_ammo(gunEids, human_net_phys.phys)
     human_binocular__prevGunSlot = -1
   else
     human_binocular__prevGunSlot = int(curWeapState.curSlot)
-    set_chosen_weapon(human_net_phys.phys.producedCT, HUWeaponSlots EWS_PRIMARY)
+    set_chosen_weapon(human_net_phys.phys.producedCT, binocularSlot)
 
   sendEvent(eid, [[CmdInterruptReloadImmediately]])
 
@@ -181,7 +187,7 @@ def binocular_update_cockpit(info : UpdateStageInfoAct;
                                                 var transform : float3x4&)
     query(human_binocular__eid) <| $ [es] (animchar : AnimcharBaseComponent; gunmod__camNodeId : int)
       var baseTm : float3x4
-      geomtree_getNodeWtmScalar(animchar.nodeTree, gunmod__camNodeId, baseTm)
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, gunmod__camNodeId, baseTm)
 
       transform[2] = human_net_phys.phys.producedCT.wishLookDir // forward
       transform[1] = baseTm[2] // up
@@ -197,7 +203,7 @@ def binocular_update_cockpit(info : UpdateStageInfoAct;
 
 [es(tag=gameClient, track=(human_binocular__mode, human_binocular__cockpitEid, human_net_phys__curMoveState, human_net_phys__standState, possessedByPlr), REQUIRE=possessedByPlr)]
 def binocular_update_visibility(evt : Event;
-                                hero : Tag?;
+                                hero : Tag const?;
                                 attaches_list : EidList;
                                 human_net_phys__curMoveState : int;
                                 human_net_phys__standState : int;

@@ -18,7 +18,7 @@ let { getClassNameWithGlyph } = require("%enlSqGlob/ui/soldierClasses.nut")
 let viewItemScene = require("components/viewItemScene.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
-let { campaignName, btnSizeSmall, btnSizeBig, weapInfoBtn
+let { campaignName, btnSizeSmall, btnSizeBig, weapInfoBtn, rewardToScroll
 } = require("components/campaignPromoPkg.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
 
@@ -52,35 +52,31 @@ let newSquadBlock = @(armyId, sClassId){
       valign = ALIGN_CENTER
       children = [
         classIcon(armyId, sClassId, hdpx(30), {
-          vplace = ALIGN_BOTTOM, hplace = ALIGN_RIGHT, size = SIZE_TO_CONTENT})
+          vplace = ALIGN_BOTTOM, hplace = ALIGN_RIGHT })
         className(sClassId).__update({ color = Color(255, 255,255) }).__update(body_txt)
       ]
     }
   ]
 }
 
-let perkDescBlock = @(armyId, perk, isPrime){
+let starterPerkBlock = @(armyId, perk) perk == null ? null : {
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   valign = ALIGN_CENTER
   gap = bigPadding
-  children = perk
-    ? [
-        {
-          rendObj = ROBJ_TEXT
-          text = loc("squads/starterPerk")
-          color = accentTitleTxtColor
-        }.__update(sub_txt)
-        {
-          rendObj = ROBJ_TEXTAREA
-          behavior = Behaviors.TextArea
-          size = [flex(), SIZE_TO_CONTENT]
-          text = isPrime
-            ? loc("squads/primeStarterPerks")
-            : mkPerkDesc(armyId, perksList?[perk])
-        }.__update(sub_txt)
-      ]
-    : null
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      text = loc("squads/starterPerk")
+      color = accentTitleTxtColor
+    }.__update(sub_txt)
+    {
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      size = [flex(), SIZE_TO_CONTENT]
+      text = mkPerkDesc(armyId, perksList?[perk])
+    }.__update(sub_txt)
+  ]
 }
 
 let mkSquadDescBlock = @(text, style = {}){
@@ -92,11 +88,20 @@ let mkSquadDescBlock = @(text, style = {}){
   text
 }.__update(sub_txt, style)
 
-
-
+let primePerkBlock = @(primeDesc){
+  flow = FLOW_VERTICAL
+  size = [flex(), SIZE_TO_CONTENT]
+  gap = bigPadding
+  children = [
+    mkSquadDescBlock(loc("squads/primeStarterPerks"), {color = accentTitleTxtColor})
+    mkSquadDescBlock(loc(primeDesc))
+  ]
+}
 
 let function mkClassDescBlock(params = {}){
-  let {armyId, newClass, newPerk = null, isPrimeSquad = false, isSmall = false, override = {}} = params
+  let {
+    armyId, newClass, newPerk = null, isPrimeSquad = false, isSmall = false, override = {}
+  } = params
   let descTxt = loc($"squadPromo/{newClass}/shortDesc")
   let primeDesc = loc($"soldierClass/{newClass}/desc")
   let defStats = loc($"squadPromo/{newClass}/longDesc")
@@ -111,8 +116,8 @@ let function mkClassDescBlock(params = {}){
     gap = localGap
     children = [
       newSquadBlock(armyId, newClass)
-      perkDescBlock(armyId, newPerk, isPrimeSquad)
-      isPrimeSquad && !isSmall ? mkSquadDescBlock(primeDesc)
+      starterPerkBlock(armyId, newPerk)
+      isPrimeSquad && !isSmall ? primePerkBlock(primeDesc)
         : isSmall ? mkSquadDescBlock(descTxt)
         : null
       isSmall ? null : mkSquadDescBlock(defStats)
@@ -120,7 +125,7 @@ let function mkClassDescBlock(params = {}){
   }.__update(override)
 }
 
-let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0) {
+let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0, scrollPosition = null) {
   let item = findItemTemplate(allItemTemplates, armyId, itemId)
   if (item == null)
     return null
@@ -160,7 +165,10 @@ let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0) {
           watchElemState(@(sf){
             rendObj = ROBJ_BOX
             behavior = Behaviors.Button
-            onClick = @() viewItemScene(itemToView)
+            onClick = function() {
+              rewardToScroll(scrollPosition)
+              viewItemScene(itemToView)
+            }
             borderWidth = hdpx(1)
             size
             halign = ALIGN_CENTER
@@ -180,8 +188,8 @@ let function mNewItemBlock(armyId, itemId, size, isSmall = false, idx = 0) {
     : null
 }
 
-let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon,
-  hasReceived, nameLocId, titleLocId, isPrimeSquad = false, campaignGroup = CAMPAIGN_NONE
+let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon, hasReceived,
+  nameLocId, titleLocId, unlockInfo, isPrimeSquad = false, campaignGroup = CAMPAIGN_NONE
 ) {
     return {
       size = [flex(), ph(60)]
@@ -204,7 +212,8 @@ let mkSquadBodyBottomSmall = kwarg(function(armyId, newClass, newPerk, newWeapon
               halign = ALIGN_RIGHT
               margin = [0,bigPadding,0,0]
               maxWidth = hdpx(600)
-              children = mNewItemBlock(armyId, newWeapon[0], sizeNewWeaponSmall, true)
+              children = mNewItemBlock(armyId, newWeapon[0], sizeNewWeaponSmall, true, 0,
+                unlockInfo.unlockUid)
             }
           ]
         }
@@ -428,7 +437,7 @@ let function soldiersCountDesc(classes){
     children = [
       primeDescTitle(null, countOverall, null, null, {
         rendObj = ROBJ_TEXT
-        text = loc("squads/soldiers")
+        text = loc("squads/soldiers", { count =  countOverall } )
         margin = [hdpx(7),0]
       }.__update(body_txt))
       {
@@ -441,7 +450,7 @@ let function soldiersCountDesc(classes){
   }
 }
 
-let function primeDescBlock(squadCfg){
+let function primeDescBlock(squadCfg, addObject = null) {
   let rank = squadCfg.startSoldiers[0].tier
   let perksCount = squadCfg.startSoldiers[0].level - 1
   let { announceLocId, vehicleType = "", battleExpBonus = 0.0 } = squadCfg
@@ -470,7 +479,7 @@ let function primeDescBlock(squadCfg){
             ? soldiersCountDesc(soldierClasses)
             : primeDescription({soldierCount = soldierClasses.values()[0],
                                 soliderClass = soldierClasses.keys()[0]},
-                                loc("squads/primeSoldiersCount"))
+                                loc("squads/primeSoldiersCount", { count = squadCfg.size }))
           primeDescription({rank}, loc(hasVehicle
             ? "squads/primeMaxRankVehicle"
             : "squads/primeMaxRankInfantry",
@@ -491,7 +500,14 @@ let function primeDescBlock(squadCfg){
             loc("squads/primeMoreExp"))
         ]
       }
-      mkDescBlock(announceLocId)
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        children = [
+          mkDescBlock(announceLocId)
+          addObject
+        ]
+      }
     ]
   }
 }

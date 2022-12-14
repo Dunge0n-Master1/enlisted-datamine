@@ -87,9 +87,26 @@ level{
   }
 }
 
+menu_level{
+  _extends:t="level"
+
+  "level__renderFeaturesOverrides:object"{
+    microdetails:b=yes
+    clusteredLights:b=yes
+    fullDeferred:b=yes
+    wake:b=yes
+    ripples:b=yes
+    downsampledShadows:b=yes
+  }
+
+  "menu_level:tag"{
+  }
+}
+
 water{
   _singleton:b=yes
   _extends:t="replicating"
+  _extends:t="underwater_sound"
   waterTrail__cascadeArea:r=128.0
   waterTrail__cascadeAreaMul:r=2.5
   waterTrail__quadHeight:r=20.0
@@ -135,15 +152,6 @@ water{
     }
   }
 
-  _group{
-    _tags:t="sound"
-    underwater_sound__path:t="ambient/camera_underwater"
-    underwater_sound__frame:i=0
-
-    "underwater_sound__event:SoundEvent"{
-    }
-  }
-
   water{
   }
 }
@@ -174,11 +182,11 @@ distant_haze{
   distant_haze__is_center_fixed:b=no
   distant_haze__center:p2=0.0, 0.0
   distant_haze__radius:r=400.0
-  distant_haze__total_height:r=30.0
+  distant_haze__total_height:r=35.0
   distant_haze__fade_in_bottom:r=5.0
   distant_haze__fade_out_top:r=10.0
   distant_haze__size:r=12.0
-  distant_haze__strength:r=0.17
+  distant_haze__strength:r=0.11
   distant_haze__blur:r=0.3
   distant_haze__speed:p3=0.05, 0.9, 0.017
 }

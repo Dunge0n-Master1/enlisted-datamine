@@ -7,7 +7,7 @@ let scrollbar = require("%ui/components/scrollbar.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { inbox, clearAll, markReadAll, hasUnread, isMailboxVisible, onNotifyRemove, onNotifyShow
-} = require("mailboxState.nut")
+} = require("%enlist/mainScene/invitationsLogState.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 
 let MAILBOX_MODAL_UID = "mailbox_modal_wnd"

@@ -55,6 +55,7 @@ def ui_crosshair_state_es(info : RenderEventUI;
                           ui_crosshair_state__ineffectiveColor : E3DCOLOR;
                           ui_crosshair_state__effectiveColor : E3DCOLOR;
                           ui_crosshair_state__possibleEffectiveColor : E3DCOLOR;
+                          ui_crosshair_state__allowShooting : bool;
                           var ui_crosshair_state__reloadEndTime : float&;
                           var ui_crosshair_state__reloadTotalTime : float&;
                           var ui_crosshair_state__canShoot : bool&;
@@ -86,14 +87,14 @@ def ui_crosshair_state_es(info : RenderEventUI;
   var ownTeam = TEAM_UNASSIGNED
   var intersectionEid = INVALID_ENTITY_ID
   var gunTraceLen = 0.0
-  var human : HumanActor? = null
+  var human : HumanActor const? = null
   query(hero) <| $ [es] (isInVehicle aka hero_isInVehicle : bool = false;
                          human_weap__mortarMode : bool = false;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                          team : int = TEAM_UNASSIGNED;
                          human_weap__traceIntersectedEid : EntityId = INVALID_ENTITY_ID;
                          human_weap__tracerayLen : float = 0.0;
-                         human_net_phys : HumanActor?)
+                         human_net_phys : HumanActor const?)
     isInVehicle = hero_isInVehicle
     mortarMode = human_weap__mortarMode
     attachedGunEid = human_attached_gun__attachedGunEid
@@ -117,8 +118,8 @@ def ui_crosshair_state_es(info : RenderEventUI;
 
   ui_crosshair_state__isAiming = (human != null && phys.currentState.isAiming)
 
-  if is_human_allowed_shooting(hero)
-    query(gunEid) <| $ [es] (gun : Gun; gun__timeBetweenShotsIsReload : Tag?; gun__overheat : float = 0.0)
+  if ui_crosshair_state__allowShooting && is_human_allowed_shooting(hero)
+    query(gunEid) <| $ [es] (gun : Gun; gun__timeBetweenShotsIsReload : Tag const?; gun__overheat : float = 0.0)
       ui_crosshair_state__canShoot = true
       spread = gun |> lerpSpread(curTime)
       ui_crosshair_state__overheat = gun__overheat
@@ -156,21 +157,6 @@ def ui_crosshair_state_es(info : RenderEventUI;
     if ui_crosshair_state__canShoot
       let targetPos = tracePos + traceDir * gunTraceLen
       ui_crosshair_state__aimPos = uiViewTm * targetPos
-
-  find_query() <| $ [es] (game_effect__attachedTo : EntityId;
-                          game_effect__landingCrosshairPos : float3;
-                          game_effect__isLandingCrosshairActive : bool)
-    if !game_effect__isLandingCrosshairActive
-      return false
-
-    if game_effect__attachedTo != hero
-      return false
-
-    ui_crosshair_state__aimPos = uiViewTm * game_effect__landingCrosshairPos
-    ui_crosshair_state__canShoot = true
-    spread = float2(1.0, 1.0)
-
-    return false
 
   ui_crosshair_state__canShoot = ui_crosshair_state__canShoot && ui_crosshair_state__aimPos.z > 1e-4
 

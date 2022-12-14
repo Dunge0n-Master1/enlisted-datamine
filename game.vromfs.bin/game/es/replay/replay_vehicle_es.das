@@ -17,7 +17,7 @@ def private set_turret_watched(turret_control__gunEids : EidList; seat__ownerCon
     if !canControlTurret
       continue
 
-    query(turretEid) <| $ [es(REQUIRE=isTurret)] (firstWatchedTurret : Tag?)
+    query(turretEid) <| $ [es(REQUIRE=isTurret)] (firstWatchedTurret : Tag const?)
       if firstWatchedTurret == null
         addSubTemplate(turretEid, "first_watched_turret")
       foundTurret = turretEid

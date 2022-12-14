@@ -32,7 +32,7 @@ def next_bullet_id_request_es(evt : CmdNextBulletIdRequest; eid : EntityId)
                      gun__ammoSets : Array;
                      gun__ammo_by_shell : IntList;
                      turret__triggerGroup : int;
-                     gun__reloadFinishTime : float?)
+                     gun__reloadFinishTime : float const?)
     if turret__owner == vehicleEid && turret__triggerGroup == evt.triggerGroup
       nextBulletId = find_next_available_bullet_id(nextBulletId, gun__ammo_by_shell, length(gun__ammoSets))
       sendEvent(vehicleEid, [[EventOnSelectNextBulletId gunEid=eid, nextBulletId=nextBulletId]])

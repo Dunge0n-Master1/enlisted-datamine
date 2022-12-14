@@ -21,8 +21,6 @@ def inventory_use_item_server_es(evt : EventUseItem;
                                  fortification_repair__active : bool;
                                  entity_mods__itemUseTimeMult : float = 1f;
                                  entity_mods__targetUseTimeMult : float = 1f;
-                                 human_inventory__canUseItems : bool = true;
-                                 hitpoints__canSelfReviveByHealing : bool = false;
                                  isDowned : bool = false;
                                  var human_inventory__entityToUse : EntityId&)// todo: optional
   let item = evt.item
@@ -38,10 +36,6 @@ def inventory_use_item_server_es(evt : EventUseItem;
 
   if !doesEntityExist(item)
     sendEventImmediate(eid, [[EventInterruptItemUse]])
-    return
-
-  if !human_inventory__canUseItems || (isDowned && !hitpoints__canSelfReviveByHealing)
-    sendEvent(eid, [[EventOnActionDisabled action="use_locked"]])
     return
 
   if human_inventory__entityToUse == item
@@ -70,7 +64,6 @@ def inventory_use_item_server_es(evt : EventUseItem;
 [es(tag=netClient, REQUIRE=human_inventory)]
 def inventory_use_item_client_es(evt : EventUseItem;
                                  eid : EntityId;
-                                 human_inventory__canUseItems : bool = true;
                                  human_inventory__entityToUse : EntityId) // todo: optional
   let item = evt.item
   if !item
@@ -80,10 +73,7 @@ def inventory_use_item_client_es(evt : EventUseItem;
     sendEventImmediate(eid, [[EventInterruptItemUse]])
     return
 
-  if human_inventory__canUseItems
-    send_net_event(eid, [[HumanUseItemRequest item=item, target=evt.target]])
-    return
-  sendEvent(eid, [[EventOnActionDisabled action="use_locked"]])
+  send_net_event(eid, [[HumanUseItemRequest item=item, target=evt.target]])
 
 [es(tag=server, REQUIRE=human_inventory)]
 def inventory_use_item_request_es(evt : HumanUseItemRequest; eid : EntityId)

@@ -94,7 +94,7 @@ let notEnoughMoneyInfo = @(price, currencyId) {
 local function show(price, currencyId, purchase, fullPrice = null, title = "", productView = null,
   description = null, purchaseCurrency = null, dontShowMeTodayId = null, srcWindow = null,
   srcComponent = null, alwaysShowCancel = false, showOnlyWhenNotEnoughMoney = false,
-  gap = defGap, additionalButtons = []
+  gap = defGap, additionalButtons = [], purchaseText = null
 ) {
   let bqBuyCurrency = @() sendBigQueryUIEvent("action_buy_currency", srcWindow, srcComponent)
   let currency = currenciesById.value?[currencyId]
@@ -130,7 +130,7 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
   let buttons = Computed(function() {
     if (!notEnoughMoney.value)
       return [{
-        text = loc("btn/buy")
+        text = purchaseText ?? loc("btn/buy")
         action = function() {
           purchase()
           bqBuyCurrency()

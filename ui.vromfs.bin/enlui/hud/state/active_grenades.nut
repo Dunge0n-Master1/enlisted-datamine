@@ -16,12 +16,12 @@ let {
 
 
 let function getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower) {
-  if (grenadeOwner == heroEid && heroEid != INVALID_ENTITY_ID && grenadeOwner != INVALID_ENTITY_ID)
+  if (grenadeOwner == heroEid && heroEid != ecs.INVALID_ENTITY_ID && grenadeOwner != ecs.INVALID_ENTITY_ID)
     return true
   let heroTeam = watchedTeam.value
   if (!is_teams_friendly(heroTeam, getTeam(grenadeOwner)))
     return true
-  if (grenadeRethrower != INVALID_ENTITY_ID && !is_teams_friendly(heroTeam, getTeam(grenadeRethrower)))
+  if (grenadeRethrower != ecs.INVALID_ENTITY_ID && !is_teams_friendly(heroTeam, getTeam(grenadeRethrower)))
     return true
   return false
 }
@@ -35,7 +35,7 @@ ecs.register_es(
       else{
         let grenadeOwner = comp["shell__owner"]
         let grenadeRethrower = comp["shell__rethrower"]
-        let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
+        let heroEid = watchedHeroEid.value ?? ecs.INVALID_ENTITY_ID
         let willDamageHero = getWillDamageHero(heroEid, grenadeOwner, grenadeRethrower)
         active_grenades_UpdateEid(eid, {
             willDamageHero
@@ -51,8 +51,8 @@ ecs.register_es(
   {
     comps_ro = [
       ["shell__explTime", ecs.TYPE_FLOAT, 0.0],
-      ["shell__owner", ecs.TYPE_EID, INVALID_ENTITY_ID],
-      ["shell__rethrower", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["shell__owner", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+      ["shell__rethrower", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["hud_marker__max_distance", ecs.TYPE_FLOAT, 10.0]
     ]
     comps_track = [["active", ecs.TYPE_BOOL]]

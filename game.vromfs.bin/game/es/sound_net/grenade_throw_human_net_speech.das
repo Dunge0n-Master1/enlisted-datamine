@@ -11,4 +11,4 @@ def grenade_throw_human_net_speech(evt : EventOnGrenadeThrow; eid : EntityId)
   if shellSoundNetProps != null
     let phrase : string = (*shellSoundNetProps).throwPhrase
     if !empty(phrase)
-      sendEvent(eid, [[CmdRequestHumanSpeech phrase=phrase, importance=1.]])
+      sendEvent(eid, [[CmdRequestHumanSpeech phrase=phrase]])

@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
@@ -68,7 +69,7 @@ return function () {
     hplace = ALIGN_CENTER
     vplace = ALIGN_BOTTOM
 
-    children = selectedBombSite.value == INVALID_ENTITY_ID ? null
+    children = selectedBombSite.value == ecs.INVALID_ENTITY_ID ? null
       : isBombPlanted.value ? defuse_indicator
       : isPlanting.value ? plant_indicator
       : reset_indicator

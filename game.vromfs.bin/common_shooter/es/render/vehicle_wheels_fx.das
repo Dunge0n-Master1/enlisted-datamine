@@ -13,37 +13,70 @@ require game.es.vehicle.vehicle_events
 require AnimV20
 require GeomNodeTree
 require fx
-
+require ecs.safe
+require strings
+require enlisted.events_enlisted
 
 [soa_template]
 struct trackDirtFxFromBlk
   track_dirt_fx__node : string
+  track_dirt_fx__chassis : string
   track_dirt_fx__physmatFxType : string
   track_dirt_fx__minSpeed : float
   track_dirt_fx__maxSpeed : float
   track_dirt_fx__speedMult : float
   track_dirt_fx__driven : bool
   track_dirt_fx__atGround : bool
-  node_emitter_offsets : float3
 
 [soa_template]
 struct trackDirtFxForStore
   track_dirt_fx__nodeId : int
   track_dirt_fx__matFxTypeId : int
   track_dirt_fx__effectsEid : EntityId
-  track_dirt_fx__fxId : int
+  track_dirt_fx__matId : int
 
-def private spawn_effect(eid : EntityId; emm_tm : float3x4&; matName : string&; matFxTypeId : int)
-  var result = INVALID_ENTITY_ID
+[es(on_appear)]
+def global_track_fx_info_init(evt : Event;
+                              global_track_fx__materialGroups : Object;
+                              var global_track_fx__materialToGroupMap : Object&)
+  for elem in global_track_fx__materialGroups
+    let matGroupName = elem.key
+    let mats = get_ecs_StringList(elem.value)
+    if mats == null
+      logerr("global_track_fx_info_init: wrong value type for element in global_track_fx__materialGroups; should be 'list<t>'")
+      continue
+    for mat in *mats
+      global_track_fx__materialToGroupMap |> set(string(mat), matGroupName)
+
+
+def get_effect_name(eid : EntityId; mat_name : string; mat_fx_type_id : int; chassis : string)
+  var matGroup : string
+
+  find_query() <| $ [es] (global_track_fx__materialToGroupMap : Object)
+    matGroup = global_track_fx__materialToGroupMap[mat_name] ?? ""
+    if !empty(matGroup)
+      matGroup = "group__" + matGroup
+    return true
+
+  var fxName : string
   query(eid) <| $ [es] (track_fx__info : Object; track_fx__default : Object)
-    var fxName = matFxTypeId == 1 ? get_string(track_fx__default, "fx_front", "") : get_string(track_fx__default, "fx_back", "")
-    var fxObj = get_ecs_object(track_fx__info, matName)
-    if fxObj != null
-      fxName = matFxTypeId == 1 ? get_string(fxObj, "fx_front", "") : get_string(fxObj, "fx_back", "")
-    result = createEntity("hit_fx_readback_info") <| $(init)
-      init |> set("transform", emm_tm)
-      init |> set("hit_fx_name", fxName)
-  return result
+    let matFxType = mat_fx_type_id == 1 ? "fx_top" : "fx_bottom"
+    var fxInfoByChassis = track_fx__info[chassis] ?as Object
+    var fxInfoByMat = fxInfoByChassis?[mat_name] ?as Object
+    if fxInfoByMat == null && !empty(matGroup)
+      fxInfoByMat = fxInfoByChassis?[matGroup] ?as Object
+    fxName = fxInfoByMat?[matFxType] ?? ""
+    if empty(fxName)
+      fxInfoByChassis = track_fx__default[chassis] ?as Object
+      fxName = fxInfoByChassis?[matFxType] ?? ""
+  return fxName
+
+def spawn_effect(fx_name : string; emm_tm : float3x4&)
+  if empty(fx_name)
+    return INVALID_ENTITY_ID
+  return createEntity("hit_fx_readback_info") <| $(init)
+    init |> set("transform", emm_tm)
+    init |> set("hit_fx_name", fx_name)
 
 [es(tag = render, on_disappear, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
 def das_clear_vehicle_dirt_fx_es(evt : Event;
@@ -58,22 +91,26 @@ def das_fill_vehicle_dirt_fx_es(evt : Event;
                                 var trackDirtFxForStore : trackDirtFxForStore_SOA)
   for elem in trackDirtFxFromBlk
     trackDirtFxForStore |> push() <| [[trackDirtFxForStore
-          track_dirt_fx__nodeId=geomtree_findNodeIndex(animchar.nodeTree, string(elem.track_dirt_fx__node)),
-          track_dirt_fx__matFxTypeId= get_mat_fx_type_id(string(elem.track_dirt_fx__physmatFxType)),
+          track_dirt_fx__nodeId=geomtree_findNodeIndex(*animchar.nodeTree, string(elem.track_dirt_fx__node)),
+          track_dirt_fx__matFxTypeId=(elem.track_dirt_fx__physmatFxType == "front" ? 1 : 0),
           track_dirt_fx__effectsEid=INVALID_ENTITY_ID,
-          track_dirt_fx__fxId= -1
+          track_dirt_fx__matId=-1
         ]]
 
+
 [soa_es, es(tag = render, after=das_fill_vehicle_dirt_fx_es, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
-def das_vehicle_dirt_fx_es(info : UpdateStageInfoAct;
+def das_vehicle_dirt_fx_es(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            transform : float3x4&;
                            animchar__updatable : bool;
                            vehicle_net_phys : VehiclePhysActor;
                            animchar : AnimcharBaseComponent;
+                           track_dirt_fx__updateInterval : float;
+                           animchar__visible : bool = true;
                            track_dirt_fx__thresholdDist : float = 250.f;
                            trackDirtFxFromBlk : trackDirtFxFromBlk_SOA;
-                           var trackDirtFxForStore : trackDirtFxForStore_SOA)
+                           var trackDirtFxForStore : trackDirtFxForStore_SOA;
+                           var track_dirt_fx__updateAtTime : float&)
   if (int(vehicle_net_phys.phys.currentState.wheelCount) == 0)
     return
   let camItm = get_TMatrix(get_cur_cam_entity(), "transform")
@@ -81,27 +118,14 @@ def das_vehicle_dirt_fx_es(info : UpdateStageInfoAct;
     return
   let camPos = (*camItm)[3]
   let vehiclePos = transform[3]
-  if (!animchar__updatable || distance_sq(vehiclePos, camPos) > (track_dirt_fx__thresholdDist * track_dirt_fx__thresholdDist))
+  if (!animchar__visible || !animchar__updatable || distance_sq(vehiclePos, camPos) > (track_dirt_fx__thresholdDist * track_dirt_fx__thresholdDist))
     // reset effects if we're too far away
     for elem in trackDirtFxForStore
-      if (elem.track_dirt_fx__fxId < 0)
+      if elem.track_dirt_fx__matId < 0
         continue
-      elem.track_dirt_fx__fxId = -1
+      elem.track_dirt_fx__matId = -1
       destroyEntity(elem.track_dirt_fx__effectsEid)
     return
-  var dirtSpawnRateMult = 0.f
-  var matName = "sand"
-  var lastWheelId = -1
-  for i in range(int(vehicle_net_phys.phys.currentState.wheelCount))
-    let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, i)
-    var spawnRateMult = 1.f
-    if (wheel.lastMatId >= 0)
-      lastWheelId = wheel.lastMatId
-      track_dirt_mat_fx_get_props(int(wheel.lastMatId)) <| $(matProps : TrackDirtMatFxProps)
-        spawnRateMult = matProps.spawnRateMult
-        matName = string(matProps.matName)
-    dirtSpawnRateMult += spawnRateMult
-  dirtSpawnRateMult /= float(vehicle_net_phys.phys.currentState.wheelCount)
 
   let velocity = vehicle_net_phys.phys |> vehicle_phys_getCurrentStateVelocity()
   let omega = vehicle_net_phys.phys |> vehicle_phys_getCurrentStateOmega()
@@ -110,16 +134,46 @@ def das_vehicle_dirt_fx_es(info : UpdateStageInfoAct;
   let isOnGroundLeft = vehicle_net_phys.phys.currentState.leftTrack.isOnGround
   let isOnGroundRight = vehicle_net_phys.phys.currentState.rightTrack.isOnGround
 
+  var dirtSpawnRateMult : float[2]
+  var wheelSideCount : int[2]
+  var furthestX : double[2]
+  var matName : string[2]
+  var matId : int[2]
+
+  for i in range(int(vehicle_net_phys.phys.currentState.wheelCount))
+    let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, i)
+    let isLeft = float(wheel.pos.z) > 0.
+    let trackSpd = isLeft ? leftTrackSpeed : rightTrackSpeed
+    let sideIndex = isLeft ? 1 : 0
+
+    wheelSideCount[sideIndex] += 1
+
+    var spawnRateMult = 1.f
+    if (wheel.lastMatId >= 0)
+      track_dirt_mat_fx_get_props(int(wheel.lastMatId)) <| $(matProps : TrackDirtMatFxProps)
+        spawnRateMult = matProps.spawnRateMult
+
+        let adjustedX = trackSpd < 0.0 ? wheel.pos.x : -wheel.pos.x
+        if adjustedX > furthestX[sideIndex]
+          furthestX[sideIndex] = adjustedX
+          matName[sideIndex] = string(matProps.matName)
+          matId[sideIndex] = wheel.lastMatId
+    dirtSpawnRateMult[sideIndex] += spawnRateMult
+  for dirtSpawnRateMultElem, wheelSideCountElem in dirtSpawnRateMult, wheelSideCount
+    dirtSpawnRateMultElem = safediv(dirtSpawnRateMultElem, float(wheelSideCountElem))
+
   for elemBlk, elemStore in trackDirtFxFromBlk, trackDirtFxForStore
+    if elemStore.track_dirt_fx__nodeId < 0
+      continue
     var emmTm : float3x4 = IDENT_TM
-    geomtree_getNodeWtmScalar(animchar.nodeTree, elemStore.track_dirt_fx__nodeId, emmTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, elemStore.track_dirt_fx__nodeId, emmTm)
     let dir = emmTm[1]
     emmTm[1] = emmTm[0]
     emmTm[0] = dir
     emmTm[2] = -emmTm[2]
-    emmTm[3] = emmTm[3] + elemBlk.node_emitter_offsets
+    emmTm[3] = emmTm[3]
     let effTm = inverse(transform) * emmTm
-
+    let matFxTypeId = elemStore.track_dirt_fx__matFxTypeId
     let pointVel = velocity + rotate(emmTm, cross(omega, effTm[3]))
     let groundSpd = dot(pointVel, transform[0])
     let isLeft = effTm[3].z > 0.f
@@ -127,13 +181,16 @@ def das_vehicle_dirt_fx_es(info : UpdateStageInfoAct;
     let trackSpd = elemBlk.track_dirt_fx__driven ? float(isLeft ? leftTrackSpeed : rightTrackSpeed) : groundSpd
     var effectSpd = trackSpd * elemBlk.track_dirt_fx__speedMult
     let trackDir = transform[0]
-    var spawnRate = dirtSpawnRateMult
-    let matFxTypeId = int(elemStore.track_dirt_fx__matFxTypeId)
-    var effectType : int = -1
-    if (lastWheelId >= 0)
-      let getPropsRes = track_dirt_mat_fx_get_props(int(lastWheelId)) <| $(matProps : TrackDirtMatFxProps)
-        if matFxTypeId < length(matProps.effects)
-          effectType = matProps.effects[matFxTypeId]
+    let sideIndex = isLeft ? 1 : 0
+
+    if info.curTime > track_dirt_fx__updateAtTime && elemStore.track_dirt_fx__matId != matId[sideIndex]
+      elemStore.track_dirt_fx__matId := matId[sideIndex]
+      destroyEntity(elemStore.track_dirt_fx__effectsEid)
+    if !doesEntityExist(elemStore.track_dirt_fx__effectsEid)
+      let fxName = get_effect_name(eid, matName[sideIndex], matFxTypeId, string(elemBlk.track_dirt_fx__chassis))
+      elemStore.track_dirt_fx__effectsEid = spawn_effect(fxName, emmTm)
+
+    var spawnRate = dirtSpawnRateMult[sideIndex]
     if elemBlk.track_dirt_fx__atGround
       let mult = cvt(1.1f * trackSpd - groundSpd, elemBlk.track_dirt_fx__minSpeed, elemBlk.track_dirt_fx__maxSpeed, 0.f, 1.f)
       spawnRate *= isOnGround ? mult * saturate(abs(groundSpd)) : 0.f
@@ -143,16 +200,12 @@ def das_vehicle_dirt_fx_es(info : UpdateStageInfoAct;
 
     let vel = pointVel + trackDir * abs(effectSpd)
 
-    if (elemStore.track_dirt_fx__fxId >= 0 && elemStore.track_dirt_fx__fxId != effectType)
-      elemStore.track_dirt_fx__fxId = -1
-      destroyEntity(elemStore.track_dirt_fx__effectsEid)
-    if (!doesEntityExist(elemStore.track_dirt_fx__effectsEid)  && effectType >= 0)
-      elemStore.track_dirt_fx__effectsEid = spawn_effect(eid, emmTm, matName, matFxTypeId)
-      if (doesEntityExist(elemStore.track_dirt_fx__effectsEid))
-        elemStore.track_dirt_fx__fxId = effectType
     query(elemStore.track_dirt_fx__effectsEid) <| $ [es] (var transform : float3x4&;
                                                           var effect__velocity : float3&;
                                                           var effect__spawnRate : float&)
       effect__velocity = vel
       transform = emmTm
       effect__spawnRate = spawnRate
+
+  if info.curTime > track_dirt_fx__updateAtTime
+    track_dirt_fx__updateAtTime = info.curTime + track_dirt_fx__updateInterval

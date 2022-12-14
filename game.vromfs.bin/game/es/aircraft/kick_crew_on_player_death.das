@@ -7,7 +7,7 @@ def kick_crew_on_player_death(evt : EventEntityDied; eid aka killed_soldier_eid 
   if !possessedByPlr
     return
   query(human_anim__vehicleSelected) <| $ [es(REQUIRE=kickCrewOnPlayerDeath)] (vehicle_seats__seatEids : EidList;
-                                                                               deadIfNoCrewLeft : Tag?;
+                                                                               deadIfNoCrewLeft : Tag const?;
                                                                                var isAlive : bool&)
     for seatEid in vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__ownerEid : EntityId)

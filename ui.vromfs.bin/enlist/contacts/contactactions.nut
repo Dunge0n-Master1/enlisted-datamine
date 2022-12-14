@@ -16,7 +16,8 @@ let { approvedUids, myRequestsUids, requestsToMeUids, rejectedByMeUids,
   isInternalContactsAllowed, psnBlockedUids, xboxBlockedUids, friendsUids, blockedUids
 } = require("%enlist/contacts/contactsWatchLists.nut")
 let { execContactsCharAction, getContactsInviteId } = require("contactsState.nut")
-let { canInterractCrossPlatform, consoleCompare } = require("%enlSqGlob/platformUtils.nut")
+let { canInterractCrossPlatform, consoleCompare, canInterractCrossPlatformByCrossplay
+} = require("%enlSqGlob/platformUtils.nut")
 let { Contact } = require("contact.nut")
 let {get_circuit} = require("app")
 let { get_setting_by_blk_path } = require("settings")
@@ -27,8 +28,8 @@ let { open_player_profile = @(...) null, PlayerAction = null
 
 let { showUserInfo, canShowUserInfo } = require("%enlSqGlob/showUserInfo.nut")
 let { canCrossnetworkChatWithAll,
-  canCrossnetworkChatWithFriends } = require("%enlSqGlob/crossnetwork_state.nut")
-let { removeNotifyById } = require("%enlist/mailboxState.nut")
+  canCrossnetworkChatWithFriends, crossnetworkPlay } = require("%enlSqGlob/crossnetwork_state.nut")
+let { removeNotifyById } = require("%enlist/mainScene/invitationsLogState.nut")
 
 /*************************************** ACTIONS LIST *******************************************/
 
@@ -47,11 +48,9 @@ let actions = {
       && !isInMySquad(userId, squadMembers)
       && availableSquadMaxMembers.value > 1
       && !isInvitedToSquad.value?[userId.tointeger()]
-      && canInterractCrossPlatform(
+      && canInterractCrossPlatformByCrossplay(
         Contact(userId).value.realnick,
-        userId in friendsUids.value
-          ? canCrossnetworkChatWithFriends.value
-          : canCrossnetworkChatWithAll.value
+        crossnetworkPlay.value
       )
       && userId not in meInBlacklistUids.value
       && userId not in blockedUids.value
@@ -64,11 +63,9 @@ let actions = {
     mkIsVisible = @(userId) Computed(@() canInviteToRoom.value
       && userId.tointeger() not in playersWaitingResponseFor.value
       && !isInMyRoom(userId.tointeger())
-      && canInterractCrossPlatform(
+      && canInterractCrossPlatformByCrossplay(
         Contact(userId).value.realnick,
-        userId in friendsUids.value
-          ? canCrossnetworkChatWithFriends.value
-          : canCrossnetworkChatWithAll.value
+        crossnetworkPlay.value
       ))
     action = @(userId) inviteToRoom(userId.tointeger())
   }
@@ -121,11 +118,9 @@ let actions = {
     icon = fa["user-plus"]
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && (userId in requestsToMeUids.value || userId in rejectedByMeUids.value)
-      && canInterractCrossPlatform(
+      && canInterractCrossPlatformByCrossplay(
         Contact(userId).value.realnick,
-        userId in friendsUids.value
-          ? canCrossnetworkChatWithFriends.value
-          : canCrossnetworkChatWithAll.value
+        crossnetworkPlay.value
       )
     )
     action      = function(userId) {

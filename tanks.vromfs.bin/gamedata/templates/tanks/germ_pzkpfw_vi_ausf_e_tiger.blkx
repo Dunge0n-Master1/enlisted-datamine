@@ -12,7 +12,6 @@ germ_pzkpfw_VI_ausf_E_tiger_normandy{
 
 germ_pzkpfw_VI_ausf_E_tiger_common{
   _extends:t="base_pzkpfw_vi_ausf_e_tiger"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.1

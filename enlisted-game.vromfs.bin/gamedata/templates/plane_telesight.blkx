@@ -12,4 +12,24 @@ plane_telesight{
 
   "attached_gun_scope__currentEid:eid"{
   }
+
+  _group{
+    _tags:t="render"
+    scope_reticle_shader_name:t="scope_reticle"
+
+    "scope_reticle_radius:ShaderVar"{
+    }
+
+    "scope_reticle_world_tm_0:ShaderVar"{
+    }
+
+    "scope_reticle_world_tm_1:ShaderVar"{
+    }
+
+    "scope_reticle_world_tm_2:ShaderVar"{
+    }
+
+    "scope_reticle_shader:ShadersECS"{
+    }
+  }
 }

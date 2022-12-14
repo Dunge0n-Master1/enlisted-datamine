@@ -59,7 +59,7 @@ class InConcussion : BehNodeAdapter
     isStarted = false
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_FAILED
     let has_concussion = has_concussion_affect(agent.eid)
@@ -142,7 +142,7 @@ class ValidateStandPositionNode : BehNodeAdapter
     wishPosParam = owner.blackBoard |> get_or_create("wishPosition", agent.pos)
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_SUCCESS
     var phys = agent.phys
@@ -355,7 +355,7 @@ def try_find_points_near_cap_zone(agent; var pos : float3&)
       return false
 
     for _i in range(5)
-      let biasAngle = rnd_float(0.0, 2.0 * PI)
+      let biasAngle = rnd_float(0.0, TWOPI)
       let radiusExt = 1.5
       let horzExt = 1.5
       let biasPos = float3(capzone__minRadius * cos(biasAngle) * radiusExt,
@@ -511,7 +511,7 @@ class FindPointNearCapzone : BehNodeAdapter
       query(beh_tree_eid()) <| $ [es] (team aka owner_team : int;
                                        transform aka agent_transform : float3x4;
                                        var beh_tree__capzoneOfInterest : EntityId&)
-        query() <| $ [es(tag=capzone)] (eid : EntityId)
+        query() <| $ [es(REQUIRE=capzone)] (eid : EntityId)
           capturedZonesMap[uint(eid)] = 0u
 
         query() <| $ [es] (team aka agent_team : int;
@@ -785,14 +785,14 @@ class InteractWithBuildingTarget : BehNodeAdapter
     endAtTimeLimit = -1.0
 
   def override exit()
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     var phys = agent.phys
     if phys != null
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, false)
     send_net_event(agent.eid, [[EventSetBuildingTarget target = INVALID_ENTITY_ID]])
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_FAILED
     var phys = agent.phys
@@ -851,6 +851,7 @@ class CheckVehicleSeats : BehNodeAdapter
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
           var doNotChangeSeat = false
           query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState;
+                                    seat__commonTurretControlMask : uint;
                                     seat__ownerEid : EntityId;
                                     seats_order__canPlaceManually : bool;
                                     seats_switch_time__time : float;
@@ -858,9 +859,9 @@ class CheckVehicleSeats : BehNodeAdapter
             if seat__ownerEid == eid
               walkerSeatNo = seatNo
               walkerRoomSpace = seat__roomSpace
-              canWalkerControlTurrets = seat__availableControls.canControlTurrets
+              canWalkerControlTurrets = (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
               isWalkerSeatCanPlaceMan = seats_order__canPlaceManually
-              let isCurrentlyDriver = seat__availableControls.canControlVehicleOnly
+              let isCurrentlyDriver = seat__availableControls.canControlVehicle
               let alreadyChangingSeat = seats_switch_time__time > 0.0
               if isCurrentlyDriver || alreadyChangingSeat
                 doNotChangeSeat = true
@@ -884,18 +885,19 @@ class CheckVehicleSeats : BehNodeAdapter
 
         for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
           query(seatEid) <| $ [es] (seat__availableControls : VehicleControlsState;
+                                    seat__commonTurretControlMask : uint;
                                     seat__ownerEid : EntityId;
                                     seats_order__canPlaceManually : bool;
                                     seats_order__isExtraPlace : bool = false;
                                     seats_order__notForBots : bool = false;
                                     seats_switch_time__time : float;
                                     seats_switch_time__newSeatNo : int;
-                                    seat__loaderTurretIds : IntList?;
+                                    seat__loaderTurretIds : IntList const?;
                                     seat_perks__vehicleReloadMult : float = 1.;
                                     seat__adjacentSeat : int = -1;
                                     seat__isLocked : bool = false;
                                     seat__roomSpace : int = -1;
-                                    seatsCommander : Tag?)
+                                    seatsCommander : Tag const?)
             let canMoveToSeatRoom = canChangeRoomNow || walkerRoomSpace == seat__roomSpace || walkerRoomSpace < 0 || seat__roomSpace < 0
             if !canMoveToSeatRoom || seat__isLocked
               return
@@ -918,9 +920,9 @@ class CheckVehicleSeats : BehNodeAdapter
             if isSeatAcceptable
               if seatsCommander != null
                 add_to_set(seatsCommand, seatNo)
-              elif seat__availableControls.canControlVehicleOnly
+              elif seat__availableControls.canControlVehicle
                 add_to_set(seatsDrivers, seatNo)
-              elif seat__availableControls.canControlTurrets
+              elif (seat__availableControls.turretsMask & ~seat__commonTurretControlMask) != 0u
                 add_to_set(isSeatCanPlaceMan && !seats_order__isExtraPlace ? seatsGunners : seatsMoreGunners, seatNo)
               elif (seat_perks__vehicleReloadMult < 1.0) || (seat__loaderTurretIds != null && length(*seat__loaderTurretIds) > 0)
                 add_to_set(seatsLoaders, seatNo)
@@ -2443,9 +2445,6 @@ class GetAgentAIPos : BehNodeAdapter
     if outPosParam >= 0
       owner.blackBoard |> set(outPosParam, agent.pos)
     return EBehResult ER_SUCCESS
-
-def x0z(f : float3)
-  return float3(f.x, 0., f.z)
 
 // 105, -105, -120, 120, 90, -90 degrees table
 let GetPointAroundAIPos_cosMxSide = [[float[6]- 0.2588190451; -0.2588190451; -0.50000000000; -0.50000000000;  0.;  0.]]

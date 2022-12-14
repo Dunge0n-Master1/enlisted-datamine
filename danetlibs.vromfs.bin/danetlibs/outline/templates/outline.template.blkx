@@ -6,6 +6,9 @@ outline_renderer{
 
   "outline_renderer:OutlineRenderer"{
   }
+
+  "outline_render_node:FrameGraphNodePtr"{
+  }
 }
 
 outlined_item{

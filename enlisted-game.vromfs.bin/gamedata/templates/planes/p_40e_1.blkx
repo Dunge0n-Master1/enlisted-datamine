@@ -29,6 +29,13 @@ p_40e_1{
         turret:t="turret_07"
         turret:t="turret_08"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -297,7 +304,7 @@ planegun_p_40e_1_12_7mm_browning50_early_01{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_1_12_7mm_browning50_early_02{
@@ -306,7 +313,7 @@ planegun_p_40e_1_12_7mm_browning50_early_02{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=291
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_1_12_7mm_browning50_early_03{
@@ -315,7 +322,7 @@ planegun_p_40e_1_12_7mm_browning50_early_03{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=240
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_1_12_7mm_browning50_early_04{
@@ -324,7 +331,7 @@ planegun_p_40e_1_12_7mm_browning50_early_04{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=240
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_1_12_7mm_browning50_early_05{
@@ -333,7 +340,7 @@ planegun_p_40e_1_12_7mm_browning50_early_05{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare5"
-  gun__maxAmmo:i=291
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_1_12_7mm_browning50_early_06{
@@ -342,7 +349,7 @@ planegun_p_40e_1_12_7mm_browning50_early_06{
   _extends:t="base_p_40e_1_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare6"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 }
 
 p_40e_1_driver_cockpit{
@@ -353,4 +360,24 @@ p_40e_1_driver_cockpit{
   animchar__res:t="p_40e_cockpit_char"
   plane_anim__blk:t="gamedata/units/p_40e_1.blk"
   plane_sight__blk:t="gamedata/units/p_40e_1.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.01, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    rot:p2=0.0, 0.0
+    rot:p2=0.0, 0.0
+  }
 }

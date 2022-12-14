@@ -20,6 +20,10 @@ wellington_mk1c{
       roomSpace:i=0
 
       "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
       }
     }
 
@@ -35,8 +39,8 @@ wellington_mk1c{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_01"
-        turret:t="turret_02"
+        turret:t="turret_05"
+        turret:t="turret_06"
       }
     }
 
@@ -52,8 +56,8 @@ wellington_mk1c{
       roomSpace:i=2
 
       "turretNames:array"{
-        turret:t="turret_03"
-        turret:t="turret_04"
+        turret:t="turret_07"
+        turret:t="turret_08"
       }
     }
 
@@ -69,7 +73,7 @@ wellington_mk1c{
       roomSpace:i=3
 
       "turretNames:array"{
-        turret:t="turret_05"
+        turret:t="turret_09"
       }
     }
 
@@ -85,12 +89,16 @@ wellington_mk1c{
       roomSpace:i=4
 
       "turretNames:array"{
-        turret:t="turret_06"
+        turret:t="turret_10"
       }
     }
   }
 
   "turret_control__emitterNodes:shared:array"{
+    node:t="bomb13"
+    node:t="bomb14"
+    node:t="bomb15"
+    node:t="bomb16"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -100,6 +108,26 @@ wellington_mk1c{
   }
 
   "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="weapon_01_yaw"
+      curPitchParamName:t="weapon_01_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_02_yaw"
+      curPitchParamName:t="weapon_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_03_yaw"
+      curPitchParamName:t="weapon_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_04_yaw"
+      curPitchParamName:t="weapon_04_pitch"
+    }
 
     "vars:object"{
       paramMinPitchAngle:t="turret1_min_pitch_angle"
@@ -188,41 +216,69 @@ wellington_mk1c{
 
     "turretInfo:object"{
       turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_wellington_mk1c_100lb_anm_30_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_wellington_mk1c_100lb_anm_30_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_wellington_mk1c_100lb_anm_30_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_wellington_mk1c_100lb_anm_30_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_browning303_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_02"
+      turretName:t="turret_06"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_browning303_turret_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_03"
+      turretName:t="turret_07"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_browning303_turret_03"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_04"
+      turretName:t="turret_08"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_browning303_turret_04"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_05"
+      turretName:t="turret_09"
       turretGroup:t="turrets_gunner2"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_vikkersk_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_06"
+      turretName:t="turret_10"
       turretGroup:t="turrets_gunner3"
       trigger:t="machine_guns"
       gun:t="planegun_wellington_mk1c_7_7mm_vikkersk_turret_02"
@@ -230,6 +286,10 @@ wellington_mk1c{
   }
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb13"
+    node:t="bomb14"
+    node:t="bomb15"
+    node:t="bomb16"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -239,6 +299,10 @@ wellington_mk1c{
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
     fx:t="muzzle_air_8mm"
     fx:t="muzzle_air_8mm"
     fx:t="muzzle_air_8mm"
@@ -254,30 +318,34 @@ wellington_mk1c{
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
   }
 }
 
-base_wellington_mk1c_7_7mm_vikkersk_turret{
-  item__name:t="guns/gunvikkersk_turret"
-  gun__blk:t="gamedata/weapons/wellington_mk1c/7_7mm_vikkersk_turret.blk"
-  gun__shotFreq:r=15.8333
-  gun__locName:t="gunvikkersk_turret"
+base_wellington_mk1c_100lb_anm_30_launcher{
+  item__name:t="guns/us_100lb_anm30"
+  gun__blk:t="gamedata/weapons/wellington_mk1c/100lb_anm_30_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="us_100lb_anm30"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=483
+  gun__maxAmmo:i=1
 
   "gun__firingModes:array"{
 
     "mode:object"{
-      modeType:t="automatic"
+      modeType:t="manual"
     }
   }
 
   "gun__firingModeNames:array"{
-    mode:t="automatic"
+    mode:t="bolt_action"
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=483
+    ammo:i=1
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -285,33 +353,9 @@ base_wellington_mk1c_7_7mm_vikkersk_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
-        name:t="tracer"
-        type:t="t_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
-        name:t="ap"
-        type:t="ap_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
-        name:t="ball"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
-        name:t="incendiary"
-        type:t="i_ball"
+        blk:t="gamedata/weapons/shells/100lb_anm_30.blk"
+        name:t="100lb_anm_30"
+        type:t="he_frag_tank"
       }
     }
   }
@@ -381,6 +425,102 @@ base_wellington_mk1c_7_7mm_browning303_turret{
       }
     }
   }
+}
+
+base_wellington_mk1c_7_7mm_vikkersk_turret{
+  item__name:t="guns/gunvikkersk_turret"
+  gun__blk:t="gamedata/weapons/wellington_mk1c/7_7mm_vikkersk_turret.blk"
+  gun__shotFreq:r=15.8333
+  gun__locName:t="gunvikkersk_turret"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=483
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=483
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_g_mk6z_tracer_bullet.blk"
+        name:t="tracer"
+        type:t="t_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_w_mk1z_ap_bullet.blk"
+        name:t="ap"
+        type:t="ap_ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk7_ball_bullet.blk"
+        name:t="ball"
+        type:t="ball"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/7_7x56mm_mk1_incendiary_bullet.blk"
+        name:t="incendiary"
+        type:t="i_ball"
+      }
+    }
+  }
+}
+
+planegun_wellington_mk1c_100lb_anm_30_launcher_01{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb13"
+  slot_attach__slotName:t="bomb13"
+  gun__maxAmmo:i=1
+}
+
+planegun_wellington_mk1c_100lb_anm_30_launcher_02{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb14"
+  slot_attach__slotName:t="bomb14"
+  gun__maxAmmo:i=1
+}
+
+planegun_wellington_mk1c_100lb_anm_30_launcher_03{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb15"
+  slot_attach__slotName:t="bomb15"
+  gun__maxAmmo:i=1
+}
+
+planegun_wellington_mk1c_100lb_anm_30_launcher_04{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_wellington_mk1c_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb16"
+  slot_attach__slotName:t="bomb16"
+  gun__maxAmmo:i=1
 }
 
 planegun_wellington_mk1c_7_7mm_browning303_turret_01{

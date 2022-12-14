@@ -1,0 +1,26 @@
+base_91mm_germ_smoke_grenade_launcher{
+  item__name:t="guns/91mm_germ_smoke_grenade_launcher"
+  gun__blk:t="gamedata/gen/weapons/91mm_germ_smoke_grenade_launcher.blk"
+  gun__shotFreq:r=40.0
+  gun__locName:t="91mm_germ_smoke_grenade_launcher"
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/91mm_germ_smoke_grenade_launcher_defaultset.blk"
+        name:t="76mm_smoke_grenade"
+        type:t="smoke_grenade_tank"
+      }
+    }
+  }
+}
+
+tankgun_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_smoke_grenade_launcher"
+  _extends:t="base_91mm_germ_smoke_grenade_launcher"
+  _extends:t="gunsound_91mm_germ_smoke_grenade_launcher"
+  turret__triggerGroup:i=3
+}

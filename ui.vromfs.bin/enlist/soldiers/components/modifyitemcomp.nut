@@ -20,6 +20,7 @@ let { diffUpgrades } = require("itemDetailsPkg.nut")
 let { markUpgradesUsed } = require("%enlist/soldiers/model/unseenUpgrades.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
+let { mkCounter } = require("%enlist/shop/mkCounter.nut")
 
 let mkTextArea = @(txt) {
   rendObj = ROBJ_TEXTAREA
@@ -215,37 +216,55 @@ let function openUpgradeItemMsg(currentItem, upgradeData) {
 
 let function openDisposeItemMsg(currentItem, disposeData) {
   let {
-    iGuid, armyId, itemBaseTpl, orderTpl, orderCount, isDestructible, isRecyclable
+    armyId, itemBaseTpl, orderTpl, orderCount, isDestructible, isRecyclable, guids
   } = disposeData
-  if (iGuid == null) {
+  if (guids == null) {
     msgbox.show({ text = loc("unlinkBeforeDispose") })
     return
   }
-
+  let countWatched = Watched(1)
   let buttons = [
     isRecyclable
-      ? { text = loc("btn/recycle"), isCurrent = true, action = @() disposeItem(iGuid) }
+      ? {
+          text = loc("btn/recycle")
+          isCurrent = true
+          action = @() disposeItem(guids, countWatched.value)
+          customStyle = {
+            hotkeys = [[ "^J:Y | Enter | Space" ]]
+          }
+        }
       : {
           text = ""
           isCurrent = true
-          action = @() disposeItem(iGuid)
+          action = @() disposeItem(guids, countWatched.value)
           customStyle = {
             isEnabled = true
             textCtor = @(_textField, params, handler, group, sf)
               textButtonTextCtor({
-                flow = FLOW_HORIZONTAL
-                valign = ALIGN_CENTER
-                margin = textMargin
-                children = mkTextRow(loc("btn/acquire"),
-                  @(t) txt(t).__update({ color = sf & S_HOVER ? TextHover : TextNormal }, body_txt),
-                  {
-                    ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
-                      currencyTpl = orderTpl
-                      count = orderCount
-                      textStyle = { color = sf & S_HOVER ? TextHover : TextNormal }.__update(body_txt)
-                    })
-                  })
+                children = @(){
+                  flow = FLOW_HORIZONTAL
+                  valign = ALIGN_CENTER
+                  margin = textMargin
+                  watch = countWatched
+                  children = mkTextRow(loc("btn/acquire"),
+                    @(text) {
+                      rendObj = ROBJ_TEXT
+                      text
+                      color = sf & S_HOVER ? TextHover : TextNormal
+                    }.__update(body_txt),
+                    {
+                      ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
+                        currencyTpl = orderTpl
+                        count = orderCount * countWatched.value
+                        textStyle = {
+                          color = sf & S_HOVER ? TextHover : TextNormal
+                        }.__update(body_txt)
+                      })
+                    }
+                  )
+                }
               }, params, handler, group, sf)
+            hotkeys = [[ "^J:Y | Enter | Space" ]]
           }.__update(primaryFlatButtonStyle)
         }
     { text = loc("Cancel"), isCancel = true }
@@ -284,16 +303,20 @@ let function openDisposeItemMsg(currentItem, disposeData) {
     ]
   }
 
+  let guidsCount = guids.len()
   let content = {
     size = [sw(90), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = fsh(5)
     halign = ALIGN_CENTER
     children = [
-      txt(loc(isRecyclable ? "recycleItemMsgHeader"
-        : isDestructible ? "disposeItemMsgHeader"
-        : "downgradeItemMsgHeader")
-      ).__update({ hplace = ALIGN_CENTER }, body_txt)
+      {
+        rendObj = ROBJ_TEXT
+        text = loc(isRecyclable ? "recycleItemMsgHeader"
+          : isDestructible ? "disposeItemMsgHeader"
+          : "downgradeItemMsgHeader")
+        hplace = ALIGN_CENTER
+        margin = [0, 0, fsh(5), 0]
+      }.__update(body_txt)
       {
         flow = FLOW_HORIZONTAL
         gap = 5 * bigPadding
@@ -301,6 +324,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
         padding = 5 * bigPadding
         children
       }
+      !isDestructible || guidsCount <= 1 ? null : mkCounter(guidsCount, countWatched)
     ]
   }
 

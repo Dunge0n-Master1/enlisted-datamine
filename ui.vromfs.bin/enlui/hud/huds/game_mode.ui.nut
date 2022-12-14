@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
@@ -278,7 +279,7 @@ let function escortBlock() {
   let lineLength = pointCount > 0 ? escortPointsBlockLength / pointCount : escortPointsBlockLength
   local progressOffset = 0
 
-  local isPastCapture = trainPathCapzones.value == INVALID_ENTITY_ID
+  local isPastCapture = trainPathCapzones.value == ecs.INVALID_ENTITY_ID
   foreach (zoneEid in trainPathCapzones.value) {
     let offset = index * lineLength
     if (zoneEid == nextTrainCapzoneEid.value) {

@@ -22,34 +22,43 @@ def human_inventory_interrupt_item_use_base(cur_time : float;
                                             isInVehicle : bool;
                                             human_freefall__isFreefall : bool;
                                             burning__isBurning : bool;
-                                            parachuteDeployed : Tag?)
+                                            parachuteDeployed : Tag const?)
   assume currentState = human_net_phys.phys.currentState
+  assume previousState = human_net_phys.phys.previousState
   let standing = currentState.moveState == HUMoveState EMS_STAND
+  let isStartAiming = currentState.zoomPosition > previousState.zoomPosition
+  let isHctZoomViewBit = is_control_bit_set(ct, HumanPhysControlType HCT_ZOOM_VIEW)
   var interruptsReloading = false
   var canUseWhileSwimming = false
   var canUseUnderWater = false
   var shouldIgnoreAim = false
   var shouldIgnoreLmb = false
   var stopUseWhileBurning = false
-  query(human_inventory__entityToUse) <| $ [es] (item__interruptsReloading : Tag?;
-                                                 item__canUseWhileSwimmingStill : Tag?;
-                                                 item__canUseWhileSwimming : Tag?;
-                                                 item__canUseUnderWater : Tag?;
-                                                 item__ignoreAimInterrupt : Tag?;
-                                                 item__ignoreLmbInterrupt : Tag?;
-                                                 item__stopUseWhileBurning : Tag?)
+  var stopUseWhileJumping = false
+  var stopUseWhileAiming = false
+  query(human_inventory__entityToUse) <| $ [es] (item__interruptsReloading : Tag const?;
+                                                 item__canUseWhileSwimmingStill : Tag const?;
+                                                 item__canUseWhileSwimming : Tag const?;
+                                                 item__canUseUnderWater : Tag const?;
+                                                 item__ignoreAimInterrupt : Tag const?;
+                                                 item__ignoreLmbInterrupt : Tag const?;
+                                                 item__stopUseWhileBurning : Tag const?;
+                                                 item__stopUseWhileJumping : Tag const?;
+                                                 item__stopUseWhileAiming : Tag const?)
     interruptsReloading = item__interruptsReloading != null
     canUseWhileSwimming = (standing ? item__canUseWhileSwimmingStill : item__canUseWhileSwimming) != null
     canUseUnderWater = item__canUseUnderWater != null
     shouldIgnoreAim = item__ignoreAimInterrupt != null
     shouldIgnoreLmb = item__ignoreLmbInterrupt != null
     stopUseWhileBurning = item__stopUseWhileBurning != null
+    stopUseWhileJumping = item__stopUseWhileJumping != null
+    stopUseWhileAiming = item__stopUseWhileAiming != null
 
   if ((human_weap__reloadFinishTime > cur_time && !interruptsReloading)
       || currentState |> human_phys_state_get_isClimbing()
       || (currentState |> human_phys_state_get_is_swimming() && !canUseWhileSwimming)
       || (currentState |> human_phys_state_get_is_underwater() && !canUseUnderWater)
-      || (ct |> is_control_bit_set(HumanPhysControlType HCT_ZOOM_VIEW) && !shouldIgnoreAim)
+      || (isHctZoomViewBit && !isStartAiming && !shouldIgnoreAim)
       || (ct |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && !shouldIgnoreLmb)
       || ct |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
       || ct |> is_control_bit_set(HumanPhysControlType HCT_THROW)
@@ -57,7 +66,9 @@ def human_inventory_interrupt_item_use_base(cur_time : float;
       || (isInVehicle && currentState.isAiming)
       || human_freefall__isFreefall
       || parachuteDeployed != null
-      || (stopUseWhileBurning && burning__isBurning))
+      || (stopUseWhileBurning && burning__isBurning)
+      || (stopUseWhileJumping && ((uint(currentState.states) & uint(StateFlag ST_JUMP)) != 0u))
+      || (stopUseWhileAiming && isStartAiming && isHctZoomViewBit))
     sendEventImmediate(eid, [[EventInterruptItemUse]])
 
 def is_interrupted_by_moving(human_net_phys : HumanActor; human_inventory__entityToUse : EntityId)
@@ -88,7 +99,7 @@ def human_inventory_interrupt_item_use_server(cur_time : float;
                                               isInVehicle : bool;
                                               human_freefall__isFreefall : bool;
                                               burning__isBurning : bool;
-                                              parachuteDeployed : Tag?)
+                                              parachuteDeployed : Tag const?)
   if is_interrupted_by_moving(human_net_phys, human_inventory__entityToUse)
     sendEventImmediate(eid, [[EventInterruptItemUse]])
     return
@@ -108,7 +119,7 @@ def human_inventory_interrupt_item_use_es(info : UpdateStageInfoAct;
                                           isInVehicle : bool;
                                           burning__isBurning : bool;
                                           human_freefall__isFreefall : bool = false;
-                                          parachuteDeployed : Tag?)
+                                          parachuteDeployed : Tag const?)
   if !!human_inventory__entityToUse
     human_inventory_interrupt_item_use_base(info.curTime, eid, human_inventory__entityToUse, human_net_phys, human_net_phys.phys.producedCT,
                                             human_weap__reloadFinishTime, human_weap__weapModActivateStartTime, isInVehicle,
@@ -124,7 +135,7 @@ def human_inventory_interrupt_item_use_on_post_phys_es(evt : CmdPostPhysUpdate;
                                                        isInVehicle : bool;
                                                        burning__isBurning : bool;
                                                        human_freefall__isFreefall : bool = false;
-                                                       parachuteDeployed : Tag?)
+                                                       parachuteDeployed : Tag const?)
   if !!human_inventory__entityToUse
     human_inventory_interrupt_item_use_server(get_sync_time(), eid, human_inventory__entityToUse, human_net_phys,
                                               human_net_phys.phys.appliedCT, human_weap__reloadFinishTime,
@@ -186,7 +197,7 @@ def human_inventory_interrupt_item_pickup_es(info : ParallelUpdateFrameDelayed;
                                              human_use_object__selectedObject : EntityId;
                                              var human_inventory__selectedItem : EntityId&;
                                              team aka self_team : int = TEAM_UNASSIGNED)
-  var skipLoot = has(human_use_object__selectedObject, "vehicle_seats__seats") || has(human_use_object__selectedObject, "reviveEntity")
+  var skipLoot = has(human_use_object__selectedObject, "vehicle_seats__seats")
   if !skipLoot
     query(human_use_object__selectedObject) <| $ [es] (team : int;
                                                        isDowned : bool)

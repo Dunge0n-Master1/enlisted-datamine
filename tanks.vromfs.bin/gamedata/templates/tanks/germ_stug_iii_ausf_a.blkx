@@ -12,13 +12,35 @@ germ_stug_iii_ausf_a_moscow_premium{
       slot:i=2
       fill:b=yes
     }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
   }
 }
 
 germ_stug_III_ausf_A{
   _extends:t="base_stug_iii_ausf_a"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

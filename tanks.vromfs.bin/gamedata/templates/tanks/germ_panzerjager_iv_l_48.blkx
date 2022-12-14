@@ -2,11 +2,32 @@ germ_panzerjager_IV_L_48{
   _extends:t="germ_panzerjager_IV_L_48_common"
 }
 
+germ_panzerjager_iv_l_48_normandy{
+  _extends:t="germ_panzerjager_IV_L_48_common"
+}
+
 germ_panzerjager_IV_L_48_common{
   _extends:t="base_panzerjager_iv_l_48"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   gunnerFpsCamMaxAngle:p2=8.0, 5.0
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 

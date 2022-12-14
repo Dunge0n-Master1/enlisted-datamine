@@ -8,7 +8,6 @@ ussr_bt_7_1937{
 
 ussr_bt_7_1937_common{
   _extends:t="base_bt_7_1937"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/bt_7_1937.blk:VehiclePhys"
@@ -217,6 +216,61 @@ ussr_bt_7_1937_13th_battlepass_premium{
 
     "bt_7_turret_c*:object"{
       "bt_7_13th_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
+bt_7_1937_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="bt_7_1937_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7_1937_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7_1937_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7_1937_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7_1937_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7_1937_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
     }
   }
 }

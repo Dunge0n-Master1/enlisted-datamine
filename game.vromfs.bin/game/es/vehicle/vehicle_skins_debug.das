@@ -24,7 +24,7 @@ def vehicle_save_skins_to_profile(filter = "_skins";
 
     using() <| $(var regexTester : RegExp#)
       regexTester |> compile(fileRegExp, "", 0)
-      get_templateDB() <| $(name; tmpl)
+      getTemplateDB() |> find_templateDB() <| $(name; tmpl)
         if (regexTester |> test(name, 0)) != 0
           let skins = get_ecs_array(getTemplateComponent(tmpl, "skin__objTexReplace"))
           if skins != null
@@ -36,5 +36,5 @@ def vehicle_save_skins_to_profile(filter = "_skins";
                   let nameWithoutPrefix = replace(name, filter, "")
                   let skinString = "    \"{id}\" => \"{nameWithoutPrefix}\";\n"
                   fw |> df_puts(skinString)
-        return true
+        return false
     fw |> df_puts("\}\}\n")

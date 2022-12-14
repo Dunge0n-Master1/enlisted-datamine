@@ -65,29 +65,6 @@ visual{
   tracer:t="noColor"
 }
 
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
-}
-
 tracer{
   headColor:c=0, 0, 0, 0
   smokeColor:c=0, 0, 0, 0

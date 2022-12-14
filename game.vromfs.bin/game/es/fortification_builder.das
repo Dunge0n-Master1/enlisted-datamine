@@ -1,7 +1,7 @@
 require enlisted.game.es.fortifications_build_common
 require enlisted.events_enlisted
 require RendInst
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require game.utils.team
 require DagorMath
 require math.base
@@ -15,10 +15,10 @@ require player
 def building_fortification_destroy_on_distance(info : UpdateStageInfoAct;
                                                transform aka restricted_zone_transform : float3x4;
                                                building_restricted_zone__updateInterval : float;
-                                               building_restricted_zone__maxAngle : float;
-                                               building_restricted_zone__minDistanceForTeamOffense : float;
-                                               building_restricted_zone__minDistanceForTeamDefense : float;
-                                               capzone__trainOffenseTeam : int;
+                                               building_restricted_zone__maxAngle : float = -1.;
+                                               building_restricted_zone__minDistanceForTeamOffense : float = -1.;
+                                               building_restricted_zone__minDistanceForTeamDefense : float = -1.;
+                                               capzone__trainOffenseTeam : int = TEAM_UNASSIGNED;
                                                var building_restricted_zone__nextUpdateAt : float&)
   if info.curTime < building_restricted_zone__nextUpdateAt
     return
@@ -82,12 +82,12 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
                                             building_builder__minDistanceToMissionRespawns = -1.0;
                                             building_builder__minDistanceToCapturePoints = -1.0;
                                             building_builder__maxUnderwaterDistance = -1.0;
-                                            ri_preview__name : das_string?;
-                                            previewCollres : CollisionResource?;
+                                            ri_preview__name : das_string const?;
+                                            previewCollres : CollisionResource const?;
                                             previewCollobj : CollisionObject;
                                             previewCollobjOffset : float;
                                             buildingCost : float;
-                                            destroyInactiveTimeOut : float?;
+                                            destroyInactiveTimeOut : float const?;
                                             var destroyByInactiveShredderAtTime : float?)
     let buildingPos = transform[3]
     if length_sq(buildingPos - operatorPos) > square(human_use_object__useDist + building_builder__distanceVerifyThreshold)
@@ -129,8 +129,10 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
         sendEvent(operatorEid, [[CmdHeroLogEvent event="building_gun_not_attachable", text="building_gun_not_attachable"]])
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return
-      if is_in_building_restricted_zone(buildingPos, builder_info__team)
-        sendEvent(operatorEid, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text="building_blocked_restricted_zone"]])
+      let restrictedZoneEid = find_building_restricted_zone(buildingPos, builder_info__team)
+      if !!restrictedZoneEid
+        let locId = get_string(restrictedZoneEid, "building_restricted_zone__messageLocId", "building_blocked_restricted_zone")
+        sendEvent(operatorEid, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text=locId]])
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return
       createEntity("{additionalBuildingTemplate}+{instantiateTemplate}") <| $(var init : ComponentsInitializer)

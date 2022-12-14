@@ -22,7 +22,7 @@ attachable_wear_dummy_male_head_01{
   collres__res:t="dummy_male_head_01_collision"
   animchar_hider__camThreshold:r=0.4
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_head"
   }
 
@@ -48,7 +48,7 @@ attachable_wear_dummy_male_left_leg{
   animchar__res:t="dummy_male_left_leg_char"
   collres__res:t="dummy_male_left_leg_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_left_leg"
   }
 
@@ -74,7 +74,7 @@ attachable_wear_dummy_male_right_leg{
   animchar__res:t="dummy_male_right_leg_char"
   collres__res:t="dummy_male_right_leg_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_right_leg"
   }
 
@@ -100,7 +100,7 @@ attachable_wear_dummy_male_right_arm{
   animchar__res:t="dummy_male_right_arm_char"
   collres__res:t="dummy_male_right_arm_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_right_arm"
   }
 
@@ -126,7 +126,7 @@ attachable_wear_dummy_male_left_arm{
   animchar__res:t="dummy_male_left_arm_char"
   collres__res:t="dummy_male_left_arm_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_left_arm"
   }
 
@@ -157,7 +157,7 @@ attachable_wear_dummy_male_pelvis{
   animchar__res:t="dummy_male_pelvis_char"
   collres__res:t="dummy_male_pelvis_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_pelvis"
   }
 
@@ -188,7 +188,7 @@ attachable_wear_dummy_male_spine{
   animchar__res:t="dummy_male_spine_char"
   collres__res:t="dummy_male_spine_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_spine"
   }
 
@@ -215,7 +215,7 @@ attachable_wear_dummy_female_head_01{
   collres__res:t="dummy_female_head_01_collision"
   animchar_hider__camThreshold:r=0.4
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_head"
   }
 
@@ -241,7 +241,7 @@ attachable_wear_dummy_female_left_leg{
   animchar__res:t="dummy_female_left_leg_char"
   collres__res:t="dummy_female_left_leg_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_left_leg"
   }
 
@@ -267,7 +267,7 @@ attachable_wear_dummy_female_right_leg{
   animchar__res:t="dummy_female_right_leg_char"
   collres__res:t="dummy_female_right_leg_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_right_leg"
   }
 
@@ -293,7 +293,7 @@ attachable_wear_dummy_female_right_arm{
   animchar__res:t="dummy_female_right_arm_char"
   collres__res:t="dummy_female_right_arm_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_right_arm"
   }
 
@@ -319,7 +319,7 @@ attachable_wear_dummy_female_left_arm{
   animchar__res:t="dummy_female_left_arm_char"
   collres__res:t="dummy_female_left_arm_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_left_arm"
   }
 
@@ -345,7 +345,7 @@ attachable_wear_dummy_female_pelvis{
   animchar__res:t="dummy_female_pelvis_char"
   collres__res:t="dummy_female_pelvis_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_pelvis"
   }
 
@@ -371,7 +371,7 @@ attachable_wear_dummy_female_spine{
   animchar__res:t="dummy_female_spine_char"
   collres__res:t="dummy_female_spine_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="dummy_spine"
   }
 

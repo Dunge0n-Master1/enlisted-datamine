@@ -8,7 +8,7 @@ let forestallMarkPos = Watched(Point3(0, 0, 0))
 let forestallMarkOpacity = Watched(1.0)
 
 let function updateForestallPos(_eid, comp) {
-  forestallMarkActive.update(comp["target_lock__selectedEntity"] != INVALID_ENTITY_ID)
+  forestallMarkActive.update(comp["target_lock__selectedEntity"] != ecs.INVALID_ENTITY_ID)
   forestallMarkPos.update(comp["forestallPos"])
   forestallMarkOpacity.update(comp["forestallOpacity"])
 }

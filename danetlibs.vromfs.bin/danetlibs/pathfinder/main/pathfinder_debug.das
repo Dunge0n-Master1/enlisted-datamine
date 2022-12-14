@@ -80,9 +80,10 @@ def path_project_to_nearest_navmesh_point_3d(sx, sy, sz : float; ext_x = 0.5; ex
   let start = float3(sx, sy, sz)
   var pos = start
   let ext = float3(ext_x, ext_y, ext_z)
-  let res = project_to_nearest_navmesh_point(pos, ext)
+  var ref : dtPolyRef
+  let res = project_to_nearest_navmesh_point(pos, ext, ref)
   draw_debug_sphere_buffered(start, 0.25f, E3DCOLOR(0xFF0000FF), 12, 2000)
-  console_print("project_to_nearest_navmesh_point({start}, {ext}) == {res}, result position = {pos}")
+  console_print("project_to_nearest_navmesh_point({start}, {ext}) == {res}, (ref {int64(ref)}) result position = {pos}")
   draw_debug_sphere_buffered(pos, 0.3f, E3DCOLOR(0xFF00FF00), 12, 2000)
 
 
@@ -203,8 +204,7 @@ def navmesh_find_poly(sx, sy, sz : float; horz_dist : float = 1f)
   console_print("get_triangle_by_pos({start}, {horz_dist}) == {success}, result tri = {res}")
 
 
-[console_cmd(name="path.find_polys_in_circle")]
-def navmesh_find_polys_in_circle(sx, sy, sz : float; radius : float = 3f)
+def debug_polys_around_point(sx, sy, sz, radius : float)
   var center = float3(sx, sy, sz)
   let maxRad = 50.f
   var r = radius
@@ -218,10 +218,23 @@ def navmesh_find_polys_in_circle(sx, sy, sz : float; radius : float = 3f)
       for i in range(0, length(polyRefs))
         var res : NavMeshTriangle
         if get_triangle_by_poly(dtPolyRef(polyRefs[i]), res)
-          draw_debug_line_buffered(res.p0, res.p1, E3DCOLOR(0xFF0000FF), 300)
-          draw_debug_line_buffered(res.p1, res.p2, E3DCOLOR(0xFF0000FF), 300)
-          draw_debug_line_buffered(res.p2, res.p0, E3DCOLOR(0xFF0000FF), 300)
+          draw_debug_line_buffered(res.p0, res.p1, E3DCOLOR(0xFF0000FF), 7000)
+          draw_debug_line_buffered(res.p1, res.p2, E3DCOLOR(0xFF0000FF), 7000)
+          draw_debug_line_buffered(res.p2, res.p0, E3DCOLOR(0xFF0000FF), 7000)
   console_print("find_polys_in_circle({center}, {r}) == {success}")
+
+
+[console_cmd(name="path.find_polys_in_circle")]
+def navmesh_find_polys_in_circle(sx, sy, sz : float; radius : float = 3f)
+  debug_polys_around_point(sx, sy, sz, radius)
+
+
+[console_cmd(name="path.find_polys_around_camera")]
+def navmesh_find_polys_around_camera(radius : float = 3f)
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if camera__active
+      debug_polys_around_point(transform[3].x, transform[3].y, transform[3].z, radius)
+    return camera__active
 
 
 [console_cmd(name="path.set_poly_area")]
@@ -259,22 +272,22 @@ def draw_poly_info_es(evt : UpdateStageInfoRenderDebug)
   if !cameraFound
     return
 
-  var len = 4000f
+  var len = 4000.
   var norm : float3
   var color = E3DCOLOR(0xFFFFFFFF)
   var matId = PHYSMAT_INVALID
   var riDesc = RendInstDesc()
   let res = traceray_normalized(tracePos, traceDir, len, matId, norm, ETF_ALL, riDesc, -1)
-  let polyPos = tracePos + traceDir * len
+  let polyPos = tracePos + traceDir * (res ? len : 4000.)
   var triangle : NavMeshTriangle
   let polyFound = get_triangle_by_pos(polyPos, 0.5, triangle)
   var desc = "n/a"
   if polyFound
-    desc = "polyId : {triangle.polyRef}"
-    var polyArea = uint8(0)
+    desc = "polyId : {int64(triangle.polyRef)}"
+    var polyArea : uint8
     get_poly_area(triangle.polyRef, polyArea)
-    desc += " area : {polyArea}"
-    var polyFlags = uint16(0)
+    desc += " area : {int(polyArea)}"
+    var polyFlags : uint16
     get_poly_flags(triangle.polyRef, polyFlags)
     desc += " flags : {polyFlags}"
 
@@ -283,11 +296,12 @@ def draw_poly_info_es(evt : UpdateStageInfoRenderDebug)
     draw_cached_debug_line(triangle.p0, triangle.p1, E3DCOLOR(0xFF00FF00))
     draw_cached_debug_line(triangle.p1, triangle.p2, E3DCOLOR(0xFF00FF00))
     draw_cached_debug_line(triangle.p2, triangle.p0, E3DCOLOR(0xFF00FF00))
-    let PolyCenter = (triangle.p0 + triangle.p1 + triangle.p2) / 3.f
-    draw_cached_debug_line(PolyCenter, triangle.p0, E3DCOLOR(0xFF00FF00))
-    draw_cached_debug_line(PolyCenter, triangle.p1, E3DCOLOR(0xFF00FF00))
-    draw_cached_debug_line(PolyCenter, triangle.p2, E3DCOLOR(0xFF00FF00))
+    let polyCenter = (triangle.p0 + triangle.p1 + triangle.p2) / 3.f
+    draw_cached_debug_line(polyCenter, triangle.p0, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(polyCenter, triangle.p1, E3DCOLOR(0xFF00FF00))
+    draw_cached_debug_line(polyCenter, triangle.p2, E3DCOLOR(0xFF00FF00))
     end_draw_cached_debug_lines()
+    print("{desc} ({triangle.p0}, {triangle.p1}, {triangle.p2})")
 
   add_debug_text_mark(polyPos, desc, -1, 0., color)
 
@@ -305,3 +319,17 @@ def is_valid_polyref_test(id : uint64)
 def navmesh_is_valid_polyref_test(id : uint64)
   let res = navmesh_is_valid_poly_ref(id)
   console_print("navmesh_is_valid_poly_ref({id}) == {res}")
+
+
+[console_cmd(name="path.move_along_surface")]
+def move_along_surface_test(sx, sy, sz, ex, ey, ez : float; startPoly = 0ul; endPoly = 0ul)
+  let start = float3(sx, sy, sz)
+  let end = float3(ex, ey, ez)
+  let extents = float3(0.5)
+  using(start, end, extents) <| $(var req : FindRequest#)
+    req.startPoly = dtPolyRef(startPoly)
+    req.endPoly = dtPolyRef(endPoly)
+    let res = move_along_surface(req)
+    let distToStart = distance(start, req.end)
+    let distToEnd = distance(end, req.end)
+    console_print("move_along_surface({start}, {end}) == {res} @{req.end} distToStart:{distToStart} distToEnd:{distToEnd} endPoly:{req.endPoly}")

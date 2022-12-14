@@ -1,4 +1,4 @@
-base_human_melee_sound{
+human_melee_sound{
 
   _group{
     _tags:t="sound"
@@ -10,20 +10,11 @@ base_human_melee_sound{
   }
 }
 
-base_human_action_sfx_sound{
+base_human_melee_action_sound{
 
   _group{
     _tags:t="sound"
-    human_action_sfx_sound__defaultPath:t="impact/melee"
-
-    "human_action_sfx_sound__materials:shared:list<t>"{
-      material:t="default"
-      material:t="concrete"
-      material:t="water"
-      material:t="wood"
-      material:t="metal"
-      material:t="cactus"
-    }
+    human_melee_action_sound__path:t="impact/melee"
   }
 }
 
@@ -31,6 +22,7 @@ base_human_hit_sound{
 
   _group{
     _tags:t="sound"
+    human_hit_sound__headshotSoundEnabled:b=yes
 
     "human_hit_sound__paths:shared:object"{
     }
@@ -79,23 +71,6 @@ base_human_voice_sound{
 
     "human_voice_sound__irqs:shared:object"{
     }
-  }
-}
-
-base_human_fall_sound{
-  _tracked:t="human_fall_sound__isFalling"
-
-  _group{
-    _tags:t="sound"
-    human_fall_sound__isFalling:b=no
-    human_fall_sound__threshold:r=20.0
-  }
-}
-
-base_human_death_sound{
-
-  "humanDeathSound:tag"{
-    _tags:t="sound"
   }
 }
 
@@ -161,13 +136,13 @@ base_human_sound{
   _extends:t="sound_control"
   _extends:t="sound_event_group"
   _extends:t="sound_player_components"
-  _extends:t="base_human_melee_sound"
-  _extends:t="base_human_action_sfx_sound"
+  _extends:t="human_melee_sound"
+  _extends:t="base_human_melee_action_sound"
   _extends:t="base_human_steps_sound"
   _extends:t="base_human_hit_sound"
   _extends:t="base_human_voice_sound"
-  _extends:t="base_human_fall_sound"
-  _extends:t="base_human_death_sound"
+  _extends:t="human_fall_sound"
+  _extends:t="human_death_sound"
   _extends:t="base_human_hit_cry_sound"
   _extends:t="human_voice_effect_drinking"
   _extends:t="human_voice_effect_burning"
@@ -203,7 +178,7 @@ base_human_sound{
     human_sound__buildingTag:t=""
   }
 
-  human_animchar_sound{
+  "human_animchar_sound:HumanAnimcharSound"{
     _tags:t="sound"
   }
 
@@ -289,32 +264,6 @@ human_collision_sound{
     human_collision_sound__torsoContactVelocityMinMax:p2=0.05, 2.0
     human_collision_sound__force:r=0.0
     human_collision_sound__time:r=0.0
-  }
-}
-
-human_idle_sound{
-
-  _group{
-    _tags:t="sound"
-
-    "human_idle_sound__paths:shared:object"{
-    }
-
-    "human_idle_sound__event:SoundEvent"{
-    }
-
-    "humanIdleSound:tag"{
-    }
-  }
-}
-
-human_idle_active_sound{
-  _extends:t="human_idle_sound"
-  _tracked:t="human_idle_sound__isActive"
-
-  _group{
-    _tags:t="sound"
-    human_idle_sound__isActive:b=no
   }
 }
 
@@ -458,6 +407,10 @@ human_sound_paths{
           hero:t="player/walker/ww2_soldier/voice_fx"
         }
       }
+    }
+
+    "heroHitEnemyHead:object"{
+      hero:t="ui/helmet_hit"
     }
   }
 
@@ -805,16 +758,26 @@ human_sound_paths{
   }
 }
 
+human_speech_disable{
+
+  _group{
+    _tags:t="sound"
+
+    "humanSpeechDisable:tag"{
+      _tags:t="sound"
+    }
+  }
+}
+
 human_speech{
   _extends:t="human_voice_enable"
 
   _group{
     _tags:t="sound"
-    human_speech__canSpeak:b=yes
-    human_speech__enable:b=yes
+    human_speech__canSpeak:b=no
   }
 
-  "human_net_speech__time:list<r>"{
+  "human_net_speech__lastNextTime:list<p2>"{
     _tags:t="server"
   }
 
@@ -825,27 +788,35 @@ human_speech{
       name:t="hit"
       teamRange:r=15.0
       type:t="team"
-      minMaxTime:p2=5.0, 60.0
+      minMaxCooldown:p2=10.0, 15.0
+    }
+
+    "speech:object"{
+      id:t="woundedHard"
+      name:t="hit"
+      teamRange:r=15.0
+      type:t="team"
+      minMaxCooldown:p2=3.0, 5.0
     }
 
     "speech:object"{
       id:t="enemyHit"
       name:t="enemy_hit"
-      minMaxTime:p2=5.0, 30.0
+      minMaxCooldown:p2=10.0, 30.0
     }
 
     "speech:object"{
       id:t="enemyKill"
       name:t="enemy_kill"
       chance:i=50
-      minMaxTime:p2=5.0, 30.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
       id:t="enemyExplode"
       name:t="kill_grenade"
       chance:i=75
-      minMaxTime:p2=5.0, 30.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
@@ -853,7 +824,7 @@ human_speech{
       name:t="kill_far"
       chance:i=100
       type:t="possessed"
-      minMaxTime:p2=5.0, 10.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
@@ -861,7 +832,7 @@ human_speech{
       name:t="kill_at_point"
       chance:i=100
       type:t="possessed"
-      minMaxTime:p2=5.0, 10.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
@@ -869,7 +840,7 @@ human_speech{
       name:t="kill_melee"
       chance:i=100
       type:t="possessed"
-      minMaxTime:p2=5.0, 10.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
@@ -877,7 +848,7 @@ human_speech{
       name:t="kill_oneshot"
       chance:i=100
       type:t="possessed"
-      minMaxTime:p2=5.0, 10.0
+      minMaxCooldown:p2=5.0, 10.0
     }
 
     "speech:object"{
@@ -885,7 +856,7 @@ human_speech{
       name:t="headshot"
       chance:i=100
       type:t="possessed"
-      minMaxTime:p2=5.0, 30.0
+      minMaxCooldown:p2=5.0, 5.0
     }
 
     "speech:object"{
@@ -893,7 +864,7 @@ human_speech{
       name:t="friendly_fire"
       chance:i=100
       type:t="team"
-      minMaxTime:p2=5.0, 20.0
+      minMaxCooldown:p2=5.0, 5.0
     }
 
     "speech:object"{
@@ -901,10 +872,10 @@ human_speech{
       name:t="reloading"
       teamRange:r=15.0
       type:t="team"
-      chance:i=90
-      minMaxTime:p2=5.0, 5.0
+      chance:i=80
+      minMaxCooldown:p2=5.0, 10.0
 
-      "disableAfterSpeech:array"{
+      "skipAfterSpeech:array"{
 
         "speech:object"{
           name:t="squadBringAmmoOrder"
@@ -918,7 +889,7 @@ human_speech{
       name:t="capturing_ally"
       teamRange:r=15.0
       type:t="team"
-      minMaxTime:p2=10.0, 10.0
+      minMaxCooldown:p2=10.0, 10.0
     }
 
     "speech:object"{
@@ -926,7 +897,7 @@ human_speech{
       name:t="capturing_enemy"
       teamRange:r=15.0
       type:t="possessed"
-      minMaxTime:p2=10.0, 10.0
+      minMaxCooldown:p2=10.0, 10.0
     }
 
     "speech:object"{
@@ -1101,7 +1072,7 @@ human_speech{
       name:t="mg_overheated"
       type:t="possessed"
       teamRange:r=15.0
-      minMaxTime:p2=20.0, 20.0
+      minMaxCooldown:p2=20.0, 20.0
     }
 
     "speech:object"{
@@ -1115,7 +1086,7 @@ human_speech{
     "speech:object"{
       id:t="vehicleFire"
       name:t="tank_crew_fire_in_tank"
-      minMaxTime:p2=10.0, 15.0
+      minMaxCooldown:p2=10.0, 15.0
       type:t="possessed"
     }
 
@@ -1409,6 +1380,20 @@ human_speech{
       type:t="chat"
       replace:b=yes
     }
+
+    "speech:object"{
+      id:t="qm_request_rally_point"
+      name:t="qm_ask_rally_point"
+      type:t="chat"
+      replace:b=yes
+    }
+
+    "speech:object"{
+      id:t="qm_request_ammo_box"
+      name:t="qm_ask_ammo_box"
+      type:t="chat"
+      replace:b=yes
+    }
   }
 }
 
@@ -1471,7 +1456,7 @@ human_net_sound{
       enemy:t="enemy/walker/ww2_soldier/items/gun/pick"
     }
 
-    "pick_repairKit:object"{
+    "pick_repairkit:object"{
       hero:t="player/walker/ww2_soldier/items/other/pick"
       enemy:t="enemy/walker/ww2_soldier/items/other/pick"
     }
@@ -1505,7 +1490,7 @@ human_net_sound{
       hero:t="player/walker/ww2_soldier/items/other/drop"
     }
 
-    "drop_repairKit:object"{
+    "drop_repairkit:object"{
       hero:t="player/walker/ww2_soldier/items/other/drop"
     }
 
@@ -1541,9 +1526,9 @@ human_net_sound{
       enemy:t="enemy/walker/ww2_soldier/items/gun/use"
     }
 
-    "use_repairKit:object"{
-      hero:t="player/walker/ww2_soldier/items/repairKit/use"
-      enemy:t="enemy/walker/ww2_soldier/items/repairKit/use"
+    "use_repairkit:object"{
+      hero:t="player/walker/ww2_soldier/items/repairkit/use"
+      enemy:t="enemy/walker/ww2_soldier/items/repairkit/use"
     }
 
     "use_other:object"{

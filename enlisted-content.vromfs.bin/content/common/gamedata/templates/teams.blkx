@@ -2,17 +2,11 @@ team_generic{
   _replicated:t="team__memberCount"
   _tracked:t="team__memberCount"
   team__memberCount:r=0.0
-  team__findSafestSpawn:b=no
   team__id:i=-1
   team__locked:b=no
-  team__should_lock:b=no
   team__capacity:i=-1
-  team__maxBotsCount:i=9
   team__shouldReduceBotsCount:b=no
   _extends:t="replicating"
-
-  "team__overrideUnitParam:object"{
-  }
 
   "team__memberEids:list<eid>"{
   }

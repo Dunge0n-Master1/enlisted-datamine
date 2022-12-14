@@ -6,6 +6,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_coast_ruins_dom_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_coastal_area_fx.blk"
+}
+
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -238,16 +246,12 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
-  moveCameraToHeight:r=180.0
-  respawnSelectorDistanceMult:r=1.5
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [225.06, 182.743, 408.722]]
 }
 
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=2
-  moveCameraToHeight:r=180.0
-  respawnSelectorDistanceMult:r=1.5
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [272.655, 188.278, -250.301]]
 }
 
@@ -493,51 +497,6 @@ entity{
 }
 
 entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="chimney_exhaust"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=32.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_sparkles_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_ashes_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
   _template:t="ri_gpu_object"
   ri_gpu_object__grid_size:i=8
   ri_gpu_object__grid_tiling:i=16
@@ -584,36 +543,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-88.7731, 11.4189, -194.751]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [303.06, 5.01036, 62.6414]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [311.345, 4.91337, 147.866]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [583.541, 11.4189, 106.901]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [404.596, 6.12023, -252.788]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [203.425, -6.01961, 335.058]]
-}
-
-entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[0.818128, 0.0366968, -0.573864] [-0.066435, 0.997311, -0.0309381] [0.571186, 0.063436, 0.818366] [312.876, 3.98346, 146.848]]
 }
@@ -629,11 +558,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_big"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [128.926, 8.12428, 58.6612]]
-}
-
-entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[-0.426299, 0.0295553, -0.904099] [-0.0023792, 0.999426, 0.0337934] [0.904579, 0.0165571, -0.425984] [302.563, 3.9284, 61.1107]]
 }
@@ -641,11 +565,6 @@ entity{
 entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[-0.861598, 0.198981, -0.466964] [0.157591, 0.979362, 0.126551] [0.482508, 0.035447, -0.875174] [171.799, 7.26521, 110.016]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [157.859, 7.87563, 141.211]]
 }
 
 entity{
@@ -691,38 +610,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [180.221, 8.41887, 72.8321]]
-}
-
-entity{
   _template:t="m4a2_sherman_1944_turret_destroyed"
   transform:m=[[-0.510732, 0.104357, 0.853383] [-0.0527398, 0.986934, -0.152252] [-0.858121, -0.122767, -0.498555] [144.709, 7.97917, 34.166]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [157.859, 7.83924, 141.211]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [265.158, 35.255, 83.7319]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [12.3854, -6.01961, 326.55]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-542.817, 17.2722, 212.75]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [226.142, 5.25393, 88.6837]]
 }
 
 entity{

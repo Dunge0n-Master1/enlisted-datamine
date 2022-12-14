@@ -98,12 +98,14 @@ def human_common_input_action_triggered_es(evt : EventDaInputActionTriggered;
                                            human_input__crouch : int;
                                            human_input__holdCrouch : int;
                                            human_input__melee : int;
-                                           var human_input__wishMelee : bool&;
+                                           var human_input__meleeInputStartTime : float&;
                                            human_input__reload : int;
                                            human_input__recover : int;
                                            input__enabled : bool;
                                            var human_net_phys : HumanActor&;
                                            var human_input__standState : int&;
+                                           human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
+                                           human_input__shoot : int = -1;
                                            game_effect__dashEndTime : float = 0.f;
                                            game_effect__dashStartTime : float = 0.f;
                                            jetpack__enabled : bool = false;
@@ -117,14 +119,12 @@ def human_common_input_action_triggered_es(evt : EventDaInputActionTriggered;
     return
   if action == human_input__jump
     let dashJump = game_effect__dashEndTime > atTime && game_effect__dashStartTime <= atTime
-    if !human_net_phys.phys.canJump && !jetpack__enabled && !dashJump
-      sendEvent(eid, [[EventOnActionDisabled action="jump_locked"]])
-    else
+    if human_net_phys.phys.canJump || jetpack__enabled || dashJump
       ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_JUMP, true)
       human_input__standState = 0
-  elif action == human_input__melee
+  elif action == human_input__melee || (action == human_input__shoot && get_bool(human_weap__currentGunEid, "gun__melee") ?? false)
     if !bipod__enabled && !is_control_bit_set(ct, HumanPhysControlType HCT_THROW_BACK) && !isInVehicle
-      human_input__wishMelee = true
+      human_input__meleeInputStartTime = atTime
   elif action == human_input__crawl
     if !isInVehicle && !bipod__enabled
       human_input__standState = human_input__standState == int(HumanPhysControlType HCT_CRAWL) ? 0 : int(HumanPhysControlType HCT_CRAWL)
@@ -149,7 +149,12 @@ def reset_melee_action_es(evt : CmdPostPhysUpdate;
 def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
                                             human_input__holdCrouch : int;
                                             input__enabled : bool;
+                                            human_input__melee : int;
+                                            var human_input__wishMelee : bool&;
                                             var human_input__standState : int&;
+                                            var human_input__meleeInputStartTime : float&;
+                                            human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
+                                            human_input__shoot : int = -1;
                                             isInVehicle : bool = false;
                                             bipod__enabled : bool = false)
   let action = int(evt.action)
@@ -158,3 +163,6 @@ def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
   if action == human_input__holdCrouch
     if !isInVehicle && !bipod__enabled
       human_input__standState = 0
+  elif action == human_input__melee || (action == human_input__shoot && get_bool(human_weap__currentGunEid, "gun__melee") ?? false)
+    human_input__wishMelee = human_input__meleeInputStartTime > 0.0
+    human_input__meleeInputStartTime = -1.0

@@ -1,8 +1,7 @@
 require ecs
-require game.es.input.input_events
 require DagorInput
-require game.es.vehicle.vehicle_events
 require game.es.input.input_events
+require vehicle_sounds_net.modules.vehicle_sounds_net_events
 require player
 require EnlistedNet
 

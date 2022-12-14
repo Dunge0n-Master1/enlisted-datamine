@@ -26,7 +26,7 @@ console_register_command(function(weaponSlotName) {choose_weapon(weaponSlotName)
 console_register_command(function(){
   let hero = get_controlled_hero()
   let vehicle = ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected")
-  if (vehicle == INVALID_ENTITY_ID)
+  if (vehicle == ecs.INVALID_ENTITY_ID)
     return
   let camNames = ecs.obsolete_dbg_get_comp_val(vehicle, "camNames")
 

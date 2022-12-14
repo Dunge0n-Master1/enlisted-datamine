@@ -59,6 +59,8 @@ def log_ai_debug_building(info : UpdateStageInfoAct;
       out = "{out} !!TOOMANY {pos}"
     elif msg.x == 300
       out = "{out} !INOPTIMAL {pos}"
+    elif msg.x == 310
+      out = "{out} !NOPATH {pos}"
     elif msg.x == 400
       out = "{out} !WRONGSIDE {pos}"
     elif msg.x == 500

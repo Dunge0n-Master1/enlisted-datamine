@@ -3,6 +3,7 @@ require app
 require net
 require strings
 require EnlistedNet
+require CurrentCircuit
 require rapidjson
 require game.events_game
 require enlisted.events_enlisted
@@ -56,6 +57,9 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
       if digestGroup != ""
         item |> AddMember("digestGroup", digestGroup, obj)
 
+      if mode_info |> json_get_or("modId", "") != ""
+        item |> AddMember("digestGroup", "mods-lobby", obj)
+
       let difficulty = mode_info |> json_get_or("difficulty", "standard") // default(empty) is standard difficulty
       item |> AddMember("difficulty", difficulty, obj)
 
@@ -63,7 +67,7 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
       item |> AddMember("mode", mode, obj)
 
     using(JsonType kArrayType) <| $(var players : JsonValue#)
-      query() <| $ [es(REQUIRE=player)] (team : int; name : string; userid : uint64; playerIsBot : Tag?)
+      query() <| $ [es(REQUIRE=player)] (team : int; name : string; userid : uint64; playerIsBot : Tag const?)
         using(JsonType kObjectType) <| $(var player : JsonValue#)
           player |> AddMember("team", team, obj)
           // replace white spaces for hide bot player names from output

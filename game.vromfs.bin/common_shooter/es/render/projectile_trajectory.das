@@ -25,7 +25,7 @@ def projectile_trajectory(act : UpdateStageInfoAct;
     return
 
   let gunEid : EntityId = human_weap__gunEids[int(HUWeaponSlots EWS_GRENADE)]
-  query(gunEid) <| $ [es] (gun : Gun?; grenade_thrower : GrenadeThrower?)
+  query(gunEid) <| $ [es] (gun : Gun const?; grenade_thrower : GrenadeThrower const?)
     if gun == null || (grenade_thrower != null && int((*grenade_thrower).state) < int(GrenadeThrowState GTS_DRAW))
       trajectory__enabled = false
   if !trajectory__enabled

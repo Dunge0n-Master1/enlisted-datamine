@@ -39,7 +39,9 @@ def practice_weapon_pickup(evt : Event; team : int; human_weap__gunEids : EidLis
     query(gunEid) <| $ [es] (gun__ammoHolders : Array;
                              var item__ownedByTeam : int&;
                              var gun__reserveAmmoTemplate : das_string&;
-                             var gun__numReserveAmmo : int&)
+                             var gun__numReserveAmmo : int&;
+                             var gun__additionalReserveAmmoTemplates : StringList;
+                             var gun__additionalNumReserveAmmos : IntList)
       if gun__ammoHolders.empty || item__ownedByTeam != TEAM_UNASSIGNED
         return
 
@@ -52,3 +54,15 @@ def practice_weapon_pickup(evt : Event; team : int; human_weap__gunEids : EidLis
       item__ownedByTeam = team
       gun__reserveAmmoTemplate := holder
       gun__numReserveAmmo = 5
+
+      clear(gun__additionalReserveAmmoTemplates)
+      clear(gun__additionalNumReserveAmmos)
+      for i in range(1, length(gun__ammoHolders))
+        let additionalHolder = string(*get_ecs_string(gun__ammoHolders[i]))
+        let additionalHolderTemplate = getTemplateByName(holder)
+        if additionalHolderTemplate == null
+          logwarn("Visual template {additionalHolder} (additional ammoholder {i}) is not set for <{gunEid}>!")
+          continue
+
+        push(gun__additionalReserveAmmoTemplates, additionalHolder)
+        push(gun__additionalNumReserveAmmos, gun__numReserveAmmo)

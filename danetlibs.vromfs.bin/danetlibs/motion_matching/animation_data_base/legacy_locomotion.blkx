@@ -1,0 +1,10 @@
+tags:t="idle"
+
+clips{
+
+  idle{
+    animationMask:t="no_hands"
+    tags:t="idle"
+    angular_velocity:r=0.0
+  }
+}

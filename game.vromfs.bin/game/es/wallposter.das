@@ -6,7 +6,7 @@ require RendInst
 require PhysMat
 require EnlistedNet
 require enlisted.events_enlisted
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require game.utils.hero
 require ecs.common
 require ecs

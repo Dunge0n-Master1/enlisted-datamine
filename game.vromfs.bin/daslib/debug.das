@@ -725,7 +725,7 @@ class private DAgent: DapiDebugAgent
 
         if withInstruments
             for c in contexts
-                if !c.ctx.category.debug_context && c.ctx.category.macro_context
+                if !c.ctx.category.debug_context && !ctx.ctx.category.debugger_tick && !c.ctx.category.macro_context
                     *c.ctx |> set_single_step(true)
 
     def reqResume(var exclude: DAContext)
@@ -999,7 +999,7 @@ class private DAgent: DapiDebugAgent
                     if compare_path(fileBr, file)
                         for br in brs
                             if br.line == ati.line
-                                print("dap: reset breakpoint {file}:{int(br.line)}")
+                                print("dap: reset breakpoint {file}:{int(br.line)}\n")
                                 return true
                         break
                 return false
@@ -1668,9 +1668,9 @@ def private getGlobalVariableDefinitions(var ctx: Context)
                 if vinfo.flags.ref
                     unsafe
                         let pref = unsafe(reinterpret<void??> arg)
-                        var cvinfo = vinfo
+                        var cvinfo = *vinfo
                         cvinfo.flags &= ~TypeInfoFlags ref
-                        st |> write("\t\tlet {vinfo.name} : {describe(type_info(*vinfo))} = * reinterpret<{describe(type_info(*cvinfo))}?> {*pref}ul // already ref\n")
+                        st |> write("\t\tlet {vinfo.name} : {describe(type_info(*vinfo))} = * reinterpret<{describe(type_info(cvinfo))}?> {*pref}ul // already ref\n")
                 elif vinfo.dimSize > 0u
                     st |> write("\t\tlet {vinfo.name} : {describe(type_info(*vinfo))} = * reinterpret<{describe(type_info(*vinfo))}?> {arg}ul\n")
                 else

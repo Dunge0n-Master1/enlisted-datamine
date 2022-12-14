@@ -29,7 +29,7 @@ def get_node_local_pos(eid : EntityId; node_id : int; var pos : float3&) : bool
   var queryStatus = false
   query(eid) <| $ [es] (animchar : AnimcharBaseComponent)
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_id, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_id, tm)
     pos = inverse(tm) * pos;
     queryStatus = true
   return queryStatus
@@ -37,6 +37,6 @@ def get_node_local_pos(eid : EntityId; node_id : int; var pos : float3&) : bool
 def get_node_wpos(eid : EntityId; node_id : int; var tm : float3x4&) : bool
   var queryStatus = false
   query(eid) <| $ [es] (animchar : AnimcharBaseComponent)
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_id, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_id, tm)
     queryStatus = true
   return queryStatus

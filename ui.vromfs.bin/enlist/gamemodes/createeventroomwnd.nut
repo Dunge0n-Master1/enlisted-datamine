@@ -417,7 +417,7 @@ let baseOptionsList = {
 
 let roomInfoRow = @(block) function getRoomInfoRow() {
   let { option, onClick } = block
-  let res = { watch = option.cfg }
+  let res = { watch = [option.cfg, option.curValue] }
   let chosenValues = []
   let currentValue = option.curValue.value
   if (option.cfg.value?.optType != OPT_MULTISELECT)

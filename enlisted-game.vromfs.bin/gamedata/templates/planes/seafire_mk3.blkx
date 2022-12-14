@@ -328,4 +328,24 @@ seafire_mk3_driver_cockpit{
   animchar__res:t="seafire_mk3_cockpit_char"
   plane_anim__blk:t="gamedata/units/seafire_mk3.blk"
   plane_sight__blk:t="gamedata/units/seafire_mk3.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.01, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    rot:p2=0.0, 0.0
+    rot:p2=0.0, 0.0
+  }
 }

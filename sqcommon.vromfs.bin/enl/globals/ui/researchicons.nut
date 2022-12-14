@@ -22,6 +22,7 @@ return freeze(autoSoldierIcons.__update({
   building_unlock_2_icon = "ui/uiskin/building_at.svg"
   building_unlock_3_icon = "ui/uiskin/building_mg_nest.svg"
   building_unlock_4_icon = "ui/uiskin/building_ampulomet.svg"
+  building_unlock_5_icon = "ui/uiskin/building_machine_gun.svg"
   inventory_upgrade_icon = "ui/uiskin/research/inventory_upgrade_icon.svg"
   class_xp_boost_icon = "ui/uiskin/research/class_xp_boost_icon.svg"
   side_slot_upgrade_icon = "ui/uiskin/pistol.svg"

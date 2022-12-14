@@ -23,9 +23,6 @@ let availableTeamStartFromQuery = ecs.SqQuery("availableTeamStartFromQuery", {
   comps_ro = [["availableTeamStartFrom", ecs.TYPE_INT]]
 })
 
-let teamIdQuery = ecs.SqQuery("teamIdQuery", { comps_ro = [["team__id", ecs.TYPE_INT]] })
-let createTeamParamsQuery = ecs.SqQuery("createTeamParamsQuery", { comps_ro = [["team__newTeamTemplate", ecs.TYPE_STRING]] } )
-
 let function onPlayerConnected(evt, eid, comp) {
   local wishTeam = evt.wishTeam
   let reconnected = evt.reconnected
@@ -37,21 +34,6 @@ let function onPlayerConnected(evt, eid, comp) {
 
   if (wishTeam == TEAM_UNASSIGNED && team != TEAM_UNASSIGNED) {
     wishTeam = team
-    let haveTeam = teamIdQuery.perform(function(_eid, comp) {
-      if (comp.team__id == team)
-        return true
-      }
-    ) ?? false
-    if (!haveTeam) {
-      createTeamParamsQuery.perform(function(_eid, comp) {
-        let comps = {
-          ["team__id"] = team,
-          ["team__should_lock"] = true
-        }
-        ecs.g_entity_mgr.createEntitySync(comp.team__newTeamTemplate, comps)
-        return true // find first one and exit
-      })
-    }
   }
 
   let cmdTeam = tryToAssignTeamByCommandLine(comp.userid)
@@ -95,10 +77,10 @@ let function onPlayerConnected(evt, eid, comp) {
   if (reconnected && ecs.g_entity_mgr.doesEntityExist(possessed)) {
     if (!ecs.obsolete_dbg_get_comp_val(possessed, "isAlive", false)) {
       ecs.g_entity_mgr.destroyEntity(possessed)
-      comp.possessed = INVALID_ENTITY_ID
+      comp.possessed = ecs.INVALID_ENTITY_ID
     }
     if (team == TEAM_UNASSIGNED
-        || !ecs.obsolete_dbg_get_comp_val(get_team_eid(team),"team__allowRebalance", false))
+        || ecs.obsolete_dbg_get_comp_val(get_team_eid(team),"team__allowRebalance", false))
       comp.team = wishTeam
   }
   else
@@ -116,7 +98,7 @@ let function onPlayerConnected(evt, eid, comp) {
   // on reconnect to aborted connection (i.e. disconnect of old connection wasn't handled) possessed entity might still exist
   if (canSpawnEntity && !ecs.g_entity_mgr.doesEntityExist(possessed)) {
     debug($"Spawn spuad for team {comp.team} and player {eid}")
-    ecs.g_entity_mgr.sendEvent(eid, CmdSpawnEntityForPlayer({team=comp.team, possessed=INVALID_ENTITY_ID}));
+    ecs.g_entity_mgr.sendEvent(eid, CmdSpawnEntityForPlayer({team=comp.team, possessed=ecs.INVALID_ENTITY_ID}));
   }
 
   if (comp.team != TEAM_UNASSIGNED)

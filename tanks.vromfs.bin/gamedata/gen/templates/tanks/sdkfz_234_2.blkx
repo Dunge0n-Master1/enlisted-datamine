@@ -15,19 +15,38 @@ base_sdkfz_234_2{
   drowningHeight:r=1.936
   damage_model__blk:t="gamedata/gen/units/tanks/sdkfz_234_2.blk"
   item__name:t="items/germ_sdkfz_234_2"
+  turret_control__grenadeLauncherSalvoSize:i=2
   skin__template:t="sdkfz_234_2_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_06"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm_brake"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -35,6 +54,12 @@ base_sdkfz_234_2{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_h_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_06"
   }
 
   "turret_control__animVars:shared:array"{
@@ -62,6 +87,36 @@ base_sdkfz_234_2{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_07_yaw"
+      curPitchParamName:t="gun_07_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_08_yaw"
+      curPitchParamName:t="gun_08_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -80,6 +135,54 @@ base_sdkfz_234_2{
       turretName:t="turret_02"
       gun:t="sdkfz_234_2_turret_02_7_92mm_mg42"
       barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_03_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_04_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_05_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_06_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_07_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_08"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="sdkfz_234_2_turret_08_91mm_germ_smoke_grenade_launcher"
       salt:i=1
     }
   }
@@ -106,8 +209,62 @@ sdkfz_234_2_turret_02_7_92mm_mg42{
   gun__shootNodeName:t="bone_mg_h_01"
 
   "gun__shellsAmmo:array"{
-    ammo:i=925
-    ammo:i=925
+    ammo:i=975
+    ammo:i=975
+  }
+}
+
+sdkfz_234_2_turret_03_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+sdkfz_234_2_turret_04_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+sdkfz_234_2_turret_05_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_03"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+sdkfz_234_2_turret_06_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_04"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+sdkfz_234_2_turret_07_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_05"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+sdkfz_234_2_turret_08_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_06"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
   }
 }
 

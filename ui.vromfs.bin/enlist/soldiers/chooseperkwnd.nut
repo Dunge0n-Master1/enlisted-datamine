@@ -9,8 +9,7 @@ let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.n
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { mkPerksPointsBlock, tierTitle, perkCard, perkUi, priceIconCtor,
-  thumbIconSize, uniteEqualPerks
+let { mkPerksPointsBlock, tierTitle, perkCard, perkUi, priceIconCtor, thumbIconSize
 } = require("components/perksPackage.nut")
 let { kindIcon, levelBlock} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -46,23 +45,24 @@ let sPerks = Computed(@() perksData.value?[perkChoiceWndParams.value?.soldierGui
 let cardsGap = hdpx(40)
 let perksContentWidth = perkBigIconSize[0] * 5 + cardsGap * 4
 
+let function removeOnce(arr, val) {
+  let idx = arr.indexof(val)
+  if (idx != null)
+    arr.remove(idx)
+}
+
 let recommendedPerkIds = Computed(function(){
-  let tiers = sPerks.value?.tiers ?? []
+  let { tiers = [] } = sPerks.value
   if (tiers.len() == 0)
-    return tiers
-  let exclude = sPerks.value?.prevPerk
-  let res = []
-  tiers.each(function(tier) {
-    let paramsList = uniteEqualPerks(tier.perks)
-    foreach (perk in paramsList){
-      if (perk.perkId != null && exclude != perk.perkId){
-        res.append(perk.perkId)
-        if (res.len() >= RECOMMENDED_PERKS_COUNT)
-          break
-      }
-    }
-  })
-  return res
+    return []
+  foreach (tier in tiers) {
+    let perks = clone tier.perks
+    tier.slots.each(@(perkId) removeOnce(perks, perkId))
+    let perksSize = perks.len()
+    if (perksSize > 0)
+      return perks.resize(min(perksSize, RECOMMENDED_PERKS_COUNT))
+  }
+  return []
 })
 
 let soldier = mkSoldiersData(Computed(@()

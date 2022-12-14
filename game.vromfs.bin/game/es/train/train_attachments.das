@@ -36,9 +36,9 @@ def train_attachment_attach_to_parent(evt : Event;
                                       train_attachment__attachTm : float3x4;
                                       var train_attachment__localTm : float3x4)
   query(train_attachment__parentEid) <| $ [es] (animchar : AnimcharBaseComponent; transform : float3x4)
-    let nodeId = geomtree_findNodeIndex(animchar.nodeTree, train_attachment__node)
+    let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, train_attachment__node)
     if nodeId >= 0
-      let nodeWpos = animchar.nodeTree |> geomtree_getNodeWpos(nodeId)
+      let nodeWpos = *animchar.nodeTree |> geomtree_getNodeWpos(nodeId)
       let invTransform = inverse(transform)
       train_attachment__localTm = train_attachment__attachTm
       train_attachment__localTm[3] += invTransform * nodeWpos

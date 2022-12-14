@@ -6,6 +6,10 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_coastal_area_fx.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[0.789247, 0.0, 0.614077] [0.0, 1.0, 0.0] [-0.614077, 0.0, 0.789247] [462.497, -8.55778, 105.856]]
@@ -451,51 +455,6 @@ entity{
 }
 
 entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="chimney_exhaust"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=32.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_sparkles_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_ashes_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
   _template:t="ri_gpu_object"
   ri_gpu_object__grid_size:i=8
   ri_gpu_object__grid_tiling:i=16
@@ -542,33 +501,33 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-88.7731, 11.4189, -194.751]]
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-88.7731, 11.4189, -194.751]]
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [303.06, 5.01036, 62.6414]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [303.06, 5.01036, 62.6414]]
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [311.345, 4.91337, 147.866]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [311.345, 4.91337, 147.866]]
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [583.541, 11.4189, 106.901]]
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [583.541, 11.4189, 106.901]]
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [404.596, 6.12023, -252.788]]
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [404.596, 6.12023, -252.788]]
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [203.425, -6.01961, 335.058]]
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [203.425, -6.01961, 335.058]]
 }
 
 entity{
@@ -587,7 +546,7 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [128.926, 8.12428, 58.6612]]
 }
 
@@ -602,8 +561,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [157.859, 7.87563, 141.211]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [157.859, 7.87563, 141.211]]
 }
 
 entity{
@@ -637,8 +596,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [180.221, 8.41887, 72.8321]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [180.221, 8.41887, 72.8321]]
 }
 
 entity{
@@ -647,28 +606,23 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [157.859, 7.83924, 141.211]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [157.859, 7.83924, 141.211]]
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [265.158, 35.255, 83.7319]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [265.158, 35.255, 83.7319]]
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [12.3854, -6.01961, 326.55]]
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [12.3854, -6.01961, 326.55]]
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-542.817, 17.2722, 212.75]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [226.142, 5.25393, 88.6837]]
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [226.142, 5.25393, 88.6837]]
 }
 
 entity{

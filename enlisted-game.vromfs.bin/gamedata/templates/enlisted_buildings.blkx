@@ -351,6 +351,53 @@ cannon_ussr_towed_at_53k_preview{
   }
 }
 
+cannon_jp_towed_at_type_1_preview{
+  _extends:t="base_animchar_builder_preview"
+  animchar__res:t="towed_at_47mm_type_1_char"
+  collres__res:t="towed_at_47mm_type_1_collision"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/towed_at_type_1.blk"
+  instantiateTemplate:t="builded_jp_towed_at_type_1_movable"
+  avaliableAngles:p2=-10.0, 10.0
+  buildingSoundTag:t="cannon"
+  building_builder__maxTimeToBuild:r=20.0
+  buildingCost:r=8.0
+  building__requireUnlockId:i=2
+  building_menu__text:t="building_tool/at_cannon_type_1"
+  building_menu__image:t="building_at"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="aim_01_active"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=0.0
+  }
+}
+
+builded_jp_towed_at_type_1_movable{
+  _extends:t="jp_towed_at_type_1_movable"
+  _extends:t="base_building"
+  fortification_repair__costPercent:r=0.5
+  building_destroy__maxTimeToDestroy:r=20.0
+  building_menu__image:t="building_at"
+  building_menu__text:t="building_tool/at_cannon_type_1"
+  isTpsView:b=no
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "disableVehicleResupply:tag"{
+  }
+}
+
 builded_ussr_towed_at_53k_movable{
   _extends:t="ussr_towed_at_53k_movable"
   _extends:t="builded_ussr_towed_at_53k_common"
@@ -398,6 +445,52 @@ stationary_mg42_building_attachable{
     point:p3=-0.6, 0.0, 0.55
     point:p3=0.0, 0.0, 0.55
     point:p3=0.5, 0.0, 0.55
+  }
+}
+
+stationary_hmg_building_attachable{
+  _extends:t="gun_autodetach"
+
+  "gun_attachable_check__pointsFromTo:array"{
+
+    "pos:object"{
+      from:p3=-0.8, 0.0, 0.4
+      to:p3=0.8, 0.0, 0.4
+    }
+
+    "pos:object"{
+      from:p3=0.0, -1.0, 0.4
+      to:p3=0.0, 0.5, 0.4
+    }
+  }
+
+  "gun_attachable_check__pointsDown:list<p3>"{
+    point:p3=-0.6, 1.15, 0.9
+    point:p3=0.0, 1.15, 0.9
+    point:p3=0.5, 1.15, 0.9
+  }
+}
+
+stationary_hmg_hign_tripod_building_attachable{
+  _extends:t="gun_autodetach"
+
+  "gun_attachable_check__pointsFromTo:array"{
+
+    "pos:object"{
+      from:p3=-0.8, -1.0, 0.4
+      to:p3=0.8, -1.0, 0.4
+    }
+
+    "pos:object"{
+      from:p3=0.0, -1.5, 0.4
+      to:p3=0.0, 0.5, 0.4
+    }
+  }
+
+  "gun_attachable_check__pointsDown:list<p3>"{
+    point:p3=-0.6, 0.25, 0.9
+    point:p3=0.0, 0.25, 0.9
+    point:p3=0.5, 0.25, 0.9
   }
 }
 
@@ -712,6 +805,199 @@ builded_stationary_browning_m1919a4_with_autodetach{
   }
 }
 
+stationary_browning_m2_building_additive_preview{
+  _extends:t="base_animchar_builder_preview"
+  _extends:t="stationary_hmg_building_attachable"
+  additiveUp:p3=0.0, 1.0, 0.0
+  additiveTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t="browning_m2_char"
+  collres__res:t="browning_m2_collision"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "builder_additive_preview:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="isAlive"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=1.0
+  }
+}
+
+sandbags_wall_browning_m2_preview{
+  _extends:t="base_rendinst_builder_preview"
+  instantiateTemplate:t="sandbags_wall_browning_m2"
+  ri_preview__name:t="sandbags_wall_medium_rounded_f_mission_object"
+  avaliableAngles:p2=-15.0, 15.0
+  buildingSoundTag:t="fortification"
+  building_builder__maxTimeToBuild:r=14.0
+  buildingCost:r=12.0
+  building__requireUnlockId:i=5
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="stationary_browning_m2_building_additive_preview"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [0.15, 0.9, -0.24]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+sandbags_wall_browning_m2{
+  _extends:t="base_ri_building"
+  _extends:t="additive_building_can_repair"
+  ri_extra__name:t="sandbags_wall_medium_rounded_f_mission_object"
+  fortification_repair__costPercent:r=0.5
+  fortification_repair__text:t="hud/repair_sandbags_wall_mg"
+  team:i=-1
+  building_destroy__maxTimeToDestroy:r=14.0
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="builded_stationary_browning_m2_with_autodetach"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [0.15, 0.9, -0.24]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+builded_stationary_browning_m2_with_autodetach{
+  _extends:t="stationary_browning_m2_with_autodetach"
+  _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-40.0, 40.0
+
+  "disableDestroyWithRi:tag"{
+  }
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
+stationary_mg_131_building_additive_preview{
+  _extends:t="base_animchar_builder_preview"
+  _extends:t="stationary_hmg_building_attachable"
+  additiveUp:p3=0.0, 1.0, 0.0
+  additiveTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t="mg_131_char"
+  collres__res:t="mg_131_collision"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "builder_additive_preview:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="isAlive"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=1.0
+  }
+
+  "gun_attachable_check__pointsFromTo:array"{
+
+    "pos:object"{
+      from:p3=-0.7, -0.6, 0.25
+      to:p3=0.7, -0.6, 0.25
+    }
+
+    "pos:object"{
+      from:p3=0.0, 0.0, 0.25
+      to:p3=0.0, -1.3, 0.25
+    }
+  }
+
+  "gun_attachable_check__pointsDown:list<p3>"{
+    point:p3=-0.5, 0.55, 0.65
+    point:p3=0.0, 0.55, 0.65
+    point:p3=0.5, 0.55, 0.65
+  }
+}
+
+sandbags_wall_mg_131_preview{
+  _extends:t="base_rendinst_builder_preview"
+  instantiateTemplate:t="sandbags_wall_mg_131"
+  ri_preview__name:t="sandbags_wall_medium_rounded_i_mission_object"
+  avaliableAngles:p2=-15.0, 15.0
+  buildingSoundTag:t="fortification"
+  building_builder__maxTimeToBuild:r=14.0
+  buildingCost:r=12.0
+  building__requireUnlockId:i=5
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="stationary_mg_131_building_additive_preview"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.25, 0.66, -0.26]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+sandbags_wall_mg_131{
+  _extends:t="base_ri_building"
+  _extends:t="additive_building_can_repair"
+  ri_extra__name:t="sandbags_wall_medium_rounded_i_mission_object"
+  fortification_repair__costPercent:r=0.5
+  fortification_repair__text:t="hud/repair_sandbags_wall_mg"
+  team:i=-1
+  building_destroy__maxTimeToDestroy:r=14.0
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="builded_stationary_mg_131_with_autodetach"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.25, 0.66, -0.26]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+builded_stationary_mg_131_with_autodetach{
+  _extends:t="stationary_mg_131_with_autodetach"
+  _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-50.0, 50.0
+
+  "disableDestroyWithRi:tag"{
+  }
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
 stationary_type_92_hmg_building_additive_preview{
   _extends:t="base_animchar_builder_preview"
   _extends:t="stationary_mg42_building_attachable"
@@ -788,6 +1074,181 @@ builded_stationary_type_92_hmg_with_autodetach{
   _extends:t="stationary_type_92_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-30.0, 30.0
+
+  "disableDestroyWithRi:tag"{
+  }
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
+stationary_type_93_hmg_building_additive_preview{
+  _extends:t="base_animchar_builder_preview"
+  _extends:t="stationary_hmg_hign_tripod_building_attachable"
+  additiveUp:p3=0.0, 1.0, 0.0
+  additiveTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t="type_93_hmg_char"
+  collres__res:t="type_93_hmg_collision"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "builder_additive_preview:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="isAlive"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=1.0
+  }
+}
+
+sandbags_wall_type_93_hmg_preview{
+  _extends:t="base_rendinst_builder_preview"
+  instantiateTemplate:t="sandbags_wall_type_93_hmg"
+  ri_preview__name:t="sandbags_wall_medium_rounded_g_mission_object"
+  avaliableAngles:p2=-15.0, 15.0
+  buildingSoundTag:t="fortification"
+  building_builder__maxTimeToBuild:r=14.0
+  buildingCost:r=12.0
+  building__requireUnlockId:i=5
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="stationary_type_93_hmg_building_additive_preview"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+sandbags_wall_type_93_hmg{
+  _extends:t="base_ri_building"
+  _extends:t="additive_building_can_repair"
+  ri_extra__name:t="sandbags_wall_medium_rounded_g_mission_object"
+  fortification_repair__costPercent:r=0.5
+  fortification_repair__text:t="hud/repair_sandbags_wall_mg"
+  team:i=-1
+  building_destroy__maxTimeToDestroy:r=14.0
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="builded_stationary_type_93_hmg_with_autodetach"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+builded_stationary_type_93_hmg_with_autodetach{
+  _extends:t="stationary_type_93_hmg_with_autodetach"
+  _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-40.0, 40.0
+
+  "disableDestroyWithRi:tag"{
+  }
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "refundForDependsBuilding:tag"{
+  }
+}
+
+stationary_dshk_1942_building_additive_preview{
+  _extends:t="base_animchar_builder_preview"
+  _extends:t="stationary_hmg_hign_tripod_building_attachable"
+  gun_autodetach__nodeName:t="mount_vertical_base"
+  additiveUp:p3=0.0, 1.0, 0.0
+  additiveTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  animchar__res:t="dshk_1942_option_2_char"
+  collres__res:t="dshk_1942_option_2_collision"
+
+  "dependsOnBuildingEid:eid"{
+  }
+
+  "builder_additive_preview:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="isAlive"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=1.0
+  }
+}
+
+sandbags_wall_dshk_1942_preview{
+  _extends:t="base_rendinst_builder_preview"
+  instantiateTemplate:t="sandbags_wall_dshk_1942"
+  ri_preview__name:t="sandbags_wall_medium_rounded_h_mission_object"
+  avaliableAngles:p2=-15.0, 15.0
+  buildingSoundTag:t="fortification"
+  building_builder__maxTimeToBuild:r=14.0
+  buildingCost:r=12.0
+  building__requireUnlockId:i=5
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="stationary_dshk_1942_building_additive_preview"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+sandbags_wall_dshk_1942{
+  _extends:t="base_ri_building"
+  _extends:t="additive_building_can_repair"
+  ri_extra__name:t="sandbags_wall_medium_rounded_h_mission_object"
+  fortification_repair__costPercent:r=0.5
+  fortification_repair__text:t="hud/repair_sandbags_wall_mg"
+  team:i=-1
+  building_destroy__maxTimeToDestroy:r=14.0
+  building_menu__text:t="building_tool/sandbags_with_hmg"
+  building_menu__image:t="building_machine_gun"
+
+  "additiveBuildings:array"{
+
+    "item:object"{
+      template:t="builded_stationary_dshk_1942_with_autodetach"
+      tm:m=[[0.0, 0.0, 1.0] [0.0, 1.0, 0.0] [-1.0, 0.0, 0.0] [-0.85, -0.19, 0.0]]
+      additiveUp:p3=0.0, 1.0, 0.0
+    }
+  }
+}
+
+builded_stationary_dshk_1942_with_autodetach{
+  _extends:t="stationary_dshk_1942_with_autodetach"
+  _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-40.0, 40.0
 
   "disableDestroyWithRi:tag"{
   }
@@ -1307,6 +1768,7 @@ ammunition_box_a_preview{
   buildingCost:r=4.0
   building_menu__text:t="building_tool/ammunition_box"
   building_menu__image:t="building_ammo_box"
+  preview_phys__blk:t="content/e_ww2_common/gamedata/gameobjs/ammo_box_phys.blk"
 
   "destroySimilarBuilding:tag"{
   }
@@ -1605,6 +2067,17 @@ antitank_mine_preview{
 }
 
 building_restricted_zone{
+
+  "buildingRestrictedZone:tag"{
+  }
+}
+
+building_carrier_restricted_zone{
+  _extends:t="building_restricted_zone"
+  building_restricted_zone__messageLocId:t="building_blocked_restricted_zone_carrier"
+}
+
+building_train_restricted_zone{
   building_restricted_zone__nextUpdateAt:r=0.0
   building_restricted_zone__updateInterval:r=0.5
   building_restricted_zone__maxAngle:r=30.0
@@ -1673,6 +2146,34 @@ sandbags_wall_browning_m1919a4_preview_dev{
 
 sandbags_wall_type_92_hmg_preview_dev{
   _extends:t="sandbags_wall_type_92_hmg_preview"
+  building_builder__maxTimeToBuild:r=2.0
+  buildingCost:r=1.0
+  building__requireUnlockId:i=-1
+}
+
+sandbags_wall_browning_m2_preview_dev{
+  _extends:t="sandbags_wall_browning_m2_preview"
+  building_builder__maxTimeToBuild:r=2.0
+  buildingCost:r=1.0
+  building__requireUnlockId:i=-1
+}
+
+sandbags_wall_type_93_hmg_preview_dev{
+  _extends:t="sandbags_wall_type_93_hmg_preview"
+  building_builder__maxTimeToBuild:r=2.0
+  buildingCost:r=1.0
+  building__requireUnlockId:i=-1
+}
+
+sandbags_wall_dshk_1942_preview_dev{
+  _extends:t="sandbags_wall_dshk_1942_preview"
+  building_builder__maxTimeToBuild:r=2.0
+  buildingCost:r=1.0
+  building__requireUnlockId:i=-1
+}
+
+sandbags_wall_mg_131_preview_dev{
+  _extends:t="sandbags_wall_mg_131_preview"
   building_builder__maxTimeToBuild:r=2.0
   buildingCost:r=1.0
   building__requireUnlockId:i=-1

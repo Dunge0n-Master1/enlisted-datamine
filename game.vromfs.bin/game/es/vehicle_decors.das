@@ -16,7 +16,7 @@ def node_attached_init_es(evt : SetVehicleDecor;
                           eid : EntityId;
                           animchar : AnimcharBaseComponent;
                           var attach_decorators__entities : EidList&)
-  let nodeId = geomtree_findNodeIndex(animchar.nodeTree, evt.nodeName)
+  let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, evt.nodeName)
   if nodeId <= -1
     logerr("Invalid node {evt.nodeName} on target {getEntityTemplateName(eid)}")
     return
@@ -53,7 +53,7 @@ def init_decors_for_vehicle_es(evt : Event;
     if decorTemplate == "" || relativeTM == null
       logerr("can't create all decor for {eid} and {getEntityTemplateName(eid)}, some of them hasn't template or tm")
       continue
-    let attachNodeId = geomtree_findNodeIndex(animchar.nodeTree, nodeName)
+    let attachNodeId = geomtree_findNodeIndex(*animchar.nodeTree, nodeName)
     if (attachNodeId == -1)
       logerr("Decor attach node '{nodeName}' was not found.")
       continue
@@ -81,7 +81,7 @@ def debug_setup_for_decors(info : UpdateStageInfoAct;
   query(node_attached__entity) <| $ [es] (animchar : AnimcharBaseComponent;
                                           var attach_decorators__templates : Array)
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_attached__nodeId, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, tm)
     var decorRelativeTm = inverse(tm) * transform
     node_attached__localTm = decorRelativeTm
     if decor__swapYZ
@@ -93,7 +93,7 @@ def debug_setup_for_decors(info : UpdateStageInfoAct;
 [es(tag=gameClient, track=isExploded, REQUIRE=vehicle)]
 def vehicle_burn_decorators_es(evt : Event;
                                attach_decorators__entities : EidList;
-                               isExploded : bool)
-  if isExploded
-    for decorEid in attach_decorators__entities
-      destroyEntity(decorEid)
+                               isExploded aka vehicle_isExploded : bool)
+  for decorEid in attach_decorators__entities
+    query(decorEid) <| $ [es] (var isExploded : bool&)
+      isExploded = vehicle_isExploded

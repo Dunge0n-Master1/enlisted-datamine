@@ -15,6 +15,8 @@ let {
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { soundDefault } = require("%ui/components/textButton.nut")
+
 
 
 let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
@@ -130,9 +132,7 @@ let mkUnlockSlot = kwarg(@(
     size = [flex(), SIZE_TO_CONTENT]
     minHeight = taskMinHeight
     behavior = onClick == null ? null : Behaviors.Button
-    sound = {
-      click  = "ui/enlist/button_click"
-    }
+    sound = soundDefault
     onClick
     children = [
       bgColor != null

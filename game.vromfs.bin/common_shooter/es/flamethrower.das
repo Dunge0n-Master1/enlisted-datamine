@@ -8,27 +8,6 @@ require DaWeapons
 require enlisted.events_enlisted
 require math.base
 
-
-[es(tag=gameClient)]
-def create_charred_area_decal(evt : CmdSpawnCharredArea)
-  let pos = evt.pos
-  let normal = evt.normal
-  let found = find_query() <| $ [es] (transform : float3x4; charred_area_radius : float)
-    let dist2 = length_sq(transform[3] - pos)
-    return dist2 < charred_area_radius * charred_area_radius * 0.25
-  if found
-    return
-  var tm = IDENT_TM
-  tm[3] = pos
-  tm[1] = normal
-  if abs(normal.y) < abs(normal.z)
-    tm[2] = normalize(cross(normal, float3(0, 1, 0)))
-  else
-    tm[2] = normalize(cross(normal, float3(0, 0, 1)))
-  tm[0] = normalize(cross(tm[1], tm[2]))
-  createEntity("charred_area_decal") <| $(init)
-    set(init, "transform", tm)
-
 [es(tag=server, after=flamethrower_extinguish_under_water)]
 def flamethrower_phys(evt : CmdWeapPhysUpdate;
                       eid : EntityId;

@@ -5,12 +5,18 @@ attachable_wear_ussr_padded_pants_feltb_fem_medic_item{
   collres__res:t="ussr_padded_pants_feltb_fem_medic_collision"
 }
 
+attachable_wear_ussr_padded_pants_w_boots_07_winter_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_ussr_padded_pants_w_boots_07_winter_item"
+  animchar__res:t="ussr_padded_pants_w_boots_07_winter_char"
+  collres__res:t="ussr_padded_pants_w_boots_07_winter_collision"
+}
+
 attachable_wear_pilot_fur_boots_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pilot_fur_boots_item"
   animchar__res:t="pilot_fur_boots_char"
   collres__res:t="pilot_fur_boots_collision"
-  item__name:t="USSR Pilot pants with fur boots"
 }
 
 attachable_wear_b3_pilot_pants_item{
@@ -18,7 +24,6 @@ attachable_wear_b3_pilot_pants_item{
   item__uniqueName:t="attachable_wear_b3_pilot_pants_item"
   animchar__res:t="b3_pilot_pants_char"
   collres__res:t="b3_pilot_pants_collision"
-  item__name:t="USSR B3 Pilot pants with fur boots"
 }
 
 attachable_wear_pants_01_ussr_summer_item{
@@ -26,7 +31,6 @@ attachable_wear_pants_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_01_ussr_summer_item"
   animchar__res:t="pants_01_ussr_summer_char"
   collres__res:t="pants_01_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 01"
 }
 
 attachable_wear_pants_ameba_ussr_summer_item{
@@ -34,7 +38,6 @@ attachable_wear_pants_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_ameba_ussr_summer_item"
   animchar__res:t="pants_ameba_ussr_summer_char"
   collres__res:t="pants_ameba_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 01"
 }
 
 attachable_wear_pants_ameba_1_ussr_summer_item{
@@ -92,7 +95,6 @@ attachable_wear_pants_02_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_02_ussr_summer_item"
   animchar__res:t="pants_02_ussr_summer_char"
   collres__res:t="pants_02_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 02"
 }
 
 attachable_wear_pants_02_1_ussr_summer_item{
@@ -110,7 +112,6 @@ attachable_wear_pants_03_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_03_ussr_summer_item"
   animchar__res:t="pants_03_ussr_summer_char"
   collres__res:t="pants_03_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 03"
 }
 
 attachable_wear_pants_03_1_ussr_summer_item{
@@ -147,7 +148,6 @@ attachable_wear_pants_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_05_ussr_summer_item"
   animchar__res:t="pants_05_ussr_summer_char"
   collres__res:t="pants_05_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 05"
 }
 
 attachable_wear_pants_06_ussr_summer_item{
@@ -155,7 +155,6 @@ attachable_wear_pants_06_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pants_06_ussr_summer_item"
   animchar__res:t="pants_06_ussr_summer_char"
   collres__res:t="pants_06_ussr_summer_collision"
-  item__name:t="USSR Summer Pants 06"
 }
 
 attachable_wear_pants_06_felt_boots_ussr_summer_item{
@@ -190,7 +189,6 @@ attachable_wear_galife_black_feltboots_3_ussr_summer_item{
   item__uniqueName:t="attachable_wear_galife_black_feltboots_3_ussr_summer_item"
   animchar__res:t="galife_black_feltboots_3_ussr_summer_char"
   collres__res:t="galife_black_feltboots_3_ussr_summer_collision"
-  item__name:t="USSR Leather Galife"
 }
 
 attachable_wear_pants_01_2_ussr_winter_item{
@@ -198,7 +196,6 @@ attachable_wear_pants_01_2_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_01_2_ussr_winter_item"
   animchar__res:t="pants_01_2_ussr_winter_char"
   collres__res:t="pants_01_2_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 01"
 }
 
 attachable_wear_pants_01_3_ussr_winter_item{
@@ -206,7 +203,6 @@ attachable_wear_pants_01_3_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_01_3_ussr_winter_item"
   animchar__res:t="pants_01_3_ussr_winter_char"
   collres__res:t="pants_01_3_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 01"
 }
 
 attachable_wear_pants_01_windings_ussr_winter_item{
@@ -214,7 +210,6 @@ attachable_wear_pants_01_windings_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_01_windings_ussr_winter_item"
   animchar__res:t="pants_01_windings_ussr_winter_char"
   collres__res:t="pants_01_windings_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 01"
 }
 
 attachable_wear_pants_01_1_windings_ussr_winter_item{
@@ -352,7 +347,6 @@ attachable_wear_pants_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_07_ussr_winter_item"
   animchar__res:t="pants_07_ussr_winter_char"
   collres__res:t="pants_07_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 07"
 }
 
 attachable_wear_pants_07_blight_ussr_winter_item{
@@ -369,7 +363,6 @@ attachable_wear_pants_08_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_08_ussr_winter_item"
   animchar__res:t="pants_08_ussr_winter_char"
   collres__res:t="pants_08_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 08"
 }
 
 attachable_wear_pants_08_ussr_winter_black_item{
@@ -387,7 +380,6 @@ attachable_wear_pants_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pants_10_ussr_winter_item"
   animchar__res:t="pants_10_ussr_winter_char"
   collres__res:t="pants_10_ussr_winter_collision"
-  item__name:t="USSR Winter Pants 10"
 }
 
 attachable_wear_pants_greenwood_10_ussr_item{
@@ -395,7 +387,6 @@ attachable_wear_pants_greenwood_10_ussr_item{
   item__uniqueName:t="attachable_wear_pants_greenwood_10_ussr_item"
   animchar__res:t="pants_greenwood_10_ussr_char"
   collres__res:t="pants_greenwood_10_ussr_collision"
-  item__name:t="USSR Winter Greenwood"
 }
 
 attachable_wear_b3_pilot_jacket_item{
@@ -403,7 +394,6 @@ attachable_wear_b3_pilot_jacket_item{
   item__uniqueName:t="attachable_wear_b3_pilot_jacket_item"
   animchar__res:t="b3_pilot_jacket_char"
   collres__res:t="b3_pilot_jacket_collision"
-  item__name:t="USSR Pilot Raglan"
 }
 
 attachable_wear_pilot_raglan_w_parach_ussr_item{
@@ -411,7 +401,6 @@ attachable_wear_pilot_raglan_w_parach_ussr_item{
   item__uniqueName:t="attachable_wear_pilot_raglan_w_parach_ussr_item"
   animchar__res:t="pilot_raglan_w_parach_ussr_char"
   collres__res:t="pilot_raglan_w_parach_ussr_collision"
-  item__name:t="USSR Pilot Raglan"
 }
 
 attachable_wear_tankers_overall_01_ussr_winter_item{
@@ -447,7 +436,6 @@ attachable_wear_pilot_overall_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pilot_overall_ussr_winter_item"
   animchar__res:t="pilot_overall_ussr_winter_char"
   collres__res:t="pilot_overall_ussr_winter_collision"
-  item__name:t="USSR Pilot Winter Overall"
 }
 
 attachable_wear_pilot_overall_m43_ussr_summer_item{
@@ -455,7 +443,6 @@ attachable_wear_pilot_overall_m43_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pilot_overall_m43_ussr_summer_item"
   animchar__res:t="pilot_overall_m43_ussr_summer_char"
   collres__res:t="pilot_overall_m43_ussr_summer_collision"
-  item__name:t="USSR M43 Pilot Summer Overall"
 }
 
 attachable_wear_tunic_01_nkvd_ussr_summer_item{
@@ -484,6 +471,16 @@ attachable_wear_tunic_01_1_ussr_summer_item{
   "animchar__objTexReplace:object"{
     "ussr_blouse_43_tex_d*":t="ussr_blouse_43_gr_tex_d*"
     "ussr_blouse_43_tex_n*":t="ussr_blouse_43_gr_tex_n*"
+  }
+}
+
+attachable_wear_tunic_01_white_ussr_summer_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_tunic_m43_ussr_item"
+
+  "animchar__objTexReplace:object"{
+    "ussr_blouse_43_tex_d*":t="ussr_blouse35_white_tex_d*"
+    "collar_tab_pilot_private_tex_d*":t="collar_tab_infantry_private_tex_d*"
   }
 }
 
@@ -553,7 +550,6 @@ attachable_wear_pea_jacket_item{
   item__uniqueName:t="attachable_wear_pea_jacket_item"
   animchar__res:t="pea_jacket_char"
   collres__res:t="pea_jacket_collision"
-  item__name:t="USSR Pea Jacket"
   animchar_fast_phys__res:t="pea_jacket_fastphys"
 
   animchar_fast_phys{
@@ -566,7 +562,6 @@ attachable_wear_vdv_m41_jacket_item{
   item__uniqueName:t="attachable_wear_vdv_m41_jacket_item"
   animchar__res:t="vdv_m41_jacket_char"
   collres__res:t="vdv_m41_jacket_collision"
-  item__name:t="USSR VDV Jacket M41"
 }
 
 attachable_wear_tunic_ameba_ussr_summer_item{
@@ -574,7 +569,6 @@ attachable_wear_tunic_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_ameba_ussr_summer_item"
   animchar__res:t="tunic_ameba_ussr_summer_char"
   collres__res:t="tunic_ameba_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 01"
 }
 
 attachable_wear_tunic_ameba_ussr_1_summer_item{
@@ -632,7 +626,6 @@ attachable_wear_tunic_ameba_a_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_ameba_a_ussr_summer_item"
   animchar__res:t="tunic_ameba_a_ussr_summer_char"
   collres__res:t="tunic_ameba_a_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic Ameba Armor"
 
   "hides:array"{
     hides:t="front_belt_l"
@@ -675,7 +668,6 @@ attachable_wear_tunic_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_05_ussr_summer_item"
   animchar__res:t="tunic_05_ussr_summer_char"
   collres__res:t="tunic_05_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 05"
 }
 
 attachable_wear_tunic_05_1_ussr_summer_item{
@@ -703,7 +695,6 @@ attachable_wear_tunic_tankers_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_05_pilot_ussr_summer_item"
   animchar__res:t="tunic_05_pilot_ussr_summer_char"
   collres__res:t="tunic_05_pilot_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 05"
 
   "animchar__objTexReplace:object"{
     "sh_str_nkvd_summer_ussr_01_tex_d*":t="sh_str_armored_summer_ussr_01_tex_d*"
@@ -715,7 +706,6 @@ attachable_wear_tunic_05_pilot_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_05_pilot_ussr_summer_item"
   animchar__res:t="tunic_05_pilot_ussr_summer_char"
   collres__res:t="tunic_05_pilot_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 05"
 
   "animchar__objTexReplace:object"{
     "sh_str_nkvd_summer_ussr_01_tex_d*":t="sh_str_vvs_sublieutenant_ussr_01_tex_d*"
@@ -738,7 +728,6 @@ attachable_wear_tunic_06_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_06_ussr_summer_item"
   animchar__res:t="tunic_06_ussr_summer_char"
   collres__res:t="tunic_06_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 06"
 }
 
 attachable_wear_tunic_08_ussr_summer_item{
@@ -746,7 +735,6 @@ attachable_wear_tunic_08_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_08_ussr_summer_item"
   animchar__res:t="tunic_08_ussr_summer_char"
   collres__res:t="tunic_08_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 08"
 }
 
 attachable_wear_tunic_08_1_ussr_summer_item{
@@ -774,7 +762,6 @@ attachable_wear_tunic_08_tankers_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tunic_08_tankers_ussr_summer_item"
   animchar__res:t="tunic_08_tankers_ussr_summer_char"
   collres__res:t="tunic_08_tankers_ussr_summer_collision"
-  item__name:t="USSR Summer Tunic 08"
 }
 
 attachable_wear_tunic_08_1_tankers_ussr_summer_item{
@@ -792,7 +779,6 @@ attachable_wear_overcoat_m43_w_tabs_08_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_m43_w_tabs_08_ussr_winter_item"
   animchar__res:t="overcoat_m43_w_tabs_08_ussr_winter_char"
   collres__res:t="overcoat_m43_w_tabs_08_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 01"
   animchar_fast_phys__res:t="overcoat_m43_w_tabs_08_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -815,7 +801,6 @@ attachable_wear_tankers_overcoat_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tankers_overcoat_ussr_winter_item"
   animchar__res:t="tankers_overcoat_ussr_winter_char"
   collres__res:t="tankers_overcoat_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 01"
   animchar_fast_phys__res:t="tankers_overcoat_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -862,7 +847,6 @@ attachable_wear_overcoat_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_01_ussr_winter_item"
   animchar__res:t="overcoat_01_ussr_winter_char"
   collres__res:t="overcoat_01_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 01"
   animchar_fast_phys__res:t="overcoat_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -961,7 +945,6 @@ attachable_wear_tanker_leathr_jacket_summer_item{
   item__uniqueName:t="attachable_wear_tanker_leathr_jacket_summer_item"
   animchar__res:t="tanker_leathr_jacket_summer_char"
   collres__res:t="tanker_leathr_jacket_summer_collision"
-  item__name:t="USSR Tanker Leather Jacket"
   animchar_fast_phys__res:t="tanker_leathr_jacket_summer_fastphys"
 
   animchar_fast_phys{
@@ -974,7 +957,6 @@ attachable_wear_tunic_02_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_02_ussr_winter_item"
   animchar__res:t="tunic_02_ussr_winter_char"
   collres__res:t="tunic_02_ussr_winter_collision"
-  item__name:t="USSR Winter Tunic 02"
   animchar_fast_phys__res:t="tunic_02_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1018,7 +1000,6 @@ attachable_wear_tunic_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_07_ussr_winter_item"
   animchar__res:t="tunic_07_ussr_winter_char"
   collres__res:t="tunic_07_ussr_winter_collision"
-  item__name:t="USSR Winter Tunic 07"
   animchar_fast_phys__res:t="tunic_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1040,7 +1021,6 @@ attachable_wear_overcoat_08_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_08_ussr_winter_item"
   animchar__res:t="overcoat_08_ussr_winter_char"
   collres__res:t="overcoat_08_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 08"
   animchar_fast_phys__res:t="overcoat_08_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1053,7 +1033,6 @@ attachable_wear_overcoat_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_09_ussr_winter_item"
   animchar__res:t="overcoat_09_ussr_winter_char"
   collres__res:t="overcoat_09_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 09"
   animchar_fast_phys__res:t="overcoat_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1095,7 +1074,6 @@ attachable_wear_reglan_pilot_coat_ussr_item{
   item__uniqueName:t="attachable_wear_reglan_pilot_coat_ussr_item"
   animchar__res:t="reglan_pilot_coat_ussr_char"
   collres__res:t="reglan_pilot_coat_ussr_collision"
-  item__name:t="USSR Reglan Overcoat"
   animchar_fast_phys__res:t="reglan_pilot_coat_ussr_fastphys"
 
   animchar_fast_phys{
@@ -1108,7 +1086,6 @@ attachable_wear_tunic_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_10_ussr_winter_item"
   animchar__res:t="tunic_10_ussr_winter_char"
   collres__res:t="tunic_10_ussr_winter_collision"
-  item__name:t="USSR Winter Tunic 10"
   animchar_fast_phys__res:t="tunic_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1121,7 +1098,6 @@ attachable_wear_tunic_greenwood_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_greenwood_10_ussr_winter_item"
   animchar__res:t="tunic_greenwood_10_ussr_winter_char"
   collres__res:t="tunic_greenwood_10_ussr_winter_collision"
-  item__name:t="USSR Winter Tunic 10"
   animchar_fast_phys__res:t="tunic_greenwood_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1134,7 +1110,6 @@ attachable_wear_tunic_cape_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tunic_cape_10_ussr_winter_item"
   animchar__res:t="tunic_cape_10_ussr_winter_char"
   collres__res:t="tunic_cape_10_ussr_winter_collision"
-  item__name:t="USSR Winter Tunic Cape 10"
   animchar_fast_phys__res:t="tunic_cape_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1164,7 +1139,6 @@ attachable_wear_overcoat_11_ussr_winter_item{
   item__uniqueName:t="attachable_wear_overcoat_11_ussr_winter_item"
   animchar__res:t="overcoat_11_ussr_winter_char"
   collres__res:t="overcoat_11_ussr_winter_collision"
-  item__name:t="USSR Winter Overcoat 11"
   animchar_fast_phys__res:t="overcoat_11_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1177,7 +1151,6 @@ attachable_wear_jacket_m35_ussr_01_winter_item{
   item__uniqueName:t="attachable_wear_jacket_m35_ussr_01_winter_item"
   animchar__res:t="jacket_m35_ussr_01_winter_char"
   collres__res:t="jacket_m35_ussr_01_winter_collision"
-  item__name:t="USSR Winter Jacket 01"
 }
 
 attachable_wear_jacket_m35_ussr_01_1_winter_item{
@@ -1234,7 +1207,6 @@ attachable_wear_jacket_m35_ussr_medic_item{
   item__uniqueName:t="attachable_wear_jacket_m35_ussr_medic_item"
   animchar__res:t="jacket_m35_ussr_medic_char"
   collres__res:t="jacket_m35_ussr_medic_collision"
-  item__name:t="USSR M35 Jacket"
 }
 
 attachable_wear_jacket_m35_ussr_01_medic_1_winter_item{
@@ -1271,7 +1243,6 @@ attachable_wear_nkvd_overcoat_m35_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nkvd_overcoat_m35_ussr_winter_item"
   animchar__res:t="nkvd_overcoat_m35_ussr_winter_char"
   collres__res:t="nkvd_overcoat_m35_ussr_winter_collision"
-  item__name:t="USSR Winter NKVD Overcoat 11"
   animchar_fast_phys__res:t="nkvd_overcoat_m35_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -1318,7 +1289,6 @@ attachable_wear_tunic_m43_ussr_item{
   item__uniqueName:t="attachable_wear_tunic_m43_ussr_item"
   animchar__res:t="tunic_m43_ussr_char"
   collres__res:t="tunic_m43_ussr_collision"
-  item__name:t="USSR Summer Tunic cellar tab"
 }
 
 attachable_wear_tunic_m35_tanker_ussr_item{
@@ -1326,7 +1296,6 @@ attachable_wear_tunic_m35_tanker_ussr_item{
   item__uniqueName:t="attachable_wear_tunic_m35_tanker_ussr_item"
   animchar__res:t="tunic_m35_tanker_ussr_char"
   collres__res:t="tunic_m35_tanker_ussr_collision"
-  item__name:t="USSR Summer M35 Tunic"
 
   "animchar__objTexReplace:object"{
     "ussr_blouse35_tex_d*":t="ussr_blouse35_dbrown_tex_d*"
@@ -1339,7 +1308,6 @@ attachable_wear_pilot_winter_gloves_ussr_item{
   item__uniqueName:t="attachable_wear_pilot_winter_gloves_ussr_item"
   animchar__res:t="pilot_winter_gloves_ussr_char"
   collres__res:t="pilot_winter_gloves_ussr_collision"
-  item__name:t="USSR Winter Pilot Gloves"
 }
 
 attachable_wear_gloves_01_ussr_summer_item{
@@ -1347,7 +1315,6 @@ attachable_wear_gloves_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_gloves_01_ussr_summer_item"
   animchar__res:t="gloves_01_ussr_summer_char"
   collres__res:t="gloves_01_ussr_summer_collision"
-  item__name:t="USSR Summer Gloves 01"
 }
 
 attachable_wear_gloves_01_ussr_winter_item{
@@ -1355,7 +1322,6 @@ attachable_wear_gloves_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gloves_01_ussr_winter_item"
   animchar__res:t="gloves_01_ussr_winter_char"
   collres__res:t="gloves_01_ussr_winter_collision"
-  item__name:t="USSR Winter Gloves 01"
 }
 
 attachable_wear_knitten_gloves_01_ussr_winter_item{
@@ -1379,7 +1345,6 @@ attachable_wear_gloves_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gloves_09_ussr_winter_item"
   animchar__res:t="gloves_09_ussr_winter_char"
   collres__res:t="gloves_09_ussr_winter_collision"
-  item__name:t="USSR Winter Gloves 09"
 }
 
 attachable_wear_gloves_10_ussr_winter_item{
@@ -1387,7 +1352,6 @@ attachable_wear_gloves_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gloves_10_ussr_winter_item"
   animchar__res:t="gloves_10_ussr_winter_char"
   collres__res:t="gloves_10_ussr_winter_collision"
-  item__name:t="USSR Winter Gloves 10"
 }
 
 attachable_wear_hands_01_ussr_summer_item{
@@ -1395,7 +1359,6 @@ attachable_wear_hands_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_hands_01_ussr_summer_item"
   animchar__res:t="hands_01_ussr_summer_char"
   collres__res:t="hands_01_ussr_summer_collision"
-  item__name:t="USSR Hands Summer 01"
 }
 
 attachable_wear_hands_female_ussr_summer_item{
@@ -1403,7 +1366,6 @@ attachable_wear_hands_female_ussr_summer_item{
   item__uniqueName:t="attachable_wear_hands_female_ussr_summer_item"
   animchar__res:t="hands_female_ussr_summer_char"
   collres__res:t="hands_female_ussr_summer_collision"
-  item__name:t="USSR Female Hands"
 }
 
 attachable_wear_tankers_gloves_01_ussr_winter_item{
@@ -1411,7 +1373,6 @@ attachable_wear_tankers_gloves_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tankers_gloves_01_ussr_winter_item"
   animchar__res:t="tankers_gloves_01_ussr_winter_char"
   collres__res:t="tankers_gloves_01_ussr_winter_collision"
-  item__name:t="USSR Tankers Gloves 1"
 }
 
 attachable_wear_nkvd_gloves_ussr_winter_item{
@@ -1419,7 +1380,6 @@ attachable_wear_nkvd_gloves_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nkvd_gloves_ussr_winter_item"
   animchar__res:t="nkvd_gloves_ussr_winter_char"
   collres__res:t="nkvd_gloves_ussr_winter_collision"
-  item__name:t="USSR NKVD Gloves"
 }
 
 hair_01_ussr_summer_item{
@@ -1427,7 +1387,6 @@ hair_01_ussr_summer_item{
   item__uniqueName:t="hair_01_ussr_summer_item"
   animchar__res:t="hair_01_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Hair 01"
 }
 
 hair_02_ussr_summer_item{
@@ -1435,14 +1394,12 @@ hair_02_ussr_summer_item{
   item__uniqueName:t="hair_02_ussr_summer_item"
   animchar__res:t="hair_02_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Hair 02"
 }
 
 helmet_01_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_01_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Helmet SH36"
   item__uniqueName:t="helmet_01_ussr_summer_item"
   item__armorAmount:r=0.1
 
@@ -1467,7 +1424,6 @@ helmet_02_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_02_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Pilotka 02"
   item__uniqueName:t="helmet_02_ussr_summer_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1481,7 +1437,6 @@ helmet_03_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_03_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Pilotka Officer 03"
   item__uniqueName:t="helmet_03_ussr_summer_item"
 }
 
@@ -1489,7 +1444,6 @@ helmet_04_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_04_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR field cap"
   item__uniqueName:t="helmet_04_ussr_summer_item"
 }
 
@@ -1497,7 +1451,6 @@ balaclava_hat_01_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="balaclava_hat_01_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="Balaclava Hat"
   item__uniqueName:t="balaclava_hat_01_ussr_winter_item"
 }
 
@@ -1512,7 +1465,6 @@ helmet_05_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_05_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Helmet SH40"
   item__uniqueName:t="helmet_05_ussr_summer_item"
   item__armorAmount:r=0.1
 }
@@ -1539,7 +1491,6 @@ helmet_sh39_ussr_05s_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_sh39_ussr_05s_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Helmet SH39"
   item__uniqueName:t="helmet_sh39_ussr_05s_item"
   item__armorAmount:r=0.1
 }
@@ -1565,7 +1516,6 @@ helmet_07_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_07_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Tank Helmet 1940 07"
   item__uniqueName:t="helmet_07_ussr_summer_item"
 }
 
@@ -1573,7 +1523,6 @@ attachable_wear_helmet_earflaps_07_ussr_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="helmet_earflaps_07_ussr_char"
   collres__res:t="helmet_earflaps_07_ussr_collision"
-  item__name:t="USSR earflaps"
   item__uniqueName:t="attachable_wear_helmet_earflaps_07_ussr_item"
   animchar_fast_phys__res:t="helmet_earflaps_07_ussr_fastphys"
 
@@ -1592,7 +1541,6 @@ attachable_wear_peacless_cap_pea_jacket_squad_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="peacless_cap_pea_jacket_squad_char"
   collres__res:t="peacless_cap_pea_jacket_squad_collision"
-  item__name:t="USSR earflaps"
   item__uniqueName:t="attachable_wear_peacless_cap_pea_jacket_squad_item"
   animchar_fast_phys__res:t="peacless_cap_pea_jacket_squad_fastphys"
 
@@ -1611,7 +1559,6 @@ attachable_wear_budenovka_open_01_ussr_winter_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="budenovka_open_01_ussr_winter_char"
   collres__res:t="budenovka_open_01_ussr_winter_collision"
-  item__name:t="USSR Budenovka"
   item__uniqueName:t="attachable_wear_budenovka_open_01_ussr_winter_item"
   animchar_fast_phys__res:t="budenovka_open_01_ussr_winter_fastphys"
 
@@ -1639,7 +1586,6 @@ attachable_wear_tanker_helmet_09_ussr_winter_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="tanker_helmet_09_ussr_winter_char"
   collres__res:t="tanker_helmet_09_ussr_winter_collision"
-  item__name:t="USSR Tanker Helmet M36"
   item__uniqueName:t="attachable_wear_tanker_helmet_09_ussr_winter_item"
   animchar_fast_phys__res:t="tanker_helmet_09_ussr_winter_fastphys"
 
@@ -1658,7 +1604,6 @@ attachable_wear_tanker_helmet_gls_09_ussr_winter_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="tanker_helmet_gls_09_ussr_winter_char"
   collres__res:t="tanker_helmet_gls_09_ussr_winter_collision"
-  item__name:t="USSR Tanker Helmet M36"
   item__uniqueName:t="attachable_wear_tanker_helmet_gls_09_ussr_winter_item"
   animchar_fast_phys__res:t="tanker_helmet_gls_09_ussr_winter_fastphys"
 
@@ -1677,7 +1622,6 @@ attachable_wear_tanker_m36_helmet_fur_ussr_winter_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="tanker_m36_helmet_fur_ussr_winter_char"
   collres__res:t="tanker_m36_helmet_fur_ussr_winter_collision"
-  item__name:t="USSR Tanker Helmet M36"
   item__uniqueName:t="attachable_wear_tanker_m36_helmet_fur_ussr_winter_item"
   animchar_fast_phys__res:t="tanker_m36_helmet_fur_ussr_winter_fastphys"
 
@@ -1696,7 +1640,6 @@ attachable_wear_balaclava_helm_sh40_ussr_medic_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="balaclava_helm_sh40_ussr_medic_char"
   collres__res:t="balaclava_helm_sh40_ussr_medic_collision"
-  item__name:t="USSR Tanker Helmet M36"
   item__uniqueName:t="attachable_wear_balaclava_helm_sh40_ussr_medic_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1748,7 +1691,6 @@ helmet_sh40_ameba_cover_green_ussr_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_sh40_ameba_cover_green_ussr_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR SH40 helmet with cover"
   item__uniqueName:t="helmet_sh40_ameba_cover_green_ussr_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1772,7 +1714,6 @@ tanker_helmet_gls_01_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="tanker_helmet_gls_01_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Tank Helmet Goggles 1940 01"
   item__uniqueName:t="tanker_helmet_gls_01_ussr_winter_item"
 }
 
@@ -1780,7 +1721,6 @@ helmet_08_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_08_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Tank Helmet 1936 08"
   item__uniqueName:t="helmet_08_ussr_summer_item"
 }
 
@@ -1788,7 +1728,6 @@ attachable_wear_tanker_m36_helmet_ussr_winter_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="tanker_m36_helmet_ussr_winter_char"
   collres__res:t="tanker_m36_helmet_ussr_winter_collision"
-  item__name:t="USSR Tanker Helmet M36"
   item__uniqueName:t="attachable_wear_tanker_m36_helmet_ussr_winter_item"
   animchar_fast_phys__res:t="tanker_m36_helmet_ussr_winter_fastphys"
 
@@ -1816,7 +1755,6 @@ tanker_m31_helmet_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="tanker_m31_helmet_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Tanker Helmet M31"
   item__uniqueName:t="tanker_m31_helmet_ussr_winter_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1830,7 +1768,6 @@ tanker_m31_helmet_gls_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="tanker_m31_helmet_gls_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Tanker Helmet M31"
   item__uniqueName:t="tanker_m31_helmet_gls_ussr_winter_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1844,7 +1781,6 @@ helmet_01_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_01_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter Budenovka 01"
   item__uniqueName:t="helmet_01_ussr_winter_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1875,7 +1811,6 @@ helmet_07_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_07_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter Earflaps 07"
   item__uniqueName:t="helmet_07_ussr_winter_item"
 }
 
@@ -1883,7 +1818,6 @@ helmet_07_02_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_07_02_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter Gray Earflaps 07"
   item__uniqueName:t="helmet_07_02_ussr_winter_item"
 }
 
@@ -1901,7 +1835,6 @@ earflaps_closed_07_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="earflaps_closed_07_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter Earflaps"
   item__uniqueName:t="earflaps_closed_07_ussr_winter_item"
 
   "disabledFaceGenParams:shared:array"{
@@ -1942,7 +1875,6 @@ helmet_10_sh40b_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="helmet_10_sh40b_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter Helmet SH40 10"
   item__uniqueName:t="helmet_10_sh40b_ussr_winter_item"
   item__armorAmount:r=0.1
 }
@@ -1951,7 +1883,6 @@ flight_helmet_01_ussr_summer_item{
   _extends:t="helmet_item"
   animchar__res:t="flight_helmet_01_ussr_summer_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR flight helmet"
   item__uniqueName:t="flight_helmet_01_ussr_summer_item"
   item__armorAmount:r=0.1
 }
@@ -1970,7 +1901,6 @@ nkvd_cap_ussr_winter_item{
   _extends:t="helmet_item"
   animchar__res:t="nkvd_cap_ussr_winter_char"
   collres__res:t="medkit_collision"
-  item__name:t="USSR Winter NKVD Cap"
   item__uniqueName:t="nkvd_cap_ussr_winter_item"
 }
 
@@ -2189,7 +2119,6 @@ attachable_wear_backpack_b_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_backpack_b_01_ussr_summer_item"
   animchar__res:t="backpack_b_01_ussr_summer_char"
   collres__res:t="backpack_b_01_ussr_summer_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2212,7 +2141,6 @@ attachable_wear_backpack_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_backpack_ameba_ussr_summer_item"
   animchar__res:t="backpack_ameba_ussr_summer_char"
   collres__res:t="backpack_ameba_ussr_summer_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2235,7 +2163,6 @@ attachable_wear_backpack_b_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_backpack_b_ameba_ussr_summer_item"
   animchar__res:t="backpack_b_ameba_ussr_summer_char"
   collres__res:t="backpack_b_ameba_ussr_summer_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2258,7 +2185,6 @@ attachable_wear_backpack_b_roll_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_backpack_b_roll_ameba_ussr_summer_item"
   animchar__res:t="backpack_b_roll_ameba_ussr_summer_char"
   collres__res:t="backpack_b_roll_ameba_ussr_summer_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_roll_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2320,7 +2246,6 @@ attachable_wear_backpack_b_roll_m38_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_backpack_b_roll_m38_vdv_jacket_item"
   animchar__res:t="backpack_b_roll_m38_vdv_jacket_char"
   collres__res:t="backpack_b_roll_m38_vdv_jacket_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_roll_m38_vdv_jacket_fastphys"
 
   animchar_fast_phys{
@@ -2333,7 +2258,6 @@ attachable_wear_roks_3_gasbag_item{
   item__uniqueName:t="attachable_wear_roks_3_gasbag_item"
   animchar__res:t="roks_3_gasbag_char"
   collres__res:t="roks_3_gasbag_collision"
-  item__name:t="USSR Roks Gasbag"
   animchar_fast_phys__res:t="roks_3_gasbag_fastphys"
 
   animchar_fast_phys{
@@ -2454,7 +2378,6 @@ attachable_wear_flask_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_flask_01_ussr_summer_item"
   animchar__res:t="flask_01_ussr_summer_char"
   collres__res:t="flask_01_ussr_summer_collision"
-  item__name:t="USSR Flask Summer 01"
   animchar_fast_phys__res:t="flask_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2467,7 +2390,6 @@ attachable_wear_flask_m41_tanker_jacket_ussr_item{
   item__uniqueName:t="attachable_wear_flask_m41_tanker_jacket_ussr_item"
   animchar__res:t="flask_m41_tanker_jacket_ussr_char"
   collres__res:t="flask_m41_tanker_jacket_ussr_collision"
-  item__name:t="USSR Flask M41"
 }
 
 attachable_wear_flask_ameba_ussr_summer_item{
@@ -2475,7 +2397,6 @@ attachable_wear_flask_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_flask_ameba_ussr_summer_item"
   animchar__res:t="flask_ameba_ussr_summer_char"
   collres__res:t="flask_ameba_ussr_summer_collision"
-  item__name:t="USSR Flask Summer 01"
   animchar_fast_phys__res:t="flask_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2488,7 +2409,6 @@ attachable_wear_flask_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_flask_01_ussr_winter_item"
   animchar__res:t="flask_01_ussr_winter_char"
   collres__res:t="flask_01_ussr_winter_collision"
-  item__name:t="USSR Flask Winter 01"
   animchar_fast_phys__res:t="flask_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -2501,7 +2421,6 @@ attachable_wear_flask_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_flask_09_ussr_winter_item"
   animchar__res:t="flask_09_ussr_winter_char"
   collres__res:t="flask_09_ussr_winter_collision"
-  item__name:t="USSR Flask Winter 09"
   animchar_fast_phys__res:t="flask_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -2514,7 +2433,6 @@ attachable_wear_flask_01_ussr_tanker_winter_item{
   item__uniqueName:t="attachable_wear_flask_01_ussr_tanker_winter_item"
   animchar__res:t="flask_01_ussr_tanker_winter_char"
   collres__res:t="flask_01_ussr_tanker_winter_collision"
-  item__name:t="USSR Flask Winter 01"
   animchar_fast_phys__res:t="flask_01_ussr_tanker_winter_fastphys"
 
   animchar_fast_phys{
@@ -2527,7 +2445,6 @@ attachable_wear_flask_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_flask_07_ussr_winter_item"
   animchar__res:t="flask_07_ussr_winter_char"
   collres__res:t="flask_07_ussr_winter_collision"
-  item__name:t="USSR Flask Winter 01"
   animchar_fast_phys__res:t="flask_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -2540,7 +2457,13 @@ attachable_wear_flask_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_flask_nkvd_ussr_winter_item"
   animchar__res:t="flask_nkvd_ussr_winter_char"
   collres__res:t="flask_nkvd_ussr_winter_collision"
-  item__name:t="USSR Flask Winter 01"
+}
+
+attachable_wear_flask_m41_ussr_winter_10_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_flask_m41_ussr_winter_10_item"
+  animchar__res:t="flask_m41_ussr_winter_10_char"
+  collres__res:t="flask_m41_ussr_winter_10_collision"
 }
 
 attachable_officer_belt_female_pilot_item{
@@ -2548,7 +2471,6 @@ attachable_officer_belt_female_pilot_item{
   item__uniqueName:t="attachable_wear_officer_belt_female_pilot_item"
   animchar__res:t="officer_belt_female_pilot_char"
   collres__res:t="officer_belt_female_pilot_collision"
-  item__name:t="USSR Officer Belt"
 }
 
 attachable_wear_belt_m42_vdv_jacket_item{
@@ -2556,7 +2478,6 @@ attachable_wear_belt_m42_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_belt_m42_vdv_jacket_item"
   animchar__res:t="belt_m42_vdv_jacket_char"
   collres__res:t="belt_m42_vdv_jacket_collision"
-  item__name:t="USSR M42 Belt"
 }
 
 attachable_wear_belt_overcoat_m43_08_ussr_winter_item{
@@ -2564,7 +2485,6 @@ attachable_wear_belt_overcoat_m43_08_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_overcoat_m43_08_ussr_winter_item"
   animchar__res:t="belt_overcoat_m43_08_ussr_winter_char"
   collres__res:t="belt_overcoat_m43_08_ussr_winter_collision"
-  item__name:t="USSR Double pong belt"
 }
 
 attachable_wear_belt_leather_tanker_jacket_item{
@@ -2572,7 +2492,6 @@ attachable_wear_belt_leather_tanker_jacket_item{
   item__uniqueName:t="attachable_wear_belt_leather_tanker_jacket_item"
   animchar__res:t="belt_leather_tanker_jacket_char"
   collres__res:t="belt_leather_tanker_jacket_collision"
-  item__name:t="USSR Double pong belt"
 }
 
 attachable_wear_belt_1_01_ussr_summer_item{
@@ -2580,7 +2499,6 @@ attachable_wear_belt_1_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_1_01_ussr_summer_item"
   animchar__res:t="belt_1_01_ussr_summer_char"
   collres__res:t="belt_1_01_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer 01"
 }
 
 attachable_wear_belt_ameba_01_ussr_summer_item{
@@ -2588,7 +2506,6 @@ attachable_wear_belt_ameba_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_ameba_01_ussr_summer_item"
   animchar__res:t="belt_ameba_01_ussr_summer_char"
   collres__res:t="belt_ameba_01_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer Ameba"
 }
 
 attachable_wear_belt_officer_ameba_ussr_summer_item{
@@ -2596,7 +2513,6 @@ attachable_wear_belt_officer_ameba_ussr_summer_item{
   item__uniqueName:t="belt_officer_ameba_ussr_summer_item"
   animchar__res:t="belt_officer_ameba_ussr_summer_char"
   collres__res:t="belt_officer_ameba_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer Officer Ameba"
 }
 
 attachable_wear_bowler_01_ussr_summer_item{
@@ -2604,7 +2520,6 @@ attachable_wear_bowler_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_bowler_01_ussr_summer_item"
   animchar__res:t="bowler_01_ussr_summer_char"
   collres__res:t="bowler_01_ussr_summer_collision"
-  item__name:t="USSR Bowler Summer 01"
   animchar_fast_phys__res:t="bowler_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2617,7 +2532,6 @@ attachable_wear_bowler_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bowler_01_ussr_winter_item"
   animchar__res:t="bowler_01_ussr_winter_char"
   collres__res:t="bowler_01_ussr_winter_collision"
-  item__name:t="USSR Bowler Winter 01"
   animchar_fast_phys__res:t="bowler_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -2630,7 +2544,6 @@ attachable_wear_mosin_pouch_r_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_mosin_pouch_r_vdv_jacket_item"
   animchar__res:t="mosin_pouch_r_vdv_jacket_char"
   collres__res:t="mosin_pouch_r_vdv_jacket_collision"
-  item__name:t="USSR Pouch Mosin"
 }
 
 attachable_wear_mosin_pouch_l_vdv_jacket_item{
@@ -2638,7 +2551,6 @@ attachable_wear_mosin_pouch_l_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_mosin_pouch_l_vdv_jacket_item"
   animchar__res:t="mosin_pouch_l_vdv_jacket_char"
   collres__res:t="mosin_pouch_l_vdv_jacket_collision"
-  item__name:t="USSR Pouch Mosin"
 }
 
 attachable_wear_pouch_mosin_01_ussr_summer_item{
@@ -2646,7 +2558,6 @@ attachable_wear_pouch_mosin_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_01_ussr_summer_item"
   animchar__res:t="pouch_mosin_01_ussr_summer_char"
   collres__res:t="pouch_mosin_01_ussr_summer_collision"
-  item__name:t="USSR Pouch Mosin Summer 01"
 }
 
 attachable_wear_pouch_mosin_01_l_ussr_summer_item{
@@ -2654,7 +2565,6 @@ attachable_wear_pouch_mosin_01_l_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_01_l_ussr_summer_item"
   animchar__res:t="pouch_mosin_01_l_ussr_summer_char"
   collres__res:t="pouch_mosin_01_l_ussr_summer_collision"
-  item__name:t="USSR Pouch Mosin Summer 01"
 }
 
 attachable_wear_pouch_mosin_ameba_ussr_summer_item{
@@ -2662,7 +2572,6 @@ attachable_wear_pouch_mosin_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_ameba_ussr_summer_item"
   animchar__res:t="pouch_mosin_ameba_ussr_summer_char"
   collres__res:t="pouch_mosin_ameba_ussr_summer_collision"
-  item__name:t="USSR Pouch Mosin Ameba Summer"
 }
 
 attachable_wear_pouch_mosin_ameba_l_ussr_summer_item{
@@ -2670,7 +2579,6 @@ attachable_wear_pouch_mosin_ameba_l_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_ameba_l_ussr_summer_item"
   animchar__res:t="pouch_mosin_ameba_l_ussr_summer_char"
   collres__res:t="pouch_mosin_ameba_l_ussr_summer_collision"
-  item__name:t="USSR Pouch Mosin Ameba Summer"
 }
 
 attachable_wear_pouch_mosin_01_r_ussr_winter_item{
@@ -2678,7 +2586,6 @@ attachable_wear_pouch_mosin_01_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_01_r_ussr_winter_item"
   animchar__res:t="pouch_mosin_01_r_ussr_winter_char"
   collres__res:t="pouch_mosin_01_r_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 01"
 }
 
 attachable_wear_pouch_mosin_01_l_ussr_winter_item{
@@ -2686,7 +2593,6 @@ attachable_wear_pouch_mosin_01_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_01_l_ussr_winter_item"
   animchar__res:t="pouch_mosin_01_l_ussr_winter_char"
   collres__res:t="pouch_mosin_01_l_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 01"
 }
 
 attachable_wear_pouch_mosin_07_ussr_winter_item{
@@ -2694,7 +2600,6 @@ attachable_wear_pouch_mosin_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_07_ussr_winter_item"
   animchar__res:t="pouch_mosin_07_ussr_winter_char"
   collres__res:t="pouch_mosin_07_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 07"
 }
 
 attachable_wear_pouch_mosin_07_l_ussr_winter_item{
@@ -2702,7 +2607,6 @@ attachable_wear_pouch_mosin_07_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_07_l_ussr_winter_item"
   animchar__res:t="pouch_mosin_07_l_ussr_winter_char"
   collres__res:t="pouch_mosin_07_l_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 07"
 }
 
 attachable_wear_pouch_mosin_09_r_ussr_winter_item{
@@ -2710,7 +2614,6 @@ attachable_wear_pouch_mosin_09_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_09_r_ussr_winter_item"
   animchar__res:t="pouch_mosin_09_r_ussr_winter_char"
   collres__res:t="pouch_mosin_09_r_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 09"
 }
 
 attachable_wear_pouch_mosin_09_l_ussr_winter_item{
@@ -2718,7 +2621,6 @@ attachable_wear_pouch_mosin_09_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_09_l_ussr_winter_item"
   animchar__res:t="pouch_mosin_09_l_ussr_winter_char"
   collres__res:t="pouch_mosin_09_l_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 09"
 }
 
 attachable_wear_pouch_mosin_l_02_ussr_winter_item{
@@ -2726,7 +2628,6 @@ attachable_wear_pouch_mosin_l_02_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_l_02_ussr_winter_item"
   animchar__res:t="pouch_mosin_l_02_ussr_winter_char"
   collres__res:t="pouch_mosin_l_02_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 02"
 }
 
 attachable_wear_pouch_mosin_10_r_ussr_winter_item{
@@ -2734,7 +2635,6 @@ attachable_wear_pouch_mosin_10_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_10_r_ussr_winter_item"
   animchar__res:t="pouch_mosin_10_r_ussr_winter_char"
   collres__res:t="pouch_mosin_10_r_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 10"
 }
 
 attachable_wear_pouch_mosin_10_l_ussr_winter_item{
@@ -2742,7 +2642,6 @@ attachable_wear_pouch_mosin_10_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_10_l_ussr_winter_item"
   animchar__res:t="pouch_mosin_10_l_ussr_winter_char"
   collres__res:t="pouch_mosin_10_l_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter 10"
 }
 
 attachable_wear_pouch_mosin_11_r_ussr_winter_item{
@@ -2757,7 +2656,6 @@ attachable_wear_pouch_mosin_nkvd_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_nkvd_l_ussr_winter_item"
   animchar__res:t="pouch_mosin_nkvd_l_ussr_winter_char"
   collres__res:t="pouch_mosin_nkvd_l_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter nkvd"
 }
 
 attachable_wear_pouch_mosin_nkvd_r_ussr_winter_item{
@@ -2765,7 +2663,6 @@ attachable_wear_pouch_mosin_nkvd_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_mosin_nkvd_r_ussr_winter_item"
   animchar__res:t="pouch_mosin_nkvd_r_ussr_winter_char"
   collres__res:t="pouch_mosin_nkvd_r_ussr_winter_collision"
-  item__name:t="USSR Pouch Mosin Winter nkvd"
 }
 
 attachable_wear_pouch_svt40_01_l_ussr_winter_item{
@@ -2773,7 +2670,6 @@ attachable_wear_pouch_svt40_01_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_01_l_ussr_winter_item"
   animchar__res:t="pouch_svt40_01_l_ussr_winter_char"
   collres__res:t="pouch_svt40_01_l_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 1"
 }
 
 attachable_wear_pouch_svt40_01_r_ussr_summer_item{
@@ -2781,7 +2677,6 @@ attachable_wear_pouch_svt40_01_r_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_01_r_ussr_summer_item"
   animchar__res:t="pouch_svt40_01_r_ussr_summer_char"
   collres__res:t="pouch_svt40_01_r_ussr_summer_collision"
-  item__name:t="USSR SVT40 Pouch Winter 1"
 }
 
 attachable_wear_pouch_svt40_01_l_ussr_summer_item{
@@ -2789,7 +2684,6 @@ attachable_wear_pouch_svt40_01_l_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_01_l_ussr_summer_item"
   animchar__res:t="pouch_svt40_01_l_ussr_summer_char"
   collres__res:t="pouch_svt40_01_l_ussr_summer_collision"
-  item__name:t="USSR SVT40 Pouch Winter 1"
 }
 
 attachable_wear_pouch_svt40_01_r_ussr_winter_item{
@@ -2797,7 +2691,6 @@ attachable_wear_pouch_svt40_01_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_01_r_ussr_winter_item"
   animchar__res:t="pouch_svt40_01_r_ussr_winter_char"
   collres__res:t="pouch_svt40_01_r_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 1"
 }
 
 attachable_wear_pouch_svt40_07_l_ussr_winter_item{
@@ -2805,7 +2698,6 @@ attachable_wear_pouch_svt40_07_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_07_l_ussr_winter_item"
   animchar__res:t="pouch_svt40_07_l_ussr_winter_char"
   collres__res:t="pouch_svt40_07_l_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 7"
 }
 
 attachable_wear_pouch_svt40_07_r_ussr_winter_item{
@@ -2813,7 +2705,6 @@ attachable_wear_pouch_svt40_07_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_07_r_ussr_winter_item"
   animchar__res:t="pouch_svt40_07_r_ussr_winter_char"
   collres__res:t="pouch_svt40_07_r_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 7"
 }
 
 attachable_wear_pouch_svt40_09_l_ussr_winter_item{
@@ -2821,7 +2712,6 @@ attachable_wear_pouch_svt40_09_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_09_l_ussr_winter_item"
   animchar__res:t="pouch_svt40_09_l_ussr_winter_char"
   collres__res:t="pouch_svt40_09_l_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 9"
 }
 
 attachable_wear_pouch_svt40_09_r_ussr_winter_item{
@@ -2829,7 +2719,6 @@ attachable_wear_pouch_svt40_09_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_09_r_ussr_winter_item"
   animchar__res:t="pouch_svt40_09_r_ussr_winter_char"
   collres__res:t="pouch_svt40_09_r_ussr_winter_collision"
-  item__name:t="items/small_ammo_pouch"
 }
 
 attachable_wear_pouch_svt40_10_l_ussr_winter_item{
@@ -2837,7 +2726,6 @@ attachable_wear_pouch_svt40_10_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_10_l_ussr_winter_item"
   animchar__res:t="pouch_svt40_10_l_ussr_winter_char"
   collres__res:t="pouch_svt40_10_l_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 10"
 }
 
 attachable_wear_pouch_svt40_10_r_ussr_winter_item{
@@ -2845,7 +2733,6 @@ attachable_wear_pouch_svt40_10_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_10_r_ussr_winter_item"
   animchar__res:t="pouch_svt40_10_r_ussr_winter_char"
   collres__res:t="pouch_svt40_10_r_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter 10"
 }
 
 attachable_wear_pouch_svt40_nkvd_l_ussr_winter_item{
@@ -2853,7 +2740,6 @@ attachable_wear_pouch_svt40_nkvd_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_nkvd_l_ussr_winter_item"
   animchar__res:t="pouch_svt40_nkvd_l_ussr_winter_char"
   collres__res:t="pouch_svt40_nkvd_l_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter nkvd"
 }
 
 attachable_wear_pouch_svt40_nkvd_r_ussr_winter_item{
@@ -2861,7 +2747,6 @@ attachable_wear_pouch_svt40_nkvd_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_svt40_nkvd_r_ussr_winter_item"
   animchar__res:t="pouch_svt40_nkvd_r_ussr_winter_char"
   collres__res:t="pouch_svt40_nkvd_r_ussr_winter_collision"
-  item__name:t="USSR SVT40 Pouch Winter nkvd"
 }
 
 attachable_wear_pouch_f1_01_ussr_summer_item{
@@ -2869,7 +2754,6 @@ attachable_wear_pouch_f1_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_f1_01_ussr_summer_item"
   animchar__res:t="pouch_f1_01_ussr_summer_char"
   collres__res:t="pouch_f1_01_ussr_summer_collision"
-  item__name:t="USSR Pouch F1 Summer 01"
 }
 
 attachable_wear_pouch_f1_ameba_ussr_summer_item{
@@ -2877,7 +2761,6 @@ attachable_wear_pouch_f1_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_f1_ameba_ussr_summer_item"
   animchar__res:t="pouch_f1_ameba_ussr_summer_char"
   collres__res:t="pouch_f1_ameba_ussr_summer_collision"
-  item__name:t="USSR Pouch F1 Summer 01"
 }
 
 attachable_wear_pouch_f1_nkvd_ussr_winter_item{
@@ -2885,7 +2768,6 @@ attachable_wear_pouch_f1_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_f1_nkvd_ussr_winter_item"
   animchar__res:t="pouch_f1_nkvd_ussr_winter_char"
   collres__res:t="pouch_f1_nkvd_ussr_winter_collision"
-  item__name:t="USSR Pouch F1 Winter nkvd"
 }
 
 attachable_wear_pouch_f1_01_ussr_winter_item{
@@ -2909,7 +2791,6 @@ attachable_wear_pouch_f1_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_f1_09_ussr_winter_item"
   animchar__res:t="pouch_f1_09_ussr_winter_char"
   collres__res:t="pouch_f1_09_ussr_winter_collision"
-  item__name:t="USSR Pouch F1 Winter 09"
 }
 
 attachable_wear_gasmask_01_ussr_summer_item{
@@ -2917,7 +2798,6 @@ attachable_wear_gasmask_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_gasmask_01_ussr_summer_item"
   animchar__res:t="gasmask_01_ussr_summer_char"
   collres__res:t="gasmask_01_ussr_summer_collision"
-  item__name:t="USSR Gasmask Summer 01"
   animchar_fast_phys__res:t="gasmask_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2930,7 +2810,6 @@ attachable_wear_gasmask_bag_armor_sp39_08_ussr_summer_item{
   item__uniqueName:t="attachable_wear_gasmask_bag_armor_sp39_08_ussr_summer_item"
   animchar__res:t="gasmask_bag_armor_sp39_08_ussr_summer_char"
   collres__res:t="gasmask_bag_armor_sp39_08_ussr_summer_collision"
-  item__name:t="USSR Gasmask Bag"
   animchar_fast_phys__res:t="gasmask_bag_armor_sp39_08_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2943,7 +2822,6 @@ attachable_wear_gasmask_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_gasmask_ameba_ussr_summer_item"
   animchar__res:t="gasmask_ameba_ussr_summer_char"
   collres__res:t="gasmask_ameba_ussr_summer_collision"
-  item__name:t="USSR Gasmask Ameba Summer"
   animchar_fast_phys__res:t="gasmask_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -2968,7 +2846,6 @@ attachable_wear_shoulder_firstaid_bag_medic_item{
   item__uniqueName:t="attachable_wear_shoulder_firstaid_bag_medic_item"
   animchar__res:t="shoulder_firstaid_bag_medic_char"
   collres__res:t="shoulder_firstaid_bag_medic_collision"
-  item__name:t="USSR FirstAid Shoulder Bag"
   animchar_fast_phys__res:t="shoulder_firstaid_bag_medic_fastphys"
 
   animchar_fast_phys{
@@ -2981,7 +2858,6 @@ attachable_wear_pouch_rgd_02_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_rgd_02_ussr_summer_item"
   animchar__res:t="pouch_rgd_02_ussr_summer_char"
   collres__res:t="pouch_rgd_02_ussr_summer_collision"
-  item__name:t="USSR Pouch RGD Summer 02"
 }
 
 attachable_wear_pouch_rgd_01_ussr_winter_item{
@@ -2989,7 +2865,6 @@ attachable_wear_pouch_rgd_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_rgd_01_ussr_winter_item"
   animchar__res:t="pouch_rgd_01_ussr_winter_char"
   collres__res:t="pouch_rgd_01_ussr_winter_collision"
-  item__name:t="USSR Pouch RGD Winter 07"
   animchar_fast_phys__res:t="pouch_rgd_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3002,7 +2877,6 @@ attachable_wear_pouch_rgd_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_rgd_07_ussr_winter_item"
   animchar__res:t="pouch_rgd_07_ussr_winter_char"
   collres__res:t="pouch_rgd_07_ussr_winter_collision"
-  item__name:t="USSR Pouch RGD Winter 07"
   animchar_fast_phys__res:t="pouch_rgd_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3015,7 +2889,6 @@ attachable_wear_pouch_rgd_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_rgd_09_ussr_winter_item"
   animchar__res:t="pouch_rgd_09_ussr_winter_char"
   collres__res:t="pouch_rgd_09_ussr_winter_collision"
-  item__name:t="USSR Pouch RGD Winter 09"
   animchar_fast_phys__res:t="pouch_rgd_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3028,7 +2901,18 @@ attachable_wear_pouch_rgd_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_rgd_nkvd_ussr_winter_item"
   animchar__res:t="pouch_rgd_nkvd_ussr_winter_char"
   collres__res:t="pouch_rgd_nkvd_ussr_winter_collision"
-  item__name:t="USSR Pouch RGD Winter nkvd"
+}
+
+attachable_wear_sergeant_field_tablet_summer_01_ussr_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_sergeant_field_tablet_summer_01_ussr_item"
+  animchar__res:t="sergeant_field_tablet_summer_01_ussr_char"
+  collres__res:t="sergeant_field_tablet_summer_01_ussr_collision"
+  animchar_fast_phys__res:t="sergeant_field_tablet_summer_01_ussr_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_kitbag_01_ussr_summer_item{
@@ -3045,12 +2929,38 @@ attachable_wear_kitbag_01_ussr_summer_item{
   }
 }
 
+attachable_wear_kitbag_vdv_m41_jacket_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_kitbag_vdv_m41_jacket_item"
+  animchar__res:t="kitbag_vdv_m41_jacket_char"
+  collres__res:t="kitbag_vdv_m41_jacket_collision"
+  animchar_fast_phys__res:t="kitbag_vdv_m41_jacket_fastphys"
+  attachable_backpack__capacity:i=1
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_kitbag_02_ussr_summer_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_kitbag_02_ussr_summer_item"
+  animchar__res:t="kitbag_02_ussr_summer_char"
+  collres__res:t="kitbag_02_ussr_summer_collision"
+  item__name:t="items/small_bag"
+  animchar_fast_phys__res:t="kitbag_02_ussr_summer_fastphys"
+  attachable_backpack__capacity:i=1
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_kitbag_ameba_ussr_summer_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_kitbag_ameba_ussr_summer_item"
   animchar__res:t="kitbag_ameba_ussr_summer_char"
   collres__res:t="kitbag_ameba_ussr_summer_collision"
-  item__name:t="USSR M41 Sack"
   animchar_fast_phys__res:t="kitbag_ameba_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -3075,7 +2985,6 @@ attachable_wear_kitbag_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_kitbag_01_ussr_winter_item"
   animchar__res:t="kitbag_01_ussr_winter_char"
   collres__res:t="kitbag_01_ussr_winter_collision"
-  item__name:t="USSR M41 Sack"
   animchar_fast_phys__res:t="kitbag_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3088,7 +2997,6 @@ attachable_wear_kitbag_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_kitbag_07_ussr_winter_item"
   animchar__res:t="kitbag_07_ussr_winter_char"
   collres__res:t="kitbag_07_ussr_winter_collision"
-  item__name:t="USSR M41 Sack"
   animchar_fast_phys__res:t="kitbag_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3101,7 +3009,6 @@ attachable_wear_kitbag_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_kitbag_10_ussr_winter_item"
   animchar__res:t="kitbag_10_ussr_winter_char"
   collres__res:t="kitbag_10_ussr_winter_collision"
-  item__name:t="USSR M41 Sack"
   animchar_fast_phys__res:t="kitbag_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3114,7 +3021,6 @@ attachable_wear_binoculars_03_ussr_summer_item{
   item__uniqueName:t="attachable_wear_binoculars_03_ussr_summer_item"
   animchar__res:t="binoculars_03_ussr_summer_char"
   collres__res:t="binoculars_03_ussr_summer_collision"
-  item__name:t="USSR Binoculars Summer 03"
   animchar_fast_phys__res:t="binoculars_03_ussr_summer_fastphys"
 
   animchar_fast_phys{
@@ -3127,7 +3033,6 @@ attachable_wear_binoculars_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_01_ussr_winter_item"
   animchar__res:t="binoculars_01_ussr_winter_char"
   collres__res:t="binoculars_01_ussr_winter_collision"
-  item__name:t="USSR Binoculars winter 01"
   animchar_fast_phys__res:t="binoculars_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3140,7 +3045,6 @@ attachable_wear_binoculars_04_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_04_ussr_winter_item"
   animchar__res:t="binoculars_04_ussr_winter_char"
   collres__res:t="binoculars_04_ussr_winter_collision"
-  item__name:t="USSR Binoculars winter 04"
   animchar_fast_phys__res:t="binoculars_04_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3153,7 +3057,6 @@ attachable_wear_binoculars_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_07_ussr_winter_item"
   animchar__res:t="binoculars_07_ussr_winter_char"
   collres__res:t="binoculars_07_ussr_winter_collision"
-  item__name:t="USSR Binoculars winter 07"
   animchar_fast_phys__res:t="binoculars_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3166,7 +3069,6 @@ attachable_wear_binoculars_tanker_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_tanker_01_ussr_winter_item"
   animchar__res:t="binoculars_tanker_01_ussr_winter_char"
   collres__res:t="binoculars_tanker_01_ussr_winter_collision"
-  item__name:t="USSR Binoculars winter 07"
   animchar_fast_phys__res:t="binoculars_tanker_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3179,7 +3081,6 @@ attachable_wear_binoculars_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_09_ussr_winter_item"
   animchar__res:t="binoculars_09_ussr_winter_char"
   collres__res:t="binoculars_09_ussr_winter_collision"
-  item__name:t="USSR Binoculars winter 07"
   animchar_fast_phys__res:t="binoculars_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3192,7 +3093,6 @@ attachable_wear_binoculars_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_binoculars_10_ussr_winter_item"
   animchar__res:t="binoculars_10_ussr_winter_char"
   collres__res:t="binoculars_10_ussr_winter_collision"
-  item__name:t="USSR Binoculars"
   animchar_fast_phys__res:t="binoculars_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3205,7 +3105,6 @@ attachable_wear_nagan_03_ussr_summer_item{
   item__uniqueName:t="attachable_wear_nagan_03_ussr_summer_item"
   animchar__res:t="nagan_03_ussr_summer_char"
   collres__res:t="nagan_03_ussr_summer_collision"
-  item__name:t="USSR Nagan Summer 03"
 }
 
 attachable_wear_nagan_holster_l_01_ussr_winter_item{
@@ -3213,7 +3112,6 @@ attachable_wear_nagan_holster_l_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nagan_holster_l_01_ussr_winter_item"
   animchar__res:t="nagan_holster_l_01_ussr_winter_char"
   collres__res:t="nagan_holster_l_01_ussr_winter_collision"
-  item__name:t="USSR Nagan Winter 01"
 }
 
 attachable_wear_flashlight_m39_01_ussr_winter_item{
@@ -3221,7 +3119,6 @@ attachable_wear_flashlight_m39_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_flashlight_m39_01_ussr_winter_item"
   animchar__res:t="flashlight_m39_01_ussr_winter_char"
   collres__res:t="flashlight_m39_01_ussr_winter_collision"
-  item__name:t="USSR M39 Flashlight"
 }
 
 attachable_wear_nagan_holster_r_01_ussr_winter_item{
@@ -3229,7 +3126,6 @@ attachable_wear_nagan_holster_r_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nagan_holster_r_01_ussr_winter_item"
   animchar__res:t="nagan_holster_r_01_ussr_winter_char"
   collres__res:t="nagan_holster_r_01_ussr_winter_collision"
-  item__name:t="USSR Nagan Winter 01"
 }
 
 attachable_wear_nagan_holster_l_07_ussr_winter_item{
@@ -3237,7 +3133,6 @@ attachable_wear_nagan_holster_l_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nagan_holster_l_07_ussr_winter_item"
   animchar__res:t="nagan_holster_l_07_ussr_winter_char"
   collres__res:t="nagan_holster_l_07_ussr_winter_collision"
-  item__name:t="USSR Nagan Winter 07"
 }
 
 attachable_wear_nagan_holster_09_ussr_winter_item{
@@ -3245,7 +3140,6 @@ attachable_wear_nagan_holster_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nagan_holster_09_ussr_winter_item"
   animchar__res:t="nagan_holster_09_ussr_winter_char"
   collres__res:t="nagan_holster_09_ussr_winter_collision"
-  item__name:t="USSR Nagan Winter 09"
 }
 
 attachable_wear_nagan_holster_tanker_01_ussr_winter_item{
@@ -3253,7 +3147,6 @@ attachable_wear_nagan_holster_tanker_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nagan_holster_tanker_01_ussr_winter_item"
   animchar__res:t="nagan_holster_tanker_01_ussr_winter_char"
   collres__res:t="nagan_holster_tanker_01_ussr_winter_collision"
-  item__name:t="USSR Nagan Winter 01"
   animchar_fast_phys__res:t="nagan_holster_tanker_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3266,7 +3159,6 @@ attachable_wear_nagan_holster_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_nagan_holster_ameba_ussr_summer_item"
   animchar__res:t="nagan_holster_ameba_ussr_summer_char"
   collres__res:t="nagan_holster_ameba_ussr_summer_collision"
-  item__name:t="USSR Nagan Summer Ameba"
 }
 
 attachable_wear_nagant_holster_l_tanker_jacket_ussr_item{
@@ -3274,7 +3166,6 @@ attachable_wear_nagant_holster_l_tanker_jacket_ussr_item{
   item__uniqueName:t="attachable_wear_nagant_holster_l_tanker_jacket_ussr_item"
   animchar__res:t="nagant_holster_l_tanker_jacket_ussr_char"
   collres__res:t="nagant_holster_l_tanker_jacket_ussr_collision"
-  item__name:t="USSR Nagant Holster"
 }
 
 attachable_wear_belt_1_03_ussr_summer_item{
@@ -3282,7 +3173,6 @@ attachable_wear_belt_1_03_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_1_03_ussr_summer_item"
   animchar__res:t="belt_1_03_ussr_summer_char"
   collres__res:t="belt_1_03_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer 03"
 }
 
 attachable_wear_belt_2_01_ussr_summer_item{
@@ -3290,7 +3180,6 @@ attachable_wear_belt_2_01_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_2_01_ussr_summer_item"
   animchar__res:t="belt_2_01_ussr_summer_char"
   collres__res:t="belt_2_01_ussr_summer_collision"
-  item__name:t="USSR Shoulder Belt Summer 01"
 }
 
 attachable_wear_belt_2_ameba_ussr_summer_item{
@@ -3298,7 +3187,6 @@ attachable_wear_belt_2_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_2_ameba_ussr_summer_item"
   animchar__res:t="belt_2_ameba_ussr_summer_char"
   collres__res:t="belt_2_ameba_ussr_summer_collision"
-  item__name:t="USSR Shoulder Belt Summer Ameba"
 }
 
 attachable_wear_belt_2_03_ussr_summer_item{
@@ -3306,7 +3194,6 @@ attachable_wear_belt_2_03_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_2_03_ussr_summer_item"
   animchar__res:t="belt_2_03_ussr_summer_char"
   collres__res:t="belt_2_03_ussr_summer_collision"
-  item__name:t="USSR Belt2 Summer 03"
 }
 
 attachable_wear_backpack_04_ussr_summer_item{
@@ -3314,8 +3201,31 @@ attachable_wear_backpack_04_ussr_summer_item{
   item__uniqueName:t="attachable_wear_backpack_04_ussr_summer_item"
   animchar__res:t="backpack_04_ussr_summer_char"
   collres__res:t="backpack_04_ussr_summer_collision"
-  item__name:t="USSR Backpack Summer 04"
   animchar_fast_phys__res:t="backpack_04_ussr_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_shovel_m41_pouch_01_ussr_winter_item{
+  _extends:t="attachable_rear_belt_r"
+  item__uniqueName:t="attachable_wear_shovel_m41_pouch_01_ussr_winter_item"
+  animchar__res:t="shovel_m41_pouch_01_ussr_winter_char"
+  collres__res:t="shovel_m41_pouch_01_ussr_winter_collision"
+  animchar_fast_phys__res:t="shovel_m41_pouch_01_ussr_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_shovel_m41_pouch_01_ussr_summer_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_shovel_m41_pouch_01_ussr_summer_item"
+  animchar__res:t="shovel_m41_pouch_01_ussr_summer_char"
+  collres__res:t="shovel_m41_pouch_01_ussr_summer_collision"
+  animchar_fast_phys__res:t="shovel_m41_pouch_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -3327,7 +3237,6 @@ attachable_wear_pouch_ppsh_l_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_l_01_ussr_winter_item"
   animchar__res:t="pouch_ppsh_l_01_ussr_winter_char"
   collres__res:t="pouch_ppsh_l_01_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Winter 01"
 }
 
 attachable_wear_pouch_ppsh_r_01_ussr_winter_item{
@@ -3335,7 +3244,6 @@ attachable_wear_pouch_ppsh_r_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_r_01_ussr_winter_item"
   animchar__res:t="pouch_ppsh_r_01_ussr_winter_char"
   collres__res:t="pouch_ppsh_r_01_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Winter 01"
 }
 
 attachable_wear_pouch_ppsh_l_07_ussr_winter_item{
@@ -3343,7 +3251,6 @@ attachable_wear_pouch_ppsh_l_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_l_07_ussr_winter_item"
   animchar__res:t="pouch_ppsh_l_07_ussr_winter_char"
   collres__res:t="pouch_ppsh_l_07_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Winter 07"
 }
 
 attachable_wear_pouch_ppsh_r_07_ussr_winter_item{
@@ -3351,7 +3258,6 @@ attachable_wear_pouch_ppsh_r_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_r_07_ussr_winter_item"
   animchar__res:t="pouch_ppsh_r_07_ussr_winter_char"
   collres__res:t="pouch_ppsh_r_07_ussr_winter_collision"
-  item__name:t="items/big_ammo_pouch"
 }
 
 attachable_wear_pouch_ppsh_l_09_ussr_winter_item{
@@ -3359,7 +3265,6 @@ attachable_wear_pouch_ppsh_l_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_l_09_ussr_winter_item"
   animchar__res:t="pouch_ppsh_l_09_ussr_winter_char"
   collres__res:t="pouch_ppsh_l_09_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Winter 09"
 }
 
 attachable_wear_pouch_ppsh_r_09_ussr_winter_item{
@@ -3367,7 +3272,6 @@ attachable_wear_pouch_ppsh_r_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_r_09_ussr_winter_item"
   animchar__res:t="pouch_ppsh_r_09_ussr_winter_char"
   collres__res:t="pouch_ppsh_r_09_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Winter 09"
 }
 
 attachable_wear_pouch_ppsh_05_ussr_summer_item{
@@ -3375,7 +3279,13 @@ attachable_wear_pouch_ppsh_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_05_ussr_summer_item"
   animchar__res:t="pouch_ppsh_05_ussr_summer_char"
   collres__res:t="pouch_ppsh_05_ussr_summer_collision"
-  item__name:t="USSR Pouch PPSH Summer 05"
+}
+
+attachable_wear_pouch_ppsh_05_l_ussr_summer_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_pouch_ppsh_05_l_ussr_summer_item"
+  animchar__res:t="pouch_ppsh_05_l_ussr_summer_char"
+  collres__res:t="pouch_ppsh_05_l_ussr_summer_collision"
 }
 
 attachable_wear_pouch_ppsh_nkvd_r_ussr_winter_item{
@@ -3383,7 +3293,6 @@ attachable_wear_pouch_ppsh_nkvd_r_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_nkvd_r_ussr_winter_item"
   animchar__res:t="pouch_ppsh_nkvd_r_ussr_winter_char"
   collres__res:t="pouch_ppsh_nkvd_r_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Summer nkvd"
 }
 
 attachable_wear_pouch_ppsh_nkvd_l_ussr_winter_item{
@@ -3391,7 +3300,6 @@ attachable_wear_pouch_ppsh_nkvd_l_ussr_winter_item{
   item__uniqueName:t="attachable_wear_pouch_ppsh_nkvd_l_ussr_winter_item"
   animchar__res:t="pouch_ppsh_nkvd_l_ussr_winter_char"
   collres__res:t="pouch_ppsh_nkvd_l_ussr_winter_collision"
-  item__name:t="USSR Pouch PPSH Summer nkvd"
 }
 
 attachable_wear_tt_06_ussr_summer_item{
@@ -3399,7 +3307,6 @@ attachable_wear_tt_06_ussr_summer_item{
   item__uniqueName:t="attachable_wear_tt_06_ussr_summer_item"
   animchar__res:t="tt_06_ussr_summer_char"
   collres__res:t="tt_06_ussr_summer_collision"
-  item__name:t="USSR TT Summer 06"
 }
 
 attachable_wear_belt_1_05_ussr_summer_item{
@@ -3407,7 +3314,6 @@ attachable_wear_belt_1_05_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_1_05_ussr_summer_item"
   animchar__res:t="belt_1_05_ussr_summer_char"
   collres__res:t="belt_1_05_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer 05"
 }
 
 attachable_wear_belt_1_06_ussr_summer_item{
@@ -3415,7 +3321,6 @@ attachable_wear_belt_1_06_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_1_06_ussr_summer_item"
   animchar__res:t="belt_1_06_ussr_summer_char"
   collres__res:t="belt_1_06_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer 06"
 }
 
 attachable_wear_belt_1_07_ussr_summer_item{
@@ -3423,7 +3328,6 @@ attachable_wear_belt_1_07_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_1_07_ussr_summer_item"
   animchar__res:t="belt_1_07_ussr_summer_char"
   collres__res:t="belt_1_07_ussr_summer_collision"
-  item__name:t="USSR Belt1 Summer 07"
 }
 
 attachable_wear_pouch_pps_08_ussr_summer_item{
@@ -3431,7 +3335,6 @@ attachable_wear_pouch_pps_08_ussr_summer_item{
   item__uniqueName:t="attachable_wear_pouch_pps_08_ussr_summer_item"
   animchar__res:t="pouch_pps_08_ussr_summer_char"
   collres__res:t="pouch_pps_08_ussr_summer_collision"
-  item__name:t="USSR Pouch PPS Summer 08"
 }
 
 attachable_wear_belt_1_01_ussr_winter_item{
@@ -3439,7 +3342,6 @@ attachable_wear_belt_1_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_01_ussr_winter_item"
   animchar__res:t="belt_1_01_ussr_winter_char"
   collres__res:t="belt_1_01_ussr_winter_collision"
-  item__name:t="USSR Belt 42 winter 01"
 }
 
 attachable_wear_belt_1_02_ussr_winter_item{
@@ -3447,7 +3349,6 @@ attachable_wear_belt_1_02_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_02_ussr_winter_item"
   animchar__res:t="belt_1_02_ussr_winter_char"
   collres__res:t="belt_1_02_ussr_winter_collision"
-  item__name:t="USSR Belt 42 winter 02"
 }
 
 attachable_wear_belt_1_04_ussr_winter_item{
@@ -3455,7 +3356,6 @@ attachable_wear_belt_1_04_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_04_ussr_winter_item"
   animchar__res:t="belt_1_04_ussr_winter_char"
   collres__res:t="belt_1_04_ussr_winter_collision"
-  item__name:t="USSR Belt Officer winter 04"
 }
 
 attachable_wear_belt_1_11_ussr_winter_item{
@@ -3470,7 +3370,6 @@ attachable_wear_tankers_belt_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tankers_belt_01_ussr_winter_item"
   animchar__res:t="tankers_belt_01_ussr_winter_char"
   collres__res:t="tankers_belt_01_ussr_winter_collision"
-  item__name:t="USSR Tankers Belt winter 01"
 }
 
 attachable_wear_belt_officer_07_ussr_winter_item{
@@ -3478,7 +3377,6 @@ attachable_wear_belt_officer_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_officer_07_ussr_winter_item"
   animchar__res:t="belt_officer_07_ussr_winter_char"
   collres__res:t="belt_officer_07_ussr_winter_collision"
-  item__name:t="USSR Belt Officer winter 07"
 }
 
 attachable_wear_belt_officer_pilot_ussr_winter_item{
@@ -3486,7 +3384,6 @@ attachable_wear_belt_officer_pilot_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_officer_pilot_ussr_winter_item"
   animchar__res:t="belt_officer_pilot_ussr_winter_char"
   collres__res:t="belt_officer_pilot_ussr_winter_collision"
-  item__name:t="USSR Belt Officer pilot"
 }
 
 attachable_wear_belt_officer_pilot_ussr_summer_item{
@@ -3494,7 +3391,6 @@ attachable_wear_belt_officer_pilot_ussr_summer_item{
   item__uniqueName:t="attachable_wear_belt_officer_pilot_ussr_summer_item"
   animchar__res:t="belt_officer_pilot_ussr_summer_char"
   collres__res:t="belt_officer_pilot_ussr_summer_collision"
-  item__name:t="USSR Belt Officer pilot"
 }
 
 attachable_wear_belt_1_05_ussr_winter_item{
@@ -3502,7 +3398,6 @@ attachable_wear_belt_1_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_05_ussr_winter_item"
   animchar__res:t="belt_1_05_ussr_winter_char"
   collres__res:t="belt_1_05_ussr_winter_collision"
-  item__name:t="USSR Belt Officer winter 05"
 }
 
 attachable_wear_belt_1_10_ussr_winter_item{
@@ -3510,7 +3405,6 @@ attachable_wear_belt_1_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_10_ussr_winter_item"
   animchar__res:t="belt_1_10_ussr_winter_char"
   collres__res:t="belt_1_10_ussr_winter_collision"
-  item__name:t="USSR Belt 42 winter 10"
 }
 
 attachable_wear_belt_2_01_ussr_winter_item{
@@ -3518,7 +3412,6 @@ attachable_wear_belt_2_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_01_ussr_winter_item"
   animchar__res:t="belt_2_01_ussr_winter_char"
   collres__res:t="belt_2_01_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_sholder_belt_vdv_jacket_item{
@@ -3526,7 +3419,6 @@ attachable_wear_sholder_belt_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_sholder_belt_vdv_jacket_item"
   animchar__res:t="sholder_belt_vdv_jacket_char"
   collres__res:t="sholder_belt_vdv_jacket_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_sholder_belt_tanker_leather_jacket_item{
@@ -3534,7 +3426,6 @@ attachable_wear_sholder_belt_tanker_leather_jacket_item{
   item__uniqueName:t="attachable_wear_sholder_belt_tanker_leather_jacket_item"
   animchar__res:t="sholder_belt_tanker_leather_jacket_char"
   collres__res:t="sholder_belt_tanker_leather_jacket_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_belt_2_flashlight_m35_01_ussr_winter_item{
@@ -3542,7 +3433,6 @@ attachable_wear_belt_2_flashlight_m35_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_flashlight_m35_01_ussr_winter_item"
   animchar__res:t="belt_2_flashlight_m35_01_ussr_winter_char"
   collres__res:t="belt_2_flashlight_m35_01_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_belt2_flashlight_m39_05_ussr_winter_item{
@@ -3550,7 +3440,6 @@ attachable_wear_belt2_flashlight_m39_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt2_flashlight_m39_05_ussr_winter_item"
   animchar__res:t="belt2_flashlight_m39_05_ussr_winter_char"
   collres__res:t="belt2_flashlight_m39_05_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_belt2_flashlight_m39_jacket_m35_item{
@@ -3558,7 +3447,6 @@ attachable_wear_belt2_flashlight_m39_jacket_m35_item{
   item__uniqueName:t="attachable_wear_belt2_flashlight_m39_jacket_m35_item"
   animchar__res:t="belt2_flashlight_m39_jacket_m35_char"
   collres__res:t="belt2_flashlight_m39_jacket_m35_collision"
-  item__name:t="USSR Shoulder Belt"
 }
 
 attachable_wear_belt_2_04_ussr_winter_item{
@@ -3566,7 +3454,6 @@ attachable_wear_belt_2_04_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_04_ussr_winter_item"
   animchar__res:t="belt_2_04_ussr_winter_char"
   collres__res:t="belt_2_04_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt winter 04"
 }
 
 attachable_wear_belt_2_05_ussr_winter_item{
@@ -3574,7 +3461,6 @@ attachable_wear_belt_2_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_05_ussr_winter_item"
   animchar__res:t="belt_2_05_ussr_winter_char"
   collres__res:t="belt_2_05_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt winter 02"
 }
 
 attachable_wear_belt_2_02_ussr_winter_item{
@@ -3582,7 +3468,6 @@ attachable_wear_belt_2_02_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_02_ussr_winter_item"
   animchar__res:t="belt_2_02_ussr_winter_char"
   collres__res:t="belt_2_02_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt winter"
 }
 
 attachable_wear_belt_2_tanker_01_ussr_winter_item{
@@ -3590,7 +3475,6 @@ attachable_wear_belt_2_tanker_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_2_tanker_01_ussr_winter_item"
   animchar__res:t="belt_2_tanker_01_ussr_winter_char"
   collres__res:t="belt_2_tanker_01_ussr_winter_collision"
-  item__name:t="USSR Shoulder Tanker Belt winter 01"
 }
 
 attachable_wear_belt_shoulder_05_ussr_winter_item{
@@ -3598,7 +3482,6 @@ attachable_wear_belt_shoulder_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_shoulder_05_ussr_winter_item"
   animchar__res:t="belt_shoulder_05_ussr_winter_char"
   collres__res:t="belt_shoulder_05_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt winter 05"
 }
 
 attachable_wear_belt_1_09_ussr_winter_item{
@@ -3606,7 +3489,6 @@ attachable_wear_belt_1_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_09_ussr_winter_item"
   animchar__res:t="belt_1_09_ussr_winter_char"
   collres__res:t="belt_1_09_ussr_winter_collision"
-  item__name:t="USSR Belt Officer winter 09"
 }
 
 attachable_wear_belt_shoulder_nkvd_ussr_winter_item{
@@ -3614,7 +3496,6 @@ attachable_wear_belt_shoulder_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_shoulder_nkvd_ussr_winter_item"
   animchar__res:t="belt_shoulder_nkvd_ussr_winter_char"
   collres__res:t="belt_shoulder_nkvd_ussr_winter_collision"
-  item__name:t="USSR Shoulder Belt winter 05"
 }
 
 attachable_wear_belt_nkvd_ussr_winter_item{
@@ -3622,7 +3503,6 @@ attachable_wear_belt_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_belt_1_09_ussr_winter_item"
   animchar__res:t="belt_nkvd_ussr_winter_char"
   collres__res:t="belt_nkvd_ussr_winter_collision"
-  item__name:t="USSR NKVD Belt winter"
 }
 
 attachable_wear_backpack_nkvd_ussr_winter_item{
@@ -3630,7 +3510,6 @@ attachable_wear_backpack_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_nkvd_ussr_winter_item"
   animchar__res:t="backpack_nkvd_ussr_winter_char"
   collres__res:t="backpack_nkvd_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_nkvd_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3643,7 +3522,6 @@ attachable_wear_backpack_nkvd_roll_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_nkvd_roll_ussr_winter_item"
   animchar__res:t="backpack_nkvd_roll_ussr_winter_char"
   collres__res:t="backpack_nkvd_roll_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_nkvd_roll_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3656,7 +3534,6 @@ attachable_wear_backpack_nkvd_b_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_nkvd_b_ussr_winter_item"
   animchar__res:t="backpack_nkvd_b_ussr_winter_char"
   collres__res:t="backpack_nkvd_b_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_nkvd_b_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3669,7 +3546,6 @@ attachable_wear_backpack_nkvd_b_roll_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_nkvd_b_roll_ussr_winter_item"
   animchar__res:t="backpack_nkvd_b_roll_ussr_winter_char"
   collres__res:t="backpack_nkvd_b_roll_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_nkvd_b_roll_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3722,7 +3598,6 @@ attachable_wear_backpack_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_01_ussr_winter_item"
   animchar__res:t="backpack_01_ussr_winter_char"
   collres__res:t="backpack_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3735,7 +3610,6 @@ attachable_wear_backpack_roll_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_roll_01_ussr_winter_item"
   animchar__res:t="backpack_roll_01_ussr_winter_char"
   collres__res:t="backpack_roll_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_roll_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3748,7 +3622,6 @@ attachable_wear_backpack_s_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_01_ussr_winter_item"
   animchar__res:t="backpack_s_01_ussr_winter_char"
   collres__res:t="backpack_s_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3761,7 +3634,6 @@ attachable_wear_backpack_s_roll_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_roll_01_ussr_winter_item"
   animchar__res:t="backpack_s_roll_01_ussr_winter_char"
   collres__res:t="backpack_s_roll_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_roll_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3774,7 +3646,6 @@ attachable_wear_backpack_b_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_01_ussr_winter_item"
   animchar__res:t="backpack_b_01_ussr_winter_char"
   collres__res:t="backpack_b_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3787,7 +3658,6 @@ attachable_wear_backpack_b_roll_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_roll_01_ussr_winter_item"
   animchar__res:t="backpack_b_roll_01_ussr_winter_char"
   collres__res:t="backpack_b_roll_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_roll_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3800,7 +3670,6 @@ attachable_wear_backpack_sb_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_01_ussr_winter_item"
   animchar__res:t="backpack_sb_01_ussr_winter_char"
   collres__res:t="backpack_sb_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3813,7 +3682,6 @@ attachable_wear_backpack_sb_roll_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_roll_01_ussr_winter_item"
   animchar__res:t="backpack_sb_roll_01_ussr_winter_char"
   collres__res:t="backpack_sb_roll_01_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_roll_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3826,7 +3694,6 @@ attachable_wear_backpack_b_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_10_ussr_winter_item"
   animchar__res:t="backpack_b_10_ussr_winter_char"
   collres__res:t="backpack_b_10_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_10_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3839,7 +3706,6 @@ attachable_wear_backpack_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_05_ussr_winter_item"
   animchar__res:t="backpack_05_ussr_winter_char"
   collres__res:t="backpack_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3852,7 +3718,6 @@ attachable_wear_backpack_roll_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_roll_05_ussr_winter_item"
   animchar__res:t="backpack_roll_05_ussr_winter_char"
   collres__res:t="backpack_roll_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_roll_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3865,7 +3730,6 @@ attachable_wear_backpack_s_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_05_ussr_winter_item"
   animchar__res:t="backpack_s_05_ussr_winter_char"
   collres__res:t="backpack_s_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3878,7 +3742,6 @@ attachable_wear_backpack_s_roll_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_roll_05_ussr_winter_item"
   animchar__res:t="backpack_s_roll_05_ussr_winter_char"
   collres__res:t="backpack_s_roll_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_roll_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3891,7 +3754,6 @@ attachable_wear_backpack_sb_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_05_ussr_winter_item"
   animchar__res:t="backpack_sb_05_ussr_winter_char"
   collres__res:t="backpack_sb_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3904,7 +3766,6 @@ attachable_wear_backpack_sb_roll_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_roll_05_ussr_winter_item"
   animchar__res:t="backpack_sb_roll_05_ussr_winter_char"
   collres__res:t="backpack_sb_roll_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_roll_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3917,7 +3778,6 @@ attachable_wear_backpack_b_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_05_ussr_winter_item"
   animchar__res:t="backpack_b_05_ussr_winter_char"
   collres__res:t="backpack_b_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3930,7 +3790,6 @@ attachable_wear_backpack_b_roll_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_roll_05_ussr_winter_item"
   animchar__res:t="backpack_b_roll_05_ussr_winter_char"
   collres__res:t="backpack_b_roll_05_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_roll_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3955,7 +3814,6 @@ attachable_wear_backpack_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_09_ussr_winter_item"
   animchar__res:t="backpack_09_ussr_winter_char"
   collres__res:t="backpack_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3968,7 +3826,6 @@ attachable_wear_backpack_roll_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_roll_09_ussr_winter_item"
   animchar__res:t="backpack_roll_09_ussr_winter_char"
   collres__res:t="backpack_roll_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_roll_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3981,7 +3838,6 @@ attachable_wear_backpack_s_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_09_ussr_winter_item"
   animchar__res:t="backpack_s_09_ussr_winter_char"
   collres__res:t="backpack_s_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -3994,7 +3850,6 @@ attachable_wear_backpack_s_roll_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_s_roll_09_ussr_winter_item"
   animchar__res:t="backpack_s_roll_09_ussr_winter_char"
   collres__res:t="backpack_s_roll_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_s_roll_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4007,7 +3862,6 @@ attachable_wear_backpack_b_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_09_ussr_winter_item"
   animchar__res:t="backpack_b_09_ussr_winter_char"
   collres__res:t="backpack_b_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4020,7 +3874,6 @@ attachable_wear_backpack_b_roll_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_b_roll_09_ussr_winter_item"
   animchar__res:t="backpack_b_roll_09_ussr_winter_char"
   collres__res:t="backpack_b_roll_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_b_roll_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4033,7 +3886,6 @@ attachable_wear_backpack_sb_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_09_ussr_winter_item"
   animchar__res:t="backpack_sb_09_ussr_winter_char"
   collres__res:t="backpack_sb_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4046,7 +3898,6 @@ attachable_wear_backpack_sb_roll_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_backpack_sb_roll_09_ussr_winter_item"
   animchar__res:t="backpack_sb_roll_09_ussr_winter_char"
   collres__res:t="backpack_sb_roll_09_ussr_winter_collision"
-  item__name:t="USSR M38 Backpack"
   animchar_fast_phys__res:t="backpack_sb_roll_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4059,8 +3910,19 @@ attachable_wear_gasmask_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gasmask_01_ussr_winter_item"
   animchar__res:t="gasmask_01_ussr_winter_char"
   collres__res:t="gasmask_01_ussr_winter_collision"
-  item__name:t="USSR Gasmask Winter 01"
   animchar_fast_phys__res:t="gasmask_01_ussr_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_gasmask_bag_w_helmet_01_ussr_winter_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_gasmask_bag_w_helmet_01_ussr_winter_item"
+  animchar__res:t="gasmask_bag_w_helmet_01_ussr_winter_char"
+  collres__res:t="gasmask_bag_w_helmet_01_ussr_winter_collision"
+  animchar_fast_phys__res:t="gasmask_bag_w_helmet_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -4072,7 +3934,6 @@ attachable_wear_gasmask_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gasmask_05_ussr_winter_item"
   animchar__res:t="gasmask_05_ussr_winter_char"
   collres__res:t="gasmask_05_ussr_winter_collision"
-  item__name:t="USSR Gasmask Winter 05"
   animchar_fast_phys__res:t="gasmask_05_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4085,7 +3946,6 @@ attachable_wear_gasmask_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gasmask_09_ussr_winter_item"
   animchar__res:t="gasmask_09_ussr_winter_char"
   collres__res:t="gasmask_09_ussr_winter_collision"
-  item__name:t="USSR Gasmask Winter 09"
   animchar_fast_phys__res:t="gasmask_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4098,7 +3958,6 @@ attachable_wear_gasmask_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_gasmask_nkvd_ussr_winter_item"
   animchar__res:t="gasmask_nkvd_ussr_winter_char"
   collres__res:t="gasmask_nkvd_ussr_winter_collision"
-  item__name:t="USSR Gasmask Winter nkvd"
   animchar_fast_phys__res:t="gasmask_nkvd_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4121,7 +3980,22 @@ attachable_wear_bandolier_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bandolier_01_ussr_winter_item"
   animchar__res:t="bandolier_01_ussr_winter_char"
   collres__res:t="bandolier_01_ussr_winter_collision"
-  item__name:t="USSR Bandolier winter 01"
+}
+
+attachable_wear_bandolier_01_ussr_summer_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_bandolier_01_ussr_summer_item"
+  animchar__res:t="bandolier_01_ussr_summer_char"
+  collres__res:t="bandolier_01_ussr_summer_collision"
+}
+
+attachable_wear_bandolier_cross_winter_01_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_bandolier_cross_winter_01_item"
+  animchar__res:t="bandolier_cross_winter_01_char"
+  collres__res:t="bandolier_cross_winter_01_collision"
 }
 
 attachable_wear_bandolier_vdv_jacket_item{
@@ -4130,7 +4004,6 @@ attachable_wear_bandolier_vdv_jacket_item{
   item__uniqueName:t="attachable_wear_bandolier_vdv_jacket_item"
   animchar__res:t="bandolier_vdv_jacket_char"
   collres__res:t="bandolier_vdv_jacket_collision"
-  item__name:t="USSR Bandolier"
 }
 
 attachable_wear_bandolier_10_ussr_winter_item{
@@ -4139,7 +4012,6 @@ attachable_wear_bandolier_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bandolier_10_ussr_winter_item"
   animchar__res:t="bandolier_10_ussr_winter_char"
   collres__res:t="bandolier_10_ussr_winter_collision"
-  item__name:t="USSR Bandolier winter 01"
 }
 
 attachable_wear_bandolier_ameba_ussr_summer_item{
@@ -4148,7 +4020,6 @@ attachable_wear_bandolier_ameba_ussr_summer_item{
   item__uniqueName:t="attachable_wear_bandolier_ameba_ussr_summer_item"
   animchar__res:t="bandolier_ameba_ussr_summer_char"
   collres__res:t="bandolier_ameba_ussr_summer_collision"
-  item__name:t="USSR Bandolier winter Ameba"
 }
 
 attachable_wear_bandolier_07_ussr_winter_item{
@@ -4157,7 +4028,6 @@ attachable_wear_bandolier_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bandolier_07_ussr_winter_item"
   animchar__res:t="bandolier_07_ussr_winter_char"
   collres__res:t="bandolier_07_ussr_winter_collision"
-  item__name:t="USSR Bandolier winter 07"
 }
 
 attachable_wear_bandolier_09_ussr_winter_item{
@@ -4166,7 +4036,6 @@ attachable_wear_bandolier_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bandolier_09_ussr_winter_item"
   animchar__res:t="bandolier_09_ussr_winter_char"
   collres__res:t="bandolier_09_ussr_winter_collision"
-  item__name:t="USSR Bandolier winter 09"
 }
 
 attachable_wear_bandolier_nkvd_ussr_winter_item{
@@ -4175,7 +4044,6 @@ attachable_wear_bandolier_nkvd_ussr_winter_item{
   item__uniqueName:t="attachable_wear_bandolier_nkvd_ussr_winter_item"
   animchar__res:t="bandolier_nkvd_ussr_winter_char"
   collres__res:t="bandolier_nkvd_ussr_winter_collision"
-  item__name:t="USSR Bandolier winter nkvd"
 }
 
 attachable_wear_armor_sp42_05_ussr_winter_item{
@@ -4185,7 +4053,6 @@ attachable_wear_armor_sp42_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_armor_sp42_05_ussr_winter_item"
   animchar__res:t="armor_sp42_05_ussr_winter_char"
   collres__res:t="armor_sp42_05_ussr_winter_collision"
-  item__name:t="USSR SP42 armor"
   item__armorAmount:r=0.1
 
   "item__armoredParts:array"{
@@ -4206,7 +4073,46 @@ attachable_wear_armor_sp38_05_ussr_winter_item{
   item__uniqueName:t="attachable_wear_armor_sp38_05_ussr_winter_item"
   animchar__res:t="armor_sp38_05_ussr_winter_char"
   collres__res:t="armor_sp38_05_ussr_winter_collision"
-  item__name:t="USSR SP38 armor"
+  item__armorAmount:r=0.1
+
+  "item__armoredParts:array"{
+    part:t="Bip01 Spine"
+    part:t="Bip01 Spine1"
+  }
+
+  "hides:array"{
+    hides:t="front_belt_l"
+    hides:t="front_belt_r"
+  }
+}
+
+attachable_wear_armor_sp38_w_dshk_belt_05_ussr_winter_item{
+  _extends:t="attachable_chest"
+  _extends:t="item_armor"
+  _extends:t="body_armor"
+  item__uniqueName:t="attachable_wear_armor_sp38_w_dshk_belt_05_ussr_winter_item"
+  animchar__res:t="armor_sp38_w_dshk_belt_05_ussr_winter_char"
+  collres__res:t="armor_sp38_w_dshk_belt_05_ussr_winter_collision"
+  item__armorAmount:r=0.1
+
+  "item__armoredParts:array"{
+    part:t="Bip01 Spine"
+    part:t="Bip01 Spine1"
+  }
+
+  "hides:array"{
+    hides:t="front_belt_l"
+    hides:t="front_belt_r"
+  }
+}
+
+attachable_wear_armor_sp38_01_ussr_summer_item{
+  _extends:t="attachable_chest"
+  _extends:t="item_armor"
+  _extends:t="body_armor"
+  item__uniqueName:t="attachable_wear_armor_sp38_01_ussr_summer_item"
+  animchar__res:t="armor_sp38_01_ussr_summer_char"
+  collres__res:t="armor_sp38_01_ussr_summer_collision"
   item__armorAmount:r=0.1
 
   "item__armoredParts:array"{
@@ -4227,7 +4133,6 @@ attachable_wear_armor_sp38_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_armor_sp38_01_ussr_winter_item"
   animchar__res:t="armor_sp38_01_ussr_winter_char"
   collres__res:t="armor_sp38_01_ussr_winter_collision"
-  item__name:t="USSR SP38 armor"
   item__armorAmount:r=0.1
 
   "item__armoredParts:array"{
@@ -4248,7 +4153,6 @@ attachable_wear_armor_sp38_m35_jacket_item{
   item__uniqueName:t="attachable_wear_armor_sp38_m35_jacket_item"
   animchar__res:t="armor_sp38_m35_jacket_char"
   collres__res:t="armor_sp38_m35_jacket_collision"
-  item__name:t="USSR SP38 armor"
   item__armorAmount:r=0.1
 
   "item__armoredParts:array"{
@@ -4269,7 +4173,6 @@ attachable_wear_armor_sp39_08_ussr_summer_item{
   item__uniqueName:t="attachable_wear_armor_sp39_08_ussr_summer_item"
   animchar__res:t="armor_sp39_08_ussr_summer_char"
   collres__res:t="armor_sp39_08_ussr_summer_collision"
-  item__name:t="USSR SP39 armor"
   item__armorAmount:r=0.1
 
   "item__armoredParts:array"{
@@ -4288,7 +4191,6 @@ attachable_wear_machinegun_belt_pea_jacket_item{
   item__uniqueName:t="attachable_wear_machinegun_belt_pea_jacket_item"
   animchar__res:t="machinegun_belt_pea_jacket_char"
   collres__res:t="machinegun_belt_pea_jacket_collision"
-  item__name:t="USSR Maksim machine gun belt"
 }
 
 attachable_wear_officer_tablet_01_ussr_winter_item{
@@ -4296,7 +4198,6 @@ attachable_wear_officer_tablet_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_officer_tablet_01_ussr_winter_item"
   animchar__res:t="officer_tablet_01_ussr_winter_char"
   collres__res:t="officer_tablet_01_ussr_winter_collision"
-  item__name:t="USSR Officer map tablet 01"
   animchar_fast_phys__res:t="officer_tablet_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4309,7 +4210,6 @@ attachable_wear_officer_tablet_tanker_jacket_ussr_item{
   item__uniqueName:t="attachable_wear_officer_tablet_tanker_jacket_ussr_item"
   animchar__res:t="officer_tablet_tanker_jacket_ussr_char"
   collres__res:t="officer_tablet_tanker_jacket_ussr_collision"
-  item__name:t="USSR Officer map tablet"
   animchar_fast_phys__res:t="officer_tablet_tanker_jacket_ussr_fastphys"
 
   animchar_fast_phys{
@@ -4322,7 +4222,6 @@ attachable_wear_officer_tablet_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_officer_tablet_07_ussr_winter_item"
   animchar__res:t="officer_tablet_07_ussr_winter_char"
   collres__res:t="officer_tablet_07_ussr_winter_collision"
-  item__name:t="USSR Officer map tablet 07"
   animchar_fast_phys__res:t="officer_tablet_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4335,7 +4234,6 @@ attachable_wear_officer_tablet_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_officer_tablet_09_ussr_winter_item"
   animchar__res:t="officer_tablet_09_ussr_winter_char"
   collres__res:t="officer_tablet_09_ussr_winter_collision"
-  item__name:t="USSR Officer map tablet 09"
   animchar_fast_phys__res:t="officer_tablet_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4348,11 +4246,45 @@ attachable_wear_tanker_tablet_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_tanker_tablet_01_ussr_winter_item"
   animchar__res:t="tanker_tablet_01_ussr_winter_char"
   collres__res:t="tanker_tablet_01_ussr_winter_collision"
-  item__name:t="USSR Officer map tablet 01"
   animchar_fast_phys__res:t="tanker_tablet_01_ussr_winter_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_officer_tablet_winter_10_ussr_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_officer_tablet_winter_10_ussr_item"
+  animchar__res:t="officer_tablet_winter_10_ussr_char"
+  collres__res:t="officer_tablet_winter_10_ussr_collision"
+  animchar_fast_phys__res:t="officer_tablet_winter_10_ussr_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_3section_rgd_pouch_10_ussr_winter_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_3section_rgd_pouch_10_ussr_winter_item"
+  animchar__res:t="3section_rgd_pouch_10_ussr_winter_char"
+  collres__res:t="3section_rgd_pouch_10_ussr_winter_collision"
+}
+
+attachable_wear_3section_rgd_pouch_1_ussr_summer_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_3section_rgd_pouch_1_ussr_summer_item"
+  animchar__res:t="3section_rgd_pouch_1_ussr_summer_char"
+  collres__res:t="3section_rgd_pouch_1_ussr_summer_collision"
+}
+
+attachable_wear_3section_rgd_pouch_dark_1_ussr_summer_item{
+  _extends:t="attachable_side_belt_r"
+  _extends:t="attachable_wear_3section_rgd_pouch_1_ussr_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ussr_3section_rgd_pouch_tex_d*":t="ussr_3section_rgd_pouch_dark_tex_d*"
   }
 }
 
@@ -4361,7 +4293,6 @@ attachable_wear_nkvd_tablet_ussr_winter_item{
   item__uniqueName:t="attachable_wear_nkvd_tablet_ussr_winter_item"
   animchar__res:t="nkvd_tablet_ussr_winter_char"
   collres__res:t="nkvd_tablet_ussr_winter_collision"
-  item__name:t="USSR Officer map tablet nkvd"
   animchar_fast_phys__res:t="nkvd_tablet_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4374,8 +4305,31 @@ attachable_wear_axe_pouch_01_ussr_winter_item{
   item__uniqueName:t="attachable_wear_axe_pouch_01_ussr_winter_item"
   animchar__res:t="axe_pouch_01_ussr_winter_char"
   collres__res:t="axe_pouch_01_ussr_winter_collision"
-  item__name:t="USSR Axe Pouch 01"
   animchar_fast_phys__res:t="axe_pouch_01_ussr_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_axe_pouch_back_10_ussr_winter_item{
+  _extends:t="attachable_front_rear_belt_l"
+  item__uniqueName:t="attachable_wear_axe_pouch_back_10_ussr_winter_item"
+  animchar__res:t="axe_pouch_back_10_ussr_winter_char"
+  collres__res:t="axe_pouch_back_10_ussr_winter_collision"
+  animchar_fast_phys__res:t="axe_pouch_back_10_ussr_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_axe_pouch_01_ussr_summer_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_axe_pouch_01_ussr_summer_item"
+  animchar__res:t="axe_pouch_01_ussr_summer_char"
+  collres__res:t="axe_pouch_01_ussr_summer_collision"
+  animchar_fast_phys__res:t="axe_pouch_01_ussr_summer_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -4387,7 +4341,6 @@ attachable_wear_axe_pouch_07_ussr_winter_item{
   item__uniqueName:t="attachable_wear_axe_pouch_07_ussr_winter_item"
   animchar__res:t="axe_pouch_07_ussr_winter_char"
   collres__res:t="axe_pouch_07_ussr_winter_collision"
-  item__name:t="USSR Axe Pouch 07"
   animchar_fast_phys__res:t="axe_pouch_07_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4400,7 +4353,6 @@ attachable_wear_axe_pouch_09_ussr_winter_item{
   item__uniqueName:t="attachable_wear_axe_pouch_09_ussr_winter_item"
   animchar__res:t="axe_pouch_09_ussr_winter_char"
   collres__res:t="axe_pouch_09_ussr_winter_collision"
-  item__name:t="USSR Axe Pouch 09"
   animchar_fast_phys__res:t="axe_pouch_09_ussr_winter_fastphys"
 
   animchar_fast_phys{
@@ -4413,7 +4365,6 @@ attachable_wear_axe_pouch_10_ussr_winter_item{
   item__uniqueName:t="attachable_wear_axe_pouch_10_ussr_winter_item"
   animchar__res:t="axe_pouch_10_ussr_winter_char"
   collres__res:t="axe_pouch_10_ussr_winter_collision"
-  item__name:t="USSR Axe Pouch 10"
   animchar_fast_phys__res:t="axe_pouch_10_ussr_winter_fastphys"
 
   animchar_fast_phys{

@@ -11,12 +11,16 @@ it_m41_75_32{
       slot:i=0
       fill:b=yes
     }
+
+    "ammo:object"{
+      slot:i=2
+      count:i=7
+    }
   }
 }
 
 it_m41_75_32_common{
   _extends:t="base_m41_75_32"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.4
 
   "vehicle_seats__seatsProvideOrder:tag"{
@@ -29,7 +33,7 @@ it_m41_75_32_common{
       locName:t="vehicle_seats/commander"
       attachNode:t="commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.75, -0.74, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.75, -0.04, 0.0]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
       shouldHideOwner:b=yes
@@ -37,6 +41,7 @@ it_m41_75_32_common{
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="uk_m41_75_32_gunner_cockpit"
       hatchRotationAxis:p3=1.5, 0.0, 0.0
+      maxPosWithOpenHatch:r=0.3
 
       "turretNames:array"{
         turret:t="turret_01"

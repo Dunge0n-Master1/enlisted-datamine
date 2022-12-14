@@ -10,11 +10,14 @@ let { vehicleTurrets, vehicleTurretsSetValue } = mkFrameIncrementObservable([], 
 
 let { turretsReload, turretsReloadSetKeyVal, turretsReloadDeleteKey } = mkFrameIncrementObservable({}, "turretsReload")
 let { turretsAmmo, turretsAmmoSetValue, turretsAmmoModify } = mkFrameIncrementObservable({}, "turretsAmmo")
-let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(INVALID_ENTITY_ID, "mainTurretEid")
-let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(INVALID_ENTITY_ID, "currentMainTurretEid")
+let { mainTurretEid, mainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "mainTurretEid")
+let { currentMainTurretEid, currentMainTurretEidSetValue } = mkFrameIncrementObservable(ecs.INVALID_ENTITY_ID, "currentMainTurretEid")
 const MACHINE_GUN_TRIGGER = 2
 
-let resetState = @() vehicleTurretsSetValue([])
+let function resetState() {
+  vehicleTurretsSetValue([])
+  turretsAmmoSetValue([])
+}
 
 let turretQuery = ecs.SqQuery("turretQuery", {
   comps_ro=[
@@ -27,7 +30,8 @@ let turretQuery = ecs.SqQuery("turretQuery", {
     ["nextBulletId", ecs.TYPE_INT, -1],
     ["turret__triggerGroup", ecs.TYPE_INT, -1],
     ["gun__ammoSetsInfo", ecs.TYPE_SHARED_ARRAY, null],
-    ["gun__shellsAmmo", ecs.TYPE_ARRAY, []]
+    ["gun__shellsAmmo", ecs.TYPE_ARRAY, []],
+    ["turret__disableAim", ecs.TYPE_TAG, null]
   ]
 })
 
@@ -45,7 +49,7 @@ let getGunTmpl = memoize(@(propsId) ecs.g_entity_mgr.getTemplateDB().getTemplate
 let getAmmoSets = @(_, comp)
   (comp["gun__ammoSetsInfo"]?.getAll() ?? []).map(@(set, setInd) { name=set?[0]?.name ?? "", type=set?[0]?.type ?? "", maxAmmo = comp["gun__shellsAmmo"]?[setInd] ?? 0 })
 
-let function initTurretsState(_eid, comp) {
+let function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTITY_ID) {
   let turretsByGroup = {}
 
   let triggerMappingComp = comp["turret_control__triggerMapping"]?.getAll() ?? []
@@ -65,7 +69,7 @@ let function initTurretsState(_eid, comp) {
       nextAmmoSetId = gunComp["nextBulletId"]
       isReloadable = gunComp["gun__reloadable"]
       icon = gunTpl?.getCompValNullable("gun__icon")
-      isControlled = gunComp["turretInput"] != null
+      isControlled = gunComp["turretInput"] != null && gunEid != ignore_control_turret_eid
       isLocalControlLocked = gunComp["turret_input__isLocalControlLocked"]
       isBomb = trigger == "bombs"
       isRocket = trigger == "rockets"
@@ -74,6 +78,7 @@ let function initTurretsState(_eid, comp) {
       groupName = gunComp["turret__groupName"]
       isWithSeveralShells = gunComp["nextBulletId"] != -1
       ammoSet = getAmmoSets(v, gunComp)
+      showCrosshair = gunComp.turret__disableAim == null
     }
     let groupName = turret.groupName
     if (turretsByGroup?[groupName] == null)
@@ -92,7 +97,7 @@ let function initTurretsState(_eid, comp) {
     } else
       turrets.extend(turretsInGroup)
 
-  let mainTurretEidValue = (turretsByGroup?[""][0] ?? turrets[0]).gunEid ?? INVALID_ENTITY_ID
+  let mainTurretEidValue = (turretsByGroup?[""][0] ?? turrets[0]).gunEid ?? ecs.INVALID_ENTITY_ID
   mainTurretEidSetValue(mainTurretEidValue)
   currentMainTurretEidSetValue(
     turretsByGroup?[""].findvalue(@(turret) turret.isControlled && turret.triggerGroup != MACHINE_GUN_TRIGGER)?.gunEid ?? mainTurretEidValue)
@@ -107,7 +112,7 @@ let function initTurretsState(_eid, comp) {
 
 ecs.register_es("vehicle_turret_state_ui_es",
   {
-    [["onInit", "onChange", EventOnSeatOwnersChanged]] = initTurretsState,
+    [["onInit", "onChange", EventOnSeatOwnersChanged]] = @(_, comp) initTurretsState(comp),
     onDestroy = @(...) resetState(),
   },
   {
@@ -148,8 +153,11 @@ let turretsVehicleQuery = ecs.SqQuery("turretsVehicleQuery", {
 })
 
 ecs.register_es("track_controlled_turret_ui_es",
-  { [["onInit", "onChange", "onDestroy"]] = function(_eid, comp) {
-      turretsVehicleQuery(comp["turret__owner"], @(vehicleEid, vehicleComp) initTurretsState(vehicleEid, vehicleComp))
+  { [["onInit", "onChange"]] = function(_eid, comp) {
+      turretsVehicleQuery(comp["turret__owner"], @(_, vehicleComp) initTurretsState(vehicleComp))
+    },
+    onDestroy = function(deleted_eid, comp) {
+      turretsVehicleQuery(comp.turret__owner, @(_, vehicleComp) initTurretsState(vehicleComp, deleted_eid))
     }
   },
   {
@@ -159,17 +167,6 @@ ecs.register_es("track_controlled_turret_ui_es",
     ]
     comps_ro = [["turret__owner", ecs.TYPE_EID]]
     comps_rq = ["turretInput"]
-  }
-)
-
-ecs.register_es("track_turret_input_disappear_ui_es",
-  { [ecs.EventEntityRecreated] = function(_eid, comp) {
-      turretsVehicleQuery(comp["turret__owner"], @(vehicleEid, vehicleComp) initTurretsState(vehicleEid, vehicleComp))
-    }
-  },
-  {
-    comps_ro = [["turret__owner", ecs.TYPE_EID]]
-    comps_no = ["turretInput"]
   }
 )
 

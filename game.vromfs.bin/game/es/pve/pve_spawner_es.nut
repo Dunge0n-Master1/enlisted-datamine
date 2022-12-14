@@ -36,7 +36,7 @@ ecs.register_es("pve_stage_active_es",
             spawnSquad({
               squad = squad
               team = comp["pve__botTeam"]
-              playerEid = INVALID_ENTITY_ID
+              playerEid = ecs.INVALID_ENTITY_ID
               memberId = squad.findindex(@(val) val.guid == spawner["soldierGuid"])
               addTemplatesOnSpawn = botExtraTemplate
               mkSpawnParamsCb = function(team) {

@@ -202,6 +202,7 @@ let cardIconReceivedHeader = faComp("check", {
 let mkCardTopText = @(text) {
   rendObj = ROBJ_IMAGE
   image = Picture($"!ui/uiskin/battlepass/bg_free.svg:{bgFree[0]}:{bgFree[1]}:K")
+  size = bgFree
   children = {
     rendObj = ROBJ_TEXT
     padding = smallPadding

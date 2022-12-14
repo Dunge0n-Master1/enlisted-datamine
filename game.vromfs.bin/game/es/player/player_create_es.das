@@ -35,7 +35,7 @@ def player_allow_reconnect(plr_eid : EntityId; oldPossessed : EntityId; var spec
     if specTarget != INVALID_ENTITY_ID
       return true
 
-  // TODO(k.zakharchenko): extract game-specific logic
+  // TODO: extract game-specific logic
   let NOT_ASSIGNED_SCORING_PLACE = 0 // CRSD-specific, shouldn't be there
   if (plr_eid |> get_int("scoring_player__place") ?? NOT_ASSIGNED_SCORING_PLACE) != NOT_ASSIGNED_SCORING_PLACE // Scoring place was assigned?
     return true
@@ -54,7 +54,7 @@ def find_player_override() : PlayerTemplateOverride
     res.templ = player_template__override
   return res
 
-def create_player(connid : int; name : das_string; uid : uint64; group_id : int64; platform_uid : das_string; platform : das_string;
+def create_player(connid : int; name : das_string; uid : uint64; group_id : int64; orig_group_id : int64; platform_uid : das_string; platform : das_string;
                   app_id : int) : EntityId
   let playerTemplOverride = find_player_override()
   let playerTemplateName : string = playerTemplOverride.found ? playerTemplOverride.templ : dgs_get_settings() |> datablock_getStr("playerTemplateName", "common_player")
@@ -64,6 +64,7 @@ def create_player(connid : int; name : das_string; uid : uint64; group_id : int6
     init |> set("userid", uid)
     init |> set("possessed", INVALID_ENTITY_ID)
     init |> set("groupId", group_id)
+    init |> set("origGroupId", orig_group_id)
     init |> set("platformUid", platform_uid)
     init |> set("platform", platform)
     init |> set("appId", app_id)
@@ -103,7 +104,7 @@ def try_reconnect_player(var newConn : IConnection?; uid : uint64) : EntityId
     disconnected = false
     disconnectedAtTime = -1.f
     base_phys_actor_resizeSyncStates(newConnId)
-    broadcastEventImmediate([[PlayerResetQuitGameTimer]])
+    broadcastEvent([[PlayerResetQuitGameTimer]])
 
     found_eid = eid
     return true
@@ -115,7 +116,7 @@ def server_create_player(evt : EventOnClientConnected)
   var plrEid : EntityId = try_reconnect_player(conn, evt.matching)
   let reconnected : bool = (plrEid != INVALID_ENTITY_ID)
   if !reconnected
-    plrEid = create_player(evt.connid, evt.userName, evt.matching, evt.groupId, evt.platformUserId, evt.platform, evt.appId)
+    plrEid = create_player(evt.connid, evt.userName, evt.matching, evt.groupId, evt.origGroupId, evt.platformUserId, evt.platform, evt.appId)
 
   sendEvent(plrEid, [[FinalizePlayerCreation matchingTeam=evt.matchingTeam, clientFlags=evt.clientFlags, reconnected=reconnected]])
 
@@ -145,7 +146,7 @@ def process_player_creation_event(evt : Event; eid : EntityId; connid : int = IN
   var cliConn : IConnection? = get_client_connection(connid)
   if cliConn != null
     *cliConn |> connection_setUserEid(eid)
-    broadcastEventImmediate([[PlayerResetQuitGameTimer]]) // reset only if actual human player is connected
+    broadcastEvent([[PlayerResetQuitGameTimer]]) // reset only if actual human player is connected
     base_phys_actor_resizeSyncStates(connid)
   if is_server()
     if cliConn == null // local?

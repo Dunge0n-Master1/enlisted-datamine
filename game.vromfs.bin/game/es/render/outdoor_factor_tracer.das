@@ -18,7 +18,7 @@ def outdoor_factor_tracer(info : ParallelUpdateFrameDelayed;
                           var outdoor_factor__outdoorMultiplier : float&)
   if !outdoor_factor__export
     return
-  query(get_cur_cam_entity()) <| $ [es] (transform : float3x4; camera__posOnlyBaseOffset : DPoint3?)
+  query(get_cur_cam_entity()) <| $ [es] (transform : float3x4; camera__posOnlyBaseOffset : DPoint3 const?)
     let traceStart = float3(0f, 0.5f, 0f) + (camera__posOnlyBaseOffset != null ? float3(*camera__posOnlyBaseOffset) : transform[3])
     let SAMPLES_COUNT = 1000
     let u = frac(float(outdoor_factor__currentTrace) / float(SAMPLES_COUNT))

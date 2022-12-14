@@ -7,5 +7,5 @@ def human_lock_shoot_in_vehicle_es(evt : Event;
                                    var human_input__canShoot : bool&)
   human_input__canShoot = true
 
-  query(human_vehicle__occupiedSeatEid) <| $ [es] (seat_anim__fireReadyUpper : das_string?)
+  query(human_vehicle__occupiedSeatEid) <| $ [es] (seat_anim__fireReadyUpper : das_string const?)
     human_input__canShoot = seat_anim__fireReadyUpper != null && human_vehicle__isHoldingGunPassenger

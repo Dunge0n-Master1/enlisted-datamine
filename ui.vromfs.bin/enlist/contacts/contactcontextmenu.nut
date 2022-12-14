@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let contextMenu = require("%ui/components/contextMenu.nut")
+let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
 let { searchContactByInternalId } = require("%enlist/contacts/externalIdsManager.nut")
@@ -13,7 +13,7 @@ let function openContextMenu(userId, event, actions) {
     action = @() action.action(userId)
   })
   if (actionsButtons.len())
-    contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), actionsButtons)
+    addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), actionsButtons)
 }
 
 let function open(contactValue, event, actions) {

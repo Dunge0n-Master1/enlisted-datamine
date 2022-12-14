@@ -4,6 +4,7 @@ require app
 require DagorMath
 require GamePhys
 require ecs.common
+require enlisted.events_enlisted
 
 struct TimeData
   aliveTime : float
@@ -28,7 +29,7 @@ def init_comp(var init : ComponentsInitializer; occluder_template : Template; te
   let value = obj?[object_field] ?? getTemplateComponent(occluder_template, template_field, template_field_hash) ?? default_value
   set(init, template_field, value)
 
-[es(tag=server, on_appear)]
+[es(on_appear)]
 def init_smoke_occluders(evt : Event; [[shared_comp]] smoke_occluders__info : Array; transform : float3x4; smoke_occluders__updateInterval : float = 1.0; var smoke_occluders__eids : EidList&)
   for occluderInfo in smoke_occluders__info
     let occluder = get_ecs_object(occluderInfo)
@@ -53,14 +54,31 @@ def init_smoke_occluders(evt : Event; [[shared_comp]] smoke_occluders__info : Ar
       set(init, "smoke_occluder__updateInterval", smoke_occluders__updateInterval)
     push(smoke_occluders__eids, occluderEid)
 
-[es(tag=server, on_disappear)]
+[es(on_appear)]
+def smoke_occluders_on_appear(evt : Event;
+                              smoke_occluders__destroyDelay : float;
+                              var smoke_occluders__destroyAtTime : float&)
+  smoke_occluders__destroyAtTime += smoke_occluders__destroyDelay
+
+
+[es(no_order)]
+def smoke_occluders_destroy_by_timer(info : ParallelUpdateFrameDelayed; eid : EntityId; smoke_occluders__destroyAtTime : float)
+  if info.curTime > smoke_occluders__destroyAtTime
+    destroyEntity(eid)
+
+
+[es(on_disappear)]
 def destroy_smoke_occluders(evt : Event; smoke_occluders__eids : EidList)
   for eid in smoke_occluders__eids
     destroyEntity(eid)
 
-[es(tag=server, no_order, REQUIRE_NOT=smoke_occluders__isStatic)]
-def move_smoke_occluders(info : UpdateStageInfoAct; eid : EntityId; transform aka smoke_transform : float3x4; smoke_occluders__eids : EidList;
-                         smoke_occluders__moveInterval : float = 3.0; var smoke_occluders__nextMoveTime : float&)
+[es(no_order, REQUIRE_NOT=smoke_occluders__isStatic)]
+def move_smoke_occluders(info : ParallelUpdateFrameDelayed;
+                         eid : EntityId;
+                         transform aka smoke_transform : float3x4;
+                         smoke_occluders__eids : EidList;
+                         smoke_occluders__moveInterval : float = 3.0;
+                         var smoke_occluders__nextMoveTime : float&)
   if info.curTime < smoke_occluders__nextMoveTime
     return
   let updateTimeOveflow = info.curTime - smoke_occluders__nextMoveTime
@@ -73,8 +91,8 @@ def move_smoke_occluders(info : UpdateStageInfoAct; eid : EntityId; transform ak
     query(occluder_eid) <| $ [es] (var transform : float3x4&)
       transform = smoke_transform
 
-[es(tag=server, no_order)]
-def smoke_occluder_update(info : UpdateStageInfoAct;
+[es(no_order)]
+def smoke_occluder_update(info : ParallelUpdateFrameDelayed;
                           eid : EntityId;
                           transform : float3x4;
                           smoke_occluder__windScale : float;

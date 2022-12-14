@@ -18,6 +18,7 @@ let ITEM_DETAILS_BRIEF = [
   { key = "recoilAmountVert", isPositive = false }
   { key = "recoilAmountHor", isPositive = false }
   { key = "gun__adsSpeedMult", mult = 100, defVal = 1, range = [0, 130] }
+  { key = "gun__firingModeNames" }
 ]
 
 let ITEM_DETAILS_FULL = [
@@ -40,6 +41,7 @@ let ITEM_DETAILS_FULL = [
   { key = "item__weight", measure = "grams", mult = 1000, altLimit = 1.0, altMeasure = "kg", precision = 0.1 }
   { key = "cartridgeMass", measure = "grams", mult = 1000, altLimit = 1.0, altMeasure = "kg", precision = 0.1 }
   { key = "gun__firingModeNames" }
+  { key = "splashDamage" }
 ]
 
 let ARMOR_ORDER = ["front", "side", "back", "top", "bottom"]
@@ -88,12 +90,20 @@ local function getArmaments(guns) {
   return reducedGuns
 }
 
+let itemNameCache = {}
+
 let function getItemLocIdByTemplate(template) {
   if (template == null || typeof template != "string")
     return null
 
+  if (template in itemNameCache)
+    return itemNameCache[template]
+
   let gametemplate = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(template)
-  return gametemplate != null ? gametemplate.getCompValNullable("item__name") : null
+  let name = gametemplate != null ? gametemplate.getCompValNullable("item__name") : null
+  if (name != null)
+    itemNameCache[template] <- name
+  return name
 }
 
 let function trimUpgradeSuffix(tmpl) {
@@ -229,6 +239,40 @@ let function soldierNameSlicer(soldier = null, useCallname = true) {
     : $"{first}. {loc(surname)}"
 }
 
+let function getErrorSlots(slotsItems, equipScheme) {
+  let errorSlots = {}
+  let equipped = {}
+  let slotTypeToGroup = {}
+  foreach (slotType, slot in equipScheme) {
+    let { atLeastOne = "" } = slot
+    if (atLeastOne != "") {
+      equipped[atLeastOne] <- false
+      slotTypeToGroup[slotType] <- atLeastOne
+    }
+  }
+  foreach (slotData in slotsItems) {
+    let { item, slotType } = slotData
+    if (item == null)
+      continue
+
+    let group = slotTypeToGroup?[slotType]
+    if (group in equipped)
+      equipped[group] = true
+
+    local { basetpl, itemtype } = item
+    basetpl = trimUpgradeSuffix(basetpl)
+    let { items = [], itemTypes = [] } = equipScheme?[slotType]
+    if ((itemTypes.len() != 0 || items.len() != 0)
+        && itemTypes.indexof(itemtype) == null
+        && items.indexof(basetpl) == null)
+      errorSlots[slotType] <- true
+  }
+  foreach (slotType, group in slotTypeToGroup)
+    if (!equipped[group])
+      errorSlots[slotType] <- true
+  return errorSlots
+}
+
 return {
   getItemDetails = @(isFull) isFull ? ITEM_DETAILS_FULL : ITEM_DETAILS_BRIEF
   PLANE_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_PLANE_DETAILS)
@@ -238,7 +282,6 @@ return {
   getArmaments
   trimUpgradeSuffix
   iconByGameTemplate
-  getItemLocIdByTemplate
   iconByItem
   getItemName
   getItemDesc
@@ -246,4 +289,5 @@ return {
   localizeSoldierName
   getObjectName
   soldierNameSlicer
+  getErrorSlots
 }

@@ -22,9 +22,12 @@ def resupply_vehicle_on_server(evt : Event; turret_control__gunEids : EidList)
                              var gun__ammo : int&;
                              var gun__totalAmmo : int&;
                              currentBulletId : int = 0;
+                             turret__isCut : bool = false;
                              gun__shellsAmmo : Array;
                              var gun__ammo_by_shell : IntList&;
                              gun__ammoToRessuply : int = -1)
+      if turret__isCut
+        return
       for ammoByShell, shellsAmmo in gun__ammo_by_shell, gun__shellsAmmo
         let shellsAmmoCount = get_int(shellsAmmo) ?? 0
         ammoByShell = gun__ammoToRessuply > 0 ? min(shellsAmmoCount, ammoByShell + gun__ammoToRessuply) : shellsAmmoCount
@@ -46,9 +49,10 @@ def resupply_vehicle_on_client(evt : Event; turret_control__gunEids : EidList)
     query(gunEid) <| $ [es] (gun__maxAmmo : int;
                              var gun__ammo : int&;
                              currentBulletId : int = 0;
+                             turret__isCut : bool = false;
                              gun__shellsAmmo : Array;
                              gun__ammoToRessuply : int = -1)
-      if currentBulletId < length(gun__shellsAmmo) && currentBulletId >= 0
+      if currentBulletId < length(gun__shellsAmmo) && currentBulletId >= 0 && !turret__isCut
         let ammoByShellId = get_int(gun__shellsAmmo[currentBulletId]) ?? 0
         if gun__ammoToRessuply > 0
           gun__ammo = min(gun__maxAmmo, gun__ammo + gun__ammoToRessuply)

@@ -125,15 +125,15 @@ let unit = function(eid, showMed){
     let info = infoState.value
     if (!info.isAlive )
       return { watch }
-    let vehicle = info?["human_anim__vehicleSelected"] ?? INVALID_ENTITY_ID
-    if (vehicle != INVALID_ENTITY_ID){
+    let vehicle = info?["human_anim__vehicleSelected"] ?? ecs.INVALID_ENTITY_ID
+    if (vehicle != ecs.INVALID_ENTITY_ID){
       let vehicleNeedDisplayMarker = displayMarkerOverHeadQuery(vehicle, @(_, __) true ) ?? false
       if (!vehicleNeedDisplayMarker)
         return { watch }
     }
 
-    let isSquadmate = info.squad_member__squad != INVALID_ENTITY_ID && info.squad_member__squad == watchedHeroSquadEid.value
-    let isBot = info.possessedByPlr == INVALID_ENTITY_ID
+    let isSquadmate = info.squad_member__squad != ecs.INVALID_ENTITY_ID && info.squad_member__squad == watchedHeroSquadEid.value
+    let isBot = info.possessedByPlr == ecs.INVALID_ENTITY_ID
     let isGroupmate = !isSquadmate && info.squad_member__playerEid in localPlayerGroupMembers.value
 
     let minHud = forcedMinimalHud.value

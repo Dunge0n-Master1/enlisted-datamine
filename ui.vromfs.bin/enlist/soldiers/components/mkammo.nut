@@ -7,10 +7,10 @@ let {
 let {configs} = require("%enlist/meta/configs.nut")
 let {campItemsByLink} = require("%enlist/meta/profile.nut")
 
-let function mkAmmo(item, soldierGuid, weapData, slotType){
+let function mkAmmo(item, soldierGuid, weapData, slotType, override = {}){
   let isWeapToIncreaseAmmo = slotType == "primary"
 
-  return function (){
+  return function() {
     local increase = 0
     if (isWeapToIncreaseAmmo){
       let slotsItems = campItemsByLink.value?[soldierGuid]
@@ -49,7 +49,7 @@ let function mkAmmo(item, soldierGuid, weapData, slotType){
           fontSize = hdpx(12)
         }
       ]
-    }
+    }.__update(override)
   }
 }
 

@@ -31,11 +31,3 @@ import:t="tanks/germ_pzkpfw_vi_ausf_b_tiger_iip.blk"
 import:t="tanks/germ_pzkpfw_ii_flamm.blk"
 import:t="tanks/germ_dickermax.blk"
 import:t="tanks/germ_panzerwerfer_42.blk"
-
-tankgun_20mm_kwk30{
-  _override:b=yes
-  gun__reloadTime:r=8.0
-  gun__overheatReduce:r=0.2
-  gun__overheatReduceOnOverheat:r=0.1
-  gun__overheatPerShot:r=0.13
-}

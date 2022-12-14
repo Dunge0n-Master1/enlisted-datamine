@@ -38,7 +38,7 @@ let function getPSNMatchLeader(){
     }
   )
   if (connectedPSNPayers.len()==0)
-    return {playerid="", eid = INVALID_ENTITY_ID}
+    return {playerid="", eid = ecs.INVALID_ENTITY_ID}
   return connectedPSNPayers.sort(@(a,b) a.attempt<=>b.attempt)[0]
 }
 

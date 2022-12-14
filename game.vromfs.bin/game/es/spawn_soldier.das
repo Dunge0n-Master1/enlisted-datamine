@@ -60,7 +60,7 @@ def init_item_container(eid)
 def spawn_soldier_done(evt : Event;
                        eid : EntityId;
                        soldierTemplate : string;
-                       soldierComponents : Object?) // a pointer but required, we need a pointer to call init_soldier_tpl_deps
+                       soldierComponents : Object const?) // a pointer but required, we need a pointer to call init_soldier_tpl_deps
   let spawnerEid = eid
   let finalizeCreation <- @ <| (soldierEid : EntityId)
     // The soldier is initialized as soon as possible so as many parameters are synchronized in the initial replication packet

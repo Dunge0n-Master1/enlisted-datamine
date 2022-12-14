@@ -11,7 +11,6 @@ rasf_object_972{
 
 ussr_object_279_common{
   _extends:t="base_object_279"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
 

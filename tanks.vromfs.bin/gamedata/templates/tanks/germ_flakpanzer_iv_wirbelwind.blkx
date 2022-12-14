@@ -1,6 +1,5 @@
 germ_flakpanzer_IV_Wirbelwind{
   _extends:t="base_flpz_iv_wirbelwind"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
 
   "vehicle_seats__seats:shared:array"{

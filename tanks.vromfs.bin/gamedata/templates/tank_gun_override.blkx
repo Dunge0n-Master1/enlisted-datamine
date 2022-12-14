@@ -1,0 +1,372 @@
+base_57mm_type97{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type3_heat.blk"
+        name:t="57mm_type3"
+        type:t="heat_tank"
+      }
+    }
+
+    "57mm_type90_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type90_he.blk"
+        name:t="57mm_type90_he"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "57mm_type90_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_defaultset.blk"
+        name:t="57mm_type90_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "57mm_type_90_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type_90_ap.blk"
+        name:t="57mm_type90_ap"
+        type:t="aphe_tank"
+      }
+    }
+  }
+}
+
+tankgun_57mm_6pdr_qqf_mk_5_l50{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_defaultset.blk"
+        name:t="57mm_shot_mk8t"
+        type:t="apc_solid_medium_caliber_tank"
+      }
+    }
+
+    "57mm_britain_6pdr_APC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_57mm_britain_6pdr_apc.blk"
+        name:t="57mm_shot_mk5t_hv"
+        type:t="ap_tank"
+      }
+    }
+
+    "57mm_britain_6pdr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_57mm_britain_6pdr_apcbc.blk"
+        name:t="57mm_shot_mk9t"
+        type:t="apcbc_solid_medium_caliber_tank"
+      }
+    }
+
+    "57mm_britain_6pdr_APDS:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_57mm_britain_6pdr_apds.blk"
+        name:t="57mm_shot_mk1bt"
+        type:t="apds_tank"
+      }
+    }
+
+    "57mm_britain_6pdr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/57mm_6pdr_qqf_mk_5_l50_57mm_britain_6pdr_he.blk"
+        name:t="57mm_shell_mk10t"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_75mm_ansaldo_75_18_m34{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_ansaldo_75_18_m34_defaultset.blk"
+        name:t="75mm_gr_perforante_75"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "75mm_M42_EPS_HEAT:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_ansaldo_75_18_m34_75mm_m42_eps_heat.blk"
+        name:t="75mm_eps_m42"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_75_32_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_ansaldo_75_18_m34_75mm_75_32_he.blk"
+        name:t="75mm_m32"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "75mm_Gr_Perforante_APCBC:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_ansaldo_75_18_m34_75mm_gr_perforante_apcbc.blk"
+        name:t="75mm_gr_perforante_75_32"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "75mm_it_Smoke:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_ansaldo_75_18_m34_75mm_it_smoke.blk"
+        name:t="75mm_gr_fumogena"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_75mm_m2_howitzer{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_defaultset.blk"
+        name:t="75mm_m66"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_usa_M66_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_usa_m66_heat.blk"
+        name:t="75mm_m66"
+        type:t="heat_tank"
+      }
+    }
+
+    "75mm_usa_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_usa_he.blk"
+        name:t="75mm_m48"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "75mm_us_M89_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m2_howitzer_75mm_us_m89_smoke.blk"
+        name:t="75mm_m64"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_l10{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_defaultset.blk"
+        name:t="76mm_sh_354t"
+        type:t="shrapnel_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1941:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_ap_1941.blk"
+        name:t="76mm_br_350a"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/76mm_l10_76mm_ussr_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+tankgun_76mm_f32{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_defaultset.blk"
+        name:t="76mm_br_350a"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_he.blk"
+        name:t="76mm_of_350m"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "76mm_ussr_Shrapnel:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_shrapnel.blk"
+        name:t="76mm_sh_354t"
+        type:t="shrapnel_tank"
+      }
+    }
+
+    "76mm_ussr_AP_1942:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_ap_1942.blk"
+        name:t="76mm_br_350b"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "76mm_ussr_APCR_1943:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_apcr_1943.blk"
+        name:t="76mm_br_354p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "76mm_ussr_HEAT_1944:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_heat_1944.blk"
+        name:t="76mm_bp_350a"
+        type:t="heat_tank"
+      }
+    }
+
+    "76mm_ussr_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/76mm_f32_76mm_ussr_smoke.blk"
+        name:t="76mm_d350a"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
+tankgun_12_7mm_m2_hb{
+  _override:b=yes
+  gun__reloadTime:r=12.0
+  gun__overheatReduce:r=0.15
+  gun__overheatReduceOnOverheat:r=0.0625
+  gun__overheatPerShot:r=0.045
+}
+
+tankgun_12_7mm_dshk{
+  _override:b=yes
+  gun__reloadTime:r=12.0
+  gun__overheatReduce:r=0.15
+  gun__overheatReduceOnOverheat:r=0.0625
+  gun__overheatPerShot:r=0.045
+}
+
+tankgun_20mm_kwk30{
+  _override:b=yes
+  gun__reloadTime:r=8.0
+  gun__overheatReduce:r=0.2
+  gun__overheatReduceOnOverheat:r=0.1
+  gun__overheatPerShot:r=0.13
+}
+
+tankgun_20mm_type98{
+  _override:b=yes
+  gun__reloadTime:r=8.0
+  gun__overheatReduce:r=0.15
+  gun__overheatReduceOnOverheat:r=0.0833
+  gun__overheatPerShot:r=0.1
+}
+
+tankgun_20mm_tnsh{
+  _override:b=yes
+  gun__reloadTime:r=10.0
+  gun__overheatReduce:r=0.2
+  gun__overheatReduceOnOverheat:r=0.1
+  gun__overheatPerShot:r=0.08
+}
+
+tankgun_20mm_breda_m35_l6{
+  _override:b=yes
+  gun__reloadTime:r=8.0
+  gun__overheatReduce:r=0.3
+  gun__overheatReduceOnOverheat:r=0.12
+  gun__overheatPerShot:r=0.27
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/20mm_breda_m35_l6_20mm_breda_aphe.blk"
+        name:t="20mm_perforante_m35"
+        type:t="ap_i_t"
+      }
+    }
+
+    "20mm_Breda_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/20mm_breda_m35_l6_20mm_breda_he.blk"
+        name:t="20mm_granata_m35"
+        type:t="he_frag_i_t"
+      }
+    }
+  }
+}
+
+tankgun_50mm_uk_smoke_mortar_launcher{
+  _override:b=yes
+  gun__shotFreq:r=20.0
+}
+
+tankgun_91mm_germ_smoke_mortar_launcher{
+  _override:b=yes
+  gun__shotFreq:r=20.0
+}

@@ -1,6 +1,7 @@
 options no_aot
 require ecs
 require ecs.ecs_template
+require ECSGlobalTags
 require math.base
 require DagorConsole
 require DagorSystem
@@ -8,6 +9,15 @@ require ecs.templates_common
 require strings
 require daslib/strings_boost
 require danetlibs.console_commands.main.console_common
+
+
+[console_cmd(name="ecs.has_tag")]
+def check_ecs_has_tag(tag_name : string)
+  let msg = "ecs_has_tag(\"{tag_name}\") == {ecs_has_tag(tag_name)}"
+  if ecs_has_tag("render")
+    console_print(msg)
+  else
+    logerr(msg) // to see message from servers
 
 
 def create(eid : uint; template_name : string; count = 1)
@@ -80,7 +90,7 @@ def create_entities(args : array<string>;
   return false
 
 
-def destroy_entity(eid : EntityId)
+def console_destroy_entity(eid : EntityId)
   if doesEntityExist(eid)
     console_print("{eid}: destroying entity <{getEntityTemplateName(eid)}>")
     destroyEntity(eid)
@@ -104,10 +114,10 @@ def destroy_entity_processor(args : array<string>;
     let eid = argc >= 2 ? to_uint(args[1]) : 0u
     let lastEid = argc >= 3 ? to_uint(args[2]) : 0u
     if lastEid <= eid
-      destroy_entity(EntityId(eid))
+      console_destroy_entity(EntityId(eid))
     else
       for i in urange(eid, lastEid)
-        destroy_entity(EntityId(i))
+        console_destroy_entity(EntityId(i))
 
     // Replace history command with initial input if the first arg is a template name
     // (It is more useful than a command with deleted eid in this case)

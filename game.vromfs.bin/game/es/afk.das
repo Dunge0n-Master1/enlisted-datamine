@@ -42,7 +42,7 @@ def afk(info : UpdateStageInfoAct;
     disconnectTimeout = afk__respawnerDisconnectTimeout
     afk__time += info.dt
 
-  query(possessed) <| $ [es(REQUIRE_NOT=deadEntity)] (human_net_phys : HumanActor?; human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID)
+  query(possessed) <| $ [es(REQUIRE_NOT=deadEntity)] (human_net_phys : HumanActor const?; human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID)
     if human_net_phys == null || (*human_net_phys).role != NetRole ROLE_REMOTELY_CONTROLLED_AUTHORITY || has(human_anim__vehicleSelected, "airplane")
       afk__time = 0.0f
       return

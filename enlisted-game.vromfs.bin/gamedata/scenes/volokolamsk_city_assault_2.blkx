@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_city_fx.blk"
 }
 
 entity{
@@ -653,46 +655,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-201.079, 10.8441, 325.536]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-206.701, 7.37326, 211.732]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.392998, 0.0, -0.91954] [0.0, 1.0, 0.0] [0.91954, 0.0, 0.392998] [-180.196, 6.24245, 192.583]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.256973, 0.0, -0.966419] [0.0, 1.0, 0.0] [0.966419, 0.0, -0.256973] [-6.4051, 5.89592, 147.294]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.731252, 0.0, -0.682107] [0.0, 1.0, 0.0] [0.682107, 0.0, -0.731252] [92.4736, 4.26702, 143.125]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.0122522, 0.0, -0.999925] [0.0, 1.0, 0.0] [0.999925, 0.0, -0.0122522] [233.151, 4.99015, 89.0693]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-195.363, 11.7547, 400.116]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-202.49, 11.4527, 377.279]]
-}
-
-entity{
   _template:t="respawnChooser+respTeam2"
   transform:m=[[0.947796, 0.0, 0.318874] [0.0, 1.0, 0.0] [-0.318874, 0.0, 0.947796] [-1514.0, 1.83368, 537.032]]
   groupName:t="sector_1"
@@ -952,11 +914,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-184.145, 12.4573, 360.45]]
-}
-
-entity{
   _template:t="mbs_ger_radio_kw_e_a"
   transform:m=[[-0.443143, 0.0, -0.896451] [0.0, 1.0, 0.0] [0.896451, 0.0, -0.443143] [-1261.99, 7.50177, 618.041]]
 }
@@ -964,21 +921,6 @@ entity{
 entity{
   _template:t="mbs_desktop_stuff_a_folder"
   transform:m=[[-1.05309, 0.0, 1.37848] [0.0, 1.7347, 0.0] [-1.37848, 0.0, -1.05309] [-1262.27, 7.52739, 617.74]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-123.554, 9.95733, 358.776]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-150.898, 9.4725, 319.475]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-142.412, 10.5078, 377.866]]
 }
 
 entity{
@@ -1082,26 +1024,6 @@ entity{
 entity{
   _template:t="mbs_desktop_stuff_a"
   transform:m=[[0.601775, 0.0, -0.276732] [0.0, 0.662354, 0.0] [0.276732, 0.0, 0.601775] [-162.222, 7.30514, 244.433]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1369.51, 0.815648, 611.87]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1330.34, 5.25904, 667.644]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1319.54, 6.15353, 591.507]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1361.62, 5.14403, 581.63]]
 }
 
 entity{
@@ -1427,16 +1349,6 @@ entity{
 entity{
   _template:t="hp_gurney_b"
   transform:m=[[0.709747, 0.0, -0.704457] [0.0, 1.0, 0.0] [0.704457, 0.0, 0.709747] [-1338.62, 6.21802, 572.289]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1394.4, 1.5772, 622.292]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1315.68, 4.83767, 731.289]]
 }
 
 entity{

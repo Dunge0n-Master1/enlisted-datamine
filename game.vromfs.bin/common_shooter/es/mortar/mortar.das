@@ -19,6 +19,7 @@ require GamePhys
 require PhysVars
 require game.es.device_state_common
 require common_shooter.es.mortar.mortar_common
+require enlisted.events_enlisted
 
 def start_mortar_mode(ownerEid : ecs::EntityId const)
   query(ownerEid) <| $ [es] (var human_weap__mortarMode : bool&; isInVehicle : bool)
@@ -90,6 +91,7 @@ def mortar_mode_change_on_client(evt : Event;
   elif radioMode__prevPose >= 0
     human_input__standState = radioMode__prevPose
 
+
 def reload(owner_eid : ecs::EntityId;
            gun_eid : ecs::EntityId;
            at_time : float;
@@ -109,7 +111,6 @@ def mortar_phys(evt : CmdWeapPhysUpdate;
                 var device_animation__fireAt : float&)
   if !evt.isForReal
     return
-
   if gun__ammo == 0
     reload(evt.owner, eid, evt.atTime, evt.dt)
 

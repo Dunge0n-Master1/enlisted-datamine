@@ -27,6 +27,10 @@ entity{
 }
 
 entity{
+  _template:t="human_melee_action_sound_physmat"
+}
+
+entity{
   _template:t="narrator_sound"
 }
 
@@ -39,9 +43,9 @@ entity{
 }
 
 entity{
-  _template:t="biome_sound_query"
+  _template:t="birds_global_sound_var"
 }
 
 entity{
-  _template:t="round_result_battle_music"
+  _template:t="biome_sound_query"
 }

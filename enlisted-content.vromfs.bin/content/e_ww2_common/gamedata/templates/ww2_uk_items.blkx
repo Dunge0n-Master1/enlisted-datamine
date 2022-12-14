@@ -1,5 +1,6 @@
 attachable_wear_head_01_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_01_uk_item"
   animchar__res:t="head_iten_01_char"
   collres__res:t="head_iten_01_collision"
@@ -7,6 +8,7 @@ attachable_wear_head_01_uk_item{
 
 attachable_wear_head_02_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_a"
   item__uniqueName:t="attachable_wear_head_02_uk_item"
   animchar__res:t="head_iten_02_char"
   collres__res:t="head_iten_02_collision"
@@ -14,6 +16,7 @@ attachable_wear_head_02_uk_item{
 
 attachable_wear_head_03_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_03_uk_item"
   animchar__res:t="head_iten_05_char"
   collres__res:t="head_iten_05_collision"
@@ -21,6 +24,7 @@ attachable_wear_head_03_uk_item{
 
 attachable_wear_head_04_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_b"
   item__uniqueName:t="attachable_wear_head_04_uk_item"
   animchar__res:t="head_iten_06_char"
   collres__res:t="head_iten_06_collision"
@@ -28,6 +32,7 @@ attachable_wear_head_04_uk_item{
 
 attachable_wear_head_05_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_05_uk_item"
   animchar__res:t="head_iten_09_char"
   collres__res:t="head_iten_09_collision"
@@ -35,6 +40,7 @@ attachable_wear_head_05_uk_item{
 
 attachable_wear_head_06_uk_item{
   _extends:t="attachable_head"
+  _extends:t="blue_eyes_a"
   item__uniqueName:t="attachable_wear_head_06_uk_item"
   animchar__res:t="head_iten_10_char"
   collres__res:t="head_iten_10_collision"
@@ -42,6 +48,7 @@ attachable_wear_head_06_uk_item{
 
 attachable_wear_head_07_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_07_uk_item"
   animchar__res:t="head_iten_11_char"
   collres__res:t="head_iten_11_collision"
@@ -49,6 +56,7 @@ attachable_wear_head_07_uk_item{
 
 attachable_wear_head_08_uk_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_a"
   item__uniqueName:t="attachable_wear_head_08_uk_item"
   animchar__res:t="head_iten_12_char"
   collres__res:t="head_iten_12_collision"
@@ -56,6 +64,7 @@ attachable_wear_head_08_uk_item{
 
 attachable_wear_head_09_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_09_uk_item"
   animchar__res:t="head_iten_13_char"
   collres__res:t="head_iten_13_collision"
@@ -63,6 +72,7 @@ attachable_wear_head_09_uk_item{
 
 attachable_wear_head_10_uk_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_b"
   item__uniqueName:t="attachable_wear_head_10_uk_item"
   animchar__res:t="head_iten_15_char"
   collres__res:t="head_iten_15_collision"
@@ -70,6 +80,7 @@ attachable_wear_head_10_uk_item{
 
 attachable_wear_head_11_uk_item{
   _extends:t="attachable_head"
+  _extends:t="ligth_gray_eyes"
   item__uniqueName:t="attachable_wear_head_11_uk_item"
   animchar__res:t="head_iten_17_char"
   collres__res:t="head_iten_17_collision"
@@ -77,6 +88,7 @@ attachable_wear_head_11_uk_item{
 
 attachable_wear_head_12_uk_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_12_uk_item"
   animchar__res:t="head_iten_18_char"
   collres__res:t="head_iten_18_collision"
@@ -207,6 +219,15 @@ attachable_wear_serge_dress_trousers_m41_uk_item{
   collres__res:t="serge_dress_trousers_m41_uk_collision"
 }
 
+attachable_wear_serge_dress_trousers_m41_br_uk_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_serge_dress_trousers_m41_uk_item"
+
+  "animchar__objTexReplace:object"{
+    "uk_kd_trousers_m41_tex_d*":t="uk_kd_trousers_m41_br_tex_d*"
+  }
+}
+
 attachable_wear_kd_shorts_m41_uk_tropic_01_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_kd_shorts_m41_uk_tropic_01_item"
@@ -320,6 +341,13 @@ attachable_wear_sas_shirt_tropic_item{
   item__uniqueName:t="attachable_wear_sas_shirt_tropic_item"
   animchar__res:t="sas_shirt_tropic_char"
   collres__res:t="sas_shirt_tropic_collision"
+}
+
+attachable_wear_sas_shirt_no_scarf_tropic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_sas_shirt_no_scarf_tropic_item"
+  animchar__res:t="sas_shirt_no_scarf_tropic_char"
+  collres__res:t="sas_shirt_no_scarf_tropic_collision"
 }
 
 attachable_wear_airtex_tunic_01_uk_tropic_item{
@@ -529,6 +557,45 @@ sas_hat_tropic_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+aus_slouch_hats_uk_sas_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="aus_slouch_hats_uk_sas_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="aus_slouch_hats_uk_sas_item"
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+aus_slouch_hats_b_uk_sas_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="aus_slouch_hats_b_uk_sas_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="aus_slouch_hats_b_uk_sas_item"
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+aus_pilot_helmet_w_goggl_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="aus_pilot_helmet_w_goggl_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="aus_pilot_helmet_w_goggl_item"
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
   }
 }
 
@@ -813,6 +880,18 @@ attachable_wear_p37_backpack_sas_tropic_item{
   collres__res:t="p37_backpack_sas_tropic_collision"
   item__uniqueName:t="attachable_wear_p37_backpack_sas_tropic_item"
   animchar_fast_phys__res:t="p37_backpack_sas_tropic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_p37_backpack_serge_dress_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="p37_backpack_serge_dress_char"
+  collres__res:t="p37_backpack_serge_dress_collision"
+  item__uniqueName:t="attachable_wear_p37_backpack_serge_dress_item"
+  animchar_fast_phys__res:t="p37_backpack_serge_dress_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"

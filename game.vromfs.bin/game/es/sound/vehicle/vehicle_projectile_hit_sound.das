@@ -1,5 +1,5 @@
 require ecs
-require game.es.events
+require common_shooter.dm_events
 require sound_utils.modules.sound_player_common
 
 

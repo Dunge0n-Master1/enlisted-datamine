@@ -4,7 +4,6 @@ ussr_is_1{
 
 ussr_is_1_common{
   _extends:t="base_is_1"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
 
@@ -87,10 +86,6 @@ ussr_is_1_driver_cockpit{
   cockpit__offset:p3=-0.173574, -0.166206, 0.000368625
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="track_l"
-    node:t="track_r"
-    node:t="ex_decor_l_01"
-    node:t="ex_decor_r_01"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
@@ -139,26 +134,104 @@ ussr_is_1_gunner_cockpit{
 }
 
 ussr_is_1_commander_cockpit{
-  _extends:t="base_commander_cockpit_no_slits"
-  animchar__res:t="t_26_1940_commander_char"
-  cockpit__offset:p3=-1.15383, 1.23049, 0.420828
+  _extends:t="base_commander_tower_cockit_no_slits"
+  animchar__res:t="pzkpfw_iii_b_commander_char"
+  cockpit__offset:p3=-0.457179, 1.03337, 0.404117
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="ex_armor_01"
+    node:t="turret"
+    node:t="gun_mask"
     node:t="gun_barrel"
-    node:t="bone_gun"
-    node:t="bone_turret"
+  }
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.15
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=no
+    slit:b=no
+    slit:b=no
+    slit:b=no
+    slit:b=no
   }
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
+    slit:t="cam_front_left"
+    slit:t="cam_rear_left"
+    slit:t="cam_rear"
+    slit:t="cam_rear_right"
+    slit:t="cam_front_right"
+  }
+}
+
+is_1_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="is_1_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_1_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_1_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_1_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_1_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_1_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
   }
 }

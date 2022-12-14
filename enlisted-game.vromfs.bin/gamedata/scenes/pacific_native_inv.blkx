@@ -5128,8 +5128,8 @@ entity{
 
   "loading_images:list<t>"{
     item:t="ui/pacific_guadalcanal_inv_02.jpg"
-    item:t="ui/pacific_guadalcanal_inv_06.jpg"
-    item:t="ui/pacific_guadalcanal_inv_09.jpg"
+    item:t="ui/pacific_guadalcanal_inv_05.jpg"
+    item:t="ui/pacific_guadalcanal_inv_16.jpg"
   }
 }
 

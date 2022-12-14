@@ -84,7 +84,7 @@ def toggle_ui_visible(evt : Event; human_inventory__selectedItem : EntityId)
 [es(tag=gameClient, after=before_human_inventory_use_update, REQUIRE=hero, REQUIRE_NOT=deadEntity)]
 def human_inventory_hero_es(info : ParallelUpdateFrameDelayed;
                             eid : EntityId;
-                            itemsAround : ecs::Array;
+                            itemsAround : EidList;
                             human__aimTm : float3x4;
                             var human_inventory__selectedItem : EntityId&;
                             human_inventory__selectConvex : Point4List;
@@ -118,9 +118,14 @@ def human_inventory_hero_es(info : ParallelUpdateFrameDelayed;
   let aimFrom = viewTm[3] + projToChar * aimDir
   let aimTo = aimFrom + aimDir * pickupDistance
 
-  for item in itemsAround
-    let itemEid = get_Eid(item) ?? INVALID_ENTITY_ID
+  for itemEid in itemsAround
     if itemEid == eid
+      continue
+
+    var isInteractionBlockedByLastOwner = false
+    query(itemEid) <| $ [es] (item__lastOwner : EntityId = INVALID_ENTITY_ID; canItemPickedUpOnlyByLastOwner : Tag const?)
+      isInteractionBlockedByLastOwner = canItemPickedUpOnlyByLastOwner != null && item__lastOwner != eid
+    if isInteractionBlockedByLastOwner
       continue
 
     let pickupScore = get_item_pickup_score(eid, itemEid, tps ? human_inventory__selectTpsConvex : human_inventory__selectConvex,

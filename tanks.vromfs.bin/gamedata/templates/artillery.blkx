@@ -46,6 +46,7 @@ artillery{
 
 artillery_gun{
   _extends:t="tankgun_76mm_l11"
+  _extends:t="hit_effect_group_artillery"
   gun__ammo:i=111
   gun__maxAmmo:i=111
   killLogName:t=""

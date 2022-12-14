@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { curSectionDetails } = require("%enlist/mainMenu/sectionsState.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 
 let menuDescShown = mkOnlineSaveData("menuDescShown", @() {})
 let TaskTextDesc = Color(150, 150, 160, 220)

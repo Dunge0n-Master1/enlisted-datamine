@@ -1,5 +1,5 @@
 model:t="p_47d_28"
-fmFile:t="fm/p_47d.blk"
+fmFile:t="fm/p_47d_28.blk"
 damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
 damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
 damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"

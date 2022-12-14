@@ -1,6 +1,5 @@
 germ_pzkpfw_II_ausf_C{
   _extends:t="base_pzkpfw_ii_ausf_c"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_ii_ausf_c.blk:VehiclePhys"

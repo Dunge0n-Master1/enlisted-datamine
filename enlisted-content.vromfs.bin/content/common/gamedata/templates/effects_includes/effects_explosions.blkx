@@ -88,6 +88,22 @@ explosion_grenades_stone_effect{
   }
 }
 
+explosion_grenades_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  wind_emitter__radius:r=1.0
+  wind_emitter__duration:r=1.0
+  wind_emitter__strength:r=1.0
+
+  "wind_emitter__omni:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_grenades_water_cmps_fx"
+  }
+}
+
 explosion_grenades_phosphorus_effect{
   _extends:t="explosion_effect"
   wind_emitter__radius:r=1.0
@@ -105,9 +121,11 @@ explosion_grenades_phosphorus_effect{
 
 explosion_grenades_smoke_effect{
   _extends:t="explosion_effect"
+  _extends:t="sound_effect"
   wind_emitter__radius:r=1.0
-  wind_emitter__duration:r=1.0
+  wind_emitter__duration:r=15.0
   wind_emitter__strength:r=1.0
+  effect__smokeOccludersTemplate:t="explosion_grenades_smoke_smoke_occluders"
 
   "wind_emitter__omni:tag"{
   }
@@ -115,6 +133,121 @@ explosion_grenades_smoke_effect{
   _group{
     _tags:t="render"
     effect__name:t="explosion_grenades_smoke_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="env_effects/fire/grenade_smoke"
+  }
+}
+
+explosion_tank_grenades_smoke_effect{
+  _extends:t="explosion_grenades_smoke_effect"
+  wind_emitter__duration:r=22.0
+}
+
+base_explosion_grenades_smoke_occluders{
+  _extends:t="smoke_occluders"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  smoke_occluders__destroyAtTime:r=-1.0
+  smoke_occluders__updateInterval:r=2.0
+}
+
+explosion_grenades_smoke_smoke_occluders{
+  _extends:t="base_explosion_grenades_smoke_occluders"
+  smoke_occluders__destroyDelay:r=3.0
+
+  "smoke_occluders__info:shared:array"{
+
+    "big:object"{
+      windScale:r=0.0
+      expanseStartTime:r=1.0
+      expanseFullTime:r=2.0
+      fadeStartTime:r=23.0
+      totalTime:r=24.0
+      upSpeed:p3=1.0, 1.0, 1.0
+      normalSpeed:p3=0.0, 0.0, 0.0
+      radius:p3=1.0, 2.25, 1.0
+    }
+  }
+
+  "smoke_occluders__isStatic:tag"{
+  }
+}
+
+explosion_grenades_smoke_shell_smoke_occluders{
+  _extends:t="base_explosion_grenades_smoke_occluders"
+  smoke_occluders__destroyDelay:r=6.0
+
+  "smoke_occluders__info:shared:array"{
+
+    "big:object"{
+      windScale:r=0.0
+      expanseStartTime:r=1.0
+      expanseFullTime:r=2.0
+      fadeStartTime:r=27.0
+      totalTime:r=28.0
+      upSpeed:p3=1.0, 1.0, 1.0
+      normalSpeed:p3=0.0, 0.0, 0.0
+      radius:p3=2.0, 6.0, 3.0
+    }
+  }
+
+  "smoke_occluders__isStatic:tag"{
+  }
+}
+
+explosion_grenades_smoke_mortar_smoke_occluders{
+  _extends:t="base_explosion_grenades_smoke_occluders"
+  smoke_occluders__destroyDelay:r=3.0
+
+  "smoke_occluders__info:shared:array"{
+
+    "big:object"{
+      windScale:r=0.0
+      expanseStartTime:r=2.0
+      expanseFullTime:r=2.0
+      fadeStartTime:r=15.0
+      totalTime:r=16.0
+      upSpeed:p3=1.0, 1.0, 1.0
+      normalSpeed:p3=0.0, 0.0, 0.0
+      radius:p3=1.0, 2.0, 1.0
+    }
+  }
+
+  "smoke_occluders__isStatic:tag"{
+  }
+}
+
+explosion_grenades_smoke_shell_effect{
+  _extends:t="explosion_effect"
+  wind_emitter__radius:r=1.0
+  wind_emitter__duration:r=25.0
+  wind_emitter__strength:r=1.0
+  effect__smokeOccludersTemplate:t="explosion_grenades_smoke_shell_smoke_occluders"
+
+  "wind_emitter__omni:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_grenades_smoke_shell_cmps_fx"
+  }
+}
+
+explosion_grenades_smoke_mortar_effect{
+  _extends:t="explosion_effect"
+  wind_emitter__radius:r=1.0
+  wind_emitter__duration:r=25.0
+  wind_emitter__strength:r=1.0
+  effect__smokeOccludersTemplate:t="explosion_grenades_smoke_mortar_smoke_occluders"
+
+  "wind_emitter__omni:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_grenades_smoke_mortar_cmps_fx"
   }
 }
 
@@ -193,6 +326,22 @@ explosion_packet_stone_effect{
   }
 }
 
+explosion_packet_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  wind_emitter__radius:r=1.0
+  wind_emitter__duration:r=1.0
+  wind_emitter__strength:r=1.0
+
+  "wind_emitter__omni:tag"{
+  }
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_packet_water_cmps_fx"
+  }
+}
+
 explosion_50_100kg_dirt_effect{
   _extends:t="explosion_effect"
   paint_from_biome:b=yes
@@ -230,6 +379,17 @@ explosion_50_100kg_stone_effect{
   _group{
     _tags:t="render"
     effect__name:t="explosion_50_100kg_stone_cmps_fx"
+  }
+}
+
+explosion_50_100kg_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_explosion_50_100kg_cmps_fx"
   }
 }
 
@@ -273,6 +433,17 @@ explosion_100_250kg_stone_effect{
   }
 }
 
+explosion_100_250kg_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_explosion_100_250kg_cmps_fx"
+  }
+}
+
 explosion_250_500kg_dirt_effect{
   _extends:t="explosion_effect"
   paint_from_biome:b=yes
@@ -313,6 +484,19 @@ explosion_250_500kg_stone_effect{
   }
 }
 
+explosion_250_500kg_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=4.5
+  water_ripple__radius:r=0.8
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_explosion_250_500kg_cmps_fx"
+  }
+}
+
 explosion_midair_tiny_effect{
   _extends:t="explosion_effect"
   paint_from_biome:b=no
@@ -350,5 +534,63 @@ explosion_midair_big_effect{
   _group{
     _tags:t="render"
     effect__name:t="explosion_midair_big_cmps_fx"
+  }
+}
+
+explosion_midair_barrage_balloon_effect{
+  _extends:t="explosion_effect"
+  _extends:t="sound_effect"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_midair_barrage_balloon_cmps_fx"
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__path:t="impact/barrage_baloon"
+    sound_effect__abandonOnReset:b=yes
+  }
+}
+
+explosion_air_crash_land_effect{
+  _extends:t="explosion_effect"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_air_crash_land_cmps_fx"
+  }
+}
+
+explosion_air_crash_water_effect{
+  _extends:t="explosion_effect"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=4.5
+  water_ripple__radius:r=0.8
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_air_crash_water_cmps_fx"
+  }
+}
+
+explosion_smoke_crater_effect{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="render"
+    effect__name:t="envir_smoke_crater_cmps_fx"
+
+    effect{
+    }
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+
+  "staticEffect:tag"{
   }
 }

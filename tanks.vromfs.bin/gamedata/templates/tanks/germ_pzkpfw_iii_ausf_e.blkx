@@ -13,7 +13,6 @@ germ_pzkpfw_III_ausf_E{
 
 germ_pzkpfw_III_ausf_E_common{
   _extends:t="base_pzkpfw_iii_ausf_e"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_iii_ausf_e.blk:VehiclePhys"
   damage_model__blk:t="content/tanks/gamedata/units/tanks/pzkpfw_iii_ausf_e.blk"

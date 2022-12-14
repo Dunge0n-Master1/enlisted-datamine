@@ -8,7 +8,6 @@ ussr_t_28e{
 
 ussr_t_28e_common{
   _extends:t="base_t_28e"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
 
   "bullet_holes__movingCollisionNodes:array"{
@@ -222,4 +221,69 @@ ussr_t_28e_commander_cockpit{
     slit:t="cam_front"
     slit:t="cam_right"
   }
+}
+
+t_28e_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="t_28e_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_28e_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_28e_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_28e_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_28e_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_28e_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
+  }
+}
+
+t_28e_turret_02_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-155.0, 33.0, -5.0, 28.0
+}
+
+t_28e_turret_03_7_62mm_dt{
+  _override:b=yes
+  turret__limit:p4=-5.0, 145.0, -5.0, 28.0
 }

@@ -310,6 +310,21 @@ actionSets{
       group_tag:t="Weapon"
     }
 
+    Human.Throw4{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
+    Human.Throw5{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
+    Human.Throw6{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
     Human.ThrowBack{
       type:t="digital_button"
       group_tag:t="Weapon"
@@ -400,7 +415,12 @@ actionSets{
       group_tag:t="Vehicle"
     }
 
-    Human.ExitVehicleAlone{
+    Human.LeaveVehicleAlone{
+      type:t="digital_button"
+      group_tag:t="Vehicle"
+    }
+
+    Human.ToggleHoldGunMode{
       type:t="digital_button"
       group_tag:t="Vehicle"
     }
@@ -520,6 +540,18 @@ actionSets{
       reuse_defined_earlier:b=yes
     }
 
+    Human.Use{
+      reuse_defined_earlier:b=yes
+    }
+
+    Human.LeaveVehicleAlone{
+      reuse_defined_earlier:b=yes
+    }
+
+    Human.Reload{
+      reuse_defined_earlier:b=yes
+    }
+
     Vehicle.NextBulletType{
       type:t="digital_button"
     }
@@ -560,6 +592,10 @@ actionSets{
   VehicleTurret{
     group_tag:t="Vehicle"
 
+    Vehicle.ZoomToggle{
+      type:t="digital_button"
+    }
+
     Vehicle.Zoom{
       type:t="digital_button"
     }
@@ -573,6 +609,10 @@ actionSets{
     }
 
     Vehicle.ShootMachinegun{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootGrenadeLauncher{
       type:t="digital_button"
     }
 
@@ -656,42 +696,77 @@ actionSets{
 
     Replay.ToggleCamera{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.DisableHUD{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
-    Replay.Team1{
+    Replay.DisableGameHUD{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
-    Replay.Team2{
+    Replay.AdvancedSettings{
       type:t="digital_button"
-    }
-
-    Replay.NearestEntity{
-      type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.Next{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.Prev{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.Pause{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.SpeedUp{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Replay.SpeedDown{
       type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.Camera1{
+      type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.Camera2{
+      type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.Camera3{
+      type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.NextCamera{
+      type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.PrevCamera{
+      type:t="digital_button"
+      group_tag:t="Replay"
+    }
+
+    Replay.RecordVideo{
+      type:t="digital_button"
+      group_tag:t="Replay,platform=pc"
     }
   }
 
@@ -846,7 +921,20 @@ actionSets{
       type:t="digital_button"
     }
 
+    Plane.HoverToggle{
+      type:t="digital_button"
+    }
+
+    Plane.Climb{
+      type:t="steerwheel"
+      quantize:t="8bit"
+    }
+
     Plane.MouseAimToggle{
+      type:t="digital_button"
+    }
+
+    Plane.MouseAimRollOverride{
       type:t="digital_button"
     }
 

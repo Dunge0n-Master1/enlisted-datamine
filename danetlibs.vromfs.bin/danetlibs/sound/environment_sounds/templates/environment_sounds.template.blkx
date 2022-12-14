@@ -1,15 +1,54 @@
-birds_sound{
+reverb_sound{
+  _extends:t="replicating"
+  _singleton:b=yes
 
   _group{
     _tags:t="sound"
-    birds_sound__globalVar:t="action"
-    birds_sound__noiseTime:r=-10.0
-    birds_sound__timeRange:p2=9.5, 10.0
+    reverb_sound__path:t="snapshots/reverb_indoor"
+    reverb_sound__intensityVar:t="reverbIndoor"
+    reverb_sound__intensityMax:r=0.625
+    reverb_sound__roomSizeVar:t="roomSize"
+    reverb_sound__roomSizeMax:r=9.375
+    reverb_sound__rayLength:r=10.0
+    reverb_sound__fadeOutPower:r=10.0
+    reverb_sound__rayId:i=0
+    reverb_sound__intensityValues:p3=0.0, 0.0, 0.0
+    reverb_sound__roomSizeValues:p3=0.0, 0.0, 0.0
+
+    "reverb_sound__event:SoundEvent"{
+    }
+
+    "reverb_sound__rays:list<p3>"{
+      ray:p3=0.9034, 0.0544, -0.4252
+      ray:p3=-0.1907, 0.5076, -0.8402
+      ray:p3=-0.3827, 0.8812, -0.2774
+      ray:p3=-0.8941, 0.0904, 0.4387
+      ray:p3=0.1873, 0.4467, 0.8749
+      ray:p3=0.4949, 0.7792, 0.3847
+      ray:p3=-0.7434, 0.0884, -0.6629
+      ray:p3=-0.4784, 0.4339, 0.7634
+      ray:p3=0.3234, 0.8234, -0.4663
+      ray:p3=0.8209, 0.5661, -0.0749
+      ray:p3=0.4167, 0.1168, -0.9015
+      ray:p3=-0.1942, 0.9248, 0.3273
+      ray:p3=-0.8791, 0.4686, -0.0867
+    }
+  }
+}
+
+underwater_sound{
+
+  _group{
+    _tags:t="sound"
+    underwater_sound__frame:i=0
+    underwater_sound__path:t="ambient/camera_underwater"
+
+    "underwater_sound__event:SoundEvent"{
+    }
   }
 }
 
 shore_sound{
-  _extends:t="birds_sound"
   _extends:t="sound_bank_preset_state"
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -66,7 +105,6 @@ ocean_sound{
 ambient_sound{
   _extends:t="replicating"
   _extends:t="sound_bank_preset_state"
-  _extends:t="birds_sound"
 
   _group{
     _tags:t="sound"
@@ -107,6 +145,8 @@ biome_sound_query{
 }
 
 rain_global_sound_var{
+  _extends:t="replicating"
+  _singleton:b=yes
 
   _group{
     _tags:t="sound"
@@ -116,6 +156,8 @@ rain_global_sound_var{
 }
 
 daytime_global_sound_var{
+  _extends:t="replicating"
+  _singleton:b=yes
 
   _group{
     _tags:t="sound"
@@ -124,6 +166,8 @@ daytime_global_sound_var{
 }
 
 altitude_global_sound_var{
+  _extends:t="replicating"
+  _singleton:b=yes
 
   _group{
     _tags:t="sound"
@@ -134,6 +178,8 @@ altitude_global_sound_var{
 }
 
 region_global_sound_var{
+  _extends:t="replicating"
+  _singleton:b=yes
 
   _group{
     _tags:t="sound"
@@ -145,11 +191,21 @@ region_global_sound_var{
   }
 }
 
-global_sound_vars{
+birds_global_sound_var{
   _extends:t="replicating"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    birds_global_sound_var__name:t="action"
+    birds_global_sound_var__noiseTime:r=-10.0
+    birds_global_sound_var__timeRange:p2=9.5, 10.0
+  }
+}
+
+global_sound_vars{
   _extends:t="rain_global_sound_var"
   _extends:t="daytime_global_sound_var"
   _extends:t="altitude_global_sound_var"
   _extends:t="region_global_sound_var"
-  _singleton:b=yes
 }

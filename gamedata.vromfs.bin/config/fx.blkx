@@ -1332,41 +1332,41 @@ tank_broken_exhaust{
 }
 
 track_dirt_back{
-  fx:t="pv_track_dirt_back_composite_fx"
+  fx:t="misc_tank_tracks_dirt_bottom_cmps_fx"
   numInstances:i=200
   numReserved:i=8
 }
 
 track_dirt_front{
-  fx:t="pv_track_dirt_front_composite_fx"
+  fx:t="misc_tank_tracks_dirt_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_sand_back{
-  fx:t="pv_track_sand_back_composite_fx"
+  fx:t="misc_tank_tracks_sand_bottom_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_sand_front{
-  fx:t="pv_track_sand_front_composite_fx"
+  fx:t="misc_tank_tracks_sand_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_snow_back{
-  fx:t="pv_track_snow_back_composite_fx"
+  fx:t="misc_tank_tracks_snow_bottom_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
 }
 
 track_snow_front{
-  fx:t="pv_track_snow_front_composite_fx"
+  fx:t="misc_tank_tracks_snow_top_cmps_fx"
   numInstances:i=100
   numReserved:i=8
   onePointNumber:i=0
@@ -1934,44 +1934,6 @@ motor_exhaust_wep{
   numReserved:i=0
 }
 
-trail_oil{
-  fx:t="trail_plane_oil_leak_cmps_fx"
-  lifeTime:r=10.0
-  alphaHeightRange:p2=50.0, 300.0
-  isTrail:b=yes
-  nonPlayerFadeDistScale:r=2.0
-  playerFadeDistScale:r=1.5
-  sortDistanceOffset:r=20.0
-  onMoving:b=yes
-  numInstances:i=70
-  numReserved:i=20
-}
-
-trail_water{
-  fx:t="trail_plane_water_leak_cmps_fx"
-  lifeTime:r=40.0
-  alphaHeightRange:p2=50.0, 300.0
-  isTrail:b=yes
-  nonPlayerFadeDistScale:r=3.0
-  playerFadeDistScale:r=1.0
-  onMoving:b=yes
-  sortDistanceOffset:r=5.0
-  numInstances:i=70
-  numReserved:i=20
-}
-
-trail_fuel{
-  fx:t="trail_plane_fuel_leak_cmps_fx"
-  alphaHeightRange:p2=50.0, 300.0
-  isTrail:b=yes
-  sortDistanceOffset:r=15.0
-  nonPlayerFadeDistScale:r=3.0
-  playerFadeDistScale:r=1.5
-  onMoving:b=yes
-  numInstances:i=70
-  numReserved:i=20
-}
-
 contrail{
   fx:t="trail_contrail_fx"
   lifeTime:r=18.0
@@ -1984,66 +1946,6 @@ contrail{
   maxScale:r=1.0
   numInstances:i=50
   numReserved:i=5
-}
-
-major_engine_smoke{
-  fx:t="trail_plane_smoke_major_cmps_fx"
-  alphaHeightRange:p2=-20.0, 100.0
-  lifeTime:r=10.0
-  isTrail:b=yes
-  sortDistanceOffset:r=20.0
-  nonPlayerFadeDistScale:r=2.0
-  playerFadeDistScale:r=0.4
-  numInstances:i=70
-  numReserved:i=20
-}
-
-minor_engine_smoke{
-  fx:t="trail_plane_smoke_minor_cmps_fx"
-  lifeTime:r=5.0
-  alphaHeightRange:p2=-20.0, 50.0
-  isTrail:b=yes
-  nonPlayerFadeDistScale:r=2.0
-  playerFadeDistScale:r=0.4
-  sortDistanceOffset:r=10.0
-  numInstances:i=70
-  numReserved:i=20
-}
-
-major_fuel_smoke{
-  fx:t="trail_plane_smoke_minor_cmps_fx"
-  lifeTime:r=15.0
-  alphaHeightRange:p2=0.0, 300.0
-  isTrail:b=yes
-  sortDistanceOffset:r=2.5
-  nonPlayerFadeDistScale:r=3.0
-  playerFadeDistScale:r=0.4
-  numInstances:i=70
-  numReserved:i=20
-}
-
-major_engine_fire{
-  fx:t="trail_plane_fire_minor_cmps_fx"
-  lifeTime:r=10.0
-  alphaHeightRange:p2=-20.0, 300.0
-  isTrail:b=yes
-  nonPlayerFadeDistScale:r=3.0
-  playerFadeDistScale:r=0.4
-  sortDistanceOffset:r=25.0
-  numInstances:i=70
-  numReserved:i=20
-  soundEnableDistance:r=200.0
-}
-
-major_fuel_fire{
-  fx:t="trail_plane_fire_major_cmps_fx"
-  lifeTime:r=10.0
-  isTrail:b=yes
-  sortDistanceOffset:r=7.5
-  nonPlayerFadeDistScale:r=6.0
-  playerFadeDistScale:r=0.4
-  numInstances:i=70
-  numReserved:i=20
 }
 
 wrecked_smoke{
@@ -2061,63 +1963,8 @@ wrecked_smoke{
   numReserved:i=20
 }
 
-cut_tail_smoke{
-  fx:t="gm_fire_fx"
-  lifeTime:r=10.0
-  softnessDepth:r=0.5
-  sortDistanceOffset:r=0.0
-  numInstances:i=10
-  numReserved:i=2
-}
-
-explosion_plane{
-  fx:t="explosion_midair_fuel_massive_cmps_fx"
-  lifeTime:r=10.0
-  groundSpotTexName:t="ground_spot"
-  groundSpotRadius:r=8.0
-  groundSpotAtTime:r=0.0
-  numInstances:i=20
-  numReserved:i=3
-}
-
-land_explosion_plane{
-  fx:t="explosion_air_crash_land_cmps_fx"
-  lifeTime:r=10.0
-  softnessDepth:r=8.0
-  sortDistanceOffset:r=0.0
-  nonPlayerFadeDistScale:r=2.0
-  playerFadeDistScale:r=1.0
-  groundSpotTexName:t="ground_spot"
-  groundSpotRadius:r=8.0
-  groundSpotAtTime:r=0.0
-  numInstances:i=70
-  numReserved:i=20
-}
-
-water_explosion_plane{
-  fx:t="explosion_air_crash_water_cmps_fx"
-  lifeTime:r=10.0
-  softnessDepth:r=8.0
-  numInstances:i=20
-  numReserved:i=5
-}
-
 land_crash_fire{
   fx:t="fire_big_crash_cmps_fx"
-  lifeTime:r=180.0
-  softnessDepth:r=5.0
-  minScale:r=1.0
-  maxScale:r=1.2
-  sortDistanceOffset:r=1.0
-  nonPlayerFadeDistScale:r=1.5
-  playerFadeDistScale:r=1.0
-  numInstances:i=70
-  numReserved:i=20
-  farPlane:r=10000.0
-}
-
-land_crash_smoke{
-  fx:t="smoke_big_crash_cmps_fx"
   lifeTime:r=180.0
   softnessDepth:r=5.0
   minScale:r=1.0
@@ -3145,7 +2992,7 @@ metal_mid_destr{
 }
 
 ad_haystack_medium{
-  fx:t="ad_haystack_medium_composite_fx"
+  fx:t="envir_destr_hay_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.1
   granularity:i=4
@@ -3388,6 +3235,15 @@ land_dust_storm{
   fx:t="location_sand_wind_ground_fx"
   lifeTime:r=0.0
   numInstances:i=700
+  numReserved:i=30
+  group:t="highres"
+  tag:t="fom"
+}
+
+land_snow_storm{
+  fx:t="location_snow_wind_ground_fx"
+  lifeTime:r=0.0
+  numInstances:i=200
   numReserved:i=30
   group:t="highres"
   tag:t="fom"

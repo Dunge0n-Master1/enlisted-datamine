@@ -6,6 +6,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_field_dom_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+}
+
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -617,46 +625,6 @@ entity{
 entity{
   _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
   transform:m=[[-0.704342, 0.0436673, 0.708516] [0.0605046, 0.998167, -0.00137099] [-0.707278, 0.0419028, -0.705693] [436.362, 71.3024, -260.442]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [395.053, 74.0032, -244.471]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [416.258, 71.6297, -217.67]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [331.26, 71.9563, -266.974]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [265.934, 69.2517, -115.719]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [437.163, 72.5058, -261.388]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [30.669, 60.0449, -486.322]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [132.466, 60.0449, -786.414]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [0.959757, 13.801, 24.2672]]
 }
 
 entity{

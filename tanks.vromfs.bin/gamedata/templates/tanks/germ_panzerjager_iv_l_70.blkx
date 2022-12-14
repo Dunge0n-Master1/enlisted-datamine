@@ -1,3 +1,12 @@
+germ_panzerjager_iv_l_70_normandy{
+  _extends:t="germ_panzerjager_IV_L_70_common"
+
+  "disableDMParts:list<t>"{
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+}
+
 germ_panzerjager_IV_L_70{
   _extends:t="germ_panzerjager_IV_L_70_common"
 
@@ -23,7 +32,6 @@ germ_panzerjager_IV_L_70{
 
 germ_panzerjager_IV_L_70_common{
   _extends:t="base_panzerjager_iv_l_70"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   gunnerFpsCamMaxAngle:p2=5.0, 3.0
   item__iconOffset:p2=0.0, 0.3

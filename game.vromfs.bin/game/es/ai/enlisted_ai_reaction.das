@@ -29,7 +29,7 @@ var // these variables keep constant values that don't change at runtime (after 
   SQUAD_BEHAVIOUR_CHANGED_REACTION_ID : int
 
 [register_beh_nodes]
-def register_enlisted_ai_reactions1()
+def register_nodes()
   ENEMY_PLAYER_NEAR_REACTION_ID = walkerai::register_reaction("onEnemyPlayerNear")
   BOMB_CAN_BE_PLANTED_REACTION_ID = walkerai::register_reaction("onBombCanBePlanted")
   BOMB_CAN_BE_DEFUSED_REACTION_ID = walkerai::register_reaction("onBombCanBeDefused")

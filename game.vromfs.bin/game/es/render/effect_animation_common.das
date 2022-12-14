@@ -4,7 +4,7 @@ require ecs
 
 def begin_effect_animation(eid : EntityId)
   ecs::query(eid) <| $ [es] (effect_animation__activatedTemplateName : string;
-                             transform : float3x4?)
+                             transform : float3x4 const?)
     addSubTemplate(eid, effect_animation__activatedTemplateName) <| $(var init)
       set(init, "effect_animation__currentStageId", -1)
       if transform != null

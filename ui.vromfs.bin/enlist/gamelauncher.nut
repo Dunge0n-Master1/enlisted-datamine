@@ -21,7 +21,7 @@ let function setNotInBattle(){
 local function startGame(params) {
   console_print("Launching game client...")
   params = params.__merge(extraGameLaunchParams.value)
-  if ((params?.modHashes ?? "") != "" && params?.modId == null)
+  if ((params?.modHash ?? "") != "" && params?.modId == null)
     params.modId <- "blob";
   log("starting game with params", params.filter(@(_,k) k!="authKey" && k!="modFile"))
 

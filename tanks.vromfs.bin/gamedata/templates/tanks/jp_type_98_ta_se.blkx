@@ -4,7 +4,6 @@ jp_type_98_ta_se_pacific{
 
 jp_type_98_ta_se_common{
   _extends:t="base_type_98_ta_se"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
@@ -12,6 +11,14 @@ jp_type_98_ta_se_common{
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0
+  vehicle_commander_cam__attachToVehicle:b=yes
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -30,7 +37,9 @@ jp_type_98_ta_se_common{
       directTurretControl:b=yes
       maxPosWithOpenHatch:r=0.0
       hatchRotationAxis:p3=0.0, 0.0, 0.0
+      cameraOffset:p3=-0.6, 0.15, 0.0
       canLoadInHatch:b=yes
+      isHoldGunModeAllowed:b=no
 
       "hatchNodes:array"{
         node:t="bone_camera_gunner"

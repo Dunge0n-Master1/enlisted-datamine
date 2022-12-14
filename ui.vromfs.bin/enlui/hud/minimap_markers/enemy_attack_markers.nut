@@ -3,6 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let markers = require("%ui/hud/state/enemy_attack_markers.nut")
 let iconSz = hdpxi(35)
 let { MAP_COLOR_ENEMY } = require("%enlSqGlob/ui/style/unit_colors.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
+
+
 let marker = freeze({
   rendObj = ROBJ_IMAGE
   size = [iconSz, iconSz]
@@ -25,7 +28,9 @@ let mkMapMarker = memoize(@(eid) {
   children = marker
 })
 
+let marksList = Computed(@() isReplay.value ? [] : markers.value.keys())
+
 return {
-  watch = markers
-  ctor = @(_) markers.value.keys().map(mkMapMarker)
+  watch = marksList
+  ctor = @(_) marksList.value.map(mkMapMarker)
 }

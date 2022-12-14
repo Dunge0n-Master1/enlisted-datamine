@@ -10,7 +10,7 @@ def snow_whitening_controller_appear(evt : Event; snow_whitening_controller__tem
 
 
 [es(tag=render, on_disappear)]
-def snow_whitening_controller_disappear(evt : Event; snow_whitening_controller__destroyerAppendTemplate : das_string?;
+def snow_whitening_controller_disappear(evt : Event; snow_whitening_controller__destroyerAppendTemplate : das_string const?;
                                         snow_whitening_controller__controllerEid : EntityId)
   if snow_whitening_controller__destroyerAppendTemplate != null
     addSubTemplate(snow_whitening_controller__controllerEid, string(*snow_whitening_controller__destroyerAppendTemplate))

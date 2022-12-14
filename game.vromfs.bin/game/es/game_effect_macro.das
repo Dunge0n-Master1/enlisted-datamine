@@ -9,6 +9,21 @@ require daslib/templates_boost
 
 require game.events_game
 
+def get_game_effect_block(invert : bool; field_name : string)
+  if !invert
+    return <- qmacro_block() <|
+      ecs::query(evt.attachedTo) <| $ [es] (var $i(field_name) : bool&)
+        let excludeEid = eid
+        $i(field_name) = evt.activated || ecs::find_query() <| $ [marker(tag)] (eid, game_effect__attachedTo : EntityId)
+          return eid != excludeEid && game_effect__attachedTo == evt.attachedTo
+
+  return <- qmacro_block() <|
+    ecs::query(evt.attachedTo) <| $ [es] (var $i(field_name) : bool&)
+      let excludeEid = eid
+      $i(field_name) = evt.activated || ecs::find_query() <| $ [marker(tag)] (eid, game_effect__attachedTo : EntityId)
+        return eid != excludeEid && game_effect__attachedTo == evt.attachedTo
+      $i(field_name) = !$i(field_name)
+
 [function_macro(name="es_game_effect")]
 class GameEffectAnnotation : AstFunctionAnnotation
   [unused_argument(group)] def override apply(var func : FunctionPtr; var group : ModuleGroup; args : AnnotationArgumentList; var errors : das_string) : bool
@@ -36,35 +51,15 @@ class GameEffectAnnotation : AstFunctionAnnotation
     let esAnn = find_annotation("ecs", "es")
     assert(esAnn != null)
 
-    var qblockNorm <- quote() <|
-      ecs::query(evt.attachedTo) <| $ [es] (var bool_flag : bool&)
-        let excludeEid = eid
-        bool_flag = evt.activated || ecs::find_query() <| $ [marker(tag)] (eid, game_effect__attachedTo : EntityId)
-          return eid != excludeEid && game_effect__attachedTo == evt.attachedTo
+    var blk <- get_game_effect_block(invert, fieldName)
+    blk |> force_at(func.at)
 
-    var qblockInv <- quote() <|
-      ecs::query(evt.attachedTo) <| $ [es] (var bool_flag : bool&)
-        let excludeEid = eid
-        bool_flag = evt.activated || ecs::find_query() <| $ [marker(tag)] (eid, game_effect__attachedTo : EntityId)
-          return eid != excludeEid && game_effect__attachedTo == evt.attachedTo
-        bool_flag = !bool_flag
-
-    var qblock & = unsafe(invert ? qblockInv : qblockNorm)
-
-    // free unused block
-    unsafe
-      delete !invert ? qblockInv : qblockNorm
-
-    apply_template(func.at, qblock) <| $(rules)
-      rules |> replaceVariable("bool_flag") <| ExpressionPtr(new [[ExprVar() name := fieldName]])
-      rules |> replaceBlockArgument("bool_flag") <| fieldName
+    apply_template(func.at, blk) <| $(rules)
       rules |> replaceAnnotationArgument("marker") <| @(var ann)
         ann.annotation := unsafe(reinterpret<smart_ptr<Annotation>> esAnn)
         ann.arguments |> clear()
         ann.arguments |> add_annotation_argument("REQUIRE", tagName)
 
-    var blk <- move_unquote_block(qblock)
-    blk.blockFlags ^= ExprBlockFlags isClosure
     func.body := null // dec use count
     func.body <- blk
 

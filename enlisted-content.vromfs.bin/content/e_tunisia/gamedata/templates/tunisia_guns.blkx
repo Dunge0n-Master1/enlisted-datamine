@@ -99,8 +99,21 @@ carcano_m38_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.58, -0.01, 0.0
     }
   }
 }
@@ -206,8 +219,21 @@ carcano_m38_7_35_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.58, -0.01, 0.0
     }
   }
 }
@@ -314,8 +340,21 @@ carcano_m38_7_35_with_scope_mount_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.58, -0.01, 0.0
     }
   }
 }
@@ -463,8 +502,21 @@ carcano_m41_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, -0.01, 0.0
     }
   }
 }
@@ -570,8 +622,27 @@ carcano_m91_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.67, -0.01, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.9, 0.0, 0.0
     }
   }
 }
@@ -648,8 +719,27 @@ carcano_m91_with_scope_mount_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.67, -0.01, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.9, 0.0, 0.0
     }
   }
 }
@@ -753,8 +843,21 @@ carcano_moschetto_91_gun{
       path:t="/weapon/rifle/carcano_m41/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/carcano_m41/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.76, 0.045, 0.0
     }
   }
 }
@@ -897,8 +1000,25 @@ smle_mk3_gun{
       path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/m1917_enfield/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/rifle/lee_enfield/reload5/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/lee_enfield/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.56, -0.025, 0.0
     }
   }
 }
@@ -1016,6 +1136,15 @@ armaguerra_mod_39_gun{
       path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, -0.02, 0.0
+    }
+  }
 }
 
 beretta_m31{
@@ -1121,6 +1250,15 @@ beretta_m31_gun{
       path:t="/weapon/rifle/m1/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, 0.0, -0.014
+    }
+  }
 }
 
 pavesi_m42{
@@ -1224,6 +1362,15 @@ pavesi_m42_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.62, 0.005, 0.0
     }
   }
 }
@@ -1336,6 +1483,127 @@ pavesi_prototype_svt_copy_gun{
       path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.57, 0.0, -0.023
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.823, 0.01, -0.023
+    }
+  }
+}
+
+scotti_model_x{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="scotti_model_x_char"
+  gun__blk:t="content/e_tunisia/gamedata/weapons/scotti_model_x.blk"
+  item__template:t="scotti_model_x_gun_item"
+  item__proto:t="content/e_tunisia/gamedata/weapons/scotti_model_x.blk"
+  item__locDetails:t="6.5x52 Carcano"
+  item__id:i=0
+  item__weapTemplate:t="scotti_model_x_gun"
+  item__name:t="items/scotti_model_x"
+  item__weapType:t="semiauto"
+  item__weight:r=4.0
+  gun__locName:t="Scotti mod X"
+  gun__statName:t="semiauto"
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=7.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.28
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=3.1
+  gun__altReloadTime:r=3.6
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="carcano_m38_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/e_tunisia/gamedata/weapons/bullets/6.5x52_carcano_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+scotti_model_x_gun{
+  _extends:t="base_equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="scotti_model_x"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="riffle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.75
+  gun__recoilDir:r=0.38
+  gun__visualRecoilMult:r=1.1
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.8
+  meleeSoundType:t="rifle"
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/armaguerra_mod_39"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/reload3/change_ammo"
+    }
+
+    "boltAction:object"{
+      path:t="/weapon/rifle/armaguerra_mod_39/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.57, -0.025, -0.025
+    }
+  }
 }
 
 beretta_m1918_30{
@@ -1442,6 +1710,15 @@ beretta_m1918_30_gun{
       path:t="/weapon/mgun/beretta_m1918/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.7, 0.03, 0.02
+    }
+  }
 }
 
 sw_light_rifle_mk_1{
@@ -1535,6 +1812,21 @@ sw_light_rifle_mk_1_gun{
 
     "reload3:object"{
       path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.25, -0.11, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.4, 0.025, 0.0
     }
   }
 }
@@ -1634,6 +1926,21 @@ sw_light_rifle_mk_2_gun{
 
     "reload3:object"{
       path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.41, -0.11, 0.01
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.57, 0.025, 0.01
     }
   }
 }
@@ -1742,6 +2049,21 @@ turner_automatic_rifle_gun{
       path:t="/weapon/rifle/gewehr41/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.81, -0.01, -0.02
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.595, -0.02, -0.02
+    }
+  }
 }
 
 beretta_m38_42{
@@ -1842,6 +2164,21 @@ beretta_m38_42_gun{
 
     "reload3:object"{
       path:t="/weapon/mgun/m38/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.4, 0.05, -0.005
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.25, -0.155, -0.005
     }
   }
 }
@@ -1946,6 +2283,21 @@ beretta_m1_gun{
       path:t="/weapon/mgun/m38/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.4, 0.05, -0.005
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.25, -0.155, -0.005
+    }
+  }
 }
 
 ovp_1918{
@@ -2048,6 +2400,15 @@ ovp_1918_gun{
       path:t="/weapon/mgun/schmeisser_mk36/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.4, -0.02, 0.0
+    }
+  }
 }
 
 tz_45{
@@ -2062,19 +2423,20 @@ tz_45{
   item__weapTemplate:t="tz_45_gun"
   item__name:t="items/tz_45"
   item__weapType:t="submachine_gun"
-  item__weight:r=3.6
+  item__weight:r=3.2
   gun__locName:t="Beretta Model 1"
   gun__statName:t="submachine_gun"
-  gun__shotFreq:r=9.167
-  gun_spread__maxDeltaAngle:r=0.88
+  gun__sightsDistance:r=0.05
+  gun__shotFreq:r=10.0
+  gun_spread__maxDeltaAngle:r=0.65
   gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.07, 0.5
-  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__omegaDevInc:p2=0.08, 0.55
+  gun_deviation__movementRange:p2=2.2, 4.5
   gun_deviation__movementDevInc:p2=0.0, 15.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.2
-  gun_deviation__maxDeviation:r=20.0
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=16.0
   gun__reloadTime:r=2.6
   gun__altReloadTime:r=2.1
 
@@ -2115,12 +2477,14 @@ tz_45_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.03
-  gun__recoilDirAmount:r=0.69
-  gun__recoilDir:r=0.0
-  gun__visualRecoilMult:r=1.6
-  gun__crawlRecoilMult:r=0.8
+  gun__recoilAmount:r=0.049
+  gun__recoilDirAmount:r=0.64
+  gun__recoilDir:r=0.1
+  gun__visualRecoilMult:r=1.4
   meleeSoundType:t="mgun"
+  gun__recoilControlMult:r=0.5
+  gun__recoilOffsMult:r=0.4
+  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
 
   _group{
     _tags:t="sound"
@@ -2129,22 +2493,31 @@ tz_45_gun{
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
-    path:t="/weapon/mgun/m38"
+    path:t="/weapon/mgun/mp34o"
   }
 
   "sound_irqs:shared:object"{
     _tags:t="sound"
 
     "reload1:object"{
-      path:t="/weapon/mgun/m38/reload1/change_ammo"
+      path:t="/weapon/mgun/mp34o/reload1/change_ammo"
     }
 
     "reload2:object"{
-      path:t="/weapon/mgun/m38/reload2/change_ammo"
+      path:t="/weapon/mgun/mp34o/reload2/change_ammo"
     }
 
     "reload3:object"{
-      path:t="/weapon/mgun/m38/reload3/change_ammo"
+      path:t="/weapon/mgun/mp34o/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.36, 0.001, 0.0
     }
   }
 }
@@ -2257,6 +2630,15 @@ thompson_m1921_28_box_gun{
       path:t="/weapon/mgun/thompson/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.14, -0.155, 0.0
+    }
+  }
 }
 
 sten_mk3{
@@ -2357,6 +2739,15 @@ sten_mk3_gun{
       path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.35, -0.005, 0.0
+    }
+  }
 }
 
 owen_mk1_42{
@@ -2425,7 +2816,8 @@ owen_mk1_42_gun{
   meleeSoundType:t="mgun"
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=1.0, 1.0, 1.0
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
 
   _group{
     _tags:t="sound"
@@ -2450,6 +2842,21 @@ owen_mk1_42_gun{
 
     "reload3:object"{
       path:t="/weapon/mgun/sten_mk2/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.625, 0.025, 0.022
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.47, -0.075, 0.022
     }
   }
 }
@@ -2746,9 +3153,6 @@ webley_mk6_gun{
   gun__visualRecoilMult:r=1.0
   meleeSoundType:t="pistol"
 
-  "gun_attach__holsterSlots:array"{
-  }
-
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
     path:t="/weapon/pistol/colt_new_service"
@@ -2799,9 +3203,6 @@ webley_mk6_nickel_gun{
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
   meleeSoundType:t="pistol"
-
-  "gun_attach__holsterSlots:array"{
-  }
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -2894,9 +3295,6 @@ enfield_no2_mk1_gun{
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.0
   meleeSoundType:t="pistol"
-
-  "gun_attach__holsterSlots:array"{
-  }
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -3037,6 +3435,24 @@ bren_mk1_gun{
       path:t="/weapon/rifle/mauser98k/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.44, -0.035, 0.0
+      forceOffset:b=yes
+      angle:r=31.0
+      length:r=0.3
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.43, -0.04, 0.0
+    }
+  }
 }
 
 besal_lmg{
@@ -3154,6 +3570,24 @@ besal_lmg_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/mauser98k/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.74, 0.03, -0.005
+      forceOffset:b=yes
+      angle:r=35.5
+      length:r=0.28
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.67, -0.035, -0.005
     }
   }
 }
@@ -3276,6 +3710,24 @@ charlton_automatic_rifle_gun{
       path:t="/weapon/rifle/mauser98k/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.68, 0.08, 0.0345
+      forceOffset:b=yes
+      angle:r=15.0
+      length:r=0.3
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.68, 0.045, 0.0345
+    }
+  }
 }
 
 solothurn_s_18_100{
@@ -3373,6 +3825,24 @@ solothurn_s_18_100_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/mosin/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.725, 0.045, -0.005
+      forceOffset:b=yes
+      angle:r=28.0
+      length:r=0.36
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.725, 0.01, -0.005
     }
   }
 }
@@ -3496,6 +3966,24 @@ atr_boys_gun{
 
     "boltAction:object"{
       path:t="/weapon/rifle/mosin/bolt_action"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.495, 0.045, 0.0
+      forceOffset:b=yes
+      angle:r=28.0
+      length:r=0.27
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.515, -0.035, 0.0
     }
   }
 }
@@ -3624,6 +4112,24 @@ vickers_berthier_gun{
       path:t="/weapon/rifle/mauser98k/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="bipod"
+      recoil:r=0.25
+      offset:p3=0.47, -0.01, 0.0
+      forceOffset:b=yes
+      angle:r=30.0
+      length:r=0.26
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.494, -0.03, 0.0
+    }
+  }
 }
 
 smle_mk3_grenade_launcher{
@@ -3724,6 +4230,10 @@ smle_mk3_grenade_launcher_gun{
       path:t="/weapon/rifle/lee_enfield/reload3/change_ammo"
     }
 
+    "reload4:object"{
+      path:t="/weapon/rifle/m1917_enfield/reload4/change_ammo"
+    }
+
     "boltAction:object"{
       path:t="/weapon/rifle/lee_enfield/bolt_action"
     }
@@ -3733,6 +4243,15 @@ smle_mk3_grenade_launcher_gun{
 
     "grenade_launcher:object"{
       smle_2_5_inch_grenade_launcher_cup:t="smle_2_5_inch_grenade_launcher_cup"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.57, -0.025, 0.0
     }
   }
 }
@@ -3822,6 +4341,7 @@ smle_2_5_inch_rifle_grenade_phys{
   shell__cleanupTime:r=30.0
   shell__fuseTime:r=0.0
   shell_explosion_fx__infoTemplate:t="hit_effect_group_grenade_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
 
   "shell__concussionMaxRadius:r"{
     value:r=1.8

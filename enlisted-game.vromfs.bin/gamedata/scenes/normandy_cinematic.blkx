@@ -6,6 +6,10 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+}
+
 entity{
   _template:t="static_cam"
   camera__active:b=yes
@@ -104,7 +108,7 @@ entity{
 }
 
 entity{
-  _template:t="team_usa+team_captime_balance+team_narrator_invasion_attack"
+  _template:t="team_usa+team_narrator_invasion_attack"
   team__deathPenaltyByMember:r=-5.0
   team__minDeathPenalty:r=10.0
   team__memberCount:r=0.0
@@ -122,7 +126,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_resptime_balance+team_narrator_invasion_defence"
+  _template:t="team_germany+team_narrator_invasion_defence"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=7000.0
@@ -153,123 +157,103 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [76.8493, 18.9857, 148.388]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-19.1245, 6.14809, 291.43]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-156.082, 63.6239, 19.7565]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.63921, 1.32456, 0.0] [-1.32456, 3.63921, 0.0] [0.0, 0.0, 3.87277] [208.05, 49.4149, 16.85]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [208.05, 49.4149, 16.85]]
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [177.729, 15.9907, 188.728]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[2.36463, 0.860655, 0.0] [-0.860655, 2.36463, 0.0] [0.0, 0.0, 2.51639] [363.25, 13.8551, 151.9]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [363.25, 13.8551, 151.9]]
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [88.0313, 7.65396, 268.093]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [277.7, 0.993134, 335.25]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [200.45, 0.78038, 335.35]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [344.65, 1.09077, 344.35]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [543.6, 0.619873, 415.25]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[1.6625, 0.605102, 0.0] [-0.605102, 1.6625, 0.0] [0.0, 0.0, 1.7692] [78.5, 2.10735, 335.35]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [78.5, 2.10735, 335.35]]
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [488.05, 60.7262, 112.4]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[1.6625, 0.605102, 0.0] [-0.605102, 1.6625, 0.0] [0.0, 0.0, 1.7692] [490.8, 61.7568, 105.75]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [490.8, 61.7568, 105.75]]
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [499.15, 61.686, 111.55]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [35.8477, 8.42039, 286.85]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[1.6625, 0.605102, 0.0] [-0.605102, 1.6625, 0.0] [0.0, 0.0, 1.7692] [-114.25, 6.83328, 297.8]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_big_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-114.25, 6.83328, 297.8]]
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-144.5, 4.79309, 283.9]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_big"
+  _template:t="fire_bonfire_medium_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-426.95, 1.85983, 362.5]]
-  dmgzone__teamToDamage:i=-1
 }
 
 entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-500.05, 66.1542, 291.35]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_huge_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-500.05, 66.1542, 291.35]]
 }
 
 entity{

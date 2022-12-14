@@ -16,6 +16,8 @@ let commands = [
 ]
 let sector = commands[1]
 
+let progressIconSize = hdpx(50)
+
 let destroyingProgress = {
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
@@ -23,7 +25,8 @@ let destroyingProgress = {
     {
       rendObj = ROBJ_IMAGE
       color = Color(255, 255, 255)
-      image = Picture($"!ui/uiskin/building_hammer.svg:{hdpx(50)}:{hdpx(50)}:K")
+      size = [progressIconSize, progressIconSize]
+      image = Picture($"!ui/uiskin/building_hammer.svg:{progressIconSize}:{progressIconSize}:K")
     }
     @() {
       watch = actionTimerColor

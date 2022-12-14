@@ -9,11 +9,12 @@ let {
   hasPremiumColor, defTxtColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { colFull } = require("%enlSqGlob/ui/designConst.nut")
-
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let premiumBtnSize = colFull(1)
 
-let premiumImagePath = @(size)
-  "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
+let premiumImagePath = @(size) (isNewDesign.value
+    ? "!ui/uiskin/premium/icon_prem.svg:{0}:{0}:K"
+    : "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K")
     .subst(size.tointeger())
 
 let premiumImage = @(size, override = {}) @() {
@@ -46,8 +47,12 @@ let premiumActiveInfo = @(customStyle = {}, premColor = hasPremiumColor)
     }).__update(customStyle)
   }
 
+
+let premiumBg = @(size) Picture("!ui/uiskin/premium/prem_bg.svg:{0}:{0}:K".subst(size))
+
 return {
-  premiumImage = premiumImage
-  premiumActiveInfo = premiumActiveInfo
+  premiumImage
+  premiumActiveInfo
   premiumBtnSize
+  premiumBg
 }

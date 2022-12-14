@@ -5,7 +5,7 @@ let {get_sync_time} = require("net")
 let {debriefingShow, debriefingData} = require("debriefingStateInBattle.nut")
 let {localPlayerNamePrefixIcon} = require("%ui/hud/state/player_state_es.nut")
 let {localPlayerName, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let {EventTeamRoundResult, broadcastNetEvent} = require("dasevents")
+let {EventTeamRoundResult, CmdGetDebriefingResult, broadcastNetEvent} = require("dasevents")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { get_session_id } = require("app")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
@@ -112,7 +112,7 @@ ecs.register_es("roundresult_debriefing_es",
 
 ecs.register_es("deserter_debriefing_es",
   {
-    [ecs.sqEvents.CmdGetBattleResult] = onGetBattleResult,
+    [CmdGetDebriefingResult] = onGetBattleResult,
   },
   {
     comps_rq = ["player"]

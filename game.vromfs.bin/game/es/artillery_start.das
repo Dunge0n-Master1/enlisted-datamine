@@ -9,6 +9,7 @@ require DagorSystem
 require enlisted.game.es.artillery_radio_common
 require game.es.sound_net.sound_net_events
 require enlisted.events_enlisted
+require danetlibs.native_dasevents.main.native_events
 
 
 def calc_artillery_source_pos(owner : EntityId; target_pos : float3)
@@ -87,7 +88,7 @@ def artillery_strike_start_at_pos_es(evt : CmdStartArtilleryStrikeAtPos; eid : E
     return
 
   if !!evt.owner
-    sendEvent(evt.owner, [[CmdRequestHumanSpeech phrase="artStrikeStart", importance=1.]])
+    sendEvent(evt.owner, [[CmdRequestHumanSpeech phrase="artStrikeStart"]])
   artillery_change_limit(team, 1, group)
   artillery_start(artilleryTemplateName, evt.owner, eid, team, calc_artillery_source_pos(evt.owner, evt.pos), evt.pos, evt.posEnd)
 

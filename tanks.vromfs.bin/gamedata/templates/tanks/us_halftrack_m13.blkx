@@ -4,13 +4,20 @@ us_halftrack_m13_pacific{
 
 us_halftrack_m13_common{
   _extends:t="base_halftrack_m13"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
   item__iconScale:r=0.8
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0
+  vehicle_commander_cam__attachToVehicle:b=yes
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -30,13 +37,26 @@ us_halftrack_m13_common{
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="us_halftrack_m13_gunner_cockpit"
       directTurretControl:b=yes
+      cameraOffset:p3=-0.35, 0.2, 0.0
+      maxPosWithOpenHatch:r=0.0
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
       canLoadInHatch:b=yes
+      isHoldGunModeAllowed:b=no
       seatAnimUpper:t="drive_driver"
       seatAnimLower:t="drive_driver"
 
       "turretNames:array"{
         turretNames:t="turret_01"
         turretNames:t="turret_02"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
       }
 
       "loaderTurretNames:array"{

@@ -315,6 +315,11 @@ actionSets{
       group_tag:t="Weapon,not_important"
     }
 
+    Human.Throw6{
+      type:t="digital_button"
+      group_tag:t="Weapon,not_important"
+    }
+
     Human.ThrowBack{
       type:t="digital_button"
       group_tag:t="Weapon"
@@ -365,7 +370,7 @@ actionSets{
       group_tag:t="Vehicle"
     }
 
-    Human.ExitVehicleAlone{
+    Human.LeaveVehicleAlone{
       type:t="digital_button"
       group_tag:t="Vehicle"
     }
@@ -490,6 +495,10 @@ actionSets{
       type:t="digital_button"
       group_tag:t="Weapon"
     }
+
+    Mortar.SwitchShellType{
+      type:t="digital_button"
+    }
   }
 
   Vehicle{
@@ -525,7 +534,7 @@ actionSets{
       reuse_defined_earlier:b=yes
     }
 
-    Human.ExitVehicleAlone{
+    Human.LeaveVehicleAlone{
       reuse_defined_earlier:b=yes
     }
 
@@ -596,6 +605,10 @@ actionSets{
     }
 
     Vehicle.ShootMachinegun{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootGrenadeLauncher{
       type:t="digital_button"
     }
 
@@ -745,6 +758,11 @@ actionSets{
     Replay.PrevCamera{
       type:t="digital_button"
       group_tag:t="Replay"
+    }
+
+    Replay.RecordVideo{
+      type:t="digital_button"
+      group_tag:t="Replay,platform=pc"
     }
   }
 

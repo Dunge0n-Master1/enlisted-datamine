@@ -1,11 +1,13 @@
 mass:r=0.091
 caliber:r=0.02
 speed:r=800.0
-maxDistance:r=2500.0
+maxDistance:r=4000.0
 explosiveType:t="tnt"
 explosiveMass:r=0.0056
+Cx:r=0.53
 normalizationPreset:t="default"
 bulletType:t="frag_i"
+shellAnimation:t="video/shells_animations/he_belt.ivf"
 nearHitPower:p2=1.0, 50.0
 midHitPower:p2=0.9, 300.0
 farHitPower:p2=0.1, 700.0

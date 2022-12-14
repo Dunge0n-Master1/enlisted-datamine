@@ -328,7 +328,7 @@ let function doCreateRoom() {
         //modManifestUrl = urlToManifest.value
         baseModsFilesUrl = baseModsFilesUrl.value
         modTitles
-        modHashes = ";".join(modFilesHashes.value ?? [])
+        modHash = ";".join(modFilesHashes.value ?? [])
         mod
       },
       lobby_template = "dev-lobby"

@@ -15,19 +15,23 @@ base_aec_mk_2_57mm_6pdr{
   drowningHeight:r=2.032
   damage_model__blk:t="gamedata/gen/units/tanks/aec_mk_2_57mm_6pdr.blk"
   item__name:t="items/uk_armored_car_aec_mk_2"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="aec_mk_2_57mm_6pdr_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -35,6 +39,7 @@ base_aec_mk_2_57mm_6pdr{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -62,6 +67,11 @@ base_aec_mk_2_57mm_6pdr{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -80,6 +90,14 @@ base_aec_mk_2_57mm_6pdr{
       turretName:t="turret_02"
       gun:t="aec_mk_2_57mm_6pdr_turret_02_7_92mm_besa"
       barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="aec_mk_2_57mm_6pdr_turret_03_50mm_uk_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -115,6 +133,15 @@ aec_mk_2_57mm_6pdr_turret_02_7_92mm_besa{
   "gun__shellsAmmo:array"{
     ammo:i=1688
     ammo:i=1687
+  }
+}
+
+aec_mk_2_57mm_6pdr_turret_03_50mm_uk_smoke_mortar_launcher{
+  _extends:t="tankgun_50mm_uk_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=18
   }
 }
 

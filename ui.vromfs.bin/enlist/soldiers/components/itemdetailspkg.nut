@@ -202,14 +202,40 @@ let function armorRowCtor(tbl, _itemData, setup, _itemBase) {
   }
 }
 
-let ITEM_DETAILS_CONSTRUCTORS = {
+let gunFiringModeNamesShortDesc  = @(val, _itemData, _setup, _itemBase) val.len() == 0 ? null
+  : {
+      size = [flex(),SIZE_TO_CONTENT]
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_TOP
+      halign = ALIGN_RIGHT
+      gap = hdpx(3)
+      children = [
+        {
+          flow = FLOW_VERTICAL
+          valign = ALIGN_TOP
+          halign = ALIGN_RIGHT
+          children = val.map(@(name) mkText(loc($"firing_mode/{name}")))
+        }
+        {
+          size = [RANGE_SIZE[0], SIZE_TO_CONTENT]
+          valign = ALIGN_TOP
+          halign = ALIGN_LEFT
+          children = mkText(loc("itemDetails/gun__firingModeNames"))
+        }
+      ]
+    }
+
+let itemDetalesConstructors = @(isFull) {
   "bullets" : @(val, itemData, _setup, _itemBase) val <= 0 ? null
     : mkTextRow(loc("itemDetails/bullets"),
         loc(itemData?.magazine_type ?? "magazine_type/default",
           { count = val, countColored = colorize(activeTxtColor, val) }))
-  "gun__firingModeNames" : @(val, _itemData, _setup, _itemBase) val.len() == 0 ? null
-    : mkTextRow(loc("itemDetails/gun__firingModeNames"),
-        ", ".join(val.map(@(name) loc($"firing_mode/{name}"))))
+  "gun__firingModeNames" : isFull ? @(val, _itemData, _setup, _itemBase) val.len() == 0 ? null
+      : mkTextRow(loc("itemDetails/gun__firingModeNames"),
+          ", ".join(val.map(@(name) loc($"firing_mode/{name}"))))
+    : gunFiringModeNamesShortDesc
+  "splashDamage" :  @(val, _itemData, _setup, _itemBase) mkTextRow(loc("itemDetails/splashDamage", { from = val.radius.x, to = val.radius.y }),
+    loc("itemDetails/splashDamage/damage", { to = val.damage }))
 }
 
 let VEHICLE_DETAILS_CONSTRUCTORS = {
@@ -693,7 +719,7 @@ let function mkItemDescription(item) {
 }
 
 let mkItemDetails = @(item, isFull)
-  mkDetails(getItemDetails(isFull), ITEM_DETAILS_CONSTRUCTORS, item, isFull)
+  mkDetails(getItemDetails(isFull), itemDetalesConstructors(isFull), item, isFull)
 
 let mkVehicleDetails = @(vehicle, isFull)
   mkDetails(VEHICLE_DETAILS, VEHICLE_DETAILS_CONSTRUCTORS, vehicle, isFull)

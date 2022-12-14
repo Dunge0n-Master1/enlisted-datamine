@@ -2,6 +2,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_sounds.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_urban_area_biom_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_urban_area_common.blk"
+}
+
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -106,20 +114,6 @@ entity{
 }
 
 entity{
-  _template:t="minimap_normandy_urban_area"
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=0.27
-}
-
-entity{
-  _template:t="wind"
-  wind__strength:r=2.0
-}
-
-entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
 }
@@ -127,24 +121,6 @@ entity{
 entity{
   _template:t="door_mult_ent_generator"
   ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
-}
-
-entity{
-  _template:t="shaderVars"
-
-  "shader_vars__vars:object"{
-    hmap_displacement_up:r=0.3
-    ocean1:c=142, 137, 71, 0
-    ocean0:c=76, 63, 5, 0
-    ocean_density:r=0.1
-    river1:c=142, 137, 71, 0
-    river0:c=76, 63, 5, 0
-    hmap_displacement_down:r=-0.15
-    paint_details_tex:t="normandy_wall_color_tex_palette*"
-    puddle_increase:r=0.01
-    water_color_noise_size:r=71.0
-    river_density:r=0.3
-  }
 }
 
 entity{

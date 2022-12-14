@@ -206,6 +206,7 @@ ussr_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_dshk_1942_preview"
     template:t="sandbags_wall_maxim_no_shield_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
     template:t="cannon_ussr_towed_at_53k_preview"
@@ -217,6 +218,7 @@ ussr_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -234,6 +236,7 @@ usa_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_browning_m2_preview"
     template:t="sandbags_wall_browning_m1919a4_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
     template:t="cannon_us_towed_at_m1_preview"
@@ -245,6 +248,7 @@ usa_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -260,6 +264,7 @@ uk_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_browning_m2_preview"
     template:t="sandbags_wall_browning_m1919a4_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
     template:t="cannon_uk_towed_at_6pdr_preview"
@@ -275,6 +280,7 @@ ger_normandy_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
     template:t="cannon_germ_towed_at_pak38_no_camo_preview"
@@ -292,6 +298,7 @@ ger_tunisian_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_desert_preview"
     template:t="cannon_germ_towed_at_pak38_desert_preview"
@@ -303,6 +310,7 @@ ger_tunisian_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -320,6 +328,7 @@ ger_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
     template:t="cannon_germ_towed_at_pak38_preview"
@@ -331,6 +340,7 @@ ger_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -348,6 +358,7 @@ ger_berlin_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
     template:t="cannon_germ_towed_at_pak40_preview"
@@ -359,6 +370,7 @@ ger_berlin_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -376,6 +388,7 @@ ussr_berlin_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_dshk_1942_preview"
     template:t="sandbags_wall_maxim_no_shield_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
     template:t="cannon_ussr_towed_at_pak40_preview"
@@ -387,6 +400,7 @@ ussr_berlin_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -404,9 +418,10 @@ jp_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_type_93_hmg_preview"
     template:t="sandbags_wall_type_92_hmg_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_green_preview"
-    template:t="cannon_us_towed_at_m1_preview"
+    template:t="cannon_jp_towed_at_type_1_preview"
     template:t="czech_hedgehog_a_preview"
     template:t="jp_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
@@ -415,6 +430,7 @@ jp_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=2
     limit:i=1
@@ -436,9 +452,17 @@ developer_building_tool_gun{
     template:t="sandbags_wall_maxim_no_shield_preview_dev"
     template:t="sandbags_wall_browning_m1919a4_preview_dev"
     template:t="sandbags_wall_type_92_hmg_preview_dev"
+    template:t="sandbags_wall_browning_m2_preview_dev"
+    template:t="sandbags_wall_type_93_hmg_preview_dev"
+    template:t="sandbags_wall_dshk_1942_preview_dev"
+    template:t="sandbags_wall_mg_131_preview_dev"
   }
 
   "buildingLimits:list<i>"{
+    limit:i=2
+    limit:i=2
+    limit:i=2
+    limit:i=2
     limit:i=2
     limit:i=2
     limit:i=2
@@ -823,6 +847,79 @@ scr_300_gun{
   }
 }
 
+type_94_6_radio{
+  _extends:t="artillery_radio_base"
+  gun__locName:t="Type 94-6 radio communication station"
+  animchar__res:t="type_94_6_radio_char"
+  item__iconYaw:r=145.0
+  item__iconScale:r=1.0
+  item__iconOffset:p2=0.0, 0.66
+  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  item__template:t="type_94_6_radio_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  item__weapTemplate:t="type_94_6_radio_gun"
+  item__name:t="items/type_94_6_radio"
+}
+
+type_94_6_radio_gun{
+  weap__sprintLerpFactor:r=0.0
+  _extends:t="type_94_6_radio"
+  _extends:t="animchar"
+  _extends:t="disable_update"
+  _extends:t="replicating"
+  _extends:t="gun_anim_vars"
+  gun__propsId:i=-1
+  _replicated:t="gun__propsId"
+  _replicated:t="gun__owner"
+  _replicated:t="gun__holsterGen"
+  _replicated:t="slot_attach__visible"
+  _replicated:t="human_gun_attached"
+  _replicated:t="gun__visible"
+  _tracked:t="gun__owner"
+  _tracked:t="gun__visible"
+  gun__prevHolsterGen:i=0
+  gun__holsterGen:i=0
+  animchar__updatable:b=no
+  slot_attach__visible:b=no
+  gun__visible:b=yes
+  animchar_render__enabled:b=no
+  human_gun_attached:b=no
+  gun_anim__reloadProgress:r=-1.0
+  gun_anim__singleReloadProgress:r=-1.0
+  gun_anim__singleReloadState:i=0
+  gun_attach__slot:t="weapon"
+  gun_attach__mainSlotId:i=-1
+  gun_attach__alternativeSlot:t="weapon"
+  gun_attach__altSlotId:i=-1
+
+  "gun__owner:eid"{
+  }
+
+  "animchar__actOnDemand:tag"{
+  }
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  gun_anim{
+    _tags:t="render"
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "gun_attach__holsterSlots:array"{
+    holsterSlots:t="slot_weapon_1"
+    holsterSlots:t="body_armor_back"
+  }
+
+  "gun_attach__holsterSlotsIds:list<i>"{
+  }
+}
+
 ita_rf1_radio{
   _extends:t="artillery_radio_base"
   gun__locName:t="SCR-300 radio communication station"
@@ -926,6 +1023,13 @@ scr_300_gun_item{
   collres__res:t="scr_300_collision"
 }
 
+type_94_6_radio_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_94_6_radio"
+  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  collres__res:t="type_94_6_radio_collision"
+}
+
 shovel{
   _extends:t="melee_weap_slots"
   _extends:t="base_dig_tool"
@@ -939,6 +1043,7 @@ shovel{
   item__name:t="items/shovel"
   item__weapType:t="melee"
   item__weight:r=0.7
+  item__iconYaw:r=90.0
   melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
   gun__statName:t="melee"
   gun__reloadable:b=no
@@ -950,7 +1055,7 @@ shovel_weapon{
   _extends:t="melee_weapon"
   _extends:t="shovel"
   meleeSoundType:t="shovel"
-  actionSfxSound:t="impact/shovel"
+  meleeActionSoundPath:t="impact/shovel"
 }
 
 usa_shovel{

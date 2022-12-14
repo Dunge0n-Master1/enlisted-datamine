@@ -113,6 +113,6 @@ def human_inventory_pickup_es(evt : CmdInventoryPickup; eid : EntityId)
   if has(itemEid, "gunAttachable")
     if try_pickup_item(eid, itemEid) && can_pickup_item(itemEid, eid)
       sendEvent(eid, [[EventOnLootPickup itemEid=itemEid]])
-    sendEvent(eid, [[CmdInventoryPickupGunMod item=itemEid]])
+    send_net_event(eid, [[CmdInventoryPickupGunMod item=itemEid]])
     return
   pickup_item_ex(eid, itemEid, evt.usefulOnly)

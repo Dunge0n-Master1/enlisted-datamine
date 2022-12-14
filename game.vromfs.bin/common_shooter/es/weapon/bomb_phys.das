@@ -65,9 +65,12 @@ def update_bomb_ballistics(bomb_ballistics_props : ShellProps;
                            bomb__lostMass : float;
                            var bomb_ballistics_curr : ShellState;
                            var bomb_ballistics_prev : ShellState;
-                           var projectile_ballistics : ProjectileBallistics)
+                           var projectile_ballistics : ProjectileBallistics;
+                           var projectile__ballisticsUpdated : bool&)
+  projectile__ballisticsUpdated = false
   if bomb_ballistics_curr.updatedUpToTime + PHYSICS_UPDATE_FIXED_DT >= current_time
     return false
+  projectile__ballisticsUpdated = true
 
   bomb_ballistics_prev = bomb_ballistics_curr
 
@@ -118,7 +121,8 @@ def update_bomb_phys_es(info : ParallelUpdateFrameDelayed;
                         var bomb_ballistics_prev : ShellState;
                         var projectile_ballistics : ProjectileBallistics;
                         var dm_projectile_state : ProjectileState;
-                        var projectile__prevPos : float3&)
+                        var projectile__prevPos : float3&;
+                        var projectile__ballisticsUpdated : bool&)
   if !projectile__isBomb || projectile__stopped
     return
 
@@ -135,7 +139,8 @@ def update_bomb_phys_es(info : ParallelUpdateFrameDelayed;
                             bomb__lostMass,
                             bomb_ballistics_curr,
                             bomb_ballistics_prev,
-                            projectile_ballistics)
+                            projectile_ballistics,
+                            projectile__ballisticsUpdated)
     projectile__prevPos = bomb_ballistics_prev.position
     dm_projectile_state.distance += length(bomb_ballistics_prev.position - bomb_ballistics_curr.position)
 

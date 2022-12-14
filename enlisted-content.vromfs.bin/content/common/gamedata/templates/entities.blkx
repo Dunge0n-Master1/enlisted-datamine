@@ -11,6 +11,7 @@ import:t="ambient_sounds.blk"
 import:t="projectile_sounds.blk"
 import:t="vehicle_sounds.blk"
 import:t="human_sounds.blk"
+import:t="gun_sounds.blk"
 import:t="hitpoints.blk"
 import:t="cameras.blk"
 import:t="replay.blk"
@@ -41,10 +42,11 @@ import:t="%danetlibs/sound/sound_utils_net/templates/sound_utils_net.template.bl
 import:t="%danetlibs/sound/common_sounds/templates/common_sounds.template.blk"
 import:t="%danetlibs/sound/environment_sounds/templates/environment_sounds.template.blk"
 import:t="%danetlibs/sound/door_sounds/templates/door_sounds.template.blk"
-import:t="%danetlibs/sound/common_human_sounds/templates/common_human_sounds.template.blk"
-import:t="%danetlibs/sound/shooter_human_sounds/templates/shooter_human_sounds.template.blk"
+import:t="%danetlibs/sound/human_sounds/templates/human_sounds.template.blk"
 import:t="%danetlibs/sound/vehicle_sounds/templates/vehicle_sounds.template.blk"
 import:t="%danetlibs/sound/vehicle_sounds_net/templates/vehicle_sounds_net.template.blk"
+import:t="%danetlibs/sound/ship_sounds/templates/ship_sounds.template.blk"
+import:t="%danetlibs/sound/plane_sounds/templates/plane_sounds.template.blk"
 import:t="%danetlibs/sound/weapon_sounds/templates/weapon_sounds.template.blk"
 import:t="cockpit.blk"
 import:t="ssss.blk"
@@ -58,7 +60,10 @@ import:t="%danetlibs/screen_blood/templates/screen_blood.template.blk"
 import:t="custom_envi_probe.blk"
 import:t="%danetlibs/motion_matching/templates/motion_matching.template.blk"
 import:t="%danetlibs/renderer/templates/render_settings.template.blk"
+import:t="%danetlibs/renderer/templates/grass_render.template.blk"
 import:t="%danetlibs/frame_graph_renderer/templates/frame_graph_nodes.template.blk"
+import:t="%danetlibs/hero_cockpit/templates/hero_cockpit.template.blk"
+import:t="%danetlibs/assets_import/templates/assets_import.blk"
 
 ecs_no_debug{
 
@@ -598,6 +603,9 @@ skies_settings{
     clouds_weather_gen__cumulonimbusSeed:p2=0.0, 0.0
     clouds_weather_gen__worldSize:r=65536.0
     sky_atmosphere__average_ground_albedo:r=0.1
+    sky_settings__haze_strength:r=1.0
+    sky_settings__haze_min_angle:r=0.0
+    sky_settings__haze_peak_hour_offset:r=2.0
     sky_atmosphere__min_ground_offset:r=0.0
     sky_atmosphere__ground_color:p3=1.0, 1.0, 1.0
     sky_atmosphere__mie2_thickness:p2=0.4, 0.4
@@ -879,9 +887,11 @@ charred_area_decals_manager{
   _singleton:b=yes
   _tags:t="render"
   charred_area_decals_initial_capacity:i=64
-  charred_area_decals_total_time:r=1000.0
+  charred_area_decals_total_time:r=120.0
   charred_area_decals_radius:r=1.0
   charred_area_decals_thickness:r=0.25
+  charred_area_decals_max_cam_distsq:r=900.0
+  charred_area_decals_max_count:i=100
   charred_area_decals_init_shader:t="projective_decal_create_indirect"
   charred_area_decals_generator_shader:t="projective_decal_decals_generator"
   charred_area_decals_render_shader:t="charred_area_projective_decals"
@@ -933,12 +943,13 @@ dynmat_params_base{
     needImmediateConstPS:b=yes
   }
 
-  "dynamic_material_params_arr:array"{
+  "dynamic_material_channels_arr:array"{
     _tags:t="render"
 
-    "dynamic_material_params_channel:object"{
-      dynamic_material_param__emissive_color:p4=1.0, 0.0, 1.0, 3.0
-      dynamic_material_param__emission_albedo_mult:r=0.1
+    "dynamic_material_channel:object"{
+      dynamic_material_type:t="emissive"
+      dynmat_param__emissive_color:p4=1.0, 0.0, 1.0, 3.0
+      dynmat_param__emission_albedo_mult:r=0.1
     }
   }
 }

@@ -6,6 +6,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_city_inv_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-6.72129, 69.0167, -341.79]]
@@ -2525,7 +2533,7 @@ entity{
 }
 
 entity{
-  _template:t="team_usa+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
   team__scoreCap:r=2000.0
   team__score:r=2000.0
@@ -2541,7 +2549,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_germany+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=5000.0
@@ -2886,23 +2894,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.997195, 0.0, 0.07485] [0.0, 1.0, 0.0] [-0.07485, 0.0, 0.997195] [195.93, 68.9906, -263.716]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [182.54, 68.9981, -282.887]]
-}
-
-entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[0.363485, -0.0248806, 0.931268] [-0.00779988, 0.999527, 0.0297487] [-0.931567, -0.018077, 0.363119] [176.727, 68.3724, -240.077]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.317659, 0.0, 0.948205] [0.0, 1.0, 0.0] [-0.948205, 0.0, -0.317659] [175.977, 69.7874, -241.901]]
 }
 
 entity{
@@ -2987,21 +2980,6 @@ entity{
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [206.773, 60.0449, -576.052]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-152.871, 52.2822, 14.2795]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-535.827, 59.9086, -498.273]]
 }
 
 entity{

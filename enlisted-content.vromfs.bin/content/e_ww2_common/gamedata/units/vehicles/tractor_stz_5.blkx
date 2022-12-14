@@ -1,0 +1,665 @@
+VehiclePhys{
+  skipUpdateOnSleep:b=yes
+  skipUpdateOnSleep:b=yes
+
+  Mass{
+    Empty:r=5500.0
+    Fuel:r=200.0
+    TakeOff:r=5840.0
+    momentOfInertia:p3=1.4, 2.5, 2.5
+    CenterOfGravity:p3=0.05, 0.3, 0.0
+    CenterOfGravityClampY:p2=0.0, 0.7
+    AdvancedMass:b=no
+    trackMass:r=1150.0
+  }
+
+  tracks{
+    animationMultiplier:r=0.68
+    height:r=0.06
+    width:r=0.31
+    tracksTensionK:p3=3.5, 14.0, 9.0
+    trackMesh:t="ussr_bt_7_phys_track_line"
+    trackLen:r=0.167
+    trackCount:i=70
+    trackFadeTime:r=0.5
+    trackCntPeriod:i=2
+    trackMaxSinking:r=0.1
+    trackMaxHeight:r=1.13
+    trackStartOffset:r=0.12
+    trackEmitSparks:b=yes
+  }
+
+  collisionProps{
+    cls_body:t="convex_hull"
+    collisionMaterial:t="walkRay"
+  }
+
+  engine{
+    horsePowers:r=56.0
+    maxRPM:r=3120.0
+    minRPM:r=900.0
+    rpmTau:r=0.1
+    minTorqueLimiter:r=0.0
+  }
+
+  mechanics{
+    maxBrakeForce:r=50000.0
+    driveGearRadius:r=0.3
+    mainGearRatio:r=14.83
+    sideGearRatio:r=1.0
+    tracked:b=yes
+    gearType:t="differential"
+
+    gearRatios{
+      ratio:r=-4.0
+      ratio:r=-16.0
+      ratio:r=0.0
+      ratio:r=7.84
+      ratio:r=4.82
+      ratio:r=2.71
+      ratio:r=1.58
+      ratio:r=1.0
+    }
+  }
+
+  suspension{
+    suspensionOffsets:p3=-0.1, -0.05, 0.14
+    defaultGearRadius:r=0.18
+    frontBackGearRadius:r=0.2
+    defaultDampeningForce:p2=18000.0, 40000.0
+    dampeningRelaxationRatio:r=0.4
+    dampeningCompressionRatio:r=0.15
+    recalcWtms:b=yes
+  }
+}
+
+DamageParts{
+  formatVersion:i=2
+  armorClass:t="RHA_tank"
+  hp:r=100.0
+
+  body{
+
+    body{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+
+    body_side{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+
+    body_top{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+
+    body_front{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+
+    body_bottom{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+
+    body_back{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.1
+      armorThrough:r=0.15
+    }
+  }
+
+  engine{
+    hp:r=55.0
+
+    engine{
+      hitTestType:t="inner"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=0.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=5.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      napalmDamageMult:r=0.0
+      sonicDamageMult:r=0.0
+      vital:b=yes
+      movement:b=yes
+      fire:b=yes
+      armorClass:t="armor_tank_engine"
+      hp:r=90.0
+      armorThickness:r=50.0
+      restrainDamage:r=0.5
+    }
+
+    radiator{
+      hitTestType:t="inner"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=1.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=5.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      vital:b=yes
+      armorClass:t="tank_structural_steel"
+      hp:r=50.0
+      armorThrough:r=5.0
+      hidableInViewer:b=no
+    }
+  }
+
+  transmission{
+    hp:r=10.0
+
+    transmission{
+      createSecondaryShatters:b=no
+      armorThickness:r=0.3
+      armorThrough:r=10.0
+    }
+
+    fuel_tank{
+      hitTestType:t="inner"
+      malfunctionDamage:r=0.7
+      stopChanceOnDeadPart:r=0.0
+      castOnKillAfterTankPartDead:b=no
+      fireProtectionHp:r=10.0
+      externalArmor:b=no
+      minRelHpSelfRepair:r=0.5
+      maxRelHpSelfRepair:r=0.5
+      selfRepairDelay:r=0.0
+      selfRepairTime:r=-1.0
+      ignoreDeadWithSplash:b=no
+      splashPenetrationToArmorThreshold:r=0.33
+      pressureDamageMult:r=0.0
+      vital:b=yes
+      fire:b=yes
+      armorClass:t="tank_structural_steel"
+      hp:r=250.0
+      armorThickness:r=2.0
+      armorThrough:r=10.0
+      createSecondaryShatters:b=no
+      fireParamsPreset:t="fuel_internal"
+    }
+  }
+
+  track_r{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    movement:b=yes
+    armorClass:t="tank_traks"
+    hp:r=250.0
+    allowRicochet:b=yes
+    armorThickness:r=15.0
+    genericEffectiveThicknessMax:r=15.0
+    genericDamageMult:r=1.5
+    cumulativeDamageMult:r=1.5
+  }
+
+  track_l{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    movement:b=yes
+    armorClass:t="tank_traks"
+    hp:r=250.0
+    allowRicochet:b=yes
+    armorThickness:r=15.0
+    genericEffectiveThicknessMax:r=15.0
+    genericDamageMult:r=1.5
+    cumulativeDamageMult:r=1.5
+  }
+
+  wheel_suppor{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_02{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_03{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_04{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_02{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_03{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_04{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_drive{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_drive{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_l_front{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_front{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=15.0
+  }
+}
+
+DamageEffects{
+
+  part{
+    name:t="engine"
+    name:t="transmission"
+    name:t="radiator"
+
+    onKill{
+      fire:r=1.0
+      fHitCritical:b=yes
+    }
+  }
+
+  part{
+    name:t="body"
+    name:t="body_side"
+    name:t="body_top"
+    name:t="body_front"
+    name:t="body_bottom"
+    name:t="body_back"
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=1.0
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=1.0
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+  }
+
+  part{
+    name:t="fuel_tank"
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.1
+      fire:r=0.2
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.2
+      fire:r=0.3
+      damage:r=250.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.125
+      fire:r=0.225
+      damage:r=25.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.25
+      fire:r=0.35
+      damage:r=50.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.1
+      damage:r=20.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.25
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.4
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.7
+      expl:r=0.1
+      damage:r=300.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.5
+      expl:r=0.5
+      damage:r=400.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.2
+      expl:r=0.8
+      damage:r=600.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.2
+    }
+
+    onKill{
+      fire:r=0.5
+      expl:r=0.3
+      nothing:r=0.2
+      fHitCritical:b=yes
+    }
+  }
+}
+
+MetaParts{
+
+  armor_body{
+    hp:r=400.0
+    part:t="engine"
+    part:t="transmission"
+    part:t="radiator"
+    part:t="body"
+    part:t="body_side"
+    part:t="body_top"
+    part:t="body_front"
+    part:t="body_bottom"
+    part:t="body_back"
+
+    effect{
+      conditionDead:b=yes
+      killEffect:t="expl"
+      kill:b=yes
+    }
+  }
+}

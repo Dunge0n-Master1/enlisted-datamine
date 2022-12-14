@@ -1,44 +1,36 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg
+let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let faComp = require("%ui/components/faComp.nut")
+let { CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, ControlBg
 } = require("%ui/style/colors.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let {sound_play} = require("sound")
-let {isGamepad} = require("%ui/control/active_controls.nut")
+let { sound_play } = require("sound")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 
+let checkFontSize = hdpx(12)
+let boxSize = hdpx(20)
 let calcColor = @(sf)
   (sf & S_ACTIVE) ? CheckBoxContentActive
   : (sf & S_HOVER) ? CheckBoxContentHover
   : CheckBoxContentDefault
 
-let function box(stateFlags, state, _group) {
-  return @(){
+let box = @(stateFlags, state) function() {
+  let color = calcColor(stateFlags.value)
+  return {
+    watch = stateFlags
+    size = [boxSize, boxSize]
     rendObj = ROBJ_BOX
     fillColor = ControlBg
     borderWidth = hdpx(1)
-    borderColor = calcColor(stateFlags.value)
+    borderColor = color
     borderRadius = hdpx(3)
-    watch = stateFlags
-    children = {
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      size = [fontH(100), fontH(100)]
-
-      children = (state.value!=false)
-        ? {
-          rendObj = ROBJ_INSCRIPTION
-          validateStaticText = false
-          text = fa["check"]
-          hplace = ALIGN_CENTER
-          vplace = ALIGN_CENTER
-          color = calcColor(stateFlags.value)
-          opacity = state.value==null ? 0.5 : 1.0
-        }.__update(fontawesome, {fontSize = state.value==null ? hdpx(8) : hdpx(12)})
-        : null
-    }
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    children = state.value
+      ? faComp("check", {color, fontSize = checkFontSize})
+      : null
   }
 }
 
@@ -53,7 +45,7 @@ let mkCheckMark = @(stateFlags, state, group) @(){
   group
   rendObj = ROBJ_INSCRIPTION
   halign = ALIGN_CENTER
-}.__update(fontawesome, {fontSize = hdpx(12)})
+}.__update(fontawesome, {fontSize = checkFontSize})
 
 let mkSwitchKnob = @(stateFlags, state, group) @(){
   size = [boxHeight-hdpx(2),boxHeight-hdpx(2)] rendObj = ROBJ_BOX, borderRadius = hdpx(3),
@@ -121,9 +113,9 @@ return function (state, label_text_params=null, params = {}) {
   } : null
   return function(){
     let children = [
-      isGamepad.value ? switchbox(stateFlags, state, group) : box(stateFlags, state, group),
-      label(stateFlags, label_text_params, group, onClick),
-      (stateFlags.value & S_HOVER) ? hotkeysElem : null
+      isGamepad.value ? switchbox(stateFlags, state, group) : box(stateFlags, state)
+      label(stateFlags, label_text_params, group, onClick)
+      stateFlags.value & S_HOVER ? hotkeysElem : null
     ]
     if (params?.textOnTheLeft)
       children.reverse()

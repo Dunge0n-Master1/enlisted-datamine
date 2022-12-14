@@ -11,6 +11,7 @@ let io = require("io")
 let { startswith, split_by_chars, format } = require("string")
 let platform = require("%dngscripts/platform.nut")
 let { exit_game, get_dir } = require("app")
+let { get_avg_cpu_only_cycle_time_usec, reset_summed_cpu_only_cycle_time } = require("dagor.perf")
 
 
 let benchmarkParamsQuery = ecs.SqQuery("benchmarkParamsQuery", {comps_rw=[["benchmark_runs", ecs.TYPE_INT], ["benchmark_name", ecs.TYPE_STRING]]})
@@ -77,6 +78,9 @@ let function saveAndResetStats(){
       let avgDeviceVRamUsedKb = allDeviceVRamUsedKb / frames
       let avgSharedVRamUsedKb = allSharedVRamUsedKb / frames
 
+      let avgCpuOnlyCycleTimeUsec = get_avg_cpu_only_cycle_time_usec()
+      let avgCpuOnlyCycleFps = avgCpuOnlyCycleTimeUsec > 0.0 ? 1.0 / (avgCpuOnlyCycleTimeUsec / 1000000.0) : 0.0
+
       prevMsec = prevMsec > firstMsec ? prevMsec : firstMsec+1
       let res = "\n".concat(
         $"avg_fps={1000.0 * frames / (prevMsec - firstMsec)}",
@@ -93,6 +97,8 @@ let function saveAndResetStats(){
         $"max_shared_vram_used_in_kb={maxSharedVRamUsedKb}",
         format("avg_shared_vram_in_kb=%.2f",avgSharedVRamUsedKb),
 
+        format("avg_cpu_only_cycle_fps=%.2f",avgCpuOnlyCycleFps),
+
         $"RawStats: frames={frames}, slowFrames={slowFrames}, verySlowFrames={verySlowFrames}, timeTakenMs={prevMsec - firstMsec}, timeStartedMs={firstMsec}, timeEndMs={prevMsec}",
         "\n"
       )
@@ -100,6 +106,7 @@ let function saveAndResetStats(){
       f.writestring(res)
       f.close()
     }
+    reset_summed_cpu_only_cycle_time();
     foreach (compName, _ in comps){
       if (compName == "benchmark_name" || compName == "benchmark_runs")
         continue

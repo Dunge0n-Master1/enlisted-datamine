@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_tunisia_allies+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_tunisia_allies+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -17,7 +17,7 @@ entity{
 }
 
 entity{
-  _template:t="team_tunisia_axis+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0

@@ -59,8 +59,8 @@ def still_obstacles_update(cur_time : float)
                                                                              var obstacle__lastStillTransform : float3x4&;
                                                                              var obstacle__lastStillTime : float&;
                                                                              transform : float3x4;
-                                                                             collres : CollisionResource?;
-                                                                             ri_extra : RiExtraComponent?)
+                                                                             collres : CollisionResource const?;
+                                                                             ri_extra : RiExtraComponent const?)
     if (cur_time < obstacle__lastCheckTime + obstacle__checkDelta)
       return
     obstacle__lastCheckTime = cur_time
@@ -78,7 +78,7 @@ def still_obstacles_update(cur_time : float)
     obstacle__lastStillTransform = transform
     if obstacle__handle == 0
       ++obstacle__stillCount
-      var cr : CollisionResource? = null
+      var cr : CollisionResource const? = null
       if collres != null
         cr = collres
       elif ri_extra != null

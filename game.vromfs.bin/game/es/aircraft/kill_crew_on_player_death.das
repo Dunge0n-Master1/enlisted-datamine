@@ -9,4 +9,4 @@ def kill_crew_on_player_death(evt : EventEntityDied; possessedByPlr, human_anim_
   query(human_anim__vehicleSelected) <| $ [es(REQUIRE=killCrewOnPlayerDeath)] (vehicle_seats__seatEids : EidList)
     for seatEid in vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
-        sendEvent(seat__ownerEid, [[CmdKill offender=evt.offender, damageType=uint16(evt.damageType)]])
+        sendEvent(seat__ownerEid, [[CmdKill offender=evt.offender, damageType=uint16(evt.damageType), gunPropsId=evt.gunPropsId, shellId=evt.shellId]])

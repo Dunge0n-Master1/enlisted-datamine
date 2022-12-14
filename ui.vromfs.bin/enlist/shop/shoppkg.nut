@@ -12,7 +12,7 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { scrollToCampaignLvl, curArmySquadsUnlocks
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let getEquipClasses = require("%enlist/soldiers/model/equipClassSchemes.nut")
 let { defBgColor, bigPadding, smallPadding, defTxtColor, warningColor, idleBgColor,
   soldierLvlColor, disabledTxtColor
@@ -134,7 +134,7 @@ let mkViewCrateBtn = @(crateContentWatch, onCrateViewCb)
 let function extractItems(crateContent) {
   let { items = {} } = crateContent?.value.content
   let res = {}
-  foreach (_, tmpl in items)
+  foreach (tmpl, _ in items)
     res[trimUpgradeSuffix(tmpl)] <- true
   return res.keys()
 }
@@ -242,7 +242,12 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
   }
 
   let kindsList = getEquipClasses(armyId, itemtmpl, itemtype)
-    .reduce(@(tbl, sClass) tbl.__update({ [getClassCfg(sClass).kind] = true }), {})
+    .reduce(function(tbl, sClass) {
+      let { kind, isPremium = false, isEvent = false } = getClassCfg(sClass)
+      if (!isPremium && !isEvent)
+        tbl[kind] <- true
+      return tbl
+    }, {})
     .keys()
   let count = kindsList.len()
   if (count == 0)
@@ -506,7 +511,7 @@ let shopItemLockedMsgBox = @(level, cb = @() null)
       { text = loc("Ok"), isCancel = true}
       { text = loc("GoToCampaign"), action = function() {
         scrollToCampaignLvl(level)
-        setCurSection("SQUADS")
+        jumpToArmyProgress()
         cb()
       }}
     ]

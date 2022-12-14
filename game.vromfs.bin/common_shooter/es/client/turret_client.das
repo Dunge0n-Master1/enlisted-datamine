@@ -2,9 +2,11 @@ require ecs
 require turrets
 require common_shooter.events_common_shooter
 require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
 require EnlistedCamera
 require DagorMathUtils
 require GridCollision
+require CollisionTraces
 require Dacoll
 require AnimV20
 
@@ -48,8 +50,8 @@ def do_turret_trace(from : float3;
         break
 
 
-[es(tag=gameClient, after=turret_shoot_tm_save_es, before=turret_weap_updater_es, REQUIRE=(heroVehicle, turretsCorrection))]
-def turret_shoot_correction_es(evt : CmdTurretsUpdate;
+[es(tag=gameClient, REQUIRE=(heroVehicle, turretsCorrection))]
+def turret_shoot_correction_es(evt : ParallelUpdateFrameDelayed;
                                eid : EntityId;
                                isAlive : bool = true;
                                vehicle_seats__seatEids : EidList;

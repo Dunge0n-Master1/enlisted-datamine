@@ -21,7 +21,7 @@ ecs.register_es(
   {
     onInit = function(eid, comp) {
       let activatorOwnerEid = comp.ownerEid
-      let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
+      let heroEid = watchedHeroEid.value ?? ecs.INVALID_ENTITY_ID
       let showActivatorIndicator = activatorOwnerEid == heroEid || isFriendlyFireMode()
         || !is_teams_friendly(watchedTeam.value, getTeam(activatorOwnerEid))
 
@@ -33,7 +33,7 @@ ecs.register_es(
   },
   {
     comps_ro = [
-      ["ownerEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["ownerEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["hud_marker__max_distance", ecs.TYPE_FLOAT, 10.0],
       ["hud_marker__icon", ecs.TYPE_STRING, "killlog/kill_explosion.svg"]
     ]

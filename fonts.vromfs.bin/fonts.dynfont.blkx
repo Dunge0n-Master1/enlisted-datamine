@@ -26,7 +26,7 @@ baseFontData{
   }
 
   addFont{
-    addFont:t="ttfs/msyh.ttf"
+    addFont:t="ttfs/source-han-sans-cn-regular.ttf"
     htScale:r=1.0
     range:ip2=12288, 12351
     range:ip2=13312, 19903
@@ -72,7 +72,7 @@ baseFontData{
   }
 
   addFont{
-    addFont:t="ttfs/msyh.ttf"
+    addFont:t="ttfs/source-han-sans-cn-regular.ttf"
     htScale:r=1.0
     range:ip2=12288, 12351
     range:ip2=13312, 19903

@@ -11,7 +11,7 @@ p_51d_5{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.09, 0.05, -0.09]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
@@ -28,6 +28,13 @@ p_51d_5{
         turret:t="turret_06"
         turret:t="turret_07"
         turret:t="turret_08"
+      }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
       }
     }
   }
@@ -326,7 +333,7 @@ planegun_p_51d_5_12_7mm_browning50_m2_late_03{
   _extends:t="base_p_51d_5_12_7mm_browning50_m2_late"
   _extends:t="gunsound_12_7mm_browning50_m2_late_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=500
+  gun__maxAmmo:i=270
 }
 
 planegun_p_51d_5_12_7mm_browning50_m2_late_04{
@@ -335,7 +342,7 @@ planegun_p_51d_5_12_7mm_browning50_m2_late_04{
   _extends:t="base_p_51d_5_12_7mm_browning50_m2_late"
   _extends:t="gunsound_12_7mm_browning50_m2_late_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=500
+  gun__maxAmmo:i=270
 }
 
 planegun_p_51d_5_12_7mm_browning50_m2_late_05{
@@ -364,4 +371,24 @@ p_51d_5_driver_cockpit{
   animchar__res:t="p_51d_5_cockpit_char"
   plane_anim__blk:t="gamedata/units/p_51d_5.blk"
   plane_sight__blk:t="gamedata/units/p_51d_5.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0115, 0.05, -0.004
+    item:p3=0.0215, -0.003, -0.018
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=16.2, 28.3
+    item:p2=-24.7, 3.0
+  }
 }

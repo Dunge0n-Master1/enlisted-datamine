@@ -3,8 +3,8 @@ require game.utils.team
 require enlisted.events_enlisted
 require EnlistedNet
 
-[es(tag=server, no_order)]
-def train_escort_net_narrator(info : UpdateStageInfoAct;
+[es(tag=server, on_event=ParallelUpdateFrameDelayed, no_order)]
+def train_escort_net_narrator(evt : Event;
                               train__teamOffense : int;
                               train__teamDefense : int;
                               var train_escort_narrator__teamOffensePresence : int&;

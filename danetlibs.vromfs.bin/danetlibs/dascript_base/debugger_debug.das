@@ -12,7 +12,6 @@ require DagorSystem
 
 def relative_path(file, prefix, replace : string; var res : string&) : bool
   let prefixIdx = file |> find(prefix)
-  print("deep: {file} {prefix} {replace} {prefixIdx}")
   if prefixIdx < 0
     return false
   res = "{replace}{slice(file, prefixIdx + length(prefix))}"
@@ -35,7 +34,7 @@ class BreakpointsHookAgent : DapiDebugAgent
 
   def override onBreakpointsReset(file : string; breakpointsNum : int) : void
     if file |> ends_with(".das")
-      queue[file] = breakpointsNum > 0
+      queue[clone_string(file)] = breakpointsNum > 0
       processedFiles += 1
 
   def override onTick()

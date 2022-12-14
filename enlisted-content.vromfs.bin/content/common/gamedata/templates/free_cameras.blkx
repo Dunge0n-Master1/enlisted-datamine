@@ -11,7 +11,59 @@ _infoCommonComponents{
   }
 }
 
+free_cam_input{
+  free_cam__move:p2=0.0, 0.0
+  free_cam__rotate:p2=0.0, 0.0
+  free_cam__shiftY:r=0.0
+  free_cam__turbo:b=no
+  free_cam__angSpdScale:p2=0.01, 0.01
+  free_cam__move_speed:r=5.0
+  free_cam__moveSpeedDefault:r=5.0
+  _tracked:t="free_cam__angSpdScale"
+  _tracked:t="free_cam__move_speed"
+
+  _group{
+
+    "free_cam_input__move:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__rotate:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__shiftY:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__zoomIn:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__zoomOut:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__turbo:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__speedUp:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__speedDown:u16"{
+      value:i=-1
+    }
+
+    "free_cam_input__speedReset:u16"{
+      value:i=-1
+    }
+  }
+}
+
 base_free_cam{
+  _extends:t="free_cam_input"
   editableObj:b=no
   camera__active:b=no
   camera__input_enabled:b=yes
@@ -20,8 +72,6 @@ base_free_cam{
   zfar:r=50000.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   base_transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  free_cam__move_speed:r=5.0
-  _tracked:t="free_cam__move_speed"
   _tracked:t="camera__active"
 
   "camera_view:tag"{
@@ -42,20 +92,20 @@ base_free_cam{
 
 free_cam{
   _extends:t="base_free_cam"
-  free_cam__ang_spd:r=0.001
+  free_cam__angSpdScale:p2=0.001, 0.001
 }
 
 inertial_free_cam{
   _extends:t="base_free_cam"
-  free_cam__ang_spd:r=0.001
+  free_cam__angSpdScale:p2=0.001, 0.001
   free_cam__move_inertia:r=0.999
   free_cam__stop_inertia:r=0.999
 }
 
 fast_free_cam{
   _extends:t="base_free_cam"
-  free_cam__ang_spd:r=0.001
-  free_cam__move_speed:r=50.0
+  free_cam__angSpdScale:p2=0.001, 0.001
+  free_cam__moveSpeedDefault:r=50.0
 }
 
 static_cam{
@@ -92,6 +142,6 @@ static_cam{
 airplane_free_cam{
   _extends:t="base_free_cam"
   zfar:r=40000.0
-  free_cam__ang_spd:r=0.001
-  free_cam__move_speed:r=150.0
+  free_cam__angSpdScale:p2=0.001, 0.001
+  free_cam__moveSpeedDefault:r=150.0
 }

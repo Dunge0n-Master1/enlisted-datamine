@@ -7,9 +7,11 @@ import:t="effects.blk"
 import:t="fire.blk"
 import:t="animchar.blk"
 import:t="common_sounds.blk"
+import:t="ambient_sounds.blk"
 import:t="projectile_sounds.blk"
 import:t="vehicle_sounds.blk"
 import:t="human_sounds.blk"
+import:t="gun_sounds.blk"
 import:t="hitpoints.blk"
 import:t="cameras.blk"
 import:t="replay.blk"
@@ -32,7 +34,6 @@ import:t="device_anim.blk"
 import:t="affects.blk"
 import:t="debug_entities.blk"
 import:t="forestall.blk"
-import:t="dynamic_environment.blk"
 import:t="scripts_loader.blk"
 import:t="smoke_occluders.blk"
 import:t="%danetlibs/wounds/templates/wounds.template.blk"
@@ -40,21 +41,29 @@ import:t="%danetlibs/sound/sound_utils/templates/sound_utils.template.blk"
 import:t="%danetlibs/sound/sound_utils_net/templates/sound_utils_net.template.blk"
 import:t="%danetlibs/sound/common_sounds/templates/common_sounds.template.blk"
 import:t="%danetlibs/sound/environment_sounds/templates/environment_sounds.template.blk"
+import:t="%danetlibs/sound/door_sounds/templates/door_sounds.template.blk"
 import:t="%danetlibs/sound/human_sounds/templates/human_sounds.template.blk"
 import:t="%danetlibs/sound/vehicle_sounds/templates/vehicle_sounds.template.blk"
 import:t="%danetlibs/sound/vehicle_sounds_net/templates/vehicle_sounds_net.template.blk"
+import:t="%danetlibs/sound/ship_sounds/templates/ship_sounds.template.blk"
+import:t="%danetlibs/sound/plane_sounds/templates/plane_sounds.template.blk"
 import:t="%danetlibs/sound/weapon_sounds/templates/weapon_sounds.template.blk"
 import:t="cockpit.blk"
-import:t="level.blk"
 import:t="ssss.blk"
 import:t="updatable.blk"
 import:t="dedicated_server.blk"
 import:t="%danetlibs/outline/templates/outline.template.blk"
+import:t="%danetlibs/cables/templates/cables.template.blk"
 import:t="%danetlibs/route_prober/templates/route_prober.blk"
 import:t="darg_panels.blk"
 import:t="%danetlibs/screen_blood/templates/screen_blood.template.blk"
 import:t="custom_envi_probe.blk"
 import:t="%danetlibs/motion_matching/templates/motion_matching.template.blk"
+import:t="%danetlibs/renderer/templates/render_settings.template.blk"
+import:t="%danetlibs/renderer/templates/grass_render.template.blk"
+import:t="%danetlibs/frame_graph_renderer/templates/frame_graph_nodes.template.blk"
+import:t="%danetlibs/hero_cockpit/templates/hero_cockpit.template.blk"
+import:t="%danetlibs/assets_import/templates/assets_import.blk"
 
 ecs_no_debug{
 
@@ -67,6 +76,12 @@ daeditor_selected{
 
   "daeditor__selected:tag"{
   }
+}
+
+blood_puddles_creator{
+  blood_puddles__pos:p3=0.0, 0.0, 0.0
+  blood_puddles__dir:p3=0.0, 0.0, 0.0
+  blood_puddles__active:b=yes
 }
 
 bodies_cleanup{
@@ -150,6 +165,7 @@ psn_external_match_id{
   psn_external_match_leader:t=""
   psn_external_match_id:t=""
   psn_activity_id:t=""
+  playerIdInSession:t=""
   psn_local_user_leaved_match:b=no
   psn_activity_requires_teams:b=no
 }
@@ -298,6 +314,12 @@ group_activator{
   }
 }
 
+group_switch_timer{
+  group_switch_timer__time:r=0.0
+  group_switch_timer__deactivateGroup:t=""
+  group_switch_timer__activateGroup:t=""
+}
+
 group_bidirectional_one_chain_activator{
   activator__enabled:b=yes
   activator__initialLength:i=-1
@@ -384,6 +406,7 @@ base_menu_animchar{
   animchar__scale:r=1.0
   animchar__depScale:p3=1.0, 1.0, 1.0
   animchar__transformScale:p3=1.0, 1.0, 1.0
+  animchar__appliedAnimSpeed:r=0.0
   randomAnimStart:b=yes
 
   "animchar__animStateNames:object"{
@@ -394,6 +417,11 @@ base_menu_animchar{
   "animchar__animState:object"{
     upper:i=-1
     lower:i=-1
+  }
+
+  "animchar__animStateDirty:b"{
+    value:b=yes
+    _hide:b=yes
   }
 
   animchar{
@@ -432,25 +460,15 @@ menu_animchar_controller{
 }
 
 slot_attachable_no_slotname{
-  slot_attach__updateWtm:b=yes
   _tracked:t="slot_attach__attachedTo"
   _tracked:t="slot_attach__inAttachedList"
   _tracked:t="slot_attach__slotId"
   _replicated:t="slot_attach__attachedTo"
   _replicated:t="slot_attach__inAttachedList"
   _replicated:t="slot_attach__slotId"
-  _skipInitialReplication:t="slot_attach__attachTm,slot_attach__slotWtm"
   slot_attach__slotId:i=-1
-  slot_attach__slotWtmValid:b=no
-  slot_attach__attachTmValid:b=no
 
   "slot_attach:tag"{
-  }
-
-  slot_attach__slotWtm{
-  }
-
-  slot_attach__attachTm{
   }
 
   "slot_attach__attachedTo:eid"{
@@ -463,6 +481,17 @@ slot_attachable_no_slotname{
 slot_attachable{
   _extends:t="slot_attachable_no_slotname"
   slot_attach__slotName:t=""
+}
+
+weapon_slot_indexed{
+  slot_attach__weaponSlotIdx:i=-1
+  _tracked:t="slot_attach__weaponSlotIdx"
+  _replicated:t="slot_attach__weaponSlotIdx"
+}
+
+weapon_slot_attachable{
+  _extends:t="slot_attachable"
+  _extends:t="weapon_slot_indexed"
 }
 
 menu_gun{
@@ -499,8 +528,8 @@ item_spawner{
 
 item_grid_spawner{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  grid_spawner__rowsHeight:r=0.0
   grid_spawner__rowHeight:r=0.0
+  grid_spawner__gridWidth:i=0
 
   "spawnItemList:array"{
   }
@@ -510,7 +539,7 @@ item_grid_spawner_entity{
   grid_spawner__nextIdx:i=0
   grid_spawner__firstItem:b=no
 
-  "gridSpawnerEid:eid"{
+  "grid_spawner__ownerEid:eid"{
   }
 }
 
@@ -545,6 +574,7 @@ skies_settings{
 
   _group{
     _track:b=yes
+    skies_settings__weatherSeed:i=-1
     randomize_seed_button:b=no
     clouds_rendering__forward_eccentricity:r=0.8
     clouds_rendering__back_eccentricity:r=0.5
@@ -562,10 +592,10 @@ skies_settings{
     clouds_form__shapeNoiseScale:i=9
     clouds_form__cumulonimbusShapeScale:i=4
     clouds_form__turbulenceFreq:i=2
-    clouds_settings__maximum_averaging_ratio:r=0.75
+    clouds_settings__maximum_averaging_ratio:r=1.0
     clouds_settings__force_panorama:b=no
-    clouds_settings__quality:i=2
-    clouds_settings__target_quality:i=2
+    clouds_settings__quality:i=1
+    clouds_settings__target_quality:i=1
     clouds_settings__competitive_advantage:b=no
     clouds_settings__fastEvolution:b=no
     clouds_weather_gen__epicness:r=0.0
@@ -573,6 +603,9 @@ skies_settings{
     clouds_weather_gen__cumulonimbusSeed:p2=0.0, 0.0
     clouds_weather_gen__worldSize:r=65536.0
     sky_atmosphere__average_ground_albedo:r=0.1
+    sky_settings__haze_strength:r=1.0
+    sky_settings__haze_min_angle:r=0.0
+    sky_settings__haze_peak_hour_offset:r=2.0
     sky_atmosphere__min_ground_offset:r=0.0
     sky_atmosphere__ground_color:p3=1.0, 1.0, 1.0
     sky_atmosphere__mie2_thickness:p2=0.4, 0.4
@@ -745,7 +778,7 @@ beh_tree_regular_check{
 beh_tree_enemy_player_in_radius{
   beh_tree__enemyPlayerInRadiusAt:r=0.0
   beh_tree__enemyPlayerInRadiusPeriod:r=0.1
-  beh_tree__enemyPlayerInRadiusDist:r=10.0
+  beh_tree__enemyPlayerInRadiusDist:r=16.0
 }
 
 beh_tree_agent_in_train_zone{
@@ -771,7 +804,7 @@ beh_tree_agent_on_train{
     beh_tree__isAgentShouldUseTrain:b=no
     beh_tree__isAgentShouldOutTrain:b=no
     beh_tree__isInTrainBeh:b=no
-    beh_tree__minDstForGetOnTrain:r=36.0
+    beh_tree__minDstForGetOnTrain:r=64.0
   }
 }
 
@@ -850,6 +883,24 @@ esm_ambient_occlusion{
   }
 }
 
+charred_area_decals_manager{
+  _singleton:b=yes
+  _tags:t="render"
+  charred_area_decals_initial_capacity:i=64
+  charred_area_decals_total_time:r=120.0
+  charred_area_decals_radius:r=1.0
+  charred_area_decals_thickness:r=0.25
+  charred_area_decals_max_cam_distsq:r=900.0
+  charred_area_decals_max_count:i=100
+  charred_area_decals_init_shader:t="projective_decal_create_indirect"
+  charred_area_decals_generator_shader:t="projective_decal_decals_generator"
+  charred_area_decals_render_shader:t="charred_area_projective_decals"
+  charred_area_decals_culler_shader:t="projective_decal_cull"
+
+  "charred_area_decals_mgr:ResizableDecals"{
+  }
+}
+
 charred_area_decal{
   charred_area_left_time:r=0.0
   charred_area_total_time:r=0.0
@@ -864,4 +915,41 @@ envi_probe_render_settings{
   _tags:t="render"
   envi_probe_use_geometry:b=no
   envi_probe_sun_enabled:b=no
+}
+
+screen_droplets_settings{
+  _extends:t="replicating"
+
+  _group{
+    _track:b=yes
+    screen_droplets__has_leaks:b=yes
+    screen_droplets__on_rain_fadeout_radius:r=0.3
+    screen_droplets__screen_time:r=6.0
+    screen_droplets__rain_cone_max:r=0.5
+    screen_droplets__rain_cone_off:r=-0.25
+    screen_droplets__intensity_direct_control:b=no
+    screen_droplets__intensity_change_rate:r=0.1667
+  }
+}
+
+dynmat_params_base{
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    needImmediateConstPS:b=yes
+  }
+
+  "dynamic_material_channels_arr:array"{
+    _tags:t="render"
+
+    "dynamic_material_channel:object"{
+      dynamic_material_type:t="emissive"
+      dynmat_param__emissive_color:p4=1.0, 0.0, 1.0, 3.0
+      dynmat_param__emission_albedo_mult:r=0.1
+    }
+  }
 }

@@ -31,7 +31,7 @@ def get_seat_tm(human_eid, vehicle_eid; var out_tm)
                                    seats_attach_nodes__nodeItm : float3x4;
                                    seats_attach_nodes__attachTm : float3x4)
       if seats_attach_nodes__nodeId >= 0
-        geomtree_getNodeWtmScalar(animchar.nodeTree, seats_attach_nodes__nodeId, out_tm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, seats_attach_nodes__nodeId, out_tm)
       elif seats_attach_nodes__collNodeId >= 0
         collres_get_collision_node_tm(collres, seats_attach_nodes__collNodeId,
                                       transform, null, out_tm)

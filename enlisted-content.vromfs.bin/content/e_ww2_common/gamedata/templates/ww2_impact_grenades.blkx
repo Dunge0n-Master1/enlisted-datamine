@@ -1,21 +1,5 @@
 impact_grenade_base{
-  gun__visible:b=yes
-  _tracked:t="gun__visible"
-  gun_attach__slot:t="r_hand"
-  gun_attach__mainSlotId:i=-1
-  gun_attach__alternativeSlot:t="r_hand"
-  gun_attach__altSlotId:i=-1
-
-  "gun_attach__holsterSlots:array"{
-    holsterSlots:t="slot_weapon_1"
-    holsterSlots:t="slot_weapon_2"
-    holsterSlots:t="slot_weapon_3"
-    holsterSlots:t="slot_weapon_4"
-    holsterSlots:t="slot_weapon_5"
-  }
-
-  "gun_attach__holsterSlotsIds:list<i>"{
-  }
+  _extends:t="grenade_base"
 }
 
 impact_grenade_shell_base{
@@ -35,7 +19,6 @@ impact_grenade_phys_base{
   active:b=no
   start_omega:p3=3.0, 0.0, -15.0
   ai_target_node__node:t="weaponRoot"
-  effect__scale:r=1.0
   _tracked:t="active"
 
   "shell__concussionMaxRadius:r"{
@@ -49,10 +32,6 @@ impact_grenade_phys_base{
   "ai_target_node__nodeId:i"{
     value:i=-1
     _tags:t="server"
-  }
-
-  effect{
-    _tags:t="render"
   }
 }
 

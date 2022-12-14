@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_benchmark_fx.blk"
 }
 
 entity{
@@ -66,11 +68,6 @@ entity{
 entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[0.738196, 0.00182584, 0.674584] [-0.0700283, 0.994801, 0.0739394] [-0.670942, -0.101822, 0.734486] [-1359.87, 3.5238, 600.151]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1359.94, 6.17826, 600.464]]
 }
 
 entity{
@@ -614,18 +611,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.140402, 0.0, 0.990095] [0.0, 1.0, 0.0] [-0.990095, 0.0, 0.140402] [-1269.22, 8.55954, 572.712]]
-}
-
-entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[-0.570441, 0.139328, 0.809435] [-0.0273402, 0.981739, -0.188255] [-0.820884, -0.129518, -0.556215] [-1269.04, 6.09935, 572.772]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.140402, -0.0873437, 0.986234] [0.0, 0.996101, 0.0882175] [-0.990095, -0.012386, 0.139855] [-1378.07, 7.23679, 537.547]]
 }
 
 entity{
@@ -634,18 +621,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.868322, -0.0873437, 0.488249] [-0.0822214, 0.996101, 0.0319681] [-0.489138, -0.012386, -0.872118] [-1411.99, 4.69089, 630.738]]
-}
-
-entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[-0.972747, -0.0346953, -0.229258] [-0.0183098, 0.997148, -0.0732165] [0.231145, -0.0670235, -0.970608] [-1411.7, 2.05377, 630.941]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.91288, -0.0873437, -0.398774] [-0.0750569, 0.996101, -0.0463551] [0.401268, -0.012386, -0.915877] [-1329.02, 6.03736, 655.544]]
 }
 
 entity{
@@ -654,28 +631,13 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.932825, -0.0873437, 0.349583] [-0.0861458, 0.996101, 0.0190058] [-0.34988, -0.012386, -0.936713] [-1244.56, 7.47354, 651.314]]
-}
-
-entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[-0.928153, -0.0315179, -0.370862] [-0.018841, 0.999109, -0.0377566] [0.371722, -0.0280564, -0.92792] [-1244.28, 4.87046, 651.55]]
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.899578, -0.0873437, 0.427938] [0.0735266, 0.996101, 0.048746] [-0.430528, -0.012386, 0.902493] [-1301.48, 9.84462, 538.955]]
-}
-
-entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[0.375587, -0.0619509, 0.924714] [-0.0458946, 0.995296, 0.0853203] [-0.92565, -0.0744846, 0.370977] [-1301.48, 7.3105, 538.585]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.810228, -0.0873437, -0.57957] [-0.0638006, 0.996101, -0.0609246] [0.582632, -0.012386, -0.812642] [-1359.41, 5.77242, 683.171]]
 }
 
 entity{
@@ -686,11 +648,6 @@ entity{
 entity{
   _template:t="pzkpfw_VI_ausf_B_tiger_destroyed"
   transform:m=[[0.738196, 0.00182584, 0.674584] [-0.0700283, 0.994801, 0.0739394] [-0.670942, -0.101822, 0.734486] [-1409.39, 3.5238, 573.621]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1409.45, 6.17826, 573.934]]
 }
 
 entity{

@@ -8,7 +8,7 @@ let voteToKickEnabled = Watched(false)
 let voteToKickAccusedName = Watched(null)
 let voteToKickYes = Watched([])
 let voteToKickNo = Watched([])
-let voteToKickAccused = Watched(INVALID_ENTITY_ID)
+let voteToKickAccused = Watched(ecs.INVALID_ENTITY_ID)
 let lastKickedPlayerInfo = Watched({ name = null, kicked = false })
 
 let getAccusedInfoQuery = ecs.SqQuery("getAccusedInfoQuery", {
@@ -56,7 +56,7 @@ ecs.register_es("vote_to_kick_process_ui_es",
         voteToKickAccusedName(null)
         voteToKickYes([])
         voteToKickNo([])
-        voteToKickAccused(INVALID_ENTITY_ID)
+        voteToKickAccused(ecs.INVALID_ENTITY_ID)
       })
     }
   },

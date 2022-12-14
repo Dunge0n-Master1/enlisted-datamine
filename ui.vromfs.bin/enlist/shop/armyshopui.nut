@@ -11,7 +11,6 @@ let { safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { Transp } = require("%ui/components/textButton.nut")
 let { borderColor } = require("%ui/style/colors.nut")
-
 let viewShopItemsScene = require("viewShopItemsScene.nut")
 let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -34,6 +33,7 @@ let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
+let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 
 
 const SHOP_CONTAINER_WIDTH = 120 // sh
@@ -100,9 +100,10 @@ let shopGroupNotifier = mkShopNotifier(loc("hint/newShopItemsAvailable"))
 let shopItemNotifier = mkShopNotifier(loc("hint/newShopItemAvailable"))
 
 let function mkShopItemCard(shopItem, offersByItem, armyData) {
-  let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0 } = shopItem
-  let squad = shopItem?.squads[0]
+  let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0,
+    unlockCampaign = CAMPAIGN_NONE, squads = [] } = shopItem
   let armyId = armyData?.guid ?? ""
+  let squad = squads.filter(@(s) s.armyId == armyId)?[0]
   let offer = offersByItem?[guid]
   let currentLevel = armyData?.level ?? 0
   let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
@@ -111,6 +112,15 @@ let function mkShopItemCard(shopItem, offersByItem, armyData) {
 
   let containerIcon = isGroupContainer ? contIcon : null
   let crateContent = shopItemContentCtor(shopItem)
+  let onInfoCb = unlockCampaign != CAMPAIGN_NONE ? @() freemiumWnd(unlockCampaign)
+    : squad != null ? @() buySquadWindow({
+        shopItem
+        productView = mkProductView(shopItem, allItemTemplates)
+        armyId = squad.armyId
+        squadId = squad.id
+      })
+    : null
+
   return function() {
     let sf = stateFlags.value
     let isLocked = armyLevel > currentLevel
@@ -153,13 +163,7 @@ let function mkShopItemCard(shopItem, offersByItem, armyData) {
               isLocked
               purchasingItem = purchaseInProgress
               onCrateViewCb = @() viewShopItemsScene(shopItem)
-              onInfoCb = squad == null || armyLevel > currentLevel ? null
-                : @() buySquadWindow({
-                    shopItem
-                    productView = mkProductView(shopItem, allItemTemplates)
-                    armyId = squad.armyId
-                    squadId = squad.id
-                  })
+              onInfoCb
               unseenSignalObj
               crateContent
               itemTemplates = allItemTemplates

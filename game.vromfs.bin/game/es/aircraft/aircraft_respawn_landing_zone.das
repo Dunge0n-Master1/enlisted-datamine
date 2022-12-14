@@ -6,15 +6,19 @@ require DagorMath
 require Plane
 require EnlistedPlane
 require EnlistedActor
+require EnlistedDm
+require dm
 require game.utils.team
 require game.es.events
 require EnlistedNet
 require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
+require game.es.aircraft.aircraft_common
 require common_shooter.events_common_shooter
 require game.es.vehicle.vehicle_seats_common
 require vehicle
 require app
+require CollRes
 
 let ALL_ENGINES = -1
 
@@ -35,12 +39,14 @@ def setup_on_water(var plane_net_phys : PlaneActor&)
   assume phys = plane_net_phys.phys
   setup_engines(phys)
   phys |> flight_model_forceFlaps(0.0)
+  phys |> flight_model_forceAirBrake(0.0)
   phys |> flight_model_forceGear(0.0)
 
 def setup_on_ground(var plane_net_phys : PlaneActor&)
   assume phys = plane_net_phys.phys
   setup_engines(phys)
   phys |> flight_model_forceFlaps(0.0)
+  phys |> flight_model_forceAirBrake(0.0)
   phys |> flight_model_forceGear(1.0)
 
 def respawn_plane(plane_eid : EntityId; transform : float3x4; is_water_spawn : bool)
@@ -51,7 +57,7 @@ def respawn_plane(plane_eid : EntityId; transform : float3x4; is_water_spawn : b
   send_net_event(plane_eid, [[CmdResupplyVehicle]])
   send_net_event(plane_eid, [[CmdResetupVehicle setupOnWater=is_water_spawn, tm=tm, speed=0.0]])
 
-def is_valid_respawn(subtype : string; valid_subtypes : StringList?)
+def is_valid_respawn(subtype : string; valid_subtypes : StringList const?)
   return valid_subtypes == null || length(*valid_subtypes) == 0 || find_index(*valid_subtypes, subtype) >= 0
 
 def is_alive_player_driver(seat_eid : EntityId)
@@ -100,7 +106,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
                                   eid aka plane_eid : EntityId;
                                   team aka plane_team : int;
                                   transform aka plane_transform : float3x4;
-                                  canUseRespawnbaseSubtypes : StringList?;
+                                  canUseRespawnbaseSubtypes : StringList const?;
                                   plane_landing__canUseRespawn : bool;
                                   plane_net_phys : PlaneActor;
                                   vehicle_seats__seatEids : EidList;
@@ -124,7 +130,7 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
                                                            sphere_zone__radius : float;
                                                            landing_zone__maxSpeed : float = 10.0;
                                                            landing_zone__respawnAfterTime : float = 10.0;
-                                                           landing_zone__isWater : Tag?;
+                                                           landing_zone__isWater : Tag const?;
                                                            team : int = TEAM_UNASSIGNED)
     let isSpeedLow = plane_net_phys.phys.speed < landing_zone__maxSpeed
     let isFriendly = (team == TEAM_UNASSIGNED || is_teams_friendly(team, plane_team))
@@ -149,13 +155,28 @@ def plane_landing_check_if_landed(evt : CmdPostPhysUpdate;
     plane_landing__timeAfterLanding = 0.0
     plane_landing__repairAtTime = -1.0
 
-
 [es]
-def plane_resetup_teleport(evt : CmdResetupVehicle; eid : EntityId)
-  sendEvent(eid, [[CmdTeleportTo newTm = evt.tm, speed = evt.speed]])
+def plane_resetup_teleport(evt : CmdResetupVehicle;
+                           eid : EntityId;
+                           collres : CollisionResource;
+                           var plane_net_phys : PlaneActor&;
+                           var damage_model : DamageModel&;
+                           var fire_protection : FireProtection&;
+                           var meta_parts_state : MetaPartsState&)
+  repair_plane(eid, plane_net_phys, damage_model, fire_protection, meta_parts_state)
+  teleport_plane(evt.tm, collres, plane_net_phys)
 
-[es(tag=input)]
-def plane_landing_reset_look_dir(evt : EventOnEntityTeleported; var plane_input : PlaneInput&)
+[es(tag=input, after=plane_resetup_teleport)]
+def plane_landing_reset_look_dir(evt : CmdResetupVehicle;
+                                 var camera__lookDir : float3&;
+                                 var flight_angles : float2&;
+                                 var plane_input : PlaneInput&)
+  let dir = normalize_default(evt.tm[0], float3(1, 0, 0))
+  camera__lookDir = dir
+  var tmpBank = 0.0
+  let dirQuat = dir_to_quat(dir)
+  quat_to_euler(dirQuat, flight_angles.x, flight_angles.y, tmpBank)
+  plane_input.mouseAimAng = flight_angles
   plane_input.resetLookDirection = true
 
 [es(tag=input)]
@@ -181,7 +202,7 @@ def plane_landing_resetup_after_repair(evt : CmdResetupVehicle; var plane_net_ph
   else
     setup_on_ground(plane_net_phys)
 
-def update_zones_available_status(plane_team : int; canUseRespawnbaseSubtypes : StringList?)
+def update_zones_available_status(plane_team : int; canUseRespawnbaseSubtypes : StringList const?)
   query() <| $ [es] (respawnbaseSubtype : string; team : int = TEAM_UNASSIGNED; var landing_zone__isAvailable : bool&)
     let isFriendly = (team == TEAM_UNASSIGNED || is_teams_friendly(team, plane_team))
     landing_zone__isAvailable = isFriendly && is_valid_respawn(respawnbaseSubtype, canUseRespawnbaseSubtypes)
@@ -189,14 +210,14 @@ def update_zones_available_status(plane_team : int; canUseRespawnbaseSubtypes : 
 [es(tag=ui, REQUIRE=(airplane, vehicleWithWatched), on_appear)]
 def aircraft_respawn_landing_zone_is_available_on_watched_plane_appear(evt : Event;
                                                                        team : int;
-                                                                       canUseRespawnbaseSubtypes : StringList?)
+                                                                       canUseRespawnbaseSubtypes : StringList const?)
   update_zones_available_status(team, canUseRespawnbaseSubtypes)
 
 [es(tag=ui, REQUIRE=(airplane, vehicleWithWatched), on_disappear)]
 def aircraft_respawn_landing_zone_is_available_on_watched_plane_disapper(evt : Event; eid aka disappeared_eid : EntityId)
   let foundAnother = find_query() <| $ [es(REQUIRE=vehicleWithWatched)] (eid : EntityId;
                                                                          team : int;
-                                                                         canUseRespawnbaseSubtypes : StringList?)
+                                                                         canUseRespawnbaseSubtypes : StringList const?)
     if eid == disappeared_eid
       return false
     update_zones_available_status(team, canUseRespawnbaseSubtypes)

@@ -1,9 +1,14 @@
 require ecs
 require ecs.common
+require ecs.safe
 require DagorSystem
 
 def get_shells_ammo_by_distribution(eid : EntityId; distribution : Array; slot_count : int; total : int)
   var fillSlots : array<int>
+  var fillCount = total
+  var resultShellsAmmo : array<int>
+  resize(resultShellsAmmo, slot_count)
+
   for distributionElement in distribution
     let distributionObj = get_ecs_object(distributionElement)
     if distributionObj == null
@@ -13,17 +18,20 @@ def get_shells_ammo_by_distribution(eid : EntityId; distribution : Array; slot_c
     if slotId < 0
       logerr("{getEntityTemplateName(eid)}: Wrong format of gun.initAmmoDistribution element, 'slot' should be >= 0: {slotId}")
       continue
-    let fill = get_bool(distributionObj, "fill") ?? false
-    if fill && slotId < slot_count
+    if slotId >= slot_count
+      continue
+    if distributionObj?.fill ?? false
       push(fillSlots, slotId)
-
-  var resultShellsAmmo : array<int>
-  resize(resultShellsAmmo, slot_count)
+    else
+      let count = min(distributionObj?.count ?? -1, fillCount)
+      if count > 0
+        resultShellsAmmo[slotId] = count
+        fillCount -= count
 
   let fillSlotCount = length(fillSlots)
   if fillSlotCount > 0
-    let fillAmount = total / fillSlotCount
-    let remainder = total - fillAmount * fillSlotCount
+    let fillAmount = fillCount / fillSlotCount
+    let remainder = fillCount - fillAmount * fillSlotCount
     var minSlot = fillSlots[0]
     for slot in fillSlots
       resultShellsAmmo[slot] = fillAmount

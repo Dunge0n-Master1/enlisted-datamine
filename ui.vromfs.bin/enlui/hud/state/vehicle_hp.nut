@@ -7,7 +7,7 @@ let {DM_EFFECT_FIRE, DM_EFFECT_EXPL} = require("dm")
 let {EventOnVehicleDamaged, EventOnVehicleDamageEffects} = require("dasevents")
 
 let victimState = mkWatched(persist, "victimVehicleHp", {
-  vehicle = INVALID_ENTITY_ID
+  vehicle = ecs.INVALID_ENTITY_ID
   vehicleIconName = null
   damage = 0.0
   hp = 0.0
@@ -17,7 +17,7 @@ let victimState = mkWatched(persist, "victimVehicleHp", {
 })
 
 let defHeroState = {
-  vehicle = INVALID_ENTITY_ID
+  vehicle = ecs.INVALID_ENTITY_ID
   hp = 0.0
   maxHp = 0.0
   isBurn = false

@@ -151,8 +151,8 @@ pzkpfw_iv_ausf_h_turret_03_7_92mm_mg34{
   turret__limit:p4=-180.0, 180.0, -10.0, 20.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=1000
-    ammo:i=1000
+    ammo:i=1050
+    ammo:i=1050
   }
 }
 

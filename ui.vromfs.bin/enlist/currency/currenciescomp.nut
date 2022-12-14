@@ -51,7 +51,7 @@ let mkCurrency = kwarg(
     dimStyle = { color = defTxtColor }
   ) {
     let hasPrice = price != null
-    let hasDiscount = (fullPrice ?? 0) > price
+    let hasDiscount = (fullPrice ?? 0) > price && (price ?? 0) >= 0
     return {
       flow = FLOW_VERTICAL
       halign = ALIGN_RIGHT

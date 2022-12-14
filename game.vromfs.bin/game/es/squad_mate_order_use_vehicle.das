@@ -30,14 +30,14 @@ def on_personal_squadmate_use_vehicle_order(evt : RequestPersonalSquadMateOrder;
       squad_member__orderPosition = evt.orderPosition
       squad_member__orderUseEntity = evt.orderUseEntity
       squad_member__isPersonalOrder = true
-      sendEvent(eid, [[CmdRequestHumanSpeech phrase="confirmResponseDelayed", importance=1.]])
+      sendEvent(eid, [[CmdRequestHumanSpeech phrase="confirmResponseDelayed"]])
       send_squad_member_accept_order_bq(squad__leader, "{SquadMateOrder ESMO_USE_VEHICLE}", transform[3], true)
 
 [es(tag=server)]
 def squad_use_vehicle_order_speech(evt : RequestPersonalSquadMateOrder; eid, squad_member__squad : EntityId)
   if evt.orderType == int(SquadMateOrder ESMO_USE_VEHICLE)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadUseVehicle", importance=1.]])
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadUseVehicle"]])
       request_squad_member_response(eid, "confirm")
 
 [es(tag=server, no_order)]

@@ -24,7 +24,7 @@ def init_attach_nodes(evt : Event;
       return
 
     var rootItm : float3x4
-    geomtree_getNodeWtmRelScalar(animchar.nodeTree, 0, rootItm)
+    geomtree_getNodeWtmRelScalar(*animchar.nodeTree, 0, rootItm)
     rootItm = inverse(rootItm)
 
     let nodeName = get_string(*seat, "attachNode", "")
@@ -32,14 +32,14 @@ def init_attach_nodes(evt : Event;
       logerr("attachNode is not set for {seat__vehicleEid} ({getEntityTemplateName(seat__vehicleEid)})")
       return
 
-    seats_attach_nodes__nodeId     = geomtree_findNodeIndex(animchar.nodeTree, nodeName)
+    seats_attach_nodes__nodeId     = geomtree_findNodeIndex(*animchar.nodeTree, nodeName)
     seats_attach_nodes__collNodeId = collres_get_node_index_by_name(collres, nodeName)
     seats_attach_nodes__attachTm   = get_TMatrix(*seat, "attachTm") ?? IDENT_TM
     seats_attach_nodes__initialTm  = seats_attach_nodes__attachTm
     seats_attach_nodes__ignoreAttachNodeRotation = get_bool(*seat, "ignoreAttachNodeRotation") ?? false
 
     if seats_attach_nodes__nodeId >= 0
-      geomtree_getNodeWtmRelScalar(animchar.nodeTree, seats_attach_nodes__nodeId, seats_attach_nodes__nodeItm)
+      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, seats_attach_nodes__nodeId, seats_attach_nodes__nodeItm)
       seats_attach_nodes__nodeItm = rootItm * seats_attach_nodes__nodeItm
     elif seats_attach_nodes__collNodeId >= 0
       collres_get_collision_node_tm(collres, seats_attach_nodes__collNodeId, IDENT_TM, null, seats_attach_nodes__nodeItm)

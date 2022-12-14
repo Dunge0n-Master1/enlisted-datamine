@@ -16,7 +16,6 @@ def downed_soldier_finisher_es(evt : Event;
                                team, total_kits__selfRevive : int;
                                human_anim__vehicleSelected : EntityId;
                                hitpoints__canBeDownedInVehicle : bool = false;
-                               hitpoints__canSelfReviveByHealing : bool = false;
                                hitpoints__canBeRevivedByTeammates : bool = false;
                                hitpoints__alwaysAllowRevive : bool = false)
   if human_anim__vehicleSelected != INVALID_ENTITY_ID
@@ -24,7 +23,7 @@ def downed_soldier_finisher_es(evt : Event;
       sendEvent(human_anim__vehicleSelected, [[CmdKickFromVehicle eid=eid]])
     else
       hitpoints__hp = hitpoints__deathHpThreshold
-  if hitpoints__alwaysAllowRevive || (hitpoints__canSelfReviveByHealing && total_kits__selfRevive > 0) || (hitpoints__canBeRevivedByTeammates && have_active_teammates(eid, team))
+  if hitpoints__alwaysAllowRevive || total_kits__selfRevive > 0 || (hitpoints__canBeRevivedByTeammates && have_active_teammates(eid, team))
     return
   hitpoints__hp = hitpoints__deathHpThreshold
 
@@ -45,10 +44,9 @@ def lose_team_finisher(eid, victim : EntityId; team : int;
                        isAlive, isDowned : bool;
                        hitpoints__canBeRevivedByTeammates : bool;
                        var hitpoints__hp : float&;
-                       hitpoints__canSelfReviveByHealing : bool;
                        total_kits__selfRevive : int;
                        hitpoints__deathHpThreshold : float)
-  if eid == victim || victim == INVALID_ENTITY_ID || (hitpoints__canSelfReviveByHealing && total_kits__selfRevive > 0)
+  if eid == victim || victim == INVALID_ENTITY_ID || total_kits__selfRevive > 0
     return
   if isAlive && isDowned && is_teams_friendly(get_int(victim, "team") ?? TEAM_UNASSIGNED, team) && hitpoints__canBeRevivedByTeammates
     if !have_active_teammates(eid, team)
@@ -61,11 +59,10 @@ def lose_team_finisher_downed_es(evt : EventAnyEntityDowned;
                                  isAlive, isDowned : bool;
                                  hitpoints__canBeRevivedByTeammates : bool;
                                  var hitpoints__hp : float&;
-                                 hitpoints__canSelfReviveByHealing : bool = false;
                                  total_kits__selfRevive : int = 0;
                                  hitpoints__deathHpThreshold : float = 0.0)
   lose_team_finisher(eid, evt.victim, team, isAlive, isDowned, hitpoints__canBeRevivedByTeammates, hitpoints__hp,
-                     hitpoints__canSelfReviveByHealing, total_kits__selfRevive, hitpoints__deathHpThreshold)
+                     total_kits__selfRevive, hitpoints__deathHpThreshold)
 
 
 [es(REQUIRE=human, tag=server)]
@@ -74,11 +71,10 @@ def lose_team_finisher_died_es(evt : EventAnyEntityDied;
                                isAlive, isDowned : bool;
                                hitpoints__canBeRevivedByTeammates : bool;
                                var hitpoints__hp : float&;
-                               hitpoints__canSelfReviveByHealing : bool = false;
                                total_kits__selfRevive : int = 0;
                                hitpoints__deathHpThreshold : float = 0.0)
   lose_team_finisher(eid, evt.victim, team, isAlive, isDowned, hitpoints__canBeRevivedByTeammates, hitpoints__hp,
-                     hitpoints__canSelfReviveByHealing, total_kits__selfRevive, hitpoints__deathHpThreshold)
+                     total_kits__selfRevive, hitpoints__deathHpThreshold)
 
 
 [es(REQUIRE=human, tag=server, track=burning__isBurning)]

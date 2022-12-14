@@ -1,6 +1,5 @@
 germ_pzkpfw_V_ausf_a_panther_no_camo{
   _extends:t="base_pzkpfw_v_ausf_a_panther"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.1

@@ -49,7 +49,7 @@ let terraformParams = {
 
 let function saveTerraforming() {
   let terraforming_eid = entity_editor?.get_instance().makeSingletonEntity("terraforming")
-  if (terraforming_eid && terraforming_eid != INVALID_ENTITY_ID) {
+  if (terraforming_eid && terraforming_eid != ecs.INVALID_ENTITY_ID) {
     entity_editor?.save_component(terraforming_eid, "elevs")
     entity_editor?.save_component(terraforming_eid, "egras")
   }

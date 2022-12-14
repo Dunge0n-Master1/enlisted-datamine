@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_ussr_berlin+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
   team__scoreCap:r=1500.0
   team__score:r=1500.0
@@ -14,12 +14,12 @@ entity{
   team__briefing:t="invasion/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
-  team__winTitle:t="debriefing/ussr_won_invasion"
-  team__spawnBotArmy:t="berlin_allies"
+  team__winTitle:t="debriefing/usa_won_invasion"
+  team__spawnBotArmy:t="pacific_allies"
 }
 
 entity{
-  _template:t="team_germany_berlin+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_pacific_axis+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=3000.0
@@ -29,8 +29,8 @@ entity{
   team__briefing:t="invasion/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
-  team__winTitle:t="debriefing/ger_won_defence"
-  team__spawnBotArmy:t="berlin_axis"
+  team__winTitle:t="debriefing/jap_won_invasion"
+  team__spawnBotArmy:t="pacific_axis"
 }
 
 entity{

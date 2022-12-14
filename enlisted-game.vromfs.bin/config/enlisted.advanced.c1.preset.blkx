@@ -210,6 +210,7 @@ Human.WeapModToggle{
 Human.HoldBreath{
   dev:i=3
   btn:i=6
+  stickyToggle:b=yes
 }
 
 Human.Recover{
@@ -290,6 +291,7 @@ Human.BuildingAction{
   dev:i=3
   btn:i=14
   type:i=1
+  stickyToggle:b=yes
 }
 
 Human.BipodToggle{
@@ -319,12 +321,14 @@ Inventory.UseMedkit{
   dev:i=3
   btn:i=1
   type:i=1
+  stickyToggle:b=yes
 }
 
 Inventory.UseFlask{
   dev:i=3
   btn:i=0
   type:i=1
+  stickyToggle:b=yes
 }
 
 Spectator.Prev{
@@ -401,6 +405,16 @@ Vehicle.Aim{
 Vehicle.NextCockpitView{
   dev:i=3
   btn:i=12
+}
+
+Vehicle.ShootGrenadeLauncher{
+  dev:i=3
+  btn:i=7
+
+  mod{
+    dev:i=3
+    btn:i=6
+  }
 }
 
 Ship.Steer{
@@ -542,6 +556,11 @@ Mortar.Cancel{
   type:i=0
 }
 
+Mortar.SwitchShellType{
+  dev:i=3
+  btn:i=14
+}
+
 Replay.SpeedDown{
   dev:i=3
   btn:i=8
@@ -658,9 +677,10 @@ Human.VehicleMaintenance{
   dev:i=3
   btn:i=14
   type:i=1
+  stickyToggle:b=yes
 }
 
-Human.ExitVehicleAlone{
+Human.LeaveVehicleAlone{
   dev:i=3
   btn:i=14
   type:i=1

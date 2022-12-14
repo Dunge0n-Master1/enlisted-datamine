@@ -58,7 +58,7 @@ let isDebugMode = mkWatched(persist, "isDebugMode", false)
 let debugTextColor = Color(255, 128, 0)
 let listTxtColor = listCtors.txtColor
 
-let dmViewerTarget = Watched(INVALID_ENTITY_ID)
+let dmViewerTarget = Watched(ecs.INVALID_ENTITY_ID)
 let dmViewerMode = Watched(MODE.VIEW_NONE)
 
 let partName = Watched("")
@@ -70,7 +70,7 @@ let armorParams = Watched({
 
 let canUseDmViewer = @(vehicle) vehicle?.itemsubtype == "tank"
 
-let isDmViewerEnabled = Computed(@() dmViewerMode.value != MODE.VIEW_NONE && dmViewerTarget.value != INVALID_ENTITY_ID)
+let isDmViewerEnabled = Computed(@() dmViewerMode.value != MODE.VIEW_NONE && dmViewerTarget.value != ecs.INVALID_ENTITY_ID)
 
 let dmBlkPath = Computed(function() {
   if (!isDmViewerEnabled.value || (viewVehicle.value?.gametemplate ?? "") == "")
@@ -136,7 +136,7 @@ let function updateTooltipSubscriptions(...) {
   tooltipTextArmor.unsubscribe(updateTooltip)
   tooltipTextXray.unsubscribe(updateTooltip)
   updateTooltip(null)
-  if (dmViewerTarget.value != INVALID_ENTITY_ID) {
+  if (dmViewerTarget.value != ecs.INVALID_ENTITY_ID) {
     if (dmViewerMode.value == MODE.VIEW_ARMOR)
       tooltipTextArmor.subscribe(updateTooltip)
     else if (dmViewerMode.value == MODE.VIEW_XRAY)

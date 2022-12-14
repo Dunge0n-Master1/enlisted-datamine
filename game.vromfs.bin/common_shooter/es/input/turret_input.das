@@ -19,6 +19,12 @@ require common_shooter.es.input.turret_input_common
 require common_shooter.es.weapon.turret_common
 require common_shooter.events_common_shooter
 
+let
+  TRIGGER_MAIN = 0
+  TRIGGER_SECONDARY = 1
+  TRIGGER_MG = 2
+  TRIGGER_GRENADE_LAUNCHER = 3
+
 [es(tag=input, on_appear, on_event=EventOnGunCreated, track=vehicle__localControls)]
 def track_turret_input(evt : Event; vehicle__localControls : VehicleControlsState; turret_control__gunEids : EidList)
   var hasFirstTurret = false
@@ -30,7 +36,7 @@ def track_turret_input(evt : Event; vehicle__localControls : VehicleControlsStat
     if canControlTurret && anyFirstTurret == INVALID_ENTITY_ID
       anyFirstTurret = turretEid
     if canControlTurret
-      query(turretEid) <| $ [es(REQUIRE=isTurret, REQUIRE_NOT=gun__isLauncher)] (firstTurretInput : Tag?)
+      query(turretEid) <| $ [es(REQUIRE=isTurret, REQUIRE_NOT=gun__isLauncher)] (firstTurretInput : Tag const?)
         if firstTurretInput == null
           addSubTemplate(turretEid, "first_turret")
         hasFirstTurret = true
@@ -44,7 +50,7 @@ def track_turret_input(evt : Event; vehicle__localControls : VehicleControlsStat
     firstTurret = anyFirstTurret
 
   for turretNo, turretEid in iter_range(turret_control__gunEids), turret_control__gunEids
-    query(turretEid) <| $ [es] (turretInput : Tag?; firstTurretInput : Tag?)
+    query(turretEid) <| $ [es] (turretInput : Tag const?; firstTurretInput : Tag const?)
       if turretEid != firstTurret && firstTurretInput != null
         removeSubTemplate(turretEid, "first_turret")
       if can_control_turret(vehicle__localControls, turretNo)
@@ -68,9 +74,10 @@ def turret_update_turret_aim_point(info : UpdateStageInfoAct;
   isTurretAimPosValid = false
 
   for turretEid in turret_control__gunEids
-    query(turretEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret_input__aimPos : float3)
-      isTurretAimPosValid = true
-      turretAimPos = turret_input__aimPos
+    query(turretEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret_input__aimPos : float3; turret__disableAim : Tag const?)
+      if turret__disableAim == null
+        isTurretAimPosValid = true
+        turretAimPos = turret_input__aimPos
 
 [es(on_event=CmdSetVehicleShootDir)]
 def vehicle_input_set_direction(evt : Event; turret_control__gunEids : EidList)
@@ -139,9 +146,10 @@ def turret_aim_angles_to_look_dir_es(info : UpdateStageInfoAct;
                                      camera__lookDir : float3)
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret__isGunDirInited : bool;
+                                                                         turret__disableAim : Tag const?;
                                                                          var turret_input__aimAngles : float2&;
                                                                          var turret_input__aimPos : float3&)
-      if !turret__isGunDirInited
+      if !turret__isGunDirInited || turret__disableAim != null
         return
       turret_input__aimAngles = dir_to_angles(camera__lookDir)
       turret_input__aimPos = calc_aim_pos(turret_input__aimAngles)
@@ -176,8 +184,8 @@ def turret_input_reset_magnification_es(evt : Event; turret_input__minZoom : flo
 def turret_zoom_es(info : UpdateStageInfoAct;
                    turret_control__gunEids : EidList;
                    vehicleCameraType : int;
-                   cockpit__zoomOutFov : float?;
-                   cockpit__zoomInFov : float?)
+                   cockpit__zoomOutFov : float const?;
+                   cockpit__zoomInFov : float const?)
   let dt = info.dt
   query() <| $ [es] (camera__target : EntityId)
     query(camera__target) <| $ [es] (human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
@@ -211,6 +219,24 @@ def get_action_state_or(action : uint16; default_value : bool)
   return isActive ? (state.bState || isTouchPressed) : default_value
 
 [es(tag=input)]
+def vehicle_input_grenade_launcher_input_triggered(evt : EventDaInputActionTriggered;
+                                                   input__enabled : bool;
+                                                   turret_control__gunEids : EidList;
+                                                   turret_control__grenadeLauncherSalvoSize : int = 1;
+                                                   vehicle_input__shootGrenadeLauncher : int)
+  if input__enabled && int(evt.action) == vehicle_input__shootGrenadeLauncher
+    let state = get_action_state_or(uint16(vehicle_input__shootGrenadeLauncher), false)
+    release_weapon(turret_control__gunEids, state, TRIGGER_GRENADE_LAUNCHER, turret_control__grenadeLauncherSalvoSize)
+
+[es(tag=input)]
+def vehicle_input_grenade_launcher_input_terminated(evt : EventDaInputActionTerminated;
+                                                    input__enabled : bool;
+                                                    turret_control__gunEids : EidList;
+                                                    vehicle_input__shootGrenadeLauncher : int)
+  if input__enabled && int(evt.action) == vehicle_input__shootGrenadeLauncher
+    stop_weapons(turret_control__gunEids, TRIGGER_GRENADE_LAUNCHER)
+
+[es(tag=input)]
 def vehicle_input_gunner_es(info : UpdateStageInfoAct;
                             input__enabled : bool;
                             turret_control__gunEids : EidList;
@@ -230,11 +256,11 @@ def vehicle_input_gunner_es(info : UpdateStageInfoAct;
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int;
                                                      var turret_input__shootFlag : bool&)
-      if turret__triggerGroup == 0
+      if turret__triggerGroup == TRIGGER_MAIN
         turret_input__shootFlag = get_action_state_or(uint16(vehicle_input__shoot), turret_input__shootFlag)
-      elif turret__triggerGroup == 1
+      elif turret__triggerGroup == TRIGGER_SECONDARY
         turret_input__shootFlag = get_action_state_or(uint16(vehicle_input__shootSecondary), turret_input__shootFlag)
-      elif turret__triggerGroup == 2
+      elif turret__triggerGroup == TRIGGER_MG
         turret_input__shootFlag = get_action_state_or(uint16(vehicle_input__shootMachinegun), turret_input__shootFlag)
 
   var aAim = get_analog_stick_action_state(uint16(vehicle_input__aim))

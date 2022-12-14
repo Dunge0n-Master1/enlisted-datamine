@@ -1,8 +1,8 @@
 require ecs
 require EnlistedNet
 require DagorMath
-require game.es.events
 require enlisted.events_enlisted
+require danetlibs.native_dasevents.main.native_events
 
 struct CannonShellInfo
   max : int

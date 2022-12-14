@@ -11,6 +11,7 @@ motion_matching_animchar_component{
   motion_matching__linearVelocityAmortized:p3=0.0, 0.0, 0.0
   motion_matching__angularVelocityAmortized:p3=0.0, 0.0, 0.0
   motion_matching__metricaTolerance:r=0.0
+  motion_matching__idleVelocityBarrier:r=0.01
   motion_matching__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   motion_matching__animationBlendTime:r=0.45
   motion_matching__updateProgress:r=0.0
@@ -67,7 +68,7 @@ motion_matching_animchar_component{
 }
 
 motion_matchign_animation_database{
-  _extends:t="replicating"
+  _singleton:b=yes
   _tags:t="render"
   dataBaseName:t="motion_matchign_animation_database"
   main_database__loaded:b=no
@@ -100,6 +101,51 @@ motion_matchign_animation_database{
 
   "main_database__presetsTagsName:list<t>"{
   }
+
+  "main_database__masks:object"{
+
+    "full_body:object"{
+      Bip01:r=1.0
+      "Bip01 Pelvis":r=1.0
+      "Bip01 Spine":r=1.0
+      "Bip01 Spine1":r=1.0
+      "Bip01 Neck":r=1.0
+      "Bip01 Head":r=1.0
+      "Bip01 L Clavicle":r=1.0
+      "Bip01 L UpperArm":r=1.0
+      "Bip01 L Forearm":r=1.0
+      "Bip01 L Hand":r=1.0
+      "Bip01 R Clavicle":r=1.0
+      "Bip01 R UpperArm":r=1.0
+      "Bip01 R Forearm":r=1.0
+      "Bip01 R Hand":r=1.0
+      "Bip01 L Thigh":r=1.0
+      "Bip01 L Calf":r=1.0
+      "Bip01 L Foot":r=1.0
+      "Bip01 L Toe0":r=1.0
+      "Bip01 R Thigh":r=1.0
+      "Bip01 R Calf":r=1.0
+      "Bip01 R Foot":r=1.0
+      "Bip01 R Toe0":r=1.0
+    }
+
+    "no_hands:object"{
+      Bip01:r=1.0
+      "Bip01 Pelvis":r=1.0
+      "Bip01 Spine":r=1.0
+      "Bip01 Spine1":r=1.0
+      "Bip01 Neck":r=1.0
+      "Bip01 Head":r=1.0
+      "Bip01 L Thigh":r=1.0
+      "Bip01 L Calf":r=1.0
+      "Bip01 L Foot":r=1.0
+      "Bip01 L Toe0":r=1.0
+      "Bip01 R Thigh":r=1.0
+      "Bip01 R Calf":r=1.0
+      "Bip01 R Foot":r=1.0
+      "Bip01 R Toe0":r=1.0
+    }
+  }
 }
 
 motion_matchign_animation_database_extended{
@@ -108,6 +154,7 @@ motion_matchign_animation_database_extended{
   dataBaseName:t="motion_matchign_animation_database_extended"
 
   "data_bases_paths:list<t>"{
+    path:t="%danetlibs/motion_matching/animation_data_base/legacy_locomotion.blk"
     path:t="%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
     path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
   }

@@ -53,7 +53,7 @@ def find_console_hint_entities(str : string;
 
       // Complete match eid entity
       let completeMatchEid = isEid ? EntityId(to_uint(str)) : INVALID_ENTITY_ID
-      query(completeMatchEid) <| $ [es] (transform : float3x4?)
+      query(completeMatchEid) <| $ [es] (transform : float3x4 const?)
         let pos = transform != null ? (*transform)[3] : float3(VERY_BIG_NUMBER)
         let camDistanceSq = distance_sq(camPos, pos)
         entities |> emplace([[FindConsoleHintEntityResult eid=completeMatchEid, camDistanceSq=camDistanceSq, pos=pos]])
@@ -75,7 +75,7 @@ def find_console_hint_entities(str : string;
 
       // Other entities
       find_query() <| $ [es] (eid : EntityId;
-                              transform : float3x4?)
+                              transform : float3x4 const?)
         if length(entities) >= hints_count
           return true
         if eid == completeMatchEid

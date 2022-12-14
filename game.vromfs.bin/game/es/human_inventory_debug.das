@@ -11,6 +11,7 @@ def inventory_create_owned_item_debug_cmd(item_template : string;
                                           [[net_hero]] hero_eid : EntityId)
   for _i in range(0, items_count)
     createEntity(item_template) <| $(var init : ComponentsInitializer)
+      set(init, "item__lastOwner", hero_eid)
       set(init, "item__ownerEid", hero_eid)
 
 
@@ -21,6 +22,7 @@ def inventory_create_weap_slot_item_debug_cmd(item_template : string;
   query(hero_eid) <| $ [es] (var human_weap__gunEids : EidList)
     destroyEntity(human_weap__gunEids[gun_slot_id])
     human_weap__gunEids[gun_slot_id] = createEntity(item_template) <| $(var init : ComponentsInitializer)
+      set(init, "item__lastOwner", hero_eid)
       set(init, "item__ownerEid", hero_eid)
       set(init, "gun__owner", hero_eid)
 

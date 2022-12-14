@@ -4,9 +4,11 @@ let matching_api = require("matching.api")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 let { endswith } = require("string")
 let { getPlatformId } = require("%enlist/httpPkg.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
 
-let allRoomCfg = mkWatched(persist, "allRoomCfg", [])
-let isRoomCfgActual = mkWatched(persist, "isRoomCfgActual", false)
+
+let { allRoomCfg, allRoomCfgUpdate } = globalWatched("allRoomCfg", @() [])
+let { isRoomCfgActual, isRoomCfgActualUpdate } = globalWatched("isRoomCfgActual", @() false)
 let isRoomCfgLoading = Watched(false)
 
 const MODDED_CONFIG_POSTFIX = "_MODDED"
@@ -226,8 +228,8 @@ let function onRoomCfgResult(resp) {
   isRoomCfgLoading(false)
   if (resp.error != 0)
     return
-  allRoomCfg(resp?.result ?? [])
-  isRoomCfgActual(true)
+  allRoomCfgUpdate(resp?.result ?? [])
+  isRoomCfgActualUpdate(true)
 }
 
 let function actualizeRoomCfg() {
@@ -237,7 +239,7 @@ let function actualizeRoomCfg() {
   isRoomCfgLoading(true)
   matchingCall("mrooms.fetch_lobby_templates", onRoomCfgResult)
 }
-mSubscribe("mrooms.lobby_templates_changed", @(_notify) isRoomCfgActual(false))
+mSubscribe("mrooms.lobby_templates_changed", @(_notify) isRoomCfgActualUpdate(false))
 
 return {
   createEventRoomCfg

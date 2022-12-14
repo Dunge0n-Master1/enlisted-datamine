@@ -154,7 +154,7 @@ Aerodynamics{
   BombBayCd:r=0.015
   FuseCd:r=0.0
   AirbrakeCd:r=0.0
-  CockpitDoorCd:r=0.007
+  CockpitDoorCd:r=0.0532
   ClToCmCoeff:r=0.025
   UseSpinLoss:b=no
   SpinClLoss:r=0.18
@@ -739,6 +739,13 @@ EngineType0{
       toSuperchargerRPM:r=0.0
     }
   }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=2500.0
+    Automatic:b=no
+  }
 }
 
 EngineType1{
@@ -1037,6 +1044,13 @@ EngineType1{
       fromSuperchargerRPM:r=0.0
       toSuperchargerRPM:r=0.0
     }
+  }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=2500.0
+    Automatic:b=no
   }
 }
 

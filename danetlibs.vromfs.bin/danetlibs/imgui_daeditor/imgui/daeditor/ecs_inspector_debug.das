@@ -1,6 +1,7 @@
 options no_aot
 options persistent_heap
 options gc
+
 require ecs
 require strings
 require DagorConsole
@@ -11,6 +12,7 @@ require imgui/imgui_boost
 require daslib/array_boost
 require danetlibs.imgui_daeditor.daEditor.daEditor_common
 require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspector_common
+require %danetlibs.imgui_daeditor.imgui.imgui_common
 
 
 [console_cmd(name="imgui.editor_ecs_inspector")]
@@ -112,11 +114,57 @@ def ecs_inspector()
     imgui_hint() <| $() => eids_hint(redoStack |> back())
   imgui::SameLine()
 
+  static_let_finalize <|
+    var filter = new ImGuiTextFilter
+
   if length(new_eid) > 0
     if imgui::Button("@")
       entity_object_editor_zoomAndCenter()
     imgui_hint("Zoom camera to selected enitity")
     imgui::SameLine()
-    inspect_item(unsafe(reinterpret< array<EntityId># > new_eid), newSelection)
+    inspect_item(0, *filter, unsafe(reinterpret< array<EntityId># > new_eid), newSelection)
   else
     imgui::Text("Select any entity")
+
+
+def aux_ecs_inspector(idx : int; var filter : ImGuiTextFilter)
+  if IsWindowCollapsed()
+    return
+
+  static_let <|
+    var selectedEids : EntityId[5]
+
+  let saveBlkName = "ecs_inspector_{idx}"
+  if imgui_has_blk_val(saveBlkName, "eid")
+    selectedEids[idx] = imgui_get_blk_val(saveBlkName, "eid", 0) |> uint() |> EntityId()
+    imgui_del_blk_val(saveBlkName, "eid")
+    filter |> set() <| imgui_get_blk_val(saveBlkName, "filter", "")
+    imgui_del_blk_val(saveBlkName, "filter")
+
+  if !selectedEids[idx] || !doesEntityExist(selectedEids[idx]) || length(getEntityTemplateName(selectedEids[idx])) == 0
+    imgui::Text("Select any entity")
+    selectedEids[idx] = INVALID_ENTITY_ID
+    return
+
+  var eids <- [{auto[] selectedEids[idx]}]
+  inspect_item(idx, filter, unsafe(reinterpret< array<EntityId># > eids), true)
+  delete eids
+
+
+[imgui_window(name="Inspector 2", group="Editor", hotkey="Ctrl+Shift+;")]
+def ecs_inspector2()
+  static_let_finalize <|
+    var filter2 = new ImGuiTextFilter
+  aux_ecs_inspector(1, *filter2)
+
+[imgui_window(name="Inspector 3", group="Editor", hotkey="Ctrl+Shift+;")]
+def ecs_inspector3()
+  static_let_finalize <|
+    var filter3 = new ImGuiTextFilter
+  aux_ecs_inspector(2, *filter3)
+
+[imgui_window(name="Inspector 4", group="Editor", hotkey="Ctrl+Shift+;")]
+def ecs_inspector4()
+  static_let_finalize <|
+    var filter4 = new ImGuiTextFilter
+  aux_ecs_inspector(3, *filter4)

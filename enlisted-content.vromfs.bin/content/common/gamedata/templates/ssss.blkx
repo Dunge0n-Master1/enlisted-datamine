@@ -1,7 +1,6 @@
 ssss{
   _singleton:b=yes
   _tags:t="render"
-  _extends:t="replicating"
   ssss__enabled:b=no
   ssss__shader_name:t="ssss_reflectance_blur_ps"
 
@@ -19,6 +18,7 @@ ssss{
     transmittance__translucency_scale:r=0.99
     transmittance__blur_scale:r=0.003
     transmittance__sample_count:i=1
+    transmittance__normal_offset:r=0.015
     reflectance__blur_width:r=0.008
     reflectance__blur_quality:i=1
     reflectance__blur_follow_surface:b=no

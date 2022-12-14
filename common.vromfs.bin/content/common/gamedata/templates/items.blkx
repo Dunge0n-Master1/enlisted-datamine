@@ -100,6 +100,9 @@ item_in_world{
   _replicated:t="transform"
   _replicated:t="item__isOnGround"
   item__isOnGround:b=yes
+
+  "itemInWorld:tag"{
+  }
 }
 
 default_item_ui_info{
@@ -124,7 +127,6 @@ equipable_item{
   _extends:t="base_item"
   _extends:t="default_item_ui_info"
   _extends:t="replicating"
-  slot_attach__updateWtm:b=yes
   slot_attach__slotId:i=-1
   _tracked:t="slot_attach__slotId"
   _replicated:t="slot_attach__slotId"

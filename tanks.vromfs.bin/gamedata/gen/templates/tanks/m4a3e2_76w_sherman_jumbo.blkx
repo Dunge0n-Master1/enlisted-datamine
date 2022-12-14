@@ -11,7 +11,7 @@ base_m4a3e2_76w_sherman_jumbo{
   cockpit__zoomOutFov:r=6.6912
   cockpit__zoomInFov:r=7.7525
   cockpit__sightName:t="sight_model/telescope_m71d"
-  cockpit__sightFov:r=10.0
+  cockpit__sightFov:r=8.5
   drowningHeight:r=2.376
   damage_model__blk:t="gamedata/gen/units/tanks/m4a3e2_76w_sherman_jumbo.blk"
   item__name:t="items/us_m4a3e2_76w_sherman_jumbo"

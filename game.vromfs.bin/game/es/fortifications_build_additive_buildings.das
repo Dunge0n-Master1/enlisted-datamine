@@ -13,11 +13,16 @@ def align_tm_by_up_vector(var tm; up)
   tm[2] =  normalize(cross(tm[0], tm[1]))
   return tm
 
+[es(tag=server, on_appear)]
+def destroy_invalid_additive_buildings_on_appear(evt : Event; eid : EntityId; dependsOnBuildingEid : EntityId)
+  if !doesEntityExist(dependsOnBuildingEid)
+    destroyEntity(eid)
+
 [es(tag=gameClient, after=build_ability_update_transform_es)]
 def building_additive_preview_depends_es(info : UpdateStageInfoAct;
                                          dependsOnBuildingEid : EntityId;
                                          additiveTm : float3x4&;
-                                         additiveUp : float3?;
+                                         additiveUp : float3 const?;
                                          var transform aka preview_transform : float3x4&;
                                          var semi_transparent__placingColor aka preview_semi_transparent__placingColor : float3&;
                                          var semi_transparent__visible aka preview_semi_transparent__visible : bool&)

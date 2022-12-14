@@ -5,3 +5,7 @@ entity{
 entity{
   _template:t="disableTeamkillWeaponDrops"
 }
+
+entity{
+  _template:t="forceDisableHeadShotSound"
+}

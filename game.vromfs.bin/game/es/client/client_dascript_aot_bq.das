@@ -1,9 +1,10 @@
 require ecs
 require app
 require DagorSystem
+require CurrentCircuit
 require jsonwriter
 require ECSGlobalTags
-require EnlistedOnlineStorage
+require OnlineStorage
 require game.es.app_common
 
 [es(tag=gameClient, on_event=(EventUserLoggedIn, EventDaScriptReloaded))]
@@ -23,4 +24,4 @@ def send_aot_stat_on_login(evt : Event)
       jw_end_obj(jw)
 
       add_bigquery_record("dascript_client", jw.result)
-      save_to_online_storage(/*send_to_srv*/true)
+      save_and_send_to_server()

@@ -1,11 +1,11 @@
 require ecs
+require app
 require ecs.safe
 require ecs.common
-require app
 require soundEvent
 require soundHash
-require game.es.sound.sound_events
 require sound_utils.modules.sound_player_common
+require game.es.sound.sound_events
 require DagorRandom
 
 
@@ -82,8 +82,7 @@ def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
     continue
 */
 
-    let chance = (*weapon).chance ?? 100
-    if rnd_int(0, 100) <= chance
+    if rnd_int(0, 100) <= ((*weapon).chance ?? 100)
       let delayMs = (*weapon).delay ?? 0
       if groupId == "voice_melee"
         play_sound(get_string(*weapon, "name", "hands/whoosh"), human_voice_sound__path, sound_tags, float(delayMs) * 0.001, is_watched_sound, sound_event_group, transform)

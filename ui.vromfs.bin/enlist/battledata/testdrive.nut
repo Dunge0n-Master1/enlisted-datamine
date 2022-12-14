@@ -8,11 +8,11 @@ let { startGame } = require("%enlist/gameLauncher.nut")
 
 let isTestDriveProfileInProgress = Watched(false)
 
-let function startSquadTestDrive(armyId, squadId) {
+let function startSquadTestDrive(armyId, squadId, shopItemGuid = "") {
   if (isTestDriveProfileInProgress.value)
     return
   isTestDriveProfileInProgress(true)
-  gen_testdrive_squad_profile_jwt(armyId, squadId,
+  gen_testdrive_squad_profile_jwt(armyId, squadId, shopItemGuid,
     mkJwtArmiesCbNoRetries(function(jwt, data) {
       isTestDriveProfileInProgress(false)
       if (jwt == "")
@@ -23,7 +23,7 @@ let function startSquadTestDrive(armyId, squadId) {
 }
 
 let saveSquadTestDriveToFile = @(armyId, squadId)
-  gen_testdrive_squad_profile_jwt(armyId, squadId,
+  gen_testdrive_squad_profile_jwt(armyId, squadId, "",
     mkJwtArmiesCbNoRetries(@(jwt, data) saveJwtResultToJson(jwt, data, "sendSquadTestDrive")))
 
 console_register_command(saveSquadTestDriveToFile, "profileData.squadTestDriveToJson")

@@ -52,49 +52,40 @@ germ_pzkpfw_III_ausf_N_stalingrad{
     }
 
     "ammo:object"{
-      slot:i=1
+      slot:i=2
       fill:b=yes
     }
-  }
 
-  "turret_control__turretInfo:shared:array"{
-
-    "turretInfo:object"{
-      turretName:t="turret_01"
-      gun:t="pzkpfw_iii_ausf_n_stalingrad_turret_01_75mm_kwk37+turret_with_several_types_of_shells+main_turret"
-      barrelDm:t="gun_barrel"
-      breechDm:t="cannon_breech"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
-      salt:i=1
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_02"
-      gun:t="pzkpfw_iii_ausf_n_turret_02_7_92mm_mg34"
-      barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
-      salt:i=1
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_03"
-      gun:t="pzkpfw_iii_ausf_n_turret_03_7_92mm_mg34"
-      barrelDm:t="gun_barrel_02"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
-      salt:i=1
+    "ammo:object"{
+      slot:i=4
+      count:i=7
     }
   }
 }
 
 germ_pzkpfw_III_ausf_N_common{
   _extends:t="base_pzkpfw_iii_ausf_n"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
   item__iconScale:r=1.1
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "disableDMParts:list<t>"{
     part:t="track_r_01"
@@ -153,7 +144,6 @@ germ_pzkpfw_III_ausf_N_common{
 
       "hatchNodes:array"{
         node:t="hatch_01"
-        node:t="hatch_02"
       }
 
       "hatchTurretNames:array"{
@@ -316,45 +306,5 @@ germ_pzkpfw_III_ausf_N_commander_cockpit{
     slit:t="cam_rear_left"
     slit:t="cam_rear_right"
     slit:t="cam_front_right"
-  }
-}
-
-pzkpfw_iii_ausf_n_stalingrad_turret_01_75mm_kwk37{
-  _extends:t="pzkpfw_iii_ausf_n_turret_01_75mm_kwk37"
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "defaultSet:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/75mm_kwk37_defaultset.blk"
-        name:t="75mm_pzgr_rot"
-        type:t="apcbc_tank"
-      }
-    }
-
-    "75mm_ger_kwk37_Hl_C_HEAT:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/75mm_kwk37_75mm_ger_kwk37_hl_c_heat.blk"
-        name:t="75mm_grhl_38_c"
-        type:t="heat_tank"
-      }
-    }
-
-    "75mm_ger_kwk40_37_HE:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/75mm_kwk37_75mm_ger_kwk40_37_he.blk"
-        name:t="75mm_sprgr_34"
-        type:t="he_frag_tank"
-      }
-    }
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=25
-    ammo:i=14
-    ammo:i=25
   }
 }

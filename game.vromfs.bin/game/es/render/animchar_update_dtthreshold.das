@@ -15,7 +15,7 @@ def update_animchar_dtThreshold_es(info : UpdateStageInfoAct;
 def update_animchar_visibility_es(info : UpdateStageInfoAct;
                                   var animchar__visible : bool&;
                                   animchar_visbits : uint8;
-                                  animchar__considerAsVisible : Tag?;
+                                  animchar__considerAsVisible : Tag const?;
                                   animchar_render__enabled : bool = true)
   if animchar__considerAsVisible != null // need for some entites such as hero skeleton (no skip animchar update by threshold etc)
     animchar__visible = true

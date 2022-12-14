@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_germany_winter+team_captime_balance+team_narrator_invasion_defence"
+  _template:t="team_germany_winter+team_narrator_invasion_defence"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0
@@ -19,7 +19,7 @@ entity{
 }
 
 entity{
-  _template:t="team_ussr+team_resptime_balance+team_narrator_invasion_attack"
+  _template:t="team_ussr+team_narrator_invasion_attack"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0

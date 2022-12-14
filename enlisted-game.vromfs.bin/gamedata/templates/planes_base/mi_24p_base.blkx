@@ -13,6 +13,7 @@ mi_24p_wreckage{
 mi_24p_base{
   _extends:t="plane_with_cockpit"
   _extends:t="base_mi_24p"
+  plane_engine_sound__engine:t="engine_mi24"
   collres__res:t="mi_24p_collision"
   plane_net_phys__blk:t="gamedata/units/mi_24p.blk"
   damage_model__blk:t="gamedata/units/mi_24p.blk"

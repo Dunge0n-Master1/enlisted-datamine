@@ -137,15 +137,35 @@ t_60_1941_ammo_cluster{
   ammo_cluster__isShell:b=yes
 
   "ammo_cluster__slotNames:shared:list<t>"{
-    part:t="ammo_turret"
+    part:t="ammo_turret_01"
     part:t="ammo_body_01"
     part:t="ammo_body_02"
+    part:t="ammo_body_03"
+    part:t="ammo_body_04"
+    part:t="ammo_body_05"
+    part:t="ammo_body_06"
+    part:t="ammo_body_07"
+    part:t="ammo_body_08"
+    part:t="ammo_body_09"
+    part:t="ammo_body_10"
+    part:t="ammo_body_11"
+    part:t="ammo_body_12"
   }
 
   "ammo_cluster__slotsMaxAmmo:list<i>"{
-    count:i=252
-    count:i=251
-    count:i=251
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
+    count:i=58
   }
 }
 
@@ -170,18 +190,18 @@ t_60_1941_skins{
     }
 
     "skin:object"{
-      id:t="t_60_1941_ussr_camo_brown_lines"
+      id:t="t_60_1941_ussr_camo_czechoslovak_yellow_green"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+        "ussr_camo_green*":t="ussr_camo_czechoslovak_yellow_green*"
       }
     }
 
     "skin:object"{
-      id:t="t_60_1941_ussr_camo_green_ltbrown_lines"
+      id:t="t_60_1941_ussr_camo_desert_syrian_green_brown_yellow"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+        "ussr_camo_green*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
 

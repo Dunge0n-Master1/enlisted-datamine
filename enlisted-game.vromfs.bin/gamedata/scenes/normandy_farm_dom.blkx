@@ -6,6 +6,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_farm_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_coastal_area_fx.blk"
+}
+
 entity{
   _template:t="poly_battle_area"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -606,51 +614,6 @@ entity{
 entity{
   _template:t="m4a2_sherman_1944_destroyed"
   transform:m=[[-0.577824, 0.0150848, -0.816022] [0.030618, 0.999526, -0.00320355] [0.815587, -0.0268361, -0.578012] [-98.69, 20.016, -89.7321]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-92.5409, 20.9724, -189.0]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-74.1866, 19.4375, -161.538]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-185.302, 23.0874, -190.389]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-351.492, 25.7863, -178.532]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-153.41, 22.9012, -237.729]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-189.489, 22.2009, -154.857]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.41958, 0.0, -0.591319] [0.0, 0.725056, 0.0] [0.591319, 0.0, -0.41958] [-321.158, 22.8219, -224.912]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-98.564, 22.1848, -89.6041]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [130.299, 0.188791, 75.2826]]
 }
 
 entity{

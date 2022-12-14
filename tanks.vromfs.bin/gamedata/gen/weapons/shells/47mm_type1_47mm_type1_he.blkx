@@ -25,30 +25,6 @@ visualShattersGroundOffset:r=1.2
 modelName:t="tank_bullet_he"
 secondaryShattersPreset:t="ap"
 
-DamageParts{
-
-  body{
-    hp:r=5.0
-    armorClass:t="tank_structural_steel"
-    armorThickness:r=1.0
-  }
-}
-
-DamageEffects{
-
-  part{
-    name:t="body"
-
-    onHit{
-      break_fuse:r=1.0
-    }
-
-    onKill{
-      destruction:r=1.0
-    }
-  }
-}
-
 pressureDamage{
   damageType:t="pressure"
 }
@@ -459,32 +435,6 @@ ballistics{
       mod2:p2=15.0, 0.7
       mod3:p2=30.0, 0.99
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_39_58mm_dirt_he"
-  jetFx:t="hit_39_58mm_dirt_he"
-
-  steel{
-    fx:t="hit_39_58mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

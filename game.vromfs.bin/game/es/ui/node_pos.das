@@ -7,22 +7,22 @@ require DagorMath
 require enlisted.events_enlisted
 
 [es(tag=ui, after=after_animchar_update_sync)]
-def ui_geom_node_pos(info : ParallelUpdateFrameDelayed;
+def ui_geom_node_pos(info : UpdateStageInfoAct;
                      animchar__updatable : bool;
                      ui__geom_node_idx : int;
                      animchar : AnimcharBaseComponent;
                      var ui__node_pos : float3&)
   if animchar__updatable && ui__geom_node_idx >= 0
-    ui__node_pos = geomtree_getNodeWpos(animchar.nodeTree, ui__geom_node_idx)
+    ui__node_pos = geomtree_getNodeWpos(*animchar.nodeTree, ui__geom_node_idx)
 
 def init_ui_node_name_and_pos(eid : EntityId;
                               animchar : AnimcharBaseComponent;
                               ui__geom_node_name : string;
                               var ui__geom_node_idx : int&;
                               var ui__node_pos : float3&)
-  ui__geom_node_idx = geomtree_findNodeIndex(animchar.nodeTree, ui__geom_node_name)
+  ui__geom_node_idx = geomtree_findNodeIndex(*animchar.nodeTree, ui__geom_node_name)
   if ui__geom_node_idx >= 0
-    ui__node_pos = geomtree_getNodeWpos(animchar.nodeTree, ui__geom_node_idx)
+    ui__node_pos = geomtree_getNodeWpos(*animchar.nodeTree, ui__geom_node_idx)
   else
     logerr("Node {ui__geom_node_name} not found in animchar for eid {eid} {getEntityTemplateName(eid)}")
 

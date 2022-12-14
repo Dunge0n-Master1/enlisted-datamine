@@ -1,3 +1,11 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_common_sounds.blk"
 }
+
+entity{
+  _template:t="battle_music_without_intro"
+}
+
+entity{
+  _template:t="europe_summer_beach_ambient_sound"
+}

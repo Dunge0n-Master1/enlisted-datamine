@@ -12,6 +12,7 @@ require DagorSystem
 require Gun
 require Grid
 require GridCollision
+require CollisionTraces
 require Dacoll
 require CollRes
 require AnimV20
@@ -75,7 +76,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                          entity_mods__aimingAfterFireMult : float = 1.0;
                          entity_mods__boltActionMult : float = 1.0;
                          entity_mods__deviationBufferSizeMult : float = 1.0;
-                         human_use_object__selectedObject : EntityId? = null;
+                         human_use_object__selectedObject : EntityId const? = null;
                          entity_mods__shotDeviationAdd : float = 0.0;
                          human_weap__fastThrowExclusive : bool = true;
                          human_weap__maxParallaxDeviation : float = 10.0;
@@ -84,7 +85,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
                          human_unarmed__active : bool = false;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                          human_weap__tracerayLen : float&;
-                         isReplayObserved : Tag?;
+                         isReplayObserved : Tag const?;
                          var human_net_phys : HumanActor;
                          var transform : float3x4;
                          var human_weap__gunEids : EidList;
@@ -155,7 +156,7 @@ def human_weap_update_es(info : UpdateStageInfoAct;
       gunShootDir = angles_to_dir(wishGunAngles)
 
       var visualTm : float3x4
-      geomtree_getNodeWtmScalar(animchar.nodeTree, 0/*root*/, visualTm)
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, 0/*root*/, visualTm)
       let visualGunDir = normalize(-visualTm[2])
       if !human_weap__throwMode && dot(visualGunDir, gunShootDir) < cos(deg_to_rad(human_weap__maxGunVisualAngleDeviation))
         gunShootDir = visualGunDir

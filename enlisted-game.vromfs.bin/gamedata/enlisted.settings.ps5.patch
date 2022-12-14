@@ -11,6 +11,7 @@
   vsync_tearing_tolerance_percents:i=10
   antiAliasingMode:i=2
   temporalUpsamplingRatio:r=100.0
+  ps5FpsLimit:i=90
 }
 
 "@override:texStreaming"{
@@ -41,3 +42,7 @@
 }
 
 "@override:game_das_loading_threads":i=1
+
+"@override:replay"{
+  "@override:storageLimitMB":i=300
+}

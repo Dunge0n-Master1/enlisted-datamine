@@ -16,7 +16,7 @@ def shooter_cam_apply_offset_multiplier_es(info : UpdateStageInfoAct;
   query(camera__target) <| $ [es] (isInVehicle : bool; vehicle__lastEid : EntityId)
     if !isInVehicle
       return
-    query(vehicle__lastEid) <| $ [es] (camera__unit_offset_multiplier : float?; camera__firstPersonOffset : float3?)
+    query(vehicle__lastEid) <| $ [es] (camera__unit_offset_multiplier : float const?; camera__firstPersonOffset : float3 const?)
       if isTpsView
         offsetMult = camera__unit_offset_multiplier ?? shooter_cam__offset_multiplier
       else

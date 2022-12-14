@@ -99,7 +99,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
                dmgzone__teamToDamage : int = TEAM_UNASSIGNED;
                dmgzone__damageInVehicle : bool = true;
                dmgzone__fireAffect : float = -1.0;
-               dmgzone__offender : EntityId?;
+               dmgzone__offender : EntityId const?;
                dm__damageTypeId : int = int(DamageType DM_ZONE);
                fire_source__startTime : float = -1.0;
                dmgzone__gunPropsId : int = -1;

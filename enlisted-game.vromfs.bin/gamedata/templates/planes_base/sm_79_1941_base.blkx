@@ -1,5 +1,5 @@
 base_sm_79_1941{
-  plane_phys_damage__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
+  plane_phys_damage__blk:t="gamedata/units/sm_79_1941.blk"
   animchar__res:t="sm_79_1941_char"
 }
 
@@ -14,11 +14,12 @@ sm_79_1941_base{
   _extends:t="plane"
   _extends:t="base_sm_79_1941"
   collres__res:t="sm_79_1941_collision"
-  plane_net_phys__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
-  damage_model__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
-  plane_collision__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
-  plane_anim__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/sm_79_1941.blk"
+  plane_net_phys__blk:t="gamedata/units/sm_79_1941.blk"
+  damage_model__blk:t="gamedata/units/sm_79_1941.blk"
+  plane_collision__blk:t="gamedata/units/sm_79_1941.blk"
+  plane_anim__blk:t="gamedata/units/sm_79_1941.blk"
+  plane_sight__blk:t="gamedata/units/sm_79_1941.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="sm_79_1941_wreckage"

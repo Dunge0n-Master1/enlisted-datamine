@@ -72,7 +72,7 @@ entity{
 
 entity{
   _template:t="wind"
-  wind__strength:r=6.3
+  wind__strength:r=2.3
   wind__dir:r=0.0
 }
 

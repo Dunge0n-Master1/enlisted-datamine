@@ -4,8 +4,8 @@ let { openChooseSquadsWnd } = require("%enlist/soldiers/model/chooseSquadsState.
 let { curArmy, curSquadId } = require("%enlist/soldiers/model/state.nut")
 let { unseenSquads } = require("%enlist/soldiers/model/unseenSquads.nut")
 let { armySlotDiscount } = require("%enlist/shop/armySlotDiscount.nut")
-let { columnWidth, colPart, defBdColor, tabBgColor, accentColor, defTxtColor,
-  hoverTxtColor, darkTxtColor, midPadding, commonBorderRadius
+let { columnWidth, colPart, defBdColor, accentColor, defTxtColor, hoverTxtColor, darkTxtColor,
+  midPadding, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
 let { fontMedium, fontSmall} = require("%enlSqGlob/ui/fontsStyle.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut") /* FIX ME: need to be redesigned after lottie animation integtation */
@@ -25,7 +25,7 @@ let defSaleStyle = { color = darkTxtColor }.__update(fontMedium)
 let discoutTxtStyle = { color = accentColor }.__update(fontSmall)
 
 let commonBtnStyle = { fillColor = null }
-let hoverBtnStyle = { fillColor = tabBgColor }
+let hoverBtnStyle = { fillColor = accentColor }
 let salePanelSize = [columnWidth, colPart(0.32)]
 let ellipsisSize = [colPart(0.36), colPart(0.065)]
 

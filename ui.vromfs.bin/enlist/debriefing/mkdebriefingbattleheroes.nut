@@ -28,6 +28,12 @@ let localBattleHeroNameColor = Color(252, 186, 3, 255)
 let PORTRAIT_SIZE = hdpx(140)
 let maxNameBlockWidth = hdpx(184)
 let awardIconSize = [hdpx(70), hdpx(70)]
+let photoSize = [hdpx(92), hdpx(136)]
+
+let notActiveStyle = {
+  tint = Color(40, 40, 40, 120)
+  picSaturate = 0.0
+}
 
 let mkBattleHeroPlayerNameText = @(playerName, isLocalPlayer) {
   rendObj = ROBJ_TEXT
@@ -57,16 +63,6 @@ let function mkBattleHeroAwards(awards, isActive) {
   }
 }
 
-let mkBattleHeroPortrait = @(portrait) {
-  rendObj = ROBJ_BOX
-  padding = smallPadding
-  borderColor = activeBgColor
-  borderWidth = hdpx(1)
-  children = mkPortraitIcon(getPortrait(portrait), PORTRAIT_SIZE)
-}
-
-let photoSize = [hdpx(92), hdpx(136)]
-
 let function rankBlock(playerRank) {
   if (playerRank == 0)
     return null
@@ -86,9 +82,14 @@ let function rankBlock(playerRank) {
   }
 }
 
-let notActiveStyle = {
-  tint = Color(40, 40, 40, 120)
-  picSaturate = 0.0
+let mkBattleHeroPortrait = @(portrait, playerRank) {
+  rendObj = ROBJ_BOX
+  borderColor = activeBgColor
+  borderWidth = hdpx(1)
+  children = [
+    mkPortraitIcon(getPortrait(portrait), PORTRAIT_SIZE).__update({ padding = hdpx(1) })
+    rankBlock(playerRank)
+  ]
 }
 
 let function mkBattleHeroPhoto(soldier, isActive, playerRank) {
@@ -149,7 +150,7 @@ let mkHeroes = @(heroes, isExpReceived) {
       mkBattleHeroPlayerNameText(playerNameTxt, isLocalPlayer)
       portrait == ""
         ? mkBattleHeroPhoto(soldier, isFinished, playerRank)
-        : mkBattleHeroPortrait(portrait)
+        : mkBattleHeroPortrait(portrait, playerRank)
       mkSoldierName(soldier, isLocalPlayer)
     ]
     let children = isFinished

@@ -133,25 +133,14 @@ debug_dyn_collision{
   }
 }
 
-collision_canopy_debug{
-
-  "collision_canopy_debug:tag"{
-  }
-}
-
 collision_debug{
   collision_debug__collMaxDistSq:r=0.0
   collision_debug__labelMaxDistSq:r=0.0
+  collision_debug__drawCanopy:b=no
+  collision_debug__drawCollidable:b=no
+  collision_debug__drawTraceable:b=no
 
   "collision_debug:tag"{
-  }
-}
-
-collision_phys_debug{
-  collision_debug__collMaxDistSq:r=0.0
-  collision_debug__labelMaxDistSq:r=0.0
-
-  "collision_phys_debug:tag"{
   }
 }
 

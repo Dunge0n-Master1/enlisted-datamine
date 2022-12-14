@@ -16,6 +16,7 @@ require DagorSystem
 require Dacoll
 require GeomNodeTree
 require AnimV20
+require enlisted.events_enlisted
 
 
 def clipout_nodes(var tree : GeomNodeTree;
@@ -26,14 +27,14 @@ def clipout_nodes(var tree : GeomNodeTree;
                   prefix : string;
                   prefix_len : int;
                   trace_handles : TraceMeshFaces implicit)
-  let childCount = tree |> geomnodetree_getChildCount(node)
+  let childCount = tree |> geomtree_getChildCount(node)
   for i in range(childCount)
-    var childNode = tree |> geomnodetree_getChildNode(node, uint(i))
-    let nodeName = tree |> geomnodetree_getNodeName(*childNode)
+    let childNode = tree |> geomtree_getChildNodeIdx(node, uint(i))
+    let nodeName = tree |> geomtree_getNodeName(childNode)
     if !starts_with(nodeName, prefix, uint(prefix_len))
       continue
     var childTm : float3x4
-    childNode |> geomtreenode_getTmScalar(childTm)
+    tree |> geomtree_getNodeTmScalar(childNode, childTm)
     var childWtm = wtm * childTm
     var norm : float3
     var matId : int
@@ -54,8 +55,8 @@ def clipout_nodes(var tree : GeomNodeTree;
           tm = tm * rotTm
           wtm = parent_wtm * tm
           childWtm = wtm * childTm
-          tree |> geomnodetree_getNode(node) |> geomtreenode_setTm(tm)
-          tree |> geomnodetree_getNode(node) |> geomtreenode_setWtm(wtm)
+          tree |> geomtree_setNodeTmScalar(node, tm)
+          tree |> geomtree_setNodeWtmRelScalar(node, wtm)
       let initialLen = 0.1
       for j in range(6)
         let dir = childWtm[j / 2] * ((j & 1) != 0 ? 1.0 : -1.0)
@@ -70,20 +71,18 @@ def clipout_nodes(var tree : GeomNodeTree;
           tm = tm * rotTm
           wtm = parent_wtm * tm
           childWtm = wtm * childTm
-          tree |> geomnodetree_getNode(node) |> geomtreenode_setTm(tm)
-          tree |> geomnodetree_getNode(node) |> geomtreenode_setWtm(wtm)
-    childNode |> geomtreenode_setWtm(childWtm)
-    clipout_nodes(tree, childTm, childWtm, tree |> geomnodetree_getNodeIdx(*childNode), wtm, prefix, prefix_len, trace_handles)
+          tree |> geomtree_setNodeTmScalar(node, tm)
+          tree |> geomtree_setNodeWtmRelScalar(node, wtm)
+    tree |> geomtree_setNodeWtmRelScalar(childNode, childWtm)
+    clipout_nodes(tree, childTm, childWtm, childNode, wtm, prefix, prefix_len, trace_handles)
 
 def start_ragdoll(var ragdoll : PhysRagdoll;
+                  var ragdoll__applyParams : bool&;
                   var animchar : AnimcharBaseComponent;
                   unitTm : float3x4;
                   pos : float3;
-                  vel : float3;
                   eid : EntityId;
-                  curTime : float;
-                  human_anim__dynamicRagdollClipoutTimeout : float;
-                  human_anim__dynamicRagdollClipoutOffset : float3)
+                  curTime : float)
   animchar |> animchar_resetPostController()
 
   // Go through wtm/tms setuping proper collision
@@ -95,14 +94,8 @@ def start_ragdoll(var ragdoll : PhysRagdoll;
   animchar |> animchar_set_tm(pos, unitTm[0], unitTm[1])
   // Recalc tm so ragdoll will have proper coordinates and anything, like visual entity offset will not interfere
   animchar |> animchar_recalc_wtm()
-
-  if (human_anim__dynamicRagdollClipoutTimeout > 0.0f)
-    let toPos = pos + human_anim__dynamicRagdollClipoutOffset
-    ragdoll |> ragdoll_setDynamicClipout(toPos, human_anim__dynamicRagdollClipoutTimeout)
-  ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
-                                  int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))))
-  ragdoll |> ragdoll_setOverrideVel(vel)
-  sendEventImmediate(eid, [[CmdApplyRagdollParameters cur_time=curTime]])
+  ragdoll__applyParams = true
+  sendEvent(eid, [[CmdApplyRagdollParameters cur_time=curTime]])
   animchar |> animchar_setPostController(ragdoll)
 
 def stop_ragdoll(var ragdoll : PhysRagdoll;
@@ -110,19 +103,36 @@ def stop_ragdoll(var ragdoll : PhysRagdoll;
   ragdoll |> ragdoll_endRagdoll()
   animchar |> animchar_resetPostController()
 
+[es(tag=render, before=ragdoll_start_es)]
+def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
+                                var ragdoll : PhysRagdoll;
+                                ragdoll__applyParams : bool;
+                                human_net_phys__locationPos : DPoint3;
+                                human_net_phys__velocity : float3;
+                                human_anim__dynamicRagdollClipoutTimeout : float = 0.4;
+                                human_anim__dynamicRagdollClipoutOffset : float3 = float3(0., 0.5, 0.))
+  if !ragdoll__applyParams
+    return
+  let pos = float3(human_net_phys__locationPos)
+  let vel = human_net_phys__velocity
+  if (human_anim__dynamicRagdollClipoutTimeout > 0.0f)
+    let toPos = pos + human_anim__dynamicRagdollClipoutOffset
+    ragdoll |> ragdoll_setDynamicClipout(toPos, human_anim__dynamicRagdollClipoutTimeout)
+  ragdoll |> ragdoll_startRagdoll(int(PhysLayer EPL_CHARACTER),
+                                  int(PhysLayer EPL_ALL & (~(PhysLayer EPL_KINEMATIC | PhysLayer EPL_CHARACTER))))
+  ragdoll |> ragdoll_setOverrideVel(vel)
 
-[es(tag=render, no_order)]
+
+[es(tag=render, after=animchar_es)]
 def human_anim_ragdoll_es(info : UpdateStageInfoAct)
   var ragdollStarts = -1
   query() <| $ [es(REQUIRE=deadEntity)] (animchar__updatable : bool;
-                                         human_net_phys__velocity : float3;
                                          human_net_phys__locationPos : DPoint3;
                                          transform : float3x4;
                                          eid : EntityId;
                                          ragdoll__isAllowed : bool = true;
                                          ragdoll__maxEntitiesInUpdate : int = 2;
-                                         human_anim__dynamicRagdollClipoutTimeout : float = 0.4;
-                                         human_anim__dynamicRagdollClipoutOffset : float3 = float3(0., 0.5, 0.);
+                                         var ragdoll__applyParams : bool&;
                                          var human_anim__ragdollEnabled : bool&;
                                          var ragdoll : PhysRagdoll;
                                          var animchar : AnimcharBaseComponent)
@@ -141,9 +151,7 @@ def human_anim_ragdoll_es(info : UpdateStageInfoAct)
         human_anim__ragdollEnabled = true
         let curTime = info.curTime
         // human_net_phys__locationPos stores the last correct snapshot's position of the human phys
-        start_ragdoll(ragdoll, animchar, transform, float3(human_net_phys__locationPos),
-                      human_net_phys__velocity, eid, curTime, human_anim__dynamicRagdollClipoutTimeout,
-                      human_anim__dynamicRagdollClipoutOffset)
+        start_ragdoll(ragdoll, ragdoll__applyParams, animchar, transform, float3(human_net_phys__locationPos), eid, curTime)
         ragdollStarts--
       else
         human_anim__ragdollEnabled = false

@@ -94,6 +94,14 @@ let urlTypes = [
     ]
   },
   {
+    typeName = "replays"
+    autologin = true
+    ssoService = "any"
+    urlRegexpList = [
+      regexp2(addEnding(@"^https:\/\/enlisted\.net\/replays"))
+    ]
+  },
+  {
     typeName = "kongzhong"
     autologin = true
     urlRegexpList = [

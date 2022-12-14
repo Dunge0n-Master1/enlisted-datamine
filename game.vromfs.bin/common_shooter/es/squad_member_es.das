@@ -38,7 +38,7 @@ def squad_member_response_es(info : ecs::UpdateStageInfoAct;
     return
   let isResponseRequired = is_timer_hit(squad_member__responseTimer, info.dt)
   if isResponseRequired
-    sendEvent(eid, [[CmdRequestHumanSpeech phrase="{squad_member__response}Response", importance=1.]])
+    sendEvent(eid, [[CmdRequestHumanSpeech phrase="{squad_member__response}Response"]])
 
 [es(no_order, tag=server)]
 def squad_member_crawl_with_leader(info : UpdateStageInfoAct; eid : ecs::EntityId; squad__leader : ecs::EntityId;

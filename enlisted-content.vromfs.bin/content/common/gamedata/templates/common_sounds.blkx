@@ -20,54 +20,29 @@ plane_engine_sound_instance_stealing{
   }
 }
 
-reverb_sound{
+battle_music{
   _extends:t="replicating"
   _singleton:b=yes
+  _tracked:t="battle_music__enabled"
 
   _group{
     _tags:t="sound"
-    reverb_sound__path:t="snapshots/reverb_indoor"
-    reverb_sound__intensityVar:t="reverbIndoor"
-    reverb_sound__intensityMax:r=0.625
-    reverb_sound__roomSizeVar:t="roomSize"
-    reverb_sound__roomSizeMax:r=9.375
-    reverb_sound__rayLength:r=10.0
-    reverb_sound__fadeOutPower:r=10.0
-    reverb_sound__rayId:i=0
-    reverb_sound__intensityValues:p3=0.0, 0.0, 0.0
-    reverb_sound__roomSizeValues:p3=0.0, 0.0, 0.0
+    battle_music__enabled:b=yes
+    battle_music__intro:t="music/battle_start"
+    battle_music__outro:t="music/battle"
+    battle_music__shouldStartIntro:b=yes
 
-    "reverb_sound__event:SoundEvent"{
-    }
-
-    "reverb_sound__rays:list<p3>"{
-      ray:p3=0.9034, 0.0544, -0.4252
-      ray:p3=-0.1907, 0.5076, -0.8402
-      ray:p3=-0.3827, 0.8812, -0.2774
-      ray:p3=-0.8941, 0.0904, 0.4387
-      ray:p3=0.1873, 0.4467, 0.8749
-      ray:p3=0.4949, 0.7792, 0.3847
-      ray:p3=-0.7434, 0.0884, -0.6629
-      ray:p3=-0.4784, 0.4339, 0.7634
-      ray:p3=0.3234, 0.8234, -0.4663
-      ray:p3=0.8209, 0.5661, -0.0749
-      ray:p3=0.4167, 0.1168, -0.9015
-      ray:p3=-0.1942, 0.9248, 0.3273
-      ray:p3=-0.8791, 0.4686, -0.0867
+    "battle_music__event:SoundEvent"{
     }
   }
 }
 
-round_result_battle_music{
-  _extends:t="replicating"
-  _singleton:b=yes
+battle_music_without_intro{
+  _extends:t="battle_music"
 
   _group{
     _tags:t="sound"
-    round_result_battle_music__path:t="music/battle"
-
-    "round_result_battle_music__event:SoundEvent"{
-    }
+    battle_music__shouldStartIntro:b=no
   }
 }
 
@@ -176,7 +151,7 @@ sound_effect_is_clock_a{
   _extends:t="destroyable_sound_effect"
   _extends:t="replicating"
   clock_chime__ringSound:t="events/003/clock_bells"
-  clock_chime__localOffset:p3=0.2, 1.8, 0.0
+  clock_chime__localOffset:p3=0.4, 1.8, 0.0
   shreddableInDarkZone:b=yes
 
   "occludedSoundWithSoundControl:tag"{
@@ -185,12 +160,12 @@ sound_effect_is_clock_a{
   _group{
     _tags:t="sound"
     sound_effect__path:t="env_effects/clocks/clock_a"
-    sound_effect__localOffset:p3=0.2, 1.8, 0.0
+    sound_effect__localOffset:p3=0.4, 1.8, 0.0
   }
 
   _group{
     _tags:t="sound"
-    occluded_sound__occlusionToVolume:p4=0.3, 1.0, 2.0, 0.35
+    occluded_sound__localOffset:p3=0.4, 1.8, 0.0
   }
 
   "clock_chime__event:SoundEvent"{
@@ -217,124 +192,8 @@ lava_sound{
   }
 }
 
-phys_obj_collision_sound{
-
-  _group{
-    _tags:t="sound"
-    phys_obj_collision_sound__path:t=""
-    phys_obj_collision_sound__threshold:p2=5.0, 80.0
-    phys_obj_collision_sound__lifetime:r=1.0
-    phys_obj_collision_sound__time:r=0.0
-    phys_obj_collision_sound__maxImpulse:r=0.0
-
-    "phys_obj_collision_sound__event:SoundEvent"{
-    }
-  }
-}
-
-game_effect_sound{
-  game_effect_sound__hero:t=""
-  game_effect_sound__enemy:t=""
-
-  "game_effect_sound__event:SoundEvent"{
-    _tags:t="sound"
-  }
-}
-
 gun_overheat_speech_enable{
 
   "gunOverheatSpeechEnable:tag"{
   }
-}
-
-battle_music_scores_progress{
-
-  _group{
-    _tags:t="sound"
-    battle_music__progress:r=0.0
-    battle_music__scoresToProgress:p4=0.15, 0.0, 0.0, 0.99
-  }
-}
-
-battle_music_capture_progress{
-
-  _group{
-    _tags:t="sound"
-    battle_music__progress:r=0.0
-    battle_music__capProgressToProgress:p4=0.5, 1.0, 0.0, 0.99
-  }
-}
-
-battle_music_scores_condition{
-
-  _group{
-    _tags:t="sound"
-    battle_music__condition:r=-1.0
-
-    "battleMusicScoresCondition:tag"{
-    }
-  }
-}
-
-base_battle_music{
-  _extends:t="replicating"
-  _singleton:b=yes
-
-  _group{
-    _tags:t="sound"
-    battle_music__intensity:r=0.0
-    battle_music__roundResult:r=-1.0
-    battle_music__addIntensityOnShotSingle:r=10.0
-    battle_music__addIntensityOnShotLoop:r=1.0
-    battle_music__addIntensityOnHit:r=25.0
-    battle_music__maxShotRange:r=500.0
-    battle_music__intensityBleed:r=4.0
-    battle_music__progressToPart:p3=0.01, 0.33, 0.9
-    battle_music__path:t="music/battle"
-
-    "battle_music__event:SoundEvent"{
-    }
-  }
-}
-
-battle_music_dom{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
-}
-
-battle_music_assault{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
-}
-
-battle_music_bomb{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
-}
-
-battle_music_inv{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
-}
-
-battle_music_inv_counter{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
-}
-
-battle_music_conf{
-  _extends:t="base_battle_music"
-  _extends:t="battle_music_scores_condition"
-  _extends:t="battle_music_scores_progress"
-  _extends:t="battle_music_capture_progress"
 }

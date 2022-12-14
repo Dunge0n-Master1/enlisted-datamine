@@ -39,7 +39,7 @@ def kill_award_es(evt : EventPlayerKilledEntity;
   let killerEid = evt.killerEid
   query(victimEid) <| $ [es] (reportKill : bool = true;
                               transform aka victim_transform : float3x4;
-                              dm_parts__type : StringList?;
+                              dm_parts__type : StringList const?;
                               squad_member__squad : EntityId = INVALID_ENTITY_ID;
                               team aka victim_team : int = TEAM_UNASSIGNED;
                               mounted_gun__active : bool = false;
@@ -80,11 +80,7 @@ def kill_award_es(evt : EventPlayerKilledEntity;
     update_sequential_kill_award(sequential_kills__time, sequential_kills__lastKillTime, sequential_kills__currentCount, awards)
 
 [es(tag=server, REQUIRE=player)]
-def kill_awards_vehicle_shell_kills(evt : EventOnPlayerShellVehicleKill; var awards : Array&)
-  add_award(awards, evt.stat)
-
-[es(tag=server, REQUIRE=player)]
-def kill_awards_infantry_shell_kills(evt : EventOnPlayerShellInfantryKill; var awards : Array&)
+def player_add_award_with_stat(evt : EventAddPlayerAwardWithStat; var awards : Array&)
   add_award(awards, evt.stat)
 
 [es(tag=server, REQUIRE=player)]

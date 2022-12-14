@@ -13,30 +13,27 @@ hud_grenade_marker{
   }
 }
 
-trajectory_renderer{
-  _extends:t="replicating"
-  _singleton:b=yes
-
-  trajectory_renderer{
-    _tags:t="render"
-  }
-}
-
 gun_with_bipod{
-  gun__bipodRecoilMult:r=0.25
-  gun__bipodOffset:p3=0.325, 0.07, 0.1
+  gun__bipodNode:t="bipod"
+  gun__bipodOffset:p3=0.0, 0.0, 0.0
+  gun__bipodRecoilMult:r=-1.0
+  gun__barrelTipNode:t="gunFx_main"
+  gun__barrelTipOffset:p3=1.5, 0.0, 0.0
+  gun__barrelRadius:r=0.04
 
-  "gun__bipodNodes:list<t>"{
-    node:t="bipod"
+  "gun__mountPoints:shared:array"{
   }
 }
 
 gun_without_bipod{
-  gun__bipodRecoilMult:r=0.65
-  gun__bipodOffset:p3=0.15, 0.07, 0.1
+  gun__bipodNode:t=""
+  gun__bipodOffset:p3=0.0, 0.0, 0.0
+  gun__bipodRecoilMult:r=-1.0
+  gun__barrelTipNode:t="gunFx_main"
+  gun__barrelTipOffset:p3=1.0, 0.0, 0.0
+  gun__barrelRadius:r=0.03
 
-  "gun__bipodNodes:list<t>"{
-    node:t="bipod"
+  "gun__mountPoints:shared:array"{
   }
 }
 
@@ -74,7 +71,9 @@ base_gun{
   _tracked:t="gun__wishAmmoItemType"
   _tracked:t="gun__totalAmmo"
   _tracked:t="gun__ammoHolderEid"
+  _tracked:t="gun__curAmmoHolderIndex"
   _tracked:t="gun__isAmmoLoaded"
+  _tracked:t="gun__ammoHolderIds"
   _replicated:t="gun__firingModeIndex"
   _replicated:t="gun__owner"
   _replicated:t="gun__ammoToReloadCount"
@@ -97,7 +96,7 @@ base_gun{
   gun__ammoSyncReloadLock:b=no
   gun__ammoSyncDelay:r=0.6
   gun__firingModeName:t=""
-  gun__firingModeIndex:i=-1
+  gun__firingModeIndex:i=0
   gun__melee:b=no
   gun__isPayload:b=no
   gun__isAmmoLoaded:b=no
@@ -143,6 +142,7 @@ base_gun{
   gun_deviation__bufferThreshold:r=20.0
   gun__initialSlotId:i=-1
   gun__initialFlags:i=0
+  gun__curAmmoHolderIndex:i=-1
 
   "net__notInInitialScope:tag"{
   }
@@ -302,6 +302,7 @@ base_stationary_gun{
   _extends:t="visual_gun_with_animchar_updatable"
   _extends:t="gun_sound_with_animchar"
   _extends:t="gun_overheat_speech_enable"
+  _extends:t="machinegun_gun_overheat_sound"
   _extends:t="gun_with_additional_head_angles"
   _extends:t="replicating"
   _replicated:t="mounted_gun__active"
@@ -310,6 +311,8 @@ base_stationary_gun{
   interactAngleLimits:p2=-60.0, 60.0
   interactCheckOffset:p3=0.0, 0.0, -0.4
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  stationary_gun__humanOffset:p3=0.15, -1.0, 0.7
+  stationary_gun__maxPhysOffsetSq:r=0.2
   gun__loadAmmo:b=yes
   gun__useLocalPlayerTracer:b=no
   camera__lookDir:p3=1.0, 0.0, 0.0
@@ -371,6 +374,7 @@ interactable_grid{
 
 gun_autodetach{
   gun_autodetach__threshold:p3=1.5, 1.3, 1.5
+  gun_autodetach__nodeId:i=-1
 }
 
 base_equipable_gun{
@@ -508,6 +512,8 @@ projectile_phys{
   animchar_render__enabled:b=yes
   net__physId:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  shell__isUnderwater:b=no
+  _tracked:t="shell__isUnderwater"
   shell__gun_props_id:i=-1
   shell__shell_id__shell_id:i=-1
   shell__shell_id__damage_id:i=-1
@@ -672,7 +678,7 @@ gun_icon{
 melee_icon{
   item__iconRoll:r=43.0
   item__iconPitch:r=85.0
-  item__iconYaw:r=90.0
+  item__iconYaw:r=0.0
 }
 
 gun_aim_node{
@@ -731,6 +737,11 @@ scope{
   gunmod__dofNearAmountPercent:r=50.0
   gunmod__dofFarAmountPercent:r=0.02
   gunmod__disableToggleAim:b=yes
+  gunmod__nightvisionTex_res:t=""
+
+  "gunmod__nightvisionTex:SharedTex"{
+    _tags:t="render"
+  }
 
   "late_transparent_render:tag"{
   }

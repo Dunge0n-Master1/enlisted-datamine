@@ -9,13 +9,18 @@ let { viewItem } = require("%enlist/soldiers/model/selectItemState.nut")
 let {
   isCustomizationWndOpened
 } = require("%enlist/soldiers/soldierCustomizationState.nut")
+let {
+  selectedSquadSoldiers
+} = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
+let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 
 
 let curHoveredItem = mkWatched(persist, "curHoveredItem")
 let curHoveredSoldier = mkWatched(persist,"curHoveredSoldier")
 let curSelectedItem = mkWatched(persist,"curSelectedItem")
+let cameraScenes = mkWatched(persist, "cameraScenes", [])
 
 let isVehicleSceneVisible = Computed(function() {
   let { armyId = null, squadId = null } = selectVehParams.value
@@ -68,6 +73,29 @@ let function getAircraftInfo(template) {
   }
 }
 
+let squadCampaignVehicleFilter = Computed(function() {
+  let { isAircraft, isFloating } = getAircraftInfo(vehTplInVehiclesScene.value)
+  // plane scene is the same for all campaigns and differs only for floating/non floating planes for now
+  return !isAircraft ? selectedCampaign.value : isFloating ? "plane_floating" : "plane"
+})
+
+let sceneCameraSquadFilter = Computed(function() {
+  let sceneName = $"squad_{squadCampaignVehicleFilter.value}"
+  // to support old spawns with no difference betwee campaigns
+  // we can remove system below and cameraScenes watched after old menu is no longer used
+  return cameraScenes.value.contains(sceneName) ? sceneName : "squad"
+})
+
+ecs.register_es("add_scene_camera_es", {
+    onInit = function(_eid, comp) {
+      cameraScenes.mutate(@(val) val.append(comp.scene))
+    }
+    onDestroy = function(_eid, comp) {
+      cameraScenes.mutate(@(val) val.remove(cameraScenes.value.indexof(comp.scene)))
+    }
+  }, { comps_ro = [["scene", ecs.TYPE_STRING]] }
+)
+
 let scene = Computed(function() {
   let curCameraValue = curCamera.value
   if (curCameraValue == "vehicles" || curSelectedItem.value?.itemtype == "vehicle") {
@@ -76,7 +104,7 @@ let scene = Computed(function() {
       : aircraftInfo.isFloating ? "aircrafts_floating"
       : "aircrafts"
   }
-  return curCameraValue == "soldiers" && !curSoldierGuid.value ? "squad"
+  return (curCameraValue == "soldiers" && !curSoldierGuid.value) || selectedSquadSoldiers.value ? sceneCameraSquadFilter.value
     : isCustomizationWndOpened.value ? "soldier_customization"
     : curCameraValue == "new_items" && currentNewSoldierGuid.value ? "soldier_in_middle"
     : curCameraValue
@@ -92,6 +120,7 @@ return {
   itemInArmory
   soldierInSoldiers
   scene
+  squadCampaignVehicleFilter
   vehicleInVehiclesScene
   isVehicleSceneVisible
 }

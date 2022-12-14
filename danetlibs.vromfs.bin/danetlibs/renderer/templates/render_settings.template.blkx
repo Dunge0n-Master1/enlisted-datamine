@@ -2,6 +2,8 @@ render_settings{
   _singleton:b=yes
   _tags:t="render"
   _track:b=yes
+  _extends:t="replicating"
+  render_settings__inited:b=no
   render_settings__ssss:b=no
   render_settings__gamma_correction:r=1.0
   render_settings__is_hdr_enabled:b=no
@@ -11,4 +13,6 @@ render_settings{
   render_settings__fullDeferred:b=yes
   render_settings__rain_ripples_enabled:b=yes
   render_settings__forwardRendering:b=yes
+  render_settings__upscaleSamplingTex:b=yes
+  render_settings__anisotropy:i=-1
 }

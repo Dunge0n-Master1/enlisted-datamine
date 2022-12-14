@@ -24,6 +24,10 @@ b_34{
         turret:t="turret_02"
         turret:t="turret_03"
         turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+        turret:t="turret_08"
       }
     }
 
@@ -39,8 +43,8 @@ b_34{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_05"
-        turret:t="turret_06"
+        turret:t="turret_09"
+        turret:t="turret_10"
       }
     }
 
@@ -56,13 +60,17 @@ b_34{
       roomSpace:i=2
 
       "turretNames:array"{
-        turret:t="turret_07"
-        turret:t="turret_08"
+        turret:t="turret_11"
+        turret:t="turret_12"
       }
     }
   }
 
   "turret_control__emitterNodes:shared:array"{
+    node:t="bomb250_1"
+    node:t="bomb250_2"
+    node:t="bomb250_3"
+    node:t="bomb250_4"
     node:t="flare1"
     node:t="flare2"
     node:t="flare7"
@@ -93,6 +101,26 @@ b_34{
     "vars:object"{
       curYawParamName:t="weapon_04_yaw"
       curPitchParamName:t="weapon_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_06_yaw"
+      curPitchParamName:t="weapon_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_07_yaw"
+      curPitchParamName:t="weapon_07_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_08_yaw"
+      curPitchParamName:t="weapon_08_pitch"
     }
 
     "vars:object"{
@@ -146,55 +174,83 @@ b_34{
 
     "turretInfo:object"{
       turretName:t="turret_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_b_34_100lb_anm_30_launcher_01"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_b_34_100lb_anm_30_launcher_02"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_b_34_100lb_anm_30_launcher_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_b_34_100lb_anm_30_launcher_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
       gun:t="planegun_b_34_12_7mm_browning50_usaaf_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_02"
+      turretName:t="turret_06"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
       gun:t="planegun_b_34_12_7mm_browning50_usaaf_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_03"
+      turretName:t="turret_07"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_7_62mm_browning30_usaaf_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_04"
+      turretName:t="turret_08"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_7_62mm_browning30_usaaf_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_05"
+      turretName:t="turret_09"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_12_7mm_browning50_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_06"
+      turretName:t="turret_10"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_12_7mm_browning50_turret_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_07"
+      turretName:t="turret_11"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_7_62mm_browning30_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_08"
+      turretName:t="turret_12"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_b_34_7_62mm_browning30_turret_02"
@@ -202,6 +258,10 @@ b_34{
   }
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb250_1"
+    node:t="bomb250_2"
+    node:t="bomb250_3"
+    node:t="bomb250_4"
     node:t="flare1"
     node:t="flare2"
     node:t="flare7"
@@ -213,6 +273,10 @@ b_34{
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
     fx:t="muzzle_air_15mm"
     fx:t="muzzle_air_15mm"
     fx:t="muzzle_air_8mm"
@@ -224,6 +288,10 @@ b_34{
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -296,6 +364,42 @@ base_b_34_7_62mm_browning30_usaaf{
         blk:t="gamedata/weapons/shells/7_62x51mm_m1_incendiary_bullet.blk"
         name:t="incendiary"
         type:t="i_ball"
+      }
+    }
+  }
+}
+
+base_b_34_100lb_anm_30_launcher{
+  item__name:t="guns/us_100lb_anm30"
+  gun__blk:t="gamedata/weapons/b_34/100lb_anm_30_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="us_100lb_anm30"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/100lb_anm_30.blk"
+        name:t="100lb_anm_30"
+        type:t="he_frag_tank"
       }
     }
   }
@@ -473,6 +577,42 @@ base_b_34_12_7mm_browning50_turret{
       }
     }
   }
+}
+
+planegun_b_34_100lb_anm_30_launcher_01{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_b_34_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb250_1"
+  slot_attach__slotName:t="bomb250_1"
+  gun__maxAmmo:i=1
+}
+
+planegun_b_34_100lb_anm_30_launcher_02{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_b_34_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb250_2"
+  slot_attach__slotName:t="bomb250_2"
+  gun__maxAmmo:i=1
+}
+
+planegun_b_34_100lb_anm_30_launcher_03{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_b_34_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb250_3"
+  slot_attach__slotName:t="bomb250_3"
+  gun__maxAmmo:i=1
+}
+
+planegun_b_34_100lb_anm_30_launcher_04{
+  _extends:t="100lb_anm_30_launcher"
+  _extends:t="base_b_34_100lb_anm_30_launcher"
+  _extends:t="gunsound_100lb_anm_30_launcher_aircraft"
+  gun__shootNodeName:t="bomb250_4"
+  slot_attach__slotName:t="bomb250_4"
+  gun__maxAmmo:i=1
 }
 
 planegun_b_34_12_7mm_browning50_usaaf_01{

@@ -8,7 +8,7 @@ let { shopItemContentCtor, curUnseenAvailShopGuids, purchaseInProgress
 let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, curSpecialization,
   isSoldiersPurchasing
 } = require("%enlist/shop/soldiersPurchaseState.nut")
-let { bigPadding, titleTxtColor, darkBgColor, activeBgColor,
+let { bigPadding, smallPadding, titleTxtColor, darkBgColor, activeBgColor,
   hoverBgColor, selectedTxtColor, insideBorderColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
@@ -20,7 +20,6 @@ let clickShopItem = require("clickShopItem.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { mkNotifierNoBlink } = require("%enlist/components/mkNotifier.nut")
-let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { mkShopItemView, mkShopItemPriceLine, mkProductView, mkLevelLockLine
 } = require("%enlist/shop/shopPkg.nut")
@@ -28,13 +27,16 @@ let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
 let { getCratesListComp } = require("%enlist/soldiers/model/cratesContent.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
-let { newItemsToShow } = require("%enlist/soldiers/model/newItemsToShow.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
+let { soldiersSquad, soldiersSquadParams, squadSoldiers, soldiersStatuses
+} = require("%enlist/soldiers/model/chooseSoldiersState.nut")
+let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
+
 const WND_UID = "SOLDIERS_PURCHASE_WND"
 
-
+let inactiveTxtColor = 0xFF777777
 let CARD_MAX_WIDTH = fsh(80)
 
 let defTxtStyle = { color = titleTxtColor }.__update(sub_txt)
@@ -81,30 +83,52 @@ let function getCrateContent(shopItems) {
 
 let specializationIconColor = @(sf, isSelected, isAvailable)
   isSelected || (sf & S_HOVER) ? selectedTxtColor
-    : !isAvailable ? 0xFF777777
-    : titleTxtColor
+    : isAvailable ? titleTxtColor
+    : inactiveTxtColor
+
+let soldiersList = Computed(@() squadSoldiers.value.filter(@(s) s != null))
+let currentLimits = mkSClassLimitsComp(soldiersSquad, soldiersSquadParams,
+  soldiersList, soldiersStatuses)
 
 let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
   watchElemState(function(sf) {
     let { soldierClass, reqLvl } = soldier
     let curArmyLvl = armyData?.level ?? 0
-    let isAvailable = reqLvl <= curArmyLvl
     let isSelected = soldierSpec == soldierClass
+
+    let classInfo = currentLimits.value.findvalue(@(x) x.total > 0 && x.sKind == soldierClass)
+    let isAvailable = reqLvl <= curArmyLvl && classInfo != null
+
     return {
-      rendObj = ROBJ_SOLID
-      color = isSelected ? activeBgColor
-        : sf & S_HOVER ? hoverBgColor
-        : darkBgColor
-      size = [hdpx(48), hdpx(48)]
+      size = [hdpx(48), SIZE_TO_CONTENT]
       behavior = Behaviors.Button
+      watch = currentLimits
       onClick = @() curSpecialization(soldierClass)
-      valign = ALIGN_CENTER
+      flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
+      gap = smallPadding
       children = [
-        kindIcon(soldierClass, hdpx(26), null, specializationIconColor(sf, isSelected, isAvailable))
-        soldierClass in unseenSpecs
-          ? smallUnseenNoBlink.__update({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
-          : null
+        {
+          rendObj = ROBJ_SOLID
+          color = isSelected ? activeBgColor
+            : sf & S_HOVER ? hoverBgColor
+            : darkBgColor
+          size = [hdpx(48), hdpx(48)]
+          valign = ALIGN_CENTER
+          halign = ALIGN_CENTER
+          children = [
+            kindIcon(soldierClass, hdpx(26), null, specializationIconColor(sf, isSelected, isAvailable))
+            soldierClass in unseenSpecs
+              ? smallUnseenNoBlink.__update({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
+              : null
+          ]
+        }
+        classInfo == null ? null : {
+          rendObj = ROBJ_TEXT
+          text = $"{classInfo.used}/{classInfo.total}"
+          color = isSelected || isAvailable || (sf & S_HOVER) ? titleTxtColor
+            : inactiveTxtColor
+        }
       ]
     }
   })
@@ -123,7 +147,7 @@ let specializationsBlock = @(classesToShow, unseenSpecs) @() {
     }.__update(defTxtStyle)
     {
       flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
+      valign = ALIGN_TOP
       children = classesToShow
         .map(@(v) mkSpecializationBtn(v, curSpecialization.value, curArmyData.value, unseenSpecs))
         .insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchClass(classesToShow, -1)) : null)
@@ -158,7 +182,7 @@ let function mkShopItemCard(shopItem, armyData) {
       watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus]
       rendObj = ROBJ_SOLID
       guid
-      size = [hdpx(260), hdpx(370)]
+      size = [hdpx(295), hdpx(370)]
       maxWidth = CARD_MAX_WIDTH
       halign = ALIGN_CENTER
       color = darkBgColor
@@ -173,8 +197,6 @@ let function mkShopItemCard(shopItem, armyData) {
         clickShopItem(shopItem, armyData?.level ?? 0)
         if (hasUnseenSignal)
           markShopItemSeen(armyId, guid)
-
-        isOpened(false)
       }
       clipChildren = true
       children = [
@@ -223,7 +245,7 @@ let mkSoldiersList = @(soldiersToShow) function() {
 }
 
 
-let function wndContent() {
+let function wndContent(onCloseCb) {
   let crateContent = getCrateContent(soldierShopItems)
   return function() {
     let unseenSpecializations = {}
@@ -243,7 +265,7 @@ let function wndContent() {
       size = [flex(), SIZE_TO_CONTENT]
       halign = ALIGN_CENTER
       children = [
-        closeBtnBase({ onClick = @() isOpened(false) })
+        closeBtnBase({ onClick = onCloseCb })
         {
           flow = FLOW_VERTICAL
           gap = hdpx(40)
@@ -258,23 +280,23 @@ let function wndContent() {
   }
 }
 
-let openSoldiersPurchase = @() addModalWindow({
+
+let soldiersPurchaseWnd = @(onCloseCb) {
   key = WND_UID
   size = flex()
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = darkBgColor
   fillColor = darkBgColor
   valign = ALIGN_CENTER
+  vplace = ALIGN_CENTER
   onDetach = @() isSoldiersPurchasing(false)
   onAttach = function() {
     isOpened(true)
     isSoldiersPurchasing(true)
   }
   onClick = @() null
-  children = wndContent()
-})
+  children = wndContent(onCloseCb)
+}
 
-isOpened.subscribe(@(v) v ? null : removeModalWindow(WND_UID))
-newItemsToShow.subscribe(@(v) v != null ? removeModalWindow(WND_UID) : null)
 
-return openSoldiersPurchase
+return soldiersPurchaseWnd

@@ -25,6 +25,7 @@ crosshair{
     ui_crosshair_state__overheat:r=0.0
     ui_crosshair_state__color:c=255, 255, 255, 255
     ui_crosshair_state__showCustomCrosshair:b=no
+    ui_crosshair_state__allowShooting:b=yes
   }
 }
 

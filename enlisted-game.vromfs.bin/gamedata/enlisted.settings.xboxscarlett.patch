@@ -34,3 +34,7 @@
 }
 
 authGameId:t=el
+
+"@override:replay"{
+  "@override:storageLimitMB":i=300
+}

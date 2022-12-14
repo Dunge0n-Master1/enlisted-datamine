@@ -3,10 +3,9 @@ require ecs
 require DagorDataBlock
 require DagorConsole
 require DagorSystem
+require enlisted.events_enlisted
 
 
-[event(broadcast)]
-struct EventApplyDevMode {}
 
 // Please, note that apply_dev_mode_* divided into several es systems to avoid situations
 // when the whole dev mode stops to function because of some missing components. This is critical for Sandbox!

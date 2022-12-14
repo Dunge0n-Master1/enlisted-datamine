@@ -6,8 +6,14 @@ let ps4 = require("ps4")
 let {logerr} = require("dagor.debug")
 let {get_circuit_conf} = require("app")
 let statsd = require("statsd")
+let eventbus = require("eventbus")
 
 let AUTH_FRIENDS_URL = get_circuit_conf()?.psnFriendsUrl
+let AUTH_DATA_SUB_ID = "ps4.auth_data_friends"
+
+// for make unqie event id, this variable will be reseted on script reload, but that
+// no problem because all request will be aborted on script reload
+local requestNum = 0
 
 let function request_auth_contacts(game, include_unknown, callback) {
   if (!AUTH_FRIENDS_URL) {
@@ -16,6 +22,10 @@ let function request_auth_contacts(game, include_unknown, callback) {
     return
   }
 
+  // make unqie event id for prevent duplicate auth token
+  let eventId = $"{AUTH_DATA_SUB_ID}.{requestNum}"
+  log($"[AuthFriends]: Send request with id: {eventId}")
+  requestNum++
   let function on_auth_data(auth_data) {
     if (!auth_data?.error) {
       let fmt_args = {
@@ -26,7 +36,7 @@ let function request_auth_contacts(game, include_unknown, callback) {
         unknown = include_unknown ? 1 : 0
       }
       let post_data = "code={code}&issuer={issuer}&lang={lang}&game={game}&unknown={unknown}".subst(fmt_args)
-      log($"[AuthFriends]: POST data: {post_data}")
+      log($"[AuthFriends]: eventId: {eventId} : POST data: {post_data}")
       let req_params = {
         method = "POST"
         url = AUTH_FRIENDS_URL
@@ -54,9 +64,10 @@ let function request_auth_contacts(game, include_unknown, callback) {
       http.request(req_params)
     }
   }
-  ps4.get_auth_data_async(on_auth_data)
+  eventbus.subscribe_onehit(eventId, on_auth_data)
+  ps4.get_auth_data_async(eventId)
 }
 
 return {
-  request_auth_contacts = request_auth_contacts
+  request_auth_contacts
 }

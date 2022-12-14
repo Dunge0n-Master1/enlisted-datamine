@@ -6,7 +6,6 @@ germ_pzkpfw_V_ausf_f_panther{
 
 germ_pzkpfw_V_ausf_f_panther_premium{
   _extends:t="base_pzkpfw_v_ausf_f_panther"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

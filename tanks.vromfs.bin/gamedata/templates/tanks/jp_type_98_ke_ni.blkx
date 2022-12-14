@@ -4,7 +4,6 @@ jp_type_98_ke_ni_pacific{
 
 jp_type_98_ke_ni_common{
   _extends:t="base_type_98_ke_ni"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0

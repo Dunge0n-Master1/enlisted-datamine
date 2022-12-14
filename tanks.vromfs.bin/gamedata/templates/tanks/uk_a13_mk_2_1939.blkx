@@ -4,7 +4,6 @@ uk_a13_mk_2_1939{
 
 uk_a13_mk_2_1939_common{
   _extends:t="base_a13_mk_2_1939"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.2
 
   "vehicle_seats__seats:shared:array"{

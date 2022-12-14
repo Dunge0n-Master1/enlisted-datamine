@@ -11,7 +11,7 @@ base_dickermax{
   cockpit__zoomOutFov:r=7.7525
   cockpit__zoomInFov:r=14.3007
   cockpit__sightName:t="sight_model/zfl_zf_1a"
-  cockpit__sightFov:r=9.5
+  cockpit__sightFov:r=7.35
   drowningHeight:r=2.024
   damage_model__blk:t="gamedata/gen/units/tanks/dickermax.blk"
   item__name:t="items/germ_pzsfl_iva_dickermax"

@@ -16,7 +16,7 @@ def turret_ammo_init_impl(turret__owner : EntityId;
       resize(gun__shootNodeIds, gun__maxAmmo)
       for i in range(gun__maxAmmo)
         let nodeName = format(gun__shootNodeEmitterGenFmt, i + 1)
-        let nodeId = geomtree_findNodeIndex(animchar.nodeTree, nodeName)
+        let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, nodeName)
         if nodeId < 0
           logerr("Turret shoot node '{nodeName}' not found. Vehicle {turret__owner} <{getEntityTemplateName(turret__owner)}>")
         gun__shootNodeIds[i] = nodeId

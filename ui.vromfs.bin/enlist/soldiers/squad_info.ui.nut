@@ -33,7 +33,7 @@ let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let sClassesConfig = require("model/config/sClassesConfig.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
@@ -180,8 +180,8 @@ let freeSeatsBlock = @(freeSeats) freeSeats.len() == 0 ? null : {
 
 return function() {
   let res = { watch = [
-    curSquadId, perksData, vehicleInfo, seatsOrderWatch, freeSeatsInVehicle, soldiersList,
-    needFreemiumStatus
+    curSquadId, perksData, vehicleInfo, seatsOrderWatch, freeSeatsInVehicle,
+    soldiersList, needFreemiumStatus, campPresentation
   ] }
   if (curSquadId.value == null)
     return res
@@ -196,6 +196,7 @@ return function() {
       curSoldierIdxWatch = curSoldierIdx
       soldiersReadyWatch = curSquadSoldiersStatus
       isFreemiumMode = needFreemiumStatus.value
+      thresholdColor = campPresentation.value?.color
       curVehicleUi = mkCurVehicle({
         openChooseVehicle
         vehicleInfo

@@ -99,15 +99,16 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
 
   return @() builder(stateFlags.value)
 }
+let soundDefault = {
+  click  = "ui/enlist/button_click"
+  hover  = "ui/enlist/button_highlight"
+}
 
+let soundActive = soundDefault.__merge({  active = "ui/enlist/button_action" })
 
 let override = {
   halign = ALIGN_CENTER
-  sound = {
-    click  = "ui/enlist/button_click"
-    hover  = "ui/enlist/button_highlight"
-    active = "ui/enlist/button_action"
-  }
+  sound = soundActive
   textCtor = textButtonTextCtor
 }.__update(body_txt)
 
@@ -171,10 +172,7 @@ let export = class {
       rendObj = ROBJ_INSCRIPTION
       borderWidth = (params?.isEnabled ?? true) ? hdpx(1):0
       margin = hdpx(1)
-      sound = (params?.isEnabled ?? true) ? {
-          hover = "ui/enlist/button_highlight"
-          click = "ui/enlist/button_click"
-      } : null
+      sound = (params?.isEnabled ?? true) ? soundDefault : null
     }.__merge(fontawesome, params))
 
   Purchase = @(text, handler, params = {}) Bordered(text, handler, body_txt.__merge(onlinePurchaseStyle, params))
@@ -187,6 +185,8 @@ let export = class {
   loginBtnStyle = loginBtnStyle
 
   setDefaultButton = function(buttonCtor) { defaultButton = buttonCtor }
+  soundDefault = soundDefault
+  soundActive = soundActive
 }()
 
 return export

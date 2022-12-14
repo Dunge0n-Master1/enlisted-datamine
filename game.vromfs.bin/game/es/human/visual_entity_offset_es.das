@@ -16,19 +16,19 @@ def visual_entity_offset_init(evt : Event;
                               visual_entity_offset__nodeName : string;
                               var visual_entity_offset__visNodeId : int&;
                               var visual_entity_offset__posNodeId : int&)
-  visual_entity_offset__visNodeId = geomtree_findNodeIndex(animchar.nodeTree, visual_entity_offset__nodeName)
+  visual_entity_offset__visNodeId = geomtree_findNodeIndex(*animchar.nodeTree, visual_entity_offset__nodeName)
   if visual_entity_offset__visNodeId < 0
     logerr("visual_entity_offset.nodeName '{visual_entity_offset__nodeName}' not found (eid: {eid} template: {getEntityTemplateName(eid)})")
     return
 
   let posNodeName = "Bip01"
-  visual_entity_offset__posNodeId = geomtree_findNodeIndex(animchar.nodeTree, posNodeName)
+  visual_entity_offset__posNodeId = geomtree_findNodeIndex(*animchar.nodeTree, posNodeName)
   if visual_entity_offset__posNodeId < 0
     logerr("'{posNodeName}'' node not found in '{animchar__res}'!")
 
 [es(tag=gameClient)]
-def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; camera__active : bool; isCockpitCam : bool = false)
-  if !camera__active || isCockpitCam
+def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; camera__active : bool; isHeroCockpitCam : bool = false)
+  if !camera__active || isHeroCockpitCam
     return
 
   let curTime = info.curTime
@@ -58,12 +58,12 @@ def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; ca
     if visual_entity_offset__visNodeId < 0 || visual_entity_offset__posNodeId < 0
       return
 
-    let eyePos = geomtree_getNodeWpos(animchar.nodeTree, visual_entity_offset__visNodeId)
+    let eyePos = geomtree_getNodeWpos(*animchar.nodeTree, visual_entity_offset__visNodeId)
     var geomtree_rootTm : float3x4
-    geomtreenode_getTmScalar(geomtree_getNode(animchar.nodeTree, 0), geomtree_rootTm)
+    geomtree_getNodeTmScalar(*animchar.nodeTree, 0, geomtree_rootTm)
     let itm = inverse(geomtree_rootTm)
     let localEyePos = itm * eyePos
-    let localFromPos = itm * geomtree_getNodeWpos(animchar.nodeTree, visual_entity_offset__posNodeId)
+    let localFromPos = itm * geomtree_getNodeWpos(*animchar.nodeTree, visual_entity_offset__posNodeId)
     let fromPos = geomtree_rootTm * float3(localFromPos.x, localEyePos.y, localFromPos.z)
     let dirToEye = eyePos - fromPos
     let lenSq = length_sq(dirToEye)
@@ -89,8 +89,7 @@ def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; ca
       let deltaLen = max(-visual_entity_offset__maxOffsetLen, len - initialLen) // negative sign as we have negative delta len (len is less than initialLen)
       let offset = rotate(itm, (dir * deltaLen) - transform[0] * (backoff * visual_entity_offset__backoffMult)) + float3(0.0f, backup, 0.0f)
       assert(length_sq(offset) < 1e10f)
-      var posNode = geomtree_getNode(animchar.nodeTree, visual_entity_offset__posNodeId)
-      posNode.tm.col3 += float4(offset.x, offset.y, offset.z, 0.0f)
+      geomtree_getNodeTm(*animchar.nodeTree, visual_entity_offset__posNodeId).col3 += float4(offset.x, offset.y, offset.z, 0.0f)
       geomtree_invalidateWtm(*animchar.nodeTree)
       animchar_recalc_wtm(animchar)
       animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)

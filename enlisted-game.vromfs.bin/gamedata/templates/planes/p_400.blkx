@@ -492,12 +492,12 @@ p_400_driver_cockpit{
   }
 
   "move_cockpit_node__offset:list<p3>"{
-    offset:p3=0.02, 0.02, 0.01
-    offset:p3=0.015, -0.013, 0.0
+    item:p3=0.02, 0.019, -0.0155
+    item:p3=0.015, -0.013, 0.0
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    rot:p2=15.0, 10.0
-    rot:p2=-20.0, 0.0
+    item:p2=11.1, 11.9
+    item:p2=-22.5, 0.0
   }
 }

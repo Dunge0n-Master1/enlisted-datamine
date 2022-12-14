@@ -2,37 +2,37 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
-let { colFull, tabBgColor, titleTxtColor, smallPadding,
-  bigPadding, colPart, commonBorderRadius } = require("%enlSqGlob/ui/designConst.nut")
+let { colFull, accentColor, titleTxtColor, smallPadding, midPadding, bigPadding, colPart,
+  commonBorderRadius
+} = require("%enlSqGlob/ui/designConst.nut")
 let { mkSquadIcon, mkSquadTypeIcon } = require("%enlSqGlob/ui/squadInfoPkg.nut")
+let faComp = require("%ui/components/faComp.nut")
 
 
 let premIconSize = colPart(0.60)
 let selectionLineHeight = colPart(0.08)
 let selectionLineOffset = colPart(0.1)
 let squadCardSize = [colFull(2), colPart(1.55) + selectionLineHeight + selectionLineOffset]
-let squadContentSize = [flex(), colPart(1.55)]
-
+let squadContentSize = [colFull(2), colPart(1.55)]
 const defaultSquadIcon = "!ui/uiskin/squad_default.svg"
 
-let defSquadBgColor = 0xFF242D31
-let hoverSquadBgColor = 0xFF45545C
-let activeSquadBgColor = 0xFF6A7B84
+const DEF_SQUAD_BG_COLOR = 0xFF242D31
+const HOVER_SQUAD_BG_COLOR = 0xFF45545C
+const ACTIVE_SQUAD_BG_COLOR = 0xFF6A7B84
 
-let defLockedBgColor = 0xFF4A2222
-let hoverLockedBgColor = 0xFF6C3535
-let activeLockedBgColor = 0xFF9F5858
+const DEF_LOCKED_BG_COLOR = 0xFF4A2222
+const HOVER_LOCKED_BG_COLOR = 0xFF6C3535
+const LOCKED_SQUAD_PANEL_COLOR = 0xCC000000
 
 let squadBgColorCommon = @(flags, selected)
-  selected ? activeSquadBgColor
-    : flags & S_HOVER ? hoverSquadBgColor
-    : defSquadBgColor
+  selected ? ACTIVE_SQUAD_BG_COLOR
+    : flags & S_HOVER ? HOVER_SQUAD_BG_COLOR
+    : DEF_SQUAD_BG_COLOR
 
 
-let squadBgColorLocked = @(flags, selected)
-  selected ? activeLockedBgColor
-    : flags & S_HOVER ? hoverLockedBgColor
-    : defLockedBgColor
+let squadBgColorLocked = @(flags) flags & S_HOVER
+  ? HOVER_LOCKED_BG_COLOR
+  : DEF_LOCKED_BG_COLOR
 
 
 let defTxtStyle = {
@@ -61,11 +61,11 @@ let squadTimer = @(expireTime) mkCountdownTimer({
 })
 
 
-let mkSquadInfoBlock = @(squadType, level, addChild = null, isLocked = false, expireTime = 0) {
+let mkSquadInfoBlock = @(squadType, level, addChild = null, expireTime = 0) {
   size = flex()
   halign = ALIGN_CENTER
   children = [
-    mkSquadTypeIcon(squadType, isLocked)
+    mkSquadTypeIcon(squadType, false)
     expireTime <= 0 ? mkSquadLevel(level) : squadTimer(expireTime)
     {
       pos = [colPart(0.05), -colPart(0.16)]
@@ -74,6 +74,7 @@ let mkSquadInfoBlock = @(squadType, level, addChild = null, isLocked = false, ex
     }
   ]
 }
+
 
 let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
   rendObj = ROBJ_IMAGE
@@ -84,16 +85,17 @@ let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
 
 
 let selectionLine = {
-  rendObj = ROBJ_SOLID
-  vplace = ALIGN_BOTTOM
   size = [flex(), selectionLineHeight]
-  color = tabBgColor
+  rendObj = ROBJ_BOX
+  borderWidth = 0
+  borderRadius = commonBorderRadius
+  fillColor = accentColor
+  vplace = ALIGN_BOTTOM
 }
 
 
-let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
-  squadType = null, level = null, premIcon = null, onClick = null, expireTime = 0,
-  isLocked = false
+let mkSquadCard = kwarg(function(idx, isSelected, addChild = null, icon = "",
+  squadType = null, level = null, premIcon = null, onClick = null, expireTime = 0
 ) {
   let isCardSelected = isSelected.value
   icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
@@ -112,16 +114,14 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
         children = [
           {
             rendObj = ROBJ_BOX
-            fillColor = isLocked
-              ? squadBgColorLocked(sf, isCardSelected)
-              : squadBgColorCommon(sf, isCardSelected)
+            fillColor = squadBgColorCommon(sf, isCardSelected)
             borderRadius = commonBorderRadius
             size = squadContentSize
             padding = [bigPadding, smallPadding]
             flow = FLOW_HORIZONTAL
             children = [
               mkSquadIcon(icon)
-              mkSquadInfoBlock(squadType, level, addChild, isLocked, expireTime)
+              mkSquadInfoBlock(squadType, level, addChild, expireTime)
             ]
           }
           mkSquadPremIcon(premIcon)
@@ -133,6 +133,63 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
 })
 
 
+let lockedSquadInfo = @(unlockLvl) {
+  rendObj = ROBJ_SOLID
+  size = [flex(), SIZE_TO_CONTENT]
+  color = LOCKED_SQUAD_PANEL_COLOR
+  padding = [smallPadding, midPadding]
+  vplace = ALIGN_BOTTOM
+  valign = ALIGN_CENTER
+  children = [
+    {
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      behavior = Behaviors.TextArea
+      text = loc("squads/reqLevel", { level = unlockLvl})
+    }.__update(smallTxtStyle)
+    faComp("lock", {
+      fontSize = fontMedium.fontSize
+      color = smallTxtStyle.color
+      hplace = ALIGN_RIGHT
+    })
+  ]
+}
+
+
+let mkLockedSquadCard = kwarg(function(idx, icon = "", squadType = null,
+  level = null, onClick = null
+) {
+  icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
+  return watchElemState(@(sf) {
+    rendObj = ROBJ_BOX
+    fillColor = squadBgColorLocked(sf)
+    borderRadius = commonBorderRadius
+    key = $"squad{idx}"
+    size = squadContentSize
+    behavior = Behaviors.Button
+    onClick = onClick
+    xmbNode = XmbNode()
+    children = [
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        padding = [bigPadding, smallPadding]
+        flow = FLOW_HORIZONTAL
+        children = [
+          mkSquadIcon(icon)
+          {
+            size = [flex(), SIZE_TO_CONTENT]
+            halign = ALIGN_CENTER
+            children = mkSquadTypeIcon(squadType, false)
+          }
+        ]
+      }
+      lockedSquadInfo(level)
+    ]
+  })
+})
+
+
 return {
   mkSquadCard
+  mkLockedSquadCard
 }

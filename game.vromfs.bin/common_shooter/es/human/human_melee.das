@@ -26,6 +26,7 @@ require AnimV20
 require GeomNodeTree
 require game.utils.team
 require GridCollision
+require CollisionTraces
 require EntityActions
 require DaWeaponProps
 
@@ -40,7 +41,7 @@ def melee_item_created_es(evt : Event;
 [es(tag=server, on_appear)]
 def melee_weapon_created_es(evt : Event;
                             melee_weapon__blk : string;
-                            gun__blk : das_string?;
+                            gun__blk : das_string const?;
                             var gun__propsId : int&;
                             var melee_weapon__propsId : int&)
   if gun__propsId < 0 && gun__blk == null
@@ -133,7 +134,6 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
                              human_melee_charge__isOnCooldown : bool;
                              var human_melee_charge__canStart : bool&;
                              var human_melee_charge__chargeEndTime : float&;
-                             var human_melee_charge__isInputStillActive : bool&;
                              var human_melee_charge__isActive : bool&;
                              var human_melee_charge__isChargeOrAttack : bool&)
     human_melee_charge__isChargeOrAttack &&= action__running
@@ -143,10 +143,9 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
     assume phys = human_net_phys.phys
     assume currentState = phys.currentState
     let isMeleeInputTriggered = phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
-    let meleeInputWasTerminated = human_melee_charge__isInputStillActive && !isMeleeInputTriggered
-    human_melee_charge__isInputStillActive &&= isMeleeInputTriggered
+    let isChargeInputTriggered = isMeleeInputTriggered && phys.appliedCT.isAltAttackState
 
-    let shouldPlayChargeAction = human_melee_charge__isActive && !isMeleeInputTriggered
+    let shouldPlayChargeAction = human_melee_charge__isActive && !isChargeInputTriggered
     let wasCharging = human_melee_charge__isActive
     let walkSpeed = phys |> human_phys_getWalkSpeed(HUStandState ESS_STAND, HUMoveState EMS_WALK) * currentState.moveSpeedMult
     let isSprintContol = phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SPRINT)
@@ -157,16 +156,13 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
     let isSprinting = isSprintContol && (isSprintState || (wasCharging && isRunSpeed)) && isValidState
     let isStartBlocked = !isValidState || human_melee_charge__isOnCooldown || currentState.stamina < human_melee_charge__minStaminaLevelToStart
     human_melee_charge__canStart = isSprinting && !isStartBlocked && !human_melee_charge__isActive
-    human_melee_charge__isActive = isMeleeInputTriggered && isSprinting && (wasCharging || !isStartBlocked)
+    human_melee_charge__isActive = isChargeInputTriggered && (wasCharging || !isStartBlocked)
 
     if currentState.stamina <= 0.
       human_melee_charge__isActive = false
 
     human_melee_charge__isChargeOrAttack ||= human_melee_charge__isActive
-    if human_melee_charge__isChargeOrAttack && isMeleeInputTriggered
-      human_melee_charge__isInputStillActive = true
-
-    let shouldPlayMeleeAction = !human_melee_charge__isInputStillActive && (isMeleeInputTriggered || meleeInputWasTerminated)
+    let shouldPlayMeleeAction = !human_melee_charge__isActive && isMeleeInputTriggered && !isChargeInputTriggered
     if wasCharging && !human_melee_charge__isActive
       human_melee_charge__chargeEndTime = evt.atTime
     if shouldPlayChargeAction || shouldPlayMeleeAction
@@ -181,7 +177,7 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
 def charge_melee_weapon_init_melee_node(evt : Event; melee_weapon__propsId : int; gun__owner : EntityId; var melee_weapon__nodeId : int&)
   query(gun__owner) <| $ [es] (animchar : AnimcharBaseComponent)
     melee_get_props(melee_weapon__propsId) <| $(meleeProps)
-      melee_weapon__nodeId = geomtree_findNodeIndex(animchar.nodeTree, melee_props_get_node_name(meleeProps))
+      melee_weapon__nodeId = geomtree_findNodeIndex(*animchar.nodeTree, melee_props_get_node_name(meleeProps))
 
 def has_melee_target(hero_eid : EntityId; hero_team : int; grid_hash : uint; melee_props_id : int)
   var res = false
@@ -208,12 +204,12 @@ def charge_melee_weapon_detect_target(info : ParallelUpdateFrameDelayed;
                                       var human_melee_charge__targetFound : bool&)
   human_melee_charge__targetFound = false
   if human_melee_charge__isActive
-    query(human_weap__currentGunEid) <| $ [es(REQUIRE=meleeChargeWeapon)] (melee_weapon__propsId : int; melee_weapon__nodeId : int = -1; lunge_mine__distance : float?)
+    query(human_weap__currentGunEid) <| $ [es(REQUIRE=meleeChargeWeapon)] (melee_weapon__propsId : int; melee_weapon__nodeId : int = -1; lunge_mine__distance : float const?)
       human_melee_charge__targetFound = has_melee_target(hero_eid, hero_team, ecs_hash("humans"), melee_weapon__propsId)
       if !human_melee_charge__targetFound && lunge_mine__distance != null && melee_weapon__nodeId >= 0
         using() <| $(var intersections : IntersectedEntities#)
           var t = *lunge_mine__distance
-          let pos = animchar.nodeTree |> geomtree_getNodeWpos(melee_weapon__nodeId)
+          let pos = *animchar.nodeTree |> geomtree_getNodeWpos(melee_weapon__nodeId)
           let dir = human_net_phys.phys.appliedCT.wishShootDir
           human_melee_charge__targetFound = trace_entities_in_grid(ecs_hash("vehicles"), pos, dir, t, INVALID_ENTITY_ID, intersections, SortIntersections YES)
 
@@ -291,33 +287,29 @@ def melee_charge_cooldown_server(info : UpdateStageInfoAct;
 
 def melee_charge_reset(var human_melee_charge__isActive : bool&;
                        var human_melee_charge__isChargeOrAttack : bool&;
-                       var human_melee_charge__isInputStillActive : bool&;
                        var human_melee_charge__canStart : bool&;
                        var human_melee_charge__chargeEndTime : float&)
   if human_melee_charge__isActive
     human_melee_charge__chargeEndTime = get_sync_time()
   human_melee_charge__isActive = false
   human_melee_charge__isChargeOrAttack = false
-  human_melee_charge__isInputStillActive = false
   human_melee_charge__canStart = false
 
 [es(tag=server, track=human_weap__currentGunEid, REQUIRE=human_weap__currentGunEid)]
 def reset_melee_charge_server(evt : Event;
                               var human_melee_charge__isActive : bool&;
                               var human_melee_charge__isChargeOrAttack : bool&;
-                              var human_melee_charge__isInputStillActive : bool&;
                               var human_melee_charge__canStart : bool&;
                               var human_melee_charge__chargeEndTime : float&)
-  melee_charge_reset(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__isInputStillActive, human_melee_charge__canStart, human_melee_charge__chargeEndTime)
+  melee_charge_reset(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__canStart, human_melee_charge__chargeEndTime)
 
 [es(tag=netClient, track=human_weap__currentGunEid, REQUIRE=(hero, human_weap__currentGunEid))]
 def reset_melee_charge_client(evt : Event;
                               var human_melee_charge__isActive : bool&;
                               var human_melee_charge__isChargeOrAttack : bool&;
-                              var human_melee_charge__isInputStillActive : bool&;
                               var human_melee_charge__canStart : bool&;
                               var human_melee_charge__chargeEndTime : float&)
-  melee_charge_reset(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__isInputStillActive, human_melee_charge__canStart, human_melee_charge__chargeEndTime)
+  melee_charge_reset(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__canStart, human_melee_charge__chargeEndTime)
 
 [es(after=human_weap_update_es, REQUIRE_NOT=human_weap)]
 def human_melee_post_phys_es(evt : CmdPostPhysUpdate;

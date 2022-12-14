@@ -18,7 +18,7 @@ let function track(_eid, comp) {
     return
   artilleryIsAvailable(comp["artillery__available"])
   artilleryAvailableAtTime(comp["artillery__availableAtTime"])
-  wasArtilleryAvailableForSquad(comp["artillery__wasAvailableForSquad"] != INVALID_ENTITY_ID)
+  wasArtilleryAvailableForSquad(comp["artillery__wasAvailableForSquad"] != ecs.INVALID_ENTITY_ID)
 }
 
 ecs.register_es("artillery_ui", {
@@ -86,7 +86,7 @@ ecs.register_es("artillery_ui_available_shell_types", {
 })
 
 ecs.register_es("artillery_hero_state", {
-  [["onInit", "onChange"]] = @(_evt, _eid, comp) isHeroRadioman(comp["human_weap__radioEid"] != INVALID_ENTITY_ID)
+  [["onInit", "onChange"]] = @(_evt, _eid, comp) isHeroRadioman(comp["human_weap__radioEid"] != ecs.INVALID_ENTITY_ID)
   onDestroy = @(...) isHeroRadioman(false)
 },
 {

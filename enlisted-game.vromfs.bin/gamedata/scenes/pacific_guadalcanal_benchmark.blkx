@@ -524,37 +524,37 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-602.707, 23.6241, 27.6775]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-601.803, 23.6241, -6.97207]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-526.791, 6.2649, 152.762]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-598.699, 5.98627, 165.288]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-477.897, 40.8738, -184.886]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-435.677, 41.6363, -212.566]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-747.095, 34.0345, -59.5471]]
 }
 
@@ -564,7 +564,7 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[0.977764, 0.0, 0.209707] [0.0, 1.0, -0.0] [-0.209707, 0.0, 0.977764] [-759.779, 34.0345, -34.3727]]
 }
 
@@ -652,12 +652,12 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-750.192, 3.67483, 275.674]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-802.409, 2.74714, 301.263]]
 }
 
@@ -667,6 +667,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-830.068, 2.46274, 274.358]]
 }

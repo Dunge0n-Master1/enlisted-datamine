@@ -26,7 +26,7 @@ def burning_effects_state_es(evt : Event; eid aka human_eid : EntityId;
 
       let burningEffectEid = createEntity(burning__effectTemplate) <| $(var init : ComponentsInitializer)
         var tm : float3x4
-        geomtree_getNodeWtmScalar(animchar.nodeTree, int(data.nodeIndex), tm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, int(data.nodeIndex), tm)
         tm = tm * ctm
         set(init, "transform", tm)
         set(init, "effect_animation__transform", tm)

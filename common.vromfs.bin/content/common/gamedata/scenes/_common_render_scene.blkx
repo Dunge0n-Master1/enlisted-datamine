@@ -1,0 +1,11 @@
+entity{
+  _template:t="render_settings"
+}
+
+entity{
+  _template:t="blood_decals_render_manager"
+}
+
+entity{
+  _template:t="capture_zone_decals_manager"
+}

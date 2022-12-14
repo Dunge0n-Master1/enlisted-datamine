@@ -7,19 +7,16 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
-let { needFreemiumStatus, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
+let { needFreemiumStatus, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let { unlockCampaignPromo } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
-
-local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let freemiumBlockStyle = @(config) {
   borderColor = config?.color
   iconSize = hdpx(42)
-  iconPath = config?.widgetIcon
+  iconPath = config?.widgetIcon ?? ""
 }
 
 let freemiumBlockText = @(config) {

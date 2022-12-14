@@ -11,25 +11,29 @@ base_pzkpfw_v_ausf_g_panther{
   cockpit__zoomOutFov:r=3.7715
   cockpit__zoomInFov:r=7.7525
   cockpit__sightName:t="sight_model/tzf_12a"
-  cockpit__sightFov:r=18.0
+  cockpit__sightFov:r=14.85
   drowningHeight:r=2.4
   damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_v_ausf_g_panther.blk"
   item__name:t="items/germ_pzkpfw_v_ausf_g_panther"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="pzkpfw_v_ausf_g_panther_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mg_flame_03"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm_brake"
     fx:t="muzzle_ground_8mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +43,7 @@ base_pzkpfw_v_ausf_g_panther{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
     node:t="bone_mg_aa_barrel"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -84,6 +89,11 @@ base_pzkpfw_v_ausf_g_panther{
       wishYawParamName:t="gun_03_aim:targetYaw"
       wishPitchParamName:t="gun_03_aim:targetPitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -109,6 +119,14 @@ base_pzkpfw_v_ausf_g_panther{
       turretName:t="turret_03"
       gun:t="pzkpfw_v_ausf_g_panther_turret_03_7_92mm_mg34"
       barrelDm:t="gun_barrel_02"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_v_ausf_g_panther_turret_04_91mm_germ_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -154,8 +172,17 @@ pzkpfw_v_ausf_g_panther_turret_03_7_92mm_mg34{
   turret__limit:p4=-62.0, 158.0, -10.0, 25.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=1000
-    ammo:i=1000
+    ammo:i=975
+    ammo:i=975
+  }
+}
+
+pzkpfw_v_ausf_g_panther_turret_04_91mm_germ_smoke_mortar_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=12
   }
 }
 

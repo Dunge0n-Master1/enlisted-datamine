@@ -4,7 +4,6 @@ germ_pzkpfw_vi_ausf_b_tiger_iip_berlin{
 
 germ_pzkpfw_VI_ausf_B_tiger_IIP_common{
   _extends:t="base_pzkpfw_vi_ausf_b_tiger_iip"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
 

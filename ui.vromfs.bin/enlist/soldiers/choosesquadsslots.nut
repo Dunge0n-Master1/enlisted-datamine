@@ -19,6 +19,7 @@ let {
 } = require("model/chooseSquadsState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
+let { sound_play } = require("sound")
 
 let squadIconSize = [hdpx(60), hdpx(60)]
 let squadTypeIconSize = hdpxi(20)
@@ -95,7 +96,12 @@ let function squadDragAnim(idx, fixedSlots, stateFlags, content,
     xmbNode = XmbNode()
     canDrop = @(data) data?.dragid == "squad"
     dropData = "dropData" in content ? content.dropData : { squadIdx = idx, dragid = "squad" }
-    onDragMode = @(on, data) curDropData(on ? data : null)
+    onDragMode = function(on, data){
+      if (on)
+        sound_play("ui/inventory_item_take")
+      curDropData(on ? data : null)
+
+    }
     onElemState
     transform = {}
     children = chContent.__merge({
@@ -353,7 +359,7 @@ let mkEmptyHorizontalSlot = kwarg(
           watch = [stateFlags, isDropTarget, needHighlight]
           size = squadSlotHorSize
           key = $"empty_{idx}"
-          onDrop = onDrop
+          onDrop
           dropData = null
           fixedSlots = fixedSlots
           group = group

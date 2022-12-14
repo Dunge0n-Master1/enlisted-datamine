@@ -9,7 +9,7 @@ let teamHintsQuery = ecs.SqQuery("teamEmenyHintQuery", {
   comps_ro =[["team__id", ecs.TYPE_INT], ["team__showEnemyHint", ecs.TYPE_BOOL, true]]})
 
 localPlayerEid.subscribe(function(v) {
-  if ( v != INVALID_ENTITY_ID ) {
+  if ( v != ecs.INVALID_ENTITY_ID ) {
     teamHintsQuery.perform(function (_eid, comp) {
         showTeamEnemyHint(comp["team__showEnemyHint"])
       },

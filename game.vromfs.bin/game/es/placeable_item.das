@@ -3,6 +3,7 @@ require ecs.common
 require EnlistedNet
 require common_shooter.events_common_shooter
 require GridCollision
+require CollisionTraces
 require enlisted.events_enlisted
 require CollRes
 require AnimV20
@@ -11,6 +12,8 @@ require math.base
 require DagorMath
 require enlisted.game.es.placeable_item_common
 require strings
+require game.es.events
+require game.es.inventory_common
 
 
 [es(tag=gameClient, before=placeable_item_place_request)]
@@ -19,7 +22,7 @@ def placeable_item_detach_reset_es(evt : CmdWeapAttach; var placeable_item__plac
     placeable_item__placeRequestReady = false
 
 
-[es(tag=gameClient)]
+[es(tag=gameClient, REQUIRE_NOT=itemInWorld)]
 def placeable_item_place_request(evt : CmdWeapPhysUpdate;
                                  eid : EntityId;
                                  slot_attach__attachedTo : EntityId;
@@ -150,7 +153,7 @@ def placeable_item_start_place_es(evt : CmdStartPlacePlaceableItem;
                                   team : int;
                                   var itemContainer : EidList&;
                                   var human_weap__gunEids : EidList&;
-                                  human_weap__currentGunEid : EntityId)
+                                  var human_weap__currentGunEid : EntityId&)
   if human_weap__currentGunEid != evt.itemEid
     return
 
@@ -166,7 +169,8 @@ def placeable_item_start_place_es(evt : CmdStartPlacePlaceableItem;
   sendEventImmediate(human_weap__currentGunEid, [[CmdWeapAttach toEid=eid, isAttached=false, slotId=idxInGuns]])
   var placeTemplate = ""
   var keepOldTemplate = true
-  query(evt.itemEid) <| $ [es] (placeable_item__template : string;
+  query(evt.itemEid) <| $ [es] (placeable_item__removedTemplate : string = "";
+                                placeable_item__template : string;
                                 placeable_item__keepOldTemplate : bool;
                                 attachable_to_vehicle__template = "")
     keepOldTemplate = placeable_item__keepOldTemplate
@@ -174,6 +178,8 @@ def placeable_item_start_place_es(evt : CmdStartPlacePlaceableItem;
       placeTemplate = attachable_to_vehicle__template
     else
       placeTemplate = placeable_item__template
+    if placeable_item__removedTemplate != ""
+      removeSubTemplate(human_weap__currentGunEid, placeable_item__removedTemplate)
   addSubTemplate(human_weap__currentGunEid, placeTemplate) <| $(var init : ComponentsInitializer)
     init_placeable_item_components(init, previewTm, eid, team)
     init_attached_to_vehicle_placeable_item_components(init, previewTm, evt.vehicleEid, evt.vehicleNodeId)
@@ -187,6 +193,7 @@ def placeable_item_start_place_es(evt : CmdStartPlacePlaceableItem;
                    itemEid=human_weap__currentGunEid,
                    vehicleEid=evt.vehicleEid,
                    vehicleNodeId=evt.vehicleNodeId]])
+  human_weap__currentGunEid = INVALID_ENTITY_ID
 
 
 [es(tag=server)]
@@ -197,3 +204,13 @@ def placeable_item_finish_place_es(evt : CmdFinishPlacePlaceableItem;
     remote_recreate_entity_from(evt.itemEid, "{evt.newTemplate}") <| $(var init : ComponentsInitializer)
       init_placeable_item_components(init, evt.tm, eid, team)
       init_attached_to_vehicle_placeable_item_components(init, evt.tm, evt.vehicleEid, evt.vehicleNodeId)
+
+
+[es(tag=server)]
+def placeable_item_on_loot(evt : EventOnLootPickup; eid : EntityId; var itemContainer : EidList&)
+  query(evt.itemEid) <| $ [es(REQUIRE=placeable_item)] (item__template : string)
+    let oldItemEidIdx = find_index(itemContainer, evt.itemEid)
+    if oldItemEidIdx > -1
+      erase(itemContainer, oldItemEidIdx)
+    destroyEntity(evt.itemEid)
+    push_item_in_cont(eid, item__template)

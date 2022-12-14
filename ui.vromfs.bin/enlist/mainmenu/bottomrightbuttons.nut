@@ -3,26 +3,26 @@ from "%enlSqGlob/ui_library.nut" import *
 let { Inactive } = require("%ui/style/colors.nut")
 let { bigGap, gap } = require("%enlSqGlob/ui/viewConst.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
-let { mailboxEnabled } = require("%enlist/mailboxState.nut")
 let mailboxButton = require("%enlist/mailboxButton.ui.nut")
 let { isContactsEnabled } = require("%enlist/contacts/contactsState.nut")
-let mkContactBlock = require("%enlist/contacts/mkContactBlock.nut")
-let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut").show
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+
+let showContactsListWnd = isNewDesign.value
+  ? require("%enlist/contacts/contactsListWindow.nut")
+  : require("%enlist/contacts/contactsListWnd.nut")
 let mkContactsButton = require("%enlist/contacts/mkContactsButton.nut")
 let { enabledSquad } = require("%enlist/squad/squadState.nut")
-let squadWidget = require("%enlist/squad/squadWidget.ui.nut")
-let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let squadWidget = isNewDesign.value
+  ? require("%enlist/squad/squadBlockUi.nut")
+  : require("%enlist/squad/squadWidget.ui.nut")
+let { hasMainSectionOpened } = require("%enlist/mainMenu/sectionsState.nut")
 let userLogButton = require("%enlist/userLog/userLogButton.nut")
 let usermailButton = require("%enlist/usermail/usermailButton.nut")
 
 
-let showSocialBlock = Computed(@() curSection.value == "SOLDIERS")
-
-let buttons = []
-if (mailboxEnabled)
-  buttons.append(mailboxButton)
+let buttons = [mailboxButton]
 if (isContactsEnabled)
-  buttons.append(mkContactsButton(@() showContactsListWnd({ mkContactBlock })))
+  buttons.append(mkContactsButton(showContactsListWnd))
 
 buttons.append(userLogButton)
 buttons.append(usermailButton)
@@ -38,7 +38,7 @@ let buttonsBlock = {
 
 let function bottomBar() {
   let children = []
-  if (showSocialBlock.value) {
+  if (hasMainSectionOpened.value) {
     if (enabledSquad.value)
       children.append(squadWidget)
     if (buttons.len() > 0)
@@ -46,7 +46,7 @@ let function bottomBar() {
   }
 
   return {
-    watch = [showSocialBlock, enabledSquad]
+    watch = [hasMainSectionOpened, enabledSquad]
     size = [flex(), SIZE_TO_CONTENT]
     halign = ALIGN_RIGHT
     flow = FLOW_HORIZONTAL

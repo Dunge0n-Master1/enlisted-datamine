@@ -44,7 +44,7 @@ let artilleryIconHgt = calc_comp_size(artilleryOrder)[1]
 let artilleryIcon = Picture("ui/skin#artillery_strike.svg:{0}:{0}:K".subst(artilleryIconHgt))
 let artilleryIconComp = @() { watch = artilleryIsReady }
   .__update(!artilleryIsReady.value ? {}
-    : { rendObj = ROBJ_IMAGE, image = artilleryIcon })
+    : { rendObj = ROBJ_IMAGE, image = artilleryIcon, size = [artilleryIconHgt, artilleryIconHgt] })
 
 let artilleryOrderFull = @() {
   flow = FLOW_HORIZONTAL

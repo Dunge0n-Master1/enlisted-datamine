@@ -31,6 +31,13 @@ a_20g{
         turret:t="turret_12"
         turret:t="turret_13"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -624,4 +631,24 @@ a_20g_driver_cockpit{
   animchar__res:t="a_20_cockpit_char"
   plane_anim__blk:t="gamedata/units/a_20g.blk"
   plane_sight__blk:t="gamedata/units/a_20g.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.006, 0.005, -0.007
+    item:p3=0.0255, -0.003, -0.013
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=3.9, 5.4
+    item:p2=-8.9, 0.0
+  }
 }

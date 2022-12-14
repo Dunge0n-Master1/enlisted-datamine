@@ -8,6 +8,7 @@ player{
   platform:t=""
   playerIdInSession:t=""
   groupId:i64=0
+  origGroupId:i64=0
   player_group__memberIndex:i=0
   connid:i=-1
   psnMatchCreationAttempt:i=0
@@ -30,6 +31,7 @@ player{
   _tracked:t="specTarget"
   _tracked:t="userstats"
   _tracked:t="userstats_mode"
+  _tracked:t="player__limitVehicleByGroup"
   _replicated:t="groupId"
   _replicated:t="squadFormationSpread"
   _replicated:t="possessed"
@@ -39,8 +41,10 @@ player{
   _replicated:t="disconnected"
   _replicated:t="playerIdInSession"
   _replicated:t="player_group__memberIndex"
+  _replicated:t="player__limitVehicleByGroup"
   ban_status:t="UNDEFINED"
   receive_logerr:b=no
+  player__limitVehicleByGroup:b=no
 
   _group{
     _track:b=yes
@@ -48,7 +52,6 @@ player{
     scoring_player__kills:i=0
     scoring_player__firstSpawnTime:r=-1.0
     scoring_player__battleTime:r=0.0
-    scoring_player__battlesPlayed:i=-1
   }
 
   _group{
@@ -95,6 +98,12 @@ player{
   "killEntityTimer:u64"{
     _tags:t="server"
     value:i64=0
+  }
+}
+
+local_player{
+
+  "localPlayer:tag"{
   }
 }
 

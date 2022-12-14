@@ -4,8 +4,25 @@ us_m4a3_105_sherman_pacific{
 
 us_m4a3_105_sherman_common{
   _extends:t="base_m4a3_105_sherman"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.0
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 

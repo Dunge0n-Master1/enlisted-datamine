@@ -16,7 +16,7 @@ def put_out_fire_stop(evt : Event; var burning__isPuttingOut : bool&)
   burning__isPuttingOut = false
 
 [es(track=burning__isBurning)]
-def put_out_fire_burning_stop(ect : Event; burning__isBurning : bool; var burning__isPuttingOut : bool&)
+def put_out_fire_burning_stop(evt : Event; burning__isBurning : bool; var burning__isPuttingOut : bool&)
   if !burning__isBurning
     burning__isPuttingOut = false
 

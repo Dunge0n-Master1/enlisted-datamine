@@ -12,8 +12,6 @@ splashEffectName:t="blood_splash"
 splashEffectScale:r=0.7
 footprintSizeRange:p2=0.25, 0.25
 footprintEmitterDryingTime:r=10.0
-projectiveSplashAppearTime:r=0.25
-projectiveSplashShapesAtlas:t="decal_growth_liquid_projection_splash_tex_n*"
 biome_without_dry:t="snow"
 
 footprints{

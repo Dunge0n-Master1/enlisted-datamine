@@ -20,7 +20,7 @@ def human_inventory_revive_es(evt : CmdUse;
       var itemUsed = false
       query(itemEid) <| $ [es] (item__reviveAmount : float;
                                 item__useTimeToTarget : float;
-                                item__targetUseOnly : Tag?)
+                                item__targetUseOnly : Tag const?)
         if item__reviveAmount > 0.0f && item__useTimeToTarget > 0.0f
           // prioritize items whicn can only be used on others.
           // if found, use it immidiately and we are done.

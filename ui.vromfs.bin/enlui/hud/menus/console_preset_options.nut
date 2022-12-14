@@ -32,7 +32,7 @@ else if (platform.is_ps5 || dbgConsolePreset.value == "ps5")
   availableGraphicPresets = [ "HighFPS", "HighQuality" ]
 
 let consoleGfxSettingsBlk = get_setting_by_blk_path("graphics/consoleGfxSettings")
-let presetAvailable = (consoleGfxSettingsBlk == null) || (consoleGfxSettingsBlk == "no")
+let presetAvailable = (consoleGfxSettingsBlk == null) || (consoleGfxSettingsBlk == false)
 
 let hfps_taa_mip_bias = (platform.is_xboxone_X || platform.is_xbox_scarlett || platform.is_ps4_pro || platform.is_ps5) ? -0.25 : 0.0
 let hq_taa_mip_bias = (platform.is_xboxone_X || platform.is_xbox_scarlett) ? -0.5 : -0.25
@@ -51,7 +51,12 @@ if (forceGraphicPreset != null) {
   }
 }
 
-let consoleGraphicsPreset = getOnlineSaveData("video/xboxPreset", @() availableGraphicPresets[0],
+const ConsolePresetBlkPath = "graphics/consolePreset"
+
+let consoleGraphicsPreset = getOnlineSaveData("video/xboxPreset", function() {
+    let cur = get_setting_by_blk_path(ConsolePresetBlkPath)
+    return (availableGraphicPresets.contains(cur)) ? cur : availableGraphicPresets[0]
+  },
   @(p) availableGraphicPresets.contains(p) ? p : availableGraphicPresets[0])
 
 let optXboxGraphicsPreset = optionCtor({
@@ -64,7 +69,7 @@ let optXboxGraphicsPreset = optionCtor({
   isAvailable = @() presetAvailable
   available = availableGraphicPresets
   valToString = @(v) loc(platform.isXboxScarlett && v == "HighFPS" ? "option/HighFPSwithHint" : $"option/{v}")
-  blkPath = "graphics/consolePreset"
+  blkPath = ConsolePresetBlkPath
   getMoreBlkSettings = function(v){
     return [
       {blkPath = "video/resolution", val = resolutionToString(resolutionList.value?[v == "HighFPS" ? 0 : 1] ?? "auto")},
@@ -102,7 +107,7 @@ let optPSGraphicsPreset = optionCtor({
   isAvailable = @() presetAvailable
   available = availableGraphicPresets
   valToString = loc_opt
-  blkPath = "graphics/consolePreset"
+  blkPath = ConsolePresetBlkPath
   getMoreBlkSettings = function(v){
     return [
       {blkPath = "video/resolution", val = resolutionToString(resolutionList.value?[v == "HighFPS" ? 0 : 1] ?? "auto")},
@@ -118,7 +123,6 @@ let optPSGraphicsPreset = optionCtor({
       {blkPath = "graphics/scopeImageQuality", val = (v == "HighQuality" ? 1 : 0)},
       {blkPath = "video/vsync_tearing_tolerance_percents", val = 10},
       {blkPath = "video/freqLevel", val = (platform.is_ps5 && v == "HighFPS" ? 3 : 1)},
-      {blkPath = "video/fpsLimit", val = (platform.is_ps5 && v == "HighFPS" ? 90 : 0)},
       {blkPath = "graphics/shouldRenderHeroCockpit", val = true},
       {blkPath = "graphics/skiesQuality", val = (platform.is_ps4_simple ? "low" : (v == "HighFPS" ? "medium" : "high"))},
       {blkPath = "video/antiAliasingMode", val = (platform.is_ps4_pro ? 3 : 2)}, //3 = TSR 2 = TAA

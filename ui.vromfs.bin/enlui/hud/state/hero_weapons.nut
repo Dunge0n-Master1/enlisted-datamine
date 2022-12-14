@@ -70,7 +70,7 @@ ecs.register_es("hero_can_start_melee_charge_es",
   }
 )
 
-let curGrenadeThrowerEid = Watched(INVALID_ENTITY_ID)
+let curGrenadeThrowerEid = Watched(ecs.INVALID_ENTITY_ID)
 let curHeroWishedGrenade = Watched(INVALID_ITEM_ID)
 
 
@@ -97,12 +97,12 @@ ecs.register_es("hero_ui_grenade_es",
       }
       else{
         curHeroWishedGrenade(INVALID_ITEM_ID)
-        curGrenadeThrowerEid(INVALID_ENTITY_ID)
+        curGrenadeThrowerEid(ecs.INVALID_ENTITY_ID)
       }
     }
     function onDestroy(...){
       curHeroWishedGrenade(INVALID_ITEM_ID)
-      curGrenadeThrowerEid(INVALID_ENTITY_ID)
+      curGrenadeThrowerEid(ecs.INVALID_ENTITY_ID)
     }
   },
   {
@@ -143,6 +143,9 @@ ecs.register_es("hero_ui_weapons_es",
         firingMode = comp["gun__firingModeName"]
         curAmmo = comp["gun__ammo"]
         totalAmmo = comp["gun__totalAmmo"]
+        curAmmoHolderIndex = comp["gun__curAmmoHolderIndex"]
+        ammoByHolders = comp["gun__ammoByHolders"]?.getAll() ?? []
+        iconByHolders = comp["gun__iconByHolders"]?.getAll() ?? []
       }
       weaponSlotsStatic[idx] <- staticDesc
       weaponSlotsRaw[idx].setValue(desc)
@@ -180,8 +183,11 @@ ecs.register_es("hero_ui_weapons_es",
       ["gun__ammo", ecs.TYPE_INT, 0],
       ["gun__additionalAmmo", ecs.TYPE_INT, null],
       ["gun__firingModeName", ecs.TYPE_STRING, ""],
-      ["subsidiaryGunEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["subsidiaryGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["gun__totalAmmo", ecs.TYPE_INT, 0],
+      ["gun__curAmmoHolderIndex", ecs.TYPE_INT, 0],
+      ["gun__ammoByHolders", ecs.TYPE_INT_LIST, null],
+      ["gun__iconByHolders", ecs.TYPE_STRING_LIST, null],
     ]
   }
 )
@@ -205,7 +211,7 @@ ecs.register_es("hero_state_fast_throw_mode_es",
   }
 )
 
-let currentGunEid = Watched(INVALID_ENTITY_ID)
+let currentGunEid = Watched(ecs.INVALID_ENTITY_ID)
 
 ecs.register_es("watched_player_current_gun_eid_track", {
   [["onInit","onChange"]] = function(_eid,comp) {
@@ -252,6 +258,9 @@ let curWeaponAltTotalAmmo = Computed(@() (isModActive.value ? curWeapon.value?.t
 let curWeaponWeapType = Computed(@() curWeaponStaticInfo.value?.weapType)
 let curWeaponChargeTime = Computed(@() curWeaponStaticInfo.value?.chargeTime ?? 0)
 let curWeaponIsGrenade = Computed(@() EWS_GRENADE==heroCurrentGunSlot.value)
+let curWeaponCurAmmoHolderIndex = Computed(@() curWeapon.value?.curAmmoHolderIndex ?? 0)
+let curWeaponAmmoByHolders = Computed(@() curWeapon.value?.ammoByHolders ?? [])
+let curWeaponIconByHolders = Computed(@() curWeapon.value?.iconByHolders ?? [])
 let hasPrimaryWeapon = Computed(function() {
   weaponSlotsGen.value  //warning disable: -result-not-utilized
   return weaponSlots?[EWS_PRIMARY].value != null
@@ -289,6 +298,9 @@ return {
   showWeaponBlock
   curWeaponChargeTime
   curWeaponIsGrenade
+  curWeaponCurAmmoHolderIndex
+  curWeaponAmmoByHolders
+  curWeaponIconByHolders
   hasPrimaryWeapon
   curWeaponHasScope
   canStartMeleeCharge

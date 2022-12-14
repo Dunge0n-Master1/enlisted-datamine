@@ -80,6 +80,11 @@ explosiveTypes{
     brisanceEquivalent:r=1.4
   }
 
+  h761{
+    strengthEquivalent:r=1.6
+    brisanceEquivalent:r=1.4
+  }
+
   ha_41{
     strengthEquivalent:r=1.6
     brisanceEquivalent:r=1.4

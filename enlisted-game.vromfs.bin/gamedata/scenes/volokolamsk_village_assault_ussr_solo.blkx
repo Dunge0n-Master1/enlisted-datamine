@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_village_fx.blk"
 }
 
 entity{
@@ -977,31 +979,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-201.079, 10.8441, 325.536]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.392998, 0.0, -0.91954] [0.0, 1.0, 0.0] [0.91954, 0.0, 0.392998] [-180.196, 6.24245, 192.583]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.0122522, 0.0, -0.999925] [0.0, 1.0, 0.0] [0.999925, 0.0, -0.0122522] [233.151, 4.99015, 89.0693]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-195.363, 11.7547, 400.116]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-202.49, 11.4527, 377.279]]
-}
-
-entity{
   _template:t="respawnChooser+respTeam1"
   transform:m=[[-0.525439, 0.0, -0.850831] [0.0, 1.0, 0.0] [0.850831, 0.0, -0.525439] [-28.4393, 10.3144, 481.545]]
   groupName:t="sector_1"
@@ -1285,26 +1262,6 @@ entity{
   maxVehicleOnSpawn:i=2
   groupName:t="sector_3"
   active:b=no
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-184.145, 12.4573, 360.45]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-123.554, 9.95733, 358.776]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-150.898, 9.4725, 319.475]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-142.412, 10.5078, 377.866]]
 }
 
 entity{

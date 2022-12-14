@@ -1,12 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {h1_txt, body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
-let {TextDefault, TextHighlight, TextHover} = require("%ui/style/colors.nut")
+let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { TextDefault, TextHighlight, TextHover } = require("%ui/style/colors.nut")
 let cursors = require("%ui/style/cursors.nut")
 let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {btnExitGame, btnResume, btnBindKeys, btnOptions} = require("game_menu_items.nut")
+let { btnExitGame, btnResume, btnBindKeys, btnOptions } = require("game_menu_items.nut")
 let menuCurrentIndex = Watched(-1)
 let menuItems = {value = [btnResume, btnOptions, btnBindKeys, btnExitGame]}
 let menuItemsGen = Watched(0)

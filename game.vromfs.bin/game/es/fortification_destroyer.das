@@ -31,6 +31,18 @@ def building_reset_destruction_timer_es(info : UpdateStageInfoAct;
     building_destroy__timeToDestroy = building_destroy__maxTimeToDestroy
     building_destroy__lastDamageAtTime = -1.f
 
+def has_attached_soldier(building_eid : EntityId)
+  var isAttached = false
+  let isBuildingGun = query(building_eid) <| $ [es(REQUIRE=stationary_gun)] (gun__owner : EntityId)
+    isAttached = !!gun__owner
+  if !isBuildingGun
+    find_query() <| $ [es(REQUIRE=stationary_gun)] (dependsOnBuildingEid : EntityId; gun__owner : EntityId)
+      if dependsOnBuildingEid == building_eid
+        isAttached = !!gun__owner
+        return true
+      return false
+  return isAttached
+
 [es(tag=server, no_order)]
 def destroyable_fortification_building_object(info : UpdateStageInfoAct;
                                               eid : EntityId;
@@ -68,7 +80,7 @@ def destroyable_fortification_building_object(info : UpdateStageInfoAct;
     building_action__lastActionAtTime = info.curTime
     if building_destroy__timeToDestroy < 0.f
       send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
-      if is_vehicle_with_alive_crew(eid)
+      if is_vehicle_with_alive_crew(eid) || has_attached_soldier(eid)
         sendEvent(operatorEid, [[CmdHeroLogEvent event="building_blocked_destroy_with_crew", text="building_blocked_destroy_with_crew"]])
         return
       if activated != null
@@ -88,7 +100,7 @@ def dismantle_preview(evt : EventDismantleBuilding; eid : EntityId; isAlive : bo
   if !is_player_can_destroy_building(squad_member__playerEid, team, evt.target)
     sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_destroy_only_by_owner", text="building_blocked_destroy_only_by_owner"]])
     return
-  if is_vehicle_with_alive_crew(evt.target)
+  if is_vehicle_with_alive_crew(evt.target) || has_attached_soldier(evt.target)
     sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_destroy_with_crew", text="building_blocked_destroy_with_crew"]])
     return
   if has(evt.target, "builder_server_preview")

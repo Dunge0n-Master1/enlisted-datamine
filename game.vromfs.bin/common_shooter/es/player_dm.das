@@ -44,8 +44,6 @@ def process_entity_died_by_player(evt : EventAnyEntityDied)
                                 deathDesc_damageTypeId=uint16(uint(evt.damageType)),
                                 victimPlayerEid=victimPlayer,
                                 killerPlayerEid=offenderPlayer]]) // update kills before (potential) send of EventPlayerPlace
-  else
-    sendEvent(evt.offender, [[EventBotKilledEntity victim=evt.victim]])
 
   if victimPlayer != INVALID_ENTITY_ID
     sendEvent(victimPlayer, [[EventPlayerPossessedEntityDied

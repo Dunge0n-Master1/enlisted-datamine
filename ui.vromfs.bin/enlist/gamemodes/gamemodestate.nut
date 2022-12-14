@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let { doesLocTextExist } = require("dagor.localize")
-let { canChangeQueueParams } = require("%enlist/state/queueState.nut")
 let { matchingQueues } = require("%enlist/matchingQueues.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 let {
@@ -23,7 +22,6 @@ let { startsWith } = require("%sqstd/string.nut")
 
 let selGameModeIdByCampaign = mkWatched(persist, "curGameMode", {})
 let savedGameModeIdByCampaign = localSettings({}, "curGameMode")
-let isGameModeChangedManually = Watched(false) //TEMP HACK: Until join in matching won't be done
 
 const TANK_TUTORIAL_ID = "tutorial_tank"
 const ENGINEER_TUTORIAL_ID = "tutorial_engineer"
@@ -260,9 +258,6 @@ let function setGameMode(id) {
 
 console_register_command(@() savedGameModeIdByCampaign.mutate({}), "meta.resetSavedGamemodes")
 
-let canShowGameMode = Computed(@() curUnfinishedBattleTutorial.value == null)
-let canChangeGameMode = Computed(@() canShowGameMode.value && canChangeQueueParams.value)
-
 return {
   allGameModes
   allGameModesById
@@ -271,8 +266,6 @@ return {
   currentGameModeId
   currentGameMode
   setGameMode
-  canChangeGameMode
-  canShowGameMode
   hasUnseenGameMode
   hasUnopenedGameMode
   TANK_TUTORIAL_ID
@@ -280,5 +273,4 @@ return {
   AIRCRAFT_TUTORIAL_ID
   tutorialModes
   mainModes
-  isGameModeChangedManually
 }

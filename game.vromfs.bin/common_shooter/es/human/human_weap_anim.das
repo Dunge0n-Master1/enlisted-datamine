@@ -124,9 +124,10 @@ def human_weap_anim_es(info : UpdateStageInfoAct;
       weaponModEid = gunModEid
       weaponModIsActive = weapon_mod__active
 
-  query(human_weap__gunEids[curSlot]) <| $ [es] (gun : Gun?;
-                                                 grenade_thrower : GrenadeThrower?;
-                                                 grenade_thrower__projectileEntity : ecs::EntityId?;
+  query(human_weap__gunEids[curSlot]) <| $ [es] (gun : Gun const?;
+                                                 grenade_thrower : GrenadeThrower const?;
+                                                 grenade_thrower__projectileEntity : ecs::EntityId const?;
+                                                 var grenade_thrower__throwProgress : float?;
                                                  var gun_anim__reloadProgress : float&;
                                                  var gun_anim__singleReloadState : int&;
                                                  var gun_anim__singleReloadProgress : float&;
@@ -171,3 +172,5 @@ def human_weap_anim_es(info : UpdateStageInfoAct;
                 ? grenadeThrowProgress
                 : calc_grenade_throw_progress(*grenade_thrower, info.curTime))
       phys_vars |> setVar(human_weap_anim__throwProgressVarId, gtp)
+      if grenade_thrower__throwProgress != null
+        *grenade_thrower__throwProgress = gtp

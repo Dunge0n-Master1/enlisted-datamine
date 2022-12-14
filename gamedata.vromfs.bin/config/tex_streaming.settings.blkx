@@ -2,7 +2,7 @@ texStreaming{
   enableStreaming:b=yes
   texLoadOnDemand:b=yes
   hqTexPrio:i=1
-  lqTexMaxSizeKB:i=2048
+  lqIsSplitBQ:b=no
   defStubTexColor:c=80, 80, 80, 0
   sysMemUsageThresholdMB:i=0
 

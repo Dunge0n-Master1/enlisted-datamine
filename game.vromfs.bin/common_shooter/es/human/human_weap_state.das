@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require app
 require game.es.events
 require common_shooter.events_common_shooter
@@ -34,7 +35,7 @@ def set_ammo_type(slot_id : int;
 
 // Why update: because we need check state human_net_phys.phys.currentState.weapEquipState.curState
 // and change grenade when first animation is end(when grenade disappear)
-[es(tag=server, REQUIRE=(attachedToParent, grenade_thrower), no_order)]
+[es(tag=server, REQUIRE=grenade_thrower, no_order)]
 def update_switch_grenade_es(evt : UpdateStageInfoAct;
                              gun__owner : EntityId;
                              var grenade_thrower__wishProjectileId : int&)
@@ -104,7 +105,6 @@ def human_weap_wish_ammo_es(evt : CmdSetWishAmmoItemType;
                                isGrenadeSlotCurrent)
     set_ammo_type(slotId, itemId, human_weap__gunEids, owner_eid)
 
-
 [es]
 def human_weap_toggle_wish_ammo_es(evt : CmdToggleWishAmmoItemType;
                                    eid : ecs::EntityId;
@@ -156,10 +156,23 @@ def review_weap_gun_wish_ammo_item_type(itemContainer : ecs::EidList;
         let ammoItemsCount = length(ammoItems)
         let slotIdx = ammoItems |> find_index(gun__wishAmmoItemType)
         if slotIdx == -1
-          set_wish_ammo_item_type(gunEid,
-                                  (ammoItemsCount == 0)
-                                  ? INVALID_ITEM_ID
-                                  : ammoItems[0])
+          var wishAmmoId = -1
+          var hasWishedAmmo = false
+          for ammoHolderId in gun__ammoHolderIds
+            for itemEid in itemContainer
+              query(itemEid) <| $ [es] (ammo_holder__id : int; item__id : int)
+                if ammo_holder__id == ammoHolderId
+                  wishAmmoId = item__id
+                  hasWishedAmmo = true
+              if hasWishedAmmo
+                break
+            if hasWishedAmmo
+              break
+
+          if !hasWishedAmmo
+            wishAmmoId = ammoItemsCount == 0 ? INVALID_ITEM_ID : ammoItems[0]
+
+          set_wish_ammo_item_type(gunEid, wishAmmoId)
 
 
 [es(tag=server, after=gun_init_es, track=(itemContainer, human_weap__gunEids))]

@@ -6,6 +6,8 @@ let {
   bigPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallUnseenNoBlink, unseenByType } = require("%ui/components/unseenComps.nut")
+let { soundDefault } = require("%ui/components/textButton.nut")
+
 
 
 let function mkUnseenSign(mark, isSelected) {
@@ -29,10 +31,7 @@ let mkWindowTab = @(text, onClick, isSelected, override = {}, unseenMarkType = W
     halign = ALIGN_CENTER
     flow = FLOW_VERTICAL
     behavior = Behaviors.Button
-    sound = {
-      click  = "ui/enlist/button_click"
-      hover  = "ui/enlist/button_highlight"
-    }
+    sound = soundDefault
     onClick
     children = @() {
       watch = [unseenMarkType]

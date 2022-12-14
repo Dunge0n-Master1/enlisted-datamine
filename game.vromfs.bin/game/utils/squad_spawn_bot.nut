@@ -42,7 +42,7 @@ let squadSpawn = kwarg(function(teamEid, team, template, transform, potentialPos
 })
 
 let function spawn(params) {
-  let spawnerEid = params?.spawnerEid ?? INVALID_ENTITY_ID
+  let spawnerEid = params?.spawnerEid ?? ecs.INVALID_ENTITY_ID
   if (ecs.obsolete_dbg_get_comp_val(spawnerEid, "bot_spawner__shouldSpawnSquads") ?? false)
     squadSpawn(params)
   else

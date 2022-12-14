@@ -11,7 +11,6 @@ gm_e_99{
 
 germ_e100{
   _extends:t="base_e100"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_maus_vehicle_tracks_sound"
 

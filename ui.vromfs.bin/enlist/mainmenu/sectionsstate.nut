@@ -1,6 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {doesSceneExist, scenesListGeneration} = require("%enlist/navState.nut")
+let { doesSceneExist, scenesListGeneration } = require("%enlist/navState.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+
+
+let mainSectionId = isNewDesign.value ? "MAINMENU" : "SOLDIERS"
+
+let isArmyProgressOpened = mkWatched(persist, "isArmyProgressOpened", false)
+let isResearchesOpened = mkWatched(persist, "isResearchesOpened", false)
 
 let curSection = mkWatched(persist, "curSection")
 let sectionsGeneration = mkWatched(persist, "sectionsGeneration", 0)
@@ -41,6 +48,34 @@ let function setCurSection(id) {
   curSection(id)
 }
 
+
+let function jumpToArmyProgress() {
+  if (isNewDesign.value)
+    isArmyProgressOpened(true)
+  else
+    setCurSection("SQUADS")
+}
+
+let function jumpToResearches() {
+  if (isNewDesign.value)
+    isResearchesOpened(true)
+  else
+    setCurSection("RESEARCHES")
+}
+
+
+let hasArmyProgressOpened = Computed(@() isNewDesign.value
+  ? isArmyProgressOpened.value
+  : curSection.value == "SQUADS"
+)
+
+let hasResearchesOpened = Computed(@() isNewDesign.value
+  ? isResearchesOpened.value
+  : curSection.value == "RESEARCHES"
+)
+
+let hasMainSectionOpened = Computed(@() curSection.value == mainSectionId)
+
 return {
   curSection = Computed(@() curSection.value)
   curSectionDetails
@@ -49,4 +84,15 @@ return {
   setSectionsSorted
   setCurSection
   isMainMenuVisible
+  mainSectionId
+
+  isArmyProgressOpened
+  isResearchesOpened
+
+  jumpToArmyProgress
+  jumpToResearches
+
+  hasMainSectionOpened
+  hasArmyProgressOpened
+  hasResearchesOpened
 }

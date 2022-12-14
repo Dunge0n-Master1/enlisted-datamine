@@ -4,7 +4,7 @@ let mkPieMenuDarg = require("%ui/components/mkPieMenuBase.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
-let { mkHintRow, mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
+let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
 
 let function locAction(action) {
@@ -105,21 +105,6 @@ let mkSelectedActionHint = @(curIdx, available, actions, radius) function() {
   })
 }
 
-let closeHint = {
-  flow = FLOW_HORIZONTAL
-  gap = hdpx(10)
-  valign = ALIGN_CENTER
-  hplace = ALIGN_CENTER
-  children = [
-    mkHintRow(closeHotkey)
-    {
-      rendObj = ROBJ_TEXT
-      opacity = 0.5
-      text = loc("pieMenu/close")
-    }
-  ]
-}
-
 local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null) {
   let closeWithoutClick = function() {
     curIdx(null)
@@ -136,13 +121,7 @@ local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null) {
       watch = available
       hplace = ALIGN_CENTER
       vplace = ALIGN_CENTER
-      size = SIZE_TO_CONTENT
-      gap = hdpx(40)
-      flow = FLOW_VERTICAL
-      children = [
-        mkSelectedActionHint(curIdx, available?.value ?? true, actions, radius)
-        closeHint
-      ]
+      children = mkSelectedActionHint(curIdx, available?.value ?? true, actions, radius)
     }
   }
   let desc = {

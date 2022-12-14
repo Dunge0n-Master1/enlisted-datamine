@@ -15,21 +15,25 @@ base_mk_1_grant{
   drowningHeight:r=2.496
   damage_model__blk:t="gamedata/gen/units/tanks/mk_1_grant.blk"
   item__name:t="items/uk_mk1_grant"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="mk_1_grant_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame_01"
     node:t="emtr_gun_flame_02"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_40mm_slow"
     fx:t="muzzle_ground_60mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +43,7 @@ base_mk_1_grant{
     node:t="bone_gun_barrel_01"
     node:t="bone_gun_barrel_02"
     node:t="bone_mg_gun_twin"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -85,6 +90,11 @@ base_mk_1_grant{
       curYawParamName:t="turret_03_yaw"
       curPitchParamName:t="gun_03_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -113,6 +123,14 @@ base_mk_1_grant{
       turretName:t="turret_03"
       gun:t="mk_1_grant_turret_03_7_62mm_m1919a4"
       barrelDm:t="gun_barrel_03"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="mk_1_grant_turret_04_50mm_uk_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -157,6 +175,15 @@ mk_1_grant_turret_03_7_62mm_m1919a4{
 
   "gun__shellsAmmo:array"{
     ammo:i=4000
+  }
+}
+
+mk_1_grant_turret_04_50mm_uk_smoke_mortar_launcher{
+  _extends:t="tankgun_50mm_uk_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=14
   }
 }
 
@@ -243,58 +270,18 @@ mk_1_grant_skins{
   "skin__objTexReplace:array"{
 
     "skin:object"{
-      id:t="mk_1_grant_uk_camo_earth_yellow"
+      id:t="mk_1_grant_fire_range"
 
       "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_earth_yellow*"
+        "uk_camo_earth_yellow*":t="camo_hangar_red_lead*"
       }
     }
 
     "skin:object"{
-      id:t="mk_1_grant_uk_camo_light_mud_blue_black"
-
-      "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_light_mud_blue_black*"
-      }
-    }
-
-    "skin:object"{
-      id:t="mk_1_grant_uk_camo_light_mud_slate_grey"
+      id:t="mk_1_grant_uk_mk1_grant"
 
       "objTexReplace:object"{
         "uk_camo_earth_yellow*":t="uk_camo_light_mud_slate_grey*"
-      }
-    }
-
-    "skin:object"{
-      id:t="mk_1_grant_uk_camo_light_stone_dark_green"
-
-      "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_light_stone_dark_green*"
-      }
-    }
-
-    "skin:object"{
-      id:t="mk_1_grant_uk_camo_light_stone_light_grey_slate_grey"
-
-      "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_light_stone_light_grey_slate_grey*"
-      }
-    }
-
-    "skin:object"{
-      id:t="mk_1_grant_uk_camo_light_stone_slate_grey"
-
-      "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_light_stone_slate_grey*"
-      }
-    }
-
-    "skin:object"{
-      id:t="mk_1_grant_uk_camo_middle_deep_bronze_greens"
-
-      "objTexReplace:object"{
-        "uk_camo_earth_yellow*":t="uk_camo_middle_deep_bronze_greens*"
       }
     }
 

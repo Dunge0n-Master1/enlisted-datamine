@@ -7,7 +7,8 @@ require game.es.vehicle.vehicle_seats_common
 require EnlistedActor
 require EnlistedHuman
 require EnlistedNet
-
+require game.utils.team
+require matching
 
 [es(tag=netClient)]
 def vehicle_seats_enter_exit_seat_client_es(evt : CmdAcquireVehicleSeat;
@@ -57,9 +58,19 @@ def is_already_in_vehicle(requester : EntityId)
 def vehicle_seats_enter_exit_seat_server_es(evt : CmdAcquireVehicleSeat;
                                             eid : EntityId;
                                             vehicle_seats__seatEids : EidList;
-                                            vehicle_seats_hide_owner : BoolList)
+                                            vehicle_seats_hide_owner : BoolList;
+                                            vehicle_seats__restrictToGroup : int64 = int64(INVALID_GROUP_ID);
+                                            vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED)
   let requester     = evt.requester
   let requestSeatNo = evt.seat_no
+
+  var canUseVehicle = true
+  query(requester) <| $ [es] (team : int; squad_member__playerEid : EntityId = INVALID_ENTITY_ID)
+    let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
+    canUseVehicle = can_use_vehicle(team, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup)
+
+  if !canUseVehicle
+    return
 
   let canTakeSeat = get_bool(requester, "human_vehicle__can_take_seat") ?? true
   if !canTakeSeat

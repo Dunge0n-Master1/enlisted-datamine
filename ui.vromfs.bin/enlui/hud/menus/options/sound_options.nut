@@ -7,6 +7,7 @@ let {soundOutputDevicesList, soundOutputDevice, soundOutputDeviceUpdate} = requi
 let {
   getOnlineSaveData, optionSpinner, optionCtor, optionPercentTextSliderCtor
 } = require("options_lib.nut")
+let { headshotSoundOption, battleMusicOption } = require("%ui/hud/menus/options/sound_gameplay_options.nut")
 
 local function optionVolSliderCtor(opt, group, xmbNode) {
   let optSetValue = opt.setValue // saved original reference to avoid recursive call of opt.setValue
@@ -68,6 +69,7 @@ return {
   soundOptions = [
     optOutputDevice,
     optVolumeMaster, optVolumeAmbient, optVolumeSfx,
-    optVolumeInterface, optVolumeMusic, optVolumeDialogs, optVolumeGuns
+    optVolumeInterface, optVolumeMusic, optVolumeDialogs, optVolumeGuns,
+    headshotSoundOption, battleMusicOption
   ]
 }

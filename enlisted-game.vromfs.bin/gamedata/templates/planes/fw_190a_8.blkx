@@ -29,6 +29,13 @@ fw_190a_8{
         turret:t="turret_07"
         turret:t="turret_08"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -412,4 +419,24 @@ fw_190a_8_driver_cockpit{
   animchar__res:t="fw_190a_8_cockpit_char"
   plane_anim__blk:t="gamedata/units/fw_190a_8.blk"
   plane_sight__blk:t="gamedata/units/fw_190a_8.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    offset:p3=0.011, 0.0075, 0.0035
+    offset:p3=0.0232, 0.0244, 0.05
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    rot:p2=7.5, 3.8
+    rot:p2=-4.66, 20.7
+  }
 }

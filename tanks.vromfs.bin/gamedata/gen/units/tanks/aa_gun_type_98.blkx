@@ -1,0 +1,787 @@
+VehiclePhys{
+  skipUpdateOnSleep:b=yes
+
+  Mass{
+    Empty:r=560.0
+    Fuel:r=0.0
+    TakeOff:r=560.0
+    momentOfInertia:p3=6.0, 1.0, 6.0
+    CenterOfGravity:p3=-0.8, 0.2, 0.0
+    AdvancedMass:b=no
+    CenterOfGravityClampY:p2=0.0, 0.7
+    cls_body:r=1.0
+  }
+
+  tracks{
+    animationMultiplier:r=0.5
+    height:r=0.0
+    width:r=0.1
+    trackPhysMat:t="wheel"
+    fricFrontal:p2=10.0, 10.0
+  }
+
+  collisionProps{
+    cls_body:t="convex_hull"
+  }
+
+  engine{
+    horsePowers:r=1.0
+    maxRPM:r=2200.0
+    minRPM:r=700.0
+  }
+
+  mechanics{
+    maxBrakeForce:r=3200.0
+    driveGearRadius:r=0.3165
+    mainGearRatio:r=1.084
+    sideGearRatio:r=4.3
+    tracked:b=no
+
+    gearRatios{
+      ratio:r=-15.0
+      ratio:r=0.0
+      ratio:r=15.0
+    }
+  }
+
+  suspension{
+    suspensionOffsets:p3=-0.05, -0.05, 0.05
+    defaultGearRadius:r=0.372
+    defaultDampeningForce:p2=17000.0, 17000.0
+    hasSuspensionOnDriveGear:b=yes
+    dampeningRelaxationRatio:r=0.4
+    dampeningCompressionRatio:r=0.15
+    brokenWheelSteeringDeflection:r=-15.0
+    wheel_l_01:r=0.372
+    wheel_r_01:r=0.372
+    wheel_l_02:r=0.372
+    wheel_r_02:r=0.372
+    recalcWtms:b=yes
+
+    driven{
+      wheel_l_01:b=yes
+      wheel_r_01:b=yes
+      wheel_l_02:b=yes
+      wheel_r_02:b=yes
+    }
+  }
+}
+
+DamageParts{
+  formatVersion:i=2
+
+  turret_bottom{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=5.0
+  }
+
+  drive_turret_v{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=5.0
+  }
+
+  drive_turret_v{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
+  }
+
+  drive_turret_h{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=5.0
+  }
+
+  drive_turret_h{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
+  }
+
+  wheel_r_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=10.0
+  }
+
+  wheel_l_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=10.0
+  }
+
+  gun_barrel{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_barrel"
+    hp:r=100.0
+    armorThickness:r=10.0
+  }
+
+  gunner{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=1.0
+    napalmDamageMult:r=1.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
+    vital:b=yes
+    armorClass:t="steel_tankman"
+    hp:r=40.0
+    genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
+  }
+
+  cannon_breech{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThickness:r=150.0
+    hidableInViewer:b=no
+    restrainDamage:r=0.5
+    armorThrough:r=150.0
+  }
+}
+
+DamageEffects{
+
+  part{
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.4
+      fire:r=0.5
+      damage:r=75.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.6
+      fire:r=0.4
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.1
+      fire:r=0.1
+      damage:r=20.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.15
+      fire:r=0.15
+      damage:r=50.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.2
+      fire:r=0.15
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.4
+      fire:r=0.2
+      damage:r=400.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      expl:r=0.075
+      fire:r=0.075
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      expl:r=0.15
+      fire:r=0.15
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      expl:r=0.25
+      fire:r=0.25
+      damage:r=300.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="secondaryShatter"
+      fire:r=0.05
+      damage:r=50.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="secondaryShatter"
+      fire:r=0.15
+      damage:r=150.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="secondaryShatter"
+      fire:r=0.4
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.01
+      full_expl:r=0.01
+      expl:r=0.01
+    }
+
+    onKill{
+      damageType:t="cumulative"
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
+    }
+
+    onKill{
+      damageType:t="explosion"
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
+    }
+
+    onKill{
+      damageType:t="secondaryShatter"
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
+    }
+
+    onKill{
+      damageType:t="generic"
+      expl:r=0.5
+      full_expl:r=0.1
+      fire:r=0.4
+    }
+  }
+
+  part{
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.1
+      fire:r=0.2
+      damage:r=100.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      expl:r=0.2
+      fire:r=0.3
+      damage:r=250.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.125
+      fire:r=0.225
+      damage:r=25.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      expl:r=0.25
+      fire:r=0.35
+      damage:r=50.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.1
+      damage:r=20.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.25
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.4
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.7
+      expl:r=0.1
+      damage:r=300.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.5
+      expl:r=0.5
+      damage:r=400.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.2
+      expl:r=0.8
+      damage:r=600.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.2
+    }
+
+    onKill{
+      fire:r=0.5
+      expl:r=0.3
+      nothing:r=0.2
+      fHitCritical:b=yes
+    }
+  }
+
+  part{
+
+    onHit{
+      damageType:t="cumulative"
+      fire:r=0.2
+      damage:r=75.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      fire:r=0.3
+      damage:r=30.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.2
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.55
+      damage:r=300.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.35
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.1
+      damage:r=20.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.1
+    }
+
+    onKill{
+      fire:r=0.5
+      nothing:r=0.5
+      fHitCritical:b=yes
+    }
+  }
+
+  part{
+
+    onHit{
+      damageType:t="cumulative"
+      fire:r=0.15
+      damage:r=75.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="explosion"
+      fire:r=0.1
+      damage:r=30.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.05
+      damage:r=70.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="generic"
+      fire:r=0.1
+      damage:r=200.0
+      fHitCritical:b=yes
+    }
+
+    onHit{
+      damageType:t="fire"
+      fire:r=0.02
+    }
+  }
+
+  part{
+
+    onKill{
+      track_r:r=1.0
+    }
+  }
+
+  part{
+
+    onKill{
+      track_r:r=1.0
+    }
+  }
+
+  part{
+
+    onKill{
+      track_r:r=1.0
+    }
+  }
+
+  part{
+
+    onKill{
+      track_l:r=1.0
+    }
+  }
+
+  part{
+
+    onKill{
+      track_l:r=1.0
+    }
+  }
+
+  part{
+
+    onKill{
+      track_l:r=1.0
+    }
+  }
+
+  part{
+    name:t="gun_mask_01"
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=0.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.05
+        fxEventName:t="fire_after_hit_tiny"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=0.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.05
+        fxEventName:t="fire_after_hit_tiny"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=18.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.2
+        fxEventName:t="fire_after_hit_small"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=30.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.2
+        fxEventName:t="fire_after_hit_small"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=30.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=50.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      damage:r=80.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=200.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=120.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      damage:r=200.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
+    }
+  }
+}

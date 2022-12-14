@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { getZoneWatch, visibleCurrentCapZonesEids, capZones } = require("%ui/hud/state/capZones.nut")
@@ -17,7 +18,7 @@ let visibleZoneEids = Computed(function(prev) {
   let watchedhero = watchedHeroEid.value
   let n = visibleCurrentCapZonesEids.value.filter(@(_, eid)
       capzones?[eid].heroInsideEid != watchedhero
-      || watchedhero == INVALID_ENTITY_ID
+      || watchedhero == ecs.INVALID_ENTITY_ID
       || watchedhero == null
     )
   if (!isEqual(n, prev))

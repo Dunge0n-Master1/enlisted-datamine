@@ -144,7 +144,29 @@ rifle_rapid_muzzle_break_2_preset{
   }
 }
 
-assault_rifle_rapid_preset{
+blackpowder_rifle_muzzle_preset{
+
+  _group{
+    _tags:t="render"
+
+    "gun_flash_fx__nodeIds:list<i>"{
+    }
+
+    "gun_flash_fx__nodes:shared:list<t>"{
+      node:t="gunFx_main"
+    }
+
+    "gun_flash_fx__template:shared:list<t>"{
+      fx:t="smoke_burst_big_effect"
+    }
+
+    "gun_flash_fx__scale:shared:list<r>"{
+      scale:r=1.2
+    }
+  }
+}
+
+assault_rifle_rapid_muzzle_preset{
 
   _group{
     _tags:t="render"
@@ -165,6 +187,31 @@ assault_rifle_rapid_preset{
     "gun_flash_fx__scale:shared:list<r>"{
       scale:r=0.12
       scale:r=0.2
+    }
+  }
+}
+
+shotgun_muzzle_preset{
+
+  _group{
+    _tags:t="render"
+
+    "gun_flash_fx__nodeIds:list<i>"{
+    }
+
+    "gun_flash_fx__nodes:shared:list<t>"{
+      node:t="gunFx_main"
+      node:t="gunFx_add_bolt"
+    }
+
+    "gun_flash_fx__template:shared:list<t>"{
+      fx:t="rifle_muzzle_flash_effect"
+      fx:t="extractor_smoke_effect"
+    }
+
+    "gun_flash_fx__scale:shared:list<r>"{
+      scale:r=0.12
+      scale:r=0.04
     }
   }
 }
@@ -233,7 +280,7 @@ mg_rapid_muzzle_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_rapid_muzzle_flash_effect"
+      fx:t="high_caliber_rapid_muzzle_flash_effect"
       fx:t="extractor_smoke_effect"
     }
 
@@ -260,7 +307,7 @@ mg_rapid_muzzle_brake_2_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_rapid_muzzle_flash_effect"
+      fx:t="high_caliber_rapid_muzzle_flash_effect"
       fx:t="muzzle_side_flash_med_effect"
       fx:t="muzzle_side_flash_med_effect"
       fx:t="extractor_smoke_effect"
@@ -532,7 +579,7 @@ high_caliber_muzzle_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_muzzle_flash_effect"
+      fx:t="high_caliber_muzzle_flash_effect"
       fx:t="extractor_smoke_effect"
     }
 
@@ -559,7 +606,7 @@ high_caliber_muzzle_brake_2_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_muzzle_flash_effect"
+      fx:t="high_caliber_muzzle_flash_effect"
       fx:t="muzzle_side_flash_big_effect"
       fx:t="muzzle_side_flash_big_effect"
       fx:t="extractor_smoke_effect"
@@ -591,7 +638,7 @@ high_caliber_muzzle_brake_3_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_muzzle_flash_effect"
+      fx:t="high_caliber_muzzle_flash_effect"
       fx:t="muzzle_side_flash_big_effect"
       fx:t="muzzle_side_flash_big_effect"
       fx:t="muzzle_side_flash_big_effect"
@@ -622,13 +669,79 @@ high_caliber_rapid_muzzle_preset{
     }
 
     "gun_flash_fx__template:shared:list<t>"{
-      fx:t="high_calibier_rapid_muzzle_flash_effect"
+      fx:t="high_caliber_rapid_muzzle_flash_effect"
       fx:t="extractor_smoke_effect"
     }
 
     "gun_flash_fx__scale:shared:list<r>"{
       scale:r=0.3
       scale:r=0.4
+    }
+  }
+}
+
+grenade_launcher_muzzle_preset{
+
+  _group{
+    _tags:t="render"
+
+    "gun_flash_fx__nodeIds:list<i>"{
+    }
+
+    "gun_flash_fx__nodes:shared:list<t>"{
+      node:t="gunFx_main"
+    }
+
+    "gun_flash_fx__template:shared:list<t>"{
+      fx:t="smoke_burst_small_effect"
+    }
+
+    "gun_flash_fx__scale:shared:list<r>"{
+      scale:r=0.6
+    }
+  }
+}
+
+antitank_launcher_muzzle_preset{
+
+  _group{
+    _tags:t="render"
+
+    "gun_flash_fx__nodeIds:list<i>"{
+    }
+
+    "gun_flash_fx__nodes:shared:list<t>"{
+      node:t="gunFx_main"
+    }
+
+    "gun_flash_fx__template:shared:list<t>"{
+      fx:t="smoke_burst_big_effect"
+    }
+
+    "gun_flash_fx__scale:shared:list<r>"{
+      scale:r=1.0
+    }
+  }
+}
+
+mortar_muzzle_preset{
+
+  _group{
+    _tags:t="render"
+
+    "gun_flash_fx__nodeIds:list<i>"{
+    }
+
+    "gun_flash_fx__nodes:shared:list<t>"{
+      node:t="gunFx_main"
+    }
+
+    "gun_flash_fx__template:shared:list<t>"{
+      fx:t="smoke_burst_big_effect"
+    }
+
+    "gun_flash_fx__scale:shared:list<r>"{
+      scale:r=1.0
     }
   }
 }

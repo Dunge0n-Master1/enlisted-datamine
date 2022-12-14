@@ -358,7 +358,7 @@ berlin_train_carts{
       offset:r=14.2
 
       "capzone:object"{
-        template:t="domination_box_train_capzone+building_restricted_zone"
+        template:t="domination_box_train_capzone+building_train_restricted_zone"
         scale:p3=118.0, 8.0, 4.4
 
         "components:object"{
@@ -1097,12 +1097,11 @@ train_smoke_effect{
   effect__scale:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1.0, 1.0, 1.0]]
 
-  effect{
-    _tags:t="render"
-  }
-
   _group{
     _tags:t="render"
-    effect__name:t="train_smoke"
+    effect__name:t="smoke_train_cmps_fx"
+
+    effect{
+    }
   }
 }

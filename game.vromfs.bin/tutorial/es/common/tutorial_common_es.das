@@ -77,7 +77,7 @@ def tutorial_remove_hint_es(evt : Event; tutor_stage__hintGroup : string = "tuto
 def tutorial_display_hint_es(evt : Event;
                              tutor_stage__displayHint : string;
                              tutor_stage__hintGroup : string = "tutorial_hint";
-                             tutor_stage__hintKeys : Array? = null)
+                             tutor_stage__hintKeys : Array const? = null)
   using() <| $(var arr : Array#)
     if tutor_stage__hintKeys != null
       arr := *tutor_stage__hintKeys
@@ -303,10 +303,10 @@ def private set_not_null(var obj : Object#; name : string; val)
 def tutorial_memorize_entity_es(evt : Event;
                                 eid : EntityId;
                                 transform : float3x4;
-                                tutorial_target__targetId : das_string?;
-                                tutorial_zone__zoneId : das_string?;
-                                tutorial_target__active : bool?;
-                                tutorial_zone__active : bool?)
+                                tutorial_target__targetId : das_string const?;
+                                tutorial_zone__zoneId : das_string const?;
+                                tutorial_target__active : bool const?;
+                                tutorial_zone__active : bool const?)
   query() <| $ [es] (var tutorial__memorizeEntities : Array)
     using() <| $(var obj : Object#)
       obj |> set("template", getEntityTemplateName(eid))

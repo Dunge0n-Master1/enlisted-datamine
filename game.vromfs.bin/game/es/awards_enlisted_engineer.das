@@ -94,8 +94,8 @@ def score_engineer_any_building_built(evt : Event;
 
 [es(tag=server)]
 def engineer_building_destroyed_award(evt : EventEngineerBuildingBroken;
-                                      builder_info__team : int?;
-                                      placeable_item__ownerTeam : int?;
+                                      builder_info__team : int const?;
+                                      placeable_item__ownerTeam : int const?;
                                       building__destructionAwardStat : string)
   let offender = get_offender_from_cache(evt.offender)
   assume stat = building__destructionAwardStat

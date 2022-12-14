@@ -103,6 +103,7 @@ def keep_human_net_phys_cur_state_es(info : UpdateStageInfoAct;
                                      var human_net_phys__velocity : float3&;
                                      var human_net_phys__locationPos : DPoint3&;
                                      var human_net_phys__isHctAim : bool&;
+                                     var human_net_phys__isHctShoot : bool&;
                                      var human_net_phys__isHoldGunModeBit : bool&;
                                      var human_net_phys__maxStamina : float&;
                                      var human_net_phys__maxStaminaMult : float&;
@@ -124,6 +125,7 @@ def keep_human_net_phys_cur_state_es(info : UpdateStageInfoAct;
   human_net_phys__isInAir = (uint(currentState.isInAirHistory) & 1u) != 0u && (uint(currentState.states) & uint(StateFlag ST_SWIM)) == 0u
   human_net_phys__locationPos = currentState.location.P
   human_net_phys__isHctAim = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_AIM)
+  human_net_phys__isHctShoot = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_SHOOT)
   human_net_phys__isHoldGunModeBit = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_HOLD_GUN_MODE)
   human_net_phys__maxStamina = human_net_phys.phys.maxStamina
   human_net_phys__maxStaminaMult = human_net_phys.phys.currentState.maxStaminaMult

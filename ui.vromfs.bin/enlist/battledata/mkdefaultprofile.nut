@@ -56,16 +56,33 @@ local defProfileArmies = []
 foreach (campaign in defCampaigns)
   defProfileArmies = defProfileArmies.append($"{campaign}_allies", $"{campaign}_axis")
 
-console_register_command(@()
-  gen_default_profile("dev", defProfileArmies,
-    @(res) saveOneProfile(res?.defaultProfile, "dev_profile.nut", "enlisted_pkg_dev/game")),
-  "meta.genDevProfile")
+local consoleProgressId = 0
+let function startProgress(title) {
+  console_command("console.progress_indicator {0} \"{1}\"".subst(++consoleProgressId, title))
+  return consoleProgressId
+}
+let stopProgress = @(id) console_command($"console.progress_indicator {id}")
 
-console_register_command(@()
-  gen_default_profile("bots", defProfileArmies,
-    @(res) saveOneProfile(res?.defaultProfile, "bots_profile.nut")),
-  "meta.genBotsProfile")
+console_register_command(function() {
+  let prgId = startProgress("meta.genDevProfile")
+  gen_default_profile("dev", defProfileArmies, function(res) {
+    stopProgress(prgId)
+    saveOneProfile(res?.defaultProfile, "dev_profile.nut", "enlisted_pkg_dev/game")
+  })
+}, "meta.genDevProfile")
 
-console_register_command(@()
-  gen_tutorial_profiles(@(res) saveProfilePack(res, "all_tutorial_profiles.nut")),
-  "meta.genTutorialProfiles")
+console_register_command(function() {
+  let prgId = startProgress("meta.genBotsProfile")
+  gen_default_profile("bots", defProfileArmies, function(res) {
+    stopProgress(prgId)
+    saveOneProfile(res?.defaultProfile, "bots_profile.nut")
+  })
+}, "meta.genBotsProfile")
+
+console_register_command(function() {
+  let prgId = startProgress("meta.genTutorialProfiles")
+  gen_tutorial_profiles(function(res) {
+    stopProgress(prgId)
+    saveProfilePack(res, "all_tutorial_profiles.nut")
+  })
+}, "meta.genTutorialProfiles")

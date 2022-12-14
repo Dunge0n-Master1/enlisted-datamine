@@ -162,7 +162,6 @@ plane_cut_tail{
 }
 
 cutting_planes_manager{
-  _extends:t="replicating"
   _singleton:b=yes
 
   cutting_planes_manager{
@@ -317,310 +316,93 @@ contrail_effects{
 }
 
 plane_damage_effects{
+  _tags:t="render"
+  plane_damage_fx__landCrashEffect:t="explosion_air_crash_land_effect"
+  plane_damage_fx__waterCrashEffect:t="explosion_air_crash_water_effect"
+  plane_damage_fx__waterLeakEffect:t="trail_plane_water_leak_effect"
+  plane_damage_fx__fuelLeakEffect:t="trail_plane_fuel_leak_effect"
+  plane_damage_fx__oilLeakEffect:t="trail_plane_oil_leak_effect"
+  plane_damage_fx__engineBurningEffect:t="trail_plane_fire_minor_effect"
+  plane_damage_fx__engineDamagedEffect:t="trail_plane_smoke_minor_effect"
+  plane_damage_fx__engineDestroyedEffect:t="trail_plane_smoke_major_effect"
+  plane_damage_fx__additionalFireEffect:t="trail_plane_fire_small_effect"
+  plane_damage_fx__lastDamagedEnginePartId:i=-1
 
-  plane_damage_fx{
-    _tags:t="render"
+  "plane_damage_fx__damageFxEid:eid"{
   }
 
-  _group{
-    _tags:t="render"
-    plane_damage_fx__engineMinorSmokeFxType:t="minor_engine_smoke"
-    plane_damage_fx__engineMajorSmokeFxType:t="major_engine_smoke"
-    plane_damage_fx__engineMajorFireFxType:t="major_engine_fire"
-    plane_damage_fx__engineOilLeakFxType:t="trail_oil"
-    plane_damage_fx__engineFuelLeakFxType:t="trail_fuel"
-    plane_damage_fx__fuelTankMajorSmokeFxType:t="major_fuel_smoke"
-    plane_damage_fx__fuelTankMajorFireFxType:t="major_fuel_fire"
-    plane_damage_fx__fuelTankTracesFxType:t="trail_fuel"
-    plane_damage_fx__oilTraceFxType:t="trail_oil"
-    plane_damage_fx__waterTraceFxType:t="trail_water"
-    plane_damage_fx__wreckedSmokeFxType:t="wrecked_smoke"
-    plane_damage_fx__tailSmokeFxType:t="cut_tail_smoke"
-    plane_damage_fx__airExplosionFxType:t="explosion_plane"
-    plane_damage_fx__landExplosionFxType:t="land_explosion_plane"
-    plane_damage_fx__waterExplosionFxType:t="water_explosion_plane"
-    plane_damage_fx__landCrashFireEffect:t="land_explosion_plane"
-    plane_damage_fx__landCrashSmokeEffect:t="land_crash_smoke"
-    plane_damage_fx__engineMajorSmokeSizeScaleMin:r=0.2
-    plane_damage_fx__engineMajorSmokeSizeScaleMax:r=0.5
-    plane_damage_fx__engineMajorSmokeConstSpawnRateCoeff:r=1.0
-    plane_damage_fx__engineMajorSmokeSpawnRateMax:r=1.0
-    plane_damage_fx__engineFireSizeScale:r=0.5
-    plane_damage_fx__engineFireConstSpawnRateCoeff:r=1.0
-    plane_damage_fx__engineFireSpawnRateMax:r=1.0
-    plane_damage_fx__engineMinorSmokeDamageTreshold:r=0.25
-    plane_damage_fx__engineMinorSmokeTransparencyScale:r=10.0
-    plane_damage_fx__engineMinorSmokeSizeScale:r=1.6
-    plane_damage_fx__engineMinorSmokeConstSpawnRateCoeff:r=12.0
-    plane_damage_fx__engineMinorSmokeSpawnRateMax:r=4.0
-    plane_damage_fx__fuelTankMajorSmokeSizeScaleMin:r=0.4
-    plane_damage_fx__fuelTankMajorSmokeSizeScaleMax:r=1.0
-    plane_damage_fx__oilLeakTransparencyScale:r=420.0
-    plane_damage_fx__oilLeakSizeScale:r=20.5
-    plane_damage_fx__oilLeakConstSpawnRateCoeff:r=420.0
-    plane_damage_fx__oilLeakSpawnRateMax:r=1.0
-    plane_damage_fx__waterLeakTransparencyScale:r=210.0
-    plane_damage_fx__waterLeakSizeScale:r=14.5
-    plane_damage_fx__waterLeakConstSpawnRateCoeff:r=210.0
-    plane_damage_fx__waterLeakSpawnRateMax:r=1.0
-    plane_damage_fx__fuelLeakTransparencyScale:r=210.0
-    plane_damage_fx__fuelLeakSizeScale:r=14.5
-    plane_damage_fx__fuelLeakConstSpawnRateCoeff:r=210.0
-    plane_damage_fx__fuelLeakSpawnRateMax:r=1.0
-    plane_damage_fx__timeForFadeOutSmoke:r=20.0
-    plane_damage_fx__timeForFadeOutFire:r=0.9
-    plane_damage_fx__landCrashFireEffectTime:r=60.0
+  "plane_damage_fx__additionalFireFxEid:eid"{
+  }
 
-    "plane_damage_fx__enginesEmitters:array"{
+  "plane_damage_fx__enginesEmitters:list<t>"{
+    collNode:t="engine1_dm"
+    collNode:t="engine2_dm"
+    collNode:t="engine3_dm"
+    collNode:t="engine4_dm"
+    collNode:t="engine5_dm"
+    collNode:t="engine6_dm"
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine1_dm"
-      }
+  "plane_damage_fx__enginesEmittersIds:list<i>"{
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine2_dm"
-      }
+  "plane_damage_fx__fuelTankEmitters:list<t>"{
+    collNode:t="tank1_dm"
+    collNode:t="tank2_dm"
+    collNode:t="tank3_dm"
+    collNode:t="tank4_dm"
+    collNode:t="tank5_dm"
+    collNode:t="tank6_dm"
+    collNode:t="tank7_dm"
+    collNode:t="tank8_dm"
+    collNode:t="tank9_dm"
+    collNode:t="tank10_dm"
+    collNode:t="tank11_dm"
+    collNode:t="tank12_dm"
+    collNode:t="tank13_dm"
+    collNode:t="tank14_dm"
+    collNode:t="tank15_dm"
+    collNode:t="tank16_dm"
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine3_dm"
-      }
+  "plane_damage_fx__fuelTankEmittersIds:list<i>"{
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine4_dm"
-      }
+  "plane_damage_fx__oilEmitters:list<t>"{
+    collNode:t="oil1_dm"
+    collNode:t="oil2_dm"
+    collNode:t="oil3_dm"
+    collNode:t="oil4_dm"
+    collNode:t="oil5_dm"
+    collNode:t="oil6_dm"
+    collNode:t="oil7_dm"
+    collNode:t="oil8_dm"
+    collNode:t="oil9_dm"
+    collNode:t="oil10_dm"
+    collNode:t="oil11_dm"
+    collNode:t="oil12_dm"
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine5_dm"
-      }
+  "plane_damage_fx__oilEmittersIds:list<i>"{
+  }
 
-      "enginesEmitter:object"{
-        collNode:t="engine6_dm"
-      }
-    }
+  "plane_damage_fx__waterEmitters:list<t>"{
+    collNode:t="water1_dm"
+    collNode:t="water2_dm"
+    collNode:t="water3_dm"
+    collNode:t="water4_dm"
+    collNode:t="water5_dm"
+    collNode:t="water6_dm"
+  }
 
-    "plane_damage_fx__fuelTankEmitters:array"{
+  "plane_damage_fx__waterEmittersIds:list<i>"{
+  }
 
-      "fuelTankEmitter:object"{
-        collNode:t="tank1_dm"
-      }
+  "plane_damage_fx__tailSmokeEmitters:list<t>"{
+    collNode:t="tail_dm"
+  }
 
-      "fuelTankEmitter:object"{
-        collNode:t="tank2_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank3_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank4_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank5_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank6_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank7_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank8_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank9_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank10_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank11_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank12_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank13_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank14_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank15_dm"
-      }
-
-      "fuelTankEmitter:object"{
-        collNode:t="tank16_dm"
-      }
-    }
-
-    "plane_damage_fx__oilEmitters:array"{
-
-      "oilEmitter:object"{
-        collNode:t="oil1_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil2_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil3_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil4_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil5_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil6_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil7_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil8_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil9_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil10_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil11_dm"
-      }
-
-      "oilEmitter:object"{
-        collNode:t="oil12_dm"
-      }
-    }
-
-    "plane_damage_fx__waterEmitters:array"{
-
-      "waterEmitter:object"{
-        collNode:t="water1_dm"
-      }
-
-      "waterEmitter:object"{
-        collNode:t="water2_dm"
-      }
-
-      "waterEmitter:object"{
-        collNode:t="water3_dm"
-      }
-
-      "waterEmitter:object"{
-        collNode:t="water4_dm"
-      }
-
-      "waterEmitter:object"{
-        collNode:t="water5_dm"
-      }
-
-      "waterEmitter:object"{
-        collNode:t="water6_dm"
-      }
-    }
-
-    "plane_damage_fx__wreckedEmitters:array"{
-
-      "wreckedEmitter:object"{
-        treeNode:t="emtr_inversion_l"
-      }
-
-      "wreckedEmitter:object"{
-        treeNode:t="emtr_inversion_r"
-      }
-
-      "wreckedEmitter:object"{
-        treeNode:t="tail"
-      }
-    }
-
-    "plane_damage_fx__tailSmokeEmitters:array"{
-
-      "tailSmokeEmitter:object"{
-        collNode:t="tail_dm"
-      }
-    }
-
-    "plane_damage_fx__engineParts:list<t>"{
-      enginePart:t="engine1_dm"
-      enginePart:t="engine2_dm"
-      enginePart:t="engine3_dm"
-      enginePart:t="engine4_dm"
-      enginePart:t="engine5_dm"
-      enginePart:t="engine6_dm"
-    }
-
-    "plane_damage_fx__fuelTankParts:list<t>"{
-      fuelTankPart:t="tank1_dm"
-      fuelTankPart:t="tank2_dm"
-      fuelTankPart:t="tank3_dm"
-      fuelTankPart:t="tank4_dm"
-      fuelTankPart:t="tank5_dm"
-      fuelTankPart:t="tank6_dm"
-      fuelTankPart:t="tank7_dm"
-      fuelTankPart:t="tank8_dm"
-    }
-
-    "plane_damage_fx__oilParts:list<t>"{
-      oilPart:t="oil1_dm"
-      oilPart:t="oil2_dm"
-      oilPart:t="oil3_dm"
-      oilPart:t="oil4_dm"
-      oilPart:t="oil5_dm"
-      oilPart:t="oil6_dm"
-    }
-
-    "plane_damage_fx__waterParts:list<t>"{
-      waterPart:t="water1_dm"
-      waterPart:t="water2_dm"
-      waterPart:t="water3_dm"
-      waterPart:t="water4_dm"
-      waterPart:t="water5_dm"
-      waterPart:t="water6_dm"
-    }
-
-    "plane_damage_fx__wreckedParts:array"{
-
-      "wreckedPartsList:list<t>"{
-        part:t="wing_l_dm"
-        part:t="wing1_l_dm"
-        part:t="wing2_l_dm"
-      }
-
-      "wreckedPartsList:list<t>"{
-        part:t="wing_r_dm"
-        part:t="wing1_r_dm"
-        part:t="wing2_r_dm"
-      }
-
-      "wreckedPartsList:list<t>"{
-        part:t="tail_dm"
-      }
-    }
+  "plane_damage_fx__tailSmokeEmittersIds:list<i>"{
   }
 }
 
@@ -858,6 +640,7 @@ plane_base{
   _tracked:t="flaps_position"
   _tracked:t="plane_view__isAirBrakesActive"
   _tracked:t="is_parking_brake_on"
+  _tracked:t="plane_cutting__largePartsCut"
   _tracked:t="vehicleCameraType"
   _tracked:t="isAlive"
   _tracked:t="vehicle__localControls"
@@ -946,6 +729,15 @@ plane_base{
   vehicle_kill__crewStat:t="crewPlaneKillAssists"
   vehicle_kill__engineerStat:t="builtGunPlaneKills"
   pair_collision__tag:t="collidableToPlane"
+  plane_cutting__tailCuttingPos:p2=1.0, 1.0
+  plane_cutting__finCuttingPos:p2=1.0, 1.0
+  plane_cutting__stabLeftCuttingPos:p2=1.0, 1.0
+  plane_cutting__stabRightCuttingPos:p2=1.0, 1.0
+  plane_cutting__wingBiplaneCuttingPlane:p4=0.0, 0.0, 0.0, -1.0
+  plane_cutting__wingLowerCuttingPlane:p4=0.0, 0.0, 0.0, -1.0
+  plane_cutting__wingUpperCuttingPlane:p4=0.0, 0.0, 0.0, -1.0
+  plane_cutting__wingRearCuttingPlane:p4=0.0, 0.0, 0.0, -1.0
+  plane_cutting__finsFrontCuttingPlane:p4=0.0, 0.0, 0.0, -1.0
 
   "vehicle__redeployOutsideBattleArea:tag"{
     _tags:t="server"
@@ -986,10 +778,29 @@ plane_base{
 
   _group{
     _tags:t="server"
+    aircraft_state_engine__damagedTreshold:r=0.5
+    aircraft_state_engine__destroyedTreshold:r=0.99
 
     "aircraft__isCapableOfTakeOff:b"{
       value:b=yes
       _track:b=yes
+    }
+  }
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+
+    "aircraft_state_engine__damageStage:list<u8>"{
+    }
+
+    "aircraft_state_engine__hasFuel:list<b>"{
+    }
+
+    "aircraft_state_engine__hasOil:list<b>"{
+    }
+
+    "aircraft_state_engine__hasWater:list<b>"{
     }
   }
 
@@ -1028,10 +839,17 @@ plane_base{
   plane_collision{
   }
 
-  plane_cutting{
+  "plane_cutting__wingLeftCuttingPos:list<p2>"{
   }
 
-  plane_wreckage_templates{
+  "plane_cutting__wingRightCuttingPos:list<p2>"{
+  }
+
+  "plane_cutting__cuttingPlanes:list<p4>"{
+    _track:b=yes
+  }
+
+  "plane_cutting__cutPartsId:list<i>"{
   }
 
   "plane_wreckage__createdLarge:list<b>"{
@@ -1168,11 +986,12 @@ plane_wreckage{
   plane_wreckage__mass:r=1.0
   plane_wreckage__startImpulse:p3=0.0, 0.0, 0.0
   plane_wreckage__startMoment:p3=0.0, 0.0, 0.0
+  plane_wreckage__typeId:i=-1
 
   "airplane:tag"{
   }
 
-  plane_wreckage{
+  "plane_wreckage:tag"{
   }
 
   "plane_wreckage__owner:eid"{

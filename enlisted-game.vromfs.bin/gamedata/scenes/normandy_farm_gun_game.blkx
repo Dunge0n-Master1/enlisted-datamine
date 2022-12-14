@@ -6,6 +6,10 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_coastal_area_fx.blk"
+}
+
 entity{
   _template:t="box_battle_area"
   transform:m=[[71.6709, 0.0, -0.564328] [0.0, 81.9636, 0.0] [0.419721, -0.0, 53.3055] [-232.384, 9.50716, -307.458]]

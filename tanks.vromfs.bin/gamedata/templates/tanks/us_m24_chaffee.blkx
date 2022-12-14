@@ -1,8 +1,25 @@
 us_m24_chaffee{
   _extends:t="base_m24_chaffee"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.1
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

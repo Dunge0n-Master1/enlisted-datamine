@@ -6,8 +6,10 @@ require soundSystem
 require soundEvent
 require sound_utils.modules.sound_player_common
 require sound_utils.modules.sound_physmat_common
-require game.es.sound.sound_events
+require sound_utils_net.modules.sound_utils_net_events
+require human_sounds.modules.human_sounds_events
 require GridCollision
+require CollisionTraces
 require PhysMat
 require Dacoll
 require HumanPhys
@@ -17,11 +19,25 @@ require math.base
 require game.utils.hero
 require game.utils.team
 require DagorSystem
-require enlisted.events_enlisted
 
 
 let INVALID_IRQ_OBJ_IDX = -1
 let FIRST_VALID_IRQ_OBJ_IDX = 0
+
+
+def is_faraway(is_watched : bool; pos : float3; max_distance_sq : float; listener_pos : float3)
+  return !is_watched && length_sq(listener_pos - pos) > max_distance_sq
+
+def read_flag(state_flag : StateFlag; states : int)
+  return (states & int(state_flag)) != 0
+
+def is_right_step(irq_obj_idx : int)
+  return (irq_obj_idx & 1) != 0
+
+def is_on_lmesh(pos : float3)
+  let posXZ = pos.xz
+  let ground = traceht_lmesh(posXZ)
+  return pos.y < ground + 0.05
 
 
 def watch_step(cur_eid : EntityId; pos : float3; offset, max_len : float;
@@ -56,11 +72,6 @@ def watch_step(cur_eid : EntityId; pos : float3; offset, max_len : float;
     let floor = max(from.y - len, ground)
     out_water_depth = max(0., water - floor)
 
-
-def is_on_lmesh(pos : float3)
-  let posXZ = pos.xz
-  let ground = traceht_lmesh(posXZ)
-  return pos.y < ground + 0.05
 
 
 def play_footstep(desc : Object;
@@ -106,17 +117,6 @@ def play_footstep(desc : Object;
     set_volume(handle, volume)
     set_var(handle, "mat", get_sound_step_material_id(pmid))
     abandon(handle)
-
-
-def is_faraway(is_watched : bool; pos : float3; max_distance_sq : float; listener_pos : float3)
-  return !is_watched && length_sq(listener_pos - pos) > max_distance_sq
-
-def read_flag(state_flag : StateFlag; states : int)
-  return (states & int(state_flag)) != 0
-
-
-def is_right_step(irq_obj_idx : int)
-  return (irq_obj_idx & 1) != 0
 
 
 [es(tag=sound, REQUIRE=humanSound)]
@@ -229,6 +229,9 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
       human_steps_sound__lastTimeOnGround = info.curTime
 
     if is_faraway(is_watched_sound, transform[3], human_steps_sound__farawayThresholdSq, listenerPos)
+      return
+
+    if (raisedStates | clearedStates) == 0
       return
 
     var name = ""

@@ -4,9 +4,26 @@ jp_type_3_chi_nu_pacific{
 
 jp_type_3_chi_nu_common{
   _extends:t="base_type_3_chi_nu"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   item__iconOffset:p2=0.0, 0.0
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 

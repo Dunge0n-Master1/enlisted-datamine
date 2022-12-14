@@ -2,6 +2,7 @@ require dm
 require ecs
 require EnlistedDm
 require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
 require common_shooter.es.repair_common

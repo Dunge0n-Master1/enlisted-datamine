@@ -15,12 +15,12 @@ def calculate_heal_items_count(evt : Event;
   total_kits__selfRevive = 0
   total_kits__targetRevive = 0
   for itemEid in itemContainer
-    query(itemEid) <| $ [es] (item__healAmount : float?;
-                              item__reviveAmount : float?;
-                              item__useTime : float?;
-                              item__useTimeToTarget : float?;
-                              item__useCount : int?;
-                              item__targetUseOnly : Tag?)
+    query(itemEid) <| $ [es] (item__healAmount : float const?;
+                              item__reviveAmount : float const?;
+                              item__useTime : float const?;
+                              item__useTimeToTarget : float const?;
+                              item__useCount : int const?;
+                              item__targetUseOnly : Tag const?)
       let heal = item__healAmount != null
       let revive = item__reviveAmount != null
       let targetOnly = item__targetUseOnly != null

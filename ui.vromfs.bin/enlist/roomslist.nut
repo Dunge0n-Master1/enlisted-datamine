@@ -18,6 +18,7 @@ let {tostring_any} = require("%sqstd/string.nut")
 let matching_errors = require("matching.errors")
 let {squadId} = require("%enlist/squad/squadState.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
+let { soundActive } = textButton
 
 let selectedRoom = Watched(null)
 let { strip } = require("string")
@@ -195,11 +196,7 @@ let function listItem(roomInfo) {
       watch = [selectedRoom, stateFlags]
       key = roomInfo.roomId
 
-      sound = {
-        click  = "ui/enlist/button_click"
-        hover  = "ui/enlist/button_highlight"
-        active = "ui/enlist/button_action"
-      }
+      sound = soundActive
 
       flow = FLOW_HORIZONTAL
       children = [

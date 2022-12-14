@@ -7,11 +7,3 @@ ownerAnimVars{
   gun_offset_across:r=0.02
   gun_offset_up:r=-0.1
 }
-
-gunFlash{
-
-  gunFx_add_bolt{
-    fx:t="side_muzzle_flash"
-    scale:r=0.01
-  }
-}

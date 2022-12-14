@@ -7,13 +7,14 @@ let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let usefulBoxHintFull = Watched(null)
 let usefulBoxHintEmpty = Watched(null)
 let isUsefulBoxEmpty = Watched(false)
-let selectedUsefulBox = Watched(INVALID_ENTITY_ID)
+let selectedUsefulBox = Watched(ecs.INVALID_ENTITY_ID)
 
 let usefulBoxQuery = ecs.SqQuery("usefulBoxQuery", {
   comps_ro = [
     ["useful_box__hintEmpty", ecs.TYPE_STRING],
     ["useful_box__hintFull", ecs.TYPE_STRING],
     ["useful_box__useCount", ecs.TYPE_INT],
+    ["useful_box__anyTeam", ecs.TYPE_TAG, null],
     ["team", ecs.TYPE_INT],
   ]
 })
@@ -25,9 +26,9 @@ ecs.register_es("ui_useful_box_hint_es",
       local hintFull = null
       local hintEmpty = null
       local isBoxEmpty = false
-      local usefulBox = INVALID_ENTITY_ID
+      local usefulBox = ecs.INVALID_ENTITY_ID
       usefulBoxQuery(selectedObject, function(eid, comp) {
-        if (!is_teams_friendly(localPlayerTeam.value, comp["team"]))
+        if (!comp.useful_box__anyTeam && !is_teams_friendly(localPlayerTeam.value, comp.team))
           return
 
         usefulBox = eid

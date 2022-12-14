@@ -13,7 +13,7 @@ let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
-        squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, vehicleRespawnsBySquad,
+        squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, maxSpawnVehiclesOnPointBySquad, nextSpawnOnVehicleInTimeBySquad,
         canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId} = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeamSquadsCanSpawn, localPlayerTeamInfo } = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -56,9 +56,9 @@ let vehicleIcon = memoize(function(squadType) {
 })
 
 let curVehicle = Computed(@() curSquadData.value?.vehicle)
-let maxSpawnVehiclesOnPoint = Computed(@() vehicleRespawnsBySquad.value?[squadIndexForSpawn.value].maxSpawnVehiclesOnPoint ?? -1)
-let respInVehicleEndTime = Computed(@() vehicleRespawnsBySquad.value?[squadIndexForSpawn.value].respInVehicleEndTime ?? -1.0)
-let timeToCanRespawnOnVehicle = mkCountdownTimerPerSec(respInVehicleEndTime)
+let maxSpawnVehiclesOnPoint = Computed(@() maxSpawnVehiclesOnPointBySquad.value?[squadIndexForSpawn.value] ?? -1)
+let nextSpawnOnVehicleInTime = Computed(@() nextSpawnOnVehicleInTimeBySquad.value?[squadIndexForSpawn.value] ?? -1.0)
+let timeToCanRespawnOnVehicle = mkCountdownTimerPerSec(nextSpawnOnVehicleInTime)
 
 let vehicleSpawnText = Computed(function() {
     let time = timeToCanRespawnOnVehicle.value

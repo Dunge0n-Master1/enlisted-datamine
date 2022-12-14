@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { fabs } = require("math")
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let mkSliderWithText = require("%ui/components/optionTextSlider.nut")
 let optionCheckBox = require("%ui/components/optionCheckBox.nut")
 let optionCombo = require("%ui/components/optionCombo.nut")

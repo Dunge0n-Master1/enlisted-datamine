@@ -146,6 +146,18 @@ let missions = {
     army = MissionArmy.ALLIES
   }
 
+  volokolamsk_grove_inv_counter = {
+    image = "ui/Volokolamsk_Birch_Grove_Inv_02.jpg"
+    locId = "lobbies/volokolamsk_grove_inv_counter"
+    army = MissionArmy.AXIS
+  }
+
+  volokolamsk_grove_inv_counter_ussr = {
+    image = "ui/Volokolamsk_Birch_Grove_Inv_02.jpg"
+    locId = "lobbies/volokolamsk_grove_inv_counter_allies"
+    army = MissionArmy.ALLIES
+  }
+
   volokolamsk_grove_conf = {
     image = "ui/volokolamsk_grove_02.jpg"
     locId = "lobbies/volokolamsk_grove_conf_axis"
@@ -327,6 +339,18 @@ let missions = {
   normandy_aerodrome_inv_axis = {
     image = "ui/normandy_airfield_01.jpg"
     locId = "lobbies/normandy_aerodrome_inv_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_aerodrome_inv_counter = {
+    image = "ui/normandy_airfield_03.jpg"
+    locId = "lobbies/normandy_aerodrome_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_aerodrome_inv_counter_axis = {
+    image = "ui/normandy_airfield_03.jpg"
+    locId = "lobbies/normandy_aerodrome_inv_counter_axis"
     army = MissionArmy.AXIS
   }
 
@@ -523,6 +547,20 @@ let missions = {
     type = MissionType.CONFRONTATION
   }
 
+  normandy_station_bomb = {
+    image = "ui/normandy_station_inv_04.jpg"
+    locId = "lobbies/normandy_station_bomb"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_station_bomb_axis = {
+    image = "ui/normandy_station_inv_04.jpg"
+    locId = "lobbies/normandy_station_bomb_axis"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.AXIS
+  }
+
   normandy_village_inv = {
     image = "ui/normandy_village_01.jpg"
     locId = "lobbies/normandy_village_inv"
@@ -535,10 +573,48 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  normandy_village_bomb = {
+    image = "ui/normandy_village_04.jpg"
+    locId = "lobbies/normandy_village_bomb"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_village_bomb_axis = {
+    image = "ui/normandy_village_04.jpg"
+    locId = "lobbies/normandy_village_bomb_axis"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.AXIS
+  }
+
   berlin_chancellery_dom = {
     image = "ui/berlin_chancellery_dom_01.jpg"
     locId = "lobbies/berlin_chancellery_dom"
     type = MissionType.DOMINATION
+  }
+
+  berlin_chancellery_conf = {
+    image = "ui/berlin_chancellery_dom_04.jpg"
+    locId = "lobbies/berlin_chancellery_conf"
+    type = MissionType.CONFRONTATION
+  }
+
+  berlin_chancellery_conf_axis = {
+    image = "ui/berlin_chancellery_dom_04.jpg"
+    locId = "lobbies/berlin_chancellery_conf_axis"
+    type = MissionType.CONFRONTATION
+  }
+
+  berlin_chancellery_inv = {
+    image = "ui/berlin_chancellery_dom_05.jpg"
+    locId = "lobbies/berlin_chancellery_inv"
+    army = MissionArmy.ALLIES
+  }
+
+  berlin_chancellery_inv_axis = {
+    image = "ui/berlin_chancellery_dom_05.jpg"
+    locId = "lobbies/berlin_chancellery_inv_axis"
+    army = MissionArmy.AXIS
   }
 
   berlin_garden_assault = {
@@ -855,6 +931,18 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  tunisia_farm_conf = {
+    image = "ui/tunisia_farm_inv_04.jpg"
+    locId = "lobbies/tunisia_farm_conf"
+    type = MissionType.CONFRONTATION
+  }
+
+  tunisia_farm_conf_axis = {
+    image = "ui/tunisia_farm_inv_04.jpg"
+    locId = "lobbies/tunisia_farm_conf_axis"
+    type = MissionType.CONFRONTATION
+  }
+
   tunisia_fortress_inv = {
     image = "ui/tunisia_fortress_inv_02.jpg"
     locId = "lobbies/tunisia_fortress_inv_allies"
@@ -1027,6 +1115,72 @@ let missions = {
     type = MissionType.CONFRONTATION
   }
 
+  stalingrad_entrance_inv = {
+    image = "ui/stalingrad_tractor_plant_04.jpg"
+    locId = "lobbies/stalingrad_entrance_inv"
+    army = MissionArmy.AXIS
+  }
+
+  stalingrad_entrance_inv_allies = {
+    image = "ui/stalingrad_tractor_plant_04.jpg"
+    locId = "lobbies/stalingrad_entrance_inv_allies"
+    army = MissionArmy.ALLIES
+  }
+
+  stalingrad_entrance_inv_counter = {
+    image = "ui/stalingrad_tractor_plant_07.jpg"
+    locId = "lobbies/stalingrad_entrance_inv_counter"
+    army = MissionArmy.AXIS
+  }
+
+  stalingrad_entrance_inv_counter_allies = {
+    image = "ui/stalingrad_tractor_plant_07.jpg"
+    locId = "lobbies/stalingrad_entrance_inv_counter_allies"
+    army = MissionArmy.ALLIES
+  }
+
+  stalingrad_entrance_conf = {
+    image = "ui/stalingrad_tractor_plant_02.jpg"
+    locId = "lobbies/stalingrad_entrance_conf"
+    type = MissionType.CONFRONTATION
+    army = MissionArmy.AXIS
+  }
+
+  stalingrad_entrance_conf_allies = {
+    image = "ui/stalingrad_tractor_plant_02.jpg"
+    locId = "lobbies/stalingrad_entrance_conf_allies"
+    type = MissionType.CONFRONTATION
+    army = MissionArmy.ALLIES
+  }
+
+  stalingrad_entrance_bomb = {
+    image = "ui/stalingrad_tractor_plant_03.jpg"
+    locId = "lobbies/stalingrad_entrance_bomb"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.AXIS
+  }
+
+  stalingrad_entrance_bomb_allies = {
+    image = "ui/stalingrad_tractor_plant_03.jpg"
+    locId = "lobbies/stalingrad_entrance_bomb_allies"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.ALLIES
+  }
+
+  stalingrad_entrance_bomb_counter = {
+    image = "ui/stalingrad_tractor_plant_08.jpg"
+    locId = "lobbies/stalingrad_entrance_bomb_counter"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.AXIS
+  }
+
+  stalingrad_entrance_bomb_counter_allies = {
+    image = "ui/stalingrad_tractor_plant_08.jpg"
+    locId = "lobbies/stalingrad_entrance_bomb_counter_allies"
+    type = MissionType.DESTRUCTION
+    army = MissionArmy.ALLIES
+  }
+
   stalingrad_station_dom = {
     image = "ui/stalingrad_inv_05.jpg"
     locId = "lobbies/stalingrad_station_dom"
@@ -1116,14 +1270,16 @@ let missions = {
   }
 
   pacific_guadalcanal_conf = {
-    image = "ui/pacific_guadalcanal_inv_01.jpg"
+    image = "ui/pacific_guadalcanal_inv_11.jpg"
     locId = "lobbies/pacific_guadalcanal_conf"
+    type = MissionType.CONFRONTATION
     army = MissionArmy.ALLIES
   }
 
   pacific_guadalcanal_conf_axis = {
-    image = "ui/pacific_guadalcanal_inv_01.jpg"
+    image = "ui/pacific_guadalcanal_inv_11.jpg"
     locId = "lobbies/pacific_guadalcanal_conf_axis"
+    type = MissionType.CONFRONTATION
     army = MissionArmy.AXIS
   }
 
@@ -1131,6 +1287,12 @@ let missions = {
     image = "ui/pacific_guadalcanal_inv_07.jpg"
     locId = "lobbies/pacific_vertical_inv"
     army = MissionArmy.ALLIES
+  }
+
+  pacific_vertical_inv_counter = {
+    image = "ui/pacific_guadalcanal_inv_13.jpg"
+    locId = "lobbies/pacific_vertical_inv_counter"
+    army = MissionArmy.AXIS
   }
 
   pacific_native_inv = {

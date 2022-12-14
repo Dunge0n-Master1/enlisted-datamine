@@ -22,7 +22,7 @@ require GeomNodeTree
 def find_weapon_sight_node_idx(eid : EntityId;
                                animchar : AnimcharBaseComponent;
                                nodeName : string) : int
-  let nodeIdx = animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
+  let nodeIdx = *animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
   if (nodeIdx < 0)
     let templateName = getEntityTemplateName(eid)
     logerr("Can't find sight node {nodeName} in {templateName}")
@@ -33,7 +33,7 @@ def find_weapon_sight_node_idx(eid : EntityId;
 def weapon_frontsight_node_init(evt : Event;
                                 eid : EntityId;
                                 animchar : AnimcharBaseComponent;
-                                weapon_frontsight_node__nodeName : das_string?;
+                                weapon_frontsight_node__nodeName : das_string const?;
                                 var weapon_frontsight_node__nodeIdx : int&)
   let nodeName = weapon_frontsight_node__nodeName != null ? string(*weapon_frontsight_node__nodeName) : "frontsight_aim"
   let nodeIdx = find_weapon_sight_node_idx(eid, animchar, nodeName)
@@ -43,7 +43,7 @@ def weapon_frontsight_node_init(evt : Event;
 def weapon_rearsight_node_init(evt : Event;
                                eid : EntityId;
                                animchar : AnimcharBaseComponent;
-                               weapon_rearsight_node__nodeName : das_string?;
+                               weapon_rearsight_node__nodeName : das_string const?;
                                var weapon_rearsight_node__nodeIdx : int&)
   let nodeName = weapon_rearsight_node__nodeName != null ? string(*weapon_rearsight_node__nodeName) : "rearsight_aim"
   let nodeIdx = find_weapon_sight_node_idx(eid, animchar, nodeName)

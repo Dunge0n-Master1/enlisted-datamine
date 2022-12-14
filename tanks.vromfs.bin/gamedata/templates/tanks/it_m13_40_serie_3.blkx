@@ -27,7 +27,6 @@ it_m13_40_serie_3{
 
 it_m13_40_serie_3_common{
   _extends:t="base_m13_40_serie_3"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.1
 
   "vehicle_seats__seats:shared:array"{

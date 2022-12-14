@@ -5,7 +5,7 @@ let {needSpawnMenu, selectedRespawnGroupId, canUseRespawnbaseByType} = require("
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let groupRespawnsGroupsQuery = ecs.SqQuery("groupRespawnGroupsQuery", {comps_ro=["selectedGroup", "team", "respawnIconType"]})
 
-let function getRespawnGroups(forTeam, exludeEid = INVALID_ENTITY_ID) {
+let function getRespawnGroups(forTeam, exludeEid = ecs.INVALID_ENTITY_ID) {
   let respawnGroups = {}
   groupRespawnsGroupsQuery(function(eid, comps) {
     if (comps.team == forTeam && comps.respawnIconType == canUseRespawnbaseByType.value && exludeEid != eid)
@@ -14,7 +14,7 @@ let function getRespawnGroups(forTeam, exludeEid = INVALID_ENTITY_ID) {
   return respawnGroups
 }
 
-let function updateSelectedRespawnGroup(exludeEid = INVALID_ENTITY_ID) {
+let function updateSelectedRespawnGroup(exludeEid = ecs.INVALID_ENTITY_ID) {
   if (!needSpawnMenu.value)
     return
   let respawnGroups = getRespawnGroups(localPlayerTeam.value, exludeEid)

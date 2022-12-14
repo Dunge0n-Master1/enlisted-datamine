@@ -104,7 +104,7 @@ base_m4_sherman_calliope{
   }
 }
 
-m8_rocket_projectile{
+base_m8_rocket_projectile{
   _extends:t="rocket_projectile"
   animchar__res:t="m8_rocket_char"
 

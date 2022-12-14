@@ -53,7 +53,7 @@ def draw_debug_flame(gloc : GunLocation; start_offset, distance, radius, cloud_o
     query(humanEid) <| $ [es(REQUIRE=human)] (animchar : AnimcharBaseComponent;
                                               transform : float3x4;
                                               human_use_object__nodeId : int)
-      let headPos = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
+      let headPos = geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId)
       let lowestPos = transform[3]
       draw_debug_capsule_buffered(lowestPos, headPos, humanRadius, E3DCOLOR(0xFFFFFFFF), 8, 1)
 

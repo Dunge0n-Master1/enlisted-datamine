@@ -21,10 +21,6 @@ struct EventComponentsDisappear {}
 [cpp_event(unicast)]
 struct EventComponentsAppear {}
 
-[cpp_event(unicast)]
-struct EventFirstContact
-  velocity : float3
-
 [cpp_event(broadcast)]
 struct EventHeroChanged
   eid : ecs::EntityId
@@ -63,7 +59,7 @@ struct EventRiExtraDestroyed
 struct EventOnLootPickup
   itemEid : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdInventoryPickup
   itemEid : ecs::EntityId
   usefulOnly : bool
@@ -84,20 +80,6 @@ struct EventOnProjectileHit
   physMatId : int
   collNodeId : int
   projectileEid : EntityId
-
-[cpp_event(unicast)]
-struct EventOnHitByProjectile
-  localHitPos : float3
-  localNormal : float3
-  caliber : float
-  bulletTypeId : int
-  nodeId : int
-  pierced : bool
-
-[cpp_event(unicast)]
-struct EventOnRicochet
-  localHitPos : float3
-  caliber : float
 
 [event(unicast)]
 struct CmdHumanHitTagging
@@ -121,21 +103,12 @@ struct CmdChangeAllPlayersPerk
   perkName : string
   active : bool
 
-[cpp_event(unicast)]
-struct CmdHeroLogEvent
-  event : string
-  text : string
-  sound : string
-  ttl : int
-
-[cpp_event(unicast)]
-struct CmdHeroLogExEvent
-  data : ecs::Object
-
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdKill
   offender : EntityId
   damageType : uint16
+  gunPropsId : int
+  shellId : int
 
 [cpp_event(unicast)]
 struct EventOnLootItemUsed
@@ -246,10 +219,6 @@ struct CmdUseVehicle
   seat_no : int
 
 [cpp_event(unicast)]
-struct EventOnActionDisabled
-  action : string
-
-[cpp_event(unicast)]
 struct EventShellExplosionShockWave
   position : float3
   dmg_radius : float
@@ -352,24 +321,6 @@ struct EventFlashExploded
   flashDistExp : float
   tinnitusDistExp : float
   ignoreEid : EntityId
-
-[event(unicast)]
-struct EventPlayerBlindness
-  position : float3
-  radius : float2
-  power : float2
-  distExponent : float
-
-[event(unicast)]
-struct EventFlashBlindEffect
-  power : float
-
-[event(unicast)]
-struct EventPlayerTinnituss
-  position : float3
-  radius : float2
-  power : float2
-  distExponent : float
 
 [cpp_event(unicast)]
 struct ProjectileHitInvulnerableNotification

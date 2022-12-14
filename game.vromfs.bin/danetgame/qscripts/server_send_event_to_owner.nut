@@ -4,7 +4,7 @@ let {find_connected_player_that_possess} = require("common_queries.nut")
 let {server_send_net_sqevent} = require("ecs.netevent")
 
 local function server_send_event_to_owner(eid, evt) {
-  let possessesPlayerEid = find_connected_player_that_possess(eid) ?? INVALID_ENTITY_ID
+  let possessesPlayerEid = find_connected_player_that_possess(eid) ?? ecs.INVALID_ENTITY_ID
   let connectionsToSend = [ecs.obsolete_dbg_get_comp_val(possessesPlayerEid, "connid", INVALID_CONNECTION_ID)]
   server_send_net_sqevent(eid, evt, connectionsToSend)
 }

@@ -26,7 +26,7 @@ let { openChooseSquadsWnd, closeChooseSquadsWnd, applyAndClose, chosenSquads, re
 } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let { mkHorizontalSlot } = require("%enlist/soldiers/chooseSquadsSlots.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isInSquad } = require("%enlist/squad/squadManager.nut")
 let { seenArmyProgress } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
@@ -140,7 +140,7 @@ let function startTutorial() {
         objects = [{
           keys = ["section_SQUADS", "section_unseen_SQUADS"]
           sizeIncAdd = hdpx(5)
-          onClick = @() setCurSection("SQUADS")
+          onClick = jumpToArmyProgress
           needArrow = true
           hotkey = $"^{JB.A}"
         }]

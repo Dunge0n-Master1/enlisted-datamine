@@ -18,7 +18,7 @@ let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { focusResearch, findResearchUpgradeUnlock
 } = require("%enlist/researches/researchesFocus.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { blur, mkItemDescription, mkVehicleDetails, mkUpgrades
 } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
@@ -31,7 +31,7 @@ let { canModifyItems, mkItemUpgradeData, mkItemDisposeData
 } = require("%enlist/soldiers/model/mkItemModifyData.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("%enlist/soldiers/model/unseenUpgrades.nut")
-let { curUpgradeDiscount, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
+let { curUpgradeDiscount, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg
 } = require("%enlist/soldiers/components/modifyItemComp.nut")
@@ -40,10 +40,7 @@ let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
-
-local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let function txt(text) {
   return type(text) == "string"
@@ -93,9 +90,7 @@ let openResearchUpgradeMsgbox = function(item, armyId) {
       buttons = [
         {
           text = loc("squads/gotoUnlockBtn")
-          action = function() {
-            setCurSection("SQUADS")
-          }
+          action = jumpToArmyProgress
           isCurrent = true
         }
         { text = loc("Ok"), isCancel = true }
@@ -235,7 +230,7 @@ let function mkChooseButton(curVehicle, selVehicle) {
       : Flat(loc("GoToArmyLeveling"),
           function() {
             scrollToCampaignLvl(status?.levelLimit)
-            setCurSection("SQUADS")
+            jumpToArmyProgress()
           },
           { margin = [0, bigPadding, 0, 0] })
 

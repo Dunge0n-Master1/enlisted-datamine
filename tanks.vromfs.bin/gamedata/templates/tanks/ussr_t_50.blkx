@@ -1,6 +1,5 @@
 ussr_t_50{
   _extends:t="base_t_50"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
 
@@ -214,6 +213,61 @@ ussr_t_50_1st_brigade_premium_skin{
 
     "t_50_turret_c*:object"{
       "t_50_skin_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
+t_50_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="t_50_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_50_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_50_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_50_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_50_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_50_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
     }
   }
 }

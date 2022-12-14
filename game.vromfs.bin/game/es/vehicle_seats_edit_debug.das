@@ -28,8 +28,8 @@ def debug_setup_for_seats(info : UpdateStageInfoAct;
                                    var camera__look_at : DPoint3&)
     if human_cam__camNodeId < 0
       return
-    let wposRel = geomtree_getNodeWposRel(animchar.nodeTree, human_cam__camNodeId)
-    let wofs = geomtree_getWtmOfs(animchar.nodeTree)
+    let wposRel = geomtree_getNodeWposRel(*animchar.nodeTree, human_cam__camNodeId)
+    let wofs = geomtree_getWtmOfs(*animchar.nodeTree)
     let lookAtOriginal = lerp(DPoint3(wposRel) + DPoint3(wofs), camera__look_at, human_cam__offsetMult)
 
     camera__look_at = DPoint3(transform[3])

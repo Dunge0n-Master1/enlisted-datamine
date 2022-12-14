@@ -9,6 +9,7 @@ require AnimV20
 require GeomNodeTree
 require DaWeapons
 require DagorSystem
+require enlisted.events_enlisted
 
 
 [soa_template]
@@ -26,7 +27,7 @@ def get_mult_tm(scale : float)
 
 
 [soa_es, es(tag=render, before=clear_gun_launch_events_es, after=after_guns_update_sync)]
-def turret_gun_flash_fx_inserter_es(info : UpdateStageInfoAct;
+def turret_gun_flash_fx_inserter_es(info : ParallelUpdateFrameDelayed;
                                     eid : EntityId;
                                     animchar : AnimcharBaseComponent;
                                     turretGunFx : TurretGunFx_SOA;
@@ -39,7 +40,7 @@ def turret_gun_flash_fx_inserter_es(info : UpdateStageInfoAct;
     query(gunEid) <| $ [es] (gun_launch_events : GunLaunchEvents)
       for _launchEvent in gun_launch_events.launchEvents
         var tm : float3x4
-        geomtree_getNodeWtmScalar(animchar.nodeTree, gunFx.turret_gun_fx__nodeId, tm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, gunFx.turret_gun_fx__nodeId, tm)
 
         tm = tm * get_mult_tm(fxScale ?? 1.0)
 
@@ -48,14 +49,6 @@ def turret_gun_flash_fx_inserter_es(info : UpdateStageInfoAct;
           set(init, "transform", tm)
           set(init, "gun_flash_fx__gunEid", eid)
           set(init, "gun_flash_fx__nodeId", gunFx.turret_gun_fx__nodeId)
-
-
-[es(on_appear, tag=render, REQUIRE=turret_gun_flash_fx)]
-def turret_gun_flash_fx_init_es(evt : Event;
-                                effect__name : string;
-                                var gun_flash_fx__timeToDestroy : float&)
-  let fxId = get_type_by_name(effect__name)
-  gun_flash_fx__timeToDestroy = get_effect_life_time(fxId)
 
 
 [soa_es, es(tag=render, on_appear)]
@@ -84,5 +77,5 @@ def turret_gun_flash_fx_created_es(evt : Event;
 
     push(turretGunFx, [[TurretGunFx
       turret_gun_fx__fxTemplate=fx,
-      turret_gun_fx__nodeId=geomtree_findNodeIndex(animchar.nodeTree, node)
+      turret_gun_fx__nodeId=geomtree_findNodeIndex(*animchar.nodeTree, node)
     ]])

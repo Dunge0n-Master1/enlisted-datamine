@@ -6,7 +6,7 @@ let isAttachedToGun = Watched(false)
 ecs.register_es("attached_gun_track_es",
   {
     [["onInit","onChange"]] = function(_eid,comp) {
-      isAttachedToGun(comp["human_attached_gun__attachedGunEid"] != INVALID_ENTITY_ID)
+      isAttachedToGun(comp["human_attached_gun__attachedGunEid"] != ecs.INVALID_ENTITY_ID)
     }
     onDestroy = @(...) isAttachedToGun(false)
   },

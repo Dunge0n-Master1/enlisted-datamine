@@ -43,6 +43,9 @@ base_projectile{
   projectile__maxAllowedSceneIntersectionsForFx:i=3
   projectile__traceRayMatId:i=-1
   projectile__isUnderwater:b=no
+  projectile__ballisticsUpdated:b=yes
+  projectile__effectGroupName:t=""
+  projectile__fleshEffectGroupName:t=""
   projectile_trace_info__sceneIntersected:b=no
   projectile_trace_info__pmid:i=-1
   projectile_trace_info__dir:p3=0.0, 0.0, 0.0
@@ -60,10 +63,6 @@ base_projectile{
   scene_hit_place__norm:p3=0.0, 1.0, 0.0
   scene_hit_place__matId:i=-1
   scene_hit_place__collType:i=-1
-
-  "projectile__bulletTypeHash:u32"{
-    value:i=0
-  }
 
   "dm_projectile_state:dm::ProjectileState"{
   }
@@ -99,6 +98,14 @@ projectile_inactive{
   }
 }
 
+client_side_delayed_destroy{
+  client_side_delayed_destroy__delay:r=1.5
+  client_side_delayed_destroy__destroyAfter:r=-1.0
+
+  "client_side_delayed_destroy__unhideEid:eid"{
+  }
+}
+
 disable_ricochet{
   projectile__sceneHitRicochetStability:r=1.0
 }
@@ -106,6 +113,37 @@ disable_ricochet{
 projectile_time_fuse{
   projectile__timeFuseDistanceError:r=50.0
   projectile__maxDistanceFromStartSq:r=0.0
+}
+
+bullet_types_stoppable_by_water{
+  _extends:t="replicating"
+
+  "projectile__bulletTypesStoppableByWater:list<t>"{
+    type:t="he_ball"
+    type:t="he_i_ball"
+    type:t="he_t_ball"
+    type:t="he_i_t_ball"
+    type:t="he_i"
+    type:t="he_t"
+    type:t="he_i_t"
+    type:t="he_i_t_n_mine"
+    type:t="he_i_mine"
+    type:t="he_frag"
+    type:t="he_frag_i"
+    type:t="he_frag_t"
+    type:t="he_frag_i_t"
+    type:t="frag_i"
+    type:t="frag_t"
+    type:t="frag_i_t"
+    type:t="he_tank"
+    type:t="cumulative_tank"
+    type:t="he_frag_tank"
+    type:t="heat_tank"
+    type:t="shrapnel_tank"
+    type:t="heat_fs_tank"
+    type:t="he_frag_dist_fuse"
+    type:t="he_frag_radio_fuse"
+  }
 }
 
 bullet_projectile{
@@ -188,13 +226,19 @@ bomb_projectile{
 }
 
 rocket_motor_trail{
+  _tags:t="render"
+  rocket_motor_trail__fireEffect:t=""
+  rocket_motor_trail__hazeEffect:t=""
+  rocket_motor_trail__endSmokeViscosity:r=2.0
+  rocket_motor_trail__burnTime:r=0.9
+  rocket_motor_trail__fxScale:r=1.0
+  rocket_motor_trail__isEffectsStarted:b=no
+  rocket_motor_trail__endedSmoke:b=no
 
-  rocket_motor_trail_props{
-    _tags:t="render"
+  "rocket_motor_trail__fireFxEid:eid"{
   }
 
-  rocket_motor_trail{
-    _tags:t="render"
+  "rocket_motor_trail__hazeFxEid:eid"{
   }
 }
 
@@ -237,6 +281,40 @@ rs_82_rocket_projectile{
   "shell__concussionMaxRadius:r"{
     value:r=5.0
     _tags:t="server"
+  }
+}
+
+s_8ko_rocket_rocket_projectile{
+  _extends:t="rocket_projectile"
+  animchar__res:t="su_s_8ko_rocket_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=5.0
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t=""
+    rocket_motor_trail__endSmokeViscosity:r=0.2
+  }
+}
+
+s_5k_rocket_rocket_projectile{
+  _extends:t="rocket_projectile"
+  animchar__res:t="su_s_5k_rocket_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=5.0
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
 
@@ -375,6 +453,13 @@ br_20_rocket_projectile{
   "shell__concussionMaxRadius:r"{
     value:r=5.0
     _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
 
@@ -526,6 +611,13 @@ hvar_rocket_projectile{
     value:r=5.0
     _tags:t="server"
   }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
+  }
 }
 
 fab_100x_bomb_projectile{
@@ -566,6 +658,13 @@ rp_3_rocket_projectile{
     value:r=5.0
     _tags:t="server"
   }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.15
+  }
 }
 
 m_8bazooka_rocket_projectile{
@@ -575,6 +674,13 @@ m_8bazooka_rocket_projectile{
   "shell__concussionMaxRadius:r"{
     value:r=5.0
     _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
 
@@ -586,6 +692,13 @@ rbs_82_rocket_projectile{
     value:r=5.0
     _tags:t="server"
   }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.2
+  }
 }
 
 rbs_132_rocket_projectile{
@@ -595,6 +708,13 @@ rbs_132_rocket_projectile{
   "shell__concussionMaxRadius:r"{
     value:r=5.0
     _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.2
   }
 }
 
@@ -666,16 +786,13 @@ ros_82_rocket_projectile{
     value:r=5.0
     _tags:t="server"
   }
-}
 
-s_8ko_rocket_rocket_projectile{
-  _extends:t="rocket_projectile"
-  animchar__res:t="su_rs82_char"
-}
-
-s_5k_rocket_rocket_projectile{
-  _extends:t="rocket_projectile"
-  animchar__res:t="su_rs82_char"
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.2
+  }
 }
 
 5_in_hvar_2_rocket_projectile{
@@ -684,6 +801,63 @@ s_5k_rocket_rocket_projectile{
 
   "shell__concussionMaxRadius:r"{
     value:r=5.0
+    _tags:t="server"
+  }
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
+  }
+}
+
+250kg_gp_bomb_projectile{
+  _extends:t="bomb_projectile"
+  animchar__res:t="su_fab100_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=23.0
+    _tags:t="server"
+  }
+}
+
+m8_rocket_projectile{
+  _extends:t="base_m8_rocket_projectile"
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__endSmokeViscosity:r=0.05
+  }
+}
+
+panzerwerfer_42_projectile{
+  _extends:t="base_panzerwerfer_42_projectile"
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+  }
+}
+
+bm_8_24_projectile{
+  _extends:t="base_bm_8_24_projectile"
+
+  _group{
+    _tags:t="render"
+    rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
+  }
+}
+
+type_94mod_10_bomb_projectile{
+  _extends:t="bomb_projectile"
+  animchar__res:t="jp_navy_mod25mark2_250kg_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=23.0
     _tags:t="server"
   }
 }

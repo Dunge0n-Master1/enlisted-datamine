@@ -234,5 +234,5 @@ usa_base_soldier{
 
 ai_aircraft_crew_usa_soldier{
   _extends:t="usa_base_soldier"
-  _extends:t="ai_aircraft_crew_soldier_base"
+  _extends:t="ai_aircraft_crew_soldier_usa_base"
 }

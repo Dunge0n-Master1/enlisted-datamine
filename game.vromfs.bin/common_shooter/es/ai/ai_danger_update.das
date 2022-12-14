@@ -48,7 +48,7 @@ def find_danger(var agent_dangers : AgentDangers; eid : EntityId)
 def ai_danger_update_alertness(act : UpdateStageInfoAct)
   var targets : table<uint; TargetData>
   query() <| $ [es(REQUIRE_NOT=ai_target__autoGunTarget)] (eid : EntityId; ai_target : Target; team : int;
-                                                           human_net_phys : HumanActor?; vehicle_seats__seatEids : EidList?)
+                                                           human_net_phys : HumanActor const?; vehicle_seats__seatEids : EidList const?)
     var stance = STANCE_STAND
     var targetTeam = team
     if human_net_phys != null
@@ -195,11 +195,11 @@ def ai_danger_trace_targets(act : UpdateStageInfoAct; eid : EntityId; isAlive : 
   var maxRatio = 0f
   var traceTo = INVALID_ENTITY_ID
 
-  var targets : array<tuple<Target?; float>>
+  var targets : array<tuple<Target const?; float>>
   reserve(targets, length(agent_dangers.dangers))
   for danger in agent_dangers.dangers
     var found = false
-    query(danger.eid) <| $ [es(REQUIRE=ai_target)] (ai_target : Target?; ai_target__noiseLevel = 0.; beh_tree__enabled : bool = false)
+    query(danger.eid) <| $ [es(REQUIRE=ai_target)] (ai_target : Target const?; ai_target__noiseLevel = 0.; beh_tree__enabled : bool = false)
       found = true
       let potentialDangerMeter = calc_danger(act.curTime, agent_dangers__maxDangerDist, danger, *ai_target, ai_target__noiseLevel, beh_tree__enabled,
                                              danger_calc__aiCoef, danger_calc__avoidBulletsNearTime,
@@ -210,7 +210,7 @@ def ai_danger_trace_targets(act : UpdateStageInfoAct; eid : EntityId; isAlive : 
         maxRatio = ratio
         traceTo = danger.eid
     if !found
-      targets |> emplace([[tuple<Target?; float>]])
+      targets |> emplace([[tuple<Target const?; float>]])
 
   for i in iter_range(agent_dangers.dangers)
     assume danger = agent_dangers.dangers[i]
@@ -235,7 +235,7 @@ def ai_danger_trace_targets(act : UpdateStageInfoAct; eid : EntityId; isAlive : 
       let t = min(length(ai_target.targetPos - fromPos), danger.distance)
       if !collides
         find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], fromPos, dir, t, 0.0, GridEntCheck BOUNDING) <| $(objEid : EntityId)
-          if objEid != danger.eid && objEid != agentEid && uint(objEid) != ai_target.useVehicle
+          if objEid != danger.eid && objEid != agentEid
             query(objEid) <| $ [es] (transform : float3x4; collres : CollisionResource; animchar : AnimcharBaseComponent)
               collides = collres_rayhit(collres, transform, animchar.nodeTree, fromPos, dir, t)
           return collides

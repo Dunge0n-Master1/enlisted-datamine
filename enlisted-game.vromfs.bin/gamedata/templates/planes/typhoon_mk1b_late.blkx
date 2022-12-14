@@ -24,6 +24,13 @@ typhoon_mk1b_late{
         turret:t="turret_03"
         turret:t="turret_04"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -198,4 +205,24 @@ planegun_typhoon_mk1b_late_20mm_hispanomkii_04{
   _extends:t="gunsound_20mm_hispanomkii_aircraft"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=140
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    offset:p3=0.0, 0.0, 0.0
+    offset:p3=0.0, 0.01, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    rot:p2=0.0, 0.0
+    rot:p2=0.0, 0.0
+  }
 }

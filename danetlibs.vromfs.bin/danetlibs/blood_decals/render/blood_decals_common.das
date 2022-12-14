@@ -67,9 +67,16 @@ def calculate_parabolic_trajectory(var eye, look_at, point_to_eye : float3; var 
   point_to_eye = eye - look_at;
   norm = normalize(point_to_eye);
 
+[event(broadcast)]
+struct CmdAddBloodDecalInternal
+  tm : float3x4
+  rad : float
+  tex_id : uint16
+  mx_id : uint16
+  params : float4
+
 def blood_decals_add_decal(eye_pos, look_at : float3)
-  query() <| $ [es] (var blood_decals_manager : RingBufferDecals;
-                     var blood_decals_traces_result : FloatList;
+  query() <| $ [es] (var blood_decals_traces_result : FloatList;
                      var blood_decals_traces_queue : IPoint2List;
                      var blood_decals_decals_count : int&)
 
@@ -112,7 +119,8 @@ def blood_decals_add_decal(eye_pos, look_at : float3)
     // Variable 'params' is packed to uint2 by the generator shader. Because of this, it does not support enough precision for
     // startTime, so decalSize and startTime is swapped. It is decoded again in the vertex shader stage of the rendering shader.
 
-    blood_decals_manager |> addDecal(transform, startTime, uint16(0), uint16(0), params)
+    // Note: intentionally not immediate since this function can be called from thread (ParallelUpdateFrameDelayed)
+    broadcastEvent([[CmdAddBloodDecalInternal tm=transform, rad=startTime, tex_id=uint16(0), mx_id=uint16(0), params=params]])
 
     blood_decals_decals_count++
 

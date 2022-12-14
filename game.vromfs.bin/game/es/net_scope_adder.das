@@ -99,7 +99,7 @@ def add_default_entities_in_net_scope(evt : CmdAddDefaultEntitiesInNetScope)
   let view_fwd = evt.viewFwd
   var entdist : array<EntDistRec>
 
-  query() <| $ [es(REQUIRE=(net__alwaysInScope, replication))] (var replication : NetObject?; transform : float3x4?)
+  query() <| $ [es(REQUIRE=(net__alwaysInScope, replication))] (var replication : NetObject?; transform : float3x4 const?)
     if transform != null
       entdist |> push(replication, (*transform)[3], view_pos, view_fwd)
     else

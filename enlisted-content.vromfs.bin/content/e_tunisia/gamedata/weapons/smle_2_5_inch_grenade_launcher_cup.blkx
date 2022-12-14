@@ -1,4 +1,4 @@
-stat_name:t="launcher"
+stat_name:t="grenade"
 selWeaponVar:t="smle_2_5_inch_grenade_launcher_cup"
 
 ownerAnimVars{

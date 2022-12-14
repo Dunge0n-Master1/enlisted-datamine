@@ -27,7 +27,7 @@ let mkTextWithIcon = @(icon, text) {
   ]
 }
 
-let function mkPortrait(portrait)  {
+let function mkPortrait(portrait) {
   let { icon } = getPortrait(portrait)
   if (icon == "")
     return null
@@ -40,7 +40,7 @@ let function mkPortrait(portrait)  {
     children = {
       size = flex()
       rendObj = ROBJ_IMAGE
-      image = Picture(getPortrait(portrait).icon)
+      image = Picture(icon)
     }
   }
 }

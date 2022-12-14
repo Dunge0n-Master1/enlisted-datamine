@@ -1,0 +1,264 @@
+phys{
+  oilLeakSpeed:r=0.0024
+  oilLeakTime:p3=420.0, 210.0, 20.0
+  oilEmptyDamageSpeed:r=0.0042
+  waterLeakSpeed:r=0.0048
+  waterLeakTime:p3=210.0, 105.0, 15.0
+  waterEmptyDamageSpeed:r=0.0111
+  leakIntensityByTankCapacity:p4=100.0, 1000.0, 0.012, 0.12
+  alphaAileronMin:r=0.2
+  alphaRudderMin:r=0.2
+  alphaElevatorMin:r=0.4
+  allowStrongControlsRestrictions:b=yes
+  pseudoHingeMomentLimit:b=no
+  setupWingSweepOnSpawn:b=no
+  clToCmAsForceArm:b=yes
+  instructorPayloadCogOffsetMult:r=1.0
+  instructorPayloadCogOffsetMult:r=1.0
+  sceneMultiRayCast:b=yes
+  traceDownType:t="cross"
+  impulseBasedAircraftToSceneCollisionWithCollisionObjects:b=no
+  impulseBasedAircraftGearToSceneCollision:b=no
+  isSimulatedRendinstCollisionCheat:b=no
+  collisionTracesMax:i=64
+  staticObjectsRayCastLength:r=-1.0
+  terrainRoughnessWaveLengthMult:r=2.0
+  terrainRoughnessAmplitude:r=0.0
+  surfaceFriction:r=0.8
+  surfaceFrictionDamageMultiplier:p4=0.9, 1.0, 0.0, 1.3
+  surfaceBounce:r=0.05
+  surfaceErpMult:r=0.04
+  moveMinSq:r=0.0
+  rotMinSq:r=0.0
+  rollingFriction:r=0.02
+  selfSteeringWheelSideFrictionMult:r=2.0
+  treeImpulseTreshold:r=80000.0
+  unitCollisionImpulseSpeedMax:r=40.0
+  sinkRateMult:r=1.0
+  explosionImpulseVel:r=15.0
+  contactImpulseSpeedTreshold:r=3.0
+  collisionImpulseSpeedToDamage:r=75.0
+  frictionImpulseSpeedToDamage:r=15.0
+  propellerImpulseMultiplierToDamage:r=3.0
+  contactDamageThreshold:r=5.0
+  contactDamageSphereRadius:r=0.5
+  automaticBackwardGroundSteering:b=no
+  automaticBackwardRollProtection:b=no
+  engineDegradationSpeed1:r=0.0005
+  engineDegradationSpeed2:r=0.0035
+  engineDegradationSpeed3:r=0.025
+  oilLeakTime1:r=420.0
+  oilLeakTime2:r=210.0
+  oilLeakTime3:r=20.0
+  waterLeakTime1:r=210.0
+  waterLeakTime2:r=105.0
+  waterLeakTime3:r=15.0
+  shaftDegradationSpeed1:r=0.0005
+  shaftDegradationSpeed2:r=0.0035
+  shaftDegradationSpeed3:r=0.025
+  normalizedFrictionAccelMax:b=yes
+  shaftDamageFrictionAccelMax:r=0.002
+  shaftCutFrictionAccelMax:r=0.0003
+  transmissionDamageFrictionAccelMax:r=0.076
+  transmissionCutFrictionAccelMax:r=0.02
+  trasmissionOilMinSafeLevel:r=0.1
+  forceTransmissionDamageLevelAfterShaftCut:i=3
+  forceTransmissionDamageLevelAfterPropeller:i=3
+  selfSealingTanksTreshold:r=0.0
+  damagedPropClMult:r=0.4
+  damagedPropCdMult:r=3.0
+  damagedSurfaceCxMultSquareRatioMin:r=0.3
+  damagedSurfaceCxMultSquareRatioMax:r=0.5
+  damagedSurfaceCxMultMax:r=2.3
+  propellerScreenEffectMultiRayCast:b=no
+  distToSurfaceTimeConst:r=0.2
+  mainRotorLowSpeedAlarmPercent:r=0.9
+  vortexRingAlarmPercent:r=0.7
+  wheelBrakesSpeed:p2=100.0, 2.0
+  arrestorAcceleration:p2=3.0, 4.5
+  wingOverloadToBreakProbabilityMult:r=6.0
+  wingOverspeedToBreakProbabilityMult:r=0.03
+  controlFinsDestructionSpeedDiff:r=10.0
+  controlOverspeedToBreakProbabilityMult:r=0.05
+  tailDestructionSpeedDiff:r=40.0
+  tailOverspeedToBreakProbabilityMult:r=0.05
+  wingWaveMassRel:r=0.25
+  overspeedRelToWingWaveAmplitude:p2=0.8, 1.0
+  overspeedRelToWingFakeWaveAmplitude:p2=0.85, 1.15
+  wingspanToWingResonanceSpeed:r=295.0
+  rollingWingWaveRange:p2=0.1, 2.0
+  rollingCameraShakingMult:r=0.0
+  wingSpringDampJoint:b=yes
+  wingSpringDampJointMult:p2=0.5, 0.005
+  wingSpringDampJointArmRel:r=1.0
+  horsePowersToInfraRedBrightness:r=0.42
+  thrustKgsToInfraRedBrightness:r=1.0
+  afterburnerThrustKgsToInfraRedBrightness:r=4.5
+
+  analytics{
+
+    precisionDisplay{
+      speedSearchStep:r=0.2
+      speedSearchSafetyIntervalInitial:r=100.0
+      speedSearchSafetyIntervalNormal:r=7.0
+      loadFactorSearchStep:r=0.025
+      mainRotorAngleStep:r=0.0035
+      mainRotorSearchIterMax:i=250
+      propPitchSearchStep:r=0.0005
+      omegaSearchStep:r=0.2
+    }
+
+    precisionInstructor{
+      speedSearchStep:r=0.2
+      speedSearchSafetyIntervalInitial:r=100.0
+      speedSearchSafetyIntervalNormal:r=7.0
+      loadFactorSearchStep:r=0.025
+      mainRotorAngleStep:r=0.005
+      mainRotorSearchIterMax:i=150
+      propPitchSearchStep:r=0.0005
+      omegaSearchStep:r=0.2
+    }
+
+    precisionDamage{
+      speedSearchStep:r=0.2
+      speedSearchSafetyIntervalInitial:r=100.0
+      speedSearchSafetyIntervalNormal:r=7.0
+      loadFactorSearchStep:r=0.25
+      mainRotorAngleStep:r=0.005
+      mainRotorSearchIterMax:i=150
+      propPitchSearchStep:r=0.0005
+      omegaSearchStep:r=0.5
+    }
+  }
+}
+
+instructor{
+  minOnGroundSpeed:r=0.1
+  adaptivePitchPropCoeffBase:r=1.0
+  adaptivePitchDerrCoeffBase:r=1.0
+  ailDegToPredict:r=14.0
+  elevonDegToPredict:r=-18.0
+  maxCvtAngle:r=1.5
+  instructorSmoothness:r=0.29
+  instructorAlphaPrediction:r=5.0
+  instructorCritAngleK:r=0.2
+  constPitchPropCoeffBase:r=1.0
+  constPitchDerrCoeffBase:r=12.0
+  reducedFlightModelLoop:b=yes
+}
+
+orbit{
+  yawOffsetMult:r=30.0
+  pitchKi:r=0.01
+  pitchKd:r=0.01
+  pitchMax:r=15.0
+}
+
+mouseAim{
+  mouseAimDisableControlTreshold:r=0.8
+  disableMouseAimTime:r=0.05
+  enableMouseAimTime:r=0.1
+  numSteps:i=5
+  maxNumSteps:i=30
+  predictionTime:p3=0.17, 3.0, 0.7
+  scoreTreshold:r=0.0001
+  analyticalScore:r=0.085
+  angVelFactorMin:r=1.42
+  rollRateToAngVelFactor:r=0.497
+  localDirYawPitchRotYZMax0:r=0.125
+  autoBankLevelMultToLocalDirYawPitchRotYZMax:r=0.3
+  rollAndPullUpWishDirYMin:r=-0.7
+  rollandPullUpWishDirMin:r=0.3
+  allowedRollRateCoeff:p4=0.17, 0.3, 0.4, 1.5
+  rollTimeMult:r=0.44
+  rollPidKpMult:r=1.25
+  dirXZFactorPitch0:p4=0.15, 2.0, 0.35, 0.06
+  dirXZFactorPitchMin:r=0.02
+  dirXZFactorYaw0:p4=0.15, 2.0, 0.35, 0.06
+  dirXZFactorYawMin:r=0.02
+  rollRateLimToDirXZFactor:p2=0.7, 1000000.0
+  angDistToRadialAngleAdd:p4=0.12, 0.0, 0.03, 1.0
+  rollRateToRadialAngleAdd:r=0.15
+  radialAngleAddMax:r=0.3
+  applyFactorSpeedRange:p2=0.3, 0.6
+  rotationStopTimeMax:r=3.0
+  disableSolvingForDeadElevator:b=no
+  disableSolvingForDeadRudder:b=yes
+  reducedFlightModelLoop:b=yes
+  elevRuddTreshold:r=0.01
+  elevRuddLinearSearchIterMax:i=0
+  elevRuddPosCaching:b=no
+  elevRuddPosCachingTolerance:r=0.001
+  elevRuddDiffTreshold:r=0.0
+  sceneCollisionDetectionTickInterval:i=5
+  preciseRotationStopTimeStepMult:r=2.0
+  preciseRotationStopTickMult:i=4
+}
+
+autopilot{
+
+  Ailerons{
+    rateDeadZone:r=0.0
+    angleDeadZone:r=0.0
+    velDeadZone:r=0.0
+    posDeadZone:r=0.1
+    posHoldVelTreshold:r=2.0
+    posHoldTimeOut:r=3.0
+    angleLimByRaltitude:p4=15.0, 20.0, 50.0, 190.0
+    angleLim:r=190.0
+    angleLimFullRateMult:r=0.8
+    autoRateDeadZone:r=0.0
+    maxAutoRateMult:r=0.85
+    limitHalfWingAoa:b=no
+    maxAoaMult:r=0.8
+    rollTimeMultBase:r=4.0
+  }
+
+  Elevator{
+    rateDeadZone:r=0.0
+    angleDeadZone:r=0.0
+    velDeadZone:r=0.0
+    posDeadZone:r=0.1
+    posHoldVelTreshold:r=2.0
+    posHoldTimeOut:r=3.0
+    angleLimByRaltitude:p4=15.0, 20.0, 50.0, 190.0
+    angleLim:r=190.0
+    angleLimFullRateMult:r=0.8
+    aoaFactorDeadZone:r=0.0
+    loadFactorFilterViscosity:r=0.05
+    loadFactorDeadZone:r=0.0
+    maxLoadFactorMult:r=0.85
+    targetMaxAoaFactorMult:r=1.0
+    additionalAoaMaxFactorMult:r=1.0
+    maxAoaFactorMult:r=0.95
+    limitAoaByLoadFactor:b=yes
+    limitStabAoa:b=no
+    loadFactorTimeMultBase:r=5.0
+    aoaTimeMultBase:r=0.2
+  }
+
+  Yaw{
+    rateDeadZone:r=0.0
+    headingHoldRateTreshold:r=2.0
+    headingHoldTimeOut:r=0.5
+  }
+
+  Throttle{
+    climbDeadZone:r=0.0
+    altDeadZone:r=0.1
+    altHoldClimbTreshold:r=0.5
+    altHoldTimeOut:r=0.5
+    climbMinLimByHorSpeed:p4=40.0, -3.0, 80.0, -15.0
+    climbMinLimByRAltitude:p4=15.0, -3.0, 50.0, -15.0
+  }
+
+  Aim{
+    axesTreshold:r=0.05
+    rollLim:r=50.0
+    rollLimByRaltitude:p4=15.0, 20.0, 50.0, 190.0
+    pitchLim:r=20.0
+    pitchLimByRaltitude:p4=15.0, 20.0, 100.0, 190.0
+    overridenRollLim:r=30.0
+    angleLimFullRateMult:r=0.8
+  }
+}

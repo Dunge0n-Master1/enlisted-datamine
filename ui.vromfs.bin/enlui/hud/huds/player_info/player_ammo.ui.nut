@@ -4,7 +4,8 @@ let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {mkInputHintBlock} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { hasWeapon, curWeaponIsReloadable, curWeaponAmmo, curWeaponIsDualMag,
   curWeaponAdditionalAmmo, curWeaponTotalAmmo, curWeaponAltAmmo,
-  curWeaponAltTotalAmmo, curWeaponIsModActive, curWeaponHasAltShot
+  curWeaponAltTotalAmmo, curWeaponIsModActive, curWeaponHasAltShot,
+  curWeaponIconByHolders, curWeaponCurAmmoHolderIndex, curWeaponAmmoByHolders
 } = require("%ui/hud/state/hero_weapons.nut")
 let {blurBack, DEFAULT_TEXT_COLOR} = require("style.nut")
 
@@ -46,16 +47,21 @@ let ammoText = @(txt, styles) {
   animations = ammoNumAnim
 }.__update(styles)
 
-let rifleGrenadeImage = memoize(@(size) freeze({
+let RIFLE_GRENADE_ICON = "!ui/uiskin/item_rifle_grenade.svg"
+
+let ammoTypeImage = memoize(@(size, iconName) freeze({
   rendObj = ROBJ_IMAGE
   size = [size,size]
-  image = Picture("!ui/uiskin/item_rifle_grenade.svg:{1}:{1}:K".subst(size.tointeger()))
+  image = Picture("{0}:{1}:{1}:K".subst(iconName, size.tointeger()))
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
   margin = hdpx(5)
 }))
 
-let ammoCmp = @(curAmmo, additionalAmmo, totalAmmo, styles, isAlt = false, isSecondary = false){
+let rifleGrenadeIcon = ammoTypeImage(ALT_ICON_SIZE, RIFLE_GRENADE_ICON)
+let rifleGrenadeIconSecondary = ammoTypeImage(ALT_SECONDARY_ICON_SIZE, RIFLE_GRENADE_ICON)
+
+let ammoCmp = @(curAmmo, additionalAmmo, totalAmmo, styles, icon = null) {
   size = SIZE_TO_CONTENT
   children = [
     styles.useBlur ? blurBack : null,
@@ -67,11 +73,11 @@ let ammoCmp = @(curAmmo, additionalAmmo, totalAmmo, styles, isAlt = false, isSec
       valign = ALIGN_CENTER
       gap = heightTxt/10
       children = [
-        isAlt ? rifleGrenadeImage(isSecondary ? ALT_SECONDARY_ICON_SIZE : ALT_ICON_SIZE) : null
-        ammoText(curAmmo, styles.curAmmo)
-        additionalAmmo != null ? add.__merge(styles.add) : null
+        icon
+        curAmmo != null ? ammoText(curAmmo, styles.curAmmo) : null
+        curAmmo != null && additionalAmmo != null ? add.__merge(styles.add) : null
         additionalAmmo != null ? ammoText(additionalAmmo, styles.additionalAmmo) : null
-        sep.__merge(styles.sep)
+        curAmmo != null || additionalAmmo != null ? sep.__merge(styles.sep) : null
         ammoText(max(0, totalAmmo - (additionalAmmo ?? 0)), styles.totalAmmo)
       ]
     }
@@ -116,18 +122,45 @@ let mkAmmoInfo = function(mainStyles = {}, secondaryStyles = {}) {
     let curAmmo = curWeaponAmmo.value
     let additionalAmmo = curWeaponIsDualMag.value ? curWeaponAdditionalAmmo.value : null
     let totalAmmo = curWeaponTotalAmmo.value
-    if (!curWeaponHasAltShot.value)
+    if (!curWeaponHasAltShot.value) {
+      let iconByHolders = curWeaponIconByHolders.value
+      let ammoByHolders = curWeaponAmmoByHolders.value
+      let ammoByHoldersLen = ammoByHolders.len()
+      let curAmmoHolderIndex = curWeaponCurAmmoHolderIndex.value
+      let curTotalAmmo = ammoByHolders?[curAmmoHolderIndex] ?? totalAmmo
+      let curAmmoIconName = iconByHolders?[curAmmoHolderIndex] ?? ""
+      let curAmmoIcon = curAmmoIconName != "" ? ammoTypeImage(ALT_ICON_SIZE, curAmmoIconName) : null
+
+      local children = [ ammoCmp(curAmmo, additionalAmmo, curTotalAmmo, mainStyles, curAmmoIcon) ]
+      for (local i = 0; i < ammoByHoldersLen; i++) {
+        if (i == curAmmoHolderIndex || ammoByHolders[i] <= 0)
+          continue
+
+        let ammoIconName = iconByHolders?[i] ?? ""
+        let ammoIcon = ammoIconName != ""
+                     ? ammoTypeImage(ALT_SECONDARY_ICON_SIZE, ammoIconName)
+                     : null
+        let ammoCounter = ammoCmp(null, null, ammoByHolders[i], secondaryStyles, ammoIcon)
+        children.append(ammoCounter)
+      }
+
+      watch.append(curWeaponIconByHolders, curWeaponCurAmmoHolderIndex, curWeaponAmmoByHolders)
+
       return {
         watch
         valign = ALIGN_CENTER
         halign = ALIGN_RIGHT
-        children = ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles)
+        flow = FLOW_VERTICAL
+        children
       }
+    }
 
     watch.append(curWeaponAltAmmo, curWeaponAltTotalAmmo, curWeaponIsModActive)
     let altCurAmmo = curWeaponAltAmmo.value
     let altTotalAmmo = curWeaponAltTotalAmmo.value
     let isModActive = curWeaponIsModActive.value
+    let mainAmmoIcon = isModActive ? rifleGrenadeIcon : null
+    let altAmmoIcon = !isModActive ? rifleGrenadeIconSecondary : null
     return {
       watch
       flow = FLOW_HORIZONTAL
@@ -138,8 +171,8 @@ let mkAmmoInfo = function(mainStyles = {}, secondaryStyles = {}) {
           flow = FLOW_VERTICAL
           halign = ALIGN_RIGHT
           children = [
-            ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles, isModActive)
-            ammoCmp(altCurAmmo, additionalAmmo, altTotalAmmo, secondaryStyles, !isModActive, true)
+            ammoCmp(curAmmo, additionalAmmo, totalAmmo, mainStyles, mainAmmoIcon)
+            ammoCmp(altCurAmmo, additionalAmmo, altTotalAmmo, secondaryStyles, altAmmoIcon)
           ]
         }
       ]

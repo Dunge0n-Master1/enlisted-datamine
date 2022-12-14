@@ -1,0 +1,8 @@
+graphics_autodetect{
+  _tags:t="render"
+  _singleton:b=yes
+  selfdestruct:b=no
+
+  "graphics_auto_detect:GraphicsAutodetectWrapper"{
+  }
+}

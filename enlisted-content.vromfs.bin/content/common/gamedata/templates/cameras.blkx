@@ -217,7 +217,7 @@ base_shooter_cam{
   base_transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   zoom:r=0.0
   team:i=0
-  isCockpitCam:b=yes
+  isHeroCockpitCam:b=yes
   _tracked:t="camera__target"
   _tracked:t="camera__active"
   _tracked:t="fovSettings"
@@ -332,7 +332,7 @@ shooter_tps_cam{
   shooter_cam__magnificationTau:r=0.5
   shooter_cam__tauMult:r=1.0
   shooter_cam__velTauMult:r=1.0
-  isCockpitCam:b=no
+  isHeroCockpitCam:b=no
 }
 
 dev_tps_cam{
@@ -364,6 +364,8 @@ replay_observed{
   _extends:t="observed_local"
   replay__deadCamTime:r=5.0
   replay__deadCamTimer:r=0.0
+  lut_switcher__enabled:b=yes
+  _tracked:t="lut_switcher__enabled"
 
   "hero:tag"{
   }
@@ -381,7 +383,7 @@ replay_observed{
 base_replay_camera{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   isTpsView:b=no
-  isCockpitCam:b=yes
+  isHeroCockpitCam:b=yes
   bindToVehicle:b=no
   camera__active:b=no
   fovSettings:r=90.0
@@ -409,7 +411,7 @@ base_replay_camera{
 replay_camera{
   _extends:t="base_replay_camera"
   _extends:t="shooter_cam"
-  isCockpitCam:b=yes
+  isHeroCockpitCam:b=yes
 }
 
 replay_camera_tps{
@@ -419,7 +421,7 @@ replay_camera_tps{
   spectator__dir:p3=1.0, 0.0, 0.0
   spectator__ang:p2=0.0, 0.0
   isTpsView:b=yes
-  isCockpitCam:b=no
+  isHeroCockpitCam:b=no
   camera__input_enabled:b=no
   camera__inputActionSet:t=""
   _tracked:t="camera__input_enabled"
@@ -431,9 +433,15 @@ replay_camera_tps_free{
   camera__input_enabled:b=no
   camera__inputActionSet:t="Camera"
   isTpsView:b=yes
-  isCockpitCam:b=no
+  isHeroCockpitCam:b=no
   replay_camera__offset:p3=1.194, 2.092, 3.501
+  replay_camera__tpsInputAngle:p2=0.0, 0.0
+  replay_camera__tpsCurAng:p2=0.0, 0.0
+  specator_cam__smoothDiv:r=1000.0
+  replay_camera__tpsLerpFactor:r=2.0
+  free_cam_input__moveUI:p2=0.0, 0.0
   _tracked:t="camera__input_enabled"
+  _tracked:t="replay_camera__tpsLerpFactor"
 
   "replay_camera__tpsFree:tag"{
   }
@@ -512,7 +520,7 @@ plane_tps_cam{
   bindToVehicle:b=yes
   shooter_camera__forceStabilized:b=no
   shooter_cam__tau_on_change:r=0.0
-  isCockpitCam:b=no
+  isHeroCockpitCam:b=no
   isPlaneCockpitCam:b=no
 }
 
@@ -525,7 +533,7 @@ plane_fps_cam{
   bindToVehicle:b=yes
   shooter_camera__forceStabilized:b=no
   shooter_cam__tau_on_change:r=0.0
-  isCockpitCam:b=yes
+  isHeroCockpitCam:b=yes
   isPlaneCockpitCam:b=yes
 
   "plane_fps_cam__applyLookAroundOffset:tag"{

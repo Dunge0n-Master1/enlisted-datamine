@@ -1,5 +1,6 @@
 require ecs
 require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require game.es.inventory_common
 
 [es(tag=server, before=useful_box_use_finish_es)]
@@ -7,7 +8,7 @@ def item_box_use_es(evt : CmdUseUsefulBox;
                     useful_box__giveItem : string;
                     var useful_box__successUse : bool&;
                     var useful_box__requiredUseCount : int&;
-                    useful_box__fillMode : Tag?;
+                    useful_box__fillMode : Tag const?;
                     useful_box__itemExistTag : string = "")
   useful_box__successUse = true
   useful_box__requiredUseCount = 1

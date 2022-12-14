@@ -49,7 +49,7 @@ def parachute_animation_continuous(info : UpdateStageInfoAct;
                                    parachute_anim__openedStateId : int;
                                    parachute_anim__closingStateId : int;
                                    parachute_anim__openingStateId : int;
-                                   parachuteDeployed : Tag?)
+                                   parachuteDeployed : Tag const?)
   assume animGraph = animchar.animGraph
   if animGraph == null
     return
@@ -120,7 +120,7 @@ def human_parachute_animation_continuous(info : UpdateStageInfoAct;
                                          human_parachute_anim__openedStateId : int;
                                          human_parachute_anim__closingStateId : int;
                                          human_parachute_anim__openingStateId : int;
-                                         parachuteDeployed : Tag?)
+                                         parachuteDeployed : Tag const?)
   let deployed = parachuteDeployed != null
 
   if human_parachute_anim__lastDeployState != deployed

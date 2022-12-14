@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { canChangeCockpitView } = require("%ui/hud/state/cockpit.nut")
@@ -11,7 +12,7 @@ let { isInHatch, canHoldWeapon, isHoldingGunPassenger } = require("%ui/hud/state
 let { isBinocularMode, hasHeroBinocular } = require("%ui/hud/state/binocular.nut")
 
 let allowHints = Computed(@() controlledHeroEid.value == watchedHeroEid.value
-  && controlledHeroEid.value != INVALID_ENTITY_ID)
+  && controlledHeroEid.value != ecs.INVALID_ENTITY_ID)
 
 let showExitAloneAction = Computed(@()
   inVehicle.value
@@ -38,7 +39,7 @@ let function exitVehicleAlone() {
   return res.__update({
     children = tipCmp({
       text = loc("hud/leaveVehicleAlone")
-      inputId = "Human.ExitVehicleAlone"
+      inputId = "Human.LeaveVehicleAlone"
       textColor = DEFAULT_TEXT_COLOR
     })
   })

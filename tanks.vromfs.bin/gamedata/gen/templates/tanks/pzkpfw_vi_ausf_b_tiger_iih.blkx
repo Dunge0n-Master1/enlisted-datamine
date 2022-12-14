@@ -15,21 +15,25 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
   drowningHeight:r=2.4
   damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_vi_ausf_b_tiger_iih.blk"
   item__name:t="items/germ_pzkpfw_vi_ausf_b_tiger_iih"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="pzkpfw_vi_ausf_b_tiger_iih_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mg_flame_03"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_100mm_brake"
     fx:t="muzzle_ground_8mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +43,7 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
     node:t="bone_mg_aa_barrel"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -84,6 +89,11 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
       wishYawParamName:t="gun_03_aim:targetYaw"
       wishPitchParamName:t="gun_03_aim:targetPitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -108,6 +118,14 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
     "turretInfo:object"{
       turretName:t="turret_03"
       gun:t="pzkpfw_vi_ausf_b_tiger_iih_turret_03_7_92mm_mg34"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_b_tiger_iih_turret_04_91mm_germ_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -154,8 +172,17 @@ pzkpfw_vi_ausf_b_tiger_iih_turret_03_7_92mm_mg34{
   turret__limit:p4=-55.0, 158.0, -10.0, 25.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=1000
-    ammo:i=1000
+    ammo:i=1050
+    ammo:i=1050
+  }
+}
+
+pzkpfw_vi_ausf_b_tiger_iih_turret_04_91mm_germ_smoke_mortar_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=12
   }
 }
 

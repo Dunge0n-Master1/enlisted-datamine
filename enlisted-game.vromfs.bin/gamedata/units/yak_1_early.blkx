@@ -1,5 +1,5 @@
 model:t="yak_1_early"
-fmFile:t="fm/yak_1b.blk"
+fmFile:t="fm/yak_1_early.blk"
 damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
 damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
 damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
@@ -1142,7 +1142,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.8
       leak:r=0.9
@@ -1156,14 +1156,12 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
-      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=50.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1184,7 +1182,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.8
       leak:r=0.9
@@ -1198,14 +1196,12 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
-      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=50.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1226,7 +1222,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.8
       leak:r=0.9
@@ -1240,14 +1236,12 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
-      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=50.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1268,7 +1262,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.8
       leak:r=0.9
@@ -1282,14 +1276,12 @@ DamageEffects{
 
     onKill{
       damage:r=30.0
-      expl:r=25.0
       fire:r=15.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=50.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }

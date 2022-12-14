@@ -66,7 +66,7 @@ def init_nearest_pos(eid : EntityId;
   let pathSlop = 0.25
 
   for _i in range(capzone__maxNavPoints)
-    let rndAngle     = rnd_float(0.0, 2.0 * PI)
+    let rndAngle     = rnd_float(0.0, TWOPI)
     let rndInRadius  = rnd_float(0.0, radius)
     let rndOutRadius = radius + rndInRadius
 

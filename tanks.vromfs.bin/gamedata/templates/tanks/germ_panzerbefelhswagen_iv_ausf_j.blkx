@@ -15,8 +15,25 @@ germ_panzerbefelhswagen_IV_ausf_J{
 
 germ_panzerbefelhswagen_IV_ausf_J_common{
   _extends:t="base_panzerbefelhswagen_iv_ausf_j"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 

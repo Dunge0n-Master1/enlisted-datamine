@@ -5,6 +5,7 @@ semi_transparent_render{
     _tags:t="render"
     semi_transparent__placingColor:p3=0.0, 0.0, 0.0
     semi_transparent__visible:b=yes
+    semi_transparent__lod:i=-1
   }
 }
 

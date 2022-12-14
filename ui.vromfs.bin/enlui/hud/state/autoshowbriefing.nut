@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {showBriefingOnSquadChange, briefingState, showBriefingForTime, showBriefingOnHeroChange} = require("briefingState.nut")
@@ -21,7 +22,7 @@ controlledHeroEid.subscribe(function(value) {
     showedBriefing[curBriefingCommon] <- 1
     showBriefingForTime(briefingState.value?.showtime ?? 10.0)
   }
-  if (value == INVALID_ENTITY_ID)
+  if (value == ecs.INVALID_ENTITY_ID)
     return
   if (!firstSpawnBriefingShown.value){
     firstSpawnBriefingShown(true)

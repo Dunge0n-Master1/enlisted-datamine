@@ -68,7 +68,7 @@ def turret_set_angles_es(evt : Event; turret_control__gunEids : EidList; var phy
     query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__owner : EntityId;
                                                         turret__wishYawVarId : int;
                                                         turret__wishPitchVarId : int;
-                                                        turret__limitsTable : Point4List? = null;
+                                                        turret__limitsTable : Point4List const? = null;
                                                         turret__aimNodeName : string = "";
                                                         turret_state : TurretState)
       if turret__wishYawVarId >= 0 && turret__wishPitchVarId >= 0
@@ -77,19 +77,17 @@ def turret_set_angles_es(evt : Event; turret_control__gunEids : EidList; var phy
           query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
             let ang = float2(-wishAngles.x, wishAngles.y)
             var dir = angles_to_dir(ang)
-            let nodeId = geomtree_findNodeIndex(animchar.nodeTree, turret__aimNodeName)
-
-            let parNode = geomtree_getParentNode(animchar.nodeTree, nodeId)
-            let curNode = geomtree_getNode(animchar.originalNodeTree, nodeId)
+            let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, turret__aimNodeName)
+            let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, nodeId)
 
             var mx : float3x4
 
-            if parNode != null
+            if parNodeId >= 0
               var tm : float3x4
               var wt : float3x4
 
-              geomtreenode_getTmScalar(curNode, tm)
-              geomtreenode_getWtmScalar(parNode, wt)
+              *animchar.originalNodeTree |> geomtree_getNodeTmScalar(nodeId, tm)
+              *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(parNodeId, wt)
 
               mx  = wt * tm
               dir = rotate(inverse(mx), dir)
@@ -121,7 +119,7 @@ def turret_init_aim_parent_node(evt : Event;
                                 turret__aimParentNodeName : string;
                                 var turret__aimParentNodeId : int&)
   query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
-    turret__aimParentNodeId = geomtree_findNodeIndex(animchar.nodeTree, turret__aimParentNodeName)
+    turret__aimParentNodeId = geomtree_findNodeIndex(*animchar.nodeTree, turret__aimParentNodeName)
 
 def turret_get_angles(turret_control__gunEids : EidList;
                       net_phys__timeStep : float;
@@ -129,15 +127,15 @@ def turret_get_angles(turret_control__gunEids : EidList;
                       phys_vars : PhysVars)
   for turretEid in turret_control__gunEids
     query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__curYawVarId, turret__curPitchVarId : int; turret__aimParentNodeId : int = -1; var turret_state : TurretState)
-      var curAngles = float2(-deg_to_rad(getVar(phys_vars, turret__curYawVarId)),
-                              deg_to_rad(getVar(phys_vars, turret__curPitchVarId)))
+      var curAngles = float2()
+      if turret__curYawVarId >= 0 && turret__curPitchVarId >= 0
+        curAngles = float2(-deg_to_rad(getVar(phys_vars, turret__curYawVarId)),
+                            deg_to_rad(getVar(phys_vars, turret__curPitchVarId)))
       if turret__aimParentNodeId >= 0
-        let curNode = animchar.originalNodeTree |> geomtree_getNode(turret__aimParentNodeId)
-        if curNode != null
-          var tm : float3x4
-          geomtreenode_getWtmScalar(curNode, tm)
-          curAngles = dir_to_angles(rotate(tm, angles_to_dir(curAngles)))
-          curAngles.x = -curAngles.x
+        var tm : float3x4
+        *animchar.originalNodeTree |> geomtree_getNodeWtmRelScalar(turret__aimParentNodeId, tm)
+        curAngles = dir_to_angles(rotate(tm, angles_to_dir(curAngles)))
+        curAngles.x = -curAngles.x
       turret_state.speed  = (curAngles - turret_state.angles) * safeinv(net_phys__timeStep)
       turret_state.angles = curAngles
 

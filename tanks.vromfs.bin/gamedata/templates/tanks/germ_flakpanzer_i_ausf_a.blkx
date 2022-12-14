@@ -1,6 +1,5 @@
 germ_flakpanzer_I_ausf_A{
   _extends:t="base_flpz_i_ausf_a"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
 

@@ -5,6 +5,7 @@ require game.utils.hero
 require game.utils.team
 require DagorMathUtils
 require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require EnlistedHuman
 require DagorSystem
 require ecs.common
@@ -25,8 +26,8 @@ require common_shooter.events_common_shooter
 
 [es(on_appear)]
 def building_preview_collobj_init_es(evt : Event;
-                                     ri_preview__name : das_string?;
-                                     previewCollres : CollisionResource?;
+                                     ri_preview__name : das_string const?;
+                                     previewCollres : CollisionResource const?;
                                      preview_phys__blk : string;
                                      var previewCollobj : CollisionObject)
   let baseCollres = get_building_collres(previewCollres, ri_preview__name)
@@ -117,10 +118,10 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                                       building_builder__minDistanceToMissionRespawns = -1.0;
                                       building_builder__minDistanceToCapturePoints = -1.0;
                                       building_builder__maxUnderwaterDistance = -1.0;
-                                      shredInDeactivatingBattleArea : Tag?;
+                                      shredInDeactivatingBattleArea : Tag const?;
                                       requiredSpaceAboveObject = 0.0;
-                                      ri_preview__name : das_string?;
-                                      previewCollres : CollisionResource?;
+                                      ri_preview__name : das_string const?;
+                                      previewCollres : CollisionResource const?;
                                       previewCollobj : CollisionObject;
                                       previewCollobjOffset : float;
                                       buildingCost : float;
@@ -181,12 +182,15 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
     let traceAdditionEps = float3(0.0, 0.05, 0.0)
     var riMatId = PHYSMAT_INVALID
     var riDesc = RendInstDesc()
-    traceray_normalized(tracePos, traceDir, len, riMatId, norm, ETF_ALL, riDesc, rayMatId)
+    traceray_normalized(tracePos, traceDir, len, riMatId, norm, ETF_ALL | ETF_RI_PHYS, riDesc, rayMatId)
     build_position = tracePos + traceDir * len
     if length(norm) == 0.f
-      if !tracedown_normalized_with_mat_id(build_position + traceAdditionEps, height, norm, ETF_DEFAULT, rayMatId)
+      if !tracedown_normalized_with_mat_id(build_position + traceAdditionEps, height, norm, ETF_DEFAULT | ETF_RI_PHYS, rayMatId)
         return true
       build_position.y -= height - traceAdditionEps.y
+
+    if dot(norm, traceDir) >= 0.f //In case if normal is inverted
+      norm = -norm
     build_position.y += additionalHeight
     buildingNorm = norm
     isAngleValid = is_pitch_in_range(norm, avaliableAngles)
@@ -231,7 +235,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
       semi_transparent__placingColor = blockedColor
     nextCheckGridObjectsTime = syncTime + checkGridObjectsTimeInterval
 
-def get_verified_fortification_template_name(templateName, fortificationTm, builderPos, notificationEid, builder_resources, squad_eid, preview_id)
+def get_verified_fortification_template_name(templateName, fortificationTm, builderPos, notificationEid, buildingTeam, builder_resources, squad_eid, preview_id)
   let tpl = getTemplateByName(templateName)
   if tpl == null
     logerr("template {templateName} doesn't exist")
@@ -240,6 +244,12 @@ def get_verified_fortification_template_name(templateName, fortificationTm, buil
     sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_by_unlock",
                                                  text="building_blocked_by_unlock"]])
     return ""
+
+  if getTemplateComponent(*tpl, "shredInDeactivatingBattleArea") != null
+    if !has_active_non_deactivating_human_battle_area_at(fortificationTm[3], buildingTeam)
+      sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_in_deactivating_battle_area", text="building_blocked_in_deactivating_battle_area"]])
+      return ""
+
   let anglesComp = getTemplateComponent(*tpl, "avaliableAngles")
   if anglesComp == null
     logerr("Angle limits aren't specified in template {templateName}")
@@ -258,6 +268,11 @@ def get_verified_fortification_template_name(templateName, fortificationTm, buil
   let eps = 1.0
   if distance > buildingDistance + eps // When moving, positions on client and on server are different
     sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_by_distance", text="building_blocked_by_distance"]])
+    return ""
+
+  let maxUnderwaterDistance = get_float(getTemplateComponent(*tpl, "building_builder__maxUnderwaterDistance")) ?? -1.0
+  if is_conflict_with_water(fortificationTm[3], maxUnderwaterDistance)
+    sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_underwater", text="building_blocked_underwater"]])
     return ""
 
   let minDistanceToCapturePoints = get_float(getTemplateComponent(*tpl, "building_builder__minDistanceToCapturePoints")) ?? -1.0
@@ -325,7 +340,7 @@ def build_fortification_es(evt : CmdBuildFortification;
                            human_weap__currentGunEid : ecs::EntityId;
                            team : int;
                            stockOfBuilderCapabilities : float;
-                           possessedByPlr : ecs::EntityId;
+                           squad_member__playerEid : EntityId;
                            squad_member__squad : EntityId;
                            guid : string)
   if human_weap__currentGunEid != evt.builderGunEid
@@ -335,16 +350,11 @@ def build_fortification_es(evt : CmdBuildFortification;
   ecs::query(human_weap__currentGunEid) <| $ [es] (previewTemplate : StringList;
                                                    additionalBuildingTemplate : string;
                                                    currentPreviewId : int;
-                                                   previewEid : EntityId;
                                                    buildingInterval : float;
                                                    minBuildingRadius : float;
                                                    var nextBuildingAtTime : float&;
                                                    fortification__rayMatId : int = PHYSMAT_INVALID)
-    if has(previewEid, "shredInDeactivatingBattleArea")
-      if !has_active_non_deactivating_human_battle_area_at(previewTm[3], team)
-        sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_in_deactivating_battle_area", text="building_blocked_in_deactivating_battle_area"]])
-        return
-    elif !has_active_human_battle_area_at(previewTm[3], team)
+    if !has_active_human_battle_area_at(previewTm[3], team)
       sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_outside_battle_area", text="building_blocked_outside_battle_area"]])
       return
     if nextBuildingAtTime > curTime
@@ -354,15 +364,16 @@ def build_fortification_es(evt : CmdBuildFortification;
                                                                          previewTm,
                                                                          human__aimTm[3],
                                                                          eid,
+                                                                         team,
                                                                          stockOfBuilderCapabilities,
                                                                          squad_member__squad,
                                                                          currentPreviewId)
     if fortificationTemplate == ""
       return
     let existBuildingEid = (is_preview_allow_recreate(string(previewTemplate[currentPreviewId])) ?
-      find_same_building(possessedByPlr, currentPreviewId) : INVALID_ENTITY_ID)
+      find_same_building(squad_member__playerEid, currentPreviewId) : INVALID_ENTITY_ID)
 
-    let count = count_available_buildings_by_type(possessedByPlr, currentPreviewId)
+    let count = count_available_buildings_by_type(squad_member__playerEid, currentPreviewId)
     if count == 0 && !existBuildingEid
       return
     nextBuildingAtTime = curTime + buildingInterval
@@ -373,7 +384,7 @@ def build_fortification_es(evt : CmdBuildFortification;
       set(init, "buildingRadius", buildingRadius)
       set(init, "buildTypeId", currentPreviewId)
       set(init, "previewTeam", team)
-      set(init, "buildByPlayer", possessedByPlr)
+      set(init, "buildByPlayer", squad_member__playerEid)
       set(init, "buildByEngineerEid", eid)
       set(init, "builder_info__squadEid", squad_member__squad)
       set(init, "builder_info__guid", guid)
@@ -467,8 +478,8 @@ def try_build_fortification_es(evt : Event;
                                building_builder__minDistanceToCapturePoints = -1.0;
                                building_builder__maxUnderwaterDistance = -1.0;
                                requiredSpaceAboveObject = 0.0;
-                               previewCollres : CollisionResource?;
-                               ri_preview__name : das_string?;
+                               previewCollres : CollisionResource const?;
+                               ri_preview__name : das_string const?;
                                previewCollobj : CollisionObject;
                                previewCollobjOffset : float)
   let hero = get_controlled_hero()
@@ -509,8 +520,10 @@ def try_build_fortification_es(evt : Event;
   if !is_required_space_above_object_free(buildingPos, requiredSpaceAboveObject)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_not_enough_free_space_to_spawn", text="building_blocked_not_enough_free_space_to_spawn"]])
     return
-  if is_in_building_restricted_zone(buildingPos, heroTeam)
-    sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text="building_blocked_restricted_zone"]])
+  let restrictedZoneEid = find_building_restricted_zone(buildingPos, heroTeam)
+  if !!restrictedZoneEid
+    let locId = get_string(restrictedZoneEid, "building_restricted_zone__messageLocId", "building_blocked_restricted_zone")
+    sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_restricted_zone", text=locId]])
     return
   send_net_event(hero, [[CmdBuildFortification builderGunEid = builderGunEid,
                                           tm = transform,
@@ -530,7 +543,7 @@ def select_build_tool_on_client(evt : EventRecreateBuildPreview;
                                 human_weap__currentGunEid : ecs::EntityId;
                                 isAlive = true;
                                 isInVehicle = false)
-  ecs::query() <| $ [es(REQUIRE=builder_preview, REQUIRE_NOT=builder_server_preview)] (eid : ecs::EntityId)
+  query() <| $ [es(REQUIRE=builder_preview, REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : ecs::EntityId)
     destroyEntity(eid)
   if isInVehicle || !isAlive
     return

@@ -302,7 +302,6 @@ PhysMats{
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.2
-      armorThickness:r=20.0
     }
 
     meleeHitFx{

@@ -368,6 +368,7 @@ weapons{
     gunSpdDeltaMult:r=1.0
     maxGunSpd:r=100.5
     moveToSpd:r=100.5
+    holsterTime:r=0.5
     breathShakeMagnitude:r=0.05
     crouchBreathShakeMagnitude:r=0.05
     crawlBreathShakeMagnitude:r=0.05

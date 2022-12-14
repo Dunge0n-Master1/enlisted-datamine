@@ -76,6 +76,9 @@ let MSquadAPI = {
   requestMembership = @(squadId, cbParams = STANDARD_CB_PARAMS)
     matchingCall("msquad.request_membership", makePerformCallback(cbParams), { squadId = squadId })
 
+  requestJoin = @(userId, cbParams = STANDARD_CB_PARAMS)
+    matchingCall("msquad.join_player", makePerformCallback(cbParams), { userId })
+
   revokeMembershipRequest = @(squadId, cbParams = STANDARD_CB_PARAMS)
     matchingCall("msquad.revoke_membership_request", makePerformCallback(cbParams), { squadId = squadId })
 

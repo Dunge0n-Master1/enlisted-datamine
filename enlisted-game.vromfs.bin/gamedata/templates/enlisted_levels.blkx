@@ -268,6 +268,86 @@ stalingrad_level{
   }
 }
 
+stalingrad_tractor_plant_level{
+  _extends:t="level"
+
+  "level__weatherChoice:object"{
+
+    "weather_cloudy_a:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=7.5
+        level__timeVec:r=16.5
+      }
+    }
+
+    "weather_cloudy_b:object"{
+      weight:r=1.0
+
+      "level__timeVec:array"{
+        level__timeVec:r=8.0
+        level__timeVec:r=16.0
+      }
+    }
+
+    "weather_cloudy_sunset_a:object"{
+      weight:r=0.5
+
+      "level__timeVec:array"{
+        level__timeVec:r=17.0
+      }
+    }
+
+    "weather_cloudy_sunset_b:object"{
+      weight:r=0.5
+
+      "level__timeVec:array"{
+        level__timeVec:r=6.8
+        level__timeVec:r=17.2
+      }
+    }
+
+    "weather_poor_a:object"{
+      weight:r=1.0
+      cloudsHoleEnabled:b=no
+
+      "level__timeVec:array"{
+        level__timeVec:r=8.5
+        level__timeVec:r=15.5
+      }
+
+      "entities:array"{
+
+        "entity:object"{
+          template:t="camera_snow_light_template"
+        }
+      }
+    }
+
+    "weather_poor_b:object"{
+      weight:r=1.0
+      cloudsHoleEnabled:b=no
+
+      "level__timeVec:array"{
+        level__timeVec:r=8.5
+        level__timeVec:r=16.0
+      }
+
+      "entities:array"{
+
+        "entity:object"{
+          template:t="camera_snow_heavy_template"
+        }
+      }
+    }
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=8.0
+  }
+}
+
 volokolamsk_level{
   _extends:t="level"
 

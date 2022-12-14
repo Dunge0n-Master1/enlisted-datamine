@@ -341,3 +341,9 @@ def human_weap_reload_on_select_es(evt : EventOnSelectWeap;
   human_weap__reloadFinishTime = -1.0
   human_weap__reloadStartTime = -1.0
   human_weap__isReloadRequested = false
+
+
+[es(tag=server, track=human_net_phys__isClimbing)]
+def human_weap_reload_interrupt_on_climbing(evt : Event; eid : EntityId; human_net_phys__isClimbing : bool)
+  if human_net_phys__isClimbing
+    sendEvent(eid, [[CmdInterruptReloadImmediately]])

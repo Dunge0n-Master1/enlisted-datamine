@@ -8,7 +8,5 @@ return {
 
     CmdEnableDedicatedLogger = { on = true },
     EventOnSpawnError = {reason=""},
-
-    CmdHeroLogExEvent = { _event = "", _key = "" },
   }
 }

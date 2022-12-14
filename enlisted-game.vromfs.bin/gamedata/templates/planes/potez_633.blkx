@@ -24,6 +24,13 @@ potez_633{
         turret:t="turret_02"
         turret:t="turret_03"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -355,4 +362,24 @@ potez_633_driver_cockpit{
   animchar__res:t="potez_633_cockpit_char"
   plane_anim__blk:t="gamedata/units/potez_633.blk"
   plane_sight__blk:t="gamedata/units/potez_633.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0025, 0.0035, 0.0215
+    item:p3=0.0065, 0.0235, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=11.8, -7.6
+    item:p2=-1.3, 0.0
+  }
 }

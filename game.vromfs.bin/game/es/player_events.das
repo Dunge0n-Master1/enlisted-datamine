@@ -26,6 +26,7 @@ struct EventOnClientConnected
   matching : uint64
   userName : das_string
   groupId : int64
+  origGroupId : int64
   clientFlags : uint16
   platformUserId : das_string
   platform : das_string
@@ -49,12 +50,15 @@ struct EventPlayerPlace
   total_places : int
   killer_player : ecs::EntityId
 
-[event(broadcast)]
-struct EventOnPlayerSpawned
-  player_eid : EntityId
-  pos_spawn : float3
-  no_battles_played : int
-
 [event(unicast)]
 struct CmdPossessEntity
   possessedEid : EntityId
+
+[event(broadcast)]
+struct PlayerStartQuitGameTimer {}
+
+[event(broadcast)]
+struct PlayerResetQuitGameTimer {}
+
+[event(unicast)]
+struct PlayerRequestRespawnInWorld {}

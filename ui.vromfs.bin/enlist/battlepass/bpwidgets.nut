@@ -22,6 +22,8 @@ let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
 let { sound_play } = require("sound")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
+let { soundDefault } = require("%ui/components/textButton.nut")
+
 
 
 let starSize = hdpxi(20)
@@ -196,10 +198,7 @@ let bpWidgetOpen = @() {
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
       onClick = @() openBPwindow()
-      sound = {
-        click  = "ui/enlist/button_click"
-        hover  = "ui/enlist/button_highlight"
-      }
+      sound = soundDefault
       children = mkWidgetInfo(sf)
     })
   ]

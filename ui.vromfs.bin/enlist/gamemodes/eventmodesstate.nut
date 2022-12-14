@@ -23,6 +23,10 @@ let eventCurArmyIdx = mkWatched(persist, "eventCurArmyIdx", 0)
 let eventsArmiesList = mkWatched(persist, "eventsArmiesList", [])
 let hasUniqueArmies = mkWatched(persist, "hasUniqueArmies", false)
 
+let { matchingCall } = require("%enlist/matchingClient.nut")
+let { get_app_id } = require("app")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+
 let curTab = Watched(null)
 curArmy.subscribe(@(_v) eventCurArmyIdx(curArmiesList.value.indexof(curArmy.value)))
 
@@ -34,9 +38,11 @@ let inactiveEventsToShow = Computed (@() eventGameModes.value.filter(@(gm)
 
 let activeEvents = Computed (@() eventGameModes.value.filter(@(gm) gm.enabled))
 
+let allEventsToShow = Computed (@() [].extend(activeEvents.value, inactiveEventsToShow.value))
+
 let promotedEvent = Computed(@()
-  activeEvents.value.findvalue(@(gm) gm?.queue.extraParams.isPreviewImage ?? false)
-  ?? activeEvents.value?[0])
+  allEventsToShow.value.findvalue(@(gm) gm?.queue.extraParams.isPreviewImage ?? false)
+    ?? allEventsToShow.value?[0])
 
 let selEvent = Computed(@()
   eventGameModes.value.findvalue(@(gm) gm.id == selEventIdByPlayer.value)
@@ -142,10 +148,61 @@ let function openEventsGameMode() {
   isEventModesOpened(true)
 }
 
+let eventStartTime = Watched({})
+
+let function nearestTime(mmEvent, mmAction, timeTable) {
+  if (mmEvent.action == mmAction && (mmEvent.queue_id not in timeTable
+      || mmEvent.time < timeTable[mmEvent.queue_id]) )
+    timeTable[mmEvent.queue_id] <- mmEvent.time
+}
+
+local isMMScheduleProcessed = false
+
+let function timeUntilStart() {
+
+  if (isMMScheduleProcessed)
+    return
+
+  let self = callee()
+
+  matchingCall("enlmm.get_schedule_list",
+    function(response) {
+      local timeStart = {}
+      local timeFinish = {}
+      local nextRefresh = 0
+
+      if (response.error != 0)
+        return
+
+      (response?.list ?? [])
+        .each(function (x) {
+          nearestTime(x, "enable_queue", timeStart)
+          nearestTime(x, "disable_queue", timeFinish)
+        })
+
+        foreach (queueId, timestamp in timeStart) {
+          if (timeFinish[queueId] < timestamp)
+            timeStart[queueId] = 0
+          if (nextRefresh == 0 || nextRefresh > min(timestamp, timeFinish[queueId]))
+            nextRefresh = min(timestamp, timeFinish[queueId])
+        }
+        eventStartTime(timeStart)
+
+        if (nextRefresh > 0)
+          gui_scene.resetTimeout(nextRefresh - serverTime.value, function() {
+            isMMScheduleProcessed = false
+            self()
+          })
+
+      isMMScheduleProcessed = true
+    }, {appId = get_app_id()})
+}
+
 return {
   eventGameModes
-  inactiveEventsToShow
   activeEvents
+  inactiveEventsToShow
+  allEventsToShow
   promotedEvent
   isEventModesOpened
   isCustomRoomsMode
@@ -168,4 +225,6 @@ return {
   isCurCampaignAvailable
   eventCustomProfile
   curTab
+  eventStartTime
+  timeUntilStart
 }

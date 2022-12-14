@@ -1,5 +1,4 @@
 import "%dngscripts/ecs.nut" as ecs
-require("%scripts/game/es/team.nut")
 
 let {kwarg, KWARG_NON_STRICT} = require("%sqstd/functools.nut")
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
@@ -8,7 +7,7 @@ let {Point3, TMatrix} = require("dagor.math")
 let weapon_slots = require("%enlSqGlob/weapon_slots.nut")
 let math = require("math")
 let {traceray_normalized} = require("dacoll.trace")
-let {calcNewbieArmor, createInventory, gatherParamsFromEntity, mkSpawnParamsByTeam, mkVehicleSpawnParamsByTeam, validatePosition, validateTm} = require("%scripts/game/utils/spawn.nut")
+let {createInventory, validatePosition, validateTm} = require("%scripts/game/utils/spawn.nut")
 
 const spawnZoneExtents = 3.0
 
@@ -147,15 +146,19 @@ let function mkAmmoMapComps(soldier) {
 
   let ammoMap = {}
   foreach (slotId, weap in weapInfo) {
-    let ammoTemplate = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(weap["reserveAmmoTemplate"]);
-    let allowRequestAmmo = ammoTemplate?.getCompValNullable("allowRequestAmmo") ?? false
+    local ammoTemplateNames = [weap.reserveAmmoTemplate].extend(weap?.additionalReserveAmmoTemplates ?? [])
 
-    if (slotId != weapon_slots.EWS_GRENADE &&
-      slotId != weapon_slots.EWS_MELEE &&
-      weap["reserveAmmoTemplate"] &&
-      weap["reserveAmmoTemplate"] != "" &&
-      allowRequestAmmo) {
-        ammoMap[weap["reserveAmmoTemplate"]] <- { template = weap["reserveAmmoTemplate"] }
+    foreach (ammoTemplateName in ammoTemplateNames) {
+      let ammoTemplate = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(ammoTemplateName);
+      let allowRequestAmmo = ammoTemplate?.getCompValNullable("allowRequestAmmo") ?? false
+
+      if (slotId != weapon_slots.EWS_GRENADE &&
+        slotId != weapon_slots.EWS_MELEE &&
+        ammoTemplateName &&
+        ammoTemplateName != "" &&
+        allowRequestAmmo) {
+          ammoMap[ammoTemplateName] <- { template = ammoTemplateName }
+      }
     }
   }
 
@@ -164,15 +167,7 @@ let function mkAmmoMapComps(soldier) {
 
 let mkItemContainer = @(soldier) {itemContainer = createInventory(soldier?.inventory ?? [])[0]}
 
-let gatherPlayerParamsMap = {
-  ["battlesPlayed"]        = ["scoring_player__battlesPlayed", ecs.TYPE_INT, -1],
-  ["revivePointsList"]     = ["squads__revivePointsList", ecs.TYPE_ARRAY, []]
-}
-
-let gatherPlayerParamsQuery = ecs.SqQuery("gatherPlayerParamsQuery", {comps_ro = gatherPlayerParamsMap.values()})
-let gatherPlayerParams = @(eid) gatherParamsFromEntity(eid, gatherPlayerParamsQuery, gatherPlayerParamsMap)
-
-let spawnSoldier = kwarg(function(soldier, comps, squadParams, shouldBePossessed = false, soldierIndexInSquad = 0, useVehicleEid = INVALID_ENTITY_ID) {
+let spawnSoldier = kwarg(function(soldier, comps, squadParams, shouldBePossessed = false, soldierIndexInSquad = 0, useVehicleEid = ecs.INVALID_ENTITY_ID) {
   local templateName = soldier?.gametemplate ?? "usa_base_soldier"
   let addTemplatesOnSpawn = squadParams?.addTemplatesOnSpawn
 
@@ -198,11 +193,10 @@ let spawnSoldier = kwarg(function(soldier, comps, squadParams, shouldBePossessed
   })
 })
 
-let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = INVALID_ENTITY_ID) {
+let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = ecs.INVALID_ENTITY_ID) {
   let leaderId             = squadParams.leaderId
   let squadEid             = squadParams.squadEid
   let playerEid            = squadParams.playerEid
-  let battlesPlayed        = squadParams?.battlesPlayed ?? -1
   let isBot                = squadParams.isBot
 
   let transform       = spawnParams.transform
@@ -216,7 +210,6 @@ let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = 
   let commonParams = {
     ["squad_member__squad"] = ecs.EntityId(squadEid),
     ["squad_member__playerEid"] = ecs.EntityId(playerEid),
-    ["entity_mods__defArmor"] = calcNewbieArmor(battlesPlayed),
     ["lastRespawnBaseEid"] = ecs.EntityId(spawnParams.baseEid)
   }
 
@@ -290,8 +283,7 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
   }
 
   squadParams = squadParams.
-    __merge(gatherPlayerParams(playerEid)).
-    __update({
+    __merge({
       isBot             = ecs.obsolete_dbg_get_comp_val(playerEid, "playerIsBot", null) != null,
       leaderId          = memberId,
       playerEid         = playerEid,
@@ -308,8 +300,7 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
   return true
 }
 
-let function spawnSquad(squad, team, playerEid, squadId = 0, memberId = 0, squadProfileId = "",
-                          mkSpawnParamsCb = mkSpawnParamsByTeam, addTemplatesOnSpawn = null) {
+let function spawnSquad(squad, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
   let squadParams = {team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnSolidersInSquad)
 }
@@ -378,9 +369,9 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
   ecs.g_entity_mgr.createEntity(vehicleTemplate, vehicleComps, @(vehicleEid) spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid))
 }
 
-let function spawnVehicleSquad(squad, team, playerEid, vehicle, vehicleComps = {}, squadId = 0, memberId = 0, squadProfileId = "",
-                                 possessed = INVALID_ENTITY_ID, mkSpawnParamsCb = mkVehicleSpawnParamsByTeam) {
-  let squadParams = {team, playerEid, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId}
+let function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
+                               squadProfileId = "", possessed = ecs.INVALID_ENTITY_ID) {
+  let squadParams = {team, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnVehicle)
 }
 

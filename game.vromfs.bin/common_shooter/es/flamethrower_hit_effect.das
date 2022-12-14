@@ -3,9 +3,10 @@ require math.base
 require game.es.events
 require AnimV20
 require GeomNodeTree
+require enlisted.events_enlisted
 
 [es(tag=gameClient, no_order)]
-def flamethrower_update_hit_effect(evt : UpdateStageInfoAct;
+def flamethrower_update_hit_effect(evt : ParallelUpdateFrameDelayed;
                                    animchar : AnimcharBaseComponent;
                                    flamethrower__active : bool;
                                    flamethrower__hitAnything : bool;
@@ -19,7 +20,7 @@ def flamethrower_update_hit_effect(evt : UpdateStageInfoAct;
       flamethrower__hitEffectEid = INVALID_ENTITY_ID
   else
     var newTm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, flamethrower__streamEffectNodeIdx, newTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, flamethrower__streamEffectNodeIdx, newTm)
     let endPos = newTm[3] + newTm[1] * flamethrower__flameCurrentLength
     newTm[0] = newTm[0]
     newTm[1] = -newTm[1] // we want top of the effect to face the gun

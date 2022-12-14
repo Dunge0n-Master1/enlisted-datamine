@@ -11,25 +11,29 @@ base_m24_chaffee{
   cockpit__zoomOutFov:r=6.6912
   cockpit__zoomInFov:r=7.7525
   cockpit__sightName:t="sight_model/telescope_m71g"
-  cockpit__sightFov:r=10.0
+  cockpit__sightFov:r=8.5
   drowningHeight:r=2.12
   damage_model__blk:t="gamedata/gen/units/tanks/m24_chaffee.blk"
   item__name:t="items/us_m24_chaffee"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="m24_chaffee_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mg_aa_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm"
     fx:t="muzzle_ground_8mm"
     fx:t="muzzle_ground_15mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +43,7 @@ base_m24_chaffee{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
     node:t="bone_mg_aa_v_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -84,6 +89,11 @@ base_m24_chaffee{
       wishYawParamName:t="gun_03_aim:targetYaw"
       wishPitchParamName:t="gun_03_aim:targetPitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -111,6 +121,14 @@ base_m24_chaffee{
       barrelDm:t="gun_barrel_02"
       salt:i=1
     }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="m24_chaffee_turret_04_50mm_uk_smoke_mortar_launcher"
+      salt:i=1
+    }
   }
 }
 
@@ -136,7 +154,7 @@ m24_chaffee_turret_02_7_62mm_m1919a4{
   gun__shootNodeName:t="bone_mg_gun_twin"
 
   "gun__shellsAmmo:array"{
-    ammo:i=1800
+    ammo:i=2000
   }
 }
 
@@ -154,6 +172,15 @@ m24_chaffee_turret_03_12_7mm_m2_hb{
     ammo:i=200
     ammo:i=200
     ammo:i=200
+  }
+}
+
+m24_chaffee_turret_04_50mm_uk_smoke_mortar_launcher{
+  _extends:t="tankgun_50mm_uk_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=14
   }
 }
 

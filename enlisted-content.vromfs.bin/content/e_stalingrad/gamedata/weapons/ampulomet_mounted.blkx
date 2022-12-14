@@ -1,4 +1,4 @@
-stat_name:t="grenade"
+stat_name:t="ampulomet"
 selWeaponVar:t="mg_42"
 mass:r=1.5
 momentOfInertia:p3=0.04, 0.008, 0.04

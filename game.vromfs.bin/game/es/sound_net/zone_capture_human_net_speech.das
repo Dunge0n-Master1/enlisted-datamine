@@ -20,10 +20,10 @@ def for_each_in_zone(zone_eid : EntityId; callback : block<(eid : EntityId; team
 def zone_capture_human_net_speech_es(evt : EventZoneStartCapture)
   for_each_in_zone(evt.eid) <| $(eid : EntityId; team : int)
     if is_teams_friendly(team, evt.team)
-      sendEvent(eid, [[CmdRequestHumanSpeech phrase="startCapture", importance = 1.]])
+      sendEvent(eid, [[CmdRequestHumanSpeech phrase="startCapture"]])
 
 [es(tag=server)]
 def zone_decapture_human_net_speech_es(evt : EventZoneStartDecapture)
   for_each_in_zone(evt.eid) <| $(eid : EntityId; team : int)
     if !is_teams_friendly(team, evt.team)
-      sendEvent(eid, [[CmdRequestHumanSpeech phrase="enemyStartCapture", importance = 1.]])
+      sendEvent(eid, [[CmdRequestHumanSpeech phrase="enemyStartCapture"]])

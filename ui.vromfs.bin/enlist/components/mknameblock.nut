@@ -12,7 +12,7 @@ let {
 let {  gap, noteTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldiersData } = require("%enlist/soldiers/model/collectSoldierData.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 let hdrAnimations = [
@@ -84,7 +84,9 @@ let nameField = function(soldierWatch){
   }
 }
 
-let levelBlockWithProgress = @(soldierWatch, perksWatch, isFreemiumMode = false, override = {}) function() {
+let levelBlockWithProgress = @(
+  soldierWatch, perksWatch, isFreemiumMode = false, thresholdColor = 0, override = {}
+) function() {
   let res = { watch = [soldierWatch, perksWatch, perkLevelsGrid] }
   let { guid = null, tier = 1 } = soldierWatch.value
   if (guid == null)
@@ -108,6 +110,7 @@ let levelBlockWithProgress = @(soldierWatch, perksWatch, isFreemiumMode = false,
           guid = guid
           fontSize = isMaxed ? hdpx(16) : hdpx(12)
           isFreemiumMode = isFreemiumMode
+          thresholdColor
           tier = tier
         }).__update({minWidth = hdpx(120), halign = ALIGN_CENTER})
         isMaxed ? null : {
@@ -136,7 +139,7 @@ let function mkNameBlock(soldier) {
     let {armyId = null, sClass = null, sKind = null, sClassRare = 0, tier = 1} = soldierWatch.value
     let medal = mkSoldierMedalIcon(soldierWatch.value, hdpx(24))
     return {
-      watch = [soldierWatch, needFreemiumStatus]
+      watch = [soldierWatch, campPresentation, needFreemiumStatus]
       size = [flex(), (soldierWatch.value?.callname ?? "") != "" ? hdpx(82) : hdpx(65)]
       flow = FLOW_VERTICAL
       animations = hdrAnimations
@@ -163,6 +166,7 @@ let function mkNameBlock(soldier) {
               soldierWatch,
               perksWatch,
               needFreemiumStatus.value,
+              campPresentation.value?.color,
               {padding = [hdpx(4), 0, 0, 0]}
             )
           ]

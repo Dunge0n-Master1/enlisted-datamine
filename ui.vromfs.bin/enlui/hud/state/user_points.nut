@@ -28,7 +28,7 @@ ecs.register_es("user_points_ui_es",
       let image = ecs.obsolete_dbg_get_comp_val(target, "building_menu__image", "building_wall")
       let userPointOwner = comp["userPointOwner"]
       let res = {
-        byLocalPlayer = userPointOwner == localPlayerEid.value && userPointOwner != INVALID_ENTITY_ID
+        byLocalPlayer = userPointOwner == localPlayerEid.value && userPointOwner != ecs.INVALID_ENTITY_ID
         image,
         type = typ
         visible_distance = comp["hud_marker__visible_distance"]
@@ -44,10 +44,10 @@ ecs.register_es("user_points_ui_es",
   },
   {
     comps_ro = [
-      ["userPointOwner", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["userPointOwner", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["userPointCustomIcon", ecs.TYPE_STRING, ""],
       ["team", ecs.TYPE_INT, TEAM_UNASSIGNED],
-      ["target", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["target", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["hud_marker__visible_distance", ecs.TYPE_FLOAT, null]
     ],
     comps_track = [["hud_marker__type", ecs.TYPE_STRING]]

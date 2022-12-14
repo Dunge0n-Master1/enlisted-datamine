@@ -64,7 +64,7 @@ def visual_damage_es_event_handler(evt : EventOnCollisionHit;
                                    var dmg_animchar : DmgAnimChar&;
                                    var dmg_animchar__renderable : bool&)
   let collNodeId = evt.collNodeId
-  let partId = int((damage_model.dmData |> dmData_findComponentsList(int(collNodeId))).id)
+  let partId = get_part_id_by_coll_node_id(damage_model.dmData, int(collNodeId))
   if partId < 0 && show_dmg(true, collNodeId, visual_dmg_remap__collNodeIdToNodeIdMain,
                             visual_dmg_remap__collNodeIdToNodeIdDmg, dmg_animchar, animchar_render)
     dmg_animchar__renderable = true;

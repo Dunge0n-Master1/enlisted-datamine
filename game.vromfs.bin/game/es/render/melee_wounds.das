@@ -10,6 +10,7 @@ require math.base
 require enlisted.events_enlisted
 require DagorMath
 require GridCollision
+require CollisionTraces
 require danetlibs.native_dasevents.main.native_events
 require common_shooter.events_common_shooter
 require EnlistedDm

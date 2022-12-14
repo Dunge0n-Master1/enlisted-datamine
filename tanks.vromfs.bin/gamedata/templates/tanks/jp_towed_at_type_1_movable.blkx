@@ -1,0 +1,249 @@
+jp_towed_at_type_1_movable{
+  _extends:t="jp_towed_at_type_1_movable_common"
+}
+
+jp_towed_at_type_1_movable_common{
+  _extends:t="base_towed_at_type_1"
+  _extends:t="tank_vehicle_suspension_sound"
+  _extends:t="movable_cannon_vehicle_tracks_sound"
+  _extends:t="vehicle_seats_effectors"
+  vehicle_seats_camera_nodes__defaultNode:t="bone_camera_gunner"
+  vehicle_seats__enterTime:r=1.0
+  vehicle_seats__exitTime:r=1.0
+  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_type_1.blk:VehiclePhys"
+  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_type_1.blk"
+
+  "disableDMParts:list<t>"{
+    part:t="gunner"
+    part:t="loader"
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_02"
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_02"
+  }
+
+  "dm_phys_parts__engine:array"{
+  }
+
+  "dm_phys_parts__transmission:array"{
+  }
+
+  "dm_phys_parts__tracks:array"{
+  }
+
+  "dm_phys_parts__ammo:array"{
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
+
+  "setCameraDirByHero:tag"{
+  }
+
+  "vehicle_seats__seatsProvideOrder:tag"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      adjacentSeat:t="driver"
+      locName:t="at_position/combat"
+      attachNode:t="root"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1.4, -0.15, 0.5]]
+      seatComponent:t="isGunner"
+      ignoreAttachNodeRotation:b=yes
+      cameraNodeName:t="bone_camera_gunner"
+      cameraOffset:p3=-0.0, 0.0, 0.0
+      directTurretControl:b=yes
+      cockpitTemplate:t="jp_towed_at_type_1_gunner_cockpit"
+
+      "lockSeats:list<t>"{
+        locked:t="loader_marching"
+      }
+
+      "turretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      name:t="driver"
+      adjacentSeat:t="main_gunner"
+      locName:t="at_position/march"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="root"
+      ignoreAttachNodeRotation:b=yes
+      shouldHideOwner:b=no
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1.3, 0.0, 0.7]]
+      cameraOffset:p3=0.3, 0.0, 0.0
+      cameraType:t="commander"
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="root"
+      copySkeletonNodesPostfix:t="_gunner"
+
+      "lockSeats:list<t>"{
+        locked:t="loader"
+      }
+
+      "effectors:object"{
+        l.hand:t="ik_hand_left001"
+        r.hand:t="ik_hand_right001"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
+      }
+    }
+
+    "seats:object"{
+      name:t="loader"
+      adjacentSeat:t="loader_marching"
+      locName:t="at_position/combat"
+      entranceNode:t="root"
+      cameraOffset:p3=0.8, 0.5, 0.0
+      attachNode:t="root"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1.3, -0.2, -0.3]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="root"
+      nextSeat:t="main_gunner"
+      vehicleReloadMult:r=0.7
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+
+    "seats:object"{
+      name:t="loader_marching"
+      adjacentSeat:t="loader"
+      locName:t="at_position/march"
+      entranceNode:t="root"
+      cameraOffset:p3=0.8, 0.5, 0.0
+      attachNode:t="root"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1.3, 0.0, -0.4]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="loader"
+      cameraNodeName:t="root"
+      nextSeat:t="main_gunner"
+      vehicleReloadMult:r=0.7
+      canPlaceManually:b=no
+      copySkeletonNodesPostfix:t="_loader"
+
+      "effectors:object"{
+        l.hand:t="ik_hand_left"
+        r.hand:t="ik_hand_right"
+      }
+
+      "copySkeletonNodesRecursive:array"{
+        node:t="Bip01 L Hand"
+        node:t="Bip01 R Hand"
+      }
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="enlist_tankgun_towed_at_type_1_movable+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+  }
+}
+
+enlist_tankgun_towed_at_type_1_movable{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="gunsound_47mm_type1"
+  turret__triggerGroup:i=0
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=35.0
+  turret__pitchSpeed:r=20.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-20.0, 20.0, -2.0, 20.0
+  item__name:t="guns/47mm_type1"
+  gun__blk:t="gamedata/gen/weapons/47mm_type1.blk"
+  gun__shotFreq:r=0.3
+  gun__locName:t="47mm_type1"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=10
+    ammo:i=15
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/47mm_type1_47mm_type1_aphe.blk"
+        name:t="47mm_type1_ap"
+        type:t="aphe_tank"
+      }
+    }
+
+    "47mm_type1_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/47mm_type1_47mm_type1_he.blk"
+        name:t="47mm_type1_he"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+jp_towed_at_type_1_gunner_cockpit{
+  vehicle_sight__blk:t="gamedata/sight/jp_47mm_1_1.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__zoomTimeMul:r=1.3
+  cockpit__cameraTimeMul:r=1.5
+  cockpit__minZoom:r=-0.0
+  cockpit__offset:p3=0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.0951956, 0.203359, 0.4011
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun_barrel"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+}

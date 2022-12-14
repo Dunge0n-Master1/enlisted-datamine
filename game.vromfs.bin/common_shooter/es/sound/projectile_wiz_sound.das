@@ -6,16 +6,15 @@ require BallisticsProps
 require game.utils.hero
 require math.base
 require DagorMath
-require enlisted.events_enlisted
 
 
-[es(tag=sound, after=update_projectile_es)]
-def projectile_wiz_sound(info : ParallelUpdateFrameDelayed;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=update_projectile_es)]
+def projectile_wiz_sound(evt : Event;
                          ownerEid : EntityId;
                          projectile__prevPos : float3;
                          projectile_ballistics : ProjectileBallistics;
                          projectile_ballistics_props : ProjectileProps;
-                         projectile_sound__wizSound : das_string?;
+                         projectile_sound__wizSound : das_string const?;
                          projectile_sound__caliberToDist = float4(0.005, 0.1, 2., 20.);
                          projectile__stopped : bool = false)
 

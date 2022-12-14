@@ -61,15 +61,15 @@ let map_unit_ctor = function(eid, showHero=false) {
   let markerState = teammatesAvatarsGetWatched(eid)
   let blinkAnimation = mkBlinkAnimation(eid)
   let hideMarker = Computed(function(){
-    let {isAlive=true, human_anim__vehicleSelected = INVALID_ENTITY_ID} = markerState.value
+    let {isAlive=true, human_anim__vehicleSelected = ecs.INVALID_ENTITY_ID} = markerState.value
     return !isAlive
       || !hudMarkerEnable.value
       || (showHero && watchedHeroEid.value==eid)
-      || human_anim__vehicleSelected != INVALID_ENTITY_ID
+      || human_anim__vehicleSelected != ecs.INVALID_ENTITY_ID
   })
   let fillColorState = Computed(function(){
-    let {squad_member__squad = INVALID_ENTITY_ID, team = TEAM_UNASSIGNED, squad_member__playerEid=INVALID_ENTITY_ID} = markerState.value
-    let isSquadmate = squad_member__squad != INVALID_ENTITY_ID && squad_member__squad == watchedHeroSquadEid.value
+    let {squad_member__squad = ecs.INVALID_ENTITY_ID, team = TEAM_UNASSIGNED, squad_member__playerEid=ecs.INVALID_ENTITY_ID} = markerState.value
+    let isSquadmate = squad_member__squad != ecs.INVALID_ENTITY_ID && squad_member__squad == watchedHeroSquadEid.value
     if (isSquadmate) {
       return MAP_COLOR_SQUADMATE
     }
@@ -116,7 +116,7 @@ let groupmate_number_ctor = function(eid) {
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
       transform = {}
-      children = mkTextPlayerGroupmate((ecs.obsolete_dbg_get_comp_val(markerState.value?.possessedByPlr, "player_group__memberIndex") ?? 0) + 1)
+      children = mkTextPlayerGroupmate((markerState.value?.player_group__memberIndex ?? 0) + 1)
     }
   }
 }

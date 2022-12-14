@@ -5,12 +5,19 @@ import:t="tanks/uk_a13_mk_2_1939.blk"
 import:t="tanks/uk_daimler_mk_2.blk"
 import:t="tanks/uk_mk_1_grant.blk"
 import:t="tanks/uk_crusader_mk_3.blk"
-import:t="tanks/churchill_3.blk"
+import:t="tanks/uk_churchill_3.blk"
+
+daimler_mk_2_turret_02_7_92mm_besa{
+  _override:b=yes
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1350
+  }
+}
 
 uk_a22_mk_I_churchill{
   _extends:t="base_tank"
   _extends:t="seats_layout_d_g_c_l_mg"
-  _extends:t="vehicle_effects_tracked"
   particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
   animchar__res:t="a22_mk_I_churchill_char"
   collres__res:t="a22_mk_I_churchill_collision"
@@ -60,7 +67,6 @@ uk_a22_mk_I_churchill{
 uk_a22b_mk_III_churchill_1942{
   _extends:t="base_tank"
   _extends:t="seats_layout_d_g_c_l_mg"
-  _extends:t="vehicle_effects_tracked"
   particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
   animchar__res:t="a22b_mk_III_churchill_1942_char"
   collres__res:t="a22b_mk_III_churchill_1942_collision"

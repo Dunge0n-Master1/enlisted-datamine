@@ -43,7 +43,7 @@ let function setSquadBehaviour(behaviour) {
 
 
 let function applyBehaviourOnSpawnSquad(eid, comp) {
-  if (comp.squad__ownerPlayer == INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
+  if (comp.squad__ownerPlayer == ecs.INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
     return
   let squadProfileId = comp.squad__squadProfileId
 

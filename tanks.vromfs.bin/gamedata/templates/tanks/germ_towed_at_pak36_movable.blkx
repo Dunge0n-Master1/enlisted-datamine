@@ -89,7 +89,7 @@ germ_towed_at_pak36_movable_common{
       nextSeat:t="main_gunner"
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="root"
-      copySkeletonNodesPostfix:t="_loader"
+      copySkeletonNodesPostfix:t="_gunner"
 
       "lockSeats:list<t>"{
         locked:t="loader"
@@ -141,7 +141,7 @@ germ_towed_at_pak36_movable_common{
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
       canPlaceManually:b=no
-      copySkeletonNodesPostfix:t="_gunner"
+      copySkeletonNodesPostfix:t="_loader"
 
       "effectors:object"{
         l.hand:t="ik_hand_left"

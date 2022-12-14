@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
-let { colPart, tabBgColor, commonBorderRadius } = require("%enlSqGlob/ui/designConst.nut")
+let { colPart, commonBorderRadius, defVertGradientImg
+} = require("%enlSqGlob/ui/designConst.nut")
 
 let armyIconSize = colPart(0.45)
-let armyBgColor = 0xFF191619
 
 let markerTarget = MoveToAreaTarget()
 
@@ -31,8 +31,13 @@ let armyMarker = {
   viscosity = 0.1
   target = markerTarget
   behavior = Behaviors.MoveToArea
+  subPixel = true
   borderRadius = commonBorderRadius
-  fillColor = tabBgColor
+  children = {
+    size = flex()
+    rendObj = ROBJ_IMAGE
+    image = defVertGradientImg
+  }
 }
 
 
@@ -40,6 +45,5 @@ return {
   mkArmyIcon
   armyMarker
   requestMoveToElem
-  armyBgColor
   armyIconSize
 }

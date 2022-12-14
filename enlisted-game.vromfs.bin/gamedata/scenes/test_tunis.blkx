@@ -7,6 +7,14 @@ import{
 }
 
 entity{
+  _template:t="box_battle_area"
+  transform:m=[[72525.6, 0.0, 30613.9] [0.0, 495.93, -0.0] [-40933.8, 0.0, 96974.0] [70.1517, 27.14, 91.7148]]
+  battle_area__team:i=-1
+  battle_area__timeToDamage:r=10.0
+  battle_area__damage:r=3.0
+}
+
+entity{
   _template:t="add_spawn_on_squadmates"
 }
 
@@ -82,22 +90,6 @@ entity{
 }
 
 entity{
-  _template:t="box_battle_area"
-  transform:m=[[448.646, 0.0, 173.169] [0.0, 106.404, 0.0] [-190.23, 0.0, 492.85] [-908.525, 27.1399, -1134.43]]
-  battle_area__team:i=1
-  battle_area__timeToDamage:r=10.0
-  battle_area__damage:r=3.0
-}
-
-entity{
-  _template:t="box_battle_area"
-  transform:m=[[411.954, 0.0, 160.09] [0.0, 106.404, 0.0] [-214.056, 0.0, 550.824] [-908.272, 27.1399, -1131.65]]
-  battle_area__team:i=2
-  battle_area__timeToDamage:r=10.0
-  battle_area__damage:r=3.0
-}
-
-entity{
   _template:t="level"
   level__blk:t="content/enlisted/levels/tunisia_4x4.blk"
   level__timeRange:p2=5.0, 19.2
@@ -109,10 +101,10 @@ entity{
   }
 
   "level__timeVec:array"{
-    level_timeVec:r=6.5
-    level_timeVec:r=7.5
-    level_timeVec:r=17.0
-    level_timeVec:r=18.0
+    level__timeVec:r=6.5
+    level__timeVec:r=7.5
+    level__timeVec:r=17.0
+    level__timeVec:r=18.0
   }
 }
 

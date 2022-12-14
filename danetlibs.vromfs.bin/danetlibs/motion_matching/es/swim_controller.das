@@ -55,6 +55,7 @@ def update_mm_trajectory(act : ParallelUpdateFrameDelayed;
                          var motion_matching__goalTags : StringList;
                          var motion_matching__prevTransform : float3x4&;
                          var motion_matching__linearVelocity, motion_matching__angularVelocity : float3&;
+                         motion_matching__idleVelocityBarrier : float;
                          human_net_phys__velocity : float3;
                          motion_matching__enabled : bool)
   if motion_matching__enabled
@@ -65,7 +66,7 @@ def update_mm_trajectory(act : ParallelUpdateFrameDelayed;
     let CONPATIBLE_ROTATION = quat(float3(0, 1, 0), deg_to_rad(90.f))
     motion_matching__linearVelocity = CONPATIBLE_ROTATION * motion_matching__linearVelocity
     motion_matching__angularVelocity = float3(0.0, safediv(instantOmega.x, act.dt), 0.0)
-    if abs(motion_matching__angularVelocity.y) < PI * 0.01 && length(motion_matching__linearVelocity) < 0.01
+    if abs(motion_matching__angularVelocity.y) < PI * 0.01 && length(motion_matching__linearVelocity) < motion_matching__idleVelocityBarrier
       add_tag(motion_matching__goalTags, "idle")
     else
       remove_tag(motion_matching__goalTags, "idle")

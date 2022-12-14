@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
+let { mainSectionId } = require("%enlist/mainMenu/sectionsState.nut")
 
 let ticketGroups = {}
 
@@ -8,7 +9,7 @@ let ticketGroupsSorted = [
   {
     id   = "weapon"
     icon = "!ui/uiskin/currency/weapon_order_cards.svg"
-    desc = "items/weapon_order/desc"
+    desc = "items/weapon_order_all/desc"
     name = "items/weapon_order"
     hasTutorial = true
     isShownIfEmpty = true
@@ -18,7 +19,7 @@ let ticketGroupsSorted = [
   {
     id   = "soldier"
     icon = "!ui/uiskin/currency/soldier_order_cards.svg"
-    desc =  "items/soldier_order/desc"
+    desc =  "items/soldier_order_all/desc"
     name = "items/soldier_order"
     hasTutorial = true
     isShownIfEmpty = true
@@ -81,7 +82,7 @@ let ticketGroupsSorted = [
     name = "items/temporarily_and_uniq"
     isShownIfEmpty = false
     isInteractive = true
-    showInSection = ["SOLDIERS", "SHOP"]
+    showInSection = [mainSectionId, "SHOP"]
   }
 ]
 
@@ -291,6 +292,13 @@ let currencyPresentation = freeze({
     hideIfZero = true
   }
   armory_event_order = {
+    order = 0
+    group = ticketGroups.temporarily_and_uniq
+    color = Color(180,180,180)
+    icon  = "!ui/uiskin/currency/event_order.svg"
+    hideIfZero = true
+  }
+  xmas_event_order = {
     order = 0
     group = ticketGroups.temporarily_and_uniq
     color = Color(180,180,180)

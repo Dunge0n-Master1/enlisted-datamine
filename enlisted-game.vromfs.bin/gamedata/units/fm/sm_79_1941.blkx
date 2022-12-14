@@ -677,6 +677,13 @@ Engine0{
       toSuperchargerRPM:r=0.0
     }
   }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=1500.0
+    Automatic:b=no
+  }
 }
 
 Engine1{
@@ -974,6 +981,13 @@ Engine1{
       toSuperchargerRPM:r=0.0
     }
   }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=1500.0
+    Automatic:b=no
+  }
 }
 
 Engine2{
@@ -1270,6 +1284,13 @@ Engine2{
       fromSuperchargerRPM:r=0.0
       toSuperchargerRPM:r=0.0
     }
+  }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=1500.0
+    Automatic:b=no
   }
 }
 

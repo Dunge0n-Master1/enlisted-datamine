@@ -27,6 +27,13 @@ tempest_mkv{
         turret:t="turret_05"
         turret:t="turret_06"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -297,4 +304,24 @@ tempest_mkv_driver_cockpit{
   animchar__res:t="tempest_mkv_cockpit_char"
   plane_anim__blk:t="gamedata/units/tempest_mkv.blk"
   plane_sight__blk:t="gamedata/units/tempest_mkv.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.01, 0.0455, -0.008
+    item:p3=0.024, -0.009, -0.0175
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=-5.9, 17.3
+    item:p2=-14.5, 3.4
+  }
 }

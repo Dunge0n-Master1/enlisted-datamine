@@ -84,7 +84,7 @@ def on_zone_tie_or_neutral(eid : EntityId;
 def on_team_presence_changed(eid : EntityId;
                              active : bool;
                              capzone__presenceAdvantageToDominate : int;
-                             capzone__advantageWeights : Object?;
+                             capzone__advantageWeights : Object const?;
                              teamPresence : Object;
                              capzone__onlyTeamCanCapture : int;
                              capzone__allowDecap : bool;
@@ -209,87 +209,13 @@ def get_cap_speed(capzone__canCaptureByPresenceDomination : bool;
   let maxCapSpeedMult = capzone__maxCapDecapSpeedMult
   return safediv(1.0, cap_time) * clamp(speed_mult * advantageMult, minCapSpeedMult, maxCapSpeedMult)
 
-def on_cap_timer(eid : EntityId;
-                 dt : float;
-                 capzone__capTeam : int;
-                 capzone__capTeamEid : EntityId;
-                 capzone__canCaptureByPresenceDomination : bool;
-                 capzone__capTeamAdvantage : int;
-                 capzone__advantageDivisor : float;
-                 capzone__maxCapDecapSpeedMult : float;
-                 capzone__deactivateAfterCap : bool;
-                 capzone__checkAllZonesInGroup : bool;
-                 capzone__deactivateAfterTimeout : float;
-                 capzone__capTime : float;
-                 var active : bool&;
-                 var capzone__progress : float&;
-                 var capzone__captureStatus : int&;
-                 var capzone__owningTeam : int&)
-  let capSpeedMult = get_float(capzone__capTeamEid, "team__captureSpeedMult") ?? 1.0
-  let capSpeed = get_cap_speed(capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage, capzone__advantageDivisor,
-                               capzone__maxCapDecapSpeedMult, capzone__capTime, capSpeedMult)
-  let progressDelta = capSpeed * dt
-
-  if capzone__progress + progressDelta >= 1.0
-    capture_zone(eid, capzone__deactivateAfterCap, capzone__checkAllZonesInGroup, capzone__capTeam,
-                 capzone__deactivateAfterTimeout, active, capzone__progress,
-                 capzone__captureStatus, capzone__owningTeam)
-  else
-    capzone__progress += progressDelta
-
-
-def on_decap_timer(eid : EntityId;
-                   dt : float;
-                   active : bool;
-                   capzone__presenceAdvantageToDominate : int;
-                   capzone__advantageWeights : Object?;
-                   teamPresence : Object;
-                   capzone__onlyTeamCanCapture : int;
-                   capzone__allowDecap : bool;
-                   capzone__canCaptureByPresenceDomination : bool;
-                   capzone__locked : bool;
-                   capzone__autoCap : bool;
-                   capzone__autoDecap : bool;
-                   capzone__decapOnNeutral : bool;
-                   capzone__advantageDivisor : float;
-                   capzone__maxCapDecapSpeedMult : float;
-                   capzone__decapTime : float;
-                   var capzone__progress : float&;
-                   var capzone__capTeam : int&;
-                   var capzone__capTeamEid : EntityId&;
-                   var capzone__owningTeam : int&;
-                   var capzone__captureStatus : int&;
-                   var capzone__curTeamCapturingZone : int&;
-                   var capzone__curTeamDominating : int&;
-                   var capzone__capTeamAdvantage : int&;
-                   var capzone__isMultipleTeamsPresent : bool&)
-  let team = capzone__capTeam
-  if capzone__progress == 1.0 && capzone__autoDecap
-    print("zone {eid} decaptured(1)")
-    broadcast_net_event([[EventZoneDecaptured zone=eid, team=team]])
-
-  let decapSpeed = get_cap_speed(capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage, capzone__advantageDivisor,
-                                 capzone__maxCapDecapSpeedMult, capzone__decapTime)
-  let progressDelta = decapSpeed * dt
-
-  if progressDelta >= capzone__progress
-    decapture_zone(eid, capzone__autoDecap, capzone__progress, capzone__captureStatus, capzone__capTeam, capzone__owningTeam)
-
-    on_team_presence_changed(eid, active, capzone__presenceAdvantageToDominate, capzone__advantageWeights,
-                             teamPresence, capzone__onlyTeamCanCapture, capzone__allowDecap, capzone__canCaptureByPresenceDomination,
-                             capzone__locked, capzone__autoCap, capzone__autoDecap, capzone__decapOnNeutral,
-                             capzone__progress, capzone__capTeam, capzone__capTeamEid, capzone__owningTeam, capzone__captureStatus, capzone__curTeamCapturingZone, capzone__curTeamDominating,
-                             capzone__capTeamAdvantage, capzone__isMultipleTeamsPresent)
-  else
-    capzone__progress -= progressDelta
-
 
 [es(tag=server)]
 def capzone_capturing_enter(evt : EventCapZoneEnter;
                             eid : EntityId;
                             active : bool;
                             capzone__presenceAdvantageToDominate : int = 1;
-                            capzone__advantageWeights : Object?;
+                            capzone__advantageWeights : Object const?;
                             capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                             capzone__allowDecap : bool = false;
                             capzone__canCaptureByPresenceDomination : bool = false;
@@ -328,7 +254,7 @@ def capzone_capturing_exit(evt : EventCapZoneLeave;
                            eid : EntityId;
                            active : bool;
                            capzone__presenceAdvantageToDominate : int = 1;
-                           capzone__advantageWeights : Object?;
+                           capzone__advantageWeights : Object const?;
                            capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                            capzone__allowDecap : bool = false;
                            capzone__canCaptureByPresenceDomination : bool = false;
@@ -368,7 +294,7 @@ def capzone_unlocked_check_presence(evt : EventZoneUnlock;
                                     eid : EntityId;
                                     active : bool;
                                     capzone__presenceAdvantageToDominate : int = 1;
-                                    capzone__advantageWeights : Object?;
+                                    capzone__advantageWeights : Object const?;
                                     teamPresence : Object;
                                     capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                                     capzone__allowDecap : bool = false;
@@ -397,7 +323,7 @@ def capzone_activated_check_presence(evt : EventEntityActivate;
                                      eid : EntityId;
                                      active : bool;
                                      capzone__presenceAdvantageToDominate : int = 1;
-                                     capzone__advantageWeights : Object?;
+                                     capzone__advantageWeights : Object const?;
                                      teamPresence : Object;
                                      capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
                                      capzone__allowDecap : bool = false;
@@ -424,38 +350,85 @@ def capzone_activated_check_presence(evt : EventEntityActivate;
   else
     capzone__captureStatus = UNKNOWN
 
+
+def capzone_tick_capture(zone_eid : EntityId; dt : float)
+  query(zone_eid) <| $ [es] (capzone__canCaptureByPresenceDomination : bool = false;
+                             capzone__advantageDivisor : float = 4.;
+                             capzone__maxCapDecapSpeedMult : float = 2.;
+                             capzone__deactivateAfterCap : bool = false;
+                             capzone__checkAllZonesInGroup : bool = false;
+                             capzone__deactivateAfterTimeout : float = -1.;
+                             capzone__capTime : float = 20.;
+                             capzone__capTeamEid : EntityId;
+                             capzone__capTeamAdvantage : int;
+                             capzone__capTeam : int;
+                             var active : bool&;
+                             var capzone__progress : float&;
+                             var capzone__owningTeam : int&;
+                             var capzone__captureStatus : int&)
+    let capSpeedMult = get_float(capzone__capTeamEid, "team__captureSpeedMult") ?? 1.0
+    let capSpeed = get_cap_speed(capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage, capzone__advantageDivisor,
+                                capzone__maxCapDecapSpeedMult, capzone__capTime, capSpeedMult)
+    let progressDelta = capSpeed * dt
+
+    if capzone__progress + progressDelta >= 1.0
+      capture_zone(zone_eid, capzone__deactivateAfterCap, capzone__checkAllZonesInGroup, capzone__capTeam,
+                  capzone__deactivateAfterTimeout, active, capzone__progress,
+                  capzone__captureStatus, capzone__owningTeam)
+    else
+      capzone__progress += progressDelta
+
+
+def capzone_tick_decapture(zone_eid : EntityId; dt : float)
+  query(zone_eid) <| $ [es] (capzone__presenceAdvantageToDominate : int = 1;
+                             capzone__advantageWeights : Object const?;
+                             teamPresence : Object;
+                             capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
+                             capzone__allowDecap : bool = false;
+                             capzone__canCaptureByPresenceDomination : bool = false;
+                             capzone__locked : bool = false;
+                             capzone__autoCap : bool = true;
+                             capzone__autoDecap : bool = true;
+                             capzone__decapOnNeutral : bool = false;
+                             capzone__advantageDivisor : float = 4.;
+                             capzone__maxCapDecapSpeedMult : float = 2.;
+                             capzone__decapTime : float = 30.;
+                             active : bool;
+                             var capzone__progress : float&;
+                             var capzone__capTeam : int&;
+                             var capzone__capTeamEid : EntityId&;
+                             var capzone__owningTeam : int&;
+                             var capzone__captureStatus : int&;
+                             var capzone__curTeamCapturingZone : int&;
+                             var capzone__curTeamDominating : int&;
+                             var capzone__capTeamAdvantage : int&;
+                             var capzone__isMultipleTeamsPresent : bool&)
+    let team = capzone__capTeam
+    if capzone__progress == 1.0 && capzone__autoDecap
+      broadcast_net_event([[EventZoneDecaptured zone=zone_eid, team=team]])
+
+    let decapSpeed = get_cap_speed(capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage, capzone__advantageDivisor,
+                                  capzone__maxCapDecapSpeedMult, capzone__decapTime)
+    let progressDelta = decapSpeed * dt
+
+    if progressDelta >= capzone__progress
+      decapture_zone(zone_eid, capzone__autoDecap, capzone__progress, capzone__captureStatus, capzone__capTeam, capzone__owningTeam)
+
+      on_team_presence_changed(zone_eid, active, capzone__presenceAdvantageToDominate, capzone__advantageWeights,
+                              teamPresence, capzone__onlyTeamCanCapture, capzone__allowDecap, capzone__canCaptureByPresenceDomination,
+                              capzone__locked, capzone__autoCap, capzone__autoDecap, capzone__decapOnNeutral,
+                              capzone__progress, capzone__capTeam, capzone__capTeamEid, capzone__owningTeam, capzone__captureStatus, capzone__curTeamCapturingZone, capzone__curTeamDominating,
+                              capzone__capTeamAdvantage, capzone__isMultipleTeamsPresent)
+    else
+      capzone__progress -= progressDelta
+
+
 [es(tag=server, no_order)]
-def capzone_capture_timer(info : UpdateStageInfoAct;
-                          eid : EntityId;
-                          capzone__presenceAdvantageToDominate : int = 1;
-                          capzone__advantageWeights : Object?;
-                          teamPresence : Object;
-                          capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
-                          capzone__allowDecap : bool = false;
-                          capzone__canCaptureByPresenceDomination : bool = false;
-                          capzone__locked : bool = false;
-                          capzone__autoCap : bool = true;
-                          capzone__autoDecap : bool = true;
-                          capzone__decapOnNeutral : bool = false;
-                          capzone__advantageDivisor : float = 4.;
-                          capzone__maxCapDecapSpeedMult : float = 2.;
-                          capzone__decapTime : float = 30.;
-                          capzone__timerPeriod : float = 0.33;
-                          capzone__deactivateAfterCap : bool = false;
-                          capzone__checkAllZonesInGroup : bool = false;
-                          capzone__deactivateAfterTimeout : float = -1.;
-                          capzone__capTime : float = 20.;
-                          var active : bool&;
-                          var capzone__progress : float&;
-                          var capzone__capTeam : int&;
-                          var capzone__capTeamEid : EntityId&;
-                          var capzone__owningTeam : int&;
-                          var capzone__captureStatus : int&;
-                          var capzone__curTeamCapturingZone : int&;
-                          var capzone__curTeamDominating : int&;
-                          var capzone__capTeamAdvantage : int&;
-                          var capzone__isMultipleTeamsPresent : bool&;
-                          var capzone__nextUpdateTime : float&)
+def capzone_update_timer(info : UpdateStageInfoAct;
+                         eid : EntityId;
+                         capzone__timerPeriod : float = 0.33;
+                         capzone__captureStatus : int;
+                         var capzone__nextUpdateTime : float&)
   if info.curTime < capzone__nextUpdateTime
     return
 
@@ -465,16 +438,10 @@ def capzone_capture_timer(info : UpdateStageInfoAct;
   capzone__nextUpdateTime = info.curTime + capzone__timerPeriod
 
   if capzone__captureStatus == CAPTURE
-    on_cap_timer(eid, dt, capzone__capTeam, capzone__capTeamEid, capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage,
-                 capzone__advantageDivisor, capzone__maxCapDecapSpeedMult, capzone__deactivateAfterCap,
-                 capzone__checkAllZonesInGroup, capzone__deactivateAfterTimeout, capzone__capTime,
-                 active, capzone__progress, capzone__captureStatus, capzone__owningTeam)
+    capzone_tick_capture(eid, dt)
   elif capzone__captureStatus == DECAPTURE
-    on_decap_timer(eid, dt, active, capzone__presenceAdvantageToDominate, capzone__advantageWeights, teamPresence, capzone__onlyTeamCanCapture,
-                   capzone__allowDecap, capzone__canCaptureByPresenceDomination, capzone__locked, capzone__autoCap, capzone__autoDecap,
-                   capzone__decapOnNeutral, capzone__advantageDivisor, capzone__maxCapDecapSpeedMult, capzone__decapTime,
-                   capzone__progress, capzone__capTeam, capzone__capTeamEid, capzone__owningTeam, capzone__captureStatus,
-                   capzone__curTeamCapturingZone, capzone__curTeamDominating, capzone__capTeamAdvantage, capzone__isMultipleTeamsPresent)
+    capzone_tick_decapture(eid, dt)
+
 
 [es(tag=server)]
 def force_cap_zone(evt : EventForceCapture;
@@ -490,5 +457,5 @@ def force_cap_zone(evt : EventForceCapture;
   if evt.team != TEAM_UNASSIGNED
     capzone__capTeam = evt.team
     capture_zone(eid, capzone__deactivateAfterCap, capzone__checkAllZonesInGroup, capzone__capTeam,
-                capzone__deactivateAfterTimeout, active, capzone__progress,
-                capzone__captureStatus, capzone__owningTeam)
+                 capzone__deactivateAfterTimeout, active, capzone__progress,
+                 capzone__captureStatus, capzone__owningTeam)

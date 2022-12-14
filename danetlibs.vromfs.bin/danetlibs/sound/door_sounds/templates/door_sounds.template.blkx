@@ -21,6 +21,10 @@ metal_gate_door_sounds{
   }
 }
 
+metal_door_sounds{
+  _extends:t="metal_gate_door_sounds"
+}
+
 gate_door_sounds{
   _extends:t="base_door_sound"
 

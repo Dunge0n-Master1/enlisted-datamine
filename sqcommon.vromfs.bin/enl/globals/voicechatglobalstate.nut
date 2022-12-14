@@ -7,7 +7,9 @@ let { get_setting_by_blk_path } = require("settings")
 let function is_voice_chat_available() {
   let isAvailableByBlk = get_setting_by_blk_path("voiceChatAvailable") ?? true
   if (platform.is_xbox) {
-    return false
+    // disable if xbox gamechat is available, enable otherwise
+    let xbchat = require("xbox.chat")
+    return isAvailableByBlk && !xbchat.is_available()
   }
   return isAvailableByBlk && (platform.is_pc || platform.is_sony || platform.is_nswitch)
 }

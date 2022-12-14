@@ -80,6 +80,12 @@ projective_decal{
     _tags:t="render"
     decal__id:i=-1
   }
+
+  _group{
+    _tags:t="render"
+    _track:b=yes
+    decal__isVisible:b=yes
+  }
 }
 
 objective_zone_kill_bonus{
@@ -135,7 +141,6 @@ base_objective_zone_without_navmesh{
   _extends:t="replicating"
   _extends:t="capzone_timer"
   _extends:t="objective_zone_kill_bonus"
-  _extends:t="objective_zone_smoke_signal"
   capzone__captureStatus:i=0
   capzone__titleSize:r=-1.0
   capzone__iconOffsetY:r=0.0
@@ -153,6 +158,7 @@ base_objective_zone_without_navmesh{
   _replicated:t="capzone__capTeam"
   _replicated:t="capzone__owningTeam"
   _replicated:t="capzone__progress"
+  _replicated:t="capzone__captureStatus"
   _replicated:t="capzone__title"
   _replicated:t="capzone__titleSize"
   _replicated:t="capzone__icon"
@@ -162,6 +168,7 @@ base_objective_zone_without_navmesh{
   _tracked:t="capzone__progress"
   _tracked:t="capzone__captureStatus"
   _tracked:t="capzone__stopFailTimerForTeam"
+  _tracked:t="capzone__alwaysHide"
   _tracked:t="capzone__title"
   _tracked:t="capzone__icon"
   _tracked:t="capzone__alwaysShow"
@@ -220,6 +227,7 @@ base_objective_zone_without_navmesh{
 
 base_objective_zone{
   _extends:t="base_objective_zone_without_navmesh"
+  _extends:t="objective_zone_smoke_signal"
   _extends:t="objective_zone_navmesh"
 }
 
@@ -349,6 +357,13 @@ basic_sphere{
   }
 }
 
+basic_box{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "box_zone:tag"{
+  }
+}
+
 objective_zone_sphere{
   _extends:t="base_objective_zone"
   sphere_zone__radius:r=8.0
@@ -378,6 +393,7 @@ capzone_area_polygon_point{
 
 capzone_poly{
   _extends:t="base_capzone"
+  _extends:t="objective_zone_smoke_signal"
 
   _group{
     capzone__approximateRadius:r=-1.0
@@ -402,6 +418,7 @@ poly_capzone_area_draw_debug{
 
 capzone_box_without_navmesh{
   _extends:t="base_capzone_without_navmesh"
+  _extends:t="objective_zone_smoke_signal"
 
   "box_zone:tag"{
   }
@@ -430,6 +447,7 @@ moveable_capzone_box{
 
 capzone_relative_box{
   _extends:t="base_capzone"
+  _extends:t="objective_zone_smoke_signal"
   box_zone__boxMin:p3=-0.0, -0.0, -0.0
   box_zone__boxMax:p3=0.0, 0.0, 0.0
 }
@@ -467,6 +485,7 @@ defend_zone{
 
 defend_zone_sphere{
   _extends:t="capzone_sphere"
+  _extends:t="objective_zone_smoke_signal"
   _extends:t="defend_zone"
 }
 
@@ -487,6 +506,7 @@ capzone_respawn_activator{
 
 domination_sphere_capzone{
   _extends:t="capzone_sphere"
+  _extends:t="objective_zone_smoke_signal"
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
 
@@ -740,11 +760,13 @@ defend_zone_chained_sphere{
 
 zone_bidirectional_two_chains_sphere{
   _extends:t="capzone_sphere"
+  _extends:t="objective_zone_smoke_signal"
   _extends:t="zone_bidirectional_two_chains"
 }
 
 zone_bidirectional_one_chain_sphere{
   _extends:t="capzone_sphere"
+  _extends:t="objective_zone_smoke_signal"
   _extends:t="zone_bidirectional_one_chain"
 }
 
@@ -916,6 +938,7 @@ ai_train_behaviour{
 
 objective_train_zone{
   _extends:t="base_objective_zone_without_navmesh"
+  _extends:t="objective_zone_smoke_signal"
   _extends:t="defend_zone"
   _extends:t="defend_zone_chained"
   _extends:t="objective_train_progress"

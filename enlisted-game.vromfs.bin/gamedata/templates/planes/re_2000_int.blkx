@@ -23,6 +23,13 @@ re_2000_int{
         turret:t="turret_01"
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -163,4 +170,24 @@ re_2000_int_driver_cockpit{
   animchar__res:t="re_2000_int_cockpit_char"
   plane_anim__blk:t="gamedata/units/re_2000_int.blk"
   plane_sight__blk:t="gamedata/units/re_2000_int.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0, 0.0235, 0.0
+    item:p3=0.022, 0.004, -0.003
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=9.3, 15.8
+    item:p2=-26.8, 13.0
+  }
 }

@@ -30,6 +30,7 @@ def is_human_allowed_shooting(eid : EntityId; attached_gun_eid : EntityId; human
   var res = (!(isSprinting && !isMelee) &&
             !currentState |> human_phys_state_get_is_swimming() && isGunEquiped &&
             currentState |> human_phys_state_get_canShoot() &&
+            !(currentState |> human_phys_state_get_forceWeaponDown()) &&
             !(currentState.isCrawl && isMoving))
   if !res
     return false
@@ -214,7 +215,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
                           gun_shoot_dir : float3;
                           phys_transform : float3x4;
                           ct : HumanControlState;
-                          human_use_object__selectedObject : EntityId?;
+                          human_use_object__selectedObject : EntityId const?;
                           human_unarmed__active : bool;
                           human_attached_gun__attachedGunEid : EntityId;
                           human_weap__jumpDeviation : float;
@@ -244,8 +245,8 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
       grenadeEid = *human_use_object__selectedObject
     if grenadeEid != INVALID_ENTITY_ID
       human_weap__throwMode = throw_grenade_away(ctx.eid, grenadeEid, human_weap__gunEids)
-      if is_server() && !human_weap__throwMode
-        send_net_event(ctx.eid, [[HumanWeapThrowBackAbort]], target_entity_conn(ctx.eid))
+    if is_server() && !human_weap__throwMode
+      send_net_event(ctx.eid, [[HumanWeapThrowBackAbort]], target_entity_conn(ctx.eid))
 
   var reloadGrenade = false
   var isFastThrow = false
@@ -292,22 +293,22 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
   // overrideGunEid is gun eid or subsidiary gun, if activated.
   var overrideGunEid = gunEid
   var isLungeMine = false
-  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId?; lunge_mine : Tag?)
+  query(gunEid) <| $ [es] (subsidiaryGunEid : EntityId const?; lunge_mine : Tag const?)
     if subsidiaryGunEid != null
       overrideGunEid = *subsidiaryGunEid
     isLungeMine = lunge_mine != null
 
-  var wgun : Gun? = null
+  var wgun : Gun const? = null
   var gunDev : GunDeviation? = null
   var gunAmmo = 0
   var jumpDeviation = human_weap__jumpDeviation
-  var grenadeThrower : GrenadeThrower? = null
+  var grenadeThrower : GrenadeThrower const? = null
   var defaultInit = false
   if curGun == HUWeaponSlots EWS_MELEE || isLungeMine
     if !has(gunEid, "melee_weapon__propsId")
       return
   elif curGun == HUWeaponSlots EWS_GRENADE
-    query(gunEid) <| $ [es] (grenade_thrower : GrenadeThrower?)
+    query(gunEid) <| $ [es] (grenade_thrower : GrenadeThrower const?)
       grenadeThrower = grenade_thrower
     if grenadeThrower == null
       return
@@ -316,10 +317,10 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     defaultInit = true
 
   if defaultInit
-    query(overrideGunEid) <| $ [es] (gun : Gun?;
-                                     gun_deviation : GunDeviation?;
-                                     gun__jumpDeviation : float?;
-                                     gun__ammo : int = 0)
+    query(overrideGunEid) <| $ [es(trust_access)] (gun : Gun const?;
+                                                   var gun_deviation : GunDeviation?;
+                                                   gun__jumpDeviation : float const?;
+                                                   gun__ammo : int = 0)
       wgun = gun
       gunDev = gun_deviation
       gunAmmo = gun__ammo
@@ -502,7 +503,7 @@ def take_grenade_in_hand(eid : EntityId;
   return false
 
 
-def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList;
+def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList implicit;
                                    var phys : HumanPhys)
   var choosenSlot = -1
   for i in range(int(HUWeaponSlots EWS_NUM))
@@ -523,6 +524,7 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
                               human_weap__throwMode : bool;
                               human_weap__weapModActivateStartTime : float;
                               boltActionProgress : float;
+                              human_weap__canOperate : bool = true;
                               human_weap__lockWeaponReload : bool = false;
                               burning__isBurning : bool = false;
                               human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
@@ -541,5 +543,6 @@ def human_weap_can_reload(human_eid : EntityId; gun_eid : EntityId) : bool
                  !burning__isBurning &&
                  (eqState == HUWeaponEquipState EES_EQUIPED || eqState == HUWeaponEquipState EES_DOWN || isAttachedToGun) &&
                  !isBlockedByBoltAction && !human_weap__lockWeaponReload && (human_weap__weapModActivateStartTime < 0.) &&
-                 !usingItem)
+                 !usingItem &&
+                 human_weap__canOperate)
   return canReload

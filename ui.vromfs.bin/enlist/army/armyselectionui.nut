@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-let { colFull, colPart, defTxtColor, hoverTxtColor, titleTxtColor, columnGap, commonBorderRadius
+let { colFull, colPart, defTxtColor, hoverTxtColor, titleTxtColor, columnGap, commonBorderRadius,
+  panelBgColor, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { mkArmyIcon, requestMoveToElem, armyMarker, armyBgColor, armyIconSize
+let { mkArmyIcon, requestMoveToElem, armyMarker, armyIconSize
 } = require("%enlist/army/armyPackage.nut")
 let { curArmy, selectArmy, curArmiesList } = require("%enlist/soldiers/model/state.nut")
 
@@ -14,7 +15,8 @@ let function armyBtn(armyId) {
   local wasSelected = isSelected.value
   return watchElemState(function(sf) {
     let iconOverride = {
-      color = isSelected.value || (sf & S_ACTIVE) ? titleTxtColor
+      color = isSelected.value ? accentColor
+        : sf & S_ACTIVE ? titleTxtColor
         : sf & S_HOVER ? hoverTxtColor
         : defTxtColor
     }
@@ -60,7 +62,7 @@ let function selectArmyByHotkey(val) {
 let armyButtonsBlock = {
   rendObj = ROBJ_BOX
   borderRadius = commonBorderRadius
-  fillColor = armyBgColor
+  fillColor = panelBgColor
   children = [
     armyMarker
     @() {

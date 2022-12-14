@@ -202,6 +202,24 @@ light_bunker_wall{
   light__brightness:r=1.0
 }
 
+light_bunker_wall_b{
+  _extends:t="omni_light"
+  light__max_radius:r=3.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=240, 200, 150, 255
+  light__brightness:r=6.0
+}
+
+light_bunker_wall_red{
+  _extends:t="omni_light"
+  light__max_radius:r=4.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 0, 0, 255
+  light__brightness:r=3.0
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_singlelamp_sconce_b"
+}
+
 emergency_lamp_wall{
   _extends:t="omni_light"
   light__max_radius:r=5.2
@@ -438,6 +456,42 @@ spot_light_work_a{
     spot_light__shadows:b=yes
     spot_light__dynamic_obj_shadows:b=yes
     spot_light__shadow_shrink:i=0
+  }
+}
+
+spot_light_workshop_a{
+  _extends:t="spot_light"
+  light__max_radius:r=12.0
+  light__color:c=220, 140, 65, 255
+  light__brightness:r=50.0
+  light__nightly:b=no
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+    spot_light__shadow_quality:i=1
+  }
+}
+
+spot_light_workshop_b{
+  _extends:t="spot_light"
+  light__max_radius:r=6.0
+  light__color:c=220, 140, 65, 255
+  light__brightness:r=15.0
+  light__nightly:b=no
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+    spot_light__shadow_quality:i=1
   }
 }
 

@@ -4,13 +4,13 @@ let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
 let defValue = freeze({
-  useActionEid = INVALID_ENTITY_ID
+  useActionEid = ecs.INVALID_ENTITY_ID
   useActionAvailable = false
-  lookAtEid = INVALID_ENTITY_ID
+  lookAtEid = ecs.INVALID_ENTITY_ID
   lookAtVehicle = false
   lookAtShip = false
   lookAtPushableObject = false
-  pickupItemEid = INVALID_ENTITY_ID
+  pickupItemEid = ecs.INVALID_ENTITY_ID
   pickupItemName = null
   customUsePrompt = null
 })
@@ -57,8 +57,8 @@ ecs.register_es("hero_state_hud_state_ui_es", {
   comps_track = [
     ["useActionEid", ecs.TYPE_EID],
     ["useActionAvailable", ecs.TYPE_INT],
-    ["lookAtEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
-    ["pickupItemEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+    ["lookAtEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+    ["pickupItemEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["pickupItemName", ecs.TYPE_STRING, null],
     ["customUsePrompt", ecs.TYPE_STRING, null],
   ]

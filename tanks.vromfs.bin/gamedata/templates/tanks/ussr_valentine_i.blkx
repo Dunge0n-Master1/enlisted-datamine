@@ -1,6 +1,5 @@
 ussr_valentine_I{
   _extends:t="base_valentine_i"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

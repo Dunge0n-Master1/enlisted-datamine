@@ -37,7 +37,7 @@ def is_in_next_active_battle_area(zonesIn : EidList; team : int)
   return found
 
 
-def get_vehicle_time_to_damage(vehicleEid : EntityId; timeByType : Object?; defTime : float) : float
+def get_vehicle_time_to_damage(vehicleEid : EntityId; timeByType : Object const?; defTime : float) : float
   var vehicleTime : float const?
   if timeByType == null
     return defTime
@@ -45,7 +45,7 @@ def get_vehicle_time_to_damage(vehicleEid : EntityId; timeByType : Object?; defT
     vehicleTime = get_float(*timeByType, battle_area__timeToDamageType)
   return vehicleTime ?? defTime
 
-def get_time_to_damage(timeType : das_string?; timeByType : Object?; defTime : float) : float
+def get_time_to_damage(timeType : das_string const?; timeByType : Object const?; defTime : float) : float
   if timeType == null || timeByType == null
     return defTime
   return get_float(*timeByType, string(*timeType)) ?? defTime
@@ -133,7 +133,7 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
                                    zones_visitor__triggerTag : string;
                                    team : int = TEAM_UNASSIGNED;
                                    beh_tree__enabled : bool = false;
-                                   battle_area__timeToDamageType : das_string?;
+                                   battle_area__timeToDamageType : das_string const?;
                                    human_anim__vehicleSelected : ecs::EntityId = INVALID_ENTITY_ID)
   if info.curTime < battle_areas_visitor__nextUpdateAt
     return
@@ -163,7 +163,7 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
     isOutsideBattleArea = true
     query(anyZoneWasIn) <| $ [es] (var battle_area__killList : Array; // put to kill list
                                    battle_area__timeToDamage : float;
-                                   battle_area__timeToDamageByType : Object?)
+                                   battle_area__timeToDamageByType : Object const?)
       let defaultTime = battle_area__timeToDamage
       let timeByType  = battle_area__timeToDamageByType
       let visitorType = battle_area__timeToDamageType

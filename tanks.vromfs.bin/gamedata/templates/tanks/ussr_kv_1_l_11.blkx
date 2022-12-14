@@ -12,7 +12,6 @@ ussr_kv_1_L_11{
 
 ussr_kv_1_L_11_common{
   _extends:t="base_kv_1_l_11"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
 
@@ -209,6 +208,61 @@ ussr_kv_1_L_11_stalingrad_bey_fashistov_battlepass_premium{
 
     "kv_1_1939_l_11_turret_c*:object"{
       "kv_1_1939_l_11_bey_fashistov_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
+kv_1_l_11_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="kv_1_l_11_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="kv_1_l_11_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="kv_1_l_11_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="kv_1_l_11_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="kv_1_l_11_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="kv_1_l_11_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
     }
   }
 }

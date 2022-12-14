@@ -1,6 +1,7 @@
 require ecs
 require net
 require DagorInput
+require game.es.events
 require game.es.input.input_events
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
@@ -45,3 +46,11 @@ def human_inventory_input_flask_use_action_terminated(evt : EventDaInputActionTe
                                                       input__enabled : bool)
   if input__enabled && human_inventory_input__useFlask == int(evt.action)
     send_net_event(eid, [[CmdFlaskUseCancel]])
+
+
+[es(before=interrupt_item_use_es)]
+def human_inventory_input_flask_reset_sticky_toggle_on_interrupt(evt : EventInterruptItemUse;
+                                                                 human_inventory__entityToUse : EntityId;
+                                                                 human_inventory_input__useFlask : int)
+  if has(human_inventory__entityToUse, "flask")
+    reset_digital_action_sticky_toggle(uint16(human_inventory_input__useFlask))

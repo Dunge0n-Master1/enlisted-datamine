@@ -2,7 +2,7 @@ require ecs
 require EnlistedWalkerai
 require DagorDataBlock
 require BehNodes
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
@@ -116,9 +116,9 @@ def on_build_order_squad_mate_died(evt : Event;
 [es(tag=server)]
 def squad_build_order_speech(evt : RequestSquadMateOrder; squad__leader : EntityId)
   if evt.orderType == SquadMateOrder ESMO_BUILD
-    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBuildOrder", importance=1.]])
+    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBuildOrder"]])
 
 [es(tag=server)]
 def personal_squad_mate_build_order_speech(evt : RequestPersonalSquadMateOrder; squad__leader : EntityId)
   if evt.orderType == int(SquadMateOrder ESMO_BUILD)
-    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBuildOrder", importance=1.]])
+    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBuildOrder"]])

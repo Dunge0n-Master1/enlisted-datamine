@@ -11,4 +11,4 @@ def non_lethal_explode_on_fire(evt : Event;
                                vehicle_seats__seatEids : EidList)
   kick_all_from_vehicle(eid, vehicle_seats__seatEids)
   if fire_damage__isBurn && !isExploded && isAlive
-    sendEvent(eid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID]])
+    sendEvent(eid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID, gunPropsId=-1, shellId=-1]])

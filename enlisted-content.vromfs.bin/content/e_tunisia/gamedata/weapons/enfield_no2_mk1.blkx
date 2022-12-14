@@ -1,4 +1,3 @@
-loc_name:t="Enfield No2 MkI"
 stat_name:t="pistol"
 selWeaponVar:t="enfield_no2"
 shootNode:t="bullet"

@@ -9,26 +9,28 @@ let { getLinkedArmyName, getLinkedSlotData } = require("%enlSqGlob/ui/metalink.n
 let squadsParams = require("squadsParams.nut")
 let readyStatus = require("%enlSqGlob/readyStatus.nut")
 let { READY, OUT_OF_VEHICLE, TOO_MUCH_CLASS, OUT_OF_SQUAD_SIZE, NOT_READY_BY_EQUIP } = readyStatus
+let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let sClassesConfig = require("config/sClassesConfig.nut")
 
 let invalidEquipSoldiers = mkWatched(persist, "invalidEquipSoldiers")
 
 let function updateInvalidSoldiers() {
-  let equipped = {}
+  let equippedItems = {}
   foreach (item in curCampItems.value) {
     let sd = getLinkedSlotData(item)
     if (sd == null)
       continue
     let { linkTgt, linkSlot } = sd
-    if (linkTgt not in equipped)
-      equipped[linkTgt] <- {}
-    equipped[linkTgt][linkSlot] <- true
+    if (linkTgt not in equippedItems)
+      equippedItems[linkTgt] <- {}
+    equippedItems[linkTgt][linkSlot] <- item
   }
 
   let invalid = curCampSoldiers.value
     .filter(function(soldier) {
       if (soldier?.hasVerified == false)
         return true
+
       let { equipScheme = null } = soldier
       if (equipScheme == null)
         return false //mostly happen on login when configs not received yet
@@ -38,9 +40,21 @@ let function updateInvalidSoldiers() {
         let { atLeastOne = "" } = slot
         if (atLeastOne == "" || slotsData?[atLeastOne] == true)
           continue
-        slotsData[atLeastOne] <- equipped?[soldier.guid][slotType] ?? false
+
+        let item = equippedItems?[soldier.guid][slotType]
+        slotsData[atLeastOne] <- item != null
+        if (item == null)
+          continue
+
+        local { basetpl, itemtype } = item
+        basetpl = trimUpgradeSuffix(basetpl)
+        let { items = [], itemTypes = [] } = slot
+        if ((itemTypes.len() != 0 || items.len() != 0)
+            && itemTypes.indexof(itemtype) == null
+            && items.indexof(basetpl) == null)
+          return true
       }
-      return slotsData.findindex(@(s) s == false) != null
+      return slotsData.findindex(@(s) !s) != null
     })
     .map(@(_) true)
 

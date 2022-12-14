@@ -92,7 +92,7 @@ base_panzerwerfer_42{
   }
 }
 
-panzerwerfer_42_projectile{
+base_panzerwerfer_42_projectile{
   _extends:t="rocket_projectile"
   animchar__res:t="nebelwerfer_42_rocket_char"
 

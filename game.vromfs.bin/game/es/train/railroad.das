@@ -17,10 +17,10 @@ def init_railroad(evt : Event;
       railroad__points |> resize(count)
 
       var pointInBattleArea = 0
-      railroadScene |> for_scene_game_objects() <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
+      railroadScene |> find_scene_game_objects() <| $ [unused_argument(ni)] (ni : uint; tm : float3x4#)
         if !is_tm_outside_any_battle_area(tm, TEAM_UNASSIGNED)
           railroad__points[pointInBattleArea++] = tm[3]
-        return true
+        return false
 
       railroad__points |> resize(pointInBattleArea)
 

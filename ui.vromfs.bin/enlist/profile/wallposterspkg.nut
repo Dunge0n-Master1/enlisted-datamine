@@ -70,6 +70,16 @@ let mkLimit = @(armyId, campaignTitle) {
   ]
 }
 
+let mkWallposterImg = @(img, hasReceived, isHovered, wpImgSize) {
+  rendObj = ROBJ_IMAGE
+  size = [wpImgSize, wpImgSize]
+  picSaturate = hasReceived ? 1.2
+    : isHovered ? 0.5
+    : 0.1
+  opacity = hasReceived || isHovered ? 1 : 0.7
+  image = Picture(img)
+}
+
 let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
   let {
     armyId, campaignTitle, hasReceived, isHidden, img, nameLocId, descLocId, hintLocId
@@ -80,15 +90,7 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     children = [
-      {
-        rendObj = ROBJ_IMAGE
-        size = [wpSize, wpSize]
-        picSaturate = hasReceived ? 1.2
-          : isHovered ? 0.5
-          : 0.1
-        opacity = hasReceived || isHovered ? 1 : 0.7
-        image = Picture(img)
-      }
+      mkWallposterImg(img, hasReceived, isHovered, wpSize)
       {
         rendObj = ROBJ_SOLID
         size = flex()
@@ -141,5 +143,6 @@ let function makeBigWpImage(wallposter, onClick) {
 
 return {
   mkWallposter
+  mkWallposterImg
   makeBigWpImage
 }

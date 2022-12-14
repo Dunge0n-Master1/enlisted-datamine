@@ -1,20 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { activeSections, curSection, setCurSection } = require("sectionsState.nut")
+let { sectionsSorted, curSection, setCurSection } = require("sectionsState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let profileInfoBlock = require("profileInfoBlock.nut")
-let { columnGap, midPadding } = require("%enlSqGlob/ui/designConst.nut")
+let { columnGap, midPadding, colPart } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTab, backgroundMarker } = require("%enlist/components/mkTab.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
 let campaignTitle = require("%enlist/campaigns/campaignTitleUi.nut")
 
-let navHeight = hdpx(74)
+let navHeight = colPart(1.19)
 
-let isFirstSection = Computed(@() curSection.value == activeSections.value?[0].id)
+let isFirstSection = Computed(@() curSection.value == sectionsSorted?[0].id)
 
 let function trySwitchSection(sectionId) {
-  let onExitCb = activeSections.value
+  let onExitCb = sectionsSorted
     .findvalue(@(s) s?.id == curSection.value)?.onExitCb ?? @() true
   if (onExitCb())
     setCurSection(sectionId)
@@ -24,7 +24,7 @@ let function trySwitchSection(sectionId) {
 let goToFirstSection = {
   key ="back"
   hotkeys = [["^{0} | Esc".subst(JB.B), {
-    action = @() trySwitchSection(activeSections.value?[0].id)
+    action = @() trySwitchSection(sectionsSorted?[0].id)
     description = loc("BackBtn")
   }]]
 }
@@ -35,7 +35,7 @@ let sectionsHotkeys = @() {
 }
 
 let function changeTab(delta, isLooped = false) {
-  let filtered = activeSections.value.filter(@(val) val?.selectable ?? true)
+  let filtered = sectionsSorted.filter(@(val) val?.selectable ?? true)
   let next_idx = (filtered.findindex(@(val) val.id == curSection.value) ?? 0) + delta
   let total = filtered.len()
   let tabId = filtered[ isLooped
@@ -62,14 +62,13 @@ let maintabs = {
   children = [
     backgroundMarker
     @() {
-      watch = activeSections
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_HORIZONTAL
       gap = midPadding
       halign = ALIGN_LEFT
       valign = ALIGN_BOTTOM
       hplace = ALIGN_LEFT
-      children = activeSections.value.map(function(s){
+      children = sectionsSorted.map(function(s){
         let action = s?.onClickCb ?? @() trySwitchSection(s.id)
         let params = s.__merge({ action })
         return mkTab(params, curSection)
@@ -80,7 +79,7 @@ let maintabs = {
 
 let sectionsUi = {
   size = flex()
-  valign = ALIGN_BOTTOM
+  valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
   gap = columnGap
   children = [

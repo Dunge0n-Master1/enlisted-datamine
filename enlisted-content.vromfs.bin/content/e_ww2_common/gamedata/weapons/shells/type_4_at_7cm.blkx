@@ -1,0 +1,74 @@
+mass:r=1.58
+cartridgeMass:r=1.58
+momentOfInertia:p3=0.04, 0.008, 0.04
+caliber:r=0.07
+speed:r=66.0
+speedPitch:r=-1.0
+physMat:t="bulletRay"
+useFutureContacts:b=yes
+logCCD:b=no
+explodeRadius:p2=1.0, 1.5
+explodeHitPower:r=20.0
+entityTemplate:t="m6a1_bazooka_phys"
+entityPhysTemplate:t="m6a1_bazooka_phys"
+bullets:i=1
+normalizationPreset:t="heat"
+ricochetPreset:t="he"
+slopeEffectPreset:t="ap"
+secondaryShattersPreset:t="ap"
+cumulativeSecondaryShattersPreset:t="heat_fs"
+fresnel:p3=0.23, 0.1, 2.0
+stabilityThreshold:r=0.4
+stabilityCaliberToArmorThreshold:r=10.0
+stabilityReductionAfterRicochet:r=0.45
+stabilityReductionAfterPenetration:r=1.0
+explodeOnRendinst:b=yes
+
+collisionResource{
+
+  props{
+    volumeBox_01:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.0, 0.0, 0.015
+}
+
+visual{
+  template:t="m6a1_bazooka_item+item_in_world"
+}
+
+splashDamage{
+  radius:p2=1.0, 5.0
+  penetration:p2=10.0, 10.0
+  damage:r=12.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=1.8, 1.9
+  effectTemplName:t="explosion_effect_medium+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/grenade"
+}
+
+armorpower{
+  ArmorPower0m:p2=2.0, 10.0
+  ArmorPower7000m:p2=1.0, 7000.0
+}
+
+cumulativeDamage{
+  armorPower:r=80.0
+  distance:r=2.5
+  damage:r=150.0
+  onHitChanceMultFire:r=15.0
+}
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.5
+  mod2:p2=20.0, 0.6
+  mod3:p2=30.0, 1.0
+}

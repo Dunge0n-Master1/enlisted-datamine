@@ -6,8 +6,10 @@ let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
 let openChangeGameModeWnd = require("changeGameModeWnd.nut")
-let { currentGameModeId, canChangeGameMode, canShowGameMode, allGameModesById,
-  hasUnseenGameMode, hasUnopenedGameMode } = require("gameModeState.nut")
+let {
+  currentGameModeId, allGameModesById, hasUnseenGameMode, hasUnopenedGameMode
+} = require("gameModeState.nut")
+let { canChangeQueueParams } = require("%enlist/state/queueState.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -105,10 +107,8 @@ let changeGameModeDisabled = grpTypeParams.__merge({
 
 let changeGameModeWidget = @() {
   size = [flex(), SIZE_TO_CONTENT]
-  watch = [canShowGameMode, canChangeGameMode]
-  children = !canShowGameMode.value ? null
-    : canChangeGameMode.value ? changeGameModeBtn
-    : changeGameModeDisabled
+  watch = [canChangeQueueParams]
+  children = canChangeQueueParams.value ? changeGameModeBtn : changeGameModeDisabled
 }
 
 return {

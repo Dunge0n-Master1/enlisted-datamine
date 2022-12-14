@@ -5,6 +5,10 @@ require rtti
 require daslib/ast_boost
 require daslib/templates_boost
 
+def public move_cls(var target, src)
+  unsafe
+    target <- src
+
 [structure_macro(name="frame_graph_node")]
 class FrameGraphNodeAnnotation : AstStructureAnnotation
   [unused_argument(group)] def override apply(var st : StructurePtr; var group : ModuleGroup; args : AnnotationArgumentList; var errors : das_string) : bool
@@ -13,8 +17,7 @@ class FrameGraphNodeAnnotation : AstStructureAnnotation
       return false
 
     var initfn <- qmacro_function("init`{st.name}") <| $(var x : $t(st)) : void
-      unsafe
-        x <- $c(st.name)()
+      move_cls(x, $c(st.name)())
     initfn.flags |= FunctionFlags exports
     add_function(st._module, initfn)
 

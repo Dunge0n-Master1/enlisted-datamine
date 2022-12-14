@@ -4,6 +4,8 @@ require EnlistedWeapon
 require game.utils.hero
 require app
 require ecs
+require danetlibs.native_dasevents.main.native_events
+
 
 [es(tag=gameClient, REQUIRE=resolvedTurret, track=turret_input__shootFlag)]
 def vehicle_turret_unusable_notification_es(evt : Event;

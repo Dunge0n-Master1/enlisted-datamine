@@ -1,5 +1,4 @@
 import:t="volokolamsk_placeable_objects.blk"
-import:t="volokolamsk_sounds.blk"
 
 minimap_battle_of_moscow_volokolamsk_countryside_winter{
   _extends:t="minimap"

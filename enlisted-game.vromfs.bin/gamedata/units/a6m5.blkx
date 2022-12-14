@@ -1141,7 +1141,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.9
       leak:r=0.9
     }
@@ -1159,7 +1160,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1180,7 +1181,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.9
       leak:r=0.9
     }
@@ -1198,7 +1200,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }
@@ -1219,7 +1221,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.9
       leak:r=0.9
     }
@@ -1237,7 +1240,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }

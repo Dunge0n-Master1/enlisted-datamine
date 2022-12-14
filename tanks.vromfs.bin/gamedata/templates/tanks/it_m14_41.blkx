@@ -8,7 +8,6 @@ it_m14_41{
 
 it_m14_41_common{
   _extends:t="base_m14_41"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

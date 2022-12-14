@@ -6,7 +6,7 @@ require DagorSystem
 
 [es(on_appear)]
 def backstab_node_load_es(evt : Event; eid : EntityId; animchar : AnimcharBaseComponent; backstab__nodeName : string; var backstab__nodeIdx : int&)
-  backstab__nodeIdx = geomtree_findNodeIndex(animchar.nodeTree, backstab__nodeName)
+  backstab__nodeIdx = geomtree_findNodeIndex(*animchar.nodeTree, backstab__nodeName)
   if backstab__nodeIdx < 0
     logerr("backstab.nodeName \"{backstab__nodeName}\" not found (eid: {eid} template: {getEntityTemplateName(eid)})")
 

@@ -37,7 +37,7 @@ let getMineType = @(mines)
 
 
 let sortMembers = @(a,b) a.memberIdx <=> b.memberIdx
-let mkDefState = @() {watchedHeroSquadEid = INVALID_ENTITY_ID, controlledSquadEid = INVALID_ENTITY_ID, members = {}}
+let mkDefState = @() {watchedHeroSquadEid = ecs.INVALID_ENTITY_ID, controlledSquadEid = ecs.INVALID_ENTITY_ID, members = {}}
 let {watchedHeroSquadMembersRaw, watchedHeroSquadMembersRawSetValue, watchedHeroSquadMembersRawModify} = mkFrameIncrementObservable(mkDefState(), "watchedHeroSquadMembersRaw")
 
 let watchedHeroSquadMembersGetWatched = memoize(@(eid) Computed(@() watchedHeroSquadMembersRaw.value.members?[eid]))
@@ -140,7 +140,7 @@ ecs.register_es("track_squad_members_state_ui",
 )
 
 let isPersonalContextCommandMode = Watched(false)
-let selectedBotForOrderEid = Watched(INVALID_ENTITY_ID)
+let selectedBotForOrderEid = Watched(ecs.INVALID_ENTITY_ID)
 
 let function trackComponentsPersonalBotOrder(_evt, _eid, comp) {
   if (comp["input__enabled"]) {
@@ -155,7 +155,7 @@ ecs.register_es("hero_personal_bot_order_ui_es",
     onInit = trackComponentsPersonalBotOrder
     onDestroy = function(_evt, _eid, _comp) {
       isPersonalContextCommandMode(false)
-      selectedBotForOrderEid(INVALID_ENTITY_ID)
+      selectedBotForOrderEid(ecs.INVALID_ENTITY_ID)
     }
   },
   {

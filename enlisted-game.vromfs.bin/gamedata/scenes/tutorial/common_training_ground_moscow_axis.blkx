@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_ussr+team_resptime_balance+team_narrator_invasion_defence"
+  _template:t="team_ussr+team_narrator_invasion_defence"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0
@@ -19,7 +19,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany_winter+team_captime_balance+team_narrator_invasion_attack"
+  _template:t="team_germany_winter+team_narrator_invasion_attack"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0
@@ -366,7 +366,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_t_60_1941"
+  _template:t="ussr_t_34_1941_moscow"
   transform:m=[[-0.319913, 0.00253492, -0.947444] [-0.0185749, 0.999788, 0.00894696] [0.947265, 0.0204609, -0.319798] [-242.893, 13.4029, 493.782]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -422,7 +422,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_t_50"
+  _template:t="ussr_t_34_1941_moscow"
   transform:m=[[-0.999827, -0.018242, -0.00373846] [-0.0182348, 0.999832, -0.00194163] [0.00377325, -0.00187313, -0.999991] [129.162, 19.4085, 405.286]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -478,7 +478,7 @@ entity{
 }
 
 entity{
-  _template:t="ussr_t_28e"
+  _template:t="ussr_t_34_1941_moscow"
   transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

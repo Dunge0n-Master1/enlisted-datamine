@@ -4,8 +4,8 @@ base_crusader_mk_3{
   killLogName:t="uk_crusader_mk_3"
   animchar__res:t="crusader_mk_3_char"
   collres__res:t="crusader_mk_3_collision"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/crusader_mk_3.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/crusader_mk_3.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="crusader_mk_3_dmg_char"
   xray_resource__modelName:t="crusader_mk_3"
   cockpit__zoomOutFov:r=2.7475
@@ -13,21 +13,25 @@ base_crusader_mk_3{
   cockpit__sightName:t="sight_model/default_tank_spg"
   cockpit__sightFov:r=20.0
   drowningHeight:r=1.784
-  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/crusader_mk_3.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/crusader_mk_3.blk"
   item__name:t="items/uk_crusader_mk_3"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="crusader_mk_3_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_60mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -35,6 +39,7 @@ base_crusader_mk_3{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -62,6 +67,11 @@ base_crusader_mk_3{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -80,6 +90,14 @@ base_crusader_mk_3{
       turretName:t="turret_02"
       gun:t="crusader_mk_3_turret_02_7_92mm_besa"
       barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="crusader_mk_3_turret_03_50mm_uk_smoke_mortar_launcher"
       salt:i=1
     }
   }
@@ -115,6 +133,15 @@ crusader_mk_3_turret_02_7_92mm_besa{
   "gun__shellsAmmo:array"{
     ammo:i=1688
     ammo:i=1687
+  }
+}
+
+crusader_mk_3_turret_03_50mm_uk_smoke_mortar_launcher{
+  _extends:t="tankgun_50mm_uk_smoke_mortar_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=50
   }
 }
 

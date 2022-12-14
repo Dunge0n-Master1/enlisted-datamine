@@ -2,17 +2,19 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let DataBlock = require("DataBlock")
-let { Point2 } = require("dagor.math")
+let { Point2, Point3} = require("dagor.math")
 let { round_by_value } = require("%sqstd/math.nut")
 
 let cachedBlocks = {}
 let zeroPoint2 = Point2(0.0, 0.0)
+let zeroPoint3 = Point3(0.0, 0.0, 0.0)
 
 let TYPE_INT = 1
 let TYPE_FLOAT = 2
 let TYPE_POINT2 = 3
 let TYPE_ARRAY = 4
 let TYPE_STRING = 5
+let TYPE_POINT3 = 6
 
 let ITEM_DATA_FIELDS = {
   ["item__weight"] = TYPE_FLOAT,
@@ -71,6 +73,13 @@ let SHELLS_DATA_FIELDS = {
   cumulativeDamage = {
     armorPower = TYPE_FLOAT
   }
+  splashDamage = {
+    radius = TYPE_POINT2
+    penetration = TYPE_POINT2
+    damage = TYPE_FLOAT
+    dmgOffset = TYPE_POINT3
+  }
+
 }
 
 let MODEL_DATA_FIELDS = {
@@ -165,6 +174,11 @@ let function readBlock(blockData, scheme) {
       case TYPE_POINT2:
         value = blockData.getPoint2(key, zeroPoint2)
         if (value.x == 0.0 && value.y == 0.0)
+          value = null
+        break
+      case TYPE_POINT3:
+        value = blockData.getPoint3(key, zeroPoint3)
+        if (value.x == 0.0 && value.y == 0.0 && value.z == 0.0)
           value = null
         break
       default:

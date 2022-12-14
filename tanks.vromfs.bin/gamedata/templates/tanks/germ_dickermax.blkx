@@ -4,8 +4,15 @@ germ_dickermax_stalingrad_premium{
 
 germ_dickermax_common{
   _extends:t="base_dickermax"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
+  vehicle_commander_cam__attachToVehicle:b=yes
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"
@@ -41,6 +48,7 @@ germ_dickermax_common{
       receiveDamageFromDMPart:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="germ_dickermax_gunner_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "turretNames:array"{
         turret:t="turret_01"
@@ -53,14 +61,23 @@ germ_dickermax_common{
       attachNode:t="commander"
       shouldHideOwner:b=no
       maxPosWithOpenHatch:r=0.4
+      maxPosWithOpenHatch:r=0.0
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.55, -0.9, -0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.7, -0.0]]
       cameraType:t="commander"
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="germ_dickermax_commander_cockpit"
       seatAnimUpper:t="gunner_upper_hands"
       seatAnimLower:t="lower_stand"
+      cameraOffset:p3=-3.3, 0.8, 1.1
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHatchControlInversed:b=yes
+      isHoldGunModeAllowed:b=no
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
+      }
     }
 
     "seats:object"{
@@ -74,6 +91,7 @@ germ_dickermax_common{
       cameraNodeName:t="bone_camera_driver"
       seatAnimUpper:t="gunner_upper_hands"
       seatAnimLower:t="lower_stand"
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
@@ -90,6 +108,7 @@ germ_dickermax_common{
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="machine_gunner"
       cameraNodeName:t="bone_camera_driver"
+      isHoldGunModeAllowed:b=no
     }
   }
 }

@@ -1,0 +1,116 @@
+sound_step_settings{
+  _extends:t="sound_physmat"
+  sound_step__queryResultToPuddleDepth:p4=0.1, 0.4, 0.0, 0.05
+
+  _group{
+    _tags:t="sound"
+
+    "sound_physmat__soundMaterials:list<t>"{
+      mat:t="grass"
+      mat:t="concrete"
+      mat:t="water"
+      mat:t="wood"
+      mat:t="metal"
+      mat:t="mud"
+      mat:t="highgrass"
+      mat:t="fabric"
+      mat:t="snow"
+      mat:t="sand"
+      mat:t="barbwire"
+      mat:t="ice"
+      mat:t="gravel"
+      mat:t="leaves"
+    }
+
+    "sound_physmat__physmatToSoundmat:object"{
+      waterPuddle:t="water"
+      water3d:t="water"
+      water:t="water"
+      concrete:t="concrete"
+      stone:t="concrete"
+      buildings:t="concrete"
+      soil:t="concrete"
+      road:t="concrete"
+      roadSoil:t="concrete"
+      roadSand:t="concrete"
+      quickSand:t="concrete"
+      rocks:t="concrete"
+      rocksSlippery:t="concrete"
+      rubber:t="concrete"
+      ceramic:t="concrete"
+      paper:t="concrete"
+      plastic:t="concrete"
+      small_debris:t="concrete"
+      small_decor:t="concrete"
+      wood:t="wood"
+      wood_railway:t="wood"
+      window_wood:t="wood"
+      cactus:t="wood"
+      softWoodDoor:t="wood"
+      steel:t="metal"
+      metal:t="metal"
+      train:t="metal"
+      softSteelDoor:t="metal"
+      mud:t="mud"
+      roadmud:t="mud"
+      sand:t="sand"
+      quarrySand:t="sand"
+      sand_slope:t="sand"
+      snow:t="snow"
+      snowLower:t="snow"
+      roadSnow:t="snow"
+      ice:t="ice"
+      gravel:t="gravel"
+      fabric:t="fabric"
+      hay:t="highgrass"
+      bushes:t="highgrass"
+      barbwire:t="barbwire"
+    }
+  }
+
+  "soundStepSettings:tag"{
+  }
+}
+
+human_death_sound{
+
+  "humanDeathSound:tag"{
+    _tags:t="sound"
+  }
+}
+
+human_fall_sound{
+  _tracked:t="human_fall_sound__isFalling"
+
+  _group{
+    _tags:t="sound"
+    human_fall_sound__isFalling:b=no
+    human_fall_sound__threshold:r=20.0
+  }
+}
+
+human_idle_sound{
+
+  _group{
+    _tags:t="sound"
+
+    "human_idle_sound__paths:shared:object"{
+    }
+
+    "human_idle_sound__event:SoundEvent"{
+    }
+
+    "humanIdleSound:tag"{
+    }
+  }
+}
+
+human_idle_active_sound{
+  _extends:t="human_idle_sound"
+  _tracked:t="human_idle_sound__isActive"
+
+  _group{
+    _tags:t="sound"
+    human_idle_sound__isActive:b=no
+  }
+}

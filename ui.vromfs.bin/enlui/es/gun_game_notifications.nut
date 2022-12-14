@@ -31,7 +31,7 @@ ecs.register_es("gun_game_leader_change_hint", {
   [EventGunGameNewLeader] = function(evt, _eid, _comp) {
     getPlayerNameAndTeamQuery(evt.newLeaderPlayerEid, function(_eid, comp) {
       // first kill
-      if (evt.oldLeaderPlayerEid == INVALID_ENTITY_ID)
+      if (evt.oldLeaderPlayerEid == ecs.INVALID_ENTITY_ID)
         if (evt.newLeaderPlayerEid != localPlayerEid.value)
           showMsg(loc("gun_game/firstLeadTaken", { name = comp.name }), getColorByTeam(comp.team))
         else

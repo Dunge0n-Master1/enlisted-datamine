@@ -15,13 +15,15 @@ let function login_psn(state, cb) {
 }
 
 let function ps4_auth_data_cb(cb) {
-  return function(result) {
+  let evtname = "ps4.auth_data_login"
+  eventbus.subscribe_onehit(evtname, function(result) {
     if (result.error == true)
       result.error = "get_auth_data failed"
     else
       delete result.error
     cb(result)
-  }
+  })
+  ps4.get_auth_data_async(evtname)
 }
 
 let function update_premium_permissions(_state, cb) {
@@ -29,24 +31,25 @@ let function update_premium_permissions(_state, cb) {
 }
 
 let function check_age_restrictions(cb) {
-  return function(succeeded, message_needed) {
-    if (succeeded) {
+  eventbus.subscribe_onehit("ps4.age_restriction", function(data) {
+    if (data.succeeded) {
       cb({})
     } else {
-      cb({ error = "age_restriction_check_failed", needShowError = message_needed })
+      cb({ error = "age_restriction_check_failed", needShowError = data.messageNeeded })
     }
-  }
+  })
+  ps4.check_age_restrictions()
 }
 
 let function check_parental_control(cb) {
-  // true -> restricted
-  return function(chat, _content, _ugc) {
-    if (chat) {
+  eventbus.subscribe_onehit("ps4.parental_control", function(restrictions) {
+    if (restrictions.chat) {
       log("VoiceChat disabled due to parental control restrictions")
       voiceChatEnabledUpdate(false)
     }
     cb({})
-  }
+  })
+  ps4.check_parental_control()
 }
 
 let function send_ps_plus_status(state) {
@@ -65,9 +68,9 @@ let function onSuccess(state) {
 
 return {
   stages = [
-    { id = "check_age", action = @(_state, cb) ps4.check_age_restrictions(check_age_restrictions(cb)), actionOnReload = @(_state, _cb) null },
-    { id = "parental_control", action = @(_state, cb) ps4.check_parental_control(check_parental_control(cb)), actionOnReload = @(_state, _cb) null },
-    { id = "ps4_auth_data", action = @(_state, cb) ps4.get_auth_data_async(ps4_auth_data_cb(cb)), actionOnReload = @(_state, _cb) null },
+    { id = "check_age", action = @(_state, cb) check_age_restrictions(cb), actionOnReload = @(_state, _cb) null },
+    { id = "parental_control", action = @(_state, cb) check_parental_control(cb), actionOnReload = @(_state, _cb) null },
+    { id = "ps4_auth_data", action = @(_state, cb) ps4_auth_data_cb(cb), actionOnReload = @(_state, _cb) null },
     { id = "auth_psn", action = login_psn, actionOnReload = @(_state, _cb) null },
     { id = "check_plus", action = update_premium_permissions, actionOnReload = @(_state, _cb) null },
     require("%enlist/login/stages/auth_result.nut"),

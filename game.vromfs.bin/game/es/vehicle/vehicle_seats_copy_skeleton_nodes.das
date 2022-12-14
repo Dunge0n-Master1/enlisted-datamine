@@ -20,18 +20,18 @@ def fill_nodes_map_recursive(node_name : string;
                              var copy_nodes_map : CopyNodesMap_SOA&)
   assume tree_to = animchar_to.nodeTree
   assume tree_from = animchar_from.nodeTree
-  let parentNodeIndexTo = tree_to |> geomtree_findNodeIndex(node_name)
-  let parentNodeIndexFrom = tree_from |> geomtree_findNodeIndex("{node_name}{node_postfix}")
+  let parentNodeIndexTo = *tree_to |> geomtree_findNodeIndex(node_name)
+  let parentNodeIndexFrom = *tree_from |> geomtree_findNodeIndex("{node_name}{node_postfix}")
   if parentNodeIndexFrom >= 0
     copy_nodes_map |> push([[CopyNodesMap
       copy_skeleton_nodes__idxFrom = parentNodeIndexFrom,
       copy_skeleton_nodes__idxTo = parentNodeIndexTo
     ]])
 
-  let childNodesCount = *tree_to |> geomnodetree_getChildCount(parentNodeIndexTo)
+  let childNodesCount = *tree_to |> geomtree_getChildCount(parentNodeIndexTo)
   for i in range(childNodesCount)
-    let childNodeIndex = *tree_to |> geomnodetree_getChildNodeIdx(parentNodeIndexTo, uint(i))
-    let childNodeName = *tree_to |> geomnodetree_getNodeName(childNodeIndex)
+    let childNodeIndex = *tree_to |> geomtree_getChildNodeIdx(parentNodeIndexTo, uint(i))
+    let childNodeName = *tree_to |> geomtree_getNodeName(childNodeIndex)
     fill_nodes_map_recursive(childNodeName, node_postfix, animchar_to, animchar_from, copy_nodes_map)
 
 
@@ -73,5 +73,5 @@ def animchar_copy_nodes_from_other_animchar(info : UpdateStageInfoAct;
   query(copy_skeleton_nodes__copyFromEid) <| $ [es] (animchar aka copy_from_animchar : AnimcharBaseComponent)
     for node in copyNodesMap
       var newTm : float3x4
-      copy_from_animchar.nodeTree |> geomtree_getNodeWtmScalar(node.copy_skeleton_nodes__idxFrom, newTm)
-      copy_to_animchar.nodeTree |> geomtree_setNodeWtmScalar(node.copy_skeleton_nodes__idxTo, newTm)
+      *copy_from_animchar.nodeTree |> geomtree_getNodeWtmScalar(node.copy_skeleton_nodes__idxFrom, newTm)
+      *copy_to_animchar.nodeTree |> geomtree_setNodeWtmScalar(node.copy_skeleton_nodes__idxTo, newTm)

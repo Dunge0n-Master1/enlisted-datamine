@@ -12,7 +12,6 @@ us_m3a1_stuart_pacific{
 
 us_m3a1_stuart_common{
   _extends:t="base_m3a1_stuart"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0
 

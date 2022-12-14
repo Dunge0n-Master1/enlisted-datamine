@@ -15,7 +15,7 @@ let {
 let { hasAchievementsReward } = require("%enlist/unlocks/taskListState.nut")
 let { chosenNickFrame, chosenPortrait } = require("%enlist/profile/decoratorState.nut")
 let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { bigPadding, titleTxtColor, defTxtColor, isWide
+let { bigPadding, smallPadding, titleTxtColor, defTxtColor, isWide
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankIcon, rankIconSize } = require("%enlSqGlob/ui/rankPresentation.nut")
@@ -42,19 +42,30 @@ let hasUnopenedElements = Computed(@() hasUnopenedDecorators.value
   || hasUnopenedAchievements.value
   || hasUnopenedWeeklyTasks.value)
 
-let mkChosenPortrait = @(chosenPortraitVal, sf) @() {
+let mkChosenPortrait = @(sf) @() {
   rendObj = ROBJ_BOX
-  watch = playerRank
+  watch = [
+    playerRank, chosenPortrait, hasUnseenElements, hasUnopenedElements
+  ]
   borderWidth = hdpx(1)
   margin = [bigPadding, 0]
   borderColor = borderColor(sf)
+
   children = [
-    mkPortraitIcon(getPortrait(chosenPortraitVal?.guid), PORTRAIT_WIDTH)
+    mkPortraitIcon(getPortrait(chosenPortrait.value?.guid), PORTRAIT_WIDTH)
     mkRankIcon(playerRank.value?.rank, rankIconSize, {
       vplace = ALIGN_BOTTOM
       hplace = ALIGN_CENTER
       pos = [0, hdpx(10)]
     })
+    {
+      vplace = ALIGN_TOP
+      hplace = ALIGN_RIGHT
+      pos = [ smallPadding, -smallPadding ]
+      children = !hasUnseenElements.value ? null
+        : hasUnopenedElements.value ? unseenBlink
+        : unseenNoBlink
+    }
   ]
 }
 
@@ -66,13 +77,10 @@ let mkText = @(txt, sf) {
 
 let function profileWidgetUI() {
   let res = {
-    watch = [
-      userInfo, hasProfileCard, hasUnseenElements, hasUnopenedElements,
-      chosenPortrait, chosenNickFrame
-    ]
+    watch = [ userInfo, hasProfileCard, chosenNickFrame ]
   }
   let pName = userInfo.value?.nameorig ?? ""
-  let chosenPortraitVal = chosenPortrait.value
+
   return !hasProfileCard.value ? res
     : res.__update({
         size = [SIZE_TO_CONTENT, flex()]
@@ -93,24 +101,17 @@ let function profileWidgetUI() {
                   ? frameNick(pName, chosenNickFrame.value?.guid)
                   : loc("profile/playerCardTab"), sf
                 ).__update(h2_txt, { vplace = ALIGN_CENTER })
-                {
-                  flow = FLOW_HORIZONTAL
+                mkText(isWide
+                  ? loc("profile/playerCardTab")
+                  : frameNick(pName, chosenNickFrame.value?.guid), sf
+                ).__update(sub_txt, {
                   pos = [0, bigPadding]
                   vplace = ALIGN_BOTTOM
                   valign = ALIGN_CENTER
-                  children = [
-                    !hasUnseenElements.value ? null
-                      : hasUnopenedElements.value ? unseenBlink
-                      : unseenNoBlink
-                    mkText(isWide
-                      ? loc("profile/playerCardTab")
-                      : frameNick(pName, chosenNickFrame.value?.guid), sf
-                    ).__update(sub_txt)
-                  ]
-                }
+                })
               ]
             }
-            mkChosenPortrait(chosenPortraitVal, sf)
+            mkChosenPortrait(sf)
           ]
         })
       })

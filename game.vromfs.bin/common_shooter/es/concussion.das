@@ -81,11 +81,11 @@ def turret_shot_concussion_on_shell_create(evt : Event; launch_desc : LaunchDesc
       var shotPos = launch_desc.tm[3]
       if turret__flashNodeId >= 0
         query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
-          shotPos = geomtree_getNodeWpos(animchar.nodeTree, turret__flashNodeId)
+          shotPos = geomtree_getNodeWpos(*animchar.nodeTree, turret__flashNodeId)
 
       for_each_entity_in_grid(ecs_hash("humans"), BSphere3(shotPos, radius), GridEntCheck BOUNDING) <| $(eid : EntityId)
         query(eid) <| $ [es(REQUIRE_NOT=deadEntity)] (animchar : AnimcharBaseComponent; human_use_object__nodeId : int; concussion__duration : float; isInVehicle : bool = false)
-          let headPos = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
+          let headPos = geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId)
           if !isInVehicle && distance_sq(headPos, shotPos) < radiusSq
             enable_concussion_affect(eid, concussion__duration)
 

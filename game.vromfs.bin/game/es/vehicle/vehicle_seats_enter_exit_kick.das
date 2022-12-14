@@ -109,23 +109,21 @@ def private vehicle_trace_exit_pos(var human_net_phys : HumanActor?; var exitPos
 
 def private vehicle_teleport_entity_to_node(eid : EntityId; tree : GeomNodeTree const?; node : int; forcibly : bool = false) : bool
   var nodeWtm : float3x4
-  tree |> geomtree_getNodeWtmScalar(node, nodeWtm)
+  *tree |> geomtree_getNodeWtmScalar(node, nodeWtm)
   let entityTM =  get_TMatrix(eid, "transform") ?? IDENT_TM
   var exitPos = nodeWtm[3]
   // rotate nodewtm, so it's vertical
   nodeWtm[1] = float3(0, 1, 0)
   nodeWtm |> orthonormalize()
 
-  var human : HumanActor?
-  query(eid) <| $ [es] (human_net_phys : HumanActor?)
-    human = human_net_phys
+  var res = false
+  query(eid) <| $ [es] (var human_net_phys : HumanActor?)
+    if vehicle_trace_exit_pos(human_net_phys, exitPos, entityTM, forcibly)
+      nodeWtm[3] = exitPos
+      teleport_phys_actor(eid, nodeWtm)
+      res = true
 
-  if vehicle_trace_exit_pos(human, exitPos, entityTM, forcibly)
-    nodeWtm[3] = exitPos
-    teleport_phys_actor(eid, nodeWtm)
-    return true
-
-  return false
+  return res
 
 def private vehicle_find_nearest_exit_point(pos : float3; forbidden_radius : float; var nearest_exit_point_tm : float3x4&) : bool
   var bestDistSq = VERY_BIG_NUMBER
@@ -158,26 +156,23 @@ def private vehicle_teleport_entity_by_bounding_box(eid : EntityId; collres : Co
     teleport_phys_actor(eid, nearestExitPointTm)
     return
 
-  var human : HumanActor?
-  query(eid) <| $ [es] (human_net_phys : HumanActor?)
-    human = human_net_phys
+  query(eid) <| $ [es] (var human_net_phys : HumanActor?)
+    let additionalCollRad = 0.2
+    let collRad = (human_net_phys != null ? human_net_phys.phys.collRad : 0.2) + additionalCollRad
+    let vehicleLeft = vehicle_tm[2]
+    let relativeVehicleTm = inverse(vehicle_tm) * requesterTm
 
-  let additionalCollRad = 0.2
-  let collRad = (human != null ? human.phys.collRad : 0.2) + additionalCollRad
-  let vehicleLeft = vehicle_tm[2]
-  let relativeVehicleTm = inverse(vehicle_tm) * requesterTm
+    let existWishPos = [[float3[2]
+      requesterTm[3] + sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft;
+      requesterTm[3] - sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft ]]
 
-  let existWishPos = [[float3[2]
-    requesterTm[3] + sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft;
-    requesterTm[3] - sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft ]]
-
-  for i in range(0, 2)
-    // Check left & right side
-    var exitPos = existWishPos[i]
-    if vehicle_trace_exit_pos(human, exitPos, requesterTm)
-      requesterTm[3] = exitPos
-      teleport_phys_actor(eid, requesterTm)
-      return
+    for i in range(0, 2)
+      // Check left & right side
+      var exitPos = existWishPos[i]
+      if vehicle_trace_exit_pos(human_net_phys, exitPos, requesterTm)
+        requesterTm[3] = exitPos
+        teleport_phys_actor(eid, requesterTm)
+        return
 
 
 

@@ -9,7 +9,6 @@ let { sound_play } = require("sound")
 let multiselect = require("%ui/components/multiselect.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
 
-let {font, fontSize} = body_txt
 let checkFontSize = hdpx(12)
 let boxSize = hdpx(20)
 let calcColor = @(sf)
@@ -36,11 +35,9 @@ let label = @(text, color) {
   rendObj = ROBJ_TEXT
   color
   text
-  font
-  fontSize
   behavior = [Behaviors.Marquee]
   scrollOnHover = true
-}
+}.__update(body_txt)
 
 let function optionCtor(option, isSelected, onClick) {
   let stateFlags = Watched(0)

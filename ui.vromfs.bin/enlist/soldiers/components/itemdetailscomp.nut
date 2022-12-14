@@ -11,7 +11,7 @@ let { blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades, BASE
 } = require("itemDetailsPkg.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { inventoryItems } = require("%enlist/soldiers/model/selectItemState.nut")
 
 let animations = [
@@ -89,66 +89,51 @@ let itemTitle = @(item) {
 }.__update(body_txt)
 
 let detailsStatusTier = @(item) @() {
-  watch = needFreemiumStatus
+  watch = [needFreemiumStatus, campPresentation]
   children = statusTier(
     item,
     mkItemLevelData(item),
     needFreemiumStatus.value,
+    campPresentation.value?.color,
     @(v) v
   )
 }
 
 local lastTpl = null
 
-let function titleBlock(item) {
+let mkRow = @(children) {
+  flow = FLOW_HORIZONTAL
+  gap = smallPadding
+  children = children
+}
+
+let function mkItemHeader(item) {
   let isVehicle = item?.itemtype == "vehicle"
-  let typeLoc = getItemTypeName(item)
+  local  typeLoc = getItemTypeName(item)
+  typeLoc = typeLoc == "" ? null
+    : {
+      rendObj = ROBJ_TEXT
+      text = typeLoc
+      color = BASE_COLOR
+    }.__update(sub_txt)
   let itemType = isVehicle ? item?.itemsubtype : item?.itemtype
   return {
     flow = FLOW_VERTICAL
     halign = ALIGN_RIGHT
-    children = [
-      {
-        flow = FLOW_HORIZONTAL
-        gap = smallPadding
-        children = [
-          itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
-          mkSpecialItemIcon(item, hdpx(30))
-          itemTitle(item)
-        ]
-      }
-      typeLoc == "" ? null : {
-        rendObj = ROBJ_TEXT
-        text = typeLoc
-        color = BASE_COLOR
-      }.__update(sub_txt)
-    ]
-  }
-}
-
-let function mkItemHeader(item, isFull) {
-  return {
     size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    halign = ALIGN_RIGHT
     gap = smallPadding
-    children = isFull
-      ? [
-          titleBlock(item)
-          detailsStatusTier(item)
-          inStockInfo(item)
-        ]
-      : [
-          itemTitle(item)
-          {
-            flow = FLOW_HORIZONTAL
-            gap = smallPadding
-            children = [
-              detailsStatusTier(item)
-              inStockInfo(item)
-            ]
-          }
-        ]
+    children = [
+      mkRow([
+        itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
+        mkSpecialItemIcon(item, hdpx(30))
+        itemTitle(item)
+      ])
+      mkRow([
+        detailsStatusTier(item)
+        typeLoc
+      ])
+      inStockInfo(item)
+    ]
   }
 }
 
@@ -176,7 +161,7 @@ let mkDetailsInfo = @(viewItemWatch, isFullMode = Watched(true))
       halign = ALIGN_RIGHT
       gap = smallPadding
       children = [
-        mkItemHeader(item, isFull)
+        mkItemHeader(item)
         isFull ? mkItemDescription(item) : null
         isVehicle ? null : mkSlotIncreaseInfo(item)
         isVehicle ? null : mkAmmoIncreaseInfo(item)

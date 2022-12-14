@@ -8,12 +8,13 @@ let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 let { get_app_id } = require("app")
 let eventbus = require("eventbus")
 let {get_setting_by_blk_path} = require("settings")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
 log($"matchingGameName in settings.blk {matchingGameName}")
 
-let matchingQueuesRaw = mkWatched(persist, "matchingQueuesRaw", [])
+let matchingQueuesRaw = nestWatched("matchingQueuesRaw", [])
 
 let function processQueues(val) {
   let curGame = matchingGameName

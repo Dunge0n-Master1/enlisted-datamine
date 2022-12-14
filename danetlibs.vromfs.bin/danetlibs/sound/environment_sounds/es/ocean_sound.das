@@ -45,8 +45,8 @@ def is_point_inside(pt : float2; ocean_sound__points : Point4List; var closest_p
   return false
 
 
-[es(no_order, tag=sound)]
-def ocean_sound_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+def ocean_sound_update(evt : Event;
                        sound_bank_preset_state__isValid : bool;
                        var ocean_sound__event : SoundEvent&;
                        ocean_sound__path : string;

@@ -18,6 +18,14 @@ VehiclePhys{
     animationMultiplier:r=0.35
     height:r=0.04
     width:r=0.26
+    tracksTensionK:p3=3.0, 7.0, 1.0
+    trackMesh:t="ussr_t_26_phys_track_line"
+    nonSymmetricMesh:b=yes
+    trackLen:r=0.09
+    trackCount:i=105
+    trackFadeTime:r=0.5
+    trackMaxSinking:r=0.1
+    trackStartOffset:r=0.01
   }
 
   collisionProps{
@@ -57,6 +65,8 @@ VehiclePhys{
     defaultDampeningForce:p2=60000.0, 60000.0
     dampeningRelaxationRatio:r=0.4
     dampeningCompressionRatio:r=0.15
+    wheel_r_drive:r=0.31
+    wheel_l_drive:r=0.31
     recalcWtms:b=yes
   }
 }
@@ -76,8 +86,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=7.0
@@ -95,8 +108,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=15.0
@@ -114,8 +130,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=10.0
@@ -133,8 +152,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=6.0
@@ -152,8 +174,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=6.0
@@ -171,8 +196,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=5.0
@@ -190,8 +218,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=10.0
@@ -209,8 +240,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=15.0
@@ -228,8 +262,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=15.0
@@ -247,8 +284,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=10.0
@@ -266,8 +306,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
     armorThickness:r=15.0
@@ -285,8 +328,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=50.0
     armorThickness:r=10.0
@@ -304,8 +350,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=20.0
     armorThickness:r=3.0
@@ -323,8 +372,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=20.0
     armorThickness:r=3.0
@@ -342,8 +394,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=20.0
     armorThickness:r=3.0
@@ -361,8 +416,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=20.0
     armorThickness:r=3.0
@@ -380,8 +438,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="optics_tank"
     hp:r=20.0
     armorThickness:r=3.0
@@ -399,8 +460,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -418,8 +482,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -437,8 +504,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -456,8 +526,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -475,8 +548,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -494,8 +570,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_structural_steel"
     hp:r=200.0
     armorThickness:r=4.0
@@ -513,8 +592,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -533,8 +615,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -553,8 +638,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -573,8 +661,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -593,8 +684,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -613,8 +707,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -633,8 +730,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -653,8 +753,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -673,8 +776,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -693,8 +799,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -713,8 +822,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -733,8 +845,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -753,8 +868,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -773,8 +891,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -793,8 +914,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -813,8 +937,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -833,8 +960,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -853,8 +983,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -873,8 +1006,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -893,8 +1029,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -913,8 +1052,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -933,8 +1075,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -953,8 +1098,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -973,8 +1121,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -993,8 +1144,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -1013,8 +1167,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -1033,8 +1190,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -1053,8 +1213,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -1073,8 +1236,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
@@ -1093,8 +1259,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
     armorThickness:r=10.0
@@ -1112,8 +1281,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_steel_wheels"
     hp:r=250.0
     armorThickness:r=10.0
@@ -1131,8 +1303,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     armorClass:t="tank_traks"
     hp:r=150.0
     armorThickness:r=15.0
@@ -1150,8 +1325,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_barrel"
     hp:r=120.0
@@ -1170,8 +1348,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     armorClass:t="tank_barrel"
     hp:r=50.0
@@ -1191,8 +1372,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     movement:b=yes
     armorClass:t="tank_traks"
@@ -1216,8 +1400,11 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     movement:b=yes
     armorClass:t="tank_traks"
@@ -1241,13 +1428,18 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=1.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
     vital:b=yes
     movement:b=yes
     armorClass:t="steel_tankman"
     hp:r=40.0
     genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
   }
 
   loader{
@@ -1262,12 +1454,17 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=1.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
     vital:b=yes
     armorClass:t="steel_tankman"
     hp:r=40.0
     genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
   }
 
   gunner{
@@ -1282,12 +1479,17 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=1.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
     vital:b=yes
     armorClass:t="steel_tankman"
     hp:r=40.0
     genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
   }
 
   drive_turret_v{
@@ -1302,9 +1504,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=150.0
     armorThrough:r=15.0
@@ -1323,9 +1529,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=150.0
     armorThrough:r=15.0
@@ -1344,9 +1554,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=50.0
     armorThrough:r=5.0
@@ -1365,9 +1579,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=150.0
     armorThickness:r=150.0
@@ -1388,11 +1606,15 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     movement:b=yes
     fire:b=yes
+    ldmInner:b=yes
     armorClass:t="armor_tank_engine"
     hp:r=100.0
     armorThickness:r=50.0
@@ -1411,11 +1633,15 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     movement:b=yes
     fire:b=yes
+    ldmInner:b=yes
     armorClass:t="armor_tank_engine"
     hp:r=100.0
     armorThickness:r=50.0
@@ -1434,9 +1660,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1456,9 +1686,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1478,9 +1712,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1500,9 +1738,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1522,9 +1764,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1544,9 +1790,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1566,9 +1816,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1588,9 +1842,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1610,9 +1868,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1632,9 +1894,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1654,9 +1920,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1676,9 +1946,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1698,9 +1972,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1720,9 +1998,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1742,9 +2024,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1764,9 +2050,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1786,9 +2076,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1808,9 +2102,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1830,9 +2128,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1852,9 +2154,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1874,9 +2180,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1896,9 +2206,13 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=300.0
     armorThickness:r=2.0
@@ -1918,10 +2232,14 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     fire:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=250.0
     armorThickness:r=2.0
@@ -1942,10 +2260,14 @@ DamageParts{
     selfRepairDelay:r=0.0
     selfRepairTime:r=-1.0
     ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
     splashPenetrationToArmorThreshold:r=0.33
     pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
     vital:b=yes
     fire:b=yes
+    ldmInner:b=yes
     armorClass:t="tank_structural_steel"
     hp:r=250.0
     armorThickness:r=2.0
@@ -1991,8 +2313,8 @@ DamageEffects{
 
     onHit{
       damageType:t="cumulative"
-      expl:r=0.5
-      fire:r=0.5
+      expl:r=0.6
+      fire:r=0.4
       damage:r=200.0
       fHitCritical:b=yes
     }
@@ -2031,24 +2353,24 @@ DamageEffects{
 
     onHit{
       damageType:t="generic"
-      expl:r=0.05
-      fire:r=0.1
+      expl:r=0.075
+      fire:r=0.075
       damage:r=70.0
       fHitCritical:b=yes
     }
 
     onHit{
       damageType:t="generic"
-      expl:r=0.1
-      fire:r=0.2
+      expl:r=0.15
+      fire:r=0.15
       damage:r=200.0
       fHitCritical:b=yes
     }
 
     onHit{
       damageType:t="generic"
-      expl:r=0.1
-      fire:r=0.4
+      expl:r=0.25
+      fire:r=0.25
       damage:r=300.0
       fHitCritical:b=yes
     }
@@ -2076,32 +2398,37 @@ DamageEffects{
 
     onHit{
       damageType:t="fire"
-      fire:r=0.02
+      fire:r=0.01
+      full_expl:r=0.01
       expl:r=0.01
     }
 
     onKill{
       damageType:t="cumulative"
-      expl:r=0.2
-      fire:r=0.8
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
     }
 
     onKill{
       damageType:t="explosion"
-      expl:r=0.2
-      fire:r=0.8
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
     }
 
     onKill{
       damageType:t="secondaryShatter"
-      expl:r=0.2
-      fire:r=0.8
+      expl:r=0.4
+      full_expl:r=0.1
+      fire:r=0.5
     }
 
     onKill{
       damageType:t="generic"
-      expl:r=0.2
-      fire:r=0.8
+      expl:r=0.5
+      full_expl:r=0.1
+      fire:r=0.4
     }
   }
 
@@ -2336,6 +2663,132 @@ DamageEffects{
 
     onKill{
       track_l:r=1.0
+    }
+  }
+
+  part{
+    name:t="body_top"
+    name:t="body_side"
+    name:t="body_bottom"
+    name:t="superstructure_back"
+    name:t="superstructure_top"
+    name:t="ex_armor_body_r_01"
+    name:t="ex_armor_body_r_02"
+    name:t="ex_armor_body_r_03"
+    name:t="turret_front"
+    name:t="turret_side"
+    name:t="turret_top"
+    name:t="turret_01_side"
+    name:t="turret_01_top"
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=0.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.05
+        fxEventName:t="fire_after_hit_tiny"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=0.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.05
+        fxEventName:t="fire_after_hit_tiny"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=18.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.2
+        fxEventName:t="fire_after_hit_small"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=30.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.2
+        fxEventName:t="fire_after_hit_small"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=30.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=50.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      damage:r=80.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.4
+        fxEventName:t="fire_after_hit_med"
+      }
+    }
+
+    onHit{
+      damageType:t="explosion"
+      damage:r=200.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
+    }
+
+    onHit{
+      damageType:t="generic"
+      damage:r=120.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
+    }
+
+    onHit{
+      damageType:t="cumulative"
+      damage:r=200.0
+
+      action{
+        type:t="fxEvent"
+        probability:r=0.7
+        fxEventName:t="fire_after_hit_big"
+      }
     }
   }
 }

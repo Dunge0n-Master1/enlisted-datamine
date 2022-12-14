@@ -85,7 +85,6 @@ base_bike_common_sound{
   _extends:t="motorcycle_vehicle_suspension_sound"
   _extends:t="motorcycle_vehicle_tracks_sound"
   _extends:t="motorcycle_vehicle_engine_sound"
-  _extends:t="vehicle_engine_sound_seats_starter"
   _extends:t="motorcycle_vehicle_gear_sound"
   _extends:t="motorcycle_vehicle_horn_sound"
   _extends:t="vehicle_horn_note_E5"
@@ -148,7 +147,7 @@ base_bike_common{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:list<t>"{
+    "dependent_templates_list:shared:list<t>"{
       template_name:t="vehicle_seat_fire_ready"
       template_name:t="bike_seat_driver"
       template_name:t="vehicle_seat_commander"

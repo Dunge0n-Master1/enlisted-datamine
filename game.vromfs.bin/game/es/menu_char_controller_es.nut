@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 let { apply_customization=@(_t,_l,c) c, get_menu_character_template=@(_) null } = require_optional("playerCustomization")
 let function destroyChar(char) {
-  if (char != INVALID_ENTITY_ID)
+  if (char != ecs.INVALID_ENTITY_ID)
     ecs.g_entity_mgr.destroyEntity(char)
 }
 

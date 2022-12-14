@@ -3,7 +3,7 @@ require ecs.common
 require EnlistedWalkerai
 require DagorDataBlock
 require BehNodes
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require game.es.sound_net.sound_net_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
@@ -12,7 +12,7 @@ require EnlistedBehTree
 require game.es.squad_order_common
 
 def squadmate_attack_order_speech(squadmate_eid : EntityId; leader_eid : EntityId; squad_member_response = "confirm")
-  sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadAttackOrder", importance=1.]])
+  sendEvent(leader_eid, [[CmdRequestHumanSpeech phrase="squadAttackOrder"]])
   if squad_member_response != ""
     request_squad_member_response(squadmate_eid, squad_member_response)
 

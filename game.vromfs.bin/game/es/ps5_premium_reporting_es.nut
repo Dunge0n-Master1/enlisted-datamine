@@ -20,11 +20,11 @@ if (!platform.is_sony && DBGLEVEL>0) {
     log($"reportPremiumFeatureUsage, is_crossplay_enabled:{is_crossplay_enabled}, is_spectator:{is_spectator}")
 }
 
-let spectatorQuery = ecs.SqQuery("spectatorQuery", {comps_ro = [["is_local", ecs.TYPE_BOOL], ["specTarget", ecs.TYPE_EID, INVALID_ENTITY_ID]]})
+let spectatorQuery = ecs.SqQuery("spectatorQuery", {comps_ro = [["is_local", ecs.TYPE_BOOL], ["specTarget", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID]]})
 let isSpectating = @() spectatorQuery.perform(function(_eid, comp) {
   if (!comp.is_local)
     return null
-  if (comp.specTarget != INVALID_ENTITY_ID)
+  if (comp.specTarget != ecs.INVALID_ENTITY_ID)
     return true
 })
 

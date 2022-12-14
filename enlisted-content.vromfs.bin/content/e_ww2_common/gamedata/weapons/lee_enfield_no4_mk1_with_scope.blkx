@@ -1,5 +1,5 @@
 stat_name:t="rifle"
-selWeaponVar:t="lee_enfield_no4_mk1"
+selWeaponVar:t="lee_enfield_no4_mk1_with_scope"
 
 ownerAnimVars{
   reye_offset_fwd0:r=-0.3

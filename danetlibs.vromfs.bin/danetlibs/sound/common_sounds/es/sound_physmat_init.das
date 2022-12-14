@@ -13,6 +13,7 @@ def sound_material_to_smid(name : string; sound_physmat__soundMaterials : String
 [es(tag=sound, on_appear)]
 def sound_physmat_on_appear(evt : Event;
                             var sound_physmat__PMIDToSMID : FloatList&;
+                            sound_physmat__defPhysMatId : float;
                             sound_physmat__defSoundMatId : float;
                             sound_physmat__soundMaterials : StringList;
                             sound_physmat__physmatToSoundmat : Object)
@@ -25,7 +26,7 @@ def sound_physmat_on_appear(evt : Event;
   sound_physmat__PMIDToSMID |> resize(maxCount)
 
   for idx in range(maxCount)
-    sound_physmat__PMIDToSMID[idx] = sound_physmat__defSoundMatId
+    sound_physmat__PMIDToSMID[idx] = sound_physmat__defPhysMatId
 
   for it in sound_physmat__physmatToSoundmat
     let mid = get_material_id(it.key) // will return PHYSMAT_DEFAULT when material is missing

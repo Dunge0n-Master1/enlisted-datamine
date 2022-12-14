@@ -88,11 +88,11 @@ def update_debug_entity(enable : bool; color : float; templ : string)
       query(eid) <| $ [es] (var debug_fill_color : float4&)
         debug_fill_color = float4(color)
 
-[console_cmd(name="render.const_diffuse")]
-def const_diffuse(enable : bool; color : float = 0.5f)
-  update_debug_entity(enable, color, "gbuffer_diffuse_override_debug_node")
+[console_cmd(name="render.fixedDiffuse")]
+def const_diffuse(enable : bool; shade_of_gray : float = 0.5f)
+  update_debug_entity(enable, shade_of_gray, "gbuffer_diffuse_override_debug_node")
 
 
-[console_cmd(name="render.const_specular")]
-def const_specular(enable : bool; color : float = 0f)
-  update_debug_entity(enable, color, "gbuffer_specular_override_debug_node")
+[console_cmd(name="render.noSpecular")]
+def const_specular(enable : bool)
+  update_debug_entity(enable, 0f, "gbuffer_specular_override_debug_node")

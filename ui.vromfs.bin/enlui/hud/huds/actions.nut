@@ -14,7 +14,6 @@ let {isDowned} = require("%ui/hud/state/health_state.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {localPlayerEid, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {round_by_value} = require("%sqstd/math.nut")
-let getFramedNickByEid = require("%ui/hud/state/getFramedNickByEid.nut")
 let {sound_play} = require("sound")
 let {is_fast_pickup_item} = require("humaninv")
 let {CmdSetMarkMain} = require("dasevents")
@@ -30,7 +29,7 @@ let teamHintsQuery = ecs.SqQuery("teamHintsQuery", {comps_ro =[["team__id", ecs.
 let findPromptQuery = ecs.SqQuery("findPromptQuery", {comps_ro = [["item__customUsePrompt", ecs.TYPE_STRING]]})
 
 localPlayerEid.subscribe(function(v) {
-  if ( v != INVALID_ENTITY_ID ) {
+  if ( v != ecs.INVALID_ENTITY_ID ) {
     teamHintsQuery.perform(function (_eid, comp) {
         showTeamQuickHint(comp["team__showQuickHint"])
       },
@@ -46,11 +45,6 @@ let function getItemPrice(entity_eid) {
       return round_by_value(price * discount, 1).tointeger()
     }
     return price
-}
-
-let function getPlayerItemOwnerName(entity_eid) {
-    let playerItemOwner = ecs.obsolete_dbg_get_comp_val(entity_eid, "playerItemOwner")
-    return playerItemOwner ? getFramedNickByEid(playerItemOwner) : loc("teammate")
 }
 
 
@@ -78,7 +72,7 @@ let actionsMap = {
                         keyf = @(item) is_fast_pickup_item(item.eid) ? pickupkeyId : forcedPickupkeyId ,
                         textf = function (item) {
                           let count = ecs.obsolete_dbg_get_comp_val(item.eid, "item__count")
-                          let altText = loc($"{item.itemName}/pickup", {count = count, price = getItemPrice(item.eid), nickname = getPlayerItemOwnerName(item.eid)}, "")
+                          let altText = loc($"{item.itemName}/pickup", {count = count, price = getItemPrice(item.eid), nickname = loc("teammate")}, "")
                           if (altText && altText.len() > 0)
                             return altText
                           return is_fast_pickup_item(item.eid)
@@ -97,7 +91,7 @@ let actionsMap = {
   [ACTION_THROW_BACK] = {text = loc("hud/throw_back", "Throw grenade back"), key=throwBackKeyId},
   [ACTION_DENIED_TOO_MUCH_WEIGHT] = {
     textf = function(params) {
-      params.item = params.item.subst({ nickname = getPlayerItemOwnerName(params.eid) })
+      params.item = params.item.subst({ nickname = loc("teammate") })
       return loc("hud/too_much_weight_pickip", "Can't pickup {item} - too much weight", params)
     }
     textColor = Color(120, 120, 120, 120)
@@ -149,7 +143,7 @@ let function mainAction() {
     text = loc("hud/leaveVehicle")
     isVisible = showExitAction.value
   }
-  if (curAction == ACTION_USE && lookAtVehicle.value && !isPlayerCanEnter.value) {
+  if (curAction == ACTION_USE && lookAtVehicle.value && !isPlayerCanEnter.value && !inVehicle.value) {
     let customUsePromt = ecs.obsolete_dbg_get_comp_val(useActionEid.value, "vehicle__brokenUsePrompt")
     isVisible = customUsePromt && customUsePromt.len() > 0
     text = loc(customUsePromt)
@@ -179,9 +173,7 @@ let function getUseActionEntityName(entity_eid) {
   let vehicleTag = ecs.obsolete_dbg_get_comp_val(entity_eid, "vehicle", null)
   if (vehicleTag != null)
     return !inVehicle.value ? "hud/teammates_vehicle_hint" : null
-  let reviveEntity = ecs.obsolete_dbg_get_comp_val(entity_eid, "reviveEntity", null)
-  if (reviveEntity != null)
-    return "hud/respawn_altar_hint"
+
   let stationaryGunTag = ecs.obsolete_dbg_get_comp_val(entity_eid, "stationary_gun", null)
   if (stationaryGunTag != null)
     return !isMachinegunner.value ? "hud/stationary_gun_hint" : null
@@ -192,14 +184,12 @@ let function getUseActionEntityName(entity_eid) {
 }
 
 let function sendTeamHint(useHintEid, _event){
-  if (pickupItemEid.value != INVALID_ENTITY_ID) {
-    let playerItemOwner = ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "playerItemOwner")
-    let nickname = playerItemOwner ? getFramedNickByEid(playerItemOwner) : loc("teammate")
+  if (pickupItemEid.value != ecs.INVALID_ENTITY_ID) {
     sendItemHint(pickupItemName.value, pickupItemEid.value,
-      ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "item__count"), nickname)
+      ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "item__count"), loc("teammate"))
     return
   }
-  if (useHintEid != INVALID_ENTITY_ID) {
+  if (useHintEid != ecs.INVALID_ENTITY_ID) {
     let name = getUseActionEntityName(useHintEid)
     if (name != null) {
       sendItemHint(name, useHintEid, 1, "")
@@ -211,19 +201,17 @@ let function sendTeamHint(useHintEid, _event){
 
 let function localTeamHint(){
   local children = {}
-  local useHintEid = INVALID_ENTITY_ID;
+  local useHintEid = ecs.INVALID_ENTITY_ID;
   if ((pickupItemName.value ?? "") != "" && teammatesAliveNum.value > 0) {
-    let playerItemOwner = ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "playerItemOwner")
-    let nickname = playerItemOwner ? getFramedNickByEid(playerItemOwner) : loc("teammate")
     children = tipCmp({
       text = loc("squad/send_item_hint", {item = loc(pickupItemName.value),
                                             count=ecs.obsolete_dbg_get_comp_val(pickupItemEid.value, "item__count"),
-                                            nickname=nickname})
+                                            nickname=loc("teammate")})
       inputId = "HUD.QuickHint"
       textColor = DEFAULT_TEXT_COLOR
     })
   } else {
-    useHintEid = useActionEid.value != INVALID_ENTITY_ID ? useActionEid.value : lookAtEid.value;
+    useHintEid = useActionEid.value != ecs.INVALID_ENTITY_ID ? useActionEid.value : lookAtEid.value;
     if (useHintEid && teammatesAliveNum.value > 0) {
       let name = getUseActionEntityName(useHintEid)
       if (name != null) {

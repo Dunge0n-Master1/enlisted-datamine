@@ -45,6 +45,7 @@ let flexTextArea = @(params) {
 
 let perkPointIcon = @(pPointCfg, pPointSize = hdpxi(32)) {
   rendObj = ROBJ_IMAGE
+  size = [pPointSize, pPointSize]
   image = Picture("{0}:{1}:{1}:K".subst(pPointCfg.icon, pPointSize))
   color = pPointCfg.color
 }

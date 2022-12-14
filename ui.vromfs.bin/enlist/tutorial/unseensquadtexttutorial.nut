@@ -28,6 +28,13 @@ let function markSeenSquadTutorial(guid) {
     })
 }
 
+console_register_command(function() {
+  settings.mutate(function(s) {
+    if (TUTORIALS_SQUAD_SEEN in s)
+      delete s[TUTORIALS_SQUAD_SEEN]
+  })
+}, "meta.resetSeenSquadTutorials")
+
 return {
   unseenSquadTutorials
   markSeenSquadTutorial

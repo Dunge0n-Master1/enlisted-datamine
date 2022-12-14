@@ -27,6 +27,10 @@ entity{
 }
 
 entity{
+  _template:t="human_melee_action_sound_physmat"
+}
+
+entity{
   _template:t="narrator_sound"
 }
 

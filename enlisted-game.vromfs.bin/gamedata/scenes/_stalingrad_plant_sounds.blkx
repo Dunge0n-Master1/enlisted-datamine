@@ -1,0 +1,11 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_common_sounds.blk"
+}
+
+entity{
+  _template:t="battle_music"
+}
+
+entity{
+  _template:t="stalingrad_plant_ambient_sound"
+}

@@ -6,6 +6,7 @@ require player
 require CollRes
 require RendInst
 require DagorMath
+require DmFire
 require EnlistedDm
 require DagorSystem
 require DagorInput
@@ -73,7 +74,7 @@ def tutorial_human_infinity_hp_es(evt : Event;
                                   hitpoints__maxHp : float;
                                   isAlive : bool;
                                   var hitpoints__hp : float&;
-                                  tutorial_human__infHpLimit : float?;
+                                  tutorial_human__infHpLimit : float const?;
                                   isOutsideBattleArea : bool = true)
   let hp = tutorial_human__infHpLimit ?? hitpoints__maxHp
   if !has(eid, "heroSquad")
@@ -104,12 +105,15 @@ def tutorial_vehicle_damage_effect_es(evt : CmdTutorialDamageVehiclePart;
                                       fire_damage__fireParamsPreset : string;
                                       var damage_model : DamageModel&;
                                       var fire_damage__isBurn : bool&;
+                                      var fire_damage__gunPropsId : int&;
+                                      var fire_damage__shellId : int&;
                                       var fire_damage : FireDamageComponent&)
   if evt.partId < 0
     logerr("CmdTutorialTargetDamaged partId is not specify")
     return
   if evt.damageMask == int(DamageEffectType DM_EFFECT_FIRE)
-    vehicle_start_burn_part(eid, evt.partId, INVALID_ENTITY_ID, damage_model, fire_damage__fireParamsPreset, fire_damage__isBurn, fire_damage)
+    vehicle_start_burn_part(eid, evt.partId, INVALID_ENTITY_ID, -1, -1, damage_model, fire_damage__fireParamsPreset, fire_damage__isBurn,
+                            fire_damage__gunPropsId, fire_damage__shellId, fire_damage)
   else
     deal_damage_to_part(damage_model, eid, evt.partId, 0, int(DamageEffectsMask DM_EFFECTS_MASK_ALL), get_max_hp(damage_model.dmData, evt.partId), HitData())
 

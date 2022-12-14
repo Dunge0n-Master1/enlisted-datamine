@@ -21,9 +21,9 @@ def get_net_sound_desc(hash : uint; descs : Object) : Object const?
   for it in descs
     if sound_hash(it.key) == hash
       return it.value as Object
-  sound_debug("net_sound: hash '{hash}' not found in net_sound.descs, list of descs:")
   for it in descs
     sound_debug("  {it.key}({sound_hash(it.key)})")
+  sound_debug("net_sound: hash '{hash}' not found in net_sound.descs")
   return null
 
 def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watched : bool; var sound_event_group : SoundEventGroup?)
@@ -38,8 +38,6 @@ def play_impl(hash : uint; pos : float3; param : float; descs : Object; is_watch
       var handle = soundEvent::play(name, "", pos, isFar)
       if has(obj, "var")
         set_var(handle, obj["var"] ?? "", param)
-      if has(obj, "volume")
-        set_volume(handle, obj["volume"] ?? 1.)
       if has(obj, "groupId") && sound_event_group != null
         if has(obj, "releaseId")
           release_sound(*sound_event_group, sound_hash(obj.releaseId ?? ""))

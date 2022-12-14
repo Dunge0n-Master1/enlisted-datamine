@@ -24,3 +24,10 @@ disableTeamkillWeaponDrops{
   "disableTeamkillWeaponDrops:tag"{
   }
 }
+
+forceDisableHeadShotSound{
+  _extends:t="replicating"
+
+  "forceDisableHeadShotSound:tag"{
+  }
+}

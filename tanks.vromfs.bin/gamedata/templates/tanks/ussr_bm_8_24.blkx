@@ -4,7 +4,6 @@ ussr_bm_8_24_moscow_premium{
 
 ussr_bm_8_24_common{
   _extends:t="base_bm_8_24"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

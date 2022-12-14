@@ -1,0 +1,35 @@
+entity{
+  _template:t="hit_effect_group_grenade_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_explosion_packet_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_smoke_grenade_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_mortar_shell_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_mortar_smoke_shell_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_antitank_rocket_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_phosphorus_grenade_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_antipersonel_mine_explosion"
+}
+
+entity{
+  _template:t="hit_effect_group_antitank_mine_explosion"
+}

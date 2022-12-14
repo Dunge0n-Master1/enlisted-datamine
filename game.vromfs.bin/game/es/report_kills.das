@@ -26,7 +26,7 @@ def get_weapon_name_for_report(gun_props_id : int; shell_id : int)
       return name
   return ""
 
-def get_score_id(victim_plane : Tag?; victim_tank : Tag?)
+def get_score_id(victim_plane : Tag const?; victim_tank : Tag const?)
   return (victim_plane != null ? "planeKills"
         : victim_tank != null ? "tankKills"
         : "kills")
@@ -40,20 +40,20 @@ def report_kill_es(evt : EventAnyEntityDied) // broadcast
   let shellId = evt.shellId
   let collNodeId = evt.collNodeId
 
-  query(victimEid) <| $ [es] (team aka victim_team : int?;
+  query(victimEid) <| $ [es] (team aka victim_team : int const?;
                               reportKill : bool = true;
-                              vehicle aka victim_vehicle : Tag?;
-                              airplane aka victim_airplane : Tag?;
-                              isTank aka victim_isTank : Tag?;
-                              dm_parts__type : StringList?;
-                              transform aka victim_transform : float3x4?)
+                              vehicle aka victim_vehicle : Tag const?;
+                              airplane aka victim_airplane : Tag const?;
+                              isTank aka victim_isTank : Tag const?;
+                              dm_parts__type : StringList const?;
+                              transform aka victim_transform : float3x4 const?)
     if !reportKill
       return
     let isVictimVehicle = victim_vehicle != null
     let victimPlayerEid = get_offender_from_cache(victimEid).player
     var killerPos : float3
     var isKillerVehicle = false
-    query(killerEid) <| $ [es] (vehicle aka killer_vehicle : Tag?; transform aka killer_transform : float3x4?)
+    query(killerEid) <| $ [es] (vehicle aka killer_vehicle : Tag const?; transform aka killer_transform : float3x4 const?)
       killerPos = killer_transform != null ? (*killer_transform)[3] : killerPos
       isKillerVehicle = killer_vehicle != null
     let killerPlayerEid = get_offender_from_cache(killerEid).player

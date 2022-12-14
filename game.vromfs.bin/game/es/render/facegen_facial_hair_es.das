@@ -71,11 +71,15 @@ def init_facegen_material_es(evt : Event;
 
 
 
-[es(tag=render, on_appear, REQUIRE=animchar)]
+[es(tag=render, on_appear, REQUIRE=animchar,
+  track=(eye_caustics_strength, eye_caustics_light_lerp_factor, eye_caustics_focal_point_offset, // eye caustics params are really difficult to fine tune otherwise
+  eye_caustics_iris_radius, eye_caustics_falloff_strength, eye_caustics_concavity_scale))]
 def init_eye_material_es(evt : Event;
                          var animchar_render : AnimcharRendComponent;
                          eye_iris_color_a_from, eye_iris_color_a_to, eye_iris_color_b_from, eye_iris_color_b_to, eye_sclera_color_from, eye_sclera_color_to : float4;
-                         eye_iris_radius, eye_parallax, eye_reflectance, eye_smoothness : float)
+                         eye_iris_radius, eye_parallax, eye_reflectance, eye_smoothness,
+                         eye_caustics_strength, eye_caustics_light_lerp_factor, eye_caustics_focal_point_offset,
+                         eye_caustics_iris_radius, eye_caustics_falloff_strength, eye_caustics_concavity_scale : float)
 
   let eyesVarId : array<int> <- [{ auto[]
     get_shader_variable_id("eye_iris_color_a_from", false);
@@ -87,7 +91,13 @@ def init_eye_material_es(evt : Event;
     get_shader_variable_id("eye_iris_radius", false);
     get_shader_variable_id("eye_parallax", false);
     get_shader_variable_id("eye_reflectance", false);
-    get_shader_variable_id("eye_smoothness", false)
+    get_shader_variable_id("eye_smoothness", false);
+    get_shader_variable_id("eye_caustics_strength", false);
+    get_shader_variable_id("eye_caustics_light_lerp_factor", false);
+    get_shader_variable_id("eye_caustics_focal_point_offset", false);
+    get_shader_variable_id("eye_caustics_iris_radius", false);
+    get_shader_variable_id("eye_caustics_falloff_strength", false);
+    get_shader_variable_id("eye_caustics_concavity_scale", false)
   }]
 
   recreate_material(animchar_render, "dynamic_eye") <| $(mat)
@@ -101,6 +111,12 @@ def init_eye_material_es(evt : Event;
     mat |> set_real_param(eyesVarId[7], eye_parallax)
     mat |> set_real_param(eyesVarId[8], eye_reflectance)
     mat |> set_real_param(eyesVarId[9], eye_smoothness)
+    mat |> set_real_param(eyesVarId[10], eye_caustics_strength)
+    mat |> set_real_param(eyesVarId[11], eye_caustics_light_lerp_factor)
+    mat |> set_real_param(eyesVarId[12], eye_caustics_focal_point_offset)
+    mat |> set_real_param(eyesVarId[13], eye_caustics_iris_radius)
+    mat |> set_real_param(eyesVarId[14], eye_caustics_falloff_strength)
+    mat |> set_real_param(eyesVarId[15], eye_caustics_concavity_scale)
 
 
 [es(on_appear, tag=render, track=(beard_id, mustache_id))]

@@ -308,36 +308,6 @@ pzb_39_gun_item{
   item__proto:t="content/enlisted/gamedata/weapons_enlisted/pzb_39.blk"
 }
 
-mine_o822_mp_item{
-  _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o822_mp.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/mine_o822_mp.blk"
-}
-
-m49a2_item{
-  _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/m49a2.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/m49a2.blk"
-}
-
-two_inch_he_shell_item{
-  _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/two_inch_he_shell.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/two_inch_he_shell.blk"
-}
-
-wrg_36_item{
-  _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/wrg_36.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/wrg_36.blk"
-}
-
-8cm_wgr_39_item{
-  _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/8cm_wgr_39.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/8cm_wgr_39.blk"
-}
-
 knife{
   _override:b=yes
   gun__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"

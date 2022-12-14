@@ -26,8 +26,8 @@ let baseCommands = [
   { text = "quickchat/thanks", sound = "qm_thanks" },
   { text = "quickchat/goodJob", sound = "qm_well_done" },
   { text = "quickchat/sorry", sound = "qm_sorry" },
-  { text = "quickchat/defend", sound = "qm_decline" },
-  { text = "quickchat/attack", sound = "qm_decline" }
+  { text = "quickchat/defend" },
+  { text = "quickchat/attack" }
 ].map(getPieElementByCmd)
 
 return {

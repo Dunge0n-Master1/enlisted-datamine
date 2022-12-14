@@ -8,7 +8,7 @@ let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { medalsByCampaign } = require("medalsState.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { mkMedalCard, mkDisabledMedalCard, mkMedalTooltip } = require("medalsPkg.nut")
-let { borderColor, PROFILE_WIDTH } = require("profilePkg.nut")
+let { PROFILE_WIDTH } = require("profilePkg.nut")
 let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { seenMedals, markSeenMedal, markMedalsOpened } = require("unseenProfileState.nut")
@@ -76,10 +76,8 @@ let function medalsListUi() {
   return {
     watch = [medalsByCampaign, unlockedCampaigns, gameProfile, seenMedals]
     rendObj = ROBJ_BOX
-    borderWidth = hdpx(1)
     size = flex()
     padding = smallPadding
-    borderColor = borderColor(0)
     onDetach = @() markMedalsOpened(unopened.keys())
     children = makeVertScroll({
       xmbNode = XmbContainer({

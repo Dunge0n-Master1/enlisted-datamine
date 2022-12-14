@@ -45,7 +45,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { mkUnlockSlot } = require("mkUnlockSlot.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { isBooster } = require("%enlist/soldiers/model/boosters.nut")
-let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 
 const WND_UID = "dailyRewardsWindow"
@@ -386,7 +386,7 @@ let function mkCrateReward(itemTpl, count, animDelay, cratesContent, onEnter, on
     return {
       watch = [hasRewardsAnim, allItemTemplates, commonArmy]
       children = txt(hasRewardsAnim.value ? loc("definingReward")
-        : isBooster(template) ? getObjectName(template)
+        : isBooster(template) ? getItemName(template)
         : name != "" ? loc(name)
         : null)
     }

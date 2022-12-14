@@ -18,8 +18,6 @@ let isLeavingWillDisbandSquad = Computed(@() squadMembers.value.len() == 1 || (s
 let enabledSquad = Watched(true)
 let canInviteToSquad = Computed(@() enabledSquad.value && (!isInSquad.value || isSquadLeader.value))
 
-let isManuallyLeavedSquadOnFullSquad = mkWatched(persist, "isManuallyLeavedSquadOnFullSquad", false) //HACK: for fast fix on submission
-
 let notifyMemberAdded = []
 let notifyMemberRemoved = []
 
@@ -54,8 +52,6 @@ return {
   isLeavingWillDisbandSquad
   enabledSquad
   canInviteToSquad
-
-  isManuallyLeavedSquadOnFullSquad
 
   autoSquad
 

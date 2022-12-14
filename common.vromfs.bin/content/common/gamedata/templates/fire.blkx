@@ -1,7 +1,7 @@
 fire_source_no_fx{
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  sphere_zone__radius:r=1.5
+  sphere_zone__radius:r=0.55
   dmgzone__teamToDamage:i=-1
   dmgzone__damageInVehicle:b=no
   dmgzone__damage:r=0.0
@@ -16,11 +16,11 @@ fire_source_no_fx{
   destroy_underwater__checkPeriod:r=1.0
   _replicated:t="fire_source__startTime"
   fire_source__startTime:r=0.0
-  fire_source__scale:r=1.67
-  fire_source__effectScale:r=0.6
+  fire_source__scale:r=1.45
+  fire_source__effectScale:r=1.0
   fire_source__effectMinScale:r=0.2
-  fire_source__gunPropsId:i=-1
-  fire_source__shellId:i=-1
+  dmgzone__gunPropsId:i=-1
+  dmgzone__shellId:i=-1
 
   _group{
     _tags:t="server"
@@ -28,7 +28,7 @@ fire_source_no_fx{
     obstacle__padding:r=0.58
   }
 
-  "dmgzone__burningOffender:eid"{
+  "dmgzone__offender:eid"{
   }
 
   "humanTriggerable:tag"{
@@ -68,7 +68,7 @@ fire_source{
 
   _group{
     _tags:t="render"
-    effect__name:t="molotov_fire"
+    effect__name:t="fire_molotov_cmps_fx"
   }
 
   "attachedNoScaleEffect:tag"{

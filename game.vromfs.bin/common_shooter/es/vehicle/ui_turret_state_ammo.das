@@ -6,8 +6,8 @@ require strings
 def ui_update_wathed_vehicle_turret_ammo(info : UpdateStageInfoAct;
                                          turret_control__gunEids : EidList;
                                          ui_turrets_state__updateInterval : float = 0.1;
-                                         disableVehicleResupply : Tag?;
-                                         fortification_repair__costPercent : float?;
+                                         disableVehicleResupply : Tag const?;
+                                         fortification_repair__costPercent : float const?;
                                          var ui_turrets_state__ammo : Object&;
                                          var ui_turrets_state__nextUpdateTime : float&)
   if info.curTime < ui_turrets_state__nextUpdateTime
@@ -17,7 +17,7 @@ def ui_update_wathed_vehicle_turret_ammo(info : UpdateStageInfoAct;
   var reloadAmmo : table<string; int>
   var firstLoadedGunInGroup : table<string; EntityId>
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int; turret__groupName : string = ""; gun__ammo_by_shell : IntList?)
+    query(gunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int; turret__groupName : string = ""; gun__ammo_by_shell : IntList const?)
       if !empty(turret__groupName)
         if !key_exists(groupAmmo, turret__groupName)
           groupAmmo[turret__groupName] = 0

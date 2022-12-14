@@ -1,32 +1,38 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXXLarge, fontSmall, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontXXLarge, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { colFull, panelBgColor, midPadding, smallPadding, accentColor, titleTxtColor,
+  colPart, topWndBgColor, bottomWndBgColor, defVertGradientImg, hoverVertGradientImg
+} = require("%enlSqGlob/ui/designConst.nut")
+let { mkColoredGradientY, mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let campaignSelectWnd = require("campaign_select_wnd.nut")
-let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
-let { progressBar } = require("%enlSqGlob/ui/defcomponents.nut")
+let { gradientProgressBar } = require("%enlSqGlob/ui/defcomponents.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, canChangeCampaign } = require("%enlist/meta/curCampaign.nut")
 let { unseenCampaigns } = require("unseenCampaigns.nut")
-let {
-  curArmyLevel, curArmyExp, curArmyLevels
+let { smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { curArmyLevel, curArmyExp, curArmyLevels
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { maxCampaignLevel } = require("%enlist/soldiers/model/state.nut")
-let { colFull, panelBgColor, midPadding, smallPadding, accentColor,
-  titleTxtColor, defTxtColor, colPart
-} = require("%enlSqGlob/ui/designConst.nut")
+
+
 let faComp = require("%ui/components/faComp.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 
+
+const CAMPAIGN_CHANGE_UID = "cangeCampaignUid"
 let showExpandedButtons = Watched(false)
 let campaignBlockHeight = colPart(1.162)
 let toggleButtonsShowing = @() showExpandedButtons(!showExpandedButtons.value)
-let campaignBgColor = 0xFF0A3550
+let wndGradient = mkColoredGradientY(topWndBgColor, bottomWndBgColor)
+let campaignBtnHeight = campaignBlockHeight + midPadding
 
 let expandAnimation = [ { prop = AnimProp.translate, duration = 2, easing = InOutCubic } ]
-let expandedPosition = { translate = [0, campaignBlockHeight + midPadding] }
+let expandedPosition = { translate = [0, campaignBtnHeight] }
 let dropDownAnim = [
   { prop = AnimProp.translate, from = [0, -sh(20)], to = expandedPosition.translate,
     duration = 0.2, easing = InOutCubic, play = true }
@@ -36,10 +42,6 @@ let largeTxtStyle = {
   color = titleTxtColor
 }.__update(fontLarge)
 
-let smallTxtStyle = {
-  color = defTxtColor
-}.__update(fontSmall)
-
 
 let needNotifier = Computed(@() maxCampaignLevel.value >= 4
   && unseenCampaigns.value.len() > 0)
@@ -48,8 +50,9 @@ let campaignButtons = [
   {
     text = loc("campaign/progress")
     action = function() {
-      setCurSection("SQUADS")  /* FIX ME: Change to addsScene with camera (requires update of campaign wnd) */
+      jumpToArmyProgress()
       toggleButtonsShowing()
+      modalPopupWnd.remove(CAMPAIGN_CHANGE_UID)
     }
   }
   {
@@ -59,24 +62,41 @@ let campaignButtons = [
       if (canChangeCampaign.value)
         campaignSelectWnd.open()
       else
-        msgbox.show({ text = loc("Only squad leader can change params") })
+        msgbox.show({ text = loc("quickMatch/squadLeaderParams") })
+      modalPopupWnd.remove(CAMPAIGN_CHANGE_UID)
     }
   }
 ]
 
 
-let campaignButton = @(text, sf) {
-  rendObj = ROBJ_SOLID
+let campaignButton = @(text, hasNotifier, sf) {
+  rendObj = ROBJ_IMAGE
   size = flex()
   halign = ALIGN_CENTER
   valign = ALIGN_BOTTOM
-  color = (sf & S_HOVER) ? campaignBgColor : panelBgColor
+  image = sf & S_HOVER ? hoverVertGradientImg : defVertGradientImg
   padding = [smallPadding, 0]
-  children = {
-    rendObj = ROBJ_TEXT
-    text
-  }.__update(largeTxtStyle)
+  children = [
+    {
+      rendObj = ROBJ_IMAGE
+      size = flex()
+      opacity = 0.8
+      image = Picture("!ui/uiskin/campaign/campaign_button_bg.svg")
+    }
+    {
+      rendObj = ROBJ_TEXT
+      text = loc(text)
+    }.__update(largeTxtStyle)
+    !hasNotifier ? null : smallUnseenBlink.__merge({
+      margin = midPadding
+      vplace = ALIGN_TOP
+      hplace = ALIGN_RIGHT
+    })
+  ]
 }
+
+
+let progressBarBgImage = mkColoredGradientX(0xFFFC7A40, accentColor)
 
 let campaignBlock = @(campaignName, progress, sf) @() {
   watch = [needNotifier, campaignName, progress]
@@ -85,15 +105,11 @@ let campaignBlock = @(campaignName, progress, sf) @() {
   flow = FLOW_VERTICAL
   hplace = ALIGN_CENTER
   children = [
-    !needNotifier.value ? null
-      : mkNotifierBlink(loc("hint/newCampaignAvailable"), {
-        size = [flex(), SIZE_TO_CONTENT]
-        minWidth = SIZE_TO_CONTENT
-      }.__update(smallTxtStyle))
-    campaignButton(campaignName.value, sf)
-    progressBar(progress.value, {
+    campaignButton(campaignName.value, needNotifier.value, sf)
+    gradientProgressBar(progress.value, {
       vplace = ALIGN_BOTTOM
-      color = (sf & S_HOVER) ? campaignBgColor : panelBgColor
+      bgImage = progressBarBgImage
+      emptyColor = panelBgColor
     })
   ]
 }
@@ -133,29 +149,11 @@ let function levelBlock(sf) {
 }
 
 
-
-let function expandedButtons(sf){
-  let buttons = campaignButtons.map(@(btn) Bordered(btn.text, btn.action, { btnWidth = colFull(4) }))
-  if ((sf & S_HOVER) || (sf & S_ACTIVE))
-    buttons.append(faComp("angle-up", arrowsStyle))
-  return @() {
-    watch = canChangeCampaign
-    flow = FLOW_VERTICAL
-    gap = midPadding
-    animations = dropDownAnim
-    transform = expandedPosition
-    transitions = expandAnimation
-    children = buttons
-  }
-}
-
 let bottomBlock = @(sf) @(){
   watch = showExpandedButtons
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
-  children = showExpandedButtons.value
-    ? expandedButtons(sf)
-    : levelBlock(sf)
+  children = showExpandedButtons.value ? null : levelBlock(sf)
 }
 
 
@@ -171,11 +169,29 @@ let function mkCampaignInfo() {
       : 100
   })
 
+
   return watchElemState(@(sf){
     size = [colFull(4), campaignBlockHeight]
     behavior = Behaviors.Button
     gap = midPadding
-    onClick = toggleButtonsShowing
+    onClick = function() {
+      modalPopupWnd.add([sw(50), -campaignBtnHeight], {
+        uid = CAMPAIGN_CHANGE_UID
+        rendObj = ROBJ_IMAGE
+        image = wndGradient
+        size = [sw(100), sh(100)]
+        padding = [campaignBtnHeight, 0,0,0]
+        animations = dropDownAnim
+        transform = expandedPosition
+        transitions = expandAnimation
+        halign = ALIGN_CENTER
+        flow = FLOW_VERTICAL
+        gap = midPadding
+        onDetach = toggleButtonsShowing
+        children = campaignButtons.map(@(btn) Bordered(btn.text, btn.action, { btnWidth = colFull(4) }))
+      })
+      toggleButtonsShowing()
+    }
     hotkeys = !showExpandedButtons.value ? []
       : [["^Esc | J:B", { action = toggleButtonsShowing}]]
     hplace = ALIGN_CENTER

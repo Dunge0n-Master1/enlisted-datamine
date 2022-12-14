@@ -1,6 +1,18 @@
 it_m41_75_18{
   _extends:t="base_m41_75_18"
-  _extends:t="vehicle_effects_tracked"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 

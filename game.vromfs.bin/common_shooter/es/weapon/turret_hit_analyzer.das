@@ -16,8 +16,10 @@ require BallisticsProps
 require BallisticsDm
 require PhysMat
 require GridCollision
+require CollisionTraces
 require GamePhys
 require enlisted.events_enlisted
+require SmokeOccluder
 
 
 enum SimulateMode
@@ -48,9 +50,15 @@ def simulate_shot(owner_eid : EntityId;
   projectile_get_props(int(shell_prop_ids.shellId)) <| $(projectileProps : ProjectileProps)
     shell_start_get_props(int(shell_prop_ids.shellId)) <| $(shellStartProps : ShellStartProps)
       using() <| $(var ballistics : ProjectileBallistics#)
-        let inVel = shoot_tm[0] * shellStartProps.speed
-        let density = atmosphere_density(shoot_tm[3].y)
-        ballistics |> projectile_ballistics_setupWithKV(projectileProps, shoot_tm[3], inVel, 1.0f, density)
+        let shootPos = shoot_tm[3]
+        let shootDir = shoot_tm[0]
+
+        let smokeTraceEnd = shootPos + shootDir * projectileProps.maxDistance
+        let isBlockedBySmoke = rayhit_smoke_occluders(shootPos, smokeTraceEnd)
+
+        let inVel = shootDir * shellStartProps.speed
+        let density = atmosphere_density(shootPos.y)
+        ballistics |> projectile_ballistics_setupWithKV(projectileProps, shootPos, inVel, 1.0f, density)
 
         var distance = 0.0
 
@@ -109,11 +117,11 @@ def simulate_shot(owner_eid : EntityId;
                     hitResult = int(TestResult INEFFECTIVE)
                     return
 
-                  var damageModel : DamageModel?
+                  var damageModel : DamageModel const?
                   var restrictToTeam = TEAM_UNASSIGNED
                   var team = TEAM_UNASSIGNED
                   var isExploded = false
-                  query(eid) <| $ [es] (damage_model : DamageModel?;
+                  query(eid) <| $ [es] (damage_model : DamageModel const?;
                                         vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED;
                                         team aka entity_team : int = TEAM_UNASSIGNED;
                                         isExploded aka entity_isExploded : bool = false)
@@ -125,7 +133,7 @@ def simulate_shot(owner_eid : EntityId;
                   let isTeamFireAllowed = (!isTeamsFriendly || is_friendly_fire_allowed())
                   let isCorrectRestrictToTeam = (restrictToTeam == TEAM_UNASSIGNED || restrictToTeam != projectileOwnerTeam)
                   if (damageModel != null && !isExploded && isTeamFireAllowed &&
-                      isCorrectRestrictToTeam && !invul.haveDeflectedShell)
+                      isCorrectRestrictToTeam && !invul.haveDeflectedShell && !isBlockedBySmoke)
                     if mode == SimulateMode FULL
                       let t = damageModel.collisionData.boundingSphere.r
                       let velDir = normalize(ballistics.state.vel)
@@ -139,6 +147,9 @@ def simulate_shot(owner_eid : EntityId;
                         criticalDamageTesterState.speed = length(ballistics.state.vel)
                         criticalDamageTesterState.distance = distance
                         criticalDamageTesterState.ray = Ray3(newHitPos - velDir * t, velDir, t * 4.0)
+                        criticalDamageTesterState.testSecondaryShatters = false;
+                        criticalDamageTesterState.testExplosion = false;
+                        criticalDamageTesterState.volumetricShell = false;
 
                         critical_damage_test(
                           ObjectDescriptor(int(ObjectDescriptorType TYPE_COLLISION), int(uint(eid))),
@@ -177,10 +188,11 @@ def turret_hit_analyzer_es(info : ParallelUpdateFrameDelayed;
                            turretCheckHitInterval : float;
                            isAlive : bool;
                            isExploded : bool;
+                           isSimpleTurretCrosshair : bool = false;
                            var turretCheckHitAtTime : float&;
                            var turretHitPosThreadCalc : float3&;
                            var turretCheckHitResultThreadCalc : int&)
-  if isAlive && !isExploded
+  if isAlive && !isExploded && !isSimpleTurretCrosshair
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput, gun))] (turret_aim__shootDirWithCorrection : float3;
                                                                                 gun__curShellId : ShellPropIds)

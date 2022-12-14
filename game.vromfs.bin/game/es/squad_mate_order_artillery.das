@@ -2,7 +2,7 @@ require ecs
 require EnlistedWalkerai
 require DagorDataBlock
 require BehNodes
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
@@ -147,4 +147,4 @@ def squad_mate_order_artillery_es(evt : RequestSquadMateOrder; eid : EntityId; s
   if evt.orderType == SquadMateOrder ESMO_ARTILLERY
     let radioman = get_squad_radioman(eid, squad__leader)
     if radioman.eid != INVALID_ENTITY_ID && !radioman.executeOrder
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadPrepareArtilleryOrder", importance=1.]])
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadPrepareArtilleryOrder"]])

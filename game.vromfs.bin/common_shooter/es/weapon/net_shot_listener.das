@@ -1,5 +1,4 @@
 require ecs
-require EnlistedNet
 require common_shooter.events_common_shooter
 require DagorSystem
 require DaWeapons
@@ -40,7 +39,7 @@ def net_shot_listener_es(info : UpdateStageInfoAct;
   for gunEid in human_weap__gunEids
     query(gunEid) <| $ [es] (gun_launch_events : GunLaunchEvents)
       for event in gun_launch_events.launchEvents
-        send_net_event(gunEid, create_cmd_net_shot(event))
+        sendEvent(gunEid, create_cmd_net_shot(event))
 
 
 [es(tag=(server, net), after=after_guns_update_sync, before=clear_gun_launch_events_es)]
@@ -50,7 +49,7 @@ def net_turret_shot_listener_es(info : UpdateStageInfoAct;
   for turretNo in iter_range(turret_control__gunEids)
     query(turret_control__gunEids[turretNo]) <| $ [es] (gun_launch_events : GunLaunchEvents)
       for event in gun_launch_events.launchEvents
-        send_net_event(eid, create_turret_shot_shell_msg(turretNo, event))
+        sendEvent(eid, create_turret_shot_shell_msg(turretNo, event))
 
 
 [es(tag=(server, net), after=after_guns_update_sync, before=clear_gun_launch_events_es, REQUIRE=autoShoot)]
@@ -58,4 +57,4 @@ def net_auto_shot_listener_es(info : UpdateStageInfoAct;
                               eid : EntityId;
                               gun_launch_events : GunLaunchEvents)
   for event in gun_launch_events.launchEvents
-    send_net_event(eid, create_cmd_net_shot(event))
+    sendEvent(eid, create_cmd_net_shot(event))

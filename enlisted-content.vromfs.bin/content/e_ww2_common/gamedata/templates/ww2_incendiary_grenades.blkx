@@ -1,21 +1,5 @@
 incendiary_grenade_base{
-  gun__visible:b=yes
-  _tracked:t="gun__visible"
-  gun_attach__slot:t="r_hand"
-  gun_attach__mainSlotId:i=-1
-  gun_attach__alternativeSlot:t="r_hand"
-  gun_attach__altSlotId:i=-1
-
-  "gun_attach__holsterSlots:array"{
-    holsterSlots:t="slot_weapon_1"
-    holsterSlots:t="slot_weapon_2"
-    holsterSlots:t="slot_weapon_3"
-    holsterSlots:t="slot_weapon_4"
-    holsterSlots:t="slot_weapon_5"
-  }
-
-  "gun_attach__holsterSlotsIds:list<i>"{
-  }
+  _extends:t="grenade_base"
 }
 
 incendiary_grenade_shell_base{
@@ -36,8 +20,8 @@ incendiary_grenade_phys_base{
   _extends:t="hud_grenade_marker"
   _extends:t="grenade_throw_sound"
   _extends:t="grenade_phys_collision_sound"
-  _extends:t="shell_trigger_require_contact"
   shell_explosion_fx__infoTemplate:t="hit_effect_group_phosphorus_grenade_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
   active:b=no
   start_omega:p3=3.0, 0.0, -15.0
   ai_target_node__node:t="weaponRoot"
@@ -66,16 +50,22 @@ white_phosphorus_damage_zone{
   _extends:t="replicating"
   _extends:t="white_phosphorus_smoke_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-  dmgzone__damage:r=1.5
+  dmgzone__damage:r=1.75
   dmgzone__lastUpdate:r=-1.0
-  dmgzone__updateInterval:r=1.5
+  dmgzone__updateInterval:r=1.0
   dm__damageType:t="gas"
   dm__damageTypeId:i=-1
   dmgzone__shellId:i=-1
   dmgzone__gunPropsId:i=-1
-  sphere_zone__radius:r=5.0
+  sphere_zone__radius:r=6.5
   game_effect__timeToDestroy:r=15.0
   game_effect__destroyAt:r=-1.0
+
+  _group{
+    _tags:t="server"
+    obstacle__padding:r=1.0
+    obstacle__handle:i=0
+  }
 
   "dmgzone__offender:eid"{
   }
@@ -100,7 +90,7 @@ incendiary_grenade_fire{
 incendiary_grenade_spread{
   _extends:t="explosion_spread"
   explosion_spread__traceCount:i=5
-  explosion_spread__length:p2=2.0, 8.0
+  explosion_spread__length:p2=2.0, 12.0
   explosion_spread__downLengthMult:r=1.75
   explosion_spread__createOnTrace:t="incendiary_grenade_fire"
   explosion_spread__staticDir:p3=0.0, 1.0, 0.0
@@ -169,4 +159,58 @@ type_91_incendiary_grenade_item{
   item__userstats__pickupName:t="pickup_type_91_incendiary_grenade"
   item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
   item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
+}
+
+uk_no_77_incendiary_grenade_base{
+  animchar__res:t="uk_n77_grenade_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/uk_no_77_incendiary_grenade"
+}
+
+uk_no_77_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+}
+
+uk_no_77_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+}
+
+uk_no_77_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+  item__weight:r=0.5
+  item__template:t="uk_no_77_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_uk_no_77_incendiary_grenade"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+}
+
+srcm_mod_35_incendiary_grenade_base{
+  animchar__res:t="srcm_mod_35_phos_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/srcm_mod_35_incendiary_grenade"
+}
+
+srcm_mod_35_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+}
+
+srcm_mod_35_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+}
+
+srcm_mod_35_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+  item__weight:r=0.5
+  item__template:t="srcm_mod_35_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_srcm_mod_35_incendiary_grenade"
+  item__shell:t="content/e_ww2_common/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+  item__proto:t="content/e_ww2_common/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
 }

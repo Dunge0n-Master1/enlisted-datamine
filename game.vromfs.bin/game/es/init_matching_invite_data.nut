@@ -25,7 +25,13 @@ let function initMatchingData() {
   } = modeInfo
   logImd($"modeInfo:{modeInfo != null}, mode:{mode}, difficulty:{difficulty}")
 
-  botpop = botpop ?? dagorsys.get_arg_value_by_name("botpop")?.tointeger() ?? 0
+  try{
+    botpop = botpop ?? dagorsys.get_arg_value_by_name("botpop")?.tointeger() ?? 0
+  }
+  catch(e){
+    logImd(e)
+    botpop = 0
+  }
 
   if (isSandboxContext()) {
     difficulty = getSandboxConfigValue("difficulty", difficulty)
@@ -75,7 +81,14 @@ let function initMatchingData() {
 
   if (difficulty == "hardcore") {
     logImd($"Hardcore mode")
-    foreach (tpl in ["forceMinimalHud", "gamemodeFriendlyFire", "gamemodeCapzoneSmoke", "disableTeamkillWeaponDrops"])
+    let hardcoreModeTemplates = [
+      "forceMinimalHud",
+      "gamemodeFriendlyFire",
+      "gamemodeCapzoneSmoke",
+      "disableTeamkillWeaponDrops",
+      "forceDisableHeadShotSound"
+    ]
+    foreach (tpl in hardcoreModeTemplates)
       ecs.g_entity_mgr.createEntity(tpl, {})
   }
 

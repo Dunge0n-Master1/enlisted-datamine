@@ -1,0 +1,2450 @@
+model:t="a_20"
+fmFile:t="fm/a_20g.blk"
+damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
+damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
+damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"
+damagePartsDependencyMapBlk:t="gamedata/units/dm/dm_parts_dependency_map.blk"
+damagePartsToCollisionPointsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_points_map.blk"
+damagePartsToWeaponsMapBlk:t="gamedata/units/dm/dm_parts_to_weapons_map.blk"
+damagePartsToVisualEffectsMapBlk:t="gamedata/units/dm/dm_parts_to_visual_effects_map.blk"
+damagePartsExcludeFromHoleBlk:t="gamedata/units/dm/dm_parts_exclude_from_hole.blk"
+
+DamagePartsDefault{
+
+  default{
+    vital:b=no
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=yes
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+  }
+}
+
+DamageParts{
+
+  armor10{
+
+    gun1_dm{
+      hp:r=15.0
+    }
+
+    gun2_dm{
+      hp:r=15.0
+    }
+
+    mgun1_dm{
+      hp:r=15.0
+    }
+
+    mgun2_dm{
+      hp:r=15.0
+    }
+
+    mgun3_dm{
+      hp:r=15.0
+    }
+
+    mgun4_dm{
+      hp:r=15.0
+    }
+
+    mgun5_dm{
+      hp:r=15.0
+    }
+
+    mgun6_dm{
+      hp:r=15.0
+    }
+  }
+
+  armor12_7{
+
+    armor1_dm{
+      hp:r=40.0
+    }
+
+    armor4_dm{
+      hp:r=40.0
+    }
+
+    armor5_dm{
+      hp:r=40.0
+    }
+
+    armor6_dm{
+      hp:r=40.0
+    }
+
+    armor7_dm{
+      hp:r=40.0
+    }
+
+    armor8_dm{
+      hp:r=40.0
+    }
+  }
+
+  armor8{
+
+    armor2_dm{
+      hp:r=40.0
+    }
+  }
+
+  armor9_5{
+
+    armor3_dm{
+      hp:r=40.0
+    }
+  }
+
+  armor_engine{
+
+    engine1_dm{
+      genericDamageMult:r=1.6
+      hp:r=69.4
+    }
+
+    engine2_dm{
+      genericDamageMult:r=1.6
+      hp:r=69.4
+    }
+  }
+
+  c_dural15{
+
+    fuse1_dm{
+      hp:r=136.2
+    }
+
+    fuse2_dm{
+      hp:r=132.5
+    }
+
+    fuse_dm{
+      hp:r=133.6
+    }
+
+    tail_dm{
+      genericDamageMult:r=0.6
+      hp:r=160.5
+    }
+
+    wing1_l_dm{
+      genericDamageMult:r=0.35
+      hp:r=100.9
+    }
+
+    wing1_r_dm{
+      genericDamageMult:r=0.35
+      hp:r=100.9
+    }
+
+    wing2_l_dm{
+      genericDamageMult:r=0.35
+      hp:r=80.5
+    }
+
+    wing2_r_dm{
+      genericDamageMult:r=0.35
+      hp:r=80.5
+    }
+
+    wing_l_dm{
+      genericDamageMult:r=0.35
+      hp:r=140.5
+    }
+
+    wing_r_dm{
+      genericDamageMult:r=0.35
+      hp:r=140.5
+    }
+  }
+
+  c_dural3{
+
+    aileron_l_dm{
+      genericDamageMult:r=0.3
+      hp:r=48.2
+    }
+
+    aileron_r_dm{
+      genericDamageMult:r=0.3
+      hp:r=48.2
+    }
+
+    elevator0_dm{
+      genericDamageMult:r=0.3
+      hp:r=52.1
+    }
+
+    elevator1_dm{
+      genericDamageMult:r=0.3
+      hp:r=52.1
+    }
+
+    fin_dm{
+      hp:r=45.6
+    }
+
+    flap1_l_dm{
+      hp:r=34.5
+    }
+
+    flap1_r_dm{
+      hp:r=34.5
+    }
+
+    flap_l_dm{
+      hp:r=34.5
+    }
+
+    flap_r_dm{
+      hp:r=34.5
+    }
+
+    rudder_dm{
+      genericDamageMult:r=0.3
+      hp:r=55.5
+    }
+
+    stab1_dm{
+      hp:r=34.5
+    }
+
+    stab2_dm{
+      hp:r=34.5
+    }
+  }
+
+  dural{
+
+    cover1_dm{
+      hp:r=40.5
+    }
+
+    cover2_dm{
+      hp:r=40.5
+    }
+
+    cover3_dm{
+      hp:r=19.5
+    }
+
+    cover4_dm{
+      hp:r=19.5
+    }
+  }
+
+  dural80{
+
+    spar1_l_dm{
+      hp:r=77.5
+    }
+
+    spar1_r_dm{
+      hp:r=77.5
+    }
+
+    spar2_l_dm{
+      hp:r=69.5
+    }
+
+    spar2_r_dm{
+      hp:r=69.5
+    }
+
+    spar_l_dm{
+      hp:r=100.5
+    }
+
+    spar_r_dm{
+      hp:r=100.5
+    }
+  }
+
+  glass57{
+
+    armor9_dm{
+      hp:r=100.0
+    }
+  }
+
+  protected_controls{
+
+    tailcontrol_dm{
+      hp:r=80.5
+    }
+
+    wingcontrol_dm{
+      hp:r=80.5
+    }
+  }
+
+  steel{
+
+    gear_c_dm{
+      hp:r=49.5
+    }
+
+    gear_l_dm{
+      hp:r=49.8
+    }
+
+    gear_r_dm{
+      hp:r=49.8
+    }
+  }
+
+  steel_cooling_sys{
+
+    oil1_dm{
+      hp:r=15.5
+    }
+
+    oil2_dm{
+      hp:r=15.5
+    }
+
+    oil3_dm{
+      hp:r=15.5
+    }
+
+    oil4_dm{
+      hp:r=15.5
+    }
+  }
+
+  steel_pilot{
+
+    gunner1_dm{
+      hp:r=20.0
+    }
+
+    gunner2_dm{
+      hp:r=20.0
+    }
+
+    pilot_dm{
+      fireProtectionHp:r=20.0
+      hp:r=20.0
+    }
+  }
+
+  steel_tank_m{
+
+    tank1_dm{
+      hp:r=54.5
+    }
+
+    tank2_dm{
+      hp:r=55.2
+    }
+
+    tank3_dm{
+      hp:r=54.5
+    }
+
+    tank4_dm{
+      hp:r=54.5
+    }
+  }
+}
+
+DamageEffects{
+
+  part{
+    name:t="aileron_l_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="aileron_r_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="armor1_dm"
+  }
+
+  part{
+    name:t="armor2_dm"
+  }
+
+  part{
+    name:t="armor3_dm"
+  }
+
+  part{
+    name:t="armor4_dm"
+  }
+
+  part{
+    name:t="armor5_dm"
+  }
+
+  part{
+    name:t="armor6_dm"
+  }
+
+  part{
+    name:t="armor7_dm"
+  }
+
+  part{
+    name:t="armor8_dm"
+  }
+
+  part{
+    name:t="armor9_dm"
+  }
+
+  part{
+    name:t="cover1_dm"
+  }
+
+  part{
+    name:t="cover2_dm"
+  }
+
+  part{
+    name:t="cover3_dm"
+  }
+
+  part{
+    name:t="cover4_dm"
+  }
+
+  part{
+    name:t="elevator0_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="elevator1_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="engine1_dm"
+
+    onHit{
+      fire:r=0.01
+    }
+
+    onHit{
+      damage:r=2.7
+      fire:r=0.01
+      leak_oil:r=0.5
+      cut:r=0.0
+    }
+
+    onHit{
+      damage:r=30.0
+      fire:r=0.1
+      leak_oil:r=1.0
+      cut:r=0.0
+    }
+
+    onKill{
+      fire:r=30.0
+      leak_oil:r=10.0
+      cut:r=0.0
+    }
+
+    onKill{
+      damage:r=30.0
+      fire:r=44.0
+      leak_oil:r=10.0
+      cut:r=0.0
+    }
+  }
+
+  part{
+    name:t="engine2_dm"
+
+    onHit{
+      fire:r=0.01
+    }
+
+    onHit{
+      damage:r=2.7
+      fire:r=0.01
+      leak_oil:r=0.5
+      cut:r=0.0
+    }
+
+    onHit{
+      damage:r=30.0
+      fire:r=0.1
+      leak_oil:r=1.0
+      cut:r=0.0
+    }
+
+    onKill{
+      fire:r=30.0
+      leak_oil:r=10.0
+      cut:r=0.0
+    }
+
+    onKill{
+      damage:r=30.0
+      fire:r=44.0
+      leak_oil:r=10.0
+      cut:r=0.0
+    }
+  }
+
+  part{
+    name:t="fin_dm"
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.6
+    }
+
+    onHit{
+      damage:r=65.0
+      cut:r=1.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=11.0
+    }
+
+    onKill{
+      damage:r=31.0
+      cut:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+      nothing:r=0.0
+    }
+  }
+
+  part{
+    name:t="flap1_l_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=9.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="flap1_r_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=9.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="flap_l_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=9.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="flap_r_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=9.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="fuse1_dm"
+
+    onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
+
+    onHit{
+      damage:r=50.0
+      wing_r_dm:r=0.3
+      wing_l_dm:r=0.3
+    }
+
+    onHit{
+      damage:r=70.0
+      wing_r_dm:r=0.5
+      wing_l_dm:r=0.5
+    }
+
+    onKill{
+      wingcontrol_l_dm:r=1.0
+      wingcontrol_r_dm:r=1.0
+      nothing:r=14.0
+    }
+
+    onKill{
+      damage:r=10.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=5.0
+    }
+
+    onKill{
+      damage:r=20.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=30.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=50.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=70.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+    }
+  }
+
+  part{
+    name:t="fuse2_dm"
+
+    onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
+
+    onHit{
+      damage:r=50.0
+      wing_r_dm:r=0.3
+      wing_l_dm:r=0.3
+    }
+
+    onHit{
+      damage:r=70.0
+      wing_r_dm:r=0.5
+      wing_l_dm:r=0.5
+    }
+
+    onKill{
+      wingcontrol_l_dm:r=1.0
+      wingcontrol_r_dm:r=1.0
+      nothing:r=14.0
+    }
+
+    onKill{
+      damage:r=10.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=5.0
+    }
+
+    onKill{
+      damage:r=20.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=30.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=50.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=70.0
+      wing_l_dm:r=1.0
+      wing_r_dm:r=1.0
+    }
+  }
+
+  part{
+    name:t="fuse_dm"
+
+    onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
+
+    onHit{
+      damage:r=50.0
+      tail_dm:r=0.4
+    }
+
+    onHit{
+      damage:r=70.0
+      tail_dm:r=0.6
+    }
+
+    onHit{
+      damage:r=100.0
+      tail_dm:r=1.0
+    }
+
+    onKill{
+      tail_dm:r=1.0
+      nothing:r=12.0
+    }
+
+    onKill{
+      damage:r=3.0
+      tail_dm:r=1.0
+      nothing:r=9.0
+    }
+
+    onKill{
+      damage:r=7.0
+      tail_dm:r=1.0
+      nothing:r=8.0
+    }
+
+    onKill{
+      damage:r=10.0
+      tail_dm:r=1.0
+      nothing:r=7.0
+    }
+
+    onKill{
+      damage:r=20.0
+      tail_dm:r=1.0
+      nothing:r=6.0
+    }
+
+    onKill{
+      damage:r=30.0
+      tail_dm:r=1.0
+      nothing:r=5.0
+    }
+
+    onKill{
+      damage:r=50.0
+      tail_dm:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=70.0
+      tail_dm:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=100.0
+      tail_dm:r=1.0
+    }
+  }
+
+  part{
+    name:t="gear_c_dm"
+
+    onHit{
+      damage:r=15.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=25.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=40.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=60.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="gear_l_dm"
+
+    onHit{
+      damage:r=15.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=25.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=40.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=60.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="gear_r_dm"
+
+    onHit{
+      damage:r=15.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=25.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=40.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=60.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="gun1_dm"
+  }
+
+  part{
+    name:t="gun2_dm"
+  }
+
+  part{
+    name:t="gunner1_dm"
+  }
+
+  part{
+    name:t="gunner2_dm"
+  }
+
+  part{
+    name:t="mgun1_dm"
+  }
+
+  part{
+    name:t="mgun2_dm"
+  }
+
+  part{
+    name:t="mgun3_dm"
+  }
+
+  part{
+    name:t="mgun4_dm"
+  }
+
+  part{
+    name:t="mgun5_dm"
+  }
+
+  part{
+    name:t="mgun6_dm"
+  }
+
+  part{
+    name:t="oil1_dm"
+
+    onHit{
+      leak_oil:r=0.95
+    }
+
+    onKill{
+      leak_oil:r=1.0
+    }
+  }
+
+  part{
+    name:t="oil2_dm"
+
+    onHit{
+      leak_oil:r=0.95
+    }
+
+    onKill{
+      leak_oil:r=1.0
+    }
+  }
+
+  part{
+    name:t="oil3_dm"
+
+    onHit{
+      leak_oil:r=0.95
+    }
+
+    onKill{
+      leak_oil:r=1.0
+    }
+  }
+
+  part{
+    name:t="oil4_dm"
+
+    onHit{
+      leak_oil:r=0.95
+    }
+
+    onKill{
+      leak_oil:r=1.0
+    }
+  }
+
+  part{
+    name:t="pilot_dm"
+  }
+
+  part{
+    name:t="rudder_dm"
+
+    onHit{
+      damage:r=10.0
+      cut:r=0.1
+    }
+
+    onHit{
+      damage:r=20.0
+      cut:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.7
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=1.0
+    }
+
+    onKill{
+      cut:r=1.0
+      nothing:r=4.0
+    }
+
+    onKill{
+      damage:r=20.0
+      cut:r=1.0
+      nothing:r=2.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="spar1_l_dm"
+
+    onKill{
+      nothing:r=2.0
+      cut:r=3.0
+    }
+  }
+
+  part{
+    name:t="spar1_r_dm"
+
+    onKill{
+      nothing:r=2.0
+      cut:r=3.0
+    }
+  }
+
+  part{
+    name:t="spar2_l_dm"
+
+    onKill{
+      nothing:r=2.0
+      cut:r=3.0
+    }
+  }
+
+  part{
+    name:t="spar2_r_dm"
+
+    onKill{
+      nothing:r=2.0
+      cut:r=3.0
+    }
+  }
+
+  part{
+    name:t="spar_l_dm"
+  }
+
+  part{
+    name:t="spar_r_dm"
+  }
+
+  part{
+    name:t="stab1_dm"
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.6
+    }
+
+    onHit{
+      damage:r=65.0
+      cut:r=1.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=11.0
+    }
+
+    onKill{
+      damage:r=31.0
+      cut:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+      nothing:r=0.0
+    }
+  }
+
+  part{
+    name:t="stab2_dm"
+
+    onHit{
+      damage:r=30.0
+      cut:r=0.6
+    }
+
+    onHit{
+      damage:r=65.0
+      cut:r=1.0
+    }
+
+    onKill{
+      damage:r=10.0
+      cut:r=1.0
+      nothing:r=11.0
+    }
+
+    onKill{
+      damage:r=31.0
+      cut:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+      nothing:r=0.0
+    }
+  }
+
+  part{
+    name:t="tail_dm"
+
+    onHit{
+      flame:r=0.2
+      smoke:r=0.2
+    }
+
+    onHit{
+      damage:r=50.0
+      cut:r=0.25
+    }
+
+    onHit{
+      damage:r=70.0
+      cut:r=0.5
+    }
+
+    onHit{
+      damage:r=100.0
+      cut:r=0.75
+    }
+
+    onHit{
+      damage:r=140.0
+      cut:r=1.0
+    }
+
+    onKill{
+      damage:r=30.0
+      cut:r=1.0
+      nothing:r=7.0
+    }
+
+    onKill{
+      damage:r=50.0
+      cut:r=1.0
+      nothing:r=5.0
+    }
+
+    onKill{
+      damage:r=70.0
+      cut:r=1.0
+      nothing:r=3.0
+    }
+
+    onKill{
+      damage:r=100.0
+      cut:r=1.0
+      nothing:r=1.0
+    }
+
+    onKill{
+      damage:r=140.0
+      cut:r=1.0
+    }
+  }
+
+  part{
+    name:t="tailcontrol_dm"
+  }
+
+  part{
+    name:t="tank1_dm"
+
+    onHit{
+      fire:r=0.005
+      leak:r=0.3
+    }
+
+    onHit{
+      damage:r=3.0
+      fire:r=0.01
+      leak:r=0.5
+    }
+
+    onHit{
+      damage:r=20.0
+      fire:r=0.1
+      leak:r=0.7
+    }
+
+    onHit{
+      damage:r=80.0
+      expl:r=0.5
+      fire:r=0.4
+      leak:r=0.9
+    }
+
+    onKill{
+      fire:r=3.0
+      leak:r=12.0
+      nothing:r=85.0
+    }
+
+    onKill{
+      damage:r=50.0
+      fire:r=35.0
+      leak:r=25.0
+    }
+
+    onKill{
+      damage:r=80.0
+      fire:r=50.0
+      leak:r=20.0
+    }
+  }
+
+  part{
+    name:t="tank2_dm"
+
+    onHit{
+      fire:r=0.005
+      leak:r=0.3
+    }
+
+    onHit{
+      damage:r=3.0
+      fire:r=0.01
+      leak:r=0.5
+    }
+
+    onHit{
+      damage:r=20.0
+      fire:r=0.1
+      leak:r=0.7
+    }
+
+    onHit{
+      damage:r=80.0
+      expl:r=0.5
+      fire:r=0.4
+      leak:r=0.9
+    }
+
+    onKill{
+      fire:r=3.0
+      leak:r=12.0
+      nothing:r=85.0
+    }
+
+    onKill{
+      damage:r=50.0
+      fire:r=35.0
+      leak:r=25.0
+    }
+
+    onKill{
+      damage:r=80.0
+      fire:r=50.0
+      leak:r=20.0
+    }
+  }
+
+  part{
+    name:t="tank3_dm"
+
+    onHit{
+      fire:r=0.005
+      leak:r=0.3
+    }
+
+    onHit{
+      damage:r=3.0
+      fire:r=0.01
+      leak:r=0.5
+    }
+
+    onHit{
+      damage:r=20.0
+      fire:r=0.1
+      leak:r=0.7
+    }
+
+    onHit{
+      damage:r=80.0
+      expl:r=0.5
+      fire:r=0.4
+      leak:r=0.9
+    }
+
+    onKill{
+      fire:r=3.0
+      leak:r=12.0
+      nothing:r=85.0
+    }
+
+    onKill{
+      damage:r=50.0
+      fire:r=35.0
+      leak:r=25.0
+    }
+
+    onKill{
+      damage:r=80.0
+      fire:r=50.0
+      leak:r=20.0
+    }
+  }
+
+  part{
+    name:t="tank4_dm"
+
+    onHit{
+      fire:r=0.005
+      leak:r=0.3
+    }
+
+    onHit{
+      damage:r=3.0
+      fire:r=0.01
+      leak:r=0.5
+    }
+
+    onHit{
+      damage:r=20.0
+      fire:r=0.1
+      leak:r=0.7
+    }
+
+    onHit{
+      damage:r=80.0
+      expl:r=0.5
+      fire:r=0.4
+      leak:r=0.9
+    }
+
+    onKill{
+      fire:r=3.0
+      leak:r=12.0
+      nothing:r=85.0
+    }
+
+    onKill{
+      damage:r=50.0
+      fire:r=35.0
+      leak:r=25.0
+    }
+
+    onKill{
+      damage:r=80.0
+      fire:r=50.0
+      leak:r=20.0
+    }
+  }
+
+  part{
+    name:t="wing1_l_dm"
+    defaultEffectPart:t="spar1_l_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.6
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.8
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=30.0
+      cut:r=0.0
+      nothing:r=3.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+      nothing:r=2.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+      nothing:r=1.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+  }
+
+  part{
+    name:t="wing1_r_dm"
+    defaultEffectPart:t="spar1_r_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.6
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.8
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=30.0
+      cut:r=0.0
+      nothing:r=3.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+      nothing:r=2.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+      nothing:r=1.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+  }
+
+  part{
+    name:t="wing2_l_dm"
+    defaultEffectPart:t="spar2_l_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.6
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.8
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=30.0
+      cut:r=0.0
+      nothing:r=3.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+      nothing:r=2.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+      nothing:r=1.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+  }
+
+  part{
+    name:t="wing2_r_dm"
+    defaultEffectPart:t="spar2_r_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.6
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+
+      part{
+        ratio:r=0.8
+        canCut:b=yes
+      }
+    }
+
+    onHit{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=30.0
+      cut:r=0.0
+      nothing:r=3.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=50.0
+      cut:r=0.0
+      nothing:r=2.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=0.6
+      flame:r=0.7
+      damage:r=70.0
+      cut:r=0.0
+      nothing:r=1.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+
+    onKill{
+      smoke:r=1.0
+      flame:r=1.1
+      damage:r=100.0
+      cut:r=0.0
+
+      part{
+        ratio:r=1.0
+        canCut:b=yes
+      }
+    }
+  }
+
+  part{
+    name:t="wing_l_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.3
+    }
+
+    onHit{
+      damage:r=20.0
+      smoke:r=0.3
+      flame:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      smoke:r=0.4
+      flame:r=0.5
+    }
+
+    onHit{
+      damage:r=50.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onHit{
+      damage:r=70.0
+      smoke:r=0.8
+      flame:r=0.8
+    }
+
+    onKill{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=20.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=30.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onKill{
+      damage:r=50.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+
+    onKill{
+      damage:r=70.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+  }
+
+  part{
+    name:t="wing_r_dm"
+
+    onHit{
+      smoke:r=0.1
+      flame:r=0.2
+    }
+
+    onHit{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.3
+    }
+
+    onHit{
+      damage:r=20.0
+      smoke:r=0.3
+      flame:r=0.4
+    }
+
+    onHit{
+      damage:r=30.0
+      smoke:r=0.4
+      flame:r=0.5
+    }
+
+    onHit{
+      damage:r=50.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onHit{
+      damage:r=70.0
+      smoke:r=0.8
+      flame:r=0.8
+    }
+
+    onKill{
+      damage:r=10.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=20.0
+      smoke:r=0.2
+      flame:r=0.2
+    }
+
+    onKill{
+      damage:r=30.0
+      smoke:r=0.5
+      flame:r=0.6
+    }
+
+    onKill{
+      damage:r=50.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+
+    onKill{
+      damage:r=70.0
+      smoke:r=1.0
+      flame:r=1.1
+    }
+  }
+
+  part{
+    name:t="wingcontrol_dm"
+  }
+}
+
+MetaParts{
+
+  wing1_r_structure{
+    hpRel:r=1.3
+    part:t="wing2_r_dm"
+
+    effect{
+      conditionDamageType:t="collision"
+      conditionDamageRel:r=0.8
+      cutPart:t="spar2_r_dm"
+    }
+  }
+
+  wing1_l_structure{
+    hpRel:r=1.3
+    part:t="wing2_l_dm"
+
+    effect{
+      conditionDamageType:t="collision"
+      conditionDamageRel:r=0.8
+      cutPart:t="spar2_l_dm"
+    }
+  }
+
+  wing_l_structure{
+    hpRel:r=0.9
+    part:t="wing_l_dm"
+    part:t="wing1_l_dm"
+
+    effect{
+      conditionDead:b=yes
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="generic"
+      conditionDamageRel:r=1.0
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="collision"
+      conditionDamageRel:r=0.8
+      cutPart:t="spar_l_dm"
+    }
+  }
+
+  wing_r_structure{
+    hpRel:r=0.9
+    part:t="wing_r_dm"
+    part:t="wing1_r_dm"
+
+    effect{
+      conditionDead:b=yes
+      cutPart:t="spar_r_dm"
+    }
+
+    effect{
+      conditionDamageType:t="generic"
+      conditionDamageRel:r=1.0
+      cutPart:t="spar_r_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_r_dm"
+    }
+
+    effect{
+      conditionDamageType:t="collision"
+      conditionDamageRel:r=0.8
+      cutPart:t="spar_r_dm"
+    }
+  }
+
+  spar_l_structure{
+    hpRel:r=1.0
+    part:t="spar_l_dm"
+    part:t="spar1_l_dm"
+
+    effect{
+      conditionDead:b=yes
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="generic"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_l_dm"
+    }
+  }
+
+  spar_r_structure{
+    hpRel:r=1.0
+    part:t="spar_r_dm"
+    part:t="spar1_r_dm"
+
+    effect{
+      conditionDead:b=yes
+      cutPart:t="spar_r_dm"
+    }
+
+    effect{
+      conditionDamageType:t="generic"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_r_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=0.9
+      cutPart:t="spar_r_dm"
+    }
+  }
+
+  fuse_structure{
+    hpRel:r=1.5
+    part:t="fuse_dm"
+    part:t="fuse1_dm"
+    part:t="fuse2_dm"
+    part:t="fuse3_dm"
+    part:t="fuse4_dm"
+    part:t="fuse5_dm"
+
+    effect{
+      conditionDamageType:t="generic"
+      conditionDamageRel:r=1.6
+      cutPart:t="spar_r_dm"
+      cutPart:t="spar_l_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=1.5
+      cutPart:t="spar_r_dm"
+      cutPart:t="spar_l_dm"
+    }
+  }
+
+  tail_structure{
+    hpRel:r=1.4
+    part:t="stab_dm"
+    part:t="stab1_dm"
+    part:t="stab2_dm"
+    part:t="tail_dm"
+    part:t="fin_dm"
+    part:t="fin1_dm"
+    part:t="fin2_dm"
+
+    effect{
+      conditionDead:b=yes
+      cutPart:t="tail_dm"
+    }
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamageRel:r=1.4
+      cutPart:t="tail_dm"
+    }
+  }
+}
+
+Sound{
+  Engine:t="engine16"
+  gun:t="gun_a20"
+}
+
+cockpit{
+  textToShowInCockpit:t="msg/textToShowInCockpit"
+  headPos:p3=1.958, 0.875, 0.0
+  headPosOnShooting:p3=1.958, 0.875, 0.0
+  lightPos:p3=2.437227, 0.552766, -0.000483
+  lightColor:p3=0.32, 0.1, 0.01
+  lightAttenuation:r=5.0
+
+  devices{
+    speed:p2=0.0, 257.222
+    bank:p2=-8.0, 8.0
+    turn:p2=-0.23562, 0.23562
+    vario:p2=-30.0, 30.0
+    altitude_10k:p2=0.0, 100000.0
+    altitude_hour:p2=0.0, 10000.0
+    altitude_min:p2=0.0, 1000.0
+    altitude_koef:r=3.28
+    aviahorizon_pitch:p2=-60.0, 60.0
+    aviahorizon_roll:p2=-180.0, 180.0
+    compass:p2=0.0, 360.0
+    fuel:p2=0.0, 1277.625
+    rpm:p2=0.0, 4500.0
+    rpm1:p2=0.0, 4500.0
+    rpm2:p2=0.0, 4500.0
+    rpm3:p2=0.0, 4500.0
+    manifold_pressure:p2=0.334, 2.507
+    manifold_pressure1:p2=0.334, 2.507
+    manifold_pressure2:p2=0.334, 2.507
+    manifold_pressure3:p2=0.334, 2.507
+    head_temperature:p2=0.0, 300.0
+    head_temperature1:p2=0.0, 300.0
+    head_temperature2:p2=0.0, 300.0
+    head_temperature3:p2=0.0, 300.0
+    oil_temperature:p2=-50.0, 150.0
+    oil_temperature1:p2=-50.0, 150.0
+    oil_temperature2:p2=-50.0, 150.0
+    oil_temperature3:p2=-50.0, 150.0
+    fuel_pressure:p2=0.0, 15.0
+    fuel_pressure1:p2=0.0, 15.0
+    fuel_pressure2:p2=0.0, 15.0
+    fuel_pressure3:p2=0.0, 15.0
+    oil_pressure:p2=0.0, 150.0
+    oil_pressure1:p2=0.0, 150.0
+    oil_pressure2:p2=0.0, 150.0
+    oil_pressure3:p2=0.0, 150.0
+  }
+
+  parts_holes_dmg{
+    part:t="fuse"
+  }
+
+  parts_oil_dmg{
+    part:t="engine1"
+    part:t="engine2"
+    part:t="engine3"
+    part:t="engine4"
+  }
+}
+
+cutting{
+  _emtr_break_wing0_l_from:p3=-1.37074, 0.316787, 1.04013
+  _emtr_break_wing0_l_to:p3=-1.37074, 0.316787, 1.4908
+  emtr_break_wing1_l_from:p3=-1.37074, 0.316787, 3.57699
+  emtr_break_wing1_l_to:p3=-1.37074, 0.316787, 4.51583
+  emtr_break_wing2_l_from:p3=-1.37074, 0.316787, 6.4123
+  emtr_break_wing2_l_to:p3=-1.37074, 0.316787, 7.57609
+  _emtr_break_wing0_r_from:p3=-1.37074, 0.316787, -1.04013
+  _emtr_break_wing0_r_to:p3=-1.37074, 0.316787, -1.4908
+  emtr_break_wing1_r_from:p3=-1.37074, 0.316787, -3.57699
+  emtr_break_wing1_r_to:p3=-1.37074, 0.316787, -4.51583
+  emtr_break_wing2_r_from:p3=-1.37074, 0.316787, -6.4123
+  emtr_break_wing2_r_to:p3=-1.37074, 0.316787, -7.57609
+  emtr_break_wing_tail:p3=-5.04704, 0.0, 0.0
+  finCut:b=no
+  emtr_break_stab_l_from:p3=-7.76124, 0.944773, 0.764443
+  emtr_break_stab_l_to:p3=-7.76124, 0.944773, 2.63788
+  emtr_break_stab_r_from:p3=-7.76124, 0.944773, -0.764443
+  emtr_break_stab_r_to:p3=-7.76124, 0.944773, -2.63788
+  emtr_break_fin_from:p3=-6.93229, 1.50985, 1.40816e-06
+  emtr_break_fin_to:p3=-6.93229, 3.17691, 1.40816e-06
+}

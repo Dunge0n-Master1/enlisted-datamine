@@ -13,8 +13,8 @@ def is_enable_snapshot(vehicle_eid : ecs::EntityId)
         isEnable = true
   return isEnable
 
-def snapshot_toggle(vehicle_eid : ecs::EntityId; camera_active : bool; bind_to_vehicle : bool; snapshot_name : string; isCockpitCam : bool; var snapshot_event : SoundEvent&)
-  let enable = bind_to_vehicle && camera_active && isCockpitCam && is_enable_snapshot(vehicle_eid)
+def snapshot_toggle(vehicle_eid : ecs::EntityId; camera_active : bool; bind_to_vehicle : bool; snapshot_name : string; isHeroCockpitCam : bool; var snapshot_event : SoundEvent&)
+  let enable = bind_to_vehicle && camera_active && isHeroCockpitCam && is_enable_snapshot(vehicle_eid)
   if enable && !is_valid(snapshot_event.handle)
     snapshot_event |> play(snapshot_name)
   elif !enable && is_valid(snapshot_event.handle)
@@ -28,8 +28,9 @@ def camera_inside_snapshot_toggle(evt : Event;
                                   bindToVehicle : bool;
                                   camera_inside_snapshot__path : string;
                                   var camera_inside_snapshot__event : SoundEvent&;
-                                  isCockpitCam : bool)
-  snapshot_toggle(camera__target, camera__active, bindToVehicle, camera_inside_snapshot__path, isCockpitCam, camera_inside_snapshot__event)
+                                  isHeroCockpitCam = false;
+                                  isPlaneCockpitCam = false)
+  snapshot_toggle(camera__target, camera__active, bindToVehicle, camera_inside_snapshot__path, isHeroCockpitCam || isPlaneCockpitCam, camera_inside_snapshot__event)
 
 
 [es(tag=sound, track=vehicleCameraType, REQUIRE=vehicleCameraType)]
@@ -39,5 +40,6 @@ def camera_inside_snapshot_camera_type(evt : Event)
                           bindToVehicle : bool;
                           camera_inside_snapshot__path : string;
                           var camera_inside_snapshot__event : SoundEvent&;
-                          isCockpitCam : bool)
-    snapshot_toggle(camera__target, camera__active, bindToVehicle, camera_inside_snapshot__path, isCockpitCam, camera_inside_snapshot__event)
+                          isHeroCockpitCam = false;
+                          isPlaneCockpitCam = false)
+    snapshot_toggle(camera__target, camera__active, bindToVehicle, camera_inside_snapshot__path, isHeroCockpitCam || isPlaneCockpitCam, camera_inside_snapshot__event)

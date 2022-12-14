@@ -8,6 +8,16 @@ require game.es.player_common
 require game.es.player_events
 require GameTimers
 require EnlistedNet
+require level
+
+[es(tag=server, on_event=EventLevelLoaded)]
+def player_respawn_after_armies_receive(evt : Event;
+                                        eid : EntityId;
+                                        possessed : EntityId;
+                                        respawner__enabled : bool;
+                                        isArmiesReceived : bool)
+  if isArmiesReceived && !possessed && !respawner__enabled
+    player_respawn_in_world_common(eid)
 
 [es(tag=server, on_event=(PlayerRequestRespawnInWorld, RespawnRequestCommon))]
 def player_respawn_in_world_server(evt : Event; eid : EntityId)

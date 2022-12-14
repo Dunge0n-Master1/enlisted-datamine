@@ -76,7 +76,7 @@ let function onReportKill(evt, _eid, _comp) {
     inMyGroup = victimInMyGroup
     isHero = evt.victim == heroEid
     name = evt.isVictimVehicle ? loc(evt.victimName, "")
-      : !victimInMySquad && evt.victimPlayer != INVALID_ENTITY_ID ? getFramedNickByEid(evt.victimPlayer)
+      : !victimInMySquad && evt.victimPlayer != ecs.INVALID_ENTITY_ID ? getFramedNickByEid(evt.victimPlayer)
       : remap_others(evt.victimName)
     rank = evt.victimRank
   }
@@ -88,7 +88,7 @@ let function onReportKill(evt, _eid, _comp) {
     inMySquad = evt.killerPlayer == locPlayer
     inMyGroup = evt.killerPlayer != locPlayer && evt.killerPlayer in localPlayerGroupMembers.value
     isHero = evt.killer == heroEid
-    name = evt.killerPlayer != INVALID_ENTITY_ID ? getFramedNickByEid(evt.killerPlayer)
+    name = evt.killerPlayer != ecs.INVALID_ENTITY_ID ? getFramedNickByEid(evt.killerPlayer)
       :remap_others(evt.killerName)
     rank = evt.killerRank
   }
@@ -110,7 +110,7 @@ let function onReportKill(evt, _eid, _comp) {
     }
   }
 
-  if (evt.victim == heroEid && heroEid != evt.killer && evt.killer != INVALID_ENTITY_ID)
+  if (evt.victim == heroEid && heroEid != evt.killer && evt.killer != ecs.INVALID_ENTITY_ID)
     deathsLog.pushEvent({
       event = "death",
       name=killer.name,

@@ -8,17 +8,18 @@ and this is just ugly and really awful
 */
 
 
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let vehiclesData = require("%ui/hud/state/vehiclesData.nut")
 let app = require("net")
-let {sendNetEvent, CmdRequestRespawn, CmdCancelRequestRespawn} = require("dasevents")
+let { sendNetEvent, CmdRequestRespawn, CmdCancelRequestRespawn, RequestNextRespawnEntity
+} = require("dasevents")
 let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 let logHR = require("%enlSqGlob/library_logs.nut").with_prefix("[HERO_RESPAWN]")
-let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
+let {localPlayerTeam, localPlayerEid} = require("%ui/hud/state/local_player.nut")
 let armyData = require("armyData.nut")
 let soldiersData = require("soldiersData.nut")
 let vehicleRespawnBases = require("%ui/hud/state/vehicleRespawnBases.nut")
-let { get_can_use_respawnbase_type } = require("%enlSqGlob/spawn_base.nut")
+let {get_can_use_respawnbase_type} = require("das.respawn")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
@@ -27,7 +28,7 @@ let humanCanRespawn = require("%ui/hud/state/humanCanRespawn.nut")
 let respEndTime = mkWatched(persist, "respEndTime", -1)
 let canRespawnTime = mkWatched(persist, "canRespawnTime", -1)
 let canRespawnWaitNumber = mkWatched(persist, "canRespawnWaitNumber", -1)
-let respawnerEid = mkWatched(persist, "respawnerEid", INVALID_ENTITY_ID)
+let respawnerEid = mkWatched(persist, "respawnerEid", ecs.INVALID_ENTITY_ID)
 let canChangeRespawnParams = Computed(@() respEndTime.value > 0 || canRespawnTime.value > 0 || canRespawnWaitNumber.value > 0)
 
 let spawnedSquadsStorage = mkOnlineSaveData("spawnedSquads")
@@ -63,7 +64,8 @@ let squadMemberIdForSpawn = mkWatched(persist, "squadMemberIdForSpawn", 0)
 let squadsRevivePoints = mkWatched(persist, "squadsRevivePoints", [])
 let soldierRevivePoints = mkWatched(persist, "soldierRevivePoints", [])
 let isSpectatorEnabled = mkWatched(persist, "isSpectatorEnabled", false)
-let vehicleRespawnsBySquad = mkWatched(persist, "vehicleRespawnsBySquad", [])
+let maxSpawnVehiclesOnPointBySquad = mkWatched(persist, "maxSpawnVehiclesOnPointBySquad", [])
+let nextSpawnOnVehicleInTimeBySquad = mkWatched(persist, "nextSpawnOnVehicleInTimeBySquad", [])
 let spawnSquadId = mkWatched(persist, "spawnSquadId")
 let spawnCount = mkWatched(persist, "spawnCount", 0)
 let isFirstSpawn = mkWatched(persist, "isFirstSpawn", false)
@@ -75,13 +77,12 @@ let needSpawnMenu = Computed(@() (respawnsInBot.value || squadsCanSpawn.value) &
 let showSquadSpawn = Computed(@() needSpawnMenu.value && !respawnsInBot.value)
 let timeToCanRespawn = mkCountdownTimerPerSec(canRespawnTime)
 let isSquadAvailableByTime = Watched([])
-let spawnVehicleEndTimesBySquad = Computed(@() vehicleRespawnsBySquad.value.map(@(v) v.respInVehicleEndTime))
-let canSpawnOnVehicleBySquad = Computed(@() vehicleRespawnsBySquad.value.map(@(v, k) v.maxSpawnVehiclesOnPoint == -1 && (isSquadAvailableByTime.value?[k] ?? true)))
+let canSpawnOnVehicleBySquad = Computed(@() maxSpawnVehiclesOnPointBySquad.value.map(@(maxVehicles, k) maxVehicles == -1 && (isSquadAvailableByTime.value?[k] ?? true)))
 
 let function updateVehicleSpawnAvailableTimer(...) {
   let curTime = app.get_sync_time()
-  isSquadAvailableByTime(spawnVehicleEndTimesBySquad.value.map(@(v) v <= curTime))
-  let nextEndTime = spawnVehicleEndTimesBySquad.value
+  isSquadAvailableByTime(nextSpawnOnVehicleInTimeBySquad.value.map(@(v) v <= curTime))
+  let nextEndTime = nextSpawnOnVehicleInTimeBySquad.value
     .filter(@(it) it > curTime)
     .reduce(@(a,b) min(a,b)) ?? -1.0
   let minDelay = nextEndTime - curTime
@@ -90,7 +91,7 @@ let function updateVehicleSpawnAvailableTimer(...) {
     gui_scene.setTimeout(minDelay, updateVehicleSpawnAvailableTimer)
   }
 }
-spawnVehicleEndTimesBySquad.subscribe(updateVehicleSpawnAvailableTimer)
+nextSpawnOnVehicleInTimeBySquad.subscribe(updateVehicleSpawnAvailableTimer)
 updateVehicleSpawnAvailableTimer()
 
 let function requestRespawn() {
@@ -347,7 +348,8 @@ let function trackComponents(_evt, eid, comp) {
   respawnInactiveTimeout(comp["respawner__respawnWhenInactiveTimeout"])
   isFirstSpawn(comp["respawner__isFirstSpawn"])
   isSpectatorEnabled(comp["respawner__spectatorEnabled"])
-  equalUpdate(vehicleRespawnsBySquad, comp["respawner__vehicleRespawnsBySquad"].getAll())
+  equalUpdate(maxSpawnVehiclesOnPointBySquad, comp.respawner__vehiclesLimitBySquad.getAll())
+  equalUpdate(nextSpawnOnVehicleInTimeBySquad, comp.respawner__nextSpawnOnVehicleTimeBySquad.getAll())
   isChangedByUi = false
   logHR("Received from server respawner__respRequested = {0}, respawner__respEndTime = {1}, respawner__canRespawnTime = {2}, respawner__canRespawnWaitNumber = {3}"
     .subst(comp["respawner__respRequested"], comp["respawner__respEndTime"], comp["respawner__canRespawnTime"], comp["respawner__canRespawnWaitNumber"]))
@@ -368,7 +370,8 @@ ecs.register_es("respawns_state_ui_es", {
       ["respawner__respawnWhenInactiveShowTimer", ecs.TYPE_FLOAT, -1.0],
       ["respawner__respRequested", ecs.TYPE_BOOL, false],
       ["respawner__isFirstSpawn", ecs.TYPE_BOOL, false],
-      ["respawner__vehicleRespawnsBySquad", ecs.TYPE_ARRAY],
+      ["respawner__vehiclesLimitBySquad", ecs.TYPE_INT_LIST],
+      ["respawner__nextSpawnOnVehicleTimeBySquad", ecs.TYPE_INT_LIST],
       ["respawner__spectatorEnabled", ecs.TYPE_BOOL, false],
       ["is_local", ecs.TYPE_BOOL],
     ]
@@ -387,7 +390,7 @@ ecs.register_es("squads_state_ui_es", {
     [["onInit","onDestroy","onChange"]] = trackSquadComponents,
 }, {
   comps_track = [
-    ["squads__revivePointsList", ecs.TYPE_ARRAY],
+    ["squads__revivePointsList", ecs.TYPE_INT_LIST],
     ["squads__spawnCount", ecs.TYPE_INT],
     ["squads__squadsCanSpawn", ecs.TYPE_BOOL],
     ["is_local", ecs.TYPE_BOOL],
@@ -411,6 +414,9 @@ ecs.register_es("squads_state_show_respawn_ui_es",
   {[ecs.sqEvents.EventOnSpawnError] = @ (evt, _eid, _comp) logHR($"Spawn Error: {evt.data.reason}")},
   {comps_rq = ["player"]})
 
+let requestRespawnToEntity = @(eid)
+  sendNetEvent(localPlayerEid.value, RequestNextRespawnEntity({memberEid=eid}))
+
 let state = {
   respEndTime
   canRespawnTime
@@ -423,7 +429,8 @@ let state = {
   squadsCanSpawn
   selectedRespawnGroupId
   isSpectatorEnabled
-  vehicleRespawnsBySquad
+  maxSpawnVehiclesOnPointBySquad
+  nextSpawnOnVehicleInTimeBySquad
   respRequested
   spawnSquadId
   spawnCount
@@ -442,6 +449,7 @@ let state = {
   respawnBlockedReason
   // functions
   updateSpawnSquadId
+  requestRespawnToEntity
 }
 
 let debugSpawn = mkWatched(persist,"debugSpawn")

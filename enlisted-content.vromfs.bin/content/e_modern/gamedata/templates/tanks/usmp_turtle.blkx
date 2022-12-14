@@ -8,7 +8,6 @@ usmp_turtle{
 
 us_t95{
   _extends:t="base_t95"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_heavy_vehicle_tracks_sound"
 
   "bullet_holes__ignoreCollisionNodes:array"{

@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_village_fx.blk"
 }
 
 entity{
@@ -2777,41 +2779,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-201.514, 10.7958, 325.333]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.392998, 0.0, -0.91954] [0.0, 1.0, 0.0] [0.91954, 0.0, 0.392998] [-180.377, 5.61947, 192.606]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.256973, 0.0, -0.966419] [0.0, 1.0, 0.0] [0.966419, 0.0, -0.256973] [-6.4051, 5.89592, 147.294]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.731252, 0.0, -0.682107] [0.0, 1.0, 0.0] [0.682107, 0.0, -0.731252] [92.4736, 4.65251, 143.125]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-195.068, 11.3584, 399.908]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-202.986, 11.6858, 376.469]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.731252, 0.0, -0.682107] [0.0, 1.0, 0.0] [0.682107, 0.0, -0.731252] [247.887, 4.05057, 118.524]]
-}
-
-entity{
   _template:t="mbs_desktop_stuff_a_deflection_board"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [11.0536, 4.63219, 134.642]]
 }
@@ -2879,21 +2846,6 @@ entity{
 entity{
   _template:t="mbs_desktop_stuff_a_folder"
   transform:m=[[0.186362, 0.0, 1.53763] [0.0, 1.54888, 0.0] [-1.53763, 0.0, 0.186362] [257.199, 5.83423, 140.719]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-123.638, 10.0248, 358.893]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.578687, 0.0, -0.81555] [0.0, 1.0, 0.0] [0.81555, 0.0, -0.578687] [-141.298, 10.3583, 377.097]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[-0.256973, 0.0, -0.966419] [0.0, 1.0, 0.0] [0.966419, 0.0, -0.256973] [-93.1897, 6.03945, 195.331]]
 }
 
 entity{

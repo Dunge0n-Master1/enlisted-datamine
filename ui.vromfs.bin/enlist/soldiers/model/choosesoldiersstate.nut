@@ -24,6 +24,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let curSquadSoldierIdx = Watched(null)
 let selectedSoldierGuid = Watched(null)
 selectedSoldierGuid.subscribe(@(v) defSoldierGuid(v))
+let isPurchaseWndOpend = Watched(false)
 
 let soldiersSquadGuid = mkWatched(persist, "soldiersSquadGuid")
 let soldiersArmy = Computed(function() {
@@ -398,6 +399,7 @@ let close = function() {
   selectedSoldierGuid(null)
   curSoldierIdx(curSquadSoldierIdx.value)
   soldiersSquadGuid(null)
+  isPurchaseWndOpend(false)
 }
 
 let function applySoldierManageImpl(cb) {
@@ -534,4 +536,5 @@ return {
   dismissSoldier
   isDismissInProgress
   curSquadSoldierIdx
+  isPurchaseWndOpend
 }

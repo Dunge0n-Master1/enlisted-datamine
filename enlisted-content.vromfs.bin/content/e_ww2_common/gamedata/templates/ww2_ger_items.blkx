@@ -41,6 +41,50 @@ attachable_wear_pants_m44_ger_liebermuster_item{
   }
 }
 
+attachable_wear_pants_m44_ger_dot_br_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_2_tex_d*":t="ger_m44_pants_dot_br_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_m44_pants_dot_br_tex_n*"
+    "ger_pants_2_tex_mask*":t="ger_pants_2_cloth_tex_mask*"
+  }
+}
+
+attachable_wear_pants_m44_ger_dot_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_2_tex_d*":t="ger_m44_pants_dot_summer_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_m44_pants_dot_summer_tex_n*"
+    "ger_pants_2_tex_mask*":t="ger_pants_2_cloth_tex_mask*"
+  }
+}
+
+attachable_wear_ger_m44_pants_planetree_autnum_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_2_tex_d*":t="ger_m44_pants_planetree_autnum_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_m44_pants_dot_summer_tex_n*"
+    "ger_pants_2_tex_mask*":t="ger_pants_2_cloth_tex_mask*"
+  }
+}
+
+attachable_wear_ger_m44_pants_planetree_summer_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_pants_2_tex_d*":t="ger_m44_pants_planetree_summer_tex_d*"
+    "ger_pants_1_tex_n*":t="ger_m44_pants_dot_summer_tex_n*"
+    "ger_pants_2_tex_mask*":t="ger_pants_2_cloth_tex_mask*"
+  }
+}
+
 attachable_wear_pants_pilot_ger_summer_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_pants_01_ger_summer_item"
@@ -502,6 +546,17 @@ attachable_wear_tunic_m43_peadot_01_ger_summer_item{
   }
 }
 
+attachable_wear_tunic_m43_peadot_summer_01_ger_summer_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_tunic_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_tunic_3_tex_d*":t="ger_tunic_peadot_summer_tex_d*"
+    "ger_tunic_3_tex_n*":t="ger_tunic_peadot_tex_n*"
+    "ger_tunic_tex_mask*":t="ger_tunic_cloth_tex_mask*"
+  }
+}
+
 attachable_wear_tunic_01_ger_gray_summer_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_tunic_01_ger_gray_summer_item"
@@ -614,6 +669,17 @@ attachable_wear_tunic_m44_ger_liebermuster_item{
   "animchar__objTexReplace:object"{
     "ger_m44_tunic_tex_d*":t="ger_m44_tunic_lieberm_tex_d*"
     "ger_m44_tunic_tex_n*":t="ger_m44_tunic_lieberm_tex_n*"
+  }
+}
+
+attachable_wear_tunic_m44_ger_dot_br_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_tunic_m44_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_m44_tunic_tex_d*":t="ger_m44_tunic_dot_br_tex_d*"
+    "ger_m44_tunic_tex_n*":t="ger_m44_tunic_dot_br_tex_n*"
+    "ger_m44_tunic_tex_mask*":t="ger_m44_tunic_cloth_tex_mask*"
   }
 }
 
@@ -880,6 +946,27 @@ attachable_wear_m42_gebirgsjager_anorak_item{
   }
 }
 
+attachable_wear_overcoat_w_anorak_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_overcoat_w_anorak_item"
+  animchar__res:t="overcoat_w_anorak_char"
+  collres__res:t="overcoat_w_anorak_collision"
+  animchar_fast_phys__res:t="overcoat_w_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_overcoat_w_anorak_glight_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_overcoat_w_anorak_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_soldier_overcoat_2_tex_d*":t="ger_soldier_overcoat_lgreen_tex_d*"
+  }
+}
+
 attachable_wear_overcoat_01_ger_winter_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_overcoat_01_ger_winter_item"
@@ -1019,6 +1106,16 @@ attachable_wear_overcoat_01_br_ger_winter_item{
   }
 }
 
+attachable_wear_overcoat_01_brl_ger_winter_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_overcoat_01_ger_winter_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_soldier_overcoat_tex_d*":t="ger_soldier_overcoat_brl_tex_d*"
+    "ger_soldier_overcoat_tex_n*":t="ger_soldier_overcoat_brl_tex_n*"
+  }
+}
+
 attachable_wear_overcoat_01_bl_ger_winter_item{
   _extends:t="attachable_tunic"
   _extends:t="attachable_wear_overcoat_01_ger_winter_item"
@@ -1146,6 +1243,28 @@ attachable_wear_tanker_tunic_black_winter_item{
   "animchar__objTexReplace:object"{
     "ger_tanker_winter_tunic_tex_d*":t="ger_tanker_winter_tunic_black_tex_d*"
     "ger_tanker_winter_tunic_tex_n*":t="ger_tanker_winter_tunic_black_tex_n*"
+  }
+}
+
+attachable_wear_planetree_summer_tunic_01_ger_summer_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_tunic_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_tunic_3_tex_d*":t="ger_tunic_planetree_summer_tex_d*"
+    "ger_tunic_3_tex_n*":t="ger_tunic_planetree_tex_n*"
+    "ger_tunic_tex_mask*":t="ger_tunic_cloth_tex_mask*"
+  }
+}
+
+attachable_wear_planetree_autnum_tunic_01_ger_summer_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_tunic_01_ger_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_tunic_3_tex_d*":t="ger_tunic_planetree_tex_d*"
+    "ger_tunic_3_tex_n*":t="ger_tunic_planetree_tex_n*"
+    "ger_tunic_tex_mask*":t="ger_tunic_cloth_tex_mask*"
   }
 }
 
@@ -1285,6 +1404,13 @@ attachable_wear_m35_helmet_w_face_cover_01_ger_summer_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+}
+
+attachable_wear_m35_helmet_w_cloth_cover_01_ger_summer_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="m35_helmet_w_cloth_cover_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_m35_helmet_w_cloth_cover_01_ger_summer_item"
 }
 
 attachable_wear_gasmask_m38_helmet_01_ger_summer_item{
@@ -1546,6 +1672,27 @@ helmet_01_ger_cloth_camo_item{
     "ger_helmet_cloth_winter_tex_d*":t="ger_helmet_cloth_camo_tex_d*"
     "ger_helmet_cloth_winter_tex_n*":t="ger_helmet_cloth_camo_tex_n*"
   }
+}
+
+m35_helmet_grass_decor_01_01_ger_summer_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="m35_helmet_grass_decor_01_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="m35_helmet_grass_decor_01_01_ger_summer_item"
+}
+
+m35_helmet_grass_decor_02_01_ger_summer_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="m35_helmet_grass_decor_02_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="m35_helmet_grass_decor_02_01_ger_summer_item"
+}
+
+m35_helmet_grass_decor_03_01_ger_summer_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="m35_helmet_grass_decor_03_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="m35_helmet_grass_decor_03_01_ger_summer_item"
 }
 
 helmet_01_ger_summer_2_item{
@@ -2390,6 +2537,22 @@ attachable_wear_pioniersturmgepack_m42_gebirgsjager_anorak_item{
   }
 }
 
+attachable_wear_pioniersturmgepack_m42_winter_01_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_pioniersturmgepack_m42_winter_01_item"
+  animchar__res:t="pioniersturmgepack_m42_winter_01_char"
+  collres__res:t="pioniersturmgepack_m42_winter_01_collision"
+  animchar_fast_phys__res:t="pioniersturmgepack_m42_winter_01_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "hides:array"{
+    hides:t="roll"
+  }
+}
+
 attachable_wear_pioniersturmgepack_m42_anorak_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_pioniersturmgepack_m42_anorak_item"
@@ -2412,6 +2575,23 @@ attachable_wear_pioniersturmgepack_01_ger_summer_item{
   animchar__res:t="pioniersturmgepack_01_ger_summer_char"
   collres__res:t="pioniersturmgepack_01_ger_summer_collision"
   animchar_fast_phys__res:t="pioniersturmgepack_01_ger_summer_fastphys"
+  attachable_backpack__capacity:i=3
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "hides:array"{
+    hides:t="roll"
+  }
+}
+
+attachable_wear_pioniersturmgepack_m42_w_pot_engineer_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_pioniersturmgepack_m42_w_pot_engineer_item"
+  animchar__res:t="pioniersturmgepack_m42_w_pot_engineer_char"
+  collres__res:t="pioniersturmgepack_m42_w_pot_engineer_collision"
+  animchar_fast_phys__res:t="pioniersturmgepack_m42_w_pot_engineer_fastphys"
   attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
@@ -2447,12 +2627,36 @@ attachable_wear_pioniersturmgepack_R_01_ger_summer_item{
   }
 }
 
+attachable_wear_shovel_overcoat_w_anorak_item{
+  _extends:t="attachable_shovel"
+  item__uniqueName:t="attachable_wear_shovel_overcoat_w_anorak_item"
+  animchar__res:t="shovel_overcoat_w_anorak_char"
+  collres__res:t="shovel_overcoat_w_anorak_collision"
+  animchar_fast_phys__res:t="shovel_overcoat_w_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_shovel_01_ger_summer_item{
   _extends:t="attachable_shovel"
   item__uniqueName:t="attachable_wear_shovel_01_ger_summer_item"
   animchar__res:t="shovel_01_ger_summer_char"
   collres__res:t="shovel_01_ger_summer_collision"
   animchar_fast_phys__res:t="shovel_01_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_shovel_02_ger_summer_item{
+  _extends:t="attachable_shovel"
+  item__uniqueName:t="attachable_wear_shovel_02_ger_summer_item"
+  animchar__res:t="shovel_02_ger_summer_char"
+  collres__res:t="shovel_02_ger_summer_collision"
+  animchar_fast_phys__res:t="shovel_02_ger_summer_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2537,6 +2741,18 @@ attachable_wear_shovel_m42_anorak_item{
   animchar__res:t="shovel_m42_anorak_char"
   collres__res:t="shovel_m42_anorak_collision"
   animchar_fast_phys__res:t="shovel_m42_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_axe_in_pouch_01_winter_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_axe_in_pouch_01_winter_item"
+  animchar__res:t="axe_in_pouch_01_winter_char"
+  collres__res:t="axe_in_pouch_01_winter_collision"
+  animchar_fast_phys__res:t="axe_in_pouch_01_winter_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2687,6 +2903,18 @@ attachable_wear_case_04_ger_winter_item{
   }
 }
 
+attachable_wear_gasmask_case_overcoat_w_anorak_item{
+  _extends:t="attachable_ammo_case"
+  item__uniqueName:t="attachable_wear_gasmask_case_overcoat_w_anorak_item"
+  animchar__res:t="gasmask_case_overcoat_w_anorak_char"
+  collres__res:t="gasmask_case_overcoat_w_anorak_collision"
+  animchar_fast_phys__res:t="gasmask_case_overcoat_w_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pot_01_ger_summer_item{
   _extends:t="attachable_pot"
   item__uniqueName:t="attachable_wear_pot_01_ger_summer_item"
@@ -2771,6 +2999,13 @@ attachable_wear_roll_04_ger_winter_item{
   }
 }
 
+bag_w_flask_animation_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_11_weapon"
+  }
+}
+
 attachable_wear_bag_flask_pot_04_ger_winter_item{
   _extends:t="attachable_bag_l"
   item__uniqueName:t="attachable_wear_bag_flask_pot_04_ger_winter_item"
@@ -2781,6 +3016,26 @@ attachable_wear_bag_flask_pot_04_ger_winter_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+}
+
+attachable_wear_bag_w_flask_overcoat_w_anorak_item{
+  _extends:t="attachable_bag_l"
+  _extends:t="bag_w_flask_animation_blacklist"
+  item__uniqueName:t="attachable_wear_bag_w_flask_overcoat_w_anorak_item"
+  animchar__res:t="bag_w_flask_overcoat_w_anorak_char"
+  collres__res:t="bag_w_flask_overcoat_w_anorak_collision"
+  animchar_fast_phys__res:t="bag_w_flask_overcoat_w_anorak_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_belt_w_shovel_m44_tunic_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_w_shovel_m44_tunic_item"
+  animchar__res:t="belt_w_shovel_m44_tunic_char"
+  collres__res:t="belt_w_shovel_m44_tunic_collision"
 }
 
 attachable_wear_officer_belt_m42_gebirgsjager_anorak_item{
@@ -2965,6 +3220,34 @@ attachable_wear_shoulder_belt_knochensack_item{
   collres__res:t="shoulder_belt_knochensack_collision"
 }
 
+attachable_wear_mp38_pouch_r_01_winter_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_mp38_pouch_r_01_winter_item"
+  animchar__res:t="mp38_pouch_r_01_winter_char"
+  collres__res:t="mp38_pouch_r_01_winter_collision"
+}
+
+attachable_wear_mp38_pouch_l_01_winter_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_mp38_pouch_l_01_winter_item"
+  animchar__res:t="mp38_pouch_l_01_winter_char"
+  collres__res:t="mp38_pouch_l_01_winter_collision"
+}
+
+attachable_wear_mp38_pouch_r_02_summer_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_mp38_pouch_r_02_summer_item"
+  animchar__res:t="mp38_pouch_r_02_summer_char"
+  collres__res:t="mp38_pouch_r_02_summer_collision"
+}
+
+attachable_wear_mp38_pouch_l_02_summer_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_mp38_pouch_l_02_summer_item"
+  animchar__res:t="mp38_pouch_l_02_summer_char"
+  collres__res:t="mp38_pouch_l_02_summer_collision"
+}
+
 attachable_wear_mp38_knochensack_r_pouch_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_mp38_knochensack_r_pouch_item"
@@ -2979,11 +3262,39 @@ attachable_wear_mp38_knochensack_l_pouch_item{
   collres__res:t="mp38_knochensack_l_pouch_collision"
 }
 
+attachable_wear_mp38_pouch_r_m44_tunic_summer_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_mp38_pouch_r_m44_tunic_summer_item"
+  animchar__res:t="mp38_pouch_r_m44_tunic_summer_char"
+  collres__res:t="mp38_pouch_r_m44_tunic_summer_collision"
+}
+
+attachable_wear_mp38_pouch_l_m44_tunic_summer_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_mp38_pouch_l_m44_tunic_summer_item"
+  animchar__res:t="mp38_pouch_l_m44_tunic_summer_char"
+  collres__res:t="mp38_pouch_l_m44_tunic_summer_collision"
+}
+
 attachable_wear_pouch_01_ger_summer_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_pouch_01_ger_summer_item"
   animchar__res:t="pouch_01_ger_summer_char"
   collres__res:t="pouch_01_ger_summer_collision"
+}
+
+attachable_wear_mauser_pouch_r_overcoat_w_anorak_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_mauser_pouch_r_overcoat_w_anorak_item"
+  animchar__res:t="mauser_pouch_r_overcoat_w_anorak_char"
+  collres__res:t="mauser_pouch_r_overcoat_w_anorak_collision"
+}
+
+attachable_wear_mauser_pouch_l_overcoat_w_anorak_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_mauser_pouch_l_overcoat_w_anorak_item"
+  animchar__res:t="mauser_pouch_l_overcoat_w_anorak_char"
+  collres__res:t="mauser_pouch_l_overcoat_w_anorak_collision"
 }
 
 attachable_wear_mauser_pouch_r_m42_gebirgsjager_anorak_item{
@@ -3068,6 +3379,20 @@ attachable_wear_pouch_stg_r_03_ger_summer_item{
   item__uniqueName:t="attachable_wear_pouch_stg_r_03_ger_summer_item"
   animchar__res:t="pouch_stg_r_03_ger_summer_char"
   collres__res:t="pouch_stg_r_03_ger_summer_collision"
+}
+
+attachable_wear_stg44_pouch_l_zeltbahn_03_ger_summer_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_stg44_pouch_l_zeltbahn_03_ger_summer_item"
+  animchar__res:t="stg44_pouch_l_zeltbahn_03_ger_summer_char"
+  collres__res:t="stg44_pouch_l_zeltbahn_03_ger_summer_collision"
+}
+
+attachable_wear_stg44_pouch_r_zeltbahn_03_ger_summer_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_stg44_pouch_r_zeltbahn_03_ger_summer_item"
+  animchar__res:t="stg44_pouch_r_zeltbahn_03_ger_summer_char"
+  collres__res:t="stg44_pouch_r_zeltbahn_03_ger_summer_collision"
 }
 
 attachable_wear_pouch_mauser_r_m44_ger_summer_item{
@@ -3291,6 +3616,18 @@ attachable_wear_flask_bag_01_ger_summer_item{
   }
 }
 
+attachable_wear_pot_zeltbahn_03_ger_summer_item{
+  _extends:t="attachable_pot"
+  item__uniqueName:t="attachable_wear_pot_zeltbahn_03_ger_summer_item"
+  animchar__res:t="pot_zeltbahn_03_ger_summer_char"
+  collres__res:t="pot_zeltbahn_03_ger_summer_collision"
+  animchar_fast_phys__res:t="pot_zeltbahn_03_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pot_02_ger_summer_item{
   _extends:t="attachable_pot"
   item__uniqueName:t="attachable_wear_pot_02_ger_summer_item"
@@ -3388,6 +3725,20 @@ attachable_wear_belt_1_04_ger_winter_item{
   collres__res:t="belt_1_04_ger_winter_collision"
 }
 
+attachable_wear_belt_overcoat_w_anorak_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_overcoat_w_anorak_item"
+  animchar__res:t="belt_overcoat_w_anorak_char"
+  collres__res:t="belt_overcoat_w_anorak_collision"
+}
+
+attachable_wear_shoulder_belt_overcoat_w_anorak_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_shoulder_belt_overcoat_w_anorak_item"
+  animchar__res:t="shoulder_belt_overcoat_w_anorak_char"
+  collres__res:t="shoulder_belt_overcoat_w_anorak_collision"
+}
+
 attachable_wear_belt_2_02_ger_winter_item{
   _extends:t="attachable_belt2"
   item__uniqueName:t="attachable_wear_belt_2_02_ger_winter_item"
@@ -3420,6 +3771,18 @@ attachable_wear_map_case_01_ger_summer_item{
   animchar__res:t="map_case_01_ger_summer_char"
   collres__res:t="map_case_01_ger_summer_collision"
   animchar_fast_phys__res:t="map_case_01_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_map_tablet_winter_01_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_map_tablet_winter_01_item"
+  animchar__res:t="map_tablet_winter_01_char"
+  collres__res:t="map_tablet_winter_01_collision"
+  animchar_fast_phys__res:t="map_tablet_winter_01_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -3530,6 +3893,90 @@ attachable_wear_mg13_bandolier_01_ger_summer_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+}
+
+attachable_wear_mg13_bandoleer_02_ger_winter_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_mg13_bandoleer_02_ger_winter_item"
+  animchar__res:t="mg13_bandoleer_02_ger_winter_char"
+  collres__res:t="mg13_bandoleer_02_ger_winter_collision"
+  animchar_fast_phys__res:t="mg13_bandoleer_02_ger_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_mg13_bandoleer_br_02_ger_winter_item{
+  _extends:t="attachable_chest"
+  _extends:t="attachable_wear_mg13_bandoleer_02_ger_winter_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_mg13_bandolier_tex_d*":t="ger_mg13_bandolier_br_tex_d*"
+    "ger_mg13_bandolier_tex_n*":t="ger_mg13_bandolier_br_tex_n*"
+  }
+}
+
+attachable_wear_binocular_01_ger_summer_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_binocular_01_ger_summer_item"
+  animchar__res:t="binocular_01_ger_summer_char"
+  collres__res:t="binocular_01_ger_summer_collision"
+  animchar_fast_phys__res:t="binocular_01_ger_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_binocular_m44_tunic_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_binocular_m44_tunic_item"
+  animchar__res:t="binocular_m44_tunic_char"
+  collres__res:t="binocular_m44_tunic_collision"
+  animchar_fast_phys__res:t="binocular_m44_tunic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_binocular_01_ger_winter_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_binocular_01_ger_winter_item"
+  animchar__res:t="binocular_01_ger_winter_char"
+  collres__res:t="binocular_01_ger_winter_collision"
+  animchar_fast_phys__res:t="binocular_01_ger_winter_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_binocular_01_ger_winter_camo_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_binocular_01_ger_winter_camo_item"
+  animchar__res:t="binocular_01_ger_winter_camo_char"
+  collres__res:t="binocular_01_ger_winter_camo_collision"
+  animchar_fast_phys__res:t="binocular_01_ger_winter_camo_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_gas_cape_pouch_overcoat_w_anorak_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_gas_cape_pouch_overcoat_w_anorak_item"
+  animchar__res:t="gas_cape_pouch_overcoat_w_anorak_char"
+  collres__res:t="gas_cape_pouch_overcoat_w_anorak_collision"
+}
+
+attachable_wear_mg131_ammo_belt_overcoat_w_anorak_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_mg131_ammo_belt_overcoat_w_anorak_item"
+  animchar__res:t="mg131_ammo_belt_overcoat_w_anorak_char"
+  collres__res:t="mg131_ammo_belt_overcoat_w_anorak_collision"
 }
 
 attachable_wear_gas_cape_pouch_01_ger_summer_item{

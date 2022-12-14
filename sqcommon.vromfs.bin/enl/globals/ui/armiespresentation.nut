@@ -1,31 +1,31 @@
-let { isNewDesign } = require("%enlSqGlob/wipFeatures.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
 
-let DEFAULT_SQUAD_GER = isNewDesign
+let DEFAULT_SQUAD_GER = isNewDesign.value
   ? "army_icons/germany_army.svg"
   : "balkenkreuz.svg"
-let DEFAULT_SQUAD_USSR = isNewDesign
+let DEFAULT_SQUAD_USSR = isNewDesign.value
   ? "army_icons/ussr_army.svg"
   : "ussr.svg"
-let DEFAULT_SQUAD_USA = isNewDesign
+let DEFAULT_SQUAD_USA = isNewDesign.value
   ? "army_icons/usa_army.svg"
   : "usaf.svg"
-let DEFAULT_SQUAD_JAP = isNewDesign
+let DEFAULT_SQUAD_JAP = isNewDesign.value
   ? "army_icons/jap_army.svg"
   : "japan.svg"
 const SMALL_SQUAD_GER = "army_icons/germany_color_small.svg"
 const SMALL_SQUAD_USSR = "army_icons/ussr_color_small.svg"
 const SMALL_SQUAD_USA = "army_icons/usa_color_small.svg"
 const SMALL_SQUAD_JAP = "army_icons/japan_color_small.svg"
-let PREM_SQUAD_GER = isNewDesign
+let PREM_SQUAD_GER = isNewDesign.value
   ? "!ui/squads/germany/squad_prem_ger.svg"
   : "!ui/squads/germany/prem_squad_ger.svg"
-let PREM_SQUAD_USSR = isNewDesign
+let PREM_SQUAD_USSR = isNewDesign.value
   ? "!ui/squads/ussr/squad_prem_ussr.svg"
   : "!ui/squads/ussr/prem_squad_ussr.svg"
-let PREM_SQUAD_USA = isNewDesign
+let PREM_SQUAD_USA = isNewDesign.value
   ? "!ui/squads/ussr/squad_prem_ussr.svg"
   : "!ui/squads/ussr/prem_squad_ussr.svg" // TODO probably needed different icon for USA
-let PREM_SQUAD_JAP = isNewDesign
+let PREM_SQUAD_JAP = isNewDesign.value
   ? "!ui/squads/japan/squad_prem_jap.svg"
   : "!ui/squads/japan/prem_squad_jap.svg"
 

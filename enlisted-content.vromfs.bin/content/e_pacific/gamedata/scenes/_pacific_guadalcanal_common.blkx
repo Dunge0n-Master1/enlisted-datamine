@@ -6,30 +6,30 @@ import{
 
 entity{
   _template:t="aircraft_box_battle_area"
-  transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [103.719, 240.916, -196.341]]
+  transform:m=[[25256.1, 0.0, 17996.4] [0.0, 8000.03, 0.0] [-17997.5, 0.0, 25255.2] [-538.263, 240.916, -64.1746]]
   battle_area__team:i=-1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-158.606, 0.0, 220.621] [0.0, 5.47114, 0.0] [-26.3456, 0.0, -18.9401] [-2400.69, 16.0538, 2796.93]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-156.352, 0.0, 222.224] [0.0, 5.47114, 0.0] [-26.5371, 0.0, -18.6709] [-2473.99, 16.1891, 2656.66]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[224.769, 0.0, 87.5561] [0.0, 6.43649, -0.0] [-11.3292, 0.0, 29.0837] [2417.26, 17.3271, 1362.5]]
   battle_area__team:i=2
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[224.222, 0.0, 88.9453] [0.0, 6.43649, -0.0] [-11.509, 0.0, 29.0131] [2514.18, 17.1052, 1281.6]]
   battle_area__team:i=2
 }
@@ -51,11 +51,11 @@ entity{
 entity{
   _template:t="water"
   shore__amplitude_to_length:r=800.0
-  shore__hmap_size:r=4096.0
+  shore__hmap_size:r=1024.0
   shore__parallelism_to_wind:r=0.5
   shore__rivers_width:r=30.0
-  shore__texture_size:i=4096
-  shore__wave_gspeed:r=0.6
+  shore__texture_size:i=2048
+  shore__wave_gspeed:r=0.4
   shore__width_k:r=0.6
   waterTrail__useObstacle:b=yes
   water__level:r=0.0
@@ -76,7 +76,7 @@ entity{
     hmap_displacement_up:r=0.3
     ocean0:c=30, 55, 55, 0
     ocean1:c=40, 50, 100, 0
-    ocean_density:r=0.4
+    ocean_density:r=0.7
     land_selfillum_worldscale:r=0.9
     river0:c=30, 55, 55, 0
     river1:c=40, 50, 100, 0
@@ -85,7 +85,7 @@ entity{
     paint_details_tex:t="pacific_color_tex_palette*"
     land_selfillum_strength:r=32.0
     water_color_noise_size:r=71.0
-    river_density:r=0.4
+    river_density:r=0.7
     puddle_increase:r=-0.5
   }
 }
@@ -289,25 +289,25 @@ entity{
 
 entity{
   _template:t="resupply_for_air_planes_only_zone"
-  transform:m=[[-0.953359, 0.0, 0.301843] [0.0, 1.0, 0.0] [-0.301843, 0.0, -0.953359] [-5528.88, 1023.92, -217.02]]
+  transform:m=[[-0.953359, 0.0, 0.301843] [0.0, 1.0, 0.0] [-0.301843, 0.0, -0.953359] [-4032.23, 1023.92, -152.37]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="resupply_for_air_planes_only_zone"
-  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [4069.6, 982.32, -2236.6]]
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [2609.94, 982.32, -1438.28]]
   resupply_zone__team:i=2
 }
 
 entity{
   _template:t="resupply_for_seaplanes_zone"
-  transform:m=[[-0.953359, 0.0, 0.301843] [0.0, 1.0, 0.0] [-0.301843, 0.0, -0.953359] [-3535.51, 1023.92, -16.2939]]
+  transform:m=[[-0.953359, 0.0, 0.301843] [0.0, 1.0, 0.0] [-0.301843, 0.0, -0.953359] [-4029.31, 1023.92, -146.309]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="resupply_for_seaplanes_zone"
-  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [2835.8, 982.32, -1632.03]]
+  transform:m=[[0.473545, 0.0, 0.880768] [0.0, 1.0, 0.0] [-0.880768, 0.0, 0.473545] [2604.2, 982.32, -1439.09]]
   resupply_zone__team:i=2
 }
 
@@ -398,17 +398,7 @@ entity{
 
 entity{
   _template:t="ford_gpa"
-  transform:m=[[-0.988822, 0.00168618, -0.149089] [-0.00168618, 0.999746, 0.0224904] [0.149089, 0.0224904, -0.988568] [-562.043, 2.06293, 238.311]]
-}
-
-entity{
-  _template:t="ford_gpa"
   transform:m=[[-0.998432, -0.0556677, 0.0059199] [-0.0557635, 0.998291, -0.0174954] [-0.00493586, -0.0177981, -0.999829] [-153.363, 0.818912, 147.615]]
-}
-
-entity{
-  _template:t="ford_gpa"
-  transform:m=[[0.977606, -0.0845293, -0.192721] [0.0801945, 0.996322, -0.0301977] [0.194565, 0.0140663, 0.980789] [-374.762, 0.900774, 166.95]]
 }
 
 entity{

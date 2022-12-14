@@ -13,7 +13,7 @@ require AnimatedPhys
 
 def find_node_index(animchar, arr, index)
   let nodeName = get_ecs_string(arr, index)
-  return nodeName == null ? -1 : geomtree_findNodeIndex(animchar.nodeTree, "{nodeName}")
+  return nodeName == null ? -1 : geomtree_findNodeIndex(*animchar.nodeTree, "{nodeName}")
 
 
 def registerVar_impl(anim_vars : ecs::Object; key : string; blk : block<(name : string) : int>) : int
@@ -54,7 +54,7 @@ def turret_control_init_es(evt : Event;
                            turret__yawAccel : float = -1.0;
                            turret__pitchAccel : float = -1.0;
                            turret__fireFxOn : bool = true;
-                           turret__limit : float4? = null;
+                           turret__limit : float4 const? = null;
                            var turret__resolved : bool&;
                            var turret__wishYawVarId : int&;
                            var turret__wishPitchVarId : int&;

@@ -43,7 +43,7 @@ def debug_concussion_on_shell_create()
       let radius = gun__onShotConcussionRadiusCaliberCoeff * props.caliber
       query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
         let nodeId = turret__flashNodeId >= 0 ? turret__flashNodeId : turret__emitterNodeId
-        let shotPos = geomtree_getNodeWpos(animchar.nodeTree, nodeId)
+        let shotPos = geomtree_getNodeWpos(*animchar.nodeTree, nodeId)
         draw_debug_sphere_buffered(shotPos, radius, E3DCOLOR(0xFFFF0000), 12, 10000)
 
 [es(tag=server, REQUIRE_NOT=launch_desc, REQUIRE=debugConcussion)]

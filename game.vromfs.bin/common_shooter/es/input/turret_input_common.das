@@ -55,3 +55,24 @@ def apply_turret_input(turret_control__gunEids : EidList;
         turret_input__aimPos = firstAimPos
       elif aim.bActive
         turret_input__firstUpdate = false
+
+def stop_weapons(turret_control__gunEids : EidList; trigger : int)
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int; var turret_input__shootFlag : bool&)
+      if turret__triggerGroup == trigger
+        turret_input__shootFlag = false
+
+
+def release_weapon(turret_control__gunEids : EidList; state : bool; trigger : int; salvo_size : int)
+  if salvo_size == 0
+    return
+  var indexInSalvo = 0
+  var isFired = false
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int; gun__ammo : int; var turret_input__shootFlag : bool&)
+      if turret__triggerGroup == trigger
+        turret_input__shootFlag = state
+        isFired ||= turret_input__shootFlag && gun__ammo > 0
+        indexInSalvo = (indexInSalvo + 1) % salvo_size
+    if isFired && indexInSalvo == 0
+      break

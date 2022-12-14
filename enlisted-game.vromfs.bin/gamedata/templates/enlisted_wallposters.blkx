@@ -388,3 +388,101 @@ agit_poster_china_f{
   _extends:t="wallposter"
   ri_extra__name:t="agit_poster_china_f"
 }
+
+agit_poster_china_g_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_g"
+  instantiateTemplate:t="agit_poster_china_g"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_g_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_g{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_g"
+}
+
+agit_poster_china_h_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_h"
+  instantiateTemplate:t="agit_poster_china_h"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_h_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_h{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_h"
+}
+
+agit_poster_china_i_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_i"
+  instantiateTemplate:t="agit_poster_china_i"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_i_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_i{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_i"
+}
+
+agit_poster_china_j_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_j"
+  instantiateTemplate:t="agit_poster_china_j"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_j_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_j{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_j"
+}
+
+agit_poster_china_k_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_k"
+  instantiateTemplate:t="agit_poster_china_k"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_k_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_k{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_k"
+}
+
+agit_poster_combat_engineers_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_combat_engineers"
+  instantiateTemplate:t="agit_poster_combat_engineers"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_combat_engineers_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_combat_engineers{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_combat_engineers"
+}
+
+agit_poster_raaf_pilot_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_raaf_pilot"
+  instantiateTemplate:t="agit_poster_raaf_pilot"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_raaf_pilot_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_raaf_pilot{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_raaf_pilot"
+}

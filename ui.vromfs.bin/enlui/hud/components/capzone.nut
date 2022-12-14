@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
@@ -88,7 +89,7 @@ let function capzoneCtor(zoneWatch, params={}) {
     let heroEid = watchedHeroEid.value
     let size = params?.size ?? [fsh(3), fsh(3)]
     let highlight = canHighlight && active
-      && (heroInsideEid != INVALID_ENTITY_ID && heroInsideEid == heroEid)
+      && (heroInsideEid != ecs.INVALID_ENTITY_ID && heroInsideEid == heroEid)
     let highlightedSize = highlight ? [size[0] * highlightScale[0], size[1] * highlightScale[1]] : size
     let iconSz = [highlightedSize[0] / 1.5, highlightedSize[1] / 1.5]
     let blur_back = ("customBack" in params) ? params.customBack(highlightedSize[1])

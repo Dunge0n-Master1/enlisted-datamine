@@ -27,6 +27,13 @@ bf_110c_6{
         turret:t="turret_04"
         turret:t="turret_06"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -327,18 +334,6 @@ base_bf_110c_6_30mm_mk101{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="he_i_mine"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="i_t"
-      }
-
-      "shell:object"{
         blk:t="gamedata/weapons/shells/30x184bmm_pzbrgr_m_el_bullet.blk"
         name:t="el"
         type:t="ap_i"
@@ -348,30 +343,6 @@ base_bf_110c_6_30mm_mk101{
         blk:t="gamedata/weapons/shells/30x184bmm_pzgr_40_l_spur_bullet.blk"
         name:t="spur"
         type:t="apcr_t"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="he_i_mine"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="he_i_mine"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_mgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="he_i_mine"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/30x184bmm_pzsprbrgr_l_spur_bullet.blk"
-        name:t="spur"
-        type:t="i_t"
       }
     }
   }
@@ -443,4 +414,24 @@ bf_110c_6_driver_cockpit{
   animchar__res:t="bf_110c_6_cockpit_char"
   plane_anim__blk:t="gamedata/units/bf_110c_6.blk"
   plane_sight__blk:t="gamedata/units/bf_110c_6.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=-0.002, 0.023, -0.0095
+    item:p3=0.0135, 0.01, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=10.1, 11.8
+    item:p2=-5.3, 0.9
+  }
 }

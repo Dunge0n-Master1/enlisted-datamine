@@ -1,6 +1,6 @@
 require ecs
-require game.es.events
 require enlisted.events_enlisted
+require danetlibs.native_dasevents.main.native_events
 
 [es(tag=server, track=isAlive)]
 def additive_building_on_destroy_es(evt : Event; eid : EntityId; dependsOnBuildingEid : EntityId; isAlive : bool)

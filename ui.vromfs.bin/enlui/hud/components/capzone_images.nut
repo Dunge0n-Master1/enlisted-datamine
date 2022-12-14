@@ -11,4 +11,7 @@ return {
   wall = "ui/skin#building_wall.svg"
   gate = "ui/skin#gate.svg"
   train_cross = "ui/skin#train/train_cross.svg"
+  tank = "ui/skin#tank_icon.svg"
+  aircraft = "ui/skin#aircraft_icon.svg"
+  mortar = "ui/skin#mortar.svg"
 }

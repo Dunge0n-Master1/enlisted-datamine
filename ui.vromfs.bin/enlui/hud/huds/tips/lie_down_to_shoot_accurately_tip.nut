@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
 
 let tipCountData = mkOnlineSaveData("ui/hud/lie_down_to_shoot", @() 0)

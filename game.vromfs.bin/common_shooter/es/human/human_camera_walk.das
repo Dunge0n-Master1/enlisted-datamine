@@ -48,8 +48,8 @@ def camera_walk_bhv(info : UpdateStageInfoAct&;
 
   var gunEid = INVALID_ENTITY_ID
 
-  query(eid) <| $ [es] (human_attached_gun__attachedGunEid : EntityId?;
-                        human_weap__currentGunEid : EntityId?)
+  query(eid) <| $ [es] (human_attached_gun__attachedGunEid : EntityId const?;
+                        human_weap__currentGunEid : EntityId const?)
     if human_weap__currentGunEid != null
       gunEid = *human_weap__currentGunEid
 
@@ -59,7 +59,7 @@ def camera_walk_bhv(info : UpdateStageInfoAct&;
   var additionalOffset = float3(0.f)
 
   query(gunEid) <| $ [es] (gun : Gun&;
-                           gun_deviation : GunDeviation?;
+                           gun_deviation : GunDeviation const?;
                            gun_spread__maxDeltaAngle : float;
                            gun__sightsDistance : float)
     let sightsMult = cvt(gun__sightsDistance, 0.05f, 0.3f, 0.5f, 5.f)

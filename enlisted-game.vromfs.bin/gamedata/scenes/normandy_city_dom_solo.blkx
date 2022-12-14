@@ -6,6 +6,14 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_normandy_shore_sound.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_city_dom_scene_fx.blk"
+}
+
+import{
+  scene:t="content/enlisted/gamedata/scenes/_normandy_beach_fortified_biom_fx.blk"
+}
+
 entity{
   _template:t="minimap_normandy_beach_fortified"
 }
@@ -415,23 +423,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-92.9091, 69.5795, -376.491]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-115.567, 71.5921, -366.935]]
-}
-
-entity{
   _template:t="m4a2_sherman_1944_destroyed+still_obstacle"
   transform:m=[[0.874055, 0.0610543, -0.481975] [-0.0272926, 0.996676, 0.0767594] [0.48506, -0.0539376, 0.872816] [-136.963, 67.4934, -265.563]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-138.718, 68.6249, -264.44]]
 }
 
 entity{
@@ -534,26 +527,6 @@ entity{
   _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[0.885256, 0.0854253, 0.457192] [-0.0759006, 0.996345, -0.0391991] [0.45887, 0.0, -0.888504] [118.078, 70.0507, -320.243]]
   resupply_zone__team:i=2
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [331.417, 63.368, -258.482]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-57.8731, 44.8032, -53.3865]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [130.194, 59.2752, -49.8758]]
-}
-
-entity{
-  _template:t="bonfire_effect_medium"
-  transform:m=[[3.16388, 1.15156, 0.0] [-1.15156, 3.16388, 0.0] [0.0, 0.0, 3.36693] [-535.827, 59.9086, -498.273]]
 }
 
 entity{

@@ -1,4 +1,0 @@
-clouds_rendering{
-  erosion_noise_size:r=45.0
-  erosionWindSpeed:r=50.0
-}

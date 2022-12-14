@@ -72,7 +72,7 @@ depth_of_field{
     _tags:t="render"
   }
 
-  "downsampled_dof_frame_fallback:UniqueTexHolder"{
+  "downsampled_dof_frame_fallback:UniqueTex"{
     _tags:t="render"
   }
 
@@ -83,10 +83,10 @@ depth_of_field{
     _track:b=yes
     dof__on:b=no
     dof__is_filmic:b=no
-    dof__focusPlane:r=-1.0
-    dof__fNumber:r=1.0
-    dof__sensorHeight:r=0.024
-    dof__focalLengthFor90:r=0.012
+    dof__focusDistance:r=-1.0
+    dof__fStop:r=1.0
+    dof__sensorHeight_mm:r=24.0
+    dof__focalLength_mm:r=-1.0
     dof__nearDofStart:r=0.01
     dof__nearDofEnd:r=0.35
     dof__nearDofAmountPercent:r=0.0
@@ -94,7 +94,18 @@ depth_of_field{
     dof__farDofEnd:r=1000000.0
     dof__farDofAmountPercent:r=0.0
     dof__bokehShape_bladesCount:r=6.0
-    dof__bokehShape_fNumber:r=8.0
+    dof__bokehShape_kernelSize:r=8.0
     dof__minCheckDistance:r=0.3
   }
+}
+
+postfx_smoke_blackout{
+  _singleton:b=yes
+  smoke_blackout_effect__timeStartVarId:i=-1
+  smoke_blackout_effect__timeEndVarId:i=-1
+  smoke_blackout_effect__intervalVarId:i=-1
+  smoke_blackout_effect__decreaseDurationVarId:i=-1
+  smoke_blackout_effect__enabled:b=yes
+  _tracked:t="smoke_blackout_effect__enabled"
+  _tags:t="render"
 }

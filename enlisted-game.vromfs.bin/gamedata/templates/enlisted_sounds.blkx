@@ -84,3 +84,26 @@ enlisted_net_sounds{
     }
   }
 }
+
+base_rendinst_damage_sound{
+  _extends:t="replicating"
+  rendinst_damage_sound__projectile:t=""
+  ri_extra__destroyed:b=no
+
+  ri_extra{
+  }
+
+  "ri_extra__handle:u64"{
+    value:i64=-1
+  }
+}
+
+rendinst_damage_sound_decor_bell{
+  _extends:t="base_rendinst_damage_sound"
+  rendinst_damage_sound__projectile:t="impact/church_bell"
+}
+
+rendinst_damage_sound_decor_bell_fallen{
+  _extends:t="base_rendinst_damage_sound"
+  rendinst_damage_sound__projectile:t="impact/church_bell_fallen"
+}

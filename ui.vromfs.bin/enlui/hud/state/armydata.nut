@@ -54,7 +54,7 @@ let function calcArmies(...) {
   let playerEid = localPlayerEid.value
   let requestCb = requestArmiesData.value
 
-  if (teamArmies.len() == 0 || playerEid == INVALID_ENTITY_ID || requestCb == null)
+  if (teamArmies.len() == 0 || playerEid == ecs.INVALID_ENTITY_ID || requestCb == null)
     return
 
   if (isArmiesReceived(playerEid))

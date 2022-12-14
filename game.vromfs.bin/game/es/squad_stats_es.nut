@@ -46,7 +46,7 @@ let newStats = @() {
   vehicleExtinguishes = 0
   landings = 0
   reviveAssists = 0
-  healAssists = 0
+  healAssists = 0.0
   barrageBalloonDestructions = 0
   enemyBuiltFortificationDestructions = 0
   enemyBuiltGunDestructions = 0
@@ -62,7 +62,7 @@ let newStats = @() {
   friendlyPlaneHits = 0
   friendlyPlaneKills = 0
   meleeKills = 0
-  grenadeKills = 0
+  explosiveKills = 0
   longRangeKills = 0
   gunGameLevelup = 0
   time = 0.0 // float
@@ -84,7 +84,7 @@ let function getMemberData(playerEid, guid) {
 let function listSquadPlayer(squadEid) {
   if (squadEid in playersSquads)
     return
-  playersSquads[squadEid] <- ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
+  playersSquads[squadEid] <- ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? ecs.INVALID_ENTITY_ID
 }
 
 let function onMemberCreated(_evt, _eid, comp) {
@@ -130,7 +130,7 @@ let function sendSquadStatsToPlayer(stats, playerEid, connid) {
 
 let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
   comps_ro=[
-    ["possessed", ecs.TYPE_EID, INVALID_ENTITY_ID],
+    ["possessed", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["connid", ecs.TYPE_INT, INVALID_CONNECTION_ID],
   ],
   comps_rw=[
@@ -162,7 +162,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__vehicleExtinguishes", ecs.TYPE_INT],
     ["scoring_player__landings", ecs.TYPE_INT],
     ["scoring_player__reviveAssists", ecs.TYPE_INT],
-    ["scoring_player__healAssists", ecs.TYPE_INT],
+    ["scoring_player__healAssists", ecs.TYPE_FLOAT],
     ["scoring_player__crewKillAssists", ecs.TYPE_FLOAT],
     ["scoring_player__crewTankKillAssists", ecs.TYPE_FLOAT],
     ["scoring_player__crewPlaneKillAssists", ecs.TYPE_FLOAT],
@@ -181,7 +181,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__friendlyPlaneHits", ecs.TYPE_INT],
     ["scoring_player__friendlyPlaneKills", ecs.TYPE_INT],
     ["scoring_player__meleeKills", ecs.TYPE_INT],
-    ["scoring_player__grenadeKills", ecs.TYPE_INT],
+    ["scoring_player__explosiveKills", ecs.TYPE_INT],
     ["scoring_player__longRangeKills", ecs.TYPE_INT],
     ["scoring_player__gunGameLevelup", ecs.TYPE_INT],
   ]
@@ -208,18 +208,18 @@ let function onSquadMembersStats(evt, _, __) {
   let awardsByPlayer = {}
   let awardsByGuid = {}
   foreach (data in evt.data.list) {
-    local { stat, playerEid = INVALID_ENTITY_ID, squadEid = INVALID_ENTITY_ID, guid = "", eid = INVALID_ENTITY_ID, amount = 1
+    local { stat, playerEid = ecs.INVALID_ENTITY_ID, squadEid = ecs.INVALID_ENTITY_ID, guid = "", eid = ecs.INVALID_ENTITY_ID, amount = 1
     } = data
 
-    if (eid != INVALID_ENTITY_ID) {
+    if (eid != ecs.INVALID_ENTITY_ID) {
       let soldier = getSoldierInfoQuery(eid, @(_, comp) comp) ?? {}
       guid = soldier?.guid ?? ""
-      playerEid = soldier?["squad_member__playerEid"] ?? INVALID_ENTITY_ID
+      playerEid = soldier?["squad_member__playerEid"] ?? ecs.INVALID_ENTITY_ID
     }
-    playerEid = (playerEid != INVALID_ENTITY_ID)
+    playerEid = (playerEid != ecs.INVALID_ENTITY_ID)
       ? playerEid
-      : playersSquads?[squadEid] ?? getSquadOwnerPlayerQuery(squadEid, @(_,comp) comp["squad__ownerPlayer"]) ?? INVALID_ENTITY_ID
-    if (playerEid == INVALID_ENTITY_ID || guid == "")
+      : playersSquads?[squadEid] ?? getSquadOwnerPlayerQuery(squadEid, @(_,comp) comp["squad__ownerPlayer"]) ?? ecs.INVALID_ENTITY_ID
+    if (playerEid == ecs.INVALID_ENTITY_ID || guid == "")
       continue
 
     let mData = getMemberData(playerEid, guid)

@@ -4,7 +4,7 @@ numBorderCellsXPos:i=0
 numBorderCellsXNeg:i=0
 numBorderCellsZPos:i=0
 numBorderCellsZNeg:i=0
-rendinstPreloadDistance:r=5000.0
+rendinstPreloadDistance:r=4000.0
 
 clipmap{
   texelSize:r=0.0078
@@ -862,76 +862,28 @@ grass{
 
 overrideRiLodRange{
 
-  tree_eucalyptus_d{
-    lod0:r=40.0
+  tree_tectona_grandis_medium_a{
+    lod0:r=35.0
     lod1:r=150.0
-    lod2:r=4500.0
+    lod2:r=4000.0
   }
 
-  tree_agathis_robusta_medium_a{
-    lod0:r=40.0
+  tree_tectona_grandis_medium_b{
+    lod0:r=35.0
     lod1:r=150.0
-    lod2:r=4700.0
+    lod2:r=3000.0
   }
 
   tree_agathis_robusta_medium_b{
-    lod0:r=40.0
+    lod0:r=35.0
     lod1:r=150.0
-    lod2:r=5000.0
+    lod2:r=3500.0
   }
 
-  tree_cocos_nucifera_medium_c{
-    lod0:r=40.0
+  tree_eucalyptus_d{
+    lod0:r=35.0
     lod1:r=150.0
-    lod2:r=4700.0
-  }
-
-  tree_cocos_nucifera_medium_d{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=1200.0
-  }
-
-  tree_cocos_nucifera_tall_a{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=1000.0
-  }
-
-  tree_musa_paradisiaca_tall_a{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=2300.0
-  }
-
-  tree_musa_paradisiaca_tall_b{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=2100.0
-  }
-
-  tree_musa_paradisiaca_small_a{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=1300.0
-  }
-
-  tree_musa_paradisiaca_small_b{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=1100.0
-  }
-
-  tree_musa_paradisiaca_smaller_a{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=900.0
-  }
-
-  tree_musa_paradisiaca_smaller_b{
-    lod0:r=40.0
-    lod1:r=150.0
-    lod2:r=700.0
+    lod2:r=2750.0
   }
 }
 

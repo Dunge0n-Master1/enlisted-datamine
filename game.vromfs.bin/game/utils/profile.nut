@@ -7,6 +7,7 @@ let stdlog = require("%enlSqGlob/library_logs.nut")
 let logPSC = stdlog.with_prefix("[profileServerClient]")
 let json = require("json")
 let { get_app_id } = require("app")
+let {logerr} = require("dagor.debug")
 
 let function error_response_converter(cb, result) {
   if ("error" in result) {
@@ -45,7 +46,7 @@ let function checkAndLogError(id, action, result) {
     }
     if (typeof err != "string")
       err = $"(full answer dump) {json.to_string(result)}"
-    stdlog.logerr($"[profileServerClient] request {id}: {action} returned error: {err}")
+    logerr($"[profileServerClient] request {id}: {action} returned error: {err}")
   } else {
     logPSC($"request {id}: {action} completed without error")
   }
@@ -54,7 +55,7 @@ let function checkAndLogError(id, action, result) {
 
 local function sendJob(action, appid, userid, data, id = null) {
   if (!isEnabled() || appid < 0) {
-    stdlog.logerr($"Refusing to send job {action} to profile")
+    logerr($"Refusing to send job {action} to profile")
     return
   }
 

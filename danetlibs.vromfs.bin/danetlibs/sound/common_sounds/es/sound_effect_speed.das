@@ -1,9 +1,10 @@
 require ecs
 require soundEvent
 require DagorMath
+require sound_utils_net.modules.sound_utils_net_events
 
-[es(tag=sound, no_order)]
-def sound_effect_speed(info : UpdateStageInfoAct;
+[es(tag=sound)]
+def sound_effect_speed(info : ParallelUpdateFrameDelayed;
                        var sound_effect_speed__pos : float3&;
                        sound_effect_speed__speedToVar : float4;
                        sound_effect__event : SoundEvent;

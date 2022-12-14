@@ -1,12 +1,29 @@
 require ecs
+require DagorTime
+require strings
 require enlisted.events_enlisted
 
 [es(tag=playingReplay, on_event=EventLevelLoaded)]
 def replay_create_cinematic_mode_settings_entity(evt : Event)
   createEntity("cinematic_mode_settings")
 
+[es(tag=playingReplay, on_appear, track=(isTpsView, isInVehicle), REQUIRE=watchedByPlr)]
+def set_all_camera_fov_by_hero(evt : Event; isTpsView : bool; isInVehicle : bool)
+  find_query() <| $ [es] (replay__vehicleFov : float; replay__humanFov : float)
+    let fov = isInVehicle && !isTpsView ? replay__vehicleFov : replay__humanFov
+    broadcastEvent([[CmdSetCameraFov fov=fov]])
+    return true
+
 [es(tag=render)]
 def set_all_camera_fov_es(evt : CmdSetCameraFov; var fovSettings : float&)
+  find_query() <| $ [es(REQUIRE=watchedByPlr)] (isTpsView : bool; isInVehicle : bool)
+    find_query() <| $ [es] (var replay__vehicleFov : float&; var replay__humanFov : float&)
+      if isInVehicle && !isTpsView
+        replay__vehicleFov = evt.fov
+      else
+        replay__humanFov = evt.fov
+      return true
+    return true
   fovSettings = evt.fov
 
 [es(tag=render)]
@@ -54,8 +71,8 @@ def set_dof_focus_distance_es(evt : CmdSetDofFocusDistance; var dof__focusDistan
   dof__focusDistance = evt.focusDistance
 
 [es(tag=render)]
-def set_dof_focal_length_es(evt : CmdSetDofFocalLength; var dof__focalLength : float&)
-  dof__focalLength = evt.focalLength
+def set_dof_focal_length_es(evt : CmdSetDofFocalLength; var dof__focalLength_mm : float&)
+  dof__focalLength_mm = evt.focalLength
 
 [es(tag=render)]
 def set_dof_fstop_es(evt : CmdSetDofFStop; var dof__fStop : float&)
@@ -92,3 +109,45 @@ def cinematic_enable_lightning_es(evt : CmdSetLightning; var cinematic_mode__lig
 [es(tag=render)]
 def cinematic_set_lense_flare_intensity_es(evt : CmdSetLenseFlareIntensity; var cinematic_mode__lenseFlareIntensity : float&)
   cinematic_mode__lenseFlareIntensity = evt.intensity
+
+[es(tag=render, REQUIRE=cinematic_mode_tag, on_disappear)]
+def stop_record_on_disable_cinematic_es(evt : Event;
+                                        var cinematic_mode__recording : bool&)
+  cinematic_mode__recording = false
+
+[es(tag=render, REQUIRE=cinematic_mode_tag)]
+def enable_cinematic_recording_es(evt : CmdSetCinemaRecording;
+                                  var cinematic_mode__recording : bool&;
+                                  var cinematic_mode__fname : das_string&)
+  if evt.enabled && !cinematic_mode__recording
+    var dt = iso8601_format_sec(uint64(int64(get_clock())))
+    dt = dt |> replace("-", "_") |> replace(":", ".")
+    cinematic_mode__fname := "records/{dt}.mp4"
+  cinematic_mode__recording = evt.enabled
+
+[es(tag=render)]
+def set_cinematic_post_fx_bloom_es(evt : CmdSetCinematicPostFxBloom; var cinematic_mode__enablePostBloom : bool&)
+  cinematic_mode__enablePostBloom = evt.enabled
+
+[es(tag=render, track=cinematic_mode__enablePostBloom)]
+def set_lut_switcher_enabled_es(evt : Event; cinematic_mode__enablePostBloom : bool)
+  query() <| $ [es(REQUIRE=watchedByPlr)] (var lut_switcher__enabled : bool&)
+    lut_switcher__enabled = cinematic_mode__enablePostBloom
+
+[es(tag=render, on_appear, REQUIRE=watchedByPlr, before=tonemapper_switcher_input)]
+def set_lut_switcher_on_hero_change_es(evt : Event; var lut_switcher__enabled : bool&)
+  find_query() <| $ [es] (cinematic_mode__enablePostBloom : bool)
+    lut_switcher__enabled = cinematic_mode__enablePostBloom
+    return true
+
+[es(tag=render)]
+def set_cinematic_super_pixels(evt : CmdSetCinematicSetSuperPixels; var cinematic_mode__superPixels : int&)
+  cinematic_mode__superPixels = evt.super_pixels
+
+[es(tag=render)]
+def cinematic_enable_custom_settings_es(evt : CmdSetCinematicCustomSettings; var settings_override__useCustomSettings : bool&)
+  settings_override__useCustomSettings = evt.enabled
+
+[es(tag=(playingReplay, render))]
+def set_camera_lerp_factor_es(evt : CmdSetCameraLerpFactor; var replay_camera__tpsLerpFactor : float&)
+  replay_camera__tpsLerpFactor = evt.lerpFactor

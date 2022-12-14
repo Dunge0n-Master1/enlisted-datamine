@@ -1,9 +1,10 @@
 require ecs
 require app
-require EnlistedNet
 require strings
 require game.es.events
 require game.es.game_effect_common
+require danetlibs.native_dasevents.main.native_events
+
 
 def is_target_active(eid : EntityId; game_effect__affectsInvisible : bool)
   var active = true
@@ -32,10 +33,10 @@ def game_effect_on_destruction_perk(evt : EventRiExtraDestroyed;
 def trap_triggered_by_destruction_message(evt : EventRiExtraDestroyed; game_effect__localNotification : string; game_effect__affectsInvisible = false)
   let offender = get_hero_offender(evt.offenderEid)
   if !empty(game_effect__localNotification) && is_target_active(offender, game_effect__affectsInvisible)
-    send_net_event(offender, [[CmdHeroLogEvent event="spray_log", text=game_effect__localNotification]])
+    sendEvent(offender, [[CmdHeroLogEvent event="spray_log", text=game_effect__localNotification]])
 
 [es(tag=server)]
 def trap_triggered_by_destruction_owner_message(evt : EventRiExtraDestroyed; ownerEid : EntityId; game_effect__ownerNotification : string; game_effect__affectsInvisible = false)
   let offender = get_hero_offender(evt.offenderEid)
   if !empty(game_effect__ownerNotification) && ownerEid != offender && is_target_active(offender, game_effect__affectsInvisible)
-    send_net_event(ownerEid, [[CmdHeroLogEvent event="spray_log", text=game_effect__ownerNotification]])
+    sendEvent(ownerEid, [[CmdHeroLogEvent event="spray_log", text=game_effect__ownerNotification]])

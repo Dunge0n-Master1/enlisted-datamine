@@ -26,8 +26,9 @@ let { LOW_LATENCY_BLK_PATH, LOW_LATENCY_OFF, LOW_LATENCY_NV_ON,
 let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
-let { is_inline_rt_supported, is_dx12, is_hdr_available,
-  is_hdr_enabled, change_paper_white_nits, change_gamma, get_default_static_resolution_scale = null } = require("videomode")
+let { is_inline_rt_supported, is_dx12, is_hdr_available, is_hdr_enabled, change_paper_white_nits,
+  change_gamma, get_default_static_resolution_scale
+} = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
 let {isBareMinimum} = require("quality_preset_common.nut")
@@ -213,21 +214,13 @@ let optPerformanceMetrics = optionCtor({
   name = loc("options/perfMetrics", "Performance Metrics")
   tab = "Graphics"
   widgetCtor = optionSpinner
-  isAvailable = isDevBuild
+  isAvailable = isOptAvailable
   blkPath = PERF_METRICS_BLK_PATH
   defVal = PERF_METRICS_FPS
   var = perfMetricsValue
   setValue = perfMetricsSetValue
   available = perfMetricsAvailable
   valToString = @(v) loc(perfMetricsToString[v])
-})
-let optLatencyFlash = optionCtor({
-  name = loc("options/latencyFlash", "Latency Flash Indicator")
-  tab = "Graphics"
-  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
-  blkPath = "video/latencyFlash"
-  defVal = false
-  isAvailable = isDevBuild
 })
 let optShadowsQuality = optionCtor({
   name = loc("options/shadowsQuality", "Shadow Quality")
@@ -425,10 +418,11 @@ let antiAliasingModeToString = {
 }
 
 let antiAliasingModeChoosen = Watched(get_setting_by_blk_path("video/antiAliasingMode")
-                                       ?? (platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : antiAliasingMode.TAA))
+    ?? (platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : antiAliasingMode.TAA))
 let antiAliasingModeSetValue = @(v) antiAliasingModeChoosen(v)
 let antiAliasingModeValue = Computed(@() isBareMinimum.value ? antiAliasingMode.FXAA
                                                              : max(antiAliasingModeChoosen.value, antiAliasingMode.TAA))
+
 
 let optAntiAliasingMode = optionCtor({
   name = loc("options/antiAliasingMode", "Anti-aliasing Mode")
@@ -523,7 +517,7 @@ let optStaticResolutionScale = optionCtor({
   isAvailableWatched = Computed(@() isOptAvailable() && isBareMinimum.value)
   widgetCtor = optionPercentTextSliderCtor
   blkPath = "video/staticResolutionScale"
-  defVal = get_default_static_resolution_scale?() ?? 100.0
+  defVal = get_default_static_resolution_scale()
   min = 50.0
   max = 100.0
   unit = 5.0/50.0
@@ -669,6 +663,7 @@ let optFSR = optionCtor({
   valToString = loc_opt
 })
 
+
 let optFFTWaterQuality = optionCtor({
   name = loc("options/fft_water_quality", "Water Ripples Quality")
   tab = "Graphics"
@@ -710,7 +705,6 @@ return {
   optHdr
   optPaperWhiteNits
   optPerformanceMetrics
-  optLatencyFlash
   optLatency
   optVsync
   optFpsLimit
@@ -760,7 +754,6 @@ return {
     optPaperWhiteNits,
     optGammaCorrection,
     optPerformanceMetrics,
-    optLatencyFlash,
     optLatency,
     optVsync,
     optFpsLimit,

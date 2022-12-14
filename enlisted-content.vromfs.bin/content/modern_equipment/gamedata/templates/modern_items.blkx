@@ -2,7 +2,7 @@ helmet_armor_vis{
   slot_attach__slotName:t="head_armor"
   animchar_hider__camThreshold:r=0.3
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="Bip01 Tail1"
     node:t="hide_hat"
     node:t="hide_hair"
@@ -113,7 +113,7 @@ attachable_wear_rus_armor{
   animchar__res:t="armor_ww_rus_a_char"
   collres__res:t="armor_ww_rus_a_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 
@@ -150,7 +150,7 @@ attachable_wear_armor_eagle_low_m{
   animchar__res:t="armor_eagle_low_m_char"
   collres__res:t="armor_eagle_low_m_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 
@@ -187,7 +187,7 @@ attachable_wear_armor_nivel_3_m{
   animchar__res:t="armor_nivel_3_m_char"
   collres__res:t="armor_nivel_3_m_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 
@@ -224,7 +224,7 @@ attachable_wear_armor_nivel_4_m{
   animchar__res:t="armor_nivel_4_m_char"
   collres__res:t="armor_nivel_4_m_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 
@@ -261,7 +261,7 @@ attachable_wear_armor_second_chance_spa2_m{
   animchar__res:t="armor_second_chance_spa2_m_char"
   collres__res:t="armor_second_chance_spa2_m_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 
@@ -298,7 +298,7 @@ attachable_wear_armor_vest_tactical_us_m{
   animchar__res:t="armor_vest_tactical_us_m_char"
   collres__res:t="armor_vest_tactical_us_m_collision"
 
-  "base_vis_item__hideFromNode:array"{
+  "base_vis_item__hideFromNode:list<t>"{
     node:t="hide"
   }
 

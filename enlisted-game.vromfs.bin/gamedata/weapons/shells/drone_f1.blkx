@@ -1,0 +1,69 @@
+mass:r=0.6
+explosiveType:t="tnt"
+explosiveMass:r=0.06
+bombType:t="he_bomb"
+bombName:t="fab50_43"
+caliber:r=0.219
+length:r=0.936
+distFromCmToStab:r=0.3
+dragCx:r=0.02
+sound:t="weapon.bomb_mid"
+explosionPatchRadius:r=4.0
+waterExplosionEffect:t="bigesplashxplosion_fx"
+fallToUnitFx:t="hit_81_105mm_metal_ap"
+fallToWaterFx:t="bomb_reflection"
+fallFx:t="hit_59_80mm_dirt_ap"
+shatterPatchRadius:r=0.0
+visualShattersWaterOffset:r=1.2
+visualShattersGroundOffset:r=1.2
+explodeTreshold:r=0.0
+hitPowerMult:r=1.0
+explodeHitPower:r=120.0
+nearHitPower:p2=1.0, 50.0
+explodeArmorPower:r=35.0
+midHitPower:p2=0.9, 400.0
+explodeRadius:p2=1.0, 3.0
+farHitPower:p2=0.1, 1000.0
+endHitPower:p2=0.01, 1500.0
+rendinstDamageRadius:r=9.0
+relativeVelHitShift:p2=300.0, 1000.0
+nearArmorPower:p2=10.0, 50.0
+shutterDamage:b=yes
+midArmorPower:p2=7.0, 400.0
+shutterDamageRadius:r=40.0
+farArmorPower:p2=0.2, 700.0
+shutterAmount:i=2000
+relativeVelArmorShift:p2=200.0, 1000.0
+shutterArmorPower:r=10.0
+iconType:t="bombs_small"
+entityTemplate:t="fab_50_bomb_projectile"
+entityPhysTemplate:t=""
+
+pressureDamage{
+  damageType:t="pressure"
+}
+
+DamageParts{
+
+  body{
+    hp:r=35.0
+    armorClass:t="tank_structural_steel"
+    armorThickness:r=5.0
+    explosionArmorQuality:r=45.0
+    shatterArmorQuality:r=45.0
+  }
+}
+
+hitFx{
+  defaultFx:t="generic_weapon_hit_ground"
+  jetFx:t="generic_weapon_hit_ground"
+
+  water3d{
+    fx:t="water_hit_big_cmps_fx"
+    fxScale:p2=1.0, 1.0
+  }
+}
+
+explFx{
+  effectTemplName:t="explosion_50_100kg_dirt_effect"
+}

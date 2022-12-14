@@ -177,6 +177,7 @@ let function makeTabsList() {
     {id="Squad" text=loc("controls/tab/Squad")}
     {id="Vehicle" text=loc("controls/tab/Vehicle")}
     {id="Plane" text=loc("controls/tab/Plane")}
+    {id="Drone" text=loc("controls/tab/Drone")}
     {id="Other" text=loc("controls/tab/Other")}
     {id="UI" text=loc("controls/tab/UI")}
     {id="VoiceChat" text=loc("controls/tab/VoiceChat") isEnabled = @() isVoiceChatAvailable }
@@ -1055,7 +1056,7 @@ let function sensMulSlider(prop) {
     function setValue(new_val) {
       var(new_val)
       sensScale[prop] = new_val
-      //haveChanges(true)
+      haveChanges(true)
     }
     min = 0.05
     max = 5.0
@@ -1077,6 +1078,7 @@ let function smoothMulSlider(action_name) {
     function setValue(new_val) {
       aim_smooth_set(new_val)
       dainput.set_analog_stick_action_smooth_value(act, new_val)
+      haveChanges(true)
     }
   }
   return mkSliderWithText(opt, null, XmbNode())
@@ -1093,7 +1095,12 @@ const minDZ = 0.0
 const maxDZ = 0.4
 const stepDZ = 0.01
 let function deadZoneScaleSlider(val, setVal){
-  let opt = {var = val, min = minDZ, max = maxDZ, step=stepDZ, scaling = slider.scales.linear, setValue = setVal}
+  let opt = { var = val, min = minDZ, max = maxDZ, step=stepDZ, scaling = slider.scales.linear,
+    setValue = function(param){
+      setVal(param)
+      haveChanges(true)
+    }
+  }
   return mkSliderWithText(opt, null, XmbNode(), showDeadZone)
 }
 let isUserConfigCustomized = Watched(false)
@@ -1195,7 +1202,7 @@ let function options() {
       gui_scene.setInterval(0.5, pollSettings) //not enough to listen to changes and generations!!
     }
     onDetach = @() gui_scene.clearTimer(pollSettings)
-    watch = [controlsSettingOnlyForGamePad, wasGamepad]
+    watch = [controlsSettingOnlyForGamePad, wasGamepad, generation]
     xmbNode = XmbContainer()
     children = [bindingsArea]
     animations = pageAnim

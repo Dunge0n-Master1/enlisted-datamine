@@ -11,7 +11,7 @@ let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
 */
 
 /// =====hero_eid ====
-let controlledHeroEid = Watched(INVALID_ENTITY_ID)
+let controlledHeroEid = Watched(ecs.INVALID_ENTITY_ID)
 
 wlog(controlledHeroEid, "controlled: ")
 

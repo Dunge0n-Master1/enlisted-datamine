@@ -2,7 +2,7 @@
 const CAMPAIGN_STALINGRAD_FREEMIUM = 1
 const CAMPAIGN_PACIFIC_PASS = 2
 
-let campaignConfigs = {
+let campaignConfigs = freeze({
   [CAMPAIGN_STALINGRAD_FREEMIUM] = {
     locBase = "freemium"
     backImage = "ui/gameImage/freemium_bg.jpg"
@@ -19,7 +19,7 @@ let campaignConfigs = {
     color = 0xFF34911E
     darkColor = 0xFF256715
   }
-}
+})
 
 let getConfig = @(groupId) campaignConfigs?[groupId] ?? {}
 

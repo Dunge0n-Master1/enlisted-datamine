@@ -1,5 +1,6 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
 }
 
 entity{

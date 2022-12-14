@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tabBgColor, colPart, titleTxtColor, defBdColor, hoverTxtColor, defTxtColor,
+let { accentColor, colPart, titleTxtColor, defBdColor, hoverTxtColor, defTxtColor,
   smallPadding, disabledTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 
-let calcFrameColor = @(sf) sf & S_HOVER ? tabBgColor : titleTxtColor
+let calcFrameColor = @(sf) sf & S_HOVER ? accentColor : titleTxtColor
 let calcKnobColor =  @(sf, isEnabled) !isEnabled ? disabledTxtColor
-  : sf & S_ACTIVE ? tabBgColor
+  : sf & S_ACTIVE ? accentColor
   : titleTxtColor
 
 let defLabelStyle = {
@@ -94,7 +94,7 @@ let function mkSlider(var, label, options = {}) {
                   fillColor =  calcFrameColor(sf)
                   borderWidth = sf & S_HOVER ? hdpx(1) : hdpx(0)
                   borderRadius = factor < 100.0 ? [hdpx(2), 0, 0, hdpx(2)] : hdpx(2)
-                  borderColor = tabBgColor
+                  borderColor = accentColor
                 }
                 {
                   group

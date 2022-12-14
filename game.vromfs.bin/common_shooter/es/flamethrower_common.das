@@ -10,6 +10,7 @@ require game.events_game
 require Dacoll
 require Grid
 require GridCollision
+require CollisionTraces
 require AnimV20
 require GeomNodeTree
 require DagorMath

@@ -284,7 +284,7 @@ let function updatePendingItemDefRequest(cb, shouldRefreshAll) {
       cbList = [],
       shouldRefreshAll = false,
       fireCb = function() {
-        foreach (cbFunc in cbList)
+        foreach (cbFunc in this.cbList)
           cbFunc()
       }
     }
@@ -331,7 +331,7 @@ requestItemDefsImpl = function() {
 
   lastItemdefsRequestTime = get_time_msec()
   params.internalLanguage <- gameLanguage
-  params.language <- loc("steam/languageName", params.internalLanguage.tolower())
+  params.language <- loc("steam/languageName", params.internalLanguage).tolower()
   request("GetItemDefsClient", params, null,
     function(result) {
       lastItemdefsRequestTime = -1

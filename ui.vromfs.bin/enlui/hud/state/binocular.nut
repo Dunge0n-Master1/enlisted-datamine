@@ -5,8 +5,8 @@ let { anyItemComps, mkItemDescFromComp } = require("items.nut")
 
 let isBinocularMode = Watched(false)
 let binocularInfo = Watched()
-let heroBinocularEid = Watched(INVALID_ENTITY_ID)
-let hasHeroBinocular = Computed(@() heroBinocularEid.value!=INVALID_ENTITY_ID)
+let heroBinocularEid = Watched(ecs.INVALID_ENTITY_ID)
+let hasHeroBinocular = Computed(@() heroBinocularEid.value!=ecs.INVALID_ENTITY_ID)
 
 let memoizedBinocularDescription = memoize(@(_name, eid, comp) mkItemDescFromComp(eid, comp), 1)
 
@@ -16,7 +16,7 @@ ecs.register_es("binocular_hero_state", {
     binocularInfo(memoizedBinocularDescription(comp["item__name"], 1, comp))
   }
   onDestroy = function(...) {
-    heroBinocularEid(INVALID_ENTITY_ID)
+    heroBinocularEid(ecs.INVALID_ENTITY_ID)
     binocularInfo(null)
   }
 },

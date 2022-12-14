@@ -74,6 +74,7 @@ tank_turret_control_components{
     vehicle_input__shoot:i=0
     vehicle_input__shootSecondary:i=0
     vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
     vehicle_input__shootTurret03:i=0
     vehicle_input__mainNextBulletType:i=0
     vehicle_input__secondaryNextBulletType:i=0
@@ -92,6 +93,7 @@ cannon_turret_control_components{
     vehicle_input__shoot:i=0
     vehicle_input__shootSecondary:i=0
     vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
     vehicle_input__shootTurret03:i=0
     vehicle_input__mainNextBulletType:i=0
     vehicle_input__secondaryNextBulletType:i=0
@@ -110,6 +112,7 @@ bike_turret_control_components{
     vehicle_input__shoot:i=0
     vehicle_input__shootSecondary:i=0
     vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
     vehicle_input__shootTurret03:i=0
     vehicle_input__mainNextBulletType:i=0
     vehicle_input__secondaryNextBulletType:i=0
@@ -230,6 +233,7 @@ turret_base{
   _extends:t="turret_ammo_sets"
   _extends:t="turret_gun_sound"
   _extends:t="ui_turret_reload_progress"
+  _extends:t="turret_hit_fx_info"
   gun__useLocalPlayerTracer:b=no
   gun__blk:t="content/tanks/gamedata/weapons/empty.blk"
   gun__shootNodeName:t="bone_gun_barrel"
@@ -247,7 +251,7 @@ turret_base{
   _tracked:t="turret__isControlledByAi"
   _tracked:t="turret_ai__atackTarget"
   _tracked:t="turret_ai__chaseTarget"
-  turret_input__turretTriggers:i=0
+  turret__triggerGroup:i=0
   turret__id:i=-1
   turret__name:t=""
   turret__isGunDirInited:b=no
@@ -397,6 +401,18 @@ turret_base{
   "turret_aim__target:eid"{
   }
 
+  "turret__isCut:b"{
+    _replicate:b=yes
+    _track:b=yes
+    value:b=no
+  }
+
+  "turret_isVisible:b"{
+    _replicate:b=yes
+    _track:b=yes
+    value:b=yes
+  }
+
   "isTurret:tag"{
   }
 
@@ -473,15 +489,13 @@ reloadable_turret{
 
 tankgun{
   _extends:t="turret_base"
-  gun__projectileTemplate:t="bullet_projectile+disable_ricochet"
-  gun__projectileDebugTemplate:t="bullet_projectile+disable_ricochet+bullet_projectile_debug"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
+  gun__projectileTemplate:t="bullet_projectile"
+  gun__projectileDebugTemplate:t="bullet_projectile+bullet_projectile_debug"
 }
 
 plane_machinegun{
   _extends:t="turret_base"
   _extends:t="reloadable_turret"
-  shell_explosion_fx__infoTemplate:t="global_turret_hit_fx_info"
 }
 
 turret_with_group{

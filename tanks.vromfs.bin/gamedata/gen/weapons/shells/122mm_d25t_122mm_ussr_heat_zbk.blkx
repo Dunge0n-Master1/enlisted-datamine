@@ -15,8 +15,8 @@ bulletName:t="122mm_zbk_10"
 hitPower:r=260.0
 fuseDelayDist:r=0.05
 explodeTreshold:r=0.1
-selfDestructionFx:t="explosion_air_selfexplosion_big"
-explosionEffect:t="hit_106_132mm_metal_he"
+selfDestructionFx:t="hit_81_132mm_heat"
+explosionEffect:t="hit_81_132mm_heat"
 groundCollisionEffect:t="hit_106_132mm_dirt_he"
 ricochetEffect:t="hit_106_132mm_metal_ap"
 waterCollisionEffect:t="hit_106_132mm_water_he"
@@ -409,7 +409,8 @@ hitFx{
   }
 
   wood{
-    fx:t="hit_106_132mm_wood_he"
+    fx:t="hit_81_132mm_heat"
+    copyBulletTm:b=yes
     fxScale:p2=1.0, 1.0
   }
 

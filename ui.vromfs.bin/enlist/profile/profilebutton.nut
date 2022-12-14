@@ -11,7 +11,8 @@ let {
 let { hasAchievementsReward } = require("%enlist/unlocks/taskListState.nut")
 let { chosenNickFrame, chosenPortrait } = require("%enlist/profile/decoratorState.nut")
 let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { panelBgColor, midPadding, defTxtColor, titleTxtColor, columnWidth
+let { midPadding, defTxtColor, titleTxtColor, columnWidth, defVertGradientImg,
+  hoverVertGradientImg, colPart
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
@@ -24,7 +25,20 @@ let {
 
 
 let portraitWidth = columnWidth
-let stateFlag = Watched(0)
+let squareBlockSize= [portraitWidth, portraitWidth]
+
+let defBlockBg = {
+  size = squareBlockSize
+  rendObj = ROBJ_IMAGE
+  image = defVertGradientImg
+}
+
+let hoverBlockBg = {
+  size = squareBlockSize
+  rendObj = ROBJ_IMAGE
+  image = hoverVertGradientImg
+}
+
 
 let hasUnseenElements = Computed(@() hasUnseenDecorators.value
   || hasUnseenMedals.value
@@ -37,6 +51,7 @@ let hasUnopenedElements = Computed(@() hasUnopenedDecorators.value
   || hasUnopenedWallposters.value
   || hasUnopenedAchievements.value
   || hasUnopenedWeeklyTasks.value)
+
 
 let smallNickTxtCommon = {
   color =  defTxtColor
@@ -55,21 +70,21 @@ let largeNickTxtHovered = {
 }.__update(fontLarge)
 
 
-let playerRankBlock = @() {
+let playerRankBlock = @(sf) @() {
   watch = playerRank
-  rendObj = ROBJ_SOLID
-  color = panelBgColor
-  size = [portraitWidth, portraitWidth]
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
-  children = mkRankIcon(playerRank.value?.rank, hdpxi(43))
+  children = [
+    sf & S_HOVER ? hoverBlockBg : defBlockBg
+    mkRankIcon(playerRank.value?.rank, colPart(0.53))
+  ]
 }
 
-let playerPortrait = @() {
+
+let playerPortrait = @(sf) @() {
   watch = [hasUnseenElements, hasUnopenedElements, chosenPortrait]
-  rendObj = ROBJ_SOLID
-  color = panelBgColor
   children = [
+    sf & S_HOVER ? hoverBlockBg : defBlockBg
     mkPortraitIcon(getPortrait(chosenPortrait.value?.guid), portraitWidth)
     {
       pos = [0, midPadding]
@@ -83,13 +98,12 @@ let playerPortrait = @() {
 }
 
 
-let function nickNameBlock() {
+let nickNameBlock = @(sf) function() {
   let curRank = getRankConfig(playerRank.value?.rank)
   let pNick = userInfo.value?.nameorig ?? ""
   let nickFrame = chosenNickFrame.value?.guid
-  let sf = stateFlag.value
   return {
-    watch = [playerRank, chosenNickFrame, userInfo, stateFlag]
+    watch = [playerRank, chosenNickFrame, userInfo]
     flow = FLOW_VERTICAL
     halign = ALIGN_RIGHT
     children = [
@@ -107,28 +121,25 @@ let function nickNameBlock() {
 }
 
 
-let profileButtonUi = {
+let profileButtonUi = watchElemState(@(sf) {
   size = [SIZE_TO_CONTENT, premiumBtnSize]
   halign = ALIGN_RIGHT
-  children = {
-    flow = FLOW_HORIZONTAL
-    behavior = Behaviors.Button
-    gap = midPadding
-    onClick = profileScene
-    valign = ALIGN_CENTER
-    onElemState = @(sf) stateFlag(sf)
-    onHover = @(on) setTooltip(on ? loc("btn/openProfile") : null)
-    children = [
-      nickNameBlock
-      {
-        flow = FLOW_HORIZONTAL
-        children = [
-          playerPortrait
-          playerRankBlock
-        ]
-      }
-    ]
-  }
-}
+  behavior = Behaviors.Button
+  onHover = @(on) setTooltip(on ? loc("btn/openProfile") : null)
+  onClick = profileScene
+  flow = FLOW_HORIZONTAL
+  gap = midPadding
+  valign = ALIGN_CENTER
+  children = [
+    nickNameBlock(sf)
+    {
+      flow = FLOW_HORIZONTAL
+      children = [
+        playerPortrait(sf)
+        playerRankBlock(sf)
+      ]
+    }
+  ]
+})
 
 return profileButtonUi

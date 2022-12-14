@@ -1,20 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  gap, activeBgColor, hoverBgColor, defBgColor, slotBaseSize, disabledTxtColor,
+let { gap, activeBgColor, hoverBgColor, defBgColor, slotBaseSize, disabledTxtColor,
   blockedTxtColor, deadTxtColor, listCtors
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { statusIconWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
-let {
-  kindIcon, classIcon, levelBlock, tierText, classTooltip, rankingTooltip,
+let { kindIcon, classIcon, levelBlock, tierText, classTooltip, rankingTooltip,
   calcExperienceData, experienceTooltip, mkSoldierMedalIcon
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let {
-  getItemLocIdByTemplate, getObjectName
-} = require("%enlSqGlob/ui/itemsInfo.nut")
+let { getItemName, getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
@@ -83,11 +79,12 @@ let mkDropSoldierInfoBlock = @(soldierInfo, squadInfo, nameColor, textColor, gro
 }
 
 let function mkWeaponRow(soldierInfo, weaponColor, group, override = {}) {
-  let { primaryWeapon = null } = soldierInfo
-  let weaponLocId = primaryWeapon != null
-    ? getItemLocIdByTemplate(primaryWeapon?.gametemplate) ?? primaryWeapon?.name
-    : getItemLocIdByTemplate((soldierInfo?.weapons ?? [])
-        .findvalue(@(v, idx) idx < 3 && (v?.templateName ?? "") != "")?.templateName)
+  let { primaryWeapon = null, weapons = [] } = soldierInfo
+  let template = primaryWeapon
+    ?? weapons.findvalue(@(v, idx) idx < 3 && (v?.templateName ?? "") != "")?.templateName
+  let weaponLocId = template != null
+    ? getItemName(template)
+    : "delivery/withoutWeapon"
   return autoscrollText({
     text = loc(weaponLocId)
     color = weaponColor
@@ -124,7 +121,7 @@ let function soldierName(soldierInfo, nameColor, group) {
   }
 }
 
-let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFreemiumMode, expToLevel) {
+let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFreemiumMode, thresholdColor, expToLevel) {
   let {
     guid = "", perksCount = 0, level = 1, maxLevel = 1, tier = 1
   } = soldierInfo
@@ -145,6 +142,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
           hasLeftLevelBlink = true
           guid = guid
           isFreemiumMode = isFreemiumMode
+          thresholdColor
           tier = tier
         }).__update({ margin = [gap, 0] }),
         @() experienceTooltip(calcExperienceData(soldierInfo, expToLevel)))
@@ -155,7 +153,7 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
 let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   isFaded = false, isDead = false, size = slotBaseSize, isClassRestricted = false,
   hasAlertStyle = false, hasWeaponWarning = false, addChild = null, squadInfo = null, updStyle = {},
-  isDisarmed = false, isFreemiumMode = false, expToLevel = []
+  isDisarmed = false, isFreemiumMode = false, thresholdColor = 0, expToLevel = []
 ) {
   let canSpawn = soldierInfo?.canSpawn ?? true
   let isBlocked = isDead || !canSpawn
@@ -215,6 +213,7 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
                 weaponRow,
                 group,
                 isFreemiumMode,
+                thresholdColor,
                 expToLevel
               )
             : mkDropSoldierInfoBlock(

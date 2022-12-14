@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { squadLeaderState, isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedProgressCampaigns } = require("campaigns.nut")
 

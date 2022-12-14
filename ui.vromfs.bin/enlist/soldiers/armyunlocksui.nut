@@ -48,14 +48,11 @@ let { weapInfoBtn, btnSizeSmall, progressBarWidth, rewardToScroll,
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let mkBuyArmyLevel = require("mkBuyArmyLevel.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { CAMPAIGN_NONE, needFreemiumStatus, isConfigurableCampaign, isCampaignBought, disableArmyExp,
-  campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
+let { CAMPAIGN_NONE, needFreemiumStatus, isPurchaseableCampaign, isCampaignBought,
+  disableArmyExp, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
-
-local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let tblScrollHandler = ScrollHandler()
 
@@ -92,7 +89,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.append(mkUnlockInfo(unlockText))
   else if (!hasReceived
       && unlockCb != null
-      && (!isFreemium || (isConfigurableCampaign.value && isCampaignBought.value))) {
+      && (!isFreemium || (isPurchaseableCampaign.value && isCampaignBought.value))) {
     let buttonCtor = isShowcase ? Purchase : PrimaryFlat
     children.append(buttonCtor(unlockText ?? unlockLocTxt,
       unlockCb,
@@ -108,7 +105,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.insert(0, freemiumPromoLink)
 
   return {
-    watch = [isConfigurableCampaign, isCampaignBought, needFreemiumStatus]
+    watch = [isPurchaseableCampaign, isCampaignBought, needFreemiumStatus]
     vplace = ALIGN_BOTTOM
     minWidth = btnSizeSmall[0]
     hplace = ALIGN_RIGHT
@@ -342,13 +339,14 @@ let function mkShowcaseItem(shopItemGuid, uid) {
       hplace = ALIGN_CENTER
     }
   })
+  let isPrimeSquad = (squadCfg?.battleExpBonus ?? 0.0) > 0.0
   return {
     behavior = Behaviors.Button
     xmbNode = XmbNode()
     onClick = openBuySquadScene
     children = mkLevelFrame(
       squadCfg == null ? null
-        : mkSquadSmallCard({ squad, armyId, squadCfg, unlockInfo, summary, isPrimeSquad = true,
+        : mkSquadSmallCard({ squad, armyId, squadCfg, unlockInfo, summary, isPrimeSquad,
             onClick = function() {
               rewardToScroll(uid)
               openBuySquadScene()
@@ -381,7 +379,7 @@ let function freemiumProgressBar(
 ) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward && hasFreemium)
     return completedProgressLine(1, glareAnimation(2), color, darkColor)
-  else if (nextUnlockLvl > level && expCur >= expToReceive)
+  if (nextUnlockLvl > level && expCur >= expToReceive)
     return acquiredProgressLine(1, [], color, color)
 
   progress = expToReceive > 0
@@ -390,11 +388,12 @@ let function freemiumProgressBar(
   return gradientProgressLine(progress, "!ui/uiskin/progress_bar_freemium_gradient.svg")
 }
 
-let function progressBarVariation(nextUnlockLvl, level, expCur,
-                                      expToReceive, progress, hasNotReceivedReward){
+let function progressBarVariation(nextUnlockLvl, level, expCur, expToReceive,
+  progress, hasNotReceivedReward
+) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward)
     return completedProgressLine(1, glareAnimation(2))
-  else if (nextUnlockLvl > level)
+  if (nextUnlockLvl > level && expCur >= expToReceive)
     return acquiredProgressLine(1, [], accentColor)
 
   progress = expToReceive > 0
@@ -509,9 +508,7 @@ tblScrollHandler.subscribe(function(_) {
 
 
 let function getPositionByLvl() {
-  let curLvl = curArmyNextUnlockLevel.value
-  if (curLvl <= 2)
-    return 0
+  let curLvl = max(2, curArmyNextUnlockLevel.value)
 
   local neededIdx = curLvl - 1
 

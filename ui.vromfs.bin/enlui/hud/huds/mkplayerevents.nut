@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { DEFAULT_TEXT_COLOR, TEAM0_TEXT_COLOR, TEAM1_TEXT_COLOR } = require("%ui/hud/style.nut")
+let { BRIGHT_TEXT_COLOR, TEAM0_TEXT_COLOR, TEAM1_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { controlHint } = require("%ui/components/templateControls.nut")
 let { makeSvgImgFromText } = require("%ui/control/formatInputBinding.nut")
@@ -31,7 +31,7 @@ let gkImg = function(h) {
 
 let function makeDefText(item) {
   let color = item?.color ?? (
-    "myTeamScores" not in item ? DEFAULT_TEXT_COLOR
+    "myTeamScores" not in item ? BRIGHT_TEXT_COLOR
       : item.myTeamScores ? TEAM0_TEXT_COLOR
       : TEAM1_TEXT_COLOR)
   let animations = item?.animations ?? defTextAnims
@@ -42,7 +42,7 @@ let function makeDefText(item) {
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
     fontFx = FFT_BLUR
-    fontFxColor = Color(0,0,0,50)
+    fontFxColor = Color(0, 0, 0, 150)
     fontFxFactor = min(64, hdpx(64))
     fontFxOffsY = hdpx(0.9)
     text

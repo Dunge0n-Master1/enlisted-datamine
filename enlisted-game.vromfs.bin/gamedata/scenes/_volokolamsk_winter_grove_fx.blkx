@@ -1,0 +1,234 @@
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [734.442, 1.93537, 1847.45]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [605.793, 5.90817, 1842.4]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [559.63, 7.89716, 1824.3]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [732.575, 8.06867, 1828.33]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [619.075, 9.96007, 1778.92]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [572.737, 5.88716, 1750.06]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [766.129, 8.62924, 1751.0]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [775.308, 7.80875, 1745.33]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [768.04, 4.17989, 1828.35]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [736.361, 8.57269, 1779.19]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [729.965, 7.89197, 1789.91]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [774.696, 6.98403, 1784.59]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [730.057, 7.87394, 1814.77]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [762.233, 7.31016, 1819.34]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [686.287, 11.357, 1817.46]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [695.746, 1.34978, 1817.5]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [664.971, 10.647, 1817.89]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [649.712, 10.0206, 1822.22]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [654.625, 10.4259, 1793.04]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [657.911, 11.2588, 1772.72]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [603.7, 8.98449, 1782.4]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [622.511, 9.42241, 1788.81]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [588.321, 7.64748, 1811.21]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [699.48, 15.4556, 1751.59]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [705.035, 15.9865, 1746.92]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [572.661, 2.86315, 1754.54]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [628.028, 8.83216, 1811.58]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [673.874, 17.3026, 1740.69]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [496.847, 9.52862, 1760.25]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [528.978, 7.88285, 1804.41]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [531.553, 8.73788, 1795.33]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [481.818, 5.51313, 1719.1]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [469.685, 9.61573, 1751.64]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [499.027, 4.8925, 1795.72]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [538.58, 6.05121, 1797.27]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [525.994, 12.349, 1747.6]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [499.524, 5.90892, 1763.76]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [500.491, 4.79008, 1787.73]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [490.905, 5.92775, 1788.08]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [532.247, 11.0545, 1797.17]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [500.559, 6.3854, 1759.13]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [529.756, 8.33002, 1803.58]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [505.368, 9.52862, 1760.65]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [467.759, 7.19723, 1753.74]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [579.18, 8.98645, 1804.73]]
+}
+
+entity{
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [391.671, 7.64777, 1830.82]]
+}
+
+entity{
+  _template:t="fire_bonfire_medium_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [475.288, 4.77798, 1723.54]]
+}

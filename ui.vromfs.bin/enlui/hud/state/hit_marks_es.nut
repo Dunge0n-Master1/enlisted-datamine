@@ -22,10 +22,6 @@ let showWorldKillMark = Watched(true)
 */
 let hitMarks = mkWatched(persist, "hits", [])
 let killMarks = mkWatched(persist, "killMarks", [])
-let function mkCleanMarks(state){
-  return @() state.update(state.value.filter(@(mark) (mark.time + mark.ttl*1000) > get_time_msec()))
-}
-{[killMarks, hitMarks].each(@(state) gui_scene.setInterval(5, mkCleanMarks(state)))}
 
 let function mkRemoveHitMarkById(state, id){
   return function(){

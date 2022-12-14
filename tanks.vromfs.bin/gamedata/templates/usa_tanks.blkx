@@ -6,23 +6,17 @@ import:t="tanks/uk_sherman_ic_firefly.blk"
 import:t="tanks/us_m5a1_stuart_late.blk"
 import:t="tanks/us_m8_scott.blk"
 import:t="tanks/us_m10_wolverine.blk"
+import:t="tanks/us_m18_hellcat.blk"
 import:t="tanks/us_m24_chaffee.blk"
 import:t="tanks/us_m4a2_76w_sherman.blk"
 import:t="tanks/us_m3_lee.blk"
 import:t="tanks/us_m4_calliope.blk"
 import:t="tanks/us_m3a1_stuart.blk"
+import:t="tanks/us_m3a1_stuart_flame.blk"
 import:t="tanks/us_m8_greyhound.blk"
 import:t="tanks/us_lvt_a_1.blk"
 import:t="tanks/us_halftrack_m13.blk"
 import:t="tanks/us_m2a4.blk"
-
-tankgun_12_7mm_m2_hb{
-  _override:b=yes
-  gun__reloadTime:r=12.0
-  gun__overheatReduce:r=0.15
-  gun__overheatReduceOnOverheat:r=0.0625
-  gun__overheatPerShot:r=0.045
-}
 
 us_halftrack_m3_75mm_gmc{
   _extends:t="base_tank"

@@ -27,6 +27,13 @@ fw_189a1{
         turret:t="turret_05"
         turret:t="turret_06"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_11"
+        l.hand:t="throttle_lhand_11"
+        r.foot:t="pedal_rfoot_11"
+        l.foot:t="pedal_lfoot_11"
+      }
     }
 
     "seats:object"{
@@ -50,7 +57,7 @@ fw_189a1{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner2"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, -1.0] [0.0, -0.5, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner2_dm"
       directTurretControl:b=yes
@@ -479,4 +486,24 @@ fw_189a1_driver_cockpit{
   animchar__res:t="fw_189a_1_cockpit_char"
   plane_anim__blk:t="gamedata/units/fw_189a1.blk"
   plane_sight__blk:t="gamedata/units/fw_189a1.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_11"
+    node:t="throttle_lhand_11"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=-0.001, 0.0235, 0.0
+    item:p3=0.011, 0.01, 0.0165
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=-3.1, 5.8
+    item:p2=-10.3, 5.6
+  }
 }

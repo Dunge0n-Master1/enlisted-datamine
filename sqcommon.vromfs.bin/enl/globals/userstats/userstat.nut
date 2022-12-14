@@ -159,7 +159,7 @@ let descListUpdatable = makeUpdatable("GetUserStatDescList",
     headers = {
       appid = appId.value,
       token = chardToken.value,
-      language = loc("steam/languageName", gameLanguage.tolower())
+      language = loc("steam/languageName", gameLanguage).tolower()
     },
     action = "GetUserStatDescList"
   }, cb),
@@ -178,7 +178,7 @@ let function setUnlocksFilter(uFilter) {
   unlocksFilter(uFilter)
 }
 
-let toTable = @(arr) arr.reduce(@(res, v) res.__update({ [v] = true }), {})
+let toTable = @(arr) arr.reduce(@(res, v) res.rawset(v, true), {})
 
 let function isEqualUnordered(arr1, arr2) {
   let tbl1 = toTable(arr1)

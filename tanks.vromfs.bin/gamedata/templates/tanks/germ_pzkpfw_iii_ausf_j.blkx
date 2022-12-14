@@ -35,7 +35,6 @@ germ_pzkpfw_III_ausf_J_desert{
 
 germ_pzkpfw_III_ausf_J_common{
   _extends:t="base_pzkpfw_iii_ausf_j_l42"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.3
 

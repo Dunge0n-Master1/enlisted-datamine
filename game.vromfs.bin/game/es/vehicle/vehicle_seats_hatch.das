@@ -26,12 +26,12 @@ def get_node_id_and_tm(animchar, node_name; var out_node_id &; var out_node_tm)
   if node_name == ""
     return false
 
-  out_node_id = geomtree_findNodeIndex(animchar.nodeTree, node_name)
+  out_node_id = geomtree_findNodeIndex(*animchar.nodeTree, node_name)
   if out_node_id < 0
     logerr("Hatch node '{node_name}' not found")
     return false
 
-  geomtreenode_getTmScalar(geomtree_getNode(animchar.nodeTree, out_node_id), out_node_tm)
+  geomtree_getNodeTmScalar(*animchar.nodeTree, out_node_id, out_node_tm)
   return true
 
 [es(tag=server, on_appear)]
@@ -73,8 +73,7 @@ def rotate_hatch_node(var animchar : AnimcharBaseComponent;
                       rot_m : float3x4&)
   if hatch__node_id >= 0
     let nodeTm = hatch__node_tm * rot_m
-    var treeNode = geomtree_getNodeRW(animchar.nodeTree, hatch__node_id)
-    geomtreenode_setTm(treeNode, nodeTm)
+    geomtree_setNodeTmScalar(*animchar.nodeTree, hatch__node_id, nodeTm)
 
 [es(tag=server, after=after_net_phys_sync)]
 def vehicle_seats_hatch_crouch_es(info : UpdateStageInfoAct; vehicle_seats__seatEids : EidList)

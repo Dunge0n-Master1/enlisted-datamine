@@ -525,7 +525,7 @@ metal_mid_destr{
 }
 
 ad_haystack_medium{
-  fx:t="ad_haystack_medium_composite_fx"
+  fx:t="envir_destr_hay_cmps_fx"
   lifeTime:r=0.0
   softnessDepth:r=0.1
   granularity:i=4
@@ -768,6 +768,15 @@ land_dust_storm{
   fx:t="location_sand_wind_ground_fx"
   lifeTime:r=0.0
   numInstances:i=700
+  numReserved:i=30
+  group:t="highres"
+  tag:t="fom"
+}
+
+land_snow_storm{
+  fx:t="location_snow_wind_ground_fx"
+  lifeTime:r=0.0
+  numInstances:i=200
   numReserved:i=30
   group:t="highres"
   tag:t="fom"

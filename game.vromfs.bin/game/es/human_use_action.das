@@ -36,7 +36,7 @@ def can_auto_equip_gun_mod(item_eid : EntityId; eid : EntityId) : bool
 [es(tag=(ui, render, gameClient), after=hero_human_use_human_object_es, REQUIRE=watchedByPlr)]
 def human_use_action_es(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
-                        human_net_phys : HumanActor?;
+                        human_net_phys : HumanActor const?;
                         human_weap__gunEids : EidList;
                         human_use_object__lookAtObject : EntityId;
                         human_inventory__selectedItem : EntityId;
@@ -93,26 +93,25 @@ def human_use_action_es(info : ParallelUpdateFrameDelayed;
     useActionEid = selectedObjectEid
   elif selectedItemEid != INVALID_ENTITY_ID
     var tryPickUp = false
-    var weapTemplName : string = ""
-    query(selectedItemEid) <| $ [es] (item__weapTemplate : string)
-      weapTemplName = item__weapTemplate
-    if weapTemplName != ""
-      query(selectedItemEid) <| $ [es] (item__weapSlots : Array)
-        tryPickUp = false
-        var haveEmptySlot = false
-        for slot in item__weapSlots
-          let slotName = get_string(slot, "")
-          let slotIdx = HUWeaponSlots(slotName)
-          if human_weap__gunEids[int(slotIdx)] != INVALID_ENTITY_ID
-            continue
-          haveEmptySlot = true
-          break
-        if !haveEmptySlot
-          useActionAvailable = int(HumanAction ACTION_SWITCH_WEAPONS)
-        else
-          tryPickUp = true
-    else
-      tryPickUp = true
+    query(selectedItemEid) <| $ [es] (item__weapTemplate : string = "")
+      if item__weapTemplate != ""
+        query(selectedItemEid) <| $ [es] (item__weapSlots : Array)
+          tryPickUp = false
+          var haveEmptySlot = false
+          for slot in item__weapSlots
+            let slotName = get_string(slot, "")
+            let slotIdx = HUWeaponSlots(slotName)
+            if human_weap__gunEids[int(slotIdx)] != INVALID_ENTITY_ID
+              continue
+            haveEmptySlot = true
+            break
+          if !haveEmptySlot
+            useActionAvailable = int(HumanAction ACTION_SWITCH_WEAPONS)
+          else
+            tryPickUp = true
+      else
+        tryPickUp = true
+
     if tryPickUp
       let volume = get_float(selectedItemEid, "item__volume") ?? 0f
       if volume == 0f || can_pickup_item_by_volume(selectedItemEid, eid) || can_auto_equip_gun_mod(selectedItemEid, eid)

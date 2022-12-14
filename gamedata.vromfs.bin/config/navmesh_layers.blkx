@@ -257,6 +257,186 @@ filter_exclude{
 
   "^stalingrad_department_store_doorway_950x3600_a.*$"{
   }
+
+  "^russia_mansion_fence_gate_13000_a_l.*$"{
+  }
+
+  "^russia_mansion_fence_gate_13000_a_r.*$"{
+  }
+
+  "^workshop_brick_door_3_4m_a.*$"{
+  }
+
+  "^workshop_brick_door_3_6m_a_a.*$"{
+  }
+
+  "^workshop_brick_door_3_4m_b_a.*$"{
+  }
+
+  "^workshop_brick_door_6_8m_a_a.*$"{
+  }
+
+  "^workshop_brick_door_6_8m_b_a.*$"{
+  }
+
+  "^workshop_brick_door_6_8m_b_b.*$"{
+  }
+
+  "^workshop_brick_door_6_10m_a.*$"{
+  }
+
+  "^workshop_brick_door_6_10m_b.*$"{
+  }
+
+  "^workshop_brick_door_9_6m_b_a.*$"{
+  }
+
+  "^workshop_brick_door_9_6m_b_b.*$"{
+  }
+
+  "^workshop_brick_door_n_window_6_8m_a.*$"{
+  }
+
+  "^workshop_brick_door_n_window_6_8m_b.*$"{
+  }
+
+  "^workshop_brick_doors_n_window_6_8m.*$"{
+  }
+
+  "^workshop_brick_gates_4_4m_a.*$"{
+  }
+
+  "^workshop_brick_gates_4_4m_b.*$"{
+  }
+
+  "^workshop_brick_gates_5_5m_a.*$"{
+  }
+
+  "^workshop_brick_gates_6_4m_a.*$"{
+  }
+
+  "^workshop_brick_gates_6_4m_b.*$"{
+  }
+
+  "^workshop_brick_gates_6_8m_a.*$"{
+  }
+
+  "^workshop_brick_gates_6_8m_b.*$"{
+  }
+
+  "^workshop_brick_gates_6_8m_b_a.*$"{
+  }
+
+  "^workshop_brick_gates_6_8m_b_b.*$"{
+  }
+
+  "^workshop_brick_gates_6_16m_a_a.*$"{
+  }
+
+  "^workshop_brick_gates_6_16m_a_d.*$"{
+  }
+
+  "^workshop_brick_gates_6_16m_b_a.*$"{
+  }
+
+  "^workshop_brick_gates_9_6m_a.*$"{
+  }
+
+  "^workshop_brick_gates_9_6m_b.*$"{
+  }
+
+  "^workshop_brick_gates_9_9m_a.*$"{
+  }
+
+  "^workshop_brick_gates_12_8m_a.*$"{
+  }
+
+  "^workshop_brick_gates_12_8m_b.*$"{
+  }
+
+  "^workshop_brick_gates_12_12m_a.*$"{
+  }
+
+  "^workshop_brick_gates_12_12m_b.*$"{
+  }
+
+  "^workshop_brick_window_3_3m_a.*$"{
+  }
+
+  "^workshop_brick_window_3_3m_b.*$"{
+  }
+
+  "^workshop_brick_window_3_3m_c.*$"{
+  }
+
+  "^workshop_brick_window_3_3m_d.*$"{
+  }
+
+  "^workshop_brick_window_3_4m_a.*$"{
+  }
+
+  "^workshop_brick_window_3_4m_b.*$"{
+  }
+
+  "^workshop_brick_window_3_4m_c.*$"{
+  }
+
+  "^workshop_brick_window_3_4m_d.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_a_a.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_a_b.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_a_c.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_a_d.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_b_a.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_b_b.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_b_c.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_b_d.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_c_a.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_c_b.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_c_c.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_c_d.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_d_a.*$"{
+  }
+
+  "^workshop_brick_window_6_8m_e_a.*$"{
+  }
+
+  "^workshop_brick_window_6_10m_a_a.*$"{
+  }
+
+  "^workshop_brick_window_6_15m_b.*$"{
+  }
+
+  "^workshop_brick_window_6_16m_a.*$"{
+  }
+
+  "^workshop_brick_window_6_16m_c.*$"{
+  }
 }
 
 doors{
@@ -695,12 +875,6 @@ doors{
   }
 
   wooden_fence_gate_b_l_rotate{
-  }
-
-  russia_mansion_fence_gate_13000_a_l{
-  }
-
-  russia_mansion_fence_gate_13000_a_r{
   }
 
   russia_fire_station_a_doors_a_l{

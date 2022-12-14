@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { sub_txt, h2_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
+let { doesLocTextExist } = require("dagor.localize")
 let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
 } = require("offersState.nut")
 let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
@@ -12,18 +13,19 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
 let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { hasBaseEvent, openEventModes, promotedEvent
+let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
-let { needFreemiumStatus, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
+let {
+  needFreemiumStatus, campPresentation
+} = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
-let { eventForcedUrl, isPromoteCampaign } = require("%enlist/unlocks/eventsTaskState.nut")
+let { eventForcedUrl, squadsPromotion } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
 
 enum WidgetType {
@@ -39,7 +41,7 @@ let customOfferActions = {
 }
 
 const SWITCH_SEC = 8.0
-const defOfferImg = "ui/pacific_guadalcanal_inv_05.jpg"
+const defOfferImg = "ui/stalingrad_tractor_plant_offer.jpg"
 const defExtUrlImg = "ui/normandy_village_04.jpg"
 
 let curWidgetIdx = Watched(0)
@@ -114,6 +116,14 @@ let function mkOfferInfo(sf, offer) {
   }
 }
 
+let timeBeforeEvent = @(timestamp) timestamp <= 0 ? null : mkCountdownTimer({
+  timestamp = timestamp
+  override = timerStyle
+  prefixLocId = loc("events/comingIn")
+  prefixColor = accentTitleTxtColor
+  expiredLocId = ""
+})
+
 let widgetData = {
   [WidgetType.FREEMIUM] = {
     ctor = @(campaignId) @(sf) {
@@ -142,9 +152,15 @@ let widgetData = {
   },
 
   [WidgetType.EVENT_BASE] = {
-    ctor = @(_) @(sf)
-      // TODO make simple localization instead of string interpolation
-      mkInfo(sf, utf8ToUpper($"{loc("events")} / {loc("custom_matches")}"))
+    ctor = @(eventData) @(sf) @() {
+      size = flex()
+      watch = eventStartTime
+      halign = ALIGN_CENTER
+      children = [
+        mkInfo(sf, eventData.text)
+        timeBeforeEvent(eventStartTime.value?[eventData.queueId] ?? 0)
+      ]
+    }
     onClick = @(_) openEventModes()
   },
 
@@ -166,7 +182,7 @@ let widgetList = Computed(function() {
     list.append({
       id = WidgetType.FREEMIUM
       data = gameProfile.value?.campaigns[curCampaign.value].title ?? curCampaign.value
-      backImage = getConfig(campaignConfigGroup.value)?.widgetImage ?? defOfferImg
+      backImage = campPresentation.value?.widgetImage ?? defOfferImg
     })
 
   list.extend(allActiveOffers.value.map(@(specOffer) {
@@ -175,11 +191,19 @@ let widgetList = Computed(function() {
     backImage = specOffer?.widgetImg ?? defOfferImg
   }))
 
-  if (hasBaseEvent.value)
+  if (hasBaseEvent.value) {
+    let title = loc(doesLocTextExist(promotedEvent.value?.locId ?? "")
+      ? promotedEvent.value.locId
+      : "events_and_custom_matches")
+
+    timeUntilStart()
+
     list.append({
       id = WidgetType.EVENT_BASE
-      backImage = promotedEvent.value?.image ?? defOfferImg
+      data = { text = utf8ToUpper(title), queueId = promotedEvent.value?.queueId ?? "" }
+      backImage = promotedEvent.value?.extraParams.image ?? defOfferImg
     })
+  }
 
   list.extend(eventForcedUrl.value.map(@(v) {
     id = WidgetType.URL
@@ -187,7 +211,7 @@ let widgetList = Computed(function() {
     backImage = v?.image ?? defExtUrlImg
   }))
 
-  if (hasSpecialEvent.value && hasEventData.value && isPromoteCampaign.value)
+  if ((hasSpecialEvent.value || squadsPromotion.value.len() > 0) && hasEventData.value)
     list.append({
       id = WidgetType.EVENT_SPECIAL
       data = offersShortTitle.value

@@ -71,7 +71,7 @@ entity{
 
 entity{
   _template:t="wind"
-  wind__strength:r=6.3
+  wind__strength:r=2.3
   wind__dir:r=0.0
 }
 
@@ -96,9 +96,8 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[0.958854, 0.0, -0.283899] [0.0, 1.0, 0.0] [0.283899, 0.0, 0.958854] [257.524, 0.07496, -550.719]]
-  dmgzone__teamToDamage:i=-1
+  _template:t="fire_bonfire_small_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [257.524, 0.07496, -550.719]]
 }
 
 entity{
@@ -141,47 +140,47 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [330.995, 6.39364, -534.558]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [419.898, 4.93509, -501.16]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [360.775, 4.93509, -494.749]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [302.344, 6.15069, -535.866]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [425.434, 5.34914, -520.335]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [436.917, 5.16797, -558.958]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [405.0, 4.60131, -569.354]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [327.533, 4.60131, -586.443]]
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [316.51, 4.85844, -500.242]]
 }
 
@@ -191,7 +190,7 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
+  _template:t="fire_bonfire_small_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [496.156, 5.16797, -551.726]]
 }
 
@@ -915,41 +914,41 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [907.905, 4.67061, -823.634]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [539.044, 4.67061, -1057.43]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [71.9746, 4.67061, -998.369]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-315.671, 4.67061, -832.595]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [930.453, 4.67061, -62.9545]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [444.537, 4.67061, 418.554]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1026.4, 4.67061, 62.4067]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [245.047, 4.67061, 565.389]]
 }

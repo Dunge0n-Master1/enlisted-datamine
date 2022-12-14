@@ -1,0 +1,16 @@
+mass:r=10000.0
+momentOfInertia:p3=0.6, 0.3, 0.6
+centerOfMass:p3=0.0, 0.0, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+addToWorld:b=yes
+shouldTraceGround:b=yes
+boundingRadius:r=0.1
+
+collisionResource{
+
+  props{
+    cls_ammunition_supply_a:t="convex_hull"
+  }
+}

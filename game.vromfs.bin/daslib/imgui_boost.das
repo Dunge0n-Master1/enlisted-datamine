@@ -14,6 +14,20 @@ require math
 let IMGUI_PAYLOAD_TYPE_COLOR_3F = "_COL3F"
 let IMGUI_PAYLOAD_TYPE_COLOR_4F = "_COL4F"
 
+def to_string ( filter : ImGuiTextFilter )
+    unsafe
+        let pbuf = addr(filter.InputBuf[0])
+        return clone_string(reinterpret<string> pbuf)
+
+def set ( var filter : ImGuiTextFilter; filterText : string )
+    if empty(filterText) || length(filterText) > 255
+        return
+    for i, ch in iter_range(filterText), filterText
+        filter.InputBuf[i] = int8(ch)
+    filter.InputBuf[length(filterText)] = int8(0)
+    filter |> Build()
+
+
 // note - this has to correspond to C++ das::DasImguiInputText structure
 struct ImGuiInputTextBuffer
     context : Context?
@@ -140,7 +154,7 @@ def Combo ( lab:string; current_item:int? implicit; items:string[]; popul_max_he
     unsafe
         return imgui::Combo(lab,current_item,addr(items[0]),length(items),popul_max_heigh_in_items)
 
-def ListBox ( lab:string; current_item:int? implicit; items:array<string>; height_in_items:int = -1 )
+def ListBox ( lab:string; current_item:int? implicit; items:array<string> implicit; height_in_items:int = -1 )
     let nItems = length(items)
     unsafe
         if nItems != 0

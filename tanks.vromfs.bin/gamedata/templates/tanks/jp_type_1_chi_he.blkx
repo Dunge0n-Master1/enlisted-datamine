@@ -4,7 +4,6 @@ jp_type_1_chi_he_pacific_premium{
 
 jp_type_1_chi_he_common{
   _extends:t="base_type_1_chi_he"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   item__iconOffset:p2=0.0, 0.0
 

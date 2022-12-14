@@ -9,19 +9,10 @@ local console2uid = Watched(@() {})
 local updateUids = @(...) null
 
 if (is_xbox) {
-  let { xboxUids, xboxUidsUpdate, xbox2uid, uid2xbox } = require("%enlist/xbox/contacts/xboxContactsState.nut")
+  let { xbox2uid, uid2xbox, updateUidsMapping } = require("%xboxLib/userIds.nut")
   uid2console = uid2xbox
   console2uid = xbox2uid
-
-  updateUids = function(xbox2UidNewList) {
-    let res = clone xboxUids.value
-    res.xbox2uid = res.xbox2uid.__merge(xbox2UidNewList)
-    let newUid2xbox = {}
-    foreach (k,v in xbox2UidNewList)
-      newUid2xbox[v] <- k
-    res.uid2xbox = res.uid2xbox.__merge(newUid2xbox)
-    xboxUidsUpdate(res)
-  }
+  updateUids = updateUidsMapping
 }
 else if (is_sony) {
   let { uid2psn, psn2uid, psnUids, psnUidsUpdate } = require("%enlist/ps4/psn_state.nut")

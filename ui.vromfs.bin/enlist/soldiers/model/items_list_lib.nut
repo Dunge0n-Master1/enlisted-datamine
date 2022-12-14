@@ -59,7 +59,7 @@ let itemWeights = {
   // heavy
   launcher = 54, grenade_launcher = 53, infantry_launcher = 52, antitank_rifle = 51,
   // assault
-  mgun = 45, assault_rifle = 44, assault_rifle_stl = 43, semiauto = 42, submgun = 41,
+  mgun = 46, assault_rifle = 45, assault_rifle_stl = 44, semiauto = 43, carbine_tanker = 42, submgun = 41,
   carbine_pistol = 40,
   // rifle and shotgun
   rifle_grenade_launcher = 37, shotgun = 36, boltaction_noscope = 34,

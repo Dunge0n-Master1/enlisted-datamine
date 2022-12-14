@@ -1,6 +1,5 @@
 ussr_ht_130{
   _extends:t="base_ht_130"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

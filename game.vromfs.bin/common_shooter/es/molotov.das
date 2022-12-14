@@ -5,6 +5,7 @@ require math.base
 require game.es.events
 require Dacoll
 require GridCollision
+require CollisionTraces
 require game.es.node_attach_common
 require AnimV20
 require CollRes
@@ -146,11 +147,10 @@ def create_fire_on_trace(pos : float3; dir : float3; max_distance : float; tmplt
 
 def get_spread_dirs(tm : float3x4; molotov_spread : ecs::Point3List)
   var spread_dirs : array<float3>
-  let DEG_TO_RADS = PI / 180.0
   for i in iter_range(molotov_spread)
     assume spread = molotov_spread[i]
-    let azimuth = spread.x * DEG_TO_RADS
-    let elevation = spread.y * DEG_TO_RADS
+    let azimuth = spread.x * DEG_TO_RAD
+    let elevation = spread.y * DEG_TO_RAD
     var sinElevation, cosElevation, sinAzimuth, cosAzimuth : float
     sincos(elevation, sinElevation, cosElevation)
     sincos(azimuth, sinAzimuth, cosAzimuth)

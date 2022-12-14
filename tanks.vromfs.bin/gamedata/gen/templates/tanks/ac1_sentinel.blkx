@@ -149,8 +149,8 @@ ac1_sentinel_turret_02_7_7mm_vikkers{
 ac1_sentinel_turret_03_7_7mm_vikkers{
   _extends:t="tankgun_7_7mm_vikkers"
   gun__shootNodeName:t="bone_mg_v"
-  turret__yawSpeed:r=35.0
-  turret__pitchSpeed:r=35.0
+  turret__yawSpeed:r=90.0
+  turret__pitchSpeed:r=90.0
   turret__aimNodeName:t="bone_mg_h"
   turret__limit:p4=-10.0, 10.0, -10.0, 10.0
 

@@ -1,7 +1,7 @@
 require ecs
 require app
 require math.base
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require EnlistedNet
 
@@ -52,7 +52,7 @@ def fortification_repair_process_es(info : UpdateStageInfoAct;
 
   let operatorPos = transform[3]
   var rejectResupply = isInVehicle || enter_vehicle__atTime > 0.
-  query(fortification_repair__target) <| $ [es] (transform : float3x4; object__useDist : float?)
+  query(fortification_repair__target) <| $ [es] (transform : float3x4; object__useDist : float const?)
     rejectResupply ||= length_sq(transform[3] - operatorPos) > square(object__useDist ?? human_use_object__useDist)
 
   if rejectResupply

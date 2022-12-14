@@ -6,10 +6,11 @@ require DaWeapons
 require DagorMath
 require DagorSystem
 require BallisticsProps
+require enlisted.events_enlisted
 
 
 [es(after=after_guns_update_sync, before=clear_gun_launch_events_es)]
-def turret_recoil_apply_force_es(info : UpdateStageInfoAct;
+def turret_recoil_apply_force_es(info : ParallelUpdateFrameDelayed;
                                  transform : float3x4;
                                  turret_control__gunEids : EidList;
                                  isAlive : bool;

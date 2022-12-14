@@ -8,7 +8,7 @@ let { hasVehicleCustomization } = require("%enlist/featureFlags.nut")
 let { endswith } = require("string")
 let { configs } = require("%enlist/meta/configs.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
-let { add_veh_decorators, apply_decorator, buy_veh_decorator
+let { add_veh_decorators, apply_decorator, buy_veh_decorator, buy_apply_veh_decorators
 } = require("%enlist/meta/clientApi.nut")
 let { setDecalSlot, setDecalMirrored, setDecalTwoSide,
   vehTargetEid, applyDecalsToVehicle, setDecorInfo, applyDecorToVehicle
@@ -31,6 +31,7 @@ let selectedCamouflage = Watched(null)
 let selectedDecorator = Watched(null)
 
 let isPurchasing = Watched(false)
+let notPurchased = Watched({})
 
 
 let viewVehCustSchemes = Computed(function() {
@@ -200,6 +201,8 @@ let viewVehDecorators = Computed(function() {
     }
   }
 
+  // FIX ME: this subscribtion need to recreate model entity
+  let _notPurchased = notPurchased.value
   return res.__update(forcedCustomization.value)
 })
 
@@ -218,6 +221,17 @@ let function mirrorDecal(isMirrored) {
 
 let function twoSideDecal(isTwoSided, isMirrored) {
   setDecalTwoSide(isTwoSided, isMirrored)
+}
+
+let function buyApplyDecorators(decorators, vehGuid, cost, cb = null) {
+  if (isPurchasing.value)
+    return
+
+  isPurchasing(true)
+  buy_apply_veh_decorators(decorators, vehGuid, cost, function(res) {
+    isPurchasing(false)
+    cb?(res)
+  })
 }
 
 let function applyDecorator(guid, vehGuid, cType, details, slot, cb = null) {
@@ -246,8 +260,8 @@ let closeDecoratorsList = @() customizationParams(null)
 
 let viewVehDecorData = keepref(Computed(function() {
   let vehicleGuid = vehicleInVehiclesScene.value?.guid ?? ""
-  let targetEid = vehTargetEid.value ?? INVALID_ENTITY_ID
-  if (vehicleGuid == "" || targetEid == INVALID_ENTITY_ID)
+  let targetEid = vehTargetEid.value ?? ecs.INVALID_ENTITY_ID
+  if (vehicleGuid == "" || targetEid == ecs.INVALID_ENTITY_ID)
     return null
 
   let hasPrem = hasPremium.value
@@ -255,18 +269,28 @@ let viewVehDecorData = keepref(Computed(function() {
   let availableSlots = hasPrem ? slotsNum + premSlotsNum : slotsNum
   if (availableSlots <= 0)
     return null
+
   let decorArray = []
-  foreach (decorById in availVehDecorByTypeId.value?.vehDecorator ?? {}) {
+  let busySlots = {}
+  foreach(decor in notPurchased.value?.vehDecorator ?? []) {
+    let { details, cType, id, slotIdx } = decor
+    let decorData = stringToDecal(details, cType, id, slotIdx)
+    if (decorData != null) {
+      decorArray.append(decorData)
+      busySlots[slotIdx] <- true
+    }
+  }
+  foreach (decorById in availVehDecorByTypeId.value?.vehDecorator ?? {})
     foreach (decor in decorById) {
       let { vehGuid, slotIdx, id, details, cType } = decor
       if (vehGuid != vehicleGuid || slotIdx >= availableSlots)
         continue
 
       let decorData = stringToDecal(details, cType, id, slotIdx)
-      if (decorData != null)
+      if (decorData != null && slotIdx not in busySlots)
         decorArray.append(decorData)
     }
-  }
+
   return { targetEid, decorArray }
 }))
 
@@ -283,7 +307,7 @@ let viewVehDecalData = keepref(Computed(function() {
     return null
 
   let decalCompArray = ecs.CompArray()
-  foreach (decalsById in availVehDecorByTypeId.value?.vehDecal ?? {}) {
+  foreach (decalsById in availVehDecorByTypeId.value?.vehDecal ?? {})
     foreach (decal in decalsById) {
       let { vehGuid, slotIdx, id, details, cType } = decal
       if (vehGuid != vehicleGuid || slotIdx >= avaiSlots)
@@ -293,6 +317,11 @@ let viewVehDecalData = keepref(Computed(function() {
       if (decalData != null)
         decalCompArray.append(decalToCompObject(decalData))
     }
+  foreach(decal in notPurchased.value?.vehDecal ?? []) {
+    let { details, cType, id, slotIdx } = decal
+    let decalData = stringToDecal(details, cType, id, slotIdx)
+    if (decalData != null)
+      decalCompArray.append(decalToCompObject(decalData))
   }
 
   return { targetEid, decalCompArray }
@@ -331,6 +360,10 @@ let function updateViewVehDecor(_ = null) {
 
 viewVehDecalData.subscribe(updateViewVehDecals)
 viewVehDecorData.subscribe(updateViewVehDecor)
+notPurchased.subscribe(function(_ = null) {
+  updateViewVehDecals()
+  updateViewVehDecor()
+})
 
 let function stopUsingDecal() {
   selectedDecorator(null)
@@ -355,6 +388,7 @@ return {
   selectedDecorator
   startUsingDecor
   isPurchasing
+  notPurchased
   mirrorDecal
   twoSideDecal
   stopUsingDecal
@@ -379,4 +413,5 @@ return {
   viewVehDecorByType
   applyDecorator
   buyDecorator
+  buyApplyDecorators
 }

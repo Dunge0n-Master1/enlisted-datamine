@@ -79,7 +79,7 @@ def squad_members_ui_track_watched_squad(evt : Event; squad_member__squad : Enti
       squad_members_ui__watchedSquadState |> clear()
 
 [es(tag=ui, on_appear, track=squad__isAlive)]
-def squad_members_ui_track_colntrolled_squad(evt : Event; eid : EntityId; squad__isAlive : bool; squad__ownerPlayer : EntityId)
+def squad_members_ui_track_controlled_squad(evt : Event; eid : EntityId; squad__isAlive : bool; squad__ownerPlayer : EntityId)
   let localPlayerEid = get_local_player_eid()
   if squad__ownerPlayer == localPlayerEid
     query(localPlayerEid) <| $ [es] (var squad_members_ui__controlledSquadEid : EntityId&)

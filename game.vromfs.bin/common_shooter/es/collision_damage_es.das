@@ -36,7 +36,7 @@ def nphys_collision_damage_vehicle(evt : EventOnCollision;
                                    collision_damage__lastVehicleImmunity : float;
                                    collision_damage__inVehicleDamageMult : float;
                                    navmesh_phys__currentWalkVelocity : float3;
-                                   vehicle__lastEid : EntityId? = null;
+                                   vehicle__lastEid : EntityId const? = null;
                                    vehicle__lastTime : float = 0.f;
                                    isInVehicle : bool = false)
   apply_vehicle_collision_dmg(evt,
@@ -75,7 +75,7 @@ def collision_damage_vehicle(evt : EventOnCollision;
                              collision_damage__crawlMult : float;
                              collision_damage__downedMult : float;
                              human_net_phys : HumanActor;
-                             vehicle__lastEid : EntityId? = null;
+                             vehicle__lastEid : EntityId const? = null;
                              vehicle__lastTime : float = 0.f;
                              isInVehicle : bool = false)
   var poseDmgMult = 1.0
@@ -118,7 +118,7 @@ def apply_vehicle_collision_dmg(evt : EventOnCollision;
                                 collision_damage__inVehicleDamageMult : float;
                                 standing_velocity : float3;
                                 pose_damage_mult : float;
-                                vehicle__lastEid : EntityId? = null;
+                                vehicle__lastEid : EntityId const? = null;
                                 vehicle__lastTime : float = 0.f;
                                 isInVehicle : bool = false)
   if !(has(evt.offender, "vehicle") && (get_bool(evt.offender, "collision_damage__canBeOffender") ?? false))

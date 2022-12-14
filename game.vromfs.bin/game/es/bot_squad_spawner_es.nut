@@ -122,13 +122,9 @@ let function onTimer(_evt, _eid, comp) {
     "isArmiesReceived" : [true, ecs.TYPE_BOOL],
     "armiesReceivedTime" : get_sync_time(),
     "team": [team, ecs.TYPE_INT]
-    "armiesReceivedTeam": [team, ecs.TYPE_INT]
-    "squads__revivePointsList" : [array(squadsCount, 100), ecs.TYPE_ARRAY],
+    "armiesReceivedTeam": [team, ecs.TYPE_INT],
+    "squads__count": [squadsCount, ecs.TYPE_INT],
     "shouldValidateSpawnRules" : [false, ecs.TYPE_BOOL],
-    "vehicleRespawnsBySquad" : [array(squadsCount).map(@(_) {
-      lastSpawnOnVehicleAtTime = 0.0
-      nextSpawnOnVehicleInTime = 0.0
-    }), ecs.TYPE_ARRAY]
   }
 
   ecs.g_entity_mgr.createEntity("enlisted_bot_player", playerComps,
@@ -140,7 +136,7 @@ let function onTimer(_evt, _eid, comp) {
           CmdSpawnSquad({
             team
             squadId
-            possessed = INVALID_ENTITY_ID
+            possessed = ecs.INVALID_ENTITY_ID
             memberId = 0
             respawnGroupId = -1
           })

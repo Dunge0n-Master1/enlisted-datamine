@@ -1,6 +1,5 @@
-from "%enlSqGlob/ui_library.nut" import mkWatched, Computed, Watched, log
+from "%enlSqGlob/ui_library.nut" import gui_scene, mkWatched, Computed, Watched, log
 
-let {gui_scene} = require("daRg")
 let console_register_command = require("console").register_command
 let {set_actions_binding_column_active} = require("dainput2")
 let eventbus = require("eventbus")
@@ -76,7 +75,7 @@ keepref(isGamepad)
 const GAMEPAD_COLUMN = 1
 let wasGamepad = mkWatched(persist, "wasGamepad", function() {
   let wasGamepadV = platform.is_pc ? false : true
-  gui_scene.config.gamepadCursorControl = wasGamepadV
+  gui_scene.setConfigProps({gamepadCursorControl = wasGamepadV})
   return wasGamepadV
 }())
 
@@ -93,7 +92,7 @@ if (platform.is_pc){
 isGamepad.subscribe(function(v) {
   wasGamepad(wasGamepad.value || v)
   log($"isGamepad changed to = {v}")
-  gui_scene.config.gamepadCursorControl = v
+  gui_scene.setConfigProps({gamepadCursorControl = v})
 })
 
 

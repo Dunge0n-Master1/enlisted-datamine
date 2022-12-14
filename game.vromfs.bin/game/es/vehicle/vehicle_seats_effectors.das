@@ -31,7 +31,7 @@ def vehicle_seats_effectors_init(evt : Event;
         if nodeValue == ""
           logerr("can't find node for {field.key}")
           continue
-        let index = geomtree_findNodeIndex(animchar.nodeTree, nodeValue)
+        let index = geomtree_findNodeIndex(*animchar.nodeTree, nodeValue)
         if index < 0
           logerr("can't find node index for {field.key} equal {nodeValue}")
           continue
@@ -48,7 +48,7 @@ def human_vehicle_effectors(info : UpdateStageInfoAct;
     return
   let vehicleTm = transform
   var vehicleRootTm : float3x4
-  geomtree_getNodeWtmRelScalar(animchar.nodeTree, 0, vehicleRootTm)
+  geomtree_getNodeWtmRelScalar(*animchar.nodeTree, 0, vehicleRootTm)
   for seatOwnerNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
     query(ownerEid) <| $ [es] (var animchar_effectors__effectorsState : Object; transform : float3x4)
@@ -68,7 +68,7 @@ def human_vehicle_effectors(info : UpdateStageInfoAct;
 
         var vehicleLocalWtm = vehicleTm
         vehicleLocalWtm[3] = vehicleTm[3] - vehicleWofs
-        geomtree_getNodeWtmRelScalar(animchar.nodeTree, effectorIndex, effector.wtm)
+        geomtree_getNodeWtmRelScalar(*animchar.nodeTree, effectorIndex, effector.wtm)
         effector.wtm = vehicleLocalWtm * (inverse(vehicleRootTm) * effector.wtm)
         effector.position = effector.wtm[3] + d_wofs
         effector.weight = 1.f

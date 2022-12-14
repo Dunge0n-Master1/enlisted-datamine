@@ -15,6 +15,7 @@ require RendInst
 require CollRes
 require Dacoll
 require GridCollision
+require common_shooter.es.grenade_thrower_common
 
 
 [es(tag=server, REQUIRE=human_use_object__selectedObject, REQUIRE_NOT=deadEntity)]
@@ -33,7 +34,7 @@ def human_use_object_created_es(evt : Event;
                                 human_use_object__lookNodeName : string;
                                 var human_use_object__nodeId : int&)
   if human_use_object__lookNodeName != ""
-    human_use_object__nodeId = animchar.nodeTree |> geomtree_findNodeIndex(human_use_object__lookNodeName)
+    human_use_object__nodeId = *animchar.nodeTree |> geomtree_findNodeIndex(human_use_object__lookNodeName)
   else
     human_use_object__nodeId = 0 // Not all code can handle invalid nodeId
 

@@ -4,7 +4,6 @@ us_lvt_a_4_pacific_premium{
 
 us_lvt_a_4_common{
   _extends:t="base_lvt_a_4"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconScale:r=0.8
 
@@ -108,8 +107,13 @@ us_lvt_a_4_common{
     }
 
     "ammo:object"{
-      slot:i=3
+      slot:i=2
       fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=3
+      count:i=7
     }
   }
 }

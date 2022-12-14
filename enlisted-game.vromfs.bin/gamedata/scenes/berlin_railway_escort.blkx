@@ -3,14 +3,14 @@ import{
 }
 
 entity{
-  _template:t="box_battle_area"
-  transform:m=[[1450.35, 0.0, 0.0] [0.0, 243.881, 0.0] [0.0, 0.0, 402.435] [1084.99, 10.8968, 314.426]]
-}
-
-entity{
   _template:t="aircraft_box_battle_area"
   transform:m=[[11314.0, 0.0, 95.0636] [0.0, 8000.03, 0.0] [-95.5912, 0.0, 11313.9] [652.401, 240.916, 331.582]]
   battle_area__team:i=-1
+}
+
+entity{
+  _template:t="box_battle_area"
+  transform:m=[[1450.35, 0.0, 0.0] [0.0, 243.881, 0.0] [0.0, 0.0, 402.435] [1084.99, 10.8968, 314.426]]
 }
 
 entity{
@@ -344,6 +344,11 @@ entity{
 entity{
   _template:t="train_destination_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-366.684, 10.9087, 319.406]]
+}
+
+entity{
+  _template:t="basic_box+building_restricted_zone"
+  transform:m=[[1493.89, 0.0, 0.0] [0.0, 7.26678, 0.0] [0.0, 0.0, 8.43925] [1086.99, 9.71422, 319.455]]
 }
 
 entity{

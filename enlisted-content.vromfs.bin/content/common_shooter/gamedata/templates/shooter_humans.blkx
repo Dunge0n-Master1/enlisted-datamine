@@ -116,20 +116,68 @@ human_weap_bipod{
   _tracked:t="bipod__enabled"
   _tracked:t="bipod__placeable"
   _replicated:t="bipod__enabled"
+  _replicated:t="bipod__isCrawl"
+  _replicated:t="bipod__anchorPos"
+  _replicated:t="bipod__anchorHeight"
+  _replicated:t="bipod__anchorOffset"
   bipod__enabled:b=no
   bipod__isCrawl:b=no
-  bipod__placeable:b=no
-  bipod__placePos:p3=0.0, 0.0, 0.0
-  bipod__placeNormal:p3=0.0, 0.0, 0.0
-  bipod__attachedToRi:i=-1
+  bipod__recoilMult:r=0.0
   bipod__anchorPos:p3=0.0, 0.0, 0.0
   bipod__anchorDir:p3=0.0, 0.0, 0.0
+  bipod__anchorHeight:r=0.0
+  bipod__anchorOffset:p3=0.0, 0.0, 0.0
   bipod__anchorNormal:p3=0.0, 0.0, 0.0
-  bipod__yawLimit:p2=0.0, 0.0
+  bipod__anchorYawLimit:p2=0.0, 0.0
+  bipod__attachedToRi:i=-1
   bipod__pitchLimit:p2=-10.0, 20.0
-  bipod__crawlLimit:p4=-40.0, 40.0, -5.0, 10.0
-  bipod__checkPlacingInterval:r=0.2
-  bipod__nextCheckPlacingAtTime:r=0.0
+  bipod__crawlLimit:p2=-7.0, 7.0
+  bipod__validateTimer:r=0.0
+  bipod__prevCcdPos:p3=0.0, 0.0, 0.0
+  bipod__prevAngle:p2=0.0, 0.0
+  bipod__lastValidPos:p3=0.0, 0.0, 0.0
+  bipod__lastValidDir:p3=0.0, 0.0, 0.0
+  bipod__isValidPos:b=yes
+  bipod__crawlGunOffset:p3=0.0, 0.0, 0.0
+  bipod__crawlGunAnimOffset:p3=0.0, 0.0, 0.0
+  bipod__heightReacher:r=0.0
+
+  _group{
+    _tags:t="gameClient"
+    bipod__checkPlacingInterval:r=0.025
+    bipod__nextCheckPlacingAtTime:r=0.0
+    bipod__placeable:b=no
+    bipod__placeCrawl:b=no
+    bipod__placePos:p3=0.0, 0.0, 0.0
+    bipod__placeHeight:r=0.0
+    bipod__placeOffset:p3=0.0, 0.0, 0.0
+    bipod__placeNormal:p3=0.0, 0.0, 0.0
+    bipod__placeYawLimit:r=0.0
+    bipod__placeRecoilMult:r=0.0
+    bipod__solveStep:i=0
+    bipod__solveFunc:i=0
+    bipod__solveIter:i=0
+    bipod__solveForPos:p3=0.0, 0.0, 0.0
+    bipod__solveForDir:p3=0.0, 0.0, 0.0
+    bipod__solveForCrawl:b=no
+    bipod__solveGunPosHigh:p3=0.0, 0.0, 0.0
+    bipod__solveGunPosLow:p3=0.0, 0.0, 0.0
+    bipod__solveHumanRadius:r=0.0
+    bipod__solveHumanHeight:r=0.0
+    bipod__solveLastPos:p3=0.0, 0.0, 0.0
+    bipod__solveTraceTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+    bipod__solveTracePt:p3=0.0, 0.0, 0.0
+    bipod__solveBestType:i=0
+    bipod__solveBestScore:i=0
+    bipod__solveBestPos:p3=0.0, 0.0, 0.0
+    bipod__solveBestHeight:r=0.0
+    bipod__solveBestOffset:p3=0.0, 0.0, 0.0
+    bipod__solveBestNormal:p3=0.0, 0.0, 0.0
+    bipod__solveBestRecoilMult:r=0.0
+
+    "bipod__solveForGun:eid"{
+    }
+  }
 }
 
 base_human_ai{
@@ -189,7 +237,9 @@ has_parachute{
 human_parachute{
   human_parachute__canDeployManually:b=yes
   human_parachute__canDeploy:b=no
+  human_parachute__isDeployed:b=no
   _tracked:t="human_parachute__canDeploy"
+  _tracked:t="human_parachute__isDeployed"
   _replicated:t="human_parachute__canDeploy"
 
   "human_parachute__eid:eid"{

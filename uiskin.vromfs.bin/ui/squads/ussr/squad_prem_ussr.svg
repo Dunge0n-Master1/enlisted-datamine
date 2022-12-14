@@ -1,22 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="35.776" viewBox="0 0 36 35.776">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.499" y1="0.999" x2="0.499" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#370b07"/>
-      <stop offset="1" stop-color="#a32b0b"/>
-    </linearGradient>
-    <linearGradient id="linear-gradient-2" x1="0.499" y1="0.999" x2="0.499" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#8f4929"/>
-      <stop offset="0.362" stop-color="#cfc261"/>
-      <stop offset="0.614" stop-color="#ffef76"/>
-      <stop offset="0.954" stop-color="#fff"/>
-      <stop offset="1" stop-color="#fff"/>
-    </linearGradient>
-  </defs>
-  <g id="Group_3231" data-name="Group 3231" transform="translate(-425 -482)">
-    <path id="Path_1567" data-name="Path 1567" d="M2,0H36L0,35.776V2A2,2,0,0,1,2,0Z" transform="translate(425 482)" fill="#b83027"/>
-    <g id="Group_3228" data-name="Group 3228" transform="translate(3890.951 97.862)">
-      <path id="Ellipse_1_copy_16" data-name="Ellipse 1 copy 16" d="M19.3,19.332,14.616,15.95l-4.65,3.431,1.769-5.49L7.042,10.515l5.774-.015L14.565,5l1.8,5.49,5.774-.038-4.667,3.407Z" transform="translate(-3470 382.373)" fill-rule="evenodd" fill="url(#linear-gradient)"/>
-      <path id="Ellipse_1_copy_16-2" data-name="Ellipse 1 copy 16" d="M19.3,18.332,14.616,14.95l-4.65,3.431,1.769-5.49L7.042,9.515,12.816,9.5,14.565,4l1.8,5.49,5.774-.038-4.667,3.407Z" transform="translate(-3470 382)" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
-    </g>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 36 35.8" enable-background="new 0 0 36 35.8" xml:space="preserve">
+<g id="Group_3231" transform="translate(-425 -482)">
+	<path id="Path_1567" fill="#B83027" d="M427,482h34l-36,35.8V484C425,482.9,425.9,482,427,482z"/>
+	<g id="Group_3228" transform="translate(3890.951 97.862)">
+		
+			<linearGradient id="Ellipse_1_copy_16_00000041270444086620017960000015748683665466714249_" gradientUnits="userSpaceOnUse" x1="-7082.667" y1="12.2648" x2="-7082.667" y2="11.2648" gradientTransform="matrix(15.097 0 0 14.381 103471.6797 225.3736)">
+			<stop  offset="0" style="stop-color:#370B07"/>
+			<stop  offset="1" style="stop-color:#A32B0B"/>
+		</linearGradient>
+		
+			<path id="Ellipse_1_copy_16" fill-rule="evenodd" clip-rule="evenodd" fill="url(#Ellipse_1_copy_16_00000041270444086620017960000015748683665466714249_)" d="
+			M-3450.7,401.7l-4.7-3.4l-4.6,3.4l1.8-5.5l-4.7-3.4h5.8l1.7-5.5l1.8,5.5h5.8l-4.7,3.4L-3450.7,401.7z"/>
+		
+			<linearGradient id="Ellipse_1_copy_16-2_00000114778124999286364920000008854488787081781933_" gradientUnits="userSpaceOnUse" x1="-7082.667" y1="12.2648" x2="-7082.667" y2="11.2648" gradientTransform="matrix(15.097 0 0 14.381 103471.6797 224.0006)">
+			<stop  offset="0" style="stop-color:#8F4929"/>
+			<stop  offset="0.362" style="stop-color:#CFC261"/>
+			<stop  offset="0.614" style="stop-color:#FFEF76"/>
+			<stop  offset="0.954" style="stop-color:#FFFFFF"/>
+			<stop  offset="1" style="stop-color:#FFFFFF"/>
+		</linearGradient>
+		
+			<path id="Ellipse_1_copy_16-2" fill-rule="evenodd" clip-rule="evenodd" fill="url(#Ellipse_1_copy_16-2_00000114778124999286364920000008854488787081781933_)" d="
+			M-3450.7,400.3l-4.7-3.4l-4.6,3.4l1.8-5.5l-4.7-3.4h5.8l1.7-5.5l1.8,5.5h5.8l-4.7,3.4L-3450.7,400.3z"/>
+	</g>
+</g>
 </svg>

@@ -2,6 +2,9 @@ disable_update{
 
   "disableUpdate:tag"{
   }
+
+  "attachmentUpdate:tag"{
+  }
 }
 
 phys_sleepable{

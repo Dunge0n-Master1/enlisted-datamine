@@ -1,5 +1,5 @@
 stat_name:t="submachine_gun"
-selWeaponVar:t="type_100_smg_early"
+selWeaponVar:t="mp_34_jp"
 
 ownerAnimVars{
   reye_offset_fwd0:r=-0.1

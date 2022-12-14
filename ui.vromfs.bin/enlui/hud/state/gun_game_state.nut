@@ -11,7 +11,7 @@ let gunGameLevelKillsRequire = Watched(0)
 
 let gunGameLevelCount =  Watched(0)
 
-let gunGameLeaderPlayerEid = Watched(INVALID_ENTITY_ID)
+let gunGameLeaderPlayerEid = Watched(ecs.INVALID_ENTITY_ID)
 let gunGameLeaderName = Watched("")
 let gunGameLeaderTeam = Watched(0)
 

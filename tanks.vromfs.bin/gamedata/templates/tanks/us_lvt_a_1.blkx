@@ -5,7 +5,6 @@ us_lvt_a_1_pacific_premium{
 
 us_lvt_a_1_common{
   _extends:t="base_lvt_a_1"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="floatable_vehicle"
   item__iconScale:r=0.8
@@ -398,4 +397,14 @@ lvt_a_1_pacific_premium_skins{
       }
     }
   }
+}
+
+lvt_a_1_turret_02_7_62mm_m1919a4{
+  _override:b=yes
+  turret__triggerGroup:i=0
+}
+
+lvt_a_1_turret_03_7_62mm_m1919a4{
+  _override:b=yes
+  turret__triggerGroup:i=0
 }

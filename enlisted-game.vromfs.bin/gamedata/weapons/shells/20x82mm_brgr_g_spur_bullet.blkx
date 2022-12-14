@@ -1,7 +1,8 @@
 mass:r=0.116
 caliber:r=0.02
 speed:r=710.0
-maxDistance:r=2000.0
+Cx:r=0.5055
+maxDistance:r=3000.0
 normalizationPreset:t="default"
 modelName:t="tank_bullet_he"
 ricochetPreset:t="defaultExt"

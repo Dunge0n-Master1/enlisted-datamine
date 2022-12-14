@@ -32,8 +32,26 @@ require("login/initLoginStages.nut")
 require("squad/myExtData.nut")
 require("soldiers/choosePerkWnd.nut")
 require("%enlist/currency/initPurchaseActions.nut")
-require("soldiers/chooseSquadsScene.nut")
-require("soldiers/chooseSoldiersScene.nut")
+
+let { isNewDesign, setToggleDesign } = require("%enlSqGlob/designState.nut")
+if (isNewDesign.value) {
+  require("%enlist/soldiers/armyProgressScene.nut")
+  require("%enlist/squadmanagement/chooseSquadScene.nut")
+  require("soldiers/soldiersManagementScene.nut")
+}
+else {
+  require("soldiers/chooseSquadsScene.nut")
+  require("soldiers/chooseSoldiersScene.nut")
+}
+
+
+// Set toggle design option at main menu by user permissions
+let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let permToggleDesign = hasClientPermission("debug_redesign")
+permToggleDesign.subscribe(setToggleDesign)
+setToggleDesign(permToggleDesign.value)
+
+
 require("soldiers/notReadySquadsMsg.nut")
 require("%ui/complaints/complain.nut")
 require("%enlist/tutorial/ordersTutorial.nut")
@@ -63,6 +81,7 @@ require("%enlist/replay/replayDownloadInfo.nut")
 require("%enlist/replay/replayWebHadlers.nut")
 require("%enlist/items/itemCollageScene.nut")
 require("%enlist/shop/rentedSquadDialog.nut")
+require("%enlist/tutorial/armyUnlocksVideoHint.nut")
 
 let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
@@ -81,6 +100,7 @@ let { vehicleCameraFovOption } = require("%ui/hud/menus/vehicle_camera_fov_optio
 let { vehicleCameraFollowOption } = require("%ui/hud/menus/vehicle_camera_follow_option.nut")
 let { leaderboardOptions } = require("%ui/hud/menus/options/leaderboard_options.nut")
 let narratorOptions = require("%ui/hud/menus/options/narrator_options.nut")
+let vehicleGroupLimitOptions = require("%ui/hud/menus/options/vehicle_group_limit_options.nut")
 let platform = require("%dngscripts/platform.nut")
 
 let {get_time_msec} = require("dagor.time")
@@ -99,7 +119,7 @@ else
 options.append(cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption, harmonizationOption)
   .extend(
     renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions, planeContolOptions,
-    crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions
+    crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
   )
 
 setMenuOptions(options)

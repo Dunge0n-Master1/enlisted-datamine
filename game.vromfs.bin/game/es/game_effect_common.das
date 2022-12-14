@@ -2,6 +2,7 @@ module game_effect_common shared
 require ecs
 require Grid
 require GridCollision
+require CollisionTraces
 require Dacoll
 require Daphys
 require DagorMath
@@ -61,7 +62,7 @@ def private is_within_effect_radius(eid : EntityId; center : float3; radius_sq :
 
 def private calculate_distance_sq_from_effect(eid : EntityId; center : float3; tolerance : float = 0.2)
   var nearestDistance_sq = FLT_MAX
-  trace_to_grid_entity(center, eid, tolerance, SortIntersections NO) <| $(intersections : array<IntersectedEntity>#)
+  trace_to_collision_nodes(center, eid, SortIntersections NO, tolerance) <| $(intersections : array<IntersectedEntity>#)
     for intersection in intersections
       nearestDistance_sq = min(nearestDistance_sq, distance_sq(intersection.pos, center))
 

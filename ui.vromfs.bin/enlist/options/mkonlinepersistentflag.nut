@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { onlineSettingUpdated } = require("onlineSettings.nut")
 let { watch, setValue } = mkOnlineSaveData("onlinePersistentFlags", @() {})
 

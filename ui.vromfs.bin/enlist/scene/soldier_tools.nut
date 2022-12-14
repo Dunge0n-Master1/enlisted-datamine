@@ -81,7 +81,7 @@ let function reinitEquipment(eid, equipment) {
 
   let filteredEquipment = {}
   foreach (slotId, slot in cur_human_equipment) {
-    if (slot.item != null && slot.item != INVALID_ENTITY_ID) {
+    if (slot.item != null && slot.item != ecs.INVALID_ENTITY_ID) {
       let templateArray = ecs.g_entity_mgr.getEntityTemplateName(slot.item)?.split("+") ?? []
       let oldTemplateBase = templateArray?[0]
       if (oldTemplateBase && oldTemplateBase == equipment?[slotId].template)
@@ -113,7 +113,7 @@ let function setEquipment(eid, equipment) {
   let animcharDisabledParams = calcFaceGenDisableParams(equipment)
   local updateEquipmentSlots = false
   foreach (slot, eq in equipment) {
-    if (equipSlots[slot].item != null && equipSlots[slot].item != INVALID_ENTITY_ID)
+    if (equipSlots[slot].item != null && equipSlots[slot].item != ecs.INVALID_ENTITY_ID)
       ecs.g_entity_mgr.destroyEntity(equipSlots[slot].item)
 
     if (!eq || !eq.template)
@@ -304,11 +304,11 @@ let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
 
 let function createSoldier(
   guid, transform, soldiersLook, premiumItems = {}, callback = null, extraTemplates = [],
-  isDisarmed = false, order = null, customizationOvr = {}, reInitEid = INVALID_ENTITY_ID
+  isDisarmed = false, order = null, customizationOvr = {}, reInitEid = ecs.INVALID_ENTITY_ID
 ) {
   let soldier = objInfoByGuid.value?[guid]
   if (soldier == null)
-    return INVALID_ENTITY_ID
+    return ecs.INVALID_ENTITY_ID
 
   local scheme = soldier?.equipScheme ?? {}
   if (isSoldierDisarmed(guid) || isDisarmed)
@@ -364,7 +364,7 @@ let function createSoldier(
 
   let { gametemplate = null } = soldier
   if (gametemplate == null)
-    return INVALID_ENTITY_ID
+    return ecs.INVALID_ENTITY_ID
 
   let soldierTemplate = DB.getTemplateByName(gametemplate)
   let overridedIdleAnims = soldierTemplate?.getCompValNullable("animation__overridedIdleAnims")
@@ -384,7 +384,7 @@ let function createSoldier(
   let animcharRes = soldierTemplate?.getCompValNullable("animchar__res")
   let collRes = soldierTemplate?.getCompValNullable("collres__res")
 
-  if (reInitEid != INVALID_ENTITY_ID) {
+  if (reInitEid != ecs.INVALID_ENTITY_ID) {
     local canBeRecreated = false
     initSoldierQuery.perform(reInitEid, function(_eid, comp){
       if (animcharRes != comp.animchar__res){

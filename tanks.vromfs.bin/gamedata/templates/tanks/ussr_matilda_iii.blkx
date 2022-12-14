@@ -1,6 +1,5 @@
 ussr_matilda_III{
   _extends:t="base_matilda_iii"
-  _extends:t="vehicle_effects_tracked"
 
   "vehicle_seats__seats:shared:array"{
 

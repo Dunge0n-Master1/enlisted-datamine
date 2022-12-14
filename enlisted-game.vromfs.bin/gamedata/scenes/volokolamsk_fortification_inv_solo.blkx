@@ -1,5 +1,6 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
 }
 
 entity{
@@ -1076,7 +1077,7 @@ entity{
     hmap_displacement_down:r=-0.15
     envi_cover_normal_mask_threshold:r=0.5
     envi_cover_intensity_map:t="volokolamsk_countryside_winter_det_snow_cover_tex_m*"
-    envi_cover_noise_scale:r=8.0
+    envi_cover_noise_high_frequency:r=8.0
     puddle_flat_hmap_reduce:r=0.03
     envi_cover_translucency:r=1.0
     paint_details_tex:t="volokolamsk_building_colors_tex_palette*"

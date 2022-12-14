@@ -1,8 +1,8 @@
 bulletCount:i=25
-mass:r=6.78
+mass:r=6.5
 caliber:r=0.0762
 speed:r=655.0
-Cx:r=0.4
+Cx:r=0.4437
 maxDistance:r=10000.0
 normalizationPreset:t="apbc"
 stucking:r=0.7

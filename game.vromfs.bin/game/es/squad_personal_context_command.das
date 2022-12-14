@@ -4,7 +4,7 @@ require enlisted.events_enlisted
 require enlisted.game.es.squad_personal_order_common
 require enlisted.game.es.context_command_common
 require EnlistedNet
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require game.es.squad_order_common
 
 [es(tag=gameClient, REQUIRE=human_context_command_input)]

@@ -47,11 +47,11 @@ let buildersQuery = ecs.SqQuery("buildingsQuery", {
 
 let function trackComponents(_evt, _eid, _comp) {
   let hero = watchedHeroEid.value
-  local herobuildingEid = INVALID_ENTITY_ID
+  local herobuildingEid = ecs.INVALID_ENTITY_ID
   buildersQuery.perform(hero, function(_eid, buildersComps) {
     herobuildingEid = buildersComps["building_action__target"]
   })
-  if (herobuildingEid == INVALID_ENTITY_ID) {
+  if (herobuildingEid == ecs.INVALID_ENTITY_ID) {
     resetState()
     return
   }

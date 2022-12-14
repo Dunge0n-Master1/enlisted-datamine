@@ -7,6 +7,8 @@ require DagorMath
 require Grid
 require RendInst
 require CollRes
+require AnimV20
+require GeomNodeTree
 require Dacoll
 require math.base
 require ecs
@@ -33,43 +35,43 @@ def get_building_collres(base_collres, riextra_name)
     return get_rigen_extra_coll_res(resIndex)
   return null
 
-def is_conflict_with_server_preview(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+def is_conflict_with_server_preview(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource const? = null)
   var objectFound = false
   find_query() <| $ [es(REQUIRE=builder_server_preview)] (eid : EntityId;
                                                           transform : float3x4;
                                                           buildingBoxMin : float3;
                                                           buildingBoxMax : float3;
-                                                          previewCollres : CollisionResource?;
-                                                          ri_preview__name : das_string?)
+                                                          previewCollres : CollisionResource const?;
+                                                          ri_preview__name : das_string const?)
     if eid == exclude_eid
       return false
     let serverPreviewCollres = get_building_collres(previewCollres, ri_preview__name)
     objectFound = check_bbox3_intersection(box, tm, BBox3(buildingBoxMin, buildingBoxMax), transform)
     if objectFound && serverPreviewCollres != null && base_collres != null
       var intersectPoint : float3
-      objectFound = test_collres_intersection(*base_collres, tm, *serverPreviewCollres, transform, intersectPoint, intersectPoint)
+      objectFound = test_collres_intersection(*base_collres, tm, *serverPreviewCollres, transform, intersectPoint, intersectPoint, true)
     return objectFound
   return objectFound
 
-def is_conflict_with_other_buildings(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+def is_conflict_with_other_buildings(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource const? = null)
   var objectFound = false
   find_query() <| $ [es(REQUIRE=buildTypeId)] (eid : EntityId;
                                                transform : float3x4;
                                                ri_extra__bboxMin : float3;
                                                ri_extra__bboxMax : float3;
-                                               previewCollres : CollisionResource?;
-                                               ri_extra__name : das_string?)
+                                               previewCollres : CollisionResource const?;
+                                               ri_extra__name : das_string const?)
     if eid == exclude_eid
       return false
     objectFound = check_bbox3_intersection(box, tm, BBox3(ri_extra__bboxMin, ri_extra__bboxMax), transform)
     let buildingCollres = get_building_collres(previewCollres, ri_extra__name)
     if objectFound && buildingCollres != null && base_collres != null
       var intersectPoint : float3
-      objectFound = test_collres_intersection(*base_collres, tm, *buildingCollres, transform, intersectPoint, intersectPoint)
+      objectFound = test_collres_intersection(*base_collres, tm, *buildingCollres, transform, intersectPoint, intersectPoint, true)
     return objectFound
   return objectFound
 
-def is_conflict_with_objects_in_grid(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+def is_conflict_with_objects_in_grid(tm, box; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource const? = null)
   var objectFound = false
   let buildingWorldBox = BBox3(tm[3], length(box.width))
   find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], buildingWorldBox, GridEntCheck BOUNDING) <| $(foundEid : EntityId)
@@ -87,7 +89,7 @@ def is_conflict_with_objects_in_grid(tm, box; exclude_eid : EntityId = INVALID_E
       objectFound = check_bbox3_intersection(box, tm, colBbox3, transform)
       if objectFound && base_collres != null && !has(foundEid, "building__simplifiedCollisionCheck")
         var intersectPoint : float3
-        objectFound = test_collres_intersection(collres, transform, *base_collres, tm, intersectPoint, intersectPoint)
+        objectFound = test_collres_intersection(collres, transform, *base_collres, tm, intersectPoint, intersectPoint, true)
     return objectFound
   return objectFound
 
@@ -102,14 +104,14 @@ def is_conflict_with_water(pos; height_limit : float)
 
   return false
 
-def is_conflict_with_world(tm; collobj : CollisionObject; collobj_offset : float; base_collres : CollisionResource? = null)
+def is_conflict_with_world(tm; collobj : CollisionObject; collobj_offset : float; base_collres : CollisionResource const? = null)
   if base_collres == null
     return false
   var tmCopy = tm
   tmCopy[3] = tmCopy[3] + normalize(tmCopy[1]) * collobj_offset
   return test_collision_world(collobj, tmCopy, (*base_collres).boundingSphere.r)
 
-def is_conflict_objects_in_building_box(tm, box; collobj : CollisionObject; collobj_offset : float; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource? = null)
+def is_conflict_objects_in_building_box(tm, box; collobj : CollisionObject; collobj_offset : float; exclude_eid : EntityId = INVALID_ENTITY_ID; base_collres : CollisionResource const? = null)
   let isConflict = (is_conflict_with_server_preview(tm, box, exclude_eid, base_collres) ||
                     is_conflict_with_other_buildings(tm, box, exclude_eid, base_collres) ||
                     is_conflict_with_objects_in_grid(tm, box, exclude_eid, base_collres) ||
@@ -191,21 +193,29 @@ def is_in_building_restricted_zone_sector(pos : float3;
                                                zone_max_angle,
                                                minDist)
 
+def find_building_restricted_zone(pos : float3; builder_team : int)
+  var res = INVALID_ENTITY_ID
+  find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId;
+                                                          transform aka restricted_zone_transform : float3x4;
+                                                          building_restricted_zone__maxAngle : float = -1.;
+                                                          building_restricted_zone__minDistanceForTeamOffense : float = -1.;
+                                                          building_restricted_zone__minDistanceForTeamDefense : float = -1.;
+                                                          capzone__trainOffenseTeam : int = TEAM_UNASSIGNED)
+    if (is_point_in_capzone(pos, eid, 1.) ||
+        is_in_building_restricted_zone_sector(pos,
+                                              builder_team,
+                                              restricted_zone_transform,
+                                              building_restricted_zone__maxAngle,
+                                              building_restricted_zone__minDistanceForTeamOffense,
+                                              building_restricted_zone__minDistanceForTeamDefense,
+                                              capzone__trainOffenseTeam))
+      res = eid
+      return true
+    return false
+  return res
+
 def is_in_building_restricted_zone(pos : float3; builder_team : int)
-  return find_query() <| $ [es(REQUIRE=buildingRestrictedZone)] (eid : EntityId;
-                                                                 transform aka restricted_zone_transform : float3x4;
-                                                                 building_restricted_zone__maxAngle : float;
-                                                                 building_restricted_zone__minDistanceForTeamOffense : float;
-                                                                 building_restricted_zone__minDistanceForTeamDefense : float;
-                                                                 capzone__trainOffenseTeam : int)
-    return (is_point_in_capzone(pos, eid, 1.) ||
-            is_in_building_restricted_zone_sector(pos,
-                                                  builder_team,
-                                                  restricted_zone_transform,
-                                                  building_restricted_zone__maxAngle,
-                                                  building_restricted_zone__minDistanceForTeamOffense,
-                                                  building_restricted_zone__minDistanceForTeamDefense,
-                                                  capzone__trainOffenseTeam))
+  return !!find_building_restricted_zone(pos, builder_team)
 
 def get_player_eid_interacting_building(building_eid, exclude_eid = INVALID_ENTITY_ID)
   var player_eid = INVALID_ENTITY_ID
@@ -236,24 +246,35 @@ def is_not_attachable_gun(gun_eid : EntityId; transform : float3x4;
     let to = transform * (*obj |> get_Point3("to") ?? float3())
     var norm : float3
     var t = length(from - to)
-    if traceray_normalized(from, to - from, t, norm)
+    let dir = normalize(to - from)
+    if traceray_normalized(from, dir, t, norm)
       return true
   return false
 
 def is_not_attachable_gun(building_eid : EntityId)
   var res = false
   query(building_eid) <| $ [es] (transform : float3x4;
+                                 animchar : AnimcharBaseComponent;
+                                 gun_autodetach__nodeId : int;
                                  gun_attachable_check__pointsFromTo : Array;
                                  gun_attachable_check__pointsDown : Point3List)
-    res ||= is_not_attachable_gun(building_eid, transform,
+    var gunTm = transform
+    if gun_autodetach__nodeId >= 0
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, gun_autodetach__nodeId, gunTm)
+    res ||= is_not_attachable_gun(building_eid, gunTm,
                                   gun_attachable_check__pointsDown, gun_attachable_check__pointsFromTo)
   find_query() <| $ [es] (eid : EntityId;
+                          animchar : AnimcharBaseComponent;
+                          gun_autodetach__nodeId : int;
                           transform : float3x4;
                           gun_attachable_check__pointsFromTo : Array;
                           gun_attachable_check__pointsDown : Point3List;
                           dependsOnBuildingEid : EntityId)
     if dependsOnBuildingEid == building_eid
-      res ||= is_not_attachable_gun(eid, transform,
+      var gunTm = transform
+      if gun_autodetach__nodeId >= 0
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, gun_autodetach__nodeId, gunTm)
+      res ||= is_not_attachable_gun(eid, gunTm,
                                     gun_attachable_check__pointsDown, gun_attachable_check__pointsFromTo)
       return true
     return false

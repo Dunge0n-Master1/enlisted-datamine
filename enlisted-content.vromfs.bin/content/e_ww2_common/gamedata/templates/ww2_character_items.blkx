@@ -13,6 +13,21 @@ attachable_pants{
   }
 }
 
+attachable_boots{
+  _extends:t="attachable_wear"
+  _extends:t="attachable_wear_broken_bones"
+  footprintType:i=1
+
+  "torn_wounds__name_list:list<t>"{
+    name:t="right_leg"
+    name:t="left_leg"
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="boots"
+  }
+}
+
 attachable_tunic{
   _extends:t="attachable_wear"
   _extends:t="attachable_wear_broken_bones"

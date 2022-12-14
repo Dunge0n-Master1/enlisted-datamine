@@ -28,7 +28,7 @@ ecs.register_es(
   },
   {
     comps_ro = [
-      ["ownerEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["ownerEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["hud_marker__max_distance", ecs.TYPE_FLOAT, 10.0]
     ]
     comps_track = [

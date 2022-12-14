@@ -21,6 +21,7 @@ const EVENT_RECEIVE_FILE_MOD = "EVENT_RECEIVE_FILE_MOD"
 const BASE_URL = "https://enlisted-sandbox.gaijin.net/file/{0}"
 const EVENT_MOD_VROM_INFO = "mod_info_vrom_loaded"
 const EVENT_RECEIVE_MOD_MANIFEST = "EVENT_RECEIVE_MOD_MANIFEST"
+const MOD_DOWNLOAD_URL = "https://sandbox.enlisted.net/post/{0}/manifest/{1}/"
 
 let gameMods = mkWatched(persist, "gameMods", [])
 let modPath = mkWatched(persist, "modPath", "")
@@ -53,7 +54,7 @@ let function jsonSafeParse(v){
   if (v=="")
     return null
   try{
-   return json.parse(v)
+    return json.parse(v)
   }
   catch(e) {
     return null
@@ -127,7 +128,7 @@ eventbus.subscribe(EVENT_RECEIVE_FILE_MOD, function(response){
     requestedFiles.mutate(function(v) {
       if (hash in v)
         delete v[hash]
-     })
+    })
   }
   catch(e){
     logGM(e)
@@ -322,4 +323,5 @@ return {
   allowChooseCampaign
   availableCampaigns
   isModAvailable
+  MOD_DOWNLOAD_URL
 }

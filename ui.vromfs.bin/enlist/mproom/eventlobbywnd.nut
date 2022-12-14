@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let contextMenu = require("%ui/components/contextMenu.nut")
+let { addContextMenu } = require("%ui/components/contextMenu.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {
@@ -52,9 +52,22 @@ let { memberName, mkStatusImg } = require("components/memberComps.nut")
 let { getPenaltyExpiredTime } = require("%enlSqGlob/client_user_rights.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { requestModManifest, MOD_DOWNLOAD_URL, receivedModInfos
+} = require("%enlist/gameModes/sandbox/customMissionState.nut")
+let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
 
 let startBtnSize = [hdpx(400), hdpx(80)]
 let spinnerSize = hdpx(60)
+
+let needModDownloadButton = Computed(function() {
+  if (canOperateRoom.value)
+    return false
+  let modId = room.value?.public.modId
+  if (modId != null && receivedModInfos.value.findindex(@(mods) mods.id == modId) == null)
+    return true
+  return false
+})
+
 
 let teamBlockWidth = Computed(function(){
   let centralBlockWidth = maxContentWidth - safeAreaBorders.value[1] * 2 - localPadding * 2
@@ -273,7 +286,7 @@ let function playersListRow(player, idx, team) {
       if (player.userId == userId)
         return
 
-      contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), [{
+      addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), [{
         text = loc("btn/complain")
         action = @() complain(get_session_id() ?? 0, player.userId, player.name)
       }])
@@ -593,7 +606,7 @@ let function rightBlock() {
   let canChangeRoom = canOperate && isGameInPrepare
 
   return {
-    watch = [room, membersCount, lobbyStatus, canOperateRoom]
+    watch = [room, membersCount, lobbyStatus, canOperateRoom, needModDownloadButton]
     size = [startBtnSize[0], flex()]
     flow = FLOW_VERTICAL
     gap = verticalGap
@@ -611,6 +624,13 @@ let function rightBlock() {
         children = [
           mkStatusBlock(roomData, status)
           mkStartButton(status, canOperate, roomData)
+          needModDownloadButton.value
+            ? Bordered(loc("mods/downloadFromLobby"), function() {
+                let { modId, modVersion } = room.value.public
+                let urlToDownload = MOD_DOWNLOAD_URL.subst(modId, modVersion)
+                requestModManifest(urlToDownload)
+              }, { size = [flex(), commonBtnHeight], margin = 0})
+            : null
           canChangeRoom ? changeAttributesRoomBtn : null
           hasCancelBtn ? cancelButton
             : hasBackBtn ? backButton
@@ -646,7 +666,10 @@ let function createdRoomWnd() {
     halign = ALIGN_CENTER
     rendObj = ROBJ_WORLD_BLUR_PANEL
     fillcolor = Color(250,250,150,255)
-    children = lobbyWindow
+    children = [
+      lobbyWindow
+      modsDownloadInfo
+    ]
   }
 }
 

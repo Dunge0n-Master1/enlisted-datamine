@@ -18,6 +18,7 @@ const RANK_WND_UID = "RankToolTip"
 const MAX_RANKS_IN_COLUMN = 10
 
 let rankRowHeight = hdpx(40)
+let rankRewardIconSize = hdpx(12)
 let columnRankHeigth = (rankRowHeight + smallPadding) * MAX_RANKS_IN_COLUMN
 
 let wrapParams = {
@@ -58,7 +59,8 @@ let function ranksRow(stage) {
         rendObj = ROBJ_IMAGE
         color = rewardLocId == null ? idleBgColor : defTxtColor
         margin = [hdpx(5), 0, 0, 0]
-        image = Picture($"!ui/uiskin/reward_player_icon.svg:{hdpx(12)}:{hdpx(12)}:K")
+        size = [rankRewardIconSize, rankRewardIconSize]
+        image = Picture($"!ui/uiskin/reward_player_icon.svg:{rankRewardIconSize}:{rankRewardIconSize}:K")
         behavior = Behaviors.Button
         onHover = @(on) setTooltip(on
           ? tooltipBox({
@@ -168,7 +170,8 @@ let rankToolTip = {
             rendObj = ROBJ_IMAGE
             color = idleBgColor
             vplace = ALIGN_CENTER
-            image = Picture($"!ui/uiskin/reward_player_icon.svg:{hdpx(12)}:{hdpx(12)}:K")
+            size = [rankRewardIconSize, rankRewardIconSize]
+            image = Picture($"!ui/uiskin/reward_player_icon.svg:{rankRewardIconSize}:{rankRewardIconSize}:K")
           }
           {
             rendObj = ROBJ_TEXT

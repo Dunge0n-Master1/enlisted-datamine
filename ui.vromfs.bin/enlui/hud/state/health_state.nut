@@ -11,7 +11,6 @@ let defState = freeze({
   scaleHp = 0
   isAliveState = false
   isDownedState = false
-  isHealContinuousInput = true
 })
 
 let {state, stateSetValue} = mkFrameIncrementObservable(defState,"state")
@@ -21,10 +20,9 @@ let maxHp = Computed(@() state.value.maxHp)
 let scaleHp = Computed(@() state.value.scaleHp)
 let isAliveState = Computed(@() state.value.isAliveState)
 let isDownedState = Computed(@() state.value.isDownedState)
-let isHealContinuousInput = Computed(@() state.value.isHealContinuousInput)
 
 
-local currentWatchedEid = INVALID_ENTITY_ID
+local currentWatchedEid = ecs.INVALID_ENTITY_ID
 
 ecs.register_es("health_state_ui_es", {
   [["onChange", "onInit"]] = function trackComponentsHero(eid,comp) {
@@ -37,7 +35,6 @@ ecs.register_es("health_state_ui_es", {
       scaleHp = comp["hitpoints__scaleHp"]
       isAliveState = isAlive
       isDownedState = isDowned
-      isHealContinuousInput = comp["heal__continuousInput"]
     })
   }
   onDestroy = function(eid, _comp) {
@@ -56,11 +53,23 @@ ecs.register_es("health_state_ui_es", {
     ["hitpoints__deathHpThreshold", ecs.TYPE_FLOAT, 0.0],
     ["isAlive", ecs.TYPE_BOOL, true],
     ["isDowned", ecs.TYPE_BOOL, false],
-    ["heal__continuousInput", ecs.TYPE_BOOL, true],
   ]
   comps_rq=["watchedByPlr"]
 })
 
+
+let needDisplayHealTip = Watched(false)
+
+ecs.register_es("track_is_need_heal_ui_es", {
+  [["onChange", "onInit"]] = @(_eid, comp) needDisplayHealTip(comp.human_medkit__needDisplayHealTip)
+  onDestroy = @(...) needDisplayHealTip(false)
+},
+{
+  comps_track = [
+    ["human_medkit__needDisplayHealTip", ecs.TYPE_BOOL],
+  ]
+  comps_rq=["watchedByPlr"]
+})
 
 
 //=====export====
@@ -70,5 +79,5 @@ return {
   hp
   maxHp
   scaleHp
-  isHealContinuousInput
+  needDisplayHealTip
 }

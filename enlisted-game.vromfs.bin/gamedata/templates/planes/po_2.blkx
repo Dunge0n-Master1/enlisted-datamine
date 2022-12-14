@@ -27,6 +27,13 @@ po_2{
         turret:t="turret_03"
         turret:t="turret_04"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -347,4 +354,24 @@ po_2_driver_cockpit{
   animchar__res:t="po_2_cockpit_char"
   plane_anim__blk:t="gamedata/units/po_2.blk"
   plane_sight__blk:t="gamedata/units/po_2.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.002, 0.0025, -0.004
+    item:p3=-0.0005, -0.002, -0.0035
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=10.1, 10.2
+    item:p2=-18.1, 0.0
+  }
 }

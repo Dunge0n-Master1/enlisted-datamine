@@ -1,19 +1,30 @@
-us_m18_hellcat{
+us_m18_hellcat_normandy{
+  _extends:t="us_m18_hellcat_common"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
+}
+
+us_m18_hellcat_common{
   _extends:t="base_m18_hellcat"
-  _extends:t="vehicle_effects_tracked"
-  _extends:t="tank_light_vehicle_tracks_sound"
-
-  "bullet_holes__ignoreCollisionNodes:array"{
-    _tags:t="render"
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
-    movingCollisionNodes:t="cls_turret_01"
-    movingCollisionNodes:t="turret_front"
-    movingCollisionNodes:t="turret_side"
-    movingCollisionNodes:t="gun_mask"
-  }
+  _extends:t="tank_m10_engine_sound"
+  _extends:t="tank_heavy_vehicle_tracks_sound"
+  item__iconOffset:p2=0.0, 0.1
 
   "vehicle_seats__seats:shared:array"{
 
@@ -22,15 +33,22 @@ us_m18_hellcat{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.3, 0.1]]
       seatComponent:t="isGunner"
       nextSeat:t="driver"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="us_m18_hellcat_gunner_cockpit"
+      maxPosWithOpenHatch:r=0.3
+      isHoldGunModeAllowed:b=no
 
       "turretNames:array"{
         turretNames:t="turret_01"
+      }
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
       }
     }
 
@@ -46,6 +64,7 @@ us_m18_hellcat{
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="us_m18_hellcat_driver_cockpit"
     }
 
     "seats:object"{
@@ -53,15 +72,20 @@ us_m18_hellcat{
       locName:t="vehicle_seats/commander"
       locName:t="vehicle_seats/commander"
       attachNode:t="commander"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, 0.1, 0.1]]
-      cameraType:t="commander"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.4, -0.15, -0.05]]
+      maxPosWithOpenHatch:r=0.0
+      maxPosWithOpenHatch:r=0.0
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHoldGunModeAllowed:b=no
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
 
       "turretNames:array"{
-        turret:t="turret_02"
+        turretNames:t="turret_02"
       }
     }
 
@@ -69,11 +93,15 @@ us_m18_hellcat{
       attachNode:t="loader"
       locName:t="vehicle_seats/loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.3, -0.1]]
       seatComponent:t="isPassenger"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_camera_driver"
+      seatAnimUpper:t="drive_driver"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_driver"
+      seatAnimLower:t="drive_passenger"
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
@@ -90,5 +118,57 @@ us_m18_hellcat{
       receiveDamageFromDMPart:t="machine_gunner"
       cameraNodeName:t="bone_camera_driver"
     }
+  }
+}
+
+us_m18_hellcat_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="ba_11_driver_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.285047, -0.261837, 0.0704271
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.01
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+}
+
+us_m18_hellcat_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70g.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="ba_11_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.657582, -0.0415063, 0.23394
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.19
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__cockpit__attachNodeNames:list<t>"{
+    node:t="bone_camera_gunner"
+  }
+
+  "cockpit__cockpit__attachNodeIndices:list<i>"{
   }
 }

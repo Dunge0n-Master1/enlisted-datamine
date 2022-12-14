@@ -4,9 +4,26 @@ us_halftrack_m3_75mm_gmc_pacific_premium{
 
 us_halftrack_m3_75mm_gmc_common{
   _extends:t="base_halftrack_m3_75mm_gmc"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconScale:r=0.8
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=3
+      count:i=7
+    }
+  }
 
   "defaultCameraTypes:shared:object"{
     driver:t="commander"

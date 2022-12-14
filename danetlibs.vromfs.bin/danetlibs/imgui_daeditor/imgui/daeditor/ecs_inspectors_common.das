@@ -17,10 +17,10 @@ class ContextInspectorFn
       ctx = addr(context)
     fn <- f
 
-  [unused_argument(id)] def call(eid : array < EntityId > const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
+  [unused_argument(id)] def call(eid : array < EntityId > const#; flags : uint; name : string; refs : array < EntityComponentRef# > #; level : int; var changed : bool ?; sub_menu : block < (var changed : bool ?) : bool >) : void
     unsafe
       lock_debug_agent() <| $()
-        ctx |> invoke_in_context(fn, eid, flags, name, ref, level, changed, sub_menu)
+        ctx |> invoke_in_context(fn, eid, flags, name, refs, level, changed, sub_menu)
 
 class ContextEditorFn
   ctx : Context?
@@ -49,8 +49,8 @@ struct EditorDesc
   fn : ContextEditorFn?
 
 typedef
-  InspectorFn = function<(eid : array<EntityId> const#; flags : uint; name : string; ref : EntityComponentRef#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
-  EditorFn = function<(eid : array<EntityId> const#) : void>
+  InspectorFn = function<(eid : array<EntityId>#; flags : uint; name : string; refs : array<EntityComponentRef#>#; level : int; var changed : bool?; sub_menu : block<(var changed : bool?) : bool>) : void>
+  EditorFn = function<(eid : array<EntityId>#) : void>
 
 
 let AGENT_NAME = "ecs_inspectors"
@@ -127,36 +127,36 @@ def has_inspector(type_name : string implicit) : bool
 
 
 [apply_in_context(ecs_inspectors)]
-def call_inspector(type_name : string implicit; eid : array<EntityId> const#; flags : uint; field_name : string implicit; ref : EntityComponentRef#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
+def call_inspector(type_name : string implicit; eid : array<EntityId>#; flags : uint; field_name : string implicit; refs : array<EntityComponentRef#>#; level : int; var changed : bool? implicit; sub_menu : block<(var changed : bool?) : bool> implicit) : bool
   var res = false
   inspectors |> find_for_edit_if_exists(type_name) <| $(list)
     res = true
     if length(*list) == 1
-      (*list)[0].fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
+      (*list)[0].fn->call(eid, flags, field_name, refs, level, changed, sub_menu)
       return
 
     // field_name and tag
     for it in *list
       if it.field_name == field_name && it.tag != 0u && has(eid[0], "", it.tag)
-        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, refs, level, changed, sub_menu)
         return
 
     // tag
     for it in *list
       if it.tag != 0u && has(eid[0], "", it.tag)
-        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, refs, level, changed, sub_menu)
         return
 
     // field_name
     for it in *list
       if it.field_name == field_name
-        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, refs, level, changed, sub_menu)
         return
 
     // default renderer
     for it in *list
       if empty(it.field_name) && it.tag == 0u
-        it.fn->call(eid, flags, field_name, ref, level, changed, sub_menu)
+        it.fn->call(eid, flags, field_name, refs, level, changed, sub_menu)
         return
 
     // no valid renderers
@@ -172,7 +172,7 @@ def add_editor(prefix : bool; tags : array<string> implicit; var fn : EditorFn; 
 
 
 [apply_in_context(ecs_inspectors)]
-def call_editor(prefix : bool; eid : array<EntityId> const#) : bool
+def call_editor(prefix : bool; eid : array<EntityId>#) : bool
   var res = false
   for it in editors
     if it.prefix != prefix

@@ -7,7 +7,7 @@ require Dacoll
 require HumanPhys
 require EnlistedWeapon
 require DaWeaponProps
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.context_command_common
 require enlisted.game.es.bomb_site_common
@@ -16,6 +16,7 @@ require zones
 require CollRes
 require game.es.squad_order_common
 require EnlistedNet
+require matching
 
 def get_alive_num_in_squad(squad_eid : EntityId) : int
   return get_int(squad_eid, "squad__numAliveMembers") ?? 0
@@ -83,7 +84,8 @@ def human_context_command_defend_point(act : ParallelUpdateFrameDelayed;
                                        var human_context_command__orderType : int&;
                                        var human_context_command__orderPosition : float3&;
                                        var human_context_command__orderUseEntity : ecs::EntityId&;
-                                       squad_member__squad : ecs::EntityId&)
+                                       squad_member__squad : ecs::EntityId&;
+                                       squad_member__playerEid : EntityId)
   if act.curTime >= human_context_command__nextUpdateTime &&  human_context_command__orderType == int(ContextCommand ECC_NONE)
     let traceDir = human__aimTm[0]
     let tracePos = human__aimTm[3]
@@ -105,9 +107,13 @@ def human_context_command_defend_point(act : ParallelUpdateFrameDelayed;
     human_context_command__orderPosition = new_orderPosition
 
     ecs::query(human_weap__traceIntersectedEid) <| $ [es(REQUIRE=vehicle_seats__seats)] (isAlive : bool;
+                                                                                         vehicle_seats__restrictToGroup : int64 = int64(INVALID_GROUP_ID);
                                                                                          vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED;
                                                                                          vehicle__isPlayerCanEnter : bool = true)
       if !isAlive || !vehicle__isPlayerCanEnter
+        return
+      let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
+      if vehicle_seats__restrictToGroup != int64(INVALID_GROUP_ID) && playerGroup != vehicle_seats__restrictToGroup
         return
       if vehicle_seats__restrictToTeam == TEAM_UNASSIGNED || is_teams_friendly(vehicle_seats__restrictToTeam, team)
         human_context_command__orderType = int(ContextCommand ECC_DEFEND_POINT)

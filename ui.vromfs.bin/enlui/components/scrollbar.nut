@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let baseScrollbar = require("%ui/components/base_scrollbar.nut")
 let {Interactive, Active, HoverItemBg} = require("%ui/style/colors.nut")
 
-let styling = {
+let styling = freeze({
   Knob = class {
     rendObj = ROBJ_SOLID
     colorCalc = @(sf) (sf & S_ACTIVE) ? Active
@@ -36,9 +36,9 @@ let styling = {
     size = flex()
     skipDirPadNav = true
   }
-}
+})
 
-let thinStyle = {
+let thinStyle = freeze({
   Knob = class {
     rendObj = ROBJ_SOLID
     colorCalc = @(_sf) Color(0, 0, 0, 0)
@@ -71,7 +71,7 @@ let thinStyle = {
     size = flex()
     skipDirPadNav = true
   }
-}
+})
 
 
 let function scrollbar(scroll_handler) {

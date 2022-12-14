@@ -32,7 +32,7 @@ def private draw_circle(center : float2; size : float2; segment : float2; line_w
   var radius = size * 0.5
   radius = float2(abs(radius.x), abs(radius.y))
   let count = int(cvt(max(radius.x, radius.y) + halfW, 4f, 100f, 10f, 128f))
-  let angleSteep = safediv(2f * PI, float(count))
+  let angleSteep = safediv(TWOPI, float(count))
   var angle = deg_to_rad(segment.x)
   var prevPtIn, prevPtOut = float2()
 

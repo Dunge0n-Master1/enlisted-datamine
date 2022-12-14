@@ -4,8 +4,8 @@ base_m41_75_32{
   killLogName:t="it_semovente_m41_75_32"
   animchar__res:t="semovente_m41_75_32_char"
   collres__res:t="semovente_m41_75_32_collision"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/m41_75_32.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/m41_75_32.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="semovente_m41_75_32_dmg_char"
   xray_resource__modelName:t="semovente_m41_75_32"
   cockpit__zoomOutFov:r=2.7475
@@ -13,7 +13,7 @@ base_m41_75_32{
   cockpit__sightName:t="sight_model/default_tank_spg"
   cockpit__sightFov:r=20.0
   drowningHeight:r=1.392
-  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/m41_75_32.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/m41_75_32.blk"
   item__name:t="items/it_semovente_m41_75_32"
   skin__template:t="m41_75_32_skins"
 

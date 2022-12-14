@@ -311,7 +311,7 @@ movable_cannon_seat_templates{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:list<t>"{
+    "dependent_templates_list:shared:list<t>"{
       template_name:t="movable_cannon_seat_default_sit"
       template_name:t="movable_cannon_seat_driver"
       template_name:t="movable_cannon_seat_gunner"
@@ -328,6 +328,8 @@ base_movable_cannon{
   _extends:t="nodoor_vehicle_seat_sound"
   cockpit__cameraDir:p3=1.0, 0.0, 0.0
   _tracked:t="cockpit__eid"
+  vehicle_seats__restrictToGroup:i64=0
+  _replicated:t="vehicle_seats__restrictToGroup"
   pair_collision__tag:t="collidableToVehicle"
   commanderFpsCamMaxAngle:p2=70.0, 60.0
   ai_target__noiseLevel:r=0.0

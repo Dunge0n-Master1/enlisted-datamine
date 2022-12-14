@@ -26,7 +26,7 @@ let { mkSoldierExpTooltipText } = require("%enlist/debriefing/components/mkExpTo
 let mkSoldierCard = require("mkDebriefingSoldierCard.nut")
 let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { selectArmy } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
@@ -559,7 +559,7 @@ let function skipAnimOrClose(doClose, debriefing) {
   doClose()
   switchContext(debriefing)
   if (hasNewArmyLevel(debriefing))
-    setCurSection("SQUADS")
+    jumpToArmyProgress()
 }
 
 let mkCloseBtn = @(doClose, debriefing) closeBtnBase({

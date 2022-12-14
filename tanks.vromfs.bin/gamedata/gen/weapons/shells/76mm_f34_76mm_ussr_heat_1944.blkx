@@ -1,9 +1,10 @@
 bulletCount:i=25
-mass:r=5.3
+mass:r=3.94
 explosiveType:t="a_ix_1"
-explosiveMass:r=0.623
+explosiveMass:r=0.48
 caliber:r=0.0762
 speed:r=355.0
+Cx:r=0.3604
 maxDistance:r=7000.0
 normalizationPreset:t="heat"
 bulletType:t="heat_tank"
@@ -15,8 +16,8 @@ bulletName:t="76mm_bp_350a"
 hitPower:r=260.0
 fuseDelayDist:r=0.05
 explodeTreshold:r=0.1
-selfDestructionFx:t="explosion_air_selfexplosion_med"
-explosionEffect:t="hit_59_80mm_metal_he"
+selfDestructionFx:t="hit_81_132mm_heat"
+explosionEffect:t="hit_81_132mm_heat"
 groundCollisionEffect:t="hit_59_80mm_dirt_he"
 ricochetEffect:t="hit_59_80mm_metal_ap"
 waterCollisionEffect:t="hit_59_80mm_water"
@@ -73,7 +74,7 @@ damage{
     radius:r=0.15
     offset:r=0.2
     type:t="a_ix_1"
-    mass:r=0.623
+    mass:r=0.48
     fuseDelayDist:r=0.05
     fuseArmorTreshold:r=0.1
     strengthEquivalent:r=1.7
@@ -409,7 +410,8 @@ hitFx{
   }
 
   wood{
-    fx:t="hit_59_80mm_wood_he"
+    fx:t="hit_81_132mm_heat"
+    copyBulletTm:b=yes
     fxScale:p2=1.0, 1.0
   }
 

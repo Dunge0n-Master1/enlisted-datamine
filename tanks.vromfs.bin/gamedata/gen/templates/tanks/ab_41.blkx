@@ -4,8 +4,8 @@ base_ab_41{
   killLogName:t="it_ab_41"
   animchar__res:t="ab_41_char"
   collres__res:t="ab_41_collision"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/ab_41.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/ab_41.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="ab_41_dmg_char"
   xray_resource__modelName:t="ab_41"
   cockpit__zoomOutFov:r=2.7475
@@ -13,7 +13,7 @@ base_ab_41{
   cockpit__sightName:t="sight_model/default_tank_spg"
   cockpit__sightFov:r=20.0
   drowningHeight:r=1.848
-  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/ab_41.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/ab_41.blk"
   item__name:t="items/it_ab_41"
   skin__template:t="ab_41_skins"
 

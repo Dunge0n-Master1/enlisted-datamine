@@ -1,56 +1,8 @@
 it_ab_41{
   _extends:t="it_ab_41_common"
 
-  "turret_control__turretInfo:shared:array"{
-
-    "turretInfo:object"{
-      turretName:t="turret_01"
-      gun:t="enlist_ab_41_turret_01_20mm_breda_m35_l6+main_turret"
-      barrelDm:t="gun_barrel"
-      breechDm:t="cannon_breech"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
-      salt:i=1
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_02"
-      gun:t="ab_41_turret_02_8mm_breda_mod38"
-      barrelDm:t="gun_barrel_01"
-      verDriveDm:t="drive_turret_v"
-      horDriveDm:t="drive_turret_h"
-      salt:i=1
-    }
-  }
-
   "animchar__objTexReplace:object"{
     "it_camo_olive_green*":t="it_camo_desert_yellow*"
-  }
-}
-
-enlist_ab_41_turret_01_20mm_breda_m35_l6{
-  _extends:t="ab_41_turret_01_20mm_breda_m35_l6"
-  _extends:t="gunsound_20mm_breda_m35"
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "defaultSet:array"{
-
-      "shell:object"{
-        blk:t="content/tanks/gamedata/gen/weapons/shells/20mm_breda_m35_l6_20mm_breda_aphe.blk"
-        name:t="20mm_perforante_m35"
-        type:t="ap_i_t"
-      }
-    }
-
-    "20mm_Breda_HE:array"{
-
-      "shell:object"{
-        blk:t="content/tanks/gamedata/gen/weapons/shells/20mm_breda_m35_l6_20mm_breda_he.blk"
-        name:t="20mm_granata_m35"
-        type:t="he_frag_i_t"
-      }
-    }
   }
 }
 
@@ -90,6 +42,10 @@ it_ab_41_common{
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="it_ab_41_gunner_cockpit"
       hatchRotationAxis:p3=1.9, 0.0, 0.0
+
+      "hatchNodes:array"{
+        node:t="hatch_02"
+      }
 
       "turretNames:array"{
         turretNames:t="turret_01"

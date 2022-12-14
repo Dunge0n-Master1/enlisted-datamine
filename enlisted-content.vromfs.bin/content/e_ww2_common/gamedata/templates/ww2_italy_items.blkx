@@ -1,5 +1,6 @@
 attachable_wear_head_01_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_01_it_item"
   animchar__res:t="head_iten_03_char"
   collres__res:t="head_iten_03_collision"
@@ -8,6 +9,7 @@ attachable_wear_head_01_it_item{
 
 attachable_wear_head_02_it_item{
   _extends:t="attachable_head"
+  _extends:t="blue_eyes_a"
   item__uniqueName:t="attachable_wear_head_02_it_item"
   animchar__res:t="head_iten_04_char"
   collres__res:t="head_iten_04_collision"
@@ -16,6 +18,7 @@ attachable_wear_head_02_it_item{
 
 attachable_wear_head_03_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_03_it_item"
   animchar__res:t="head_iten_07_char"
   collres__res:t="head_iten_07_collision"
@@ -24,6 +27,7 @@ attachable_wear_head_03_it_item{
 
 attachable_wear_head_04_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_04_it_item"
   animchar__res:t="head_iten_08_char"
   collres__res:t="head_iten_08_collision"
@@ -32,6 +36,7 @@ attachable_wear_head_04_it_item{
 
 attachable_wear_head_05_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_b"
   item__uniqueName:t="attachable_wear_head_05_it_item"
   animchar__res:t="head_iten_14_char"
   collres__res:t="head_iten_14_collision"
@@ -40,6 +45,7 @@ attachable_wear_head_05_it_item{
 
 attachable_wear_head_06_it_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_a"
   item__uniqueName:t="attachable_wear_head_06_it_item"
   animchar__res:t="head_iten_16_char"
   collres__res:t="head_iten_16_collision"
@@ -48,6 +54,7 @@ attachable_wear_head_06_it_item{
 
 attachable_wear_head_07_it_item{
   _extends:t="attachable_head"
+  _extends:t="ligth_gray_eyes"
   item__uniqueName:t="attachable_wear_head_07_it_item"
   animchar__res:t="head_iten_19_char"
   collres__res:t="head_iten_19_collision"
@@ -56,6 +63,7 @@ attachable_wear_head_07_it_item{
 
 attachable_wear_head_08_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_yellow_eyes_b"
   item__uniqueName:t="attachable_wear_head_08_it_item"
   animchar__res:t="head_iten_20_char"
   collres__res:t="head_iten_20_collision"
@@ -64,6 +72,7 @@ attachable_wear_head_08_it_item{
 
 attachable_wear_head_09_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_09_it_item"
   animchar__res:t="head_iten_21_char"
   collres__res:t="head_iten_21_collision"
@@ -72,6 +81,7 @@ attachable_wear_head_09_it_item{
 
 attachable_wear_head_10_it_item{
   _extends:t="attachable_head"
+  _extends:t="brown_eyes"
   item__uniqueName:t="attachable_wear_head_10_it_item"
   animchar__res:t="head_iten_22_char"
   collres__res:t="head_iten_22_collision"
@@ -80,6 +90,7 @@ attachable_wear_head_10_it_item{
 
 attachable_wear_head_11_it_item{
   _extends:t="attachable_head"
+  _extends:t="green_eyes_b"
   item__uniqueName:t="attachable_wear_head_11_it_item"
   animchar__res:t="head_iten_23_char"
   collres__res:t="head_iten_23_collision"
@@ -514,6 +525,18 @@ attachable_wear_pioniersturmgepack_01_ita_summer_item{
   animchar__res:t="pioniersturmgepack_01_ita_summer_char"
   collres__res:t="pioniersturmgepack_01_ita_summer_collision"
   animchar_fast_phys__res:t="pioniersturmgepack_01_ita_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_lanciafiamme_m35_fuel_tank_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_lanciafiamme_m35_fuel_tank_item"
+  animchar__res:t="lanciafiamme_m35_fuel_tank_char"
+  collres__res:t="lanciafiamme_m35_fuel_tank_collision"
+  animchar_fast_phys__res:t="lanciafiamme_m35_fuel_tank_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"

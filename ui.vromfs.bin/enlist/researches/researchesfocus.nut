@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let prepareResearch = require("researchesPresentation.nut")
+let { jumpToResearches } = require("%enlist/mainMenu/sectionsState.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let {
   configResearches, armiesResearches, allResearchStatus,
@@ -8,6 +9,9 @@ let {
   NOT_ENOUGH_EXP, CAN_RESEARCH, RESEARCHED
 } = require("researchesState.nut")
 let { armySquadsById } = require("%enlist/soldiers/model/state.nut")
+let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+
 
 let researchToShow = Watched(null)
 
@@ -24,12 +28,20 @@ let function focusResearch(research) {
   let researchData = armiesResearches.value?[army_id].researches[research_id]
   if (squad_id == null || researchData == null)
     return
-  setCurSection("RESEARCHES")
+  jumpToResearches()
   // do not switch army, because all visible researches are belong to the current army
   viewSquadId(squad_id)
   selectedTable(page_id)
-  selectedResearch(researchData)
-  researchToShow(researchData)
+
+  let context = {
+    armyId = army_id
+    squadId = squad_id
+    squadsCfg = squadsCfgById.value
+    alltemplates = allItemTemplates.value
+  }
+  let preparedResearch = prepareResearch(clone researchData, context)
+  selectedResearch(preparedResearch)
+  researchToShow(preparedResearch)
 }
 
 let function findResearchById(research_id) {

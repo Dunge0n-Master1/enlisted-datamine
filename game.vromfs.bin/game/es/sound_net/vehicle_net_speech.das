@@ -10,7 +10,7 @@ def request_human_speech(phrase : string; vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
     if get_bool(seatEid, "seat__isPlayer") ?? false
       let seatOwnerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-      sendEvent(seatOwnerEid, [[CmdRequestHumanSpeech phrase=phrase, importance=1.]])
+      sendEvent(seatOwnerEid, [[CmdRequestHumanSpeech phrase=phrase]])
 
 
 [es(tag=server, REQUIRE=damage_model)]

@@ -4,9 +4,9 @@ require ecs
 def melee_mod_attached(evt : Event;
                        slot_attach__attachedTo : EntityId;
                        melee_weapon__propsId : int;
-                       melee_weapon__attackAt : float?;
-                       melee_weapon__attackTime : float?;
-                       meleeSoundType : das_string?)
+                       melee_weapon__attackAt : float const?;
+                       melee_weapon__attackTime : float const?;
+                       meleeSoundType : das_string const?)
   let modMeleeProps = melee_weapon__propsId
   let modeAttackAt = melee_weapon__attackAt
   let modeAttackTime = melee_weapon__attackTime

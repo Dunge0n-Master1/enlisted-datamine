@@ -17,6 +17,7 @@ require GeomNodeTree
 require DagorMathUtils
 require Grid
 require GridCollision
+require CollisionTraces
 require Dacoll
 require PhysMat
 require CollRes
@@ -183,7 +184,7 @@ def find_vehicle_on_ray(player_team : int;
     for it in intersections
       if selected_vehicle == it.eid
         continue
-      query(it.eid) <| $ [es(REQUIRE=vehicle)] (isAlive : bool = false; team = TEAM_UNASSIGNED; user_point__attachWithOffset : Tag?)
+      query(it.eid) <| $ [es] (isAlive : bool = false; team = TEAM_UNASSIGNED; user_point__attachWithOffset : Tag const?)
         let ray_tolerance = 0.2f
         if it.t <= ray_tolerance || !rayhit_normalized(trace_pos, trace_dir, it.t - ray_tolerance, ETF_DEFAULT, aim_ray_mat_id)
           found = true
@@ -312,12 +313,16 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
       query(human_weap__currentGunEid) <| $ [es] (gun__aimRayMatId : int)
         aimRayMatId = gun__aimRayMatId
 
+      var aimPos = human__aimTm[3]
+      query(evt.markOwnerEid) <| $ [es] (transform : float3x4)
+        aimPos = transform[3]
+
       let enemyDetectDegree = get_float(obj, "enemyDetectAngle") ?? 0.5f
       let enemyDetectCos = cos(deg_to_rad(enemyDetectDegree))
       let enemyDetectCylinderRad = get_float(obj, "enemyDetectCylinderRad") ?? 0.4f
       let START_OFFSET = 0.2f // or else we could hit the gun itself
       let traceDir = evt.dir
-      let traceStart = human__aimTm[3] + traceDir * START_OFFSET
+      let traceStart = aimPos + traceDir * START_OFFSET
       let skipDead = get_bool(obj, "skipDead") ?? false
       enemyEid = find_enemy_on_ray(traceStart, traceDir, enemyDetectMaxDistance, enemyDetectCylinderRad, enemyDetectCos, team, skipDead)
       if enemyEid != INVALID_ENTITY_ID

@@ -8,8 +8,8 @@ let overheatBg = Color(0, 0, 0, 0)
 let reloadColor = Color(200, 200, 200, 150)
 
 let {
-  overheat, teammateAim, canShoot, isAiming, debugForceCrosshair, crosshairType, crosshairColor,
-  reloadEndTime, reloadTotalTime, crossHairEid
+  overheat, teammateAim, isAiming, debugForceCrosshair, crosshairType, crosshairColor,
+  reloadEndTime, reloadTotalTime, crossHairEid, showCustomCrosshair, crosshairCustomType
 } = require("%ui/hud/huds/crosshair_state_es.nut")
 
 let hitHair = require("%ui/hud/huds/hit_marks.nut").hitMarks
@@ -137,7 +137,7 @@ let overlayTransparencyBlock = {
 }
 let mkCrosshairElement = @(children) {size = [sw(100), sh(100)], children = children}
 let canShowForbidden = Computed(@() teammateAim.value && !isAiming.value)
-let crossHairTypeToShow = Computed(@() (debugForceCrosshair.value || (canShoot.value && !isAiming.value && !teammateAim.value)) ? crosshairType?.value : null)
+let crossHairTypeToShow = Computed(@() debugForceCrosshair.value ? crosshairType?.value : showCustomCrosshair.value ? crosshairCustomType?.value : null)
 
 let forbiddenBlock = @(){
   watch = canShowForbidden

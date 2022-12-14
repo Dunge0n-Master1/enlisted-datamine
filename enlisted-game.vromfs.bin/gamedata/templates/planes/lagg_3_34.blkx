@@ -23,6 +23,13 @@ lagg_3_34{
         turret:t="turret_01"
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -193,4 +200,24 @@ lagg_3_34_driver_cockpit{
   animchar__res:t="lagg_3_34_cockpit_char"
   plane_anim__blk:t="gamedata/units/lagg_3_34.blk"
   plane_sight__blk:t="gamedata/units/lagg_3_34.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.006, 0.01, -0.021
+    item:p3=0.035, 0.007, 0.0045
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=10.6, 4.3
+    item:p2=5.8, -2.8
+  }
 }

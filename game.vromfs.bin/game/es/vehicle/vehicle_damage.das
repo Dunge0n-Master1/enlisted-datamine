@@ -4,6 +4,8 @@ require common_shooter.events_common_shooter
 require dm
 require vehicle
 require ecs
+require danetlibs.native_dasevents.main.native_events
+
 
 def is_in_array(value : int; arr : ecs::IntList) : bool
   for item in arr

@@ -132,7 +132,7 @@ base_ship{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:list<t>"{
+    "dependent_templates_list:shared:list<t>"{
       template_name:t="vehicle_seat_fire_ready"
       template_name:t="vehicle_seat_driver"
     }
@@ -161,6 +161,17 @@ ship_camera{
 
   "defaultCameraTypes:shared:object"{
     driver:t="driver"
+    passenger:t="passenger"
+    passenger1:t="passenger"
+    passenger2:t="passenger"
+    passenger3:t="passenger"
+    passenger4:t="passenger"
+    passenger5:t="passenger"
+    passenger6:t="passenger"
+    passenger7:t="passenger"
+    passenger8:t="passenger"
+    passenger9:t="passenger"
+    passenger10:t="passenger"
   }
 }
 

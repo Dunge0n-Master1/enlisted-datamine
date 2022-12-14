@@ -11,25 +11,25 @@ entity{
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2761.15, 16.1888, -2139.48]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2766.37, 16.1887, -2271.98]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[226.446, 0.0, -83.1213] [0.0, 6.43649, 0.0] [10.7554, -0.0, 29.3007] [-2846.18, 17.5429, 963.788]]
   battle_area__team:i=2
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[227.212, 0.0, -81.0035] [0.0, 6.43649, 0.0] [10.4814, -0.0, 29.3999] [-2835.85, 17.543, 851.912]]
   battle_area__team:i=2
 }
@@ -51,11 +51,11 @@ entity{
 entity{
   _template:t="water"
   shore__amplitude_to_length:r=800.0
-  shore__hmap_size:r=4096.0
+  shore__hmap_size:r=1024.0
   shore__parallelism_to_wind:r=0.5
   shore__rivers_width:r=30.0
-  shore__texture_size:i=4096
-  shore__wave_gspeed:r=0.6
+  shore__texture_size:i=2048
+  shore__wave_gspeed:r=0.4
   shore__width_k:r=0.6
   waterTrail__useObstacle:b=yes
   water__level:r=0.0
@@ -73,7 +73,7 @@ entity{
     hmap_displacement_up:r=0.3
     ocean0:c=30, 55, 55, 0
     ocean1:c=40, 50, 100, 0
-    ocean_density:r=0.4
+    ocean_density:r=0.7
     land_selfillum_worldscale:r=0.9
     river0:c=30, 55, 55, 0
     river1:c=40, 50, 100, 0
@@ -82,7 +82,7 @@ entity{
     paint_details_tex:t="pacific_color_tex_palette*"
     land_selfillum_strength:r=32.0
     water_color_noise_size:r=71.0
-    river_density:r=0.4
+    river_density:r=0.7
     puddle_increase:r=-0.5
   }
 }

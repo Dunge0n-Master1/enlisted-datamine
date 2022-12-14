@@ -4,6 +4,8 @@ require HumanPhys
 require EnlistedHuman
 require game.es.events
 require common_shooter.es.human_weap_common
+require common_shooter.events_common_shooter
+require Gun
 require DaWeapons
 require DaWeaponProps
 require EnlistedWeapon
@@ -76,8 +78,15 @@ def downed_grenade_update(eid : EntityId;
       gctrl.shoot = shoot
       gctrl.timeStep = 0.01
       let dir = normalize(float3(0.14, -0.99, 0.0)) // approximative down
-      send_immediate_weap_phys_update(grenadeSlotEid, eid, at_time, dt, is_for_real, int(HUWeaponSlots EWS_GRENADE), gctrl,
-                                      dir, dir, human_net_phys.phys.currentState.velocity, transform, transform)
+      using(dir, dir, human_net_phys.phys.currentState.velocity, transform, transform) <| $(var gloc : GunLocation#)
+        sendEventImmediate(grenadeSlotEid, [[CmdWeapPhysUpdate
+                                             owner = eid,
+                                             atTime = at_time,
+                                             dt = dt,
+                                             isForReal = is_for_real,
+                                             slotId = int(HUWeaponSlots EWS_GRENADE),
+                                             gctrl := gctrl,
+                                             gloc := gloc]])
 
     update_reload(eid, at_time, dt)
 

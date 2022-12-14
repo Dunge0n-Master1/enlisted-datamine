@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { get_setting_by_blk_path } = require("settings")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 

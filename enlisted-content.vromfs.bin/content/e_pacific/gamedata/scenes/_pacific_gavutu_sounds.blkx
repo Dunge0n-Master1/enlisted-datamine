@@ -3,6 +3,10 @@ import{
 }
 
 entity{
+  _template:t="battle_music"
+}
+
+entity{
   _template:t="tropics_ambient_sound"
 }
 

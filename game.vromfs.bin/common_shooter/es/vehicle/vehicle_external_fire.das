@@ -25,7 +25,7 @@ def init_nodes_ids_array(animchar : AnimcharBaseComponent; nodes; var info_obj :
       let nodeName = get_string(nodeObj, "")
       if nodeName == ""
         continue
-      let nodeId = animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
+      let nodeId = *animchar.nodeTree |> geomtree_findNodeIndex(nodeName)
       if nodeId < 0
         continue
       arr |> push(nodeId)

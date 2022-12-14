@@ -105,4 +105,5 @@ return {
   curPractice
   curUnfinishedBattleTutorial
   lastGameTutorialId
+  markCompleted
 }

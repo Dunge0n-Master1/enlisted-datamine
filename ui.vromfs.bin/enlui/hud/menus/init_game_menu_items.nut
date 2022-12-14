@@ -12,13 +12,16 @@ let { has_network } = require("net")
 let {showPlayersMenu} = require("%ui/hud/menus/players.nut")
 let {is_sony} = require("%dngscripts/platform.nut")
 let {DBGLEVEL} = require("dagor.system")
-let {sendNetEvent, RequestSuicide, CmdSwitchSquad} = require("dasevents")
+let {sendNetEvent, RequestSuicide, CmdSwitchSquad, CmdGetDebriefingResult, CmdGetBattleResult} = require("dasevents")
 let {get_controlled_hero, find_local_player} = require("%dngscripts/common_queries.nut")
 let allowChangeSquad = require("%ui/hud/state/allow_squad_change.nut")
-let { btnResume, btnOptions, btnBindKeys } = require("%ui/hud/menus/game_menu_items.nut")
-let {client_request_unicast_net_sqevent} = require("ecs.netevent")
+let { btnResume, btnOptions, btnBindKeys, btnToggleDesign
+} = require("%ui/hud/menus/game_menu_items.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { canShowReplayHud } = require("%ui/hud/replay/replayState.nut")
+let { isCinemaRecording, setCinemaRecording } = require("%ui/hud/replay/replayCinematicState.nut")
+let { isNewDesign, hasToggleDesign } = require("%enlSqGlob/designState.nut")
+
 
 let showSuicideMenu = mkWatched(persist, "showSuicideMenu", false)
 let showExitGameMenu = mkWatched(persist, "showExitGameMenu", false)
@@ -69,13 +72,13 @@ let function exitMsgBox(text) {
       { text = loc("Yes"),
         action = function() {
           let playerEid = localPlayerEid.value
-          if (playerEid == INVALID_ENTITY_ID) {
+          if (playerEid == ecs.INVALID_ENTITY_ID) {
             switch_to_menu_scene()
             return
           }
-          ecs.g_entity_mgr.sendEvent(playerEid, ecs.event.CmdGetBattleResult({}))
+          ecs.g_entity_mgr.sendEvent(playerEid, CmdGetDebriefingResult())
           if (has_network()) {
-            client_request_unicast_net_sqevent(playerEid, ecs.event.CmdGetBattleResult({a=false})) // non empty payload to get "fromconnid"
+            sendNetEvent(playerEid, CmdGetBattleResult())
             gui_scene.resetTimeout(2.0, switch_to_menu_scene)
           } else
             switch_to_menu_scene()
@@ -110,12 +113,30 @@ let btnShowReplayHud = {
   action = @() canShowReplayHud(true)
 }
 
+let btnStopRecord = {
+  text = loc("replay/btn/stopRecord")
+  action = @() msgbox.show({
+    text = loc("replay/stopRecord")
+    buttons = [
+      {
+        text = loc("Yes")
+        action = @() setCinemaRecording(false)
+      }
+      {
+        text = loc("No")
+        isCancel = true
+        isCurrent = true
+      }
+    ]
+  })
+}
+
 let needAddReplayHudBtn = Computed(@() isReplay.value && !canShowReplayHud.value)
 
 let function setEnlistedMenuItems() {
   setMenuItems([
     btnResume,
-    btnOptions,
+    isCinemaRecording.value ? btnStopRecord : btnOptions,
     btnBindKeys,
     isReplay.value ? null : btnSuicide,
     btnChangeSquad,
@@ -123,14 +144,15 @@ let function setEnlistedMenuItems() {
     (DBGLEVEL > 0 || is_sony) && !isReplay.value ? btnPlayersInSession : null,
     isReplay.value ? null : btnBriefing,
     needAddReplayHudBtn.value ? btnShowReplayHud : null,
+    hasToggleDesign.value ? btnToggleDesign : null,
     isReplay.value ? btnExitReplay : btnExitGame
   ])
 }
 
 setEnlistedMenuItems()
-foreach (option in [allowChangeSquad, isReplay, needAddReplayHudBtn]) {
+foreach (option in [allowChangeSquad, isReplay, needAddReplayHudBtn, isCinemaRecording,
+    hasToggleDesign, isNewDesign])
   option.subscribe(@(_) setEnlistedMenuItems())
-}
 
 
 return {

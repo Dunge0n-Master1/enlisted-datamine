@@ -24,7 +24,11 @@ let complete = []
 
 let function onProfilesReceived(response, _err, accounts, callback) {
   let recvd = response?.profiles ?? []
-  recvd.each(@(u, i) pending[accounts[i]].nick = u?.onlineId)
+  recvd.each(function(u, i) {
+    let uid = accounts[i]
+    if (uid in pending)
+      pending[uid].nick <- u?.onlineId
+  })
   let finished = pending.filter(@(v) accounts.contains(v.accountId) && v.nick != null)
   finished.each(@(u) logPSN($"done {u.accountId} - {u.nick} - {u.online}"))
   finished.each(@(u) complete.append(u))
@@ -35,7 +39,11 @@ let function onProfilesReceived(response, _err, accounts, callback) {
 
 let function onPresencesReceived(response, _err, callback) {
   let recvd = response?.basicPresences ?? []
-  recvd.each(@(e) pending[e.accountId].online = (e.onlineStatus == "online"))
+  recvd.each(function(e) {
+    let uid = e.accountId
+    if (uid in pending)
+      pending[uid].online <- e.onlineStatus == "online"
+  })
   let accounts = pluck(recvd, "accountId")
   accounts.each(@(a, i) logPSN($"try profiles: {i} - {a}"))
   send(profile.getPublicProfiles(accounts), @(r, e) onProfilesReceived(r, e, accounts, callback))
@@ -65,7 +73,8 @@ let function handleResponse(fieldName, response, err, callback) {
     statsd.send_counter("psn_service_request_error", 1, {error_code = err.code, endpoint = fieldName})
     logPSN($"Failed to get {fieldName} ({err.code}): {err?.message}")
   }
-  proceed(contactsList.map(parsers[fieldName]))
+  else
+    proceed(contactsList.map(parsers[fieldName]))
 }
 
 let pendingResponse = { [fields.BLOCKLIST] = [], [fields.FRIENDLIST] = [] }
@@ -84,8 +93,14 @@ let function handleChunk(fieldName, response, err, callback) {
   }
 }
 
+let request_psn_friends = @(cb)
+  fetch(profile.listFriends(), @(r, e) handleChunk(fields.FRIENDLIST, r, e, cb), CHUNK_SIZE)
+
+let request_blocked_users = @(cb)
+  fetch(profile.listBlockedUsers(), @(r, e) handleChunk(fields.BLOCKLIST, r, e, cb), CHUNK_SIZE)
+
 return {
-  request_psn_friends = @(cb) fetch(profile.listFriends(), @(r, e) handleChunk(fields.FRIENDLIST, r, e, cb), CHUNK_SIZE)
-  request_blocked_users = @(cb) fetch(profile.listBlockedUsers(), @(r, e) handleChunk(fields.BLOCKLIST, r, e, cb), CHUNK_SIZE)
+  request_psn_friends
+  request_blocked_users
 }
 

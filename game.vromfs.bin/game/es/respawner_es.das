@@ -347,7 +347,7 @@ def respawner_es(info : UpdateStageInfoAct;
         let squadId = respawner__respRequestedSquadId
         let memberId = respawner__respRequestedMemberId
         let respawnGroupId = respawner__respawnGroupId
-        print("respawner[player: {eid}]: Respawn a new squad: {squadId}, {memberId}, {respawnGroupId}")
+        print("respawner[player: {eid}]: Respawned squad: squadId={squadId}, memberId={memberId}, respawnGroupId={respawnGroupId}")
         sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadId, memberId=memberId, respawnGroupId=respawnGroupId]])
     else
       logwarn("respawner_es player {eid} is disconnected")
@@ -430,10 +430,10 @@ def respawn_cancel_req_es(evt : CmdCancelRequestRespawn;
 
 [es(tag=server, track=squad__isAlive, REQUIRE=squad__isAlive)]
 def respawner_select_random_squad(evt : Event; squad__ownerPlayer : EntityId)
-  query(squad__ownerPlayer) <| $ [es(REQUIRE=respawner__randomNextSquad)] (squads__revivePointsList : Array; var respawner__respRequestedSquadId : int&)
+  query(squad__ownerPlayer) <| $ [es(REQUIRE=respawner__randomNextSquad)] (squads__revivePointsList : IntList; var respawner__respRequestedSquadId : int&)
     var readySquads : array<int>
     for squad, points in iter_range(squads__revivePointsList), squads__revivePointsList
-      if (points ?? 0) >= 100
+      if points >= 100
         readySquads |> push(squad)
 
     respawner__respRequestedSquadId = readySquads?[rnd_int(0, length(readySquads) - 1)] ?? 0

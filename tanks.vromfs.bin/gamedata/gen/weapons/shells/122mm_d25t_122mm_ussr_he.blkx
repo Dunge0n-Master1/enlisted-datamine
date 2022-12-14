@@ -4,7 +4,8 @@ explosiveType:t="tnt"
 explosiveMass:r=3.6
 rendinstDamageRadius:r=5.0
 caliber:r=0.122
-speed:r=800.0
+speed:r=795.0
+Cx:r=0.3069
 maxDistance:r=10000.0
 normalizationPreset:t="heat"
 bulletType:t="he_frag_tank"
@@ -24,6 +25,10 @@ visualShattersWaterOffset:r=1.2
 visualShattersGroundOffset:r=1.2
 modelName:t="tank_bullet_he"
 secondaryShattersPreset:t="ap"
+
+pressureDamage{
+  damageType:t="pressure"
+}
 
 DamageParts{
 
@@ -47,10 +52,6 @@ DamageEffects{
       destruction:r=1.0
     }
   }
-}
-
-pressureDamage{
-  damageType:t="pressure"
 }
 
 hitpower{

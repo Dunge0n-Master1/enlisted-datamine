@@ -16,7 +16,7 @@ def useful_box_use_request_es(evt : CmdUse;
                               useful_box__useCount : int;
                               useful_box__hintEnemy : string;
                               team : int;
-                              useful_box__anyTeam : Tag?)
+                              useful_box__anyTeam : Tag const?)
   let requester = evt.requesterEid
   if !requester || useful_box__useCount <= 0
     return

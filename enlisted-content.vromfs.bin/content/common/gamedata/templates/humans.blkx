@@ -14,7 +14,6 @@ human_item_use{
     _track:b=yes
     human_inventory__entityUseStart:r=-1.0
     human_inventory__entityUseEnd:r=-1.0
-    human_inventory__canUseItems:b=yes
 
     "human_inventory__targetToUse:eid"{
     }
@@ -186,6 +185,11 @@ human_common_input{
     _hide:b=yes
   }
 
+  "human_input__meleeInputStartTime:r"{
+    value:r=-1.0
+    _hide:b=yes
+  }
+
   "human_input__jump:i"{
     value:i=0
     _hide:b=yes
@@ -341,6 +345,11 @@ human_grenade_input{
     _hide:b=yes
   }
 
+  "human_input__throw6:i"{
+    value:i=0
+    _hide:b=yes
+  }
+
   "human_input__throwBack:i"{
     value:i=0
     _hide:b=yes
@@ -399,15 +408,30 @@ human_push_object_input{
   }
 }
 
+human_capzone_capturing_sounds{
+
+  _group{
+    _tags:t="sound"
+    human__capzoneCapturingSoundPath:t="ui/point_capturing"
+    human__capzoneCapturedSoundPath:t="ui/point_captured"
+
+    "human__capzoneCapturingSoundEvent:SoundEvent"{
+    }
+  }
+}
+
 base_human_hero_components{
   _extends:t="human_vehicle_input"
   _extends:t="human_common_input"
   _extends:t="human_inventory_input"
   _extends:t="human_input_aim_assist"
   _extends:t="human_push_object_input"
+  _extends:t="human_capzone_capturing_sounds"
   _tracked:t="input__enabled"
   _tracked:t="medic__canHealSelectedSoldier"
+  _tracked:t="lut_switcher__enabled"
   medic__canHealSelectedSoldier:b=no
+  lut_switcher__enabled:b=yes
 
   "human_input__perspWk:r"{
     value:r=1.0
@@ -626,6 +650,13 @@ base_human_hero_components{
     value:i=0
     _hide:b=yes
   }
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    human_medkit__needDisplayHealTip:b=no
+    human_inventory__hpThresholdForHealTip:r=0.85
+  }
 }
 
 human_recoil_mults{
@@ -637,7 +668,6 @@ human_recoil_mults{
   human_input__decayUncompensatedAimOffsetAfter:r=0.25
   human_input__decayAimOffsetVisc:r=0.3
   human_input__aimOffsetVisc:r=0.1
-  human_net_phys__bipodRecoilMult:r=1.0
 }
 
 human_anim_state_restrictions{
@@ -848,6 +878,7 @@ base_human{
   lastGunPropsIdDamagedWith:i=-1
   isSpectatable:b=yes
   downedMaxAngles:p2=20.0, 20.0
+  downedMaxAnglesExtension:p2=20.0, 20.0
   phys__lowFreqTickrate:b=yes
   aim_assist_target__nodeName:t="Bip01 Spine1"
   aim_assist_target__nodeIdx:i=-1
@@ -867,7 +898,6 @@ base_human{
   bodyCleanupTime:r=60.0
   human_sec_anim__postFix:t=""
   isTpsView:b=no
-  entity_mods__defArmor:r=0.0
   human_weap__curGunSlot:i=0
   oldFootprintType:i=0
   footprintType:i=0
@@ -894,8 +924,15 @@ base_human{
   gun_offset__acrossId:i=-1
   gun_offset__upId:i=-1
   gun_offset__alongId:i=-1
+  ragdoll__applyParams:b=no
   human__totalMaxStamina:r=0.0
   human_stamina_regen_affect__mult:r=1.0
+  human_inventory__canUseMedkit:b=no
+
+  "hitpoints__resetOffenderAfterHealThreshold:r"{
+    value:r=9.0
+    _tags:t="server"
+  }
 
   "human:tag"{
   }
@@ -1089,9 +1126,11 @@ base_human_net_phys{
   _tracked:t="human_net_phys__curMoveState"
   _tracked:t="human_net_phys__isCrawl"
   _tracked:t="human_net_phys__isCrouch"
+  _tracked:t="human_net_phys__states"
   _tracked:t="human_net_phys__standState"
   _tracked:t="human_net_phys__isInAir"
   _tracked:t="human_net_phys__isHctAim"
+  _tracked:t="human_net_phys__isHctShoot"
   _tracked:t="human_net_phys__isHoldGunModeBit"
   _tracked:t="human_net_phys__maxStamina"
   _tracked:t="human_net_phys__maxStaminaMult"
@@ -1122,6 +1161,7 @@ base_human_net_phys{
   human_net_phys__curMoveState:i=0
   human_net_phys__isInAir:b=no
   human_net_phys__isHctAim:b=no
+  human_net_phys__isHctShoot:b=no
   human_net_phys__isHoldGunModeBit:b=no
   human_net_phys__maxStamina:r=0.0
   human_net_phys__maxStaminaMult:r=0.0
@@ -1234,7 +1274,9 @@ base_human_anim{
   human_anim__jumpUpperStateId:i=-1
   human_anim__jumpStartStateRange:p2=0.0, 0.2
   human_anim__jumpEndStateRange:p2=-0.225, 0.225
+  human_anim__stationaryGunAnimId:i=-1
   _tracked:t="human_anim__vehicleSelected"
+  _tracked:t="human_cockpit__nextSlit"
   human_anim__toCrawlTransitionVar:t="laydown_transition_progress"
   human_anim__toCrawlTransitionAnim:t="laydown_transition"
   human_anim__toCrawlTransitionAnimId:i=-1
@@ -1243,11 +1285,49 @@ base_human_anim{
   human_anim__fromCrawlTransitionAnim:t="stand_transition"
   human_anim__fromCrawlTransitionAnimId:i=-1
   human_anim__fromCrawlTransitionVarId:i=-1
+  human_anim__idleUpperStateId:i=-1
+  human_anim__sprintVariationVarId:i=-1
+
+  "human_anim__isFpv:b"{
+    value:b=no
+    _track:b=yes
+    _tags:t="render"
+  }
 
   "human_anim__vehicleSelected:eid"{
   }
 
+  _group{
+    human_cockpit__nextSlit:i=0
+    human_cockpit__prevSlit:i=0
+    _tags:t="playingReplay"
+  }
+
+  _group{
+    _tags:t="gameClient"
+    human_head_dir__interpolationSpeed:r=0.3
+    human_head_dir__prevAdditionalRoll:r=0.0
+    human_head_dir__prevAdditionalPitch:r=0.0
+    human_head_dir__prevAdditionalYaw:r=0.0
+  }
+
   human_anim{
+  }
+
+  "human_anim__isIdling:b"{
+    value:b=no
+    _replicate:b=yes
+  }
+
+  "human_anim__sprintVariationCount:i"{
+    _tags:t="server"
+    value:i=4
+  }
+
+  "human_anim__sprintVariation:i"{
+    _replicate:b=yes
+    _track:b=yes
+    value:i=0
   }
 
   "animchar__animState:object"{
@@ -1267,14 +1347,6 @@ base_human_anim{
     climbHeights:p2=1.2, 0.4
     climbHeights:p2=1.58, 0.2
     climbHeights:p2=2.0, 0.0
-  }
-
-  _group{
-    _tags:t="gameClient"
-    human_head_dir__interpolationSpeed:r=0.3
-    human_head_dir__prevAdditionalRoll:r=0.0
-    human_head_dir__prevAdditionalPitch:r=0.0
-    human_head_dir__prevAdditionalYaw:r=0.0
   }
 }
 
@@ -1325,6 +1397,8 @@ human_vehicle_maintenance{
     _track:b=yes
     maintenance__targetNeedsRepair:b=no
     maintenance__targetNeedsExtinguishing:b=no
+    maintenance__isExtinguishAvailable:b=no
+    maintenance__isRepairAvailable:b=no
   }
 
   _group{
@@ -1491,14 +1565,6 @@ human{
   current_region__nextTime:r=-1.0
   human_attached_gun__nodeName:t="rightHand_placement"
   human_attached_gun__nodeLhName:t="leftHand_placement"
-  human_attached_gun__nodeOffset:p3=-0.55, 0.2, 0.0
-  human_attached_gun__nodeOffsetCrawl:p3=-1.0, -0.1, 0.2
-  human_attached_gun__nodeOffsetCrouch:p3=-0.53, -1.0, 0.4
-  human_attached_gun__nodeOffsetStand:p3=-0.48, -1.37, 0.4
-  human_attached_gun__hashPosition:p3=0.0, 0.0, 0.0
-  human_attached_gun__walkAnimAt:r=0.0
-  human_attached_gun__walkAnimPeriod:r=0.3
-  human_attached_gun__walkDir:p2=0.0, 0.0
   human_attached_gun__lhandNodeIdx:i=-1
   human_attached_gun__rhandNodeIdx:i=-1
   human_attached_gun__disableIK:b=no
@@ -1985,15 +2051,6 @@ _componentFilters{
   human_phys__jumpEndTime:t="filter_not_possessed"
 }
 
-hero_usable_objects{
-  _extends:t="replicating"
-  _singleton:b=yes
-  client_usable_objects__extraQueryRiRadius:r=0.0
-
-  "client_usable_objects__riEids:list<eid>"{
-  }
-}
-
 human_binocular{
   human_binocular__vertLookAngleLimit:p2=-75.0, 75.0
   human_binocular__prevGunSlot:i=-1
@@ -2084,6 +2141,8 @@ base_human_weap{
   human_weap__cameraTransitionOnActionProgress:r=0.0
   human_weap__cameraTransitionOnActionTime:r=0.5
   human_weap__blockAiming:b=no
+  human_weap__canOperate:b=yes
+  _tracked:t="human_weap__canOperate"
   _tracked:t="human_weap__blockAiming"
   _tracked:t="human_weap__lastShotAtTime"
   _tracked:t="human_weap__currentGunSlot"

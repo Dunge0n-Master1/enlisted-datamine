@@ -39,11 +39,12 @@ let function equipByList(sGuid, equipList, cb = null) {
   equip_by_list(sGuid, equipList, mkActionCb(cb))
 }
 
-let function disposeItem(sGuid, cb = null) {
+let function disposeItem(guids, count, cb = null) {
   if (isItemActionInProgress.value)
     return
+
   isItemActionInProgress(true)
-  dispose_item(sGuid, mkActionCb(cb))
+  dispose_item(guids.slice(0, count), mkActionCb(cb))
 }
 
 return {

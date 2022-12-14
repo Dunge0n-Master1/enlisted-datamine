@@ -103,36 +103,57 @@ def get_most_effective_heal_item(item_container : EidList;
   return healItems[0].eid
 
 
+[es(on_appear, track=(isAlive, isDowned, isInVehicle, burning__isBurning, hitpoints__hp, hitpoints__maxHp, total_kits__selfHeal,
+  total_kits__selfRevive, human_breath__isUnderWater, human_net_phys__isSwimming, human_freefall__isFreefall, hitpoints__criticalHpRatio, human_parachute__isDeployed,
+  maintenance__isExtinguishAvailable, maintenance__isRepairAvailable))]
+def human_inventory_update_can_use_heal(evt : Event;
+                                        isAlive : bool;
+                                        isDowned : bool;
+                                        isInVehicle : bool;
+                                        burning__isBurning : bool;
+                                        hitpoints__hp : float;
+                                        hitpoints__maxHp : float;
+                                        total_kits__selfHeal : int;
+                                        total_kits__selfRevive : int;
+                                        human_breath__isUnderWater : bool;
+                                        human_net_phys__isSwimming : bool;
+                                        human_freefall__isFreefall : bool;
+                                        hitpoints__criticalHpRatio : float;
+                                        human_parachute__isDeployed : bool;
+                                        maintenance__isExtinguishAvailable : bool = false;
+                                        maintenance__isRepairAvailable : bool = false;
+                                        var human_inventory__canUseMedkit : bool&)
+  let canSelfHeal = !isDowned && total_kits__selfHeal > 0
+  let canSelfRevive = isDowned && total_kits__selfRevive > 0
+  let canSelfExtinguish = burning__isBurning && !isInVehicle
+
+  let lostHp = hitpoints__maxHp - max(hitpoints__hp, 0.0)
+  let needMedkitUse = (lostHp >= 1e-06f || hitpoints__hp <= hitpoints__criticalHpRatio)
+
+  human_inventory__canUseMedkit = (isAlive && !human_breath__isUnderWater && !human_net_phys__isSwimming && !human_freefall__isFreefall && !human_parachute__isDeployed
+                               && (!burning__isBurning || !isInVehicle) && needMedkitUse && (canSelfHeal || canSelfRevive || canSelfExtinguish)
+                               && !maintenance__isExtinguishAvailable && !maintenance__isRepairAvailable)
+
+
 [es]
 def human_inventory_medkit_es(evt : CmdMedkitUse;
                               eid : ecs::EntityId;
                               itemContainer : EidList;
                               hitpoints__hp : float;
                               hitpoints__maxHp : float;
-                              isAlive : bool;
                               human_inventory__entityToUse : EntityId;
-                              maintenance__canMaintainVehicle : bool;
-                              extinguisher__hasExtinguisher : bool;
-                              repair__hasRepairKit : bool;
-                              maintenance__targetNeedsExtinguishing : bool = false;
-                              maintenance__targetNeedsRepair : bool = false;
+                              human_inventory__canUseMedkit : bool;
                               isInVehicle : bool = false;
                               burning__isBurning : bool = false;
                               isDowned : bool = false;
-                              hitpoints__criticalHpRatio : float = 0.1;
+                              hitpoints__criticalHpRatio : float;
                               hitpoints__maxHealAmountWasteRatio : float = 0.2)
-  let extinguishAvailable = maintenance__canMaintainVehicle && extinguisher__hasExtinguisher && maintenance__targetNeedsExtinguishing
-  let repairAvailable = maintenance__canMaintainVehicle && repair__hasRepairKit && maintenance__targetNeedsRepair
-
-  if extinguishAvailable || repairAvailable
+  if !human_inventory__canUseMedkit
     return
 
   if burning__isBurning
     if !isInVehicle
       send_net_event(eid, [[CmdPutOutFireStart]])
-    return
-  let needHp = hitpoints__maxHp - max(hitpoints__hp, 0.f)
-  if !isAlive || (needHp < 1e-06f && hitpoints__hp > hitpoints__criticalHpRatio)
     return
 
   let healAmountComp <- isDowned ? [{auto[] ecs_hash("item__reviveAmount")}] : [{auto[] ecs_hash("item__healAmount")}]

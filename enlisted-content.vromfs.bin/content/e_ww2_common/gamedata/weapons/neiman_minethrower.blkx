@@ -1,4 +1,4 @@
-stat_name:t="launcher"
+stat_name:t="grenade"
 selWeaponVar:t="neiman_minethrower"
 
 ownerAnimVars{

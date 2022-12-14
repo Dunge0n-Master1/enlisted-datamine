@@ -62,6 +62,16 @@ minimapDefaultVisibleRadius.subscribe(@(r) minimapState.setVisibleRadius(r))
 let mapTransform = { rotate = curMinimapShape.rotate }
 
 
+ecs.register_es("camera_zoom_when_artillery_is_started_es",
+  {
+    [[ "onInit", "onChange" ]] = @(_eid, comp) minimapState.setTargetVisibleRadius(comp.level__minimapTargetVisibleRadius),
+  },
+  {
+    comps_track = [["level__minimapTargetVisibleRadius", ecs.TYPE_FLOAT]]
+  }
+)
+
+
 let blurredWorld = {
   rendObj = ROBJ_MASK
   image = curMinimapShape.blurBackMask

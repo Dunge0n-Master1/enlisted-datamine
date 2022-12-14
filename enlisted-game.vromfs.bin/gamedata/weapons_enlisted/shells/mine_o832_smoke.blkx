@@ -1,0 +1,28 @@
+mass:r=3.51
+caliber:r=0.08
+bullets:i=1
+bullets:i=1
+speed:r=60.0
+speedDispersion:r=0.0
+momentOfInertia:p3=0.04, 0.008, 0.04
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+explosiveType:t="smoke_composition"
+explosiveMass:r=0.0
+entityTemplate:t="mine_o832_smoke_phys"
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.0, 0.0, 0.015
+}
+
+visual{
+  template:t="mine_o832_smoke_item+item_in_world"
+}

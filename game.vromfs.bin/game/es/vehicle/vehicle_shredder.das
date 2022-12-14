@@ -21,10 +21,12 @@ def vehicle_inactive_update_timer_es(evt : Event;
 def vehicle_respawn_delete_inactive_es(info : UpdateStageInfoAct;
                                        eid : ecs::EntityId;
                                        inactiveTimer : float;
-                                       lastOffender : EntityId = INVALID_ENTITY_ID)
+                                       lastOffender : EntityId = INVALID_ENTITY_ID;
+                                       last_offender__gunPropsId : int = -1;
+                                       last_offender__shellId : int = -1)
   if inactiveTimer > 0.0 && info.curTime > inactiveTimer
     setOptional(eid, "vehicle__isDestroyedWithoutCrew", true)
-    sendEvent(eid, [[CmdExplosionFatal offender=lastOffender]])
+    sendEvent(eid, [[CmdExplosionFatal offender=lastOffender, gunPropsId=last_offender__gunPropsId, shellId=last_offender__shellId]])
     removeSubTemplate(eid, "destroy_inactive_vehicle")
 
 [es(tag=server, no_order)]

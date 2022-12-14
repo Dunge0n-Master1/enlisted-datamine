@@ -1,5 +1,6 @@
 base_human_actions{
   action__running:b=no
+  _tracked:t="action__running"
   _replicated:t="actions__actions_enabled"
   _replicated:t="actions__enabled"
   actions__enabled:b=yes

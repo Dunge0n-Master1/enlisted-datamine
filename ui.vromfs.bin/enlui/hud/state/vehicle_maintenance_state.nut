@@ -45,7 +45,7 @@ ecs.register_es("ui_maintenance_es",
         hasExtinguisher = comp.extinguisher__hasExtinguisher
         canMaintainVehicle = comp.maintenance__canMaintainVehicle
       }
-      if (mntTgtEid != INVALID_ENTITY_ID){
+      if (mntTgtEid != ecs.INVALID_ENTITY_ID){
         res.isRepairRequired <- comp.maintenance__targetNeedsRepair
         res.isExtinguishRequired <- comp.maintenance__targetNeedsExtinguishing
         maintenanceTargetQuery.perform(mntTgtEid, function(_eid, comp){

@@ -33,8 +33,11 @@ require DaWeaponProps
 def vehicle_input_turret_es(evt : CmdTurretsUpdate;
                             net_phys__currentStatePosition : float3&;
                             turret_control__gunEids : EidList;
-                            vehicle__localControls : VehicleControlsState? = null;
-                            vehicle__allAcquiredControls : VehicleControlsState? = null)
+                            vehicle__localControls : VehicleControlsState const? = null;
+                            vehicle__allAcquiredControls : VehicleControlsState const? = null)
+  if vehicle__localControls == null && vehicle__allAcquiredControls == null
+    return
+
   assume controlsState = vehicle__localControls != null ? *vehicle__localControls : *vehicle__allAcquiredControls
 
   let shootFromPos = net_phys__currentStatePosition + float3(0.0, 2.0, 0.0)
@@ -55,7 +58,7 @@ def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
                                                animchar : AnimcharBaseComponent;
                                                turret_control__gunEids : EidList;
                                                net_phys__role : int;
-                                               vehicle__localControls : VehicleControlsState?)
+                                               vehicle__localControls : VehicleControlsState const?)
   // r-shadows get it's turret directions from snapshots
   let isValidNetRole = (net_phys__role != int(NetRole ROLE_REMOTELY_CONTROLLED_SHADOW))
   let isCanControlTurrets = (vehicle__localControls != null && vehicle__localControls.canControlTurrets)
@@ -67,7 +70,7 @@ def apply_turret_aim_pos_to_remote_wish_dir_es(evt : CmdTurretsUpdate;
         if turret__emitterNodeId < 0
           return
 
-        let nwp = animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
+        let nwp = *animchar.nodeTree |> geomtree_getNodeWpos(turret__emitterNodeId)
         let gunDir = normalize(turret_aim__shootToPos - nwp)
         turret_state.remote |> remote_state_setWishDirection(gunDir)
 
@@ -290,7 +293,16 @@ def turret_apply_client_input_es(evt : TurretControlsMsg; eid : EntityId; human_
       if found
         return
 
-def turret_shoot_tm_save(isAlive : bool = true;
+[es(on_appear, REQUIRE=resolvedTurret)]
+def turret_init_shoot_node(evt : Event;
+                           turret__owner : EntityId;
+                           gun__shootNodeName : string;
+                           var turret__shootNodeId : int&)
+  query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
+    turret__shootNodeId = geomtree_findNodeIndex(*animchar.nodeTree, gun__shootNodeName)
+
+def turret_shoot_tm_save(animchar : AnimcharBaseComponent;
+                         isAlive : bool;
                          turret_control__gunEids : EidList;
                          net_phys__currentStateOrient : float4;
                          net_phys__currentStateVelocity : float3)
@@ -298,9 +310,15 @@ def turret_shoot_tm_save(isAlive : bool = true;
     let currentOrient = quat(net_phys__currentStateOrient)
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (gun : Gun;
+                                                       turret__shootNodeId : int = -1;
+                                                       turret__aimWithShootNode : Tag const?;
                                                        var turret_state : TurretState)
         let turretDir = angles_to_dir(turret_state.angles)
-        let dir = normalize(currentOrient * turretDir)
+        var dir = normalize(currentOrient * turretDir)
+        if turret__aimWithShootNode != null && turret__shootNodeId >= 0
+          var tm : float3x4
+          *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(turret__shootNodeId, tm)
+          dir = tm[0]
         var shootTm = IDENT_TM
         gun.shootNodeData |> gun_shoot_node_data_calcShootTm(dir, shootTm)
         turret_state.shoot.dir = shootTm[0]
@@ -312,10 +330,11 @@ def turret_shoot_tm_save(isAlive : bool = true;
 [es(tag=server)]
 def turret_shoot_tm_save_es(evt : CmdTurretsUpdate;
                             isAlive : bool = true;
+                            animchar : AnimcharBaseComponent;
                             turret_control__gunEids : EidList;
                             net_phys__currentStateOrient : float4;
                             net_phys__currentStateVelocity : float3)
-  turret_shoot_tm_save(isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
 
 [es(tag=server, REQUIRE_NOT=deadEntity, after=(turret_shoot_tm_save_es, turret_set_angles_es), before=turret_weap_updater_es)]
 def turret_server_aim(evt : CmdTurretsUpdate;
@@ -328,11 +347,12 @@ def turret_server_aim(evt : CmdTurretsUpdate;
 
 [es(tag=netClient, REQUIRE=heroVehicle, after=turret_shoot_tm_save_es, before=turret_weap_drivers_updater_es)]
 def turret_shoot_tm_save_client_es(evt : CmdTurretsUpdate;
+                                   animchar : AnimcharBaseComponent;
                                    isAlive : bool = true;
                                    turret_control__gunEids : EidList;
                                    net_phys__currentStateOrient : float4;
                                    net_phys__currentStateVelocity : float3)
-  turret_shoot_tm_save(isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
 
 
 [es(tag=gameClient, after=turret_shoot_tm_save_es, before=turret_weap_updater_es, REQUIRE=heroVehicle, REQUIRE_NOT=turretsCorrection)]
@@ -362,8 +382,8 @@ def turret_weap_update(gunEid : EntityId;
                        atTime : float)
   query(gunEid) <| $ [es] (turret_state : TurretState;
                            turret_aim__shootFlag : bool;
-                           turret_aim__shootDirWithCorrection : float3?;
-                           turret_serverAim : Tag?;
+                           turret_aim__shootDirWithCorrection : float3 const?;
+                           turret_serverAim : Tag const?;
                            turret__isUnderwater : bool;
                            turret__isBroken : bool;
                            gun__timeBetweenShotMult : float = 1.0;
@@ -445,7 +465,7 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
 
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_aim__shootFlag : bool;
-                                                       turret_controls_history : TurretControlsHistory?;
+                                                       turret_controls_history : TurretControlsHistory const?;
                                                        var turret_state : TurretState)
 
         if turret_controls_history != null && turret_aim__shootFlag
@@ -489,7 +509,7 @@ def turret_weap_net_es(evt : TurretShotShellMsg;
   if turretNo < length(turret_control__gunEids)
     let gunEid = turret_control__gunEids[turretNo]
     if gunEid != INVALID_ENTITY_ID && !vehicle__localControls |> canControlTurret(uint(turretNo))
-      send_net_event(
+      sendEvent(
           gunEid,
           [[CmdNetShot
             shellId=evt.shellId,

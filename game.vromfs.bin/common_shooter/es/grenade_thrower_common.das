@@ -25,7 +25,7 @@ def attach_projectile(owner_eid : EntityId;
                       have_ammo : bool)
   var result = false
   query(projectile_entity) <| $ [es] (gun_attach__mainSlotId : int;
-                                      gun_attach__holsterSlotsIds : IntList?;
+                                      gun_attach__holsterSlotsIds : IntList const?;
                                       var slot_attach__slotId : int&;
                                       var gun__visible : bool&)
     if attach
@@ -84,7 +84,6 @@ def throw_grenade_away(eid : EntityId;
                                  var human_gun_attached : bool&;
                                  var grenade_thrower__projectileEntity : EntityId&)
           // shell__owner is always someone, who throwed the grenade first, or rethrowed an unowned grenade
-          // shell__rethrower (if valid) is always from the team, hostile to the shell owner
           // If the grenade already has a rethrower, it's (for simplicity) overwritten, which is a very rare case anyway
 
           var newShellOwner = shell__owner
@@ -93,11 +92,9 @@ def throw_grenade_away(eid : EntityId;
           if shell__owner == INVALID_ENTITY_ID
             newShellOwner = eid
           else
-            let team = get_int(eid, "team") ?? TEAM_UNASSIGNED
-            let shellOwnerTeam = get_int(shell__owner, "team") ?? TEAM_UNASSIGNED
-            if !is_teams_friendly(team, shellOwnerTeam)
-              // rethrower is remembered, so he will be rewarded if the rethrow is "successfull" (kills rethrower's foes)
-              newShellRethrower = eid
+            // rethrower is remembered, so he will be rewarded if the rethrow is "successfull" (kills rethrower's foes)
+            // also we need to remember him do a proper cleanup in case the grenade explodes in his hand
+            newShellRethrower = eid
 
           human_gun_attached = false
           shell_props := new_shell_props
@@ -134,4 +131,42 @@ def throw_grenade_away(eid : EntityId;
             query(eid) <| $ [es] (var human_weap__localProjectileEid : EntityId&)
               destroyEntity(human_weap__localProjectileEid)
               human_weap__localProjectileEid = grenade_thrower__projectileEntity
+  return res
+
+def find_rethrowable_grenade(to_whom : EntityId)
+  var res = INVALID_ENTITY_ID
+  query(to_whom) <| $ [es] (transform aka human_transform : float3x4; human_use_object__rethrowDist : float = 2.5f)
+    let humanPos = human_transform[3]
+    let humanDir = human_transform[0].xz
+    query() <| $ [es(REQUIRE_NOT=shell__blockRethrow)] (eid : EntityId;
+                                                        active : bool;
+                                                        transform : float3x4;
+                                                        slot_attach__attachedTo : EntityId;
+                                                        shell__explTime : float;
+                                                        shell__shell_id__shell_id : int;
+                                                        shell__rethrowTime : float = 4.0f)
+      if slot_attach__attachedTo != INVALID_ENTITY_ID || !active
+        return
+
+      var adjustedRethrowTime = shell__rethrowTime
+      // In online game server allows to rethrow a grenade for a little more time
+      // So if the controls packet arrives a bit late (due to net lag), rethrow still happens
+      // This fixes the situation, when the client rethrows the grenade close to the end of rethrowTime
+      if is_true_net_server()
+        adjustedRethrowTime += PHYS_MAX_CONTROLS_TICKS_DELTA_SEC
+
+      var timer = 0.0f
+      detonation_get_props(shell__shell_id__shell_id) <| $(detonationProps : DetonationProps)
+        timer = detonationProps.timer
+
+      let restTime = timer - min(adjustedRethrowTime, timer)
+      if get_sync_time() > shell__explTime - restTime
+        return
+
+      let shellPos = transform[3]
+      if length_sq(humanPos - shellPos) > square(human_use_object__rethrowDist)
+        return
+
+      if dot(humanDir, shellPos.xz - humanPos.xz) > 0.0
+        res = eid
   return res

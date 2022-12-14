@@ -53,11 +53,13 @@ uk_crusader_mk_3_common{
       hatchRotationAxis:p3=1.8, 0.0, 0.0
       locName:t="vehicle_seats/commander"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.65, -0.6, 0.1]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.6, -0.7, 0.04]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="uk_crusader_mk_3_commander_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
 
       "hatchNodes:array"{
         node:t="hatch_01"

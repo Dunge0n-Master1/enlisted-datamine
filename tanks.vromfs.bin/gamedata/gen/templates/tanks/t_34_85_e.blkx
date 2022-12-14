@@ -11,7 +11,7 @@ base_t_34_85_e{
   cockpit__zoomOutFov:r=5.8197
   cockpit__zoomInFov:r=6.1402
   cockpit__sightName:t="sight_model/tsh_16"
-  cockpit__sightFov:r=15.0
+  cockpit__sightFov:r=9.75
   drowningHeight:r=2.16
   damage_model__blk:t="gamedata/gen/units/tanks/t_34_85_e.blk"
   item__name:t="items/ussr_t_34_85e"
@@ -305,18 +305,18 @@ t_34_85_e_skins{
     }
 
     "skin:object"{
-      id:t="t_34_85_e_ussr_camo_brown_lines"
+      id:t="t_34_85_e_ussr_camo_czechoslovak_yellow_green"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+        "ussr_camo_green*":t="ussr_camo_czechoslovak_yellow_green*"
       }
     }
 
     "skin:object"{
-      id:t="t_34_85_e_ussr_camo_green_ltbrown_lines"
+      id:t="t_34_85_e_ussr_camo_desert_syrian_green_brown_yellow"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+        "ussr_camo_green*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
 

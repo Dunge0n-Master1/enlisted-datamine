@@ -2,9 +2,9 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { anyItemComps, mkItemDescFromComp } = require("items.nut")
-let heroFlaskEid = Watched(INVALID_ENTITY_ID)
+let heroFlaskEid = Watched(ecs.INVALID_ENTITY_ID)
 let heroFlaskInfo = Watched()
-let hasHeroFlask = Computed(@() heroFlaskEid.value!=INVALID_ENTITY_ID)
+let hasHeroFlask = Computed(@() heroFlaskEid.value!=ecs.INVALID_ENTITY_ID)
 let flaskAffectApplied = Watched(false)
 let memoizedDesc = memoize(@(_name, eid, comp) mkItemDescFromComp(eid, comp), 1)
 
@@ -14,7 +14,7 @@ ecs.register_es("flask_hero_state", {
     heroFlaskInfo(memoizedDesc(comp["item__name"], eid, comp))
   }
   onDestroy = function(...) {
-    heroFlaskEid(INVALID_ENTITY_ID)
+    heroFlaskEid(ecs.INVALID_ENTITY_ID)
     heroFlaskInfo(null)
   }
 },
@@ -24,7 +24,7 @@ ecs.register_es("flask_hero_state", {
 })
 
 ecs.register_es("has_hero_flask_affect", {
-  [["onInit", "onChange"]] = @(_evt, _eid, comp) flaskAffectApplied(comp.flask__affectEid != INVALID_ENTITY_ID)
+  [["onInit", "onChange"]] = @(_evt, _eid, comp) flaskAffectApplied(comp.flask__affectEid != ecs.INVALID_ENTITY_ID)
   onDestroy = @(...) flaskAffectApplied(false)
 },
 {

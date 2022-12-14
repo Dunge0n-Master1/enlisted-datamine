@@ -1,10 +1,10 @@
 bulletCount:i=25
-mass:r=6.3
+mass:r=6.5
 explosiveType:t="a_ix_2"
-explosiveMass:r=0.064
+explosiveMass:r=0.065
 caliber:r=0.0762
 speed:r=655.0
-Cx:r=0.4
+Cx:r=0.4437
 maxDistance:r=10000.0
 normalizationPreset:t="apbc"
 stucking:r=0.7
@@ -113,7 +113,7 @@ damage{
 
   explosive{
     type:t="a_ix_2"
-    mass:r=0.064
+    mass:r=0.065
     fuseDelayDist:r=0.9
     fuseArmorTreshold:r=14.0
     strengthEquivalent:r=1.7
@@ -126,21 +126,6 @@ visual{
   traceFreq:i=1
   tracer:t="30mmWhite"
   trail:t="black"
-}
-
-armorpower{
-  ArmorPower0m:p2=98.0, 10.0
-  ArmorPower100m:p2=95.0, 100.0
-  ArmorPower250m:p2=92.0, 250.0
-  ArmorPower500m:p2=87.0, 500.0
-  ArmorPower750m:p2=82.0, 750.0
-  ArmorPower1000m:p2=77.0, 1000.0
-  ArmorPower1250m:p2=72.0, 1250.0
-  ArmorPower1500m:p2=68.0, 1500.0
-  ArmorPower2000m:p2=60.0, 2000.0
-  ArmorPower2500m:p2=54.0, 2500.0
-  ArmorPower3000m:p2=48.0, 3000.0
-  ArmorPower10000m:p2=0.0, 10000.0
 }
 
 ballistics{

@@ -4,4 +4,6 @@ violence_settings{
   isBloodEnabled:b=no
   isGoreEnabled:b=no
   disabledBloodColor:c=15, 15, 15, 255
+  _tracked:t="isBloodEnabled"
+  _tracked:t="isGoreEnabled"
 }

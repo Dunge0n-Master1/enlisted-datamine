@@ -15,19 +15,26 @@ base_matilda_iii{
   drowningHeight:r=1.928
   damage_model__blk:t="gamedata/gen/units/tanks/matilda_iii.blk"
   item__name:t="items/uk_a_12_mk_2_matilda_2"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="matilda_iii_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_40mm_slow"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -35,6 +42,8 @@ base_matilda_iii{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
   }
 
   "turret_control__animVars:shared:array"{
@@ -62,6 +71,16 @@ base_matilda_iii{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -80,6 +99,22 @@ base_matilda_iii{
       turretName:t="turret_02"
       gun:t="matilda_iii_turret_02_7_92mm_besa"
       barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="matilda_iii_turret_03_76mm_nato_smoke_grenade_launcher_single"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="matilda_iii_turret_04_76mm_nato_smoke_grenade_launcher_single"
       salt:i=1
     }
   }
@@ -117,8 +152,26 @@ matilda_iii_turret_02_7_92mm_besa{
   gun__shootNodeName:t="bone_mg_gun_twin"
 
   "gun__shellsAmmo:array"{
-    ammo:i=2000
-    ammo:i=2000
+    ammo:i=2025
+    ammo:i=2025
+  }
+}
+
+matilda_iii_turret_03_76mm_nato_smoke_grenade_launcher_single{
+  _extends:t="tankgun_76mm_nato_smoke_grenade_launcher_single"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+matilda_iii_turret_04_76mm_nato_smoke_grenade_launcher_single{
+  _extends:t="tankgun_76mm_nato_smoke_grenade_launcher_single"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
   }
 }
 

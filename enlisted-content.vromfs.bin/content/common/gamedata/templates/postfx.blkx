@@ -85,8 +85,8 @@ depth_of_field{
     dof__is_filmic:b=no
     dof__focusDistance:r=-1.0
     dof__fStop:r=1.0
-    dof__sensorHeight:r=0.024
-    dof__focalLength:r=-1.0
+    dof__sensorHeight_mm:r=24.0
+    dof__focalLength_mm:r=-1.0
     dof__nearDofStart:r=0.01
     dof__nearDofEnd:r=0.35
     dof__nearDofAmountPercent:r=0.0
@@ -97,4 +97,15 @@ depth_of_field{
     dof__bokehShape_kernelSize:r=8.0
     dof__minCheckDistance:r=0.3
   }
+}
+
+postfx_smoke_blackout{
+  _singleton:b=yes
+  smoke_blackout_effect__timeStartVarId:i=-1
+  smoke_blackout_effect__timeEndVarId:i=-1
+  smoke_blackout_effect__intervalVarId:i=-1
+  smoke_blackout_effect__decreaseDurationVarId:i=-1
+  smoke_blackout_effect__enabled:b=yes
+  _tracked:t="smoke_blackout_effect__enabled"
+  _tags:t="render"
 }

@@ -1,5 +1,6 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
 }
 
 entity{
@@ -321,86 +322,6 @@ entity{
     autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
     land_selfillum_strength:r=32.0
   }
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_papers_10m"
-  ground_effect__biome_group_name:t="asphalt"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=40.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-  ground_effect__offset_y:p2=3.0, 1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_leaves_10m"
-  ground_effect__biome_group_name:t="grass"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=20.0
-  ground_effect__biome_weight_for_active_thr:r=0.35
-  ground_effect__fx_radius:r=-1.0
-  ground_effect__offset_y:p2=3.0, 1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="chimney_exhaust"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=32.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_sparkles_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=35.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_ashes_10m"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__rot_z:p2=75.0, 10.0
-  ground_effect__offset_x:p2=0.0, 5.0
-  ground_effect__offset_y:p2=-0.2, 0.2
-  ground_effect__offset_z:p2=0.0, 5.0
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=35.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="land_haze"
-  ground_effect__biome_group_name:t="burnt_field"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=25.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
 }
 
 entity{
@@ -1322,52 +1243,52 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [930.091, 4.67061, -612.149]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [657.798, 4.67061, -618.601]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [357.995, 4.67061, -639.469]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.167, 4.67061, -678.537]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [930.453, 4.67061, -62.9545]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [405.755, 4.67061, 565.445]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1131.55, 4.67061, -62.1659]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [189.61, 4.67061, 583.935]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-329.441, 8.37057, 721.088]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-329.441, 8.37057, 721.088]]
 }
 

@@ -27,11 +27,11 @@ let function on_gameapp_started() {
       importScenes =  importScenes.len()>0 ? importScenes : null
     }
 
-    let modHashes = inviteData?.mode_info.modHashes ?? get_arg_value_by_name("modHashes") ?? ""
+    let modHash = inviteData?.mode_info.modHash ?? get_arg_value_by_name("modHash") ?? ""
     let modId = inviteData?.mode_info.modId ?? ""
     let baseModsFilesUrl = inviteData?.mode_info.baseModsFilesUrl ?? get_arg_value_by_name("baseModsFilesUrl") ?? "https://enlisted-sandbox.gaijin.net"
 
-    if (modHashes=="") {
+    if (modHash=="") {
       let ugm_fname = get_arg_value_by_name("modFile") ?? ""
       local blob
       if (ugm_fname!="") {
@@ -44,14 +44,14 @@ let function on_gameapp_started() {
     }
     else {
       if (baseModsFilesUrl=="") {
-        logerr("modHashes should be specified with baseModsFilesUrl")
+        logerr("modHash should be specified with baseModsFilesUrl")
         exit_game()
       }
 
-      requestModFiles(modHashes, baseModsFilesUrl, function(vroms){
+      requestModFiles(modHash, baseModsFilesUrl, function(vroms){
         log("vroms.ready", vroms?.len())
         if ((vroms?.len() ?? 0) < 1)
-          throw($"no vroms loaded, switch_scene() call skipped: baseUrl={baseModsFilesUrl}, hashes={modHashes}")
+          throw($"no vroms loaded, switch_scene() call skipped: baseUrl={baseModsFilesUrl}, hashes={modHash}")
         let blob = vroms[0]
         log("BLOB TYPE:", type(blob), "blob len", blob?.len())
         if (blob != null)

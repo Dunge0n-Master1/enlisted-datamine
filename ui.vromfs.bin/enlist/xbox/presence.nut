@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let xp = require("%xboxLib/impl/presence.nut")
-let app = require("%xboxLib/impl/app.nut")
+let {set_presence, DeviceType} = require("%xboxLib/impl/presence.nut")
+let {get_title_id} = require("%xboxLib/impl/app.nut")
+let {subscribe_to_presences_update} = require("%xboxLib/presence.nut")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX PRESENCE] ")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { updatePresences } = require("%enlist/contacts/contactPresence.nut")
@@ -24,10 +25,11 @@ let presenceStatus = Computed(function () {
 
 presenceStatus.subscribe(function(presence) {
   logX($"Set user presence: {presence}")
-  xp.set_presence(presence, function(success) {
+  set_presence(presence, function(success) {
     logX($"Set user presence succeeded: {success}")
   })
 })
+
 
 let function on_presences_update(success, presences) {
   if (!success) {
@@ -47,14 +49,14 @@ let function on_presences_update(success, presences) {
       continue
 
     foreach (actDev in data.activeDevices) {
-      if (actDev.type == xp.DeviceType.XboxOne || actDev.type == xp.DeviceType.Scarlett) {
+      if (actDev.type == DeviceType.XboxOne || actDev.type == DeviceType.Scarlett) {
         if ("activeTitles" not in actDev) {
           updPresences[console2uid.value[xuid]].online = true
           break
         }
 
         foreach (actTitle in actDev.activeTitles)
-          if (actTitle.titleId == app.get_title_id()) {
+          if (actTitle.titleId == get_title_id()) {
             updPresences[console2uid.value[xuid]].online = true
             break
           }
@@ -66,24 +68,5 @@ let function on_presences_update(success, presences) {
   updatePresences(updPresences)
 }
 
-let update_presences_for_users = @(xuids) xp.retrieve_presences_for_users(xuids, on_presences_update)
 
-let function on_device_change_event(xuid, dev_type, logged_in) {
-  logX($"on_device_change_event: {xuid}, {dev_type}, {logged_in}")
-  update_presences_for_users([xuid])
-}
-
-
-let function on_title_change_event(xuid, title_id, title_state) {
-  logX($"on_title_change_event: {xuid}, {title_id}, {title_state}")
-  update_presences_for_users([xuid])
-}
-
-
-xp.subscribe_to_device_change_events(on_device_change_event)
-xp.subscribe_to_title_change_events(on_title_change_event)
-
-
-return {
-  update_presences_for_users
-}
+subscribe_to_presences_update(on_presences_update)

@@ -1,5 +1,5 @@
 model:t="fury_mk1"
-fmFile:t="fm/nimrod_mk1.blk"
+fmFile:t="fm/fury_mk1.blk"
 damagePartsToCollisionObjectsMapBlk:t="gamedata/units/dm/dm_parts_to_collision_objects.blk"
 damagePartsToFmPartsMapBlk:t="gamedata/units/dm/dm_parts_to_fm_parts_map.blk"
 damagePartsToHudPartsMapBlk:t="gamedata/units/dm/dm_parts_to_hud_parts_map.blk"

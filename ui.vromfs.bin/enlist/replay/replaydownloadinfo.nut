@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
 let { WindowTransparent } = require("%ui/style/colors.nut")
-let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
+let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { defInsideBgColor, commonBtnHeight, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let {
@@ -25,6 +25,7 @@ let btnStyle = {
 
 let defaultSize = [hdpx(432), hdpx(324)]
 let replayWndClose = @() removeModalWindow(WND_UID)
+let defTxtStyle = { color = titleTxtColor }.__update(body_txt)
 
 let closeButton = Bordered(loc("replay/Close"), replayWndClose, btnStyle)
 
@@ -36,21 +37,17 @@ let title = noteTextArea({
   size = [flex(), SIZE_TO_CONTENT]
   text = loc("replay/Downloading")
   halign = ALIGN_CENTER
-  color = titleTxtColor
-}).__update(body_txt)
+}).__update(defTxtStyle)
 
 let content = @(message) {
-  size = flex()
-  flow = FLOW_HORIZONTAL
-  gap = hdpx(10)
-  margin = [hdpx(30), 0]
-  valign = ALIGN_CENTER
+  size = [flex(), SIZE_TO_CONTENT]
+  rendObj = ROBJ_TEXTAREA
+  behavior = Behaviors.TextArea
   halign = ALIGN_CENTER
-  children = txt({
-    text = loc(message)
-    color = titleTxtColor
-  }).__update(body_txt)
-}
+  margin = [hdpx(30), 0]
+  vplace = ALIGN_CENTER
+  text = message
+}.__update(defTxtStyle)
 
 let infoContainer = @() {
   watch = replayDownload
@@ -77,7 +74,13 @@ let infoContainer = @() {
           size = flex()
           halign = ALIGN_CENTER
           valign = ALIGN_CENTER
-          children = spinner
+          flow = FLOW_VERTICAL
+          children = [
+            spinner
+            replayDownload.value.contentLen >= 0
+              ? content(loc("replay/fileSizeMb", { size = replayDownload.value.contentLen >> 20 }))
+              : null
+          ]
         }
         replayDownload.value.downloadRequestId != ""
           ? abortButton
@@ -85,7 +88,7 @@ let infoContainer = @() {
       ]
     : [
         title
-        content(replayDownload.value.stateText)
+        content(loc(replayDownload.value.stateText))
         {
           size = flex()
           flow = FLOW_HORIZONTAL

@@ -347,6 +347,11 @@ entity{
 }
 
 entity{
+  _template:t="basic_box+building_restricted_zone"
+  transform:m=[[1493.89, 0.0, 0.0] [0.0, 7.26678, 0.0] [0.0, 0.0, 8.43925] [1086.99, 9.71422, 319.455]]
+}
+
+entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [702.54, 312.829, 351.198]]

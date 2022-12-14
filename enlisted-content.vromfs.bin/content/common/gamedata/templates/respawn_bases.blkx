@@ -119,14 +119,6 @@ respawnBase{
     _info:t="groupName"
   }
 
-  "respbase__team_spawn:b"{
-    value:b=no
-
-    _info{
-      desc:t="Special mode. Whether to spawn near teammates instead of this respawn position"
-    }
-  }
-
   "respawnbaseType:t"{
     value:t="human"
     _info:t="resp_type"
@@ -183,7 +175,6 @@ destroyOnDamageWithoutCrew{
 
   _group{
     _tags:t="server"
-    destroy_without_crew__explosionDamageTypeId:i=-1
     destroy_without_crew__minCaliberToDestroyOnDamage:r=0.014
     vehicle__isDestroyedWithoutCrew:b=no
   }

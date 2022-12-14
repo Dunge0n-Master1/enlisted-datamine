@@ -61,7 +61,7 @@ def determine_controls_for_player(var mode : VehicleControlsState#; current_owne
   for seatEid in seatEids
     query(seatEid) <| $ [es] (seat__ownerEid, seat__playerEid : EntityId; seat__isPlayer : bool; seat__availableControls : VehicleControlsState;
                               seat__directTurretControl : bool = false;
-                              seat__availableHatchControls : VehicleControlsState?; seats_hatch_nodes__openPos : float = 0.0)
+                              seat__availableHatchControls : VehicleControlsState const?; seats_hatch_nodes__openPos : float = 0.0)
       let isOwnedByPlayer = seat__playerEid == current_owner_player
       let isAlive = get_bool(seat__ownerEid, "isAlive") ?? false
       let isOwnedByHero = current_owner_eid == seat__ownerEid
@@ -94,7 +94,7 @@ def find_owner_player_for_vehicle(vehicle_seats__seatEids : EidList) : EntityId
 def vehicle_seats_update_controls(info : UpdateStageInfoAct;
                                   eid : EntityId;
                                   vehicle_seats__seatEids : EidList;
-                                  vehicle_seats_can_acquire_controls : IntList?;
+                                  vehicle_seats_can_acquire_controls : IntList const?;
                                   var vehicle__allAcquiredControls : VehicleControlsState&;
                                   var replication : NetObject?)
   using <| $(var vehicleMode : VehicleControlsState#)

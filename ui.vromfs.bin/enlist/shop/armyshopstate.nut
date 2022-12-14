@@ -615,19 +615,32 @@ local function getShopItemPath(shopItem, allShopItems){
   return path
 }
 
-let function getShopItemsCmp(tpl){
+let function getShopItemsCmp(tpl) {
   let allCratesListComp = getCratesListComp(allArmyCrates)
   let basetpl = trimUpgradeSuffix(tpl)
   return Computed(function(){
     let allShopItems = curArmyShopItems.value
     let allCratesList = allCratesListComp.value
-    let itemCrates = []
-    allCratesList.each(function(v, k){
-      let itemsKeys = (v?[curArmy.value].items ?? {}).keys().map(@(v) trimUpgradeSuffix(v))
-      if (itemsKeys.contains(basetpl))
-        itemCrates.append(k)
+    let itemCrates = {}
+    allCratesList.each(function(v, id) {
+      let itemsKeys = (v?[curArmy.value].items ?? {})
+        .keys()
+        .reduce(@(tbl, id) tbl.rawset(trimUpgradeSuffix(id), true), {})
+      if (basetpl in itemsKeys)
+        itemCrates[id] <- itemsKeys.len()
     })
-    return allShopItems.filter(@(shopItem) itemCrates.contains(shopItem?.crates[0].id))
+    let ordered = []
+    allShopItems.each(function(shopItem) {
+      foreach (crate in shopItem?.crates ?? []) {
+        let size = itemCrates?[crate.id]
+        if (size != null) {
+          ordered.append({ shopItem, size })
+          break
+        }
+      }
+    })
+    ordered.sort(@(a, b) a.size <=> b.size)
+    return ordered.map(@(s) s.shopItem)
   })
 }
 

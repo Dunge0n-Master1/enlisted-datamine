@@ -3,26 +3,18 @@ from "%enlSqGlob/ui_library.nut" import *
 let eventbus = require("eventbus")
 let {logerr} = require("dagor.debug")
 let { onlineSettingUpdated, settings } = require("onlineSettings.nut")
-
-let lastValues = {}
-
-let sendValue = @(saveId) eventbus.send($"onlineData.changed.{saveId}", { value = lastValues[saveId] })
-
-let getCurValue = @(saveId) onlineSettingUpdated.value ? settings.value?[saveId] : null
-
-eventbus.subscribe("onlineData.init", function(msg) {
-  let {saveId} = msg
-  lastValues[saveId] <- getCurValue(saveId)
-  sendValue(saveId)
-})
+let { getOrMkSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 
 let function onChange(_) {
-  foreach (saveId, value in lastValues) {
-    let newValue = getCurValue(saveId)
-    if (newValue == value)
+//  log("mkOnlineSaveDataHub: onChange")
+  if (!onlineSettingUpdated.value)
+    return
+  foreach(saveId, value in settings.value) {
+    let nest = getOrMkSaveData(saveId).value
+//    log($"mkOnlineSaveData: from online settings: {saveId} {value}, nest = {nest}")
+    if (value == nest)
       continue
-    lastValues[saveId] = newValue
-    sendValue(saveId)
+    eventbus.send($"onlineData.changed.{saveId}", { value })
   }
 }
 onlineSettingUpdated.subscribe(onChange)
@@ -34,8 +26,7 @@ eventbus.subscribe("onlineData.setValue", function(msg) {
     logerr($"onlineSaveDataHub: try to set value to {saveId} while online options not inited")
     return
   }
-  if (lastValues?[saveId] != value)
+  if (settings.value?[saveId] != value)
     settings.mutate(function(s) { s[saveId] <- value })
 })
 
-eventbus.send("onlineData.hubReady", null)

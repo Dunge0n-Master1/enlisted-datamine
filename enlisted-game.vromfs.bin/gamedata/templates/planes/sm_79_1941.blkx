@@ -24,14 +24,6 @@ sm_79_1941{
         turret:t="turret_03"
         turret:t="turret_04"
         turret:t="turret_05"
-        turret:t="turret_06"
-        turret:t="turret_07"
-        turret:t="turret_08"
-        turret:t="turret_09"
-        turret:t="turret_10"
-        turret:t="turret_11"
-        turret:t="turret_12"
-        turret:t="turret_13"
       }
     }
 
@@ -47,7 +39,7 @@ sm_79_1941{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_14"
+        turret:t="turret_06"
       }
     }
 
@@ -63,7 +55,7 @@ sm_79_1941{
       roomSpace:i=2
 
       "turretNames:array"{
-        turret:t="turret_15"
+        turret:t="turret_07"
       }
     }
 
@@ -79,8 +71,8 @@ sm_79_1941{
       roomSpace:i=3
 
       "turretNames:array"{
-        turret:t="turret_16"
-        turret:t="turret_17"
+        turret:t="turret_08"
+        turret:t="turret_09"
       }
     }
   }
@@ -90,14 +82,6 @@ sm_79_1941{
     node:t="bomb50_2"
     node:t="bomb50_3"
     node:t="bomb50_4"
-    node:t="bomb50_5"
-    node:t="bomb50_6"
-    node:t="bomb50_7"
-    node:t="bomb50_8"
-    node:t="bomb50_9"
-    node:t="bomb50_10"
-    node:t="bomb50_11"
-    node:t="bomb50_12"
     node:t="flare5"
     node:t="flare1"
     node:t="flare3"
@@ -130,46 +114,6 @@ sm_79_1941{
     "vars:object"{
       curYawParamName:t="weapon_05_yaw"
       curPitchParamName:t="weapon_05_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_06_yaw"
-      curPitchParamName:t="weapon_06_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_07_yaw"
-      curPitchParamName:t="weapon_07_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_08_yaw"
-      curPitchParamName:t="weapon_08_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_09_yaw"
-      curPitchParamName:t="weapon_09_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_10_yaw"
-      curPitchParamName:t="weapon_10_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_11_yaw"
-      curPitchParamName:t="weapon_11_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_12_yaw"
-      curPitchParamName:t="weapon_12_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_13_yaw"
-      curPitchParamName:t="weapon_13_pitch"
     }
 
     "vars:object"{
@@ -277,90 +221,34 @@ sm_79_1941{
 
     "turretInfo:object"{
       turretName:t="turret_05"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_05"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_06"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_06"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_07"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_07"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_08"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_08"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_09"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_09"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_10"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_10"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_11"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_11"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_12"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_sm_79_1941_50kg_t_vert_launcher_12"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_13"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_sm_79_1941_12_7mm_bredasafat127_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_14"
+      turretName:t="turret_06"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_sm_79_1941_12_7mm_bredasafat127_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_15"
+      turretName:t="turret_07"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_sm_79_1941_7_7mm_lewis_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_16"
+      turretName:t="turret_08"
       turretGroup:t="turrets_gunner2"
       trigger:t="machine_guns"
       gun:t="planegun_sm_79_1941_7_7mm_lewis_turret_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_17"
+      turretName:t="turret_09"
       turretGroup:t="turrets_gunner3"
       trigger:t="machine_guns"
       gun:t="planegun_sm_79_1941_12_7mm_bredasafat127_turret_02"
@@ -372,14 +260,6 @@ sm_79_1941{
     node:t="bomb50_2"
     node:t="bomb50_3"
     node:t="bomb50_4"
-    node:t="bomb50_5"
-    node:t="bomb50_6"
-    node:t="bomb50_7"
-    node:t="bomb50_8"
-    node:t="bomb50_9"
-    node:t="bomb50_10"
-    node:t="bomb50_11"
-    node:t="bomb50_12"
     node:t="flare5"
     node:t="flare1"
     node:t="flare3"
@@ -392,14 +272,6 @@ sm_79_1941{
     fx:t=""
     fx:t=""
     fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
-    fx:t=""
     fx:t="muzzle_air_15mm"
     fx:t="muzzle_air_15mm"
     fx:t="muzzle_air_8mm"
@@ -408,14 +280,6 @@ sm_79_1941{
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -683,78 +547,6 @@ planegun_sm_79_1941_50kg_t_vert_launcher_04{
   _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
   gun__shootNodeName:t="bomb50_4"
   slot_attach__slotName:t="bomb50_4"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_05{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_5"
-  slot_attach__slotName:t="bomb50_5"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_06{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_6"
-  slot_attach__slotName:t="bomb50_6"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_07{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_7"
-  slot_attach__slotName:t="bomb50_7"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_08{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_8"
-  slot_attach__slotName:t="bomb50_8"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_09{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_9"
-  slot_attach__slotName:t="bomb50_9"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_10{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_10"
-  slot_attach__slotName:t="bomb50_10"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_11{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_11"
-  slot_attach__slotName:t="bomb50_11"
-  gun__maxAmmo:i=1
-}
-
-planegun_sm_79_1941_50kg_t_vert_launcher_12{
-  _extends:t="50kg_t_vert_launcher"
-  _extends:t="base_sm_79_1941_50kg_t_vert_launcher"
-  _extends:t="gunsound_50kg_t_vert_launcher_aircraft"
-  gun__shootNodeName:t="bomb50_12"
-  slot_attach__slotName:t="bomb50_12"
   gun__maxAmmo:i=1
 }
 

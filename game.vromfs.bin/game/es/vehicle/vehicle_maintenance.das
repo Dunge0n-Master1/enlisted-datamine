@@ -13,6 +13,9 @@ require AnimV20
 require GeomNodeTree
 require CollRes
 require DagorSystem
+require HumanPhys
+require danetlibs.native_dasevents.main.native_events
+
 
 [es(tag=gameClient, REQUIRE=input__enabled)]
 def find_maintainable_object(info : ParallelUpdateFrameDelayed;
@@ -22,6 +25,9 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
                              var maintenance__hasTarget : bool&;
                              var maintenance__targetNeedsRepair : bool&;
                              var maintenance__targetNeedsExtinguishing : bool&;
+                             human_net_phys__isHctAim : bool;
+                             human_net_phys__isHctShoot : bool;
+                             human_net_phys__states : int;
                              human_use_object__nodeId : int;
                              human_use_object__useDist : float;
                              animchar : AnimcharBaseComponent;
@@ -36,7 +42,7 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
   let camTm = *camTmRef
   let traceDir : float3 = camTm[2]
   let tracePos : float3 = (human_use_object__nodeId > 0
-    ? geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
+    ? geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId)
     : camTm[3])
   var newMaintenanceTarget = INVALID_ENTITY_ID
   var needsRepair = false
@@ -55,10 +61,16 @@ def find_maintainable_object(info : ParallelUpdateFrameDelayed;
       needsExtinguisher = repairable__extinguishRequired
       return true
     return false
-  if newMaintenanceTarget != maintenance__target
-    if maintenance__target != INVALID_ENTITY_ID
-      sendEvent(eid, [[CmdStopMaintenance target=maintenance__target]])
-    maintenance__target = newMaintenanceTarget
+
+
+  let isHumanJumping = ((uint(human_net_phys__states) & uint(StateFlag ST_JUMP)) != 0u)
+  let isMaintenanceInterrupted = human_net_phys__isHctAim || human_net_phys__isHctShoot || isHumanJumping
+  let isNeedStopMaintenance = !!maintenance__target && (newMaintenanceTarget != maintenance__target || isMaintenanceInterrupted)
+  if isNeedStopMaintenance
+    sendEvent(eid, [[CmdStopMaintenance target=maintenance__target]])
+
+  maintenance__target = isMaintenanceInterrupted ? INVALID_ENTITY_ID : newMaintenanceTarget
+
   maintenance__hasTarget = maintenance__target != INVALID_ENTITY_ID
   maintenance__targetNeedsRepair = needsRepair
   maintenance__targetNeedsExtinguishing = needsExtinguisher
@@ -132,3 +144,16 @@ def maintenance_dispatcher_stop(evt : CmdStopMaintenance;
     sendEvent(eid, [[CmdStopExtinguisher eid=evt.target]])
   elif repair__active
     sendEvent(eid, [[CmdStopRepair target=evt.target]])
+
+
+[es(tag=gameClient, track=(repair__hasRepairKit, extinguisher__hasExtinguisher, maintenance__canMaintainVehicle, maintenance__targetNeedsExtinguishing, maintenance__targetNeedsRepair))]
+def human_vehicle_maintenance_available(evt : Event;
+                                        repair__hasRepairKit : bool;
+                                        extinguisher__hasExtinguisher : bool;
+                                        maintenance__canMaintainVehicle : bool;
+                                        maintenance__targetNeedsExtinguishing : bool;
+                                        maintenance__targetNeedsRepair : bool;
+                                        var maintenance__isExtinguishAvailable : bool&;
+                                        var maintenance__isRepairAvailable : bool&)
+  maintenance__isExtinguishAvailable = maintenance__canMaintainVehicle && extinguisher__hasExtinguisher && maintenance__targetNeedsExtinguishing
+  maintenance__isRepairAvailable = maintenance__canMaintainVehicle && repair__hasRepairKit && maintenance__targetNeedsRepair

@@ -9,16 +9,18 @@ let { get_shop_item, apply_freemium } = require("%enlist/meta/clientApi.nut")
 let { bonusesList } = require("%enlist/currency/bonuses.nut")
 let armyEffects = require("%enlist/soldiers/model/armyEffects.nut")
 let { configs } = require("%enlist/meta/configs.nut")
+let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 
 const CAMPAIGN_NONE = 0
 
+let showCampaignGroup = Watched(null)
 let campaignConfigGroup = Computed(@()
   gameProfile.value?.campaigns[curCampaign.value].campaignGroup ?? CAMPAIGN_NONE)
 
+let campPresentation = Computed(@() getConfig(showCampaignGroup.value ?? campaignConfigGroup.value))
+
 let campaignConfig = Computed(@()
   configs.value?.campaignConfig[$"{campaignConfigGroup.value}"] ?? {})
-
-let isConfigurableCampaign = Computed(@() campaignConfigGroup.value != CAMPAIGN_NONE)
 
 let curShopCampaignItems = Computed(function() {
   let res = []
@@ -31,18 +33,20 @@ let curShopCampaignItems = Computed(function() {
   return res
 })
 
+let isPurchaseableCampaign = Computed(@() curShopCampaignItems.value.len() > 0)
+
 let isCampaignBought = Computed(function() {
-  if (!isConfigurableCampaign.value)
+  if (!isPurchaseableCampaign.value)
     return false
 
   return curShopCampaignItems.value
     .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null
 })
 
-let needFreemiumStatus = Computed(@() isConfigurableCampaign.value && !isCampaignBought.value)
+let needFreemiumStatus = Computed(@() isPurchaseableCampaign.value && !isCampaignBought.value)
 
 let curCampaignAccessItem = Computed(function() {
-  if (!isConfigurableCampaign.value)
+  if (!isPurchaseableCampaign.value)
     return null
 
   return curShopCampaignItems.value.reduce(@(res, item)
@@ -63,7 +67,7 @@ console_register_command(function() {
 
 console_register_command(@()
   console_print($"item: {curCampaignAccessItem.value?.id}",
-    $"camp: {isConfigurableCampaign.value}",
+    $"camp: {isPurchaseableCampaign.value}",
     $"bought: {isCampaignBought.value}",
     campaignConfig.value),
   "freemium.info")
@@ -96,9 +100,11 @@ return {
   CAMPAIGN_NONE
 
   campaignConfigGroup
-  isConfigurableCampaign
+  isPurchaseableCampaign
   isCampaignBought
   curCampaignAccessItem
   curUpgradeDiscount
   needFreemiumStatus
+  showCampaignGroup
+  campPresentation
 }.__update(configFields, armyEffectsFields)

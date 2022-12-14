@@ -6,7 +6,7 @@ let fa = require("%ui/components/fontawesome.map.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
   gap, bigGap, defTxtColor, soldierExpColor, soldierLvlColor, soldierGainLvlColor,
-  soldierLockedLvlColor, msgHighlightedTxtColor, freemiumColor
+  soldierLockedLvlColor, msgHighlightedTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
 let soldiersPresentation = require("%enlSqGlob/ui/soldiersPresentation.nut")
@@ -80,14 +80,14 @@ let mkAnimatedLevelIcon = function(guid, color, fontSize) {
 
 let function levelBlock(allParams) {
   local { curLevel, tier = 1, gainLevel = 0, leftLevel = 0, lockedLevel = 0, fontSize = hdpx(12),
-    hasLeftLevelBlink = false, guid = "", isFreemiumMode = false
+    hasLeftLevelBlink = false, guid = "", isFreemiumMode = false, thresholdColor = 0
   } = allParams
   local color = soldierExpColor
   local freemiumStars = 0
   if (isFreemiumMode && curLevel + leftLevel < MAX_LEVEL_SOLDIER) {
     lockedLevel = tier == MAX_LEVEL_SOLDIER ? 1 : 0
     freemiumStars = MAX_LEVEL_SOLDIER - curLevel - leftLevel
-    color = freemiumColor
+    color = thresholdColor
   }
 
   return {
@@ -156,7 +156,8 @@ let kindName = @(sKind) defcomps.note({
 })
 
 let className = @(sClass, count = 0) defcomps.note({
-  text = count == 0 ? loc(getClassCfg(sClass).locId) : $"{loc(getClassCfg(sClass).locId)} {count}"
+  text = count <= 1 ? loc(getClassCfg(sClass).locId)
+    : $"{loc(getClassCfg(sClass).locId)} {loc("common/amountShort", { count })}"
   vplace = ALIGN_CENTER
   color = defTxtColor
 })
@@ -249,6 +250,9 @@ return {
   experienceTooltip
   mkLevelIcon
   mkSoldierMedalIcon
+  mkIconBar
+  mkAnimatedLevelIcon
+  mkHiddenAnim
 
   PERK_ALERT_SIGN
   ITEM_ALERT_SIGN

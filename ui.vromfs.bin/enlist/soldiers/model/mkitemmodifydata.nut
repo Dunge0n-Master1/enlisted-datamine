@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { itemUpgrades, itemDisposes, getModifyConfig } = require("config/itemsModifyConfig.nut")
 let { ceil } = require("%sqstd/math.nut")
 let { getModifyItemGuid } = require("selectItemState.nut")
-let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { getLinkedArmyName, isObjLinkedToAnyOfObjects } = require("%enlSqGlob/ui/metalink.nut")
 let { upgradeLocksByArmy, upgradeCostMultByArmy, disposeCountMultByArmy
 } = require("%enlist/researches/researchesSummary.nut")
 let { maxCampaignLevel, armyItemCountByTpl } = require("state.nut")
@@ -11,6 +11,7 @@ let { allItemTemplates, findItemTemplate } = require("all_items_templates.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
+let { curCampSoldiers } = require("%enlist/soldiers/model/state.nut")
 
 const MODIFY_ITEM_REQ_LVL = 3
 
@@ -99,7 +100,7 @@ let mkItemDisposeData = function(item) {
       orderTpl = ""
       disposeMult = null
       itemBaseTpl
-      iGuid = null
+      guids = null
     }
     if (!canModifyItems.value)
       return res
@@ -115,7 +116,6 @@ let mkItemDisposeData = function(item) {
     if (!isDestructible && itemBaseTpl == basetpl)
       return res
 
-    let iGuid = getModifyItemGuid(item, !isDestructible)
     local disposeMult = 1.0 + (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
     disposeMult *= 1.0 - curUpgradeDiscount.value
     let orderCount = ceil(count * disposeMult).tointeger()
@@ -123,7 +123,9 @@ let mkItemDisposeData = function(item) {
     return res.__update({
       isDisposable = true,
       isRecyclable = orderCount <= 0,
-      isDestructible, iGuid, itemBaseTpl, disposeMult, orderTpl, orderCount
+      guids = isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
+        : item?.guids ?? [item?.guid]
+      isDestructible, itemBaseTpl, disposeMult, orderTpl, orderCount
     })
   })
 }

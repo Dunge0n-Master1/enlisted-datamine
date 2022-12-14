@@ -19,7 +19,7 @@ let {
 } = require("bpState.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
-let { hasEliteBattlePass } = require("eliteBattlePass.nut")
+let { hasEliteBattlePass, canBuyBattlePass } = require("eliteBattlePass.nut")
 let { prepareRewards } = require("rewardsPkg.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
@@ -38,7 +38,8 @@ let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let itemMapping = require("%enlist/items/itemsMapping.nut")
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { isOpened, curItem, RewardState, unlockToShow, combinedRewards } = require("bpWindowState.nut")
+let { isOpened, curItem, RewardState, unlockToShow, combinedRewards, curItemUpdate } = require("bpWindowState.nut")
+let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
 
 
 let progressWidth = hdpxi(174)
@@ -51,6 +52,8 @@ let cardProgressBar = progressContainerCtor(
   $"!ui/uiskin/battlepass/progress_bar_border.svg:{progressWidth}:{progressBarHeight}:K",
   [progressWidth, progressBarHeight]
 )
+let progressBarImage = @(isReceived, isPremium) !isReceived && isPremium ?
+  "!ui/uiskin/progress_bar_gray.svg" : "!ui/uiskin/progress_bar_gradient.svg"
 
 let tblScrollHandler = ScrollHandler()
 
@@ -60,12 +63,14 @@ let showingItem = Computed(function() {
 
   let reward = curItem.value.reward
   let season = seasonIndex.value
-  let gametemplate = reward?.specialRewards[season][curArmy.value]
-  if (gametemplate != null)
+  let weapId = reward?.specialRewards[season][curArmy.value]
+  if (weapId != null){
+    let { gametemplate = reward.gametemplate } = allItemTemplates.value?[curArmy.value][weapId]
     return reward.__merge({
       isSpecial = true
       gametemplate
     })
+  }
 
   if ((curItem.value?.stage0idx ?? -1 ) >= 0)
     return reward.__merge({isPremium = true})
@@ -97,7 +102,11 @@ let function scrollToCurrent() {
   tblScrollHandler.scrollToX((sizeCard[0] + gapCards) * (cardIdx + 0.5) - gapCards
     - safeAreaSize.value[0] / 2)
 }
-nextUnlock.subscribe(@(_) scrollToCurrent())
+
+nextUnlock.subscribe( function(_) {
+  curItemUpdate()
+  scrollToCurrent()
+})
 
 let cardsList = function() {
   let { isFinished = false } = premiumStage0Unlock.value
@@ -144,8 +153,9 @@ let cardsList = function() {
       cardProgressBar(
         r.progressState == RewardState.COMPLETED ? completedProgressLine(1, glareAnimation(0.5))
           : r.progressState == RewardState.ACQUIRED ? acquiredProgressLine(1, [], accentColor)
-          : r.progressState == RewardState.IN_PROGRESS ? gradientProgressLine(r.progressVal)
-          : inactiveProgressCtor(),
+          : r.progressState == RewardState.IN_PROGRESS ?
+            gradientProgressLine(r.progressVal, progressBarImage(r.isReceived, r.isPremium))
+            : inactiveProgressCtor(),
         progressTxt(r.stageIdx + 1))
     )
   ))
@@ -326,7 +336,8 @@ let mkBtnBuySkipStage = @(price) currencyBtn({
 })
 
 let function buttonsBlock() {
-  let res = { watch = [hasEliteBattlePass, nextUnlockPrice, buyUnlockInProgress, hasReward] }
+  let res = { watch = [ hasEliteBattlePass, canBuyBattlePass, nextUnlockPrice,
+    buyUnlockInProgress, hasReward] }
 
   let price = nextUnlockPrice.value
   return res.__update({
@@ -349,7 +360,7 @@ let function buttonsBlock() {
         valign = ALIGN_CENTER
         hplace = ALIGN_RIGHT
         children = [
-          hasEliteBattlePass.value ? null : {
+          hasEliteBattlePass.value || !canBuyBattlePass.value ? null : {
             flow = FLOW_VERTICAL
             gap = hugePadding
             size = [btnSize[0], SIZE_TO_CONTENT]
@@ -409,8 +420,14 @@ let bpWindow = @(){
   ]
 }
 
+scenesListGeneration.subscribe(function(_v){
+  if( getTopScene() == bpWindow )
+    curItemUpdate()
+})
+
 let function open() {
   sceneWithCameraAdd(bpWindow, "battle_pass")
+  curItemUpdate()
 }
 
 let function close() {

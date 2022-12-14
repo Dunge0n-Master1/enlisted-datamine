@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { isNewDesign } = require("%enlSqGlob/wipFeatures.nut")
-let mkDropMenuBtn = isNewDesign
+let { hasToggleDesign, isNewDesign } = require("%enlSqGlob/designState.nut")
+let mkDropMenuBtn = isNewDesign.value
   ? require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
   : require("%enlist/components/mkDropDownMenu.nut")
 let {
-  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport
+  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
 let { openChangelog } = require("%enlist/openChangelog.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
@@ -121,6 +121,8 @@ let function buttons(){
   if (hasCampaignSelection.value)
     res.append(btnChangeCampaign)
   res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS)
+  if (hasToggleDesign.value)
+    res.append(btnToggleDesign)
   if (is_xbox){
     res.append(btnLogout)
   } else if (!is_sony){
@@ -130,6 +132,7 @@ let function buttons(){
     res.append(SEPARATOR, btnDebugProfile, btnDebugConfigs)
   return res.filter(@(v) v!=null)
 }
-let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden]
+let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden,
+  hasToggleDesign, isNewDesign]
 
 return mkDropMenuBtn(buttons, watch)

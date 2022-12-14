@@ -34,10 +34,10 @@ def on_ri_extra_destroyed_on_ground(evt : EventRiExtraDestroyed;
       var tm = IDENT_TM
       tm[3] += transform[3]
       var s, c : float
-      sincos(rnd_float(0.0, 2.0 * PI), s, c)
+      sincos(rnd_float(0.0, TWOPI), s, c)
       tm[3] += float3(riExtra__createOnDestroyRadius * c, 0.0, riExtra__createOnDestroyRadius * s)
       var q : quat
-      euler_to_quat(0.0, rnd_float(0.0, 2.0 * PI), 0.0, q)
+      euler_to_quat(0.0, rnd_float(0.0, TWOPI), 0.0, q)
       var rotTm : float3x4
       make_tm(q, float3(), rotTm)
       tm = tm * rotTm

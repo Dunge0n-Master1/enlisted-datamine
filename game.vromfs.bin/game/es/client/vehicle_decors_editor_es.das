@@ -144,8 +144,8 @@ def ui_decors_setup_es(evt : Event;
 
   if current_decal__decorEid == INVALID_ENTITY_ID && current_decor__type == "vehDecorator"
     query(decals_manager__target) <| $ [es] (animchar : AnimcharBaseComponent)
-      let attachNodeId = geomtree_findNodeIndex(animchar.nodeTree, decor_manager__rootNodeName)
-      let turretNodeId = geomtree_findNodeIndex(animchar.nodeTree, decor_manager__turretNodeName) // Optional node
+      let attachNodeId = geomtree_findNodeIndex(*animchar.nodeTree, decor_manager__rootNodeName)
+      let turretNodeId = geomtree_findNodeIndex(*animchar.nodeTree, decor_manager__turretNodeName) // Optional node
       if attachNodeId <= -1
         logerr("Invalid node {decor_manager__rootNodeName} on target {getEntityTemplateName(decals_manager__target)}")
         return
@@ -221,7 +221,7 @@ def ui_decors_setup_process_es(info : Event;
           node_attached__nodeId = decor__rootNodeId
 
         var wtm : float3x4
-        geomtree_getNodeWtmScalar(animchar.nodeTree, node_attached__nodeId, wtm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, wtm)
         node_attached__localTm = inverse(wtm) * (transform * tm)
 
         outline__enabled = !hit.canPlace

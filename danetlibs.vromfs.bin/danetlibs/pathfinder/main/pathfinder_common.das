@@ -30,27 +30,33 @@ def get_lower_navmesh_pos_in_radius(position : float3; radius : float; is_valid 
         minY = pos.y
   return res
 
-
 def find_nav_point_around(start_pos, center : float3; radius : float; tries : int; is_valid : block<(pos : float3) : bool>) : MaybePos
-  let angleDelta = 2f * PI * safeinv(float(tries))
-  let startAngle = angleDelta * gfrnd()
-  for i in range(0, tries)
-    let angle = startAngle + float(i) * angleDelta
-    var s, c : float
-    sincos(angle, s, c)
-    var pos = center + float3(c * radius, 0f, s * radius)
-    if !project_to_nearest_navmesh_point(pos, float3(1.))
-      continue
-    if !invoke(is_valid, pos)
-      continue
-    var checkPath = false
-    let extents = float3(0.5, FLT_MAX, 0.5)
-    using(start_pos, pos, extents) <| $(var req : FindRequest#)
-      checkPath = check_path(req, 0.5f, 0.5f)
-    if !checkPath
-      continue
-    return [[MaybePos pos=pos]]
-  return [[MaybePos invalid=null]]
+  var res = [[MaybePos invalid=null]]
+  // TODO: project start pos to navmesh
+  using() <| $(var path_corridor : dtPathCorridor#)
+    path_corridor |> init_path_corridor()
+    let angleDelta = TWOPI * safeinv(float(tries))
+    let startAngle = TWOPI * gfrnd()
+    for i in range(tries)
+      let angle = startAngle + float(i) * angleDelta
+      var s, c : float
+      sincos(angle, s, c)
+      var pos = center + float3(c * radius, 0f, s * radius)
+      var endRef : dtPolyRef
+      if !project_to_nearest_navmesh_point(pos, float3(1., 3., 1.), endRef)
+        continue
+      if !invoke(is_valid, pos)
+        continue
+      let extents = float3(0.5, FLT_MAX, 0.5)
+      using(start_pos, pos, extents) <| $(var inp : CorridorInput#)
+        inp.targetPoly = endRef
+        inp.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
+        if set_path_corridor(path_corridor, inp, null) != FindPathResult FPR_FAILED
+          res = [[MaybePos pos=pos]]
+      if res is pos
+        break
+
+  return res
 
 
 def get_triangle_by_pos(pos : float3; hor_dist : float; var result : NavMeshTriangle&) : bool
@@ -65,7 +71,6 @@ def get_surface_normal_by_pos(pos : float3; poly : dtPolyRef)
     return cross(x0, x1) |> normalize()
   return float3(0, 1, 0)
 
-
 def trace_single_ri_against_path(ri_eid : EntityId;
                                  startPos : float3;
                                  walker_agent__standShootLocalPos : float3;
@@ -79,6 +84,9 @@ def trace_single_ri_against_path(ri_eid : EntityId;
     let riCollres = get_ri_gen_extra_collres(int(riType))
     if riCollres == null
       return
+    var box = BBox3()
+    box |> bbox3f_to_scalar_bbox3(riCollres.vFullBBox)
+    let invTm = inverse(transform)
     var start = startPos
     for idx in range(max_path_index)
       let end = path_corners[idx]
@@ -94,9 +102,6 @@ def trace_single_ri_against_path(ri_eid : EntityId;
       let quat = dir_to_quat(traceDir)
       agentYOffset = quat * agentYOffset
 
-      var box = BBox3()
-      box |> v_bbox3_to_scalar_bbox3(riCollres.vFullBBox)
-      let invTm = inverse(transform)
       let traceFrom = [[float3[]
         start + agentYOffset + traceRight;
         start + agentYOffset - traceRight;

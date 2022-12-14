@@ -3,7 +3,7 @@ from "ui_library.nut" import *
 let {get_setting_by_blk_path} = require("settings")
 let {fabs} = require("math")
 let {globalWatched} = require("%dngscripts/globalState.nut")
-let mkOnlineSaveData = require("mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("mkOnlineSaveData.nut")
 let platform = require("%dngscripts/platform.nut")
 
 let blkPath = "video/safeArea"

@@ -102,6 +102,10 @@ tnt_block_shell{
   shell__expl_node:t="weaponRoot"
   item__name:t="items/tnt_block"
   gun__statName:t="tnt_block"
+  shell__infantryKillStat:t="infantry_tnt_kills"
+  shell__crewKillStat:t="crew_tnt_kills"
+  shell__vehicleKillStat:t="vehicle_tnt_kills"
+  shell__killSoldierStat:t="explosiveKills"
 
   "animchar_no_update:tag"{
   }
@@ -131,7 +135,7 @@ base_tnt_block{
   animchar_render__enabled:b=yes
   animchar__res:t="tnt_charge_char"
   collres__res:t="tnt_charge_collision"
-  grid_obj__gridType:t="interactable"
+  grid_obj__gridType:t="loot"
   grid_obj__fixedTmScale:r=-1.0
   material:t="steel"
   needsBlood:b=no
@@ -146,8 +150,8 @@ base_tnt_block{
   item__iconYaw:r=0.0
   item__iconScale:r=0.5
   item__name:t="items/tnt_block"
+  item__proto:t="base_tnt_block"
   item__template:t="base_tnt_block"
-  item__weapTemplate:t="base_tnt_block"
   item__weapType:t="tnt_block"
   item__grenadeLikeType:t="tnt_block"
   item__weight:r=0.8
@@ -230,30 +234,36 @@ base_tnt_block{
 
   "tntBlock:tag"{
   }
+
+  "fastPickup:tag"{
+  }
+
+  "canItemPickedUpOnlyByLastOwner:tag"{
+  }
 }
 
 ussr_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_ussr_char"
   collres__res:t="tnt_charge_ussr_collision"
+  item__proto:t="ussr_tnt_block"
   item__template:t="ussr_tnt_block"
-  item__weapTemplate:t="ussr_tnt_block"
 }
 
 ger_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_char"
   collres__res:t="tnt_charge_collision"
+  item__proto:t="ger_tnt_block"
   item__template:t="ger_tnt_block"
-  item__weapTemplate:t="ger_tnt_block"
 }
 
 usa_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_usa_char"
   collres__res:t="tnt_charge_usa_collision"
+  item__proto:t="usa_tnt_block"
   item__template:t="usa_tnt_block"
-  item__weapTemplate:t="usa_tnt_block"
   placeable_item__additionalHeight:r=0.01
 }
 
@@ -261,22 +271,22 @@ uk_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_char"
   collres__res:t="tnt_charge_collision"
+  item__proto:t="uk_tnt_block"
   item__template:t="uk_tnt_block"
-  item__weapTemplate:t="uk_tnt_block"
 }
 
 it_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_char"
   collres__res:t="tnt_charge_collision"
+  item__proto:t="it_tnt_block"
   item__template:t="it_tnt_block"
-  item__weapTemplate:t="it_tnt_block"
 }
 
 jap_tnt_block{
   _extends:t="base_tnt_block"
   animchar__res:t="tnt_charge_jap_char"
   collres__res:t="tnt_charge_collision"
+  item__proto:t="jap_tnt_block"
   item__template:t="jap_tnt_block"
-  item__weapTemplate:t="jap_tnt_block"
 }

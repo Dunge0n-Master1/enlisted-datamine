@@ -17,7 +17,7 @@ def gun_flash_fx_init(evt : Event;
   if length(gun_flash_fx__template) != numFx || length(gun_flash_fx__scale) != numFx
     logerr("[{eid}] {getEntityTemplateName(eid)}: gun_flash_fx has wrong number of elements in lists")
   for id, node in gun_flash_fx__nodeIds, gun_flash_fx__nodes
-    id = geomtree_findNodeIndex(animchar.nodeTree, string(node))
+    id = geomtree_findNodeIndex(*animchar.nodeTree, string(node))
     if id < 0
       logerr("[{eid}] {getEntityTemplateName(eid)}: gun_flash_fx node {node} not found")
 
@@ -35,7 +35,7 @@ def gun_flash_fx_on_shot(evt : Event;
     if nodeId < 0
       continue
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, nodeId, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, nodeId, tm)
     for i in 0..3
       tm[i] *= scale
     createEntity(string(fxTemplate)) <| $(var init : ComponentsInitializer)
@@ -56,7 +56,7 @@ def gun_flash_fx_update(info : UpdateStageInfoAct;
                         var transform : float3x4&)
   query(gun_flash_fx__gunEid) <| $ [es] (animchar : AnimcharBaseComponent)
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, gun_flash_fx__nodeId, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, gun_flash_fx__nodeId, tm)
     transform[3] = tm[3]
 
 [es(tag=render, no_order)]

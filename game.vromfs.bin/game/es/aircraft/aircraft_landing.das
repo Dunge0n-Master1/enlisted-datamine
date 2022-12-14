@@ -42,7 +42,7 @@ def add_squad_revive_points_if_landed_plane_dead(evt : Event;
                                                  plane_landing__awardSoldierGuid : string;
                                                  plane_landing__isLanded : bool;
                                                  plane_landing__squadRevivePointsIfLanded : int;
-                                                 plane__waitingTakeOff : Tag?)
+                                                 plane__waitingTakeOff : Tag const?)
   if plane_landing__isLanded && plane__waitingTakeOff == null
     query(ownedBySquad) <| $ [es] (squad__isAlive : bool;
                                    squad__ownerPlayer : EntityId;
@@ -51,15 +51,15 @@ def add_squad_revive_points_if_landed_plane_dead(evt : Event;
         query(squad__ownerPlayer) <| $ [es] (squads__revivePointsPerSquad : int; squads__revivePointsAfterDeath : int)
           squad__revivePointsAfterDeath = min(100, max(squads__revivePointsAfterDeath,
                                                        squads__revivePointsPerSquad * plane_landing__squadRevivePointsIfLanded))
-          if !empty(plane_landing__awardStat) && !empty(plane_landing__awardSoldierGuid)
-            send_award_stat(squad__ownerPlayer, plane_landing__awardSoldierGuid, plane_landing__awardStat)
+      if !empty(plane_landing__awardStat) && !empty(plane_landing__awardSoldierGuid)
+        send_award_stat(squad__ownerPlayer, plane_landing__awardSoldierGuid, plane_landing__awardStat)
 
 def reduce_squad_rotation_queue(player_eid : EntityId; squad_id : int; amount : int)
-  query(player_eid) <| $ [es] (squads__revivePointsPerSquad : int; var squads__revivePointsList : Array&)
+  query(player_eid) <| $ [es] (squads__revivePointsPerSquad : int; var squads__revivePointsList : IntList&)
     if squad_id >= 0 && squad_id < length(squads__revivePointsList)
-      let pointsBefore = squads__revivePointsList?[squad_id] ?? 0
-      squads__revivePointsList[squad_id] |> set(min(100, max(pointsBefore,
-                                                             squads__revivePointsPerSquad * amount)))
+      let pointsBefore = squads__revivePointsList[squad_id]
+      squads__revivePointsList[squad_id] = (min(100, max(pointsBefore,
+                                                         squads__revivePointsPerSquad * amount)))
 
 [es(tag=server, track=squad__isAlive)]
 def add_squad_revive_points_for_landed_plane_if_squad_dead(evt : Event;
@@ -71,7 +71,7 @@ def add_squad_revive_points_for_landed_plane_if_squad_dead(evt : Event;
     find_query() <| $ [es(REQUIRE_NOT=deadEntity)] (ownedBySquad : EntityId;
                                                     plane_landing__isLanded : bool;
                                                     plane_landing__squadRevivePointsIfLanded : int;
-                                                    plane__waitingTakeOff : Tag?)
+                                                    plane__waitingTakeOff : Tag const?)
       if ownedBySquad == squad_eid
         if plane_landing__isLanded && plane__waitingTakeOff == null
           reduce_squad_rotation_queue(squad__ownerPlayer, squad__id, plane_landing__squadRevivePointsIfLanded)

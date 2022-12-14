@@ -14,13 +14,13 @@ let { BtnActionBgDisabled }  = require("%ui/style/colors.nut")
 let {
   eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms,
   selEvent, selectEvent, selLbMode, eventCustomSquads, eventsSquadList, eventsArmiesList,
-  eventCurArmyIdx, eventCampaigns, activeEvents, inactiveEventsToShow,
+  eventCurArmyIdx, eventCampaigns, allEventsToShow, inactiveEventsToShow,
   customRoomsModeSaved, eventCustomProfile, curTab
 } = require("eventModesState.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { unseenEvents, markSeenEvent, markAllSeenEvents } = require("unseenEvents.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { Bordered } = textButton
+let { Bordered, soundDefault } = textButton
 let { mkMenuScene, menuContentAnimation } = require("%enlist/mainMenu/mkMenuScene.nut")
 let { leaveQueue, isInQueue } = require("%enlist/quickMatchQueue.nut")
 let {
@@ -189,12 +189,13 @@ let allCampaignsAvailable = {
   text = loc("allCampaignsAvailable")
 }.__update(sub_txt)
 
-let function mkEventBtn(eventGm, _idx, eCampaigns) {
+let function mkEventBtn(eventGm) {
   let isSelected = Computed(@() selEvent.value == eventGm)
   let isUnseen = Computed(@() unseenEvents.value.contains(eventGm.id))
   let isInactive = !eventGm.enabled && (eventGm?.queue.extraParams.showWhenInactive ?? false)
   let isEnded = Computed(@() isInactive && (eventGm?.leaderboardTableIdx ?? 0) < curLbIdx.value)
   let isCustom = eventGm?.queue.extraParams.customProfile != null
+  let eCampaigns = eventGm?.campaigns ?? []
 
   return watchElemState(@(sf) {
     size = [flex(), SIZE_TO_CONTENT]
@@ -203,10 +204,7 @@ let function mkEventBtn(eventGm, _idx, eCampaigns) {
     onAttach = @() isSelected.value ? markSeenEvent(eventGm.id) : null
     onClick = @() selectEvent(eventGm.id)
     onHover = hoverHoldAction("unseenEvent", eventGm.id, @(c) markSeenEvent(c))
-    sound = {
-      click  = "ui/enlist/button_click"
-      hover  = "ui/enlist/button_highlight"
-    }
+    sound = soundDefault
     children = [
       isSelected.value || (sf & S_HOVER)
         ? {
@@ -241,23 +239,13 @@ let function mkEventBtn(eventGm, _idx, eCampaigns) {
   })
 }
 
-let function eventsList(){
-  let allEvents = [].extend(activeEvents.value, inactiveEventsToShow.value)
+let function eventsList() {
   return {
-    watch = [activeEvents, inactiveEventsToShow, gameProfile]
+    watch = allEventsToShow
     size = [eventBlockWidth, SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = localPadding
-    children = allEvents.map(function(val, idx){
-      let campaigns = val?.campaigns ?? []
-      return{
-        size = [flex(), SIZE_TO_CONTENT]
-        flow = FLOW_VERTICAL
-        children = [
-          mkEventBtn(val, idx, campaigns)
-        ]
-      }
-    })
+    children = allEventsToShow.value.map(mkEventBtn)
   }
 }
 
@@ -348,10 +336,7 @@ let leaderboard = watchElemState(@(sf){
   flow = FLOW_VERTICAL
   gap = localGap
   behavior = Behaviors.Button
-  sound = {
-    click  = "ui/enlist/button_click"
-    hover  = "ui/enlist/button_highlight"
-  }
+  sound = soundDefault
   onClick = openLbWnd
   children = [
     mkRightBlockHeader(sf, loc("Leaderboard"))

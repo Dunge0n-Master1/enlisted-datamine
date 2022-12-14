@@ -63,7 +63,7 @@ def human_input_driver_in_vehicle_es(info : UpdateStageInfoAct;
     return
   if vehicleCameraType != int(VehicleCameraType VEHICLE_CAMERA_DRIVER)
     return
-  query(human_anim__vehicleSelected) <| $ [es] (driverFpsCamMaxAngle : float2; cockpit__cameraDir : float3?)
+  query(human_anim__vehicleSelected) <| $ [es] (driverFpsCamMaxAngle : float2; cockpit__cameraDir : float3 const?)
     let direction = cockpit__cameraDir ?? vehicle__globalSeatTm[0]
     var additionalRotation : quat
     euler_to_quat(-camera__relative_angle.x, -camera__relative_angle.y, 0.0, additionalRotation)

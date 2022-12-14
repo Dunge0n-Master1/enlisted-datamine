@@ -77,6 +77,25 @@ sound_control{
   }
 }
 
+sound_control_disable_timer{
+  sound_control_disable_timer__endTime:r=-1.0
+  _replicated:t="sound_control_disable_timer__endTime"
+
+  _group{
+    _tags:t="server"
+    sound_control_disable_timer__duration:r=60.0
+  }
+}
+
+sound_destroy_timer{
+
+  _group{
+    _tags:t="server"
+    sound_destroy_timer__endTime:r=0.0
+    sound_destroy_timer__duration:r=60.0
+  }
+}
+
 sound_event_group{
 
   sound_event_group{

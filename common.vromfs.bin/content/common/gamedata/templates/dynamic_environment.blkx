@@ -1,7 +1,0 @@
-dynamic_environment{
-  dynamic_environment__time:r=12.0
-  dynamic_environment__weather_datablock:t="content/common/gamedata/weather/weather_clear.blk"
-  dynamic_environment__skies_seed:i=0
-  _tracked:t="dynamic_environment__time"
-  _tracked:t="dynamic_environment__weather_datablock"
-}

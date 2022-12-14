@@ -13,6 +13,11 @@ require DagorMathUtils
 require game.utils.hero
 require common_shooter.es.human.bipod_common
 
+require strings
+require EcsUtils
+require DagorDataBlock
+
+
 [console_cmd(name="bipod.debug")]
 def bipod_debug()
   let hero = get_controlled_hero()
@@ -21,108 +26,328 @@ def bipod_debug()
   else
     addSubTemplate(hero, "bipod_debug")
 
-
 def draw_point(pos : float3; color : E3DCOLOR; radius : float = 0.05)
   draw_cached_debug_sphere(pos, radius, color, 24)
 
-
 def draw_line(from, to, color)
   draw_cached_debug_line(from, to, color)
-
-[es(no_order, tag=(dev, render), REQUIRE=(hero, bipodDebug))]
-def bipod_debug_human_sphere_points_es(info : UpdateStageInfoRenderDebug;
-                                       bipod__anchorDir : float3;
-                                       bipod__anchorPos : float3;
-                                       bipod__anchorNormal : float3;
-                                       bipod__enabled : bool;
-                                       transform : float3x4;
-                                       human_weap__currentGunEid : EntityId;
-                                       human_net_phys : HumanActor)
-  if !bipod__enabled
-    return
-
-  var yawLimits = float2(0.f)
-
-  let body_points = bipod_solve_limits(bipod__anchorDir, bipod__anchorPos, bipod__anchorNormal,
-                                       transform, human_weap__currentGunEid, human_net_phys, yawLimits)
-
-  begin_draw_cached_debug_lines(true, true, false)
-
-  draw_point(body_points.headMin, E3DCOLOR(0xFF0000FF), sphereRadius)
-  draw_point(body_points.bodyMin, E3DCOLOR(0xFF0000FF), bodySphereRadius)
-  draw_point(body_points.legsMin, E3DCOLOR(0xFF0000FF), sphereRadius)
-
-  draw_point(body_points.headMax, E3DCOLOR(0xFFFF0000), sphereRadius)
-  draw_point(body_points.bodyMax, E3DCOLOR(0xFFFF0000), bodySphereRadius)
-  draw_point(body_points.legsMax, E3DCOLOR(0xFFFF0000), sphereRadius)
-
-  end_draw_cached_debug_lines()
 
 [es(tag=(dev, render), REQUIRE=(hero, bipodDebug), after=bipod_human_act_es)]
 def bipod_debug_es(info : UpdateStageInfoRenderDebug;
                    human_net_phys : HumanActor;
                    human_weap__currentGunEid : EntityId;
+                   human_input__aimAngle : float2;
                    human__aimTm : float3x4;
                    bipod__enabled : bool;
                    bipod__anchorPos : float3;
                    bipod__anchorDir : float3;
+                   bipod__anchorHeight : float;
                    bipod__anchorNormal : float3;
-                   bipod__isCrawl : bool;
-                   bipod__crawlLimit : float4;
-                   bipod__yawLimit : float2)
+                   bipod__placeable : bool;
+                   bipod__placePos : float3;
+                   bipod__placeHeight : float;
+                   bipod__placeNormal : float3;
+                   bipod__solveBestType : int;
+                   bipod__solveBestPos : float3;
+                   bipod__solveBestHeight : float;
+                   bipod__solveBestNormal : float3)
   begin_draw_cached_debug_lines(true, true, false)
 
   var tm : float3x4
   location_toTM(human_net_phys.phys.currentState.location, tm)
-  draw_point(tm[3], E3DCOLOR(0xFF00FF00))
 
-  var aasTm : float3x4
-  location_toTM(human_net_phys.phys.authorityApprovedState.location, aasTm)
-  draw_point(aasTm[3], E3DCOLOR(0xFFFF0000))
+  let walkDir  = normalize(cross(cross(human_net_phys.phys.currentState.walkNormal, human__aimTm[0]), human_net_phys.phys.currentState.walkNormal))
+  draw_line(tm[3], tm[3] + walkDir, E3DCOLOR(0xFFFF00FF))
 
-  var paasTm : float3x4
-  location_toTM(human_net_phys.phys.authorityApprovedPartialState.location, paasTm)
-  draw_point(paasTm[3], E3DCOLOR(0xFF0000FF))
+  var prevTm : float3x4
+  location_toTM(human_net_phys.phys.previousState.location, prevTm)
 
   let aimAngle = dir_to_angles(human_net_phys.phys.appliedCT.wishShootDir)
 
-  let walkDir = normalize(cross(cross(human_net_phys.phys.currentState.walkNormal, human__aimTm[0]), human_net_phys.phys.currentState.walkNormal))
+  var animGunTm : float3x4
+  var calcGunTm : float3x4
+  let hasAnimGunTm = get_gun_tm(human_weap__currentGunEid, animGunTm)
+  calc_gun_tm(calcGunTm, human_net_phys, prevTm, aimAngle.y)
 
-  draw_line(tm[3], tm[3] + walkDir, E3DCOLOR(0xFFFF00FF))
+  draw_point(calcGunTm[3], E3DCOLOR(0xFFFFFFFF))
+  if hasAnimGunTm
+    draw_point(animGunTm[3], E3DCOLOR(0xFF00FF00))
 
-  var prevHumanTm, prevHumanItm : float3x4
-  location_toTM(human_net_phys.phys.previousState.location, prevHumanTm)
-  prevHumanItm = inverse(prevHumanTm)
+  query(human_weap__currentGunEid) <| $ [es] (gun__bipodOffset : float3;
+                                              [[shared_comp]] gun__mountPoints : Array;
+                                              gun__barrelTipOffset : float3;
+                                              gun__barrelRadius : float)
 
-  var gunTm : float3x4
-  calc_gun_tm(gunTm, human_net_phys, prevHumanTm, aimAngle.y)
+    draw_point(calcGunTm * gun__barrelTipOffset, E3DCOLOR(0xFFFFFFFF), gun__barrelRadius)
+    if hasAnimGunTm
+      draw_point(animGunTm * gun__barrelTipOffset, E3DCOLOR(0xFF00FF00), gun__barrelRadius)
 
-  query(human_weap__currentGunEid) <| $ [es] (gun__bipodOffset : float3)
-    draw_point(gunTm * gun__bipodOffset, E3DCOLOR(0xFFFFFF00))
-  draw_point(gunTm[3], E3DCOLOR(0xFFFFFFFF))
+    let aimDirX = angles_to_dir(human_input__aimAngle)
+    let aimDirY = angles_to_dir(float2(human_input__aimAngle.x, human_input__aimAngle.y + HALF_PI))
+    let aimDirZ = angles_to_dir(float2(human_input__aimAngle.x + HALF_PI, 0.0))
+    draw_point(calcGunTm[3] + aimDirX * gun__barrelTipOffset.x + aimDirY * gun__barrelTipOffset.y + aimDirZ * gun__barrelTipOffset.z, E3DCOLOR(0xFFFF0000), gun__barrelRadius)
 
-  if !bipod__enabled
-    end_draw_cached_debug_lines()
-    return
+    for i in iter_range(gun__mountPoints)
+      let obj = get_ecs_object(gun__mountPoints[i])
+      var pttype = get_ecs_string(obj, "type")
+      if pttype != null
+        var offset = get_Point3(obj, "offset") ?? float3(0.0, 0.0, 0.0)
+        var color = E3DCOLOR(0xFF00FFFF)
+        var radius = BIPOD_TRACE_REST_RADIUS
+        if string(*pttype) == "bipod"
+          if i == 0 && gun__bipodOffset.x != 0.0
+            if !(get_bool(obj, "forceOffset") ?? false)
+              offset = gun__bipodOffset
+          let ang = deg_to_rad(get_float(obj, "angle") ?? 0.0)
+          let len = get_float(obj, "length") ?? 0.0
+          let dy = cos(ang) * len
+          let dz = sin(ang) * len
+          let legL = offset + float3(0.0, -dy,  dz)
+          let legR = offset + float3(0.0, -dy, -dz)
 
-  draw_point(bipod__anchorPos, E3DCOLOR(0xFF0000FF))
-  draw_line(bipod__anchorPos, bipod__anchorPos + bipod__anchorDir, E3DCOLOR(0xFF0000FF))
-  draw_line(bipod__anchorPos, bipod__anchorPos + bipod__anchorNormal, E3DCOLOR(0xFF0000FF))
+          let center1 = calcGunTm * offset
+          draw_line(center1, calcGunTm * legL, E3DCOLOR(0xFFFF0000))
+          draw_line(center1, calcGunTm * legR, E3DCOLOR(0xFF0000FF))
+          draw_point(calcGunTm * legL, E3DCOLOR(0xFFFF0000), BIPOD_TRACE_LEG_RADIUS)
+          draw_point(calcGunTm * legR, E3DCOLOR(0xFF0000FF), BIPOD_TRACE_LEG_RADIUS)
+          if hasAnimGunTm
+            let center2 = animGunTm * offset
+            draw_line(center2, animGunTm * legL, E3DCOLOR(0xFFFF0000))
+            draw_line(center2, animGunTm * legR, E3DCOLOR(0xFF0000FF))
+            draw_point(animGunTm * legL, E3DCOLOR(0xFFFF0000), BIPOD_TRACE_LEG_RADIUS)
+            draw_point(animGunTm * legR, E3DCOLOR(0xFF0000FF), BIPOD_TRACE_LEG_RADIUS)
+          color = E3DCOLOR(0xFFFF0000)
+          radius = BIPOD_TRACE_BASE_RADIUS
 
-  let anchorAngleYaw = dir_to_angles(bipod__anchorDir).x
+        draw_point(calcGunTm * offset, color, radius)
+        if hasAnimGunTm
+          draw_point(animGunTm * offset, E3DCOLOR(0xFF007700), radius)
 
-  let leftAngleLimit = angles_to_dir(float2(anchorAngleYaw +
-                                            (bipod__isCrawl ?
-                                            clamp_ang(bipod__yawLimit[0], deg_to_rad(bipod__crawlLimit[0]), 0.) :
-                                            bipod__yawLimit[0]),
-                                            0.))
-  let rightAngleLimit = angles_to_dir(float2(anchorAngleYaw +
-                                             (bipod__isCrawl ?
-                                             clamp_ang(bipod__yawLimit[1], 0., deg_to_rad(bipod__crawlLimit[1])) :
-                                             bipod__yawLimit[1]),
-                                             0.))
-
-  draw_line(bipod__anchorPos, bipod__anchorPos + leftAngleLimit, E3DCOLOR(0xFFFF0000))
-  draw_line(bipod__anchorPos, bipod__anchorPos + rightAngleLimit, E3DCOLOR(0xFFFF0000))
+  if bipod__enabled
+    draw_point(bipod__anchorPos, E3DCOLOR(0xFFFF00FF))
+    draw_point(bipod__anchorPos + float3(0.0, bipod__anchorHeight, 0.0), E3DCOLOR(0xFFFFFF00))
+    draw_line(bipod__anchorPos, bipod__anchorPos + bipod__anchorDir, E3DCOLOR(0xFFFF00FF))
+    draw_line(bipod__anchorPos, bipod__anchorPos + bipod__anchorNormal, E3DCOLOR(0xFF0000FF))
+  elif bipod__placeable
+    draw_point(bipod__placePos, E3DCOLOR(0xFF770077))
+    draw_point(bipod__placePos + float3(0.0, bipod__placeHeight, 0.0), E3DCOLOR(0xFF777700))
+    draw_line(bipod__placePos, bipod__placePos + bipod__placeNormal, E3DCOLOR(0xFF000077))
+  elif bipod__solveBestType > 0
+    draw_point(bipod__solveBestPos, E3DCOLOR(0xFFFF0000))
+    draw_point(bipod__solveBestPos + float3(0.0, bipod__solveBestHeight, 0.0), E3DCOLOR(0xFFFF0000))
+    draw_line(bipod__solveBestPos, bipod__solveBestPos + bipod__solveBestNormal, E3DCOLOR(0xFFFF0000))
 
   end_draw_cached_debug_lines()
+
+
+
+[console_cmd(name="bipod.catalog")]
+def bipod_catalog(detailed : bool = false)
+
+  var profListGuns : array<string>
+  using <| $(var blk : DataBlock#)
+    if !datablock_load(blk, "../prog/gameBase/guns_list.blk")
+      return
+    let count = int(blk.paramCount)
+    for i in range(count)
+      let tmpl = datablock_get_param_name(blk, uint(i))
+      push(profListGuns, slice(tmpl, 0, length(tmpl)))
+
+  var inSceneNames : array<string>
+  using <| $(var blk : DataBlock#)
+    if !datablock_load(blk, "../prog/gameBase/content/dev/gamedata/scenes/test_enlisted_weapons.blk")
+      return
+    let count = int(blk.blockCount)
+    for i in range(count)
+      datablock_get_block(blk, uint(i)) <| $(subblk)
+        let listblk = subblk |> datablock_get_block_by_name("spawnItemList:array")
+        if listblk != null
+          let listCount = int(listblk.blockCount)
+          for j in range(listCount)
+            datablock_get_block(*listblk, uint(j)) <| $(itemblk)
+              let tname = datablock_getStr(itemblk, "templ", "")
+              let pos = find(tname, "gun_item+")
+              if pos > 0
+                let name = slice(tname, 0, pos + 3)
+                var found = false
+                for q in iter_range(inSceneNames)
+                  if inSceneNames[q] == name
+                    found = true
+                    break
+                if !found
+                  push(inSceneNames, name)
+
+  console_print("------------------------------------------------------------\n")
+
+  var total = 0
+  var pts0 = 0
+  var pts1 = 0
+  var pts2 = 0
+  var pts3 = 0
+  var ptsM = 0
+  var ptsX = 0
+  var ptsB = 0
+  var ptsR = 0
+  var ptsO = 0
+  var nots = 0
+  var gots = 0
+  var notInScene : array<string>
+  var nots2 = 0
+  var gots2 = 0
+  var notInList : array<string>
+
+  getTemplateDB() |> find_templateDB() <| $(name; tmpl)
+    if ends_with(name, "_gun")
+      let gunblk = get_ecs_string(getTemplateComponent(tmpl, "gun__blk"))
+      let itemtp = get_ecs_string(getTemplateComponent(tmpl, "item__template"))
+      let turret = get_ecs_string(getTemplateComponent(tmpl, "turret__name"))
+      let mortar = get_ecs_string(getTemplateComponent(tmpl, "mortar__targetTemplate"))
+      let pistol = get_float(getTemplateComponent(tmpl, "gun__mass"))
+      let flamet = get_float(getTemplateComponent(tmpl, "flamethrower__maxFlameLength"))
+      if gunblk == null || turret != null || mortar != null || pistol != null || flamet != null || ends_with(name, "_radio_gun") || find(name, "building_tool") >= 0
+        //console_print("  Non-bipod gun template {name}\n")
+        return false
+      if name == "scr_300_gun"
+        return false
+      if itemtp == null
+        //console_print("  No item in bipod gun template {name}\n")
+        return false
+
+      ++total
+
+      var found = false
+      for i in iter_range(inSceneNames)
+        if inSceneNames[i] == name
+          found = true
+          break
+      if !found
+        ++nots
+        push(notInScene, string(name))
+      else
+        ++gots
+
+      found = false
+      for i in iter_range(profListGuns)
+        if profListGuns[i] == name
+          profListGuns |> erase(i)
+          found = true
+          break
+      if !found
+        ++nots2
+        push(notInList, string(name))
+      else
+        ++gots2
+
+      var got = false
+      let eid = createEntitySync("{name}")
+      query(eid) <| $ [es] ([[shared_comp]] gun__mountPoints : Array)
+        got = true
+
+        let pts = length(gun__mountPoints)
+        if pts == 0
+          console_print("  Non-configured bipod gun template: {name}\n")
+          ++pts0
+        elif pts == 1
+          ++pts1
+        elif pts == 2
+          ++pts2
+        elif pts == 3
+          ++pts3
+        elif pts > 3
+          ++ptsM
+
+        var hasBipod = false
+        var hasRests = false
+        var hasOther = false
+        for i in iter_range(gun__mountPoints)
+          let obj = get_ecs_object(gun__mountPoints[i])
+          let pttype = get_ecs_string(obj, "type")
+          if pttype != null
+            if string(*pttype) == "bipod"
+              hasBipod = true
+            elif string(*pttype) == "rest"
+              hasRests = true
+            else
+              hasOther = true
+        if hasBipod
+          ++ptsB
+        if hasRests
+          ++ptsR
+        if hasOther
+          ++ptsO
+
+        if hasBipod
+          console_print("  Weapon #{total}: /\\ {name}\n")
+        else
+          console_print("  Weapon #{total}:    {name}\n")
+
+        //console_print("    \"spawnItemList:object\"\{\n")
+        //console_print("      templ:t=\"{name}+item_in_world\"\n")
+        //console_print("      count:i=1\n")
+        //console_print("    \}\n")
+
+      destroyEntity(eid)
+      if !got
+        ++ptsX
+        console_print("  ------------    {name}\n")
+    return false
+
+  console_print("------------------------------------------------------------\n")
+  console_print("  Total bipodable  {total}\n")
+  console_print("  With no points   {pts0}\n")
+  console_print("  With 1 point     {pts1}\n")
+  console_print("  With 2 points    {pts2}\n")
+  console_print("  With 3 points    {pts3}\n")
+  console_print("  With points > 3  {ptsM}\n")
+  console_print("  Got bipods       {ptsB}\n")
+  console_print("  Got rest points  {ptsR}\n")
+  console_print("  Got other points {ptsO}\n")
+  console_print("  No component     {ptsX}\n")
+
+  console_print("------------------------------------------------------------\n")
+  console_print("Also for gameBase/guns_list.blk (from profileServer das files):\n")
+  console_print("  More there: {length(profListGuns)}\n")
+  if detailed
+    for i in iter_range(profListGuns)
+      let tmpl = getTemplateByName(profListGuns[i])
+      if tmpl == null
+        console_print("    INVALID! {profListGuns[i]}\n")
+        continue
+      let gunblk = get_ecs_string(getTemplateComponent(*tmpl, "gun__blk"))
+      let itemtp = get_ecs_string(getTemplateComponent(*tmpl, "item__template"))
+      let turret = get_ecs_string(getTemplateComponent(*tmpl, "turret__name"))
+      let mortar = get_ecs_string(getTemplateComponent(*tmpl, "mortar__targetTemplate"))
+      let pistol = get_float(getTemplateComponent(*tmpl, "gun__mass"))
+      let flamet = get_float(getTemplateComponent(*tmpl, "flamethrower__maxFlameLength"))
+      if gunblk == null
+        console_print("    (gunblk) {profListGuns[i]}\n")
+      elif itemtp == null
+        console_print("    (noitem) {profListGuns[i]}\n")
+      elif turret != null
+        console_print("    (turret) {profListGuns[i]}\n")
+      elif mortar != null
+        console_print("    (mortar) {profListGuns[i]}\n")
+      elif pistol != null
+        console_print("    (pistol) {profListGuns[i]}\n")
+      elif flamet != null
+        console_print("    (flamet) {profListGuns[i]}\n")
+      else
+        console_print("    MISSING! {profListGuns[i]}\n")
+  console_print("  Bipodable:  {gots2}/{total}\n")
+  console_print("  Not there:  {nots2}/{total}\n")
+  if detailed
+    for i in iter_range(notInList)
+      console_print("    {notInList[i]}\n")
+  elif nots > 0
+    console_print("  (add 'true' in console command for lists)\n")
+
+  console_print("------------------------------------------------------------\n")
+  console_print("Also for dev/scenes/test_enlisted_weapons.blk:\n")
+  console_print("  Gun items: {length(inSceneNames)}\n")
+  console_print("  Bipodable: {gots}/{total}\n")
+  console_print("  Missing:   {nots}/{total}\n")
+  if detailed
+    for i in iter_range(notInScene)
+      console_print("    {notInScene[i]}\n")
+  elif nots > 0
+    console_print("  (add 'true' in console command for list of missing templates)\n")

@@ -8,10 +8,12 @@ let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { collectSoldierData } = require("collectSoldierData.nut")
 let { items, soldiers, squads } = require("%enlist/meta/servProfile.nut")
 let { getLinkedSquadGuid, getFirstLinkedObjectGuid } = require("%enlSqGlob/ui/metalink.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
-let curSoldierIdx = mkWatched(persist, "curSoldierIdx")
-let defSoldierGuid = mkWatched(persist, "defSoldierGuid")
+let curSoldierIdx = nestWatched("curSoldierIdx", null)
+let defSoldierGuid = nestWatched("defSoldierGuid", null)
+
 
 let function deselectSoldier() {
   curSoldierIdx(null)

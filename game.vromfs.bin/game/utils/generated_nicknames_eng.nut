@@ -4633,7 +4633,6 @@ let nicknames = [
   "ToaZol",
   "JIKEN17",
   "pebefus00",
-  "penis21192",
   "Petell52994",
   "thiperrahudo13",
   "nwenzha",

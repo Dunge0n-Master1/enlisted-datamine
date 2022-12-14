@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, titleTxtColor, activeBgColor,
+let { panelBgColor, commonBtnHeight, defTxtColor, midPadding, darkTxtColor, activeBgColor,
   commonBorderRadius, defBdColor, hoverBdColor, smallBtnHeight, disabledBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
@@ -18,16 +18,18 @@ let defTxtStyle = {
 }.__update(fontMedium)
 
 let hoverTxtStyle = {
-  color = titleTxtColor
+  color = darkTxtColor
 }.__update(fontMedium)
 
 
-let dropDownHead = @(label, onClick, sf) {
+let dropDownHead = @(label, onClick, sf, isEnabled) {
   rendObj = ROBJ_BOX
   borderRadius = commonBorderRadius
   borderWidth = hdpx(1)
-  borderColor = sf & S_HOVER ? hoverBdColor : defBdColor
-  fillColor = onClick == null ? disabledBgColor
+  borderColor = !isEnabled ? defBdColor
+    : sf & S_HOVER ? hoverBdColor
+    : defBdColor
+  fillColor = onClick == null || !isEnabled ? disabledBgColor
     : sf & S_HOVER ? activeBgColor
     : panelBgColor
   size = flex()
@@ -69,10 +71,12 @@ isExpanded.subscribe(@(v) v ? null : modalPopupWnd.remove(WND_UID))
 
 let function mkSelection(options, curValue, params = {}){
   let group = ElemGroup()
-  let headerDummy = params?.headerDummy ?? ""
   let canBeExpanded = options.len() > 0
+  let { header = "", isEnabled = true } = params
 
   let function expandWnd(event) {
+    if (!isEnabled)
+      return
     isExpanded(true)
     modalPopupWnd.add(event.targetRect, {
       uid = WND_UID
@@ -91,13 +95,13 @@ let function mkSelection(options, curValue, params = {}){
     watch = curValue
     size = [flex(), commonBtnHeight]
     behavior = Behaviors.Button
-    children = dropDownHead(options?[curValue.value].loc ?? headerDummy,
-      canBeExpanded ? expandWnd : null, sf)
+    children = dropDownHead(options?[curValue.value].loc ?? header,
+      canBeExpanded ? expandWnd : null, sf, isEnabled)
   }.__update(params))
 }
 
-let mkSmallSelection = @(options, curValue, headerDummy)
-  mkSelection(options, curValue, { size = [flex(), smallBtnHeight] }.__merge({ headerDummy }))
+let mkSmallSelection = @(options, curValue, params = {})
+  mkSelection(options, curValue, { size = [flex(), smallBtnHeight] }.__update(params))
 
 
 return {

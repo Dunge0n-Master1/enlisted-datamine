@@ -28,11 +28,15 @@ let hasEliteBattlePass = Computed(function() {
   return isDebugBP.value ? !res : res
 })
 
-let isPurchaseBpInProgress = Computed(@() purchaseInProgress.value == elitePassItem.value)
+let isPurchaseBpInProgress = Computed(@() elitePassItem.value != null
+  && purchaseInProgress.value == elitePassItem.value)
+
+let canBuyBattlePass = Computed(@() !hasEliteBattlePass.value && elitePassItem.value != null)
 
 console_register_command(@() isDebugBP(!isDebugBP.value), "meta.debugBattlePass")
 
 return {
+  canBuyBattlePass
   hasEliteBattlePass
   premRewardsAllowed
   isPurchaseBpInProgress

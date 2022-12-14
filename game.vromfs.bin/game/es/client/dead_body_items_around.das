@@ -13,16 +13,16 @@ require enlisted.events_enlisted
 [es(after=items_around_es, before=human_inventory_hero_es, tag=(ui, render, gameClient), REQUIRE=watchedByPlr)]
 def dead_body_items_around_es(info : ParallelUpdateFrameDelayed;
                               eid : EntityId;
-                              var itemsAround : ecs::Array;
                               human_inventory__lookNodeId : int;
                               animchar : AnimcharBaseComponent;
-                              human_inventory__pickupDistance : float = 2.5f)
+                              human_inventory__pickupDistance : float = 2.5f;
+                              var itemsAround : EidList)
   let camTm = get_TMatrix(get_cur_cam_entity(), "transform")
   if camTm == null
     return
   var queryPos = (*camTm)[3]
   if human_inventory__lookNodeId >= 0
-    queryPos = geomtree_getNodeWpos(animchar.nodeTree, human_inventory__lookNodeId)
+    queryPos = geomtree_getNodeWpos(*animchar.nodeTree, human_inventory__lookNodeId)
 
   let heroEid = eid
 

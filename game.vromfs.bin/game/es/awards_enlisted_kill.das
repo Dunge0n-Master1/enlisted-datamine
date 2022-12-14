@@ -1,4 +1,5 @@
 require ecs
+require ecs.common
 require ecs.safe
 require app
 require strings
@@ -49,10 +50,10 @@ def get_victim_info(eid : EntityId) : VictimInfo
   query(eid) <| $ [es] (team : int = TEAM_UNASSIGNED;
                         guid : string = "";
                         squad_member__playerEid : EntityId = INVALID_ENTITY_ID;
-                        statsCountAsKill : Tag?;
-                        vehicle : Tag?;
-                        airplane : Tag?;
-                        isTank : Tag?;
+                        statsCountAsKill : Tag const?;
+                        vehicle : Tag const?;
+                        airplane : Tag const?;
+                        isTank : Tag const?;
                         transform : float3x4)
     res.guid = guid
     res.team = team
@@ -160,7 +161,7 @@ def add_vehicle_kill_assist(var award_list : Array#; vehicle_eid : EntityId; kil
           if engineerAssist.isValid && !empty(vehicle_kill_assist__engineerStat)
             award_list |> push_soldier_stat(engineerAssist.player, engineerAssist.guid, vehicle_kill_assist__engineerStat)
 
-def zone_radius(tm : float3x4; sphere_zone__radius : float?; capzone__approximateRadius : float?)
+def zone_radius(tm : float3x4; sphere_zone__radius : float const?; capzone__approximateRadius : float const?)
   return sphere_zone__radius ?? capzone__approximateRadius ?? sqrt(length_sq(tm[0]) + length_sq(tm[2])) * 0.5
 
 def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3; offender : CachedSoldier; offender_team : int)
@@ -171,11 +172,17 @@ def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3;
                           capzone__defenseRadiusAdd : float = 0.0;
                           capzone__attackRadiusAdd : float = 0.0;
                           capzone__onlyTeamCanCapture : int = TEAM_UNASSIGNED;
-                          capzoneTwoChains : Tag?;
+                          capzoneTwoChains : Tag const?;
                           active : bool = true;
-                          sphere_zone__radius : float?;
-                          capzone__approximateRadius : float?)
+                          sphere_zone__radius : float const?;
+                          capzone__approximateRadius : float const?;
+                          battle_contract__acceptedBy : EidList const?)
     assume onlyTeamCanCapture = capzone__onlyTeamCanCapture
+
+    if battle_contract__acceptedBy != null
+      if *battle_contract__acceptedBy |> find_index(offender.player) < 0
+        return false
+
     let isUncapturedOneTeamZone = onlyTeamCanCapture != TEAM_UNASSIGNED && capzone__owningTeam != onlyTeamCanCapture
     let isCapturedFriendlyZone = is_teams_friendly(capzone__owningTeam, offender_team)
     let isCapturedEnemyZone = capzone__owningTeam != TEAM_UNASSIGNED && !isCapturedFriendlyZone
@@ -200,7 +207,7 @@ def add_weapon_kill_awards(var award_list : Array#; victim_pos : float3; damage_
   if damage_type == int(DamageType DM_MELEE) || damage_type == int(DamageType DM_BACKSTAB)
     award_list |> push_soldier_stat(offender.player, offender.guid, "meleeKills")
   if get_gun_stat_type_by_props_id(gun_props_id) == "grenade"
-    award_list |> push_soldier_stat(offender.player, offender.guid, "grenadeKills")
+    award_list |> push_soldier_stat(offender.player, offender.guid, "explosiveKills")
   if damage_type == int(DamageType DM_PROJECTILE)
     query(offender_eid) <| $ [es] (awards__longRangeDist : float; transform : float3x4)
       let killerPos = transform[3]

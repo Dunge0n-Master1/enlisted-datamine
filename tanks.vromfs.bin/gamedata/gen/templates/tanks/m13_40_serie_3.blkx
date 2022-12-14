@@ -4,8 +4,8 @@ base_m13_40_serie_3{
   killLogName:t="it_m13_40_serie_3"
   animchar__res:t="m13_40_serie_3_char"
   collres__res:t="m13_40_serie_3_collision"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/m13_40_serie_3.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/m13_40_serie_3.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="m13_40_serie_3_dmg_char"
   xray_resource__modelName:t="m13_40_serie_3"
   cockpit__zoomOutFov:r=2.7475
@@ -13,7 +13,7 @@ base_m13_40_serie_3{
   cockpit__sightName:t="sight_model/default_tank_spg"
   cockpit__sightFov:r=20.0
   drowningHeight:r=1.896
-  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/m13_40_serie_3.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/m13_40_serie_3.blk"
   item__name:t="items/it_m13_40_serie_3"
   skin__template:t="m13_40_serie_3_skins"
 
@@ -134,7 +134,7 @@ m13_40_serie_3_turret_02_8mm_breda_mod38{
   gun__shootNodeName:t="bone_mg_gun_twin"
 
   "gun__shellsAmmo:array"{
-    ammo:i=1524
+    ammo:i=1536
   }
 }
 
@@ -147,7 +147,7 @@ m13_40_serie_3_turret_03_8mm_breda_mod38{
   turret__limit:p4=0.0, 0.0, -10.0, 20.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=1524
+    ammo:i=1536
   }
 }
 

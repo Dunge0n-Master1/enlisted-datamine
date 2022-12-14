@@ -2,10 +2,9 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { Point3 } = require("dagor.math")
-let { CmdHeroLogEvent } = require("gameevents")
 let {
   sendNetEvent,
-  RequestSquadMateOrder, RequestOpenArtilleryMap, CmdShowArtilleryCooldownHint, RqCancelContextCommand
+  RequestSquadMateOrder, RequestOpenArtilleryMap, CmdShowArtilleryCooldownHint, RqCancelContextCommand, CmdHeroLogEvent
 } = require("dasevents")
 let { pieMenuItems } = require("%ui/hud/state/pie_menu_state.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
@@ -38,8 +37,8 @@ let noMembersText = Computed(@() hasActive.value ? null
   : colorize(noMembersColor, loc("msg/noAliveMembersToOrder")))
 
 let sendCmd = @(orderType)
-  sendNetEvent(ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "squad_member__squad", INVALID_ENTITY_ID),
-    RequestSquadMateOrder({orderType, orderPosition=Point3(), orderUseEntity=INVALID_ENTITY_ID}))
+  sendNetEvent(ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "squad_member__squad", ecs.INVALID_ENTITY_ID),
+    RequestSquadMateOrder({orderType, orderPosition=Point3(), orderUseEntity=ecs.INVALID_ENTITY_ID}))
 
 let showMsg = @(text) playerEvents.pushEvent({ text = text, ttl = 5 })
 
@@ -115,7 +114,7 @@ let function showDisabledArtilleryHint() {
   else if (artilleryAvailableTimeLeft.value > 0)
     ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdShowArtilleryCooldownHint())
   else if (!artilleryIsReady.value)
-    ecs.g_entity_mgr.sendEvent(get_controlled_hero(), CmdHeroLogEvent("artillery", "artillery/team_limit_reached", "", 0))
+    ecs.g_entity_mgr.sendEvent(get_controlled_hero(), CmdHeroLogEvent({event="artillery", text="artillery/team_limit_reached", sound="", ttl=0}))
 }
 
 let cmdArtillery = addTextCtor({

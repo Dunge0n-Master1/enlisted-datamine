@@ -10,6 +10,7 @@ require EnlistedDm
 require fx
 require DagorSystem
 require game.es.vehicle.vehicle_events
+require strings
 
 
 enum VehicleEffectType
@@ -53,7 +54,7 @@ def vehicle_fx_on_appear(vehicle_eid : EntityId;
               let fx = fxItem as Object
               let fxTemplateName = fx?.name ?? ""
               let fxEmitterName = fx?.emitter ?? ""
-              let nodeId = geomtree_findNodeIndex(animchar.nodeTree, fxEmitterName)
+              let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, fxEmitterName)
               if nodeId >= 0
                 push(fxTemplateNames, fxTemplateName)
                 push(nodeIds, nodeId)
@@ -106,6 +107,13 @@ def destroyed_fx_on_appear(evt : Event;
                            destroyed_fx__fx : Array;
                            var destroyed_fx__eids : EidList)
   vehicle_fx_on_appear(eid, VehicleEffectType Destroyed, damage_model, animchar, destroyed_fx__fx, destroyed_fx__eids)
+
+[es(tag=render, on_appear)]
+def explosion_fx_on_appear(evt : Event;
+                           animchar : AnimcharBaseComponent;
+                           explosion_fx__nodeName : string;
+                           var explosion_fx__nodeId : int&)
+  explosion_fx__nodeId = geomtree_findNodeIndex(*animchar.nodeTree, explosion_fx__nodeName)
 
 [es(tag=render, on_disappear)]
 def fatal_fire_fx_on_disappear(evt : Event; fatal_fire_fx__eids : EidList)
@@ -172,7 +180,7 @@ def start_fx(vehicle_eid : EntityId;
         continue
 
       var nodeTm : float3x4
-      geomtree_getNodeWtmScalar(animchar.nodeTree, nodeId, nodeTm)
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, nodeId, nodeTm)
 
       var emitterTm = IDENT_TM
       emitterTm[3] = nodeTm[3]
@@ -311,30 +319,27 @@ def vehicle_fx_stop_all_on_flooding(evt : Event;
 
 [es(tag=render, track=isExploded, REQUIRE=damage_model)]
 def damage_model_fx_es(evt : Event;
+                       eid : EntityId;
                        transform : float3x4;
                        vehicle__isUnderwater : bool;
                        animchar : AnimcharBaseComponent;
-                       expl_fx : string;
+                       explosion_fx__effectName : string;
+                       explosion_fx__nodeId : int;
                        isExploded : bool)
-  if !isExploded || vehicle__isUnderwater
+  if !isExploded || vehicle__isUnderwater || empty(explosion_fx__effectName)
     return
 
-  let fxId = get_type_by_name(expl_fx)
-  if fxId >= 0
-    let nodeId = geomtree_findNodeIndex(animchar.nodeTree, "emtr_explosion_center")
-    var fxTm = IDENT_TM
-    fxTm[3] = nodeId >= 0 ? geomtree_getNodeWpos(animchar.nodeTree, nodeId) : transform[3]
-    start_effect(fxId, IDENT_TM, fxTm, false)
+  var fxTm = IDENT_TM
+  fxTm[3] = (explosion_fx__nodeId >= 0
+          ? geomtree_getNodeWpos(*animchar.nodeTree, explosion_fx__nodeId)
+          : transform[3])
+  createEntity(explosion_fx__effectName) <| $(var init)
+    set(init, "transform", fxTm)
+    set(init, "vehicle_effect__vehicleEid", eid)
 
 
 [es(tag=render, on_appear, REQUIRE=vehicleEffect)]
-def vehicle_effect_on_appear(evt : Event; eid : EntityId; effect__name : string; vehicle_effect__vehicleEid : EntityId)
-  let fxId = get_type_by_name(effect__name)
-  let lifetime = get_effect_life_time(fxId)
-  if lifetime > 0.0
-    addSubTemplate(eid, "vehicle_effect_base_lifetime") <| $(var init)
-      set(init, "gun_flash_fx__timeToDestroy", lifetime)
-
+def vehicle_effect_on_appear(evt : Event; eid : EntityId; vehicle_effect__vehicleEid : EntityId)
   query(vehicle_effect__vehicleEid) <| $ [es] (var vehicle_fxs__effectsEids : EidList)
     push(vehicle_fxs__effectsEids, eid)
 

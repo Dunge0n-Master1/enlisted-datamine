@@ -10,7 +10,7 @@ ai_ju_88a_1{
       name:t="driver"
       locName:t="vehicle_seats/pilot"
       seatOwnsEntityControl:b=yes
-      attachNode:t="pilot1"
+      attachNode:t="pilot"
       ignoreAttachNodeRotation:b=yes
       attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
       seatComponent:t="isDriver"
@@ -60,10 +60,10 @@ ai_ju_88a_1{
   }
 
   "turret_control__emitterNodes:shared:array"{
-    node:t="bomb31"
-    node:t="bomb32"
-    node:t="bomb29"
-    node:t="bomb30"
+    node:t="bomb1"
+    node:t="bomb2"
+    node:t="bomb3"
+    node:t="bomb4"
     node:t="flare3"
     node:t="flare1"
     node:t="flare2"
@@ -117,28 +117,28 @@ ai_ju_88a_1{
       turretName:t="turret_01"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ju_88a_1_sc_250_launcher_01"
+      gun:t="planegun_ai_ju_88a_1_sc_50_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_02"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ju_88a_1_sc_250_launcher_02"
+      gun:t="planegun_ai_ju_88a_1_sc_50_launcher_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ju_88a_1_sc_250_launcher_03"
+      gun:t="planegun_ai_ju_88a_1_sc_50_launcher_03"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ju_88a_1_sc_250_launcher_04"
+      gun:t="planegun_ai_ju_88a_1_sc_50_launcher_04"
     }
 
     "turretInfo:object"{
@@ -192,33 +192,9 @@ base_ai_ju_88a_1_7_92mm_mg15{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
-        name:t="v"
-        type:t="ap_t_ball"
-      }
-
-      "shell:object"{
         blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
-        name:t="s"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
-        name:t="v"
-        type:t="ap_i_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
-        name:t="v"
-        type:t="he_ball"
       }
     }
   }
@@ -252,43 +228,19 @@ base_ai_ju_88a_1_7_92mm_mg15_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_smk_l_spur_v_bullet.blk"
-        name:t="v"
-        type:t="ap_t_ball"
-      }
-
-      "shell:object"{
         blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
         name:t="s"
         type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_s_bullet.blk"
-        name:t="s"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_pmk_v_bullet.blk"
-        name:t="v"
-        type:t="ap_i_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_92mm_b_patrone_v_bullet.blk"
-        name:t="v"
-        type:t="he_ball"
       }
     }
   }
 }
 
-base_ai_ju_88a_1_sc_250_launcher{
-  item__name:t="guns/de_sc250"
-  gun__blk:t="gamedata/weapons/ju_88a_1/sc_250_launcher.blk"
+base_ai_ju_88a_1_sc_50_launcher{
+  item__name:t="guns/de_sc50"
+  gun__blk:t="gamedata/weapons/ju_88a_1/sc_50_launcher.blk"
   gun__shotFreq:r=10.0
-  gun__locName:t="de_sc250"
+  gun__locName:t="de_sc50"
   gun__shootNodeName:t="bone_mg_gun_twin"
   gun__maxAmmo:i=1
 
@@ -312,47 +264,47 @@ base_ai_ju_88a_1_sc_250_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/sc_250.blk"
-        name:t="sc_250"
+        blk:t="gamedata/weapons/shells/sc_50.blk"
+        name:t="sc_50"
         type:t="he_frag_tank"
       }
     }
   }
 }
 
-planegun_ai_ju_88a_1_sc_250_launcher_01{
-  _extends:t="ai_sc_250_launcher"
-  _extends:t="base_ai_ju_88a_1_sc_250_launcher"
-  _extends:t="gunsound_sc_250_launcher_aircraft"
-  gun__shootNodeName:t="bomb31"
-  slot_attach__slotName:t="bomb31"
+planegun_ai_ju_88a_1_sc_50_launcher_01{
+  _extends:t="ai_sc_50_launcher"
+  _extends:t="base_ai_ju_88a_1_sc_50_launcher"
+  _extends:t="gunsound_sc_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb1"
+  slot_attach__slotName:t="bomb1"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ju_88a_1_sc_250_launcher_02{
-  _extends:t="ai_sc_250_launcher"
-  _extends:t="base_ai_ju_88a_1_sc_250_launcher"
-  _extends:t="gunsound_sc_250_launcher_aircraft"
-  gun__shootNodeName:t="bomb32"
-  slot_attach__slotName:t="bomb32"
+planegun_ai_ju_88a_1_sc_50_launcher_02{
+  _extends:t="ai_sc_50_launcher"
+  _extends:t="base_ai_ju_88a_1_sc_50_launcher"
+  _extends:t="gunsound_sc_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb2"
+  slot_attach__slotName:t="bomb2"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ju_88a_1_sc_250_launcher_03{
-  _extends:t="ai_sc_250_launcher"
-  _extends:t="base_ai_ju_88a_1_sc_250_launcher"
-  _extends:t="gunsound_sc_250_launcher_aircraft"
-  gun__shootNodeName:t="bomb29"
-  slot_attach__slotName:t="bomb29"
+planegun_ai_ju_88a_1_sc_50_launcher_03{
+  _extends:t="ai_sc_50_launcher"
+  _extends:t="base_ai_ju_88a_1_sc_50_launcher"
+  _extends:t="gunsound_sc_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb3"
+  slot_attach__slotName:t="bomb3"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ju_88a_1_sc_250_launcher_04{
-  _extends:t="ai_sc_250_launcher"
-  _extends:t="base_ai_ju_88a_1_sc_250_launcher"
-  _extends:t="gunsound_sc_250_launcher_aircraft"
-  gun__shootNodeName:t="bomb30"
-  slot_attach__slotName:t="bomb30"
+planegun_ai_ju_88a_1_sc_50_launcher_04{
+  _extends:t="ai_sc_50_launcher"
+  _extends:t="base_ai_ju_88a_1_sc_50_launcher"
+  _extends:t="gunsound_sc_50_launcher_aircraft"
+  gun__shootNodeName:t="bomb4"
+  slot_attach__slotName:t="bomb4"
   gun__maxAmmo:i=1
 }
 

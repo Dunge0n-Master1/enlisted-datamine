@@ -46,6 +46,12 @@ base_cockpit{
 
   "cockpit__slitBoxes:list<m>"{
   }
+
+  "cockpit__effectorsInfo:object"{
+  }
+
+  "cockpit__effectors:object"{
+  }
 }
 
 base_driver_cockpit_no_slits{

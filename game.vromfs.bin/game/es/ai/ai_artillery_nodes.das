@@ -263,7 +263,7 @@ class TryCallArtilleryNode : BehNodeAdapter
     callTimer = 0.0
 
   def override exit() : void
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     var phys = agent.phys
     if phys != null
       phys.producedCT |> human_control_state_set_device_state(false)
@@ -274,7 +274,7 @@ class TryCallArtilleryNode : BehNodeAdapter
     callTimer = 0.0
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_FAILED
 
@@ -346,13 +346,13 @@ class PrepareArtillery : BehNodeAdapter
     posEndParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posEndParamName", "artilleryPosEnd"), float3())
 
   def override exit()
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     var phys = agent.phys
     if phys != null
       phys.producedCT |> human_control_state_set_device_state(false)
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_FAILED
 

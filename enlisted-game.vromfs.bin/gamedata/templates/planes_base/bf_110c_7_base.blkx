@@ -19,7 +19,7 @@ bf_110c_7_base{
   plane_collision__blk:t="gamedata/units/bf_110c_7.blk"
   plane_anim__blk:t="gamedata/units/bf_110c_7.blk"
   plane_sight__blk:t="gamedata/units/bf_110c_7.blk"
-  canUseRespawnbaseType:t="aircraft_fighter"
+  canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="bf_110c_7_wreckage"
   killLogName:t="bf_110c_4"

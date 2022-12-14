@@ -6,7 +6,7 @@ require DagorDataBlock
 require BehNodes
 require DagorRandom
 require math
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
@@ -19,6 +19,7 @@ require EnlistedNet
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
 require game.es.squad_order_common
+require game.utils.net_utils
 
 def order_ammo(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int) : bool
   var ordered = false
@@ -72,10 +73,9 @@ def on_squad_mate_bring_ammo_order(evt : RequestSquadMateOrder; eid : EntityId; 
   if evt.orderType == SquadMateOrder ESMO_BRING_AMMO && squad__isLeaderNeedsAmmo
     let requestAmmoAllowTime = get_float(squad__leader, "requestAmmoAllowTime") ?? 0f
     if requestAmmoAllowTime > get_sync_time()
-      server_send_schemeless_event(squad__leader, typeinfo(undecorated_typename type<CmdHeroLogExEvent>), squad__leader) <| $(var init : Object#)
-        set(init, "_event", "squad_order_canceled")
-        set(init, "_key", "msg/canRequestIn")
-        set(init, "time", int(requestAmmoAllowTime - get_sync_time()))
+      using() <| $(var data : Object#)
+        set(data, "time", int(requestAmmoAllowTime - get_sync_time()))
+        send_net_event(squad__leader, [[CmdHeroLogExEvent event="squad_order_canceled", key="msg/canRequestIn", data=ecs_addr(data)]], target_entity_conn(squad__leader))
     else
       order_ammo(eid, squad__leader, squad__numAliveMembers)
 
@@ -107,7 +107,7 @@ def on_squad_mate_bring_ammo_es(act : UpdateStageInfoAct;
 [es(tag=server)]
 def squad_mate_order_bring_ammo_es(evt : RequestSquadMateOrder; squad__leader : EntityId)
   if evt.orderType == SquadMateOrder ESMO_BRING_AMMO
-    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBringAmmoOrder", importance=1.]])
+    sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadBringAmmoOrder"]])
 
 def can_fit_another_magazine(item_container; ammo_props_id; max_magazines)
   var magazines = 0

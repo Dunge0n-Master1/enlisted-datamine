@@ -167,3 +167,11 @@ def tnt_block_switch_to_exploder(evt : CmdNextSpecialGun;
           forcedNextInventoryGunEid = gunEid
           break
 
+
+[es(tag=server)]
+def tnt_block_choose_on_loot(evt : EventInventorySpecialItemAdded;
+                             human_weap__currentGunEid : EntityId;
+                             inventoryGunsItemsEids : EidList;
+                             var currentInventoryGunIdx : int&)
+  if has(human_weap__currentGunEid, "tntBlockExploder") && has(evt.itemEid, "tntBlock")
+    currentInventoryGunIdx = find_index(inventoryGunsItemsEids, evt.itemEid)

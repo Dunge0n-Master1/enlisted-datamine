@@ -14,9 +14,9 @@ def calc_attachable_visibility(slot_attach__attachedTo : ecs::EntityId; slot_att
     // wants to detach this gun, but it may not necessarily destroy it (it may "cache" it),
     // so we need to hide it.
     res = false
-  ecs::query(slot_attach__attachedTo) <| $ [es] (isInVehicleHidden : bool; human__visible : bool; isInVehicleHiddenLocal : bool)
-    // If it's attached to a human and human is invisible, then the item is also invisible.
-    res &&= calc_human_visibility(isInVehicleHidden, isInVehicleHiddenLocal, human__visible)
+  ecs::query(slot_attach__attachedTo) <| $ [es] (animchar_render__enabled : bool)
+    // If it's attached to invisible animchar, then the item is also invisible.
+    res &&= animchar_render__enabled
 
   ecs::query(slot_attach__attachedTo) <| $ [es] (gun__visible : bool;
                                                  slot_attach__attachedTo : ecs::EntityId;

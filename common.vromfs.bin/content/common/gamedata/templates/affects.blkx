@@ -88,14 +88,6 @@ confusion_affect{
   }
 }
 
-flash_blind_affect{
-  _extends:t="replicated_game_effect"
-  flash_blind__intensity:r=1.0
-
-  "flashBlindScreenEffect:tag"{
-  }
-}
-
 directional_push_affect{
   push_effect__spawnRateThreshold:r=0.5
   push_effect__scale:r=1.0

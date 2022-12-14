@@ -11,7 +11,7 @@ var // these variables keep constant values that don't change at runtime (after 
   DEFUSE_BOMB_ORDER_REACTION_ID : int
 
 [register_beh_nodes]
-def register_enlisted_ai_reactions2()
+def register_nodes()
   PERSONAL_ORDER_REACTION_ID = walkerai::register_reaction("onPersonalOrder")
   PLANT_BOMB_ORDER_REACTION_ID = walkerai::register_reaction("onPlantBombOrder")
   DEFUSE_BOMB_ORDER_REACTION_ID = walkerai::register_reaction("onDefuseBombOrder")

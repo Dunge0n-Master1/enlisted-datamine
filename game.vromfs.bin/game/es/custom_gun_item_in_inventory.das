@@ -5,6 +5,7 @@ require ecs.common
 require EnlistedHuman
 require HumanPhys
 require common_shooter.events_common_shooter
+require enlisted.events_enlisted
 
 [es(tag=server, on_appear, on_event=CmdReinitWeapons, after=(human_weap_created_server_es, human_weap_reinit_guns_es), track=itemContainer)]
 def custom_inventory_slot_init(evt : Event;
@@ -14,12 +15,20 @@ def custom_inventory_slot_init(evt : Event;
                                var currentInventoryGunIdx : int&;
                                var inventoryGunsItemsEids : ecs::EidList;
                                var human_weap__gunEids : ecs::EidList)
-  clear(inventoryGunsItemsEids)
+  var newInventoryGunsItemsEids : array<EntityId>
   for itemEid in itemContainer
     if has(itemEid, "specialWeapItem")
-      push(inventoryGunsItemsEids, itemEid)
+      push(newInventoryGunsItemsEids, itemEid)
       query(itemEid) <| $ [es] (var gun__owner : EntityId&)
         gun__owner = eid
+
+      if find_index(inventoryGunsItemsEids, itemEid) < 0
+        sendEvent(eid, [[EventInventorySpecialItemAdded itemEid=itemEid]])
+
+  clear(inventoryGunsItemsEids)
+  for itemEid in newInventoryGunsItemsEids
+    push(inventoryGunsItemsEids, itemEid)
+
   let customInventoryWeapon = human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)]
   let idxInContainer = find_index(inventoryGunsItemsEids, customInventoryWeapon)
 
@@ -66,12 +75,13 @@ def is_anim_progress_valid_to_change_weapon(human_net_phys : HumanActor)
 [es(after=next_weapon_item_request_es)]
 def device_animation_equip_special(info : UpdateStageInfoAct;
                                    eid : EntityId;
+                                   action__running : bool;
                                    human_net_phys : HumanActor;
                                    human_weap__currentGunEid : EntityId;
                                    currentInventoryGunIdx : int;
                                    inventoryGunsItemsEids : ecs::EidList)
   let isGunIdxValid = currentInventoryGunIdx >= 0 && currentInventoryGunIdx < length(inventoryGunsItemsEids)
-  if !isGunIdxValid
+  if !isGunIdxValid || action__running
     return
   let nextItemGunEid = inventoryGunsItemsEids[currentInventoryGunIdx]
   if is_anim_progress_valid_to_change_weapon(human_net_phys)
@@ -82,13 +92,13 @@ def device_animation_equip_special(info : UpdateStageInfoAct;
 
 [es(after=next_weapon_item_request_es)]
 def device_update_equip_special(info : UpdateStageInfoAct;
+                                action__running : bool;
                                 human_net_phys : HumanActor;
                                 currentInventoryGunIdx : int;
                                 inventoryGunsItemsEids : ecs::EidList;
                                 var human_weap__gunEids : ecs::EidList)
-
   let isGunIdxValid = currentInventoryGunIdx >= 0 && currentInventoryGunIdx < length(inventoryGunsItemsEids)
-  if !isGunIdxValid
+  if !isGunIdxValid || action__running
     return
   let hasItemInSpecialSlot = !!human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)]
   let isSpecialSlotChoosen = human_net_phys.phys.currentState.weapEquipState.curSlot == HUWeaponSlots EWS_SPECIAL
@@ -96,13 +106,14 @@ def device_update_equip_special(info : UpdateStageInfoAct;
     let nextItemGunEid = inventoryGunsItemsEids[currentInventoryGunIdx]
     human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] = nextItemGunEid
 
-[es(track=(currentInventoryGunIdx, inventoryGunsItemsEids))]
+[es(track=(currentInventoryGunIdx, inventoryGunsItemsEids, action__running))]
 def change_gun_in_custom_slot(evt : Event;
+                              action__running : bool;
                               currentInventoryGunIdx : int;
                               human_weap__currentGunEid : EntityId;
                               inventoryGunsItemsEids : ecs::EidList;
                               var human_net_phys : HumanActor&)
-  if currentInventoryGunIdx < 0
+  if currentInventoryGunIdx < 0 || action__running
     return
   let curSlot = human_net_phys.phys.currentState.weapEquipState.curSlot
   if curSlot != HUWeaponSlots EWS_SPECIAL || human_weap__currentGunEid == inventoryGunsItemsEids[currentInventoryGunIdx]

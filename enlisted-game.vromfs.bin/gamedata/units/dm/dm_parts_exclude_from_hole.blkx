@@ -4,6 +4,9 @@ excludeParts{
   part:t="pilot%d_dm"
   part:t="gunner_dm"
   part:t="gunner%d_dm"
+  part:t="radar_dm"
+  part:t="propeller_shaft%d_dm"
+  part:t="propeller_shaft_dm"
 }
 
 excludeNonCutParts{
@@ -26,6 +29,7 @@ excludeNonDamageParts{
   part:t="wing_r_dm"
   part:t="wing%d_r_dm"
   part:t="tail_dm"
+  part:t="tail%d_dm"
   part:t="fuse_dm"
   part:t="fuse%d_dm"
   part:t="aileron_dm"
@@ -59,8 +63,21 @@ excludeNonDamageParts{
   part:t="tank%d_dm"
 }
 
+excludePartsThatAreInContact{
+  part:t="engine%d_dm"
+  part:t="radar_dm"
+  part:t="propeller_shaft%d_dm"
+  part:t="propeller_shaft_dm"
+}
+
 excludePartsInContactWithExcludedPart{
   part:t="cover%d_dm"
+  part:t="fuse%d_dm"
+  part:t="fuse_dm"
+  part:t="tail_dm"
+  part:t="tail%d_dm"
+  part:t="oil%d_dm"
+  part:t="armor%d_dm"
 }
 
 checkPartsSideSize{
@@ -72,6 +89,8 @@ checkPartsSideSize{
   part:t="stab%d_dm"
   part:t="fin_dm"
   part:t="fin%d_dm"
+  part:t="tail_dm"
+  part:t="tail%d_dm"
 }
 
 excludeFromBulletDecal{

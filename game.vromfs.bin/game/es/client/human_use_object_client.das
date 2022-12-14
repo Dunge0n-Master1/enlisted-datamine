@@ -16,7 +16,9 @@ require RendInst
 require CollRes
 require Dacoll
 require GridCollision
-
+require CollisionTraces
+require game.es.vehicle.vehicle_seats_common
+require matching
 
 struct DoorData
   eid : EntityId
@@ -51,7 +53,7 @@ def hero_human_use_door_object_es(info : ParallelUpdateFrameDelayed;
 
   let camTm = get_cam_itm()
   let traceDir = camTm[2]
-  let tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
+  let tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
 
   let traceEnd = tracePos + traceDir * human_use_object__useDoorDist
@@ -137,6 +139,7 @@ def can_request_ammo_from(squad_eid : EntityId;
 def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    possessedByPlr : EntityId;
+                                   squad_member__playerEid : EntityId;
                                    animchar : AnimcharBaseComponent;
                                    human_use_object__useDist : float;
                                    human_weap__throwMode : bool;
@@ -150,7 +153,7 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
     return
   let camTm = get_cam_itm()
   let traceDir = camTm[2]
-  var tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
+  var tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
 
   using() <| $(var entities : IntersectedEntities#)
@@ -172,10 +175,13 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
         return // Exit early as far objects are hidden by collision (trace_grid_objects returns sorted list)
 
       if canUseVehicles
-        ecs::query(entity.eid) <| $ [es(REQUIRE=vehicle_seats__seats)] (isAlive : bool = true; vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED)
+        query(entity.eid) <| $ [es(REQUIRE=vehicle_seats__seats)] (isAlive : bool = true;
+                                                                   vehicle_seats__restrictToTeam : int = TEAM_UNASSIGNED;
+                                                                   vehicle_seats__restrictToGroup : int64 = int64(INVALID_GROUP_ID))
           if !isAlive
             return
-          if vehicle_seats__restrictToTeam != TEAM_UNASSIGNED && team_human != vehicle_seats__restrictToTeam
+          let playerGroup = get_int64(squad_member__playerEid, "origGroupId") ?? int64(INVALID_GROUP_ID)
+          if !can_use_vehicle(team_human, vehicle_seats__restrictToTeam, playerGroup, vehicle_seats__restrictToGroup)
             return
           if is_vehicle_has_free_player_seats(entity.eid, possessedByPlr)
             human_use_object__selectedObject = entity.eid
@@ -203,14 +209,14 @@ def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           human_reviver__maxDistance : float2 = float2(0.0, 0.0);
                                           human_reviver__maxAngle : float = 45.0;
                                           human_use_object__nodeId : int = 0;
-                                          canReviveWithoutItem : Tag?;
+                                          canReviveWithoutItem : Tag const?;
                                           var human_use_object__selectedObject : EntityId&)
   if human_use_object__selectedObject != INVALID_ENTITY_ID
     return
   if total_kits__targetRevive == 0 && canReviveWithoutItem == null
     return
   let camTm = get_cam_itm()
-  let tracePos = (human_use_object__nodeId > 0 ? animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
+  let tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
   find_query() <| $ [es(REQUIRE=human)] (eid : EntityId;
                                          team : int;

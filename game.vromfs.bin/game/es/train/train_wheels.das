@@ -17,7 +17,7 @@ def init_train_wheels(evt : Event;
 
   var isFail = false
   for wheel, i in train__wheels, range(length(train__wheels))
-    let nodeId = animchar.nodeTree |> geomtree_findNodeIndex(string(wheel))
+    let nodeId = *animchar.nodeTree |> geomtree_findNodeIndex(string(wheel))
     isFail ||= nodeId < 0
     if nodeId < 0
       logerr("Wheel node '{wheel}' is not found for a train '{getEntityTemplateName(eid)}' in the component 'train__wheels'")
@@ -44,10 +44,8 @@ def rotate_train_wheels_es(info : UpdateStageInfoAct;
   rotyTM(rotation, rotTm)
 
   for nodeId in train__wheelNodeIds
-    let node = animchar.nodeTree |> geomtree_getNodeRW(nodeId)
-
     var nodeTm : float3x4
-    node |> geomtreenode_getTmScalar(nodeTm)
+    *animchar.nodeTree |> geomtree_getNodeTmScalar(nodeId, nodeTm)
 
     let tm = nodeTm * rotTm
-    animchar.nodeTree |> geomtree_getNodeRW(nodeId) |> geomtreenode_setTm(tm)
+    *animchar.nodeTree |> geomtree_setNodeTmScalar(nodeId, tm)

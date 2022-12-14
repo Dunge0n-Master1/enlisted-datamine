@@ -41,3 +41,8 @@ def set_hero_downed_long(time : float = 1500.0; [[net_hero]] hero_eid : EntityId
 [net_console_cmd(name="hitpoints.hero_god_mode")]
 def hero_god_mode([[net_hero]] eid : EntityId)
   set_hp_for_eid(eid, 999999f)
+
+[net_console_cmd(name="hitpoints.god_mode_everyone")]
+def hero_god_mode_all()
+  query() <| $ [es] (var hitpoints__hp : float&)
+    hitpoints__hp = 999999f

@@ -33,7 +33,7 @@ def push_entity(eid : EntityId;
                 speed : float;
                 distance_power : float;
                 distance_power_scale_limits : float2;
-                enemy_effect_template : das_string?;
+                enemy_effect_template : das_string const?;
                 enemy_effect_template_ttl : float;
                 immunity_amount : float;
                 hit_tag_power_mult : float;
@@ -65,7 +65,7 @@ def push_around(transform : float3x4;
                 distance_power : float;
                 distance_power_scale_limits : float2;
                 pitch : float;
-                enemy_effect_template : das_string?;
+                enemy_effect_template : das_string const?;
                 vehicle_energy_scale : float;
                 vehicle_point_offset : float3;
                 enemy_effect_template_ttl : float;
@@ -144,7 +144,7 @@ def push_human_around(transform : float3x4;
                       quatRes : quat;
                       radius, speed, distance_power : float;
                       distance_power_scale_limits : float2;
-                      enemy_effect_template : das_string?;
+                      enemy_effect_template : das_string const?;
                       enemy_effect_template_ttl : float;
                       immunity_amount, hit_tag_power_mult, ai_distance_power_mult : float;
                       enemy_damage : float;
@@ -182,7 +182,7 @@ def push_around_es(evt : EventEntityCreated;
                    push_around__distancePower : float;
                    push_around__distancePowerScaleLimits : float2;
                    push_around__pitch : float;
-                   push_around__enemyEffectTemplate : das_string?;
+                   push_around__enemyEffectTemplate : das_string const?;
                    push_around__vehicleEnergyScale : float;
                    push_around__vehiclePointOffset : float3;
                    game_effect__attachedTo : EntityId = INVALID_ENTITY_ID;
@@ -212,37 +212,6 @@ def riex_set_offender(riex_handle : riex_handle_t; offenderEid : EntityId)
   var riOffender = getRW_Eid(riexEid, "riOffender")
   if riOffender != null
     *riOffender = offenderEid
-
-
-[es(tag=server)]
-def trigger_phys_destroy_ri_es(evt : EventFirstContact;
-                               eid : EntityId;
-                               transform : float3x4;
-                               destroy_ri_on_contact__radius : float;
-                               destroy_ri_on_contact__damage : float;
-                               destroy_ri_on_contact__offset : float3;
-                               team : int = int(TEAM_UNASSIGNED))
-
-  let pos = transform[3] + destroy_ri_on_contact__offset
-  let dmgNearFar = float2(destroy_ri_on_contact__damage, 0.0)
-  damage_ri_in_sphere(pos,
-                      destroy_ri_on_contact__radius,
-                      dmgNearFar,
-                      get_sync_time(), !is_true_net_server(),
-                      $(riex_handle : riex_handle_t){ riex_set_offender(riex_handle, eid); },
-                      !is_server(),
-                      $(riex_handle : riex_handle_t){ return riex_should_damage(eid, team, riex_handle); })
-
-
-[es(tag=gameClient)]
-def first_contact_camera_shake_es(evt : EventFirstContact;
-                                  transform : float3x4;
-                                  first_contact_push__radius : float;
-                                  first_contact_push__cameraShakePower : float = 0.2)
-  broadcastEvent([[CmdShakeCamera position=transform[3],
-                                  max_distance = first_contact_push__radius,
-                                  wish_shake = first_contact_push__cameraShakePower,
-                                  smooth = 1.0]])
 
 
 [es]

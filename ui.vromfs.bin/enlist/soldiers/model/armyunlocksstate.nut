@@ -10,7 +10,7 @@ let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyShowcase } = require("%enlist/shop/armyShopState.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { CAMPAIGN_NONE, isConfigurableCampaign, isCampaignBought, needFreemiumStatus
+let { CAMPAIGN_NONE, isPurchaseableCampaign, isCampaignBought, needFreemiumStatus
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 
@@ -34,7 +34,7 @@ let hasCampaignSection = Computed(@() !(disabledSectionsData.value?.CAMPAIGN ?? 
 let curUnlockedSquadsIds = Computed(@()
   curUnlockedSquads.value
     .filter(@(s) !isSquadRented (s))
-    .reduce(@(res, s) res.__update({ [s.squadId] = true }), {}))
+    .reduce(@(res, s) res.rawset(s.squadId, true), {}))
 
 let LEVEL_WIDTH = fsh(70)
 let SHOWCASE_ITEM_WIDTH = LEVEL_WIDTH
@@ -158,7 +158,7 @@ let curArmyNextUnlockLevel = Computed(function() {
     rewardUnlocks[unlock.level] <- unlock
 
   let maxLevel = max(findMax(squadUnlocks.keys()), findMax(rewardUnlocks.keys()))
-  let haveFreemium = isConfigurableCampaign.value && isCampaignBought.value
+  let haveFreemium = isPurchaseableCampaign.value && isCampaignBought.value
   local nextLevel = 0
   for (local lvl = 1; lvl <= maxLevel; lvl++) {
     nextLevel = lvl

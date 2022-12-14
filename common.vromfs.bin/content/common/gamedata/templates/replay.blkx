@@ -1,9 +1,31 @@
+base_replay_meta{
+  replay__firstHumanSpawnTime:r=0.0
+  replay__startAt:r=0.0
+}
+
+replay_meta_record{
+  _extends:t="base_replay_meta"
+  replay__totalPlayTime:r=-1.0
+  replay__isFinished:b=no
+  replay__firstHumanSpawnTime:r=0.0
+  replay__startAt:r=0.0
+
+  _group{
+    mission__startTime:i64=0
+    replay__isFirstHumanSpawned:b=no
+    _tags:t="recordingReplay"
+  }
+}
+
 replay_meta{
+  _extends:t="base_replay_meta"
   replay__speed:r=1.0
   replay__curTime:r=0.0
   replay__playTime:r=0.0
   _tracked:t="replay__speed"
   _tracked:t="replay__curTime"
+  replay__vehicleFov:r=70.0
+  replay__humanFov:r=100.0
   _tags:t="playingReplay"
 
   "replayIsPlaying:tag"{
@@ -12,6 +34,26 @@ replay_meta{
   "replay_cameras:list<t>"{
     cam:t="replay_camera_tps"
     cam:t="replay_camera_tps_free"
+  }
+
+  "replay__prevCam:eid"{
+  }
+
+  "replay__curCam:eid"{
+  }
+}
+
+replay_acceleration_to{
+  _singleton:b=yes
+  replay__accelerationSpeed:r=10.0
+  replay__accelerationPrevSpeed:r=1.0
+  replay__accelerationTime:r=0.0
+}
+
+replay_acceleration_to_debug{
+  _extends:t="replay_acceleration_to"
+
+  "replay__accelerationDebug:tag"{
   }
 }
 

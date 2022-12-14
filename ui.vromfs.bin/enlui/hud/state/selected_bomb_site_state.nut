@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {controlledHeroEid} = require("%ui/hud/state/controlled_hero.nut")
 let {EventHeroChanged} = require("gameevents")
 
-let selectedBombSite = Watched(INVALID_ENTITY_ID)
+let selectedBombSite = Watched(ecs.INVALID_ENTITY_ID)
 let isBombPlanted = Watched(0.0)
 let bombPlantedTimeEnd = Watched(0.0)
 let bombResetTimeEnd = Watched(0.0)
@@ -14,7 +14,7 @@ let bombTimeToResetPlant = Watched(0.0)
 let bombTimeToDefuse = Watched(0.0)
 
 selectedBombSite.subscribe(function(eid) {
-  if (eid == INVALID_ENTITY_ID) {
+  if (eid == ecs.INVALID_ENTITY_ID) {
     bombPlantedTimeEnd(0.0)
     bombResetTimeEnd(0.0)
   }
@@ -34,8 +34,8 @@ let function trackBombState(eid, comp) {
 
 let function trackOperator(eid, comp) {
   if (eid == selectedBombSite.value && comp["bomb_site__operator"] != controlledHeroEid.value)
-    selectedBombSite(INVALID_ENTITY_ID)
-  else if (comp["bomb_site__operator"] == controlledHeroEid.value && controlledHeroEid.value != INVALID_ENTITY_ID) {
+    selectedBombSite(ecs.INVALID_ENTITY_ID)
+  else if (comp["bomb_site__operator"] == controlledHeroEid.value && controlledHeroEid.value != ecs.INVALID_ENTITY_ID) {
     selectedBombSite(eid)
     trackBombState(eid, comp)
   }
@@ -56,7 +56,7 @@ ecs.register_es("track_operated_bomb",{
   [EventHeroChanged] = trackOperator,
   onDestroy = function(eid, _comp) {
     if (selectedBombSite.value == eid)
-      selectedBombSite(INVALID_ENTITY_ID)
+      selectedBombSite(ecs.INVALID_ENTITY_ID)
   }
   },
   {

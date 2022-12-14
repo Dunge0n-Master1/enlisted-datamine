@@ -19,15 +19,16 @@ def human_fpv_cam_lookat(info : UpdateStageInfoAct; transform : float3x4; human_
                          var human_cam__fpvActive : bool&;
                          var human_cam__offsetMult : float&;
                          isInVehicle : bool = false;
+                         bipod__enabled : bool = false;
                          human_ladder__attached : bool = false)
   assume phys = human_net_phys.phys
   // Height calculation
   assume curSt = phys.currentState
   assume prevSt = phys.previousState
 
-  human_cam__fpvActive = !human_phys_state_get_isAttached(curSt) && curSt.standState != HUStandState ESS_DOWNED && !human_ladder__attached && !isInVehicle
+  human_cam__fpvActive = !human_phys_state_get_isAttached(curSt) && curSt.standState != HUStandState ESS_DOWNED && !human_ladder__attached && !isInVehicle && !bipod__enabled
   let wishOffsetMult = human_cam__fpvActive ? 1.0 : 0.0
-  human_cam__offsetMult = move_to_scalar(human_cam__offsetMult, wishOffsetMult, info.dt, 2.0)
+  human_cam__offsetMult = move_to_scalar(human_cam__offsetMult, wishOffsetMult, info.dt, bipod__enabled ? 5.0 : 2.0)
   if human_cam__offsetMult <= 0.0
     return
 
@@ -64,20 +65,20 @@ def human_fpv_cam_pos(info : UpdateStageInfoAct; animchar : AnimcharBaseComponen
                       human_cam__offsetMult : float)
   if human_cam__camNodeId < 0
     return
-  let wposRel = geomtree_getNodeWposRel(animchar.nodeTree, human_cam__camNodeId)
-  let wofs = geomtree_getWtmOfs(animchar.nodeTree)
+  let wposRel = geomtree_getNodeWposRel(*animchar.nodeTree, human_cam__camNodeId)
+  let wofs = geomtree_getWtmOfs(*animchar.nodeTree)
   camera__look_at = lerp(DPoint3(wposRel) + DPoint3(wofs), camera__look_at, human_cam__offsetMult)
 
 [es(tag=render, on_appear)]
 def cockpit_camera_init(evt : Event; animchar : AnimcharBaseComponent; human_cam__camNodeName : string; var human_cam__camNodeId : int&)
-  human_cam__camNodeId = geomtree_findNodeIndex(animchar.nodeTree, human_cam__camNodeName)
+  human_cam__camNodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_cam__camNodeName)
 
 [es(tag=render, before=(animchar_es, human_anim_es), after=human_fpv_cam_lookat, REQUIRE=watchedByPlr, REQUIRE_NOT=deadEntity)]
 def cockpit_pre_animchar_offset(info : UpdateStageInfoAct; var transform : float3x4; human_cam__calculatedOffset : DPoint3; human_cam__offsetMult : float)
   transform[3] = transform[3] + float3(human_cam__calculatedOffset * human_cam__offsetMult)
 
 [es(tag=render, after=animchar_es, before=(post_animchar_sync, gun_flash_fx_es))]
-def cockpit_camera_offseter(info : UpdateStageInfoAct; camera__active : bool; camera__target : EntityId; isCockpitCam : bool)
+def cockpit_camera_offseter(info : UpdateStageInfoAct; camera__active : bool; camera__target : EntityId; isHeroCockpitCam : bool)
   if !camera__active
     return
   query(camera__target) <| $ [es(REQUIRE_NOT=deadEntity)] (var animchar : AnimcharBaseComponent;
@@ -87,18 +88,18 @@ def cockpit_camera_offseter(info : UpdateStageInfoAct; camera__active : bool; ca
                                                            human_cam__camNodeId : int;
                                                            var human_cam__calculatedOffset : DPoint3;
                                                            human_cam__offsetMult : float)
-    if human_cam__offsetMult <= 0.0 || human_cam__camNodeId < 0 || !isCockpitCam
+    if human_cam__offsetMult <= 0.0 || human_cam__camNodeId < 0 || !isHeroCockpitCam
       human_cam__calculatedOffset = DPoint3(0.0lf, 0.0lf, 0.0lf)
       return
-    let wposRel = geomtree_getNodeWposRel(animchar.nodeTree, human_cam__camNodeId)
-    let originRel = geomtree_getNodeWposRel(animchar.nodeTree, 0)
-    let wofs = geomtree_getWtmOfs(animchar.nodeTree)
+    let wposRel = geomtree_getNodeWposRel(*animchar.nodeTree, human_cam__camNodeId)
+    let originRel = geomtree_getNodeWposRel(*animchar.nodeTree, 0)
+    let wofs = geomtree_getWtmOfs(*animchar.nodeTree)
     let localPos = camera__look_at - DPoint3(wofs)
     let additionalOffset = localPos - DPoint3(wposRel)
     // adjust animchar to local position to calculate most precise location
     human_cam__calculatedOffset = human_cam__calculatedOffset + additionalOffset * human_cam__offsetMult
     let rootPos = float3(DPoint3(wofs) + DPoint3(originRel) + additionalOffset * human_cam__offsetMult)
-    geomtree_changeRootPos(animchar.nodeTree, rootPos, true) // last argument MUST be true (it setups wofs), otherwise precision will be lost
+    geomtree_changeRootPos(*animchar.nodeTree, rootPos, true) // last argument MUST be true (it setups wofs), otherwise precision will be lost
     geomtree_invalidateWtm(*animchar.nodeTree)
     animchar_recalc_wtm(animchar)
     animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)

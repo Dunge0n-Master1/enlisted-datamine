@@ -1,5 +1,6 @@
 require ecs
 require math
+require math.base
 require DagorSystem
 require DagorRandom
 require DagorMath
@@ -48,9 +49,9 @@ def tracer_launcher_es(info : ecs::UpdateStageInfoAct;
     tracer_launcher__time_to_fire += tracer_launcher__short_cooldown
   let pos = transform[3]
   let t = info.curTime * tracer_launcher__rotate_speed;
-  let theta = PI / 180.0 * (tracer_launcher__shoot_direction.x +
+  let theta = DEG_TO_RAD * (tracer_launcher__shoot_direction.x +
                             tracer_launcher__rotate_range.x * sin(t))
-  let phi = PI / 180.0 * (tracer_launcher__shoot_direction.y +
+  let phi = DEG_TO_RAD * (tracer_launcher__shoot_direction.y +
                           tracer_launcher__rotate_range.y * cos(1.25 * t))
   var sinTheta, cosTheta, sinPhi, cosPhi : float
   sincos(theta, sinTheta, cosTheta)

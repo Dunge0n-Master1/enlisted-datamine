@@ -185,6 +185,7 @@ let function unlockSquadWnd() {
     valign = ALIGN_BOTTOM
     children
   }
+  let isPrimeSquad = (squadCfg?.battleExpBonus ?? 0.0) > 0.0
 
   return {
     key = "unlockSquadScene" //for tutorial
@@ -204,7 +205,7 @@ let function unlockSquadWnd() {
         mkBackWithImage(squadCfg?.image, !hasReceived, false),
         [
           mkSquadBodyBig(squadCfg.__merge({
-            armyId, isPrimeSquad = isShowcase, hasReceived, isFreemium
+            armyId, isPrimeSquad = isPrimeSquad || isShowcase, hasReceived, isFreemium
           }), descBlock, buttons)
           mkPromoSquadIcon(squadCfg?.icon, !hasReceived)
           !hasReceived ? null

@@ -46,3 +46,49 @@ gbuffer_specular_override_debug_node{
     }
   }
 }
+
+upscale_node{
+  _singleton:b=yes
+  _tags:t="render"
+  upscale_node_type:t="UpscaleTexGenerationNode"
+  upscale_node_name:t="upscale_tex_gen_node"
+  upscale_shader_name:t="upscale_sampling"
+
+  "upscale_node:FrameGraphNodePtr"{
+  }
+
+  "upscale_shader:PostFxRenderer"{
+  }
+
+  "upscale_weights_buffer:UniqueBufHolder"{
+  }
+}
+
+grenade_trajectory_node{
+  _singleton:b=yes
+  _tags:t="render"
+  grenade_trajectory_node_type:t="GrenadeTrajectoryNode"
+  grenade_trajectory_node_name:t="grenade_trajectory_node"
+  trajectory_renderer_shader_name:t="trajectory_renderer"
+
+  "grenade_trajectory_node:FrameGraphNodePtr"{
+  }
+
+  "trajectory_renderer_shader:ShadersECS"{
+  }
+
+  "trajectory_start_gravity:ShaderVar"{
+  }
+
+  "trajectory_vel_time:ShaderVar"{
+  }
+
+  "trajectory_center:ShaderVar"{
+  }
+
+  "trajectory_border:ShaderVar"{
+  }
+
+  "trajectory_total_thickness_gamma:ShaderVar"{
+  }
+}

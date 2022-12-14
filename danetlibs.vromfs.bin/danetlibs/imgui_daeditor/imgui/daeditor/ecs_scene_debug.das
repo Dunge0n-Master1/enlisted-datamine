@@ -4,15 +4,18 @@ options gc
 
 require DagorTime
 require ecs
+require EcsUtils
 require DagorImgui
 require DagorEditor
 require DagorConsole
+require DagorDataBlock
 require imgui/imgui_boost
 require daslib/static_let
 require daslib/strings_boost
 require daslib/safe_addr
 require daslib/algorithm
 require %danetlibs.imgui_daeditor.daEditor.daEditor_common
+require %danetlibs.imgui_daeditor.imgui.imgui_common
 
 
 struct EntityData
@@ -20,6 +23,15 @@ struct EntityData
   eidStr : string
   templateStr : string
   distance : float
+
+def DasHelpMarker(desc : string)
+  TextDisabled("(?)")
+  if IsItemHovered()
+    BeginTooltip()
+    PushTextWrapPos(GetFontSize() * 35.0f)
+    TextUnformatted(desc)
+    PopTextWrapPos()
+    EndTooltip()
 
 
 [imgui_window(name="Scene", group="Editor", hotkey="Ctrl+Shift+/")]
@@ -34,6 +46,12 @@ def ecs_scene_window()
     var prevData : array<EntityData>
     var data : array<EntityData>
 
+    var searchComponents = false
+    var includeComponent : array<string>
+    var excludeComponent : array<string>
+    var searchTypes = false
+    var includeTypes : array<string>
+    var excludeTypes : array<string>
     var shingles : array<string>
     var totalFilterLength = 0
 
@@ -48,8 +66,18 @@ def ecs_scene_window()
     unsafe(heap_collect())
     gcSteps = 0
 
-  SetNextItemWidth(-FLT_MIN)
+  *filter |> set() <| imgui_get_blk_val("ecs_scene", "filter", "")
+
+  DasHelpMarker("Filter (\"incl,-excl\")\nt:typeName (t:EntityId, -t:EidList)\nc:componentName (c:animchar, -c:hero)")
+  SameLine()
+  SetNextItemWidth(-55.)
   *filter |> Draw("##entitiesFilter")
+
+  SameLine()
+  if imgui::Button("Clear")
+    *filter |> Clear()
+
+  imgui_set_blk_val("ecs_scene", "filter", to_string(*filter))
 
   imgui::BeginChild("sub", float2(0., -20.))
 
@@ -68,11 +96,39 @@ def ecs_scene_window()
       delete data
       data |> reserve(1024)
 
+      searchComponents = false
+      delete includeComponent
+      delete excludeComponent
+      searchTypes = false
+      delete includeTypes
+      delete excludeTypes
       var filters : table<string; int>
       for filterRange in filter.Filters
         if !filterRange |> empty()
           let filterString = string(filterRange)
-          filters[filterString] = length(filterString)
+          let filterStringLength = length(filterString)
+          if filterStringLength >= 2 && filterString |> starts_with("c:")
+            searchComponents = true
+            let inc = filterString |> slice(2) |> strip()
+            if length(inc) > 0
+              includeComponent |> push(inc)
+          elif filterStringLength >= 3 && filterString |> starts_with("-c:")
+            searchComponents = true
+            let exc = filterString |> slice(3) |> strip()
+            if length(exc) > 0
+              excludeComponent |> push(exc)
+          elif filterStringLength >= 2 && filterString |> starts_with("t:")
+            searchTypes = true
+            let typ = filterString |> slice(2) |> strip()
+            if length(typ) > 0
+              includeTypes |> push(typ)
+          elif filterStringLength >= 3 && filterString |> starts_with("-t:")
+            searchTypes = true
+            let typ = filterString |> slice(3) |> strip()
+            if length(typ) > 0
+              excludeTypes |> push(typ)
+          else
+            filters[filterString] = filterStringLength
 
       delete shingles
       totalFilterLength = 0
@@ -91,7 +147,7 @@ def ecs_scene_window()
     var allEntitiesNum = length(allEntities)
     if allEntitiesNum > 0
       let hasFilters = length(shingles) > 0
-      var entitiesPerFrame = length(shingles) == 0 ? 10000 : 5000
+      var entitiesPerFrame = hasFilters || searchComponents || searchTypes ? 5000 : 10000
       let allowedMismatchesByFilterLength <- [[int[] 3; 3; 5; 8; 10; 13]]
       var maxMismatches = 0
       for m in allowedMismatchesByFilterLength
@@ -104,6 +160,44 @@ def ecs_scene_window()
         allEntities |> resize(allEntitiesNum)
         let eidStr = string(int(uint(eid)))
         let templateStr = getEntityTemplateName(eid)
+        if searchComponents
+          if length(excludeComponent) > 0
+            let excluded = find_component(eid) <| $ [unused_argument(_)] (comp_name; _)
+              for exclude in excludeComponent
+                if find(comp_name, exclude) >= 0
+                  return true
+              return false
+            if excluded
+              continue
+          if length(includeComponent) > 0
+            let match = find_component(eid) <| $ [unused_argument(_)] (comp_name; _)
+              for inc in includeComponent
+                if find(comp_name, inc) >= 0
+                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr]]
+                  return true
+              return false
+            if match || !(hasFilters || searchTypes)
+              continue
+        if searchTypes
+          if length(excludeTypes) > 0
+            let excluded = find_component(eid) <| $ [unused_argument(_)] (_; comp)
+              let typeName = getComponentTypes() |> component_types_findTypeName(comp.userType)
+              for exc in excludeTypes
+                if find(typeName, exc) >= 0
+                  return true
+              return false
+            if excluded
+              continue
+          if length(includeTypes) > 0
+            let match = find_component(eid) <| $ [unused_argument(_)] (_; comp)
+              let typeName = getComponentTypes() |> component_types_findTypeName(comp.userType)
+              for inc in includeTypes
+                if find(typeName, inc) >= 0
+                  data |> emplace <| [[EntityData eid=eid, eidStr=eidStr, templateStr=templateStr]]
+                  return true
+              return false
+            if match || !hasFilters
+              continue
         if hasFilters
           var misNeighbourCount = 0
           var mismatchCount = 0

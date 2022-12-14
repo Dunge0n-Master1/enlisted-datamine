@@ -7,7 +7,7 @@ let { INVALID_USER_ID, INVALID_SESSION_ID } = require("matching.errors")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let { round_by_value } = require("%sqstd/math.nut")
 let { BattleHeroesAward, awardPriority, isSoldierKindAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
-let contextMenu = require("%ui/components/contextMenu.nut")
+let { addContextMenu, closeLatestContextMenu } = require("%ui/components/contextMenu.nut")
 let { setTooltip, withTooltip } = require("%ui/style/cursors.nut")
 let style = require("%ui/hud/style.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
@@ -32,8 +32,7 @@ let tooltipBattleHeroAwardIconSize = [hdpx(70), hdpx(70)]
 
 let canComplain = @(playerData) playerData.sessionId != INVALID_SESSION_ID && !playerData.isLocal
 
-let canShowUserProfile = @(playerData) playerData.player.userid.tointeger() != -1
-  && playerData.sessionId != INVALID_SESSION_ID
+let canShowUserProfile = @(playerData) playerData.sessionId != INVALID_SESSION_ID
   && !playerData.isLocal
 
 
@@ -51,7 +50,7 @@ let function playerColor(playerData, sf = 0) {
   if (playerData.isLocal)
     return isHover ? MY_SQUAD_TEXT_COLOR_HOVER : style.MY_SQUAD_TEXT_COLOR
 
-  if (playerData.player.possessed == INVALID_ENTITY_ID)
+  if (playerData.player.possessed == ecs.INVALID_ENTITY_ID)
     return isHover ? INVALID_COLOR_HOVER : INVALID_COLOR
 
   let disconnected = playerData.disconnected || !playerData?.isInMatchingSlots
@@ -156,6 +155,7 @@ let function mkArmiesIcons(armies) {
     gap =  -0.35 * TEAM_ICON_SIZE
     children = icons.keys().map(@(icon) {
       rendObj = ROBJ_IMAGE
+      size = [TEAM_ICON_SIZE, TEAM_ICON_SIZE]
       image = Picture($"!ui/skin#{icon}:{TEAM_ICON_SIZE}:{TEAM_ICON_SIZE}:K")
     })
   }
@@ -205,7 +205,7 @@ let function openReplayContextMenu(event, playerData) {
         })
       )
 
-  contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
+  addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
 }
 
 let function openContextMenu(event, playerData, localPlayerEid, params) {
@@ -256,7 +256,7 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
       )
     })
 
-  contextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
+  addContextMenu(event.screenX + 1, event.screenY + 1, fsh(30), buttons)
 }
 
 let countAssistActions = @(data)
@@ -277,7 +277,8 @@ let countAssistActions = @(data)
   + (data?["scoring_player__vehicleExtinguishes"] ?? 0)
   + (data?["scoring_player__enemyBuiltFortificationDestructions"] ?? 0)
   + (data?["scoring_player__enemyBuiltGunDestructions"] ?? 0)
-  + (data?["scoring_player__enemyBuiltUtilityDestructions"] ?? 0) )
+  + (data?["scoring_player__enemyBuiltUtilityDestructions"] ?? 0)
+  + (data?["scoring_player__landings"] ?? 0) )
 
 let countEngineerActions = @(data)
   ( (data?["scoring_player__builtRallyPointUses"] ?? 0)
@@ -344,6 +345,7 @@ let COLUMN_PLAYER_NAME = {
           rendObj = ROBJ_IMAGE
           hplace = ALIGN_CENTER
           vplace = ALIGN_CENTER
+          size = [TEAM_ICON_SIZE, TEAM_ICON_SIZE]
           image = Picture("{0}:{1}:{1}:K".subst(p.teamIcon, TEAM_ICON_SIZE))
           margin = [0, 0, 0, bigGap]
         }
@@ -362,6 +364,7 @@ let COLUMN_PLAYER_NAME = {
       flow = FLOW_HORIZONTAL
       behavior = isInteractive ? Behaviors.Button : null
       onClick = @(event) openContextMenu(event, playerData, params.localPlayerEid, params)
+      onDetach = closeLatestContextMenu
       children = [
         {
           flow = FLOW_HORIZONTAL

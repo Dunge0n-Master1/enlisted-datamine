@@ -19,7 +19,7 @@ let function serviceInfo() {
     watch = showService
     flow = FLOW_HORIZONTAL
     gap = hdpx(5)
-    vplace = ALIGN_BOTTOM
+    vplace = DBGLEVEL > 0 ? ALIGN_TOP : ALIGN_BOTTOM
     padding = [hdpx(2), hdpx(10)]
     children
   }

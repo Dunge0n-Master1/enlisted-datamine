@@ -65,7 +65,7 @@ wounds_decal_resources{
     "right_leg:object"{
       name:t="right_leg"
       isBreak:b=yes
-      damage_threshold:r=70.0
+      damage_threshold:r=45.0
       offset_from_node:p3=0.0, 0.0, 0.0
       wound_radius:r=0.4
       start_fade_from:r=0.7
@@ -92,7 +92,7 @@ wounds_decal_resources{
     "left_leg:object"{
       name:t="left_leg"
       isBreak:b=yes
-      damage_threshold:r=70.0
+      damage_threshold:r=45.0
       offset_from_node:p3=0.0, 0.0, 0.0
       wound_radius:r=0.4
       start_fade_from:r=0.7

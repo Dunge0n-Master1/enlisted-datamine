@@ -5,15 +5,16 @@ require vehicle
 require soundEvent
 require soundHash
 require sound_utils.modules.sound_player_common
+require sound_utils_net.modules.sound_utils_net_events
 
 
-[es(tag=sound, after=vehicle_phys_sound_state)]
-def vehicle_brakes_sound(info : UpdateStageInfoAct;
+[es(tag=sound, after=vehicle_sound_update_vars)]
+def vehicle_brakes_sound(info : ParallelUpdateFrameDelayed;
                          sound_control__shouldPlay : bool;
                          vehicle_net_phys : VehiclePhysActor;
-                         vehicle_sound_state__isOnGround : bool;
+                         vehicle_sound_vars__isOnGround : bool;
                          var vehicle_brakes_sound__brakes : float&;
-                         vehicle_brakes_sound__brakesStart = 0.1;
+                         vehicle_brakes_sound__brakesStart : float;
                          vehicle_brakes_sound__speedFadeInOut : float2;
                          var sound_event_group : SoundEventGroup&;
                          is_watched_sound : bool;
@@ -26,7 +27,7 @@ def vehicle_brakes_sound(info : UpdateStageInfoAct;
   let speedFadeIn = cvt(speed, 0., vehicle_brakes_sound__speedFadeInOut.x, 0., 1.)
   let speedFadeOut = cvt(speed, vehicle_brakes_sound__speedFadeInOut.x, vehicle_brakes_sound__speedFadeInOut.y, 1., 0.)
 
-  let brakes = vehicle_sound_state__isOnGround ? saturate(max(abs(currentState.leftSteeringBrake), abs(currentState.rightSteeringBrake))) : 0.
+  let brakes = vehicle_sound_vars__isOnGround ? saturate(max(abs(currentState.leftSteeringBrake), abs(currentState.rightSteeringBrake))) : 0.
   vehicle_brakes_sound__brakes = max(max(vehicle_brakes_sound__brakes - info.dt, 0.), brakes * speedFadeOut * speedFadeIn)
 
   if vehicle_brakes_sound__brakes > vehicle_brakes_sound__brakesStart && sound_control__shouldPlay && is_watched_sound

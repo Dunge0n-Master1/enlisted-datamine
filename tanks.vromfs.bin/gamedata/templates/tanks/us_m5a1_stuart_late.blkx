@@ -1,6 +1,5 @@
 us_m5a1_stuart_late{
   _extends:t="base_m5a1_stuart_late"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.2
 

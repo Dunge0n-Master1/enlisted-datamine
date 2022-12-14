@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
@@ -16,9 +17,9 @@ let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
 let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
 let {mkMedkitIcon} = require("player_info/medkitIcon.nut")
-let {selfHealMedkits, selfReviveMedkits} = require("%ui/hud/state/total_medkits.nut")
+let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
 
-let hasMedkit = Computed(@() (selfHealMedkits.value + selfReviveMedkits.value) > 0)
+let hasMedkit = Computed(@() selfHealMedkits.value > 0)
 let medkitIco = mkMedkitIcon(hdpx(25))
 let playerMedkits = @() {
   watch = hasMedkit
@@ -96,7 +97,7 @@ let function activateShowAllWeapons(...){
 activateShowAllWeapons()
 controlledHeroEid.subscribe(activateShowAllWeapons)
 currentGunEid.subscribe(function(eid) {
-  if (eid != INVALID_ENTITY_ID)
+  if (eid != ecs.INVALID_ENTITY_ID)
     activateShowAllWeapons()
 })
 

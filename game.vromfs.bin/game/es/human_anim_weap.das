@@ -32,9 +32,12 @@ def constraint_movement(var pos : float3&; var vel : float3&; limit : float3)
       vel[i] = 0.f;
     pos[i] = clamp(pos[i], -limit[i], limit[i])
 
-[es(no_order, REQUIRE_NOT=deadEntity)]
+[es(after=(bipod_other_human_act_es, bipod_human_act_es), REQUIRE_NOT=deadEntity)]
 def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx; //ParallelUpdateFrameDelayed
                     human_net_phys__aimPosition : float;
+                    bipod__enabled : bool = false;
+                    bipod__crawlGunOffset : float3;
+                    var bipod__crawlGunAnimOffset : float3&;
                     var phys_vars : PhysVars;
                     human_weap__gunEids : EidList;
                     human_weap__currentGunSlot : int;
@@ -57,7 +60,8 @@ def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx; //Para
                     human_weap__gunOffsetLimit : float3;
                     human_weap__gunRotationLimit : float3;
                     animchar__visible = true;
-                    human_weap__recoilToImpulseMult : float = 20.f)
+                    human_weap__recoilToImpulseMult : float = 20.f;
+                    human_anim__bipodCrawlGunOffsetViscosity : float = 0.05)
   if !animchar__visible
     return ;
   if human_weap__currentGunSlot < 0
@@ -110,6 +114,12 @@ def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx; //Para
     constraint_movement(human_weap__gunOffset, human_weap__gunVelocity, human_weap__gunOffsetLimit)
     constraint_movement(human_weap__gunRotation, human_weap__gunOmega, human_weap__gunRotationLimit)
 
-    setVar(phys_vars, human_anim.weaponOffsFwdVarId, human_weap__gunOffset.x)
-    setVar(phys_vars, human_anim.weaponOffsUpVarId, human_weap__gunOffset.y)
-    setVar(phys_vars, human_anim.weaponOffsLeftVarId, human_weap__gunOffset.z)
+    if bipod__enabled
+      bipod__crawlGunAnimOffset = approach(bipod__crawlGunAnimOffset, bipod__crawlGunOffset, info.dt, human_anim__bipodCrawlGunOffsetViscosity)
+      setVar(phys_vars, human_anim.weaponOffsFwdVarId, human_weap__gunOffset.x + bipod__crawlGunAnimOffset.x)
+      setVar(phys_vars, human_anim.weaponOffsUpVarId, human_weap__gunOffset.y + bipod__crawlGunAnimOffset.y)
+      setVar(phys_vars, human_anim.weaponOffsLeftVarId, human_weap__gunOffset.z + bipod__crawlGunAnimOffset.z)
+    else
+      setVar(phys_vars, human_anim.weaponOffsFwdVarId, human_weap__gunOffset.x)
+      setVar(phys_vars, human_anim.weaponOffsUpVarId, human_weap__gunOffset.y)
+      setVar(phys_vars, human_anim.weaponOffsLeftVarId, human_weap__gunOffset.z)

@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { levelTimeOfDay, changeDayTime, changeCameraFov, cameraFov, isRain, isSnow,
   isCinematicModeActive, changeBloom, changeAbberation, changeFilmGrain, changeMotionBlur,
   changeVignette, motionBlur, bloomEffect, filmGrain, abberation, vigneteEffect, weatherPreset,
   changeWeatherPreset, isDofCameraEnabled, isDofFocalActive, dofFocusDist, dofFocalLength, dofStop,
   dofBokeCount, dofBokeSize, changeBoke, changeBokeSize, changeStop, changeFocalLength,
   changeFocusDist, isLightning, lenseFlareIntensity, changeLenseFlareIntensity, changeRain,
-  changeSnow, changeLightning } = require("%ui/hud/replay/replayCinematicState.nut")
+  changeSnow, changeLightning, enablePostBloom, changePostBloom } = require("%ui/hud/replay/replayCinematicState.nut")
 let { get_local_unixtime } = require("dagor.time")
 let msgbox = require("%ui/components/msgbox.nut")
 
@@ -76,6 +76,10 @@ let replaySettings = {
     watch = lenseFlareIntensity
     action = changeLenseFlareIntensity
   }
+  enablePostBloom = {
+    watch = enablePostBloom
+    action = changePostBloom
+  }
   isDofCameraEnabled = {
     watch = isDofCameraEnabled
     action = @(v) isDofCameraEnabled(v)
@@ -110,7 +114,7 @@ let replayPresets = Computed(function() {
   let res = []
   savedReplayPresetsStored.value.each(@(val) res.append({
     val = val
-    loc = val.name
+    loc = loc("replay/preset", { preset = val.name })
     setValue = @(idx) lastChoosenPreset(idx)
   }))
   return res.sort(@(a, b) a.val.creationTime <=> b.val.creationTime)
@@ -128,7 +132,7 @@ let function savePreset() {
     data[key] <- val.watch.value
   data.__update({
     pNumber = presetNumber
-    name = loc("replay/preset", { preset = presetNumber})
+    name = presetNumber.tostring()
     creationTime
   })
   saved[curPreset] <- data
@@ -149,13 +153,13 @@ let function loadPreset(presetIdx) {
 let function saveToCurrentPreset(presetIdx) {
   if (lastChoosenPreset.value == null)
     return
-  let { pNumber = null } = replayPresets.value?[presetIdx].val
+  let { pNumber = -1 } = replayPresets.value?[presetIdx].val
   let presetKey = $"preset{pNumber}"
   let settingsToUpdate = replaySettings.map(@(val) val.watch.value)
   let creationTime = get_local_unixtime()
   settingsToUpdate.__update({
     pNumber
-    name = loc("replay/preset", { preset = pNumber})
+    name = pNumber.tostring()
     creationTime
   })
   let saved = clone savedReplayPresetsStored.value

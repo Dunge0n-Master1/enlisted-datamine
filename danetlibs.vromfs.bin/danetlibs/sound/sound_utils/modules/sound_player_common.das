@@ -140,13 +140,17 @@ def play_desc_path(desc : Object;
 def should_apply_watched_prefix(path : string) : bool
   return path |> starts_with("/")
 
-def private apply_watched_prefix(var path : string&; is_watched_sound : bool)
+def private apply_watched_prefix_name_path(var path : string&; is_watched_sound : bool) : string
   if should_apply_watched_prefix(path)
     let name = path
     path = is_watched_sound ? "player" : "enemy"
     return name
   return ""
 
+def apply_watched_prefix(path : string; is_watched_sound : bool) : string
+  if should_apply_watched_prefix(path)
+    return is_watched_sound ? "player{path}" : "enemy{path}"
+  return path
 
 def play_path(path_obj : Object;
               tags : Object;
@@ -155,7 +159,7 @@ def play_path(path_obj : Object;
               is_abandon : bool = true)
   var path = ""
   if get_option_path(path_obj, tags, is_watched_sound, path)
-    let name = apply_watched_prefix(path, is_watched_sound)
+    let name = apply_watched_prefix_name_path(path, is_watched_sound)
     return play_name_path(name, path, pos, is_abandon)
   return invalid_sound_event_handle()
 
@@ -169,7 +173,7 @@ def play_path(path_obj : Object;
   reject_sound(group, id)
   var path = ""
   if get_option_path(path_obj, tags, is_watched_sound, path)
-    let name = apply_watched_prefix(path, is_watched_sound)
+    let name = apply_watched_prefix_name_path(path, is_watched_sound)
     return play_name_path(name, path, id, pos, group)
   return invalid_sound_event_handle()
 

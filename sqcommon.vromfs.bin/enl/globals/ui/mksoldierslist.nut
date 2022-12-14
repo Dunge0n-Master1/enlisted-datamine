@@ -19,7 +19,7 @@ let blockWithHeader = @(header, content, size) {
 }
 
 let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
-  canDeselect = true, addCardChild = null, isFreemiumMode = false,
+  canDeselect = true, addCardChild = null, isFreemiumMode = false, thresholdColor = 0,
   soldiersReadyWatch = Watched(null), defSoldierGuidWatch = Watched(null),
   seatsOrderWatch = Watched([]), expToLevelWatch = Watched([])
 ) {
@@ -56,6 +56,7 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
         hasWeaponWarning = hasWeaponWarning
         addChild = addCardChild
         isFreemiumMode = isFreemiumMode
+        thresholdColor
       })
     }
 

@@ -13,7 +13,7 @@ def ambient_sound_toggle(evt : Event;
     ambient_sound__event |> play(ambient_sound__path, get_listener_pos())
 
 
-[es(tag=sound, no_order)]
-def ambient_sound_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+def ambient_sound_update(evt : Event;
                          ambient_sound__event : SoundEvent)
   set_pos(ambient_sound__event.handle, get_listener_pos())

@@ -1,4 +1,3 @@
-loc_name:t="Nagant 1895"
 stat_name:t="pistol"
 selWeaponVar:t="nagant_m1895"
 shootNode:t="bullet"

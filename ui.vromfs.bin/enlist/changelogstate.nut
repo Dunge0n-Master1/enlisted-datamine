@@ -42,10 +42,10 @@ let function logError(event, params = {}) {
 
 const UseEventBus = true
 
-const SAVE_ID = "ui/lastSeenVersionInfoNum"
+const SAVE_ID = "ui/lastSeenVersionId"
 const PatchnoteIds = "PatchnoteIds"
 
-let lastSeenVersionInfoNumState = Computed(function() {
+let lastSeenVersionIdState = Computed(function() {
   if (!onlineSettingUpdated.value)
     return -1
   return settings.value?[SAVE_ID] ?? 0
@@ -59,6 +59,25 @@ let patchnotesReceived = mkWatched(persist, "patchnotesReceived", false)
 let versions = mkWatched(persist, "versions", [])
 
 const maxVersionsAmount = 10
+
+// FIXME legacy block should be removed after next major update
+// >>> LEGACY
+
+const LEGACY_ID = "ui/lastSeenVersionInfoNum"
+
+let shouldUpdateLegacyData = keepref(Computed(@() onlineSettingUpdated.value
+  && LEGACY_ID in settings.value
+  && versions.value.len() > 0))
+
+shouldUpdateLegacyData.subscribe(function(v) {
+  if (!v)
+    return
+  let iVersion = delete settings.value[LEGACY_ID]
+  let id = versions.value.findvalue(@(ver) versionToInt(ver.version) == iVersion)?.id ?? 0
+  settings.mutate(@(value) value[SAVE_ID] <- id)
+})
+
+// <<< LEGACY
 
 let function mkVersion(v){
   local tVersion = v?.version ?? ""
@@ -97,7 +116,7 @@ let function filterVersions(vers){
   foreach (idx, version in vers){
     if (idx >= maxVersionsAmount && foundMajor)
       break
-    else if (maxVersionInt.value>0 && maxVersionInt.value < version.iVersion) {
+    else if (maxVersionInt.value > 0 && maxVersionInt.value < version.iVersion) {
       continue
     }
     else if (version.versionType=="major"){
@@ -154,7 +173,7 @@ let isVersion = @(version) type(version?.version) == "array"
   && type(version?.iVersion) == "integer"
   && type(version?.tVersion) == "string"
 
-local function findBestVersionToshow(versionsList = versions, lastSeenVersionNum=0) {
+local function findBestVersionToshow(versionsList = versions, lastSeenVersionNum = 0) {
   //here we want to find first unseen Major version or last unseed hotfix version.
   lastSeenVersionNum = lastSeenVersionNum ?? 0
   versionsList = versionsList ?? []
@@ -162,7 +181,7 @@ local function findBestVersionToshow(versionsList = versions, lastSeenVersionNum
   foreach (version in versionsList) {
     if (version.alwaysShowPopup && res == null)
       return version
-    if (lastSeenVersionNum < version.iVersion) {
+    if (lastSeenVersionNum < version.id) {
       if (version.versionType == "major")
         return version
       res = version
@@ -174,7 +193,7 @@ local function findBestVersionToshow(versionsList = versions, lastSeenVersionNum
 }
 
 let unseenPatchnote = Computed(@() !onlineSettingUpdated.value ? null
-  : findBestVersionToshow(versions.value, lastSeenVersionInfoNumState.value))
+  : findBestVersionToshow(versions.value, lastSeenVersionIdState.value))
 
 let curPatchnote = Computed(@()
   chosenPatchnote.value ?? unseenPatchnote.value ?? versions.value?[0])
@@ -182,8 +201,8 @@ let curPatchnote = Computed(@()
 let function markSeenVersion(v) {
   if (v == null)
     return
-  if (v.iVersion > lastSeenVersionInfoNumState.value)
-    settings.mutate(@(value) value[SAVE_ID] <- v.iVersion)
+  if (v.id > lastSeenVersionIdState.value)
+    settings.mutate(@(value) value[SAVE_ID] <- v.id)
 }
 
 let updateVersion = @() markSeenVersion(curPatchnote.value)
@@ -248,12 +267,12 @@ if (UseEventBus) {
 let curPatchnoteIdx = Computed( @() versions.value.indexof(curPatchnote.value) ?? 0)
 
 let function haveUnseenMajorVersions(){
-  let bestUnseenVersion = findBestVersionToshow(versions.value, lastSeenVersionInfoNumState.value)
+  let bestUnseenVersion = findBestVersionToshow(versions.value, lastSeenVersionIdState.value)
   return (bestUnseenVersion != null && bestUnseenVersion.versionType == "major")
 }
 
 let function haveUnseenHotfixVersions(){
-  let bestUnseenVersion = findBestVersionToshow(versions.value, lastSeenVersionInfoNumState.value)
+  let bestUnseenVersion = findBestVersionToshow(versions.value, lastSeenVersionIdState.value)
   return (bestUnseenVersion != null && bestUnseenVersion.versionType != "major")
 }
 

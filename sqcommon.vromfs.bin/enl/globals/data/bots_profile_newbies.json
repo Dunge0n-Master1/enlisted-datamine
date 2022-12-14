@@ -25285,7 +25285,7 @@
                         "slot" : "pants"
                      },
                      "radio" : {
-                        "gametemplate" : "feldfu_b_radio_gun",
+                        "gametemplate" : "type_94_6_radio_gun",
                         "slot" : "radio"
                      },
                      "side_belt_r" : {
@@ -27601,7 +27601,7 @@
                         "slot" : "pants"
                      },
                      "radio" : {
-                        "gametemplate" : "feldfu_b_radio_gun",
+                        "gametemplate" : "type_94_6_radio_gun",
                         "slot" : "radio"
                      },
                      "side_belt_r" : {
@@ -27763,7 +27763,7 @@
                         "slot" : "pants"
                      },
                      "radio" : {
-                        "gametemplate" : "feldfu_b_radio_gun",
+                        "gametemplate" : "type_94_6_radio_gun",
                         "slot" : "radio"
                      },
                      "side_belt_r" : {

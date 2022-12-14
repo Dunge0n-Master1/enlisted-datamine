@@ -15,12 +15,11 @@ def get_use_query_params(eid : EntityId) : UseQueryParams
   query(eid) <| $ [es] (animchar : AnimcharBaseComponent;
                         human_use_object__useDist : float;
                         isAlive = true;
-                        human_inventory__canUseItems = true;
                         human_use_object__nodeId = 0;
                         human_use_object__useAltarDirMinDot = 0.7)
     result.dot = human_use_object__useAltarDirMinDot
     result.dist = human_use_object__useDist
-    if !isAlive || !human_inventory__canUseItems
+    if !isAlive
       return
 
     find_query() <| $ [es] (camera__active : bool; transform : float3x4)
@@ -28,7 +27,7 @@ def get_use_query_params(eid : EntityId) : UseQueryParams
         result.canUse = true
         result.dir = transform[2]
         if human_use_object__nodeId > 0
-          result.pos = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
+          result.pos = geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId)
         else
           result.pos = transform[3]
       return camera__active

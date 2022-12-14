@@ -1,7 +1,7 @@
 require ecs
 require zones
 require EnlistedNet
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require ecs.common
 require strings
@@ -22,8 +22,10 @@ def capturer_es(info : UpdateStageInfoAct;
                 var capturer__nextUpdateAt : float&;
                 var capturer__capZonesIn : EidList;
                 var capturer__capZonesInBlocked : EidList;
+                possessedByPlr : EntityId;
                 zones_visitor__triggerTag : string;
                 transform : float3x4;
+                shouldUpdateZonesInBlocked : Tag const?;
                 isAlive : bool = true;
                 isDowned : bool = false;
                 human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
@@ -49,6 +51,14 @@ def capturer_es(info : UpdateStageInfoAct;
         if blockedIdx >= 0
           erase(capturer__capZonesInBlocked, blockedIdx)
 
+    if shouldUpdateZonesInBlocked != null
+      var inZoneNo = 0
+      while inZoneNo < length(capturer__capZonesInBlocked)
+        if has_value(newZones, capturer__capZonesInBlocked[inZoneNo])
+          inZoneNo++
+        else
+          erase(capturer__capZonesInBlocked, inZoneNo)
+
     for zoneEid in newZones
       let zonesInIdx = find_index(capturer__capZonesIn, zoneEid)
       let newZone = zonesInIdx < 0
@@ -59,12 +69,19 @@ def capturer_es(info : UpdateStageInfoAct;
       elif isInVehicle && !(get_bool(zoneEid, "capzone__canCaptureOnVehicle") ?? true) && !(has(human_anim__vehicleSelected, "capturer__allowCaptureOnVehicle"))
         blockedText = "capture/BlockedCaptureVehicle"
 
-      if !empty(blockedText)
+      var canEnterZone = empty(blockedText)
+      query(possessedByPlr) <| $ [es] (capturer__cannotEnterCapZones : EidList)
+        if find_index(capturer__cannotEnterCapZones, zoneEid) >= 0
+          canEnterZone = false
+          blockedText = ""
+
+      if !canEnterZone
         if !newZone
           send_net_event(zoneEid, [[EventCapZoneLeave visitor=eid]])
           erase(capturer__capZonesIn, zonesInIdx)
         if !has_value(capturer__capZonesInBlocked, zoneEid)
-          sendEvent(eid, [[CmdHeroLogEvent event="zone_capture_blocked_log", text=blockedText]])
+          if !empty(blockedText)
+            sendEvent(eid, [[CmdHeroLogEvent event="zone_capture_blocked_log", text=blockedText]])
           push(capturer__capZonesInBlocked, zoneEid)
         continue
 

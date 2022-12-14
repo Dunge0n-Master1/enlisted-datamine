@@ -1,0 +1,483 @@
+mass:r=5000.0
+momentOfInertia:p3=6.0, 1.0, 6.0
+centerOfMass:p3=0.0, 0.0, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+addToWorld:b=yes
+shouldTraceGround:b=yes
+boundingRadius:r=0.1
+Empty:r=5000.0
+Fuel:r=200.0
+TakeOff:r=5000.0
+CenterOfGravity:p3=-0.2, 0.0, 0.0
+AdvancedMass:b=no
+CenterOfGravityClampY:p2=0.0, 0.7
+cls_body:r=1.0
+
+collisionResource{
+
+  props{
+    body_side:t="convex_hull"
+    wheel_l_01:t="convex_hull"
+    wheel_r_01:t="convex_hull"
+    turret_top:t="convex_hull"
+    turret_side:t="convex_hull"
+    turret_front:t="convex_hull"
+    body_bottom:t="convex_hull"
+    cannon_breech:t="box"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.2, 0.0, 0.15
+}
+
+DamageParts{
+  formatVersion:i=2
+
+  cannon_breech{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=15.0
+  }
+
+  cannon_breech{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThickness:r=150.0
+    hidableInViewer:b=no
+    restrainDamage:r=0.5
+    armorThrough:r=150.0
+  }
+
+  drive_turret_v{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=8.0
+  }
+
+  drive_turret_v{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
+  }
+
+  drive_turret_h{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=8.0
+  }
+
+  drive_turret_h{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    ldmInner:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
+  }
+
+  turret_side{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=15.0
+  }
+
+  turret_bottom{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=8.0
+  }
+
+  body_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=8.0
+  }
+
+  turret_front{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=25.0
+  }
+
+  body_back{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=yes
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="RHA_tank"
+    hp:r=1000.0
+    armorThickness:r=15.0
+  }
+
+  wheel_r_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=10.0
+  }
+
+  wheel_l_01{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=10.0
+  }
+
+  wheel_support{
+    hitTestType:t="exclude"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_steel_wheels"
+    hp:r=250.0
+    armorThickness:r=10.0
+  }
+
+  optic_turret{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    armorClass:t="optics_tank"
+    hp:r=20.0
+    armorThickness:r=3.0
+  }
+
+  gun_barrel{
+    hitTestType:t="armor"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_barrel"
+    hp:r=100.0
+    armorThickness:r=10.0
+  }
+
+  loader{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=1.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
+    vital:b=yes
+    armorClass:t="steel_tankman"
+    hp:r=40.0
+    genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
+  }
+
+  gunner{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=-1.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    useForSeriousHit:b=yes
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=1.0
+    napalmDamageMult:r=0.0
+    sonicDamageMult:r=1.0
+    ldmInner:b=yes
+    vital:b=yes
+    armorClass:t="steel_tankman"
+    hp:r=40.0
+    genericDamageMult:r=3.0
+    ignoreSolidDimension:b=yes
+  }
+}
+
+DamageEffects{
+}
+
+MetaParts{
+
+  armor_body{
+    hp:r=100.0
+    part:t="cannon_breech"
+    part:t="turret_side"
+    part:t="turret_bottom"
+    part:t="body_front"
+    part:t="turret_front"
+    part:t="body_back"
+
+    effect{
+      conditionDead:b=yes
+      killEffect:t="expl"
+      kill:b=yes
+    }
+  }
+}

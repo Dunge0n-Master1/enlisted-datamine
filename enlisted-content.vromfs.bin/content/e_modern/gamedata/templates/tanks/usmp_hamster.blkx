@@ -16,7 +16,6 @@ usmp_hamster{
 
 us_t54e1{
   _extends:t="base_t54e1"
-  _extends:t="vehicle_effects_tracked"
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

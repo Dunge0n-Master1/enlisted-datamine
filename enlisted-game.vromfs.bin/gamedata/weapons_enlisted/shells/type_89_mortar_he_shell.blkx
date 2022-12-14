@@ -1,0 +1,45 @@
+mass:r=0.95
+caliber:r=0.05
+bullets:i=1
+bullets:i=1
+speed:r=50.0
+speedDispersion:r=0.0
+momentOfInertia:p3=0.04, 0.008, 0.04
+physMat:t="bulletRay"
+useFutureContacts:b=yes
+logCCD:b=no
+explodeRadius:p2=3.0, 4.5
+explodeHitPower:r=250.0
+entityTemplate:t="type_89_mortar_he_shell_phys"
+reloadTime:r=3.6
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.0, 0.0, 0.015
+}
+
+splashDamage{
+  radius:p2=1.0, 10.0
+  penetration:p2=15.0, 2.0
+  damage:r=75.0
+  dmgOffset:p3=0.0, 0.25, 0.0
+}
+
+explFx{
+  fxScale:p2=1.8, 1.9
+  effectTemplName:t="mine_explosion_effect_medium+disable_effect_sfx"
+}
+
+explSound{
+  explSoundPath:t="impact/mine"
+}
+
+visual{
+  template:t="type_89_mortar_he_shell_item+item_in_world"
+}

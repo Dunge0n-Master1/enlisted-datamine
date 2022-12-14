@@ -26,6 +26,13 @@ yak_7b{
         turret:t="turret_04"
         turret:t="turret_05"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -302,7 +309,7 @@ planegun_yak_7b_12_7mm_ubs_02{
   _extends:t="base_yak_7b_12_7mm_ubs"
   _extends:t="gunsound_12_7mm_ubs_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=140
+  gun__maxAmmo:i=260
 }
 
 planegun_yak_7b_20mm_shvak_01{
@@ -322,4 +329,24 @@ yak_7b_driver_cockpit{
   animchar__res:t="yak_7b_cockpit_char"
   plane_anim__blk:t="gamedata/units/yak_7b.blk"
   plane_sight__blk:t="gamedata/units/yak_7b.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0045, 0.022, -0.0115
+    item:p3=0.0305, -0.0015, -0.005
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=-9.4, 4.2
+    item:p2=0.0, 0.0
+  }
 }

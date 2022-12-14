@@ -48,5 +48,6 @@ tankgun_37mm_m5_user_cannon_for_m3_lee{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_37mm_m5_user_cannon_for_m3_lee"
+  _extends:t="gunsound_37mm_m5_user_cannon_for_m3_lee"
   turret__triggerGroup:i=0
 }

@@ -1,11 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { midPadding, titleTxtColor, defTxtColor, hoverTxtColor,
-  smallPadding, tabBgColor
+let { midPadding, titleTxtColor, defTxtColor, commonBorderRadius, defVertGradientImg, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
+let { soundActive } = require("%ui/components/textButton.nut")
+
 
 let markerTarget = MoveToAreaTarget()
 
@@ -23,7 +24,7 @@ let tabUnseenSignal = unseenSignal(0.8).__update({
 
 let tabTxtStyle = @(sf, isSelected) {
   color = (sf & S_ACTIVE) || isSelected ? titleTxtColor
-    : (sf & S_HOVER) ? hoverTxtColor
+    : (sf & S_HOVER) ? accentColor
     : defTxtColor
 }.__update(fontXLarge)
 
@@ -48,11 +49,7 @@ let function mkTab(tab, curSection) {
           valign = ALIGN_BOTTOM
           key = id
           behavior = [Behaviors.Button, Behaviors.RecalcHandler]
-          sound = {
-            click  = "ui/enlist/button_click"
-            hover = "ui/enlist/button_highlight"
-            active = "ui/enlist/button_action"
-          }
+          sound = soundActive
           function onClick() { action() }
           function onRecalcLayout(initial, elem) {
             if ((initial || !wasSelected) && isSelected.value){
@@ -69,20 +66,23 @@ let function mkTab(tab, curSection) {
 
 let backgroundMarker = {
   flow = FLOW_VERTICAL
-  gap = smallPadding
+  gap = midPadding
   behavior = Behaviors.MoveToArea
+  subPixel = true
   target = markerTarget
   viscosity = 0.1
   children = [
     {
       size = [flex(), premiumBtnSize]
-      rendObj = ROBJ_SOLID
-      color = tabBgColor
+      rendObj = ROBJ_IMAGE
+      image = defVertGradientImg
     }
     {
       size = flex()
-      rendObj = ROBJ_SOLID
-      color = tabBgColor /* TODO: Gradient with opacity in center enstead of 2 solid blocks */
+      rendObj = ROBJ_BOX
+      borderWidth = 0
+      borderRadius = commonBorderRadius
+      fillColor = accentColor
     }
   ]
 }

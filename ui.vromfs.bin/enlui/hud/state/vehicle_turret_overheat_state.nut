@@ -7,7 +7,7 @@ let overheat = Watched(0)
 
 let function trackComponents(_eid, comp) {
   let hero = watchedHeroEid.value
-  if (ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected") == INVALID_ENTITY_ID) {
+  if (ecs.obsolete_dbg_get_comp_val(hero, "human_anim__vehicleSelected") == ecs.INVALID_ENTITY_ID) {
     overheat.update(0)
     return
   }

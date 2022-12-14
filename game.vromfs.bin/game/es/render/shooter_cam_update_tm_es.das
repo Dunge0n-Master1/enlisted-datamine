@@ -39,7 +39,7 @@ def shooter_cam_rotate_es(info : UpdateStageInfoAct;
                           var shooter_cam__lastDir : float3&;
                           var transform aka camera_transform : float3x4;
                           shooter_camera__forceStabilized = false;
-                          replayCamera : Tag?)
+                          replayCamera : Tag const?)
   if !camera__active || is_level_loading()
     return
   let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
@@ -74,7 +74,7 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
                              var shooter_cam__lastPos : float3&;
                              var shooter_cam__lastAnimTmOffset : float3&;
                              var camera__accuratePos : DPoint3&;
-                             var isCockpitCam : bool&;
+                             var isHeroCockpitCam : bool&;
                              var camera__totalMagnification : float&;
                              var shooter_cam__isLastPosValid : bool&;
                              var shooter_cam__velMain : float3&;
@@ -103,7 +103,7 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
                              shooter_cam__magnificationMult = 1.f;
                              replay_cam__tpsOffsetMultiplierVehicle = 2.5f;
                              shooter_cam__offset_multiplier = 1.f;
-                             replayCamera : Tag?)
+                             replayCamera : Tag const?)
   if !camera__active || is_level_loading()
     return
   let dt = replayCamera == null ? info.dt : REPLAY_CAMERA_MOVE_DT
@@ -124,8 +124,8 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
     let baseOffset = camera__offset + shooter_cam__offset + shooter_cam__additionalOffset
     var offset = baseOffset
     var vehicleOffsetMult = 1.
-    isCockpitCam = length_sq(offset) == 0f // exactly zero, we switch to a cockpit cam in that case
-    if isTpsView && !isInVehicle && !isCockpitCam
+    isHeroCockpitCam = length_sq(offset) == 0f // exactly zero, we switch to a cockpit cam in that case
+    if isTpsView && !isInVehicle && !isHeroCockpitCam
       // Indoor offset
       offset = human_cam__isIndoor ? offset + human_cam__indoorOffs : offset
       // Horizontal offset

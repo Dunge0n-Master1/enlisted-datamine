@@ -14,7 +14,7 @@ return function () {
   local text = null;
   switch (orderType) {
     case ContextCommand.ECC_DEFEND_POINT:
-      if (orderUseEntity != INVALID_ENTITY_ID) {
+      if (orderUseEntity != ecs.INVALID_ENTITY_ID) {
         let capZoneTag = ecs.obsolete_dbg_get_comp_val(orderUseEntity, "capzone")
         if (capZoneTag != null) {
           let zoneName = loc(ecs.obsolete_dbg_get_comp_val(orderUseEntity, "capzone__caption", ""), "")

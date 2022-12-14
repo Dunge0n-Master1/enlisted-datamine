@@ -1,0 +1,25 @@
+vhs_camera_renderer{
+  _tags:t="render"
+  _singleton:b=yes
+  is_active:b=no
+  vhs_camera__shader_name:t="vhs_camera"
+  resolution_downscale:p2=0.5, 0.5
+  vhs_camera__saturationMultiplier:r=1.15
+  vhs_camera__noiseIntensity:r=0.06
+  vhs_camera__dynamicRangeMin:r=0.0
+  vhs_camera__dynamicRangeMax:r=0.8
+  vhs_camera__dynamicRangeGamma:r=1.27
+  vhs_camera__scanlineHeight:r=0.05
+
+  "vhs_camera__rt:RTargetPool::Ptr"{
+  }
+
+  "vhs_camera__shader:PostFxRenderer"{
+  }
+
+  "vhs_camera__resolution_saturation_noise:ShaderVar"{
+  }
+
+  "vhs_camera__dynamic_range_reduction_min_max_gamma_scanline_height:ShaderVar"{
+  }
+}

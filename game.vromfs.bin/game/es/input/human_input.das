@@ -89,7 +89,7 @@ def human_input_is_singular_es(evt : EventCheckHumanInputIsSingular; eid : Entit
 [es(tag=input, on_appear, REQUIRE=human_input)]
 def human_input_appear_es(evt : Event;
                           eid : EntityId;
-                          transform : float3x4?;
+                          transform : float3x4 const?;
                           var human_input__aimAngle : float2&;
                           var human_input__aim : int&;
                           var human_input__aimDelta : int&;
@@ -217,10 +217,10 @@ def human_input_disable_toggle_aim_es(info : UpdateStageUpdateInput;
                                       human_vehicle__isShootingPassenger : bool;
                                       var human_net_phys : HumanActor)
   if get_bool(human_weap__currentGunEid, "gun__disableToggleAim") ?? false
-    var vehicleInputZoomToggle : int? = null
-    var vehicleInputZoom : int? = null
+    var vehicleInputZoomToggle : int const? = null
+    var vehicleInputZoom : int const? = null
     if isInVehicle
-      query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__zoomToggle : int?; vehicle_input__zoom : int?)
+      query(human_anim__vehicleSelected) <| $ [es] (vehicle_input__zoomToggle : int const?; vehicle_input__zoom : int const?)
         vehicleInputZoomToggle = vehicle_input__zoomToggle
         vehicleInputZoom = vehicle_input__zoom
 
@@ -283,3 +283,11 @@ def human_use_object_input(evt : EventDaInputActionTriggered;
   if input__enabled && int(evt.action) == human_input__use && !isDowned
     human_try_use_object(eid, transform[3],
       human_use_object__thresholdDist, human_use_object__selectedObject)
+
+
+[es(tag=input, REQUIRE=hero, track=human_net_phys__isHoldBreath)]
+def human_input_reset_hold_breath_sticky_toggle_on_disable(evt : Event;
+                                                           human_input__holdBreath : int;
+                                                           human_net_phys__isHoldBreath : bool)
+  if !human_net_phys__isHoldBreath
+    reset_digital_action_sticky_toggle(uint16(human_input__holdBreath))

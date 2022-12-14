@@ -4,13 +4,53 @@ germ_pzkpfw_IV_ausf_H{
   "animchar__objTexReplace:object"{
     "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
   }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_01"
+    part:t="ex_armor_02"
+    part:t="ex_armor_03"
+    part:t="ex_armor_04"
+    part:t="ex_armor_05"
+    part:t="ex_armor_06"
+    part:t="ex_armor_07"
+    part:t="ex_armor_body_01"
+    part:t="ex_armor_body_02"
+    part:t="track_r_01"
+    part:t="track_l_01"
+  }
+}
+
+germ_pzkpfw_iv_ausf_h_tunisia{
+  _extends:t="germ_pzkpfw_IV_ausf_H_common"
+
+  "disableDMParts:list<t>"{
+    part:t="track_r"
+    part:t="track_l"
+  }
 }
 
 germ_pzkpfw_IV_ausf_H_common{
   _extends:t="base_pzkpfw_iv_ausf_h"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seats:shared:array"{
 
@@ -94,20 +134,6 @@ germ_pzkpfw_IV_ausf_H_common{
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="machine_gunner"
     }
-  }
-
-  "disableDMParts:list<t>"{
-    part:t="ex_armor_01"
-    part:t="ex_armor_02"
-    part:t="ex_armor_03"
-    part:t="ex_armor_04"
-    part:t="ex_armor_05"
-    part:t="ex_armor_06"
-    part:t="ex_armor_07"
-    part:t="ex_armor_body_01"
-    part:t="ex_armor_body_02"
-    part:t="track_r_01"
-    part:t="track_l_01"
   }
 }
 
@@ -231,5 +257,19 @@ germ_pzkpfw_IV_ausf_H_16_pzrgt_premium_skin{
     "pzkpfw_IV_ausf_H_body_c*":t="pzkpfw_IV_ausf_H_skin_without_zimmerite_body_c*"
     "pzkpfw_IV_ausf_H_gun_c*":t="pzkpfw_IV_ausf_H_skin_without_zimmerite_gun_c*"
     "pzkpfw_IV_ausf_H_turret_c*":t="pzkpfw_IV_ausf_H_skin_without_zimmerite_turret_c*"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_01"
+    part:t="ex_armor_02"
+    part:t="ex_armor_03"
+    part:t="ex_armor_04"
+    part:t="ex_armor_05"
+    part:t="ex_armor_06"
+    part:t="ex_armor_07"
+    part:t="ex_armor_body_01"
+    part:t="ex_armor_body_02"
+    part:t="track_r_01"
+    part:t="track_l_01"
   }
 }

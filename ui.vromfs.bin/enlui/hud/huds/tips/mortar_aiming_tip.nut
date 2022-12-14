@@ -5,12 +5,12 @@ let { tipCmp } = require("tipComponent.nut")
 
 let isMortarMode = Watched(false)
 let mortarDistance = Watched(0.0)
-local mortarEid = INVALID_ENTITY_ID
+local mortarEid = ecs.INVALID_ENTITY_ID
 
 let function trackMortarMode(_eid, comp) {
   let isActive = comp["human_weap__mortarMode"]
   isMortarMode(isActive)
-  mortarEid = (isActive ? comp["human_weap__currentGunEid"] : null) ?? INVALID_ENTITY_ID
+  mortarEid = (isActive ? comp["human_weap__currentGunEid"] : null) ?? ecs.INVALID_ENTITY_ID
   let distance = ecs.obsolete_dbg_get_comp_val(mortarEid, "mortar__targetDistance", 0.0)
   if (distance > 0)
     mortarDistance(distance)
@@ -24,7 +24,7 @@ ecs.register_es("mortar_aiming_mode_es",
   {
     comps_track = [
       ["human_weap__mortarMode", ecs.TYPE_BOOL],
-      ["human_weap__currentGunEid", ecs.TYPE_EID, INVALID_ENTITY_ID]
+      ["human_weap__currentGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID]
     ]
     comps_rq = ["hero","watchedByPlr"]
   })

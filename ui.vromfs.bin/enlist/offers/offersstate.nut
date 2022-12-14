@@ -4,16 +4,18 @@ let eventbus = require("eventbus")
 let http = require("dagor.http")
 let json = require("json")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+
+let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { getPlatformId, getLanguageId } = require("%enlist/httpPkg.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { unlockOfferTime } = require("%enlist/unlocks/eventsTaskState.nut")
 let { send_counter } = require("statsd")
-
 let { offers } = require("%enlist/meta/profile.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { priorityDiscounts, shopItems } = require("%enlist/shop/shopItems.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { isOffersVisible } = require("%enlist/featureFlags.nut")
+let { update_offers } = require("%enlist/meta/clientApi.nut")
 
 
 const URL = "https://enlisted.net/{0}/events/current/?page=1&platform={1}&target=game"
@@ -27,6 +29,27 @@ let isSpecOffersOpened = mkWatched(persist, "isOpened", false)
 let allActiveOffers = Watched([])
 let curOfferIdx = Watched(0)
 let curOffer = Watched(null)
+
+
+let function updateOffers() {
+  update_offers(function(res) {
+    // temporary gebug info for QA
+    let addedOffers = res?.offers ?? {}
+    let removedOffers = res?.removed.offers ?? {}
+    if (addedOffers.len() > 0) {
+      log($"Add {addedOffers.len()} special offers")
+      foreach (offer in addedOffers) {
+        let { guid, offerType, shopItemGuid, discountInPercent } = offer
+        log($" + {guid} {offerType} {shopItemGuid} {discountInPercent}%")
+      }
+    }
+    if (removedOffers.len() > 0) {
+      log($"Removed {removedOffers.len()} special offers")
+      foreach (guid in removedOffers)
+        log($" - {guid}")
+    }
+  })
+}
 
 
 let offersSchemes = Computed(function() {
@@ -96,6 +119,9 @@ let function recalcActiveOffers(_ = null) {
   if (!isEqual(wasDiscounts, newDiscounts))
     priorityDiscounts(newDiscounts)
 
+  if (allActiveOffers.value.len() > list.len())
+    updateOffers()
+
   allActiveOffers(list)
 }
 
@@ -117,7 +143,10 @@ recalcActiveOffers()
 
 curOfferIdx.subscribe(@(idx) curOffer(allActiveOffers.value?[idx]))
 
-allActiveOffers.subscribe(function(offersList) {
+let visibleOffersInWindow = Computed(@()
+  allActiveOffers.value.filter(@(o) o.offerType != "PREMIUM"))
+
+visibleOffersInWindow.subscribe(function(offersList) {
   let offersCount = offersList.len()
   if (offersCount == 0)
     return curOfferIdx(-1)
@@ -243,6 +272,15 @@ if (hasSpecialEvent.value)
   requestOffersData()
 hasSpecialEvent.subscribe(@(act) act ? requestOffersData() : null)
 
+
+isLoggedIn.subscribe(function(logged) {
+  if (logged)
+    updateOffers()
+})
+
+console_register_command(updateOffers, "meta.updateOffers")
+
+
 console_register_command(@()
   settings.mutate(@(set) SEEN_ID in set ? delete set[SEEN_ID] : null), "meta.resetSeenOffersPromo")
 
@@ -276,6 +314,7 @@ return {
 
   allActiveOffers
   offersByShopItem
+  visibleOffersInWindow
   curOfferIdx
   nextExpireData
 }

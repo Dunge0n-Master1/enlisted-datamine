@@ -16,14 +16,14 @@ require enlisted.game.es.blk_utils_common
 [es(tag=(dev, render), after=after_animchar_update_sync, before=vehicle_attach_cockpit_es, REQUIRE=daeditor__selected)]
 def debug_setup_for_cockpit(info : UpdateStageInfoAct;
                             transform : float3x4;
-                            cockpit__attachNodeIndices : IntList?;
+                            cockpit__attachNodeIndices : IntList const?;
                             cockpit__attachNodeIndex : int;
                             cockpit__currentSlit : int;
                             var cockpit__cockpitOffsetBySlit : Point3List?;
                             var cockpit__offset : float3&;
                             cockpit__vehicleEid : EntityId;
                             cockpit__seatNo : int;
-                            cockpit__angles : float3?;
+                            cockpit__angles : float3 const?;
                             cockpit__scale = float3(1.0, 1.0, -1.0))
 
   var tankTransform : float3x4 = IDENT_TM
@@ -55,7 +55,7 @@ def debug_setup_for_cockpit(info : UpdateStageInfoAct;
 
     var transformOrig : float3x4;
 
-    geomtree_getNodeWtmScalar(animchar.nodeTree, ix, transformOrig)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, ix, transformOrig)
     transformOrig[0] = transformOrig[0] * cockpit__scale.x
     transformOrig[1] = transformOrig[1] * cockpit__scale.y
     transformOrig[2] = transformOrig[2] * cockpit__scale.z
@@ -76,7 +76,7 @@ def debug_setup_for_cockpit(info : UpdateStageInfoAct;
 def calc_cockpit_block()
   find_query() <| $ [es(REQUIRE=(daeditor__selected))] (eid : EntityId;
                                                         cockpit__offset : float3;
-                                                        cockpit__cockpitOffsetBySlit : Point3List?)
+                                                        cockpit__cockpitOffsetBySlit : Point3List const?)
     using <| $(var blk : DataBlock#)
       components_to_blk(eid, blk, "cockpit__", true)
       datablock_get_block(blk, "cockpitOffsetBySlit:list<p3>") <| $(templatesArrayBlk)

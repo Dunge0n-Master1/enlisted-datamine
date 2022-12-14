@@ -892,6 +892,30 @@ scope_m84_4x{
   }
 }
 
+scope_m82{
+  _extends:t="scope_gunmod"
+  animchar__res:t="m1c_garand_scope_char"
+  item__template:t="scope_m82_item"
+  item__proto:t="content/e_ww2_common/gamedata/items/scope_m84.blk"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_m82"
+  gunmod__zoomFactor:r=5.0
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_m82"
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_m84_m1c_garand{
+  _extends:t="scope_gunmod"
+  _extends:t="scope_m84"
+  animchar__res:t="m1c_garand_scope_char"
+}
+
 scope_m84_6x{
   _extends:t="scope_gunmod"
   animchar__res:t="scope_m84_char"

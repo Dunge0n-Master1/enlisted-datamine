@@ -5,7 +5,7 @@ let {curTime} = require("%ui/hud/state/time_state.nut")
 let {frameUpdateCounter} = require("%ui/scene_update.nut")
 let {lerp} = require("%sqstd/math.nut")
 
-let entityToUse = Watched(INVALID_ENTITY_ID)
+let entityToUse = Watched(ecs.INVALID_ENTITY_ID)
 let entityUseStart = Watched(-1)
 let entityUseEnd = Watched(-1)
 ecs.register_es("medkitUsage",{
@@ -14,7 +14,7 @@ ecs.register_es("medkitUsage",{
     entityUseEnd(comp["human_inventory__entityUseEnd"])
     entityToUse(comp["human_inventory__entityToUse"])
   },
-  onDestroy = @() entityUseEnd(-1.0) ?? entityUseStart(-1.0) ?? entityToUse(INVALID_ENTITY_ID)
+  onDestroy = @() entityUseEnd(-1.0) ?? entityUseStart(-1.0) ?? entityToUse(ecs.INVALID_ENTITY_ID)
 }, {comps_track=[
     ["human_inventory__entityUseStart",ecs.TYPE_FLOAT],
     ["human_inventory__entityUseEnd",ecs.TYPE_FLOAT],

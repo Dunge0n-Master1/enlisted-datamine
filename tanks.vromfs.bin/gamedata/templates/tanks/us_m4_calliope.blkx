@@ -4,8 +4,25 @@ us_m4_sherman_calliope_normandy_premium{
 
 us_m4_sherman_calliope_common{
   _extends:t="base_m4_sherman_calliope"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.15
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

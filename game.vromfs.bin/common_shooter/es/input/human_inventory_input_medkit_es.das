@@ -1,5 +1,6 @@
 require ecs
 require DagorInput
+require game.es.events
 require game.es.input.input_events
 require common_shooter.events_common_shooter
 
@@ -37,3 +38,9 @@ def human_inventory_input_medkit_terminated_es(evt : EventDaInputActionTerminate
 
   if human_inventory_input__useMedkit == int(evt.action) && heal__continuousInput
     sendEvent(eid, [[CmdMedkitUseCancel]])
+
+
+[es(before=interrupt_item_use_es)]
+def human_inventory_input_medkit_reset_sticky_toggle_on_interrupt(evt : EventInterruptItemUse;
+                                                                  human_inventory_input__useMedkit : int)
+  reset_digital_action_sticky_toggle(uint16(human_inventory_input__useMedkit))

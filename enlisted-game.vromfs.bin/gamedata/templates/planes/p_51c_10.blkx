@@ -27,6 +27,13 @@ p_51c_10{
         turret:t="turret_05"
         turret:t="turret_06"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -308,4 +315,24 @@ p_51c_10_driver_cockpit{
   animchar__res:t="p_51c_10_nt_cockpit_char"
   plane_anim__blk:t="gamedata/units/p_51c_10.blk"
   plane_sight__blk:t="gamedata/units/p_51c_10.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0145, 0.01, 0.0015
+    item:p3=0.0265, -0.0145, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=-2.4, -1.6
+    item:p2=-21.4, -4.5
+  }
 }

@@ -9,6 +9,8 @@ require game.es.events
 require game.es.vehicle.vehicle_events
 require DagorConsole
 require game.es.net_console_macro
+require enlisted.events_enlisted
+require ecs.ecs_template
 
 def create_ai_aircraft(airplaneName : string; posFrom : float3; posTo : float3)
   createEntity(airplaneName + "+ai_aircraft+plane_spawn_in_air+ai_aircraft_crew_ger") <| $(var init : ComponentsInitializer)
@@ -82,11 +84,11 @@ def aircraft_dropBombCam(bomb_gun_templ : string = "planegun_il_2_1941_fab_50_la
   console_command("gun.shootFromCam {bomb_gun_templ} 0 {start_vel}")
 
 [console_cmd(name="aircraft.dropBombCam250")]
-def aircraft_dropBombCam250(bomb_gun_templ : string = "planegun_ai_ju_188_sc_250_launcher_01"; start_vel : float = 50.)
+def aircraft_dropBombCam250(bomb_gun_templ : string = "planegun_bf_109g_2_trop_sc_250_launcher_01"; start_vel : float = 50.)
   console_command("gun.shootFromCam {bomb_gun_templ} 0 {start_vel}")
 
 [console_cmd(name="aircraft.bombTanks")]
-def aircraft_bombTanks(bomb_gun_templ : string = "planegun_ai_ju_188_sc_250_launcher_01")
+def aircraft_bombTanks(bomb_gun_templ : string = "planegun_bf_109g_2_trop_sc_250_launcher_01")
   query() <| $ [es(REQUIRE=isTank)] (transform : float3x4)
     console_command("gun.shootFromCam {bomb_gun_templ} 0 0.0 1.0 1.0 1.0 {transform[3][0]} {transform[3][1] + 10.} {transform[3][2]}")
 
@@ -133,3 +135,27 @@ def debug_spawn_plane(dist : float = 300.0; same_course = true; relative_height 
       set(init, "startRelativeSpeed", 0.3)
       set(init, "vehicle_with_passenger__humanTemplate", "tutorial_tank_passenger")
       set(init, "vehicle_with_passenger__team", enemyTeam)
+
+[ecs_template]
+struct debug_dummy_artillery_player
+  artillery__templates : StringList
+  team : int
+  dummyArtilleryPlayer : Tag
+
+[net_console_cmd(name="ai_bombers.request", hint="<x> <y> <z> <template> <team> Request ai bombers raid at pos")]
+def request_debug_ai_bombers(x = 0; y = 0; z = 0; artillery_template : string = "stalingrad_ger_team_aircraft_request"; team : int = TEAM_UNASSIGNED - 1; [[net_player]] player_eid : EntityId)
+  let artilleryTeam = team >= TEAM_UNASSIGNED ? team : 1 + ((get_int(player_eid, "team") ?? TEAM_UNASSIGNED)) % 2
+
+  query() <| $ [es(REQUIRE=artillery__targetPos)] (eid : EntityId; artillery__callerEid : EntityId)
+    if (get_int(artillery__callerEid, "team") ?? TEAM_UNASSIGNED) == artilleryTeam
+      destroyEntity(eid)
+
+  let callback <- @ <| (dummy_player : EntityId)
+    let pos = float3(x, y, z)
+    sendEvent(dummy_player, [[CmdStartArtilleryStrikeAtPos owner=dummy_player, pos=pos, typeIndex=0, posEnd=pos]])
+
+  createEntity("debug_dummy_artillery_player", callback) <| $(var init)
+    init |> set("team", artilleryTeam)
+    using() <| $(var templates : StringList#)
+      templates |> push(artillery_template)
+      init |> set("artillery__templates", templates)

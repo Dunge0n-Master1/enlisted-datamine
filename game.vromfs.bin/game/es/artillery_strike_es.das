@@ -59,7 +59,7 @@ def artillery_strike_es(info : UpdateStageInfoAct;
                         artillery__adjustmentDispersion : float;
                         artillery__sourcePos : float3;
                         artillery__targetPos : float3;
-                        artillery__targetPosEnd : float3?)
+                        artillery__targetPosEnd : float3 const?)
   if artillery__shotsDone >= artillery__shotsCount
     destroyEntity(eid)
   if info.curTime < artillery__nextShotTime

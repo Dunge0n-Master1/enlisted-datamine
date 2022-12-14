@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let { borderColor } = require("profilePkg.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { wpCfgFiltered, wpIdSelected } = require("wallpostersState.nut")
@@ -38,12 +37,10 @@ let wallpostersListUi = function() {
   return {
     watch = [wpCfgFiltered, wpIdSelected, seenWallposters]
     rendObj = ROBJ_BOX
-    borderWidth = hdpx(1)
     size = flex()
     flow = FLOW_VERTICAL
     gap = bigPadding
     padding = smallPadding
-    borderColor = borderColor(0)
     onDetach = @() markWallpostersOpened(unopened.keys())
     children = selectedId == null
       ? makeVertScroll({

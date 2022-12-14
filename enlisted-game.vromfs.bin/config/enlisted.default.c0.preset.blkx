@@ -340,9 +340,9 @@ Human.VehicleMaintenance{
   btn:i=20
 }
 
-Human.ExitVehicleAlone{
+Human.LeaveVehicleAlone{
   dev:i=1
-  btn:i=34
+  btn:i=36
 }
 
 Human.ToggleHoldGunMode{
@@ -492,6 +492,11 @@ Vehicle.ShootSecondary{
 Vehicle.ShootMachinegun{
   dev:i=1
   btn:i=57
+}
+
+Vehicle.ShootGrenadeLauncher{
+  dev:i=1
+  btn:i=34
 }
 
 Vehicle.ShootTurret03{
@@ -961,6 +966,11 @@ Mortar.Cancel{
   btn:i=1
 }
 
+Mortar.SwitchShellType{
+  dev:i=1
+  btn:i=19
+}
+
 Replay.ToggleCamera{
   dev:i=1
   btn:i=47
@@ -968,12 +978,12 @@ Replay.ToggleCamera{
 
 Replay.Prev{
   dev:i=1
-  btn:i=19
+  btn:i=48
 }
 
 Replay.Next{
   dev:i=1
-  btn:i=20
+  btn:i=49
 }
 
 Replay.SpeedDown{
@@ -1031,6 +1041,11 @@ Replay.PrevCamera{
   btn:i=16
 }
 
+Replay.RecordVideo{
+  dev:i=1
+  btn:i=19
+}
+
 Human.Seat01{
   dev:i=1
   btn:i=2
@@ -1086,6 +1101,7 @@ Human.UseBinocular{
 HUD.CommandsMenu{
   dev:i=1
   btn:i=56
+  stickyToggle:b=yes
 }
 
 HUD.BuildingToolMenu{

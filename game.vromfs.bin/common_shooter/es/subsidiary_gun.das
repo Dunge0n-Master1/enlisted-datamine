@@ -128,7 +128,7 @@ def subsidiary_gun_destroyed_es(evt : Event; slot_attach__attachedTo : ecs::Enti
 def subsidiary_gun_visibility_es(act : ecs::UpdateStageInfoAct;
                                  gun__owner : EntityId;
                                  weapon_mod__active : bool;
-                                 ramrodGun : Tag?;
+                                 ramrodGun : Tag const?;
                                  var gun__visible : bool&;
                                  var animchar_render__enabled : bool&)
   query(gun__owner) <| $ [es] (human_weap__weapModActivateStartTime : float; menuChar : bool = false)

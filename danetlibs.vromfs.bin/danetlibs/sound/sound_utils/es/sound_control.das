@@ -2,8 +2,8 @@ require ecs
 require soundSystem
 require math.base
 
-[es(tag=sound, after=animchar_render_es)]
-def sound_control_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=animchar_render_es)]
+def sound_control_update(evt : Event;
                          sound_bank_preset_state__isValid : bool;
                          sound_control__enable : bool;
                          sound_control__range : float;

@@ -71,7 +71,7 @@ let function campaignInfo() {
     onElemState = @(sf) stateFlags(sf)
     onClick = @() canChangeCampaign.value
       ? campaignSelectWnd.open()
-      : msgbox.show({ text = loc("Only squad leader can change params") })
+      : msgbox.show({ text = loc("quickMatch/squadLeaderParams") })
   }
   return res.__update({
     watch = [hasCampaignSelection, gameProfile, curCampaign, curArmyLevel, curArmyExp, curArmyLevels]

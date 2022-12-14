@@ -5,9 +5,10 @@ from "%enlSqGlob/ui_library.nut" import *
 let {checkMultiplayerPermissions} = require("%enlist/permissions/permissions.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { fabs } = require("math")
-let { pushNotification, removeNotifyById, removeNotify, subscribeGroup } = require("%enlist/mailboxState.nut")
+let { pushNotification, removeNotifyById, removeNotify, subscribeGroup
+} = require("%enlist/mainScene/invitationsLogState.nut")
 let popupsState = require("%enlist/popup/popupsState.nut")    // CODE SMELLS: ui state in logic module!
-let { blockedUids, getCrossnetworkChatEnabled } = require("%enlist/contacts/contactsWatchLists.nut")
+let { blockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { Contact, validateNickNames, getContactNick } = require("%enlist/contacts/contact.nut")
 let { onlineStatus, isContactOnline, updateSquadPresences } = require("%enlist/contacts/contactPresence.nut")
@@ -20,8 +21,7 @@ let {leaveChat, createChat, joinChat} = require("%enlist/chat/chatApi.nut")
 let squadState = require("%enlist/squad/squadState.nut")
 let { squadId, isInSquad, isSquadLeader, isInvitedToSquad, selfUid,
   squadSharedData, squadServerSharedData, squadMembers, allMembersState,
-  squadSelfMember, myExtSquadData, notifyMemberRemoved, notifyMemberAdded,
-  isManuallyLeavedSquadOnFullSquad
+  squadSelfMember, myExtSquadData, notifyMemberRemoved, notifyMemberAdded
 } = squadState
 
 let logSq = require("%enlSqGlob/library_logs.nut").with_prefix("[SQUAD] ")
@@ -29,7 +29,7 @@ let sessionManager = require("%enlist/squad/consoleSessionManager.nut")
 let eventbus = require("eventbus")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
 let { crossnetworkPlay, CrossPlayStateWeight, crossnetworkChat } = require("%enlSqGlob/crossnetwork_state.nut")
-let { consoleCompare, canInterractCrossPlatform } = require("%enlSqGlob/platformUtils.nut")
+let { consoleCompare, canInterractCrossPlatformByCrossplay } = require("%enlSqGlob/platformUtils.nut")
 let { availableSquadMaxMembers } = require("%enlist/state/queueState.nut")
 let { check_version } = require("%sqstd/version_compare.nut")
 let { hasValidBalance } = require("%enlist/currency/currencies.nut")
@@ -315,10 +315,7 @@ let function updateSquadInfo(squad_info) {
     if (uid not in squadMembers.value) {
       if (isMe && squad_info.members.len() > availableSquadMaxMembers.value) {
         logSq("Leave from squad, right after join. Squad was already full.")
-        leaveSquadSilent(function() {
-          showSizePopup(loc("squad/popup/squadFull"))
-          isManuallyLeavedSquadOnFullSquad(true)
-        })
+        leaveSquadSilent(@() showSizePopup(loc("squad/popup/squadFull")))
         continue
       }
 
@@ -409,7 +406,7 @@ let function addInviteByContact(inviter) {
     return
   }
 
-  if (!canInterractCrossPlatform(inviter.value.realnick, getCrossnetworkChatEnabled(inviter.value.uid))) {
+  if (!canInterractCrossPlatformByCrossplay(inviter.value.realnick, crossnetworkPlay.value)) {
     logSq($"got squad invite from crossplatform user, is crosschat available: {crossnetworkChat.value}", inviter.value)
     MSquadAPI.rejectInvite(inviter.value.uid)
     return
@@ -743,6 +740,15 @@ subscribeGroup(INVITE_ACTION_ID, {
   onRemove = @(notify) MSquadAPI.rejectInvite(notify.inviterUid)
 })
 
+let function requestJoinSquad(userId) {
+  MSquadAPI.requestJoin(userId, {
+    onSuccess = function(...) {
+      squadId.update(userId)
+      fetchSquadInfo()
+    },
+    onFailure = @(resp) logSq($"Failed to join squad {userId}", resp)
+  })
+}
 
 let function onAcceptMembership(newContact) {
   let { realnick, uid } = newContact.value
@@ -776,6 +782,12 @@ let function onApplicationAccept(params) {
   fetchSquadInfo()
 }
 
+let function onSquadCreated(params) {
+  let sid = params?.requestBy?.userId
+  logSq($"Squad created, requested by {sid}")
+  squadId.update(sid)
+  fetchSquadInfo()
+}
 
 let msubscribes = {
   ["msquad.notify_invite"] = onInviteNotify,
@@ -807,7 +819,7 @@ let msubscribes = {
     }
   },
   ["msquad.notify_data_changed"] = function(_params){
-    if (isInSquad.value && !isSquadLeader.value)
+    if (isInSquad.value)
       fetchSquadInfo()
   },
   ["msquad.notify_member_data_changed"] = function(params) {
@@ -829,6 +841,7 @@ let msubscribes = {
       setOnlineBySquad(member.contact, true)
     }
   },
+  ["msquad.notify_squad_created"] = onSquadCreated,
   ["msquad.notify_application"] = onApplicationNotify,
   ["msquad.notify_application_accepted"] = onApplicationAccept,
   ["msquad.notify_application_revoked"] = function(...) {},
@@ -906,6 +919,7 @@ return squadState.__merge({
   revokeSquadInvite
   acceptSquadInvite
   createSquadAndDo
+  requestJoinSquad
 
   // events
   subsMemberAddedEvent = @(func) notifyMemberAdded.append(func)

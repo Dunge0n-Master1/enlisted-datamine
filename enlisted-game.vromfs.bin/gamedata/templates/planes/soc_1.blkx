@@ -370,12 +370,12 @@ soc_1_driver_cockpit{
   }
 
   "move_cockpit_node__offset:list<p3>"{
-    offset:p3=0.02, 0.02, 0.01
-    offset:p3=0.015, -0.013, 0.0
+    item:p3=0.02, 0.02, 0.01
+    item:p3=0.024, -0.0245, -0.028
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    rot:p2=15.0, 10.0
-    rot:p2=-20.0, 0.0
+    item:p2=15.0, 10.0
+    item:p2=-38.3, -5.7
   }
 }

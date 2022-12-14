@@ -11,25 +11,25 @@ entity{
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2761.15, 16.1888, -2139.48]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[-215.82, 0.0, 165.079] [0.0, 5.47114, 0.0] [-19.713, 0.0, -25.7724] [2766.37, 16.1887, -2271.98]]
   battle_area__team:i=1
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[226.446, 0.0, -83.1213] [0.0, 6.43649, 0.0] [10.7554, -0.0, 29.3007] [-2846.18, 17.5429, 963.788]]
   battle_area__team:i=2
 }
 
 entity{
-  _template:t="human_hidden_ui_battle_area"
+  _template:t="human_hidden_ui_battle_area+building_carrier_restricted_zone"
   transform:m=[[227.212, 0.0, -81.0035] [0.0, 6.43649, 0.0] [10.4814, -0.0, 29.3999] [-2835.85, 17.543, 851.912]]
   battle_area__team:i=2
 }

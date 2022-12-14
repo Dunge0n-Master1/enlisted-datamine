@@ -1,9 +1,10 @@
 bulletCount:i=40
 mass:r=9.54
 explosiveType:t="tnt"
-explosiveMass:r=0.66
+explosiveMass:r=0.741
 caliber:r=0.085
 speed:r=793.0
+Cx:r=0.3125
 maxDistance:r=10000.0
 normalizationPreset:t="heat"
 bulletType:t="he_frag_tank"
@@ -207,7 +208,7 @@ damage{
 
   explosive{
     type:t="tnt"
-    mass:r=0.66
+    mass:r=0.741
     fuseDelayDist:r=0.0
     fuseArmorTreshold:r=0.1
     strengthEquivalent:r=1.0

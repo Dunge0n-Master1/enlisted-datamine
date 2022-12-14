@@ -31,6 +31,9 @@ def apply_parachute_deployed_tag(evt : Event;
     removeSubTemplate(eid, "parachute_deployed")
     removeSubTemplate(item__ownerEid, "parachute_deployed")
 
+  query(item__ownerEid) <| $ [es] (var human_parachute__isDeployed : bool&)
+    human_parachute__isDeployed = parachute__deployed
+
 
 [es(tag=server, no_order, REQUIRE=hasParachute)]
 def can_open_parachute(evt : UpdateStageInfoAct;

@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require game.es.events
 require game.es.inventory_common
@@ -7,6 +8,8 @@ require math.base
 require DagorMath
 require HumanPhys
 require DagorSystem
+require danetlibs.native_dasevents.main.native_events
+
 
 struct MagazinesCount
   current : int
@@ -50,15 +53,18 @@ def refill_ammo(requester; count; ammoTemplate)
     push_item_in_cont(requester, ammoTemplate)
   return count > 0
 
-def private get_magazines_count(ammo_holders; ammo_in_gun; max_ammo_in_magazine; item_container)
+def private get_magazines_count(ammo_in_gun : int;
+                                max_ammo_in_magazine : int;
+                                item_container : EidList;
+                                is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
   var magazines = [[MagazinesCount
     current=(ammo_in_gun <= 0 ? 0 : 1),
     partial=0
   ]]
 
   for itemEid in item_container
-    query(itemEid) <| $ [es] (item__template : das_string; ammo_holder__ammoCount : int)
-      if !is_ammo_for_gun(string(item__template), ammo_holders)
+    query(itemEid) <| $ [es] (item__template : string; ammo_holder__ammoCount : int)
+      if !invoke(is_suitable_ammo_cb, item__template)
         return
       magazines.current++
       if ammo_holder__ammoCount < max_ammo_in_magazine
@@ -90,11 +96,11 @@ def private calculate_resupply_gun_price(max_magazines : int;
 def resupply_gun_check(box_use_count : int;
                        requires_refill_count : int;
                        holder_ammo_count : int;
-                       ammo_holders : Array;
                        ammo_in_gun : int;
                        max_magazines : int;
-                       item_container : EidList)
-  let magazines = get_magazines_count(ammo_holders, ammo_in_gun, holder_ammo_count, item_container)
+                       item_container : EidList;
+                       is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
+  let magazines = get_magazines_count(ammo_in_gun, holder_ammo_count, item_container, is_suitable_ammo_cb)
 
   if magazines.current > max_magazines
     return [[ResupplyGunResult
@@ -117,9 +123,9 @@ def resupply_gun_check(box_use_count : int;
 def resupply_gun(resupply_result : ResupplyGunResult;
                  requester : EntityId;
                  holder_ammo_count : int;
-                 ammo_holders : Array;
                  reserve_ammo_template : string;
-                 var item_container : EidList&)
+                 var item_container : EidList&;
+                 is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
   let magazinesRefilled = resupply_result.emptyMagazinesRefilled + resupply_result.partialMagazinesRefilled
   if magazinesRefilled <= 0
     return
@@ -133,8 +139,8 @@ def resupply_gun(resupply_result : ResupplyGunResult;
   while i >= 0
     if numPartialMagsToBeRemoved <= 0
       break
-    query(item_container[i]) <| $ [es] (item__template : das_string; ammo_holder__ammoCount : int)
-      if !is_ammo_for_gun(string(item__template), ammo_holders) || ammo_holder__ammoCount >= holder_ammo_count
+    query(item_container[i]) <| $ [es] (item__template : string; ammo_holder__ammoCount : int)
+      if !invoke(is_suitable_ammo_cb, item__template) || ammo_holder__ammoCount >= holder_ammo_count
         return
       destroyEntity(item_container[i])
       item_container |> erase(i)
@@ -169,6 +175,44 @@ def has_ammo_holder(gun_eid; item_template)
   return hasHolder
 
 
+def try_refill_ammoholder_for_gun(requester_eid : EntityId;
+                                  gun_eid : EntityId;
+                                  gun_ammo : int;
+                                  ammo_template : string implicit;
+                                  ammo_num : int;
+                                  var new_box_use_count : int&;
+                                  var item_container : EidList;
+                                  is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
+  let ammoTplComp = ammo_template |> getTemplateByName
+  if ammoTplComp == null
+    logerr("Template '{ammo_template}' not exist in entity '{getEntityTemplateName(gun_eid)}'")
+    return
+
+  let holderAmmoCount = *ammoTplComp |> getTemplateComponent("ammo_holder__ammoCount") |> get_int ?? 0
+  if holderAmmoCount <= 0
+    logerr("<{requester_eid}> ammo_holder.ammoCount is less than or equal to 0 in template: {ammo_template}")
+    return
+
+  let ammoRefillsCount = max(1, get_int(getTemplateComponent(*ammoTplComp, "requiresAmmoRefillsCount")) ?? 1)
+
+  let resupplyResult = resupply_gun_check(new_box_use_count,
+                                          ammoRefillsCount,
+                                          holderAmmoCount,
+                                          gun_ammo,
+                                          ammo_num,
+                                          item_container,
+                                          is_suitable_ammo_cb)
+
+  new_box_use_count -= resupplyResult.boxUses
+
+  resupply_gun(resupplyResult,
+               requester_eid,
+               holderAmmoCount,
+               ammo_template,
+               item_container,
+               is_suitable_ammo_cb)
+
+
 def try_to_refill_ammo(requester; box_use_count; box_team)
   var newBoxUseCount = box_use_count
   var isFriendlyBox = false
@@ -186,43 +230,48 @@ def try_to_refill_ammo(requester; box_use_count; box_team)
         break
 
       query(human_weap__gunEids[int(slotId)]) <| $ [es(REQUIRE_NOT=itemInWeaponSlot)] (gun__ammoHolders : Array;
+                                                                                       gun__curAmmoHolderIndex : int;
                                                                                        item__ownedByTeam : int;
                                                                                        gun__ammo : int;
                                                                                        gun__numReserveAmmo : int;
-                                                                                       gun__reserveAmmoTemplate : string)
+                                                                                       gun__reserveAmmoTemplate : string;
+                                                                                       gun__additionalReserveAmmoTemplates : StringList;
+                                                                                       gun__additionalNumReserveAmmos : IntList)
         if item__ownedByTeam != box_team
           incompatibleGunFailed = true
           return
 
-        if gun__numReserveAmmo <= 0
-          return
+        var ammoHolders : array<string>
+        for ammoHolder in gun__ammoHolders
+          push(ammoHolders, ammoHolder ?? "")
 
-        let ammoTplComp = gun__reserveAmmoTemplate |> getTemplateByName
-        if ammoTplComp == null
-          logerr("Template '{gun__reserveAmmoTemplate}' not exist in entity '{getEntityTemplateName(human_weap__gunEids[int(slotId)])}'")
-          return
+        if gun__numReserveAmmo > 0
+          let ammoHolderIdx = find_index(ammoHolders, gun__reserveAmmoTemplate)
+          let ammoInGun = (ammoHolderIdx == gun__curAmmoHolderIndex) ? gun__ammo : 0
+          try_refill_ammoholder_for_gun(requester,
+                                        human_weap__gunEids[int(slotId)],
+                                        ammoInGun,
+                                        gun__reserveAmmoTemplate,
+                                        gun__numReserveAmmo,
+                                        newBoxUseCount,
+                                        itemContainer) <| $(itemTemplate)
+            return is_ammo_for_gun(itemTemplate, gun__ammoHolders) && find_index(gun__additionalReserveAmmoTemplates, itemTemplate) < 0
 
-        let holderAmmoCount = *ammoTplComp |> getTemplateComponent("ammo_holder__ammoCount") |> get_int ?? 0
-        if holderAmmoCount <= 0
-          logerr("<{requester}> ammo_holder.ammoCount is less than or equal to 0 in template: {gun__reserveAmmoTemplate}")
-          return
+        for ammoTemplateStr, ammoNum in gun__additionalReserveAmmoTemplates, gun__additionalNumReserveAmmos
+          if ammoNum <= 0
+            continue
 
-        let ammoRefillsCount = max(1, get_int(getTemplateComponent(*ammoTplComp, "requiresAmmoRefillsCount")) ?? 1)
-
-        let resupplyResult = resupply_gun_check(newBoxUseCount,
-                                                ammoRefillsCount,
-                                                holderAmmoCount,
-                                                gun__ammoHolders,
-                                                gun__ammo,
-                                                gun__numReserveAmmo,
-                                                itemContainer)
-        newBoxUseCount -= resupplyResult.boxUses
-        resupply_gun(resupplyResult,
-                     requester,
-                     holderAmmoCount,
-                     gun__ammoHolders,
-                     gun__reserveAmmoTemplate,
-                     itemContainer)
+          peek(ammoTemplateStr) <| $(ammoTemplate)
+            let ammoHolderIdx = find_index(ammoHolders, string(ammoTemplateStr))
+            let ammoInGun = (ammoHolderIdx == gun__curAmmoHolderIndex) ? gun__ammo : 0
+            try_refill_ammoholder_for_gun(requester,
+                                          human_weap__gunEids[int(slotId)],
+                                          ammoInGun,
+                                          ammoTemplate,
+                                          ammoNum,
+                                          newBoxUseCount,
+                                          itemContainer) <| $(itemTemplate)
+              return itemTemplate == ammoTemplate
 
   ret.boxUses = box_use_count - newBoxUseCount
 
@@ -272,6 +321,27 @@ def ammo_box_resupply_grenade_es(evt : CmdUseUsefulBox;
   let success = try_to_refill_grenades(evt.requesterEid, grenadeResupplyItem)
   useful_box__successUse ||= success
 
+
+def try_fill_additional_ammo_templates(weap_info : Object const?; var additional_ammo_templates : StringList)
+  clear(additional_ammo_templates)
+
+  let additionalReserveAmmoTemplates = weap_info?.additionalReserveAmmoTemplates ?as Array
+  if additionalReserveAmmoTemplates != null
+    clear(additional_ammo_templates)
+    for ammoTemplateItem in *additionalReserveAmmoTemplates
+      push(additional_ammo_templates, ammoTemplateItem ?? "")
+
+
+def try_fill_additional_ammo_nums(weap_info : Object const?; var additional_ammo_nums : IntList)
+  clear(additional_ammo_nums)
+
+  let additionalNumReserveAmmos = weap_info?.additionalNumReserveAmmos ?as Array
+  if additionalNumReserveAmmos != null
+    clear(additional_ammo_nums)
+    for ammoNumItem in *additionalNumReserveAmmos
+      push(additional_ammo_nums, ammoNumItem ?? 0)
+
+
 [es(tag=server, on_appear, track=human_weap__gunEids)]
 def human_weapon_set_gun_info_es(evt : Event; team : int; human_weap__gunEids : EidList; human_weap__weapInfo : Array)
   let gunCount = min(length(human_weap__gunEids), length(human_weap__weapInfo))
@@ -279,7 +349,9 @@ def human_weapon_set_gun_info_es(evt : Event; team : int; human_weap__gunEids : 
     query(human_weap__gunEids[i]) <| $ [es] (var gun__initialComponents : Object&;
                                              var item__ownedByTeam : int&;
                                              var gun__reserveAmmoTemplate : das_string&;
-                                             var gun__numReserveAmmo : int&)
+                                             var gun__numReserveAmmo : int&;
+                                             var gun__additionalReserveAmmoTemplates : StringList;
+                                             var gun__additionalNumReserveAmmos : IntList)
       if item__ownedByTeam != TEAM_UNASSIGNED
         return
 
@@ -287,9 +359,14 @@ def human_weapon_set_gun_info_es(evt : Event; team : int; human_weap__gunEids : 
       item__ownedByTeam = team
       gun__reserveAmmoTemplate := get_string(weapInfo, "reserveAmmoTemplate", "")
       gun__numReserveAmmo = get_int(weapInfo, "numReserveAmmo") ?? 0
+      try_fill_additional_ammo_templates(weapInfo, gun__additionalReserveAmmoTemplates)
+      try_fill_additional_ammo_nums(weapInfo, gun__additionalNumReserveAmmos)
+
       gun__initialComponents |> set("item__ownedByTeam", item__ownedByTeam)
       gun__initialComponents |> set("gun__numReserveAmmo", gun__numReserveAmmo)
       gun__initialComponents |> set("gun__reserveAmmoTemplate", gun__reserveAmmoTemplate)
+      gun__initialComponents |> set("gun__additionalReserveAmmoTemplates", gun__additionalReserveAmmoTemplates)
+      gun__initialComponents |> set("gun__additionalNumReserveAmmos", gun__additionalNumReserveAmmos)
 
 [es(tag=server, on_appear, track=gun__owner)]
 def weapon_set_initial_gun_info_es(evt : Event;
@@ -298,7 +375,9 @@ def weapon_set_initial_gun_info_es(evt : Event;
                                    var gun__initialComponents : Object&;
                                    var item__ownedByTeam : int&;
                                    var gun__reserveAmmoTemplate : das_string&;
-                                   var gun__numReserveAmmo : int&)
+                                   var gun__numReserveAmmo : int&;
+                                   var gun__additionalReserveAmmoTemplates : StringList;
+                                   var gun__additionalNumReserveAmmos : IntList)
   if item__ownedByTeam != TEAM_UNASSIGNED
     return
 
@@ -311,6 +390,11 @@ def weapon_set_initial_gun_info_es(evt : Event;
     item__ownedByTeam = team
     gun__reserveAmmoTemplate := get_string(weapInfo, "reserveAmmoTemplate", "")
     gun__numReserveAmmo = get_int(weapInfo, "numReserveAmmo") ?? 0
+    try_fill_additional_ammo_templates(weapInfo, gun__additionalReserveAmmoTemplates)
+    try_fill_additional_ammo_nums(weapInfo, gun__additionalNumReserveAmmos)
+
     gun__initialComponents |> set("item__ownedByTeam", item__ownedByTeam)
     gun__initialComponents |> set("gun__numReserveAmmo", gun__numReserveAmmo)
     gun__initialComponents |> set("gun__reserveAmmoTemplate", gun__reserveAmmoTemplate)
+    gun__initialComponents |> set("gun__additionalReserveAmmoTemplates", gun__additionalReserveAmmoTemplates)
+    gun__initialComponents |> set("gun__additionalNumReserveAmmos", gun__additionalNumReserveAmmos)

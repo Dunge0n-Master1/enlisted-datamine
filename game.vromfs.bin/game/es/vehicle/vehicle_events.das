@@ -7,12 +7,16 @@ struct EventOnPartDamageEffects
   offender : ecs::EntityId
   partId : int
   effects : int
+  gunPropsId : int
+  shellId : int
 
 [cpp_event(unicast)]
 struct EventOnPartKillEffects
   offender : ecs::EntityId
   partId : int
   effects : int
+  gunPropsId : int
+  shellId : int
 
 [cpp_event(unicast)]
 struct CmdVolumetricDamage
@@ -30,15 +34,11 @@ struct EventOnVolumetricDamage
   damageTypeId : int
   damageEffectsMask : int
   damagedParts : ecs::Array
+  gunPropsId : int
+  shellId : int
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventOnVehicleDamageEffects
-  offender : EntityId
-  vehicle : EntityId
-  effects : int
-
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdShowVehicleDamageEffectsHint
   offender : EntityId
   vehicle : EntityId
   effects : int
@@ -83,26 +83,36 @@ struct CmdKillVehicle
 [cpp_event(unicast)]
 struct CmdExplosionFatal
   offender : ecs::EntityId
+  gunPropsId : int
+  shellId : int
 
 [cpp_event(unicast)]
 struct EventExplosionFatal
   offender : ecs::EntityId
+  gunPropsId : int
+  shellId : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct CmdFireFatal
   offender : ecs::EntityId
+  gunPropsId : int
+  shellId : int
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventFireFatal
   offender : ecs::EntityId
+  gunPropsId : int
+  shellId : int
 
 [cpp_event(unicast)]
 struct CmdCrashExplosionFatal
   offender : ecs::EntityId
+  crashType : int
 
 [cpp_event(unicast)]
 struct EventCrashExplosionFatal
   offender : ecs::EntityId
+  crashType : int
 
 [event(unicast)]
 struct CmdActivateExtinguisher
@@ -138,11 +148,6 @@ struct CmdStartRepair
 [event(unicast)]
 struct CmdStopRepair
   target : EntityId
-
-[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
-struct CmdVehicleHornRequest
-  enable : bool
-  player : EntityId
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestVehicleChangeSeat

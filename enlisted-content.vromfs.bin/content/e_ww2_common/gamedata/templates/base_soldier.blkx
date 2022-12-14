@@ -111,6 +111,8 @@ base_soldier{
   _replicated:t="beh_tree__enabled"
   _replicated:t="flask__affectEid"
   _tracked:t="human_equipment__slots"
+  _tracked:t="hitpoints__deathHpThreshold"
+  _tracked:t="agent_dangers__hasTraceableDangers"
   _tracked:t="hasFlask"
   animchar__res:t="soldier_base_model_char"
   collres__res:t="soldier_base_model_collision"
@@ -128,7 +130,6 @@ base_soldier{
   hitpoints__downedKillChanceMult:r=0.5
   hitpoints__downedHpPerSecond:r=0.5
   hitpoints__downedKillWhenBurning:b=yes
-  hitpoints__canSelfReviveByHealing:b=yes
   hitpoints__canBeRevivedByTeammates:b=no
   hitpoints__alwaysAllowRevive:b=no
   hitpoints__shatterDmgArmor:r=0.01
@@ -361,6 +362,16 @@ base_soldier{
     }
 
     "pants:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
+    "boots:object"{
       template:t=""
 
       "item:eid"{
@@ -752,7 +763,7 @@ base_soldier{
   "droppedGunKeepsMods:tag"{
   }
 
-  "itemsAround:array"{
+  "itemsAround:list<eid>"{
     _tags:t="ui"
   }
 
@@ -983,6 +994,7 @@ dead_enlisted_base_soldier{
   gun_offset__acrossId:i=-1
   gun_offset__upId:i=-1
   gun_offset__alongId:i=-1
+  ragdoll__applyParams:b=no
   human_broken_bones__tearOffImpulse:r=7.5
   human_broken_bones__tearOffImpulseUp:r=1.0
 
@@ -1252,7 +1264,6 @@ human_melee_charge{
   human_melee_charge__canStart:b=no
   human_melee_charge__isOnCooldown:b=no
   human_melee_charge__chargeEndTime:r=0.0
-  human_melee_charge__isInputStillActive:b=no
   human_melee_charge__isActive:b=no
   human_melee_charge__isChargeOrAttack:b=no
   human_melee_charge__zoom:r=1.0
@@ -1280,6 +1291,18 @@ human_melee_charge{
   "human_melee_charge__targetFound:b"{
     _tags:t="input"
     value:b=no
+  }
+
+  "human_melee_charge__longPressTime:r"{
+    _tags:t="input"
+    value:r=0.2
+  }
+
+  _group{
+    _tags:t="input"
+    human_melee_charge__forceEnabled:b=no
+    human_melee_charge__lastMeleeButtonState:b=no
+    human_melee_charge__activateAtTime:r=-1.0
   }
 }
 

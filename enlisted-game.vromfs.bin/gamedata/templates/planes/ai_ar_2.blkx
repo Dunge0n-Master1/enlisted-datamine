@@ -32,7 +32,7 @@ ai_ar_2{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner2"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [-0.3, 0.1, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner2_dm"
       directTurretControl:b=yes
@@ -74,10 +74,10 @@ ai_ar_2{
   }
 
   "turret_control__emitterNodes:shared:array"{
-    node:t="bomb250_3"
-    node:t="bomb250_4"
-    node:t="bomb250_5"
-    node:t="bomb250_6"
+    node:t="bomb100_1"
+    node:t="bomb100_2"
+    node:t="bomb100_3"
+    node:t="bomb100_4"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -133,28 +133,28 @@ ai_ar_2{
       turretName:t="turret_01"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ar_2_fab_250x_launcher_01"
+      gun:t="planegun_ai_ar_2_fab_100_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_02"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ar_2_fab_250x_launcher_02"
+      gun:t="planegun_ai_ar_2_fab_100_launcher_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ar_2_fab_250x_launcher_03"
+      gun:t="planegun_ai_ar_2_fab_100_launcher_03"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_ar_2_fab_250x_launcher_04"
+      gun:t="planegun_ai_ar_2_fab_100_launcher_04"
     }
 
     "turretInfo:object"{
@@ -177,6 +177,36 @@ ai_ar_2{
       trigger:t="machine_guns"
       gun:t="planegun_ai_ar_2_7_62mm_shkas_turret_03"
     }
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb100_1"
+    node:t="bomb100_2"
+    node:t="bomb100_3"
+    node:t="bomb100_4"
+    node:t="flare1"
+    node:t="flare2"
+    node:t="flare3"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+    fx:t="muzzle_air_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
   }
 
   "disableDMParts:list<t>"{
@@ -213,43 +243,19 @@ base_ai_ar_2_7_62mm_shkas_turret{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/7_62mm_shkas_t46_bullet.blk"
-        name:t="t46"
-        type:t="t_ball"
-      }
-
-      "shell:object"{
         blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
         name:t="l"
         type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_62mm_shkas_l_bullet.blk"
-        name:t="l"
-        type:t="ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_62mm_shkas_b32_bullet.blk"
-        name:t="b32"
-        type:t="ap_i_ball"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/7_62mm_shkas_pz_bullet.blk"
-        name:t="pz"
-        type:t="he_ball"
       }
     }
   }
 }
 
-base_ai_ar_2_fab_250x_launcher{
-  item__name:t="guns/su_fab250x"
-  gun__blk:t="gamedata/weapons/ar_2/fab_250x_launcher.blk"
+base_ai_ar_2_fab_100_launcher{
+  item__name:t="guns/su_fab100"
+  gun__blk:t="gamedata/weapons/ar_2/fab_100_launcher.blk"
   gun__shotFreq:r=10.0
-  gun__locName:t="su_fab250x"
+  gun__locName:t="su_fab100"
   gun__shootNodeName:t="bone_mg_gun_twin"
   gun__maxAmmo:i=1
 
@@ -273,47 +279,47 @@ base_ai_ar_2_fab_250x_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/fab_250x.blk"
-        name:t="fab_250x"
+        blk:t="gamedata/weapons/shells/fab_100.blk"
+        name:t="fab_100"
         type:t="he_frag_tank"
       }
     }
   }
 }
 
-planegun_ai_ar_2_fab_250x_launcher_01{
-  _extends:t="ai_fab_250x_launcher"
-  _extends:t="base_ai_ar_2_fab_250x_launcher"
-  _extends:t="gunsound_fab_250x_launcher_aircraft"
-  gun__shootNodeName:t="bomb250_3"
-  slot_attach__slotName:t="bomb250_3"
+planegun_ai_ar_2_fab_100_launcher_01{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ar_2_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb100_1"
+  slot_attach__slotName:t="bomb100_1"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ar_2_fab_250x_launcher_02{
-  _extends:t="ai_fab_250x_launcher"
-  _extends:t="base_ai_ar_2_fab_250x_launcher"
-  _extends:t="gunsound_fab_250x_launcher_aircraft"
-  gun__shootNodeName:t="bomb250_4"
-  slot_attach__slotName:t="bomb250_4"
+planegun_ai_ar_2_fab_100_launcher_02{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ar_2_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb100_2"
+  slot_attach__slotName:t="bomb100_2"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ar_2_fab_250x_launcher_03{
-  _extends:t="ai_fab_250x_launcher"
-  _extends:t="base_ai_ar_2_fab_250x_launcher"
-  _extends:t="gunsound_fab_250x_launcher_aircraft"
-  gun__shootNodeName:t="bomb250_5"
-  slot_attach__slotName:t="bomb250_5"
+planegun_ai_ar_2_fab_100_launcher_03{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ar_2_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb100_3"
+  slot_attach__slotName:t="bomb100_3"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_ar_2_fab_250x_launcher_04{
-  _extends:t="ai_fab_250x_launcher"
-  _extends:t="base_ai_ar_2_fab_250x_launcher"
-  _extends:t="gunsound_fab_250x_launcher_aircraft"
-  gun__shootNodeName:t="bomb250_6"
-  slot_attach__slotName:t="bomb250_6"
+planegun_ai_ar_2_fab_100_launcher_04{
+  _extends:t="ai_fab_100_launcher"
+  _extends:t="base_ai_ar_2_fab_100_launcher"
+  _extends:t="gunsound_fab_100_launcher_aircraft"
+  gun__shootNodeName:t="bomb100_4"
+  slot_attach__slotName:t="bomb100_4"
   gun__maxAmmo:i=1
 }
 

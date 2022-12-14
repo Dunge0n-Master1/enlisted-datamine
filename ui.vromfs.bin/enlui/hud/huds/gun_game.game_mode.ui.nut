@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM0_COLOR_FG, TEAM1_COLOR_FG, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -125,7 +126,7 @@ let leaderBlock = @() {
   watch = [gunGameLeaderPlayerEid, gunGameLeaderName, gunGameLeaderTeam, localPlayerEid, localPlayerTeam]
   flow = FLOW_HORIZONTAL
   size = [0, SIZE_TO_CONTENT]
-  children = gunGameLeaderPlayerEid.value == INVALID_ENTITY_ID ? null : [
+  children = gunGameLeaderPlayerEid.value == ecs.INVALID_ENTITY_ID ? null : [
     {
       rendObj = ROBJ_INSCRIPTION
       text = loc("gun_game/currentLeader")

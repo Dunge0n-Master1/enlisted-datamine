@@ -42,7 +42,7 @@ def human_breath_is_under_water_es(info : UpdateStageInfoAct;
   let isNotSwimming = human_net_phys.phys.currentState.standState != HUStandState ESS_SWIM || isInVehicle
   if isNotSwimming
     let isInFloatableVehicle = isInVehicle && has(human_anim__vehicleSelected, "vehicle_net_phys__floatable")
-    let pos = geomtree_getNodeWpos(animchar.nodeTree, breath_node__nodeId)
+    let pos = geomtree_getNodeWpos(*animchar.nodeTree, breath_node__nodeId)
     if isInFloatableVehicle || !is_valid_water_height(traceht_water_at_time(pos, 5.f, info.curTime, human_breath__isUnderWater))
       human_breath__isUnderWater = false
   else

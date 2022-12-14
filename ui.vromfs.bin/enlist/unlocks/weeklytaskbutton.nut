@@ -1,9 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, midPadding, commonBtnHeight, defTxtColor, hoverTxtColor
+let { midPadding, commonBtnHeight, defTxtColor, hoverTxtColor, startBtnWidth
 } = require("%enlSqGlob/ui/designConst.nut")
-let { mkLeftPanelButton } = require("%enlist/components/mkPanelButton.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let { mkLeftPanelButton, mkRightPanelButton } = isNewDesign.value
+  ? require("%enlist/components/mkPanelBtn.nut")
+  : require("%enlist/components/mkPanelButton.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
 let { hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks } = require("unseenUnlocksState.nut")
@@ -17,7 +20,7 @@ let hoverTxtStyle = {
   color = hoverTxtColor
 }.__update(fontLarge)
 
-let buttonSize = [colFull(5), commonBtnHeight]
+let buttonSize = [startBtnWidth, commonBtnHeight]
 
 let weeklyUnseenSign = @() {
   watch = [hasUnseenWeeklyTasks, hasUnopenedWeeklyTasks]
@@ -41,7 +44,10 @@ let buttonContent = @(sf) {
   ]
 }
 
-let weeklyTasksUi = mkLeftPanelButton(buttonContent, buttonSize, @() profileScene("weeklyTasks"))
+let weeklyTasksUi = isNewDesign.value
+  ? mkRightPanelButton(buttonContent, buttonSize, @() profileScene("weeklyTasks"),
+    "!ui/uiskin/tasks/weekly_tasks_icon.svg")
+  : mkLeftPanelButton(buttonContent, buttonSize, @() profileScene("weeklyTasks"))
 
 return {
   weeklyTasksUi

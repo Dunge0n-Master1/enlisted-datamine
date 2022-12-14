@@ -41,5 +41,5 @@ explSound{
 }
 
 visual{
-  template:t="m49a2_item+item_in_world"
+  template:t="two_inch_he_shell_item+item_in_world"
 }

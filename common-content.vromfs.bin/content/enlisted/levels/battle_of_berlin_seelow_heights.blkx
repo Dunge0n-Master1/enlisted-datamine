@@ -809,24 +809,20 @@ grass{
     forest_c{
       id:i=22
       nograss:r=1.0
-      bush_dead_a:r=4.0
-      clover_flat:r=2.0
-      bush_trunks_dead_a:r=2.0
     }
 
     forest_d{
       id:i=23
       nograss:r=1.0
-      bush_a:r=10.0
+      bush_a:r=7.0
       chamerion_angustifolium:r=1.0
       matricaria_chamomilla:r=13.0
     }
 
     field_a{
       id:i=24
-      nograss:r=2.0
-      bush_a:r=1.0
-      generic_grass_low_a:r=7.0
+      nograss:r=3.0
+      generic_grass_low_a:r=10.0
     }
 
     forest_felling{
@@ -837,10 +833,8 @@ grass{
 
     courtyard{
       id:i=28
-      nograss:r=7.0
-      bush_a:r=5.0
-      generic_grass_low_a:r=1.0
-      field_grass_a:r=7.0
+      generic_grass_low_a:r=13.0
+      nograss:r=5.0
     }
 
     road{

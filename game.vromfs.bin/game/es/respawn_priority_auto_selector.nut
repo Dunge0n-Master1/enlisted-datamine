@@ -2,7 +2,10 @@ import "%dngscripts/ecs.nut" as ecs
 let rndInstance = require("%sqstd/rand.nut")()
 let {FLT_MAX} = require("math")
 
+let { check_exists_navmesh_path_from_respawn_to_capzone, is_respawn_at_team_side } = require("das.respawn")
+
 let groupRespawnGroupsQuery = ecs.SqQuery("groupRespawnGroupsQuery", {comps_ro=["selectedGroup", "transform", "respawnIconType", "team"], comps_rq=["autoRespawnSelector"]})
+let groupCustomRespawnGroupsQuery = ecs.SqQuery("groupCustomRespawnGroupsQuery", {comps_ro=["selectedGroup", "transform", "respawnIconType", "team", "respawn_point__respawnersQueue"], comps_no=["autoRespawnSelector"]})
 let capzoneQuery = ecs.SqQuery("capzoneQuery", {comps_ro=["active", "transform", "capzone__capTeam"], comps_rq=["capzone"]})
 let forceRespawnGroupsQuery = ecs.SqQuery("forceRespawnGroupsQuery", {comps_ro=["respawnBaseGroup", "team", "active", "respawnbaseType"], comps_rq=["forceRespawnBasePriority"]})
 
@@ -30,19 +33,35 @@ let function findNearestPoint(target, points) {
   return [nearestKey, minDistance]
 }
 
-let function findNearestRespawnGroups(respawnGroups, capZonesPositions) {
+let function findNearestRespawnGroups(capZonesPositions, respawnGroups, customRespawnGroups, respawnPointsEids, team) {
   let respawnGroupsMap = {}
   foreach (zonePos in capZonesPositions) {
-    let resultGroup = findNearestPoint(zonePos, respawnGroups)[0] ?? -1
-    if (respawnGroupsMap?[resultGroup] == null)
-      respawnGroupsMap[resultGroup] <- resultGroup
+    let resultGroup = findNearestPoint(zonePos, respawnGroups)
+    let resultCustomGroup = findNearestPoint(zonePos, customRespawnGroups)
+
+    local selectedGroup = resultGroup[0]
+    let customGroup = resultCustomGroup[0]
+    if (customGroup != null && resultCustomGroup[1] < resultGroup[1]) {
+      let pointEid = respawnPointsEids[customGroup]
+      let spawnPos = customRespawnGroups[customGroup]
+      if (is_respawn_at_team_side(spawnPos, zonePos, team))
+        if (check_exists_navmesh_path_from_respawn_to_capzone(pointEid, spawnPos, zonePos))
+          selectedGroup = customGroup
+    }
+
+    if (respawnGroupsMap?[selectedGroup] == null)
+      respawnGroupsMap[selectedGroup] <- selectedGroup
   }
   return respawnGroupsMap
 }
 
-let function sortRespawnGroupsByDistance(respawnGroups, capZonesPositions) {
+let function sortRespawnGroupsByDistance(capZonesPositions, respawnGroups, customRespawnGroups) {
   let respawnGroupsDistance = []
   foreach (respawnGroup, respawnPos in respawnGroups){
+    let minDistance = findNearestPoint(respawnPos, capZonesPositions)[1]
+    respawnGroupsDistance.append({group = respawnGroup, distance = minDistance})
+  }
+  foreach (respawnGroup, respawnPos in customRespawnGroups){
     let minDistance = findNearestPoint(respawnPos, capZonesPositions)[1]
     respawnGroupsDistance.append({group = respawnGroup, distance = minDistance})
   }
@@ -50,11 +69,24 @@ let function sortRespawnGroupsByDistance(respawnGroups, capZonesPositions) {
   return respawnGroupsDistance
 }
 
-let function getRespawnGroups(canUseRespawnbaseType, forTeam) {
+let function getRespawnGroups(canUseRespawnbaseType, forTeam, respawnPointsEids) {
   let respawnGroups = {}
-  groupRespawnGroupsQuery(function(_eid, comps) {
-    if (comps.respawnIconType == canUseRespawnbaseType && comps.team == forTeam)
+  groupRespawnGroupsQuery(function(eid, comps) {
+    if (comps.respawnIconType == canUseRespawnbaseType && comps.team == forTeam) {
       respawnGroups[comps.selectedGroup] <- comps.transform[3]
+      respawnPointsEids[comps.selectedGroup] <- eid
+    }
+  })
+  return respawnGroups
+}
+
+let function getCustomRespawnGroups(canUseRespawnbaseType, forTeam, respawnPointsEids) {
+  let respawnGroups = {}
+  groupCustomRespawnGroupsQuery(function(eid, comps) {
+    if (comps.respawnIconType == canUseRespawnbaseType && comps.team == forTeam && comps.respawn_point__respawnersQueue.len() == 0) {
+      respawnGroups[comps.selectedGroup] <- comps.transform[3]
+      respawnPointsEids[comps.selectedGroup] <- eid
+    }
   })
   return respawnGroups
 }
@@ -77,9 +109,9 @@ let function findForceRespawnBaseGroup(team, respawnType) {
   return respawnGroup
 }
 
-let function getAdditionalForSpawnTab(spawnTab, respawnGroups, capZonesPositions){
+let function getAdditionalForSpawnTab(spawnTab, capZonesPositions, respawnGroups, customRespawnGroups){
   let additionalTab = {}
-  let allSpawnsByDistance = sortRespawnGroupsByDistance(respawnGroups, capZonesPositions)
+  let allSpawnsByDistance = sortRespawnGroupsByDistance(capZonesPositions, respawnGroups, customRespawnGroups)
   local needAddCount = MIN_NUM_OF_POINTS - spawnTab.len()
   for (local i = 0; i < allSpawnsByDistance.len() && needAddCount!=0; i++)
     if (spawnTab?[allSpawnsByDistance[i].group] == null) {
@@ -89,21 +121,29 @@ let function getAdditionalForSpawnTab(spawnTab, respawnGroups, capZonesPositions
   return additionalTab
 }
 
-let function getRespawnGroup(canUseRespawnbaseType, team) {
+let function getRespawnGroup(canUseRespawnbaseType, team, for_bot) {
   let forceRespawnGroup = findForceRespawnBaseGroup(team, canUseRespawnbaseType)
   if (forceRespawnGroup >= 0)
     return forceRespawnGroup
-  let respawnGroups = getRespawnGroups(canUseRespawnbaseType, team)
+
+  let respawnPointsEids = {}
+  let respawnGroups = getRespawnGroups(canUseRespawnbaseType, team, respawnPointsEids)
+
   let capZonesPositions = getCapzonePositions(team)
-  local hasEnoughSpawnGroups = respawnGroups.len() >= MIN_NUM_OF_POINTS
-  let noAvailableZones = capZonesPositions.len() == 0
-  if (noAvailableZones || !hasEnoughSpawnGroups)
+  if (capZonesPositions.len() == 0)
     return getRandomRespawnGroup(respawnGroups)
 
-  let prioritySpawnList = findNearestRespawnGroups(respawnGroups, capZonesPositions)
-  hasEnoughSpawnGroups = prioritySpawnList.len() >= MIN_NUM_OF_POINTS
+  let customRespawnGroups = for_bot ? getCustomRespawnGroups(canUseRespawnbaseType, team, respawnPointsEids) : {}
+
+  let hasChoice = respawnGroups.len() >= MIN_NUM_OF_POINTS || customRespawnGroups.len() > 0
+  if (!hasChoice)
+    return getRandomRespawnGroup(respawnGroups)
+
+  let prioritySpawnList = findNearestRespawnGroups(capZonesPositions, respawnGroups, customRespawnGroups, respawnPointsEids, team)
+  let hasEnoughSpawnGroups = prioritySpawnList.len() >= MIN_NUM_OF_POINTS
   if (!hasEnoughSpawnGroups)
-    prioritySpawnList.__update(getAdditionalForSpawnTab(prioritySpawnList, respawnGroups, capZonesPositions))
+    prioritySpawnList.__update(getAdditionalForSpawnTab(prioritySpawnList, capZonesPositions, respawnGroups, customRespawnGroups))
+
   return getRandomRespawnGroup(prioritySpawnList)
 }
 

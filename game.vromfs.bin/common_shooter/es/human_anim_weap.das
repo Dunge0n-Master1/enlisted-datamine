@@ -39,11 +39,15 @@ def human_anim_weap_es(info : UpdateStageInfoAct;
     return
 
   assume phys = human_net_phys.phys
-  query(human_weap__gunEids[int(gunSlot)]) <| $ [es] (gun__propsId : int)
+  query(human_weap__gunEids[int(gunSlot)]) <| $ [es(REQUIRE_NOT=grenade_thrower)] (gun__propsId : int)
     if gun__propsId >= 0 && human_anim.selectedWeaponVarId >= 0 && phys.canSwitchWeapon
       set_phys_selected_weapon_var_from_props(phys_vars, gun__propsId,
                                               human_weap__gunEids[int(gunSlot)],
                                               human_anim, "human_anim_weap_es")
+
+  query(human_weap__gunEids[int(gunSlot)]) <| $ [es(REQUIRE=grenade_thrower)] (grenade_thrower__selectedGrenadeVarId : int)
+    if grenade_thrower__selectedGrenadeVarId >= 0 && human_anim.selectedWeaponVarId >= 0 && phys.canSwitchWeapon
+      phys_vars |> setVar(human_anim.selectedWeaponVarId, float(grenade_thrower__selectedGrenadeVarId))
 
 
 [es]

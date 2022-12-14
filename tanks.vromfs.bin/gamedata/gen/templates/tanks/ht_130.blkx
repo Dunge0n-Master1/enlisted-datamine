@@ -113,7 +113,9 @@ ht_130_turret_01_ato_41{
   combatCooldownTime:p2=0.5, 0.9
   smoke_occluder__sphere:p4=0.0, 0.0, 0.0, 1.0
   _replicated:t="flamethrower__active"
+  _replicated:t="flamethrower__flameCurrentLength"
   _tracked:t="flamethrower__active"
+  _tracked:t="flamethrower__flameCurrentLength"
   flamethrower__fireTemplate:t="flamethrower_fire"
   flamethrower__streamEffectTemplate:t="flamethrower_flame_stream_long_effect"
   flamethrower__streamEffectLocalTm:m=[[0.0, -1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]

@@ -20,7 +20,7 @@ let { eventUnlocks, showNotActiveTaskMsgbox } = require("eventsTaskState.nut")
 let buyUnlockMsg = require("buyUnlockMsg.nut")
 let { isUnlockAvailable, getUnlockProgress, unlockProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
-let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
+let { PrimaryFlat, Purchase, soundDefault } = require("%ui/components/textButton.nut")
 let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("sound")
@@ -154,10 +154,7 @@ let function dailyTasksUi() {
 let widgetStyle = {
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.Button
-  sound = {
-    click  = "ui/enlist/button_click"
-    hover  = "ui/enlist/button_highlight"
-  }
+  sound = soundDefault
 }
 
 let mkHoverBar = @(sf) sf & S_HOVER

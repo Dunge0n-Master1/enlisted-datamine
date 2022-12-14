@@ -25,6 +25,7 @@ crosshair{
     ui_crosshair_state__overheat:r=0.0
     ui_crosshair_state__color:c=255, 255, 255, 255
     ui_crosshair_state__showCustomCrosshair:b=no
+    ui_crosshair_state__allowShooting:b=yes
   }
 }
 
@@ -53,6 +54,7 @@ perf_stats{
     ui_perf_stats__packet_loss_warn:i=0
     ui_perf_stats__latency_variation_warn:i=0
     ui_perf_stats__server_tick_warn:i=0
+    ui_perf_stats__low_tickrate_warn:i=0
   }
 
   _group{

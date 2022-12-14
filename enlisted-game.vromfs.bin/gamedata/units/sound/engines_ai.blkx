@@ -29,6 +29,12 @@ engine01{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine01_cockpit_l"
     event_cockpit_r:t="engine01_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmScale:r=0.9
@@ -70,6 +76,12 @@ engine02{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine02_cockpit_l"
     event_cockpit_r:t="engine02_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -110,6 +122,12 @@ engine03{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine03_cockpit_l"
     event_cockpit_r:t="engine03_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -150,6 +168,12 @@ engine04{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine04_cockpit_l"
     event_cockpit_r:t="engine04_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -190,6 +214,12 @@ engine05{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine05_cockpit_l"
     event_cockpit_r:t="engine05_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -230,6 +260,12 @@ engine06{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine06_cockpit_l"
     event_cockpit_r:t="engine06_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -270,6 +306,12 @@ engine07{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine07_cockpit_l"
     event_cockpit_r:t="engine07_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -310,6 +352,12 @@ engine08{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine08_cockpit_l"
     event_cockpit_r:t="engine08_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -350,6 +398,12 @@ engine09{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine09_cockpit_l"
     event_cockpit_r:t="engine09_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -390,6 +444,12 @@ engine10{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine10_cockpit_l"
     event_cockpit_r:t="engine10_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -430,6 +490,12 @@ engine11{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine11_cockpit_l"
     event_cockpit_r:t="engine11_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -470,6 +536,12 @@ engine12{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine12_cockpit_l"
     event_cockpit_r:t="engine12_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -510,6 +582,12 @@ engine13{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine13_cockpit_l"
     event_cockpit_r:t="engine13_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -550,6 +628,12 @@ engine14{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine14_cockpit_l"
     event_cockpit_r:t="engine14_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -590,6 +674,12 @@ engine15{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine15_cockpit_l"
     event_cockpit_r:t="engine15_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -630,6 +720,12 @@ engine16{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine16_cockpit_l"
     event_cockpit_r:t="engine16_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -670,6 +766,12 @@ engine17{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine17_cockpit_l"
     event_cockpit_r:t="engine17_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -710,6 +812,12 @@ engine18{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine18_cockpit_l"
     event_cockpit_r:t="engine18_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -750,6 +858,12 @@ engine19{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine19_cockpit_l"
     event_cockpit_r:t="engine19_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -795,6 +909,12 @@ engine20{
       path:t="aircraft/engines"
       event_cockpit_l:t="engine20_cockpit_l"
       event_cockpit_r:t="engine20_cockpit_r"
+      event_start_cockpit_l:t=""
+      event_start_cockpit_r:t=""
+      event_stop_cockpit_l:t=""
+      event_stop_cockpit_r:t=""
+      event_prop_cockpit_l:t=""
+      event_prop_cockpit_r:t=""
       leftPos:p3=0.5, 1.0, 5.0
       rightPos:p3=0.5, 1.0, -5.0
       rpm2Type:t="jetTrue"
@@ -869,6 +989,12 @@ engine21{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine21_cockpit_l"
     event_cockpit_r:t="engine21_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -909,6 +1035,12 @@ engine22{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine22_cockpit_l"
     event_cockpit_r:t="engine22_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -949,6 +1081,12 @@ engine23{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine23_cockpit_l"
     event_cockpit_r:t="engine23_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -989,6 +1127,12 @@ engine_do335{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine_do335_cockpit_l"
     event_cockpit_r:t="engine_do335_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -1029,6 +1173,12 @@ engine_xp55{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine_xp55_cockpit_l"
     event_cockpit_r:t="engine_xp55_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -1069,6 +1219,12 @@ engine_bomber{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine01_cockpit_l"
     event_cockpit_r:t="engine01_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.02
@@ -1109,6 +1265,12 @@ engine_jet{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine01_cockpit_l"
     event_cockpit_r:t="engine01_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.005
@@ -1149,6 +1311,12 @@ engine_tvd{
     path:t="aircraft/engines"
     event_cockpit_l:t="engine01_cockpit_l"
     event_cockpit_r:t="engine01_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
     leftPos:p3=0.5, 1.0, 5.0
     rightPos:p3=0.5, 1.0, -5.0
     rpmSmooth:r=0.005
@@ -1508,7 +1676,7 @@ engine_mi24{
 
     outside{
       path:t="aircraft/engines"
-      event_1:t="rotor_heli_blades_ai"
+      event_1:t="rotor_heli_ai"
       pos_1:p3=0.5, 1.5, 0.0
       rpmSmooth:r=0.02
       loadScale:r=6.0
@@ -1620,5 +1788,51 @@ engine_heli{
       distSmooth:r=0.9
       distScaleOnNotHero:r=0.8
     }
+  }
+}
+
+engine_drone{
+
+  effects{
+    path:t="aircraft/engines"
+    wep:t="engine_wep"
+    overheatOutside:t="engine_overheat_camera"
+    overheatCockpit:t="engine_overheat_cockpit"
+    dive:t="engine_dive"
+    timeFallingDown:r=2.0
+    engineVolumeOnOverheat:r=0.8
+    eventStart:t=""
+    eventStop:t=""
+  }
+
+  outside{
+    path:t="aircraft/engines"
+    eventFront:t=""
+    eventBack:t="drone_ai"
+    eventSurround:t=""
+    eventLod1:t="drone_ai"
+    rpmSmooth:r=0.014
+    loadScale:r=6.0
+    loadSmooth:r=0.05
+    distSmooth:r=0.9
+    distScaleOnNotHero:r=1.0
+  }
+
+  cockpit{
+    path:t="aircraft/engines"
+    event_cockpit_l:t="engine11_cockpit_l"
+    event_cockpit_r:t="engine11_cockpit_r"
+    event_start_cockpit_l:t=""
+    event_start_cockpit_r:t=""
+    event_stop_cockpit_l:t=""
+    event_stop_cockpit_r:t=""
+    event_prop_cockpit_l:t=""
+    event_prop_cockpit_r:t=""
+    leftPos:p3=0.5, 1.0, 5.0
+    rightPos:p3=0.5, 1.0, -5.0
+    rpmSmooth:r=0.02
+    loadScale:r=6.0
+    loadSmooth:r=0.05
+    distSmooth:r=0.9
   }
 }

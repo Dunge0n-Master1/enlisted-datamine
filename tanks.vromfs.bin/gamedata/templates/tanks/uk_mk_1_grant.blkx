@@ -4,7 +4,6 @@ uk_mk_1_grant{
 
 uk_mk_1_grant_common{
   _extends:t="base_mk_1_grant"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.3
 
   "vehicle_seats__seatsProvideOrder:tag"{
@@ -14,16 +13,22 @@ uk_mk_1_grant_common{
 
     "seats:object"{
       name:t="commander"
-      attachNode:t="commander"
+      attachNode:t="bone_turret_01"
       shouldHideOwner:b=yes
       hatchRotationAxis:p3=1.8, 0.0, 0.0
+      hatchRotationAxis:p3=1.8, 0.0, 0.0
       locName:t="vehicle_seats/commander"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.8, 0.0]]
+      ignoreAttachNodeRotation:b=no
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.31, -0.3, 0.4]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret_01"
       cockpitTemplate:t="uk_mk_1_grant_commander_cockpit"
+
+      "hatchNodes:array"{
+        node:t="hatch_01"
+        node:t="hatch_02"
+      }
     }
 
     "seats:object"{
@@ -246,6 +251,85 @@ uk_mk_1_grant_atlanta2_battlepass_premium{
 
     "mk_I_grant_turret_c*:object"{
       "mk_I_grant_atlanta2_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
+mk_1_grant_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_earth_yellow"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_earth_yellow*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_light_mud_blue_black"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_light_mud_blue_black*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_light_mud_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_light_mud_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_light_stone_dark_green"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_light_stone_dark_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_light_stone_light_grey_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_light_stone_light_grey_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_light_stone_slate_grey"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_light_stone_slate_grey*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_middle_deep_bronze_greens"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="uk_camo_middle_deep_bronze_greens*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_uk_camo_winter_olive"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="us_camo_winter_olive*"
+      }
+    }
+
+    "skin:object"{
+      id:t="mk_1_grant_fr_camo_winter_green_white"
+
+      "objTexReplace:object"{
+        "uk_camo_earth_yellow*":t="fr_camo_winter_green_white*"
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {get_gun_stat_type_by_props_id, DM_MELEE, DM_PROJECTILE, DM_BACKSTAB} = require("dm")
 let getSoldierInfoFromCache = require("%scripts/game/es/soldier_info_cache.nut")
 let {
-  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventOnPlayerShellVehicleKill, EventOnPlayerShellInfantryKill,
+  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventAddPlayerAwardWithStat,
   EventPlayerSquadFinishedCapturing, EventOnPlayerWipedOutInfantrySquad
 } = require("dasevents")
 
@@ -27,19 +27,23 @@ let function onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStrea
     bestWeaponStreak[weaponTypeKey] <- currentStreak
 }
 
-let function checkKillWeapon(damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats) {
-  let weaponType = (damageType == DM_MELEE || damageType == DM_BACKSTAB)
-    ? "melee" : get_gun_stat_type_by_props_id(gunPropsId) ?? ""
-  if (weaponType != "") {
-    userstatsAdd(userstats, null, $"{weaponType}_kills", null)
-    onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStreak)
+let function checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats) {
+  if ((victimInfo?.guid ?? "") != "") { // only human victims
+    let weaponType = (damageType == DM_MELEE || damageType == DM_BACKSTAB)
+      ? "melee" : get_gun_stat_type_by_props_id(gunPropsId) ?? ""
+    if (weaponType != "") {
+      userstatsAdd(userstats, null, $"{weaponType}_kills", null)
+      onWeaponKillStreak(weaponType, currentWeaponStreak, bestWeaponStreak)
+    }
   }
 }
 
-let function checkHeadshotKill(victimEid, damageType, collNodeId, userstats) {
-  let nodeType = ecs.obsolete_dbg_get_comp_val(victimEid, "dm_parts__type")?[collNodeId]
-  if (damageType == DM_PROJECTILE && nodeType == "head")
-    userstatsAdd(userstats, null, "headshots", null)
+let function checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, userstats) {
+  if ((victimInfo?.guid ?? "") != "") { // only human victims
+    let nodeType = ecs.obsolete_dbg_get_comp_val(victimEid, "dm_parts__type")?[collNodeId]
+    if (damageType == DM_PROJECTILE && nodeType == "head")
+      userstatsAdd(userstats, null, "headshots", null)
+  }
 }
 
 let getVehicleQuery = ecs.SqQuery("getVehicleQuery", {comps_ro=[["human_anim__vehicleSelected", ecs.TYPE_EID]]})
@@ -47,7 +51,7 @@ let getVehicleTypeQuery = ecs.SqQuery("getVehicleTypeQuery", {comps_ro=[["airpla
 
 let function checkKillsInVehicle(_victimEid, victimInfo, killerEid, userstats) {
   if ((victimInfo?.guid ?? "") != "") { // only human victims
-    let vehicleEid = getVehicleQuery(killerEid, @(_, comp) comp["human_anim__vehicleSelected"]) ?? INVALID_ENTITY_ID
+    let vehicleEid = getVehicleQuery(killerEid, @(_, comp) comp["human_anim__vehicleSelected"]) ?? ecs.INVALID_ENTITY_ID
     getVehicleTypeQuery(vehicleEid, function(_, comp) {
       if (comp.isTank != null)
         userstatsAdd(userstats, null, "kills_using_tank", null)
@@ -75,17 +79,17 @@ let function onKillWithSoldierKind(victimEid, victimInfo, killerEid, userstats) 
 
 let getVictimBuiltGunOffenderQuery = ecs.SqQuery("getVictimBuiltGunOffenderQuery", {
   comps_ro = [
-    ["death_desc__builtGunEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
-    ["last_offender__builtGunEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+    ["death_desc__builtGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+    ["last_offender__builtGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["airplane", ecs.TYPE_TAG, null],
     ["isTank", ecs.TYPE_TAG, null]
   ]
 })
 let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
   getVictimBuiltGunOffenderQuery(victimEid, function(_, comp) {
-    if (comp.death_desc__builtGunEid != INVALID_ENTITY_ID)
+    if (comp.death_desc__builtGunEid != ecs.INVALID_ENTITY_ID)
       userstatsAdd(userstats, null, "kills_by_engineer_buildings", null)
-    else if (comp.last_offender__builtGunEid != INVALID_ENTITY_ID) {
+    else if (comp.last_offender__builtGunEid != ecs.INVALID_ENTITY_ID) {
       if (comp.isTank)
         userstatsAdd(userstats, null, "tank_kills_by_engineer_buildings", null)
       else if (comp.airplane)
@@ -96,8 +100,8 @@ let function checkKillsWithBuiltGun(victimEid, _killerEid, userstats) {
 
 let function onPlayerSquadKill(victimEid, killerEid, damageType, gunPropsId, collNodeId, currentWeaponStreak, bestWeaponStreak, userstats) {
   let victimInfo = getSoldierInfoFromCache(victimEid)
-  checkHeadshotKill(victimEid, damageType, collNodeId, userstats)
-  checkKillWeapon(damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats)
+  checkHeadshotKill(victimEid, victimInfo, damageType, collNodeId, userstats)
+  checkKillWeapon(victimInfo, damageType, gunPropsId, currentWeaponStreak, bestWeaponStreak, userstats)
   checkKillsInVehicle(victimEid, victimInfo, killerEid, userstats)
   onKillWithSoldierKind(victimEid, victimInfo, killerEid, userstats)
   checkKillsWithBuiltGun(victimEid, killerEid, userstats)
@@ -118,8 +122,8 @@ ecs.register_es("userstats_player_squad_kill_entity_es",
   {[EventAnyEntityDied] = function(evt, _eid, _comp) {
     let { victim, offender, damageType, gunPropsId, collNodeId } = evt
 
-    let offenderPlayer = getSoldierInfoFromCache(offender)?.player ?? INVALID_ENTITY_ID
-    if (offenderPlayer == INVALID_ENTITY_ID)
+    let offenderPlayer = getSoldierInfoFromCache(offender)?.player ?? ecs.INVALID_ENTITY_ID
+    if (offenderPlayer == ecs.INVALID_ENTITY_ID)
       return
 
     let victimTeam = getTeamQuery(victim, @(_, c) c.team) ?? TEAM_UNASSIGNED
@@ -148,7 +152,7 @@ ecs.register_es("userstats_player_squad_helped_to_destroy_point",
 
 ecs.register_es("userstats_player_fortification_built_es",
   {[ecs.EventEntityCreated] = function(_, comp) {
-      if (comp.dependsOnBuildingEid == INVALID_ENTITY_ID)
+      if (comp.dependsOnBuildingEid == ecs.INVALID_ENTITY_ID)
         playerUserstatsQuery.perform(comp.buildByPlayer, @(_eid, playerComp)
           userstatsAdd(playerComp.userstats, null, "fortification_built", null))
     }
@@ -156,7 +160,7 @@ ecs.register_es("userstats_player_fortification_built_es",
   {
     comps_ro=[
       ["buildByPlayer", ecs.TYPE_EID],
-      ["dependsOnBuildingEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["dependsOnBuildingEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ],
     comps_no=["builder_preview"]},
   {tags="server", before="send_userstats_es"})
@@ -166,10 +170,9 @@ ecs.register_es("userstats_player_squad_wipeout_es",
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})
 
-ecs.register_es("userstats_player_shell_kill_es",
+ecs.register_es("userstats_add_player_stat",
   {
-    [EventOnPlayerShellVehicleKill] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
-    [EventOnPlayerShellInfantryKill] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null)
+    [EventAddPlayerAwardWithStat] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
   },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})

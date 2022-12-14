@@ -21,7 +21,7 @@ def vehicle_seats_camera_nodes_init(evt : Event;
                                     vehicle_seats_camera_nodes__defaultNode : string = "";
                                     var vehicle_seats_camera_nodes__defaultNodeId : int&)
   let defaultNodeName = vehicle_seats_camera_nodes__defaultNode
-  let defaultNodeId = geomtree_findNodeIndex(animchar.nodeTree, defaultNodeName)
+  let defaultNodeId = geomtree_findNodeIndex(*animchar.nodeTree, defaultNodeName)
   if defaultNodeId < 0
     logerr("Node {defaultNodeName} for camera not found, entity {eid} <{getEntityTemplateName(eid)}>")
     return
@@ -32,17 +32,17 @@ def vehicle_seats_camera_nodes_init(evt : Event;
     query(seatEid) <| $ [es] (var seat__cameraNodeNo : int&; var seat__cameraOffset : float3&; var seat__cameraPos : float3&)
       let seat = get_ecs_object(vehicle_seats__seats[seatNo])
       let nodeName = get_string(seat, "cameraNodeName", "")
-      let nodeId = nodeName != "" ? geomtree_findNodeIndex(animchar.nodeTree, nodeName) : defaultNodeId
+      let nodeId = nodeName != "" ? geomtree_findNodeIndex(*animchar.nodeTree, nodeName) : defaultNodeId
       if nodeId < 0
         logerr("Node {nodeName} for camera not found, entity {eid} <{getEntityTemplateName(eid)}>")
         return
       seat__cameraNodeNo = nodeId
       seat__cameraOffset = get_Point3(seat, "cameraOffset") ?? float3()
       var rootItm : float3x4
-      geomtree_getNodeWtmRelScalar(animchar.nodeTree, 0, rootItm)
+      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, 0, rootItm)
       rootItm = inverse(rootItm)
       var tm : float3x4
-      geomtree_getNodeWtmRelScalar(animchar.nodeTree, seat__cameraNodeNo, tm)
+      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, seat__cameraNodeNo, tm)
       seat__cameraPos = rootItm * tm * seat__cameraOffset
 
 let

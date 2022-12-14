@@ -3,6 +3,7 @@ require soundSystem
 require landMesh
 require DagorMath
 require DagorSystem
+require sound_utils_net.modules.sound_utils_net_events
 
 
 [es(tag=sound, on_appear)]
@@ -19,7 +20,7 @@ def biome_sound_query_appear(evt : Event;
 
 
 [es(tag=sound, no_order)]
-def biome_sound_query_update(info : UpdateStageInfoAct;
+def biome_sound_query_update(info : ParallelUpdateFrameDelayed;
                              biome_sound_query__range : float;
                              biome_sound_query__period : float;
                              biome_sound_query__varNames : StringList;

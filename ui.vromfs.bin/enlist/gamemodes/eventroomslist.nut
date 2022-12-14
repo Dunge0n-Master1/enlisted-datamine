@@ -19,6 +19,8 @@ let { joinSelEventRoom } = require("joinEventRoom.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
+let { soundDefault } = require("%ui/components/textButton.nut")
+
 
 let rowHeight = hdpx(28)
 
@@ -139,10 +141,7 @@ let mkRoomRow = @(room, idx, isSelected) watchElemState(@(sf) {
   behavior = Behaviors.Button
   onClick = @() selectRoom(room.roomId)
   onDoubleClick = joinSelEventRoom
-  sound = {
-    click  = "ui/enlist/button_click"
-    hover  = "ui/enlist/button_highlight"
-  }
+  sound = soundDefault
 })
 
 let cellHeaderColor = @(sf, col) curSorting.value.column == col ? titleTxtColor

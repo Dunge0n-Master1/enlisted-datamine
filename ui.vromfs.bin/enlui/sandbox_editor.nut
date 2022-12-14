@@ -201,7 +201,7 @@ if (devMode) {
     let selectedLevel = Watched(params?.obj)
     let eid = params.eid
     let function onSelect(v){
-      if ((eid ?? INVALID_ENTITY_ID) != INVALID_ENTITY_ID)
+      if ((eid ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID)
         ecs.obsolete_dbg_set_comp_val(eid, "level__blk", v)
       infoBox("Save and than load scene to make changes visible and reload location")
     }

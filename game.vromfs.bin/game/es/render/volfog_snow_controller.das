@@ -10,7 +10,7 @@ def volfog_snow_controller_appear(evt : Event; volfog_snow_controller__templateN
 
 
 [es(tag=render, on_disappear)]
-def volfog_snow_controller_disappear(evt : Event; volfog_snow_controller__destroyerAppendTemplate : das_string?;
+def volfog_snow_controller_disappear(evt : Event; volfog_snow_controller__destroyerAppendTemplate : das_string const?;
                                      volfog_snow_controller__controllerEid : EntityId)
   if volfog_snow_controller__destroyerAppendTemplate != null
     addSubTemplate(volfog_snow_controller__controllerEid, string(*volfog_snow_controller__destroyerAppendTemplate))

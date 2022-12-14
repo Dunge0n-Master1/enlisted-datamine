@@ -4,7 +4,8 @@ let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let premiumWnd = require("premiumWnd.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
-let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, bigPadding, discountBgColor
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
@@ -34,7 +35,9 @@ let premiumWidget = @(){
   children = [
     premiumImage(IMAGE_WIDTH)
     !hasDiscount.value ? null
-      : mkNotifierBlink(loc("shop/discountNotify"), { size = SIZE_TO_CONTENT })
+      : mkNotifierBlink(loc("shop/discountNotify"),
+          { size = SIZE_TO_CONTENT },
+          { color = discountBgColor })
   ]
 }
 

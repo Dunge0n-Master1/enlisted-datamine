@@ -1,0 +1,72 @@
+base_20mm_kwk38{
+  item__name:t="guns/20mm_kwk38"
+  gun__blk:t="gamedata/gen/weapons/20mm_kwk38.blk"
+  gun__shotFreq:r=7.5
+  gun__reloadTime:r=6.0
+  gun__maxAmmo:i=10
+  gun__locName:t="20mm_kwk38"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_defaultset_bullet_1.blk"
+        name:t="20mm_pzgr"
+        type:t="ap_i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_defaultset_bullet_2.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+
+    "20mm_ger_kwk30_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_20mm_ger_kwk30_he.blk"
+        name:t="20mm_sprgr"
+        type:t="he_frag_i_t"
+      }
+    }
+
+    "20mm_ger_kwk30_AP:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_20mm_ger_kwk30_ap.blk"
+        name:t="20mm_pzgr"
+        type:t="ap_i_t"
+      }
+    }
+
+    "20mm_ger_kwk30_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_20mm_ger_kwk30_apcr.blk"
+        name:t="20mm_pzgr_40"
+        type:t="apcr_t"
+      }
+    }
+  }
+}
+
+tankgun_20mm_kwk38{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_autocannon"
+  _extends:t="base_20mm_kwk38"
+  _extends:t="gunsound_20mm_kwk30"
+  turret__triggerGroup:i=0
+}

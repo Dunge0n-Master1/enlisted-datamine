@@ -16,7 +16,7 @@ let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
 let {
   barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem,
-  viewCurrencies, shopItemContentCtor, buyShopOffer
+  realCurrencies, shopItemContentCtor, buyShopOffer
 } = require("armyShopState.nut")
 let { shopItems } = require("shopItems.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -143,10 +143,10 @@ let mkBarterCurrency = @(barterTpl){
   children = [
     mkCurrencyImage(getCurrencyPresentation(barterTpl)?.icon)
     @(){
-      watch = viewCurrencies
+      watch = realCurrencies
       padding = [0, hdpx(3)]
       rendObj = ROBJ_TEXT
-      text = viewCurrencies.value?[barterTpl]
+      text = realCurrencies.value?[barterTpl]
     }.__update(body_txt)
   ]
 }
@@ -225,9 +225,50 @@ let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState
   discountState(newState)
 }
 
-let function notEnoughMsg(itemTpl) {
+let function notEnoughMsg(itemTpl, missingOrders) {
   let descId = $"dontHaveEnoughOrders/{itemTpl}"
-  msgbox.showMsgbox({ text = loc(doesLocTextExist(descId) ? descId : "dontHaveEnoughOrders") })
+  msgbox.showMsgbox({
+    children = doesLocTextExist(descId)
+      ? {
+          rendObj = ROBJ_TEXTAREA
+          size = [sw(70), SIZE_TO_CONTENT]
+          behavior = Behaviors.TextArea
+          text = descId
+        }.__update(h2_txt)
+      : {
+        flow = FLOW_VERTICAL
+        size = [sw(70), SIZE_TO_CONTENT]
+        gap = hdpx(15)
+        children = [
+          {
+            rendObj = ROBJ_TEXT
+            text = loc("notEnoughOrders")
+          }.__update(h2_txt)
+          {
+            flow = FLOW_HORIZONTAL
+            children = [
+              {
+                rendObj = ROBJ_TEXT
+                text = loc("needMoreOrders")
+              }.__update(h2_txt)
+              {
+                rendObj = ROBJ_TEXT
+                margin = [0, 0, 0, hdpx(10)]
+                text = missingOrders
+                color = HighlightFailure
+              }.__update(h2_txt)
+              mkCurrencyImage(getCurrencyPresentation(itemTpl)?.icon)
+            ]
+          }
+          {
+            rendObj = ROBJ_TEXTAREA
+            size = [flex(), SIZE_TO_CONTENT]
+            behavior = Behaviors.TextArea
+            text = loc("dontHaveEnoughOrders")
+          }.__update(h2_txt)
+        ]
+      }
+  })
 }
 
 let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
@@ -335,7 +376,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     // barter area
     if (hasBarter){
       if (!barterInfo.value){
-        msgBody.append(mkResourcesLackInfo(curItemCost, viewCurrencies.value, costLocId))
+        msgBody.append(mkResourcesLackInfo(curItemCost, realCurrencies.value, costLocId))
         if (currencyId == "EnlistedGold" && price.value > 0) {
           msgBody.append({
             size = [fsh(50), SIZE_TO_CONTENT]
@@ -418,25 +459,25 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     let btns = []
     let countVal = countWatched.value
     let priceVal = price.value
-    let viewCurrenciesVal = viewCurrencies.value
     let purchaseCurrency = openShopByCurrencyId?[currencyId]
     if (hasBarter)
       if (barterInfo.value) {
         let [itemTpl = null, priceBarter = 0] = curItemCost.topairs()?[0]
         let buyInfo = getPayItemsData(curItemCost, curCampItems.value, countVal)
         let barterCurrImgs = mkCurrencyImage(getCurrencyPresentation(itemTpl)?.icon)
+        let realCurrenciesVal = realCurrencies.value
         btns.append({
           action = function() {
-            let isDisable = (viewCurrenciesVal?[itemTpl] ?? 0) < priceBarter * countVal
-            if (isDisable)
-              notEnoughMsg(itemTpl)
+            let deltaOrders = priceBarter * countVal - (realCurrenciesVal?[itemTpl] ?? 0)
+            if (deltaOrders > 0)
+              notEnoughMsg(itemTpl, deltaOrders)
             else
               barterShopItem(shopItem, buyInfo, countVal)
           }
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = btnWithCurrImageComp(
-                loc("btn/buy"),
+                isSoldier ? loc("btn/enlist") : loc("btn/buy"),
                 barterCurrImgs,
                 priceBarter,
                 sf,
@@ -459,7 +500,6 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
       let currencyBalance = currenciesBalance.value?[currencyId] ?? 0
       if (currencyBalance >= priceVal * countVal)
         btns.append({
-          text = loc("btn/buy")
           action = function() {
             if (pOfferGuid == null) {
               buyShopItem(shopItem, currencyId, priceVal, buyCb, countVal)
@@ -472,7 +512,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = btnWithCurrImageComp(
-                loc("btn/buy"),
+                isSoldier ? loc("btn/enlist") : loc("btn/buy"),
                 currencyImage(currency),
                 priceVal,
                 sf,

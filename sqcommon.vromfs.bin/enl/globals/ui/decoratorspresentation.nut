@@ -222,6 +222,12 @@ local portraits = {
   armory_event_portrait_ger = {
     icon = "ui/portraits/tunisia/armory_event_portrait_ger.png"
   }
+  xmas_event_ussr_portrait = {
+    icon = "ui/portraits/event/xmas_event_ussr_portrait.png"
+  }
+  xmas_event_ger_portrait = {
+    icon = "ui/portraits/event/xmas_event_ger_portrait.png"
+  }
 
 
 
@@ -249,6 +255,18 @@ local portraits = {
   }
   common_china_portrait_8 = {
     icon = "ui/portraits/common/china_portrait_8.png"
+  }
+  common_china_portrait_9 = {
+    icon = "ui/portraits/common/china_portrait_9.png"
+  }
+  common_china_portrait_10 = {
+    icon = "ui/portraits/common/china_portrait_10.png"
+  }
+  common_china_portrait_11 = {
+    icon = "ui/portraits/common/china_portrait_11.png"
+  }
+  common_china_portrait_12 = {
+    icon = "ui/portraits/common/china_portrait_12.png"
   }
   common_top_rank_portrait_1 = {
     icon = "ui/portraits/common/top_rank_portrait_1.png"
@@ -320,6 +338,13 @@ local nickFrames = {
   kongzhong_nickFrame_3 = @(n) $"␝{n}␝"
   kongzhong_nickFrame_4 = @(n) $"␞{n}␞"
   kongzhong_nickFrame_5 = @(n) $"␟{n}␠"
+  kongzhong_nickFrame_6 = @(n) $"┅{n}┅"
+  kongzhong_nickFrame_7 = @(n) $"┆{n}┆"
+  kongzhong_nickFrame_8 = @(n) $"┇{n}┈"
+  kongzhong_nickFrame_9 = @(n) $"┉{n}┊"
+  kongzhong_nickFrame_10 = @(n) $"┋{n}┋"
+  kongzhong_nickFrame_11 = @(n) $"┌{n}┌"
+  kongzhong_nickFrame_12 = @(n) $"┍{n}┍"
   pacific_nickFrame_1 = @(n) $"␡{n}␡"
   pacific_nickFrame_2 = @(n) $"␣{n}␢"
   pacific_nickFrame_3 = @(n) $"␤{n}─"

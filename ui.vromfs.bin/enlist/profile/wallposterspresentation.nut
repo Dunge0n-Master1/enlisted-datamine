@@ -89,6 +89,27 @@ let wpPresentation = freeze({
   agit_poster_china_f_preview = {
     img = "agit_poster_china_f_tex_d*"
   }
+  agit_poster_china_g_preview = {
+    img = "agit_poster_china_g_tex_d*"
+  }
+  agit_poster_china_h_preview = {
+    img = "agit_poster_china_h_tex_d*"
+  }
+  agit_poster_china_i_preview = {
+    img = "agit_poster_china_i_tex_d*"
+  }
+  agit_poster_china_j_preview = {
+    img = "agit_poster_china_j_tex_d*"
+  }
+  agit_poster_china_k_preview = {
+    img = "agit_poster_china_k_tex_d*"
+  }
+  agit_poster_combat_engineers_preview = {
+    img = "agit_poster_combat_engineers_tex_d*"
+  }
+  agit_poster_raaf_pilot_preview = {
+    img = "agit_poster_raaf_pilot_tex_d*"
+  }
 }.map(mkPresentation))
 
 let getWPPresentation = @(wpTpl) wpPresentation?[wpTpl] ?? baseWpPresentation

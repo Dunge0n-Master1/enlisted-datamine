@@ -30598,7 +30598,7 @@
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
             "curVehicle" : null,
-            "engineerUnlocks" : [ 1, 2, 3 ],
+            "engineerUnlocks" : [ 3, 2 ],
             "exp" : 7035,
             "expBonus" : 1.0,
             "isRented" : false,

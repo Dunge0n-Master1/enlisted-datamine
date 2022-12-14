@@ -11,6 +11,8 @@ require sound_utils.modules.sound_player_common
 require game.utils.hero
 require game.utils.team
 require game.events_game
+require strings
+
 
 let SPEECH_MAX_NET_LATENCY = 5.
 let SPEECH_WATCHED_VOLUME = 1.5
@@ -173,15 +175,18 @@ def human_speech_cmd_hero_speech(evt : CmdHeroSpeech;
     sound_debug("There is no human speech desc for phrase '{evt.phrase}'")
 
 
-[es(tag=sound, after=(net_phys_update_es, human_voice_enable))]
-def human_speech_can_speak_update(info : ParallelUpdateFrameDelayed;
-                                  human_speech__enable : bool;
-                                  var human_speech__canSpeak : bool&;
-                                  var sound_event_group : SoundEventGroup&;
-                                  human_voice_enable : bool;
-                                  human_voice_effect__type : string)
-  if human_speech__enable
-    let couldSpeak = human_speech__canSpeak
-    human_speech__canSpeak = human_voice_enable && human_voice_effect__type == ""
-    if !human_speech__canSpeak && couldSpeak
-      reject_sound(sound_event_group, sound_hash("speech"))
+[es(tag=sound, on_appear, on_disappear, track=(human_voice_enable, human_voice_effect__type), REQUIRE_NOT=humanSpeechDisable)]
+def human_speech_can_speak(evt : Event;
+                           human_voice_enable : bool;
+                           human_voice_effect__type : string;
+                           var human_speech__canSpeak : bool&;
+                           var sound_event_group : SoundEventGroup&)
+  human_speech__canSpeak = human_voice_enable && empty(human_voice_effect__type)
+  if !human_speech__canSpeak
+    release_sound(sound_event_group, sound_hash("speech"))
+
+
+[es(tag=sound, on_disappear, REQUIRE=human_speech__canSpeak)]
+def human_speech_disappear(evt : Event;
+                           var sound_event_group : SoundEventGroup&)
+  release_sound(sound_event_group, sound_hash("speech"))

@@ -1,0 +1,28 @@
+mass:r=0.95
+caliber:r=0.05
+bullets:i=1
+bullets:i=1
+speed:r=50.0
+speedDispersion:r=0.0
+momentOfInertia:p3=0.04, 0.008, 0.04
+physMat:t="bulletRay"
+useFutureContacts:b=yes
+logCCD:b=no
+explosiveType:t="smoke_composition"
+explosiveMass:r=0.0
+entityTemplate:t="type_89_mortar_smoke_shell_phys"
+
+collisionResource{
+
+  props{
+    volumeBox_1:b=yes
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.0, 0.0, 0.015
+}
+
+visual{
+  template:t="type_89_mortar_smoke_shell_item+item_in_world"
+}

@@ -8,7 +8,6 @@ germ_panzerjager_IV_L_70_A{
 
 germ_panzerjager_IV_L_70_A_common{
   _extends:t="base_panzerjager_iv_l_70_a"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   gunnerFpsCamMaxAngle:p2=5.0, 3.0
   item__iconOffset:p2=0.0, 0.2

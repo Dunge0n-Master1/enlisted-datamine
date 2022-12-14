@@ -8,8 +8,16 @@ let colorsByRare = [Color(180,180,180), Color(220,220,100)]
 
 let mkRankIcon = @(rank) @(armyId) rankIcons?[armyId][rank]
 let mkRankGlyph = @(rank) @(armyId) rankGlyphs?[armyId][rank]
-let premiumIcon = @(armyId) armiesPresentation?[armyId].premIcon
-let eventIcon = @(_armyId) "!ui/squads/event_squad_icon.svg"
+
+let premiumCfg = {
+  isPremium = true
+  getIcon = @(armyId) armiesPresentation?[armyId].premIcon
+}
+
+let eventCfg = {
+  isEvent = true
+  getIcon = @(_armyId) "!ui/squads/event_squad_icon.svg"
+}
 
 let soldierKinds = freeze({
   unknown = {
@@ -99,12 +107,6 @@ let soldierKinds = freeze({
     iconsByRare = ["medic.svg", "medic_veteran.svg"]
     colorsByRare = colorsByRare
     locId = "soldierClass/medic"
-  }
-  motorized_infantry = {
-    icon = "biker.svg"
-    iconsByRare = ["biker.svg", "biker_veteran.svg"]
-    colorsByRare = colorsByRare
-    locId = "soldierClass/motorized_infantry"
   }
 })
 
@@ -424,506 +426,465 @@ let soldierClasses = freeze({
     rank = 1
     kind = "medic"
   }
-  motorized_infantry = {
-    locId = "soldierClass/motorized_infantry"
-    getIcon = mkRankIcon(1)
-    getGlyph = mkRankGlyph(1)
-    rank = 1
-    kind = "motorized_infantry"
-  }
-  pilot_helicopter = {
-    locId = "soldierClass/pilot_helicopter"
-    getIcon = mkRankIcon(1)
-    getGlyph = mkRankGlyph(1)
-    rank = 1
-    kind = "pilot_helicopter"
-  }
 
  // FIXME looks like legacy data
 //PREMIUM
   rifle_3_premium_1 = {
     locId = "soldierClass/rifle"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "rifle"
-  }
+  }.__update(premiumCfg)
   rifle_3_premium_2 = {
     locId = "soldierClass/rifle"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "rifle"
-  }
+  }.__update(premiumCfg)
   radioman_2_premium_1 = {
     locId = "soldierClass/radioman"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "radioman"
-  }
+  }.__update(premiumCfg)
   radioman_2_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   radioman_2_premium_1_ch = {
     locId = "soldierClass/radioman"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "radioman"
-  }
+  }.__update(premiumCfg)
   radioman_2_premium_1_engineer_ch = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   assault_premium = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_premium_1 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_premium_1_ch = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_premium_2 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
+  assault_premium_2_engineer = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
   assault_premium_3 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_1_premium_1 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_1 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_2 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_2_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_2_ch = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_2_engineer_ch = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   assault_2_premium_2_event = {
     locId = "soldierClass/assault"
-    getIcon = eventIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(eventCfg)
   assault_2_premium_2_event_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = eventIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(eventCfg)
   assault_2_premium_2_event_anti_tank = {
     locId = "soldierClass/anti_tank"
-    getIcon = eventIcon
     getGlyph = @(_) null
     rank = 10
     kind = "anti_tank"
-  }
+  }.__update(eventCfg)
   assault_3_premium_1 = {
     locId = "soldierClass/assault"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
+  }.__update(premiumCfg)
   assault_3_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
+  assault_3_premium_2 = {
+    locId = "soldierClass/assault"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "assault"
+  }.__update(premiumCfg)
+  assault_3_premium_2_engineer = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
   mgun_premium_1 = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_premium_1_ch = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_premium_1_legacy = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_2_premium_1 = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_2_engineer_premium_1 = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   mgun_2_event_1 = {
     locId = "soldierClass/mgun"
-    getIcon = eventIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(eventCfg)
   mgun_3_premium_1 = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_3_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   mgun_3_premium_2 = {
     locId = "soldierClass/mgun"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "mgun"
-  }
+  }.__update(premiumCfg)
   mgun_3_premium_2_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   sniper_2_premium_1 = {
     locId = "soldierClass/sniper"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "sniper"
-  }
+  }.__update(premiumCfg)
   sniper_2_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   engineer_premium_1 = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   engineer_premium_2 = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   engineer_premium_2_ch = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   engineer_2_premium_1 = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   medic_1_premium_1 = {
     locId = "soldierClass/medic"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "medic"
-  }
+  }.__update(premiumCfg)
   medic_1_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   medic_2_premium_1 = {
     locId = "soldierClass/medic"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "medic"
-  }
+  }.__update(premiumCfg)
   medic_2_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   flametrooper_2_premium_1 = {
     locId = "soldierClass/flametrooper"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "flametrooper"
-  }
+  }.__update(premiumCfg)
   flametrooper_2_premium_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(premiumCfg)
   tanker_premium_1 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_1_premium_1 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_premium_2 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_premium_2_flametrooper = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_2_premium_1 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_3_premium_1 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_3_premium_2 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_3_premium_3 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_3_premium_4 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   tanker_3_premium_5 = {
     locId = "soldierClass/tanker"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "tanker"
-  }
+  }.__update(premiumCfg)
   pilot_fighter_premium_1 = {
     locId = "soldierClass/pilot_fighter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_fighter"
-  }
+  }.__update(premiumCfg)
   pilot_fighter_premium_2 = {
     locId = "soldierClass/pilot_fighter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_fighter"
-  }
+  }.__update(premiumCfg)
+  pilot_fighter_2_premium_1 = {
+    locId = "soldierClass/pilot_fighter"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "pilot_fighter"
+  }.__update(premiumCfg)
   pilot_fighter_3_premium_1 = {
     locId = "soldierClass/pilot_fighter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_fighter"
-  }
+  }.__update(premiumCfg)
   pilot_fighter_3_premium_2 = {
     locId = "soldierClass/pilot_fighter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_fighter"
-  }
+  }.__update(premiumCfg)
   pilot_fighter_3_premium_3 = {
     locId = "soldierClass/pilot_fighter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_fighter"
-  }
+  }.__update(premiumCfg)
   pilot_assaulter_premium_1 = {
     locId = "soldierClass/pilot_assaulter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_assaulter"
-  }
+  }.__update(premiumCfg)
   pilot_assaulter_2_premium_1 = {
     locId = "soldierClass/pilot_assaulter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_assaulter"
-  }
+  }.__update(premiumCfg)
   pilot_assaulter_2_premium_2 = {
     locId = "soldierClass/pilot_assaulter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_assaulter"
-  }
+  }.__update(premiumCfg)
   pilot_assaulter_3_premium_1 = {
     locId = "soldierClass/pilot_assaulter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_assaulter"
-  }
+  }.__update(premiumCfg)
   pilot_assaulter_3_premium_2 = {
     locId = "soldierClass/pilot_assaulter"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "pilot_assaulter"
-  }
+  }.__update(premiumCfg)
   rifle_premium_1 = {
     locId = "soldierClass/rifle"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "rifle"
-  }
+  }.__update(premiumCfg)
+  rifle_2_event_1 = {
+    locId = "soldierClass/rifle"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "rifle"
+  }.__update(eventCfg)
   assault_event_1 = {
     locId = "soldierClass/assault"
-    getIcon = eventIcon
     getGlyph = @(_) null
     rank = 10
     kind = "assault"
-  }
-  biker_premium_1 = {
-    locId = "soldierClass/biker"
-    getIcon = premiumIcon
+  }.__update(eventCfg)
+  assault_1_event_1 = {
+    locId = "soldierClass/assault"
     getGlyph = @(_) null
     rank = 10
-    kind = "biker"
-  }
-  biker_engineer_premium_1 = {
+    kind = "assault"
+  }.__update(eventCfg)
+  assault_1_event_1_engineer = {
     locId = "soldierClass/engineer"
-    getIcon = premiumIcon
     getGlyph = @(_) null
     rank = 10
     kind = "engineer"
-  }
+  }.__update(eventCfg)
+  biker_premium_1 = {
+    locId = "soldierClass/biker"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "biker"
+  }.__update(premiumCfg)
+  biker_engineer_premium_1 = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
 })
 
 const GLYPHS_TAG = "t"
@@ -945,9 +906,14 @@ let function getClassNameWithGlyph(sClass, armyId){
   return glyph ? $"{glyph} {className}" : className
 }
 
+let soldierKindsList = soldierKinds.keys()
+  .filter(@(k) k != "unknown")
+  .sort(@(a, b) a <=> b)
+
 return {
   soldierClasses
   soldierKinds
+  soldierKindsList
   getClassCfg
   getKindCfg
   mkGlyphsStyle

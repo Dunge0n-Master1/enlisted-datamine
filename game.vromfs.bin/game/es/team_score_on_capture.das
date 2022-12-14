@@ -14,7 +14,7 @@ def get_min_enemy_team_tickets_part(team : int)
   return res
 
 def on_capture_penalty(team_id : int;
-                       capzone__capPenalty : float?;
+                       capzone__capPenalty : float const?;
                        team__capturePenalty : float;
                        var team__score : float&)
   let capPen = capzone__capPenalty ?? team__capturePenalty
@@ -49,14 +49,14 @@ def on_capzone_captured(zone_eid : EntityId; cap_team : int)
                      team__scoreCap : float = 0.;
                      team__minScoreCap : float = 0.;
                      var team__score : float&)
-    query(zone_eid) <| $ [es] (capzone__capPenalty : float?;
-                               capzone__checkAllZonesInGroup : bool = false;
-                               capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED;
-                               groupName : string = "";
-                               capzone__capRewardPartCap : float = 10000.0;
-                               capzone__capReward : float = 0.;
-                               capzone__capRewardTeam1 : float = -1.;
-                               capzone__capRewardTeam2 : float = -1.)
+    query(zone_eid) <| $ [es(REQUIRE_NOT=capzone__noTeamScore)] (capzone__capPenalty : float const?;
+                                                                 capzone__checkAllZonesInGroup : bool = false;
+                                                                 capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED;
+                                                                 groupName : string = "";
+                                                                 capzone__capRewardPartCap : float = 10000.0;
+                                                                 capzone__capReward : float = 0.;
+                                                                 capzone__capRewardTeam1 : float = -1.;
+                                                                 capzone__capRewardTeam2 : float = -1.)
       if (capzone__checkAllZonesInGroup
           && (cap_team != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, cap_team, groupName)))
         return

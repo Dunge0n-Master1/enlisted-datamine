@@ -24,8 +24,8 @@ def human_aim_tm_common(info : UpdateStageInfoAct;
   elif human_weap__currentGunEid != INVALID_ENTITY_ID
     gunEid = human_weap__currentGunEid
 
-  var gunPtr : Gun?
-  query(gunEid) <| $ [es] (gun : Gun?)
+  var gunPtr : Gun const?
+  query(gunEid) <| $ [es] (gun : Gun const?)
     gunPtr = gun
 
   if gunPtr == null || !is_human_allowed_shooting(eid, human_attached_gun__attachedGunEid, human_net_phys)
@@ -34,7 +34,7 @@ def human_aim_tm_common(info : UpdateStageInfoAct;
       human__aimTm[0] = human_net_phys.phys.currentState.gunDir
       human__aimTm[1] = normalize(cross(transform[2], human_net_phys.phys.currentState.gunDir))
       human__aimTm[2] = transform[2]
-      human__aimTm[3] = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId)
+      human__aimTm[3] = geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId)
     else
       human__aimTm = transform
   else

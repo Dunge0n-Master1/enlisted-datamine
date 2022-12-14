@@ -30,7 +30,7 @@ def private destroy_vehicle_in_list(vehicles : EidList; vehicle_id : int)
     return
 
   let vehicleEid = vehicles[vehicle_id - 1]
-  sendEvent(vehicleEid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID]])
+  sendEvent(vehicleEid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID, gunPropsId=-1, shellId=-1]])
 
 
 [console_cmd(name="vehicle_convoy.explode", hint="Explodes a vehicle with given position in a given convoy. If convoy eid not specified, in all convoys")]

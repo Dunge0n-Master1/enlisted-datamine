@@ -46,28 +46,6 @@ def reset(var plane_input__bomb : int&;
   plane_input__shootCannons        = int(BAD_ACTION_HANDLE)
   plane_input__shootAdditionalGuns = int(BAD_ACTION_HANDLE)
 
-
-def stop_weapons(turret_control__gunEids : EidList; trigger : PlaneTrigger)
-  for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_input__turretTriggers : int; var turret_input__shootFlag : bool&)
-      if turret_input__turretTriggers == int(trigger)
-        turret_input__shootFlag = false
-
-
-def release_weapon(turret_control__gunEids : EidList; action : int; trigger : PlaneTrigger; salvo_size : int)
-  let triggerState = get_digital_action_state(uint16(action)).bState
-
-  var firedNum = 0
-  for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_input__turretTriggers : int; gun__ammo : int; var turret_input__shootFlag : bool&)
-      if turret_input__turretTriggers == int(trigger)
-        turret_input__shootFlag = triggerState
-        if turret_input__shootFlag && gun__ammo > 0
-          ++firedNum
-    if firedNum >= salvo_size
-      break
-
-
 [es(tag=input, on_appear)]
 def plane_turret_input_appear(evt : Event;
                               var plane_input__bomb : int&;
@@ -113,11 +91,11 @@ def plane_turret_input_init_reset(evt : EventDaInputInit;
 def plane_turret_init_triggers(evt : Event;
                                turret__owner : EntityId;
                                turret__id : int;
-                               var turret_input__turretTriggers : int&)
-  query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array)
+                               var turret__triggerGroup : int&)
+  query(turret__owner) <| $ [es(REQUIRE=airplane)] ([[shared_comp]] turret_control__turretInfo : Array)
     let obj = get_ecs_object(turret_control__turretInfo[turret__id])
     let trigger = get_string(obj, "trigger", "")
-    turret_input__turretTriggers = int(
+    turret__triggerGroup = int(
       trigger == "additional_guns" ? PlaneTrigger ADDITIONAL_GUNS :
       trigger == "cannons" ? PlaneTrigger CANNONS :
       trigger == "bombs" ? PlaneTrigger BOMBS :
@@ -135,13 +113,13 @@ def plane_input_gunner_es(info : UpdateStageInfoAct;
   if !input__enabled
     return
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret_input__turretTriggers : int; var turret_input__shootFlag : bool&)
+    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int; var turret_input__shootFlag : bool&)
       var shootAction = int(BAD_ACTION_HANDLE)
-      if turret_input__turretTriggers == int(PlaneTrigger MACHINE_GUNS)
+      if turret__triggerGroup == int(PlaneTrigger MACHINE_GUNS)
         shootAction = plane_input__shoot
-      elif turret_input__turretTriggers == int(PlaneTrigger CANNONS)
+      elif turret__triggerGroup == int(PlaneTrigger CANNONS)
         shootAction = plane_input__shootCannons
-      elif turret_input__turretTriggers == int(PlaneTrigger ADDITIONAL_GUNS)
+      elif turret__triggerGroup == int(PlaneTrigger ADDITIONAL_GUNS)
         shootAction = plane_input__shootAdditionalGuns
 
       if shootAction != int(BAD_ACTION_HANDLE) && get_digital_action_state(uint16(shootAction)).bActive
@@ -173,7 +151,8 @@ def plane_input_bomb_input_triggered(evt : EventDaInputActionTriggered;
                                      turret_control__gunEids : EidList;
                                      turret_control__bombsSalvoSize : int)
   if input__enabled && int(evt.action) == plane_input__bomb
-    release_weapon(turret_control__gunEids, plane_input__bomb, PlaneTrigger BOMBS, turret_control__bombsSalvoSize)
+    let triggerState = get_digital_action_state(uint16(plane_input__bomb)).bState
+    release_weapon(turret_control__gunEids, triggerState, int(PlaneTrigger BOMBS), turret_control__bombsSalvoSize)
 
 [es(tag=input)]
 def plane_input_bomb_input_terminate(evt : EventDaInputActionTerminated;
@@ -181,7 +160,7 @@ def plane_input_bomb_input_terminate(evt : EventDaInputActionTerminated;
                                      plane_input__bomb : int;
                                      turret_control__gunEids : EidList)
   if input__enabled && int(evt.action) == plane_input__bomb
-    stop_weapons(turret_control__gunEids, PlaneTrigger BOMBS)
+    stop_weapons(turret_control__gunEids, int(PlaneTrigger BOMBS))
 
 [es(tag=input)]
 def plane_input_rocket_input_triggered(evt : EventDaInputActionTriggered;
@@ -190,7 +169,8 @@ def plane_input_rocket_input_triggered(evt : EventDaInputActionTriggered;
                                        turret_control__gunEids : EidList;
                                        turret_control__rocketsSalvoSize : int)
   if input__enabled && int(evt.action) == plane_input__rocket
-    release_weapon(turret_control__gunEids, plane_input__rocket, PlaneTrigger ROCKETS, turret_control__rocketsSalvoSize)
+    let triggerState = get_digital_action_state(uint16(plane_input__rocket)).bState
+    release_weapon(turret_control__gunEids, triggerState, int(PlaneTrigger ROCKETS), turret_control__rocketsSalvoSize)
 
 [es(tag=input)]
 def plane_input_rocket_input_terminate(evt : EventDaInputActionTerminated;
@@ -198,4 +178,4 @@ def plane_input_rocket_input_terminate(evt : EventDaInputActionTerminated;
                                        plane_input__rocket : int;
                                        turret_control__gunEids : EidList)
   if input__enabled && int(evt.action) == plane_input__rocket
-    stop_weapons(turret_control__gunEids, PlaneTrigger ROCKETS)
+    stop_weapons(turret_control__gunEids, int(PlaneTrigger ROCKETS))

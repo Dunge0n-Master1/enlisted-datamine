@@ -44,7 +44,7 @@ def gun_attach__altSlotId_init(evt : Event;
 
 [es(on_appear, before=server_init_gun_es)]
 def gun_attach__holsterSlotsIds_init(evt : Event;
-                                     gun_attach__holsterSlots : Array?;
+                                     gun_attach__holsterSlots : Array const?;
                                      var gun_attach__holsterSlotsIds : IntList)
   gun_attach__holsterSlotsIds |> resize(int(HUWeaponSlots EWS_NUM))
   var i = 0
@@ -98,17 +98,28 @@ def special_item_attach_to_holster(evt : Event; eid : EntityId; gun__owner : Ent
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId)
     sendEvent(eid, [[CmdWeapAttach slotId = int(HUWeaponSlots EWS_SPECIAL), toEid=gun__owner, isAttached=(human_weap__currentGunEid == eid)]])
 
+[es(tag=render, REQUIRE=human, on_appear, track=(human_weap__gunEids, isInVehicle, itemContainer), after=human_gun_attach_es)]
+def hide_guns_in_vehicle_es(evt : Event; isInVehicle : bool; human_weap__gunEids : EidList; itemContainer : EidList)
+  for gunEid in human_weap__gunEids
+    query(gunEid) <| $ [es(REQUIRE=gun__hideInVehcile)] (var gun__visible : bool&)
+      gun__visible = !isInVehicle
+
+  for itemEid in itemContainer // gun line lunge mine can be placed in itemCointainer
+    query(itemEid) <| $ [es(REQUIRE=gun__hideInVehcile)] (var gun__visible : bool&)
+      gun__visible = !isInVehicle
+
 [es(no_order, REQUIRE=animchar_render__enabled)]
 def human_gun_attach_es(evt : CmdWeapAttach;
                         gun_attach__mainSlotId : int;
-                        gun_attach__holsterSlotsIds : IntList?;
-                        gun_attach__holsterSlots : Array?;
-                        gun_attach__holsterSlotsOffsets : Object?;
+                        gun_attach__holsterSlotsIds : IntList const?;
+                        gun_attach__holsterSlots : Array const?;
+                        gun_attach__holsterSlotsOffsets : Object const?;
                         var slot_attach__rotOffset : float3?;
                         var human_gun_attached : bool&;
                         var slot_attach__slotId : int&;
                         var slot_attach__attachedTo : EntityId&;
-                        var gun__visible : bool&)
+                        var gun__visible : bool&;
+                        gun__hideInVehcile : Tag const?)
   let ownerEid = evt.toEid
   if !ownerEid || !doesEntityExist(ownerEid)
     return
@@ -121,6 +132,10 @@ def human_gun_attach_es(evt : CmdWeapAttach;
   var holsetOffset = float3()
 
   gun__visible = (attachFlag || weaponHolster)
+  if gun__hideInVehcile != null
+    query(ownerEid) <| $ [es] (isInVehicle : bool)
+      gun__visible &&= !isInVehicle
+
   if attachFlag
     slot_attach__attachedTo = ownerEid
     slot_attach__slotId = gun_attach__mainSlotId
@@ -221,7 +236,7 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
                            human_net_phys__isCrawl : bool;
                            bipod__enabled : bool = false;
                            isTpsView : bool = false;
-                           hero : Tag?;
+                           hero : Tag const?;
                            var phys_vars : PhysVars&)
   if !animchar__visible
     return
@@ -235,7 +250,7 @@ def human_gun_phys_vars_es(info : UpdateStageInfoAct;
                         gun_tps_anim_var__gunOffsetAlong : float = -0.1;
                         gun_tps_anim_var__gunOffsetAcross : float = 0.05;
                         gun_tps_anim_var__gunOffsetUp : float = -0.2;
-                        gunAnimOffsetAlwaysInAim : Tag?)
+                        gunAnimOffsetAlwaysInAim : Tag const?)
     assume isAim = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_AIM)
     assume isCrouch = human_net_phys__isCrouch
     assume isCrawl = human_net_phys__isCrawl

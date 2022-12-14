@@ -9,39 +9,13 @@ let { setTooltip } = require("%ui/style/cursors.nut")
 let { READY } = require("%enlSqGlob/readyStatus.nut")
 let { mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { kindIcon, kindName } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
 
 
 let mkMaxSquadSizeComp = @(curSquadParams, vehicleCapacity) Computed(function() {
   let size = curSquadParams.value?.size ?? 1
   let vCapacity = vehicleCapacity.value
   return vCapacity > 0 ? min(size, vCapacity) : size
-})
-
-let mkSClassLimitsComp = @(curSquad, curSquadParams, soldiersList, soldiersStatuses) Computed(function() {
-  let res = []
-  let maxClasses = curSquadParams.value?.maxClasses ?? {}
-  if (!maxClasses.len())
-    return res
-
-  let soldierStatus = soldiersStatuses.value
-  let usedClasses = {}
-  foreach (soldier in soldiersList.value) {
-    if (soldierStatus?[soldier.guid] != READY)
-      continue
-    let sKind = soldier?.sKind ?? ""
-    usedClasses[sKind] <- (usedClasses?[sKind] ?? 0) + 1
-  }
-
-  let fillerClass = curSquad.value?.fillerClass
-  foreach (sKind, total in maxClasses)
-    res.append({
-      sKind = sKind
-      total = total
-      used = usedClasses?[sKind] ?? 0
-      isFiller = sKind == fillerClass
-    })
-  res.sort(@(a, b) a.isFiller <=> b.isFiller || b.total <=> a.total || a.sKind <=> b.sKind)
-  return res
 })
 
 let classAmountHint = @(sClassLimits) @() {
@@ -137,7 +111,7 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
   let sClassLimits = mkSClassLimitsComp(curSquad, curSquadParams, soldiersList, soldiersStatuses)
 
   return function() {
-    let res = { watch = curSquad }
+    let res = { watch = [ curSquad, sClassLimits ] }
     let squad = curSquad.value
     if (!squad)
       return res

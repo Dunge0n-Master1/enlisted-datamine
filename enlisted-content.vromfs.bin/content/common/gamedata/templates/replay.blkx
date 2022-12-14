@@ -24,6 +24,8 @@ replay_meta{
   replay__playTime:r=0.0
   _tracked:t="replay__speed"
   _tracked:t="replay__curTime"
+  replay__vehicleFov:r=70.0
+  replay__humanFov:r=100.0
   _tags:t="playingReplay"
 
   "replayIsPlaying:tag"{

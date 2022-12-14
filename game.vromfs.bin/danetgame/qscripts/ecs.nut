@@ -11,16 +11,13 @@ let {
 } = require("ecs.netevent")
 
 
-if (getconsttable()?.INVALID_ENTITY_ID == null)
-  global const INVALID_ENTITY_ID = 0 //ecs.INVALID_ENTITY_ID -disable-warning: -ident-hides-ident
-
 local function update_component(eid, component_name) {
   console.command($"ecs.update_component {eid} {component_name}")
 }
 
 let _get_msgSink = ecs.SqQuery("_get_msgSink", {comps_rq = ["msg_sink"]})
 local function _get_msg_sink_eid(){
-  return _get_msgSink.perform(@(eid, _comp) eid) ?? INVALID_ENTITY_ID
+  return _get_msgSink.perform(@(eid, _comp) eid) ?? ecs.INVALID_ENTITY_ID
 }
 
 local function client_send_event(eid, evt){

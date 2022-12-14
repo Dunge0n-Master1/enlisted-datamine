@@ -13,6 +13,7 @@ require AnimV20
 require GeomNodeTree
 require GamePhys
 require enlisted.events_enlisted
+require ecs.safe
 
 
 [es(on_appear, no_order)]
@@ -60,13 +61,43 @@ def projectile_phys_created_es(evt : Event;
     projectile_ballistics |> projectile_ballistics_setup(launch_desc.tm[3], launch_desc.vel, 1.0f)
 
 
+def get_effect_group_name_for_launch_desc(launch_desc : LaunchDesc;
+                                          global_effect_group_names : StringList;
+                                          global_effect_group_calibers : FloatList)
+  let M_TO_MM = 1000.0
+  var caliber : float
+  projectile_get_props(int(launch_desc.shellId.shellId)) <| $(ballisticsProps : ProjectileProps)
+    caliber = M_TO_MM * ballisticsProps.caliber
+  var closestCalIndex = -1
+  for i, cal in iter_range(global_effect_group_calibers), global_effect_group_calibers
+    if caliber < cal
+      closestCalIndex = i
+      break
+  return closestCalIndex < 0 ? "" : string(global_effect_group_names[closestCalIndex])
+
+
 [es(on_appear)]
 def projectile_created_es(evt : Event;
+                          gunEid : EntityId;
                           launch_desc : LaunchDesc;
-                          var projectile__bulletTypeHash : uint&;
                           var projectile__visualPos : float3&;
                           var detonation__timer : float&;
-                          var dm_projectile_state : ProjectileState)
+                          var dm_projectile_state : ProjectileState&;
+                          var projectile__effectGroupName : das_string&;
+                          var projectile__fleshEffectGroupName : das_string&)
+  query(gunEid) <| $ [es] (gun_hit_fx__fleshEffectGroupName : das_string const?;
+                           gun_hit_fx__effectGroupName : das_string const?;
+                           [[shared_comp]] gun_hit_fx__effectGroupNames : StringList const?;
+                           [[shared_comp]] gun_hit_fx__effectGroupCalibers : FloatList const?)
+    if gun_hit_fx__effectGroupName != null
+      projectile__effectGroupName := *gun_hit_fx__effectGroupName
+    elif gun_hit_fx__effectGroupNames != null && gun_hit_fx__effectGroupCalibers != null
+      projectile__effectGroupName := get_effect_group_name_for_launch_desc(launch_desc,
+                                                                           *gun_hit_fx__effectGroupNames,
+                                                                           *gun_hit_fx__effectGroupCalibers)
+    if gun_hit_fx__fleshEffectGroupName != null
+      projectile__fleshEffectGroupName := *gun_hit_fx__fleshEffectGroupName
+
   detonation_get_props(int(launch_desc.shellId.shellId)) <| $(detonationProps : DetonationProps)
     detonation__timer = detonationProps.timer
 
@@ -79,7 +110,6 @@ def projectile_created_es(evt : Event;
     shell_entity_get_props(int(launch_desc.shellId.shellId)) <| $(entProps : ShellEntityTypeProps)
       let bulletType = entProps.bulletType
       if bulletType != ""
-        projectile__bulletTypeHash = ecs_hash(bulletType)
         dm_projectile_state.projectileTypePropsId = getBulletTypeId(get_damage_model_params(), bulletType)
       dm_projectile_state.startPos = launch_desc.tm[3]
       dm_projectile_state.startVel = launch_desc.vel
@@ -151,6 +181,7 @@ def update_projectile_es(info : ParallelUpdateFrameDelayed;
                          launch_desc : LaunchDesc;
                          detonation__timer : float;
                          projectile_ballistics : ProjectileBallistics;
+                         projectile__prevPos : float3;
                          var projectile__visualPos : float3&;
                          var projectile__exploded : bool&;
                          var projectile__lifeTime : float&)
@@ -161,9 +192,13 @@ def update_projectile_es(info : ParallelUpdateFrameDelayed;
   projectile__visualPos = projectile_ballistics.state.pos
 
   if detonation__timer >= 0.0 && projectile__lifeTime > detonation__timer
-    detonate_shell_server(eid, launch_desc.shellId, int(launch_desc.gunPropsId), projectile_ballistics.state.pos,
-                          ownerEid, /*prev_pos*/ null, /*vel*/ null, /*ignore_entity*/ INVALID_ENTITY_ID,
-                          /*normal*/ null, /*alternative_offender*/ INVALID_ENTITY_ID)
+    sendEvent(eid, [[CmdDetonateShellServer pos = projectile_ballistics.state.pos,
+                                              offender = ownerEid,
+                                              prev_pos = projectile__prevPos,
+                                              vel = projectile_ballistics.state.vel,
+                                              ignore_entity = INVALID_ENTITY_ID,
+                                              normal = float3(),
+                                              alternative_offender = INVALID_ENTITY_ID]])
     projectile__exploded = true
 
 
@@ -173,6 +208,6 @@ def projectile_trajectory_init_es(evt : Event;
                                   animchar : AnimcharBaseComponent;
                                   trajectory__startNodeName : string = "Bip01 Spine1";
                                   var trajectory__startNodeIdx : int&)
-  trajectory__startNodeIdx = animchar.nodeTree |> geomtree_findNodeIndex(trajectory__startNodeName)
+  trajectory__startNodeIdx = *animchar.nodeTree |> geomtree_findNodeIndex(trajectory__startNodeName)
   if trajectory__startNodeIdx < 0
     logerr("{eid} <{getEntityTemplateName(eid)}>: Can't find startNodeName node <{trajectory__startNodeName}>")

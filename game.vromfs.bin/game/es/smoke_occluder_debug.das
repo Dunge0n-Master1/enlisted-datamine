@@ -16,7 +16,7 @@ def smoke_occluder_debug_switch()
 
 [es(tag=(render, dev), no_order, REQUIRE=smokeOccluderDebug)]
 def draw_occluder_spheres_debug(evt : UpdateStageInfoRenderDebug)
-  query() <| $ [es] (transform : float3x4?;
+  query() <| $ [es] (transform : float3x4 const?;
                      smoke_occluder__sphere : float4)
     assume sphere = smoke_occluder__sphere
     draw_debug_sphere_buffered(sphere.xyz, sphere.w, E3DCOLOR(0xFF0000FF), 16, 10)

@@ -16,7 +16,7 @@ let prepareResearch = require("researchesPresentation.nut")
 let recalcMultiResearchPos = require("recalcMultiResearchPos.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
-let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { isResearchesOpened } = require("%enlist/mainMenu/sectionsState.nut")
 let { get_setting_by_blk_path } = require("settings")
 let hideLockedResearches = get_setting_by_blk_path("hideLockedResearches") ?? false
 
@@ -30,7 +30,8 @@ let isBuyLevelInProgress = Watched(false)
 let isResearchInProgress = Watched(false)
 let viewSquadId = Watched(curSquadId.value)
 curSquadId.subscribe(@(squadId) viewSquadId(squadId))
-curSection.subscribe(@(sectionId) sectionId == "RESEARCHES" ? viewSquadId(curSquadId.value) : null)
+isResearchesOpened.subscribe(@(val) val ? viewSquadId(curSquadId.value) : null)
+
 
 let changeResearchBalance = Computed(@() armyItemCountByTpl.value?[CHANGE_RESEARCH_TPL] ?? 0)
 let changeResearchGoldCost = Computed(@() configs.value?.gameProfile.changeResearchGoldCost ?? 0)

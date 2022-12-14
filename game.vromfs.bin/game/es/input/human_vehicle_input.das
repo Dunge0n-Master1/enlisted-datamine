@@ -1,6 +1,7 @@
 require ecs
 require strings
 require game.es.events
+require game.es.binocular_common
 require game.es.input.input_events
 require game.es.vehicle.vehicle_events
 require DagorInput
@@ -12,6 +13,7 @@ require game.es.human.human_vehicle_common
 require enlisted.events_enlisted
 require net
 require vehicle
+require danetlibs.native_dasevents.main.native_events
 
 
 def init(human_input__seatCount : int;
@@ -159,7 +161,7 @@ def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggere
       switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
 
     if human_binocular__mode
-      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=false]])
+      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode None]])
 
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, isEnablingHoldGunMode)
   else
@@ -201,3 +203,8 @@ def human_vehicle_reset_zoom_input_on_change_hatch_state(evt : Event; human_anim
 [es(tag=input, track=human_vehicle__occupiedSeatEid, REQUIRE=(hero, human_vehicle__occupiedSeatEid))]
 def human_vehicle_reset_aim_input_on_change_seat(evt : Event; human_input__aim1 : int)
   reset_digital_action_sticky_toggle(uint16(human_input__aim1))
+
+
+[es(tag=input)]
+def human_vehicle_maintenance_reset_toggle_on_interrupting(evt : CmdStopMaintenance; human_input__vehicleMaintenance : int)
+  reset_digital_action_sticky_toggle(uint16(human_input__vehicleMaintenance))

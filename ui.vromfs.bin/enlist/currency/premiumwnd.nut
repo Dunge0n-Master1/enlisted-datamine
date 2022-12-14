@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { abs } = require("math")
+let { abs, round } = require("math")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
@@ -171,23 +171,31 @@ let saveValueBlock = @(selected, percents) {
   }
 }
 
-let mkOffer = @(offer) offer == null ? null
-  : {
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = smallPadding
-      padding = bigPadding
-      pos = [0, -hdpx(36)]
-      rendObj = ROBJ_SOLID
-      color = discountBgColor
-      children = [
-        {
-          rendObj = ROBJ_TEXT
-          text = utf8ToUpper(loc("specialOfferShort"))
-        }.__update(sub_txt)
-        mkCountdownTimer({ timestamp = offer.endTime })
-      ]
-    }
+let discountBannerHeight = hdpx(60)
+
+let mkDiscountBanner = @(locId, endTime) {
+  size = [flex(), discountBannerHeight]
+  pos = [0, -hdpx(36)]
+  children = mkHeaderFlag({
+    size = flex()
+    flow = FLOW_VERTICAL
+    gap = smallPadding
+    valign = ALIGN_CENTER
+    padding = [0, fsh(5), 0, fsh(1)]
+    children = [
+      {
+        rendObj = ROBJ_TEXT
+        text = utf8ToUpper(loc(locId))
+        color = titleTxtColor
+      }.__update(sub_txt)
+      endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
+    ]
+  }, primeFlagStyle.__merge({
+    size = flex()
+    offset = 0
+    flagColor = discountBgColor
+  }))
+}
 
 let mkPremItemView = @(selected, size, days, saveVal, sf = 0) {
   rendObj = ROBJ_BOX
@@ -229,7 +237,10 @@ let backgroundImageBlock = {
 
 let mkPremItem = kwarg(
   function(shopItem, idx, premSize, maxDayPrice, offer, currencies, curSelectedIdWatch) {
-    let { id, premiumDays = 0, discountInPercent = 0, curShopItemPrice = {} } = shopItem
+    let {
+      id, premiumDays = 0, curShopItemPrice = {},
+      discountInPercent = 0, discountIntervalTs = []
+    } = shopItem
     local { currencyId = "", price = 0, fullPrice = 0 } = curShopItemPrice
 
     if (premiumDays == 0 || price == 0 || currencyId == "")
@@ -241,56 +252,65 @@ let mkPremItem = kwarg(
 
     let isSelected = curSelectedIdWatch.value == id
     let saveVal = premiumDays <= 0 || maxDayPrice <= 0 ? 0
-      : 100 - 100 * (price / premiumDays) / maxDayPrice
+      : 100 - round(price.tofloat() / premiumDays / maxDayPrice * 100)
     let cellSize = [premSize, premSize]
 
+    let discountBanner = offer != null ? mkDiscountBanner("specialOfferShort", offer.endTime)
+      : discountInPercent > 0 ? mkDiscountBanner("shop/discountNotify", discountIntervalTs?[1] ?? 0)
+      : null
+
     return watchElemState(@(sf) {
-      behavior = Behaviors.Button
-      onClick = @() isSelected
-        ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
-        : curSelectedIdWatch(id)
+      flow = FLOW_VERTICAL
       children = [
-        isSelected ? backgroundImageBlock : null
         {
-          flow = FLOW_VERTICAL
-          halign = ALIGN_CENTER
-          size = [premSize + hdpx(20), SIZE_TO_CONTENT]
-          padding = [hdpx(8), 0,0,0]
+          behavior = Behaviors.Button
+          onClick = @() isSelected
+            ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
+            : curSelectedIdWatch(id)
           children = [
+            isSelected ? backgroundImageBlock : null
             {
-              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_VERTICAL
               halign = ALIGN_CENTER
+              size = [premSize + hdpx(20), SIZE_TO_CONTENT]
+              padding = [hdpx(8), 0,0,0]
               children = [
-                mkPremItemView(isSelected, cellSize, premiumDays, saveVal, sf)
-                  .__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
-                mkOffer(offer)
+                {
+                  size = [flex(), SIZE_TO_CONTENT]
+                  halign = ALIGN_CENTER
+                  children = [
+                    mkPremItemView(isSelected, cellSize, premiumDays, saveVal, sf)
+                      .__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
+                    discountBanner
+                  ]
+                }
+                {
+                  size =[premSize, hdpx(68)]
+                  valign = ALIGN_CENTER
+                  halign = ALIGN_CENTER
+                  gap = {
+                    size = flex()
+                  }
+                  flow = FLOW_HORIZONTAL
+                  children = [
+                    mkDiscountWidget(discountInPercent, mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
+                    mkCurrency({
+                      currency
+                      price
+                      fullPrice
+                      txtStyle = { color = activeTxtColor }.__update(body_txt)
+                      discountStyle = { color = activeTxtColor }.__update(body_txt)
+                      dimStyle = { color = basePremiumColor}.__update(body_txt)
+                    })
+                  ]
+                }
               ]
             }
-            {
-              size =[premSize, hdpx(68)]
-              valign = ALIGN_CENTER
-              halign = ALIGN_CENTER
-              gap = {
-                size = flex()
-              }
-              flow = FLOW_HORIZONTAL
-              children = [
-                mkDiscountWidget(discountInPercent, mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
-                mkCurrency({
-                  currency
-                  price
-                  fullPrice
-                  txtStyle = { color = activeTxtColor }.__update(body_txt)
-                  discountStyle = { color = activeTxtColor }.__update(body_txt)
-                  dimStyle = { color = basePremiumColor}.__update(body_txt)
-                })
-              ]
-            }
-            !isSelected ? null :
-              purchaseButton(@() onPurchase(shopItem,
-                mkPremItemView(true, cellSize,  premiumDays, saveVal), offer))
           ]
         }
+        !isSelected ? null :
+          purchaseButton(@() onPurchase(shopItem,
+            mkPremItemView(true, cellSize,  premiumDays, saveVal), offer))
       ]
     }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5)))
   })

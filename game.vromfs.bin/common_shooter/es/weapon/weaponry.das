@@ -6,9 +6,11 @@ require math
 require math.base
 require game.utils.team
 require game.es.events
+require game.es.smoke_occluders_common
 require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
+require common_shooter.es.weapon.weaponry_fx_common
 require enlisted.events_enlisted
 require dm
 require DaWeapons
@@ -32,6 +34,7 @@ require GeomNodeTree
 require HumanPhys
 require GamePhys
 require GridCollision
+require CollisionTraces
 require PhysObj
 require PhysMat
 require AnimV20
@@ -57,7 +60,7 @@ def compensate_shell_throw_lag_es(evt : Event;
       query(possessedByPlr) <| $ [es] (var player : Player)
         tickDelta = player |> calcControlsTickDelta(PhysTickRateType Normal, /*interp*/ false)
     tickDelta = clamp(tickDelta, PHYS_MIN_INTERP_DELAY_TICKS, maxTickDelta)
-    // TODO(k.zakharchenko): reconsider, explain and maybe abstract away the compensation formula
+    // TODO: reconsider, explain and maybe abstract away the compensation formula
     // the server compensates the controls lag and forward-compensates the AAS lag, hence the times 2 part
     var tickCompensation = tickDelta * 2
 
@@ -73,7 +76,7 @@ def launch_shell_es(evt : CmdLaunchShell;// e.g. grenade
                     animchar : AnimcharBaseComponent;
                     trajectory__startNodeIdx : int;
                     human_weap__throwMode : bool;
-                    human_net_phys : HumanActor?;
+                    human_net_phys : HumanActor const?;
                     var human_weap__localProjectileEid : EntityId?;
                     var human_weap__lastShotGunEid : EntityId?;
                     var human_weap__lastShotAtTime : float?)
@@ -94,9 +97,9 @@ def launch_shell_es(evt : CmdLaunchShell;// e.g. grenade
 
     // projectileEntity contains the server-side projectile, only the server can destroy it
     if projectileEntity != INVALID_ENTITY_ID
-      query(projectileEntity) <| $ [es] (shell__owner : EntityId?;
-                                         shell__rethrower : EntityId?;
-                                         shell__explTime : float?)
+      query(projectileEntity) <| $ [es] (shell__owner : EntityId const?;
+                                         shell__rethrower : EntityId const?;
+                                         shell__explTime : float const?)
         if shell__owner != null
           grenadeOwner = *shell__owner
         if shell__rethrower != null
@@ -120,7 +123,7 @@ def launch_shell_es(evt : CmdLaunchShell;// e.g. grenade
                                                                     curState.leanPosition,
                                                                     curState.height)
 
-      let inBodyPoint = animchar.nodeTree |> geomtree_getNodeWpos(trajectory__startNodeIdx)
+      let inBodyPoint = *animchar.nodeTree |> geomtree_getNodeWpos(trajectory__startNodeIdx)
 
       let throwPointOffset = throwPoint - inBodyPoint
       var offsetLength = length(throwPointOffset)
@@ -176,15 +179,60 @@ def destroy_client_side_projectile_es(evt : Event;
     // If there are two projectiles (local and server's) with the same owner, the local should be destroyed
     if human_weap__localProjectilePhysEid != INVALID_ENTITY_ID && serverProjectileEid != human_weap__localProjectilePhysEid
 
-      query(human_weap__localProjectilePhysEid) <| $ [es] (phys_obj_net_phys : PhysObjActor)
+      var delayedDestroy = false
+      query(human_weap__localProjectilePhysEid) <| $ [es] (phys_obj_net_phys : PhysObjActor;
+                                                           client_side_delayed_destroy : Tag const?)
+        delayedDestroy = client_side_delayed_destroy != null
         // This makes the transition from local to the server projectile a bit smoother for the first few frames
         server_phys_obj_net_phys.phys.previousState.location = phys_obj_net_phys.phys.previousState.location
         server_phys_obj_net_phys.phys.previousState.velocity = phys_obj_net_phys.phys.previousState.velocity
         server_phys_obj_net_phys.phys.currentState.location = phys_obj_net_phys.phys.currentState.location
         server_phys_obj_net_phys.phys.currentState.velocity = phys_obj_net_phys.phys.currentState.velocity
 
-      destroyEntity(human_weap__localProjectilePhysEid)
-      human_weap__localProjectilePhysEid = INVALID_ENTITY_ID
+      if delayedDestroy
+        // sometimes we dont want to destroy client sided projectile instantly as the player might notice
+        // it changing position in front of him. Most noticable on mortars with low ping, as the projectile
+        // has no time to fly away before getting replaced. In this case, just disable render on the server sided
+        // projectile and reenable it some time later, when actually destroying client side projectile
+        addSubTemplate(human_weap__localProjectilePhysEid, "client_side_delayed_destroy") <| $(var init)
+          init |> set("client_side_delayed_destroy__unhideEid", serverProjectileEid)
+      else
+        destroyEntity(human_weap__localProjectilePhysEid)
+        human_weap__localProjectilePhysEid = INVALID_ENTITY_ID
+
+
+[es(tag=netClient, no_order)]
+def client_side_projectile_delayed_destroy(info : ParallelUpdateFrameDelayed;
+                                           eid : EntityId;
+                                           client_side_delayed_destroy__destroyAfter : float)
+  if client_side_delayed_destroy__destroyAfter > 0.0 && client_side_delayed_destroy__destroyAfter < info.curTime
+    destroyEntity(eid)
+
+
+[es(tag=netClient, on_appear)]
+def client_side_projectile_delayed_destroy_init(evt : Event;
+                                                client_side_delayed_destroy__unhideEid : EntityId;
+                                                client_side_delayed_destroy__delay : float;
+                                                var client_side_delayed_destroy__destroyAfter : float&)
+  client_side_delayed_destroy__destroyAfter = get_sync_time() + client_side_delayed_destroy__delay
+  query(client_side_delayed_destroy__unhideEid) <| $ [es] (var animchar_render__enabled : bool&)
+    animchar_render__enabled = false
+
+
+[es(tag=netClient, on_disappear)]
+def client_side_projectile_delayed_destroy_unhide(evt : Event;
+                                                  eid : EntityId;
+                                                  client_side_delayed_destroy__unhideEid : EntityId)
+  query(client_side_delayed_destroy__unhideEid) <| $ [es] (shell__owner : EntityId;
+                                                           var animchar_render__enabled : bool&)
+    animchar_render__enabled = true
+    query(shell__owner) <| $ [es] (var human_weap__localProjectilePhysEid : EntityId&)
+      // only reset localProjectilePhysEid if it's this projectile
+      // it's possible that it will contain new client side projectile eid when this on_disappear ES gets called
+      // and we dont want to clear it in this case, otherwise that new client side projectile wont get replaced
+      // by replicated server projectile
+      if eid == human_weap__localProjectilePhysEid
+        human_weap__localProjectilePhysEid = INVALID_ENTITY_ID
 
 
 [es(tag=netClient, on_disappear)]
@@ -196,11 +244,12 @@ def destroy_orphaned_projectile_es_event_handler(evt : Event;
 
 
 [es(tag=(server, net), no_order, REQUIRE=projectile__inactive)]
-def destroy_inactive_projectile_by_deadline(info : UpdateStageInfoAct; eid : EntityId; var projectile__timeToDestroy : float&)
+def destroy_inactive_projectile_by_deadline(info : ParallelUpdateFrameDelayed; eid : EntityId; var projectile__timeToDestroy : float&)
   // After being stopped, the projectiles still lives for a little while, so the projectile state can be used to verify client-side shot
   projectile__timeToDestroy -= info.dt
   if projectile__timeToDestroy <= 0.f
     destroyEntity(eid)
+
 
 [es]
 def launch_projectile_es(evt : CmdLaunchProjectile;
@@ -287,7 +336,7 @@ def projectile_trace_scene(eid : EntityId;
                            var coll_type : int&;
                            var water_len : float&)
   if bullet_mat_id < 0
-    logerr("das: {eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
+    logerr("{eid}<{getEntityTemplateName(eid)}>: bullet traceRayMatId is not set!")
     return false
   var sceneIntersected = traceray_normalized_coll_type(prev_pos, dir, len, pmid, norm,
                                              ETF_ALL, ri_desc, coll_type, bullet_mat_id)
@@ -372,6 +421,15 @@ def is_ri_extra_can_be_damaged_by_team(ri_handle : uint64;
   return !isFriendly
 
 
+def is_bullet_stoppable_by_water(launch_desc : LaunchDesc)
+  var res = false
+  shell_entity_get_props(int(launch_desc.shellId.shellId)) <| $(entProps : ShellEntityTypeProps)
+    let bt = entProps.bulletType
+    query() <| $ [es] (projectile__bulletTypesStoppableByWater : StringList)
+      res = has_value(projectile__bulletTypesStoppableByWater, bt)
+  return res
+
+
 struct ProjectileHitSceneRes
   shouldStop : bool
   smokeTracerStop : bool
@@ -396,33 +454,37 @@ def projectile_on_hit_scene(pos : float3;
 
   phys_mat_damage_model_get_props(pmid) <| $(dmPhysProps : PhysMatDamageModelProps)
     let projectileSpeedThreshold = 10.0
-    let angleThreshold = 0.25 //~15 degrees
+    let angleThreshold = 0.121 //~7 degrees
     let derivationShift = 0.7 //0.5 - without derivation
+    let thresholdMass = 1.0
 
     var prevSpeed = length(ballistics.state.vel)
     let prevDir = ballistics.state.vel * safeinv(prevSpeed)
 
-    var exit = false
-    penetration_table_get_props(int(ldesc.shellId.shellId)) <| $(penetrationProps : PenetrationTableProps)
-      if dmPhysProps.armorThickness != 0.0
+    var penetrationSuccess = false
+    if dmPhysProps.armorThickness != 0.0
+      penetration_table_get_props(int(ldesc.shellId.shellId)) <| $(penetrationProps : PenetrationTableProps)
         let armorPower = penetrationProps.tbl |> interpolate_tab_float_interpolate(proj_state.penetrationDistance)
         if armorPower >= dmPhysProps.armorThickness
+          penetrationSuccess = true
           proj_state.piercingShift = calc_penetration_shift(penetrationProps.tbl,
                                                             armorPower - dmPhysProps.armorThickness,
                                                             proj_state.distance,
                                                             /*scale*/ 1.0, proj_state.piercingShift)
-          ballistics.state.pos = pos + (prevDir * 0.001)
-          if hit_water
-            is_underwater = !is_underwater
-            let density = is_underwater ? water_density() : atmosphere_density(pos.y)
-            let curTick = ballistics.state.atTick
-            ballistics |> projectile_ballistics_setupWithKV(ballistics_proj_props, pos, ballistics.state.vel, 1.0f, density)
-            ballistics.state.atTick = curTick + 1
-          result.shouldStop = false
-          result.smokeTracerStop = true
-          exit = true
-          return
-    if exit
+    if penetrationSuccess
+      // move projectile forward a bit, so we dont collide with the same surface on the next frame
+      // but dont move it too far or we might ignore some collisions by accident
+      // (i.e. wooden floor laying on a land mesh)
+      let newPos = pos + (prevDir * 0.001)
+      ballistics.state.pos = newPos
+      if hit_water
+        is_underwater = !is_underwater
+        let density = is_underwater ? water_density() : atmosphere_density(newPos.y)
+        let curTick = ballistics.state.atTick
+        ballistics |> projectile_ballistics_setupWithKV(ballistics_proj_props, newPos, ballistics.state.vel, 1.0f, density)
+        ballistics.state.atTick = curTick + 1
+        result.smokeTracerStop = true
+      result.shouldStop = false
       return
 
     if dmPhysProps.ricochetAngleMult != 0.0 && !is_underwater
@@ -432,9 +494,14 @@ def projectile_on_hit_scene(pos : float3;
       let angleMult = dmPhysProps.ricochetAngleMult
       let sinr = sini * (1.0 + (_frnd(seed) * angleMult))
       let newSpeed = (1.0 - sinr) * prevSpeed
-      let speedToBroken = sini < angleThreshold ? (prevSpeed - newSpeed) : newSpeed * angleMult
 
-      let bulletBrokenProbability = (speedToBroken / dmPhysProps.bulletBrokenThreshold)
+      var bulletBrokenProbability : float
+      if ballistics_proj_props.mass > thresholdMass && sini > angleThreshold
+        bulletBrokenProbability = 1.0
+      else
+        let speedToBroken = (sini < angleThreshold ? (prevSpeed - newSpeed) : newSpeed * angleMult)
+        bulletBrokenProbability = (speedToBroken / dmPhysProps.bulletBrokenThreshold)
+
       if (_frnd(seed) > bulletBrokenProbability
           && newSpeed > projectileSpeedThreshold
           && sini > 0.0
@@ -451,13 +518,12 @@ def projectile_on_hit_scene(pos : float3;
         ballistics.state.atTick = curTick + 1
 
         result.shouldStop = false
-        result.smokeTracerStop = angleMult > 1.0
         result.ricochetAngle = cvt(sinr, 0.0, 1.0, 90.0, 0.0)
         return
 
-    if hit_water
+    if hit_water && !is_bullet_stoppable_by_water(ldesc)
       is_underwater = !is_underwater
-      let newPos = pos + (prevDir * 0.001)
+      let newPos = pos + (prevDir * 0.01)
       let density = is_underwater ? water_density() : atmosphere_density(newPos.y)
       let curTick = ballistics.state.atTick
       ballistics |> projectile_ballistics_setupWithKV(ballistics_proj_props, newPos, ballistics.state.vel, 1.0f, density)
@@ -513,7 +579,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
         sendEvent(ownerEid, [[CmdRendinstDamage handle=riHandle, damage=damage, pos=pos, impulse=impulse, time=get_sync_time()]])
 
     if add_bullet_hole
-      sendEventImmediate(
+      sendEvent(
         projectile_eid,
         [[CmdRendinstBulletHole
           handle=riHandle, pos=pos,
@@ -530,9 +596,13 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
 
     if res.shouldStop
       if allow_detonation
-        detonate_shell_server(projectile_eid, launch_desc.shellId, int(launch_desc.gunPropsId), pos, ownerEid,
-                              projectile__prevPos, projectile_ballistics.state.vel, INVALID_ENTITY_ID, norm,
-                              /*alternative_offender*/ INVALID_ENTITY_ID)
+        sendEvent(projectile_eid, [[CmdDetonateShellServer pos = pos,
+                                                             offender = ownerEid,
+                                                             prev_pos = projectile__prevPos,
+                                                             vel = projectile_ballistics.state.vel,
+                                                             ignore_entity = INVALID_ENTITY_ID,
+                                                             normal = norm,
+                                                             alternative_offender = INVALID_ENTITY_ID]])
         projectile__exploded = true
       projectile_ballistics.state.pos = prev_pos + dir * water_len
 
@@ -554,11 +624,27 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
         norm=norm,
         allowDetonation=allow_detonation,
         sceneIntersectionsExceeded=sceneIntersectionsExceeded,
-        collType=coll_type]])
+        collType=coll_type,
+        vel=projectile_ballistics.state.vel]])
 
     shouldStop = res.shouldStop
   return shouldStop
 
+
+[es(tag=server)]
+def detonate_shell_server_applyer_es(evt : CmdDetonateShellServer; // detonate_shell_server can be called only from main thread.
+                                     eid : EntityId;
+                                     launch_desc : LaunchDesc)
+  detonate_shell_server(eid,
+                        launch_desc.shellId,
+                        int(launch_desc.gunPropsId),
+                        evt.pos,
+                        evt.offender,
+                        evt.prev_pos,
+                        evt.vel,
+                        evt.ignore_entity,
+                        evt.normal,
+                        evt.alternative_offender)
 
 def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignore_vehicle : EntityId; cb : block<(intersections : IntersectedEntities#) : void>)
   using() <| $(var intersections : IntersectedEntities#)
@@ -570,7 +656,7 @@ def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignor
 
 
 [es(after=trace_scene_after_update_projectile_es, before=before_net_phys_sync, REQUIRE_NOT=projectile__inactive)]
-def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from ParallelUpdateFrameDelayed!! Not thread safe now (fx/sound)
+def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                eid : EntityId;
                                ownerEid : EntityId;
                                gunEid : EntityId;
@@ -595,6 +681,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
                                projectile_trace_info__riDescOffs : int;
                                projectile_trace_info__riDescLayer : int;
                                projectile__addBulletHole : bool = true;
+                               projectile__ballisticsUpdated : bool = true;
                                var projectile__exploded : bool&;
                                var projectile__stopped : bool&;
                                var projectile__penetratedEids : EidList;
@@ -605,7 +692,7 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
                                var scene_hit_place__matId : int&;
                                var scene_hit_place__collType : int&;
                                var projectile__intersectionCount : int&)
-  if projectile__stopped || projectile_trace_info__len < FLT_EPSILON
+  if projectile__stopped || projectile_trace_info__len < FLT_EPSILON || !projectile__ballisticsUpdated
     return
 
   let allowDetonation = (projectile__lifeTime > projectile__minLifeTime)
@@ -688,14 +775,19 @@ def after_update_projectile_es(info : UpdateStageInfoAct; // need execute from P
       // net server needs projectile for client-side shot verification, so the projectile destruction is slightly delayed
       addSubTemplate(eid, "projectile_inactive")
     else
-      destroyEntity(eid)
+      sendEvent(eid, [[CmdDestoyProjectileEntity]]) // destroy entity via event to properly handle sent events before actual destruction
+
+
+[es]
+def destoy_projectiles_after_stop(Event : CmdDestoyProjectileEntity;
+                                  eid : EntityId)
+  destroyEntity(eid)
 
 
 [es(after=update_projectile_es, REQUIRE_NOT=projectile__inactive)]
-def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
+def after_update_stopped_projectile_es(info : ParallelUpdateFrameDelayed;
                                        eid : EntityId;
                                        ownerEid : EntityId;
-                                       launch_desc : LaunchDesc;
                                        projectile__lifeTime : float;
                                        projectile__minLifeTime : float;
                                        projectile__maxLifeTime : float;
@@ -718,11 +810,13 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
         projectile__explosionDelayed++
         return
 
-      detonate_shell_server(eid, launch_desc.shellId, int(launch_desc.gunPropsId),
-                            projectile_ballistics.state.pos, ownerEid,
-                            projectile__prevPos, projectile_ballistics.state.vel,
-                            INVALID_ENTITY_ID, scene_hit_place__norm,
-                            /*alternative_offender*/ INVALID_ENTITY_ID)
+      sendEvent(eid, [[CmdDetonateShellServer pos = projectile_ballistics.state.pos,
+                                                offender = ownerEid,
+                                                prev_pos = projectile__prevPos,
+                                                vel = projectile_ballistics.state.vel,
+                                                ignore_entity = INVALID_ENTITY_ID,
+                                                normal = scene_hit_place__norm,
+                                                alternative_offender = INVALID_ENTITY_ID]])
 
       sendEventImmediate(eid, [[CmdShellExplosionFx]])
       projectile__exploded = true
@@ -733,10 +827,10 @@ def after_update_stopped_projectile_es(info : UpdateStageInfoAct;
         // net server needs projectile for client-side shot verification, so the projectile destruction is slightly delayed
         addSubTemplate(eid, "projectile_inactive")
       else
-        destroyEntity(eid)
+        sendEvent(eid, [[CmdDestoyProjectileEntity]]) // destroy entity via event to properly handle sent events before actual destruction
 
 [es(after=after_update_stopped_projectile_es)]
-def clear_exploding_projectiles_counter(info : UpdateStageInfoAct;
+def clear_exploding_projectiles_counter(info : ParallelUpdateFrameDelayed;
                                         var server_explosions__projectilesCounter : int&)
   server_explosions__projectilesCounter = 0
 
@@ -747,3 +841,49 @@ def init_max_exploding_projectiles(evt : Event;
   dgs_get_settings() |> datablock_get_block("dedicated") <| $(dedBlock)
     server_explosions__maxProjectilesCount = dedBlock |> datablock_getInt("maxExplodingProjectiles", server_explosions__maxProjectilesCount)
     server_explosions__maxDelayedFrames = dedBlock |> datablock_getInt("maxExplosionDelay", server_explosions__maxDelayedFrames)
+
+
+def create_smoke_occluders_impl(effect_group_name : string;
+                                is_bomb : bool;
+                                launch_desc : LaunchDesc;
+                                mat_id : int;
+                                bullet_type_id : int;
+                                is_under_water : bool;
+                                pos : float3;
+                                norm : float3)
+  if int(launch_desc.shellId.shellId) < 0
+    return
+  let fxName = get_projectile_fx_name(effect_group_name, is_bomb, launch_desc, mat_id,
+                                      bullet_type_id, is_under_water)
+  if fxName == "" || fxName == "-"
+    return
+
+  let tm = calc_effect_tm(pos, norm)
+  create_smoke_occluders_for_effect(tm, fxName)
+
+
+[es]
+def projectile_create_smoke_occluders_on_hit_scene(evt : EventProjectileHitScene;
+                                                   launch_desc : LaunchDesc;
+                                                   dm_projectile_state : ProjectileState;
+                                                   projectile__effectGroupName : string;
+                                                   projectile__isUnderwater : bool;
+                                                   projectile__isBomb : bool = false)
+  if !evt.sceneIntersectionsExceeded || (evt.shouldStop && evt.allowDetonation)
+    create_smoke_occluders_impl(projectile__effectGroupName, projectile__isBomb, launch_desc, evt.matId,
+                                dm_projectile_state.projectileTypePropsId, projectile__isUnderwater, evt.pos, evt.norm)
+
+
+[es]
+def projectile_create_smoke_occluders_on_explode(evt : CmdShellExplosionFx;
+                                                 scene_hit_place__matId : int;
+                                                 scene_hit_place__pos : float3;
+                                                 scene_hit_place__norm : float3;
+                                                 launch_desc : LaunchDesc;
+                                                 dm_projectile_state : ProjectileState;
+                                                 projectile__effectGroupName : string;
+                                                 projectile__isUnderwater : bool;
+                                                 projectile__isBomb : bool = false)
+  create_smoke_occluders_impl(projectile__effectGroupName, projectile__isBomb, launch_desc, scene_hit_place__matId,
+                              dm_projectile_state.projectileTypePropsId, projectile__isUnderwater,
+                              scene_hit_place__pos, scene_hit_place__norm)

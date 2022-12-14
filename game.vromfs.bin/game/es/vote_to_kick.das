@@ -8,6 +8,7 @@ require EnlistedDm
 require game.utils.team
 require game.es.events
 require enlisted.events_enlisted
+require danetlibs.native_dasevents.main.native_events
 
 def get_player_count_in_team(accused_team)
   var totalPlayerCount = 0
@@ -20,7 +21,7 @@ def kill_disconnected_squad_member(possessed : EntityId)
   query(possessed) <| $ [es] (squad_member__squad : EntityId)
     query(squad_member__squad) <| $ [es] (squad__allMembers : EidList)
       for member in squad__allMembers
-        sendEvent(member, [[CmdKill offender=member, damageType=uint16(int(DamageType DM_DISCONNECTED))]])
+        sendEvent(member, [[CmdKill offender=member, damageType=uint16(int(DamageType DM_DISCONNECTED)), gunPropsId=-1, shellId=-1]])
 
 [es(tag=server, REQUIRE=player)]
 def vote_to_kick_es(evt : CmdVoteToKick; eid : EntityId; team aka player_team : int)

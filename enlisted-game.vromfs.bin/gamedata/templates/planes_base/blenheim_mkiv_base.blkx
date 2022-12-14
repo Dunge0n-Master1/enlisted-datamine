@@ -1,0 +1,55 @@
+base_blenheim_mkiv{
+  plane_phys_damage__blk:t="gamedata/units/blenheim_mkiv.blk"
+  animchar__res:t="blenheim_mk4_char"
+}
+
+blenheim_mkiv_wreckage{
+  _extends:t="base_blenheim_mkiv"
+  _extends:t="plane_wreckage"
+  plane_wreckage__nodeName:t=""
+  plane_wreckage__typeName:t=""
+}
+
+blenheim_mkiv_base{
+  _extends:t="plane_with_cockpit"
+  _extends:t="base_blenheim_mkiv"
+  collres__res:t="blenheim_mk4_collision"
+  plane_net_phys__blk:t="gamedata/units/blenheim_mkiv.blk"
+  damage_model__blk:t="gamedata/units/blenheim_mkiv.blk"
+  plane_collision__blk:t="gamedata/units/blenheim_mkiv.blk"
+  plane_anim__blk:t="gamedata/units/blenheim_mkiv.blk"
+  plane_sight__blk:t="gamedata/units/blenheim_mkiv.blk"
+  plane_input__autopilotImpl:t="No"
+  canUseRespawnbaseType:t="aircraft_assault"
+  is_seaplane:b=no
+  plane_wreckage__template:t="blenheim_mkiv_wreckage"
+  killLogName:t="blenheim_mkiv"
+  animchar__res:t="blenheim_mk4_char"
+  vehicle_seats_camera_nodes__defaultNode:t=""
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t=""
+    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+  }
+
+  "plane_hit_sound__canopyNodes:list<t>"{
+    _tags:t="sound"
+    name:t="cover2_dm"
+  }
+
+  "vehicle_seats_can_acquire_controls:list<i>"{
+  }
+
+  "vehicle_seats__canAcquireControls:shared:object"{
+
+    "driver:object"{
+      movement:b=yes
+      turrets:b=yes
+    }
+
+    "main_gunner:object"{
+      turrets:b=yes
+    }
+  }
+}

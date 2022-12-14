@@ -35,7 +35,7 @@ def on_change_vehicle_camera_type_es(evt : Event;
                           var camera__target : ecs::EntityId&;
                           var camera__active : bool&;
                           transform : float3x4;
-                          replayCamera : Tag?;
+                          replayCamera : Tag const?;
                           bindToVehicle : bool = false)
 
     if !camera__active

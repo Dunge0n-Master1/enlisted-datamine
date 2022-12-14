@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {EventHeroChanged} = require("gameevents")
 
-let respawnSelection = Watched(INVALID_ENTITY_ID)
+let respawnSelection = Watched(ecs.INVALID_ENTITY_ID)
 
 ecs.register_es("respawn_selection_ui_es", {
   [["onChange", "onInit"]] = function(_eid, comp) {

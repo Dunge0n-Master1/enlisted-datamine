@@ -32,6 +32,8 @@ def private load_modern_conflict_events() : bool
     ok = load_das("%modern_conflict/modern_conflict_events.das") && ok
   return ok
 
+def private load_nut_binds() : bool
+  return load_das("%scripts/game/es/respawn_base_common_quirrel.das")
 
 [init]
 def load
@@ -42,6 +44,7 @@ def load
   if !is_in_aot() && get_DAGOR_ADDRESS_SANITIZER() == 0 && ecs_has_tag("render") && typeinfo(builtin_module_exists network) && typeinfo(builtin_module_exists debugapi) && find_index(get_command_line_arguments(), "--das-no-debugger") == -1
     ok = load_das("%danetlibs/dascript_base/debugger_debug.das") && ok
 
+  ok = load_nut_binds() && ok
   ok = load_ui_events() && ok
   ok = load_render_events() && ok
   ok = load_modern_conflict_events() && ok

@@ -68,9 +68,9 @@ def create_entity_daeditor()
   imgui::BeginChild("sub", float2(0, 0))
 
   if imgui::BeginTable("list", 1, ImGuiTableFlags BordersOuter | ImGuiTableFlags RowBg)
-    get_templateDB() <| $(name; tmpl)
+    getTemplateDB() |> find_templateDB() <| $(name; tmpl)
       if !(*filter |> PassFilter(name))
-        return true
+        return false
       imgui::TableNextRow()
       TableNextColumn()
       let text = "{tmpl.isSingleton ? "[S] " : ""}{name}"
@@ -87,7 +87,7 @@ def create_entity_daeditor()
             *templateName |> make_input_buffer(newTempl, TEMPLATE_MAX_LEN)
       if selected && selectedItem != name
         selectedItem = clone_string(name)
-      return true
+      return false
 
     imgui::EndTable()
 

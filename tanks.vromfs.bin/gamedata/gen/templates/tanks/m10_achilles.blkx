@@ -130,11 +130,11 @@ m10_achilles_turret_02_12_7mm_m2_hb{
   turret__limit:p4=-60.0, 60.0, -10.0, 70.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=60
-    ammo:i=60
-    ammo:i=60
-    ammo:i=60
-    ammo:i=60
+    ammo:i=80
+    ammo:i=80
+    ammo:i=80
+    ammo:i=80
+    ammo:i=80
   }
 }
 

@@ -5,9 +5,14 @@ let { CmdChangeTimeOfDay, CmdSetCameraFov, CmdSetBloomThreshold, CmdSetChromatic
   CmdSetCinematicModeEnabled, CmdSetFilmGrain, CmdSetMotionBlurScale, CmdSetVignetteStrength,
   CmdSetDofIsFilmic, CmdSetDofBokehCorners, CmdSetDofBokehSize, CmdSetDofFStop,
   CmdSetDofFocalLength, CmdSetDofFocusDistance, CmdSetCameraDofEnabled, CmdWeather,
-  CmdSetRain, CmdSetSnow, CmdSetLightning, CmdSetLenseFlareIntensity
+  CmdSetRain, CmdSetSnow, CmdSetLightning, CmdSetLenseFlareIntensity, CmdSetCinemaRecording,
+  CmdSetCinematicSetSuperPixels, CmdSetCinematicCustomSettings, CmdSetCameraLerpFactor,
+  CmdSetCinematicPostFxBloom
 } = require("dasevents")
+let { take_screenshot_nogui } = require("screencap")
 let { chooseRandom } = require("%sqstd/rand.nut")
+let { is_upsampling } = require("videomode")
+let msgbox = require("%ui/components/msgbox.nut")
 
 const SNOW_TEMPLATE = "camera_snow_heavy_template"
 const RAIN_TEMPLATE = "camera_rain_heavy_template"
@@ -16,6 +21,8 @@ const CINEMATIC_MODE = "cinematic_mode"
 
 let levelTimeOfDay = Watched(0)
 let cameraFov = Watched(0)
+let cameraLerpFactor = Watched(0)
+let hasCameraLerpFactor = Watched(false)
 let motionBlur = Watched(0)
 let bloomEffect = Watched(0)
 let filmGrain = Watched(0)
@@ -41,6 +48,12 @@ let hasRain = Watched(false)
 let hasLightning = Watched(false)
 let isCinematicModeActive = Watched(false)
 let lenseFlareIntensity = Watched(0)
+let enablePostBloom = Watched(false)
+let isCinemaRecording = Watched(false)
+let superPixel = Watched(1)
+let isCustomSettings = Watched(false)
+let isSettingsChecked = Watched(false)
+
 
 ecs.register_es("ui_time_of_day_track_es",
   {
@@ -77,10 +90,20 @@ ecs.register_es("ui_get_is_rain_or_snow_es",
 
 ecs.register_es("ui_camera_fov_track_es",
   {
-    [["onInit","onChange"]] = @(_eid, comp) comp.camera__active ? cameraFov(comp.fovSettings) : null
+    [["onInit","onChange"]] = function(_eid, comp) {
+      if (!comp.camera__active)
+        return
+      cameraFov(comp.fovSettings)
+      cameraLerpFactor(comp.replay_camera__tpsLerpFactor ?? cameraLerpFactor.value)
+      hasCameraLerpFactor(comp.replay_camera__tpsLerpFactor != null)
+    }
   },
   {
-    comps_track=[["fovSettings", ecs.TYPE_FLOAT], ["camera__active", ecs.TYPE_BOOL]]
+    comps_track=[
+      ["fovSettings", ecs.TYPE_FLOAT],
+      ["camera__active", ecs.TYPE_BOOL],
+      ["replay_camera__tpsLerpFactor", ecs.TYPE_FLOAT, null],
+    ]
   }
 )
 
@@ -90,7 +113,7 @@ ecs.register_es("ui_dof_track_es",
       isDofCameraEnabled(comp.dof__on)
       isDofFilmic(comp.dof__is_filmic)
       dofFocusDist(comp.dof__focusDistance)
-      dofFocalLength(comp.dof__focalLength)
+      dofFocalLength(comp.dof__focalLength_mm)
       dofStop(comp.dof__fStop)
       dofBokeCount(comp.dof__bokehShape_bladesCount)
       dofBokeSize(17.0 - comp.dof__bokehShape_kernelSize)
@@ -101,7 +124,7 @@ ecs.register_es("ui_dof_track_es",
       ["dof__on", ecs.TYPE_BOOL],
       ["dof__is_filmic", ecs.TYPE_BOOL],
       ["dof__focusDistance", ecs.TYPE_FLOAT],
-      ["dof__focalLength", ecs.TYPE_FLOAT],
+      ["dof__focalLength_mm", ecs.TYPE_FLOAT],
       ["dof__fStop", ecs.TYPE_FLOAT],
       ["dof__bokehShape_bladesCount", ecs.TYPE_FLOAT],
       ["dof__bokehShape_kernelSize", ecs.TYPE_FLOAT],
@@ -119,6 +142,9 @@ ecs.register_es("ui_cinematic_mode_es",
       vigneteEffect(comp.cinematic_mode__vignetteStrength)
       weatherPreset(comp.cinematic_mode__weatherPreset)
       lenseFlareIntensity(comp.cinematic_mode__lenseFlareIntensity)
+      enablePostBloom(comp.cinematic_mode__enablePostBloom)
+      isCinemaRecording(comp.cinematic_mode__recording)
+      isCustomSettings(comp.settings_override__useCustomSettings)
       isCinematicModeActive(true)
     },
     onDestroy = function(_eid, _comp) {
@@ -128,8 +154,11 @@ ecs.register_es("ui_cinematic_mode_es",
       filmGrain(0)
       vigneteEffect(0)
       lenseFlareIntensity(0)
+      enablePostBloom(false)
       weatherPreset(null)
+      isCustomSettings(isSettingsChecked.value)
       isCinematicModeActive(false)
+      isCinemaRecording(false)
     }
   },
   {
@@ -141,6 +170,9 @@ ecs.register_es("ui_cinematic_mode_es",
       ["cinematic_mode__filmGrain", ecs.TYPE_POINT3],
       ["cinematic_mode__vignetteStrength", ecs.TYPE_FLOAT],
       ["cinematic_mode__weatherPreset", ecs.TYPE_STRING],
+      ["cinematic_mode__recording", ecs.TYPE_BOOL],
+      ["settings_override__useCustomSettings", ecs.TYPE_BOOL],
+      ["cinematic_mode__enablePostBloom", ecs.TYPE_BOOL],
     ],
     comps_rq = [
       "cinematic_mode_tag",
@@ -204,6 +236,8 @@ let changeDayTime = @(time)
   ecs.g_entity_mgr.broadcastEvent(CmdChangeTimeOfDay({ timeOfDay = time }))
 let changeCameraFov = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetCameraFov({ fov = newVal.tointeger() }))
+let changeCameraLerpFactor = @(newVal)
+  ecs.g_entity_mgr.broadcastEvent(CmdSetCameraLerpFactor({ lerpFactor = newVal.tointeger() }))
 let changeBloom = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetBloomThreshold({ threshold = 1.0 - newVal }))
 let changeAbberation = @(newVal)
@@ -228,6 +262,44 @@ let changeFocusDist = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetDofFocusDistance({ focusDistance = newVal }))
 let changeLenseFlareIntensity = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetLenseFlareIntensity({ intensity = newVal }))
+let setCinemaRecording = @(newVal)
+  ecs.g_entity_mgr.broadcastEvent(CmdSetCinemaRecording({ enabled = newVal }))
+let changePostBloom = @(newVal)
+  ecs.g_entity_mgr.broadcastEvent(CmdSetCinematicPostFxBloom({ enabled = newVal }))
+let function changeSuperPixel(newVal) {
+  superPixel(newVal.tointeger())
+  ecs.g_entity_mgr.broadcastEvent(
+    CmdSetCinematicSetSuperPixels({ super_pixels = newVal.tointeger() }))
+}
+let toggleCustomSettings = @() ecs.g_entity_mgr.broadcastEvent(
+  CmdSetCinematicCustomSettings({ enabled = !isCustomSettings.value }))
+
+
+let function makeScreenShot(){
+  if (is_upsampling() && !isCustomSettings.value && !isSettingsChecked.value)
+    msgbox.show({
+      text = loc("replay/screenshotWithDLSS"),
+      buttons = [
+        {
+          text = loc("replay/setOptimalSettings")
+          action = function() {
+            toggleCustomSettings()
+            take_screenshot_nogui()
+            isSettingsChecked(true)
+          }
+        },
+        {
+          text = loc("replay/screenshotAnyway")
+          action = function() {
+            take_screenshot_nogui()
+            isSettingsChecked(true)
+          }
+        }
+      ]
+    })
+  else
+    take_screenshot_nogui()
+}
 
 
 let updateDofCinematic = @() ecs.g_entity_mgr.broadcastEvent(
@@ -252,6 +324,8 @@ isDofFocalActive.subscribe(function(v) {
   }
 })
 
+enablePostBloom.subscribe(@(v) changePostBloom(v))
+
 
 let updateCinematicMode = @() ecs.g_entity_mgr.broadcastEvent(
   CmdSetCinematicModeEnabled({ enabled = isCinematicModeActive.value}))
@@ -270,11 +344,14 @@ isLightning.subscribe(@(v) changeLightning(v))
 return {
   levelTimeOfDay
   cameraFov
+  cameraLerpFactor
+  hasCameraLerpFactor
   changeWeather
   weatherChoiceQuery
   cinematicMode
   changeDayTime
   changeCameraFov
+  changeCameraLerpFactor
   isRain
   isSnow
   isLightning
@@ -304,13 +381,20 @@ return {
   changeFocalLength
   changeFocusDist
   setRandomWeather
+  setCinemaRecording
+  isCinemaRecording
   hasSnow
   hasRain
   hasLightning
   changeWeatherPreset
   lenseFlareIntensity
   changeLenseFlareIntensity
+  enablePostBloom
+  changePostBloom
   changeRain
   changeSnow
   changeLightning
+  changeSuperPixel
+  makeScreenShot
+  superPixel
 }

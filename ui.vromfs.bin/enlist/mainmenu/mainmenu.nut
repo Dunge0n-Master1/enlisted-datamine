@@ -1,9 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sectionsSorted, sectionsGeneration, curSection } = require("sectionsState.nut")
-let bottomBar = require("bottomRightButtons.nut")
-let { isNewDesign } = require("%enlSqGlob/wipFeatures.nut")
-let navHeader = isNewDesign
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let bottomBar = isNewDesign.value
+  ? require("%enlist/mainScene/bottomBar.nut")
+  : require("%enlist/mainMenu/bottomRightButtons.nut")
+let navHeader = isNewDesign.value
   ? require("sectionsBlock.nut")
   : require("%enlist/mainMenu/sections.nut")
 let { mkMenuScene, menuContentAnimation } = require("mkMenuScene.nut")

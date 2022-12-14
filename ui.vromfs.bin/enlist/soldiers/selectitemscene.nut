@@ -21,7 +21,7 @@ let { itemTypesInSlots } = require("model/all_items_templates.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { mkDetailsInfo, lockedInfo } = require("components/itemDetailsComp.nut")
 let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
-let { curUpgradeDiscount, campaignConfigGroup } = require("%enlist/campaigns/campaignConfig.nut")
+let { curUpgradeDiscount, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
 let mkHeader = require("%enlist/components/mkHeader.nut")
@@ -35,7 +35,7 @@ let { getSoldierItemSlots, getEquippedItemGuid, curArmyData
 } = require("%enlist/soldiers/model/state.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { curHoveredItem } = require("%enlist/showState.nut")
 let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
 } = require("%enlist/researches/researchesFocus.nut")
@@ -62,11 +62,8 @@ let itemsTransferConfig = require("model/config/itemsTransferConfig.nut")
 local { isDetailsFull, detailsModeCheckbox } = require("%enlist/items/detailsMode.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
-
 let clickShopItem = require("%enlist/shop/clickShopItem.nut")
 
-local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let armoryWndOpenFlag = mkOnlinePersistentFlag("armoryWndOpenFlag")
 let armoryWndHasBeenOpend = armoryWndOpenFlag.flag
@@ -153,7 +150,7 @@ let function showMessage(item, checkInfo) {
       text = loc("GoToArmyLeveling")
       action = function() {
         scrollToCampaignLvl(level)
-        setCurSection("SQUADS")
+        jumpToArmyProgress()
       }
       isCurrent = true })
 
@@ -365,7 +362,7 @@ let function mkObtainButton(item) {
   return levelLimit != null ? Flat(loc("GoToArmyLeveling"),
       function() {
         scrollToCampaignLvl(item.unlocklevel)
-        setCurSection("SQUADS")
+        jumpToArmyProgress()
       },
       { margin = [0, bigPadding, 0, 0] })
     : shopItemsCmp.value.len() > 0 ? Flat(loc("btn/buy"),
@@ -457,9 +454,7 @@ let openResearchUpgradeMsgbox = function(item, armyId) {
       buttons = [
         {
           text = loc("squads/gotoUnlockBtn")
-          action = function() {
-            setCurSection("SQUADS")
-          }
+          action = jumpToArmyProgress
           isCurrent = true
         }
         { text = loc("Ok"), isCancel = true }

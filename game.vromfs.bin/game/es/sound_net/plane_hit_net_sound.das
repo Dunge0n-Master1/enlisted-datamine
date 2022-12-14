@@ -1,8 +1,8 @@
 require ecs
 require EnlistedNet
 require game.utils.net_utils
-require game.es.events
-require game.es.sound_net.sound_net_events
+require common_shooter.dm_events
+require vehicle_sounds_net.modules.vehicle_sounds_net_events
 
 [es(tag=server, REQUIRE=airplane)]
 def plane_send_hit_sound_projectile(evt : EventOnHitByProjectile; vehicle_seats__seatEids : EidList)

@@ -21,9 +21,26 @@ germ_pzkpfw_IV_ausf_J{
 
 germ_pzkpfw_IV_ausf_J_common{
   _extends:t="base_pzkpfw_iv_ausf_j"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

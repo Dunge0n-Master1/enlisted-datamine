@@ -3,10 +3,10 @@ import "%dngscripts/ecs.nut" as ecs
 
 
 let function createVehicle(
-  template, transform, callback = null, customazation = null
+  template, transform, callback = null, customazation = null, extraTemplates = []
 ) {
   if (template == null)
-    return INVALID_ENTITY_ID
+    return ecs.INVALID_ENTITY_ID
 
   let { vehCamouflage = null, objTexSet = null } = customazation
   let updateParams = {}
@@ -16,6 +16,8 @@ let function createVehicle(
     updateParams.animchar__objTexSet <- objTexSet
 
   let entityParams = { transform }.__update(updateParams)
+
+  template = "+".join([template].extend(extraTemplates))
 
   return ecs.g_entity_mgr.createEntity(template, entityParams, callback)
 }

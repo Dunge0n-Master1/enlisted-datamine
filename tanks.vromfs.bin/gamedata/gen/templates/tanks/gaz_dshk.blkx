@@ -140,10 +140,10 @@ gaz_dshk_skins{
     }
 
     "skin:object"{
-      id:t="gaz_dshk_ussr_camo_green_ltbrown_lines"
+      id:t="gaz_dshk_ussr_camo_desert_syrian_green_brown_yellow"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+        "ussr_camo_green*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
   }

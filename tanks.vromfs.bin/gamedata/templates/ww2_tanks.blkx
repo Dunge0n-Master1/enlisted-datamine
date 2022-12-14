@@ -2,6 +2,7 @@ import:t="gunsound.blk"
 import:t="#content/tanks/gamedata/gen/templates/gen_ww2_tanks.blk"
 import:t="#content/tanks/gamedata/gen/templates/gen_ww2_tankguns_common.blk"
 import:t="tank_cockpit.blk"
+import:t="tank_gun_override.blk"
 import:t="ammo_stowage.blk"
 import:t="uk_tanks.blk"
 import:t="usa_tanks.blk"
@@ -280,6 +281,8 @@ attached_fire_engine_damage{
   attached_fire__engineDmgPerSec:r=8.0
   attached_fire__lastUpdate:r=-1.0
   attached_fire__updateInterval:r=1.0
+  attached_fire__gunPropsId:i=-1
+  attached_fire__shellId:i=-1
   _tracked:t="attached_fire__isAnyFireAttached"
 
   "attached_fire__offender:eid"{
@@ -452,7 +455,9 @@ base_tank_without_xray_common{
   commanderCockpitFpsCamMaxAngle:p2=20.0, 0.0
   cockpit__cameraDir:p3=1.0, 0.0, 0.0
   _tracked:t="cockpit__eid"
-  expl_fx:t="tank_explosion"
+  explosion_fx__effectName:t="tank_explosion_template"
+  explosion_fx__nodeName:t="emtr_explosion_center"
+  explosion_fx__nodeId:i=-1
   vehicle_seats__enumVarName:t="tank"
   killLogName:t="Tank"
   reportKill:b=yes
@@ -965,7 +970,7 @@ base_tank_seat_templates{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:list<t>"{
+    "dependent_templates_list:shared:list<t>"{
       template_name:t="vehicle_seat_default"
       template_name:t="vehicle_seat_driver"
       template_name:t="vehicle_seat_main_gunner"
@@ -985,7 +990,6 @@ base_tank_sound{
   _extends:t="tank_camera_inside_snapshot"
   _extends:t="tank_vehicle_speech"
   _extends:t="tank_vehicle_engine_sound"
-  _extends:t="vehicle_engine_sound_seats_starter"
   _extends:t="tank_vehicle_gear_sound"
   _extends:t="tank_vehicle_collision_sound_setup"
   _extends:t="tank_vehicle_damage_sound_setup"
@@ -1520,6 +1524,52 @@ base_tankgun_machinegun_nooverheat{
   }
 }
 
+tank_grenade_projectile{
+  _extends:t="rocket_projectile"
+  animchar__res:t="grenade_A13_char"
+}
+
+tank_smoke_grenade_projectile{
+  _extends:t="tank_grenade_projectile"
+  _extends:t="smoke_grenade_projectile_sound"
+
+  "disableRIBulletHole:tag"{
+  }
+}
+
+base_tankgun_grenade_launcher{
+  _extends:t="reloadable_turret"
+  animchar__res:t="grenade_A13_char"
+  gun__maxAmmo:i=1
+  gun__reloadTime:r=1.5
+  turret__shootNodeId:i=-1
+  gun__recoilAmount:r=0.0
+  gun__projectileTemplate:t="tank_grenade_projectile"
+  gun__projectileDebugTemplate:t="tank_grenade_projectile+bomb_projectile_debug"
+  gun__icon:t="tank/cannon_ammo_smoke.svg"
+  gun_hit_fx__effectGroupName:t="tank_grenades_smoke"
+
+  animchar{
+  }
+
+  "gun__isLauncher:tag"{
+  }
+
+  "turret__disableAim:tag"{
+  }
+
+  "turret__ignoreGroupTrigger:tag"{
+  }
+
+  "turret__aimWithShootNode:tag"{
+  }
+}
+
+base_tankgun_smoke_grenade_launcher{
+  _extends:t="base_tankgun_grenade_launcher"
+  gun__projectileTemplate:t="tank_smoke_grenade_projectile"
+}
+
 t17e2{
   _extends:t="vehicle"
   _extends:t="vehicle_effects_4x4"
@@ -1670,14 +1720,9 @@ vehicle_engine_fire{
   _extends:t="fire_source_no_fx"
   _extends:t="smoke_occluders"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=3.0
-  }
+  smoke_occluders__updateInterval:r=3.0
 
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "little:object"{
       windScale:r=0.15
@@ -1709,14 +1754,9 @@ fatal_explosion_external_fire{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   fatal_explosion_external_fire__endTime:r=-1.0
   sphere_zone__radius:r=1.0
-
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=3.0
-  }
+  smoke_occluders__updateInterval:r=3.0
 
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "little:object"{
       windScale:r=0.3

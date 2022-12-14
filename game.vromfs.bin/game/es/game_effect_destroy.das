@@ -22,7 +22,7 @@ def client_self_destroy_game_effect(info : UpdateStageInfoAct; eid : EntityId; g
     destroyEntity(eid)
 
 [es(tag=server, on_disappear)]
-def create_post_effect(evt : Event; post_effect__templateName : string; post_effect__duration : float; game_effect__attachedTo : EntityId; transform : float3x4?)
+def create_post_effect(evt : Event; post_effect__templateName : string; post_effect__duration : float; game_effect__attachedTo : EntityId; transform : float3x4 const?)
   createEntity(post_effect__templateName) <| $(var init : ComponentsInitializer)
     set(init, "game_effect__destroyAt", get_sync_time() + post_effect__duration)
     set(init, "game_effect__attachedTo", game_effect__attachedTo)

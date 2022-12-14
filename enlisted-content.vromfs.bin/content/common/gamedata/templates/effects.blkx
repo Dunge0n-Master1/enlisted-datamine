@@ -1,6 +1,7 @@
 import:t="effects_includes/effects_common.blk"
 import:t="effects_includes/effects_environment.blk"
 import:t="effects_includes/effects_explosions.blk"
+import:t="effects_includes/effects_destruction.blk"
 import:t="effects_includes/effects_hits.blk"
 import:t="effects_includes/effects_misc.blk"
 import:t="effects_includes/effects_muzzle_presets.blk"
@@ -128,17 +129,12 @@ bonfire_effect{
   _extends:t="bonfire_effect_no_occluders"
   _extends:t="smoke_occluders"
   sphere_zone__radius:r=0.55
+  smoke_occluders__updateInterval:r=5.0
 
   "smoke_occluders__isStatic:tag"{
   }
 
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=5.0
-  }
-
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "little:object"{
       windScale:r=0.15
@@ -193,6 +189,7 @@ bonfire_effect_menu{
 bonfire_effect_medium{
   _extends:t="bonfire_effect_no_occluders"
   _extends:t="smoke_occluders"
+  smoke_occluders__updateInterval:r=5.0
 
   _group{
     _tags:t="render"
@@ -202,13 +199,7 @@ bonfire_effect_medium{
   "smoke_occluders__isStatic:tag"{
   }
 
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=5.0
-  }
-
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "little:object"{
       windScale:r=0.0
@@ -249,6 +240,7 @@ bonfire_effect_big{
   _extends:t="bonfire_effect_no_occluders"
   _extends:t="smoke_occluders"
   sphere_zone__radius:r=1.3
+  smoke_occluders__updateInterval:r=5.0
 
   _group{
     _tags:t="render"
@@ -258,13 +250,7 @@ bonfire_effect_big{
   "smoke_occluders__isStatic:tag"{
   }
 
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=5.0
-  }
-
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "little:object"{
       windScale:r=0.0
@@ -587,7 +573,7 @@ dafx_rain{
 
   _group{
     _tags:t="render"
-    effect__offset:p3=0.0, -2.0, 0.0
+    effect__offset:p3=0.0, -4.0, 0.0
   }
 
   rain{
@@ -944,7 +930,6 @@ ri_gpu_object{
     ri_gpu_object__up_vector:p3=0.0, 1.0, 0.0
     ri_gpu_object__scale_range:p2=1.0, 1.0
     ri_gpu_object__biom_indexes:p4=-1.0, -1.0, -1.0, -1.0
-    ri_gpu_object__material_indexes:p4=-1.0, -1.0, -1.0, -1.0
     ri_gpu_object__is_using_normal:b=no
     ri_gpu_object__incline_delta:r=0.0
     ri_gpu_object__rotate_range:p2=0.0, 0.0
@@ -953,35 +938,22 @@ ri_gpu_object{
     ri_gpu_object__map_offset:p2=0.0, 0.0
     ri_gpu_object__color_from:c=127, 127, 127, 127
     ri_gpu_object__color_to:c=127, 127, 127, 127
-    ri_gpu_object__on_ri_density:r=10.0
-    ri_gpu_object__on_ri_noise_gamma:r=0.0
-    ri_gpu_object__on_ri_noise_tile:r=1.0
-    ri_gpu_object__on_ri_noise_threshold:r=0.5
-    ri_gpu_object__on_ri_placer_lod:i=-1
-    ri_gpu_object__max_placed_on_ri:i=0
     ri_gpu_object__slope_factor:p2=1.0, 0.0
     ri_gpu_object__hardness:r=1.0
-    ri_gpu_object__shader_graph:t=""
     ri_gpu_object__sparse_weight:r=0.0
     ri_gpu_object__decal:b=no
     ri_gpu_object__transparent:b=no
+    ri_gpu_object__distorsion:b=no
     ri_gpu_object__place_on_water:b=no
     ri_gpu_object__enable_displacement:b=no
     ri_gpu_object__render_into_shadows:b=no
     ri_gpu_object__coast_range:p2=-1.0, -1.0
     ri_gpu_object__face_coast:b=no
 
-    "ri_gpu_object__ri_placer_list:array"{
-    }
-
     "ri_gpu_object__biome_params:array"{
     }
 
     "ri_gpu_object__multiple_objects:array"{
-    }
-
-    ri_gpu_object__node_based_shader_preload{
-      _tags:t="render"
     }
   }
 
@@ -1013,6 +985,7 @@ gpu_object_placer{
     gpu_object_placer__current_distance_squared:r=0.0
     gpu_object_placer__opaque:b=yes
     gpu_object_placer__decal:b=no
+    gpu_object_placer__distorsion:b=no
     gpu_object_placer__render_into_shadows:b=no
     gpu_object_placer__filled:b=no
     gpu_object_placer__buffer_offset:i=-1
@@ -1278,7 +1251,6 @@ turret_gun_flash_effect_base{
 
   _group{
     _tags:t="render"
-    gun_flash_fx__timeToDestroy:r=-1.0
     gun_flash_fx__nodeId:i=-1
 
     effect{
@@ -1287,12 +1259,14 @@ turret_gun_flash_effect_base{
     "gun_flash_fx__gunEid:eid"{
     }
   }
+
+  "autodeleteEffectEntity:tag"{
+  }
 }
 
 turret_gun_flash_fx{
 
-  "turret_gun_flash_fx:tag"{
-    _tags:t="render"
+  "autodeleteEffectEntity:tag"{
   }
 }
 
@@ -1424,6 +1398,7 @@ smoke_shell_effect{
   game_effect__timeToDestroy:r=15.0
   game_effect__destroyAt:r=-1.0
   _extends:t="smoke_occluders"
+  smoke_occluders__updateInterval:r=2.0
 
   effect{
     _tags:t="render"
@@ -1431,7 +1406,7 @@ smoke_shell_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="misc_simple_smoke_grenade"
+    effect__name:t="explosion_grenades_smoke_mortar_cmps_fx"
   }
 
   "extinguishUnderwater:tag"{
@@ -1440,13 +1415,7 @@ smoke_shell_effect{
   "smoke_occluders__isStatic:tag"{
   }
 
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=2.0
-  }
-
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "big:object"{
       windScale:r=0.0
@@ -1466,6 +1435,7 @@ white_phosphorus_smoke_effect{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   effect__scale:r=1.0
   _tracked:t="effect__scale"
+  smoke_occluders__updateInterval:r=2.0
 
   _group{
     _tags:t="render"
@@ -1481,13 +1451,7 @@ white_phosphorus_smoke_effect{
   "smoke_occluders__isStatic:tag"{
   }
 
-  "smoke_occluders__updateInterval:r"{
-    _tags:t="server"
-    value:r=2.0
-  }
-
   "smoke_occluders__info:shared:array"{
-    _tags:t="server"
 
     "big:object"{
       windScale:r=0.0
@@ -1687,6 +1651,15 @@ land_dust_storm{
   }
 }
 
+land_snow_storm{
+  _extends:t="ground_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="land_snow_storm"
+  }
+}
+
 ground_papers_10m{
   _extends:t="ground_effect_base"
 
@@ -1705,20 +1678,6 @@ chimney_exhaust{
   }
 }
 
-weap_hit_fx{
-  gun_hit_fx__default:t="base_hit_fx"
-
-  "gun_hit_fx__info:shared:array"{
-
-    "info:object"{
-
-      "wood:object"{
-        fx:t="base_hit_fx"
-      }
-    }
-  }
-}
-
 base_gun_flash_unattached_fx{
   _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -1726,7 +1685,6 @@ base_gun_flash_unattached_fx{
   _group{
     _tags:t="render"
     effect__name:t="muzzle_flash"
-    gun_flash_fx__timeToDestroy:r=0.3
     gun_flash_fx__nodeId:i=-1
 
     effect{
@@ -1734,6 +1692,9 @@ base_gun_flash_unattached_fx{
 
     "gun_flash_fx__gunEid:eid"{
     }
+  }
+
+  "autodeleteEffectEntity:tag"{
   }
 }
 
@@ -1764,8 +1725,10 @@ falling_weather_effect_template{
   _group{
     _tags:t="render"
     camera_prev_pos:p3=0.0, 0.0, 0.0
+    camera_prev_vel:p3=0.0, 0.0, 0.0
     effect__offset:p3=0.0, 1.0, 0.0
     effect__bias_coef:r=0.5
+    effect__smooth_coef:r=0.2
   }
 
   "client__canDestroyServerEntity:tag"{
@@ -1850,6 +1813,7 @@ camera_dust_template{
 
 shell_explosion_fx_info{
   _singleton:b=yes
+  _extends:t="replicating"
   shell_explosion_fx__default:t=""
   shell_explosion_fx__traceLength:r=0.5
   shell_explosion_fx__infoTemplate:t=""

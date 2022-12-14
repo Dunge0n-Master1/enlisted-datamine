@@ -1,11 +1,14 @@
 require ecs
 require ecs.common
-require EnlistedNet
+require math.base
 require zones
+require EnlistedNet
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
+require common_shooter.es.weapon.shell_fx_common
 require game.es.events
+require game.es.smoke_occluders_common
 require AnimV20
 require GeomNodeTree
 require DagorMath
@@ -36,7 +39,7 @@ def shell_created_es(evt : Event;
                      shell__expl_node : string;
                      animchar : AnimcharBaseComponent;
                      var shell__explNodeIdx : int&)
-  shell__explNodeIdx = animchar.nodeTree |> geomtree_findNodeIndex(shell__expl_node)
+  shell__explNodeIdx = *animchar.nodeTree |> geomtree_findNodeIndex(shell__expl_node)
   if shell__explNodeIdx < 0
     logerr("{getEntityTemplateName(eid)} shell.explNodeIdx < 0 (shell__expl_node={shell__expl_node})")
     destroyEntity(eid)
@@ -82,7 +85,7 @@ def shell_expl_es(evt : CmdShellExplode;
                   shell__gun_props_id : int;
                   shell__owner : EntityId;
                   shell__rethrower : EntityId = INVALID_ENTITY_ID;
-                  shell_detonate_ignore_owner : Tag?)
+                  shell_detonate_ignore_owner : Tag const?)
   let ignoreEid = shell_detonate_ignore_owner != null ? shell__owner : INVALID_ENTITY_ID
   using() <| $(var shellId : ShellPropIds#)
     shellId.shellId = int16(shell__shell_id__shell_id)
@@ -95,7 +98,9 @@ def shell_expl_es(evt : CmdShellExplode;
                           normal, shell__rethrower)
 
   // Detect that we exploded in gun
-  if shell__owner != INVALID_ENTITY_ID
+  if shell__rethrower != INVALID_ENTITY_ID
+    clear_projectile_entity(shell__rethrower, eid)
+  elif shell__owner != INVALID_ENTITY_ID
     clear_projectile_entity(shell__owner, eid)
   destroyEntity(eid)
 
@@ -105,29 +110,6 @@ def local_shell_expl_es(evt : CmdShellExplode;
                         eid : EntityId;
                         shell__owner : EntityId)
   explode_local_shell(eid, shell__owner)
-
-
-[es(tag=server)]
-def shell_expl_disorientated_es(evt : CmdShellExplode;
-                                disorientated__tinnitusRad : float2;
-                                disorientated__tinnitusPower : float2;
-                                disorientated__flashRad : float2 = float2();
-                                disorientated__flashPower : float2 = float2();
-                                disorientated__flashDistExp : float = 1.0;
-                                disorientated__tinnitusDistExp : float = 1.0)
-  find_query() <| $ [es(REQUIRE=msg_sink)] (eid : EntityId)
-    send_net_event(
-      eid,
-      [[EventFlashExploded
-        pos=evt.position,
-        tinnitusRad=disorientated__tinnitusRad,
-        flashRad=disorientated__flashRad,
-        tinnitusPower=disorientated__tinnitusPower,
-        flashPower=disorientated__flashPower,
-        flashDistExp=disorientated__flashDistExp,
-        tinnitusDistExp=disorientated__tinnitusDistExp,
-        ignoreEid=INVALID_ENTITY_ID]])
-    return true
 
 
 [es(tag=server, no_order)]
@@ -141,7 +123,7 @@ def shell_es(info : UpdateStageInfoAct;
   if info.curTime < shell__explTime || !active || !shell_trigger__active
     return
 
-  let pos = animchar.nodeTree |> geomtree_getNodeWpos(shell__explNodeIdx)
+  let pos = *animchar.nodeTree |> geomtree_getNodeWpos(shell__explNodeIdx)
   active = false
   sendEvent(
     eid,
@@ -184,7 +166,7 @@ def shell_fuse_retarder_es(info : UpdateStageInfoAct;
   find_query() <| $ [es] (shellFuseRetard : float;
                           transform : float3x4;
                           sphere_zone__radius : float;
-                          sphere_zone__truncateBelow : float?)
+                          sphere_zone__truncateBelow : float const?)
     if is_inside_truncated_sphere_zone(shellPos, transform, sphere_zone__radius,
                                        sphere_zone__truncateBelow)
       shell__explTime += info.dt * (1.0 - safeinv(shellFuseRetard))
@@ -200,7 +182,7 @@ def shell_smoke_effect_es(info : UpdateStageInfoAct;
                           smokeStartTime : float;
                           smokeFadeTime : float;
                           smokeFadeScale : float;
-                          clientSide : Tag?)
+                          clientSide : Tag const?)
   detonation_get_props(shell__shell_id__shell_id) <| $(detonationProps : DetonationProps)
     let timer = detonationProps.timer
     let startTime = shell__explTime - timer
@@ -221,6 +203,15 @@ def shell_smoke_extinguish_underwater_es(info : UpdateStageInfoAct;
     traceht_water_at_time(transform[3], 5.0, info.curTime, isUnderwater)
     if isUnderwater
       effect__scale = 0.0
+
+
+[es(no_order)]
+def update_is_underwater_shell_es(evt : CmdPostPhysUpdate;
+                                  transform : float3x4;
+                                  var shell__isUnderwater : bool&)
+  var waterLevel = 0.0
+  let pos = transform[3]
+  shell__isUnderwater = traceht_water(pos, waterLevel) && pos.y < waterLevel
 
 
 [es(tag=server)]
@@ -245,3 +236,26 @@ def explode_shell_on_death_from_projectile(evt : EventEntityDied;
     shell__active = false
     sendEvent(eid, [[CmdShellExplode position=transform[3], prevPos = transform[3], vel = float3()]])
   broadcast_net_event([[CmdShellExplodeFx position=transform[3], effectTemplate = explosionEffectTemplate]])
+
+
+def create_smoke_occluders_for_shell_impl(pos : float3; fx_info_template : string)
+  var tm = IDENT_TM
+  tm[3] = pos
+
+  var isUnderWater = false
+  let posAdjusted = get_adjusted_pos_for_effect(tm[3], isUnderWater)
+  let fxTemplateName = get_fx_name_based_on_floor(posAdjusted, fx_info_template, isUnderWater)
+
+  create_smoke_occluders_for_effect(tm, fxTemplateName)
+
+
+[es(tag=server)]
+def shell_create_smoke_occluders_on_explode_server(evt : EventShellExplodedServer;
+                                                   shell_explosion_fx__infoTemplate : string)
+  create_smoke_occluders_for_shell_impl(evt.pos, shell_explosion_fx__infoTemplate)
+
+
+[es(tag=netClient, REQUIRE=msg_sink)]
+def shell_create_smoke_occluders_on_explode_client(evt : EventOnShellExploded;
+                                                   shell_explosion_fx__infoTemplate : string)
+  create_smoke_occluders_for_shell_impl(evt.explPos, shell_explosion_fx__infoTemplate)

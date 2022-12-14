@@ -1,8 +1,8 @@
 require ecs
 require ecs.safe
 require game.utils.team
+require math
 require math.base
-require DagorMath
 require DagorSystem
 require EnlistedDm
 require game.es.sound_net.sound_net_events
@@ -56,9 +56,17 @@ def try_friendly_fire_victim_speech(evt : EventOnEntityHit; offender_team : int;
           eidToSpeak = eid
           closestDistSq = distSq
     if !!eidToSpeak
-      sendEvent(eidToSpeak, [[CmdRequestHumanSpeech phrase="friendlyFireHit", importance=1.]])
+      sendEvent(eidToSpeak, [[CmdRequestHumanSpeech phrase="friendlyFireHit"]])
     return true
   return false
+
+
+def request_speech(eid : EntityId; phrase : string)
+  sendEvent(eid, [[CmdRequestHumanSpeech phrase=phrase]])
+
+
+def is_hard_hit(delta_hp, max_hp : float)
+  return delta_hp > max_hp * 0.5
 
 
 [es(tag=server)]
@@ -70,7 +78,6 @@ def human_hit_net_speech(evt : EventOnEntityHit;
                          hitpoints__maxHp : float;
                          human_net_speech__isFarKillThreshold = 100.;
                          human_net_speech__friendlyFireDistThreshold = 20.)
-
   if evt.victim == evt.offender || !isAlive
     return
 
@@ -84,32 +91,30 @@ def human_hit_net_speech(evt : EventOnEntityHit;
   if dd.damageType != int(DamageType DM_PROJECTILE) && dd.damageType != int(DamageType DM_EXPLOSION) && dd.damageType != int(DamageType DM_MELEE) && dd.damageType != int(DamageType DM_BACKSTAB)
     return
 
-  let killed = (evt.hitResult == int(HitResult HIT_RES_KILLED)) && !is_concussed(evt.victim)
+  let wasKilled = (evt.hitResult == int(HitResult HIT_RES_KILLED)) && !is_concussed(evt.victim)
 
   if evt.victim == eid
-    if !killed && (dd.damageType == int(DamageType DM_PROJECTILE) || dd.damageType == int(DamageType DM_EXPLOSION))
-      sendEvent(evt.victim, [[CmdRequestHumanSpeech phrase="wounded", importance=saturate(safediv(dd.deltaHp, hitpoints__maxHp))]])
+    if !wasKilled && (dd.damageType == int(DamageType DM_PROJECTILE) || dd.damageType == int(DamageType DM_EXPLOSION))
+      if is_hard_hit(dd.deltaHp, hitpoints__maxHp)
+        sendEvent(evt.victim, [[CmdRequestHumanSpeech phrase="woundedHard"]])
+      else
+        sendEvent(evt.victim, [[CmdRequestHumanSpeech phrase="wounded"]])
 
   elif evt.offender == eid
-
-    if try_friendly_fire_victim_speech(evt, team, transform[3], human_net_speech__friendlyFireDistThreshold)
-      return
-
-    query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (hitpoints__maxHp : float; dm_parts__type : StringList&)
-      var phrase = "enemyHit"
-      if killed
-        if dd.damageType == int(DamageType DM_EXPLOSION)
-          phrase = "enemyKillExplode"
-        elif is_headshot(dm_parts__type, dd.collNodeId)
-          phrase = "enemyHeadshot"
-        //elif dd.deltaHp >= hitpoints__maxHp && is_single_shot(evt.offender)
-        //  phrase = "enemyKillSingleShot"
-        elif length_sq(dd.hitPos - transform[3]) > square(human_net_speech__isFarKillThreshold)
-          phrase = "enemyKillFar"
-        elif (dd.damageType == int(DamageType DM_MELEE))
-          phrase = "enemyKillMelee"
+    if !try_friendly_fire_victim_speech(evt, team, transform[3], human_net_speech__friendlyFireDistThreshold)
+      query(evt.victim) <| $ [es(REQUIRE=human_net_phys)] (dm_parts__type : StringList&)
+        if wasKilled
+          if dd.damageType == int(DamageType DM_EXPLOSION)
+            request_speech(evt.offender, "enemyKillExplode")
+          elif is_headshot(dm_parts__type, dd.collNodeId)
+            request_speech(evt.offender, "enemyHeadshot")
+          //elif dd.deltaHp >= hitpoints__maxHp && is_single_shot(evt.offender)
+          //  request_speech(evt.offender, "enemyKillSingleShot")
+          elif length_sq(dd.hitPos - transform[3]) > square(human_net_speech__isFarKillThreshold)
+            request_speech(evt.offender, "enemyKillFar")
+          elif (dd.damageType == int(DamageType DM_MELEE))
+            request_speech(evt.offender, "enemyKillMelee")
+          else
+            request_speech(evt.offender, "enemyKill")
         else
-          phrase = "enemyKill"
-
-      let importance = saturate(safediv(dd.deltaHp, hitpoints__maxHp))
-      sendEvent(evt.offender, [[CmdRequestHumanSpeech phrase=phrase, importance=importance]])
+          request_speech(evt.offender, "enemyHit")

@@ -25,17 +25,17 @@ def apply_spawn_mode_to_player_and_team(player_eid : EntityId)
     dead = 0
 
   var perSoldier = false
-  query(player_eid) <| $ [es] (var soldier_revive_points__healPerSquadmate : Array&;
-                               var soldier_revive_points__afterDeath : Array&)
+  query(player_eid) <| $ [es] (var soldier_revive_points__healPerSquadmate : IntList&;
+                               var soldier_revive_points__afterDeath : IntList&)
     perSoldier = true
 
     if heal >= 0
-      for i in iter_range(soldier_revive_points__healPerSquadmate)
-        *(getRW_int(soldier_revive_points__healPerSquadmate[i])) = heal
+      for pts in soldier_revive_points__healPerSquadmate
+        pts = heal
 
     if dead >= 0
-      for i in iter_range(soldier_revive_points__afterDeath)
-        *(getRW_int(soldier_revive_points__afterDeath[i])) = dead
+      for pts in soldier_revive_points__afterDeath
+        pts = dead
 
   // Should keep squads available until all soldiers dead for LONE_FIGHTERS mode
   // (see spawn_defeat.das for code that makes squad unavailable if all soldiers dead)
@@ -62,9 +62,10 @@ def apply_spawn_mode_init_es(evt : Event)
   query() <| $ [es(REQUIRE=player)] (eid : EntityId)
     apply_spawn_mode_to_player_and_team(eid)
 
-[es(tag=server, REQUIRE=player, on_event=EventPlayerProfileChanged)]
-def apply_spawn_mode_on_player_profile_changed_es(evt : Event; eid : EntityId)
-  apply_spawn_mode_to_player_and_team(eid)
+[es(tag=server, REQUIRE=(player, squads__revivePointsPerSquad, squads__revivePointsAfterDeath), on_appear, track=isArmiesReceived)]
+def apply_spawn_mode_on_player_profile_changed_es(evt : Event; eid : EntityId; isArmiesReceived : bool)
+  if isArmiesReceived
+    apply_spawn_mode_to_player_and_team(eid)
 
 [es(tag=server, REQUIRE=(player, soldier_revive_points__healPerSquadmate, soldier_revive_points__afterDeath),
                 on_appear, after=soldier_revive_points_init_es)]

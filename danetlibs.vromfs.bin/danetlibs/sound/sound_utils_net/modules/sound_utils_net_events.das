@@ -23,3 +23,10 @@ struct CmdPlayNetSoundSimple
 struct CmdPlayNetSoundFromAnySource
   hash : uint
   time : float
+
+
+//may move this events to single module in daNetGameLibs to share it across all da-net-game projects
+[cpp_event(broadcast)]
+struct ParallelUpdateFrameDelayed
+  curTime : float
+  dt : float

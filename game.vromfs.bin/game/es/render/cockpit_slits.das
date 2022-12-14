@@ -76,7 +76,7 @@ def cockpit_slit_setter_changed(evt : Event;
   node_attached__entity = INVALID_ENTITY_ID // disable attachment until editing is done
   query(cockpit_slit_setter__cockpitId) <| $ [es] (animchar : AnimcharBaseComponent)
     var nodeTm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_attached__nodeId, nodeTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, nodeTm)
     node_attached__localTm = inverse(nodeTm) * transform
     ecs::query(cockpit_slit_setter__cockpitId) <| $ [es] (var cockpit__slitBoxes : TMatrixList&)
       cockpit__slitBoxes[cockpit_slit_setter__index] = inverse(nodeTm) * transform
@@ -91,9 +91,9 @@ def cockpit_set_boxes(transform : float3x4;
   for i in range(0, boxCount)
     let slitNodeId = (length(cockpit__slitNodes) > 0
       ? cockpit__slitNodes[i]
-      : geomtree_findNodeIndex(animchar.nodeTree, string(cockpit__slitNodeNames[i])))
+      : geomtree_findNodeIndex(*animchar.nodeTree, string(cockpit__slitNodeNames[i])))
     var nodeTm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, slitNodeId, nodeTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, slitNodeId, nodeTm)
     let modelToNodeTm = inverse(nodeTm) * transform
     let invBoxTm = inverse(cockpit__slitBoxes[i]) * modelToNodeTm
     set_cockpit_box_tm(cockpit_slit_xVarIds[i], cockpit_slit_yVarIds[i], cockpit_slit_zVarIds[i], invBoxTm)
@@ -130,7 +130,7 @@ def cockpit_slits_attach_setters(evt : Event;
     return
 
   for i in iter_range(cockpit__slitBoxes)
-    let slitNodeId = geomtree_findNodeIndex(animchar.nodeTree, string(cockpit__slitNodeNames[i]))
+    let slitNodeId = geomtree_findNodeIndex(*animchar.nodeTree, string(cockpit__slitNodeNames[i]))
     if slitNodeId < 0
       continue
 

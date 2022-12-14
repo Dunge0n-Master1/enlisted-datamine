@@ -19,6 +19,7 @@ wellington_mk1c_base{
   plane_collision__blk:t="gamedata/units/wellington_mk1c.blk"
   plane_anim__blk:t="gamedata/units/wellington_mk1c.blk"
   plane_sight__blk:t="gamedata/units/wellington_mk1c.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="wellington_mk1c_wreckage"

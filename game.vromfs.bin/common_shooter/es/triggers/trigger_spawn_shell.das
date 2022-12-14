@@ -12,8 +12,8 @@ require common_shooter.es.human.human_gun_common
 def spawn_shell_impl(eid : EntityId;
                      transform : float3x4;
                      on_create__spawnActivatedShellBlk : string;
-                     on_create__setVelocity : float3?;
-                     on_create__addShellTemplate : das_string?;
+                     on_create__setVelocity : float3 const?;
+                     on_create__addShellTemplate : das_string const?;
                      on_create__spawnShellTimer : float = -1.0f;
                      ownerEid : EntityId = INVALID_ENTITY_ID)
   using() <| $(var shell_props : ShellPropIds#)
@@ -53,8 +53,8 @@ def spawn_shell_on_create_es(evt : EventEntityCreated;
                              eid : EntityId;
                              transform : float3x4;
                              on_create__spawnActivatedShellBlk : string;
-                             on_create__setVelocity : float3?;
-                             on_create__addShellTemplate : das_string?;
+                             on_create__setVelocity : float3 const?;
+                             on_create__addShellTemplate : das_string const?;
                              on_create__spawnShellTimer : float = -1.0f;
                              ownerEid : EntityId = INVALID_ENTITY_ID)
   spawn_shell_impl(eid, transform, on_create__spawnActivatedShellBlk, on_create__setVelocity, on_create__addShellTemplate,
@@ -66,8 +66,8 @@ def spawn_shell_delayed_spawner_es(info : ecs::UpdateStageInfoAct;
                                    transform : float3x4;
                                    activator__spawnShellAtTime : float;
                                    on_create__spawnActivatedShellBlk : string;
-                                   on_create__setVelocity : float3?;
-                                   on_create__addShellTemplate : das_string?;
+                                   on_create__setVelocity : float3 const?;
+                                   on_create__addShellTemplate : das_string const?;
                                    on_create__spawnShellTimer : float = -1.0f;
                                    ownerEid : EntityId = INVALID_ENTITY_ID)
   if activator__spawnShellAtTime > 0.f && activator__spawnShellAtTime < info.curTime

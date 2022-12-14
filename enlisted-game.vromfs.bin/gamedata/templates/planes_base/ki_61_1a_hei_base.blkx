@@ -19,6 +19,7 @@ ki_61_1a_hei_base{
   plane_collision__blk:t="gamedata/units/ki_61_1a_hei.blk"
   plane_anim__blk:t="gamedata/units/ki_61_1a_hei.blk"
   plane_sight__blk:t="gamedata/units/ki_61_1a_hei.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="ki_61_1a_hei_wreckage"

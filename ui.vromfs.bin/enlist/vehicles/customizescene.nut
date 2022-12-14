@@ -22,7 +22,7 @@ let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let {
   mkDecorSlot, mkDecorIcon, mkBlockHeader, mkCustGroup, slotSize, mkSkinIcon,
   mkFlipBtn, mkSelectBox, mkButton, closeActionIcon, mkDecorHints, decorScaleHint,
-  decorRotationHint, slotBigSize, slotNormalColor
+  decorRotationHint, slotNormalColor, slotBigSize
 } = require("customizePkg.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
@@ -34,7 +34,8 @@ let {
   buyDecorator, curCamouflageId, getOwnedCamouflage, viewVehCamouflage,
   selectedDecorator, startUsingDecor, stopUsingDecal, vehDecorLimits,
   mirrorDecal, twoSideDecal, viewVehDecorByType, viewVehCustLimits,
-  cropSkinName, closeDecoratorsList, isPurchasing
+  cropSkinName, closeDecoratorsList, isPurchasing, notPurchased,
+  buyApplyDecorators
 } = require("customizeState.nut")
 let {
   getBaseVehicleSkin, getVehSkins, decalToString
@@ -53,6 +54,7 @@ let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { squads } = require("%enlist/meta/profile.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let popupsState = require("%enlist/popup/popupsState.nut")
+let { hasMassVehDecorPaste } = require("%enlist/featureFlags.nut")
 
 
 enum SIDE_PARAMS {
@@ -79,8 +81,8 @@ let purchSpinner = spinner({ height = hdpx(80) }).__update({
   vplace = ALIGN_CENTER
 })
 
-let function mkCamouflage(cParams, gametemplate, camouflage) {
-  let { id = null } = camouflage
+let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
+  let id = skinToBuy?.id ?? camouflage?.id
   let { curCustType = "", curSlotIdx = -1 } = cParams
   let isSelected = curCustType == "vehCamouflage" && curSlotIdx == 0
   let skin = getVehSkins(gametemplate).findvalue(@(s) s.id == id)
@@ -90,6 +92,7 @@ let function mkCamouflage(cParams, gametemplate, camouflage) {
   local skinId = cropSkinName((objTexReplace).values()?[0])
   let skinLocId = locId ?? ($"skin/{skinId ?? "baseSkinName"}")
   let decorator = skinId == null ? null : { cfg = { guid = skinId }}
+  let { buyData = null } = skinToBuy
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -114,13 +117,23 @@ let function mkCamouflage(cParams, gametemplate, camouflage) {
             curCustType = "vehCamouflage"
             curSlotIdx = 0
           })
-      })
+      }, null, buyData, currencies)
     ]
   }
 }
 
+let mkNotPurchasedDecorator = @(decorator) decorator == null ? null
+  : {
+      slotIdx = decorator.slotIdx
+      cType = decorator.cType
+      cfg = {
+        cType = decorator.cType
+        guid = decorator.id
+      }
+    }
+
 let mkCustomize = kwarg(
-  function(decorators, scheme, slotParams, decoratorsCfg, hasPrem) {
+  function(decorators, scheme, slotParams, decoratorsCfg, hasPrem, decoratorsToBuy, currencies) {
     let { curCustType = "", curSlotIdx = -1 } = slotParams
     let { custType = "", slotsNum = 0, premSlotsNum = 0 } = scheme
     let total = slotsNum + premSlotsNum
@@ -139,21 +152,33 @@ let mkCustomize = kwarg(
                 let sIdx = rowIdx * SLOTS_IN_ROW + columnIdx
                 let isSelected = curCustType == custType && curSlotIdx == sIdx
                 let hasLocked = sIdx >= available
-                let decorator = decorators.findvalue(@(d) d.slotIdx == sIdx)
-                let onClick = function() {
-                  if (isPurchasing.value)
-                    return
+                let notPurchasedDecorator = decoratorsToBuy.findvalue(@(d) d.slotIdx == sIdx)
+                let decorator = mkNotPurchasedDecorator(notPurchasedDecorator)
+                  ?? decorators.findvalue(@(d) d.slotIdx == sIdx)
+                let { buyData = null } = notPurchasedDecorator
 
-                  selectedCamouflage(null)
-                  customizationParams({
-                    curCustType = custType
-                    curSlotIdx = sIdx
-                  })
+                let onClick = function() {
+                  if (!isPurchasing.value)
+                    customizationParams({
+                      curCustType = custType
+                      curSlotIdx = sIdx
+                    })
                 }
                 local onRemove = null
                 if (decorator != null) {
-                  let { cType, vehGuid, slotIdx } = decorator
+                  let { cType, slotIdx, guid = null, vehGuid = null } = decorator
                   onRemove = function() {
+                    if (guid == null) {
+                      notPurchased.mutate(function(cust) {
+                        let decoratorsList = clone (cust?[cType] ?? [])
+                        let idxToDelete = decoratorsList.findindex(@(v) v.slotIdx == sIdx)
+                        if (idxToDelete != null)
+                          decoratorsList.remove(idxToDelete)
+                        cust[cType] <- decoratorsList
+                      })
+                      return
+                    }
+
                     if (decorator.cfg.guid in decoratorsCfg)
                       return applyDecorator("", vehGuid, cType, "", slotIdx)
 
@@ -174,7 +199,8 @@ let mkCustomize = kwarg(
                 }
 
                 return sIdx >= total ? null
-                  : mkDecorSlot(decorator, isSelected, hasLocked, onClick, onRemove)
+                  : mkDecorSlot(decorator, isSelected, hasLocked, onClick,
+                      onRemove, buyData, currencies)
               })
             }))
         }
@@ -193,6 +219,57 @@ let curAvailCamouflages = Computed(function() {
         || startswith(skinData.id, tplWithoutCountry))
 })
 
+let backBtn = Bordered(loc("BackBtn"),
+  @() selectVehParams.mutate(@(v) v.isCustomMode = false),
+  {
+    margin = bigPadding
+    hotkeys = [[ $"^{JB.B} | Esc", { description = loc("BackBtn") }]]
+  })
+
+let function clearNotPurchased() {
+  notPurchased.mutate(function(cust) { cust.clear() })
+}
+
+let function removeNotPurchasedCamouflage() {
+  if ("vehCamouflage" in notPurchased.value)
+    notPurchased.mutate(function(cust) { delete cust.vehCamouflage })
+}
+
+let function addNotPurchasedCamouflage(id, buyData) {
+  notPurchased.mutate(function(cust) {
+    cust.vehCamouflage <- { id, buyData, details = "", cType = "vehCamouflage", slotIdx = 0 }
+  })
+}
+
+let function mkPurchaceBtn(notPurchasedVal) {
+  let { vehCamouflage = null, vehDecorator = [], vehDecal = [] } = notPurchasedVal
+  let vehCamouflageList = vehCamouflage == null ? [] : [vehCamouflage]
+  let decoratorsList = [].extend(vehCamouflageList, vehDecorator, vehDecal)
+  let price = decoratorsList.reduce(@(r, v) r + v.buyData.price, 0)
+  return price <= 0 ? null
+    : currencyBtn({
+        btnText = loc("btn/buy")
+        currencyId = "EnlistedGold"
+        price
+        cb = function() {
+          let vehGuid = viewVehicle.value?.guid
+          let decoratorsCfgList = decoratorsList.map(@(d) {
+            cType = d.cType
+            id = d.id
+            details = d?.details ?? ""
+            slotIdx = d.slotIdx
+            price = d.buyData.price
+          })
+          buyApplyDecorators(decoratorsCfgList, vehGuid, price)
+          clearNotPurchased()
+        }
+        style = ({
+          margin = bigPadding
+          hotkeys = [["^J:Y", { description = { skip = true }}]]
+        })
+      })
+}
+
 let function customizeSlotsUi() {
   let decorCfgByType = curDecorCfgByType.value
   let { gametemplate = null } = viewVehicle.value
@@ -201,16 +278,19 @@ let function customizeSlotsUi() {
   let decorators = viewVehDecorByType.value
   let camouflage = viewVehCamouflage.value
   let availVehSkins = curAvailCamouflages.value
+  let currencies = currenciesList.value
 
+  let notPurchasedVal = notPurchased.value
+  let skinToBuy = notPurchasedVal?.vehCamouflage
   let camouflageSlot = availVehSkins.len() > 0 && gametemplate != null
-    ? mkCamouflage(slotParams, gametemplate, camouflage)
+    ? mkCamouflage(slotParams, gametemplate, camouflage, skinToBuy, currencies)
     : null
 
   return {
     watch = [
       viewVehCustSchemes, customizationParams, viewVehDecorByType,
       viewVehCamouflage, viewVehicle, hasPremium, curAvailCamouflages,
-      curDecorCfgByType
+      curDecorCfgByType, notPurchased, currenciesList
     ]
     size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
@@ -224,6 +304,8 @@ let function customizeSlotsUi() {
         slotParams
         decoratorsCfg = decorCfgByType?.vehDecorator ?? {}
         hasPrem = hasPremium.value
+        decoratorsToBuy = notPurchasedVal?.vehDecorator ?? []
+        currencies
       })
       mkCustomize({
         decorators = decorators?.vehDecal ?? {}
@@ -231,14 +313,18 @@ let function customizeSlotsUi() {
         slotParams
         decoratorsCfg = decorCfgByType?.vehDecal ?? {}
         hasPrem = hasPremium.value
+        decoratorsToBuy = notPurchasedVal?.vehDecal ?? []
+        currencies
       })
-      { size = flex() }
-      Bordered(loc("BackBtn"),
-        @() selectVehParams.mutate(@(v) v.isCustomMode = false),
-        {
-          margin = bigPadding
-          hotkeys = [[ $"^{JB.B} | Esc", { description = loc("BackBtn") }]]
-        })
+      {
+        size = [SIZE_TO_CONTENT, flex()]
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_BOTTOM
+        children = [
+          backBtn
+          mkPurchaceBtn(notPurchasedVal)
+        ]
+      }
     ]
   }
 }
@@ -430,13 +516,24 @@ let function applyCamouflageImpl(guid, vehGuid, cType, slot) {
 }
 
 let function chooseSkin(skinData, vehGuid, ownCamouflages = {}) {
-  if (skinData == null)
-    return applyCamouflageImpl("", vehGuid, "vehCamouflage", 0)
+  if (skinData == null) {
+    removeNotPurchasedCamouflage()
+    applyCamouflageImpl("", vehGuid, "vehCamouflage", 0)
+    return
+  }
 
   let ownCamouflage = getOwnedCamouflage(ownCamouflages, skinData.id, vehGuid)
   selectedCamouflage(skinData.__merge({ hasOwned = ownCamouflage != null }))
-  if (ownCamouflage != null)
+  if (ownCamouflage != null) {
+    removeNotPurchasedCamouflage()
     applyCamouflageImpl(ownCamouflage.guid, vehGuid, "vehCamouflage", 0)
+  }
+  else if (hasMassVehDecorPaste.value) {
+    if ((skinData?.cfg.buyData.price ?? 0) > 0)
+      addNotPurchasedCamouflage(skinData.id, skinData.cfg.buyData)
+    else
+      removeNotPurchasedCamouflage()
+  }
 }
 
 let camouflageListUi = function() {
@@ -752,7 +849,7 @@ let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
 let function onSaveVehicleDecals(decors_info) {
   let vehGuid = viewVehicle.value?.guid
   let decoratorCfg = selectedDecorator.value
-  let { guid = null, cType = null } = decoratorCfg
+  let { guid = null, cType = null, buyData = null } = decoratorCfg
   let { curSlotIdx = -1 } = customizationParams.value
 
   stopUsingDecal()
@@ -780,11 +877,30 @@ let function onSaveVehicleDecals(decors_info) {
   if (freeDecorator != null)
     return applyCb(freeDecorator.guid)
 
-  let { price = 0 } = decoratorCfg.buyData
+  let { price = 0 } = buyData
   if (price <= 0)
     return showMsgbox({ text = loc("alternativeDecalReceivingWay") })
 
-  openPurchaseDecoratorBox(decoratorCfg, applyCb)
+  if (!hasMassVehDecorPaste.value) {
+    openPurchaseDecoratorBox(decoratorCfg, applyCb)
+    return
+  }
+
+  notPurchased.mutate(function(cust) {
+    let decorators = clone (cust?[cType] ?? [])
+    let idxToDelete = decorators.findindex(@(v) v.slotIdx == curSlotIdx)
+    if (idxToDelete != null)
+      decorators.remove(idxToDelete)
+    decorators.append({
+      cType
+      buyData
+      id = guid
+      slotIdx = curSlotIdx
+      details = decalToString(decalsData, cType)
+    })
+    cust[cType] <- decorators
+  })
+  closeDecoratorsList()
 }
 
 ecs.register_es("decal_es", {
@@ -821,6 +937,7 @@ ecs.register_es("decor_save_es", {
 }, {tags = "server"})
 
 let function open() {
+  clearNotPurchased()
   closeDmViewerMode()
   customizationParams(null)
   selectedCamouflage(null)
@@ -828,6 +945,7 @@ let function open() {
 }
 
 let function close() {
+  clearNotPurchased()
   sceneWithCameraRemove(customizeScene)
   selectedCamouflage(null)
 }

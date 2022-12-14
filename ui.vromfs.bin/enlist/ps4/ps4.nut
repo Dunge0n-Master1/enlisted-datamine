@@ -77,20 +77,23 @@ let function onResume() {
   loginState.logOut()
 }
 
-let function process_logout(skip_checks) {
-  let function do_logout() {
+let function do_logout() {
     loginState.logOut()
     msgbox.show({ text = loc("yn1/disconnection/psn", { game = loc("title/name") }) })
-  }
+}
 
+
+eventbus.subscribe("psn.logged_in", function(result) {
+  if (!result)
+    do_logout()
+})
+
+
+let function process_logout(skip_checks) {
   if (!skip_checks) {
     if (psn_was_logged_out.value) {
       psn_was_logged_outUpdate(false)
-      ps4.check_psn_logged_in(function(result) {
-        if (!result) {
-          do_logout()
-        }
-      })
+      ps4.check_psn_logged_in()
     }
   } else {
     do_logout()

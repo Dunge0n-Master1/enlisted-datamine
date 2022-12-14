@@ -20,7 +20,7 @@ def collect_affected_optics(pos : float3;
       if node < 0
         continue
       var wtm : float3x4
-      geomtree_getNodeWtmScalar(animchar.nodeTree, node, wtm)
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, node, wtm)
       let opticPos = wtm[3]
       let opticDir = normalize(wtm[0]) * cylinder_radius
 

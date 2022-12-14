@@ -5,6 +5,7 @@ let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[STARTUP] ")
 let {login, logout, subscribe_to_logout} = require("%xboxLib/loginState.nut")
 
 let {get_activation_data, get_invited_xuid, register_activation_callback} = require("%xboxLib/activation.nut")
+let {isDimAllowed} = require("%xboxLib/display.nut")
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
@@ -13,33 +14,15 @@ let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let {logOut, isLoggedIn} = require("%enlSqGlob/login_state.nut")
 let {currentStage, doAfterLoginOnce, startLogin, interrupt} = require("%enlist/login/login_chain.nut")
 
-let { isInSquad, leaveSquadSilent, acceptSquadInvite, isLeavingWillDisbandSquad,
-  leaveSquad, createSquadAndDo, subsMemberRemovedEvent, isManuallyLeavedSquadOnFullSquad
+let { isInSquad, leaveSquadSilent, acceptSquadInvite, requestJoinSquad
 } = require("%enlist/squad/squadManager.nut")
-let { requestMembership } = require("%enlist/squad/squadAPI.nut")
 
 let { requestsToMeUids } = require("%enlist/contacts/contactsWatchLists.nut")
-let { currentGameMode, isGameModeChangedManually } = require("%enlist/gameModes/gameModeState.nut")
 
 let needLogin = mkWatched(persist, "needLogin", false)
-let needCheckInvite = mkWatched(persist, "needCheckInvite", false)
-
-let function updateSquadState(curGameMode = null) {
-  if (!curGameMode)
-    return
-
-  if (curGameMode.maxGroupSize == 1 && isInSquad.value) {
-    if (isLeavingWillDisbandSquad.value)
-      leaveSquad()
-    else
-      leaveSquadSilent()
-  }
-  else if (curGameMode.maxGroupSize > 1 && !isInSquad.value)
-    createSquadAndDo()
-}
-
 
 isLoggedIn.subscribe(function(v) {
+  isDimAllowed.update(!v)
   if (!v) {
     if (isInBattleState.value)
       switch_to_menu_scene()
@@ -61,15 +44,14 @@ let function try_leave_squad(cb = null) {
 
 
 let function join_internal(squadId) {
-  needCheckInvite(false)
   logX($"Trying to join squad {squadId}")
   if (squadId in requestsToMeUids.value) {
     logX("Invitation was found, accepting")
     acceptSquadInvite(squadId.tointeger())
   }
   else {
-    logX("Invitation wasn't found, requesting squad membership")
-    requestMembership(squadId.tointeger())
+    logX("Invitation wasn't found, requesting squad join")
+    requestJoinSquad(squadId.tointeger())
   }
 }
 
@@ -97,7 +79,6 @@ let function activation_handler() {
 
   let needLogout = userInfo.value != null && userInfo.value?.xuid != get_invited_xuid()
   needLogin(needLogout || userInfo.value == null)
-  needCheckInvite(true)
 
   if (needLogout)
     logOut()
@@ -111,35 +92,6 @@ let function activation_handler() {
 
 
 register_activation_callback(activation_handler)
-
-
-subsMemberRemovedEvent(function(user_id) {
-  logX($"On removed member event: {user_id}, {currentGameMode.value?.id}, {currentGameMode.value?.maxGroupSize}, {isGameModeChangedManually.value}")
-  if (isGameModeChangedManually.value || needCheckInvite.value)
-    return
-
-  if (currentGameMode.value && currentGameMode.value.maxGroupSize > 1 && user_id == userInfo.value?.userId)
-    createSquadAndDo()
-})
-
-
-isManuallyLeavedSquadOnFullSquad.subscribe(function(v) {
-  if (!v || isInSquad.value || needCheckInvite.value)
-    return
-
-  createSquadAndDo()
-})
-
-
-isInSquad.subscribe(@(v) v? isManuallyLeavedSquadOnFullSquad(false) : null)
-
-
-currentGameMode.subscribe(function(v) {
-  logX($"Update squad state on currentGameMode subscription {v?.id}, {needCheckInvite.value}")
-  if (!needCheckInvite.value)
-    updateSquadState(v)
-})
-
 
 eventbus.subscribe("ipc.onBattleExitAccept",  function(_) {
   defer(switch_to_menu_scene)

@@ -61,7 +61,7 @@ let function sendMessage(evtData){
   let senderEid = net ? find_human_player_by_connid(evtData?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
   let senderTeam = ecs.obsolete_dbg_get_comp_val(senderEid, "team", TEAM_UNASSIGNED)
   let senderName = ecs.obsolete_dbg_get_comp_val(senderEid, "name", "")
-  let hero = getPlayerPossessedQuery.perform(senderEid, @(_, comp) comp["possessed"]) ?? INVALID_ENTITY_ID
+  let hero = getPlayerPossessedQuery.perform(senderEid, @(_, comp) comp["possessed"]) ?? ecs.INVALID_ENTITY_ID
   let senderBanStatus = ecs.obsolete_dbg_get_comp_val(senderEid, "ban_status", "")
   let mode = evtData?.mode ?? "team"
   let senderUserId = ecs.obsolete_dbg_get_comp_val(senderEid, "userid", INVALID_USER_ID)
@@ -103,7 +103,7 @@ let function sendMessage(evtData){
 
   let connids = (mode == "team" || mode == "qteam")? find_connids_to_send(senderTeam) : null
   if (sound != "")
-    ecs.g_entity_mgr.sendEvent(hero, CmdRequestHumanSpeech(sound, 1.))
+    ecs.g_entity_mgr.sendEvent(hero, CmdRequestHumanSpeech(sound))
   ecs.server_msg_sink(event, connids)
   log_chat_message(data, mode)
 }

@@ -85,7 +85,7 @@ def grid_spawn_next_items(evt : Event; eid, grid_spawner__ownerEid : EntityId;
                                            grid_spawner__gridWidth : int;
                                            var grid_spawner__rowHeight : float&)
     var box = BBox3()
-    box |> v_bbox3_to_scalar_bbox3(collres.vFullBBox)
+    box |> bbox3f_to_scalar_bbox3(collres.vFullBBox)
     if box |> bbox3_isempty()
       box = BBox3(float3(), 0.2)
 

@@ -1,0 +1,15 @@
+entity{
+  _template:t="global_hit_fx_info"
+}
+
+entity{
+  _template:t="global_bomb_hit_fx_info"
+}
+
+entity{
+  _template:t="global_bomb_expl_fx_info"
+}
+
+entity{
+  _template:t="global_track_fx_info"
+}

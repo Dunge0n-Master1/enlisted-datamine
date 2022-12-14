@@ -6,8 +6,8 @@ require soundSystem
 require Dacoll
 
 
-[es(tag=sound, no_order)]
-def river_sound_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
+def river_sound_update(evt : Event;
                        sound_bank_preset_state__isValid : bool;
                        var river_sound__event : SoundEvent&;
                        var river_sound__wasStarted : bool&;

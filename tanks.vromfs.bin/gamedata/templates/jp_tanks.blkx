@@ -1,13 +1,7 @@
 import:t="tanks/jp_type_98_ta_se.blk"
 import:t="tanks/jp_type_98_ke_ni.blk"
 import:t="tanks/jp_type_95_ha_go.blk"
+import:t="tanks/jp_type_2_ka_mi.blk"
 import:t="tanks/jp_type_3_ka_chi.blk"
 import:t="tanks/jp_type_97_chi_ha.blk"
-
-tankgun_20mm_type98{
-  _override:b=yes
-  gun__reloadTime:r=8.0
-  gun__overheatReduce:r=0.15
-  gun__overheatReduceOnOverheat:r=0.0833
-  gun__overheatPerShot:r=0.1
-}
+import:t="tanks/jp_towed_at_type_1_movable.blk"

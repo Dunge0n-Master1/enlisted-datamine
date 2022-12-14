@@ -11,13 +11,13 @@ def console_player_find(playerName : string)
     set(init, "name", playerName)
 
 [net_console_cmd(name="player.rearm", hint="Restore soldier gun's ammo")]
-def player_rearm_cmd([[net_hero]] hero : EntityId)
+def player_rearm_cmd(ammo : int = -1; [[net_hero]] hero : EntityId)
   query(hero) <| $ [es] (human_weap__weapInfo : Array)
     for weap in human_weap__weapInfo
       let weapObj = get_ecs_object(weap)
       if weapObj == null
         return
-      let numReserveAmmo = get_int(weapObj, "numReserveAmmo") ?? 0
+      let numReserveAmmo = (ammo == -1) ? (get_int(weapObj, "numReserveAmmo") ?? 0) : ammo
       let reserveAmmoTemplate = get_string(weapObj, "reserveAmmoTemplate", "")
       if reserveAmmoTemplate == ""
         continue

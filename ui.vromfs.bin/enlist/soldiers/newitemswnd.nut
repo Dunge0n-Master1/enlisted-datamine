@@ -24,6 +24,8 @@ let {
 } = require("model/newItemsToShow.nut")
 let { specialUnlock } = require("%enlist/unlocks/dailyRewardsState.nut")
 let { activeUnlocks } = require("%enlSqGlob/userstats/unlocksState.nut")
+let { makeVertScroll } = require("%ui/components/scrollbar.nut")
+
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
 const ITEM_SELECT_DELAY = 0.01
@@ -39,10 +41,13 @@ const STAR_NEXT_DELAY = 0.3
 
 let curItem = Watched(null)
 curItem.subscribe(function(v) {
-  gui_scene.setTimeout(ITEM_SELECT_DELAY, function() {
-    curSelectedItem(v)
-    anim_start(ANIM_TEXT_TRIGGER)
-  })
+  if (v != null )
+    gui_scene.setTimeout(ITEM_SELECT_DELAY, function() {
+      curSelectedItem(v)
+      anim_start(ANIM_TEXT_TRIGGER)
+    })
+  else
+    curSelectedItem(null)
 })
 
 let wndCanBeClosed = Watched(true)
@@ -233,7 +238,7 @@ let function newIemsWndContent() {
     activeUnlocks.value?[specialUnlock.value].meta.congratulationLangId ?? ""
   return {
     watch = [newItemsToShow, curItem, specialUnlock]
-    size = [flex(), sh(86)]
+    size = [sw(80), fsh(86)]
     flow = FLOW_VERTICAL
     gap = bigPadding
     halign = ALIGN_CENTER
@@ -254,8 +259,17 @@ let function newIemsWndContent() {
       animatedStars(curItemValue)
       underline
       title(subtitle)
-      { size = [0, hdpx(25)] }
-      animBlock.component
+      {
+        margin = [hdpx(50), 0, 0, 0]
+        size = [pw(100), SIZE_TO_CONTENT]
+        children =  makeVertScroll(animBlock.component,
+          {
+            halign = ALIGN_CENTER
+            size = [flex(), SIZE_TO_CONTENT]
+            maxHeight = sh(25)
+          }
+        )
+      }
     ]
   }
 }
@@ -290,7 +304,6 @@ let newItemsWnd = @() {
 
 let function close() {
   sceneWithCameraRemove(newItemsWnd)
-  curSelectedItem(null)
   curItem(null)
 }
 

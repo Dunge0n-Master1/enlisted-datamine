@@ -5,9 +5,6 @@ require game.utils.team
 require EnlistedNet
 require player
 
-let
-  INVALID_CONNECTION_ID = -1
-
 def enum_connections_squad(squad_eid : EntityId) : array<IConnection?>
   var recipients : array<IConnection?>
   if !!squad_eid

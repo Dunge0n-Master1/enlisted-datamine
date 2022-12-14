@@ -17,36 +17,27 @@ def vehicle_hp_init_es(evt : Event;
 
   vehicle__hpMetaPartId = damage_model |> find_meta_part_id_by_name(vehicle__hpMetaPart)
   if vehicle__hpMetaPartId >= 0
-    vehicle__maxHp = damage_model.dmProps.metaParts[vehicle__hpMetaPartId].hp
+    vehicle__maxHp = damage_model.metaPartProps[vehicle__hpMetaPartId].hp
     vehicle__hp = vehicle__maxHp
 
 def process_damage_effects(offender : ecs::EntityId;
                            vehicle : ecs::EntityId;
-                           effects : int;
-                           vehicle_seats__seatEids : EidList)
+                           effects : int)
 
   let player = get_Eid(offender, "possessedByPlr") ?? INVALID_ENTITY_ID
   send_net_event(offender, [[EventOnVehicleDamageEffects offender=player, vehicle=vehicle, effects=effects]])
 
-  for seatEid in vehicle_seats__seatEids
-    query(seatEid) <| $ [es] (seat__isPlayer : bool; seat__ownerEid : EntityId)
-      if !seat__isPlayer || seat__ownerEid == offender || has(seat__ownerEid, "deadEntity")
-        return
-      send_net_event(seat__ownerEid, [[CmdShowVehicleDamageEffectsHint offender=offender, vehicle=vehicle, effects=effects]])
-
 [es(tag=server, REQUIRE=damage_model)]
-def vehicle_hp_on_part_kill_effect_es(evt : EventOnPartKillEffects; eid : EntityId; vehicle_seats__seatEids : EidList)
+def vehicle_hp_on_part_kill_effect_es(evt : EventOnPartKillEffects; eid : EntityId)
   let effects = evt.effects
   if effects != 0
-    let vehicle = eid
-    process_damage_effects(evt.offender, vehicle, effects, vehicle_seats__seatEids)
+    process_damage_effects(evt.offender, eid, effects)
 
 [es(tag=server, REQUIRE=damage_model)]
-def vehicle_hp_on_part_damage_effect_es(evt : EventOnPartDamageEffects; eid : EntityId; vehicle_seats__seatEids : EidList)
+def vehicle_hp_on_part_damage_effect_es(evt : EventOnPartDamageEffects; eid : EntityId)
   let effects = evt.effects
   if effects != 0
-    let vehicle = eid
-    process_damage_effects(evt.offender, vehicle, effects, vehicle_seats__seatEids)
+    process_damage_effects(evt.offender, eid, effects)
 
 [es(tag=server, REQUIRE = damage_model)]
 def vehicle_hp_on_meta_part_damage_es(evtData : EventOnMetaPartDamage;
@@ -70,7 +61,7 @@ def vehicle_hp_es(info : ecs::UpdateStageInfoAct;
     return
 
   let relHp = rel_hp_fixed_to_float(meta_parts_state.state[vehicle__hpMetaPartId].hp)
-  let maxHp = damage_model.dmProps.metaParts[vehicle__hpMetaPartId].hp
+  let maxHp = damage_model.metaPartProps[vehicle__hpMetaPartId].hp
 
   vehicle__hp = relHp * maxHp
 

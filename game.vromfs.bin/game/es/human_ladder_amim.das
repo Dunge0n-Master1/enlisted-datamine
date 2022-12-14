@@ -20,8 +20,8 @@ def human_ladder_anim_init_es(evt : Event;
                               var human_anim__ladder__rightHandNodeId : int&;
                               human_anim__ladder__leftHandNodeName : string;
                               human_anim__ladder__rightHandNodeName : string)
-  human_anim__ladder__leftHandNodeId = geomtree_findNodeIndex(animchar.nodeTree, human_anim__ladder__leftHandNodeName)
-  human_anim__ladder__rightHandNodeId = geomtree_findNodeIndex(animchar.nodeTree, human_anim__ladder__rightHandNodeName)
+  human_anim__ladder__leftHandNodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_anim__ladder__leftHandNodeName)
+  human_anim__ladder__rightHandNodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_anim__ladder__rightHandNodeName)
 
 
 def mult(matr : float3x4;
@@ -57,8 +57,8 @@ def human_ladder_anim_es(info : UpdateStageInfoAct;
     let d_wofs = geomtree_calc_optimal_wofs(transform[3])
 
     var lhandTm, rhandTm : float3x4
-    geomtree_getNodeWtmRelScalar(animchar.nodeTree, human_anim__ladder__rightHandNodeId, rhandTm)
-    geomtree_getNodeWtmRelScalar(animchar.nodeTree, human_anim__ladder__leftHandNodeId, lhandTm)
+    geomtree_getNodeWtmRelScalar(*animchar.nodeTree, human_anim__ladder__rightHandNodeId, rhandTm)
+    geomtree_getNodeWtmRelScalar(*animchar.nodeTree, human_anim__ladder__leftHandNodeId, lhandTm)
     let ladderItm = inverse(human_ladder__ladderTm)
     let ladderZScale = length(human_ladder__ladderTm[2])
     let ladderZSign = sign(dot(human_ladder__ladderTm[2], transform[2]))
@@ -85,12 +85,12 @@ def human_ladder_anim_es(info : UpdateStageInfoAct;
     rightHandEffector.position = human_ladder__ladderTm * rHandPos - d_wofs + worldOffset
     rightHandEffector.wtm = rhandTm
     rightHandEffector.wtm[3] = rightHandEffector.position
-    rightHandEffector.weight = saturate(2.f * sin((ladderProgress - 0.5f) * 2.f * PI))
+    rightHandEffector.weight = saturate(2.f * sin((ladderProgress - 0.5f) * TWOPI))
 
     leftHandEffector.position = human_ladder__ladderTm * lHandPos - d_wofs + worldOffset
     leftHandEffector.wtm = lhandTm
     leftHandEffector.wtm[3] = leftHandEffector.position
-    leftHandEffector.weight = saturate(2.f * sin(ladderProgress * 2.f * PI))
+    leftHandEffector.weight = saturate(2.f * sin(ladderProgress * TWOPI))
   else
     rightHandEffector.weight = 0.f
     leftHandEffector.weight = 0.f

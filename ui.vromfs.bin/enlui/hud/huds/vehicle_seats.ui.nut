@@ -28,7 +28,7 @@ let function seatMember(seatDesc) {
   if (member == null) {
     if (owner.isPlayer)
       name = getFramedNickByEid(owner.player) ?? getFramedNickByEid(owner.eid)
-    else if (owner.eid != INVALID_ENTITY_ID)
+    else if (owner.eid != ecs.INVALID_ENTITY_ID)
       name = ecs.obsolete_dbg_get_comp_val(owner.eid, "name") ?? "<Unknown>"
     if (name != null)
       color = colorBlue

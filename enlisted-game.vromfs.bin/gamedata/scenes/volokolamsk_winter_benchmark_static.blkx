@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_benchmark_fx.blk"
 }
 
 entity{
@@ -266,11 +268,6 @@ entity{
   _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[0.7574, 0.0, 0.652951] [0.0, 1.0, 0.0] [-0.652951, 0.0, 0.7574] [-334.947, 13.2176, -153.947]]
   resupply_zone__team:i=2
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-178.338, 15.1781, -215.865]]
 }
 
 entity{

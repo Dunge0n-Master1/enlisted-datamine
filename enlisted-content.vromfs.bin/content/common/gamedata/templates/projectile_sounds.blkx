@@ -17,6 +17,16 @@ rocket_projectile_sound{
   _extends:t="projectile_sound"
 }
 
+smoke_grenade_projectile_sound{
+  _extends:t="projectile_sound"
+
+  _group{
+    _tags:t="sound"
+    projectile_sound__hit:t=""
+    projectile_sound__explode:t="smoke_grenade"
+  }
+}
+
 smoke_artillery_projectile_sound{
   _extends:t="projectile_sound"
 

@@ -7,4 +7,4 @@ def gun_overheat_human_net_speech_es(evt : Event;
                                      gun__isOverheat : bool;
                                      gun__owner : EntityId)
   if gun__isOverheat
-    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="gunOverheat", importance=1.]])
+    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="gunOverheat"]])

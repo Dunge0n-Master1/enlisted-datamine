@@ -59,7 +59,7 @@ let clusterSelector = @() {
 
 let showCantChangeInQueue = @() addPopup({
   id = SELECTION_ERROR_UID
-  text = loc("Can't change params while in queue") // TODO simplify localization keys
+  text = loc("quickMatch/paramsInQue")
   styleName = "error"
 })
 
@@ -70,7 +70,7 @@ let function showCantChangeMessage() {
   }
   addPopup({
     id = SELECTION_ERROR_UID
-    text = loc("Only squad leader can change params")
+    text = loc("quickMatch/squadLeaderParams")
     styleName = "error"
   })
 }

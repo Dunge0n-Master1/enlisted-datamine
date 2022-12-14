@@ -13,7 +13,7 @@ let disabledTextColor = Color(50, 50, 50, 50)
 let curTextColor = Color(250,250,200,200)
 let defTextColor = Color(150,150,150,50)
 
-return @(buildingIndex, image) @(curIdx, idx) watchElemState(function(sf) {
+return @(buildingIndex, image, imageSize) @(curIdx, idx) watchElemState(function(sf) {
   let count = availableBuildings.value?[buildingIndex] ?? 0
   let limit = buildingLimits.value?[buildingIndex] ?? 0
   let allowRecreate = buildingAllowRecreates.value?[buildingIndex] ?? false
@@ -22,6 +22,7 @@ return @(buildingIndex, image) @(curIdx, idx) watchElemState(function(sf) {
   let icon = image ? {
     image = Picture(image)
     rendObj = ROBJ_IMAGE
+    size = imageSize
     color = !available ? disableColor : isCurrent ? white : dark
   } : null
   let text = {

@@ -125,8 +125,8 @@ panzerjager_hetzer_turret_02_7_92mm_mg34{
   turret__limit:p4=-90.0, 120.0, -10.0, 10.0
 
   "gun__shellsAmmo:array"{
-    ammo:i=1000
-    ammo:i=1000
+    ammo:i=1050
+    ammo:i=1050
   }
 }
 

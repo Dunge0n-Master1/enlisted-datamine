@@ -43,7 +43,7 @@ let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { onlinePurchaseStyle, smallStyle, Bordered } = require("%ui/components/textButton.nut")
 let { mkDisabledSectionBlock } = require("%enlist/mainMenu/disabledSections.nut")
 let { sound_play } = require("sound")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
 
@@ -598,9 +598,7 @@ let lowCampaignLevelText = {
       rendObj = ROBJ_TEXT
       text = loc("researches/levelTooLowForWorkshop")
     }.__update(body_txt)
-    Bordered(loc("menu/campaignRewards"), function(){
-        setCurSection("SQUADS")
-      }, {
+    Bordered(loc("menu/campaignRewards"), jumpToArmyProgress, {
         hotkeys = [[ "^J:X | Enter", { description = {skip = true}} ]]
       }
     )

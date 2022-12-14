@@ -1,0 +1,21 @@
+require ecs
+require EnlistedCamera
+require AnimV20
+require math.base
+
+[es(no_order)]
+def animated_visible_attachments_act_animchar_es(info : UpdateStageInfoAct)
+  let camTm = get_TMatrix(get_cur_cam_entity(), "transform")
+  if camTm == null
+    return
+  let camPos = (*camTm)[3]
+  query() <| $ [es(REQUIRE=animchar_attaches__animated, REQUIRE_NOT=(transform, animchar__actOnDemand))] (animchar__visible : bool;
+                                                                                                          animchar__updatable : bool;
+                                                                                                          animchar_render__root_pos : vec4f;
+                                                                                                          animchar_attaches__disableAnimDistance = 5.f;
+                                                                                                          var animchar : AnimcharBaseComponent)
+    if !animchar__visible || !animchar__updatable
+      return
+    let attachRenderPos = animchar_render__root_pos.xyz
+    if length_sq(attachRenderPos - camPos) < square(animchar_attaches__disableAnimDistance)
+      animchar_act(animchar, info.dt, true)

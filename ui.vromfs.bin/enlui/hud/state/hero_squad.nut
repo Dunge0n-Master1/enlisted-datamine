@@ -30,14 +30,14 @@ let {heroSquadOrderType, hasPersonalOrder, isLeaderNeedsAmmo,
   hasSpaceForMagazine, isCompatibleWeapon, canChangeSquadMember
 } = watchedTable2TableOfWatched(squadState)
 
-let squadEid = Watched(INVALID_ENTITY_ID)
+let squadEid = Watched(ecs.INVALID_ENTITY_ID)
 let heroSquadNumAliveMembers = Watched(-1)
 ecs.register_es("hero_squad_eid_es",
   {
     [["onInit", "onChange"]] = function(_, _eid, comp) {
       let sEid = comp["squad_member__squad"]
       squadEid.update(sEid)
-      let alive = squadEid.value != INVALID_ENTITY_ID
+      let alive = squadEid.value != ecs.INVALID_ENTITY_ID
         ? ecs.obsolete_dbg_get_comp_val(sEid, "squad__numAliveMembers", -1)
         : -1
       heroSquadNumAliveMembers(alive)
@@ -50,7 +50,7 @@ ecs.register_es("hero_squad_eid_es",
 ecs.register_es("hero_squad_es",
   {
     [["onInit", "onChange"]] = function(_, eid, comp) {
-      if (eid != squadEid.value && eid != INVALID_ENTITY_ID)
+      if (eid != squadEid.value && eid != ecs.INVALID_ENTITY_ID)
         return
       heroSquadNumAliveMembers(comp["squad__numAliveMembers"])
       squadStateSetValue({

@@ -166,13 +166,8 @@ DamageParts{
 hitFx{
   defaultFx:t="generic_weapon_hit_ground"
   jetFx:t="generic_weapon_hit_ground"
-
-  water3d{
-    fx:t="water_hit_big_cmps_fx"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 explFx{
-  effectTemplName:t="explosion_100_250kg_dirt_effect"
+  effectTemplName:t="bomb_expl_100kg"
 }

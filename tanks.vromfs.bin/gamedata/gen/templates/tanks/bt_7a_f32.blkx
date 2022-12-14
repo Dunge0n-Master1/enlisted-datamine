@@ -266,10 +266,18 @@ bt_7a_f32_skins{
     }
 
     "skin:object"{
-      id:t="bt_7a_f32_ussr_camo_brown_lines"
+      id:t="bt_7a_f32_ussr_camo_czechoslovak_yellow_green"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+        "ussr_camo_green*":t="ussr_camo_czechoslovak_yellow_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="bt_7a_f32_ussr_camo_desert_syrian_green_brown_yellow"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
 

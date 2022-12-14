@@ -38,6 +38,9 @@ def tool_input(info : UpdateStageInfoAct;
                      input__mouseLeftButtonPressed : bool;
                      input__keyAccelerationPressed : bool)
     motion_matching__linearVelocity = -float3(input__horizontalAxis, 0.f, input__verticalAxis)
+    let len = length(motion_matching__linearVelocity)
+    if len > 1f
+      motion_matching__linearVelocity /= len
     motion_matching__linearVelocity *= input__keyAccelerationPressed ? motion_matching__runSpeed : motion_matching__walkSpeed;
     let PIXEL_TO_DEG = 40.f;
     if input__mouseLeftButtonPressed

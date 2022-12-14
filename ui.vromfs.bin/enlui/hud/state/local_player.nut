@@ -10,8 +10,8 @@ const INVALID_USER_ID = 0
 const UNDEFINEDNAME = "?????"
 
 let localPlayerUserId = mkWatched(persist, "localPlayerUserId", INVALID_USER_ID)
-let localPlayerEid = mkWatched(persist, "localPlayerEid", INVALID_ENTITY_ID)
-let localPlayerSpecTarget = mkWatched(persist, "localPlayerSpecTarget", INVALID_ENTITY_ID)
+let localPlayerEid = mkWatched(persist, "localPlayerEid", ecs.INVALID_ENTITY_ID)
+let localPlayerSpecTarget = mkWatched(persist, "localPlayerSpecTarget", ecs.INVALID_ENTITY_ID)
 let localPlayerName = mkWatched(persist, "localPlayerName", UNDEFINEDNAME)
 let localPlayerTeam = mkWatched(persist, "localPlayerTeam", TEAM_UNASSIGNED)
 let localPlayerGroupId = mkWatched(persist, "localPlayerGroupId", INVALID_GROUP_ID)
@@ -30,10 +30,10 @@ let function addGroupmate(eid, comp) {
 }
 
 let function resetData() {
-  localPlayerEid(INVALID_ENTITY_ID)
+  localPlayerEid(ecs.INVALID_ENTITY_ID)
   localPlayerTeam(TEAM_UNASSIGNED)
   localPlayerUserId(get_user_id())
-  localPlayerSpecTarget(INVALID_ENTITY_ID)
+  localPlayerSpecTarget(ecs.INVALID_ENTITY_ID)
   localPlayerGroupId(INVALID_GROUP_ID)
 }
 
@@ -66,7 +66,7 @@ ecs.register_es("local_player_es", {
       ["is_local", ecs.TYPE_BOOL],
       ["team", ecs.TYPE_INT],
       ["name", ecs.TYPE_STRING],
-      ["specTarget", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["specTarget", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["groupId", ecs.TYPE_INT64]
     ]
     comps_rq = ["player"]

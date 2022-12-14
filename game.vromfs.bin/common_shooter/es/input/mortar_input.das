@@ -16,24 +16,27 @@ require Gun
 require EnlistedWeapon
 require DaWeaponProps
 require DagorSystem
+require enlisted.events_enlisted
 
-def init(var mortar_input__cancel : int&)
+def init(var mortar_input__cancel : int&; var mortar_input__switchShellType : int&)
   mortar_input__cancel = int(get_action_handle("Mortar.Cancel", TYPEGRP_DIGITAL))
+  mortar_input__switchShellType = int(get_action_handle("Mortar.SwitchShellType", TYPEGRP_DIGITAL))
 
 
-def reset(var mortar_input__cancel : int&)
+def reset(var mortar_input__cancel : int&; var mortar_input__switchShellType : int&)
   mortar_input__cancel = int(BAD_ACTION_HANDLE)
+  mortar_input__switchShellType = int(BAD_ACTION_HANDLE)
 
 [es(tag=input, on_appear)]
-def mortar_input_appear_es(evt : Event; var mortar_input__cancel : int&)
-  init(mortar_input__cancel)
+def mortar_input_appear_es(evt : Event; var mortar_input__cancel : int&; var mortar_input__switchShellType : int&)
+  init(mortar_input__cancel, mortar_input__switchShellType)
 
 [es(tag=input)]
-def mortar_input_es(evt : EventDaInputInit; var mortar_input__cancel : int&)
+def mortar_input_es(evt : EventDaInputInit; var mortar_input__cancel : int&; var mortar_input__switchShellType : int&)
   if evt.init
-    init(mortar_input__cancel)
+    init(mortar_input__cancel, mortar_input__switchShellType)
   else
-    reset(mortar_input__cancel)
+    reset(mortar_input__cancel, mortar_input__switchShellType)
 
 [es(tag=input, REQUIRE=hero, on_appear, track=human_weap__mortarMode)]
 def mortar_switch_action_set(evt : Event; human_weap__mortarMode : bool)
@@ -46,6 +49,15 @@ def mortar_input_cancel(evt : EventDaInputActionTriggered;
                         mortar_input__cancel : int)
   if input__enabled && int(evt.action) == mortar_input__cancel
     send_net_event(eid, [[EventMortarCanceled]])
+
+[es(tag=input)]
+def mortar_input_switch_shell_type(evt : EventDaInputActionTriggered;
+                                   eid : EntityId;
+                                   input__enabled : bool;
+                                   mortar_input__switchShellType : int;
+                                   human_weap__currentGunEid : EntityId)
+  if input__enabled && int(evt.action) == mortar_input__switchShellType && has(human_weap__currentGunEid, "mortar")
+    send_net_event(eid, [[RequestNextGunAmmoHolderType]])
 
 [es(tag=input, after=human_input_es)]
 def mortar_lock_input(info : UpdateStageUpdateInput;

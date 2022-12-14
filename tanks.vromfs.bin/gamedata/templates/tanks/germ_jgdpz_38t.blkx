@@ -4,7 +4,6 @@ germ_jgdpz_38t{
 
 germ_jgdpz_38t_common{
   _extends:t="base_panzerjager_hetzer"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
 

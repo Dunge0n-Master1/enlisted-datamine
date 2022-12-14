@@ -53,6 +53,12 @@ sleigh_decor{
   collres__res:t="sleigh_collision"
 }
 
+snowshoes_decor{
+  _extends:t="base_vehicle_decor"
+  animchar__res:t="decor_snowshoes_char"
+  collres__res:t="decor_snowshoes_collision"
+}
+
 log_a_decor{
   _extends:t="base_vehicle_decor"
   animchar__res:t="tank_decor_log_a_char"

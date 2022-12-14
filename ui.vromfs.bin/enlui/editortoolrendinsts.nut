@@ -25,7 +25,7 @@ let riToolSelected = Watched([])
 
 let function saveRIToolData() {
   let save_eid = entity_editor?.get_instance().makeSingletonEntity("rendinsts_removes")
-  if (save_eid && save_eid != INVALID_ENTITY_ID) {
+  if (save_eid && save_eid != ecs.INVALID_ENTITY_ID) {
     entity_editor?.save_component(save_eid, "rirmv")
     entity_editor?.save_component(save_eid, "riunb")
   }
@@ -102,7 +102,7 @@ let function spawnNewRIEntity(tplName) {
     tm[3] = pos
   }
   wantOpenRISelect(true)
-  ecs.g_entity_mgr.broadcastEvent(CmdRIToolCreateRendInst({tpl = tplName, tm = tm, name = "sandbags_wall_medium_rounded_a", eid = INVALID_ENTITY_ID, undo = true}))
+  ecs.g_entity_mgr.broadcastEvent(CmdRIToolCreateRendInst({tpl = tplName, tm = tm, name = "sandbags_wall_medium_rounded_a", eid = ecs.INVALID_ENTITY_ID, undo = true}))
   clearRIToolSelected()
   if (setEditMode)
     setEditMode(DE4_MODE_SELECT)
@@ -116,7 +116,7 @@ let function restoreRemovedByRITool() {
 }
 
 let function isRISelectable(eid) {
-  if (eid == INVALID_ENTITY_ID)
+  if (eid == ecs.INVALID_ENTITY_ID)
     return true
   if (ecs.obsolete_dbg_get_comp_val(eid, "gameRendInstTag") != null)
     return true
@@ -130,7 +130,7 @@ let function isRISelectable(eid) {
 }
 
 let function getRIKind(eid) {
-  if (eid == INVALID_ENTITY_ID)
+  if (eid == ecs.INVALID_ENTITY_ID)
     return 0
   if (ecs.obsolete_dbg_get_comp_val(eid, "rebakedRendInstTag") != null)
     return 0

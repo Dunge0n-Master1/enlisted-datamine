@@ -1,6 +1,7 @@
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
+require common_shooter.es.hitpoints_common
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
 require enlisted.game.es.offender_cache_common
@@ -20,12 +21,6 @@ def is_vehicle_has_crew(vehicle_seats; exclude_eid = INVALID_ENTITY_ID)
       return true
   return false
 
-[es(tag=server, on_appear)]
-def cache_destroy_without_crew_damage_type_id(evt : Event; var destroy_without_crew__explosionDamageTypeId : int&)
-  destroy_without_crew__explosionDamageTypeId = find_damage_type_id_by_name("explosion")
-  if destroy_without_crew__explosionDamageTypeId < 0
-    logerr("damage type id 'explosion' not found")
-
 [es(tag=server, REQUIRE_NOT=deadEntity, REQUIRE=destroyOnDamageWithoutCrew, after=vehicle_damage_part_last_offender_weapon)]
 def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
                                        isExploded : bool;
@@ -35,7 +30,9 @@ def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
                                        transform : float3x4;
                                        damage_model : DamageModel;
                                        lastOffender : EntityId;
-                                       destroy_without_crew__explosionDamageTypeId : int;
+                                       last_offender__gunPropsId : int;
+                                       last_offender__shellId : int;
+                                       damage_model__explosionDamageType : int;
                                        destroy_without_crew__minCaliberToDestroyOnDamage : float;
                                        destroyTimerCheckDistance : float = 10.f;
                                        var vehicle__isDestroyedWithoutCrew : bool&)
@@ -47,20 +44,20 @@ def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
     return
   projectile_get_props(shellId) <| $(ballisticsProps : ProjectileProps)
     let isLargeCaliber = ballisticsProps.caliber > destroy_without_crew__minCaliberToDestroyOnDamage
-    let isExplosion = destroy_without_crew__explosionDamageTypeId >= 0 && evt.damageTypeId == destroy_without_crew__explosionDamageTypeId
+    let isExplosion = damage_model__explosionDamageType >= 0 && evt.damageTypeId == damage_model__explosionDamageType
     assume parts = damage_model.dmData.parts
     let isInnerPart = uint(evt.partId) < uint(length(parts)) && (parts[evt.partId] |> damagePart_getProps).isInner
 
     if isInnerPart && (isLargeCaliber || isExplosion)
       vehicle__isDestroyedWithoutCrew = true
-      sendEvent(eid, [[CmdExplosionFatal offender=lastOffender]])
+      sendEvent(eid, [[CmdExplosionFatal offender=lastOffender, gunPropsId=last_offender__gunPropsId, shellId=last_offender__shellId]])
 
 [es(tag=server, REQUIRE=damage_model)]
 def vehicle_fatal_fire_kill_es(evtData : EventFireFatal;
                                vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    sendEvent(ownerEid, [[CmdKill offender=evtData.offender, damageType=uint16(int(DamageType DM_FIRE))]])
+    sendEvent(ownerEid, [[CmdKill offender=evtData.offender, damageType=uint16(int(DamageType DM_FIRE)), gunPropsId=evtData.gunPropsId, shellId=evtData.shellId]])
 
 [es(tag=server)]
 def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__vehicleSelected : EntityId)
@@ -82,10 +79,10 @@ def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__
       let hasLastOffender = !!lastOffender
       if (!isSuicide || !hasLastOffender) && lastOffender != evtData.offender
         lastOffender = evtData.offender
-        last_offender__shellId = -1
-        last_offender__gunPropsId = -1
+        last_offender__shellId = evtData.shellId
+        last_offender__gunPropsId = evtData.gunPropsId
       if !isExploded && destroyIfNoCrewLeft
-        sendEvent(eid, [[CmdExplosionFatal offender=lastOffender]])
+        sendEvent(eid, [[CmdExplosionFatal offender=lastOffender, gunPropsId=last_offender__gunPropsId, shellId=last_offender__shellId]])
       if has(eid, "deadIfNoCrewLeft")
         isAlive = false
 
@@ -100,30 +97,27 @@ def vehicle_seats_dm_parts_es(evt : Event;
       let enabled = (ownerEid != ecs::INVALID_ENTITY_ID) || (get_bool(ownerEid, "isAlive") ?? false)
       damage_model.dmData.parts[vehicle_seats_receive_damage_from_dm_part[seatNo]].enabled = enabled
 
-def set_offender(victim_eid : EntityId; offender_eid : EntityId; offender_player : EntityId; offender_team : int; time : float)
-  query(victim_eid) <| $ [es] (possessedByPlr : EntityId;
-                               team : int;
-                               var hitpoints__lastOffender : EntityId&;
-                               var hitpoints__lastOffenderPlayer : EntityId&;
-                               var hitpoints__lastVictimPlayer : EntityId&;
-                               var hitpoints__lastOffenderTime : float&)
-    if !is_teams_friendly(team, offender_team)
-      hitpoints__lastVictimPlayer = possessedByPlr
-      hitpoints__lastOffender = offender_eid
-      hitpoints__lastOffenderPlayer = offender_player
-      hitpoints__lastOffenderTime = time
-
 [es(tag=server, REQUIRE_NOT=deadEntity, REQUIRE=(vehicle_seats__transferVehicleOffenderToSeats))]
-def vehicle_seats_transfer_offender_on_damage(evt : EventOnPartDamaged; vehicle_seats__seatEids : EidList)
+def vehicle_seats_transfer_offender_on_damage(evt : EventOnPartDamaged;
+                                              vehicle_seats__seatEids : EidList;
+                                              damage_model__explosionDamageType : int = -1;
+                                              damage_model__fireDamageType : int = -1)
   let offenderEid = evt.hitData.offender
   let offenderPlayer = get_Eid(offenderEid, "possessedByPlr") ?? INVALID_ENTITY_ID
-  let offenderTeam = get_int(get_offender_from_cache(offenderEid).player, "team") ?? TEAM_UNASSIGNED
+  let cachedOffender = get_offender_from_cache(offenderEid)
+  let offenderSquadPlayer = cachedOffender.player
+  let offenderTeam = get_int(offenderSquadPlayer, "team") ?? TEAM_UNASSIGNED
   if offenderTeam == TEAM_UNASSIGNED
     return
-  let time = get_sync_time()
   for seatEid in vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    set_offender(ownerEid, offenderEid, offenderPlayer, offenderTeam, time)
+    var damageType = -1
+    if evt.damageTypeId == damage_model__explosionDamageType && damage_model__explosionDamageType >= 0
+      damageType = int(DamageType DM_EXPLOSION)
+    elif evt.damageTypeId == damage_model__fireDamageType && damage_model__fireDamageType >= 0
+      damageType = int(DamageType DM_FIRE)
+    ownerEid |> try_set_last_offender(offenderEid, offenderTeam, offenderPlayer, offenderSquadPlayer,
+                                      damageType, int(evt.hitData.gunPropsId), int(evt.hitData.shellId), -1, false)
 
 [es(tag=server, before=request_vehicle_seat_es, REQUIRE=vehicle_seats__transferVehicleOffenderToSeats)]
 def vehicle_seats_reset_last_offender_timer_on_exit(evt : CmdKickFromVehicle; vehicle_seats__seatEids : EidList)

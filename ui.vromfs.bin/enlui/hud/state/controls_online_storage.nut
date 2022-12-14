@@ -1,9 +1,8 @@
-from "%enlSqGlob/ui_library.nut" import log
+from "%enlSqGlob/ui_library.nut" import gui_scene, log
 
 let {DBGLEVEL} = require("dagor.system")
-let {gui_scene} = require("daRg")
 let { platformId, is_nswitch, is_sony, is_ps5, is_xbox, is_xbox_scarlett, is_pc, is_mobile } = require("%dngscripts/platform.nut")
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let dainput = require("dainput2")
 let { logerr } = require("dagor.debug")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
@@ -22,10 +21,10 @@ let uiClickRumbleSave = mkOnlineSaveData(clickRumbleSettingId,
   @() get_setting_by_blk_path(clickRumbleSettingId) ?? gui_scene.config.clickRumbleEnabled)
 
 let isUiClickRumbleEnabled = uiClickRumbleSave.watch
-gui_scene.config.clickRumbleEnabled = isUiClickRumbleEnabled.value
+gui_scene.setConfigProps({clickRumbleEnabled = isUiClickRumbleEnabled.value})
 let setUiClickRumble = uiClickRumbleSave.setValue
 isUiClickRumbleEnabled.subscribe(function(val) {
-  gui_scene.config.clickRumbleEnabled = val
+  gui_scene.setConfigProps({clickRumbleEnabled = val})
   set_setting_by_blk_path(clickRumbleSettingId, val)
   save_settings()
 })
@@ -51,33 +50,38 @@ let defaultDz = is_ps5 || is_xbox_scarlett
   : 0.15
 let validateDz = @(v) clamp(v, 0.0, 0.4)
 const gamepadCursorDeadZoneMin = 0.15
+
 let function setGamepadCursorDz(stick_dz){
   local target_dz = gamepadCursorDeadZoneMin
   if (stick_dz > 0)
     target_dz =  stick_dz<1 ? clamp((gamepadCursorDeadZoneMin - stick_dz) / (1 - stick_dz), 0.01, 0.3) : 0.3
-  gui_scene.config.gamepadCursorDeadZone = target_dz
+  gui_scene.setConfigProps({gamepadCursorDeadZone = target_dz})
   log("set gamepadCursorDeadZone to: ", target_dz,".Current dz in driver for stick:", stick_dz)
 }
 
 let stick0Save = mkOnlineSaveData($"controls/{platformId}/stick0_dz_ver2", @() defaultDz, validateDz)
 let stick0_dz = stick0Save.watch
+
 let function stick0_dz_apply(...) {
   let stick_dz = stick0_dz.value
   dainput.set_main_gamepad_stick_dead_zone(0, stick_dz)
   if (gui_scene.config.gamepadCursorAxisH == 0 || gui_scene.config.gamepadCursorAxisV == 1)
     setGamepadCursorDz(stick_dz)
 }
+
 stick0_dz.subscribe(stick0_dz_apply)
 stick0_dz_apply()
 
 let stick1Save = mkOnlineSaveData($"controls/{platformId}/stick1_dz_ver2", @() defaultDz, validateDz)
 let stick1_dz = stick1Save.watch
+
 let function stick1_dz_apply(...) {
   let stick_dz = stick1_dz.value
   dainput.set_main_gamepad_stick_dead_zone(1, stick_dz)
   if (gui_scene.config.gamepadCursorAxisH == 2 || gui_scene.config.gamepadCursorAxisV == 3)
     setGamepadCursorDz(stick_dz)
 }
+
 stick1_dz.subscribe(stick1_dz_apply)
 stick1_dz_apply()
 

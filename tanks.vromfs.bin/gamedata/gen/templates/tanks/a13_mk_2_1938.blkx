@@ -4,8 +4,8 @@ base_a13_mk_2_1938{
   killLogName:t="uk_a_13_mk2"
   animchar__res:t="a13_mk_2_1938_char"
   collres__res:t="a13_mk_2_1938_collision"
-  vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/a13_mk_2_1938.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/a13_mk_2_1938.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
   dmg_animchar__res:t="a13_mk_2_1938_dmg_char"
   xray_resource__modelName:t="a13_mk_2_1938"
   cockpit__zoomOutFov:r=2.7475
@@ -13,21 +13,28 @@ base_a13_mk_2_1938{
   cockpit__sightName:t="sight_model/default_tank_spg"
   cockpit__sightFov:r=20.0
   drowningHeight:r=2.072
-  damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/a13_mk_2_1938.blk"
+  damage_model__blk:t="gamedata/gen/units/tanks/a13_mk_2_1938.blk"
   item__name:t="items/uk_a_13_mk2"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="a13_mk_2_1938_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_40mm_slow"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -35,6 +42,8 @@ base_a13_mk_2_1938{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
   }
 
   "turret_control__animVars:shared:array"{
@@ -62,6 +71,16 @@ base_a13_mk_2_1938{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -80,6 +99,22 @@ base_a13_mk_2_1938{
       turretName:t="turret_02"
       gun:t="a13_mk_2_1938_turret_02_7_7mm_vikkers"
       barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="a13_mk_2_1938_turret_03_76mm_nato_smoke_grenade_launcher_single"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="a13_mk_2_1938_turret_04_76mm_nato_smoke_grenade_launcher_single"
       salt:i=1
     }
   }
@@ -114,6 +149,24 @@ a13_mk_2_1938_turret_02_7_7mm_vikkers{
 
   "gun__shellsAmmo:array"{
     ammo:i=3500
+  }
+}
+
+a13_mk_2_1938_turret_03_76mm_nato_smoke_grenade_launcher_single{
+  _extends:t="tankgun_76mm_nato_smoke_grenade_launcher_single"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+a13_mk_2_1938_turret_04_76mm_nato_smoke_grenade_launcher_single{
+  _extends:t="tankgun_76mm_nato_smoke_grenade_launcher_single"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
   }
 }
 

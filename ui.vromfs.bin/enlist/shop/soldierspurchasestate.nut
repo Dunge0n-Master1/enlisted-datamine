@@ -26,7 +26,7 @@ let function extractClasses(crateContent) {
   let classesList = crateContent?.content.soldierClasses ?? {}
   return classesList.len() == 0 ? null : classesList
     .map(@(sClass) getClassCfg(sClass).kind)
-    .reduce(@(res, sKind) res.__update({ [sKind] = true }), {})
+    .reduce(@(res, sKind) res.rawset(sKind, true), {})
     .keys()
 }
 

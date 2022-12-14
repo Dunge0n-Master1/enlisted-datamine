@@ -44,3 +44,12 @@ def replay_next_target_cmd(delta : int = 1)
 [console_cmd(name="replay.change_free_tps_speed")]
 def replay_change_free_tps_speed(speed : float = 5.)
   broadcastEvent([[CmdSetFreeTpsCameraSpeed speed=speed]])
+
+[console_cmd(name="replay.set_postfx")]
+def replay_set_postfx(enabled : bool = true)
+  broadcastEvent([[CmdSetCinematicPostFxBloom enabled=enabled]])
+
+[console_cmd(name="replay.camera_set_lerp_factor")]
+def replay_camera_inert_enable_cmd(factor : float = 2.0)
+  query() <| $ [es] (var replay_camera__tpsLerpFactor : float&)
+    replay_camera__tpsLerpFactor = factor

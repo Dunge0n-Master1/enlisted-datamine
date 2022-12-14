@@ -38,8 +38,8 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
 
   query(human_weap__currentGunEid) <| $ [es] (entity_cam_nodes__aimNodeIdx : int;
                                               animchar : AnimcharBaseComponent;
-                                              weapon_frontsight_node__nodeIdx : int?;
-                                              weapon_rearsight_node__nodeIdx : int?;
+                                              weapon_frontsight_node__nodeIdx : int const?;
+                                              weapon_rearsight_node__nodeIdx : int const?;
                                               gun__maxSightOffset : float = 0.03;
                                               gun__sightOffsetToAimPositionPower : float = 3.;
                                               weapon_sight__minDistFrom : float = 0.05)
@@ -52,9 +52,9 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
     let physCurrentStateAimPosition = human_net_phys.phys.currentState.aimPosition
     var wishAimPosition = lerp(physPreviousStateAimPosition, physCurrentStateAimPosition, interpK)
 
-    let wofsF = animchar.nodeTree |> geomtree_getWtmOfs()
+    let wofsF = *animchar.nodeTree |> geomtree_getWtmOfs()
     let wofs = DPoint3(wofsF)
-    var aimPos = animchar.nodeTree |> geomtree_getNodeWposRel(entity_cam_nodes__aimNodeIdx)
+    var aimPos = *animchar.nodeTree |> geomtree_getNodeWposRel(entity_cam_nodes__aimNodeIdx)
     var aimOffset = float2(0.0, 0.0)
 
     if weapon_frontsight_node__nodeIdx != null && weapon_rearsight_node__nodeIdx != null
@@ -63,11 +63,11 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
 
       assert(weaponFrontsightNodeIdx >= 0)
       assert(weaponRearsightNodeIdx >= 0)
-      let fsPos = animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
-      let rsPos = animchar.nodeTree |> geomtree_getNodeWposRel(weaponRearsightNodeIdx)
+      let fsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
+      let rsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponRearsightNodeIdx)
       var frontSightTm : float3x4
-      animchar.nodeTree.root |> geomtreenode_getWtmScalar(frontSightTm)
-      frontSightTm[3] = animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
+      *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(0, frontSightTm)
+      frontSightTm[3] = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
 
       let relativeRearPos = inverse(frontSightTm) * rsPos // relative pos
       // Now construct augmented tm so we can use it
@@ -116,5 +116,5 @@ def human_gun_lookat_camera_on_action_es(info : UpdateStageInfoAct;
                                          var camera__look_at : DPoint3&)
   let progress = saturate(human_weap__cameraTransitionOnActionProgress)
   if (progress > 0.0)
-    let animcharCameraTargetPos = animchar.nodeTree |> geomtree_getNodeWpos(animchar_camera_target__nodeIndex)
+    let animcharCameraTargetPos = *animchar.nodeTree |> geomtree_getNodeWpos(animchar_camera_target__nodeIndex)
     camera__look_at = lerp(camera__look_at, DPoint3(animcharCameraTargetPos), progress)

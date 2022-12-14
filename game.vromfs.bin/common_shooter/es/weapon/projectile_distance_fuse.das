@@ -18,9 +18,13 @@ def projectile_distance_fuse(info : ParallelUpdateFrameDelayed;
   assume currentPos = projectile_ballistics.state.pos
   let norm : float3
   if projectile__maxDistanceFromStartSq > 0.0 && distance_sq(startPos, currentPos) > projectile__maxDistanceFromStartSq
-    detonate_shell_server(eid, launch_desc.shellId, int(launch_desc.gunPropsId), projectile_ballistics.state.pos,
-                          ownerEid, projectile__prevPos, projectile_ballistics.state.vel, /*ignore_entity*/ INVALID_ENTITY_ID,
-                          /*normal*/ norm, /*alternative_offender*/ INVALID_ENTITY_ID)
+    sendEvent(eid, [[CmdDetonateShellServer pos = projectile_ballistics.state.pos,
+                                              offender = ownerEid,
+                                              prev_pos = projectile__prevPos,
+                                              vel = projectile_ballistics.state.vel,
+                                              ignore_entity = INVALID_ENTITY_ID,
+                                              normal = norm,
+                                              alternative_offender = INVALID_ENTITY_ID]])
     projectile__exploded = true
 
 

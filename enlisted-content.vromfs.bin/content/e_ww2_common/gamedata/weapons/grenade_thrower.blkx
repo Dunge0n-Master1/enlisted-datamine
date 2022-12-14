@@ -1,12 +1,2 @@
 mass:r=0.0
 stat_name:t="grenade"
-selWeaponVar:t="grenade_m24"
-
-throwProps{
-  drawTime:r=0.5
-  throwTime:r=0.7
-  fastThrowCookProgressTime:r=0.3
-  fastThrowProgressTime:r=0.68
-  cookProgressTime:r=0.3
-  throwProgressTime:r=0.6
-}

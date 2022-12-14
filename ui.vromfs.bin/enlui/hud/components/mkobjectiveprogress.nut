@@ -89,7 +89,7 @@ let function mkGenericProgress(zoneData, heroTeam, size, color, progress, isAnim
       bgColor = CAPTURE_ZONE_BG
       fgColor = (zoneData.curTeamCapturingZone == heroTeam) ? TEAM0_COLOR_FG : TEAM1_COLOR_FG
       animations = zoneData.isCapturing && isAnimationAvailable ? animCapturing : null
-      key = {}
+      key = zoneData.eid
     })
 
   return zoneGeneric.__merge({
@@ -125,7 +125,7 @@ let function mkTrainProgress(zoneData, heroTeam, size, color, progress, isAnimat
       bgColor = CAPTURE_ZONE_BG
       fgColor = TEAM0_COLOR_FG
       animations = isAnimationAvailable ? animCapturing : null
-      key = {}
+      key = zoneData.eid
     })
 
   return zoneGeneric.__merge({
@@ -175,7 +175,7 @@ let function mkDefendProgress(zoneData, heroTeam, size, color, progress, isAnima
     transform = transformCenterPivot
     children = zoneData.isCapturing
       ? zoneDefendProgressCapturing.__merge({
-          key = {}
+          key = zoneData.eid
           animations = isAnimationAvailable ? animCapturing : null
           bgColor = (zoneData.curTeamCapturingZone == heroTeam) ? TEAM0_COLOR_FG : TEAM1_COLOR_FG
           transform = transformCenterPivot

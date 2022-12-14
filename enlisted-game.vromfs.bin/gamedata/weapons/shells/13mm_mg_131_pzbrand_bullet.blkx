@@ -1,18 +1,19 @@
 mass:r=0.038
 caliber:r=0.013
 speed:r=710.0
-Cx:r=0.15
-maxDistance:r=2500.0
-normalizationPreset:t="default"
+Cx:r=0.5451
+maxDistance:r=3000.0
 modelName:t="tank_bullet_ball"
+normalizationPreset:t="default"
 ricochetPreset:t="default"
-onHitChanceMultFire:r=10.0
+stabilityThreshold:r=0.05
 stabilityCaliberToArmorThreshold:r=5.0
-effectiveDistance:r=500.0
 stabilityReductionAfterRicochet:r=0.5
-relativeVelHitShift:p2=300.0, 1000.0
 bulletType:t="ap_i_ball"
 slopeEffectPreset:t="ap"
+onHitChanceMultFire:r=10.0
+effectiveDistance:r=500.0
+relativeVelHitShift:p2=300.0, 1000.0
 groundCollisionEffect:t="hit_12_18mm_dirt_ap"
 ricochetEffect:t="hit_12_18mm_metal_ap"
 waterCollisionEffect:t="hit_12_18mm_water"
@@ -22,6 +23,12 @@ stabilityRicochetModifier{
   mod2:p2=20.0, 0.1
   mod3:p2=30.0, 0.2
   mod3:p2=45.0, 0.3
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="noColor"
 }
 
 hitpower{
@@ -41,12 +48,6 @@ damage{
     demarreMassPow:r=0.71
     demarreCaliberPow:r=1.07
   }
-}
-
-visual{
-  range_percent_of_ammo:p2=100.0, 0.0
-  traceFreq:i=1
-  tracer:t="noColor"
 }
 
 hitFx{

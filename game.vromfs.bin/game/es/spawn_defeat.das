@@ -27,15 +27,14 @@ def can_spawn_soldiers(squad_idx : int; soldier_revive_points__points : Array)
 def check_team_spawn_defeat_es(evt : Event;
                                eid : EntityId;
                                soldier_revive_points__points : Array;
-                               var squads__revivePointsList : Array)
+                               var squads__revivePointsList : IntList&)
   var checkTeam : int = TEAM_UNASSIGNED
   query(eid) <| $ [es] (team : int)
     checkTeam = team
   if (checkTeam == TEAM_UNASSIGNED)
     return
 
-  for i in iter_range(squads__revivePointsList)
-    assume pts = *(getRW_int(squads__revivePointsList[i]))
+  for i, pts in iter_range(squads__revivePointsList), squads__revivePointsList
     if pts >= 100 && !can_spawn_soldiers(i, soldier_revive_points__points)
       pts = 0 // make squad unavailable if all soldiers are dead
 
@@ -51,12 +50,11 @@ def check_team_spawn_defeat_es(evt : Event;
 
   let anyCanSpawn = find_query() <| $ [es(REQUIRE=player)] (team : int;
                                                             squads__respawnTypeList : Array;
-                                                            squads__revivePointsList : Array;
+                                                            squads__revivePointsList : IntList;
                                                             soldier_revive_points__points : Array)
     if team != checkTeam
       return false
-    for i in iter_range(squads__revivePointsList)
-      let pts = *(get_int(squads__revivePointsList[i]))
+    for i, pts in iter_range(squads__revivePointsList), squads__revivePointsList
       if pts < 100
         continue
       if !can_spawn_soldiers(i, soldier_revive_points__points)

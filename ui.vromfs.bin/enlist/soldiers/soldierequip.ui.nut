@@ -22,6 +22,7 @@ let { equipByList, isItemActionInProgress } = require("model/itemActions.nut")
 let { reserveSoldiers } = require("model/chooseSoldiersState.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { textMargin } = require("%ui/components/textButton.style.nut")
+let { getErrorSlots } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 
 const opacityForDisabledItems = 0.3
@@ -50,7 +51,7 @@ let function collectSlots(slotType, totalSlots, slotsItems, soldierGuid) {
   local isAvailable = true
   if (soldierData && slotType) {
     let armyId = getLinkedArmyName(soldierData)
-    let sClass = soldierData?.sClass ?? "unknown"
+    let { sClass = "unknown" } = soldierData
     isAvailable = (classSlotLocksByArmy.value?[armyId][sClass] ?? []).indexof(slotType) == null
   }
 
@@ -91,26 +92,7 @@ let mkItemsBlock = kwarg(function(
   )
 })
 
-let function getWarningSlotTypes(slotsItems, equipScheme) {
-  let equipped = {}
-  let slotTypeToGroup = {}
-  foreach (slotType, slot in equipScheme) {
-    let { atLeastOne = "" } = slot
-    if (atLeastOne != "") {
-      equipped[atLeastOne] <- false
-      slotTypeToGroup[slotType] <- atLeastOne
-    }
-  }
-  foreach (slotData in slotsItems) {
-    if (slotData.item == null)
-      continue
-    let group = slotTypeToGroup?[slotData.slotType]
-    if (group in equipped)
-      equipped[group] = true
-  }
-  return slotTypeToGroup.map(@(group) !equipped[group])
-    .filter(@(v) v)
-}
+
 
 let mkItemsChapter = kwarg(function mkItemsChapterImpl(
   equipGroup, soldier, canManage, slotsCount, itemCtor = mkItem
@@ -129,7 +111,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
 
   return function() {
     let slotsItems = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
-    let warningSlotTypes = getWarningSlotTypes(slotsItems, equipScheme)
+    let errorSlotTypes = getErrorSlots(slotsItems, equipScheme)
 
     let rowsData = []
     local lastRow = null
@@ -140,7 +122,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
       slotsList.each(@(s) s.__update({
         item = objInfoByGuid.value?[s.item?.guid]
         scheme = scheme
-        hasWarning = warningSlotTypes?[slotType] ?? false
+        hasWarning = errorSlotTypes?[slotType] ?? false
         isDisabled = isDisabled
         isUnseen = Computed(function() {
           let hasUnseenUpgradesMark = s?.item.basetpl in curUnseenAvailableUpgrades.value

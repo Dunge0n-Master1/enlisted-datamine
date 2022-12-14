@@ -4799,9 +4799,9 @@ entity{
   mission_name:t="pacific_guadalcanal_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_guadalcanal_inv_01.jpg"
-    item:t="ui/pacific_guadalcanal_inv_07.jpg"
-    item:t="ui/pacific_guadalcanal_inv_08.jpg"
+    item:t="ui/pacific_guadalcanal_inv_11.jpg"
+    item:t="ui/pacific_guadalcanal_inv_15.jpg"
+    item:t="ui/pacific_guadalcanal_inv_17.jpg"
   }
 }
 
@@ -5501,7 +5501,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[0.594427, 0.0, -0.80415] [0.0, 1.0, 0.0] [0.80415, -0.0, 0.594427] [-459.989, 21.368, -51.6884]]
+  transform:m=[[0.383406, 0.0, -0.92358] [0.0, 1.0, 0.0] [0.92358, -0.0, 0.383406] [-457.05, 21.368, -48.5792]]
   groupName:t="sector_2_b"
   maxVehicleOnSpawn:i=2
   respTime:i=150
@@ -5512,7 +5512,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[0.594427, 0.0, -0.80415] [0.0, 1.0, 0.0] [0.80415, -0.0, 0.594427] [-459.977, 21.368, -51.6157]]
+  transform:m=[[0.375771, 0.0, -0.926713] [0.0, 1.0, 0.0] [0.926713, -0.0, 0.375771] [-457.109, 21.368, -48.4843]]
   groupName:t="sector_2_b"
   respawnBaseGroup:i=1
   team:i=2

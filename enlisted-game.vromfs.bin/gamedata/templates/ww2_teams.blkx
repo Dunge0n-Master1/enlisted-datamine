@@ -365,16 +365,6 @@ team_ussr_winter{
   }
 }
 
-team_resptime_balance{
-  team__balancedRespawnTime:r=7.0
-  team__disbalancedRespawnIncrease:r=10.0
-}
-
-team_captime_balance{
-  team__disbalanceCapSpeedMult:r=1.0
-  team__captureSpeedMult:r=1.0
-}
-
 team_tunisia_allies{
   _extends:t="team_usa"
 

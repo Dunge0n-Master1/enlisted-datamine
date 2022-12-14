@@ -39,6 +39,13 @@ beaufighter_mkx{
         turret:t="turret_17"
         turret:t="turret_18"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -787,4 +794,24 @@ beaufighter_mkx_driver_cockpit{
   animchar__res:t="beaufighter_mkx_cockpit_char"
   plane_anim__blk:t="gamedata/units/beaufighter_mkx.blk"
   plane_sight__blk:t="gamedata/units/beaufighter_mkx.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.002, 0.017, 0.0015
+    item:p3=0.006, 0.037, 0.0155
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=0.0, 10.6
+    item:p2=-2.0, 20.9
+  }
 }

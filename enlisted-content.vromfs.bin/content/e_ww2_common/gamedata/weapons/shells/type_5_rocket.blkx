@@ -1,13 +1,13 @@
 mass:r=1.58
 cartridgeMass:r=1.58
 momentOfInertia:p3=0.04, 0.008, 0.04
-caliber:r=0.03
+caliber:r=0.08
 speed:r=82.0
 physMat:t="bulletRay"
 useFutureContacts:b=yes
 logCCD:b=no
-explodeRadius:p2=3.0, 4.5
-explodeHitPower:r=10.0
+explodeRadius:p2=0.5, 2.5
+explodeHitPower:r=18.0
 entityTemplate:t="type_5_rocket_phys"
 entityPhysTemplate:t="type_5_rocket_phys"
 bullets:i=1
@@ -39,7 +39,7 @@ visual{
 }
 
 splashDamage{
-  radius:p2=1.0, 6.0
+  radius:p2=1.0, 4.5
   penetration:p2=10.0, 10.0
   damage:r=10.0
   dmgOffset:p3=0.0, 0.25, 0.0

@@ -59,7 +59,7 @@ base_door{
   door_operations__lastUseTime:r=-1.0
   door_operations__useCooldown:r=1.0
   door_operations__serverTargetAngle:r=-95.0
-  net__scopeDistanceSq:r=250000.0
+  net__scopeDistanceSq:r=108900.0
   shreddableInDarkZone:b=yes
   grid_obj__gridType:t="doors"
   grid_obj__fixedTmScale:r=-1.0
@@ -88,41 +88,6 @@ base_door{
   "ri_extra__handle:u64"{
     value:i64=-1
   }
-}
-
-standart_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/standart/open"
-  door_operations__closedSound:t="env_effects/doors/standart/close"
-}
-
-metal_gate_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/metal_gate_01/open"
-  door_operations__closedSound:t="env_effects/doors/metal_gate_01/close"
-}
-
-gate_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/gate/open"
-  door_operations__closedSound:t="env_effects/doors/gate/close"
-}
-
-normandy_decor_gate_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/normandy_decor_gate/open"
-  door_operations__closedSound:t="env_effects/doors/normandy_decor_gate/close"
-}
-
-bunker_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/bunker/open"
-  door_operations__closedSound:t="env_effects/doors/bunker/close"
-}
-
-hatch_door_sounds{
-  door_operations__openedSound:t="env_effects/doors/hatch/open"
-  door_operations__closedSound:t="env_effects/doors/hatch/close"
-}
-
-standart_window_sounds{
-  door_operations__openedSound:t="env_effects/doors/window/open"
-  door_operations__closedSound:t="env_effects/doors/window/close"
 }
 
 standart_right_door{

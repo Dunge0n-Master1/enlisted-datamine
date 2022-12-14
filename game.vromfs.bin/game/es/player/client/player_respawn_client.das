@@ -71,7 +71,7 @@ def player_possess_camera(evt : PossessTargetByPlayer; eid : EntityId; connid : 
         neid |> reCreateEntityFrom(newActorTemplName, finalizeCreation) <| $(var init : ComponentsInitializer)
           set(init, "watchedByPlr", eid)
 
-  query(neid) <| $ [es(tag=netClient)] (var replication : NetObject&)
+  query(neid) <| $ [es] (var replication : NetObject&) // TODO: fix this place? query had (tag=netClient) previously which does not work for queries
     if actor != null
       *actor |> base_phys_actor_setRoleAndTickrateType(NetRole ROLE_LOCALLY_CONTROLLED_SHADOW, PhysTickRateType Normal)
     let sconn : IConnection? = get_server_conn()

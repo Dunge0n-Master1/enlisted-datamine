@@ -5,7 +5,7 @@ require DagorDataBlock
 require BehNodes
 require DagorRandom
 require math
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.sound_net.sound_net_events
@@ -96,9 +96,9 @@ def on_squad_mate_heal(act : UpdateStageInfoAct;
 def squad_mate_order_heal(evt : RequestSquadMateOrder; squad__leader : EntityId)
   if evt.orderType == SquadMateOrder ESMO_HEAL
     if get_bool(squad__leader, "isDowned") ?? false
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadReviveMeOrder", importance=1.]])
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadReviveMeOrder"]])
     else
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadHealMeOrder", importance=1.]])
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadHealMeOrder"]])
 
 [es(tag=server, track=human_inventory__entityToUse)]
 def squad_mate_order_heal_interrupted(evt : Event;

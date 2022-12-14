@@ -13,7 +13,7 @@ def on_deactivation(zone_eid : EntityId; team_id : int)
                              capzone__activateAfterCap : string = "";
                              capzone__activateAfterTeam1Cap : string = "";
                              capzone__activateAfterTeam2Cap : string = "";
-                             capzone__activateChoice : Object?)
+                             capzone__activateChoice : Object const?)
     if !capzone__deactivateAfterCap
       return
     if (capzone__checkAllZonesInGroup

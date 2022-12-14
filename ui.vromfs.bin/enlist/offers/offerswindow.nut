@@ -13,7 +13,7 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { Bordered, FAButton, Purchase } = require("%ui/components/textButton.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
-let { allActiveOffers, curOfferIdx, isSpecOffersOpened } = require("offersState.nut")
+let { visibleOffersInWindow, curOfferIdx, isSpecOffersOpened } = require("offersState.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
@@ -35,11 +35,11 @@ let shopItemHeight = hdpx(400)
 
 let function btnBlockUi() {
   let pageIdx = curOfferIdx.value
-  let totalPages = allActiveOffers.value.len()
+  let totalPages = visibleOffersInWindow.value.len()
   let canPrev = pageIdx > 0
   let canNext = pageIdx < totalPages - 1
   return {
-    watch = [allActiveOffers, curOfferIdx]
+    watch = [visibleOffersInWindow, curOfferIdx]
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
     children = [
@@ -198,10 +198,10 @@ let mkOfferLifetimeInfo = @(lifeTime) {
 }.__update(sub_txt)
 
 let function curOfferUi() {
-  let offer = allActiveOffers.value?[curOfferIdx.value]
+  let offer = visibleOffersInWindow.value?[curOfferIdx.value]
   let ownSquads = squadsByArmies.value
   return {
-    watch = [allActiveOffers, curOfferIdx, squadsByArmies]
+    watch = [visibleOffersInWindow, curOfferIdx, squadsByArmies]
     size = [fsh(130), flex()]
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -271,13 +271,13 @@ let function close() {
 if (isSpecOffersOpened.value)
   open()
 
-allActiveOffers.subscribe(function(list) {
+visibleOffersInWindow.subscribe(function(list) {
   if (list.len() == 0)
     isSpecOffersOpened(false)
 })
 isSpecOffersOpened.subscribe(@(v) v ? open() : close())
 
 return function(specOffer) {
-  curOfferIdx(allActiveOffers.value.indexof(specOffer) ?? 0)
+  curOfferIdx(visibleOffersInWindow.value.indexof(specOffer) ?? 0)
   isSpecOffersOpened(true)
 }

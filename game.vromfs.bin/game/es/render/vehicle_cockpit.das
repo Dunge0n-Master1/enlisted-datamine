@@ -83,7 +83,7 @@ def cockpit_attach_nodes_init(evt : Event;
     resize(cockpit__attachNodeIndices, slitNodesCount)
     for i in range(0, commonNodesCount)
       let nodeName = string(cockpit__attachNodeNames[i])
-      cockpit__attachNodeIndices[i] = geomtree_findNodeIndex(animchar.nodeTree, nodeName)
+      cockpit__attachNodeIndices[i] = geomtree_findNodeIndex(*animchar.nodeTree, nodeName)
     for i in range(commonNodesCount, slitNodesCount)
       cockpit__attachNodeIndices[i] = cockpit__attachNodeIndex
 
@@ -123,14 +123,15 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
                               var transform : float3x4;
                               var cockpit__isAttached : bool&;
                               var cockpit__attachNodeIndex : int&;
-                              cockpit__attachNodeIndices : IntList?;
+                              cockpit__attachNodeIndices : IntList const?;
                               cockpit__currentSlit : int;
-                              cockpit__cockpitOffsetBySlit : Point3List?;
+                              cockpit__cockpitOffsetBySlit : Point3List const?;
                               cockpit__offset : float3;
                               cockpit__vehicleEid : EntityId;
                               cockpit__seatNo : int;
-                              cockpit__angles : float3?;
-                              cockpit__scale = float3(1.0, 1.0, -1.0))
+                              cockpit__angles : float3 const?;
+                              cockpit__scale = float3(1.0, 1.0, -1.0);
+                              cockpit__showInDeadVehicle : bool = false)
   cockpit__isAttached = false
   query(cockpit__vehicleEid) <| $ [es(REQUIRE=vehicleWithWatched)] (animchar : AnimcharBaseComponent;
                                                                     vehicle_seats__seatEids : EidList;
@@ -138,11 +139,11 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
                                                                     isTpsView : bool = false;
                                                                     isAlive, isExploded : bool)
 
-    if !isAlive || isExploded || isTpsView
+    if (!cockpit__showInDeadVehicle && (!isAlive || isExploded)) || isTpsView
       return
 
     if (vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER) ||
-        vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD))
+       (vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_DEAD) && !cockpit__showInDeadVehicle))
       return
 
     let heroSeatNo = vehicle_get_watched_seat_idx(vehicle_seats__seatEids)
@@ -157,7 +158,7 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
     if cockpit__cockpitOffsetBySlit != null
       offset += (*cockpit__cockpitOffsetBySlit)[cockpit__currentSlit]
 
-    geomtree_getNodeWtmScalar(animchar.nodeTree, cockpit__attachNodeIndex, transform)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, transform)
     transform[0] = transform[0] * cockpit__scale.x
     transform[1] = transform[1] * cockpit__scale.y
     transform[2] = transform[2] * cockpit__scale.z
@@ -177,8 +178,8 @@ def vehicle_cockpit_slits_init(evt : Event;
                                animchar : AnimcharBaseComponent;
                                cockpit__isAttached : bool;
                                cockpit__slitNodeNames : StringList;
-                               cockpit__slitAngles : FloatList?;
-                               cockpit__cockpitOffsetBySlit : Point3List?;
+                               cockpit__slitAngles : FloatList const?;
+                               cockpit__cockpitOffsetBySlit : Point3List const?;
                                cockpit__offset : float3;
                                transform : float3x4;
                                var cockpit__slitNodes : IntList;
@@ -197,14 +198,14 @@ def vehicle_cockpit_slits_init(evt : Event;
   let cockpitItm = inverse(cockpitTm)
 
   for i in range(0, nodesCount)
-    let slitNodeId = geomtree_findNodeIndex(animchar.nodeTree, string(cockpit__slitNodeNames[i]))
+    let slitNodeId = geomtree_findNodeIndex(*animchar.nodeTree, string(cockpit__slitNodeNames[i]))
     cockpit__slitNodes[i] = slitNodeId
     if slitNodeId < 0
       logerr("Cockpit node '{cockpit__slitNodeNames[i]}' not found. Vehicle {eid} <{getEntityTemplateName(eid)}>")
       continue
 
     var slitNodeWtm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, slitNodeId, slitNodeWtm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, slitNodeId, slitNodeWtm)
 
     var offset = cockpit__offset
     if cockpit__cockpitOffsetBySlit != null
@@ -249,7 +250,6 @@ def vehicle_cockpit_visible_nodes_destroy(evt : Event;
 
 [es(tag=render, track=cockpit__isAttached)]
 def vehicle_cockpit_visible_nodes_init(evt : Event;
-                                       eid : EntityId;
                                        cockpit__isAttached : bool;
                                        cockpit__vehicleEid : EntityId;
                                        cockpit__visibleVehicleNodeNames : StringList)
@@ -263,7 +263,7 @@ def vehicle_cockpit_visible_nodes_init(evt : Event;
         let nodeName = string(cockpit__visibleVehicleNodeNames[i])
         let nodeId = ronamemapex_get_name_id((*(*animchar_render.sceneInstance).lodsResource).names.node, nodeName)
         if nodeId < 0
-          logerr("Node '{nodeName}' from component cockpit.visibleVehicleNodeNames not found in vehicle {eid} <{getEntityTemplateName(eid)}>")
+          logerr("Node '{nodeName}' from component cockpit.visibleVehicleNodeNames not found in vehicle {cockpit__vehicleEid} <{getEntityTemplateName(cockpit__vehicleEid)}>")
           continue
         if animchar_render.sceneInstance |> scene_instance_is_node_visible(nodeId)
           animchar_render__nodeVisibleStgFilters[nodeId] = uint8(~0)
@@ -293,14 +293,14 @@ def cockpit_set_cut_parts(cockpit_eid : EntityId; cut_parts : BoolList)
                                 var animchar_render : AnimcharRendComponent&)
     for partId, isPartCut in iter_range(cut_parts), cut_parts
       let nodeId = cockpit__partToAnimcharNodeMap?[partId] ?? -1
-      if nodeId >= 0 && isPartCut
-        animchar_render.sceneInstance |> scene_instance_show_node(nodeId, false)
+      if nodeId >= 0
+        animchar_render.sceneInstance |> scene_instance_show_node(nodeId, !isPartCut)
 
 [es(tag=render, on_appear, track=(cockpit__eid, plane_cutting__smallPartsCut))]
 def plane_cockpit_cut_parts(evt : Event; cockpit__eid : EntityId; plane_cutting__smallPartsCut : BoolList)
   cockpit_set_cut_parts(cockpit__eid, plane_cutting__smallPartsCut)
 
-[es(tag=render, on_appear, REQUIRE=vehicleWithWatched, track=(plane_cutting__cutting, plane_cutting__planes, plane_cutting__largePartsCut))]
+[es(tag=render, on_appear, REQUIRE=vehicleWithWatched, track=(cockpit__eid, plane_cutting__cutting, plane_cutting__planes, plane_cutting__largePartsCut))]
 def cockpit_copy_cut_planes(evt : Event;
                             cockpit__eid : EntityId;
                             plane_cutting__cutting aka parent_plane_cutting__cutting : bool;
@@ -321,7 +321,7 @@ def vehicle_cockpit_on_attach_dm_parts_map_init(evt : Event;
   query(cockpit__vehicleEid) <| $ [es] (damage_model : DamageModel)
     assume parts = damage_model.dmData.parts
     for part in parts
-      let nodeNameDm = damagePart_getProps(part).name
+      let nodeNameDm = damagePart_getName(part)
       var nodeId = -1
       if nodeNameDm |> ends_with("_dm")
         let nodeName = chop(nodeNameDm, 0, length(nodeNameDm) - 3)
@@ -330,7 +330,7 @@ def vehicle_cockpit_on_attach_dm_parts_map_init(evt : Event;
 
 def get_relative_to_slit_coords(pos : float3;
                                 animchar : AnimcharBaseComponent;
-                                cockpit__attachNodeIndices : IntList?;
+                                cockpit__attachNodeIndices : IntList const?;
                                 from_slit : int;
                                 to_slit : int) : float3
   if cockpit__attachNodeIndices == null
@@ -338,9 +338,9 @@ def get_relative_to_slit_coords(pos : float3;
   let node_from = (*cockpit__attachNodeIndices)[from_slit]
   let node_to = (*cockpit__attachNodeIndices)[to_slit]
   var fromTm, toTm : float3x4
-  geomtree_getNodeWtmScalar(animchar.nodeTree, node_from, fromTm)
+  geomtree_getNodeWtmScalar(*animchar.nodeTree, node_from, fromTm)
   fromTm[2] = -fromTm[2]
-  geomtree_getNodeWtmScalar(animchar.nodeTree, node_to, toTm)
+  geomtree_getNodeWtmScalar(*animchar.nodeTree, node_to, toTm)
   toTm[2] = -toTm[2]
   return inverse(toTm) * fromTm * pos
 
@@ -350,7 +350,7 @@ def vehicle_cockpit_on_slit_change(evt : Event;
                                    cockpit__nextSlit : int;
                                    cockpit__slitCameraDirs : Point3List;
                                    cockpit__slitCameraOffsets : Point3List;
-                                   cockpit__attachNodeIndices : IntList?;
+                                   cockpit__attachNodeIndices : IntList const?;
                                    cockpit__minZoom : float;
                                    cockpit__seatNo : int;
                                    cockpit__vehicleEid : EntityId;
@@ -391,7 +391,7 @@ def init_cockpit_transition(cur_attach_tm : float3x4;
   out_orient_y = float4(quat_rotation_arc(cur_attach_tm[1], next_attach_tm[1]))
 
 def get_cockpit_offset_for_slit(cockpit__offset : float3;
-                                cockpit__cockpitOffsetBySlit : Point3List?;
+                                cockpit__cockpitOffsetBySlit : Point3List const?;
                                 current_slit : int) : float3
   if cockpit__cockpitOffsetBySlit == null
     return cockpit__offset
@@ -400,8 +400,8 @@ def get_cockpit_offset_for_slit(cockpit__offset : float3;
 
 def get_cockpit_transition_offset(cockpit__offset : float3;
                                   animchar : AnimcharBaseComponent;
-                                  cockpit__attachNodeIndices : IntList?;
-                                  cockpit__cockpitOffsetBySlit : Point3List?;
+                                  cockpit__attachNodeIndices : IntList const?;
+                                  cockpit__cockpitOffsetBySlit : Point3List const?;
                                   current_slit : int;
                                   next_slit : int;
                                   t : float) : float3
@@ -433,8 +433,8 @@ def vehicle_cockpit_slits_transition(info : UpdateStageInfoAct;
                                      cockpit__vehicleEid : EntityId;
                                      cockpit__nextSlit : int;
                                      cockpit__slitCameraDirs : Point3List;
-                                     cockpit__cockpitOffsetBySlit : Point3List?;
-                                     cockpit__attachNodeIndices : IntList?;
+                                     cockpit__cockpitOffsetBySlit : Point3List const?;
+                                     cockpit__attachNodeIndices : IntList const?;
                                      cockpit__offset : float3;
                                      var transform : float3x4;
                                      var cockpit__startCameraDir : float3&;
@@ -461,13 +461,13 @@ def vehicle_cockpit_slits_transition(info : UpdateStageInfoAct;
   cockpit__cameraTime += info.dt * cockpit__cameraTimeMul
 
   ecs::query(cockpit__vehicleEid) <| $ [es] (animchar : AnimcharBaseComponent; vehicle_seats__seatEids : EidList; var animchar_camera_target__node_offset : float3&; var cockpit__cameraDir : float3&)
-    geomtree_getNodeWtmScalar(animchar.nodeTree, cockpit__attachNodeIndex, transform)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, transform)
 
     if wasInZoom
       let cameraDir = cockpit__slitCameraDirs[cockpit__nextSlit]
       var nextAttachTm : float3x4
       if cockpit__attachNodeIndices != null
-        geomtree_getNodeWtmScalar(animchar.nodeTree, (*cockpit__attachNodeIndices)[cockpit__nextSlit], nextAttachTm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, (*cockpit__attachNodeIndices)[cockpit__nextSlit], nextAttachTm)
         init_cockpit_transition(transform, nextAttachTm, cockpit__endOrientX, cockpit__endOrientY)
       let cockpitTm = cockpit__attachNodeIndices != null ? nextAttachTm : transform
       let seatEid = vehicle_seats__seatEids[cockpit__seatNo]
@@ -541,7 +541,7 @@ def vehicle_cockpit_slits(info : UpdateStageInfoAct;
     animchar_camera_target__node_offset = cameraOffset + offset
 
     var cockpitTm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, cockpit__attachNodeIndex, cockpitTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, cockpitTm)
 
     cockpit__cameraDir = rotate(cockpitTm, cameraDir)
 
@@ -560,7 +560,7 @@ def vehicle_cockpit_camera_dir(info : UpdateStageInfoAct;
                                         var cockpit__cameraDir : float3&)
 
     var cockpitTm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, cockpit__attachNodeIndex, cockpitTm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, cockpit__attachNodeIndex, cockpitTm)
 
     cockpit__cameraDir = cockpitTm[0]
 

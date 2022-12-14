@@ -1,10 +1,11 @@
 bulletCount:i=25
-mass:r=7.3
+mass:r=7.35
 explosiveType:t="a_ix_1"
 explosiveMass:r=0.935
-caliber:r=0.0762
+caliber:r=0.085
 speed:r=842.0
 maxDistance:r=7000.0
+Cx:r=0.8279
 normalizationPreset:t="heat"
 bulletType:t="heat_fs_tank"
 cumulativeSecondaryShattersPreset:t="heat_fs"

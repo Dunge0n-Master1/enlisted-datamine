@@ -12,7 +12,7 @@ let {TEAM_UNASSIGNED} = require("team")
 let { watchedTable2TableOfWatched } = require("%sqstd/frp.nut")
 
 let whDefValue = freeze({
-  watchedHeroEid = INVALID_ENTITY_ID
+  watchedHeroEid = ecs.INVALID_ENTITY_ID
   watchedHeroTeam = TEAM_UNASSIGNED
 })
 let whState = mkWatched(persist, "watchedHero", whDefValue)
@@ -20,18 +20,18 @@ let whStateSetValue = @(v) whState(v)
 
 let { watchedHeroEid, watchedHeroTeam } = watchedTable2TableOfWatched(whState)
 
-let watchedHeroPlayerEid = mkWatched(persist, "watchedHeroPlayerEid", INVALID_ENTITY_ID)
+let watchedHeroPlayerEid = mkWatched(persist, "watchedHeroPlayerEid", ecs.INVALID_ENTITY_ID)
 let watchedHeroPlayerEidSetValue = @(v) watchedHeroPlayerEid(v)
 
 
-let watchedTeam = Computed(@() watchedHeroEid.value != INVALID_ENTITY_ID ? watchedHeroTeam.value : localPlayerTeam.value)
+let watchedTeam = Computed(@() watchedHeroEid.value != ecs.INVALID_ENTITY_ID ? watchedHeroTeam.value : localPlayerTeam.value)
 
 ecs.register_es("watched_hero_player_eid_es", {
   [["onInit","onChange"]] = function(_, _eid, comp){
-    let w = comp["possessedByPlr"] ?? INVALID_ENTITY_ID
+    let w = comp["possessedByPlr"] ?? ecs.INVALID_ENTITY_ID
     watchedHeroPlayerEidSetValue(w)
   }
-  onDestroy = @() watchedHeroPlayerEidSetValue(INVALID_ENTITY_ID)
+  onDestroy = @() watchedHeroPlayerEidSetValue(ecs.INVALID_ENTITY_ID)
 }, {comps_track=[["possessedByPlr", ecs.TYPE_EID]],comps_rq=[["watchedByPlr", ecs.TYPE_EID]]})
 
 

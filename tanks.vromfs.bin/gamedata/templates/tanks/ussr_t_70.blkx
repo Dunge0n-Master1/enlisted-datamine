@@ -7,7 +7,6 @@ ussr_t_70{
 
 ussr_t_70_common{
   _extends:t="base_t_70"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_su76_vehicle_tracks_sound"
 

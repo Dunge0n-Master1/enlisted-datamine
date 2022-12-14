@@ -89,7 +89,7 @@ def terraform_crater_create_land_decal(evt : EventBombCraterTerraformed;
 def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraformed)
   var tm = scale_tm(evt.outerRadius)
   tm[3] = evt.pos
-  createEntity("envir_smoke_crater_effect") <| $(var init : ComponentsInitializer)
+  createEntity("explosion_smoke_crater_effect") <| $(var init : ComponentsInitializer)
     set(init, "transform", tm)
 
 [es(tag=render)]

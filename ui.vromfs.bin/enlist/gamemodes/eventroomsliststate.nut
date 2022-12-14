@@ -14,6 +14,8 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 let { featuredMods, featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let { globalWatched } = require("%dngscripts/globalState.nut")
+
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
 
@@ -22,13 +24,15 @@ const REFRESH_PERIOD = 5.0
 let isDebugMode = mkWatched(persist, "isDebugMode", false)
 let isRequestInProgress = Watched(false)
 let isRefreshEnabled = mkWatched(persist, "isRefreshEnabled", false)
-let lastResult = mkWatched(persist, "lastResult", {})
-let roomsListError = Computed(@() lastResult.value?.error ? error_string(lastResult.value.error) : null)
+let { lastResult, lastResultUpdate } = globalWatched("lastResult", @() {})
+let roomsListError = Computed(@()
+  lastResult.value?.error ? error_string(lastResult.value.error) : null)
 let hideFullRooms = optFullRooms.curValue
 let hideModsRooms = optModRooms.curValue
 let hidePasswordRooms = optPasswordRooms.curValue
 let savedRoomId = mkWatched(persist, "savedRoomId", null)
 let curSorting = Watched({ column = {}, isReverse = false })
+
 let roomsList = Computed(function() {
   let sortFunc = curSorting.value.column?.sortFunc
   local res = lastResult.value?.digest ?? []
@@ -149,14 +153,15 @@ let function updateListRooms() {
   matchingCall("mrooms.fetch_rooms_digest2",
     function(response) {
       isRequestInProgress(false)
-      lastResult(isDebugMode.value ? { digest = mkDebugRooms(math.rand() % 100) } : response)
+      lastResultUpdate(isDebugMode.value
+        ? { digest = mkDebugRooms(math.rand() % 100) }
+        : response)
     },
     params)
 }
 
 let function updateRefreshTimer() {
-  let isEnabled = isRefreshEnabled.value
-  if (isEnabled) {
+  if (isRefreshEnabled.value) {
     updateListRooms()
     gui_scene.setInterval(REFRESH_PERIOD, updateListRooms)
   }

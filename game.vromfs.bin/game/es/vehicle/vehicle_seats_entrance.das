@@ -14,4 +14,4 @@ def init_entracne_node(evt : Event; seat__id : int; seat__vehicleEid : EntityId;
     if entranceNode == ""
       return
 
-    seat__entranceNodeId = geomtree_findNodeIndex(animchar.nodeTree, entranceNode)
+    seat__entranceNodeId = geomtree_findNodeIndex(*animchar.nodeTree, entranceNode)

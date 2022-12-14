@@ -1,0 +1,55 @@
+asset_manager{
+  _tags:t="render"
+  _singleton:b=yes
+  asset__applicationBlkPath:t="%danetlibs/assets_import/application.blk"
+  asset__baseFolder:t="custom_assets"
+  asset__pluginsFolder:t="plugins"
+  asset__baseFolderAbsPath:t=""
+  asset__currentFileName:t=""
+  asset__rendInstType:i=-1
+  asset__curCollisionPath:t=""
+  asset__currentSearchFilter:t=""
+
+  "asset__manager:DagorAssetMgr"{
+  }
+
+  "asset__exportableTypes:list<i>"{
+  }
+
+  _group{
+
+    "activeRI__lodDistances:list<r>"{
+    }
+
+    "activeRI__lodFiles:list<t>"{
+    }
+  }
+
+  "asset__currentDagTextures:list<t>"{
+  }
+}
+
+composit_child_rendinst{
+  _extends:t="game_rendinst"
+
+  "ignoredEditable:tag"{
+    _tags:t="render"
+  }
+}
+
+composit_rendinst{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  composit__name:t=""
+  composit__prevTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+
+  "composit__entities:list<eid>"{
+  }
+}
+
+custom_animchar{
+  _extends:t="animchar"
+  _extends:t="replicating"
+  animchar__res:t=""
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+}

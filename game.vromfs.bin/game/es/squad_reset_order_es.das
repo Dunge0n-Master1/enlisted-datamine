@@ -3,7 +3,7 @@ require EnlistedWalkerai
 require math
 require zones
 require DagorDataBlock
-require game.es.events
+require danetlibs.native_dasevents.main.native_events
 require enlisted.game.es.enlisted_squad_common
 require enlisted.events_enlisted
 require game.es.battle_area_common

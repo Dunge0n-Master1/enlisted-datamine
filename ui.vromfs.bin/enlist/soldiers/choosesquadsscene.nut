@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let textButton = require("%ui/components/textButton.nut")
+let { soundActive } = textButton
 let { bigPadding, defBgColor, blurBgColor, blurBgFillColor,
   smallPadding, defTxtColor, activeTxtColor, squadSlotHorSize,
   selectedTxtColor, airSelectedBgColor, fadedTxtColor, opaqueBgColor,
@@ -55,6 +56,9 @@ let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
+let { sound_play } = require("sound")
+
+let playSoundItemPlace = @() sound_play("ui/inventory_item_place")
 
 
 let sentStatsdData = persist("sentStatsdData", @() {})
@@ -341,22 +345,23 @@ let mkBuySquadSlot = @(num) function() {
   })
 }
 
+let function onDropCbForHorSlot(idxFrom, idxTo){
+  changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
+  sendData("drag_and_drop")
+  foreach (cSquad in chosenSquads.value){
+    let { squadType = null } = cSquad
+    if (squadType in unseenSquadTutorials.value){
+      openSquadTextTutorial(squadType)
+      markSeenSquadTutorial(squadType)
+      break
+    }
+  }
+  playSoundItemPlace()
+}
+
 let function squadHorSlot(squad, idx, fixedSlotsCount) {
   let group = ElemGroup()
   let stateFlags = Watched(0)
-
-  let function onDropCb(idxFrom, idxTo){
-    changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
-    sendData("drag_and_drop")
-    foreach (cSquad in chosenSquads.value){
-      let { squadType = null } = cSquad
-      if (squadType in unseenSquadTutorials.value){
-        openSquadTextTutorial(squadType)
-        markSeenSquadTutorial(squadType)
-        break
-      }
-    }
-  }
 
   let function onInfoCb(squadId) {
     let armyId = squadsArmy.value
@@ -395,7 +400,7 @@ let function squadHorSlot(squad, idx, fixedSlotsCount) {
     children = mkHorizontalSlot(
       squad.__merge({
         idx
-        onDropCb
+        onDropCb = onDropCbForHorSlot
         onInfoCb
         onClick
         isSelected
@@ -416,12 +421,15 @@ let function squadHorSlot(squad, idx, fixedSlotsCount) {
   }
 }
 
+let function onDropCbForEmptySlot(idxFrom, idxTo){
+  changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
+  sendData("drag_and_drop")
+  playSoundItemPlace()
+}
+
 let emptyHorSquadSlot = @(idx, fixedSlotsCount, isReserveEmpty) mkEmptyHorizontalSlot({
   idx
-  onDropCb = function(idxFrom, idxTo){
-    changeSquadOrderByUnlockedIdx(idxFrom, idxTo)
-    sendData("drag_and_drop")
-  }
+  onDropCb = onDropCbForEmptySlot
   fixedSlots = fixedSlotsCount
   hasBlink = !isReserveEmpty
 })
@@ -485,11 +493,7 @@ let mkBuyPremBtn = @(onClick)
     pos = [squadSlotHorSize[0] - bigPadding * 2, 0]
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
-    sound = {
-      click  = "ui/enlist/button_click"
-      hover  = "ui/enlist/button_highlight"
-      active = "ui/enlist/button_action"
-    }
+    sound = soundActive
     children = {
       keepAspect = true
       rendObj = ROBJ_IMAGE
@@ -507,7 +511,7 @@ let extendSlots = function() {
   else if (needFreemiumStatus.value && maxSquadsInBattle.value > 0)
     children.append(
       mkPrimeSlots(squadNum, maxSquadsInBattle.value, freemiumIcon, "squad/plusFreemiumSquadSlot"),
-      mkBuyPremBtn(freemiumWnd)
+      mkBuyPremBtn(@(_) freemiumWnd())
     )
   else if (!hasPremium.value && premiumSquadsInBattle.value > 0)
     children.append(
@@ -657,7 +661,21 @@ let labelText = @(sf, needHighlight) {
   color = (sf & S_ACTIVE) != 0 && needHighlight? selectedTxtColor : defTxtColor
 }.__update(sub_txt)
 
+
+let onDropCbForReserveContainer = function(data) {
+  if (data.squadIdx > chosenSquads.value.len() - 1)
+    return
+
+  let { guid, squadId } = chosenSquads.value[data.squadIdx]
+  sendSquadActionToBQ("move_to_reserve", guid, squadId)
+  sendData("drag_and_drop")
+  reserveSquads.mutate(@(v) v.insert(0, chosenSquads.value[data.squadIdx]))
+  chosenSquads.mutate(@(v) v[data.squadIdx] = null)
+  playSoundItemPlace()
+}
+
 let function dropToReserveContainer() {
+
   let function dropContainer(sf) {
     let highligtToDrop = curDropData.value?.squadIdx != null
       && curDropData.value.squadIdx <= chosenSquads.value.len() - 1
@@ -670,15 +688,7 @@ let function dropToReserveContainer() {
       borderWidth = highligtToDrop ? hdpx(1) : 0
       transform = {}
       behavior = Behaviors.DragAndDrop
-      onDrop = function(data) {
-        if (data.squadIdx > chosenSquads.value.len() - 1)
-          return
-
-        let { guid, squadId } = chosenSquads.value[data.squadIdx]
-        sendSquadActionToBQ("move_to_reserve", guid, squadId)
-        reserveSquads.mutate(@(v) v.insert(0, chosenSquads.value[data.squadIdx]))
-        chosenSquads.mutate(@(v) v[data.squadIdx] = null)
-      }
+      onDrop = onDropCbForReserveContainer
       children = labelText(sf, highligtToDrop)
     }
   }

@@ -8,7 +8,7 @@ require game.es.squad_order_common
 
 
 def init(var human_input__exitVehicleAlone : int&)
-  human_input__exitVehicleAlone = int(get_action_handle("Human.ExitVehicleAlone", TYPEGRP_DIGITAL))
+  human_input__exitVehicleAlone = int(get_action_handle("Human.LeaveVehicleAlone", TYPEGRP_DIGITAL))
 
 def reset(var human_input__exitVehicleAlone : int&)
   human_input__exitVehicleAlone = int(BAD_ACTION_HANDLE)

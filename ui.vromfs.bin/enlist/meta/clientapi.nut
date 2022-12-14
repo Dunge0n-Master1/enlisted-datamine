@@ -193,6 +193,11 @@ return {
     params = {armyId = armyId, orderedGuids = orderedGuids}
   }, cb)
 
+  rent_squad = @(armyId, squadId, rentTime, price, cb = null) request({
+    method = "rent_squad"
+    params = { armyId, squadId, rentTime, price }
+  }, cb)
+
   set_soldier_order = @(squad, orderedGuids, cb = null)  request({
     method = "set_soldier_order"
     params = {squad = squad, orderedGuids = orderedGuids}
@@ -321,6 +326,11 @@ return {
     params = { armyId, shopItemGuid, currencyId, price, count }
   }, cb)
 
+  update_offers = @(cb = null) request({
+    method = "update_offers"
+    params = {}
+  }, cb)
+
   buy_shop_offer = @(armyId, shopItemGuid, currencyId, price, offerGuid = "", cb = null) request({
     method = "buy_shop_offer"
     params = { armyId, shopItemGuid, currencyId, offerGuid, price }
@@ -426,9 +436,9 @@ return {
     params = { itemGuid, sacrificeItems }
   }, cb)
 
-  dispose_item = @(itemGuid, cb = null) request({
+  dispose_item = @(guids, cb = null) request({
     method = "dispose_item"
-    params = { itemGuids = [itemGuid] } // to keep API in future for multiple disposables
+    params = { itemGuids = guids }
   }, cb)
 
   gen_perks_points_statistics = @(tier, count, genId, cb) request({
@@ -513,9 +523,9 @@ return {
     params = { itemdef, quantity = 1 }
   })
 
-  gen_testdrive_squad_profile_jwt = @(armyId, squadId, cb) request({
+  gen_testdrive_squad_profile_jwt = @(armyId, squadId, shopItemGuid, cb) request({
     method = "gen_testdrive_squad_profile_jwt"
-    params = { armyId, squadId }
+    params = { armyId, squadId, shopItemGuid }
   }, cb)
 
   choose_decorator = @(cType, guid, cb = null) request({
@@ -553,8 +563,18 @@ return {
     params = { cType, id, cost }
   }, cb)
 
+  buy_apply_veh_decorators = @(decorators, vehGuid, cost, cb = null) request({
+    method = "buy_apply_veh_decorators"
+    params = { decorators, vehGuid, cost }
+  }, cb)
+
   mark_decorators_as_seen = @(guids, cb = null) request({
     method = "mark_decorators_as_seen"
+    params = { guids }
+  }, cb)
+
+  mark_veh_decorators_as_seen = @(guids, cb = null) request({
+    method = "mark_veh_decorators_as_seen"
     params = { guids }
   }, cb)
 

@@ -5,6 +5,7 @@ explosiveMass:r=0.044
 caliber:r=0.085
 ballisticCaliber:r=0.07
 speed:r=792.0
+Cx:r=0.378
 maxDistance:r=10000.0
 normalizationPreset:t="apbc"
 stucking:r=0.7

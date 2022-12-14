@@ -4,7 +4,6 @@ let {broadcastEvents={}, unicastEvents={}} = require("%enlSqGlob/defsqevents.nut
 return {
   broadcastEvents = {
     EventSquadMembersStats = { list = [/*squadEid, guid, eid, stat, amount*/] }
-    CmdUpdateSquadPOI = null,
     EventOnBattleResult = {stats = {guid = {}}}
   }.__update(broadcastEvents).each(registerBroadcastEvent)
 
@@ -14,7 +13,6 @@ return {
     CmdProfileJwtData = {} //here is table of anything
     CmdGetMySquadsData = {}
     CmdSetMySquadsData = {}
-    CmdGetBattleResult = {},
     CmdSelectBuildingType = { index = 0 },
     EventOnSquadStats = {},
     CmdTutorialHint = { event = "", unique = "", text = "", hotkey = "", ttl = 15}

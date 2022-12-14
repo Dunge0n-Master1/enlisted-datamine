@@ -66,6 +66,7 @@ struct CmdLogEvent
   text : string
   sound : string
   ttl : int
+  data : ecs::Object const?
 
 [event(broadcast)]
 struct CmdShowHint
@@ -137,11 +138,6 @@ struct EventRendinstDestroyed // server
   riexHandle : riex_handle_t
   riTm : float3x4
   riBBox : BBox3
-
-[cpp_event(unicast)]
-struct CmdDestroyRendinst
-  user_data : int
-  isDynamic : bool
 
 [event(unicast)]
 struct EventPlayerOnLootUse
@@ -224,12 +220,6 @@ struct ReplaySetFpsCamera {}
 
 [event(unicast)]
 struct ReplaySetCamera {}
-
-[event(unicast)]
-struct CmdSpawnEntity
-  team : int
-  tm : float3x4
-  reason : string
 
 [cpp_event(unicast)]
 struct CmdApplyRagdollParameters

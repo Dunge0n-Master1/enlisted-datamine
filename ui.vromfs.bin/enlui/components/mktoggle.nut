@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { activeBgColor, colPart, titleTxtColor, smallPadding, panelBgColor, defBdColor,
-  hoverTxtColor, hoverBdColor
+  hoverTxtColor, hoverBdColor, disabledTxtColor, disabledBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { sound_play } = require("sound")
 
@@ -14,7 +14,7 @@ let disabledPos = { translate = [knobSize[0] / 2 + blockPadding, 0] }
 let activePos = { translate = [blockSize[0] - knobSize[0] / 2 - blockPadding, 0] }
 
 
-let function mkToggleSwitch(curValue){
+let function mkToggleSwitch(curValue, isEnabled = true){
   let group = ElemGroup()
   let knob = watchElemState(@(sf) {
     watch = curValue
@@ -24,8 +24,11 @@ let function mkToggleSwitch(curValue){
     group
     rendObj = ROBJ_VECTOR_CANVAS
     commands = [[ VECTOR_ELLIPSE, 0, 50, 50, 50 ]]
-    fillColor = sf & S_ACTIVE ? activeBgColor : titleTxtColor
-    color = sf & S_ACTIVE ? titleTxtColor
+    fillColor = !isEnabled ? disabledTxtColor
+      : sf & S_ACTIVE ? activeBgColor
+      : titleTxtColor
+    color = !isEnabled ? disabledBgColor
+      : sf & S_ACTIVE ? titleTxtColor
       : sf & S_HOVER ? hoverTxtColor
       : defBdColor
   })
@@ -42,8 +45,10 @@ let function mkToggleSwitch(curValue){
     valign = ALIGN_CENTER
     behavior = Behaviors.Button
     onClick = function() {
-      curValue(!curValue.value)
-      sound_play(curValue.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
+      if (isEnabled) {
+        curValue(!curValue.value)
+        sound_play(curValue.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
+      }
     }
     children = knob
   })

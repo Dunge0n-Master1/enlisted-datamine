@@ -1,14 +1,14 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let localPlayerEid = Watched(INVALID_ENTITY_ID)
+let localPlayerEid = Watched(ecs.INVALID_ENTITY_ID)
 let wallPostersMaxCount = Watched(0)
 let wallPostersCurCount = Watched(0)
 let wallPosterPreview = Watched(false)
 let wallPosters = Watched([])
 
 let function resetData() {
-  localPlayerEid(INVALID_ENTITY_ID)
+  localPlayerEid(ecs.INVALID_ENTITY_ID)
   wallPostersMaxCount(0)
   wallPostersCurCount(0)
   wallPosterPreview(false)

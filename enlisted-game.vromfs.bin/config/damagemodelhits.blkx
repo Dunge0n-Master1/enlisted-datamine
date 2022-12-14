@@ -1,7 +1,6 @@
 drawDebugUI:b=no
 showDestroyedPartTime:r=2.0
 showHitToDestroyedPartTime:r=0.0
-patchBorderWidth:r=0.15
 patchStartColor:p4=1.0, 0.0, 0.0, 1.0
 patchEndColor:p4=1.0, 0.5, 0.0, 1.0
 patchParams:p4=0.99, 0.2, 0.5, 0.0

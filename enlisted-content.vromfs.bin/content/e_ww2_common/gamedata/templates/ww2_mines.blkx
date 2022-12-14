@@ -6,7 +6,9 @@ antipersonnel_mine_shell{
   item__name:t="items/antipersonnel_mine"
   shell__isKillerCamAllowed:b=no
   shell__vehicleKillStat:t="vehicle_mine_kills"
+  shell__crewKillStat:t="crew_mine_kills"
   shell__infantryKillStat:t="infantry_mine_kills"
+  shell__killSoldierStat:t="explosiveKills"
 
   "shell__mine:tag"{
   }
@@ -23,7 +25,9 @@ antitank_mine_shell{
   gun__statName:t="mine"
   shell__isKillerCamAllowed:b=no
   shell__vehicleKillStat:t="vehicle_mine_kills"
+  shell__crewKillStat:t="crew_mine_kills"
   shell__infantryKillStat:t="infantry_mine_kills"
+  shell__killSoldierStat:t="explosiveKills"
 
   "shell__mine:tag"{
   }
@@ -54,6 +58,9 @@ placeable_item{
     placeable_item__minDistanceToWall:r=0.25
     placeable_item__lastPosition:p3=0.0, 0.0, 0.0
     _tags:t="gameClient"
+  }
+
+  "placeable_item:tag"{
   }
 }
 
@@ -206,6 +213,7 @@ antitank_mine_item_gun{
   item__iconRoll:r=30.0
   item__iconYaw:r=45.0
   shell_explosion_fx__infoTemplate:t="hit_effect_group_antitank_mine_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
 
   "ui__placeableItemMarker:tag"{
     _tags:t="ui"
@@ -242,6 +250,7 @@ antipersonnel_mine_item_gun{
   item__weight:r=4.0
   activationRadius:r=1.4
   shell_explosion_fx__infoTemplate:t="hit_effect_group_antipersonel_mine_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
 
   "ui__placeableItemMarker:tag"{
     _tags:t="ui"

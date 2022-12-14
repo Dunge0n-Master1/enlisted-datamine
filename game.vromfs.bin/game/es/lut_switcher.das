@@ -5,37 +5,32 @@ require DagorMath
 require game.es.lut_switcher_common
 require DagorSystem
 
-[es(tag=playingReplay, track=isAlive, on_appear, REQUIRE=watchedByPlr)]
-def replay_tonemapper_switcher_death(evt : Event; isAlive : bool)
+[es(track=(isAlive, lut_switcher__enabled), on_appear, REQUIRE=watchedByPlr)]
+def tonemapper_switcher_death(evt : Event; isAlive : bool; lut_switcher__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__death : Object)
-    switch_color_grading(ecs_hash("death"), color_grading_items, color_grading__death, !isAlive)
+    switch_color_grading(ecs_hash("death"), color_grading_items, color_grading__death, !isAlive && lut_switcher__enabled)
 
-[es(track=(isAlive, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr))]
-def tonemapper_switcher_death(evt : Event; isAlive : bool; input__enabled : bool)
-  query() <| $ [es] (var color_grading_items : Array; color_grading__death : Object)
-    switch_color_grading(ecs_hash("death"), color_grading_items, color_grading__death, !isAlive && input__enabled)
-
-[es(track=(isDowned, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr))]
-def tonemapper_switcher_downed(evt : Event; isDowned : bool; input__enabled : bool)
+[es(track=(isDowned, lut_switcher__enabled), on_appear, REQUIRE=watchedByPlr)]
+def tonemapper_switcher_downed(evt : Event; isDowned : bool; lut_switcher__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__downed : Object)
-    switch_color_grading(ecs_hash("downed"), color_grading_items, color_grading__downed, isDowned && input__enabled)
+    switch_color_grading(ecs_hash("downed"), color_grading_items, color_grading__downed, isDowned && lut_switcher__enabled)
 
-[es(track=(isBlinded, input__enabled, isAlive), on_appear, REQUIRE=(hero, watchedByPlr))]
-def tonemapper_switcher_no_vision(evt : Event; isBlinded : bool; input__enabled : bool; isAlive : bool)
+[es(track=(isBlinded, lut_switcher__enabled, isAlive), on_appear, REQUIRE=watchedByPlr)]
+def tonemapper_switcher_no_vision(evt : Event; isBlinded : bool; lut_switcher__enabled : bool; isAlive : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__is_no_vision : Object)
-    switch_color_grading(ecs_hash("no_vision"), color_grading_items, color_grading__is_no_vision, isBlinded && input__enabled && isAlive)
+    switch_color_grading(ecs_hash("no_vision"), color_grading_items, color_grading__is_no_vision, isBlinded && lut_switcher__enabled && isAlive)
 
-[es(track=(burning__isBurning, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr), REQUIRE_NOT=deadEntity)]
-def tonemapper_switcher_burning(evt : Event; burning__isBurning : bool; input__enabled : bool)
+[es(track=(burning__isBurning, lut_switcher__enabled), on_appear, REQUIRE=watchedByPlr, REQUIRE_NOT=deadEntity)]
+def tonemapper_switcher_burning(evt : Event; burning__isBurning : bool; lut_switcher__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__burning : Object)
-    switch_color_grading(ecs_hash("burning"), color_grading_items, color_grading__burning, burning__isBurning && input__enabled)
+    switch_color_grading(ecs_hash("burning"), color_grading_items, color_grading__burning, burning__isBurning && lut_switcher__enabled)
 
-[es(track=(hasConcussedVision, input__enabled), on_appear, REQUIRE=(hero, watchedByPlr), REQUIRE_NOT=deadEntity)]
-def tonemapper_switcher_concussion(evt : Event; hasConcussedVision : bool; input__enabled : bool)
+[es(track=(hasConcussedVision, lut_switcher__enabled), on_appear, REQUIRE=watchedByPlr, REQUIRE_NOT=deadEntity)]
+def tonemapper_switcher_concussion(evt : Event; hasConcussedVision : bool; lut_switcher__enabled : bool)
   query() <| $ [es] (var color_grading_items : Array; color_grading__concussion : Object)
-    switch_color_grading(ecs_hash("concussion"), color_grading_items, color_grading__concussion, hasConcussedVision && input__enabled)
+    switch_color_grading(ecs_hash("concussion"), color_grading_items, color_grading__concussion, hasConcussedVision && lut_switcher__enabled)
 
-[es(on_disappear, REQUIRE=(hero, watchedByPlr))]
+[es(on_disappear, REQUIRE=(watchedByPlr, lut_switcher__enabled))]
 def disable_color_grading_on_destroy_es(evt : Event)
   query() <| $ [es] (var color_grading_items : Array; color_grading__death : Object)
     switch_color_grading(ecs_hash("death"), color_grading_items, color_grading__death, false)
@@ -61,9 +56,9 @@ def tonemapper_switcher_alive_es(
   clear(color_grading_items)
   add_grading(ecs_hash("alive"), color_grading_items, color_grading__alive)
 
-[es(track=input__enabled, on_appear, REQUIRE=hero)]
-def tonemapper_switcher_input(evt : Event; input__enabled : bool)
-  if !input__enabled
+[es(track=lut_switcher__enabled, on_appear, REQUIRE=watchedByPlr)]
+def tonemapper_switcher_input(evt : Event; lut_switcher__enabled : bool)
+  if !lut_switcher__enabled
     query() <| $ [es] (var color_grading_items : Array; color_grading__alive : Object)
       clear(color_grading_items)
       add_grading(ecs_hash("alive"), color_grading_items, color_grading__alive)

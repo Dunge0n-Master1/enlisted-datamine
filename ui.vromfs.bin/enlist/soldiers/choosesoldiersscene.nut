@@ -21,7 +21,8 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { squadSoldiers, reserveSoldiers, selectedSoldierGuid, selectedSoldier, soldiersStatuses,
   applySoldierManage, changeSoldierOrderByIdx, maxSoldiersInBattle, soldiersSquadParams,
   moveCurSoldier, soldierToReserveByIdx, curSoldierToReserve, curSoldierToSquad, getCanTakeSlots,
-  dismissSoldier, isDismissInProgress, soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd
+  dismissSoldier, isDismissInProgress, soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd,
+  isPurchaseWndOpend
 } = require("model/chooseSoldiersState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { getLinkedArmyName, getLinkedSquadGuid
@@ -47,7 +48,7 @@ let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { needFreemiumStatus, curUpgradeDiscount
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
-let openSoldiersPurchase = require("%enlist/shop/soldiersPurchaseWnd.nut")
+let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 
@@ -98,7 +99,7 @@ let soldierToTake = Computed(function() {
   if (dropIdx != null)
     return reserveSoldiers.value?[dropIdx - maxSoldiersInBattle.value]
   let selGuid = selectedSoldierGuid.value
-  return reserveSoldiers.value.findvalue(@(s) s.guid == selGuid)
+  return selGuid == null ? null : reserveSoldiers.value.findvalue(@(s) s?.guid == selGuid)
 })
 
 let slotsHighlight = Computed(function() {
@@ -287,7 +288,7 @@ let function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects) {
             isFaded = status != READY
             isClassRestricted = status & TOO_MUCH_CLASS
             hasAlertStyle = status & NOT_FIT_CUR_SQUAD
-            hasWeaponWarning = status & NOT_READY_BY_EQUIP
+            hasWeaponWarning = (status & NOT_READY_BY_EQUIP) != 0
             isFreemiumMode = needFreemiumStatus.value
           })
           needHighlight.value ? highlightBorder : null
@@ -448,7 +449,7 @@ let getSoldiersBlock = @() {
     noteTextArea({
       text = loc("squad/getMoreSoldiers")
     }).__update(sub_txt, {halign = ALIGN_CENTER})
-    Flat(loc("soldiers/purchaseSoldier"), openSoldiersPurchase,
+    Flat(loc("soldiers/purchaseSoldier"), @() isPurchaseWndOpend(true),
       unseenSoldierShopItems.value.len() <= 0 ? {} : {
         fgChild = smallUnseenNoBlink
         halign = ALIGN_RIGHT
@@ -633,24 +634,33 @@ let soldiersContent = {
 }
 
 let chooseSoldiersScene = @() {
-  watch = [safeAreaBorders, curArmy]
+  watch = [safeAreaBorders, isPurchaseWndOpend]
   size = [sw(100), sh(100)]
-  flow = FLOW_VERTICAL
-  padding = safeAreaBorders.value
   behavior = Behaviors.MenuCameraControl
   children = [
-    mkHeader({
-      armyId = curArmy.value
-      textLocId = "soldier/manageTitle"
-      closeButton = closeBtnBase({
-        onClick = @() applySoldierManage(closeChooseSoldiersWnd)
-      })
-    })
-    {
+    @() {
+      watch = curArmy
       size = flex()
       flow = FLOW_VERTICAL
-      children = soldiersContent
+      padding = safeAreaBorders.value
+      children = [
+        mkHeader({
+          armyId = curArmy.value
+          textLocId = "soldier/manageTitle"
+          closeButton = closeBtnBase({
+            onClick = @() applySoldierManage(closeChooseSoldiersWnd)
+          })
+        })
+        {
+          size = flex()
+          flow = FLOW_VERTICAL
+          children = soldiersContent
+        }
+      ]
     }
+    isPurchaseWndOpend.value
+      ? soldiersPurchaseWnd(@() isPurchaseWndOpend(false))
+      : null
   ]
 }
 

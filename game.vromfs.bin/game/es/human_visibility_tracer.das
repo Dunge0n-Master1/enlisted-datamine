@@ -20,7 +20,7 @@ def human_visibility_tracer_es(info : ParallelUpdateFrameDelayed;
                                visibilityTraceRadius : float = 10.f;
                                timeBetweenVisibilityChecks : float = 0.5;
                                human__canSeeLootItems : bool = true)
-  let traceFromPos = human_inventory__lookNodeId >= 0 ? geomtree_getNodeWpos(animchar.nodeTree, human_inventory__lookNodeId) : transform[3] + float3(0.f, 1.f, 0.f)
+  let traceFromPos = human_inventory__lookNodeId >= 0 ? geomtree_getNodeWpos(*animchar.nodeTree, human_inventory__lookNodeId) : transform[3] + float3(0.f, 1.f, 0.f)
   let heroPos = transform[3]
   let curTime = get_sync_time()
   let visibilityTraceRadiusSq = square(visibilityTraceRadius)

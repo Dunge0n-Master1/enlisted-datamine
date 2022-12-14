@@ -1,3 +1,71 @@
+global_track_fx_info{
+  _singleton:b=yes
+  _extends:t="replicating"
+
+  "global_track_fx__materialToGroupMap:object"{
+  }
+
+  "global_track_fx__materialGroups:object"{
+
+    "wood:list<t>"{
+      value:t="wood"
+      value:t="wood_railway"
+      value:t="window_wood"
+      value:t="softWoodDoor"
+    }
+
+    "stone:list<t>"{
+      value:t="concrete"
+      value:t="stone"
+      value:t="rocks"
+      value:t="rocksSlippery"
+      value:t="gravel"
+      value:t="ceramic"
+    }
+
+    "water:list<t>"{
+      value:t="water"
+      value:t="water3d"
+    }
+
+    "mud:list<t>"{
+      value:t="mud"
+      value:t="roadmud"
+    }
+
+    "dirt:list<t>"{
+      value:t="soil"
+      value:t="hard_soil"
+      value:t="roadSoil"
+      value:t="dirt"
+    }
+
+    "sand:list<t>"{
+      value:t="sand"
+      value:t="sand_slope"
+      value:t="quickSand"
+      value:t="roadSand"
+      value:t="quarrySand"
+      value:t="moon_sand"
+    }
+
+    "metal:list<t>"{
+      value:t="steel"
+      value:t="metal"
+      value:t="train"
+      value:t="barbwire"
+      value:t="softSteelDoor"
+    }
+
+    "snow:list<t>"{
+      value:t="snow"
+      value:t="ice"
+      value:t="snowLower"
+      value:t="roadSnow"
+    }
+  }
+}
+
 vehicle_effect_base{
   _extends:t="ecs_no_debug"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
@@ -24,11 +92,9 @@ vehicle_effect_base{
 
   "staticEffect:tag"{
   }
-}
 
-vehicle_effect_base_lifetime{
-  _tags:t="render"
-  gun_flash_fx__timeToDestroy:r=-1.0
+  "autodeleteEffectEntity:tag"{
+  }
 }
 
 vehicle_effect_sound_base{
@@ -145,6 +211,30 @@ tank_ammo_fire_template{
   }
 }
 
+tank_explosion_template{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_tank_base_cmps_fx"
+
+    effect{
+    }
+
+    "vehicle_effect__vehicleEid:eid"{
+    }
+  }
+
+  "vehicleEffect:tag"{
+  }
+
+  "staticEffect:tag"{
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+}
+
 tank_smoke_destroyed_template{
   _extends:t="vehicle_effect_base"
   _extends:t="vehicle_effect_sound_base"
@@ -160,13 +250,48 @@ tank_smoke_destroyed_template{
   }
 }
 
+tank_exhaust_template{
+  _extends:t="base_effect"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_tank_exhaust_cmps_fx"
+  }
+
+  _group{
+    _track:b=yes
+    effect__scale:r=1.0
+    effect__velocity:p3=0.0, 0.0, 0.0
+    effect__spawnRate:r=0.0
+    effect__colorMult:c=255, 255, 255, 255
+  }
+}
+
+tank_broken_exhaust_template{
+  _extends:t="tank_exhaust_template"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_tank_exhaust_cmps_fx"
+  }
+}
+
+tank_exhaust_broken_template{
+  _extends:t="vehicle_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_tank_exhaust_broken_cmps_fx"
+  }
+}
+
 track_effect_base{
   _extends:t="ecs_no_debug"
   paint_from_biome:b=no
   paint_color:p4=1.0, 1.0, 1.0, 0.5
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   effect__velocity:p3=0.0, 0.0, 0.0
-  effect__spawnRate:r=1.0
+  effect__spawnRate:r=0.0
   _tracked:t="effect__velocity"
   _tracked:t="effect__spawnRate"
 
@@ -263,29 +388,63 @@ hit_track_fx_group{
 
   "track_fx__info:object"{
 
-    "dirt:object"{
-      fx_back:t="tank_track_dirt_bottom"
-      fx_front:t="tank_tracks_dirt_top"
+    "track:object"{
+
+      "group__dirt:object"{
+        fx_bottom:t="tank_track_dirt_bottom"
+        fx_top:t="tank_tracks_dirt_top"
+      }
+
+      "group__mud:object"{
+        fx_bottom:t="tank_track_mud_bottom"
+        fx_top:t="tank_tracks_mud_top"
+      }
+
+      "group__sand:object"{
+        fx_bottom:t="tank_track_sand_bottom"
+        fx_top:t="tank_tracks_sand_top"
+      }
+
+      "group__snow:object"{
+        fx_bottom:t="tank_track_snow_bottom"
+        fx_top:t="tank_tracks_snow_top"
+      }
     }
 
-    "mud:object"{
-      fx_back:t="tank_track_mud_bottom"
-      fx_front:t="tank_tracks_mud_top"
-    }
+    "wheel:object"{
 
-    "sand:object"{
-      fx_back:t="tank_track_sand_bottom"
-      fx_front:t="tank_tracks_sand_top"
-    }
+      "group__dirt:object"{
+        fx_bottom:t="tank_track_dirt_bottom"
+        fx_top:t="tank_tracks_dirt_top"
+      }
 
-    "snow:object"{
-      fx_back:t="tank_track_snow_bottom"
-      fx_front:t="tank_tracks_snow_top"
+      "group__mud:object"{
+        fx_bottom:t="tank_track_mud_bottom"
+        fx_top:t="tank_tracks_mud_top"
+      }
+
+      "group__sand:object"{
+        fx_bottom:t="tank_track_sand_bottom"
+        fx_top:t="tank_tracks_sand_top"
+      }
+
+      "group__snow:object"{
+        fx_bottom:t="tank_track_snow_bottom"
+        fx_top:t="tank_tracks_snow_top"
+      }
     }
   }
 
   "track_fx__default:object"{
-    fx_back:t="tank_track_sand_bottom"
-    fx_front:t="tank_tracks_sand_top"
+
+    "track:object"{
+      fx_bottom:t="tank_track_sand_bottom"
+      fx_top:t="tank_tracks_sand_top"
+    }
+
+    "wheel:object"{
+      fx_bottom:t="tank_track_sand_bottom"
+      fx_top:t="tank_tracks_sand_top"
+    }
   }
 }

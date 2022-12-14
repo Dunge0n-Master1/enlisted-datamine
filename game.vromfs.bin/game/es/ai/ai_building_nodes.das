@@ -643,9 +643,6 @@ def is_valid_height_diff(agent_eid : EntityId; build_pos : float3; max_height_di
     diffH = build_pos.y - transform[3].y
   return abs(diffH) < max_height_diff
 
-def get_str_by_pstr(pstr)
-  return pstr != null ? string(*pstr) : ""
-
 class StartBuildBaseNode : BehNodeAdapter
   leaderTargetEidParamName : string
   buildPosParam : int = -1
@@ -671,7 +668,7 @@ class StartBuildBaseNode : BehNodeAdapter
   def abstract build_node_build_began(build : HowBuild; build_pos : float3) : void
 
   def override update(dt : float) : EBehResult
-    let agent = beh_tree_entity_agent(*owner)
+    var agent = beh_tree_entity_agent(*owner)
     if agent == null
       return EBehResult ER_FAILED
 
@@ -712,13 +709,22 @@ class StartBuildBaseNode : BehNodeAdapter
     if !build.able
       return EBehResult ER_FAILED
 
+    var hasPath = false
+    query(agent.eid) <| $ [es] (transform : float3x4)
+      let extents = float3(0.5, FLT_MAX, 0.5)
+      if check_path(buildPos, transform[3], extents, 0.5, 1.0)
+        hasPath = true
+    if !hasPath
+      log_ai_building(build.playerEid, 310, buildPos)
+      return EBehResult ER_FAILED
+
     var ri_preview_name = ""
     query(build.toolEid) <| $ [es] (previewTemplate : StringList; var currentPreviewId : int&)
       let tmpl = getTemplateByName(string(previewTemplate[build.previewId]))
       if tmpl != null
-        ri_preview_name = get_str_by_pstr(get_ecs_string(getTemplateComponent(*tmpl, "ri_preview__name")))
+        ri_preview_name = get_ecs_string(getTemplateComponent(*tmpl, "ri_preview__name")) ?? ""
         if empty(ri_preview_name)
-          ri_preview_name = get_str_by_pstr(get_ecs_string(getTemplateComponent(*tmpl, "ai_ri_preview_name")))
+          ri_preview_name = get_ecs_string(getTemplateComponent(*tmpl, "ai_ri_preview_name")) ?? ""
         if !empty(ri_preview_name)
           currentPreviewId = build.previewId // NOTE: directly set currentPreviewId
     if empty(ri_preview_name)

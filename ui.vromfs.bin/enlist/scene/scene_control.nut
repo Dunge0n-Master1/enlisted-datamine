@@ -6,8 +6,9 @@ let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
   vehTplInVehiclesScene, vehDataInVehiclesScene,
   itemInArmory, soldierInSoldiers, currentNewItem, scene,
-  isVehicleSceneVisible
+  squadCampaignVehicleFilter, isVehicleSceneVisible
 } = require("%enlist/showState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { curSquadSoldiersReady } = require("%enlist/soldiers/model/readySoldiers.nut")
 let {
@@ -26,8 +27,6 @@ let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nut")
 let { viewTemplates } = require("%enlist/items/itemCollageState.nut")
 
-
-let composedScene = Computed(@() selectedSquadSoldiers.value ? "squad" : scene.value)
 
 /*
   TODO:
@@ -67,8 +66,8 @@ let setDofQuery = ecs.SqQuery("setDofQuery", {
     ["dof__minCheckDistance", ecs.TYPE_FLOAT],
     ["dof__is_filmic", ecs.TYPE_BOOL],
     ["dof__focusDistance", ecs.TYPE_FLOAT],
-    ["dof__sensorHeight", ecs.TYPE_FLOAT],
-    ["dof__focalLength", ecs.TYPE_FLOAT],
+    ["dof__sensorHeight_mm", ecs.TYPE_FLOAT],
+    ["dof__focalLength_mm", ecs.TYPE_FLOAT],
     ["dof__fStop", ecs.TYPE_FLOAT],
   ]
   comps_rq=[["is_dof", ecs.TYPE_TAG]]
@@ -77,7 +76,7 @@ let findScenicCamQuery = ecs.SqQuery("findScenicCamQuery", {
   comps_ro = [
     ["transform", ecs.TYPE_MATRIX],
     ["fov", ecs.TYPE_FLOAT],
-    ["menu_cam__target", ecs.TYPE_EID, INVALID_ENTITY_ID],
+    ["menu_cam__target", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["menu_cam__offset", ecs.TYPE_POINT3, Point3(0.0, 0.0, 0.0)],
     ["menu_cam__offsetMult", ecs.TYPE_POINT3, Point3(0.0, 0.0, 0.0)],
     ["menu_cam__limitYaw", ecs.TYPE_POINT2, Point2(0.0, 0.0)],
@@ -99,8 +98,8 @@ let findScenicDofDistQuery = ecs.SqQuery("findScenicDofDistQuery", {comps_ro = [
     ["dof__minCheckDistance", ecs.TYPE_FLOAT],
     ["dof__is_filmic", ecs.TYPE_BOOL],
     ["dof__focusDistance", ecs.TYPE_FLOAT],
-    ["dof__sensorHeight", ecs.TYPE_FLOAT],
-    ["dof__focalLength", ecs.TYPE_FLOAT],
+    ["dof__sensorHeight_mm", ecs.TYPE_FLOAT],
+    ["dof__focalLength_mm", ecs.TYPE_FLOAT],
     ["dof__fStop", ecs.TYPE_FLOAT],
   ]})
 
@@ -118,8 +117,8 @@ let function setDofDist(dof_comp){
     post_fx_comp.dof__minCheckDistance = dof_comp["dof__minCheckDistance"]
     post_fx_comp.dof__is_filmic = dof_comp["dof__is_filmic"]
     post_fx_comp.dof__focusDistance = dof_comp["dof__focusDistance"]
-    post_fx_comp.dof__sensorHeight = dof_comp["dof__sensorHeight"]
-    post_fx_comp.dof__focalLength = dof_comp["dof__focalLength"]
+    post_fx_comp.dof__sensorHeight_mm = dof_comp["dof__sensorHeight_mm"]
+    post_fx_comp.dof__focalLength_mm = dof_comp["dof__focalLength_mm"]
     post_fx_comp.dof__fStop = dof_comp["dof__fStop"]
   })
 }
@@ -159,7 +158,7 @@ local function createEntity(template, transform, callback = null, extraTemplates
     template = "+".join([template].extend(extraTemplates))
     return ecs.g_entity_mgr.createEntity(template, { transform = transform }, callback)
   }
-  return INVALID_ENTITY_ID
+  return ecs.INVALID_ENTITY_ID
 }
 
 let logg = DBGLEVEL !=0 ? log_for_user : log
@@ -183,21 +182,15 @@ let function makeWeaponTemplate(template){
   })
 }
 
-let function setCameraTargetInScene(newScene, targetEid){
-  if (composedScene.value != newScene)
-    return
+let function setCameraTargetInScene(targetEid){
   setCamera({["menu_cam__target"] = targetEid})
 }
 
-let function setDmViewerInScene(newScene, targetEid){
-  if (composedScene.value != newScene)
-    return
+let function setDmViewerInScene(targetEid){
   setDmViewerTarget(targetEid)
 }
 
-let function setDecalTargetInScene(newScene, targetEid){
-  if (composedScene.value != newScene)
-    return
+let function setDecalTargetInScene(targetEid){
   setDecalTarget(targetEid)
 }
 
@@ -205,10 +198,10 @@ let function resetCameraDirection(){
   setCamera({["menu_cam__dirInited"] = false})
 }
 
-let cameraTarget = mkWatched(persist, "cameraTarget", INVALID_ENTITY_ID)
+let cameraTarget = mkWatched(persist, "cameraTarget", ecs.INVALID_ENTITY_ID)
 let isFadeDone = mkWatched(persist, "isFadeDone", false)
 
-let visibleScene = Watched(composedScene.value)
+let visibleScene = Watched(scene.value)
 
 let function recreateStubFunc(...){
   logg("Incorrect recreate cb function")
@@ -232,13 +225,13 @@ let function makeShowScene(sceneDesc, name){
     if (isSceneFading.value)
       return
     let function update(_baseEid, comp){
-      if (!recreateSoldier || comp[compName] == INVALID_ENTITY_ID) {
+      if (!recreateSoldier || comp[compName] == ecs.INVALID_ENTITY_ID) {
         ecs.g_entity_mgr.destroyEntity(comp[compName])
         comp[compName] = createEntityFunc(data, transformItemFunc(comp["transform"], data))
       }
       else {
         let newSoldierEid = reInitEntityFunc(data, transformItemFunc(comp["transform"], data), null, comp[compName])
-        if (newSoldierEid != INVALID_ENTITY_ID)
+        if (newSoldierEid != ecs.INVALID_ENTITY_ID)
           comp[compName] = newSoldierEid
       }
       cameraTarget(comp[compName])
@@ -262,7 +255,6 @@ let function makeShowScene(sceneDesc, name){
   return showScene
 }
 
-
 let objectsToObserve = {
   soldiers = {
     compName = "menu_char_to_control",
@@ -283,7 +275,7 @@ let objectsToObserve = {
         soldiersLook = soldiersLook.value
         premiumItems = allOutfitByArmy.value
         customizationOvr = appearanceToRender.value })
-    reInitEntityFunc = @(guid, transform, callback = null, reInitEid = INVALID_ENTITY_ID)
+    reInitEntityFunc = @(guid, transform, callback = null, reInitEid = ecs.INVALID_ENTITY_ID)
       createSoldier({
         guid,
         transform,
@@ -307,7 +299,8 @@ let objectsToObserve = {
     createEntityFunc = @(template, transform, callback = null)
       createVehicle({
         template, transform, callback,
-        customazation = viewVehDecorators.value
+        customazation = viewVehDecorators.value,
+        extraTemplates = ["menu_vehicle"]
       })
     transformItemFunc = @(transform, ...) transform
     watch = vehTplInVehiclesScene
@@ -359,12 +352,12 @@ let function updateSceneObjects(...) {
   if (!isFadeDone.value)
     return
 
-  setCameraTargetInScene(composedScene.value, cameraTarget.value)
-  setDmViewerInScene(composedScene.value, cameraTarget.value)
-  setDecalTargetInScene(composedScene.value, cameraTarget.value)
+  setCameraTargetInScene(cameraTarget.value)
+  setDmViewerInScene(cameraTarget.value)
+  setDecalTargetInScene(cameraTarget.value)
 }
 
-foreach (v in [cameraTarget, isFadeDone, composedScene])
+foreach (v in [cameraTarget, isFadeDone, scene])
   v.subscribe(updateSceneObjects)
 
 registerFadeBlackActions({
@@ -378,7 +371,7 @@ registerFadeBlackActions({
 })
 
 let function processScene(...) {
-  let curScene = composedScene.value
+  let curScene = scene.value
   if (!curScene)
     return
   isFadeDone(false)
@@ -399,13 +392,15 @@ let function processScene(...) {
   if (cameraNotFound)
     isFadeDone(true)
 }
-foreach(v in [composedScene, cameraOffset])
+foreach(v in [scene, cameraOffset])
   v.subscribe(processScene)
 
-let gettransforms = @(query) ecs.query_map(query, @(_eid, comp) {
+let gettransforms = @(query, posFilter) ecs.query_map(query, @(_eid, comp) {
     transform = comp["transform"]
     order = comp["priority_order"]
+    filter = comp?.menuPosFilter ?? ""
   })
+  .filter(@(pos) pos.filter == "" || pos.filter == posFilter)
   .sort(@(a, b) a.order <=> b.order)
 
 let destroyEntityByQuery = @(query) query.perform(@(eid, _comp)
@@ -429,31 +424,41 @@ let currentSquadToPlace = Computed(function() {
   return lastShownSquadToPlace
 })
 let vehicleToPlace = Computed(function() {
+  log($"[scene_control] vehicleToPlace {selectedSquadSoldiers.value} {selSquadVehicleGameTpl.value} {vehTplInVehiclesScene.value}")
   let vehicle = selectedSquadSoldiers.value
     ? selSquadVehicleGameTpl.value
     : vehTplInVehiclesScene.value
   return vehicle ? [vehicle] : null
 })
 
-let createdSoldiers = mkWatched(persist, "createdSoldiers", [])
+let createdSoldiers = nestWatched("createdSoldiers", [])
+
 let squadPlacesQuery = ecs.SqQuery("squadPlaces", {
-  comps_ro = ["transform", ["priority_order", ecs.TYPE_INT, 0]]
+  comps_ro = [
+    "transform",
+    ["priority_order", ecs.TYPE_INT, 0],
+    ["menuPosFilter", ecs.TYPE_STRING]
+  ]
   comps_rq = ["menu_soldier_respawnbase"]
 })
 let menuBackgroundSoldiersQuery = ecs.SqQuery("menuBackgroundSoldiersQuery", {
   comps_rq = ["background_menu_soldier"]
 })
 
-let createdVehicles = mkWatched(persist, "createdVehicles", [])
+let createdVehicles = nestWatched("createdVehicles", [])
 let vehiclesPlacesQuery = ecs.SqQuery("vehiclePlaces", {
-  comps_ro = ["transform", ["priority_order", ecs.TYPE_INT, 0]]
+  comps_ro = [
+    "transform",
+    ["priority_order", ecs.TYPE_INT, 0],
+    ["menuPosFilter", ecs.TYPE_STRING]
+  ]
   comps_rq = ["menu_vehicle_respawnbase"]
 })
-let menuBackgroundVehiclesQuery = ecs.SqQuery("menuVehiclesPlacesQuery", {
+let menuBackgroundVehiclesQuery = ecs.SqQuery("menuBackgroundVehiclesQuery", {
   comps_rq = ["background_menu_vehicle"]
 })
 
-let createdItems = mkWatched(persist, "createdItems", [])
+let createdItems = nestWatched("createdItems", [])
 let itemsPlacesQuery = ecs.SqQuery("itemPlaces", {
   comps_ro = ["transform", ["priority_order", ecs.TYPE_INT, 0]]
   comps_rq = ["menu_item_respawnbase"]
@@ -464,22 +469,24 @@ let menuBackgroundItemsQuery = ecs.SqQuery("menuBackgroundItemsQuery", {
 
 //we duplicate state of created objects by creating with tag and store it in script.
 //While it is enough to have it only in script it is not enough to have it in entities, because createEntity is Async and if state is changed in a one frame twice
-//objects of first change will be not destroyed (they do not have tags). We can replace to createEntitySync, but this is not reponsive enough
-// we can also create entitySync with just tag and than recreate it with tag+all other. That would work will look strange in code
-
-let mkReplaceObjectsFunc = @(placesQuery, objectsQuery, createFunc, createdList)
+//objects of first change will be not destroyed (they do not have tags).
+let mkReplaceObjectsFunc = @(name, placesQuery, objectsQuery, createFunc, createdList, placesFilter = null)
   function replaceObjects(objects) {
     createdList.value.each(@(eid) ecs.g_entity_mgr.destroyEntity(eid))
     destroyEntityByQuery(objectsQuery)
+    log($"[scene_control] replacingObjects {name} prev_count={createdList.value.len()} new_count={objects?.len()}")
+    let oldTemplateName = ecs.g_entity_mgr.getEntityTemplateName(createdList.value?[0] ?? ecs.INVALID_ENTITY_ID)
+    log($"[scene_control] createdList[0]={oldTemplateName} objects[0]={objects?[0]}")
     if (objects == null)
       return
-    let places = gettransforms(placesQuery)
+    let places = gettransforms(placesQuery, placesFilter?.value ?? "")
     createdList(objects
       .slice(0, min(places.len(), objects.len()))
       .map(@(obj, i) createFunc(obj, places[i])))
   }
 
-let replaceSoldiers = mkReplaceObjectsFunc(squadPlacesQuery,
+let replaceSoldiers = mkReplaceObjectsFunc("soldiers",
+  squadPlacesQuery,
   menuBackgroundSoldiersQuery,
   @(object, place) createSoldier({
     guid = object?.guid
@@ -489,9 +496,11 @@ let replaceSoldiers = mkReplaceObjectsFunc(squadPlacesQuery,
     premiumItems = allOutfitByArmy.value
     extraTemplates = ["background_menu_soldier"]
   }),
-  createdSoldiers)
+  createdSoldiers,
+  squadCampaignVehicleFilter
+)
 
-let replaceVehicles = mkReplaceObjectsFunc(
+let replaceVehicles = mkReplaceObjectsFunc("vehicles",
   vehiclesPlacesQuery,
   menuBackgroundVehiclesQuery,
   function(object, place) {
@@ -499,16 +508,19 @@ let replaceVehicles = mkReplaceObjectsFunc(
       template = object
       transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
       customazation = vehDataInVehiclesScene.value
+      extraTemplates = ["background_menu_vehicle"]
     })
-    setDecalTargetInScene(composedScene.value, entityId)
+    setDecalTargetInScene(entityId)
     return entityId
   },
-  createdVehicles
+  createdVehicles,
+  squadCampaignVehicleFilter
 )
 
-let replaceInvItems = mkReplaceObjectsFunc(itemsPlacesQuery,
+let replaceInvItems = mkReplaceObjectsFunc("items",
+  itemsPlacesQuery,
   menuBackgroundItemsQuery,
-  @(template, place) template == "" ? INVALID_ENTITY_ID
+  @(template, place) template == "" ? ecs.INVALID_ENTITY_ID
     : createEntity(makeWeaponTemplate(template), place.transform),
   createdItems)
 
@@ -525,10 +537,10 @@ let vehicleToPlaceReplace = @(...)
 let itemsToPlaceReplace = @(...)
   doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_inv_items" })
 
-foreach(v in [currentSquadToPlace, cameraOffset])
+foreach(v in [currentSquadToPlace, squadCampaignVehicleFilter, cameraOffset])
   v.subscribe(currentSquadToPlaceReplace)
 
-foreach(v in [vehicleToPlace, cameraOffset, isVehicleSceneVisible])
+foreach(v in [vehicleToPlace, squadCampaignVehicleFilter, cameraOffset, isVehicleSceneVisible])
   v.subscribe(vehicleToPlaceReplace)
 
 viewTemplates.subscribe(itemsToPlaceReplace)

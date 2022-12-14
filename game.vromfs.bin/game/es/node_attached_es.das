@@ -14,7 +14,7 @@ def node_attached_itm(info : UpdateStageInfoAct;
 
   query(node_attached__entity) <| $ [es] (animchar : AnimcharBaseComponent)
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_attached__nodeId, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, tm)
     transform = tm * node_attached__localTm
 
 [es(after=after_animchar_update_sync, before=animchar_render_es)]
@@ -28,7 +28,7 @@ def node_attached_pos(info : UpdateStageInfoAct;
 
   query(node_attached__entity) <| $ [es] (animchar : AnimcharBaseComponent)
     var tm : float3x4
-    geomtree_getNodeWtmScalar(animchar.nodeTree, node_attached__nodeId, tm)
+    geomtree_getNodeWtmScalar(*animchar.nodeTree, node_attached__nodeId, tm)
     transform[3] = tm * node_attached__localPos
 
 [es(tag=server, tag=net, no_order, REQUIRE=node_attached__destroyWithParent)]

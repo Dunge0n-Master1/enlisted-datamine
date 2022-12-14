@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { localPlayerTeam, localPlayerGroupId } = require("%ui/hud/state/local_player.nut")
+let { localPlayerTeam, localPlayerEid, localPlayerGroupId } = require("%ui/hud/state/local_player.nut")
 let { INVALID_GROUP_ID } = require("matching.errors")
 let { mkWatchedSetAndStorage, mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
 
@@ -21,6 +21,7 @@ let teammatePlayerInfoQuery = ecs.SqQuery("teammatePlayerInfoQuery", {
   comps_ro = [
     ["disconnected", ecs.TYPE_BOOL],
     ["groupId", ecs.TYPE_INT64, INVALID_GROUP_ID],
+    ["player_group__memberIndex", ecs.TYPE_INT],
     ["name", ecs.TYPE_STRING],
     ["decorators__nickFrame", ecs.TYPE_STRING],
   ]
@@ -51,7 +52,7 @@ ecs.register_es("human_teammates_stats_ui_es",
       teammatePlayerInfoQuery(comp.possessedByPlr, @(_, playerComp) res.__update(playerComp))
 
       teammatesAvatarsUpdateEid(eid, res)
-      if (comp.possessedByPlr == INVALID_ENTITY_ID) {
+      if (comp.possessedByPlr == ecs.INVALID_ENTITY_ID || localPlayerEid.value == comp.squad_member__playerEid) {
         alivePossessedTeammatesDeleteKey(eid)
       }
       else {
@@ -81,9 +82,9 @@ ecs.register_es("human_teammates_players_ui_es",
       if (comp["is_local"] || comp["team"] != localPlayerTeam.value){
         return
       }
-      let {possessed, name, groupId, disconnected} = comp
+      let {possessed, name, groupId, disconnected, player_group__memberIndex} = comp
       alivePossessedTeammatesModify(function(value) {
-        value?[possessed]?.__update({name, groupId, disconnected})
+        value?[possessed]?.__update({name, groupId, player_group__memberIndex, disconnected})
         return value
       })
     },
@@ -95,6 +96,7 @@ ecs.register_es("human_teammates_players_ui_es",
       ["disconnected", ecs.TYPE_BOOL],
       ["possessed", ecs.TYPE_EID],
       ["groupId", ecs.TYPE_INT64],
+      ["player_group__memberIndex", ecs.TYPE_INT],
       ["name", ecs.TYPE_STRING],
       ["decorators__nickFrame", ecs.TYPE_STRING, null]
     ],

@@ -12,6 +12,8 @@ require EnlistedWalkerai
 require DagorSystem
 require game.utils.team
 require game.es.squad_order_common
+require danetlibs.native_dasevents.main.native_events
+
 
 [es(tag=server, on_appear, on_event=EventPlayerProfileChanged)]
 def artillery_init_squads_have_radio(evt : Event; armies : Object; army : string; var artillery__hasRadioInArmySquads : bool&)
@@ -207,9 +209,10 @@ def radio_mode_exit_close_map(evt : EventActivateRadioMode; eid : EntityId)
 def unset_radio_mode_when_hero_changed(evt : Event; var human_net_phys : HumanActor)
   human_net_phys.phys.producedCT |> human_control_state_set_device_state(false)
 
-[es(tag=gameClient, on_event=EventHeroChanged)]
-def close_map_when_hero_changed(evt : Event)
-  sendEvent(get_controlled_hero(), [[CmdCloseArtilleryMap]])
+[es(tag=gameClient)]
+def close_map_when_hero_changed(evt : EventHeroChanged)
+  if evt.eid != INVALID_ENTITY_ID
+    sendEvent(evt.eid, [[CmdCloseArtilleryMap]])
 
 [es(tag=server, on_event=EventEntityDestroyed, REQUIRE=artillery__targetPos)]
 def artillery_strike_finish_es(evt : Event; artillery__calledByTeam : int; artillery__group : int = 0)

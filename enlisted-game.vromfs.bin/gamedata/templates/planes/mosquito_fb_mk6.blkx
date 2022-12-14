@@ -31,6 +31,13 @@ mosquito_fb_mk6{
         turret:t="turret_09"
         turret:t="turret_10"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
@@ -487,4 +494,24 @@ mosquito_fb_mk6_driver_cockpit{
   animchar__res:t="mosquito_fb_mk6_cockpit_char"
   plane_anim__blk:t="gamedata/units/mosquito_fb_mk6.blk"
   plane_sight__blk:t="gamedata/units/mosquito_fb_mk6.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0105, 0.0175, 0.0
+    item:p3=0.0255, -0.034, 0.0285
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=-3.9, 0.0
+    item:p2=-10.6, -7.4
+  }
 }

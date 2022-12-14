@@ -1,7 +1,28 @@
 us_m4a3e2_76w_sherman_jumbo{
+  _extends:t="us_m4a3e2_76w_sherman_jumbo_common"
+}
+
+us_m4a3e2_76w_sherman_jumbo_common{
   _extends:t="base_m4a3e2_76w_sherman_jumbo"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_heavy_vehicle_tracks_sound"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

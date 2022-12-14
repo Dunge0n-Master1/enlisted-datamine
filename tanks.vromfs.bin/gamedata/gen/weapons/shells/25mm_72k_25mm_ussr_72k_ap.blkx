@@ -5,6 +5,7 @@ maxDistance:r=5000.0
 normalizationPreset:t="ap"
 bulletType:t="ap_t"
 fresnel:p3=0.23, 0.1, 2.0
+shellAnimation:t="video/shells_animations/ap_belt.ivf"
 bulletName:t="25mm_br_132"
 selfDestructionFx:t="explosion_air_selfexplosion_small"
 explosionEffect:t="hit_19_27mm_metal_ap"

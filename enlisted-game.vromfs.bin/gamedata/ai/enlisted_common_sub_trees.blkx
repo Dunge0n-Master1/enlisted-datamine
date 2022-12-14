@@ -1049,6 +1049,10 @@ sequencer{
             resetGrenadeThrowTime{
             }
           }
+
+          chooseBestWeapon{
+            targetParam:t="shootEnemy"
+          }
         }
       }
     }
@@ -1076,36 +1080,82 @@ sequencer{
             posParam:t="posNearTarget"
           }
 
-          setIntVar{
-            to:t="isInShootState"
-            value:i=1
+          orderedSelector{
+
+            sequencer{
+
+              isMeleeWeaponSelected{
+              }
+
+              copyIntVar{
+                to:t="prevShootEnemy"
+                from:t="shootEnemy"
+              }
+
+              getRandomPointAroundTarget{
+                targetUnitParam:t="shootEnemy"
+                posParam:t="posNearTarget"
+                radiusRange:p2=1.0, 6.0
+                awayMinRadius:r=0.0
+              }
+
+              moveToPos{
+                posParam:t="posNearTarget"
+                sprintTimerRange:p2=10.0, 20.0
+                minDistToSprint:r=0.0
+                distThreshold:r=0.5
+                avoidAiObstacles:b=no
+                timeToStuck:r=1.0
+              }
+
+              moveToTarget{
+                targetUnitParam:t="shootEnemy"
+                stopDist:r=0.5
+                aimToTarget:b=yes
+                maxStanceParam:t="maxStance"
+              }
+
+              meleeAttack{
+                targetUnitParam:t="shootEnemy"
+                timeToAttack:r=3.0
+                attackDist:r=1.5
+              }
+            }
+
+            sequencer{
+
+              setIntVar{
+                to:t="isInShootState"
+                value:i=1
+              }
+
+              copyIntVar{
+                to:t="prevShootEnemy"
+                from:t="shootEnemy"
+              }
+
+              shootAtUnit{
+                targetUnitParam:t="shootEnemy"
+                minStanceParam:t="minStance"
+                shootCycles:i=1
+                tryToSaveCurrentStance:b=no
+                minStanceChance:r=1.5
+                shootTime:p2=0.2, 1.0
+                cooldownTime:p2=0.2, 0.9
+                minAimTime:p2=0.1, 0.4
+                maxStanceParam:t="maxStance"
+                alwaysAiming:b=yes
+              }
+            }
           }
 
-          copyIntVar{
-            to:t="prevShootEnemy"
-            from:t="shootEnemy"
+          getTime{
+            to:t="rememberEnemyTime"
           }
 
           copyIntVar{
             to:t="rememberEnemy"
             from:t="shootEnemy"
-          }
-
-          shootAtUnit{
-            targetUnitParam:t="shootEnemy"
-            minStanceParam:t="minStance"
-            shootCycles:i=1
-            tryToSaveCurrentStance:b=no
-            minStanceChance:r=1.5
-            shootTime:p2=0.2, 1.0
-            cooldownTime:p2=0.2, 0.9
-            minAimTime:p2=0.1, 0.4
-            maxStanceParam:t="maxStance"
-            alwaysAiming:b=yes
-          }
-
-          getTime{
-            to:t="rememberEnemyTime"
           }
 
           setPosFromEntity{
@@ -1653,22 +1703,31 @@ sequencer{
             toParam:t="buildToolSlot"
           }
 
-          changeWeapon{
-            param:t="buildToolSlot"
-          }
-
-          wait{
-            range:p2=0.5, 1.5
-            resetable:b=yes
+          moveToPos{
+            posParam:t="buildPos"
+            sprintTimerRange:p2=10.0, 20.0
+            minDistToSprint:r=4.0
+            distThreshold:r=5.0
+            avoidAiObstacles:b=no
+            timeToStuck:r=5.0
           }
 
           moveToPos{
             posParam:t="buildPos"
             sprintTimerRange:p2=10.0, 20.0
             minDistToSprint:r=4.0
-            distThreshold:r=1.1
+            distThreshold:r=1.5
             avoidAiObstacles:b=no
             timeToStuck:r=5.0
+          }
+
+          changeWeapon{
+            param:t="buildToolSlot"
+          }
+
+          wait{
+            range:p2=0.5, 1.0
+            resetable:b=yes
           }
 
           startBuildCustomRespawnPoint{

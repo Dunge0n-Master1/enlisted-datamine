@@ -9,7 +9,6 @@ require gameObject
 require level
 
 
-// NB: works correct only on server and uses very slow version on clients
 def is_pos_indoor(pos : float3; search_threshold = 0.5f) : bool
   var indoor = false
   find_query() <| $ [es] (game_objects : GameObjects)
@@ -18,7 +17,6 @@ def is_pos_indoor(pos : float3; search_threshold = 0.5f) : bool
   return indoor
 
 
-// NB: works correct only on server and uses very slow version on clients
 def is_pos_indoor(game_objects : GameObjects; pos : float3; search_threshold = 0.5f) : bool
   let box = BBox3(pos, search_threshold)
   var indoor = false
@@ -27,7 +25,6 @@ def is_pos_indoor(game_objects : GameObjects; pos : float3; search_threshold = 0
   return indoor
 
 
-// NB: works correct only on server
 def get_nearest_indoor_pos(pos : float3; radius : float) : MaybePos
   var result = [[MaybePos invalid=null]]
   find_query() <| $ [es] (game_objects : GameObjects)
@@ -36,7 +33,6 @@ def get_nearest_indoor_pos(pos : float3; radius : float) : MaybePos
   return result
 
 
-// NB: works correct only on server
 def get_nearest_indoor_pos(game_objects : GameObjects; pos : float3; radius : float) : MaybePos
   let box = BBox3(pos, radius * 2f)
   var result = [[MaybePos invalid=null]]

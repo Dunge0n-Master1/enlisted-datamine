@@ -232,6 +232,7 @@ let squadStatusIconSize = [hdpxi(26), hdpxi(26)]
 let mkSquadStatusIcon = memoize(@(icon) {
   hplace = ALIGN_CENTER
   rendObj = ROBJ_IMAGE
+  size = squadStatusIconSize
   image = Picture($"{icon}:{squadStatusIconSize[0]}:{squadStatusIconSize[1]}")
 })
 

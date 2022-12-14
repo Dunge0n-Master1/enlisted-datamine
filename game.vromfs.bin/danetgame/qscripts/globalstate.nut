@@ -10,8 +10,9 @@ let function readNewData(name){
     let {key, watched} = registered[name]
     watched(ndbRead(key))
   }
-  else
-    println($"requested data for unknown subscriber '{name}'")
+//  else
+//    println($"requested data for unknown subscriber '{name}'")
+// it spamming too much, but without info about VM logs are useless
 }
 
 let function globalWatched(name, ctor=null) {

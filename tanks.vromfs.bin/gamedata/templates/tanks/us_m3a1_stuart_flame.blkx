@@ -4,7 +4,6 @@ us_m3a1_stuart_flame_pacific{
 
 us_m3a1_stuart_flame_common{
   _extends:t="base_m3a1_stuart_flame"
-  _extends:t="vehicle_effects_tracked"
   item__iconOffset:p2=0.0, 0.0
 
   "vehicle_seats__seats:shared:array"{
@@ -219,7 +218,7 @@ us_m3a1_stuart_flame_machinegunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.01
+    slit:r=-0.04
   }
 
   "cockpit__slitIsGun:list<b>"{

@@ -16,13 +16,11 @@ let { campaignName, btnSizeSmall, receivedCommon, receivedFreemium, weapInfoBtn,
 } = require("campaignPromoPkg.nut")
 let mkBuyArmyLevel = require("%enlist/soldiers/mkBuyArmyLevel.nut")
 let { animChildren, glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
-let { CAMPAIGN_NONE, isConfigurableCampaign, isCampaignBought, campaignConfigGroup
+let { CAMPAIGN_NONE, isPurchaseableCampaign, isCampaignBought, campaignConfigGroup,
+  campPresentation
 } = require("%enlist/campaigns/campaignConfig.nut")
-let { getConfig } = require("%enlSqGlob/ui/campaignPromoPresentation.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 
-
-local campPresentation = Computed(@() getConfig(campaignConfigGroup.value))
 
 let function freemiumPromoLink() {
   let { color = null } = campPresentation.value
@@ -89,8 +87,8 @@ let function mkUnlockBlock(unlockInfo) {
 
   return function() {
     let children = []
-    local { unlockCb = null, campaignGroup = CAMPAIGN_NONE, isNextToBuyExp = false,
-      unlockText = null } = unlockInfo
+    local { unlockCb = null, isNextToBuyExp = false, unlockText = null,
+      campaignGroup = CAMPAIGN_NONE } = unlockInfo
     if (isNextToBuyExp)
       children.append(mkBuyArmyLevel(unlockInfo.lvlToBuy, unlockInfo.cost, unlockInfo.costFull))
     else if (unlockCb != null)
@@ -103,13 +101,12 @@ let function mkUnlockBlock(unlockInfo) {
       }))
     else if (unlockText != null)
       children.append(mkUnlockInfo(unlockText))
-    if (campaignGroup != CAMPAIGN_NONE
-        && isConfigurableCampaign.value
+    if (campaignGroup != CAMPAIGN_NONE && isPurchaseableCampaign.value
         && !isCampaignBought.value)
       children.insert(0, freemiumPromoLink)
 
     return {
-      watch = [isConfigurableCampaign, isCampaignBought]
+      watch = [isPurchaseableCampaign, isCampaignBought]
       size = [SIZE_TO_CONTENT, btnSizeSmall[1]]
       minWidth = btnSizeSmall[0]
       padding = bigPadding

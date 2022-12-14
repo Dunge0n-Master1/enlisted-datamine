@@ -1,5 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_biome_fx.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_winter_city_fx.blk"
 }
 
 entity{
@@ -395,26 +397,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1369.51, 0.815648, 611.87]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1330.34, 5.25904, 667.644]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1319.54, 6.15353, 591.507]]
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1361.62, 5.14403, 581.63]]
-}
-
-entity{
   _template:t="mbs_desktop_stuff_a"
   transform:m=[[0.662354, 0.0, 0.0] [0.0, 0.662354, 0.0] [0.0, 0.0, 0.662354] [-1356.41, 9.80097, 626.654]]
 }
@@ -740,11 +722,6 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1394.4, 1.5772, 622.292]]
-}
-
-entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
   moveCameraToHeight:r=250.0
@@ -860,11 +837,6 @@ entity{
   _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[-0.521948, 0.0, -0.852978] [0.0, 1.0, 0.0] [0.852978, 0.0, -0.521948] [-1204.71, 6.21537, 683.825]]
   resupply_zone__team:i=2
-}
-
-entity{
-  _template:t="bonfire_effect"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-1359.99, 4.15623, 688.289]]
 }
 
 entity{

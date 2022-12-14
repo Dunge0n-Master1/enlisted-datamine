@@ -31,6 +31,9 @@ let combinedRewards = Computed(function(){
 
   let basicRewarded = basicProgress.value.lastRewardedStage
   let premiumRewarded = premiumProgress.value.lastRewardedStage
+  let isBasicDone = basicProgress.value.isFinished || basicProgress.value.isCompleted
+  let isPremiumDone =  premiumProgress.value.isFinished || premiumProgress.value.isCompleted
+  let isLastRewardDone = isBasicDone || isPremiumDone
 
   return unlockToShow.value.map(function(stageData, stageIdx) {
     let { stage, isPremium = false } = stageData
@@ -38,7 +41,7 @@ let combinedRewards = Computed(function(){
     let isReceived = (isPremium ? premiumRewarded : basicRewarded) > stage
     local progressVal = null
     local progressState = null
-    if (stageIdx == nextRewardStage.value)
+    if (stageIdx == nextRewardStage.value && isLastRewardDone)
       progressState = RewardState.COMPLETED
     else if (stageIdx < nextStage.value)
       progressState = isPremium && !hasEliteBattlePass.value
@@ -72,12 +75,16 @@ let function getRewardIdx(rewardTemplate = ""){
   return rewardIdx
 }
 
-let function openBPwindow(rewardIdx = null){
+let function curItemUpdate(rewardIdx = null){
   rewardIdx = rewardIdx ?? nextRewardStage.value ?? nextStage.value
   curItem({
     reward = getOneRewardByStageData(combinedUnlocks.value?[rewardIdx])?.reward
     stageIdx = rewardIdx
   })
+}
+
+let function openBPwindow(rewardIdx = null){
+  curItemUpdate(rewardIdx)
   isOpened(true)
 }
 
@@ -89,4 +96,5 @@ return {
   getRewardIdx
   openBPwindow
   curItem
+  curItemUpdate
 }

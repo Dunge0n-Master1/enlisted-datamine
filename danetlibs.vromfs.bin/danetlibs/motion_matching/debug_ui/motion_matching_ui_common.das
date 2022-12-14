@@ -7,10 +7,14 @@ require imgui/imgui_boost
 require MotionMatching
 require daslib/safe_addr
 require daslib/strings_boost
+require daslib/static_let
 require DagorConsole
+require DagorTime
 //require stddlg
 require danetlibs/motion_matching/es/motion_matching_common
 require danetlibs/motion_matching/es/mm_events
+
+let TICKS_PER_SECOND = 30f
 
 
 def index(tags : StringList; tag : string) : int
@@ -276,6 +280,14 @@ def edit_presets(dataBaseEid : EntityId)
 
 def edit_clips(eid : EntityId; dataBaseEid : EntityId)
 
+  static_let <|
+    var time = get_time_msec()
+    var animationPlaySpeed = 1f
+
+  let newTime = get_time_msec()
+  let dt = float(newTime - time) * 0.001f // in seconds
+  time = newTime
+
   query(eid) <| $ [es] (var motion_matching__clipProgress : FloatList;
                         var motion_matching__history : IPoint2List;
                         var motion_matching__controller : MotionMatchingController;
@@ -283,6 +295,9 @@ def edit_clips(eid : EntityId; dataBaseEid : EntityId)
     assume dataBase = motion_matching__controller.dataBase
     resize(motion_matching__clipProgress, length(dataBase.clips))
     if imgui::BeginTabItem("clips")
+
+      safe_slider("animation play speed", animationPlaySpeed, 0f, 2f)
+
       if !(motion_matching__controller |> empty())
         let currentClip = motion_matching__controller |> getCurrentClip()
         imgui::Text("Current clip: ")
@@ -332,6 +347,17 @@ def edit_clips(eid : EntityId; dataBaseEid : EntityId)
           motion_matching__clipProgress[clipIdx]--
           playAnim = true
         imgui::SameLine()
+
+        imgui::Button("play##{clipIdx}")
+        if imgui::IsItemHovered() && imgui::IsMouseDown(ImGuiMouseButton Left)
+          motion_matching__clipProgress[clipIdx] += dt * TICKS_PER_SECOND * animationPlaySpeed;
+          playAnim = true
+        imgui::SameLine()
+        let duration = float(clip.tickDuration) - 1f
+        let progress = duration > 0f ? motion_matching__clipProgress[clipIdx] % duration : 0f;
+        //catch negative and overgrowth values
+        motion_matching__clipProgress[clipIdx] = progress < 0f ? progress + duration : progress
+
         var v = int(motion_matching__clipProgress[clipIdx]) + 1
 
 

@@ -43,8 +43,8 @@ def can_push_object(human_tm : float3x4;
                     push_object_tm : float3x4;
                     push_object_collres : CollisionResource;
                     push_object_animchar : AnimcharBaseComponent;
-                    push_object_ship_net_phys : ShipActor?;
-                    push_object_vehicle_net_phys : VehiclePhysActor?)
+                    push_object_ship_net_phys : ShipActor const?;
+                    push_object_vehicle_net_phys : VehiclePhysActor const?)
   let humanCenter = human_tm[3]
   let traceStart = humanCenter
   let traceDir = normalize(push_object_tm[3] - traceStart)
@@ -86,8 +86,8 @@ def push_object_update_server(info : UpdateStageInfoAct;
                                         collres : CollisionResource;
                                         animchar : AnimcharBaseComponent;
                                         push_object__energyScale : float;
-                                        ship_net_phys : ShipActor?;
-                                        vehicle_net_phys : VehiclePhysActor?)
+                                        ship_net_phys : ShipActor const?;
+                                        vehicle_net_phys : VehiclePhysActor const?)
     if can_push_object(human_transform, push_object__canPushRadius, transform, collres, animchar, ship_net_phys, vehicle_net_phys)
       let dir = human_transform[0]
       let center = human_transform[3]
@@ -123,7 +123,7 @@ def push_object_update_client(info : ParallelUpdateFrameDelayed;
   query(useActionEid) <| $ [es(REQUIRE=push_object__energyScale)] (transform : float3x4;
                                                                    collres : CollisionResource;
                                                                    animchar : AnimcharBaseComponent;
-                                                                   ship_net_phys : ShipActor?;
-                                                                   vehicle_net_phys : VehiclePhysActor?)
+                                                                   ship_net_phys : ShipActor const?;
+                                                                   vehicle_net_phys : VehiclePhysActor const?)
     if can_push_object(human_transform, push_object__canPushRadius, transform, collres, animchar, ship_net_phys, vehicle_net_phys)
       push_object__canPush = true

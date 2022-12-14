@@ -126,6 +126,15 @@ kar98k_wartime_production_gun{
       path:t="/weapon/rifle/mosin/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.6, -0.015, 0.0
+    }
+  }
 }
 
 stl_kar98k_wartime_production{
@@ -304,6 +313,15 @@ mannlicher_m93_roman_gun{
       path:t="/weapon/rifle/carcano_m41/bolt_action"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.55, -0.025, 0.006
+    }
+  }
 }
 
 stl_mannlicher_m93_roman{
@@ -445,7 +463,7 @@ stl_winchester_1895{
   animchar__res:t="stl_winchester_1895_char"
   item__weapTemplate:t="stl_winchester_1895_gun"
   item__template:t="stl_winchester_1895_gun_item"
-  gun__shotFreq:r=0.95
+  gun__shotFreq:r=1.1
   gun__kineticDamageMult:r=1.62
   gun__reloadTime:r=3.2
 }
@@ -656,6 +674,21 @@ orita_m1941_gun{
 
     "reload3:object"{
       path:t="/weapon/mgun/mp40/reload3/change_ammo"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.63, 0.04, 0.025
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.45, -0.15, 0.025
     }
   }
 }
@@ -945,6 +978,21 @@ ppsh_2_gun{
       path:t="/weapon/mgun/pps_42/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.45, 0.0, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.24, -0.19, 0.0
+    }
+  }
 }
 
 stl_ppsh_2{
@@ -1083,6 +1131,7 @@ stl_ppsh_41_gun{
   gun__adsSpeedMult:r=0.72
   gun__crawlRecoilMult:r=0.8
   meleeSoundType:t="mgun"
+  gun__barrelTipOffsetOverride:p3=0.65, 0.02, 0.0
 
   _group{
     _tags:t="sound"
@@ -1109,6 +1158,21 @@ stl_ppsh_41_gun{
       path:t="/weapon/mgun/ppsh/reload3/change_ammo"
     }
   }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.45, -0.015, 0.0
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.5
+      offset:p3=0.23, -0.125, 0.0
+    }
+  }
 }
 
 stl_ppsh_41_phosphated{
@@ -1128,7 +1192,7 @@ stl_ppd_3438_box{
   _extends:t="ppd_3438_box"
   item__weapTemplate:t="stl_ppd_3438_box_gun"
   item__template:t="stl_ppd_3438_box_gun_item"
-  gun__kineticDamageMult:r=0.95
+  gun__kineticDamageMult:r=0.964
 }
 
 stl_ppd_3438_box_gun{
@@ -1139,7 +1203,7 @@ stl_ppd_3438_box_gun{
   gun__recoilDir:r=0.41
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
-  gun__rotationSpringMult:p3=0.65, 0.9, 0.9
+  gun__rotationSpringMult:p3=0.75, 0.9, 0.9
   gun__visualRecoilMult:r=1.6
   gun__crawlRecoilMult:r=0.8
 }
@@ -1489,7 +1553,6 @@ stationary_ampulomet_without_shell_ejection{
   item__proto:t="content/e_stalingrad/gamedata/weapons/ampulomet_mounted.blk"
   item__name:t="items/stationary_ampulomet"
   item__weapType:t="launcher"
-  gun__statName:t="grenade"
   gun__recoilAmount:r=0.011
   gun__recoilDirAmount:r=0.63
   gun__recoilDir:r=0.0
@@ -1552,7 +1615,7 @@ stationary_ampulomet{
   gun__cameraShakeMaxTrauma:r=0.1
   gun__cameraTemplate:t="gun_cam_perlin"
   buildingRadius:r=0.6
-  building_menu__image:t="building_mg_nest"
+  building_menu__image:t="building_ampulomet"
 
   "gun__timeBetweenShotsIsReload:tag"{
   }
@@ -1880,6 +1943,7 @@ stl_ussr_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_dshk_1942_preview"
     template:t="sandbags_wall_maxim_preview"
     template:t="sandbags_wall_ampulomet_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
@@ -1892,6 +1956,7 @@ stl_ussr_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=1
     limit:i=2
@@ -1917,6 +1982,7 @@ stl_ger_building_tool_gun{
 
   "previewTemplate:list<t>"{
     template:t="sandbags_wall_2_preview"
+    template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="sandbags_wall_ampulomet_preview"
     template:t="cannon_germ_20mm_flak38_flakvierling_preview"
@@ -1929,6 +1995,7 @@ stl_ger_building_tool_gun{
 
   "buildingLimits:list<i>"{
     limit:i=10
+    limit:i=1
     limit:i=1
     limit:i=1
     limit:i=2

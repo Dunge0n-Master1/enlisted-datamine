@@ -2602,6 +2602,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.153144, 0.0, -0.988204] [0.0, 1.0, 0.0] [0.988204, -0.0, 0.153144] [723.984, 6.01973, 868.814]]
   groupName:t="sector_2"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -2610,6 +2612,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.0283982, 0.0, 0.999597] [0.0, 1.0, -0.0] [-0.999597, 0.0, 0.0283982] [772.226, 8.82504, 348.06]]
   groupName:t="sector_2"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -2648,6 +2652,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.0658134, 0.0, -0.997831] [0.0, 1.0, 0.0] [0.997831, -0.0, 0.0658134] [943.027, 1.34388, 682.439]]
   groupName:t="sector_3_a"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -2672,6 +2678,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[-0.409387, 0.0, 0.912361] [0.0, 1.0, 0.0] [-0.912361, 0.0, -0.409387] [762.597, 8.05871, 264.546]]
   groupName:t="sector_3_a"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -2710,6 +2718,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[-0.44158, 0.0, -0.897222] [0.0, 1.0, 0.0] [0.897222, 0.0, -0.44158] [776.02, 2.56718, 596.041]]
   groupName:t="sector_4_a"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -2761,6 +2771,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.511739, 0.0, -0.85914] [0.0, 1.0, 0.0] [0.85914, -0.0, 0.511739] [639.249, 4.67743, 556.066]]
   groupName:t="sector_5"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -2799,6 +2811,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.892433, 0.0, -0.451179] [0.0, 1.0, 0.0] [0.451179, -0.0, 0.892433] [388.848, 6.16113, 355.94]]
   groupName:t="sector_5"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -2848,6 +2862,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[-0.538963, 0.0, -0.842329] [0.0, 1.0, 0.0] [0.842329, 0.0, -0.538963] [769.107, 3.529, 589.061]]
   groupName:t="sector_4_b"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -2886,6 +2902,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.839493, 0.0, 0.543369] [0.0, 1.0, -0.0] [-0.543369, 0.0, 0.839493] [508.544, 4.81557, 247.239]]
   groupName:t="sector_4_b"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -2984,7 +3002,7 @@ entity{
   transform:m=[[-0.385228, 0.0, 0.922822] [0.0, 1.0, 0.0] [-0.922822, 0.0, -0.385228] [816.891, 6.67724, 163.097]]
   groupName:t="sector_4_a"
   maxVehicleOnSpawn:i=2
-  respTime:i=150
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -3933,6 +3951,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.772575, 0.0, -0.634923] [0.0, 1.0, 0.0] [0.634923, -0.0, 0.772575] [396.747, 7.56064, 396.217]]
   groupName:t="sector_5_b"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }
@@ -4067,6 +4087,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[-0.921007, 0.0, 0.389545] [0.0, 1.0, 0.0] [-0.389545, 0.0, -0.921007] [909.205, 9.56224, 345.369]]
   groupName:t="sector_3_a"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
   respawnBaseGroup:i=2
@@ -4156,6 +4178,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[0.0658134, 0.0, -0.997831] [0.0, 1.0, 0.0] [0.997831, -0.0, 0.0658134] [945.934, 1.34388, 681.266]]
   groupName:t="sector_3_b"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=1
   active:b=no
 }
@@ -4180,6 +4204,8 @@ entity{
   _template:t="respawnChooser+respVehicle"
   transform:m=[[-0.575431, 0.0, 0.817851] [0.0, 1.0, 0.0] [-0.817851, 0.0, -0.575431] [782.417, 6.45399, 227.4]]
   groupName:t="sector_3_b"
+  maxVehicleOnSpawn:i=2
+  respTime:i=120
   team:i=2
   active:b=no
 }

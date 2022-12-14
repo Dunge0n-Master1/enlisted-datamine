@@ -37,6 +37,9 @@ return freeze({
   crate_moscow_allies_level_37 = {
     image = "ui/campaign_rewards/reward_ussr_t_34_1940_L_11.jpg"
   }
+  crate_moscow_allies_level_39 = {
+    image = "ui/campaign_rewards/reward_ussr_t_34_1941_moscow.jpg"
+  }
 
 
 //MOSCOW AXIS
@@ -75,6 +78,9 @@ return freeze({
   }
   crate_moscow_axis_level_37 = {
     image = "ui/campaign_rewards/reward_germ_pzkpfw_iii_ausf_j1.jpg"
+  }
+  crate_moscow_axis_level_39 = {
+    image = "ui/campaign_rewards/reward_germ_pzkpfw_iv_ausf_f2_moscow.jpg"
   }
 
 
@@ -118,6 +124,9 @@ return freeze({
   crate_normandy_allies_level_38 = {
     image = "ui/campaign_rewards/reward_m1928a1_thompson_with_box_magazine.jpg"
   }
+  crate_normandy_allies_level_39 = {
+    image = "ui/campaign_rewards/reward_us_m18_hellcat_normandy.jpg"
+  }
 
 
 
@@ -160,6 +169,9 @@ return freeze({
   }
   crate_normandy_axis_level_38 = {
     image = "ui/campaign_rewards/reward_stg_44.jpg"
+  }
+  crate_normandy_axis_level_39 = {
+    image = "ui/campaign_rewards/reward_germ_panzerjager_iv_l_48_normandy.jpg"
   }
 
 
@@ -207,6 +219,9 @@ return freeze({
   crate_berlin_allies_level_36 = {
     image = "ui/campaign_rewards/reward_bm_42_mortar.jpg"
   }
+  crate_berlin_allies_level_37 = {
+    image = "ui/campaign_rewards/reward_rd_44.jpg"
+  }
 
 
 
@@ -253,6 +268,9 @@ return freeze({
   crate_berlin_axis_level_36 = {
     image = "ui/campaign_rewards/reward_granatwerfer_42.jpg"
   }
+  crate_berlin_axis_level_37 = {
+    image = "ui/campaign_rewards/reward_mg_15_saddle_drum.jpg"
+  }
 
 
 //TUNISIA ALLIES
@@ -291,6 +309,9 @@ return freeze({
   }
   crate_tunisia_allies_level_34 = {
     image = "ui/campaign_rewards/reward_spitfire_vc.jpg"
+  }
+  crate_tunisia_allies_level_36 = {
+    image = "ui/campaign_rewards/reward_a_20g_m8.jpg"
   }
 
 
@@ -331,6 +352,9 @@ return freeze({
   crate_tunisia_axis_level_34 = {
     image = "ui/campaign_rewards/reward_bf_109f_4_trop.jpg"
   }
+  crate_tunisia_axis_level_36 = {
+    image = "ui/campaign_rewards/reward_g_55_serie1_ss0.jpg"
+  }
 
 
 //STALINGRAD ALLIES
@@ -354,6 +378,9 @@ return freeze({
   }
   crate_stalingrad_allies_level_28 = {
     image = "ui/campaign_rewards/reward_ussr_t_34_1941.jpg"
+  }
+  crate_stalingrad_allies_level_30 = {
+    image = "ui/campaign_rewards/reward_bm_42_mortar.jpg"
   }
 
 
@@ -379,6 +406,9 @@ return freeze({
   crate_stalingrad_axis_level_28 = {
     image = "ui/campaign_rewards/reward_germ_stug_iii_ausf_f.jpg"
   }
+  crate_stalingrad_axis_level_30 = {
+    image = "ui/campaign_rewards/reward_granatwerfer_42.jpg"
+  }
 
 
 //PACIFIC ALLIES
@@ -403,6 +433,12 @@ return freeze({
   crate_pacific_allies_level_26 = {
     image = "ui/campaign_rewards/reward_m1941_johnson_mg.jpg"
   }
+  crate_pacific_allies_level_28 = {
+    image = "ui/campaign_rewards/reward_us_m3a1_stuart_flame_pacific.jpg"
+  }
+  crate_pacific_allies_level_29 = {
+    image = "ui/campaign_rewards/reward_m1c_garand.jpg"
+  }
 
 
 //PACIFIC AXIS
@@ -426,6 +462,12 @@ return freeze({
   }
   crate_pacific_axis_level_26 = {
     image = "ui/campaign_rewards/reward_nambu_type_96_lmg.jpg"
+  }
+  crate_pacific_axis_level_28 = {
+    image = "ui/campaign_rewards/reward_jp_type_2_ka_mi_pacific.jpg"
+  }
+  crate_pacific_axis_level_29 = {
+    image = "ui/campaign_rewards/reward_sig_1920_type_be.jpg"
   }
 
 

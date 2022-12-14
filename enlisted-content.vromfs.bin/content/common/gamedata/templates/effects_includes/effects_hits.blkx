@@ -58,7 +58,7 @@ hit_ricochet_med_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="hit_ricochet_med_cmps_fx"
+    effect__name:t="hit_ricochet_medium_cmps_fx"
   }
 }
 
@@ -68,6 +68,15 @@ hit_ricochet_small_effect{
   _group{
     _tags:t="render"
     effect__name:t="hit_ricochet_small_cmps_fx"
+  }
+}
+
+hit_ricochet_tiny_effect{
+  _extends:t="hit_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_ricochet_tiny_cmps_fx"
   }
 }
 
@@ -952,8 +961,30 @@ hit_human_blood_kill_exit_effect{
   }
 }
 
+hit_water_ripple_effect{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  water_ripple__requireStart:b=yes
+  water_ripple__mass:r=1.0
+  water_ripple__radius:r=1.0
+}
+
+hit_water_bullet_effect{
+  _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=10.0
+  water_ripple__radius:r=0.1
+
+  _group{
+    _tags:t="render"
+    effect__name:t="water_hit_bullet_cmps_fx"
+  }
+}
+
 hit_water_tiny_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=1.5
+  water_ripple__radius:r=0.03
 
   _group{
     _tags:t="render"
@@ -963,6 +994,9 @@ hit_water_tiny_effect{
 
 hit_water_small_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=1.5
+  water_ripple__radius:r=0.1
 
   _group{
     _tags:t="render"
@@ -972,6 +1006,9 @@ hit_water_small_effect{
 
 hit_water_medium_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=3.0
+  water_ripple__radius:r=0.2
 
   _group{
     _tags:t="render"
@@ -981,6 +1018,9 @@ hit_water_medium_effect{
 
 hit_water_medium_big_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=4.5
+  water_ripple__radius:r=0.5
 
   _group{
     _tags:t="render"
@@ -990,6 +1030,9 @@ hit_water_medium_big_effect{
 
 hit_water_big_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=4.5
+  water_ripple__radius:r=0.8
 
   _group{
     _tags:t="render"
@@ -999,9 +1042,48 @@ hit_water_big_effect{
 
 hit_water_massive_effect{
   _extends:t="hit_effect_base"
+  _extends:t="hit_water_ripple_effect"
+  water_ripple__mass:r=10.0
+  water_ripple__radius:r=1.0
 
   _group{
     _tags:t="render"
     effect__name:t="water_hit_massive_cmps_fx"
+  }
+}
+
+hit_artillery_dirt_effect{
+  _extends:t="hit_human_blood_effect"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_artillery_dirt_cmps_fx"
+  }
+}
+
+hit_artillery_snow_effect{
+  _extends:t="hit_human_blood_effect"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_artillery_snow_cmps_fx"
+  }
+}
+
+hit_artillery_sand_effect{
+  _extends:t="hit_human_blood_effect"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_artillery_sand_cmps_fx"
+  }
+}
+
+hit_artillery_stone_effect{
+  _extends:t="hit_human_blood_effect"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_artillery_stone_cmps_fx"
   }
 }

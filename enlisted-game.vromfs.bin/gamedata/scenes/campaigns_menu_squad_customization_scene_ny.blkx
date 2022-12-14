@@ -1,0 +1,1112 @@
+entity{
+  _template:t="ny_menu_ambient_sound"
+}
+
+entity{
+  _template:t="ny_music_launcher_ambient_sound"
+}
+
+entity{
+  _template:t="menu_camera"
+  transform:m=[[0.17715, 0.0, 0.984184] [3.06845e-06, 1.0, -5.52308e-07] [-0.984184, 3.11776e-06, 0.17715] [-14.9102, 10.0449, -71.8244]]
+  menu_cam__offset:p3=-1.0, 1.2, -6.2
+  menu_cam__offset_smooth_internal:p3=-1.0, 1.2, -5.4
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="researches"
+  fov:r=90.0
+  transform:m=[[0.0110471, 0.0, -0.999939] [-0.0133532, 0.999911, -0.000147523] [0.99985, 0.013354, 0.0110461] [15.2017, 21.3988, 48.7237]]
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.5
+  dof__farDofStart:r=6.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="squad"
+  fov:r=65.0
+  transform:m=[[0.17715, 0.0, 0.984184] [3.06845e-06, 1.0, -5.52308e-07] [-0.984184, 3.11776e-06, 0.17715] [-14.9102, 10.0449, -71.8244]]
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofStart:r=6.0
+  dof__farDofEnd:r=26.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__nearDofStart:r=1.01
+  dof__nearDofEnd:r=2.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=6.0
+  dof__minCheckDistance:r=50.0
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="armory"
+  fov:r=90.0
+  transform:m=[[0.10212, 0.0, 0.994772] [-0.0219319, 0.999757, 0.00225146] [-0.99453, -0.0220472, 0.102095] [-3.76095, 3.62939, 94.62]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-80.0, 80.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=18.0
+  dof__focusDistance:r=0.85
+  dof__farDofAmountPercent:r=0.0027
+  dof__farDofEnd:r=20.0
+  dof__farDofStart:r=2.0
+  dof__nearDofAmountPercent:r=0.02
+  dof__nearDofEnd:r=0.5
+  dof__nearDofStart:r=0.01
+  dof__minCheckDistance:r=0.05
+  dof__bokehShape_bladesCount:r=5.2
+  dof__bokehShape_kernelSize:r=6.8
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="inv_items"
+  fov:r=90.0
+  transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-4.0589, 3.62321, 94.8539]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-30.0, 30.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.29
+  dof__farDofStart:r=1.2
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+}
+
+entity{
+  _template:t="menu_weapon"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+}
+
+entity{
+  _template:t="menu_inv_items"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="new_items"
+  fov:r=90.0
+  transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-3.6589, 3.42321, 94.95]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-30.0, 30.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.001
+  dof__farDofEnd:r=200.0
+  dof__farDofStart:r=2.0
+  dof__nearDofAmountPercent:r=0.02
+  dof__nearDofEnd:r=0.5
+  dof__nearDofStart:r=0.01
+  dof__minCheckDistance:r=0.05
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="menu_new_items"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.54919, 94.883]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="soldiers"
+  fov:r=50.0
+  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
+  menu_cam__offset:p3=-0.5, 1.07, -3.5
+  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 0.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=7.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="soldier_customization"
+  fov:r=50.0
+  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
+  menu_cam__offset:p3=-0.5, 1.07, -3.5
+  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 0.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=7.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="menu_soldier"
+  transform:m=[[0.418354, 0.0, -0.908284] [0.0, 1.0, 0.0] [0.908284, 0.0, 0.418354] [-38.0752, 9.05538, -50.2697]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="soldier_in_middle"
+  fov:r=50.0
+  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-36.4143, 10.4806, -53.867]]
+  menu_cam__offset:p3=0.0, 1.07, -5.0
+  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 0.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=7.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="events"
+  fov:r=50.0
+  transform:m=[[0.852822, 0.0, 0.522201] [-0.0418459, 0.996784, 0.0683399] [-0.520521, -0.0801337, 0.85008] [-40.0, 10.0, -53.867]]
+  menu_cam__offset:p3=0.0, 1.07, -5.0
+  menu_cam__offsetMult:p3=1.0, 1.0, 1.0
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 0.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=7.0
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="vehicles"
+  fov:r=60.0
+  transform:m=[[0.831956, 0.0, 0.554842] [-0.0588492, 0.994359, 0.0882411] [-0.551713, -0.106065, 0.827263] [4.24383, 3.77421, 87.4661]]
+  menu_cam__offset:p3=-1.0, 1.2, -5.3
+  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 33.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.8
+  dof__focusDistance:r=6.5
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=11.5
+  dof__nearDofAmountPercent:r=0.0
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
+}
+
+entity{
+  _template:t="menu_inspected_vehicle_pos"
+  transform:m=[[0.0376859, 0.0, -0.99929] [0.0, 1.0, 0.0] [0.99929, 0.0, 0.0376859] [0.707208, 1.72756, 94.5714]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="aircrafts"
+  fov:r=60.0
+  transform:m=[[0.107925, 0.0, 0.994159] [-0.0238863, 0.999711, 0.00259308] [-0.993872, -0.0240266, 0.107894] [90.4424, 9.80657, 12.3539]]
+  menu_cam__offset:p3=-1.0, 0.2, -7.8
+  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 28.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.4
+  dof__focusDistance:r=10.0
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=18.0
+  dof__nearDofAmountPercent:r=0.002
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
+}
+
+entity{
+  _template:t="menu_aircraft"
+  transform:m=[[0.488671, 0.0, -0.872468] [0.0, 1.0, 0.0] [0.872468, 0.0, 0.488671] [83.6676, 8.61241, 14.621]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="aircrafts_floating"
+  fov:r=60.0
+  transform:m=[[-0.574526, 0.0, 0.818486] [0.0, 1.0, 0.0] [-0.818486, 0.0, -0.574526] [-100.963, -1.75153, 106.019]]
+  menu_cam__offset:p3=-0.5, 0.2, -7.8
+  menu_cam__offsetMult:p3=1.4, 1.0, 1.6
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=0.0, 28.0
+  menu_cam__shouldRotateTarget:b=no
+  dof__on:b=yes
+  dof__is_filmic:b=no
+  dof__fStop:r=1.4
+  dof__focusDistance:r=10.0
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=400.0
+  dof__farDofStart:r=18.0
+  dof__nearDofAmountPercent:r=0.002
+  dof__nearDofEnd:r=6.0
+  dof__nearDofStart:r=1.5
+  dof__minCheckDistance:r=0.5
+  dof__bokehShape_bladesCount:r=6.0
+  dof__bokehShape_kernelSize:r=18.0
+}
+
+entity{
+  _template:t="menu_aircraft_floating"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-110.319, -4.0, 99.9024]]
+}
+
+entity{
+  _template:t="camera_scenic_place_dof"
+  fov:r=90.0
+  transform:m=[[-0.0560272, 0.0, 0.998429] [0.00857311, 0.999963, 0.000481083] [-0.998392, 0.0085866, -0.0560251] [-34.2328, 98.565, 28.4068]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-30.0, 30.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=yes
+  dof__farDofAmountPercent:r=0.29
+  dof__farDofStart:r=1.5
+  dof__farDofEnd:r=300.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__bokehShape_kernelSize:r=2.8
+  scene:t="battle_pass"
+}
+
+entity{
+  _template:t="menu_battle_pass"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-35.5, 98.8, 28.33]]
+}
+
+entity{
+  _template:t="ui_disabled"
+  ui__disabled:b=yes
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=0
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=1
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=2
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=3
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=4
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=5
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=6
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=7
+}
+
+entity{
+  _template:t="menu_item_respawnbase"
+  transform:m=[[-0.71417, 0.0763896, -0.695791] [-0.672431, -0.350963, 0.651661] [-0.194416, 0.933268, 0.302014] [-4.84479, 3.61, 95.09]]
+  priority_order:i=8
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.921371, 0.0, -0.388686] [0.0, 1.0, 0.0] [0.388686, 0.0, 0.921371] [-17.7045, 9.08918, -70.8761]]
+  priority_order:i=0
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.945866, -0.000925899, -0.324555] [0.0, 0.999996, -0.00285281] [0.324556, 0.00269838, 0.945862] [-18.5497, 9.0457, -71.1862]]
+  priority_order:i=1
+}
+
+entity{
+  _template:t="armor_analyzer"
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  priority_order:i=2
+  transform:m=[[0.996628, 0.0, -0.0820486] [0.0, 1.0, 0.0] [0.0820486, 0.0, 0.996628] [-18.1449, 9.09886, -70.2728]]
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.962976, 0.0, -0.269588] [0.0, 1.0, 0.0] [0.269588, 0.0, 0.962976] [-19.4346, 9.05521, -71.408]]
+  priority_order:i=3
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.809663, 0.0, 0.586896] [0.0, 1.0, 0.0] [-0.586896, 0.0, 0.809663] [-19.7114, 9.05521, -72.0807]]
+  priority_order:i=6
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.998129, 0.0, -0.0611288] [0.0, 1.0, 0.0] [0.0611288, 0.0, 0.998129] [-20.3704, 9.05521, -71.8109]]
+  priority_order:i=5
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.918355, 0.0, 0.395758] [0.0, 1.0, 0.0] [-0.395758, 0.0, 0.918355] [-18.9886, 9.05521, -72.1934]]
+  priority_order:i=4
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.988558, 0.0, -0.15084] [0.0, 1.0, 0.0] [0.15084, 0.0, 0.988558] [-17.4295, 9.05521, -71.5054]]
+  priority_order:i=7
+}
+
+entity{
+  _template:t="menu_soldier_respawnbase"
+  transform:m=[[0.999954, 0.0, -0.00948151] [0.0, 1.0, 0.0] [0.00948151, 0.0, 0.999954] [-18.2446, 9.05521, -71.9229]]
+  priority_order:i=8
+}
+
+entity{
+  _template:t="menu_vehicle_respawnbase"
+  transform:m=[[0.728734, 0.0, -0.684798] [0.0, 1.0, 0.0] [0.684798, 0.0, 0.728734] [-24.7591, 9.03651, -70.9551]]
+}
+
+entity{
+  _template:t="menu_machinegun_respawnbase"
+  transform:m=[[-0.592575, 0.0, 0.805514] [0.0, 1.0, 0.0] [-0.805514, 0.0, -0.592576] [-17.9864, 9.05521, -72.0432]]
+}
+
+entity{
+  _template:t="menu_level"
+  level__blk:t="content/enlisted/levels/campaigns_menu_background_ny.blk"
+  level__day:i=24
+  level__month:i=7
+  level__fpsLimit:i=60
+
+  "level__weatherChoice:object"{
+    weather_clear_b:r=1.0
+  }
+
+  "level__timeVec:array"{
+    level__timeVec:r=5.472
+  }
+}
+
+entity{
+  _template:t="camera_snow_light_template"
+  snow__density:r=5.0
+  snow__speed:r=0.5
+  snow__alpha:r=0.5
+  snow__length:r=1.0
+  effect__bias_coef:r=0.5
+  snow__maxDensity:r=10.0
+  effect__offset:p3=-8.0, -2.0, 2.0
+}
+
+entity{
+  _template:t="water"
+  water__strength:r=1.8
+  water__level:r=-4.0
+  water__wind_dir:r=40.0
+  water__max_tessellation:i=2
+}
+
+entity{
+  _template:t="postfx_color_grading_tonemap"
+
+  "color_grading:object"{
+    colorContrast:p4=1.1, 1.0, 1.0, 1.0
+  }
+
+  "tonemap:object"{
+    tonemapMidOut:r=0.22
+    tonemapMidIn:r=0.15
+    tonemapShoulder:r=0.95
+    tonemapContrast:r=1.0
+    tonemapHdrMax:r=4.0
+  }
+
+  "tonemap_save:object"{
+    colorContrast:p4=1.1, 1.0, 1.0, 1.0
+  }
+}
+
+entity{
+  _template:t="postfx_roundctrl"
+
+  "post_fx:object"{
+    bloom__radius:r=1.0
+    adaptation__autoExposureScale:r=0.5
+    adaptation__minExposure:r=0.3
+    bloom__on:b=yes
+    bloom__threshold:r=0.4
+    adaptation__maxExposure:r=0.5
+    bloom__upSample:r=0.25
+  }
+}
+
+entity{
+  _template:t="base_effect"
+  transform:m=[[-0.534782, 0.52413, 1.15706] [1.25443, 0.0205062, 0.570492] [0.199743, 1.2745, -0.485019] [-39.4776, 8.9727, -49.7866]]
+  effect__name:t="ground_sparkles_menu"
+}
+
+entity{
+  _template:t="base_effect"
+  transform:m=[[0.124809, 0.473806, -1.28819] [-1.34721, 0.289726, -0.0239608] [0.262563, 1.26137, 0.489391] [18.5051, 20.8799, 48.7653]]
+  effect__name:t="ground_sparkles_menu"
+}
+
+entity{
+  _template:t="base_effect"
+  transform:m=[[-0.182215, 0.726293, 1.15706] [1.08038, -0.637811, 0.570492] [0.836103, 0.982435, -0.485019] [-39.9248, 9.11, -51.5332]]
+  effect__name:t="ground_sparkles_menu"
+}
+
+entity{
+  _template:t="shaderVars"
+
+  "shader_vars__vars:object"{
+    water_level:r=-10.0
+    layered_fog_density:r=0.0
+  }
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.763411, 0.279283, 0.582413] [0.260552, 0.691919, -0.673319] [-0.591031, 0.66577, 0.45545] [88.5016, 8.72801, 10.2703]]
+  light__brightness:r=241.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[1.81876, 0.165558, 1.1398] [0.0164483, 2.12646, -0.33512] [-1.15165, 0.291837, 1.79529] [-37.5122, 10.5835, -51.0318]]
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=1.2
+  light__brightness:r=4.4
+  light__color:c=255, 180, 180, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-0.424693, 2.92268, -0.548092] [1.49006, -0.271104, -2.58838] [-2.57363, -0.639259, -1.40816] [-37.1115, 9.68, -49.2245]]
+  light__brightness:r=10.0
+  light__color:c=245, 50, 10, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__inner_attenuation:r=0.5
+  spot_light__shadow_shrink:i=0
+  light__max_radius:r=4.0
+  spot_light__dynamic_light:b=no
+  spot_light__contact_shadows:b=yes
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.0
+  anim_track_on:b=no
+}
+
+entity{
+  _template:t="camtrack_executor"
+  camtracks__start_after_level_loaded:b=yes
+  camtracks__playing:b=no
+  camtracks__file:t="content/enlisted/gamedata/camera_tracks/customization_menu_tracks.blk"
+  camtracks__fade_in_time:r=0.6
+  camtracks__fade_out_time:r=0.6
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.350417, -0.170077, 1.41964] [-0.279052, 1.4254, 0.239648] [-1.4023, -0.326154, 0.307068] [-17.5043, 10.7022, -70.3905]]
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=4.0
+  light__brightness:r=2.7
+  light__color:c=255, 200, 200, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.195777, -0.291801, 1.39258] [-0.0414059, 1.40393, 0.300002] [-1.42223, -0.0810424, 0.182964] [-17.5497, 10.6464, -71.8156]]
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=5.0
+  light__brightness:r=3.5
+  light__color:c=255, 200, 200, 255
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.139502, -0.0249036, 1.15579] [-1.15597, 0.0179727, -0.139137] [-0.014864, -1.16405, -0.026878] [-8.74853, 6.98188, 94.7479]]
+  light__max_radius:r=7.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=6.0
+  spot_light__inner_attenuation:r=0.9
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.139502, -0.0249036, 1.15579] [-1.15597, 0.0179727, -0.139137] [-0.014864, -1.16405, -0.026878] [-5.17552, 6.93955, 94.6409]]
+  light__max_radius:r=7.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=186.0
+  spot_light__inner_attenuation:r=0.9
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.05208, -0.0572686, 1.71933] [-1.72021, 0.0413302, -2.05176] [0.0173461, -2.67686, -0.0684677] [82.8781, 14.7797, 16.059]]
+  light__max_radius:r=15.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=126.0
+  spot_light__inner_attenuation:r=0.6
+  spot_light__dynamic_light:b=yes
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-1.07963, 0.107762, 0.422755] [-0.322361, -0.957364, -0.579209] [0.29397, -0.654052, 0.917461] [-21.5938, 10.0277, -73.9151]]
+  light__brightness:r=3650.0
+  light__max_radius:r=7.0
+  spot_light__inner_attenuation:r=0.1
+  light__color:c=245, 80, 30, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="omni_light_huge"
+  transform:m=[[-5.03046, -3.07073, -25.917] [5.24936, 25.7354, -4.06813] [25.565, -5.8887, -4.26449] [-22.353, 14.2296, -68.6833]]
+  light__brightness:r=550.0
+  light__max_radius:r=7.5
+  light__max_radius:r=7.0
+  light__color:c=255, 255, 255, 255
+  light__affect_volumes:b=yes
+  omni_light__shadows:b=no
+  omni_light__dynamic_obj_shadows:b=no
+  light__dynamic_light:b=no
+  omni_light__shadow_shrink:i=2
+  light__contact_shadows:b=yes
+}
+
+entity{
+  _template:t="omni_light_huge"
+  transform:m=[[-3.38932, -3.95935, 155.499] [-35.318, 151.493, 3.0876] [-151.488, -35.2312, -4.19865] [32.0224, 21.9114, 48.7136]]
+  light__brightness:r=4200.0
+  light__max_radius:r=11.0
+  light__color:c=255, 255, 255, 255
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.606728, -0.339747, -1.33715] [0.619117, 1.37243, -0.0677906] [1.23292, -0.521996, 0.69207] [-38.7092, 10.46, -50.8549]]
+  light__brightness:r=3.5
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=3.0
+  light__color:c=255, 180, 180, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-0.251841, -0.0355171, -0.410428] [-0.0939495, 0.473319, 0.0166882] [0.401107, 0.0885643, -0.253785] [-5.34983, 3.1957, 99.7249]]
+  light__brightness:r=251.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  light__max_radius:r=11.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=2
+  spot_light__dynamic_light:b=no
+  light__color:c=255, 40, 10, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[1.23466, -0.488645, 4.01565] [-0.761729, 4.09529, 0.732547] [-3.9729, -0.937067, 1.10751] [-16.5411, 10.6554, -71.2893]]
+  spot_light__inner_attenuation:r=0.5
+  light__max_radius:r=4.0
+  light__brightness:r=5.5
+  light__color:c=255, 200, 200, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__dynamic_light:b=no
+  light__affect_volumes:b=no
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-0.909254, -0.0424377, -0.68543] [0.686744, -0.055889, -0.907536] [0.000177234, -1.1373, 0.0701708] [-38.0322, 11.5, -50.3846]]
+  light__brightness:r=10.0
+  light__max_radius:r=0.83
+  spot_light__inner_attenuation:r=0.2
+  light__color:c=55, 80, 180, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=yes
+  spot_light__dynamic_light:b=no
+  light__dynamic_light:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-0.728573, -0.436267, -1.08858] [-0.00587878, 1.2829, -0.51021] [1.17275, -0.264609, -0.678859] [-38.5223, 10.7084, -50.1319]]
+  light__brightness:r=11.0
+  light__max_radius:r=0.55
+  spot_light__inner_attenuation:r=0.2
+  light__color:c=255, 205, 205, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.315508, -0.0236832, 1.12064] [-1.00643, -0.518516, 0.272391] [0.493461, -1.04236, -0.160963] [-19.1111, 12.3309, -70.3819]]
+  light__brightness:r=30.0
+  light__color:c=105, 210, 250, 255
+  light__max_radius:r=3.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=yes
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[-0.86944, -0.105068, -0.767451] [-0.571258, -0.692196, 0.74194] [-0.523147, 0.930465, 0.465284] [-21.3474, 8.80262, -75.1682]]
+  light__brightness:r=1850.0
+  light__max_radius:r=15.0
+  spot_light__inner_attenuation:r=0.1
+  light__color:c=245, 80, 30, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.811737, 0.524222, -0.257439] [-0.58392, 0.720222, -0.374588] [-0.0109554, 0.454392, 0.890736] [0.931084, 1.59542, 89.7675]]
+  light__brightness:r=21.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  light__max_radius:r=6.0
+  spot_light__inner_attenuation:r=0.6
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.139502, -0.0249036, 1.15579] [-1.15597, 0.0179727, -0.139137] [-0.014864, -1.16405, -0.026878] [0.709428, 6.81734, 94.8715]]
+  light__max_radius:r=7.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=56.0
+  spot_light__inner_attenuation:r=0.9
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.103299, -0.0184408, 0.855846] [-0.855979, 0.0133085, -0.103029] [-0.0110066, -0.861962, -0.0199028] [0.583421, 6.82256, 98.1754]]
+  light__max_radius:r=7.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=46.0
+  spot_light__inner_attenuation:r=0.9
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.0794342, 0.140401, 0.643129] [-0.658224, -0.00861231, -0.0794188] [-0.00846375, -0.647963, 0.14041] [0.866489, 6.7798, 91.6555]]
+  light__max_radius:r=7.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=82.0
+  spot_light__inner_attenuation:r=0.9
+  light__affect_volumes:b=no
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-0.108457, -0.0912035, 1.15579] [-1.01068, -0.561353, -0.139137] [0.568077, -1.01613, -0.0268755] [-3.4605, 6.00213, 94.7438]]
+  light__brightness:r=186.0
+  spot_light__shadow_shrink:i=3
+  spot_light__inner_attenuation:r=0.1
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__contact_shadows:b=yes
+  light__affect_volumes:b=no
+  light__max_radius:r=7.0
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.580962, -0.347694, -0.916484] [0.2903, 1.07861, -0.225179] [0.936265, -0.118684, 0.638521] [-38.7843, 9.10476, -50.6035]]
+  light__brightness:r=1.0
+  light__max_radius:r=2.0
+  spot_light__inner_attenuation:r=0.2
+  light__color:c=255, 205, 205, 255
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.807725, 0.280308, -0.51866] [-0.334318, 0.942391, -0.0113321] [0.485603, 0.182552, 0.854907] [77.9507, 9.45374, 8.40842]]
+  light__brightness:r=141.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.06388, -0.113413, 3.40491] [-3.40665, 0.081849, -4.06323] [0.0343516, -5.30117, -0.135591] [77.6301, 15.0527, 13.6859]]
+  light__brightness:r=86.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.41366, -0.123174, 3.69797] [-3.69986, 0.0888937, -4.41295] [0.0373082, -5.75744, -0.147261] [87.6483, 15.0527, 19.3515]]
+  light__brightness:r=86.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.70435, 0.762639, 2.2531] [-2.31297, -0.046781, -2.76038] [-0.555242, -3.51966, 0.524894] [85.1158, 13.928, 12.2974]]
+  light__brightness:r=46.0
+  light__max_radius:r=10.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+}
+
+entity{
+  _template:t="vehicle_decals_manager"
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.350195, 1.00667, 0.40293] [0.0101974, 0.420347, -1.05904] [-1.08427, 0.329089, 0.120179] [-19.2062, 10.621, -71.7096]]
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadows:b=yes
+  spot_light__inner_attenuation:r=0.1
+  light__max_radius:r=7.0
+  light__brightness:r=7.5
+  light__color:c=255, 200, 200, 255
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.84637, 0.279283, 0.453496] [0.150075, 0.691919, -0.706203] [-0.511014, 0.665769, 0.543707] [-105.305, -3.90586, 95.4116]]
+  light__brightness:r=201.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="spot_light"
+  transform:m=[[0.621294, 0.280308, -0.731725] [-0.323083, 0.942391, 0.0866858] [0.713871, 0.182551, 0.676066] [-116.518, -3.18013, 95.5653]]
+  light__brightness:r=141.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=no
+  light__max_radius:r=9.0
+  spot_light__inner_attenuation:r=0.1
+  spot_light__shadow_shrink:i=0
+  spot_light__dynamic_light:b=no
+  light__color:c=245, 80, 30, 255
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.70435, 0.762639, 2.2531] [-2.31297, -0.046781, -2.76038] [-0.555242, -3.51966, 0.524894] [-106.959, 1.29413, 98.372]]
+  light__brightness:r=46.0
+  light__max_radius:r=10.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-2.05208, -0.0572686, 1.71933] [-1.72021, 0.0413302, -2.05176] [0.0173461, -2.67686, -0.0684677] [-109.197, 2.14583, 102.134]]
+  light__max_radius:r=15.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=56.0
+  spot_light__inner_attenuation:r=0.6
+  spot_light__dynamic_light:b=yes
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.41366, -0.123174, 3.69797] [-3.69986, 0.0888937, -4.41295] [0.0373082, -5.75744, -0.147261] [-114.388, 2.41883, 92.975]]
+  light__brightness:r=76.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_ceiling"
+  transform:m=[[-4.06388, -0.113413, 3.40491] [-3.40665, 0.081849, -4.06323] [0.0343516, -5.30117, -0.135591] [-114.445, 2.41883, 99.7605]]
+  light__brightness:r=76.0
+  light__max_radius:r=11.0
+  spot_light__shadows:b=yes
+  spot_light__dynamic_obj_shadows:b=yes
+  spot_light__shadow_shrink:i=1
+  light__color:c=255, 230, 200, 255
+  spot_light__inner_attenuation:r=0.6
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-1.9109e-07, 1.0, -5.90324e-08] [0.955448, 2e-07, 0.295162] [0.295162, 0.0, -0.955448] [70.2852, 14.9575, 19.0419]]
+  light__max_radius:r=7.0
+  light__brightness:r=91.0
+  light__affect_volumes:b=no
+  light__contact_shadows:b=yes
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [-3.16912, 2.04347, 97.6022]]
+  light__contact_shadows:b=no
+  light__brightness:r=5.0
+  light__max_radius:r=6.0
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-1.9109e-07, 1.0, -5.90324e-08] [0.955448, 2e-07, 0.295162] [0.295162, 0.0, -0.955448] [83.9183, 8.8616, 15.5976]]
+  light__contact_shadows:b=no
+  light__max_radius:r=5.0
+  light__brightness:r=4.0
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-9.33786e-08, 1.0, -1.76863e-07] [0.466893, 2e-07, 0.884314] [0.884314, 0.0, -0.466893] [78.4774, 8.92736, 9.43547]]
+  light__contact_shadows:b=no
+  light__max_radius:r=4.0
+  light__brightness:r=4.0
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[6.73114e-08, 1.0, -1.88333e-07] [-0.336557, 2e-07, 0.941664] [0.941664, 0.0, 0.336557] [88.9927, 8.86491, 10.0995]]
+  light__contact_shadows:b=no
+  light__max_radius:r=4.0
+  light__brightness:r=5.0
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [0.924707, 3.35105, 88.0824]]
+  light__contact_shadows:b=no
+  light__brightness:r=4.0
+  light__max_radius:r=8.0
+  light__color:c=255, 255, 255, 255
+  light__affect_volumes:b=yes
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [0.708054, 3.43744, 101.12]]
+  light__contact_shadows:b=no
+  light__brightness:r=4.0
+  light__max_radius:r=9.0
+  light__color:c=255, 255, 255, 255
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [8.63115, 4.65005, 97.3566]]
+  light__contact_shadows:b=no
+  light__brightness:r=1.7
+  light__max_radius:r=5.0
+  light__use_box:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[0.999048, -1.74846e-07, 0.0436193] [1.7468e-07, 1.0, 7.62665e-09] [-0.0436193, 0.0, 0.999048] [-9.73121, 5.14657, 93.4531]]
+  light__max_radius:r=5.0
+  light__brightness:r=1.75
+  light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[0.999048, -1.74846e-07, 0.0436193] [1.7468e-07, 1.0, 7.62665e-09] [-0.0436193, 0.0, 0.999048] [-9.84475, 5.14657, 95.9753]]
+  light__max_radius:r=5.0
+  light__brightness:r=1.75
+  light__use_box:b=yes
+  light__contact_shadows:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [8.42373, 4.76148, 94.4507]]
+  light__contact_shadows:b=no
+  light__brightness:r=4.0
+  light__max_radius:r=7.0
+  light__color:c=255, 255, 255, 255
+  light__use_box:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [-4.98909, 3.58131, 94.2983]]
+  light__contact_shadows:b=no
+  light__brightness:r=2.0
+  light__max_radius:r=8.0
+  light__color:c=255, 255, 255, 255
+  light__use_box:b=no
+  light__affect_volumes:b=no
+}
+
+entity{
+  _template:t="light_bunker_wall+game_object"
+  transform:m=[[-2e-07, 1.0, 4.76838e-14] [1.0, 2e-07, -2.38419e-07] [-2.38419e-07, 0.0, -1.0] [-19.3015, 11.7219, -69.1831]]
+  light__contact_shadows:b=no
+  light__brightness:r=40.0
+  light__max_radius:r=2.0
+  light__use_box:b=no
+}

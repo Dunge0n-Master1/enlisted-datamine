@@ -162,7 +162,7 @@ def bomb_site_check_operator(info : UpdateStageInfoAct;
   let bombPos = transform[3]
   var isOperatorValid = false
   query(bomb_site__operator) <| $ [es] (isAlive : bool; isDowned : bool; transform : float3x4; human_use_object__nodeId : int; animchar : AnimcharBaseComponent)
-    let isHeightValid = geomtree_getNodeWpos(animchar.nodeTree, human_use_object__nodeId).y > bombPos.y
+    let isHeightValid = geomtree_getNodeWpos(*animchar.nodeTree, human_use_object__nodeId).y > bombPos.y
     isOperatorValid = isAlive && !isDowned && length_sq(transform[3] - bombPos) < square(bomb_site__maxDist) && isHeightValid
   if !isOperatorValid
     bomb_site__operator = INVALID_ENTITY_ID

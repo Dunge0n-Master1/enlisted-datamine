@@ -3,6 +3,10 @@ import{
 }
 
 entity{
+  _template:t="battle_music"
+}
+
+entity{
   _template:t="tropics_ambient_sound"
 }
 
@@ -236,4 +240,9 @@ entity{
     pt:p3=-230.0, 137.0, 20.0
     pt:p3=0.0, 0.0, 0.0
   }
+}
+
+entity{
+  _template:t="sound_effect_generator"
+  ri_extra_gen__blk:t="content/e_pacific/gamedata/pacific_sounds_ri_extra_gen.blk"
 }

@@ -15,7 +15,7 @@ let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let showMsg = @(text) playerEvents.pushEvent({ text = text, ttl = 5 })
 
 let function selectBuildingType(index) {
-  let weapEid = ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "human_weap__currentGunEid", INVALID_ENTITY_ID)
+  let weapEid = ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "human_weap__currentGunEid", ecs.INVALID_ENTITY_ID)
   ecs.client_send_event(weapEid, ecs.event.CmdSelectBuildingType({index=index}))
 }
 
@@ -52,7 +52,7 @@ let updateBuildingsPie = function (templates) {
         buildingCostText=buildingCostText.value}))
       available = Computed(@() (allowRecreate.value || buildCount.value > 0) && !noRequirementResources.value)
       closeOnClick = true
-      ctor = mkPieItemCtor(index, image)
+      ctor = mkPieItemCtor(index, image, elemSize.value)
     }
   }).filter(@(v) v != null))
   if (templates.len() == 0)

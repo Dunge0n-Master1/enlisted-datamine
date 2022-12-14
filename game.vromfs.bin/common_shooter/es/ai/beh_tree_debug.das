@@ -14,12 +14,11 @@ require math
 require math.base
 require EnlistedHuman
 require HumanPhys
-require daslib/strings_boost
 require game.es.server_debug_common
 require ecs.ecs_template
 
 
-[ecs_template]
+[ecs_template(tag=dev)]
 struct global_debug_beh_tree
   global_beh_tree__debug : bool
   global_beh_tree__showDebugLog : bool
@@ -55,15 +54,23 @@ def server_debug_behaviour_tree(activate : bool = true)
   toggle_bots_template("squad_member_server_debug_ai", activate)
 
 
-[es(tag=server, tag=dev, REQUIRE=beh_tree__server_debug, no_order)]
+[es(tag=(server, dev), REQUIRE=beh_tree__server_debug, no_order)]
 def sync_server_beh_tree_state(evt : UpdateStageInfoAct; beh_tree : BehaviourTree; var beh_tree__debugState : das_string)
   beh_tree__debugState := beh_tree_current_name(beh_tree, true)
 
 
-[es(tag=gameClient, tag=dev, REQUIRE=beh_tree__server_debug, no_order)]
+[es(tag=(render, dev), REQUIRE=beh_tree__server_debug, REQUIRE_NOT=deadEntity, no_order)]
 def draw_server_beh_tree_state(evt : UpdateStageInfoRenderDebug; transform : float3x4; beh_tree__debugState : string)
   let pos = transform[3]
   add_debug_text_mark(pos, "ai: {beh_tree__debugState}", -1, 0f, E3DCOLOR(0xFFFFFFFF))
+
+
+[es(tag=(render, dev), REQUIRE_NOT=deadEntity, after=beh_tree_update_es)]
+def beh_tree_debug_es(evt : UpdateStageInfoRenderDebug; beh_tree__debug : bool; transform : float3x4; beh_tree : BehaviourTree)
+  if beh_tree__debug
+    beh_tree |> beh_tree_drawDebug()
+    let pos = transform[3]
+    add_debug_text_mark(pos, beh_tree |> beh_tree_current_name(true), -1, 0f, E3DCOLOR(0x00000000))
 
 
 [console_cmd(name="ai.beh_tree_enabled")]
@@ -267,7 +274,7 @@ def debug_draw_attractive_places(act : UpdateStageInfoRenderDebug; attract_point
     return
   let radius = 50f
   let curTime = get_sync_time()
-  query() <| $ [es] (transform : float3x4; game_effect__destroyAt : float?; attract_point__magnitude : float)
+  query() <| $ [es] (transform : float3x4; game_effect__destroyAt : float const?; attract_point__magnitude : float)
     let pos = transform[3]
     if game_effect__destroyAt != null
       let color = E3DCOLOR(uint4(40, 40, 40, 160))
@@ -283,3 +290,13 @@ def reload_beh_tree(id : uint = 0u)
     return
   query() <| $ [es(REQUIRE=beh_tree)] (eid : EntityId)
     EnlistedBehTree::load_beh_tree_from_ecs(eid)
+
+
+//Can be executed multiple times without issues
+[es(on_appear, REQUIRE=behTreeDebugWrapped, after=load_beh_tree_es)]
+def insert_wrapper_nodes_es(evt : Event; var beh_tree : BehaviourTree)
+  beh_tree |> beh_tree_transformNodes() <| $(node)
+    let wrap = node.getType != BN_DEBUG_WRAPPER && !(node.parent != null && node.parent.getType == BN_DEBUG_WRAPPER)
+    if wrap
+      return newDebugWrapperNode(node, beh_tree)
+    return node

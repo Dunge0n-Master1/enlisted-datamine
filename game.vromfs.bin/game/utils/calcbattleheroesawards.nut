@@ -25,8 +25,8 @@ let statAwardConfig = {
     soldierStat = @(soldier) (soldier.stats?["meleeKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_GRENADE_KILLS] = {
-    playerStat = @(player) (player.stats?["scoring_player__grenadeKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["grenadeKills"] ?? 0)
+    playerStat = @(player) (player.stats?["scoring_player__explosiveKills"] ?? 0)
+    soldierStat = @(soldier) (soldier.stats?["explosiveKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = {
     playerStat = @(player) (player.stats?["scoring_player__longRangeKills"] ?? 0)
@@ -167,8 +167,8 @@ let function getUniversalAwards(players, awards) {
   let bigAwards = awards.filter(@(a) isBigAward(a.award))
   let bigAwardCountByTeam = groupBy(bigAwards, "team").map(@(teamBigAwards) groupBy(teamBigAwards,"playerEid").len())
   return groupBy(players, "team").map(function(teamPlayers, team) {
+    teamPlayers.sort(@(a,b) a.scoreIndex <=> b.scoreIndex)
     local universalPlayer = teamPlayers
-      .sort(@(a,b) a.scoreIndex <=> b.scoreIndex)
       .slice(1, 3) // 2nd and 3rd place
       .filter(@(player, index) index <= (player.isWinnerTeam ? 1 : 0)) // 2nd place only in defeated team
       .filter(@(player) player.eid not in awardedPlayers)

@@ -25,6 +25,13 @@ c_202_ec{
         turret:t="turret_03"
         turret:t="turret_04"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -269,4 +276,24 @@ c_202_ec_driver_cockpit{
   animchar__res:t="c_202_ec_cockpit_char"
   plane_anim__blk:t="gamedata/units/c_202_ec.blk"
   plane_sight__blk:t="gamedata/units/c_202_ec.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0205, 0.002, -0.0065
+    item:p3=0.0065, 0.0125, -0.001
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=1.0, 0.0
+    item:p2=-27.3, 21.9
+  }
 }

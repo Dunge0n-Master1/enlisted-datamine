@@ -32,7 +32,7 @@ let {
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let {
-  weeklyTasks, needWeeklyTasksAnim
+  weeklyTasks, needWeeklyTasksAnim, saveFinishedWeeklyTasks
 } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { isReplayTabHidden } = require("%enlist/replay/replaySettings.nut")
@@ -159,6 +159,7 @@ let profileWindow = @() {
   padding = safeAreaBorders.value
   halign = ALIGN_CENTER
   color = blurBgColor
+  onAttach = saveFinishedWeeklyTasks
   children = {
     size = [PROFILE_WIDTH, flex()]
     flow = FLOW_VERTICAL

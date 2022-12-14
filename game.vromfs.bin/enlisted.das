@@ -14,9 +14,10 @@ require environment_sounds.environment_sounds_init
 require door_sounds.door_sounds_init
 require vehicle_sounds.vehicle_sounds_init
 require vehicle_sounds_net.vehicle_sounds_net_init
+require ship_sounds.ship_sounds_init
+require plane_sounds.plane_sounds_init
 require weapon_sounds.weapon_sounds_init
-require common_human_sounds.common_human_sounds_init
-require shooter_human_sounds.shooter_human_sounds_init
+require human_sounds.human_sounds_init
 require danetlibs.wounds.wounds_init
 require danetlibs.render_debug.render_debug_init
 require danetlibs.imgui_daeditor.imgui_daeditor_init
@@ -28,7 +29,7 @@ require danetlibs.hero_cockpit.hero_cockpit_init
 require danetlibs.verify_ecs.verify_ecs_init
 require danetlibs.blood_decals.blood_decals_init
 require danetlibs.frame_graph_renderer.frame_graph_renderer_init
-
+require danetlibs.assets_import.assets_import_init
 
 def private sound_override_voices_locale() : bool
   var locale = ""
@@ -45,9 +46,10 @@ def private load_sound() : bool
   ok = load_door_sounds("%danetlibs/sound/door_sounds") && ok
   ok = load_vehicle_sounds("%danetlibs/sound/vehicle_sounds") && ok
   ok = load_vehicle_sounds_net("%danetlibs/sound/vehicle_sounds_net") && ok
+  ok = load_ship_sounds("%danetlibs/sound/ship_sounds") && ok
+  ok = load_plane_sounds("%danetlibs/sound/plane_sounds") && ok
   ok = load_weapon_sounds("%danetlibs/sound/weapon_sounds") && ok
-  ok = load_common_human_sounds("%danetlibs/sound/common_human_sounds") && ok
-  ok = load_shooter_human_sounds("%danetlibs/sound/shooter_human_sounds") && ok
+  ok = load_human_sounds("%danetlibs/sound/human_sounds") && ok
 
   if ecs_has_tag("sound") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/sound") && ok
@@ -121,7 +123,7 @@ def private load_dev() : bool
 def private load_imgui() : bool
   var ok = true
   if typeinfo(builtin_module_exists DagorImgui) || app::get_game_name() == "aot"
-    ok = load_optional_folder("%scripts/game/es/imgui") && ok
+    ok = load_folder("%scripts/game/es/imgui") && ok
 
   return ok
 
@@ -138,7 +140,7 @@ def private load_sandbox() : bool
   if get_app_offline_mode() || app::get_game_name() == "aot"
     ok = load_folder("%scripts/sandbox/es") && ok
 
-    if ecs_has_tag("dev") || app::get_game_name() == "aot"
+    if ecs_has_tag("dev") && app::get_game_name() != "aot"
       return ok
 
     ok = load_das_with_debugcode("%scripts/sandbox/es/editor_console.das") && ok
@@ -165,7 +167,7 @@ def private load_sandbox() : bool
 def private load_modern_conflict() : bool
   var ok = true
   if app::get_game_name() == "modern_conflict" || app::get_game_name() == "aot"
-    ok = load_optional_folder("%modern_conflict") && ok
+    ok = load_folder("%modern_conflict") && ok
   return ok
 
 
@@ -215,6 +217,7 @@ def load
   ok = load_verify_ecs("%danetlibs/verify_ecs") && ok
   ok = load_blood_decals("%danetlibs/blood_decals") && ok
   ok = load_frame_graph_renderer("%danetlibs/frame_graph_renderer") && ok
+  ok = load_assets_import("%danetlibs/assets_import") && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

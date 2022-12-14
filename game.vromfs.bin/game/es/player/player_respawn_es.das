@@ -18,8 +18,14 @@ require replay
 
 let DEFAULT_NO_PLAYERS_TIMEOUT : float = 60.f
 
+def have_connected_players() : bool
+  return find_query() <| $ [es(REQUIRE=player)] (connid : int)
+    return connid != INVALID_CONNECTION_ID
+
 [es(on_event=PlayerStartQuitGameTimer)]
 def player_start_quit_game_timer(evt : Event; var server_no_players_timer__handle : uint64&)
+  if have_connected_players()
+    return
   let exitTimeout : float = settings_get_timer("noPlayersExitTimeoutSec", DEFAULT_NO_PLAYERS_TIMEOUT)
   if exitTimeout >= 0.f
     print("player_start_quit_game_timer {exitTimeout}")
@@ -31,10 +37,6 @@ def player_start_quit_game_timer(evt : Event; var server_no_players_timer__handl
 [es(on_event=PlayerResetQuitGameTimer)]
 def player_reset_quit_game_timer(evt : Event; var server_no_players_timer__handle : uint64&)
   game_timer_clear(server_no_players_timer__handle)
-
-def have_connected_players() : bool
-  return find_query() <| $ [es(REQUIRE=player)] (connid : int)
-    return connid != INVALID_CONNECTION_ID
 
 [es(on_event=EventLevelLoaded)]
 def player_on_level_loaded(evt : Event)
@@ -81,7 +83,7 @@ def event_on_client_disconnected(evt : EventOnClientDisconnected; eid : EntityId
   // No players left?
   if !have_connected_players()
     print("no players left")
-    broadcastEventImmediate([[PlayerStartQuitGameTimer]])
+    broadcastEvent([[PlayerStartQuitGameTimer]])
 
 [es(on_disappear, tag=server, REQUIRE=player)]
 def destroy_possessed_entity(evt : Event; eid : EntityId; possessed : EntityId; team : int)
@@ -118,7 +120,7 @@ def player_destroyed(evt : Event; eid : EntityId; connid : int; var killEntityTi
 
 def get_replication(eid : EntityId) : NetObject?
   var result : NetObject? = null
-  query(eid) <| $ [es] (replication : NetObject?)
+  query(eid) <| $ [es(trust_access)] (var replication : NetObject?)
     result = replication
   return result
 
@@ -179,7 +181,5 @@ def player_possess(evt : PossessTargetByPlayer; eid : EntityId; connid : int; is
     logwarn("player_possess no connection for player {int(uint(eid))}"); // could be if player disconnected for example
 
 [es(tag=server, REQUIRE=player)]
-def possess_entity(evt : CmdPossessEntity; eid : EntityId; scoring_player__battlesPlayed : int = 0)
+def possess_entity(evt : CmdPossessEntity; eid : EntityId)
   sendEvent(eid, [[PossessTargetByPlayer target=evt.possessedEid]])
-  let transform : float3x4 = get_TMatrix(evt.possessedEid, "transform") ?? IDENT_TM
-  broadcastEvent([[EventOnPlayerSpawned player_eid=eid, pos_spawn=transform[3], no_battles_played = scoring_player__battlesPlayed]])

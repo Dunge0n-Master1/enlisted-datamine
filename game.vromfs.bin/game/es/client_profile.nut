@@ -2,7 +2,6 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 
 let {TEAM_UNASSIGNED} = require("team")
-let {ceil} = require("math")
 let {logerr} = require("dagor.debug")
 let { loadJson } = require("%sqstd/json.nut")
 let {find_human_player_by_connid, find_local_player, get_team_eid} = require("%dngscripts/common_queries.nut")
@@ -14,7 +13,7 @@ let {INVALID_USER_ID} = require("matching.errors")
 let {profilePublicKey} = require("%enlSqGlob/data/profile_pubkey.nut")
 let {get_circuit, app_is_offline_mode} = require("app")
 let {get_setting_by_blk_path} = require("settings")
-let {get_can_use_respawnbase_type} = require("%enlSqGlob/spawn_base.nut")
+let {get_can_use_respawnbase_type} = require("das.respawn")
 let decode_jwt = require("jwt").decode
 let profiles = require("%enlSqGlob/data/all_tutorial_profiles.nut")
 let { applyModsToArmies, applyPerks } = require("%scripts/game/utils/profile_init.nut")
@@ -59,63 +58,6 @@ let function validateArmies(armies, playerArmy) {
   return true
 }
 
-let getRespawnsToFullRestore = @(respawnsToFullRestoreByCount, count)
-  respawnsToFullRestoreByCount?[count.tostring()] ?? respawnsToFullRestoreByCount?["default"] ?? 1
-
-let getRevivePointsAfterDeath = @(respawnsToFullRestore) respawnsToFullRestore == 0 ? 100 : 0
-
-let function getRevivePointsHeal(respawnsToFullRestore) {
-  let respawnsF = respawnsToFullRestore.tofloat()
-  return respawnsF > 0 ? ceil(100.0 / respawnsF).tointeger() : 100
-}
-
-let function initSoldierReviveData(army, comp) {
-  let squadsCount = army?.squads.len() ?? 0
-  let respawnsToFullRestoreByCount = comp["soldier_revive_points__respawnsToRestoreByCount"]
-
-  let revivePoints = array(squadsCount)
-  let healPerSquadmate = array(squadsCount)
-  let afterDeath = array(squadsCount)
-
-  for (local i = 0; i < squadsCount; ++i) {
-    let squad = army?.squads?[i]
-    let vehicleSquad = squad?.curVehicle != null
-    let soldiersInSquad = squad?.squad?.len() ?? 0
-    revivePoints[i] = array(soldiersInSquad, 100)
-    let respawnsToRestoreSoldier = getRespawnsToFullRestore(respawnsToFullRestoreByCount, soldiersInSquad)
-    healPerSquadmate[i] = getRevivePointsHeal(respawnsToRestoreSoldier)
-    afterDeath[i] = vehicleSquad ? 100 : getRevivePointsAfterDeath(respawnsToRestoreSoldier)
-  }
-
-  comp["soldier_revive_points__points"] = revivePoints
-  comp["soldier_revive_points__healPerSquadmate"] = healPerSquadmate
-  comp["soldier_revive_points__afterDeath"] = afterDeath
-}
-
-let function onRevivePointsInit(eid, comp) {
-  let army = comp.armies?[comp.army] ?? {}
-  initSoldierReviveData(army, comp)
-  ecs.g_entity_mgr.sendEvent(eid, EventPlayerProfileChanged())
-}
-
-let soldierReviveComps = {
-  comps_rw = [
-    ["soldier_revive_points__points", ecs.TYPE_ARRAY],
-    ["soldier_revive_points__healPerSquadmate", ecs.TYPE_ARRAY],
-    ["soldier_revive_points__afterDeath", ecs.TYPE_ARRAY],
-  ]
-  comps_ro =[
-    ["armies", ecs.TYPE_OBJECT],
-    ["army", ecs.TYPE_STRING],
-    ["soldier_revive_points__respawnsToRestoreByCount", ecs.TYPE_OBJECT]
-  ]
-}
-
-let soldierRespawnPointsQuery = ecs.SqQuery("soldierRespawnPointsQuery", soldierReviveComps)
-
-let initSoldierRevivePints = @(eid, army)
-  soldierRespawnPointsQuery.perform(eid, @(_, comp) initSoldierReviveData(army, comp))
-
 let function unpackArmiesFromJwt(_userid, jwt) {
   if (typeof jwt != "array")
     return null
@@ -131,22 +73,6 @@ let function unpackArmiesFromJwt(_userid, jwt) {
   return null
 }
 
-let firstPlayerConnectionTimeQuery = ecs.SqQuery("firstPlayerConnectionTimeQuery", {
-  comps_ro = [["firstPlayerConnectionTime", ecs.TYPE_FLOAT]]
-})
-
-let function calcFirstSpawnDelay(squad, delayByType) {
-  let vehicleTemplate = squad?.curVehicle.gametemplate
-  if (vehicleTemplate == null)
-    return 0.0
-
-  let templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(vehicleTemplate)
-  let canUseRespawnbaseType = templ?.getCompValNullable("canUseRespawnbaseType")
-  return delayByType?[canUseRespawnbaseType].tofloat() ?? 0.0
-}
-
-let disableVehicleSpawnDelayQuery = ecs.SqQuery("disableVehicleSpawnDelayQuery",  {comps_rq = ["disableVehicleSpawnDelay"]})
-
 let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   let net = has_network()
   let senderEid = net ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID) : find_local_player()
@@ -158,7 +84,7 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
   }
 
   let armies = getArmiesCb()
-  let teamEid = comp.team != TEAM_UNASSIGNED ? get_team_eid(comp.team) : INVALID_ENTITY_ID
+  let teamEid = comp.team != TEAM_UNASSIGNED ? get_team_eid(comp.team) : ecs.INVALID_ENTITY_ID
   let teamArmies = ecs.obsolete_dbg_get_comp_val(teamEid, "team__armies")?.getAll() ?? []
   let playerArmy = teamArmies.findvalue(@(a) a in armies)
   debug($"Received profile: team = {comp.team}; army = {playerArmy}; player = {eid};")
@@ -190,15 +116,10 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
 
   let army = comp.armies[playerArmy]
   let squadsCount = army.squads.len()
+  comp.squads__count = squadsCount
+
   if (army?.isFakeSquads ?? false)
     debug($"Received fake armies for player {eid}. Experience will not be counted.")
-
-  initSoldierRevivePints(eid, army)
-
-  local nonVehicleSquadsCount = squadsCount
-  for (local i = 0; i < squadsCount; ++i)
-    if (army?.squads?[i]?.curVehicle != null)
-      nonVehicleSquadsCount -= 1
 
   comp["squads__respawnTypeList"] = array(squadsCount, "")
   for (local i = 0; i < squadsCount; ++i) {
@@ -206,22 +127,6 @@ let function updateProfileImpl(evt, eid, comp, getArmiesCb) {
     let respType = get_can_use_respawnbase_type(gametemplate)?.canUseRespawnbaseType ?? "human"
     comp["squads__respawnTypeList"][i] = respType
   }
-
-  comp["squads__revivePointsList"] = array(squadsCount, 100)
-  let revivePointsPerSquad = getRevivePointsHeal(getRespawnsToFullRestore(comp["squads__respawnsToFullRestoreSquadBySquadsCount"], nonVehicleSquadsCount))
-  comp["squads__revivePointsPerSquad"] = revivePointsPerSquad
-
-  debug($"Total squads count is {squadsCount}. Set {revivePointsPerSquad} revive points per squad for player {eid}.")
-
-  let disableVehicleSpawnDelay = (disableVehicleSpawnDelayQuery(@(eid, _) eid) ?? INVALID_ENTITY_ID) != INVALID_ENTITY_ID
-  local firstConnecitonTime = firstPlayerConnectionTimeQuery(@(_, comp) comp.firstPlayerConnectionTime) ?? -1
-  firstConnecitonTime = firstConnecitonTime < 0.0 ? curTime : firstConnecitonTime
-
-  comp["vehicleRespawnsBySquad"] = array(squadsCount).map(@(_, i) {
-    lastSpawnOnVehicleAtTime = 0.0
-    nextSpawnOnVehicleInTime = 0.0
-    firstSpawnAtTime         = firstConnecitonTime + (disableVehicleSpawnDelay ? 0 : calcFirstSpawnDelay(army.squads[i], comp["squads__firstSpawnDelayByType"]))
-  })
 
   let delayedSpawnSquad = comp.delayedSpawnSquad.getAll()
   comp.delayedSpawnSquad = []
@@ -257,13 +162,11 @@ let playerComps = {
     ["armiesReceivedTeam", ecs.TYPE_INT],
     ["delayedSpawnSquad", ecs.TYPE_ARRAY],
     ["armies", ecs.TYPE_OBJECT],
+    ["squads__count", ecs.TYPE_INT],
     ["isArmiesReceived", ecs.TYPE_BOOL],
     ["army", ecs.TYPE_STRING],
     ["squads__respawnTypeList", ecs.TYPE_ARRAY],
-    ["squads__revivePointsList", ecs.TYPE_ARRAY],
-    ["squads__revivePointsPerSquad", ecs.TYPE_INT],
     ["squads__firstSpawnDelayByType", ecs.TYPE_OBJECT],
-    ["vehicleRespawnsBySquad", ecs.TYPE_ARRAY],
     ["wallPosters__maxCount", ecs.TYPE_INT],
     ["wallPosters", ecs.TYPE_ARRAY],
     ["allAvailablePerks", ecs.TYPE_OBJECT],
@@ -296,7 +199,7 @@ let is_tutorialQuery = ecs.SqQuery("is_tutorialQuery",  {comps_rq = ["isTutorial
 let getTutorialProfileQuery = ecs.SqQuery("getTutorialProfileQuery", {comps_ro=[["tutorial__profile", ecs.TYPE_STRING]]})
 ecs.register_es("client_profile_tutorial_es", {
   [ecs.sqEvents.CmdTutorialSquadsData] = function(evt, eid, comp) {
-    let isTutorial = (is_tutorialQuery.perform(@(eid, _comp) eid) ?? INVALID_ENTITY_ID) != INVALID_ENTITY_ID
+    let isTutorial = (is_tutorialQuery.perform(@(eid, _comp) eid) ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID
     if (isTutorial) {
       let id = getTutorialProfileQuery.perform(@(_, comp) comp["tutorial__profile"]) ?? "def"
       updateProfileImpl(evt, eid, comp, @() profiles?[id] ?? {})
@@ -314,11 +217,6 @@ ecs.register_es("client_profile_jwt_es", {
     updateProfileImpl(evt, eid, comp, porfileCb)
   },
 }, playerComps, {tags = "server"})
-
-ecs.register_es("soldier_revive_points_init_es", {
-  [[ecs.EventEntityCreated, ecs.EventComponentsAppear]] = onRevivePointsInit
-}, soldierReviveComps, {tags = "server"})
-
 
 let function stopTimerInt(eid, reason, do_logerr=false) {
   debug($"Stop wait profile timer: {reason}")

@@ -23,8 +23,8 @@ def on_zone_activate_multiple(zone_eid : EntityId; team_id : int)
 def on_zone_captured(zone_eid : EntityId; team_id : int)
   query(zone_eid) <| $ [es] (groupName : string;
                              capzone__activateAfterCap : das_string;
-                             capzone__activateAfterTeam1Cap : das_string?;
-                             capzone__activateAfterTeam2Cap : das_string?;
+                             capzone__activateAfterTeam1Cap : das_string const?;
+                             capzone__activateAfterTeam2Cap : das_string const?;
                              capzone__checkAllZonesInGroup : bool = false;
                              capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
     if (capzone__checkAllZonesInGroup
@@ -41,10 +41,10 @@ def on_zone_captured(zone_eid : EntityId; team_id : int)
 
 def on_zone_captured_delayed(zone_eid : EntityId; team_id : int)
   query(zone_eid) <| $ [es] (groupName aka current_groupName : string;
-                             capzone__activateChoice : Object?;
+                             capzone__activateChoice : Object const?;
                              capzone__activateAfterCap : das_string;
-                             capzone__activateAfterTeam1Cap : das_string?;
-                             capzone__activateAfterTeam2Cap : das_string?;
+                             capzone__activateAfterTeam1Cap : das_string const?;
+                             capzone__activateAfterTeam2Cap : das_string const?;
                              capzone__checkAllZonesInGroup : bool = false;
                              capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED)
     if (capzone__checkAllZonesInGroup

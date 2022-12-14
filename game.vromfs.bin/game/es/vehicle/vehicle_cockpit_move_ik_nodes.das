@@ -30,7 +30,7 @@ def init_move_cockpit_nodes_id(evt : Event;
     return
 
   for nodeName, nodeId in move_cockpit_node__nodeName, move_cockpit_node__nodeId
-    nodeId = animchar.nodeTree |> geomtree_findNodeIndex("{nodeName}")
+    nodeId = *animchar.nodeTree |> geomtree_findNodeIndex("{nodeName}")
 
 [soa_es, es(tag=render, before=human_vehicle_cockpit_effectors, after=(human_anim_es, plane_anim_es), REQUIRE=cockpit__effectors)]
 def move_cockpit_ik_nodes(info : UpdateStageInfoAct;
@@ -39,7 +39,7 @@ def move_cockpit_ik_nodes(info : UpdateStageInfoAct;
   for node in move_cockpit_ik_node
     var tm : float3x4
     if node.move_cockpit_node__nodeId > 0
-      animchar.nodeTree |> geomtree_getNodeWtmScalar(node.move_cockpit_node__nodeId, tm)
+      *animchar.nodeTree |> geomtree_getNodeWtmScalar(node.move_cockpit_node__nodeId, tm)
       tm[3] += tm[0] * node.move_cockpit_node__offset.x + tm[1] * node.move_cockpit_node__offset.y + tm[2] * node.move_cockpit_node__offset.z
 
       var rotTm : float3x4
@@ -47,4 +47,4 @@ def move_cockpit_ik_nodes(info : UpdateStageInfoAct;
       tm = tm * rotTm
       rotzTM(deg_to_rad(node.move_cockpit_node__rotation.y), rotTm)
       tm = tm * rotTm
-      animchar.nodeTree |> geomtree_setNodeWtmScalar(node.move_cockpit_node__nodeId, tm)
+      *animchar.nodeTree |> geomtree_setNodeWtmScalar(node.move_cockpit_node__nodeId, tm)

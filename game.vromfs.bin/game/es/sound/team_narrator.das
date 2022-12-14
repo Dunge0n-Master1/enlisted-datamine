@@ -72,8 +72,8 @@ def start_narrator(phrase : string;
     return true
 
 
-[es(tag=sound, no_order)]
-def team_narrator_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, no_order)]
+def team_narrator_update(evt : Event;
                          var narrator_sound_event : SoundEvent&;
                          var narrator_queue : Array&;
                          var narrator_history : Object&)

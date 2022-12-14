@@ -35,12 +35,16 @@ base_damage_model{
   vehicle__hpMetaPartId:i=-1
   vehicle__sendMsgDamageThreshold:r=-1.0
   fire_damage__isBurn:b=no
+  fire_damage__gunPropsId:i=-1
+  fire_damage__shellId:i=-1
   fire_damage__isFatal:b=no
   fire_damage__startTime:r=-1.0
   fire_damage__totalTime:r=0.0
   fire_damage__timeToExplosion:r=180.0
   fire_damage__update_burn_interval:r=1.0
   fire_damage__innerRadiusMult:r=2.0
+  damage_model__explosionDamageType:i=-1
+  damage_model__fireDamageType:i=-1
 
   "dm_state:list<u16>"{
   }

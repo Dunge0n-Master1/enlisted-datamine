@@ -4,7 +4,7 @@ require DaWeaponProps
 require DagorMath
 require math.curve
 require common_shooter.events_common_shooter
-
+require enlisted.events_enlisted
 
 [es(tag=gameClient, on_appear)]
 def explosion_flash_created(evt : Event;
@@ -14,7 +14,7 @@ def explosion_flash_created(evt : Event;
 
 
 [es(tag=gameClient, no_order)]
-def explosion_flash_update_client(act : UpdateStageInfoAct;
+def explosion_flash_update_client(act : ParallelUpdateFrameDelayed;
                                   flash__intensityCurve : Array;
                                   game_effect__timeToDestroy : float;
                                   flash__startBrightness : float;

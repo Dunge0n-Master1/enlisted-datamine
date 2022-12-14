@@ -1,25 +1,26 @@
 mass:r=0.0109
 caliber:r=0.0079
-speed:r=870.0
-Cx:r=0.15
+speed:r=855.0
+Cx:r=0.4603
 maxDistance:r=2000.0
-normalizationPreset:t="default"
 modelName:t="tank_bullet_ball"
+normalizationPreset:t="default"
 ricochetPreset:t="default"
 stabilityThreshold:r=0.05
-hitPowerMult:r=2.5
 stabilityCaliberToArmorThreshold:r=5.0
-onHitChanceMultFire:r=4.0
 stabilityReductionAfterRicochet:r=0.5
-explodeTreshold:r=3.0
 stabilityReductionAfterPenetration:r=0.3
-explodeHitPower:r=5.5
 bulletType:t="he_ball"
-explodeArmorPower:r=2.5
 slopeEffectPreset:t="ap"
-explodeRadius:p2=0.03, 0.035
+onHitChanceMultFire:r=4.0
 effectiveDistance:r=400.0
 relativeVelHitShift:p2=300.0, 1000.0
+explodeTreshold:r=3.0
+explodeHitPower:r=5.5
+explodeArmorPower:r=2.5
+explodeRadius:p2=0.03, 0.035
+relativeVelArmorShift:p2=200.0, 1000.0
+hitPowerMult:r=2.5
 groundCollisionEffect:t="hit_8_11mm_dirt_he"
 ricochetEffect:t="hit_8_11mm_metal_he"
 waterCollisionEffect:t="hit_8_11mm_water"
@@ -29,15 +30,6 @@ stabilityRicochetModifier{
   mod2:p2=20.0, 0.1
   mod3:p2=30.0, 0.2
   mod3:p2=45.0, 0.3
-}
-
-armorpower{
-  ArmorPower0m:p2=3.5, 5.0
-  ArmorPower100m:p2=3.3, 100.0
-  ArmorPower500m:p2=3.2, 500.0
-  ArmorPower1000m:p2=3.0, 1000.0
-  ArmorPower1450m:p2=0.1, 1450.0
-  ArmorPower1500m:p2=0.0, 1500.0
 }
 
 visual{
@@ -54,6 +46,15 @@ hitpower{
   HitPower600m:p2=1.1, 600.0
   HitPower1000m:p2=0.2, 1000.0
   HitPower1500m:p2=0.01, 1500.0
+}
+
+armorpower{
+  ArmorPower0m:p2=3.5, 5.0
+  ArmorPower100m:p2=3.3, 100.0
+  ArmorPower500m:p2=3.2, 500.0
+  ArmorPower1000m:p2=3.0, 1000.0
+  ArmorPower1450m:p2=0.1, 1450.0
+  ArmorPower1500m:p2=0.0, 1500.0
 }
 
 hitFx{

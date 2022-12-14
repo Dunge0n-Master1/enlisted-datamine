@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
 let random = require("dagor.random")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
-let {find_respawn_base_for_team} = require("%scripts/game/utils/respawn_base.nut")
+let {find_respawn_base_for_team} = require("das.respawn")
 let {spawn} = require("%scripts/game/utils/spawn_bot.nut")
 let {fill_walkable_positions_around} = require("navmesh")
 
@@ -14,7 +14,7 @@ let function onWaveTimer(_evt, eid, comp) {
 
   ecs.set_timer({eid=eid, id=botWaveTimerId, interval = comp["bot_spawner__wavePeriod"], repeat = false})
   let respBase = find_respawn_base_for_team(respBaseTeam)
-  if (respBase == INVALID_ENTITY_ID)
+  if (respBase == ecs.INVALID_ENTITY_ID)
     return
 
   if (teamToSpawnFor == TEAM_UNASSIGNED)

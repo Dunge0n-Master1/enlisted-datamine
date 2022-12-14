@@ -1,5 +1,4 @@
 smoke_occluders{
-  _tags:t="server"
   smoke_occluders__updateInterval:r=1.0
   smoke_occluders__moveInterval:r=3.0
   smoke_occluders__nextMoveTime:r=-1000.0

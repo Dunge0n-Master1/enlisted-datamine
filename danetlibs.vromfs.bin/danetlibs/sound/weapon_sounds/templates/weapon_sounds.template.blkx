@@ -48,274 +48,45 @@ projectile_sound_physmat{
   }
 }
 
-pistol_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_pistol"
-  }
-}
-
-mgun_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_pistol"
-  }
-}
-
-launcher_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_pistol"
-  }
-}
-
-rifle_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_rifle"
-  }
-}
-
-shotgun_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_rifle"
-  }
-}
-
-flamethrower_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_flamethrower"
-  }
-}
-
-turret_gun_shot_dry_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_shot_dry_sound__path:t="player/weapon/_common/shot_dry_small_cannon"
-  }
-}
-
-gun_switch_firing_mode_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_switch_firing_mode_sound__path:t="player/weapon/_common/change_mode"
-  }
-}
-
-gun_delayed_shot_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_delayed_shot_sound__nextTime:r=0.0
-    gun_delayed_shot_sound__path:t=""
-    gun_delayed_shot_sound__cooldown:r=0.0
-
-    "gun_delayed_shot_sound__event:SoundEvent"{
-    }
-  }
-}
-
-base_gun_aim_sound{
+human_melee_action_sound_physmat{
+  _extends:t="sound_physmat"
 
   _group{
     _tags:t="sound"
 
-    "gun_aim_sound__onPath:shared:object"{
+    "sound_physmat__soundMaterials:list<t>"{
+      mat:t="default"
+      mat:t="concrete"
+      mat:t="water"
+      mat:t="wood"
+      mat:t="metal"
+      mat:t="cactus"
     }
 
-    "gun_aim_sound__offPath:shared:object"{
-    }
-  }
-}
-
-antivehicle_gun_aim_sound{
-  _extends:t="base_gun_aim_sound"
-
-  _group{
-    _tags:t="sound"
-
-    "gun_aim_sound__onPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/antivehicle/aim_on"
-    }
-
-    "gun_aim_sound__offPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/antivehicle/aim_off"
-    }
-  }
-}
-
-mgun_gun_aim_sound{
-  _extends:t="base_gun_aim_sound"
-
-  _group{
-    _tags:t="sound"
-
-    "gun_aim_sound__onPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/mgun/aim_on"
-    }
-
-    "gun_aim_sound__offPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/mgun/aim_off"
-    }
-  }
-}
-
-pistol_gun_aim_sound{
-  _extends:t="base_gun_aim_sound"
-
-  _group{
-    _tags:t="sound"
-
-    "gun_aim_sound__onPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/pistol/aim_on"
-    }
-
-    "gun_aim_sound__offPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/pistol/aim_off"
-    }
-  }
-}
-
-riffle_gun_aim_sound{
-  _extends:t="base_gun_aim_sound"
-
-  _group{
-    _tags:t="sound"
-
-    "gun_aim_sound__onPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/riffle/aim_on"
-    }
-
-    "gun_aim_sound__offPath:shared:object"{
-      hero:t="player/walker/ww2_soldier/foley_mov/common/riffle/aim_off"
-    }
-  }
-}
-
-base_gun_overheat_sound{
-
-  _group{
-    _tags:t="sound"
-    gun_overheat_sound__gunOverheatToVar:p4=0.4, 0.99, 0.0, 1.0
-    gun_overheat_sound__path:t=""
-
-    "gun_overheat_sound__event:SoundEvent"{
-    }
-  }
-}
-
-machinegun_gun_overheat_sound{
-  _extends:t="base_gun_overheat_sound"
-
-  _group{
-    _tags:t="sound"
-    gun_overheat_sound__path:t="player/vehicle/tank/common/mgun_overheat"
-  }
-}
-
-cannon_gun_overheat_sound{
-  _extends:t="base_gun_overheat_sound"
-
-  _group{
-    _tags:t="sound"
-    gun_overheat_sound__path:t="player/vehicle/tank/common/cannon_overheat"
-  }
-}
-
-machinegun_gun_reload_sounds{
-
-  _group{
-    _tags:t="sound"
-    gun_reload_sound__duration:r=0.3
-    gun_reload_sound__path:t="player/vehicle/tank/common/reload_mgun_start"
-    gun_reload_sound__readyPath:t="player/vehicle/tank/common/reload_mgun_end"
-
-    "gun_reload_sound__event:SoundEvent"{
-    }
-  }
-}
-
-cannon_gun_reload_sounds{
-
-  _group{
-    _tags:t="sound"
-    gun_reload_sound__duration:r=0.5
-    gun_reload_sound__path:t="player/vehicle/tank/common/reload_cannon_start"
-    gun_reload_sound__readyPath:t="player/vehicle/tank/common/reload_cannon_end"
-
-    "gun_reload_sound__event:SoundEvent"{
-    }
-  }
-}
-
-tankgun_cannon_reload_sounds{
-  _extends:t="cannon_gun_reload_sounds"
-}
-
-tankgun_cannon_overheat_sound{
-  _extends:t="cannon_gun_overheat_sound"
-}
-
-tankgun_machinegun_reload_sounds{
-  _extends:t="machinegun_gun_reload_sounds"
-}
-
-tankgun_machinegun_overheat_sound{
-  _extends:t="machinegun_gun_overheat_sound"
-}
-
-gun_sound{
-  _extends:t="sound_bank_preset_state"
-  _extends:t="sound_irqs"
-  _extends:t="sound_tags"
-  _extends:t="pistol_gun_shot_dry_sound"
-  _extends:t="pistol_gun_aim_sound"
-  _tracked:t="gun_sound__isWatched"
-
-  _group{
-    gun_sound__forceOneshot:b=no
-    gun_sound__forceOneshotEnemy:b=no
-    gun_sound__shotLoopTimeout:r=0.0
-    gun_sound__deltaTime:p4=1.0, 1.0, 1.0, 1.0
-    gun_sound__playerTimeBetweenShotsMad:p2=2.0, 0.0
-    gun_sound__netTimeBetweenShotsMad:p2=2.0, 0.1
-    gun_sound__startLoopWithNOneshots:i=0
-    gun_sound__numShotsInLoop:i=-1
-    gun_sound__isEnabled:b=yes
-    gun_sound__isWatched:b=no
-    _tags:t="sound"
-
-    "gun_sound__event:SoundEvent"{
+    "sound_physmat__physmatToSoundmat:object"{
+      concrete:t="concrete"
+      stone:t="concrete"
+      buildings:t="concrete"
+      rocks:t="concrete"
+      rocksSlippery:t="concrete"
+      gravel:t="concrete"
+      ceramic:t="concrete"
+      water:t="water"
+      water3d:t="water"
+      waterPuddle:t="water"
+      wood:t="wood"
+      wood_railway:t="wood"
+      window_wood:t="wood"
+      cactus:t="wood"
+      softWoodDoor:t="wood"
+      metal:t="metal"
+      steel:t="metal"
+      train:t="metal"
+      softSteelDoor:t="metal"
+      flesh:t=""
     }
   }
 
-  "gun_sound__shotPath:shared:object"{
-    _tags:t="sound"
+  "humanMeleeActionSoundPhysmat:tag"{
   }
-
-  "gunSound:tag"{
-  }
-}
-
-gun_sound_with_animchar{
-  _extends:t="gun_sound"
-
-  animchar_sound{
-    _tags:t="sound"
-  }
-}
-
-turret_gun_sound{
-  _extends:t="gun_sound"
-  _extends:t="turret_gun_shot_dry_sound"
 }

@@ -1,5 +1,6 @@
 mortar_input{
   mortar_input__cancel:i=0
+  mortar_input__switchShellType:i=0
 }
 
 wallposter_input{

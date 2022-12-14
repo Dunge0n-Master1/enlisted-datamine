@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let faComp = require("%ui/components/faComp.nut")
@@ -82,13 +83,13 @@ let mkReloadProgress = @(from, to, duration, key, mult) {
   ]
 }
 
-let triggerGroupTurretControlTips = ["Vehicle.Shoot", "Vehicle.ShootSecondary", "Vehicle.ShootMachinegun"]
+let triggerGroupTurretControlTips = ["Vehicle.Shoot", "Vehicle.ShootSecondary", "Vehicle.ShootMachinegun", "Vehicle.ShootGrenadeLauncher"]
 let defaultTurretControlTips = ["Vehicle.Shoot", "Vehicle.ShootSecondary", "Vehicle.ShootMachinegun", "Vehicle.ShootTurret03"]
 
 let function turretControlTip(turret, index) {
   let hotkey = turret?.hotkey
   let triggerGroup = turret?.triggerGroup ?? -1
-  let gunEid = turret?.gunEid ?? INVALID_ENTITY_ID
+  let gunEid = turret?.gunEid ?? ecs.INVALID_ENTITY_ID
   let turretReloadState = Computed(@() turretsReload.value?[gunEid] ?? {})
 
   return function() {
@@ -222,7 +223,7 @@ heroVehicleState.subscribe(function(v) {
 let function vehicleHp() {
   let res = { watch = heroVehicleState }
   let { vehicle, hp, maxHp } = heroVehicleState.value
-  if (vehicle == INVALID_ENTITY_ID)
+  if (vehicle == ecs.INVALID_ENTITY_ID)
     return res
 
   return res.__update({

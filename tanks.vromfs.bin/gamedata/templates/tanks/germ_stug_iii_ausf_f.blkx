@@ -1,5 +1,10 @@
 germ_stug_iii_ausf_f_stalingrad{
   _extends:t="germ_stug_iii_ausf_f"
+}
+
+germ_stug_iii_ausf_f{
+  _extends:t="base_stug_iii_ausf_f"
+  _extends:t="tank_panzer3_engine_sound"
 
   "turrets__initAmmoDistribution:array"{
 
@@ -12,13 +17,12 @@ germ_stug_iii_ausf_f_stalingrad{
       slot:i=1
       fill:b=yes
     }
-  }
-}
 
-germ_stug_iii_ausf_f{
-  _extends:t="base_stug_iii_ausf_f"
-  _extends:t="vehicle_effects_tracked"
-  _extends:t="tank_panzer3_engine_sound"
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

@@ -2,6 +2,7 @@ require ecs
 require app
 require soundEvent
 require math.base
+require sound_utils_net.modules.sound_utils_net_events
 
 [es(tag=sound, on_appear)]
 def artillery_siren_appear(evt : Event;
@@ -10,7 +11,7 @@ def artillery_siren_appear(evt : Event;
   artillery_siren__startAt = get_sync_time() + artillery_siren__startDelay
 
 [es(tag=sound, no_order)]
-def artillery_siren_update(info : UpdateStageInfoAct;
+def artillery_siren_update(info : ParallelUpdateFrameDelayed;
                            var artillery_siren__active : bool&;
                            artillery_siren__startAt : float;
                            artillery__targetPos : float3;

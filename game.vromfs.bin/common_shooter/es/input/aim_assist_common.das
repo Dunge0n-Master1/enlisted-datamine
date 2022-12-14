@@ -30,7 +30,7 @@ def get_assist_targets(shoot_pos, shoot_dir : float3; max_dist, max_width, min_a
                                isAlive : bool)
       if !isAlive || agent_dangers__tag != wishTag || is_teams_friendly(my_team, team) || aim_assist_target__nodeIdx < 0
         return
-      let aimPos = geomtree_getNodeWpos(animchar.nodeTree, aim_assist_target__nodeIdx)
+      let aimPos = geomtree_getNodeWpos(*animchar.nodeTree, aim_assist_target__nodeIdx)
       var dir = aimPos - shoot_pos
       let dist = length(dir)
       if dist > max_dist

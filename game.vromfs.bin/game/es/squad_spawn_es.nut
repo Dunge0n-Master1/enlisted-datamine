@@ -4,15 +4,15 @@ from "%enlSqGlob/library_logs.nut" import *
 let {TEAM_UNASSIGNED} = require("team")
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let {logerr} = require("dagor.debug")
-let {CmdSpawnSquad, CmdSpawnEntityForPlayer} = require("dasevents")
+let {CmdSpawnSquad, CmdSpawnEntityForPlayer, CmdHeroLogEvent} = require("dasevents")
 let {get_sync_time} = require("net")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
 let {spawnVehicleSquad, spawnSquad, calcBotCountInVehicleSquad} = require("%scripts/game/utils/squad_spawn.nut")
 let {mkSpawnParamsByTeamEx} = require("%scripts/game/utils/spawn.nut")
-let {CmdHeroLogEvent} = require("gameevents")
-let { get_can_use_respawnbase_type } = require("%enlSqGlob/spawn_base.nut")
-let {find_respawn_base_for_team_with_type, get_random_respawn_base,
-       find_all_respawn_bases_for_team_with_type, is_vehicle_spawn_allowed_by_limit} = require("%scripts/game/utils/respawn_base.nut")
+let {
+  find_respawn_base_for_team_with_type, find_respawn_base_for_team_with_type_of_group, is_vehicle_spawn_allowed_by_limit,
+  get_can_use_respawnbase_type
+} = require("das.respawn")
 let getPrioritySpawnGroup = require("respawn_priority_auto_selector.nut")
 
 let teamSquadQuery = ecs.SqQuery("teamSquadQuery", {
@@ -85,10 +85,7 @@ let function onSuccessfulSpawn(comp) {
 }
 
 let groupSpawnCb = @(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
-  get_random_respawn_base(
-    find_all_respawn_bases_for_team_with_type(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
-      .filter(@(v) ecs.obsolete_dbg_get_comp_val(v[0], "respawnBaseGroup", -1) == respawnGroupId)
-  )
+  find_respawn_base_for_team_with_type_of_group(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
 
 let function spawnGroupError(template, team, eid, comp) {
   logerr($"'canUseRespawnbaseType' component is not set for {template}")
@@ -97,11 +94,11 @@ let function spawnGroupError(template, team, eid, comp) {
 }
 
 let function avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes = []) {
-  local getRespawnbaseForTeamCb = @(team, _safest = false)
+  local getRespawnbaseForTeamCb = @(team)
     find_respawn_base_for_team_with_type(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
   let respawnGroupId = ctx.respawnGroupId
   if (respawnGroupId >= 0)
-    getRespawnbaseForTeamCb = @(team, _safest = false)
+    getRespawnbaseForTeamCb = @(team)
       groupSpawnCb(team, canUseRespawnbaseType, canUseRespawnbaseSubtypes, respawnGroupId)
   return [
     getRespawnbaseForTeamCb(ctx.team),
@@ -149,16 +146,16 @@ let function trySpawnSquad(ctx, comp) {
     return spawnGroupError(templateName, team, eid, comp)
 
   if (ctx.respawnGroupId < 0)
-    ctx.respawnGroupId = getPrioritySpawnGroup(canUseRespawnbaseType, team)
+    ctx.respawnGroupId = getPrioritySpawnGroup(canUseRespawnbaseType, team, ctx.squadParams.isBot)
 
   let [baseEid, cb] = avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType)
   squadParams.mkSpawnParamsCb <- cb
-  if (baseEid == INVALID_ENTITY_ID) {
+  if (baseEid == ecs.INVALID_ENTITY_ID) {
     if (ctx.respawnGroupId < 0)
       logerr($"Spawn squad [{squadId}, {memberId}] for team {team} is not possible. See log for more details.")
     else {
       debug($"Spawn squad [{squadId}, {memberId}] for team {team} for chosen group {ctx.respawnGroupId} is not possible.")
-      ecs.g_entity_mgr.sendEvent(eid, CmdHeroLogEvent("group_is_no_longer_active", "respawn/group_is_no_longer_active", "", 0))
+      ecs.g_entity_mgr.sendEvent(eid, CmdHeroLogEvent({event="group_is_no_longer_active", text="respawn/group_is_no_longer_active", sound="", ttl=0}))
     }
     rejectSpawn("No respawn base for squad", team, eid, comp)
     debugDumpRespawnbases(ctx, canUseRespawnbaseType)
@@ -182,9 +179,9 @@ let teamPendingQuery = ecs.SqQuery("teamPendingQuery", {
 })
 
 let function onPlayerAwaitingVehicleSpawn(team, playerEid, respawnbaseType) {
-  if (playerEid == INVALID_ENTITY_ID)
+  if (playerEid == ecs.INVALID_ENTITY_ID)
     return
-  let teamEid = get_team_eid(team) ?? INVALID_ENTITY_ID
+  let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
   teamPendingQuery(teamEid, function(_eid, comp) {
     let pending = comp["team__spawnPending"]
     pending[respawnbaseType] <- (pending?[respawnbaseType] ?? []).append(ecs.EntityId(playerEid))
@@ -192,11 +189,11 @@ let function onPlayerAwaitingVehicleSpawn(team, playerEid, respawnbaseType) {
 }
 
 let function onPendingVehicleSpawned(squadEid, respawnbaseType) {
-  let playerEid = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
-  if (playerEid == INVALID_ENTITY_ID)
+  let playerEid = ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? ecs.INVALID_ENTITY_ID
+  if (playerEid == ecs.INVALID_ENTITY_ID)
     return
   let team = ecs.obsolete_dbg_get_comp_val(playerEid, "team") ?? TEAM_UNASSIGNED
-  let teamEid = get_team_eid(team) ?? INVALID_ENTITY_ID
+  let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
   teamPendingQuery(teamEid, function(_eid, comp) {
     let pending = comp["team__spawnPending"]
     let index = pending?[respawnbaseType]?.indexof(playerEid, ecs.TYPE_EID)
@@ -218,20 +215,20 @@ let function trySpawnVehicleSquad(ctx, comp) {
   let vehicle                  = ctx.vehicle;
   let squadParams              = ctx.squadParams;
   let shouldValidateSpawnRules = ctx.shouldValidateSpawnRules;
-  let vehicleRespawnsBySquad   = ctx.vehicleRespawnsBySquad;
+  let nextSpawnTimeBySquad     = ctx.nextSpawnTimeBySquad;
 
   let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(vehicle)
   if (canUseRespawnbaseType == null)
     return spawnGroupError(vehicle, team, eid, comp)
 
   if (ctx.respawnGroupId < 0)
-    ctx.respawnGroupId = getPrioritySpawnGroup(canUseRespawnbaseType, team)
+    ctx.respawnGroupId = getPrioritySpawnGroup(canUseRespawnbaseType, team, ctx.squadParams.isBot)
 
   let [baseEid, cb] = avalibleBaseAndSpawnParamsCb(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
   ctx.canUseRespawnbaseType <- canUseRespawnbaseType
   squadParams.mkSpawnParamsCb <- cb
-  let nextSpawnOnVehicleInTime = vehicleRespawnsBySquad[squadId].nextSpawnOnVehicleInTime
-  if (baseEid == INVALID_ENTITY_ID) {
+  let nextSpawnOnVehicleInTime = nextSpawnTimeBySquad?[squadId] ?? 0
+  if (baseEid == ecs.INVALID_ENTITY_ID) {
     debug($"Spawn {vehicle} on base {baseEid} squad [{squadId}, {memberId}] for team {team} is not possible")
     rejectSpawn("No respawn base for vehicle", team, eid, comp)
     debugDumpRespawnbases(ctx, canUseRespawnbaseType, canUseRespawnbaseSubtypes)
@@ -242,7 +239,7 @@ let function trySpawnVehicleSquad(ctx, comp) {
     // (and its' kind hard to due to eventual consistency of replication) so report it as ordinary log message
     debug($"Spawn {vehicle} squad [{squadId}, {memberId}] for team {team} is forbidden by limit")
     rejectSpawn("The vehicle is not ready for this squad", team, eid, comp)
-    let teamEid = get_team_eid(team) ?? INVALID_ENTITY_ID
+    let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
     debugTableData(ecs.obsolete_dbg_get_comp_val(teamEid, "team__spawnPending")?.getAll() ?? {})
     return false
   }
@@ -261,7 +258,7 @@ let function trySpawnVehicleSquad(ctx, comp) {
 }
 
 let respawnPointsQuery = ecs.SqQuery("respawnPointsQuery", {
-  comps_ro=[["squads__revivePointsList", ecs.TYPE_ARRAY], ["soldier_revive_points__points", ecs.TYPE_ARRAY, []]]
+  comps_ro=[["squads__revivePointsList", ecs.TYPE_INT_LIST], ["soldier_revive_points__points", ecs.TYPE_ARRAY, []]]
 })
 
 let function validateRotationComps(squadRevivePoints, soldierRevivePoints, squadId, memberId) {
@@ -294,10 +291,10 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
     return
   }
 
-  let teamEid = get_team_eid(team) ?? INVALID_ENTITY_ID
+  let teamEid = get_team_eid(team) ?? ecs.INVALID_ENTITY_ID
   debug($"Spaw team {team} squad")
 
-  if (teamEid == INVALID_ENTITY_ID) {
+  if (teamEid == ecs.INVALID_ENTITY_ID) {
     logerr($"Cannot create player possessed entity for team {team} because of teamEid is invalid")
     return
   }
@@ -368,6 +365,7 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
 
   squadParams.__update({
     playerEid = eid
+    isBot     = comp.playerIsBot
     squad     = squad
     vehicle   = vehicle
     vehicleComps = vehicleComps
@@ -393,16 +391,14 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
 
   if (vehicle) {
     spawnCtx.__update({
-      vehicle                  = vehicle
-      vehicleRespawnsBySquad   = comp.vehicleRespawnsBySquad
+      vehicle
+      nextSpawnTimeBySquad = comp.respawner__nextSpawnOnVehicleTimeBySquad
     })
-    if (trySpawnVehicleSquad(spawnCtx, comp)) {
-      comp.vehicleRespawnsBySquad[spawnCtx.squadId].lastSpawnOnVehicleAtTime = get_sync_time()
-      onSuccessfulSpawn(comp);
-    }
+    if (trySpawnVehicleSquad(spawnCtx, comp))
+      onSuccessfulSpawn(comp)
   }
   else if (trySpawnSquad(spawnCtx, comp))
-    onSuccessfulSpawn(comp);
+    onSuccessfulSpawn(comp)
 }
 
 let comps = {
@@ -412,7 +408,7 @@ let comps = {
     ["squads__spawnCount", ecs.TYPE_INT],
     ["squads__squadsCanSpawn", ecs.TYPE_BOOL],
     ["delayedSpawnSquad", ecs.TYPE_ARRAY],
-    ["vehicleRespawnsBySquad", ecs.TYPE_ARRAY],
+    ["respawner__nextSpawnOnVehicleTimeBySquad", ecs.TYPE_INT_LIST],
     ["respawner__respToBot", ecs.TYPE_BOOL],
     ["respawner__isFirstSpawn", ecs.TYPE_BOOL],
     ["respawner__respEndTime", ecs.TYPE_FLOAT],
@@ -429,12 +425,16 @@ let comps = {
     ["army", ecs.TYPE_STRING],
     ["scoring_player__firstSpawnTime", ecs.TYPE_FLOAT],
     ["shouldValidateSpawnRules", ecs.TYPE_BOOL],
+    ["playerIsBot", ecs.TYPE_TAG, null]
   ]
 }
 
 ecs.register_es("spawn_squad_es", {
   [CmdSpawnSquad] = @(evt, eid, comp) spawnSquadImpl(eid, comp, evt.team, evt.squadId, evt.memberId, evt.respawnGroupId),
-  [CmdSpawnEntityForPlayer] = @(evt, eid, comps) spawnSquadImpl(eid, comps, evt.team, 0, 0, -1)
+  [CmdSpawnEntityForPlayer] = function(evt, eid, comp) {
+    if (comp.isFirstSpawn)
+      spawnSquadImpl(eid, comp, evt.team, 0, 0, -1)
+  }
 }, comps)
 
 ecs.register_es("pending_vehicle_spawn_es", {

@@ -1,145 +1,91 @@
 let voiceApi = require_optional("voiceApi")
-let voice = require("%xboxLib/voice.nut")
-let { subscribe } = require("eventbus")
+let {subscribe} = require("eventbus")
+let {subscribe_to_state_update, add_voice_chat_member, remove_voice_chat_member,
+  update_voice_chat_member_friendship, voiceChatMembers} = require("%xboxLib/voice.nut")
+let {request_xuid_for_user} = require("%enlist/xbox/userIds.nut")
+let {friendsUids} = require("%enlist/contacts/contactsWatchLists.nut")
 let {hexStringToInt} =  require("%sqstd/string.nut")
-let { xboxCrossVoiceWithFriendsAllowed, xboxCrossVoiceWithAllAllowed } = require("%enlSqGlob/crossnetwork_state.nut")
-let { subsMemberAddedEvent, subsMemberRemovedEvent, squadMembers } = require("%enlist/squad/squadManager.nut")
-let { console2uid, uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
-let { friendsUids } = require("%enlist/contacts/contactsWatchLists.nut")
-let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XVOICE] ")
+let userInfo = require("%enlSqGlob/userInfo.nut")
+let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let {debugTableData, with_prefix} = require("%enlSqGlob/library_logs.nut")
+let logX = with_prefix("[XBOX_VOICE] ")
+
+let delayedChatMembers = persist("delayedChatMembers", @() {})
 
 
-let function voice_mute(uid) {
-  voiceApi.mute_player_by_uid(uid.tointeger())
-  logX($"Mute player {uid}")
+let function set_mute_status(uid, is_muted) {
+  let func = is_muted ? voiceApi.mute_player_by_uid : voiceApi.unmute_player_by_uid
+  func(uid.tointeger())
 }
 
 
-let function voice_unmute(uid) {
-  voiceApi.unmute_player_by_uid(uid.tointeger())
-  logX($"Unmute player {uid}")
+let function on_state_update(results) {
+  foreach (state in results) {
+    set_mute_status(state?.uid, state?.is_muted)
+  }
 }
 
 
-let function voice_change_state(uid, mute) {
-  if (mute) {
-    voice_mute(uid)
+let function add_user_to_chat(uid) {
+  logX($"Adding user to voice chat: {uid}")
+  if (userInfo.value.userId == uid) {
+    logX("Skip tracking self")
+    return
+  }
+
+  request_xuid_for_user(uid, function(u, xuid) {
+    let ustr = u.tostring()
+    let isFriend = (ustr in friendsUids.value)
+    add_voice_chat_member(ustr, xuid, isFriend)
+  })
+}
+
+
+subscribe("voice.on_peer_joined", function(data) {
+  if (!data?.uid)
+    return
+
+  let uid = hexStringToInt(data.uid) // uid is passed as hex string
+  logX($"voice.on_peer_joined: data.uid -> {data.uid}, uid -> {uid}, name -> {data.name}")
+
+  if (isLoggedIn.value) {
+    add_user_to_chat(uid)
   } else {
-    voice_unmute(uid)
+    logX($"Delaying chat join for <{uid}>")
+    delayedChatMembers[uid] <- true
   }
-}
 
-
-let function voice_change_state_by_xuid(xuid, mute) {
-  let uid = console2uid.value?[xuid.tostring()]
-  if (uid == null) {
-    logX($"Can't find uid by xuid: {xuid}")
-    return
-  }
-  voice_change_state(uid, mute)
-}
-
-
-let function mute_by_xuids(xuids) {
-  foreach (xuid in xuids)
-    voice_change_state_by_xuid(xuid, true)
-}
-
-let function unmute_by_xuids(xuids) {
-  foreach (xuid in xuids)
-    voice_change_state_by_xuid(xuid, false)
-}
-
-
-voice.subscribe_to_user_voice_state_change(voice_change_state_by_xuid)
-
-
-subsMemberAddedEvent(function(user_id) {
-  let xuid = uid2console.value?[user_id.tostring()]
-  if (xuid == null) {
-    logX($"Can't find xuid by uid: {user_id}")
-    return
-  }
-  voice.track_user_permissions(xuid.tointeger())
 })
 
 
-subsMemberRemovedEvent(function(user_id) {
-  let xuid = uid2console.value?[user_id.tostring()]
-  if (xuid == null) {
-    logX($"Can't find xuid by uid: {user_id}")
+subscribe("voice.on_peer_left", function(data) {
+  if (!data?.uid)
     return
-  }
-  voice.stop_tracking_user_permissions(xuid.tointeger())
+
+  let uid = hexStringToInt(data.uid) // uid is passed as hex string
+  logX($"voice.on_peer_left: data.uid -> {data.uid}, uid -> {uid}, name -> {data.name}")
+  remove_voice_chat_member(uid)
 })
 
 
-let function is_friend(uid) {
-  let user = friendsUids.value?[uid.tostring()]
-  return user != null
-}
+friendsUids.subscribe(function(v) {
+  foreach (uid, _ in voiceChatMembers) {
+    let isFriend = (uid.tostring() in v)
+    update_voice_chat_member_friendship(uid, isFriend)
+  }
+})
 
 
-let function is_foreign_user_should_be_muted(uid) {
-  if (xboxCrossVoiceWithAllAllowed.value) {
-    logX($"User {uid} shouldn't be muted because voice chat is allowed with all crossnetwork users")
-    return false
-  } else {
-    if (xboxCrossVoiceWithFriendsAllowed.value) {
-      let isFriend = is_friend(uid)
-      if (isFriend) {
-        logX($"User {uid} shouldn't be muted because of friendship status")
-        return false
-      }
+isLoggedIn.subscribe(function(v) {
+  if (v) {
+    logX("Adding delayed chat users")
+    debugTableData(delayedChatMembers)
+    foreach (uid, _ in delayedChatMembers) {
+      add_user_to_chat(uid)
     }
+    delayedChatMembers.clear()
   }
-  return true
-}
-
-let function is_foreign_user(uid) {
-  return uid2console.value?[uid.tostring()] == null || !is_friend(uid)
-}
-
-let function update_foreign_user_state(uid) {
-  let isForeign = is_foreign_user(uid)
-  logX($"Check on foreign status {uid} -> {isForeign}")
-  if (!isForeign)
-    return
-
-  let mute = is_foreign_user_should_be_muted(uid)
-  voice_change_state(uid, mute)
-}
-
-
-let function update_crossnet_chat() {
-  foreach (userId, _ in squadMembers.value)
-    update_foreign_user_state(userId)
-}
-
-
-subscribe("voice.on_peer_joined",
-  function(data) {
-    if (!data?.uid)
-      return
-
-    let uid = hexStringToInt(data.uid) // uid is passed as hex string
-    logX($"voice.on_peer_joined: data.uid -> {data.uid}, uid -> {uid}, name -> {data.name}")
-    update_foreign_user_state(uid)
-  }
-)
-
-
-xboxCrossVoiceWithFriendsAllowed.subscribe(function(_) {
-  update_crossnet_chat()
 })
 
 
-xboxCrossVoiceWithAllAllowed.subscribe(function(_) {
-  update_crossnet_chat()
-})
-
-
-return {
-  mute_by_xuids
-  unmute_by_xuids
-}
+subscribe_to_state_update(on_state_update)

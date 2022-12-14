@@ -10,7 +10,7 @@ def delayed_shot_charge_fx_init(evt : Event;
                                 animchar : AnimcharBaseComponent;
                                 gun_charge_fx__node : string;
                                 var gun_charge_fx__nodeId : int&)
-  gun_charge_fx__nodeId = geomtree_findNodeIndex(animchar.nodeTree, gun_charge_fx__node)
+  gun_charge_fx__nodeId = geomtree_findNodeIndex(*animchar.nodeTree, gun_charge_fx__node)
   if gun_charge_fx__nodeId < 0
     logerr("[{eid}] {getEntityTemplateName(eid)}: gun_charge_fx__node {gun_charge_fx__node} not found")
 
@@ -18,7 +18,7 @@ def create_charge_fx(fx_template : string; gun_eid : EntityId; animchar : Animch
   if node_id < 0
     return INVALID_ENTITY_ID
   var tm : float3x4
-  geomtree_getNodeWtmScalar(animchar.nodeTree, node_id, tm)
+  geomtree_getNodeWtmScalar(*animchar.nodeTree, node_id, tm)
   for i in 0..3
     tm[i] *= scale
   return createEntity(fx_template) <| $(var init : ComponentsInitializer)

@@ -10,7 +10,7 @@ def private wake_up_ragdoll_on_terraform_impl(terraformPos : float3;
                                               animchar : AnimcharBaseComponent;
                                               var ragdoll : PhysRagdoll;
                                               var animchar__updatable : bool&)
-  let rootPos = geomtree_getNodeWpos(animchar.nodeTree, 0)
+  let rootPos = geomtree_getNodeWpos(*animchar.nodeTree, 0)
   if length_sq(terraformPos - rootPos) < square(2. * terraformRadius)
     animchar__updatable = true
     ragdoll |> ragdoll_wakeUp()

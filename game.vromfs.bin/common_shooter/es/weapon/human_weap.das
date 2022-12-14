@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require app
 require common_shooter.events_common_shooter
@@ -75,53 +76,75 @@ def create_gun_for_entity_impl(eid : EntityId;
   return gunEid
 
 
+def restore_ammo_type_impl(eid : EntityId;
+                           var itemContainer : EidList;
+                           ammo_template : string;
+                           ammo_num : int;
+                           calc_gun_ammo_cb : block<(ammo_item_id : int) : int>)
+  if ammo_num <= 0
+    return false
+
+  let reserveAmmoItemId = ammo_template != "" ? int(ecs_hash(ammo_template)) : INVALID_ITEM_ID
+
+  var initialNum = invoke(calc_gun_ammo_cb, reserveAmmoItemId) > 0 ? 1 : 0
+  for itemEid in itemContainer
+    var itemId = INVALID_ITEM_ID
+    query(itemEid) <| $ [es] (item__id aka entity_item__id : int)
+      itemId = entity_item__id
+    initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
+  for _i in range(initialNum, ammo_num)
+    var itemEid = INVALID_ENTITY_ID
+    using() <| $(var init : ComponentsInitializer#)
+      set(init, "item__ownerEid", eid)
+      set(init, "item__lastOwner", eid)
+      itemEid = createInstantiatedEntitySync(ammo_template, init)
+      if itemEid == INVALID_ENTITY_ID
+        // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
+        logerr("Template dependency '{ammo_template}' isn't instantiated in '{getEntityTemplateName(eid)}'")
+        itemEid = createEntitySync(ammo_template, init)
+    if find_index(itemContainer, itemEid) == -1
+      itemContainer |> push(itemEid)
+
+  return true
+
+
 def restore_ammo_impl(eid : EntityId;
                       human_weap__gunEids : EidList;
                       gun_slot : int)
   var result = false
   query(eid) <| $ [es] (human_weap__weapInfo : Array;
                         var itemContainer : EidList)
-    let weapInfoSlot = human_weap__weapInfo[gun_slot] |> get_ecs_object()
-    let numResvAmmo = weapInfoSlot |> get_int("numReserveAmmo") ?? 0
-    if numResvAmmo <= 0
-      return
+    query(human_weap__gunEids[gun_slot]) <| $ [es(REQUIRE=gun)] (gun__ammo : int = 0; gun__ammoHolderEid : EntityId = INVALID_ENTITY_ID)
+      let weapInfoSlot = human_weap__weapInfo[gun_slot] |> get_ecs_object()
+      let curAmmoHolderItemId = get_int(gun__ammoHolderEid, "item__id") ?? INVALID_ITEM_ID
+      assume calcGunAmmoCb = ($(ammoItemId : int) : int { return ammoItemId == curAmmoHolderItemId? gun__ammo : 0; })
 
-    query(human_weap__gunEids[gun_slot]) <| $ [es(REQUIRE=gun)] (gun__ammo : int = 0)
-      let resvAmmoTemplate = weapInfoSlot |> get_ecs_string("reserveAmmoTemplate")
-      if resvAmmoTemplate == null
-        logerr("'reserveAmmoTemplate' is missed in human_weap.weapInfo. See log for details.")
-        print("eid: {eid} of template '{getEntityTemplateName(eid)}'")
-        for item in human_weap__weapInfo
-          let obj = item |> get_ecs_object()
-          let objReserveAmmoTemplate = obj |> get_ecs_string("reserveAmmoTemplate")
-          let objReserveAmmoTemplateStr = objReserveAmmoTemplate != null ? *objReserveAmmoTemplate |> string() : ""
-          let objNumReserveAmmo = obj |> get_int("numReserveAmmo") ?? 0
-          print("[reserveAmmoTemplate] = {objReserveAmmoTemplateStr}")
-          print("[numReserveAmmo] = {objNumReserveAmmo}")
-        return
+      let numReserveAmmo = weapInfoSlot |> get_int("numReserveAmmo") ?? 0
+      if numReserveAmmo > 0
+        let reserveAmmoTemplate = weapInfoSlot |> get_ecs_string("reserveAmmoTemplate")
+        if reserveAmmoTemplate == null
+          logerr("'reserveAmmoTemplate' is missed in human_weap.weapInfo. See log for details.")
+          print("eid: {eid} of template '{getEntityTemplateName(eid)}'")
+          for item in human_weap__weapInfo
+            let obj = item |> get_ecs_object()
+            let objReserveAmmoTemplate = obj |> get_ecs_string("reserveAmmoTemplate")
+            let objReserveAmmoTemplateStr = objReserveAmmoTemplate != null ? *objReserveAmmoTemplate |> string() : ""
+            let objNumReserveAmmo = obj |> get_int("numReserveAmmo") ?? 0
+            print("[reserveAmmoTemplate] = {objReserveAmmoTemplateStr}")
+            print("[numReserveAmmo] = {objNumReserveAmmo}")
+          return
+        if !restore_ammo_type_impl(eid, itemContainer, string(*reserveAmmoTemplate), numReserveAmmo, calcGunAmmoCb)
+          return
 
-      let resvAmmoTypeName = weapInfoSlot |> get_string("reserveAmmoTemplate", "")
-      let reserveAmmoItemId = resvAmmoTypeName != "" ? int(ecs_hash(resvAmmoTypeName)) : INVALID_ITEM_ID
+      let additionalAmmoTemplates = get_ecs_array(weapInfoSlot, "additionalReserveAmmoTemplates")
+      let additionalAmmoNums = get_ecs_array(weapInfoSlot, "additionalNumReserveAmmos")
+      if additionalAmmoTemplates != null && additionalAmmoNums != null
+        for ammoTemplateItem, ammoNumItem in *additionalAmmoTemplates, *additionalAmmoNums
+          let ammoTemplate = ammoTemplateItem ?? ""
+          let ammoNum = ammoNumItem ?? 0
+          if !restore_ammo_type_impl(eid, itemContainer, ammoTemplate, ammoNum, calcGunAmmoCb)
+            return
 
-      var initialNum = gun__ammo > 0 ? 1 : 0
-      for itemEid in itemContainer
-        var itemId = INVALID_ITEM_ID
-        query(itemEid) <| $ [es] (item__id aka entity_item__id : int)
-          itemId = entity_item__id
-        initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
-      for _i in range(initialNum, numResvAmmo)
-        var itemEid = INVALID_ENTITY_ID
-        let ammoTemplate = *resvAmmoTemplate |> string()
-        using() <| $(var init : ComponentsInitializer#)
-          set(init, "item__ownerEid", eid)
-          set(init, "item__lastOwner", eid)
-          itemEid = createInstantiatedEntitySync(ammoTemplate, init)
-          if itemEid == INVALID_ENTITY_ID
-            // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
-            logerr("Template dependency '{ammoTemplate}' isn't instantiated in '{getEntityTemplateName(eid)}'")
-            itemEid = createEntitySync(ammoTemplate, init)
-        if find_index(itemContainer, itemEid) == -1
-          itemContainer |> push(itemEid)
       if (gun_slot != int(HUWeaponSlots EWS_GRENADE))
         reload_impl(eid, gun_slot, ReloadAmmoMode CONSUME)
       result = true
@@ -142,10 +165,10 @@ def get_total_ammo_count(item_container : EidList;
   query(gun_eid) <| $ [es] (gun__ammoHolderIds : IntList;
                             gun__shell_prop_ids : GunShellPropIds)
     for itemEid in item_container
-      query(itemEid) <| $ [es] (shell_props : ShellPropIds?;
+      query(itemEid) <| $ [es] (shell_props : ShellPropIds const?;
                                 item__id : int = INVALID_ITEM_ID;
-                                ammo_holder__id : int?;
-                                ammo_holder__ammoCount : int?)
+                                ammo_holder__id : int const?;
+                                ammo_holder__ammoCount : int const?)
         if wish_ammo_item_type != INVALID_ITEM_ID && item__id != wish_ammo_item_type
           return
         if ammo_holder__id != null && ammo_holder__ammoCount != null && is_ammo_for_gun(*ammo_holder__id, gun__ammoHolderIds)
@@ -507,7 +530,7 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
                             entity_mods__aimingAfterFireMult : float = 1.0;
                             entity_mods__boltActionMult : float = 1.0;
                             entity_mods__deviationBufferSizeMult : float = 1.0;
-                            human_use_object__selectedObject : EntityId? = null;
+                            human_use_object__selectedObject : EntityId const? = null;
                             entity_mods__shotDeviationAdd : float = 0.0;
                             human_weap__fastThrowExclusive : bool = true;
                             human_unarmed__active : bool = false;
@@ -596,7 +619,7 @@ def set_current_gun(eid : EntityId;
   human_weap__currentGunSlot = cur_gun
   for i in iter_range(human_weap__gunEids)
     let isAttached = (i == cur_gun)
-    sendEventImmediate(human_weap__gunEids[i], [[CmdWeapAttach toEid=eid, isAttached=isAttached, slotId=i]])
+    sendEvent(human_weap__gunEids[i], [[CmdWeapAttach toEid=eid, isAttached=isAttached, slotId=i]])
 
   sendEvent(eid, [[EventOnSelectWeap curr_gun_slot_id=human_weap__currentGunSlot]])
 

@@ -16,7 +16,7 @@ let inVehicleDefValue = freeze({
   isVehicleCanBeRessuplied = false
   isPlaneOnCarrier = false
   vehicleResupplyType = ""
-  controlledVehicleEid = INVALID_ENTITY_ID
+  controlledVehicleEid = ecs.INVALID_ENTITY_ID
 })
 
 let { inVehicleState, inVehicleStateSetValue } = mkFrameIncrementObservable(inVehicleDefValue, "inVehicleState")

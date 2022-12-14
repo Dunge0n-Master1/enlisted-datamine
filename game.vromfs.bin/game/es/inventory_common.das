@@ -49,9 +49,9 @@ def get_item_pickup_score(eid, item_eid : EntityId; view_convex : Point4List; vi
   var ret = [[ItemPickupScore score=-1.0, useful=false]]
   ecs::query(item_eid) <| $ [es] (animchar_render__enabled : bool = true;
                                   item__lastOwner : EntityId;
-                                  item__equipToSlots : ecs::Array?;
+                                  item__equipToSlots : ecs::Array const?;
                                   var transform : float3x4 const?;
-                                  collres : CollisionResource?;
+                                  collres : CollisionResource const?;
                                   animchar : AnimcharBaseComponent;
                                   animchar_render : AnimcharRendComponent;
                                   item__id : int = INVALID_ITEM_ID;

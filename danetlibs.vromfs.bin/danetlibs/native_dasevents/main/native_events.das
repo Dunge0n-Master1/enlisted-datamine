@@ -19,6 +19,7 @@ struct CmdApplyDamage
   hitNorm : float3
   dmgMult : float
   armorMult : float
+  armorPenetration : float
 
 
 [cpp_event(unicast, with_scheme)]
@@ -32,15 +33,6 @@ struct CmdUpdateHitpoints
 
 [cpp_event(unicast, with_scheme)]
 struct CmdAddDefaultEntitiesInNetScopeForPlayer {}
-
-[cpp_event(unicast, with_scheme)]
-struct PlayerRequestRespawnInWorld {}
-
-[cpp_event(broadcast, with_scheme)]
-struct PlayerStartQuitGameTimer {}
-
-[cpp_event(unicast, with_scheme)]
-struct PlayerResetQuitGameTimer {}
 
 [cpp_event(unicast, with_scheme, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct RequestCamSwitch
@@ -146,3 +138,18 @@ struct CmdStopSecAnim
 [cpp_event(broadcast, with_scheme)]
 struct EventAnyEntityResurrected
   eid : EntityId
+
+[cpp_event(broadcast, with_scheme, cpp_gen=false)]
+struct EventRendinstsLoaded {}
+
+[cpp_event(unicast, with_scheme, cpp_gen=false)]
+struct CmdDestroyRendinst
+  userData : int
+  destroyEntity : bool
+
+[cpp_event(unicast, with_scheme, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdHeroLogEvent
+  event : string
+  text : string
+  sound : string
+  ttl : int

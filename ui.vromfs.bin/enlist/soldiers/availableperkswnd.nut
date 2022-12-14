@@ -130,10 +130,11 @@ let function mkTierPossiblePerks(armyId, tier, pointsInfo) {
     return null
 
   let paramsList = uniteEqualPerks(perks)
-  paramsList.each(function(p, index) {
+  paramsList.each(function(p) {
     p.totalCost <- 0
     p.isAvailable <- true
     p.costMask <- 0
+    let index = tier.perks.indexof(p.perkId) ?? RECOMMENDED_PERKS_COUNT
     if (index < RECOMMENDED_PERKS_COUNT)
       p.recommended <- true
     let perkCost = perksList?[p.perkId].cost ?? {}

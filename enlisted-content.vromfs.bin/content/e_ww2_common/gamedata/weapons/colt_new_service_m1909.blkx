@@ -1,4 +1,3 @@
-loc_name:t="Colt New Service Model 1909"
 stat_name:t="pistol"
 selWeaponVar:t="colt_new_service_m1909"
 shootNode:t="bullet"

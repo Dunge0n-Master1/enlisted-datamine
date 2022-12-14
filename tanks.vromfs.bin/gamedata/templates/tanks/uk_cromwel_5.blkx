@@ -1,6 +1,23 @@
 uk_cromwell_5{
   _extends:t="base_cromwell_5"
-  _extends:t="vehicle_effects_tracked"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

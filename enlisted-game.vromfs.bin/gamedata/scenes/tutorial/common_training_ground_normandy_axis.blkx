@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_usa+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_usa+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -19,7 +19,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_germany+team_narrator_invasion_attack+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -310,7 +310,7 @@ entity{
 }
 
 entity{
-  _template:t="us_m4a2_sherman_1944"
+  _template:t="us_m18_hellcat_normandy"
   transform:m=[[-0.401622, 0.0667782, -0.913368] [0.0609055, 0.997078, 0.0461173] [0.913778, -0.0371073, -0.404515] [-313.717, 12.1779, 473.594]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -352,7 +352,7 @@ entity{
 }
 
 entity{
-  _template:t="us_m8_scott"
+  _template:t="us_m18_hellcat_normandy"
   transform:m=[[-0.999058, -0.0228849, 0.0368584] [-0.0228285, 0.999737, 0.00195064] [-0.0368934, 0.00110739, -0.999319] [-297.25, 12.602, 452.437]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -394,7 +394,7 @@ entity{
 }
 
 entity{
-  _template:t="us_m4a2_sherman_1944"
+  _template:t="us_m18_hellcat_normandy"
   transform:m=[[-0.0218535, -0.0213144, -0.999534] [-0.166426, 0.985901, -0.0173849] [0.985812, 0.165969, -0.0250927] [270.98, 21.6646, 463.495]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

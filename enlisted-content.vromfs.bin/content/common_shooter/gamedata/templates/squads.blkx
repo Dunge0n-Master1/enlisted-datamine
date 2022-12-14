@@ -67,6 +67,10 @@ squad{
     }
   }
 
+  "squad__sprintAnims:list<i>"{
+    _tags:t="server"
+  }
+
   "net__notInInitialScope:tag"{
   }
 }

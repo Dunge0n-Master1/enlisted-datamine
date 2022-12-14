@@ -4,7 +4,7 @@ require DagorConsole
 require imgui
 
 [imgui_window(name="Replay control", group="Replay")]
-def ecs_anim_graph2()
+def replay_control()
   if IsWindowCollapsed()
     return
   let size = imgui::GetWindowSize()

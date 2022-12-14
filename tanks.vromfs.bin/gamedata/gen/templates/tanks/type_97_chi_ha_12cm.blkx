@@ -162,6 +162,11 @@ type_97_chi_ha_12cm_turret_03_7_7mm_type_97{
   turret__aimNodeName:t="bone_mg_aa_h_01"
   turret__limit:p4=-60.0, 60.0, -20.0, 20.0
 
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-60.0, -20.0, -20.0, -11.0
+    lim2:p4=-20.0, 60.0, -20.0, 20.0
+  }
+
   "gun__shellsAmmo:array"{
     ammo:i=1000
   }

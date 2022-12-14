@@ -32,53 +32,53 @@ DamageParts{
   armor10{
 
     gun1_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     gun3_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     mgun1_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     mgun2_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     mgun3_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
 
     mgun4_dm{
-      hp:r=15.0
+      hp:r=5.0
     }
   }
 
   armor12{
 
     armor1_dm{
-      hp:r=40.0
+      hp:r=15.0
     }
 
     armor2_dm{
-      hp:r=40.0
+      hp:r=15.0
     }
 
     armor3_dm{
-      hp:r=40.0
+      hp:r=15.0
     }
 
     armor5_dm{
-      hp:r=40.0
+      hp:r=15.0
     }
   }
 
   armor20{
 
     armor4_dm{
-      hp:r=50.0
+      hp:r=15.0
     }
   }
 
@@ -86,12 +86,12 @@ DamageParts{
 
     engine1_dm{
       genericDamageMult:r=1.6
-      hp:r=68.0
+      hp:r=22.0
     }
 
     engine2_dm{
       genericDamageMult:r=1.6
-      hp:r=68.0
+      hp:r=22.0
     }
   }
 
@@ -103,37 +103,37 @@ DamageParts{
 
     tail_dm{
       genericDamageMult:r=0.6
-      hp:r=160.5
+      hp:r=50.0
     }
 
     wing1_l_dm{
       genericDamageMult:r=0.35
-      hp:r=104.4
+      hp:r=30.0
     }
 
     wing1_r_dm{
       genericDamageMult:r=0.35
-      hp:r=104.4
+      hp:r=30.0
     }
 
     wing2_l_dm{
       genericDamageMult:r=0.35
-      hp:r=84.5
+      hp:r=20.0
     }
 
     wing2_r_dm{
       genericDamageMult:r=0.35
-      hp:r=84.5
+      hp:r=20.0
     }
 
     wing_l_dm{
       genericDamageMult:r=0.35
-      hp:r=145.5
+      hp:r=50.0
     }
 
     wing_r_dm{
       genericDamageMult:r=0.35
-      hp:r=145.5
+      hp:r=50.0
     }
   }
 
@@ -141,22 +141,22 @@ DamageParts{
 
     aileron_l_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     aileron_r_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     elevator0_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     elevator1_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     fin1_dm{
@@ -177,162 +177,162 @@ DamageParts{
 
     rudder0_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     rudder1_dm{
       genericDamageMult:r=0.3
-      hp:r=39.5
+      hp:r=13.0
     }
 
     stab1_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
 
     stab2_dm{
-      hp:r=39.5
+      hp:r=13.0
     }
   }
 
   dural{
 
     cover1_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
 
     cover2_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
 
     cover3_dm{
-      hp:r=19.5
+      hp:r=6.0
     }
   }
 
   dural90{
 
     spar1_l_dm{
-      hp:r=97.2
+      hp:r=30.0
     }
 
     spar1_r_dm{
-      hp:r=97.2
+      hp:r=30.0
     }
 
     spar2_l_dm{
-      hp:r=79.5
+      hp:r=25.0
     }
 
     spar2_r_dm{
-      hp:r=79.5
+      hp:r=25.0
     }
 
     spar_l_dm{
-      hp:r=110.5
+      hp:r=30.0
     }
 
     spar_r_dm{
-      hp:r=110.5
+      hp:r=30.0
     }
   }
 
   protected_controls{
 
     tailcontrol_dm{
-      hp:r=80.5
+      hp:r=20.0
     }
 
     wingcontrol_l_dm{
-      hp:r=75.8
+      hp:r=25.0
     }
 
     wingcontrol_r_dm{
-      hp:r=75.9
+      hp:r=25.0
     }
   }
 
   steel{
 
     gear_c_dm{
-      hp:r=49.5
+      hp:r=15.0
     }
 
     gear_l_dm{
-      hp:r=59.0
+      hp:r=15.0
     }
 
     gear_r_dm{
-      hp:r=59.0
+      hp:r=15.0
     }
   }
 
   steel_cooling_sys{
 
     oil1_dm{
-      hp:r=17.5
+      hp:r=6.0
     }
 
     oil2_dm{
-      hp:r=23.5
+      hp:r=7.0
     }
 
     oil3_dm{
-      hp:r=17.5
+      hp:r=6.0
     }
 
     oil4_dm{
-      hp:r=23.5
+      hp:r=7.0
     }
   }
 
   steel_pilot{
 
     gunner1_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     gunner2_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     gunner3_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     gunner4_dm{
-      hp:r=20.0
+      hp:r=6.0
     }
 
     pilot_dm{
       fireProtectionHp:r=20.0
-      hp:r=20.0
+      hp:r=6.0
     }
   }
 
   steel_tank_m{
 
     tank1_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank2_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank3_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank4_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank5_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
 
     tank6_dm{
-      hp:r=54.5
+      hp:r=15.0
     }
   }
 }
@@ -627,28 +627,10 @@ DamageEffects{
 
   part{
     name:t="fin1_dm"
-
-    onHit{
-      tailcontrol_dm:r=0.001
-    }
-
-    onKill{
-      tailcontrol_dm:r=1.0
-      nothing:r=9.0
-    }
   }
 
   part{
     name:t="fin2_dm"
-
-    onHit{
-      tailcontrol_dm:r=0.001
-    }
-
-    onKill{
-      tailcontrol_dm:r=1.0
-      nothing:r=9.0
-    }
   }
 
   part{
@@ -1141,10 +1123,20 @@ DamageEffects{
 
   part{
     name:t="spar_l_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
     name:t="spar_r_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
@@ -1294,7 +1286,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1308,14 +1300,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1342,7 +1332,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1356,14 +1346,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1390,7 +1378,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1404,14 +1392,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1438,7 +1424,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1452,14 +1438,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1486,7 +1470,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1500,14 +1484,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1534,7 +1516,7 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
       expl:r=0.5
       fire:r=0.4
       leak:r=0.9
@@ -1548,14 +1530,12 @@ DamageEffects{
 
     onKill{
       damage:r=50.0
-      expl:r=45.0
       fire:r=45.0
       leak:r=25.0
     }
 
     onKill{
-      damage:r=70.0
-      expl:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -2337,14 +2317,14 @@ cockpit{
 }
 
 cutting{
-  emtr_break_wing0_l_from:p3=-0.0701967, -0.13766, 1.31115
-  emtr_break_wing0_l_to:p3=-0.0701967, -0.13766, 1.36393
+  _emtr_break_wing0_l_from:p3=-0.0701967, -0.13766, 1.31115
+  _emtr_break_wing0_l_to:p3=-0.0701967, -0.13766, 1.36393
   emtr_break_wing1_l_from:p3=-0.0701967, -0.13766, 3.59305
   emtr_break_wing1_l_to:p3=-0.0701967, -0.13766, 4.86876
   emtr_break_wing2_l_from:p3=-0.0701967, -0.13766, 6.78233
   emtr_break_wing2_l_to:p3=-0.0701967, -0.13766, 8.07075
-  emtr_break_wing0_r_from:p3=-0.0701963, -0.13766, -1.31115
-  emtr_break_wing0_r_to:p3=-0.0701963, -0.13766, -1.36393
+  _emtr_break_wing0_r_from:p3=-0.0701963, -0.13766, -1.31115
+  _emtr_break_wing0_r_to:p3=-0.0701963, -0.13766, -1.36393
   emtr_break_wing1_r_from:p3=-0.0701963, -0.13766, -3.59305
   emtr_break_wing1_r_to:p3=-0.0701963, -0.13766, -4.86876
   emtr_break_wing2_r_from:p3=-0.0701963, -0.13766, -6.78233

@@ -304,7 +304,7 @@ DamageParts{
       hp:r=21.5
     }
 
-    oil6_dm{
+    oil5_dm{
       hp:r=21.5
     }
 
@@ -313,14 +313,6 @@ DamageParts{
     }
 
     water2_dm{
-      hp:r=17.5
-    }
-
-    water3_dm{
-      hp:r=19.6
-    }
-
-    water4_dm{
       hp:r=17.5
     }
   }
@@ -752,15 +744,8 @@ DamageEffects{
     name:t="fuse1_dm"
 
     onHit{
-      damage:r=10.0
-      wing_r_dm:r=0.1
-      wing_l_dm:r=0.1
-    }
-
-    onHit{
-      damage:r=20.0
-      wing_r_dm:r=0.3
-      wing_l_dm:r=0.3
+      flame:r=0.2
+      smoke:r=0.2
     }
 
     onHit{
@@ -826,13 +811,8 @@ DamageEffects{
     name:t="fuse_dm"
 
     onHit{
-      damage:r=20.0
-      tail_dm:r=0.2
-    }
-
-    onHit{
-      damage:r=30.0
-      tail_dm:r=0.4
+      flame:r=0.2
+      smoke:r=0.2
     }
 
     onHit{
@@ -1068,7 +1048,7 @@ DamageEffects{
   }
 
   part{
-    name:t="oil6_dm"
+    name:t="oil5_dm"
 
     onHit{
       leak_oil:r=0.95
@@ -1299,7 +1279,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.4
       leak:r=0.9
     }
@@ -1317,7 +1298,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1344,7 +1325,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.4
       leak:r=0.9
     }
@@ -1362,7 +1344,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1389,7 +1371,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.4
       leak:r=0.9
     }
@@ -1407,7 +1390,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1434,7 +1417,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.4
       leak:r=0.9
     }
@@ -1452,7 +1436,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1479,7 +1463,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=70.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.4
       leak:r=0.9
     }
@@ -1497,7 +1482,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=70.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=20.0
     }
@@ -1517,30 +1502,6 @@ DamageEffects{
 
   part{
     name:t="water2_dm"
-
-    onHit{
-      leak_water:r=0.5
-    }
-
-    onKill{
-      leak_water:r=1.0
-    }
-  }
-
-  part{
-    name:t="water3_dm"
-
-    onHit{
-      leak_water:r=0.5
-    }
-
-    onKill{
-      leak_water:r=1.0
-    }
-  }
-
-  part{
-    name:t="water4_dm"
 
     onHit{
       leak_water:r=0.5
@@ -2361,14 +2322,14 @@ cockpit{
 }
 
 cutting{
-  emtr_break_wing0_l_from:p3=-0.932996, 0.0544812, 1.3891
-  emtr_break_wing0_l_to:p3=-0.932996, 0.0544812, 1.69605
+  _emtr_break_wing0_l_from:p3=-0.932996, 0.0544812, 1.3891
+  _emtr_break_wing0_l_to:p3=-0.932996, 0.0544812, 1.69605
   emtr_break_wing1_l_from:p3=-0.932996, 0.0544812, 5.44139
   emtr_break_wing1_l_to:p3=-0.932996, 0.0544812, 6.67942
   emtr_break_wing2_l_from:p3=-0.932996, 0.0544812, 8.53646
   emtr_break_wing2_l_to:p3=-0.932996, 0.0544812, 9.51868
-  emtr_break_wing0_r_from:p3=-0.932996, 0.0544812, -1.3891
-  emtr_break_wing0_r_to:p3=-0.932996, 0.0544812, -1.82421
+  _emtr_break_wing0_r_from:p3=-0.932996, 0.0544812, -1.3891
+  _emtr_break_wing0_r_to:p3=-0.932996, 0.0544812, -1.82421
   emtr_break_wing1_r_from:p3=-0.932996, 0.0544812, -5.44139
   emtr_break_wing1_r_to:p3=-0.932996, 0.0544812, -6.67942
   emtr_break_wing2_r_from:p3=-0.932996, 0.0544812, -8.53646

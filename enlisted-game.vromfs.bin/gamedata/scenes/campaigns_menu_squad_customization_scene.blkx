@@ -220,7 +220,7 @@ entity{
 }
 
 entity{
-  _template:t="menu_vehicle"
+  _template:t="menu_inspected_vehicle_pos"
   transform:m=[[0.0376859, 0.0, -0.99929] [0.0, 1.0, 0.0] [0.99929, 0.0, 0.0376859] [0.707208, 1.72756, 94.5714]]
 }
 
@@ -428,20 +428,16 @@ entity{
 }
 
 entity{
-  _template:t="level"
+  _template:t="menu_machinegun_respawnbase"
+  transform:m=[[0.999954, 0.0, -0.00948151] [0.0, 1.0, 0.0] [0.00948151, 0.0, 0.999954] [-18.2446, 9.05521, -71.9229]]
+}
+
+entity{
+  _template:t="menu_level"
   level__blk:t="content/enlisted/levels/campaigns_menu_background.blk"
   level__day:i=24
   level__month:i=7
   level__fpsLimit:i=60
-
-  "level__renderFeaturesOverrides:object"{
-    microdetails:b=yes
-    clusteredLights:b=yes
-    fullDeferred:b=yes
-    wake:b=yes
-    ripples:b=yes
-    downsampledShadows:b=yes
-  }
 
   "level__weatherChoice:object"{
     weather_clear_b:r=1.0

@@ -3,7 +3,7 @@ require game.es.events
 require common_shooter.events_common_shooter
 
 
-[es(tag=server)]
+[es]
 def update_fire_occluder_es(evt : CmdWeapPhysUpdate;
                             var smoke_occluder__sphere : float4&;
                             flamethrower__flameStartOffset : float;

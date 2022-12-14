@@ -4,6 +4,7 @@ require EnlistedNet
 require player
 require DagorConsole
 require DagorMath
+require Plane
 
 require game.utils.hero
 require game.es.vehicle.vehicle_events
@@ -17,12 +18,12 @@ require daslib/strings_boost
 [console_cmd(name="vehicle.explosion")]
 def vehicle_explosion()
   let vehicleEid = get_Eid(get_controlled_hero(), "human_anim__vehicleSelected") ?? INVALID_ENTITY_ID
-  sendEvent(vehicleEid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID]])
+  sendEvent(vehicleEid, [[CmdExplosionFatal offender=INVALID_ENTITY_ID, gunPropsId=-1, shellId=-1]])
 
 [console_cmd(name="vehicle.explosion_crash")]
 def vehicle_explosion_crash()
   let vehicleEid = get_Eid(get_controlled_hero(), "human_anim__vehicleSelected") ?? INVALID_ENTITY_ID
-  sendEvent(vehicleEid, [[CmdCrashExplosionFatal offender=INVALID_ENTITY_ID]])
+  sendEvent(vehicleEid, [[CmdCrashExplosionFatal offender=INVALID_ENTITY_ID, crashType=int(CrashType CRASH_TYPE_LAND)]])
 
 [net_console_cmd(name="vehicle.spawnInVehicle")]
 def vehicle_spawn_debug(vehicleTempl : string; [[net_hero]] hero_eid : EntityId; [[net_player]] player_eid : EntityId)

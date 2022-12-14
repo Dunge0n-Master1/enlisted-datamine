@@ -2,11 +2,32 @@ ussr_t_34_1941_stalingrad{
   _extends:t="ussr_t_34_1941_common"
 }
 
+ussr_t_34_1941_moscow{
+  _extends:t="ussr_t_34_1941_common"
+}
+
 ussr_t_34_1941_common{
   _extends:t="base_t_34_1941"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_t34_vehicle_tracks_sound"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=7
+      count:i=7
+    }
+  }
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -173,5 +194,60 @@ ussr_t_34_1941_commander_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_right"
+  }
+}
+
+t_34_1941_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="t_34_1941_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_34_1941_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_34_1941_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_34_1941_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_34_1941_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="t_34_1941_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
   }
 }

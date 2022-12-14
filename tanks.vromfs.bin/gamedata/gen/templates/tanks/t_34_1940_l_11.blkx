@@ -252,18 +252,18 @@ t_34_1940_l_11_skins{
     }
 
     "skin:object"{
-      id:t="t_34_1940_l_11_ussr_camo_brown_lines"
+      id:t="t_34_1940_l_11_ussr_camo_czechoslovak_yellow_green"
 
       "objTexReplace:object"{
-        "ussr_camo_green_new-paint*":t="ussr_camo_brown_lines*"
+        "ussr_camo_green_new-paint*":t="ussr_camo_czechoslovak_yellow_green*"
       }
     }
 
     "skin:object"{
-      id:t="t_34_1940_l_11_ussr_camo_green_ltbrown_lines"
+      id:t="t_34_1940_l_11_ussr_camo_desert_syrian_green_brown_yellow"
 
       "objTexReplace:object"{
-        "ussr_camo_green_new-paint*":t="ussr_camo_green_ltbrown_lines*"
+        "ussr_camo_green_new-paint*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
 

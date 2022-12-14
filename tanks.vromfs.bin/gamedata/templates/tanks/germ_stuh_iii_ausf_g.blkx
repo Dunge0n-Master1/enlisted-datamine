@@ -1,7 +1,28 @@
 germ_stuh_III_ausf_G{
+  _extends:t="germ_stuh_iii_ausf_g_common"
+}
+
+germ_stuh_iii_ausf_g_common{
   _extends:t="base_stuh_iii_ausf_g"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
+    }
+  }
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"

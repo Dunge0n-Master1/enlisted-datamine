@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
@@ -192,7 +193,7 @@ let sortStatistics = @(a, b)
   || a.eid <=> b.eid
 
 let STATISTICS_VIEW_PARAMS = {
-  localPlayerEid = INVALID_ENTITY_ID
+  localPlayerEid = ecs.INVALID_ENTITY_ID
   localPlayerGroupId = INVALID_GROUP_ID
   localPlayerGroupMembers = null
   myTeam = 1

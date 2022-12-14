@@ -884,6 +884,27 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.png"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
+  ["378"] = {
+    name = loc("items/xmas_event_order")
+    description = loc("items/xmas_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["379"] = {
+    name = loc("items/xmas_event_ussr_portrait")
+    description = loc("decorator/xmas_event_portrait/tip")
+    icon = "ui/uiskin/currency/portrait_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["380"] = {
+    name = loc("items/xmas_event_ger_portrait")
+    description = loc("decorator/xmas_event_portrait/tip")
+    icon = "ui/uiskin/currency/portrait_order_event.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
 
 
   // boosters presentation

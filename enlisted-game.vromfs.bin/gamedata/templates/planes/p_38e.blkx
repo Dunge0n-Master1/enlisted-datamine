@@ -26,6 +26,13 @@ p_38e{
         turret:t="turret_04"
         turret:t="turret_05"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -283,4 +290,24 @@ p_38e_driver_cockpit{
   animchar__res:t="p_38e_cockpit_char"
   plane_anim__blk:t="gamedata/units/p_38e.blk"
   plane_sight__blk:t="gamedata/units/p_38e.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.02, 0.019, 0.0145
+    item:p3=0.017, -0.008, 0.0
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=5.4, 5.9
+    item:p2=-11.4, 0.0
+  }
 }

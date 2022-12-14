@@ -30,7 +30,7 @@ def on_personal_squadmate_defend_order(evt : RequestPersonalSquadMateOrder;
       squad_member__orderPosition = evt.orderPosition
       squad_member__orderUseEntity = evt.orderUseEntity
       squad_member__isPersonalOrder = true
-      sendEvent(eid, [[CmdRequestHumanSpeech phrase="confirmResponseDelayed", importance=1.]])
+      sendEvent(eid, [[CmdRequestHumanSpeech phrase="confirmResponseDelayed"]])
       send_squad_member_accept_order_bq(squad__leader, "{SquadMateOrder ESMO_DEFEND_POINT}", transform[3], true)
 
 [es(tag=server)]
@@ -39,5 +39,5 @@ def squadmate_defend_order_speech(evt : RequestPersonalSquadMateOrder;
                                   squad_member__squad : EntityId)
   if evt.orderType == int(SquadMateOrder ESMO_DEFEND_POINT)
     query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadDefendOrder", importance=1.]])
+      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadDefendOrder"]])
       request_squad_member_response(eid, "confirm")

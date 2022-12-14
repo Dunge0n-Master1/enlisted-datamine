@@ -4,9 +4,34 @@ ussr_su_76m_stalingrad_premium{
 
 ussr_su_76m_common{
   _extends:t="base_su_76m"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_su76_vehicle_tracks_sound"
+  vehicle_commander_cam__attachToVehicle:b=yes
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=7
+      count:i=7
+    }
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
+  }
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"
@@ -44,6 +69,7 @@ ussr_su_76m_common{
       cockpitTemplate:t="ussr_su_76m_gunner_cockpit"
       seatAnimUpper:t="gunner_upper_hands"
       seatAnimLower:t="lower_stand"
+      cameraOffset:p3=-0.3, 0.2, 0.0
 
       "turretNames:array"{
         turret:t="turret_01"
@@ -56,6 +82,7 @@ ussr_su_76m_common{
       attachNode:t="commander"
       shouldHideOwner:b=no
       maxPosWithOpenHatch:r=0.4
+      maxPosWithOpenHatch:r=0.0
       ignoreAttachNodeRotation:b=yes
       attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.7, 0.1]]
       cameraType:t="commander"
@@ -64,19 +91,28 @@ ussr_su_76m_common{
       cockpitTemplate:t="ussr_su_76m_commander_cockpit"
       seatAnimUpper:t="gunner_upper_hands"
       seatAnimLower:t="lower_stand"
+      cameraOffset:p3=-2.9, 0.3, 0.2
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHatchControlInversed:b=yes
+      isHoldGunModeAllowed:b=no
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
+      }
     }
 
     "seats:object"{
       locName:t="vehicle_seats/loader"
       attachNode:t="loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.8, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.0, -0.1]]
       seatComponent:t="isPassenger"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_camera_driver"
-      seatAnimUpper:t="gunner_upper_hands"
-      seatAnimLower:t="lower_stand"
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
@@ -111,7 +147,7 @@ ussr_su_76m_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__minZoom:r=-0.27
-  cockpit__offset:p3=-0.55491, 0.755667, 0.489699
+  cockpit__offset:p3=-0.55491, 0.7, 0.489699
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_gun"
@@ -143,7 +179,7 @@ ussr_su_76m_gunner_cockpit{
 ussr_su_76m_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
-  cockpit__offset:p3=-1.32645, 2.23761, -0.383717
+  cockpit__offset:p3=-1.32645, 2.13761, -0.383717
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
@@ -169,5 +205,60 @@ ussr_su_76m_commander_cockpit{
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="root"
+  }
+}
+
+su_76m_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="su_76m_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_76m_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_76m_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_76m_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_76m_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="su_76m_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
   }
 }

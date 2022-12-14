@@ -69,7 +69,7 @@ base_bm_8_24{
   }
 }
 
-bm_8_24_projectile{
+base_bm_8_24_projectile{
   _extends:t="rocket_projectile"
   animchar__res:t="m_8_rocket_char"
 

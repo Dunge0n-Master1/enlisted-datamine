@@ -85,10 +85,10 @@ let function requestAndSend(playerEid, teamArmy) {
     TRIES_TO_REQUEST_PROFILE)
 }
 
-local function saveJwtResultToJson(jwt, data, fileName) {
+local function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
   fileName = $"{fileName}.json"
   local file = io.file(fileName, "wt+")
-  file.writestring(json.to_string(data, true))
+  file.writestring(json.to_string(data, pretty))
   file.close()
   console_print($"Saved json payload to {fileName}")
   fileName = $"{fileName}.jwt"
@@ -98,8 +98,8 @@ local function saveJwtResultToJson(jwt, data, fileName) {
   console_print($"Saved jwt to {fileName}")
 }
 
-let function saveToFile(teamArmy = null) {
-  let cb = @(jwt, data) saveJwtResultToJson(jwt, data, "sendArmiesData")
+let function saveToFile(teamArmy = null, pretty = true) {
+  let cb = @(jwt, data) saveJwtResultToJson(jwt, data, "sendArmiesData", pretty)
   if (teamArmy == null) {
     let requestArmies = []
     foreach (armies in allAvailableArmies.value)
@@ -157,7 +157,7 @@ let function debugApplyBoosterInBattle() {
 console_register_command(@(armyId) requestProfileDataJwt([armyId], @(_jwt, data)
   log.debugTableData(data, { recursionLevel = 7, printFn = debug }) ?? log("Done")),
   "profileData.debugArmyData")
-console_register_command(@() saveToFile(), "profileData.profileToJson")
+console_register_command(@(pretty) saveToFile(null/*teamArmy*/, pretty), "profileData.profileToJson", "[pretty] If set to true, then you will get a beautiful json output")
 console_register_command(debugApplyBoosterInBattle, "profileData.debugApplyBoosterInBattle")
 
 return {

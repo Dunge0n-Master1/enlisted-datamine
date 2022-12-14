@@ -9,6 +9,7 @@ require game.utils.team
 require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.human_attached_gun_common
+require danetlibs.native_dasevents.main.native_events
 require Gun
 require EnlistedHuman
 require EnlistedWeapon
@@ -59,7 +60,7 @@ def attach_to_gun(eid : EntityId;
 
   sendEventImmediate(eid, [[HumanAttachToGunComplete gun_eid=gun_eid]])
 
-  query(eid) <| $ [es] (animchar : AnimcharBaseComponent?;
+  query(eid) <| $ [es] (animchar : AnimcharBaseComponent const?;
                         human_attached_gun__nodeLhName : string;
                         human_attached_gun__nodeName : string;
                         team : int = TEAM_UNASSIGNED;
@@ -69,7 +70,7 @@ def attach_to_gun(eid : EntityId;
     let humanAnimChar = animchar
     let humanTeam = team
 
-    query(gun_eid) <| $ [es] (animchar : AnimcharBaseComponent?;
+    query(gun_eid) <| $ [es] (animchar : AnimcharBaseComponent const?;
                               dependsOnBuildingEid : EntityId = INVALID_ENTITY_ID;
                               var team : int?)
       let gunAnimChar = animchar
@@ -83,12 +84,12 @@ def attach_to_gun(eid : EntityId;
       if (humanAnimChar != null && gunAnimChar != null &&
          humanAnimChar.animGraph != null && humanAnimChar.animState != null)
         let nodeTree = (*gunAnimChar).nodeTree
-        let lhandNodeIdx = nodeTree |> geomtree_findNodeIndex(human_attached_gun__nodeLhName)
+        let lhandNodeIdx = *nodeTree |> geomtree_findNodeIndex(human_attached_gun__nodeLhName)
         human_attached_gun__lhandNodeIdx = lhandNodeIdx
         if human_attached_gun__lhandNodeIdx == -1
           logerr("<{getEntityTemplateName(gun_eid)}> does not have '{human_attached_gun__nodeLhName}' animchar node")
 
-        let rhandNodeIdx = nodeTree |> geomtree_findNodeIndex(human_attached_gun__nodeName)
+        let rhandNodeIdx = *nodeTree |> geomtree_findNodeIndex(human_attached_gun__nodeName)
         human_attached_gun__rhandNodeIdx = rhandNodeIdx
         if human_attached_gun__rhandNodeIdx == -1
           logerr("<{getEntityTemplateName(gun_eid)}> does not have '{human_attached_gun__nodeName}' animchar node")
@@ -151,107 +152,61 @@ def move_to_pos_ccd(var human_net_phys : HumanActor; var pos : float3)
 
   human_net_phys.phys |> human_phys_processCcdOffset(ccdTm, ccdToPos, totalOffset, collRad - ccdRad, speedCollisionHardness, true, ccdPos)
 
-
 [es]
-def human_attached_gun_input_es(update : CmdPostPhysUpdate;
-                                human_attached_gun__attachedGunEid : EntityId;
-                                human_attached_gun__rhandNodeIdx : int;
-                                human_attached_gun__nodeOffset : float3;
-                                human_attached_gun__nodeOffsetStand : float3;
-                                human_attached_gun__nodeOffsetCrouch : float3;
-                                human_attached_gun__nodeOffsetCrawl : float3;
-                                human_attached_gun__walkAnimPeriod : float = 0.3;
-                                var human_net_phys : HumanActor;
-                                var human_attached_gun__isAttached : bool&;
-                                var human_attached_gun__walkDir : float2&;
-                                var human_attached_gun__walkAnimAt : float&;
-                                var human_attached_gun__hashPosition : float3&)
-  // FIXME: extra phys state modification to separate ES
-  let isAttached = (human_attached_gun__attachedGunEid != INVALID_ENTITY_ID)
-  human_attached_gun__isAttached = isAttached
-  assume currentState = human_net_phys.phys.currentState
-  currentState |> human_phys_state_set_attachedToExternalGun(isAttached)
+def human_attached_gun_update_phys(update : CmdPostPhysUpdate;
+                                   eid aka human_eid : EntityId;
+                                   human_attached_gun__attachedGunEid : EntityId;
+                                   bipod__enabled : bool;
+                                   var human_net_phys : HumanActor&)
+  human_net_phys.phys.currentState |> human_phys_state_set_attachedToExternalGun(!!human_attached_gun__attachedGunEid || bipod__enabled)
+  query(human_attached_gun__attachedGunEid) <| $ [es] (transform aka gun_transform : float3x4;
+                                                       stationary_gun__humanOffset : float3;
+                                                       stationary_gun__maxPhysOffsetSq : float)
 
-  // Entity might be destroyed but not detached yet (which will happens further in update es)
-  if doesEntityExist(human_attached_gun__attachedGunEid)
-    query(human_attached_gun__attachedGunEid) <| $ [es] (animchar : AnimcharBaseComponent)
-      if human_attached_gun__rhandNodeIdx >= 0
-        var wtm = IDENT_TM
-        let nodeTree = animchar.nodeTree
-        nodeTree |> geomtree_getNodeWtmScalar(human_attached_gun__rhandNodeIdx, wtm)
+    assume currentState = human_net_phys.phys.currentState
+    assume producedCT = human_net_phys.phys.producedCT
 
-        assume producedCT = human_net_phys.phys.producedCT
+    let shoot = producedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT)
+    let aim = producedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
 
-        let shoot = producedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT)
-        let aim = producedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
+    producedCT |> human_control_state_set_neutral_ctrl()
+    if currentState |> human_phys_state_get_canShoot()
+      human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, shoot)
+      human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, aim)
+    let attachPos = gun_transform * stationary_gun__humanOffset
+    let dest = float3(attachPos.x, float(currentState.location.P.y), attachPos.z)
+    human_net_phys |> move_to_pos_ccd(dest)
+    human_net_phys.phys.currentState.bodyOrientDir = human_net_phys.phys.currentState.gunDir.xz
+    var tm : float3x4
+    currentState.location |> location_toTM(tm)
+    tm[1] = currentState.vertDirection
+    tm[2] = normalize(cross(tm[0], tm[1]))
+    tm[0] = normalize(cross(tm[1], tm[2]))
+    let orient = quat(tm)
+    currentState.location.O |> orient_setQuat(orient)
+    currentState.moveState = HUMoveState EMS_STAND
+    let posAfter = float3(currentState.location.P)
+    if distance_sq(attachPos, posAfter) > stationary_gun__maxPhysOffsetSq
+      sendEvent(human_eid, [[CmdDetachAttachedGun]])
+      sendEvent(human_eid, [[CmdHeroLogEvent event="human_attached_gun_lost", text="human_attached_gun_lost"]])
 
-        producedCT |> human_control_state_set_neutral_ctrl()
-        if currentState |> human_phys_state_get_canShoot()
-          human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, shoot)
-          human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, aim)
+[es(track=human_attached_gun__attachedGunEid)]
+def human_track_attached_gun(evt : Event;
+                             human_attached_gun__attachedGunEid : EntityId;
+                             var human_attached_gun__isAttached : bool&)
+  human_attached_gun__isAttached = !!human_attached_gun__attachedGunEid
 
-        var horzTransform = IDENT_TM
-        horzTransform[0] = normalize(float3(wtm[0].x, 0.0, wtm[0].z))
-        horzTransform[2] = cross(horzTransform[0], horzTransform[1])
-        horzTransform[3] = wtm[3]
-
-        var crawlPos = horzTransform * human_attached_gun__nodeOffsetCrawl
-        query(human_attached_gun__attachedGunEid) <| $ [es] (transform : float3x4)
-          crawlPos.y = (transform * human_attached_gun__nodeOffsetCrawl).y
-
-        let possiblePositions = [[auto[]
-          crawlPos;
-          horzTransform * human_attached_gun__nodeOffsetCrouch;
-          horzTransform * human_attached_gun__nodeOffsetStand]]
-
-        let holdPos = wtm * human_attached_gun__nodeOffset
-
-        let lowestH = float(human_net_phys.phys.currentState.location.P.y)
-        let dH = holdPos.y - lowestH
-
-        let maxCrawlDH = 0.5
-        let needCrawl = dH < maxCrawlDH
-
-        let ratio = cvt(dH, 1.0, 2.0, 0.0, 1.0)
-        var dest = lerp(possiblePositions[1], possiblePositions[2], float3(ratio))
-        if needCrawl
-          dest = possiblePositions[0]
-        dest.y = lowestH
-
-        let beforeCcdPos = float3(human_net_phys.phys.currentState.location.P)
-        human_net_phys |> move_to_pos_ccd(dest)
-        let afterCcdPos = float3(human_net_phys.phys.currentState.location.P)
-
-        human_net_phys.phys.currentState.bodyOrientDir = float2(wtm[0].x, wtm[0].z)
-
-        if needCrawl
-          human_net_phys.phys.currentState.height = -1.0
-        else
-          let crouchToStandLerpHeight = 1.6
-          human_net_phys.phys.currentState.height = cvt(dH, 0.0, crouchToStandLerpHeight, 0.0, 1.0)
-
-        human_net_phys.phys.currentState.velocity = float3(0.0, 0.0, 0.0)
-        human_net_phys.phys.currentState.moveState = HUMoveState EMS_STAND
-        let time = get_sync_time()
-        let moveDir3 = afterCcdPos - beforeCcdPos
-        let moveDir = float2(moveDir3.x, moveDir3.z)
-
-        if length(afterCcdPos - human_attached_gun__hashPosition) > 0.1
-          human_attached_gun__walkAnimAt = time + human_attached_gun__walkAnimPeriod
-          human_attached_gun__walkDir = moveDir
-          human_attached_gun__hashPosition = afterCcdPos
-        human_net_phys.phys.currentState.walkDir = human_attached_gun__walkDir
-        if human_attached_gun__walkAnimAt > time
-          human_net_phys.phys.currentState.moveState = HUMoveState EMS_WALK
-        else
-          human_attached_gun__walkDir = float2(0.0, 0.0)
-
-        let dHMax = 1.7
-        if dH > dHMax
-          var newP = float3(human_net_phys.phys.currentState.location.P)
-          newP.y += dH - dHMax
-          human_net_phys.phys.currentState.location.P = DPoint3(newP)
-
+[es(after=(after_net_phys_sync, human_weap_update_es), before=human_anim_es)]
+def human_attached_gun_rotate_body(update : UpdateStageInfoAct;
+                                   human_attached_gun__attachedGunEid : EntityId;
+                                   var transform aka human_transform : float3x4&)
+  query(human_attached_gun__attachedGunEid) <| $ [es] (transform aka gun_transform : float3x4; stationary_gun__humanOffset : float3)
+    human_transform[0] = -gun_transform[2]
+    human_transform[2] = cross(human_transform[0], human_transform[1])
+    orthonormalize(human_transform)
+    let physY = human_transform[3].y
+    human_transform[3] = gun_transform * stationary_gun__humanOffset
+    human_transform[3].y = min(physY, human_transform[3].y)
 
 def interp_dir(prev : float3; cur : float3; interpK : float)
   let q = slerp(dir_to_quat(prev), dir_to_quat(cur), interpK)
@@ -300,7 +255,7 @@ def human_attached_gun_controls_update_es(info : UpdateStageInfoAct;
 def human_attached_gun_effectors_update_es(info : UpdateStageInfoAct;
                                            var human_net_phys : HumanActor;
                                            var animchar_effectors__effectorsState : Object&;
-                                           animchar : AnimcharBaseComponent?;
+                                           animchar : AnimcharBaseComponent const?;
                                            human_attached_gun__lhandNodeIdx : int;
                                            human_attached_gun__rhandNodeIdx : int;
                                            human_attached_gun__attachedGunEid : EntityId;
@@ -314,21 +269,21 @@ def human_attached_gun_effectors_update_es(info : UpdateStageInfoAct;
     if rightHandEffector != null && leftHandEffector != null
       human_net_phys.phys.currentState.breathAmplitudeMult = human_attached_gun__breathAmplitude
       if humanAnimChar != null && !human_attached_gun__disableIK
-        let d_wofs = animchar.nodeTree |> geomtree_getWtmOfs() - humanAnimChar.nodeTree |> geomtree_getWtmOfs()
+        let d_wofs = *animchar.nodeTree |> geomtree_getWtmOfs() - *humanAnimChar.nodeTree |> geomtree_getWtmOfs()
 
-        let arms = animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__rhandNodeIdx) + d_wofs
+        let arms = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__rhandNodeIdx) + d_wofs
 
         (*rightHandEffector).position = arms
-        animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__rhandNodeIdx, (*rightHandEffector).wtm)
+        *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__rhandNodeIdx, (*rightHandEffector).wtm)
         (*rightHandEffector).wtm[3] = (*rightHandEffector).wtm[3] + d_wofs
         (*rightHandEffector).weight = 1.0
 
         var armLh = arms
         if human_attached_gun__lhandNodeIdx >= 0
-          armLh = animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__lhandNodeIdx) + d_wofs
+          armLh = *animchar.nodeTree |> geomtree_getNodeWposRel(human_attached_gun__lhandNodeIdx) + d_wofs
 
         (*leftHandEffector).position = armLh
-        animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__lhandNodeIdx, (*leftHandEffector).wtm)
+        *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(human_attached_gun__lhandNodeIdx, (*leftHandEffector).wtm)
         (*leftHandEffector).wtm[3] = (*leftHandEffector).wtm[3] + d_wofs
         (*leftHandEffector).weight = 1.0
       else
@@ -413,17 +368,6 @@ def human_lock_stationary_gun_use_es(evt : Event;
   if human_use_object__lockStationaryGunUse && human_attached_gun__attachedGunEid != INVALID_ENTITY_ID
     sendEvent(human_attached_gun__attachedGunEid, [[CmdUse requesterEid=eid]])
 
-
-[es(no_order)]
-def human_attached_gun_autodetach_es(info : ParallelUpdateFrameDelayed;
-                                     eid : EntityId;
-                                     human_attached_gun__attachedGunEid : EntityId;
-                                     human_net_phys : HumanActor)
-  let humanPos = float3(human_net_phys.phys.currentState.location.P)
-  if gun_needs_detach(human_attached_gun__attachedGunEid, humanPos)
-    sendEvent(eid, [[CmdDetachAttachedGun]])
-    sendEvent(eid, [[CmdHeroLogEvent event="human_attached_gun_lost", text="human_attached_gun_lost"]])
-
 [es(track=possessedByPlr)]
 def human_attached_gun_autodetach_bots_es(evt : Event;
                                           eid : EntityId;
@@ -452,6 +396,7 @@ def mouted_gun_died_es(evt : EventEntityDied;
                        transform : float3x4;
                        var ragdoll : PhysRagdoll?;
                        var animchar__updatable : bool&;
+                       var ragdoll__applyParams : bool&;
                        var animchar : AnimcharBaseComponent;
                        var ragdoll__active : bool&)
   detach_human_from_gun(eid)
@@ -466,7 +411,8 @@ def mouted_gun_died_es(evt : EventEntityDied;
                                      int(interactMask))
     let vel = float3(0.0, 0.0, 0.0)
     *ragdoll |> ragdoll_setOverrideVel(vel)
-    sendEventImmediate(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
+    ragdoll__applyParams = true
+    sendEvent(eid, [[CmdApplyRagdollParameters  cur_time=get_sync_time()]])
 
     animchar |> animchar_setPostController(*ragdoll)
     animchar |> animchar_act(0.0, true)

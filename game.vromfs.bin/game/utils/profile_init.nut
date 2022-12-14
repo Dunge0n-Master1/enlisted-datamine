@@ -459,7 +459,7 @@ let function applyVehicleMods(armies) {
       }
 
       if ("decors" in vehicle) {
-        let decorCompArray = ecs.CompArray()
+        let decorCompArray = vehicleTemplate.getCompValNullable("attach_decorators__templates").getAll() ?? []
         foreach (decor in vehicle?.decors ?? []) {
           let decorData = stringToDecal(decor.details, "vehDecorator", decor.id, decor.slotIdx)
           if (decorData != null)

@@ -4,7 +4,6 @@ us_m3_lee{
 
 us_m3_lee_common{
   _extends:t="base_m3_lee"
-  _extends:t="vehicle_effects_tracked"
   gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seatsProvideOrder:tag"{
@@ -14,19 +13,23 @@ us_m3_lee_common{
 
     "seats:object"{
       name:t="commander"
-      attachNode:t="commander"
+      attachNode:t="bone_turret_03"
       shouldHideOwner:b=yes
-      hatchRotationAxis:p3=1.8, 0.0, 0.0
       locName:t="vehicle_seats/commander"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.8, 0.0]]
+      ignoreAttachNodeRotation:b=no
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.06, -0.89, 0.05]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_camera_gunner_03"
       cockpitTemplate:t="us_m3_lee_commander_cockpit"
+      hatchRotationAxis:p3=1.7, 0.0, 0.0
 
       "turretNames:array"{
         turret:t="turret_04"
+      }
+
+      "hatchNodes:array"{
+        node:t="hatch_08"
       }
     }
 
@@ -121,6 +124,11 @@ us_m3_lee_common{
     "ammo:object"{
       slot:i=2
       fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=4
+      count:i=7
     }
   }
 }

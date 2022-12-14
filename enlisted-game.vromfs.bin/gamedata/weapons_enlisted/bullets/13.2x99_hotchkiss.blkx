@@ -1,0 +1,65 @@
+mass:r=0.052
+cartridgeMass:r=0.65
+caliber:r=0.0132
+speed:r=780.0
+maxDistance:r=2000.0
+bulletType:t="ball"
+hitPowerMult:r=110.0
+effectiveDistance:r=400.0
+relativeVelHitShift:p2=300.0, 1000.0
+ricochetPreset:t="defaultExt"
+secondaryShattersPreset:t="ap"
+stabilityThreshold:r=0.05
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityReductionAfterRicochet:r=0.5
+stabilityReductionAfterPenetration:r=0.15
+
+hitpower{
+  HitPower10m:p2=1.0, 10.0
+  HitPower100m:p2=0.95, 150.0
+  HitPower200m:p2=0.9, 300.0
+  HitPower400m:p2=0.7, 450.0
+  HitPower600m:p2=0.5, 650.0
+  HitPower1000m:p2=0.4, 1000.0
+  HitPower1500m:p2=0.3, 1500.0
+}
+
+armorpower{
+  ArmorPower0m:p2=29.0, 5.0
+  ArmorPower100m:p2=25.0, 100.0
+  ArmorPower300m:p2=22.0, 300.0
+  ArmorPower500m:p2=16.0, 500.0
+  ArmorPower1000m:p2=13.0, 1000.0
+  ArmorPower1500m:p2=10.0, 1500.0
+}
+
+stabilityRicochetModifier{
+  mod1:p2=0.0, 0.05
+  mod2:p2=20.0, 0.1
+  mod3:p2=30.0, 0.2
+  mod3:p2=45.0, 0.3
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="20mmRed"
+  trail:t="smallTrail"
+}
+
+hitFx{
+  fxScale:p2=2.0, 2.2
+  defaultFx:t="ground_splash"
+  jetFx:t="ground_splash_direct"
+  preset:t="bullet"
+}
+
+tracer{
+  ignitionTime:r=0.001
+  smokeColor:c=255, 230, 179, 204
+  smokeTime:r=0.13
+  smokeRadius:r=0.05
+  headColor:c=255, 100, 75, 255
+  luminosity:r=100.0
+  burnTime:r=1.8
+}

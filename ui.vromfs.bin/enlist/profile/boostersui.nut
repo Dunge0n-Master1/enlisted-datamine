@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let { borderColor } = require("profilePkg.nut")
 let {
   boosterItems, allBoosters
 } = require("%enlist/soldiers/model/boosters.nut")
@@ -110,10 +109,8 @@ let boostersListUi = function() {
     rendObj = ROBJ_BOX
     watch = [boosterItems, allBoosters]
     size = flex()
-    borderWidth = hdpx(1)
     valign = components.len() ? ALIGN_TOP : ALIGN_CENTER
     padding = smallPadding
-    borderColor = borderColor(0)
     children = components.len() ? scrollBoostersList : emptyBoostersText
   }
 }

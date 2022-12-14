@@ -6,8 +6,8 @@ require soundEvent
 require soundSystem
 
 
-[es(tag=sound, after=birds_sound_update)]
-def shore_sound_update(info : UpdateStageInfoAct;
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=birds_sound_update)]
+def shore_sound_update(evt : Event;
                        sound_bank_preset_state__isValid : bool;
                        shore_sound__event : SoundEvent&;
                        shore_sound__offsets : Point2List;

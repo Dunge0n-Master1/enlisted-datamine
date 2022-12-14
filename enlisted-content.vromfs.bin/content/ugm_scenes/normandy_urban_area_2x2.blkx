@@ -502,7 +502,7 @@ entity{
 }
 
 entity{
-  _template:t="team_usa+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
   team__scoreCap:r=2000.0
   team__score:r=2000.0
@@ -518,7 +518,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_germany+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=5000.0

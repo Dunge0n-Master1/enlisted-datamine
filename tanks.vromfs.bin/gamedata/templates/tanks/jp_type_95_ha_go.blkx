@@ -1,14 +1,26 @@
 jp_type_95_ha_go_pacific{
-  _extends:t="jp_type_95_ha_go_common"
+  _extends:t="jp_jp_type_95_ha_go_common_with_base"
 
   "disableDMParts:list<t>"{
     part:t="ex_smoke_01"
   }
 }
 
-jp_type_95_ha_go_common{
+jp_type_95_ha_go_commander_pacific_premium{
+  _extends:t="base_type_95_ha_go_commander"
+  _extends:t="jp_type_95_ha_go_common"
+
+  "animchar__objTexReplace:object"{
+    "jp_camo_artillery_brown*":t="jp_camo_early_curve_stripes*"
+  }
+}
+
+jp_jp_type_95_ha_go_common_with_base{
   _extends:t="base_type_95_ha_go"
-  _extends:t="vehicle_effects_tracked"
+  _extends:t="jp_type_95_ha_go_common"
+}
+
+jp_type_95_ha_go_common{
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0

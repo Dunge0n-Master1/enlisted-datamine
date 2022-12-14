@@ -26,7 +26,8 @@ let {squadId} = require("%enlist/squad/squadState.nut")
 let eventbus = require("eventbus")
 let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
-let { pushNotification, removeNotify, subscribeGroup } = require("%enlist/mailboxState.nut")
+let { pushNotification, removeNotify, subscribeGroup
+} = require("%enlist/mainScene/invitationsLogState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
@@ -321,8 +322,8 @@ let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
     logerr("Try to start local dedicated when it not allowed")
     return
   }
-  let { scene = null, modHashes = "" } = room.value?.public
-  if (scene == null && modHashes == "") {
+  let { scene = null, modHash = "" } = room.value?.public
+  if (scene == null && modHash == "") {
     logerr("Trying to start local dedicated server with no scene or mod selected")
     return
   }
@@ -373,7 +374,7 @@ let function connectToHost() {
     game = room.value.public?.gameName
     authKey = getRoomMember(userInfo.value?.userId)?.private?.auth_key
     modManifestUrl = room.value.public?.modManifestUrl ?? ""
-    modHashes = room.value.public?.modHashes ?? ""
+    modHash = room.value.public?.modHash ?? ""
     baseModsFilesUrl = room.value.public?.baseModsFilesUrl ?? ""
   }
 

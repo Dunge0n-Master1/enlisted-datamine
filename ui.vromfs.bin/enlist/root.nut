@@ -9,7 +9,6 @@ import "%dngscripts/ecs.nut" as ecs
 
 ecs.clear_vm_entity_systems()
 
-require("%enlist/options/onlineSaveDataHub.nut")
 require("%enlist/getAppIdsList.nut").setAppIdsList([1131, 1132, 1168, 1178])
 require("onScriptLoad.nut")
 
@@ -25,7 +24,10 @@ require("%enlist/state/roomState.nut")
 require("debriefing/debriefing_dbg.nut")
 
 let friendlyErrorsBtn = require("friendly_logerr.ui.nut")
-let {hotkeysButtonsBar} = require("%ui/hotkeysPanel.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let { hotkeysButtonsBar } = isNewDesign.value
+  ? require("%ui/hotkeysPanelBar.nut")
+  : require("%ui/hotkeysPanel.nut")
 let platform = require("%dngscripts/platform.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {msgboxGeneration, getCurMsgbox} = require("components/msgbox.nut")
@@ -54,6 +56,7 @@ let settingsMenuUi = mkSettingsMenuUi({
   leftButtons = [ emailLinkButton ]
 })
 let {controlsMenuUi, showControlsMenu} = require("%ui/hud/menus/controls_setup.nut")
+require("%enlist/options/onlineSaveDataHub.nut")
 
 if (platform.is_xbox)
   require("%enlist/xbox/onLoadXbox.nut")
@@ -141,9 +144,9 @@ return function Root() {
     cursor = cursors.normal
     watch = [ gui_scene.isActive ]
     children = !gui_scene.isActive.value ? null : [
-      globInput, fadeBlackUi, underUi,
-      curScreen, version_info, aboveUi, modalWindowsComponent,
-      msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo, hotkeysButtonsBar
+      globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
+      msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
+      hotkeysButtonsBar
     ]
   }
 }

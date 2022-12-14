@@ -1,221 +1,7 @@
 import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_sounds.blk"
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="ground_leaves_10m"
-  ground_effect__biome_group_name:t="forest_leaves"
-  ground_effect__rot_z:p2=0.0, 10.0
-  ground_effect__offset_x:p2=0.0, 0.0
-  ground_effect__offset_y:p2=3.5, 0.2
-  ground_effect__offset_z:p2=0.0, 0.0
-  ground_effect__grid_cell_size:r=8.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="location_sand_wind_ground_fx"
-  ground_effect__biome_group_name:t="sand_slope"
-  ground_effect__grid_cell_size:r=8.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__offset_y:p2=0.0, 0.0
-  ground_effect__scale_x:p2=0.05, 0.0
-  ground_effect__scale_y:p2=0.05, 0.0
-  ground_effect__scale_z:p2=0.05, 0.0
-}
-
-entity{
-  _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
-  ri_gpu_object__biom_indexes:p4=20.0, -1.0, -1.0, -1.0
-  ri_gpu_object__grid_size:i=8
-  ri_gpu_object__grid_tiling:i=6
-  ri_gpu_object__cell_size:r=4.0
-  ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=0.7, 1.15
-  ri_gpu_object__rotate_range:p2=0.0, 960.0
-  ri_gpu_object__seed:i=112
-  ri_gpu_object__is_using_normal:b=yes
-
-  "ri_gpu_object__multiple_objects:array"{
-
-    "gpu_object:object"{
-      name:t="autumn_leaf_pile_a"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="autumn_leaf_pile_b"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="autumn_leaf_pile_c"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="autumn_leaf_pile_d"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="autumn_leaf_pile_e"
-      weight:r=1.0
-    }
-  }
-}
-
-entity{
-  _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
-  ri_gpu_object__biom_indexes:p4=20.0, 21.0, 22.0, -1.0
-  ri_gpu_object__grid_size:i=6
-  ri_gpu_object__grid_tiling:i=2
-  ri_gpu_object__cell_size:r=12.0
-  ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=0.6, 1.05
-  ri_gpu_object__rotate_range:p2=135.0, 960.0
-  ri_gpu_object__seed:i=55113
-  ri_gpu_object__is_using_normal:b=yes
-
-  "ri_gpu_object__multiple_objects:array"{
-
-    "gpu_object:object"{
-      name:t="tree_dry_branches_a"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="tree_dry_branches_b"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="tree_dry_branches_c"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="tree_branches_small_a"
-      weight:r=0.33
-    }
-
-    "gpu_object:object"{
-      name:t="tree_branches_small_b"
-      weight:r=0.33
-    }
-
-    "gpu_object:object"{
-      name:t="tree_branches_small_c"
-      weight:r=0.33
-    }
-
-    "gpu_object:object"{
-      name:t="tree_branches_small_d"
-      weight:r=0.33
-    }
-  }
-}
-
-entity{
-  _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
-  ri_gpu_object__biom_indexes:p4=6.0, 7.0, 15.0, -1.0
-  ri_gpu_object__grid_size:i=6
-  ri_gpu_object__grid_tiling:i=4
-  ri_gpu_object__cell_size:r=12.0
-  ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=0.5, 1.0
-  ri_gpu_object__rotate_range:p2=135.0, 960.0
-  ri_gpu_object__seed:i=55112
-  ri_gpu_object__is_using_normal:b=yes
-
-  "ri_gpu_object__multiple_objects:array"{
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_a"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_b"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_c"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_d"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_e"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_f"
-      weight:r=1.0
-    }
-  }
-}
-
-entity{
-  _template:t="ri_gpu_object"
-  ri_gpu_object__name:t="debris_bricks_a"
-  ri_gpu_object__biom_indexes:p4=9.0, -1.0, -1.0, -1.0
-  ri_gpu_object__grid_size:i=8
-  ri_gpu_object__grid_tiling:i=16
-  ri_gpu_object__cell_size:r=16.0
-  ri_gpu_object__incline_delta:r=0.0
-  ri_gpu_object__scale_range:p2=0.5, 1.25
-  ri_gpu_object__rotate_range:p2=135.0, 960.0
-  ri_gpu_object__seed:i=55114
-  ri_gpu_object__is_using_normal:b=yes
-
-  "ri_gpu_object__multiple_objects:array"{
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_a"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_b"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_c"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_d"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_e"
-      weight:r=1.0
-    }
-
-    "gpu_object:object"{
-      name:t="desert_stone_small_f"
-      weight:r=1.0
-    }
-  }
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_gpu_objects.blk"
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_biome_fx.blk"
 }
 
 entity{
@@ -2720,7 +2506,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.4563, 0.0, -0.889826] [0.0, 1.0, 0.0] [0.889826, 0.0, -0.4563] [-581.073, 19.9549, -883.911]]
+  transform:m=[[-0.346045, 0.0, -0.938218] [0.0, 1.0, 0.0] [0.938218, 0.0, -0.346045] [-581.434, 19.2521, -882.314]]
   groupName:t="sector_1"
   respawnBaseGroup:i=1
   active:b=no
@@ -2794,7 +2580,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.46852, 0.0, 0.883452] [0.0, 1.0, 0.0] [-0.883452, 0.0, -0.46852] [-565.039, 5.37756, -1114.56]]
+  transform:m=[[-0.46852, 0.0, 0.883452] [0.0, 1.0, 0.0] [-0.883452, 0.0, -0.46852] [-565.039, 5.03726, -1114.56]]
   groupName:t="sector_1"
   respawnBaseGroup:i=2
   active:b=no
@@ -2837,7 +2623,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.512048, 0.0, 0.858957] [0.0, 1.0, 0.0] [-0.858956, 0.0, 0.512049] [-861.619, 22.9612, -1165.77]]
+  transform:m=[[0.579014, 0.0, 0.815318] [0.0, 1.0, -0.0] [-0.815318, 0.0, 0.579014] [-862.821, 24.3945, -1166.29]]
   groupName:t="sector_2"
   respawnBaseGroup:i=2
   active:b=no
@@ -2899,7 +2685,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[0.611027, 0.0, -0.79161] [0.0, 1.0, 0.0] [0.79161, 0.0, 0.611027] [-801.104, 24.0537, -1121.09]]
+  transform:m=[[0.611027, 0.0, -0.79161] [0.0, 1.0, 0.0] [0.79161, 0.0, 0.611027] [-798.16, 24.0537, -1124.07]]
   groupName:t="sector_3"
   respawnBaseGroup:i=1
   active:b=no
@@ -2907,7 +2693,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.0291915, 0.0, -0.999574] [0.0, 1.0, 0.0] [0.999574, 0.0, -0.0291915] [-808.644, 24.0138, -1125.66]]
+  transform:m=[[-0.0291915, 0.0, -0.999574] [0.0, 1.0, 0.0] [0.999574, 0.0, -0.0291915] [-807.479, 24.0138, -1127.36]]
   groupName:t="sector_3"
   respawnBaseGroup:i=1
   active:b=no
@@ -2926,7 +2712,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.51563, 0.0, 0.85681] [0.0, 1.0, 0.0] [-0.85681, 0.0, 0.51563] [-725.55, 21.4618, -1404.49]]
+  transform:m=[[0.51563, 0.0, 0.85681] [0.0, 1.0, 0.0] [-0.85681, 0.0, 0.51563] [-725.027, 21.4618, -1403.87]]
   groupName:t="sector_3"
   respawnBaseGroup:i=1
   active:b=no
@@ -2996,7 +2782,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.990735, 0.0, -0.135804] [0.0, 1.0, 0.0] [0.135804, 0.0, -0.990735] [-433.477, 21.2042, -1358.24]]
+  transform:m=[[-0.990735, 0.0, -0.135804] [0.0, 1.0, 0.0] [0.135804, 0.0, -0.990735] [-433.756, 20.3238, -1358.19]]
   groupName:t="sector_4"
   respawnBaseGroup:i=1
   active:b=no
@@ -3004,7 +2790,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.983005, 0.0, -0.183578] [0.0, 1.0, 0.0] [0.183578, 0.0, -0.983005] [-413.2, 20.0632, -1369.58]]
+  transform:m=[[-0.983005, 0.0, -0.183578] [0.0, 1.0, 0.0] [0.183578, 0.0, -0.983005] [-413.959, 18.872, -1369.6]]
   groupName:t="sector_4"
   respawnBaseGroup:i=1
   active:b=no
@@ -3125,7 +2911,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.104556, 0.0, 0.994519] [0.0, 1.0, 0.0] [-0.994519, 0.0, -0.104556] [-641.663, 16.3784, -1023.03]]
+  transform:m=[[-0.104556, 0.0, 0.994519] [0.0, 1.0, 0.0] [-0.994519, 0.0, -0.104556] [-641.663, 17.1071, -1023.03]]
   groupName:t="sector_1"
   respawnBaseGroup:i=3
   active:b=no
@@ -3173,7 +2959,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.999981, 0.0, -0.00624155] [0.0, 1.0, 0.0] [0.00624155, 0.0, -0.999981] [-556.354, 14.5321, -1368.05]]
+  transform:m=[[-0.999981, 0.0, -0.00624155] [0.0, 1.0, 0.0] [0.00624155, 0.0, -0.999981] [-556.354, 14.999, -1368.05]]
   groupName:t="sector_4"
   respawnBaseGroup:i=6
   active:b=no
@@ -3197,7 +2983,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.980866, 0.0, -0.194682] [0.0, 1.0, 0.0] [0.194682, 0.0, -0.980866] [-463.993, 19.8229, -1359.82]]
+  transform:m=[[-0.980866, 0.0, -0.194682] [0.0, 1.0, 0.0] [0.194682, 0.0, -0.980866] [-464.038, 19.575, -1360.03]]
   groupName:t="sector_5"
   respawnBaseGroup:i=7
   active:b=no
@@ -3385,7 +3171,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.664483, 0.0, -0.747303] [0.0, 1.0, 0.0] [0.747304, 0.0, 0.664482] [-856.062, 22.8274, -1172.29]]
+  transform:m=[[0.664483, 0.0, -0.747303] [0.0, 1.0, 0.0] [0.747304, 0.0, 0.664482] [-857.041, 24.1466, -1172.13]]
   groupName:t="sector_2"
   respawnBaseGroup:i=2
   active:b=no
@@ -3531,7 +3317,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.990735, 0.0, -0.135804] [0.0, 1.0, 0.0] [0.135804, 0.0, -0.990735] [-433.513, 21.2042, -1358.26]]
+  transform:m=[[-0.990735, 0.0, -0.135804] [0.0, 1.0, 0.0] [0.135804, 0.0, -0.990735] [-433.758, 20.3296, -1358.23]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=1
   active:b=no
@@ -3539,7 +3325,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.980673, 0.0, -0.195649] [0.0, 1.0, 0.0] [0.195649, 0.0, -0.980673] [-413.292, 20.0632, -1369.64]]
+  transform:m=[[-0.980673, 0.0, -0.195649] [0.0, 1.0, 0.0] [0.195649, 0.0, -0.980673] [-413.947, 18.8733, -1369.59]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=1
   active:b=no
@@ -3609,7 +3395,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[-0.999981, 0.0, -0.00624155] [0.0, 1.0, 0.0] [0.00624155, 0.0, -0.999981] [-556.354, 14.5321, -1368.05]]
+  transform:m=[[-0.999981, 0.0, -0.00624155] [0.0, 1.0, 0.0] [0.00624155, 0.0, -0.999981] [-556.354, 15.0158, -1368.05]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=11
   active:b=no
@@ -3660,7 +3446,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[-0.994339, 0.0, -0.10624] [0.0, 1.0, 0.0] [0.10624, 0.0, -0.994339] [-433.344, 21.0549, -1358.28]]
+  transform:m=[[-0.994339, 0.0, -0.10624] [0.0, 1.0, 0.0] [0.10624, 0.0, -0.994339] [-433.734, 20.3496, -1358.17]]
   groupName:t="sector_3_c"
   respawnBaseGroup:i=1
   active:b=no
@@ -3856,7 +3642,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[-0.439849, 0.0, 0.898071] [0.0, 1.0, 0.0] [-0.898071, 0.0, -0.439849] [-411.242, 21.3061, -1407.84]]
+  transform:m=[[-0.439849, 0.0, 0.898071] [0.0, 1.0, 0.0] [-0.898071, 0.0, -0.439849] [-410.962, 21.3061, -1408.39]]
   team:i=2
   groupName:t="sector_3_c"
 }

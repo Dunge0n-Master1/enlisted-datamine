@@ -4,10 +4,27 @@ germ_stug_III_ausf_G{
 
 germ_stug_III_ausf_G_common{
   _extends:t="base_stug_iii_ausf_g"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.3
   gunnerFpsCamMaxAngle:p2=5.0, 5.0
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=5
+      count:i=7
+    }
+  }
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"

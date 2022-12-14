@@ -102,7 +102,7 @@ def ai_gunner_find_target(info : UpdateStageInfoAct;
                           turret_ai__identDist : float;
                           turret_ai__atackDist : float;
                           turret_ai__atackMinDist : float = 0.f;
-                          turret__limit : float4?;
+                          turret__limit : float4 const?;
                           turret_ai__limitAngles : float4;
                           var turret_aim__target : EntityId&;
                           var turret_ai__atackTarget : EntityId&;
@@ -138,10 +138,13 @@ def ai_gunner_activate_turret_target(info : UpdateStageInfoAct)
       query(gun__owner) <| $ [es] (eid : EntityId;
                                    team : int;
                                    var phys_obj_net_phys : PhysObjActor;
-                                   disableUpdate : Tag?)
+                                   phys__isAsleep : bool;
+                                   disableUpdate : Tag const?)
         if team__id != team
           return
         if (!turret_ai__atackTarget || maxActiveTurrets <= 0) && disableUpdate == null
+          if !phys__isAsleep
+            return
           let templateName = getEntityFutureTemplateName(eid)
           let newTemplate = add_sub_template_name(templateName, "disable_update")
           remote_recreate_entity_from(eid, newTemplate)
@@ -161,14 +164,14 @@ def ai_gunner_sound_atack_target(evt : Event;
                                  gun__owner : EntityId;
                                  turret_ai__atackTarget : EntityId)
   if turret_ai__atackTarget != INVALID_ENTITY_ID
-    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="confirmResponse", importance=1.]])
+    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="confirmResponse"]])
 
 [es(tag=server, track=turret_ai__chaseTarget)]
 def ai_gunner_sound_chase_target(evt : Event;
                                  gun__owner : EntityId;
                                  turret_ai__chaseTarget : EntityId)
   if turret_ai__chaseTarget != INVALID_ENTITY_ID
-    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="confirmResponse", importance=1.]])
+    sendEvent(gun__owner, [[CmdRequestHumanSpeech phrase="confirmResponse"]])
 
 def calc_distribution(t : float;
                       amp : float;

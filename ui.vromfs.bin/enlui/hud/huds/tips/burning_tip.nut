@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {isBurning} = require("%ui/hud/state/burning_state_es.nut")
 let {tipCmp} = require("tipComponent.nut")
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
+let burningState = require("%ui/hud/state/burning.nut")
 
 let color0 = Color(200,40,40,110)
 let color1 = Color(200,200,40,180)
@@ -31,9 +32,9 @@ let tipLeaveFromVehicle = tipCmp({
 
 return function() {
   return {
-    watch = [isBurning, inVehicle]
+    watch = [isBurning, inVehicle, burningState]
     size = SIZE_TO_CONTENT
-    children = !isBurning.value ? null
+    children = !isBurning.value || burningState.value.isPuttingOut ? null
       : inVehicle.value ? tipLeaveFromVehicle
       : tip
   }

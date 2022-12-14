@@ -4,7 +4,6 @@ jp_type_97_kai_pacific{
 
 jp_type_97_kai_common{
   _extends:t="base_type_97_kai"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0

@@ -1,0 +1,121 @@
+plane_dive_siren{
+
+  _group{
+    _tags:t="sound"
+    dive_siren__enabled:b=yes
+    dive_siren__threshold:r=95.0
+    dive_siren__path:t="aircraft/effects/stuka_siren"
+  }
+}
+
+plane_watertracks_sound{
+
+  _group{
+    _tags:t="sound"
+    plane_watertracks_sound__path:t="aircraft/effects/hydroplane"
+
+    "plane_watertracks_sound__event:SoundEvent"{
+    }
+  }
+}
+
+plane_damage_sound{
+  _extends:t="vehicle_damage_sound"
+
+  "vehicle_damage_sound__paths:shared:object"{
+    _tags:t="sound"
+
+    "destroy:object"{
+      path:t="aircraft/effects/wreck"
+    }
+
+    "partDamage:object"{
+      path:t="aircraft/effects/damage"
+    }
+
+    "partDestroy:object"{
+      path:t="aircraft/effects/part_destroy"
+    }
+
+    "partDestroyByFire:object"{
+      path:t="aircraft/effects/part_destroy_by_fire"
+    }
+  }
+}
+
+plane_hit_sound{
+
+  _group{
+    _tags:t="sound"
+    plane_hit_sound__caliberToDist:p4=0.001, 0.3, 50.0, 250.0
+    plane_hit_sound__caliberToVar:p4=0.001, 0.3, 0.0, 200.0
+
+    "plane_hit_sound__paths:shared:object"{
+
+      "hit:object"{
+        hero:t="aircraft/effects/bullethit_cockpit_metal"
+        enemy:t="[mat=4]impact/bullet"
+      }
+
+      "hitGlass:object"{
+        hero:t="aircraft/effects/bullethit_cockpit_glass"
+        enemy:t="[mat=4]impact/bullet"
+      }
+
+      "ricochet:object"{
+        hero:t="player/vehicle/tank/impacts/hit_small_fail"
+        enemy:t="enemy/vehicle/tank/impacts/hit_small_fail"
+      }
+
+      "collision:object"{
+      }
+    }
+
+    "plane_hit_sound__canopyNodes:list<t>"{
+    }
+
+    "plane_hit_sound__canopyNodeIds:list<i>"{
+    }
+  }
+}
+
+plane_camera_inside_snapshot{
+  _extends:t="base_camera_inside_snapshot"
+
+  _group{
+    _tags:t="sound"
+    camera_inside_snapshot_anyCameraType:b=yes
+  }
+}
+
+plane_sound{
+  _extends:t="watched_vehicle_sound"
+  _extends:t="sound_control"
+  _extends:t="sound_event_group"
+  _extends:t="sound_player_components"
+  _extends:t="plane_camera_inside_snapshot"
+  _extends:t="vehicle_sound_vars"
+  _extends:t="vehicle_sound_update_speed"
+  _extends:t="base_vehicle_collision_sound"
+  _extends:t="tank_vehicle_collision_sound_setup"
+  _extends:t="plane_hit_sound"
+  _extends:t="plane_damage_sound"
+  _extends:t="plane_watertracks_sound"
+  plane_engine_sound__props:t="content/enlisted/gamedata/units/sound/engine_props.blk"
+  plane_engine_sound__propsId:i=-1
+  plane_engine_sound__engine:t="engine04"
+
+  _group{
+    _tags:t="sound"
+    vehicle_engine_sound__speedToVar:p2=0.0, 100.0
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_control__range:r=450.0
+  }
+
+  plane_engine_sound{
+    _tags:t="sound"
+  }
+}

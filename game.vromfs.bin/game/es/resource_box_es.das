@@ -1,5 +1,7 @@
 require ecs
 require game.es.events
+require danetlibs.native_dasevents.main.native_events
+
 
 [es(tag=server, before=useful_box_use_finish_es, REQUIRE=resourceBox)]
 def resource_box_use_es(evt : CmdUseUsefulBox;

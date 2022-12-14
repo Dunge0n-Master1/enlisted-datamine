@@ -96,7 +96,7 @@ def player_spectator_activated_es(evt : Event; eid : EntityId; possessed : Entit
   if respawner__enabled && respawner__spectatorEnabled
     start_spectator_timer(possessed, eid)
 
-[es(tag=server, on_event=EventPlayerPossessedEntityDied)]  // TODO(k.zakharchenko): move to common_shooter
+[es(tag=server, on_event=EventPlayerPossessedEntityDied)]  // TODO: move to common_shooter
 def player_spectator_on_death_es(evt : Event;
                                  eid, possessed : EntityId;
                                  waitingForRespawn = false;

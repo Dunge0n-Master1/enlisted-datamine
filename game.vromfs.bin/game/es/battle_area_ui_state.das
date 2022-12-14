@@ -29,9 +29,6 @@ def check_in_poly_zone(battle_areas : array<BattleAreaInfo>; checking_point : fl
   return false
 
 def intersection(start1 : float2; end1 : float2; start2 : float2; end2 : float2; var out_intersection : float2&)
-  if start1 == start2 || start1 == end2 || end1 == start2 || end1 == end2
-    return false
-
   let dir1 = end1 - start1
   let dir2 = end2 - start2
 
@@ -185,13 +182,15 @@ def build_battle_area_polygon(battle_areas : array<BattleAreaInfo>; var polygon 
       continue
     var j = 0
     while j < length(segments)
-      if segments[j].duplicate || j == i
+      assume start1 = segments[i].startPoint
+      assume end1 = segments[i].endPoint
+      assume start2 = segments[j].startPoint
+      assume end2 = segments[j].endPoint
+      if segments[j].duplicate || j == i || start1 == start2 || start1 == end2 || end1 == start2 || end1 == end2
         j++
         continue
       var intersectionPoint : float2
-      if intersection(segments[i].startPoint, segments[i].endPoint,
-                      segments[j].startPoint, segments[j].endPoint,
-                      intersectionPoint)
+      if intersection(start1, end1, start2, end2, intersectionPoint)
         split_segment(segments, i, intersectionPoint)
         split_segment(segments, j, intersectionPoint)
       j++

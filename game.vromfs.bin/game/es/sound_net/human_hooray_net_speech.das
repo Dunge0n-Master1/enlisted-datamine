@@ -5,6 +5,7 @@ require math.base
 require DagorRandom
 require HumanPhys
 require game.es.sound_net.sound_net_events
+require sound_utils_net.modules.sound_utils_net_events
 require player
 
 def is_facing_target(cur_pos : float3 const&; cur_dir : float3 const&; cur_team : int)
@@ -36,7 +37,7 @@ def check_artillery_warning(human_pos : float3 const&)
 
 def request_speech(eid : EntityId; pos : float3 const&)
   if !check_artillery_warning(pos)
-    sendEvent(eid, [[CmdRequestHumanSpeech phrase="hooray", importance=1.]])
+    sendEvent(eid, [[CmdRequestHumanSpeech phrase="hooray"]])
 
 
 def start_hooray(eid : ecs::EntityId; transform : float3x4; team : int; var human_hooray_speech__morale : float&; var human_hooray_speech__sensitivity : float&)
@@ -61,7 +62,8 @@ def start_hooray(eid : ecs::EntityId; transform : float3x4; team : int; var huma
 
 
 [es(tag=server, no_order)]
-def human_hooray_net_speech_update(info : UpdateStageInfoAct; eid : ecs::EntityId;
+def human_hooray_net_speech_update(info : ParallelUpdateFrameDelayed;
+                                   eid : EntityId;
                                    human_net_phys__curMoveState : int;
                                    human_hooray_speech__chance : int;
                                    var human_hooray_speech__lookup : float&;

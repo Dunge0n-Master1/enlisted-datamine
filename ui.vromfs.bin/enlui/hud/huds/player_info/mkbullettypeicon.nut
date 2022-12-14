@@ -81,7 +81,7 @@ let BULLET_TYPE = { //todo: use bullet icon from template
   }
   SMOKE = {
     prefix = "smoke"
-    icon = "tank/cannon_ammo_HE.svg"
+    icon = "tank/cannon_ammo_smoke_shell.svg"
     color = bulletOriginalColor
   }
   FLAMETHROWER = {

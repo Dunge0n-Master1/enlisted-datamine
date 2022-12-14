@@ -4,7 +4,9 @@ require EnlistedWalkerai
 require common_shooter.events_common_shooter
 require enlisted.game.es.medic_common
 require game.es.squad_order_common
+require game.es.binocular_common
 require EnlistedWeapon
+require DaWeaponProps
 
 [cpp_event(broadcast)]
 struct ParallelUpdateFrameDelayed
@@ -114,6 +116,13 @@ struct EventDismantleBuilding
 [event(unicast)]
 struct EventOnDestroyBuilding {}
 
+[event(broadcast)]
+struct EventUpdateBuildingColors
+  selectedObject : EntityId
+  builderPos : float3
+  isEngineer : bool
+  engineerTeam : int
+
 [event(unicast)]
 struct EventEngineerBuildingBroken
   offender : EntityId
@@ -165,11 +174,7 @@ struct EventPlayerSquadFinishedCapturing {}
 struct EventOnBarbwireDamageAward {}
 
 [event(unicast)]
-struct EventOnPlayerShellVehicleKill
-  stat : string
-
-[event(unicast)]
-struct EventOnPlayerShellInfantryKill
+struct EventAddPlayerAwardWithStat
   stat : string
 
 [event(unicast)]
@@ -589,11 +594,11 @@ struct EventSoldierRecreateOnDie {}
 
 [event(unicast)]
 struct RequestSwitchBinocular
-  choosePrevGunSlot : bool
+  choosePrevGunSlot : BinocularChooseWeapSlotMode
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdSwitchBinocular
-  choosePrevGunSlot : bool
+  choosePrevGunSlot : BinocularChooseWeapSlotMode
 
 [event(unicast)]
 struct CmdSwitchBinocularCockpit
@@ -642,6 +647,8 @@ struct OnShellHitEntityFx
   nodeCollId : int
   withSound : bool
   victimEid : EntityId
+  directHit : bool
+  stopped : bool
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled
@@ -730,5 +737,86 @@ struct CmdSetFreeTpsCameraSpeed
 struct CmdSetLenseFlareIntensity
   intensity : float
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdHeroLogExEvent
+  event : string
+  key : string
+  data : ecs::Object const?
+
+[event(broadcast)]
+struct CmdSetCinemaRecording
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetCinematicPostFxBloom
+  enabled : bool
+
+[event(broadcast)]
+struct CmdSetCinematicSetSuperPixels
+  super_pixels : int
+
+[event(broadcast)]
+struct CmdSetCinematicCustomSettings
+  enabled : bool
+
 [event(unicast)]
 struct EventEntityRedeployed {}
+
+[event(unicast)]
+struct EventInventorySpecialItemAdded
+  itemEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdGetBattleResult {}
+
+[event(unicast)]
+struct CmdGetDebriefingResult {}
+
+[event(unicast)]
+struct CmdDestoyProjectileEntity {}
+
+[event(unicast)]
+struct CmdDetonateShellServer
+  gun_props_id : int
+  pos : float3
+  offender : EntityId
+  prev_pos : float3
+  vel : float3
+  ignore_entity : EntityId
+  normal : float3
+  alternative_offender : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
+struct RequestNextGunAmmoHolderType {}
+
+// This events use for only visual sync cockpit slit,
+// cause the slit feature is client only and if we want
+// show current slit in replay mode, need somehow sync it between client and server
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct ClientSetVisualCockpitSlit
+  nextSlit : int
+  prevSlit : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct ServerSetVisualCockpitSlit
+  nextSlit : int
+  prevSlit : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdLimitVehicleByGroup
+  isLimited : bool
+
+[event(unicast)]
+struct CmdClearHiddenNode
+  nodeName : string
+
+[event(unicast)]
+struct CmdSetHideNode
+  nodeName : string
+
+[event(broadcast)]
+struct CmdSetCameraLerpFactor
+  lerpFactor : float
+
+[event(broadcast)]
+struct EventApplyDevMode {}

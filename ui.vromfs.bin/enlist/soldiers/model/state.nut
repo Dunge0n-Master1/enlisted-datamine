@@ -20,7 +20,7 @@ let { armies, curArmiesList, itemsByArmies, curArmiesListExt,
 let { getObjectsByLinkSorted, getObjectsTableByLinkType, getLinkedSquadGuid, getItemIndex
 } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
-let mkOnlineSaveData = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
@@ -179,12 +179,12 @@ let lockedSquadsByArmy = Computed(function() {
 })
 
 let armySquadsById = Computed(@() squadsByArmy.value.map(@(squads)
-  squads.reduce(@(res, s) res.__update({ [s.squadId] = s }), {})))
+  squads.reduce(@(res, s) res.rawset(s.squadId, s), {})))
 
 let curUnlockedSquads = Computed(@() squadsByArmy.value?[curArmy.value] ?? [])
 
 let lockedArmySquadsById = Computed(@() lockedSquadsByArmy.value.map(@(squads)
-  squads.reduce(@(res, s) res.__update({ [s.squadId] = s }), {})))
+  squads.reduce(@(res, s) res.rawset(s.squadId, s), {})))
 
 let allUnlockedSquadsSoldiers = Computed(function() {
   let res = {}
@@ -422,7 +422,7 @@ console_register_command(@(itemTmpl) add_outfit(curArmy.value, itemTmpl, 1), "me
 
 let DROP_COMMANDS = {
   addAllVehicles          = ["vehicle"]
-  addAllSemiautos         = ["semiauto"]
+  addAllSemiautos         = ["semiauto", "carbine_tanker"]
   addAllShotguns          = ["shotgun"]
   addAllSniperBoltactions = ["boltaction"]
   addAllSniperSemiautos   = ["semiauto_sniper"]
@@ -479,6 +479,8 @@ console_register_command(function() {
       add_items_by_type(armyId, types, COUNT_OVERRIDES?[cmd] ?? 1)
 }, "meta.addAll")
 
+let vehicleInfo = Computed(@() objInfoByGuid.value?[curVehicle.value])
+
 return {
   resetProfile
   dumpProfile
@@ -529,6 +531,7 @@ return {
   armoryByArmy
   curArmory
   curVehicle
+  vehicleInfo
   getSquadConfig
   mteam
   allAvailableArmies

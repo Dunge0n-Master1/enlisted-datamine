@@ -9,17 +9,18 @@ let { mkRewardImages, prepareRewards } = require("rewardsPkg.nut")
 let { premiumUnlock, premiumStage0Unlock } = require("%enlist/unlocks/taskRewardsState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
-let {
-  bpHeader, hugePadding, btnBuyPremiumPass, bpTitle, btnSize, cardCountCircle,
+let { bpHeader, hugePadding, btnBuyPremiumPass, bpTitle, btnSize, cardCountCircle,
   sizeCard, imageSize, gapCards
 } = require("bpPkg.nut")
 let { seasonIndex } = require("bpState.nut")
-let { elitePassItem, hasEliteBattlePass, isPurchaseBpInProgress } = require("eliteBattlePass.nut")
+let { elitePassItem, canBuyBattlePass, hasEliteBattlePass, isPurchaseBpInProgress
+} = require("eliteBattlePass.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let openUrl = require("%ui/components/openUrl.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 let circuitConf = require("app").get_circuit_conf()
 let linkToOpen = circuitConf?.battlePassUrl
@@ -39,15 +40,14 @@ let showingItem = Computed(function() {
     return null
   let reward = curItem.value.reward
   let season = seasonIndex.value
-
-  let gametemplate = reward?.specialRewards[season][curArmy.value]
-
-  if (gametemplate != null)
+  let weapId = reward?.specialRewards[season][curArmy.value]
+  if (weapId != null){
+    let { gametemplate = reward.gametemplate } = allItemTemplates.value?[curArmy.value][weapId]
     return reward.__merge({
       isSpecial = true
       gametemplate
     })
-
+  }
   return reward
 })
 
@@ -174,9 +174,16 @@ let mkDescription = @(text, params = {}, txtSize = body_txt){
 }.__update(txtSize, params)
 
 let function buyEliteBattlePass() {
-  if (hasEliteBattlePass.value)
+  if (!canBuyBattlePass.value)
     return
   buyShopItem({ shopItem = elitePassItem.value })
+}
+
+let bpPurchaseSpinner = {
+  size = btnSize
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = spinner
 }
 
 let btnBlock = {
@@ -187,14 +194,15 @@ let btnBlock = {
     function() {
       let action = linkToOpen != null ? @() openUrl(linkToOpen) : buyEliteBattlePass
       return {
-        watch = isPurchaseBpInProgress
+        watch = [canBuyBattlePass, isPurchaseBpInProgress]
         flow = FLOW_HORIZONTAL
         valign = ALIGN_CENTER
         halign = ALIGN_CENTER
         gap = localGap
         size = flex()
         children = [
-          isPurchaseBpInProgress.value ? { size = btnSize, children = spinner, halign = ALIGN_CENTER, valign = ALIGN_CENTER }
+          !canBuyBattlePass.value ? null
+            : isPurchaseBpInProgress.value ? bpPurchaseSpinner
             : btnBuyPremiumPass(loc("bp/Purchase"), action)
           Flat(loc("bp/close"), @() isOpened(false), {
             size = btnSize,

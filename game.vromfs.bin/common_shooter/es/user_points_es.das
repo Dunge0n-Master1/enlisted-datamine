@@ -10,6 +10,8 @@ require CollRes
 require PhysMat
 require strings
 require app
+require common_shooter.es.user_points_common
+
 
 def destroy_point(eid : ecs::EntityId; target : ecs::EntityId)
   destroyEntity(eid)
@@ -54,43 +56,6 @@ def clear_all_map_user_point_es(evt : CmdClearAllAttachedUserPoint;
     if target == evt.target
       destroy_point(eid, target)
 
-def set_mark(name : string; player_eid : EntityId; trace_pos, trace_dir : float3; ray_mat_id : int)
-  let dst = 2000.0
-  var t = dst
-  var norm : float3
-  var pmid : int
-  var rendInstDesc = RendInstDesc()
-  traceray_normalized(trace_pos, trace_dir, t, pmid, norm, ETF_DEFAULT, rendInstDesc, ray_mat_id)
-  let markPos = t < dst ? trace_pos + trace_dir * t : float3()
-  if !find_and_delete_point(player_eid, trace_pos, trace_dir)
-    send_net_event(player_eid, [[CmdCreateMapUserPoint pos = markPos, dir = trace_dir, norm = norm, item_name = name ]])
-
-
-def find_and_delete_point(player_eid : EntityId; trace_pos, trace_dir : float3)
-  var result = false
-  query() <| $ [es(REQUIRE=hudUserPoint)] (eid, userPointOwner : EntityId;
-                                           transform : float3x4;
-                                           deleteAngle : float;
-                                           userPointVehicleTargetEid : EntityId = INVALID_ENTITY_ID;
-                                           timer__delta : float;
-                                           team aka point_owner_team : int;
-                                           var timer__destroy : float&)
-    if userPointOwner !=  player_eid
-      return
-    let dir = normalize(transform[3] - trace_pos)
-    let dist = distance(transform[3], trace_pos)
-    let angle = 1.0 - dot(dir, trace_dir)
-    if angle * max(dist, 1.0) < deleteAngle
-      var needDeleteMapUserPoint = true
-      query(userPointVehicleTargetEid) <| $ [es] (team : int)
-        if team != point_owner_team && team != TEAM_UNASSIGNED
-          timer__destroy = get_sync_time() + timer__delta
-          needDeleteMapUserPoint = false
-      if needDeleteMapUserPoint
-        send_net_event(eid, [[CmdDeleteMapUserPoint]])
-      result = true
-  return result
-
 def on_cmd_set_mark(player, possessed : EntityId; always_enemy : bool)
   let isExistsAndAlive = possessed |> get_bool("isAlive") ?? false // as possessed entity could be invalid entity at this poit and we should use spectator in this case
   if isExistsAndAlive
@@ -106,7 +71,7 @@ def on_cmd_set_mark(player, possessed : EntityId; always_enemy : bool)
   else
     find_query() <| $ [es(REQUIRE=spectator__target)] (transform : float3x4)
       let markType = always_enemy ? "enemy" : "main"
-      set_mark(markType, player, transform[3], transform[2], PHYSMAT_INVALID)
+      set_mark(markType, player, transform[3], transform[2])
       return true
 
 [es(tag = gameClient, on_event=CmdSetMarkEnemy)]
@@ -135,7 +100,7 @@ def on_cmd_create_map_point(evt : CmdCreateMapPoint; eid : EntityId; possessed :
 
     traceray_normalized(upmostPos, traceDir, t, pmid, norm, ETF_DEFAULT, rendInstDesc, aimRayMatId)
     upmostPos.y = t >= 0.0 ? len - t : 0.0
-  send_net_event(eid, [[CmdCreateMapUserPoint pos = upmostPos, dir = traceDir, norm = norm, item_name = "way_point" ]])
+  send_net_event(eid, [[CmdCreateMapUserPoint pos = upmostPos, dir = traceDir, norm = norm, item_name = "way_point", markOwnerEid = INVALID_ENTITY_ID ]])
 
 [es(tag=server)]
 def clear_attached_points_es(evt : EventOnLootPickup; team : int)

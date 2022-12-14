@@ -42,7 +42,7 @@ let function setSquadFormation(formation) {
 
 
 let function applyFormationOrderOnSpawnSquad(_evt, eid, comp) {
-  if (comp.squad__ownerPlayer == INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
+  if (comp.squad__ownerPlayer == ecs.INVALID_ENTITY_ID || comp.squad__ownerPlayer != find_local_player())
     return
   let squadProfileId = comp.squad__squadProfileId
 

@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {makeArrow} = require("%ui/hud/hud_markers/components/hud_markers_components.nut")
@@ -36,10 +37,10 @@ let function bombMarker(eid) {
   let watch = [watchedHeroEid, state]
   return function() {
     let {bombOwnerEid, maxDistance} = state.value
-    let heroEid = watchedHeroEid.value ?? INVALID_ENTITY_ID
+    let heroEid = watchedHeroEid.value ?? ecs.INVALID_ENTITY_ID
     let showBombIndicatorToBombOwner =
       bombOwnerEid == heroEid
-      && bombOwnerEid != INVALID_ENTITY_ID
+      && bombOwnerEid != ecs.INVALID_ENTITY_ID
     let showBombIndicatorToPlayer = isFriendlyFireMode()
       || !is_teams_friendly(watchedTeam.value, getTeam(bombOwnerEid))
 

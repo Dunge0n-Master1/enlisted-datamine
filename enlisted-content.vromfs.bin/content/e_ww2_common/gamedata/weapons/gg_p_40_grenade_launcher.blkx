@@ -1,4 +1,4 @@
-stat_name:t="launcher"
+stat_name:t="grenade"
 selWeaponVar:t="gg_p_40_grenade_launcher"
 
 ownerAnimVars{

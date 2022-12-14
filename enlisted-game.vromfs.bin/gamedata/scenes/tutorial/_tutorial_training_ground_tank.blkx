@@ -128,7 +128,7 @@ entity{
 }
 
 entity{
-  _template:t="team_germany_berlin+team_narrator_tutorial_training+team_captime_balance+respawn_creators_team"
+  _template:t="team_germany_berlin+team_narrator_tutorial_training+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0
@@ -145,7 +145,7 @@ entity{
 }
 
 entity{
-  _template:t="team_ussr_berlin+team_narrator_tutorial_training+team_resptime_balance+respawn_creators_team"
+  _template:t="team_ussr_berlin+team_narrator_tutorial_training+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=0.0

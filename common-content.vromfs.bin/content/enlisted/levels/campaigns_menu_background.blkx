@@ -1,4 +1,8 @@
 levelBin:t="content/base/levels/campaigns_menu_background.bin"
+numBorderCellsXPos:i=0
+numBorderCellsXNeg:i=0
+numBorderCellsZPos:i=0
+numBorderCellsZNeg:i=0
 puddlesDist:i=0
 
 clipmap{

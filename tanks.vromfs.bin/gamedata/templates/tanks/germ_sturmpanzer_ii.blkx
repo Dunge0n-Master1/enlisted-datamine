@@ -1,6 +1,5 @@
 germ_sturmpanzer_II{
   _extends:t="base_sturmpanzer_ii"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
 

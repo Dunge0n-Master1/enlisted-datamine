@@ -51,6 +51,7 @@ item_gun{
   gun__maxAmmo:i=0
   dropTm:m=[[0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [-1.0, 0.0, 0.0] [0.0, 0.03, 0.0]]
   gun__customSkin:t=""
+  _tracked:t="gun__ammoHolderIds"
 
   "gun__ammoHolderIds:list<i>"{
   }
@@ -105,6 +106,7 @@ item_grenade{
     antitank:i=3
     impact:i=4
     flame:i=5
+    incendiary:i=6
   }
 
   "requiresAmmoRefillsCount:i"{

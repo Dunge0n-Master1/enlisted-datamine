@@ -1,0 +1,39 @@
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="envir_misc_burned_ground_smoke_single_effect"
+  ground_effect__biome_group_name:t="burnt_field"
+  ground_effect__offset_x:p2=0.0, 2.0
+  ground_effect__offset_y:p2=-2.0, 0.0
+  ground_effect__offset_z:p2=0.0, 2.0
+  ground_effect__scale_x:p2=2.0, 1.0
+  ground_effect__scale_y:p2=2.0, 1.0
+  ground_effect__scale_z:p2=2.0, 1.0
+  ground_effect__grid_cell_size:r=16.0
+  ground_effect__vis_radius:r=25.0
+  ground_effect__biome_weight_for_active_thr:r=0.15
+  ground_effect__fx_radius:r=-1.0
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="envir_misc_burned_ground_smoke_15m_effect"
+  ground_effect__biome_group_name:t="burnt_field"
+  ground_effect__offset_x:p2=0.0, 5.0
+  ground_effect__offset_z:p2=0.0, 5.0
+  ground_effect__grid_cell_size:r=16.0
+  ground_effect__vis_radius:r=20.0
+  ground_effect__biome_weight_for_active_thr:r=0.25
+  ground_effect__fx_radius:r=-1.0
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="envir_misc_floating_ashes_single_effect"
+  ground_effect__biome_group_name:t="burnt_field"
+  ground_effect__offset_x:p2=0.0, 5.0
+  ground_effect__offset_z:p2=0.0, 5.0
+  ground_effect__grid_cell_size:r=16.0
+  ground_effect__vis_radius:r=20.0
+  ground_effect__biome_weight_for_active_thr:r=0.25
+  ground_effect__fx_radius:r=-1.0
+}

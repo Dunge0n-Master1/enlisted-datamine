@@ -43,7 +43,7 @@ def draw_vehicle_and_cockpit_effectors(info : UpdateStageInfoRenderDebug)
         return
 
       var wtm : float3x4
-      geomtree_getNodeWtmScalar(animchar.nodeTree, effectorIndex, wtm)
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, effectorIndex, wtm)
       begin_draw_cached_debug_lines(false, false, false)
       draw_gizmo(wtm, 0.1, 0.05)
       add_debug_text_mark(wtm[3], field.key, -1, 3.5f, E3DCOLOR(0x00000000))
@@ -64,7 +64,7 @@ def draw_vehicle_and_cockpit_effectors(info : UpdateStageInfoRenderDebug)
         let effectorIndex = *get_int(*effectors, effectorName)
 
         var wtm : float3x4
-        geomtree_getNodeWtmScalar(animchar.nodeTree, effectorIndex, wtm)
+        geomtree_getNodeWtmScalar(*animchar.nodeTree, effectorIndex, wtm)
         begin_draw_cached_debug_lines(false, false, false)
         draw_gizmo(wtm, 0.1, 0.05)
         add_debug_text_mark(wtm[3], field.key, -1, 3.5f, E3DCOLOR(0x00000000))

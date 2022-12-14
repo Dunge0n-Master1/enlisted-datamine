@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.safe
 require strings
 require EnlistedNet
 require game.es.events
@@ -20,10 +21,18 @@ def find_turret(turret_name, turret_info)
     let turret = get_ecs_object(item)
     return turret != null && get_string(*turret, "turretName", "") == turret_name
 
+def set_common_controls(turret_control__turretInfo : Array; var controls : VehicleControlsState&; var mask : uint&)
+  for turretNo, it in iter_range(turret_control__turretInfo), turret_control__turretInfo
+    let turret = it as Object
+    if turret != null && !(get_bool(*turret, "needsAssignedGunner") ?? true)
+      mask = mask | uint(1 << turretNo)
+      set_control_turret(controls, turretNo, true)
+
 [es(tag=server, on_appear)]
 def init_vehicle_seats_controls(evt : Event;
                                 seat__id : int;
                                 seat__vehicleEid : EntityId;
+                                var seat__commonTurretControlMask : uint&;
                                 var seat__availableControls : VehicleControlsState)
   query(seat__vehicleEid) <| $ [es] ([[shared_comp]] vehicle_seats__seats : Array)
     let seat = get_ecs_object(vehicle_seats__seats, seat__id)
@@ -51,10 +60,13 @@ def init_vehicle_seats_controls(evt : Event;
         if turretNo >= 0
           set_control_turret(seat__availableControls, turretNo, true)
 
+    set_common_controls(turret_control__turretInfo, seat__availableControls, seat__commonTurretControlMask)
+
 [es(tag=server, on_appear)]
 def init_vehicle_seats_hatch_controls(evt : Event;
                                       seat__id : int;
                                       seat__vehicleEid : EntityId;
+                                      var seat__commonTurretControlMask : uint&;
                                       var seat__availableHatchControls : VehicleControlsState)
   query(seat__vehicleEid) <| $ [es] ([[shared_comp]] vehicle_seats__seats : Array)
     let seat = get_ecs_object(vehicle_seats__seats, seat__id)
@@ -75,6 +87,8 @@ def init_vehicle_seats_hatch_controls(evt : Event;
         let turretNo = find_turret(get_string(item, ""), turret_control__turretInfo)
         if turretNo >= 0
           set_control_turret(seat__availableHatchControls, turretNo, true)
+
+    set_common_controls(turret_control__turretInfo, seat__availableHatchControls, seat__commonTurretControlMask)
 
 [es(on_appear)]
 def seat_direct_turret_control_init(evt : Event; seat__id : int; seat__vehicleEid : EntityId; var seat__directTurretControl : bool&)

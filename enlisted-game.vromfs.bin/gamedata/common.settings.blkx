@@ -7,8 +7,8 @@ entitiesPath:t="content/enlisted/gamedata/templates/enlisted.entities.blk"
 contactsGameId:t="enlisted"
 matchingGameName:t="enlisted"
 windowTitle:t="Enlisted"
-bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
-scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene.blk"
+bgImage:t="ui/game_def_login_screen.jpg; ui/game_d_day_login_screen_2.jpg; ui/game_tunisia_login_screen_2.jpg; ui/armored_train_login_screen.jpg; ui/stalingrad_login_screen.jpg; ui/burning_sky_loading_screen.jpg; ui/pacific_usa_login_screen.jpg; ui/pacific_jap_login_screen.jpg; ui/high_caliber_login_screen.jpg; ui/ussr_moscow_prem_mgun_2.jpg; ui/ger_normandy_prem_assault_2.jpg; ui/ussr_berlin_prem_assault_1.jpg; ui/ger_moscow_prem_mgun_2.jpg;"
+scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene_ny.blk"
 allowEmptyScenes:b=yes
 needPlatformMorphemesReplacement:b=yes
 playerTemplateName:t="enlisted_player"
@@ -148,12 +148,14 @@ sound{
   streamBufferSizeKb:i=96
   randomizeSeed:b=yes
   maxEventInstances:i=64
+  maxOneshotEventInstances:i=32
   rejectFarOneshots:b=yes
   memoryTrackingMode:b=no
   memoryPc:i=200
   memoryPCLowMode:i=200
   memoryPCHighMode:i=200
   memoryPS4:i=200
+  fmodLoglevel:t="warnings"
   banksFolder:t="sound"
   banksExtension:t=".bank"
 
@@ -762,6 +764,105 @@ sound{
       }
     }
 
+    mc_banks{
+
+      mc_loc_vo{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_loc_vo.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+
+      mc_loc_vo_en{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_loc_vo_en.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=no
+      }
+
+      mc_vo_en{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_vo_en.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=no
+      }
+
+      mc_sfx{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_sfx.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+
+      mc_vehicle_aircraft_engine{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_vehicle_aircraft_engine.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+
+      mc_vehicle_tank_engine{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_vehicle_tank_engine.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+
+      mc_weapon_mgun{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_weapon_mgun.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+
+      mc_weapon_mgun_foley{
+        optional:b=yes
+        async:b=yes
+        loadToMemory:b=yes
+      }
+
+      mc_weapon_mgun_foley.assets{
+        optional:b=yes
+        async:b=yes
+        preload:b=yes
+      }
+    }
+
     languageToLocale{
       German:t="de"
       Russian:t="ru"
@@ -817,6 +918,57 @@ network{
   publicConfigsUrls{
     url:t="https://public-configs.gaijin.net"
     url:t="https://public-configs-enlisted-gcore.cdn.gaijin.net"
+  }
+}
+
+graphicsAutodetect{
+  gpuBenchmarkDuration:r=10.0
+  presetDefault:t="medium"
+  presetUltralow:t="bare minimum"
+
+  presets{
+
+    "bare minimum"{
+      timeMs30:r=30.0
+      timeMs60:r=15.0
+      timeMs120:r=7.0
+      timeMs240:r=3.0
+    }
+
+    minimum{
+      timeMs30:r=17.0
+      timeMs60:r=8.0
+      timeMs120:r=4.0
+      timeMs240:r=2.0
+    }
+
+    low{
+      timeMs30:r=11.0
+      timeMs60:r=5.5
+      timeMs120:r=2.5
+      timeMs240:r=1.25
+    }
+
+    medium{
+      timeMs30:r=6.5
+      timeMs60:r=3.0
+      timeMs120:r=1.5
+      timeMs240:r=0.75
+    }
+
+    high{
+      timeMs30:r=4.5
+      timeMs60:r=2.0
+      timeMs120:r=1.0
+      timeMs240:r=0.5
+    }
+
+    ultra{
+      timeMs30:r=3.5
+      timeMs60:r=1.25
+      timeMs120:r=0.6
+      timeMs240:r=0.3
+    }
   }
 }
 
@@ -885,19 +1037,17 @@ __allowedConfigOverrides{
     resolution:t=""
     staticResolutionScale:b=yes
     temporalUpsamplingRatio:b=yes
-    taaUpsamplingRatio:b=yes
     antiAliasingMode:b=yes
     mode:t=""
     monitor:t=""
     vsync:b=yes
-    fpsLimit:b=yes
+    fpsLimit:i=0
     safeArea:b=yes
     driver:t=""
     frameSkip:i=0
     freqLevel:i=0
     vsync_tearing_tolerance_percents:i=0
     latency:i=0
-    latencyFlash:b=no
     perfMetrics:i=1
     enableHdr:b=no
     paperWhiteNits:i=200
@@ -905,6 +1055,10 @@ __allowedConfigOverrides{
     dlssQuality:i=0
     xessQuality:i=0
     forbidTrueFullscreen:b=no
+    xboxOneFpsLimit:i=0
+    xboxScarlettFpsLimit:i=0
+    ps4FpsLimit:i=0
+    ps5FpsLimit:i=0
   }
 
   graphics{
@@ -963,6 +1117,7 @@ __allowedConfigOverrides{
   debug{
     enableRawInput:b=yes
     pollThreadDelayMsec:i=8
+    enableCpuOnlyCycleRecord:b=no
 
     watchdog{
       __allow_all_params:b=yes

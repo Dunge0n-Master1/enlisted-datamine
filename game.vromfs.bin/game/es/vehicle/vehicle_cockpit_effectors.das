@@ -17,7 +17,7 @@ def cockpit_effectors_init_es(evt : Event;
     if nodeValue == ""
       logerr("Cockpit effector can't find node for {field.key}")
       continue
-    let index = geomtree_findNodeIndex(animchar.nodeTree, nodeValue)
+    let index = geomtree_findNodeIndex(*animchar.nodeTree, nodeValue)
     if index < 0
       logerr("Cockpit effector can't find node index for {field.key} equal {nodeValue}")
       continue
@@ -52,7 +52,7 @@ def human_vehicle_cockpit_effectors(info : UpdateStageInfoAct;
     var vehicleTransform : float3x4
     query(cockpit__vehicleEid) <| $ [es] (transform : float3x4)
       vehicleTransform = transform
-    geomtree_getNodeWtmRelScalar(cockpit_animchar.nodeTree, 0, cockpitRootTm)
+    geomtree_getNodeWtmRelScalar(*cockpit_animchar.nodeTree, 0, cockpitRootTm)
     cockpitRootTm[3] = cockpitRootTm * -cockpit__offset
     for field in cockpit__effectors
       let effectorName = field.key
@@ -69,7 +69,7 @@ def human_vehicle_cockpit_effectors(info : UpdateStageInfoAct;
 
       var vehicleLocalWtm = vehicleTransform
       vehicleLocalWtm[3] = vehicleTransform[3] - vehicleWofs
-      geomtree_getNodeWtmRelScalar(animchar.nodeTree, effectorIndex, effector.wtm)
+      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, effectorIndex, effector.wtm)
       effector.wtm = vehicleLocalWtm * (inverse(cockpitRootTm) * effector.wtm)
       effector.position = effector.wtm[3] + dWofs
       effector.weight = 1.f

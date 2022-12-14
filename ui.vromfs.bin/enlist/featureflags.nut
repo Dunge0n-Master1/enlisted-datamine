@@ -18,6 +18,10 @@ let showReplayTabInProfile = mkWatched(persist, "showReplayTabInProfile", true)
 let showUserProfile = mkWatched(persist, "showUserProfile", DBGLEVEL > 0)
 let multyPurchaseAllowed = mkWatched(persist, "multyPurchaseAllowed", DBGLEVEL > 0)
 let PSNAllowShowQRCodeStore = mkWatched(persist, "PSNAllowShowQRCodeStore", false)
+let canRentSquad = mkWatched(persist, "canRentSquad", false)
+let hasMassVehDecorPaste = mkWatched(persist, "hasMassVehDecorPaste", false)
+let hasCampaignPromo = mkWatched(persist, "hasCampaignPromo", false)
+
 
 let features = {
   hasProfileCard
@@ -34,6 +38,9 @@ let features = {
   showUserProfile
   multyPurchaseAllowed
   PSNAllowShowQRCodeStore
+  canRentSquad
+  hasMassVehDecorPaste
+  hasCampaignPromo
 }
 
 foreach (featureId, featureFlag in features)

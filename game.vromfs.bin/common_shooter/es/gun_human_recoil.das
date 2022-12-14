@@ -34,7 +34,7 @@ def gun_human_recoil_es(info : UpdateStageInfoAct;
                         human_input__decayAimOffsetVisc : float;
                         var human_weap__recoil : float&;
                         var human_weap__curRecoilMult : float&;
-                        human_input__oldAimAngle : float2?;
+                        human_input__oldAimAngle : float2 const?;
                         var human_input__aimAngle : float2?;
                         human_weap__currentGunEid : EntityId;
                         entity_mods__recoilMult = 1.f;
@@ -43,7 +43,6 @@ def gun_human_recoil_es(info : UpdateStageInfoAct;
                         human_net_phys__aimRecoilMult = 0.7f;
                         human_net_phys__recoilOffsMult = 1.f;
                         human_net_phys__recoilControlMult = 0.f;
-                        human_net_phys__bipodRecoilMult = 0.3f;
                         human_input__aimOffsetVisc = 0.1f;
                         entity_mods__verticalRecoilOffsMult = 1.f;
                         entity_mods__horizontalRecoilOffsMult = 1.f;
@@ -51,6 +50,7 @@ def gun_human_recoil_es(info : UpdateStageInfoAct;
                         platformDecayUncompensatedRecoil = false;
                         human_weap__recoilMult = 1.f;
                         bipod__enabled = false;
+                        bipod__recoilMult = 1.f;
                         human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID)
   let currentGunEid  = human_weap__currentGunEid
 
@@ -64,12 +64,11 @@ def gun_human_recoil_es(info : UpdateStageInfoAct;
 
   query(gunEid) <| $ [es] (gun_launch_events : GunLaunchEvents;
                            gun__recoilAmount : float;
-                           gun__crawlRecoilMult : float?;
-                           gun__crouchRecoilMult : float?;
-                           gun__aimRecoilMult : float?;
-                           gun__bipodRecoilMult : float?;
-                           gun__recoilOffsMult : float?;
-                           gun__recoilControlMult : float?;
+                           gun__crawlRecoilMult : float const?;
+                           gun__crouchRecoilMult : float const?;
+                           gun__aimRecoilMult : float const?;
+                           gun__recoilOffsMult : float const?;
+                           gun__recoilControlMult : float const?;
                            gun__salt = 0;
                            gun__recoilDirAmount = 0.f;
                            gun__recoilDir = 0.f;
@@ -86,7 +85,7 @@ def gun_human_recoil_es(info : UpdateStageInfoAct;
       human_weap__curRecoilMult *= gun__aimRecoilMult ?? human_net_phys__aimRecoilMult
 
     if bipod__enabled
-      human_weap__curRecoilMult *= gun__bipodRecoilMult ?? human_net_phys__bipodRecoilMult
+      human_weap__curRecoilMult *= bipod__recoilMult
 
     human_weap__curRecoilMult *= entity_mods__recoilMult * human_weap__recoilMult
 

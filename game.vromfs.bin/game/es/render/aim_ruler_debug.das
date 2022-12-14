@@ -6,6 +6,7 @@ require DagorConsole
 require Dacoll
 require DagorDebug3D
 require GridCollision
+require CollisionTraces
 require Grid
 require PhysMat
 require DagorShaders
@@ -90,7 +91,7 @@ def draw_ruler_es(evt : UpdateStageInfoRenderDebug; shouldDraw : bool; tracePos 
       desc += " mat {matId} <{get_material_name(get_material(matId))}>"
   else
     color = E3DCOLOR(0xFF00FF00)
-    query(targetEid) <| $ [es] (possessedByPlr : EntityId?; transform : float3x4; collres : CollisionResource; material : string = "default")
+    query(targetEid) <| $ [es] (possessedByPlr : EntityId const?; transform : float3x4; collres : CollisionResource; material : string = "default")
       var t = 4000f
       if collres_traceray(collres, transform, tracePos, traceDir, t, norm, matId)
         desc += " pmat {matId} <{get_material_name(get_material(matId))}>"

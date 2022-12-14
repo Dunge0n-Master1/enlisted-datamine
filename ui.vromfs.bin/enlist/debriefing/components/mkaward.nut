@@ -145,6 +145,9 @@ let awardsCfg = {
   vehicle_mine_kills = mkStdAward(["ui/skin#awards/debriefing_awards_vehicle_mine_kills.png"])
   infantry_mine_kills = mkStdAward(["ui/skin#awards/debriefing_awards_infantry_mine_kills.png"])
   lunge_mine_kills = mkStdAward(["ui/skin#awards/debriefing_awards_infantry_lunge_mine_kills.png"])
+  ampulomet_kills = mkStdAward(["ui/skin#awards/debriefing_awards_ampulomet_kills.png"])
+  infantry_tnt_kills = mkStdAward(["ui/skin#awards/debriefing_awards_tnt_kills.png"])
+  artillery_kills = mkStdAward(["ui/skin#awards/debriefing_awards_artillery_kills.png"])
 }
 foreach (name in BattleHeroesAward)
   awardsCfg[name] <- mkBattleHeroAward

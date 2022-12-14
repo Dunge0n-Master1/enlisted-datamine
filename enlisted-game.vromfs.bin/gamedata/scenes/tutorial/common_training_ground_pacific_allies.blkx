@@ -3,7 +3,7 @@ import{
 }
 
 entity{
-  _template:t="team_pacific_allies+team_resptime_balance+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_pacific_allies+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -17,7 +17,7 @@ entity{
 }
 
 entity{
-  _template:t="team_pacific_axis+team_captime_balance+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_pacific_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__countAdd:r=0.0
   team__memberCount:r=0.0
   team__scoreCap:r=0.0
@@ -273,7 +273,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_98_ta_se_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.373004, -0.00734167, 0.927801] [-0.0152114, 0.999883, 0.00179662] [-0.927705, -0.013443, -0.373072] [-301.614, 12.5027, 362.542]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -301,7 +301,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_98_ke_ni_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.319913, 0.00253492, -0.947444] [-0.0185749, 0.999788, 0.00894696] [0.947265, 0.0204609, -0.319798] [-242.893, 13.4029, 493.782]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -329,7 +329,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_95_ha_go_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.639008, -0.0100583, -0.769134] [-0.0147815, 0.99989, -0.000795282] [0.769058, 0.0108608, -0.639087] [-152.075, 14.7523, 409.966]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -357,7 +357,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_98_ta_se_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.999827, -0.018242, -0.00373846] [-0.0182348, 0.999832, -0.00194163] [0.00377325, -0.00187313, -0.999991] [129.162, 19.4085, 405.286]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -385,7 +385,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_98_ke_ni_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.0249915, 0.00208329, -0.999685] [-0.0183311, 0.999829, 0.00254185] [0.99952, 0.0183888, -0.024949] [110.973, 19.0956, 482.882]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2
@@ -413,7 +413,7 @@ entity{
 }
 
 entity{
-  _template:t="jp_type_95_ha_go_pacific"
+  _template:t="jp_type_2_ka_mi_pacific"
   transform:m=[[-0.70913, -0.0602084, 0.702502] [-0.0521956, 0.998096, 0.0328545] [-0.703143, -0.0133694, -0.710923] [-353.994, 11.8006, 416.384]]
   team:i=2
   vehicle_seats__restrictToTeam:i=2

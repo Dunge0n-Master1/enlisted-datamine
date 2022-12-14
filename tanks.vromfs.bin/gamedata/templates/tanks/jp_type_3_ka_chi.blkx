@@ -16,7 +16,6 @@ jp_type_3_ka_chi_without_swiming_parts{
 
 jp_type_3_ka_chi_common{
   _extends:t="base_type_3_ka_chi"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="floatable_vehicle"

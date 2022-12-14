@@ -8,7 +8,6 @@ jp_type_97_chi_ha_pacific_premium{
 
 jp_type_97_chi_ha_common{
   _extends:t="base_type_97_chi_ha"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_m10_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0
@@ -93,31 +92,6 @@ jp_type_97_chi_ha_common{
 
       "turretNames:array"{
         turret:t="turret_02"
-      }
-    }
-  }
-}
-
-base_57mm_type97{
-  _override:b=yes
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "57mm_Type3_HEAT:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type3_heat.blk"
-        name:t="57mm_type3"
-        type:t="heat_tank"
-      }
-    }
-
-    "57mm_type90_HE:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/57mm_type97_57mm_type90_he.blk"
-        name:t="57mm_type90_he"
-        type:t="he_frag_tank"
       }
     }
   }

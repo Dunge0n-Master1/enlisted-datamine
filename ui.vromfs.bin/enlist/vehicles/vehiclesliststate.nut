@@ -1,12 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let msgbox = require("%ui/components/msgbox.nut")
+let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let {
   getLinksByType, getObjectsByLink, getLinkedArmyName
 } = require("%enlSqGlob/ui/metalink.nut")
-let { itemsByArmies, armies } = require("%enlist/meta/profile.nut")
+let { itemsByArmies, armies, vehDecorators } = require("%enlist/meta/profile.nut")
 let {
-  squadsByArmy, setVehicleToSquad, objInfoByGuid
+  squadsByArmy, setVehicleToSquad, objInfoByGuid, curVehicle
 } = require("%enlist/soldiers/model/state.nut")
 let {
   prepareItems, addShopItems, findItemByGuid, putToStackTop
@@ -202,6 +203,22 @@ let function setCurSquadId(id) {
     selectVehParams.mutate(@(params) params.__update({ squadId = id }))
 }
 
+
+let curVehicleBadgeData = Computed(function() {
+  let vehGuid = curVehicle.value
+  if (vehGuid == null)
+    return null
+
+  let skin = (vehDecorators.value ?? {})
+    .findvalue(@(d) d.cType == "vehCamouflage" && d.vehGuid == vehGuid)
+
+  let vehicle = objInfoByGuid.value?[vehGuid]
+  return vehicle == null ? null : vehicle.__merge(skin == null ? {} : { skin })
+})
+
+let curVehicleSeats = mkVehicleSeats(curVehicleBadgeData)
+
+
 console_register_command(function(armyId) {
   let { guid = "" } = viewVehicle.value
   if (guid == "")
@@ -224,6 +241,9 @@ return {
   vehicleClear
   selectVehicle
   hasSquadVehicle
+
+  curVehicleBadgeData
+  curVehicleSeats
 
   AVAILABLE_AT_CAMPAIGN
   CAN_RECEIVE_BY_ARMY_LEVEL

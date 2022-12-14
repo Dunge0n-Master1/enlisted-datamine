@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { statusIconBg } = require("%ui/style/colors.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let { isSquadLeader, squadMembers, isInvitedToSquad, squadSelfMember,
@@ -9,8 +8,8 @@ let { isSquadLeader, squadMembers, isInvitedToSquad, squadSelfMember,
 } = require("%enlist/squad/squadManager.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
-let mkContactBlock = require("%enlist/contacts/mkContactBlock.nut")
-let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut").show
+let contactBlock = require("%enlist/contacts/contactBlock.nut")
+let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut")
 let squareIconButton = require("%enlist/components/squareIconButton.nut")
 let textButton = require("%ui/components/textButton.nut")
 let {
@@ -26,7 +25,7 @@ let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_
 let maxMembers = Computed(@() currentGameMode.value?.queue.maxGroupSize ?? 1)
 
 let mkAddUserButton = @() squareIconButton({
-  onClick = @() showContactsListWnd({ mkContactBlock })
+  onClick = showContactsListWnd
   tooltipText = loc("tooltips/addUser")
   iconId = "user-plus"
 })
@@ -45,31 +44,21 @@ let squadControls = @() {
   children = squadMembers.value.len() > 0 ? leaveButton : null
 }
 
-let horizontalContact = @(contact, hasStatusBlock) {
+let horizontalContact = @(contact) {
   size = [(navBottomBarHeight * 4.0).tointeger(), navBottomBarHeight]
-  children = mkContactBlock({
-    contact
-    hasStatusBlock
-    contextMenuActions
-    style = {
-      rendObj = ROBJ_WORLD_BLUR_PANEL
-      bgColor = Color(255, 255, 255, 255)
-      hoverColor = statusIconBg
-    }
-  })
+  children = contactBlock(contact, contextMenuActions)
 }
 
 let function squadMembersUi() {
-  let hasStatusBlock = !roomIsLobby.value
   let squadList = []
   foreach (member in squadMembers.value)
     if (member.isLeader.value)
-      squadList.insert(0, horizontalContact(member.contact, hasStatusBlock))
+      squadList.insert(0, horizontalContact(member.contact))
     else
-      squadList.append(horizontalContact(member.contact, hasStatusBlock))
+      squadList.append(horizontalContact(member.contact))
 
   foreach (uid, _ in isInvitedToSquad.value)
-    squadList.append(horizontalContact(Contact(uid.tostring()), hasStatusBlock))
+    squadList.append(horizontalContact(Contact(uid.tostring())))
 
   if (maxMembers.value > 1 && canInviteToSquad.value)
     for(local i = squadList.len(); i < maxMembers.value; i++)

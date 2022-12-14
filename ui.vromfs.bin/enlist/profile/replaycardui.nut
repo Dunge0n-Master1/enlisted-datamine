@@ -1,14 +1,18 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { body_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { rowBg, bigPadding, blockedTxtColor, defTxtColor, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { currentRecord, replayPlay, deleteReplay, records, updateReplays
+let { currentRecord, replayPlay, deleteReplay, records, updateReplays,
+ defaultRecordFolder
 } = require("%enlist/replay/replaySettings.nut")
 let { format_unix_time } = require("dagor.iso8601")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
-let { load_replay_meta_info } = require("app")
+let { shell_execute } = require("dagor.shell")
 let { ceil } = require("%sqstd/math.nut")
+let { is_pc } = require("%dngscripts/platform.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
 let textButton = require("%ui/components/textButton.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -70,7 +74,7 @@ let headerRow = {
 }
 
 let function mkReplay(record, idx) {
-  let replayInfo = load_replay_meta_info(record.id)
+  let replayInfo = record.recordInfo
   if (!replayInfo)
     return null
 
@@ -126,7 +130,7 @@ let function mkReplayList() {
   let sliceFrom = curPage.value * displayPerPage
   let sliceTo = (curPage.value * displayPerPage) + displayPerPage
   let recordsToShow = records.value
-    .sort(@(a, b) b.isValid <=> a.isValid || b.recordTime <=> a.recordTime)
+    .sort(@(a, b) b.isValid <=> a.isValid || (b.recordInfo?.start_timestamp ?? 0) <=> (a.recordInfo?.start_timestamp ?? 0))
   let hasAnyReplay = records.value.len() > 0
   return {
     watch = [records, curPage]
@@ -163,6 +167,13 @@ let curPageInfo = @() {
     : loc("replay/page", { curPage = curPage.value + 1, totalPages = totalPages.value })
 }.__update(defTxtStyle)
 
+let iconParam = {
+  hplace = ALIGN_CENTER
+  margin = bigPadding
+  size = [hdpx(35),hdpx(35)]
+  fontSize = hdpx(35)
+  font = fontawesome.font
+}
 
 let mkReplayControl = {
   size = [flex(), SIZE_TO_CONTENT]
@@ -192,9 +203,21 @@ let mkReplayControl = {
               })
           ]
         }
-        textButton(loc("replay/replaysOnSite"), @() openUrl(REPLAY_URL), {
-          margin = 0
-        })
+        {
+          flow = FLOW_HORIZONTAL
+          gap = buttonsGap
+          children = [
+            is_pc ? textButton("", @() shell_execute({cmd="explore", dir=defaultRecordFolder}), {
+              margin = 0
+              children = [
+                txt({ text = fa["folder-open"] }).__merge(iconParam)
+              ]
+            }) : null
+            textButton(loc("replay/replaysOnSite"), @() openUrl(REPLAY_URL), {
+              margin = 0
+            })
+          ]
+        }
       ]
     }
     @() {

@@ -655,52 +655,52 @@ entity{
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [930.091, 4.67061, -612.149]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [657.798, 4.67061, -618.601]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [357.995, 4.67061, -639.469]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.167, 4.67061, -678.537]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [930.453, 4.67061, -62.9545]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [405.755, 4.67061, 565.445]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1131.55, 4.67061, -62.1659]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [189.61, 4.67061, 583.935]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_8s_fx"
+  _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-329.441, 8.37057, 721.088]]
 }
 
 entity{
-  _template:t="bonfire_effect_background_flash_11s_fx"
+  _template:t="envir_background_flash_11s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-329.441, 8.37057, 721.088]]
 }
 

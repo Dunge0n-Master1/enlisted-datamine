@@ -1,5 +1,6 @@
 require ecs
 require ecs.safe
+require ecs.common
 require DagorSystem
 require enlisted.events_enlisted
 require game.events_game
@@ -8,17 +9,17 @@ require game.es.damage_type_common
 def update_revive_squads_points_on_squad_death(squad_eid : EntityId; player_eid : EntityId)
   query(player_eid) <| $ [es] (squads__revivePointsAfterDeath : int;
                                squads__revivePointsPerSquad : int;
-                               var squads__revivePointsList : Array&)
+                               var squads__revivePointsList : IntList&)
     let squadsCount = length(squads__revivePointsList)
     for squadRevivePoints in squads__revivePointsList
-      squadRevivePoints |> set(min((squadRevivePoints ?? 0) + squads__revivePointsPerSquad, 100))
+      squadRevivePoints = min(squadRevivePoints + squads__revivePointsPerSquad, 100)
 
     print("[SPAWN] Heal all squads by {squads__revivePointsPerSquad}. Player: {player_eid}")
 
     let squadFound = query(squad_eid) <| $ [es] (squad__id : int; squad__revivePointsAfterDeath : int = -1)
       if squad__id >= 0 && squad__id < squadsCount
         let revivePoints = squad__revivePointsAfterDeath >= 0 ? squad__revivePointsAfterDeath : squads__revivePointsAfterDeath
-        squads__revivePointsList[squad__id] |> set(revivePoints)
+        squads__revivePointsList[squad__id] = revivePoints
         print("[SPAWN] Squad {squad__id}({squad_eid}) is dead; Player: {player_eid}")
       else
         logerr("Squad {squad__id} of player {player_eid} does not exist. There are only {squadsCount} squads.")
@@ -31,8 +32,8 @@ def validate_soldier_revive_points(player_eid : EntityId;
                                    squad_idx : int;
                                    soldier_idx : int;
                                    points : Array;
-                                   heal : Array;
-                                   after_death : Array)
+                                   heal : IntList;
+                                   after_death : IntList)
   assume squadPoints = points?[squad_idx] ?as Array
   let squadPointsLen = squadPoints != null ? length(*squadPoints) : 0
   if squad_idx < 0 || squad_idx >= length(points)
@@ -89,8 +90,8 @@ def soldier_revive_es(evt : EventEntityDied;
   let squadIdx = get_int(victimSquadEid, "squad__id") ?? -1
   let soldierIdx = soldier__id
 
-  query(victimPlayerEid) <| $ [es] (soldier_revive_points__healPerSquadmate : Array;
-                                    soldier_revive_points__afterDeath : Array;
+  query(victimPlayerEid) <| $ [es] (soldier_revive_points__healPerSquadmate : IntList;
+                                    soldier_revive_points__afterDeath : IntList;
                                     var soldier_revive_points__points : Array&)
     assume revivePointsBySquad = soldier_revive_points__points
     assume healBySquad = soldier_revive_points__healPerSquadmate
@@ -100,13 +101,13 @@ def soldier_revive_es(evt : EventEntityDied;
       return
 
     assume revivePoints = *(revivePointsBySquad[squadIdx] as Array)
-    let heal = healBySquad[squadIdx] ?? 0
+    let heal = healBySquad[squadIdx]
 
     for curPoints in revivePoints
       curPoints |> set(min(curPoints ?? 0 + heal, 100))
     print("[SPAWN] Heal all soldiers by {heal}. Player: {victimPlayerEid}")
 
-    revivePoints[soldierIdx] |> set(pointsAfterDeath[squadIdx] ?? 0)
+    revivePoints[soldierIdx] |> set(pointsAfterDeath[squadIdx])
 
     var soldiersCanSpawn = false
     for curPoints in revivePoints
@@ -114,3 +115,74 @@ def soldier_revive_es(evt : EventEntityDied;
         soldiersCanSpawn = true
     if !soldiersCanSpawn
       sendEvent(victimPlayerEid, [[RequestCheckTeamSpawnDefeat]])
+
+def get_respawns_to_full_restore(data : Object; count : int)
+  return data["{count}"] ?? data.default ?? 1
+
+def get_revive_points_heal(respawns_to_full_restore : int)
+  return respawns_to_full_restore > 0 ? int(ceil(100.0 / float(respawns_to_full_restore))) : 100
+
+[es(tag=server, on_appear, track=isArmiesReceived)]
+def init_squad_revive_points(evt : Event;
+                             eid : EntityId;
+                             isArmiesReceived : bool;
+                             armies : Object;
+                             army : string;
+                             squads__respawnsToFullRestoreSquadBySquadsCount : Object;
+                             var squads__revivePointsList : IntList&;
+                             var squads__revivePointsPerSquad : int&)
+  if !isArmiesReceived
+    return
+  assume squads = (armies[army] ?as Object)?.squads ?as Array
+  if squads == null
+    return
+  let squadCount = length(*squads)
+
+  squads__revivePointsList |> resize(squadCount)
+  for pts in squads__revivePointsList
+    pts = 100
+
+  var nonVehicleSquadsCount = squadCount
+  for squad in *squads
+    if (squad as Object)?.curVehicle != null
+      nonVehicleSquadsCount -= 1
+
+  let respawnsToFullRestore = get_respawns_to_full_restore(squads__respawnsToFullRestoreSquadBySquadsCount, nonVehicleSquadsCount)
+  squads__revivePointsPerSquad = get_revive_points_heal(respawnsToFullRestore)
+  print("Non-vehicle squads count is {nonVehicleSquadsCount}. Set {squads__revivePointsPerSquad} revive points per squad for player {eid}.")
+
+
+[es(tag=server, on_appear, track=isArmiesReceived)]
+def soldier_revive_points_init_es(evt : Event;
+                                  isArmiesReceived : bool;
+                                  armies : Object;
+                                  army : string;
+                                  soldier_revive_points__respawnsToRestoreByCount : Object;
+                                  var soldier_revive_points__points : Array&;
+                                  var soldier_revive_points__healPerSquadmate : IntList&;
+                                  var soldier_revive_points__afterDeath : IntList&)
+  if !isArmiesReceived
+    return
+  assume squads = (armies[army] ?as Object)?.squads ?as Array
+  if squads == null
+    return
+
+  let squadsCount = length(*squads)
+
+  soldier_revive_points__points |> clear()
+  soldier_revive_points__healPerSquadmate |> clear()
+  soldier_revive_points__afterDeath |> clear()
+
+  for i in range(squadsCount)
+    let squad = squads?[i] ?as Object
+
+    let squadMembers = squad?.squad ?as Array
+    let soldiersInSquad = squadMembers != null ? length(*squadMembers) : 0
+    push_to_array(soldier_revive_points__points) <| $(var soldierPoints : Array#)
+      for _p in range(soldiersInSquad)
+        soldierPoints |> push(100)
+    let respawnsToRestoreSoldier = get_respawns_to_full_restore(soldier_revive_points__respawnsToRestoreByCount, soldiersInSquad)
+    soldier_revive_points__healPerSquadmate |> push(get_revive_points_heal(respawnsToRestoreSoldier))
+    let revivePointsAfterDeath = respawnsToRestoreSoldier == 0 ? 100 : 0
+    let isVehicleSquad = squad?.curVehicle != null
+    soldier_revive_points__afterDeath |> push(isVehicleSquad ? 100 : revivePointsAfterDeath)

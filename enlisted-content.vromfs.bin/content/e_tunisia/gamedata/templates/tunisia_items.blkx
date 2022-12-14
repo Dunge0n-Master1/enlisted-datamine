@@ -227,6 +227,12 @@ pavesi_prototype_svt_copy_magazine{
   collres__res:t="carcano_m38_7_35_ammo_collision"
 }
 
+scotti_model_x_gun_item{
+  _extends:t="item_gun"
+  _extends:t="scotti_model_x"
+  collres__res:t="scotti_model_x_collision"
+}
+
 beretta_m1918_30_gun_item{
   _extends:t="item_gun"
   _extends:t="beretta_m1918_30"

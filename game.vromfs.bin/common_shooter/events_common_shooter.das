@@ -17,6 +17,15 @@ struct EventOnSelectNextBulletId
   gunEid : EntityId
   nextBulletId : int
 
+[event(unicast)]
+struct EventEntityKilledToPart
+  killer : EntityId
+  collNodeId : int
+  damageType : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct EventHeadShotKill {}
+
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdDeleteMapUserPoint {}
 
@@ -26,14 +35,12 @@ struct CmdCreateMapUserPoint
   dir : float3
   norm : float3
   item_name : string
+  markOwnerEid : EntityId
 
 [event(unicast)]
 struct CmdCreateMapPoint
   x : float
   z : float
-
-[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
-struct CmdUseWeaponFlashlight {}
 
 [cpp_event(broadcast, with_scheme, cpp_gen=false)]
 struct EventOnEntityHit
@@ -53,6 +60,7 @@ struct EventOnEntityHit
   hitNorm : float3
   dmgMult : float
   armorMult : float
+  armorPenetration : float
 
 [cpp_event(unicast)]
 struct EventOnGunCreated
@@ -65,7 +73,6 @@ struct EventOnProjectileHitClient
   projHitInfo : ProjectileHitInfo
   interp_delay_ticks : uint8
   additional_interp_delay : float
-  integrity_hash : uint
   victim_pos : float3
   gunEid : ecs::EntityId
   from : ConnectionId
@@ -88,6 +95,7 @@ struct EventProjectileHitScene
   allowDetonation : bool
   sceneIntersectionsExceeded : bool
   collType : int
+  vel : float3
 
 [cpp_event(unicast)]
 struct EventOnMeleeHitClient
@@ -96,7 +104,6 @@ struct EventOnMeleeHitClient
   timeOfHit : float
   interp_delay_ticks : uint8
   additional_interp_delay : float
-  integrity_hash : uint
   from : ConnectionId
 
 [event(unicast)]
@@ -221,7 +228,7 @@ struct HumanWeapSetCurrentGun
 [event(unicast)]
 struct CmdReinitWeapons {}
 
-[cpp_event(broadcast)]
+[event(broadcast)]
 struct EventOnGunBlocksShoot
   reason : string
 
@@ -253,6 +260,7 @@ struct CmdShellExplodeClient
   explVictim : EidList
   explDamageAndFatal : UInt8List
   shellEid : EntityId
+  fxInfoEid : EntityId
 
 [cpp_event(unicast)]
 struct CmdShellExplode
@@ -282,7 +290,7 @@ struct HumanRequestUnloadAmmo
 [event(unicast)]
 struct CmdInterruptReloadImmediately {}
 
-[cpp_event(unicast)]
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdInventoryPickupGunMod
   item : EntityId
 
@@ -393,11 +401,13 @@ struct TurretShotShellMsg
 struct RequestBipodPlacing
   enabled : bool
   isCrawl : bool
-  placePos : float3
-  yawLimit : float2
   anchorPos : float3
   anchorDir : float3
+  anchorHeight : float
+  anchorOffset : float3
   anchorNormal : float3
+  anchorYawLimit : float2
+  recoilMult : float
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanWeapRequestSwitchFiringMode
@@ -411,10 +421,6 @@ struct CmdAutoequipGunMod
 [cpp_event(unicast)]
 struct CmdInventoryDropGun
   slotId : int
-
-[event(unicast)]
-struct EventBotKilledEntity // Sent to pawn who killed
-  victim : EntityId
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct HumanAttachToGunRequest {}

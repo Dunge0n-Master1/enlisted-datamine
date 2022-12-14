@@ -693,3 +693,41 @@ gunsound_flamethrower{
     path:t="/weapon/mgun_mounted/flamethrower"
   }
 }
+
+gunsound_base_grenade_launcher{
+
+  _group{
+    _tags:t="sound"
+    gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/cannon/grenade_launcher"
+  }
+}
+
+gunsound_50mm_uk_smoke_mortar_launcher{
+  _extends:t="gunsound_base_grenade_launcher"
+}
+
+gunsound_66mm_germ_smoke_candle_launcher{
+  _extends:t="gunsound_base_grenade_launcher"
+}
+
+gunsound_76mm_nato_smoke_grenade_launcher_single{
+  _extends:t="gunsound_base_grenade_launcher"
+}
+
+gunsound_91mm_germ_smoke_grenade_launcher{
+  _extends:t="gunsound_base_grenade_launcher"
+}
+
+gunsound_91mm_germ_smoke_mortar_launcher{
+  _extends:t="gunsound_base_grenade_launcher"
+}
+
+gunsound_66mm_uk_smoke_grenade_launcher{
+  _extends:t="gunsound_base_grenade_launcher"
+}

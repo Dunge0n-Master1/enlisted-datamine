@@ -67,4 +67,5 @@ let function showGetUnlockTutorial(unlock) {
 return {
   nextTutorialUnlock
   showGetUnlockTutorial
+  hasSeenGetUnlockTutorial
 }

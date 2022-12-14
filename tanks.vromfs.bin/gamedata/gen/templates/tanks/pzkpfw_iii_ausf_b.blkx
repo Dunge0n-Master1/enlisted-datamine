@@ -15,21 +15,37 @@ base_pzkpfw_iii_ausf_b{
   drowningHeight:r=1.96
   damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_iii_ausf_b.blk"
   item__name:t="items/germ_pzkpfw_iii_ausf_b"
+  turret_control__grenadeLauncherSalvoSize:i=1
   skin__template:t="pzkpfw_iii_ausf_b_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_02"
     node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_40mm_slow"
     fx:t="muzzle_ground_8mm"
     fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
@@ -39,6 +55,11 @@ base_pzkpfw_iii_ausf_b{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin_02"
     node:t="bone_mg_gun_twin_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
   }
 
   "turret_control__animVars:shared:array"{
@@ -71,6 +92,31 @@ base_pzkpfw_iii_ausf_b{
       curYawParamName:t="turret_03_yaw"
       curPitchParamName:t="gun_03_pitch"
     }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_07_yaw"
+      curPitchParamName:t="gun_07_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_08_yaw"
+      curPitchParamName:t="gun_08_pitch"
+    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -96,6 +142,46 @@ base_pzkpfw_iii_ausf_b{
       turretName:t="turret_03"
       gun:t="pzkpfw_iii_ausf_b_turret_03_7_92mm_mg34"
       barrelDm:t="gun_barrel_02"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_iii_ausf_b_turret_04_66mm_germ_smoke_candle_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_iii_ausf_b_turret_05_66mm_germ_smoke_candle_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_iii_ausf_b_turret_06_66mm_germ_smoke_candle_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_iii_ausf_b_turret_07_66mm_germ_smoke_candle_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_08"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_iii_ausf_b_turret_08_66mm_germ_smoke_candle_launcher"
       salt:i=1
     }
   }
@@ -133,6 +219,51 @@ pzkpfw_iii_ausf_b_turret_03_7_92mm_mg34{
   "gun__shellsAmmo:array"{
     ammo:i=900
     ammo:i=900
+  }
+}
+
+pzkpfw_iii_ausf_b_turret_04_66mm_germ_smoke_candle_launcher{
+  _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_iii_ausf_b_turret_05_66mm_germ_smoke_candle_launcher{
+  _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_iii_ausf_b_turret_06_66mm_germ_smoke_candle_launcher{
+  _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_03"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_iii_ausf_b_turret_07_66mm_germ_smoke_candle_launcher{
+  _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_04"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_iii_ausf_b_turret_08_66mm_germ_smoke_candle_launcher{
+  _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_05"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
   }
 }
 

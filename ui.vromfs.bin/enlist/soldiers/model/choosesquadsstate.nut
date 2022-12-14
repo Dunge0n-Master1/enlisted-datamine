@@ -1,7 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let {
+  setCurSection, mainSectionId, jumpToArmyProgress
+} = require("%enlist/mainMenu/sectionsState.nut")
 let {
   soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
   armyLimitsDefault, curArmy, lockedSquadsByArmy
@@ -313,7 +315,7 @@ let function applyAndCloseImpl() {
   let ids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.squadId)
   markSeenSquads(armyId, ids)
   set_squad_order(armyId, guids)
-  setCurSection("SOLDIERS")
+  setCurSection(mainSectionId)
   close()
 }
 
@@ -342,7 +344,7 @@ let function unfocusSquad(squadId) {
 }
 
 let function closeAndOpenCampaign() {
-  setCurSection("SQUADS")
+  jumpToArmyProgress()
   close()
 }
 
@@ -381,6 +383,7 @@ return {
   unfocusSquad
 
   selectedSquadId
+  selectedSquad
   selectedSquadSoldiers
   selSquadVehicleGameTpl
   sendSquadActionToBQ

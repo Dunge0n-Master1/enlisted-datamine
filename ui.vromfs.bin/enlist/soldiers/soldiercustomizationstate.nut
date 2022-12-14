@@ -17,6 +17,7 @@ let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { isLinkedTo } = require("%enlSqGlob/ui/metalink.nut")
+let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { logerr } = require("dagor.debug")
 
 let isCustomizationWndOpened = Watched(false)
@@ -32,6 +33,11 @@ const APPEARANCE_ORDER_TPL = "appearance_change_order"
 const PURCHASE_WND_UID = "PURCHASE_WND"
 
 let customizedSoldierInfo = Computed(@() isInBattleState.value ? null : curSoldierInfo.value)
+
+let function getCustomizeScheme(squadsCfg, outfitCfg, armyId, squadId) {
+  let { soldierTemplatePreset = null } = squadsCfg?[armyId][squadId]
+  return outfitCfg?[armyId][soldierTemplatePreset] ?? {}
+}
 
 currentItemPart.subscribe(@(v)
   curCustomizationItem(customizationToApply.value?[v]))
@@ -85,7 +91,7 @@ let curSoldierItemsPrice = Computed(function(){
     return res
 
   let itemTypes = outfitShopTypes.value
-  let allItems = outfitSchemes.value?[armyId][squadId] ?? {}
+  let allItems = getCustomizeScheme(squadsCfgById.value, outfitSchemes.value, armyId, squadId)
   allItems.each(@(val) val.each(function(item){
     if (item in freeItemsBySquad.value?[guid])
       return
@@ -164,7 +170,6 @@ let multipleItemsToApply = Computed(function(){
 })
 
 let multipleItemsToBuy = Computed(function(){
-
   let multiItemsToBuy = multipleItemsToApply.value.reduce(@(res, soldier)
     soldier.price.len() >= 1 ? res.extend(soldier.items.values()) : res, []) //warning disable: -unwanted-modification
   return multiItemsToBuy
@@ -237,7 +242,7 @@ let availableCItem = Computed(function(){
   if (armyId == null || squadId == null || guid == null)
     return res
 
-  let itemScheme = outfitSchemes.value?[armyId][squadId]
+  let itemScheme = getCustomizeScheme(squadsCfgById.value, outfitSchemes.value, armyId, squadId)
   local curSoldierItems = clone soldiersLook.value?[guid].items
   let premiumToOverride = allOutfitByArmy.value?[armyId] ?? []
   foreach (item in premiumToOverride)
@@ -258,6 +263,8 @@ let availableCItem = Computed(function(){
     let slotTemplates = findItemTemplate(allItemTemplates, armyId, lookItem)?.slotTemplates ?? {}
     if (slotTemplates.len() > 0)
       foreach (key, val in slotTemplates){
+        if (val == "")
+          continue
         local templ = templates?[val]
         if (templ == null) {
           templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(val)
@@ -297,13 +304,16 @@ let itemsPerSlot = Computed(function(){
 
   let itemTypes = outfitShopTypes.value
   let curItemPart = currentItemPart.value
-  let allItems = outfitSchemes.value?[armyId][squadId]
+  let allItems = getCustomizeScheme(squadsCfgById.value, outfitSchemes.value, armyId, squadId)
   local res = clone (allItems?[curItemPart] ?? [])
   let curPrice = curSoldierItemsPrice.value
   res = res
     .filter(function(val){
       let { itemsubtype = null } = findItemTemplate(allItemTemplates, armyId, val)
       let curItemPrice = itemTypes?[itemsubtype] ?? {}
+      let isItemDefault = defaultItems.findvalue(@(v) v == val) != null
+      if (!isItemDefault && curItemPrice.len() <= 0)
+        return false
       let isHidden = curItemPrice.findvalue(@(val) val?.isZeroHidden) != null
       if (!isHidden || val in freeItemsBySquad.value[guid])
         return true
@@ -316,24 +326,30 @@ let itemsPerSlot = Computed(function(){
 
 let itemsInfo = Computed(function(){
   let { armyId = null, squadId = null } = customizedSoldierInfo.value
-  local result = {}
   if (armyId == null || squadId == null)
-    return result
+    return {}
 
-  let allItems = outfitSchemes.value?[armyId][squadId] ?? {}
+  let allItems = getCustomizeScheme(squadsCfgById.value, outfitSchemes.value, armyId, squadId)
   let templates = {}
-  result = allItems.reduce(function(res, itemsBySlots){
+  let DB = ecs.g_entity_mgr.getTemplateDB()
+
+  let result = allItems.reduce(function(res, itemsBySlots){
     itemsBySlots.each(function(item){
+      if (item == "")
+        return
       let { gametemplate = "", slotTemplates = {} } = findItemTemplate(allItemTemplates, armyId, item)
       let iconAttachments = []
       foreach (key, val in slotTemplates){
+        if (val == "")
+          continue
         local templ = templates?[val]
         if (templ == null){
-          templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(val)
+          templ = DB.getTemplateByName(val)
           templates[val] <- templ
         }
         if (templ == null) {
-          logerr($"Not found items template for {val} at {key} slot")
+          if (DB.size() != 0)
+            logerr($"Not found items template for {val} at {key} slot")
           continue
         }
         iconAttachments.append({
@@ -550,7 +566,7 @@ console_register_command(function() {
   let { guid, armyId, squadId } = customizedSoldierInfo.value
   let premList = curArmyOutfit.value ?? []
   let outfitTypes = outfitShopTypes.value
-  let scheme = outfitSchemes.value?[armyId][squadId] ?? {}
+  let scheme = getCustomizeScheme(squadsCfgById.value, outfitSchemes.value, armyId, squadId)
   let free = {}
   let prem = {}
   foreach (slotId, list in scheme) {

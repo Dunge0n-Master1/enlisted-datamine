@@ -20,8 +20,8 @@ let isReverseZoneUiOrder = Computed(@() isTwoChainsCapzones.value && localPlayer
 let whichTeamAttack = Computed(@()
   capZones.value.reduce(@(team, zone) (zone.active && !zone.trainZone) ? zone.attackTeam : team, -1))
 let trainCapzoneProgress = Watched(0.0)
-let trainZoneEid = Computed(@() capZones.value.findvalue(@(z) z?.trainZone)?.eid ?? INVALID_ENTITY_ID)
-let nextTrainCapzoneEid = Watched(INVALID_ENTITY_ID)
+let trainZoneEid = Computed(@() capZones.value.findvalue(@(z) z?.trainZone)?.eid ?? ecs.INVALID_ENTITY_ID)
+let nextTrainCapzoneEid = Watched(ecs.INVALID_ENTITY_ID)
 
 let curCapZone = Computed(function(){
   let hero = watchedHeroEid.value
@@ -47,11 +47,24 @@ let visibleCurrentCapZonesEids = Computed(function(prev) {
     return eids
   return prev
 })
+
+let minimapVisibleCurrentCapZonesEids = Computed(function(prev) {
+  let eids = capZones.value.map(function(z, eid) {
+    let state = (z.alwaysVisibleOnMinimap && z.active) || (z.active && !z.alwaysHide) || eid == nextTrainCapzoneEid.value
+    if (!state)
+      throw null
+    return state
+  })
+  if (!isEqual(eids, prev))
+    return eids
+  return prev
+})
+
 let visibleZoneGroups = Computed(function(prev){
   let zones = []
   let groups = {}
   foreach (zone in capZones.value)
-    if ((zone.active || zone.wasActive || zone.alwaysShow) && !zone.alwaysHide) {
+    if ((zone.active || zone.wasActive || zone.alwaysShow) && !(zone.alwaysHide || zone.isBattleContract)) {
       zones.append(zone)
       let groupId = zone?.groupName ?? ""
       if (!(groupId in groups))
@@ -289,9 +302,10 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     isCapturing = false
     attackTeam = comp["capzone__checkAllZonesInGroup"] ?
                  comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
-    heroInsideEid = INVALID_ENTITY_ID
+    heroInsideEid = ecs.INVALID_ENTITY_ID
     alwaysShow = comp["capzone__alwaysShow"]
     alwaysHide = comp["capzone__alwaysHide"]
+    alwaysVisibleOnMinimap = comp["capzone__alwaysVisibleOnMinimap"]
     ownTeamIcon = mkOwnTeamIco(comp["capzone__ownTeamIcon"], owningTeam)
     owningTeam = owningTeam
     groupName = comp["groupName"]
@@ -303,7 +317,7 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     progressPausedAt = comp["progress__pausedAt"]
     progressIsPositive = comp["progress__isPositive"]
     bombPlantingTeam = comp["capzone__plantingTeam"]
-    isBombSite = comp["capzone__bombSiteEid"] != INVALID_ENTITY_ID
+    isBombSite = comp["capzone__bombSiteEid"] != ecs.INVALID_ENTITY_ID
     isBombPlanted = comp["capzone__isBombPlanted"]
     humanTriggerable = comp["humanTriggerable"] != null
     trainTriggerable = comp["trainTriggerable"] != null
@@ -314,6 +328,7 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     endLockTime = comp["capzone__endLockTime"]
     unlockAfterTime = comp["capzone__unlockAfterTime"]
     capzoneTwoChains = comp["capzoneTwoChains"] != null
+    isBattleContract = comp["battle_contract"] != null
   }
   zone.wasActive <- zone.active
   capZonesSetKeyVal(eid, zone)
@@ -335,7 +350,7 @@ let function onHeroChanged(evt, _eid, _comp){
                             && (visitorComp.isInVehicle ? zone.canCaptureOnVehicle : zone.humanTriggerable)
                             && (!zone.excludeDowned || !visitorComp.isDowned)
                             && capturer__capZonesIn.indexof(zoneEid) != null)
-                            ? newHeroEid : INVALID_ENTITY_ID
+                            ? newHeroEid : ecs.INVALID_ENTITY_ID
       if (heroInsideEid != zone.heroInsideEid)
         zonesUpdate[zoneEid] <- zone.__merge({ heroInsideEid })
     }
@@ -359,6 +374,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
   let attackTeam = comp["capzone__checkAllZonesInGroup"] ?
                      comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
   let title = comp["capzone__title"]
+  let alwaysHide = comp["capzone__alwaysHide"]
   let heroTeam = localPlayerTeam.value
   let controlledHero = controlledHeroEid.value
   capZonesModify(function(zones){
@@ -368,6 +384,8 @@ let function onCapZoneChanged(_evt, eid, comp) {
 
     if (zone?["attackTeam"] != attackTeam)
       changedZoneVals["attackTeam"] <- attackTeam
+    if (zone?["alwaysHide"] != alwaysHide)
+      changedZoneVals["alwaysHide"] <- alwaysHide
     let newZone = zone.__merge(changedZoneVals)
     if ("curTeamCapturingZone" in changedZoneVals){
       notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
@@ -402,7 +420,7 @@ let function onZonePresenseChange(eid, visitor_eid, leave) {
     let zone = v?[eid]
     if (!zone || visitor_eid != hero_eid)
       return v
-    v[eid] = zone.__merge({ heroInsideEid = leave ? INVALID_ENTITY_ID : hero_eid })
+    v[eid] = zone.__merge({ heroInsideEid = leave ? ecs.INVALID_ENTITY_ID : hero_eid })
     return v
   })
 }
@@ -439,7 +457,8 @@ ecs.register_es("capzones_ui_state_es",
       ["capzone__narrator_zoneCapturedEnemyMessage", ecs.TYPE_STRING, ""],
       ["capzone__narrator_zoneCapturedEnable", ecs.TYPE_BOOL, false],
       ["capzone__unlockAfterTime", ecs.TYPE_FLOAT, -1],
-      ["capzoneTwoChains", ecs.TYPE_TAG, null]
+      ["capzoneTwoChains", ecs.TYPE_TAG, null],
+      ["battle_contract", ecs.TYPE_TAG, null]
     ],
     comps_track = [
       ["capzone__onlyTeamCanCapture", ecs.TYPE_INT, TEAM_UNASSIGNED],
@@ -450,6 +469,7 @@ ecs.register_es("capzones_ui_state_es",
       ["capzone__capTeam", ecs.TYPE_INT],
       ["capzone__alwaysShow", ecs.TYPE_BOOL, false],
       ["capzone__alwaysHide", ecs.TYPE_BOOL, false],
+      ["capzone__alwaysVisibleOnMinimap", ecs.TYPE_BOOL, false],
       ["capzone__title", ecs.TYPE_STRING, ""],
       ["capzone__icon", ecs.TYPE_STRING, ""],
       ["capzone__caption", ecs.TYPE_STRING, ""],
@@ -465,7 +485,7 @@ ecs.register_es("capzones_ui_state_es",
       ["progress__pausedAt", ecs.TYPE_FLOAT, -1],
       ["progress__isPositive", ecs.TYPE_BOOL, true],
       ["capzone__isBombPlanted", ecs.TYPE_BOOL, false],
-      ["capzone__bombSiteEid", ecs.TYPE_EID, INVALID_ENTITY_ID],
+      ["capzone__bombSiteEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
       ["trainZone", ecs.TYPE_TAG, null],
       ["capzone__locked", ecs.TYPE_BOOL, false],
       ["capzone__endLockTime", ecs.TYPE_FLOAT, -1],
@@ -495,6 +515,7 @@ return {
   getZoneWatch
   visibleCurrentCapZonesEids
   visibleZoneGroups
+  minimapVisibleCurrentCapZonesEids
   whichTeamAttack
   curCapZone
   nextTrainCapzoneEid

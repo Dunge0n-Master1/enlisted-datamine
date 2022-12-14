@@ -1,6 +1,5 @@
 germ_sdkfz_251_10{
   _extends:t="base_sdkfz_251_10"
-  _extends:t="vehicle_effects_tracked"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
   vehicle_seats_switch_time__totalSwitchTime:r=2.0

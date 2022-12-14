@@ -39,7 +39,7 @@ def aim_assist_node_load_es(evt : Event;
                             animchar : AnimcharBaseComponent;
                             aim_assist_target__nodeName : string;
                             var aim_assist_target__nodeIdx : int&)
-  aim_assist_target__nodeIdx = geomtree_findNodeIndex(animchar.nodeTree, aim_assist_target__nodeName)
+  aim_assist_target__nodeIdx = geomtree_findNodeIndex(*animchar.nodeTree, aim_assist_target__nodeName)
   if aim_assist_target__nodeIdx < 0
     logerr("aim_assist_target__nodeName '{aim_assist_target__nodeName}' not found in entity {eid}='{getEntityTemplateName(eid)}'")
 

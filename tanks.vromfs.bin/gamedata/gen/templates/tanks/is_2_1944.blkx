@@ -11,7 +11,7 @@ base_is_2_1944{
   cockpit__zoomOutFov:r=5.8197
   cockpit__zoomInFov:r=6.1402
   cockpit__sightName:t="sight_model/tsh_16"
-  cockpit__sightFov:r=15.0
+  cockpit__sightFov:r=9.75
   drowningHeight:r=2.188
   damage_model__blk:t="gamedata/gen/units/tanks/is_2_1944.blk"
   item__name:t="items/ussr_is_2_1944"
@@ -332,18 +332,18 @@ is_2_1944_skins{
     }
 
     "skin:object"{
-      id:t="is_2_1944_ussr_camo_brown_lines"
+      id:t="is_2_1944_ussr_camo_czechoslovak_yellow_green"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+        "ussr_camo_green*":t="ussr_camo_czechoslovak_yellow_green*"
       }
     }
 
     "skin:object"{
-      id:t="is_2_1944_ussr_camo_green_ltbrown_lines"
+      id:t="is_2_1944_ussr_camo_desert_syrian_green_brown_yellow"
 
       "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+        "ussr_camo_green*":t="ussr_camo_desert_syrian_green_brown_yellow*"
       }
     }
 

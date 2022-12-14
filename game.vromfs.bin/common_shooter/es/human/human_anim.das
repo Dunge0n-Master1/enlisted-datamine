@@ -12,6 +12,10 @@ require HumanAnim
 require DagorMath
 require EnlistedWeapon
 require game.es.events
+require enlisted.events_enlisted
+require DagorRandom
+require debug.logerr_once
+require strings
 
 def private calc_head_pitch_yaw(state : HumanPhysState)
   let localGunDir = inverse(state.location.O.quat) * state.gunDir
@@ -58,7 +62,7 @@ def calc_shoot_pitch(actor : HumanActor;
   pitch = atan2(dot(tm[1], shootTm[0]), dot(tm[0], shootTm[0]))
 
 [es(tag=gameClient, REQUIRE_NOT=animchar__actOnDemand, no_order)]
-def human_head_anim_es(info : UpdateStageInfoAct;
+def human_head_anim_es(info : ParallelUpdateFrameDelayed;
                        animchar__updatable : bool;
                        animchar__visible : bool = true;
                        human_net_phys : HumanActor;
@@ -163,11 +167,66 @@ def human_anim_keep_jump_start_time(update : CmdPostPhysUpdate;
   if jumpStartTime > 0.
     human_anim__jumpStartTime = jumpStartTime
 
+[es(on_appear)]
+def human_init_stationary_gun_animation(evt : Event;
+                                        animchar : AnimcharBaseComponent;
+                                        var human_anim__stationaryGunAnimId : int&)
+  let animGraph = animchar.animGraph
+  if animGraph != null
+    human_anim__stationaryGunAnimId = anim_graph_getStateIdx(*animGraph, "stationary_machine_gun_hold")
+
+[es(tag=server, on_appear)]
+def human_init_sprint_anim_variation_in_squad(evt : Event;
+                                              human_anim__sprintVariationCount : int;
+                                              squad_member__squad : EntityId = INVALID_ENTITY_ID;
+                                              var human_anim__sprintVariation : int&)
+  if human_anim__sprintVariationCount <= 0
+    return
+  let squadFound = query(squad_member__squad) <| $ [es] (var squad__sprintAnims : IntList&)
+    if length(squad__sprintAnims) == 0
+      for i in range(human_anim__sprintVariationCount)
+        squad__sprintAnims |> push(i)
+    let index = rnd_int(0, length(squad__sprintAnims) - 1)
+    human_anim__sprintVariation = squad__sprintAnims[index]
+    squad__sprintAnims |> erase(index)
+  if !squadFound
+    human_anim__sprintVariation = rnd_int(0, human_anim__sprintVariationCount - 1)
+
+[es(on_appear)]
+def human_init_sprint_animation_variation(evt : Event;
+                                          human_anim__sprintVariation : int;
+                                          var human_anim__sprintVariationVarId : int&;
+                                          var phys_vars : PhysVars&)
+  human_anim__sprintVariationVarId = phys_vars |> registerVar("anim_variation", float(human_anim__sprintVariation))
+
+[es(track=human_anim__sprintVariation, after=human_init_sprint_animation_variation)]
+def human_track_sprint_animation_variation(evt : Event;
+                                           human_anim__sprintVariation : int;
+                                           human_anim__sprintVariationVarId : int;
+                                           var phys_vars : PhysVars&)
+  phys_vars |> setVar(human_anim__sprintVariationVarId, float(human_anim__sprintVariation))
+
+[es(on_appear)]
+def init_human_idle_upper_anim_state(evt : Event;
+                                     eid : EntityId;
+                                     animchar : AnimcharBaseComponent;
+                                     human_anim__idleUpperState : string;
+                                     var human_anim__idleUpperStateId : int&)
+  if empty(human_anim__idleUpperState)
+    return
+  human_anim__idleUpperStateId = anim_graph_getStateIdx(*animchar.animGraph, human_anim__idleUpperState)
+  if human_anim__idleUpperStateId < 0
+    logerr_once("anim state {human_anim__idleUpperState} not found for {getEntityTemplateName(eid)}")
+
+[es(tag=server, on_appear, track=agent_dangers__hasTraceableDangers)]
+def human_anim_idling_state(evt : Event; agent_dangers__hasTraceableDangers : bool; var human_anim__isIdling : bool&)
+  human_anim__isIdling = !agent_dangers__hasTraceableDangers
+
 [es(REQUIRE_NOT=animchar__actOnDemand, no_order, parallel_for=1)]
 def human_anim_es(info : UpdateStageInfoAct;
-                  ragdoll : PhysRagdoll?;
+                  ragdoll : PhysRagdoll const?;
                   human_anim__climbHeights : Array;
-                  dm_parts__hitPartsAnimationId : Array?;
+                  dm_parts__hitPartsAnimationId : Array const?;
                   human_net_phys__climbToPos : float3 = float3();
                   transform : float3x4;
                   human_net_phys : HumanActor;
@@ -193,6 +252,8 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_weap__throwMode : bool = false;
                   human_weap__radioMode : bool = false;
                   human_weap__mortarMode : bool = false;
+                  human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
+                  human_anim__stationaryGunAnimId : int = -1;
                   animchar__scale : float = 1.0;
                   human_anim__airSpeedMult : float = 0.05;
                   human_anim__jumpTransitionTime : float = 2.0;
@@ -216,10 +277,11 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_anim__toCrawlTransitionVarId : int;
                   human_anim__fromCrawlTransitionAnimId : int;
                   human_anim__fromCrawlTransitionVarId : int;
-                  human_melee_charge__isActive : bool;
-                  human_melee_charge__animUpperStateId : int;
-                  human_melee_charge__animProgressVarId : int;
-                  human_melee_charge__animProgress : float;
+                  human_anim__idleUpperStateId : int = -1;
+                  human_melee_charge__isActive : bool = false;
+                  human_melee_charge__animUpperStateId : int = -1;
+                  human_melee_charge__animProgressVarId : int = -1;
+                  human_melee_charge__animProgress : float = 0.0;
                   animchar__updatable : bool;
                   animchar__visible : bool = true;
                   human_anim__jumpStartStateRange : float2;
@@ -229,6 +291,9 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_phys__beforeJumpCrouchHeight : float;
                   human_phys__afterJumpCrouchHeight : float;
                   human_anim__heightViscosity : float = 0.1;
+                  human_anim__bipodHeightViscosity : float = 0.01;
+                  human_anim__isIdling : bool = false;
+                  beh_tree__enabled : bool = false;
                   var human_anim__previousHeight : float&;
                   var human_anim : HumanAnimCtx;
                   var phys_vars : PhysVars;
@@ -270,7 +335,7 @@ def human_anim_es(info : UpdateStageInfoAct;
   if curTime < phys.currentState.afterJumpDampingEndTime
     animHeight = min(animHeight, human_phys__afterJumpCrouchHeight)
 
-  animHeight = approach(human_anim__previousHeight, animHeight, dt, human_anim__heightViscosity)
+  animHeight = approach(human_anim__previousHeight, animHeight, dt, bipod__enabled ? human_anim__bipodHeightViscosity : human_anim__heightViscosity)
 
   phys_vars |> setVar(human_anim.gunPitchVarId, rad_to_deg(pitch))
   phys_vars |> setVar(human_anim.walkDirVarId, walkYaw + 90.0)
@@ -459,6 +524,12 @@ def human_anim_es(info : UpdateStageInfoAct;
       phys_vars |> setVar(human_anim.standHeightVarId, human_vehicle_anim__maxStandHeight)
   else
     state = human_anim.animState |> updateState(statePos, stateMove, stateJump, stateUpperBody, state_flags)
+    if (human_anim__idleUpperStateId >= 0 && beh_tree__enabled && human_anim__isIdling
+        && stateUpperBody == HumanStateUpperBody E_READY
+        && stateMove == HumanStateMove E_STILL
+        && (statePos == HumanStatePos E_STAND || statePos == HumanStatePos E_CROUCH))
+      state.upper = human_anim__idleUpperStateId
+
     if human_anim__jumpUpperStateId > 0 && ((curTime > human_anim__jumpStartTime + human_anim__jumpStartStateRange.x && curTime < human_anim__jumpStartTime + human_anim__jumpStartStateRange.y) ||
                                             (curTime > human_phys__jumpEndTime + human_anim__jumpEndStateRange.x && curTime < human_phys__jumpEndTime + human_anim__jumpEndStateRange.y))
       state.upper = human_anim__jumpUpperStateId
@@ -481,5 +552,9 @@ def human_anim_es(info : UpdateStageInfoAct;
         setVar(phys_vars, human_melee_charge__animProgressVarId, human_melee_charge__animProgress)
   send_change_anim_state_event(eid, "lower", ecs_hash("lower"), state.lower)
   send_change_anim_state_event(eid, "upper", ecs_hash("upper"), state.upper)
+
+  if !!human_attached_gun__attachedGunEid && human_anim__stationaryGunAnimId >= 0
+    send_change_anim_state_event(eid, "lower", ecs_hash("lower"), human_anim__stationaryGunAnimId)
+    send_change_anim_state_event(eid, "upper", ecs_hash("upper"), human_anim__stationaryGunAnimId)
   animchar__animSpeed = spd * safeinv(animchar__scale)
   human_anim__previousHeight = animHeight

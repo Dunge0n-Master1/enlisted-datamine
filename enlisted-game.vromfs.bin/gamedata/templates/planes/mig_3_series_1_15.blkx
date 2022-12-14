@@ -23,6 +23,13 @@ mig_3_series_1_15{
         turret:t="turret_01"
         turret:t="turret_02"
       }
+
+      "effectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
   }
 
@@ -145,4 +152,24 @@ mig_3_series_1_15_driver_cockpit{
   animchar__res:t="mig_3_series_34_cockpit_char"
   plane_anim__blk:t="gamedata/units/mig_3_series_1_15.blk"
   plane_sight__blk:t="gamedata/units/mig_3_series_1_15.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.015, 0.008, 0.0
+    item:p3=0.05, -0.0055, -0.0025
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=3.4, 3.4
+    item:p2=5.8, 9.2
+  }
 }
