@@ -55,12 +55,13 @@ let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { requestModManifest, MOD_DOWNLOAD_URL, receivedModInfos
 } = require("%enlist/gameModes/sandbox/customMissionState.nut")
 let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nut")
+let { is_console } = require("%dngscripts/platform.nut")
 
 let startBtnSize = [hdpx(400), hdpx(80)]
 let spinnerSize = hdpx(60)
 
 let needModDownloadButton = Computed(function() {
-  if (canOperateRoom.value)
+  if (is_console || canOperateRoom.value)
     return false
   let modId = room.value?.public.modId
   if (modId != null && receivedModInfos.value.findindex(@(mods) mods.id == modId) == null)

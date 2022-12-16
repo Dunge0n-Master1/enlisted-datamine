@@ -1725,7 +1725,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1753,7 +1753,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1778,7 +1778,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/cafe"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1803,7 +1803,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/banquet_hall"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1829,7 +1829,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hitlers_office"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=100.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1880,7 +1880,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/fountain_yard"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=80.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1903,7 +1903,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/garage"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=80.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no

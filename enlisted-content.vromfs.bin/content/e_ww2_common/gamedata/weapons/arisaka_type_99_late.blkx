@@ -1,4 +1,5 @@
 selWeaponVar:t="arisaka_type_99_late"
+stat_name:t="rifle"
 
 ownerAnimVars{
   reye_offset_fwd0:r=-0.1

@@ -292,6 +292,85 @@ tankgun_76mm_f32{
   }
 }
 
+tankgun_100mm_d10s{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_defaultset.blk"
+        name:t="100mm_br_412"
+        type:t="aphe_tank"
+      }
+    }
+
+    "100mm_ussr_APHE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_aphe.blk"
+        name:t="100mm_br_412b"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "100mm_ussr_APCBC:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_apcbc.blk"
+        name:t="100mm_br_412d"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "100mm_ussr_HE:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_he.blk"
+        name:t="100mm_of_412"
+        type:t="he_frag_tank"
+      }
+    }
+
+    "100mm_ussr_APCR:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_apcr.blk"
+        name:t="100mm_br_412p"
+        type:t="apcr_tank"
+      }
+    }
+
+    "100mm_ussr_APDS:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_apds.blk"
+        name:t="100mm_zbm8"
+        type:t="apds_tank"
+      }
+    }
+
+    "100mm_ussr_HEAT:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_heat.blk"
+        name:t="100mm_zbk_5"
+        type:t="heat_fs_tank"
+      }
+    }
+
+    "100mm_ussr_Smoke:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/100mm_d10s_100mm_ussr_smoke.blk"
+        name:t="100mm_3d3"
+        type:t="smoke_tank"
+      }
+    }
+  }
+}
+
 tankgun_12_7mm_m2_hb{
   _override:b=yes
   gun__reloadTime:r=12.0

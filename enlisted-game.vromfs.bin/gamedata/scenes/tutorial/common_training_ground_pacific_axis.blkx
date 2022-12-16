@@ -52,7 +52,7 @@ entity{
 
 entity{
   _template:t="mp_28_jp_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
-  transform:m=[[-0.0369648, -0.996214, -0.0786714] [-0.401915, 0.0868989, -0.911545] [0.91493, -0.00207708, -0.403606] [-533.331, 9.3814, 151.526]]
+  transform:m=[[0.504009, -0.152027, 0.850212] [0.237426, 0.970852, 0.0328518] [-0.830424, 0.185304, 0.525413] [-533.416, 9.44774, 151.501]]
   animchar__updatable:b=no
 }
 
@@ -69,8 +69,8 @@ entity{
 }
 
 entity{
-  _template:t="type_97_antitank_canon_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
-  transform:m=[[0.800362, -0.585366, 0.129472] [-0.0412784, 0.161642, 0.985987] [-0.598091, -0.794491, 0.10521] [-534.006, 9.00469, 151.593]]
+  _template:t="type_97_antitank_canon_scaled_gun_item+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  transform:m=[[0.800362, -0.585366, 0.129472] [-0.0412784, 0.161642, 0.985987] [-0.598091, -0.794491, 0.10521] [-534.016, 9.00469, 151.593]]
   animchar__updatable:b=no
 }
 
@@ -153,13 +153,13 @@ entity{
 }
 
 entity{
-  _template:t="ptrs_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  _template:t="type_97_antitank_canon_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
   transform:m=[[0.0718462, 0.997267, -0.0171592] [-0.951853, 0.0736944, 0.297566] [0.298018, -0.00504603, 0.954547] [-533.547, 9.38424, 151.416]]
   animchar__updatable:b=no
 }
 
 entity{
-  _template:t="ptrs_41_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
+  _template:t="type_97_antitank_canon_magazine+item_in_world+visibility_traceable_item+ui_visible+disable_update"
   transform:m=[[0.010052, 0.999898, 0.0100779] [0.0157848, -0.0102359, 0.999823] [0.999824, -0.00989117, -0.0158861] [-533.439, 9.39453, 151.345]]
   animchar__updatable:b=no
 }

@@ -1248,6 +1248,8 @@ addons{
   folder:t="content.hq/hq_tex"
   folder:t="content/dev"
   folder:t="content.hq/dev_hq"
+  folder:t="content/mods"
+  folder:t="content.hq/mods_hq"
   folder:t="content/tomoe"
   folder:t="content.hq/tomoe_hq"
   folder:t="content/lshaders_{SHADER_SUFFIX}"
@@ -1275,6 +1277,18 @@ chunksMapping{
 
   chunk{
     folder:t="content.hq/dev_hq"
+    id:i=1002
+    sony_id:i=1
+  }
+
+  chunk{
+    folder:t="content/mods"
+    id:i=1001
+    sony_id:i=0
+  }
+
+  chunk{
+    folder:t="content.hq/mods_hq"
     id:i=1002
     sony_id:i=1
   }

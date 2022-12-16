@@ -1484,8 +1484,8 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
-  capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=30.0
   capzone__iconOffsetY:r=1.0
   capzone__bombTransformLocalPos:m=[[0.403996, 0.0, -0.914761] [0.0, 1.0, 0.0] [0.914761, -0.0, 0.403996] [0.244446, -0.609549, -0.464294]]
 
@@ -1513,7 +1513,7 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.709949, 0.0, 0.704252] [0.0, 1.0, 0.0] [-0.704252, 0.0, -0.709949] [-0.471741, -0.89909, 0.0787354]]
-  capzone__timeToPlant:r=20.0
+  capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=10.0
   capzone__iconOffsetY:r=1.0
 
@@ -1541,8 +1541,8 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.915873, 0.0, 0.401464] [0.0, 1.0, 0.0] [-0.401464, 0.0, -0.915873] [0.0, 0.210957, 0.0]]
-  capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=30.0
   capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
@@ -1569,8 +1569,8 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.323643, 0.0, 0.946179] [0.0, 1.0, 0.0] [-0.946179, 0.0, -0.323643] [0.0900879, 0.132946, -0.129578]]
-  capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=30.0
   capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
@@ -1597,8 +1597,8 @@ entity{
   capzone__plantingTeam:i=1
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.529975, 0.0, -0.757551] [0.0, 0.92453, 0.0] [0.757551, 0.0, -0.529975] [0.0, -1.10457, 0.0]]
-  capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=30.0
   capzone__iconOffsetY:r=0.5
 }
 

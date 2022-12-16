@@ -889,8 +889,8 @@ entity{
 entity{
   _template:t="team_germany+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1500.0
+  team__score:r=1500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1474,7 +1474,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/apartments"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1485,7 +1485,7 @@ entity{
   capzone__plantingTeam:i=2
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToDefuse:r=15.0
   capzone__iconOffsetY:r=1.0
   capzone__bombTransformLocalPos:m=[[0.403996, 0.0, -0.914761] [0.0, 1.0, 0.0] [0.914761, -0.0, 0.403996] [0.244446, -0.609549, -0.464294]]
 
@@ -1502,7 +1502,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/control_tower"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1530,7 +1530,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/station"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1542,7 +1542,7 @@ entity{
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.915873, 0.0, 0.401464] [0.0, 1.0, 0.0] [-0.401464, 0.0, -0.915873] [0.0, 0.210957, 0.0]]
   capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToDefuse:r=15.0
   capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
@@ -1558,7 +1558,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/station"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1570,7 +1570,7 @@ entity{
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.323643, 0.0, 0.946179] [0.0, 1.0, 0.0] [-0.946179, 0.0, -0.323643] [0.0900879, 0.132946, -0.129578]]
   capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToDefuse:r=15.0
   capzone__iconOffsetY:r=2.0
 
   "capzone__activateChoice:object"{
@@ -1586,7 +1586,7 @@ entity{
   groupName:t="sector_3"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/apartments"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1598,7 +1598,7 @@ entity{
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.529975, 0.0, -0.757551] [0.0, 0.92453, 0.0] [0.757551, 0.0, -0.529975] [0.0, -1.10457, 0.0]]
   capzone__timeToPlant:r=30.0
-  capzone__timeToDefuse:r=20.0
+  capzone__timeToDefuse:r=15.0
   capzone__iconOffsetY:r=0.5
 }
 

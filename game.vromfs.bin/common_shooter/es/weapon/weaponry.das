@@ -454,7 +454,7 @@ def projectile_on_hit_scene(pos : float3;
 
   phys_mat_damage_model_get_props(pmid) <| $(dmPhysProps : PhysMatDamageModelProps)
     let projectileSpeedThreshold = 10.0
-    let angleThreshold = 0.121 //~7 degrees
+    let angleThreshold = 0.0872 //~5 degrees
     let derivationShift = 0.7 //0.5 - without derivation
     let thresholdMass = 1.0
 

@@ -86,6 +86,9 @@ bomb_crater_config{
       is_african_bed_c:b=no
       is_african_bed_d:b=no
       is_african_bed_e:b=no
+      well_concrete_a_ring:b=no
+      well_concrete_a_cap:b=no
+      concrete_barrier_a:b=no
     }
 
     "crater_config__unremovableRIPoolsByNamePart:list<t>"{

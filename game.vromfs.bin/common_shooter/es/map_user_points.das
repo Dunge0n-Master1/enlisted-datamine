@@ -21,6 +21,7 @@ require CollisionTraces
 require Dacoll
 require PhysMat
 require CollRes
+require SmokeOccluder
 
 struct PointsStruct
   eid : EntityId = INVALID_ENTITY_ID
@@ -293,11 +294,27 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
   var isInAirplane = false
   var vehicleSelected = INVALID_ENTITY_ID
   var enemyDetectMaxDistance = marker__enemyDetectMaxDistance
-  query(possessed) <| $ [es] (human_anim__vehicleSelected : EntityId)
+  var humanAimTm = IDENT_TM
+  var humanCurrentGunEid = INVALID_ENTITY_ID
+  query(possessed) <| $ [es] (human__aimTm : float3x4;
+                              human_weap__currentGunEid : EntityId;
+                              human_anim__vehicleSelected : EntityId)
+    humanAimTm = human__aimTm
+    humanCurrentGunEid = human_weap__currentGunEid
     isInAirplane = has(human_anim__vehicleSelected, "airplane")
     vehicleSelected = human_anim__vehicleSelected
     query(human_anim__vehicleSelected) <| $ [es] (marker__enemyDetectMaxDistance : float = 300f)
       enemyDetectMaxDistance = marker__enemyDetectMaxDistance
+
+  var aimPos = humanAimTm[3]
+  var aimDir = humanAimTm[0]
+  query(evt.markOwnerEid) <| $ [es] (transform : float3x4)
+    aimPos = transform[3]
+    aimDir = transform[0]
+
+  let smokeTraceEnd = aimPos + aimDir * enemyDetectMaxDistance
+  if rayhit_smoke_occluders(aimPos, smokeTraceEnd)
+    return
 
   var enemyEid = INVALID_ENTITY_ID
   var vehicleEid = INVALID_ENTITY_ID
@@ -307,49 +324,43 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
   var pointOnVehicle = false
 
   if has(*obj, "findEnemy")
-    query(possessed) <| $ [es] (human__aimTm : float3x4;
-                                human_weap__currentGunEid : EntityId)
-      var aimRayMatId = PHYSMAT_INVALID
-      query(human_weap__currentGunEid) <| $ [es] (gun__aimRayMatId : int)
-        aimRayMatId = gun__aimRayMatId
+    var aimRayMatId = PHYSMAT_INVALID
+    query(humanCurrentGunEid) <| $ [es] (gun__aimRayMatId : int)
+      aimRayMatId = gun__aimRayMatId
 
-      var aimPos = human__aimTm[3]
-      query(evt.markOwnerEid) <| $ [es] (transform : float3x4)
-        aimPos = transform[3]
-
-      let enemyDetectDegree = get_float(obj, "enemyDetectAngle") ?? 0.5f
-      let enemyDetectCos = cos(deg_to_rad(enemyDetectDegree))
-      let enemyDetectCylinderRad = get_float(obj, "enemyDetectCylinderRad") ?? 0.4f
-      let START_OFFSET = 0.2f // or else we could hit the gun itself
-      let traceDir = evt.dir
-      let traceStart = aimPos + traceDir * START_OFFSET
-      let skipDead = get_bool(obj, "skipDead") ?? false
-      enemyEid = find_enemy_on_ray(traceStart, traceDir, enemyDetectMaxDistance, enemyDetectCylinderRad, enemyDetectCos, team, skipDead)
-      if enemyEid != INVALID_ENTITY_ID
-        pos = traceStart + traceDir * enemyDetectMaxDistance
-        let findEnemyMark = get_string(obj, "findEnemyNewMark", "")
-        if !empty(findEnemyMark)
-          let newObj = get_ecs_object(user_points, findEnemyMark)
-          if newObj != null
-            obj = newObj
-      buildingEid = find_building_on_ray(team, traceStart, traceDir, enemyDetectMaxDistance)
-      if buildingEid != INVALID_ENTITY_ID
-        query(buildingEid) <| $ [es] (transform : float3x4; building_menu__image : string)
-          pos = transform[3]
-          userPointCustomIcon = building_menu__image
-          let newObj = get_custom_mark_object(*obj, user_points, "findEnemyBuildingNewMark")
-          if newObj != null
-            obj = newObj
-      elif (isInAirplane
-        ? find_vehicle_around(team, pos, vehicleEid, traceStart, traceDir, markerAroundMaxDist, markerAroundBoxMult)
-        : find_vehicle_on_ray(team, pos, vehicleEid, pointOnVehicle, vehicleSelected, traceStart, traceDir, enemyDetectMaxDistance, aimRayMatId))
-        query(vehicleEid) <| $ [es] (user_point__icon : string)
-          userPointCustomIcon = user_point__icon
-        let newTemplateName = pointOnVehicle ? "findEnemyPointOnVehicleNewMark" : "findEnemyVehicleNewMark"
-        let newObj = get_custom_mark_object(*obj, user_points, newTemplateName)
+    let enemyDetectDegree = get_float(obj, "enemyDetectAngle") ?? 0.5f
+    let enemyDetectCos = cos(deg_to_rad(enemyDetectDegree))
+    let enemyDetectCylinderRad = get_float(obj, "enemyDetectCylinderRad") ?? 0.4f
+    let START_OFFSET = 0.2f // or else we could hit the gun itself
+    let traceDir = evt.dir
+    let traceStart = aimPos + traceDir * START_OFFSET
+    let skipDead = get_bool(obj, "skipDead") ?? false
+    enemyEid = find_enemy_on_ray(traceStart, traceDir, enemyDetectMaxDistance, enemyDetectCylinderRad, enemyDetectCos, team, skipDead)
+    if enemyEid != INVALID_ENTITY_ID
+      pos = traceStart + traceDir * enemyDetectMaxDistance
+      let findEnemyMark = get_string(obj, "findEnemyNewMark", "")
+      if !empty(findEnemyMark)
+        let newObj = get_ecs_object(user_points, findEnemyMark)
         if newObj != null
-          userPointVehicleTargetEid = vehicleEid
           obj = newObj
+    buildingEid = find_building_on_ray(team, traceStart, traceDir, enemyDetectMaxDistance)
+    if buildingEid != INVALID_ENTITY_ID
+      query(buildingEid) <| $ [es] (transform : float3x4; building_menu__image : string)
+        pos = transform[3]
+        userPointCustomIcon = building_menu__image
+        let newObj = get_custom_mark_object(*obj, user_points, "findEnemyBuildingNewMark")
+        if newObj != null
+          obj = newObj
+    elif (isInAirplane
+      ? find_vehicle_around(team, pos, vehicleEid, traceStart, traceDir, markerAroundMaxDist, markerAroundBoxMult)
+      : find_vehicle_on_ray(team, pos, vehicleEid, pointOnVehicle, vehicleSelected, traceStart, traceDir, enemyDetectMaxDistance, aimRayMatId))
+      query(vehicleEid) <| $ [es] (user_point__icon : string)
+        userPointCustomIcon = user_point__icon
+      let newTemplateName = pointOnVehicle ? "findEnemyPointOnVehicleNewMark" : "findEnemyVehicleNewMark"
+      let newObj = get_custom_mark_object(*obj, user_points, newTemplateName)
+      if newObj != null
+        userPointVehicleTargetEid = vehicleEid
+        obj = newObj
   create_map_user_point(evt.item_name, pos, evt.norm, eid, team, *obj, false) <| $(var init : ComponentsInitializer)
     if !empty(userPointCustomIcon)
       set(init, "userPointCustomIcon", userPointCustomIcon)

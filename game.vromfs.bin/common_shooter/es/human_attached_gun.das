@@ -26,9 +26,6 @@ require EffectorData
 require PhysDecl
 
 
-let GUN_ATTACH_RADIUS_DEFAULT = 2.0
-
-
 [es(on_disappear)]
 def human_attached_gun_destroy_es(evt : Event;
                                   var human_attached_gun__attachedGunEid : EntityId&)
@@ -100,32 +97,12 @@ def attach_to_gun(eid : EntityId;
       human_net_phys.phys.currentState |> human_phys_state_set_isAttached(true)
 
 
-def attach_to_gun_impl(eid : EntityId;
-                       radius : float;
+def attach_to_gun_impl(human_eid : EntityId;
+                       gun_eid : EntityId;
                        var human_attached_gun__attachedGunEid : EntityId&)
-  let gunEid = find_gun_to_attach(eid, radius, false)
-  if gunEid != INVALID_ENTITY_ID
-    query(gunEid) <| $ [es] (var mounted_gun : MountedGun?)
-      attach_to_gun(eid, gunEid, mounted_gun,
-                    human_attached_gun__attachedGunEid)
-
-
-def toggle_attach_gun(eid : EntityId;
-                      radius : float;
-                      var human_attached_gun__attachedGunEid : EntityId&)
-  if is_server()
-    if human_attached_gun__attachedGunEid != INVALID_ENTITY_ID
-      detach_from_gun(eid, human_attached_gun__attachedGunEid)
-    else
-      attach_to_gun_impl(eid, radius,
-                         human_attached_gun__attachedGunEid)
-  else
-    if human_attached_gun__attachedGunEid != INVALID_ENTITY_ID
-      send_net_event(eid, [[HumanDetachFromGunRequest]])
-      detach_from_gun(eid, human_attached_gun__attachedGunEid)
-    else
-      send_net_event(eid, [[HumanAttachToGunRequest]])
-
+  query(gun_eid) <| $ [es] (var mounted_gun : MountedGun?)
+    attach_to_gun(human_eid, gun_eid, mounted_gun,
+                  human_attached_gun__attachedGunEid)
 
 [es(after=human_inventory_input_proc_es)]
 def human_disable_melee_attack_es(input : UpdateStageUpdateInput;
@@ -291,16 +268,6 @@ def human_attached_gun_effectors_update_es(info : UpdateStageInfoAct;
         (*leftHandEffector).weight = 0.0
 
 
-[es(tag=(server))]
-def human_attach_to_gun_request(evt : HumanAttachToGunRequest;
-                                eid : EntityId;
-                                human_attached_gun__attachRadius : float = GUN_ATTACH_RADIUS_DEFAULT;
-                                var human_attached_gun__attachedGunEid : EntityId&)
-  attach_to_gun_impl(eid,
-                     human_attached_gun__attachRadius,
-                     human_attached_gun__attachedGunEid)
-
-
 [es(tag=(gameClient, net))]
 def human_attach_to_gun_response(evt : HumanAttachToGunResponse;
                                  eid : EntityId;
@@ -320,16 +287,6 @@ def detach_from_gun_event_impl(eid : EntityId;
     human_net_phys.phys.currentState.weapEquipState.progress = 0.0
     human_net_phys.phys.currentState.weapEquipState.curState = HUWeaponEquipState EES_EQUIPING
 
-
-[es(tag=(server))]
-def human_detach_from_gun_requence(evt : HumanDetachFromGunRequest;
-                                   eid : EntityId;
-                                   var human_net_phys : HumanActor;
-                                   var human_attached_gun__attachedGunEid : EntityId&)
-  detach_from_gun_event_impl(eid, human_net_phys,
-                             human_attached_gun__attachedGunEid)
-
-
 [es(tag=(gameClient, net))]
 def human_detach_from_gun_response(evt : HumanDetachFromGunResponse;
                                    eid : EntityId;
@@ -339,26 +296,21 @@ def human_detach_from_gun_response(evt : HumanDetachFromGunResponse;
                              human_attached_gun__attachedGunEid)
 
 
-[es(REQUIRE=mounted_gun)]
-def mounted_gun_attach_es(evt : CmdUse)
+[es(tag=server, REQUIRE=mounted_gun)]
+def mounted_gun_attach_es(evt : CmdUse; eid aka gun_eid : EntityId)
   query(evt.requesterEid) <| $ [es] (eid : EntityId;
-                                     human_attached_gun__attachRadius : float = GUN_ATTACH_RADIUS_DEFAULT;
                                      var human_attached_gun__attachedGunEid : EntityId&)
-    toggle_attach_gun(eid,
-                      human_attached_gun__attachRadius,
-                      human_attached_gun__attachedGunEid)
+    if !!human_attached_gun__attachedGunEid
+      detach_from_gun(eid, human_attached_gun__attachedGunEid)
+    else
+      attach_to_gun_impl(eid, gun_eid, human_attached_gun__attachedGunEid)
 
-
-[es(on_event=(CmdDetachAttachedGun, CmdTeleportEntity))]
+[es(tag=server, on_event=(CmdDetachAttachedGun, CmdTeleportEntity))]
 def mounted_gun_deattach_es(evt : Event;
                             eid : EntityId;
-                            human_attached_gun__attachRadius : float = GUN_ATTACH_RADIUS_DEFAULT;
                             var human_attached_gun__attachedGunEid : EntityId&)
   if human_attached_gun__attachedGunEid != INVALID_ENTITY_ID
-    toggle_attach_gun(eid,
-                      human_attached_gun__attachRadius,
-                      human_attached_gun__attachedGunEid)
-
+    detach_from_gun(eid, human_attached_gun__attachedGunEid)
 
 [es(track=human_use_object__lockStationaryGunUse)]
 def human_lock_stationary_gun_use_es(evt : Event;

@@ -1357,8 +1357,8 @@ attachable_wear_m43_entrenching_tool_m41_jacket_item{
 }
 
 attachable_wear_m43_entrenching_tool_m41_jacket_on_side_item{
-  _extends:t="attachable_side_belt_l"
   _extends:t="attachable_wear_m43_entrenching_tool_m41_jacket_item"
+  _extends:t="attachable_side_belt_l"
 }
 
 attachable_wear_m43_entrenching_tool_m43_jacket_item{

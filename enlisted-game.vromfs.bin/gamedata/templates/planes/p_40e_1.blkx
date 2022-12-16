@@ -232,7 +232,7 @@ base_p_40e_1_12_7mm_browning50_early{
   gun__shotFreq:r=12.5
   gun__locName:t="gunbrowning50_early"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 
   "gun__firingModes:array"{
 
@@ -246,7 +246,7 @@ base_p_40e_1_12_7mm_browning50_early{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=312
+    ammo:i=281
   }
 
   "gun__ammoSetsInfo:shared:array"{

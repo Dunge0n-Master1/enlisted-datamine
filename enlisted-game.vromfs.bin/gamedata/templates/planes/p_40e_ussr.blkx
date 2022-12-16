@@ -245,7 +245,7 @@ base_p_40e_ussr_12_7mm_browning50_early{
   gun__shotFreq:r=12.5
   gun__locName:t="gunbrowning50_early"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 
   "gun__firingModes:array"{
 
@@ -259,7 +259,7 @@ base_p_40e_ussr_12_7mm_browning50_early{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=312
+    ammo:i=281
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -362,7 +362,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_01{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_ussr_12_7mm_browning50_early_02{
@@ -371,7 +371,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_02{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=291
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_ussr_12_7mm_browning50_early_03{
@@ -380,7 +380,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_03{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=240
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_ussr_12_7mm_browning50_early_04{
@@ -389,7 +389,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_04{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=240
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_ussr_12_7mm_browning50_early_05{
@@ -398,7 +398,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_05{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare5"
-  gun__maxAmmo:i=291
+  gun__maxAmmo:i=281
 }
 
 planegun_p_40e_ussr_12_7mm_browning50_early_06{
@@ -407,7 +407,7 @@ planegun_p_40e_ussr_12_7mm_browning50_early_06{
   _extends:t="base_p_40e_ussr_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare6"
-  gun__maxAmmo:i=312
+  gun__maxAmmo:i=281
 }
 
 p_40e_ussr_driver_cockpit{

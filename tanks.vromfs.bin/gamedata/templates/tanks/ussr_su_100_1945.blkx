@@ -10,12 +10,12 @@ ussr_su_100_common{
   "turrets__initAmmoDistribution:array"{
 
     "ammo:object"{
-      slot:i=0
+      slot:i=1
       fill:b=yes
     }
 
     "ammo:object"{
-      slot:i=1
+      slot:i=3
       fill:b=yes
     }
 

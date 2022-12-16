@@ -3955,7 +3955,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[13.0754, 0.0, -12.4419] [0.0, 7.89896, 0.0] [11.0208, 0.0, 11.582] [-731.272, 56.8796, -271.885]]
   active:b=no
@@ -3983,7 +3983,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[13.0754, 0.0, -12.4419] [0.0, 8.68015, 0.0] [11.0208, -0.0, 11.582] [-731.249, 57.1539, -271.861]]
   active:b=no
@@ -4128,7 +4128,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[20.178, 0.0, -16.8326] [0.0, 7.80293, 0.0] [12.6564, -0.0, 15.1717] [-662.395, 25.6938, 36.5476]]
   active:b=no
@@ -4157,7 +4157,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -4185,7 +4185,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_c"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -4214,7 +4214,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[23.7042, 0.0, -3.99254] [0.0, 7.80293, 0.0] [2.46984, -0.0, 14.6637] [-568.251, 7.0792, 147.367]]
   active:b=no
@@ -4238,7 +4238,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.48623, 0.0, -0.340687] [0.0, 1.0, 0.0] [0.228442, -0.0, 0.996571] [-460.612, 9.61381, 79.4626]]
   active:b=no
