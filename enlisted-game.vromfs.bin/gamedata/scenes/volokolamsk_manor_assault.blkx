@@ -679,8 +679,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_assault_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -770,7 +770,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[29.9385, 0.0, -0.147536] [0.0, 3.34256, 0.0] [0.0914462, 0.0, 18.5566] [-563.839, 9.44829, 511.938]]
@@ -802,7 +802,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[29.9503, 0.0, -0.0720664] [0.0, 3.72014, 0.0] [0.0455239, 0.0, 18.9189] [-563.879, 9.6313, 660.942]]

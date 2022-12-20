@@ -1734,8 +1734,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2300.0
-  team__score:r=2300.0
+  team__scoreCap:r=2500.0
+  team__score:r=2500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1768,7 +1768,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   transform:m=[[-0.208001, 0.0, 12.5602] [0.0, 2.6322, 0.0] [-16.2525, 0.0, -0.103974] [14.5629, 10.5128, 199.217]]
   active:b=no
@@ -1789,6 +1789,243 @@ entity{
     sector_2:r=1.0
     sector_2_b:r=1.0
   }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_1_b"
+  capzone__capTime:r=25.0
+  capzone__capTeam:i=-1
+  transform:m=[[-0.343663, 0.0, 24.5313] [0.0, 1.50202, 0.0] [-26.8527, 0.0, -0.203073] [7.55818, 14.1628, 138.395]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=1
+  capzone__capReward:r=500.0
+  capzone__icon:t="AAA"
+  capzone__progress:r=0.0
+  capzone__caption:t="capzone/beach_bunker"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  capzone__createRespawnBase:t="respawnBaseGroupActivator"
+  capzone__createdRespawnBaseGroup:i=4
+  decal__thickness:r=0.4
+  decal__height:r=0.3
+  capzone__iconOffsetY:r=2.0
+
+  "capzone__activateChoice:object"{
+    sector_2:r=1.0
+    sector_2_b:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_1_c"
+  capzone__capTime:r=25.0
+  capzone__capTeam:i=-1
+  transform:m=[[-0.158315, 0.0, 17.1024] [0.0, 2.6322, 0.0] [-12.3702, 0.0, -0.141574] [70.6877, 15.689, 181.42]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=1
+  capzone__capReward:r=500.0
+  capzone__icon:t="AAA"
+  capzone__progress:r=0.0
+  capzone__caption:t="capzone/beach_bunker"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  capzone__createRespawnBase:t="respawnBaseGroupActivator"
+  capzone__createdRespawnBaseGroup:i=5
+  decal__thickness:r=0.4
+  decal__height:r=0.3
+  capzone__iconOffsetY:r=1.0
+
+  "capzone__activateChoice:object"{
+    sector_2:r=1.0
+    sector_2_b:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.25
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_2"
+  capzone__capTime:r=30.0
+  capzone__capTeam:i=-1
+  capzone__icon:t="AAA"
+  transform:m=[[0.0, 0.0, 12.85] [0.0, 6.97502, 0.0] [21.4403, 0.0, 0.0] [-18.9443, 25.9609, 35.85]]
+  decal__height:r=4.0
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=2
+  capzone__capReward:r=500.0
+  capzone__caption:t="capzone/artillery_emplacement"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+
+  "capzone__activateChoice:object"{
+    sector_3:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.25
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_2_b"
+  capzone__capTime:r=30.0
+  capzone__capTeam:i=-1
+  capzone__icon:t="AAA"
+  transform:m=[[0.0, 0.0, 25.7721] [0.0, 10.188, 0.0] [14.5413, 0.0, 0.0] [17.8414, 23.179, 18.3576]]
+  decal__height:r=3.3
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=2
+  capzone__capReward:r=500.0
+  capzone__caption:t="capzone/artillery_emplacement"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+
+  "capzone__activateChoice:object"{
+    sector_3:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.375
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_3"
+  capzone__capTime:r=35.0
+  capzone__capTeam:i=-1
+  transform:m=[[-0.395295, 0.0, 17.156] [0.0, 2.30859, 0.0] [-11.9743, 0.0, -0.624264] [10.2731, 32.1448, -36.193]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=3
+  capzone__capReward:r=500.0
+  capzone__icon:t="AAA"
+  capzone__caption:t="capzone/hill_bunker"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.4
+  decal__height:r=0.3
+
+  "capzone__activateChoice:object"{
+    sector_4:r=1.0
+    sector_4_b:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.5
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_4"
+  capzone__capTime:r=35.0
+  capzone__capTeam:i=-1
+  capzone__icon:t="AAA"
+  capzone__icon:t="AAA"
+  transform:m=[[-0.0317675, 0.0, 10.3207] [0.0, 2.89418, 0.0] [-18.0114, 0.0, -0.0172656] [59.9822, 52.9564, -105.071]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=4
+  capzone__capReward:r=500.0
+  capzone__caption:t="capzone/hill_bunker"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.4
+
+  "capzone__activateChoice:object"{
+    sector_5:r=1.0
+    sector_5_b:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.5
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_4_b"
+  capzone__capTime:r=35.0
+  capzone__capTeam:i=-1
+  capzone__icon:t="AAA"
+  capzone__icon:t="AAA"
+  transform:m=[[6.71421, 0.0, 24.8953] [0.0, 13.6662, 0.0] [19.8941, 0.0, -4.82571] [4.71533, 51.6193, -94.5193]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=4
+  capzone__capReward:r=500.0
+  capzone__caption:t="capzone/artillery_emplacement"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.4
+  decal__height:r=2.2
+
+  "capzone__activateChoice:object"{
+    sector_5:r=1.0
+    sector_5_b:r=1.0
+  }
+}
+
+entity{
+  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_5"
+  capzone__capTime:r=30.0
+  capzone__capTeam:i=-1
+  capzone__icon:t="AAA"
+  capzone__icon:t="AAA"
+  transform:m=[[-0.264367, 0.0, 20.4362] [0.0, 8.31942, 0.0] [17.2014, 0.0, 0.222522] [65.9314, 72.2742, -201.593]]
+  decal__height:r=2.0
+  active:b=no
+  capzone__decapTime:r=9000.0
+  ui_order:i=5
+  capzone__capReward:r=500.0
+  capzone__caption:t="capzone/field_headquarters"
+  capzone__deactivateAfterTimeout:r=25.0
+  capzone__spawnAtZoneTimeout:r=25.0
+  capzone__createRespawnBaseForTeam:i=2
+  decal__thickness:r=0.3
+}
+
+entity{
+  _template:t="defend_zone_chained_sphere"
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
+  capzone__curTeamCapturingZone:i=-1
+  groupName:t="sector_5_b"
+  capzone__capTime:r=30.0
+  capzone__capTeam:i=-1
+  transform:m=[[1.28106, 0.0, 0.0] [0.0, 1.65006, 0.0] [0.0, 0.0, 1.30473] [13.5155, 67.2531, -197.413]]
+  active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=5
+  capzone__capReward:r=250.0
+  capzone__icon:t="AAA"
+  capzone__caption:t="capzone/mill"
+  decal__height:r=2.4
+  decal__thickness:r=0.4
+  sphere_zone__radius:r=11.0
+  capzone__iconOffsetY:r=3.0
 }
 
 entity{
@@ -1902,31 +2139,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.25
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_2"
-  capzone__capTime:r=40.0
-  capzone__capTeam:i=-1
-  capzone__icon:t="AAA"
-  transform:m=[[0.0, 0.0, 12.85] [0.0, 6.97502, 0.0] [21.4403, 0.0, 0.0] [-18.9443, 25.9609, 35.85]]
-  decal__height:r=4.0
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=2
-  capzone__capReward:r=500.0
-  capzone__caption:t="capzone/artillery_emplacement"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-
-  "capzone__activateChoice:object"{
-    sector_3:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam2"
   transform:m=[[-0.789561, 0.0, 0.61367] [0.0, 1.0, 0.0] [-0.61367, 0.0, -0.789561] [-13.2348, 36.8226, -40.3887]]
   groupName:t="sector_2"
@@ -2029,31 +2241,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.25
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_2_b"
-  capzone__capTime:r=40.0
-  capzone__capTeam:i=-1
-  capzone__icon:t="AAA"
-  transform:m=[[0.0, 0.0, 25.7721] [0.0, 10.188, 0.0] [14.5413, 0.0, 0.0] [17.8414, 23.179, 18.3576]]
-  decal__height:r=3.3
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=2
-  capzone__capReward:r=500.0
-  capzone__caption:t="capzone/artillery_emplacement"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-
-  "capzone__activateChoice:object"{
-    sector_3:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam2"
   transform:m=[[0.285287, 0.0, 0.958441] [0.0, 1.0, 0.0] [-0.958441, 0.0, 0.285287] [2.57381, 47.5826, -92.7682]]
   groupName:t="sector_2_b"
@@ -2148,33 +2335,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.375
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_3"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  transform:m=[[-0.395295, 0.0, 17.156] [0.0, 2.30859, 0.0] [-11.9743, 0.0, -0.624264] [10.2731, 32.1448, -36.193]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=3
-  capzone__capReward:r=500.0
-  capzone__icon:t="AAA"
-  capzone__caption:t="capzone/hill_bunker"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-  decal__height:r=0.3
-
-  "capzone__activateChoice:object"{
-    sector_4:r=1.0
-    sector_4_b:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam1"
   transform:m=[[-0.52402, 0.0, -0.851707] [0.0, 1.0, 0.0] [0.851707, 0.0, -0.52402] [15.9924, 21.0236, 37.3209]]
   groupName:t="sector_3"
@@ -2250,33 +2410,6 @@ entity{
   respTime:i=120
   respawnBaseGroup:i=1
   active:b=no
-}
-
-entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.5
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_4"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  capzone__icon:t="AAA"
-  capzone__icon:t="AAA"
-  transform:m=[[-0.0317675, 0.0, 10.3207] [0.0, 2.89418, 0.0] [-18.0114, 0.0, -0.0172656] [59.9822, 52.9564, -105.071]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=4
-  capzone__capReward:r=500.0
-  capzone__caption:t="capzone/hill_bunker"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-
-  "capzone__activateChoice:object"{
-    sector_5:r=1.0
-    sector_5_b:r=1.0
-  }
 }
 
 entity{
@@ -2374,34 +2507,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.5
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_4_b"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  capzone__icon:t="AAA"
-  capzone__icon:t="AAA"
-  transform:m=[[6.71421, 0.0, 24.8953] [0.0, 13.6662, 0.0] [19.8941, 0.0, -4.82571] [4.71533, 51.6193, -94.5193]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=4
-  capzone__capReward:r=500.0
-  capzone__caption:t="capzone/artillery_emplacement"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-  decal__height:r=2.2
-
-  "capzone__activateChoice:object"{
-    sector_5:r=1.0
-    sector_5_b:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam2"
   transform:m=[[-0.529564, 0.0, 0.84827] [0.0, 1.0, 0.0] [-0.84827, -0.0, -0.529564] [79.4597, 67.6853, -170.356]]
   groupName:t="sector_4_b"
@@ -2485,28 +2590,6 @@ entity{
   respawnBaseGroup:i=1
   respTime:i=120
   active:b=no
-}
-
-entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_5"
-  capzone__capTime:r=40.0
-  capzone__capTeam:i=-1
-  capzone__icon:t="AAA"
-  capzone__icon:t="AAA"
-  transform:m=[[-0.264367, 0.0, 20.4362] [0.0, 8.31942, 0.0] [17.2014, 0.0, 0.222522] [65.9314, 72.2742, -201.593]]
-  decal__height:r=2.0
-  active:b=no
-  capzone__decapTime:r=9000.0
-  ui_order:i=5
-  capzone__capReward:r=500.0
-  capzone__caption:t="capzone/field_headquarters"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
 }
 
 entity{
@@ -3120,27 +3203,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_sphere"
-  capzone__capRewardPartCap:r=1.125
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_5_b"
-  capzone__capTime:r=40.0
-  capzone__capTeam:i=-1
-  transform:m=[[1.28106, 0.0, 0.0] [0.0, 1.65006, 0.0] [0.0, 0.0, 1.30473] [13.5155, 67.2531, -197.413]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=5
-  capzone__capReward:r=250.0
-  capzone__icon:t="AAA"
-  capzone__caption:t="capzone/mill"
-  decal__height:r=2.4
-  decal__thickness:r=0.4
-  sphere_zone__radius:r=11.0
-  capzone__iconOffsetY:r=3.0
-}
-
-entity{
   _template:t="respawnChooser+respTeam1"
   transform:m=[[0.906221, 0.0, -0.422805] [0.0, 1.0, 0.0] [0.422806, 0.0, 0.906221] [13.3004, 47.5734, -86.7072]]
   groupName:t="sector_5_b"
@@ -3251,37 +3313,6 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.125
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_1_b"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  transform:m=[[-0.343663, 0.0, 24.5313] [0.0, 1.50202, 0.0] [-26.8527, 0.0, -0.203073] [7.55818, 14.1628, 138.395]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=1
-  capzone__capReward:r=500.0
-  capzone__icon:t="AAA"
-  capzone__progress:r=0.0
-  capzone__caption:t="capzone/beach_bunker"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  capzone__createRespawnBase:t="respawnBaseGroupActivator"
-  capzone__createdRespawnBaseGroup:i=4
-  decal__thickness:r=0.4
-  decal__height:r=0.3
-  capzone__iconOffsetY:r=2.0
-
-  "capzone__activateChoice:object"{
-    sector_2:r=1.0
-    sector_2_b:r=1.0
-  }
-}
-
-entity{
   _template:t="respawnChooser+respTeam1"
   transform:m=[[-0.0412756, 0.0, -0.999148] [0.0, 1.0, 0.0] [0.999149, 0.0, -0.0412755] [25.8441, 1.52972, 340.952]]
   groupName:t="sector_1_b"
@@ -3381,37 +3412,6 @@ entity{
   team:i=2
   respawnBaseGroup:i=4
   active:b=no
-}
-
-entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.125
-  capzone__onlyTeamCanCapture:i=1
-  capzone__curTeamCapturingZone:i=-1
-  groupName:t="sector_1_c"
-  capzone__capTime:r=35.0
-  capzone__capTeam:i=-1
-  transform:m=[[-0.158315, 0.0, 17.1024] [0.0, 2.6322, 0.0] [-12.3702, 0.0, -0.141574] [70.6877, 15.689, 181.42]]
-  active:b=no
-  capzone__decapTime:r=6000.0
-  ui_order:i=1
-  capzone__capReward:r=500.0
-  capzone__icon:t="AAA"
-  capzone__progress:r=0.0
-  capzone__caption:t="capzone/beach_bunker"
-  capzone__deactivateAfterTimeout:r=25.0
-  capzone__spawnAtZoneTimeout:r=25.0
-  capzone__createRespawnBaseForTeam:i=2
-  capzone__createRespawnBase:t="respawnBaseGroupActivator"
-  capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.4
-  decal__height:r=0.3
-  capzone__iconOffsetY:r=1.0
-
-  "capzone__activateChoice:object"{
-    sector_2:r=1.0
-    sector_2_b:r=1.0
-  }
 }
 
 entity{

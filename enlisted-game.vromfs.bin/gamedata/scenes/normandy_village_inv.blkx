@@ -1958,7 +1958,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1988,7 +1988,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/stable"
   capzone__iconOffsetY:r=1.0
@@ -2017,7 +2017,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/farm_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2047,7 +2047,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barracks"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2076,7 +2076,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2106,7 +2106,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/pillbox"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2130,13 +2130,13 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_a"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[0.922282, 0.0, -0.130578] [0.0, 1.0, 0.0] [0.1491, 0.0, 1.05311] [463.544, 14.3542, 736.741]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
   capzone__deactivateAfterTimeout:r=25.0

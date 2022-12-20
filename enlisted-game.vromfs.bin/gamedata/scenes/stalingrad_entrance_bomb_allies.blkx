@@ -850,7 +850,7 @@ entity{
   active:b=no
   ui_order:i=1
   capzone__capReward:r=500.0
-  capzone__caption:t="capzone/smeltery"
+  capzone__caption:t="capzone/quenching"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
   capzone__checkAllZonesInGroup:b=yes

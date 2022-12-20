@@ -290,8 +290,8 @@ entity{
 entity{
   _template:t="team_germany+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=2250.0
-  team__scoreCap:r=2250.0
+  team__score:r=2500.0
+  team__scoreCap:r=2500.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

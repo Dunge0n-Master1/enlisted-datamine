@@ -1811,7 +1811,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1903,7 +1903,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1_c"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=600.0
@@ -1931,7 +1931,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_2"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2154,7 +2154,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2251,7 +2251,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4_b"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2361,7 +2361,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_5"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2461,7 +2461,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1_b"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2565,7 +2565,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_2_b"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2698,7 +2698,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=12
   decal__thickness:r=0.4
-  decal__height:r=0.4
+  decal__height:r=2.5
 }
 
 entity{

@@ -408,11 +408,11 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.375
+  capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[0.983627, 0.0, -0.156584] [0.0, 1.0, 0.0] [0.166732, 0.0, 1.04737] [-775.766, 11.3923, -65.8849]]
   sphere_zone__radius:r=14.5

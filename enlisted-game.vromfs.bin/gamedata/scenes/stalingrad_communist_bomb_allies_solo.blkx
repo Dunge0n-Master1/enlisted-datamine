@@ -1255,8 +1255,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=2150.0
+  team__score:r=2150.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1295,7 +1295,7 @@ entity{
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=30.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
   capzone__bombTransformLocalPos:m=[[-0.985174, 0.0, 0.171556] [0.0, 1.0, 0.0] [-0.171556, 0.0, -0.985174] [0.237022, -1.939, -0.0439758]]
 
@@ -1325,7 +1325,7 @@ entity{
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=30.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.35838, 0.0, 0.933578] [0.0, 1.0, 0.0] [-0.933578, 0.0, -0.35838] [-0.290539, -2.1177, -0.136414]]
 

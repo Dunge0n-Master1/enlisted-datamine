@@ -1225,7 +1225,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1256,7 +1256,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1286,7 +1286,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/he_hangar"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1314,7 +1314,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hangar"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1342,7 +1342,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/bunker"
   capzone__deactivateAfterTimeout:r=25.0

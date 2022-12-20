@@ -194,7 +194,7 @@ entity{
   groupName:t="sector_3"
   active:b=no
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/village_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0

@@ -64,8 +64,8 @@ entity{
 entity{
   _template:t="team_ussr+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2150.0
-  team__scoreCap:r=2150.0
+  team__score:r=2000.0
+  team__scoreCap:r=2000.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

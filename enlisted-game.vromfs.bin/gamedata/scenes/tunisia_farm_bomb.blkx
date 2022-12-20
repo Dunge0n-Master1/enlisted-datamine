@@ -48,8 +48,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -146,7 +146,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=35.0
+  capzone__timeToPlant:r=30.0
   capzone__timeToDefuse:r=15.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02"
@@ -176,7 +176,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=35.0
+  capzone__timeToPlant:r=30.0
   capzone__timeToDefuse:r=15.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
@@ -204,7 +204,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=35.0
+  capzone__timeToPlant:r=30.0
   capzone__timeToDefuse:r=15.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
@@ -228,7 +228,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=35.0
+  capzone__timeToPlant:r=30.0
   capzone__timeToDefuse:r=15.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"

@@ -1087,8 +1087,8 @@ entity{
 entity{
   _template:t="team_germany_berlin+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2100.0
+  team__score:r=2100.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1104,8 +1104,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1900.0
+  team__score:r=1900.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1226,9 +1226,9 @@ entity{
   capzone__capReward:r=500.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=110.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[4.12642, 0.0, 20.8204] [0.0, 6.80457, 0.0] [-25.2006, 0.0, 4.28835] [-498.041, 6.18976, 664.617]]
@@ -1346,9 +1346,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=90.0
+  capzone__capTimeTeam2:r=80.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=45.0
+  capzone__decapTimeTeam2:r=40.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.909, 1.03529, 179.674]]
@@ -1375,9 +1375,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=90.0
+  capzone__capTimeTeam2:r=80.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=45.0
+  capzone__decapTimeTeam2:r=40.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[0.885815, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-67.8056, 3.47001, 268.459]]

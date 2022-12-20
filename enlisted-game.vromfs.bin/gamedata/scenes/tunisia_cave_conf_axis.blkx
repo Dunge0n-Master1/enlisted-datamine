@@ -1332,8 +1332,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=1750.0
+  team__score:r=1750.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1600,9 +1600,9 @@ entity{
   groupName:t="sector_3"
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
-  capzone__capTimeTeam2:r=50.0
+  capzone__capTimeTeam2:r=60.0
   capzone__capTimeTeam1:r=70.0
-  capzone__decapTimeTeam2:r=25.0
+  capzone__decapTimeTeam2:r=30.0
   capzone__decapTimeTeam1:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.35282, 0.0, 2.29368] [0.0872729, 1.19995, -0.0514733] [-2.53487, 0.248494, 1.49508] [1036.48, 11.0296, 1008.57]]
@@ -1635,10 +1635,10 @@ entity{
   groupName:t="sector_4_a"
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
-  capzone__capTimeTeam2:r=50.0
-  capzone__capTimeTeam1:r=70.0
-  capzone__decapTimeTeam2:r=25.0
-  capzone__decapTimeTeam1:r=35.0
+  capzone__capTimeTeam2:r=60.0
+  capzone__capTimeTeam1:r=60.0
+  capzone__decapTimeTeam2:r=30.0
+  capzone__decapTimeTeam1:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.88719, 0.0, 0.0] [0.0, 1.06578, 0.0] [0.0, 0.0, 1.88719] [897.899, 7.03056, 1133.02]]
   sphere_zone__radius:r=15.0
@@ -1668,10 +1668,10 @@ entity{
   groupName:t="sector_4_b"
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=150.0
-  capzone__capTimeTeam2:r=50.0
-  capzone__capTimeTeam1:r=70.0
-  capzone__decapTimeTeam2:r=25.0
-  capzone__decapTimeTeam1:r=35.0
+  capzone__capTimeTeam2:r=60.0
+  capzone__capTimeTeam1:r=60.0
+  capzone__decapTimeTeam2:r=30.0
+  capzone__decapTimeTeam1:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.97521, 0.0, 0.0] [0.0, 0.830943, 0.0] [0.0, 0.0, 1.97521] [993.808, 5.85225, 1216.89]]
   sphere_zone__radius:r=15.0
@@ -1702,9 +1702,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam2:r=60.0
-  capzone__capTimeTeam1:r=70.0
+  capzone__capTimeTeam1:r=60.0
   capzone__decapTimeTeam2:r=30.0
-  capzone__decapTimeTeam1:r=35.0
+  capzone__decapTimeTeam1:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[0.695044, 0.0, -2.39756] [0.0, 0.888588, 0.0] [3.2809, 0.0, 0.951114] [913.911, 8.49627, 1316.12]]
   sphere_zone__radius:r=15.0

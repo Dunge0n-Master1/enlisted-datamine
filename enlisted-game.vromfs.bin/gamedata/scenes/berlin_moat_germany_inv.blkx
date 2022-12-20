@@ -78,7 +78,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -112,7 +112,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/moat"
   capzone__deactivateAfterTimeout:r=25.0
@@ -141,7 +141,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/bunker"
   capzone__deactivateAfterTimeout:r=25.0
@@ -170,7 +170,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/construction"
   capzone__deactivateAfterTimeout:r=25.0
@@ -200,7 +200,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/construction"
   capzone__deactivateAfterTimeout:r=25.0
@@ -230,7 +230,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/monument"
   capzone__deactivateAfterTimeout:r=25.0

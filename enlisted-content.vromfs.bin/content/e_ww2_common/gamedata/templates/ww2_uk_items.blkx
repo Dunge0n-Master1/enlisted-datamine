@@ -713,6 +713,13 @@ bandolier_animation_blacklist{
   }
 }
 
+attachable_wear_uk_p37_grenade_pouch_side_l_sas_squad_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_uk_p37_grenade_pouch_side_l_sas_squad_item"
+  animchar__res:t="uk_p37_grenade_pouch_side_l_sas_squad_char"
+  collres__res:t="uk_p37_grenade_pouch_side_l_sas_squad_collision"
+}
+
 attachable_wear_uk_flask_in_pouch_serge_dress_item{
   _extends:t="attachable_flask_r"
   item__uniqueName:t="attachable_wear_uk_flask_in_pouch_serge_dress_item"
@@ -1070,6 +1077,21 @@ attachable_wear_uk_p37_webbing_belt_sas_tropic_item{
   item__uniqueName:t="attachable_wear_uk_p37_webbing_belt_sas_tropic_item"
   animchar__res:t="uk_p37_webbing_belt_sas_tropic_char"
   collres__res:t="uk_p37_webbing_belt_sas_tropic_collision"
+}
+
+uk_m37_basic_pouches_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_13_weapon"
+  }
+}
+
+attachable_wear_uk_m37_basic_pouches_sas_squad_item{
+  _extends:t="attachable_belt2"
+  _extends:t="uk_m37_basic_pouches_blacklist"
+  item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_sas_squad_item"
+  animchar__res:t="uk_m37_basic_pouches_sas_squad_char"
+  collres__res:t="uk_m37_basic_pouches_sas_squad_collision"
 }
 
 attachable_wear_uk_m37_basic_pouches_tropical_01_item{

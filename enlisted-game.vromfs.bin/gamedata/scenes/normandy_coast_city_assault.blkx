@@ -653,8 +653,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_assault_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2500.0
-  team__score:r=2500.0
+  team__scoreCap:r=2800.0
+  team__score:r=2800.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -757,7 +757,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=15.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.3326, -121.508]]
@@ -787,7 +787,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=15.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-139.929, 20.5181, -126.788]]

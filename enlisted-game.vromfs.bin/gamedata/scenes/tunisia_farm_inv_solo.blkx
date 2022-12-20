@@ -1071,7 +1071,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=35.0
   capzone__decapTime:r=2500.0
   capzone__capTeam:i=-1
   active:b=no

@@ -3708,6 +3708,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
@@ -3739,6 +3740,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
+  capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"

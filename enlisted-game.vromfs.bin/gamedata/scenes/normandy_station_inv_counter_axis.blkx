@@ -1737,8 +1737,8 @@ entity{
 entity{
   _template:t="team_germany+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=1700.0
+  team__score:r=1700.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1771,7 +1771,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=85.0
   capzone__capTeam:i=-1
   transform:m=[[0.76883, 0.0, 0.225034] [0.0, 1.0, 0.0] [-0.280911, 0.0, 0.959734] [-589.429, 10.3985, 286.67]]
   active:b=no
@@ -1802,7 +1802,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=95.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-608.657, 15.9171, 417.384]]
   active:b=no
@@ -1833,7 +1833,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=95.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-562.838, 15.7746, 391.038]]
   active:b=no
@@ -1864,7 +1864,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_c"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=95.0
   capzone__capTeam:i=-1
   transform:m=[[13.1271, 0.0, 3.47008] [0.0, 6.48645, 0.0] [-3.69766, 0.0, 13.9879] [-570.949, 18.6454, 431.785]]
   active:b=no

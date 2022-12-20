@@ -319,8 +319,8 @@ entity{
 entity{
   _template:t="team_germany_berlin+team_narrator_escort_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1600.0
-  team__score:r=1600.0
+  team__scoreCap:r=1750.0
+  team__score:r=1750.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -411,6 +411,8 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_18"
+  capzone__capReward:r=500.0
+  capzone__capRewardPartCap:r=1.375
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [425.018, 8.57356, 319.43]]
 
@@ -447,7 +449,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_21"
-  capzone__capReward:r=750.0
+  capzone__capReward:r=500.0
   capzone__capRewardPartCap:r=1.375
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0
@@ -482,6 +484,8 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_23"
+  capzone__capReward:r=500.0
+  capzone__capRewardPartCap:r=1.375
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [129.441, 8.57356, 319.43]]
 

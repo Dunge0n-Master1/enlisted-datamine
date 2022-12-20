@@ -1947,7 +1947,7 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=90.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
   capzone__decapTimeTeam2:r=40.0
   capzone__capTeam:i=-1
@@ -1981,7 +1981,7 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=90.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
   capzone__decapTimeTeam2:r=40.0
   capzone__capTeam:i=-1
@@ -2043,7 +2043,7 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=90.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
   capzone__decapTimeTeam2:r=40.0
   capzone__capTeam:i=-1

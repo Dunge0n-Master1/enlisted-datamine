@@ -1746,8 +1746,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2033,7 +2033,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=2
   active:b=no
   capzone__decapTime:r=6000.0
@@ -2062,7 +2062,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_b"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0

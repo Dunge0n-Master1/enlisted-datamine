@@ -1375,10 +1375,10 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=40.0
-  capzone__capTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=25.0
-  capzone__decapTimeTeam1:r=25.0
+  capzone__capTimeTeam2:r=30.0
+  capzone__capTimeTeam1:r=30.0
+  capzone__decapTimeTeam2:r=20.0
+  capzone__decapTimeTeam1:r=20.0
   capzone__capTeam:i=-1
   transform:m=[[0.885815, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-67.8056, 3.47001, 268.459]]
   sphere_zone__radius:r=19.0

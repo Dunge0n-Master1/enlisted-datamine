@@ -84,7 +84,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/train"
   capzone__deactivateAfterTimeout:r=25.0
@@ -113,7 +113,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/crossroads"
   capzone__deactivateAfterTimeout:r=25.0
@@ -134,7 +134,7 @@ entity{
   transform:m=[[4.34595, 0.0, 21.9281] [0.0, 6.80457, 0.0] [-26.7549, 0.0, 4.55284] [-497.987, 5.90157, 664.582]]
   groupName:t="sector_2_b"
   capzone__caption:t="capzone/apartments"
-  capzone__capRewardPartCap:r=1.5
+  capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
@@ -162,7 +162,7 @@ entity{
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=2
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__capTime:r=50.0
@@ -191,7 +191,7 @@ entity{
   capzone__caption:t="capzone/station_restaurant"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -218,7 +218,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -249,7 +249,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/station"
   capzone__deactivateAfterTimeout:r=25.0

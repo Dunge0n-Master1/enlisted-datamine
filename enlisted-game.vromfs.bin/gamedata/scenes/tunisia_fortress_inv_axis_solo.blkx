@@ -47,8 +47,8 @@ entity{
 entity{
   _template:t="team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=3250.0
-  team__score:r=3250.0
+  team__scoreCap:r=4000.0
+  team__score:r=4000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1301,7 +1301,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[0.93523, -0.0429406, -0.216558] [0.0612023, 0.994123, 0.086515] [0.195442, -0.0987735, 0.936974] [-860.59, 17.7499, -87.5423]]
   sphere_zone__radius:r=22.0

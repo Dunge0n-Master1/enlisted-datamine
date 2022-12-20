@@ -318,10 +318,17 @@ entity{
 }
 
 entity{
+  _template:t="spawn_switcher"
+  swapProbability:r=0.5
+  team1:i=2
+  team2:i=1
+}
+
+entity{
   _template:t="team_usa+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=3200.0
-  team__scoreCap:r=3200.0
+  team__score:r=3000.0
+  team__scoreCap:r=3000.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

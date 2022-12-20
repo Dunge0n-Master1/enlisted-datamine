@@ -2566,8 +2566,8 @@ entity{
 entity{
   _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=1750.0
+  team__score:r=1750.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2630,7 +2630,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[33.1129, 0.0, 13.9553] [0.0, 14.3889, 0.0] [-23.8469, 0.0, 56.5838] [392.691, 8.19372, -356.335]]
   active:b=no
@@ -2771,7 +2771,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[-20.1348, 0.0, 31.1966] [0.0, 14.2917, 0.0] [-50.7388, 0.0, -32.7477] [-10.1575, 11.4899, -112.263]]
   active:b=no
@@ -2826,7 +2826,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-41.9408, 0.0, -41.4572] [-93.423, 8.18472, 49.2232]]
   active:b=no

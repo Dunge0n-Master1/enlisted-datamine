@@ -423,6 +423,8 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_5"
+  capzone__capReward:r=500.0
+  capzone__capRewardPartCap:r=1.375
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [1227.83, 8.59819, 319.43]]
 
@@ -506,6 +508,8 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_11"
+  capzone__capReward:r=500.0
+  capzone__capRewardPartCap:r=1.375
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [852.032, 7.36076, 319.43]]
 

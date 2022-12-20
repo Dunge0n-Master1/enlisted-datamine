@@ -1676,7 +1676,7 @@ entity{
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/market"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1706,7 +1706,7 @@ entity{
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/village_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1787,14 +1787,14 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-980.977, 1.90777, -535.769]]
   sphere_zone__radius:r=22.0
   active:b=no
   capzone__decapTime:r=2500.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/camp"
   capzone__deactivateAfterTimeout:r=25.0

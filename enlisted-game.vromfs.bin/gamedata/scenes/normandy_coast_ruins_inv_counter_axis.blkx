@@ -2570,7 +2570,8 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__onlyTeamCanCapture:i=2
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
   capzone__capTime:r=60.0
@@ -2579,7 +2580,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/railway_gun"
@@ -2600,7 +2601,8 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__onlyTeamCanCapture:i=2
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
   capzone__capTime:r=60.0
@@ -2609,7 +2611,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/farm_house"
@@ -2630,7 +2632,8 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__onlyTeamCanCapture:i=2
+  capzone__capRewardPartCap:r=1.125
+  capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_c"
   capzone__capTime:r=60.0
@@ -2639,7 +2642,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/church"
@@ -2659,7 +2662,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.5
+  capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
@@ -2669,7 +2672,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"
@@ -2689,7 +2692,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.5
+  capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
@@ -2699,7 +2702,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"
@@ -2723,13 +2726,13 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [243.601, 5.37164, 5.17391]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/farm_house"
@@ -2754,13 +2757,13 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [125.396, 9.61283, 59.6774]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/crash_site"
@@ -2781,7 +2784,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.25
+  capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4"
@@ -2791,7 +2794,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/normandy_cathedral"
@@ -2811,7 +2814,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.25
+  capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
@@ -2821,7 +2824,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/normandy_cathedral"
@@ -2840,7 +2843,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.125
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
@@ -2850,7 +2853,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/artillery_emplacement"
@@ -2865,7 +2868,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.125
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_b"
@@ -2875,7 +2878,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/warehouse"
@@ -2890,7 +2893,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.125
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5_c"
@@ -2900,7 +2903,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"

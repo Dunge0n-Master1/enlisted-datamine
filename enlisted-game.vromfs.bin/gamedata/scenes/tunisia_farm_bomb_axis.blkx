@@ -108,7 +108,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/village_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -119,7 +119,7 @@ entity{
   capzone__plantingTeam:i=2
   capzone__timeToPlant:r=25.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=40.0
+  capzone__timeToExplosion:r=50.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05"
   capzone__bombTransformLocalPos:m=[[-0.690213, 0.0, 0.723605] [0.0, 1.0, 0.0] [-0.723605, 0.0, -0.690213] [-0.0852661, -2.43271, -0.0609131]]
 
@@ -136,7 +136,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__caption:t="capzone/village_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -166,7 +166,7 @@ entity{
   active:b=no
   ui_order:i=2
   capzone__owningTeam:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=20.0

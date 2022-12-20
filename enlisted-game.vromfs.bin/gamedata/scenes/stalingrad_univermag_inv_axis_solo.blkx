@@ -3341,8 +3341,8 @@ entity{
 entity{
   _template:t="team_stalingrad_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4500.0
-  team__score:r=4500.0
+  team__scoreCap:r=4000.0
+  team__score:r=4000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -3513,7 +3513,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 7.31018, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 6.80561, -92.1479]]
   active:b=no

@@ -47,8 +47,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=4250.0
-  team__score:r=4250.0
+  team__scoreCap:r=4000.0
+  team__score:r=4000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0

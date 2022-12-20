@@ -1288,6 +1288,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1312,6 +1313,7 @@ entity{
   capzone__caption:t="capzone/repnikova_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   active:b=no
   ui_order:i=2
   capzone__owningTeam:i=1
@@ -1344,6 +1346,7 @@ entity{
   capzone__caption:t="capzone/offices"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1368,6 +1371,7 @@ entity{
   capzone__caption:t="capzone/communal_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   active:b=no
   ui_order:i=4
   capzone__owningTeam:i=1
@@ -1400,6 +1404,7 @@ entity{
   capzone__caption:t="capzone/apartment_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
+  capzone__timeToExplosion:r=35.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

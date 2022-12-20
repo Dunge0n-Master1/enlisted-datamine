@@ -833,7 +833,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__checkAllZonesInGroup:b=yes
@@ -863,7 +863,7 @@ entity{
   active:b=no
   capzone__decapTime:r=7.5
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/barn"
   capzone__checkAllZonesInGroup:b=yes
@@ -886,14 +886,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[-0.10795, 0.0, 0.994156] [0.0, 1.0, 0.0] [-0.994156, 0.0, -0.10795] [-191.877, 10.5239, 353.791]]
   active:b=no
-  capzone__decapTime:r=7.5
+  capzone__decapTime:r=10.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__checkAllZonesInGroup:b=yes
@@ -918,7 +918,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[0.375294, 0.0148486, 0.926787] [0.0142652, 0.999661, -0.0217927] [-0.926796, 0.0213995, 0.374954] [-156.546, 6.11526, 249.58]]
@@ -946,7 +946,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=20.0
+  capzone__capTime:r=25.0
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[0.375294, 0.0148486, 0.926787] [0.0142652, 0.999661, -0.0217927] [-0.926796, 0.0213995, 0.374954] [-215.595, 7.61921, 252.377]]

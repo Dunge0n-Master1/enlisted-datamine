@@ -70,7 +70,7 @@ entity{
   team__capturePenalty:r=1001.0
   team__score:r=3000.0
   team__id:i=2
-  team__briefing:t="invasion/defenders_goals"
+  team__briefing:t="assault/defenders_goals"
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
   team__winTitle:t="debriefing/ger_won_defence"
@@ -86,7 +86,7 @@ entity{
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
   team__id:i=1
-  team__briefing:t="invasion/attackers_goals"
+  team__briefing:t="assault/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
   team__winTitle:t="debriefing/ussr_won_invasion"

@@ -84,8 +84,8 @@ entity{
 entity{
   _template:t="team_tunisia_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2300.0
-  team__score:r=2300.0
+  team__scoreCap:r=2250.0
+  team__score:r=2250.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1616,7 +1616,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/village_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1646,7 +1646,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/village_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1735,7 +1735,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ruins"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1764,7 +1764,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ruins"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1794,7 +1794,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/camp"
   capzone__deactivateAfterTimeout:r=25.0

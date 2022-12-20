@@ -273,7 +273,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__decapTime:r=2500.0
   capzone__capTeam:i=-1
   active:b=no
@@ -299,7 +299,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_4_b"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=2500.0

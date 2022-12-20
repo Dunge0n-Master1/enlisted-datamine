@@ -502,14 +502,14 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="3_1"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[-0.88295, 0.0443913, 0.467363] [0.0386196, 0.999014, -0.021928] [-0.467874, -0.00131194, -0.883794] [-70.2257, 4.81015, 174.637]]
   sphere_zone__radius:r=15.0
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/stable"
   capzone__deactivateAfterTimeout:r=25.0
@@ -875,7 +875,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="6_1"
-  capzone__capTime:r=35.0
+  capzone__capTime:r=30.0
   capzone__capTeam:i=-1
   transform:m=[[-0.259902, 0.0, -16.3321] [0.0, 3.68083, 0.0] [25.5044, 0.0, -0.0574053] [253.388, 6.41014, 143.079]]
   active:b=no

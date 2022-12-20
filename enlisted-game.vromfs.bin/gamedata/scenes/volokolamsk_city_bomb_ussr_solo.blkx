@@ -580,9 +580,9 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__timeToDefuse:r=7.5
+  capzone__timeToDefuse:r=10.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -608,9 +608,9 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/stable"
-  capzone__timeToDefuse:r=7.5
+  capzone__timeToDefuse:r=10.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -638,7 +638,7 @@ entity{
   ui_order:i=2
   capzone__capReward:r=250.0
   capzone__caption:t="capzone/shop"
-  capzone__timeToDefuse:r=7.5
+  capzone__timeToDefuse:r=10.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -664,9 +664,9 @@ entity{
   groupName:t="sector_3"
   active:b=no
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/canteen"
-  capzone__timeToDefuse:r=7.5
+  capzone__timeToDefuse:r=10.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -688,9 +688,9 @@ entity{
   groupName:t="sector_3"
   active:b=no
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/garage"
-  capzone__timeToDefuse:r=7.5
+  capzone__timeToDefuse:r=10.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

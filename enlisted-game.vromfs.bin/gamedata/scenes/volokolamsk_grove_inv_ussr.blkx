@@ -80,8 +80,8 @@ entity{
 entity{
   _template:t="team_ussr+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=1700.0
+  team__score:r=1700.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1870,7 +1870,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[0.999962, 0.0084932, 0.0017888] [-0.00852864, 0.999747, 0.0208321] [-0.00161142, -0.0208465, 0.999781] [651.451, 10.8475, 1792.26]]
   active:b=no
@@ -1900,7 +1900,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[0.999962, 0.0084932, 0.0017888] [-0.00852864, 0.999747, 0.0208321] [-0.00161142, -0.0208465, 0.999781] [656.274, 9.06365, 1820.56]]
   active:b=no

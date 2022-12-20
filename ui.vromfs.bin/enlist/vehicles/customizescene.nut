@@ -345,7 +345,7 @@ let emptyList = {
 }
 
 let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
-  curSlotIdx, currencies, ownDecorators, onlyOwnedVal
+  curSlotIdx, currencies, ownDecorators, isOnlyOwned
 ) {
   let children = []
   foreach (iconCfg in groupIconsList) {
@@ -356,7 +356,9 @@ let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
         && (d.vehGuid == "" || d.vehGuid == vehGuid )
         && (d.slotIdx == -1 || d.slotIdx == curSlotIdx))
 
-    if (freeDecorators.len() == 0 && onlyOwnedVal)
+    let isAbsent = freeDecorators.len() == 0
+    let isUnavailable = (cfg?.buyData.price ?? 0) == 0
+    if (isAbsent && (isUnavailable || isOnlyOwned))
       continue
 
     let onClick = curCustType != ""

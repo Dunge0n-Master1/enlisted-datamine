@@ -1308,8 +1308,8 @@ entity{
 entity{
   _template:t="team_tunisia_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1500.0
-  team__score:r=1500.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1478,7 +1478,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.89432, 0.0, 1.83405] [0.0, 0.896783, 0.0] [-2.09994, 0.0, 2.16891] [1264.93, 2.3834, 857.693]]
   sphere_zone__radius:r=15.0
@@ -1574,7 +1574,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/cave_house"
   capzone__deactivateAfterTimeout:r=25.0

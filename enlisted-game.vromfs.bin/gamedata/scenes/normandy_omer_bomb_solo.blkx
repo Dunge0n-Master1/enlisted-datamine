@@ -1248,7 +1248,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1257,7 +1257,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=17.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.783414, 0.0, -0.621498] [0.0, 1.0, 0.0] [0.621498, 0.0, -0.783414] [-0.0615234, -1.92398, 0.344223]]
@@ -1275,7 +1275,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1284,7 +1284,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=17.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05"
   capzone__bombTransformLocalPos:m=[[-0.570134, 0.0, 0.82155] [0.0, 1.0, 0.0] [-0.82155, 0.0, -0.570134] [0.053894, -1.76725, -0.177071]]
@@ -1302,7 +1302,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/cafe"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1311,7 +1311,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=17.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.929674, 0.0, 0.368381] [0.0, 1.0, 0.0] [-0.368381, 0.0, 0.929674] [-0.167618, -1.77834, -0.022377]]
@@ -1329,7 +1329,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/apartments"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -1338,7 +1338,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=17.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[-0.57059, 0.0, -0.821234] [0.0, 1.0, 0.0] [0.821234, 0.0, -0.57059] [-0.426964, -1.85533, -0.461052]]
@@ -1356,7 +1356,7 @@ entity{
   groupName:t="sector_3"
   active:b=no
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/station_restaurant"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0

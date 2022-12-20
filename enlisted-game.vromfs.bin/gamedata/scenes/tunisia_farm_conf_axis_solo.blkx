@@ -988,10 +988,10 @@ entity{
   capzone__capReward:r=500.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=110.0
-  capzone__capTimeTeam2:r=40.0
-  capzone__capTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=20.0
-  capzone__decapTimeTeam1:r=20.0
+  capzone__capTimeTeam2:r=50.0
+  capzone__capTimeTeam1:r=50.0
+  capzone__decapTimeTeam2:r=25.0
+  capzone__decapTimeTeam1:r=25.0
   capzone__capTeam:i=-1
   transform:m=[[17.8793, 0.0, -14.8863] [0.0, 10.85, 0.0] [26.1178, 0.0, 31.3688] [464.706, 27.1174, -1021.36]]
   active:b=no
