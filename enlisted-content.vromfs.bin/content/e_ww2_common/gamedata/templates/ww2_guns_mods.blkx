@@ -831,6 +831,8 @@ scope_avs_36_pe{
   item__weight:r=0.3
   item__volume:r=0.5
   item__name:t="items/scope_avs_36_pe"
+  gunmod__camShiftMin:r=0.14
+  gunmod__camShiftMax:r=0.14
 
   "gunAttachable:tag"{
   }

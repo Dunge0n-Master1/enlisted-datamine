@@ -133,28 +133,28 @@ ai_er_2_m105_tat{
       turretName:t="turret_01"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_er_2_m105_tat_fab_100_launcher_01"
+      gun:t="planegun_ai_er_2_m105_tat_fab_50_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_02"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_er_2_m105_tat_fab_100_launcher_02"
+      gun:t="planegun_ai_er_2_m105_tat_fab_50_launcher_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_er_2_m105_tat_fab_100_launcher_03"
+      gun:t="planegun_ai_er_2_m105_tat_fab_50_launcher_03"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="bomb_turrets"
       trigger:t="bombs"
-      gun:t="planegun_ai_er_2_m105_tat_fab_100_launcher_04"
+      gun:t="planegun_ai_er_2_m105_tat_fab_50_launcher_04"
     }
 
     "turretInfo:object"{
@@ -216,11 +216,11 @@ ai_er_2_m105_tat{
   }
 }
 
-base_ai_er_2_m105_tat_fab_100_launcher{
-  item__name:t="guns/su_fab100"
-  gun__blk:t="gamedata/weapons/er_2_m105_tat/fab_100_launcher.blk"
+base_ai_er_2_m105_tat_fab_50_launcher{
+  item__name:t="guns/su_fab50"
+  gun__blk:t="gamedata/weapons/er_2_m105_tat/fab_50_launcher.blk"
   gun__shotFreq:r=10.0
-  gun__locName:t="su_fab100"
+  gun__locName:t="su_fab50"
   gun__shootNodeName:t="bone_mg_gun_twin"
   gun__maxAmmo:i=1
 
@@ -244,8 +244,8 @@ base_ai_er_2_m105_tat_fab_100_launcher{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/fab_100.blk"
-        name:t="fab_100"
+        blk:t="gamedata/weapons/shells/fab_50.blk"
+        name:t="fab_50"
         type:t="he_frag_tank"
       }
     }
@@ -324,37 +324,37 @@ base_ai_er_2_m105_tat_7_62mm_shkas_turret{
   }
 }
 
-planegun_ai_er_2_m105_tat_fab_100_launcher_01{
-  _extends:t="ai_fab_100_launcher"
-  _extends:t="base_ai_er_2_m105_tat_fab_100_launcher"
-  _extends:t="gunsound_fab_100_launcher_aircraft"
+planegun_ai_er_2_m105_tat_fab_50_launcher_01{
+  _extends:t="ai_fab_50_launcher"
+  _extends:t="base_ai_er_2_m105_tat_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
   gun__shootNodeName:t="bomb9"
   slot_attach__slotName:t="bomb9"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_er_2_m105_tat_fab_100_launcher_02{
-  _extends:t="ai_fab_100_launcher"
-  _extends:t="base_ai_er_2_m105_tat_fab_100_launcher"
-  _extends:t="gunsound_fab_100_launcher_aircraft"
+planegun_ai_er_2_m105_tat_fab_50_launcher_02{
+  _extends:t="ai_fab_50_launcher"
+  _extends:t="base_ai_er_2_m105_tat_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
   gun__shootNodeName:t="bomb10"
   slot_attach__slotName:t="bomb10"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_er_2_m105_tat_fab_100_launcher_03{
-  _extends:t="ai_fab_100_launcher"
-  _extends:t="base_ai_er_2_m105_tat_fab_100_launcher"
-  _extends:t="gunsound_fab_100_launcher_aircraft"
+planegun_ai_er_2_m105_tat_fab_50_launcher_03{
+  _extends:t="ai_fab_50_launcher"
+  _extends:t="base_ai_er_2_m105_tat_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
   gun__shootNodeName:t="bomb11"
   slot_attach__slotName:t="bomb11"
   gun__maxAmmo:i=1
 }
 
-planegun_ai_er_2_m105_tat_fab_100_launcher_04{
-  _extends:t="ai_fab_100_launcher"
-  _extends:t="base_ai_er_2_m105_tat_fab_100_launcher"
-  _extends:t="gunsound_fab_100_launcher_aircraft"
+planegun_ai_er_2_m105_tat_fab_50_launcher_04{
+  _extends:t="ai_fab_50_launcher"
+  _extends:t="base_ai_er_2_m105_tat_fab_50_launcher"
+  _extends:t="gunsound_fab_50_launcher_aircraft"
   gun__shootNodeName:t="bomb12"
   slot_attach__slotName:t="bomb12"
   gun__maxAmmo:i=1

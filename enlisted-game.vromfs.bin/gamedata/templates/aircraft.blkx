@@ -1062,6 +1062,11 @@ common_machinegun{
 
 ai_aircraft{
 
+  "forestall_target__maxDist:r"{
+    value:r=2000.0
+    _tags:t="gameClient"
+  }
+
   _group{
     _tags:t="server"
     ai_aircraft__state:i=0
@@ -1095,6 +1100,7 @@ ai_aircraft{
 
   _group{
     _tags:t="ui"
+    hud_aircraft_marker__clampToBorder:b=yes
     hud_aircraft_marker__isVisible:b=no
     hud_aircraft_marker__isIdentified:b=yes
     _track:b=yes

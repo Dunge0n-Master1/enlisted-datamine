@@ -31,6 +31,7 @@ let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let { curArmyReserve, curArmyReserveCapacity } = require("%enlist/soldiers/model/reserve.nut")
 let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 
 const MAX_CLASSES_USAGE = 4
 let PRICE_HEIGHT = hdpx(48)
@@ -388,22 +389,24 @@ let function mkTimeAvailable(shopItem) {
       return res
 
     return res.__update({
-      size = [SIZE_TO_CONTENT, hdpx(32)]
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
-      gap = hdpx(2)
-      padding = [0, bigPadding]
-      children = [
+      children = mkRightHeaderFlag({
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_BOTTOM
+        gap = hdpx(2)
+        padding = bigPadding
+        children = [
         faComp("clock-o", {
-          fontSize = hdpx(13)
+          fontSize = body_txt.fontSize
           color = TextNormal
         })
         {
           rendObj = ROBJ_TEXT
           text = secondsToHoursLoc(timeLeft)
           color = TextNormal
-        }.__update(sub_txt)
-      ]
+        }.__update(body_txt)
+      ]}, primeFlagStyle.__merge({
+        offset = 0
+      }))
     })
   }
 }

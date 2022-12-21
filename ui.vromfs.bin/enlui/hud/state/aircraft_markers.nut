@@ -21,6 +21,7 @@ ecs.register_es(
       else
         aircraft_markers_UpdateEid(eid, {
           team         = comp.team,
+          clampToBorder = comp.hud_aircraft_marker__clampToBorder,
           isIdentified = comp["hud_aircraft_marker__isIdentified"],
         })
     }
@@ -31,6 +32,7 @@ ecs.register_es(
     comps_track = [
       ["isAlive", ecs.TYPE_BOOL, false],
       ["team", ecs.TYPE_INT, null],
+      ["hud_aircraft_marker__clampToBorder", ecs.TYPE_BOOL, false],
       ["hud_aircraft_marker__isIdentified", ecs.TYPE_BOOL, true],
       ["hud_aircraft_marker__isVisible", ecs.TYPE_BOOL, true],
     ]

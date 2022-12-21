@@ -70,7 +70,7 @@ aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__interval:r=480.0
+    aircraft_request__interval:r=960.0
     aircraft_request__spawnedAircraftsCount:i=0
     aircraft_request__aircraftStartRelativeSpeed:r=0.5
     aircraft_request__aircraftAfterBombingHeight:r=600.0
@@ -104,9 +104,9 @@ moscow_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=500.0
-    aircraft_request__aircraftBombingHeight:r=500.0
-    aircraft_request__aircraftSpawnHeight:r=500.0
+    aircraft_request__aircraftAfterBombingHeight:r=400.0
+    aircraft_request__aircraftBombingHeight:r=400.0
+    aircraft_request__aircraftSpawnHeight:r=400.0
     aircraft_request__aircraftTemplate:t="ai_ju_88a_1+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }
@@ -116,9 +116,9 @@ moscow_ussr_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=550.0
-    aircraft_request__aircraftBombingHeight:r=550.0
-    aircraft_request__aircraftSpawnHeight:r=550.0
+    aircraft_request__aircraftAfterBombingHeight:r=450.0
+    aircraft_request__aircraftBombingHeight:r=450.0
+    aircraft_request__aircraftSpawnHeight:r=450.0
     aircraft_request__aircraftTemplate:t="ai_ar_2+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
   }
 }
@@ -128,9 +128,9 @@ normandy_usa_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=500.0
-    aircraft_request__aircraftBombingHeight:r=500.0
-    aircraft_request__aircraftSpawnHeight:r=500.0
+    aircraft_request__aircraftAfterBombingHeight:r=400.0
+    aircraft_request__aircraftBombingHeight:r=400.0
+    aircraft_request__aircraftSpawnHeight:r=400.0
     aircraft_request__aircraftTemplate:t="ai_wellington_mk1c+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
   }
 }
@@ -140,9 +140,9 @@ normandy_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=550.0
-    aircraft_request__aircraftBombingHeight:r=550.0
-    aircraft_request__aircraftSpawnHeight:r=550.0
+    aircraft_request__aircraftAfterBombingHeight:r=450.0
+    aircraft_request__aircraftBombingHeight:r=450.0
+    aircraft_request__aircraftSpawnHeight:r=450.0
     aircraft_request__aircraftTemplate:t="ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }
@@ -152,9 +152,9 @@ berlin_ussr_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=500.0
-    aircraft_request__aircraftBombingHeight:r=500.0
-    aircraft_request__aircraftSpawnHeight:r=500.0
+    aircraft_request__aircraftAfterBombingHeight:r=400.0
+    aircraft_request__aircraftBombingHeight:r=400.0
+    aircraft_request__aircraftSpawnHeight:r=400.0
     aircraft_request__aircraftTemplate:t="ai_er_2_m105_tat+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
   }
 }
@@ -164,9 +164,9 @@ berlin_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=550.0
-    aircraft_request__aircraftBombingHeight:r=550.0
-    aircraft_request__aircraftSpawnHeight:r=550.0
+    aircraft_request__aircraftAfterBombingHeight:r=450.0
+    aircraft_request__aircraftBombingHeight:r=450.0
+    aircraft_request__aircraftSpawnHeight:r=450.0
     aircraft_request__aircraftTemplate:t="ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }
@@ -176,9 +176,9 @@ tunisia_usa_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=500.0
-    aircraft_request__aircraftBombingHeight:r=500.0
-    aircraft_request__aircraftSpawnHeight:r=500.0
+    aircraft_request__aircraftAfterBombingHeight:r=400.0
+    aircraft_request__aircraftBombingHeight:r=400.0
+    aircraft_request__aircraftSpawnHeight:r=400.0
     aircraft_request__aircraftTemplate:t="ai_b_34+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
   }
 }
@@ -188,9 +188,9 @@ tunisia_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=550.0
-    aircraft_request__aircraftBombingHeight:r=550.0
-    aircraft_request__aircraftSpawnHeight:r=550.0
+    aircraft_request__aircraftAfterBombingHeight:r=450.0
+    aircraft_request__aircraftBombingHeight:r=450.0
+    aircraft_request__aircraftSpawnHeight:r=450.0
     aircraft_request__aircraftTemplate:t="ai_sm_79+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }
@@ -200,9 +200,9 @@ stalingrad_ussr_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=550.0
-    aircraft_request__aircraftBombingHeight:r=550.0
-    aircraft_request__aircraftSpawnHeight:r=550.0
+    aircraft_request__aircraftAfterBombingHeight:r=450.0
+    aircraft_request__aircraftBombingHeight:r=450.0
+    aircraft_request__aircraftSpawnHeight:r=450.0
     aircraft_request__aircraftTemplate:t="ai_il_4+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_sov"
   }
 }
@@ -212,9 +212,9 @@ stalingrad_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=500.0
-    aircraft_request__aircraftBombingHeight:r=500.0
-    aircraft_request__aircraftSpawnHeight:r=500.0
+    aircraft_request__aircraftAfterBombingHeight:r=400.0
+    aircraft_request__aircraftBombingHeight:r=400.0
+    aircraft_request__aircraftSpawnHeight:r=400.0
     aircraft_request__aircraftTemplate:t="ai_he_111_h16+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }
@@ -236,9 +236,9 @@ pacific_japan_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=1000.0
-    aircraft_request__aircraftBombingHeight:r=850.0
-    aircraft_request__aircraftSpawnHeight:r=1000.0
+    aircraft_request__aircraftAfterBombingHeight:r=950.0
+    aircraft_request__aircraftBombingHeight:r=800.0
+    aircraft_request__aircraftSpawnHeight:r=950.0
     aircraft_request__aircraftTemplate:t="ai_g4m1+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_jap"
   }
 }

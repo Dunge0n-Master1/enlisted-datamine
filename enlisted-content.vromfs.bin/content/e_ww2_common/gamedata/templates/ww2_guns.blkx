@@ -32992,6 +32992,9 @@ flammenwerfer_35_gun{
   _extends:t="flamethrower_gun_base"
   _extends:t="antivehicle_gun_aim_sound"
   meleeSoundType:t="rifle"
+  gun_tps_anim_var__gunOffsetAlong:r=0.1
+  gun_tps_anim_var__gunOffsetAcross:r=0.07
+  gun_tps_anim_var__gunOffsetUp:r=-0.3
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -36792,6 +36795,7 @@ type_97_antitank_canon{
   gun_deviation__extraDeviationTau:r=0.3
   gun_deviation__maxDeviation:r=30.0
   gun__reloadTime:r=4.0
+  gun__altReloadTime:r=3.5
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_97_antitank_canon_magazine"

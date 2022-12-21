@@ -51,7 +51,7 @@ ussr_is_1_common{
       hatchRotationAxis:p3=1.6, 0.0, 0.0
       maxPosWithOpenHatch:r=0.7
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.146, -0.082, 0.043]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.3, 0.17]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="ussr_is_1_commander_cockpit"

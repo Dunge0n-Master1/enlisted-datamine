@@ -13,6 +13,7 @@ let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 
 
 let sidePadding = fsh(2)
@@ -174,7 +175,7 @@ let function mkDiscountInfo(discountData) {
   if (discountData == null)
     return null
 
-  let { locId, endTime } = discountData
+  let { locId, endTime = 0 } = discountData
   return {
     size = flex()
     valign = ALIGN_BOTTOM
@@ -205,12 +206,16 @@ local function mkShopItemPrice(shopItem, personalOffer = null) {
     discountIntervalTs = [], isPriceHidden = false
   } = shopItem
   let { price } = curShopItemPrice
+  let [ beginTime = 0, endTime = 0 ] = discountIntervalTs
+  let isDiscountActive = beginTime > 0
+    && beginTime <= serverTime.value
+    && (serverTime.value <= endTime || endTime == 0)
   let discountData = personalOffer != null ? {
         endTime = personalOffer.endTime
         locId = "specialOfferShort"
       }
-    : discountInPercent > 0 ? {
-        endTime = discountIntervalTs?[1] ?? 0
+    : discountInPercent > 0 || (discountInPercent == 0 && isDiscountActive) ? {
+        endTime
         locId = "shop/discountNotify"
       }
     : null

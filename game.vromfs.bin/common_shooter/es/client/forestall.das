@@ -100,12 +100,13 @@ def plane_target_forestall(info : UpdateStageInfoAct;
                                                transform aka target_transform : float3x4;
                                                isAlive : bool;
                                                team : int;
-                                               plane_net_phys : PlaneActor)
+                                               plane_net_phys : PlaneActor;
+                                               forestall_target__maxDist : float = 0.)
             if !isAlive || eid == heroPlaneEid || team == TEAM_UNASSIGNED || is_teams_friendly(heroTeam, team)
               return
 
             let distToTarget = length(target_transform[3] - cameraPos)
-            if distToTarget > maxDist
+            if distToTarget > max(maxDist, forestall_target__maxDist)
               return
 
             // allow error of up to 1% of screen space; for fov 90 and distance 100, the error 1.5m, for distance 1500, the error is 15m

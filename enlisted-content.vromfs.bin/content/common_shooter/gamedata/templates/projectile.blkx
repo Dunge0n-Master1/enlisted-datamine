@@ -366,6 +366,16 @@ ai_fab_100_bomb_projectile{
   }
 }
 
+ai_fab_50_bomb_projectile{
+  _extends:t="ai_bomb_projectile"
+  animchar__res:t="su_fab100_char"
+
+  "shell__concussionMaxRadius:r"{
+    value:r=15.0
+    _tags:t="server"
+  }
+}
+
 sc_250_87_bomb_projectile{
   _extends:t="bomb_projectile"
   animchar__res:t="de_sc250_87_char"

@@ -1181,6 +1181,12 @@ let missions = {
     army = MissionArmy.ALLIES
   }
 
+  stalingrad_entrance_dom = {
+    image = "ui/stalingrad_tractor_plant_01.jpg"
+    locId = "lobbies/stalingrad_entrance_dom"
+    type = MissionType.DOMINATION
+  }
+
   stalingrad_station_dom = {
     image = "ui/stalingrad_inv_05.jpg"
     locId = "lobbies/stalingrad_station_dom"

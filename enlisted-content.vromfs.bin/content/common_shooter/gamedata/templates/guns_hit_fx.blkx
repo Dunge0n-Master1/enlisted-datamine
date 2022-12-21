@@ -209,7 +209,7 @@ global_hit_fx_info{
           "group__water:object"{
             fx:t="hit_water_bullet_effect"
             penetrationFx:t="hit_water_bullet_effect"
-            ricochetFx:t="hit_water_bullet_effect"
+            ricochetFx:t="hit_water_medium_effect"
           }
 
           "glass:object"{
@@ -356,7 +356,7 @@ global_hit_fx_info{
           "group__water:object"{
             fx:t="hit_water_bullet_effect"
             penetrationFx:t="hit_water_bullet_effect"
-            ricochetFx:t="hit_water_bullet_effect"
+            ricochetFx:t="hit_water_medium_effect"
           }
 
           "glass:object"{
@@ -648,9 +648,9 @@ global_hit_fx_info{
           }
 
           "group__water:object"{
-            fx:t="hit_water_medium_effect"
-            penetrationFx:t="hit_water_medium_effect"
-            ricochetFx:t="hit_water_medium_effect"
+            fx:t="hit_water_medium_big_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
+            ricochetFx:t="hit_water_bullet_effect"
           }
 
           "glass:object"{
@@ -784,8 +784,8 @@ global_hit_fx_info{
 
           "group__water:object"{
             fx:t="hit_water_medium_big_effect"
-            penetrationFx:t="hit_water_medium_effect"
-            ricochetFx:t="hit_water_medium_effect"
+            penetrationFx:t="hit_water_medium_big_effect"
+            ricochetFx:t="hit_water_bullet_effect"
           }
 
           "glass:object"{
@@ -922,8 +922,8 @@ global_hit_fx_info{
           }
 
           "group__water:object"{
-            fx:t="hit_water_medium_big_effect"
-            penetrationFx:t="hit_water_medium_big_effect"
+            fx:t="hit_water_big_effect"
+            penetrationFx:t="hit_water_big_effect"
             ricochetFx:t="hit_water_medium_big_effect"
           }
 
@@ -1126,7 +1126,7 @@ global_hit_fx_info{
 
           "group__water:object"{
             fx:t="hit_water_big_effect"
-            penetrationFx:t="hit_water_medium_big_effect"
+            penetrationFx:t="hit_water_big_effect"
             ricochetFx:t="hit_water_medium_big_effect"
           }
 
@@ -1328,9 +1328,9 @@ global_hit_fx_info{
           }
 
           "group__water:object"{
-            fx:t="hit_water_big_effect"
-            penetrationFx:t="hit_water_medium_big_effect"
-            ricochetFx:t="hit_water_medium_big_effect"
+            fx:t="hit_water_massive_effect"
+            penetrationFx:t="hit_water_massive_effect"
+            ricochetFx:t="hit_water_big_effect"
           }
 
           "glass:object"{
@@ -1393,8 +1393,8 @@ global_hit_fx_info{
 
           "group__water:object"{
             fx:t="hit_water_big_effect"
-            penetrationFx:t="hit_water_medium_big_effect"
-            ricochetFx:t="hit_water_medium_big_effect"
+            penetrationFx:t="hit_water_big_effect"
+            ricochetFx:t="hit_water_big_effect"
           }
 
           "glass:object"{

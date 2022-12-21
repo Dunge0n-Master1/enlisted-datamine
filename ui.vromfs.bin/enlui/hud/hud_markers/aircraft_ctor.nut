@@ -45,7 +45,6 @@ let mkData = memoize(@(minHud, inplane) {
   minDistance = 0.5
   maxDistance = minHud && inplane ? 600 : 10000
   distScaleFactor = 0.3
-  clampToBorder = false
   yOffs = 1.2
   opacityRangeX = minHud ? opRange_hardcore : zeroPoint
   opacityRangeY = minHud ? opRange_hardcore : zeroPoint
@@ -70,7 +69,7 @@ let function aircraft(eid) {
                     ? HUD_COLOR_TEAMMATE_INNER
                     : HUD_COLOR_ENEMY_INNER
     return {
-      data = mkData(forcedMinimalHud.value, inPlane.value).__merge({eid})
+      data = mkData(forcedMinimalHud.value, inPlane.value).__merge({eid, clampToBorder = state.value?.clampToBorder})
       key = eid
       sortOrder = eid
       transform = defTransform

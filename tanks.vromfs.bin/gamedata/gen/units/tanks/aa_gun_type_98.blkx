@@ -6,7 +6,7 @@ VehiclePhys{
     Fuel:r=0.0
     TakeOff:r=560.0
     momentOfInertia:p3=6.0, 1.0, 6.0
-    CenterOfGravity:p3=-0.8, 0.2, 0.0
+    CenterOfGravity:p3=-0.3, 0.2, 0.0
     AdvancedMass:b=no
     CenterOfGravityClampY:p2=0.0, 0.7
     cls_body:r=1.0
@@ -21,7 +21,9 @@ VehiclePhys{
   }
 
   collisionProps{
-    cls_body:t="convex_hull"
+    turret_bottom:t="convex_hull"
+    drive_turret_v:t="convex_hull"
+    cannon_breech:t="convex_hull"
   }
 
   engine{

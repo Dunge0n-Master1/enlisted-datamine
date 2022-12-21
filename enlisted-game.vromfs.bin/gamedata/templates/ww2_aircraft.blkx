@@ -2947,6 +2947,13 @@ ai_fab_100_launcher{
   animchar__res:t="su_fab100_char"
 }
 
+ai_fab_50_launcher{
+  _extends:t="ai_bomb_launcher"
+  gun__projectileTemplate:t="ai_fab_50_bomb_projectile"
+  gun__projectileDebugTemplate:t="ai_fab_50_bomb_projectile+bomb_projectile_debug"
+  animchar__res:t="su_fab50_char"
+}
+
 sc_250_87_launcher{
   _extends:t="base_bomb_launcher"
   gun__projectileTemplate:t="sc_250_87_bomb_projectile"

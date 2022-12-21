@@ -65,15 +65,19 @@ local function mkHeaderFlag(content, p = FLAG_PARAMS) {
         size = flex()
         image = Picture($"{p.flagImage}:{hdpxi(150)}:4:K?Ac")
         color = p.flagColor
+        transform = { rotate = p?.rotate ?? 0 }
       }
       content
     ]
   }
 }
 
+let mkRightHeaderFlag = @(content, params) mkHeaderFlag(content, params.__merge({ rotate = 180 }))
+
 return {
   mkHeaderFlag
   casualFlagStyle
   primeFlagStyle
   disableFlagStyle
+  mkRightHeaderFlag
 }
