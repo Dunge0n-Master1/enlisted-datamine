@@ -220,10 +220,10 @@ germ_pzkpfw_iv_ausf_g_common{
       locName:t="vehicle_seats/commander"
       attachNode:t="commander"
       shouldHideOwner:b=yes
-      hatchRotationAxis:p3=1.8, 0.0, 0.0
+      hatchRotationAxis:p3=1.9, 0.0, 0.0
       maxPosWithOpenHatch:r=0.6
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, -0.23, 2.35]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.05, 2.35]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"

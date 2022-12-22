@@ -15513,8 +15513,8 @@ thompson_m1928a1_box_mag_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.033
-  gun__recoilDirAmount:r=0.5
+  gun__recoilAmount:r=0.054
+  gun__recoilDirAmount:r=0.6
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=1.2
   gun__adsSpeedMult:r=0.72

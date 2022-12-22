@@ -62,12 +62,12 @@ germ_pzkpfw_III_ausf_E_common{
       shouldHideOwner:b=yes
       maxPosWithOpenHatch:r=0.6
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.33, 0.06]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.05, 0.065]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="germ_pzkpfw_III_ausf_E_commander_cockpit"
-      hatchRotationAxis:p3=1.8, 0.0, 0.0
+      hatchRotationAxis:p3=1.9, 0.0, 0.0
 
       "hatchNodes:array"{
         node:t="hatch_01"

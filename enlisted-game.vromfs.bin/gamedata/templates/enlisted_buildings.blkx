@@ -840,7 +840,7 @@ sandbags_wall_browning_m2_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_f_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=14.0
+  building_builder__maxTimeToBuild:r=24.0
   buildingCost:r=12.0
   building__requireUnlockId:i=5
   building_menu__text:t="building_tool/sandbags_with_hmg"
@@ -946,7 +946,7 @@ sandbags_wall_mg_131_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_i_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=14.0
+  building_builder__maxTimeToBuild:r=24.0
   buildingCost:r=12.0
   building__requireUnlockId:i=5
   building_menu__text:t="building_tool/sandbags_with_hmg"
@@ -1120,7 +1120,7 @@ sandbags_wall_type_93_hmg_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_g_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=14.0
+  building_builder__maxTimeToBuild:r=24.0
   buildingCost:r=12.0
   building__requireUnlockId:i=5
   building_menu__text:t="building_tool/sandbags_with_hmg"
@@ -1208,7 +1208,7 @@ sandbags_wall_dshk_1942_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_h_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=14.0
+  building_builder__maxTimeToBuild:r=24.0
   buildingCost:r=12.0
   building__requireUnlockId:i=5
   building_menu__text:t="building_tool/sandbags_with_hmg"

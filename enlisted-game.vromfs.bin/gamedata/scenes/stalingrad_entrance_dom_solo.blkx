@@ -1,6 +1,6 @@
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-586.02, 15.045, 11.6037]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-307.273, 15.045, -136.381]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area2"
@@ -234,7 +234,7 @@ entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-351.411, 15.045, 484.542]]
   battle_area_polygon_point__id:t="point30"
-  battle_area_polygon_point__nextId:t="point1"
+  battle_area_polygon_point__nextId:t="point31"
   battle_area_polygon_point__forBattleAreaId:t="area2"
 }
 
@@ -416,7 +416,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-410.265, 15.0451, -79.3225]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-443.31, 15.0451, -152.557]]
   battle_area_polygon_point__id:t="point23"
   battle_area_polygon_point__nextId:t="point24"
   battle_area_polygon_point__forBattleAreaId:t="area1"
@@ -425,6 +425,22 @@ entity{
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-248.284, 15.0451, -160.127]]
+  battle_area_polygon_point__id:t="point25"
+  battle_area_polygon_point__nextId:t="point26"
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-68.8927, 15.0452, -247.64]]
+  battle_area_polygon_point__id:t="point26"
+  battle_area_polygon_point__nextId:t="point1"
+  battle_area_polygon_point__forBattleAreaId:t="area1"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-283.016, 15.045, -230.399]]
   battle_area_polygon_point__id:t="point24"
   battle_area_polygon_point__nextId:t="point25"
   battle_area_polygon_point__forBattleAreaId:t="area1"
@@ -432,10 +448,18 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-68.8927, 15.0452, -247.64]]
-  battle_area_polygon_point__id:t="point25"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-631.464, 15.045, -60.3237]]
+  battle_area_polygon_point__id:t="point31"
+  battle_area_polygon_point__nextId:t="point32"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
+}
+
+entity{
+  _template:t="battle_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-339.83, 15.0449, -202.259]]
+  battle_area_polygon_point__id:t="point32"
   battle_area_polygon_point__nextId:t="point1"
-  battle_area_polygon_point__forBattleAreaId:t="area1"
+  battle_area_polygon_point__forBattleAreaId:t="area2"
 }
 
 entity{
@@ -466,21 +490,14 @@ entity{
 }
 
 entity{
-  _template:t="spawn_switcher"
-  swapProbability:r=0.5
-  team1:i=2
-  team2:i=1
+  _template:t="enemy_attack_marker"
+  transform:m=[[0.0582712, 0.0, 0.998301] [0.0, 1.0, 0.0] [-0.998301, 0.0, 0.0582712] [-39.6104, 7.74753, -249.638]]
 }
 
 entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[-0.253272, 0.0, -0.967395] [0.12958, 0.990989, -0.033925] [0.958677, -0.133947, -0.250989] [-352.611, 27.9766, 119.061]]
-}
-
-entity{
-  _template:t="enemy_attack_marker"
-  transform:m=[[0.0582712, 0.0, 0.998301] [0.0, 1.0, 0.0] [-0.998301, 0.0, 0.0582712] [-39.6104, 7.74753, -249.638]]
 }
 
 entity{
@@ -535,6 +552,13 @@ entity{
   team__numZonesCaptured:i=0
   team__deathPenalty:r=2.0
   team__spawnBotArmy:t="stalingrad_axis"
+}
+
+entity{
+  _template:t="spawn_switcher"
+  swapProbability:r=0.5
+  team1:i=2
+  team2:i=1
 }
 
 entity{
@@ -713,13 +737,13 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.460386, 0.00483725, -0.887705] [-0.00222708, 0.999989, 0.00429408] [0.887714, 4.936e-08, 0.460391] [-263.579, 16.0649, 258.031]]
+  transform:m=[[0.800311, 0.00483725, -0.599565] [-0.00387139, 0.999989, 0.00290024] [0.599571, 5.58792e-08, 0.800319] [-305.41, 15.8752, 233.756]]
   respawnBaseGroup:i=1
 }
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[0.361487, 0.0854253, 0.928455] [-0.0309934, 0.996345, -0.0796047] [-0.931862, 5.40168e-08, 0.362814] [-91.1469, 15.6686, -164.307]]
+  transform:m=[[-0.151797, 0.0854253, 0.984713] [0.013015, 0.996345, -0.0844281] [-0.988327, 8.28878e-08, -0.152354] [-276.886, 16.2041, -194.314]]
   team:i=1
   respawnBaseGroup:i=2
   maxVehicleOnSpawn:i=2
@@ -728,7 +752,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[0.361487, 0.0854253, 0.928455] [-0.0309934, 0.996345, -0.0796047] [-0.931862, 5.40168e-08, 0.362814] [-90.9418, 15.6686, -164.356]]
+  transform:m=[[-0.151797, 0.0854253, 0.984713] [0.013015, 0.996345, -0.0844281] [-0.988327, 8.28878e-08, -0.152354] [-276.684, 16.2042, -194.254]]
   team:i=1
   respawnBaseGroup:i=2
 }
@@ -778,7 +802,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.514408, 0.0854253, -0.853279] [0.0441047, 0.996345, 0.0731592] [0.856411, 5.58794e-08, -0.516296] [49.1899, 15.6686, 116.778]]
+  transform:m=[[-0.49382, 0.0854253, -0.865357] [0.0423395, 0.996345, 0.0741948] [0.868533, 6.333e-08, -0.495632] [37.6297, 16.0087, 90.3945]]
   team:i=1
   respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
@@ -787,7 +811,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.514408, 0.0854253, -0.853279] [0.0441047, 0.996345, 0.0731592] [0.856411, 5.58794e-08, -0.516296] [49.0552, 15.6686, 116.964]]
+  transform:m=[[-0.49382, 0.0854253, -0.865357] [0.0423395, 0.996345, 0.0741948] [0.868533, 6.333e-08, -0.495632] [37.4872, 16.0087, 90.4716]]
   team:i=1
 }
 

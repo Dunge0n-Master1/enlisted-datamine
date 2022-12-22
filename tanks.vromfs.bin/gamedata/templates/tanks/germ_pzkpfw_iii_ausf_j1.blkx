@@ -50,9 +50,9 @@ germ_pzkpfw_iii_ausf_j1_common{
       attachNode:t="commander"
       shouldHideOwner:b=yes
       maxPosWithOpenHatch:r=0.7
-      hatchRotationAxis:p3=1.7, 0.0, 0.0
+      hatchRotationAxis:p3=1.9, 0.0, 0.0
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, -0.1, 0.05]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, 0.14, 0.07]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="germ_pzkpfw_iii_ausf_j1_commander_cockpit"

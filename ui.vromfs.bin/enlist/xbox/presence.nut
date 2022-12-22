@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {set_presence, DeviceType} = require("%xboxLib/impl/presence.nut")
+let {subscribe_to_presence_update_events, set_presence, DeviceType} = require("%xboxLib/impl/presence.nut")
 let {get_title_id} = require("%xboxLib/impl/app.nut")
-let {subscribe_to_presences_update} = require("%xboxLib/presence.nut")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX PRESENCE] ")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { updatePresences } = require("%enlist/contacts/contactPresence.nut")
@@ -69,4 +68,4 @@ let function on_presences_update(success, presences) {
 }
 
 
-subscribe_to_presences_update(on_presences_update)
+subscribe_to_presence_update_events(on_presences_update)

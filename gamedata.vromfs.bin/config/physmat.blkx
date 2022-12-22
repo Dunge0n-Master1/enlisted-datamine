@@ -406,7 +406,7 @@ PhysMats{
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.6
-      armorThickness:r=0.1
+      armorThickness:r=15.0
     }
 
     shellHitFx{

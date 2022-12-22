@@ -94,8 +94,8 @@ germ_pzkpfw_IV_ausf_H_common{
       attachNode:t="commander"
       shouldHideOwner:b=yes
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0641138, -0.479946, 2.40916]]
-      hatchRotationAxis:p3=1.7, 0.0, 0.0
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.06, -0.2, 2.4]]
+      hatchRotationAxis:p3=1.8, 0.0, 0.0
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       cockpitTemplate:t="germ_pzkpfw_IV_ausf_H_commander_cockpit"

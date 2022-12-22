@@ -49,3 +49,8 @@ def ui_enemy_attack_marker(evt : Event; respawnbaseType : string)
 [es(tag=gameClient, on_appear, REQUIRE=enemy_attack_marker)]
 def ui_enemy_attack_marker_init(evt : Event; enemy_attack_marker__offset : float; var transform : float3x4&)
   update_marker(transform, enemy_attack_marker__offset)
+
+[es(tag=gameClient, on_appear, track=team, REQUIRE=(localPlayer, team))]
+def ui_enemy_init_player_attack_marker(evt : Event)
+  query() <| $ [es(REQUIRE=enemy_attack_marker)] (enemy_attack_marker__offset : float; var transform : float3x4&)
+    update_marker(transform, enemy_attack_marker__offset)

@@ -113,7 +113,7 @@ def find_target_point_for_respawn_cam()
     pos = pos / float(pointsFound)
   return [[auto pointsFound, pos]]
 
-[es(tag=server, on_appear, on_event=EventLevelLoaded, track=active, REQUIRE=active, REQUIRE=respbase)]
+[es(tag=server, on_appear, on_event=EventLevelLoaded, track=(active, team), REQUIRE=active, REQUIRE=respbase)]
 def respawn_camera_set_target_params_es(evt : Event; team : int)
   ecs::query() <| $ [es] (moveCameraToHeight : float;
                           var respawnCameraLookFrom : float3&;

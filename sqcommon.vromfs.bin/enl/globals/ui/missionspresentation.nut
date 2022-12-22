@@ -1023,10 +1023,22 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  stalingrad_gogol_inv_allies = {
+    image = "ui/stalingrad_inv_02.jpg"
+    locId = "lobbies/stalingrad_gogol_inv_allies"
+    army = MissionArmy.ALLIES
+  }
+
   stalingrad_gogol_inv_counter = {
     image = "ui/stalingrad_inv_11.jpg"
     locId = "lobbies/stalingrad_gogol_inv_counter"
     army = MissionArmy.ALLIES
+  }
+
+  stalingrad_gogol_inv_counter_axis = {
+    image = "ui/stalingrad_inv_11.jpg"
+    locId = "lobbies/stalingrad_gogol_inv_counter_axis"
+    army = MissionArmy.AXIS
   }
 
   stalingrad_gogol_conf = {
@@ -1083,10 +1095,22 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  stalingrad_communist_inv_allies = {
+    image = "ui/stalingrad_inv_09.jpg"
+    locId = "lobbies/stalingrad_communist_inv_allies"
+    army = MissionArmy.ALLIES
+  }
+
   stalingrad_communist_inv_counter = {
     image = "ui/stalingrad_inv_10.jpg"
     locId = "lobbies/stalingrad_communist_inv_counter"
     army = MissionArmy.ALLIES
+  }
+
+  stalingrad_communist_inv_counter_axis = {
+    image = "ui/stalingrad_inv_10.jpg"
+    locId = "lobbies/stalingrad_communist_inv_counter_axis"
+    army = MissionArmy.AXIS
   }
 
   stalingrad_communist_bomb = {
