@@ -184,6 +184,7 @@ building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -195,6 +196,7 @@ building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -214,6 +216,7 @@ ussr_building_tool_gun{
     template:t="ussr_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -225,6 +228,7 @@ ussr_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -244,6 +248,7 @@ usa_building_tool_gun{
     template:t="usa_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -255,6 +260,7 @@ usa_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -272,6 +278,7 @@ uk_building_tool_gun{
     template:t="usa_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 }
 
@@ -288,6 +295,7 @@ ger_normandy_building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 }
 
@@ -306,6 +314,7 @@ ger_tunisian_building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -317,6 +326,7 @@ ger_tunisian_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -336,6 +346,7 @@ ger_building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -347,6 +358,7 @@ ger_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -366,6 +378,7 @@ ger_berlin_building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -377,6 +390,7 @@ ger_berlin_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -396,6 +410,7 @@ ussr_berlin_building_tool_gun{
     template:t="ussr_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -407,6 +422,7 @@ ussr_berlin_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -426,6 +442,7 @@ jp_building_tool_gun{
     template:t="jp_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -437,6 +454,7 @@ jp_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }

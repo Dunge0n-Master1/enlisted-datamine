@@ -1952,6 +1952,7 @@ stl_ussr_building_tool_gun{
     template:t="ussr_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -1964,6 +1965,7 @@ stl_ussr_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
@@ -1991,6 +1993,7 @@ stl_ger_building_tool_gun{
     template:t="ger_rallypoint_preview"
     template:t="barbedwire_engineer_a_preview"
     template:t="ammunition_box_a_preview"
+    template:t="christmas_tree_preview"
   }
 
   "buildingLimits:list<i>"{
@@ -2003,6 +2006,7 @@ stl_ger_building_tool_gun{
     limit:i=6
     limit:i=1
     limit:i=10
+    limit:i=3
     limit:i=3
   }
 }
