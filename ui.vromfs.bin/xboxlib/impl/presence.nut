@@ -12,12 +12,12 @@ let function set_presence(presence, callback) {
 }
 
 
-let function subscribe_to_presence_update_events(_callback) {
-  // subscribe(pres.presence_update_event_name, function(res) {
-  //   let success = res?.success
-  //   let presences = res?.presences
-  //   callback?(success, presences)
-  // })
+let function subscribe_to_presence_update_events(callback) {
+  subscribe(pres.presence_update_event_name, function(res) {
+    let success = res?.success
+    let presences = res?.presences
+    callback?(success, presences)
+  })
 }
 
 
@@ -48,7 +48,7 @@ return {
 
   subscribe_to_changes = pres.subscribe_to_changes
   unsubscribe_from_changes = pres.unsubscribe_from_changes
-  // set_update_call_interval = pres.set_update_call_interval
+  set_update_call_interval = pres.set_update_call_interval
 
   set_presence
   retrieve_presences_for_users = pres.get_presences_for_users

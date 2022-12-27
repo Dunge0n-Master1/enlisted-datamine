@@ -16,9 +16,15 @@ nav_rebuilding{
   nav_rebuild__edgeMaxLen:r=128.0
 }
 
+dead_entity_recreate{
+  recreate_dead_entity__maxPerUpdate:i=128
+  _tags:t="server"
+}
+
 level{
   _extends:t="replicating"
   _extends:t="nav_rebuilding"
+  _extends:t="dead_entity_recreate"
   _singleton:b=yes
   nonCreatableObj:b=yes
   level__patchNavMeshPath:t=""

@@ -236,3 +236,8 @@ us_m3a1_stuart_flame_machinegunner_cockpit{
   "cockpit__attachNodeIndices:list<i>"{
   }
 }
+
+m1_flamethrower_shorted{
+  _override:b=yes
+  turret__triggerGroup:i=1
+}

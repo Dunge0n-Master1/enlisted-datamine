@@ -74,7 +74,7 @@ let categoriesBase = {
 
   TOURNAMENT_BATTLE_RATING = {
     field = "new_year_tournament_battle_rating"
-    locId = "lb/battle_rating"
+    locId = "lb/new_year_tournament_battle_rating"
     icon = "ui/skin#battle_rating.svg"
   }
 

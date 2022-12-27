@@ -13,6 +13,7 @@ let qrWindow = require("qrWindow.nut")
 
 let SEPARATOR = {}
 let GSS_URL = get_setting_by_blk_path("gssUrl") ?? "https://gss.gaijin.net/"
+let CBR_URL = get_setting_by_blk_path("cbrUrl") ?? "https://community.gaijin.net/issues/p/enlisted"
 
 let btnOptions = {
   name = loc("gamemenu/btnOptions")
@@ -34,11 +35,16 @@ let btnLogout = {
   name = loc("Exit Game")
   cb = logoutMsgBox
 }
-let allowUrl = platform.is_pc || platform.is_sony || platform.is_nswitch || platform.is_android
+let allowUrl = platform.is_pc || platform.is_nswitch || platform.is_android
 let btnGSS = GSS_URL == "" ? null : {
   id = "Gss"
   name = loc("gss")
   cb = @() allowUrl ? openUrl(GSS_URL) : qrWindow({url = GSS_URL, header = loc("gss")})
+}
+let btnCBR = CBR_URL == "" ? null : {
+  id = "Cbr"
+  name = loc("cbr")
+  cb = @() allowUrl ? openUrl(CBR_URL) : qrWindow({url = CBR_URL, header = loc("cbr")})
 }
 let btnSupport = gaijinSupportUrl == "" ? null : {
   id = "Support"
@@ -77,6 +83,7 @@ return {
   btnLogout
   btnExit
   btnGSS
+  btnCBR
   btnSupport
   btnBugReport
   btnToggleDesign

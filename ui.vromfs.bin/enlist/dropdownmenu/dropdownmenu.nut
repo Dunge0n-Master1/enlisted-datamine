@@ -5,7 +5,7 @@ let mkDropMenuBtn = isNewDesign.value
   ? require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
   : require("%enlist/components/mkDropDownMenu.nut")
 let {
-  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign
+  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign, btnCBR
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
 let { openChangelog } = require("%enlist/openChangelog.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
@@ -120,7 +120,7 @@ let function buttons(){
     res.append(SEPARATOR)
   if (hasCampaignSelection.value)
     res.append(btnChangeCampaign)
-  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS)
+  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS, btnCBR)
   if (hasToggleDesign.value)
     res.append(btnToggleDesign)
   if (is_xbox){
