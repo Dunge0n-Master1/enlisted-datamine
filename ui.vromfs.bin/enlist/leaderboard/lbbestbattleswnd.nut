@@ -6,16 +6,14 @@ let JB = require("%ui/control/gui_buttons.nut")
 let lbCategory = require("lbCategory.nut")
 let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
-let { bestBattlesByMode, ratingBattlesCountByMode } = require("lbState.nut")
-let {
-  TextActive, WindowHeader, TextDefault, UserNameColor
+let { bestBattlesByMode, ratingBattlesCountByMode, getCategoriesByGroup } = require("lbState.nut")
+let { TextActive, WindowHeader, TextDefault, UserNameColor
 } = require("%ui/style/colors.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 
 
 const WND_UID = "lb_best_battles_wnd"
 
-let { TIME_AFTER_BATTLE, BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME } = lbCategory
 let headerHeight = hdpx(45)
 let rowHeight = hdpx(24)
 
@@ -111,7 +109,7 @@ let findMinTime = @(list, prevVal = 0)
   list.reduce(@(res, b) res == 0 ? b.timestamp : max(res, b.timestamp), prevVal)
 
 let function mkLbTable(mode) {
-  let lbCols = [TIME_AFTER_BATTLE, BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME]
+  let lbCols = getCategoriesByGroup(mode).best
   let bestBattles = mkBattlesComputed(bestBattlesByMode, mode)
   let ratedCount = Computed(@() ratingBattlesCountByMode.value?[mode] ?? 0)
   let ratedBattles = Computed(@() bestBattles.value.slice(0, ratedCount.value))

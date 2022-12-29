@@ -11,7 +11,7 @@ let { UserNameColor } = require("%ui/style/colors.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let {
   refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName,
-  isLbWndOpened, lbCategoriesByGroup, LB_PAGE_ROWS, bestBattlesByMode, isRefreshLbEnabled
+  isLbWndOpened, lbSelCategories, LB_PAGE_ROWS, bestBattlesByMode, isRefreshLbEnabled
 } = require("lbState.nut")
 let { selLbMode } = require("%enlist/gameModes/eventModesState.nut")
 let { RANK, NAME } = require("lbCategory.nut")
@@ -192,7 +192,7 @@ let lbHeaderRow = @(categories) {
 }
 
 let function lbContent() {
-  let lbCategories = lbCategoriesByGroup.value.full
+  let lbCategories = lbSelCategories.value.full
   local children = null
   local valign = ALIGN_CENTER
   if (curLbData.value == null)
@@ -219,7 +219,7 @@ let function lbContent() {
   }
 
   return {
-    watch = [lbCategoriesByGroup, curLbData, curLbSelfRow, curLbErrName]
+    watch = [lbSelCategories, curLbData, curLbSelfRow, curLbErrName]
     size = [flex(), fullHeight]
     rendObj = ROBJ_SOLID
     color = Color(10,10,10,10)

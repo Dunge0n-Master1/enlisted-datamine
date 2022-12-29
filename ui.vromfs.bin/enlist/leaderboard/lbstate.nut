@@ -8,7 +8,8 @@ let { curLbData, curLbSelfRow, curLbRequestData, setLbRequestData, curLbErrName,
 let { lbStatsModes } = require("%enlist/userstat/userstatModes.nut")
 let { RANK, NAME, KILL_DEATH_RATIO, BATTLES, KILLS, KILLS_USING_AIRCRAFT,
   KILLS_USING_TANK, VICTORIES_PERCENT, SCORE, TOURNAMENT_BATTLE_RATING,
-  BATTLE_GROUP_SCORE, BATTLE_RATING, BATTLE_TIME, BATTLE_RATING_PENALTY
+  BATTLE_GROUP_SCORE, BATTLE_RATING, BATTLE_TIME, BATTLE_RATING_PENALTY,
+  TIME_AFTER_BATTLE, VICTORY_BOOL
 } = require("lbCategory.nut")
 let { separateLeaderboardPlatformName } = require("%enlSqGlob/leaderboard_option_state.nut")
 let { eventGameModes } = require("%enlist/gameModes/gameModeState.nut")
@@ -87,9 +88,11 @@ let lbCatByGroup = {
   unknown = {
     full = [
       RANK, NAME, BATTLE_RATING, SCORE, BATTLES, VICTORIES_PERCENT,
-      KILLS_USING_AIRCRAFT, KILLS_USING_TANK, KILL_DEATH_RATIO, KILLS, BATTLE_TIME, BATTLE_RATING_PENALTY
+      KILLS_USING_AIRCRAFT, KILLS_USING_TANK, KILL_DEATH_RATIO, KILLS, BATTLE_TIME,
+      BATTLE_RATING_PENALTY
     ]
-    short = [ RANK, NAME, BATTLE_RATING ]
+    best = [TIME_AFTER_BATTLE, BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME]
+    short = [RANK, NAME, BATTLE_RATING]
     sortBy = BATTLE_RATING
   }
   new_year_tournament = {
@@ -97,23 +100,24 @@ let lbCatByGroup = {
       RANK, NAME, TOURNAMENT_BATTLE_RATING, BATTLE_GROUP_SCORE, SCORE,
       VICTORIES_PERCENT, BATTLES, KILLS_USING_AIRCRAFT, KILLS_USING_TANK, KILLS, BATTLE_TIME
     ]
-    short = [ RANK, NAME, TOURNAMENT_BATTLE_RATING ]
+    best = [TIME_AFTER_BATTLE, TOURNAMENT_BATTLE_RATING, VICTORY_BOOL, SCORE, KILLS, BATTLE_TIME]
+    short = [RANK, NAME, TOURNAMENT_BATTLE_RATING]
     sortBy = TOURNAMENT_BATTLE_RATING
   }
 }
 
-let lbCategoriesByGroup = Computed(function() {
-  return lbCatByGroup?[selLbMode.value] ?? lbCatByGroup.unknown
-})
+let getCategoriesByGroup = @(mode) lbCatByGroup?[mode] ?? lbCatByGroup.unknown
+
+let lbSelCategories = Computed(@() getCategoriesByGroup(selLbMode.value))
 
 let updateLbMode = function(_) {
   lbCurrentTable({
     mode = selLbMode.value
-    sortCategory = lbCategoriesByGroup.value?.sortBy
+    sortCategory = lbSelCategories.value?.sortBy
   })
 }
 
-foreach (v in [selLbMode, lbCategoriesByGroup])
+foreach (v in [selLbMode, lbSelCategories])
   v.subscribe(updateLbMode)
 
 updateLbMode(selLbMode.value)
@@ -163,7 +167,8 @@ return {
   curLbErrName
   lbCurrentTable
   isLbWndOpened
-  lbCategoriesByGroup
+  getCategoriesByGroup
+  lbSelCategories
   curLbIdx
   curLbPlacement
   lbPlayersCount

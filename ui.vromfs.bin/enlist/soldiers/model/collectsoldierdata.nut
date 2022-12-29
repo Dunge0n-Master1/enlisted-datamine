@@ -15,35 +15,26 @@ let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nu
 let getPerksCount = @(perks) (perks?.slots ?? [])
   .reduce(@(res, slots) res + slots.filter(@(v) (v ?? "") != "").len(), 0)
 
-let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [],
-  isLarge = false
-){
-  if (soldier?.photo !=  null)
+let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], isLarge = false) {
+  if (soldier?.photo != null)
     return soldier
 
-  let guid = soldier?.guid
-  if (guid == null) {
-    return soldier.__merge({
-      photo = null
-    })
-  }
+  let { guid = null } = soldier
   let actualSoldier = objInfoByGuid.value?[guid]
-  if (actualSoldier == null) {
+  if (actualSoldier == null)
     return soldier.__merge({
       photo = null
     })
-  }
 
   let scheme = actualSoldier?.equipScheme ?? {}
-
   let equipmentInfo = []
-  let equipment = mkEquipment(actualSoldier, guid, scheme, soldiersOutfit, overrideOutfit)
+  let equipment = mkEquipment(actualSoldier, scheme, soldiersOutfit, overrideOutfit)
   if (equipment != null) {
     foreach (slot, equip in equipment) {
       if (!equip || !equip.gametemplate)
         continue
       equipmentInfo.append({
-        slot = slot,
+        slot = slot
         tpl = equip.gametemplate
       })
     }
@@ -97,7 +88,7 @@ let function collectSoldierDataImpl(
 }
 
 return {
-  collectSoldierPhoto = collectSoldierPhoto
+  collectSoldierPhoto
   collectSoldierData = @(soldier) collectSoldierDataImpl(
     soldier, perksData.value, curCampSquads.value, armies.value,
     sClassesCfg.value, campItemsByLink.value, soldiersLook.value,

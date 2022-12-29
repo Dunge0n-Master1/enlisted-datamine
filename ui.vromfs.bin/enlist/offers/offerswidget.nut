@@ -6,12 +6,11 @@ let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
 } = require("offersState.nut")
-let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
 let offersWindow = require("offersWindow.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
-let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding
+let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding, bigPadding, translucentBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
@@ -70,8 +69,10 @@ let discountIconStyle = {
 }
 
 let timerStyle = {
+  rendObj = ROBJ_BOX
   hplace = ALIGN_RIGHT
-  padding = taskSlotPadding
+  padding = bigPadding
+  fillColor = translucentBgColor
 }
 
 let mkInfo = @(sf, nameTxt, override = {}) {

@@ -16,6 +16,7 @@ def invalidate_riextra_shadow(ri_extra : RiExtraComponent; var prevBsph : float4
   let bsph = getRIGenExtraBSphere(ri_extra.handle)
   if prevBsph.w > 0.0
     invalidate_bsphere_shadow(prevBsph)
+  applyTiledScenesUpdateForRIGenExtra(2000, 1000)
   rendinst_moveToOriginalScene(ri_extra.handle)
   invalidate_bsphere_shadow(bsph)
   prevBsph = bsph

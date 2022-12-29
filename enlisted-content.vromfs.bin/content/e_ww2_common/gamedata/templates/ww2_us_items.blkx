@@ -1178,10 +1178,12 @@ attachable_wear_backpack_m28_shirt_m44_camo_item{
 
 attachable_wear_m28_backpack_jacket_m41_item{
   _extends:t="attachable_backpack"
+  item__name:t="items/big_bag"
   animchar__res:t="m28_backpack_jacket_m41_char"
   collres__res:t="m28_backpack_jacket_m41_collision"
   item__uniqueName:t="attachable_wear_m28_backpack_jacket_m41_item"
   animchar_fast_phys__res:t="m28_backpack_jacket_m41_fastphys"
+  attachable_backpack__capacity:i=3
 
   animchar_fast_phys{
     _tags:t="gameClient"

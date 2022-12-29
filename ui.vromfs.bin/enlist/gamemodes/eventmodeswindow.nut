@@ -15,8 +15,10 @@ let {
   eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms,
   selEvent, selectEvent, selLbMode, eventCustomSquads, eventsSquadList, eventsArmiesList,
   eventCurArmyIdx, eventCampaigns, allEventsToShow, inactiveEventsToShow,
-  customRoomsModeSaved, eventCustomProfile, curTab
+  customRoomsModeSaved, eventCustomProfile, curTab, eventStartTime
 } = require("eventModesState.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { unseenEvents, markSeenEvent, markAllSeenEvents } = require("unseenEvents.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -353,9 +355,12 @@ let lowLevelForEventMsgbox = @(level) showMsgbox({
   text = loc("events/lowLevelToPlay", { level })
 })
 
-let inactiveEventMsgbox = @() showMsgbox({
-  text = loc("events/inactiveEvent")
-})
+let upcomingEventMsgbox = function() {
+  let seconds = max(0, (eventStartTime.value?[selEvent.value?.queueId] ?? 0) - serverTime.value)
+  showMsgbox({
+    text = loc("events/comingInLong", { time = secondsToHoursLoc(seconds) })
+  })
+}
 
 let endedEventMsgbox = @() showMsgbox({
   text = loc("events/endedEvent")
@@ -384,7 +389,7 @@ let disabledStartBtn = @(lvl) mkDisabledBattleButton(
   loc("squads/unlockInfo", { level = lvl }),
   @() lowLevelForEventMsgbox(lvl))
 
-let inactiveEventBtn = mkDisabledBattleButton(loc("inactiveEvent"), inactiveEventMsgbox)
+let upcomingEventBtn = mkDisabledBattleButton(loc("inactiveEvent"), upcomingEventMsgbox)
 let endedEventBtn = mkDisabledBattleButton(loc("endedEvent"), endedEventMsgbox)
 
 let function joinEventQueue() {
@@ -440,7 +445,7 @@ let toEventBattleButton = @() {
           (selEvent.value?.leaderboardTableIdx ?? 0) < curLbIdx.value)
         ? endedEventBtn
       : ((selEvent.value?.showWhenInactive ?? false) && !selEvent.value.enabled)
-        ? inactiveEventBtn
+        ? upcomingEventBtn
       : (selEvent.value?.minCampaignLevelReq ?? 1) > curArmyData.value.level
         ? disabledStartBtn(selEvent.value?.minCampaignLevelReq ?? 1)
       : isInSquad.value && !isSquadLeader.value && myExtSquadData.ready.value

@@ -1,4 +1,4 @@
-stat_name:t="submachine_gun"
+stat_name:t="machine_gun"
 selWeaponVar:t="nambu_type_96"
 
 ownerAnimVars{

@@ -1,7 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { logerr } = require("dagor.debug")
 let { Point3 } = require("dagor.math")
 let { curCampSoldiers, objInfoByGuid, getSoldierItem, getSoldierItemSlots,
   getModSlots, curSquadSoldiersInfo
@@ -10,7 +9,7 @@ let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let weaponSlots = require("%enlSqGlob/weapon_slots.nut")
 let weaponSlotNames = require("%enlSqGlob/weapon_slot_names.nut")
 let curGenFaces = require("%enlist/faceGen/gen_faces.nut")
-let { getLinkedArmyName, getFirstLinkByType, hasLinkByType } = require("%enlSqGlob/ui/metalink.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
@@ -20,13 +19,11 @@ let { soldierOverrides, isSoldierDisarmed, isSoldierSlotsSwap, getSoldierIdle,
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
 
-let WEAPON_SLOTS = {
-  primary = true, secondary = true, side = true, tertiary = true,
+let WEAP_SLOT_TYPES = { primary = true, secondary = true, side = true, tertiary = true,
   melee = true, grenade = true }
 
-let INVENTORY_SLOTS = { inventory = true, grenade = true, mine = true }
-
-let IGNORE_SECOND_PASS = { backpack = true, parachute = true }
+let INVENTORY_SLOT_TYPES = { inventory = true, grenade = true, mine = true, flask_usable = true,
+  binoculars_usable = true, inventory_hidden = true }
 
 let soldierViewGen = Watched(0)
 let soldierViewNext = @(...) soldierViewGen(soldierViewGen.value + 1)
@@ -135,13 +132,16 @@ let function setEquipment(eid, equipment) {
     ecs.obsolete_dbg_set_comp_val(eid, "human_equipment__slots", sl)
 }
 
+let isWeaponSlot = @(slotType, scheme) slotType in INVENTORY_SLOT_TYPES
+  || (scheme?[slotType].ingameWeaponSlot ?? "") in WEAP_SLOT_TYPES
+
 let function getWearInfos(soldierGuid, scheme) {
   let eInfos = []
-  foreach (itemInfo in getSoldierItemSlots(soldierGuid, campItemsByLink.value)) {
+  let itemSlots = getSoldierItemSlots(soldierGuid, campItemsByLink.value)
+  foreach (itemInfo in itemSlots) {
     let { slotType, item } = itemInfo
     let { slotTemplates = {} } = item
-    if (slotTemplates.len() <= 0
-        && (slotType in INVENTORY_SLOTS || (scheme?[slotType].ingameWeaponSlot ?? "") in WEAPON_SLOTS))
+    if (slotTemplates.len() <= 0 && isWeaponSlot(slotType, scheme))
       continue
 
     let itemGuid = itemInfo.item.guid
@@ -209,96 +209,88 @@ let function getTemplate(gametemplate) {
   return recreateName == "" ? gametemplate : $"{gametemplate}+{recreateName}"
 }
 
-let function appendEquipment(equipment, equipmentOverride, eInfo) {
-  let { gametemplate = null, slot = null, slotTemplates = {} } = eInfo
-  local res
-  if (slot != null && gametemplate != null) {
-    if (gametemplate == "")
-      equipment[slot] <- null
-    else {
-      let template = getTemplate(gametemplate)
-      if (!template)
-        return logerr($"Appearance of main template {template} at slot {slot} not found")
-      res = { gametemplate, template }
-      equipment[slot] <- res
-    }
-  }
-
-  foreach (slotId, tmpl in slotTemplates) {
-    if (tmpl == "")
-      equipmentOverride[slotId] <- null
-    else {
-      let template = getTemplate(tmpl)
-      if (!template)
-        return logerr($"Appearance of multi template {tmpl} at {slotId} not found")
-      equipmentOverride[slotId] <- { gametemplate = tmpl, template }
-    }
-  }
-  return res
-}
-
-let function mkEquipment(soldier, soldierGuid, scheme, soldiersLook,
-  premiumItems, customizationOvr = {}){
+let function mkEquipment(soldier, scheme, soldiersLook, premiumItems,
+    customizationOvr = {}) {
   if (DB.size() == 0)
     return {}
 
-  local equipment = {}
-  let soldiersDefaultLook = soldiersLook?[soldierGuid]
-  if (soldiersDefaultLook == null)
-    return equipment
-
-  let eqOvr = {}
+  let { guid } = soldier
   let armyId = getLinkedArmyName(soldier ?? {})
-  let faceOverride = getSoldierFace(soldierGuid)
-  local lookItemsApplyOrder = [soldiersDefaultLook.items.filter(@(_, slot) slot not in customizationOvr)]
+  let faceOverride = getSoldierFace(guid)
 
-  local premiumItemsToEquip = {}
-  foreach (item in premiumItems?[armyId] ?? []) {
-    let slot = item?.links[soldierGuid]
-    if (slot != null && slot not in customizationOvr)
-      premiumItemsToEquip.__update({ [slot] = item.basetpl })
+  // basic soldier look
+  local slotTmpls = {}
+  let soldiersDefaultLook = soldiersLook?[guid] ?? {}
+  foreach (slotType, templ in soldiersDefaultLook.items) {
+    let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
+    if (itemTemplate != null)
+      slotTmpls[slotType] <- itemTemplate
   }
-  lookItemsApplyOrder.append(premiumItemsToEquip, customizationOvr ?? {})
 
-  let eInfos = getWearInfos(soldierGuid, scheme)
-  foreach (eInfo in eInfos)
-    if (eInfo?.itemtype in IGNORE_SECOND_PASS && eInfo?.slot not in customizationOvr) {
-      let data = appendEquipment(equipment, eqOvr, eInfo)
-      if (!data)
-        continue
-      if (eInfo.itemtype == "head")
-        data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
+  // apply items except inventory and weapon
+  let itemSlots = getSoldierItemSlots(guid, campItemsByLink.value)
+  foreach (itemSlot in itemSlots) {
+    let { slotType } = itemSlot
+    if (slotType in INVENTORY_SLOT_TYPES)
+      continue
+    let slot = scheme?[slotType]
+    if (slot == null || (slot?.ingameWeaponSlot in WEAP_SLOT_TYPES))
+      continue
+    let itemTemplate = findItemTemplate(allItemTemplates, armyId, itemSlot.item.basetpl)
+    if (itemTemplate != null)
+      slotTmpls[slotType] <- itemTemplate
+  }
+
+  // premium outfit
+  foreach (item in premiumItems?[armyId] ?? []) {
+    let slotType = item?.links[guid]
+    if (slotType == null)
+      continue
+    let itemTemplate = findItemTemplate(allItemTemplates, armyId, item.basetpl)
+    if (itemTemplate != null)
+      slotTmpls[slotType] <- itemTemplate
+  }
+  foreach (slotType, templ in customizationOvr) {
+    let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
+    if (itemTemplate != null)
+      slotTmpls[slotType] <- itemTemplate
+  }
+
+  // apply templates to soldier outfit
+  local equipment = {}
+  foreach (slotType, itemTemplate in slotTmpls) {
+    let itemSlot = itemTemplate?.slot ?? slotType
+    let { gametemplate } = itemTemplate
+    let template = getTemplate(gametemplate)
+    let data = { gametemplate, template }
+    if (slotType == "head")
+      data.faceId <- faceOverride ?? soldiersDefaultLook.faceId
+    equipment[itemSlot] <- data
+  }
+  foreach (itemTemplate in slotTmpls)
+    foreach (slotType, gametemplate in itemTemplate?.slotTemplates ?? {}) {
+      let template = getTemplate(gametemplate)
+      equipment[slotType] <- { gametemplate, template }
     }
 
-  foreach(list in lookItemsApplyOrder)
-    foreach (tmpl in list) {
-      let eInfo = findItemTemplate(allItemTemplates, armyId, tmpl)
-      let data = appendEquipment(equipment, eqOvr, eInfo)
-      if (!data)
-        continue
-      if (eInfo.itemtype == "head")
-        data.faceId <- faceOverride ?? soldiersDefaultLook.faceId
+  // aditional weapon overrides
+  foreach (itemSlot in itemSlots) {
+    let { slotType } = itemSlot
+    if (slotType in INVENTORY_SLOT_TYPES)
+      continue
+    let slot = scheme?[slotType]
+    if (slotType not in WEAP_SLOT_TYPES && (slot?.ingameWeaponSlot not in WEAP_SLOT_TYPES))
+      continue
+    let itemTemplate = findItemTemplate(allItemTemplates, armyId, itemSlot.item.basetpl)
+    foreach (slotId, gametemplate in itemTemplate?.slotTemplates ?? {}) {
+      let template = getTemplate(gametemplate)
+      equipment[slotId] <- { gametemplate, template }
     }
+  }
 
-  foreach (eInfo in eInfos)
-    if (eInfo?.itemtype not in IGNORE_SECOND_PASS && eInfo?.slot not in customizationOvr) {
-      let data = appendEquipment(equipment, eqOvr, eInfo)
-      if (!data)
-        continue
-      if (eInfo.itemtype == "head")
-        data.faceId <- faceOverride ?? getFirstLinkByType(eInfo, "faceId")
-    }
-
-  equipment.__update(eqOvr)
-  equipment = equipment.filter(@(v) v != "" && v != null)
-
-  if (equipment?.hair && (equipment?.head || equipment?.skined_helmet))
+  if ((equipment?.head ?? "") != "" || (equipment?.skined_helmet ?? "") != "")
     equipment.hair <- null
-
-  if ("backpack" not in equipment
-      || (!hasLinkByType(soldier, "squad") && "parachute" in scheme))
-    equipment.backpack <- null
-
+  equipment = equipment.filter(@(v) v != "" && v != null)
   return equipment
 }
 
@@ -330,7 +322,7 @@ let function createSoldier(
 
   let soldierItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let weapTemplates = getWeapTemplates(guid, scheme)
-  let equipment = mkEquipment(curCampSoldiers.value?[guid], guid, scheme, soldiersLook,
+  let equipment = mkEquipment(curCampSoldiers.value?[guid], scheme, soldiersLook,
     premiumItems, customizationOvr)
 
   let weapInfo = []

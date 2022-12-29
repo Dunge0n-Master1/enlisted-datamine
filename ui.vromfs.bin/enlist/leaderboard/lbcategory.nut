@@ -24,6 +24,8 @@ let makeType = @(id, params) {
   }
 }.__update(params)
 
+let getServerTime = @() serverTime.value
+
 let categoriesBase = {
   RANK = {
     field = "idx"
@@ -120,7 +122,7 @@ let categoriesBase = {
     dataType = lbDataType.TIME_HOURS
     locId = "lb/timeAfterBattle"
     relWidth = 2.0
-    getText = @(rowData) this.dataType.getText(serverTime.value - this.getValue(rowData))
+    getText = @(rowData) this.dataType.getText(getServerTime() - this.getValue(rowData))
     getValue = @(rowData) rowData?[this.field] ?? 0
   }
 

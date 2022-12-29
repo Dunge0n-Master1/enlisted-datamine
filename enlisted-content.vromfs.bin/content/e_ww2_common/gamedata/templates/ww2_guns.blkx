@@ -6674,10 +6674,16 @@ ppd_40{
     "mode:object"{
       modeType:t="automatic"
     }
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
   }
 
   "gun__firingModeNames:array"{
     mode:t="full_auto"
+    mode:t="semi_auto"
   }
 }
 

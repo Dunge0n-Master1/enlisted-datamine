@@ -5,7 +5,7 @@ let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {
   refreshLbData, curLbRequestData, curLbData, curLbErrName, curLbSelfRow,
-  lbCategoriesByGroup, isRefreshLbEnabled
+  lbSelCategories, isRefreshLbEnabled
 } = require("lbState.nut")
 let { RANK, NAME } = require("lbCategory.nut")
 let exclamation = require("%enlist/components/exclamation.nut")
@@ -64,7 +64,7 @@ let dotsRow = {
 }
 
 let function shortEventLb() {
-  let lbCategories = lbCategoriesByGroup.value.short
+  let lbCategories = lbSelCategories.value.short
   local children = null
   local valign = ALIGN_CENTER
   if (curLbData.value == null)
@@ -89,7 +89,7 @@ let function shortEventLb() {
   }
 
   return {
-    watch = [lbCategoriesByGroup, curLbData, curLbErrName, curLbSelfRow]
+    watch = [lbSelCategories, curLbData, curLbErrName, curLbSelfRow]
     size = [flex(), fullHeight]
     onAttach = function() {
       isRefreshLbEnabled(true)

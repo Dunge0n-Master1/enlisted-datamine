@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  eventCampaigns, hasChoosedCampaign, isCurCampaignAvailable
+  eventCampaigns, hasChoosedCampaign, isCurCampaignAvailable, isEventModesOpened
 } = require("eventModesState.nut")
 let {
   defTxtColor, blurBgFillColor, smallPadding, titleTxtColor, blurBgColor, maxContentWidth,
@@ -15,6 +15,7 @@ let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.n
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let math = require("%sqstd/math.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
+
 
 const TOTAL_ROWS = 2
 const WND_UID = "CHOOSE_CAMPAIGN_WND"
@@ -240,6 +241,14 @@ if (isOpened.value)
   open()
 isOpened.subscribe(@(v) v ? open() : closeCb())
 
-isCurCampaignAvailable.subscribe(@(v) !v && eventCampaigns.value.len() > 1 ? isOpened(true) : null)
+
+let function checkWndRequired(_) {
+  if (!isCurCampaignAvailable.value && eventCampaigns.value.len() > 1 && isEventModesOpened.value)
+    isOpened(true)
+}
+
+foreach(v in [isCurCampaignAvailable, eventCampaigns, isEventModesOpened])
+  v.subscribe(checkWndRequired)
+
 
 return lobbyCampaignBlock

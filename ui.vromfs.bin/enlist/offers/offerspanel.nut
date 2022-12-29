@@ -11,7 +11,7 @@ let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
 let { titleTxtColor, smallPadding, defTxtColor, colPart, startBtnWidth, defVertGradientImg,
-  hoverVertGradientImg, accentColor, bigPadding
+  hoverVertGradientImg, accentColor, bigPadding, transpPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
@@ -74,8 +74,10 @@ let discountIconStyle = {
 }.__update(largeTxtStyle)
 
 let timerStyle = {
+  rendObj = ROBJ_BOX
   hplace = ALIGN_RIGHT
   padding = taskSlotPadding
+  fillColor = transpPanelBgColor
 }
 
 let mkInfo = @(sf, nameTxt, override = {}) {
