@@ -87,6 +87,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -4695,6 +4700,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -9264,6 +9274,11 @@
             "bType" : "global",
             "expMul" : 0.1000000014901161,
             "guid" : "booster_global_10_13991815"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
          },
          {
             "bType" : "global",
@@ -14684,6 +14699,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -19989,6 +20009,11 @@
             "bType" : "global",
             "expMul" : 0.1000000014901161,
             "guid" : "booster_global_10_13991815"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
          },
          {
             "bType" : "global",
@@ -28114,6 +28139,11 @@
             "bType" : "global",
             "expMul" : 0.1000000014901161,
             "guid" : "booster_global_10_13991815"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
          },
          {
             "bType" : "global",
@@ -36542,6 +36572,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -43107,6 +43142,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -43128,7 +43168,7 @@
          "tanker_1_premium_1" : 1.0
       },
       "country" : "japan",
-      "curSquadId" : "axis_pacific_antitank_1",
+      "curSquadId" : "axis_pacific_radioman_1",
       "decorators" : {
          "portrait" : "tunisia_allies_event_marathon_summer_2022"
       },
@@ -50330,6 +50370,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -50346,7 +50391,7 @@
          "tanker_premium_2_flametrooper" : 1.0
       },
       "country" : "ussr",
-      "curSquadId" : "allies_stalingrad_radioman_1",
+      "curSquadId" : "allies_stalingrad_prem_tank_2",
       "decorators" : {
          "portrait" : "tunisia_allies_event_marathon_summer_2022"
       },
@@ -58119,6 +58164,11 @@
          },
          {
             "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
+         },
+         {
+            "bType" : "global",
             "expMul" : 0.50,
             "guid" : "booster_global_battlepass_50_battle_12_13991369"
          }
@@ -58134,7 +58184,7 @@
          "tanker_premium_2_flametrooper" : 1.0
       },
       "country" : "germany",
-      "curSquadId" : "axis_stalingrad_radioman_1",
+      "curSquadId" : "axis_stalingrad_prem_tank_1",
       "decorators" : {
          "portrait" : "tunisia_allies_event_marathon_summer_2022"
       },
@@ -65112,13 +65162,6 @@
             "artilleryTypeUnlocks" : [],
             "battleExpBonus" : 1.0,
             "curVehicle" : {
-               "decors" : [
-                  {
-                     "details" : "0:0.69,-0.087,-0.719?0.722,,0.692?0.06,0.996,-0.063?0.605,0.042,1.768;root",
-                     "id" : "teddy_bear_white",
-                     "slotIdx" : 0
-                  }
-               ],
                "gametemplate" : "germ_pzkpfw_ii_flamm",
                "guid" : "germ_pzkpfw_ii_flamm_10289657"
             },
@@ -66156,6 +66199,11 @@
             "bType" : "global",
             "expMul" : 0.1000000014901161,
             "guid" : "booster_global_10_13991815"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
          },
          {
             "bType" : "global",
@@ -70835,6 +70883,11 @@
             "bType" : "global",
             "expMul" : 0.1000000014901161,
             "guid" : "booster_global_10_13991815"
+         },
+         {
+            "bType" : "global",
+            "expMul" : 1.0,
+            "guid" : "booster_global_every_day_award_100_battle_2_14002972"
          },
          {
             "bType" : "global",
