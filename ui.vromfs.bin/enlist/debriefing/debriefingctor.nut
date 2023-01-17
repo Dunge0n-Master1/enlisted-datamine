@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { h2_txt, body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { get_log_directory, DBGLEVEL } = require("dagor.system")
 let { is_pc } = require("%dngscripts/platform.nut")
@@ -573,13 +574,13 @@ let mkSkipOrCloseBtn = @(doClose, debriefing) function() {
 
   let hasNewLevel = hasNewArmyLevel(debriefing)
   let hotkeysStr = canQuitByEsc.value
-    ? "^J:B | Space | Enter | Esc"
+    ? $"^{JB.B} | Space | Enter | Esc"
     : "^J:Y | Space | Enter"
   local btnClose
   if (isWaitAnim.value)
     btnClose = Bordered(loc("Skip"), doStopAndClose, btnCloseStyle.__merge({
       size = [SIZE_TO_CONTENT, commonBtnHeight]
-      hotkeys = [["^J:B | Esc | Space", {description = loc("Skip")}]]
+      hotkeys = [[$"^{JB.B} | Esc | Space", {description = loc("Skip")}]]
     }))
   else if (hasNewLevel)
     btnClose = PrimaryFlat(loc("newArmyLevel"), doStopAndClose, btnCloseStyle.__merge({

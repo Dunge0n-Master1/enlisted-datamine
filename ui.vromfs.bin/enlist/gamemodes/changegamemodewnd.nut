@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -510,7 +511,7 @@ let function gameModesList() {
       isTutorialsWndOpened.value ? Bordered(loc("BackBtn"), @() isTutorialsWndOpened(false), {
         vplace = ALIGN_BOTTOM
         hplace = ALIGN_LEFT
-        hotkeys = [["^J:B", {description = "", action = @() isTutorialsWndOpened(false)}]]
+        hotkeys = [[$"^{JB.B}", {description = "", action = @() isTutorialsWndOpened(false)}]]
       }) : null
     ]
   }

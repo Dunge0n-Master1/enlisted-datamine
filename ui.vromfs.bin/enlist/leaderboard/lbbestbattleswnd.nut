@@ -149,5 +149,5 @@ return @(mode) modalPopupWnd.add([sw(50), sh(20)], {
   valign = ALIGN_CENTER
   children = mkBestBattlesWnd(mode)
   popupBg = { rendObj = ROBJ_SOLID, color = Color(0, 0, 0, 140) }
-  hotkeys = [["^{0} | Esc".subst(JB.B), { action = close, description = loc("Close") }]]
+  hotkeys = [[$"^{JB.B} | Esc", { action = close, description = loc("Close") }]]
 })

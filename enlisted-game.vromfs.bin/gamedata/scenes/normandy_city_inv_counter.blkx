@@ -2666,7 +2666,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=150.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/field_headquarters"
@@ -2695,7 +2695,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=150.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/farm_house"
@@ -2756,7 +2756,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=150.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/artillery_emplacement"
@@ -2788,7 +2788,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=150.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"

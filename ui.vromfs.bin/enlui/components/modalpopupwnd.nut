@@ -78,7 +78,7 @@ local lastPopupIdx = 0
 local function add(rectOrPos, popup) {
   popup = POPUP_PARAMS.__merge(popup)
   popup.uid = popup?.uid ?? $"modal_popup_{lastPopupIdx++}"
-  popup.hotkeys = popup.hotkeys ?? [["^{0} | Esc".subst(JB.B), { action = @() remove(popup.uid), description = loc("Cancel") }]]
+  popup.hotkeys = popup.hotkeys ?? [[$"^{JB.B} | Esc", { action = @() remove(popup.uid), description = loc("Cancel") }]]
 
   let offsets = calcOffsets(rectOrPos, popup.popupFlow, popup.popupOffset, popup.popupHalign, popup.popupValign)
   addModalWindow(popup.popupBg.__merge({

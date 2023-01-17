@@ -23,7 +23,7 @@ let function trySwitchSection(sectionId) {
 
 let goToFirstSection = {
   key ="back"
-  hotkeys = [["^{0} | Esc".subst(JB.B), {
+  hotkeys = [[$"^{JB.B} | Esc", {
     action = @() trySwitchSection(sectionsSorted?[0].id)
     description = loc("BackBtn")
   }]]

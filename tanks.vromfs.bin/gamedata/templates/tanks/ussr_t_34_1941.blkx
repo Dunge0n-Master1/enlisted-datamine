@@ -1,3 +1,14 @@
+ussr_t_34_1941_07_za_voshdya_stalingrad_battlepas_premium{
+  _extends:t="ussr_t_34_1941_common"
+
+  "animchar__objTexSet:object"{
+
+    "t_34_1941_turret_c*:object"{
+      "t_34_1941_07_za_voshdya_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 ussr_t_34_1941_stalingrad{
   _extends:t="ussr_t_34_1941_common"
 }

@@ -1251,7 +1251,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1301,7 +1301,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.93523, -0.0429406, -0.216558] [0.0612023, 0.994123, 0.086515] [0.195442, -0.0987735, 0.936974] [-860.59, 17.7499, -87.5423]]
   sphere_zone__radius:r=22.0
@@ -1309,7 +1309,7 @@ entity{
   active:b=no
   capzone__decapTime:r=60000.0
   ui_order:i=3
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/trench_bunker"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1333,7 +1333,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1361,7 +1361,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1389,12 +1389,12 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_5"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=5
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barracks"
   capzone__deactivateAfterTimeout:r=25.0

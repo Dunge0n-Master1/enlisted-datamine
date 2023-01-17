@@ -40,12 +40,12 @@ let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { isOpened, curItem, RewardState, unlockToShow, combinedRewards, curItemUpdate } = require("bpWindowState.nut")
 let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 
 let progressWidth = hdpxi(174)
 let sizeBlocks    = fsh(40)
 let sizeStar      = hdpx(15)
-let bpLogoSize    = [hdpxi(90), hdpxi(90)]
 let hugePadding   = bigPadding * 4
 let cardProgressBar = progressContainerCtor(
   $"!ui/uiskin/battlepass/progress_bar_mask.svg:{progressWidth}:{progressBarHeight}:K",
@@ -273,7 +273,7 @@ let bpInfoPremPass = function() {
 
 let btnReceiveReward = @() {
   watch = [hasReward, receiveRewardInProgress]
-  hplace = ALIGN_CENTER
+  halign = ALIGN_CENTER
   children = receiveRewardInProgress.value ? spinner
     : hasReward.value ? PrimaryFlat(loc("bp/getNextReward"), receiveNextReward, {
       hotkeys = [["^J:X | Enter | Space", { skip = true }]]
@@ -284,8 +284,8 @@ let btnReceiveReward = @() {
 }
 
 let premiumPassHeader = {
-  flow = FLOW_VERTICAL
-  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
   children = [
     {
       rendObj = ROBJ_TEXT
@@ -297,21 +297,6 @@ let premiumPassHeader = {
       text = loc("bp/battlePass")
       color = titleTxtColor
     }.__update(body_txt)
-  ]
-}
-
-let buyPremiumPassHeader = @() {
-  valign = ALIGN_CENTER
-  flow = FLOW_HORIZONTAL
-  size = [flex(), SIZE_TO_CONTENT]
-  gap = bigPadding * 2
-  children = [
-    {
-      rendObj = ROBJ_IMAGE
-      size = bpLogoSize
-      image = Picture($"!ui/uiskin/battlepass/bp_logo.svg:{bpLogoSize[0]}:{bpLogoSize[1]}:K")
-    }
-    premiumPassHeader
   ]
 }
 
@@ -341,9 +326,6 @@ let function buttonsBlock() {
 
   let price = nextUnlockPrice.value
   return res.__update({
-    valign = ALIGN_BOTTOM
-    hplace = ALIGN_RIGHT
-    size = [flex(), SIZE_TO_CONTENT]
     transform = {}
     animations = [
       { prop = AnimProp.translate, from = [sizeBlocks, 0], to = [0, 0], duration = 0.2,
@@ -352,28 +334,15 @@ let function buttonsBlock() {
         easing = InOutCubic, play = true }
     ]
     margin = [0,0, hugePadding, 0]
+    flow = FLOW_VERTICAL
+    gap = bigPadding
     children = [
       btnReceiveReward
-      {
-        flow = FLOW_VERTICAL
-        halign = ALIGN_CENTER
-        valign = ALIGN_CENTER
-        hplace = ALIGN_RIGHT
-        children = [
-          hasEliteBattlePass.value || !canBuyBattlePass.value ? null : {
-            flow = FLOW_VERTICAL
-            gap = hugePadding
-            size = [btnSize[0], SIZE_TO_CONTENT]
-            children = [
-              buyPremiumPassHeader
-              btnBuyPremiumPass(loc("bp/buy"), eliteBattlePassWnd )
-            ]
-          }
-          buyUnlockInProgress.value ? spinner
-            : price && !hasReward.value ? mkBtnBuySkipStage(price)
-            : null
-        ]
-      }
+      hasEliteBattlePass.value || !canBuyBattlePass.value ? null
+        : btnBuyPremiumPass(loc("bp/buy"), eliteBattlePassWnd )
+      buyUnlockInProgress.value ? spinner
+        : price && !hasReward.value ? mkBtnBuySkipStage(price)
+        : null
     ]
   })
 }
@@ -400,6 +369,26 @@ let bpLeftBlock = {
   ]
 }
 
+let bpRightBlock = {
+  size = [SIZE_TO_CONTENT, flex()]
+  hplace = ALIGN_RIGHT
+  flow = FLOW_VERTICAL
+  halign = ALIGN_RIGHT
+  valign = ALIGN_TOP
+  gap = bigPadding
+  children = [
+    {
+      flow = FLOW_VERTICAL
+      halign = ALIGN_CENTER
+      children = [
+        premiumPassHeader
+        dynamicSeasonBPIcon(hdpx(220))
+      ]
+    }
+    buttonsBlock
+  ]
+}
+
 let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
 
 let bpWindow = @(){
@@ -411,11 +400,21 @@ let bpWindow = @(){
   children = [
     bpHeader(showingItem.value, closeButton)
     {
-      margin = [0,0,hdpx(80),0]
-      children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+      size = flex()
+      children = [
+        {
+          flow = FLOW_VERTICAL
+          children = [
+            {
+              margin = [0,0,hdpx(80),0]
+              children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+            }
+            bpLeftBlock
+          ]
+        }
+        bpRightBlock
+      ]
     }
-    bpLeftBlock
-    buttonsBlock
     bpUnlocksList
   ]
 }

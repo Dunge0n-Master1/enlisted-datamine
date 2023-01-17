@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let auth = require("auth")
+let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt, h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let defLoginCb = require("%enlist/login/login_cb.nut")
 let { startLogin } = require("%enlist/login/login_chain.nut")
@@ -91,7 +92,7 @@ let wndContent = @(){
       onClick = exitGameMsgBox
       hplace = ALIGN_RIGHT
       margin = safeAreaBorders.value[1]
-      hotkeys = [["^J:B | Esc"]]
+      hotkeys = [[$"^{JB.B} | Esc"]]
     })
     inputBlock
   ]

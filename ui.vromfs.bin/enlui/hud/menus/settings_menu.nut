@@ -252,7 +252,7 @@ let function mkSettingsMenuUi(menu_params) {
           { size=flex(), flow = FLOW_HORIZONTAL, children = menu_params?.leftButtons }
           textButton(loc("Ok"), saveAndApply(close, optionsValue), {
             hotkeys = [
-              ["^{0} | J:Start | Esc".subst(JB.B), {action=saveAndApply(closeMenu, optionsValue), description={skip=true}}],
+              [$"^{JB.B} | J:Start | Esc", {action=saveAndApply(closeMenu, optionsValue), description={skip=true}}],
             ],
             skipDirPadNav = true
           })

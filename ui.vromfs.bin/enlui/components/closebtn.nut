@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
-let {isGamepad} = require("%ui/control/active_controls.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 let { TextHighlight } = require("%ui/style/colors.nut")
 let faComp = require("%ui/components/faComp.nut")
 
@@ -11,7 +11,7 @@ let btnDefaultColor = Color(160, 160, 160, 160)
 
 let buttonParams = {
   onClick = @() null
-  hotkeys=[[$"^Esc | {JB.B}", {description=loc("Close")}]]
+  hotkeys=[[$"^{JB.B} | Esc", {description=loc("Close")}]]
   skipDirPadNav = true
   iconColor = @(sf) sf & S_ACTIVE ? btnActiveColor
     : sf & S_HOVER ? TextHighlight

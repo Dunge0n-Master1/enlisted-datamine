@@ -447,7 +447,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_21"
-  capzone__capReward:r=250.0
+  capzone__capReward:r=150.0
   capzone__capRewardPartCap:r=1.125
   capzone__alwaysHide:b=no
   capzone_timer__timeLeft:r=2700.0
@@ -518,6 +518,7 @@ entity{
   _template:t="objective_train_zone"
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_26"
+  capzone__capReward:r=150.0
   active:b=no
   capzone__narrator_zoneCaptured:t="trainAlmostWay"
   capzone__narrator_zoneCapturedMessage:t="Our train is almost there"

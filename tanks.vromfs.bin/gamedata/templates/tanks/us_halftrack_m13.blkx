@@ -1,3 +1,22 @@
+us_halftrack_m13_4th_armored_aa_pacific_battlepass_premium{
+  _extends:t="us_halftrack_m13_common"
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="us_camo_olive_drab_olive*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "halftrack_m13_body_c*:object"{
+      "halftrack_m13_4th_armored_aa_body_c*":t="camo_skin_tex"
+    }
+
+    "halftrack_m13_turret_c*:object"{
+      "halftrack_m13_4th_armored_aa_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 us_halftrack_m13_pacific{
   _extends:t="us_halftrack_m13_common"
 }

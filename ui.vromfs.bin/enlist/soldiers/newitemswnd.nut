@@ -295,7 +295,7 @@ let newItemsWnd = @() {
       halign = ALIGN_CENTER
       children = wndCanBeClosed.value
         ? textButton(loc("Ok"), tryMarkSeen, {
-            hotkeys = [["^{0} | Esc | Space | Enter".subst(JB.B), { description = loc("Close") }]]
+            hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]]
           })
         : null
     }

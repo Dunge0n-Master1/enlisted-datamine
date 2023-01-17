@@ -490,7 +490,7 @@ let UPGRADES_LIST = [
   { key = "mulCdmin", measure = "percent" }
   { key = "mulOswEffNumber", measure = "percent" }
   { key = "damageReceivedMult", measure = "percent" }
-  { key = "mulMass", measure = "percent", isPositive = false  }
+  { key = "mulMass", measure = "percent", isPositive = false, mult = -1 }
   { key = "cutProbabilityMult", measure = "percent" }
   { key = "radiatorEffMul", measure = "percent" }
   { key = "mulCompressorMaxP", measure = "percent" }

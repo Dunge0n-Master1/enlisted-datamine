@@ -96,7 +96,7 @@ let spawnButton = @(timeLeft) textButton(
 let cancelSpawnButton = @(timeLeft) textButton.Transp(
   "{0}{1}".subst(loc("pressToCancel"), timeLeft ? " ({0})".subst(timeLeft) : ""),
   cancelRequestRespawn,
-  { hotkeys = [["^{0} | Esc | @Human.Use".subst(JB.B)]], margin = 0, stateFlags = forceSpawnStateFlags, key = "cancelSpawnButton" })
+  { hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]], margin = 0, stateFlags = forceSpawnStateFlags, key = "cancelSpawnButton" })
 
 let forceSpawnButton = @(override = {}) @() {
   watch = [timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber, respRequested]

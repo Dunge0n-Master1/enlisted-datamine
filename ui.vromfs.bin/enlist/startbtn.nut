@@ -42,7 +42,7 @@ let stdQuickMatchBtnParams = {style = {BgNormal = accentColor}}.__merge(defQuick
 let mkButton = @(quickBtnText, quickMatchFn, quickMatchBtnParams) textButton(quickBtnText, quickMatchFn, quickMatchBtnParams)
 let disabledQuickMatchBtnParams = {style = {BgNormal   = BtnActionBgDisabled}}.__merge(defQuickMatchBtnParams)
 let quickMatchBtnParams = stdQuickMatchBtnParams.__merge({hotkeys = [ ["^J:Y", skip_descr] ]})
-let leaveBtnParams = defQuickMatchBtnParams.__merge({hotkeys = [ ["^{0} | Esc".subst(JB.B), skip_descr] ]})
+let leaveBtnParams = defQuickMatchBtnParams.__merge({hotkeys = [[$"^{JB.B} | Esc", skip_descr]]})
 
 let startBtnWidth = hdpx(400)
 let function quickMatchFn() {
@@ -117,7 +117,7 @@ let function mkSquadQuickMatchButton(params){
 
   let setNotReadyBtn = mkQBtn(mkButton(loc("Set not ready"),
     @() myExtSquadData.ready(false),
-    disabledQuickMatchBtnParams.__merge({ hotkeys = [ ["^J:B", skip_descr ] ] }))
+    disabledQuickMatchBtnParams.__merge({ hotkeys = [ [$"^{JB.B}", skip_descr ] ] }))
   )
   return function() {
     local btn = quickMatchBtn

@@ -5,7 +5,7 @@ let { txtColor, bgColor } = listCtors
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { statusTier, statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { txt, note, autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
-let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
+let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 
 

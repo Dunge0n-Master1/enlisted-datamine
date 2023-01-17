@@ -251,7 +251,7 @@ let actionButtons = @() {
         && lobbyStatus.value == LobbyStatus.ReadyToStart
       ? textButton("Start with local dedic", @() startSessionWithLocalDedicated(startSessionCb))
       : null,
-    textButton(loc("lobby/leaveBtn"), doLeaveRoom, {hotkeys=[["^{0} | Esc".subst(JB.B)]]}),
+    textButton(loc("lobby/leaveBtn"), doLeaveRoom, {hotkeys=[[$"^{JB.B} | Esc"]]}),
     (canOperateRoom.value
       ? textButton(loc("lobby/destroyRoomBtn"), doDestroyRoom, {hotkeys=[["^J:Y"]]})
       : null)

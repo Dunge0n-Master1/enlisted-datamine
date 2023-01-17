@@ -509,7 +509,7 @@ let function actionButtons() {
         children.append(
           textButton(loc("controls/axisSetup", "Axis setup"),
             function() { configuredAxis(cellData) },
-            { hotkeys = [["^{0}".subst(JB.A), { description = loc("controls/axisSetup") }]], skipDirPadNav = true })
+            { hotkeys = [[$"^{JB.A}", { description = loc("controls/axisSetup") }]], skipDirPadNav = true })
         )
       }
       else if (actionTypeGroup == dainput.TYPEGRP_DIGITAL) {
@@ -520,7 +520,7 @@ let function actionButtons() {
 
           textButton(loc("controls/bindBinding"),
             function() { startRecording(cellData) },
-            { hotkeys = [["^{0}".subst(JB.A), { description = loc("controls/bindBinding") }]], skipDirPadNav = true })
+            { hotkeys = [[$"^{JB.A}", { description = loc("controls/bindBinding") }]], skipDirPadNav = true })
         )
       }
     }
@@ -648,7 +648,7 @@ let function onDiscardChanges() {
 }
 
 let skipDirPadNav = { skipDirPadNav = true }
-let applyHotkeys = { hotkeys = [["^{0} | J:Start | Esc".subst(JB.B), { description={skip=true} }]] }
+let applyHotkeys = { hotkeys = [[$"^{JB.B} | J:Start | Esc", { description={skip=true} }]] }
 
 let onClose = @() showControlsMenu(false)
 
@@ -1245,7 +1245,7 @@ let function axisSetupWindow() {
       children.append(
         textButton(loc("controls/bindBinding"),
           function() { startRecording(selectedAxisCell.value) },
-          { hotkeys = [["^{0}".subst(JB.A), { description = loc("controls/bindBinding") }]] })
+          { hotkeys = [[$"^{JB.A}", { description = loc("controls/bindBinding") }]] })
         textButton(loc("controls/clearBinding"),
           function() {
             clearBinding(selectedAxisCell.value)
@@ -1256,7 +1256,7 @@ let function axisSetupWindow() {
 
     children.append(textButton(loc("mainmenu/btnOk", "OK"),
       function() { configuredAxis(null) },
-      { hotkeys = [["^{0} | J:Start | Esc".subst(JB.B), { description={skip=true} }]] }))
+      { hotkeys = [[$"^{JB.B} | J:Start | Esc", { description={skip=true} }]] }))
 
     return {
       watch = selectedAxisCell
@@ -1507,7 +1507,7 @@ let function buttonSetupWindow() {
         configuredButton(null)
       }, {
           hotkeys = [
-            ["^{0} | J:Start | Esc".subst(JB.B), { description={skip=true} }],
+            [$"^{JB.B} | J:Start | Esc", { description={skip=true} }],
           ]
       })
     ]

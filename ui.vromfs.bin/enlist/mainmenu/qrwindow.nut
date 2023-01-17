@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { h2_txt, sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {ModalBgTint, TextDefault, WindowBlur} = require("%ui/style/colors.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
@@ -70,5 +71,5 @@ return @(params, onCloseCb = null) addModalWindow({
   fillColor = ModalBgTint
   onClick = @() close(onCloseCb)
   children = qrWindow(params)
-  hotkeys = [["^J:B | Esc", { action = @() close(onCloseCb), description = loc("Cancel") }]]
+  hotkeys = [[$"^{JB.B} | Esc", { action = @() close(onCloseCb), description = loc("Cancel") }]]
 })

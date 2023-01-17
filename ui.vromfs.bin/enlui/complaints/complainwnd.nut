@@ -1,10 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let colors = require("%ui/style/colors.nut")
 let bigGap = hdpx(10)
 let { clearBorderSymbols } = require("%sqstd/string.nut")
-let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let eventbus = require("eventbus")
 let { INVALID_USER_ID } = require("matching.errors")
@@ -145,7 +146,7 @@ let function open(sessionId, userId, name) {
     fillColor = colors.ModalBgTint
     onClick = close
     children = complainWnd(sessionId, userId, name)
-    hotkeys = [["^J:B | Esc", { action = close, description = loc("Cancel") }]]
+    hotkeys = [[$"^{JB.B} | Esc", { action = close, description = loc("Cancel") }]]
   })
 }
 

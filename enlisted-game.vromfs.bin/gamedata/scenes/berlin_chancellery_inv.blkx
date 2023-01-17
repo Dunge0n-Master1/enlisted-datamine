@@ -1750,7 +1750,7 @@ entity{
   groupName:t="sector_2_a"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
   capzone__capTime:r=70.0
@@ -1775,7 +1775,7 @@ entity{
   groupName:t="sector_2_b"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/cafe"
   capzone__capTime:r=70.0
@@ -1826,7 +1826,7 @@ entity{
   groupName:t="sector_4_a"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hitlers_office"
   capzone__capTime:r=100.0

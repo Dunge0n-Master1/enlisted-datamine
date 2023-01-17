@@ -501,7 +501,7 @@ let backButton = {
   children = Bordered(loc("BackBtn"), leaveRoomConfirm, {
     margin = 0,
     size = [flex(), commonBtnHeight]
-    hotkeys = [["^Esc | {0}".subst(JB.B),
+    hotkeys = [[$"^{JB.B} | Esc",
       { action = leaveRoomConfirm , description = { skip = true } }]]
   })
 }
@@ -581,7 +581,7 @@ let cancelButton = {
   children = Bordered(loc("Cancel"), @() cancelSessionStart(), {
     margin = 0,
     size = flex()
-    hotkeys = [["^Esc | {0}".subst(JB.B),
+    hotkeys = [[$"^{JB.B} | Esc",
       { action = cancelSessionStart , description = { skip = true } }]]
   })
 }

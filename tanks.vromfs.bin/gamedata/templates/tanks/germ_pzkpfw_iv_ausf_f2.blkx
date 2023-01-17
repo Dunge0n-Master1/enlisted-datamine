@@ -1,3 +1,22 @@
+germ_pzkpfw_iv_ausf_f2_panzergrenadier_division_voronesh_stalingrad_battlepass_premium{
+  _extends:t="germ_pzkpfw_iv_ausf_f2"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dunkelgelb_green*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_iv_ausf_f_body_c*:object"{
+      "pzkpfw_iv_ausf_f_panzergrenadier_division_voronesh_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_iv_ausf_f_turret_c*:object"{
+      "pzkpfw_iv_ausf_f_panzergrenadier_division_voronesh_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 germ_pzkpfw_iv_ausf_f2{
   _extends:t="germ_pzkpfw_iv_ausf_f2_common"
 
@@ -8,6 +27,33 @@ germ_pzkpfw_iv_ausf_f2{
     part:t="ex_armor_body_l_01"
     part:t="ex_armor_body_r_01"
     part:t="ex_armor_body_r_02"
+  }
+}
+
+germ_pzkpfw_iv_ausf_f2_7th_regiment_10th_division_tunis_battlepass_premium{
+  _extends:t="germ_pzkpfw_iv_ausf_f2_tunis"
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_iv_ausf_f_body_c*:object"{
+      "pzkpfw_iv_ausf_f_7th_regiment_10th_division_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_iv_ausf_f_turret_c*:object"{
+      "pzkpfw_iv_ausf_f_7th_regiment_10th_division_turret_c*":t="camo_skin_tex"
+    }
+  }
+
+  "attach_decorators__entities:list<eid>"{
+  }
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[1.0, -0.0, 0.0] [0.0, -0.0, -1.0] [0.0, 1.0, -0.0] [-0.00111389, -1.58914, 0.0607093]]
+      template:t="german_balkenkreuz_flag_turret_decor"
+      nodeName:t="bone_turret"
+    }
   }
 }
 

@@ -8,7 +8,7 @@ let { statusBlock, taskDescription, taskHeader, taskDescPadding,
 } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { getOneReward, mkRewardIcon, prepareRewards } = require("%enlist/battlepass/rewardsPkg.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
-let { rewardIconWidth } = require("%enlist/battlePass/rewardPkg.nut")
+let { rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
 

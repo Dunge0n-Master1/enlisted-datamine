@@ -1253,9 +1253,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=110.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[0.0938255, 0.0, 1.04981] [0.0, 0.932493, 0.0] [-1.04981, 0.0, 0.0938255] [-421.249, 3.09121, 691.535]]
@@ -1283,7 +1283,7 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam2:r=70.0
-  capzone__capTimeTeam1:r=80.0
+  capzone__capTimeTeam1:r=90.0
   capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=40.0
   capzone__capTeam:i=-1
@@ -1315,9 +1315,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[35.4462, 0.0, -0.999877] [0.0, 11.1732, 0.0] [0.986714, 0.0, 35.52] [-311.066, 8.55304, 398.957]]
@@ -1335,6 +1335,37 @@ entity{
 
   "capzone__activateChoiceTeam1:object"{
     sector_2:r=1.0
+  }
+}
+
+entity{
+  _template:t="zone_bidirectional_two_chains_sphere+separate_cap_decap_time+lockable_capzone"
+  transform:m=[[2.7943, 0.0, 0.0] [0.0, 2.7943, 0.0] [0.0, 0.0, 2.7943] [-224.147, 3.49759, 289.287]]
+  capzone__alwaysShow:b=yes
+  capzone__capReward:r=250.0
+  capzone__capRewardPartCap:r=1.375
+  capzone__capTeam:i=-1
+  capzone__capTimeTeam2:r=70.0
+  capzone__capTimeTeam1:r=90.0
+  capzone__caption:t="capzone/construction"
+  capzone__icon:t="AAA"
+  capzone__iconOffsetY:r=2.0
+  capzone__lockAfterActivate:b=yes
+  capzone__unlockAfterTime:r=130.0
+  decal__height:r=1.0
+  groupName:t="sector_4"
+  ui_order:i=4
+  active:b=no
+  capzone__decapTimeTeam2:r=35.0
+  capzone__decapTimeTeam1:r=45.0
+
+  "capzone__activateChoiceTeam2:object"{
+    sector_5_b:r=1.0
+    sector_5_a:r=1.0
+  }
+
+  "capzone__activateChoiceTeam1:object"{
+    sector_3:r=1.0
   }
 }
 
@@ -2200,37 +2231,6 @@ entity{
   groupName:t="sector_4"
   team:i=2
   active:b=no
-}
-
-entity{
-  _template:t="zone_bidirectional_two_chains_sphere+separate_cap_decap_time+lockable_capzone"
-  transform:m=[[2.7943, 0.0, 0.0] [0.0, 2.7943, 0.0] [0.0, 0.0, 2.7943] [-224.147, 3.49759, 289.287]]
-  capzone__alwaysShow:b=yes
-  capzone__capReward:r=250.0
-  capzone__capRewardPartCap:r=1.375
-  capzone__capTeam:i=-1
-  capzone__capTimeTeam2:r=80.0
-  capzone__capTimeTeam1:r=80.0
-  capzone__caption:t="capzone/construction"
-  capzone__icon:t="AAA"
-  capzone__iconOffsetY:r=2.0
-  capzone__lockAfterActivate:b=yes
-  capzone__unlockAfterTime:r=130.0
-  decal__height:r=1.0
-  groupName:t="sector_4"
-  ui_order:i=4
-  active:b=no
-  capzone__decapTimeTeam2:r=40.0
-  capzone__decapTimeTeam1:r=40.0
-
-  "capzone__activateChoiceTeam2:object"{
-    sector_5_b:r=1.0
-    sector_5_a:r=1.0
-  }
-
-  "capzone__activateChoiceTeam1:object"{
-    sector_3:r=1.0
-  }
 }
 
 entity{

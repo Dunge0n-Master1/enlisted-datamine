@@ -1,3 +1,13 @@
+uk_sherman_ii_a_squadron_2nd_dragoons_tunis_battlepass_premium{
+  _extends:t="uk_sherman_ii_common"
+
+  "animchar__objTexReplace:object"{
+    "sherman_ii_body_c*":t="sherman_ii_a_squadron_2nd_dragoons_body_c*"
+    "sherman_ii_gun_c*":t="sherman_ii_a_squadron_2nd_dragoons_gun_c*"
+    "sherman_ii_turret_c*":t="sherman_ii_a_squadron_2nd_dragoons_turret_c*"
+  }
+}
+
 uk_sherman_ii_tunis{
   _extends:t="uk_sherman_ii_common"
 

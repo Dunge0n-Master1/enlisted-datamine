@@ -157,7 +157,7 @@ let function inputBox() {
             showChatInput(false)
           }
           hotkeys = [
-            [$"Esc | {JB.B}", function() {
+            [$"^{JB.B} | Esc", function() {
               chatState.outMessage("")
               showChatInput(false)
             }, "Close chat"]

@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let mkPieMenuDarg = require("%ui/components/mkPieMenuBase.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -10,7 +11,7 @@ let { HUD_TIPS_HOTKEY_FG } = require("%ui/hud/style.nut")
 let function locAction(action) {
   return loc($"controls/{action}", action)
 }
-let closeHotkey = "^Esc | J:B"
+let closeHotkey = $"^{JB.B} | Esc"
 
 let isCurrent = @(sf, curIdx, idx) (sf & S_HOVER) || curIdx == idx
 

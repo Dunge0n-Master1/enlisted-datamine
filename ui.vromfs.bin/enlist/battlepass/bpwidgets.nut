@@ -23,6 +23,7 @@ let { hasEliteBattlePass } = require("eliteBattlePass.nut")
 let { sound_play } = require("sound")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 
 
@@ -151,7 +152,13 @@ let function mkWidgetInfo(sf) {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         padding = taskSlotPadding
+        gap = bigPadding
         children = [
+          {
+            hplace = ALIGN_CENTER
+            vplace = ALIGN_CENTER
+            children = dynamicSeasonBPIcon(hdpx(42))
+          }
           {
             flow = FLOW_VERTICAL
             size = [flex(), SIZE_TO_CONTENT]

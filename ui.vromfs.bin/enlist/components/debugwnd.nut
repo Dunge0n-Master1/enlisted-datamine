@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {copy_to_clipboard} = require("dagor.clipboard")
+let JB = require("%ui/control/gui_buttons.nut")
+let { copy_to_clipboard } = require("dagor.clipboard")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { tostring_r, utf8ToLower } = require("%sqstd/string.nut")
 let { startswith, endswith } = require("string")
@@ -222,7 +223,7 @@ let function openDebugWnd(tabs, wndUid = "debugWnd", filterText = defFilterText)
     fillColor = Color(0,0,0,220)
     onClick = close
     children = debugShopWnd(tabs, curTab, filterText)
-    hotkeys = [["^J:B | Esc", { action = close, description = loc("Cancel") }]]
+    hotkeys = [[$"^{JB.B} | Esc", { action = close, description = loc("Cancel") }]]
   })
 }
 

@@ -528,7 +528,6 @@ let viewItemMoveVariants = Computed(function() {
       || item.guid == ""
       || item?.isZeroHidden
       || item?.isFixed
-      || (item?.sign ?? 0) != 0
       || (item?.unlocklevel ?? -1) < 0)
     return []
 

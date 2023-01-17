@@ -54,6 +54,7 @@ local weaponToAnimState = freeze({
   hamada_type_1_gun =          standardPistol
   hamada_type_2_gun =          standardPistol
   enfield_p14_gun =            [i(9), i(11), i(13), i(14), i(15), i(16), i(18)]
+  lad_mg_gun=                  [ i(12), i(13), i(16) ]
 
   mosin_m38_gun =              standardRifle
   stl_mosin_m38_gun =          standardRifle
@@ -107,6 +108,7 @@ local weaponToAnimState = freeze({
   m1903a4_springfield_gun =  [i(9), i(12), i(15), i(18)]
   mp_34_jp_gun =  [i(13), i(14), i(15), i(18)]
   type_97_antitank_canon_gun = [i(6), i(7), i(16)]
+  ppt_27_gun = [i(14), i(18)]
 
 
 
@@ -125,6 +127,7 @@ local weaponToAnimState = freeze({
   m1903_springfield_gun =      specificGun
   m1_garand_gun =              [i(9), i(12), i(13), i(14), i(15), i(16), i(17), i(18)]
   arisaka_type_99_long_gun =   [i(9), i(12), i(16), i(18)]
+  nambu_type_1_early_smg_gun = [i(18)]
   m1c_garand_gun =             [i(9), i(12), i(13), i(14), i(15), i(16), i(17), i(18), i(20)]
   m1_carbine_gun =             [i(9), i(11), i(12), i(14), i(16), i(18)]
   m1a2_carbine_gun =           [i(9), i(14), i(16), i(18)]
@@ -178,6 +181,7 @@ local weaponToAnimState = freeze({
   nambu_type_1_smg_gun =       [i(18)]
   austen_gun =                  [i(13), i(15), i(16)]
   fedorov_mg_gun =             [i(9), i(16)]
+  lanchester_model_1_gun =     [i(10), i(24)]
   m1903a1_springfield_usmc_gun = [i(9), i(11), i(12), i(13), i(14), i(15), i(16), i(18)]
   mkb_42_w_gun =               [i(9), i(12), i(16), i(18)]
   type_100_smg_late_gun =      [i(9), i(14), i(15)]
@@ -219,6 +223,7 @@ local weaponToAnimState = freeze({
   ppd_3438_box_gun =           [i(9), i(11), i(13), i(15), i(16)]
   sig_1920_gun =               [i(13), i(14), i(15), i(16)]
   ppd_34_gun =                 [i(9), i(11), i(13), i(15)]
+  coenders_mp_gun =            [i(13), i(18), i(20)]
   stl_ppd_3438_box_gun =       [i(9), i(11), i(13), i(15), i(16)]
   ppd_40_gun =                 [i(9), i(11), i(13), i(15), i(16)]
   ppd_40_dv_gun =              [i(13), i(15)]

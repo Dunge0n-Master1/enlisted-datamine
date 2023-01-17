@@ -286,7 +286,7 @@ let leftHeaderBlock = {
   gap = colFull(1)
   hplace = ALIGN_LEFT
   children = [
-    Bordered(loc("bp/close"), applyAndClose, { hotkeys = [["^{0} | Esc".subst(JB.B)]] })
+    Bordered(loc("bp/close"), applyAndClose, { hotkeys = [[$"^{JB.B} | Esc"]] })
     {
       rendObj = ROBJ_TEXT
       text = loc("squadManagement")

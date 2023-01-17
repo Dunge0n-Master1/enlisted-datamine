@@ -122,7 +122,7 @@ let open = @() addModalWindow({
   color = blurBgColor
   children = notReadySquadMsg
   onClick = close
-  hotkeys = [[$"^Esc | {JB.B}", { description = loc("Close") }]]
+  hotkeys = [[$"^{JB.B} | Esc", { description = loc("Close") }]]
 })
 
 needShow.subscribe(@(v) v ? open() : removeModalWindow(WND_UID))

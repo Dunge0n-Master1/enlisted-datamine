@@ -111,8 +111,8 @@ let function gameMenu() {
 
     hotkeys = [
       ["@HUD.GameMenu", {action=closeMenu description=skip}],
-      ["^{0} | J:Start".subst(JB.B), {action=closeMenu description=loc("BackBtn")}],
-      ["^{0} | Enter | Space".subst(JB.A), {action=activateCurrent description=skip}],
+      [$"^{JB.B} | J:Start", {action=closeMenu description=loc("BackBtn")}],
+      [$"^{JB.A} | Enter | Space", {action=activateCurrent description=skip}],
       ["^Up | J:D.Up", {action =@() goToNext(-1) description = skip}],
       ["^Down | J:D.Down", {action =@() goToNext(1) description= skip}],
     ]

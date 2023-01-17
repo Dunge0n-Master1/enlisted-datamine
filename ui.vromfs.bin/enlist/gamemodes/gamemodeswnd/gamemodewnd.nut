@@ -90,7 +90,7 @@ let close = function(){
 }
 
 
-let backBtn = Bordered(loc("gamemenu/btnBack"), close, { hotkeys = [["^{0} | Esc".subst(JB.B)]] })
+let backBtn = Bordered(loc("gamemenu/btnBack"), close, { hotkeys = [[$"^{JB.B} | Esc"]] })
 let topBlock = {
   size = [flex(), navHeight]
   valign = ALIGN_CENTER

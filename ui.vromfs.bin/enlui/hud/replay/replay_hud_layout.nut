@@ -770,7 +770,7 @@ let advancedSettingsWnd = {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
   onClick = @() null
-  hotkeys = [["^{0} | Esc".subst(JB.B), @() isAdvancedSettingsActive(false)]]
+  hotkeys = [[$"^{JB.B} | Esc", @() isAdvancedSettingsActive(false)]]
   onAttach = saveDefaultSettings
   children = makeVertScroll(
     {

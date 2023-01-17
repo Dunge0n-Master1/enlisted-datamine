@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { defTxtColor, soldierWndWidth, bigPadding, titleTxtColor, smallPadding,
   blurBgColor, blurBgFillColor, maxContentWidth, slotBaseSize, commonBtnHeight
@@ -124,7 +125,7 @@ let function purchaseBtnBlock(){
   }
   let btnsBlock = [
     Flat(loc("BackBtn"), closePurchaseWnd, {
-      hotkeys = [["^Esc | J:B"]]
+      hotkeys = [[$"^{JB.B} | Esc"]]
     })
   ]
 

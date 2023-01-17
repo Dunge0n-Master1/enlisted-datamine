@@ -59,8 +59,8 @@ entity{
 entity{
   _template:t="team_germany_berlin+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2250.0
-  team__score:r=2250.0
+  team__scoreCap:r=2350.0
+  team__score:r=2350.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -84,7 +84,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/train"
   capzone__deactivateAfterTimeout:r=25.0
@@ -108,12 +108,12 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/crossroads"
   capzone__deactivateAfterTimeout:r=25.0
@@ -136,7 +136,7 @@ entity{
   capzone__caption:t="capzone/apartments"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__capTime:r=50.0
   capzone__capTeam:i=-1
@@ -162,10 +162,10 @@ entity{
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=2
   ui_order:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/artillery_emplacement"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -191,7 +191,7 @@ entity{
   capzone__caption:t="capzone/station_restaurant"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -218,7 +218,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -249,7 +249,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/station"
   capzone__deactivateAfterTimeout:r=25.0
@@ -269,7 +269,7 @@ entity{
   capzone__caption:t="capzone/ticket_offices"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=500.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__capTime:r=60.0
   capzone__capTeam:i=-1

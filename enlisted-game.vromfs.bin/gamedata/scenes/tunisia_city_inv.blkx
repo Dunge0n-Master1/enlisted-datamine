@@ -1109,7 +1109,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_1_b"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1139,12 +1139,12 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_2_a"
-  capzone__capTime:r=110.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -1167,10 +1167,10 @@ entity{
   groupName:t="sector_2_b"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=110.0
+  capzone__capTime:r=90.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1254,7 +1254,7 @@ entity{
   groupName:t="sector_4_a"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=350.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
   capzone__capTime:r=100.0
@@ -1288,7 +1288,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=350.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
   capzone__deactivateAfterTimeout:r=25.0

@@ -41,7 +41,7 @@ let styling = {
     ]
   }
   moveMouseCursor = isGamepad
-  closeKeys = "Esc | {0}".subst(JB.B)
+  closeKeys = $"{JB.B} | Esc"
   leftKeys = "L.Shift Tab | R.Shift Tab"
   rightKeys = "Tab"
   activateKeys = "Space | Enter"

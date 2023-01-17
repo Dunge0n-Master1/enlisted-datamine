@@ -434,7 +434,7 @@ let mkCustomizationList = @(curCustType, content, onlyOwned = null) {
             }
             descLocId = "Close"
             hotkey = "Esc"
-            gpadHotkey = "J:B"
+            gpadHotkey = JB.B
             override = {
               size = [hdpx(36), hdpx(36)]
               padding = smallPadding
@@ -721,7 +721,7 @@ let mkUseDecalBlock = @(applyCb, cancelModeCb, padding) {
       onClick = cancelModeCb
       descLocId = "Close"
       hotkey = "Esc"
-      gpadHotkey = "J:B"
+      gpadHotkey = JB.B
       hasHotkeyHint = true
     })
   ]
@@ -762,7 +762,7 @@ let mkUseDecorBlock = @(applyCb, cancelModeCb, padding) {
       onClick = cancelModeCb
       descLocId = "Close"
       hotkey = "Esc"
-      gpadHotkey = "J:B"
+      gpadHotkey = JB.B
       hasHotkeyHint = true
     })
   ]

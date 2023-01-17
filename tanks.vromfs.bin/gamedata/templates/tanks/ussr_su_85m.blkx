@@ -1,3 +1,14 @@
+ussr_su_85m_20_years_berlin_battlepass_premium{
+  _extends:t="ussr_su_85m_common"
+
+  "animchar__objTexSet:object"{
+
+    "su_85m_body_c*:object"{
+      "su_85m_20_years_body_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 ussr_su_85m{
   _extends:t="ussr_su_85m_common"
 }

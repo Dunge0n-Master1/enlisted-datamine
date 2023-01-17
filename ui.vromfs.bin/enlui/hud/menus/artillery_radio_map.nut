@@ -326,7 +326,7 @@ let function artilleryMap() {
     animations = mapRootAnims
     hotkeys = [
       [ "Esc", closeMapDesc],
-      [ "^{0}".subst(JB.B), closeMapDesc],
+      [ $"^{JB.B}", closeMapDesc],
       [ "@HUD.BigMap", closeMapDesc ],
     ]
   }

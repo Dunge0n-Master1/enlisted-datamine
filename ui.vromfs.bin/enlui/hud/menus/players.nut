@@ -17,7 +17,7 @@ let closebutton = fontIconButton("close", {
   onClick = close
   margin = hdpx(8)
   hplace = ALIGN_RIGHT
-  hotkeys = [["^{0}".subst(JB.B), {description={skip=true}}]]
+  hotkeys = [[$"^{JB.B}", {description={skip=true}}]]
   padding = 0
 })
 

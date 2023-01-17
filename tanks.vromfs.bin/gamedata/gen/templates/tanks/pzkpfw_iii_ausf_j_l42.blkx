@@ -22,10 +22,10 @@ base_pzkpfw_iii_ausf_j_l42{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mortar_flame_01"
-    node:t="emtr_mortar_flame_02"
-    node:t="emtr_mortar_flame_03"
-    node:t="emtr_mortar_flame_04"
-    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
@@ -52,10 +52,10 @@ base_pzkpfw_iii_ausf_j_l42{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
     node:t="emtr_mortar_flame_01"
-    node:t="emtr_mortar_flame_02"
-    node:t="emtr_mortar_flame_03"
-    node:t="emtr_mortar_flame_04"
-    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -214,7 +214,7 @@ pzkpfw_iii_ausf_j_l42_turret_03_66mm_germ_smoke_candle_launcher{
 
 pzkpfw_iii_ausf_j_l42_turret_04_66mm_germ_smoke_candle_launcher{
   _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
-  gun__shootNodeName:t="emtr_mortar_flame_02"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
 
   "gun__shellsAmmo:array"{
     ammo:i=1
@@ -223,7 +223,7 @@ pzkpfw_iii_ausf_j_l42_turret_04_66mm_germ_smoke_candle_launcher{
 
 pzkpfw_iii_ausf_j_l42_turret_05_66mm_germ_smoke_candle_launcher{
   _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
-  gun__shootNodeName:t="emtr_mortar_flame_03"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
 
   "gun__shellsAmmo:array"{
     ammo:i=1
@@ -232,7 +232,7 @@ pzkpfw_iii_ausf_j_l42_turret_05_66mm_germ_smoke_candle_launcher{
 
 pzkpfw_iii_ausf_j_l42_turret_06_66mm_germ_smoke_candle_launcher{
   _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
-  gun__shootNodeName:t="emtr_mortar_flame_04"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
 
   "gun__shellsAmmo:array"{
     ammo:i=1
@@ -241,7 +241,7 @@ pzkpfw_iii_ausf_j_l42_turret_06_66mm_germ_smoke_candle_launcher{
 
 pzkpfw_iii_ausf_j_l42_turret_07_66mm_germ_smoke_candle_launcher{
   _extends:t="tankgun_66mm_germ_smoke_candle_launcher"
-  gun__shootNodeName:t="emtr_mortar_flame_05"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
 
   "gun__shellsAmmo:array"{
     ammo:i=1

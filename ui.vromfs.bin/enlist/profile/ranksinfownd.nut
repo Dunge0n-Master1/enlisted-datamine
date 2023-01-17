@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
+let JB = require("%ui/control/gui_buttons.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { playerRank, rankUnlock } = require("%enlist/profile/rankState.nut")
 let { mkSeasonTime } = require("%enlist/battlepass/rewardsPkg.nut")
@@ -8,8 +9,7 @@ let { timeLeft } = require("%enlist/battlepass/bpState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { h2_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  bigPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
+let { bigPadding, smallPadding, idleBgColor, accentTitleTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
@@ -183,7 +183,7 @@ let rankToolTip = {
         {
           hplace = ALIGN_RIGHT
           margin = 0
-          hotkeys = [["^J:B | Esc", { description = loc("BackBtn") } ]]
+          hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]
         }
       )
     ]

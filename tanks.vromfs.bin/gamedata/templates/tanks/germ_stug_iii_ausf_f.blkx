@@ -1,8 +1,31 @@
+germ_stug_iii_ausf_f_16_stalingrad_battlepas_premium{
+  _extends:t="germ_stug_iii_ausf_f_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dark_grey*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "stug_iii_ausf_f_body_c*:object"{
+      "stug_iii_ausf_f_16_body_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 germ_stug_iii_ausf_f_stalingrad{
   _extends:t="germ_stug_iii_ausf_f"
 }
 
 germ_stug_iii_ausf_f{
+  _extends:t="germ_stug_iii_ausf_f_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_winter_grey*"
+  }
+}
+
+germ_stug_iii_ausf_f_common{
   _extends:t="base_stug_iii_ausf_f"
   _extends:t="tank_panzer3_engine_sound"
 
@@ -26,10 +49,6 @@ germ_stug_iii_ausf_f{
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"
-  }
-
-  "animchar__objTexReplace:object"{
-    "ger_camo_grey*":t="ger_camo_winter_grey*"
   }
 
   "vehicle_seats__seats:shared:array"{

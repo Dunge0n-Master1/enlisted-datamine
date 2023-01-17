@@ -32,6 +32,7 @@ let { curArmyReserve, curArmyReserveCapacity } = require("%enlist/soldiers/model
 let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let { mkBpIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 
 const MAX_CLASSES_USAGE = 4
 let PRICE_HEIGHT = hdpx(48)
@@ -323,12 +324,19 @@ let function getMaxCount(shopItem) {
     : 99
 }
 
+// fast temporary solution
+let function mkSeasonBpIcon(shopItem){
+  let { offerGroup = null } = shopItem
+  return  offerGroup != "weapon_battlepass_group" ? null
+    : mkBpIcon()
+}
+
 let function mkShopItemTitle(
   shopItem, crateContent, itemTemplates, showDiscount, countWatched = null
 ) {
   let { armyId = null, content = {} } = crateContent?.value
   local shopIcon
-
+  local seasonBpIcon = mkSeasonBpIcon(shopItem)
   let itemsList = extractItems(crateContent) ?? []
   if (itemsList.len() == 1) {
     let { itemtype = null, itemsubtype = null } = itemTemplates.value?[armyId][itemsList[0]]
@@ -363,6 +371,7 @@ let function mkShopItemTitle(
         vplace = ALIGN_BOTTOM
         children = [
           shopIcon
+          seasonBpIcon
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL

@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt, giant_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { sound_play } = require("sound")
 let { bigPadding, titleTxtColor, strokeStyle, accentTitleTxtColor
@@ -124,7 +125,7 @@ let function mkNewSquadButtons(squadId) {
         : Bordered(loc("squads/later"), closeAndKeepLevel, {
             size = btnSizeBig
             margin = 0
-            hotkeys = [[ "^J:B | Esc", { description = {skip = true}} ]]
+            hotkeys = [[ $"^{JB.B} | Esc", { description = {skip = true}} ]]
           })
     ]
     transform = {}

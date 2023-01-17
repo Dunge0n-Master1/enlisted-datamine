@@ -203,7 +203,7 @@ let mkTransferCost = @(selVariant, missOrders, costCfg) @() {
     : costAvailable(costCfg.value.orderTpl, costCfg.value.orderRequire)
 }
 
-let exitHotkeys = { hotkeys = [["^Esc | {0}".subst(JB.B), { description = { skip = true }}]] }
+let exitHotkeys = { hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true }}]] }
 
 let mkButtons = @(item, selVariant, costCfg, missOrders) function() {
   local children = []

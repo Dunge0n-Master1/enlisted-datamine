@@ -72,7 +72,7 @@ let function openMenu(event, content) {
     popupOffset = hdpx(5)
     popupHalign = ALIGN_RIGHT
     popupBg
-    hotkeys = [["^J:Start | {0} | Esc".subst(JB.B), { action = close, description = loc("Cancel") }]]
+    hotkeys = [[$"^J:Start | {JB.B} | Esc", { action = close, description = loc("Cancel") }]]
   })
 }
 

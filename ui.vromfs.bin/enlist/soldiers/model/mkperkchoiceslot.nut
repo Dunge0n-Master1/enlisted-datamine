@@ -1,18 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  perkChoiceWndParams, perksData, choosePerk, showActionError
+let JB = require("%ui/control/gui_buttons.nut")
+let { perkChoiceWndParams, perksData, choosePerk, showActionError
 } = require("%enlist/soldiers/model/soldierPerks.nut")
-let {
-  mkText, perkIcon, flexTextArea, getStatDescList,
-  mkPerkCostChildren
+let { mkText, perkIcon, flexTextArea, getStatDescList, mkPerkCostChildren
 } = require("%enlist/soldiers/components/perksPackage.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let { sound_play } = require("sound")
-let {
-     defTxtColor, gap, bigPadding, activeBgColor, perkBigIconSize, defBgColor
-  } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, gap, bigPadding, activeBgColor, perkBigIconSize, defBgColor
+} = require("%enlSqGlob/ui/viewConst.nut")
 let textButton = require("%ui/components/textButton.nut")
 
 
@@ -54,7 +51,7 @@ let function applyButton(selectedPerk, hasPrevPerk, hovered){
   let btnActiveColor = 0xfa0982ca
   let btnStateFlag = Watched(0)
 
-  let btnHotkeys = [[ "^J:A | Enter",{
+  let btnHotkeys = [[ $"^{JB.A} | Enter", {
     action = onChoose
     description = { skip = true }
     sound="click"

@@ -101,7 +101,7 @@ let leaveQuickMatchButton = btnCtor(loc("Leave queue"), @() leaveQueue(),
   {
     bgStyle = leaveMatchBgStyle
     txtStyle = leaveMatchTxtStyle
-    hotkeys = [["^{0} | Esc".subst(JB.B), @() leaveQueue()]]
+    hotkeys = [[$"^{JB.B} | Esc", @() leaveQueue()]]
   })
 
 let function mkJoinQuickMatchButton(cb = null) {
@@ -173,7 +173,7 @@ let quickMatchBtn = btnCtor(loc("START"), checkSquadCampaignAndJoinQuickMatch,
     {
       bgStyle = leaveMatchBgStyle
       txtStyle = leaveMatchTxtStyle
-      hotkeys = [ ["^{0}".subst(JB.B) ] ]
+      hotkeys = [[$"^{JB.B}" ]]
     })
 
 

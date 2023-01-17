@@ -48,7 +48,7 @@ return function(textComp, params, handler, group, sf){
         gamepadBtn
         textComp.__merge({margin = 0}, fontStyle)
         activeKB ? {
-            hotkeys = [["^{0}".subst(JB.A),{action=handler}]]
+            hotkeys = [[$"^{JB.A}",{action=handler}]]
             group
           } : null
       ]

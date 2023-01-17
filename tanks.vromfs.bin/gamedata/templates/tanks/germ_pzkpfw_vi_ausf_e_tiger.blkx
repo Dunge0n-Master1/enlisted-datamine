@@ -1,3 +1,22 @@
+germ_pzkpfw_vi_ausf_e_tiger_ervin_tarczay_berlin_battlepass_premium{
+  _extends:t="germ_pzkpfw_VI_ausf_E_tiger_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_dunkelgelb*":t="ger_camo_tiger*"
+  }
+
+  "animchar__objTexSet:object"{
+
+    "pzkpfw_VI_ausf_E_tiger_body_c*:object"{
+      "pzkpfw_VI_ausf_E_tiger_ervin_tarczay_body_c*":t="camo_skin_tex"
+    }
+
+    "pzkpfw_VI_ausf_E_tiger_turret_c*:object"{
+      "pzkpfw_VI_ausf_E_tiger_ervin_tarczay_turret_c*":t="camo_skin_tex"
+    }
+  }
+}
+
 germ_pzkpfw_VI_ausf_E_tiger{
   _extends:t="germ_pzkpfw_VI_ausf_E_tiger_common"
 

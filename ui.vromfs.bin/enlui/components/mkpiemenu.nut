@@ -35,8 +35,8 @@ let cfgByAmount = {
 let function locAction(action){
   return loc($"controls/{action}", action)
 }
-let activateHotkey = "^{0}".subst(JB.A)
-let closeHotkey = "^Esc | {0}".subst(JB.B)
+let activateHotkey = $"^{JB.A}"
+let closeHotkey = $"^{JB.B} | Esc"
 
 let isCurrent = @(sf, curIdx, idx) (sf & S_HOVER) || curIdx == idx
 

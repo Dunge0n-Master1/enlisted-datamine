@@ -102,7 +102,7 @@ let sectionsHotkeys = @() {
   children = curSection.value != getActiveSections()?[0].id
     ? {
         key ="back"
-        hotkeys = [["^{0} | Esc".subst(JB.B), {
+        hotkeys = [[$"^{JB.B} | Esc", {
           action = @() trySwitchSection(@() setCurSection(getActiveSections()?[0].id))
           description = loc("BackBtn")
         }]]

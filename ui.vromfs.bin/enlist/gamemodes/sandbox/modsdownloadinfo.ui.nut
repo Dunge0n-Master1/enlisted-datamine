@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
 let { WindowTransparent } = require("%ui/style/colors.nut")
@@ -45,7 +46,7 @@ let closeButton = Bordered(loc("Ok"),
   btnStyle.__merge({
     hplace = ALIGN_CENTER
     vplace = ALIGN_BOTTOM
-    hotkeys = [["^J:B | Enter | Space | Esc", { skip = true }]]
+    hotkeys = [[$"^{JB.B} | Enter | Space | Esc", { skip = true }]]
   })
 )
 

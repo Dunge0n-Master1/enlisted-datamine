@@ -6,17 +6,19 @@ let { smallPadding, bigPadding, defTxtColor, titleTxtColor, startBtnWidth, colPa
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { hasReward, currentProgress, nextUnlock
-} = require("%enlist/battlePass/bpState.nut")
-let { getOneReward, mkRewardIcon, rewardIconWidth } = require("%enlist/battlePass/rewardPkg.nut")
-let { openBPwindow } = require("%enlist/battlePass/bpWindowState.nut")
-let { timeTracker } = require("%enlist/battlePass/battlePassPkg.nut")
+} = require("%enlist/battlepass/bpState.nut")
+let { getOneReward, mkRewardIcon, rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
+let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
+let { timeTracker } = require("%enlist/battlepass/battlePassPkg.nut")
 let { rewardAnimBg, taskLabelSize } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
-let { hasEliteBattlePass } = require("%enlist/battlePass/eliteBattlePass.nut")
+let { hasEliteBattlePass } = require("%enlist/battlepass/eliteBattlePass.nut")
 let { sound_play } = require("sound")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
+
 
 
 let defTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
@@ -166,12 +168,21 @@ let mkWidgetInfo = @(sf) {
     {
       size = flex()
       flow = FLOW_HORIZONTAL
-      gap = { size = flex() }
+      gap = bigPadding
       valign = ALIGN_CENTER
       padding = [smallPadding, 0, smallPadding, bigPadding]
       children = [
-        titleBpBlock(sf)
-        rewardBpBlock
+        dynamicSeasonBPIcon(colPart(0.85))
+        {
+          size = flex()
+          flow = FLOW_HORIZONTAL
+          valign = ALIGN_CENTER
+          gap = { size = flex() }
+          children = [
+            titleBpBlock(sf)
+            rewardBpBlock
+          ]
+        }
       ]
     }
   ]

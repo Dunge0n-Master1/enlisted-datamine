@@ -2583,8 +2583,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2100.0
+  team__score:r=2100.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2633,7 +2633,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/artillery_emplacement"
@@ -2662,7 +2662,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/warehouse"
@@ -2691,7 +2691,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/bunker"

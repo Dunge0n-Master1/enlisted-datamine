@@ -486,7 +486,7 @@ let gameBtnHgt = calc_comp_size(selectModBtn)[1]
 
 let urlToManifestComp = textInput(urlToManifest, {placeholder = loc("URL of manifest")})
 
-let closeRoomBtn = textButton(loc("Close"), function() {showCreateRoom.update(false)}, {hotkeys=[["^{0} | Esc".subst(JB.B)]]})
+let closeRoomBtn = textButton(loc("Close"), function() {showCreateRoom.update(false)}, {hotkeys=[[$"^{JB.B} | Esc"]]})
 let createRoomBtn = textButton(loc("Create"), doCreateRoom, {hotkeys=[["^J:X"]]})
 
 let function createRoomWnd() {

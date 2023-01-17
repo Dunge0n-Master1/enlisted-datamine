@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { fontXXLarge, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { colFull, panelBgColor, midPadding, smallPadding, accentColor, titleTxtColor,
   colPart, topWndBgColor, bottomWndBgColor, defVertGradientImg, hoverVertGradientImg
@@ -193,7 +194,7 @@ let function mkCampaignInfo() {
       toggleButtonsShowing()
     }
     hotkeys = !showExpandedButtons.value ? []
-      : [["^Esc | J:B", { action = toggleButtonsShowing}]]
+      : [[$"^{JB.B} | Esc", { action = toggleButtonsShowing}]]
     hplace = ALIGN_CENTER
     children = [
       bottomBlock(sf)

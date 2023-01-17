@@ -197,6 +197,16 @@ poster_ticket_7{
   }
 }
 
+poster_ticket_8{
+  _extends:t="item_supply_ticket"
+  item__name:t="items/wallposter_battlepass_order"
+
+  "animchar__objTexReplace:object"{
+    "ammunition_supply_bronze_tex_d*":t="agit_poster_enlisted_battlepass_f_tex_d*"
+    "ammunition_supply_tex_n*":t="agit_poster_enlisted_battlepass_f_tex_n*"
+  }
+}
+
 event_ticket{
   _extends:t="item_supply_ticket"
 

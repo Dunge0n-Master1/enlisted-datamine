@@ -8,10 +8,12 @@ let {
   bigPadding, smallPadding, rowBg, disabledTxtColor, smallOffset, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
+let { staticSeasonBPIcon } = require("%enlist/battlepass/battlePassPkg.nut")
 
 
 let wpSize = hdpxi(190)
 let wpHeaderWidth = hdpxi(150)
+let iconSize = hdpx(60)
 
 let mkText = @(text, style) {
   rendObj = ROBJ_TEXT
@@ -30,7 +32,7 @@ let mkTextArea = @(text, style) {
 let mkTitleColumn = @(text) {
   size = [wpHeaderWidth, SIZE_TO_CONTENT]
   halign = ALIGN_RIGHT
-  children = mkText(text, sub_txt.__merge({ color = disabledTxtColor }))
+  children = mkText(text, { color = disabledTxtColor }.__update(sub_txt))
 }
 
 let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false)
@@ -47,27 +49,40 @@ let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false)
       }
     : null
 
-let mkLimit = @(armyId, campaignTitle) {
-  size = flex()
-  flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  children = [
-    { size = [wpHeaderWidth, 0] }
-    {
-      size = flex()
-      flow = FLOW_VERTICAL
-      valign = ALIGN_BOTTOM
-      children = [
-        {
-          rendObj = ROBJ_SOLID
-          size = [pw(50), hdpx(1)]
-          color = borderColor(0)
-        }
-        mkText(loc(armyId), body_txt.__merge({ color = disabledTxtColor }))
-        mkText(loc(campaignTitle), sub_txt.__merge({ color = disabledTxtColor }))
-      ]
-    }
-  ]
+let function mkWpBottomRow(wallposter) {
+  let { armyId, campaignTitle, bpSeason = null, icon = null } = wallposter
+  return {
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_HORIZONTAL
+    gap = bigPadding
+    children = [
+      {
+        size = [wpHeaderWidth, SIZE_TO_CONTENT]
+        halign = ALIGN_RIGHT
+        children = icon != null
+          ? {
+              rendObj = ROBJ_IMAGE
+              size = [iconSize, iconSize]
+              image = Picture($"{icon}:{iconSize.tointeger()}:{iconSize.tointeger()}:K?Ac")
+            }
+          : bpSeason == null ? null : staticSeasonBPIcon(bpSeason, iconSize)
+      }
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        valign = ALIGN_BOTTOM
+        children = [
+          {
+            rendObj = ROBJ_SOLID
+            size = [pw(50), hdpx(1)]
+            color = borderColor(0)
+          }
+          mkText(loc(armyId), { color = disabledTxtColor }.__update(body_txt))
+          mkText(loc(campaignTitle), { color = disabledTxtColor }.__update(sub_txt))
+        ]
+      }
+    ]
+  }
 }
 
 let mkWallposterImg = @(img, hasReceived, isHovered, wpImgSize) {
@@ -81,9 +96,7 @@ let mkWallposterImg = @(img, hasReceived, isHovered, wpImgSize) {
 }
 
 let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
-  let {
-    armyId, campaignTitle, hasReceived, isHidden, img, nameLocId, descLocId, hintLocId
-  } = wallposter
+  let { hasReceived, isHidden, img, nameLocId, descLocId, hintLocId } = wallposter
   let isHovered = sf & S_HOVER
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -105,7 +118,7 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
               { size = [flex(), smallOffset] }
               mkWpRow(descLocId, loc("wp/desc"), sub_txt, true)
               mkWpRow(hintLocId, loc("wp/toToGet"), sub_txt, true)
-              mkLimit(armyId, campaignTitle)
+              mkWpBottomRow(wallposter)
             ]
           }
           isHidden ? exclamation().__update({ hplace = ALIGN_RIGHT }) : null

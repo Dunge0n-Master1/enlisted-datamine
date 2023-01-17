@@ -163,19 +163,19 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/gold_weapons.png"
     cardImageParams = mkImageParams([144, 170], [0, 17])
     specialRewards = {
-      [8] = {
-        normandy_allies = "m1e5_garand"
-        normandy_axis = "mkb_42_w"
-        berlin_allies = "ppsh_40"
-        berlin_axis = "mkb_42_w"
+      [9] = {
+        normandy_allies = "lanchester_model_1"
+        normandy_axis = "coenders_mp"
+        berlin_allies = "lad_mg"
+        berlin_axis = "coenders_mp"
         moscow_allies = "ppsh_40"
         moscow_axis = "mkb_42_w"
-        tunisia_allies = "sw_light_rifle_mk_2"
-        tunisia_axis = "beretta_m1918_30"
+        tunisia_allies = "lanchester_model_1"
+        tunisia_axis = "scotti_model_x"
         stalingrad_allies = "ppsh_40"
         stalingrad_axis = "mkb_42_w"
-        pacific_allies = "m1e5_garand"
-        pacific_axis = "type_hei_rifle_extended"
+        pacific_allies = "lanchester_model_1"
+        pacific_axis = "nambu_type_1_early_smg"
       }
     }
   },
@@ -904,6 +904,15 @@ let rewardsPresentation = {
     icon = "ui/uiskin/currency/portrait_order_event.svg"
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
+  ["382"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_8"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.png"
+    cardImage = "ui/skin#/battlepass/posters.png"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
   },
 
 

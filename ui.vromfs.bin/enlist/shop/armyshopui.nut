@@ -246,7 +246,7 @@ let mkGroupBtn = @(groupItem, isLast, hasHotkey) isLast
         textMargin = fsh(1)
         borderWidth = [0,0,hdpx(1),0]
         hotkeys = !hasHotkey ? null
-          : [["^{0} | Esc".subst(JB.B), {
+          : [[$"^{JB.B} | Esc", {
               action = function() {
                 setCurArmyShopFolder(groupItem?.offerContainer)
                 shopScroll.scrollToY(0)

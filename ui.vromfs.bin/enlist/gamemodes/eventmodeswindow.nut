@@ -368,7 +368,7 @@ let endedEventMsgbox = @() showMsgbox({
 
 let leaveQueueButton = textButton(loc("Leave queue"), @() leaveQueue(),
   defQuickMatchBtnParams
-    .__merge({ hotkeys = [ ["^{0} | Esc".subst(JB.B), { description = { skip = true }}] ]}))
+    .__merge({ hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true }}]]}))
 
 let mkBattleButton = @(text, onClick) textButton(text, onClick,
   defQuickMatchBtnParams
@@ -426,13 +426,13 @@ let setNotReadyBtn = textButton(loc("Set not ready"),
   @() myExtSquadData.ready(false),
   defQuickMatchBtnParams.__merge({
     style = { BgNormal = BtnActionBgDisabled }
-    hotkeys = [ ["^J:B", { description = { skip = true } }] ] }))
+    hotkeys = [[$"^{JB.B}", { description = { skip = true } }]] }))
 
 let pressWhenReadyBtn = textButton(loc("Press when ready"),
   @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)),
   defQuickMatchBtnParams.__merge({
     style = { BgNormal = accentColor },
-    hotkeys = [ ["^J:Y", { description = { skip = true } }] ] }))
+    hotkeys = [["^J:Y", { description = { skip = true } }]] }))
 
 let toEventBattleButton = @() {
   watch = [isInQueue, selEvent, isInSquad, isSquadLeader, curLbIdx,
@@ -683,7 +683,7 @@ let function eventsContent(){
     maxWidth = maxContentWidth
     hplace = ALIGN_CENTER
     gap = bigPadding
-    hotkeys = [["^Esc | {0}".subst(JB.B),
+    hotkeys = [[$"^{JB.B} | Esc",
       { action = @() isEventModesOpened(false), description = loc("Close") }]]
     transform = {}
     animations = menuContentAnimation

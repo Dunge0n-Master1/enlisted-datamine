@@ -41,6 +41,11 @@ let wpPresentation = freeze({
   wallposter_battlepass_season_7_preview = {
     img = "agit_poster_enlisted_battlepass_e_tex_d*"
   }
+  wallposter_battlepass_season_8_preview = {
+    img = "agit_poster_enlisted_battlepass_f_tex_d*"
+    bpSeason = 9
+    // OR icon = "ui/uiskin/battlepass/bp_seasons/myPicture.svg"
+  }
   agit_poster_ussr_a_preview = {
     img = "agit_poster_ussr_a_tex_d*"
   }

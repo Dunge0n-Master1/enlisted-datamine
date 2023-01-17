@@ -37,7 +37,7 @@ let { openUpgradeItemMsg, openDisposeItemMsg
 } = require("%enlist/soldiers/components/modifyItemComp.nut")
 let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 } = require("%enlist/shop/armyShopState.nut")
-let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
+let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 

@@ -1,17 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 from "%enlist/gameModes/createEventRoomState.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let getMissionInfo = require("%enlist/gameModes/getMissionInfo.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { sub_txt, body_txt, h0_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let {
-  addModalWindow, removeModalWindow
-} = require("%ui/components/modalWindows.nut")
-let {
-  tinyOffset, smallOffset, smallPadding, defInsideBgColor,
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
+let { tinyOffset, smallOffset, smallPadding, defInsideBgColor,
   activeBgColor, idleBgColor, defBgColor, defTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 
@@ -205,7 +203,7 @@ let windowParams = {
 
 let closeButton = textButton(loc("Cancel"), @() removeModalWindow(WND_UID), {
   hplace = ALIGN_CENTER
-  hotkeys = [["^J:B | Esc"]]
+  hotkeys = [[$"^{JB.B} | Esc"]]
 })
 
 let openSaveWindow = @() addModalWindow({

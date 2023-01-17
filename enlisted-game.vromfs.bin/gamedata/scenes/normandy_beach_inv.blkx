@@ -1774,7 +1774,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=700.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/beach_bunker"
@@ -1803,7 +1803,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=700.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/beach_bunker"
@@ -1834,7 +1834,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=700.0
   capzone__icon:t="AAA"
   capzone__progress:r=0.0
   capzone__caption:t="capzone/beach_bunker"

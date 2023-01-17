@@ -1505,8 +1505,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2250.0
-  team__score:r=2250.0
+  team__scoreCap:r=2350.0
+  team__score:r=2350.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1544,7 +1544,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam1:r=70.0
+  capzone__capTimeTeam1:r=60.0
   capzone__capTimeTeam2:r=80.0
   capzone__decapTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=40.0
@@ -1574,7 +1574,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
-  capzone__capTimeTeam1:r=70.0
+  capzone__capTimeTeam1:r=60.0
   capzone__capTimeTeam2:r=80.0
   capzone__decapTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=40.0
@@ -1607,7 +1607,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=110.0
-  capzone__capTimeTeam1:r=70.0
+  capzone__capTimeTeam1:r=60.0
   capzone__capTimeTeam2:r=80.0
   capzone__decapTimeTeam1:r=30.0
   capzone__decapTimeTeam2:r=40.0

@@ -76,7 +76,7 @@ let openMenu = @(event, content) modalPopupWnd.add(event.targetRect, {
     image = wndGradient
   }
   hotkeys = [[
-    "^J:Start | {0} | Esc".subst(JB.B),
+    $"^J:Start | {JB.B} | Esc",
     { action = @() close(), description = loc("Cancel") }
   ]]
   children = content

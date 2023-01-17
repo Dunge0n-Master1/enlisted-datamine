@@ -10,7 +10,7 @@ let mkItemLevelData = require("%enlist/soldiers/model/mkItemLevelData.nut")
 let { blur, mkItemDescription, mkVehicleDetails, mkItemDetails, mkUpgrades, BASE_COLOR
 } = require("itemDetailsPkg.nut")
 let { configs } = require("%enlist/meta/configs.nut")
-let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
+let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { inventoryItems } = require("%enlist/soldiers/model/selectItemState.nut")
 

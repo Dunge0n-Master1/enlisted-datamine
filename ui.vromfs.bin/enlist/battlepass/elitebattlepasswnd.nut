@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let {body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let { Flat } = require("%ui/components/textButton.nut")
@@ -21,6 +22,7 @@ let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 let circuitConf = require("app").get_circuit_conf()
 let linkToOpen = circuitConf?.battlePassUrl
@@ -206,7 +208,7 @@ let btnBlock = {
             : btnBuyPremiumPass(loc("bp/Purchase"), action)
           Flat(loc("bp/close"), @() isOpened(false), {
             size = btnSize,
-            hotkeys = [["^J:B", { description = { skip = true }}]]
+            hotkeys = [[$"^{JB.B}", { description = { skip = true }}]]
           })
         ]}
     }
@@ -218,24 +220,34 @@ let btnBlock = {
 
 let eliteBattlePassWnd = @(){
   size = flex()
-  valign = ALIGN_BOTTOM
-  hplace = ALIGN_CENTER
   watch = [safeAreaBorders, showingItem, isOpened]
   padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
-  flow = FLOW_VERTICAL
   children = [
-    bpHeader(showingItem.value, closeButton, !isOpened.value)
     {
-      size = [flex(), titleAndDescriptionBlockHeight]
-      gap = localGap
+      hplace = ALIGN_RIGHT
+      margin = [hdpx(150), hdpx(100)]
+      children = dynamicSeasonBPIcon(hdpx(220))
+    }
+    {
+      size = flex()
       flow = FLOW_VERTICAL
+      hplace = ALIGN_CENTER
+      valign = ALIGN_BOTTOM
       children = [
-        bpTitle(true, hdpx(100))
-        mkDescription(loc("bp/description"))
+        bpHeader(showingItem.value, closeButton, !isOpened.value)
+        {
+          size = [flex(), titleAndDescriptionBlockHeight]
+          gap = localGap
+          flow = FLOW_VERTICAL
+          children = [
+            bpTitle(true, hdpx(100))
+            mkDescription(loc("bp/description"))
+          ]
+        }
+        cardsBlock
+        btnBlock
       ]
     }
-    cardsBlock
-    btnBlock
   ]
 }
 

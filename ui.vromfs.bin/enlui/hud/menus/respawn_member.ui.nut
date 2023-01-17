@@ -168,7 +168,7 @@ let memberRespawn = @() panel(
     hotkeys = [
       ["^Right | J:D.Right", @() changeRespawn(-1)],
       ["^Left | J:D.Left",  @() changeRespawn(1)],
-      ["^Enter| {0}".subst(JB.A), @() forceRespawn()]
+      [$"^Enter| {JB.A}", @() forceRespawn()]
     ].extend(array(10).map(@(_, n)
       [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]
     ))

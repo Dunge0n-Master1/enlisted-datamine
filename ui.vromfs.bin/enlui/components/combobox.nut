@@ -162,10 +162,7 @@ let function comboStyle(style_params) {
       size = flex()
       behavior = Behaviors.Button
       onClick
-      hotkeys = [["^Esc | {0}".subst(JB.B)]]
-      //rendObj = ROBJ_FRAME
-      //borderWidth = 1
-      //color = Active
+      hotkeys = [[$"^{JB.B} | Esc"]]
     }
   }
 

@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let faComp = require("%ui/components/faComp.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(60) })
 let { debounce } = require("%sqstd/timers.nut")
@@ -13,33 +14,25 @@ let { withTooltip } = require("%ui/style/cursors.nut")
 let { getCratesListComp } = require("%enlist/soldiers/model/cratesContent.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
-let {
-  titleTxtColor, smallPadding, commonBtnHeight, bigPadding, smallOffset,
+let { titleTxtColor, smallPadding, commonBtnHeight, bigPadding, smallOffset,
   defBgColor, defTxtColor, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { h0_txt, h1_txt, h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
-let {
-  dailyRewardsUnlock, receiveDayReward, dailyRewardsCrates, calcRewardCfg,
+let { dailyRewardsUnlock, receiveDayReward, dailyRewardsCrates, calcRewardCfg,
   isReceiveDayRewardInProgress, receivedDailyReward, getStageRewardsData,
   gotoNextStageOrClose, curBoosteredDailyTask, imitateCrateReward,
   getCurLoginUnlockStage
 } = require("dailyRewardsState.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
-let {
-  progressBarHeight, completedProgressLine, acquiredProgressLine,
-  progressContainerCtor
+let { progressBarHeight, completedProgressLine, acquiredProgressLine, progressContainerCtor
 } = require("%enlist/components/mkProgressBar.nut")
-let {
-  mkRewardCardByPresentanion, mkAppearAnim, mkRollAnim, sizeCard,
-  mkRewardCardByTemplate, animTrigger, mkMoveDownAnim,
-  mkBoosterItemsView, wndParams
+let { mkRewardCardByPresentanion, mkAppearAnim, mkRollAnim, sizeCard,
+  mkRewardCardByTemplate, animTrigger, mkMoveDownAnim, mkBoosterItemsView, wndParams
 } = require("dailyRewardsPkg.nut")
 let { clampStage } = require("%enlSqGlob/unlocks_utils.nut")
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
-let {
-  mkRewardImages, rewardWidthToHeight
-} = require("%enlist/battlepass/rewardsPkg.nut")
+let { mkRewardImages, rewardWidthToHeight } = require("%enlist/battlepass/rewardsPkg.nut")
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkUnlockSlot } = require("mkUnlockSlot.nut")
@@ -299,7 +292,7 @@ let dailyRewardsHeader = {
 
 let btnParams = {
   size = btnSize
-  hotkeys = [["^J:A | Enter | Space | Esc", { description = { skip = true }} ]]
+  hotkeys = [[$"^{JB.A} | Enter | Space | Esc", { description = { skip = true }} ]]
   margin = 0
 }
 

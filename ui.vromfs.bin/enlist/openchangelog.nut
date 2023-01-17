@@ -16,13 +16,13 @@ let close = @() isOpened(false)
 let open = @() isOpened(true)
 
 let gap = hdpx(10)
-let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote, {hotkeys=[["^{0}".subst(JB.B)]], margin=0})
-let btnClose = textButton(loc("mainmenu/btnClose"), close, {hotkeys=[["^{0}".subst(JB.B)]], margin=0})
+let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote, {hotkeys=[[$"^{JB.B}"]], margin=0})
+let btnClose = textButton(loc("mainmenu/btnClose"), close, {hotkeys=[[$"^{JB.B}"]], margin=0})
 let closeBtn = fontIconButton("close", {
   skipDirPadNav = true
   onClick = close
   hplace = ALIGN_RIGHT
-  hotkeys=[["^Esc | {0}".subst(JB.B), {description=loc("Close")}]]
+  hotkeys=[[$"^{JB.B} | Esc", {description=loc("Close")}]]
 })
 
 let function nextButton(){

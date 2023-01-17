@@ -1173,6 +1173,26 @@ ppk_42_magazine{
   collres__res:t="m1928a1_thompson_ammo_collision"
 }
 
+lad_mg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="lad_mg"
+  collres__res:t="lad_mg_collision"
+}
+
+lad_mg_drum_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mg_42_handheld_ammo_char"
+  item__template:t="lad_mg_drum_magazine"
+  item__proto:t="lad_mg_drum_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="lad_mg_drum_magazine"
+  ammo_holder__ammoCount:i=150
+  item__weight:r=2.0
+  item__volume:r=1.0
+  item__name:t="items/lad_mg_drum_magazine"
+  collres__res:t="mg_42_handheld_ammo_collision"
+}
+
 pdm_42_gun_item{
   _extends:t="item_gun"
   _extends:t="pdm_42"
@@ -3480,6 +3500,12 @@ lanchester_50_round_magazine{
   item__volume:r=0.5
   item__name:t="items/lanchester_50_round_magazine"
   collres__res:t="lanchester_50_round_ammo_collision"
+}
+
+lanchester_model_1_gun_item{
+  _extends:t="item_gun"
+  _extends:t="lanchester_model_1"
+  collres__res:t="lanchester_model_1_collision"
 }
 
 mp34o_gun_item{
@@ -6716,6 +6742,26 @@ mp_40_1_gun_item{
   collres__res:t="mp_40_1_collision"
 }
 
+coenders_mp_gun_item{
+  _extends:t="item_gun"
+  _extends:t="coenders_mp"
+  collres__res:t="august_coenders_belt_fed_mg_collision"
+}
+
+coenders_mp_drum_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mg_42_handheld_ammo_char"
+  item__template:t="coenders_mp_drum_magazine"
+  item__proto:t="coenders_mp_drum_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="coenders_mp_drum_magazine"
+  ammo_holder__ammoCount:i=100
+  item__weight:r=2.0
+  item__volume:r=1.0
+  item__name:t="items/coenders_mp_drum_magazine"
+  collres__res:t="mg_42_handheld_ammo_collision"
+}
+
 erma_emp_44_gun_item{
   _extends:t="item_gun"
   _extends:t="erma_emp_44"
@@ -7172,6 +7218,12 @@ nambu_type_1_smg_gun_item{
   _extends:t="item_gun"
   _extends:t="nambu_type_1_smg"
   collres__res:t="nambu_type_1_collision"
+}
+
+nambu_type_1_early_smg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_1_early_smg"
+  collres__res:t="nambu_type_1_early_collision"
 }
 
 nambu_type_1_smg_magazine{

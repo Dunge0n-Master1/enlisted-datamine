@@ -93,7 +93,7 @@ let spawnButton = @(timeLeft) Bordered(
 let cancelSpawnButton = @(timeLeft) Bordered(
   "{0}{1}".subst(loc("pressToCancel"), timeLeft ? " ({0})".subst(timeLeft) : ""),
   cancelRequestRespawn,
-  { hotkeys = [["^{0} | Esc | @Human.Use".subst(JB.B)]] })
+  { hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]] })
 
 let forceSpawnButton = @() {
   watch = [timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber, respRequested]

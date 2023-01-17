@@ -46,7 +46,7 @@ if (platform.is_sony) {
 }
 
 let customStyleA = {hotkeys=[["^J:X | Enter | Space", {description={skip=true}}]]}
-let customStyleB = {hotkeys=[["^Esc | {0}".subst(JB.B), {description={skip=true}}]]}
+let customStyleB = {hotkeys=[[$"^{JB.B} | Esc", {description={skip=true}}]]}
 
 let function show(version, filePath, decisionCb) {
   if (version == NO_VERSION || filePath == null) {

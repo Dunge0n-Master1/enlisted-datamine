@@ -17,7 +17,7 @@ let {
   unseenSquadsVehicle, markVehicleSeen
 } = require("%enlist/vehicles/unseenVehicles.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let mkSpecialItemIcon = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
+let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")

@@ -1170,7 +1170,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -1219,7 +1219,7 @@ entity{
   groupName:t="sector_3_a"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/old_reich_chancellery"
   capzone__capTime:r=60.0
@@ -1243,7 +1243,7 @@ entity{
   groupName:t="sector_3_b"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/apartments"
   capzone__capTime:r=60.0
@@ -1267,7 +1267,7 @@ entity{
   groupName:t="sector_3_c"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/banquet_hall"
   capzone__capTime:r=60.0

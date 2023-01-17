@@ -2153,7 +2153,7 @@ entity{
   active:b=no
   capzone__decapTime:r=600.0
   ui_order:i=0
-  capzone__capReward:r=1000.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/bridge"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2179,7 +2179,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/village_house"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -2208,7 +2208,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/village_house"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__deactivateAfterTimeout:r=25.0
@@ -2239,7 +2239,7 @@ entity{
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=600.0
-  capzone__capReward:r=1000.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/bunker"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2265,11 +2265,11 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=600.0
-  capzone__capReward:r=1000.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/bunker"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2295,11 +2295,11 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_4_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=600.0
-  capzone__capReward:r=1000.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
   capzone__deactivateAfterTimeout:r=25.0
@@ -2328,7 +2328,7 @@ entity{
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=600.0
-  capzone__capReward:r=1000.0
+  capzone__capReward:r=600.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/barn"
   capzone__deactivateAfterTimeout:r=25.0

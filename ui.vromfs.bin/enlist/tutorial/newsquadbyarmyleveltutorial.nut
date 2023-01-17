@@ -354,7 +354,7 @@ let function startTutorial() {
       {
         id = "w3s7_final"
         text = loc("tutorial_meta_squad_menu_leave")
-        textCtor = mkMessageCtorWithGamepadIcons(["J:B"])
+        textCtor = mkMessageCtorWithGamepadIcons([JB.B])
         objects = [{ keys = "closeSquadsManage", hotkey = $"^{JB.B}", needArrow = true }]
         onFinish = applyAndClose
       }

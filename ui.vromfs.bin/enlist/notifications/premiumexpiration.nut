@@ -74,7 +74,7 @@ let function showExpiringWarn() {
         text = loc("Cancel")
         isCurrent = true
         isCancel = true
-        customStyle = { hotkeys = [["^{0} | Esc".subst(JB.B)]] }
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })
@@ -96,7 +96,7 @@ let function showExpiredWarn(){
         text = loc("Cancel")
         isCurrent = true
         isCancel = true
-        customStyle = { hotkeys = [["^{0} | Esc".subst(JB.B)]] }
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

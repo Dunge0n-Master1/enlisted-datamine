@@ -67,7 +67,7 @@ let function mkShortDebriefing(debriefing){
       }
     ]
 
-    hotkeys = [["^{0} | @HUD.GameMenu | Esc".subst(JB.B), {action = closeAction, description={skip=true}}]]
+    hotkeys = [[$"^{JB.B} | @HUD.GameMenu | Esc", {action = closeAction, description={skip=true}}]]
 
     transform = {pivot = [0.5, 0.25]}
     animations = animations

@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt, h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { modPath, receivedModInfos, requestModManifest, deleteMod, hasBeenUpdated
 } = require("customMissionState.nut")
@@ -42,7 +43,7 @@ let closeButton = Bordered(loc("BackBtn"), function(){
   removeModalWindow(WND_UID)
 }, btnStyle.__merge({
   vplace = ALIGN_BOTTOM
-  hotkeys = [["^J:B | Esc", { description = { skip = true }}]]
+  hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true }}]]
   pos = [0, commonBtnHeight * 0.5]
 }))
 
@@ -100,7 +101,7 @@ let urlInputBlock = @(){
         sceneName("")
       }, btnStyle.__merge({
         isEnabled = sceneName.value != ""
-        hotkeys = isInputFocused.value ? [["^J:A | Enter", { skip = true }]] : null
+        hotkeys = isInputFocused.value ? [[$"^{JB.A} | Enter", { skip = true }]] : null
       }))
   ]
 }

@@ -416,7 +416,7 @@ stable{
 }
 
 enceladus{
-  disableVisualLog:b=yes
+  disableVisualLog:b=no
   disableVromsAutoUpdate:b=no
   environment:t="staging"
   chanceOfFatalOnLogerrOnExit:i=0
