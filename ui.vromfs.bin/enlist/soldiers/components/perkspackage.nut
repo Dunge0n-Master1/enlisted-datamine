@@ -14,7 +14,7 @@ let {
   allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
-let perksStats = require("%enlist/meta/perks/perksStats.nut")
+let { perksStatsCfg, classesConfig, fallBackImage } = require("%enlist/meta/perks/perksStats.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -117,16 +117,16 @@ local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, change
   }
 }
 
-let function perkIcon(perk, iconSize, iconColor = Color(220,220,220)) {
+let perkIcon = @(perk, iconSize, iconColor = Color(220,220,220)) function() {
   let size = iconSize.tointeger()
   let statClassMask = (perk?.stats ?? {}).keys()
-    .reduce(@(res, statId) res | (perksStats.stats?[statId]?.stat_class ?? 0), 0)
+    .reduce(@(res, statId) res | (perksStatsCfg.value?[statId]?.stat_class ?? 0), 0)
   return {
+    watch = perksStatsCfg
     size = [size, size]
     rendObj = ROBJ_IMAGE
-    image = Picture("{0}:{1}:{1}:K".subst(
-      perksStats.classesConfig?[statClassMask].image ?? perksStats.fallBackImage,
-      size))
+    image = Picture("{0}:{1}:{1}:K"
+      .subst(classesConfig?[statClassMask].image ?? fallBackImage, size))
     color = iconColor
   }
 }
@@ -185,16 +185,16 @@ let function mkPerkCostShort(perk, isUnavailable, statType, style = {}) {
   }.__merge(style)
 }
 
-let function getStatDescList(perk, isUnavailable = false) {
+let function getStatDescList(perkStatsTable, perk, isUnavailable = false) {
   let res = []
   let stats = perk?.stats ?? {}
   foreach (statId, statValue in stats) {
     let locId = $"stat/{statId}/desc"
     if (!doesLocTextExist(locId))
       continue
-    let value = statValue * (perksStats.stats?[statId]?.base_power ?? 0.0)
+    let value = statValue * (perkStatsTable?[statId].base_power ?? 0.0)
     let statValueText = math.round_by_value(value, 0.1)
-      + (perksStats.stats?[statId]?.power_type ?? "")
+      + (perkStatsTable?[statId].power_type ?? "")
     res.append(loc(locId, {
       value = isUnavailable ? statValueText : colorize(colors.MsgMarkedText, statValueText)
     }))
@@ -218,8 +218,8 @@ let getPerkItemsText = @(armyId, items)
   items.len() == 0 ? ""
     : $" {loc("perks/itemsInfo", { items = ", ".join(getPerkItems(armyId, items)) })}"
 
-let mkPerkDesc = @(armyId, perk)
-  "{0}{1}".subst(", ".join(getStatDescList(perk)), getPerkItemsText(armyId, perk?.items ?? []))
+let mkPerkDesc = @(perksStatsTable, armyId, perk) "{0}{1}".subst(", "
+  .join(getStatDescList(perksStatsTable, perk)), getPerkItemsText(armyId, perk?.items ?? []))
 
 let defIconCtor = @(iconSettings) perkIcon(iconSettings.perk, iconSettings.iconSize,
                                               iconSettings?.color)
@@ -234,14 +234,15 @@ let recommendedPerkIcon = {
   image = Picture($"!ui/uiskin/thumb.svg:{thumbIconSize}:{thumbIconSize}:K")
 }
 
-let function perkUi(armyId, perkId, customStyle = {}, params = {}){
-  let perk = perksList?[perkId]
+let perkUi = @(armyId, perkId, customStyle = {}, params = {}) function() {
   let {
     isRecommended, isUnavailable = false, iconSize = perkIconSize, iconCtor = defIconCtor
   } = params
+
+  let perk = perksList.value?[perkId]
   let textParams = {
     text = perk != null
-      ? mkPerkDesc(armyId, perk)
+      ? mkPerkDesc(perksStatsCfg.value, armyId, perk)
       : loc("choose_new_perk")
     color = !perk ? titleTxtColor : isUnavailable ? PERK_UNAVAILABLE_COLOR : defTxtColor
     halign = customStyle?.halign ?? ALIGN_LEFT
@@ -251,6 +252,7 @@ let function perkUi(armyId, perkId, customStyle = {}, params = {}){
   let statType = isUnavailable ? perk?.cost.keys()[0] : ""
   let iconSettings = {perk, iconSize, isUnavailable, statType, customStyle}
   return {
+    watch = [perksStatsCfg, perksList]
     key = perk
     size = [flex(), iconSize]
     flow = FLOW_HORIZONTAL
@@ -269,7 +271,7 @@ let function perkUi(armyId, perkId, customStyle = {}, params = {}){
   }.__update(customStyle)
 }
 
-let function perkCardBg(slotNumber, cb = null, params = {})  {
+let function perkCardBg(slotNumber, cb = null, params = {}, children = null)  {
   let stateFlags = Watched(0)
   return @() {
     watch = stateFlags
@@ -287,20 +289,30 @@ let function perkCardBg(slotNumber, cb = null, params = {})  {
       : BG_DARKEN
     borderColor = activeBgColor
     borderWidth = [0, 0, stateFlags.value & S_HOVER ? 1 : 0, 0]
+    children = children
   }.__update(params)
 }
 
 let perkCard = kwarg(
-  @(armyId, perkData, slotNumber = 0, cb = null, customStyle = {})
-    perksList?[perkData.perkId] == null ? null
-    : perkCardBg(slotNumber, cb,
-      perkUi(armyId, perkData.perkId, customStyle, {
-        isSelected = perkData?.isSelected ?? false
-        isUnavailable = !(perkData?.isAvailable ?? true)
-        iconCtor = priceIconCtor
-        isRecommended = perkData?.recommended ?? false
-      })
-    ))
+  @(armyId, perkData, slotNumber = 0, cb = null, customStyle = {}) function() {
+    if (perksList.value?[perkData.perkId] == null)
+      return { watch = perksList }
+    return {
+      watch = perksList
+      size = [flex(), SIZE_TO_CONTENT]
+      children = perkCardBg(slotNumber, cb, customStyle, perkUi(
+        armyId,
+        perkData.perkId,
+        customStyle,
+        {
+          isSelected = perkData?.isSelected ?? false
+          isUnavailable = !(perkData?.isAvailable ?? true)
+          iconCtor = priceIconCtor
+          isRecommended = perkData?.recommended ?? false
+        }
+      ))
+    }
+})
 
 let function uniteEqualPerks(perks) {
   let perksCount = {}
@@ -383,7 +395,6 @@ return {
   perkPointCostText
   usedPerkPoints
   mkPerksPointsBlock
-  mkPerkCardPromo = @(armyId, perkId) perkUi(armyId, perkId)
   mkPerkDesc
   thumbIconSize
   perkUi

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let serverConfigs = require("%enlist/meta/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 
 const RECOMMENDED_PERKS_COUNT = 5
 
@@ -22,20 +22,10 @@ let classesConfig = {
   [CLASSES.VITALITY | CLASSES.WEAPON | CLASSES.SPEED] = { image = "ui/skin#perks/perk_vitality_speed_battleskill.svg"}
 }
 
-
-let stats = persist("stats", @() {})
-serverConfigs.configs.subscribe(
-  function(v) {
-    let perkStats = v?.perks?.stats
-    if (perkStats == null)
-      return
-
-    stats.clear()
-    stats.__update(perkStats)
-})
+let perksStatsCfg = Computed(@() configs.value?.perks.stats ?? {})
 
 return {
-  stats
+  perksStatsCfg
   classesConfig
   fallBackImage = classesConfig[CLASSES.NONE]
   RECOMMENDED_PERKS_COUNT

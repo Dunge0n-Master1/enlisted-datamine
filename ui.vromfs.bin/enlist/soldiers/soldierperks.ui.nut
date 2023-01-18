@@ -9,6 +9,7 @@ let { smallPadding, bigPadding, perkIconSize, defTxtColor, titleTxtColor,
   soldierWndWidth, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
 let { perksData, getPerkPointsInfo, getTierAvailableData,
   getNoAvailPerksText, showPerksChoice, buySoldierLevel, useSoldierLevelupOrders, dropPerk
 } = require("model/soldierPerks.nut")
@@ -64,16 +65,15 @@ let choosePerkRow  = @(slotIdx, icon, locId, onClick = null) perkCardBg(slotIdx,
   flow = FLOW_HORIZONTAL
   gap = smallPadding
   padding = smallPadding
-  children = [
-    {
-      size = [perkIconSize, perkIconSize]
-      children = icon
-    }
-    mkTextArea(loc(locId)).__update({
-      color = titleTxtColor
-    })
-  ]
-})
+}, [
+  {
+    size = [perkIconSize, perkIconSize]
+    children = icon
+  }
+  mkTextArea(loc(locId)).__update({
+    color = titleTxtColor
+  })
+])
 
 let useSoldierLevelOrdersMsg = @(perks, tier, ordersToNextLevel, barterData, onSlotClick)
   confirmBarterMsgBox({
@@ -212,20 +212,18 @@ let mkNextLevelBlock = kwarg(@(perks, tier, tierAvailableData, onSlotClick) func
   return {
     watch = [isCurCampaignProgressUnlocked, perkLevelsGrid, curCampItems, disablePerkReroll]
     size = [flex(), SIZE_TO_CONTENT]
-    children = perkCardBg(slotNumber++, onPressCb, {
-        children = [
-          mkTextArea(isSuccess ? getNoAvailPerksText(perks) : errorText).__update({
-            size = [pw(80), SIZE_TO_CONTENT]
-            halign = ALIGN_CENTER
+    children = perkCardBg(slotNumber++, onPressCb, slotBgStyle, [
+      mkTextArea(isSuccess ? getNoAvailPerksText(perks) : errorText).__update({
+        size = [pw(80), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
+      })
+      isUnavailable ? null
+        : barterData || !isCurCampaignProgressUnlocked.value ? mkItemCurrency({
+            currencyTpl = orderTpl
+            count = ordersRequire
           })
-          isUnavailable ? null
-            : barterData || !isCurCampaignProgressUnlocked.value ? mkItemCurrency({
-                currencyTpl = orderTpl
-                count = ordersRequire
-              })
-            : mkLevelCurrency(perks)
-        ]
-      }.__update(slotBgStyle))
+        : mkLevelCurrency(perks)
+    ])
   }
 })
 
@@ -303,10 +301,10 @@ let tierUi = @(armyId, tierIdx, tier, perks, onSlotClick) {
 }
 
 let mkPerksListBtn = @(soldier) @() {
-  watch = curArmy
+  watch = [curArmy, perksList, perksData]
   hplace = ALIGN_RIGHT
   children = textButton.SmallFlat(loc("possible_perks_list"),
-    @() openAvailablePerks(curArmy.value, perksData.value?[soldier?.guid]),
+    @() openAvailablePerks(perksList.value, curArmy.value, perksData.value?[soldier?.guid]),
     { margin = 0, padding = [bigPadding, 2 * bigPadding] })
   }
 
@@ -507,7 +505,7 @@ local prevPerkPointsData = null;
 let function mkPerksPoints(soldierGuid) {
   let perkPointsInfoWatch = Computed(function() {
     let perks = perksData.value?[soldierGuid]
-    return perks == null ? null : getPerkPointsInfo(perks)
+    return perks == null ? null : getPerkPointsInfo(perksList.value, perks)
   })
   local prev = {}
   if (prevPerkPointsData?.guid != soldierGuid){

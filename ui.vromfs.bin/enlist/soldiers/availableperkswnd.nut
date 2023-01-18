@@ -123,21 +123,15 @@ let mkPerksList = @(armyId, perks){
   })
 }
 
-let function mkTierPossiblePerks(armyId, tier, pointsInfo) {
-  let perks = clone tier.perks
-  tier.slots.each(@(perkId) removeOnce(perks, perkId))
-  if (!perks.len())
-    return null
-
-  let paramsList = uniteEqualPerks(perks)
+let function splitPerksByType(paramsList, perksListVal, tierPerks, pointsInfo) {
   paramsList.each(function(p) {
     p.totalCost <- 0
     p.isAvailable <- true
     p.costMask <- 0
-    let index = tier.perks.indexof(p.perkId) ?? RECOMMENDED_PERKS_COUNT
+    let index = tierPerks.indexof(p.perkId) ?? RECOMMENDED_PERKS_COUNT
     if (index < RECOMMENDED_PERKS_COUNT)
       p.recommended <- true
-    let perkCost = perksList?[p.perkId].cost ?? {}
+    let perkCost = perksListVal?[p.perkId].cost ?? {}
     p.type <- perkCost.keys()?[0] ?? "other"
     foreach (idx, pPointId in pPointsList) {
       let cost = perkCost?[pPointId] ?? 0
@@ -162,21 +156,37 @@ let function mkTierPossiblePerks(armyId, tier, pointsInfo) {
       typedPerks[idxToAppend].append(perk)
   })
 
-  return {
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    children = [
-      tierTitle(tier)
-      mkPerksList(armyId, typedPerks)
-    ]
-}}
+  return typedPerks
+}
 
-let function openAvailablePerks(armyId, sPerks) {
+let function mkTierPossiblePerks(armyId, tier, pointsInfo) {
+  let perks = clone tier.perks
+  tier.slots.each(@(perkId) removeOnce(perks, perkId))
+  if (!perks.len())
+    return null
+  let paramsList = uniteEqualPerks(tier.perks)
+
+  return function() {
+    let typedPerks = splitPerksByType(paramsList, perksList.value, tier.perks, pointsInfo)
+
+    return {
+      watch = perksList
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      children = [
+        tierTitle(tier)
+        mkPerksList(armyId, typedPerks)
+      ]
+    }
+  }
+}
+
+let function openAvailablePerks(perksListTable, armyId, sPerks) {
   let tiers = sPerks?.tiers ?? []
   if (!tiers.len())
     return
 
-  let pointsInfo = getPerkPointsInfo(sPerks)
+  let pointsInfo = getPerkPointsInfo(perksListTable, sPerks)
   let content = tiers.map(@(t) mkTierPossiblePerks(armyId, t, pointsInfo))
     .filter(@(c) c != null)
   open(content, loc("possible_perks_list/desc"))

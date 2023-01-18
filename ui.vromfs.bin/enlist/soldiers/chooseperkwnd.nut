@@ -15,6 +15,8 @@ let { kindIcon, levelBlock} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { curCampSoldiers, curArmy } = require("model/state.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let { RECOMMENDED_PERKS_COUNT } = require("%enlist/meta/perks/perksStats.nut")
 let { perkChoiceWndParams, perksData, getPerkPointsInfo, showActionError,
   perkActionsInProgress, changePerkCost, changePerks
 } = require("model/soldierPerks.nut")
@@ -23,7 +25,6 @@ let { mkSoldiersData } = require("model/collectSoldierData.nut")
 let { mkPerkChoiceSlot } = require("%enlist/soldiers/model/mkPerkChoiceSlot.nut")
 let { openAvailablePerks } = require("availablePerksWnd.nut")
 let textButton = require("%ui/components/textButton.nut")
-let { RECOMMENDED_PERKS_COUNT } = require("%enlist/meta/perks/perksStats.nut")
 let { needFreemiumStatus, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 
 const WND_UID = "choose_perk_wnd"
@@ -68,7 +69,7 @@ let recommendedPerkIds = Computed(function(){
 let soldier = mkSoldiersData(Computed(@()
   curCampSoldiers.value?[perkChoiceWndParams.value?.soldierGuid]))
 let perkPointsInfoWatch = Computed(@() sPerks.value == null ? null
-  : getPerkPointsInfo(sPerks.value, [sPerks.value?.prevPerk]))
+  : getPerkPointsInfo(perksList.value, sPerks.value, [sPerks.value?.prevPerk]))
 let needShow = Computed(@() sPerks.value != null
   && (perkChoiceWndParams.value?.choice.len() ?? 0) > 0)
 
@@ -91,7 +92,7 @@ let mkText = @(text) {
 let possiblePerksBtn = @(_soldier) @() {
   rendObj = ROBJ_BOX
   borderWidth = hdpx(1)
-  watch = [curArmy, sPerks, isRollAnimation]
+  watch = [curArmy, sPerks, isRollAnimation, perksList]
   margin = [bigPadding, 0]
   hplace = ALIGN_RIGHT
   halign = ALIGN_RIGHT
@@ -99,7 +100,7 @@ let possiblePerksBtn = @(_soldier) @() {
   children = isRollAnimation.value
     ? null
     : textButton.SmallFlat(loc("possible_perks_list"),
-      @(_event) openAvailablePerks(curArmy.value, sPerks.value),
+      @(_event) openAvailablePerks(perksList.value, curArmy.value, sPerks.value),
       { margin = 0,  padding = [bigPadding, 2 * bigPadding] })
   }
 
@@ -143,12 +144,12 @@ let recPerksHeader = {
   ]
 }
 
-let mkRecommendedPerks = @(armyId, perks) {
+let mkRecommendedPerks = @(armyId, perks) @() {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = hdpx(20)
-  children = perks == null ? null : perks.map(@(perk)
-    perkUi(armyId, perk, {}, {
+  children = perks == null ? null : perks.map(@(perkId)
+    perkUi(armyId, perkId, {}, {
       iconCtor = priceIconCtor
       isRecommended = false
     }))
@@ -159,8 +160,8 @@ let function recPerksList(){
   let tiers = sPerks.value?.tiers
   let exclude = sPerks.value?.prevPerk
   let content = tiers?.map(function(tier) {
-    let perksList = tier.perks
-    let perks = perksList.filter(@(p)
+    let list = tier.perks
+    let perks = list.filter(@(p)
       p != null && !tier.slots.contains(p) && exclude != p
         && recommendedPerkIds.value.contains(p)
     )

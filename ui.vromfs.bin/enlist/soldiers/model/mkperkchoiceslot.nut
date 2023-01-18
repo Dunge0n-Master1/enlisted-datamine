@@ -6,6 +6,7 @@ let { perkChoiceWndParams, perksData, choosePerk, showActionError
 let { mkText, perkIcon, flexTextArea, getStatDescList, mkPerkCostChildren
 } = require("%enlist/soldiers/components/perksPackage.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
+let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
 let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let { sound_play } = require("sound")
 let { defTxtColor, gap, bigPadding, activeBgColor, perkBigIconSize, defBgColor
@@ -97,15 +98,15 @@ let function mkPerkCostFull(perk, override = {}) {
   }.__update(override)
 }
 
-let function bigSlot(perkId, isAnimating, hasPrevPerk, hovered, isRecommended) {
-  let perk = perksList?[perkId]
-  let statDescList = getStatDescList(perk)
+let bigSlot = @(perkId, isAnimating, hasPrevPerk, hovered, isRecommended) function() {
+  let perk = perksList.value?[perkId]
+  let statDescList = getStatDescList(perksStatsCfg.value, perk)
   let pPointType = perk?.cost.keys()[0]
   let pPointCfg = perksPoints.pPointsBaseParams?[pPointType]
   let { color = null } = pPointCfg
 
-  return @(){
-    watch = isAnimating
+  return {
+    watch = [isAnimating, perksList, perksStatsCfg]
     size = perkBigIconSize
     padding = bigPadding
     children = [

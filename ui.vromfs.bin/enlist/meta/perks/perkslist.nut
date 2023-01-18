@@ -1,19 +1,19 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let serverConfigs = require("%enlist/meta/configs.nut")
+let { configs } = require("%enlist/meta/configs.nut")
 
-let perkList = persist("list", @() {})
-serverConfigs.configs.subscribe(
-  function(v) {
-    let list = v?.perks?.list
-    if (list == null)
-      return
+let perkList = Computed(function() {
+  let list = configs.value?.perks.list
+  let res = {}
+  if (list == null)
+    return res
 
-    perkList.clear()
-    foreach (id, perk in list) {
-      perk.locId <- perk?.locId ?? id
-      perkList[id] <- perk
-    }
+  foreach (id, p in list) {
+    let perk = clone p
+    perk.locId <- perk?.locId ?? id
+    res[id] <- perk
+  }
+  return res
 })
 
 return perkList

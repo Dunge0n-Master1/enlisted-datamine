@@ -18,6 +18,7 @@ let { getClassNameWithGlyph } = require("%enlSqGlob/ui/soldierClasses.nut")
 let viewItemScene = require("components/viewItemScene.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
+let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
 let { campaignName, btnSizeSmall, btnSizeBig, weapInfoBtn, rewardToScroll
 } = require("components/campaignPromoPkg.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
@@ -70,11 +71,12 @@ let starterPerkBlock = @(armyId, perk) perk == null ? null : {
       text = loc("squads/starterPerk")
       color = accentTitleTxtColor
     }.__update(sub_txt)
-    {
+    @() {
+      watch = [perksList, perksStatsCfg]
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       size = [flex(), SIZE_TO_CONTENT]
-      text = mkPerkDesc(armyId, perksList?[perk])
+      text = mkPerkDesc(perksStatsCfg.value, armyId, perksList.value?[perk])
     }.__update(sub_txt)
   ]
 }

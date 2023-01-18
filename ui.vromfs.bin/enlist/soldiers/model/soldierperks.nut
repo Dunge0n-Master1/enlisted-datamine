@@ -10,8 +10,6 @@ let {
 } = require("%enlist/meta/perks/perksExp.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
-let perksList = require("%enlist/meta/perks/perksList.nut")
-let perksStats = require("%enlist/meta/perks/perksStats.nut")
 let {
   get_perks_choice, choose_perk, change_perk_choice, buy_soldier_exp,
   use_soldier_levelup_orders, buy_soldier_max_level, drop_perk
@@ -145,14 +143,14 @@ let function changePerks(soldierGuid, tierIdx, slotIdx, cb) {
 }
 
 
-let function getTotalPerkValue(perks, perkName) {
+let function getTotalPerkValue(perksListTable, perksStatsTable, perks, perkName) {
   local sum = 0.0
   foreach (tier in perks?.tiers ?? [])
     foreach (perkId in tier?.slots ?? [])
       if (tier?.perks?.indexof?(perkId) != null) {
-        let stats = perksList?[perkId]?.stats ?? {}
+        let stats = perksListTable?[perkId].stats ?? {}
         sum += stats?[perkName]
-          ? stats[perkName] * perksStats.stats[perkName].base_power
+          ? stats[perkName] * perksStatsTable[perkName].base_power
           : 0.0
       }
   return sum
@@ -218,7 +216,7 @@ updateNotChosenPerks()
 foreach (w in [perksData, curCampaign, chosenSquadsByArmy])
   w.subscribe(updateNotChosenPerks)
 
-let function getPerkPointsInfo(sPerksData, exclude = {}) {
+let function getPerkPointsInfo(perksListTable, sPerksData, exclude = {}) {
   let res = {
     used = {}
     total = clone (sPerksData?.points ?? {})
@@ -228,7 +226,7 @@ let function getPerkPointsInfo(sPerksData, exclude = {}) {
   foreach (pTier in sPerksData.tiers)
     foreach (pSlot in pTier.slots)
       if (pSlot != null && !exclude?[pSlot]) {
-        let perkCfg = perksList?[pSlot] ?? {}
+        let perkCfg = perksListTable?[pSlot] ?? {}
         foreach (pPointId, pPointCost in perkCfg?.cost ?? {})
           res.used[pPointId] <- (res.used?[pPointId] ?? 0) + pPointCost
         foreach (pPointId, pPointBonus in perkCfg?.bonus ?? {}) {
