@@ -98,6 +98,11 @@ network_fortification_preview{
 
   "builder_server_preview:tag"{
   }
+
+  _group{
+    _tags:t="server"
+    obstacle__initialStillTimeout:r=0.0
+  }
 }
 
 disable_item_drop{

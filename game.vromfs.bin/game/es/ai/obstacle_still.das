@@ -6,6 +6,8 @@ require DagorMath
 require DagorSystem
 require CollRes
 require RendInst
+require app
+require enlisted.game.es.fortifications_build_common
 
 let
   FORWARD = float3(1.0f, 0.0, 0.0f)
@@ -60,7 +62,9 @@ def still_obstacles_update(cur_time : float)
                                                                              var obstacle__lastStillTime : float&;
                                                                              transform : float3x4;
                                                                              collres : CollisionResource const?;
-                                                                             ri_extra : RiExtraComponent const?)
+                                                                             ri_extra : RiExtraComponent const?;
+                                                                             ri_preview__name : das_string const?;
+                                                                             previewCollres : CollisionResource const?)
     if (cur_time < obstacle__lastCheckTime + obstacle__checkDelta)
       return
     obstacle__lastCheckTime = cur_time
@@ -78,12 +82,16 @@ def still_obstacles_update(cur_time : float)
     obstacle__lastStillTransform = transform
     if obstacle__handle == 0
       ++obstacle__stillCount
+
       var cr : CollisionResource const? = null
       if collres != null
         cr = collres
       elif ri_extra != null
         let riType = handle_to_ri_type((*ri_extra).handle)
         cr = get_ri_gen_extra_collres(int(riType))
+      elif previewCollres != null || ri_preview__name != null
+        cr = get_building_collres(previewCollres, ri_preview__name)
+
       if cr != null
         var box = BBox3((*cr).vFullBBox)
         box.boxMin -= float3(0.0f, obstacle__padding, 0.0f)
@@ -91,6 +99,13 @@ def still_obstacles_update(cur_time : float)
         obstacle__handle = tilecache_obstacle_add(transform, box)
       else
         logerr("No collision resource in still_obstacles_update: {eid} {getEntityTemplateName(eid)}")
+
+
+[es(tag=server, on_appear, REQUIRE=builder_server_preview)]
+def network_fortification_preview_obstacle(evt : Event; eid : EntityId; transform : float3x4)
+  query() <| $ [es] (still_obstacles__obstacleTemplate : string)
+    add_obstacle_template(eid, transform, get_sync_time(), still_obstacles__obstacleTemplate)
+
 
 [es(tag=server, no_order)]
 def still_obstacles_check_es(info : UpdateStageInfoAct;

@@ -17,7 +17,6 @@ wallposter_preview{
   }
 
   riSemiTransRender{
-    _tags:t="render"
   }
 
   "wallposter_preview:tag"{

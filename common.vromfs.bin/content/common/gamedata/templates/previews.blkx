@@ -63,6 +63,5 @@ base_rendinst_builder_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_a"
 
   riSemiTransRender{
-    _tags:t="render"
   }
 }
