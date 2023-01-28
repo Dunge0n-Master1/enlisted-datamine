@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor, midPadding, smallPadding, colPart
+let { defTxtColor, midPadding, smallPadding, colPart
 } = require("%enlSqGlob/ui/designConst.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let { isInQueue, leaveQueue, joinQueue, timeInQueue, curQueueParam
@@ -21,8 +21,8 @@ let mkCheckbox = require("%ui/components/mkCheckbox.nut")
 let { mkArmyIcon } = require("%enlist/army/armyPackage.nut")
 
 
-let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let hintTxtStyle = { color = defTxtColor }.__update(fontSmall)
+let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
 
 let lastQueue = mkWatched(persist, "lastQueue", null)
 let isInEventGM = Computed(@() isEventModesOpened.value || (curQueueParam.value != null
@@ -96,7 +96,7 @@ let randTeamCheckbox = @() {
     {
       rendObj = ROBJ_TEXT
       text = loc("queue/join_any_team")
-    }.__update(titleTxtStyle)
+    }.__update(defTxtStyle)
     mkCheckbox(isInEventGM.value ? matchRandomTeamEvent : matchRandomTeamCommon)
   ]
 }
@@ -149,7 +149,7 @@ let crossplayCheckbox = {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = loc("queue/switchCrossplay")
-    }.__update(titleTxtStyle)
+    }.__update(hintTxtStyle)
     mkCheckbox(isCrossplayEnabled)
   ]
 }

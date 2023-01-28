@@ -68,6 +68,7 @@ ussr_towed_at_53k_movable_common{
       cameraOffset:p3=-0.0, 0.0, 0.0
       directTurretControl:b=yes
       cockpitTemplate:t="ussr_towed_at_53k_gunner_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "lockSeats:list<t>"{
         locked:t="loader_marching"
@@ -93,6 +94,7 @@ ussr_towed_at_53k_movable_common{
       nextSeat:t="main_gunner"
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="root"
+      isHoldGunModeAllowed:b=no
       copySkeletonNodesPostfix:t="_gunner"
 
       "lockSeats:list<t>"{
@@ -124,6 +126,7 @@ ussr_towed_at_53k_movable_common{
       cameraNodeName:t="root"
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
@@ -145,6 +148,7 @@ ussr_towed_at_53k_movable_common{
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
       canPlaceManually:b=no
+      isHoldGunModeAllowed:b=no
       copySkeletonNodesPostfix:t="_loader"
 
       "effectors:object"{

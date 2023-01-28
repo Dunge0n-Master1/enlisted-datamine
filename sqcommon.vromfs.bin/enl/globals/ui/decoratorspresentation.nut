@@ -228,6 +228,12 @@ local portraits = {
   xmas_event_ger_portrait = {
     icon = "ui/portraits/event/xmas_event_ger_portrait.png"
   }
+  modes_engineer_portrait = {
+    icon = "ui/portraits/event/engineer_portrait.png"
+  }
+  stalingrad_event_portrait_ussr = {
+    icon = "ui/portraits/event/stalingrad_event_portrait_ussr.png"
+  }
 
 
 

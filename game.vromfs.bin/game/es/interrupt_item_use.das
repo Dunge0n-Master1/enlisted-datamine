@@ -62,6 +62,7 @@ def human_inventory_interrupt_item_use_base(cur_time : float;
       || (ct |> is_control_bit_set(HumanPhysControlType HCT_SHOOT) && !shouldIgnoreLmb)
       || ct |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
       || ct |> is_control_bit_set(HumanPhysControlType HCT_THROW)
+      || ct |> is_control_bit_set(HumanPhysControlType HCT_THROW_BACK)
       || human_weap__weapModActivateStartTime > 0.
       || (isInVehicle && currentState.isAiming)
       || human_freefall__isFreefall

@@ -4,9 +4,9 @@ require app
 require player
 require math
 require math.base
-require game.utils.team
 require game.es.events
 require game.es.smoke_occluders_common
+require game.es.riextra_damage_common
 require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
@@ -403,23 +403,6 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
       logerr("invalid data in projectile info {projectile__prevPos} {projectile_ballistics.state.pos} {eid} {getEntityTemplateName(eid)} {projectile__stopped}")
       destroyEntity(eid)
       return
-
-
-def is_ri_extra_can_be_damaged_by_team(ri_handle : uint64;
-                                       owner_team : int)
-  if owner_team == TEAM_UNASSIGNED
-    return true
-
-  var isFriendly = false
-  find_query() <| $ [es(REQUIRE=undestroyableByOwningTeam)] (ri_extra : RiExtraComponent;
-                                                             team : int)
-    if ri_handle != ri_extra.handle
-      return false
-    isFriendly = (team == owner_team)
-    return true
-
-  return !isFriendly
-
 
 def is_bullet_stoppable_by_water(launch_desc : LaunchDesc)
   var res = false

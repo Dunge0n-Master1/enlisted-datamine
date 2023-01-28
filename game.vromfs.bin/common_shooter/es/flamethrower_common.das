@@ -6,6 +6,7 @@ require EnlistedNet
 require EnlistedDm
 require math.base
 require game.es.events
+require game.es.riextra_damage_common
 require game.events_game
 require Dacoll
 require Grid
@@ -74,6 +75,8 @@ def deal_fire_damage(eid : EntityId; damage : FlameDamage; isStream : bool = tru
   return found
 
 def deal_fire_damage_ri(riex_handle : riex_handle_t; pos : float3; damage : FlameDamage; isStream : bool = true)
+  if !is_ri_extra_can_be_damaged_by_team(riex_handle, damage.offenderTeam)
+    return
   let dmg = isStream ? damage.streamDamage : damage.cloudDamage
   send_net_event(damage.offender, [[RequestRendinstDamage handle=riex_handle, damage=dmg, pos=pos, impulse=float3(), time=get_sync_time()]])
 

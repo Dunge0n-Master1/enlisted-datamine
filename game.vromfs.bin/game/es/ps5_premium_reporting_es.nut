@@ -28,11 +28,16 @@ let isSpectating = @() spectatorQuery.perform(function(_eid, comp) {
     return true
 })
 
+let replayIsPlayingQuery = ecs.SqQuery("replayIsPlayingQuery", {comps_rq = [["replayIsPlaying"]]})
+
 ecs.register_es("report_premium_usage_es", {
     function onUpdate(_dt, _eid, _comp){
       if (!has_network() || !hasPremium())
         return
-      reportPremiumFeatureUsage(crossnetworkPlay.value != CrossplayState.OFF, isSpectating())
+
+      let isReplay = replayIsPlayingQuery.perform(@(_, __) true) ?? false
+      if (!isReplay)
+        reportPremiumFeatureUsage(crossnetworkPlay.value != CrossplayState.OFF, isSpectating())
     }
   },
   {comps_rq=["msg_sink"]},

@@ -209,8 +209,7 @@ let function getTemplate(gametemplate) {
   return recreateName == "" ? gametemplate : $"{gametemplate}+{recreateName}"
 }
 
-let function mkEquipment(soldier, scheme, soldiersLook, premiumItems,
-    customizationOvr = {}) {
+let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizationOvr = null) {
   if (DB.size() == 0)
     return {}
 
@@ -250,7 +249,7 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems,
     if (itemTemplate != null)
       slotTmpls[slotType] <- itemTemplate
   }
-  foreach (slotType, templ in customizationOvr) {
+  foreach (slotType, templ in customizationOvr ?? {}) {
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
     if (itemTemplate != null)
       slotTmpls[slotType] <- itemTemplate
@@ -296,7 +295,7 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems,
 
 let function createSoldier(
   guid, transform, soldiersLook, premiumItems = {}, callback = null, extraTemplates = [],
-  isDisarmed = false, order = null, customizationOvr = {}, reInitEid = ecs.INVALID_ENTITY_ID
+  isDisarmed = false, order = null, customizationOvr = null, reInitEid = ecs.INVALID_ENTITY_ID
 ) {
   let soldier = objInfoByGuid.value?[guid]
   if (soldier == null)

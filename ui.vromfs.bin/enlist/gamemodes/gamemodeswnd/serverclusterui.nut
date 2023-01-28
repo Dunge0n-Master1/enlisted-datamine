@@ -4,7 +4,8 @@ let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, smallPadding, hoverTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
-let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster
+let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster, hasAutoClusterOption,
+  isAutoClusterSafe
 } = require("%enlist/clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
 let squadClusters = squadSharedData.clusters
@@ -69,7 +70,7 @@ let mkServerBtn = @(server, txt, isAutoSelected = false) watchElemState(function
 
 
 let optimalServerButton = watchElemState(@(sf) {
-  watch = [isAutoCluster, ownCluster]
+  watch = [isAutoClusterSafe, ownCluster]
   rendObj = ROBJ_SOLID
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
@@ -82,22 +83,22 @@ let optimalServerButton = watchElemState(@(sf) {
     mkCheckbox(isAutoCluster)
     {
       rendObj = ROBJ_TEXT
-      text = loc("quickMatch/Server/Optimal", { code = ownCluster.value })
-    }.__update(isAutoCluster.value ? titleTxtStyle
+      text = loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
+    }.__update(isAutoClusterSafe.value ? titleTxtStyle
       : sf & S_HOVER ? hoverTxtStyle
       : defTxtStyle)
   ]
 })
 
 let clusterSelector = @() {
-  watch = [availableClusters, isAutoCluster, clusters]
+  watch = [availableClusters, isAutoClusterSafe, clusters, hasAutoClusterOption]
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = hdpx(2)
   children = [
-    optimalServerButton
+    !hasAutoClusterOption.value ? null : optimalServerButton
   ].extend(availableClusters.value.map(@(val)
-    mkServerBtn(val, clusterLoc(val), isAutoCluster.value)))
+    mkServerBtn(val, clusterLoc(val), isAutoClusterSafe.value)))
 }
 
 let showCantChangeInQueue = @() addPopup({
@@ -139,25 +140,44 @@ let function openClustersMenu(event) {
 isInQueue.subscribe(@(_) modalPopupWnd.remove(CLUSTER_PANEL_UID))
 
 
-let function clustersUi() {
-  local server = ""
+let serversRow = Computed(function() {
   if (isLocalClusters.value)
-    server = isAutoCluster.value ? loc("quickMatch/Server/Optimal", { code = ownCluster.value })
+    return isAutoClusterSafe.value ? loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
       : availableClusters.value.len() == clusters.value.len() ? loc("quickMatch/Server/Any")
       : ", ".join(clusters.value.keys().map(@(val) clusterLoc(val)))
-  else
-    server = squadAutoCluster.value ? loc("quickMatch/Server/Optimal", { code = ownCluster.value })
-      : availableClusters.value.len() == squadClusters.value.len() ? loc("quickMatch/Server/Any")
-      : ", ".join(squadClusters.value.keys().map(@(val) clusterLoc(val)))
-  let text = loc("quickMatch/curServers", { server })
+  return squadAutoCluster.value ? loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
+    : availableClusters.value.len() == squadClusters.value.len() ? loc("quickMatch/Server/Any")
+    : ", ".join(squadClusters.value.keys().map(@(val) clusterLoc(val)))
+})
+
+
+let function serverClusterBtn() {
+  let text = loc("quickMatch/curServers", { server = serversRow.value })
   let btn = Bordered(text, isLocalClusters.value ? openClustersMenu : showCantChangeMessage,
-    { btnWidth = flex() })
+    { btnWidth = flex()
+      isEnables = canChangeQueueParams.value
+    })
   return {
-    watch = [ isLocalClusters, canChangeQueueParams, availableClusters, clusters, isAutoCluster,
-      squadClusters, squadAutoCluster, ownCluster ]
+    watch = [isLocalClusters, canChangeQueueParams, serversRow]
     size = [flex(), SIZE_TO_CONTENT]
     children = btn
   }
 }
 
-return clustersUi
+
+let serverInfoRow = @(override = {}) function () {
+  let text = loc("quickMatch/curServers", { server = serversRow.value })
+  return {
+    watch = serversRow
+    size = [flex(), SIZE_TO_CONTENT]
+    children = {
+      rendObj = ROBJ_TEXT
+      text
+    }.__update(defTxtStyle)
+  }.__update(override)
+}
+
+return {
+  serverClusterBtn
+  serverInfoRow
+}

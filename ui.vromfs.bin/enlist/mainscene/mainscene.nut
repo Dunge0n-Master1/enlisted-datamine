@@ -18,6 +18,7 @@ let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 let squadInfo = require("%enlist/squad/squadInfo.nut")
+let { serverInfoRow } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
 
 
 let armyGameModeBlock = @() {
@@ -27,6 +28,7 @@ let armyGameModeBlock = @() {
   gap = midPadding
   halign = ALIGN_RIGHT
   children = [
+    serverInfoRow({ halign = ALIGN_RIGHT })
     selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox
     changeGameModeBtn
   ]

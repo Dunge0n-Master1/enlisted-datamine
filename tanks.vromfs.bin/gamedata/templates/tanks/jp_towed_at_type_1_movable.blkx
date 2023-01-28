@@ -64,6 +64,7 @@ jp_towed_at_type_1_movable_common{
       cameraOffset:p3=-0.0, 0.0, 0.0
       directTurretControl:b=yes
       cockpitTemplate:t="jp_towed_at_type_1_gunner_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "lockSeats:list<t>"{
         locked:t="loader_marching"
@@ -90,6 +91,7 @@ jp_towed_at_type_1_movable_common{
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="root"
       copySkeletonNodesPostfix:t="_gunner"
+      isHoldGunModeAllowed:b=no
 
       "lockSeats:list<t>"{
         locked:t="loader"
@@ -120,6 +122,7 @@ jp_towed_at_type_1_movable_common{
       cameraNodeName:t="root"
       nextSeat:t="main_gunner"
       vehicleReloadMult:r=0.7
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"
@@ -142,6 +145,7 @@ jp_towed_at_type_1_movable_common{
       vehicleReloadMult:r=0.7
       canPlaceManually:b=no
       copySkeletonNodesPostfix:t="_loader"
+      isHoldGunModeAllowed:b=no
 
       "effectors:object"{
         l.hand:t="ik_hand_left"

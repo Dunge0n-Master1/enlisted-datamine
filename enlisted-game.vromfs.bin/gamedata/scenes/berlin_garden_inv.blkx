@@ -1754,7 +1754,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.0125324, 0.0, 0.999921] [0.0, 1.0, 0.0] [-0.999921, 0.0, 0.0125324] [264.891, 4.64341, -338.948]]
+  transform:m=[[-0.439533, 0.0, 0.898226] [0.0, 1.0, 0.0] [-0.898226, 0.0, -0.439533] [262.652, 3.80952, -321.905]]
   groupName:t="sector_1"
   team:i=2
   respTime:i=150
@@ -2473,7 +2473,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.0125324, 0.0, 0.999921] [0.0, 1.0, 0.0] [-0.999921, 0.0, 0.0125324] [264.891, 4.64341, -338.948]]
+  transform:m=[[-0.439533, 0.0, 0.898226] [0.0, 1.0, 0.0] [-0.898226, 0.0, -0.439533] [262.875, 3.80952, -321.754]]
   team:i=2
   groupName:t="sector_1"
 }
@@ -2600,7 +2600,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.0125324, 0.0, 0.999921] [0.0, 1.0, 0.0] [-0.999921, 0.0, 0.0125324] [264.891, 4.64341, -338.948]]
+  transform:m=[[-0.439533, 0.0, 0.898226] [0.0, 1.0, 0.0] [-0.898226, 0.0, -0.439533] [262.912, 3.80952, -322.056]]
   resupply_zone__team:i=2
   groupName:t="sector_1"
   active:b=no

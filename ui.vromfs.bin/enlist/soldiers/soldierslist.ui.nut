@@ -1,10 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { bigPadding, hoverBgColor } = require("%enlSqGlob/ui/viewConst.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let armySelectUi = isNewDesign.value
-  ? require("%enlist/army/armySelectionUi.nut")
-  : require("army_select.ui.nut")
+let armySelectUi = require("army_select.ui.nut")
 let squads_list = require("squads_list.ui.nut")
 let squad_info = require("squad_info.ui.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
@@ -15,10 +12,7 @@ let { changeGameModeWidget, selectedGameMode
 } = require("%enlist/gameModes/changeGameModeBtn.nut")
 let clustersUi = require("%enlist/clusters.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/quickMatch.nut")
-let { dailyTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
-let { weeklyTasksUi } = isNewDesign.value
-  ? require("%enlist/unlocks/weeklyTaskButton.nut")
-  : require("%enlist/unlocks/tasksWidgetUi.nut")
+let { dailyTasksUi, weeklyTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
 let battlepassWidgetOpen = require("%enlist/battlepass/bpWidgets.nut")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 let offersWidget = require("%enlist/offers/offersWidget.nut")

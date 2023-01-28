@@ -38,7 +38,7 @@ let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 let { mkTwoSidesGradientX, mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { unseenPanel } = require("%ui/components/unseenComponents.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let serverCluster = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
+let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
 
 
 let fbImageByCampaign = {
@@ -542,7 +542,7 @@ let function crossplayDescBlock() {
 let serverBlock = {
   size = [cardSize[0], SIZE_TO_CONTENT]
   hplace = ALIGN_CENTER
-  children = serverCluster
+  children = serverClusterBtn
 }
 
 let bottomBlock = {

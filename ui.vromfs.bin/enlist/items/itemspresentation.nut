@@ -914,6 +914,13 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.png"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
+  ["384"] = {
+    name = loc("items/stalingrad_event_portrait_ussr")
+    description = loc("decorator/stalingrad_event_portrait_ussr/tip")
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
+  },
 
 
   // boosters presentation

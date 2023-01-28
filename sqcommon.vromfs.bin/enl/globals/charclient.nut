@@ -10,6 +10,11 @@ let {get_app_id} = require("app")
 let logC = require("%enlSqGlob/library_logs.nut").with_prefix("[CHAR CLIENT] ")
 
 local function char_request(action, data, callback, auth_token = null) {
+  if (userInfo.value == null && auth_token == null) {
+    logC("User is logout skip char_request")
+    return
+  }
+
   auth_token = auth_token ?? userInfo.value?.token
   assert(auth_token != null, "No auth token provided for char request")
   let request = {

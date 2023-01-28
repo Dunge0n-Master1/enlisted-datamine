@@ -83,6 +83,7 @@ let function joinImpl(queue, queue_params) {
       appId = get_app_id()
       crossplayType = crossnetworkPlay.value
     }.__update(queue_params)
+    log("enlmm.join_quick_match_queue", params)
     curQueueParam(params)
     if (isInSquad.value && squadOnlineMembers.value.len() > 1) {
       let smembers = []

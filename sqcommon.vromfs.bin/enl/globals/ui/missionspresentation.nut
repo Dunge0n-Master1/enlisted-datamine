@@ -828,7 +828,7 @@ let missions = {
   }
 
   tunisia_city_dom = {
-    image = "ui/tunisia_farm_inv_03.jpg"
+    image = "ui/tunisia_farm_inv_01.jpg"
     locId = "lobbies/tunisia_city_dom"
     type = MissionType.DOMINATION
   }

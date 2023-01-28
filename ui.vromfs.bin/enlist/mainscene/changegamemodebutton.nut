@@ -1,9 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, defTxtColor, midPadding, defVertGradientImg, hoverVertGradientImg,
+  titleTxtColor, colPart, disabledTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
 let openChangeGameModeWnd = require("%enlist/gameModes/gameModesWnd/gameModeWnd.nut")
 let { currentGameModeId, allGameModesById, hasUnseenGameMode, hasUnopenedGameMode
 } = require("%enlist/gameModes/gameModeState.nut")
@@ -12,13 +14,12 @@ let { isInSquad, isSquadLeader, squadLeaderState } = require("%enlist/squad/squa
 let { crossnetworkPlay, needShowCrossnetworkPlayIcon, CrossplayState
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { accentColor, defTxtColor, smallPadding } = require("%enlSqGlob/ui/designConst.nut")
+let colorize = require("%ui/components/colorize.nut")
+let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
 
-let accentButtonStyle = {
-  defTxtColor = accentColor
-  defBdColor = accentColor
-}
+let defTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let disabledTxtStyle = { color = disabledTxtColor }.__update(fontMedium)
 
 let squadLeaderGameModeId = Computed(@() squadLeaderState.value?.gameModeId)
 let selectedGameModeId = Computed(@() isInSquad.value && !isSquadLeader.value
@@ -52,24 +53,35 @@ let gameModeUnseenIcon = @() {
 }
 
 
-let function changeGameModeBtn() {
+let changeGameModeBtn = watchElemState(function(sf) {
   let gameMode = utf8ToUpper(selectedGameMode.value?.title ?? "")
-  let btnText = loc("changeGameMode/Mode", { gameMode })
+  let btnText = loc("changeGameMode/Mode", { gameMode = colorize(accentColor, gameMode) })
   let { isVersionCompatible = true } = selectedGameMode.value
   return {
     watch = [selectedGameMode, canChangeQueueParams]
-    size = [flex(), SIZE_TO_CONTENT]
-    children = Bordered(btnText, openChangeGameModeWnd, {
-      hotkeys = canChangeQueueParams.value ? [[ "^J:X" ]] : null
-      txtFont = fontMedium
-      btnWidth = flex()
-      bgChild = gameModeCrossplayIcon
-      fgChild = gameModeUnseenIcon
-      padding = [0, smallPadding]
-      isEnabled = canChangeQueueParams.value
-    }.__update(isVersionCompatible ? {} : { style = accentButtonStyle })
-  )}
-}
+    rendObj = ROBJ_IMAGE
+    image = sf & S_HOVER ? hoverVertGradientImg : defVertGradientImg
+    size = [flex(), colPart(0.806)]
+    valign = ALIGN_CENTER
+    behavior = Behaviors.Button
+    onClick = openChangeGameModeWnd
+    hotkeys = canChangeQueueParams.value ? [[ "^J:X" ]] : null
+    padding = [0, midPadding]
+    children =  [
+      mkHotkey("^J:X | G", openChangeGameModeWnd)
+      {
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        size = [flex(), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
+        text = btnText
+      }.__update(isVersionCompatible ? defTxtStyle : disabledTxtStyle)
+      gameModeCrossplayIcon
+      gameModeUnseenIcon
+    ]
+  }
+})
+
 
 
 return {
