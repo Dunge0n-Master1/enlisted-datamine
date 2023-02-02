@@ -6,6 +6,7 @@ let awardsLog = require("%ui/hud/state/eventlog.nut").awards
 let { lerp } = require("%sqstd/math.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { strokeStyle } = require("%enlSqGlob/ui/viewConst.nut")
+let { round } = require("math")
 
 const ANIM_TRIGGER = "animScoreAward"
 const maxAwardsToShow = 5
@@ -175,7 +176,7 @@ awardsLog.events.subscribe(function(awards) {
     })
 })
 
-let currentScore = Computed(@() (currentScoreAwards.value.reduce(@(a, b) a + b) ?? 0).tointeger() )
+let currentScore = Computed(@() round(currentScoreAwards.value.reduce(@(a, b) a + b) ?? 0))
 
 currentScore.subscribe(@(_) anim_start(ANIM_TRIGGER))
 

@@ -12,7 +12,7 @@ let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut
 let { sound_play } = require("sound")
 let { HighlightFailure, MsgMarkedText, TextActive, TextHighlight, textColor
 } = require("%ui/style/colors.nut")
-let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { viewShopInfoBtnStyle, DISCOUNT_WARN_TIME } = require("shopPkg.nut")
 let {
   barterShopItem, buyItemByGuid, getBuyRequirementError, buyItemByStoreId, buyShopItem,
@@ -35,7 +35,16 @@ let { openShopByCurrencyId } = require("%enlist/currency/purchaseMsgBox.nut")
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { openBPwindow, getRewardIdx } = require("%enlist/battlepass/bpWindowState.nut")
+let { purchasesCount } = require("%enlist/meta/profile.nut")
 
+
+let defTxtStyle = { color = defTxtColor }.__update(sub_txt)
+let smallActiveTxtStyle = { color = TextActive }.__update(sub_txt)
+let markedTxtStyle = { color = MsgMarkedText }.__update(sub_txt)
+let failureTxtStyle = { color = HighlightFailure }.__update(body_txt)
+let boldFailureTxtStyle = { color = HighlightFailure }.__update(body_bold_txt)
+let highlightTxtStyle = { color = TextHighlight }.__update(body_txt)
+let largeDefTxtStyle = { color = defTxtColor }.__update(h2_txt)
 
 enum DISCOUNT_STATE {
   STARTED = 0
@@ -47,9 +56,9 @@ let defGap = fsh(3)
 let currencySize = hdpx(29)
 
 let mkDescription = @(descLocId) descLocId == null ? null
-  : noteTextArea(loc(descLocId)).__update({
+  : noteTextArea(loc(descLocId)).__update(defTxtStyle, {
       halign = ALIGN_CENTER
-    }.__update(sub_txt))
+    })
 
 let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
   let lackResources = []
@@ -57,7 +66,7 @@ let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
     let count = required - (viewCurrs?[currencyTpl] ?? 0)
     if (count > 0)
       lackResources.append(mkItemCurrency({
-        currencyTpl, count, textStyle = { color = HighlightFailure }.__update(body_bold_txt)
+        currencyTpl, count, textStyle = boldFailureTxtStyle
       }))
   }
 
@@ -74,10 +83,7 @@ let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
         flow = FLOW_HORIZONTAL
         halign = ALIGN_CENTER
         children = [
-          txt({
-            text = loc("shop/notEnoughCurrency", { priceDiff = "" })
-            color = HighlightFailure
-          }.__update(body_txt))
+          txt(loc("shop/notEnoughCurrency", { priceDiff = "" })).__update(failureTxtStyle)
           {
             flow = FLOW_HORIZONTAL
             gap = bigPadding
@@ -87,8 +93,7 @@ let function mkResourcesLackInfo(reqResources, viewCurrs, costLocId) {
       }
       noteTextArea(loc(costLocId)).__update({
         halign = ALIGN_CENTER
-        color = TextActive
-      }, sub_txt)
+      }, smallActiveTxtStyle)
     ]
   }
 }
@@ -120,15 +125,10 @@ let mkAllPricesView = @(barterPriceView, buyPriceView) barterPriceView || buyPri
       gap = bigPadding
       valign = ALIGN_CENTER
       children = [
-        {
-          rendObj = ROBJ_TEXT
-          text = "{0} ".subst(loc("shop/willCostYou"))
-        }.__update(sub_txt)
+        txt(loc("shop/willCostYou")).__update(defTxtStyle)
         barterPriceView
-        !(barterPriceView && buyPriceView) ? null : {
-          rendObj = ROBJ_TEXT
-          text = loc("mainmenu/or")
-        }.__update(sub_txt)
+        !(barterPriceView && buyPriceView) ? null
+          : txt(loc("mainmenu/or")).__update(defTxtStyle)
         buyPriceView
       ]
     }
@@ -176,13 +176,9 @@ let notEnoughMoneyInfo = @(price, currencyId) {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   children = [
-    {
-      rendObj = ROBJ_TEXT
-      color = HighlightFailure
-      text = loc("shop/notEnoughCurrency", {
-        priceDiff = price - (currenciesBalance.value?[currencyId] ?? 0)
-      })
-    }.__update(body_txt)
+    txt(loc("shop/notEnoughCurrency", {
+      priceDiff = price - (currenciesBalance.value?[currencyId] ?? 0)
+    })).__update(failureTxtStyle)
     currencyImage(currenciesById.value?[currencyId])
   ]
 }
@@ -201,13 +197,10 @@ let function buyCurrencyText(currency, sf) {
   }
 }
 
-let mkDiscountInfo = @(state) !state ? null : {
-  rendObj = ROBJ_TEXT
-  text = state == DISCOUNT_STATE.STARTED ? loc("shop/discount_started")
-    : state == DISCOUNT_STATE.ENDING ? loc("shop/discount_ending")
-    : loc("shop/discount_ended")
-  color = state == DISCOUNT_STATE.STARTED ? TextHighlight : HighlightFailure
-}.__update(body_txt)
+let mkDiscountInfo = @(state) !state ? null
+  : state == DISCOUNT_STATE.STARTED ? txt(loc("shop/discount_started")).__update(highlightTxtStyle)
+  : state == DISCOUNT_STATE.ENDING ? txt(loc("shop/discount_ending")).__update(failureTxtStyle)
+  : txt(loc("shop/discount_ended")).__update(failureTxtStyle)
 
 let function recalcOfferPrice(offers, offerGuid, price, fullPrice, discountState, ts) {
   let offer = offers.findvalue(@(o) o.guid == offerGuid)
@@ -234,29 +227,17 @@ let function notEnoughMsg(itemTpl, missingOrders) {
           size = [sw(70), SIZE_TO_CONTENT]
           behavior = Behaviors.TextArea
           text = descId
-        }.__update(h2_txt)
+        }.__update(largeDefTxtStyle)
       : {
         flow = FLOW_VERTICAL
         size = [sw(70), SIZE_TO_CONTENT]
         gap = hdpx(15)
         children = [
-          {
-            rendObj = ROBJ_TEXT
-            text = loc("notEnoughOrders")
-          }.__update(h2_txt)
+          txt(loc("notEnoughOrders")).__update(largeDefTxtStyle)
           {
             flow = FLOW_HORIZONTAL
             children = [
-              {
-                rendObj = ROBJ_TEXT
-                text = loc("needMoreOrders")
-              }.__update(h2_txt)
-              {
-                rendObj = ROBJ_TEXT
-                margin = [0, 0, 0, hdpx(10)]
-                text = missingOrders
-                color = HighlightFailure
-              }.__update(h2_txt)
+              txt(loc("needMoreOrders" , { missingOrders })).__update(largeDefTxtStyle)
               mkCurrencyImage(getCurrencyPresentation(itemTpl)?.icon)
             ]
           }
@@ -265,13 +246,29 @@ let function notEnoughMsg(itemTpl, missingOrders) {
             size = [flex(), SIZE_TO_CONTENT]
             behavior = Behaviors.TextArea
             text = loc("dontHaveEnoughOrders")
-          }.__update(h2_txt)
+          }.__update(largeDefTxtStyle)
         ]
       }
   })
 }
 
 let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
+
+let function limitTextBlock(limit, guid) {
+  if (limit <= 0)
+    return null
+
+  return function() {
+    let count = purchasesCount.value?[guid].amount ?? 0
+    return {
+      watch = purchasesCount
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      halign = ALIGN_CENTER
+      text = loc("shopItem/limit", { count, limit })
+    }
+  }}
 
 let function buyItem(shopItem, productView = null, viewBtnCb = null,
   activatePremiumBttn = null, description = null, pOfferGuid = null, countWatched = Watched(1)
@@ -290,7 +287,8 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
   }
 
   let {
-    curItemCost = {}, referralLink = "", discountIntervalTs = [], shopItemPriceInc = 0
+    guid, curItemCost = {}, referralLink = "", discountIntervalTs = [], shopItemPriceInc = 0,
+    limit = -1
   } = shopItem
   let hasBarter = curItemCost.len() > 0
   let barterInfo = Computed(@() getPayItemsData(curItemCost, curCampItems.value))
@@ -369,6 +367,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     local barterPriceView = null
     local buyPriceView = null
     let msgBody = [
+      limitTextBlock(limit, guid)
       productView ?? mkDescription(shopItem?.descLocId)
       typeof description == "string" ? mkItemDescription(description) : description
     ]
@@ -385,8 +384,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
             children = [
               noteTextArea(loc("buy/forEnlistedGold")).__update({
                 halign = ALIGN_CENTER
-                color = MsgMarkedText
-              }, sub_txt)
+              }, markedTxtStyle)
             ]
           })
         }

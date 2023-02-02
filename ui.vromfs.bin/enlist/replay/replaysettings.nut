@@ -7,7 +7,6 @@ let { NET_PROTO_VERSION, get_dasevent_net_version } = require("net")
 let {get_setting_by_blk_path } = require("settings")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { remove } = require("system")
-let { is_xbox, is_sony} = require("%dngscripts/platform.nut")
 let datacache = require("datacache")
 
 let allowProtoMismatch = get_setting_by_blk_path("replay/allowProtoMismatch") ?? false
@@ -28,7 +27,7 @@ let recordsFolders = [
 
 let currentRecord = Watched(null)
 let records = Watched([])
-let isReplayTabHidden = Computed(@() !showReplayTabInProfile.value || is_xbox || is_sony)
+let isReplayTabHidden = Computed(@() !showReplayTabInProfile.value)
 
 
 let isReplayProtocolValid = @(meta)

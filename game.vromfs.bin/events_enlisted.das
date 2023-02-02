@@ -263,6 +263,11 @@ struct RequestPersonalSquadMateOrder
 struct EventAwardZoneCapturers {}
 
 [event(unicast)]
+struct EventAwardZoneCapturersProgressTick
+  amount : float
+  team : int
+
+[event(unicast)]
 struct EventForceCapture
   team : int
 

@@ -38,13 +38,17 @@ def apply_parachute_deployed_tag(evt : Event;
 [es(tag=server, no_order, REQUIRE=hasParachute)]
 def can_open_parachute(evt : UpdateStageInfoAct;
                        transform : float3x4;
+                       isInVehicle : bool;
                        human_net_phys__velocity : float3;
                        human_net_phys__isInAir : bool;
                        human_parachute__minDeployHeight : float;
                        human_parachute__minDeployVelocity : float;
                        var human_parachute__canDeploy : bool&)
   let isFalling = human_net_phys__velocity.y < -human_parachute__minDeployVelocity
-  human_parachute__canDeploy = human_net_phys__isInAir && isFalling && get_parachute_altitude(transform[3]) > human_parachute__minDeployHeight
+  human_parachute__canDeploy = (human_net_phys__isInAir &&
+                                !isInVehicle &&
+                                isFalling &&
+                                get_parachute_altitude(transform[3]) > human_parachute__minDeployHeight)
 
 
 [es(tag=server, REQUIRE=hasParachute)]

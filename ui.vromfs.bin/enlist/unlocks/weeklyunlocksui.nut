@@ -4,20 +4,16 @@ let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { receiveTaskRewards } = require("taskListState.nut")
-let {
-  weeklyTasks, saveFinishedWeeklyTasks, triggerBPStarsAnim
+let { weeklyTasks, saveFinishedWeeklyTasks, triggerBPStarsAnim
 } = require("weeklyUnlocksState.nut")
-let {
-  seenUnlocks, markUnlockSeen, markUnlocksOpened
+let { seenUnlocks, markUnlockSeen, markUnlocksOpened
 } = require("%enlist/unlocks/unseenUnlocksState.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
-let {
-  smallPadding, smallOffset, tinyOffset, defBgColor, defTxtColor,
+let { smallPadding, smallOffset, tinyOffset, defBgColor, defTxtColor,
   activeTxtColor, taskProgressColor, bigPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let {
-  taskMinHeight, taskSlotPadding, mkTaskEmblem, taskHeader, taskDescription,
+let { taskMinHeight, taskSlotPadding, mkTaskEmblem, taskHeader, taskDescription,
   taskDescPadding, mkGetTaskRewardBtn, statusBlock
 } = require("%enlSqGlob/ui/taskPkg.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -151,6 +147,7 @@ return {
   }
   children = makeVertScroll(function() {
     let unseen = seenUnlocks.value?.unseenWeeklyTasks ?? {}
+    let tasks = clone weeklyTasks.value
     return {
       rendObj = ROBJ_WORLD_BLUR_PANEL
       watch = [weeklyTasks, seenUnlocks]
@@ -165,7 +162,12 @@ return {
       gap = smallPadding
       margin = [0,0,0,smallOffset]
       halign = ALIGN_CENTER
-      children = weeklyTasks.value.map(@(task) mkWeeklyTaskSlot(task, task.name in unseen))
+      children = tasks
+        .sort(@(a, b) b.hasReward <=> a.hasReward
+          || (b?.activity.active ?? false) <=> (a?.activity.active ?? false)
+          || a.isCompleted <=> b.isCompleted
+          || (a?.meta.taskListPlace ?? 0) <=> (b?.meta.taskListPlace ?? 0))
+        .map(@(task) mkWeeklyTaskSlot(task, task.name in unseen))
     }
   })
 }

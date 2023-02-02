@@ -1,11 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { ceil } = require("%sqstd/math.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let unseenSignal = require("%ui/components/unseenSignal.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
-let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { bigPadding, blurBgColor, blurBgFillColor, smallPadding,
   activeBgColor, defBgColor, slotBaseSize, scrollbarParams, listCtors,
@@ -14,21 +11,17 @@ let { bigPadding, blurBgColor, blurBgFillColor, smallPadding,
 let { nameColor, txtDisabledColor } = listCtors
 let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP
 } = require("%enlSqGlob/readyStatus.nut")
-let { txt, note, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
-let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
-let { FAButton, SmallFlat, Flat } = require("%ui/components/textButton.nut")
+let { note, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
+let { FAButton, Flat } = require("%ui/components/textButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { squadSoldiers, reserveSoldiers, selectedSoldierGuid, selectedSoldier, soldiersStatuses,
   applySoldierManage, changeSoldierOrderByIdx, maxSoldiersInBattle, soldiersSquadParams,
   moveCurSoldier, soldierToReserveByIdx, curSoldierToReserve, curSoldierToSquad, getCanTakeSlots,
-  dismissSoldier, isDismissInProgress, soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd,
+  soldiersSquad, curSquadSoldierIdx, closeChooseSoldiersWnd,
   isPurchaseWndOpend
 } = require("model/chooseSoldiersState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
-let { getLinkedArmyName, getLinkedSquadGuid
-} = require("%enlSqGlob/ui/metalink.nut")
-let { curArmyReserve, curArmyReserveCapacity
-} = require("model/reserve.nut")
+let { curArmyReserveCapacity } = require("model/reserve.nut")
 let { gameProfile } = require("model/config/gameProfile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
@@ -42,16 +35,14 @@ let { curSoldierIdx } = require("model/squadInfoState.nut")
 let { unseenSoldiers, markSoldierSeen } = require("model/unseenSoldiers.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { curCanUnequipSoldiersList } = require("model/selectItemState.nut")
-let { RETIRE_ORDER, retireReturn } = require("model/config/soldierRetireConfig.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
-let { needFreemiumStatus, curUpgradeDiscount
-} = require("%enlist/campaigns/campaignConfig.nut")
+let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
-
+let { smallDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 
 const NO_SOLDIER_SLOT_IDX = -1
 
@@ -503,105 +494,6 @@ let function reserveList() {
   })
 }
 
-let mkDismissWarning = @(armyId, guid, count) showMessageWithContent({
-  content = {
-    flow = FLOW_VERTICAL
-    size = [flex(), SIZE_TO_CONTENT]
-    halign = ALIGN_CENTER
-    gap = hdpx(40)
-    children = [
-      {
-        size = [sw(35), SIZE_TO_CONTENT]
-        halign = ALIGN_CENTER
-        rendObj = ROBJ_TEXTAREA
-        behavior = Behaviors.TextArea
-        text = loc("retireSoldier/title")
-      }.__update(h2_txt)
-      {
-        size = [sw(50), SIZE_TO_CONTENT]
-        halign = ALIGN_CENTER
-        rendObj = ROBJ_TEXTAREA
-        behavior = Behaviors.TextArea
-        text = loc("retireSoldier/desc")
-      }.__update(body_txt)
-      {
-        flow = FLOW_HORIZONTAL
-        gap = bigPadding
-        children = [
-          txt(loc("retireSoldier/currencyWillReturn")).__update(sub_txt)
-          mkItemCurrency({ currencyTpl = RETIRE_ORDER, count })
-        ]
-      }
-    ]
-  }
-  buttons = [
-    {
-      text = loc("Yes")
-      action = @() dismissSoldier(armyId, guid)
-      isCurrent = true
-    }
-    {
-      text = loc("Cancel"), isCancel = true
-    }
-  ]
-})
-
-let mkApplyChangesWarning = @() showMsgbox({
-  text = loc("msg/applySoldiersChangesRequired")
-  buttons = [
-    { text = loc("Apply"),
-      action = @() applySoldierManage()
-      isCurrent = true
-    }
-    { text = loc("Cancel")
-      isCancel = true
-    }
-  ]
-})
-
-
-let function mkDismissBtn(soldier) {
-  if (soldier == null)
-    return null
-
-  let { guid, sClass, tier, heroTpl } = soldier
-  let armyId = getLinkedArmyName(soldier)
-  return function() {
-    let res = { watch = [
-      curArmyReserve, curArmyReserveCapacity, isDismissInProgress,
-      retireReturn, reserveSoldiers
-    ]}
-
-    if (reserveSoldiers.value.findindex(@(s) s.guid == guid ) == null)
-      return res
-
-    local retireCount = retireReturn.value?[sClass][tier] ?? 0
-    if (retireCount == 0
-        || curArmyReserveCapacity.value == 0
-        || curArmyReserve.value.len() == 0
-        || heroTpl != "")
-      return res
-
-    let retireCountMult = 1.0 - curUpgradeDiscount.value
-    retireCount = ceil(retireCount * retireCountMult).tointeger()
-    return res.__update({
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_RIGHT
-      children = [
-        isDismissInProgress.value
-          ? spinner
-          : SmallFlat(loc("btn/removeSoldier"),
-              @() getLinkedSquadGuid(soldier) != null
-                ? mkApplyChangesWarning()
-                : mkDismissWarning(armyId, guid, retireCount),
-              {
-                margin = 0
-                padding = [bigPadding, 2 * bigPadding]
-              })
-      ]
-    })
-  }
-}
 
 let soldiersContent = {
   size = flex()
@@ -621,7 +513,7 @@ let soldiersContent = {
         reserveList
         mkSoldierInfo({
           soldierInfoWatch = selectedSoldier
-          mkDismissBtn = mkDismissBtn
+          mkDismissBtn = smallDismissBtn
           onResearchClickCb = gotoResearchUpgradeMsgBox
         })
       ]

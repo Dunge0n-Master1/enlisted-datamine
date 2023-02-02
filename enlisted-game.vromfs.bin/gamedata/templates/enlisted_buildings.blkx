@@ -708,6 +708,20 @@ builded_stationary_mg_34_with_autodetach{
   _extends:t="stationary_mg_34_with_autodetach"
   _extends:t="fortification_builder_info"
 
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
+
   "disableDestroyWithRi:tag"{
   }
 
@@ -795,6 +809,20 @@ builded_stationary_browning_m1919a4_with_autodetach{
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-30.0, 30.0
 
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
+
   "disableDestroyWithRi:tag"{
   }
 
@@ -881,6 +909,20 @@ builded_stationary_browning_m2_with_autodetach{
   _extends:t="stationary_browning_m2_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
 
   "disableDestroyWithRi:tag"{
   }
@@ -988,6 +1030,20 @@ builded_stationary_mg_131_with_autodetach{
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-50.0, 50.0
 
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
+
   "disableDestroyWithRi:tag"{
   }
 
@@ -1074,6 +1130,20 @@ builded_stationary_type_92_hmg_with_autodetach{
   _extends:t="stationary_type_92_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-30.0, 30.0
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
 
   "disableDestroyWithRi:tag"{
   }
@@ -1162,6 +1232,20 @@ builded_stationary_type_93_hmg_with_autodetach{
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
 
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
+
   "disableDestroyWithRi:tag"{
   }
 
@@ -1249,6 +1333,20 @@ builded_stationary_dshk_1942_with_autodetach{
   _extends:t="stationary_dshk_1942_with_autodetach"
   _extends:t="fortification_builder_info"
   mounted_gun__horz_limits:p2=-40.0, 40.0
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "building__isBroken:b"{
+    value:b=no
+    _tags:t="server"
+  }
+
+  "building__breakOffender:eid"{
+    _tags:t="server"
+  }
 
   "disableDestroyWithRi:tag"{
   }

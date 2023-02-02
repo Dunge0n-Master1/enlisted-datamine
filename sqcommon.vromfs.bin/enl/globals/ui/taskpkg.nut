@@ -9,8 +9,7 @@ let { progressBar } = require("%enlSqGlob/ui/defcomps.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")
 let { getDescription } = require("unlocksText.nut")
-let {
-  bigPadding, activeTxtColor, titleTxtColor, defBgColor, taskProgressColor,
+let { bigPadding, activeTxtColor, titleTxtColor, defBgColor, taskProgressColor,
   taskDefColor, defTxtColor, smallPadding, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { getStageByIndex } = require("%enlSqGlob/unlocks_utils.nut")
@@ -73,6 +72,8 @@ let function mkTaskLabel(labelName = null) {
 }
 
 let isDailyTask = @(task) task.table == "daily"
+let isRankUnlock = @(task) (task?.meta.rank_unlock ?? 0) > 0
+  && (task?.stages[0].updStats[0].value ?? 0) == 0
 let isWeeklyTask = @(task) task?.meta.weekly_unlock ?? false
 let isAchievementTask = @(task) task?.meta.achievement ?? false
 let isEventTask = @(task) task?.meta.event_unlock ?? false
@@ -198,7 +199,8 @@ let taskDescription = @(description, sf = 0, style = {})
     : mkTaskTextArea(description, sf, style)
 
 let function getTaskEmblemImg(unlockDesc, isCompleted) {
-  let img = isDailyTask(unlockDesc) ? "star"
+  let img = isRankUnlock(unlockDesc) ? "goblet"
+    : isDailyTask(unlockDesc) ? "star"
     : isWeeklyTask(unlockDesc) ? "star"
     : isAchievementTask(unlockDesc) ? "medal"
     : isEventTask(unlockDesc) ? "medal"
@@ -223,7 +225,7 @@ let function mkEmblemQty(unlockDesc) {
   let stage = isFinished
     ? getStageByIndex(unlockDesc, lastRewardedStage - 1)
     : getStageByIndex(unlockDesc, lastRewardedStage)
-  let count = (stage?.updStats[0].value ?? 1).tointeger()
+  let count = (stage?.updStats[0].value ?? 0).tointeger()
   return count <= 1 ? null
     : {
         rendObj = ROBJ_TEXT

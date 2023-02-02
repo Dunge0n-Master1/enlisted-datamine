@@ -153,6 +153,9 @@ base_objective_zone_without_navmesh{
   capzone__narrator_zoneCapturedEnemy:t=""
   capzone__narrator_zoneCapturedEnemyMessage:t=""
   capzone__narrator_zoneCapturedEnable:b=no
+  capzone_award__progressCheckpoint:i=0
+  capzone_award__awardedProgressStep:i=5
+  capzone_award__progressAwardPortion:r=0.6666
   ui_order:i=-1
   _replicated:t="active"
   _replicated:t="capzone__capTeam"
@@ -231,15 +234,6 @@ base_objective_zone{
   _extends:t="objective_zone_navmesh"
 }
 
-capzone_capture_award{
-
-  "capzone__capturersEids:list<eid>"{
-  }
-
-  "capzone__soldiersCapture:object"{
-  }
-}
-
 capzone_team_presence{
   trackedLastTime:r=0.0
   trackInterval:p2=1.0, 2.0
@@ -257,7 +251,6 @@ capzone_team_presence{
 
 base_capzone_without_navmesh{
   _extends:t="base_objective_zone_without_navmesh"
-  _extends:t="capzone_capture_award"
   _extends:t="capzone_team_presence"
   capzone__curTeamCapturingZone:i=-1
   capzone__autoDecap:b=yes

@@ -361,23 +361,31 @@ def capzone_tick_capture(zone_eid : EntityId; dt : float)
                              capzone__capTime : float = 20.;
                              capzone__capTeamEid : EntityId;
                              capzone__capTeamAdvantage : int;
+                             capzone_award__awardedProgressStep : int;
                              capzone__capTeam : int;
                              var active : bool&;
                              var capzone__progress : float&;
                              var capzone__owningTeam : int&;
-                             var capzone__captureStatus : int&)
+                             var capzone__captureStatus : int&;
+                             var capzone_award__progressCheckpoint : int&)
     let capSpeedMult = get_float(capzone__capTeamEid, "team__captureSpeedMult") ?? 1.0
     let capSpeed = get_cap_speed(capzone__canCaptureByPresenceDomination, capzone__capTeamAdvantage, capzone__advantageDivisor,
                                 capzone__maxCapDecapSpeedMult, capzone__capTime, capSpeedMult)
     let progressDelta = capSpeed * dt
 
+    let lastCheckpoint = capzone_award__progressCheckpoint
     if capzone__progress + progressDelta >= 1.0
       capture_zone(zone_eid, capzone__deactivateAfterCap, capzone__checkAllZonesInGroup, capzone__capTeam,
                   capzone__deactivateAfterTimeout, active, capzone__progress,
                   capzone__captureStatus, capzone__owningTeam)
+      capzone_award__progressCheckpoint = 100
     else
       capzone__progress += progressDelta
+      capzone_award__progressCheckpoint = (int(capzone__progress * 100.) / capzone_award__awardedProgressStep) * capzone_award__awardedProgressStep
 
+    if capzone_award__progressCheckpoint > lastCheckpoint
+      let awardProgress = float(capzone_award__progressCheckpoint - lastCheckpoint) * .01
+      sendEvent(zone_eid, [[EventAwardZoneCapturersProgressTick amount=awardProgress, team=capzone__capTeam]])
 
 def capzone_tick_decapture(zone_eid : EntityId; dt : float)
   query(zone_eid) <| $ [es] (capzone__presenceAdvantageToDominate : int = 1;
@@ -393,6 +401,7 @@ def capzone_tick_decapture(zone_eid : EntityId; dt : float)
                              capzone__advantageDivisor : float = 4.;
                              capzone__maxCapDecapSpeedMult : float = 2.;
                              capzone__decapTime : float = 30.;
+                             capzone_award__awardedProgressStep : int;
                              active : bool;
                              var capzone__progress : float&;
                              var capzone__capTeam : int&;
@@ -402,7 +411,8 @@ def capzone_tick_decapture(zone_eid : EntityId; dt : float)
                              var capzone__curTeamCapturingZone : int&;
                              var capzone__curTeamDominating : int&;
                              var capzone__capTeamAdvantage : int&;
-                             var capzone__isMultipleTeamsPresent : bool&)
+                             var capzone__isMultipleTeamsPresent : bool&;
+                             var capzone_award__progressCheckpoint : int&)
     let team = capzone__capTeam
     if capzone__progress == 1.0 && capzone__autoDecap
       broadcast_net_event([[EventZoneDecaptured zone=zone_eid, team=team]])
@@ -419,8 +429,13 @@ def capzone_tick_decapture(zone_eid : EntityId; dt : float)
                               capzone__locked, capzone__autoCap, capzone__autoDecap, capzone__decapOnNeutral,
                               capzone__progress, capzone__capTeam, capzone__capTeamEid, capzone__owningTeam, capzone__captureStatus, capzone__curTeamCapturingZone, capzone__curTeamDominating,
                               capzone__capTeamAdvantage, capzone__isMultipleTeamsPresent)
+      capzone_award__progressCheckpoint = 0
     else
       capzone__progress -= progressDelta
+      let nextCheckpoint = ceili(capzone__progress * 100.0 / float(capzone_award__awardedProgressStep)) * capzone_award__awardedProgressStep
+      // Do not lower checkpoint unless progress was dropped to previous checkpoint.
+      // This way capturers won't get award for small recaps (less than step)
+      capzone_award__progressCheckpoint = min(capzone_award__progressCheckpoint, nextCheckpoint)
 
 
 [es(tag=server, no_order)]
@@ -449,6 +464,7 @@ def force_cap_zone(evt : EventForceCapture;
                    capzone__deactivateAfterCap : bool = false;
                    capzone__checkAllZonesInGroup : bool = false;
                    capzone__deactivateAfterTimeout : float = -1.;
+                   var capzone_award__progressCheckpoint : int&;
                    var active : bool&;
                    var capzone__progress : float&;
                    var capzone__captureStatus : int&;
@@ -459,3 +475,4 @@ def force_cap_zone(evt : EventForceCapture;
     capture_zone(eid, capzone__deactivateAfterCap, capzone__checkAllZonesInGroup, capzone__capTeam,
                  capzone__deactivateAfterTimeout, active, capzone__progress,
                  capzone__captureStatus, capzone__owningTeam)
+    capzone_award__progressCheckpoint = 100

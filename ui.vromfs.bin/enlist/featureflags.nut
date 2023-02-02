@@ -21,6 +21,7 @@ let PSNAllowShowQRCodeStore = mkWatched(persist, "PSNAllowShowQRCodeStore", fals
 let canRentSquad = mkWatched(persist, "canRentSquad", false)
 let hasMassVehDecorPaste = mkWatched(persist, "hasMassVehDecorPaste", false)
 let hasCampaignPromo = mkWatched(persist, "hasCampaignPromo", false)
+let hasGoToSquadbtn = mkWatched(persist, "hasGoToSquadbtn", false)
 
 
 let features = {
@@ -41,6 +42,7 @@ let features = {
   canRentSquad
   hasMassVehDecorPaste
   hasCampaignPromo
+  hasGoToSquadbtn
 }
 
 foreach (featureId, featureFlag in features)

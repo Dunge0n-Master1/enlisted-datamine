@@ -526,7 +526,6 @@ let viewItemMoveVariants = Computed(function() {
   let item = viewItem.value
   if (item == null
       || item.guid == ""
-      || item?.isZeroHidden
       || item?.isFixed
       || (item?.unlocklevel ?? -1) < 0)
     return []
@@ -540,8 +539,8 @@ let viewItemMoveVariants = Computed(function() {
       if (armyId == curArmyId || template == null)
         continue
 
-      let { unlocklevel = -1, isZeroHidden = false } = template
-      if (unlocklevel < 0 || isZeroHidden)
+      let { unlocklevel = -1 } = template
+      if (unlocklevel < 0)
         continue
 
       if (item?.equipSchemeId != template?.equipSchemeId)
