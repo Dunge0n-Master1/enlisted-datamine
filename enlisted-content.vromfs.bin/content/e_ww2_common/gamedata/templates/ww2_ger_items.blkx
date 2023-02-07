@@ -2165,6 +2165,13 @@ helmet_grid_01_item{
   item__uniqueName:t="helmet_grid_01_ger_item"
 }
 
+gasmask_m38_01_ger_summer_item{
+  _extends:t="attachable_face_equipment"
+  animchar__res:t="gasmask_m38_01_ger_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="gasmask_m38_01_ger_summer_item"
+}
+
 attachable_wear_head_01_ger_summer_item{
   _extends:t="attachable_head"
   item__uniqueName:t="attachable_wear_head_01_ger_summer_item"

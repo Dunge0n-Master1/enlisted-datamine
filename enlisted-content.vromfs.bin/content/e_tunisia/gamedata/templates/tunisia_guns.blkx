@@ -3518,8 +3518,8 @@ besal_lmg_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.055
-  gun__recoilDirAmount:r=0.63
+  gun__recoilAmount:r=0.057
+  gun__recoilDirAmount:r=0.68
   gun__recoilDir:r=0.0
   gun__visualRecoilMult:r=0.4
   gun__recoilControlMult:r=0.9
@@ -3542,31 +3542,19 @@ besal_lmg_gun{
     _tags:t="sound"
 
     "reload1:object"{
-      path:t="/weapon/mgun/zb_26/reload1/change_ammo"
-    }
-
-    "reload2:object"{
-      path:t="/weapon/mgun/zb_26/reload2/change_ammo"
+      path:t="/weapon/mgun/besal_lmg/reload1/change_ammo"
     }
 
     "reload3:object"{
-      path:t="/weapon/mgun/zb_26/reload3/change_ammo"
-    }
-
-    "reload4:object"{
-      path:t="/weapon/mgun/zb_26/reload4/change_ammo"
-    }
-
-    "reload5:object"{
-      path:t="/weapon/mgun/zb_26/reload5/change_ammo"
+      path:t="/weapon/mgun/besal_lmg/reload3/change_ammo"
     }
 
     "reload6:object"{
-      path:t="/weapon/mgun/zb_26/reload6/change_ammo"
+      path:t="/weapon/mgun/besal_lmg/reload6/change_ammo"
     }
 
     "reload7:object"{
-      path:t="/weapon/mgun/zb_26/reload7/change_ammo"
+      path:t="/weapon/mgun/besal_lmg/reload7/change_ammo"
     }
 
     "boltAction:object"{
@@ -3579,10 +3567,10 @@ besal_lmg_gun{
     "point:object"{
       type:t="bipod"
       recoil:r=0.25
-      offset:p3=0.74, 0.03, -0.005
+      offset:p3=0.74, -0.01, -0.01
       forceOffset:b=yes
       angle:r=35.5
-      length:r=0.28
+      length:r=0.24
     }
 
     "point:object"{

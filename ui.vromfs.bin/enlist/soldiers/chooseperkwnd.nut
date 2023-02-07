@@ -5,11 +5,11 @@ let { blurBgColor, bigGap, defTxtColor, activeTxtColor, bigPadding,
   isWide, perkBigIconSize, perkIconSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
-let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
+let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
-let { mkPerksPointsBlock, tierTitle, perkCard, perkUi, priceIconCtor, thumbIconSize
+let { mkPerksPointsBlock, perkCard, perkUi, priceIconCtor, thumbIconSize
 } = require("components/perksPackage.nut")
 let { kindIcon, levelBlock} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -100,8 +100,8 @@ let possiblePerksBtn = @(_soldier) @() {
   children = isRollAnimation.value
     ? null
     : textButton.SmallFlat(loc("possible_perks_list"),
-      @(_event) openAvailablePerks(perksList.value, curArmy.value, sPerks.value),
-      { margin = 0,  padding = [bigPadding, 2 * bigPadding] })
+        @(_event) openAvailablePerks(perksList.value, curArmy.value, sPerks.value),
+        { margin = 0,  padding = [bigPadding, 2 * bigPadding] })
   }
 
 let wndHeader = {
@@ -263,41 +263,32 @@ let function changePerksButton() {
   })
 }
 
-let mkAvaliablePerks = @(armyId, perks) {
-  size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_HORIZONTAL
-  children = perks.map(@(perkData, idx) perkCard({
-    armyId
-    perkData = perkData
-    slotNumber = idx
-    customStyle = perkCardStyle
-  }))
-}
-
-let function currentPerks(){
+let function currentPerks() {
   let tiers = sPerks.value?.tiers
   let exclude = [sPerks.value?.prevPerk]
-  let content = tiers?.map(function(tier) {
-    let slots = tier.slots.filter(@(p) p != null && exclude.indexof(p) == null)
-    if (!slots.len())
-      return null
-    return {
-      size = [hdpx(200), SIZE_TO_CONTENT]
-      valign = ALIGN_TOP
-      children = [
-        tierTitle(tier)
-        mkAvaliablePerks(curArmy.value, slots.map(@(p) {perkId = p}))
-      ]
-    }
-  }).filter(@(c) c != null)
+  let armyId = curArmy.value
+  let children = tiers?.reduce(function(res, tier) {
+    let slots = tier.slots
+      .filter(@(p) p && !exclude.contains(p))
+      .map(@(perkId) { perkId })
+    if (slots.len() == 0)
+      return res
 
+    res.extend(slots.map(@(perkData, slotNumber) perkCard({
+      armyId
+      perkData
+      slotNumber
+      customStyle = perkCardStyle
+    })))
+    return res
+  }, [])
   return {
-    padding = [localGap,0,0,0]
+    size = [flex(), SIZE_TO_CONTENT]
     valign = ALIGN_TOP
     watch = [sPerks, curArmy]
-    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
-    children = content
+    gap = bigPadding
+    children
   }
 }
 
@@ -313,31 +304,42 @@ let function footer() {
     size = [flex(), SIZE_TO_CONTENT]
     children = isRollAnimation.value ? null
       : perkActionsInProgress.value.len() > 0 ? spinner
-      : [
-        @() {
-          flow = FLOW_VERTICAL
+      : @() {
           watch = needFreemiumStatus
           size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_VERTICAL
+          gap = localGap
           children = [
-            changePerksButton
-            levelBlock({
-              curLevel = perksCount
-              leftLevel = max(perksLevel - perksCount, 0)
-              lockedLevel = max(maxLevel - perksLevel, 0)
-              fontSize = hdpx(20)
-              hasLeftLevelBlink = true
-              guid = guid
-              isFreemiumMode = needFreemiumStatus.value
-              tier = tier
-            }).__update({ margin = 0, size = [flex(), SIZE_TO_CONTENT] })
             {
-              rendObj = ROBJ_TEXT
-              text = loc("current_perks_list")
-              color = defTxtColor
+              size = [flex(), SIZE_TO_CONTENT]
+              valign = ALIGN_BOTTOM
+              children = [
+                {
+                  flow = FLOW_VERTICAL
+                  children = [
+                    levelBlock({
+                      curLevel = perksCount
+                      leftLevel = max(perksLevel - perksCount, 0)
+                      lockedLevel = max(maxLevel - perksLevel, 0)
+                      fontSize = hdpx(20)
+                      hasLeftLevelBlink = true
+                      guid = guid
+                      isFreemiumMode = needFreemiumStatus.value
+                      tier = tier
+                    }).__update({ margin = 0, size = [flex(), SIZE_TO_CONTENT] })
+                        {
+                      rendObj = ROBJ_TEXT
+                      text = loc("current_perks_list")
+                      color = defTxtColor
+                    }
+                  ]
+                }
+                changePerksButton
+              ]
             }
             currentPerks
           ]
-        }]
+        }
   }
 }
 

@@ -15,9 +15,9 @@ let onlineStatus = Computed(@() onlineStatusBase.value.__merge(squadStatus.value
 
 let mkUpdatePresences = @(watch, dbId) function(newPresences) {
   if (newPresences.len() > 10) { //faster way when many presences received
-    ndbWrite(dbId, watch.value)
     //merge and filter are much faster when receive a lot of friends then foreach with delete
     watch(watch.value.__merge(newPresences).filter(@(p) p != null))
+    ndbWrite(dbId, watch.value)
     return
   }
 

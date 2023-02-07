@@ -593,6 +593,18 @@ attachable_parachute_canopy{
   }
 }
 
+attachable_face_equipment{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="face_equipment"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="face_equipment"
+  }
+}
+
 attachable_gasmask{
   _extends:t="attachable_wear"
 

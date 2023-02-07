@@ -34,6 +34,7 @@ def spawn_on_squad_members_create_base_es(evt : Event;
     set(init, "respawnOwnerEid", eid)
     set(init, "team", team)
     set(init, "transform", ownerTm)
+    set(init, "dependsOnBuildingEid", eid)
 
 [es(tag=server, on_event=(EventComponentsDisappear, EventEntityDestroyed, EventEntityDied), REQUIRE=spawnOnFriends)]
 def spawn_on_squad_members_destroy_base_es(evt : Event;

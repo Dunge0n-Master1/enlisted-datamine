@@ -81,6 +81,7 @@ def human_vehicle_seats_update_phys_es(info : UpdateStageInfoAct;
     return
   human_net_phys.phys.currentState.bodyOrientDir = nodeTm[0].xz
   human_net_phys.phys.currentState.moveState = HUMoveState EMS_STAND
+  // Human in vehicle has velocity of the vehicle, currently to aid server-side hit verification
   human_net_phys.phys.currentState.velocity = get_Point3(human_anim__vehicleSelected, "net_phys__currentStateVelocity") ?? float3(0.0)
   human_net_phys.phys.currentState.location.P = DPoint3(nodeTm[3])
   human_net_phys.phys.currentState.walkNormal = nodeTm[1]

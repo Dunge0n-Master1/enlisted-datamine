@@ -14,5 +14,7 @@ def gain_vehicle_velocity_es(evt : GainVehicleVelocity; var human_net_phys : Hum
     // only vertical velocity, so the player will get killed when hit by the ground
     let addVelY = VERTICAL_VELOCITY_MULT * vehicleVel.y
 
-    human_net_phys.phys.currentState.velocity.y  += addVelY
-    human_net_phys.phys.previousState.velocity.y += addVelY
+    // Human in vehicle has velocity of the vehicle, currently to aid server-side hit verification
+    // But if the velocity is preserved when leaving a plane at high speed, it looks silly (confirmed by designers)
+    human_net_phys.phys.currentState.velocity = float3(0.f, addVelY, 0.f)
+    human_net_phys.phys.previousState.velocity = float3(0.f, addVelY, 0.f)

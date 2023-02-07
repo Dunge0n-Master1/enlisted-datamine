@@ -1,7 +1,5 @@
 us_m5a1_stuart_late{
-  _extends:t="base_m5a1_stuart_late"
-  _extends:t="tank_light_vehicle_tracks_sound"
-  item__iconOffset:p2=0.0, 0.2
+  _extends:t="us_m5a1_stuart_late_common"
 
   "turrets__initAmmoDistribution:array"{
 
@@ -15,6 +13,12 @@ us_m5a1_stuart_late{
       fill:b=yes
     }
   }
+}
+
+us_m5a1_stuart_late_common{
+  _extends:t="base_m5a1_stuart_late"
+  _extends:t="tank_light_vehicle_tracks_sound"
+  item__iconOffset:p2=0.0, 0.2
 
   "bullet_holes__ignoreCollisionNodes:array"{
     _tags:t="render"
@@ -194,8 +198,44 @@ us_m5a1_stuart_late_td{
   }
 }
 
+us_m5a1_stuart_late_pacific_premium{
+  _extends:t="us_m5a1_stuart_late_common"
+  collision_damage__forwardDamageToHumanMult:r=3.0
+  item__name:t="items/us_m5a1_stuart_rhino_event_premium"
+  item__iconOffset:p2=0.0, 0.2
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=2
+      fill:b=yes
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "us_camo_olive*":t="us_camo_dark_green_light_olive*"
+  }
+
+  "attach_decorators__entities:list<eid>"{
+  }
+
+  "attach_decorators__templates:array"{
+
+    "templates:object"{
+      relativeTm:m=[[0.999388, 2.56769e-08, -6.70233e-06] [1.38098e-08, 0.999913, 1.17347e-06] [2.69664e-06, 3.54368e-07, 0.99947] [2.3596, -0.011091, 0.600384]]
+      template:t="stuart_hedgerow_02_decor"
+      nodeName:t="root"
+    }
+  }
+}
+
 us_m5a1_stuart_rhino_event_premium{
-  _extends:t="us_m5a1_stuart_late"
+  _extends:t="us_m5a1_stuart_late_common"
   collision_damage__forwardDamageToHumanMult:r=3.0
   item__name:t="items/us_m5a1_stuart_rhino_event_premium"
   item__iconOffset:p2=0.0, 0.2

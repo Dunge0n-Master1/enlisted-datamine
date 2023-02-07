@@ -271,47 +271,42 @@ let perkUi = @(armyId, perkId, customStyle = {}, params = {}) function() {
   }.__update(customStyle)
 }
 
-let function perkCardBg(slotNumber, cb = null, params = {}, children = null)  {
-  let stateFlags = Watched(0)
-  return @() {
-    watch = stateFlags
-    rendObj = ROBJ_BOX
-    size = [flex(), SIZE_TO_CONTENT]
-    behavior = cb ? Behaviors.Button : null
-    onClick = cb
-    onElemState = @(sf) stateFlags(sf)
-    sound = {
-      hover = "ui/enlist/button_highlight"
-      click = "ui/enlist/button_click"
-    }
-    fillColor = stateFlags.value & S_HOVER ? BG_HOVER
-      : (slotNumber % 2) ? BG_LIGHTEN
-      : BG_DARKEN
-    borderColor = activeBgColor
-    borderWidth = [0, 0, stateFlags.value & S_HOVER ? 1 : 0, 0]
-    children = children
-  }.__update(params)
-}
+let perkCardBg = @(slotNumber, cb = null, params = {}, children = null) watchElemState(@(sf) {
+  rendObj = ROBJ_BOX
+  size = [flex(), SIZE_TO_CONTENT]
+  behavior = cb ? Behaviors.Button : null
+  onClick = cb
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+  }
+  fillColor = sf & S_HOVER ? BG_HOVER
+    : (slotNumber % 2) ? BG_LIGHTEN
+    : BG_DARKEN
+  borderColor = activeBgColor
+  borderWidth = [0, 0, sf & S_HOVER ? 1 : 0, 0]
+  children = children
+}.__update(params))
 
-let perkCard = kwarg(
-  @(armyId, perkData, slotNumber = 0, cb = null, customStyle = {}) function() {
-    if (perksList.value?[perkData.perkId] == null)
-      return { watch = perksList }
-    return {
-      watch = perksList
-      size = [flex(), SIZE_TO_CONTENT]
-      children = perkCardBg(slotNumber, cb, customStyle, perkUi(
-        armyId,
-        perkData.perkId,
-        customStyle,
-        {
-          isSelected = perkData?.isSelected ?? false
-          isUnavailable = !(perkData?.isAvailable ?? true)
-          iconCtor = priceIconCtor
-          isRecommended = perkData?.recommended ?? false
-        }
-      ))
-    }
+let perkCard = kwarg(@(armyId, perkData, slotNumber = 0, cb = null, customStyle = {}) function() {
+  if (perksList.value?[perkData.perkId] == null)
+    return { watch = perksList }
+
+  return {
+    watch = perksList
+    size = customStyle?.size ?? [flex(), SIZE_TO_CONTENT]
+    children = perkCardBg(slotNumber, cb, customStyle, perkUi(
+      armyId,
+      perkData.perkId,
+      customStyle,
+      {
+        isSelected = perkData?.isSelected ?? false
+        isUnavailable = !(perkData?.isAvailable ?? true)
+        iconCtor = priceIconCtor
+        isRecommended = perkData?.recommended ?? false
+      }
+    ))
+  }
 })
 
 let function uniteEqualPerks(perks) {

@@ -921,6 +921,20 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.png"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
+  ["385"] = {
+    name = loc("items/heavy_weapons_event_order")
+    description = loc("items/heavy_weapons_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["386"] = {
+    name = loc("vehicleDetails/jp_type_97_kai")
+    description = loc("items/jp_type_97_kai/desc")
+    icon = "ui/skin#/tank_icon.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.png"
+    cardImage = mkTemplateImageCtor([170, 150], [0, 12], "jp_type_97_kai_pacific_premium")
+  },
 
 
   // boosters presentation

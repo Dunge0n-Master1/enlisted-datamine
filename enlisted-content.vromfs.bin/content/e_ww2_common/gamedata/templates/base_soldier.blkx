@@ -391,6 +391,16 @@ base_soldier{
       }
     }
 
+    "face_equipment:object"{
+      template:t=""
+
+      "item:eid"{
+      }
+
+      "entities:array"{
+      }
+    }
+
     "flask_r:object"{
       template:t=""
 

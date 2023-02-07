@@ -27519,6 +27519,7 @@ riExtra{
 
   barbedwire_engineer_a{
     nextRes:t="barbedwire_engineer_dmg_a"
+    destructibleByParent:b=no
     destructionImpulse:r=1000.0
     impulseThreshold:r=19.0
     material:t="barbwire"
@@ -43923,6 +43924,7 @@ riExtra{
   ammunition_supply_a_destructible_part{
     hp:r=150.0
     material:t="wood"
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
   }
@@ -43966,6 +43968,7 @@ riExtra{
     destructionImpulse:r=1000.0
     material:t="wood"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="ger_rallypoint_destr_phobj"
@@ -43976,6 +43979,7 @@ riExtra{
     destructionImpulse:r=1000.0
     material:t="wood"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="usa_rallypoint_destr_phobj"
@@ -43986,6 +43990,7 @@ riExtra{
     destructionImpulse:r=1000.0
     material:t="wood"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="ussr_rallypoint_destr_phobj"
@@ -43996,6 +44001,7 @@ riExtra{
     destructionImpulse:r=1000.0
     material:t="wood"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="jap_rallypoint_destr_phobj"
@@ -44290,6 +44296,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_a_destr_phobj"
@@ -44300,6 +44307,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_b_mission_object_destr_phobj"
@@ -44310,6 +44318,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_c_mission_object_destr_phobj"
@@ -44320,6 +44329,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_d_mission_object_destr_phobj"
@@ -44330,6 +44340,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_e_mission_object_destr_phobj"
@@ -44340,6 +44351,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_f_mission_object_destr_phobj"
@@ -44350,6 +44362,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_g_mission_object_destr_phobj"
@@ -44360,6 +44373,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_h_mission_object_destr_phobj"
@@ -44370,6 +44384,7 @@ riExtra{
     impulseThreshold:r=75.0
     material:t="sand"
     isParent:b=no
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_sandbags_effect"
     fxScale:r=1.0
     physRes:t="sandbags_wall_medium_rounded_i_mission_object_destr_phobj"

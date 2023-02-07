@@ -295,7 +295,7 @@ class ChooseBestWeapon : BehNodeAdapter
     var goodWeapon = -1
     var otherWeapon = -1
     var otherWeaponPriority = 0
-    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList; human_weap__currentGunEid : EntityId)
+    query(agent.eid) <| $ [es] (human_weap__gunEids : EidList)
       var closestStartFireRange = 0.0
       for i, gunEid in range(int(HUWeaponSlots EWS_NUM)), human_weap__gunEids
         if gunEid == INVALID_ENTITY_ID || i == int(HUWeaponSlots EWS_GRENADE)
@@ -319,14 +319,7 @@ class ChooseBestWeapon : BehNodeAdapter
             elif *specialAIWeaponType == 2 // pistols
               otherWeapon = i
               otherWeaponPriority = 10
-              if !isCurrent
-                allowedGun = false
-                var hasRifleInHands = false
-                query(human_weap__currentGunEid) <| $ [es] (specialAIWeaponType aka sub_specialAIWeaponType : int const?; item__weapType : string)
-                  if item__weapType == "rifle" || (sub_specialAIWeaponType != null && *sub_specialAIWeaponType == 3) // antitank rifles
-                    hasRifleInHands = true
-                if hasRifleInHands && rnd_float(0.0, 1.0) <= 0.75
-                  allowedGun = true
+              allowedGun = isCurrent
             elif *specialAIWeaponType == 3 // antitank rifles
               allowedGun = false
               if otherWeaponPriority < 10
