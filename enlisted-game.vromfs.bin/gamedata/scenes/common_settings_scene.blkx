@@ -1,3 +1,7 @@
 entity{
   _template:t="narrator_settings"
 }
+
+entity{
+  _template:t="first_blood_award"
+}

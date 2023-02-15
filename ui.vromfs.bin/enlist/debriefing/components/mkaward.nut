@@ -148,6 +148,13 @@ let awardsCfg = {
   ampulomet_kills = mkStdAward(["ui/skin#awards/debriefing_awards_ampulomet_kills.png"])
   infantry_tnt_kills = mkStdAward(["ui/skin#awards/debriefing_awards_tnt_kills.png"])
   artillery_kills = mkStdAward(["ui/skin#awards/debriefing_awards_artillery_kills.png"])
+  engineer_ammo_box_usage = mkStdAward(["ui/skin#awards/debriefing_awards_ammo_crate.png"])
+  infantry_bomb_kills = mkStdAward(["ui/skin#awards/debriefing_awards_bomb_kills.png"])
+  engineer_rally_point_usage = mkStdAward(["ui/skin#awards/debriefing_awards_spawn_1.png"])
+  infantry_antitank_mine_kills = mkStdAward(["ui/skin#awards/debriefing_awards_antipersonnel_mine_kill.png"])
+  first_blood = mkStdAward(["ui/skin#awards/debriefing_awards_first_blood.png"])
+  infantry_rocket_kills = mkStdAward(["ui/skin#awards/debriefing_awards_missile_kills.png"])
+  tank_commander_kills = mkStdAward(["ui/skin#awards/debriefing_awards_tank_commander_kills.png"])
 }
 foreach (name in BattleHeroesAward)
   awardsCfg[name] <- mkBattleHeroAward

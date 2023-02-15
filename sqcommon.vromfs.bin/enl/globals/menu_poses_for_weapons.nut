@@ -109,7 +109,7 @@ local weaponToAnimState = freeze({
   mp_34_jp_gun =  [i(13), i(14), i(15), i(18)]
   type_97_antitank_canon_gun = [i(6), i(7), i(16)]
   ppt_27_gun = [i(14), i(18)]
-  besal_lmg_gun = [i(13), i(14), i(16), i(18)]
+  besal_lmg_gun = [ i(14), i(16), i(18)]
 
 
 

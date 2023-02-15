@@ -1007,6 +1007,7 @@ dead_enlisted_base_soldier{
   ragdoll__applyParams:b=no
   human_broken_bones__tearOffImpulse:r=7.5
   human_broken_bones__tearOffImpulseUp:r=1.0
+  human_vehicle__isInHatch:b=no
 
   _group{
     _track:b=yes

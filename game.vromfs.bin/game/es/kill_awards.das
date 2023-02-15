@@ -45,7 +45,8 @@ def kill_award_es(evt : EventPlayerKilledEntity;
                               mounted_gun__active : bool = false;
                               human_attached_gun__isAttached : bool = false;
                               isDriver : bool = false;
-                              isPassenger : bool = false)
+                              isPassenger : bool = false;
+                              human_vehicle__isInHatch : bool = false)
     if !reportKill
       return
 
@@ -56,6 +57,10 @@ def kill_award_es(evt : EventPlayerKilledEntity;
 
     let damageType = int(evt.deathDesc_damageTypeId)
     let nodeType = dm_parts__type != null ? get_string(*dm_parts__type, int(evt.deathDesc_collNodeId), "") : ""
+    find_query() <| $ [es(REQUIRE=awards__firstBlood)] (eid : EntityId)
+      sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="first_blood"]])
+      destroyEntity(eid)
+      return true
     if damageType == int(DamageType DM_PROJECTILE) && nodeType == "head"
       add_award(awards, "headshot")
     if damageType == int(DamageType DM_MELEE) || damageType == int(DamageType DM_BACKSTAB)
@@ -67,6 +72,9 @@ def kill_award_es(evt : EventPlayerKilledEntity;
     let isVictimInCar = isDriver || isPassenger
     if isVictimInCar
       add_award(awards, "car_driver_kills")
+
+    if human_vehicle__isInHatch
+      sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="tank_commander_kills"]])
 
     if damageType == int(DamageType DM_PROJECTILE)
       query(killerEid) <| $ [es] (transform : float3x4; awards__longRangeDist : float = 100.)

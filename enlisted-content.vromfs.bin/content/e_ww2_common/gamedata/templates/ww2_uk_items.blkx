@@ -1083,6 +1083,7 @@ uk_m37_basic_pouches_blacklist{
 
   "animationBlacklistForMenu:list<t>"{
     anim:t="enlisted_idle_13_weapon"
+    anim:t="enlisted_idle_14_weapon"
   }
 }
 
@@ -1117,6 +1118,7 @@ attachable_wear_thompson_puch_02_uk_tropic_item{
 
 attachable_wear_uk_m37_basic_pouches_serge_dress_item{
   _extends:t="attachable_belt2"
+  _extends:t="uk_m37_basic_pouches_blacklist"
   item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_serge_dress_item"
   animchar__res:t="uk_m37_basic_pouches_serge_dress_char"
   collres__res:t="uk_m37_basic_pouches_serge_dress_collision"

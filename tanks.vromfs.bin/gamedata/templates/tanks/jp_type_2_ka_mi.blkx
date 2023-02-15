@@ -104,6 +104,14 @@ jp_type_2_ka_mi_common{
       fill:b=yes
     }
   }
+
+  _group{
+    _tags:t="gameClient"
+
+    "vehicle_attach__bodyParts:list<t>"{
+      part:t="turret_01_back"
+    }
+  }
 }
 
 jp_type_2_ka_mi_driver_cockpit{

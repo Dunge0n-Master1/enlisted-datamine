@@ -4801,6 +4801,7 @@ avs_36_gun{
   _group{
     _tags:t="sound"
     gun_sound__forceOneshot:b=yes
+    gun_sound__forceOneshotEnemy:b=yes
   }
 
   "gun_sound__shotPath:shared:object"{

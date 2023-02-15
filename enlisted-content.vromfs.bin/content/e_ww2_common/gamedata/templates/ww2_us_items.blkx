@@ -2042,8 +2042,17 @@ attachable_wear_belt_m36_03_us_summer_item{
   collres__res:t="belt_m36_03_us_summer_collision"
 }
 
+us_gasbag_m7_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_18_weapon"
+    anim:t="enlisted_idle_14_weapon"
+  }
+}
+
 attachable_wear_us_gasbag_m7_jacket_m41_item{
   _extends:t="attachable_gasmask"
+  _extends:t="us_gasbag_m7_blacklist"
   item__uniqueName:t="attachable_wear_us_gasbag_m7_jacket_m41_item"
   animchar__res:t="us_gasbag_m7_jacket_m41_char"
   collres__res:t="gasmask_m7_01_us_summer_collision"
@@ -2051,6 +2060,7 @@ attachable_wear_us_gasbag_m7_jacket_m41_item{
 
 attachable_wear_gasmask_m7_01_us_summer_item{
   _extends:t="attachable_gasmask"
+  _extends:t="us_gasbag_m7_blacklist"
   item__uniqueName:t="attachable_wear_gasmask_m7_01_us_summer_item"
   animchar__res:t="gasmask_m7_01_us_summer_char"
   collres__res:t="gasmask_m7_01_us_summer_collision"

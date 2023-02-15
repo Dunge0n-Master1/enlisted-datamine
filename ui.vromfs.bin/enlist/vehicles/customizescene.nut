@@ -22,7 +22,7 @@ let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let {
   mkDecorSlot, mkDecorIcon, mkBlockHeader, mkCustGroup, slotSize, mkSkinIcon,
   mkFlipBtn, mkSelectBox, mkButton, closeActionIcon, mkDecorHints, decorScaleHint,
-  decorRotationHint, slotNormalColor, slotBigSize
+  decorRotationHint, slotNormalColor, slotBigSize, mkDecalImage, mkDecorImage
 } = require("customizePkg.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
@@ -241,6 +241,95 @@ let function addNotPurchasedCamouflage(id, buyData) {
   })
 }
 
+let buyProductBorderColor = Color(80,80,80,200)
+let buyProductColor = Color(20,20,20,200)
+let buyProductSlotWidth = hdpx(300)
+let buyProductWndWidth = 3 * buyProductSlotWidth + 2 * bigPadding
+let buyProductParams = {
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+}
+
+let mkBuyProduct = @(icon, header, name) {
+  size = [buyProductSlotWidth, SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  rendObj = ROBJ_SOLID
+  color = buyProductColor
+  children = [
+    {
+      size = slotSize
+      padding = smallPadding
+      rendObj = ROBJ_BOX
+      borderWidth = hdpx(1)
+      borderColor = buyProductBorderColor
+      children = icon
+    }
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      margin = [bigPadding, 0]
+      gap = smallPadding
+      children = [
+        mkBlockHeader(header)
+        noteTextArea(name).__update({
+          size = [flex(), SIZE_TO_CONTENT]
+          margin = [0, smallPadding]
+          color = accentTitleTxtColor
+        }.__update(sub_txt))
+      ]
+    }
+  ]
+}
+
+let massBuyProductViewUi = function() {
+  let res = {
+    watch = [viewVehicle, notPurchased]
+  }
+
+  let { gametemplate = null } = viewVehicle.value
+  if (gametemplate == null)
+    return res
+
+  let decalHeader = loc("vehDecalChooseHeader")
+  let skinHeader  = loc("vehCamouflageChooseHeader")
+  let decorHeader = loc("vehDecoratorChooseHeader")
+  let { vehCamouflage = null, vehDecorator = [], vehDecal = [] } = notPurchased.value
+
+  let children = []
+  if (vehCamouflage != null) {
+    let skin = getVehSkins(gametemplate).findvalue(@(s) s.id == vehCamouflage.id)
+    let {
+      locId = null, objTexReplace = (getBaseVehicleSkin(gametemplate) ?? {})
+    } = skin
+    let skinId = cropSkinName((objTexReplace).values()?[0])
+    let skinTxt = loc(locId ?? ($"skin/{skinId ?? "baseSkinName"}"))
+    let icon = mkDecalImage({ guid = skinId })
+    children.append(mkBuyProduct(icon, skinHeader, skinTxt))
+  }
+
+  if (vehDecal.len() > 0)
+    children.extend(vehDecal.map(@(d)
+      mkBuyProduct(mkDecalImage({ guid = d.id }), decalHeader, loc($"decals/{d.id}"))
+    ))
+
+  if (vehDecorator.len() > 0)
+    children.extend(vehDecorator.map(@(d)
+      mkBuyProduct(mkDecorImage({ guid = d.id }), decorHeader, loc($"decorators/{d.id}"))
+    ))
+
+  let hasWrap = children.len() > 3
+  return res.__update({
+    children = hasWrap
+      ? wrap(children, {
+          width = buyProductWndWidth
+          hGap = bigPadding
+          vGap = bigPadding
+        })
+      : children
+  }, hasWrap ? {} : buyProductParams)
+}
+
 let function mkPurchaceBtn(notPurchasedVal) {
   let { vehCamouflage = null, vehDecorator = [], vehDecal = [] } = notPurchasedVal
   let vehCamouflageList = vehCamouflage == null ? [] : [vehCamouflage]
@@ -252,16 +341,26 @@ let function mkPurchaceBtn(notPurchasedVal) {
         currencyId = "EnlistedGold"
         price
         cb = function() {
-          let vehGuid = viewVehicle.value?.guid
-          let decoratorsCfgList = decoratorsList.map(@(d) {
-            cType = d.cType
-            id = d.id
-            details = d?.details ?? ""
-            slotIdx = d.slotIdx
-            price = d.buyData.price
+          purchaseMsgBox({
+            title = loc("buyVehDecorConfirm")
+            productView = massBuyProductViewUi
+            price
+            currencyId = "EnlistedGold"
+            purchase = function() {
+              let vehGuid = viewVehicle.value?.guid
+              let decoratorsCfgList = decoratorsList.map(@(d) {
+                cType = d.cType
+                id = d.id
+                details = d?.details ?? ""
+                slotIdx = d.slotIdx
+                price = d.buyData.price
+              })
+              buyApplyDecorators(decoratorsCfgList, vehGuid, price)
+              clearNotPurchased()
+            }
+            alwaysShowCancel = true
+            srcComponent = "mass_buy_decor"
           })
-          buyApplyDecorators(decoratorsCfgList, vehGuid, price)
-          clearNotPurchased()
         }
         style = ({
           margin = bigPadding
@@ -368,7 +467,9 @@ let function mkGroupIcons(groupIconsList, vehGuid, curCustType,
           if (limit > 0) {
             let count = (viewVehCustLimits.value?[cType] ?? {})
               .filter(@(id, slot) id == subType && slot != curSlotIdx).len()
-            if (count >= limit) {
+            let notPurchasedCount = (notPurchased.value?[cType] ?? [])
+              .reduce(@(res, val) val.subType == subType ? res + 1 : res, 0)
+            if (count + notPurchasedCount >= limit) {
               showMsgbox({ text = loc("msg/vehDecorOverlimits", {
                 limit = colorize(accentTitleTxtColor, limit)
                 id = colorize(accentTitleTxtColor, loc($"decals/category/{subType}"))
@@ -594,8 +695,11 @@ let camouflageListUi = function() {
 
 let function purchaseBtnUi() {
   let res = {
-    watch = [viewVehicle, selectedCamouflage]
+    watch = [viewVehicle, selectedCamouflage, hasMassVehDecorPaste]
   }
+  if (hasMassVehDecorPaste.value)
+    return res
+
   let {
     cfg = null, hasOwned = false, objTexReplace = {}, locId = null
   } = selectedCamouflage.value
@@ -851,7 +955,7 @@ let function openPurchaseDecoratorBox(decoratorCfg, applyCb) {
 let function onSaveVehicleDecals(decors_info) {
   let vehGuid = viewVehicle.value?.guid
   let decoratorCfg = selectedDecorator.value
-  let { guid = null, cType = null, buyData = null } = decoratorCfg
+  let { guid = null, cType = null, buyData = null, subType = null } = decoratorCfg
   let { curSlotIdx = -1 } = customizationParams.value
 
   stopUsingDecal()
@@ -895,6 +999,7 @@ let function onSaveVehicleDecals(decors_info) {
       decorators.remove(idxToDelete)
     decorators.append({
       cType
+      subType
       buyData
       id = guid
       slotIdx = curSlotIdx

@@ -50,6 +50,7 @@ def score_engineer_ammo_box_refill(evt : EventOnUsefulBoxSuccessfulUse;
   query(buildByPlayer) <| $ [es] (engineer_awards__ammoBoxAwardPerPlayerPerMinute : int; var engineer_awards__ammoBoxUses : Object&)
     let maxUsePerMin = engineer_awards__ammoBoxAwardPerPlayerPerMinute
     on_box_refill(evt.requester, buildByPlayer, buildByEngineerEid, "builtAmmoBoxRefills", engineer_awards__ammoBoxUses, maxUsePerMin)
+    add_award(buildByPlayer, "engineer_ammo_box_usage")
 
 [es(tag=server, REQUIRE=medBox)]
 def score_med_box_refill(evt : EventOnUsefulBoxSuccessfulUse;
@@ -114,6 +115,7 @@ def hosted_spawn_award(evt : Event;
                                   builder_info__guid : string)
     if spawnedPlayer != buildByPlayer
       send_award_stat(buildByPlayer, builder_info__guid, "builtRallyPointUses")
+      add_award(buildByPlayer, "engineer_rally_point_usage")
 
   let respawnOwnerEid = get_Eid(squad__respawnBaseEid, "respawnOwnerEid") ?? INVALID_ENTITY_ID
   query(respawnOwnerEid) <| $ [es] (squad_member__playerEid : EntityId; guid : string)

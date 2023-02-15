@@ -595,6 +595,7 @@ attachable_parachute_canopy{
 
 attachable_face_equipment{
   _extends:t="attachable_wear"
+  animchar_hider__camThreshold:r=0.3
 
   "item__equipToSlots:array"{
     slot:t="face_equipment"

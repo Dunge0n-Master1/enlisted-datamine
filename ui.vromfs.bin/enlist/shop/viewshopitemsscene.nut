@@ -130,12 +130,12 @@ let function purchaseBtnUi() {
                 productView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
+                description = mkShopItemInfoBlock(crateContent)
               }),
               {
                 itemView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
-                description = mkShopItemInfoBlock(crateContent)
               },
               crateContent
             )
@@ -169,6 +169,19 @@ let vehicleDetails = @() {
 let function mkShopItemInfo(item) {
   let crateContent = shopItemContentCtor(item)
   return makeCrateToolTip(crateContent, "", [flex(), SIZE_TO_CONTENT])
+}
+
+let mkCrateContent = @(sItem) function() {
+  let crateContentWatch = shopItemContentCtor(sItem)
+  return {
+    watch = [crateContentWatch, curSelectedItem]
+    size = [flex(), SIZE_TO_CONTENT]
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    color = blurBgColor
+    fillColor = blurBgFillColor
+    padding = bigPadding
+    children = mkShopItemInfoBlock(crateContentWatch)
+  }
 }
 
 let shopItemsScene = @() {
@@ -209,6 +222,7 @@ let shopItemsScene = @() {
                 ]
               })
             }
+            mkCrateContent(shopItem.value)
             mkShopItemContent(shopItem.value)
             mkShopItemInfo(shopItem.value)
             purchaseBtnUi

@@ -317,9 +317,9 @@ class ChooseBestWeapon : BehNodeAdapter
               if otherWeaponPriority == 0
                 otherWeapon = i
             elif *specialAIWeaponType == 2 // pistols
+              allowedGun = false
               otherWeapon = i
               otherWeaponPriority = 10
-              allowedGun = isCurrent
             elif *specialAIWeaponType == 3 // antitank rifles
               allowedGun = false
               if otherWeaponPriority < 10

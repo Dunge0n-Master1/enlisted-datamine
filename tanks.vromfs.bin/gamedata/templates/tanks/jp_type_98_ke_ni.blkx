@@ -82,6 +82,15 @@ jp_type_98_ke_ni_common{
       fill:b=no
     }
   }
+
+  _group{
+    _tags:t="gameClient"
+
+    "vehicle_attach__bodyParts:list<t>"{
+      part:t="turret_04_side"
+      part:t="turret_02_back"
+    }
+  }
 }
 
 jp_type_98_ke_ni_driver_cockpit{

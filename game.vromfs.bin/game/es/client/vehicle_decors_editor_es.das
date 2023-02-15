@@ -34,7 +34,8 @@ def private find_contact_point(collres : CollisionResource;
                                offset : float3;
                                allow_parts : StringList;
                                allow_parts_ext : StringList;
-                               deny_parts : StringList)
+                               deny_parts : StringList;
+                               body_parts : StringList)
   var worldPoint : float3
   var worldDir : float3
   screen_to_world(screen_pos, worldPoint, worldDir)
@@ -55,7 +56,7 @@ def private find_contact_point(collres : CollisionResource;
           hit=true,
           canPlace=canPlace,
           nodeId = int(isect.collisionNodeId),
-          attachToTurret = find(nodeName, "turret") >= 0]]
+          attachToTurret = !has_value(each(body_parts), nodeName) && find(nodeName, "turret") >= 0]]
         return
 
   return ret
@@ -72,6 +73,7 @@ def private trace_vehcile(collres : CollisionResource;
                           allow_parts : StringList;
                           allow_parts_ext : StringList;
                           deny_parts : StringList;
+                          body_parts : StringList;
                           var highlight_collision__nodes : IntList)
   let width = bbox.bmax.xyz - bbox.bmin.xyz
   var camTm := IDENT_TM
@@ -94,7 +96,7 @@ def private trace_vehcile(collres : CollisionResource;
   var attachToTurret = 0
   highlight_collision__nodes |> clear()
   for offset in offsets
-    let hit2 = find_contact_point(collres, dm_data, geom_tree, screen_pos, tm, offset, allow_parts, allow_parts_ext, deny_parts)
+    let hit2 = find_contact_point(collres, dm_data, geom_tree, screen_pos, tm, offset, allow_parts, allow_parts_ext, deny_parts, body_parts)
     if !hit2.hit
       return [[HitInfo hit=false]]
     canPlace &&= hit2.canPlace
@@ -186,13 +188,14 @@ def ui_decors_setup_process_es(info : Event;
                                              damage_model : DamageModel;
                                              [[shared_comp]] vehicle_attach__allowParts : StringList;
                                              vehicle_attach__allowPartsExt : StringList;
+                                             vehicle_attach__bodyParts : StringList;
                                              vehicle_attach__denyParts : StringList;
                                              var highlight_collision__nodes : IntList;
                                              collres : CollisionResource)
       node_attached__entity = decals_manager__target
       let hit = trace_vehcile(collres, decor_collres, damage_model.dmData, animchar.originalNodeTree, decals_manager__screenPos,
         transform, decor_transform, animchar_bbox, decor__boxMult, vehicle_attach__allowParts, vehicle_attach__allowPartsExt, vehicle_attach__denyParts,
-        highlight_collision__nodes)
+        vehicle_attach__bodyParts, highlight_collision__nodes)
       animchar_render__enabled = hit.hit
       if hit.hit
         var rotTm : float3x4

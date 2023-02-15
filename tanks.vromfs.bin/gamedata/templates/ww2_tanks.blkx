@@ -1053,6 +1053,9 @@ base_vehicle_sight{
 base_vehicle_attach_rules{
   _tags:t="gameClient"
 
+  "vehicle_attach__bodyParts:list<t>"{
+  }
+
   "vehicle_attach__allowPartsExt:list<t>"{
   }
 

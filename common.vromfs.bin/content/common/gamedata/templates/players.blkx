@@ -107,6 +107,12 @@ local_player{
   }
 }
 
+first_blood_award{
+
+  "awards__firstBlood:tag"{
+  }
+}
+
 player_afk{
 
   _group{

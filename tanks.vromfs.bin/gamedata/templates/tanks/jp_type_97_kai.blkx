@@ -114,6 +114,16 @@ jp_type_97_kai_common{
       fill:b=yes
     }
   }
+
+  _group{
+    _tags:t="gameClient"
+
+    "vehicle_attach__bodyParts:list<t>"{
+      part:t="turret_04_side"
+      part:t="turret_02_back"
+      part:t="turret_01_bottom"
+    }
+  }
 }
 
 jp_type_97_kai_driver_cockpit{

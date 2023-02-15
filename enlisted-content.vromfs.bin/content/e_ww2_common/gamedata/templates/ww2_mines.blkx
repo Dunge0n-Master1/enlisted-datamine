@@ -6,7 +6,7 @@ antipersonnel_mine_shell{
   item__name:t="items/antipersonnel_mine"
   shell__isKillerCamAllowed:b=no
   shell__vehicleKillStat:t="vehicle_mine_kills"
-  shell__crewKillStat:t="crew_mine_kills"
+  shell__crewKillStat:t="infantry_mine_kills"
   shell__infantryKillStat:t="infantry_mine_kills"
   shell__killSoldierStat:t="explosiveKills"
 
@@ -25,8 +25,8 @@ antitank_mine_shell{
   gun__statName:t="mine"
   shell__isKillerCamAllowed:b=no
   shell__vehicleKillStat:t="vehicle_mine_kills"
-  shell__crewKillStat:t="crew_mine_kills"
-  shell__infantryKillStat:t="infantry_mine_kills"
+  shell__crewKillStat:t="infantry_antitank_mine_kills"
+  shell__infantryKillStat:t="infantry_antitank_mine_kills"
   shell__killSoldierStat:t="explosiveKills"
 
   "shell__mine:tag"{

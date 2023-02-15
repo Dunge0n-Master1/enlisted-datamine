@@ -17,6 +17,7 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
+let { mkClassCanUse } = require("%enlist/shop/shopPkg.nut")
 
 let itemToShow = mkWatched(persist, "itemToShow", null)
 let selectedKey = Watched(null)
@@ -61,49 +62,53 @@ let backBtn = @() {
         { margin = hdpx(1), size = [flex(), hdpx(50)] })
 }
 
-let viewItemScene = @(){
-  watch = [safeAreaBorders, itemToShow]
-  size = [sw(100), sh(100)]
-  flow = FLOW_VERTICAL
-  padding = safeAreaBorders.value
-  behavior = Behaviors.MenuCameraControl
-  children = [
-    mkHeader({
-      textLocId = "campaign/promoSquadWeapon"
-      closeButton = closeBtnBase({ onClick = @() itemToShow(null) })
-    })
-    {
-      size = flex()
-      children = [
-        {
-          rendObj = ROBJ_SOLID
-          opacity = 0
-          size = flex()
-          animations = [
-            { prop = AnimProp.opacity, from = 1, to = 0,
-              duration = 0.5, play = true }
-            { prop = AnimProp.color, from = Color(0,0,0), to = Color(0,0,0),
-              duration = 0.5, play = true }
-          ]
-        }
-        {
-          size = [SIZE_TO_CONTENT, flex()]
-          flow = FLOW_VERTICAL
-          gap = smallPadding
-          children = [
-            mkItemContent(itemToShow.value)
-            backBtn
-          ]
-        }
-        {
-          size = SIZE_TO_CONTENT
-          hplace = ALIGN_RIGHT
-          vplace = ALIGN_BOTTOM
-          children = mkDetailsInfo(itemToShow)
-        }
-      ]
-    }
-  ]
+let function viewItemScene() {
+  let { itemtype, basetpl } = itemToShow.value
+  return {
+    watch = [safeAreaBorders, itemToShow, curArmy]
+    size = [sw(100), sh(100)]
+    flow = FLOW_VERTICAL
+    padding = safeAreaBorders.value
+    behavior = Behaviors.MenuCameraControl
+    children = [
+      mkHeader({
+        textLocId = "campaign/promoSquadWeapon"
+        closeButton = closeBtnBase({ onClick = @() itemToShow(null) })
+      })
+      {
+        size = flex()
+        children = [
+          {
+            rendObj = ROBJ_SOLID
+            opacity = 0
+            size = flex()
+            animations = [
+              { prop = AnimProp.opacity, from = 1, to = 0,
+                duration = 0.5, play = true }
+              { prop = AnimProp.color, from = Color(0,0,0), to = Color(0,0,0),
+                duration = 0.5, play = true }
+            ]
+          }
+          {
+            size = [SIZE_TO_CONTENT, flex()]
+            flow = FLOW_VERTICAL
+            gap = smallPadding
+            children = [
+              mkClassCanUse(itemtype, curArmy.value, basetpl)
+              mkItemContent(itemToShow.value)
+              backBtn
+            ]
+          }
+          {
+            size = SIZE_TO_CONTENT
+            hplace = ALIGN_RIGHT
+            vplace = ALIGN_BOTTOM
+            children = mkDetailsInfo(itemToShow)
+          }
+        ]
+      }
+    ]
+  }
 }
 
 

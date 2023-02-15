@@ -163,29 +163,34 @@ let mkItemUsageKind = @(sKind) {
 }
 
 let mkForVehicleSquad = @(squad, unlockLevel) {
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   gap = bigPadding
+  halign = ALIGN_CENTER
   children = [
+    unlockLevel == 0 ? null : {
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      valign = ALIGN_CENTER
+      children = [
+        faComp("lock", { fontSize = hdpx(20), color = warningColor })
+        txt({
+          text = loc("level/short", { level = unlockLevel })
+          color = warningColor
+        }.__update(body_txt))
+      ]
+    }
     mkSquadIcon(squad?.icon, { size = [hdpx(40), hdpx(40)], margin = smallPadding })
     {
-      rendObj = ROBJ_TEXT
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      maxWidth = SIZE_TO_CONTENT
+      behavior = Behaviors.TextArea
+      halign = ALIGN_CENTER
       color = unlockLevel == 0 ? defTxtColor : warningColor
       text = loc(squad?.manageLocId ?? "")
     }.__update(body_txt)
-  ]
-}
-
-let mkUnlockVehicleLevel = @(level) level == 0 ? null : {
-  flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  valign = ALIGN_CENTER
-  children = [
-    faComp("lock", {fontSize = hdpx(20), color = warningColor})
-    txt({
-      text = loc("levelInfo", { level })
-      color = warningColor
-    }.__update(body_txt))
   ]
 }
 
@@ -200,15 +205,12 @@ let mkSquadUsageKind = function(squadId, armyId) {
 
   return !squad ? null : {
     rendObj = ROBJ_SOLID
+    size = [flex(), SIZE_TO_CONTENT]
     padding = bigPadding
     color = defBgColor
-    flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
-    gap = hdpx(20)
-    children = [
-      mkForVehicleSquad(squad, unlockLevel)
-      mkUnlockVehicleLevel(unlockLevel)
-    ]
+    halign = ALIGN_CENTER
+    children = mkForVehicleSquad(squad, unlockLevel)
   }
 }
 
@@ -231,12 +233,16 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
       .filter(@(squad) squad?[itemtmpl]).keys()
     let squadsCount = vehicleSquadIds.len()
     return squadsCount == 0 ? null : {
+      size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
       gap = smallPadding
       children = [
         {
-          rendObj = ROBJ_TEXT
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          halign = ALIGN_CENTER
+          size = [flex(), SIZE_TO_CONTENT]
           text = loc("shop/squadsCanUse", { squadsCount })
         }.__update(body_txt)
       ].extend(vehicleSquadIds.map(@(squadId) mkSquadUsageKind(squadId, armyId)))
@@ -257,20 +263,26 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
 
   return count > MAX_CLASSES_USAGE
     ? {
-        rendObj = ROBJ_TEXT
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        size = [flex(), SIZE_TO_CONTENT]
         text = loc("shop/anyCanUse")
       }.__update(body_txt)
     : {
+      size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = smallPadding
       children = [
         {
-          rendObj = ROBJ_TEXT
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          size = [flex(), SIZE_TO_CONTENT]
           text = loc("shop/someCanUse", { count })
         }.__update(body_txt)
       ].extend(kindsList.map(mkItemUsageKind))
     }
 }
+
 
 let mkShopItemInfoBlock = @(crateContent) function() {
   let res = { watch = [allItemTemplates, crateContent] }
@@ -284,12 +296,17 @@ let mkShopItemInfoBlock = @(crateContent) function() {
   let { itemtype = null } = templates?[itemtmpl]
   let { minTier, maxTier } = getTierInterval(crateContent?.value.content.items, templates)
   return res.__update({
+    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
+    hplace = ALIGN_CENTER
+    padding = [smallPadding, 0]
     children = [
       maxTier <= 0 ? null
         : maxTier <= minTier ? null
         : {
-            rendObj = ROBJ_TEXT
+            rendObj = ROBJ_TEXTAREA
+            behavior = Behaviors.TextArea
+            size = [flex(), SIZE_TO_CONTENT]
             text = loc("shop/upgradeLevel", { maxUpgrade = maxTier, minUpgrade = minTier })
           }
       mkClassCanUse(itemtype, armyId, itemtmpl)
@@ -553,4 +570,5 @@ return {
   viewShopInfoBtnStyle
   mkLevelLockLine
   mkShopItemPriceLine
+  mkClassCanUse
 }

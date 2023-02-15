@@ -223,6 +223,9 @@ bomb_projectile{
   _extends:t="base_bomb_projectile"
   _extends:t="bomb_projectile_sound"
   _extends:t="bomb_projectile_lifetime_sound"
+  shell__infantryKillStat:t="infantry_bomb_kills"
+  shell__crewKillStat:t="infantry_bomb_kills"
+  shell__vehicleKillStat:t="vehicle_bomb_kills"
 }
 
 rocket_motor_trail{
@@ -249,6 +252,9 @@ rocket_projectile{
   projectile__minLifeTime:r=0.1
   projectile__maxLifeTime:r=10.0
   rocket__launchTime:r=0.0
+  shell__infantryKillStat:t="infantry_rocket_kills"
+  shell__crewKillStat:t="infantry_rocket_kills"
+  shell__vehicleKillStat:t="vehicle_rocket_kills"
 
   "rocket_motor_props:ballistics::RocketMotorProps"{
   }

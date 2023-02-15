@@ -33,7 +33,7 @@ let { curArmySquadsUnlocks, scrollToCampaignLvl
 let { closeAndOpenCampaign } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let { mkPerksPoints } = require("%enlist/soldiers/soldierPerksPkg.nut")
 let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
-let { hasGoToSquadbtn } = require("%enlist/featureFlags.nut")
+
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
 const ITEM_SELECT_DELAY = 0.01
@@ -307,7 +307,7 @@ let toSquadBtn = @(action) textButton(loc("GoToSquad"), function() {
 }, { hotkeys = [[ "^J:Y" ]] })
 
 let function vehicleSquadBtn() {
-  let res = { watch = [curItem, curArmy, allowedVehicles, curArmySquadsUnlocks, hasGoToSquadbtn] }
+  let res = { watch = [curItem, curArmy, allowedVehicles, curArmySquadsUnlocks] }
   let isVehicle = curItem.value?.itemtype == "vehicle"
   if (!isVehicle)
     return res
@@ -343,7 +343,7 @@ let function vehicleSquadBtn() {
         }
       }}
   }
-  if (btnAction == null || !hasGoToSquadbtn.value)
+  if (btnAction == null)
     return res
 
   return res.__update({ children = toSquadBtn(btnAction) })

@@ -19,9 +19,8 @@ let showUserProfile = mkWatched(persist, "showUserProfile", DBGLEVEL > 0)
 let multyPurchaseAllowed = mkWatched(persist, "multyPurchaseAllowed", DBGLEVEL > 0)
 let PSNAllowShowQRCodeStore = mkWatched(persist, "PSNAllowShowQRCodeStore", false)
 let canRentSquad = mkWatched(persist, "canRentSquad", false)
-let hasMassVehDecorPaste = mkWatched(persist, "hasMassVehDecorPaste", false)
+let hasMassVehDecorPaste = mkWatched(persist, "hasMassVehDecorPaste", true)
 let hasCampaignPromo = mkWatched(persist, "hasCampaignPromo", false)
-let hasGoToSquadbtn = mkWatched(persist, "hasGoToSquadbtn", false)
 
 
 let features = {
@@ -42,7 +41,6 @@ let features = {
   canRentSquad
   hasMassVehDecorPaste
   hasCampaignPromo
-  hasGoToSquadbtn
 }
 
 foreach (featureId, featureFlag in features)

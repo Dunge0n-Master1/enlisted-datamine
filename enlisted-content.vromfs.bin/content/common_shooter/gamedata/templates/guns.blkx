@@ -312,7 +312,7 @@ base_stationary_gun{
   interactCheckOffset:p3=0.0, 0.0, -0.4
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   stationary_gun__humanOffset:p3=0.15, -1.0, 0.7
-  stationary_gun__maxPhysOffsetSq:r=0.2
+  stationary_gun__maxPhysOffsetSq:r=0.6
   gun__loadAmmo:b=yes
   gun__useLocalPlayerTracer:b=no
   camera__lookDir:p3=1.0, 0.0, 0.0
