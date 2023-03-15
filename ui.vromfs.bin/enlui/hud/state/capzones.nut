@@ -6,12 +6,11 @@ let { TEAM_UNASSIGNED, FIRST_GAME_TEAM } = require("team")
 let {localPlayerTeamInfo} = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {EventHeroChanged, EventLevelLoaded} = require("gameevents")
-let {EventZoneIsAboutToBeCaptured, EventZoneCaptured, EventCapZoneEnter, EventCapZoneLeave, CmdStartNarrator} = require("dasevents")
+let {EventCapZoneEnter, EventCapZoneLeave, CmdStartNarrator, CmdShowNarratorMessage} = require("dasevents")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
 let {showMinorCaptureZoneEventsInHud, showMajorCaptureZoneEventsInHud} = require("%enlSqGlob/wipFeatures.nut")
-let {allZonesInGroupCapturedByTeam, isLastSectorForTeam} = require("%enlSqGlob/zone_cap_group.nut")
 let is_teams_friendly = require("%enlSqGlob/is_teams_friendly.nut")
 
 let {isTwoChainsCapzones, isTwoChainsCapzonesSetValue} = mkFrameIncrementObservable(false, "isTwoChainsCapzones")
@@ -21,6 +20,7 @@ let whichTeamAttack = Computed(@()
   capZones.value.reduce(@(team, zone) (zone.active && !zone.trainZone) ? zone.attackTeam : team, -1))
 let trainCapzoneProgress = Watched(0.0)
 let trainZoneEid = Computed(@() capZones.value.findvalue(@(z) z?.trainZone)?.eid ?? ecs.INVALID_ENTITY_ID)
+let isBombMission = Computed(@() capZones.value.findvalue(@(z) z.isBombSite) ?? false)
 let nextTrainCapzoneEid = Watched(ecs.INVALID_ENTITY_ID)
 
 let curCapZone = Computed(function(){
@@ -122,32 +122,8 @@ let attr2gui = {
   "capzone__endLockTime" : "endLockTime"
 }
 
-let queryCapZones =  ecs.SqQuery("queryCapZones", {comps_ro = [["capzone__capTeam", ecs.TYPE_INT], ["active", ecs.TYPE_BOOL, false], ["capzone__alwaysShow", ecs.TYPE_BOOL, false], ["capzone__alwaysHide", ecs.TYPE_BOOL, false]]})
-
 let function isFriendlyTeam(other_team, hero_team) {
   return other_team == hero_team || is_teams_friendly(other_team, hero_team)
-}
-
-let function queryCapturedZones(hero_team) {
-  local captured = 0
-  local total = 0
-  queryCapZones.perform(function(_eid, comp) {
-    let alwaysShow = comp["capzone__alwaysShow"]
-    let alwaysHide = comp["capzone__alwaysHide"]
-    let active = comp["active"]
-    if ((active || alwaysShow) && !alwaysHide) {
-      let zoneTeam = comp["capzone__capTeam"]
-        if (zoneTeam != TEAM_UNASSIGNED) {
-          if (isFriendlyTeam(zoneTeam, hero_team))
-            ++captured
-        }
-      ++total
-    }
-  })
-  return {
-    captured = captured
-    total = total
-  }
 }
 
 let function playNarrator(phrase) {
@@ -158,103 +134,9 @@ let function playNarrator(phrase) {
   return false
 }
 
-let function playMajorEvent(e, narrator="") {
-  playEvent(e, true)
-  playNarrator(narrator)
-}
 let function playMinorEvent(e, narrator="") {
   playEvent(e, false)
   playNarrator(narrator)
-}
-
-let function tryPlayMajorEvent(e, narrator) {
-  if (!playNarrator(narrator))
-    return false
-  playEvent(e, true)
-  return true
-}
-
-let function isHalfZonesCaptured(captured, total) {
-  return total >= 2 && captured * 2 >= total && (captured - 1) * 2 < total
-}
-
-let function narratorOnPointCaptured(captured, total, title) {
-  if (title != "" && tryPlayMajorEvent({event="zone_captured", text=loc($"We have captured zone {title}"), myTeamScores=true}, $"point{title}Captured"))
-    return
-  if (captured + 1 == total) {
-    if (tryPlayMajorEvent({event="one_zone_to_capture", text=loc("Most of all zones are captured, one left!"), myTeamScores=true}, "onePointToCapture"))
-      return
-  }
-  else if (isHalfZonesCaptured(captured, total)) {
-    if (tryPlayMajorEvent({event="half_zones_captured", text=loc("We have captured half of all zones!"), myTeamScores=true}, "halfPointsCaptured"))
-      return
-  }
-  playMajorEvent({event="zone_captured", text=loc("We have captured zone!"), myTeamScores=true}, "pointCaptured")
-}
-
-let function narratorOnPointCapturedEnemy(captured, total, title) {
-  if (title != "" && tryPlayMajorEvent({event="zone_captured", text=loc($"Enemy have captured zone {title}"), myTeamScores=false}, $"point{title}CapturedEnemy"))
-    return
-  if (captured + 1 == total) {
-    if (tryPlayMajorEvent({event="one_zone_to_capture", text=loc("Most of all zones are captured by enemy, only one left to defend!"), myTeamScores=false}, "onePointToDefend"))
-      return
-  }
-  else if (isHalfZonesCaptured(captured, total)) {
-    if (tryPlayMajorEvent({event="half_zones_captured", text=loc("Enemy have captured half of all zones!"), myTeamScores=false}, "halfPointsCapturedEnemy"))
-      return
-  }
-  playMajorEvent({event="zone_captured", text=loc("Enemy have captured zone!"), myTeamScores=false}, "pointCapturedEnemy")
-}
-
-let function narratorOnZoneCaptured(evt, eid, comp) {
-  if (evt.zone != eid)
-    return
-  if (comp.capzone__alwaysHide)
-    return
-  let heroTeam = localPlayerTeam.value
-  let capTeam = evt.team
-  let isAllies = isFriendlyTeam(capTeam, heroTeam)
-
-  if (comp["capzone__narrator_zoneCapturedEnable"]) {
-    let narrator = isAllies ? comp["capzone__narrator_zoneCaptured"] : comp["capzone__narrator_zoneCapturedEnemy"]
-    let message = isAllies ? comp["capzone__narrator_zoneCapturedMessage"] : comp["capzone__narrator_zoneCapturedEnemyMessage"]
-    playMajorEvent({event="zone_captured", text=loc(message), myTeamScores=false}, narrator)
-    return
-  }
-
-  let title = comp["capzone__title"]
-  let zones = queryCapturedZones(heroTeam)
-  let zoneGroupName = comp["groupName"]
-  let checkAllZonesInGroup = comp["capzone__checkAllZonesInGroup"]
-
-  if (checkAllZonesInGroup && allZonesInGroupCapturedByTeam(eid, capTeam, zoneGroupName)) {
-    if (isAllies) {
-      if (isLastSectorForTeam(capTeam)) {
-        playMajorEvent({event="last_sector_left", text=loc("One last sector left!"), myTeamScores=true}, "oneSectorLeft")
-        return
-      }
-    }
-    if (isAllies)
-      playMajorEvent({event="sector_captured", text=loc("We have captured sector!"), myTeamScores=true}, "sectorCapturedAlly")
-    else
-      playMajorEvent({event="sector_captured", text=loc("Enemy has captured sector!"), myTeamScores=false}, "sectorCapturedEnemy")
-    return
-  }
-
-  if (zones.captured >= zones.total) {
-    if (zones.captured == zones.total) {
-      if (isAllies)
-        playMajorEvent({event="all_zones_captured", text=loc("We have captured all zones!"), myTeamScores=true}, "allPointsCapturedAlly")
-      else
-        playMajorEvent({event="all_zones_captured", text=loc("Enemy have captured all zones!"), myTeamScores=false}, "allPointsCapturedEnemy")
-    }
-    return
-  }
-
-  if (isAllies)
-    narratorOnPointCaptured(zones.captured, zones.total, title)
-  else
-    narratorOnPointCapturedEnemy(zones.captured, zones.total, title)
 }
 
 let function notifyOnZoneVisitor(cur_team_capturing_zone, prev_team_capturing_zone, hero_team, attack_team) {
@@ -373,10 +255,8 @@ let function onCapZoneChanged(_evt, eid, comp) {
   }
   let attackTeam = comp["capzone__checkAllZonesInGroup"] ?
                      comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
-  let title = comp["capzone__title"]
   let alwaysHide = comp["capzone__alwaysHide"]
   let heroTeam = localPlayerTeam.value
-  let controlledHero = controlledHeroEid.value
   capZonesModify(function(zones){
     let zone = zones?[eid]
     if (zone==null)
@@ -390,17 +270,6 @@ let function onCapZoneChanged(_evt, eid, comp) {
     if ("curTeamCapturingZone" in changedZoneVals){
       notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
       newZone.prevTeamCapturingZone = zone.curTeamCapturingZone
-    }
-    if (zone.active && !zone.isBombSite && !zone.trainTriggerable && zone.attackTeam < 0 && "capTeam" in changedZoneVals) {
-      let {capTeam} = changedZoneVals
-      if (capTeam >= FIRST_GAME_TEAM && zone.capTeam < FIRST_GAME_TEAM) {
-        let isHeroTeam = capTeam == heroTeam
-        let isAllies = isFriendlyTeam(capTeam, heroTeam)
-        let isHero = isHeroTeam && (queryCapturerZones(controlledHero, @(_, compCapZones) compCapZones.capturer__capZonesIn.getAll().indexof(eid) != null) ?? false)
-        let event = {event="zone_capture_start", text=loc("Zone is being captured"), myTeamScores=isHeroTeam}
-        if (!isHero && !tryPlayMajorEvent(event, "pointCapturingPlayer") && !tryPlayMajorEvent(event, isAllies ? $"point{title}CapturingAlly" : $"point{title}CapturingEnemy"))
-          playMajorEvent(event, isAllies ? "pointCapturingAlly" : "pointCapturingEnemy")
-      }
     }
     newZone.isCapturing = newZone.curTeamCapturingZone != TEAM_UNASSIGNED
       && (newZone.progress != 1.0 || newZone.isMultipleTeamsPresent)
@@ -437,8 +306,6 @@ ecs.register_es("capzones_ui_state_es",
     onDestroy = @(_, eid, __) capZonesDeleteKey(eid),
     [EventCapZoneEnter] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, false),
     [EventCapZoneLeave] = @(evt, eid, _comp) onZonePresenseChange(eid, evt.visitor, true),
-    [EventZoneCaptured] = narratorOnZoneCaptured,
-    [EventZoneIsAboutToBeCaptured] = narratorOnZoneCaptured,
   },
   {
     comps_ro = [
@@ -455,7 +322,6 @@ ecs.register_es("capzones_ui_state_es",
       ["capzone__narrator_zoneCapturedMessage", ecs.TYPE_STRING, ""],
       ["capzone__narrator_zoneCapturedEnemy", ecs.TYPE_STRING, ""],
       ["capzone__narrator_zoneCapturedEnemyMessage", ecs.TYPE_STRING, ""],
-      ["capzone__narrator_zoneCapturedEnable", ecs.TYPE_BOOL, false],
       ["capzone__unlockAfterTime", ecs.TYPE_FLOAT, -1],
       ["capzoneTwoChains", ecs.TYPE_TAG, null],
       ["battle_contract", ecs.TYPE_TAG, null]
@@ -494,6 +360,13 @@ ecs.register_es("capzones_ui_state_es",
   { tags="gameClient" }
 )
 
+ecs.register_es("cmd_show_narrator_message_ui", // broadcast
+  { [CmdShowNarratorMessage] = function(evt, _eid, _comp) {
+      playerEvents.pushEvent({event=evt.event, text=loc(evt.text), myTeamScores=evt.myTeamScores})
+    }
+  }, {}, { tags = "ui" }
+)
+
 let queryTrainCheckpointProgress = ecs.SqQuery("queryTrainCheckpointProgress", {comps_ro = [["capzone__trainProgress", ecs.TYPE_FLOAT]]})
 
 ecs.register_es("capzones_ui_state_train_progress",
@@ -517,6 +390,7 @@ return {
   visibleZoneGroups
   minimapVisibleCurrentCapZonesEids
   whichTeamAttack
+  isBombMission
   curCapZone
   nextTrainCapzoneEid
   trainZoneEid

@@ -1,16 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart, bigPadding, startBtnWidth, midPadding
+let { colPart, bigPadding, startBtnWidth, midPadding, leftAppearanceAnim, rightAppearanceAnim
 } = require("%enlSqGlob/ui/designConst.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
-let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
+let squads_list = require("%enlist/squad/squadsList.ui.nut")
 let startBtn = require("%enlist/startButton.nut")
-let { changeGameModeBtn, selectedGameMode
+let { changeGameModeBtn, selectedGameMode, openChangeGameModeWnd
 } = require("%enlist/mainScene/changeGameModeButton.nut")
 let eventsAndCustomsButton = require("%enlist/gameModes/eventsAndCustomsButton.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/army/anyTeamCheckbox.nut")
 let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 let { weeklyTasksUi } = require("%enlist/unlocks/weeklyTaskButton.nut")
+let achievementsButtonsUi = require("%enlist/unlocks/achievementsButton.nut")
 let battlepassWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 let offersPanel = require("%enlist/offers/offersPanel.nut")
@@ -18,7 +19,7 @@ let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 let squadInfo = require("%enlist/squad/squadInfo.nut")
-let { serverInfoRow } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
+let { clusterInfoBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
 
 
 let armyGameModeBlock = @() {
@@ -28,11 +29,12 @@ let armyGameModeBlock = @() {
   gap = midPadding
   halign = ALIGN_RIGHT
   children = [
-    serverInfoRow({ halign = ALIGN_RIGHT })
-    selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox
+    clusterInfoBtn(openChangeGameModeWnd)
+    selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox()
     changeGameModeBtn
   ]
 }
+
 
 let topBlock = {
   size = flex()
@@ -48,8 +50,9 @@ let topBlock = {
         hasBattlePass.value ? battlepassWidgetOpen : null
         dailyTasksUi
         weeklyTasksUi
+        achievementsButtonsUi
       ]
-    }
+    }.__update(rightAppearanceAnim())
     @() {
       watch = serviceNotificationsList
       size = [startBtnWidth, SIZE_TO_CONTENT]
@@ -62,7 +65,7 @@ let topBlock = {
           : offersPanel
         eventsAndCustomsButton
       ]
-    }
+    }.__update(leftAppearanceAnim())
   ]
 }
 
@@ -84,11 +87,11 @@ let bottomBlock = {
             squadInfo()
             armySelectUi.__merge({ vplace = ALIGN_BOTTOM})
           ]
-        }
+        }.__update(rightAppearanceAnim())
         {
           size = [startBtnWidth, SIZE_TO_CONTENT]
           children = armyGameModeBlock
-        }
+        }.__update(leftAppearanceAnim())
       ]
     }
     {

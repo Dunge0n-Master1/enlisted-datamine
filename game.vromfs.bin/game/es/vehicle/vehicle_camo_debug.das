@@ -1,6 +1,7 @@
 options no_aot
 require ecs
 require ecs.common
+require ecs.safe
 require DagorConsole
 
 [console_cmd(name="vehicle.camo_set")]
@@ -13,7 +14,7 @@ def vehicle_camo_set_cmd(camo_name : string)
         return
 
       let unlocks = *skinsTemplate |> getTemplateComponent("skin__unlock") |> get_ecs_StringList
-      let objTexReplace = *skinsTemplate |> getTemplateComponent("skin__objTexReplace") |> get_ecs_array
+      let objTexReplace = *skinsTemplate |> getTemplateComponent("skin__objTexReplace") ?as Array
       if objTexReplace == null || unlocks == null
         console_print("Camo template {skin__template} doesn't have skin.unlock or skin.objTexReplace component")
         return
@@ -23,4 +24,4 @@ def vehicle_camo_set_cmd(camo_name : string)
         console_print("Camo <{camo_name}> not exist for vehicle <{getEntityTemplateName(eid)}>")
         return
 
-      animchar__objTexReplace := *((*objTexReplace)[idx] |> get_ecs_object)
+      animchar__objTexReplace := *(objTexReplace?[idx] ?as Object)

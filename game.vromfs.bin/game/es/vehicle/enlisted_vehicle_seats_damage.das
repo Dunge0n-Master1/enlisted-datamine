@@ -2,6 +2,7 @@ require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.hitpoints_common
+require common_shooter.es.vehicle.vehicle_offender_common
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
 require enlisted.game.es.offender_cache_common
@@ -65,6 +66,7 @@ def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__
   ecs::query(human_anim__vehicleSelected) <| $ [es] (eid : EntityId;
                                                      vehicle_seats__seatEids : EidList;
                                                      isExploded : bool;
+                                                     team : int = TEAM_UNASSIGNED;
                                                      var isAlive : bool&;
                                                      var lastOffender : EntityId&;
                                                      var last_offender__shellId : int&;
@@ -76,11 +78,8 @@ def vehicle_crew_dead_es(evtData : EventEntityDied; eid : EntityId; human_anim__
     let hasCrew = is_vehicle_has_crew(vehicle_seats__seatEids, crewOwner)
     if !hasCrew
       let isSuicide = evtData.victim == evtData.offender
-      let hasLastOffender = !!lastOffender
-      if (!isSuicide || !hasLastOffender) && lastOffender != evtData.offender
-        lastOffender = evtData.offender
-        last_offender__shellId = evtData.shellId
-        last_offender__gunPropsId = evtData.gunPropsId
+      if !isSuicide && lastOffender != evtData.offender
+        try_set_last_vehicle_offender(evtData.offender, evtData.gunPropsId, evtData.shellId, team, lastOffender, last_offender__gunPropsId, last_offender__shellId)
       if !isExploded && destroyIfNoCrewLeft
         sendEvent(eid, [[CmdExplosionFatal offender=lastOffender, gunPropsId=last_offender__gunPropsId, shellId=last_offender__shellId]])
       if has(eid, "deadIfNoCrewLeft")

@@ -67,7 +67,7 @@ def process_fire_damage_effect(eid : EntityId;
     var nodeTm : float3x4
     collres |> collres_get_collision_node_tm(collNodeId, transform, animchar.nodeTree, nodeTm)
 
-    using <| $(var desc : StartBurnDesc#)
+    using() <| $(var desc : StartBurnDesc#)
       desc.offender = offender
       desc.partId = part_id
       desc.fireParamsId = get_fire_params_id(fire_damage__fireParamsPreset)

@@ -5,6 +5,7 @@ require game.es.events
 require game.es.vehicle.vehicle_events
 require DagorSystem
 require AnimV20
+require enlisted.events_enlisted
 
 let
   upperHash = ecs_hash("upper")
@@ -62,24 +63,24 @@ def init_force_anim_upper_non_crawl(evt : Event;
     send_change_anim_state_event(game_effect__attachedTo, "upper", upperHash, game_effect__forceAnimUpperNonCrawlStateId)
 
 [es]
-def force_anim_state_es(act : UpdateStageInfoAct; game_effect__attachedTo : EntityId; game_effect__forceAnimStateId : int)
+def force_anim_state_es(act : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; game_effect__forceAnimStateId : int)
   send_change_anim_state_event(game_effect__attachedTo, "lower", lowerHash, game_effect__forceAnimStateId)
   send_change_anim_state_event(game_effect__attachedTo, "upper", upperHash, game_effect__forceAnimStateId)
 
 [es(after=human_anim_es, before=force_anim_state_es)]
-def force_anim_state_lower(act : UpdateStageInfoAct; game_effect__attachedTo : EntityId; game_effect__forceAnimLowerStateId : int)
+def force_anim_state_lower(act : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; game_effect__forceAnimLowerStateId : int)
   send_change_anim_state_event(game_effect__attachedTo, "lower", lowerHash, game_effect__forceAnimLowerStateId)
 
 [es(after=human_anim_es, before=force_anim_state_es)]
-def force_anim_state_upper(act : UpdateStageInfoAct; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperStateId : int)
+def force_anim_state_upper(act : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperStateId : int)
   send_change_anim_state_event(game_effect__attachedTo, "upper", upperHash, game_effect__forceAnimUpperStateId)
 
 [es(after=human_anim_es, before=force_anim_state_es)]
-def force_anim_state_upper_non_crawl(act : UpdateStageInfoAct; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperNonCrawlStateId : int)
+def force_anim_state_upper_non_crawl(act : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperNonCrawlStateId : int)
   if !(get_bool(game_effect__attachedTo, "human_net_phys__isCrawl") ?? false)
     send_change_anim_state_event(game_effect__attachedTo, "upper", upperHash, game_effect__forceAnimUpperNonCrawlStateId)
 
 [es(after=human_anim_es, before=force_anim_state_es)]
-def force_anim_state_upper_crawl(act : UpdateStageInfoAct; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperCrawlStateId : int)
+def force_anim_state_upper_crawl(act : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; game_effect__forceAnimUpperCrawlStateId : int)
   if (get_bool(game_effect__attachedTo, "human_net_phys__isCrawl") ?? false)
     send_change_anim_state_event(game_effect__attachedTo, "upper", upperHash, game_effect__forceAnimUpperCrawlStateId)

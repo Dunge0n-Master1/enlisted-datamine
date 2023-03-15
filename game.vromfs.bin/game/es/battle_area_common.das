@@ -5,13 +5,11 @@ require DagorMath
 require zones
 require game.utils.team
 require math.linear
-
-let
-  identityBox = BBox3(float3(-0.5, -0.5, -0.5), float3(0.5, 0.5, 0.5))
+require math.base
 
 def is_point_in_box_zone(pos : float3; transform : float3x4)
   let zonePos = inverse(transform) * pos
-  return identityBox & zonePos
+  return IDENT_BBOX & zonePos
 
 [generic, unused_argument(trigger_tag, eid)]
 def private check_active_poly_battle_area(pos2 : float2;

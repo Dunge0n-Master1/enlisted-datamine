@@ -1,0 +1,1210 @@
+vehicle_with_hero{
+
+  "heroVehicle:tag"{
+  }
+
+  "late_transparent_render:tag"{
+  }
+}
+
+vehicle_with_watched{
+
+  "vehicleWithWatched:tag"{
+  }
+
+  "late_transparent_render:tag"{
+  }
+}
+
+base_vehicle_hero_components{
+  isCameraInited:b=no
+
+  input{
+    _tags:t="input"
+  }
+
+  "input__enabled:b"{
+    _tags:t="gameClient"
+    value:b=yes
+  }
+}
+
+vehicle_hero_components{
+  _extends:t="base_vehicle_hero_components"
+  _extends:t="vehicle_input"
+}
+
+walker_hero_components{
+  _extends:t="base_vehicle_hero_components"
+  _extends:t="walker_input"
+}
+
+walker_control_components{
+}
+
+vehicle_control_components{
+
+  "vehicle_input_axes:list<r>"{
+    _tags:t="input"
+  }
+}
+
+camera_control_components{
+  _extends:t="base_vehicle_hero_components"
+  _extends:t="vehicle_input"
+}
+
+vehicle_autodetect_team{
+  vehicle_seats__restrictToTeam:i=-1
+  vehicle_seats__autoDetectRestrictToTeam:b=yes
+  _replicated:t="vehicle_seats__restrictToTeam"
+  _tracked:t="vehicle_seats__restrictToTeam"
+}
+
+phys_obj_hero_components{
+  _extends:t="base_vehicle_hero_components"
+  _extends:t="vehicle_input"
+}
+
+phys_obj_control_components{
+
+  "vehicle_input_axes:list<r>"{
+    _tags:t="input"
+  }
+}
+
+dm_debug{
+
+  "dm_debug__draw_parts_mask:list<b>"{
+    _tags:t="dev"
+  }
+}
+
+four_seats_vehicle{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+  }
+}
+
+base_phys_modifications{
+  physModificationsBlk:t=""
+}
+
+base_net_phys{
+  net_phys__atTick:i=0
+  net_phys__lastAppliedControlsForTick:i=0
+  net_phys__timeStep:r=0.0
+  net_phys__currentStatePosition:p3=0.0, 0.0, 0.0
+  net_phys__currentStateVelocity:p3=0.0, 0.0, 0.0
+  net_phys__previousStateVelocity:p3=0.0, 0.0, 0.0
+  net_phys__currentStateOrient:p4=0.0, 0.0, 0.0, 1.0
+  net_phys__role:i=0
+}
+
+base_nav_object{
+  check_path__horzThreshold:r=2.0
+  check_path__maxVertDist:r=2.0
+}
+
+base_vehicle{
+  _extends:t="base_net_phys"
+  _extends:t="base_nav_object"
+  transform_lastFrame:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  battle_area__timeToDamageType:t="vehicle"
+  net__controlsTickDelta:i=0
+  phys__maxMassRatioForPushOnCollision:r=4.0
+  last_offender__shellId:i=-1
+  last_offender__gunPropsId:i=-1
+  collision_damage__canBeOffender:b=yes
+
+  "net_phys__interpK:r"{
+    _tags:t="gameClient"
+  }
+
+  "lastOffender:eid"{
+  }
+
+  "vehicle:tag"{
+  }
+
+  "blockTerraform:tag"{
+  }
+}
+
+base_vehicle_seats{
+  vehicle_seats__enumVarId:i=-1
+  vehicle_seats__enumVarName:t="gaz_67"
+  vehicle_seats_camera_nodes__defaultNode:t="bone_camera_driver"
+  vehicle_seats_switch_time__totalSwitchTime:r=0.2
+  vehicle_seats__exitTime:r=0.4
+  vehicle_seats__enterTime:r=0.4
+  _replicated:t="vehicle_seats__seatEids"
+  enter_vehicle__moveThreshold:r=1.5
+  enter_vehicle__moveRelativeThreshold:r=-1.0
+
+  vehicle__allAcquiredControls{
+    _tags:t="server"
+  }
+
+  "vehicle_seats_camera_nodes__defaultNodeId:i"{
+  }
+
+  "vehicle_seats__seatEids:list<eid>"{
+  }
+
+  "enter_vehicle__vehicleMoveThreshold:r"{
+    _tags:t="server"
+    value:r=1.0
+  }
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_default"
+    driver:t="vehicle_seat_driver"
+  }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list_shared:shared:list<t>"{
+      template_name:t="vehicle_seat_default"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
+}
+
+plane_vehicle_seats{
+  _extends:t="base_vehicle_seats"
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_default"
+    driver:t="vehicle_seat_pilot_driver"
+  }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list_shared:shared:list<t>"{
+      template_name:t="vehicle_seat_default"
+      template_name:t="vehicle_seat_pilot_driver"
+    }
+  }
+}
+
+base_vehicle_seat{
+  _extends:t="replicating"
+  seat__enumVarId:i=-1
+  seat__directTurretControl:b=no
+  _tracked:t="seat__isPlayer"
+  _tracked:t="seat__ownerEid"
+  _tracked:t="seat__squadEid"
+  _tracked:t="seat__playerEid"
+  _tracked:t="seat__isOwnerAlive"
+  _tracked:t="seat__limitedVisibility"
+  _tracked:t="seat__ownerControls"
+  _tracked:t="seat__canControlTurrets"
+  _tracked:t="seat__isInHatch"
+  _tracked:t="seats_order__canPlaceManually"
+  _tracked:t="seat__isLocked"
+  _replicated:t="seats_switch_time__time"
+  _replicated:t="seats_switch_time__newSeatNo"
+  _replicated:t="seat__isDriver"
+  _replicated:t="seat__isGunner"
+  _replicated:t="seat__isPassenger"
+  _replicated:t="seat__isPlayer"
+  _replicated:t="seat__ownerEid"
+  _replicated:t="seat__squadEid"
+  _replicated:t="seat__playerEid"
+  _replicated:t="seat__isOwnerAlive"
+  _replicated:t="seat__ownerControls"
+  _replicated:t="seat__isInHatch"
+  _replicated:t="seat__isLocked"
+  seat__id:i=-1
+  seat__roomSpace:i=-1
+  seat__entranceNodeId:i=-1
+  seat__component:i=0
+  seat__isDriver:b=no
+  seat__isGunner:b=no
+  seat__isPassenger:b=no
+  seat__isPlayer:b=no
+  seat__orderNo:i=-1
+  seat__nextSeatNo:i=-1
+  seat__cameraType:i=0
+  seat__cameraNodeNo:i=-1
+  seat__cameraOffset:p3=0.0, 0.0, 0.0
+  seat__cameraPos:p3=0.0, 0.0, 0.0
+  seat__adjacentSeat:i=-1
+  seat__isLocked:b=no
+  seat__limitedVisibility:i=0
+  seat__canControlTurrets:b=yes
+  seat__isInHatch:b=no
+  seat_anim__upper:t=""
+  seat_anim__lower:t=""
+  seat_anim__fireReadyUpper:t="upper_fireready"
+  seat_anim__fireReadyLower:t="drive_fireready"
+  seats_switch_time__time:r=-1.0
+  seats_switch_time__newSeatNo:i=-1
+  seats_attach_nodes__ignoreAttachNodeRotation:b=no
+  seats_attach_nodes__nodeId:i=-1
+  seats_attach_nodes__collNodeId:i=-1
+  seats_attach_nodes__initialTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  seats_attach_nodes__attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  seats_attach_nodes__nodeItm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  seats_order__seatNo:i=-1
+  seats_order__canPlaceManually:b=no
+  seat__isOwnerAlive:b=no
+  seat__allowSmokeScreen:b=yes
+  seat__isHoldGunModeAllowed:b=yes
+
+  "seat__lockSeats:list<i>"{
+    _tags:t="server"
+  }
+
+  "seats_attach_nodes__initialLookAngles:p2"{
+    _tags:t="gameClient"
+    value:p2=0.0, -11.0
+  }
+
+  "seat__loaderTurretIds:list<i>"{
+    _tags:t="server"
+  }
+
+  "seat__canLoadInHatch:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
+  seat__availableHatchControls{
+  }
+
+  seat__availableControls{
+  }
+
+  "seat__commonTurretControlMask:u32"{
+    value:i=0
+  }
+
+  seat__ownerControls{
+  }
+
+  "seat__vehicleEid:eid"{
+  }
+
+  "seat__ownerEid:eid"{
+  }
+
+  "seat__squadEid:eid"{
+  }
+
+  "seat__playerEid:eid"{
+  }
+
+  _group{
+    _tags:t="input"
+    seat__holdingGunPassengerVertLookLimit:p2=0.0, 0.0
+  }
+}
+
+vehicle_seat_default{
+  _extends:t="base_vehicle_seat"
+  seat_anim__upper:t="drive_passenger"
+  seat_anim__lower:t="drive_passenger"
+}
+
+vehicle_seat_driver{
+  _extends:t="base_vehicle_seat"
+  seats_order__canPlaceManually:b=yes
+  seat_anim__upper:t="drive_driver"
+  seat_anim__lower:t="drive_driver"
+}
+
+vehicle_seat_pilot_driver{
+  _extends:t="base_vehicle_seat"
+  seats_order__canPlaceManually:b=yes
+  seat_anim__upper:t="drive_pilot_driver"
+  seat_anim__lower:t="drive_pilot_driver"
+}
+
+vehicle_driver_skills{
+  vehicle_net_phys__brakingTau:r=0.14
+  vehicle_net_phys__gearChangeTime:r=1.0
+  vehicle_net_phys__drivingSpeedThreshold:r=0.5
+}
+
+vehicle_underwater{
+  drowningHeight:r=1.0
+  underWaterStartTime:r=-1.0
+  underWaterMaxTime:r=5.0
+  vehicle__isUnderwater:b=no
+  _replicated:t="underWaterStartTime"
+  _replicated:t="vehicle__isUnderwater"
+  _tracked:t="vehicle__isUnderwater"
+}
+
+vehicle_exhaust_fx{
+  _tags:t="render"
+  exhaust_fx__haveActiveEmitters:b=no
+  exhaust_fx__exhaustAccumulation:r=0.0
+  exhaust_fx__minIdleExhaustIntensity:r=0.4
+  exhaust_fx__minExhaustHeightScale:r=1.5
+  exhaust_fx__maxExhaustHeightScale:r=5.0
+  exhaust_fx__fx:t="tank_exhaust_template"
+  exhaust_fx__brokenFx:t="tank_broken_exhaust_template"
+
+  "exhaust_fx_emitter__nodeId:list<i>"{
+  }
+
+  "exhaust_fx_emitter__exhaustType:list<i>"{
+  }
+
+  "exhaust_fx_emitter__fxEid:list<eid>"{
+  }
+
+  "exhaust_fx__emitterNodes:list<t>"{
+    emitterNode:t="emtr_exhaust_01"
+    emitterNode:t="emtr_exhaust_02"
+  }
+}
+
+vehicle_no_ai{
+  _extends:t="phys_sleepable"
+  _extends:t="base_vehicle"
+  _extends:t="base_vehicle_seats"
+  _extends:t="animchar"
+  _extends:t="vehicle_sound"
+  _extends:t="capturer"
+  _extends:t="vehicle_driver_skills"
+  _extends:t="vehicle_underwater"
+  _extends:t="vehicle_exhaust_fx"
+  _extends:t="replicating"
+  zones_visitor__triggerTag:t="vehicleTriggerable"
+  _replicated:t="zones_visitor__triggerTag"
+  _replicated:t="phys__lowFreqTickrate"
+  _replicated:t="lastDamageType"
+  _replicated:t="lastDamagedNode"
+  _replicated:t="lastGunPropsIdDamagedWith"
+  _replicated:t="isAlive"
+  _replicated:t="vehicle_seats__restrictToGroup"
+  material:t="steel"
+  needsBlood:b=no
+  animchar_render__enabled:b=yes
+  net__physId:i=-1
+  phys__lowFreqTickrate:b=yes
+  camera__lookDir:p3=1.0, 0.0, 0.0
+  camera__offset:p3=0.0, -1.0, -2.0
+  squad:i=-1
+  team:i=-1
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  _tracked:t="isTpsView"
+  _tracked:t="vehicleCameraType"
+  _tracked:t="vehicle__localControls"
+  _tracked:t="isAlive"
+  shreddableInDarkZone:b=yes
+  vehicleCameraType:i=0
+  isTpsView:b=no
+  driverFpsCamMaxAngle:p2=90.0, 50.0
+  passengerFpsCamMaxAngle:p2=90.0, 50.0
+  last_driver_leave_time:r=0.0
+  isAlive:b=yes
+  lastDamageType:i=0
+  lastDamagedNode:i=-1
+  lastGunPropsIdDamagedWith:i=-1
+  vehicle_acceleration__tick:i=0
+  vehicle_acceleration__velocity:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__acceleration:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__viscAcceleration:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__counterAccel:p3=0.0, 0.0, 0.0
+  vehicle_acceleration__accelVisc:r=0.3
+  vehicle_acceleration__counterAccelVisc:r=0.5
+  vehicle_acceleration__axisOffset:p3=0.5, 1.0, 0.0
+  spawnedInRegion:t=""
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+  deform_bbox__bmin:p3=0.0, 0.0, 0.0
+  deform_bbox__bmax:p3=0.0, 0.0, 0.0
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
+  vehicle_seats__restrictToGroup:i64=0
+  pair_collision__tag:t="collidableToVehicle"
+
+  grid_obj{
+  }
+
+  _group{
+    _track:b=yes
+    vehicle_view__gear:i=0
+    vehicle_view__neutralGear:i=0
+    vehicle_view__rpm:i=0
+    vehicle_view__cruiseControl:i=0
+    vehicle_view__speed:i=0
+    vehicle_view__fuelPct:r=0.0
+    vehicle_view__isHandBraking:b=no
+    vehicle_view__isAutomaticTransmission:b=yes
+  }
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    vehicle_net_phys__isEngineDestroyed:b=no
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_driver"
+    animchar_camera_target__nodeIndex:i=-1
+  }
+
+  _group{
+    _tags:t="gameClient"
+    dm_panel__redrawInterval:r=1.0
+    dm_panel__redrawAtTime:r=0.0
+
+    "dm_panel__turretNodeNames:list<t>"{
+      node:t="bone_turret"
+      node:t="bone_turret_01"
+      node:t="bone_turret_02"
+      node:t="bone_turret_03"
+      node:t="bone_turret_04"
+      node:t="bone_turret_05"
+      node:t="bone_turret_06"
+    }
+  }
+
+  _group{
+    _tags:t="render"
+    dm_panel__prevLod:i=-1
+    dm_panel__outlineResolutionScale:r=1.0
+  }
+
+  "setCameraDirByHero:tag"{
+  }
+
+  collres{
+  }
+
+  phys_vars{
+  }
+
+  vehicle_net_phys{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  "camera__look_at:dp3"{
+    _tags:t="render"
+  }
+
+  "defaultCameraTypes:shared:object"{
+    driver:t="driver"
+    passenger:t="passenger"
+    passenger1:t="passenger"
+    passenger2:t="passenger"
+    passenger3:t="passenger"
+    passenger4:t="passenger"
+    passenger5:t="passenger"
+    passenger6:t="passenger"
+    passenger7:t="passenger"
+    passenger8:t="passenger"
+    passenger9:t="passenger"
+    passenger10:t="passenger"
+  }
+
+  vehicle__localControls{
+    _tags:t="gameClient"
+  }
+
+  "vehicle_seats_hide_owner:list<b>"{
+  }
+
+  "cockpit__isHeroInCockpit:b"{
+    _tags:t="gameClient"
+    value:b=no
+  }
+
+  "last_driver:eid"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      seatOwnsEntityControl:b=yes
+      attachNode:t="bone_turret"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.5, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+    }
+  }
+
+  particle_phys{
+  }
+
+  vehicle_wheels{
+  }
+
+  bullet_decals{
+    _tags:t="render"
+  }
+}
+
+vehicle_effects_tracked{
+
+  track_dirt_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    track_dirt_fx__updateAtTime:r=0.0
+    track_dirt_fx__updateInterval:r=0.6
+
+    "track_dirt_fx__node:list<t>"{
+      node:t="emtr_track_l_front_top"
+      node:t="emtr_track_r_front_top"
+      node:t="emtr_track_l_back_bottom"
+      node:t="emtr_track_r_back_bottom"
+      node:t="emtr_track_l_back_top"
+      node:t="emtr_track_r_back_top"
+      node:t="emtr_track_l_front_bottom"
+      node:t="emtr_track_r_front_bottom"
+    }
+
+    "track_dirt_fx__physmatFxType:list<t>"{
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+    }
+
+    "track_dirt_fx__minSpeed:list<r>"{
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+    }
+
+    "track_dirt_fx__maxSpeed:list<r>"{
+      maxSpeed:r=5.0
+      maxSpeed:r=5.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+    }
+
+    "track_dirt_fx__speedMult:list<r>"{
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+    }
+
+    "track_dirt_fx__driven:list<b>"{
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+    }
+
+    "track_dirt_fx__atGround:list<b>"{
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+    }
+
+    "track_dirt_fx__effectsEid:list<eid>"{
+    }
+
+    "track_dirt_fx__matId:list<i>"{
+    }
+
+    "track_dirt_fx__matFxTypeId:list<i>"{
+    }
+
+    "track_dirt_fx__nodeId:list<i>"{
+    }
+  }
+}
+
+vehicle_effects_4x4{
+
+  track_dirt_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    track_dirt_fx__updateAtTime:r=0.0
+    track_dirt_fx__updateInterval:r=0.6
+
+    "track_dirt_fx__node:list<t>"{
+      node:t="emtr_wheel_l_drive_back_bottom"
+      node:t="emtr_wheel_r_drive_back_bottom"
+      node:t="emtr_wheel_l_back_bottom"
+      node:t="emtr_wheel_r_back_bottom"
+      node:t="emtr_wheel_l_drive_front_bottom"
+      node:t="emtr_wheel_r_drive_front_bottom"
+      node:t="emtr_wheel_l_front_bottom"
+      node:t="emtr_wheel_r_front_bottom"
+    }
+
+    "track_dirt_fx__physmatFxType:list<t>"{
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+    }
+
+    "track_dirt_fx__minSpeed:list<r>"{
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+    }
+
+    "track_dirt_fx__maxSpeed:list<r>"{
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+    }
+
+    "track_dirt_fx__speedMult:list<r>"{
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+    }
+
+    "track_dirt_fx__driven:list<b>"{
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+    }
+
+    "track_dirt_fx__atGround:list<b>"{
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+    }
+
+    "track_dirt_fx__effectsEid:list<eid>"{
+    }
+
+    "track_dirt_fx__matId:list<i>"{
+    }
+
+    "track_dirt_fx__matFxTypeId:list<i>"{
+    }
+
+    "track_dirt_fx__nodeId:list<i>"{
+    }
+  }
+}
+
+vehicle_effects_common{
+
+  track_dirt_fx{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    track_dirt_fx__updateAtTime:r=0.0
+    track_dirt_fx__updateInterval:r=0.6
+
+    "track_dirt_fx__node:list<t>"{
+      node:t="emtr_track_l_front_top"
+      node:t="emtr_track_r_front_top"
+      node:t="emtr_track_l_back_bottom"
+      node:t="emtr_track_r_back_bottom"
+      node:t="emtr_track_l_back_top"
+      node:t="emtr_track_r_back_top"
+      node:t="emtr_track_l_front_bottom"
+      node:t="emtr_track_r_front_bottom"
+      node:t="emtr_wheel_l_drive_back_bottom"
+      node:t="emtr_wheel_r_drive_back_bottom"
+      node:t="emtr_wheel_l_drive_01_back_bottom"
+      node:t="emtr_wheel_r_drive_01_back_bottom"
+      node:t="emtr_wheel_l_drive_02_back_bottom"
+      node:t="emtr_wheel_r_drive_02_back_bottom"
+      node:t="emtr_wheel_l_back_bottom"
+      node:t="emtr_wheel_r_back_bottom"
+      node:t="emtr_wheel_l_drive_front_bottom"
+      node:t="emtr_wheel_r_drive_front_bottom"
+      node:t="emtr_wheel_l_drive_01_front_bottom"
+      node:t="emtr_wheel_r_drive_01_front_bottom"
+      node:t="emtr_wheel_l_drive_02_front_bottom"
+      node:t="emtr_wheel_r_drive_02_front_bottom"
+      node:t="emtr_wheel_l_front_bottom"
+      node:t="emtr_wheel_r_front_bottom"
+      node:t="emtr_wheel_l_drive_01_front_top"
+      node:t="emtr_wheel_r_drive_01_front_top"
+      node:t="emtr_wheel_l_drive_02_front_top"
+      node:t="emtr_wheel_r_drive_02_front_top"
+      node:t="emtr_wheel_l_front_top"
+      node:t="emtr_wheel_r_front_top"
+      node:t="emtr_wheel_l_drive_01_back_top"
+      node:t="emtr_wheel_r_drive_01_back_top"
+      node:t="emtr_wheel_l_drive_02_back_top"
+      node:t="emtr_wheel_r_drive_02_back_top"
+      node:t="emtr_wheel_l_back_top"
+      node:t="emtr_wheel_r_back_top"
+    }
+
+    "track_dirt_fx__chassis:list<t>"{
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="track"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+      node:t="wheel"
+    }
+
+    "track_dirt_fx__physmatFxType:list<t>"{
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="back"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+      physmatFxType:t="front"
+    }
+
+    "track_dirt_fx__minSpeed:list<r>"{
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=0.0
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=1.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+      minSpeed:r=-1.0
+    }
+
+    "track_dirt_fx__maxSpeed:list<r>"{
+      maxSpeed:r=5.0
+      maxSpeed:r=5.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-5.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=3.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-20.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=-4.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=15.0
+      maxSpeed:r=-15.0
+      maxSpeed:r=-15.0
+      maxSpeed:r=-15.0
+      maxSpeed:r=-15.0
+      maxSpeed:r=-15.0
+      maxSpeed:r=-15.0
+    }
+
+    "track_dirt_fx__speedMult:list<r>"{
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.8
+      speedMult:r=0.8
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+      speedMult:r=0.1
+    }
+
+    "track_dirt_fx__driven:list<b>"{
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+      driven:b=yes
+    }
+
+    "track_dirt_fx__atGround:list<b>"{
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=no
+      atGround:b=no
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=yes
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+      atGround:b=no
+    }
+
+    "track_dirt_fx__effectsEid:list<eid>"{
+    }
+
+    "track_dirt_fx__matId:list<i>"{
+    }
+
+    "track_dirt_fx__matFxTypeId:list<i>"{
+    }
+
+    "track_dirt_fx__nodeId:list<i>"{
+    }
+  }
+}
+
+floatable_vehicle{
+  floatable_vehicle__floatingVolumesOffset:p3=0.0, 0.0, 0.0
+
+  _group{
+    _tags:t="server"
+    floatable_vehicle__floodingDelay:r=10.0
+    floatable_vehicle__floodingSpeed:r=0.01
+    floatable_vehicle__floodingStartTime:r=-1.0
+    floatable_vehicle__floatingVolumeScale:r=1.0
+
+    "floatable_vehicle__initialFloatingVolumes:list<r>"{
+    }
+  }
+
+  "vehicle_net_phys__floatable:tag"{
+  }
+}
+
+soft_ground_collision{
+  groundCollisionSoftness:r=20.0
+}
+
+vehicle_enter_accessibility{
+  vehicle__isPlayerCanEnter:b=yes
+  _replicated:t="vehicle__isPlayerCanEnter"
+  _tracked:t="vehicle__isPlayerCanEnter"
+  vehicle__brokenUsePrompt:t="hud/broken_vehicle_cannot_enter_prompt"
+}
+
+use_vehicle_on_spawn{
+  use_vehicle_on_spawn__seatNo:i=-1
+
+  "use_vehicle_on_spawn__vehicle:eid"{
+  }
+}
+
+vehicle_with_passenger{
+  vehicle_with_passenger__team:i=-1
+  vehicle_with_passenger__humanTemplate:t=""
+  vehicle_with_passenger__playerTemplate:t="bot_player"
+
+  "vehicle_with_passenger__playerEid:eid"{
+  }
+}

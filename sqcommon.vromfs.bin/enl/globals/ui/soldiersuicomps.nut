@@ -144,7 +144,7 @@ let function classIcon(armyId, sClass, iSize, override = {}) {
   return {
     rendObj = ROBJ_IMAGE
     size = [iSize, iSize]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = getClassIcon(icon, iSize)
   }.__update(override)
 }
@@ -231,6 +231,7 @@ let function mkSoldierMedalIcon(soldierInfo, size) {
 
   return {
     rendObj = ROBJ_IMAGE
+    size = [size, size]
     image = Picture(formatIconName(heroIcon, size))
   }
 }

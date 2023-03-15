@@ -2,7 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { Point3 } = require("dagor.math")
-let { curCampSoldiers, objInfoByGuid, getSoldierItem, getSoldierItemSlots,
+let { objInfoByGuid, getSoldierItem, getSoldierItemSlots,
   getModSlots, curSquadSoldiersInfo
 } = require("%enlist/soldiers/model/state.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
@@ -12,7 +12,7 @@ let curGenFaces = require("%enlist/faceGen/gen_faces.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { campItemsByLink } = require("%enlist/meta/profile.nut")
+let { campItemsByLink, curCampSoldiers } = require("%enlist/meta/profile.nut")
 let { soldierOverrides, isSoldierDisarmed, isSoldierSlotsSwap, getSoldierIdle,
   getSoldierHeadTemplate, getSoldierFace, faceGenOverrides, getSoldierFaceGen
 } = require("soldier_overrides.nut")

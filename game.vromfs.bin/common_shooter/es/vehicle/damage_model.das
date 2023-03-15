@@ -12,7 +12,7 @@ def damage_model_death_es(evt : Event;
                           isAlive : bool;
                           last_offender__shellId : int = -1;
                           last_offender__gunPropsId : int = -1)
-  if isAlive || !lastOffender || lastOffender == eid
+  if isAlive
     return
 
   var offenderPossessedByPlr = INVALID_ENTITY_ID

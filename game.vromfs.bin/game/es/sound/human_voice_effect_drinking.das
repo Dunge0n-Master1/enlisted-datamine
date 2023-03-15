@@ -1,7 +1,9 @@
 require ecs
 require ecs.safe
+require human_sounds.modules.human_voice_effect_common
 
-[es(tag=sound, track=human_inventory__entityToUse)]
+
+[es(tag=sound, on_appear, before=human_voice_effect_on_change, track=human_inventory__entityToUse)]
 def human_voice_effect_drinking(evt : Event;
                                 [[shared_comp]] net_sound__descs : Object;
                                 human_inventory__entityToUse : EntityId;
@@ -11,4 +13,4 @@ def human_voice_effect_drinking(evt : Event;
     let path = item__usingSoundType != "" ? item__usingSoundType : "using_{item__lootSoundType}"
     let obj = net_sound__descs[path] ?as Object
     isDrinking = obj?.isDrinking ?? false
-  human_voice_effect__activeEffects |> set("drink", isDrinking)
+  set_human_voice_effect("drink", isDrinking, human_voice_effect__activeEffects)

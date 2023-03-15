@@ -4,7 +4,7 @@ let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { ControlBgOpaque, BtnBgDisabled, BtnBdDisabled, BtnTextVisualDisabled, comboboxBorderColor
 } = require("%ui/style/colors.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
-let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster, selectedClusters,
+let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCountry, countryLoc,
   isAutoClusterSafe, hasAutoClusterOption
 } = require("clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
@@ -41,8 +41,8 @@ let visualDisabledBtnParams = btnParams.__merge({
 })
 
 let clusterSelector = @() {
-  watch = [availableClusters, isAutoCluster, isAutoClusterSafe, clusters, selectedClusters,
-    hasAutoClusterOption]
+  watch = [availableClusters, isAutoCluster, clusters, ownCountry,
+    isAutoClusterSafe, hasAutoClusterOption]
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = {
@@ -53,7 +53,7 @@ let clusterSelector = @() {
   clipChildren = true
   children = [
     !hasAutoClusterOption.value ? null : checkbox(isAutoCluster, {
-      text = loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
+      text = loc("quickMatch/Server/Optimal", { code = countryLoc(ownCountry.value) })
     }.__update(body_txt))
     multiselect({
       selected = isAutoClusterSafe.value ? Watched({}) : clusters
@@ -102,9 +102,9 @@ let function openClustersMenu(event) {
 
 isInQueue.subscribe(@(_) modalPopupWnd.remove(CLUSTER_PANEL_UID))
 
-let function mkClustersText(availClusters, curClusters, isAuto, code) {
+let function mkClustersText(availClusters, curClusters, isAuto, country) {
   let clustersArr = availClusters.filter(@(id) curClusters?[id])
-  let chosenText = isAuto ? loc("quickMatch/Server/Optimal", { code = clusterLoc(code) })
+  let chosenText = isAuto ? loc("quickMatch/Server/Optimal", { code = countryLoc(country) })
     : availClusters.len() == clustersArr.len() ? loc("quickMatch/Server/Any")
     : ", ".join(clustersArr.map(clusterLoc))
   return "{0}: {1}".subst(loc("quickMatch/Server"), chosenText)
@@ -113,10 +113,10 @@ let function mkClustersText(availClusters, curClusters, isAuto, code) {
 let function clustersUi() {
   if (isLocalClusters.value) {
     let text = mkClustersText(availableClusters.value, clusters.value,
-      isAutoClusterSafe.value, ownCluster.value)
+      isAutoClusterSafe.value, ownCountry.value)
     return {
       watch = [isLocalClusters, canChangeQueueParams, availableClusters,
-        clusters, isAutoClusterSafe, ownCluster]
+        clusters, isAutoClusterSafe, ownCountry]
       size = [flex(), SIZE_TO_CONTENT]
       children = textButton(text, openClustersMenu,
         canChangeQueueParams.value ? btnParams : visualDisabledBtnParams)
@@ -124,9 +124,9 @@ let function clustersUi() {
   }
 
   let text = mkClustersText(availableClusters.value, squadClusters.value,
-    squadAutoCluster.value, ownCluster.value)
+    squadAutoCluster.value, ownCountry.value)
   return {
-    watch = [isLocalClusters, availableClusters, squadClusters, squadAutoCluster, ownCluster]
+    watch = [isLocalClusters, availableClusters, squadClusters, squadAutoCluster, ownCountry]
     size = [flex(), SIZE_TO_CONTENT]
     children = textButton(text, showCantChangeMessage, visualDisabledBtnParams)
   }

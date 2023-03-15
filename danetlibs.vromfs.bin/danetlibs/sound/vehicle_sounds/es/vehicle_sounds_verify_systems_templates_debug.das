@@ -119,9 +119,6 @@ struct VehicleEngineSound
 struct VehicleWithSeats
   vehicle_seats__seatEids : ecs::EidList
 
-[req_template]
-struct HumanVoiceEffectFallcry
-  human_voice_effect_fallcry__enabled : bool
 
 [es(on_event=VerifyEcsTemplates)]
 def vehicle_sounds_verify_ecs_templates(evt : Event)

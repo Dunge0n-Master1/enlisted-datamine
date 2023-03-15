@@ -7,6 +7,7 @@ let { isMailboxVisible, unreadNum, hasUnread
 let {sound_play} = require("sound")
 let squareIconButton = require("%enlist/components/squareIconButton.nut")
 let mailboxWndOpen = require("mailboxBlock.nut")
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 
 let animsCounter = [
   {prop = AnimProp.scale from =[3.0, 3.0] to = [1.0,1.0]  duration = 0.5 trigger="new_mail" easing = OutCubic}
@@ -31,11 +32,12 @@ let function readNumCounter(){
 
 local prevUnread = unreadNum.value
 unreadNum.subscribe(function(v) {
-  if (v > prevUnread) {
-    sound_play(soundNewMail)
-    anim_start("new_mail")
-  } else
-    anim_request_stop("new_mail")
+  if (!isInBattleState.value)
+    if (v > prevUnread) {
+        sound_play(soundNewMail)
+        anim_start("new_mail")
+    } else
+      anim_request_stop("new_mail")
   prevUnread = v
 })
 

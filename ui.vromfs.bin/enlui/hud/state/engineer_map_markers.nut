@@ -87,10 +87,10 @@ ecs.register_es(
   {
     comps_track = [
       ["minimap__visibleForAll", ecs.TYPE_BOOL, false],
+      ["builder_info__team", ecs.TYPE_INT ],
     ]
     comps_ro = [
       ["buildByPlayer", ecs.TYPE_EID],
-      ["builder_info__team", ecs.TYPE_INT],
       ["building_menu__image", ecs.TYPE_STRING],
     ],
   }

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
-let circleProgressImage = Picture("ui/skin#scanner_range.png")
+let circleProgressImage = Picture("ui/skin#scanner_range.avif")
 let hairColor = Color(160, 160, 160, 120 )
 let overheatFg = Color(160, 0, 0, 180)
 let overheatBg = Color(0, 0, 0, 0)

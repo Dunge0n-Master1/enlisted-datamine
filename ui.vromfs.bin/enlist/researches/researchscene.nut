@@ -9,39 +9,53 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isResearchesOpened } = require("%enlist/mainMenu/sectionsState.nut")
+let { selectedTable } = require("researchesState.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
-let {
-  topWndBgColor, bottomWndBgColor, colPart, columnGap, titleTxtColor
-} = require("%enlSqGlob/ui/designConst.nut")
+let { colPart, columnGap, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let headerTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
 
 
-let profileWindow = @() {
-  watch = safeAreaBorders
+let pagesBgImages = [
+  mkColoredGradientY(0xDD090929, 0xDD220202),
+  mkColoredGradientY(0xDD241308, 0xDD260202),
+  mkColoredGradientY(0xDD072110, 0xDD0A1D02)
+]
+
+let profileWindow = {
   size = flex()
-  padding = safeAreaBorders.value
-  rendObj = ROBJ_IMAGE
-  image = mkColoredGradientY(topWndBgColor, bottomWndBgColor)
   children = [
-    researchesUi
-    {
-      flow = FLOW_HORIZONTAL
-      gap = colPart(2)
-      margin = [columnGap, 0]
-      valign = ALIGN_CENTER
+    @() {
+      watch = selectedTable
+      size = flex()
+      rendObj = ROBJ_IMAGE
+      image = pagesBgImages[selectedTable.value]
+    }
+    @() {
+      watch = safeAreaBorders
+      size = flex()
+      padding = safeAreaBorders.value
       children = [
-        Bordered(loc("BackBtn"), @() isResearchesOpened(false), {
-          hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") }]]
-        })
+        researchesUi
         {
-          rendObj = ROBJ_TEXT
-          hplace = ALIGN_CENTER
-          text = utf8ToUpper(loc("menu/researches"))
-        }.__update(headerTxtStyle)
+          flow = FLOW_HORIZONTAL
+          gap = colPart(2)
+          margin = [columnGap, 0]
+          valign = ALIGN_CENTER
+          children = [
+            Bordered(loc("BackBtn"), @() isResearchesOpened(false), {
+              hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") }]]
+            })
+            {
+              rendObj = ROBJ_TEXT
+              hplace = ALIGN_CENTER
+              text = utf8ToUpper(loc("menu/researches"))
+            }.__update(headerTxtStyle)
+          ]
+        }
       ]
     }
   ]

@@ -43,7 +43,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -56,9 +56,9 @@ entity{
   mission_name:t="volokolamsk_village_assault"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_village_01.jpg"
-    item:t="ui/volokolamsk_village_02.jpg"
-    item:t="ui/volokolamsk_village_03.jpg"
+    item:t="ui/volokolamsk_village_01.avif"
+    item:t="ui/volokolamsk_village_02.avif"
+    item:t="ui/volokolamsk_village_03.avif"
   }
 }
 
@@ -826,14 +826,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[10.6687, 0.0313095, 22.0746] [0.121759, 4.93451, -0.227028] [-25.4895, 0.0366759, 11.7006] [-104.209, 9.69579, 404.656]]
   active:b=no
-  capzone__decapTime:r=10.0
+  capzone__decapTime:r=40.0
   ui_order:i=1
   capzone__capReward:r=250.0
   capzone__title:t="A"
@@ -858,14 +858,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[-0.739869, 0.0, 12.298] [0.0, 3.53005, 0.0] [35.3327, 0.0, 2.07713] [-230.677, 13.381, 426.039]]
   active:b=no
-  capzone__decapTime:r=10.0
+  capzone__decapTime:r=40.0
   ui_order:i=2
   capzone__capReward:r=250.0
   capzone__title:t="B"
@@ -890,14 +890,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=40.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[-0.10795, 0.0, 0.994156] [0.0, 1.0, 0.0] [-0.994156, 0.0, -0.10795] [-191.877, 10.5239, 353.791]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=50.0
   ui_order:i=3
   capzone__capReward:r=250.0
   capzone__title:t="C"
@@ -924,14 +924,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[0.375294, 0.0148486, 0.926787] [0.0142652, 0.999661, -0.0217927] [-0.926796, 0.0213995, 0.374954] [-156.546, 6.11526, 249.58]]
   active:b=no
-  capzone__decapTime:r=10.0
+  capzone__decapTime:r=40.0
   ui_order:i=4
   capzone__capReward:r=250.0
   capzone__title:t="D"
@@ -954,14 +954,14 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=30.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[0.375294, 0.0148486, 0.926787] [0.0142652, 0.999661, -0.0217927] [-0.926796, 0.0213995, 0.374954] [-215.595, 7.61921, 252.377]]
   active:b=no
-  capzone__decapTime:r=10.0
+  capzone__decapTime:r=40.0
   ui_order:i=5
   capzone__capReward:r=250.0
   capzone__title:t="E"

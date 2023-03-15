@@ -219,3 +219,46 @@ ussr_towed_at_53k_gunner_cockpit{
     slit:b=yes
   }
 }
+
+enlist_tankgun_towed_at_53k_45mm_20k{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="enlist_towed_at_53k_45mm_20k"
+  item__name:t="guns/45mm_53k"
+  turret__triggerGroup:i=0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-40.0, 40.0, -2.0, 20.0
+}
+
+enlist_towed_at_53k_45mm_20k{
+  _extends:t="base_45mm_20k"
+  item__name:t="guns/45mm_53k"
+  gun__blk:t="gamedata/gen/weapons/45mm_53k.blk"
+  gun__locName:t="45mm_53k"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=10
+    ammo:i=15
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/45mm_20k_defaultset.blk"
+        name:t="45mm_br_243"
+        type:t="aphebc_tank"
+      }
+    }
+
+    "45mm_ussr_he:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/45mm_20k_45mm_ussr_he.blk"
+        name:t="45mm_o_243"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}

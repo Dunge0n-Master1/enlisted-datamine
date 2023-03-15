@@ -16,7 +16,7 @@ let {isGamepad} = require("%ui/control/active_controls.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let sendMark = require("%ui/hud/send_minimap_mark.nut")
+let { command } = require("%ui/hud/send_minimap_mark.nut")
 let {safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
 let {mouseNavTips, placePointsTipGamepad, navGamepadHints, placePointsTipMouse} = require("mapComps.nut")
 let {isAlive} = require("%ui/hud/state/health_state.nut")
@@ -188,10 +188,10 @@ let interactiveTips = mkInteractiveTips(
 
 let function onClickMap(e){
   if (e.button==1 || (isGamepad.value && e.button==0))
-    sendMark(e, minimapState)
+    command(e, minimapState)
 }
 let function onDoubleClickMap(e) {
-  sendMark(e, minimapState)
+  command(e, minimapState)
 }
 
 let markersParams = Computed(@() {

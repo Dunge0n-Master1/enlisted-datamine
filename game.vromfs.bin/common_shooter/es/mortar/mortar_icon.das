@@ -4,11 +4,12 @@ require math.base
 require game.es.events
 require game.utils.hero
 require game.events_game
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 
 
 [es(tag=gameClient, no_order, REQUIRE=mortar_marker)]
-def mortar_kill_marker_cleanup_es(info : UpdateStageInfoAct; eid : EntityId; marker__endTime : float)
+def mortar_kill_marker_cleanup_es(info : ParallelUpdateFrameDelayed; eid : EntityId; marker__endTime : float)
   if info.curTime > marker__endTime
     destroyEntity(eid)
 

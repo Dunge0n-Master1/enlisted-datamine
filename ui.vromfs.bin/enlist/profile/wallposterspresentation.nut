@@ -109,6 +109,12 @@ let wpPresentation = freeze({
   agit_poster_china_k_preview = {
     img = "agit_poster_china_k_tex_d*"
   }
+  agit_poster_china_l_preview = {
+    img = "agit_poster_china_l_tex_d*"
+  }
+  agit_poster_china_m_preview = {
+    img = "agit_poster_china_m_tex_d*"
+  }
   agit_poster_combat_engineers_preview = {
     img = "agit_poster_combat_engineers_tex_d*"
   }

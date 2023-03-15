@@ -1,5 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { defTxtColor, commonBorderRadius, lockedItemIdleBgColor, leftAppearanceAnim
+} = require("%enlSqGlob/ui/designConst.nut")
 let mkItemWithModuls = require("mkItemWithModuls.nut")
 let soldierSlotsCount = require("model/soldierSlotsCount.nut")
 let mkSpinner = require("%ui/components/mkSpinner.nut")
@@ -21,12 +23,7 @@ let {
   openSelectItem, getPossibleUnequipList, getAlternativeEquipList, getWorseItem,
   getPossibleEquipList, getBetterItem
 } = require("model/selectItemState.nut")
-let {
-  equipSlotRows, slotOffset, miniOffset, mkSlotAnim
-} = require("model/config/equipSlots.nut")
-let {
-  defTxtColor, commonBorderRadius, lockedItemIdleBgColor
-} = require("%enlSqGlob/ui/designConst.nut")
+let { equipSlotRows, slotOffset, miniOffset } = require("model/config/equipSlots.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -79,7 +76,7 @@ let function mkSlot(slotData, guid) {
   let { slotSize, slotCtor = null } = slotData
   let key = $"slot_{guid}_{animIdx}"
   if (slotCtor == null)
-    return mkFakeSlot(slotSize).__update({ key }, mkSlotAnim(0.07 * animIdx))
+    return mkFakeSlot(slotSize).__update({ key }, leftAppearanceAnim(0.07 * animIdx))
 
   let { item, hasName, headerLocId } = slotData
   let headerText = item != null && hasName ? getItemName(item)
@@ -100,7 +97,7 @@ let function mkSlot(slotData, guid) {
           }
       slotCtor(slotData)
     ]
-  }.__update(mkSlotAnim(0.07 * animIdx))
+  }.__update(leftAppearanceAnim(0.07 * animIdx))
 }
 
 
@@ -221,40 +218,40 @@ let mkEquipBtn = @(soldier, reserveWatch)
   }
 
 
-let function soldierEquipUi(
-  soldier, canManage = true, selectedKey = Watched(null), onDoubleClickCb = null,
-  onResearchClickCb = null, getDropExceptionCb = null
-) {
-  let { guid, equipScheme = {} } = soldier
-  let slotsCountWatch = soldierSlotsCount(guid, equipScheme)
-  let slotCtor = @(p) mkItem(p.__merge({
-    selectedKey
-    onDoubleClickCb
-    onResearchClickCb
-    onDropExceptionCb = getDropExceptionCb?(p?.item)
-  }))
-  animIdx = 0
+let soldierEquipUi = @( soldier, canManage = true, selectedKey = Watched(null),
+  onDoubleClickCb = null, onResearchClickCb = null, dropExceptionCb = null
+) function() {
+    let { guid, equipScheme = {} } = soldier.value
+    let slotsCountWatch = soldierSlotsCount(guid, equipScheme)
+    let slotCtor = @(p) mkItem(p.__merge({
+      selectedKey
+      onDoubleClickCb
+      onResearchClickCb
+      onDropExceptionCb = dropExceptionCb
+    }))
+    animIdx = 0
 
-  return {
-    size = flex()
-    flow = FLOW_VERTICAL
-    gap = { size = flex() }
-    children = [
-      function() {
-        let slotsCount = slotsCountWatch.value
-        return {
-          watch = slotsCountWatch
-          size = flex()
-          flow = FLOW_VERTICAL
-          gap = miniOffset
-          children = equipSlotRows.map(@(equipRow)
-            mkEquipRow(equipRow, soldier, canManage, slotsCount, slotCtor)
-          )
+    return {
+      watch = soldier
+      size = flex()
+      flow = FLOW_VERTICAL
+      gap = { size = flex() }
+      children = [
+        function() {
+          let slotsCount = slotsCountWatch.value
+          return {
+            watch = slotsCountWatch
+            size = flex()
+            flow = FLOW_VERTICAL
+            gap = miniOffset
+            children = equipSlotRows.map(@(equipRow)
+              mkEquipRow(equipRow, soldier.value, canManage, slotsCount, slotCtor)
+            )
+          }
         }
-      }
-      mkEquipBtn(soldier, reserveSoldiers)
-    ]
-  }
+        mkEquipBtn(soldier.value, reserveSoldiers)
+      ]
+    }
 }
 
 

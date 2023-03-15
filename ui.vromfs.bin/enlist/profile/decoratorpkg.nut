@@ -11,6 +11,10 @@ let {
 let { endswith } = require("string")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let openRanksInfoWnd = require("%enlist/profile/ranksInfoWnd.nut")
+let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
+let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
+let { markSeenRank } = require("%enlist/profile/rankState.nut")
+
 
 let PORTRAIT_SIZE = hdpx(160)
 let NICKFRAME_SIZE = hdpx(140)
@@ -115,17 +119,22 @@ let mkNickFrame = @(nCfg, color = defTxtColor, borderColor = idleBgColor) {
   }).__update(h0_txt)
 }
 
-let mkRatingBlock = function(rankDataWatch) {
+let mkRatingBlock = function(rankDataWatch, hasRankUnseenWatch = Watched(false)) {
   let stateFlag = Watched(0)
   return function() {
     let { rank = 0, rating = 0 } = rankDataWatch.value
     let { locId } = getRankConfig(rank)
+    let isUnseen = hasRankUnseenWatch.value
     return {
       flow = FLOW_HORIZONTAL
-      watch = [rankDataWatch, stateFlag]
+      watch = [rankDataWatch, hasRankUnseenWatch, stateFlag]
       gap = hdpx(15)
       behavior = Behaviors.Button
       onClick = openRanksInfoWnd
+      onHover = function(on) {
+        if (isUnseen)
+          hoverHoldAction("markSeenRank", rank, @(v) markSeenRank(v))(on)
+      }
       onElemState = @(sf) stateFlag(sf)
       children = [
         {
@@ -159,8 +168,12 @@ let mkRatingBlock = function(rankDataWatch) {
         {
           rendObj = ROBJ_SOLID
           padding = hdpx(2)
+          halign = ALIGN_RIGHT
           color = stateFlag.value & S_HOVER ? activeBgColor : defBgColor
-          children = mkRankImage(rank, openRanksInfoWnd)
+          children = [
+            mkRankImage(rank)
+            isUnseen ? smallUnseenNoBlink : null
+          ]
         }
       ]
     }

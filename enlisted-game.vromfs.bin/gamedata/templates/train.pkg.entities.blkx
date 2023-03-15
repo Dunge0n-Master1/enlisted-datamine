@@ -140,16 +140,16 @@ train_abstroffwagen{
   _extends:t="base_train"
   animchar__res:t="abstroffwagen_char"
   collres__res:t="abstroffwagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_abstroffwagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_abstroffwagen.blk"
 }
 
 train_abstroffwagen_b{
   _extends:t="base_train"
   animchar__res:t="abstroffwagen_b_char"
   collres__res:t="abstroffwagen_b_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_abstroffwagen_b.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_abstroffwagen_b.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_abstroffwagen_b.blk"
 }
 
 train_artillerie_flak_wagen{
@@ -157,48 +157,48 @@ train_artillerie_flak_wagen{
   vehicleName:t="artillerie_flak_wagen"
   animchar__res:t="artillerie_flak_wagen_char"
   collres__res:t="artillerie_flak_wagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_artillerie_flak_wagen.blk"
 }
 
 train_geschutz_wagen{
   _extends:t="base_train"
   animchar__res:t="geschutz_wagen_char"
   collres__res:t="geschutz_wagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_geschutz_wagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_geschutz_wagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_geschutz_wagen.blk"
 }
 
 train_kommando_infanterie_wagen{
   _extends:t="base_train"
   animchar__res:t="kommando_infanterie_wagen_char"
   collres__res:t="kommando_infanterie_wagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_kommando_infanterie_wagen.blk"
 }
 
 train_panzerjagerwagen{
   _extends:t="base_train"
   animchar__res:t="panzerjagerwagen_char"
   collres__res:t="panzerjagerwagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerjagerwagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_panzerjagerwagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_panzerjagerwagen.blk"
 }
 
 train_panzertragerwagen{
   _extends:t="base_train"
   animchar__res:t="panzertragerwagen_char"
   collres__res:t="panzertragerwagen_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzertragerwagen.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_panzertragerwagen.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_panzertragerwagen.blk"
 }
 
 train_panzerzug_bp_44_lokomotiv{
   _extends:t="base_train"
   animchar__res:t="panzerzug_bp_44_lokomotiv_char"
   collres__res:t="panzerzug_bp_44_lokomotiv_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv.blk"
 
   "attach_decorators__entities:list<eid>"{
   }
@@ -217,8 +217,8 @@ train_panzerzug_bp_44_lokomotiv_b{
   _extends:t="base_train"
   animchar__res:t="panzerzug_bp_44_lokomotiv_b_char"
   collres__res:t="panzerzug_bp_44_lokomotiv_b_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/wagens/train_panzerzug_bp_44_lokomotiv_b.blk"
 }
 
 primary_cart{
@@ -526,7 +526,6 @@ train_flak_ammo{
 flak_wagen_flak38_gun_ul{
   _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_ul"
   _extends:t="train_flak_ammo"
-  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
   turret__limit:p4=-180.0, 180.0, -5.0, 87.0
   turret__yawSpeed:r=60.0
   turret__pitchSpeed:r=20.0
@@ -535,24 +534,21 @@ flak_wagen_flak38_gun_ul{
 flak_wagen_flak38_gun_ur{
   _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_ur"
   _extends:t="train_flak_ammo"
-  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 flak_wagen_flak38_gun_dl{
   _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_dl"
   _extends:t="train_flak_ammo"
-  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 flak_wagen_flak38_gun_dr{
   _extends:t="tankgun_flak38_flakvierling_20mm_kwk30_dr"
   _extends:t="train_flak_ammo"
-  turret_ai__limitAngles:p4=-360.0, 360.0, -5.0, 25.0
 }
 
 moving_car_artillerie_flak_wagen_flak38_cannon{
   _extends:t="cannon_germ_20mm_flak38_flakvierling_green_camo"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk"
   buildingRadius:r=1.5
   buildingCost:r=8.0
   fortification_repair__costPercent:r=0.5

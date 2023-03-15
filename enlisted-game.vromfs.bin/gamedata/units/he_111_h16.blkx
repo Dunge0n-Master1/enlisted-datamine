@@ -32,71 +32,71 @@ DamageParts{
   armor10{
 
     armor1_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
 
     gun1_dm{
-      hp:r=5.0
+      hp:r=15.0
     }
 
     gun2_dm{
-      hp:r=5.0
+      hp:r=15.0
     }
 
     gun3_dm{
-      hp:r=5.0
+      hp:r=15.0
     }
 
     gun4_dm{
-      hp:r=5.0
+      hp:r=15.0
     }
 
     gun5_dm{
-      hp:r=5.0
+      hp:r=15.0
     }
   }
 
   armor5{
 
     armor2_dm{
-      hp:r=12.0
+      hp:r=35.0
     }
   }
 
   armor6{
 
     armor7_dm{
-      hp:r=12.0
+      hp:r=35.0
     }
   }
 
   armor8{
 
     armor3_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
 
     armor4_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
 
     armor6_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
 
     armor8_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
 
     armor9_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
   }
 
   armor8_5{
 
     armor5_dm{
-      hp:r=13.0
+      hp:r=40.0
     }
   }
 
@@ -104,62 +104,62 @@ DamageParts{
 
     engine1_dm{
       genericDamageMult:r=1.6
-      hp:r=13.0
+      hp:r=34.2
     }
 
     engine2_dm{
       genericDamageMult:r=1.6
-      hp:r=13.0
+      hp:r=34.2
     }
   }
 
   c_dural20{
 
     fuse1_dm{
-      hp:r=41.0
+      hp:r=124.5
     }
 
     fuse2_dm{
-      hp:r=41.0
+      hp:r=124.5
     }
 
     fuse_dm{
-      hp:r=41.0
+      hp:r=124.5
     }
 
     tail_dm{
       genericDamageMult:r=0.6
-      hp:r=53.0
+      hp:r=160.5
     }
 
     wing1_l_dm{
       genericDamageMult:r=0.35
-      hp:r=48.0
+      hp:r=145.5
     }
 
     wing1_r_dm{
       genericDamageMult:r=0.35
-      hp:r=48.0
+      hp:r=145.5
     }
 
     wing2_l_dm{
       genericDamageMult:r=0.35
-      hp:r=43.0
+      hp:r=131.7
     }
 
     wing2_r_dm{
       genericDamageMult:r=0.35
-      hp:r=43.0
+      hp:r=131.7
     }
 
     wing_l_dm{
       genericDamageMult:r=0.35
-      hp:r=43.0
+      hp:r=145.5
     }
 
     wing_r_dm{
       genericDamageMult:r=0.35
-      hp:r=43.0
+      hp:r=145.5
     }
   }
 
@@ -167,236 +167,236 @@ DamageParts{
 
     aileron_l_dm{
       genericDamageMult:r=0.3
-      hp:r=20.0
+      hp:r=60.5
     }
 
     aileron_r_dm{
       genericDamageMult:r=0.3
-      hp:r=20.0
+      hp:r=60.5
     }
 
     elevator0_dm{
       genericDamageMult:r=0.3
-      hp:r=20.0
+      hp:r=59.4
     }
 
     elevator1_dm{
       genericDamageMult:r=0.3
-      hp:r=20.0
+      hp:r=59.4
     }
 
     fin_dm{
-      hp:r=20.0
+      hp:r=60.5
     }
 
     flap_l_dm{
-      hp:r=20.0
+      hp:r=60.5
     }
 
     flap_r_dm{
-      hp:r=20.0
+      hp:r=60.5
     }
 
     rudder_dm{
       genericDamageMult:r=0.3
-      hp:r=13.0
+      hp:r=39.5
     }
 
     stab1_dm{
-      hp:r=13.0
+      hp:r=39.5
     }
 
     stab2_dm{
-      hp:r=13.0
+      hp:r=39.5
     }
   }
 
   dural{
 
     cover10_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover11_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover12_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover13_dm{
-      hp:r=13.0
+      hp:r=39.7
     }
 
     cover1_dm{
-      hp:r=10.0
+      hp:r=29.0
     }
 
     cover2_dm{
-      hp:r=10.0
+      hp:r=29.0
     }
 
     cover3_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover4_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover5_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover6_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover7_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover8_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
 
     cover9_dm{
-      hp:r=6.0
+      hp:r=19.5
     }
   }
 
   dural90{
 
     spar1_l_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
 
     spar1_r_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
 
     spar2_l_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
 
     spar2_r_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
 
     spar_l_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
 
     spar_r_dm{
-      hp:r=30.0
+      hp:r=110.5
     }
   }
 
   glass60{
 
     armor10_dm{
-      hp:r=30.0
+      hp:r=100.0
     }
   }
 
   protected_controls{
 
     tailcontrol_dm{
-      hp:r=25.0
+      hp:r=80.5
     }
 
     wingcontrol_l_dm{
-      hp:r=25.0
+      hp:r=80.5
     }
 
     wingcontrol_r_dm{
-      hp:r=25.0
+      hp:r=80.5
     }
   }
 
   steel{
 
     gear_c_dm{
-      hp:r=16.0
+      hp:r=49.5
     }
 
     gear_l_dm{
-      hp:r=23.0
+      hp:r=70.5
     }
 
     gear_r_dm{
-      hp:r=20.0
+      hp:r=70.5
     }
   }
 
   steel_cooling_sys{
 
     oil1_dm{
-      hp:r=6.0
+      hp:r=17.5
     }
 
     oil2_dm{
-      hp:r=7.0
+      hp:r=23.5
     }
 
     oil3_dm{
-      hp:r=5.0
+      hp:r=17.5
     }
 
     oil4_dm{
-      hp:r=7.0
+      hp:r=23.5
     }
 
     water1_dm{
-      hp:r=5.0
+      hp:r=16.9
     }
 
     water2_dm{
-      hp:r=5.0
+      hp:r=16.7
     }
   }
 
   steel_pilot{
 
     gunner1_dm{
-      hp:r=6.0
+      hp:r=20.0
     }
 
     gunner2_dm{
-      hp:r=6.0
+      hp:r=20.0
     }
 
     gunner3_dm{
-      hp:r=6.0
+      hp:r=20.0
     }
 
     gunner4_dm{
-      hp:r=6.0
+      hp:r=20.0
     }
 
     pilot_dm{
       fireProtectionHp:r=20.0
-      hp:r=6.0
+      hp:r=20.0
     }
   }
 
   steel_tank_m{
 
     tank1_dm{
-      hp:r=30.0
+      hp:r=95.0
     }
 
     tank2_dm{
-      hp:r=16.0
+      hp:r=54.5
     }
 
     tank3_dm{
-      hp:r=16.0
+      hp:r=54.5
     }
 
     tank4_dm{
-      hp:r=10.0
+      hp:r=94.9
     }
   }
 }
@@ -1396,10 +1396,20 @@ DamageEffects{
 
   part{
     name:t="spar_l_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{
     name:t="spar_r_dm"
+
+    onKill{
+      nothing:r=100.0
+      cut:r=0.001
+    }
   }
 
   part{

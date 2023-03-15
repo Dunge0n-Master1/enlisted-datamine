@@ -262,7 +262,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -304,9 +304,9 @@ entity{
   mission_name:t="normandy_omer_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_urban_omer_01.jpg"
-    item:t="ui/normandy_urban_omer_02.jpg"
-    item:t="ui/normandy_urban_omer_03.jpg"
+    item:t="ui/normandy_urban_omer_01.avif"
+    item:t="ui/normandy_urban_omer_02.avif"
+    item:t="ui/normandy_urban_omer_03.avif"
   }
 }
 
@@ -467,7 +467,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [172.469, 3.70959, 60.4339]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [172.845, 3.70959, 59.2038]]
   battle_area_polygon_point__id:t="point3"
   battle_area_polygon_point__nextId:t="point4"
   battle_area_polygon_point__forBattleAreaId:t="area1_1"
@@ -1353,7 +1353,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-82.4375, 3.70959, -154.597]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-81.8191, 3.70959, -153.356]]
   battle_area_polygon_point__id:t="point16"
   battle_area_polygon_point__nextId:t="point17"
   battle_area_polygon_point__forBattleAreaId:t="area2_1"
@@ -1667,7 +1667,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-82.4375, 3.70959, -154.597]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-81.8152, 3.70959, -153.387]]
   battle_area_polygon_point__id:t="point16"
   battle_area_polygon_point__nextId:t="point17"
   battle_area_polygon_point__forBattleAreaId:t="area2_c_1"
@@ -1981,7 +1981,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-82.4375, 3.70959, -154.597]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-81.8231, 3.70959, -153.387]]
   battle_area_polygon_point__id:t="point16"
   battle_area_polygon_point__nextId:t="point17"
   battle_area_polygon_point__forBattleAreaId:t="area2_b_1"
@@ -2175,7 +2175,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.233, 3.70959, -40.342]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.442, 3.70959, -40.2308]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area3_1"
@@ -2337,7 +2337,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.233, 3.70959, -40.342]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.499, 3.70959, -40.2056]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area3_b_1"
@@ -2499,7 +2499,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.233, 3.70959, -40.342]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.501, 3.70959, -40.2255]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area3_c_1"
@@ -2661,7 +2661,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.233, 3.70959, -40.342]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [381.467, 3.70959, -40.2045]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area3_d_1"
@@ -2839,7 +2839,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-125.496, 3.70959, 231.836]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-125.474, 3.70959, 231.415]]
   battle_area_polygon_point__id:t="point3"
   battle_area_polygon_point__nextId:t="point4"
   battle_area_polygon_point__forBattleAreaId:t="area4_1"
@@ -2879,7 +2879,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-195.669, 3.70959, -58.6137]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-203.751, 3.70959, -61.7444]]
   battle_area_polygon_point__id:t="point8"
   battle_area_polygon_point__nextId:t="point9"
   battle_area_polygon_point__forBattleAreaId:t="area4_1"
@@ -2904,7 +2904,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-372.42, 3.70959, 126.914]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-369.273, 3.70959, 114.25]]
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
   battle_area_polygon_point__forBattleAreaId:t="area4_2"
@@ -3218,7 +3218,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-2.65165, 3.70959, 317.531]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-2.55197, 3.70959, 321.202]]
   battle_area_polygon_point__id:t="point15"
   battle_area_polygon_point__nextId:t="point1"
   battle_area_polygon_point__forBattleAreaId:t="area4_b_2"
@@ -3677,6 +3677,46 @@ entity{
 }
 
 entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [192.959, -0.56966, -40.3433]]
+  capzone_area_polygon_point__id:t="point1"
+  capzone_area_polygon_point__nextId:t="point2"
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_1_a"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [220.237, 9.34689, -24.1171]]
+  capzone_area_polygon_point__id:t="point2"
+  capzone_area_polygon_point__nextId:t="point3"
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_1_a"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [198.992, 1.99135, 11.0651]]
+  capzone_area_polygon_point__id:t="point3"
+  capzone_area_polygon_point__nextId:t="point4"
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_1_a"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [174.51, 1.99134, -3.27218]]
+  capzone_area_polygon_point__id:t="point4"
+  capzone_area_polygon_point__nextId:t="point5"
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_1_a"
+}
+
+entity{
+  _template:t="capzone_area_polygon_point"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [183.042, 1.99134, -19.2847]]
+  capzone_area_polygon_point__id:t="point5"
+  capzone_area_polygon_point__nextId:t="point1"
+  capzone_area_polygon_point__forcapzone_areaId:t="caparea_1_a"
+}
+
+entity{
   _template:t="normandy_level"
   level__blk:t="content/enlisted/levels/normandy_urban_area_2x2.blk"
 }
@@ -4034,27 +4074,27 @@ entity{
 }
 
 entity{
-  _template:t="defend_zone_chained_box+defend_zone_respawnbase"
+  _template:t="defend_zone_chained_poly+defend_zone_respawnbase"
   capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
   capzone__capTime:r=35.0
   capzone__capTeam:i=-1
-  transform:m=[[25.4097, 0.0, 14.8391] [0.0, 9.9143, 0.0] [-20.6797, 0.0, 35.4107] [197.103, 4.7142, -14.0403]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
   capzone__decapTime:r=6000.0
-  ui_order:i=1
+  ui_order:i=5
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
-  decal__height:r=2.6
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
+  capzone__areaId:t="caparea_1_a"
+  capzone__iconOffsetY:r=1.5
 }
 
 entity{

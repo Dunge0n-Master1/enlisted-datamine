@@ -28,7 +28,7 @@ def replace_extension(path, ext : string)
     return "{slice(path, 0, dotIdx)}.{ext}"
   return path
 
-def get_local_path_to_dag(root : string; var path : das_string& implicit) : bool
+def get_local_path_to_dag(root : string; var path : das_string |#) : bool
 
   let file = get_dlg_open_file("", "dag") |> replace("\\", "/")
   if !empty(file)
@@ -56,7 +56,7 @@ def get_filtered_assets(type_name, filter : string; b : block<(arg1 : array<stri
       var assetNames : array<string>
       for id in assetIds
         let assetName = asset__manager |> getAsset(id) |> getName()
-        if empty(filter) || assetName |> starts_with(filter)
+        if empty(filter) || assetName |> find(filter, 0) >= 0
           assetNames |> push(assetName)
       invoke(b, assetNames)
 

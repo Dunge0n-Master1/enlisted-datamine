@@ -9,7 +9,7 @@ let console = require("console")
 let unlocalizedStrings = persist("unlocalizedStrings", @() {})
 let defLocalizedStrings = persist("defLocalizedStrings", @() {})
 
-local function locWithCheck(locId, defaultLoc=null, params = null){
+let function locWithCheck(locId, defaultLoc=null, params = null){
   if (locId==null)
     return null
   foreach(v in [defaultLoc, params]) {
@@ -27,7 +27,7 @@ local function locWithCheck(locId, defaultLoc=null, params = null){
   }
   return nativeLoc(locId, defaultLoc, params)
 }
-local function hashLocFunc(locId, defLoc, params){
+let function hashLocFunc(locId, defLoc, params){
   if (type(defLoc)=="table")
     defLoc = defLoc.reduce(@(a,val, key) "_".concat(a, key, val), "")
   if (type(params)=="table")
@@ -41,7 +41,7 @@ let memoizedLoc = memoize(locWithCheck, hashLocFunc, persistLocCache)
 let checkedLoc = @(locId, defLoc=null, params=null) memoizedLoc(locId, defLoc, params)
 let debugLocalizations = DBGLEVEL > 0 && __name__ != "__main__" && "__argv" not in getroottable()
 
-local function dumpLocalizationErrors(){
+let function dumpLocalizationErrors(){
   let unlocalizedStringsN = unlocalizedStrings.len() + defLocalizedStrings.len()
   if (unlocalizedStringsN > 0) {
     logerr($"[LANG] {unlocalizedStringsN} strings has no localizations")

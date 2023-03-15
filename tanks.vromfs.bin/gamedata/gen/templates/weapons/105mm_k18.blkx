@@ -39,5 +39,6 @@ tankgun_105mm_k18{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_105mm_k18"
+  _extends:t="gunsound_105mm_k18"
   turret__triggerGroup:i=0
 }

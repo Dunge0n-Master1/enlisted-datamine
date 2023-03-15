@@ -156,7 +156,7 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
   var tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
                                                : camTm[3])
 
-  using() <| $(var entities : IntersectedEntities#)
+  using() <| $(var entities : IntersectedEntities)
     var dist = human_use_object__useDist
     trace_entities_in_grid(ecs_hash("humans"), tracePos, traceDir, dist, eid, entities, SortIntersections NO)
     trace_entities_in_grid(ecs_hash("vehicles"), tracePos, traceDir, dist, INVALID_ENTITY_ID, entities, SortIntersections YES)
@@ -209,11 +209,10 @@ def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           human_reviver__maxDistance : float2 = float2(0.0, 0.0);
                                           human_reviver__maxAngle : float = 45.0;
                                           human_use_object__nodeId : int = 0;
-                                          canReviveWithoutItem : Tag const?;
                                           var human_use_object__selectedObject : EntityId&)
   if human_use_object__selectedObject != INVALID_ENTITY_ID
     return
-  if total_kits__targetRevive == 0 && canReviveWithoutItem == null
+  if total_kits__targetRevive == 0
     return
   let camTm = get_cam_itm()
   let tracePos = (human_use_object__nodeId > 0 ? *animchar.nodeTree |> geomtree_getNodeWpos(human_use_object__nodeId)
@@ -235,7 +234,7 @@ def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
       return false
     var t = dist
     var norm : float3
-    traceray_normalized(tracePos, transform[3] - tracePos, t, norm)
+    traceray_normalized(tracePos, dir, t, norm)
     if t - dist > FLT_EPSILON
       return false
 

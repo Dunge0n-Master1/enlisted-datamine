@@ -20,13 +20,13 @@ def plane_landing_respawn_blackout_effect(info : UpdateStageInfoAct;
     let progress = cvt(info.curTime,
       startTime, endTime,
       plane_landing_blackout__progressMinMax[0], plane_landing_blackout__progressMinMax[1])
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.0, 0.0, 0.0, progress)))
+    DagorShaders::set_color4(redout_blackout_colorVarId, 0.0, 0.0, 0.0, progress)
   elif info.curTime - plane_landing__respawnedAtTime < plane_landing_blackout__timeAfterSpawn
     let progress = cvt(info.curTime,
       plane_landing__respawnedAtTime, plane_landing__respawnedAtTime + plane_landing_blackout__timeAfterSpawn,
       plane_landing_blackout__progressMinMax[1], plane_landing_blackout__progressMinMax[0])
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.0, 0.0, 0.0, progress)))
+    DagorShaders::set_color4(redout_blackout_colorVarId, 0.0, 0.0, 0.0, progress)
 
 [es(tag=render, REQUIRE_NOT=deadEntity, REQUIRE=(vehicleWithWatched, plane_landing__repairAtTime), on_disappear)]
 def plane_landing_respawn_remove_blackout_effect(evt : Event)
-  DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.0, 0.0, 0.0, 0.0)))
+  DagorShaders::set_color4(redout_blackout_colorVarId, 0.0, 0.0, 0.0, 0.0)

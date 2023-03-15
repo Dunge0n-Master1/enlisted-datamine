@@ -40,6 +40,13 @@ let { BLINK, NO_BLINK } = require("%ui/components/unseenComps.nut")
 let {
   hasUnopenedAchievements, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
 } = require("%enlist/unlocks/unseenUnlocksState.nut")
+let { hasRankUnseen, hasUnopenedRank } = require("%enlist/profile/rankState.nut")
+
+
+let hasUnseenCardElements = Computed(@()
+  hasUnseenDecorators.value || hasRankUnseen.value)
+let hasUnopenedCardElements = Computed(@()
+  hasUnopenedDecorators.value || hasUnopenedRank.value)
 
 
 let curTabIdx = mkWatched(persist, "curTabIdx", 0)
@@ -48,8 +55,8 @@ let tabsList = [
     id = "playerCard"
     locId = "profile/playerCardTab"
     content = playerCardUi
-    unseenMarkType = Computed(@() !hasUnseenDecorators.value ? null
-      : hasUnopenedDecorators.value ? BLINK
+    unseenMarkType = Computed(@() !hasUnseenCardElements.value ? null
+      : hasUnopenedCardElements.value ? BLINK
       : NO_BLINK)
   }
   {

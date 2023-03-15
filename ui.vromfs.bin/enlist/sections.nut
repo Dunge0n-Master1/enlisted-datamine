@@ -87,7 +87,8 @@ let hasShopAlert = Computed(@() hasShopSection.value
 let discountBg = { color = discountBgColor }
 
 let shopAlertBlink = Computed(@()
-  curSection.value != "SHOP" && notOpenedShopItems.value.len() > 0)
+  curSection.value != "SHOP"
+    && (notOpenedShopItems.value.len() > 0 || maxCurArmyDiscount.value > 0))
 
 let function shopAlertUi() {
   let mkNotifier = shopAlertBlink.value ? mkNotifierBlink : mkNotifierNoBlink
@@ -168,8 +169,8 @@ sections.append({
 
 sections.append(isNewDesign.value
   ? {
-      locId = "menu/soldier"
-      descId = "menu/campaignRewardsDesc"
+      locId = "menu/quarters"
+      descId = "menu/quartersDesc"
       content = squadSoldiersUi
       id = "SQUAD_SOLDIERS"
       camera = "soldiers"
@@ -196,7 +197,7 @@ if (!isNewDesign.value)
 
 
 sections.append({
-  locId = "menu/enlistedShop"
+  locId = isNewDesign.value ? "menu/shop" : "menu/enlistedShop"
   content = shopUi
   id = "SHOP"
   camera = "researches"

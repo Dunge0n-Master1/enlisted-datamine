@@ -8,7 +8,6 @@ require ast
 require daslib/ast_boost
 require daslib/templates_boost
 require daslib/strings_boost
-require daslib/defer
 
 require danetlibs.imgui_daeditor.imgui.daEditor.ecs_inspectors_common public
 require debugapi public
@@ -85,8 +84,7 @@ class EcsInspectorAnnotation : AstFunctionAnnotation
 [function_macro(name="ecs_editor")]
 class EcsEditorAnnotation : AstFunctionAnnotation
   [unused_argument(group)] def override apply(var func : FunctionPtr; var group : ModuleGroup; args : AnnotationArgumentList; var errors : das_string) : bool
-    var tags : array<string>
-    defer_delete(tags)
+    var inscope tags : array<string>
     for arg in args
       if string(arg.name) == "tags"
         if arg.basicType != Type tString

@@ -71,7 +71,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{
@@ -1211,20 +1211,6 @@ entity{
 entity{
   _template:t="vw_kubelwagen"
   transform:m=[[0.992874, 0.0488557, 0.108696] [-0.0667266, 0.983629, 0.167395] [-0.0987387, -0.173455, 0.97988] [-11.4565, 19.8697, -3.72683]]
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="land_haze"
-  ground_effect__biome_group_name:t="dune"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-  ground_effect__scale_x:p2=1.3, 0.0
-  ground_effect__scale_y:p2=1.3, 0.0
-  ground_effect__scale_z:p2=1.3, 0.0
 }
 
 entity{

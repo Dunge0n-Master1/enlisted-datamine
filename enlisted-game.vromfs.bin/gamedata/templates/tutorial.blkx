@@ -23,6 +23,13 @@ practice_map{
   }
 }
 
+tutorial_target_grenade_c{
+  _extends:t="tutorial_target_silhouette_c"
+
+  "tutorial_target__grenade:tag"{
+  }
+}
+
 base_tutorial_zone{
   transform:m=[[0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0]]
   boxMin:p3=0.0, 0.0, 0.0
@@ -32,8 +39,16 @@ base_tutorial_zone{
   tutorial_zone__zoneCheck:i=0
   tutorial_zone__active:b=yes
   tutorial_zone__zoneId:t=""
+  tutorial_zone__icon:t="waypoint"
 
   "tutorialZone:tag"{
+  }
+}
+
+hidden_tutorial_zone{
+  _extends:t="base_tutorial_zone"
+
+  "tutorial_zone__hideWaypoint:tag"{
   }
 }
 
@@ -104,6 +119,9 @@ tutorial_bot_anim_state{
   game_effect__forceAnimState:t="enlisted_idle_13_weapon"
   game_effect__forceAnimStateId:i=-1
 
+  "notTakeDamageFromBattleArea:tag"{
+  }
+
   "tutorial_bot_anim_state:tag"{
   }
 }
@@ -133,8 +151,13 @@ tutorial_zone_debug{
 
 tutorial_grenade_count_observer{
   _singleton:b=yes
+  tutorial_observer__restartFromStage:t="inf_tutorial_grenade_switch"
 
   "tutorial_observer__grenade_count:tag"{
+  }
+
+  "tutorial_observer__resupplyGrenadesOnActivatingZones:list<t>"{
+    zoneId:t="target_grenade_expl_zone"
   }
 }
 
@@ -343,24 +366,70 @@ inf_tutorial_fire_range_aim{
 
 inf_tutorial_grenade_restore{
   _extends:t="tutorial_restore_memorize"
-  tutor_stage__next:t="inf_tutorial_grenade"
+  tutor_stage__next:t="inf_tutorial_grenade_first_start"
 }
 
-inf_tutorial_grenade{
-  tutor_stage__next:t="inf_tutorial_deactivate_grenade_resupply"
-  tutor_stage__deactivateZoneId:t="target02_marker_zone"
-  tutor_stage__hitTarget:t="infantry_target_grenade"
-  tutor_stage__hitTargetByWeapon:t="grenade"
-  tutor_stage__activateZoneId:t="target_grenade_expl_zone"
-  tutor_condition__explodedInZone:t="target_grenade_expl_zone"
-  tutor_stage__displayHint:t="hint_tutorial_fire_range_switch_to_grenades"
+inf_tutorial_grenade_first_start{
+  tutor_stage__next:t="inf_tutorial_grenade_switch"
+
+  "tutor_stage__skip:tag"{
+  }
 
   "tutor_action__createEntity:list<t>"{
     key:t="tutorial_grenade_count_observer"
   }
+}
+
+inf_tutorial_grenade_switch{
+  tutor_stage__next:t="inf_tutorial_grenade_in_zone"
+  tutor_stage__deactivateZoneId:t="target02_marker_zone"
+  tutor_stage__activateZoneId:t="target_grenade_expl_zone"
+  tutor_stage__displayHint:t="hint_tutorial_fire_range_switch_to_grenades"
 
   "tutor_stage__hintKeys:array"{
     key:t="Human.GrenadeNext"
+  }
+
+  "tutor_stage__curGunComponentAny:list<t>"{
+    comp:t="grenade_thrower"
+  }
+}
+
+inf_tutorial_grenade_in_zone{
+  tutor_stage__next:t="inf_tutorial_grenade"
+  tutor_stage__hitTarget:t="infantry_target_grenade"
+  tutor_stage__hitTargetByWeapon:t="grenade"
+  tutor_condition__explodedInZone:t="target_grenade_expl_zone"
+  tutor_condition__grenadeStopInZone:t="target_grenade_expl_zone"
+  tutor_stage__displayHint:t=""
+
+  "tutor_stage__hintKeys:array"{
+  }
+}
+
+inf_tutorial_grenade{
+  tutor_stage__next:t="inf_tutorial_grenade_destroy_target"
+  tutor_stage__hitTarget:t="infantry_target_grenade"
+  tutor_stage__hitTargetByWeapon:t="grenade"
+  tutor_condition__explodedInZone:t="target_grenade_expl_zone"
+  tutor_stage__displayHint:t=""
+
+  "tutor_stage__hintKeys:array"{
+  }
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_grenade_count_observer"
+  }
+}
+
+inf_tutorial_grenade_destroy_target{
+  tutor_stage__next:t="inf_tutorial_deactivate_grenade_resupply"
+
+  "tutor_action__destroySingletons:list<t>"{
+    key:t="tutorial_grenade_target"
+  }
+
+  "tutor_stage__skip:tag"{
   }
 }
 
@@ -368,10 +437,6 @@ inf_tutorial_deactivate_grenade_resupply{
   tutor_stage__next:t="inf_tutorial_squad_intro"
   tutor_stage__timer:r=0.0
   tutor_stage__deactivateZoneId:t="target_grenade_resupply_zone"
-
-  "tutor_action__destroySingletons:list<t>"{
-    key:t="tutorial_grenade_count_observer"
-  }
 }
 
 inf_tutorial_squad_intro{
@@ -520,4 +585,10 @@ tutorial_input_manager{
 
   "tutorial__savedInput:object"{
   }
+}
+
+tutorial_grenade_target{
+  _extends:t="tutorial_target_grenade_c"
+  _extends:t="tutorial_memorize_entity"
+  _singleton:b=yes
 }

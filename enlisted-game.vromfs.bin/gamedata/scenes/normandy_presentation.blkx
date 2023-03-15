@@ -1714,7 +1714,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -2123,7 +2123,7 @@ entity{
   _template:t="ship_gun_105mm"
   transform:m=[[0.245069, 0.0, -0.969505] [0.0, 1.0, 0.0] [0.969505, 0.0, 0.245069] [-89.1134, 8.94576, 747.342]]
   collres__res:t="mg42_collision"
-  gun__blk:t="content/e_ww2_common/gamedata/weapons/turret_50mm_ship.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/turret_50mm_ship.blk"
   gun__itemPropsId:i=-1
 }
 

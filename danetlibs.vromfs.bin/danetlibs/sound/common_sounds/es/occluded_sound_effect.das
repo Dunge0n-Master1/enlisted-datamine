@@ -2,13 +2,15 @@ require ecs
 require soundEvent
 
 
-[es(tag=sound, on_appear, after=sound_effect_appear)]
-def occluded_sound_effect_appear(evt : Event;
-                                 sound_control__range : float;
-                                 occluded_sound__rangeMul : float;
-                                 occluded_sound__nearFarAttenuation : float2;
-                                 var occluded_sound__nearFarRange : float2&)
-  occluded_sound__nearFarRange = occluded_sound__nearFarAttenuation * (sound_control__range * occluded_sound__rangeMul)
+[es(tag=sound, track=sound_bank_preset_state__isValid, after=sound_effect_init)]
+def occluded_sound_effect_init(evt : Event;
+                               sound_bank_preset_state__isValid : bool;
+                               sound_control__range : float;
+                               occluded_sound__rangeMul : float;
+                               occluded_sound__nearFarAttenuation : float2;
+                               var occluded_sound__nearFarRange : float2&)
+  if sound_bank_preset_state__isValid
+    occluded_sound__nearFarRange = occluded_sound__nearFarAttenuation * (sound_control__range * occluded_sound__rangeMul)
 
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=sound_occlusion_update)]

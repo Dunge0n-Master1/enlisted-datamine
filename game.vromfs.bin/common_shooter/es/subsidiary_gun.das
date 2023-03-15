@@ -10,6 +10,7 @@ require inventory
 require EnlistedWeapon
 require common_shooter.events_common_shooter
 require common_shooter.es.human.human_gun_common
+require common_shooter.es.human.human_reload_common
 
 [es]
 def subsidiary_gun_phys_es(evt : CmdWeapPhysUpdate; eid, subsidiaryGunEid : ecs::EntityId)
@@ -48,7 +49,7 @@ def ramrod_subsidiary_gun_server_reload_es(evt : CmdWeapPhysUpdate;
       weapon_mod__active = false
       if gun__ammo == 0 && gun__totalAmmo > 0
         query(gun__owner) <| $ [es] (var itemContainer : EidList)
-          find_ammo_for_gun(subsidiaryGunEid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult#)
+          find_ammo_for_gun(subsidiaryGunEid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult)
             if ammoForGun.itemIndex < 0
               return
             gun__curShellId = gun__shell_prop_ids[0]
@@ -83,7 +84,7 @@ def subsidiary_gun_load_on_create_es(evt : Event;
                                      var gun__totalAmmo : int&)
   if gun__ammo == 0 && gun__totalAmmo > 0
     query(gun__owner) <| $ [es] (var itemContainer : EidList)
-      find_ammo_for_gun(eid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult#)
+      find_ammo_for_gun(eid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult)
         if ammoForGun.itemIndex < 0
           return
         gun__curShellId = gun__shell_prop_ids[0]

@@ -1,0 +1,25 @@
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="envir_dust_ground_distortion_15m_effect"
+  ground_effect__biome_group_name:t="dune"
+  ground_effect__grid_cell_size:r=8.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=50.0
+  ground_effect__biome_weight_for_active_thr:r=0.5
+  ground_effect__scale_x:p2=1.0, 0.0
+  ground_effect__scale_y:p2=1.0, 0.0
+  ground_effect__scale_z:p2=1.0, 0.0
+}
+
+entity{
+  _template:t="ground_effect"
+  ground_effect__fx_name:t="envir_dust_ground_sand_15m_effect"
+  ground_effect__biome_group_name:t="dune"
+  ground_effect__grid_cell_size:r=16.0
+  ground_effect__grid_world_origin:p2=0.0, 0.0
+  ground_effect__vis_radius:r=60.0
+  ground_effect__offset_y:p2=0.0, 0.0
+  ground_effect__scale_x:p2=0.7, 0.0
+  ground_effect__scale_y:p2=0.7, 0.0
+  ground_effect__scale_z:p2=0.7, 0.0
+}

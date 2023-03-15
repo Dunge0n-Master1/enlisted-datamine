@@ -3,11 +3,6 @@ root_node:t="Bip01"
 direction_nodes{
 
   node{
-    name:t="Bip01"
-    weight:r=1.0
-  }
-
-  node{
     name:t="Bip01 Pelvis"
     weight:r=1.0
   }
@@ -16,27 +11,7 @@ direction_nodes{
 center_of_mass{
 
   node{
-    name:t="Bip01 Pelvis"
-    params:p4=0.0, 0.0, 0.0, 13.0
-  }
-
-  node{
-    name:t="Bip01 L Thigh"
-    params:p4=0.0, 0.0, 0.0, 10.0
-  }
-
-  node{
-    name:t="Bip01 R Thigh"
-    params:p4=0.0, 0.0, 0.0, 10.0
-  }
-
-  node{
-    name:t="Bip01 L Calf"
-    params:p4=0.0, 0.0, 0.0, 5.0
-  }
-
-  node{
-    name:t="Bip01 R Calf"
-    params:p4=0.0, 0.0, 0.0, 5.0
+    name:t="Bip01 Spine1"
+    params:p4=0.0, 0.0, 0.0, 1.0
   }
 }

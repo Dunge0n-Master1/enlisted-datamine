@@ -21,7 +21,15 @@ def replay_human_death_cam_timer_es(evt : UpdateStageInfoAct;
                                     squad_member__squad : EntityId;
                                     squad_member__memberIdx : int;
                                     replay__deadCamTime : float;
+                                    squad_member__playerEid : EntityId;
                                     var replay__deadCamTimer : float&)
+  var catchPossessEntity = false
+  query(squad_member__playerEid) <| $ [es] (replay_player__catchPossessEntity : bool)
+    catchPossessEntity = replay_player__catchPossessEntity
+
+  if catchPossessEntity
+    return
+
   replay__deadCamTimer += evt.dt
   if replay__deadCamTimer < replay__deadCamTime
     return
@@ -50,8 +58,10 @@ def catch_human_view(evt : UpdateStageInfoAct;
                      camera__target : EntityId;
                      camera__active : bool)
   if camera__active && camera__target == INVALID_ENTITY_ID
-    find_query() <| $ [es(REQUIRE_NOT=playerIsBot)] (possessed : EntityId)
-      sendEvent(possessed, [[ReplayPossessEntity]])
+    find_query() <| $ [es(REQUIRE_NOT=playerIsBot)] (eid : EntityId; disconnected : bool; possessed : EntityId)
+      if disconnected || possessed == INVALID_ENTITY_ID || has(possessed, "deadEntity")
+        return false
+      sendEvent(eid, [[SetReplayTarget]])
       return true
 
 
@@ -93,6 +103,14 @@ def replay_tps_camera_es(evt : Event)
                                                 isTpsView : bool = false)
     if !isTpsView
       return false
+    replay_change_camera(eid, transform, camera__target)
+    return true
+
+[es(tag=playingReplay, on_event=ReplaySetOperatorCamera)]
+def replay_set_operator_camera_es(evt : Event)
+  find_query() <| $ [es(REQUIRE=replay_camera__operator)] (eid : EntityId;
+                                                           var transform : float3x4&;
+                                                           var camera__target : EntityId&)
     replay_change_camera(eid, transform, camera__target)
     return true
 

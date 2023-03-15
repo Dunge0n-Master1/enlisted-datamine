@@ -68,16 +68,23 @@ def run_human_melee_action(eid : ecs::EntityId;
   run_action(eid, meleeName, override_props_id, curInterpDelayTicksPacked,
              override_time, override_at, attack_period, progress, time_mult)
 
-def is_melee_input_triggered(gun__melee : bool; gctrl : GunControls&; phys : HumanPhys&)
-  return (gun__melee && gctrl.shoot) || phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
+def is_melee_input_triggered(gun__melee : bool; is_melee_disabled : bool; gctrl : GunControls&; phys : HumanPhys&)
+  let isMainMeleeAttackActive = gun__melee && gctrl.shoot
+  let isSecondaryMeleeAttackActive = !is_melee_disabled && phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
+  return isMainMeleeAttackActive || isSecondaryMeleeAttackActive
 
 def can_run_melee_action(eid : ecs::EntityId;
                          gun__melee : bool;
+                         is_melee_disabled : bool;
                          phys : HumanPhys&;
                          gctrl : GunControls&;
                          human_net_phys : HumanActor&;
+                         melee_weapon__isActionBlocked : bool;
                          human_attached_gun__attachedGunEid : ecs::EntityId = ecs::INVALID_ENTITY_ID)
-  if is_melee_input_triggered(gun__melee, gctrl, phys)
+  if melee_weapon__isActionBlocked || human_phys_state_get_isClimbing(human_net_phys.phys.currentState)
+    return false
+
+  if is_melee_input_triggered(gun__melee, is_melee_disabled, gctrl, phys)
     return true
 
   let isHumanAllowedShooting = is_human_allowed_shooting(eid, human_attached_gun__attachedGunEid, human_net_phys)
@@ -90,9 +97,11 @@ def can_run_melee_action(eid : ecs::EntityId;
 def melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
                          melee_weapon__propsId : int;
                          gun__melee : bool;
+                         melee_weapon__isActionBlocked : bool;
                          melee_weapon__attackTime : float = -1.0;
                          melee_weapon__attackAt : float = -1.0;
-                         melee_weapon__attackPeriod : float = -1.0)
+                         melee_weapon__attackPeriod : float = -1.0;
+                         disableMelee : Tag const?)
   if !evt.isForReal
     return
 
@@ -105,9 +114,9 @@ def melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
     if (isInVehicle || human_unarmed__active)
       return
 
-    let isCanRunMeleeAction = can_run_melee_action(ownerEid, gun__melee,
+    let isCanRunMeleeAction = can_run_melee_action(ownerEid, gun__melee, disableMelee != null,
                                                    human_net_phys.phys,
-                                                   evt.gctrl, human_net_phys)
+                                                   evt.gctrl, human_net_phys, melee_weapon__isActionBlocked)
     if isCanRunMeleeAction
       run_human_melee_action(ownerEid, human_net_phys, melee_weapon__attackTime,
                              melee_weapon__propsId, melee_weapon__attackAt,
@@ -183,7 +192,7 @@ def has_melee_target(hero_eid : EntityId; hero_team : int; grid_hash : uint; mel
   var res = false
   volume_get_props(melee_props_id) <| $(volProps)
     melee_get_props(melee_props_id) <| $(meleeProps)
-      using() <| $(var intersections : IntersectedEntities#)
+      using() <| $(var intersections : IntersectedEntities)
         query_volume_intersections(grid_hash, hero_eid, melee_props_get_node_name(meleeProps), volProps, intersections, SortIntersections NO)
         for it in intersections
           query(it.eid) <| $ [es(REQUIRE_NOT=deadEntity)] (team aka target_team : int)
@@ -207,7 +216,7 @@ def charge_melee_weapon_detect_target(info : ParallelUpdateFrameDelayed;
     query(human_weap__currentGunEid) <| $ [es(REQUIRE=meleeChargeWeapon)] (melee_weapon__propsId : int; melee_weapon__nodeId : int = -1; lunge_mine__distance : float const?)
       human_melee_charge__targetFound = has_melee_target(hero_eid, hero_team, ecs_hash("humans"), melee_weapon__propsId)
       if !human_melee_charge__targetFound && lunge_mine__distance != null && melee_weapon__nodeId >= 0
-        using() <| $(var intersections : IntersectedEntities#)
+        using() <| $(var intersections : IntersectedEntities)
           var t = *lunge_mine__distance
           let pos = *animchar.nodeTree |> geomtree_getNodeWpos(melee_weapon__nodeId)
           let dir = human_net_phys.phys.appliedCT.wishShootDir
@@ -231,7 +240,7 @@ def melee_charge_stamina_drain(human_melee_charge__isActive : bool;
     human_net_phys.phys.currentState.staminaSprintDrainMult *= human_melee_charge__staminaDrainMult
 
 [es(tag=netClient, REQUIRE=(meleeChargeWeapon, watchedPlayerItem), after=after_entity_mods_apply_sync_point, before=human_phys_es)]
-def melee_charge_human_phys_update_local(info : UpdateStageInfoAct; eid aka weapon_eid : EntityId; gun__owner : EntityId)
+def melee_charge_human_phys_update_local(info : ParallelUpdateFrameDelayed; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
                                human_melee_charge__isActive : bool;
                                human_melee_charge__isChargeOrAttack : bool;
@@ -246,7 +255,7 @@ def melee_charge_human_phys_update_local(info : UpdateStageInfoAct; eid aka weap
       melee_charge_speed(human_melee_charge__isActive, human_melee_charge__isChargeOrAttack, human_melee_charge__chargeSpeedMult, human_melee_charge__chargeStrikeSpeedMult, human_net_phys)
 
 [es(tag=server, REQUIRE=meleeChargeWeapon, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
-def melee_charge_human_phys_update_server(info : UpdateStageInfoAct; eid aka weapon_eid : EntityId; gun__owner : EntityId)
+def melee_charge_human_phys_update_server(info : ParallelUpdateFrameDelayed; eid aka weapon_eid : EntityId; gun__owner : EntityId)
   query(gun__owner) <| $ [es] (human_weap__currentGunEid : EntityId;
                                human_melee_charge__isActive : bool;
                                human_melee_charge__isChargeOrAttack : bool;
@@ -270,7 +279,7 @@ def melee_charge_cooldown(time : float;
     human_net_phys.phys.currentState.restoreStaminaMult = 0.0
 
 [es(tag=netClient, REQUIRE=hero, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
-def melee_charge_cooldown_local(info : UpdateStageInfoAct;
+def melee_charge_cooldown_local(info : ParallelUpdateFrameDelayed;
                                 human_melee_charge__chargeEndTime : float;
                                 human_melee_charge__cooldown : float;
                                 var human_net_phys : HumanActor&;
@@ -278,7 +287,7 @@ def melee_charge_cooldown_local(info : UpdateStageInfoAct;
   melee_charge_cooldown(info.curTime, human_melee_charge__chargeEndTime, human_melee_charge__cooldown, human_net_phys, human_melee_charge__isOnCooldown)
 
 [es(tag=server, after=after_entity_mods_apply_sync_point, before=human_phys_es)]
-def melee_charge_cooldown_server(info : UpdateStageInfoAct;
+def melee_charge_cooldown_server(info : ParallelUpdateFrameDelayed;
                                  human_melee_charge__chargeEndTime : float;
                                  human_melee_charge__cooldown : float;
                                  var human_net_phys : HumanActor&;
@@ -331,57 +340,24 @@ def human_unarmed_created_es(evt : Event;
   if human_unarmed__propsId < 0
     human_unarmed__propsId = register_net_props(human_unarmed__blk, "action")
 
-
-[es]
-def melee_unarmed_phys_es(evt : CmdPostPhysUpdate;
-                          eid : ecs::EntityId;
-                          human_net_phys : HumanActor&;
-                          human_unarmed__attackTime : float;
-                          human_unarmed__attackPeriod : float;
-                          human_unarmed__propsId : int;
-                          human_unarmed__active : bool = false)
-  if !human_unarmed__active
-    return
-
-  assume phys = human_net_phys.phys
-
-  let isForReal = evt.isForReal
-  let isMeleeControlBit = phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_MELEE)
-  let isShootControlBit = phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT)
-
-  if isForReal && (isMeleeControlBit || isShootControlBit)
-    run_human_melee_action(eid, human_net_phys,
-                           human_unarmed__attackTime, human_unarmed__propsId,
-                           /*override_at*/ - 1.0, human_unarmed__attackPeriod)
-
-
-[es(on_appear)]
-def human_unarmed_reg_es(evt : Event;
-                         human_unarmed__selWeaponVar : string;
-                         var human_unarmed__selWeaponVarId : int&)
-  human_unarmed__selWeaponVarId = animV20_add_enum_value(human_unarmed__selWeaponVar)
-
-
 [es(after=human_anim_weap_es)]
 def human_unarmed_melee_anim_es(evt : ParallelUpdateFrameDelayed;
                                 eid : ecs::EntityId;
                                 human_anim : HumanAnimCtx&;
+                                human_anim__selectedWeaponVarId : int;
                                 human_unarmed__active : bool;
                                 human_weap__gunEids : ecs::EidList&;
-                                human_unarmed__selWeaponVarId : int = -1;
                                 var phys_vars : PhysVars&;
                                 var human_net_phys : HumanActor&)
   human_net_phys.phys.canSwitchWeapon = !human_unarmed__active
 
   if human_unarmed__active
     forcibly_lock_weap_slot(eid, -1, human_weap__gunEids, human_net_phys)
-    if human_unarmed__selWeaponVarId >= 0 && human_anim.selectedWeaponVarId >= 0
+    if human_anim__selectedWeaponVarId >= 0
       phys_vars |> setVar(human_anim.changeWeaponVarId, 1.0)
-      let selWeaponVarId = float(human_unarmed__selWeaponVarId)
-      phys_vars |> setVar(human_anim.selectedWeaponVarId, selWeaponVarId)
 
 [es(REQUIRE=hero, after=human_optics_camera_es, before=before_camera_sync)]
-def melee_charge_fov(info : UpdateStageInfoAct;
+def melee_charge_fov(info : ParallelUpdateFrameDelayed;
                      human_melee_charge__isActive : bool;
                      human_melee_charge__zoomMult : float;
                      human_melee_charge__zoomSpeed : float;

@@ -67,5 +67,6 @@ tankgun_37mm_flak36{
   _extends:t="tankgun"
   _extends:t="base_tankgun_autocannon"
   _extends:t="base_37mm_flak36"
+  _extends:t="gunsound_37mm_flak36"
   turret__triggerGroup:i=0
 }

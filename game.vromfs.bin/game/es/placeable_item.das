@@ -32,21 +32,28 @@ def placeable_item_place_request(evt : CmdWeapPhysUpdate;
                                  var placeable_item__placeRequestSend : bool&;
                                  var placeable_item__placeRequestReady : bool&;
                                  var placeable_item__lastPosition : float3&;
+                                 var placeable_item__startPlacingPos : float3&;
                                  placeable_item__minDistanceToWall : float;
                                  placeable_item__additionalHeight : float;
                                  placeable_item__additionalRotation : float3;
-                                 placeable_item__maxAnimHeight = 0.2;
+                                 placeable_item__maxAnimLenSq = 0.04;
                                  placeable_item__allowablePlaceHeight = 0.15f)
   if !evt.isForReal
     return
   let isShootPressed = evt.gctrl.shoot
   placeable_item__placeRequestReady ||= !isShootPressed
+
+  var placePos = animchar_render__root_pos.xyz
+
   if placeable_item__placeRequestReady && isShootPressed
     placeable_item__inProgress = true
     placeable_item__placeRequestSend = false
+    placeable_item__startPlacingPos = placePos
 
   if !placeable_item__inProgress
     return
+
+  let curPlacingAnimLenSq = distance_sq(placeable_item__startPlacingPos, placePos)
 
   var humanTm : float3x4
   var humanAnimcharRenderRootPos : float3
@@ -55,7 +62,6 @@ def placeable_item_place_request(evt : CmdWeapPhysUpdate;
     humanAnimcharRenderRootPos = animchar_render__root_pos.xyz
 
   let initialHeight = 100.
-  var placePos = float3(animchar_render__root_pos.x, animchar_render__root_pos.y, animchar_render__root_pos.z)
   var height = initialHeight
   var norm : float3
   var vehicleEid = INVALID_ENTITY_ID
@@ -78,13 +84,14 @@ def placeable_item_place_request(evt : CmdWeapPhysUpdate;
           break
 
     if !!vehicleEid
-      startPlace = height < placeable_item__allowablePlaceHeight || humanAnimcharRenderRootPos.y - placePos.y > placeable_item__maxAnimHeight
+      startPlace = height < placeable_item__allowablePlaceHeight || curPlacingAnimLenSq >= placeable_item__maxAnimLenSq
 
   if !startPlace
     var wallNorm : float3
     var distance = placeable_item__minDistanceToWall
-    let traceDir = normalize_default(placePos - placeable_item__lastPosition, humanTm[0])
-    let traceDirXZ = float3(traceDir.x, 0.0, traceDir.z)
+    let traceDir = placePos - placeable_item__lastPosition
+    let humanDirXZ = float3(humanTm[0].x, 0.0, humanTm[0].z)
+    let traceDirXZ = normalize_default(float3(traceDir.x, 0.0, traceDir.z), normalize(humanDirXZ))
     let isNearbyWall = traceray_normalized(placePos, traceDirXZ, distance, wallNorm, ETF_DEFAULT)
     if isNearbyWall
       placePos += normalize(float3(wallNorm.x, 0.0, wallNorm.z)) * (placeable_item__minDistanceToWall - distance)
@@ -94,7 +101,7 @@ def placeable_item_place_request(evt : CmdWeapPhysUpdate;
 
     startPlace = traceResult && (height < placeable_item__allowablePlaceHeight || isNearbyWall)
 
-    if !startPlace && traceResult && humanAnimcharRenderRootPos.y - placePos.y > placeable_item__maxAnimHeight
+    if !startPlace && traceResult && curPlacingAnimLenSq >= placeable_item__maxAnimLenSq
       height = initialHeight
       if tracedown_normalized(placePos, height, norm, ETF_DEFAULT)
         startPlace = true

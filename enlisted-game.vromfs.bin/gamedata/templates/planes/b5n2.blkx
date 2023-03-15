@@ -37,7 +37,7 @@ b5n2{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [0.15, 0.0, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner1_dm"
       directTurretControl:b=yes

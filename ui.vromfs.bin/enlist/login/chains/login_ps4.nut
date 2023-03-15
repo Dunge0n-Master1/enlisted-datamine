@@ -16,7 +16,8 @@ let function login_psn(state, cb) {
 
 let function ps4_auth_data_cb(cb) {
   let evtname = "ps4.auth_data_login"
-  eventbus.subscribe_onehit(evtname, function(result) {
+  eventbus.subscribe_onehit(evtname, function(result_in) {
+    let result = clone result_in
     if (result.error == true)
       result.error = "get_auth_data failed"
     else

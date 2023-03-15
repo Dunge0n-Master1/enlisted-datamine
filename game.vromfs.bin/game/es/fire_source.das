@@ -81,14 +81,14 @@ def fire_source_progress(info : UpdateStageInfoAct;
                          fire_source__fullForceTime : float;
                          fire_source__spreadTime : float = 0.0;
                          fire_source__fadeTime : float = 0.0;
-                         fire_source__scale : float = 1.0)
+                         dmgzone__maxRadius : float = 1.0)
   let duration = fire_source__spreadTime + fire_source__fullForceTime + fire_source__fadeTime
   let time = info.curTime
   if time > fire_source__startTime + duration
     destroyEntity(eid)
   else
     sphere_zone__radius = calc_fire_size(time, fire_source__startTime,
-        fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime, fire_source__scale)
+        fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime, dmgzone__maxRadius)
 
 [es(tag=render, no_order)]
 def fire_source_effect(info : UpdateStageInfoAct;
@@ -98,8 +98,8 @@ def fire_source_effect(info : UpdateStageInfoAct;
                        fire_source__fullForceTime : float;
                        fire_source__spreadTime : float = 0.0;
                        fire_source__fadeTime : float = 0.0;
-                       fire_source__scale : float = 1.0;
+                       dmgzone__maxRadius : float = 1.0;
                        fire_source__effectMinScale : float = 0.0)
   let zone_size = calc_fire_size(info.curTime, fire_source__startTime,
-      fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime, fire_source__scale)
+      fire_source__spreadTime, fire_source__fullForceTime, fire_source__fadeTime, dmgzone__maxRadius)
   effect__scale = max(fire_source__effectMinScale, zone_size * fire_source__effectScale)

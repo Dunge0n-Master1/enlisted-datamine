@@ -1,6 +1,7 @@
 require ecs
 require game.es.input.input_events
 require DagorInput
+require enlisted.events_enlisted
 
 
 def init(var vehicle_input__prevCockpitView : int&; var vehicle_input__nextCockpitView : int&)
@@ -58,7 +59,7 @@ def vehicle_cockpit_view_input_es(evt : EventDaInputActionTerminated;
     return true
 
 [es(tag=gameClient, no_order)]
-def vehicle_input_commander_cockpit_es(info : UpdateStageInfoAct;
+def vehicle_input_commander_cockpit_es(info : ParallelUpdateFrameDelayed;
                                        input__enabled : bool;
                                        eid : EntityId;
                                        vehicle_input__zoomToggle : int;

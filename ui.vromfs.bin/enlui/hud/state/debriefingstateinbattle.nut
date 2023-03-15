@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
+let { EventOnBattleResult } = require("%enlSqGlob/sqevents.nut")
 let logD = require("%enlSqGlob/library_logs.nut").with_prefix("[DEBRIEFING] ")
 let eventbus = require("eventbus")
 let watchdog = require("watchdog")
@@ -14,6 +15,7 @@ let { singleMissionRewardId, singleMissionRewardSum } = require("%enlSqGlob/sing
 
 let debriefingData = mkWatched(persist, "debriefingData")
 let debriefingShow = mkWatched(persist, "debriefingShow", false)
+local watchdogData = persist("watchdogMode", @() { mode = null })
 
 const INVALID_SESSION = "0"
 
@@ -175,7 +177,7 @@ let function applyRewardOnce() {
 canApplyRewards.subscribe(function(c) { if (c) applyRewardOnce() })
 
 ecs.register_es("soldiers_stats_listener_es",
-  { [ecs.sqEvents.EventOnBattleResult] = function(evt, _eid, _comp) {
+  { [EventOnBattleResult] = function(evt, _eid, _comp) {
       logD("Receive battle stats")
       battleStats(evt.data ?? {})
     }
@@ -186,7 +188,10 @@ ecs.register_es("soldiers_stats_listener_es",
 let function subscribeDebriefingWatches(data = debriefingData, show = debriefingShow) {
   data.subscribe(@(val) eventbus.send("debriefing.data", val))
   show.subscribe(function(val) {
-    watchdog.force_mode(val, watchdog.LOBBY)
+    if (val)
+      watchdogData.mode = watchdog.change_mode(watchdog.LOBBY)
+    else
+      watchdog.change_mode(watchdogData.mode)
     eventbus.send("debriefing.show", val)
   })
 }

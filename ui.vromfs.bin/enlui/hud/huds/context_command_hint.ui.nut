@@ -58,7 +58,7 @@ return function () {
   if (text != null) {
     tip = tipCmp({
       text,
-      inputId = "Human.ContextCommand"
+      inputId = "Human.ContextCommand",
     }.__update(sub_txt))
   }
 

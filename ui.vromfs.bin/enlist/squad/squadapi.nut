@@ -44,46 +44,48 @@ let MSquadAPI = {
     matchingCall("msquad.set_member_data", makePerformCallback(cbParams), data)
 
   getMemberData = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.get_member_data", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.get_member_data", makePerformCallback(cbParams), { userId })
 
   invitePlayer = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.invite_player", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.invite_player", makePerformCallback(cbParams), { userId })
 
   revokeInvite = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.revoke_invite", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.revoke_invite", makePerformCallback(cbParams), { userId })
 
   dismissMember = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.dismiss_member", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.dismiss_member", makePerformCallback(cbParams), { userId })
 
   transferSquad = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.transfer_squad", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.transfer_squad", makePerformCallback(cbParams), { userId })
 
   setSquadData = @(data, cbParams = STANDARD_CB_PARAMS)
     matchingCall("msquad.set_squad_data", makePerformCallback(cbParams), data)
 
   acceptMembership = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.accept_membership", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.accept_membership", makePerformCallback(cbParams), { userId })
 
   denyMembership = @(userId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.deny_membership", makePerformCallback(cbParams), { userId = userId })
+    matchingCall("msquad.deny_membership", makePerformCallback(cbParams), { userId })
 
   acceptInvite = @(squadId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.accept_invite", makePerformCallback(cbParams), { squadId = squadId })
+    matchingCall("msquad.accept_invite", makePerformCallback(cbParams), { squadId })
 
   rejectInvite = @(squadId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.reject_invite", makePerformCallback(cbParams), { squadId = squadId })
+    matchingCall("msquad.reject_invite", makePerformCallback(cbParams), { squadId })
 
   requestMembership = @(squadId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.request_membership", makePerformCallback(cbParams), { squadId = squadId })
+    matchingCall("msquad.request_membership", makePerformCallback(cbParams), { squadId })
 
   requestJoin = @(userId, cbParams = STANDARD_CB_PARAMS)
     matchingCall("msquad.join_player", makePerformCallback(cbParams), { userId })
 
   revokeMembershipRequest = @(squadId, cbParams = STANDARD_CB_PARAMS)
-    matchingCall("msquad.revoke_membership_request", makePerformCallback(cbParams), { squadId = squadId })
+    matchingCall("msquad.revoke_membership_request", makePerformCallback(cbParams), { squadId })
 
   leaveSquad = @(cbParams = STANDARD_CB_PARAMS)
     matchingCall("msquad.leave_squad", makePerformCallback(cbParams))
 }
+
+console_register_command(@() MSquadAPI.disbandSquad(), "msquad.disbandSquad")
 
 return MSquadAPI

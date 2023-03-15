@@ -4,6 +4,7 @@ require app
 require game.es.events
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
+require enlisted.events_enlisted
 require inventory
 require EnlistedNet
 require DagorSystem
@@ -72,10 +73,56 @@ def try_take_grenade_in_hand(eid aka owner_eid : ecs::EntityId;
       human_net_phys.phys.currentState.weapEquipState.curState = HUWeaponEquipState EES_HOLSTERING
     return false
 
-  if retakeGrenade && !take_grenade_in_hand(eid, human_weap__gunEids, human_net_phys.phys)
-    return false
+  if retakeGrenade
+    set_wish_ammo_item_type(gunEid, wish_item_id)
+    if !take_grenade_in_hand(eid, human_weap__gunEids, human_net_phys.phys)
+      return false
 
   return true
+
+
+[es(before=human_weap_post_phys_es)]
+def human_weap_throw_on_equip(evt : CmdPostPhysUpdate;
+                              var human_weap__throwOnEquip : bool&;
+                              var human_net_phys : HumanActor)
+  assume cs = human_net_phys.phys.currentState
+  let equiped = cs.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED
+  let isGrenade = cs.weapEquipState.effectiveCurSlot == HUWeaponSlots EWS_GRENADE
+  if isGrenade && equiped && human_weap__throwOnEquip
+    assume ct = is_true_net_server() ? human_net_phys.phys.appliedCT : human_net_phys.phys.producedCT
+    ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_SHOOT, true)
+    human_weap__throwOnEquip = false
+
+
+[es]
+def human_weap_grenade_quick_throw(evt : RequestQuickThrowGrenade;
+                                   eid aka owner_eid : EntityId;
+                                   human_weap__gunEids : EidList;
+                                   human_weap__fastThrowExclusive : bool;
+                                   human_weap__throwMode : bool;
+                                   var human_weap__quickThrowLastWeaponSlot : int&;
+                                   var human_weap__throwOnEquip : bool&;
+                                   var human_net_phys : HumanActor)
+  let grenadeAmmoId = evt.grenade_ammo_id
+
+  assume phys = human_net_phys.phys
+  assume weapEquipState = phys.currentState.weapEquipState
+  let effectiveCurSlot = weapEquipState.effectiveCurSlot
+  let isGrenadeSlotCurrent = (effectiveCurSlot == HUWeaponSlots EWS_GRENADE)
+  let slotId = int(HUWeaponSlots EWS_GRENADE)
+
+  if !try_take_grenade_in_hand(eid, slotId, grenadeAmmoId,
+                               human_weap__fastThrowExclusive,
+                               human_weap__throwMode,
+                               human_weap__gunEids,
+                               human_net_phys,
+                               isGrenadeSlotCurrent)
+    set_ammo_type(slotId, grenadeAmmoId, human_weap__gunEids, owner_eid)
+
+  // queue grenade throw when it's equipped and ready to throw
+  human_weap__throwOnEquip = true
+  // save current weapon slow to switch to it back after grenade throw
+  human_weap__quickThrowLastWeaponSlot = int(effectiveCurSlot)
 
 
 [es]
@@ -182,25 +229,6 @@ def human_weap_gun_wish_ammo_item_type_es(evt : Event;
   review_weap_gun_wish_ammo_item_type(itemContainer, human_weap__gunEids)
 
 
-[es(tag=server, on_appear, REQUIRE=(gun, item__needUpdateWishAmmo))]
-def late_set_weap_gun_wish_ammo_es(evt : Event;
-                                   gun__wishAmmoItemType : int;
-                                   gun__owner : ecs::EntityId)
-  if gun__owner != INVALID_ENTITY_ID && gun__wishAmmoItemType == 0
-    query(gun__owner) <| $ [es(REQUIRE=human)] (itemContainer : ecs::EidList;
-                                                human_weap__gunEids : ecs::EidList)
-      review_weap_gun_wish_ammo_item_type(itemContainer, human_weap__gunEids)
-
-
-[es(tag=server, on_appear, after=(shell_item_es, items_es), REQUIRE=(shell__gun_props_id, item__needUpdateWishAmmo))]
-def late_set_ammo_as_wish_ammo_es(evt : Event;
-                                  item__ownerEid : ecs::EntityId)
-  if item__ownerEid != INVALID_ENTITY_ID
-    query(item__ownerEid) <| $ [es(REQUIRE=human)] (itemContainer : ecs::EidList;
-                                                    human_weap__gunEids : ecs::EidList)
-      review_weap_gun_wish_ammo_item_type(itemContainer, human_weap__gunEids)
-
-
 [es(tag=server)]
 def human_drop_grenade_es(evt : EventOnLootDrop;
                           eid : ecs::EntityId;
@@ -215,19 +243,6 @@ def human_drop_grenade_es(evt : EventOnLootDrop;
 
   if !take_grenade_in_hand(eid, human_weap__gunEids, phys)
     switch_to_first_weap_with_ammo(human_weap__gunEids, phys)
-
-
-[es(track=human_weap__lockedWeaponSlot)]
-def human_lock_weap_slot_es(evt : Event;
-                            eid : ecs::EntityId;
-                            human_weap__gunEids : ecs::EidList;
-                            human_weap__lockedWeaponSlot : int;
-                            var human_net_phys : HumanActor)
-  human_net_phys.phys.canSwitchWeapon = (human_weap__lockedWeaponSlot < 0 ||
-                                        int(human_weap__lockedWeaponSlot) >= int(HUWeaponSlots EWS_NUM))
-  if !human_net_phys.phys.canSwitchWeapon
-    forcibly_lock_weap_slot(eid, human_weap__lockedWeaponSlot, human_weap__gunEids, human_net_phys)
-
 
 [es(track=human_weap__lockWeaponSwitch)]
 def human_lock_weap_switch_es(evt : Event;

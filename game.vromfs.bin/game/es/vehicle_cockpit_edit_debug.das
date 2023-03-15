@@ -77,7 +77,7 @@ def calc_cockpit_block()
   find_query() <| $ [es(REQUIRE=(daeditor__selected))] (eid : EntityId;
                                                         cockpit__offset : float3;
                                                         cockpit__cockpitOffsetBySlit : Point3List const?)
-    using <| $(var blk : DataBlock#)
+    using() <| $(var blk : DataBlock)
       components_to_blk(eid, blk, "cockpit__", true)
       datablock_get_block(blk, "cockpitOffsetBySlit:list<p3>") <| $(templatesArrayBlk)
         let templateName = getEntityTemplateName(eid)

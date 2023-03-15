@@ -8,7 +8,11 @@ require enlisted.events_enlisted
 [es(tag=server, after=human_inventory_fill_guns_custom_props_on_death)]
 def drop_held_weapon_on_death(evt : EventEntityDied;
                               eid : EntityId;
+                              isInVehicle : bool;
                               human_weap__gunEids : EidList)
+  if isInVehicle
+    return
+
   let isDropRestricted = is_teams_friendly(evt.victimTeam, evt.offenderTeam) && find_query() <| $ [es(REQUIRE=disableTeamkillWeaponDrops)] () => true
   if !isDropRestricted && !has(human_weap__gunEids[int(HUWeaponSlots EWS_PRIMARY)], "disableItemDrop")
     drop_weap_from_slot(eid, int(HUWeaponSlots EWS_PRIMARY), /*reset_weap*/true, /*can_drop_from_dead*/true)
@@ -20,9 +24,10 @@ def human_inventory_use_flask(evt : CmdFlaskUse;
                               itemContainer : EidList;
                               isPassenger : bool;
                               isInVehicle : bool;
+                              human_unarmed__hiddenWeapon : bool;
                               burning__isBurning : bool = false;
                               isDowned : bool = false)
-  if length(itemContainer) == 0 || isDowned || (isInVehicle && !isPassenger) || burning__isBurning
+  if length(itemContainer) == 0 || isDowned || (isInVehicle && !isPassenger) || burning__isBurning || human_unarmed__hiddenWeapon
     return
 
   for item in itemContainer

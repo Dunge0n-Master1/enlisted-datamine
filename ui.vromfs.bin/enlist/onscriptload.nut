@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-require("%enlSqGlob/register_sqevents.nut")
+require("%enlSqGlob/sqevents.nut")
 set_nested_observable_debug(VAR_TRACE_ENABLED)
 require("%enlSqGlob/ui/styleUpdate.nut")
 require("notifications.nut")
@@ -46,10 +46,13 @@ else {
 
 
 // Set toggle design option at main menu by user permissions
+let { get_circuit } = require("app")
+let { DBGLEVEL } = require("dagor.system")
+let isDebug = DBGLEVEL > 0 || ["moon","sun","ganymede","yueliang"].contains(get_circuit())
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let permToggleDesign = hasClientPermission("debug_redesign")
-permToggleDesign.subscribe(setToggleDesign)
-setToggleDesign(permToggleDesign.value)
+permToggleDesign.subscribe(@(v) setToggleDesign(v || isDebug))
+setToggleDesign(permToggleDesign.value || isDebug)
 
 
 require("soldiers/notReadySquadsMsg.nut")
@@ -73,6 +76,7 @@ require("%enlist/profile/anoProfileScene.nut")
 require("%enlist/profile/unseenProfileStuffs.nut")
 require("%enlist/contacts/externalIdsManager.nut")
 require("%enlist/soldiers/soldierCustomizationScene.nut")
+require("%enlist/soldiers/model/shopItemsToRequest.nut")
 require("%enlist/usermail/usermailScene.nut")
 require("%enlist/vehicles/selectVehicleScene.nut")
 require("%enlist/vehicles/customizeScene.nut")
@@ -83,44 +87,32 @@ require("%enlist/items/itemCollageScene.nut")
 require("%enlist/shop/rentedSquadDialog.nut")
 require("%enlist/tutorial/armyUnlocksVideoHint.nut")
 
-let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
+let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu_state.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
 let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
 let { cameraShakeOptions } = require("%ui/hud/menus/options/camera_shake_options.nut")
 let { hudOptions } = require("%ui/hud/menus/options/hud_options.nut")
-let { optXboxGraphicsPreset, optPSGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
 let { renderOptions } = require("%ui/hud/menus/options/render_options.nut")
 let { soundOptions } = require("%ui/hud/menus/options/sound_options.nut")
 let { cameraFovOption } = require("%ui/hud/menus/options/camera_fov_option.nut")
 let { voiceChatOptions } = require("%ui/hud/menus/options/voicechat_options.nut")
 let { crossnetworkOptions } = require("%enlist/options/crossnetwork_options.nut")
-let { optGraphicsQualityPreset }  = require("%ui/hud/menus/quality_preset_option.nut")
 let { vehicleCameraFovOption } = require("%ui/hud/menus/vehicle_camera_fov_option.nut")
 let { vehicleCameraFollowOption } = require("%ui/hud/menus/vehicle_camera_follow_option.nut")
 let { leaderboardOptions } = require("%ui/hud/menus/options/leaderboard_options.nut")
 let narratorOptions = require("%ui/hud/menus/options/narrator_options.nut")
 let vehicleGroupLimitOptions = require("%ui/hud/menus/options/vehicle_group_limit_options.nut")
-let platform = require("%dngscripts/platform.nut")
+let qualityPresetOption = require("%ui/hud/menus/options/get_quality_preset_option.nut")
+let { is_sony } = require("%dngscripts/platform.nut")
 
-let {get_time_msec} = require("dagor.time")
 
-
-let options = []
-if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett") {
-  options.append(optXboxGraphicsPreset)
-}
-else if (platform.is_ps5 || dbgConsolePreset.value == "ps5") {
-  options.append(optPSGraphicsPreset)
-}
-else
-  options.append(optGraphicsQualityPreset)
-
-options.append(cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption, harmonizationOption)
-  .extend(
-    renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions, planeContolOptions,
-    crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
-  )
+let options = [qualityPresetOption, cameraFovOption, vehicleCameraFovOption,
+  vehicleCameraFollowOption, harmonizationOption]
+options.extend(
+  renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions, planeContolOptions,
+  crossnetworkOptions, leaderboardOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
+)
 
 setMenuOptions(options)
 
@@ -136,7 +128,9 @@ menuTabsOrder([
 require("%enlist/squad/squadState.nut").autoSquad(null)
 require("backgroundContentUpdater.nut")
 
-let quickMatchQueueInfoCmp = require("queueWaitingInfo.ui.nut")
+let quickMatchQueueInfoCmp = isNewDesign.value
+  ? require("queueWaitingBlock.nut")
+  : require("queueWaitingInfo.ui.nut")
 let {aboveUiLayer} = require("%enlist/uiLayers.nut")
 aboveUiLayer.add(quickMatchQueueInfoCmp, "quickMatchQueue")
 
@@ -149,10 +143,13 @@ let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let { throttle } = require("%sqstd/timers.nut")
 let { changelogDisabled, haveUnseenVersions, requestPatchnotes,
   patchnotesReceived, maxVersionInt } = require("changeLogState.nut")
-let {openChangelog} = require("openChangelog.nut")
+let { openChangelog } = require("openChangelog.nut")
+let { get_time_msec } = require("dagor.time")
 
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let patchnote = mkWatched(persist, "patchnote", {
+let { nestWatched } = require("%dngscripts/globalState.nut")
+
+let patchnote = nestWatched("patchnote", {
   cachedUpdatedVersion = -1
   timeShown = -1
   requestMadeTime = -1
@@ -236,7 +233,7 @@ isInBattleState.subscribe(function(v) {
     removeAllMsgboxes()
 })
 
-if (platform.is_sony)
+if (is_sony)
   require("%enlist/ps4/supportedPlatforms.nut")(["PS4", "PS5"])
 
 console_register_command(@(trigger) anim_start(trigger), "anim.start")

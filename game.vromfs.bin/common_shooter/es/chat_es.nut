@@ -1,6 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 
+let { CmdChatMessage, mkEventSqChatMessage } = require("%enlSqGlob/sqevents.nut")
 let console = require("console")
 let { TEAM_UNASSIGNED } = require("team")
 let {INVALID_USER_ID} = require("matching.errors")
@@ -88,7 +89,7 @@ let function sendMessage(evtData){
       text = "chat/not_allowed_to_write"
 
     data.__update({ text = text, qmsg = { item = "" } })
-    let event = ecs.event.EventSqChatMessage(data)
+    let event = mkEventSqChatMessage(data)
 
     let connectionsToSend = [ecs.obsolete_dbg_get_comp_val(senderEid, "connid", INVALID_CONNECTION_ID)]
 
@@ -98,7 +99,7 @@ let function sendMessage(evtData){
   }
 
   data.__update({ text = evtData?.text ?? "", qmsg = evtData?.qmsg })
-  let event = ecs.event.EventSqChatMessage(data)
+  let event = mkEventSqChatMessage(data)
   let sound = evtData?.sound ?? ""
 
   let connids = (mode == "team" || mode == "qteam")? find_connids_to_send(senderTeam) : null
@@ -109,7 +110,7 @@ let function sendMessage(evtData){
 }
 
 ecs.register_es("chat_server_es", {
-    [ecs.sqEvents.CmdChatMessage] = @(evt, _eid, _comp) sendMessage(evt.data)
+    [CmdChatMessage] = @(evt, _eid, _comp) sendMessage(evt.data)
   },
   {comps_rq=["msg_sink"]}
 )

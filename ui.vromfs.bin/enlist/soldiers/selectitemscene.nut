@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {round_by_value} = require("%sqstd/math.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
@@ -40,7 +40,8 @@ let { curHoveredItem } = require("%enlist/showState.nut")
 let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
 } = require("%enlist/researches/researchesFocus.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
-let { slotItems, otherSlotItems, prevItems, selectParams, curEquippedItem,
+let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId,
+  selectParamsOwnerGuid, selectParamsSlotType, selectParamsSlotId, curEquippedItem,
   viewItem, viewSoldierInfo, paramsForPrevItems,
   openSelectItem, trySelectNext, curInventoryItem, checkSelectItem, selectItem, itemClear,
   selectNextSlot, selectPreviousSlot, unseenViewSlotTpls, viewItemMoveVariants, ItemCheckResult
@@ -70,12 +71,15 @@ let armoryWndHasBeenOpend = armoryWndOpenFlag.flag
 let markSeenArmoryTutorial = armoryWndOpenFlag.activate
 
 let getItemSelectKey = @(item) item?.isShopItem ? item?.basetpl : item?.guid
+let unseenIcon =  blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 
 let selectedKey = Watched(null)
 viewItem.subscribe(function(item) { selectedKey(getItemSelectKey(item)) })
 
 let selectedSlot = Computed(function() {
-  let { ownerGuid = "", slotType = "", slotId = "" } = selectParams.value
+  let ownerGuid = selectParamsOwnerGuid.value
+  let slotType = selectParamsSlotType.value
+  let slotId = selectParamsSlotId.value
   local guid
   if (ownerGuid != "" && slotType != "")
     guid = getEquippedItemGuid(campItemsByLink.value, ownerGuid, slotType, slotId)
@@ -169,12 +173,7 @@ let function showMessage(item, checkInfo) {
   msgbox.show({ text, buttons })
 }
 
-let mkDropExceptionCb = @(currentItem) function(dropItem) {
-  let checkCurrentItem = checkSelectItem(currentItem)
-  if (checkCurrentItem) {
-    showMessage(currentItem, checkCurrentItem)
-    return
-  }
+let dropExceptionCb = function(dropItem) {
   let checkDropItem = checkSelectItem(dropItem)
   if (checkDropItem)
     showMessage(dropItem, checkDropItem)
@@ -192,13 +191,13 @@ let mkStdCtorData = @(size) {
     selectKey = getItemSelectKey(item)
     onClickCb = @(data) data.item == item ? curInventoryItem(item)
       : (item?.guid ?? "") != "" ? openSelectItem({ // data.item is mod of item
-          armyId = selectParams.value?.armyId
+          armyId = selectParamsArmyId.value
           ownerGuid = item.guid
           slotType = data.slotType
           slotId = data.slotId
         })
       : null
-    onDropExceptionCb = mkDropExceptionCb(item)
+    onDropExceptionCb = dropExceptionCb
     onDoubleClickCb = function(data) {
       if (data.item != item)
         return
@@ -292,7 +291,7 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
               hasUnseenSign = isUnseen
               onHoverCb = hoverHoldAction("unseenSoldierItem", basetpl,
                 function(tpl) {
-                  let { armyId = null } = selectParams.value
+                  let armyId = selectParamsArmyId.value
                   if (isUnseen.value && armyId != null)
                     markWeaponrySeen(armyId, tpl)
                 })
@@ -335,19 +334,17 @@ let backButton = Flat(loc("mainmenu/btnBack"), itemClear,
   { margin = [0, bigPadding, 0, 0] })
 
 let chooseButtonUi = function() {
+  let res = { watch = [viewItem, curEquippedItem] }
   let item = viewItem.value
   let equippedItem = curEquippedItem.value
-  let isCheckFail = checkSelectItem(item) != null
-  let buttonParam = { margin = [0, bigPadding, 0, 0], hotkeys = [[ "^J:Y" ]] }
-  let button =  @(params) Flat(loc("mainmenu/btnSelect"), @() selectItem(item), params)
-
-  return {
-    watch = [viewItem, curEquippedItem]
-    children = item == equippedItem || (equippedItem == null && item?.basetpl == null)
-        ? null
-      : isCheckFail ? button(buttonParam)
-      : button(buttonParam.__merge(primaryButtonStyle,  body_txt))
-  }
+  if (item == equippedItem
+      || (equippedItem == null && item?.basetpl == null)
+      || checkSelectItem(item) != null)
+    return res
+  let children = Flat(loc("mainmenu/btnSelect"), @() selectItem(item), {
+    margin = [0, bigPadding, 0, 0], hotkeys = [[ "^J:Y" ]]
+  }.__update(primaryButtonStyle,  body_txt))
+  return res.__update({ children })
 }
 
 
@@ -355,20 +352,26 @@ let function mkObtainButton(item) {
   if (item == null)
     return null
 
-  let demands = mkItemDemands(item).value
-  let { levelLimit = null } = demands
+  let demands = mkItemDemands(item)
   let shopItemsCmp = getShopItemsCmp(item.basetpl)
 
-  return levelLimit != null ? Flat(loc("GoToArmyLeveling"),
-      function() {
-        scrollToCampaignLvl(item.unlocklevel)
-        jumpToArmyProgress()
-      },
-      { margin = [0, bigPadding, 0, 0] })
-    : shopItemsCmp.value.len() > 0 ? Flat(loc("btn/buy"),
-      @() clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0),
-        { margin = [0, bigPadding, 0, 0], hotkeys = [["^J:X"]] })
-    : null
+  return function () {
+    let { levelLimit = null } = demands.value
+    return {
+      watch = [demands, shopItemsCmp]
+      children = levelLimit != null ? Flat(loc("GoToArmyLeveling"),
+          function() {
+            scrollToCampaignLvl(item.unlocklevel)
+            jumpToArmyProgress()
+          },
+          { margin = [0, bigPadding, 0, 0] }
+        )
+      : shopItemsCmp.value.len() > 0 && shopItemsCmp.value[0] ? Flat(loc("btn/buy"),
+          @() clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0),
+          { margin = [0, bigPadding, 0, 0], hotkeys = [["^J:X"]] }
+        )
+      : null
+  }}
 }
 
 let function obtainButtonUi() {
@@ -529,12 +532,12 @@ let function mkUpgradeBtn(item) {
                 onHover = function(on) {
                   if (!isUpgradeUsed.value && item?.basetpl in curUnseenAvailableUpgrades.value)
                     hoverHoldAction("unseenUpdate", itemBaseTpl,
-                      @(tpl) markSeenUpgrades(selectParams.value?.armyId, [tpl]))(on)
+                      @(tpl) markSeenUpgrades(selectParamsArmyId.value, [tpl]))(on)
                   setTooltip(on ? loc("tip/btnUpgrade") : null)
                 }
               })
             !isUpgradeUsed.value && item?.basetpl in curUnseenAvailableUpgrades.value
-              ? unseenSignal(0.8).__update({ hplace = ALIGN_RIGHT })
+              ? unseenIcon
               : null
           ]
         }
@@ -703,7 +706,7 @@ let quickEquipHotkeys = function() {
             description = loc("equip/quickUnequip")
             action = function() {
               unequipBySlot(slot)
-              openSelectItem(slot.__merge({ armyId = selectParams.value?.armyId }))
+              openSelectItem(slot.__merge({ armyId = selectParamsArmyId.value }))
             }
           }]]
         }
@@ -740,7 +743,7 @@ let itemsContent = [
         isMoveRight = false
         selectedKeyWatch = selectedSlot
         onDoubleClickCb = unequipItem
-        getDropExceptionCb = mkDropExceptionCb
+        dropExceptionCb
         onResearchClickCb = gotoResearchUpgradeMsgBox
         availTabs = ["weaponry"]
       })
@@ -781,9 +784,9 @@ let selectItemScene = @() {
   children = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]
-      watch = selectParams
+      watch = selectParamsArmyId
       children = mkHeader({
-        armyId = selectParams.value?.armyId
+        armyId = selectParamsArmyId.value
         textLocId = "Choose item"
         closeButton = closeBtnBase({ onClick = itemClear })
       })

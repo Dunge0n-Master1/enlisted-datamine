@@ -97,13 +97,30 @@ def replay_possess_entity_es(evt : ReplayPossessEntity; eid : EntityId)
   addSubTemplate(eid, "replay_observed")
 
 [es(tag=playingReplay, REQUIRE=player)]
-def set_player_as_replay_target_es(evt : SetReplayTarget; possessed : EntityId)
+def set_player_as_replay_target_es(evt : SetReplayTarget; eid : EntityId; possessed : EntityId; var replay_player__catchPossessEntity : bool&)
   query(possessed) <| $ [es(REQUIRE_NOT=(watchedByPlr, deadEntity))] ()
+    replay_player__catchPossessEntity = true
+    set_local_player_eid(eid)
     sendEvent(possessed, [[ReplayPossessEntity]])
+
+[es(tag=playingReplay, on_disappear, REQUIRE=localPlayer)]
+def replay_reset_catch_possessed_player_es(evt : Event; var replay_player__catchPossessEntity : bool&)
+  replay_player__catchPossessEntity = false
 
 [es(tag=playingReplay, REQUIRE=human, REQUIRE_NOT=(watchedByPlr, deadEntity))]
 def set_human_as_replay_target_es(evt : SetReplayTarget; eid : EntityId)
+  query(get_local_player_eid()) <| $ [es] (var replay_player__catchPossessEntity : bool&)
+    replay_player__catchPossessEntity = false
   sendEvent(eid, [[ReplayPossessEntity]])
+
+[es(tag=playingReplay)]
+def replay_on_possess_hero_msg(evt : PossessHero; eid : EntityId; squad_member__playerEid : EntityId)
+  if !evt.possess || get_local_player_eid() != squad_member__playerEid
+    return
+
+  query(squad_member__playerEid) <| $ [es] (replay_player__catchPossessEntity : bool)
+    if replay_player__catchPossessEntity
+      sendEvent(eid, [[ReplayPossessEntity]])
 
 // Hack for fix broken fps view in replay mode
 // Real fix: we need update phys for observed soldier in replay mode

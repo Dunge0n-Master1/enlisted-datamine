@@ -119,14 +119,14 @@ let actionsRoot = {
 
   children = @() {
     size=SIZE_TO_CONTENT
-    watch = minHud
+    watch = [minHud, isTutorial]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     children = minHud.value
       ? [localTeamEnemyHint].extend(wallposterActions)
-      : [].extend(planeTakeOffTips,
+      : [].extend(planeTakeOffTips, buildingActions,
                   [medicHealTip, maintenanceHint, mainAction, localTeamEnemyHint, vehicleFreeSeatTip],
-                  vehicleActions, buildingActions, wallposterActions)
+                  isTutorial.value ? [] : vehicleActions, wallposterActions)
   }
 }
 
@@ -253,7 +253,7 @@ let function setHudLayout(...) {
         vehicleResupplyTip, spectatorKeys, friendly_fire_warning,
         pushObjectTip
       ]
-    : [ actionsRoot, artillery_ratio_tip, friendly_fire_warning])
+    : [ actionsRoot, artillery_ratio_tip, friendly_fire_warning ])
 
   /// Right Panel
   hudLayoutState.rightPanelTop(onlyFull([hitcamera]))

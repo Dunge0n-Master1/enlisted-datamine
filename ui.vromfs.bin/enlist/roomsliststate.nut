@@ -77,7 +77,6 @@ let function switchDebugMode() {
         membersCnt = 2 + rnd % 25
         public = {
           creator
-          creatorText = creator
           hasPassword = !(rnd % 3)
         }
       }

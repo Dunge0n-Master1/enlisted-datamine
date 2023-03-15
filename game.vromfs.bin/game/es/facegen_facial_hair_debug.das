@@ -172,7 +172,7 @@ def facegen_create_new_template(template_name : string)
   let templatePath = get_base_facegen_template_path()
   if templatePath == ""
     return
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     datablock_load(blk, templatePath)
     if datablock_get_block_by_name(blk, template_name) != null
       logerr("template name {template_name} already exist")
@@ -220,7 +220,7 @@ def save_info_for_facegen(evt : faceGenSaveInfo;
   let templatePath = get_base_facegen_template_path()
   if templatePath == ""
     return
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     datablock_load(blk, templatePath)
     datablock_get_block(blk, baseTemplate) <| $(originTemplate)
       if evt.initialSave

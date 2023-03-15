@@ -6,7 +6,7 @@ sequencer{
   }
 
   subTree{
-    treeName:t="sub.moveToCoverNearPosition"
+    treeName:t="sub.moveToPosition"
   }
 
   setIntVar{
@@ -313,6 +313,11 @@ repeat{
   subTree{
     name:t=""
     treeName:t="sub.grenadeEscape"
+  }
+
+  subTree{
+    name:t=""
+    treeName:t="sub.bombEscape"
   }
 
   orderedSelector{

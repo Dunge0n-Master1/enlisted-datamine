@@ -1,7 +1,0 @@
-minimap_fool_moon{
-  _extends:t="minimap"
-  mapTex:t="battle_of_moon_minimap*"
-  left_top:p2=-2048.0, 2048.0
-  right_bottom:p2=2048.0, -2048.0
-  northAngle:r=0.0
-}

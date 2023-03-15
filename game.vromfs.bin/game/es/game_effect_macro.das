@@ -52,7 +52,8 @@ class GameEffectAnnotation : AstFunctionAnnotation
     assert(esAnn != null)
 
     var blk <- get_game_effect_block(invert, fieldName)
-    blk |> force_at(func.at)
+    blk |> force_at(func.body.at)
+    blk |> force_generated(true)
 
     apply_template(func.at, blk) <| $(rules)
       rules |> replaceAnnotationArgument("marker") <| @(var ann)
@@ -63,10 +64,10 @@ class GameEffectAnnotation : AstFunctionAnnotation
     func.body := null // dec use count
     func.body <- blk
 
-    func.arguments |> emplace_new <| new [[Variable() name := "evt", at = func.at,
+    func.arguments |> emplace_new <| new [[Variable() name := "evt", at = func.at, flags = VariableFlags generated,
       _type := typeinfo(ast_typedecl type<GameEffectStateChanged const>)
     ]]
-    func.arguments |> emplace_new <| new [[Variable() name := "eid", at = func.at,
+    func.arguments |> emplace_new <| new [[Variable() name := "eid", at = func.at, flags = VariableFlags generated,
       _type := typeinfo(ast_typedecl type<ecs::EntityId const>)
     ]]
 

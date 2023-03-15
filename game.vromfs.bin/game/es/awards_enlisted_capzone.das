@@ -24,7 +24,7 @@ def get_capturing_soldiers_by_player(teamPresence : Object; capturing_team : int
   return <- soldiersByPlayers
 
 def apply_award_to_participants(soldiers_by_players : table<uint; array<string>>; amount_per_player : float; stat : string)
-  using <| $(var awards : Array#)
+  using() <| $(var awards : Array)
     for playerUint, soldierGuids in keys(soldiers_by_players), values(soldiers_by_players)
       let player = EntityId(playerUint)
       let soldierCount = length(soldierGuids)

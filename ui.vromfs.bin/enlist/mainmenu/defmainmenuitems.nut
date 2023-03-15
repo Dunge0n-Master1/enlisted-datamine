@@ -35,7 +35,7 @@ let btnLogout = {
   name = loc("Exit Game")
   cb = logoutMsgBox
 }
-let allowUrl = platform.is_pc || platform.is_nswitch || platform.is_android
+let allowUrl = platform.is_pc || platform.is_android
 let btnGSS = GSS_URL == "" ? null : {
   id = "Gss"
   name = loc("gss")

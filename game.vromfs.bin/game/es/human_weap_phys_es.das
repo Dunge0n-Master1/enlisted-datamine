@@ -2,9 +2,10 @@ require ecs
 require EnlistedHuman
 require HumanPhys
 require Gun
+require enlisted.events_enlisted
 
 [es(before=after_net_phys_sync, after=human_weap_phys_es)]
-def enlisted_human_weap_phys_es(info : UpdateStageInfoAct;
+def enlisted_human_weap_phys_es(info : ParallelUpdateFrameDelayed;
                                 human_phys__jumpEndTime : float;
                                 human_phys__isInAirLong : bool;
                                 human_weap__canAimInJump : bool = false;

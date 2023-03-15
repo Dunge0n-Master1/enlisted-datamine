@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require math
 require math.base
 require DagorMath
@@ -7,7 +8,7 @@ require game.es.events
 require game.utils.team
 require DagorSystem
 require enlisted.game.es.artillery_radio_common
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
 
@@ -81,7 +82,7 @@ def artillery_strike_start_at_pos_es(evt : CmdStartArtilleryStrikeAtPos; eid : E
     logerr("Artillery template '{artilleryTemplateName}' not exist!")
     return
 
-  let group = get_int(getTemplateComponent(*artilleryTemplate, "artillery__group")) ?? 0
+  let group = getTemplateComponent(*artilleryTemplate, "artillery__group") ?? 0
   if is_artillery_max_limit_reached_by_group(team, group)
     query(evt.owner) <| $ [es] (possessedByPlr : EntityId)
       sendEvent(possessedByPlr, [[CmdHeroLogEvent event="artillery", text="artillery/team_limit_reached"]])

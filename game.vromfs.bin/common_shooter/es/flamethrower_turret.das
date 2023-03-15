@@ -3,9 +3,10 @@ require Gun
 require game.utils.team
 require common_shooter.events_common_shooter
 require common_shooter.es.flamethrower_common
+require enlisted.events_enlisted
 
 [es(tag=input, REQUIRE=(resolvedTurret, flamethrower__active), after=vehicle_input_gunner_es, before=vehicle_input_gunner_turret_with_group_es)]
-def shoot_to_overheat_turret_es(info : UpdateStageInfoAct;
+def shoot_to_overheat_turret_es(info : ParallelUpdateFrameDelayed;
                                 turret_aim__shootFlag : bool;
                                 gun__isOverheat : bool;
                                 var turret_input__shootFlag : bool&)

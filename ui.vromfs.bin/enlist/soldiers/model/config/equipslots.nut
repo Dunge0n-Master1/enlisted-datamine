@@ -12,7 +12,6 @@ let miniSlotSize = colPart(1)
 let bigSlotSize = colFull(2)
 let modSize = [colPart(1) + miniOffset, ((baseSlotHeight - miniOffset) * 0.5).tointeger()]
 let baseItemSize = [colFull(4), baseSlotHeight]
-let animXMove = colFull(4)
 
 
 let equipSlotRows = [
@@ -100,18 +99,6 @@ let equipSlotRows = [
 ]
 
 
-let mkSlotAnim = @(delay) {
-  transform = {}
-  animations = [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, delay, duration = 0.3, play = true }
-    { prop = AnimProp.translate, from = [animXMove,0], to = [0,0], delay,
-      duration = 0.3, play = true, easing = OutQuart }
-    { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.2, playFadeOut = true }
-  ]
-}
-
-
 return {
   equipSlotRows
   slotOffset
@@ -119,5 +106,4 @@ return {
   modSize
   baseItemSize
   headerHeight
-  mkSlotAnim
 }

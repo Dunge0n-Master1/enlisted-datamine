@@ -71,6 +71,7 @@ sound_control{
   _group{
     _tags:t="sound"
     sound_control__range:r=22.0
+    sound_control__autoRange:b=no
     sound_control__inRange:b=no
     sound_control__shouldPlay:b=no
     sound_control__enable:b=yes
@@ -128,4 +129,41 @@ sound_player_components{
   _extends:t="sound_paths"
   _extends:t="sound_irqs"
   _extends:t="sound_tags"
+}
+
+global_sound_listener_position{
+
+  _group{
+    _tags:t="sound"
+    global_sound_listener_position:p3=0.0, 0.0, 0.0
+  }
+}
+
+base_game_object_sound{
+  _extends:t="replicating"
+  game_object_sound__name:t=""
+
+  _group{
+    _tags:t="sound"
+    game_object_sound__path:t=""
+  }
+}
+
+game_object_sound{
+  _extends:t="base_game_object_sound"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "game_object_sound__shape:u32"{
+    value:i=0
+  }
+}
+
+game_object_compound_sound{
+  _extends:t="base_game_object_sound"
+
+  "game_object_compound_sound__transforms:list<m>"{
+  }
+
+  "game_object_compound_sound__shapes:list<u32>"{
+  }
 }

@@ -1,26 +1,21 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
-let sClassesCfg = require("config/sClassesConfig.nut")
-let { perksData } = require("soldierPerks.nut")
-let { armies, getSoldierItem, curCampSquads, objInfoByGuid } = require("state.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 let { mkSoldierPhotoName } = require("%enlSqGlob/ui/soldierPhoto.nut")
 let { getWeapTemplates, mkEquipment, getItemAnimationBlacklist } = require("%enlist/scene/soldier_tools.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
-let { campItemsByLink } = require("%enlist/meta/profile.nut")
-let { soldiersLook } = require("%enlist/meta/servProfile.nut")
-let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nut")
+let { getSoldierItem } = require("%enlist/soldiers/model/state.nut")
 
 let getPerksCount = @(perks) (perks?.slots ?? [])
   .reduce(@(res, slots) res + slots.filter(@(v) (v ?? "") != "").len(), 0)
 
-let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], isLarge = false) {
+let function collectSoldierPhoto(soldier, soldiersOutfit, objInfoByGuidV, overrideOutfit = [], isLarge = false) {
   if (soldier?.photo != null)
     return soldier
 
   let { guid = null } = soldier
-  let actualSoldier = objInfoByGuid.value?[guid]
+  let actualSoldier = objInfoByGuidV?[guid]
   if (actualSoldier == null)
     return soldier.__merge({
       photo = null
@@ -59,7 +54,7 @@ let function collectSoldierPhoto(soldier, soldiersOutfit, overrideOutfit = [], i
 }
 
 let function collectSoldierDataImpl(
-  soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, soldiersOutfit,
+  soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, objInfoByGuidV, soldiersOutfit,
   soldiersPremiumItems
 ) {
   let guid = soldier?.guid
@@ -84,31 +79,10 @@ let function collectSoldierDataImpl(
     armyId
     squadId = curCampSquadsV?[getLinkedSquadGuid(soldier)].squadId
     sKind = kind
-  }), soldiersOutfit, soldiersPremiumItems)
+  }), soldiersOutfit, objInfoByGuidV, soldiersPremiumItems)
 }
 
 return {
   collectSoldierPhoto
-  collectSoldierData = @(soldier) collectSoldierDataImpl(
-    soldier, perksData.value, curCampSquads.value, armies.value,
-    sClassesCfg.value, campItemsByLink.value, soldiersLook.value,
-    allOutfitByArmy.value
-  )
-  mkSoldiersData = @(soldier) soldier instanceof Watched
-    ? Computed(@() collectSoldierDataImpl(
-        soldier.value, perksData.value, curCampSquads.value, armies.value,
-        sClassesCfg.value, campItemsByLink.value, soldiersLook.value,
-        allOutfitByArmy.value
-      ))
-    : Computed(@() collectSoldierDataImpl(
-        soldier, perksData.value, curCampSquads.value, armies.value,
-        sClassesCfg.value, campItemsByLink.value, soldiersLook.value,
-        allOutfitByArmy.value
-      ))
-  mkSoldiersDataList = @(soldiersListWatch) Computed(
-    @() soldiersListWatch.value.map(@(soldier) collectSoldierDataImpl(
-      soldier, perksData.value, curCampSquads.value, armies.value,
-      sClassesCfg.value, campItemsByLink.value, soldiersLook.value,
-      allOutfitByArmy.value
-    )))
+  collectSoldierDataImpl
 }

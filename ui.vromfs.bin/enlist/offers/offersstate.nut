@@ -4,11 +4,11 @@ let eventbus = require("eventbus")
 let http = require("dagor.http")
 let json = require("json")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-
+let { get_circuit } = require("app")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { getPlatformId, getLanguageId } = require("%enlist/httpPkg.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
-let { unlockOfferTime } = require("%enlist/unlocks/eventsTaskState.nut")
+let { specialEvents } = require("%enlist/unlocks/eventsTaskState.nut")
 let { send_counter } = require("statsd")
 let { offers } = require("%enlist/meta/profile.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
@@ -18,18 +18,25 @@ let { isOffersVisible } = require("%enlist/featureFlags.nut")
 let { update_offers } = require("%enlist/meta/clientApi.nut")
 
 
-const URL = "https://enlisted.net/{0}/events/current/?page=1&platform={1}&target=game"
+const URL = "https://enlisted.net/{language}/events/event/{id}/?platform={platform}&circuit={circuit}&target=game" //warning disable: -forgot-subst
 const UseEventBus = true
-const OffersDataRequest = "offers_data_request"
-const SEEN_ID = "seen/offersPromo"
-
-let debugActiveOffers = mkWatched(persist, "debugActiveOffers", null)
+const EventDescRequest = "event_desc_request"
+const SEEN_ID = "seen/eventPromo"
 
 let isSpecOffersOpened = mkWatched(persist, "isOpened", false)
+
+let eventDescs = mkWatched(persist, "eventDescs", {})
+let descRequestedId = Watched(null)
+
 let allActiveOffers = Watched([])
 let curOfferIdx = Watched(0)
 let curOffer = Watched(null)
 
+let isUnseen = Computed(@() specialEvents.value
+  .findindex(@(event) (settings.value?[SEEN_ID] ?? 0) < (event?.start ?? 0)) != null)
+
+let markSeen = @() settings.mutate(@(set)
+  set[SEEN_ID] <- specialEvents.value.reduce(@(res, event) max(res, event?.start ?? 0), 0))
 
 let function updateOffers() {
   update_offers(function(res) {
@@ -50,7 +57,6 @@ let function updateOffers() {
     }
   })
 }
-
 
 let offersSchemes = Computed(function() {
   let res = {}
@@ -89,7 +95,8 @@ let function recalcActiveOffers(_ = null) {
   let list = armyId == null ? []
     : allOffers.value
         .map(function(offer) {
-          let shopItem = sItems?[offer.shopItemGuid]
+          let { shopItemGuid } = offer
+          let shopItem = sItems?[shopItemGuid]
           if (shopItem == null)
             return null
 
@@ -105,7 +112,7 @@ let function recalcActiveOffers(_ = null) {
             descLocId = offer.scheme?.baseDescLocId
             lifeTime  = offer.scheme.lifeTime
             guid = offer.guid
-            shopItem
+            shopItemGuid
             discountInPercent = offer.discountInPercent
             offerType = offer.offerType
           }
@@ -115,7 +122,7 @@ let function recalcActiveOffers(_ = null) {
   let wasDiscounts = priorityDiscounts.value
   let newDiscounts = {}
   foreach (offer in list)
-    newDiscounts[offer.shopItem.guid] <- offer.discountInPercent
+    newDiscounts[offer.shopItemGuid] <- offer.discountInPercent
   if (!isEqual(wasDiscounts, newDiscounts))
     priorityDiscounts(newDiscounts)
 
@@ -123,18 +130,13 @@ let function recalcActiveOffers(_ = null) {
     updateOffers()
 
   allActiveOffers(list)
-}
 
-let nextExpireData = Computed(@() {
-  endTime = allActiveOffers.value
+  let endTime = allActiveOffers.value
     .reduce(@(res, o) res > 0 && o.endTime > res ? res : o.endTime, 0)
-})
-
-nextExpireData.subscribe(function(v) {
-  let timeLeft = v.endTime - serverTime.value
-  if (timeLeft > 0)
-    gui_scene.resetTimeout(timeLeft, recalcActiveOffers)
-})
+  let leftTime = endTime - serverTime.value
+  if (leftTime > 0)
+    gui_scene.resetTimeout(leftTime, recalcActiveOffers)
+}
 
 foreach (v in [allOffers, curArmyData, shopItems])
   v.subscribe(recalcActiveOffers)
@@ -162,44 +164,22 @@ visibleOffersInWindow.subscribe(function(offersList) {
 let offersByShopItem = Computed(function() {
   let res = {}
   foreach (offer in allActiveOffers.value)
-    res[offer.shopItem.guid] <- offer
+    res[offer.shopItemGuid] <- offer
   return res
 })
 
-local offersTimeStart = Computed(@() unlockOfferTime.value.start)
-local offersTimeEnd = Computed(@() unlockOfferTime.value.end)
+let eventsData = Computed(@() specialEvents.value.map(function(event, id) {
+  let desc = eventDescs.value?[id]
+  local {
+    title = loc("offers/commonTitle"),
+    titleshort = loc("offers/commonShortTitle"),
+    imagepromo = null,
+    content = null,
+    published = desc != null,
+    tags = []
+  } = desc
 
-let timeBefore = Computed(@() max(0, offersTimeStart.value - serverTime.value))
-let timeLeft = Computed(@() max(0, offersTimeEnd.value - serverTime.value))
-
-let hasSpecialEvent = Computed(@() debugActiveOffers.value
-  ?? (timeBefore.value == 0 && timeLeft.value > 0))
-
-let offersData = mkWatched(persist, "offersData", null)
-let isRequestInProgress = Watched(false)
-let isDataReady = Computed(@() offersData.value != null)
-
-let isUnseen = Computed(@() (settings.value?[SEEN_ID] ?? 0) < offersTimeEnd.value)
-
-let markSeen = @() settings.mutate(function(set) {
-  if (offersTimeEnd.value > 0)
-    set[SEEN_ID] <- offersTimeEnd.value
-})
-
-let offersShortTitle = Computed(@()
-  offersData.value?.titleshort ?? loc("offers/commonShortTitle"))
-
-let offersTitle = Computed(@()
-  offersData.value?.title ?? loc("offers/commonTitle"))
-
-let offersDescription = Computed(@() offersData.value?.content)
-
-let hasEventData = Computed(@() offersDescription.value != null
-  && (offersData.value?.published ?? true))
-
-let offersTags = Computed(function() {
-  let { tags = [] } = offersData.value
-  return tags.reduce(function(tbl, tag) {
+  tags = tags.reduce(function(tbl, tag) {
     let pairs = "".join(tag.split(" ")).split(":")
     if (pairs.len() < 1)
       return tbl
@@ -213,27 +193,57 @@ let offersTags = Computed(function() {
       tbl[key] = [tbl[key], value]
     return tbl
   }, {})
-})
 
-let headingAndDescription = Computed(function() {
-  let list = offersDescription.value ?? []
-  return list?[0].t == "image"
-    ? {
-        heading = list[0]
-        description = list.slice(1)
-      }
-    : {
-        heading = null // TODO add default background image
-        description = list
-      }
-})
+  let hasFirstImage = content?[0].t == "image"
+  let heading = hasFirstImage ? content[0].v : null // TODO add default heading background image
+  let description = hasFirstImage ? content.slice(1) : content
+  return event.__merge({
+    id
+    titleshort
+    imagepromo = imagepromo ?? heading // TODO add default widget image
+    title
+    heading
+    description
+    published
+    tags
+  })
+}))
 
-let function processOffersData(response) {
-  isRequestInProgress(false)
+let availableEventTime = Watched({})
+
+let function recalcAvailableEvents(_ = null) {
+  let curTime = serverTime.value
+  let res = {}
+  local closestTime = -1
+  foreach (id, event in eventsData.value) {
+    if (event.start <= curTime && curTime <= event.end)
+      res[id] <- true
+    if (curTime < event.start && (closestTime == -1 || closestTime > event.start))
+      closestTime = event.start
+    if (curTime < event.end && (closestTime == -1 || closestTime > event.end))
+      closestTime = event.end
+  }
+  availableEventTime(res)
+  if (closestTime > 0)
+    gui_scene.resetTimeout(closestTime - curTime, recalcAvailableEvents)
+}
+eventsData.subscribe(recalcAvailableEvents)
+recalcAvailableEvents()
+
+let eventsAvailable = Computed(@() eventsData.value
+  .values()
+  .filter(@(evt) evt.published && evt.id in availableEventTime.value)
+  .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id))
+
+let function processEventDesc(response) {
+  let id = descRequestedId.value
   let { status = -1, http_code = 0, body = null } = response
   if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("offer_receive_error", 1, { http_code })
-    return log($"current offers request error: {status}, {http_code}")
+    log($"current offers request error: {status}, {http_code}")
+    descRequestedId(null)
+    eventDescs.mutate(@(data) data[id] <- { published = false })
+    return
   }
 
   local result
@@ -242,36 +252,53 @@ let function processOffersData(response) {
   } catch(e) {
   }
 
-  if (result == null)
-    return log("current offers parse error")
+  if (result == null) {
+    log("current offers parse error")
+    descRequestedId(null)
+    eventDescs.mutate(@(data) data[id] <- { published = false })
+    return
+  }
 
   log("current offers successful data request")
-  offersData(result)
+  descRequestedId(null)
+  eventDescs.mutate(@(data) data[id] <- result)
 }
 
-let function requestOffersData() {
-  if (isDataReady.value)
+let function requestOffersData(eventId) {
+  if (eventId in eventDescs.value || descRequestedId.value != null)
     return
 
   let request = {
     method = "GET"
-    url = URL.subst(getLanguageId(), getPlatformId())
+    url = URL.subst({
+      id = eventId
+      language = getLanguageId()
+      platform = getPlatformId()
+      circuit = get_circuit()
+    })
   }
   if (UseEventBus)
-    request.respEventId <- OffersDataRequest
+    request.respEventId <- EventDescRequest
   else
-    request.callback <- processOffersData
-  isRequestInProgress(true)
+    request.callback <- processEventDesc
+  descRequestedId(eventId)
   http.request(request)
 }
 
 if (UseEventBus)
-  eventbus.subscribe(OffersDataRequest, processOffersData)
+  eventbus.subscribe(EventDescRequest, processEventDesc)
 
-if (hasSpecialEvent.value)
-  requestOffersData()
-hasSpecialEvent.subscribe(@(act) act ? requestOffersData() : null)
+let function eventDescUpdate(_ = null) {
+  if (specialEvents.value.len() == 0)
+    return
 
+  let eventId = specialEvents.value.findindex(@(_, id) id not in eventDescs.value)
+  if (eventId != null)
+    requestOffersData(eventId)
+}
+
+foreach (w in [eventDescs, specialEvents])
+  w.subscribe(eventDescUpdate)
 
 isLoggedIn.subscribe(function(logged) {
   if (logged)
@@ -280,41 +307,20 @@ isLoggedIn.subscribe(function(logged) {
 
 console_register_command(updateOffers, "meta.updateOffers")
 
-
 console_register_command(@()
   settings.mutate(@(set) SEEN_ID in set ? delete set[SEEN_ID] : null), "meta.resetSeenOffersPromo")
 
-console_register_command(function(val) {
-  debugActiveOffers(val)
-  console_print("debugActiveOffers:", val)
-}, "meta.debugActiveOffers")
-
-console_register_command(function(keyValue) {
-  if ((keyValue ?? "") == "")
-    offersData.mutate(@(v) "tags" in v ? delete v.tags : null)
-  else
-    offersData.mutate(@(v) v.tags <- (v?.tags ?? []).append(keyValue))
-  console_print("offersData.tags:", offersData.value?.tags)
-}, "meta.setActiveOffersTag")
-
 return {
   isSpecOffersOpened
-  isRequestInProgress
-  isDataReady
-  timeLeft
-  hasSpecialEvent
-  hasEventData
+  isRequestInProgress = Computed(@() descRequestedId.value != null)
+  hasSpecialEvent = Computed(@() eventsAvailable.value.len() > 0)
+  eventsAvailable
+
   isUnseen
   markSeen
-  offersTitle
-  offersShortTitle
-  offersDescription
-  offersTags
-  headingAndDescription
 
   allActiveOffers
   offersByShopItem
   visibleOffersInWindow
   curOfferIdx
-  nextExpireData
 }

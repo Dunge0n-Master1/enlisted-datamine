@@ -152,8 +152,9 @@ def private check_place_gun_barrel_diff(tm : float3x4; diff : float3; barrel_off
   var queryOut = ShapeQueryOutput()
   if sphere_cast_ex(traceFrom, traceTo, barrel_radius, queryOut, -1, trace_handle, BIPOD_SPHERE_CAST_MASK)
     return false
-  let d = traceTo - traceFrom
+  var d = traceTo - traceFrom
   var t = length(d)
+  d /= t
   var norm = float3()
   if traceray_normalized(traceFrom, d, t, norm, ETF_DEFAULT)
     return false

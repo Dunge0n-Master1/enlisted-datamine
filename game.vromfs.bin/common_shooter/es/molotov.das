@@ -3,6 +3,7 @@ require app
 require math
 require math.base
 require game.es.events
+require ecs.safe
 require Dacoll
 require GridCollision
 require CollisionTraces
@@ -27,8 +28,8 @@ def get_increased_fire_full_force_time(tmplt : string; add_time : float)
     fireTemplate = buildTemplateByName(tmplt)
     if fireTemplate == null
       return 0.0
-  let fullTime = get_float(getTemplateComponent(*fireTemplate, "fire_source__fullForceTime")) ?? 0.0
-  let maxFullTime = get_float(getTemplateComponent(*fireTemplate, "fire_source__maxFullForceTime")) ?? fullTime
+  let fullTime = getTemplateComponent(*fireTemplate, "fire_source__fullForceTime") ?? 0.0
+  let maxFullTime = getTemplateComponent(*fireTemplate, "fire_source__maxFullForceTime") ?? fullTime
 
   return min(fullTime + add_time, maxFullTime)
 

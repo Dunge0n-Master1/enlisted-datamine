@@ -7,6 +7,7 @@ require game.utils.hero
 require EnlistedWalkerai
 require game.es.events
 require common_shooter.events_common_shooter
+require enlisted.events_enlisted
 require DagorMathUtils
 require DaWeaponProps
 require DaWeapons
@@ -165,7 +166,7 @@ def mortar_register_pitch_var(evt : Event; mortar__pitchPhysVarName : string; va
   mortar__pitchPhysVarId = registerVar(phys_vars, mortar__pitchPhysVarName, 0.0)
 
 [es(tag=gameClient, no_order)]
-def mortar_update_pitch(info : UpdateStageInfoAct;
+def mortar_update_pitch(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         gun__owner : EntityId;
                         mortar__pitchPhysVarId : int;
@@ -190,7 +191,7 @@ def mortar_mode_register_pivot_offset_var(evt : Event;
   mortar_mode__pivotOffsetPhysVarId = registerVar(phys_vars, mortar_mode__pivotOffsetPhysVarName, 0.0)
 
 [es(tag=gameClient, before=human_anim_es)]
-def mortar_mode_update_pivot_offset(info : UpdateStageInfoAct;
+def mortar_mode_update_pivot_offset(info : ParallelUpdateFrameDelayed;
                                     human_weap__mortarMode : bool;
                                     mortar_mode__pivotOffsetPhysVarId : int;
                                     mortar_mode__pivotOffsetInMortarMode : float;

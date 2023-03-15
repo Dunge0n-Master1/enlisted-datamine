@@ -1,29 +1,23 @@
 require ecs
-require sound_utils.modules.sound_player_common
 require soundEvent
-require soundHash
+require sound_utils.modules.sound_player_common
+require human_sounds.modules.human_voice_effect_common
+require DagorMath
 
 
-[es(tag=sound, track=human_breath__isUnderWater)]
+[es(tag=sound, on_appear, before=human_voice_effect_on_change, track=human_breath__isUnderWater)]
 def human_underwater_sound(evt : Event;
                            var sound_tags : Object&;
-                           var sound_event_group : SoundEventGroup&;
-                           [[shared_comp]] human_voice_sound__path : Object;
-                           [[shared_comp]] human_voice_sound__descs : Object;
-                           is_watched_sound : bool;
-                           transform : float3x4;
-                           isAlive : bool;
                            human_breath__isUnderWater : bool;
-                           human_breath__timer : float = 0.;
-                           human_breath__maxHoldBreathTime = 0.)
-
-  if is_watched_sound && isAlive
-    if human_breath__isUnderWater
-      sound_player_common::play("underwaterIn", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash("underwaterInOut"), sound_event_group)
-    else
-      set_sound_tag("headIsUnderwater", false, sound_tags)
-      let handle = sound_player_common::play("underwaterOut", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], sound_hash("underwaterInOut"), sound_event_group)
-      let param = human_breath__timer / max(human_breath__maxHoldBreathTime, 0.01)
-      set_var_optional(handle, "noairtime", param)
-
+                           var human_voice_effect__activeEffects : Object&)
+  set_human_voice_effect("underwater", human_breath__isUnderWater, human_voice_effect__activeEffects)
   set_sound_tag("headIsUnderwater", human_breath__isUnderWater, sound_tags)
+
+
+[es(tag=sound, after=human_voice_effect_on_change, track=human_voice_effect__activeEffects, REQUIRE=human_voice_effect__activeEffects)]
+def human_underwater_sound_set_var(evt : Event;
+                                   human_breath__timer : float;
+                                   human_breath__maxHoldBreathTime : float;
+                                   human_voice_effect__event : SoundEvent&)
+  if human_breath__timer > 0.
+    set_var_optional(human_voice_effect__event.handle, "noairtime", safediv(human_breath__timer, human_breath__maxHoldBreathTime))

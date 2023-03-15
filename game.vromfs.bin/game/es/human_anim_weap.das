@@ -32,8 +32,8 @@ def constraint_movement(var pos : float3&; var vel : float3&; limit : float3)
       vel[i] = 0.f;
     pos[i] = clamp(pos[i], -limit[i], limit[i])
 
-[es(after=(bipod_other_human_act_es, bipod_human_act_es), REQUIRE_NOT=deadEntity)]
-def human_anim_weap(info : UpdateStageInfoAct; human_anim : HumanAnimCtx; //ParallelUpdateFrameDelayed
+[es(after=update_phys_es, before=anim_phys_updater_es, before=animchar_es, REQUIRE_NOT=deadEntity)]
+def human_anim_weap(info : ParallelUpdateFrameDelayed; human_anim : HumanAnimCtx;
                     human_net_phys__aimPosition : float;
                     bipod__enabled : bool = false;
                     bipod__crawlGunOffset : float3;

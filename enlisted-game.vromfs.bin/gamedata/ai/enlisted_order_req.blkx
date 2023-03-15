@@ -41,6 +41,11 @@ repeat{
     treeName:t="sub.grenadeEscape"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.bombEscape"
+  }
+
   orderedSelector{
 
     orderedSelector{
@@ -1098,6 +1103,24 @@ exitHandler{
         }
       }
 
+      orderedSelector{
+
+        sequencer{
+
+          findWeaponSlotWithTag{
+            tag:t="buildingTool"
+            toParam:t="buildToolSlot"
+          }
+
+          changeWeapon{
+            param:t="buildToolSlot"
+          }
+        }
+
+        continue{
+        }
+      }
+
       setIntVar{
         to:t="buildPositionFounded"
         value:i=1
@@ -1119,15 +1142,6 @@ exitHandler{
         distThreshold:r=0.5
         avoidAiObstacles:b=no
         incObstacles:b=no
-      }
-
-      findWeaponSlotWithTag{
-        tag:t="buildingTool"
-        toParam:t="buildToolSlot"
-      }
-
-      changeWeapon{
-        param:t="buildToolSlot"
       }
 
       parallel{

@@ -8,7 +8,7 @@ let { columnWidth, colPart, defBdColor, accentColor, defTxtColor, hoverTxtColor,
   midPadding, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
 let { fontMedium, fontSmall} = require("%enlSqGlob/ui/fontsStyle.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut") /* FIX ME: need to be redesigned after lottie animation integtation */
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 
 
 let defPointsStyle = {
@@ -23,6 +23,7 @@ let hoverPointsStyle = {
 
 let defSaleStyle = { color = darkTxtColor }.__update(fontMedium)
 let discoutTxtStyle = { color = accentColor }.__update(fontSmall)
+
 
 let commonBtnStyle = { fillColor = null }
 let hoverBtnStyle = { fillColor = accentColor }
@@ -54,7 +55,7 @@ let unseeSquadsIcon = @() {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_TOP
   children = (unseenSquads.value?[curArmy.value] ?? {}).findindex(@(v) v)
-    ? unseenSignal(0.7)
+    ? blinkUnseen
     : null
 }
 

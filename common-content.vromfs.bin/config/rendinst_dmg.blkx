@@ -568,6 +568,46 @@ dmg{
 }
 
 dmg{
+  name:t="corn_field_a"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.8
+}
+
+dmg{
+  name:t="corn_field_b"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.8
+}
+
+dmg{
+  name:t="corn_field_c"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.8
+}
+
+dmg{
+  name:t="corn_field_d"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.8
+}
+
+dmg{
   name:t="corn_field_bunch_1x1_a"
   material:t="bushes"
   bushBehaviour:b=yes
@@ -635,6 +675,16 @@ dmg{
   canopyWidthPart:r=0.95
   canopyTopOffset:r=0.2
   canopyOpacity:r=0.7
+}
+
+dmg{
+  name:t="corn_field_bunch_corner_a"
+  material:t="bushes"
+  bushBehaviour:b=yes
+  canopyTopPart:r=0.85
+  canopyWidthPart:r=0.85
+  canopyTopOffset:r=0.2
+  canopyOpacity:r=0.8
 }
 
 dmg{
@@ -889,72 +939,72 @@ dmg{
 
 dmg{
   name:t="tree_joshua_large_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_b"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_c"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_d"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_f"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_g"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_snow_medium_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_snow_medium_b"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_small_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_small_b"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_medium_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_medium_b"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_medium_c"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_medium_d"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -987,13 +1037,13 @@ dmg{
 
 dmg{
   name:t="dry_tree_smaller_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_olive_a"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1004,7 +1054,7 @@ dmg{
 dmg{
   name:t="tree_olive_b"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1015,7 +1065,7 @@ dmg{
 dmg{
   name:t="tree_olive_c"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1026,7 +1076,7 @@ dmg{
 dmg{
   name:t="tree_olive_d"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.5
@@ -1036,18 +1086,18 @@ dmg{
 
 dmg{
   name:t="tree_snow_small_a"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_snow_small_b"
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_small_a"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.9
   canopyWidthPart:r=0.3
@@ -1058,7 +1108,7 @@ dmg{
 dmg{
   name:t="tree_spruce_small_b"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.9
   canopyWidthPart:r=0.3
@@ -1069,27 +1119,27 @@ dmg{
 dmg{
   name:t="tree_joshua_large_a"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_b"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_joshua_large_c"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_extra_small_a"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
-  canopyTopPart:r=0.6
+  canopyTopPart:r=0.88
   canopyWidthPart:r=0.25
   canopyTopOffset:r=0.15
   canopyOpacity:r=0.25
@@ -1098,7 +1148,7 @@ dmg{
 dmg{
   name:t="tree_tilia_smaller_a"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -1109,7 +1159,7 @@ dmg{
 dmg{
   name:t="tree_tilia_smaller_b"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.2
@@ -1120,7 +1170,7 @@ dmg{
 dmg{
   name:t="tree_tilia_smaller_c"
   destructionImpulse:r=50.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.25
@@ -1131,67 +1181,67 @@ dmg{
 dmg{
   name:t="dry_tree_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="dry_tree_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_maple_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_maple_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_medium_double_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_medium_triple_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_autumn_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1202,7 +1252,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1213,7 +1263,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_c"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1224,7 +1274,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_d"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1235,7 +1285,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_a_limed"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1246,7 +1296,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_b_limed"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1257,7 +1307,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_c_limed"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1268,7 +1318,7 @@ dmg{
 dmg{
   name:t="tree_autumn_medium_d_limed"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.35
@@ -1279,19 +1329,19 @@ dmg{
 dmg{
   name:t="tree_populus_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.3
@@ -1302,7 +1352,7 @@ dmg{
 dmg{
   name:t="tree_pine_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.3
@@ -1313,43 +1363,43 @@ dmg{
 dmg{
   name:t="tree_fir_snow_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fir_snow_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_snow_large_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_snow_large_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_medium_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.75
   canopyWidthPart:r=0.3
@@ -1360,7 +1410,7 @@ dmg{
 dmg{
   name:t="tree_spruce_medium_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.65
   canopyWidthPart:r=0.3
@@ -1371,7 +1421,7 @@ dmg{
 dmg{
   name:t="tree_tilia_small_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -1382,7 +1432,7 @@ dmg{
 dmg{
   name:t="tree_tilia_small_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -1393,19 +1443,19 @@ dmg{
 dmg{
   name:t="tree_tilia_small_burnt_a"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_small_burnt_b"
   destructionImpulse:r=4000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_small_a"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -1416,7 +1466,7 @@ dmg{
 dmg{
   name:t="tree_pine_small_b"
   destructionImpulse:r=5050.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -1427,7 +1477,7 @@ dmg{
 dmg{
   name:t="tree_pine_small_c"
   destructionImpulse:r=5500.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -1438,7 +1488,7 @@ dmg{
 dmg{
   name:t="tree_pine_small_d"
   destructionImpulse:r=5050.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.3
@@ -1449,97 +1499,97 @@ dmg{
 dmg{
   name:t="tree_apple_dead_small_a"
   destructionImpulse:r=2000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_small_b"
   destructionImpulse:r=2000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_bush_large_a"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_bush_large_b"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_small_a"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_small_b"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_small_c"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_small_d"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_date_palm_smaller_a"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_small_a"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_small_b"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_small_a"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_small_b"
   destructionImpulse:r=6000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_maple_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_maple_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_date_palm_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -1550,7 +1600,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.4
@@ -1561,7 +1611,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_medium_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.3
@@ -1572,7 +1622,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_medium_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.3
@@ -1583,7 +1633,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.2
@@ -1594,7 +1644,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.3
@@ -1605,7 +1655,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_tall_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.3
@@ -1616,7 +1666,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_tall_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -1627,7 +1677,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_tall_f"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -1638,49 +1688,49 @@ dmg{
 dmg{
   name:t="tree_apple_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_wide_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pinus_sibirica_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.1
@@ -1691,7 +1741,7 @@ dmg{
 dmg{
   name:t="tree_pinus_sibirica_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.15
@@ -1702,19 +1752,93 @@ dmg{
 dmg{
   name:t="tree_fir_snow_lush_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fir_snow_lush_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_medium_a"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.05
+  canopyOpacity:r=0.5
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_medium_b"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.05
+  canopyOpacity:r=0.5
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_small_a"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.05
+  canopyOpacity:r=0.5
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_small_b"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+  canopyTriangle:b=no
+  canopyTopPart:r=0.4
+  canopyWidthPart:r=0.1
+  canopyTopOffset:r=0.05
+  canopyOpacity:r=0.5
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_bend_a"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_bend_b"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_bend_c"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_cut_a"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
+}
+
+dmg{
+  name:t="tree_guadua_angustifolia_cut_b"
+  destructionImpulse:r=9000.0
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_date_palm_small_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -1725,7 +1849,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_small_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.4
@@ -1736,7 +1860,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_small_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.8
   canopyWidthPart:r=0.5
@@ -1747,7 +1871,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_small_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.8
   canopyWidthPart:r=0.5
@@ -1758,121 +1882,121 @@ dmg{
 dmg{
   name:t="tree_fan_palm_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_snow_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_snow_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_snow_large_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_small_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_small_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_burnt_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_medium_burnt_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fir_snow_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fir_snow_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tectona_grandis_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.45
@@ -1883,7 +2007,7 @@ dmg{
 dmg{
   name:t="tree_tectona_grandis_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.45
@@ -1894,7 +2018,7 @@ dmg{
 dmg{
   name:t="tree_agathis_robusta_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.5
@@ -1905,7 +2029,7 @@ dmg{
 dmg{
   name:t="tree_agathis_robusta_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.4
@@ -1916,7 +2040,7 @@ dmg{
 dmg{
   name:t="tree_pacific_mangroves_a"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.35
@@ -1927,7 +2051,7 @@ dmg{
 dmg{
   name:t="tree_pacific_mangroves_b"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -1938,7 +2062,7 @@ dmg{
 dmg{
   name:t="tree_pacific_mangroves_c"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -1949,7 +2073,7 @@ dmg{
 dmg{
   name:t="tree_olive_large_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.6
@@ -1960,7 +2084,7 @@ dmg{
 dmg{
   name:t="tree_olive_large_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.5
@@ -1971,19 +2095,19 @@ dmg{
 dmg{
   name:t="tree_populus_wide_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_populus_wide_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_acacia_wide_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.7
@@ -1994,7 +2118,7 @@ dmg{
 dmg{
   name:t="tree_acacia_wide_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.7
@@ -2005,31 +2129,31 @@ dmg{
 dmg{
   name:t="dry_tree_medium_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="dry_tree_medium_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_small_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_small_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="dry_tree_wide_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.2
@@ -2040,7 +2164,7 @@ dmg{
 dmg{
   name:t="dry_tree_wide_c"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.2
@@ -2051,7 +2175,7 @@ dmg{
 dmg{
   name:t="tree_agathis_robusta_tall_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -2062,7 +2186,7 @@ dmg{
 dmg{
   name:t="tree_agathis_robusta_tall_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -2073,7 +2197,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -2084,7 +2208,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -2095,7 +2219,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -2106,7 +2230,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.35
@@ -2117,7 +2241,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_a_limed"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.35
@@ -2128,7 +2252,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_b_limed"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -2139,7 +2263,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_c_limed"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.3
@@ -2150,7 +2274,7 @@ dmg{
 dmg{
   name:t="tree_autumn_large_d_limed"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.35
@@ -2161,31 +2285,31 @@ dmg{
 dmg{
   name:t="tree_birch_dead_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_birch_dead_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_eucalyptus_a"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.35
@@ -2196,7 +2320,7 @@ dmg{
 dmg{
   name:t="tree_eucalyptus_b"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.35
@@ -2207,7 +2331,7 @@ dmg{
 dmg{
   name:t="tree_eucalyptus_c"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.55
   canopyWidthPart:r=0.4
@@ -2218,7 +2342,7 @@ dmg{
 dmg{
   name:t="tree_eucalyptus_d"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.35
@@ -2229,7 +2353,7 @@ dmg{
 dmg{
   name:t="tree_eucalyptus_f"
   destructionImpulse:r=11000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.65
   canopyWidthPart:r=0.5
@@ -2240,7 +2364,7 @@ dmg{
 dmg{
   name:t="tree_tectona_grandis_tall_a"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.45
@@ -2251,7 +2375,7 @@ dmg{
 dmg{
   name:t="tree_tectona_grandis_tall_b"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.35
   canopyWidthPart:r=0.45
@@ -2262,7 +2386,7 @@ dmg{
 dmg{
   name:t="tree_pine_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.2
@@ -2273,7 +2397,7 @@ dmg{
 dmg{
   name:t="tree_pine_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.2
@@ -2284,7 +2408,7 @@ dmg{
 dmg{
   name:t="tree_pine_tall_a_roots"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.2
@@ -2295,7 +2419,7 @@ dmg{
 dmg{
   name:t="tree_pine_tall_b_roots"
   destructionImpulse:r=90000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.2
@@ -2306,55 +2430,55 @@ dmg{
 dmg{
   name:t="tree_tilia_dead_slim_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_slim_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_slim_double_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_slim_triple_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_large_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fan_palm_large_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_date_palm_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -2365,7 +2489,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -2376,7 +2500,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.35
@@ -2387,7 +2511,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -2398,7 +2522,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_large_f"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.35
@@ -2409,7 +2533,7 @@ dmg{
 dmg{
   name:t="tree_cypress_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.75
   canopyWidthPart:r=0.15
@@ -2420,7 +2544,7 @@ dmg{
 dmg{
   name:t="tree_cypress_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.75
   canopyWidthPart:r=0.15
@@ -2431,7 +2555,7 @@ dmg{
 dmg{
   name:t="tree_cypress_medium_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.15
@@ -2442,7 +2566,7 @@ dmg{
 dmg{
   name:t="tree_cypress_medium_d"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.15
@@ -2453,49 +2577,49 @@ dmg{
 dmg{
   name:t="tree_fir_snow_lush_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fir_snow_lush_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_medium_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_medium_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_tall_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.45
   canopyWidthPart:r=0.25
@@ -2506,7 +2630,7 @@ dmg{
 dmg{
   name:t="tree_spruce_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=yes
   canopyTopPart:r=0.4
   canopyWidthPart:r=0.25
@@ -2517,7 +2641,7 @@ dmg{
 dmg{
   name:t="tree_pinus_sibirica_large_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.1
@@ -2528,7 +2652,7 @@ dmg{
 dmg{
   name:t="tree_pinus_sibirica_large_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.1
@@ -2539,7 +2663,7 @@ dmg{
 dmg{
   name:t="tree_pinus_sibirica_large_c"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.6
   canopyWidthPart:r=0.1
@@ -2550,7 +2674,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_cut_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.15
@@ -2561,7 +2685,7 @@ dmg{
 dmg{
   name:t="tree_date_palm_cut_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.3
   canopyWidthPart:r=0.15
@@ -2572,133 +2696,133 @@ dmg{
 dmg{
   name:t="tree_snow_larger_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_snow_larger_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_slim_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_slim_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_tall_burnt_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_tall_burnt_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_tall_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_tall_b"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_debris_spruce_a"
   destructionImpulse:r=9000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_wide_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_wide_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_wide_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_wide_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_medium_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_medium_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_medium_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_medium_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_wide_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_wide_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_wide_a"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_dead_wide_b"
   destructionImpulse:r=50000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_maple_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.4
@@ -2709,7 +2833,7 @@ dmg{
 dmg{
   name:t="tree_maple_tall_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.4
@@ -2720,85 +2844,85 @@ dmg{
 dmg{
   name:t="tree_fan_palm_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_large_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_poplar_large_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_c"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_lush_d"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_mobile_tall_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_tall_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_tall_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_tall_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="dry_tree_wide_d"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.3
@@ -2809,7 +2933,7 @@ dmg{
 dmg{
   name:t="dry_tree_wide_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.5
   canopyWidthPart:r=0.3
@@ -2820,61 +2944,61 @@ dmg{
 dmg{
   name:t="tree_tilia_wide_a"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_wide_b"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_wide_c"
   destructionImpulse:r=60000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_wide_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_dead_wide_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tropic_mobile_large_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tropic_mobile_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tropic_mobile_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tropic_mobile_large_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tropic_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -2885,7 +3009,7 @@ dmg{
 dmg{
   name:t="tree_tropic_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -2896,7 +3020,7 @@ dmg{
 dmg{
   name:t="tree_tropic_large_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.2
   canopyWidthPart:r=0.25
@@ -2907,7 +3031,7 @@ dmg{
 dmg{
   name:t="tree_cypress_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.7
   canopyWidthPart:r=0.15
@@ -2918,7 +3042,7 @@ dmg{
 dmg{
   name:t="tree_cypress_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.7
   canopyWidthPart:r=0.15
@@ -2929,169 +3053,169 @@ dmg{
 dmg{
   name:t="tree_pine_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_pine_large_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fagus_tall_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fagus_tall_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fagus_tall_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_fagus_tall_d"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_medium_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_medium_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_large_c"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_ivy_medium_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_crimea_pine_ivy_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_large_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_spruce_large_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_tall_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_tall_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_medium_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_medium_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_unic_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_wide_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_dead_wide_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_tall_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_tall_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_wide_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_oak_wide_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_slim_double_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyTopOffset:r=0.1
@@ -3102,7 +3226,7 @@ dmg{
 dmg{
   name:t="tree_tilia_slim_double_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyTopOffset:r=0.1
@@ -3113,7 +3237,7 @@ dmg{
 dmg{
   name:t="tree_tilia_slim_triple_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyTopOffset:r=0.1
@@ -3124,7 +3248,7 @@ dmg{
 dmg{
   name:t="tree_tilia_slim_triple_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
   canopyTriangle:b=no
   canopyTopPart:r=0.45
   canopyTopOffset:r=0.1
@@ -3135,25 +3259,25 @@ dmg{
 dmg{
   name:t="tree_tilia_unic_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_tilia_wide_d"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_apple_dead_wide_b"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
   name:t="tree_debris_spruce_fallen_a"
   destructionImpulse:r=5000000.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3166,7 +3290,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3179,7 +3304,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3192,7 +3318,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3205,7 +3332,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3218,7 +3346,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3231,7 +3360,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3244,7 +3374,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3257,7 +3388,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3270,7 +3402,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3283,7 +3416,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3296,7 +3430,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3309,7 +3444,8 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
+  isParent:b=yes
 }
 
 dmg{
@@ -3322,7 +3458,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3335,7 +3471,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3348,7 +3484,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3361,7 +3497,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3374,7 +3510,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3387,7 +3523,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_mid_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3400,7 +3536,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3413,7 +3549,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3426,7 +3562,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3439,7 +3575,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3452,7 +3588,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3465,7 +3601,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -3478,7 +3614,7 @@ dmg{
   canopyOpacity:r=0.5
   fx:t="wood_small_destr"
   fxScale:r=1.0
-  material:t="wood"
+  material:t="wood_solid"
 }
 
 dmg{
@@ -5436,6 +5572,66 @@ riExtra{
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     isObstacle:b=no
+  }
+
+  blast_furnace_road_fences_a_metal{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_road_fences_a_metal_destr_phobj"
+  }
+
+  blast_furnace_road_fences_b_metal{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_road_fences_b_metal_destr_phobj"
+  }
+
+  blast_furnace_stair_fence_left_a{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_stair_fence_left_a_destr_phobj"
+  }
+
+  blast_furnace_stair_fence_left_b{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_stair_fence_left_b_destr_phobj"
+  }
+
+  blast_furnace_stair_fence_right_a{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_stair_fence_right_a_destr_phobj"
+  }
+
+  blast_furnace_stair_fence_right_b{
+    destructionImpulse:r=6000.0
+    impulseThreshold:r=256.0
+    material:t="steel"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="blast_furnace_stair_fence_right_b_destr_phobj"
   }
 
   normandy_decor_door_ext_2200_arch_d1_r{
@@ -7654,6 +7850,93 @@ riExtra{
     nextRes:t="normandy_fence_2000_flat_d_w4000_breach_a_dmg"
   }
 
+  normandy_fence_steel_a_broken_a_l{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_broken_a_l_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_broken_a_l_dmg"
+  }
+
+  normandy_fence_steel_a_broken_a_r{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_broken_a_r_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_broken_a_r_dmg"
+  }
+
+  normandy_fence_steel_a_column_a{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_column_a_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_column_a_dmg"
+  }
+
+  normandy_fence_steel_a{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_dmg"
+  }
+
+  normandy_fence_steel_a_gates_column_a{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_gates_column_a_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_gates_column_a_dmg"
+  }
+
+  normandy_fence_steel_a_gate_shutter_a{
+    hp:r=100.0
+    impulseThreshold:r=50.0
+    destructionImpulse:r=3000.0
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="normandy_fence_steel_a_gate_shutter_a_destr_phobj"
+    nextRes:t="normandy_fence_steel_a_gate_shutter_a_dmg"
+  }
+
+  german_checkpoint_a_support{
+    hp:r=60.0
+    impulseThreshold:r=21.0
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="german_checkpoint_a_support_destr_phobj"
+  }
+
+  german_checkpoint_a_barrier{
+    hp:r=60.0
+    impulseThreshold:r=21.0
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="german_checkpoint_a_barrier_destr_phobj"
+  }
+
+  german_checkpoint_a_booth{
+    hp:r=120.0
+    impulseThreshold:r=41.0
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="german_checkpoint_a_booth_destr_phobj"
+  }
+
   fortification_gate_a_l{
     hp:r=300.0
     impulseThreshold:r=250.0
@@ -9307,6 +9590,44 @@ riExtra{
     fxTemplate:t="envir_destr_wood_window_small_effect"
     fxScale:r=1.0
     physRes:t=" "
+  }
+
+  firefight_post_a_board_a{
+    hp:r=60.0
+    material:t="wood"
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="firefight_post_a_board_a_destr_phobj"
+  }
+
+  firefight_post_a_board_a_hook_metal_a{
+    hp:r=1.0
+    material:t="steel"
+    isParent:b=yes
+    destructibleByParent:b=yes
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="firefight_post_a_board_a_hook_metal_a_destr_phobj"
+  }
+
+  firefight_post_a_pump_a{
+    hp:r=40.0
+    material:t="steel"
+    fxTemplate:t="envir_destr_metal_small_effect"
+    fxScale:r=1.0
+    physRes:t="firefight_post_a_pump_a_destr_phobj"
+  }
+
+  firefight_post_a_sand_box_a{
+    hp:r=80.0
+    impulseThreshold:r=21.0
+    material:t="sand"
+    isParent:b=yes
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="firefight_post_a_sand_box_a_destr_phobj"
   }
 
   russia_village_chest_c{
@@ -12302,6 +12623,17 @@ riExtra{
     isObstacle:b=no
   }
 
+  shed_1story_a_01_a_base{
+    hp:r=350.0
+    impulseThreshold:r=75.0
+    destructionImpulse:r=100.0
+    isParent:b=yes
+    material:t="wood"
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="shed_1story_a_01_a_base_destr_phobj"
+  }
+
   shed_1story_a_02_base{
     hp:r=350.0
     impulseThreshold:r=75.0
@@ -13155,7 +13487,8 @@ riExtra{
     fxTemplate:t="envir_destr_wood_med_effect"
     fxScale:r=1.0
     physRes:t="sawmill_wood_boards_b_destr_phobj"
-    nextRes:t="sawmill_wood_boards_b_dmg"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   sawmill_wood_boards_c{
@@ -29391,7 +29724,7 @@ riExtra{
   soviet_flag_base_a{
     hp:r=230.0
     isParent:b=yes
-    destructibleByParent:b=yes
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_base_a_destr_phobj"
@@ -29400,7 +29733,7 @@ riExtra{
   soviet_flag_base_b{
     hp:r=30.0
     isParent:b=yes
-    destructibleByParent:b=yes
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_base_b_destr_phobj"
@@ -29409,7 +29742,7 @@ riExtra{
   soviet_flag_base_c{
     hp:r=30.0
     isParent:b=yes
-    destructibleByParent:b=yes
+    destructibleByParent:b=no
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_base_c_destr_phobj"
@@ -29537,6 +29870,7 @@ riExtra{
 
   soviet_flag_red_d_a{
     hp:r=3.0
+    destructibleByParent:b=yes
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_red_d_a_destr_phobj"
@@ -29544,6 +29878,7 @@ riExtra{
 
   soviet_flag_red_d_b{
     hp:r=3.0
+    destructibleByParent:b=yes
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_red_d_b_destr_phobj"
@@ -29551,6 +29886,7 @@ riExtra{
 
   soviet_flag_red_d_c{
     hp:r=3.0
+    destructibleByParent:b=yes
     fxTemplate:t="envir_destr_basic_small_effect"
     fxScale:r=1.0
     physRes:t="soviet_flag_red_d_c_destr_phobj"
@@ -29577,6 +29913,8 @@ riExtra{
   soviet_flagpole_wall_a{
     hp:r=30.0
     isParent:b=yes
+    destroyNeighbourDepth:i=2
+    destructibleByParent:b=yes
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
     physRes:t="soviet_flagpole_wall_a_destr_phobj"
@@ -29586,6 +29924,7 @@ riExtra{
     hp:r=30.0
     isParent:b=yes
     destructibleByParent:b=yes
+    destroyNeighbourDepth:i=2
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
   }
@@ -29594,6 +29933,7 @@ riExtra{
     hp:r=30.0
     isParent:b=yes
     destructibleByParent:b=yes
+    destroyNeighbourDepth:i=2
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
   }
@@ -29602,6 +29942,7 @@ riExtra{
     hp:r=30.0
     isParent:b=yes
     destructibleByParent:b=yes
+    destroyNeighbourDepth:i=2
     fxTemplate:t="envir_destr_metal_small_effect"
     fxScale:r=1.0
   }
@@ -36295,252 +36636,252 @@ riExtra{
 
   is_writing_table_type1_a{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_a_destr_phobj"
   }
 
   is_writing_table_type1_b{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_b_destr_phobj"
   }
 
   is_writing_table_type1_c{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_c_destr_phobj"
   }
 
   is_writing_table_type1_d{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_d_destr_phobj"
   }
 
   is_writing_table_type1_e{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_e_destr_phobj"
   }
 
   is_writing_table_type1_f{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type1_f_destr_phobj"
   }
 
   is_writing_table_type2_a{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_a_destr_phobj"
   }
 
   is_writing_table_type2_b{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_b_destr_phobj"
   }
 
   is_writing_table_type2_c{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_c_destr_phobj"
   }
 
   is_writing_table_type2_d{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_d_destr_phobj"
   }
 
   is_writing_table_type2_e{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_e_destr_phobj"
   }
 
   is_writing_table_type2_f{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_f_destr_phobj"
   }
 
   is_writing_table_type2_g{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type2_g_destr_phobj"
   }
 
   is_writing_table_type3_a{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_a_destr_phobj"
   }
 
   is_writing_table_type3_b{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_b_destr_phobj"
   }
 
   is_writing_table_type3_c{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_c_destr_phobj"
   }
 
   is_writing_table_type3_d{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_d_destr_phobj"
   }
 
   is_writing_table_type3_e{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_e_destr_phobj"
   }
 
   is_writing_table_type3_f{
     hp:r=100.0
-    impulseThreshold:r=7.0
+    impulseThreshold:r=50.0
     isParent:b=yes
     physRes:t="is_writing_table_type3_f_destr_phobj"
   }
 
   is_shelf_b_a{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_shelf_b_a_destr_phobj"
   }
 
   is_shelf_b_b{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_shelf_b_b_destr_phobj"
   }
 
   is_shelf_b_c{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_shelf_b_c_destr_phobj"
   }
 
   is_shelf_b_d{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_shelf_b_d_destr_phobj"
   }
 
   is_shelf_b_e{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_shelf_b_e_destr_phobj"
   }
 
   is_wardrobe_type1_a{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_a_destr_phobj"
   }
 
   is_wardrobe_type1_b{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_b_destr_phobj"
   }
 
   is_wardrobe_type1_c{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_c_destr_phobj"
   }
 
   is_wardrobe_type1_d{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_e_destr_phobj"
   }
 
   is_wardrobe_type1_e{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_d_destr_phobj"
   }
 
   is_wardrobe_type1_f{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type1_f_destr_phobj"
   }
 
   is_wardrobe_type3_a{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_a_destr_phobj"
   }
 
   is_wardrobe_type3_b{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_b_destr_phobj"
   }
 
   is_wardrobe_type3_c{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_c_destr_phobj"
   }
 
   is_wardrobe_type3_d{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_e_destr_phobj"
   }
 
   is_wardrobe_type3_e{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_d_destr_phobj"
   }
 
   is_wardrobe_type3_f{
     hp:r=180.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_wardrobe_type3_f_destr_phobj"
   }
@@ -36553,63 +36894,63 @@ riExtra{
 
   is_stz_drafting_shelf_a_a{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_a_a_destr_phobj"
   }
 
   is_stz_drafting_shelf_a_b{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_a_b_destr_phobj"
   }
 
   is_stz_drafting_shelf_a_c{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_a_c_destr_phobj"
   }
 
   is_stz_drafting_shelf_b_a{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_b_a_destr_phobj"
   }
 
   is_stz_drafting_shelf_b_b{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_b_b_destr_phobj"
   }
 
   is_stz_drafting_shelf_b_c{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_b_c_destr_phobj"
   }
 
   is_stz_drafting_shelf_c_a{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_c_a_destr_phobj"
   }
 
   is_stz_drafting_shelf_c_b{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_c_b_destr_phobj"
   }
 
   is_stz_drafting_shelf_c_c{
     hp:r=150.0
-    impulseThreshold:r=35.0
+    impulseThreshold:r=75.0
     isParent:b=yes
     physRes:t="is_stz_drafting_shelf_c_c_destr_phobj"
   }
@@ -38291,6 +38632,88 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="electrical_panel_d_b_destr_phobj"
+  }
+
+  coal_cart{
+    hp:r=100.0
+    impulseThreshold:r=30.0
+    isParent:b=no
+    fxTemplate:t="envir_destr_metal_med_effect"
+    fxScale:r=1.0
+    physRes:t="coal_cart_destr_phobj"
+  }
+
+  sifter_box_a{
+    hp:r=30.0
+    impulseThreshold:r=30.0
+    isParent:b=no
+    fxTemplate:t="envir_destr_wood_small_effect"
+    fxScale:r=1.0
+    physRes:t="sifter_box_a_destr_phobj"
+  }
+
+  sifter_a{
+    hp:r=100.0
+    impulseThreshold:r=70.0
+    fxTemplate:t="envir_destr_wood_med_effect"
+    fxScale:r=1.0
+    physRes:t="sifter_a_destr_phobj"
+  }
+
+  is_chair_e{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_chair_e_destr_phobj"
+  }
+
+  is_chair_f{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_chair_f_destr_phobj"
+  }
+
+  is_chair_g{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_chair_g_destr_phobj"
+  }
+
+  is_draft_shelf_a{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_draft_shelf_a_destr_phobj"
+  }
+
+  is_metal_desk_drawer_a{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_metal_desk_drawer_a_destr_phobj"
+  }
+
+  is_work_table_a{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_work_table_a_destr_phobj"
+  }
+
+  is_work_table_b{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_work_table_b_destr_phobj"
+  }
+
+  is_work_table_c{
+    hp:r=100.0
+    impulseThreshold:r=75.0
+    isParent:b=yes
+    physRes:t="is_work_table_c_destr_phobj"
   }
 
   ventilation_filter_housing_a{
@@ -43184,6 +43607,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="wood_hedgehog_a_destr_phobj"
+    isObstacle:b=no
   }
 
   wood_hedgehog_b{
@@ -43193,6 +43617,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="wood_hedgehog_b_destr_phobj"
+    isObstacle:b=no
   }
 
   wood_hedgehog_dirty_a{
@@ -43201,6 +43626,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="wood_hedgehog_b_destr_phobj"
+    isObstacle:b=no
   }
 
   wood_hedgehog_dirty_b{
@@ -43209,6 +43635,7 @@ riExtra{
     fxTemplate:t="envir_destr_wood_small_effect"
     fxScale:r=1.0
     physRes:t="wood_hedgehog_b_destr_phobj"
+    isObstacle:b=no
   }
 
   wood_hedgehog_big_a{
@@ -47929,6 +48356,8 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_a_destr_phobj"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_b{
@@ -47936,6 +48365,8 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_b_destr_phobj"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_c{
@@ -47943,6 +48374,8 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_c_destr_phobj"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_d{
@@ -47950,6 +48383,8 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_d_destr_phobj"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   cocos_nucifera_coconut_e{
@@ -47957,6 +48392,8 @@ riExtra{
     fxTemplate:t="envir_destr_cactus_effect"
     fxScale:r=1.0
     physRes:t="cocos_nucifera_coconut_e_destr_phobj"
+    isParent:b=yes
+    destructibleByParent:b=yes
   }
 
   market_bag_a{
@@ -49063,6 +49500,20 @@ riExtra{
   }
 
   agit_poster_china_k{
+    hp:r=20.0
+    material:t="small_decor"
+    fxTemplate:t="envir_destr_paper_med_effect"
+    fxScale:r=1.0
+  }
+
+  agit_poster_china_l{
+    hp:r=20.0
+    material:t="small_decor"
+    fxTemplate:t="envir_destr_paper_med_effect"
+    fxScale:r=1.0
+  }
+
+  agit_poster_china_m{
     hp:r=20.0
     material:t="small_decor"
     fxTemplate:t="envir_destr_paper_med_effect"
@@ -50911,6 +51362,7 @@ riExtra{
     fxTemplate:t="envir_destr_metal_med_effect"
     fxScale:r=1.0
     physRes:t="airfield_anemometer_a_destr_phobj"
+    isObstacle:b=no
   }
 
   barrack_door_wooden_2500x1300_a_r{

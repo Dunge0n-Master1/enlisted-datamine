@@ -14,6 +14,7 @@ require DagorSystem
 require DagorMath
 require DaWeapons
 require common_shooter.es.forestall_common
+require enlisted.events_enlisted
 
 struct ShellPropsData
   shellId : int
@@ -50,7 +51,7 @@ def get_angle_and_dist_to_target(target_pos, forestall_pos, camera_pos, selector
   out_angle = min(curAngleToForestall, curAngleToUnit)
 
 [es(tag=gameClient, REQUIRE=heroVehicle, no_order)]
-def plane_target_forestall(info : UpdateStageInfoAct;
+def plane_target_forestall(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            transform : float3x4;
                            turret_control__gunEids : EidList;

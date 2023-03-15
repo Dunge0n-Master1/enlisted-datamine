@@ -8,21 +8,22 @@ and this is just ugly and really awful
 */
 
 
+let { EventOnSpawnError } = require("%enlSqGlob/sqevents.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let vehiclesData = require("%ui/hud/state/vehiclesData.nut")
 let app = require("net")
 let { sendNetEvent, CmdRequestRespawn, CmdCancelRequestRespawn, RequestNextRespawnEntity
 } = require("dasevents")
-let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
+let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")
 let logHR = require("%enlSqGlob/library_logs.nut").with_prefix("[HERO_RESPAWN]")
-let {localPlayerTeam, localPlayerEid} = require("%ui/hud/state/local_player.nut")
+let { localPlayerTeam, localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let armyData = require("armyData.nut")
 let soldiersData = require("soldiersData.nut")
 let vehicleRespawnBases = require("%ui/hud/state/vehicleRespawnBases.nut")
-let {get_can_use_respawnbase_type} = require("das.respawn")
+let { get_can_use_respawnbase_type } = require("das.respawn")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let {spawnZonesState} = require("%ui/hud/state/spawn_zones_markers.nut")
+let { spawnZonesState } = require("%ui/hud/state/spawn_zones_markers.nut")
 let humanCanRespawn = require("%ui/hud/state/humanCanRespawn.nut")
 
 let respEndTime = mkWatched(persist, "respEndTime", -1)
@@ -122,13 +123,9 @@ let squadsList = Computed(function(prev) {
     .map(function(squad, idx) {
       let squadId = squad.squadId
       let squadDesc = squadsPresentation?[armyId][squadId]
-      let res = {
-        squadId = squadId
-        icon = squadDesc?.icon
-        premIcon = squadDesc?.premIcon
-      }
+      local { premIcon = null } = squadDesc
       if ((squad?.battleExpBonus ?? 0) > 0)
-        res.premIcon <- armiesPresentation?[armyId].premIcon
+        premIcon = premIcon ?? armiesPresentation?[armyId].premIcon
       let readinessPercent = squadsRevivePoints.value?[idx] ?? -1
       local canSpawn = readinessPercent == 100
       if (canSpawn) {
@@ -144,7 +141,10 @@ let squadsList = Computed(function(prev) {
         }
       }
 
-      return res.__update({
+      return {
+        squadId
+        icon = squadDesc?.icon
+        premIcon
         name = squad?.locId ? loc(squad.locId) : "---"
         squadType = squad?.squadType ?? "unknown"
         level = squad?.level ?? 0
@@ -155,7 +155,7 @@ let squadsList = Computed(function(prev) {
 
         canSpawn = canSpawn
         readinessPercent = readinessPercent
-      })
+      }
     })
   }
 )
@@ -174,12 +174,14 @@ let function onActive() {
 
 armyData.subscribe(@(data) spawnSquadId(data?.curSquadId))
 
-let function updateSquadSpawnIndex(_) {
+let function updateSquadSpawnIndex(...) {
   squadIndexForSpawn(squadsList.value.findindex(@(s) s.squadId == spawnSquadId.value) ?? 0)
-  onActive()
 }
 
-spawnSquadId.subscribe(updateSquadSpawnIndex)
+spawnSquadId.subscribe(function(_) {
+  updateSquadSpawnIndex()
+  onActive()
+})
 squadsList.subscribe(updateSquadSpawnIndex)
 
 curSoldierIdx.subscribe(function(i){
@@ -221,14 +223,15 @@ let soldiersList = Computed(function() {
   let armyId = armyData.value?.armyId
   let squadIndx = squads.findindex(@(s) s.squadId == squadId)
   let squad = squads?[squadIndx]
-
   let readinessPercents = soldierRevivePoints.value?[squadIndx] ?? []
-
   return (squad?.squad ?? [])
-    .map(@(s) soldiersData.value?[s.guid]?.__merge({
-      canSpawn = (readinessPercents?[s.id] ?? 100) == 100
-      premIcon = (s?.isPremium ?? false) ? armiesPresentation?[armyId].premIcon : null
-    }))
+    .map(function(s) {
+      let { premIcon = null } = squadsPresentation?[armyId][squadId]
+      return soldiersData.value?[s.guid].__merge({
+        canSpawn = (readinessPercents?[s.id] ?? 100) == 100
+        premIcon = premIcon ?? (s?.isPremium ?? false) ? armiesPresentation?[armyId].premIcon : null
+      })
+    })
     .filter(@(s) s != null)
 })
 
@@ -411,7 +414,7 @@ ecs.register_es("solder_revive_points_state_ui_es", {
 
 
 ecs.register_es("squads_state_show_respawn_ui_es",
-  {[ecs.sqEvents.EventOnSpawnError] = @ (evt, _eid, _comp) logHR($"Spawn Error: {evt.data.reason}")},
+  {[EventOnSpawnError] = @ (evt, _eid, _comp) logHR($"Spawn Error: {evt.data.reason}")},
   {comps_rq = ["player"]})
 
 let requestRespawnToEntity = @(eid)

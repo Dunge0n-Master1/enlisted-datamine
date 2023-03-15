@@ -13,7 +13,7 @@ require DagorDataBlock
 require DagorRandom
 require vehicle
 require BehNodes
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require common_shooter.es.squad_common
 require game.es.vehicle.vehicle_seats_common
 

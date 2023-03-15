@@ -19,54 +19,16 @@ def capzone_capturing_sounds_on_captured(evt : EventZoneCaptured;
       return true
 
 
-def zone_is_capturing(capzone__captureStatus : int) : bool
-  return capzone__captureStatus != 0
-
-
-def zone_is_capturing_by_hero(zone_eid : EntityId; hero_team : int; is_downed, is_in_vehicle : bool) : bool
-  var ret = false
-  query(zone_eid) <| $ [es] (capzone__captureStatus : int; capzone__capTeam : int; zone__excludeDowned : ecs::Tag const?; capzone__canCaptureOnVehicle : bool)
-    if is_downed && zone__excludeDowned != null
-      return
-    if is_in_vehicle && !capzone__canCaptureOnVehicle
-      return
-    if !zone_is_capturing(capzone__captureStatus)
-      return
-    if !is_teams_friendly(hero_team, capzone__capTeam)
-      return
-    ret = true
-  return ret
-
-
-def is_hero_capturing(capturer__capZonesIn : EidList; hero_team : int; is_downed, is_in_vehicle : bool) : bool
+def is_hero_capturing_something(capturer__capZonesIn : EidList; hero_team : int; is_downed, is_in_vehicle : bool) : bool
+  var isCapturing = false
   for zoneEid in capturer__capZonesIn
-    if zone_is_capturing_by_hero(zoneEid, hero_team, is_downed, is_in_vehicle)
-      return true
-  return false
-
-
-def track_capturing(capturer__capZonesIn : EidList;
-                    team : int;
-                    isAlive, isDowned, isInVehicle : bool;
-                    human__capzoneCapturingSoundPath : string;
-                    var human__capzoneCapturingSoundEvent : SoundEvent&)
-  let isCapturing = isAlive && is_hero_capturing(capturer__capZonesIn, team, isDowned, isInVehicle)
-  if human__capzoneCapturingSoundEvent.enabled != isCapturing
-    human__capzoneCapturingSoundEvent.enabled = isCapturing
-    release(human__capzoneCapturingSoundEvent.handle)
-    if isCapturing
-      human__capzoneCapturingSoundEvent |> play(human__capzoneCapturingSoundPath)
-
-
-[es(tag=sound, track=(capzone__captureStatus, capzone__capTeam), REQUIRE=(capzone__captureStatus, capzone__capTeam))]
-def capzone_capturing_sounds_track_capture_status(evt : Event)
-  query() <| $ [es(REQUIRE=hero)] (capturer__capZonesIn : EidList;
-                                   team aka hero_team : int;
-                                   isAlive, isDowned : bool;
-                                   isInVehicle : bool = false;
-                                   human__capzoneCapturingSoundPath : string;
-                                   var human__capzoneCapturingSoundEvent : SoundEvent&)
-    track_capturing(capturer__capZonesIn, hero_team, isAlive, isDowned, isInVehicle, human__capzoneCapturingSoundPath, human__capzoneCapturingSoundEvent)
+    // query(eid) is better than find_query() here because capturer__capZonesIn.length <= 1 in most cases
+    query(zoneEid) <| $ [es(REQUIRE_NOT=(trainZone, trainTriggerable))] (capzone__captureStatus : int; capzone__capTeam : int; zone__excludeDowned : ecs::Tag const?; capzone__canCaptureOnVehicle : bool)
+      isCapturing ||= (capzone__captureStatus != 0 &&
+                       is_teams_friendly(hero_team, capzone__capTeam) &&
+                       (!is_downed || zone__excludeDowned == null) &&
+                       (!is_in_vehicle || capzone__canCaptureOnVehicle))
+  return isCapturing
 
 
 [es(tag=sound, REQUIRE=hero, track=(capturer__capZonesIn, isAlive, isDowned, isInVehicle), on_appear)]
@@ -77,7 +39,28 @@ def capzone_capturing_sounds_track_hero_zones_in(evt : Event;
                                                  isInVehicle : bool = false;
                                                  human__capzoneCapturingSoundPath : string;
                                                  var human__capzoneCapturingSoundEvent : SoundEvent&)
-  track_capturing(capturer__capZonesIn, hero_team, isAlive, isDowned, isInVehicle, human__capzoneCapturingSoundPath, human__capzoneCapturingSoundEvent)
+  let isCapturing = isAlive && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
+  if human__capzoneCapturingSoundEvent.enabled != isCapturing
+    human__capzoneCapturingSoundEvent.enabled = isCapturing
+    release(human__capzoneCapturingSoundEvent.handle)
+    if isCapturing
+      human__capzoneCapturingSoundEvent |> play(human__capzoneCapturingSoundPath)
+
+
+[es(tag=sound, track=(capzone__captureStatus, capzone__capTeam), REQUIRE=(capzone__captureStatus, capzone__capTeam), REQUIRE_NOT=(trainZone, trainTriggerable))]
+def capzone_capturing_sounds_track_capture_status(evt : Event)
+  query() <| $ [es(REQUIRE=hero)] (capturer__capZonesIn : EidList;
+                                   team aka hero_team : int;
+                                   isAlive, isDowned : bool;
+                                   isInVehicle : bool = false;
+                                   human__capzoneCapturingSoundPath : string;
+                                   var human__capzoneCapturingSoundEvent : SoundEvent&)
+    let isCapturing = isAlive && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
+    if human__capzoneCapturingSoundEvent.enabled != isCapturing
+      human__capzoneCapturingSoundEvent.enabled = isCapturing
+      release(human__capzoneCapturingSoundEvent.handle)
+      if isCapturing
+        human__capzoneCapturingSoundEvent |> play(human__capzoneCapturingSoundPath)
 
 
 [es(tag=sound, REQUIRE=hero, track=isAlive)]

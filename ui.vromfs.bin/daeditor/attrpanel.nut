@@ -1009,7 +1009,7 @@ mkComp = function(eid, rawComponentName, rawObject, caption=null, onChange = nul
     comp_name_ext = caption
     obj = rawObject
   }
-  if (path == null && get_comp_type(eid, rawComponentName) != TYPE_STRING && typeof object == "string"){
+  if (path == null && get_comp_type(eid, rawComponentName) != TYPE_STRING && type(object) == "string"){
     return panelCompRow(params.__merge({comp_sq_type="null" comp_flags = get_comp_flags(eid, rawComponentName)}))
   }
   if (getCompSqTypePropEdit(comp_sq_type) != null) {

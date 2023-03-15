@@ -29,7 +29,7 @@ let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { selectArmy } = require("%enlist/soldiers/model/state.nut")
+let { selectArmy, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
 let { setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
@@ -103,6 +103,8 @@ let windowBlocksVer = Watched(0)
 local windowContentQueue = []
 let scrollHandler = ScrollHandler()
 let gainRewardContent = Watched(null)
+
+local hasAnimFinished = false
 
 let soldierStatsCfg = [
   { stat = "time", locId = "debriefing/battleTime", toString = secondsToTimeSimpleString, isVisible = @(_) true },
@@ -301,15 +303,21 @@ let function continueAnimImpl(debriefing) {
   windowContentQueue = windowContentQueue.slice(blockIdx + 1)
   windowBlocks.append(block)
   windowBlocksVer(windowBlocksVer.value + 1)
+
+  if (windowContentQueue.len() == 0)
+    hasAnimFinished = true
 }
 
 let continueAnim = debounce(continueAnimImpl, 0.01)
 
 let function skipAnim(debriefing) {
+  anim_skip(NEW_BLOCK_TRIGGER)
   anim_skip($"{ANIM_TRIGGER}{SKIP_ANIM_POSTFIX}")
   anim_skip(ANIM_TRIGGER)
   anim_skip(OVERLAY_TRIGGER)
   anim_skip_delay(OVERLAY_TRIGGER_SKIP)
+  anim_skip("content_anim")
+
   skippedAnims = skippedAnims.map(@(_) true)
 
   let prevContent = gainRewardContent.value
@@ -558,6 +566,7 @@ let function skipAnimOrClose(doClose, debriefing) {
     return
   }
   doClose()
+  hasAnimFinished = false
   switchContext(debriefing)
   if (hasNewArmyLevel(debriefing))
     jumpToArmyProgress()
@@ -816,7 +825,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       let soldierCard = mkSoldierCard({
         stat = soldierStat
         awards = soldierAwards
-        info = collectSoldierPhoto(soldierData, true)
+        info = collectSoldierPhoto(soldierData, null, objInfoByGuid.value, [], false)
         animDelay = animDelay + soldierAnimDelay
         mkAppearAnimations = mkAppearAnimations
       })
@@ -873,7 +882,8 @@ let function statisticBlock(debriefing) {
     localPlayerEid,
     localPlayerGroupId = INVALID_GROUP_ID,
     localPlayerGroupMembers = {},
-    missionType = null
+    missionType = null,
+    result
   } = debriefing
 
   let params = {
@@ -887,6 +897,7 @@ let function statisticBlock(debriefing) {
     isInteractive = true
     showProfileCb = showUserProfile.value ? showAnoProfile : null
     missionType
+    result
     mkContextMenuButton = @(_) userActions
   }
 
@@ -968,6 +979,16 @@ let function debriefingRoot(debriefing, doClose) {
     squad.__update(squadsPresentation?[armyId][squadId] ?? {})
 
   initDebriefingAnim(debriefing)
+
+  if (hasAnimFinished) {
+    foreach (ctor in windowContentQueue) {
+      let block = ctor(debriefing)
+      if (block != null)
+        windowBlocks.append(block)
+    }
+    windowContentQueue = []
+    gui_scene.resetTimeout(0.05, @() skipAnim(debriefing))
+  }
 
   return @() {
     key = debriefing?.sessionId

@@ -26,10 +26,13 @@ struct CmdApplyDamage
 struct EventMeleeAttackHit
   pos : float3
   power : float
+  targetEid : EntityId
+
 
 [cpp_event(unicast, with_scheme)]
 struct CmdUpdateHitpoints
   time : float
+
 
 [cpp_event(unicast, with_scheme)]
 struct CmdAddDefaultEntitiesInNetScopeForPlayer {}
@@ -58,11 +61,6 @@ struct PossessTargetByPlayer
 struct UpdateStageGameLogic
   dt : float
   curTime : float
-
-[cpp_event(unicast, with_scheme)]
-struct EventMeleeTargetHit
-  target : EntityId
-  impulse : float3
 
 [cpp_event(broadcast, with_scheme)]
 struct EventGameSessionFinished
@@ -153,3 +151,8 @@ struct CmdHeroLogEvent
   text : string
   sound : string
   ttl : int
+
+[cpp_event(broadcast, with_scheme)]
+struct EventTickrateChanged
+  oldTickrate : int
+  newTickrate : int

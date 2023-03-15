@@ -9,14 +9,14 @@ let {get_sync_time} = require("net")
 
 let ZoneProgress = {
   rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("ui/skin#circle_progress.png")
+  image = Picture("ui/skin#circle_progress.avif")
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
 }
 
 let ZoneDefendProgress = {
   rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("!ui/skin#icon_defend.png")
+  image = Picture("!ui/skin#icon_defend.avif")
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
 }

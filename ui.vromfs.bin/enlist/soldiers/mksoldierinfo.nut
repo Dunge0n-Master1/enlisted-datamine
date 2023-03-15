@@ -109,7 +109,7 @@ let tabsList = @(soldier, availTabs) @() {
 let content = kwarg(@(
   soldier, canManage, animations, selectedKeyWatch, mkDismissBtn,
   availTabs, onDoubleClickCb = null, onResearchClickCb = null,
-  getDropExceptionCb = null
+  dropExceptionCb = null
 ) {
   clipChildren = true
   rendObj = ROBJ_WORLD_BLUR_PANEL
@@ -132,15 +132,19 @@ let content = kwarg(@(
         watch = curTabId
         size = flex()
         children = getTabById(curTabId.value).content({
-          soldier = soldier.value
+          soldier
           canManage
           selectedKeyWatch
           onDoubleClickCb
-          getDropExceptionCb
+          dropExceptionCb
           onResearchClickCb
         }, KWARG_NON_STRICT)
       }
-      mkDismissBtn(soldier.value)
+      @() {
+        watch = soldier
+        size = [flex(), SIZE_TO_CONTENT]
+        children = mkDismissBtn(soldier.value)
+      }
     ]
   }
 })
@@ -148,11 +152,24 @@ let content = kwarg(@(
 return kwarg(function(
   soldierInfoWatch, isMoveRight = true, selectedKeyWatch = Watched(null),
   onDoubleClickCb = null, onResearchClickCb = null, mkDismissBtn = @(_) null,
-  getDropExceptionCb = null, availTabs = []
+  dropExceptionCb = null, availTabs = []
 ) {
   let animations = mkAnimations(isMoveRight)
   local lastSoldierGuid = soldierInfoWatch.value?.guid
-  return function soldierInfoUi() {
+
+  let children = content({
+    soldier = soldierInfoWatch
+    canManage = true
+    animations
+    selectedKeyWatch
+    onDoubleClickCb
+    dropExceptionCb
+    onResearchClickCb
+    mkDismissBtn
+    availTabs
+  })
+
+  return function() {
     let newSoldierGuid = soldierInfoWatch.value?.guid
     if (lastSoldierGuid != null && newSoldierGuid != lastSoldierGuid)
       anim_start("hdrAnim") //no need change content anim when window appear anim playing
@@ -161,17 +178,7 @@ return kwarg(function(
     return {
       watch = soldierInfoWatch
       size = soldierInfoWatch.value != null ? [soldierWndWidth, flex()] : null
-      children = soldierInfoWatch.value != null ? content({
-        soldier = soldierInfoWatch
-        canManage = true
-        animations
-        selectedKeyWatch
-        onDoubleClickCb
-        getDropExceptionCb
-        onResearchClickCb
-        mkDismissBtn
-        availTabs
-      }) : null
+      children = soldierInfoWatch.value != null ? children : null
     }
   }
 })

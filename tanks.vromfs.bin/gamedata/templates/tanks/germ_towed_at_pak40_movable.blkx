@@ -223,3 +223,42 @@ germ_towed_at_pak40_gunner_cockpit{
     slit:b=yes
   }
 }
+
+enlist_towed_at_pak40_75mm_pak40_3_l46{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_cannon"
+  _extends:t="enlist_towed_at_pak40_turret_01_75mm_pak40_3_l46"
+  turret__triggerGroup:i=0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-40.0, 40.0, -2.0, 20.0
+}
+
+enlist_towed_at_pak40_turret_01_75mm_pak40_3_l46{
+  _extends:t="base_75mm_pak40_3_l46"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=10
+    ammo:i=15
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_pak40_3_l46_defaultset.blk"
+        name:t="75mm_pzgr_39"
+        type:t="apcbc_tank"
+      }
+    }
+
+    "75mm_ger_kwk40_37_HE:array"{
+
+      "shell:object"{
+        blk:t="content/tanks/gamedata/gen/weapons/shells/75mm_pak40_3_l46_75mm_ger_kwk40_37_he.blk"
+        name:t="75mm_sprgr_34"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}

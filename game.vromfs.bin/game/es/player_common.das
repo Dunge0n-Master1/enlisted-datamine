@@ -21,7 +21,7 @@ def find_next_spec_target(team_id : int; cur_eid : EntityId; dir : int) : Entity
                                              isSpectatable, countAsAlive, isAlive : bool;
                                              team = TEAM_UNASSIGNED)
     if isSpectatable && countAsAlive && isAlive && (team == team_id || team_id == TEAM_UNASSIGNED)
-      entitiesToWatch |> emplace(eid)
+      entitiesToWatch |> push(eid)
   let entitiesToWatchLen = length(entitiesToWatch)
   if entitiesToWatchLen < 2 || cur_eid == INVALID_ENTITY_ID
     return empty(entitiesToWatch) ? INVALID_ENTITY_ID : entitiesToWatch[0]

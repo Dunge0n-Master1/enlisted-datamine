@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
+let { mkSoldierPhotoWithoutFrame } = require("%enlSqGlob/ui/soldierPhoto.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
   colPart, defTxtColor, titleTxtColor, haveLevelColor, gainLevelColor,
@@ -19,9 +19,9 @@ let {
 const MAX_LEVEL_SOLDIER = 5
 
 
-let kindSize = colPart(0.6)
+let defKindSize = colPart(0.6)
 let classSize = colPart(0.6)
-let photoSize = [colPart(0.9), colPart(1.02)]
+let photoSize = [colPart(1), colPart(1.5)]
 
 
 let nameTxtStyle = { color = titleTxtColor }.__update(fontLarge)
@@ -43,13 +43,13 @@ let function mkClassIcon(armyId, sClass, override = {}, cSize = classSize) {
   return {
     rendObj = ROBJ_IMAGE
     size = [cSize, cSize]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = getClassIcon(icon, cSize)
   }.__update(override)
 }
 
 
-let function mkKindIcon(sKind, sClassRare) {
+let function mkKindIcon(sKind, sClassRare, kindSize = defKindSize) {
   if (sKind == null)
     return null
 
@@ -68,7 +68,7 @@ let function mkKindIcon(sKind, sClassRare) {
 
 
 let function mkSoldierBadgePhoto(photo) {
-  return mkSoldierPhoto(photo, photoSize, [], {})
+  return mkSoldierPhotoWithoutFrame(photo, photoSize, {})
 }
 
 
@@ -83,22 +83,6 @@ let mkSoldierTier = @(tier) {
   rendObj = ROBJ_TEXT
   text = getRomanNumeral(tier)
 }.__update(nameTxtStyle)
-
-
-let animXMove = colPart(5)
-let mkSoldierAnim = @(delay) {
-  transform = {}
-  animations = [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, delay, duration = 0.2, play = true }
-    { prop = AnimProp.translate, from = [-animXMove,0], to = [0,0], delay,
-      duration = 0.5, play = true, easing = OutQuart }
-    { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.4,
-      playFadeOut = true }
-    { prop = AnimProp.translate, from = [0,0], to = [animXMove,0], duration = 0.4,
-      playFadeOut = true }
-  ]
-}
 
 
 let function mkSoldierBadgeData(soldier, allPerks, expGrid, thresholdColor) {
@@ -158,5 +142,4 @@ return {
   calcExperienceData
   mkSoldierBadgePhoto
   mkSoldierBadgeData
-  mkSoldierAnim
 }

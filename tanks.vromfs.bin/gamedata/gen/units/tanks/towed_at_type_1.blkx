@@ -58,8 +58,8 @@ VehiclePhys{
     brokenWheelSteeringDeflection:r=-15.0
     wheel_l_01:r=0.39
     wheel_r_01:r=0.39
-    wheel_l_02:r=0.15
-    wheel_r_02:r=0.15
+    wheel_l_02:r=0.01
+    wheel_r_02:r=0.01
     recalcWtms:b=yes
 
     steeringDeflection{

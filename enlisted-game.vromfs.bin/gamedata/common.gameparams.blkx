@@ -30,21 +30,20 @@ commonScenes{
   scene:t="content/common/gamedata/scenes/server_explosions.blk"
   scene:t="content/enlisted/gamedata/scenes/army_language.blk"
   scene:t="content/enlisted/gamedata/scenes/mission_time.blk"
-  scene:t="content/common/gamedata/scenes/_outdoor_factor_tracer.blk"
   scene:t="content/common/gamedata/scenes/debug_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/spline_gen_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/global_fx.blk"
   scene:t="content/enlisted/gamedata/scenes/bullet_types_water.blk"
   scene:t="content/enlisted/gamedata/scenes/shell_explosions.blk"
+  scene:t="content/enlisted/gamedata/scenes/projectile_params.blk"
 }
 
 commonClientScenes{
   scene:t="content/common/gamedata/scenes/_common_render_scene.blk"//should be created before WorldRenderer
   scene:t="content/enlisted/gamedata/scenes/common_xray_scene.blk"
   scene:t="content/common/gamedata/scenes/animchars_shadows_culling.blk"
-  scene:t="content/common/gamedata/scenes/ssss_scene.blk"
+  scene:t="%danetlibs/ssss/scenes/ssss_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_cutting_planes_mgr_scene.blk"
-  scene:t="content/enlisted/gamedata/scenes/motion_matching_data_base.blk"
   scene:t="content/enlisted/gamedata/scenes/_common_wounds.blk"
   scene:t="content/common/gamedata/scenes/hero_cockpit.blk"
 }

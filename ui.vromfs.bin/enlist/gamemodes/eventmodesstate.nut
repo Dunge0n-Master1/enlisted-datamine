@@ -1,7 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { matchingCall } = require("%enlist/matchingClient.nut")
+let { get_app_id } = require("app")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let eventbus = require("eventbus")
+let matching_api = require("matching.api")
+let { debounce } = require("%sqstd/timers.nut")
+
 let { eventGameModes } = require("gameModeState.nut")
-let { userstatStats } = require("%enlSqGlob/userstats/userstat.nut")
+let { userstatStats, MAX_DELAY_FOR_MASSIVE_REQUEST_SEC
+} = require("%enlSqGlob/userstats/userstat.nut")
 let { allModes, isRoomCfgActual, actualizeRoomCfg } = require("createEventRoomCfg.nut")
 let { hasCustomGames, showEventsWidget } = require("%enlist/featureFlags.nut")
 let { curArmy, curArmiesList} = require("%enlist/soldiers/model/state.nut")
@@ -11,21 +19,18 @@ let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
-let isEventModesOpened = mkWatched(persist, "isEventModesOpened", false)
-let customRoomsModeSaved = mkWatched(persist, "customRoomsModeSaved", false)
+let isEventModesOpened = nestWatched("isEventModesOpened", false)
+let customRoomsModeSaved = nestWatched("customRoomsModeSaved", false)
 let hasCustomRooms = Computed(@()
   !isNewbie.value && allModes.value.len() > 0 && hasCustomGames.value)
 let isCustomRoomsMode = Computed(@() customRoomsModeSaved.value && hasCustomRooms.value)
-let selEventIdByPlayer = mkWatched(persist, "selEventByPlayer", null)
-let curEventSquadId = mkWatched(persist, "curEventSquadId")
-let eventCurArmyIdx = mkWatched(persist, "eventCurArmyIdx", 0)
-let eventsArmiesList = mkWatched(persist, "eventsArmiesList", [])
-let hasUniqueArmies = mkWatched(persist, "hasUniqueArmies", false)
-
-let { matchingCall } = require("%enlist/matchingClient.nut")
-let { get_app_id } = require("app")
-let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let selEventIdByPlayer = nestWatched("selEventByPlayer", null)
+let curEventSquadId = nestWatched("curEventSquadId")
+let eventCurArmyIdx = nestWatched("eventCurArmyIdx", 0)
+let eventsArmiesList = nestWatched("eventsArmiesList", [])
+let hasUniqueArmies = nestWatched("hasUniqueArmies", false)
 
 let curTab = Watched(null)
 curArmy.subscribe(@(_v) eventCurArmyIdx(curArmiesList.value.indexof(curArmy.value)))
@@ -75,22 +80,20 @@ let eventCustomSquads = Computed(function(){
     .map(function(squad) {
       let squadId = squad.squadId
       let squadDesc = squadsPresentation?[armyId][squadId]
-      let res = {
-        squadId = squadId
-        icon = squadDesc?.icon
-        premIcon = squadDesc?.premIcon
-      }
+      local { premIcon = null } = squadDesc
       if ((squad?.battleExpBonus ?? 0) > 0)
-        res.premIcon <- armiesPresentation?[armyId].premIcon
-
-      return res.__update({
+        premIcon = premIcon ?? armiesPresentation?[armyId].premIcon
+      return {
+        squadId
+        icon = squadDesc?.icon
+        premIcon
         name = squad?.locId ? loc(squad.locId) : "---"
         squadType = squad?.squadType ?? "unknown"
         level = squad?.level ?? 0
         squadSize = squad.squad.len()
         vehicle = squad?.curVehicle
         vehicleType = squad?.vehicleType
-      })
+      }
     })
   }
 )
@@ -197,6 +200,14 @@ let function timeUntilStart() {
       isMMScheduleProcessed = true
     }, {appId = get_app_id()})
 }
+
+let requestNewSchedule = debounce(function() {
+  isMMScheduleProcessed = false
+  timeUntilStart()
+}, 0, MAX_DELAY_FOR_MASSIVE_REQUEST_SEC)
+
+matching_api.listen_notify("enlmm.notify_schedule_list_changed")
+eventbus.subscribe("enlmm.notify_schedule_list_changed", @(_) requestNewSchedule())
 
 return {
   eventGameModes

@@ -13,6 +13,8 @@ let {loc_opt, defCmp, getOnlineSaveData, mkSliderWithText,
   optionCtor
 } = require("options_lib.nut")
 let { resolutionList, resolutionValue } = require("resolution_state.nut")
+let { renderSettingsTbl, antiAliasingMode, antiAliasingModeToString
+} = require("%enlSqGlob/renderOptionsState.nut")
 let { DLSS_BLK_PATH, DLSS_OFF, dlssAvailable, dlssValue, dlssToString,
   dlssSetValue, dlssNotAllowLocId
 } = require("dlss_state.nut")
@@ -27,7 +29,7 @@ let { PERF_METRICS_BLK_PATH, PERF_METRICS_FPS,
   perfMetricsAvailable, perfMetricsValue, perfMetricsSetValue, perfMetricsToString
 } = require("performance_metrics_options.nut")
 let { is_inline_rt_supported, is_dx12, is_hdr_available, is_hdr_enabled, change_paper_white_nits,
-  change_gamma, get_default_static_resolution_scale
+  change_gamma
 } = require("videomode")
 let { availableMonitors, monitorValue, get_friendly_monitor_name } = require("monitor_state.nut")
 let { fpsList, UNLIMITED_FPS_LIMIT } = require("fps_list.nut")
@@ -212,8 +214,8 @@ let optLatency = optionCtor({
 let isDevBuild = @() platform.is_pc && DBGLEVEL != 0
 let optPerformanceMetrics = optionCtor({
   name = loc("options/perfMetrics", "Performance Metrics")
-  tab = "Graphics"
   widgetCtor = optionSpinner
+  tab = "Graphics"
   isAvailable = isOptAvailable
   blkPath = PERF_METRICS_BLK_PATH
   defVal = PERF_METRICS_FPS
@@ -222,48 +224,40 @@ let optPerformanceMetrics = optionCtor({
   available = perfMetricsAvailable
   valToString = @(v) loc(perfMetricsToString[v])
 })
+
 let optShadowsQuality = optionCtor({
   name = loc("options/shadowsQuality", "Shadow Quality")
   widgetCtor = mkDisableableCtor(bareMinimumText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/shadowsQuality"
-  defVal = "low"
   available = DBGLEVEL > 0 ? [ "minimum",  "low", "medium", "high", "ultra" ] : [  "minimum", "low", "medium", "high" ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.shadowsQuality))
+
 let optEffectsShadows = optionCtor({
   name = loc("options/effectsShadows", "Shadows from Effects")
+  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
-  blkPath = "graphics/effectsShadows"
-  defVal = true
   restart = false
-})
-
-let giQuality = Watched(get_setting_by_blk_path("graphics/giQuality") ?? (isBareMinimum.value ? "minimum" : "low"))
+}.__update(renderSettingsTbl.effectsShadows))
 
 let optGiQuality = optionCtor({
   name = loc("options/giQuality", "Global Illumination Quality")
   widgetCtor = mkDisableableCtor(bareMinimumText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/giQuality"
   available = [ "minimum", "low", "medium", "high" ]
-  var = giQuality
   valToString = loc_opt
-})
+  originalVal = isBareMinimum.value ? "minimum" : renderSettingsTbl.giQuality.defVal
+}.__update(renderSettingsTbl.giQuality))
 
-let rtgiValueChosen = Watched(get_setting_by_blk_path("graphics/gi/inlineRaytracing") ?? false)
-
-let rtgiSetValue = @(v) rtgiValueChosen(v)
-
+let giQuality = renderSettingsTbl.rtgiEnabled.var
 let rtGIDisabled = Computed(@() giQuality.value == "minimum" || giQuality.value == "low")
-
-let rtGIValue = Computed(@() ((is_inline_rt_supported() && !rtGIDisabled.value) ? rtgiValueChosen.value : false))
+let rtGIValue = Computed(@() ((is_inline_rt_supported() && !rtGIDisabled.value)
+  ? giQuality.value : renderSettingsTbl.rtgiEnabled.defVal))
 
 let optRTGi = optionCtor({
   name = loc("options/RTGI", "Ray Tracing Enhanced Global Illumination")
@@ -275,42 +269,34 @@ let optRTGi = optionCtor({
         ? loc("options/disabled_by_gi_quality", "Disabled by 'Global Illumination Quality'")
       : null),
     optionCheckBox)
-  blkPath = "graphics/gi/inlineRaytracing"
-  var = rtGIValue
-  setValue = rtgiSetValue
-})
+}.__update(renderSettingsTbl.rtgiEnabled, { var = rtGIValue }))
 
 let optSkiesQuality = optionCtor({
   name = loc("options/skiesQuality", "Atmospheric Scattering Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/skiesQuality"
-  defVal = "medium"
   available = [ "low", "medium", "high" ]
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.skiesQuality))
 
 let optSsaoQuality = optionCtor({
   name = loc("options/ssaoQuality", "Ambient Occlusion Quality")
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/aoQuality"
   available = [ "low", "medium", "high" ]
   valToString = loc_opt
-  defVal = "medium"
   restart = false
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.aoQuality))
+
 let optObjectsDistanceMul = optionCtor({
   name = loc("options/objectsDistanceMul")
   widgetCtor = optionSlider
-  isAvailable = isDevBuild
   tab = "Graphics"
-  blkPath = "graphics/objectsDistanceMul"
-  defVal = 1.0
+  isAvailable = isDevBuild
   min = 0.0 max = 1.5 unit = 0.05 pageScroll = 0.05
   restart = false
   getMoreBlkSettings = function(val){
@@ -319,142 +305,106 @@ let optObjectsDistanceMul = optionCtor({
       {blkPath = "graphics/riExtraMulScale", val = val}
     ]
   }
-})
+}.__update(renderSettingsTbl.objectsDistanceMul))
 
 let optCloudsQuality = optionCtor({
   name = loc("options/cloudsQuality", "Clouds Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/cloudsQuality"
-  defVal = "default"
   available = [ "default", "highres", "volumetric" ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.cloudsQuality))
 
 let optVolumeFogQuality = optionCtor({
   name = loc("options/volumeFogQuality", "Volumetric Fog Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/volumeFogQuality"
-  defVal = "close"
   available = [ "close", "far" ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.volumeFogQuality))
 
 let optWaterQuality = optionCtor({
   name = loc("options/waterQuality", "Water Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/waterQuality"
-  defVal = "low"
   available = [ "low", "medium", "high" ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.waterQuality))
 
 let optGroundDisplacementQuality = optionCtor({
   name = loc("options/groundDisplacementQuality", "Terrain Tessellation Quality")
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/groundDisplacementQuality"
-  defVal = 1
   available = [ 0, 1, 2 ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.groundDisplacementQuality))
 
 let optGroundDeformations = optionCtor({
   name = loc("options/groundDeformations", "Dynamic Terrain Deformations")
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/groundDeformations"
-  defVal = "medium"
   available = [ "off", "low", "medium", "high" ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.groundDeformations))
 
 let optImpostor = optionCtor({
   name = loc("options/impostor", "Impostor quality")
   widgetCtor = optionSpinner
   isAvailable = isDevBuild
   tab = "Graphics"
-  blkPath = "graphics/impostor"
-  defVal = 0
   available = [ 0, 1, 2 ]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.impostor))
 
-enum antiAliasingMode {
-  OFF = 0
-  FXAA = 1,
-  TAA = 2,
-  TSR = 3,
-  DLSS = 4,
-  XESS = 6
-};
+let antiAliasingModeChosen = renderSettingsTbl.antiAliasingModeChosen.var
+let antiAliasingModeChosenUpdate = renderSettingsTbl.antiAliasingModeChosen.setValue
 
-let antiAliasingModeToString = {
-  [antiAliasingMode.OFF]  = { optName = "option/off",  defLocString = "Off" },
-  [antiAliasingMode.FXAA] = { optName = "option/fxaa", defLocString = "FXAA" },
-  [antiAliasingMode.TAA]  = { optName = "option/taa",  defLocString = "Temporal Anti-aliasing" },
-  [antiAliasingMode.TSR]  = { optName = "option/tsr",  defLocString = "Temporal Super Resolution" },
-  [antiAliasingMode.DLSS] = { optName = "option/dlss", defLocString = "NVIDIA DLSS" },
-  [antiAliasingMode.XESS] = { optName = "option/xess", defLocString = "Intel XeSS" },
-}
-
-let antiAliasingModeChoosen = Watched(get_setting_by_blk_path("video/antiAliasingMode")
-    ?? (platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : antiAliasingMode.TAA))
-let antiAliasingModeSetValue = @(v) antiAliasingModeChoosen(v)
-let antiAliasingModeValue = Computed(@() isBareMinimum.value ? antiAliasingMode.FXAA
-                                                             : max(antiAliasingModeChoosen.value, antiAliasingMode.TAA))
-
+if (isBareMinimum.value) antiAliasingModeChosenUpdate(antiAliasingMode.FXAA)
+let antiAliasingModeValue = Computed(@() isBareMinimum.value
+  ? antiAliasingMode.FXAA
+  : max(antiAliasingModeChosen.value, antiAliasingMode.TAA))
 
 let optAntiAliasingMode = optionCtor({
   name = loc("options/antiAliasingMode", "Anti-aliasing Mode")
   widgetCtor = mkDisableableCtor(Computed(@() isBareMinimum.value ? loc("option/fxaa", "FXAA") : null), optionSpinner)
   tab = "Graphics"
   originalVal = antiAliasingModeValue
-  blkPath = "video/antiAliasingMode"
-  isAvailable = @() platform.is_pc || platform.is_nswitch
-  var = antiAliasingModeValue
-  defVal = antiAliasingMode.TAA
-  available = Computed(@() [ platform.is_nswitch ? antiAliasingMode.OFF : null,
-                platform.is_nswitch || isBareMinimum.value ? antiAliasingMode.FXAA : null,
-                !platform.is_nswitch ? antiAliasingMode.TAA : null,
-                !platform.is_nswitch ? antiAliasingMode.TSR : null,
+  isAvailable = @() platform.is_pc
+  available = Computed(@() [isBareMinimum.value ? antiAliasingMode.FXAA : null,
+                antiAliasingMode.TAA,
+                antiAliasingMode.TSR,
                 dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null,
                 xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null ].filter(@(q) q != null))
   valToString = @(v) loc(antiAliasingModeToString[v].optName, antiAliasingModeToString[v].defLocString)
-  setValue = antiAliasingModeSetValue
-})
+}.__update(renderSettingsTbl.antiAliasingModeChosen, { var = antiAliasingModeValue }))
 
 let optTaaQuality = optionCtor({
   name = loc("options/taaQuality", "Temporal Antialiasing Quality")
   isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.TAA)
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
   tab = "Graphics"
-  blkPath = "graphics/taaQuality"
-  defVal = 1
   available = [ 0, 1, 2]
   restart = false
   valToString = loc_opt
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.taaQuality))
 
 let optDlss = optionCtor({
   name = loc("options/dlssQuality", "NVIDIA DLSS Quality")
@@ -491,9 +441,26 @@ let optTaaMipBias = optionCtor({
   tab = "Graphics"
   isAvailableWatched = Computed(@() isOptAvailable() && !isBareMinimum.value)
   widgetCtor = optionSlider
-  blkPath = "graphics/taa_mip_bias"
-  defVal = -0.5
   min = 0 max = -1.2 unit = 0.05 pageScroll = 0.05
+  restart = false
+}.__update(renderSettingsTbl.taaMipBias))
+
+const DYNAMIC_RESOLUTION_BLK_PATH = "video/dynamicResolution/targetFPS"
+const DYNAMIC_RESOLUTION_OFF = 0
+let dynamicResolutionFPS = Watched(get_setting_by_blk_path(DYNAMIC_RESOLUTION_BLK_PATH) ?? DYNAMIC_RESOLUTION_OFF)
+
+let optDynamicResolution = optionCtor({
+  name = loc("options/dynamic_resolution", "Dynamic Resolution")
+  tab = "Graphics"
+  isAvailableWatched = Computed(@() isOptAvailable() && isPcDx12() && antiAliasingModeValue.value == antiAliasingMode.TSR)
+  widgetCtor = optionCombo
+  blkPath = DYNAMIC_RESOLUTION_BLK_PATH
+  defVal = DYNAMIC_RESOLUTION_OFF
+  var = dynamicResolutionFPS
+  setValue = @(v) dynamicResolutionFPS(v)
+  available = [DYNAMIC_RESOLUTION_OFF].extend(fpsList.value.filter(@(v) v != UNLIMITED_FPS_LIMIT))
+  valToString = @(v) v == DYNAMIC_RESOLUTION_OFF ? loc("option/off") : "{0} {1}".subst(v, loc("options/fps", "FPS"))
+  isEqual = defCmp
   restart = false
 })
 
@@ -501,29 +468,27 @@ let optTemporalUpsamplingRatio = optionCtor({
   name = loc("options/temporal_upsampling_ratio", "Temporal Resolution Scale")
   tab = "Graphics"
   isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.TSR)
-  widgetCtor = optionPercentTextSliderCtor
-  blkPath = "video/temporalUpsamplingRatio"
-  defVal = 100.0
+  widgetCtor = mkDisableableCtor(
+    Computed(@() dynamicResolutionFPS.value != DYNAMIC_RESOLUTION_OFF ? loc("options/adaptive", "Adaptive") : null),
+    optionPercentTextSliderCtor)
   min = 25.0
   max = 100.0
   unit = 5.0/75.0
   pageScroll = 5.0
   restart = false
-})
+}.__update(renderSettingsTbl.temporalUpsamplingRatio))
 
 let optStaticResolutionScale = optionCtor({
   name = loc("options/static_resolution_scale", "Static Resolution Scale")
   tab = "Graphics"
   isAvailableWatched = Computed(@() isOptAvailable() && isBareMinimum.value)
   widgetCtor = optionPercentTextSliderCtor
-  blkPath = "video/staticResolutionScale"
-  defVal = get_default_static_resolution_scale()
   min = 50.0
   max = 100.0
   unit = 5.0/50.0
   pageScroll = 5.0
   restart = false
-})
+}.__update(renderSettingsTbl.staticResolutionScale))
 
 let staticResolutionScaleWatched = optStaticResolutionScale.var
 
@@ -532,12 +497,10 @@ let optStaticUplsamplingQuality = optionCtor({
   tab = "Graphics"
   widgetCtor = optionSpinner
   isAvailableWatched = Computed(@() isOptAvailable() && isBareMinimum.value && staticResolutionScaleWatched.value < 100.0)
-  blkPath = "graphics/staticUpsampleQuality"
   available = ["bilinear", "catmullrom", "sharpen"]
-  defVal = "catmullrom"
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.staticUpsampleQuality))
 
 let optGammaCorrection = optionCtor({
   name = loc("options/gamma_correction", "Gamma correction")
@@ -560,108 +523,90 @@ let optTexQuality = optionCtor({
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
   isAvailable = isOptAvailable
   tab = "Graphics"
-  blkPath = "graphics/texquality"
-  defVal = "high"
   available = ["low", "medium", "high"]
   restart = true
   valToString = loc_opt
   isEqual = defCmp
   tooltipText = loc("guiHints/texQuality")
-})
+}.__update(renderSettingsTbl.texQuality))
 
 let optAnisotropy = optionCtor({
   name = loc("options/anisotropy")
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
   tab = "Graphics"
   isAvailable = isOptAvailable
-  blkPath = "graphics/anisotropy"
-  defVal = 4
   available = [1, 2, 4, 8, 16]
   restart = false
   valToString = @(v) (v==1) ? loc("option/off") : $"{v}X"
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.anisotropy))
 
 let optOnlyonlyHighResFx = optionCtor({
   name = loc("options/onlyHighResFx")
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
-  defVal = "combined"
-  blkPath = "graphics/fxTarget"
-  available = ["lowres", "combined", "highres"]
+  available = ["lowres", "highres"]
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.onlyHighResFx))
 
 let optDropletsOnScreen = optionCtor({
   name = loc("options/dropletsOnScreen")
   tab = "Graphics"
-  isAvailable = @() platform.is_pc || platform.is_nswitch
+  isAvailable = @() platform.is_pc
   widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
-  blkPath = "graphics/dropletsOnScreen"
-  defVal = true
   restart = false
-})
+}.__update(renderSettingsTbl.dropletsOnScreen))
 
 let optFXAAQuality = optionCtor({
   name = loc("options/FXAAQuality")
   tab = "Graphics"
   isAvailableWatched = Computed(@() antiAliasingModeValue.value == antiAliasingMode.FXAA)
   widgetCtor = optionSpinner
-  defVal = "medium"
-  blkPath = "graphics/fxaaQuality"
   available = ["low", "medium", "high"]
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.fxaaQuality))
 
 let optSSRQuality = optionCtor({
   name = loc("options/SSRQuality")
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
-  blkPath = "graphics/ssrQuality"
   available = is_dx12() ? ["low", "medium", "high", "ultra"] : ["low", "medium", "high"]
-  defVal = "low"
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.ssrQuality))
 
 let optScopeImageQuality = optionCtor({
   name = loc("options/scopeImageQuality", "Scope Image Quality")
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
-  blkPath = "graphics/scopeImageQuality"
-  defVal = 0
   available = [0, 1, 2, 3]
   valToString = loc_opt
   restart = false
   isEqual = defCmp
-})
+}.__update(renderSettingsTbl.scopeImageQuality))
 
 let optUncompressedScreenshots = optionCtor({
   name = loc("options/uncompressedScreenshots")
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = optionCheckBox
-  blkPath = "screenshots/uncompressedScreenshots"
-  defVal = false
   restart = false
-})
+}.__update(renderSettingsTbl.uncompressedScreenshots))
 
 let optFSR = optionCtor({
   name = loc("options/optFSR", "AMD FidelityFX Super Resolution 1.0")
   tab = "Graphics"
   isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.TAA)
   widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
-  defVal = "off"
-  blkPath = "video/fsr"
   available = ["off", "ultraquality", "quality", "balanced", "performance"]
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.fsr))
 
 
 let optFFTWaterQuality = optionCtor({
@@ -669,32 +614,28 @@ let optFFTWaterQuality = optionCtor({
   tab = "Graphics"
   isAvailable = isOptAvailable
   widgetCtor = mkDisableableCtor(bareLowText, optionSpinner)
-  defVal = "high"
-  blkPath = "graphics/fftWaterQuality"
   available = ["low", "medium", "high", "ultra"]
   restart = false
   valToString = loc_opt
-})
+}.__update(renderSettingsTbl.fftWaterQuality))
 
 let optHQProbeReflections = optionCtor({
   name = loc("options/HQProbeReflections")
   tab = "Graphics"
   isAvailable = @() platform.is_pc
   widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
-  blkPath = "graphics/HQProbeReflections"
-  defVal = true
   restart = false
-})
+}.__update(renderSettingsTbl.hqProbeReflections))
 
 let optSSSS = optionCtor({
   name = loc("options/ssss")
   tab = "Graphics"
-  isAvailable = @() platform.is_pc
-  widgetCtor = mkDisableableCtor(bareOffText, optionCheckBox)
-  blkPath = "graphics/ssss"
-  defVal = false
+  isAvailable = isOptAvailable
+  widgetCtor = mkDisableableCtor(bareOffText, optionSpinner)
+  available = ["off", "low", "high"]
   restart = false
-})
+  valToString = loc_opt
+}.__update(renderSettingsTbl.ssss))
 
 return {
   resolutionToString
@@ -763,6 +704,7 @@ return {
     optAntiAliasingMode,
     optTaaQuality,
     optTaaMipBias,
+    optDynamicResolution,
     optTemporalUpsamplingRatio,
     optStaticResolutionScale,
     optStaticUplsamplingQuality,

@@ -13,18 +13,14 @@ let { mkShopGroup, mkShopItem } = require("shopPackage.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { shopItemContentCtor, curUnseenAvailShopGuids } = require("armyShopState.nut")
-let { mkBlinkNotifier } = require("%ui/components/unseenComponents.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 
 let smallOffset = (columnGap / 3).tointeger()
 let contentWidth = colFull(18)
-let notifier = mkBlinkNotifier().__update({
-  margin = smallOffset
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_TOP
-})
+let blinkUnseenIcon = blinkUnseen.__merge({ margin = smallOffset })
 
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
@@ -97,7 +93,7 @@ let function mkShopItemCard(sItem, offers, army) {
       watch = [crateContent, curUnseenAvailShopGuids, needFreemiumStatus, allItemTemplates]
       children = [
         mkShopItem(guid, sItem, offer, content, templates, lockTxt, clickCb, hoverCb)
-        hasNotifier ? notifier : null
+        hasNotifier ? blinkUnseenIcon : null
       ]
     }
   }

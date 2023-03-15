@@ -4,6 +4,7 @@ sound_effect{
   _group{
     _tags:t="sound"
     sound_control__range:r=0.0
+    sound_control__autoRange:b=yes
   }
 
   _group{
@@ -17,17 +18,26 @@ sound_effect{
   }
 }
 
-moveable_sound_effect_tag{
+moveable_sound_effect{
 
   "movableSoundEffect:tag"{
     _tags:t="sound"
   }
 }
 
-watchable_sound_effect_tag{
+watchable_sound_effect{
 
   "watchableSoundEffect:tag"{
     _tags:t="sound"
+  }
+}
+
+sound_effect_speed_var{
+
+  _group{
+    _tags:t="sound"
+    sound_effect_speed_var__pos:p3=0.0, 0.0, 0.0
+    sound_effect_speed_var__speedToVar:p4=0.0, 10.0, 0.0, 100.0
   }
 }
 
@@ -42,15 +52,6 @@ sound_effect_2d{
 
     "sound_effect_2d__event:SoundEvent"{
     }
-  }
-}
-
-sound_effect_speed{
-
-  _group{
-    _tags:t="sound"
-    sound_effect_speed__pos:p3=0.0, 0.0, 0.0
-    sound_effect_speed__speedToVar:p4=0.0, 10.0, 0.0, 100.0
   }
 }
 

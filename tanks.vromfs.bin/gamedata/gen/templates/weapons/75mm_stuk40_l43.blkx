@@ -66,5 +66,6 @@ tankgun_75mm_stuk40_l43{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_75mm_stuk40_l43"
+  _extends:t="gunsound_75mm_stuk40_l43"
   turret__triggerGroup:i=0
 }

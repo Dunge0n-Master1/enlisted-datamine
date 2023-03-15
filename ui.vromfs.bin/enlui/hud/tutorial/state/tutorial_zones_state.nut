@@ -23,6 +23,9 @@ ecs.register_es("tutorial_zone_stats_ui_es",
   },
   {
     comps_track = [["tutorial_zone__active", ecs.TYPE_BOOL]],
+    comps_ro = [
+      ["tutorial_zone__icon", ecs.TYPE_STRING, "waypoint"],
+    ],
     comps_rq = ["tutorialZone"],
     comps_no = ["tutorial_zone__hideWaypoint"]
   }

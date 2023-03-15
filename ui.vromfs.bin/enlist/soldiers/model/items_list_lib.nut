@@ -123,7 +123,6 @@ let function addShopItems(items, armyId, templateFilter = @(_templateId, _templa
   foreach (templateId, template in (allItemTemplates.value?[armyId] ?? {})) {
     if (usedTemplates?[templateId]
         || (template?.isZeroHidden ?? false)
-        || (("armies" in template) && template.armies.indexof(armyId) == null)
         || !templateFilter(templateId, template))
       continue
 

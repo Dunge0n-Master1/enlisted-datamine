@@ -1,0 +1,413 @@
+item_with_owner{
+  _replicated:t="item__ownerEid"
+  _replicated:t="item__lastOwner"
+  _tracked:t="item__ownerEid"
+  _tracked:t="item__lastOwner"
+
+  "item__ownerEid:eid"{
+  }
+
+  "item__lastOwner:eid"{
+  }
+}
+
+controllable_hero_item{
+
+  "item__owned_controllable_hero:tag"{
+  }
+}
+
+base_item{
+  _extends:t="item_with_owner"
+  _extends:t="replicating"
+  item__id:i=0
+  item__iconYaw:r=45.0
+  item__iconPitch:r=0.0
+  item__iconRoll:r=0.0
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+  item__ui_priority:i=0
+  item__lootType:t="item"
+  item__alreadyLooted:b=no
+  item__isOnGround:b=no
+  item__visibleCheckHeight:r=0.5
+  item__recreateOnGround:t="item_in_world"
+  item__recreateInInventory:t=""
+  hide_counter:i=0
+  _replicated:t="item__id"
+  _replicated:t="item__isOnGround"
+  shreddableInDarkZone:b=yes
+
+  "customProps:object"{
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+}
+
+visibility_traceable_item{
+  item__visible:b=no
+  _tracked:t="item__visible"
+
+  "traceVisibility:tag"{
+  }
+}
+
+visibility_traceable_item_cache{
+  lastVisibilityTraceTime:r=0.0
+  lastVisibilityTraceOffset:i=0
+}
+
+ui_visible{
+
+  "ui_visible:tag"{
+    _tags:t="render"
+  }
+}
+
+nonreplicated_tm_item_in_world{
+  _extends:t="animchar"
+  _extends:t="visibility_traceable_item_cache"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  item__isOnGround:b=yes
+  animchar__updatable:b=no
+  spawnedInRegion:t=""
+  net__scopeDistanceSq:r=2500.0
+  ui__visibility_distance_sq:r=100.0
+  grid_obj__gridType:t="loot"
+  grid_obj__fixedTmScale:r=-1.0
+
+  grid_obj{
+  }
+
+  collres{
+  }
+
+  "item__isPickable:tag"{
+  }
+
+  _group{
+    _tags:t="ui"
+    hud_marker__max_distance:r=10.0
+  }
+}
+
+item_in_world{
+  _extends:t="nonreplicated_tm_item_in_world"
+  _extends:t="disable_update"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _replicated:t="transform"
+  _replicated:t="item__isOnGround"
+  item__isOnGround:b=yes
+
+  "itemInWorld:tag"{
+  }
+}
+
+default_item_ui_info{
+  item__iconYaw:r=45.0
+  item__iconPitch:r=0.0
+  item__iconRoll:r=0.0
+  item__iconOffset:p2=0.0, 0.0
+  item__iconScale:r=1.0
+  item__ui_priority:i=0
+  item__lootType:t="item"
+  item__alreadyLooted:b=no
+}
+
+attached_to_parent{
+
+  "attachedToParent:tag"{
+  }
+}
+
+equipable_item{
+  _extends:t="ecs_no_debug"
+  _extends:t="base_item"
+  _extends:t="default_item_ui_info"
+  _extends:t="replicating"
+  slot_attach__slotId:i=-1
+  _tracked:t="slot_attach__slotId"
+  _replicated:t="slot_attach__slotId"
+  item__recreateOnGround:t="item_in_world"
+  item__recreateInEquipment:t="base_vis_item"
+  shreddableInDarkZone:b=yes
+
+  "slot_attach:tag"{
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  collres{
+  }
+}
+
+heal_anim_item{
+  item__healAnimEnumValue:i=-1
+  item__healTargetAnimEnumValue:i=-1
+}
+
+hidden_equipped_item{
+  _extends:t="slot_attachable"
+  slot_attach__visible:b=no
+  _tracked:t="slot_attach__visible"
+  animchar_render__enabled:b=no
+}
+
+item_with_animchar_updatable{
+  _extends:t="base_item"
+}
+
+item{
+  _extends:t="ecs_no_debug"
+  _extends:t="item_with_animchar_updatable"
+
+  "animchar__actOnDemand:tag"{
+  }
+}
+
+base_map_highlight{
+  map_highlight__type:t=""
+  map_highlight__template:t=""
+  map_highlight__visible:b=no
+  map_highlight__enabled:b=yes
+  map_highlight__disableWhenOwned:b=yes
+}
+
+scope_map_icon{
+  map_marker__image:t="!ui/skin#map_mole.svg"
+}
+
+scope_highlight{
+  _extends:t="base_map_highlight"
+  map_highlight__type:t="scope"
+  map_highlight__template:t="scope_map_icon"
+}
+
+item_scope{
+  _extends:t="item"
+  _extends:t="scope_highlight"
+  item__iconYaw:r=90.0
+  item__lootType:t="scope"
+}
+
+item_perk{
+  _extends:t="equipable_item"
+  item__lootType:t="mod"
+}
+
+item_bag{
+  _extends:t="equipable_item"
+  item__lootType:t="bag"
+  item__pickupScore:r=-1.0
+  _replicated:t="item__pickupScore"
+}
+
+item_armor{
+  _extends:t="equipable_item"
+  item__lootType:t="armor"
+  item__lootSoundType:t="armor"
+  item__iconPitch:r=25.0
+  item__iconYaw:r=-90.0
+  item__iconRoll:r=90.0
+  item__pickupScore:r=-1.0
+  _replicated:t="item__pickupScore"
+}
+
+helmet_item{
+  _extends:t="item"
+  _extends:t="equipable_item"
+  animchar_hider__camThreshold:r=0.3
+  slot_attach__slotName:t="head_armor"
+  item__iconYaw:r=0.0
+  item__iconPitch:r=0.0
+  item__iconRoll:r=0.0
+  item__lootSoundType:t="armor"
+  item__lootType:t="armor"
+  item__pickupScore:r=-1.0
+
+  "item__equipToSlots:array"{
+    slot:t="head"
+  }
+
+  "hides:array"{
+    hides:t="hair"
+  }
+
+  "item__armoredParts:array"{
+    part:t="Bip01 Head"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="helmet"
+  }
+}
+
+loot_box_item{
+  _extends:t="item_with_animchar_updatable"
+  _extends:t="replicating"
+  item__proto:t="content/common/gamedata/items/loot_box.blk"
+  outline__enabled:b=no
+  outline__color:c=255, 255, 255, 255
+  item__rarityColor:c=138, 43, 226, 255
+  animchar__res:t="medkit_char"
+  collres__res:t="medkit_collision"
+  grid_obj__gridType:t="loot"
+  grid_obj__fixedTmScale:r=-1.0
+
+  grid_obj{
+  }
+
+  collres{
+  }
+
+  "container_contents_chances:object"{
+    steel_helm_item:r=0.8
+    scope_pu_item:r=0.5
+  }
+}
+
+burnable_vis_item{
+  burning_effect:r=0.0
+  _tracked:t="burning_effect"
+}
+
+base_local_invis_item{
+  _extends:t="item_with_owner"
+  _extends:t="slot_attachable_no_slotname"
+  _extends:t="burnable_vis_item"
+  slot_attach__visible:b=yes
+  _replicated:t="slot_attach__visible"
+  _tracked:t="slot_attach__visible"
+  animchar_render__enabled:b=yes
+  hide_counter:i=0
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+}
+
+base_local_vis_item{
+  _extends:t="animchar"
+  _extends:t="base_local_invis_item"
+}
+
+base_vis_item{
+  _extends:t="base_local_vis_item"
+  _extends:t="replicating"
+
+  "net__notInInitialScope:tag"{
+  }
+}
+
+base_vis_item_with_fast_phys{
+  _extends:t="base_vis_item"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+base_vis_item_with_animchar_effect{
+  _extends:t="base_vis_item"
+
+  animchar_effect{
+    _tags:t="render"
+  }
+}
+
+base_collres_vis_item{
+  _extends:t="base_vis_item"
+
+  collres{
+  }
+}
+
+base_skeleton_attach{
+
+  "skeleton_attach__skeletonRemap:list<u16>"{
+  }
+
+  "skeleton_attach__skeletonRecalcBranch:list<u8>"{
+  }
+}
+
+skeleton_attached{
+  skeleton_attach__attached:b=no
+  _replicated:t="skeleton_attach__attached"
+  _replicated:t="skeleton_attach__attachedTo"
+  _tracked:t="skeleton_attach__attachedTo"
+
+  "skeleton_attach__attachedTo:eid"{
+  }
+}
+
+attachable_wear_without_collres_animchar{
+  _extends:t="ecs_no_debug"
+  _extends:t="skeleton_attached"
+  _extends:t="disable_update"
+  item__recreateInEquipment:t=""
+  animchar__updatable:b=no
+  paintColor:p4=1.0, 1.0, 1.0, 0.0
+  _tracked:t="paintColor"
+}
+
+attachable_wear{
+  _extends:t="attachable_wear_without_collres_animchar"
+  _extends:t="base_collres_vis_item"
+}
+
+hair_item{
+  _extends:t="item"
+  slot_attach__visible:b=yes
+  animchar_render__enabled:b=yes
+}
+
+item_usable_in_water{
+
+  "item__canUseUnderWater:tag"{
+  }
+
+  "item__canUseWhileSwimming:tag"{
+  }
+
+  "item__canUseWhileSwimmingStill:tag"{
+  }
+}
+
+vr_one_hand{
+  hand_num:i=0
+  _extends:t="animchar"
+  animchar__res:t="vr_l_hand_char"
+  animchar_render__enabled:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "vrHand:tag"{
+  }
+}
+
+vr_hands{
+  _tags:t="render,input"
+  _singleton:b=yes
+  vr_hands__model_name_l:t="vr_l_hand_char"
+  vr_hands__model_name_r:t="vr_r_hand_char"
+
+  "vr_hands:vr::VrHands"{
+  }
+
+  "leftAnimchar:eid"{
+  }
+
+  "rightAnimchar:eid"{
+  }
+
+  vr_hands_input{
+    _tags:t="input"
+  }
+
+  input{
+    _tags:t="input"
+  }
+}

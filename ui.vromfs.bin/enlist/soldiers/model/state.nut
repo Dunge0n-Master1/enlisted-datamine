@@ -35,7 +35,6 @@ let setPlayerSelectedSquads = playerSelectedSquadsStorage.setValue
 let playerSelectedSquads = playerSelectedSquadsStorage.watch
 let roomArmy = mkWatched(persist, "roomArmy", null)
 
-
 let allAvailableArmies = Computed(function() {
   let res = {}
   foreach (campaign in unlockedCampaigns.value)
@@ -146,7 +145,7 @@ let squadsByArmy = Computed(function() {
         let curVehicle = vehicleBySquad.value?[squadGuid]
         squad = squad.__merge(mixSquadData(config, presentations?[squadId]))
         if ((config?.battleExpBonus ?? 0) > 0) {
-          squad.premIcon <- armiesPresentation?[armyId].premIcon
+          squad.premIcon = squad.premIcon ?? armiesPresentation?[armyId].premIcon
           squad.battleExpBonus <- config.battleExpBonus
         }
         squad.vehicle <- objInfoByGuid.value?[curVehicle?.guid]
@@ -445,9 +444,9 @@ let DROP_COMMANDS = {
                              "impact_grenade", "smoke_grenade", "incendiary_grenade"]
   addAllMines             = ["antipersonnel_mine", "antitank_mine", "lunge_mine"]
   addAllRepairKits        = ["repair_kit"]
-  addAllMelee             = ["melee"]
+  addAllMelee             = ["melee", "shovel", "axe", "sword"]
   addAllBayonet           = ["bayonet"]
-  addAllBackpacks         = ["backpack"]
+  addAllBackpacks         = ["backpack", "small_backpack"]
   addAllBinoculars        = ["binoculars_usable"]
   addAllFlasks            = ["flask_usable"]
 }
@@ -487,7 +486,6 @@ return {
   armies
   curCampSquads
   curCampItems
-  curCampSoldiers
   curSquadId
   setCurSquadId
   curUnlockedSquads

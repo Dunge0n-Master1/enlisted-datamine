@@ -9,10 +9,12 @@ require DaWeaponProps
 require turrets
 require common_shooter.es.forestall_common
 require common_shooter.events_common_shooter
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require game.utils.team
 require walkerai
 require EnlistedNet
+require AnimV20
+require GeomNodeTree
 
 struct AiGunnerTarget
   pos : float3 = float3(0, 0, 0)
@@ -31,32 +33,29 @@ def get_forestall_or(owner_pos, owner_vel, target_pos, target_vel : float3; gun_
 
 def find_target(ignore_eid : EntityId;
                 owner_team : int;
-                owner_pos : float3;
-                init_dir : float3;
+                turret_itm : float3x4;
                 min_dist : float;
                 max_dist : float;
                 limit_angles_deg : float4) : EntityId
   var target = INVALID_ENTITY_ID
   var minDistanceToTargetSq = square(max_dist)
   let minDistanceSq = square(min_dist)
-  let initAngles = dir_to_angles(init_dir)
+  let limits = deg_to_rad(limit_angles_deg)
 
   query() <| $ [es(REQUIRE=ai_target__targetForAiGunner)] (eid : EntityId; team : int; ai_target : Target; isInVehicleHidden : bool = false)
     if ignore_eid == eid || !ai_target.isAlive || team == TEAM_UNASSIGNED || is_teams_friendly(owner_team, team) || isInVehicleHidden
       return
 
-    let distanceToTargetSq = distance_sq(ai_target.targetPos, owner_pos)
+    let localDirToTarget = turret_itm * ai_target.targetPos
+    let distanceToTargetSq = length_sq(localDirToTarget)
     if distanceToTargetSq > minDistanceToTargetSq || distanceToTargetSq < minDistanceSq
       return
 
-    let dir = ai_target.targetPos - owner_pos
-    let angles = dir_to_angles(dir)
-    let yaw = renorm_ang(angles.x, initAngles.x)
-    let pitch = renorm_ang(angles.y, initAngles.y)
-    let limits = deg_to_rad(limit_angles_deg)
+    let angles = dir_to_angles(localDirToTarget)
+    let yaw = angles.x
+    let pitch = angles.y
 
-    if (yaw < initAngles.x + limits[0] || yaw > initAngles.x + limits[1] ||
-        pitch < initAngles.y + limits[2] || pitch > initAngles.y + limits[3])
+    if yaw < limits[0] || yaw > limits[1] || pitch < limits[2] || pitch > limits[3]
       return
 
     minDistanceToTargetSq = distanceToTargetSq
@@ -66,21 +65,19 @@ def find_target(ignore_eid : EntityId;
 
 def find_atack_target(ignore_eid : EntityId;
                       owner_team : int;
-                      owner_pos : float3;
-                      init_dir : float3;
+                      turret_itm : float3x4;
                       min_dist : float;
                       max_dist : float;
                       limit_angles_deg : float4) : EntityId
-  return find_target(ignore_eid, owner_team, owner_pos, init_dir, min_dist, max_dist, limit_angles_deg)
+  return find_target(ignore_eid, owner_team, turret_itm, min_dist, max_dist, limit_angles_deg)
 
 def find_chase_target(ignore_eid : EntityId;
-                      owner_pos : float3;
-                      init_dir : float3;
+                      turret_itm : float3x4;
                       min_dist : float;
                       max_dist : float;
                       limit_angles_deg : float4) : EntityId
   let owner_team = TEAM_UNASSIGNED
-  return find_target(ignore_eid, owner_team, owner_pos, init_dir, min_dist, max_dist, limit_angles_deg)
+  return find_target(ignore_eid, owner_team, turret_itm, min_dist, max_dist, limit_angles_deg)
 
 def get_target_pos(owner_pos, owner_vel : float3; gun_eid, target_eid : EntityId)
   var target = AiGunnerTarget()
@@ -98,36 +95,45 @@ def get_target_pos(owner_pos, owner_vel : float3; gun_eid, target_eid : EntityId
 def ai_gunner_find_target(info : UpdateStageInfoAct;
                           gun__owner : EntityId;
                           turret__owner : EntityId;
+                          turret__aimNodeId : int;
                           turret_ai__targetCheckInterval : float;
                           turret_ai__identDist : float;
                           turret_ai__atackDist : float;
                           turret_ai__atackMinDist : float = 0.f;
-                          turret__limit : float4 const?;
-                          turret_ai__limitAngles : float4;
+                          turret__limit : float4 = float4(-180, 180, -180, 180);
+                          turret_ai__limitAngles : float4 const?;
                           var turret_aim__target : EntityId&;
                           var turret_ai__atackTarget : EntityId&;
                           var turret_ai__chaseTarget : EntityId&;
                           var turret_ai__nextTargetCheckAtTime : float&)
-  query(gun__owner) <| $ [es(REQUIRE_NOT=deadEntity)] (transform : float3x4;
-                                                       team : int)
-    if info.curTime < turret_ai__nextTargetCheckAtTime
+  query(gun__owner) <| $ [es(REQUIRE_NOT=deadEntity)] (team : int)
+    if info.curTime < turret_ai__nextTargetCheckAtTime || turret__aimNodeId < 0
       return
 
     turret_ai__nextTargetCheckAtTime = info.curTime + turret_ai__targetCheckInterval
 
-    let shootFromPos = transform[3]
-    let initShootDir = transform[0]
-    let limit = turret__limit ?? turret_ai__limitAngles
+    query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
+      let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, turret__aimNodeId)
+      if parNodeId >= 0
+        var tm : float3x4
+        var wt : float3x4
 
-    turret_ai__atackTarget = find_atack_target(turret__owner, team, shootFromPos, initShootDir, turret_ai__atackMinDist, turret_ai__atackDist, limit)
-    turret_ai__chaseTarget = INVALID_ENTITY_ID
-    turret_aim__target = turret_ai__atackTarget
+        *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
+        *animchar.nodeTree |> geomtree_getNodeWtmScalar(parNodeId, wt)
 
-    if !turret_ai__atackTarget
-      turret_ai__chaseTarget = find_atack_target(turret__owner, team, shootFromPos, initShootDir, turret_ai__atackMinDist, turret_ai__identDist, limit)
+        let turretItm = inverse(wt * tm)
 
-    if !turret_ai__chaseTarget
-      turret_ai__chaseTarget = find_chase_target(turret__owner, shootFromPos, initShootDir, turret_ai__atackMinDist, turret_ai__identDist, limit)
+        let limit = turret_ai__limitAngles ?? turret__limit
+
+        turret_ai__atackTarget = find_atack_target(turret__owner, team, turretItm, turret_ai__atackMinDist, turret_ai__atackDist, limit)
+        turret_ai__chaseTarget = INVALID_ENTITY_ID
+        turret_aim__target = turret_ai__atackTarget
+
+        if !turret_ai__atackTarget
+          turret_ai__chaseTarget = find_atack_target(turret__owner, team, turretItm, turret_ai__atackMinDist, turret_ai__identDist, limit)
+
+        if !turret_ai__chaseTarget
+          turret_ai__chaseTarget = find_chase_target(turret__owner, turretItm, turret_ai__atackMinDist, turret_ai__identDist, limit)
 
 [es(tag=server, after=ai_gunner_find_target, before=before_net_phys_sync)]
 def ai_gunner_activate_turret_target(info : UpdateStageInfoAct)

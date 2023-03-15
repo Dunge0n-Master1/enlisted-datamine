@@ -1,6 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 
+let {CmdDevSquadsData, mkCmdSetMySquadsData,
+  CmdTutorialSquadsData, CmdProfileJwtData, CmdGetMySquadsData} = require("%enlSqGlob/sqevents.nut")
 let {TEAM_UNASSIGNED} = require("team")
 let {logerr} = require("dagor.debug")
 let { loadJson } = require("%sqstd/json.nut")
@@ -180,7 +182,7 @@ let playerComps = {
 }
 
 ecs.register_es("client_profile_dev_es", {
-  [ecs.sqEvents.CmdDevSquadsData] = function(evt, eid, comp) {
+  [CmdDevSquadsData] = function(evt, eid, comp) {
     // This is paranoid checks now.
     // dev_profile_full.nut has been removed from production dedicated vroms
     let isSandbox = app_is_offline_mode()
@@ -198,7 +200,7 @@ ecs.register_es("client_profile_dev_es", {
 let is_tutorialQuery = ecs.SqQuery("is_tutorialQuery",  {comps_rq = ["isTutorial"]})
 let getTutorialProfileQuery = ecs.SqQuery("getTutorialProfileQuery", {comps_ro=[["tutorial__profile", ecs.TYPE_STRING]]})
 ecs.register_es("client_profile_tutorial_es", {
-  [ecs.sqEvents.CmdTutorialSquadsData] = function(evt, eid, comp) {
+  [CmdTutorialSquadsData] = function(evt, eid, comp) {
     let isTutorial = (is_tutorialQuery.perform(@(eid, _comp) eid) ?? ecs.INVALID_ENTITY_ID) != ecs.INVALID_ENTITY_ID
     if (isTutorial) {
       let id = getTutorialProfileQuery.perform(@(_, comp) comp["tutorial__profile"]) ?? "def"
@@ -211,7 +213,7 @@ ecs.register_es("client_profile_tutorial_es", {
 
 let getCustomProfileQuery = ecs.SqQuery("getCustomProfileQuery", {comps_ro=[["customProfile", ecs.TYPE_STRING]]})
 ecs.register_es("client_profile_jwt_es", {
-  [ecs.sqEvents.CmdProfileJwtData] = function(evt, eid, comp) {
+  [CmdProfileJwtData] = function(evt, eid, comp) {
     let customProfile = getCustomProfileQuery(@(_eid, comp) comp["customProfile"])
     let porfileCb = customProfile ? @() loadJson(customProfile) : @() unpackArmiesFromJwt(comp.userid, evt.data?.jwt)
     updateProfileImpl(evt, eid, comp, porfileCb)
@@ -279,11 +281,11 @@ let function onGetMySquadsData(evt, eid, comp) {
   }
 
   log($"Send squads data to player by request. PlayerEid = {eid}")
-  ecs.server_send_event(eid, ecs.event.CmdSetMySquadsData(comp.armies), [comp.connid])
+  ecs.server_send_event(eid, mkCmdSetMySquadsData(comp.armies), [comp.connid])
 }
 
 ecs.register_es("client_profile_requested_es",
-  { [ecs.sqEvents.CmdGetMySquadsData] = onGetMySquadsData },
+  { [CmdGetMySquadsData] = onGetMySquadsData },
   { comps_ro = [
       ["connid", ecs.TYPE_INT],
       ["armies", ecs.TYPE_OBJECT],

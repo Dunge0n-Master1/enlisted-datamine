@@ -53,7 +53,7 @@ setToolboxShowMsgbox(showMsgbox)
 let useSources = dgs_get_settings()?.debug.useAddonVromSrc ?? false
 let getLevelsList = @() scan_folder({root="levels", vromfs = !useSources, realfs = useSources, recursive = true, files_suffix=".blk"}).sort()
 
-const MODS_PREFABS_PATH = "content/ugm_scenes"
+const MODS_PREFABS_PATH = "content/enlisted_extra/ugm_scenes"
 let getPrefabsList = @() scan_folder({root=MODS_PREFABS_PATH, vromfs = !useSources, realfs = useSources, recursive = true, files_suffix=".blk"}).sort()
 
 console_register_command(

@@ -2,14 +2,26 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { to_string } = require("json")
 let { file } = require("io")
-let { file_exists } = require("dagor.fs")
+let { dir_exists } = require("dagor.fs")
 let { gen_default_profile, gen_tutorial_profiles } = require("%enlist/meta/clientApi.nut")
 let { logerr } = require("dagor.debug")
 
 let function prepareProfileData(profile) {
+  let deleteSoldierKeys = [
+    "bodyScale", // used in menu only
+    "perkPoints", // used in menu only
+    "perksCount", // used in menu only
+    "heroTpl", // used in menu only
+    "appearance__rndSeed", // if appearance__rndSeed is not set, a random one will be used. we don't need persistent looks for non player profiles
+  ]
   foreach (armyData in profile) {
     if (armyData?["armyProgress"] != null)
       delete armyData?["armyProgress"]
+    foreach (squad in armyData?.squads ?? [])
+      foreach (soldier in squad?.squad ?? [])
+        foreach (key in deleteSoldierKeys)
+          if (soldier?[key] != null)
+            delete soldier[key]
   }
 
   local isSuccess = true
@@ -24,22 +36,22 @@ let function prepareProfileData(profile) {
   return isSuccess
 }
 
-let function saveProfileImpl(profile, fileName, folderName = "sq_globals") {
-  local filePath = $"../prog/{folderName}/data/{fileName}"
-  if (!file_exists(filePath))
-    filePath = fileName
+let function saveProfileImpl(profile, fileName, folderName = "sq_globals", pretty = true) {
+  local filePath = $"../prog/{folderName}/data"
+  filePath = dir_exists(filePath) ? $"{filePath}/{fileName}" : fileName
   let output = file(filePath, "wt+")
-  output.writestring("return ");
-  output.writestring(to_string(profile, true))
+  if (fileName.endswith(".nut"))
+    output.writestring("return ");
+  output.writestring(to_string(profile, pretty))
   output.close()
   console_print($"Saved to {filePath}")
 }
 
-let function saveOneProfile(profile, fileName, folderName = "sq_globals") {
+let function saveOneProfile(profile, fileName, pretty = true, folderName = "sq_globals") {
   if (profile == null)
     return
   if (prepareProfileData(profile))
-    saveProfileImpl(profile, fileName, folderName)
+    saveProfileImpl(profile, fileName, folderName, pretty)
 }
 
 let function saveProfilePack(profiles, to_file) {
@@ -63,19 +75,39 @@ let function startProgress(title) {
 }
 let stopProgress = @(id) console_command($"console.progress_indicator {id}")
 
-console_register_command(function() {
+console_register_command(function(isPretty = true) {
+  let prgId = startProgress("meta.genDefaultProfile")
+  gen_default_profile("default", defProfileArmies, function(res) {
+    stopProgress(prgId)
+    let { defaultProfile = null } = res
+    if (defaultProfile == null)
+      return
+    foreach(armyId, armyData in defaultProfile) {
+      let profile = { [armyId] = armyData }
+      saveOneProfile(profile, $"{armyId}.json", !!isPretty, "enlisted_pkg_dev/default")
+    }
+  })
+}, "meta.genDefaultProfile")
+
+console_register_command(function(isPretty = true) {
   let prgId = startProgress("meta.genDevProfile")
   gen_default_profile("dev", defProfileArmies, function(res) {
     stopProgress(prgId)
-    saveOneProfile(res?.defaultProfile, "dev_profile.nut", "enlisted_pkg_dev/game")
+    let { defaultProfile = null } = res
+    if (defaultProfile == null)
+      return
+    foreach(armyId, armyData in defaultProfile) {
+      let profile = { [armyId] = armyData }
+      saveOneProfile(profile, $"{armyId}.json", !!isPretty, "enlisted_pkg_dev/game")
+    }
   })
 }, "meta.genDevProfile")
 
-console_register_command(function() {
+console_register_command(function(isPretty = true) {
   let prgId = startProgress("meta.genBotsProfile")
   gen_default_profile("bots", defProfileArmies, function(res) {
     stopProgress(prgId)
-    saveOneProfile(res?.defaultProfile, "bots_profile.nut")
+    saveOneProfile(res?.defaultProfile, "bots_profile.nut", !!isPretty)
   })
 }, "meta.genBotsProfile")
 

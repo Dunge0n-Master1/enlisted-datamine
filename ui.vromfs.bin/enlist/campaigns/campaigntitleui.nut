@@ -7,15 +7,16 @@ let { colFull, panelBgColor, midPadding, smallPadding, accentColor, titleTxtColo
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkColoredGradientY, mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let campaignSelectWnd = require("campaign_select_wnd.nut")
+let campaignSelectWnd = require("%enlist/campaigns/chooseCampaignWnd.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defcomponents.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, canChangeCampaign } = require("%enlist/meta/curCampaign.nut")
 let { unseenCampaigns } = require("unseenCampaigns.nut")
-let { smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { curArmyLevel, curArmyExp, curArmyLevels
 } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { maxCampaignLevel } = require("%enlist/soldiers/model/state.nut")
+let { safeAreaVerPadding } = require("%enlSqGlob/safeArea.nut")
 
 
 let faComp = require("%ui/components/faComp.nut")
@@ -88,11 +89,7 @@ let campaignButton = @(text, hasNotifier, sf) {
       rendObj = ROBJ_TEXT
       text = loc(text)
     }.__update(largeTxtStyle)
-    !hasNotifier ? null : smallUnseenBlink.__merge({
-      margin = midPadding
-      vplace = ALIGN_TOP
-      hplace = ALIGN_RIGHT
-    })
+    !hasNotifier ? null : blinkUnseen
   ]
 }
 
@@ -181,7 +178,7 @@ let function mkCampaignInfo() {
         rendObj = ROBJ_IMAGE
         image = wndGradient
         size = [sw(100), sh(100)]
-        padding = [campaignBtnHeight, 0,0,0]
+        padding = [campaignBtnHeight + safeAreaVerPadding.value, 0,0,0]
         animations = dropDownAnim
         transform = expandedPosition
         transitions = expandAnimation

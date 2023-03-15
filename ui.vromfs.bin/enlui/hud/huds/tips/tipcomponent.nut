@@ -4,6 +4,7 @@ let {body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {HUD_TIPS_FG} = require("%ui/hud/style.nut")
 let { controlHudHint, mkHasBinding } = require("%ui/components/controlHudHint.nut")
 
+
 let function text_hint(text, params={}) {
   let res = {
     rendObj = ROBJ_TEXT
@@ -57,7 +58,7 @@ let function tipCmp(params) {
   if (text == null && inputId == null)
     return null
 
-  animations = [].extend(animations).extend(params?.extraAnimations ?? [])
+  animations = [].extend(animations, params?.extraAnimations ?? [])
   let textCmp = text != null ? text_hint(text, params) : null
   let inputHintBlock = mkInputHintBlock(inputId, textCmp ? padding : null)
   return tipBack.__merge({

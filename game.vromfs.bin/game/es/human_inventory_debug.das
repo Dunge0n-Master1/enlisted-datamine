@@ -1,6 +1,7 @@
 options no_aot
 
 require ecs
+require ecs.safe
 require game.es.net_console_macro
 require daslib/strings_boost
 require danetlibs.console_commands.main.console_common
@@ -18,6 +19,8 @@ def inventory_create_owned_item_debug_cmd(item_template : string;
 [net_console_cmd(name="inventory.create_weap_slot_item", hint="Create entity, set hero as owner and put to weapon slot")]
 def inventory_create_weap_slot_item_debug_cmd(item_template : string;
                                               gun_slot_id : int;
+                                              ammo_index : int = 0;
+                                              ammo_count : int = 5;
                                               [[net_hero]] hero_eid : EntityId)
   query(hero_eid) <| $ [es] (var human_weap__gunEids : EidList)
     destroyEntity(human_weap__gunEids[gun_slot_id])
@@ -25,6 +28,23 @@ def inventory_create_weap_slot_item_debug_cmd(item_template : string;
       set(init, "item__lastOwner", hero_eid)
       set(init, "item__ownerEid", hero_eid)
       set(init, "gun__owner", hero_eid)
+
+    var gunTemplate = getTemplateByName(item_template)
+    if gunTemplate == null
+      gunTemplate = buildTemplateByName(item_template)
+      if gunTemplate == null
+        return
+
+    let gunAmmoHolders = get_ecs_array(getTemplateComponent(*gunTemplate, "gun__ammoHolders"))
+
+    let ammoTemplate = gunAmmoHolders?[ammo_index] ?? ""
+    if ammoTemplate == ""
+      return
+
+    for _i in range(0, ammo_count)
+      createEntity(ammoTemplate) <| $(var init : ComponentsInitializer)
+        set(init, "item__ownerEid", hero_eid)
+
 
 [console_processor]
 def inventory_create_owned_item_debug_cmd_processor(args : array<string>;

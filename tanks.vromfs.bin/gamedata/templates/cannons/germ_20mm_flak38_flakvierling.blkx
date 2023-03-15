@@ -78,7 +78,6 @@ tankgun_flak38_flakvierling_20mm_kwk30_ul{
   _extends:t="tankgun_20mm_kwk30"
   _extends:t="base_2_0cm_flakvierling_38_ul"
   gun__shootNodeName:t="bone_gun_barrel_ul"
-  turret_ai__limitAngles:p4=-360.0, 360.0, 7.5, 25.0
   turret__limit:p4=-180.0, 180.0, 7.5, 87.0
   turret__yawSpeed:r=90.0
   turret__pitchSpeed:r=45.0
@@ -92,27 +91,24 @@ tankgun_flak38_flakvierling_20mm_kwk30_ur{
   _extends:t="tankgun_20mm_kwk30"
   _extends:t="base_2_0cm_flakvierling_38_ur"
   gun__shootNodeName:t="bone_gun_barrel_ur"
-  turret_ai__limitAngles:p4=-360.0, 360.0, 7.5, 25.0
 }
 
 tankgun_flak38_flakvierling_20mm_kwk30_dl{
   _extends:t="tankgun_20mm_kwk30"
   _extends:t="base_2_0cm_flakvierling_38_dl"
   gun__shootNodeName:t="bone_gun_barrel_dl"
-  turret_ai__limitAngles:p4=-360.0, 360.0, 7.5, 25.0
 }
 
 tankgun_flak38_flakvierling_20mm_kwk30_dr{
   _extends:t="tankgun_20mm_kwk30"
   _extends:t="base_2_0cm_flakvierling_38_dr"
   gun__shootNodeName:t="bone_gun_barrel_dr"
-  turret_ai__limitAngles:p4=-360.0, 360.0, 7.5, 25.0
 }
 
 cannon_germ_20mm_flak38_flakvierling_without_camo{
   _extends:t="base_anti_aircraft_cannon"
   killLogName:t="germ_20mm_flak38_flakvierling"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
   vehicle_seats_camera_nodes__defaultNode:t="sight"
   animchar__res:t="cannon_germ_20mm_flak38_flakvierling_char"
   collres__res:t="cannon_germ_20mm_flak38_flakvierling_collision"

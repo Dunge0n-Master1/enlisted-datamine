@@ -3,7 +3,7 @@ let function updateStatsForExpCalc(s, _isNoBots = false) {
   s.awardScore <- 100
 }
 
-let function calcExpReward(soldiersStats, armyData, _armiesState, _connectedTime, _awards, _battleHero) {
+let function calcExpReward(_squadStats, soldiersStats, armyData, _armiesState, _connectedTime, _awards, _battleHero) {
   let squadsExp = {}
   foreach (squad in armyData?.squads ?? []) {
     let squadId = squad?.squadId

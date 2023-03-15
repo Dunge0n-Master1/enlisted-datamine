@@ -18,7 +18,7 @@ class UseVehicle : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
 
-    query(beh_tree_eid()) <| $ [es] (isInVehicle : bool; human_use_object__useDist : float; transform aka walker_transform : float3x4)
+    query(beh_tree_eid(owner)) <| $ [es] (isInVehicle : bool; human_use_object__useDist : float; transform aka walker_transform : float3x4)
       if isInVehicle
         res = EBehResult ER_SUCCESS
         return
@@ -30,7 +30,7 @@ class UseVehicle : BehNodeAdapter
           return
         let seatNo = find_vehicle_seat_for_bot(vehicle_seats__seatEids)
         if seatNo >= 0
-          sendEvent(vehicleEid, [[CmdUseVehicle requester=beh_tree_eid(), seat_no=seatNo]])
+          sendEvent(vehicleEid, [[CmdUseVehicle requester=beh_tree_eid(owner), seat_no=seatNo]])
           res = EBehResult ER_SUCCESS
 
     return res

@@ -38,6 +38,10 @@ def distance_sq_to_line(point, a, dir) : float
   let pt = a + dir * float3(t)
   return distance_sq(point, pt)
 
+[generic]
+def point_to_plane_dst(p, norm, point_in_plane : float3) : float
+  return dot(point_in_plane, norm) - dot(p, norm)
+
 def is_2d_lines_crossed(startL1, endL1, startL2, endL2 : float2) : bool
   let den = (endL2.y - startL2.y) * (endL1.x - startL1.x) - (endL2.x - startL2.x) * (endL1.y - startL1.y)
   if den == 0.0

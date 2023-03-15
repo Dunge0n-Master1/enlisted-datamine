@@ -1,0 +1,20 @@
+entityMods{
+  modProps:t="content/enlisted/gamedata/items/medication_strength.blk"
+}
+
+visual{
+  template:t="medication_strength_item+item_in_world"
+}
+
+equipable{
+  slot:t="mod1"
+  slot:t="mod2"
+}
+
+jumpMult{
+  mult:r=1.2
+}
+
+meleeDamage{
+  mult:r=1.4
+}

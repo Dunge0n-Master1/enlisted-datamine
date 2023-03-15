@@ -35,24 +35,19 @@ let dailyRewardsUnlock = Computed(@() activeUnlocks.value?[LOGIN_UNLOCK_ID]
 
 let dailyRewardsCrates = Computed(function() {
   let curArmyId = curArmy.value
+  let res = {}
   if (curArmyId == null)
-    return []
+    return res
 
   let rewardsItems = itemMapping.value
-  let res = {}
   foreach (stage in dailyRewardsUnlock.value?.stages ?? [])
     foreach (rewardId, _ in stage?.rewards ?? {}) {
-      let {
-        armyId = "", crateId = ""
-      } = rewardsItems?[rewardId.tostring()]
-      if (crateId != "")
-        res[crateId] <- {
-          armyId = armyId != "" ? armyId : curArmyId
-          id = crateId
-        }
+      let { crateId = "", armyId = curArmyId } = rewardsItems?[rewardId.tostring()]
+      if (armyId not in res)
+        res[armyId] <- []
+      res[armyId].append(crateId)
     }
-
-  return res.values()
+  return res
 })
 
 let function getCurLoginUnlockStage(unlock) {
@@ -92,7 +87,7 @@ let function calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId) {
       rewardCrate({
         armyId
         id = crateId
-        content = cratesComp?[crateId][armyId]
+        content = cratesComp?[armyId][crateId]
       })
     }
   }
@@ -126,7 +121,7 @@ let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
 
   let cratesContent = {}
   foreach (crateId in crates)
-    foreach (itemTemplate, count in (cratesComp?[crateId][armyId].items ?? [])) {
+    foreach (itemTemplate, count in (cratesComp?[armyId][crateId].items ?? [])) {
       let presentanion = mappedItems.findvalue(@(pres) pres?.itemTemplate == itemTemplate)
       cratesContent[itemTemplate] <- { count, itemTemplate, presentanion }
     }
@@ -173,7 +168,7 @@ let function gotoNextStageOrClose(receivedData, closeCb) {
   if (hasBoosters)
     markBoosterLogsSeen()
 
-  if (!(dailyRewardsUnlock.value.hasReward ?? false)){
+  if (!(dailyRewardsUnlock.value?.hasReward ?? false)) {
     closeCb()
     if (specialUnlock.value != null){
       specialUnlockToReceive(specialUnlock.value)
@@ -204,7 +199,7 @@ let function imitateCrateReward(boostersData, receivedItems, mappedItems, rType 
       }
 
   foreach (receivedItem in receivedItems) {
-    let { basetpl, count } = receivedItem
+    let { basetpl, count = 1 } = receivedItem
     res.crateItemsData[basetpl] <- {
       count
       itemTemplate = basetpl

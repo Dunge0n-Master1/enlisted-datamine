@@ -3,8 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { vehicleInfo } = require("%enlist/soldiers/model/state.nut")
-let { mkSoldiersDataList } = require("%enlist/soldiers/model/collectSoldierData.nut")
-let { soldiersList } = require("%enlist/soldiers/model/squadInfoState.nut")
+let { curSoldiersDataList } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let colorize = require("%ui/components/colorize.nut")
 
@@ -13,8 +12,7 @@ let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 
 
 let seatsOrderWatch = mkVehicleSeats(vehicleInfo)
-let squadListWatch = mkSoldiersDataList(soldiersList)
-let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(squadListWatch.value.len()))
+let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(curSoldiersDataList.value.len()))
 
 let freeSeatsBlock = @() {
     watch = freeSeatsInVehicle

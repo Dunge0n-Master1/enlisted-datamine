@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
@@ -177,11 +178,11 @@ def update_weapon_use_time(human_weap__currentGunEid : EntityId;
   query(human_weap__currentGunEid) <| $ [es(REQUIRE=grenade_thrower)] (gun__curShellId : ShellPropIds)
     weaponName = get_weapon_name_with_shell(weaponName, int(gun__curShellId.shellId))
   let curTime = get_sync_time()
-  human_stat_tracking__lastWeaponName |> peek() <| $(lastWeaponName)
+  let lastWeaponName = human_stat_tracking__lastWeaponName |> string()
+  if !empty(lastWeaponName) && lastWeaponName != weaponName
     let battleTime = curTime - max(human_stat_tracking__lastWeaponTime, human_stat_tracking__spawnTime)
-    if !empty(lastWeaponName) && battleTime > 0.
-      let prevTime = human_stat_tracking__battleTimePerWeapon |> get_float(lastWeaponName) ?? 0f
-      human_stat_tracking__battleTimePerWeapon |> set(lastWeaponName, prevTime + battleTime)
+    let prevTime = human_stat_tracking__battleTimePerWeapon[lastWeaponName] ?? 0f
+    human_stat_tracking__battleTimePerWeapon |> set(lastWeaponName, prevTime + battleTime)
   human_stat_tracking__lastWeaponTime = curTime
   human_stat_tracking__lastWeaponName := weaponName
 

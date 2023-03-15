@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart
+let { bigPadding, titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart,
+  leftAppearanceAnim
 } = require("%enlSqGlob/ui/designConst.nut")
 let { leaveQueue, isInQueue } = require("%enlist/quickMatchQueue.nut")
 let { joinQueue } = require("quickMatch.nut")
@@ -40,12 +41,12 @@ let leaveMatchTxtStyle = {
 }
 
 
-let defBtnBg = Picture("ui/uiskin/startBtn/start_btn_regular.png")
-let hoverBtnBg = Picture("ui/uiskin/startBtn/start_btn_hover.png")
-let activeBtnBg = Picture("ui/uiskin/startBtn/start_btn_active.png")
-let defPressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_regular.png")
-let hoverPressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_hover.png")
-let activePressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_active.png")
+let defBtnBg = Picture("ui/uiskin/startBtn/start_btn_regular.avif")
+let hoverBtnBg = Picture("ui/uiskin/startBtn/start_btn_hover.avif")
+let activeBtnBg = Picture("ui/uiskin/startBtn/start_btn_active.avif")
+let defPressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_regular.avif")
+let hoverPressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_hover.avif")
+let activePressedBtnBg = Picture("ui/uiskin/startBtn/start_btn_pressed_active.avif")
 
 
 let defStartBgStyle = {
@@ -61,21 +62,39 @@ let leaveMatchBgStyle = {
 }
 
 
+let function mkBtnHoverImage(sf, bgStyle) {
+  if (sf == 0)
+    return null
+
+  let { hoverBg, activeBg } = bgStyle
+  let isActive = sf & S_ACTIVE
+  return {
+    key = $"{isActive}"
+    size = flex()
+    rendObj = ROBJ_IMAGE
+    image = isActive ? activeBg : hoverBg
+    animations = [
+      { prop = AnimProp.opacity, from = 0.0, to = 1.0, duration = 0.3, play = true }
+      { prop = AnimProp.opacity, from = 1.0, to = 0.0, duration = 0.3, playFadeOut = true }
+    ]
+  }
+}
+
+
 let function btnCtor(txt, action, params = {}) {
-  let { defBg, hoverBg, activeBg } = params.bgStyle
   let { defTextColor, hoverTextColor, activeTextColor } = params.txtStyle
   let { hotkeys = null } = params
   return watchElemState(@(sf) {
     size = [startBtnWidth, colPart(1.54)]
-    behavior = Behaviors.Button
-    onClick = action
     rendObj = ROBJ_IMAGE
+    behavior = Behaviors.Button
+    image = params.bgStyle.defBg
+    onClick = action
     hotkeys
-    image = sf & S_ACTIVE ? activeBg
-      : sf & S_HOVER ? hoverBg
-      : defBg
     children = [
+      mkBtnHoverImage(sf, params.bgStyle)
       {
+        key = $"txt_{sf}"
         size = [flex(), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXT
         text = txt
@@ -84,6 +103,9 @@ let function btnCtor(txt, action, params = {}) {
           : defTextColor
         halign = ALIGN_CENTER
         vplace = ALIGN_CENTER
+        animations = [
+          { prop = AnimProp.opacity, from = 1.0, to = 0.0, duration = 0.3, playFadeOut = true }
+        ]
       }.__update(fontXLarge)
     ]
   })
@@ -221,6 +243,6 @@ let startBtn = @() {
       ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] })
       : null
   ]
-}
+}.__update(leftAppearanceAnim())
 
 return startBtn

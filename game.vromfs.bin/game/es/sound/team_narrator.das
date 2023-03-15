@@ -63,7 +63,7 @@ def start_narrator(phrase : string;
     if length(narrator_queue) == 0 && narrator_sound_event.handle == invalid_sound_event_handle()
       start_narrator_impl(phrase, is_ally, team__narrator, narrator_history, narrator_sound_event)
     else
-      using() <| $(var item : Object#)
+      using() <| $(var item : Object)
         item |> set("phrase", phrase)
         item |> set("isAlly", is_ally)
         item |> set("teamId", team_id)

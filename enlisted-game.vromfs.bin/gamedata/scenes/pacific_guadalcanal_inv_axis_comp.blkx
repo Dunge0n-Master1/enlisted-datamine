@@ -4405,9 +4405,9 @@ entity{
   mission_name:t="pacific_guadalcanal_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_guadalcanal_inv_05.jpg"
-    item:t="ui/pacific_guadalcanal_inv_07.jpg"
-    item:t="ui/pacific_guadalcanal_inv_08.jpg"
+    item:t="ui/pacific_guadalcanal_inv_05.avif"
+    item:t="ui/pacific_guadalcanal_inv_07.avif"
+    item:t="ui/pacific_guadalcanal_inv_08.avif"
   }
 }
 
@@ -6198,5 +6198,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
 }

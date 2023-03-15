@@ -24,7 +24,7 @@ def increase_box_use_count(var uses_info : Object&; requester_player : EntityId;
   let time = uses?.time ?? 0.
   let count = uses?.count ?? 0
   let shouldResetTime = cur_time - time > 60.
-  uses_info |> push_to_object(key) <| $(var info : Object#)
+  uses_info |> push_to_object(key) <| $(var info : Object)
     info |> set("time", shouldResetTime ? cur_time : time)
     info |> set("count", shouldResetTime ? 1 : count + 1)
 

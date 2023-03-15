@@ -11,7 +11,7 @@ let mkGenSquad = @(armyId) @(id, override = {}) {
   announceLocId = $"squadannounce/{id}"
   summaryLocId = $"squadsummary/{id}"
   icon = $"!ui/soldiers/{armyId}/{id}_icon.svg"
-  image = $"ui/soldiers/{armyId}/{id}_image.jpg"
+  image = $"ui/soldiers/{armyId}/{id}_image.avif"
   // other possible keys to override: premIcon
 }.__update(override)
 
@@ -170,6 +170,7 @@ return freeze({
     ussr_moscow_prem_sniper_1 = genSquadUssr("ussr_moscow_prem_sniper_1")
     ussr_moscow_prem_pilot_fighter_2 = genSquadUssr("ussr_moscow_prem_pilot_fighter_2")
     ussr_moscow_prem_mgun_3 = genSquadUssr("ussr_moscow_prem_mgun_3")
+    ussr_moscow_event_antitank_1 = genSquadUssr("ussr_moscow_event_antitank_1", {premIcon = ICON_EVENT})
   }
 
   moscow_axis = {
@@ -219,6 +220,7 @@ return freeze({
     ger_moscow_prem_sniper_1 = genSquadGer("ger_moscow_prem_sniper_1")
     ger_moscow_prem_tank_3 = genSquadGer("ger_moscow_prem_tank_3")
     ger_moscow_prem_mgun_3 = genSquadGer("ger_moscow_prem_mgun_3")
+    ger_moscow_event_antitank_1 = genSquadGer("ger_moscow_event_antitank_1", {premIcon = ICON_EVENT})
   }
 
   normandy_allies = {

@@ -1,7 +1,0 @@
-violence_settings{
-  _singleton:b=yes
-  _tags:t="gameClient"
-  isBloodEnabled:b=no
-  isGoreEnabled:b=no
-  disabledBloodColor:c=15, 15, 15, 255
-}

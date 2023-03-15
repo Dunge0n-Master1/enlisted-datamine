@@ -9,28 +9,13 @@ let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let settingsMenuCtor = require("%ui/components/settingsMenu.nut")
 let msgbox = require("%ui/components/msgbox.nut")
-let { save_changed_settings, get_setting_by_blk_path, set_setting_by_blk_path, remove_setting_by_blk_path } = require("settings")
-let {ndbTryRead, ndbWrite} = require("nestdb")
-const ARE_UI_OPTIONS_INITED = "ARE_UI_OPTIONS_INITED"
-
-let areOptionsInited = persist(ARE_UI_OPTIONS_INITED, function(){
-  let isInited = ndbTryRead(ARE_UI_OPTIONS_INITED)
-  if (isInited)
-    return {val = true}
-  return {val = false}
-})
-
-let showSettingsMenu = mkWatched(persist, "showSettingsMenu", false)
-
+let {getMenuOptions, menuOptionsGen, menuTabsOrder, showSettingsMenu} = require("settings_menu_state.nut")
+let { save_changed_settings, get_setting_by_blk_path, set_setting_by_blk_path,
+  remove_setting_by_blk_path } = require("settings")
 let onlineSettingUpdated = require_optional("onlineStorage")
   ? require("%enlist/options/onlineSettings.nut").onlineSettingUpdated : null
 
 let closeMenu = @() showSettingsMenu(false)
-
-let menuOptionsContainer = {value = []}
-let getMenuOptions = @() menuOptionsContainer.value
-
-let menuTabsOrder = Watched([])
 
 //====internal state
 let foundTabsByOptionsGen = Watched(0)
@@ -93,6 +78,8 @@ let function setResultOptions(...){
   foreach (i in isAvailableTriggers)
     i.subscribe(setResultOptions)
 }
+menuOptionsGen.subscribe(setResultOptions)
+setResultOptions()
 
 let function getResultTabs(foundTabsByOptionsValue, tabsOrder){
   let selectedTabs = []
@@ -199,16 +186,6 @@ let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide
   return needRestart
 }
 
-let function setMenuOptions(options){
-  menuOptionsContainer.value = options
-  setResultOptions()
-  if (!areOptionsInited.val) {
-    applyGameSettingsChanges(getResultOptions())
-    ndbWrite(ARE_UI_OPTIONS_INITED, true)
-    areOptionsInited.val = true
-  }
-}
-
 let saveAndApply = @(onMenuClose, options) function() {
   let needRestart = applyGameSettingsChanges(options)
   onMenuClose()
@@ -223,6 +200,9 @@ if (onlineSettingUpdated)
   onlineSettingUpdated.subscribe(
     @(val) val ? defer(@() applyGameSettingsChanges(getResultOptions())) : null
   )
+
+resultOptionsGen.subscribe(@(_v) applyGameSettingsChanges(getResultOptions()))
+applyGameSettingsChanges(getResultOptions())
 
 let function mkSettingsMenuUi(menu_params) {
   let function close(){
@@ -265,6 +245,4 @@ let function mkSettingsMenuUi(menu_params) {
 return {
   mkSettingsMenuUi
   showSettingsMenu
-  setMenuOptions
-  menuTabsOrder
 }

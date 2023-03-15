@@ -3,6 +3,7 @@ options always_export_initializer = true
 require app
 require ecs
 require ecs.common
+require ecs.safe
 require net
 require math
 require math.base
@@ -22,6 +23,10 @@ require RendInst
 require enlisted.events_enlisted
 require enlisted.game.es.fortifications_build_common
 
+let
+  RESPAWN_POINT_RADIUS = 0.3
+  AMMO_BOX_RADIUS = 0.5
+  MED_BOX_RADIUS = 0.35
 
 def log_ai_building(player_eid : EntityId; msg : int; arg1 : int = 0; arg2 : int = 0)
   query(player_eid) <| $ [es] (var aiBuilding__debugMsgs : IPoint3List&)
@@ -383,12 +388,12 @@ def is_point_valid_for_bot_to_build(build_what : int; build_pos : float3; build 
                                     var aiBuilding__debugMsgs : IPoint3List?)
     var buildingRadius = 0.3
     if build_what == BUILD_SPAWN_POINT
-      buildingRadius = 0.3
+      buildingRadius = RESPAWN_POINT_RADIUS
     elif build_what == BUILD_AMMO_BOX
-      buildingRadius = 0.5
+      buildingRadius = AMMO_BOX_RADIUS
 
     let minDistanceToWall = max(buildingRadius, botPlayer__customSpawnMinDistanceAround)
-    let maxUnderwaterDistance = get_float(getTemplateComponent(*previewTmpl, "building_builder__maxUnderwaterDistance")) ?? 0.0
+    let maxUnderwaterDistance = getTemplateComponent(*previewTmpl, "building_builder__maxUnderwaterDistance") ?? 0.0
 
     let placeError = check_point_valid_for_bot_to_place(build_pos, buildingRadius, minDistanceToWall, maxUnderwaterDistance)
     if placeError > 0
@@ -396,20 +401,25 @@ def is_point_valid_for_bot_to_build(build_what : int; build_pos : float3; build 
       return
 
     if build_what == BUILD_SPAWN_POINT
-      let minDistanceToMissionRespawns = get_float(getTemplateComponent(*previewTmpl, "building_builder__minDistanceToMissionRespawns")) ?? 0.0
+      let minDistanceToMissionRespawns = getTemplateComponent(*previewTmpl, "building_builder__minDistanceToMissionRespawns") ?? 0.0
       if is_human_respawn_selector_in_radius_for_team(build_pos, minDistanceToMissionRespawns, player_team)
         log_ai_building(aiBuilding__debugMsgs, 230, build_pos)
         return
 
-      let minDistanceToCapturePoints = get_float(getTemplateComponent(*previewTmpl, "building_builder__minDistanceToCapturePoints")) ?? 0.0
+      let minDistanceToCapturePoints = getTemplateComponent(*previewTmpl, "building_builder__minDistanceToCapturePoints") ?? 0.0
       if !is_distance_to_capture_points_valid(build_pos, minDistanceToCapturePoints, true)
         log_ai_building(aiBuilding__debugMsgs, 240, build_pos)
         return
 
-    let requiredSpaceAboveObject = get_float(getTemplateComponent(*previewTmpl, "requiredSpaceAboveObject")) ?? 0.0
-    if requiredSpaceAboveObject > 0.0 && !is_required_space_above_object_free(build_pos, requiredSpaceAboveObject)
-      log_ai_building(aiBuilding__debugMsgs, 250, build_pos)
-      return
+    let requiredSpaceAboveObject = getTemplateComponent(*previewTmpl, "requiredSpaceAboveObject") ?? 0.0
+    if requiredSpaceAboveObject > 0.0
+      let buildingBoxMin = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMin")) ?? float3()
+      let buildingBoxMax = get_Point3(getTemplateComponent(*previewTmpl, "buildingBoxMax")) ?? float3()
+      let bBoxDiagonal = buildingBoxMax - buildingBoxMin
+      let bBoxDiagonalXZLength = length(bBoxDiagonal.xz)
+      if !is_required_space_above_object_free(build_pos, bBoxDiagonalXZLength, requiredSpaceAboveObject)
+        log_ai_building(aiBuilding__debugMsgs, 250, build_pos)
+        return
 
     if is_in_building_restricted_zone(build_pos, player_team)
       log_ai_building(aiBuilding__debugMsgs, 260, build_pos)
@@ -647,8 +657,8 @@ class StartBuildBaseNode : BehNodeAdapter
   leaderTargetEidParamName : string
   buildPosParam : int = -1
   buildTargetEidParam : int = -1
+  buildingRadius : float = 0.0
   waitStartBuildMaxTime : float = 2.0
-
   waitTimer : float = 0.0
   waitPos : float3 = float3()
 
@@ -722,9 +732,9 @@ class StartBuildBaseNode : BehNodeAdapter
     query(build.toolEid) <| $ [es] (previewTemplate : StringList; var currentPreviewId : int&)
       let tmpl = getTemplateByName(string(previewTemplate[build.previewId]))
       if tmpl != null
-        ri_preview_name = get_ecs_string(getTemplateComponent(*tmpl, "ri_preview__name")) ?? ""
+        ri_preview_name = getTemplateComponent(*tmpl, "ri_preview__name") ?? ""
         if empty(ri_preview_name)
-          ri_preview_name = get_ecs_string(getTemplateComponent(*tmpl, "ai_ri_preview_name")) ?? ""
+          ri_preview_name = getTemplateComponent(*tmpl, "ai_ri_preview_name") ?? ""
         if !empty(ri_preview_name)
           currentPreviewId = build.previewId // NOTE: directly set currentPreviewId
     if empty(ri_preview_name)
@@ -755,6 +765,9 @@ class StartBuildBaseNode : BehNodeAdapter
       buildTM[2] = normalize(cross(buildTM[0], buildTM[1]))
       buildTM[0] = normalize(cross(buildTM[1], buildTM[2]))
 
+    if soft_check_is_conflict_objects_in_building_box(buildTM, BBox3(buildPos, buildingRadius * 2f))
+      return EBehResult ER_FAILED
+
     send_net_event(agent.eid, [[CmdBuildFortification builderGunEid=build.toolEid, tm=buildTM, boxMin=float3(), boxMax=float3()]])
 
     build_node_build_began(build, buildPos)
@@ -771,7 +784,7 @@ class StartBuildBaseNode : BehNodeAdapter
 [beh_node(name="isEngineer")]
 class isEngineer : BehNodeAdapter
   def override update(dt : float) : EBehResult
-    return !!find_engineer_tool(beh_tree_eid()) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+    return !!find_engineer_tool(beh_tree_eid(owner)) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 
 [beh_node(name="checkBuildCustomRespawnPoint")]
@@ -784,7 +797,7 @@ class CheckBuildCustomRespawnPoint : BehNodeAdapter
     buildPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "buildPosParam", ""), float3())
 
   def override update(dt : float) : EBehResult
-    let agentEid = beh_tree_eid()
+    let agentEid = beh_tree_eid(owner)
 
     let build = find_how_bot_able_to_build(BUILD_SPAWN_POINT, agentEid, leaderTargetEidParamName, false)
     if !build.able
@@ -799,6 +812,8 @@ class CheckBuildCustomRespawnPoint : BehNodeAdapter
 
 [beh_node(name="startBuildCustomRespawnPoint")]
 class StartBuildCustomRespawnPoint : StartBuildBaseNode
+  override buildingRadius = RESPAWN_POINT_RADIUS
+
   def override build_node_accept_preview(agent_eid : EntityId; preview_eid : EntityId; preview_pos : float3) : void
     query(agent_eid) <| $ [es] (squad_member__playerEid : EntityId)
       query(squad_member__playerEid) <| $ [es] (team : int)
@@ -844,7 +859,7 @@ class CheckBuildAmmoBox : BehNodeAdapter
     buildPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "buildPosParam", ""), float3())
 
   def override update(dt : float) : EBehResult
-    let agentEid = beh_tree_eid()
+    let agentEid = beh_tree_eid(owner)
 
     let build = find_how_bot_able_to_build(BUILD_AMMO_BOX, agentEid, leaderTargetEidParamName, false)
     if !build.able
@@ -862,6 +877,8 @@ class CheckBuildAmmoBox : BehNodeAdapter
 
 [beh_node(name="startBuildAmmoBox")]
 class StartBuildAmmoBox : StartBuildBaseNode
+  override buildingRadius = AMMO_BOX_RADIUS
+
   [unused_argument(preview_eid)] def override build_node_accept_preview(agent_eid : EntityId; preview_eid : EntityId; preview_pos : float3) : void
     query(agent_eid) <| $ [es] (squad_member__playerEid : EntityId)
       log_ai_building(squad_member__playerEid, 1000, preview_pos)
@@ -903,7 +920,7 @@ class CheckPlaceMedBox : BehNodeAdapter
     buildPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "buildPosParam", ""), float3())
 
   def override update(dt : float) : EBehResult
-    let agentEid = beh_tree_eid()
+    let agentEid = beh_tree_eid(owner)
 
     var tmpMedBoxEid = INVALID_ENTITY_ID
     var targetEid = INVALID_ENTITY_ID
@@ -917,7 +934,6 @@ class CheckPlaceMedBox : BehNodeAdapter
     if empty(positions)
       return EBehResult ER_FAILED
 
-    let placeRadius = 0.35
     let minDistToWalls = 0.5
     let maxUnderwater = 0.2
 
@@ -934,7 +950,7 @@ class CheckPlaceMedBox : BehNodeAdapter
     for point in positions
       var pos = point
       dropdown_bot_build_position(pos, 0.0)
-      let placeError = check_point_valid_for_bot_to_place(pos, placeRadius, minDistToWalls, maxUnderwater)
+      let placeError = check_point_valid_for_bot_to_place(pos, MED_BOX_RADIUS, minDistToWalls, maxUnderwater)
       if placeError == 0
         let distSq = distance_sq(point, botPos)
         if distSq < maxNearDistanceSq
@@ -1035,6 +1051,9 @@ class PlaceMedBox : BehNodeAdapter
       placeTM[1] = norm
       placeTM[2] = normalize(cross(placeTM[0], placeTM[1]))
       placeTM[0] = normalize(cross(placeTM[1], placeTM[2]))
+
+    if soft_check_is_conflict_objects_in_building_box(placeTM, BBox3(placeTM[3], MED_BOX_RADIUS * 2f))
+      return EBehResult ER_FAILED
 
     send_net_event(slotEid, [[CmdStartPlacePlaceableItem
                               itemEid = medBoxEid,

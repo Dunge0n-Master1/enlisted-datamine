@@ -9,7 +9,6 @@ let { playersMenuUi, showPlayersMenu } = require("%ui/hud/menus/players.nut")
 
 let { menusUi, hudMenus, openMenu } = require("%ui/hud/ct_hud_menus.nut")
 let { scoresMenuUi, showScores } = require("huds/scores.nut")
-
 let { showBigMap, bigMap } = require("%ui/hud/menus/big_map.nut")
 let { showPieMenu } = require("%ui/hud/state/pie_menu_state.nut")
 let pieMenu = require("%ui/hud/pieMenu.ui.nut")

@@ -10,7 +10,7 @@ let {
   availableCItem, currentItemPart, curSoldierItemsPrice, oldSoldiersLook,
   itemBlockOnClick, blockOnClick, customizationToApply, customizationItems, itemsInfo
 } = require("soldierCustomizationState.nut")
-let { curSoldierInfo } = require("model/squadInfoState.nut")
+let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { enlistedGold } = require("%enlist/currency/currenciesList.nut")

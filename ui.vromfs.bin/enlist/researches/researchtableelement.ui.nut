@@ -4,12 +4,12 @@ let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { rand } = require("math")
 let { researchItemSize, defBgColor, airSelectedBgColor  } = require("%enlSqGlob/ui/viewConst.nut")
 let {
-  tableStructure, selectedTable, selectedResearch, researchStatuses,
+  tableStructure, selectedTable, selectedResearch, research, researchStatuses,
   RESEARCHED, CAN_RESEARCH, GROUP_RESEARCHED
 } = require("researchesState.nut")
 let { seenResearches, markSeen } = require("unseenResearches.nut")
 let hoverImage = require("%enlist/components/hoverImage.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let researchIcons = require("%enlSqGlob/ui/researchIcons.nut")
@@ -30,7 +30,7 @@ let function bgHighLight(id, sizeMul) {
       {
         size = flex()
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/open_flash.png")
+        image = Picture("ui/open_flash.avif")
         transform = { }
         transitions = hoverImage.transitions
         animations = [
@@ -43,7 +43,7 @@ let function bgHighLight(id, sizeMul) {
       {
         size = flex()
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/open_flash.png")
+        image = Picture("ui/open_flash.avif")
         transform = { }
         transitions = hoverImage.transitions
         animations = [
@@ -112,7 +112,7 @@ local function mkImageForResearch(params = {}) {
   }.__update(params)
 }
 
-let unseen = unseenSignal()
+let unseen = blinkUnseenIcon()
 
 let mkUnseen = @(isUnseen) @() {
   watch = isUnseen
@@ -279,6 +279,7 @@ return function(armyId, researchDef, elemPosX, elemPosY) {
                 hover = "ui/enlist/button_highlight"
                 click = researchStatus == RESEARCHED ? null : "ui/enlist/button_click"
               }
+              onDoubleClick = @() research(researchId)
               onClick = @() selectedResearch(researchDef)
               onHover = function(on) {
                 if (!isUnseen.value)

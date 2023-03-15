@@ -223,120 +223,120 @@ item_ecoin{
 
 svt_40_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/svt_40.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/svt_40.blk"
 }
 
 svt_38_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/svt_38.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/svt_38.blk"
 }
 
 gewehr_41_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/gewehr_41.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/gewehr_41.blk"
 }
 
 m1_garand_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_garand.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/m1_garand.blk"
 }
 
 m1_bazooka_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_bazooka.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/m1_bazooka.blk"
 }
 
 m6a1_bazooka_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/m6a1_bazooka.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/m6a1_bazooka.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/m6a1_bazooka.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/m6a1_bazooka.blk"
 }
 
 panzerschreck_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/panzerschreck.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/panzerschreck.blk"
 }
 
 panzerwurfkorper_42_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerwurfkorper_42.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerwurfkorper_42.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/panzerwurfkorper_42.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/panzerwurfkorper_42.blk"
 }
 
 panzerfaust_100_shell_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_100_shell.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/panzerfaust_100_shell.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/panzerfaust_100_shell.blk"
 }
 
 panzerfaust_60_shell_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_60_shell.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/panzerfaust_60_shell.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/panzerfaust_60_shell.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/panzerfaust_60_shell.blk"
 }
 
 piat_shell_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/piat_shell.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/piat_shell.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/piat_shell.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/piat_shell.blk"
 }
 
 rpzb_gr_4322_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/rpzb_gr_4322.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/rpzb_gr_4322.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/rpzb_gr_4322.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/rpzb_gr_4322.blk"
 }
 
 gross_panzergranate_46_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk"
-  item__shell:t="content/enlisted/gamedata/weapons_enlisted/shells/gross_panzergranate_46.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shells/gross_panzergranate_46.blk"
+  item__shell:t="content/enlisted/gamedata/weapons/shells/gross_panzergranate_46.blk"
 }
 
 m1_carbine_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/m1_carbine.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/m1_carbine.blk"
 }
 
 ptrd_41_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/ptrd_41.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/ptrd_41.blk"
 }
 
 ptrs_41_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/ptrs_41.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/ptrs_41.blk"
 }
 
 pzb_38_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/pzb_38.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/pzb_38.blk"
 }
 
 pzb_39_gun_item{
   _override:b=yes
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/pzb_39.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/pzb_39.blk"
 }
 
 knife{
   _override:b=yes
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/knife.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/knife.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/knife.blk"
 }
 
 moroccan_dagger{
   _override:b=yes
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/knife.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/knife.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/knife.blk"
 }
 
 san_marco_dagger{
   _override:b=yes
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
-  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/knife.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/knife.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/knife.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/knife.blk"
 }
 
 flamethrower_fuel_tank{

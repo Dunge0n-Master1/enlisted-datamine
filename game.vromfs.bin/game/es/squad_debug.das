@@ -73,6 +73,7 @@ def squad_change_team()
   broadcastEvent([[EventTeamMemberLeave eid=playerEid, team = team]])
   broadcastEvent([[EventTeamMemberJoined eid=playerEid, team = newTeam]])
   set(playerEid, "team", newTeam)
+  set(playerEid, "armiesReceivedTeam", newTeam)
   sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1]])
 
 def spawn_soldiers_at_pos(pos : float3; count, team : int; spawn_template : string; cell_size : float)

@@ -314,6 +314,16 @@ def input_melee(cur_time : float;
     phys.producedCT |> human_control_state_setAltAttackState(false)
     phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, false)
 
+
+[es(tag=input, after=human_weap_post_phys_es)]
+def human_reset_reload_flag_es(evt : CmdPostPhysUpdate;
+                               var human_net_phys : HumanActor&;
+                               var human_input__isNeedHctReloadReset : bool&)
+  if human_input__isNeedHctReloadReset
+    human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_RELOAD, false)
+    human_input__isNeedHctReloadReset = false
+
+
 [es(tag=input)]
 def human_input_es(info : UpdateStageUpdateInput;
                    eid : ecs::EntityId;
@@ -330,7 +340,6 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__melee : int;
                    isInVehicle : bool;
                    human_input__jump : int;
-                   human_input__reload : int;
                    human_input__wishMelee : bool;
                    human_anim__vehicleSelected : ecs::EntityId;
                    human_anim__vehicleFollowDirCoef : float = 1.003;
@@ -430,13 +439,14 @@ def human_input_es(info : UpdateStageUpdateInput;
 
   let inputAim1 = human_vehicle__isShootingPassenger ? vehicleInputZoomToggle ?? human_input__aim1 : human_input__aim1
   let inputAim2 = human_vehicle__isShootingPassenger ? vehicleInputZoom ?? human_input__aim2 : human_input__aim2
+  let isAimBlockedByGun = !(get_bool(human_weap__currentGunEid, "gun__canAim") ?? true)
   let aim1 = (is_action_active(uint16(inputAim1))
              ? (get_digital_action_state(uint16(inputAim1)).bState || is_button_pressed(uint16(inputAim1)))
              : false) || human_input__forceAim
   let aim2 = (is_action_active(uint16(inputAim2))
              ? get_digital_action_state(uint16(inputAim2)).bState
              : false) || human_input__forceAim
-  var aim = aim1 || aim2
+  var aim = (aim1 || aim2) && !isAimBlockedByGun
 
   var crawl = (human_input__standState == int(HumanPhysControlType HCT_CRAWL))
   var crouch = (human_input__standState == int(HumanPhysControlType HCT_CROUCH))
@@ -539,8 +549,6 @@ def human_input_es(info : UpdateStageUpdateInput;
   phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_CROUCH, crouch)
 
   human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_JUMP, uint16(human_input__jump))
-
-  human_net_phys |> set_ct_controlbit(HumanPhysControlType HCT_RELOAD, uint16(human_input__reload))
 
   input_melee(info.curTime, is_gamepad_input(), human_input__melee, human_input__canShoot, mainAttackIsMelee, inputShoot, isSprinting,
               human_melee_charge__targetFound, human_melee_charge__longPressTime, human_input__wishMelee,

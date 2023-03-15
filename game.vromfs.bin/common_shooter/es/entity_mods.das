@@ -5,9 +5,10 @@ require EnlistedHuman
 require HumanPhys
 require ecs.safe
 require game.es.events
+require enlisted.events_enlisted
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_speed_mod_applier_es(info : UpdateStageInfoAct;
+def entity_speed_mod_applier_es(info : ParallelUpdateFrameDelayed;
                                 entity_mods__speedMult : float;
                                 human_phys__crawlThreshold : float;
                                 human_phys__crawlTransitionMoveSpeedMult : float;
@@ -19,31 +20,31 @@ def entity_speed_mod_applier_es(info : UpdateStageInfoAct;
     currentState.moveSpeedMult = entity_mods__speedMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_stamina_mod_applier_es(info : UpdateStageInfoAct;
+def entity_stamina_mod_applier_es(info : ParallelUpdateFrameDelayed;
                                   entity_mods__staminaDrain : float;
                                   var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.staminaDrainMult = entity_mods__staminaDrain
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_jump_mod_applier_es(info : UpdateStageInfoAct;
+def entity_jump_mod_applier_es(info : ParallelUpdateFrameDelayed;
                                entity_mods__jumpMult : float;
                                var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.jumpSpeedMult = entity_mods__jumpMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_climb_speed_mult_applier_es(info : UpdateStageInfoAct;
+def entity_climb_speed_mult_applier_es(info : ParallelUpdateFrameDelayed;
                                        entity_mods__climbingSpeedMult : float;
                                        var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.climbingSpeedMult = entity_mods__climbingSpeedMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_restore_stamina_mult_applier_es(info : UpdateStageInfoAct;
+def entity_restore_stamina_mult_applier_es(info : ParallelUpdateFrameDelayed;
                                            entity_mods__restoreStaminaMult : float;
                                            var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.restoreStaminaMult = entity_mods__restoreStaminaMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_sprint_stamina_drain_applier_es(info : UpdateStageInfoAct;
+def entity_sprint_stamina_drain_applier_es(info : ParallelUpdateFrameDelayed;
                                            entity_mods__sprintStaminaDrain : float;
                                            var human_stamina_regen_affect__mult : float&;
                                            var human_net_phys : HumanActor&)
@@ -51,20 +52,20 @@ def entity_sprint_stamina_drain_applier_es(info : UpdateStageInfoAct;
   human_net_phys.phys.currentState.staminaSprintDrainMult = entity_mods__sprintStaminaDrain
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_sprint_speed_mult_applier_es(info : UpdateStageInfoAct;
+def entity_sprint_speed_mult_applier_es(info : ParallelUpdateFrameDelayed;
                                         entity_mods__sprintSpeedMult : float;
                                         var human_net_phys : HumanActor&)
   assume currentState = human_net_phys.phys.currentState
   currentState.sprintSpeedMult = currentState.height < 1.0 ? 1.0 : entity_mods__sprintSpeedMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_acceleration_mult_applier_es(info : UpdateStageInfoAct;
+def entity_acceleration_mult_applier_es(info : ParallelUpdateFrameDelayed;
                                         entity_mods__accelerationMult : float;
                                         var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.accelerationMult = entity_mods__accelerationMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_breath_perks_mult_applier_es(info : UpdateStageInfoAct;
+def entity_breath_perks_mult_applier_es(info : ParallelUpdateFrameDelayed;
                                         entity_mods__breathAimMult : float;
                                         entity_mods__longerHoldBreathMult : float;
                                         entity_mods__oftenHoldBreathMult : float;
@@ -74,13 +75,13 @@ def entity_breath_perks_mult_applier_es(info : UpdateStageInfoAct;
   human_net_phys.phys.currentState.oftenHoldBreathMult = entity_mods__oftenHoldBreathMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_faster_change_weapon_applier_es(info : UpdateStageInfoAct;
+def entity_faster_change_weapon_applier_es(info : ParallelUpdateFrameDelayed;
                                            entity_mods__fasterChangeWeaponMult : float;
                                            var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.fasterChangeWeaponMult = entity_mods__fasterChangeWeaponMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_faster_change_pose_applier_es(info : UpdateStageInfoAct;
+def entity_faster_change_pose_applier_es(info : ParallelUpdateFrameDelayed;
                                          human_phys__changePoseSpeed : float;
                                          human_phys__changePoseSpeedCrawl : float;
                                          human_phys__afterJumpDampingChangePoseSpeedDown : float;
@@ -99,7 +100,7 @@ def entity_faster_change_pose_applier_es(info : UpdateStageInfoAct;
     currentState.fasterChangePoseMult = speed * entity_mods__fasterChangePoseMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_crawl_crouch_speed_applier_es(info : UpdateStageInfoAct;
+def entity_crawl_crouch_speed_applier_es(info : ParallelUpdateFrameDelayed;
                                          entity_mods__crawlCrouchSpeedMult : float;
                                          human_phys__crawlThreshold : float;
                                          human_phys__crawlTransitionMoveSpeedMult : float;
@@ -111,13 +112,13 @@ def entity_crawl_crouch_speed_applier_es(info : UpdateStageInfoAct;
     currentState.crawlCrouchSpeedMult = entity_mods__crawlCrouchSpeedMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_weapon_turning_speed_applier_es(info : UpdateStageInfoAct;
+def entity_weapon_turning_speed_applier_es(info : ParallelUpdateFrameDelayed;
                                            entity_mods__weaponTurningSpeedMult : float;
                                            var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.weaponTurningSpeedMult = entity_mods__weaponTurningSpeedMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_faster_aiming_after_fire_applier_es(info : UpdateStageInfoAct;
+def entity_faster_aiming_after_fire_applier_es(info : ParallelUpdateFrameDelayed;
                                                entity_mods__aimingAfterFireMult : float;
                                                var human_net_phys : HumanActor&)
   human_net_phys.phys.currentState.aimingAfterFireMult = entity_mods__aimingAfterFireMult

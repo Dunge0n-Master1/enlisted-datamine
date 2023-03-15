@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { gfrnd } = require("dagor.random")
+let { frnd } = require("dagor.random")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
 let { update_profile, get_all_configs } = require("clientApi.nut")
@@ -37,7 +37,7 @@ isInBattleState.subscribe(function(v) {
 
 let function updateConfigsTimer() {
   if (isConfigsChanged.value)
-    gui_scene.setTimeout(gfrnd() * MAX_CONFIGS_UPDATE_DELAY, checkUpdateProfile)
+    gui_scene.setTimeout(frnd() * MAX_CONFIGS_UPDATE_DELAY, checkUpdateProfile)
   else
     gui_scene.clearTimer(checkUpdateProfile)
 }

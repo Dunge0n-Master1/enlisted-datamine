@@ -246,7 +246,7 @@ let formatters = {
       margin = hdpx(5)
       valign = ALIGN_BOTTOM
       hplace = ALIGN_CENTER
-      keepAspect = true image = obj?.image
+      keepAspect = KEEP_ASPECT_FIT image = obj?.image
       children = freeze({
         rendObj = ROBJ_SOLID
         color = Color(0,0,0,150)

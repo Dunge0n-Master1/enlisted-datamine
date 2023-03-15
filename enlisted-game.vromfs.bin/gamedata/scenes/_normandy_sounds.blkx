@@ -8,7 +8,7 @@ entity{
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_sounds_ri_extra_gen.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_sounds_ri_extra_gen.blk"
 }
 
 entity{

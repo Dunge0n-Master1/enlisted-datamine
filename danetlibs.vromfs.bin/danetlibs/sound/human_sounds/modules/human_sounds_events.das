@@ -1,11 +1,10 @@
 module human_sounds_events shared
 require ecs
 
-[cpp_event(unicast)]
-struct CmdSoundVoicefxIrq
-  irq : string
-  group : uint
+[event(unicast)]
+struct CmdHeroSpeech
+  phrase : string
 
-[cpp_event(unicast)]
-struct CmdSoundStepIrq
-  objIdx : int
+[event(unicast)]
+struct CmdHumanVoiceEffect
+  phrase : string

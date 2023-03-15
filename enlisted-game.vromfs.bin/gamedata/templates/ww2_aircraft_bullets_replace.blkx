@@ -1,0 +1,305 @@
+base_beaufighter_mk6c_20mm_hispanomki{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_beaufighter_mkx_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_firefly_mki_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_mosquito_fb_mk6_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_spitfire_ix_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_spitfire_vb_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_spitfire_vc_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_tempest_mkv_20mm_hispanomkv{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}
+
+base_typhoon_mk1b_late_20mm_hispanomkii{
+  _override:b=yes
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_he_i_mk_2_bullet.blk"
+        name:t="2"
+        type:t="he_i"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        name:t="mk1"
+        type:t="ball_shell"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x110mm_tracer_mk_1_bullet.blk"
+        name:t="1"
+        type:t="t_shell"
+      }
+    }
+  }
+}

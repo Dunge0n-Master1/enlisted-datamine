@@ -43,7 +43,7 @@ let curViewModeIdx = Watched(0)
 
 let function mkCustomizeButton(curVehicle) {
   let { guid = "" } = curVehicle
-  let { flags = 0 } = curVehicle.status
+  let { flags = 0 } = curVehicle?.status
   return flags != CAN_USE && guid == "" ? null
     : Flat(loc("customizeVehicle"),
         @() selectVehParams.mutate(@(v) v.isCustomMode = true),

@@ -84,5 +84,6 @@ tankgun_76mm_zis3{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_76mm_zis3"
+  _extends:t="gunsound_76mm_zis3"
   turret__triggerGroup:i=0
 }

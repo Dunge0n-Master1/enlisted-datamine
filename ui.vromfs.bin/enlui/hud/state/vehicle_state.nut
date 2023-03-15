@@ -42,6 +42,8 @@ let actionsDefValue = freeze({
 let { actionsState, actionsStateSetValue } = mkFrameIncrementObservable(actionsDefValue, "actionsState")
 let actionsExport = watchedTable2TableOfWatched(actionsState)
 
+local lastInitedStateEid = ecs.INVALID_ENTITY_ID
+
 ecs.register_es("ui_in_vehicle_eid_es",
   {
     [["onChange", "onInit"]] = function (eid, comp) {
@@ -57,9 +59,11 @@ ecs.register_es("ui_in_vehicle_eid_es",
         controlledVehicleEid = eid
         isPlaneOnCarrier = comp.plane_carrier_assist__isOnCarrier
       })
+      lastInitedStateEid = eid
     },
-    function onDestroy(){
-      inVehicleStateSetValue(inVehicleDefValue)
+    function onDestroy(eid, _){
+      if (lastInitedStateEid == eid)
+        inVehicleStateSetValue(inVehicleDefValue)
     }
   },
   {

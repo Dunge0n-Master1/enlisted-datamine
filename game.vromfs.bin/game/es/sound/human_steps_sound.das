@@ -7,7 +7,7 @@ require soundEvent
 require sound_utils.modules.sound_player_common
 require sound_utils.modules.sound_physmat_common
 require sound_utils_net.modules.sound_utils_net_events
-require human_sounds.modules.human_sounds_events
+require common_sounds.modules.common_sounds_events
 require GridCollision
 require CollisionTraces
 require PhysMat

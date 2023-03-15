@@ -10,7 +10,7 @@ def save_block_to_origin_template(full_template_name : string; component_name : 
   if baseTemplate == null
     return
   let templatePath = getTemplatePath(*baseTemplate)
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     datablock_load(blk, templatePath)
     var originTemplate = datablock_get_block_by_name(blk, templatesArr[0])
     var originArray = datablock_get_block_by_name(*originTemplate, component_name)
@@ -26,7 +26,7 @@ def save_param_to_origin_template(full_template_name; cb : block<(var originBlk 
   if baseTemplate == null
     return
   let templatePath = getTemplatePath(*baseTemplate)
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     datablock_load(blk, templatePath)
     var originTemplate = datablock_get_block_by_name(blk, templatesArr[0])
     invoke(cb, *originTemplate)

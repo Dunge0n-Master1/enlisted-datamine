@@ -2,6 +2,7 @@ require ecs
 require vehicle
 require PhysVars
 require DagorMath
+require enlisted.events_enlisted
 
 
 [es(tag=render, on_appear, before=anim_phys_init_es)]
@@ -13,7 +14,7 @@ def vehicle_speedometer_anim_init_es(evt : Event;
   vehicle_anim__speedometerVarId = registerVar(phys_vars, vehicle_anim__speedometerVarName, vehicle_anim__speedometerMinMax.x)
 
 [es(tag=render, after=vehicle_input_driver_es, REQUIRE=vehicleWithWatched)]
-def vehicle_speedometer_anim_es(info : UpdateStageInfoAct;
+def vehicle_speedometer_anim_es(info : ParallelUpdateFrameDelayed;
                                 animchar__updatable : bool;
                                 vehicle_net_phys : VehiclePhysActor;
                                 vehicle_anim__speedometerVarId : int;

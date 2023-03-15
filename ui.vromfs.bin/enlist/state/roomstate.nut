@@ -8,6 +8,7 @@ let { system = null } = require_optional("system")
 let { get_game_name, get_circuit } = require("app")
 let { encodeString } = require("base64")
 let json = require("%sqstd/json.nut")
+let { deep_clone } = require("%sqstd/underscore.nut")
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { matchingCall, netStateCall } = require("%enlist/matchingClient.nut")
@@ -30,6 +31,7 @@ let { pushNotification, removeNotify, subscribeGroup
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 const INVITE_ACTION_ID = "room_invite_action"
 let LobbyStatus = {
@@ -52,16 +54,16 @@ let ServerLauncherState = {
   NoSession = "no_session"
 }
 
-let room = mkWatched(persist, "room", null)
-let roomPasswordToJoin = mkWatched(persist, "roomPasswordToJoin", {})
-let roomInvites = mkWatched(persist, "roomInvites", [])
-let roomMembers = mkWatched(persist, "roomMembers", [])
-let roomIsLobby = mkWatched(persist, "roomIsLobby", false)
-let connectAllowed = mkWatched(persist, "connectAllowed", null)
-let hostId  = mkWatched(persist, "hostId", null)
-let chatId = mkWatched(persist, "chatId", null)
-let squadVoiceChatId = mkWatched(persist, "squadVoiceChatId", null)
-let doConnectToHostOnHostNotfy = mkWatched(persist, "doConnectToHostOnHostNotfy", true)
+let room = nestWatched("room", null)
+let roomPasswordToJoin = nestWatched("roomPasswordToJoin", {})
+let roomInvites = nestWatched("roomInvites", [])
+let roomMembers = nestWatched("roomMembers", [])
+let roomIsLobby = nestWatched("roomIsLobby", false)
+let connectAllowed = nestWatched("connectAllowed", null)
+let hostId  = nestWatched("hostId", null)
+let chatId = nestWatched("chatId", null)
+let squadVoiceChatId = nestWatched("squadVoiceChatId", null)
+let doConnectToHostOnHostNotfy = nestWatched("doConnectToHostOnHostNotfy", true)
 let lobbyLauncherState = Computed(@() room.value?.public.launcherState ?? "no_session")
 let myInfoUpdateInProgress = Watched(false)
 let playersWaitingResponseFor = Watched({})
@@ -71,8 +73,8 @@ let canStartWithLocalDedicated = DBGLEVEL > 0 && system != null
   ? Computed(@() roomIsLobby.value && room.value?.public != null)
   : Computed(@() false)
 
-let lastRoomResult = mkWatched(persist, "lastRoomResult", null)
-let lastSessionStartData = mkWatched(persist, "lastSessionStartData", null)
+let lastRoomResult = nestWatched("lastRoomResult", null)
+let lastSessionStartData = nestWatched("lastSessionStartData", null)
 let isWaitForDedicatedStart = Watched(false)
 let lobbyStatus = Computed(function() {
   if (isWaitForDedicatedStart.value)
@@ -109,13 +111,13 @@ let hasSquadMates =  @(squad_id) roomMembers.value.findvalue(@(member) member.pu
 
 let function cleanupRoomState() {
   log("cleanupRoomState")
-  room.update(null)
+  room(null)
   playersWaitingResponseFor({})
-  roomInvites.update([])
-  roomMembers.update([])
-  roomIsLobby.update(false)
-  hostId.update(null)
-  connectAllowed.update(null)
+  roomInvites([])
+  roomMembers([])
+  roomIsLobby(false)
+  hostId(null)
+  connectAllowed(null)
   isWaitForDedicatedStart(false)
   if (chatId.value != null) {
     leaveChat(chatId.value, null)
@@ -129,7 +131,8 @@ let function cleanupRoomState() {
   }
 }
 
-let function addRoomMember(member) {
+let function addRoomMember(m) {
+  let member = deep_clone(m)
   if (member.public?.host) {
     log("found host ", member.name,"(", member.userId,")")
     hostId(member.userId)
@@ -159,10 +162,6 @@ let function makeCreateRoomCb(user_cb) {
       log("failed to create room:", error_string(response.error))
     } else {
       roomIsLobby(true)
-
-      if (response?.public.creator && response.public.creator != "")
-        response.public.creatorText <- remap_others(response.public.creator)
-
       room.update(response)
       log("you have created the room", response.roomId)
       foreach (member in response.members)
@@ -196,7 +195,7 @@ let function changeAttributesRoom(params, user_cb) {
   matchingCall("mrooms.set_attributes", user_cb, params)
 }
 
-let delayedMyAttribs = mkWatched(persist, "delayedMyAttribs", null)
+let delayedMyAttribs = nestWatched("delayedMyAttribs", null)
 let function setMemberAttributes(params) {
   if (myInfoUpdateInProgress.value) {
     delayedMyAttribs(params)
@@ -215,7 +214,8 @@ let function setMemberAttributes(params) {
 }
 
 let function makeLeaveRoomCb(user_cb) {
-  return function(response) {
+  return function(r) {
+    let response = deep_clone(r)
     if (response.error != 0) {
       log("failed to leave room:", error_string(response.error))
       response.error = 0
@@ -257,7 +257,6 @@ let function destroyRoom(user_cb) {
 
 let function makeJoinRoomCb(lobby, user_cb) {
   return function(response) {
-
     if (response.error != 0) {
       log("failed to join room:", error_string(response.error))
     }
@@ -522,7 +521,7 @@ let function onRoomMemberAttrChanged(notify) {
       return membs
     let member = clone membs[idx]
     let pub = notify?["public"]
-    let priv =notify?["private"]
+    let priv = notify?["private"]
     if (typeof pub == "table")
       member.public <- merge_attribs(pub, clone member.public)
     if (typeof priv == "table")
@@ -550,34 +549,37 @@ let function joinCb(response) {
 }
 
 subscribeGroup(INVITE_ACTION_ID, {
-  onShow = @(notify) msgbox.show({
-    text = loc("squad/acceptInviteQst")
-    buttons = [
-      { text = loc("Yes"), isCurrent = true,
-        function action() {
-          if (room.value != null)
-            return
-          let roomId = notify.roomId.tointeger()
-          let { userId = null } = userInfo.value
-          let params = { roomId }
-          if (roomId in roomPasswordToJoin.value)
-            params.password <- roomPasswordToJoin.value[roomId]
-          joinRoom(params, true, joinCb)
-          notify.send_resp({ accept = true, user_id = userId })
-          joinedRoomWithInvite(true)
-          removeNotify(notify)
+  onShow = function(notify) {
+    let reqctx = notify.reqctx
+    return msgbox.show({
+      text = loc("squad/acceptInviteQst")
+      buttons = [
+        { text = loc("Yes"), isCurrent = true,
+          function action() {
+            if (room.value != null)
+              return
+            let roomId = notify.roomId.tointeger()
+            let { userId = null } = userInfo.value
+            let params = { roomId }
+            if (roomId in roomPasswordToJoin.value)
+              params.password <- roomPasswordToJoin.value[roomId]
+            joinRoom(params, true, joinCb)
+            matching_api.send_response(reqctx, { accept = true, user_id = userId })
+            joinedRoomWithInvite(true)
+            removeNotify(notify)
+          }
         }
-      }
-      { text = loc("No"), isCancel = true,
-        function action() {
-          let { userId = null } = userInfo.value
-          removeNotify(notify)
-          notify.send_resp({ accept = false, user_id = userId })
+        { text = loc("No"), isCancel = true,
+          function action() {
+            let { userId = null } = userInfo.value
+            removeNotify(notify)
+            matching_api.send_response(reqctx, { accept = false, user_id = userId })
+          }
         }
-      }
-    ]
-  })
-  onRemove = @(notify) notify.send_resp({ accept = false })
+      ]
+    })
+  }
+  onRemove = @(notify) matching_api.send_response(notify.reqctx, { accept = false})
 })
 
 room.subscribe(function(v){
@@ -592,7 +594,6 @@ let function onRoomInvite(reqctx) {
     roomId
     senderId = request.invite_data.senderId
     senderName = request.invite_data.senderName
-    send_resp = @(resp) matching_api.send_response(reqctx, resp)
   }))
   if (request.invite_data?.password != null)
     roomPasswordToJoin.mutate(@(v) v[roomId] <- request.invite_data.password)
@@ -600,13 +601,13 @@ let function onRoomInvite(reqctx) {
   log("got room invite from", request.invite_data.senderName)
 
   pushNotification({
+    reqctx
     roomId
     inviterUid = request.invite_data.senderId
     styleId = "toBattle"
     text = loc("room/invite", {playername = request.invite_data.senderName})
     actionsGroup = INVITE_ACTION_ID
     needPopup = true
-    send_resp = @(resp) matching_api.send_response(reqctx, resp)
   })
 }
 
@@ -672,8 +673,6 @@ foreach (name, cb in {
 
 eventbus.subscribe("matching.on_disconnect", @(...) cleanupRoomState())
 
-let allowReconnect = mkWatched(persist, "allowReconnect", true)
-
 
 return {
   room
@@ -702,7 +701,6 @@ return {
 
   connectToHost
   connectAllowed
-  allowReconnect
   doConnectToHostOnHostNotfy
   LobbyStatus
 

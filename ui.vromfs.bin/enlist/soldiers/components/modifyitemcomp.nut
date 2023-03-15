@@ -1,12 +1,14 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt, body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
 let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
+let { Bordered } = require("%ui/components/textButton.nut")
+let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -14,22 +16,16 @@ let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { upgradeItem, disposeItem } = require("%enlist/soldiers/model/itemActions.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { defTxtColor, bigPadding, unitSize, warningColor
+let { defTxtColor, bigPadding, unitSize, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { diffUpgrades } = require("itemDetailsPkg.nut")
 let { markUpgradesUsed } = require("%enlist/soldiers/model/unseenUpgrades.nut")
-let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
+let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let { mkCounter } = require("%enlist/shop/mkCounter.nut")
-
-let mkTextArea = @(txt) {
-  rendObj = ROBJ_TEXTAREA
-  behavior = Behaviors.TextArea
-  size = [flex(), SIZE_TO_CONTENT]
-  halign = ALIGN_CENTER
-  color = defTxtColor
-  text = txt
-}.__update(body_txt)
+let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
+let { HighlightFailure } = require("%ui/style/colors.nut")
+let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
 
 let mkFaComp = @(text) faComp(text, {
   size = [SIZE_TO_CONTENT, 2.0 * unitSize]
@@ -40,8 +36,20 @@ let mkFaComp = @(text) faComp(text, {
 
 let arrowComp = mkFaComp("arrow-circle-right")
 
-let mkUpgradeItemInfo = kwarg(
-  @(currentItem, upgradedItem, orderViews, upgradesList) {
+let orderViews = @(priceOptions, countWatchedVal) priceOptions
+  .filter(@(option) option.canBuyCount >= countWatchedVal)
+  .map(@(option) mkItemCurrency({
+    currencyTpl = option.orderTpl,
+    count = option.ordersInStock,
+    textStyle = { color = TextNormal }.__update(body_txt)
+  }))
+
+let function mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
+  priceOptions, countWatched) {
+
+  let itemMaxCount = max(currentItem.count, currentItem?.guids.len() ?? 0)
+
+  return {
     size = [sw(90), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = fsh(5)
@@ -54,12 +62,13 @@ let mkUpgradeItemInfo = kwarg(
           txt(loc("upgradeItemMsgHeader")).__update({
             hplace = ALIGN_CENTER
           }.__update(body_txt))
-          {
+          @() {
             flow = FLOW_HORIZONTAL
             hplace = ALIGN_RIGHT
             valign = ALIGN_CENTER
             gap = fsh(2)
-            children = orderViews
+            watch = countWatched
+            children = orderViews(priceOptions, countWatched.value)
           }
         ]
       }
@@ -95,17 +104,44 @@ let mkUpgradeItemInfo = kwarg(
           }
         ]
       }
+      currentItem.itemtype == "vehicle" ? null : {
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding * 2
+        children = [
+          mkCounter(itemMaxCount, countWatched),
+          Bordered(loc("btn/upgrade/allItems"),
+            @() countWatched(itemMaxCount),
+            {
+              margin = 0
+              size = [ SIZE_TO_CONTENT, hdpx(40)]
+              cursor = normalTooltipTop
+              onHover = function(on) {
+                setTooltip(on ? loc("btn/upgrade/allItemsTooltip") : null)
+              }
+            })
+        ]
+      }
     ]
-  })
+  }
+}
 
-let mkUpgradeItemButtons = kwarg(
-  function(iGuid, ordersData) {
-    let buttons = ordersData.map(@(order){
-      text = ""
-      action = @() upgradeItem(iGuid, order.ordersGuids, @(_) markUpgradesUsed())
-      customStyle = {
-        textCtor = @(_textField, params, handler, group, sf)
-          textButtonTextCtor({
+let mkUpgradeItemButtons = function(guids, priceOptions, count) {
+  local payData = []
+  foreach (option in priceOptions){
+    local ordersGuids = getPayItemsData({ [option.orderTpl] = option.orderReq * count },
+      curCampItems.value)
+    if (ordersGuids != null)
+      payData.append(option.__merge({ordersGuids}))
+  }
+
+  let buttons = payData.map(@(order) {
+    text = ""
+    action = @() upgradeItem(mkGuidsCountTbl(guids, count),
+      order.ordersGuids, @(_) markUpgradesUsed())
+    customStyle = {
+      textCtor = @(_textField, params, handler, group, sf)
+        textButtonTextCtor({
+          children = {
             flow = FLOW_HORIZONTAL
             valign = ALIGN_CENTER
             margin = textMargin
@@ -116,119 +152,129 @@ let mkUpgradeItemButtons = kwarg(
               {
                 ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                   currencyTpl = order.orderTpl
-                  count = order.orderReq
+                  count = order.orderReq * count
                   textStyle = {
                     color = sf & S_HOVER ? TextHover : TextNormal
                   }.__update(body_txt)
                 })
               })
-          }, params, handler, group, sf)
-      }.__update(primaryFlatButtonStyle)
-    }).append({ text = loc("Cancel"), isCancel = true })
+          }
+        }, params, handler, group, sf)
+    }.__update(primaryFlatButtonStyle)
+  }).append({ text = loc("Cancel"), isCancel = true })
 
-    return buttons
-})
+  return payData.len() > 0 ? buttons : [{ text = loc("notEnoughOrders") }]
+}
 
-
-let showNoOrdersMsgbox = @(currencyData) msgbox.showMessageWithContent({
-  content = {
-    size = [sw(90), SIZE_TO_CONTENT]
+let notEnoughMsg = @(currencyData) msgbox.showMsgbox({
+  children = {
     flow = FLOW_VERTICAL
-    gap = fsh(5)
-    halign = ALIGN_CENTER
+    size = [sw(70), SIZE_TO_CONTENT]
+    gap = hdpx(15)
     children = [
-      mkTextArea(loc("noItemPartsToUpgrade"))
+      {
+        rendObj = ROBJ_TEXT
+        text = loc("notEnoughOrders")
+      }.__update(h2_txt)
       {
         flow = FLOW_HORIZONTAL
-        valign = ALIGN_CENTER
-        gap = bigPadding
         children = [
-          txt({
-            text = loc("notEnoughOrders")
-            hplace = ALIGN_CENTER
-            color = warningColor
-          }.__update(sub_txt))
+          {
+            rendObj = ROBJ_TEXT
+            text = loc("needMoreOrders")
+          }.__update(h2_txt)
           {
             flow = FLOW_HORIZONTAL
-            gap = txt({
+            gap = {
+              rendObj = ROBJ_TEXT
               text = loc("mainmenu/or")
               vplace = ALIGN_BOTTOM
               padding = bigPadding
-              color = warningColor
-            }).__update(sub_txt)
-            children = currencyData.map(@(curr) mkItemCurrency(
-              { currencyTpl = curr.orderTpl, count = curr.orderReq - curr.ordersInStock }))
+            }.__update(sub_txt)
+            children = currencyData.map(@(curr) {
+              flow = FLOW_HORIZONTAL
+              gap = smallPadding
+              children = [
+                {
+                  rendObj = ROBJ_TEXT
+                  text = curr.orderReq - curr.ordersInStock
+                  color = HighlightFailure
+                }.__update(h2_txt)
+                mkCurrencyImage(getCurrencyPresentation(curr.orderTpl)?.icon)
+              ]
+            })
           }
         ]
       }
+      {
+        rendObj = ROBJ_TEXTAREA
+        size = [flex(), SIZE_TO_CONTENT]
+        behavior = Behaviors.TextArea
+        text = loc("dontHaveEnoughOrders")
+      }.__update(h2_txt)
     ]
   }
-  buttons = [{ text = loc("Ok"), isCancel = true, isCurrent = true }]
 })
 
 let function openUpgradeItemMsg(currentItem, upgradeData) {
   let {
-    iGuid, armyId, upgradeitem, priceOptions, hasEnoughOrders
+    guids, armyId, upgradeitem, priceOptions, hasEnoughOrders
   } = upgradeData
-  if (iGuid == null || (currentItem?.guid ?? "") == "") {
+  if (guids.len() == 0 && (currentItem?.guid ?? "") == "") {
     msgbox.show({ text = loc("noFreeItemToUpgrade") })
     return
   }
 
   if (!hasEnoughOrders) {
-    showNoOrdersMsgbox(priceOptions)
+    notEnoughMsg(priceOptions)
     return
   }
 
-  local payData = []
-  foreach (option in priceOptions){
-    local ordersGuids = getPayItemsData({ [option.orderTpl] = option.orderReq }, curCampItems.value)
-    if (ordersGuids != null)
-      payData.append(option.__merge({ordersGuids}))
-  }
+  let countWatched = Watched(1)
+  let buttonsWatched = Computed(@() mkUpgradeItemButtons(guids, priceOptions, countWatched.value))
 
   local upgradedItem = findItemTemplate(allItemTemplates, armyId, upgradeitem)
   if (upgradedItem == null) // it's definitely setup error but it shouldn't break ui
     return
 
-  upgradedItem = currentItem.__merge(upgradedItem)
+  upgradedItem = currentItem.__merge(upgradedItem, {
+    upgradeitem = upgradedItem?.upgradeitem ?? ""
+  })
 
   let upgradesList = diffUpgrades(currentItem)
 
-  let orderViews = payData.map(@(option)
-    mkItemCurrency({
-      currencyTpl = option.orderTpl,
-      count = option.ordersInStock,
-      textStyle = { color = TextNormal }.__update(body_txt)
-    })
-  )
-
   msgbox.showMessageWithContent({
-    content = mkUpgradeItemInfo({
-      currentItem, upgradedItem, orderViews, upgradesList
-    })
-    buttons = mkUpgradeItemButtons({
-      iGuid,
-      ordersData = payData
-    })
+    content = mkUpgradeItemInfo(currentItem, upgradedItem, upgradesList,
+      priceOptions, countWatched)
+    buttons = buttonsWatched
   })
 }
 
 let function openDisposeItemMsg(currentItem, disposeData) {
   let {
-    armyId, itemBaseTpl, orderTpl, orderCount, isDestructible, isRecyclable, guids
+    armyId, itemBaseTpl, orderTpl, orderCount, isDestructible, isRecyclable, isDisposable,
+    guids, batchSize = 1
   } = disposeData
   if (guids == null) {
     msgbox.show({ text = loc("unlinkBeforeDispose") })
     return
   }
-  let countWatched = Watched(1)
+
+  if (isDisposable && guids.len() < batchSize) {
+    msgbox.show({
+      text = loc("tip/notEnoughItemsDispose", { batchSize, count = orderCount })
+    })
+    return
+  }
+
+  let countWatched = Watched(batchSize)
+  let action = @() disposeItem(mkGuidsCountTbl(guids, countWatched.value))
   let buttons = [
     isRecyclable
       ? {
           text = loc("btn/recycle")
           isCurrent = true
-          action = @() disposeItem(guids, countWatched.value)
+          action
           customStyle = {
             hotkeys = [[ "^J:Y | Enter | Space" ]]
           }
@@ -236,7 +282,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
       : {
           text = ""
           isCurrent = true
-          action = @() disposeItem(guids, countWatched.value)
+          action
           customStyle = {
             isEnabled = true
             textCtor = @(_textField, params, handler, group, sf)
@@ -255,7 +301,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
                     {
                       ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                         currencyTpl = orderTpl
-                        count = orderCount * countWatched.value
+                        count = orderCount * countWatched.value / batchSize
                         textStyle = {
                           color = sf & S_HOVER ? TextHover : TextNormal
                         }.__update(body_txt)
@@ -324,7 +370,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
         padding = 5 * bigPadding
         children
       }
-      !isDestructible || guidsCount <= 1 ? null : mkCounter(guidsCount, countWatched)
+      !isDestructible || guidsCount <= 1 ? null : mkCounter(guidsCount, countWatched, batchSize)
     ]
   }
 

@@ -73,5 +73,6 @@ tankgun_20mm_breda_m35_l6{
   _extends:t="tankgun"
   _extends:t="base_tankgun_autocannon"
   _extends:t="base_20mm_breda_m35_l6"
+  _extends:t="gunsound_20mm_breda_m35_l6"
   turret__triggerGroup:i=0
 }

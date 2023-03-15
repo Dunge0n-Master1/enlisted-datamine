@@ -23,11 +23,11 @@ def repair_plane(eid : EntityId;
   sendEventImmediate(eid, [[CmdRestore]])
   for part in damage_model.dmData.parts
     part.state = DamagePartState DP_STATE_NORMAL
-    part.relHpFixed = uint16(MAX_REL_HP_FIXED)
+    part.relHpFixed = MAX_REL_HP_FIXED
   for state in meta_parts_state.state
     state |> metapart_reset()
   for part in fire_protection
-    part.hpFixed = uint16(part.maxHp > 0.0 ? MAX_REL_HP_FIXED : 0)
+    part.hpFixed = part.maxHp > 0.0 ? MAX_REL_HP_FIXED : uint16(0)
 
   phys |> flight_model_repair()
   sendEvent(eid, [[EventOnRepaired eid=INVALID_ENTITY_ID]])
@@ -52,7 +52,7 @@ def teleport_plane(teleport_tm : float3x4;
   phys.currentState.location.O |> orient_setQuat(dirQuat)
   phys.currentState.location.P = DPoint3(pos)
 
-  using(collres) <| $(var context : PlanePhysCollisionContext#)
+  using(collres) <| $(var context : PlanePhysCollisionContext)
     let speed = float3()
     if phys |> flight_model_setupOnGround(context, true, speed)
       var physTm : float3x4

@@ -5,5 +5,5 @@ return kwarg(@(iconColor = Color(255, 255, 255), iconSize = hdpx(36)) {
   rendObj = ROBJ_IMAGE
   color = iconColor
   image = Picture($"!ui/uiskin/crossplay.svg:{iconSize.tointeger()}:{iconSize.tointeger()}:K")
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
 })

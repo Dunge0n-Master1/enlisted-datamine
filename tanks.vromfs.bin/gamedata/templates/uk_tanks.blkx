@@ -18,7 +18,7 @@ daimler_mk_2_turret_02_7_92mm_besa{
 uk_a22_mk_I_churchill{
   _extends:t="base_tank"
   _extends:t="seats_layout_d_g_c_l_mg"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   animchar__res:t="a22_mk_I_churchill_char"
   collres__res:t="a22_mk_I_churchill_collision"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/a22_mk_i_churchill.blk:VehiclePhys"
@@ -67,7 +67,7 @@ uk_a22_mk_I_churchill{
 uk_a22b_mk_III_churchill_1942{
   _extends:t="base_tank"
   _extends:t="seats_layout_d_g_c_l_mg"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   animchar__res:t="a22b_mk_III_churchill_1942_char"
   collres__res:t="a22b_mk_III_churchill_1942_collision"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/a22b_mk_iii_churchill_1942.blk:VehiclePhys"

@@ -100,13 +100,13 @@ volFog{
 }
 
 gi{
-  temporalQuality:r=0.25
+  temporalQuality:r=8.0
   volmapY:i=16
 }
 
 graphics{
   IndoorProbes:b=yes
-  spotShadowBias:p4=-6.1e-05, -0.01, 0.0001, 0.0005
+  spotShadowBias:p4=-6.1e-05, -0.01, 0.03, 0.0001
   dynamicShadowsBias:p3=0.0, 0.0005, 0.4
   dynamicShadowsDistance:r=18.0
   dynamicShadowsDistanceMultiplier_Low:r=0.5
@@ -118,6 +118,9 @@ graphics{
   dynamicShadowsCascadeDistributionPowerWeightOverride:r=0.5
   dynamicShadowsCascade0DistanceOverride:r=0.0
   shadowQuality:t="ultra"
+  dynamicShadow32bit:b=yes
+  giQuality:t="low"
+  ssrQuality:t="ultra"
 }
 
 unitedVdata.rendInst{

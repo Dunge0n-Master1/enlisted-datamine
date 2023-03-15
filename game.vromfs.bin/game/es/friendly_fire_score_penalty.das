@@ -107,7 +107,7 @@ def check_friendly_fire_vehicle_kill(evt : EventEntityDied; eid : EntityId; team
 def get_squad_owner_player(squad_eid : EntityId)
   return get_Eid(squad_eid, "squad__ownerPlayer") ?? INVALID_ENTITY_ID
 
-def write_forgivable_stat(var obj : Object#; offender : CachedSoldier; stat : string)
+def write_forgivable_stat(var obj : Object; offender : CachedSoldier; stat : string)
   obj |> set("player", offender.player)
   obj |> set("guid", offender.guid)
   obj |> set("stat", stat)
@@ -118,11 +118,11 @@ def set_forgivable_stats(offender : CachedSoldier; stat : string; victim_player 
     let offenderKey = "{offender.player}"
     var oldStats = friendly_fire__forgivableStats[offenderKey] ?as Array
     if oldStats != null
-      push_to_array(*oldStats) <| $(var obj : Object#)
+      push_to_array(*oldStats) <| $(var obj : Object)
         obj |> write_forgivable_stat(offender, stat)
     else
-      push_to_object(friendly_fire__forgivableStats, offenderKey) <| $(var arr : Array#)
-        push_to_array(arr) <| $(var obj : Object#)
+      push_to_object(friendly_fire__forgivableStats, offenderKey) <| $(var arr : Array)
+        push_to_array(arr) <| $(var obj : Object)
           obj |> write_forgivable_stat(offender, stat)
 
 def add_soldier_stat(offender : CachedSoldier; stat : string; victim_player : EntityId; victim_name : string; gun_props_id : int)

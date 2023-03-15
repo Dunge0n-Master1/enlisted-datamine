@@ -1,7 +1,7 @@
 us_20mm_oerlikon{
   _extends:t="base_anti_aircraft_cannon"
   killLogName:t="us_20mm_erlikon"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/oerlikon_20mm.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/oerlikon_20mm.blk"
   vehicle_seats_camera_nodes__defaultNode:t="bone_camera_gunner"
   animchar__res:t="oerlikon_20mm_char"
   collres__res:t="oerlikon_20mm_collision"
@@ -265,7 +265,7 @@ oerlikon_20mm_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="oerlikon_20mm_char"
   collres__res:t="oerlikon_20mm_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/oerlikon_20mm.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/oerlikon_20mm.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__turretInfo:shared:array"{

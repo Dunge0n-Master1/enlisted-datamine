@@ -136,7 +136,7 @@ let function turretIconCtor(weapon, _baseWidth, baseHeight) {
     margin = [0, hdpx(80), 0, 0]
     image = bulletIcon.image
     color = bulletIcon.color
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
   }
 }
 

@@ -18,7 +18,7 @@ let function signInCallback(playerId, authCode, err, state, cb) {
 }
 
 let function start_googleplay_signin(state,cb) {
-  eventbus.subscribe_onehit("android.account.onSignInCallback", @(val) signInCallback(val.player_id,val.server_auth,val.error,state,cb))
+  eventbus.subscribe_onehit("android.account.googleplay.onSignInCallback", @(val) signInCallback(val.player_id,val.server_auth,val.error,state,cb))
   googlePlayAccount.startSignIn()
 }
 

@@ -26,7 +26,7 @@ def danger_area_update(var agentDangerAreas : ecs::Object;
                        area_name : string;
                        tm : float3x4;
                        oobb : BBox3)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     set(obj, "itm", inverse(tm))
     set(obj, "oobbMin", oobb.boxMin)
     set(obj, "oobbMax", oobb.boxMax)

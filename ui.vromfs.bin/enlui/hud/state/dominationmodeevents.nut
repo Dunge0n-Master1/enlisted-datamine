@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { whichTeamAttack } = require("%ui/hud/state/capZones.nut")
+let { whichTeamAttack, isBombMission } = require("%ui/hud/state/capZones.nut")
 let { myScore, myScoreBleed, myScoreBleedFast } = require("%ui/hud/state/team_scores.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
 let {sound_play} = require("sound")
 
-let isDominationMode = keepref(Computed(@() whichTeamAttack.value < 0))
+let isDominationMode = keepref(Computed(@() !isBombMission.value && whichTeamAttack.value < 0))
 
 let defEvent = {text=loc("The enemy's almost won!"), myTeamScores=false}
 let defSound = "vo/ui/enlisted/narrator/loosing_scores_ally_domination"

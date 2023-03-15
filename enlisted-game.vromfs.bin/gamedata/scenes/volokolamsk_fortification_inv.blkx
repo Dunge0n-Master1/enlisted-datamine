@@ -1114,7 +1114,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -1127,9 +1127,9 @@ entity{
   mission_name:t="volokolamsk_fortification_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_fortification_01.jpg"
-    item:t="ui/volokolamsk_fortification_02.jpg"
-    item:t="ui/volokolamsk_fortification_03.jpg"
+    item:t="ui/volokolamsk_fortification_01.avif"
+    item:t="ui/volokolamsk_fortification_02.avif"
+    item:t="ui/volokolamsk_fortification_03.avif"
   }
 }
 
@@ -1151,8 +1151,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2200.0
+  team__score:r=2200.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1410,7 +1410,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.988885, 0.0, -0.148684] [0.0, 1.0, 0.0] [0.148684, 0.0, 0.988885] [-493.586, 7.54102, 1402.62]]
+  transform:m=[[0.862766, 0.0, -0.505604] [0.0, 1.0, 0.0] [0.505604, -0.0, 0.862766] [-490.622, 7.54102, 1399.63]]
   respawnBaseGroup:i=2
   groupName:t="sector_1"
   active:b=no
@@ -1418,7 +1418,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.86989, 0.0, -0.49325] [0.0, 1.0, 0.0] [0.49325, 0.0, 0.86989] [-493.427, 5.7156, 1384.45]]
+  transform:m=[[0.76069, 0.0, -0.649119] [0.0, 1.0, 0.0] [0.649119, -0.0, 0.76069] [-493.427, 5.7156, 1384.45]]
   respawnBaseGroup:i=2
   groupName:t="sector_1"
   active:b=no

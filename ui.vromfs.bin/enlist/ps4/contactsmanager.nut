@@ -147,6 +147,7 @@ let function onBlocklistUpdate(_) {
 
 let function request_psn_contacts() {
   logpsn("request_psn_contacts: AUTH_GAME_ID: ", gameAppId)
+  pswa.subscribe_to_push_events()
   auth_friends.request_auth_contacts(gameAppId, false, function(contacts) {
     profile.request_blocked_users(@(profile_blocked) psnConstructBlocksList(profile_blocked, contacts, onGetBlockedUsers))
     profile.request_psn_friends(@(psn_friends) psnConstructFriendsList(psn_friends, contacts))
@@ -173,7 +174,6 @@ let function initHandlers() {
   eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
   eventbus.subscribe("ps4.friends_list_update", onFriendsUpdate)
   eventbus.subscribe("ps4.blocklist_update", onBlocklistUpdate)
-  pswa.subscribe_to_push_events()
 }
 
 let function disposeHandlers() {

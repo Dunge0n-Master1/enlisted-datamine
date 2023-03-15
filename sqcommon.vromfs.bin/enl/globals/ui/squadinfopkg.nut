@@ -30,7 +30,7 @@ local function mkSquadIcon(img, override = {}) {
   return {
     rendObj = ROBJ_IMAGE
     size = squadIconSize
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = Picture(img)
   }.__update(override)
 }
@@ -58,7 +58,7 @@ let function mkSquadTypeIcon(squadType, isLocked) {
       {
         rendObj = ROBJ_IMAGE
         size = [iconSize, iconSize]
-        keepAspect = true
+        keepAspect = KEEP_ASPECT_FIT
         color = titleTxtColor
         pos = isTank ? [iconSize * 0.1, 0] : [0, 0]
         image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))

@@ -43,7 +43,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -56,9 +56,9 @@ entity{
   mission_name:t="volokolamsk_city_assault"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_city_01.jpg"
-    item:t="ui/volokolamsk_city_02.jpg"
-    item:t="ui/volokolamsk_city_03.jpg"
+    item:t="ui/volokolamsk_city_01.avif"
+    item:t="ui/volokolamsk_city_02.avif"
+    item:t="ui/volokolamsk_city_03.avif"
   }
 }
 

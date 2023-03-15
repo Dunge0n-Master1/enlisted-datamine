@@ -22,6 +22,9 @@ struct EventOnApplyTornWound
 struct EventRequestedAircraftShootAllBombs
   aircraftEid : EntityId
 
+[cpp_event(unicast)]
+struct CmdInitSkeletonAttach {}
+
 [event(broadcast)]
 struct EventOnChangeSpawnTeams {}
 
@@ -90,6 +93,14 @@ struct EventRecreateBuildIcons {}
 
 [event(unicast)]
 struct EventApplyCustomAnimcharVars {}
+
+[cpp_event(unicast)]
+struct EventItemAttached
+  attach_to : EntityId
+
+[cpp_event(unicast)]
+struct EventItemDetached
+  detach_from : EntityId
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdBuildFortification
@@ -385,6 +396,11 @@ struct EventZoneCaptured
   zone : EntityId
   team : int
 
+[event(broadcast)]
+struct EventSectorCaptured
+  zone : EntityId
+  team : int
+
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventZoneIsAboutToBeCaptured
   zone : EntityId
@@ -409,6 +425,12 @@ struct CmdDig
   pos : float3
   radius : float
   depth : float
+  matId : int
+
+[event(broadcast)]
+struct CmdApplyDigAction
+  pos : float3
+  radius : float
   matId : int
 
 [event(broadcast)]
@@ -561,10 +583,6 @@ struct CmdTutorialHint
   data : ecs::Object
 
 [event(unicast)]
-struct CmdHeroSpeech
-  phrase : string
-
-[event(unicast)]
 struct EventUpdatedItemContainer {}
 
 [event(unicast)]
@@ -641,7 +659,7 @@ struct CmdSetCameraFov
 struct CmdSetCameraDofEnabled
   enabled : bool
 
-[cpp_event(unicast, with_scheme, cpp_gen=false)]
+[cpp_event(broadcast, with_scheme, cpp_gen=false)]
 struct OnShellHitEntityFx
   shellId : int
   pos : float3
@@ -654,6 +672,7 @@ struct OnShellHitEntityFx
   victimEid : EntityId
   directHit : bool
   stopped : bool
+  projectileEid : EntityId
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled
@@ -824,4 +843,25 @@ struct CmdSetCameraLerpFactor
   lerpFactor : float
 
 [event(broadcast)]
+struct CmdSetCameraStopLerpFactor
+  stopLerpFactor : float
+
+[event(broadcast)]
 struct EventApplyDevMode {}
+
+[event(broadcast)]
+struct CmdShowNarratorMessage
+  event : string
+  text : string
+  myTeamScores : bool
+
+[event(unicast)]
+struct CmdUpdatePlaneEngineDamageFx
+  engineIndex : int
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdSwitchToFirstWeapWithAmmo {}
+
+[event(broadcast)]
+struct EventControlsMenuToggle
+  isShown : bool

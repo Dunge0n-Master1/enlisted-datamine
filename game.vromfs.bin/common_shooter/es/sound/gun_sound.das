@@ -6,6 +6,7 @@ require soundHash
 require soundSystem
 require game.es.events
 require sound_utils.modules.sound_utils_events
+require common_sounds.modules.common_sounds_events
 require sound_utils_net.modules.sound_utils_net_events
 require sound_utils.modules.sound_player_common
 require common_shooter.es.sound.gun_sound_common

@@ -4,7 +4,7 @@ base_panzerjager_tiger{
   animchar__res:t="panzerjager_tiger_char"
   collres__res:t="panzerjager_tiger_collision"
   vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/panzerjager_tiger.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   dmg_animchar__res:t="panzerjager_tiger_dmg_char"
   xray_resource__modelName:t="panzerjager_tiger"
   drowningHeight:r=2.356

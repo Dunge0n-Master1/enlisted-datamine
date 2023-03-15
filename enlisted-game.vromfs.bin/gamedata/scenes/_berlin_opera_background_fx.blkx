@@ -1,14 +1,4 @@
 entity{
-  _template:t="effect_area_box"
-  effect_area__frequency:r=0.5
-  effect_area__pauseChance:r=0.4
-  effect_area__pauseLengthMax:r=2.0
-  effect_area__effectName:t="background_flash_8s_fx"
-  effect_area__isPaused:b=no
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-941.109, 3.255, -280.225]]
-}
-
-entity{
   _template:t="envir_background_flash_8s_effect"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [907.905, 4.67061, -823.634]]
 }

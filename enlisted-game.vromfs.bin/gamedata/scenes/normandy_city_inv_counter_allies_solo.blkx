@@ -2442,7 +2442,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -2504,9 +2504,9 @@ entity{
   mission_name:t="normandy_city_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_city_dom_01.jpg"
-    item:t="ui/normandy_city_dom_02.jpg"
-    item:t="ui/normandy_city_dom_03.jpg"
+    item:t="ui/normandy_city_dom_01.avif"
+    item:t="ui/normandy_city_dom_02.avif"
+    item:t="ui/normandy_city_dom_03.avif"
   }
 }
 

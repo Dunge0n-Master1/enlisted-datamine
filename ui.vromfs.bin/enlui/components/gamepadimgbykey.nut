@@ -156,13 +156,11 @@ let sticksAliases = {
 }
 
 let dargJKeys2DS4Image = dargJKeys2X1Image.map(@(v) $"ds4/{v}")
-let dargJKeysJoyconImage = dargJKeys2X1Image.map(@(v) $"nswitch/{v}")
 dargJKeys2X1Image = dargJKeys2X1Image.map(@(v) $"x1/{v}")
 
 let dargJKeysImagesByCType = {
   ds4gamepad = dargJKeys2DS4Image
   x1gamepad = dargJKeys2X1Image
-  nxJoycon = dargJKeysJoyconImage
 }
 let defaultDargJKeysImage = dargJKeys2X1Image
 let dargJKeysToImage = @(controller_type) dargJKeysImagesByCType?[controller_type] ?? defaultDargJKeysImage
@@ -170,7 +168,6 @@ let dargJKeysToImage = @(controller_type) dargJKeysImagesByCType?[controller_typ
 let updateButtonByCType = {
   ds4gamepad = @(v) $"ds4/{v}"
   x1gamepad = @(v) $"x1/{v}"
-  nxJoycon = @(v) $"nswitch/{v}"
 }
 let defaultButtonUpdate = @(v) $"x1/{v}"
 let updateBasicJBtns = @(controller_type, btns) btns.map(updateButtonByCType?[controller_type] ?? defaultButtonUpdate)
@@ -239,7 +236,7 @@ local function mkImageComp(text, params = defHeight){
     valign = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
     image = pic(text, height.tointeger())
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     size = [height, height]
   }.__update(params)
 }
@@ -249,7 +246,6 @@ let controlsTypeMap = {
   [controlsTypes.ds4gamepad] = dargJKeys2DS4Image,
   [controlsTypes.x1gamepad] = dargJKeys2X1Image,
   [controlsTypes.keyboardAndMouse] = mouseKeyboardImg,
-  [controlsTypes.nxJoycon] = dargJKeysJoyconImage
 }
 
 let function mkImageCompByDargKey(key, params={}) {
@@ -267,7 +263,6 @@ return {
   dargJKeys2X1Image
   mouseKeyboardImg
   dargJKeys2DS4Image
-  dargJKeysJoyconImage
   mkImageCompByDargKey
   keysImagesMap
   getBtnImageHeight

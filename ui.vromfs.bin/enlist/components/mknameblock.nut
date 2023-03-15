@@ -11,7 +11,7 @@ let {
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let {  gap, noteTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { mkSoldiersData } = require("%enlist/soldiers/model/collectSoldierData.nut")
+let { mkSoldiersData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 

@@ -892,6 +892,12 @@ grass{
       generic_grass_burnt_a:r=4.0
       bush_dead_a:r=1.0
     }
+
+    garden_a{
+      id:i=59
+      generic_grass_small_a:r=1.0
+      generic_grass_flat_a:r=1.0
+    }
   }
 }
 

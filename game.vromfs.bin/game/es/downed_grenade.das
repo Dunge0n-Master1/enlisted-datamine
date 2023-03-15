@@ -9,6 +9,8 @@ require Gun
 require DaWeapons
 require DaWeaponProps
 require EnlistedWeapon
+require enlisted.events_enlisted
+require common_shooter.es.human.human_reload_common
 
 def reload_projectile(owner_eid : EntityId;
                       grenade_eid : EntityId;
@@ -74,7 +76,7 @@ def downed_grenade_update(eid : EntityId;
                                human_weap__throwMode))
       return
 
-    using <| $(var gctrl : GunControls#)
+    using() <| $(var gctrl : GunControls#)
       gctrl.shoot = shoot
       gctrl.timeStep = 0.01
       let dir = normalize(float3(0.14, -0.99, 0.0)) // approximative down
@@ -113,7 +115,7 @@ def downed_grenade_thrower_post_phys(evt : CmdPostPhysUpdate;
 
 
 [es(REQUIRE=(human_input, human_weap, canDropGrenadeInDowned), after=after_net_phys_sync)]
-def downed_grenade_thrower(info : UpdateStageInfoAct;
+def downed_grenade_thrower(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            isAlive : bool;
                            isDowned : bool;

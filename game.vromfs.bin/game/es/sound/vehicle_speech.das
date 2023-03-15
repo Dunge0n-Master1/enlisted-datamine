@@ -1,5 +1,5 @@
 require ecs
-require enlisted.events_enlisted
+require human_sounds.modules.human_sounds_events
 require sound_utils_net.modules.sound_desc_common
 require game.utils.hero
 require soundSystem

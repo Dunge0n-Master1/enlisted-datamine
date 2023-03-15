@@ -18,7 +18,7 @@ let lastRequests = mkWatched(persist, "lastRequests", [])
 let diffTime = @(time) get_time_msec() - time
 
 let function handleMessages(msg) {
-  let result = msg.data?.result
+  let result = clone msg.data?.result
   let idStr = msg.id
   let cb = idStr in requestData.callbacks ? delete requestData.callbacks[idStr] : null
   local reqTime = 0
@@ -76,7 +76,7 @@ let function handleMessages(msg) {
       local removed = 0
       profile.mutate(function(data) {
         foreach (k, v in result)
-          if (type(v) == "table" && k != "removed") {
+          if (type(v) == "table" && k != "removed" && v.len() > 0) {
             ++count
             data[k] <- k in data ? data[k].__merge(v) : v
           }
@@ -346,9 +346,9 @@ return {
     params = { itemGuid, armyId }
   }, cb)
 
-  use_transfer_item_order = @(itemGuid, armyId, orders, cb = null) request({
-    method = "use_transfer_item_order"
-    params = { itemGuid, armyId, orders }
+  use_transfer_item_order_count = @(itemGuidsTbl, armyId, orders, cb = null) request({
+    method = "use_transfer_item_order_count"
+    params = { itemData = itemGuidsTbl, armyId, orders }
   }, cb)
 
   reset_profile = @(cb) request({
@@ -431,14 +431,14 @@ return {
     params = { armyId, researchFrom, researchTo, cost }
   }, cb)
 
-  upgrade_item_order = @(itemGuid, sacrificeItems, cb = null) request({
-    method = "upgrade_item_order"
-    params = { itemGuid, sacrificeItems }
+  upgrade_items_count = @(guidsTbl, sacrificeItems, cb = null) request({
+    method = "upgrade_items_count"
+    params = { itemData = guidsTbl, sacrificeItems }
   }, cb)
 
-  dispose_item = @(guids, cb = null) request({
-    method = "dispose_item"
-    params = { itemGuids = guids }
+  dispose_items_count = @(guidsTbl, cb = null) request({
+    method = "dispose_items_count"
+    params = { itemData = guidsTbl }
   }, cb)
 
   gen_perks_points_statistics = @(tier, count, genId, cb) request({
@@ -651,6 +651,11 @@ return {
   usermail_take_reward = @(guid, cb) request({
     method = "usermail_take_reward"
     params = { guid }
+  }, cb)
+
+  usermail_reset_reward = @(cb) request({
+    method = "usermail_reset_reward"
+    params = {}
   }, cb)
 
 }

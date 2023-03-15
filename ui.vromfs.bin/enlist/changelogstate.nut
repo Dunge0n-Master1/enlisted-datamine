@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let {nestWatched} = require("%dngscripts/globalState.nut")
 let { send_error_log } = require("clientlog")
 let { send_counter } = require("statsd")
 let { mkVersionFromString, versionToInt } = require("%sqstd/version.nut")
@@ -52,11 +53,11 @@ let lastSeenVersionIdState = Computed(function() {
 })
 
 let chosenPatchnote = Watched(null)
-let chosenPatchnoteLoaded = mkWatched(persist, "chosenPatchnoteLoaded", false)
-let chosenPatchnoteContent = mkWatched(persist, "chosenPatchnoteContent", "")
-let chosenPatchnoteTitle = mkWatched(persist, "chosenPatchnoteTitle", "")
-let patchnotesReceived = mkWatched(persist, "patchnotesReceived", false)
-let versions = mkWatched(persist, "versions", [])
+let chosenPatchnoteLoaded = nestWatched("chosenPatchnoteLoaded", false)
+let chosenPatchnoteContent = nestWatched("chosenPatchnoteContent", "")
+let chosenPatchnoteTitle = nestWatched("chosenPatchnoteTitle", "")
+let patchnotesReceived = nestWatched("patchnotesReceived", false)
+let versions = nestWatched("versions", [])
 
 const maxVersionsAmount = 10
 

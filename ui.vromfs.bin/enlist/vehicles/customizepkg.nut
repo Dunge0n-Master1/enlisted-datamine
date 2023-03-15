@@ -91,7 +91,7 @@ let mkSkinImage = @(img, sf, isSelected) {
   children = {
     rendObj = ROBJ_MASK
     size = flex()
-    image = Picture("ui/uiskin/skin_mask.png")
+    image = Picture("ui/uiskin/skin_mask.avif")
     children = {
       rendObj = ROBJ_IMAGE
       size = flex()
@@ -120,8 +120,8 @@ let mkDecalImage = @(cfg, override = {}) {
   rendObj = ROBJ_IMAGE
   size = flex()
   margin = bigPadding
-  keepAspect = true
-  image = Picture($"{decal_preprocess_tex_name(cfg.guid)}*")
+  keepAspect = KEEP_ASPECT_FIT
+  image = Picture($"!{decal_preprocess_tex_name(cfg.guid)}*")
 }.__update(override)
 
 let animFrame = {

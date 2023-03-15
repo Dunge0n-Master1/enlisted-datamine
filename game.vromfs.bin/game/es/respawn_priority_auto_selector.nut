@@ -39,7 +39,7 @@ let function findNearestRespawnGroups(capZonesPositions, respawnGroups, customRe
     let resultGroup = findNearestPoint(zonePos, respawnGroups)
     let resultCustomGroup = findNearestPoint(zonePos, customRespawnGroups)
 
-    local selectedGroup = resultGroup[0]
+    local selectedGroup = resultGroup[0] ?? -1
     let customGroup = resultCustomGroup[0]
     if (customGroup != null && resultCustomGroup[1] < resultGroup[1]) {
       let pointEid = respawnPointsEids[customGroup]

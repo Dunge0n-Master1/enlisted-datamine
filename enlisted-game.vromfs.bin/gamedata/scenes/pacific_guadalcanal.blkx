@@ -1,0 +1,89 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
+}
+
+entity{
+  _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
+  team__memberCount:r=0.0
+  team__scoreCap:r=1500.0
+  team__score:r=1500.0
+  team__squadSpawnCost:i=250
+  team__firstSpawnCostMul:r=0.0
+  team__zeroScoreFailTimer:r=60.0
+  team__id:i=1
+  team__briefing:t="invasion/attackers_goals"
+  team__winSubtitle:t="debriefing/won_invasion_subtitle"
+  team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
+  team__winTitle:t="debriefing/usa_won_invasion"
+  team__spawnBotArmy:t="pacific_allies"
+}
+
+entity{
+  _template:t="team_pacific_axis+team_narrator_invasion_defence+respawn_creators_team"
+  team__countAdd:r=0.5
+  team__memberCount:r=0.5
+  team__scoreCap:r=3000.0
+  team__capturePenalty:r=1001.0
+  team__score:r=3000.0
+  team__id:i=2
+  team__briefing:t="invasion/defenders_goals"
+  team__winSubtitle:t="debriefing/won_defence_subtitle"
+  team__loseSubtitle:t="debriefing/lost_defence_subtitle"
+  team__winTitle:t="debriefing/jap_won_invasion"
+  team__spawnBotArmy:t="pacific_axis"
+}
+
+entity{
+  _template:t="static_cam"
+  camera__active:b=yes
+  transform:m=[[-0.968588, -0.00898065, -0.248513] [-0.0199797, 0.998927, 0.0417728] [0.247871, 0.0454258, -0.967727] [-569.691, 28.874, 31.1857]]
+}
+
+entity{
+  _template:t="spawn_switcher"
+  swapProbability:r=0.5
+  team1:i=2
+  team2:i=1
+}
+
+entity{
+  _template:t="respawnChooser+respTeam1"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="respawnChooser+respTeam2"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  moveCameraToHeight:r=170.0
+  respawnSelectorDistanceMult:r=1.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  moveCameraToHeight:r=170.0
+  respawnSelectorDistanceMult:r=1.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-710.0, 4.0, 200.0]]
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[0.943273, 0.0, -0.33202] [0.0, 1.0, 0.0] [0.33202, 0.0, 0.943273] [-715.0, 4.0, 200.0]]
+  resupply_zone__team:i=1
+  groupName:t="sector_1"
+  active:b=no
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[0.943273, 0.0, -0.33202] [0.0, 1.0, 0.0] [0.33202, 0.0, 0.943273] [-725.0, 4.0, 200.0]]
+  resupply_zone__team:i=2
+  groupName:t="sector_1"
+  active:b=no
+}

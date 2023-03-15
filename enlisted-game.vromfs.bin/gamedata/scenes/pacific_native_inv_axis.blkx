@@ -5127,9 +5127,9 @@ entity{
   mission_name:t="pacific_native_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_guadalcanal_inv_02.jpg"
-    item:t="ui/pacific_guadalcanal_inv_05.jpg"
-    item:t="ui/pacific_guadalcanal_inv_16.jpg"
+    item:t="ui/pacific_guadalcanal_inv_02.avif"
+    item:t="ui/pacific_guadalcanal_inv_05.avif"
+    item:t="ui/pacific_guadalcanal_inv_16.avif"
   }
 }
 
@@ -5287,7 +5287,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.947822, 0.0, -0.318799] [0.0, 1.0, 0.0] [0.370954, -0.0, 1.10288] [-368.908, 24.8724, -120.116]]
   active:b=no
@@ -5317,7 +5317,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -5345,7 +5345,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -5374,7 +5374,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.876218, 0.0, 0.253675] [0.0, 1.0, -0.0] [-0.308751, 0.0, 1.06646] [-476.809, 41.15, -206.864]]
   active:b=no
@@ -5404,7 +5404,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -6913,5 +6913,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
 }

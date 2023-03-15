@@ -9,8 +9,7 @@ let { fontXXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { isArmyProgressOpened } = require("%enlist/mainMenu/sectionsState.nut")
-let {
-  colFull, colPart, titleTxtColor, navHeight
+let { colFull, titleTxtColor, navHeight, sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
@@ -38,8 +37,7 @@ let armyProgressScene = @() {
   key = "armyProgressScene"
   size = flex()
   flow = FLOW_VERTICAL
-  gap = colPart(1.12)
-  padding = safeAreaBorders.value
+  padding = [safeAreaBorders.value[0], sidePadding]
   children = [
     headerUi
     armyUnlocksUi

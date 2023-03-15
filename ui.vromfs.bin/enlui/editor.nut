@@ -16,7 +16,7 @@ if (daEditor4 != null) {
   editorFreeCam  = editorState?.editorFreeCam  ?? editorFreeCam
   initRISelect   = require_optional("%daeditor/riSelect.nut")?.initRISelect ?? @(_a,_b) null
   proceedWithSavingUnsavedChanges = editorState?.proceedWithSavingUnsavedChanges ?? proceedWithSavingUnsavedChanges
-  editorState?.initWorkModes?(["Developer", "Designer"])
+  editorState?.initWorkModes?(["Developer", "Designer"], "Designer")
 }
 
 let entity_editor = require_optional("entity_editor")

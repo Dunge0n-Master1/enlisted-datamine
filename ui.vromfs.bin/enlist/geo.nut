@@ -45,7 +45,6 @@ let codes_by_countries = {
     Ireland="IE",
     ["Isle of Man"]="IM",
     Italy="IT",
-    Kosovo="RS",
     Liechtenstein="LI",
     Luxembourg="LU",
     Macedonia="MK",
@@ -61,7 +60,6 @@ let codes_by_countries = {
     Switzerland="CH",
     ["United Kingdom"]="GB",
     ["Vatican city"]="VA",
-    Yugoslavia="RS",
   }
   SOUTHAMERICA={
   //south america

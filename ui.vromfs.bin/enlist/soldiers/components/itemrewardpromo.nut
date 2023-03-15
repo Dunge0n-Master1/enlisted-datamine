@@ -121,7 +121,7 @@ let function mkUnlockBlock(unlockInfo) {
 let mkBgImg = @(img, saturate) {
   rendObj = ROBJ_IMAGE
   size = flex()
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   imageValign = ALIGN_TOP
   image = Picture(img)
   picSaturate = saturate

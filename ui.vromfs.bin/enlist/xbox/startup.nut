@@ -19,7 +19,8 @@ let { isInSquad, leaveSquadSilent, acceptSquadInvite, requestJoinSquad
 
 let { requestsToMeUids } = require("%enlist/contacts/contactsWatchLists.nut")
 
-let needLogin = mkWatched(persist, "needLogin", false)
+let {nestWatched} = require("%dngscripts/globalState.nut")
+let needLogin = nestWatched("needLogin", false)
 
 isLoggedIn.subscribe(function(v) {
   isDimAllowed.update(!v)

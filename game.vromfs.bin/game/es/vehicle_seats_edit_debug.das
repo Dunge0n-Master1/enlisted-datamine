@@ -64,7 +64,7 @@ def debug_setup_for_seats(info : UpdateStageInfoAct;
 [console_cmd(name="vehicle.calc_seats_block")]
 def calc_seats_block()
   find_query() <| $ [es(REQUIRE=(daeditor__selected, vehicle_seats__seats))] (eid : EntityId)
-    using <| $(var blk : DataBlock#)
+    using() <| $(var blk : DataBlock)
       components_to_blk(eid, blk, "vehicle_seats__", true)
       datablock_get_block(blk, "seats:shared:array") <| $(templatesArrayBlk)
         let templateName = getEntityTemplateName(eid)

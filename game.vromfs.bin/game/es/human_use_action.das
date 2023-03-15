@@ -9,30 +9,6 @@ require inventory
 require enlisted.events_enlisted
 
 
-def can_auto_equip_gun_mod(item_eid : EntityId; eid : EntityId) : bool
-  if !has(item_eid, "gunAttachable")
-    return false
-  var result = false
-  query(eid) <| $ [es] (human_weap__gunMods : Array; human_weap__gunEids : EidList; human_weap__autoequipMods : bool)
-    if !human_weap__autoequipMods
-      return
-    query(item_eid) <| $ [es] (gunAttachable__gunSlotName : string)
-      for i in range(0, int(HUWeaponSlots EWS_NUM))
-        let gunModsList = get_ecs_EidList(human_weap__gunMods[i])
-        if gunModsList == null
-          continue
-        var haveMod = false
-        for gunModEid in *gunModsList
-          let gunSlotName = get_string(gunModEid, "gunAttachable__gunSlotName", "")
-          if gunSlotName == gunAttachable__gunSlotName
-            haveMod = true
-            break
-        if !haveMod && is_gunmod_allowed(human_weap__gunEids[i], item_eid)
-          result = true
-          return
-  return result
-
-
 [es(tag=(ui, render, gameClient), after=hero_human_use_human_object_es, REQUIRE=watchedByPlr)]
 def human_use_action_es(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
@@ -114,7 +90,7 @@ def human_use_action_es(info : ParallelUpdateFrameDelayed;
 
     if tryPickUp
       let volume = get_float(selectedItemEid, "item__volume") ?? 0f
-      if volume == 0f || can_pickup_item_by_volume(selectedItemEid, eid) || can_auto_equip_gun_mod(selectedItemEid, eid)
+      if volume == 0f || can_pickup_item_by_volume(selectedItemEid, eid)
         useActionAvailable = int(HumanAction ACTION_PICK_UP)
       elif !can_pickup_item_by_uniqueness(eid, selectedItemEid)
         useActionAvailable = int(HumanAction ACTION_DENIED_ALREADY_EQUIPIED)

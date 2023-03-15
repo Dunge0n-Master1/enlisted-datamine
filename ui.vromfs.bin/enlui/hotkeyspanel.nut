@@ -11,7 +11,7 @@ let getNavState = @(...) navState.value
 let navStateGen = Watched(0)
 let colors = require("%ui/style/colors.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {verPadding, horPadding, safeAreaAmount} = require("%enlSqGlob/safeArea.nut")
+let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
 let {getHotkeysComps, hotkeysPanelCompsGen} = require("hotkeysPanelStateComps.nut")
 let {cursorPresent, cursorOverStickScroll, config, cursorOverClickable} = gui_scene
 
@@ -133,7 +133,7 @@ let svgImg = memoize(function(image){
     valign = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
     image = Picture("!ui/skin#{0}.svg:{1}:{1}:K".subst(image, h.tointeger()))
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     size = [h, h]
   })
 })
@@ -148,11 +148,10 @@ let function manualHint(images, text=""){
   }
 }
 
-let function gamepadcursornav_images(cType){
-  switch (cType) {
-    case controlsTypes.ds4gamepad: return ["ds4/lstick_4" "ds4/dpad"]
-    case controlsTypes.nxJoycon: return ["nswitch/lstick_4" "nswitch/dpad"]
-  }
+let function gamepadcursornav_images(cType) {
+  if (cType == controlsTypes.ds4gamepad)
+    return ["ds4/lstick_4" "ds4/dpad"]
+
   return ["x1/lstick_4" "x1/dpad"]
 }
 
@@ -203,18 +202,16 @@ let function tipsC(){
 
 let hotkeysBarHeight = Computed(@() height + panel_ver_padding + max(panel_ver_padding , verPadding.value))
 
-let hotkeysButtonsBarStyle = @() {
-  rendObj = null
-  fillColor = null
-  size = [SIZE_TO_CONTENT, hotkeysBarHeight.value]
-}
+
 let function hotkeysButtonsBar() {
-  return show_tips.value ? {
+  let res = { watch = [hotkeysBarHeight, show_tips, horPadding] }
+  return !show_tips.value ? res : res.__update({
+    size = [SIZE_TO_CONTENT, hotkeysBarHeight.value]
     vplace = ALIGN_BOTTOM
-    padding = [panel_ver_padding,fsh(4),panel_ver_padding,max(fsh(5), horPadding.value)]
-    watch = [show_tips, safeAreaAmount, verPadding, horPadding]
+    valign = ALIGN_CENTER
+    padding = [0, fsh(4), 0, max(fsh(5), horPadding.value)]
     children = tipsC
-  }.__merge(hotkeysButtonsBarStyle()) : {watch = show_tips}
+  })
 }
 
 return {hotkeysButtonsBar, hotkeysBarHeight}

@@ -8,6 +8,7 @@ require math.base
 require inventory
 require enlisted.events_enlisted
 require game.es.inventory_common
+require enlisted.events_enlisted
 
 def can_use_while_moving(eid : EntityId)
   return get_bool(eid, "item__canUseWhileMoving") ?? true
@@ -111,7 +112,7 @@ def human_inventory_interrupt_item_use_server(cur_time : float;
 
 
 [es(tag=gameClient, after=(human_input_es, human_phys_es), before=before_human_inventory_use_update)]
-def human_inventory_interrupt_item_use_es(info : UpdateStageInfoAct;
+def human_inventory_interrupt_item_use_es(info : ParallelUpdateFrameDelayed;
                                           eid : EntityId;
                                           human_inventory__entityToUse : EntityId;
                                           human_net_phys : HumanActor;
@@ -210,7 +211,7 @@ def human_inventory_interrupt_item_pickup_es(info : ParallelUpdateFrameDelayed;
 
 
 [es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
-def temporary_interrupt_self_reviving_es(info : UpdateStageInfoAct;
+def temporary_interrupt_self_reviving_es(info : ParallelUpdateFrameDelayed;
                                          human_net_phys : HumanActor;
                                          human_inventory__entityToUse : EntityId;
                                          isDowned : bool;
@@ -245,7 +246,7 @@ def temporary_interrupt_self_reviving_es(info : UpdateStageInfoAct;
 
 
 [es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
-def human_interrupt_revive_es(info : UpdateStageInfoAct;
+def human_interrupt_revive_es(info : ParallelUpdateFrameDelayed;
                               eid : EntityId;
                               human_inventory__targetToUse : EntityId;
                               human_inventory__entityToUse : EntityId;
@@ -263,7 +264,7 @@ def human_interrupt_revive_es(info : UpdateStageInfoAct;
 
 
 [es(tag=server, after=human_inventory_es, before=before_human_inventory_use_update)]
-def human_interrupt_use_entity_to_target_es(info : UpdateStageInfoAct;
+def human_interrupt_use_entity_to_target_es(info : ParallelUpdateFrameDelayed;
                                             eid : EntityId;
                                             human_inventory__targetToUse : EntityId;
                                             human_use_object__useDist : float;
@@ -283,4 +284,23 @@ def human_inventory_interrupt_item_use_on_drop_es(evt : EventOnLootDrop;
                                                   human_inventory__entityToUse : EntityId)
   let droppedItemEid = evt.itemEid
   if droppedItemEid == human_inventory__entityToUse
+    sendEventImmediate(eid, [[EventInterruptItemUse]])
+
+
+[es(REQUIRE_NOT=deadEntity)]
+def human_inventory_interrupt_item_use_on_use_object_server(evt : CmdUse;
+                                                            active : bool = true)
+  if !active
+    return
+
+  query(evt.requesterEid) <| $ [es] (human_inventory__entityToUse : EntityId)
+    query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__stopUseWhileObjectInteracting)] ()
+      sendEventImmediate(evt.requesterEid, [[EventInterruptItemUse]])
+
+
+[es(tag=netClient)]
+def human_inventory_interrupt_item_use_on_use_object_client(evt : HumanUseObjectRequest;
+                                                            eid : EntityId;
+                                                            human_inventory__entityToUse : EntityId)
+  query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__stopUseWhileObjectInteracting)] ()
     sendEventImmediate(eid, [[EventInterruptItemUse]])

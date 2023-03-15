@@ -10,7 +10,7 @@ def friendly_fire_forgive(evt : RequestForgiveFriendlyFire; var friendly_fire__f
   let key = "{evt.player}"
   let statsToForgive = friendly_fire__forgivableStats[key] ?as Array
   if statsToForgive != null
-    using <| $(var awardList : Array#)
+    using() <| $(var awardList : Array)
       for it in *statsToForgive
         let obj = it as Object
         let player = obj?.player ?? INVALID_ENTITY_ID

@@ -7,6 +7,7 @@ require DagorMath
 require AnimV20
 require GeomNodeTree
 require GamePhys
+require enlisted.events_enlisted
 
 [es(tag=server, on_appear)]
 def train_attachment_init(evt : Event;
@@ -62,7 +63,7 @@ def train_attachment_update_pos_server(evt : CmdPostPhysUpdate;
     attachState.location.O |> orient_setYP0(updatedTm[0])
 
 [es(tag=netClient, after=(phys_obj_phys_es, move_secondary_cart_client_es))]
-def train_attachment_update_pos(info : UpdateStageInfoAct;
+def train_attachment_update_pos(info : ParallelUpdateFrameDelayed;
                                 train_attachment__parentEid : EntityId;
                                 train_attachment__localTm : float3x4;
                                 var transform aka attachment_transform : float3x4)

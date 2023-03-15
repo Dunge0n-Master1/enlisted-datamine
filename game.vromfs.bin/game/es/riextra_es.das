@@ -75,7 +75,7 @@ def rendinst_axis_force_initial_rotation_es(evt : Event;
   transform = initialTransform * tm
 
 
-[es(REQUIRE=rendinst_axis_rotation__enabled, before=rendinst_axis_rotation_applier_es)]
+[es(REQUIRE=rendinst_axis_rotation__enabled, after=animchar_es, before=rendinst_axis_rotation_applier_es)]
 def rendinst_axis_rotation_es(info : UpdateStageInfoAct;
                               eid : EntityId;
                               rendinst_axis_rotation__targetAngle : float;
@@ -109,11 +109,3 @@ def rendinst_axis_rotation_es(info : UpdateStageInfoAct;
           targetAngle={rendinst_axis_rotation__targetAngle} pos={transform[3]}")
 
   removeSubTemplate(eid, "rotating_rendinst") // target angle reached - disable this ES
-
-
-[es(REQUIRE=rendinst_phys_move__enabled, after=after_net_phys_sync)]
-def rendinst_phys_move_es(evt : UpdateStageInfoAct;
-                          ri_extra : RiExtraComponent;
-                          transform : float3x4)
-  if riex_isRiGenExtraValid(ri_extra.handle)
-    move_ri_extra_tm(ri_extra.handle, transform)

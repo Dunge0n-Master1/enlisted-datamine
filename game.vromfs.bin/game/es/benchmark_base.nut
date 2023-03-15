@@ -64,8 +64,6 @@ let function saveAndResetStats(){
         file_path = $"/devlog/app/{file_name}"
       else if (platform.is_xbox)
         file_path = $"D:/{file_name}"
-      else if (platform.is_nswitch)
-        file_path = $"save:/{file_name}"
       else if (platform.is_android) {
         let dir = get_dir("gamedir")
         file_path = $"{dir}/{file_name}"

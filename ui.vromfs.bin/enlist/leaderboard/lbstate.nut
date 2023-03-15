@@ -80,7 +80,7 @@ requestDataInternal.subscribe(setLbRequestData)
 setLbRequestData(requestDataInternal.value)
 
 curLbData.subscribe(function(v) {
-  if (v != null && curLbSelfRow.value == null)
+  if (v != null && curLbPlacement.value == -1)
     requestSelfRow()
 })
 

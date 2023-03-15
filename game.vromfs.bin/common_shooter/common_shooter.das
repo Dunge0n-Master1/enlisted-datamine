@@ -31,8 +31,6 @@ def private load_client() : bool
 
 def private load_ui() : bool
   var ok = true
-  if (typeinfo(builtin_module_exists DagorImgui) && typeinfo(builtin_module_exists DagorEditor)) || app::get_game_name() == "aot"
-    ok = load_folder("%scripts/common_shooter/es/imgui/daEditor") && ok
 
   if ecs_has_tag("ui") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/common_shooter/es/ui") && ok

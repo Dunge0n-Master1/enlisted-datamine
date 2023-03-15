@@ -6,7 +6,7 @@ let {
   titleTxtColor, maxContentWidth, defTxtColor, activeTxtColor, lockedSquadBgColor, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")()
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
@@ -43,7 +43,7 @@ let { curArmyData, selectArmy } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let shortLbUi = require("%enlist/leaderboard/shortLb.ui.nut")
 let {
-  lbCurrentTable, openLbWnd, curLbIdx, curLbPlacement, lbPlayersCount
+  lbCurrentTable, openLbWnd, curLbIdx, lbPlayersCount, curLbSelfRow
 } = require("%enlist/leaderboard/lbState.nut")
 let { curCampaign, addCurCampaignOverride, removeCurCampaignOverride
 } = require("%enlist/meta/curCampaign.nut")
@@ -90,7 +90,7 @@ let tabStateHovered = { translate = [0, 0] }
 let buttonTabBgNormal = 0xfa015ea2
 let buttonTabBgActive = 0xfa0182b5
 let activeBoostersMarkPosition = { hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] }
-
+let unseenIcon = blinkUnseenIcon().__update({pos = [-hdpx(26), 0]})
 
 let isCustomRoomsUi = Computed(@() isCustomRoomsMode.value || curTab.value == FEATURED_MODS_TAB_ID )
 let windowTabs = Computed(function(){
@@ -215,8 +215,7 @@ let function mkEventBtn(eventGm) {
             color = txtColor(sf)
             pos = [-hdpx(16), 0]
           }
-        : isUnseen.value ? unseenSignal.__update({pos = [-hdpx(26), 0]})
-        : null
+        : isUnseen.value ? unseenIcon : null
       {
         flow = FLOW_VERTICAL
         gap = smallPadding
@@ -310,16 +309,14 @@ let mkRightBlockHeader = @(sf, label){
 }
 
 let function curLbPlacementBlock() {
-  let res = { watch = [curLbPlacement, lbPlayersCount] }
-  if (curLbPlacement.value < 0)
+  let res = { watch = [lbPlayersCount, curLbSelfRow] }
+  let { idx = -1 } = curLbSelfRow.value
+  if (idx < 0)
     return res
 
   local text = ""
-  let place = curLbPlacement.value + 1
-  if (place <= 3) {
-    text = loc("lbCurrenPlacemet", { placement = colorize(accentTitleTxtColor, place) })
-  } else if (lbPlayersCount.value > 0) {
-    let topPercentPlacement = ceil(100.0 * place / lbPlayersCount.value)
+  if (lbPlayersCount.value > 0) {
+    let topPercentPlacement = ceil(100.0 * (idx + 1) / lbPlayersCount.value)
     if (topPercentPlacement <= 99)
       text = loc("lbPercentPlacemet", {
         percentPlacement = colorize(accentTitleTxtColor, $"{topPercentPlacement}%") })

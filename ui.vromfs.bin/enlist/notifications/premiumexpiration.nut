@@ -3,52 +3,40 @@ from "%enlSqGlob/ui_library.nut" import *
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { debounce } = require("%sqstd/timers.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { TIME_DAY_IN_SECONDS, secondsToHoursLoc } = require("%ui/helpers/time.nut")
+let { TIME_DAY_IN_SECONDS, secondsToHoursLoc, TIME_HOUR_IN_SECONDS
+} = require("%ui/helpers/time.nut")
 let { hasPremium, premiumEndTime, premiumActiveTime } = require("%enlist/currency/premium.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
+let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { showMsgbox, showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { premium } = require("%enlist/meta/servProfile.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
+let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
-const SAVE_ID = "premium/notification"
-const warnBeforeExpireDays = "premExpiringLastTime"
-const warnAfterExpireDays = "premExpiredLastTime"
-const WARN_DELAY = "premExpiredDelay"
 
-let EXPIRING_DAYS = 15
-let EXPIRING_FREQ = 1
-let MAX_WAIT_TIME = 7
+let EXPIRING_TIME = TIME_DAY_IN_SECONDS * 15
+let MAX_WAIT_TIME = TIME_DAY_IN_SECONDS * 7
 
-let warnAlreadyShown = mkWatched(persist, "warnAlreadyShown", false) //no need to show again this session even if next day switched.
-let debugPremiumDays = mkWatched(persist, "debugPremiumDays" , 0)
+let nextTimeToWarn = mkOnlineSaveData("nextTimeToWarnPremium", @() 0)
+let setNextTimeToWarn = nextTimeToWarn.setValue
+let timeToWarnStorage = nextTimeToWarn.watch
+let needToWarn = nestWatched("needToWarnPremium", false)
 
 let canShow = keepref(Computed(@() userInfo.value != null
-  && !warnAlreadyShown.value
   && onlineSettingUpdated.value
   && canDisplayOffers.value
-  && premiumEndTime.value > 0
 ))
+let needToShowWarn = keepref(Computed(@() !isNewbie.value && needToWarn.value && canShow.value))
+let needToCheckTime = keepref(Computed(@() premium.value.len() > 0 && onlineSettingUpdated.value))
 
-let nextWarnData = Computed(@() settings.value?[SAVE_ID])
-
-let function resetNextWarnDay() {
-  if (SAVE_ID in settings.value)
-    settings.mutate(@(s) delete s[SAVE_ID])
-}
-
-let function setNextWarnDay(nextWarn) {
-  let premEnd = premiumEndTime.value / TIME_DAY_IN_SECONDS
-  let { nextWarnDay = 0, premEndDay = 0 } = nextWarnData.value
-  if (nextWarnDay != nextWarn || premEndDay != premEnd)
-    settings.mutate(@(v) v[SAVE_ID] <- { nextWarnDay = nextWarn, premEndDay = premEnd })
-}
 
 let function showExpiringWarn() {
   let timeText = Computed(function(){
-    let timeTillExpiration = premiumActiveTime.value - debugPremiumDays.value * TIME_DAY_IN_SECONDS
+    let timeTillExpiration = premiumActiveTime.value
     if (timeTillExpiration <= 0)
       return loc("premium/premiumSuggest")
     return loc("premium/premiumSuggestSoon", { time = secondsToHoursLoc(timeTillExpiration) })
@@ -80,7 +68,8 @@ let function showExpiringWarn() {
   })
 }
 
-let function showExpiredWarn(){
+
+let function showExpiredWarn() {
   showMsgbox({
     text = loc("premium/premiumSuggest")
     buttons = [
@@ -102,45 +91,63 @@ let function showExpiredWarn(){
   })
 }
 
-let function checkExpiration(_) {
-  if (!canShow.value)
-    return
 
-  let curDay = serverTime.value / TIME_DAY_IN_SECONDS + debugPremiumDays.value
-  let curPremEndDay = premiumEndTime.value / TIME_DAY_IN_SECONDS
-  let { premEndDay = 0, nextWarnDay = 0 } = nextWarnData.value
-  if (premEndDay != curPremEndDay) {
-    //no need to warn about premium in a day which player bought it.
-    setNextWarnDay(hasPremium.value ? max(curDay + EXPIRING_FREQ, curPremEndDay - EXPIRING_DAYS) : curDay + 1)
+local setNextWarnTime
+
+let function updateTime(delay) {
+  gui_scene.resetTimeout(delay, setNextWarnTime)
+  setNextTimeToWarn(serverTime.value + delay)
+}
+
+setNextWarnTime = function() {
+  let nextWarn = timeToWarnStorage.value
+  let curTime = serverTime.value
+  if (hasPremium.value) {
+    let activeTime = premiumActiveTime.value
+    if (activeTime < TIME_DAY_IN_SECONDS) {
+      let lastHourPremium = activeTime - TIME_HOUR_IN_SECONDS
+      if (lastHourPremium < 0)
+        needToWarn(true)
+      else
+        updateTime(lastHourPremium)
+      return
+    }
+    if (activeTime <= EXPIRING_TIME && curTime - nextWarn >= TIME_DAY_IN_SECONDS) {
+      // premium ends in 15 days or less and had not had warning today
+      updateTime(TIME_DAY_IN_SECONDS)
+      needToWarn(true)
+    }
     return
   }
-
-  if (nextWarnDay > curDay)
+  if (curTime < nextWarn)
     return
+  let timeWithoutPremium = curTime - premiumEndTime.value
+  if (timeWithoutPremium < TIME_DAY_IN_SECONDS) {
+    // premium has ended today and player has not seen warning
+    updateTime(TIME_DAY_IN_SECONDS)
+    needToWarn(true)
+    return
+  }
+  if (timeWithoutPremium > TIME_DAY_IN_SECONDS) {
+    let time = timeWithoutPremium <= MAX_WAIT_TIME ? TIME_DAY_IN_SECONDS : MAX_WAIT_TIME
+    updateTime(time)
+    needToWarn(true)
+  }
+}
 
-  warnAlreadyShown(true)
-  let hasPrem = debugPremiumDays.value == 0 ? hasPremium.value
-    : (premiumActiveTime.value - debugPremiumDays.value * TIME_DAY_IN_SECONDS) > 0
-  if (hasPrem) {
+let function showWarning() {
+  if (premiumActiveTime.value > 0)
     showExpiringWarn()
-    setNextWarnDay(curDay + EXPIRING_FREQ)
-    return
-  }
-
-  showExpiredWarn()
-  setNextWarnDay(curDay + clamp((curDay - curPremEndDay) * 2, 1, MAX_WAIT_TIME))
+  else
+    showExpiredWarn()
+  defer(@() needToWarn(false))
 }
 
-let checkExpirationDebounced = debounce(checkExpiration, 0.1)
-foreach (w in [canShow, premiumEndTime, hasPremium, debugPremiumDays])
-  w.subscribe(checkExpirationDebounced)
-checkExpirationDebounced(null)
+needToCheckTime.subscribe(@(v) v ? setNextWarnTime() : null)
+hasPremium.subscribe(@(_v) setNextWarnTime())
+needToShowWarn.subscribe(@(v) v ? showWarning() : null)
 
-let function setDebugPremiumDays(days) {
-  warnAlreadyShown(false)
-  debugPremiumDays(days)
-}
-
-console_register_command(setDebugPremiumDays, "meta.setDebugPremiumDays")
-console_register_command(@(days) setDebugPremiumDays(debugPremiumDays.value + days), "meta.addDebugPremiumDays")
-console_register_command(resetNextWarnDay, "meta.resetNextWarnPremiumDays")
+console_register_command(function(time) {
+  setNextTimeToWarn(serverTime.value + time)
+  setNextWarnTime()
+}, "meta.addPremiumWarningTime")

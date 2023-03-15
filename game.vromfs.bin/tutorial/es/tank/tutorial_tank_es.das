@@ -3,6 +3,7 @@ require dm
 require AnimV20
 require ecs.common
 require game.es.events
+require game.es.vehicle.vehicle_events
 require enlisted.tutorial.tutorial_events
 require common_shooter.events_common_shooter
 
@@ -54,6 +55,7 @@ def tutorial_tank_damage_engine_es(evt : EventOnPartDamaged;
 
 [es(REQUIRE=vehicle)]
 def tutorial_tank_damage_ammunition_es(evt : EventOnPartDamaged;
+                                       eid aka vehicle_eid : EntityId;
                                        dm_phys_parts__ammoPartIds : IntList;
                                        tutorial_target__targetId : string;
                                        tutorial_target__active : bool)
@@ -62,6 +64,8 @@ def tutorial_tank_damage_ammunition_es(evt : EventOnPartDamaged;
 
   query() <| $ [es(REQUIRE=tutor_stage__damageAmmunition)] (eid : EntityId; tutor_stage__activateTarget : string)
     if tutor_stage__activateTarget == tutorial_target__targetId && has_value(dm_phys_parts__ammoPartIds, evt.partId)
+      query() <| $ [es(REQUIRE=hero)] (human_anim__vehicleSelected : EntityId)
+        sendEvent(vehicle_eid, [[CmdKillVehicle offender=human_anim__vehicleSelected]])
       destroyEntity(eid)
 
 [es(REQUIRE=heroVehicle)]
@@ -74,6 +78,14 @@ def tutorial_tank_damage_passenger_es(evt : EventOnEntityHit)
       query(human_anim__vehicleSelected) <| $ [es] (tutorial_target__targetId : string; tutorial_target__active : bool)
         if tutorial_target__active && tutor_stage__activateTarget == tutorial_target__targetId
           destroyEntity(eid)
+
+[es(no_order)]
+def tutorial_tank_sync_visual_xray_es(info : UpdateStageInfoAct;
+                                      transform aka tank_transform : float3x4;
+                                      tutorial_target__targetId : string)
+  query() <| $ [es] (tutorial_tank__xrayId : string; var transform : float3x4&)
+    if tutorial_target__targetId == tutorial_tank__xrayId
+      transform = tank_transform
 
 [es(on_appear, REQUIRE=tutorial_tank__xrayId)]
 def tutorial_tank_xray_hide_all_parts_es(evt : Event; var animchar_render : AnimcharRendComponent&)

@@ -1,12 +1,13 @@
 require ecs
 require ecs.common
+require enlisted.events_enlisted
 require game.es.render.effect_animation_common
 require DagorSystem
 require DagorMath
 
 
 [es(tag=render, REQUIRE=effect_animation__activated, before=effect_anim_es)]
-def effect_animation_update_es(info : UpdateStageInfoAct;
+def effect_animation_update_es(info : ParallelUpdateFrameDelayed;
                                eid : EntityId;
                                var effect_animation__stageStartedTime : float&;
                                var effect_animation__currentStageId : int&;

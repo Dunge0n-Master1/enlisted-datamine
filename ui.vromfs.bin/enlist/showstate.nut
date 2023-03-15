@@ -2,8 +2,8 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { curCamera } = require("%enlist/sceneWithCamera.nut")
-let { curSoldierGuid } = require("%enlist/soldiers/model/squadInfoState.nut")
-let { curVehicle, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
+let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { curVehicle, objInfoByGuid, getSoldierItemSlots } = require("%enlist/soldiers/model/state.nut")
 let { viewVehicle, selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
 let { viewItem } = require("%enlist/soldiers/model/selectItemState.nut")
 let {
@@ -12,7 +12,7 @@ let {
 let {
   selectedSquadSoldiers
 } = require("%enlist/soldiers/model/chooseSquadsState.nut")
-let { vehDecorators } = require("%enlist/meta/profile.nut")
+let { vehDecorators, campItemsByLink } = require("%enlist/meta/profile.nut")
 let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 
@@ -31,8 +31,32 @@ let itemInArmory = Computed(function() {
   let item = viewItem.value ?? curSelectedItem.value
   return item?.itemtype != "vehicle" ? item?.gametemplate : null
 })
+let itemInArmoryAttachments = Computed(function(){
+  let res = []
+  let item = (viewItem.value ?? curSelectedItem.value)
+  let guid = item?.guid
+  if (guid != null)
+    foreach (data in getSoldierItemSlots(guid, campItemsByLink.value)) {
+      let tpl = data.item?.basetpl
+      if (tpl != null)
+        res.append(tpl)
+    }
+  return res
+})
 
 let currentNewItem = Computed(@() curSelectedItem.value?.itemtype == "soldier" ? null : curSelectedItem.value?.gametemplate)
+let currentNewItemAttachments = Computed(function(){
+  let equipScheme = curSelectedItem.value?.equipScheme
+  let res = []
+  if(equipScheme != null)
+    foreach(slot in equipScheme)
+      foreach(item in (slot?.items ?? [])){
+        if(item != null)
+          res.append(item)
+      }
+  return res
+})
+
 let currentNewSoldierGuid = Computed(@() curSelectedItem.value?.itemtype == "soldier" ? curSelectedItem.value?.guid : null)
 
 let soldierInSoldiers = Computed(@() curCamera.value == "new_items" ? currentNewSoldierGuid.value : curSoldierGuid.value)
@@ -112,12 +136,14 @@ let scene = Computed(function() {
 
 return {
   currentNewItem
+  currentNewItemAttachments
   curHoveredItem
   curHoveredSoldier
   curSelectedItem
   vehTplInVehiclesScene
   vehDataInVehiclesScene
   itemInArmory
+  itemInArmoryAttachments
   soldierInSoldiers
   scene
   squadCampaignVehicleFilter

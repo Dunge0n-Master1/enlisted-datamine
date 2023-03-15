@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { panelBgColor, accentColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
+let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 
 let emptyProgress = @(val, color) {
@@ -51,7 +52,28 @@ let function gradientProgressBar(value, override = {}) {
 }
 
 
+let gradient = mkTwoSidesGradientX(0x00FFFFFF, 0x1AFFFFFF, false)
+let doubleSideHighlightLine = @(override = {}) {
+  rendObj = ROBJ_IMAGE
+  size = [flex(), colPart(0.06)]
+  image = gradient
+}.__update(override)
+
+
+let mainTitleImg = mkTwoSidesGradientX(0x002B2D44, 0xE642516C, false)
+let doubleSideBg = @(content) {
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = mainTitleImg
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = content
+}
+
+
 return {
   progressBar
   gradientProgressBar
+  doubleSideHighlightLine
+  doubleSideBg
 }

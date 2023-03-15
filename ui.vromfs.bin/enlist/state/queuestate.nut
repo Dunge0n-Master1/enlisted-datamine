@@ -5,6 +5,7 @@ let squadClusters = squadSharedData.clusters
 let squadAutoCluster = squadSharedData.isAutoCluster
 let { isAutoClusterSafe, selectedClusters } = require("%enlist/clusterState.nut")
 let { matchingQueues } = require("%enlist/matchingQueues.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
 let STATUS = {
@@ -13,8 +14,8 @@ let STATUS = {
   IN_QUEUE = 2
 }
 
-let curQueueParam = mkWatched(persist, "curQueueParam", null)
-let queueStatus = mkWatched(persist, "queueStatus", STATUS.NOT_IN_QUEUE)
+let curQueueParam = nestWatched("curQueueParam", null)
+let queueStatus = nestWatched("queueStatus", STATUS.NOT_IN_QUEUE)
 
 let debugShowQueue = Watched(false)
 

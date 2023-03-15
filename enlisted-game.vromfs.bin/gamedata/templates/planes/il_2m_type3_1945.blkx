@@ -332,12 +332,6 @@ base_il_2m_type3_1945_23mm_vya{
     "default:array"{
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/23mm_vya_ozt_bullet.blk"
-        name:t="ozt"
-        type:t="frag_i_t"
-      }
-
-      "shell:object"{
         blk:t="gamedata/weapons/shells/23mm_vya_bz_bullet.blk"
         name:t="bz"
         type:t="ap_i"

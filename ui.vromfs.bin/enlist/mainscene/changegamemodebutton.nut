@@ -4,7 +4,7 @@ let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { accentColor, defTxtColor, midPadding, defVertGradientImg, hoverVertGradientImg,
   titleTxtColor, colPart, disabledTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let openChangeGameModeWnd = require("%enlist/gameModes/gameModesWnd/gameModeWnd.nut")
 let { currentGameModeId, allGameModesById, hasUnseenGameMode, hasUnopenedGameMode
@@ -20,6 +20,7 @@ let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
 let defTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 let disabledTxtStyle = { color = disabledTxtColor }.__update(fontMedium)
+
 
 let squadLeaderGameModeId = Computed(@() squadLeaderState.value?.gameModeId)
 let selectedGameModeId = Computed(@() isInSquad.value && !isSquadLeader.value
@@ -48,8 +49,8 @@ let gameModeUnseenIcon = @() {
   hplace = ALIGN_LEFT
   vplace = ALIGN_TOP
   children = !hasUnseenGameMode.value ? null
-    : hasUnopenedGameMode.value ? smallUnseenBlink
-    : smallUnseenNoBlink
+    : hasUnopenedGameMode.value ? blinkUnseen
+    : unblinkUnseen
 }
 
 
@@ -87,4 +88,5 @@ let changeGameModeBtn = watchElemState(function(sf) {
 return {
   changeGameModeBtn
   selectedGameMode
+  openChangeGameModeWnd
 }

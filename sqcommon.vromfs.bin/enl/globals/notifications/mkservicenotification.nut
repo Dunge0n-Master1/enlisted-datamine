@@ -39,7 +39,7 @@ let function serviceMessages(messageTbl, params = {}){
           rendObj = ROBJ_IMAGE
           size = [hdpx(40), hdpx(34)]
           hplace = ALIGN_CENTER
-          image = Picture($"ui/uiskin/attention.png")
+          image = Picture($"ui/uiskin/attention.avif")
         }
         {
           rendObj = ROBJ_TEXTAREA

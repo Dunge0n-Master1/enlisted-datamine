@@ -13,7 +13,6 @@ let isEpicRunning = mkWatched(persist, "isEpicRunning", epic.is_running())
 let isLoggedIn = keepref(Computed(@() userInfo.value != null))
 let linkSteamAccount = mkWatched(persist, "linkSteamAccount", false)
 let disableNetwork = get_setting_by_blk_path("debug")?.disableNetwork ?? false
-let usePCLogin = get_setting_by_blk_path("debug")?.usePCLogin ?? false
 
 let function logOut() {
   log("logout")
@@ -35,5 +34,4 @@ return {
   isEpicRunning
   linkSteamAccount
   disableNetwork
-  usePCLogin
 }

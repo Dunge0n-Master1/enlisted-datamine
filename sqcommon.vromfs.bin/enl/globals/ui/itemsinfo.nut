@@ -198,7 +198,7 @@ let function mkIcon(presentation, params = {}) {
   return {
     rendObj = ROBJ_IMAGE
     size = [width, height]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = getPicture(icon, width, height)
     hplace
     vplace
@@ -273,6 +273,8 @@ let function getErrorSlots(slotsItems, equipScheme) {
   return errorSlots
 }
 
+let templateLevel = @(tmpl, level) level < 1 ? tmpl : $"{tmpl}_upgrade_{level}"
+
 return {
   getItemDetails = @(isFull) isFull ? ITEM_DETAILS_FULL : ITEM_DETAILS_BRIEF
   PLANE_DETAILS = [].extend(GENERAL_VEHICLE_DETAILS, SPEC_PLANE_DETAILS)
@@ -290,4 +292,5 @@ return {
   getObjectName
   soldierNameSlicer
   getErrorSlots
+  templateLevel
 }

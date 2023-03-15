@@ -1,13 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { ceil } = require("math")
 let { tutorialZones } = require("%ui/hud/tutorial/state/tutorial_zones_state.nut")
 
-let zonePointerArrowSz = [fsh(1.2), fsh(1.2)]
-let zonePointerArrow = Picture("!ui/skin#waypoint_tutorial.svg:{0}:{1}:K".subst(
-    ceil(zonePointerArrowSz[0]*1.3).tointeger(), ceil(zonePointerArrowSz[1]*1.3).tointeger()))
+let icons = {
+  waypoint = {
+    image = Picture($"!ui/skin#waypoint_tutorial.svg:{hdpxi(16)}:{hdpxi(16)}:K")
+    size = [hdpxi(16), hdpxi(16)]
+  }
+}
 
-let map_zone_pointer_ctor = @(eid) function() {
+let map_zone_pointer_ctor = @(eid, comp) function() {
+  let { image, size } = icons?[comp.tutorial_zone__icon] ?? icons.waypoint
   return {
     key = eid
     data = {
@@ -21,9 +24,9 @@ let map_zone_pointer_ctor = @(eid) function() {
     children = {
         rendObj = ROBJ_IMAGE
         color = Color(255, 255, 255)
-        image = zonePointerArrow
-        size = SIZE_TO_CONTENT
-        pos = [0, -zonePointerArrowSz[1] * 0.2]
+        image
+        size
+        pos = [0, -size[1] * 0.15]
     }
   }
 }
@@ -31,6 +34,6 @@ let map_zone_pointer_ctor = @(eid) function() {
 return {
   tutorialZoneMarkers = {
     watch = tutorialZones
-    ctor = @(_p) tutorialZones.value.reduce(@(res, _info, eid) res.append(map_zone_pointer_ctor(eid)), [])
+    ctor = @(_p) tutorialZones.value.reduce(@(res, comp, eid) res.append(map_zone_pointer_ctor(eid, comp)), [])
   }
 }

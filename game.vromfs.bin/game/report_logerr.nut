@@ -8,6 +8,7 @@ let {register_logerr_monitor, debug, clear_logerr_interceptors} = dagorDebug
 let {DBGLEVEL} = require("dagor.system")
 let { sendLogToClients } = require("%scripts/game/utils/dedicated_debug_utils.nut")
 let {isInternalCircuit} = require("%dngscripts/appInfo.nut")
+let { CmdEnableDedicatedLogger, mkCmdEnableDedicatedLogger } = require("%enlSqGlob/sqevents.nut")
 
 if (!isDedicated){
   ecs.register_es("enableLoggerrMsg",
@@ -17,7 +18,7 @@ if (!isDedicated){
           return
         let enable = (DBGLEVEL > 0 || isInternalCircuit.value) ? true : get_setting_by_blk_path("debug/receiveServerLogerr")
         debug($"ask for dedicated logerr: {enable}")
-        ecs.client_send_event(eid, ecs.event.CmdEnableDedicatedLogger({on = enable ?? (DBGLEVEL > 0)}))
+        ecs.client_send_event(eid, mkCmdEnableDedicatedLogger({on = enable ?? (DBGLEVEL > 0)}))
       }
     },
     {
@@ -37,7 +38,7 @@ let function sendErrorToClient(_tag, logstring, _timestamp) {
 
 register_logerr_monitor([""], sendErrorToClient)
 ecs.register_es("enable_send_logerr_msg_es", {
-    [ecs.sqEvents.CmdEnableDedicatedLogger] = function(evt, _eid, comp) {
+    [CmdEnableDedicatedLogger] = function(evt, _eid, comp) {
       let on = evt.data?.on ?? false
       debug("setting logerr sending to '{3}', for connid:{0}, userid:{1}, username:'{2}'".subst(comp["connid"], comp["userid"], comp["name"], on))
       comp["receive_logerr"] = on

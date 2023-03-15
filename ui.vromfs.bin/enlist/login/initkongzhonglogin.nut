@@ -19,7 +19,7 @@ let onLogingWnd = {
   key = LOGIN_WND_UID
   size = flex()
   rendObj = ROBJ_IMAGE
-  image = Picture("ui/stalingrad_login_screen_blured.jpg")
+  image = Picture("ui/stalingrad_login_screen_blured.avif")
   keepAspect = KEEP_ASPECT_FILL
 }
 

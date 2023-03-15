@@ -95,21 +95,6 @@ def burning_finisher_before_downed(evt : Event;
   if isAlive && burning__isBurning && hitpoints__downedKillWhenBurning
     hitpoints__hp = hitpoints__deathHpThreshold
 
-
-[es(REQUIRE=human, tag=server, on_event=EventEntityDowned)]
-def set_downed_minDmgSpd_es(evt : Event; var human_coll_damage__minDmgSpd : float&;
-                            var human_coll_damage__lastMinDmgSpd : float&;
-                            human_coll_damage__downedMinDmgSpd : float)
-  human_coll_damage__lastMinDmgSpd = human_coll_damage__minDmgSpd
-  human_coll_damage__minDmgSpd = human_coll_damage__downedMinDmgSpd
-
-[es(REQUIRE=human, tag=server, on_event=EventEntityRevived)]
-def unset_downed_minDmgSpd_es(evt : Event; var human_coll_damage__minDmgSpd : float&;
-                              human_coll_damage__lastMinDmgSpd : float;
-                              human_coll_damage__downedMinDmgSpd : float)
-  if human_coll_damage__minDmgSpd == human_coll_damage__downedMinDmgSpd
-    human_coll_damage__minDmgSpd = human_coll_damage__lastMinDmgSpd
-
 [es(REQUIRE=human, tag=server, track=isOutsideBattleArea)]
 def outside_battle_area_finisher_es(evt : Event;
                                     isAlive, isDowned, isOutsideBattleArea : bool;

@@ -1,140 +1,221 @@
 require ecs
 require ecs.safe
+require ecs.extra_set
 require PhysMat
 require DagorSystem
 require common_shooter.es.weapon.weaponry_fx_common
 require strings
 require EnlistedDm
 
-
-[es(on_appear)]
-def global_bomb_hit_fx_info_init_es(evt : Event;
-                                    var global_bomb_hit_fx__info : Object&;
-                                    var global_bomb_hit_fx__impulses : FloatList&)
-  var impulses : array<float>
-
-  for elem in global_bomb_hit_fx__info
-    let impulse = to_float(elem.key)
-    if impulse <= 0.0
-      logerr("Incorrect value for impulse found in global_bomb_hit_fx__info: {elem.key}")
-      continue
-    push(impulses, impulse)
-
-  sort(impulses)
-  for impulse in impulses
-    push(global_bomb_hit_fx__impulses, impulse)
-
-[es(on_appear)]
-def global_bomb_expl_fx_info_init_es(evt : Event;
-                                     var global_bomb_expl_fx__info : Object&;
-                                     var global_bomb_expl_fx__explMasses : FloatList&)
-  var explMasses : array<float>
-
-  for elem in global_bomb_expl_fx__info
-    let explMass = to_float(elem.key)
-    if explMass <= 0.0
-      logerr("Incorrect value for explMass found in global_bomb_expl_fx__info: {elem.key}")
-      continue
-    push(explMasses, explMass)
-
-  sort(explMasses)
-  for explMass in explMasses
-    push(global_bomb_expl_fx__explMasses, explMass)
-
-def get_bullet_type_group_id(bullet_type_group : string; bullet_type_group_name_to_id_map : Object)
-  var id = -1
-  find_query() <| $ [es] (global_hit_fx__bulletTypeGroups : Object)
-    for elem in global_hit_fx__bulletTypeGroups
-      if bullet_type_group == elem.key
-        id = bullet_type_group_name_to_id_map[elem.key] ?? -1
-        break
-    return true
-  return id
+def get_fx_name(field_name : string; info_for_material : Object)
+  let fxName = info_for_material[field_name] ?as string
+  if fxName == null
+    return ""
+  elif empty(*fxName)
+    return "-"
+  else
+    return string(*fxName)
 
 def parse_fx_info_for_material(pmid : int;
                                info_for_material : Object;
-                               var fxs : StringList#&;
-                               var penetrationFxs : StringList#&;
-                               var ricochetFxs : StringList#&)
-  fxs[pmid] := info_for_material.fx ?? ""
-  penetrationFxs[pmid] := info_for_material.penetrationFx ?? ""
-  ricochetFxs[pmid] := info_for_material.ricochetFx ?? ""
+                               var fxs, penetrationFxs, ricochetFxs : array<string>)
+  fxs[pmid] := get_fx_name("fx", info_for_material)
+  penetrationFxs[pmid] := get_fx_name("penetrationFx", info_for_material)
+  ricochetFxs[pmid] := get_fx_name("ricochetFx", info_for_material)
 
-def parse_fx_info_for_materials(pmid_count : int; material_groups : Object; var fx_info : Object&)
-  let infoForMats = fx_info.info ?as Object
+def parse_effect_group(pmid_count : int; material_groups : Object; var effect_group : Object&)
+  let infoForMats = effect_group.info ?as Object
   if infoForMats == null
     return
 
-  using() <| $(var fxs : StringList#)
-    using() <| $(var penetrationFxs : StringList#)
-      using() <| $(var ricochetFxs : StringList#)
-        resize(fxs, pmid_count)
-        resize(penetrationFxs, pmid_count)
-        resize(ricochetFxs, pmid_count)
+  var fxs, penetrationFxs, ricochetFxs : array<string>
 
-        let groupPrefix = "group__"
-        let groupPrefixLen = length(groupPrefix)
+  resize(fxs, pmid_count)
+  resize(penetrationFxs, pmid_count)
+  resize(ricochetFxs, pmid_count)
 
-        for elem in *infoForMats
-          let obj = elem.value as Object
-          if obj == null
-            logerr("parse_fx_info_for_materials: wrong value type for material {elem.key} in fx_info; should be 'object'")
-            continue
+  let groupPrefix = "group__"
+  let groupPrefixLen = length(groupPrefix)
+  var pmidSet : array<bool>
+  resize(pmidSet, pmid_count)
 
-          if starts_with(elem.key, groupPrefix) //if key starts with groupPrefix, we're dealing with a material group
-            let matGroupName = slice(elem.key, groupPrefixLen)
-            let matGroup = get_ecs_StringList(material_groups[matGroupName])
-            if matGroup == null
-              logerr("parse_fx_info_for_materials: failed to find material group '{matGroupName}'")
-              continue
-            for matName in *matGroup
-              let pmid = get_material_id(string(matName))
-              if pmid <= 0
-                continue
-              //If effects were already set for this pmid, then we don't change them
-              if !empty(fxs[pmid]) || !empty(penetrationFxs[pmid]) || !empty(ricochetFxs[pmid])
-                continue
-              parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
-          else                                  //if key does not start with groupPrefix, we're dealing with a single material
-            let pmid = get_material_id(elem.key)
-            if pmid <= 0
-              continue
-            //Set the effects for this pmid (or change them, if they were already set as part of material group)
-            //In other words, settings for a single material have higher priority than settings for material groups
-            parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
-        fx_info |> set("fxs", fxs)
-        fx_info |> set("penetrationFxs", penetrationFxs)
-        fx_info |> set("ricochetFxs", ricochetFxs)
-
-def parse_effect_group(pmid_count : int; material_groups : Object; bullet_type_group_name_to_id_map : Object; var effect_group : Array&)
-  for elem in effect_group
-    var info = elem as Object
-    if info == null
-      logerr("parse_effect_group: wrong type for element in effect_group; should be 'object'")
+  for elem in *infoForMats
+    let obj = elem.value as Object
+    if obj == null
+      logerr("parse_fx_info_for_materials: wrong value type for material {elem.key} in fx_info; should be 'object'")
       continue
-    parse_fx_info_for_materials(pmid_count, material_groups, *info)
-    let btGroups = get_ecs_StringList((*info).bulletTypeGroups)
-    if btGroups == null
-      //bulletTypeGroups has wrong type or doesn't exist. Either way,
-      //we don't consider this to be an error and we don't create bulletTypeGroupIds
-      //(see comments in get_fx_info_for_bullet_type)
-      continue
-    using() <| $(var btGroupIds : IntList#)
-      for btGroup in *btGroups
-        let btgId = get_bullet_type_group_id(string(btGroup), bullet_type_group_name_to_id_map)
-        if btgId < 0
-          logerr("parse_effect_group: bullet type group {btGroup} does not exist")
+
+    if starts_with(elem.key, groupPrefix) //if key starts with groupPrefix, we're dealing with a material group
+      let matGroupName = slice(elem.key, groupPrefixLen)
+      let matGroup = get_ecs_StringList(material_groups[matGroupName])
+      if matGroup == null
+        logerr("parse_fx_info_for_materials: failed to find material group '{matGroupName}'")
+        continue
+      for matName in *matGroup
+        let pmid = get_material_id(string(matName))
+        if pmid <= 0
           continue
-        push(btGroupIds, btgId)
-      *info |> set("bulletTypeGroupIds", btGroupIds)
+        //If effects were already set for this pmid, then we don't change them
+        if pmidSet[pmid]
+          continue
+        parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
+        pmidSet[pmid] = true
+    else                                  //if key does not start with groupPrefix, we're dealing with a single material
+      let pmid = get_material_id(elem.key)
+      if pmid <= 0
+        continue
+      //Set the effects for this pmid (or change them, if they were already set as part of material group)
+      //In other words, settings for a single material have higher priority than settings for material groups
+      parse_fx_info_for_material(pmid, *obj, fxs, penetrationFxs, ricochetFxs)
+      pmidSet[pmid] = true
+  effect_group |> set("fxs", fxs)
+  effect_group |> set("penetrationFxs", penetrationFxs)
+  effect_group |> set("ricochetFxs", ricochetFxs)
+
+def parse_effect_preset_values(effect_groups : Array; effect_presets : Array; var value : ChildComponent&)
+  //value is either:
+  //Case 1. an object, describing next-level effect preset (subpreset); in this case, call parse_effect_preset (recursion)
+  //Case 2. a string that starts with presetPrefix; in this case, the part after the prefix is a name of some top level effect preset
+  //Case 3. a string that doesn't start with presetPrefix; in this case, it's an effect group name.
+  //In cases 2 and 3 we need to replace value with an integer value (for speed). For an effect group,
+  //we use (id + 1), where id is effect group's id (index). For an effect preset, we use -(id + 1) where is effect preset's id.
+  //This way, we can tell apart groups and presets: if the number is positive, it's a group; if the number is negative, it's a preset;
+  //otherwise, it's not defined.
+  let presetPrefix = "preset:"
+  let presetPrefixLen = length(presetPrefix)
+
+  let valueString = value as string
+
+  //Case 1
+  if valueString == null
+    var subEffectPreset = value as Object
+    if subEffectPreset == null
+      logerr("parse_effect_preset_values: found a value that is neither 't' nor 'object'")
+      return
+    parse_effect_preset(effect_groups, effect_presets, *subEffectPreset)
+  //Case 2
+  elif starts_with(string(*valueString), presetPrefix)
+    let presetName = slice(string(*valueString), presetPrefixLen)
+    let presetId = get_id_from_name(effect_presets, presetName)
+    if presetId < 0
+      logerr("parse_effect_preset_values: found a reference to a non-existent effect preset '{presetName}'")
+      return
+    using() <| $(var newValue : ChildComponent)
+      set(newValue, -(presetId + 1))
+      value := newValue
+  //Case 3
+  else
+    let groupId = get_id_from_name(effect_groups, string(*valueString))
+    if groupId < 0
+      logerr("parse_effect_preset_values: found a reference to a non-existent effect group '{*valueString}'")
+      return
+    using() <| $(var newValue : ChildComponent)
+      set(newValue, groupId + 1)
+      value := newValue
+
+def parse_effect_preset(effect_groups : Array; effect_presets : Array; var effect_preset : Object&)
+  let keyType = effect_preset.keyType ?as string
+  if keyType == null
+    logerr("parse_effect_preset: effect preset {effect_preset.name ?? ""} doesn't have element 'keyType:t'")
+    return
+
+  var values = effect_preset.values ?as Array
+  let valueCount = (values == null ? 0 : length(*values))
+  var keyCount = 0
+
+  if *keyType == "bullet_type"
+    effect_preset |> set("keyTypeId", int(EffectPresetKeyTypes BulletType))
+
+    let keys = get_ecs_StringList(effect_preset.keys)
+    keyCount = (keys == null ? 0 : length(*keys))
+
+    if keys != null
+      var newKeys : array<int>
+      find_query() <| $ [es] (global_hit_fx__bulletTypeGroupNameToIdMap : Object)
+        for bulletTypeGroupName in *keys
+          let bulletTypeGroupId = global_hit_fx__bulletTypeGroupNameToIdMap[string(bulletTypeGroupName)] ?as int
+          if bulletTypeGroupId == null
+            logerr("parse_effect_preset: effect preset {effect_preset.name ?? ""} references a non-existent bullet type group {bulletTypeGroupName}")
+            return true
+          newKeys |> push(*bulletTypeGroupId)
+        effect_preset |> erase("keys")
+        effect_preset |> set("keys", newKeys)
+        return true
+  else
+    if *keyType == "caliber"
+      effect_preset |> set("keyTypeId", int(EffectPresetKeyTypes Caliber))
+    elif *keyType == "impulse"
+      effect_preset |> set("keyTypeId", int(EffectPresetKeyTypes Impulse))
+    elif *keyType == "expl_mass"
+      effect_preset |> set("keyTypeId", int(EffectPresetKeyTypes ExplMass))
+    else
+      logerr("parse_effect_preset: effect preset has unsupported keyType")
+      return
+
+    let keys = get_ecs_FloatList(effect_preset.keys)
+    keyCount = (keys == null ? 0 : length(*keys))
+
+  if keyCount != valueCount
+    logerr("parse_effect_preset: effect preset {effect_preset.name ?? ""} has keys and values with different sizes")
+    return
+
+  if valueCount > 0
+    for elem in *values
+      parse_effect_preset_values(effect_groups, effect_presets, elem)
+
+  var defaultValue = effect_preset.defaultValue
+  if defaultValue == null
+    logerr("parse_effect_preset: effect preset {effect_preset.name ?? ""} does not have defaultValue")
+    return
+  parse_effect_preset_values(effect_groups, effect_presets, *defaultValue)
+
+def get_id_from_name(arr : Array; name : string)
+  for id, elem in iter_range(arr), arr
+    let curName = (elem as Object)?.name ?as string
+    if curName == null
+      return -1
+    if name == *curName
+      return id
+  return -1
 
 [es(on_appear)]
-def gun_hit_fx_init_es(evt : Event;
-                       var gun_hit_fx__info : Array&)
-  let pmidCount = physMatCount()
+def gun_hit_fx_hit_init_es(evt : Event;
+                           gun_hit_fx__hitEffectGroupName : das_string const?;
+                           gun_hit_fx__hitEffectPresetName : das_string const?;
+                           var gun_hit_fx__hitEffectDescriptor : int&)
+  find_query() <| $ [es] (global_hit_fx__effectGroups : Array; global_hit_fx__effectPresets : Array)
+    if gun_hit_fx__hitEffectGroupName != null
+      let id = get_id_from_name(global_hit_fx__effectGroups, string(*gun_hit_fx__hitEffectGroupName))
+      if id < 0
+        logerr("gun_hit_fx_hit_init_es: failed to find '{*gun_hit_fx__hitEffectGroupName}' in global_hit_fx__effectGroups")
+        return true
+      gun_hit_fx__hitEffectDescriptor = id + 1
+    elif gun_hit_fx__hitEffectPresetName != null
+      let id = get_id_from_name(global_hit_fx__effectPresets, string(*gun_hit_fx__hitEffectPresetName))
+      if id < 0
+        logerr("gun_hit_fx_hit_init_es: failed to find '{*gun_hit_fx__hitEffectPresetName}' in global_hit_fx__effectPresets")
+        return true
+      gun_hit_fx__hitEffectDescriptor = -(id + 1)
+    return true
 
-  find_query() <| $ [es] (global_hit_fx__materialGroups : Object; global_hit_fx__bulletTypeGroupNameToIdMap : Object)
-    parse_effect_group(pmidCount, global_hit_fx__materialGroups, global_hit_fx__bulletTypeGroupNameToIdMap, gun_hit_fx__info)
+[es(on_appear)]
+def gun_hit_fx_expl_init_es(evt : Event;
+                            gun_hit_fx__explEffectGroupName : das_string const?;
+                            gun_hit_fx__explEffectPresetName : das_string const?;
+                            var gun_hit_fx__explEffectDescriptor : int&)
+  find_query() <| $ [es] (global_hit_fx__effectGroups : Array; global_hit_fx__effectPresets : Array)
+    if gun_hit_fx__explEffectGroupName != null
+      let id = get_id_from_name(global_hit_fx__effectGroups, string(*gun_hit_fx__explEffectGroupName))
+      if id < 0
+        logerr("gun_hit_fx_expl_init_es: failed to find '{*gun_hit_fx__explEffectGroupName}' in global_hit_fx__effectGroups")
+        return true
+      gun_hit_fx__explEffectDescriptor = id + 1
+    elif gun_hit_fx__explEffectPresetName != null
+      let id = get_id_from_name(global_hit_fx__effectPresets, string(*gun_hit_fx__explEffectPresetName))
+      if id < 0
+        logerr("gun_hit_fx_expl_init_es: failed to find '{*gun_hit_fx__explEffectPresetName}' in global_hit_fx__effectPresets")
+        return true
+      gun_hit_fx__explEffectDescriptor = -(id + 1)
     return true
 
 [es(on_appear)]
@@ -143,7 +224,8 @@ def global_hit_fx_init_es(evt : Event;
                           global_hit_fx__bulletTypeGroups : Object;
                           var global_hit_fx__bulletTypeGroupNameToIdMap : Object&;
                           var global_hit_fx__bulletTypeIdToGroupIdMap : IntList&;
-                          var global_hit_fx__effectGroups : Object&)
+                          var global_hit_fx__effectGroups : Array&;
+                          var global_hit_fx__effectPresets : Array&)
   let pmidCount = physMatCount()
 
   for _i in range(getBulletTypePropCount(get_damage_model_params()))
@@ -169,8 +251,15 @@ def global_hit_fx_init_es(evt : Event;
         global_hit_fx__bulletTypeIdToGroupIdMap[btId] = btGroupId
 
   for elem in global_hit_fx__effectGroups
-    var effectGroup = elem.value as Array
+    var effectGroup = elem as Object
     if effectGroup == null
-      logerr("global_hit_fx_init_es: wrong value type for '{elem.key}' in global_hit_fx__effectGroups; should be 'array'")
+      logerr("global_hit_fx_init_es: all elements in global_hit_fx__effectGroups should be 'object'")
       continue
-    parse_effect_group(pmidCount, global_hit_fx__materialGroups, global_hit_fx__bulletTypeGroupNameToIdMap, *effectGroup)
+    parse_effect_group(pmidCount, global_hit_fx__materialGroups, *effectGroup)
+
+  for elem in global_hit_fx__effectPresets
+    var effectPreset = elem as Object
+    if effectPreset == null
+      logerr("global_hit_fx_init_es: all elements in global_hit_fx__effectPresets should be 'object'")
+      continue
+    parse_effect_preset(global_hit_fx__effectGroups, global_hit_fx__effectPresets, *effectPreset)

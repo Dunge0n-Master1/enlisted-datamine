@@ -3,7 +3,7 @@ require ecs
 require ecs.ecs_template
 require app
 require game.utils.team
-require game.es.render.render_events
+require danetlibs.renderer.includes.render_events
 require game.utils.hero
 require common_shooter.es.human_weap_common
 require DagorSystem

@@ -2,7 +2,7 @@ type_89_127mm_naval_gun_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="type_89_127mm_naval_gun_char"
   collres__res:t="type_89_127mm_naval_gun_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/type_89_127mm_naval_gun.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/type_89_127mm_naval_gun.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__animVars:shared:array"{
@@ -73,7 +73,7 @@ type_89_127mm_naval_gun_shield_go{
   _extends:t="type_89_127mm_naval_gun_go"
   animchar__res:t="type_89_127mm_naval_gun_shield_char"
   collres__res:t="type_89_127mm_naval_gun_shield_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/type_89_127mm_naval_gun_shield.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/type_89_127mm_naval_gun_shield.blk"
 }
 
 type_89_127mm_naval_gun_turret_01{

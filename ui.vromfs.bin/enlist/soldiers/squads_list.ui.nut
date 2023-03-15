@@ -1,10 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let mkCurSquadsList = isNewDesign.value
-  ? require("%enlSqGlob/ui/mkCurSquadsList.nut")
-  : require("%enlSqGlob/ui/mkSquadsList.nut")
+let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { multySquadPanelSize, listCtors, bigGap, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txtColor } = listCtors
@@ -18,16 +15,17 @@ let { unseenSquads } = require("model/unseenSquads.nut")
 let { openChooseSquadsWnd } = require("model/chooseSquadsState.nut")
 let { squadBgColor } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { needSoldiersManageBySquad } = require("model/reserve.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { curUnseenUpgradesBySquad, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { armySlotDiscount } = require("%enlist/shop/armySlotDiscount.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 let {
   mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let mkSquadManagementBtn = require("%enlist/squad/mkSquadManagementBtn.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
+
+let unseenIcon = blinkUnseenIcon(0.7)
 let restSquadsCount = Computed(@()
   max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
 
@@ -64,7 +62,7 @@ let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
 let managementIcon = @(sf, sizeArr = [hdpx(40), hdpx(20)]) {
   rendObj = ROBJ_IMAGE
   size = sizeArr
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture("!ui/squads/squad_manage.svg:{0}:{1}:K".subst(sizeArr[0], sizeArr[1]))
   color = txtColor(sf)
 }
@@ -73,7 +71,7 @@ let unseeSquadsIcon = @() {
   watch = [unseenSquads, curArmy]
   hplace = ALIGN_RIGHT
   children = (unseenSquads.value?[curArmy.value] ?? {}).findindex(@(v) v)
-    ? unseenSignal(0.7)
+    ? unseenIcon
     : null
 }
 
@@ -127,7 +125,5 @@ return mkCurSquadsList({
   curSquadsList
   curSquadId
   setCurSquadId
-  addedObj = isNewDesign.value
-    ? mkSquadManagementBtn(restSquadsCount)
-    : squadManageButton
+  addedObj = squadManageButton
 })

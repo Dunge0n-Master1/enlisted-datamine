@@ -3,7 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let colors = require("%ui/style/colors.nut")
-let { bigPadding, titleTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, titleTxtColor, defTxtColor, smallPadding
+} = require("%enlSqGlob/ui/viewConst.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
@@ -30,6 +31,8 @@ let { is_sony } = require("%dngscripts/platform.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
 let { onlineStatus, isContactOnline } = require("contactPresence.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let checkbox = require("%ui/components/checkbox.nut")
+let hasFriendOnlineNotification = require("%enlist/contacts/onlineNotifications.nut")
 
 const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
 let contactListWidth = hdpx(300)
@@ -323,6 +326,13 @@ let tabsContent = {
   invites        = mkContactsGroupContent(invitesKeys)
 }
 
+let trackFriendsOnline = {
+  padding = smallPadding
+  size = [flex(), SIZE_TO_CONTENT]
+  halign = ALIGN_CENTER
+  children = checkbox(hasFriendOnlineNotification, loc("contacts/friendNotificaion"))
+}
+
 let contactsBlock = @() {
   watch = display
   size = [contactListWidth, flex()]
@@ -350,6 +360,7 @@ let contactsBlock = @() {
         children = [
           modeSwitcher
           searchBlock
+          trackFriendsOnline
           makeVertScroll(tabsContent?[display.value])
         ]
       }

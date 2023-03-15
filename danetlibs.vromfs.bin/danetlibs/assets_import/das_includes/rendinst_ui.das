@@ -1,11 +1,13 @@
 module rendinst_ui shared
 
 require ecs
+require ecs.extra_set
 require math
 require math.base
 require imgui/imgui_boost
 require daslib/static_let
 require daslib/safe_addr
+require daslib/strings_boost
 require strings
 require danetlibs.assets_import.main.import_rendinst_common
 require danetlibs.assets_import.das_includes.utility
@@ -21,7 +23,7 @@ def create_rendinst(name : string; transform : float3x4; template_name : string)
 
 def spawn_rendinst()
   view_dag_assets("rendInst") <| $(assetName)
-    create_rendinst(assetName, find_transform(), "game_rendinst")
+    create_rendinst(assetName, find_transform(), "rendinst")
 
 
 def create_new_rendinst_asset()
@@ -56,7 +58,7 @@ def create_new_rendinst_asset()
       activeRI__lodFiles |> erase(removeLod)
 
     if imgui::Button("add LOD")
-      using() <| $(var lodFile : das_string#)
+      using() <| $(var lodFile : das_string)
         if get_local_path_to_dag(asset__baseFolderAbsPath, lodFile)
           activeRI__lodDistances |> push(100f)
           activeRI__lodFiles |> push(lodFile)
@@ -77,21 +79,31 @@ def create_new_rendinst_asset()
       activeRI__lodDistances |> clear()
       activeRI__lodFiles |> clear()
 
-def composit_tree(var entities : EidList#; node : DataBlock; transform : float3x4)
+
+def composit_tree(asset__manager : DagorAssetMgr; var entities : array<EntityId>; node : DataBlock; transform : float3x4)
 
   let nodeName = datablock_getStr(node, "name", "")
-  let nodeType = datablock_getStr(node, "type", "")
   let localTransform = datablock_getTm(node, "tm", IDENT_TM)
   let nodeTransform = transform * localTransform
 
-  if nodeType == "rendInst"
-    entities |> push(create_rendinst(nodeName, nodeTransform, "composit_child_rendinst"))
-  elif nodeType == "composit"
-    entities |> push(create_composit_entity(nodeName, nodeTransform))
+  if nodeName != ""
+    let typeParsed <- nodeName |> split(":")
+    let assetName = typeParsed[0]
+    let assetType = length(typeParsed) > 1 ? typeParsed[1] : ""
+    let typeIdx = asset__manager |> getAssetTypeId(assetType)
+
+    let asset = typeIdx >= 0 ? asset__manager |> findAsset(assetName, typeIdx) : asset__manager |> findAsset(assetName)
+    if asset != null //it's valid situation
+
+      let nodeType = (*asset).typeName
+      if nodeType == "rendInst"
+        entities |> push(create_rendinst(assetName, nodeTransform, "composit_child_rendinst"))
+      elif nodeType == "composit"
+        entities |> push(create_composit_entity(assetName, nodeTransform))
 
 
   datablock_for_each_block(node, "node") <| $(blk)
-    composit_tree(entities, blk, nodeTransform)
+    composit_tree(asset__manager, entities, blk, nodeTransform)
 
 
 
@@ -100,15 +112,15 @@ def create_composit_entity(name : string; transform : float3x4)
   var eid : EntityId
   query() <| $ [es] (asset__manager : DagorAssetMgr)
     let asset = asset__manager |> findAsset(name)
-    using() <| $(var entities : EidList#)
+    var entities : array<EntityId>
 
-      composit_tree(entities, asset.props, transform)
+    composit_tree(asset__manager, entities, asset.props, transform)
 
-      eid = createEntity("composit_rendinst") <| $(init)
-        set(init, "transform", transform)
-        set(init, "composit__name", name)
-        set(init, "composit__prevTransform", transform)
-        set(init, "composit__entities", entities)
+    eid = createEntity("composit_rendinst") <| $(init)
+      set(init, "transform", transform)
+      set(init, "composit__name", name)
+      set(init, "composit__prevTransform", transform)
+      set(init, "composit__entities", entities)
   return eid
 
 

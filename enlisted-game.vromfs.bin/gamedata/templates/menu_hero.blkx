@@ -13,6 +13,7 @@ common_menu_animchar{
   human_sec_anim__interruptsMovement:b=no
   human_sec_anim__instantlyStart:b=yes
   human_sec_anim__hideMelee:b=no
+  human_anim__selectedWeaponVarId:i=-1
 
   human_sec_anim{
   }
@@ -21,6 +22,9 @@ common_menu_animchar{
   }
 
   phys_vars{
+  }
+
+  anim_phys{
   }
 }
 
@@ -44,6 +48,7 @@ customizable_menu_animchar{
   human_sec_anim__interruptsMovement:b=no
   human_sec_anim__instantlyStart:b=yes
   human_sec_anim__hideMelee:b=no
+  human_anim__selectedWeaponVarId:i=-1
 
   human_sec_anim{
   }
@@ -52,6 +57,9 @@ customizable_menu_animchar{
   }
 
   phys_vars{
+  }
+
+  anim_phys{
   }
 
   "itemContainer:list<eid>"{

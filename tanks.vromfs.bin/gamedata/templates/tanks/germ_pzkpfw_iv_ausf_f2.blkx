@@ -61,8 +61,8 @@ germ_pzkpfw_iv_ausf_f2_tunis{
   _extends:t="germ_pzkpfw_iv_ausf_f2_common"
 
   "disableDMParts:list<t>"{
-    part:t="track_r"
-    part:t="track_l"
+    part:t="track_r_01"
+    part:t="track_l_01"
     part:t="ex_armor_body_05"
     part:t="ex_armor_body_l_01"
     part:t="ex_armor_body_r_01"
@@ -319,8 +319,8 @@ germ_pzkpfw_iv_ausf_f2_stalingrad_rg24_1233_battlepass_premium{
   _extends:t="germ_pzkpfw_iv_ausf_f2_common"
 
   "disableDMParts:list<t>"{
-    part:t="track_r"
-    part:t="track_l"
+    part:t="track_r_01"
+    part:t="track_l_01"
     part:t="ex_armor_body_05"
     part:t="ex_armor_body_l_01"
     part:t="ex_armor_body_r_01"

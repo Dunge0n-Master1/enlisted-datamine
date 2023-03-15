@@ -20,7 +20,7 @@ let {voiceRecordVolume, voiceRecordVolumeUpdate} = globalWatched("voiceRecordVol
 let {voicePlaybackVolume, voicePlaybackVolumeUpdate} = globalWatched("voicePlaybackVolume", @() clamp(get_setting_by_blk_path("voice/playback_volume") ?? 1.0, 0.0, 1.0))
 let {voiceRecordingEnable, voiceRecordingEnableUpdate} = globalWatched("voiceRecordingEnable", @() false)
 let {voiceRecordingEnabledGeneration, voiceRecordingEnabledGenerationUpdate} = globalWatched("voiceRecordingEnabledGeneration", @() 0)
-let {voiceChatMode, voiceChatModeUpdate} = globalWatched("voiceChatMode", @() validateMode(get_setting_by_blk_path("voice/mode"), voice_modes, platform.is_nswitch ? voice_modes.off : voice_modes.on))
+let {voiceChatMode, voiceChatModeUpdate} = globalWatched("voiceChatMode", @() validateMode(get_setting_by_blk_path("voice/mode"), voice_modes, voice_modes.on))
 let {voiceActivationMode, voiceActivationModeUpdate} = globalWatched("voiceActivationMode", @() validateMode(get_setting_by_blk_path("voice/activation_mode"),
     voice_activation_modes,
     platform.is_pc ? voice_activation_modes.toggle : voice_activation_modes.always)

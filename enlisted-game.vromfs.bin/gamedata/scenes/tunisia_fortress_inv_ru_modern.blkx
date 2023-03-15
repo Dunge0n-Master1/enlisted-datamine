@@ -21,9 +21,9 @@ entity{
   mission_name:t="tunisia_fortress_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/tunisia_fortress_inv_01.jpg"
-    item:t="ui/tunisia_fortress_inv_02.jpg"
-    item:t="ui/tunisia_fortress_inv_03.jpg"
+    item:t="ui/tunisia_fortress_inv_01.avif"
+    item:t="ui/tunisia_fortress_inv_02.avif"
+    item:t="ui/tunisia_fortress_inv_03.avif"
   }
 }
 
@@ -87,7 +87,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{

@@ -8,8 +8,7 @@ require DagorMath
 require math.base
 require DagorRandom
 require DagorSystem
-require game.events_game
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require sound_utils_net.modules.sound_desc_common
 require game.utils.net_utils
 
@@ -90,18 +89,18 @@ def human_net_speech_request(evt : CmdRequestHumanSpeech;
   set_speech_time(phraseIdx, curTime, curTime + rnd_float(minMaxCooldown.x, minMaxCooldown.y), human_net_speech__lastNextTime)
 
   let eventType = get_string(*desc, "type", "")
-  if eventType == "possessed"
-    send_net_event(eid, [[CmdHumanSpeechForAnySpecificPlayer phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
-  elif eventType == "hero"
-    send_net_event(eid, [[CmdHumanSpeechForHero phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
-  elif eventType == "squad"
-    send_net_event(eid, [[CmdHumanSpeechForAnySpecificPlayer phraseIdx=phraseIdx, time=curTime]], target_entity_squad(eid))
-  elif eventType == "vehicle"
-    send_net_event(eid, [[CmdHumanSpeechForAnySpecificPlayer phraseIdx=phraseIdx, time=curTime]], target_entity_vehicle(eid))
-  elif eventType == "team"
-    send_net_event(eid, [[CmdHumanSpeechForAnySpecificPlayer phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range_team(eid))
+  if eventType == "watched"
+    send_net_event(eid, [[CmdHumanWatchedSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
   elif eventType == "chat"
     send_net_event(eid, [[CmdHumanQuickChatSpeech phraseIdx=phraseIdx, time=curTime]]) // for bypass team range distance
+  elif eventType == "target"
+    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_conn(eid))
+  elif eventType == "squad"
+    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_squad(eid))
+  elif eventType == "vehicle"
+    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_vehicle(eid))
+  elif eventType == "team"
+    send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range_team(eid))
   elif eventType == ""
     send_net_event(eid, [[CmdHumanSpeech phraseIdx=phraseIdx, time=curTime]], target_entity_pos_range(eid))
   else

@@ -95,7 +95,7 @@ def battle_area_zone_about_to_deactivate_es(evt : EventEntityAboutToDeactivate;
   battle_area__deactivateEndTime = battle_area__deactivatedAtTime + deactivationDelay
 
 [es(tag=server, no_order, REQUIRE=battle_area)]
-def battle_area_deactivation_timer(info : UpdateStageInfoAct; eid : EntityId; var battle_area__deactivateEndTime : float&)
+def battle_area_deactivation_timer(info : ParallelUpdateFrameDelayed; eid : EntityId; var battle_area__deactivateEndTime : float&)
   if battle_area__deactivateEndTime > 0. && info.curTime > battle_area__deactivateEndTime
     sendEvent(eid, [[EventEntityActivate activate=false]])
     battle_area__deactivateEndTime = -1.
@@ -115,7 +115,7 @@ def battle_area_zone_deactivate_es(evt : EventEntityActivate; var zone__keepDead
 
 
 [es(tag=server, no_order)]
-def old_battle_area_warning_es(info : UpdateStageInfoAct; battle_area__deactivatedAtTime : float; battle_area__timeToWarn : float)
+def old_battle_area_warning_es(info : ParallelUpdateFrameDelayed; battle_area__deactivatedAtTime : float; battle_area__timeToWarn : float)
   if battle_area__deactivatedAtTime >= 0.0
     let timeFromWarnStart = info.curTime - (battle_area__deactivatedAtTime + battle_area__timeToWarn)
     if timeFromWarnStart >= 0.0 && timeFromWarnStart <= info.dt
@@ -123,7 +123,7 @@ def old_battle_area_warning_es(info : UpdateStageInfoAct; battle_area__deactivat
         isInDeactivatingBattleArea = !is_in_next_active_battle_area(battle_areas_visitor__zonesIn, team)
 
 [es(tag=server, after=after_net_phys_sync, REQUIRE_NOT=notTakeDamageFromBattleArea)]
-def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
+def battle_areas_visitor_update_es(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    transform : float3x4;
                                    var battle_areas_visitor__zonesIn : EidList;
@@ -169,7 +169,7 @@ def battle_areas_visitor_update_es(info : UpdateStageInfoAct;
       let visitorType = battle_area__timeToDamageType
       var timeToDamage = get_time_to_damage(visitorType, timeByType, defaultTime)
       timeToDamage     = get_vehicle_time_to_damage(human_anim__vehicleSelected, timeByType, timeToDamage)
-      push_to_array(battle_area__killList) <| $(var obj : Object#)
+      push_to_array(battle_area__killList) <| $(var obj : Object)
         set(obj, "eid", eid)
         set(obj, "timer", timeToDamage)
 
@@ -181,7 +181,7 @@ def battle_areas_visitor_check_deactivating(evt : Event;
   isInDeactivatingBattleArea = !is_in_next_active_battle_area(battle_areas_visitor__zonesIn, team)
 
 [es(tag=server, no_order)]
-def battle_area_damage_es(info : UpdateStageInfoAct;
+def battle_area_damage_es(info : ParallelUpdateFrameDelayed;
                           eid : EntityId;
                           var battle_area__lastDamageAtTime : float&;
                           var battle_area__killList : ecs::Array;

@@ -42,6 +42,7 @@ base_8mm_breda_mod38{
 tankgun_8mm_breda_mod38{
   _extends:t="tankgun"
   _extends:t="base_tankgun_machinegun"
+  _extends:t="gunsound_8mm_breda_mod38"
   _extends:t="base_8mm_breda_mod38"
   turret__triggerGroup:i=2
 }

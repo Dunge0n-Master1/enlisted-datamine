@@ -86,10 +86,11 @@ def terraform_crater_create_land_decal(evt : EventBombCraterTerraformed;
   create_clipmap_decal(decalId, pos, rnd_float(0.0, PI * 2.0), decalSize, 0, false, partsMask, evt.partsGridWidth)
 
 [es(tag=render)]
-def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraformed)
+def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraformed;
+                                                  bomb_crater_config__smokeEffectTemplate : string)
   var tm = scale_tm(evt.outerRadius)
   tm[3] = evt.pos
-  createEntity("explosion_smoke_crater_effect") <| $(var init : ComponentsInitializer)
+  createEntity(bomb_crater_config__smokeEffectTemplate) <| $(var init : ComponentsInitializer)
     set(init, "transform", tm)
 
 [es(tag=render)]

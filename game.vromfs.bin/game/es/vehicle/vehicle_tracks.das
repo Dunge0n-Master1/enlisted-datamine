@@ -2,9 +2,10 @@ require ecs
 require vehicle
 require math.base
 require DagorMath
+require enlisted.events_enlisted
 
 [es(tag=render)]
-def vehicle_tracks_visual_pos_es(info : UpdateStageInfoAct;
+def vehicle_tracks_visual_pos_es(info : ParallelUpdateFrameDelayed;
                                  vehicle_net_phys : VehiclePhysActor;
                                  var vehicle_tracks_visual_pos : float2&;
                                  var vehicle_tracks_visual_pos_delta : float2&)

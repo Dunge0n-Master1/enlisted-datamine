@@ -8,7 +8,7 @@ require DagorMath
 require EnlistedWeapon
 require EnlistedHuman
 require EnlistedPhys
-
+require enlisted.events_enlisted
 
 def process_aim_offs(var aim_offs : float2&; var aim_angles : float2&; tau, dt : float)
   let delta = approach(aim_offs, float2(0.f), dt, tau) - aim_offs
@@ -25,7 +25,7 @@ def private get_compensation_amount(recoil_delta : float; compensate_delta : flo
   return 0.0
 
 [es(tag=input, after=after_guns_update_sync, before=clear_gun_launch_events_es, REQUIRE=watchedByPlr)]
-def gun_human_recoil_es(info : UpdateStageInfoAct;
+def gun_human_recoil_es(info : ParallelUpdateFrameDelayed;
                         var human_net_phys : HumanActor;
                         var human_input__aimOffset : float2&;
                         var human_input__uncompensatedAimOffset : float2&;

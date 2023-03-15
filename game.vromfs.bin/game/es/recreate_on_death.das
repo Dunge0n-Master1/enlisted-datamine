@@ -4,7 +4,7 @@ require strings
 require enlisted.events_enlisted
 
 [es(after=hitpoints_es)]
-def recreate_on_death(evt : UpdateStageInfoAct)
+def recreate_on_death(evt : ParallelUpdateFrameDelayed)
   var counter = 5
   find_query() <| $ [es] (recreate_dead_entity__maxPerUpdate : int)
     counter = recreate_dead_entity__maxPerUpdate

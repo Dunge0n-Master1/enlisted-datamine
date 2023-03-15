@@ -1,7 +1,8 @@
 require ecs
+require enlisted.events_enlisted
 
 [es(tag=ui, REQUIRE=hero, no_order)]
-def human_medkit_update_need_display_heal_tip(info : UpdateStageInfoAct;
+def human_medkit_update_need_display_heal_tip(info : ParallelUpdateFrameDelayed;
                                               isDowned : bool;
                                               burning__isBurning : bool;
                                               heal__continuousInput : bool;

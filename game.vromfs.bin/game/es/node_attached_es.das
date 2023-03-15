@@ -2,9 +2,10 @@ require ecs
 require game.es.events
 require AnimV20
 require GeomNodeTree
+require enlisted.events_enlisted
 
 [es(after=after_animchar_update_sync, before=animchar_render_es)]
-def node_attached_itm(info : UpdateStageInfoAct;
+def node_attached_itm(info : ParallelUpdateFrameDelayed;
                       node_attached__entity : EntityId;
                       node_attached__nodeId : int;
                       node_attached__localTm : float3x4;
@@ -18,7 +19,7 @@ def node_attached_itm(info : UpdateStageInfoAct;
     transform = tm * node_attached__localTm
 
 [es(after=after_animchar_update_sync, before=animchar_render_es)]
-def node_attached_pos(info : UpdateStageInfoAct;
+def node_attached_pos(info : ParallelUpdateFrameDelayed;
                       node_attached__entity : EntityId;
                       node_attached__nodeId : int;
                       node_attached__localPos : float3;
@@ -32,17 +33,17 @@ def node_attached_pos(info : UpdateStageInfoAct;
     transform[3] = tm * node_attached__localPos
 
 [es(tag=server, tag=net, no_order, REQUIRE=node_attached__destroyWithParent)]
-def node_attached_destroy_with_parent_server(info : UpdateStageInfoAct; eid : EntityId; node_attached__entity : EntityId)
+def node_attached_destroy_with_parent_server(info : ParallelUpdateFrameDelayed; eid : EntityId; node_attached__entity : EntityId)
   if !doesEntityExist(node_attached__entity)
     destroyEntity(eid)
 
 [es(no_order, REQUIRE=node_attached__destroyWithParent, REQUIRE_NOT=replication)]  // same as above ES but for local (not networking) entities
-def node_attached_destroy_with_parent_local(info : UpdateStageInfoAct; eid : EntityId; node_attached__entity : EntityId)
+def node_attached_destroy_with_parent_local(info : ParallelUpdateFrameDelayed; eid : EntityId; node_attached__entity : EntityId)
   if !doesEntityExist(node_attached__entity)
     destroyEntity(eid)
 
 [es(tag=gameClient, after=node_attached_itm, before=animchar_render_es, REQUIRE=node_attached__updateWtm)]
-def node_attached_update_animchar_es(info : UpdateStageInfoAct;
+def node_attached_update_animchar_es(info : ParallelUpdateFrameDelayed;
                                      transform : float3x4;
                                      node_attached__nodeId : int;
                                      var animchar : AnimcharBaseComponent;

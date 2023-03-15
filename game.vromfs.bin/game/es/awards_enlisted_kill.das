@@ -12,15 +12,6 @@ require enlisted.events_enlisted
 require EnlistedDm
 require math.base
 
-struct VictimInfo
-  guid : string
-  team : int
-  player : EntityId
-  isStatsCountAsKill : bool
-  isVehicle : bool
-  isPlane : bool
-  isTank : bool
-  pos : float3
 
 struct AwardedSoldier
   guid : string = ""
@@ -39,31 +30,11 @@ struct VehicleOffender
 def is_valid_award(player : EntityId; guid : string)
   return !!player && !empty(guid)
 
-def is_valid_soldier(soldier : VictimInfo)
-  return is_valid_award(soldier.player, soldier.guid)
+def is_valid_soldier(player : EntityId; guid : string)
+  return is_valid_award(player, guid)
 
 def get_squad_size(squad : EntityId)
   return get_int(squad, "squad__numMembers") ?? 0
-
-def get_victim_info(eid : EntityId) : VictimInfo
-  var res : VictimInfo
-  query(eid) <| $ [es] (team : int = TEAM_UNASSIGNED;
-                        guid : string = "";
-                        squad_member__playerEid : EntityId = INVALID_ENTITY_ID;
-                        statsCountAsKill : Tag const?;
-                        vehicle : Tag const?;
-                        airplane : Tag const?;
-                        isTank : Tag const?;
-                        transform : float3x4)
-    res.guid = guid
-    res.team = team
-    res.isStatsCountAsKill = statsCountAsKill != null
-    res.player = squad_member__playerEid
-    res.isVehicle = vehicle != null
-    res.isPlane = airplane != null
-    res.isTank = isTank != null
-    res.pos = transform[3]
-  return res
 
 def get_crew_for_assist(offender_eid : EntityId)
   var res : array<AwardedSoldier>
@@ -92,7 +63,7 @@ def get_crew_for_assist(offender_eid : EntityId)
             res |> emplace([[AwardedSoldier guid=guid, player=squad_member__playerEid, amount=amount]])
   return <- res
 
-def add_assists_for_markers(var award_list : Array#; victim_pos : float3; offender_player : EntityId; offender_team : int)
+def add_assists_for_markers(var award_list : Array; victim_pos : float3; offender_player : EntityId; offender_team : int)
   var assistants : table<uint; tuple<player : EntityId; guid : string; time : float>>
   query() <| $ [es] (transform : float3x4;
                      userPointType : string;
@@ -109,7 +80,7 @@ def add_assists_for_markers(var award_list : Array#; victim_pos : float3; offend
       return
     let markPos = transform[3]
     let markerCreatedAt = timer__start
-    let otherMarkerBySamePlayerTime = find(assistants, uint(userPointOwner))?.time ?? 0.
+    let otherMarkerBySamePlayerTime = assistants?[uint(userPointOwner)]?.time ?? 0.
     if length_sq(victim_pos - markPos) < square(user_point_assist__distance) && markerCreatedAt > otherMarkerBySamePlayerTime
       assistants[uint(userPointOwner)] = [[auto soldier.player, soldier.guid, markerCreatedAt]]
   for assist in values(assistants)
@@ -129,7 +100,7 @@ def get_crew_award_amount(squad_size : int)
         : squad_size == 1 ? 1.0
         : 0.0)
 
-def add_vehicle_kill_assist(var award_list : Array#; vehicle_eid : EntityId; killer_player_eid : EntityId)
+def add_vehicle_kill_assist(var award_list : Array; vehicle_eid : EntityId; killer_player_eid : EntityId)
   query(vehicle_eid) <| $ [es] (vehicle_kill_assist__stat : string = "";
                                 vehicle_kill_assist__crewStat : string = "";
                                 vehicle_kill_assist__engineerStat : string = "";
@@ -164,7 +135,7 @@ def add_vehicle_kill_assist(var award_list : Array#; vehicle_eid : EntityId; kil
 def zone_radius(tm : float3x4; sphere_zone__radius : float const?; capzone__approximateRadius : float const?)
   return sphere_zone__radius ?? capzone__approximateRadius ?? sqrt(length_sq(tm[0]) + length_sq(tm[2])) * 0.5
 
-def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3; offender : CachedSoldier; offender_team : int)
+def add_zone_attack_defense_awards(var award_list : Array; victim_pos : float3; offender : CachedSoldier; offender_team : int)
   var isNearFriendlyZone = false
   var isNearEnemyZone = false
   find_query() <| $ [es] (transform : float3x4;
@@ -203,7 +174,7 @@ def add_zone_attack_defense_awards(var award_list : Array#; victim_pos : float3;
   if isNearEnemyZone
     award_list |> push_soldier_stat(offender.player, offender.guid, "attackKills")
 
-def add_weapon_kill_awards(var award_list : Array#; victim_pos : float3; damage_type : int; gun_props_id : int; offender_eid : EntityId; offender : CachedSoldier)
+def add_weapon_kill_awards(var award_list : Array; victim_pos : float3; damage_type : int; gun_props_id : int; offender_eid : EntityId; offender : CachedSoldier)
   if damage_type == int(DamageType DM_MELEE) || damage_type == int(DamageType DM_BACKSTAB)
     award_list |> push_soldier_stat(offender.player, offender.guid, "meleeKills")
   if get_gun_stat_type_by_props_id(gun_props_id) == "grenade"
@@ -214,7 +185,7 @@ def add_weapon_kill_awards(var award_list : Array#; victim_pos : float3; damage_
       if length_sq(killerPos - victim_pos) > square(awards__longRangeDist)
         award_list |> push_soldier_stat(offender.player, offender.guid, "longRangeKills")
 
-def add_vehicle_kill_awards(var award_list : Array#;
+def add_vehicle_kill_awards(var award_list : Array;
                             offender : CachedSoldier;
                             vehicle_eid : EntityId;
                             crew_for_assist : array<AwardedSoldier>;
@@ -234,38 +205,48 @@ def add_vehicle_kill_awards(var award_list : Array#;
       award_list |> push_soldier_stat(engineer_for_assist.player, engineer_for_assist.guid, vehicle_kill__engineerStat)
 
 [es(tag=server)]
-def enlisted_kill_award_es(evt : EventAnyEntityDied) // broadcast
-  assume victimEid = evt.victim
+def enlisted_kill_award_es(evt : EventEntityDied;
+                           eid aka victim_eid : EntityId;
+                           team aka victim_team : int = TEAM_UNASSIGNED;
+                           guid aka victim_guid : string = "";
+                           squad_member__playerEid : EntityId = INVALID_ENTITY_ID;
+                           statsCountAsKill : Tag const?;
+                           vehicle : Tag const?;
+                           transform aka victim_transform : float3x4)
   assume killerEid = evt.offender
   assume gunPropsId = evt.gunPropsId
   assume damageType = evt.damageType
 
-  let victim = get_victim_info(victimEid)
+  assume victimPlayerEid = squad_member__playerEid
+  let victimPos = victim_transform[3]
+  let isVictimVehicle = vehicle != null
+  let isStatsCountAsKill = statsCountAsKill != null
+
   let offender = get_offender_from_cache(killerEid)
   let offenderPlayerTeam = get_int(offender.player, "team") ?? TEAM_UNASSIGNED
 
-  if victimEid == killerEid || !is_valid_cache_soldier(offender) || victim.team == TEAM_UNASSIGNED || is_teams_friendly(offenderPlayerTeam, victim.team)
+  if victim_eid == killerEid || !is_valid_cache_soldier(offender) || victim_team == TEAM_UNASSIGNED || is_teams_friendly(offenderPlayerTeam, victim_team)
     return
 
-  using <| $(var awardList : Array#)
-    let isVictimValidSoldier = is_valid_soldier(victim)
-    let isCountedAsKill = isVictimValidSoldier || victim.isStatsCountAsKill
+  using() <| $(var awardList : Array)
+    let isVictimValidSoldier = is_valid_soldier(victimPlayerEid, victim_guid)
+    let isCountedAsKill = isVictimValidSoldier || isStatsCountAsKill
     if isCountedAsKill
       awardList |> push_soldier_stat(offender.player, offender.guid, "kills")
-      awardList |> add_weapon_kill_awards(victim.pos, damageType, gunPropsId, killerEid, offender)
-      sendEvent(offender.player, [[OnScoringKillBySquadMember victim=victimEid, offender=killerEid]])
+      awardList |> add_weapon_kill_awards(victimPos, damageType, gunPropsId, killerEid, offender)
+      sendEvent(offender.player, [[OnScoringKillBySquadMember victim=victim_eid, offender=killerEid]])
     if isVictimValidSoldier
-      awardList |> push_soldier_stat(victim.player, victim.guid, "killed")
+      awardList |> push_soldier_stat(victimPlayerEid, victim_guid, "killed")
 
     let crewForAssist <- get_crew_for_assist(killerEid)
-    let engineerForAssist = get_engineer_for_offender(victimEid, killerEid)
+    let engineerForAssist = get_engineer_for_offender(victim_eid, killerEid)
 
-    if victim.isVehicle
-      awardList |> add_vehicle_kill_assist(victimEid, offender.player)
-      awardList |> add_assists_for_markers(victim.pos, offender.player, offenderPlayerTeam)
-      awardList |> add_vehicle_kill_awards(offender, victimEid, crewForAssist, engineerForAssist)
+    if isVictimVehicle
+      awardList |> add_vehicle_kill_assist(victim_eid, offender.player)
+      awardList |> add_assists_for_markers(victimPos, offender.player, offenderPlayerTeam)
+      awardList |> add_vehicle_kill_awards(offender, victim_eid, crewForAssist, engineerForAssist)
     else
-      awardList |> add_assists_for_kill(victimEid, killerEid)
+      awardList |> add_assists_for_kill(victim_eid, killerEid)
       if engineerForAssist.isValid
         awardList |> push_soldier_stat(engineerForAssist.player, engineerForAssist.guid, "builtGunKills")
 
@@ -273,7 +254,7 @@ def enlisted_kill_award_es(evt : EventAnyEntityDied) // broadcast
         for crew in crewForAssist
           awardList |> push_soldier_stat(crew.player, crew.guid, "crewKillAssists", crew.amount)
 
-      add_zone_attack_defense_awards(awardList, victim.pos, offender, offenderPlayerTeam)
+      add_zone_attack_defense_awards(awardList, victimPos, offender, offenderPlayerTeam)
 
     if length(awardList) > 0
       broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
@@ -299,7 +280,7 @@ def insert_offender(victim_eid : EntityId;
 def is_valid_assistant(obj : Object; offender_eid : EntityId; time : float)
   return (obj.soldier ?? INVALID_ENTITY_ID) != offender_eid && time < (obj.expireAtTime ?? 0.)
 
-def add_assists_for_kill(var award_list : Array#; victim_eid : EntityId; offender_eid : EntityId)
+def add_assists_for_kill(var award_list : Array; victim_eid : EntityId; offender_eid : EntityId)
   query(victim_eid) <| $ [es] (offenders_for_assist__last : Object;
                                offenders_for_assist__prev : Object)
     let curTime = get_sync_time()

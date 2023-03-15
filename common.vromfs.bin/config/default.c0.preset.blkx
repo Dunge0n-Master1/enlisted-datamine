@@ -1,0 +1,1184 @@
+Camera.Move{
+  dev:i=31
+
+  xMinBtn{
+    dev:i=1
+    btn:i=30
+  }
+
+  xMaxBtn{
+    dev:i=1
+    btn:i=32
+  }
+
+  yMinBtn{
+    dev:i=1
+    btn:i=31
+  }
+
+  yMaxBtn{
+    dev:i=1
+    btn:i=17
+  }
+}
+
+Camera.Rotate{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Camera.ShiftY{
+  dev:i=31
+
+  minBtn{
+    dev:i=1
+    btn:i=46
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=18
+  }
+}
+
+Camera.ZoomIn{
+  dev:i=1
+  btn:i=44
+}
+
+Camera.ZoomOut{
+  dev:i=1
+  btn:i=16
+}
+
+Camera.Turbo{
+  dev:i=3
+  axis:i=5
+
+  maxBtn{
+    dev:i=1
+    btn:i=42
+  }
+}
+
+Camera.LookAround{
+  dev:i=31
+
+  maxBtn{
+    dev:i=1
+    btn:i=46
+  }
+}
+
+Camera.SpeedUp{
+  dev:i=2
+  btn:i=5
+}
+
+Camera.SpeedDown{
+  dev:i=2
+  btn:i=6
+}
+
+Camera.SpeedReset{
+  dev:i=2
+  btn:i=2
+}
+
+Camera.LockOri{
+  dev:i=1
+  btn:i=37
+}
+
+Camera.LockOfs{
+  dev:i=1
+  btn:i=20
+}
+
+Camera.OriWorld{
+  dev:i=1
+  btn:i=38
+}
+
+Global.Screenshot{
+  dev:i=1
+  btn:i=183
+}
+
+Global.ScreenshotNoGUI{
+  dev:i=1
+  btn:i=183
+
+  mod{
+    dev:i=1
+    btn:i=42
+  }
+}
+
+VoiceChat.Record{
+  dev:i=1
+  btn:i=60
+}
+
+HUD.QuickHint{
+  dev:i=1
+  btn:i=21
+  type:i=5
+}
+
+HUD.SetMark{
+  dev:i=1
+  btn:i=22
+}
+
+HUD.GameMenu{
+  dev:i=1
+  btn:i=1
+}
+
+HUD.ChatInput{
+  dev:i=1
+  btn:i=28
+}
+
+HUD.BigMap{
+  dev:i=1
+  btn:i=50
+}
+
+HUD.Scores{
+  dev:i=1
+  btn:i=15
+}
+
+HUD.Briefing{
+  dev:i=1
+  btn:i=59
+}
+
+HUD.Inventory{
+  dev:i=1
+  btn:i=23
+}
+
+HUD.Interactive{
+  dev:i=1
+  btn:i=56
+}
+
+HUD.CloseMenu{
+  dev:i=1
+  btn:i=1
+}
+
+Human.Jump{
+  dev:i=1
+  btn:i=57
+}
+
+Human.Sprint{
+  dev:i=1
+  btn:i=42
+}
+
+Human.Crawl{
+  dev:i=1
+  btn:i=44
+}
+
+Human.Crouch{
+  dev:i=1
+  btn:i=29
+}
+
+Human.Shoot{
+  dev:i=2
+  btn:i=0
+}
+
+Human.Aim1{
+  dev:i=2
+  btn:i=1
+  type:i=5
+  stickyToggle:b=yes
+}
+
+Human.Aim2{
+  dev:i=2
+  btn:i=1
+  type:i=0
+}
+
+Human.Zoom{
+  dev:i=2
+  btn:i=1
+  type:i=0
+}
+
+Human.Melee{
+  dev:i=2
+  btn:i=2
+}
+
+Human.Throw{
+  dev:i=1
+  btn:i=34
+}
+
+Human.Throw2{
+  dev:i=1
+  btn:i=51
+}
+
+Human.Throw3{
+  dev:i=1
+  btn:i=49
+}
+
+Human.ThrowBack{
+  dev:i=2
+  btn:i=2
+}
+
+Human.Reload{
+  dev:i=1
+  btn:i=19
+}
+
+Human.WeapModToggle{
+  dev:i=1
+  btn:i=22
+}
+
+Human.HoldBreath{
+  dev:i=1
+  btn:i=42
+}
+
+Human.Recover{
+  dev:i=1
+  btn:i=33
+}
+
+Human.Weapon1{
+  dev:i=1
+  btn:i=2
+}
+
+Human.Weapon2{
+  dev:i=1
+  btn:i=3
+}
+
+Human.Weapon3{
+  dev:i=1
+  btn:i=4
+}
+
+Human.Weapon4{
+  dev:i=1
+  btn:i=5
+}
+
+Human.SpecialItemSlot{
+  dev:i=1
+  btn:i=7
+}
+
+Human.WeaponPrev{
+  dev:i=2
+  btn:i=5
+}
+
+Human.WeaponNext{
+  dev:i=2
+  btn:i=6
+}
+
+Human.NextBuildingType{
+  dev:i=1
+  btn:i=82
+}
+
+Human.BuildingAction{
+  dev:i=1
+  btn:i=36
+}
+
+Human.SightPrev{
+  dev:i=1
+  btn:i=201
+}
+
+Human.SightNext{
+  dev:i=1
+  btn:i=209
+}
+
+Human.FiringMode{
+  dev:i=1
+  btn:i=35
+  type:i=5
+}
+
+Human.GrenadeNext{
+  dev:i=1
+  btn:i=6
+}
+
+Human.CameraNext{
+  dev:i=1
+  btn:i=47
+}
+
+Human.SeatNext{
+  dev:i=1
+  btn:i=49
+  type:i=5
+}
+
+Human.DriverSeat{
+  dev:i=1
+  btn:i=49
+  type:i=1
+}
+
+Human.Seat01{
+  dev:i=1
+  btn:i=2
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat02{
+  dev:i=1
+  btn:i=3
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat03{
+  dev:i=1
+  btn:i=4
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat04{
+  dev:i=1
+  btn:i=5
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat05{
+  dev:i=1
+  btn:i=6
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat06{
+  dev:i=1
+  btn:i=7
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat07{
+  dev:i=1
+  btn:i=8
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat08{
+  dev:i=1
+  btn:i=9
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat09{
+  dev:i=1
+  btn:i=10
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.Seat10{
+  dev:i=1
+  btn:i=11
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Human.ToggleHatch{
+  dev:i=1
+  btn:i=29
+}
+
+Human.VehicleMaintenance{
+  dev:i=1
+  btn:i=20
+}
+
+Human.LeaveVehicleAlone{
+  dev:i=1
+  btn:i=36
+}
+
+Human.ToggleHoldGunMode{
+  dev:i=1
+  btn:i=48
+}
+
+Human.ArtilleryStrike{
+  dev:i=1
+  btn:i=8
+}
+
+Human.SquadNext{
+  dev:i=1
+  btn:i=21
+}
+
+Human.Hooray{
+  dev:i=1
+  btn:i=23
+}
+
+Human.Use{
+  dev:i=1
+  btn:i=33
+}
+
+Human.PushObject{
+  dev:i=1
+  btn:i=48
+}
+
+Human.LeanX{
+  dev:i=31
+  dzone:r=0.35
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=16
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=18
+  }
+}
+
+Human.Move{
+  dev:i=31
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  xMinBtn{
+    dev:i=1
+    btn:i=30
+  }
+
+  xMaxBtn{
+    dev:i=1
+    btn:i=32
+  }
+
+  yMinBtn{
+    dev:i=1
+    btn:i=31
+  }
+
+  yMaxBtn{
+    dev:i=1
+    btn:i=17
+  }
+}
+
+Human.Aim{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Human.Look{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  mod{
+    dev:i=1
+    btn:i=46
+  }
+}
+
+Human.BipodToggle{
+  dev:i=1
+  btn:i=48
+}
+
+Inventory.Pickup{
+  dev:i=1
+  btn:i=33
+  type:i=5
+}
+
+Inventory.ForcedPickup{
+  dev:i=1
+  btn:i=33
+  type:i=1
+}
+
+Inventory.UseMedkit{
+  dev:i=1
+  btn:i=20
+}
+
+Inventory.UseFlask{
+  dev:i=1
+  btn:i=35
+  type:i=1
+}
+
+Vehicle.Shoot{
+  dev:i=2
+  btn:i=0
+}
+
+Vehicle.ShootSecondary{
+  dev:i=2
+  btn:i=0
+}
+
+Vehicle.ShootMachinegun{
+  dev:i=1
+  btn:i=57
+}
+
+Vehicle.ShootGrenadeLauncher{
+  dev:i=1
+  btn:i=34
+}
+
+Vehicle.ShootTurret03{
+  dev:i=1
+  btn:i=57
+}
+
+Vehicle.ZoomToggle{
+  dev:i=2
+  btn:i=1
+  type:i=5
+  stickyToggle:b=yes
+}
+
+Vehicle.Zoom{
+  dev:i=2
+  btn:i=1
+  type:i=5
+}
+
+Vehicle.Steer{
+  dev:i=31
+  inverse:b=yes
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=30
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=32
+  }
+}
+
+Vehicle.Throttle{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=31
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=17
+  }
+}
+
+Vehicle.Aim{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.Horn{
+  dev:i=1
+  btn:i=42
+}
+
+Vehicle.HandBrake{
+  dev:i=1
+  btn:i=57
+}
+
+Vehicle.NextBulletType{
+  dev:i=1
+  btn:i=19
+}
+
+Vehicle.SecondaryNextBulletType{
+  dev:i=1
+  btn:i=19
+}
+
+Vehicle.NextCockpitView{
+  dev:i=2
+  btn:i=5
+}
+
+Vehicle.PrevCockpitView{
+  dev:i=2
+  btn:i=6
+}
+
+Vehicle.NextGear{
+  dev:i=1
+  btn:i=18
+}
+
+Vehicle.PrevGear{
+  dev:i=1
+  btn:i=16
+}
+
+Vehicle.NeutralGear{
+  dev:i=1
+  btn:i=49
+}
+
+Vehicle.AutomaticTransmission{
+  dev:i=1
+  btn:i=20
+}
+
+Ship.Steer{
+  dev:i=31
+  inverse:b=yes
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=30
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=32
+  }
+}
+
+Ship.Throttle{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=31
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=17
+  }
+}
+
+Ship.Horn{
+  dev:i=1
+  btn:i=42
+}
+
+Spectator.Prev{
+  dev:i=1
+  btn:i=30
+  type:i=0
+}
+
+Spectator.Next{
+  dev:i=1
+  btn:i=32
+  type:i=0
+}
+
+Spectator.Aim{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+}
+
+Plane.MouseAimToggle{
+  dev:i=1
+  btn:i=49
+}
+
+Plane.InstructorToggle{
+  dev:i=1
+  btn:i=23
+}
+
+Plane.HoverToggle{
+  dev:i=1
+  btn:i=36
+}
+
+Plane.ExtendFlaps{
+  dev:i=1
+  btn:i=3
+}
+
+Plane.RaiseFlaps{
+  dev:i=1
+  btn:i=2
+}
+
+Plane.ToggleGear{
+  dev:i=1
+  btn:i=34
+}
+
+Plane.Airbrakes{
+  dev:i=1
+  btn:i=35
+}
+
+Plane.EngineToggle{
+  dev:i=1
+  btn:i=20
+}
+
+Plane.AutoPitch{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.AutoRadiator{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.PropFeather{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.SuperchargerGear{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.Magneto{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.ManualEngine{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.SimpleJoy{
+  dev:i=0
+  axis:i=0
+  axisThres:i=0
+}
+
+Plane.Ailerons{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=30
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=32
+  }
+}
+
+Plane.Elevator{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=17
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=31
+  }
+}
+
+Plane.Rudder{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=16
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=18
+  }
+}
+
+Plane.RudderLeft{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  maxBtn{
+    dev:i=1
+    btn:i=16
+  }
+}
+
+Plane.RudderRight{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  maxBtn{
+    dev:i=1
+    btn:i=18
+  }
+}
+
+Plane.BrakeLeft{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  maxBtn{
+  }
+}
+
+Plane.BrakeRight{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  maxBtn{
+  }
+}
+
+Plane.BrakeBoth{
+  dev:i=31
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  maxBtn{
+    dev:i=1
+    btn:i=48
+  }
+}
+
+Plane.ParkingBrake{
+  dev:i=1
+  btn:i=48
+
+  mod{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Plane.Throttle{
+  dev:i=31
+  relIncScale:r=0.0453
+  instantIncDecBtn:b=yes
+  quantizeValOnIncDecBtn:b=yes
+
+  incBtn{
+    dev:i=1
+    btn:i=42
+  }
+
+  decBtn{
+    dev:i=1
+    btn:i=29
+  }
+}
+
+Plane.Pitch{
+  dev:i=0
+  axis:i=0
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=0.0
+}
+
+Plane.Radiator{
+  dev:i=0
+  axis:i=0
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=0.0
+}
+
+Plane.OilRadiator{
+  dev:i=0
+  axis:i=0
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=0.0
+}
+
+Plane.Mixture{
+  dev:i=0
+  axis:i=0
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=0.0
+}
+
+Plane.MouseAim{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Aim{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Look{
+  dev:i=2
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  mod{
+    dev:i=1
+    btn:i=46
+  }
+}
+
+Plane.ZoomToggle{
+  dev:i=2
+  btn:i=1
+}
+
+Plane.Shoot{
+  dev:i=2
+  btn:i=0
+}
+
+Plane.ShootCannons{
+  dev:i=2
+  btn:i=0
+}
+
+Plane.ShootAdditionalGuns{
+  dev:i=2
+  btn:i=0
+}
+
+Plane.Bomb{
+  dev:i=1
+  btn:i=57
+}
+
+Plane.Rocket{
+  dev:i=1
+  btn:i=19
+}
+
+Mortar.Cancel{
+  dev:i=2
+  btn:i=1
+}
+
+Mortar.SwitchShellType{
+  dev:i=1
+  btn:i=19
+}
+
+Replay.ToggleCamera{
+  dev:i=1
+  btn:i=47
+}
+
+Replay.Prev{
+  dev:i=1
+  btn:i=48
+}
+
+Replay.Next{
+  dev:i=1
+  btn:i=49
+}
+
+Replay.SpeedDown{
+  dev:i=1
+  btn:i=44
+}
+
+Replay.Pause{
+  dev:i=1
+  btn:i=57
+}
+
+Replay.SpeedUp{
+  dev:i=1
+  btn:i=45
+}
+
+Replay.DisableHUD{
+  dev:i=1
+  btn:i=64
+}
+
+Replay.DisableGameHUD{
+  dev:i=1
+  btn:i=66
+}
+
+Replay.AdvancedSettings{
+  dev:i=1
+  btn:i=29
+}
+
+Replay.Camera1{
+  dev:i=1
+  btn:i=2
+}
+
+Replay.Camera2{
+  dev:i=1
+  btn:i=3
+}
+
+Replay.Camera3{
+  dev:i=1
+  btn:i=4
+}
+
+Replay.NextCamera{
+  dev:i=1
+  btn:i=18
+}
+
+Replay.PrevCamera{
+  dev:i=1
+  btn:i=16
+}
+
+Replay.RecordVideo{
+  dev:i=1
+  btn:i=19
+}

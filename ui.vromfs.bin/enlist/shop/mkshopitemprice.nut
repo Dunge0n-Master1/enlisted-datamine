@@ -35,7 +35,7 @@ let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}", { price })
 
 let mkPurchaseText = @(isSoldier) isSoldier ? loc("mainmenu/enlistFor") : loc("mainmenu/buyFor")
 
-let function mkItemPurchaseInfo(shopItem, campItems, currencies) {
+let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   let { curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, shop_price_full = 0, discountInPercent = 0,
     isPriceHidden = false
@@ -52,17 +52,20 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies) {
     }.__update(body_txt))
 
   let { price, fullPrice, currencyId = null } = curShopItemPrice
+  //block for Ingame Currencies: Gold, etc
   let currency = currencies.findvalue(@(c) c.id == currencyId)
-  if ((currency != null && price > 0) || discountInPercent > 0)
+  if (currency != null && (price > 0 || discountInPercent > 0))
     return {
       flow = FLOW_HORIZONTAL
       padding = [0, sidePadding, 0, 0]
       valign = ALIGN_CENTER
+      gap = bigPadding
       children = [
-        txt({
-          text = mkPurchaseText(isSoldier)
-          color = activeTxtColor
-        }.__update(sub_txt))
+        isNarrow || isPriceHidden ? null
+          : txt({
+              text = mkPurchaseText(isSoldier)
+              color = activeTxtColor
+            }.__update(sub_txt))
         mkDiscountWidget(discountInPercent)
         isPriceHidden ? null : mkCurrency({
           currency
@@ -72,32 +75,36 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies) {
       ]
     }
 
-  // this block for console platform specific prices:
-  if (shop_price_curr != "" && shop_price > 0 && !isPriceHidden) {
-    let hasConsoleDiscount = shop_price_full > shop_price
+  // this block for external store:
+  if (shop_price_curr != "" && shop_price > 0) {
+    let hasStoreDiscount = shop_price_full > shop_price
+    let children = []
+    if (!isPriceHidden) {
+      if (!isNarrow || !hasStoreDiscount)
+        children.append(txt({
+          text = mkPurchaseText(isSoldier)
+          color = activeTxtColor
+        }.__update(sub_txt)))
+
+      children.append(mkCurrencyCount(
+        mkPriceText(shop_price, shop_price_curr),
+        { color = hasStoreDiscount ? bonusColor : activeTxtColor }
+      ))
+
+      if (hasStoreDiscount)
+        children.append({children = [
+          mkCurrencyCount(mkPriceText(shop_price_full, shop_price_curr), { color = defTxtColor })
+          oldPriceLine.__merge({ color = defTxtColor })
+        ]})
+    }
+    children.append(mkDiscountWidget(discountInPercent))
+
     return {
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
       gap = bigPadding
       padding = [0, sidePadding, 0, 0]
-      children = [
-        txt({
-          text = mkPurchaseText(isSoldier)
-          color = activeTxtColor
-        }.__update(sub_txt))
-        mkCurrencyCount(
-          mkPriceText(shop_price, shop_price_curr),
-          { color = hasConsoleDiscount ? bonusColor : activeTxtColor }
-        )
-        !hasConsoleDiscount ? null
-          : {
-              children = [
-                mkCurrencyCount(mkPriceText(shop_price_full, shop_price_curr),
-                  { color = defTxtColor })
-                oldPriceLine.__merge({ color = defTxtColor })
-              ]
-            }
-      ]
+      children
     }
   }
 
@@ -199,7 +206,7 @@ let function mkDiscountInfo(discountData) {
   }
 }
 
-local function mkShopItemPrice(shopItem, personalOffer = null) {
+local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false) {
   local {
     curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, discountInPercent = 0,
@@ -236,7 +243,7 @@ local function mkShopItemPrice(shopItem, personalOffer = null) {
       mkItemBarterInfo(shopItem, curCampItemsCount.value)
       mkDiscountInfo(discountData)
       { size = flex() }
-      mkItemPurchaseInfo(shopItem, curCampItemsCount.value, currenciesList.value)
+      mkItemPurchaseInfo(shopItem, curCampItemsCount.value, currenciesList.value, isNarrow)
     ]
   }
 }

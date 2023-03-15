@@ -16,7 +16,7 @@ def engineer_unlock_all_cmd([[net_hero]] hero_eid : EntityId)
             buildings__unlockIds |> push(i)
 
 [net_console_cmd(name="engineer.add_resource")]
-def engineer_resupple_resource_cmd([[net_hero]] hero_eid : EntityId; count : float = 100.0f)
+def engineer_resupple_resource_cmd(count : float = 100.0f; [[net_hero]] hero_eid : EntityId)
   query(hero_eid) <| $ [es] (var stockOfBuilderCapabilities : float&)
     stockOfBuilderCapabilities += count
 

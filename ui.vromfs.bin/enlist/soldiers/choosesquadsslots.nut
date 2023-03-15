@@ -136,7 +136,7 @@ let dragIcon = @(sf) {
   rendObj = ROBJ_IMAGE
   size = [dragIconWidth, dragIconWidth]
   margin = [0, bigPadding, 0, 0]
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture("!ui/squads/drag_squads.svg:{0}:{0}:K".subst(dragIconWidth))
   color = txtColor(sf)
 }
@@ -144,7 +144,7 @@ let dragIcon = @(sf) {
 let tutorialIcon = @(squadType, isHovered, isSelected) watchElemState(@(sf) {
   rendObj = ROBJ_IMAGE
   behavior = Behaviors.Button
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   onClick = @() openSquadTextTutorial(squadType)
   size = [dragIconWidth, dragIconWidth]
   image = Picture("!ui/squads/tutorial_squad.svg:{0}:{0}:K".subst(dragIconWidth))

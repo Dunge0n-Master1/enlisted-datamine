@@ -1,0 +1,16 @@
+entityMods{
+  modProps:t="content/enlisted/gamedata/items/medication_stamina.blk"
+}
+
+visual{
+  template:t="medication_stamina_item+item_in_world"
+}
+
+equipable{
+  slot:t="mod1"
+  slot:t="mod2"
+}
+
+staminaMult{
+  amount:r=0.6
+}

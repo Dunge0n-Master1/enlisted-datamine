@@ -68,7 +68,7 @@ struct CmdInventoryPickup
 struct EventOnLootDrop
   itemEid : ecs::EntityId
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventOnLootUse
   itemEid : ecs::EntityId
 
@@ -98,11 +98,6 @@ struct CmdChangePlayerPerk
   perkName : string
   active : bool
 
-[cpp_event(broadcast)]
-struct CmdChangeAllPlayersPerk
-  perkName : string
-  active : bool
-
 [event(unicast)]
 struct CmdKill
   offender : EntityId
@@ -110,7 +105,7 @@ struct CmdKill
   gunPropsId : int
   shellId : int
 
-[cpp_event(unicast)]
+[event(unicast)]
 struct EventOnLootItemUsed
   target : ecs::EntityId
 
@@ -204,10 +199,6 @@ struct CmdScaledRumble
 
 [cpp_event(unicast)]
 struct EventInterruptItemUse {}
-
-[event(unicast)]
-struct CmdDropLoot
-  detachWeapMods : bool
 
 [cpp_event(unicast)]
 struct CmdLoadAmmo

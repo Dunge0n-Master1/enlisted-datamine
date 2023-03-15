@@ -1,6 +1,7 @@
 require ecs
 require DagorInput
 require game.es.input.input_events
+require danetlibs.renderer.includes.render_events
 
 def private init_actions(var free_cam_input__move : uint16&;
                          var free_cam_input__rotate : uint16&;
@@ -118,7 +119,7 @@ def free_cam_input_es(info : UpdateStageInfoBeforeRender;
   let shiftY = get_analog_axis_action_state(free_cam_input__shiftY)
   free_cam__shiftY = shiftY.x
 
-[es(tag=input, before=free_cam_es)]
+[es(tag=input, before=free_cam_es, REQUIRE=free_cam)]
 def free_cam_input_action_es(evt : EventDaInputActionTriggered;
                              free_cam_input__zoomIn : uint16;
                              free_cam_input__zoomOut : uint16;

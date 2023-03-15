@@ -2949,12 +2949,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -2962,9 +2962,9 @@ entity{
   mission_name:t="stalingrad_communist_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_03.jpg"
-    item:t="ui/stalingrad_inv_05.jpg"
-    item:t="ui/stalingrad_inv_08.jpg"
+    item:t="ui/stalingrad_inv_03.avif"
+    item:t="ui/stalingrad_inv_05.avif"
+    item:t="ui/stalingrad_inv_08.avif"
   }
 }
 
@@ -2988,8 +2988,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -3132,7 +3132,7 @@ entity{
   capzone__capTimeTeam1:r=90.0
   capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[-2.21245, 0.0, -25.2205] [0.0, 5.70147, 0.0] [26.0962, 0.0, -2.28922] [-197.903, 9.77044, 182.961]]
   active:b=no
@@ -3165,7 +3165,7 @@ entity{
   capzone__capTimeTeam1:r=80.0
   capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[38.4324, 0.0, -1.20541] [0.0, 8.76844, 0.0] [0.756292, 0.0, 24.1124] [-298.189, 12.427, -0.657111]]
   active:b=no
@@ -3225,7 +3225,7 @@ entity{
   capzone__capTimeTeam1:r=90.0
   capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-21.9831, 5.50829, 166.822]]
   active:b=no
@@ -3257,7 +3257,7 @@ entity{
   capzone__capTimeTeam1:r=80.0
   capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[-32.2988, 0.0, 4.11572] [0.0, 9.08888, 0.0] [-3.33342, 0.0, -26.1597] [-108.199, 8.7228, 236.531]]
   active:b=no
@@ -3289,7 +3289,7 @@ entity{
   capzone__capTimeTeam1:r=80.0
   capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[-19.0586, 0.0, -42.0451] [0.0, 11.3661, 0.0] [19.682, 0.0, -8.92162] [-47.3978, 7.82801, 109.038]]
   active:b=no
@@ -4936,6 +4936,14 @@ entity{
   _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[-0.967444, 0.0, -0.253085] [0.0, 1.0, 0.0] [0.253085, 0.0, -0.967444] [126.696, 5.83493, 203.423]]
   resupply_zone__team:i=2
+  groupName:t="sector_3_d"
+  active:b=no
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[0.681802, 0.0, 0.731536] [0.0, 1.0, 0.0] [-0.731536, 0.0, 0.681802] [-335.171, 6.03651, 208.139]]
+  resupply_zone__team:i=1
   groupName:t="sector_3_d"
   active:b=no
 }

@@ -33,12 +33,11 @@ def edit_weights(var weights : FeatureWeights; nodes_name : StringList; predicti
     safe_slider("position##{name}{hash}", p, 0f, 10f)
     safe_slider("velocity##{name}{hash}", v, 0f, 10f)
 
-  for p, v, a, t in weights.rootPositions, weights.rootLinearVelocities, weights.rootAngularVelocities, prediction_times
+  for p, v, t in weights.rootPositions, weights.rootDirections, prediction_times
     imgui::Text("prediction time {t}")
 
     safe_slider("position##{t}{hash}", p, 0f, 10f)
     safe_slider("velocity##{t}{hash}", v, 0f, 10f)
-    safe_slider("rotation##{t}{hash}", a, 0f, 10f)
   imgui::Text("optional tag")
   safe_slider("##optional tag{hash}", weights.optionalTagWeight, 0f, 100f)
   commit_feature_weights(weights)
@@ -164,17 +163,15 @@ def edit_presets_weights(dataBaseEid : EntityId)
 
           if editedTime.enlarged
             preset.weights.rootPositions |> push(0f)
-            preset.weights.rootLinearVelocities |> push(0f)
-            preset.weights.rootAngularVelocities |> push(0f)
+            preset.weights.rootDirections |> push(0f)
           if editedTime.eraseIdx >= 0
             preset.weights.rootPositions |> erase(editedTime.eraseIdx)
-            preset.weights.rootLinearVelocities |> erase(editedTime.eraseIdx)
-            preset.weights.rootAngularVelocities |> erase(editedTime.eraseIdx)
+            preset.weights.rootDirections |> erase(editedTime.eraseIdx)
           commit_feature_weights(preset.weights)
 
         dataBase.nodeCount = dataBase.nodesName |> length()
         dataBase.trajectorySize = dataBase.predictionTimes |> length()
-        dataBase.featuresSize = dataBase.nodeCount * NODE_DIMENSION + dataBase.trajectorySize * TRAJECTORY_DIMENSION
+        dataBase.featuresSize = get_features_sizes(dataBase.nodeCount, dataBase.trajectorySize)
 
         invalidateDatabase = true
 

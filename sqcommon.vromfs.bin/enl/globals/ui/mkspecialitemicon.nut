@@ -12,7 +12,7 @@ let defIconSize = hdpxi(22)
 let mkIcon = @(icon, iconSize = defIconSize, iconDef = "!ui/icons/bp_weapon_icon.svg") icon == null ? null : {
   rendObj = ROBJ_IMAGE
   size = [iconSize, iconSize]
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture($"{icon}:{iconSize}:{iconSize}:K")
   fallbackImage = Picture($"{iconDef}:{iconSize}:{iconSize}:K")
   margin = hdpx(5)

@@ -3,12 +3,13 @@ require EnlistedShip
 require math.base
 require DagorMath
 require GamePhys
+require enlisted.events_enlisted
 
 let
   MSEC_TO_KMH = 3.6f
 
 [es(tag=gameClient, after=net_phys_update_es, REQUIRE=heroVehicle)]
-def ship_minimal_view(info : UpdateStageInfoAct;
+def ship_minimal_view(info : ParallelUpdateFrameDelayed;
                       ship_net_phys : ShipActor;
                       transform : float3x4;
                       var vehicle_view__rpm : int&;

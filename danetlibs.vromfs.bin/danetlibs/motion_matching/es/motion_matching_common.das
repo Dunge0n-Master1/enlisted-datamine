@@ -13,22 +13,21 @@ def write_weights_to_block(var blk : DataBlock; weights : FeatureWeights)
       node |> add("position_weight", p)
       node |> add("velocity_weight", v)
 
-  for p, v, a in weights.rootPositions, weights.rootLinearVelocities, weights.rootAngularVelocities
+  for p, v in weights.rootPositions, weights.rootDirections
     blk |> datablock_add_new_block("point") <| $(node)
       node |> add("position_weight", p)
       node |> add("velocity_weight", v)
-      node |> add("rotation_weight", a)
 
   blk |> set("optionalTagWeight", weights.optionalTagWeight);
 
 
-def serialize_node_names(var blk : DataBlock#; nodes_name : StringList)
+def serialize_node_names(var blk : DataBlock; nodes_name : StringList)
   blk |> datablock_add_new_block("nodes_name") <| $(nodesNameBlk)
     for name in nodes_name
       nodesNameBlk |> add("node", "{name}")
 
 
-def serialize_prediction_times(var blk : DataBlock#; prediction_times : FloatList)
+def serialize_prediction_times(var blk : DataBlock; prediction_times : FloatList)
   blk |> datablock_add_new_block("prediction_times") <| $(predTimesBlk)
     for time in prediction_times
       predTimesBlk |> add("time", time)
@@ -36,7 +35,7 @@ def serialize_prediction_times(var blk : DataBlock#; prediction_times : FloatLis
 def serialize_presets(path : string; presets : TagPresetVector; nodes_name : StringList; prediction_times : FloatList; presets_tag_names : StringList)
 
   if !empty(path)
-    using <| $(var blk : DataBlock#)
+    using() <| $(var blk : DataBlock)
       serialize_node_names(blk, nodes_name)
       serialize_prediction_times(blk, prediction_times)
 
@@ -63,11 +62,10 @@ def read_weights_from_block(var weights : FeatureWeights; blk : DataBlock; node_
       v = datablock_getReal(node, "velocity_weight", 0.0)
 
 
-  for p, v, a, j in weights.rootPositions, weights.rootLinearVelocities, weights.rootAngularVelocities, urange(node_count, node_count + point_count)
+  for p, v, j in weights.rootPositions, weights.rootDirections, urange(node_count, node_count + point_count)
     datablock_get_block(blk, j) <| $(point)
       p = datablock_getReal(point, "position_weight", 0.0)
       v = datablock_getReal(point, "velocity_weight", 0.0)
-      a = datablock_getReal(point, "rotation_weight", 0.0)
 
   weights.optionalTagWeight = datablock_getReal(blk, "optionalTagWeight", 0.f)
   commit_feature_weights(weights)
@@ -93,7 +91,7 @@ def deserialize_presets(path : string;
   presets_tags_name |> clear()
 
   var result = false
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     if !datablock_load(blk, path)
       return
     deserialize_node_names(*(blk |> datablock_get_block_by_name("nodes_name")), nodes_name)
@@ -156,7 +154,7 @@ def deserialize_root_motions(path : string;
   centerOfMassParams |> clear()
 
   var result = false
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     if !datablock_load(blk, path)
       return
     rootNode := blk |> datablock_getStr("root_node", "")
@@ -176,7 +174,7 @@ def serialize_root_motions(path : string;
                            centerOfMassParams : Point4List)
   var result = false
   if !empty(path)
-    using <| $(var blk : DataBlock#)
+    using() <| $(var blk : DataBlock)
       blk |> add("root_node", string(rootNode))
       blk |> datablock_add_new_block("direction_nodes") <| $(directionsBlk)
         for name, weight in directionNodes, directionWeights

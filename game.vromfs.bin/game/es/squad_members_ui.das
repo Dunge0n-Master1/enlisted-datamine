@@ -30,7 +30,7 @@ def private write_member_data(var states : Object&; member_eid : EntityId)
     let eidKey = "{member_eid}"
     var state = getRW_ecs_object(states, eidKey)
     if state == null
-      push_to_object(states, eidKey) <| $(var init : Object#)
+      push_to_object(states, eidKey) <| $(var init : Object)
         init |> set("eid", member_eid)
       state = getRW_ecs_object(states, eidKey)
     *state |> set("eid", member_eid)

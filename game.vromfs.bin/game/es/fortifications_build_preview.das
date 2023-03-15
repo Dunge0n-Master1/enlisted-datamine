@@ -14,6 +14,7 @@ require HumanPhys
 require DagorMath
 require PhysVars
 require RendInst
+require ecs.safe
 require CollRes
 require PhysMat
 require Dacoll
@@ -210,6 +211,8 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
   if syncTime > nextCheckGridObjectsTime
     let baseCollres = get_building_collres(previewCollres, ri_preview__name)
     let buildPos = build_position
+    let bboxDiagonal = buildingBoxMax - buildingBoxMin
+    let bboxDiagonalXZLength =  length(bboxDiagonal.xz)
     let minDistanceToCapturePoints = building_builder__minDistanceToCapturePoints
     let minDistanceToMissionRespawns = building_builder__minDistanceToMissionRespawns
     let maxUnderwaterDistance = building_builder__maxUnderwaterDistance
@@ -219,7 +222,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
                    !priceLimitReached &&
                    (availableByCountLimit || allowRecreate) &&
                    is_required_unlocks_available(previewId, squadEid) &&
-                   is_required_space_above_object_free(buildPos, requiredSpaceAboveObject) &&
+                   is_required_space_above_object_free(buildPos, bboxDiagonalXZLength, requiredSpaceAboveObject) &&
                    is_distance_to_capture_points_valid(buildPos, minDistanceToCapturePoints) &&
                    !is_conflict_with_water(buildPos, maxUnderwaterDistance) &&
                    !is_human_respawn_selector_in_radius_for_team(buildPos, minDistanceToMissionRespawns, heroTeam) &&
@@ -245,23 +248,22 @@ def get_verified_fortification_template_name(templateName, fortificationTm, buil
                                                  text="building_blocked_by_unlock"]])
     return ""
 
-  if getTemplateComponent(*tpl, "shredInDeactivatingBattleArea") != null
+  if templateHasComponent(*tpl, "shredInDeactivatingBattleArea")
     if !has_active_non_deactivating_human_battle_area_at(fortificationTm[3], buildingTeam)
       sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_in_deactivating_battle_area", text="building_blocked_in_deactivating_battle_area"]])
       return ""
 
-  let anglesComp = getTemplateComponent(*tpl, "avaliableAngles")
-  if anglesComp == null
+  let avaliableAngles = getTemplateComponent(*tpl, "avaliableAngles") ?as float2
+  if avaliableAngles == null
     logerr("Angle limits aren't specified in template {templateName}")
     return ""
-  let avaliableAngles = get_Point2(anglesComp) ?? float2()
   let norm = fortificationTm[1]
-  if !is_pitch_in_range(norm, avaliableAngles)
+  if !is_pitch_in_range(norm, *avaliableAngles)
     return ""
-  let buildingCost = get_float(getTemplateComponent(*tpl, "buildingCost")) ?? 0.0
+  let buildingCost = getTemplateComponent(*tpl, "buildingCost") ?? 0.0
   if buildingCost > builder_resources
     return ""
-  let buildingDistance = get_float(getTemplateComponent(*tpl, "buildingDistance")) ?? 0.0
+  let buildingDistance = getTemplateComponent(*tpl, "buildingDistance") ?? 0.0
   var buildingPosForVerification = fortificationTm[3]
   buildingPosForVerification.y = builderPos.y
   let distance = length(builderPos - buildingPosForVerification)
@@ -270,29 +272,21 @@ def get_verified_fortification_template_name(templateName, fortificationTm, buil
     sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_by_distance", text="building_blocked_by_distance"]])
     return ""
 
-  let maxUnderwaterDistance = get_float(getTemplateComponent(*tpl, "building_builder__maxUnderwaterDistance")) ?? -1.0
+  let maxUnderwaterDistance = getTemplateComponent(*tpl, "building_builder__maxUnderwaterDistance") ?? -1.0
   if is_conflict_with_water(fortificationTm[3], maxUnderwaterDistance)
     sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_underwater", text="building_blocked_underwater"]])
     return ""
 
-  let minDistanceToCapturePoints = get_float(getTemplateComponent(*tpl, "building_builder__minDistanceToCapturePoints")) ?? -1.0
+  let minDistanceToCapturePoints = getTemplateComponent(*tpl, "building_builder__minDistanceToCapturePoints") ?? -1.0
   if !is_distance_to_capture_points_valid(buildingPosForVerification, minDistanceToCapturePoints)
     sendEvent(notificationEid, [[CmdHeroLogEvent event="building_blocked_too_close_to_capture_points", text="building_blocked_too_close_to_capture_points"]])
     return ""
 
-  let instantiateComp = getTemplateComponent(*tpl, "instantiateTemplate")
-  if instantiateComp == null
+  let instantiateComp = getTemplateComponent(*tpl, "instantiateTemplate") ?? ""
+  if empty(instantiateComp)
     logerr("instantiateTemplate isn't specified in template {templateName}")
     return ""
-  return get_string(*instantiateComp, "")
-
-def count_available_buildings_by_type(plrEid, currentPreviewId)
-  var buildingsByType = -1
-  if currentPreviewId >= 0
-    ecs::query(plrEid) <| $ [es] (availableBuildings : IntList)
-      if currentPreviewId < length(availableBuildings)
-        buildingsByType = availableBuildings[currentPreviewId]
-  return buildingsByType
+  return instantiateComp
 
 
 def find_same_building(player_eid; build_type_id)
@@ -449,8 +443,9 @@ def building_create_es(evt : Event; eid : EntityId; buildTypeId : int; buildByPl
     destroyEntity(find_same_building(buildByPlayer, buildTypeId))
 
 [es(on_event=EventEntityDestroyed, tag=server)]
-def building_destroyed_es(evt : Event; buildTypeId : int; buildByPlayer : ecs::EntityId)
-  change_building_limits(buildByPlayer, buildTypeId, 1)
+def building_destroyed_es(evt : Event; buildTypeId : int; buildByPlayer : ecs::EntityId; additiveBuildNeedRepair : bool = false)
+  if !additiveBuildNeedRepair
+    change_building_limits(buildByPlayer, buildTypeId, 1)
 
 [es(on_event=EventEntityDied, tag=server)]
 def building_died_es(evt : Event; buildTypeId : int; var buildByPlayer : ecs::EntityId&)
@@ -517,7 +512,9 @@ def try_build_fortification_es(evt : Event;
   if is_conflict_with_water(buildingPos, building_builder__maxUnderwaterDistance)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_underwater", text="building_blocked_underwater"]])
     return
-  if !is_required_space_above_object_free(buildingPos, requiredSpaceAboveObject)
+  let bboxDiagonal = buildingBoxMax - buildingBoxMin
+  let bboxDiagonalXZLength = length(bboxDiagonal.xz)
+  if !is_required_space_above_object_free(buildingPos, bboxDiagonalXZLength, requiredSpaceAboveObject)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_not_enough_free_space_to_spawn", text="building_blocked_not_enough_free_space_to_spawn"]])
     return
   let restrictedZoneEid = find_building_restricted_zone(buildingPos, heroTeam)
@@ -598,3 +595,30 @@ def start_building_action_fortification_es(evt : CmdWeapPhysUpdate;
       send_net_event(evt.owner, [[EventSetBuildingTarget target = INVALID_ENTITY_ID]])
     buildPreviewWasStarted = build_fortification_immediately(evt.owner, isShootPressed)
     builder__shootPressed = buildPreviewWasStarted && isShootPressed
+
+
+def is_building_action_blocked(building_action__target : EntityId;
+                               blockedColor : float3;
+                               placingColor : float3)
+  return !building_action__target && is_equal_float(placingColor, blockedColor, 0.01)
+
+
+[es(tag=gameClient, on_appear, track=semi_transparent__placingColor)]
+def fortification_preview_update_melee_ability_preview(evt : Event;
+                                                       blockedColor : float3;
+                                                       builderGunEid : EntityId;
+                                                       semi_transparent__placingColor : float3)
+  query(builderGunEid) <| $ [es] (gun__owner : EntityId; var melee_weapon__isActionBlocked : bool&)
+    let buildingTargetEid = get_Eid(gun__owner, "building_action__target") ?? INVALID_ENTITY_ID
+    melee_weapon__isActionBlocked = is_building_action_blocked(buildingTargetEid, blockedColor, semi_transparent__placingColor)
+
+
+[es(tag=gameClient, on_appear, track=building_action__target)]
+def fortification_preview_update_melee_ability_human(evt : Event;
+                                                     building_action__target : EntityId;
+                                                     human_weap__currentGunEid : EntityId)
+  query(human_weap__currentGunEid) <| $ [es(REQUIRE=buildingTool)] (previewEid : EntityId;
+                                                                    var melee_weapon__isActionBlocked : bool&)
+    query(previewEid) <| $ [es] (blockedColor : float3;
+                                 semi_transparent__placingColor : float3)
+      melee_weapon__isActionBlocked = is_building_action_blocked(building_action__target, blockedColor, semi_transparent__placingColor)

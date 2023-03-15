@@ -15,6 +15,8 @@ require DagorMathUtils
 require AnimV20
 require GeomNodeTree
 require common_shooter.es.vehicle.vehicle_turret_common
+require enlisted.events_enlisted
+require AnimatedPhys
 
 [es(on_event=CmdTurretsUpdate, after=turret_weap_apply_client_controls_es)]
 def turret_weap_reset_shoot(evt : Event;
@@ -63,22 +65,23 @@ def update_turret_aim_drives_mult(evt : Event;
 
 
 [es(on_event=CmdTurretsUpdate, REQUIRE_NOT=deadEntity)]
-def turret_set_angles_es(evt : Event; turret_control__gunEids : EidList; var phys_vars : PhysVars)
+def turret_set_angles_es(evt : Event;
+                         turret_control__gunEids : EidList;
+                         var phys_vars : PhysVars)
   for turretEid in turret_control__gunEids
     query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__owner : EntityId;
                                                         turret__wishYawVarId : int;
                                                         turret__wishPitchVarId : int;
+                                                        turret__aimNodeId : int;
                                                         turret__limitsTable : Point4List const? = null;
-                                                        turret__aimNodeName : string = "";
                                                         turret_state : TurretState)
       if turret__wishYawVarId >= 0 && turret__wishPitchVarId >= 0
         var wishAngles = turret_state.wishAngles
-        if turret__limitsTable != null && turret__aimNodeName != ""
+        if turret__limitsTable != null && turret__aimNodeId >= 0
           query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
             let ang = float2(-wishAngles.x, wishAngles.y)
             var dir = angles_to_dir(ang)
-            let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, turret__aimNodeName)
-            let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, nodeId)
+            let parNodeId = geomtree_getParentNodeIdx(*animchar.nodeTree, turret__aimNodeId)
 
             var mx : float3x4
 
@@ -86,7 +89,7 @@ def turret_set_angles_es(evt : Event; turret_control__gunEids : EidList; var phy
               var tm : float3x4
               var wt : float3x4
 
-              *animchar.originalNodeTree |> geomtree_getNodeTmScalar(nodeId, tm)
+              *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
               *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(parNodeId, wt)
 
               mx  = wt * tm
@@ -113,47 +116,51 @@ def turret_set_angles_es(evt : Event; turret_control__gunEids : EidList; var phy
         setVar(phys_vars, turret__wishYawVarId, rad_to_deg(wishAngles.x))
         setVar(phys_vars, turret__wishPitchVarId, rad_to_deg(wishAngles.y))
 
-[es(on_appear, REQUIRE=resolvedTurret)]
-def turret_init_aim_parent_node(evt : Event;
-                                turret__owner : EntityId;
-                                turret__aimParentNodeName : string;
-                                var turret__aimParentNodeId : int&)
-  query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
-    turret__aimParentNodeId = geomtree_findNodeIndex(*animchar.nodeTree, turret__aimParentNodeName)
-
-def turret_get_angles(turret_control__gunEids : EidList;
+def turret_get_angles(transform : float3x4;
+                      turret_control__gunEids : EidList;
                       net_phys__timeStep : float;
-                      animchar : AnimcharBaseComponent;
                       phys_vars : PhysVars)
   for turretEid in turret_control__gunEids
-    query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__curYawVarId, turret__curPitchVarId : int; turret__aimParentNodeId : int = -1; var turret_state : TurretState)
+    query(turretEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__curYawVarId : int;
+                                                        turret__curPitchVarId : int;
+                                                        turret__curWorldYawVarId : int;
+                                                        turret__curWorldPitchVarId : int;
+                                                        var turret_state : TurretState)
       var curAngles = float2()
-      if turret__curYawVarId >= 0 && turret__curPitchVarId >= 0
+      if turret__curWorldYawVarId >= 0 && turret__curWorldPitchVarId >= 0
+        curAngles = float2(deg_to_rad(getVar(phys_vars, turret__curWorldYawVarId)),
+                           deg_to_rad(getVar(phys_vars, turret__curWorldPitchVarId)))
+      elif turret__curYawVarId >= 0 && turret__curPitchVarId >= 0
         curAngles = float2(-deg_to_rad(getVar(phys_vars, turret__curYawVarId)),
                             deg_to_rad(getVar(phys_vars, turret__curPitchVarId)))
-      if turret__aimParentNodeId >= 0
-        var tm : float3x4
-        *animchar.originalNodeTree |> geomtree_getNodeWtmRelScalar(turret__aimParentNodeId, tm)
-        curAngles = dir_to_angles(rotate(tm, angles_to_dir(curAngles)))
-        curAngles.x = -curAngles.x
+        let dir = normalize(rotate(transform, angles_to_dir(curAngles)))
+        curAngles = dir_to_angles(dir)
       turret_state.speed  = (curAngles - turret_state.angles) * safeinv(net_phys__timeStep)
       turret_state.angles = curAngles
 
-[es(tag=server, on_event=CmdTurretsUpdate, REQUIRE_NOT=deadEntity)]
+[es(tag=server, on_event=CmdTurretsUpdate, before=turret_shoot_tm_save_es, REQUIRE_NOT=(heroVehicle, deadEntity))]
 def turret_get_angles_es(evt : Event;
+                         transform : float3x4;
                          turret_control__gunEids : EidList;
                          net_phys__timeStep : float;
-                         animchar : AnimcharBaseComponent;
                          phys_vars : PhysVars)
-  turret_get_angles(turret_control__gunEids, net_phys__timeStep, animchar, phys_vars)
+  turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
 
-[es(tag=netClient, on_event=CmdTurretsUpdate, REQUIRE=heroVehicle, REQUIRE_NOT=deadEntity, after=turret_get_angles_es, before=turret_shoot_tm_save_es)]
+// To work correctly we need this order:
+// update phys (interpolate transform) -> update animchar -> anim_phys_update -> turret_get_angles -> turret_shoot_tm_save_es
+// Although actual order in frame will be like this, its still valid:
+// anim_phys_update -> turret_get_angles -> turret_shoot_tm_save_es -> update phys (interpolate transform) -> update animchar
+// Important part is to apply aim angles (calculated by animchar aim controller) to the same transform matrix which was used by animchar
+[es(on_event=CmdTurretsUpdate, REQUIRE=heroVehicle, before=turret_shoot_tm_save_es, REQUIRE_NOT=deadEntity)]
 def turret_get_angles_client_es(evt : Event;
+                                transform : float3x4;
                                 turret_control__gunEids : EidList;
                                 net_phys__timeStep : float;
-                                animchar : AnimcharBaseComponent;
-                                phys_vars : PhysVars)
-  turret_get_angles(turret_control__gunEids, net_phys__timeStep, animchar, phys_vars)
+                                var animchar : AnimcharBaseComponent;
+                                var anim_phys : AnimatedPhys;
+                                var phys_vars : PhysVars)
+  anim_phys_update(anim_phys, animchar, phys_vars) // To get the most actual vars
+  turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
 
 def send_turrets_update_event(eid, tick, dt)
   sendEventImmediate(eid, [[CmdTurretsUpdate tick=tick, dt=dt]])

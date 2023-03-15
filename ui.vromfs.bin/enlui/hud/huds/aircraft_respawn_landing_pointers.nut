@@ -112,7 +112,7 @@ let animations = [
   { prop=AnimProp.opacity, from=0, to=1, duration=0.5, play=true, easing=InOutCubic }
   { prop=AnimProp.opacity, from=1, to=0, duration=0.3, playFadeOut=true, easing=InOutCubic }
 ]
-let pic = Picture("!ui/skin#target_pointer.png")
+let pic = Picture("!ui/skin#target_pointer.avif")
 
 let mkZonePointer = memoize(function(eid) {
   let state = landing_zones_GetWatched(eid)

@@ -9,8 +9,8 @@ let eventbus = require("eventbus")
 let { ndbWrite, ndbRead, ndbExists } = require("nestdb")
 
 const MatchingConnectStateId = "matchingConnectState"
-let _state = function() {
-  let s = {
+if (!ndbExists(MatchingConnectStateId)) {
+  ndbWrite(MatchingConnectStateId, {
     connecting = false
     stopped = false
     isLoggedIn = false
@@ -18,22 +18,15 @@ let _state = function() {
     reconnectAfterDisconnect = false
     disconnectReason = null
     lastLoginInfo = null
-  }
-  foreach(k, v in s) {
-    let key = $"{MatchingConnectStateId}/{k}"
-    if (ndbExists(key))
-      s[k] <- ndbRead(key)
-    else
-      ndbWrite(key, v)
-  }
-  return s
-}()
+  })
+}
 
+let _state = ndbRead(MatchingConnectStateId)
 let getState = @() _state
 
 let setState = function(key, value) {
   assert(key in _state, @() $"unknown {key}")
-  ndbWrite($"{MatchingConnectStateId}/{key}", value)
+  ndbWrite([MatchingConnectStateId, key], value)
   _state[key] <- value
 }
 
@@ -160,6 +153,7 @@ eventbus.subscribe("matching.on_disconnect",
       }
     }
   })
+
 return {
   activate_matching_login = activate_matching_login
   deactivate_matching_login = deactivate_matching_login

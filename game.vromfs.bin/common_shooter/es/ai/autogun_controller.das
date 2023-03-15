@@ -12,9 +12,10 @@ require walkerai
 require game.utils.team
 require common_shooter.events_common_shooter
 require daslib/safe_addr
+require enlisted.events_enlisted
 
 [es(tag=server)]
-def auto_gun_controller_es(info : UpdateStageInfoAct;
+def auto_gun_controller_es(info : ParallelUpdateFrameDelayed;
                            gun__curShellId : ShellPropIds;
                            auto_gun_controller__targetTeam : int;
                            auto_gun_controller__targetDist : float;
@@ -102,7 +103,7 @@ def get_vertical_offset(gun__curShellId : ShellPropIds; dist : float)
 
 
 [es(REQUIRE=(autoShoot, auto_shoot__applyGravityOffset), before=auto_shoot_es)]
-def auto_shoot_gravity_offset_es(info : UpdateStageInfoAct;
+def auto_shoot_gravity_offset_es(info : ParallelUpdateFrameDelayed;
                                  gun__curShellId : ShellPropIds;
                                  auto_shoot__gunPos : float3;
                                  auto_shoot__targetPos : float3;
@@ -112,7 +113,7 @@ def auto_shoot_gravity_offset_es(info : UpdateStageInfoAct;
   auto_shoot__gunDir = normalize(dir)
 
 
-def auto_shoot_event_send(info : UpdateStageInfoAct;
+def auto_shoot_event_send(info : ParallelUpdateFrameDelayed;
                           eid : EntityId;
                           auto_shoot__gunDir : float3;
                           auto_shoot__gunPos : float3;
@@ -126,7 +127,7 @@ def auto_shoot_event_send(info : UpdateStageInfoAct;
 
 
 [es(REQUIRE=autoShoot, REQUIRE_NOT=auto_shoot__earlyBreak, before=after_guns_update_sync)]
-def auto_shoot_es(info : UpdateStageInfoAct;
+def auto_shoot_es(info : ParallelUpdateFrameDelayed;
                   eid : EntityId;
                   auto_shoot__gunDir : float3;
                   auto_shoot__gunPos : float3;
@@ -134,18 +135,4 @@ def auto_shoot_es(info : UpdateStageInfoAct;
                   auto_shoot__shouldShoot : bool;
                   var auto_shoot__canShoot : bool&)
   auto_shoot__canShoot = info.curTime >= gun.nextShotAtTime && gun.curState.loaded
-  auto_shoot_event_send(info, eid, auto_shoot__gunDir, auto_shoot__gunPos, auto_shoot__canShoot, auto_shoot__shouldShoot)
-
-
-[es(REQUIRE=(autoShoot, auto_shoot__earlyBreak), before=after_guns_update_sync)]
-def auto_shoot_early_break_es(info : UpdateStageInfoAct;
-                              eid : EntityId;
-                              auto_shoot__gunDir : float3;
-                              auto_shoot__gunPos : float3;
-                              gun : Gun;
-                              auto_shoot__shouldShoot : bool;
-                              var auto_shoot__canShoot : bool&)
-  auto_shoot__canShoot = info.curTime >= gun.nextShotAtTime && gun.curState.loaded;
-  if !(auto_shoot__canShoot && auto_shoot__shouldShoot)
-    return
   auto_shoot_event_send(info, eid, auto_shoot__gunDir, auto_shoot__gunPos, auto_shoot__canShoot, auto_shoot__shouldShoot)

@@ -5,10 +5,11 @@ let faComp = require("%ui/components/faComp.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { lockIconSize } = require("eventModeStyle.nut")
 
-let txt = @(text, width = flex()) {
+
+let txt = @(text, width = flex(), color = defTxtColor) {
     size = [width, SIZE_TO_CONTENT]
     rendObj = ROBJ_TEXT
-    color = defTxtColor
+    color
     text
   }.__update(sub_txt)
 
@@ -45,6 +46,7 @@ let mkIcon = @(icon, size){
   image = Picture($"{icon}:{size}:{size}:K")
   color = defTxtColor
 }
+
 
 let iconInBattle = mkIcon("!ui/uiskin/status/in_battle_status.svg", lockIconSize)
 let iconPreparingBattle = mkIcon("!ui/uiskin/status/not_ready_status.svg", lockIconSize)

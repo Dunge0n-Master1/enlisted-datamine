@@ -23,8 +23,6 @@ let function open_url(url) {
     require("sony.www").open(url, "" , {})
   else if (platform.is_xbox)
     require("xbox.app").launch_browser(url)
-  else if (platform.is_nswitch)
-    require("nswitch.network").openUrl(url)
   else if (platform.is_pc) {
     if (openLinksInEmbeddedBrowser)
       showBrowser(url)

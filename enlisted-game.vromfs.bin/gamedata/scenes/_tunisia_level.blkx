@@ -1,3 +1,7 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_tunisia_biome_fx.blk"
+}
+
 entity{
   _template:t="shaderVars"
 

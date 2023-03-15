@@ -61,7 +61,7 @@ let function kwarg(func){
       mandatoryparams.append(arg)
     }
   }
-  return function(params=kfuncargs, strict_mode=null) {
+  return function kwarged(params = kfuncargs, strict_mode = null) {
     if (type(params) not in allowedKwargTypes)
       assert(false, @() $"param of function can be only hashable (table, class, instance), found:'{type(params)}'")
     let nonManP = mandatoryparams.filter(@(p) p not in params)
@@ -202,7 +202,7 @@ let function curry(fn) {
 * memoize(function, [hashFunction])
   Memoizes a given function by caching the computed result. Useful for speeding up slow-running computations.
   If passed an optional hashFunction, it will be used to compute the hash key for storing the result, based on the arguments to the original function.
-  The default hashFunction just uses the first argument to the memoized function as the key.
+  The default hashFunction uses all arguments to the memoized function as the keys array.
   heavily optimized for most common cases - memoize by first argument, or by any amount
 
   NOTES:
@@ -357,7 +357,7 @@ let function memoize(func, hashfunc = null, cacheExternal=null, maxCacheNum=DEF_
   }
   else if (type(hashfunc)=="integer") {
     if (isVarargved) {
-      return function memoizedfuncInt(...){
+      return function memoizedfuncIntV(...){
         let path = vargv.slice(0, hashfunc)
         let cached = getValInCacheVargved(path, cache)
         if (cached != NO_VALUE)
@@ -370,7 +370,7 @@ let function memoize(func, hashfunc = null, cacheExternal=null, maxCacheNum=DEF_
 //        catch(e) { return setValInCacheVargved(path, func.acall([null].extend(vargv)), cache) }
       }
     }
-    return function(...){
+    return function memoizedfuncInt(...){
       let path = vargv.slice(0, hashfunc)
       let cached = getValInCache(path, cache)
       if (cached != NO_VALUE)
@@ -385,7 +385,7 @@ let function memoize(func, hashfunc = null, cacheExternal=null, maxCacheNum=DEF_
   }
   assert(hashfunc == null, "hash function should be null, function or integer of arguments of function")
   if (isVarargved) {
-    return function memoizedfunc(...){
+    return function memoizedfuncV(...){
       let cached = getValInCacheVargved(vargv, cache)
       if (cached != NO_VALUE)
         return cached

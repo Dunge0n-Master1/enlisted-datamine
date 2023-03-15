@@ -74,7 +74,7 @@ let deaths = freeze({
         rendObj = ROBJ_IMAGE
         size = flex()
         vplace = ALIGN_CENTER
-        image = Picture("ui/skin#lb_deaths.png")
+        image = Picture("ui/skin#lb_deaths.avif")
         tint = DEAD_TEXT_COLOR
       })
 

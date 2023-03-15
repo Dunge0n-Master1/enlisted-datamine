@@ -16,8 +16,7 @@ def ecs_anim_graph2()
   let size = imgui::GetWindowSize()
   if size.x <= 500f || size.y <= 500f
     imgui::SetWindowSize(float2(500))
-  let found = find_query <| $ [es(trust_access, REQUIRE=daeditor__selected)] (eid : EntityId;
-                                                                              var animchar__animState : Object?; var animchar : AnimcharBaseComponent)
+  let found = find_query <| $ [es(REQUIRE=daeditor__selected)] (eid : EntityId; var animchar__animState : Object?; var animchar : AnimcharBaseComponent)
     imgui::Text("{eid} {getEntityTemplateName(eid)}")
     var graph = animchar.animGraph
     if graph != null

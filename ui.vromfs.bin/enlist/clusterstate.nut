@@ -22,8 +22,10 @@ let eventbus = require("eventbus")
 
 let clustersViewMap = { RU = "EEU" }
 let clusterLoc = @(cluster) loc(clustersViewMap?[cluster] ?? cluster)
+let countryLoc = @(country) loc($"country/{country}", country.toupper())
 
 let ownCluster = nestWatched("ownCluster", null)
+let ownCountry = nestWatched("ownCountry", null)
 
 //set clusters from Matching
 let matchingClusters = nestWatched("matchingClusters", [])
@@ -66,7 +68,9 @@ let availableClusters = Computed(function() {
 })
 
 let function setOwnCluster() {
-  let country_code = get_country_code().toupper()
+  local country_code = get_country_code()
+  ownCountry(country_code.tolower())
+  country_code = country_code.toupper()
   let localData = getClusterByCode({ code = country_code })
   let cluster = localData.cluster
   logC("country code:", country_code, "localData:", localData)
@@ -131,6 +135,7 @@ isAutoCluster.subscribe(function(isAuto) {
 return {
   hasAutoClusterOption
   ownCluster
+  ownCountry
   availableClusters
   clusters
   selectedClusters
@@ -138,4 +143,5 @@ return {
   isAutoClusterSafe
   oneOfSelectedClusters
   clusterLoc
+  countryLoc
 }

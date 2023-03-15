@@ -1,4 +1,4 @@
-let { is_xbox, is_sony, is_pc, is_nswitch, is_android } = require("%dngscripts/platform.nut")
+let { is_xbox, is_sony, is_pc, is_android } = require("%dngscripts/platform.nut")
 let { startsWith, endsWith } = require("%sqstd/string.nut")
 let {get_setting_by_blk_path} = require("settings")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -15,7 +15,6 @@ let namePostfix = {
   ["@psn"] = is_sony? PSN_ICON : TV_ICON,
   ["@steam"] = is_pc? "" : PC_ICON,
   ["@epic"] = is_pc? "" : PC_ICON,
-  ["@nintendo"] = is_nswitch? "" : TV_ICON,
   ["@googleplay"] = is_android? "" : TV_ICON,
   [" "] = "" //bot name suffix
 }

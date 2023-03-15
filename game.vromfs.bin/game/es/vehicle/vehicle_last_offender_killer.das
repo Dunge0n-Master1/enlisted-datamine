@@ -1,10 +1,7 @@
 require ecs
 require common_shooter.events_common_shooter
-require enlisted.game.es.offender_cache_common
+require common_shooter.es.vehicle.vehicle_offender_common
 require game.utils.team
-
-def get_offender_team(eid : EntityId)
-  return get_int(eid, "team") ?? get_int(get_offender_from_cache(eid).player, "team") ?? TEAM_UNASSIGNED
 
 [es(tag=server, REQUIRE=vehicle)]
 def vehicle_damage_part_last_offender_weapon(evt : EventOnPartDamaged;
@@ -15,9 +12,6 @@ def vehicle_damage_part_last_offender_weapon(evt : EventOnPartDamaged;
                                              var last_offender__shellId : int&;
                                              var last_offender__gunPropsId : int&)
   let offenderEid = evt.hitData.offender
-  if isAlive && !isExploded && !!offenderEid
-    if !!lastOffender && is_teams_friendly(get_offender_team(offenderEid), team) && !is_teams_friendly(get_offender_team(lastOffender), team)
-      return
-    last_offender__shellId = int(evt.hitData.shellId)
-    last_offender__gunPropsId = int(evt.hitData.gunPropsId)
-    lastOffender = offenderEid
+  if isAlive && !isExploded
+    try_set_last_vehicle_offender(offenderEid, int(evt.hitData.gunPropsId), int(evt.hitData.shellId), team,
+                                  lastOffender, last_offender__gunPropsId, last_offender__shellId)

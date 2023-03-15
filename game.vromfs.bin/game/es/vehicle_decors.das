@@ -69,7 +69,7 @@ def init_decors_for_vehicle_es(evt : Event;
       set(init, "decor__swapYZ", swapYZ)
 
 [es(tag=gameClient, before=node_attached_itm, REQUIRE=daeditor__selected)]
-def debug_setup_for_decors(info : UpdateStageInfoAct;
+def debug_setup_for_decors(info : ParallelUpdateFrameDelayed;
                            node_attached__entity : EntityId;
                            node_attached__nodeId : int;
                            decor__id : int;

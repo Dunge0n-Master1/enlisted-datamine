@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.extra_set
 require game.es.player_events
 require matching
 require game.utils.team
@@ -43,7 +44,5 @@ def group_player_connected(evt : EventOnPlayerConnected;
   player_group__memberIndex = 0
   createEntitySync("player_group") <| $(var init)
     init |> set("player_group__id", groupId)
-    using() <| $(var list : UInt64List#)
-      list |> push(userid)
-      init |> set("player_group__members", list)
-      init |> set("player_group__wishTeam", team)
+    init |> set("player_group__members", [{auto userid}])
+    init |> set("player_group__wishTeam", team)

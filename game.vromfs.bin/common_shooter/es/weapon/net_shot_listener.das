@@ -1,5 +1,6 @@
 require ecs
 require common_shooter.events_common_shooter
+require enlisted.events_enlisted
 require DagorSystem
 require DaWeapons
 
@@ -34,7 +35,7 @@ def create_turret_shot_shell_msg(turretNo : int; launch_desc : LaunchDesc)
 
 
 [es(tag=(server, net), after=after_guns_update_sync, before=clear_gun_launch_events_es)]
-def net_shot_listener_es(info : UpdateStageInfoAct;
+def net_shot_listener_es(info : ParallelUpdateFrameDelayed;
                          human_weap__gunEids : EidList)
   for gunEid in human_weap__gunEids
     query(gunEid) <| $ [es] (gun_launch_events : GunLaunchEvents)
@@ -43,7 +44,7 @@ def net_shot_listener_es(info : UpdateStageInfoAct;
 
 
 [es(tag=(server, net), after=after_guns_update_sync, before=clear_gun_launch_events_es)]
-def net_turret_shot_listener_es(info : UpdateStageInfoAct;
+def net_turret_shot_listener_es(info : ParallelUpdateFrameDelayed;
                                 eid : EntityId;
                                 turret_control__gunEids : EidList)
   for turretNo in iter_range(turret_control__gunEids)
@@ -53,7 +54,7 @@ def net_turret_shot_listener_es(info : UpdateStageInfoAct;
 
 
 [es(tag=(server, net), after=after_guns_update_sync, before=clear_gun_launch_events_es, REQUIRE=autoShoot)]
-def net_auto_shot_listener_es(info : UpdateStageInfoAct;
+def net_auto_shot_listener_es(info : ParallelUpdateFrameDelayed;
                               eid : EntityId;
                               gun_launch_events : GunLaunchEvents)
   for event in gun_launch_events.launchEvents

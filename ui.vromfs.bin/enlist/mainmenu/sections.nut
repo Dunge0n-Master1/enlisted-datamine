@@ -6,14 +6,14 @@ let { navHeight } = require("mainmenu.style.nut")
 let { horGap } = require("%enlist/components/commonComps.nut")
 let { sectionsSorted, curSection, setCurSection, sectionsGeneration } = require("sectionsState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let menuHeaderRightUiList = require("menuHeaderRightUiList.nut")
 let { soundActive } = require("%ui/components/textButton.nut")
 
 
-
+let unseenIcon = blinkUnseenIcon(0.8)
 if (sectionsSorted?.len() && !(sectionsSorted ?? []).findvalue(@(s) s?.id == curSection.value))
   setCurSection(sectionsSorted?[0].id)
 
@@ -35,7 +35,7 @@ let function defCtor(section, stateFlags, group, isCurrent) {
       key = $"section_unseen_{id}"
       hplace = ALIGN_RIGHT
       pos = [hdpx(15), -hdpx(10)]
-      children = unseenWatch.value ? unseenSignal(0.8) : null
+      children = unseenWatch.value ? unseenIcon : null
     }
 
   return function(){

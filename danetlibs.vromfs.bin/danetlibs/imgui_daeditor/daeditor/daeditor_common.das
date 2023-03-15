@@ -15,7 +15,7 @@ def editor_open(open : bool = true)
   console_command("daEd4.open {open ? 1 : 0}")
 
 
-def editor_save_entity(eid : EntityId; var blk : DataBlock implicit; override_template_name : string = "")
+def editor_save_entity(eid : EntityId; var blk : DataBlock; override_template_name : string = "")
   blk |> datablock_add_new_block("entity") <| $(sub)
     var tName = empty(override_template_name) ? getEntityTemplateName(eid) : override_template_name
     tName = remove_sub_template_name(tName, "daeditor_selected")

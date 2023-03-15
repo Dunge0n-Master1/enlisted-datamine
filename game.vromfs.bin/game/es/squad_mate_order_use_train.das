@@ -313,7 +313,7 @@ def reset_nav_points_on_agent_died(evt : Event;
     beh_tree.blackBoard |> set("navPosition", float3())
     beh_tree.blackBoard |> set("navPtIdParam", -1)
 
-[es(tag=server, on_appear, before=load_beh_tree_es_event_handler)]
+[es(tag=server, on_appear, before=load_beh_tree_es)]
 def set_agent_train_behavior(evt : Event;
                              beh_tree__data__passiveStayReactionTrain : string;
                              beh_tree__data__passiveMoveReactionTrain : string;

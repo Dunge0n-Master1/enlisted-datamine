@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let mkGenRank = @(rank, rankName, rankBack) {
   locId = $"rank/{rankName}"
   image = $"ui/uiskin/ranks/military_rank_{rank}.svg"
-  imageBack = $"ui/uiskin/ranks/imageBack/military_rank_{rankBack}_bg.png"
+  imageBack = $"ui/uiskin/ranks/imageBack/military_rank_{rankBack}_bg.avif"
   imageScore = $"!ui/uiskin/ranks/imageScore/military_rank_{rank}_lb.svg"
 }
 
@@ -36,7 +36,7 @@ let ranks = freeze([
 
 let getRankConfig = @(rank) ranks?[rank] ?? ranks[0]
 
-let function mkRankImage(rank, onClick = null) {
+let function mkRankImage(rank) {
   let rankCfg = getRankConfig(rank)
   return {
     rendObj = ROBJ_IMAGE
@@ -46,9 +46,10 @@ let function mkRankImage(rank, onClick = null) {
     valign = ALIGN_CENTER
     children = rank == 0 ? null : {
       rendObj = ROBJ_IMAGE
+      size = [imageSize, imageSize]
       image = Picture($"{rankCfg.image}:{imageSize}:{imageSize}:K")
     }
-  }.__update(!onClick ? {} : { onClick, behavior = Behaviors.Button })
+  }
 }
 
 let function mkRankIcon(rank, iconSize = rankIconSize ,override = {}) {

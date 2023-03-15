@@ -33,13 +33,11 @@ def stop_repair(maintenance__target)
 
 def use_repair_kit(maintainable__operator)
   query(maintainable__operator) <| $ [es] (var repair__active : bool&;
-                                           repair__repairKit : EntityId;
-                                           possessedByPlr = INVALID_ENTITY_ID)
+                                           repair__repairKit : EntityId)
     repair__active = false
     query(repair__repairKit) <| $ [es] (var repair_kit__useCounter : int&)
       repair_kit__useCounter += 1
     sendEvent(maintainable__operator, [[EventOnLootUse itemEid=repair__repairKit]])
-    sendEvent(possessedByPlr, [[EventPlayerOnLootUse entityToUse=repair__repairKit]])
 
 [es(tag=server, track=(extinguisher__usesLeft, repair_kit__useCounter))]
 def remove_used_repair_kit(evt : Event;

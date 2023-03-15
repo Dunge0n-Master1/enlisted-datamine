@@ -5,7 +5,7 @@ let armySelectUi = require("army_select.ui.nut")
 let squads_list = require("squads_list.ui.nut")
 let squad_info = require("squad_info.ui.nut")
 let mkSoldierInfo = require("mkSoldierInfo.nut")
-let squadInfoState = require("model/squadInfoState.nut")
+let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let campaignTitle = require("%enlist/campaigns/campaign_title.ui.nut")
 let { startBtn, startBtnWidth } = require("%enlist/startBtn.nut")
 let { changeGameModeWidget, selectedGameMode
@@ -34,14 +34,14 @@ let mainContent = {
       size = [flex(), SIZE_TO_CONTENT]
       children = [
         @() {
-          watch = squadInfoState.curSoldierInfo
+          watch = curSoldierInfo
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_HORIZONTAL
           valign = ALIGN_CENTER
           gap = bigPadding
           children = [
             armySelectUi
-            squadInfoState.curSoldierInfo.value == null ? null
+            curSoldierInfo.value == null ? null
               : promoWidget("soldier_equip", "soldier_inventory")
           ]
         }
@@ -54,7 +54,7 @@ let mainContent = {
       children = [
         squads_list
         squad_info
-        mkSoldierInfo({ soldierInfoWatch = squadInfoState.curSoldierInfo, onResearchClickCb = gotoResearchUpgradeMsgBox})
+        mkSoldierInfo({ soldierInfoWatch = curSoldierInfo, onResearchClickCb = gotoResearchUpgradeMsgBox})
       ]
     }
   ]

@@ -268,7 +268,7 @@ class TryCallArtilleryNode : BehNodeAdapter
     if phys != null
       phys.producedCT |> human_control_state_set_device_state(false)
     if callTimer > 0.0
-      query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+      query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
         query(squad_member__playerEid) <| $ [es] (var artillery__nextTimeAICallArtillery : float&)
           artillery__nextTimeAICallArtillery = callingAtTime
     callTimer = 0.0

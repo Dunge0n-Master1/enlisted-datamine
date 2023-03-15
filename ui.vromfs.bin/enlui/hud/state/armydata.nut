@@ -2,6 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
+let { CmdSetMySquadsData, mkCmdDevSquadsData, mkCmdGetMySquadsData, mkCmdTutorialSquadsData, mkCmdProfileJwtData } = require("%enlSqGlob/sqevents.nut")
 let { localPlayerTeamArmies } = require("%ui/hud/state/teams.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
@@ -26,9 +27,9 @@ eventbus.subscribe("updateArmiesData", function(data) {
 
 let profilesMap = {
   real      = @(armies, playerEid) eventbus.send("requestArmiesData", { armies, playerEid })
-  dev       = @(_armies, playerEid) ecs.client_send_event(playerEid, ecs.event.CmdDevSquadsData({jwt=""})) // Non empty event payload table as otherwise 'fromconnid' won't be added
-  tutorial  = @(_armies, playerEid) ecs.client_send_event(playerEid, ecs.event.CmdTutorialSquadsData({jwt=""}))
-  custom    = @(_armies, playerEid) ecs.client_send_event(playerEid, ecs.event.CmdProfileJwtData({jwt=""}))
+  dev       = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdDevSquadsData({jwt=""})) // Non empty event payload table as otherwise 'fromconnid' won't be added
+  tutorial  = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdTutorialSquadsData({jwt=""}))
+  custom    = @(_armies, playerEid) ecs.client_send_event(playerEid, mkCmdProfileJwtData({jwt=""}))
 }
 
 let disableMenu = Computed(@() get_setting_by_blk_path("disableMenu") ?? false)
@@ -44,9 +45,9 @@ let function requestMySquadsDataFromDedicated() {
   logAd("Request army data from dedicated")
   let playerEid = localPlayerEid.value
   if (has_network())
-    client_request_unicast_net_sqevent(playerEid, ecs.event.CmdGetMySquadsData({ a = false })) // non empty payload to get "fromconnid"
+    client_request_unicast_net_sqevent(playerEid, mkCmdGetMySquadsData({ a = false })) // non empty payload to get "fromconnid"
   else
-    ecs.g_entity_mgr.sendEvent(playerEid, ecs.event.CmdGetMySquadsData({}))
+    ecs.g_entity_mgr.sendEvent(playerEid, mkCmdGetMySquadsData({}))
 }
 
 let function calcArmies(...) {
@@ -54,6 +55,7 @@ let function calcArmies(...) {
   let playerEid = localPlayerEid.value
   let requestCb = requestArmiesData.value
 
+  logAd($"Try to calc armies teamArmies.len()={teamArmies.len()}; playerEid={playerEid}")
   if (teamArmies.len() == 0 || playerEid == ecs.INVALID_ENTITY_ID || requestCb == null)
     return
 
@@ -77,7 +79,7 @@ let function onSetMySquadsData(evt, _eid, comp) {
 ecs.register_es("player_army_id_es",
   {
     [["onInit", "onChange"]] = @(_eid,comp) comp.is_local ? armyId(comp.army) : null,
-    [ecs.sqEvents.CmdSetMySquadsData] = onSetMySquadsData
+    [CmdSetMySquadsData] = onSetMySquadsData
   },
   {
     comps_track = [["is_local", ecs.TYPE_BOOL], ["army", ecs.TYPE_STRING]]

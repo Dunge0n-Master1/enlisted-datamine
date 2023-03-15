@@ -15,14 +15,14 @@ def repair_vehicle(recovery_ratio : float;
     var hp = uint16(0)
     part.relHpFixed = rel_hp_float_to_fixed_ceil(rel_hp_fixed_to_float(part.relHpFixed) + float(recovery_ratio))
     part.state = (DamagePartState DP_STATE_DAMAGED)
-    if int(part.relHpFixed) > HP_DAMAGED_STATE_TRESHOLD_FIXED
+    if uint(part.relHpFixed) > uint(HP_DAMAGED_STATE_TRESHOLD_FIXED)
       part.state = (DamagePartState DP_STATE_NORMAL)
     if fire_protection_part.maxHp > 0.f
       hp = rel_hp_float_to_fixed_ceil(rel_hp_fixed_to_float(fire_protection_part.hpFixed) + float(recovery_ratio))
     fire_protection_part.hpFixed = hp
-    repairRequired = int(part.relHpFixed) < MAX_REL_HP_FIXED
+    repairRequired = uint(part.relHpFixed) < uint(MAX_REL_HP_FIXED)
   for part in meta_parts_state.state
     part |> metapart_reset()
     part |> metapart_setHp(rel_hp_float_to_fixed_ceil(rel_hp_fixed_to_float(part.hp) + recovery_ratio))
-    repairRequired = int(rel_hp_fixed_to_float(part.hp)) < MAX_REL_HP_FIXED
+    repairRequired = uint(rel_hp_fixed_to_float(part.hp)) < uint(MAX_REL_HP_FIXED)
   return repairRequired

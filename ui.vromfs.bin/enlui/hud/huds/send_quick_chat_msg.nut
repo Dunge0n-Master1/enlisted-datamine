@@ -1,8 +1,10 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { mkCmdChatMessage } = require("%enlSqGlob/sqevents.nut")
+
 let function sendChatMsg(params) { //should be some enum
-  let evt = ecs.event.CmdChatMessage(params)
+  let evt = mkCmdChatMessage(params)
   ecs.client_msg_sink(evt)
 }
 

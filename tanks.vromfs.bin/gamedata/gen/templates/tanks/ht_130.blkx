@@ -167,7 +167,7 @@ ht_130_turret_01_ato_41{
     "defaultSet:array"{
 
       "shell:object"{
-        blk:t="content/e_ww2_common/gamedata/weapons/bullets/flamethrower_dummy.blk"
+        blk:t="content/enlisted/gamedata/weapons/bullets/flamethrower_dummy.blk"
         type:t="flamethrower"
         name:t="flamethrower"
       }

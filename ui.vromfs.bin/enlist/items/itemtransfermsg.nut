@@ -7,15 +7,18 @@ let { bgColor, txtColor } = listCtors
 let { WindowBd } = require("%ui/style/colors.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { use_transfer_item_order } = require("%enlist/meta/clientApi.nut")
+let { use_transfer_item_order_count } = require("%enlist/meta/clientApi.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
-let { Flat, PrimaryFlat } = require("%ui/components/textButton.nut")
+let { Flat, PrimaryFlat, Bordered } = require("%ui/components/textButton.nut")
+let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { curCampItems, curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let mkItemWithMods = require("%enlist/soldiers/mkItemWithMods.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
+let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
+let { mkCounter } = require("%enlist/shop/mkCounter.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
 let JB = require("%ui/control/gui_buttons.nut")
 
@@ -34,7 +37,7 @@ let textArea = @(text, style = body_txt) {
   text
 }.__update(style)
 
-let function useTransferItemOrder(itemGuid, armyId, costCfg, variant) {
+let function useTransferItemOrder(itemGuidsTbl, armyId, costCfg, variant) {
   let reqOrders = { [costCfg.orderTpl] = costCfg.orderRequire }
   let payData = getPayItemsData(reqOrders, curCampItems.value)
   if (payData == null) {
@@ -43,7 +46,7 @@ let function useTransferItemOrder(itemGuid, armyId, costCfg, variant) {
   }
 
   transferStatus({ isInProgress = true, variant })
-  use_transfer_item_order(itemGuid, armyId, payData,
+  use_transfer_item_order_count(itemGuidsTbl, armyId, payData,
     @(res) transferStatus({ errorTxt = res?.error, isSuccess = "error" not in res, variant }))
 }
 
@@ -165,7 +168,7 @@ let costNotEnough = @(currencyTpl, count) {
   gap = bigPadding
   children = [
     txt({
-      text = loc("notEnoughOrders")
+      text = loc("needMoreOrders")
       hplace = ALIGN_CENTER
       color = warningColor
     }.__update(sub_txt))
@@ -205,7 +208,7 @@ let mkTransferCost = @(selVariant, missOrders, costCfg) @() {
 
 let exitHotkeys = { hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true }}]] }
 
-let mkButtons = @(item, selVariant, costCfg, missOrders) function() {
+let mkButtons = @(item, countWatched, selVariant, costCfg, missOrders) function() {
   local children = []
   if (transferStatus.value?.isInProgress)
     children = spinner
@@ -213,14 +216,14 @@ let mkButtons = @(item, selVariant, costCfg, missOrders) function() {
     children = Flat(loc("Ok"), close, exitHotkeys)
   else {
     let { isTransferAllowed = false, armyId = "" } = selVariant.value
-    let cost = costCfg.value
+    let itemData = mkGuidsCountTbl(item?.guids ?? [item.guid], countWatched.value)
     if (isTransferAllowed && missOrders.value <= 0)
       children.append(PrimaryFlat(loc("btn/moveItemToArmy"),
-        @() useTransferItemOrder(item.guid, armyId, cost, selVariant.value)))
+        @() useTransferItemOrder(itemData, armyId, costCfg.value, selVariant.value)))
     children.append(Flat(loc("Cancel"), close, exitHotkeys))
   }
   return {
-    watch = [selVariant, costCfg, missOrders, transferStatus]
+    watch = [selVariant, costCfg, missOrders, transferStatus, countWatched]
     size = [SIZE_TO_CONTENT, commonBtnHeight]
     flow = FLOW_HORIZONTAL
     children
@@ -242,10 +245,17 @@ let function transferResult() {
 let function mkTransferContent(item, moveVariants, requiredOrders) {
   let selectIdx = Watched(0)
   let selVariant = Computed(@() transferStatus.value?.variant ?? moveVariants.value?[selectIdx.value])
+
+  let countWatched = Watched(1)
+  let itemMaxCount = max(item.count, item?.guids.len() ?? 0)
+
   let costCfg = Computed(function() {
     let { tier = 0 } = allItemTemplates.value?[selVariant.value?.armyId][item.basetpl]
-    return requiredOrders[min(tier, requiredOrders.len() - 1)]
+    local cost = clone requiredOrders[min(tier, requiredOrders.len() - 1)]
+    cost.orderRequire *= countWatched.value
+    return cost
   })
+
   let missOrders = Computed(@()
     costCfg.value.orderRequire - (curCampItemsCount.value?[costCfg.value.orderTpl] ?? 0))
 
@@ -291,7 +301,23 @@ let function mkTransferContent(item, moveVariants, requiredOrders) {
             : transferResult
         ]
       }
-      mkButtons(item, selVariant, costCfg, missOrders)
+      transferStatus.value != null ? null : {
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding * 2
+        children = [
+          mkCounter(itemMaxCount, countWatched)
+          Bordered(loc("btn/upgrade/allItems"), @() countWatched(itemMaxCount),
+            {
+              margin = 0
+              size = [ SIZE_TO_CONTENT, hdpx(40)]
+              cursor = normalTooltipTop
+              onHover = function(on) {
+                setTooltip(on ? loc("btn/moveItemToArmy/allItemsTooltip") : null)
+              }
+            })
+        ]
+      }
+      mkButtons(item, countWatched, selVariant, costCfg, missOrders)
     ]
   }
 }

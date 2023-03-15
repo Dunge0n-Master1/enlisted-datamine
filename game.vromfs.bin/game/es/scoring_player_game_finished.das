@@ -37,9 +37,8 @@ def get_all_next_groups(capzones : array<Capzone>; start_groups : Set)
       visited[group] = true
     var nextOpen : Set
     for group in keys(open)
-      let nextGroups = find(links, group)
-      if nextGroups != null
-        for nextGroup in keys(*nextGroups)
+      get(links, group) <| $(nextGroups)
+        for nextGroup in keys(nextGroups)
           if !key_exists(visited, nextGroup)
             nextOpen[nextGroup] = true
     open <- nextOpen

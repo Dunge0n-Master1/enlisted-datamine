@@ -1,16 +1,16 @@
 require ecs
 require EnlistedCamera
-
+require enlisted.events_enlisted
 
 [es(tag=render, no_order, REQUIRE=cockpitEntity)]
-def reset_current_entity_with_scope_eid_es(info : UpdateStageInfoAct;
+def reset_current_entity_with_scope_eid_es(info : ParallelUpdateFrameDelayed;
                                            var attached_gun_scope__currentEid : EntityId&)
   attached_gun_scope__currentEid = INVALID_ENTITY_ID
 
 
 [es(tag=render, after=reset_current_entity_with_scope_eid_es,
   before=update_camera_common_aim_parameters_es, REQUIRE=cockpitEntity)]
-def update_human_entity_with_scope_eid_es(info : UpdateStageInfoAct;
+def update_human_entity_with_scope_eid_es(info : ParallelUpdateFrameDelayed;
                                           human_weap__currentGunModEids : EidList;
                                           human_weap__currentGunEid : EntityId;
                                           var attached_gun_scope__currentEid : EntityId&)
@@ -29,7 +29,7 @@ def update_human_entity_with_scope_eid_es(info : UpdateStageInfoAct;
 
 [es(tag=render, after=reset_current_entity_with_scope_eid_es,
   before=update_camera_common_aim_parameters_es, REQUIRE=(cockpitEntity, planeCockpit))]
-def update_plane_entity_with_scope_eid_es(info : UpdateStageInfoAct;
+def update_plane_entity_with_scope_eid_es(info : ParallelUpdateFrameDelayed;
                                           eid : EntityId;
                                           var attached_gun_scope__currentEid : EntityId&)
   attached_gun_scope__currentEid = eid

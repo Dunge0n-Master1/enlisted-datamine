@@ -29,6 +29,8 @@ let { is_sony } = require("%dngscripts/platform.nut")
 let { onlineStatus, isContactOnline } = require("contactPresence.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
+let mkCheckbox = require("%ui/components/mkCheckbox.nut")
+let hasFriendOnlineNotification = require("%enlist/contacts/onlineNotifications.nut")
 
 
 const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
@@ -345,6 +347,26 @@ let tabsContent = {
   invites        = mkContactsGroupContent(invitesKeys)
 }
 
+
+let trackFriendsOnline = {
+  size = [flex(), SIZE_TO_CONTENT]
+  padding = bigPadding
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  children = [
+    mkCheckbox(hasFriendOnlineNotification)
+    {
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
+      behavior = Behaviors.TextArea
+      text = loc("contacts/friendNotificaion")
+    }
+  ]
+}
+
+
 let contactsBlock = @() {
   watch = curTab
   size = [colFull(6), flex()]
@@ -367,6 +389,7 @@ let contactsBlock = @() {
       children = [
         modeSwitcher
         searchBlock
+        trackFriendsOnline
       ]
     }
     makeVertScroll(tabsContent?[curTab.value])

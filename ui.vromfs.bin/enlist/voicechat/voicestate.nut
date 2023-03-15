@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let localSettings = require("%enlist/options/localSettings.nut")("voice/", false)
+let {nestWatched} = require("%dngscripts/globalState.nut")
 let {voiceChatEnabled} = require("%enlSqGlob/voiceChatGlobalState.nut")
 let voiceApi = require_optional("voiceApi")
 let {voiceRecordVolume, voiceRecordVolumeUpdate,
@@ -10,7 +11,7 @@ let {voiceRecordVolume, voiceRecordVolumeUpdate,
   voice_modes, voice_activation_modes} = require("%enlSqGlob/voice_settings.nut")
 let { matchingCall } = require("%enlist/matchingClient.nut")
 
-let initialized = mkWatched(persist, "initialized", false)
+let initialized = nestWatched("initialized", false)
 let joinedVoiceRooms = persist("joinedVoiceRooms", @() {})
 
 let validation_tbl = {

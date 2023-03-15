@@ -11,41 +11,46 @@ require common_shooter.es.ai.ai_danger_common
 require game.es.ai.walker_common
 
 // usage:
-// enlisted-aot-win32-c-dev.exe "d:\dagor2\enlisted\prog\scripts\game\es\ai\ai_danger_debug.das" D:\dummy.cpp --config aot_config.blk
+// incomment needed [init]
+// enlisted-aot-win64-c-dev.exe -aot "d:\dagor2\enlisted\prog\scripts\common_shooter\es\ai\ai_danger_debug.das" D:\dummy.cpp -- --verbose --config d:/dagor2/enlisted/prog/aot_config.blk
+
+
+// to_log(LOG_DEBUG, to log without new lines
 
 def print_values(limit = 100; step = 10; hr = true; blk)
   let origin : float2
   let shootDir = float2(1, 0)
   var x = -limit
   if hr
-    print(" y\\x ")
+    to_log(LOG_DEBUG, " y\\x ")
     while x <= limit
-      print(format("% 4d", x))
-      print(x == 0 ? "  " : " ")
+      to_log(LOG_DEBUG, format("% 4d", x))
+      to_log(LOG_DEBUG, x == 0 ? "  " : " ")
       x += step
-      print(x == 0 ? " " : "")
-    print("\n\n")
+      if x == 0
+        to_log(LOG_DEBUG, " ")
+    to_log(LOG_DEBUG, "\n\n")
 
   var y = -limit
   while y <= limit
     x = -limit
     if hr
-      print(format("% 4d", y))
-      print(" ")
+      to_log(LOG_DEBUG, format("% 4d", y))
+      to_log(LOG_DEBUG, " ")
     while x <= limit
       let pos = float2(x, y)
       invoke(blk, origin, pos, shootDir)
       if hr && x == 0
-        print(" ")
+        to_log(LOG_DEBUG, " ")
       x += step
       if hr && x == 0
-        print(" ")
-    print("\n")
+        to_log(LOG_DEBUG, " ")
+    to_log(LOG_DEBUG, "\n")
     if hr && y == 0
-      print("\n")
+      to_log(LOG_DEBUG, "\n")
     y += step
     if hr && y == 0
-      print("\n")
+      to_log(LOG_DEBUG, "\n")
 
 
 def print_alertness_with_params(stance : int)
@@ -57,18 +62,18 @@ def print_alertness_with_params(stance : int)
     let inFrustum = frustumCos >= frustumMinCos
     let agent_dangers__maxDangerDist = 90.0
     let alertness = calc_target_alertness(dist, inFrustum, frustumCos, stance, /*is_downed*/false, agent_dangers__maxDangerDist)
-    print(format("%1.2f", alertness))
-    print(" ")
+    to_log(LOG_DEBUG, format("%1.2f", alertness))
+    to_log(LOG_DEBUG, " ")
 
 // [init]
 def print_alertness()
-  print("Stance stand\n")
+  to_log(LOG_DEBUG, "Stance stand\n")
   print_alertness_with_params(STANCE_STAND)
-  print("Stance crouch\n")
+  to_log(LOG_DEBUG, "Stance crouch\n")
   print_alertness_with_params(STANCE_CROUCH)
-  print("Stance crawl\n")
+  to_log(LOG_DEBUG, "Stance crawl\n")
   print_alertness_with_params(STANCE_CRAWL)
-  print(" ")
+  to_log(LOG_DEBUG, " ")
 
 // [init]
 def print_traceable_ratio()
@@ -89,17 +94,17 @@ def print_danger_or_traceable_ratio(printDanger = true)
     let frustumCos = dot(normalize(pos - origin), shootDir)
     let inFrustum = frustumCos >= frustumMinCos
     let alertness = calc_target_alertness(dist, inFrustum, frustumCos, STANCE_STAND, /*is_downed*/false, agent_dangers__maxDangerDist)
-    using <| $(var danger : Danger#)
+    using() <| $(var danger : Danger#)
       danger.distance = dist
       danger.alertness = alertness
       danger.inFrustumTime = inFrustum ? atTime - 1f : -1f
       danger.lastBulletNearbyTime = -1f //atTime - 0.1f
       danger.lastTraceTime = atTime - 100f
-      using <| $(var target : Target#)
+      using() <| $(var target : Target#)
         target.lastShootTimer = atTime //1000f
         let isAi = false
         var dangerMeter = calc_danger(atTime, agent_dangers__maxDangerDist, danger, target, /*noise*/0.25, isAi)
         if (dangerMeter < 0.73)
           dangerMeter = 0.0
-        print(format("%0.2f", printDanger ? dangerMeter : calc_traceable_ratio(atTime, dangerMeter, danger)))
-        print(" ")
+        to_log(LOG_DEBUG, format("%0.2f", printDanger ? dangerMeter : calc_traceable_ratio(atTime, dangerMeter, danger)))
+        to_log(LOG_DEBUG, " ")

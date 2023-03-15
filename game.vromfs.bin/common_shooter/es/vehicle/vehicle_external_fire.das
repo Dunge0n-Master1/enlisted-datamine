@@ -7,8 +7,8 @@ require GeomNodeTree
 require game.es.node_attach_common
 require strings
 
-def init_part_ids_array(damage_model; part_names; var info_obj : Object#&)
-  using() <| $(var arr : Array#)
+def init_part_ids_array(damage_model; part_names; var info_obj : Object)
+  using() <| $(var arr : Array)
     for partNameObj in part_names
       let partName = get_string(partNameObj, "")
       if partName == ""
@@ -19,8 +19,8 @@ def init_part_ids_array(damage_model; part_names; var info_obj : Object#&)
       arr |> push(partId)
     info_obj |> set("partIds", arr)
 
-def init_nodes_ids_array(animchar : AnimcharBaseComponent; nodes; var info_obj : Object#&)
-  using() <| $(var arr : Array#)
+def init_nodes_ids_array(animchar : AnimcharBaseComponent; nodes; var info_obj : Object&)
+  using() <| $(var arr : Array)
     for nodeObj in nodes
       let nodeName = get_string(nodeObj, "")
       if nodeName == ""
@@ -80,7 +80,7 @@ def init_vehicle_external_fire_node_info(evt : Event;
     let nodesNames = get_ecs_array(*info, "nodes")
     if partNames == null || nodesNames == null
       continue
-    using() <| $(var infoIds : Object#)
+    using() <| $(var infoIds : Object)
       init_part_ids_array(damage_model, *partNames, infoIds)
       init_nodes_ids_array(animchar, *nodesNames, infoIds)
       vehicle_external_fire__infoIds |> push(infoIds)
@@ -99,7 +99,7 @@ def vehicle_external_fire_track_tank_nodes(evt : Event;
                                            vehicle_external_fire__nodes : IntList;
                                            vehicle_external_fire__template : string;
                                            var vehicle_external_fire__fires : Object&)
-  using <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     for nodeId in vehicle_external_fire__nodes
       let key = "{nodeId}"
       let fireEid = get_Eid(vehicle_external_fire__fires, key)

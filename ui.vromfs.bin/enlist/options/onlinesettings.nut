@@ -5,7 +5,6 @@ let eventbus = require("eventbus")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let online_storage = require("onlineStorage")
 let { throttle } = require("%sqstd/timers.nut")
-let platform = require("%dngscripts/platform.nut")
 let logOS = require("%enlSqGlob/library_logs.nut").with_prefix("[ONLINE_SETTINGS] ")
 
 let onlineSettingUpdated = mkWatched(persist, "onlineSettingUpdated", false)
@@ -60,7 +59,7 @@ let function save() {
   online_storage.save_table_to_online_storage(settings.value, "GBT_GENERAL_SETTINGS")
 }
 
-let lazySave = throttle(save, platform.is_nswitch ? 60 : 10)
+let lazySave = throttle(save, 10)
 
 settings.subscribe(function(_new_val) {
   logOS("Queue setting to save")

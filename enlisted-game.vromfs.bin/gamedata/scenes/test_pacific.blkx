@@ -226,5 +226,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
 }

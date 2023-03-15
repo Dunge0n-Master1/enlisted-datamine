@@ -47,7 +47,7 @@ tankgun_m1_76mm{
   }
 
   "gun__shells:array"{
-    shells:t="content/e_ww2_common/gamedata/weapons/bullets/76mm_m62_apcbc.blk"
+    shells:t="content/enlisted/gamedata/weapons/bullets/76mm_m62_apcbc.blk"
   }
 }
 
@@ -80,7 +80,7 @@ tankgun_7_92mm_ZB_VZ37_machinegun_m3a1_stuart{
   }
 
   "gun__shells:array"{
-    shells:t="content/e_ww2_common/gamedata/weapons/bullets/30_06_springfield_tracer.blk"
+    shells:t="content/enlisted/gamedata/weapons/bullets/30_06_springfield_tracer.blk"
   }
 
   "gun__firingModes:array"{
@@ -468,6 +468,9 @@ base_tank_without_xray_common{
   turret_control__missingLoaderReloadTimeMult:r=2.0
 
   "turretsCorrection:tag"{
+  }
+
+  "turretsCorrectionUseThreadPool:tag"{
   }
 
   "setCameraDirByHero:tag"{
@@ -970,7 +973,7 @@ base_tank_seat_templates{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:shared:list<t>"{
+    "dependent_templates_list_shared:shared:list<t>"{
       template_name:t="vehicle_seat_default"
       template_name:t="vehicle_seat_driver"
       template_name:t="vehicle_seat_main_gunner"
@@ -986,7 +989,7 @@ base_tank_sound{
   _extends:t="tank_vehicle_seat_sound"
   _extends:t="tank_vehicle_suspension_sound"
   _extends:t="tank_vehicle_tracks_sound"
-  _extends:t="turret_sound_group"
+  _extends:t="turret_sound_with_group"
   _extends:t="tank_camera_inside_snapshot"
   _extends:t="tank_vehicle_speech"
   _extends:t="tank_vehicle_engine_sound"
@@ -1509,7 +1512,7 @@ base_tankgun_machinegun{
   gun__reloadTime:r=8.0
   gun__overheatReduce:r=0.18
   gun__overheatReduceOnOverheat:r=0.083
-  gun__overheatPerShot:r=0.04
+  gun__overheatPerShot:r=0.03
 }
 
 base_tankgun_machinegun_nooverheat{
@@ -1550,7 +1553,8 @@ base_tankgun_grenade_launcher{
   gun__projectileTemplate:t="tank_grenade_projectile"
   gun__projectileDebugTemplate:t="tank_grenade_projectile+bomb_projectile_debug"
   gun__icon:t="tank/cannon_ammo_smoke.svg"
-  gun_hit_fx__effectGroupName:t="tank_grenades_smoke"
+  gun_hit_fx__explEffectGroupName:t="tank_grenades_smoke"
+  gun_hit_fx__explEffectDescriptor:i=0
 
   animchar{
   }
@@ -1794,6 +1798,7 @@ fatal_fire_external_fire{
 base_tank_rocket_gun{
   _extends:t="tankgun"
   _extends:t="gunsound_base_rocket_launcher"
+  _extends:t="hit_effect_group_bomb"
   gun__isPayload:b=yes
   gun__recoilAmount:r=0.0
   gun__icon:t="aircraft/unguided_rocket.svg"

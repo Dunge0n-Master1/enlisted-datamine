@@ -49,6 +49,15 @@ def weapon_rearsight_node_init(evt : Event;
   let nodeIdx = find_weapon_sight_node_idx(eid, animchar, nodeName)
   weapon_rearsight_node__nodeIdx = nodeIdx
 
+[es(tag=render, after=slot_attach_init_tms_es)]
+def update_gun_tm_info_for_render(info : UpdateStageInfoAct;
+                                  animchar : AnimcharBaseComponent;
+                                  weapon_rearsight_node__nodeIdx : int;
+                                  var weapon_rearsight_node__nodeTm : mat44f&)
+  var newTm : float3x4;
+  geomtree_getNodeWtmScalar(*animchar.nodeTree, weapon_rearsight_node__nodeIdx, newTm)
+  weapon_rearsight_node__nodeTm = mat44f(newTm)
+
 [es]
 def weapon_switch_sight_es(evt : CmdWeapSwitchSight;
                            eid : EntityId;

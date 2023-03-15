@@ -23,7 +23,8 @@ def init_anim_data_base_weights(evt : Event;
 
   dataBase.nodeCount = dataBase.nodesName |> length()
   dataBase.trajectorySize = dataBase.predictionTimes |> length()
-  dataBase.featuresSize = dataBase.nodeCount * NODE_DIMENSION + dataBase.trajectorySize * TRAJECTORY_DIMENSION
+
+  dataBase.featuresSize = get_features_sizes(dataBase.nodeCount, dataBase.trajectorySize)
 
 [es(before=trajectory_prediction, tag=tools)]
 def tool_input(info : UpdateStageInfoAct;
@@ -46,18 +47,9 @@ def tool_input(info : UpdateStageInfoAct;
     if input__mouseLeftButtonPressed
       motion_matching__angularVelocity = float3(0.f, deg_to_rad(float(input__mouseDelta.x) * PIXEL_TO_DEG), 0.f)
 
-[es(before=trajectory_prediction, tag=tools)]
-def tool_tm_update(info : UpdateStageInfoAct;
-                   var transform : float3x4&;
-                   motion_matching__predictedVelocity : Point3List;
-                   motion_matching__predictedRotation : Point3List)
 
-  transform[3] += rotate(transform, motion_matching__predictedVelocity[0]) * info.dt;
-  var rotationTm : float3x4
-  make_tm(quat(motion_matching__predictedRotation[0], length(motion_matching__predictedRotation[0]) * info.dt), rotationTm)
-  transform = transform * rotationTm
 
-[es(before=trajectory_prediction, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(before=trajectory_prediction)]
 def mm_lod_selector(info : ParallelUpdateFrameDelayed;
                     var motion_matching__distanceFactor : float&;
                     transform aka character_transform : float3x4)
@@ -69,7 +61,7 @@ def mm_lod_selector(info : ParallelUpdateFrameDelayed;
     motion_matching__distanceFactor += 0.2f * sqrt(distance)
     return true
 
-[es(before=update_matched_nodes_es, after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(before=update_matched_nodes_es)]
 def trajectory_prediction(info : ParallelUpdateFrameDelayed;
                           motion_matching__linearVelocity : float3;
                           motion_matching__angularVelocity : float3;
@@ -79,40 +71,43 @@ def trajectory_prediction(info : ParallelUpdateFrameDelayed;
                           var motion_matching__linearVelocityAmortized : float3&;
                           var motion_matching__angularVelocityAmortized : float3&;
                           motion_matching__trajectoryTimes : FloatList;
+                          var motion_matching__desiredPositions : Point3List;
+                          var motion_matching__desiredDirections : Point3List;
                           var motion_matching__predictedPositions : Point3List;
-                          var motion_matching__predictedVelocity : Point3List;
-                          var motion_matching__predictedRotation : Point3List)
+                          var motion_matching__predictedDirections : Point3List)
 
-  let q = quat(float3(0, 1, 0), clamp(motion_matching__angularVelocityAmortized.y, -deg_to_rad(90.f), deg_to_rad(90.f)))
-  motion_matching__linearVelocityAmortized = approach(motion_matching__linearVelocityAmortized, q * motion_matching__linearVelocity, info.dt, motion_matching__linearVelocityViscosity)
-  motion_matching__angularVelocityAmortized = approach(motion_matching__angularVelocityAmortized, motion_matching__angularVelocity, info.dt, motion_matching__angularVelocityViscosity)
+  assume times = motion_matching__trajectoryTimes
+  assume predPos = motion_matching__predictedPositions
+  assume predDir = motion_matching__predictedDirections
+  assume desPos = motion_matching__desiredPositions
+  assume desDir = motion_matching__desiredDirections
 
-  var goalLinVelocity = motion_matching__linearVelocityAmortized
-  var goalAngVelocity = motion_matching__angularVelocityAmortized
-
-  let N = length(motion_matching__trajectoryTimes)
+  let N = length(times)
   if N == 0
     return
-  let T = motion_matching__trajectoryTimes[N - 1]
-  for j in range(N)
-    let i = N - j - 1
-    let inertionFactor = saturate(motion_matching__trajectoryTimes[i] / T * motion_matching__trajectoryInertionFactor)
+  motion_matching__linearVelocityAmortized = approach(motion_matching__linearVelocityAmortized, motion_matching__linearVelocity, info.dt, motion_matching__linearVelocityViscosity)
+  motion_matching__angularVelocityAmortized = approach(motion_matching__angularVelocityAmortized, motion_matching__angularVelocity, info.dt, motion_matching__angularVelocityViscosity)
 
-    var linVelocity = motion_matching__predictedVelocity[i]
-    linVelocity = approach(linVelocity, goalLinVelocity, info.dt * inertionFactor, motion_matching__linearVelocityViscosity)
-    goalLinVelocity = linVelocity
-    motion_matching__predictedVelocity[i] = linVelocity
+  assume goalLinVel = motion_matching__linearVelocityAmortized
+  assume goalAngVel = motion_matching__angularVelocityAmortized
 
-    var angVelocity = motion_matching__predictedRotation[i]
-    angVelocity = approach(angVelocity, goalAngVelocity, info.dt * inertionFactor, motion_matching__angularVelocityViscosity)
-    goalAngVelocity = angVelocity
-    motion_matching__predictedRotation[i] = angVelocity
+  let FORWARD_DIRECTION = float3(0f, 0f, -1f);
+
+  var prevT = 0f
+  var prevPos = float3(0)
+  for pos, dir, t in desPos, desDir, times
+    let dt = t - prevT
+    let q = quat(float3(0, 1, 0), goalAngVel.y * t)
+    pos = prevPos + q * goalLinVel * dt
+    dir = q * FORWARD_DIRECTION
+    prevT = t
+    prevPos = pos
 
 
-  var p = float3(0.0)
-  var prevT = 0.f
-  for position, velocity, time in motion_matching__predictedPositions, motion_matching__predictedVelocity, motion_matching__trajectoryTimes
-    let dt = time - prevT
-    p += velocity * dt
-    position = p
-    prevT = time
+  let inertionFactor = motion_matching__trajectoryInertionFactor
+  for pred_pos, pred_dir, des_pos, des_dir in predPos, predDir, desPos, desDir
+
+
+    pred_pos = approach(pred_pos, des_pos, info.dt * inertionFactor, motion_matching__linearVelocityViscosity)
+    pred_dir = approach(pred_dir, des_dir, info.dt * inertionFactor, motion_matching__angularVelocityViscosity)
+

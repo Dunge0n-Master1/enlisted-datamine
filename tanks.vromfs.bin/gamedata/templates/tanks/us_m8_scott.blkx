@@ -29,6 +29,7 @@ us_m8_scott{
       receiveDamageFromDMPart:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="us_m8_scott_gunner_cockpit"
+      isHoldGunModeAllowed:b=no
 
       "turretNames:array"{
         turretNames:t="turret_01"
@@ -54,17 +55,24 @@ us_m8_scott{
       name:t="commander"
       locName:t="vehicle_seats/commander"
       locName:t="vehicle_seats/commander"
-      attachNode:t="commander"
+      attachNode:t="bone_mg_aa_h_01"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.7, 0.5, -0.1]]
+      attachTm:m=[[0.93, 0.05, 0.0] [-0.05, 0.93, 0.0] [0.0, 0.0, 1.0] [-0.28, -0.55, -0.02]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
+      isHoldGunModeAllowed:b=no
+      maxPosWithOpenHatch:r=0.6
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
       seatAnimUpper:t="drive_passenger"
       seatAnimLower:t="drive_passenger"
 
-      "turretNames:array"{
+      "hatchTurretNames:array"{
         turret:t="turret_02"
+      }
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
       }
     }
 
@@ -77,6 +85,7 @@ us_m8_scott{
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_camera_driver"
+      isHoldGunModeAllowed:b=no
 
       "loaderTurretNames:array"{
         turret:t="turret_01"

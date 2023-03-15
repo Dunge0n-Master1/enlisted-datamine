@@ -119,7 +119,7 @@ let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
     hplace = hplace
     children = children
     size = [width,height]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
   }.__update(params)
 }
 

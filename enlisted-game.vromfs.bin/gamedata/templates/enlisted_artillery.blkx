@@ -8,7 +8,7 @@ artillery_ai_dmgzone{
 
   _group{
     _tags:t="server"
-    danger__awareRadiusCoef:r=2.7
+    danger__awareRadiusCoef:r=0.0
   }
 }
 
@@ -176,9 +176,9 @@ tunisia_usa_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=400.0
-    aircraft_request__aircraftBombingHeight:r=400.0
-    aircraft_request__aircraftSpawnHeight:r=400.0
+    aircraft_request__aircraftAfterBombingHeight:r=800.0
+    aircraft_request__aircraftBombingHeight:r=500.0
+    aircraft_request__aircraftSpawnHeight:r=600.0
     aircraft_request__aircraftTemplate:t="ai_b_34+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_usa"
   }
 }
@@ -188,9 +188,9 @@ tunisia_ger_team_aircraft_request{
 
   _group{
     _tags:t="server"
-    aircraft_request__aircraftAfterBombingHeight:r=450.0
-    aircraft_request__aircraftBombingHeight:r=450.0
-    aircraft_request__aircraftSpawnHeight:r=450.0
+    aircraft_request__aircraftAfterBombingHeight:r=850.0
+    aircraft_request__aircraftBombingHeight:r=550.0
+    aircraft_request__aircraftSpawnHeight:r=650.0
     aircraft_request__aircraftTemplate:t="ai_sm_79+plane_spawn_in_air+requested_aircraft+aircraft_with_gun_redirect+ai_aircraft_crew_ger"
   }
 }

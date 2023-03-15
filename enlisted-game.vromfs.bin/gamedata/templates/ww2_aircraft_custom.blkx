@@ -20,7 +20,7 @@ yak_7b{
 
 pe_3{
   _override:b=yes
-  camera__lookAroundOffsetRange:p2=0.15, 0.3
+  camera__lookAroundOffsetRange:p2=0.07, 0.1
 }
 
 pe_2_31{

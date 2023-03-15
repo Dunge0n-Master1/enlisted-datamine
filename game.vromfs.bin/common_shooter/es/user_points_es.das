@@ -67,8 +67,8 @@ def tell_vehicle_its_not_marked(evt : Event; userPointVehicleTargetEid : EntityI
   if !empty(newVehicleTemplate)
     reCreateEntityFrom(userPointVehicleTargetEid, newVehicleTemplate)
 
-[es(tag=server, REQUIRE=deadEntity, on_appear)]
-def vehicle_die_user_point_remove_es(evt : Event; eid aka vehicle_eid : EntityId)
+[es(tag=server, after=enlisted_kill_award_es)]
+def vehicle_die_user_point_remove_es(evt : EventEntityDied; eid aka vehicle_eid : EntityId)
   query() <| $ [es] (eid : EntityId; userPointVehicleTargetEid : EntityId; target : EntityId = INVALID_ENTITY_ID)
     if userPointVehicleTargetEid == vehicle_eid
       destroy_point(eid, target)

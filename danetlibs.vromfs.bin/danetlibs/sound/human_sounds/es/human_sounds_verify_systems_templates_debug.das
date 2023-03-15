@@ -64,6 +64,17 @@ struct HumanIdleSoundRequiredComponents
   isDowned : bool
 
 
+[req_template]
+struct HumanVoiceEffect
+  human_voice_effect__type : string
+  human_voice_effect__isActive : bool
+  human_voice_effect__event : SoundEvent
+  human_voice_sound__path : SharedObject
+  human_voice_sound__descs : SharedObject
+  sound_tags : Object
+  transform : float3x4
+
+
 [es(on_event=VerifyEcsTemplates)]
 def human_sounds_verify_ecs_templates(evt : Event)
   req_unique_event_handler("CmdSoundGenIrq")

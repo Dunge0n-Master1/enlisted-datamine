@@ -7,7 +7,7 @@ let { colPart, colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, comm
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let faComp = require("%ui/components/faComp.nut")
-let { normUnseenNoBlink, normUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen, unblinkUnseen, unseenPanel } = require("%ui/components/unseenComponents.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
@@ -35,16 +35,16 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 } = require("%enlist/squad/squadManager.nut")
-let { mkTwoSidesGradientX, mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
-let { unseenPanel } = require("%ui/components/unseenComponents.nut")
+let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
+let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
 
 
 let fbImageByCampaign = {
-  berlin = "ui/loading_berlin_26.jpg"
-  moscow = "ui/volokolamsk_village_01.jpg"
-  normandy = "ui/launcher_normandy_bg_2.jpg"
+  berlin = "ui/loading_berlin_26.avif"
+  moscow = "ui/volokolamsk_village_01.avif"
+  normandy = "ui/launcher_normandy_bg_2.avif"
 }
 
 
@@ -52,8 +52,8 @@ let isTutorialsWndOpened = Watched(false)
 let hasCrossplayDesc = Watched(true)
 let isOpened = mkWatched(persist, "isOpened", false)
 let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value]
-  ?? "ui/volokolamsk_city_01.jpg")
-let defCustomGameImage = "ui/game_mode_moscow_solo.jpg"
+  ?? "ui/volokolamsk_city_01.avif")
+let defCustomGameImage = "ui/game_mode_moscow_solo.avif"
 
 let titleTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
@@ -72,7 +72,7 @@ let activeNameBlockBgImg = mkColoredGradientY(0xFF5979B4, 0xFF2B2D44)
 
 
 let defTutorialParams = Computed(@() {
-  image = "ui/game_mode_tutorial_2.jpg"
+  image = "ui/game_mode_tutorial_2.avif"
   id = "tutorials"
   title = loc("tutorials")
   description = loc("tutorials/desc")
@@ -237,7 +237,7 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
         ]
       }
       hasSeen ? null
-        : unseenPanel(loc("unseen/new"), { pos = unseenPanelPos})
+        : unseenPanel(loc("unseen/gamemode"), { pos = unseenPanelPos})
     ]
   })
 }
@@ -285,31 +285,18 @@ let mkTutorialsButton = @(unseenSign) watchElemState(function(sf) {
 })
 
 
-let titleFrameLine = @(override = {}) {
-  rendObj = ROBJ_IMAGE
-  size = [colFull(8), colPart(0.06)]
-  image = mkTwoSidesGradientX(0x00FFFFFF, 0x1AFFFFFF, false)
-}.__update(override)
-let mainTitleImg = mkTwoSidesGradientX(0x002B2D44, 0xE642516C, false)
 
 let title = {
   size = [colFull(8), colPart(1.023)]
   hplace = ALIGN_CENTER
   margin = [colPart(1.61), 0 ,0,0 ]
   children = [
-    {
-      rendObj = ROBJ_IMAGE
-      size = [colFull(8), flex()]
-      image = mainTitleImg
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      children = {
-        rendObj = ROBJ_TEXT
-        text = utf8ToUpper(loc("change_mode"))
-      }.__update(titleTxtStyle)
-    }
-    titleFrameLine
-    titleFrameLine({ vplace = ALIGN_BOTTOM })
+    doubleSideBg({
+      rendObj = ROBJ_TEXT
+      text = utf8ToUpper(loc("change_mode"))
+    }.__update(titleTxtStyle))
+    doubleSideHighlightLine
+    doubleSideHighlightLine({ vplace = ALIGN_BOTTOM })
   ]
 }
 
@@ -431,7 +418,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           ]
         }
         hasSeen ? null
-          : unseenPanel(loc("unseen/new"), { pos = unseenPanelPos})
+          : unseenPanel(loc("unseen/gamemode"), { pos = unseenPanelPos})
         isSelected ? selectedLine : null
       ]
     }
@@ -449,8 +436,8 @@ let function gameModesList() {
   let hasUnseenTutorial = tutorialModes.value.findindex(@(m) m.id not in seenGM) != null
   let hasUnopenedTutorial = tutorialModes.value.findindex(@(m) m.id not in openedGM) != null
   let tutorialUnseen = !hasUnseenTutorial ? null
-    : hasUnopenedTutorial ? normUnseenBlink
-    : normUnseenNoBlink
+    : hasUnopenedTutorial ? unblinkUnseen
+    : blinkUnseen
 
   let tutorialsToShow = tutorialModes.value
     .map(@(mode, idx) mkGameModeButton(mode, idx, seenGM?[mode?.id] ?? false))
@@ -540,8 +527,9 @@ let function crossplayDescBlock() {
 
 
 let serverBlock = {
-  size = [cardSize[0], SIZE_TO_CONTENT]
-  hplace = ALIGN_CENTER
+  size = [flex(), SIZE_TO_CONTENT]
+  minWidth = SIZE_TO_CONTENT
+  halign = ALIGN_CENTER
   children = serverClusterBtn
 }
 

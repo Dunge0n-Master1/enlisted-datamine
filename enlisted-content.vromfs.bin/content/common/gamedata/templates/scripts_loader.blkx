@@ -1,4 +1,0 @@
-game_mode_loaded{
-  _extends:t="replicating"
-  game_mode_loader__dasScript:t=""
-}

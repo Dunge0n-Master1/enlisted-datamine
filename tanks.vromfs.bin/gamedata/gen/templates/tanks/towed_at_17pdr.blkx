@@ -5,7 +5,7 @@ base_towed_at_17pdr{
   animchar__res:t="towed_at_17pdr_char"
   collres__res:t="towed_at_17pdr_collision"
   vehicle_net_phys__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_17pdr.blk:VehiclePhys"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   dmg_animchar__res:t="towed_at_17pdr_dmg_char"
   xray_resource__modelName:t="towed_at_17pdr"
   cockpit__zoomOutFov:r=2.7475
@@ -13,7 +13,6 @@ base_towed_at_17pdr{
   drowningHeight:r=1.44
   damage_model__blk:t="content/tanks/gamedata/gen/units/tanks/towed_at_17pdr.blk"
   item__name:t="items/uk_at_gun_qf17pounder"
-  skin__template:t="towed_at_17pdr_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
@@ -90,59 +89,5 @@ towed_at_17pdr_ammo_stowages{
   _extends:t="vehicle_ammo_stowages"
 
   "ammo_stowage__stowageTemplates:shared:list<t>"{
-  }
-}
-
-towed_at_17pdr_skins{
-
-  "skin__objTexReplace:array"{
-
-    "skin:object"{
-      id:t="towed_at_17pdr_winter"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_winter*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_17pdr_forest"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_forest_01*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_17pdr_ussr_camo_brown_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_17pdr_ussr_camo_green_ltbrown_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_17pdr_ussr_camo_desert_yellow_brown"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_17pdr_ussr_camo_winter_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_winter_lines*"
-      }
-    }
   }
 }

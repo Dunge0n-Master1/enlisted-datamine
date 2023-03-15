@@ -9,16 +9,17 @@ require game.utils.team
 require DagorRandom
 require DagorSystem
 require pathfinder
+require math.base
 
 struct private RespawnBase
   eid : EntityId
   pos : float3
   team : int
 
-def private get_random_eid(arr : array<EntityId> implicit)
+def private get_random_eid(arr : array<EntityId>)
   return length(arr) > 0 ? (arr[rnd_int(0, length(arr) - 1)]) : INVALID_ENTITY_ID
 
-def private get_random_respawn_base(arr : array<RespawnBase> implicit)
+def private get_random_respawn_base(arr : array<RespawnBase>)
   return length(arr) > 0 ? (arr[rnd_int(0, length(arr) - 1)]).eid : INVALID_ENTITY_ID
 
 def find_respawn_base_for_team(team_id : int)
@@ -207,7 +208,7 @@ def get_can_use_respawnbase_type(templ_name : string) : RespawnBaseType
     logerr("Template '{templ_name}' not found in templates")
     return <- res
 
-  res.canUseRespawnbaseType := get_string(getTemplateComponent(*templ, "canUseRespawnbaseType"), "")
+  res.canUseRespawnbaseType := getTemplateComponent(*templ, "canUseRespawnbaseType") ?? ""
   let subtypes = get_ecs_StringList(getTemplateComponent(*templ, "canUseRespawnbaseSubtypes"))
   if subtypes != null
     for subtype in *subtypes
@@ -280,3 +281,19 @@ def check_exists_navmesh_path_from_respawn_to_capzone(respawnPointEid : EntityId
       respawn_point__cachedPaths[closestIdx] = newCachedPath
 
   return result > 0
+
+def find_target_point_for_respawn_cam()
+  var pos = float3(0.0, 0.0, 0.0)
+  var pointsFound = 0
+  ecs::query() <| $ [es(REQUIRE=capzone)] (active : bool; transform : float3x4)
+    if active
+      pointsFound++
+      pos += transform[3]
+  if pointsFound == 0
+    ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase, customRespawnBase))] (active : bool; transform : float3x4)
+      if active
+        pointsFound++
+        pos += transform[3]
+  if pointsFound > 0
+    pos = pos / float(pointsFound)
+  return [[auto pointsFound, pos]]

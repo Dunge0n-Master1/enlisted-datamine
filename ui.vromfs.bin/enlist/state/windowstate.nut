@@ -4,9 +4,10 @@ from "%enlSqGlob/ui_library.nut" import *
 let steam = require_optional("steam")
 let eventbus = require("eventbus")
 let {EventWindowActivated, EventWindowDeactivated} = require("os.window")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
-let windowActive = mkWatched(persist, "windowActive", true)
-let steamOverlayActive = mkWatched(persist, "steamOverlayActive", false)
+let windowActive = nestWatched("windowActive", true)
+let steamOverlayActive = nestWatched("steamOverlayActive", false)
 
 ecs.register_es("os_window_activation_tracker",
   {

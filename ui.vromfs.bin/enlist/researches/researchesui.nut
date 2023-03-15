@@ -1,15 +1,16 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let researchIcons = require("%enlSqGlob/ui/researchIcons.nut")
 let researchBtnsUi = require("researchBtnsUi.nut")
 let squadInfo = require("%enlist/squad/squadInfo.nut")
+let researchStatusesCfg = require("researchStatuses.nut")
 
+let { toIntegerSafe } = require("%sqstd/string.nut")
+let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { progressBar } = require("%enlSqGlob/ui/defComponents.nut")
-let { makeVertScroll, styling } = require("%ui/components/scrollbar.nut")
+let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let { mkDisabledSectionBlock } = require("%enlist/mainMenu/disabledSections.nut")
 let { curArmy, armySquadsById } = require("%enlist/soldiers/model/state.nut")
-let { mkSquadIcon } = require("%enlSqGlob/ui/squadInfoPkg.nut")
 let { colFull, colPart, columnGap } = require("%enlSqGlob/ui/designConst.nut")
 let {
   hasResearchesSection, tableStructure, selectedTable, selectedResearch,
@@ -18,7 +19,8 @@ let {
 } = require("researchesState.nut")
 let {
   mkResearchPageSlot, mkResearchPageInfo, mkResearchColumn, mkResearchInfo,
-  mkPointsInfo, mkWarningText, squadInfoWidth, mkPageInfoAnim
+  mkPointsInfo, mkWarningText, squadInfoWidth, mkPageInfoAnim, mkResearchItem,
+  slotSize, slotGapSize
 } = require("researchesPkg.nut")
 
 
@@ -26,14 +28,29 @@ let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadI
 
 
 let miniGap = (columnGap * 0.5).tointeger()
-let headerHeight = colPart(5)
+let headerHeight = colPart(4.5)
 let researchInfoWidth = colFull(5)
-let progressWidth = colFull(7)
-let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
+let columnsInScreen = Computed(function() {
+  let safeAreaBordersVal = safeAreaBorders.value
+  let freeWidth = sw(100) - (safeAreaBordersVal[1] + safeAreaBordersVal[2] + researchInfoWidth)
+  return ((freeWidth - slotSize[0]) / (slotSize[0] + slotGapSize[0]) + 1).tointeger()
+})
 
 
 let researchCbCtor = @(research) @() selectedResearch(research)
+let researchDoubleCbCtor = @(research) function() {
+  let statuses = researchStatuses.value
+  if (statuses == null || research == null)
+    return
 
+  let { research_id = null } = research
+  let status = statuses?[research_id]
+  let cfg = researchStatusesCfg?[status](research)
+
+  let { onResearch = null } = cfg
+  if (onResearch != null)
+    onResearch()
+}
 
 let function pagesListUi() {
   let { pages = [] } = tableStructure.value
@@ -41,12 +58,14 @@ let function pagesListUi() {
     watch = [tableStructure, selectedTable]
     size = SIZE_TO_CONTENT
     flow = FLOW_HORIZONTAL
-    children = pages.map(function(page, pageIdx) {
+    children = pages.map(@(_, pageIdx) watchElemState(function(sf) {
       let isSelected = selectedTable.value == pageIdx
-      let onClick = @() selectedTable(pageIdx)
-      let iconPath = researchIcons?[page?.icon_id]
-      return mkResearchPageSlot(iconPath, isSelected, onClick)
-    })
+      return {
+        behavior = Behaviors.Button
+        onClick = @() selectedTable(pageIdx)
+        children = mkResearchPageSlot(pageIdx, isSelected, sf & S_HOVER)
+      }
+    }))
   }
 }
 
@@ -78,6 +97,7 @@ let function pagesInfoUi() {
 
   return {
     watch = [curPage, armiesResearches, researchStatuses, curArmy, viewSquadId]
+    size = [flex(), SIZE_TO_CONTENT]
     children = mkResearchPageInfo(page?.name, page?.description, statusTxt)
   }
 }
@@ -94,20 +114,23 @@ let function progressUi() {
   let { level, exp, nextLevelExp } = curSquadProgress.value
   let points = curSquadPoints.value
   return res.__update({
-    size = [progressWidth, flex()]
-    flow = FLOW_VERTICAL
-    gap = miniGap
+    size = flex()
     valign = ALIGN_BOTTOM
-    children = [
-      mkPointsInfo(level, points)
-      progressBar(exp.tofloat() / nextLevelExp)
-    ]
+    children = {
+      size = [flex(), SIZE_TO_CONTENT]
+      flow = FLOW_VERTICAL
+      gap = miniGap
+      children = [
+        mkPointsInfo(level, points)
+        progressBar(exp.tofloat() / nextLevelExp)
+      ]
+    }
   })
 }
 
 
 let pagesUi = {
-  size = flex()
+  size = [SIZE_TO_CONTENT, flex()]
   flow = FLOW_VERTICAL
   gap = columnGap
   children = [
@@ -117,80 +140,220 @@ let pagesUi = {
   ]
 }
 
-let function calcResearchesStructure(researches) {
-  let allRequirements = {}
-  let allDependences = {}
-  foreach (research in researches) {
+
+let curRequirements = Computed(function() {
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
     let { research_id, requirements = [] } = research
-    if (requirements.len() == 0)
-      continue
-    allDependences[research_id] <- requirements
-    foreach (requirementId in requirements)
-      allRequirements[requirementId] <- true
+    if (requirements.len() > 0)
+      foreach (requirementId in requirements)
+        res[requirementId] <- (res?[requirementId] ?? []).append(research_id)
   }
+  return res
+})
+
+let curResearchChaines = Computed(function() {
+  let allRequirements = curRequirements.value
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
+    let { research_id } = research
+    local nextRes = research_id
+
+    res[research_id] <- []
+    while (nextRes != null) {
+      res[research_id].append(nextRes)
+      nextRes = allRequirements?[nextRes]?[0]
+    }
+  }
+  return res
+})
+
+let function isNamesSimilar(nameA, nameB) {
+  let nameArrA = nameA.split("_")
+  let nameArrB = nameB.split("_")
+  if (nameArrA.len() != nameArrB.len() || nameArrA.len() < 2)
+    return false
+
+  if (toIntegerSafe(nameArrA.top(), -1, false) < 0 || toIntegerSafe(nameArrB.top(), -1, false) < 0)
+    return false
+
+  nameArrA.resize(nameArrA.len() - 1)
+  nameArrB.resize(nameArrB.len() - 1)
+  return "_".join(nameArrA) == "_".join(nameArrB)
+}
+
+let validateMainResearch = @(curRes, mainRes, chainLen)
+  curRes == null ? null
+    : chainLen > 1 || (chainLen == 1 && isNamesSimilar(curRes, mainRes)) ? curRes
+    : null
+
+let tableViewStructure = Computed(function() {
+  let { researches } = tableStructure.value
+  let allRequirements = curRequirements.value
+  let allChaines = curResearchChaines.value
 
   let columns = []
-  local main = allRequirements.findindex(@(_, req) req not in allDependences)
-  while (main != null) {
-    let researchColumn = { main }
-    let children = []
-    foreach (depId, reqList in allDependences) {
-      if (depId in allRequirements)
-        continue
-      if (reqList.contains(main)) {
-        let { multiresearchGroup = 0 } = researches[depId]
-        if (multiresearchGroup == 0)
-          children.append(depId)
-        else {
-          let idx = children
-            .findindex(@(r) (r?.multiresearchGroup ?? 0) == multiresearchGroup)
-          if (idx == null)
-            children.append({ multiresearchGroup, children = [depId] })
-          else
-            children[idx].children.append(depId)
-        }
-      }
+  local hasTemplatesLine = false
+  local mainRes = researches.findindex(@(r) (r?.requirements ?? []).len() == 0)
+  let templateCount = {}
+  while (mainRes != null) {
+    let research = researches[mainRes]
+    let followResearches = allRequirements?[mainRes] ?? []
+    let { gametemplate = null } = research
+    columns.append({
+      main = mainRes
+      children = []
+      template = gametemplate
+      tplCount = 0
+    })
+    if (gametemplate != null) {
+      hasTemplatesLine = true
+      templateCount[gametemplate] <- (templateCount?[gametemplate] ?? 0) + 1
     }
-    columns.append(researchColumn.__update({ children }))
-    main = allRequirements.findindex(@(_, req)
-      allDependences?[req].contains(main) ?? false)
+
+    let hasMultResearches = followResearches.findvalue(@(resId)
+      (researches?[resId].multiresearchGroup ?? 0) > 0) != null
+
+    mainRes = followResearches.len() > 1
+      ? followResearches.findvalue(function(resId) {
+          if ((researches?[resId].multiresearchGroup ?? 0) > 0)
+            return false
+          if ((allRequirements?[resId] ?? []).len() > 1)
+            return true
+
+          let currChain = allChaines?[resId] ?? []
+          return currChain.len() > 2
+            || (currChain.len() == 2 && (isNamesSimilar(mainRes, resId) || hasMultResearches))
+        })
+      : validateMainResearch(followResearches?[0], mainRes, (allChaines?[followResearches?[0]] ?? []).len())
   }
 
-  return columns
-}
+  foreach (idx, column in columns) {
+    let { main } = column
+    let nextMain = columns?[idx + 1].main
+    foreach (resId in allRequirements?[main] ?? []) {
+      if (resId == nextMain)
+        continue
+
+      let { multiresearchGroup = 0 } = researches[resId]
+      if (multiresearchGroup == 0)
+        column.children.append({
+          multiresearchGroup
+          children = allChaines?[resId] ?? []
+        })
+      else {
+        let cIdx = column.children
+          .findindex(@(r) (r?.multiresearchGroup ?? 0) == multiresearchGroup)
+        if (cIdx == null)
+          column.children.append({ multiresearchGroup, children = [resId] })
+        else
+          column.children[cIdx].children.append(resId)
+      }
+    }
+  }
+
+  let maxChildHeight = [0, 0]
+  let childCount = []
+  foreach (column in columns) {
+    let { template } = column
+    if (template != "" && template in templateCount) {
+      column.tplCount = templateCount[template]
+      delete templateCount[template]
+    }
+    if ("children" not in column) {
+      childCount.append(0, 0)
+      continue
+    }
+
+    let prevCountTop = childCount?[childCount.len() - 2] ?? 0
+    let prevCountBtm = childCount?[childCount.len() - 1] ?? 0
+    let childTop = column?.children[0]
+    let childBtm = column?.children[1]
+
+    let countTop = (childTop?.multiresearchGroup ?? 0) == 0
+      ? min((childTop?.children ?? []).len(), 1)
+      : childTop.children.len()
+    let countBtm = (childBtm?.multiresearchGroup ?? 0) == 0
+      ? min((childBtm ?? []).len(), 1)
+      : childBtm.children.len()
+
+    let heightTop = max(maxChildHeight[0],
+      (childTop?.multiresearchGroup ?? 0) == 0 ? (childTop?.children ?? []).len() : 1)
+    let heightBtm = max(maxChildHeight[1],
+      (childBtm?.multiresearchGroup ?? 0) == 0 ? (childBtm?.children ?? []).len() : 1)
+
+    if (prevCountTop + countTop < 5 && prevCountBtm + countBtm < 5) {
+      childCount.append(countTop, countBtm)
+      maxChildHeight[0] = heightTop
+      maxChildHeight[1] = heightBtm
+    }
+    else {
+      column.children.clear()
+      column.children.append(childBtm, childTop)
+      childCount.append(countBtm, countTop)
+      maxChildHeight[0] = heightBtm
+      maxChildHeight[1] = heightTop
+    }
+  }
+
+  return { columns, maxChildHeight, hasTemplatesLine }
+})
 
 
 let function researchesTreeUi() {
   let { researches } = tableStructure.value
   let { research_id = null } = selectedResearch.value
   let rStatuses = researchStatuses.value
-  let columns = calcResearchesStructure(researches)
-  return {
-    watch = [tableStructure, selectedResearch, researchStatuses]
-    size = flex()
-    children = makeVertScroll({
-      size = [SIZE_TO_CONTENT, flex()]
-      flow = FLOW_HORIZONTAL
-      padding = [0, colPart(1)]
-      valign = ALIGN_CENTER
-      children = columns.map(function(column, idx) {
-        let { main, children } = column
-        let rMain = researches[main]
-        let rChildren = children.map(@(child)
-          type(child) == "string" ? [researches[child]]
-            : type(child) == "table" ? child.children.map(@(c) researches[c])
-            : null
-        )
-        return mkResearchColumn(idx, rMain, rChildren, research_id, rStatuses, researchCbCtor)
-      })
-    }, {
-      size = flex()
-      rootBase = class {
-        behavior = Behaviors.Pannable
-        wheelStep = 1
+  let { columns, maxChildHeight, hasTemplatesLine } = tableViewStructure.value
+  let minHeightFlex = hasTemplatesLine ? 0.1 : 1
+  let columnsCount = columns.len()
+
+  let treeObject = {
+    size = [SIZE_TO_CONTENT, flex()]
+    flow = FLOW_VERTICAL
+    padding = [0, colPart(1)]
+    valign = ALIGN_CENTER
+    children = [
+      {
+        flow = FLOW_HORIZONTAL
+        children = columns.map(@(column, idx) mkResearchItem(column, idx == columnsCount - 1))
       }
-      styling = scrollStyle
-    })
+      { size = [0, flex(maxChildHeight[1] + minHeightFlex)] }
+      {
+        flow = FLOW_HORIZONTAL
+        children = columns.map(function(column, idx) {
+          let { main, children } = column
+          let rMain = researches[main]
+          let rChildren = children.map(@(child) {
+              multiresearchGroup = child.multiresearchGroup
+              researches = child.children.map(@(c) researches[c])
+            }
+          )
+          return mkResearchColumn(idx, rMain, rChildren, research_id, rStatuses,
+            researchCbCtor, researchDoubleCbCtor)
+        })
+      }
+      { size = [0, flex(maxChildHeight[0] + minHeightFlex)] }
+    ]
+  }
+
+  return {
+    watch = [tableStructure, tableViewStructure, selectedResearch, researchStatuses, columnsInScreen]
+    size = flex()
+    children = columnsCount > columnsInScreen.value
+      ? makeHorizScroll(treeObject, {
+          size = flex()
+          rootBase = class {
+            behavior = Behaviors.Pannable
+            wheelStep = 1
+          }
+        })
+      : {
+          size = flex()
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          children = treeObject
+        }
   }
 }
 
@@ -224,16 +387,8 @@ let function contentUi() {
 
 let squadInfoUi = {
   size = [squadInfoWidth, flex()]
-  gap = columnGap
-  flow = FLOW_VERTICAL
   valign = ALIGN_BOTTOM
-  children = [
-    @() {
-      watch = curSquadData
-      children = mkSquadIcon(curSquadData.value?.icon)
-    }
-    squadInfo()
-  ]
+  children = squadInfo(true, false)
 }
 
 
@@ -250,7 +405,7 @@ let headerUi = {
 let researchesUi = {
   size = flex()
   flow = FLOW_VERTICAL
-  gap = colPart(1)
+  gap = colPart(0.7)
   margin = [columnGap, 0, 0, 0]
   children = [
     headerUi

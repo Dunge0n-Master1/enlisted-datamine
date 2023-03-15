@@ -1,14 +1,8 @@
 import:t="render.blk"
 import:t="briefings.blk"
 import:t="hardcore_mode.blk"
-import:t="#content/common_shooter/gamedata/templates/projectile.blk"
-import:t="#content/common_shooter/gamedata/templates/game_objects.blk"
-import:t="#content/common_shooter/gamedata/templates/ui.blk"
-import:t="#content/common_shooter/gamedata/templates/covers.blk"
 import:t="#content/common/gamedata/templates/respawn_bases.blk"
-import:t="#content/common_shooter/gamedata/templates/common_placeable_rendinst.blk"
-import:t="#content/common_shooter/gamedata/templates/guns.blk"
-import:t="#content/common_shooter/gamedata/templates/mortar_map_markers.blk"
+import:t="common_shooter/*.blk"
 import:t="game_mods.blk"
 import:t="capzones.blk"
 import:t="ww2_teams.blk"
@@ -18,31 +12,11 @@ import:t="enlisted_affects.blk"
 import:t="enlisted_color_grading_tonemap.blk"
 import:t="bomb_site.blk"
 import:t="bomb_crater.blk"
-import:t="#content/common_shooter/gamedata/templates/squads.blk"
 import:t="#content/common/gamedata/templates/humans.blk"
 import:t="%danetlibs/spline_geometry/templates/spline_gen_geometry.blk"
-import:t="#content/common_shooter/gamedata/templates/burning.blk"
 import:t="%danetlibs/blood_decals/templates/blood_decals.template.blk"
-import:t="#content/common_shooter/gamedata/templates/blood_flow.blk"
-import:t="#content/common_shooter/gamedata/templates/battle_areas.blk"
 import:t="enlisted_input.blk"
-import:t="#content/e_ww2_common/gamedata/templates/base_soldier.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ger_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/it_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ger_weapon_presets.blk"
-import:t="#content/e_ww2_common/gamedata/templates/sov_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/uk_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/jap_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/moroc_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/usa_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ussr_female_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/dev_soldiers.blk"
-import:t="#content/e_ww2_common/gamedata/templates/usa_weapon_presets.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ussr_weapon_presets.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_boats.blk"
-import:t="#content/common_shooter/gamedata/templates/bots.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_cars.blk"
-import:t="#content/common_shooter/gamedata/templates/violence.blk"
+import:t="e_ww2_common/*.blk"
 import:t="tutorial_minimap.blk"
 import:t="tutorial_tank.blk"
 import:t="tutorial_engineer.blk"
@@ -51,48 +25,29 @@ import:t="tutorial_aircraft.blk"
 import:t="minimalist_hud_settings.blk"
 import:t="narrator_settings.blk"
 import:t="vote_to_kick.blk"
-import:t="#content/common_shooter/gamedata/templates/shooter_humans.blk"
 import:t="enlisted_shooter_humans.blk"
 import:t="mission_time.blk"
 import:t="enlisted_debug.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_guns.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_guns_mods.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_ussr_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_us_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_uk_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_ger_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_italy_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_japan_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_impact_grenades.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_incendiary_grenades.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_tnt_blocks.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_mines.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_binoculars.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_game_objects.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_character_items.blk"
-import:t="#content/e_ww2_common/gamedata/templates/ww2_facegen_items.blk"
-import:t="#content/modern_equipment/gamedata/templates/*.blk"
+import:t="modern_items.blk"
+import:t="modern_scopes.blk"
 import:t="hero.blk"
 import:t="menu_hero.blk"
 import:t="menu_phys_spec.blk"
 import:t="#content/common/gamedata/templates/entities.blk"
-import:t="#content/common_shooter/gamedata/templates/weapon_items.blk"
 import:t="#content/common/gamedata/templates/ai.blk"
 import:t="#content/common/gamedata/templates/vehicles.blk"
-import:t="#content/enlisted/gamedata/templates/*.pkg.entities.blk"
+import:t="*.pkg.entities.blk"
 import:t="#content/dev/gamedata/templates/*.pkg.entities.blk"
 import:t="#content/enlisted_pkg_dev/gamedata/templates/*.blk"
-import:t="#content/e_normandy/gamedata/templates/e_normandy.pkg.entities.blk"
-import:t="#content/enlisted/gamedata/templates/aircraft.blk"
-import:t="#content/enlisted/gamedata/templates/ww2_aircraft.blk"
+import:t="e_normandy.pkg.entities.blk"
+import:t="aircraft.blk"
+import:t="ww2_aircraft.blk"
 import:t="#content/ships/gamedata/templates/ships.blk"
 import:t="#content/tanks/gamedata/templates/ww2_tanks.blk"
 import:t="#content/tanks/gamedata/templates/ww2_destroyed_tanks.blk"
 import:t="dummy_body_parts.blk"
 import:t="enlisted_guns.blk"
-import:t="#content/common_shooter/gamedata/templates/guns_hit_fx.blk"
-import:t="#content/enlisted/gamedata/templates/enlisted_explosion_hit_fx.blk"
+import:t="enlisted_explosion_hit_fx.blk"
 import:t="enlisted_items.blk"
 import:t="enlisted_sounds.blk"
 import:t="enlisted_buildings.blk"
@@ -104,8 +59,13 @@ import:t="enlisted_ai.blk"
 import:t="resupply.blk"
 import:t="tutorial.blk"
 import:t="componentFilters.blk"
+import:t="#content/enlisted_extra/gamedata/templates/*.blk"
+import:t="#content/enlisted_extra/gamedata/gen/templates/*.blk"
+import:t="#content/enlisted_extra/gamedata/templates/aprilfools_2022/*.blk"
+import:t="#content/enlisted_extra/gamedata/templates/tanks/*.blk"
 import:t="%danetlibs/gpu_benchmark/templates/graphics_autodetect.blk"
 import:t="%danetlibs/assets_import/templates/assets_import.blk"
+import:t="%danetlibs/ground_holes/templates/ground_holes.template.blk"
 
 terraform{
   _extends:t="replicating"
@@ -175,11 +135,26 @@ navmesh_rebuilding{
 
 digging_config{
   _extends:t="replicating"
+  digging_config__diggingRadiusLimits:p2=0.5, 1.5
+
+  "digging_config__diggedPlacesPos:list<p3>"{
+  }
+
+  "digging_config__diggedPlacesRadius:list<u8>"{
+  }
+
+  "digging_config__diggedPlacesMatId:list<i>"{
+  }
+
+  _group{
+    tags:t="server"
+    digging_config__traceHeight:r=0.5
+    digging_config__queryRIHalfHeight:r=1.25
+  }
 
   _group{
     _tags:t="render"
-    digging_config__fxName:t="soil_digging_dirt"
-    digging_config__fxScale:r=1.5
+    digging_config__fxTemplate:t="misc_soil_digging_effect"
     digging_config__fxUpDirectionWeight:r=0.25
     digging_config__removePuddlesRadiusScale:r=2.0
     digging_config__decalScale:r=1.5
@@ -914,6 +889,9 @@ menu_weapon{
 
   "menu_weapon_to_control:eid"{
   }
+
+  "item_attaches:list<eid>"{
+  }
 }
 
 menu_inv_items{
@@ -931,6 +909,9 @@ menu_new_items{
   _singleton:b=yes
 
   "menu_new_items_to_control:eid"{
+  }
+
+  "item_attaches:list<eid>"{
   }
 }
 
@@ -1552,6 +1533,10 @@ soldier_stats{
   "soldierStats:object"{
     _tags:t="server"
   }
+
+  "squadStats:object"{
+    _tags:t="server"
+  }
 }
 
 capzone_fortification_award{
@@ -1941,6 +1926,14 @@ enlisted_player{
   }
 
   _group{
+    _track:b=yes
+    _replicate:b=yes
+    controlled_soldier__sKind:t=""
+    controlled_soldier__sClassRare:i=0
+    controlled_soldier__sClass:t=""
+  }
+
+  _group{
     _replicate:b=yes
     decorators__nickFrame:t=""
     decorators__portrait:t=""
@@ -1980,6 +1973,11 @@ enlisted_player{
   _group{
     _tags:t="server"
     player_bots__nextHealWaitTime:r=0.0
+  }
+
+  _group{
+    _tags:t="playingReplay"
+    replay_player__catchPossessEntity:b=no
   }
 
   "squads__count:i"{

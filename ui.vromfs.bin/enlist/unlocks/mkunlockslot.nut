@@ -1,25 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {
-  smallPadding, defBgColor, titleTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let {
-  statusBlock, taskDescription, taskHeader, taskDescPadding,
+let { smallPadding, defBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { statusBlock, taskDescription, taskHeader, taskDescPadding,
   taskMinHeight, taskSlotPadding, mkTaskEmblem
 } = require("%enlSqGlob/ui/taskPkg.nut")
-let {
-  getOneReward, mkRewardIcon, prepareRewards
-} = require("%enlist/battlepass/rewardsPkg.nut")
-let {
-  getUnlockProgress, unlockProgress
-} = require("%enlSqGlob/userstats/unlocksState.nut")
-let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { getOneReward, mkRewardBlock, prepareRewards } = require("%enlist/battlepass/rewardsPkg.nut")
+let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
-
-
-let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
 
 let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
   function() {
@@ -40,26 +28,6 @@ let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
       }
     }
   }
-
-let function mkRewardBlock(rewardData, isFinished = false) {
-  let { reward = null, count = 1 } = rewardData
-  return {
-    children = [
-      mkRewardIcon(reward, taskRewardSize, isFinished ? { opacity = 0.5 } : {})
-      count == 1 ? null
-        : txt({
-            text = $"x{count}"
-            margin = [0, smallPadding]
-            hplace = ALIGN_RIGHT
-            vplace = ALIGN_BOTTOM
-            color = titleTxtColor
-            fontFx = FFT_GLOW
-            fontFxColor = 0xCC000000
-            fontFxFactor = hdpx(32)
-          }).__update(sub_txt)
-    ]
-  }
-}
 
 let function mkAllRewardsIcons(stageData, isFinished) {
   let rewardsByIcon = {}

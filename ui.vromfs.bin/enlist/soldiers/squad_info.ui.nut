@@ -10,13 +10,11 @@ let { curArmy, curSquadId, curSquad, curSquadParams, curVehicle, objInfoByGuid
 } = require("model/state.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { curArmyReserve, needSoldiersManageBySquad } = require("model/reserve.nut")
-let { mkSoldiersDataList } = require("model/collectSoldierData.nut")
 let { notChoosenPerkSoldiers, perksData } = require("model/soldierPerks.nut")
 let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
 let { unseenSquadsVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
-let { curSoldierIdx, soldiersList, vehicleCapacity, curSoldierInfo,
-  isSquadRented, buyRentedSquad
-} = require("model/squadInfoState.nut")
+let { vehicleCapacity, isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
+let { curSoldierInfo, curSoldiersDataList, curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { curSquadSoldiersStatus } = require("model/readySoldiers.nut")
 let mkMainSoldiersBlock = require("%enlSqGlob/ui/mkSoldiersList.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
@@ -160,9 +158,7 @@ let function unseenVehiclesMark() {
   return res
 }
 
-let squadListWatch = mkSoldiersDataList(soldiersList)
-
-let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(squadListWatch.value.len()))
+let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(curSoldiersDataList.value.len()))
 
 let freeSeatsBlock = @(freeSeats) freeSeats.len() == 0 ? null : {
   size = [flex(), SIZE_TO_CONTENT]
@@ -181,7 +177,7 @@ let freeSeatsBlock = @(freeSeats) freeSeats.len() == 0 ? null : {
 return function() {
   let res = { watch = [
     curSquadId, perksData, vehicleInfo, seatsOrderWatch, freeSeatsInVehicle,
-    soldiersList, needFreemiumStatus, campPresentation
+    curSoldiersDataList, needFreemiumStatus, campPresentation
   ] }
   if (curSquadId.value == null)
     return res
@@ -189,7 +185,7 @@ return function() {
   return res.__update({
     size = [SIZE_TO_CONTENT, flex()]
     children = mkMainSoldiersBlock({
-      soldiersListWatch = squadListWatch
+      soldiersListWatch = curSoldiersDataList
       expToLevelWatch = Computed(@() perkLevelsGrid.value?.expToLevel)
       hasVehicleWatch = Computed(@() hasSquadVehicle(curSquad.value))
       seatsOrderWatch
@@ -201,14 +197,14 @@ return function() {
         openChooseVehicle
         vehicleInfo
         topRightChild = unseenVehiclesMark
-        soldiersList = squadListWatch
+        soldiersList = curSoldiersDataList
       })
       canDeselect = true
       addCardChild = mkAlertInfo
       headerBlock = squadHeader({
         curSquad = curSquad
         curSquadParams = curSquadParams
-        soldiersList = squadListWatch
+        soldiersList = curSoldiersDataList
         vehicleCapacity = vehicleCapacity
         soldiersStatuses = curSquadSoldiersStatus
       })

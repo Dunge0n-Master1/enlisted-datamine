@@ -8,7 +8,7 @@ let {
 let { txtColor } = listCtors
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon, noBlinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let {
   viewVehicle, selectedVehicle, curSquad, curSquadArmy, LOCKED, CANT_USE
 } = require("vehiclesListState.nut")
@@ -23,18 +23,29 @@ let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
+let seenTanksList = Watched({})
 
 let itemStatusIcon = @(vehicle) vehicle.status.flags & LOCKED ? statusIconLocked
   : null
 
+let blinkIconUnseen = blinkUnseenIcon()
+let noBlinkIconUnseen = noBlinkUnseenIcon()
+
 let function mkUnseenSign(vehicle) {
+  let vehicleTpl = vehicle?.basetpl
   let hasUnseenSign = Computed(@()
-    unseenSquadsVehicle.value?[curSquad.value?.guid][vehicle?.basetpl] ?? false)
-  return @() {
-    watch = hasUnseenSign
-    children = hasUnseenSign.value ? unseenSignal : null
-  }
-}
+    unseenSquadsVehicle.value?[curSquad.value?.guid][vehicleTpl] ?? false)
+  return function () {
+  let res = { watch = hasUnseenSign }
+  if (!hasUnseenSign.value)
+    return res
+
+  let unseenIcon = vehicleTpl not in seenTanksList.value ? blinkIconUnseen : noBlinkIconUnseen
+  return res.__update({ children = unseenIcon })
+}}
+
+let setVehiclesSeen = @(vehicle) vehicle?.basetpl == null ? null
+  : seenTanksList.mutate(@(v) v[vehicle.basetpl] <- true)
 
 let mkVehicleName = @(vehicle, color) autoscrollText({
   text = getItemName(vehicle)
@@ -109,7 +120,7 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
       onClick = @() onClick(item)
       onDoubleClick = @() onDoubleClick(item)
       onHover
-
+      onAttach = @() setVehiclesSeen(item)
       sound = {
         hover = "ui/enlist/button_highlight"
         click = "ui/enlist/button_click"

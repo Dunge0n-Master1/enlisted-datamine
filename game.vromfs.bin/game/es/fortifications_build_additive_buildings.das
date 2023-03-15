@@ -100,16 +100,14 @@ def destroy_additive_previews_es(evt : Event;
                                  eid : EntityId)
   destroy_additive_buildings(eid)
 
-[es(on_event=(EventEntityDestroyed, EventEntityDied), tag=server, REQUIRE=refundForDependsBuilding)]
+[es(on_event=EventEntityDied, tag=server, REQUIRE=refundForDependsBuilding)]
 def on_additive_building_destroyed_es(evt : Event;
                                       dependsOnBuildingEid : ecs::EntityId)
   ecs::query(dependsOnBuildingEid) <| $ [es] (buildTypeId : int;
                                               buildingCost : float;
                                               costReturnedOnDestructionMul : float;
-                                              var buildByEngineerEid : EntityId&;
-                                              var buildByPlayer : ecs::EntityId&)
+                                              buildByEngineerEid : EntityId;
+                                              buildByPlayer : ecs::EntityId)
     change_building_limits(buildByPlayer, buildTypeId, 1)
     query(buildByEngineerEid) <| $ [es] (var stockOfBuilderCapabilities : float&)
       stockOfBuilderCapabilities += buildingCost * costReturnedOnDestructionMul
-    buildByPlayer = INVALID_ENTITY_ID
-    buildByEngineerEid = INVALID_ENTITY_ID

@@ -178,7 +178,7 @@ def soldier_revive_points_init_es(evt : Event;
 
     let squadMembers = squad?.squad ?as Array
     let soldiersInSquad = squadMembers != null ? length(*squadMembers) : 0
-    push_to_array(soldier_revive_points__points) <| $(var soldierPoints : Array#)
+    push_to_array(soldier_revive_points__points) <| $(var soldierPoints : Array)
       for _p in range(soldiersInSquad)
         soldierPoints |> push(100)
     let respawnsToRestoreSoldier = get_respawns_to_full_restore(soldier_revive_points__respawnsToRestoreByCount, soldiersInSquad)

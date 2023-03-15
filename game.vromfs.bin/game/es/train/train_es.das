@@ -13,6 +13,7 @@ require EnlistedActor
 require game.es.events
 require enlisted.events_enlisted
 require enlisted.game.es.train.train_common
+require danetlibs.native_dasevents.main.native_events
 
 
 def project_train_on_railroad(train_box : BBox3; train_orient : quat; train_pos, train_vel : float3) : tuple<orient : quat; pos : float3>
@@ -114,7 +115,7 @@ def train_init_carts_es(evt : Event;
         init |> set("capzone__trainEid", cartEid)
         init |> set("capzone__trainOffenseTeam", train__teamOffense)
         init |> set("capzone__advantageTeam", train__teamOffense)
-        using() <| $(var obj : Object#)
+        using() <| $(var obj : Object)
           obj |> set("{train__teamOffense}", train__offenseTeamAdvantageWeight)
           obj |> set("{train__teamDefense}", train__defenseTeamAdvantageWeight)
           init |> set("capzone__advantageWeights", obj)
@@ -172,6 +173,11 @@ def schedule_train_velocity_change_es(evt : CmdPostPhysUpdate;
     train__changeVelocityPacked.y = train__defenseCount
     train__changeVelocityPacked.z = nearest_physics_tick_number(curTime + train__changeVelocityInterval, evt.dt)
 
+[es(REQUIRE=train)]
+def adjust_train_schedule_es(evt : EventTickrateChanged;
+                             var train__changeVelocityPacked : int3&)
+  assert(evt.oldTickrate > 0)
+  train__changeVelocityPacked.z = train__changeVelocityPacked.z * evt.newTickrate / evt.oldTickrate
 
 [es(REQUIRE=train)]
 def change_train_velocity_es(evt : CmdPostPhysUpdate;
@@ -196,8 +202,8 @@ def change_train_velocity_es(evt : CmdPostPhysUpdate;
   train__expectedVelocity = clamp(minVelocity + addVelocity, minVelocity, train__maxVelocity)
 
 
-[es(tag=netClient, REQUIRE=train__primaryCart, after=(phys_obj_apply_authority_state_es, human_phys_apply_authority_state_es), before=phys_obj_phys_es)]
-def calc_primary_cart_tick_es(info : UpdateStageInfoAct;
+[es(tag=netClient, REQUIRE=train__primaryCart, after=(phys_obj_apply_authority_state_es, human_phys_apply_authority_state_es), before=update_phys_es)]
+def calc_primary_cart_tick_es(info : ParallelUpdateFrameDelayed;
                               var net__upToCtrlTick : int&;
                               var train__netTicksOffset : int&)
   net__upToCtrlTick = -1
@@ -314,8 +320,8 @@ def cacl_cart_visual_location(var phys_obj_net_phys : PhysObjActor; at_time : fl
   phys.visualLocation.O |> orient_setQuat(visualOrient)
 
 
-[es(tag=netClient, REQUIRE=train__primaryCart, after=phys_obj_phys_es)]
-def move_primary_cart_client_es(info : UpdateStageInfoAct;
+[es(tag=netClient, REQUIRE=train__primaryCart, after=update_phys_es)]
+def move_primary_cart_client_es(info : ParallelUpdateFrameDelayed;
                                 var phys_obj_net_phys : PhysObjActor;
                                 var transform : float3x4;
                                 train__netTicksOffset : int)
@@ -323,8 +329,8 @@ def move_primary_cart_client_es(info : UpdateStageInfoAct;
   phys_obj_net_phys.phys.visualLocation |> location_toTM(transform)
 
 
-[es(tag=netClient, REQUIRE=train, REQUIRE_NOT=train__primaryCart, after=phys_obj_phys_es)]
-def move_secondary_cart_client_es(info : UpdateStageInfoAct;
+[es(tag=netClient, REQUIRE=train, REQUIRE_NOT=train__primaryCart, after=update_phys_es)]
+def move_secondary_cart_client_es(info : ParallelUpdateFrameDelayed;
                                   var phys_obj_net_phys : PhysObjActor;
                                   var transform : float3x4)
   find_query() <| $ [es(REQUIRE=train__primaryCart)] (train__netTicksOffset : int)
@@ -347,8 +353,8 @@ def move_capzone_es(evt : ParallelUpdateFrameDelayed;
     transform[3] = capzonePos
 
 
-[es(tag=server, REQUIRE=(capzone, trainTriggerable), after=phys_obj_phys_es)]
-def check_train_distance_to_train_checkpoint_es(evt : UpdateStageInfoAct;
+[es(tag=server, REQUIRE=(capzone, trainTriggerable), after=update_phys_es)]
+def check_train_distance_to_train_checkpoint_es(evt : ParallelUpdateFrameDelayed;
                                                 eid : EntityId;
                                                 transform : float3x4;
                                                 active : bool;

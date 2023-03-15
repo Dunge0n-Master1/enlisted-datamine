@@ -26,7 +26,35 @@ def vehicle_underwater_es(info : UpdateStageInfoAct;
     sendEvent(eid, [[CmdStopBurn]])
     sendEvent(eid, [[CmdRestore]])
 
-[es(tag=server, after=vehicle_underwater_es)]
+[es(tag=server, after=vehicle_underwater_es, REQUIRE_NOT=(dm_phys_parts__enginePartIds, deadEntity))]
+def vehicle_underwater_destroy_no_engine_es(info : UpdateStageInfoAct;
+                                            eid : EntityId;
+                                            vehicle__isUnderwater : bool;
+                                            underWaterMaxTime : float;
+                                            last_driver_leave_time : float;
+                                            vehicle_seats__seatEids : EidList;
+                                            var underWaterStartTime : float&;
+                                            var isAlive : bool&)
+  if !vehicle__isUnderwater
+    underWaterStartTime = -1.f
+    return
+
+  let lastDriverTime : float = get_vehicle_driver(eid) != INVALID_ENTITY_ID ? info.curTime : last_driver_leave_time
+  if lastDriverTime + underWaterMaxTime * 2.f < info.curTime
+    underWaterStartTime = -1.f
+    return
+  if underWaterStartTime < 0.f
+    underWaterStartTime = info.curTime
+    return
+  if info.curTime - underWaterStartTime > underWaterMaxTime
+    for seatEid in vehicle_seats__seatEids
+      let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
+      query(ownerEid) <| $ [es(REQUIRE_NOT=deadEntity)] ()
+        sendEvent(eid, [[CmdKickFromVehicle eid=ownerEid]])
+    isAlive = false
+
+
+[es(tag=server, after=vehicle_underwater_es, REQUIRE_NOT=deadEntity)]
 def vehicle_underwater_damage_engine(info : UpdateStageInfoAct;
                                      eid : EntityId;
                                      var damage_model : DamageModel&;

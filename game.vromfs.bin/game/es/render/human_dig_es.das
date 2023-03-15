@@ -12,20 +12,37 @@ require math.base
 require ClipmapDecals
 require DagorRandom
 require PhysMat
+require game.es.human_dig_common
+
+
+[es(tag=netClient, on_event=EventLevelLoaded, after=human_dig_decals_init)]
+def human_dig_apply_digging_on_join_in_progress(evt : Event;
+                                                digging_config__diggingRadiusLimits : float2;
+                                                digging_config__diggedPlacesPos : Point3List;
+                                                digging_config__diggedPlacesRadius : UInt8List;
+                                                digging_config__diggedPlacesMatId : IntList)
+  for pos, packedRadius, matId in digging_config__diggedPlacesPos, digging_config__diggedPlacesRadius, digging_config__diggedPlacesMatId
+    let radius = unpack_digging_radius(packedRadius, digging_config__diggingRadiusLimits)
+    broadcastEventImmediate([[CmdApplyDigAction pos=pos, radius=radius, matId=matId]])
+
 
 [es(tag=render)]
-def digging_heightmap_change_invalidation_on_terraform(evt : CmdDig)
+def human_dig_after_dig(evt : CmdDig)
+  broadcastEventImmediate([[CmdApplyDigAction pos=evt.pos, radius=evt.radius, matId=evt.matId]])
+
+
+[es(tag=render)]
+def digging_heightmap_change_invalidation_on_terraform(evt : CmdApplyDigAction)
   erase_grass(evt.pos, evt.radius);
   invalidate_after_heightmap_change(BBox3(evt.pos, 2.0 * evt.radius))
 
 [es(tag=render)]
-def remove_ri_on_terraform(evt : CmdDig)
+def remove_ri_on_terraform(evt : CmdApplyDigAction)
   remove_ri_without_collision_in_radius(evt.pos, evt.radius)
 
 [es(tag=render)]
 def start_dig_fx_es(evt : CmdDig;
-                    digging_config__fxName : string;
-                    digging_config__fxScale : float;
+                    digging_config__fxTemplate : string;
                     digging_config__fxUpDirectionWeight : float)
   query(evt.diggerEid) <| $ [es] (transform : float3x4)
     let humanUpQuat = float4(dir_to_quat(transform[1]))
@@ -36,8 +53,8 @@ def start_dig_fx_es(evt : CmdDig;
     make_tm(quat(quat), evt.pos, tm)
     swap(tm[0], tm[1])
 
-    start_effect(digging_config__fxName, tm, IDENT_TM) <| $(var fx : AcesEffect)
-      fx |> setFxScale(digging_config__fxScale)
+    createEntity(digging_config__fxTemplate) <| $(var init)
+      set(init, "transform", tm)
 
 [es(tag=render, on_event=EventLevelLoaded)]
 def human_dig_decals_init(evt : Event;
@@ -62,7 +79,7 @@ def human_dig_decals_init(evt : Event;
     push(digging_config__decalPhysmatsIds, matId)
 
 [es(tag=render)]
-def human_dig_decal_create_on_digging(evt : CmdDig;
+def human_dig_decal_create_on_digging(evt : CmdApplyDigAction;
                                       digging_config__decalIds : IntList;
                                       digging_config__decalPhysmatsIds : IntList;
                                       digging_config__decalScale : float)
@@ -79,5 +96,5 @@ def human_dig_decal_create_on_digging(evt : CmdDig;
   create_clipmap_decal(decalId, pos, rnd_float(0.0, PI * 2.0), decalSize, 0, false, -1ul, 1)
 
 [es(tag=render)]
-def human_dig_remove_puddles_on_digging(evt : CmdDig; digging_config__removePuddlesRadiusScale : float)
+def human_dig_remove_puddles_on_digging(evt : CmdApplyDigAction; digging_config__removePuddlesRadiusScale : float)
   remove_puddles_in_crater(evt.pos, evt.radius * digging_config__removePuddlesRadiusScale)

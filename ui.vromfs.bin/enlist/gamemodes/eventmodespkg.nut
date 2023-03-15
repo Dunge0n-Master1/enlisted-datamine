@@ -37,7 +37,7 @@ let headerImg = @(image) {
     size = [flex(), wndHeaderHeight]
     rendObj = ROBJ_IMAGE
     image = Picture(image)
-    fallbackImage = Picture("ui/tunisia_city_inv_02.jpg")
+    fallbackImage = Picture("ui/tunisia_city_inv_02.avif")
     keepAspect = KEEP_ASPECT_FILL
   }
 

@@ -3881,9 +3881,9 @@ entity{
   mission_name:t="pacific_vertical_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_guadalcanal_inv_12.jpg"
-    item:t="ui/pacific_guadalcanal_inv_03.jpg"
-    item:t="ui/pacific_guadalcanal_inv_04.jpg"
+    item:t="ui/pacific_guadalcanal_inv_12.avif"
+    item:t="ui/pacific_guadalcanal_inv_03.avif"
+    item:t="ui/pacific_guadalcanal_inv_04.avif"
   }
 }
 
@@ -3955,7 +3955,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[13.0754, 0.0, -12.4419] [0.0, 7.89896, 0.0] [11.0208, 0.0, 11.582] [-731.272, 56.8796, -271.885]]
   active:b=no
@@ -3983,7 +3983,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[13.0754, 0.0, -12.4419] [0.0, 8.68015, 0.0] [11.0208, -0.0, 11.582] [-731.249, 57.1539, -271.861]]
   active:b=no
@@ -4011,7 +4011,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[29.628, 0.0, -23.9177] [0.0, 7.80293, 0.0] [18.8176, -0.0, 23.335] [-789.937, 48.685, -181.782]]
   active:b=no
@@ -4039,7 +4039,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-579.686, 49.5636, -301.812]]
   active:b=no
@@ -4069,7 +4069,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[12.8491, 0.0, -12.3153] [0.0, 7.80293, 0.0] [12.3663, -0.0, 12.9022] [-737.192, 35.7039, -42.7464]]
   active:b=no
@@ -4098,7 +4098,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[0.876218, 0.0, 0.253675] [0.0, 1.0, -0.0] [-0.308751, 0.0, 1.06646] [-476.809, 41.15, -206.864]]
   active:b=no
@@ -5940,5 +5940,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
 }

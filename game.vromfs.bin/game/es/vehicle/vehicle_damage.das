@@ -29,8 +29,8 @@ def process_damage_to_part(partId : int;
   if partId == -1
     return
   let isDestroyed = hpFixed == 0
-  if ((isDestroyed && prevHpFixed == 0) || (hpFixed > MAX_REL_HP_FIXED / 2) ||
-      (!isDestroyed && prevHpFixed < MAX_REL_HP_FIXED / 2))
+  if ((isDestroyed && prevHpFixed == 0) || (uint(hpFixed) > uint(MAX_REL_HP_FIXED) / 2u) ||
+      (!isDestroyed && uint(prevHpFixed) < uint(MAX_REL_HP_FIXED) / 2u))
     return
 
   if find_index(barrelAndBreechDmList, partId) >= 0

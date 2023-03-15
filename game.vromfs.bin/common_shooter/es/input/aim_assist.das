@@ -7,6 +7,7 @@ require DagorInput
 require DagorSystem
 require TouchInput
 require Gun
+require GridCollision
 require HumanPhys
 require EnlistedHuman
 require EnlistedWeapon
@@ -83,6 +84,8 @@ def aim_assist_target_es(info : UpdateStageUpdateInput;
     var t = target.dist + 0.5
     var norm : float3
     if traceray_normalized(shootPos, target.dir, t, norm)
+      continue
+    if rayhit_entities_in_grid(ecs_hash("vehicles"), shootPos, target.dir, t, INVALID_ENTITY_ID)
       continue
     if traceTransparencyRayRIGenNormalized(shootPos, target.dir, target.dist, 0.01)
       continue

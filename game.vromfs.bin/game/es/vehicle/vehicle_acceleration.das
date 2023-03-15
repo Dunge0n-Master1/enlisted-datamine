@@ -2,9 +2,10 @@ require ecs
 require math
 require math.base
 require DagorMath
+require enlisted.events_enlisted
 
 [es]
-def vehicle_acceleration_es(info : UpdateStageInfoAct;
+def vehicle_acceleration_es(info : ParallelUpdateFrameDelayed;
                             var vehicle_acceleration__tick : int&;
                             var vehicle_acceleration__velocity : float3&;
                             var vehicle_acceleration__acceleration : float3&;

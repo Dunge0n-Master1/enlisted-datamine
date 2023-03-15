@@ -6,9 +6,10 @@ require math.base
 require AnimV20
 require GeomNodeTree
 require DagorSystem
+require enlisted.events_enlisted
 
 [es(tag=render, before=cockpit_camera_offseter, after=after_net_phys_sync, REQUIRE=watchedByPlr)]
-def human_fpv_cam_lookat(info : UpdateStageInfoAct; transform : float3x4; human_net_phys : HumanActor;
+def human_fpv_cam_lookat(info : ParallelUpdateFrameDelayed; transform : float3x4; human_net_phys : HumanActor;
                          human_cam__standPos : float3; human_cam__crouchPos : float3; human_cam__crawlPos : float3;
                          var camera__look_at : DPoint3;
                          human_cam__leftLeanOffs : float3;
@@ -74,11 +75,11 @@ def cockpit_camera_init(evt : Event; animchar : AnimcharBaseComponent; human_cam
   human_cam__camNodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_cam__camNodeName)
 
 [es(tag=render, before=(animchar_es, human_anim_es), after=human_fpv_cam_lookat, REQUIRE=watchedByPlr, REQUIRE_NOT=deadEntity)]
-def cockpit_pre_animchar_offset(info : UpdateStageInfoAct; var transform : float3x4; human_cam__calculatedOffset : DPoint3; human_cam__offsetMult : float)
+def cockpit_pre_animchar_offset(info : ParallelUpdateFrameDelayed; var transform : float3x4; human_cam__calculatedOffset : DPoint3; human_cam__offsetMult : float)
   transform[3] = transform[3] + float3(human_cam__calculatedOffset * human_cam__offsetMult)
 
 [es(tag=render, after=animchar_es, before=(post_animchar_sync, gun_flash_fx_es))]
-def cockpit_camera_offseter(info : UpdateStageInfoAct; camera__active : bool; camera__target : EntityId; isHeroCockpitCam : bool)
+def cockpit_camera_offseter(info : ParallelUpdateFrameDelayed; camera__active : bool; camera__target : EntityId; isHeroCockpitCam : bool)
   if !camera__active
     return
   query(camera__target) <| $ [es(REQUIRE_NOT=deadEntity)] (var animchar : AnimcharBaseComponent;

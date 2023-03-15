@@ -7,7 +7,7 @@ let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let { mkLeftPanelButton, mkRightPanelButton } = isNewDesign.value
   ? require("%enlist/components/mkPanelBtn.nut")
   : require("%enlist/components/mkPanelButton.nut")
-let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
 let { hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks } = require("unseenUnlocksState.nut")
 
@@ -22,11 +22,12 @@ let hoverTxtStyle = {
 
 let buttonSize = [startBtnWidth, commonBtnHeight]
 
+
 let weeklyUnseenSign = @() {
   watch = [hasUnseenWeeklyTasks, hasUnopenedWeeklyTasks]
   children = !hasUnseenWeeklyTasks.value ? null
-    : hasUnopenedWeeklyTasks.value ? smallUnseenBlink
-    : smallUnseenNoBlink
+    : hasUnopenedWeeklyTasks.value ? blinkUnseen
+    : unblinkUnseen
 }
 
 let buttonContent = @(sf) {

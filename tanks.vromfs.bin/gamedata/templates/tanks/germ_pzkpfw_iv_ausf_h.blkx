@@ -24,8 +24,8 @@ germ_pzkpfw_iv_ausf_h_tunisia{
   _extends:t="germ_pzkpfw_IV_ausf_H_common"
 
   "disableDMParts:list<t>"{
-    part:t="track_r"
-    part:t="track_l"
+    part:t="track_r_01"
+    part:t="track_l_01"
   }
 }
 

@@ -128,21 +128,15 @@ motor_100throttle{
 }
 
 motor_wep{
-  fx:t="motor_wep_fx"
+  fx:t="trail_plane_smoke_minor_cmps_fx"
   lifeTime:r=3.0
   isTrail:b=yes
-  onePointNumber:i=8
-  numInstances:i=20
-  numReserved:i=8
 }
 
 motor_exhaust_wep{
-  fx:t="motor_exhaust_wep_fx"
+  fx:t="smoke_plane_exhaust_start_cmps_fx"
   lifeTime:r=2.0
   isTrail:b=yes
-  onePointNumber:i=8
-  numInstances:i=8
-  numReserved:i=0
 }
 
 contrail{

@@ -9,7 +9,7 @@ let { smallPadding, bigPadding, perkIconSize, defTxtColor, titleTxtColor,
   soldierWndWidth, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
-let { perksData, getPerkPointsInfo, getTierAvailableData,
+let { perksData, getTierAvailableData,
   getNoAvailPerksText, showPerksChoice, buySoldierLevel, useSoldierLevelupOrders, dropPerk
 } = require("model/soldierPerks.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
@@ -23,7 +23,7 @@ let { curArmy, curCampItems, curCampItemsCount } = require("model/state.nut")
 let { perkCardBg, perkCard, tierTitle, mkPerksPointsBlock
 } = require("components/perksPackage.nut")
 let textButton = require("%ui/components/textButton.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { noBlinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { enlistedGold } = require("%enlist/currency/currenciesList.nut")
 let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
@@ -41,8 +41,8 @@ let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campa
 
 local slotNumber = 0
 
-let choosePerkIcon = unseenSignal()
-  .__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER, animations = null })
+let choosePerkIcon = noBlinkUnseenIcon()
+  .__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
 
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
@@ -299,11 +299,11 @@ let tierUi = @(armyId, tierIdx, tier, perks, onSlotClick) {
   ]
 }
 
-let mkPerksListBtn = @(soldier) @() {
+let mkPerksListBtn = @(sGuid) @() {
   watch = [curArmy, perksList, perksData]
   hplace = ALIGN_RIGHT
   children = textButton.SmallFlat(loc("possible_perks_list"),
-    @() openAvailablePerks(perksList.value, curArmy.value, perksData.value?[soldier?.guid]),
+    @() openAvailablePerks(perksList.value, curArmy.value, perksData.value?[sGuid]),
     { margin = 0, padding = [bigPadding, 2 * bigPadding] })
   }
 
@@ -450,13 +450,13 @@ let function mkPerksList(guid, armyId, perks, canManage) {
 }
 
 let perksUi = @(soldier, canManage) function() {
-  let { guid = null, sClass = null } = soldier
-  let armyId = soldier == null ? null : getLinkedArmyName(soldier)
+  let { tier, guid = null, sClass = null } = soldier.value
+  let armyId = soldier == null ? null : getLinkedArmyName(soldier.value)
   let perks = perksData.value?[guid]
-  let hasMaxRank = soldier.tier >= (trainingPrices.value?[sClass].len() ?? 0)
+  let hasMaxRank = tier >= (trainingPrices.value?[sClass].len() ?? 0)
   let canExpandPerks = !hasMaxRank && (perks?.canChangePerk ?? false)
   return {
-    watch = [perksData, trainingPrices]
+    watch = [perksData, trainingPrices, soldier]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     margin = [bigPadding, 0]
@@ -464,7 +464,7 @@ let perksUi = @(soldier, canManage) function() {
     children = [
       mkPerksList(guid, armyId, perks, canManage)
       canExpandPerks ? morePerksHint : null
-      hasMaxRank ? null : mkSoldierTrainBtn(soldier, perks)
+      hasMaxRank ? null : mkSoldierTrainBtn(soldier.value, perks)
       hasMaxRank ? soldierMaxRank : mkSoldierSteps(perks)
     ]
   }
@@ -499,30 +499,14 @@ let mkRetrainingPoints = @(soldierGuid) function() {
   }
 }
 
-local prevPerkPointsData = null;
-
-let function mkPerksPoints(soldierGuid) {
-  let perkPointsInfoWatch = Computed(function() {
-    let perks = perksData.value?[soldierGuid]
-    return perks == null ? null : getPerkPointsInfo(perksList.value, perks)
-  })
-  local prev = {}
-  if (prevPerkPointsData?.guid != soldierGuid){
-    prevPerkPointsData = { guid = soldierGuid }.__update(perkPointsInfoWatch.value?.total)
-    prev = prevPerkPointsData
-  } else {
-    prev = prevPerkPointsData
-    prevPerkPointsData = { guid = soldierGuid }.__update(perkPointsInfoWatch.value?.total)
-  }
-  return {
-    size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_HORIZONTAL
-    gap = bigPadding
-    margin = [0, 0, smallPadding, 0]
-    valign = ALIGN_CENTER
-    halign = ALIGN_CENTER
-    children = mkPerksPointsBlock(perkPointsInfoWatch, prev)
-  }
+let mkPerksPoints = @(soldierGuid) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_HORIZONTAL
+  gap = bigPadding
+  margin = [0, 0, smallPadding, 0]
+  valign = ALIGN_CENTER
+  halign = ALIGN_CENTER
+  children = mkPerksPointsBlock(soldierGuid)
 }
 
 return {

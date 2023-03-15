@@ -6,9 +6,10 @@ require GamePhys
 require Gun
 require HumanPhys
 require math
+require enlisted.events_enlisted
 
 [es(tag=render, after=(net_phys_update_es, grenade_thrower_detach_es, grenade_thrower_es))]
-def projectile_trajectory(act : UpdateStageInfoAct;
+def projectile_trajectory(act : ParallelUpdateFrameDelayed;
                           calcProjectileTrajectory : bool;
                           human_weap__gunEids : EidList;
                           human_net_phys : HumanActor;

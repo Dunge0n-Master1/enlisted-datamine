@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { setStatsModes, refreshUserstats, setUnlocksFilter } = require("%enlSqGlob/userstats/userstat.nut")
 let { lbClient, lbHandlers } = require("%enlist/leaderboard/lbStateBase.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 let { allAvailableArmies } = require("%enlist/soldiers/model/state.nut")
 
 
@@ -20,7 +21,7 @@ let mainStatsModes = Computed(function() {
     : modes.append("main_game", "squads", "lone_fighter")
 })
 
-let lbStatsModes = mkWatched(persist, "lbStatsModes", [])
+let lbStatsModes = nestWatched("lbStatsModes", [])
 
 let allStatsModes = Computed(function() {
   let res = clone mainStatsModes.value

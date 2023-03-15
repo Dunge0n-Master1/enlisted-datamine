@@ -147,7 +147,7 @@ base_bike_common{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:shared:list<t>"{
+    "dependent_templates_list_shared:shared:list<t>"{
       template_name:t="vehicle_seat_fire_ready"
       template_name:t="bike_seat_driver"
       template_name:t="vehicle_seat_commander"

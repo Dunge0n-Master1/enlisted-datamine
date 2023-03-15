@@ -161,6 +161,7 @@ let unit = function(eid, showMed){
     return {
       data = {
         eid
+        opacityForInvisibleAnimchar = 0.4
         minDistance = showMed ? 0 : maxHealIconDistance
         maxDistance = showMed ? maxHealIconDistance : maxTeammateIconDistance
         distScaleFactor = 0.5

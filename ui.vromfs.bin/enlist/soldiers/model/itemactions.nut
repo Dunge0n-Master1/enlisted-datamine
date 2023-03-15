@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  upgrade_item_order, equip_item, swap_items, equip_by_list, dispose_item
+  upgrade_items_count, equip_item, swap_items, equip_by_list, dispose_items_count
 } = require("%enlist/meta/clientApi.nut")
 
 let isItemActionInProgress = Watched(false)
@@ -11,11 +11,11 @@ let mkActionCb = @(cb) function(res) {
   cb?(res)
 }
 
-let function upgradeItem(itemGuid, spendItemGuids, cb = null) {
+let function upgradeItem(guidsTbl, spendItemGuids, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
-  upgrade_item_order(itemGuid, spendItemGuids, mkActionCb(cb))
+  upgrade_items_count(guidsTbl, spendItemGuids, mkActionCb(cb))
 }
 
 let function equipItem(itemGuid, slotType, slotId, targetGuid) {
@@ -39,12 +39,12 @@ let function equipByList(sGuid, equipList, cb = null) {
   equip_by_list(sGuid, equipList, mkActionCb(cb))
 }
 
-let function disposeItem(guids, count, cb = null) {
+let function disposeItem(guidsTbl, cb = null) {
   if (isItemActionInProgress.value)
     return
 
   isItemActionInProgress(true)
-  dispose_item(guids.slice(0, count), mkActionCb(cb))
+  dispose_items_count(guidsTbl, mkActionCb(cb))
 }
 
 return {

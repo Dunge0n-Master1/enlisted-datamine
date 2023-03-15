@@ -11,7 +11,7 @@ p_40e_1{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.05, -0.15]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""

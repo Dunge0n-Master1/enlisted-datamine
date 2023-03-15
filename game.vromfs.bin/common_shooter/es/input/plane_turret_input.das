@@ -3,6 +3,7 @@ require ecs.common
 require game.es.input.input_events
 require DagorInput
 require EnlistedInputControls
+require enlisted.events_enlisted
 require common_shooter.es.input.turret_input_common
 
 enum PlaneTrigger : int
@@ -104,7 +105,7 @@ def plane_turret_init_triggers(evt : Event;
     )
 
 [es(tag=input)]
-def plane_input_gunner_es(info : UpdateStageInfoAct;
+def plane_input_gunner_es(info : ParallelUpdateFrameDelayed;
                           input__enabled : bool;
                           plane_input__shoot : int;
                           plane_input__shootCannons : int;
@@ -126,7 +127,7 @@ def plane_input_gunner_es(info : UpdateStageInfoAct;
         turret_input__shootFlag = get_digital_action_state(uint16(shootAction)).bState
 
 [es(tag=input, after=plane_input_gunner_es)]
-def plane_input_gunner_aim(info : UpdateStageInfoAct;
+def plane_input_gunner_aim(info : ParallelUpdateFrameDelayed;
                            input__enabled : bool;
                            turret_control__gunEids : EidList;
                            plane_input__aim : int;

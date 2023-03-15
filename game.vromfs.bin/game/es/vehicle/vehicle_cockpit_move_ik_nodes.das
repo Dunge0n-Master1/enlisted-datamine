@@ -5,6 +5,7 @@ require GeomNodeTree
 require AnimV20
 require DagorSystem
 require DagorMath
+require enlisted.events_enlisted
 
 
 // Planes are directly imported from WT and right now we can't change their models (or we wont get any future plane models updates)
@@ -33,7 +34,7 @@ def init_move_cockpit_nodes_id(evt : Event;
     nodeId = *animchar.nodeTree |> geomtree_findNodeIndex("{nodeName}")
 
 [soa_es, es(tag=render, before=human_vehicle_cockpit_effectors, after=(human_anim_es, plane_anim_es), REQUIRE=cockpit__effectors)]
-def move_cockpit_ik_nodes(info : UpdateStageInfoAct;
+def move_cockpit_ik_nodes(info : ParallelUpdateFrameDelayed;
                           move_cockpit_ik_node : MoveCockpitIkNode_SOA;
                           var animchar : AnimcharBaseComponent)
   for node in move_cockpit_ik_node

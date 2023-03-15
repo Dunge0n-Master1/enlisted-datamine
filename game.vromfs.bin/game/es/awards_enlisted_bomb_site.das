@@ -24,7 +24,7 @@ def award_on_bomb_site_detonation(evt : EventAwardZoneCapturers;
 
   var awardedPlayers : table<uint; bool>
 
-  using <| $(var awardList : Array#)
+  using() <| $(var awardList : Array)
     for it in participants
       let participantContribution = it.value ?? 0.
       let participantEid = EntityId(to_uint(it.key))

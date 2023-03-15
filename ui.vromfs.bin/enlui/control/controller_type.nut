@@ -3,9 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { platformId } = require("%dngscripts/platform.nut")
 let controlsTypes = require("controls_types.nut")
 let eventbus = require("eventbus")
-let {GAMEPAD_VENDOR_SONY, GAMEPAD_VENDOR_NINTENDO} = require("dainput2")
+let { GAMEPAD_VENDOR_SONY } = require("dainput2")
 let gamepadTypeByPlatform = {
-  nswitch = controlsTypes.nxJoycon
   ps4 = controlsTypes.ds4gamepad
   ps5 = controlsTypes.ds4gamepad
 }
@@ -15,11 +14,9 @@ let gamepadType = mkWatched(persist, "gamepadType", defGamepadType)
 
 let function setInput(msg){
   let {ctype} = msg
-  gamepadType(ctype==GAMEPAD_VENDOR_SONY
+  gamepadType(ctype == GAMEPAD_VENDOR_SONY
                 ? controlsTypes.ds4gamepad
-                : ctype==GAMEPAD_VENDOR_NINTENDO
-                  ? controlsTypes.nxJoycon
-                  : controlsTypes.x1gamepad)
+                : controlsTypes.x1gamepad)
 }
 eventbus.subscribe("input_gamepad_type", setInput)
 console_register_command(@(value) setInput({ctype=value}), "ui.changegamepad")

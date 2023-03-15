@@ -2,8 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { bigPadding, blurBgColor, blurBgFillColor, smallPadding,
   activeBgColor, defBgColor, slotBaseSize, scrollbarParams, listCtors,
   msgHighlightedTxtColor
@@ -31,7 +32,6 @@ let squadHeader = require("components/squadHeader.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let mkValueWithBonus = require("%enlist/components/valueWithBonus.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
-let { curSoldierIdx } = require("model/squadInfoState.nut")
 let { unseenSoldiers, markSoldierSeen } = require("model/unseenSoldiers.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { curCanUnequipSoldiersList } = require("model/selectItemState.nut")
@@ -43,8 +43,11 @@ let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { smallDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 
 const NO_SOLDIER_SLOT_IDX = -1
+let unseenIcon = blinkUnseenIcon(0.9, msgHighlightedTxtColor, "th-large")
+let smallUnseenIcon = blinkUnseenIcon(0.7)
 
 let slotWithPadding = [slotBaseSize[0], slotBaseSize[1] + bigPadding]
 
@@ -110,8 +113,7 @@ let function reserveCountBlock() {
   return res.__update({
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
-    gap = hdpx(5)
-    margin = [0, 0, bigPadding, 0]
+    gap = smallPadding
     children = [
       note(loc("squad/reserveAmount", { count = reserveCount }))
       mkValueWithBonus(commonLimit, premiumLimit)
@@ -230,7 +232,7 @@ let function mkEmptySlot(idx, tgtHighlight, hasBlink) {
 let unseenMark = @(soldierGuid) @() {
   watch = unseenSoldiers
   hplace = ALIGN_RIGHT
-  children = (unseenSoldiers.value?[soldierGuid] ?? false) ? unseenSignal(0.7) : null
+  children = (unseenSoldiers.value?[soldierGuid] ?? false) ? smallUnseenIcon : null
 }
 
 let function mkSoldierSlot(soldier, idx, tgtHighlight, addObjects) {
@@ -314,7 +316,7 @@ let mkSoldiersList = kwarg(@(soldiers, hasUnseen = false, idxOffset = Watched(0)
   children = soldiers.value.map(function(s, idx) {
     let addObjects = hasUnseen ? [unseenMark(s.guid)] : []
     if (isInReserve && s.guid in curCanUnequipSoldiersList.value)
-      addObjects.append(unseenSignal(0.9, msgHighlightedTxtColor, "th-large"))
+      addObjects.append(unseenIcon)
     return s == null
       ? mkEmptySlot(idx + idxOffset.value, tgtHighlight, slotsBlinkWatch.value)
       : mkSoldierSlot(s, idx + idxOffset.value, tgtHighlight, addObjects)
@@ -326,7 +328,6 @@ let labelUnableToAdd = @(listWatch) function() {
   if (listWatch.value.len() == 0)
     return res
   return res.__update({
-    margin = [0, 0, smallPadding, 0]
     children = note(loc("squad/unableAddSoldier"))
   })
 }
@@ -388,17 +389,17 @@ let function manageBlock() {
   }
 }
 
-let soldiersManageHint = {
+let soldiersManageHint = @() {
+  watch = isGamepad
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = bigPadding
-  children = [
+  children = isGamepad.value ? null : [
     noteTextArea(loc("soldier/manageHeader"))
     noteTextArea(loc("soldier/maxSoldiers"))
   ]
 }
 
-let gapBlock = { size = [flex(), bigPadding] }
 
 let hasEmptySlotsBlink = Computed(function() {
   return reserveSoldiers.value.slice(0, reserveAvailableSize.value)
@@ -406,7 +407,8 @@ let hasEmptySlotsBlink = Computed(function() {
 })
 
 let squadList = bg.__merge({
-  size = [slotWithPadding[0] + 2 * bigPadding, SIZE_TO_CONTENT]
+  size = [slotWithPadding[0] + 2 * bigPadding, flex()]
+  gap = bigPadding
   children = [
     squadHeader({
       curSquad = soldiersSquad
@@ -423,8 +425,8 @@ let squadList = bg.__merge({
       tgtHighlight = slotsHighlight
       slotsBlinkWatch = hasEmptySlotsBlink
     })
+    { size = flex() }
     soldiersManageHint
-    gapBlock
     manageBlock
   ]
 })
@@ -435,7 +437,7 @@ let getSoldiersBlock = @() {
   size = [flex(), SIZE_TO_CONTENT]
   hplace = ALIGN_CENTER
   halign = ALIGN_CENTER
-  margin = [bigPadding,0,0,0]
+  gap = bigPadding
   children = [
     noteTextArea({
       text = loc("squad/getMoreSoldiers")
@@ -445,6 +447,7 @@ let getSoldiersBlock = @() {
         fgChild = smallUnseenNoBlink
         halign = ALIGN_RIGHT
         valign = ALIGN_TOP
+        margin = 0
       } )
   ]
 }
@@ -465,6 +468,7 @@ let function reserveList() {
   return bg.__merge({
     watch = [ reserveSoldiers, curArmyReserveCapacity ]
     size = [slotWithPadding[0] + 2 * bigPadding, flex()]
+    gap = bigPadding
     children = [
       reserveCountBlock
       makeVertScroll({

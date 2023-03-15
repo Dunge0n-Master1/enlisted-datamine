@@ -1,4 +1,5 @@
 require ecs
+require ecs.extra_set
 require app
 require EnlistedNet
 require player
@@ -66,9 +67,7 @@ def vote_to_kick_es(evt : CmdVoteToKick; eid : EntityId; team aka player_team : 
       init |> set("kick_voting__accused", accused)
       init |> set("kick_voting__timer", get_sync_time() + vote_to_kick__time)
       let voteComp = evt.voteYes ? "kick_voting__voteYes" : "kick_voting__voteNo"
-      using() <| $(var list : EidList#)
-        list |> push(eid)
-        init |> set(voteComp, list)
+      init |> set(voteComp, [{auto eid}])
 
 [es(tag=server, no_order)]
 def vote_to_kick_timer_es(info : UpdateStageInfoAct;

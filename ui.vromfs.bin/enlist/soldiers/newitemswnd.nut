@@ -7,6 +7,11 @@ let {
 let JB = require("%ui/control/gui_buttons.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
+let { txt } = require("%enlSqGlob/ui/defcomps.nut")
+let { TextNormal, TextHover, textMargin
+} = require("%ui/components/textButton.style.nut")
+let mkTextRow = require("%darg/helpers/mkTextRow.nut")
+let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { get_time_msec } = require("dagor.time")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { getObjectName, getItemDesc } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -18,7 +23,10 @@ let { curSelectedItem } = require("%enlist/showState.nut")
 let mkAnimatedItemsBlock = require("%enlist/soldiers/mkAnimatedItemsBlock.nut")
 let { mkSoldierMedalIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { sound_play } = require("sound")
-let { mkTierStars } = require("%enlSqGlob/ui/itemTier.nut")
+let { mkTierStars, mkItemTier } = require("%enlSqGlob/ui/itemTier.nut")
+let { allItemTemplates, findItemTemplate
+} = require("%enlist/soldiers/model/all_items_templates.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let {
   needNewItemsWindow, newItemsToShow, markNewItemsSeen, justPurchasedItems
 } = require("model/newItemsToShow.nut")
@@ -33,7 +41,8 @@ let { curArmySquadsUnlocks, scrollToCampaignLvl
 let { closeAndOpenCampaign } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let { mkPerksPoints } = require("%enlist/soldiers/soldierPerksPkg.nut")
 let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
-
+let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
+let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
 const ITEM_SELECT_DELAY = 0.01
@@ -366,6 +375,45 @@ let function soldierDismissBtn() {
   return res.__update({ children = dismissBtn(curItem.value, @() curItem(nextItemToShow)) })
 }
 
+let function upgradeItemBtn() {
+  let res = { watch = curItem }
+  let justUpgradedItem = curItem.value
+  let upgradeDataWatch = mkItemUpgradeData(justUpgradedItem)
+  let upgradeData = upgradeDataWatch.value
+  let { isResearchRequired = false, hasEnoughOrders = false, isUpgradable = false,
+    upgradeitem = "" } = upgradeData
+
+  if (isResearchRequired || !(isUpgradable && hasEnoughOrders))
+    return res
+
+  let armyId = getLinkedArmyName(justUpgradedItem)
+  local nextUpgrade = findItemTemplate(allItemTemplates, armyId, upgradeitem)
+  nextUpgrade = justUpgradedItem.__merge(nextUpgrade)
+
+  res.__update({ children = textButton("",
+    function() {
+        tryMarkSeen()
+        openUpgradeItemMsg(justUpgradedItem, upgradeData)
+    }, {
+      textCtor = @(_textField, params, handler, group, sf) textButtonTextCtor({
+        children = {
+          flow = FLOW_HORIZONTAL
+          valign = ALIGN_CENTER
+          margin = textMargin
+          children = mkTextRow(loc("btn/upgrade/nextTier"),
+            @(t) txt(t).__update({
+              color = sf & S_HOVER ? TextHover : TextNormal
+            }, body_txt),
+            {
+              ["{stars}"] = mkItemTier(nextUpgrade) //warning disable: -forgot-subst
+            })
+        }
+      }, params, handler, group, sf)
+    })
+  })
+  return res
+}
+
 let newItemsWnd = @() {
   watch = [safeAreaBorders, wndCanBeClosed, isAnimFinished]
   key = $"newItemsWindow"
@@ -397,6 +445,7 @@ let newItemsWnd = @() {
             })
             soldierDismissBtn
             vehicleSquadBtn
+            upgradeItemBtn
           ]
         : null
     }

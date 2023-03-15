@@ -9,6 +9,7 @@ require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
 require game.utils.hero
 require ecs.common
+require ecs.safe
 require ecs
 require strings
 require player
@@ -40,7 +41,7 @@ def traceray_poster(trace_pos : float3;
   let res = traceray_normalized(trace_pos, trace_dir, len, matId, norm, ETF_ALL, riDesc, -1)
   if res && riDesc.isValid
     var retValue = PlaceStatus PS_NONE
-    using <| $(var collInfo : CollisionInfo#)
+    using() <| $(var collInfo : CollisionInfo)
       riDesc |> getRiGenDestrInfo(collInfo)
       if (collInfo.initialHp > 0.0f) || (collInfo.destrImpulse > 0.0f)
         retValue = PlaceStatus PS_FORBIDDEN_DESTRUCTIBLE
@@ -61,12 +62,9 @@ def get_template_data(template_name : string;
     tpl = buildTemplateByName(template_name)
   if tpl == null
     return
-  var comp = getTemplateComponent(*tpl, "instantiateTemplate")
-  inst_template_name = get_string(comp, "")
-  comp = getTemplateComponent(*tpl, "previewDistance")
-  preview_dist = get_float(comp) ?? 0.0f
-  comp = getTemplateComponent(*tpl, "previewRotation")
-  preview_rot = get_Point3(comp) ?? float3(0.0f, 0.0f, 0.0f)
+  inst_template_name = getTemplateComponent(*tpl, "instantiateTemplate") ?? ""
+  preview_dist = getTemplateComponent(*tpl, "previewDistance") ?? 0.0f
+  preview_rot = getTemplateComponent(*tpl, "previewRotation") ?? float3(0.0f, 0.0f, 0.0f)
 
 def check_poster_point(aim_tm : float3x4;
                        plane_point : float3;

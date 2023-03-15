@@ -27,7 +27,7 @@ return function() {
       ? null
       : tipCmp({
         text = loc(tipLocId.value),
-        inputId = "Human.CancelContextCommand"
+        inputId = "Human.CancelContextCommand",
       }.__update(sub_txt))
   }
 }

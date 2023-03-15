@@ -10,6 +10,7 @@ require CollRes
 require game.es.vehicle.vehicle_seats_common
 require game.es.human.human_vehicle_common
 require vehicle
+require enlisted.events_enlisted
 
 
 def get_seat_tm(human_eid, vehicle_eid; var out_tm)
@@ -50,7 +51,7 @@ def get_seat_tm(human_eid, vehicle_eid; var out_tm)
   return res
 
 [es(before=before_animchar_update_sync)]
-def human_vehicle_seats_es(info : UpdateStageInfoAct;
+def human_vehicle_seats_es(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            isInVehicle : bool;
                            human_anim__vehicleSelected : EntityId;
@@ -68,7 +69,7 @@ def human_vehicle_seats_es(info : UpdateStageInfoAct;
     vehicle__globalSeatTm = nodeTm
 
 [es(before=human_phys_es)]
-def human_vehicle_seats_update_phys_es(info : UpdateStageInfoAct;
+def human_vehicle_seats_update_phys_es(info : ParallelUpdateFrameDelayed;
                                        eid : EntityId;
                                        isInVehicle : bool;
                                        human_anim__vehicleSelected : EntityId;
@@ -86,7 +87,7 @@ def human_vehicle_seats_update_phys_es(info : UpdateStageInfoAct;
   human_net_phys.phys.currentState.location.P = DPoint3(nodeTm[3])
   human_net_phys.phys.currentState.walkNormal = nodeTm[1]
 
-[es(track=isInVehicle)]
+[es(track=isInVehicle, on_appear)]
 def human_phys_track_vehicle_seats_es(event : Event;
                                       isInVehicle : bool;
                                       var human_net_phys : HumanActor&;
@@ -116,7 +117,7 @@ def update_transform_from_local_seat_tm(is_shooter : bool;
         human_transform = seatWtm
 
 [es(before=before_animchar_update_sync, after=(human_weap_update_es, human_locomotion_es, after_net_phys_sync))]
-def human_vehicle_seats_non_shooter_pre_animchar_es(info : UpdateStageInfoAct;
+def human_vehicle_seats_non_shooter_pre_animchar_es(info : ParallelUpdateFrameDelayed;
                                                     isInVehicle : bool;
                                                     human_anim__vehicleSelected : EntityId;
                                                     human_vehicle__isHoldingGunPassenger : bool = false;
@@ -129,7 +130,7 @@ def human_vehicle_seats_non_shooter_pre_animchar_es(info : UpdateStageInfoAct;
                                       vehicle__localSeatTm, transform)
 
 [es(before=before_animchar_update_sync, after=after_net_phys_sync)]
-def human_vehicle_seats_shooter_pre_animchar_es(info : UpdateStageInfoAct;
+def human_vehicle_seats_shooter_pre_animchar_es(info : ParallelUpdateFrameDelayed;
                                                 isInVehicle : bool;
                                                 human_anim__vehicleSelected : EntityId;
                                                 human_vehicle__isHoldingGunPassenger : bool = false;
@@ -152,7 +153,7 @@ def human_vehicle_seat_disable_hatch_state_on_exit_vehicle(evt : Event; isInVehi
   if !isInVehicle
     human_vehicle__isInHatch = false
 
-[es(on_appear, track=(isInVehicle, isPassenger, human_vehicle__isInHatch, human_vehicle__occupiedSeatEid))]
+[es(on_appear, track=(isInVehicle, isInVehicleHidden, isPassenger, human_vehicle__isInHatch, human_vehicle__occupiedSeatEid))]
 def human_vehicle_update_can_hold_weapon(evt : Event;
                                          isInVehicle : bool;
                                          isInVehicleHidden : bool;

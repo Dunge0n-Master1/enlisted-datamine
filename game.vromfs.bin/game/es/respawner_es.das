@@ -18,6 +18,8 @@ require game.es.ai.walker_common
 require enlisted.events_enlisted
 require game.events_game
 require DagorRandom
+require game.utils.net_utils
+require game.es.respawn_base_common
 
 def calc_enemy_score(leaderTeam; walker_agent)
   var enemyScore = 0.f

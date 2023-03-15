@@ -43,7 +43,7 @@ def on_capture_reward(team_id : int;
     let scoreCap = max(team__minScoreCap, team__scoreCap * min(1.0, minEnemyTeamTicketsPart * capzone__capRewardPartCap))
     team__score += max(min(capReward, scoreCap - team__score), 0.0)
 
-def on_capzone_captured(zone_eid : EntityId; cap_team : int)
+def on_capzone_captured(zone_eid : EntityId; cap_team : int; is_sector_captured : bool)
   query() <| $ [es] (team__id : int;
                      team__capturePenalty : float;
                      team__scoreCap : float = 0.;
@@ -51,14 +51,11 @@ def on_capzone_captured(zone_eid : EntityId; cap_team : int)
                      var team__score : float&)
     query(zone_eid) <| $ [es(REQUIRE_NOT=capzone__noTeamScore)] (capzone__capPenalty : float const?;
                                                                  capzone__checkAllZonesInGroup : bool = false;
-                                                                 capzone__mustBeCapturedByTeam : int = TEAM_UNASSIGNED;
-                                                                 groupName : string = "";
                                                                  capzone__capRewardPartCap : float = 10000.0;
                                                                  capzone__capReward : float = 0.;
                                                                  capzone__capRewardTeam1 : float = -1.;
                                                                  capzone__capRewardTeam2 : float = -1.)
-      if (capzone__checkAllZonesInGroup
-          && (cap_team != capzone__mustBeCapturedByTeam || !all_capzones_in_group_captured_by_team(zone_eid, cap_team, groupName)))
+      if capzone__checkAllZonesInGroup && !is_sector_captured
         return
 
       if team__id == cap_team
@@ -70,8 +67,12 @@ def on_capzone_captured(zone_eid : EntityId; cap_team : int)
 
 [es(tag=server)]
 def team_score_on_capture(evt : EventZoneCaptured)
-  on_capzone_captured(evt.zone, evt.team)
+  on_capzone_captured(evt.zone, evt.team, /*all zones in sector are captured*/ false)
 
 [es(tag=server)]
 def team_score_on_capture_delayed(evt : EventZoneIsAboutToBeCaptured)
-  on_capzone_captured(evt.zone, evt.team)
+  on_capzone_captured(evt.zone, evt.team, /*all zones in sector are captured*/ false)
+
+[es(tag=server)]
+def team_score_on_sector_capture(evt : EventSectorCaptured)
+  on_capzone_captured(evt.zone, evt.team, /*all zones in sector are captured*/ true)

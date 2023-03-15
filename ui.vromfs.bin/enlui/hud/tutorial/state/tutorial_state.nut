@@ -1,11 +1,15 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let isTutorial = mkWatched(persist, "isTutorial", false)
+let isTutorial = Watched(false)
 
 ecs.register_es("tutorial_state_es", {
-    onInit    = @(_evt, _eid, _comp) isTutorial.update(true)
-    onDestroy = @(_evt, _eid, _comp) isTutorial.update(false)
+    onInit    = function(_evt, _eid, _comp) {
+      isTutorial.update(true)
+    }
+    onDestroy = function(_evt, _eid, _comp) {
+      isTutorial.update(false)
+    }
   },
   { comps_rq = ["isTutorial"] }
 )

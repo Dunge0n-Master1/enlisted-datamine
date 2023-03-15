@@ -166,10 +166,12 @@ let function onContactClick(event, contact, contextMenuActions) {
     contactActionsMenu.open(contact, event, contextMenuActions)
 }
 
+let diceIconSize = hdpxi(24)
 
 let diceIcon = {
   rendObj = ROBJ_IMAGE
-  image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst((iconHgt * 3 / 4).tointeger()))
+  size = array(2, diceIconSize)
+  image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst(diceIconSize))
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_CENTER
   pos = [hdpx(1), hdpx(2)]

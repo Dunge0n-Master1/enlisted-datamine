@@ -4,11 +4,14 @@ let JB = require("%ui/control/gui_buttons.nut")
 let mkSoldierDetailsUi = require("%enlist/soldiers/mkSoldierDetailsUi.nut")
 let squadInfo = require("%enlist/squad/squadInfo.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
-let openSoldiersPurchase = require("%enlist/shop/soldiersPurchaseWnd.nut")
+let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let faComp = require("%ui/components/faComp.nut")
 let reqUpgradeMsgBox = require("%enlist/soldiers/researchUpgradeMsgBox.nut")
+let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
+let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { debounce } = require("%sqstd/timers.nut")
@@ -18,7 +21,7 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
-let { curSoldierIdx } = require("model/squadInfoState.nut")
+let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { soldierKindsList, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
@@ -42,31 +45,31 @@ let {
   soldiersSquad, curSquadSoldierIdx, selectedSoldier, soldiersStatuses,
   squadSoldiers, closeChooseSoldiersWnd, applySoldierManage, reserveSoldiers,
   soldierToReserveByIdx, maxSoldiersInBattle, selectedSoldierGuid,
-  changeSoldierOrderByIdx, getCanTakeSlots
+  changeSoldierOrderByIdx, getCanTakeSlots, isPurchaseWndOpend
 } = require("model/chooseSoldiersState.nut")
 let {
   titleTxtColor, defTxtColor, accentColor, commonBorderRadius,
   colPart, colFull, columnGap, smallPadding, blinkBdColor,
-  attentionTxtColor, hoverBgColor, panelBgColor
+  attentionTxtColor, hoverBgColor, panelBgColor, bigPadding,
+  navHeight
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
 const PAGE_SIZE = 11
 const NO_SOLDIER_SLOT_IDX = -1
 
-
+let unseenIcon = blinkUnseenIcon(0.9, attentionTxtColor, "th-large")
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let nameTxtStyle = { color = defTxtColor }.__update(fontLarge)
 let headerTxtStyle = { color = defTxtColor }.__update(fontXLarge)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
 
 
-let sKindSize = colPart(0.4)
+let sKindSize = colPart(0.35)
 let sKindOffset = (columnGap * 0.3).tointeger()
 let sKindBg = mkColoredGradientY(0xFF384560, 0xFF262940)
 
 
-let headerHeight = colPart(2)
 let reserveWidth = colFull(8)
 let vehicleSquadWidth = colFull(6)
 let reserveHeight = (soldierCardSize[1] + columnGap) * 3
@@ -170,25 +173,53 @@ let selectedKindLine = {
   color = accentColor
 }
 
-let headerUi = {
-  size = [flex(), headerHeight]
+
+let currencies = {
   flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
-  gap = headerHeight
+  gap = columnGap
+  hplace = ALIGN_RIGHT
   children = [
-    Bordered(loc("BackBtn"),
-      @() applySoldierManage(closeChooseSoldiersWnd),
-      {
-        hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") }]]
-      })
-    {
-      rendObj = ROBJ_TEXT
-      hplace = ALIGN_CENTER
-      text = utf8ToUpper(loc("soldier/manageButton"))
-    }.__update(titleTxtStyle)
+    currenciesWidgetUi
+    armyCurrencyUi
   ]
 }
 
+
+let headerUi = {
+  size = [flex(), navHeight]
+  valign = ALIGN_CENTER
+  children = [
+    {
+      flow = FLOW_HORIZONTAL
+      gap = colFull(1)
+      valign = ALIGN_CENTER
+      children = [
+        Bordered(loc("BackBtn"),
+          @() applySoldierManage(closeChooseSoldiersWnd),
+          {
+            hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") }]]
+          })
+        {
+          rendObj = ROBJ_TEXT
+          hplace = ALIGN_CENTER
+          text = utf8ToUpper(loc("soldier/manageButton"))
+        }.__update(titleTxtStyle)
+      ]
+    }
+    currencies
+  ]
+}
+
+
+let idleSpecOverride = {
+  rendObj = ROBJ_SOLID
+  color = panelBgColor
+}
+
+let activeSpecOverride = {
+  rendObj = ROBJ_IMAGE
+  image = sKindBg
+}
 
 let specializationsUi = {
   flow = FLOW_VERTICAL
@@ -202,26 +233,26 @@ let specializationsUi = {
     {
       size = [reserveWidth, SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
-      children = soldierKindsList.map(@(kindId) watchElemState(@(sf) {
-        watch = curSoldierKind
-        size = [flex(), SIZE_TO_CONTENT]
-        rendObj = ROBJ_IMAGE
-        image = sKindBg
-        behavior = Behaviors.Button
-        onClick = @() curSoldierKind(kindId)
-        children = function() {
-          let isSelected = curSoldierKind.value == kindId
-          let iconColor = isSelected || (sf & S_HOVER) != 0 ? titleTxtColor : defTxtColor
-          return {
-            watch = curSoldierKind
-            size = [flex(), SIZE_TO_CONTENT]
-            halign = ALIGN_CENTER
-            children = [
-              kindIcon(kindId, sKindSize, null, iconColor).__update({
-                margin = [columnGap, 0]
-              })
-              isSelected ? selectedKindLine : null
-            ]
+      children = soldierKindsList.map(@(kindId) watchElemState(function(sf) {
+        let isSelected = Computed(@() curSoldierKind.value == kindId)
+        return {
+          size = [flex(), SIZE_TO_CONTENT]
+          behavior = Behaviors.Button
+          onClick = @() curSoldierKind(kindId)
+          children = function() {
+            let isActive = isSelected.value || (sf & S_HOVER) != 0
+            let iconColor = isActive ? titleTxtColor : defTxtColor
+            return {
+              watch = isSelected
+              size = [flex(), SIZE_TO_CONTENT]
+              halign = ALIGN_CENTER
+              children = [
+                kindIcon(kindId, sKindSize, null, iconColor).__update({
+                  margin = [bigPadding, 0]
+                })
+                isSelected.value ? selectedKindLine : null
+              ]
+            }.__update(isActive ? activeSpecOverride : idleSpecOverride)
           }
         }
       }))
@@ -232,7 +263,7 @@ let specializationsUi = {
 
 let xAnimDist = soldierCardSize[0] + columnGap
 let yAnimDist = soldierCardSize[1] + columnGap
-let yAnimBigDist = soldierCardSize[1] + columnGap * 2
+let yAnimBigDist = soldierCardSize[1] + columnGap * 3
 
 let soldierDragAnim = @(moveData, soldierIdx, inPageIdx, sKind, stateFlags, nest, child, yGap)
   nest.__merge({
@@ -328,7 +359,7 @@ let highlightBorder = {
 let unseenMark = @(soldierGuid) @() {
   watch = unseenSoldiers
   hplace = ALIGN_RIGHT
-  children = (unseenSoldiers.value?[soldierGuid] ?? false) ? unseenSignal(0.7) : null
+  children = (unseenSoldiers.value?[soldierGuid] ?? false) ? blinkUnseen : null
 }
 
 
@@ -431,7 +462,7 @@ let function mkEmptySlot(idx, tgtHighlight, hasBlink, hasVehicle) {
 let mkSeatText = @(seatLocId) seatLocId == null ? null
   : {
       padding = [0, smallPadding]
-      pos = [0, -(columnGap + smallPadding)]
+      pos = [0, -(columnGap + bigPadding)]
       rendObj = ROBJ_TEXT
       text = utf8ToUpper(loc(seatLocId))
     }.__update(defTxtStyle)
@@ -444,7 +475,7 @@ let mkSoldiersList = kwarg(@(
 ) function() {
   let curWrapParams = wrapParams.__merge({
     width = hasVehicle ? vehicleSquadWidth : reserveWidth
-    vGap = hasVehicle ? 2 * columnGap : columnGap
+    vGap = hasVehicle ? 3 * columnGap : columnGap
   })
 
   let hasBlink = slotsBlinkWatch.value
@@ -456,7 +487,7 @@ let mkSoldiersList = kwarg(@(
 
       let addObjects = hasUnseen ? [unseenMark(s.guid)] : []
       if (isInReserve && s.guid in curCanUnequipSoldiersList.value)
-        addObjects.append(unseenSignal(0.9, attentionTxtColor, "th-large"))
+        addObjects.append(unseenIcon)
       let inPageIdx = isInReserve ? s.inPageIdx : idx
 
       let seatLocId = seats?[idx].locName
@@ -594,7 +625,7 @@ let reserveUi = {
             isInReserve = true
             prevObject = watchElemState(@(sf) {
               behavior = Behaviors.Button
-              onClick = openSoldiersPurchase
+              onClick = @() isPurchaseWndOpend(true)
               children = mkEmptySoldierBadge(sf, false, false, true)
             })
           })
@@ -721,14 +752,20 @@ let contentUi = {
 
 
 let chooseSoldiersScene = @() {
-  watch = [safeAreaBorders, curArmy]
+  watch = [safeAreaBorders, curArmy, isPurchaseWndOpend]
   size = flex()
-  flow = FLOW_VERTICAL
-  padding = safeAreaBorders.value
-  behavior = Behaviors.MenuCameraControl
   children = [
-    headerUi
-    contentUi
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      gap = colPart(1.12)
+      padding = safeAreaBorders.value
+      behavior = Behaviors.MenuCameraControl
+      children = [ headerUi, contentUi ]
+    }
+    isPurchaseWndOpend.value
+      ? soldiersPurchaseWnd(@() isPurchaseWndOpend(false))
+      : null
   ]
 }
 

@@ -2,7 +2,7 @@ require ecs
 require app
 require game.utils.team
 require game.utils.hero
-require game.es.render.render_events
+require danetlibs.renderer.includes.render_events
 require common_shooter.es.human_weap_common
 require dm
 require DagorSystem
@@ -14,6 +14,7 @@ require EnlistedHuman
 require EnlistedWeapon
 require EnlistedUI
 require Gun
+require DagorMathUtils
 
 
 def check_crosshair_hintable_objects(var tracePos : float3&;
@@ -88,13 +89,15 @@ def ui_crosshair_state_es(info : RenderEventUI;
   var intersectionEid = INVALID_ENTITY_ID
   var gunTraceLen = 0.0
   var human : HumanActor const? = null
+  var gunAngles : float2 const? = null
   query(hero) <| $ [es] (isInVehicle aka hero_isInVehicle : bool = false;
                          human_weap__mortarMode : bool = false;
                          human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID;
                          team : int = TEAM_UNASSIGNED;
                          human_weap__traceIntersectedEid : EntityId = INVALID_ENTITY_ID;
                          human_weap__tracerayLen : float = 0.0;
-                         human_net_phys : HumanActor const?)
+                         human_net_phys : HumanActor const?;
+                         human_weap__traceGunAngles : float2 const?)
     isInVehicle = hero_isInVehicle
     mortarMode = human_weap__mortarMode
     attachedGunEid = human_attached_gun__attachedGunEid
@@ -102,6 +105,7 @@ def ui_crosshair_state_es(info : RenderEventUI;
     intersectionEid = human_weap__traceIntersectedEid
     gunTraceLen = human_weap__tracerayLen
     human = human_net_phys
+    gunAngles = human_weap__traceGunAngles;
 
   assume phys = human.phys
   ui_crosshair_state__isAimPressed = human != null && phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
@@ -139,6 +143,8 @@ def ui_crosshair_state_es(info : RenderEventUI;
 
     if human_weap_get_aim_tm(hero, curTime, shootTm)
       traceDir = shootTm[0]
+      if gunAngles != null
+        traceDir = angles_to_dir(*gunAngles)
       tracePos = shootTm[3]
     else
       tracePos = uiViewItm[3]

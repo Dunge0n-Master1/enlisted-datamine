@@ -32,13 +32,13 @@ def apply_terraforming(elevs : Array; egras : Array)
     broadcastEvent([[CmdTerraUpdateRender hmapBoxMin=bbox.boxMin, hmapBoxMax=bbox.boxMax, egrasBase=0, egrasNum=length(egras)]])
     return true
 
-[es(tag=server, after=terraform_init_es_event_handler, on_event=EventLevelLoaded)]
+[es(tag=server, after=terraform_init_es, on_event=EventLevelLoaded)]
 def terraforming_apply_server_es(evt : Event;
                                  elevs : Array;
                                  egras : Array)
   apply_terraforming(elevs, egras)
 
-[es(tag=netClient, after=terraform_init_es_event_handler, on_event=EventLevelLoaded)]
+[es(tag=netClient, after=terraform_init_es, on_event=EventLevelLoaded)]
 def terraforming_apply_netclient_es(evt : Event;
                                     elevs : Array;
                                     egras : Array)

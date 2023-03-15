@@ -2,25 +2,27 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let { DBGLEVEL } = require("dagor.system")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
 
-let hasProfileCard = mkWatched(persist, "hasProfileCard", true)
-let hasMedals = mkWatched(persist, "hasMedals", true)
-let isItemTransferEnabled = mkWatched(persist, "isItemTransferEnabled", true)
-let hasCustomGames = mkWatched(persist, "hasCustomGames", true)
-let showEventsWidget = mkWatched(persist, "showEventsWidget", true)
-let hasUserLogs = mkWatched(persist, "hasUserLogs", DBGLEVEL > 0)
-let showModsInCustomRoomCreateWnd = mkWatched(persist, "showMods", true)
-let hasVehicleCustomization = mkWatched(persist, "hasVehicleCustomization", true)
-let isOffersVisible = mkWatched(persist, "isOffersVisible", true)
-let hasUsermail = mkWatched(persist, "hasUsermail", DBGLEVEL > 0)
-let showReplayTabInProfile = mkWatched(persist, "showReplayTabInProfile", true)
-let showUserProfile = mkWatched(persist, "showUserProfile", DBGLEVEL > 0)
-let multyPurchaseAllowed = mkWatched(persist, "multyPurchaseAllowed", DBGLEVEL > 0)
-let PSNAllowShowQRCodeStore = mkWatched(persist, "PSNAllowShowQRCodeStore", false)
-let canRentSquad = mkWatched(persist, "canRentSquad", false)
-let hasMassVehDecorPaste = mkWatched(persist, "hasMassVehDecorPaste", true)
-let hasCampaignPromo = mkWatched(persist, "hasCampaignPromo", false)
+let hasProfileCard = nestWatched("hasProfileCard", true)
+let hasMedals = nestWatched("hasMedals", true)
+let isItemTransferEnabled = nestWatched("isItemTransferEnabled", true)
+let hasCustomGames = nestWatched("hasCustomGames", true)
+let showEventsWidget = nestWatched("showEventsWidget", true)
+let hasUserLogs = nestWatched("hasUserLogs", DBGLEVEL > 0)
+let showModsInCustomRoomCreateWnd = nestWatched("showMods", true)
+let hasVehicleCustomization = nestWatched( "hasVehicleCustomization", true)
+let isOffersVisible = nestWatched("isOffersVisible", true)
+let hasUsermail = nestWatched("hasUsermail", DBGLEVEL > 0)
+let showReplayTabInProfile = nestWatched("showReplayTabInProfile", true)
+let showUserProfile = nestWatched("showUserProfile", DBGLEVEL > 0)
+let multyPurchaseAllowed = nestWatched("multyPurchaseAllowed", DBGLEVEL > 0)
+let PSNAllowShowQRCodeStore = nestWatched("PSNAllowShowQRCodeStore", false)
+let canRentSquad = nestWatched("canRentSquad", false)
+let hasMassVehDecorPaste = nestWatched("hasMassVehDecorPaste", true)
+let hasCampaignPromo = nestWatched("hasCampaignPromo", false)
+let allowReconnect = nestWatched("allowReconnect", true)
 
 
 let features = {
@@ -41,6 +43,7 @@ let features = {
   canRentSquad
   hasMassVehDecorPaste
   hasCampaignPromo
+  allowReconnect
 }
 
 foreach (featureId, featureFlag in features)

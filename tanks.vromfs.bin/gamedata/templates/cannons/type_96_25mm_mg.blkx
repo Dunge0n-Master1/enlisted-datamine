@@ -2,7 +2,7 @@ type_96_25mm_mg_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="type_96_25mm_mg_char"
   collres__res:t="type_96_25mm_mg_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/type_96_25mm_mg.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/type_96_25mm_mg.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__animVars:shared:array"{
@@ -90,7 +90,7 @@ type_96_25mm_mg_shield_go{
   _extends:t="type_96_25mm_mg_go"
   animchar__res:t="type_96_25mm_mg_shield_char"
   collres__res:t="type_96_25mm_mg_shield_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/type_96_25mm_mg_shield.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/type_96_25mm_mg_shield.blk"
 }
 
 type_96_25mm_mg_turret_01{

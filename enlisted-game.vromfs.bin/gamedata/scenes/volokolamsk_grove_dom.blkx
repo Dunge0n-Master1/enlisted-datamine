@@ -43,7 +43,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -56,17 +56,17 @@ entity{
   mission_name:t="volokolamsk_grove_dom"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_grove_01.jpg"
-    item:t="ui/volokolamsk_grove_02.jpg"
-    item:t="ui/volokolamsk_grove_03.jpg"
+    item:t="ui/volokolamsk_grove_01.avif"
+    item:t="ui/volokolamsk_grove_02.avif"
+    item:t="ui/volokolamsk_grove_03.avif"
   }
 }
 
 entity{
   _template:t="team_ussr+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2400.0
+  team__scoreCap:r=2400.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -81,8 +81,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2600.0
+  team__scoreCap:r=2600.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

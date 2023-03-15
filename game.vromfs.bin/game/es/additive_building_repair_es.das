@@ -1,6 +1,7 @@
 require ecs
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
+require enlisted.game.es.fortifications_build_common
 
 [es(tag=server, track=isAlive)]
 def additive_building_on_destroy_es(evt : Event; eid : EntityId; dependsOnBuildingEid : EntityId; isAlive : bool)
@@ -28,7 +29,9 @@ def additive_building_repair_finish_es(evt : EventRepairFortificationFinish;
   query(fortification_repair__target) <| $ [es] (additiveBuildingEid : EntityId;
                                                  var additiveBuildNeedRepair : bool&;
                                                  buildingCost : float;
-                                                 fortification_repair__costPercent : float)
+                                                 fortification_repair__costPercent : float;
+                                                 buildTypeId : int;
+                                                 buildByPlayer : EntityId)
     if !additiveBuildNeedRepair
       sendEvent(eid, [[CmdHeroLogEvent event="building_not_need_repair", text="building_not_need_repair"]])
       return
@@ -38,6 +41,7 @@ def additive_building_repair_finish_es(evt : EventRepairFortificationFinish;
       sendEvent(eid, [[CmdHeroLogEvent event="building_blocked_no_require_resources", text="building_blocked_no_require_resources"]])
       return
 
+    change_building_limits(buildByPlayer, buildTypeId, -1)
     sendEvent(fortification_repair__target, [[EventAdditiveBuildingRepaired]])
     additiveBuildNeedRepair = false
     stockOfBuilderCapabilities -= totalCost

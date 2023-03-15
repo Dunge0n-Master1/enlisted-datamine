@@ -11,7 +11,8 @@ let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
 let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
 let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
-let { mkSoldierBadge } = require("%enlSqGlob/ui/mkSoldierBadge.nut")
+let { mkSoldierBadge, LOCKED_COLOR_SCHEME_ID, SQUAD_COLOR_SCHEME_ID
+} = require("%enlSqGlob/ui/mkSoldierBadge.nut")
 let { iconByItem } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { bgConfig, sIconSize } = require("%ui/hud/menus/respawn/respawnPkg.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
@@ -56,7 +57,7 @@ let function additionalSoldierItems(soldier) {
 
 let soldiersRespawnBlock = @(isSquadSpawn) @() {
   size = [flex(), SIZE_TO_CONTENT]
-  watch = [soldiersData, localPlayerSquadMembers, curSoldierIdx, respawnSelection, seatsOrderWatch]
+  watch = [soldiersData, localPlayerSquadMembers, respawnSelection, seatsOrderWatch]
   flow = FLOW_VERTICAL
   gap = bigPadding
   children = (isSquadSpawn ? soldiersList.value : localPlayerSquadMembers.value).map(
@@ -70,7 +71,7 @@ let soldiersRespawnBlock = @(isSquadSpawn) @() {
     let soldier = val.__merge(soldierInfo, { perksLevel = val?.level ?? 0 })
     let seatInfo = seatsOrderWatch.value?[idx]
     let seatName = loc(seatInfo?.locName)
-    let { isDead = false } = soldier
+    let { isAlive = true } = soldier
     return @() {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
@@ -85,15 +86,15 @@ let soldiersRespawnBlock = @(isSquadSpawn) @() {
           flow = FLOW_HORIZONTAL
           gap = { size = flex() }
           children = [
-            watchElemState(@(sf) mkSoldierBadge(idx, soldier, curSoldierIdx.value == idx, sf,
-              function(){
+            watchElemState(@(sf) mkSoldierBadge(idx, soldier, isCurrent, sf,
+              !isAlive ? null : function() {
                 curSoldierIdx(idx)
                 if(!isSquadSpawn){
                   requestRespawnToEntity(soldier.eid)
                   if (isCurrent)
                     @() respRequested(true)
                 }
-              }, isDead))
+              }, isAlive ? SQUAD_COLOR_SCHEME_ID : LOCKED_COLOR_SCHEME_ID))
             {
               size = [colFull(2), SIZE_TO_CONTENT]
               flow = FLOW_VERTICAL

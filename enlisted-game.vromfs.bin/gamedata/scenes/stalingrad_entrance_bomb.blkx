@@ -665,9 +665,9 @@ entity{
   mission_name:t="stalingrad_entrance_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_tractor_plant_02.jpg"
-    item:t="ui/stalingrad_tractor_plant_05.jpg"
-    item:t="ui/stalingrad_tractor_plant_08.jpg"
+    item:t="ui/stalingrad_tractor_plant_02.avif"
+    item:t="ui/stalingrad_tractor_plant_05.avif"
+    item:t="ui/stalingrad_tractor_plant_08.avif"
   }
 }
 
@@ -689,8 +689,8 @@ entity{
 entity{
   _template:t="team_stalingrad_axis+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2300.0
-  team__score:r=2300.0
+  team__scoreCap:r=2400.0
+  team__score:r=2400.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0

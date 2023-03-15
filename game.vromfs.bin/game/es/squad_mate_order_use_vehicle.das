@@ -3,7 +3,7 @@ require EnlistedWalkerai
 require DagorDataBlock
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
@@ -46,7 +46,9 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
                                    squad__allMembers : EidList;
                                    squad__orderType : int;
                                    squad__orderUseEntity : EntityId)
-  let leaderIsInVehicle = get_bool(squad__leader, "isInVehicle") ?? false
+  var leaderIsInVehicle = true
+  query(squad__leader) <| $ [es] (isInVehicle : bool) // default is true if leader is invalid, do not leave the vehicle
+    leaderIsInVehicle = isInVehicle
 
   if leaderIsInVehicle
     return

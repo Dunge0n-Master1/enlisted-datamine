@@ -265,7 +265,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/berlin_doors.blk"
 }
 
 entity{
@@ -284,9 +284,9 @@ entity{
   mission_name:t="berlin_village_escort"
 
   "loading_images:list<t>"{
-    item:t="ui/berlin_escort_01.jpg"
-    item:t="ui/berlin_escort_02.jpg"
-    item:t="ui/berlin_escort_03.jpg"
+    item:t="ui/berlin_escort_01.avif"
+    item:t="ui/berlin_escort_02.avif"
+    item:t="ui/berlin_escort_03.avif"
   }
 }
 
@@ -531,11 +531,6 @@ entity{
   capzone_timer__timeLeft:r=2700.0
   capzone__icon:t="train_cross"
   capzone__iconOffsetY:r=3.0
-  capzone__narrator_zoneCaptured:t="trainHalfWay"
-  capzone__narrator_zoneCapturedMessage:t="Our train is halfway there"
-  capzone__narrator_zoneCapturedEnemy:t="trainHalfWay"
-  capzone__narrator_zoneCapturedEnemyMessage:t="Enemy train is halfway there"
-  capzone__narrator_zoneCapturedEnable:b=yes
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [666.7, 8.57356, 319.43]]
 
@@ -626,11 +621,6 @@ entity{
   capzone_timer__timeLeft:r=2700.0
   capzone__icon:t="train_cross"
   capzone__iconOffsetY:r=3.0
-  capzone__narrator_zoneCaptured:t="trainAlmostWay"
-  capzone__narrator_zoneCapturedMessage:t="Our train is almost there"
-  capzone__narrator_zoneCapturedEnemy:t="trainAlmostWay"
-  capzone__narrator_zoneCapturedEnemyMessage:t="Enemy train is almost there"
-  capzone__narrator_zoneCapturedEnable:b=yes
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [250.307, 8.57356, 319.43]]
 
@@ -719,7 +709,6 @@ entity{
   capzone_timer__timeLeft:r=2700.0
   capzone__icon:t="train_cross"
   capzone__iconOffsetY:r=3.0
-  capzone__narrator_zoneCapturedEnable:b=yes
   active:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-172.14, 9.41165, 319.43]]
 }

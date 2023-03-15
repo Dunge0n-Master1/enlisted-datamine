@@ -4,6 +4,7 @@ require PhysVars
 require vehicle
 require DagorMath
 require vehicle
+require enlisted.events_enlisted
 
 [es(tag=render, on_appear, before=anim_phys_init_es)]
 def steering_deflection_anim_init(evt : Event;
@@ -13,7 +14,7 @@ def steering_deflection_anim_init(evt : Event;
   vehicle_anim__steeringDeflectionId = registerVar(phys_vars, vehicle_anim__steeringDeflection, 0.f)
 
 [es(tag=render, after=vehicle_input_driver_es)]
-def steering_deflection_anim_input(info : UpdateStageInfoAct;
+def steering_deflection_anim_input(info : ParallelUpdateFrameDelayed;
                                    animchar__updatable : bool;
                                    vehicle_net_phys : VehiclePhysActor;
                                    vehicle_anim__steeringDeflectionId : int;

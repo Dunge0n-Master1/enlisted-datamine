@@ -16,7 +16,7 @@ wallposter_preview{
   "use_texture:tag"{
   }
 
-  riSemiTransRender{
+  riPreviewResPreload{
   }
 
   "wallposter_preview:tag"{
@@ -470,6 +470,34 @@ agit_poster_china_k_preview{
 agit_poster_china_k{
   _extends:t="wallposter"
   ri_extra__name:t="agit_poster_china_k"
+}
+
+agit_poster_china_l_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_l"
+  instantiateTemplate:t="agit_poster_china_l"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_l_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_l{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_l"
+}
+
+agit_poster_china_m_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_china_m"
+  instantiateTemplate:t="agit_poster_china_m"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="wp/agit_poster_china_m_preview/name"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_china_m{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_china_m"
 }
 
 agit_poster_combat_engineers_preview{

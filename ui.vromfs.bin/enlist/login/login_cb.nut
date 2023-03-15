@@ -8,8 +8,6 @@ let {userInfoUpdate} = require("%enlSqGlob/userInfoState.nut")
 let {getLoginActions} = require("loginActions.nut")
 let {exit_game} = require("app")
 let {readPermissions, readPenalties} = require("%enlSqGlob/permission_utils.nut")
-let platform = require("%dngscripts/platform.nut")
-let systemUpdateMsg = platform.is_nswitch ? require("nswitch.network").showSystemUpdateMsgBox : null
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let { isKZVersion } = require("chineseKongZhongVersion.nut")
 
@@ -48,14 +46,6 @@ let function getErrorText(state) {
   if (errorId != null)
     return loc(errorId)
   return null
-}
-
-let function proccessUpdateError(state) {
-  if (state.stageResult?.error == "InvalidVersion" && systemUpdateMsg?()) {
-    state.params?.afterErrorProcessed?(state)
-    return true
-  }
-  return false
 }
 
 let function showStageErrorMsgBox(errText, state, mkChildren = @(defChild) defChild) {
@@ -98,13 +88,10 @@ let function showStageErrorMsgBox(errText, state, mkChildren = @(defChild) defCh
   msgbox.show(msgboxParams)
 }
 
-let onInterrupt = function (state) {
-  if (!proccessUpdateError(state))
-    showStageErrorMsgBox(getErrorText(state), state)
-}
+let onInterrupt = @(state) showStageErrorMsgBox(getErrorText(state), state)
 
 return {
-  onSuccess = onSuccess
-  onInterrupt = onInterrupt
-  showStageErrorMsgBox = showStageErrorMsgBox
+  onSuccess
+  onInterrupt
+  showStageErrorMsgBox
 }

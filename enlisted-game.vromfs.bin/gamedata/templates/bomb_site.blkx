@@ -1,5 +1,5 @@
 bomb_site_shell_activator{
-  on_create__spawnActivatedShellBlk:t="content/enlisted/gamedata/weapons_enlisted/bomb_site_charge.blk"
+  on_create__spawnActivatedShellBlk:t="content/enlisted/gamedata/weapons/bomb_site_charge.blk"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }
 

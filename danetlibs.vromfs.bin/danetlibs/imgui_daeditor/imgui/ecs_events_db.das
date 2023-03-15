@@ -3,7 +3,11 @@ require strings
 require imgui
 require DagorImgui
 require daslib/static_let
+require daslib/defer
+require imgui/imgui_boost
 require EcsUtils
+require %danetlibs.imgui_daeditor.imgui.imgui_common
+
 
 def describe_event_extra_flag(flag : uint16)
   var res = ""
@@ -31,11 +35,11 @@ def describe_event_cast_flag(flag : uint16)
 
   return "<n/a>"
 
-def imgui_hint(desc : string implicit)
+def imgui_hint(desc : string)
   imgui_hint <| $
     return desc
 
-def imgui_hint(desc : block<() : string implicit>)
+def imgui_hint(desc : block<() : string>)
   if IsItemHovered()
     BeginTooltip()
     PushTextWrapPos(GetFontSize() * 35.0f)
@@ -61,10 +65,17 @@ def event_db_window()
   let eventsDb & = unsafe(get_events_db())
   let eventsNum = eventsDb |> events_db_getEventsCount()
 
-  static_let_finalize <|
-    var filter = new ImGuiTextFilter
   SetNextItemWidth(-FLT_MIN)
+  var filter = new ImGuiTextFilter
+  defer <|
+    unsafe
+      delete filter
+  *filter |> set() <| imgui_get_blk_val("ecs_events_db", "filter", "")
+
   *filter |> Draw("##eventsDbFilter")
+
+  imgui_set_blk_val("ecs_events_db", "filter", to_string(*filter))
+
   imgui::BeginChild("sub", float2(0, 0))
 
   if BeginTable("split", 4, ImGuiTableFlags BordersOuter | ImGuiTableFlags RowBg)

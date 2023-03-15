@@ -16,7 +16,7 @@ bf_109f_2{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.955, 0.76, -0.03
+      cameraOffset:p3=-1.12, 0.76, -0.03
       cockpitTemplate:t="bf_109f_2_driver_cockpit"
 
       "turretNames:array"{

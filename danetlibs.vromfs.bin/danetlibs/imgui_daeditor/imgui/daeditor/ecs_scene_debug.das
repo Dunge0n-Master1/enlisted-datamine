@@ -33,6 +33,15 @@ def DasHelpMarker(desc : string)
     PopTextWrapPos()
     EndTooltip()
 
+def get_max_mismatches_by_filter_length(filter_length : int)
+  let allowedMismatchesByFilterLength <- [[int[] 3; 3; 5; 8; 10; 13]]
+  var maxMismatches = 0
+  for m in allowedMismatchesByFilterLength
+    if filter_length > m
+      maxMismatches ++
+    else
+      break
+  return maxMismatches
 
 [imgui_window(name="Scene", group="Editor", hotkey="Ctrl+Shift+/")]
 def ecs_scene_window()
@@ -60,13 +69,17 @@ def ecs_scene_window()
     var editedItem = INVALID_ENTITY_ID
     var lastUpdateDate = DagorTime::ref_time_ticks()
     var gcSteps = 0
+    var fuzzySearch = true
 
   gcSteps += 1
   if gcSteps > 1000
     unsafe(heap_collect())
     gcSteps = 0
 
+  init_entity_object_editor()
+
   *filter |> set() <| imgui_get_blk_val("ecs_scene", "filter", "")
+  fuzzySearch = imgui_get_blk_val("ecs_scene", "fuzzySearchEnabled", fuzzySearch)
 
   DasHelpMarker("Filter (\"incl,-excl\")\nt:typeName (t:EntityId, -t:EidList)\nc:componentName (c:animchar, -c:hero)")
   SameLine()
@@ -79,8 +92,9 @@ def ecs_scene_window()
 
   imgui_set_blk_val("ecs_scene", "filter", to_string(*filter))
 
-  imgui::BeginChild("sub", float2(0., -20.))
+  imgui::BeginChild("sub", float2(0., -25.))
 
+  // common code must be sync with other daeditor_draw_entity_table
   if BeginTable("split", 2, ImGuiTableFlags BordersOuter | ImGuiTableFlags RowBg)
     TableSetupColumn("eid", ImGuiTableColumnFlags WidthFixed)
     TableSetupColumn("template", ImGuiTableColumnFlags WidthStretch)
@@ -148,13 +162,8 @@ def ecs_scene_window()
     if allEntitiesNum > 0
       let hasFilters = length(shingles) > 0
       var entitiesPerFrame = hasFilters || searchComponents || searchTypes ? 5000 : 10000
-      let allowedMismatchesByFilterLength <- [[int[] 3; 3; 5; 8; 10; 13]]
-      var maxMismatches = 0
-      for m in allowedMismatchesByFilterLength
-        if totalFilterLength > m
-          maxMismatches ++
-        else
-          break
+      let maxMismatches = fuzzySearch ? get_max_mismatches_by_filter_length(totalFilterLength) : 0
+      let maxMisNeighbourCount = fuzzySearch ? 100 : 0
       while entitiesPerFrame-- > 0 && allEntitiesNum > 0
         let eid = allEntities[--allEntitiesNum]
         allEntities |> resize(allEntitiesNum)
@@ -211,8 +220,10 @@ def ecs_scene_window()
                   break
               elif prevIdx != -1 && prevIdx + 1 != idx
                 misNeighbourCount++
+                if misNeighbourCount > maxMisNeighbourCount
+                  break
               prevIdx = idx
-            if mismatchCount > maxMismatches
+            if mismatchCount > maxMismatches || misNeighbourCount > maxMisNeighbourCount
               continue
           let templStrLength = length(templateStr) - (eid == selectedEid ? selectedTemplateLength : 0)
           let itemDistance = float(mismatchCount) + abs(float(templStrLength) - float(length(shingles) + 1)) * 0.015 + float(misNeighbourCount) * 0.5
@@ -225,7 +236,7 @@ def ecs_scene_window()
     var selected : bool
     var selectedAddr = safe_addr(selected)
 
-    using() <| $(var clipper : ImGuiListClipper#)
+    using() <| $(var clipper : ImGuiListClipper)
       clipper |> Begin(length(prevData), imgui::GetTextLineHeightWithSpacing())
       while clipper |> Step()
         for idx in range(clipper.DisplayStart, clipper.DisplayEnd)
@@ -262,6 +273,10 @@ def ecs_scene_window()
   imgui::EndChild()
 
   imgui::Text("Total: {length(prevData)}")
+  imgui::SameLine(imgui::GetWindowWidth() - 120.0)
+  imgui::Checkbox("Fuzzy Search", safe_addr(fuzzySearch))
+
+  imgui_set_blk_val("ecs_scene", "fuzzySearchEnabled", fuzzySearch)
 
 
 [console_cmd(name="imgui.editor_ecs_scene")]

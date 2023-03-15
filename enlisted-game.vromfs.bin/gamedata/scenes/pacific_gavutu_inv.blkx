@@ -2557,9 +2557,9 @@ entity{
   mission_name:t="pacific_gavutu_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_01.jpg"
-    item:t="ui/pacific_gavutu_inv_02.jpg"
-    item:t="ui/pacific_gavutu_inv_04.jpg"
+    item:t="ui/pacific_gavutu_inv_01.avif"
+    item:t="ui/pacific_gavutu_inv_02.avif"
+    item:t="ui/pacific_gavutu_inv_04.avif"
   }
 }
 
@@ -2630,7 +2630,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[33.1129, 0.0, 13.9553] [0.0, 14.3889, 0.0] [-23.8469, 0.0, 56.5838] [392.691, 8.19372, -356.335]]
   active:b=no
@@ -2660,7 +2660,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.722563, 0.0, -0.126323] [0.0, 0.690404, 0.0] [0.134235, -0.0, 0.767816] [196.21, 2.02725, -381.487]]
   active:b=no
@@ -2693,7 +2693,7 @@ entity{
   capzone__areaId:t="caparea_2_b"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__decapTime:r=6000.0
   ui_order:i=4
   capzone__capReward:r=350.0
@@ -2832,7 +2832,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[-32.5501, 0.0, 32.9299] [0.0, 8.39327, 0.0] [-42.3665, 0.0, -41.878] [-93.5157, 8.14608, 49.178]]
   active:b=no
@@ -3836,5 +3836,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
 }

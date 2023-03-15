@@ -145,7 +145,7 @@ def bipod_debug_es(info : UpdateStageInfoRenderDebug;
 def bipod_catalog(detailed : bool = false)
 
   var profListGuns : array<string>
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     if !datablock_load(blk, "../prog/gameBase/guns_list.blk")
       return
     let count = int(blk.paramCount)
@@ -154,7 +154,7 @@ def bipod_catalog(detailed : bool = false)
       push(profListGuns, slice(tmpl, 0, length(tmpl)))
 
   var inSceneNames : array<string>
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     if !datablock_load(blk, "../prog/gameBase/content/dev/gamedata/scenes/test_enlisted_weapons.blk")
       return
     let count = int(blk.blockCount)

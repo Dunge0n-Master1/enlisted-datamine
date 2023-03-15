@@ -114,3 +114,70 @@ human_idle_active_sound{
     human_idle_sound__isActive:b=no
   }
 }
+
+base_human_voice_effect{
+  _tracked:t="human_voice_effect__isActive"
+  _tracked:t="human_voice_effect__activeEffects"
+
+  _group{
+    _tags:t="server"
+    human_net_voice_effect__nextTime:r=0.0
+    human_net_voice_effect__cooldown:r=1.0
+    human_net_voice_effect__range:r=50.0
+  }
+
+  _group{
+    _tags:t="sound"
+    human_voice_effect__type:t=""
+    human_voice_effect__isInited:b=no
+    human_voice_effect__isActive:b=no
+
+    "human_voice_effect__activeEffects:object"{
+    }
+
+    "human_voice_effect__orderedEffects:shared:list<t>"{
+    }
+
+    "human_voice_effect__event:SoundEvent"{
+    }
+  }
+}
+
+human_speech_disable{
+
+  _group{
+    _tags:t="sound"
+
+    "humanSpeechDisable:tag"{
+      _tags:t="sound"
+    }
+  }
+}
+
+base_human_speech{
+
+  _group{
+    _tags:t="sound"
+    human_speech__canSpeak:b=no
+    human_speech__isSpeaking:b=no
+    human_speech__voiceIdx:i=0
+    human_speech__locale:t="en"
+    human_speech__playerVoice:t="vo/player/enlisted/soldier"
+
+    "human_speech__event:SoundEvent"{
+    }
+
+    "human_speech__enemyVoices:list<t>"{
+      voice:t="vo/enemy/enlisted/soldier01"
+      voice:t="vo/enemy/enlisted/soldier02"
+      voice:t="vo/enemy/enlisted/soldier03"
+    }
+  }
+
+  "human_net_speech__lastNextTime:list<p2>"{
+    _tags:t="server"
+  }
+
+  "human_speech__speeches:shared:array"{
+  }
+}

@@ -1862,7 +1862,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -1901,9 +1901,9 @@ entity{
   mission_name:t="normandy_village_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_village_01.jpg"
-    item:t="ui/normandy_village_04.jpg"
-    item:t="ui/normandy_village_05.jpg"
+    item:t="ui/normandy_village_01.avif"
+    item:t="ui/normandy_village_04.avif"
+    item:t="ui/normandy_village_05.avif"
   }
 }
 
@@ -1918,8 +1918,8 @@ entity{
 entity{
   _template:t="team_usa+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2250.0
-  team__score:r=2250.0
+  team__scoreCap:r=2350.0
+  team__score:r=2350.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0

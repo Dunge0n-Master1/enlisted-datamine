@@ -6,6 +6,12 @@ require CollRes
 require DagorMath
 require enlisted.events_enlisted
 
+[es(tag=(render, ui), no_order)] // Require for render ui icons from ui render thread. (fix data race between Parallel update and human phys e.t.c)
+def cache_tm_for_ui_render(info : UpdateStageInfoAct;
+                           transform : float3x4;
+                           var transform_lastFrame : float3x4)
+  transform_lastFrame = transform
+
 [es(tag=ui, after=after_animchar_update_sync)]
 def ui_geom_node_pos(info : UpdateStageInfoAct;
                      animchar__updatable : bool;

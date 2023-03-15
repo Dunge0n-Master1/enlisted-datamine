@@ -29,7 +29,7 @@ def replay_is_game_finished_es(evt : Event; var replay__isFinished : bool&)
 [es(tag=recordingReplay)]
 def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
   assume obj = evt.replayMeta
-  SetObject(obj) <| $(var item : JsonValue#)
+  SetObject(obj) <| $(var item : JsonValue)
     query() <| $ [es] (mission_name : string; mission_type : string)
       item |> AddMember("mission_name", mission_name, obj)
       item |> AddMember("mission_type", mission_type, obj)
@@ -60,15 +60,19 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
       if mode_info |> json_get_or("modId", "") != ""
         item |> AddMember("digestGroup", "mods-lobby", obj)
 
+      let modName = mode_info |> json_get_or("modName", "")
+      if modName != ""
+        item |> AddMember("mission_name", modName, obj)
+
       let difficulty = mode_info |> json_get_or("difficulty", "standard") // default(empty) is standard difficulty
       item |> AddMember("difficulty", difficulty, obj)
 
       let mode = mode_info |> json_get_or("mode", "SQUADS") // default(empty) is SQUADS mode
       item |> AddMember("mode", mode, obj)
 
-    using(JsonType kArrayType) <| $(var players : JsonValue#)
+    using(JsonType kArrayType) <| $(var players : JsonValue)
       query() <| $ [es(REQUIRE=player)] (team : int; name : string; userid : uint64; playerIsBot : Tag const?)
-        using(JsonType kObjectType) <| $(var player : JsonValue#)
+        using(JsonType kObjectType) <| $(var player : JsonValue)
           player |> AddMember("team", team, obj)
           // replace white spaces for hide bot player names from output
           player |> AddMember("name", replace(name, " ", ""), obj)

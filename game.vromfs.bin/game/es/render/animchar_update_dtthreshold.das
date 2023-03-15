@@ -1,9 +1,10 @@
 require ecs
 require ecs.common
 require EnlistedHumanAnim
+require enlisted.events_enlisted
 
 [es(tag=render, REQUIRE_NOT=animchar__actOnDemand, before=(animchar_es, net_phys_update_es))]
-def update_animchar_dtThreshold_es(info : UpdateStageInfoAct;
+def update_animchar_dtThreshold_es(info : ParallelUpdateFrameDelayed;
                                    animchar__visible : bool;
                                    var animchar__dtThreshold : float&;
                                    animchar__invisDtThreshold : float = 0.4;

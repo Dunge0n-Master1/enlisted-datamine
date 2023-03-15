@@ -61,21 +61,6 @@ def projectile_phys_created_es(evt : Event;
     projectile_ballistics |> projectile_ballistics_setup(launch_desc.tm[3], launch_desc.vel, 1.0f)
 
 
-def get_effect_group_name_for_launch_desc(launch_desc : LaunchDesc;
-                                          global_effect_group_names : StringList;
-                                          global_effect_group_calibers : FloatList)
-  let M_TO_MM = 1000.0
-  var caliber : float
-  projectile_get_props(int(launch_desc.shellId.shellId)) <| $(ballisticsProps : ProjectileProps)
-    caliber = M_TO_MM * ballisticsProps.caliber
-  var closestCalIndex = -1
-  for i, cal in iter_range(global_effect_group_calibers), global_effect_group_calibers
-    if caliber < cal
-      closestCalIndex = i
-      break
-  return closestCalIndex < 0 ? "" : string(global_effect_group_names[closestCalIndex])
-
-
 [es(on_appear)]
 def projectile_created_es(evt : Event;
                           gunEid : EntityId;
@@ -83,20 +68,15 @@ def projectile_created_es(evt : Event;
                           var projectile__visualPos : float3&;
                           var detonation__timer : float&;
                           var dm_projectile_state : ProjectileState&;
-                          var projectile__effectGroupName : das_string&;
-                          var projectile__fleshEffectGroupName : das_string&)
-  query(gunEid) <| $ [es] (gun_hit_fx__fleshEffectGroupName : das_string const?;
-                           gun_hit_fx__effectGroupName : das_string const?;
-                           [[shared_comp]] gun_hit_fx__effectGroupNames : StringList const?;
-                           [[shared_comp]] gun_hit_fx__effectGroupCalibers : FloatList const?)
-    if gun_hit_fx__effectGroupName != null
-      projectile__effectGroupName := *gun_hit_fx__effectGroupName
-    elif gun_hit_fx__effectGroupNames != null && gun_hit_fx__effectGroupCalibers != null
-      projectile__effectGroupName := get_effect_group_name_for_launch_desc(launch_desc,
-                                                                           *gun_hit_fx__effectGroupNames,
-                                                                           *gun_hit_fx__effectGroupCalibers)
-    if gun_hit_fx__fleshEffectGroupName != null
-      projectile__fleshEffectGroupName := *gun_hit_fx__fleshEffectGroupName
+                          var projectile__hitEffectDescriptor : int&;
+                          var projectile__explEffectDescriptor : int&)
+  query(gunEid) <| $ [es] (gun_hit_fx__hitEffectDescriptor : int const?;
+                           gun_hit_fx__explEffectDescriptor : int const?)
+    if gun_hit_fx__hitEffectDescriptor != null
+      projectile__hitEffectDescriptor = *gun_hit_fx__hitEffectDescriptor
+
+    if gun_hit_fx__explEffectDescriptor != null
+      projectile__explEffectDescriptor = *gun_hit_fx__explEffectDescriptor
 
   detonation_get_props(int(launch_desc.shellId.shellId)) <| $(detonationProps : DetonationProps)
     detonation__timer = detonationProps.timer

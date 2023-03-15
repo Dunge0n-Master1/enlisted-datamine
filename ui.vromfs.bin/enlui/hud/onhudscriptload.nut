@@ -73,21 +73,19 @@ let network_error = require("%ui/hud/huds/tips/network_error.nut")
 let perfStats = require("%ui/hud/huds/perf_stats.nut")
 let menusUi = require("hud_menus.nut")
 
-let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
+let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu_state.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
 let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
 let { cameraShakeOptions } = require("%ui/hud/menus/options/camera_shake_options.nut")
 let { hudOptions } = require("%ui/hud/menus/options/hud_options.nut")
 let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
-let { optXboxGraphicsPreset, optPSGraphicsPreset, dbgConsolePreset }  = require("%ui/hud/menus/console_preset_options.nut")
 let { renderOptions } = require("%ui/hud/menus/options/render_options.nut")
 let { soundOptions } = require("%ui/hud/menus/options/sound_options.nut")
 let { cameraFovOption } = require("%ui/hud/menus/options/camera_fov_option.nut")
 let { vehicleCameraFovOption } = require("%ui/hud/menus/vehicle_camera_fov_option.nut")
 let { vehicleCameraFollowOption } = require("%ui/hud/menus/vehicle_camera_follow_option.nut")
 let { voiceChatOptions } = require("%ui/hud/menus/options/voicechat_options.nut")
-let { optGraphicsQualityPreset }  = require("%ui/hud/menus/quality_preset_option.nut")
 let { forcedMinimalHud } = require("state/hudGameModes.nut")
 let { showSquadSpawn } = require("%ui/hud/state/respawnState.nut")
 let narratorOptions = require("%ui/hud/menus/options/narrator_options.nut")
@@ -95,20 +93,14 @@ let vehicleGroupLimitOptions = require("%ui/hud/menus/options/vehicle_group_limi
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let tutorialZonePointers = require("%ui/hud/tutorial/huds/tutorial_zone_pointers.nut")
-let platform = require("%dngscripts/platform.nut")
+let qualityPresetOption = require("%ui/hud/menus/options/get_quality_preset_option.nut")
 
-let options = []
-if (platform.is_xbox_scarlett || dbgConsolePreset.value == "xbox_scarlett") {
-  options.append(optXboxGraphicsPreset)
-}
-else if (platform.is_ps5 || dbgConsolePreset.value == "ps5") {
-  options.append(optPSGraphicsPreset)
-}
-
-options.append(optGraphicsQualityPreset, cameraFovOption, vehicleCameraFovOption, vehicleCameraFollowOption, harmonizationOption)
-  .extend(renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions,
-    planeContolOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
-  )
+let options = [qualityPresetOption, cameraFovOption, vehicleCameraFovOption,
+  vehicleCameraFollowOption, harmonizationOption]
+options.extend(
+  renderOptions, soundOptions, voiceChatOptions, cameraShakeOptions, violenceOptions,
+  planeContolOptions, hudOptions, narratorOptions, vehicleGroupLimitOptions
+)
 
 setMenuOptions(options)
 

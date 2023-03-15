@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require math
 require math.base
 require DagorMath
@@ -101,10 +102,15 @@ def combined_color_grading_init_es(
     state = state * state * (3.0 - 2.0 * state)
 
     for field in *itemObj
-      if has(color_grading, field.key)
-        let baseValue = deref(get_Point4(color_grading, field.key))
-        let newValue = deref(get_Point4(field.value))
-        set(color_grading, field.key, lerp(baseValue, newValue, float4(state)))
+      let baseValueF4 = color_grading[field.key] ?as float4
+      if baseValueF4 != null
+        let newValue = *(field.value as float4)
+        set(color_grading, field.key, lerp(*baseValueF4, newValue, float4(state)))
+        continue
+      let baseValueF = color_grading[field.key] ?as float
+      if baseValueF != null
+        let newValue = get_float(field.value) ?? 0.0
+        set(color_grading, field.key, lerp(*baseValueF, newValue, state))
 
 [es(after=combined_color_grading_init_es)]//we can also require for some special tag/bool
 def edit_color_grading_es(info : ecs::UpdateStageInfoAct; edit_color_grading : Object; edit_white_balance : Object; edit_tonemap : Object)

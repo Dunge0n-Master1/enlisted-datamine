@@ -1,7 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { colPart, columnGap, bigPadding, smallPadding, defTxtColor, rightAppearanceAnim
+} = require("%enlSqGlob/ui/designConst.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
-let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
+let squads_list = require("%enlist/squad/squadsList.ui.nut")
 let squadInfo = require("%enlist/squad/squadInfo.nut")
 let researchScene = require("%enlist/researches/researchScene.nut")
 let mkSoldierDetailsUi = require("%enlist/soldiers/mkSoldierDetailsUi.nut")
@@ -13,27 +15,17 @@ let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("%sqstd/math.nut")
 let { openChooseSoldiersWnd } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
-let { mkSoldierBadgeData, mkSoldierAnim } = require("%enlSqGlob/ui/soldiersComps.nut")
+let { mkSoldierBadgeData } = require("%enlSqGlob/ui/soldiersComps.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
-let { mkSoldiersDataList } = require("%enlist/soldiers/model/collectSoldierData.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkVehicleBadge } = require("%enlSqGlob/ui/mkVehicleBadge.nut")
-let {
-  selectVehParams, curVehicleBadgeData, curVehicleSeats
+let { selectVehParams, curVehicleBadgeData, curVehicleSeats
 } = require("%enlist/vehicles/vehiclesListState.nut")
-let {
-  curArmy, curSquad, curSquadId
-} = require("%enlist/soldiers/model/state.nut")
-let {
-  curSoldierInfo, soldiersList, curSoldierIdx
-} = require("%enlist/soldiers/model/squadInfoState.nut")
-let {
-  mkSoldierBadge, mkSoldierPresentation
-} = require("%enlSqGlob/ui/mkSoldierBadge.nut")
-let {
-  colPart, columnGap, bigPadding, smallPadding, defTxtColor
-} = require("%enlSqGlob/ui/designConst.nut")
+let { curArmy, curSquad, curSquadId } = require("%enlist/soldiers/model/state.nut")
+let { curSoldierInfo, curSoldiersDataList, curSoldierIdx
+} = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { mkSoldierBadge, mkSoldierPresentation } = require("%enlSqGlob/ui/mkSoldierBadge.nut")
 
 
 const COLUMNS = 3
@@ -45,13 +37,11 @@ let soldierInfoOffcet = colPart(2.2)
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 
 
-let curSoldiersWatch = mkSoldiersDataList(soldiersList)
-
 let curSoldiersBadgeData = Computed(function() {
   let { expToLevel = [] } = perkLevelsGrid.value
   let color = needFreemiumStatus.value ? campPresentation.value?.color : null
   let perks = perksData.value
-  return curSoldiersWatch.value.map(@(s) mkSoldierBadgeData(s, perks, expToLevel, color))
+  return curSoldiersDataList.value.map(@(s) mkSoldierBadgeData(s, perks, expToLevel, color))
 })
 
 
@@ -64,9 +54,9 @@ let squadInfoUi = @() {
     gap = columnGap
     children = [
       squadInfo()
-      Bordered(loc("menu/researches"), researchScene)
+      Bordered(loc("btn/squadUpgrades"), researchScene)
     ]
-  }.__update(mkSoldierAnim(0.1))
+  }.__update(rightAppearanceAnim(0.1))
 }
 
 
@@ -102,14 +92,15 @@ let function curSoldiersListUi() {
               seatLocId == null ? null
                 : {
                     padding = [0, smallPadding]
-                    pos = [0, -(columnGap + smallPadding)]
+                    pos = [0, -(columnGap + bigPadding)]
                     rendObj = ROBJ_TEXT
                     text = utf8ToUpper(loc(seatLocId))
                   }.__update(defTxtStyle)
             ]
-          }
+          }.__update(rightAppearanceAnim(0.05 * idx + 0.1))
         : watchElemState(@(sf)
             mkSoldierBadge(idx, sList[idx], idx == curIdx, sf, @() curSoldierIdx(idx))
+              .__update(rightAppearanceAnim(0.05 * idx))
           )
 
       rowChildren.append(child)
@@ -123,7 +114,7 @@ let function curSoldiersListUi() {
 
   return res.__update({
     flow = FLOW_VERTICAL
-    gap = hasVehicle ? columnGap * 2 : columnGap
+    gap = hasVehicle ? columnGap * 3 : columnGap
     children
     onAttach = @() curSoldierIdx(0)
     onDetach = @() curSoldierIdx(null)
@@ -149,6 +140,7 @@ let function curVehicleUi() {
   return res.__update({
     children = watchElemState(@(sf)
       mkVehicleBadge(curVehicleBadgeData.value, false, sf, chooseVehicle)
+        .__update(rightAppearanceAnim(0))
     )
   })
 }

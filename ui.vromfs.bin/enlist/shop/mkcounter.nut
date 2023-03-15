@@ -20,9 +20,10 @@ let tb = @(key, action) @() {
   children = mkHotkey(key, action)
 }
 
-let function mkCounter(maxCount, countWatched) {
-  let decCount = @() countWatched.value > 1 ? countWatched(countWatched.value - 1) : null
-  let incCount = @() countWatched.value < maxCount ? countWatched(countWatched.value + 1) : null
+let function mkCounter(maxCount, countWatched, step = 1) {
+  let decCount = @() countWatched.value > step ? countWatched(countWatched.value - step) : null
+  let incCount = @()
+    countWatched.value + step <= maxCount ? countWatched(countWatched.value + step) : null
 
   return {
     flow = FLOW_HORIZONTAL

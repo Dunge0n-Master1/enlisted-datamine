@@ -109,7 +109,8 @@ let function capzoneCtor(zoneWatch, params={}) {
     let margin = params?.margin ?? (size[0] / 1.5).tointeger()
     let total = (params?.total ?? 0).tofloat()
     let idx = (params?.idx ?? 0).tofloat()
-    let hlCenteredOffset = [((total - 1.0) * 0.5 - idx) * (size[0] + margin), size[1]]
+    let gap_v = hdpx(70)
+    let hlCenteredOffset = [((total - 1.0) * 0.5 - idx) * (size[0] + margin), size[1] + gap_v]
     let isEnemyOnLockedZone = locked && capzoneHasEnemies(presenceTeamCount)
 
     let innerZone = {

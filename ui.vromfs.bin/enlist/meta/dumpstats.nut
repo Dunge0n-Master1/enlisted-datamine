@@ -115,6 +115,11 @@ let function tableCtor(data, detail) {
 let ITEMS_TEXT_CONSTRUCTORS = {
   "gun__firingModeNames" : @(data, _) data.len() == 0 ? null
     : "; ".join(data.map(@(name) loc($"firing_mode/{name}")))
+  "splashDamage" :  function(val, _) {
+    let dist = loc("itemDetails/splashDamage", { from = val.radius.x, to = val.radius.y })
+    let dmg = loc("itemDetails/splashDamage/damage", { to = val.damage })
+    return $"{dist } {dmg}"
+  }
   "rateOfFire" : arrayCtor
   "kineticArmorPower" : tableCtor
   "hitpower" : tableCtor
@@ -142,7 +147,7 @@ let function getItemStats(item, header) {
 let getSaveFolderPath = @(army) $".meta_stats\\{army}"
 
 let function saveStatsToFile(army, file_name, header, items, text_generator) {
-  let path = $"{getSaveFolderPath(army)}/{file_name}"
+  let path = $"{getSaveFolderPath(army)}\\{file_name}"
   let file = io.file(path, "wt")
 
   let headerString = ", ".join(header.map(@(v) loc(v?.locId ?? $"itemDetails/{v.key}")))
@@ -204,7 +209,7 @@ let function dumpStats() {
         else
           tanks[v.gametemplate] <- true
       }
-      else if (v?.ammoholder != "" || v?.ammotemplate != "" || v?.itemtype in itemTypeWhitelist) {
+      else if (v?.ammoholder != null || v?.ammotemplate != null || v?.itemtype in itemTypeWhitelist) {
         items[v.gametemplate] <- true
       }
     })

@@ -7,7 +7,7 @@ let { CmdChangeTimeOfDay, CmdSetCameraFov, CmdSetBloomThreshold, CmdSetChromatic
   CmdSetDofFocalLength, CmdSetDofFocusDistance, CmdSetCameraDofEnabled, CmdWeather,
   CmdSetRain, CmdSetSnow, CmdSetLightning, CmdSetLenseFlareIntensity, CmdSetCinemaRecording,
   CmdSetCinematicSetSuperPixels, CmdSetCinematicCustomSettings, CmdSetCameraLerpFactor,
-  CmdSetCinematicPostFxBloom
+  CmdSetCinematicPostFxBloom, CmdSetCameraStopLerpFactor
 } = require("dasevents")
 let { take_screenshot_nogui } = require("screencap")
 let { chooseRandom } = require("%sqstd/rand.nut")
@@ -22,6 +22,7 @@ const CINEMATIC_MODE = "cinematic_mode"
 let levelTimeOfDay = Watched(0)
 let cameraFov = Watched(0)
 let cameraLerpFactor = Watched(0)
+let cameraStopLerpFactor = Watched(0)
 let hasCameraLerpFactor = Watched(false)
 let motionBlur = Watched(0)
 let bloomEffect = Watched(0)
@@ -94,6 +95,7 @@ ecs.register_es("ui_camera_fov_track_es",
       if (!comp.camera__active)
         return
       cameraFov(comp.fovSettings)
+      cameraStopLerpFactor(comp.replay_camera__stopInertia ?? cameraStopLerpFactor.value)
       cameraLerpFactor(comp.replay_camera__tpsLerpFactor ?? cameraLerpFactor.value)
       hasCameraLerpFactor(comp.replay_camera__tpsLerpFactor != null)
     }
@@ -102,6 +104,7 @@ ecs.register_es("ui_camera_fov_track_es",
     comps_track=[
       ["fovSettings", ecs.TYPE_FLOAT],
       ["camera__active", ecs.TYPE_BOOL],
+      ["replay_camera__stopInertia", ecs.TYPE_FLOAT, null],
       ["replay_camera__tpsLerpFactor", ecs.TYPE_FLOAT, null],
     ]
   }
@@ -238,6 +241,8 @@ let changeCameraFov = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetCameraFov({ fov = newVal.tointeger() }))
 let changeCameraLerpFactor = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetCameraLerpFactor({ lerpFactor = newVal.tointeger() }))
+let changeCameraStopLerpFactor = @(newVal)
+  ecs.g_entity_mgr.broadcastEvent(CmdSetCameraStopLerpFactor({ stopLerpFactor = newVal }))
 let changeBloom = @(newVal)
   ecs.g_entity_mgr.broadcastEvent(CmdSetBloomThreshold({ threshold = 1.0 - newVal }))
 let changeAbberation = @(newVal)
@@ -345,6 +350,8 @@ return {
   levelTimeOfDay
   cameraFov
   cameraLerpFactor
+  cameraStopLerpFactor
+  changeCameraStopLerpFactor
   hasCameraLerpFactor
   changeWeather
   weatherChoiceQuery

@@ -29,7 +29,7 @@ let isOpened = Computed(@()
   (selectedCampaign.value != null || (visibleCampaigns.value.len() ?? 0) == 1)
   && curArmies.value?[curCampaign.value] == null)
 
-let getArmyImage = @(armyId) armiesPresentation?[armyId].promoImage ?? $"ui/soldiers/{armyId}.jpg"
+let getArmyImage = @(armyId) armiesPresentation?[armyId].promoImage ?? $"ui/soldiers/{armyId}.avif"
 
 let mkText = @(text, color = titleTxtColor) {
   rendObj = ROBJ_TEXT
@@ -47,7 +47,7 @@ let mkArmyImage = @(image, sf) {
     imageHalign = ALIGN_CENTER
     imageValign = ALIGN_TOP
     image = Picture(image)
-    fallbackImage = Picture("ui/soldiers/army_default.jpg")
+    fallbackImage = Picture("ui/soldiers/army_default.avif")
     transform = { scale = sf & S_HOVER ? [1.05, 1.05] : [1, 1] }
     transitions = [ { prop = AnimProp.scale, duration = 0.4, easing = OutQuintic } ]
   }

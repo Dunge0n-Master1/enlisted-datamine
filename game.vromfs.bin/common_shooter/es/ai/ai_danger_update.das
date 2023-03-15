@@ -79,6 +79,7 @@ def ai_danger_update_alertness(act : UpdateStageInfoAct)
                      alertness_calc__downedCoef : float;
                      alertness_calc__inVehicleCoef : float;
                      agent_dangers__targetAirplanePilots : bool;
+                     agent_dangers__targetParachuterMaxHeight : float;
                      agent_dangers__checkTimes = float2(0.3, 0.7);
                      agent_dangers__frustumAngle = 40.; agent_dangers__blindDistance = 200.)
 
@@ -117,6 +118,13 @@ def ai_danger_update_alertness(act : UpdateStageInfoAct)
           continue
 
       let targetDir = target.targetPos - agent_dangers__standShootPos
+
+      let isTargetOnParachute = get_bool(target.eid, "human_parachute__isDeployed") ?? false
+      if isTargetOnParachute && targetDir.y > agent_dangers__targetParachuterMaxHeight
+        if dangerIdx >= 0
+          erase(agent_dangers.dangers, dangerIdx)
+        continue
+
       let dist = length(targetDir)
       if dist > agent_dangers__blindDistance
         if dangerIdx >= 0

@@ -2,9 +2,10 @@ require ecs
 require EnlistedCamera
 require AnimV20
 require math.base
+require enlisted.events_enlisted
 
 [es(no_order)]
-def animated_visible_attachments_act_animchar_es(info : UpdateStageInfoAct)
+def animated_visible_attachments_act_animchar_es(info : ParallelUpdateFrameDelayed)
   let camTm = get_TMatrix(get_cur_cam_entity(), "transform")
   if camTm == null
     return

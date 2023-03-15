@@ -11,6 +11,8 @@ require GeomNodeTree
 require DagorSystem
 require DagorMath
 require ecs.safe
+require enlisted.events_enlisted
+require game.events_game
 
 let
   openVel = 5.0f
@@ -75,8 +77,15 @@ def rotate_hatch_node(var animchar : AnimcharBaseComponent;
     let nodeTm = hatch__node_tm * rot_m
     geomtree_setNodeTmScalar(*animchar.nodeTree, hatch__node_id, nodeTm)
 
+[es(tag=server, REQUIRE_NOT=playerIsBot)]
+def vehicle_seats_hatch_reset_input_when_hero_changed(evt : PossessTargetByPlayer)
+  query(evt.target) <| $ [es] (var human_net_phys : HumanActor; isInVehicle : bool)
+    if isInVehicle
+      // reset crouch input on server, because bots may crouch in vehicle and this will open the hatch
+      human_control_state_set_control_bit(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_CROUCH, false)
+
 [es(tag=server, after=after_net_phys_sync)]
-def vehicle_seats_hatch_crouch_es(info : UpdateStageInfoAct; vehicle_seats__seatEids : EidList)
+def vehicle_seats_hatch_crouch_es(info : ParallelUpdateFrameDelayed; vehicle_seats__seatEids : EidList)
   for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seats_hatch_nodes__isValid : bool; seat__ownerEid : EntityId; seat__isPlayer : bool; seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
       if !seats_hatch_nodes__isValid || !seat__isPlayer
@@ -88,7 +97,7 @@ def vehicle_seats_hatch_crouch_es(info : UpdateStageInfoAct; vehicle_seats__seat
 
 
 [es(after=vehicle_seats_hatch_crouch_es)]
-def vehicle_seats_hatch_es(info : UpdateStageInfoAct;
+def vehicle_seats_hatch_es(info : ParallelUpdateFrameDelayed;
                            animchar__updatable : bool;
                            vehicle_seats__seatEids : EidList;
                            var animchar : AnimcharBaseComponent)

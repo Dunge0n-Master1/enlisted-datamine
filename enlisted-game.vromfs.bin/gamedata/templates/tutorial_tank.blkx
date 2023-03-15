@@ -19,7 +19,7 @@ germ_pzkpfw_V_ausf_a_panther_xray{
   outline__always_visible:b=yes
   outline__color:c=20, 66, 4, 5
   animchar_render__enabled:b=yes
-  animchar__updatable:b=no
+  animchar__updatable:b=yes
   animchar__res:t="pzkpfw_V_ausf_a_panther_tutorial_xray_char"
   tutorial_tank__xrayId:t=""
 }
@@ -31,7 +31,7 @@ germ_pzkpfw_V_ausf_a_panther_xray2{
   outline__always_visible:b=yes
   outline__color:c=20, 66, 4, 5
   animchar_render__enabled:b=yes
-  animchar__updatable:b=no
+  animchar__updatable:b=yes
   animchar__res:t="pzkpfw_V_ausf_a_panther_char"
   tutorial_tank__xrayId:t="tank_target_side"
 }
@@ -640,6 +640,6 @@ tutorial_restore_memorize{
 
 willys_mb_tutorial{
   _extends:t="willys_mb"
-  vehicle_net_phys__blk:t="content/e_ww2_common/gamedata/units/vehicles/willys_mb_tutorial.blk:VehiclePhys"
-  damage_model__blk:t="content/e_ww2_common/gamedata/units/vehicles/willys_mb_tutorial.blk"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/willys_mb_tutorial.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/willys_mb_tutorial.blk"
 }

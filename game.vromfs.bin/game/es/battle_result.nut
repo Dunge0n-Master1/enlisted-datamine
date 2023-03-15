@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let {TEAM_UNASSIGNED} = require("team")
+let { mkEventOnBattleResult } = require("%enlSqGlob/sqevents.nut")
 let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
 let {EventLevelLoaded} = require("gameevents")
 let {EventTeamRoundResult, CmdGetBattleResult} = require("dasevents")
@@ -26,6 +27,7 @@ let { getRank, advanceRank } = require("player_military_rank.nut")
 
 let isResultSend = persist("isResultSend", @() { value = false })
 let resultSendToProfile = persist("resultSendToProfile", @() {})
+let resultSendToBq = persist("resultSendToBq", @() {})
 let disconnectInfo = persist("disconnectInfo", @() {})
 let boosterSentToProfile = persist("boosterSentToProfile", @() {})
 
@@ -40,7 +42,10 @@ let realPlayerQuery = ecs.SqQuery("realPlayerQuery", {
   comps_rq = ["player"],
   comps_no = ["playerIsBot"]
 })
-let playerTeamQuery = ecs.SqQuery("playerTeamQuery", { comps_ro = [["team", ecs.TYPE_INT, TEAM_UNASSIGNED]] })
+let squadStatQuery = ecs.SqQuery("squadStatQuery", { comps_ro = [["squadStats", ecs.TYPE_OBJECT]] })
+let playerStatsQuery = ecs.SqQuery("playerStatsQuery", {
+  comps_ro = [["team", ecs.TYPE_INT, TEAM_UNASSIGNED], ["player__wishAnyTeam", ecs.TYPE_BOOL, false]]
+})
 let setPlayerHeroQuery = ecs.SqQuery("setPlayerHeroQuery", { comps_rw = [["scoring_player__isBattleHero", ecs.TYPE_BOOL]] })
 let playerInfoQuery = ecs.SqQuery("playerInfoQuery",
   { comps_ro = [
@@ -48,7 +53,7 @@ let playerInfoQuery = ecs.SqQuery("playerInfoQuery",
       ["decorators__nickFrame", ecs.TYPE_STRING],
       ["decorators__portrait", ecs.TYPE_STRING],
       ["userid", ecs.TYPE_UINT64, INVALID_USER_ID],
-      ["startedAtTime", ecs.TYPE_FLOAT, 0.0],
+      ["scoring_player__battleTime", ecs.TYPE_FLOAT, 0.0],
       ["connid", ecs.TYPE_INT, INVALID_CONNECTION_ID],
     ]
   })
@@ -138,6 +143,7 @@ let function sendExpToProfileServer(playerEid, expReward) {
       missionId = missionParamsQuery(@(_, comp) comp.mission_name) ?? ""
       result = expReward?.result ?? 0
       activity = expReward?.activity ?? 0.0
+      playTimeSec = (expReward?.battleTimeSec ?? 0).tointeger()
     }
   }
   let errorStr = sendToProfileServer(playerEid, "reward_battle", params)
@@ -186,7 +192,7 @@ let function markLocalHero(heroes, eid) {
   return res
 }
 
-let function sendPlayerBattleResult(playerEid, playerData, playerBattleResult, scoringPlayers, teamHeroes = {}, playerAwards = []) {
+let function sendPlayerBattleResult(playerEid, squadStats, playerData, playerBattleResult, scoringPlayers, teamHeroes = {}, playerAwards = [], needSendToBq = false) {
   let { armyId, armyData } = getPlayerArmyInfo(playerEid)
   if (armyId == "" || armyData.len() == 0)
     // ignore bots and other data that cannot be applied to statistics
@@ -194,7 +200,7 @@ let function sendPlayerBattleResult(playerEid, playerData, playerBattleResult, s
 
   let {
     userid = INVALID_USER_ID,
-    startedAtTime = 0.0,
+    scoring_player__battleTime = 0.0,
     connid = INVALID_CONNECTION_ID } = playerInfoQuery(playerEid, @(_, c) c)
   if (userid == INVALID_USER_ID)
     logBR($"Unknown player {playerEid}")
@@ -221,7 +227,7 @@ let function sendPlayerBattleResult(playerEid, playerData, playerBattleResult, s
     dataToSend.playerRank <- playerRank
   }
 
-  let expReward = calcExpReward(playerData, armyData, playerBattleResult, startedAtTime, playerAwards, playerBattleHero)
+  let expReward = calcExpReward(squadStats, playerData, armyData, playerBattleResult, scoring_player__battleTime, playerAwards, playerBattleHero)
   if (expReward.len() == 0)
     logBR($"Player {playerEid} has no exp rewards.", playerData)
   else if (!isDedicated)
@@ -234,6 +240,7 @@ let function sendPlayerBattleResult(playerEid, playerData, playerBattleResult, s
       baseExp = expReward.baseExp
       armyExp = expReward.armyExp
       activity = expReward.activity
+      battleTimeSec = (expReward?.battleTimeSec ?? 0).tointeger()
       squadsExp = expReward.squadsExp.map(@(s) s.exp).filter(@(exp) exp > 0)
       soldiersExp = expReward.soldiersExp.map(@(s) s.exp).filter(@(exp) exp > 0)
     }
@@ -242,10 +249,13 @@ let function sendPlayerBattleResult(playerEid, playerData, playerBattleResult, s
       logBR($"Player {playerEid} no rewards error: {errText}")
     else
       dataToSend.expReward <- expReward
-    sendBqBattleResult(userid, playerData, expRewardExt, armyData, armyId)
+    if (needSendToBq && playerEid not in resultSendToBq) {
+      sendBqBattleResult(userid, playerData, expRewardExt, armyData, armyId)
+      resultSendToBq[playerEid] <- true
+    }
   }
 
-  server_broadcast_net_sqevent(ecs.event.EventOnBattleResult(dataToSend), [connid])
+  server_broadcast_net_sqevent(mkEventOnBattleResult(dataToSend), [connid])
 
   if (expReward.len() > 0) {
     logBR($"Player {userid} reward (army = {armyId}), result = ", playerBattleResult,
@@ -274,8 +284,8 @@ let DEFEAT_STATE = {
   isWinner = false
 }
 
-let getPlayerBattleState = @(state, time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount)
-  state.__merge({time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount})
+let getPlayerBattleState = @(state, time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount, anyTeam)
+  state.__merge({time, realEnemyPlayerCount, realPlayerCount, realPlayerWithEnoughScoreCount, anyTeam})
 
 let function getPlayerScoreFromSquadStats(stats, isNoBots) {
   let playerScore = scoringPlayerSoldiersStatsComps.map(@(compInfo) [compInfo[0], 0]).totable()
@@ -332,10 +342,17 @@ let function onRoundResult(evt, _eid, _comp) {
 
   local playersStats = getSoldierStats(isNoBots)
   let scoringPlayers = getScoringPlayers(playersStats, isNoBots, get_sync_time())
-  playersStats = playersStats.map(@(soldiers, eid) {
-    team = playerTeamQuery.perform(eid, @(_, comp) comp.team) ?? TEAM_UNASSIGNED
-    soldiers
-  })
+  playersStats = playersStats.map(@(soldiers, eid)
+    {
+      soldiers
+    }.__merge(playerStatsQuery(eid, @(_, comp) {
+      team = comp.team
+      wishAnyTeam = comp.player__wishAnyTeam
+    }) ?? {
+      team = TEAM_UNASSIGNED
+      wishAnyTeam = false
+    })
+  )
   let scoreDetailed = playersStats.map(@(playerData, eid)
     getScoreForBattleHeroAwards(eid, playerData.team, playerData.soldiers, getArmyData(eid), isWinningTeam(playerData.team, evt))
     .__merge({stats = scoringPlayers[eid]})
@@ -380,9 +397,11 @@ let function onRoundResult(evt, _eid, _comp) {
     let playerAwards = awards?[team]?[playerEid] ?? []
     let result = isWinningTeam(team, evt) ? WIN_STATE : DEFEAT_STATE
     let realEnemyPlayersCount = realPlayerCountByTeam.reduce(@(res, count, playersTeam) res + ((playersTeam != team) ? count : 0), 0)
-    local playerBattleResult = disconnectInfo?[playerEid] ?? getPlayerBattleState(result, battleEndTime, realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount)
+    let wishAnyTeam = playerData?.wishAnyTeam
+    local playerBattleResult = disconnectInfo?[playerEid] ?? getPlayerBattleState(result, battleEndTime, realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount, wishAnyTeam)
     playerBattleResult = playerBattleResult.__merge({boostersApplied= playerEid in boosterSentToProfile})
-    sendPlayerBattleResult(playerEid, playerData.soldiers, playerBattleResult, scoringPlayers, teamHeroes, playerAwards)
+    local squadStat = squadStatQuery.perform(playerEid, @(_, comp) comp.squadStats)
+    sendPlayerBattleResult(playerEid, squadStat, playerData.soldiers, playerBattleResult, scoringPlayers, teamHeroes, playerAwards, true/*needSendToBq*/)
   }
 }
 
@@ -399,12 +418,13 @@ let function onGetBattleResult(_evt, eid, comp) {
   let result = isDeserter ? DESERTER_STATE : UNFINISHED_STATE
   let {realPlayerCount, realPlayerCountByTeam, realPlayerWithEnoughScoreCount} = getRealPlayerCountInfo()
   let realEnemyPlayersCount = realPlayerCountByTeam.reduce(@(res, count, playersTeam) res + ((playersTeam != comp.team) ? count : 0), 0)
-  local playerBattleState = getPlayerBattleState(result, currentTime, realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount)
+  let wishAnyTeam = comp.player__wishAnyTeam
+  local playerBattleState = getPlayerBattleState(result, currentTime, realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount, wishAnyTeam)
   scoringPlayers.each(@(player, playerEid)
     player.isDeserter <- playerEid == eid ? isDeserter : (disconnectInfo?[playerEid].isDeserter ?? false) )
   disconnectInfo[eid] <- playerBattleState
   playerBattleState = playerBattleState.__merge({boostersApplied = eid in boosterSentToProfile})
-  sendPlayerBattleResult(eid, playerData, playerBattleState, scoringPlayers)
+  sendPlayerBattleResult(eid, comp.squadStats, playerData, playerBattleState, scoringPlayers)
 }
 
 let function onDisconnectChange(_evt, eid, comp) {
@@ -416,12 +436,14 @@ let function onDisconnectChange(_evt, eid, comp) {
   let result = !comp["scoring_player__isGameFinished"] ? DESERTER_STATE : UNFINISHED_STATE
   let {realPlayerCount, realPlayerCountByTeam, realPlayerWithEnoughScoreCount} = getRealPlayerCountInfo()
   let realEnemyPlayersCount = realPlayerCountByTeam.reduce(@(res, count, playersTeam) res + ((playersTeam != comp.team) ? count : 0), 0)
-  disconnectInfo[eid] <- getPlayerBattleState(result, get_sync_time(), realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount)
+  let wishAnyTeam = comp.player__wishAnyTeam
+  disconnectInfo[eid] <- getPlayerBattleState(result, get_sync_time(), realEnemyPlayersCount, realPlayerCount, realPlayerWithEnoughScoreCount, wishAnyTeam)
 }
 
 let function onLevelLoaded(_evt, _eid, _comp) {
   isResultSend.value = false
   resultSendToProfile.clear()
+  resultSendToBq.clear()
   disconnectInfo.clear()
 }
 
@@ -437,7 +459,10 @@ ecs.register_es("get_battle_result_es",
     comps_track = [["disconnected", ecs.TYPE_BOOL]],
     comps_ro = [
       ["scoring_player__isGameFinished", ecs.TYPE_BOOL, false],
-      ["team", ecs.TYPE_INT]]
+      ["team", ecs.TYPE_INT],
+      ["player__wishAnyTeam", ecs.TYPE_BOOL, false],
+      ["squadStats", ecs.TYPE_OBJECT],
+    ]
     comps_rq = ["player"],
   },
   {tags="server"})

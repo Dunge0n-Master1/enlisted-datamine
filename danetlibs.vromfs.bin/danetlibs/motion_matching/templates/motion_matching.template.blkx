@@ -16,20 +16,23 @@ motion_matching_animchar_component{
   motion_matching__animationBlendTime:r=0.45
   motion_matching__updateProgress:r=0.0
   motion_matching__distanceFactor:r=1.0
-  motion_matching__trajectoryTolerance:r=3.0
+  motion_matching__trajectoryTolerance:r=0.0
   motion_matching__presetIdx:i=-1
   motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database"
 
   "motion_matching__trajectoryTimes:list<r>"{
   }
 
+  "motion_matching__desiredPositions:list<p3>"{
+  }
+
+  "motion_matching__desiredDirections:list<p3>"{
+  }
+
   "motion_matching__predictedPositions:list<p3>"{
   }
 
-  "motion_matching__predictedVelocity:list<p3>"{
-  }
-
-  "motion_matching__predictedRotation:list<p3>"{
+  "motion_matching__predictedDirections:list<p3>"{
   }
 
   "motion_matching__goalFeature:FrameFeatures"{
@@ -192,8 +195,40 @@ animation_tester{
 }
 
 animation_self_tester{
+  _extends:t="motion_matching_animchar_component"
   _extends:t="animation_tester"
   _extends:t="animation_test_target"
+  motion_matching__debugLabel:t=""
+
+  _group{
+    _tags:t="render"
+    motion_matching__enabled:b=yes
+    motion_matching__dataBaseTemplateName:t="motion_matchign_animation_database_extended"
+  }
+}
+
+motion_matching_anim_tree_tester{
+  _extends:t="animation_self_tester"
+  motion_matching__debugLabel:t="anim tree"
+
+  "motion_matching__animTreeTester:tag"{
+  }
+}
+
+motion_matching_tester{
+  _extends:t="animation_self_tester"
+  motion_matching__debugLabel:t="motion matching"
+
+  "motion_matching__MMTester:tag"{
+  }
+}
+
+motion_matching_inertial_blend_tester{
+  _extends:t="animation_self_tester"
+  motion_matching__debugLabel:t="inertial blend"
+
+  "motion_matching__inertialBlendTester:tag"{
+  }
 }
 
 animation_test_pair{
@@ -203,9 +238,6 @@ animation_test_pair{
   "animationTestPair:tag"{
   }
 
-  "first_tester:eid"{
-  }
-
-  "second_tester:eid"{
+  "tester_list:list<eid>"{
   }
 }

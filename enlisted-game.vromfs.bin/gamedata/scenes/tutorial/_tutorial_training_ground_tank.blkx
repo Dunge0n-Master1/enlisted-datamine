@@ -7,9 +7,9 @@ entity{
   mission_name:t="basic_tutorial_mission"
 
   "loading_images:list<t>"{
-    item:t="ui/loading_tutorial_01.jpg"
-    item:t="ui/loading_tutorial_02.jpg"
-    item:t="ui/loading_tutorial_03.jpg"
+    item:t="ui/loading_tutorial_01.avif"
+    item:t="ui/loading_tutorial_02.avif"
+    item:t="ui/loading_tutorial_03.avif"
   }
 }
 

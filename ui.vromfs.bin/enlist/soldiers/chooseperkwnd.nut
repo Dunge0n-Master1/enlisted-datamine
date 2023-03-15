@@ -14,14 +14,15 @@ let { mkPerksPointsBlock, perkCard, perkUi, priceIconCtor, thumbIconSize
 let { kindIcon, levelBlock} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
-let { curCampSoldiers, curArmy } = require("model/state.nut")
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { curCampSoldiers } = require("%enlist/meta/profile.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let { RECOMMENDED_PERKS_COUNT } = require("%enlist/meta/perks/perksStats.nut")
 let { perkChoiceWndParams, perksData, getPerkPointsInfo, showActionError,
   perkActionsInProgress, changePerkCost, changePerks
 } = require("model/soldierPerks.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
-let { mkSoldiersData } = require("model/collectSoldierData.nut")
+let { mkSoldiersData } = require("model/curSoldiersState.nut")
 let { mkPerkChoiceSlot } = require("%enlist/soldiers/model/mkPerkChoiceSlot.nut")
 let { openAvailablePerks } = require("availablePerksWnd.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -365,7 +366,7 @@ let soldierInfo = {
       halign = ALIGN_CENTER
       gap = bigPadding
       children = [
-        mkPerksPointsBlock(perkPointsInfoWatch)
+        mkPerksPointsBlock(soldier.value?.guid)
         {
           rendObj = ROBJ_TEXT
           text = loc("perks/unallocatedPerks")

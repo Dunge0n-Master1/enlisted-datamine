@@ -995,9 +995,9 @@ entity{
   mission_name:t="tunisia_city_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/tunisia_city_inv_01.jpg"
-    item:t="ui/tunisia_city_inv_02.jpg"
-    item:t="ui/tunisia_city_inv_03.jpg"
+    item:t="ui/tunisia_city_inv_01.avif"
+    item:t="ui/tunisia_city_inv_02.avif"
+    item:t="ui/tunisia_city_inv_03.avif"
   }
 }
 
@@ -1061,7 +1061,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{
@@ -1080,7 +1080,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_1_a"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1109,7 +1109,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_1_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1139,7 +1139,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_2_a"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1170,7 +1170,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=90.0
+  capzone__capTime:r=80.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1197,7 +1197,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_a"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1226,7 +1226,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3_b"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1257,7 +1257,7 @@ entity{
   capzone__capReward:r=350.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=80.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1283,7 +1283,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_4_b"
-  capzone__capTime:r=100.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1306,18 +1306,22 @@ entity{
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[37.6586, 0.0, 14.9269] [0.0, 8.85788, 0.0] [-16.9685, 0.0, 42.8092] [336.82, 16.9811, 177.538]]
+  capzone__capRewardPartCap:r=1.0
+  capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/square"
-  capzone__capTime:r=110.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
+  capzone__decapTime:r=6000.0
+  ui_order:i=5
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.4
   decal__height:r=2.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=11
@@ -2463,33 +2467,6 @@ entity{
 entity{
   _template:t="vw_kubelwagen"
   transform:m=[[0.0220446, -0.00851588, 0.999721] [-0.0213737, 0.999731, 0.00898728] [-0.999528, -0.0215658, 0.0218567] [-72.2456, 21.3297, -118.8]]
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="land_haze"
-  ground_effect__biome_group_name:t="dune"
-  ground_effect__grid_cell_size:r=16.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__biome_weight_for_active_thr:r=0.25
-  ground_effect__fx_radius:r=-1.0
-  ground_effect__scale_x:p2=1.3, 0.0
-  ground_effect__scale_y:p2=1.3, 0.0
-  ground_effect__scale_z:p2=1.3, 0.0
-}
-
-entity{
-  _template:t="ground_effect"
-  ground_effect__fx_name:t="land_dust_storm"
-  ground_effect__biome_group_name:t="dune"
-  ground_effect__grid_cell_size:r=4.0
-  ground_effect__grid_world_origin:p2=0.0, 0.0
-  ground_effect__vis_radius:r=50.0
-  ground_effect__offset_y:p2=0.4, 0.0
-  ground_effect__scale_x:p2=0.3, 0.0
-  ground_effect__scale_y:p2=0.3, 0.0
-  ground_effect__scale_z:p2=0.3, 0.0
 }
 
 entity{

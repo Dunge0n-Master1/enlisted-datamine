@@ -37,11 +37,11 @@ foreach (v in [curCampaign, savedGameModeIdByCampaign])
 
 let selGameModeId = Computed(@() selGameModeIdByCampaign.value?[curCampaign.value])
 
-let defTutorialImage = "ui/game_mode_moscow_tutorial.jpg"
-let defTutorialTankImage = "ui/game_mode_tutorial_tank.jpg"
-let defTutorialEngineerImage = "ui/game_mode_tutorial_engineer.jpg"
-let defTutorialAircraftImage = "ui/game_mode_tutorial_aircraft.jpg"
-let defPracticeImage = "ui/game_mode_moscow_practice.jpg"
+let defTutorialImage = "ui/game_mode_moscow_tutorial.avif"
+let defTutorialTankImage = "ui/game_mode_tutorial_tank.avif"
+let defTutorialEngineerImage = "ui/game_mode_tutorial_engineer.avif"
+let defTutorialAircraftImage = "ui/game_mode_tutorial_aircraft.avif"
+let defPracticeImage = "ui/game_mode_moscow_practice.avif"
 
 let gameModeDefaults = {
   id = null

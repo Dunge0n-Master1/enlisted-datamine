@@ -4,7 +4,7 @@ render_settings{
   _track:b=yes
   _extends:t="replicating"
   render_settings__inited:b=no
-  render_settings__ssss:b=no
+  render_settings__ssss:t="low"
   render_settings__gamma_correction:r=1.0
   render_settings__is_hdr_enabled:b=no
   render_settings__bare_minimum:b=no

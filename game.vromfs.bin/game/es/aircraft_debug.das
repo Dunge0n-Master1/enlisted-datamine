@@ -1,5 +1,6 @@
 options no_aot
 require ecs
+require ecs.extra_set
 require app
 require game.es.turrets_common
 require common_shooter.events_common_shooter
@@ -156,6 +157,5 @@ def request_debug_ai_bombers(x = 0; y = 0; z = 0; artillery_template : string = 
 
   createEntity("debug_dummy_artillery_player", callback) <| $(var init)
     init |> set("team", artilleryTeam)
-    using() <| $(var templates : StringList#)
-      templates |> push(artillery_template)
-      init |> set("artillery__templates", templates)
+
+    init |> set("artillery__templates", [{auto artillery_template}])

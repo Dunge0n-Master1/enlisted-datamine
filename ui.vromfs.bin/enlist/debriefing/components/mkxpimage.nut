@@ -2,8 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
-let winImagePath = "ui/skin#battlehero/debriefing_awards_winner.png"
-let battleHeroImagePath = "ui/skin#battlehero/debriefing_awards_mvp.png"
+let winImagePath = "ui/skin#battlehero/debriefing_awards_winner.avif"
+let battleHeroImagePath = "ui/skin#battlehero/debriefing_awards_mvp.avif"
 let boosterXpImagePath = @(size) "!ui/skin#xp_booster.svg:{0}:{0}:K".subst(size.tointeger())
 let premiumImagePath = @(size) "!ui/skin#currency/enlisted_prem.svg:{0}:{0}:K".subst(size.tointeger())
 let premiumSquadImagePath = @(size, armyId)

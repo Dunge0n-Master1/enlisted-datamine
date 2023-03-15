@@ -8,12 +8,29 @@ let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 
 let panelTxtStyle = { color = titleTxtColor }.__update(fontLarge)
+let defUnseenDotSize = colPart(0.4)
 
-let mkBlinkNotifier = @(size = colPart(0.5))
-  mkLottieAnimation("ui/lottieAnimations/notifier.json", {
-    width = size
-    height = size
-  })
+
+let unseenAnimDot = mkLottieAnimation("ui/lottieAnimations/notifier.json", {
+  width = defUnseenDotSize
+  height = defUnseenDotSize
+})
+
+let blinkUnseen = {
+  size = [defUnseenDotSize, defUnseenDotSize]
+  vplace = ALIGN_TOP
+  hplace = ALIGN_RIGHT
+  children = unseenAnimDot
+}
+
+
+let unblinkUnseen = {
+  rendObj = ROBJ_IMAGE
+  size = [defUnseenDotSize, defUnseenDotSize]
+  vplace = ALIGN_TOP
+  hplace = ALIGN_RIGHT
+  image = Picture("ui/skin#tasks/ellipse_lotty_green.svg:{0}:{0}:K".subst(defUnseenDotSize))
+}
 
 
 let panelBgImg = mkTwoSidesGradientX(0x00116C15, 0xFF116C15, false)
@@ -32,6 +49,7 @@ let unseenPanel = @(text, override = {}) {
 }.__update(override)
 
 return {
-  mkBlinkNotifier
+  blinkUnseen
+  unblinkUnseen
   unseenPanel
 }

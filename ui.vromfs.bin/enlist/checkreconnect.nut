@@ -2,10 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
 let { matchingCall } = require("matchingClient.nut")
-let { joinRoom, allowReconnect, lastRoomResult } = require("state/roomState.nut")
+let { allowReconnect } = require("%enlist/featureFlags.nut")
+let { joinRoom, lastRoomResult } = require("state/roomState.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let isReconnectChecking = mkWatched(persist, "isReconnectChecking", false)
+let {nestWatched} = require("%dngscripts/globalState.nut")
+let isReconnectChecking = nestWatched("isReconnectChecking", false)
 let {get_app_id} = require("app")
 let loginState = require("%enlSqGlob/login_state.nut")
 

@@ -5,9 +5,12 @@ require game.es.events
 require game.events_game
 require player
 
-def bind_camera_to_vehicle(vehicle : ecs::EntityId; var camera__target : ecs::EntityId&)
+def bind_camera_to_vehicle(vehicle : EntityId;
+                           human_vehicle__canHoldWeapon : bool;
+                           var camera__target : EntityId&)
   ecs::query(vehicle) <| $ [es] (vehicleCameraType : int; vehicle_commander_cam__attachToVehicle : bool = false)
-    if vehicle_commander_cam__attachToVehicle || vehicleCameraType != int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
+    let isCommanderCam = vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_COMMANDER)
+    if !isCommanderCam || vehicle_commander_cam__attachToVehicle && !human_vehicle__canHoldWeapon
       camera__target = vehicle
 
 def set_camera_target(target : ecs::EntityId;
@@ -17,8 +20,8 @@ def set_camera_target(target : ecs::EntityId;
   camera__target = target
 
   if bindToVehicle
-    ecs::query(target) <| $ [es] (human_anim__vehicleSelected : ecs::EntityId)
-      bind_camera_to_vehicle(human_anim__vehicleSelected, camera__target)
+    query(target) <| $ [es] (human_anim__vehicleSelected : EntityId; human_vehicle__canHoldWeapon : bool)
+      bind_camera_to_vehicle(human_anim__vehicleSelected, human_vehicle__canHoldWeapon, camera__target)
 
 def setup_camera_as_active(cam_eid : EntityId)
   query(get_local_player_eid()) <| $ [es] (var activeCamEid : EntityId&)
@@ -81,8 +84,8 @@ def fix_camera_target_es(info : UpdateStageInfoAct; eid : EntityId; var camera__
     return
 
   if bindToVehicle && !has(camera__target, "vehicle")
-    find_query() <| $ [es] (bindedCamera : EntityId; human_anim__vehicleSelected : ecs::EntityId)
+    find_query() <| $ [es] (bindedCamera : EntityId; human_anim__vehicleSelected : EntityId; human_vehicle__canHoldWeapon : bool)
       if bindedCamera == eid
-        bind_camera_to_vehicle(human_anim__vehicleSelected, camera__target)
+        bind_camera_to_vehicle(human_anim__vehicleSelected, human_vehicle__canHoldWeapon, camera__target)
         return true
       return false

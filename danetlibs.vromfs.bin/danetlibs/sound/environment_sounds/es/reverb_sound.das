@@ -42,6 +42,8 @@ def reverb_sound_update(evt : Event;
                         reverb_sound__rayLength : float;
                         reverb_sound__fadeOutPower : float;
                         reverb_sound__event : SoundEvent&)
+  if reverb_sound__event.handle == invalid_sound_event_handle()
+    return
   let numRays = length(reverb_sound__rays)
   assert(uint(reverb_sound__rayId) < uint(numRays))
   let pos = get_reverb_3d_pos()
@@ -70,23 +72,22 @@ def reverb_sound_update(evt : Event;
   set_var(reverb_sound__event.handle, reverb_sound__roomSizeVar, roomSize)
 
 
-[es(tag=sound, on_appear)]
-def reverb_sound_appear(evt : Event;
+[es(tag=sound, track=sound_bank_preset_state__isValid)]
+def reverb_sound_toggle(evt : Event;
+                        sound_bank_preset_state__isValid : bool;
                         reverb_sound__path : string;
                         reverb_sound__intensityVar : string;
                         var reverb_sound__event : SoundEvent&)
-  // master banks containing 'reverb_sound__path' event should be already loaded at this point!
-  // so master banks should be configurated as "async:b=no".
-  // or may track 'sound_bank_preset_state__isValid' to wait and start when all banks are loaded.
-  reverb_sound__event |> play(reverb_sound__path, get_reverb_3d_pos())
-  set_var_global(reverb_sound__intensityVar, 0.)
+  release_immediate(reverb_sound__event.handle)
+  if sound_bank_preset_state__isValid
+    reverb_sound__event |> play(reverb_sound__path, get_reverb_3d_pos())
+    set_var_global(reverb_sound__intensityVar, 0.)
 
 
 [es(tag=sound, on_disappear)]
 def reverb_sound_destroyed(evt : Event;
                            reverb_sound__intensityVar : string;
                            var reverb_sound__event : SoundEvent&)
-
   release(reverb_sound__event.handle)
   set_var_global(reverb_sound__intensityVar, 0.)
 

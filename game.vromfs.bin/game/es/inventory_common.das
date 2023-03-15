@@ -29,7 +29,7 @@ def get_item_use_time(item : EntityId; is_downed : bool; is_self_targeting : boo
   return useTime
 
 
-def push_item_in_cont(owner_eid : EntityId; name : string)
+def push_item_in_cont(owner_eid : EntityId; name : string |#)
   return createEntity(name) <| $(var init : ComponentsInitializer)
     set(init, "item__ownerEid", owner_eid)
 

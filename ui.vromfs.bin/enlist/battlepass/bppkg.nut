@@ -7,7 +7,7 @@ let {
   smallPadding, bigPadding, titleTxtColor, activeTxtColor, defBgColor, defTxtColor,
   accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(1.3, accentTitleTxtColor)
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { timeLeft } = require("bpState.nut")
 let { mkSeasonTime, mkRewardIcon, mkRewardImages, rewardWidthToHeight, defCardSize
 } = require("rewardsPkg.nut")
@@ -38,10 +38,11 @@ let cardSelectAnim    = [ { prop = AnimProp.translate, duration = 0.15, easing =
 let cardStateCommon   = { translate = [0, 0] }
 let cardStateSelected = { translate = [0, -hugePadding] }
 let gapCards          = hdpx(32)
-let lockBPLarge       = [hdpxi(540), hdpxi(90)]
+let lockBPLarge       = [hdpxi(90), hdpxi(90)]
 let bgFree            = [hdpxi(180), hdpxi(30)]
-let logoBP            = [hdpxi(240), hdpxi(40)]
-let lockBPSmall       = [hdpxi(240), hdpxi(40)]
+let logoBP            = [hdpxi(40), hdpxi(40)]
+let lockBPSmall       = [hdpxi(40), hdpxi(40)]
+let unseenIcon = blinkUnseenIcon(1.3, accentTitleTxtColor).__update({ pos = [-hdpx(36), -bigPadding] })
 
 let timeTracker = @() {
   watch = timeLeft
@@ -99,6 +100,7 @@ let function lockScreenBlock() {
         hplace = ALIGN_CENTER
         vplace = ALIGN_CENTER
         behavior = Behaviors.Button
+        size = lockBPLarge
         onHover = @(on) setTooltip(on ? loc("bp/required/tip") : null)
         image = Picture($"!ui/uiskin/battlepass/lock_bp.svg:{lockBPLarge[0]}:{lockBPLarge[1]}:K")
       }
@@ -166,7 +168,7 @@ let function mkEndSeasonMessage() {
             text = loc("bp/endSeasonMsg")
             color = accentTitleTxtColor
           }.__update(textAreaStyle, tiny_txt)
-          unseenSignal.__update({ pos = [-hdpx(36), -bigPadding] })
+          unseenIcon
         ]
   }
 }
@@ -217,9 +219,14 @@ let cardFreeHeader = mkCardTopText(loc("bp/freeReward"))
 
 
 let function cardPremiumHeader() {
-  local typeIcon = hasEliteBattlePass.value
-    ? $"!ui/uiskin/battlepass/bp_logo.svg:{logoBP[0]}:{logoBP[1]}:K"
-    : $"!ui/uiskin/battlepass/lock_bp.svg:{lockBPSmall[0]}:{lockBPSmall[1]}:K"
+  local iconData = hasEliteBattlePass.value
+    ? {
+      size = logoBP
+      image = Picture($"!ui/uiskin/battlepass/bp_logo.svg:{logoBP[0]}:{logoBP[1]}:K")
+    } : {
+      size = lockBPSmall
+      image = Picture($"!ui/uiskin/battlepass/lock_bp.svg:{lockBPSmall[0]}:{lockBPSmall[1]}:K")
+    }
   return {
     watch = hasEliteBattlePass
     hplace = ALIGN_CENTER
@@ -231,8 +238,8 @@ let function cardPremiumHeader() {
         : hasEliteBattlePass.value ? loc("bp/reward")
         : loc("bp/required/tip")
       )
-      image = Picture(typeIcon)
-    }}
+    }.__update(iconData)
+  }
 }
 
 let cardCount = @(count, style = {}) {

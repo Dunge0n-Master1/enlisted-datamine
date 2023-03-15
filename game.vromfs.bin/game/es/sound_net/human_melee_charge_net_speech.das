@@ -1,5 +1,5 @@
 require ecs
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 
 
 [es(tag=server, track=human_melee_charge__isActive)]

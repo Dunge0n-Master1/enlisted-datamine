@@ -2,6 +2,7 @@ require ecs
 require app
 require EnlistedHuman
 require game.es.events
+require enlisted.events_enlisted
 
 [es(tag=server, on_appear, track=human_weap__currentGunEid)]
 def set_aim_stamina_values_from_weapon(evt : Event;
@@ -90,7 +91,7 @@ def aim_stamina_save_start_time_client(evt : Event;
     human_weap__aimStartTime = get_sync_time()
 
 [es(tag=server, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=human_phys_es)]
-def drain_stamina_on_aim(evt : UpdateStageInfoAct;
+def drain_stamina_on_aim(evt : ParallelUpdateFrameDelayed;
                          human_weap__drainStaminaOnAim : float;
                          human_weap__drainStaminaDelay : float = 0.f;
                          bipod__enabled : bool = false;
@@ -103,7 +104,7 @@ def drain_stamina_on_aim(evt : UpdateStageInfoAct;
     human_net_phys.phys.currentState.restoreStaminaMult = 0.0
 
 [es(tag=netClient, REQUIRE=hero, after=(before_net_phys_sync, entity_restore_stamina_mult_applier_es), before=human_phys_es)]
-def drain_stamina_on_aim_client(evt : UpdateStageInfoAct;
+def drain_stamina_on_aim_client(evt : ParallelUpdateFrameDelayed;
                                 human_weap__drainStaminaOnAim : float;
                                 human_weap__drainStaminaDelay : float = 0.f;
                                 bipod__enabled : bool = false;

@@ -1,0 +1,39 @@
+require ecs
+require AnimV20
+require enlisted.events_enlisted
+
+// No parallel for as after all optimizations it doesn't give any performance boost on PC
+// as each update (for all entities in Enlisted with 20 bots) is 12us on average (on PC)
+// with 41us max observed.
+[es]
+def anim_state_es(info : ParallelUpdateFrameDelayed;
+                  animchar__updatable : bool;
+                  animchar__animState : Object;
+                  var animchar : AnimcharBaseComponent;
+                  var animchar__animStateDirty : bool&;
+                  var animchar__appliedAnimSpeed : float&;
+                  animchar__visible : bool = true;
+                  animchar__actWhenInvisible : bool = false;
+                  animchar__animSpeed : float = 0.f;
+                  animchar__accumDt = -1.f;
+                  animchar__dtThreshold = 0.f)
+  if (!animchar__updatable ||
+      (!animchar__visible && !animchar__actWhenInvisible &&
+      (animchar__accumDt + info.dt) < animchar__dtThreshold))
+    return
+
+  let speedThresholdRatio = 0.1f
+  let speedsAlmostEqual = abs(animchar__animSpeed - animchar__appliedAnimSpeed) <= animchar__appliedAnimSpeed * speedThresholdRatio;
+  if (!animchar__animStateDirty && speedsAlmostEqual)
+    return
+
+  var animGraph = animchar.animGraph
+  if (animGraph != null)
+    for state in animchar__animState
+      let stateId = get_int(state.value) ?? 0
+      if (animchar__animStateDirty)
+        *animGraph |> anim_graph_enqueueState(*animchar.animState, stateId, -1.f, animchar__animSpeed)
+      elif (!speedsAlmostEqual)
+        *animGraph |> anim_graph_setStateSpeed(*animchar.animState, stateId, animchar__animSpeed)
+    animchar__animStateDirty = false
+    animchar__appliedAnimSpeed = animchar__animSpeed

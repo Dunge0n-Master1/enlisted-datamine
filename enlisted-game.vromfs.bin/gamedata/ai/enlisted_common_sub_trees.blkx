@@ -476,6 +476,65 @@ sequencer{
 }
 
 sequencer{
+  name:t="sub.bombEscape"
+
+  reaction{
+    event:t="regularCheck"
+
+    repeat{
+      count:i=1
+
+      subTree{
+        name:t=""
+        treeName:t="sub.chooseMaxStance"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkDowned"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.checkBurning"
+      }
+    }
+  }
+
+  findDangerousBomb{
+    dangerPosParam:t="bombDangerousPos"
+  }
+
+  findSafeFromBombPos{
+    dangerPosParam:t="bombDangerousPos"
+    safePosParam:t="currentSafePos"
+  }
+
+  setCurrentAiAction{
+    state:t="hide"
+  }
+
+  wait{
+    range:p2=0.1, 0.3
+    resetable:b=yes
+  }
+
+  wait{
+    range:p2=0.8, 1.2
+    resetable:b=yes
+  }
+
+  moveToPos{
+    posParam:t="currentSafePos"
+    sprintTimerRange:p2=10.0, 20.0
+    minDistToSprint:r=0.5
+    tryClimbing:b=yes
+    maxStanceParam:t="maxStance"
+    avoidAiObstacles:b=no
+  }
+}
+
+sequencer{
   name:t="sub.rethrowGrenade"
 
   not{
@@ -757,13 +816,19 @@ sequencer{
         resetable:b=yes
       }
 
-      moveToPos{
-        posParam:t="dmgZoneEscapePos"
-        sprintTimerRange:p2=10.0, 20.0
-        minDistToSprint:r=0.5
-        tryClimbing:b=yes
-        distThreshold:r=1.0
-        avoidAiObstacles:b=no
+      parallel{
+
+        moveToPos{
+          posParam:t="dmgZoneEscapePos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=0.5
+          tryClimbing:b=yes
+          distThreshold:r=1.0
+          avoidAiObstacles:b=no
+        }
+
+        extinguish{
+        }
       }
     }
 
@@ -1946,7 +2011,7 @@ sequencer{
 }
 
 sequencer{
-  name:t="sub.moveToPosition"
+  name:t="sub.moveToRegroupPosition"
 
   getRegroupPos{
     posParam:t="regroupPosition"
@@ -1957,183 +2022,38 @@ sequencer{
     orderPosParam:t="wishPosition"
   }
 
-  wait{
-    range:p2=0.1, 0.3
-    resetable:b=yes
-  }
-
-  orderedSelector{
-
-    isVarsIntEqual{
-      lhs:t="isUnreachable"
-      rhs_value:i=0
-    }
-
-    not{
-
-      checkDistance{
-        posParam:t="wishPosition"
-        otherPosParam:t="unreachablePos"
-        radius:r=2.0
-        yRadius:r=1.0
-      }
-    }
-  }
-
-  orderedSelector{
-
-    sequencer{
-
-      moveToPos{
-        posParam:t="wishPosition"
-        sprintTimerRange:p2=10.0, 20.0
-        minDistToSprint:r=1.5
-        lookVisc:r=0.1
-        tryClimbing:b=yes
-        maxStanceParam:t="maxStance"
-        stuckDirParam:t="stuckDir"
-        timeToStuck:r=0.9
-        incObstacles:b=yes
-        avoidAiObstacles:b=no
-        distThreshold:r=1.0
-      }
-
-      setIntVar{
-        to:t="isUnreachable"
-        value:i=0
-      }
-    }
-
-    sequencer{
-
-      moveToPos{
-        posParam:t="wishPosition"
-        sprintTimerRange:p2=10.0, 20.0
-        minDistToSprint:r=1.5
-        lookVisc:r=0.1
-        tryClimbing:b=yes
-        maxStanceParam:t="maxStance"
-        stuckDirParam:t="stuckDir"
-        timeToStuck:r=0.9
-        incObstacles:b=no
-        avoidAiObstacles:b=no
-        distThreshold:r=1.0
-      }
-
-      setIntVar{
-        to:t="isUnreachable"
-        value:i=0
-      }
-    }
-
-    exitHandler{
-
-      sequencer{
-
-        setIntVar{
-          to:t="isUnreachable"
-          value:i=1
-        }
-
-        copyPoint3Var{
-          from:t="wishPosition"
-          to:t="unreachablePos"
-        }
-
-        not{
-
-          repeatUntilFail{
-
-            getPointAroundAIPos{
-              dirParam:t="stuckDir"
-              outPosParam:t="outStuckPos"
-              forwPosParam:t="outStuckForwPos"
-              fromPosParam:t="moveFromPos"
-              toPosParam:t="wishPosition"
-              resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
-            }
-
-            not{
-
-              sequencer{
-
-                wait{
-                  range:p2=0.1, 0.2
-                  resetable:b=yes
-                }
-
-                success{
-
-                  moveByDir{
-                    endPos:t="outStuckPos"
-                    duration:r=0.7
-                    distThresholsd:r=0.1
-                  }
-                }
-
-                moveToPos{
-                  posParam:t="wishPosition"
-                  sprintTimerRange:p2=10.0, 20.0
-                  minDistToSprint:r=1.5
-                  lookVisc:r=0.1
-                  tryClimbing:b=yes
-                  maxStanceParam:t="maxStance"
-                  distThreshold:r=1.0
-                  timeToStuck:r=0.9
-                  avoidAiObstacles:b=no
-                }
-
-                setIntVar{
-                  to:t="isUnreachable"
-                  value:i=0
-                }
-              }
-            }
-          }
-        }
-      }
-
-      setIntVar{
-        to:t="resetAIPointsGenerator"
-        value:i=1
-      }
-    }
-  }
-
-  getAgentAIPos{
-    outPosParam:t="moveFromPos"
+  subTree{
+    name:t=""
+    treeName:t="sub.moveToPosition"
   }
 }
 
 sequencer{
-  name:t="sub.moveToCoverNearPosition"
+  name:t="sub.moveToPosition"
 
   wait{
     range:p2=0.1, 0.3
     resetable:b=yes
   }
 
-  orderedSelector{
-
-    isVarsIntEqual{
-      lhs:t="isUnreachable"
-      rhs_value:i=0
-    }
-
-    not{
-
-      checkDistance{
-        posParam:t="wishPosition"
-        otherPosParam:t="unreachablePos"
-        radius:r=2.0
-        yRadius:r=1.0
-      }
-    }
+  getAgentAIPos{
+    outPosParam:t="moveFromPos"
   }
 
   orderedSelector{
 
     sequencer{
+
+      orderedSelector{
+
+        isOnNavmesh{
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.returnToNavmesh"
+        }
+      }
 
       moveToPos{
         posParam:t="wishPosition"
@@ -2150,8 +2070,8 @@ sequencer{
       }
 
       setIntVar{
-        to:t="isUnreachable"
-        value:i=0
+        to:t="resetAIPointsGenerator"
+        value:i=1
       }
     }
 
@@ -2172,87 +2092,75 @@ sequencer{
       }
 
       setIntVar{
-        to:t="isUnreachable"
-        value:i=0
-      }
-    }
-
-    exitHandler{
-
-      sequencer{
-
-        setIntVar{
-          to:t="isUnreachable"
-          value:i=1
-        }
-
-        copyPoint3Var{
-          from:t="wishPosition"
-          to:t="unreachablePos"
-        }
-
-        not{
-
-          repeatUntilFail{
-
-            getPointAroundAIPos{
-              dirParam:t="stuckDir"
-              outPosParam:t="outStuckPos"
-              forwPosParam:t="outStuckForwPos"
-              fromPosParam:t="moveFromPos"
-              toPosParam:t="wishPosition"
-              resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
-            }
-
-            not{
-
-              sequencer{
-
-                wait{
-                  range:p2=0.1, 0.2
-                  resetable:b=yes
-                }
-
-                success{
-
-                  moveByDir{
-                    endPos:t="outStuckPos"
-                    duration:r=0.7
-                    distThresholsd:r=0.1
-                  }
-                }
-
-                moveToPos{
-                  posParam:t="wishPosition"
-                  sprintTimerRange:p2=10.0, 20.0
-                  minDistToSprint:r=1.5
-                  lookVisc:r=0.1
-                  tryClimbing:b=yes
-                  maxStanceParam:t="maxStance"
-                  distThreshold:r=1.0
-                  timeToStuck:r=0.9
-                  avoidAiObstacles:b=no
-                }
-
-                setIntVar{
-                  to:t="isUnreachable"
-                  value:i=0
-                }
-              }
-            }
-          }
-        }
-      }
-
-      setIntVar{
         to:t="resetAIPointsGenerator"
         value:i=1
       }
     }
+
+    ifThenElse{
+
+      isOnNavmesh{
+      }
+
+      failed{
+
+        subTree{
+          name:t=""
+          treeName:t="sub.moveToUnstuck"
+        }
+      }
+
+      failed{
+
+        subTree{
+          name:t=""
+          treeName:t="sub.returnToNavmesh"
+        }
+      }
+    }
+  }
+}
+
+sequencer{
+  name:t="sub.returnToNavmesh"
+
+  wait{
+    range:p2=0.1, 0.2
+    resetable:b=yes
   }
 
-  getAgentAIPos{
-    outPosParam:t="moveFromPos"
+  findWayBackToNavmesh{
+    outPosParam:t="outStuckPos"
+  }
+
+  moveByDir{
+    endPos:t="outStuckPos"
+    duration:r=1.2
+    distThresholsd:r=0.1
+  }
+}
+
+sequencer{
+  name:t="sub.moveToUnstuck"
+
+  wait{
+    range:p2=0.1, 0.2
+    resetable:b=yes
+  }
+
+  getPointAroundAIPos{
+    dirParam:t="stuckDir"
+    outPosParam:t="outStuckPos"
+    forwPosParam:t="outStuckForwPos"
+    fromPosParam:t="moveFromPos"
+    toPosParam:t="wishPosition"
+    resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+  }
+
+  moveByDir{
+    endPos:t="outStuckPos"
+    duration:r=1.5
+    distThresholsd:r=0.1
   }
 }
 
@@ -2594,7 +2502,7 @@ sequencer{
 
   subTree{
     name:t=""
-    treeName:t="sub.moveToCoverNearPosition"
+    treeName:t="sub.moveToPosition"
   }
 }
 
@@ -2612,7 +2520,7 @@ sequencer{
   }
 
   subTree{
-    treeName:t="sub.moveToPosition"
+    treeName:t="sub.moveToRegroupPosition"
   }
 }
 
@@ -2620,36 +2528,6 @@ sequencer{
   name:t="sub.updateRegroupPosDefault"
 
   isLeader{
-  }
-
-  checkAtTime{
-    timeParam:t="underArtilleryTime"
-    range:p2=10.0, 1000000.0
-  }
-
-  not{
-
-    sequencer{
-
-      findActiveDamageZone{
-        safePosParam:t="dmgZoneEscapePos"
-        findWarning:b=yes
-      }
-
-      isIndoor{
-      }
-
-      getTime{
-        to:t="underArtilleryTime"
-      }
-
-      success{
-
-        setSquadFormation{
-          formation:t="closest"
-        }
-      }
-    }
   }
 
   success{

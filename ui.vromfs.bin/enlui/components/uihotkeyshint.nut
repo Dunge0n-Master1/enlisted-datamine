@@ -5,6 +5,7 @@ let formatInputBinding = require("%ui/control/formatInputBinding.nut")
 let parseDargHotkeys =  require("%ui/components/parseDargHotkeys.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 let {HUD_TIPS_HOTKEY_FG} = require("%ui/hud/style.nut")
+let { sound_play } = require("sound")
 
 let function mkHintRow(hotkeys, params={}) {
   let textFunc = params?.textFunc ??@(text) {
@@ -33,9 +34,14 @@ let function mkHintRow(hotkeys, params={}) {
   }
 }
 let function mkHotkey(hotkey, action, params={}){
+  let function hotkeyAction() {
+    action?()
+    if (!params?.silenced)
+      sound_play("ui/enlist/button_click")
+  }
   return {
     children = mkHintRow(hotkey, params)
-    hotkeys = [[hotkey, {action=action, description={skip=true}}]]
+    hotkeys = [[hotkey, {action=hotkeyAction, description={skip=true}}]]
   }.__merge(params)
 }
 

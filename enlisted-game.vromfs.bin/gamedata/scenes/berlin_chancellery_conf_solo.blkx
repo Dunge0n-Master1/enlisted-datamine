@@ -1665,9 +1665,9 @@ entity{
   mission_name:t="berlin_chancellery_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/berlin_chancellery_dom_01.jpg"
-    item:t="ui/berlin_chancellery_dom_04.jpg"
-    item:t="ui/berlin_chancellery_dom_03.jpg"
+    item:t="ui/berlin_chancellery_dom_01.avif"
+    item:t="ui/berlin_chancellery_dom_04.avif"
+    item:t="ui/berlin_chancellery_dom_03.avif"
   }
 }
 
@@ -2389,13 +2389,6 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.97528, 0.0, -0.220976] [0.0, 1.0, 0.0] [0.220976, -0.0, 0.97528] [231.64, -0.357255, -556.676]]
-  groupName:t="sector_4_a"
-  active:b=no
-}
-
-entity{
-  _template:t="respawnChooser+respTeam2"
   transform:m=[[0.999774, 0.0, -0.021246] [0.0, 1.0, 0.0] [0.021246, -0.0, 0.999774] [234.285, 0.0384263, -604.753]]
   active:b=no
   groupName:t="sector_4_a"
@@ -2714,7 +2707,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.246377, 0.0, 0.969174] [0.0, 1.0, -0.0] [-0.969174, 0.0, 0.246377] [230.538, 4.82135, -548.176]]
+  transform:m=[[0.2443, 0.0, 0.9697] [0.0, 1.0, -0.0] [-0.9697, 0.0, 0.2443] [251.995, -0.355424, -577.393]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=1
 }
@@ -2779,7 +2772,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.949645, 0.0, 0.313328] [0.0, 1.0, -0.0] [-0.313328, 0.0, 0.949645] [232.172, -0.11524, -557.689]]
+  transform:m=[[0.0492821, 0.0, 0.998785] [0.0, 1.0, -0.0] [-0.998785, 0.0, 0.0492821] [231.905, 4.39806, -543.571]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=1
 }

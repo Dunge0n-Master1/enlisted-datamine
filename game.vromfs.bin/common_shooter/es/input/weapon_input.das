@@ -178,10 +178,19 @@ def human_weapon_switch_input_es(evt : EventDaInputActionTriggered;
     return
   if !isInVehicle || human_vehicle__isHoldingGunPassenger
     for i in range(0, human_input__weaponSlotCount)
-      let weapon = human_weap__gunEids[i]
-      if !!weapon && action == human_input__weapons[i] && (!human_vehicle__isHoldingGunPassenger || is_gun_slot_allowed_to_hold_gun_in_hatch(i))
-        set_weapon_slot(time, weapon, HUWeaponSlots(i), ct, last_change_time)
-        return
+      if action != human_input__weapons[i]
+        continue
+      if human_vehicle__isHoldingGunPassenger && !is_gun_slot_allowed_to_hold_gun_in_hatch(i)
+        continue
+
+      let weaponEid = human_weap__gunEids[i]
+      if !weaponEid
+        continue
+      if has(weaponEid, "disallowUseInHoldGunMode") && human_vehicle__isHoldingGunPassenger
+        continue
+
+      set_weapon_slot(time, weaponEid, HUWeaponSlots(i), ct, last_change_time)
+      return
 
   if action == human_input__weaponNext || action == human_input__weaponPrev
     let forward = action == human_input__weaponNext

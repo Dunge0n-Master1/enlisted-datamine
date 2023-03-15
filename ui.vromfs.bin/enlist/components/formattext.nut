@@ -14,7 +14,7 @@ let function mkFormatText(style, overrides = null) {
   let params = clone defParams
   params.style = params.style.__merge(style)
   if (typeof formatters == "table")
-    params.formatters = params.formatters.__merge(overrides)
+    params.formatters = params.formatters.__merge(overrides ?? {})
   return mkFormatAst(params)
 }
 

@@ -20,6 +20,7 @@ let { mkRankIcon, getRankConfig, rankIconSize
 let { SetReplayTarget } = require("dasevents")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { kindIcon, classTooltip } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 
 let LINE_H = hdpxi(40)
 let NUM_COL_WIDTH = hdpx(45)
@@ -173,6 +174,36 @@ let function mkPlayerRank(playerData, isInteractive) {
       })
 }
 
+let function mkPlayerClass(playerData, isInteractive, sf) {
+  let sKind = playerData.player?.controlled_soldier__sKind ?? ""
+  let sClassRare = playerData.player?.controlled_soldier__sClassRare ?? 0
+  let sClass = playerData.player?.controlled_soldier__sClass ?? ""
+  let army = playerData.player?.army ?? ""
+
+  if (sKind == "" || sClass == "" || army == "")
+    return null
+
+  return withTooltip({
+      margin = [0, bigGap]
+      hplace = ALIGN_RIGHT
+      vplace = ALIGN_CENTER
+      children = kindIcon(sKind, rankIconSize, sClassRare, playerColor(playerData, sf))
+    },
+    @() isInteractive ? classTooltip(army, sClass, sKind) : null
+  )
+}
+
+let function mkPlayerBattleIcon(playerData, isInteractive, sf) {
+  if (playerData?.haveSessionResult)
+    return mkPlayerRank(playerData, isInteractive)
+
+  if (!playerData.isAlly)
+    return null
+
+  return mkPlayerClass(playerData, isInteractive, sf)
+    ?? mkPlayerRank(playerData, isInteractive)
+}
+
 let queryPlayerGetSquad = ecs.SqQuery("query_player_get_squad", {
   comps_ro = [["respawner__squad", ecs.TYPE_EID]]
 })
@@ -238,9 +269,9 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
         player = {
           name = playerData.player.name
           userid = playerUid.tointeger()
-          nickFrame = playerData.player.decorators__nickFrame
-          portrait = playerData.player.decorators__portrait
-          rank = playerData.player?.player_info__military_rank
+          nickFrame = playerData.player?.decorators__nickFrame ?? ""
+          portrait = playerData.player?.decorators__portrait ?? ""
+          rank = playerData.player?.player_info__military_rank ?? 0
           rating = playerData.player?.player_info__rating ?? 0
         }
       })
@@ -381,7 +412,7 @@ let COLUMN_PLAYER_NAME = {
           ? mkMemberIcon((playerData.player.memberIndex + 1).tostring(), playerData, sf)
               .__update({ padding = [0, bigGap] })
           : null
-        mkPlayerRank(playerData, isInteractive)
+        mkPlayerBattleIcon(playerData, isInteractive, sf)
       ]
     }
   })
@@ -428,13 +459,13 @@ let COLUMN_CAPTURES = {
 }
 let COLUMN_DEATH = {
   width = NUM_COL_WIDTH
-  headerIcon = "!ui/skin#lb_deaths.png"
+  headerIcon = "!ui/skin#lb_deaths.avif"
   field = "scoring_player__squadDeaths"
   locId = "scoring/deathsSquad"
 }
 let COLUMN_SCORE = {
   width = SCORE_COL_WIDTH
-  headerIcon = "!ui/skin#lb_score.png"
+  headerIcon = "!ui/skin#lb_score.avif"
   field = "score"
   locId = "scoring/total"
 }

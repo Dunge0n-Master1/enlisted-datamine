@@ -1,9 +1,25 @@
 require ecs
 require app
+require soundEvent
 require soundSystem
 require sound_utils.modules.sound_utils_events
 require sound_utils_net.modules.sound_utils_net_events
 require DagorMath
+
+
+[es(tag=sound, track=sound_bank_preset_state__isValid)]
+def birds_sound_toggle(evt : Event;
+                       sound_bank_preset_state__isValid : bool;
+                       birds_global_sound_var__name : string;
+                       var birds_global_sound_var__id : SoundVarId&;
+                       var birds_global_sound_var__value : float&)
+  if sound_bank_preset_state__isValid
+    birds_global_sound_var__id = get_var_id_global(birds_global_sound_var__name)
+    if !birds_global_sound_var__id
+      sound_debug("birds \"{birds_global_sound_var__name}\" global var is missing: should remove template from scene")
+  else
+    birds_global_sound_var__id = invalid_sound_var_id()
+    birds_global_sound_var__value = -1.
 
 
 [es(tag=sound)]
@@ -17,7 +33,11 @@ def birds_sound_shut_up(evt : EventOnWeaponSound;
 [es(tag=sound)]
 def birds_sound_update(info : ParallelUpdateFrameDelayed;
                        birds_global_sound_var__noiseTime : float;
-                       birds_global_sound_var__name : string;
-                       birds_global_sound_var__timeRange : float2)
-  let action = cvt(info.curTime - birds_global_sound_var__noiseTime, birds_global_sound_var__timeRange.x, birds_global_sound_var__timeRange.y, 1., 0.)
-  set_var_global(birds_global_sound_var__name, action)
+                       birds_global_sound_var__id : SoundVarId;
+                       birds_global_sound_var__timeRange : float2;
+                       var birds_global_sound_var__value : float&)
+  if !!birds_global_sound_var__id
+    let action = cvt(info.curTime - birds_global_sound_var__noiseTime, birds_global_sound_var__timeRange.x, birds_global_sound_var__timeRange.y, 1., 0.)
+    if birds_global_sound_var__value != action
+      birds_global_sound_var__value = action
+      set_var_global(birds_global_sound_var__id, action)

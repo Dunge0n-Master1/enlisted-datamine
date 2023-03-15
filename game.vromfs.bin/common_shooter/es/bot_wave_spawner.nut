@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let { TEAM_UNASSIGNED } = require("team")
+let { EventBotSpawned, mkEventBotSpawned } = require("%enlSqGlob/sqevents.nut")
 let random = require("dagor.random")
 let {get_team_eid} = require("%dngscripts/common_queries.nut")
 let {find_respawn_base_for_team} = require("das.respawn")
@@ -39,7 +40,7 @@ let function onWaveTimer(_evt, eid, comp) {
       return
   }
 
-  let wishPosition = attractPoints[random.grnd() % attractPoints.len()]
+  let wishPosition = attractPoints[random.rnd() % attractPoints.len()]
   let potentialPosition = array(1)
   if (fill_walkable_positions_around(wishPosition, potentialPosition, spawnDist, 1.0))
     spawn({
@@ -49,7 +50,7 @@ let function onWaveTimer(_evt, eid, comp) {
       template = comp["bot_spawner__template"],
       transform = transform,
       potentialPosition = potentialPosition,
-      onBotSpawned = @(new_eid) ecs.g_entity_mgr.sendEvent(eid, ecs.event.EventBotSpawned({ eid = new_eid }))
+      onBotSpawned = @(new_eid) ecs.g_entity_mgr.sendEvent(eid, mkEventBotSpawned({ eid = new_eid }))
     })
 }
 
@@ -76,7 +77,7 @@ ecs.register_es("bot_spawner_timer_es", {
 
 ecs.register_es("bot_spawner_on_spawn_es",
   {
-    [ecs.sqEvents.EventBotSpawned] = function(evt, _eid, comp){
+    [EventBotSpawned] = function(evt, _eid, comp){
       comp["bot_spawner__spawnedAliveEntities"].append(evt.data.eid)
     }
   },

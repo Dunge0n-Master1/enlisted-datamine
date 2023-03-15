@@ -1,5 +1,6 @@
 module human_weap_common shared
 require ecs
+require ecs.safe
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require game.es.events
@@ -19,7 +20,60 @@ require Gun
 require AnimV20
 require DagorMath
 require DagorMathUtils
+require WeapHelpers
+require common_shooter.es.human.human_reload_common
+require RendInst
+require Dacoll
 
+def reset_weapon_state(var phys : HumanPhys&)
+  assume weapEquipState = phys.currentState.weapEquipState
+  weapEquipState.progress = 0.
+  weapEquipState.curState = HUWeaponEquipState EES_HOLSTERING
+  weapEquipState.nextSlot = phys.appliedCT.chosenWeapon
+
+def check_gun_trace(phys : HumanPhys;
+                    gun_tm : float3x4;
+                    len_override : float;
+                    gun_mat_id : int;
+                    max_backoff : float;
+                    var backoff : float&)
+  assume currentState = phys.currentState
+  assume weaponParams = phys.weaponParams[int(currentState.weapEquipState.curSlot)]
+
+  let traceHandle = phys.traceHandle
+  let gunDir = currentState.gunDir
+
+  backoff = 0.
+
+  if (phys.precompWeaponPos == null ||
+      !phys.precompWeaponPos.isLoaded ||
+      !weaponParams.exists ||
+      currentState.isCrawl ||
+      weaponParams.gunLen < 0.05)
+    return false
+
+  let gunLen = len_override >= 0. ? len_override : weaponParams.gunLen
+  let backupDist = min(0.2, gunLen * 0.5)
+  let gunStartPos = gun_tm[3] - gunDir * backupDist
+
+  let gunAimPos = gun_tm * weaponParams.offsAimNode - gunDir * backupDist
+  let leftPos = gun_tm * weaponParams.offsCheckLeftNode - gunDir * backupDist
+  let rightPos = gun_tm * weaponParams.offsCheckRightNode - gunDir * backupDist
+  var t = gunLen + backupDist
+  var pmid = -1
+  var norm : float3
+  var riDesc = RendInstDesc()
+  let res = (traceray_normalized(gunStartPos, gunDir, t, pmid, norm, ETF_DEFAULT, riDesc, gun_mat_id, traceHandle) ||
+             traceray_normalized(gunAimPos, gunDir, t, pmid, norm, ETF_DEFAULT, riDesc, gun_mat_id, traceHandle) ||
+             traceray_normalized(leftPos, gunDir, t, pmid, norm, ETF_DEFAULT, riDesc, gun_mat_id, traceHandle) ||
+             traceray_normalized(rightPos, gunDir, t, pmid, norm, ETF_DEFAULT, riDesc, gun_mat_id, traceHandle))
+  if !res
+    return false
+  let backoffAmount = gunLen + backupDist - t
+  if backoffAmount <= max_backoff
+    backoff = backoffAmount
+    return false
+  return true
 
 def is_human_allowed_shooting(eid : EntityId; attached_gun_eid : EntityId; human_net_phys : HumanActor) : bool
   assume currentState = human_net_phys.phys.currentState
@@ -48,8 +102,14 @@ def is_human_allowed_shooting(eid : EntityId)
     res = is_human_allowed_shooting(eid, human_attached_gun__attachedGunEid, human_net_phys)
   return res
 
+def human_weap_clamp_vert_aim_angle(angle : float; interp_quat : quat; limits : float2)
+  var pitchBasis : float
+  var heading : float
+  var bank : float
+  quat_to_euler(interp_quat, heading, pitchBasis, bank)
+  return clamp(angle, pitchBasis + limits.x, pitchBasis + limits.y)
 
-def apply_gun_angle_offsets(phys : HumanPhys; at_time : float; var angles : float2&)
+def apply_gun_angle_offsets(phys : HumanPhys; at_time : float; limits : float2; var angles : float2&)
   assume prevState = phys.previousState
   assume curState  = phys.currentState
   let prevOffset = prevState.breathOffset + prevState.handsShakeOffset + prevState.gunAimOffset
@@ -58,7 +118,7 @@ def apply_gun_angle_offsets(phys : HumanPhys; at_time : float; var angles : floa
 
   angles += lerp(prevOffset, curOffset, float2(interpK))
   let interpQuat = slerp(prevState.location.O.quat, curState.location.O.quat, interpK)
-  angles.y = phys |> human_phys_clampVertAimAngle(angles.y, interpQuat)
+  angles.y = human_weap_clamp_vert_aim_angle(angles.y, interpQuat, limits)
 
 
 def human_weap_get_shoot_tm(eid : EntityId; at_time : float; var out_tm : float3x4&) : bool
@@ -72,11 +132,11 @@ def human_weap_get_shoot_tm(eid : EntityId; at_time : float; var out_tm : float3
   return isOk
 
 
-def human_weap_get_aim_tm_impl(human_net_phys : HumanActor; at_time : float; apply_offsets : bool) : float3x4
+def human_weap_get_aim_tm_impl(human_net_phys : HumanActor; at_time : float; apply_offsets : bool; vert_limits : float2) : float3x4
   var gunDir = human_net_phys.phys.producedCT.wishShootDir
   var gunAngles = dir_to_angles(gunDir)
   if apply_offsets
-    apply_gun_angle_offsets(human_net_phys.phys, at_time, gunAngles)
+    apply_gun_angle_offsets(human_net_phys.phys, at_time, vert_limits, gunAngles)
   gunDir = angles_to_dir(gunAngles)
   var camPos : float3
 
@@ -102,11 +162,14 @@ def human_weap_get_aim_tm(eid : EntityId; at_time : float; var out_tm : float3x4
 
   var isOk = false
   query(eid) <| $ [es] (human_net_phys : HumanActor;
+                        human_weap__crawlClampVertAngleRad : float2;
+                        human_weap__clampVertAngleRad : float2;
                         human_weap__mortarMode : bool = false;
                         human_attached_gun__attachedGunEid : EntityId = INVALID_ENTITY_ID)
     isOk = true
     let applyOffsets = !human_attached_gun__attachedGunEid && !human_weap__mortarMode
-    out_tm = human_weap_get_aim_tm_impl(human_net_phys, at_time, applyOffsets)
+    let vertLimits = human_net_phys.phys.currentState.isCrawl ? human_weap__crawlClampVertAngleRad : human_weap__clampVertAngleRad
+    out_tm = human_weap_get_aim_tm_impl(human_net_phys, at_time, applyOffsets, vertLimits)
   return isOk
 
 
@@ -204,6 +267,39 @@ struct GunUpdateCtx
   shotDeviationAdd : float
   fastThrowExclusive : bool
   deviationBufferSizeMult : float
+
+
+def search_grenade_for_fast_throw(var result_ammo_type : int&;
+                                  eid : EntityId;
+                                  grenade_gun_eid : EntityId;
+                                  start_ammo_type : int;
+                                  control_state : HumanControlState&)
+  var foundGrenade = false
+  query(eid) <| $ [es] (itemContainer : EidList)
+    query(grenade_gun_eid) <| $ [es(REQUIRE=gun)] (gun__ammoHolderIds : IntList&;
+                                                   gun__shell_prop_ids : GunShellPropIds&)
+      gather_ammo_for_gun(gun__ammoHolderIds, gun__shell_prop_ids, itemContainer) <| $(ammoItems)
+        let ammoItemsCount = length(ammoItems)
+        let curSlot = ammoItems |> find_index(start_ammo_type)
+        if !(control_state |> human_control_state_is_throw_state_set(HumanControlThrowSlot HCTS_ALL))
+          return
+        for i in range(ammoItemsCount)
+          let ammoItemId = ammoItems[(i + curSlot) % ammoItemsCount]
+          find_ammo_for_gun(grenade_gun_eid, itemContainer, ammoItemId, 0) <| $(ammoForGun : AmmoItemForGunResult)
+            if ammoForGun.itemIndex < 0
+              return
+            let itemEid = itemContainer[ammoForGun.itemIndex]
+            query(itemEid) <| $ [es] ([[shared_comp]] fastThrowSlots : Object;
+                                      item__grenadeType : string)
+              let slotConfig = *fastThrowSlots[item__grenadeType] as int
+              if slotConfig != null
+                for slot in each_enum(HumanControlThrowSlot HCTS_SLOT0)
+                  if int(slot) == 1 << (*slotConfig - 1) && control_state |> human_control_state_is_throw_state_set(slot)
+                    result_ammo_type = ammoItemId
+                    foundGrenade = true
+          if foundGrenade
+            return
+  return foundGrenade
 
 
 def human_weap_gun_update(var human_net_phys : HumanActor;
@@ -395,17 +491,17 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     // with main gun.
     query(overrideGunEid) <| $ [es(REQUIRE_NOT=doNotHideWeapWithoutAmmo)] (gun__totalAmmo : int = 0)
       if gun__totalAmmo == 0
-        var bestSlot = selectedGun
-        var i = 0
-        while i < int(HUWeaponSlots EWS_NUM) && bestSlot == selectedGun
-          if i == int(HUWeaponSlots EWS_GRENADE) || i == int(selectedGun)
-            ++i
-            continue
-          query(human_weap__gunEids[i]) <| $ [es] (gun__totalAmmo : int = 0; gun__ammo : int = 0)
+        var isSelectedGunChosen = false
+
+        let selectedGunIdx = int(selectedGun)
+        if selectedGunIdx >= 0 && selectedGunIdx < int(HUWeaponSlots EWS_NUM)
+          query(human_weap__gunEids[selectedGunIdx]) <| $ [es] (gun__totalAmmo : int = 0; gun__ammo : int = 0)
             if gun__totalAmmo > 0 || gun__ammo > 0
-              bestSlot = HUWeaponSlots(i)
-          ++i
-        phys.producedCT |> set_chosen_weapon(bestSlot)
+              phys.producedCT |> set_chosen_weapon(selectedGun)
+              isSelectedGunChosen = true
+
+        if !isSelectedGunChosen
+          switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
 
   if ct |> is_control_bit_set(HumanPhysControlType HCT_RELOAD) && ctx.isForReal && !isFastThrow
     // If we have subsidiary gun attached, reload it instead.
@@ -503,7 +599,7 @@ def take_grenade_in_hand(eid : EntityId;
   return false
 
 
-def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList implicit;
+def switch_to_first_weap_with_ammo(human_weap__gunEids : EidList;
                                    var phys : HumanPhys)
   var choosenSlot = -1
   for i in range(int(HUWeaponSlots EWS_NUM))

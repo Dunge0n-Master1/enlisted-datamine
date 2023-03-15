@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { curSoldierGuid } = require("squadInfoState.nut")
+let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { genPerksPointsStatistics } = require("playerStatistics.nut")
 let { resetProfile, dumpProfile } = require("state.nut")
 let { get_all_configs, premium_add, premium_remove, add_exp_to_soldiers, add_perk_points,

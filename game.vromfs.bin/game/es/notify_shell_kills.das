@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require game.utils.team
 require game.events_game
@@ -15,10 +16,10 @@ def check_shell_kill(victim_eid : EntityId; shell_id : int; offender_player_eid 
   let shellTemplate = getTemplateByName(shellTemplateName)
   if shellTemplate == null
     return
-  let vehicleStat = get_string(*shellTemplate |> getTemplateComponent("shell__vehicleKillStat"), "")
-  let infantryStat = get_string(*shellTemplate |> getTemplateComponent("shell__infantryKillStat"), "")
-  let crewStat = get_string(*shellTemplate |> getTemplateComponent("shell__crewKillStat"), "")
-  let soldierStat = get_string(*shellTemplate |> getTemplateComponent("shell__killSoldierStat"), "")
+  let vehicleStat = *shellTemplate |> getTemplateComponent("shell__vehicleKillStat") ?? ""
+  let infantryStat = *shellTemplate |> getTemplateComponent("shell__infantryKillStat") ?? ""
+  let crewStat = *shellTemplate |> getTemplateComponent("shell__crewKillStat") ?? ""
+  let soldierStat = *shellTemplate |> getTemplateComponent("shell__killSoldierStat") ?? ""
   let hasVehicleStat = !empty(vehicleStat)
   let hasInfantryStat = !empty(infantryStat)
   let hasCrewStat = !empty(crewStat)

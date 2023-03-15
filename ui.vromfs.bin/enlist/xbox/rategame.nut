@@ -74,6 +74,12 @@ onlineSettings.onlineSettingUpdated.subscribe(function(val) {
 
 console_register_command(@() checkRate(null), "xbox.check_rate")
 console_register_command(function() {onlineSettings.settings.mutate(@(s) s[ASKED_ID] <- false)}, "meta.resetSeenRateUs")
+console_register_command(function() {
+  logRG("Review requested from console command")
+  request_review(function(succ) {
+    logRG($"Review succeeded: {succ}")
+  })
+}, "debug.ask_review")
 
 foreach (w in [isInBattleState, debriefingState.show, onlineSettings.onlineSettingUpdated, armyStats])
   w.subscribe(checkRate)

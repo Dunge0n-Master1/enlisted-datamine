@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let remapWeaponToAnimState = require("menu_poses_for_weapons.nut")
-let {grnd} = require("dagor.random")
+let { rnd } = require("dagor.random")
 let { split_by_chars } = require("string")
 
 const SITTING_ORDER = 7
@@ -29,7 +29,7 @@ let function getAnimationBlacklist(itemTemplates) {
 }
 
 local function getIdleAnimState(weapTemplates, itemTemplates = null, overridedIdleAnims = null, seed = null, order = null) {
-  seed = seed ?? grnd()
+  seed = seed ?? rnd()
   if (seed < 0)
     seed = -seed
 

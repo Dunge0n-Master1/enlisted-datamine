@@ -16,6 +16,7 @@ require fx
 require ecs.safe
 require strings
 require enlisted.events_enlisted
+require PhysMat
 
 [soa_template]
 struct trackDirtFxFromBlk
@@ -34,6 +35,14 @@ struct trackDirtFxForStore
   track_dirt_fx__matFxTypeId : int
   track_dirt_fx__effectsEid : EntityId
   track_dirt_fx__matId : int
+
+struct TrackDirtFxTemporaries
+  dirtSpawnRateMult : float
+  wheelSideCount : int
+  furthestWheelIndex : int
+  furthestX : double
+  matName : string
+  matId : int
 
 [es(on_appear)]
 def global_track_fx_info_init(evt : Event;
@@ -84,6 +93,12 @@ def das_clear_vehicle_dirt_fx_es(evt : Event;
   for eid in track_dirt_fx__effectsEid
     destroyEntity(eid)
 
+[es(tag = render, on_appear, REQUIRE=deadEntity, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
+def das_clear_vehicle_dirt_fx_on_die_es(evt : Event;
+                                        track_dirt_fx__effectsEid : EidList)
+  for eid in track_dirt_fx__effectsEid
+    destroyEntity(eid)
+
 [soa_es, es(tag = render, on_appear, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
 def das_fill_vehicle_dirt_fx_es(evt : Event;
                                 animchar : AnimcharBaseComponent;
@@ -98,17 +113,19 @@ def das_fill_vehicle_dirt_fx_es(evt : Event;
         ]]
 
 
-[soa_es, es(tag = render, after=das_fill_vehicle_dirt_fx_es, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
+[soa_es, es(tag = render, after=das_fill_vehicle_dirt_fx_es, REQUIRE=track_fx__info, REQUIRE_NOT=deadEntity, REQUIRE=track_fx__default)]
 def das_vehicle_dirt_fx_es(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            transform : float3x4&;
                            animchar__updatable : bool;
                            vehicle_net_phys : VehiclePhysActor;
                            animchar : AnimcharBaseComponent;
-                           track_dirt_fx__updateInterval : float;
                            animchar__visible : bool = true;
-                           track_dirt_fx__thresholdDist : float = 250.f;
                            trackDirtFxFromBlk : trackDirtFxFromBlk_SOA;
+                           track_dirt_fx__updateInterval : float;
+                           track_dirt_fx__thresholdDist : float = 250.f;
+                           track_dirt_fx__waterLevelOffsetForWheel : float = 0.3;
+                           track_dirt_fx__waterLevelOffsetForEmitter : float = -0.1;
                            var trackDirtFxForStore : trackDirtFxForStore_SOA;
                            var track_dirt_fx__updateAtTime : float&)
   if (int(vehicle_net_phys.phys.currentState.wheelCount) == 0)
@@ -134,19 +151,17 @@ def das_vehicle_dirt_fx_es(info : ParallelUpdateFrameDelayed;
   let isOnGroundLeft = vehicle_net_phys.phys.currentState.leftTrack.isOnGround
   let isOnGroundRight = vehicle_net_phys.phys.currentState.rightTrack.isOnGround
 
-  var dirtSpawnRateMult : float[2]
-  var wheelSideCount : int[2]
-  var furthestX : double[2]
-  var matName : string[2]
-  var matId : int[2]
+  assume sideCount = 2 //right (0) and left (1) sides
+  var trackDirtFxTemporaries : TrackDirtFxTemporaries[sideCount]
 
   for i in range(int(vehicle_net_phys.phys.currentState.wheelCount))
     let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, i)
     let isLeft = float(wheel.pos.z) > 0.
     let trackSpd = isLeft ? leftTrackSpeed : rightTrackSpeed
     let sideIndex = isLeft ? 1 : 0
+    assume curInfo = trackDirtFxTemporaries[sideIndex]
 
-    wheelSideCount[sideIndex] += 1
+    curInfo.wheelSideCount += 1
 
     var spawnRateMult = 1.f
     if (wheel.lastMatId >= 0)
@@ -154,13 +169,26 @@ def das_vehicle_dirt_fx_es(info : ParallelUpdateFrameDelayed;
         spawnRateMult = matProps.spawnRateMult
 
         let adjustedX = trackSpd < 0.0 ? wheel.pos.x : -wheel.pos.x
-        if adjustedX > furthestX[sideIndex]
-          furthestX[sideIndex] = adjustedX
-          matName[sideIndex] = string(matProps.matName)
-          matId[sideIndex] = wheel.lastMatId
-    dirtSpawnRateMult[sideIndex] += spawnRateMult
-  for dirtSpawnRateMultElem, wheelSideCountElem in dirtSpawnRateMult, wheelSideCount
-    dirtSpawnRateMultElem = safediv(dirtSpawnRateMultElem, float(wheelSideCountElem))
+        if adjustedX > curInfo.furthestX
+          curInfo.furthestWheelIndex = i
+          curInfo.furthestX = adjustedX
+          curInfo.matName = string(matProps.matName)
+          curInfo.matId = wheel.lastMatId
+    curInfo.dirtSpawnRateMult += spawnRateMult
+
+  for curInfo in trackDirtFxTemporaries
+    let wheel = vehicle_phys_get_wheel(vehicle_net_phys.phys, curInfo.furthestWheelIndex)
+    var waterLevel = 0.0
+    let wheelWorldPos = transform * float3(wheel.pos)
+    let isUnderWater = (traceht_water(wheelWorldPos, waterLevel) &&
+                        wheelWorldPos.y < waterLevel + track_dirt_fx__waterLevelOffsetForWheel)
+    if isUnderWater
+      curInfo.matName = "water3d"
+      curInfo.matId = get_material_id(curInfo.matName)
+      track_dirt_mat_fx_get_props(curInfo.matId) <| $(waterMatProps : TrackDirtMatFxProps)
+        curInfo.dirtSpawnRateMult = waterMatProps.spawnRateMult
+    else
+      curInfo.dirtSpawnRateMult = safediv(curInfo.dirtSpawnRateMult, float(curInfo.wheelSideCount))
 
   for elemBlk, elemStore in trackDirtFxFromBlk, trackDirtFxForStore
     if elemStore.track_dirt_fx__nodeId < 0
@@ -182,21 +210,30 @@ def das_vehicle_dirt_fx_es(info : ParallelUpdateFrameDelayed;
     var effectSpd = trackSpd * elemBlk.track_dirt_fx__speedMult
     let trackDir = transform[0]
     let sideIndex = isLeft ? 1 : 0
+    assume curInfo = trackDirtFxTemporaries[sideIndex]
 
-    if info.curTime > track_dirt_fx__updateAtTime && elemStore.track_dirt_fx__matId != matId[sideIndex]
-      elemStore.track_dirt_fx__matId := matId[sideIndex]
+    if info.curTime > track_dirt_fx__updateAtTime && elemStore.track_dirt_fx__matId != curInfo.matId
+      elemStore.track_dirt_fx__matId := curInfo.matId
       destroyEntity(elemStore.track_dirt_fx__effectsEid)
     if !doesEntityExist(elemStore.track_dirt_fx__effectsEid)
-      let fxName = get_effect_name(eid, matName[sideIndex], matFxTypeId, string(elemBlk.track_dirt_fx__chassis))
+      let fxName = get_effect_name(eid, curInfo.matName, matFxTypeId, string(elemBlk.track_dirt_fx__chassis))
       elemStore.track_dirt_fx__effectsEid = spawn_effect(fxName, emmTm)
 
-    var spawnRate = dirtSpawnRateMult[sideIndex]
+    var spawnRate = curInfo.dirtSpawnRateMult
+    if curInfo.matName == "water3d"
+      var waterLevel = 0.0
+      let pos = emmTm[3]
+      traceht_water(pos, waterLevel)
+      if pos.y < waterLevel + track_dirt_fx__waterLevelOffsetForEmitter
+        spawnRate = 0.0
+    elif !isOnGround
+      spawnRate = 0.0
     if elemBlk.track_dirt_fx__atGround
       let mult = cvt(1.1f * trackSpd - groundSpd, elemBlk.track_dirt_fx__minSpeed, elemBlk.track_dirt_fx__maxSpeed, 0.f, 1.f)
-      spawnRate *= isOnGround ? mult * saturate(abs(groundSpd)) : 0.f
+      spawnRate *= mult * saturate(abs(groundSpd))
       effectSpd *= mult
     else
-      spawnRate *= isOnGround ? saturate(cvt(trackSpd, elemBlk.track_dirt_fx__minSpeed, elemBlk.track_dirt_fx__maxSpeed, 0.f, 1.f)) : 0.f
+      spawnRate *= saturate(cvt(trackSpd, elemBlk.track_dirt_fx__minSpeed, elemBlk.track_dirt_fx__maxSpeed, 0.f, 1.f))
 
     let vel = pointVel + trackDir * abs(effectSpd)
 

@@ -5,7 +5,8 @@ let { DBGLEVEL } = require("dagor.system")
 let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
   vehTplInVehiclesScene, vehDataInVehiclesScene,
-  itemInArmory, soldierInSoldiers, currentNewItem, scene,
+  itemInArmory, itemInArmoryAttachments, soldierInSoldiers,
+  currentNewItem, currentNewItemAttachments, scene,
   squadCampaignVehicleFilter, isVehicleSceneVisible
 } = require("%enlist/showState.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
@@ -26,6 +27,8 @@ let { selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
 let { soldiersLook } = require("%enlist/meta/servProfile.nut")
 let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nut")
 let { viewTemplates } = require("%enlist/items/itemCollageState.nut")
+let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
+let { enginObjectToPlace } = require("machinegun_tools.nut")
 
 
 /*
@@ -153,12 +156,21 @@ let function setCamera(cameraComps) {
 
 //!----- quick and dirty create entities for preview ---
 
-local function createEntity(template, transform, callback = null, extraTemplates=[]){
+local function createEntity(template, transform, callback = null, extraTemplates=[], attachTemplates=[]){
   if (template) {
     template = "+".join([template].extend(extraTemplates))
-    return ecs.g_entity_mgr.createEntity(template, { transform = transform }, callback)
+    let eid = ecs.g_entity_mgr.createEntity(template, { transform = transform }, callback)
+    local attachesEids = ecs.CompEidList()
+    foreach(attach in attachTemplates) {
+      let attachEid = ecs.g_entity_mgr.createEntity(attach, {
+        ["slot_attach__attachedTo"] = ecs.EntityId(eid),
+        ["slot_attach__visible"] = true
+      }, null)
+      attachesEids.append(ecs.EntityId(attachEid))
+    }
+    return {eid, attachesEids}
   }
-  return ecs.INVALID_ENTITY_ID
+  return {eid = ecs.INVALID_ENTITY_ID}
 }
 
 let logg = DBGLEVEL !=0 ? log_for_user : log
@@ -216,7 +228,7 @@ let function makeShowScene(sceneDesc, name){
   } = sceneDesc
   let query = ecs.SqQuery($"query{compName}", {
     comps_ro = [["transform", ecs.TYPE_MATRIX]]
-    comps_rw = [compName]
+    comps_rw = [compName, ["item_attaches", ecs.TYPE_EID_LIST, null]]
   })
   let visibleWatch = Computed(@() visibleScene.value == name ? watch.value : null)
   let isSceneFading = Computed(@() visibleScene.value == name && !isFadeDone.value)
@@ -226,8 +238,14 @@ let function makeShowScene(sceneDesc, name){
       return
     let function update(_baseEid, comp){
       if (!recreateSoldier || comp[compName] == ecs.INVALID_ENTITY_ID) {
+        let {eid, attachesEids = ecs.CompEidList()} = createEntityFunc(data, transformItemFunc(comp["transform"], data))
         ecs.g_entity_mgr.destroyEntity(comp[compName])
-        comp[compName] = createEntityFunc(data, transformItemFunc(comp["transform"], data))
+        comp[compName] = eid
+        if (comp.item_attaches != null) {
+          foreach (attach in comp.item_attaches)
+            ecs.g_entity_mgr.destroyEntity(attach)
+          comp.item_attaches = attachesEids
+        }
       }
       else {
         let newSoldierEid = reInitEntityFunc(data, transformItemFunc(comp["transform"], data), null, comp[compName])
@@ -259,8 +277,8 @@ let objectsToObserve = {
   soldiers = {
     compName = "menu_char_to_control",
     createEntityFunc = @(guid, transform, callback = null)
-      createSoldier({ guid, transform, callback, soldiersLook = soldiersLook.value,
-        premiumItems = allOutfitByArmy.value })
+      {eid = createSoldier({ guid, transform, callback, soldiersLook = soldiersLook.value,
+        premiumItems = allOutfitByArmy.value })}
     watch = soldierInSoldiers
     slaveWatches = [curCampItems, soldierViewGen, soldiersLook, allOutfitByArmy]
   },
@@ -268,13 +286,13 @@ let objectsToObserve = {
     compName = "menu_char_to_control",
     recreateSoldier = true
     createEntityFunc = @(guid, transform, callback = null)
-      createSoldier({
+      {eid = createSoldier({
         guid,
         transform,
         callback,
         soldiersLook = soldiersLook.value
         premiumItems = allOutfitByArmy.value
-        customizationOvr = appearanceToRender.value })
+        customizationOvr = appearanceToRender.value })}
     reInitEntityFunc = @(guid, transform, callback = null, reInitEid = ecs.INVALID_ENTITY_ID)
       createSoldier({
         guid,
@@ -290,18 +308,18 @@ let objectsToObserve = {
   soldier_in_middle = {
     compName = "menu_char_to_control",
     createEntityFunc = @(guid, transform, callback = null)
-      createSoldier({ guid, transform, callback, soldiersLook = soldiersLook.value isDisarmed = true })
+      {eid = createSoldier({ guid, transform, callback, soldiersLook = soldiersLook.value isDisarmed = true })}
     watch = soldierInSoldiers
     slaveWatches = [curCampItems, soldierViewGen, soldiersLook, allOutfitByArmy]
   },
   vehicles = {
     compName = "menu_vehicle_to_control",
     createEntityFunc = @(template, transform, callback = null)
-      createVehicle({
+      {eid = createVehicle({
         template, transform, callback,
         customazation = viewVehDecorators.value,
         extraTemplates = ["menu_vehicle"]
-      })
+      })}
     transformItemFunc = @(transform, ...) transform
     watch = vehTplInVehiclesScene
     slaveWatches = [viewVehDecorators]
@@ -323,9 +341,10 @@ let objectsToObserve = {
   armory = {
     compName = "menu_weapon_to_control",
     createEntityFunc = @(template, transform, callback=null)
-      createEntity(makeWeaponTemplate(template), transform, callback)
+      createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
     watch = itemInArmory
     shouldResetCameraDirection = Watched(true)
+    slaveWatches = [itemInArmoryAttachments]
   },
   inv_items = {
     compName = "menu_inv_items_to_control"
@@ -335,7 +354,7 @@ let objectsToObserve = {
   new_items = {
     compName = "menu_new_items_to_control",
     createEntityFunc = @(template, transform, callback=null)
-      createEntity(makeWeaponTemplate(template), transform, callback)
+      createEntity(makeWeaponTemplate(template), transform, callback, [], currentNewItemAttachments.value)
     watch = currentNewItem
     shouldResetCameraDirection = Watched(true)
   },
@@ -423,6 +442,7 @@ let currentSquadToPlace = Computed(function() {
     lastShownSquadToPlace = newSquad
   return lastShownSquadToPlace
 })
+
 let vehicleToPlace = Computed(function() {
   log($"[scene_control] vehicleToPlace {selectedSquadSoldiers.value} {selSquadVehicleGameTpl.value} {vehTplInVehiclesScene.value}")
   let vehicle = selectedSquadSoldiers.value
@@ -457,6 +477,17 @@ let vehiclesPlacesQuery = ecs.SqQuery("vehiclePlaces", {
 let menuBackgroundVehiclesQuery = ecs.SqQuery("menuBackgroundVehiclesQuery", {
   comps_rq = ["background_menu_vehicle"]
 })
+
+let createdEnginObjects = nestWatched("createdEnginObjects", [])
+let enginObjectsPlacesQuery = ecs.SqQuery("enginObjectPlaces", {
+  comps_ro = [
+    "transform",
+    ["priority_order", ecs.TYPE_INT, 0],
+    ["menuPosFilter", ecs.TYPE_STRING]
+  ]
+  comps_rq = ["menu_machinegun_respawnbase"]
+})
+
 
 let createdItems = nestWatched("createdItems", [])
 let itemsPlacesQuery = ecs.SqQuery("itemPlaces", {
@@ -517,6 +548,17 @@ let replaceVehicles = mkReplaceObjectsFunc("vehicles",
   squadCampaignVehicleFilter
 )
 
+let replaceEnginObject = mkReplaceObjectsFunc("enginObject",
+  enginObjectsPlacesQuery,
+  menuBackgroundVehiclesQuery,
+  @(object, place) createVehicle({
+    template = object
+    transform = mkOffsetTMatrix(place.transform, cameraOffset.value)
+  }),
+  createdEnginObjects,
+  selectedCampaign
+)
+
 let replaceInvItems = mkReplaceObjectsFunc("items",
   itemsPlacesQuery,
   menuBackgroundItemsQuery,
@@ -525,10 +567,12 @@ let replaceInvItems = mkReplaceObjectsFunc("items",
   createdItems)
 
 registerFadeBlackActions({
-  replace_soldiers  = @() replaceSoldiers(currentSquadToPlace.value)
-  replace_vehicles  = @() replaceVehicles(vehicleToPlace.value)
-  replace_inv_items = @() replaceInvItems(viewTemplates.value)
+  replace_soldiers     = @() replaceSoldiers(currentSquadToPlace.value)
+  replace_vehicles     = @() replaceVehicles(vehicleToPlace.value)
+  replace_engin_object = @() replaceEnginObject(enginObjectToPlace.value)
+  replace_inv_items    = @() replaceInvItems(viewTemplates.value)
 })
+
 
 let currentSquadToPlaceReplace = @(...)
   doFadeBlack({ fadein = 0.2, fadeout = 0.6, action = "replace_soldiers" })
@@ -536,12 +580,19 @@ let vehicleToPlaceReplace = @(...)
   doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_vehicles" })
 let itemsToPlaceReplace = @(...)
   doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_inv_items" })
+let enginObjectToPlaceReplace = @(...)
+  doFadeBlack({ fadein = 0.2, fadeout = 0.3, action = "replace_engin_object" })
+
 
 foreach(v in [currentSquadToPlace, squadCampaignVehicleFilter, cameraOffset])
   v.subscribe(currentSquadToPlaceReplace)
 
 foreach(v in [vehicleToPlace, squadCampaignVehicleFilter, cameraOffset, isVehicleSceneVisible])
   v.subscribe(vehicleToPlaceReplace)
+
+foreach(v in [enginObjectToPlace, selectedCampaign, cameraOffset])
+  v.subscribe(enginObjectToPlaceReplace)
+
 
 viewTemplates.subscribe(itemsToPlaceReplace)
 
@@ -552,6 +603,7 @@ ecs.register_es("setscene_es", {
       objectsToObserve.each(@(v) v.updateEntity())
       currentSquadToPlaceReplace()
       vehicleToPlaceReplace()
+      enginObjectToPlaceReplace()
    }
 })
 

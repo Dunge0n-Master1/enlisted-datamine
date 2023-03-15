@@ -111,6 +111,9 @@ pzkpfw_IV_ausf_H_turret{
   "turretsCorrection:tag"{
   }
 
+  "turretsCorrectionUseThreadPool:tag"{
+  }
+
   "turret_aim__shootRange:r"{
     _tags:t="gameClient"
     value:r=0.0

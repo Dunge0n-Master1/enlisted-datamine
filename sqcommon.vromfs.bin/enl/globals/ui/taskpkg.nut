@@ -34,13 +34,13 @@ let blinkAnimation = {
 let rewardAnimBg = {
   rendObj = ROBJ_IMAGE
   size = [pw(100), pw(100)]
-  image = Picture("ui/skin#tasks/completed_task_sign.png")
+  image = Picture("ui/skin#tasks/completed_task_sign.avif")
   transform = { scale = [3, 3] }
 }.__update(blinkAnimation)
 
 let mkTaskTextArea = @(txt, sf, style = {}) {
   rendObj = ROBJ_TEXTAREA
-  size = [pw(75), SIZE_TO_CONTENT]
+  size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.TextArea
   color = sf & S_HOVER ? titleTxtColor : defTxtColor
   text = txt
@@ -103,7 +103,7 @@ let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
             {
               rendObj = ROBJ_MASK
               size = [statusWidth / 2, statusWidth]
-              image = Picture("ui/uiskin/tasks/task_status_mask.png")
+              image = Picture("ui/uiskin/tasks/task_status_mask.avif")
               children = [
                 {
                   rendObj = ROBJ_WORLD_BLUR_PANEL

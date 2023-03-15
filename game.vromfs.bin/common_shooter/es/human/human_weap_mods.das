@@ -9,42 +9,9 @@ require DagorMath
 require DagorSystem
 require AnimV20
 require GeomNodeTree
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
-
-
-[es]
-def human_optics_deviation_es(info : UpdateStageInfoAct;
-                              eid : EntityId;
-                              human_net_phys : HumanActor;
-                              human_weap__currentGunEid : EntityId;
-                              human_weap__currentGunModEids : ecs::EidList;
-                              var entity_mods__shotDeviationMods : ecs::Object)
-  var gunScopeEid = find_scope_eid(human_weap__currentGunModEids)
-  let isIntegratedScope = get_bool(human_weap__currentGunEid, "gun__integratedScope") ?? false
-
-  if isIntegratedScope && !gunScopeEid
-    gunScopeEid = human_weap__currentGunEid
-
-  var devMult = 1.0
-  if human_net_phys.phys.currentState.isAiming
-    query(gunScopeEid) <| $ [es] (gunmod__deviationMult : float)
-      devMult = gunmod__deviationMult
-
-  let itf = entity_mods__shotDeviationMods |> get_float("optics_devitiation")
-
-  var changed = false
-  if itf != null
-    if (*itf) != devMult
-      changed = true
-  else
-    changed = true
-
-  entity_mods__shotDeviationMods |> set("optics_devitiation", devMult)
-
-  if changed
-    sendEvent(eid, [[EventOnModsChanged]])
-
 
 def set_lookat_from_sight_node(cur_time : float;
                                human_net_phys : HumanActor;
@@ -178,8 +145,16 @@ def human_weap_mod_toggle_es(evt : CmdWeapModToggle; eid : EntityId; human_weap_
       sendEvent(eid, [[CmdWeapModActivate slotId=evt.slotId, activate=!weapon_mod__active]])
 
 
+[es(tag=server, REQUIRE=human_weap__currentGunEid, track=human_weap__currentGunEid)]
+def human_weap_mod_toggle_cancel_es(evt : Event;
+                                    var human_weap__weapModActivateStartTime : float&;
+                                    var human_weap__weapModActivateFinishTime : float&)
+  human_weap__weapModActivateStartTime = -1.0
+  human_weap__weapModActivateFinishTime = -1.0
+
+
 [es(tag=server, before=net_phys_update_es, before=human_weap_update_es)]
-def human_weap_mod_active_update_es(info : UpdateStageInfoAct;
+def human_weap_mod_active_update_es(info : ParallelUpdateFrameDelayed;
                                     human_weap__gunMods : Array;
                                     human_weap__currentGunSlot : int;
                                     var human_weap__weapModActivateStartTime : float&;
@@ -236,8 +211,8 @@ def human_weap_mod_activate_req_es(evt : HumanRequestModActivate;
                           human_weap__weapModActivateFinishTime)
 
 
-[es(REQUIRE=watchedByPlr, after=camera_set_sync, before=before_camera_sync, REQUIRE_NOT=deadEntity)]
-def human_optics_camera_es(info : UpdateStageInfoAct;
+[es(REQUIRE=watchedByPlr, after=after_net_phys_sync, REQUIRE_NOT=deadEntity)]
+def human_optics_camera_es(info : ParallelUpdateFrameDelayed;
                            human_net_phys : HumanActor;
                            human_weap__currentGunEid : EntityId;
                            human_weap__currentGunModEids : EidList;

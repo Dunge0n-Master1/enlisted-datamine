@@ -43,7 +43,7 @@ let { levelTimeOfDay, changeDayTime, changeCameraFov, cameraFov, isRain, isSnow,
   isDofFocalActive, setRandomWeather, hasSnow, hasRain, hasLightning, lenseFlareIntensity,
   changeLenseFlareIntensity, setCinemaRecording, isCinemaRecording, changeSuperPixel,
   makeScreenShot, superPixel, changeCameraLerpFactor, cameraLerpFactor, hasCameraLerpFactor,
-  enablePostBloom
+  enablePostBloom, cameraStopLerpFactor, changeCameraStopLerpFactor
 } = require("%ui/hud/replay/replayCinematicState.nut")
 let { savePreset, replayPresets, lastChoosenPreset, deletePreset, MAX_PRESETS,
   saveToCurrentPreset, saveDefaultSettings, restoreDefaultSettings
@@ -53,7 +53,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let vehicleSeats = require("%ui/hud/state/vehicle_seats.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
-let { is_pc } = require("%dngscripts/platform.nut")
+let { is_pc, is_win32 } = require("%dngscripts/platform.nut")
 let { showSettingsMenu } = require("%ui/hud/menus/settings_menu.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { showGameMenu } = require("%ui/hud/menus/game_menu.nut")
@@ -63,8 +63,11 @@ let isAdvancedSettingsActive = Watched(false)
 let isNavigationBlockHidden = Watched(false)
 let isAnyAdvancedSettingsOn = Computed(@() isDofCameraEnabled.value || isCinematicModeActive.value)
 let isAdvancedBtnEnabled = Computed(@() !showSettingsMenu.value)
-let showAdvancedSettings = keepref(
-  Computed(@() canShowReplayHud.value && isAdvancedSettingsActive.value && !showSettingsMenu.value))
+let showAdvancedSettings = keepref( Computed(@() !showGameMenu.value
+  && canShowReplayHud.value
+  && isAdvancedSettingsActive.value
+  && !showSettingsMenu.value))
+
 const CINEMATIC_SETTINGS_WND = "CINEMATIC_MODE_WND"
 local lastReplayTimeSpeed = 1
 let bottomMargin = [0, 0, colPart(0.5), 0]
@@ -513,8 +516,8 @@ let cameraSettingsBlock = @() {
     mkSettingsHeader(loc("replay/cameraSettings"))
     mkReplaySlider(cameraFov, loc("replay/cameraFov"), {
       setValue = @(newVal) changeCameraFov(newVal)
-      min = 30
-      max = 120
+      min = 10
+      max = 130
       isEnabled = isAllSettingsEnabled.value
     })
     mkReplaySlider(cameraLerpFactor, loc("replay/cameraLerpFactor"), {
@@ -522,6 +525,13 @@ let cameraSettingsBlock = @() {
       min = 1
       max = 10
       isEnabled = isAllSettingsEnabled.value && hasCameraLerpFactor.value
+    })
+    mkReplaySlider(cameraStopLerpFactor, loc("replay/cameraStopLerpFactor"), {
+      setValue = @(newVal) changeCameraStopLerpFactor(newVal)
+      min = 0.75
+      max = 0.99
+      step = 0.01
+      isEnabled = isAllSettingsEnabled.value && isTpsFreeCamera.value
     })
   ]
 }
@@ -747,7 +757,7 @@ let screenVideoBlock = {
   children = [
     mkSettingsHeader(loc("replay/screenVideoHeader"))
     makeScreenshotBlock
-    recordVideoBlock
+    is_win32 ? null : recordVideoBlock
   ]
 }
 

@@ -13,8 +13,7 @@ let {get_setting_by_blk_path} = require("settings")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 let { featuredMods, featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
-let { remap_others } = require("%enlSqGlob/remap_nick.nut")
-let { globalWatched } = require("%dngscripts/globalState.nut")
+let { nestWatched, globalWatched } = require("%dngscripts/globalState.nut")
 
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
@@ -30,18 +29,20 @@ let roomsListError = Computed(@()
 let hideFullRooms = optFullRooms.curValue
 let hideModsRooms = optModRooms.curValue
 let hidePasswordRooms = optPasswordRooms.curValue
-let savedRoomId = mkWatched(persist, "savedRoomId", null)
+let savedRoomId = nestWatched("savedRoomId", null)
 let curSorting = Watched({ column = {}, isReverse = false })
+let getServerTime = @() serverTime.value
 
 let roomsList = Computed(function() {
   let sortFunc = curSorting.value.column?.sortFunc
-  local res = lastResult.value?.digest ?? []
+  local res = lastResult.value?.digest
+  res = res!=null ? clone res : []
   if (!isModsAvailable.value)
     res = res.filter(@(v) v?.scene != null)
-
-  foreach (idx, room in res)
-    if ((room?.creator ?? "") != "")
-      res[idx].creatorText <- remap_others(room.creator)
+  foreach (idx, room in res) {
+    if ((room?.sessionLaunchTime ?? -1) > 0)
+      res[idx].timeInBattle <- getServerTime() - room.sessionLaunchTime
+  }
 
   if (sortFunc == null)
     return res

@@ -24,7 +24,7 @@ actionSets{
   }
 
   Camera{
-    internal:b=yes
+    internal:b=no
 
     Camera.Move{
       type:t="joystick_move"
@@ -51,10 +51,12 @@ actionSets{
 
     Camera.ZoomIn{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Camera.ZoomOut{
       type:t="digital_button"
+      group_tag:t="Replay"
     }
 
     Camera.SpeedUp{
@@ -539,6 +541,10 @@ actionSets{
     }
 
     Human.Reload{
+      reuse_defined_earlier:b=yes
+    }
+
+    Human.HoldBreath{
       reuse_defined_earlier:b=yes
     }
 

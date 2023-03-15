@@ -3,7 +3,9 @@ require ecs.common
 require app
 require game.es.events
 require game.es.spawn_soldier_common
+require common_shooter.es.vehicle.vehicle_offender_common
 require game.events_game
+require game.utils.team
 require DagorSystem
 require EnlistedPlane
 
@@ -56,14 +58,13 @@ def on_ai_aircraft_died(evt : EventEntityDied;
 [es(tag=server, REQUIRE=aiAircraftCrewPilot)]
 def on_ai_aircraft_crew_pilot_died(evt : EventEntityDied;
                                    human_anim__vehicleSelected : EntityId)
-  query(human_anim__vehicleSelected) <| $ [es] (var isAlive : bool&;
+  query(human_anim__vehicleSelected) <| $ [es] (team : int = TEAM_UNASSIGNED;
+                                                var isAlive : bool&;
                                                 var lastOffender : EntityId&;
                                                 var last_offender__gunPropsId : int&;
                                                 var last_offender__shellId : int&)
     isAlive = false
-    lastOffender = evt.offender
-    last_offender__gunPropsId = evt.gunPropsId
-    last_offender__shellId = evt.shellId
+    try_set_last_vehicle_offender(evt.offender, evt.gunPropsId, evt.shellId, team, lastOffender, last_offender__gunPropsId, last_offender__shellId)
 
 [es(tag=server, REQUIRE=ai_aircraft, REQUIRE_NOT=deadEntity)]
 def kill_ai_aircraft_that_cannot_fly_normally(evt : CmdPostPhysUpdate;

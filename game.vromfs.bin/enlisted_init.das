@@ -19,18 +19,12 @@ def private load_ui_events() : bool
   return ok
 
 
-def private load_render_events() : bool
+def private load_sound_events() : bool
   var ok = true
-  if ecs_has_tag("render") || app::get_game_name() == "aot"
-    ok = load_das("%scripts/game/es/render/render_events.das") && ok
+  ok = load_das("%danetlibs/sound/human_sounds/modules/human_sounds_events.das") && ok
+  ok = load_das("%danetlibs/sound/human_sounds_net/modules/human_sounds_net_events.das") && ok
   return ok
 
-
-def private load_modern_conflict_events() : bool
-  var ok = true
-  if app::get_game_name() == "modern_conflict" || app::get_game_name() == "aot"
-    ok = load_das("%modern_conflict/modern_conflict_events.das") && ok
-  return ok
 
 def private load_nut_binds() : bool
   return load_das("%scripts/game/es/respawn_base_common_quirrel.das")
@@ -46,8 +40,7 @@ def load
 
   ok = load_nut_binds() && ok
   ok = load_ui_events() && ok
-  ok = load_render_events() && ok
-  ok = load_modern_conflict_events() && ok
+  ok = load_sound_events() && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

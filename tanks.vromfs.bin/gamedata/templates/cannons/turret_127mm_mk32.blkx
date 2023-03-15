@@ -2,7 +2,7 @@ turret_127mm_mk32_single_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="turret_127mm_mk32_single_char"
   collres__res:t="turret_127mm_mk32_single_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/turret_127mm_mk32_single.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/turret_127mm_mk32_single.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__turretInfo:shared:array"{
@@ -36,7 +36,7 @@ turret_127mm_mk32_twin_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="turret_127mm_mk32_twin_char"
   collres__res:t="turret_127mm_mk32_twin_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/turret_127mm_mk32_twin.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/turret_127mm_mk32_twin.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__animVars:shared:array"{

@@ -7,12 +7,9 @@ require WorldRenderer
 def draw_collision_debug_common(phys : bool;
                                 trace : bool;
                                 canopy : bool;
+                                view_pos : float3;
                                 max_coll_dist_sq : float;
                                 max_label_dist_sq : float)
-  if get_grs_draw_wire()
-    d3d_setwire(true)
-  d3d_set_depth(worldRenderer_getDepthForDebug(), false)
-
   //view mode
   var flags = int(DrawCollisionsFlags DRAW_COLLISIONS_OPACITY) | int(DrawCollisionsFlags DRAW_COLLISIONS_WIREFRAME)
 
@@ -30,11 +27,7 @@ def draw_collision_debug_common(phys : bool;
   if phys && !trace
     flags |= int(DrawCollisionsFlags DRAW_COLLISIONS_PHYS_ONLY)
 
-  rendinst_drawDebugCollisions(flags, true, max_coll_dist_sq, max_label_dist_sq)
-
-  d3d_set_depth(null, false)
-  if get_grs_draw_wire()
-    d3d_setwire(false)
+  rendinst_drawDebugCollisions(flags, view_pos, true, max_coll_dist_sq, max_label_dist_sq)
 
 [es(tag=render, no_order, REQUIRE=collision_debug, on_event=RenderDebugWithJitter)]
 def draw_collision_debug(evt : Event;
@@ -44,6 +37,13 @@ def draw_collision_debug(evt : Event;
                          collision_debug__drawCollidable : bool;
                          collision_debug__drawTraceable : bool)
 
+  var cameraPos = float3(0)
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4&)
+    if !camera__active
+      return false
+    cameraPos = transform[3]
+    return true
+
   draw_collision_debug_common(collision_debug__drawCollidable, collision_debug__drawTraceable, collision_debug__drawCanopy,
-    collision_debug__collMaxDistSq, collision_debug__labelMaxDistSq)
+    cameraPos, collision_debug__collMaxDistSq, collision_debug__labelMaxDistSq)
 

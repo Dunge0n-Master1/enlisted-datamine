@@ -28,10 +28,3 @@ def game_effect_recreated_es(evt : Event; eid, game_effect__attachedTo : EntityI
   if game_effect__attachedTo != game_effect__lastAttachedTo && game_effect__lastAttachedTo != INVALID_ENTITY_ID
     sendEventImmediate(eid, [[GameEffectStateChanged attachedTo=game_effect__lastAttachedTo, activated=false]])
     game_effect__lastAttachedTo = game_effect__attachedTo
-
-
-[es(tag=server, on_appear)]
-def game_effect_initial_attachments(evt : Event; eid : EntityId; game_effect__initialAttachments : StringList)
-  for it in game_effect__initialAttachments
-    createEntity(string(it)) <| $(init)
-      init |> set("game_effect__attachedTo", eid)

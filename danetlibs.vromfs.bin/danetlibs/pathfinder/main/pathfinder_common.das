@@ -30,10 +30,13 @@ def get_lower_navmesh_pos_in_radius(position : float3; radius : float; is_valid 
         minY = pos.y
   return res
 
-def find_nav_point_around(start_pos, center : float3; radius : float; tries : int; is_valid : block<(pos : float3) : bool>) : MaybePos
+def find_reachable_nav_point_around(start_pos, center : float3; radius : float; tries : int; is_valid : block<(pos : float3) : bool>) : MaybePos
+  return find_nav_point_around(start_pos, center, radius, tries, is_valid, false)
+
+def find_nav_point_around(start_pos, center : float3; radius : float; tries : int; is_valid : block<(pos : float3) : bool>; accept_partial : bool = false) : MaybePos
   var res = [[MaybePos invalid=null]]
   // TODO: project start pos to navmesh
-  using() <| $(var path_corridor : dtPathCorridor#)
+  using() <| $(var path_corridor : dtPathCorridor)
     path_corridor |> init_path_corridor()
     let angleDelta = TWOPI * safeinv(float(tries))
     let startAngle = TWOPI * gfrnd()
@@ -51,7 +54,8 @@ def find_nav_point_around(start_pos, center : float3; radius : float; tries : in
       using(start_pos, pos, extents) <| $(var inp : CorridorInput#)
         inp.targetPoly = endRef
         inp.includeFlags |= int(PolyFlag POLYFLAG_JUMP)
-        if set_path_corridor(path_corridor, inp, null) != FindPathResult FPR_FAILED
+        let pathRes = set_path_corridor(path_corridor, inp, null)
+        if pathRes != FindPathResult FPR_FAILED && (accept_partial || pathRes != FindPathResult FPR_PARTIAL)
           res = [[MaybePos pos=pos]]
       if res is pos
         break

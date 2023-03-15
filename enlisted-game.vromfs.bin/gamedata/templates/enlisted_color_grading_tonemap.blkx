@@ -8,7 +8,7 @@ postfx_color_grading_tonemap_enlisted{
 
   "color_grading:object"{
     colorSaturation:p4=1.0, 1.0, 1.0, 1.0
-    colorContrast:p4=1.2, 1.0, 1.0, 1.0
+    colorContrast:p4=1.0, 1.0, 1.0, 1.0
     colorGamma:p4=1.0, 1.0, 1.0, 1.0
     colorGain:p4=1.0, 1.0, 1.0, 1.0
     colorOffset:p4=0.0, 0.0, 0.0, 0.0
@@ -17,10 +17,10 @@ postfx_color_grading_tonemap_enlisted{
     hueToSaturationValueMul:p4=1.0, 1.0, 1.0, 1.0
     hueToSaturationValueAdd:p4=0.0, 0.0, 0.0, 0.0
     shadows_colorSaturation:p4=1.0, 1.0, 1.0, 1.0
-    shadows_colorContrast:p4=1.15, 1.0, 1.0, 1.0
+    shadows_colorContrast:p4=1.0, 1.0, 1.0, 1.0
     shadows_colorGamma:p4=1.0, 1.0, 1.0, 1.0
     shadows_colorGain:p4=1.0, 1.0, 1.0, 1.0
-    shadows_colorOffset:p4=0.003, 0.0, 0.0, 0.0
+    shadows_colorOffset:p4=0.0, 0.0, 0.0, 0.0
     midtones_colorSaturation:p4=1.0, 1.0, 1.0, 1.0
     midtones_colorContrast:p4=1.0, 1.0, 1.0, 1.0
     midtones_colorGamma:p4=1.0, 1.0, 1.0, 1.0
@@ -32,14 +32,14 @@ postfx_color_grading_tonemap_enlisted{
     highlights_colorGain:p4=1.0, 1.0, 1.0, 1.0
     highlights_colorOffset:p4=0.0, 0.0, 0.0, 0.0
     colorCorrectionShadowsMax:r=0.1
-    colorCorrectionHighlightsMin:r=0.4
+    colorCorrectionHighlightsMin:r=0.8
     _tags:t="render"
   }
 
   "tonemap:object"{
-    tonemapContrast:r=1.1
+    tonemapContrast:r=1.28
     tonemapShoulder:r=0.85
-    tonemapMidIn:r=0.07
+    tonemapMidIn:r=0.06
     tonemapMidOut:r=0.18
     tonemapHdrMax:r=4.0
     _tags:t="render"

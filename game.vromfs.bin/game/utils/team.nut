@@ -36,7 +36,7 @@ let function assign_team() { // returns [teamId, teamEid]
       filteredTeams.append(eid)
   }
 
-  let teamEid = filteredTeams[random.grnd() % filteredTeams.len()]
+  let teamEid = filteredTeams[random.rnd() % filteredTeams.len()]
   let teamId = ecs.obsolete_dbg_get_comp_val(teamEid, "team__id", TEAM_UNASSIGNED)
   debug($"Found already existing team with id: {teamId}, eid: {teamEid}")
   return [teamId, teamEid]

@@ -2403,7 +2403,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -2443,9 +2443,9 @@ entity{
   mission_name:t="volokolamsk_voskhod_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_voskhod_inv_01.jpg"
-    item:t="ui/volokolamsk_voskhod_inv_02.jpg"
-    item:t="ui/volokolamsk_voskhod_inv_03.jpg"
+    item:t="ui/volokolamsk_voskhod_inv_01.avif"
+    item:t="ui/volokolamsk_voskhod_inv_02.avif"
+    item:t="ui/volokolamsk_voskhod_inv_03.avif"
   }
 }
 
@@ -2482,8 +2482,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2150.0
-  team__score:r=2150.0
+  team__scoreCap:r=2200.0
+  team__score:r=2200.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2510,7 +2510,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[12.8347, 0.0, -20.2721] [0.0, 4.24949, 0.0] [35.9069, 0.0, 22.7335] [122.229, 12.9391, 965.325]]
   active:b=no
@@ -2539,7 +2539,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_b"
-  capzone__capTime:r=40.0
+  capzone__capTime:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[17.812, 0.0, -25.3983] [0.0, 7.28739, 0.0] [27.1258, 0.0, 19.0235] [149.2, 14.7232, 937.374]]
   active:b=no
@@ -2567,7 +2567,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_a"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 0.444859, 0.0] [0.0, 0.0, 1.0] [11.396, 21.9312, 944.56]]
   active:b=no
@@ -2597,7 +2597,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=45.0
+  capzone__capTime:r=40.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [86.9026, 15.0185, 1008.65]]
   active:b=no
@@ -2627,7 +2627,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-14.3194, 4.82185, 164.652]]
   active:b=no

@@ -1,7 +1,7 @@
 let mpa = require("%xboxLib/mpa.nut")
 let logX = require("%enlSqGlob/library_logs.nut").with_prefix("[SESSION_MANAGER] ")
 let { uid2console } = require("%enlist/contacts/consoleUidsRemap.nut")
-let { isInSquad, isSquadLeader, squadId, squadMembers, subsMemberAddedEvent, subsMemberRemovedEvent
+let { isInSquad, isSquadLeader, squadId, squadLen, subsMemberAddedEvent, subsMemberRemovedEvent
 } = require("%enlist/squad/squadState.nut")
 let { availableSquadMaxMembers } = require("%enlist/state/queueState.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
@@ -10,7 +10,7 @@ let userInfo = require("%enlSqGlob/userInfo.nut")
 
 let function update_current_activity(callback = null) {
   let maxMembers = availableSquadMaxMembers.value
-  let currentMembers = isInSquad.value ? squadMembers.value.len() : 1
+  let currentMembers = isInSquad.value ? squadLen.value : 1
   let sessionId = isInSquad.value ? squadId.value.tostring() : (userInfo.value?.userIdStr ?? "")
   // Don't set activity if user is not a squad(or fake squad) leader or when game mode is for one player
   let shouldSetActivity = (isSquadLeader.value || !isInSquad.value) && (currentGameMode.value.maxGroupSize > 1)

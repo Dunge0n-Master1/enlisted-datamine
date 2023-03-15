@@ -369,6 +369,34 @@ def does_system_process_template_cproc(args : array<string>;
   return false
 
 [console_processor]
+def does_system_process_entity_cproc(args : array<string>;
+                                     collect : bool;
+                                     var hints : ConsoleProcessorHints)
+  let cmd = "ecs.does_system_process_entity"
+  if collect
+    let inputs <- args[0] |> split(" ")
+    add_hints([[auto[] [[CommandArgDesc name="system_name", hintType=CommandArgHintType SystemName]];
+                       [[CommandArgDesc name="eid", hintType=CommandArgHintType EntityId]] ]],
+              cmd, inputs, /*hints_count*/ 20, /*threshold_cam_distance_sq*/ square(0.0), hints)
+  //else actuall processing of this command happens in c++
+
+  return false
+
+
+[console_processor]
+def does_system_process_selected_entity_cproc(args : array<string>;
+                                              collect : bool;
+                                              var hints : ConsoleProcessorHints)
+  let cmd = "ecs.does_system_process_selected_entity"
+  if collect
+    let inputs <- args[0] |> split(" ")
+    add_hints([[auto[] [[CommandArgDesc name="system_name", hintType=CommandArgHintType SystemName]]]],
+              cmd, inputs, /*hints_count*/ 20, /*threshold_cam_distance_sq*/ square(0.0), hints)
+  //else actuall processing of this command happens in c++
+
+  return false
+
+[console_processor]
 def diff_templates_cproc(args : array<string>;
                          collect : bool;
                          var hints : ConsoleProcessorHints)

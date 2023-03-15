@@ -8,8 +8,9 @@ require GeomNodeTree
 require Gun
 require math
 require common_shooter.es.human_weap_common
+require enlisted.events_enlisted
 
-def human_aim_tm_common(info : UpdateStageInfoAct;
+def human_aim_tm_common(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         human_weap__currentGunEid : EntityId;
                         transform : float3x4;
@@ -41,7 +42,7 @@ def human_aim_tm_common(info : UpdateStageInfoAct;
     human__aimTm = lerpGunTm(*gunPtr, get_phys_interp_time(human_net_phys.phys, info.curTime))
 
 [es(tag=gameClient, before=camera_set_sync, after=human_weap_request_reload_es, REQUIRE=watchedByPlr)]
-def human_aim_tm_es(info : UpdateStageInfoAct;
+def human_aim_tm_es(info : ParallelUpdateFrameDelayed;
                     eid : EntityId;
                     human_weap__currentGunEid : EntityId;
                     transform : float3x4;
@@ -55,7 +56,7 @@ def human_aim_tm_es(info : UpdateStageInfoAct;
                       human_net_phys, human_use_object__nodeId, animchar, human__aimTm)
 
 [es(tag=server, before=camera_set_sync, after=human_weap_request_reload_es, REQUIRE_NOT=watchedByPlr)]
-def human_aim_tm_server_es(info : UpdateStageInfoAct;
+def human_aim_tm_server_es(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            human_weap__currentGunEid : EntityId;
                            transform : float3x4;

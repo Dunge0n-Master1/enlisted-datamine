@@ -49,7 +49,7 @@ def binocular_on_switch_event(evt : CmdSwitchBinocular;
     if human_binocular__prevGunSlot != -1 && evt.choosePrevGunSlot == BinocularChooseWeapSlotMode ChoosePrevGunSlot
       set_chosen_weapon(human_net_phys.phys.producedCT, HUWeaponSlots(human_binocular__prevGunSlot))
     elif evt.choosePrevGunSlot == BinocularChooseWeapSlotMode ChooseFirstWeapWithAmmo
-      using() <| $(var gunEids : EidList#)
+      using() <| $(var gunEids : EidList)
         gunEids := human_weap__gunEids
         gunEids[int(binocularSlot)] = human_binocular__prevGunInBinocSlotEid
         switch_to_first_weap_with_ammo(gunEids, human_net_phys.phys)
@@ -91,7 +91,7 @@ def switch_binocular(eid : EntityId;
 
 
 [es(no_order)]
-def binocular_switch_update(info : UpdateStageInfoAct;
+def binocular_switch_update(info : ParallelUpdateFrameDelayed;
                             eid : EntityId;
                             human_net_phys : HumanActor;
                             human_binocular__eid : EntityId;
@@ -121,7 +121,7 @@ def binocular_switch_request_close(evt : Event;
   human_binocular__binocularSwitchRequestedMode = human_binocular__mode
 
 [es(tag=gameClient, REQUIRE=hero, no_order)]
-def binocular_switch_force_aim(info : UpdateStageInfoAct;
+def binocular_switch_force_aim(info : ParallelUpdateFrameDelayed;
                                human_binocular__mode : bool;
                                human_net_phys : HumanActor;
                                var human_input__forceAim : bool&)
@@ -178,7 +178,7 @@ def binocular_switch_cockpit(evt : CmdSwitchBinocularCockpit;
 
 
 [es(tag=gameClient, REQUIRE=hero, after=slot_attach_init_tms_es, before=vehicle_cockpit_update_animchar)]
-def binocular_update_cockpit(info : UpdateStageInfoAct;
+def binocular_update_cockpit(info : ParallelUpdateFrameDelayed;
                              human_binocular__eid : EntityId;
                              human_binocular__cockpitEid : EntityId;
                              human_net_phys : HumanActor)

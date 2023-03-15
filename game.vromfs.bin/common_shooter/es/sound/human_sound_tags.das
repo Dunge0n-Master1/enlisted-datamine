@@ -20,14 +20,5 @@ def human_sound_tags_track_equipment(evt : Event;
 [es(tag=sound, on_appear)]
 def human_sound_tags_on_appear(evt : Event;
                                human_voice_sound__voiceTag : string;
-                               var sound_tags : Object&;
-                               var human_voice_sound__voiceId : int&;
-                               squad_member__memberIdx : int = 0)
-
+                               var sound_tags : Object&)
   raise_sound_tag(human_voice_sound__voiceTag, sound_tags)
-
-  human_voice_sound__voiceId = max(0, squad_member__memberIdx)
-  if (human_voice_sound__voiceId % 3) == 1
-    raise_sound_tag("voice0", sound_tags)
-  elif (human_voice_sound__voiceId % 3) == 2
-    raise_sound_tag("voice1", sound_tags)

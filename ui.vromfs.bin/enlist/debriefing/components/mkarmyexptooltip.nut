@@ -59,6 +59,8 @@ let function getSquadExpDetailed(info) {
   let {
     baseExp = 0,
     resultMult = 1.0,
+    anyTeamMult = 1.0,
+    lastGameDeserterMult = 1.0,
     awardsMult = 1.0,
     playerCountMult = 1.0,
     boostBonus = 0,
@@ -72,12 +74,24 @@ let function getSquadExpDetailed(info) {
   let battleResultIcon = !isDeserter
     ? mkWinXpImage(tooltipIconSize)
     : txt({text=loc("debriefing/battleResultDeserterMultShort"), color = awardNegativeColor})
+  let anyTeamIcon = txt({text=loc("debriefing/anyTeamMultShort"), color = awardPositiveColor})
+  let lastGameDeserterIcon = txt({text=loc("debriefing/lastGameDeserterShort"), color = awardNegativeColor})
   let mkPlayerCountTxt = txt({text=loc("debriefing/playerCountMultArmyExpTooltipShort"), color = awardNegativeColor})
   let battleResultMultIcon = resultMult == 1.0
     ? null
     : mkValueWithIcon(
         $" {multiplySign} {resultMult}",
         battleResultIcon)
+  let lastGameDeserterMultIcon = lastGameDeserterMult == 1.0
+    ? null
+    : mkValueWithIcon(
+        $" {multiplySign} {lastGameDeserterMult}",
+        lastGameDeserterIcon)
+  let anyTeamMultIcon = anyTeamMult == 1.0
+    ? null
+    : mkValueWithIcon(
+        $" {multiplySign} {anyTeamMult}",
+        anyTeamIcon)
   let battleHeroMultIcon = awardsMult == 1.0
     ? null
     : mkValueWithIcon(
@@ -111,7 +125,7 @@ let function getSquadExpDetailed(info) {
     && (boostBonus > 0 || premAccountBonus > 0 || premSquadBonus > 0)
 
   let resultExp = ((baseExp + boostBonus + premAccountBonus + premSquadBonus) * awardsMult
-    * resultMult * playerCountMult * freemMult).tointeger()
+    * resultMult * lastGameDeserterMult * anyTeamMult * playerCountMult * freemMult).tointeger()
   let showDetailed = baseExp != resultExp
   let resultTxt = txt({text=resultExp, color = awardPositiveColor})
   let baseExpTxt = baseExp != 0 && showDetailed ? txt(baseExp) : null
@@ -128,6 +142,8 @@ let function getSquadExpDetailed(info) {
           premSquadIcon
           needsParentheses ? txt(")") : null
           battleResultMultIcon
+          lastGameDeserterMultIcon
+          anyTeamMultIcon
           battleHeroMultIcon
           playerCountMultIcon
           freemMultIcon
@@ -151,6 +167,8 @@ let resultExpCfg = @(squad, details, isDeserter, armyId)
     premAccountBonus = ((squad?.baseExp ?? 0) * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premAccountExpBonus ?? 0)).tointeger(),
     premSquadBonus = ((squad?.baseExp ?? 0) * (1.0 + (details?.armyExpBoost ?? 0)) * (squad?.premSquadExpBonus ?? 0)).tointeger(),
     resultMult = details?.battleResultMult ?? 1.0,
+    anyTeamMult = details?.anyTeamMult ?? 1.0,
+    lastGameDeserterMult = details?.lastGameDeserterMult ?? 1.0,
     awardsMult = details?.battleHeroAwardsMult ?? 1.0,
     playerCountMult = details?.playerCountMult  ?? 1.0,
     freemMult = details?.freemiumExpMult ?? 1.0,

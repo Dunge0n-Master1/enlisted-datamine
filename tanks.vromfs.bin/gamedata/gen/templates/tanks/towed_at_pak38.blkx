@@ -13,7 +13,6 @@ base_towed_at_pak38{
   drowningHeight:r=0.5
   damage_model__blk:t="gamedata/gen/units/tanks/towed_at_pak38.blk"
   item__name:t="items/germ_at_gun_pak38"
-  skin__template:t="towed_at_pak38_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
@@ -88,59 +87,5 @@ towed_at_pak38_ammo_stowages{
   _extends:t="vehicle_ammo_stowages"
 
   "ammo_stowage__stowageTemplates:shared:list<t>"{
-  }
-}
-
-towed_at_pak38_skins{
-
-  "skin__objTexReplace:array"{
-
-    "skin:object"{
-      id:t="towed_at_pak38_winter"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_winter*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_pak38_forest"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_forest_01*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_pak38_ussr_camo_brown_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_brown_lines*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_pak38_ussr_camo_green_ltbrown_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_pak38_ussr_camo_desert_yellow_brown"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
-      }
-    }
-
-    "skin:object"{
-      id:t="towed_at_pak38_ussr_camo_winter_lines"
-
-      "objTexReplace:object"{
-        "ussr_camo_green*":t="ussr_camo_winter_lines*"
-      }
-    }
   }
 }

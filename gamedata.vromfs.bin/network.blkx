@@ -291,7 +291,7 @@ sun{
   }
 
   matching{
-    server:t="mgate-lw-nl-02.enlisted.net:7853"
+    server:t="mgate-sun-01.enlisted.net:7853"
   }
 
   eventLog{
@@ -976,7 +976,7 @@ oberon{
   }
 
   matching{
-    server:t="match-oberon-lw-nl-01.enlisted.net:7853"
+    server:t="match-oberon-sv-nl-ams3-01.enlisted.net:7853"
   }
 
   eventLog{

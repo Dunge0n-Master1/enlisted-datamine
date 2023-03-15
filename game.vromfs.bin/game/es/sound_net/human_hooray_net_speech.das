@@ -4,7 +4,7 @@ require math
 require math.base
 require DagorRandom
 require HumanPhys
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require sound_utils_net.modules.sound_utils_net_events
 require player
 

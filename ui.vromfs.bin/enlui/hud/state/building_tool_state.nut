@@ -5,7 +5,7 @@ let {isAlive, isDowned} = require("%ui/hud/state/health_state.nut")
 let {inVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
-let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
+let { localPlayerEid, localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let buildingTemplates = Watched([])
 let buildingUnlocks = Watched([])
 let availableBuildings = Watched([])
@@ -26,6 +26,8 @@ let selectedBuildingEid = Watched()
 let selectedDestroyableObjectName = Watched()
 let buildingPreviewId = Watched()
 
+let { TEAM_UNASSIGNED } = require("team")
+
 let selectedBuildingQuery = ecs.SqQuery("selectedBuildingQuery", {
   comps_ro = [
     ["building_menu__text", ecs.TYPE_STRING],
@@ -37,6 +39,9 @@ let selectedBuildingQuery = ecs.SqQuery("selectedBuildingQuery", {
     ["building_destroy__timeToDestroy", ecs.TYPE_FLOAT, null],
     ["fortification__canRepairDead", ecs.TYPE_TAG, null],
     ["additiveBuildNeedRepair", ecs.TYPE_BOOL, true],
+    ["buildByPlayer", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
+    ["builder_info__team", ecs.TYPE_INT, TEAM_UNASSIGNED],
+    ["undestroyableyByTeammates", ecs.TYPE_TAG, null],
   ]
 })
 
@@ -86,6 +91,7 @@ ecs.register_es("ui_building_selected_object_es",
         canRepairDead = comp["fortification__canRepairDead"] != null
         fortificationRepairText = comp["fortification_repair__text"]
         canBeDestroyed = (comp["builder_preview"] != null || comp["building_destroy__timeToDestroy"] != null) && comp["undestroyableBuilding"] == null
+        && (comp.buildByPlayer == localPlayerEid.value || comp.builder_info__team != localPlayerTeam.value || comp.undestroyableyByTeammates == null)
       })
       selectedBuildingName(name)
       selectedDestroyableObjectName(canBeDestroyed ? name : null)

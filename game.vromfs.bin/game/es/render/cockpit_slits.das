@@ -47,17 +47,17 @@ def set_cockpit_box_null(row_xVarId : int;
                          row_yVarId : int;
                          row_zVarId : int)
   // x offset is 2, so that tm*v will be outside of the [-1, 1] box for all v
-  DagorShaders::set_color4(row_xVarId, Color4(float4(0, 0, 0, 2)))
-  DagorShaders::set_color4(row_yVarId, Color4(float4(0, 0, 0, 0)))
-  DagorShaders::set_color4(row_zVarId, Color4(float4(0, 0, 0, 0)))
+  DagorShaders::set_color4(row_xVarId, 0f, 0f, 0f, 2f)
+  DagorShaders::set_color4(row_yVarId, 0f, 0f, 0f, 0f)
+  DagorShaders::set_color4(row_zVarId, 0f, 0f, 0f, 0f)
 
 def set_cockpit_box_tm(row_xVarId : int;
                        row_yVarId : int;
                        row_zVarId : int;
                        invtm : float3x4)
-  DagorShaders::set_color4(row_xVarId, Color4(float4(invtm[0].x, invtm[1].x, invtm[2].x, invtm[3].x)))
-  DagorShaders::set_color4(row_yVarId, Color4(float4(invtm[0].y, invtm[1].y, invtm[2].y, invtm[3].y)))
-  DagorShaders::set_color4(row_zVarId, Color4(float4(invtm[0].z, invtm[1].z, invtm[2].z, invtm[3].z)))
+  DagorShaders::set_color4(row_xVarId, invtm[0].x, invtm[1].x, invtm[2].x, invtm[3].x)
+  DagorShaders::set_color4(row_yVarId, invtm[0].y, invtm[1].y, invtm[2].y, invtm[3].y)
+  DagorShaders::set_color4(row_zVarId, invtm[0].z, invtm[1].z, invtm[2].z, invtm[3].z)
 
 [es(tag=(render, dev), on_event=EventComponentsDisappear, REQUIRE=daeditor__selected)]
 def cockpit_slit_setter_unclicked(evt : Event;
@@ -100,7 +100,7 @@ def cockpit_set_boxes(transform : float3x4;
   for i in range(boxCount, length(cockpit_slit_xVarIds))
     set_cockpit_box_null(cockpit_slit_xVarIds[i], cockpit_slit_yVarIds[i], cockpit_slit_zVarIds[i])
 
-[es(tag=render, track=cockpit__slitBoxes, track=cockpit__isAttached)]
+[es(tag=render, on_appear, track=cockpit__slitBoxes, track=cockpit__isAttached)]
 def cockpit_boxes_changed(evt : Event;
                           transform : float3x4;
                           animchar : AnimcharBaseComponent;
@@ -117,7 +117,7 @@ def vehicle_cockpit_destroyed(evt : Event)
   query() <| $ [es(REQUIRE=cockpit_slit_setter__index)] (eid : EntityId)
     destroyEntity(eid)
 
-[es(tag=(render, dev), track=cockpit__isAttached)]
+[es(tag=(render, dev), on_appear, track=cockpit__isAttached)]
 def cockpit_slits_attach_setters(evt : Event;
                                  eid : EntityId;
                                  animchar : AnimcharBaseComponent;

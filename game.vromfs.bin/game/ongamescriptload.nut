@@ -8,7 +8,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 ecs.clear_vm_entity_systems()
 
-require("%enlSqGlob/register_sqevents.nut")
+require("%enlSqGlob/sqevents.nut")
 let {DBGLEVEL} = require("dagor.system")
 let {logerr} = require("dagor.debug")
 let {scan_folder} = require("dagor.fs")

@@ -14,7 +14,7 @@ def human_inventory_revive_es(evt : CmdUse;
     return
 
   let reviver = evt.requesterEid
-  query(reviver) <| $ [es(REQUIRE=human_inventory, REQUIRE_NOT=canReviveWithoutItem)] (itemContainer : EidList)
+  query(reviver) <| $ [es(REQUIRE=human_inventory)] (itemContainer : EidList)
     var nonTargetUseOnlyItem = INVALID_ENTITY_ID
     for itemEid in itemContainer
       var itemUsed = false
@@ -45,15 +45,3 @@ def revive_item_used_es(evt : EventOnLootItemUsed;
   query(targetEid) <| $ [es] (isDowned : bool)
     if item__reviveAmount > 0.0f && isDowned
       send_net_event(targetEid, [[CmdRestoreEntityHp restoreHp=item__reviveAmount]])
-
-
-[es]
-def human_revive_without_item_es(evt : CmdUse;
-                                 eid : EntityId;
-                                 isDowned : bool)
-  if !isDowned
-    return
-
-  let reviver = evt.requesterEid
-  if has(reviver, "canReviveWithoutItem")
-    sendEvent(reviver, [[EventUseItem item=reviver, target=eid]])

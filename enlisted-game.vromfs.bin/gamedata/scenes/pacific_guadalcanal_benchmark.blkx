@@ -1,5 +1,5 @@
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
 }
 
 entity{

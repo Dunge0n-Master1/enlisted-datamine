@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let {INVALID_USER_ID} = require("matching.errors")
+let {mkEventSqChatMessage} = require("%enlSqGlob/sqevents.nut")
 let {has_network, INVALID_CONNECTION_ID} = require("net")
 let {hasDedicatedPermission} = require("%scripts/game/es/dedicated_permission_es.nut")
 
@@ -19,7 +20,7 @@ let function getConnidForLogReceiver(_eid, comp){
 }
 
 local function sendLogToClients(log, connids=null){
-  let event = ecs.event.EventSqChatMessage(({team=-1, name="dedicated", text=log}))
+  let event = mkEventSqChatMessage(({team=-1, name="dedicated", text=log}))
   if (!has_network())
     ecs.server_msg_sink(event, null)
   else {

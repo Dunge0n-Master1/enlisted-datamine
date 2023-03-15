@@ -97,7 +97,7 @@ let function initTurretsState(comp, ignore_control_turret_eid = ecs.INVALID_ENTI
     } else
       turrets.extend(turretsInGroup)
 
-  let mainTurretEidValue = (turretsByGroup?[""][0] ?? turrets[0]).gunEid ?? ecs.INVALID_ENTITY_ID
+  let mainTurretEidValue = (turretsByGroup?[""][0] ?? turrets?[0])?.gunEid ?? ecs.INVALID_ENTITY_ID
   mainTurretEidSetValue(mainTurretEidValue)
   currentMainTurretEidSetValue(
     turretsByGroup?[""].findvalue(@(turret) turret.isControlled && turret.triggerGroup != MACHINE_GUN_TRIGGER)?.gunEid ?? mainTurretEidValue)

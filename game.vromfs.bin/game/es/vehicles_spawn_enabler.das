@@ -1,6 +1,7 @@
 require ecs
 require ecs.common
 require ecs.safe
+require ecs.extra_set
 require app
 require strings
 require daslib/strings_boost
@@ -137,7 +138,7 @@ def calc_first_spawn_delay(squad : Object const?; delay_by_type : Object)
     logerr("Template '{vehicleTemplate}' not found in templates")
     return 0.0
 
-  let canUseRespawnbaseType := get_string(getTemplateComponent(*templ, "canUseRespawnbaseType"), "")
+  let canUseRespawnbaseType := getTemplateComponent(*templ, "canUseRespawnbaseType") ?? ""
   return !empty(canUseRespawnbaseType) ? delay_by_type[canUseRespawnbaseType] ?? 0.0 : 0.0
 
 [es(tag=server, track=isArmiesReceived)]
@@ -155,16 +156,10 @@ def respawner_init_squad_respawn_types(evt : Event;
     return
 
   for respawn in values(gather_respawnbase_types(*squads))
-    respawner__vehicleSquadRespawnTypes |> push_to_array <| $(var obj : Object#)
+    respawner__vehicleSquadRespawnTypes |> push_to_array() <| $(var obj : Object)
       obj |> set("respType", respawn.respType)
-      using() <| $(var list : StringList#)
-        for subtype in respawn.subtypes
-          list |> push(subtype)
-        obj |> set("subtypes", list)
-      using() <| $(var list : IntList#)
-        for i in respawn.squadIndices
-          list |> push(i)
-        obj |> set("squadIndices", list)
+      obj |> set("subtypes", respawn.subtypes)
+      obj |> set("squadIndices", respawn.squadIndices)
 
 [es(tag=server, track=isArmiesReceived)]
 def vehicle_first_spawn_delay_init(evt : Event;

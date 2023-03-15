@@ -42,6 +42,7 @@ base_7_7mm_vikkers{
 tankgun_7_7mm_vikkers{
   _extends:t="tankgun"
   _extends:t="base_tankgun_machinegun"
+  _extends:t="gunsound_7_7mm_vikkers"
   _extends:t="base_7_7mm_vikkers"
   turret__triggerGroup:i=2
 }

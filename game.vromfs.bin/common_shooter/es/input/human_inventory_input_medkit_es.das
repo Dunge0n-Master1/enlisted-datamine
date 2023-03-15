@@ -43,4 +43,4 @@ def human_inventory_input_medkit_terminated_es(evt : EventDaInputActionTerminate
 [es(before=interrupt_item_use_es)]
 def human_inventory_input_medkit_reset_sticky_toggle_on_interrupt(evt : EventInterruptItemUse;
                                                                   human_inventory_input__useMedkit : int)
-  reset_digital_action_sticky_toggle(uint16(human_inventory_input__useMedkit))
+  broadcastEvent([[CmdResetDigitalActionStickyToggle action=uint16(human_inventory_input__useMedkit)]])

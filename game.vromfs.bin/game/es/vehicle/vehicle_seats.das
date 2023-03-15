@@ -35,7 +35,7 @@ def create_vehicle_seats(evt : Event;
       logerr("Seat template not found for seat '{seatName}' in entity {eid} ({getEntityTemplateName(eid)})")
       continue
 
-    using() <| $(var init : ComponentsInitializer#)
+    using() <| $(var init : ComponentsInitializer)
       set(init, "seat__id", seatNo)
       set(init, "seat__vehicleEid", eid)
       if has(*seat, "canPlaceManually")

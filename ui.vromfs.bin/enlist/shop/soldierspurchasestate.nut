@@ -5,14 +5,14 @@ let { getClassCfg, soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut"
 
 
 const SOLDIER_GROUP = "soldier_silver_group"
+const BATTLE_PASS_SOLDIER_GROUP = "soldier_battlepass_group"
 const DEF_SPECIALIZATION = "rifle"
 let curSpecialization = Watched(DEF_SPECIALIZATION)
 let isSoldiersPurchasing = Watched(false)
 
 
-let soldierShopItems = Computed(@()
-  curArmyShopItems.value.filter(@(s) s?.offerGroup == SOLDIER_GROUP))
-
+let soldierShopItems = Computed(@() curArmyShopItems.value.filter(@(s)
+  (s?.offerGroup == SOLDIER_GROUP || s?.offerGroup == BATTLE_PASS_SOLDIER_GROUP)))
 
 let unseenSoldierShopItems = Computed(function() {
   let guids = {}
@@ -58,8 +58,8 @@ let function getSoldiersList(cratesContent, sShopItems) {
     res.append(content.__merge({ soldierSpec, soldierKind }))
     return res
   }, [])
-    .sort(@(a, b) (soldierClasses?[a.soldierSpec].rank ?? 0)
-      <=> (soldierClasses?[b.soldierSpec].rank ?? 0))
+    .sort(@(a, b) (b?.limit == 1) <=> (a?.limit == 1)
+      || (soldierClasses?[a.soldierSpec].rank ?? 0) <=> (soldierClasses?[b.soldierSpec].rank ?? 0))
 
   return { classesToShow, soldiersToShow }
 }

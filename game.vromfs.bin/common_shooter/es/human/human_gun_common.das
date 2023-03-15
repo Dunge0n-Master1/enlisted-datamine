@@ -1,5 +1,6 @@
 module human_gun_common shared
 require ecs
+require ecs.extra_set
 require EnlistedNet
 require common_shooter.events_common_shooter
 require Gun
@@ -28,7 +29,7 @@ def human_gun_update_reload(gun : Gun;
       sendEventImmediate(gun_owner, [[CmdRequestReload atTime=at_time, gunEid=gun_eid]])
 
 def create_shell_entity(templ_name : string; in_tm : float3x4; start_vel : float3;
-                        owner_eid : EntityId; shell_id : ShellPropIds implicit; gun_props_id : int;
+                        owner_eid : EntityId; shell_id : ShellPropIds |#; gun_props_id : int;
                         launch_time : float; expl_time : float; in_active : bool;
                         client_side : bool;  rethrower_eid : EntityId)
   return createEntity("{templ_name}+{client_side ? "client_side" : "replicating"}") <| $(var init)
@@ -46,6 +47,4 @@ def create_shell_entity(templ_name : string; in_tm : float3x4; start_vel : float
     init |> set("active", in_active)
     if !!owner_eid
       init |> set("ignoreObjs__time", 0.01f)
-      using() <| $(var list : EidList#)
-        list |> push(owner_eid)
-        init |> set("ignoreObjs__eids", list)
+      init |> set("ignoreObjs__eids", [{auto owner_eid}])

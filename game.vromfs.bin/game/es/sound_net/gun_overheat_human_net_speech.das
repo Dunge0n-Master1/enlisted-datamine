@@ -1,6 +1,6 @@
 require ecs
 require app
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 
 [es(track=gun__isOverheat, tag=server, REQUIRE=gunOverheatSpeechEnable)]
 def gun_overheat_human_net_speech_es(evt : Event;

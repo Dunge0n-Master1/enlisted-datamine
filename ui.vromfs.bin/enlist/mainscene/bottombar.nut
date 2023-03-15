@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { columnGap, footerContentHeight } = require("%enlSqGlob/ui/designConst.nut")
+let { colFull, colPart, footerContentHeight } = require("%enlSqGlob/ui/designConst.nut")
 let mailboxButton = require("%enlist/mainScene/invitationsLogButton.ui.nut")
 let { isContactsEnabled } = require("%enlist/contacts/contactsState.nut")
 let showContactsListWnd = require("%enlist/contacts/contactsListWindow.nut")
@@ -30,11 +30,12 @@ let function rightButtons() {
       children.extend(buttons)
   }
   return {
-    size = [SIZE_TO_CONTENT, footerContentHeight]
     watch = [hasMainSectionOpened, enabledSquad]
+    size = [colFull(5), footerContentHeight]
+    minWidth = SIZE_TO_CONTENT
+    halign = ALIGN_RIGHT
     flow = FLOW_HORIZONTAL
-    gap = columnGap
-    valign = ALIGN_CENTER
+    gap = colPart(0.1842)
     hplace = ALIGN_RIGHT
     children
   }

@@ -2,6 +2,7 @@ require ecs
 require Plane
 require EnlistedPlane
 require ecs.soa_template
+require enlisted.events_enlisted
 
 let zeroKelvinInCelsium = -273.15f
 
@@ -37,7 +38,7 @@ def get_warn_level(time_to_die : float; points : IntList)
   return res
 
 [soa_es, es(tag=ui, no_order, REQUIRE=vehicleWithWatched)]
-def aircraft_hud_engine_state(info : UpdateStageInfoAct;
+def aircraft_hud_engine_state(info : ParallelUpdateFrameDelayed;
                               plane_view_engine__warnPoints : IntList;
                               plane_view_engine__updateInterval : float;
                               var plane_view_engine__nextUpdate : float&;
@@ -83,7 +84,7 @@ def aircraft_hud_engine_state(info : UpdateStageInfoAct;
 
 
 [es(tag=ui, after=plane_phys_es, REQUIRE=vehicleWithWatched)]
-def plane_minimal_view_air_brakes(info : UpdateStageInfoAct;
+def plane_minimal_view_air_brakes(info : ParallelUpdateFrameDelayed;
                                   plane_net_phys : PlaneActor;
                                   var plane_view__hasAirBrakes : bool&;
                                   var plane_view__isAirBrakesActive : bool&)

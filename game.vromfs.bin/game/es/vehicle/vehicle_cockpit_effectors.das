@@ -5,7 +5,7 @@ require AnimV20
 require DagorSystem
 require GeomNodeTree
 require EffectorData
-
+require enlisted.events_enlisted
 
 [es(tag=render, on_appear)]
 def cockpit_effectors_init_es(evt : Event;
@@ -41,8 +41,8 @@ def human_vehicle_cockpit_effectors_reset(evt : Event;
       effector.weight = 0.0
 
 
-[es(tag=render, before=animchar_effectors_update_es, after=(human_anim_es, plane_anim_es))]
-def human_vehicle_cockpit_effectors(info : UpdateStageInfoAct;
+[es(tag=render, before=before_animchar_update_sync, after=(human_anim_es, plane_anim_es))]
+def human_vehicle_cockpit_effectors(info : ParallelUpdateFrameDelayed;
                                     animchar aka cockpit_animchar : AnimcharBaseComponent;
                                     cockpit__vehicleEid : EntityId;
                                     cockpit__effectors : Object;

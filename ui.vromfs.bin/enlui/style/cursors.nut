@@ -4,7 +4,7 @@ let {isGamepad} = require("%ui/control/active_controls.nut")
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let tooltipBox = require("tooltipBox.nut")
-let platform = require("%dngscripts/platform.nut")
+let { is_sony, is_xbox } = require("%dngscripts/platform.nut")
 let tooltipGen = Watched(0)
 let tooltipComp = {value = null}
 let function setTooltip(val){
@@ -14,8 +14,7 @@ let function setTooltip(val){
 let getTooltip = @() tooltipComp.value
 let cursors = {getTooltip, setTooltip, tooltip = {}}
 let {cursorOverStickScroll, cursorOverClickable} = gui_scene
-let showGamepad = Computed(@() isGamepad.value || platform.is_xbox || platform.is_sony || platform.is_nswitch)
-let hideCursor = platform.is_mobile
+let showGamepad = Computed(@() isGamepad.value || is_xbox || is_sony)
 
 let colorBack = Color(0,0,0,120)
 
@@ -86,7 +85,7 @@ let joyScrollCursorImage = {
   rendObj = ROBJ_IMAGE
   size = [scroll_size, scroll_size]
   image = Picture($"!ui/uiskin/cursor_scroll.svg:{scroll_size}:{scroll_size}:K")
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   pos = [hdpx(20), hdpx(30)]
   opacity = 1
 
@@ -164,20 +163,12 @@ local function mkGamepadCursor(children){
   }
 }
 
-let function mkHiddenCursor(children){
-  return {
-    children = children
-    watch = [showGamepad, cursorOverStickScroll]
-  }
-}
-
 local function mkCursorWithTooltip(children){
   if (type(children) != "array")
     children = [children]
   if (cursorOverStickScroll.value && showGamepad.value)
     children.append(joyScrollCursorImage)
   return showGamepad.value ? mkGamepadCursor(children)
-                           : hideCursor ? mkHiddenCursor(children)
                            : mkPcCursor(children)
 }
 
@@ -249,15 +240,11 @@ cursors.help <- Cursor(function(){
     cursorOverStickScroll.value && showGamepad.value
       ? joyScrollCursorImage : null,
     showGamepad.value ? helpSign
-                      : hideCursor
-                        ? null
-                        : helpSignPc,
+                      : helpSignPc,
     cursors.tooltip.cmp
   ]
   return showGamepad.value ? mkGamepadCursor(children)
-                           : hideCursor
-                             ? mkHiddenCursor(children)
-                             : mkPcCursor(children)
+                           : mkPcCursor(children)
 })
 
 let function mkResizeC(commands, angle=0){

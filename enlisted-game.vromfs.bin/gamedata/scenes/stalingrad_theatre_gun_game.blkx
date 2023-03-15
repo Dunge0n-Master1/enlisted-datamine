@@ -631,12 +631,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -644,7 +644,7 @@ entity{
   mission_name:t="stalingrad_theatre_gun_game"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_10.jpg"
+    item:t="ui/stalingrad_inv_10.avif"
   }
 }
 
@@ -1177,18 +1177,18 @@ entity{
 }
 
 entity{
-  _template:t="russia_wooden_planks_b"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-279.723, 9.17988, 19.5914]]
-}
-
-entity{
-  _template:t="russia_wooden_planks_b"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-279.723, 10.6114, 19.5914]]
-}
-
-entity{
   _template:t="gun_game_respawn_base"
   transform:m=[[0.912973, 0.0, 0.40803] [0.0, 0.999998, -0.0] [-0.408029, 0.0, 0.91297] [-272.362, 7.82861, -3.31849]]
   team:i=3
   gun_game__respawnFriendlyRadius:r=15.0
+}
+
+entity{
+  _template:t="sandbags_wall_8"
+  transform:m=[[0.998665, 0.0, -0.0517403] [0.0, 0.999998, 0.0] [0.0517401, -0.0, 0.998662] [-278.464, 9.68006, 20.6427]]
+}
+
+entity{
+  _template:t="sandbags_wall_9"
+  transform:m=[[-0.998056, 0.0, 0.062392] [0.0, 0.999998, 0.0] [-0.0623918, 0.0, -0.998053] [-278.568, 9.68006, 18.7773]]
 }

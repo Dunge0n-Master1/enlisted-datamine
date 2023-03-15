@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let cursors = require("%ui/style/cursors.nut")
 let picSz = fsh(5)
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
-let platform = require("%dngscripts/platform.nut")
 let { serverResponseError } = require("%enlist/matchingClient.nut")
 
 let isSavingData = Watched(false)
@@ -46,14 +45,6 @@ let mkIcon = @(iconName, tipText, isVisibleWatch, color) @() {
                     }]
                   }
                 : null
-}
-
-if (platform.is_nswitch) {
-  let nswitchEvents = require("nswitch.events")
-  nswitchEvents.setOnSavedataUsageCallback(function() {
-    isSavingData(true)
-    gui_scene.setTimeout(1.5, @() isSavingData(false) )
-  })
 }
 
 let noServerStatus = mkIcon("no_connection_error", "connectingToServer", serverResponseError, Color(200, 50, 0, 160))

@@ -248,7 +248,7 @@ let mkCampaignImg = @(campaign) {
   keepAspect = KEEP_ASPECT_FILL
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
-  image = Picture($"ui/gameImage/{campaign}.jpg")
+  image = Picture($"ui/gameImage/{campaign}.avif")
 }
 
 let cardTextBlock = @(label, typeTxt, sf, isSelected, params = {}) {
@@ -323,7 +323,7 @@ let mkCampaignSelectBlock = @(label, _typeTxt, setValue, isSelected, value)
 let allertSign = {
   rendObj = ROBJ_IMAGE
   size = [hdpx(30), hdpx(25)]
-  image = Picture($"ui/uiskin/attention.png")
+  image = Picture($"ui/uiskin/attention.avif")
   margin = bigPadding
   behavior = Behaviors.Button
   hplace = ALIGN_RIGHT

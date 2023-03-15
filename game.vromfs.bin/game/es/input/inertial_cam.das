@@ -8,6 +8,7 @@ require DagorMath
 require DagorMathUtils
 require DagorSystem
 require game.utils.hero
+require enlisted.events_enlisted
 
 let
   LOCAL_ACCEL_IMMEDIATE = 0.1f
@@ -39,7 +40,7 @@ def apply_cam_angles(vec : float3; angles : float2)
   return res
 
 [es(tag=input, before=before_camera_sync, REQUIRE=plane_input)]
-def plane_inertial_cam_update(info : UpdateStageInfoAct;
+def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
                               plane_net_phys : PlaneActor;
                               transform : float3x4;
                               camera__zoomPos : float;
@@ -132,7 +133,7 @@ def plane_inertial_cam_update(info : UpdateStageInfoAct;
   camera__look_at.z = double(pos.z)
 
 [es(tag=input, after=plane_inertial_cam_update, after=turret_update_turret_aim_point, before=plane_target_forestall, REQUIRE=plane_input)]
-def plane_inertial_cam_update_aim_pos(info : UpdateStageInfoAct;
+def plane_inertial_cam_update_aim_pos(info : ParallelUpdateFrameDelayed;
                                       transform : float3x4;
                                       plane_inertial_cam__headAccelRot : float3;
                                       isTurretAimPosValid : bool;

@@ -1,0 +1,25 @@
+misc_effect_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  _group{
+    _tags:t="render"
+
+    effect{
+    }
+  }
+
+  "staticEffect:tag"{
+  }
+
+  "autodeleteEffectEntity:tag"{
+  }
+}
+
+misc_soil_digging_effect{
+  _extends:t="misc_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="misc_soil_digging_cmps_fx"
+  }
+}

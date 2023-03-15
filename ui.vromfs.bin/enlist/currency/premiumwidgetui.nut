@@ -12,12 +12,13 @@ let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 
 let IMAGE_WIDTH = hdpx(35)
 
-let hasDiscount = Computed(@()
-  premiumProducts.value.findindex(@(i) (i?.discountInPercent ?? 0) > 0) != null
+let premDiscount = Computed(@()
+  premiumProducts.value
+    .reduce(@(res, val) max(res, (val?.discountInPercent ?? 0)), 0)
 )
 
-let premiumWidget = @(){
-  watch = hasDiscount
+let premiumWidget = @() {
+  watch = premDiscount
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   padding = bigPadding
@@ -34,8 +35,8 @@ let premiumWidget = @(){
     : null)
   children = [
     premiumImage(IMAGE_WIDTH)
-    !hasDiscount.value ? null
-      : mkNotifierBlink(loc("shop/discountNotify"),
+    premDiscount.value == 0 ? null
+      : mkNotifierBlink(loc("shop/discount", { percents = premDiscount.value }),
           { size = SIZE_TO_CONTENT },
           { color = discountBgColor })
   ]

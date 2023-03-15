@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
 let { Flat } = require("%ui/components/textButton.nut")
 let { smallPadding, bigPadding, soldierWndWidth, unitSize, msgHighlightedTxtColor, slotBaseSize
@@ -159,7 +159,7 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
   }
 })
 
-let unequipUnseenIcon = unseenSignal(0.9, msgHighlightedTxtColor, "th-large")
+let unequipUnseenIcon = blinkUnseenIcon(0.9, msgHighlightedTxtColor, "th-large")
 
 let mkEquipBtn = @(soldier, objInfoByGuidWatched, reserveSoldiersWatch)
   function() {
@@ -211,36 +211,36 @@ let mkEquipBtn = @(soldier, objInfoByGuidWatched, reserveSoldiersWatch)
     })
   }
 
-let function soldierEquip(
-  soldier, canManage = true, selectedKeyWatch = Watched(null), onDoubleClickCb = null,
-  onResearchClickCb = null, getDropExceptionCb = null
-) {
-  let itemCtor = @(p) mkItem(p.__merge({
-    selectedKey = selectedKeyWatch
-    onDoubleClickCb = onDoubleClickCb
-    onDropExceptionCb = getDropExceptionCb?(p?.item)
-    onResearchClickCb = onResearchClickCb
-  }))
+let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null),
+  onDoubleClickCb = null, onResearchClickCb = null, dropExceptionCb = null
+) function() {
+    let itemCtor = @(p) mkItem(p.__merge({
+      selectedKey = selectedKeyWatch
+      onDoubleClickCb = onDoubleClickCb
+      onDropExceptionCb = dropExceptionCb
+      onResearchClickCb = onResearchClickCb
+    }))
 
-  let sGuid = soldier.guid
-  let groupParams = {
-    soldier
-    canManage
-    itemCtor
-    slotsCount = soldierSlotsCount(sGuid, soldier?.equipScheme ?? {})
-  }
+    let sGuid = soldier.value.guid
+    let groupParams = {
+      soldier = soldier.value
+      canManage
+      itemCtor
+      slotsCount = soldierSlotsCount(sGuid, soldier.value?.equipScheme ?? {})
+    }
 
-  let children = equipGroups.map(@(equipGroup)
-    mkItemsChapter(groupParams.__merge({ equipGroup })))
+    let children = equipGroups.map(@(equipGroup)
+      mkItemsChapter(groupParams.__merge({ equipGroup })))
 
-  children.append(mkEquipBtn(soldier, objInfoByGuid, reserveSoldiers))
+    children.append(mkEquipBtn(soldier.value, objInfoByGuid, reserveSoldiers))
 
-  return {
-    flow = FLOW_VERTICAL
-    gap = bigPadding
-    size = SIZE_TO_CONTENT
-    children = children
-  }
+    return {
+      watch = soldier
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      size = SIZE_TO_CONTENT
+      children = children
+    }
 }
 
 return kwarg(soldierEquip)

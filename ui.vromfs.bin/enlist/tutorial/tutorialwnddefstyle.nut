@@ -159,7 +159,7 @@ let pointerArrow = {
     rendObj = ROBJ_IMAGE
     color = 0xFF417927
     image = Picture($"!ui/uiskin/arrow_tutor.svg:{pointerSize}:{pointerSize}:K")
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     transform = {}
     animations = [
       { prop=AnimProp.translate, from = [0, -pointerAnimOffset], to = [0, pointerAnimOffset],

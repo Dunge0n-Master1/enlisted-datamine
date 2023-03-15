@@ -15,8 +15,11 @@ let isBooster = @(item) "bType" in item
 let boosterItems = Computed(function() {
   let res = {}
   let curArmyId = curArmy.value
-  foreach (armyId in [curArmyId, commonArmy.value])
-    foreach (item in itemsByArmies.value?[armyId] ?? {})
+  let commonArmyId = commonArmy.value
+  let armyItems = itemsByArmies.value
+
+  foreach (armyId in [curArmyId, commonArmyId])
+    foreach (item in (armyItems?[armyId] ?? {}))
       if (isBooster(item))
         res[item.guid] <- item
   return res
@@ -27,18 +30,13 @@ let allBoostersBase = Computed(function() {
   let campByArmy = campaignsByArmy.value
   return boosterItems.value.values().map(function(item) {
     let { guid, bType, ctime, expMul = 0.0, battles = 0, lifeTime = 0, armyLimit = [] } = item
-    let leftBattles = battles - (aBoosters?[item.guid].battles ?? 0)
+    let leftBattles = battles - (aBoosters?[guid].battles ?? 0)
     let expireTime = lifeTime > 0 ? ctime + lifeTime : 0
-    let campaignLimit = {}
-    foreach (armyId in armyLimit)
-      if (armyId in campByArmy) {
-        let army = campByArmy[armyId]
-        campaignLimit[army.id] <- army
-      }
+    let campaignLimit = armyLimit.map(@(armyId) campByArmy?[armyId]).filter(@(s) s != null)
 
     return {
       guid, bType, expMul, armyLimit, leftBattles, expireTime, battles, lifeTime, ctime,
-      campaignLimit = campaignLimit.values()
+      campaignLimit
     }
   })
 })
@@ -52,15 +50,6 @@ let function recalcActiveBosters() {
   let allBaseBoosters = allBoostersBase.value
   let boosters = allBaseBoosters.filter(@(b) b.expireTime <= 0 || b.expireTime > time)
   allBoosters(boosters)
-
-  // FIXME: This is for debug info. Should be removed
-  log($"recalcActiveBosters time: {time}")
-  foreach (b in allBaseBoosters) {
-    let { guid, ctime, lifeTime, expireTime, battles, leftBattles } = b
-    let isHidden = b.expireTime > 0 && b.expireTime < time
-    log($"* time: {expireTime} = {ctime} + {lifeTime}, battles: {leftBattles}/{battles}, guid: {guid}{isHidden ? ", HIDDEN" : ""}")
-  }
-  log($"active {boosters.len()} boosters of {allBaseBoosters.len()}")
 }
 allBoosters.whiteListMutatorClosure(recalcActiveBosters)
 

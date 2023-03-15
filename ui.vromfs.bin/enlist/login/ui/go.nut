@@ -222,11 +222,12 @@ let loginBtn = @(){
   size = [flex(), SIZE_TO_CONTENT]
   children = textButton.Flat(loc("Login"),
     function() { log("Start Login by login btn"); doPasswordLogin() },
-    { size = [flex(), hdpx(70)], halign = ALIGN_CENTER, margin = 0
+    { halign = ALIGN_CENTER, margin = 0
       hotkeys = [["^J:Y", { description = { skip = true }}]]
     }.__update(
       h2_txt,
       textButton.loginBtnStyle.__update({
+        size = [flex(), hdpx(70)]
         style = {
           BgNormal = areInputsEmpty.value ? Color(99, 97, 98) : Color(230, 130, 0)
         }

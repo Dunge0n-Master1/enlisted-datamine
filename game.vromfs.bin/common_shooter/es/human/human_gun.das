@@ -18,7 +18,6 @@ require EnlistedWeapon
 require AnimV20
 require HumanPhys
 require PhysDecl
-require GunAnim
 require PhysVars
 require AnimatedPhys
 require DaWeapons
@@ -27,6 +26,7 @@ require DagorMath
 require math.base
 require ecs.safe
 require strings
+require PhysMat
 
 [es(on_appear)]
 def gun_attach__mainSlotId_init(evt : Event;
@@ -168,20 +168,6 @@ def human_gun_detach_es(evt : CmdWeapDetach;
     ragdoll |> ragdoll_startRagdoll(1, -1)
     animchar |> animchar_setPostController(ragdoll)
 
-
-[es(tag=server, track=(human_weap__currentGunSlot, human_weap__gunEids))]
-def human_gun_deflect_es(evt : Event;
-                         human_weap__currentGunSlot : int;
-                         human_weap__gunEids : EidList;
-                         var human_weap__bulletDeflectionAngle : float&;
-                         var human_weap__bulletDeflectionArmor : float&)
-  let gun = human_weap__currentGunSlot >= 0 ? human_weap__gunEids[human_weap__currentGunSlot] : INVALID_ENTITY_ID
-  query(gun) <| $ [es] (bulletDeflectAngle : float = 0.0;
-                        bulletDeflectArmor : float = 0.0)
-    human_weap__bulletDeflectionAngle = bulletDeflectAngle
-    human_weap__bulletDeflectionArmor = bulletDeflectArmor
-
-
 [es(tag=server, no_order)]
 def human_gun_reset_reload_anim_es(evt : CmdWeapAttach;
                                    var gun__holsterGen : int&)
@@ -190,19 +176,21 @@ def human_gun_reset_reload_anim_es(evt : CmdWeapAttach;
     ++gun__holsterGen
 
 
-def reset_reload_anim(gunAnim : GunAnim;
+def reset_reload_anim(gun_anim__reloadVarId : int;
+                      gun_anim__singleReloadVarId : int;
                       var physVars : PhysVars;
                       var animchar : AnimcharBaseComponent;
                       var animPhys : AnimatedPhys)
-  physVars |> setVar(gunAnim.reloadVarId, -1.0)
-  physVars |> setVar(gunAnim.singleReloadVarId, -1.0)
+  physVars |> setVar(gun_anim__reloadVarId, -1.0)
+  physVars |> setVar(gun_anim__singleReloadVarId, -1.0)
   animPhys |> anim_phys_update(animchar, physVars)
   animchar |> animchar_act(0.01, true)
 
 
 [es(before=before_animchar_update_sync)]
-def human_gun_reset_reload_anim_client_es(info : UpdateStageInfoAct;
-                                          gun_anim : GunAnim;
+def human_gun_reset_reload_anim_client_es(info : ParallelUpdateFrameDelayed;
+                                          gun_anim__reloadVarId : int;
+                                          gun_anim__singleReloadVarId : int;
                                           gun__holsterGen : int;
                                           var gun__prevHolsterGen : int&;
                                           var phys_vars : PhysVars;
@@ -210,19 +198,20 @@ def human_gun_reset_reload_anim_client_es(info : UpdateStageInfoAct;
                                           var anim_phys : AnimatedPhys)
   if gun__holsterGen != gun__prevHolsterGen
     gun__prevHolsterGen = gun__holsterGen
-    reset_reload_anim(gun_anim, phys_vars, animchar, anim_phys)
+    reset_reload_anim(gun_anim__reloadVarId, gun_anim__singleReloadVarId, phys_vars, animchar, anim_phys)
 
 
 [es]
 def human_gun_reset_reload_anim_on_vehicle_enter_client_es(evt : EventEnterVehicle;
-                                                           gun_anim : GunAnim;
+                                                           gun_anim__reloadVarId : int;
+                                                           gun_anim__singleReloadVarId : int;
                                                            var phys_vars : PhysVars;
                                                            var animchar : AnimcharBaseComponent;
                                                            var anim_phys : AnimatedPhys)
-  reset_reload_anim(gun_anim, phys_vars, animchar, anim_phys)
+  reset_reload_anim(gun_anim__reloadVarId, gun_anim__singleReloadVarId, phys_vars, animchar, anim_phys)
 
 [es(tag=gameClient, before=before_animchar_update_sync)]
-def human_gun_phys_vars_es(info : UpdateStageInfoAct;
+def human_gun_phys_vars_es(info : ParallelUpdateFrameDelayed;
                            reye_offset__fwd0Id : int;
                            gun_offset__acrossId : int;
                            gun_offset__upId : int;
@@ -333,3 +322,9 @@ def set_slot_attach__rotation_tm(evt : Event; slot_attach__rotOffset : float3; v
   let offset = deg_to_rad(slot_attach__rotOffset)
   euler_to_quat(offset.x, offset.y, offset.z, q)
   make_tm(q, float3(), slot_attach__rotTm)
+
+[es(on_appear)]
+def human_weap_init_gun_trace(evt : Event;
+                              human_weap__gunMat : string = "gunRay";
+                              var human_weap__gunMatId : int&)
+  human_weap__gunMatId = get_material_id(human_weap__gunMat)

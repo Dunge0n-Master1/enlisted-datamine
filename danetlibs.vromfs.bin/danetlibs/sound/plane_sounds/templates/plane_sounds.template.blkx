@@ -101,9 +101,6 @@ plane_sound{
   _extends:t="plane_hit_sound"
   _extends:t="plane_damage_sound"
   _extends:t="plane_watertracks_sound"
-  plane_engine_sound__props:t="content/enlisted/gamedata/units/sound/engine_props.blk"
-  plane_engine_sound__propsId:i=-1
-  plane_engine_sound__engine:t="engine04"
 
   _group{
     _tags:t="sound"
@@ -113,9 +110,17 @@ plane_sound{
   _group{
     _tags:t="sound"
     sound_control__range:r=450.0
+    sound_control__autoRange:b=no
   }
 
-  plane_engine_sound{
+  _group{
     _tags:t="sound"
+    plane_engine_sound__propsId:i=-1
+    plane_engine_sound__lastUpdateTime:r=0.0
+    plane_engine_sound__props:t="content/enlisted/gamedata/units/sound/engine_props.blk"
+    plane_engine_sound__engine:t="engine04"
+
+    plane_engine_sound{
+    }
   }
 }

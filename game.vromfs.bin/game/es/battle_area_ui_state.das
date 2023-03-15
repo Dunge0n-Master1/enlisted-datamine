@@ -6,6 +6,15 @@ require enlisted.events_enlisted
 require DagorMath
 require math.base
 
+
+// workaround to fully remove implicit arguments and make this module safe
+def private clone(var a : BattleAreaSegment explicit; b : BattleAreaSegment const)
+  a.startPoint = b.startPoint
+  a.endPoint = b.endPoint
+  a.duplicate = b.duplicate
+  __::builtin`clone(a.excludeEids, b.excludeEids)
+
+
 struct BattleAreaInfo
   areaEid : EntityId
   points : array<float2>
@@ -78,9 +87,9 @@ def split_segment(var segments : array<BattleAreaSegment>&; cur_segment_id : int
   if dividing_point == segments[cur_segment_id].startPoint || dividing_point == segments[cur_segment_id].endPoint
     return
 
-  let newSegment <- mk_segment(dividing_point, segments[cur_segment_id].endPoint, segments[cur_segment_id].excludeEids)
+  var newSegment <- mk_segment(dividing_point, segments[cur_segment_id].endPoint, segments[cur_segment_id].excludeEids)
   segments[cur_segment_id] <- mk_segment(segments[cur_segment_id].startPoint, dividing_point, segments[cur_segment_id].excludeEids)
-  segments |> push_clone(newSegment)
+  segments |> emplace(newSegment)
 
 def dump_all_active_battle_areas_to_log()
   var heroCaprureTag = "humanTriggerable"
@@ -91,7 +100,7 @@ def dump_all_active_battle_areas_to_log()
     heroCaprureTag := zones_visitor__triggerTag
     heroTeam = team
 
-  print("battle areas conflict for team {heroTeam} , list of active groupName")
+  print("Battle areas conflict for team {heroTeam} , list of active groupNames:")
   query() <| $ [es(REQUIRE=battle_area, REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
                                                                      active : bool;
                                                                      battle_area__isVisible : bool;
@@ -102,7 +111,9 @@ def dump_all_active_battle_areas_to_log()
 
     if !has(eid, heroCaprureTag, ecs_hash(heroCaprureTag))
       return
-    print("GroupName = {groupName} {eid}")
+    print("groupName = {groupName} , eid = {eid}")
+
+  return heroTeam
 
 def find_next_segment(segmentToExtend; var segments : array<BattleAreaSegment>&)
   var curSeg : CurrentSegment
@@ -118,9 +129,10 @@ def find_next_segment(segmentToExtend; var segments : array<BattleAreaSegment>&)
       curSeg.linkTo = s.startPoint
       curSeg.valid = true
       return <- curSeg
-  logerr("Can't build battleAreas ui polygon, see debug for more info")
-  print("All segnent's {segments}, calculating broken on segment = {segmentToExtend}")
-  dump_all_active_battle_areas_to_log()
+  print("All segments: {segments}, calculation broke on segment: {segmentToExtend}")
+  let team = dump_all_active_battle_areas_to_log()
+  // keep this logerr after prints so information about the error gets reported too
+  logerr("Can't build battleAreas ui polygon for team: {team}, see debug for more info")
   return <- curSeg
 
 def build_polygon(var segments : array<BattleAreaSegment>&; var polygon : Point2List&)
@@ -307,4 +319,5 @@ def areas_update_es(info : ParallelUpdateFrameDelayed;
       ]])
 
   build_battle_area_polygon(battleAreasInfo, battle_area__activeBattleAreasPolygon)
-  build_battle_area_polygon(nextBattleAreasInfo, battle_area__nextBattleAreasPolygon)
+  if length(battleAreasInfo) != length(nextBattleAreasInfo)
+    build_battle_area_polygon(nextBattleAreasInfo, battle_area__nextBattleAreasPolygon)

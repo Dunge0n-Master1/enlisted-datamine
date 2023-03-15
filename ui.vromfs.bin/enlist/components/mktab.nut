@@ -3,7 +3,7 @@ let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { midPadding, titleTxtColor, defTxtColor, commonBorderRadius, defVertGradientImg, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
 let { soundActive } = require("%ui/components/textButton.nut")
 
@@ -18,9 +18,6 @@ let function requestMoveToElem(elem) {
   markerTarget.set(x, y, x + w, y + h)
 }
 
-let tabUnseenSignal = unseenSignal(0.8).__update({
-  hplace = ALIGN_RIGHT
-})
 
 let tabTxtStyle = @(sf, isSelected) {
   color = (sf & S_ACTIVE) || isSelected ? titleTxtColor
@@ -59,7 +56,7 @@ let function mkTab(tab, curSection) {
           }
         }.__update(tabTxtStyle(sf, isSelected.value))
       }
-      isUnseenWatch.value ? tabUnseenSignal : null
+      isUnseenWatch.value ? blinkUnseen : null
     ]
   })
 }

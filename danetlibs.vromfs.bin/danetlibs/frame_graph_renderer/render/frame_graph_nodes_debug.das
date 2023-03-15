@@ -8,12 +8,22 @@ require danetlibs/frame_graph_renderer/render/node_macro
 require ecs
 require DagorConsole
 
+def is_forward_rendering()
+  return find_query() <| $ [es] (render_settings__forwardRendering : bool)
+    return render_settings__forwardRendering
+
 [frame_graph_node]
 class DebugVisualizationNode : FrameGraphNode
 
+  def override onDeviceReset() : void { pass; }
+
   def override declareResources(registrar : ResourceRegistrar)
-    registrar |> addPreviousNode(string_view("transparent_effects_node"))
-    registrar |> addFollowNode(string_view("transparent_scene_late_node"))
+    if is_forward_rendering()
+      registrar |> modifyResource(string_view("target_after_under_water_fog"))
+    else
+      registrar |> addPreviousNode(string_view("transparent_effects_node"))
+      registrar |> addFollowNode(string_view("transparent_scene_late_node"))
+    registrar |> setShaderBlockToLayer(ShaderBlockLayer LAYER_FRAME, string_view("global_frame"))
 
   [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
     worldRenderer_renderDebug()
@@ -23,6 +33,8 @@ class DebugVisualizationNode : FrameGraphNode
 [frame_graph_node]
 class GbufferDiffuseOverride : FrameGraphNode
   eid : EntityId
+
+  def override onDeviceReset() : void { pass; }
 
   def override declareResources(registrar : ResourceRegistrar)
     eid = getSingletonEntity("gbuffer_diffuse_override_debug_node")
@@ -35,7 +47,7 @@ class GbufferDiffuseOverride : FrameGraphNode
   [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
     query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
       __scope_render_target() <| $()
-        set_color4(get_shader_variable_id("gbuffer_fix_color", true), Color4(debug_fill_color))
+        set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
         set_int(get_shader_variable_id("debug_fix_gbuffer", true), 0)
         debug_fill_gbuffer |> render()
 
@@ -45,6 +57,8 @@ class GbufferDiffuseOverride : FrameGraphNode
 [frame_graph_node]
 class GbufferSpecularOverride : FrameGraphNode
   eid : EntityId
+
+  def override onDeviceReset() : void { pass; }
 
   def override declareResources(registrar : ResourceRegistrar)
     eid = getSingletonEntity("gbuffer_specular_override_debug_node")
@@ -57,7 +71,7 @@ class GbufferSpecularOverride : FrameGraphNode
   [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
     query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
       __scope_render_target() <| $()
-        set_color4(get_shader_variable_id("gbuffer_fix_color", true), Color4(debug_fill_color))
+        set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
         set_int(get_shader_variable_id("debug_fix_gbuffer", true), 2)
         debug_fill_gbuffer |> render()
 
@@ -65,11 +79,6 @@ class GbufferSpecularOverride : FrameGraphNode
 [es(on_event=BeforeLoadLevel)]
 def init_debug_nodes(evt : Event)
   createEntity("debug_visualization_node")
-
-
-def is_forward_rendering()
-  return find_query() <| $ [es] (render_settings__forwardRendering : bool)
-    return render_settings__forwardRendering
 
 
 def update_debug_entity(enable : bool; color : float; templ : string)

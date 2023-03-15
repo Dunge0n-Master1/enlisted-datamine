@@ -1,6 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { mkCmdSelectBuildingType } = require("%enlSqGlob/sqevents.nut")
+
 let {
   buildingToolMenuItems, showBuildingToolMenu, elemSize
 } = require("%ui/hud/state/building_tool_menu_state.nut")
@@ -16,7 +18,7 @@ let showMsg = @(text) playerEvents.pushEvent({ text = text, ttl = 5 })
 
 let function selectBuildingType(index) {
   let weapEid = ecs.obsolete_dbg_get_comp_val(controlledHeroEid.value, "human_weap__currentGunEid", ecs.INVALID_ENTITY_ID)
-  ecs.client_send_event(weapEid, ecs.event.CmdSelectBuildingType({index=index}))
+  ecs.client_send_event(weapEid, mkCmdSelectBuildingType({index=index}))
 }
 
 let svg = memoize(function(img) {

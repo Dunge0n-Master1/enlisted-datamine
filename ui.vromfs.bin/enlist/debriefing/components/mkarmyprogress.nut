@@ -110,7 +110,7 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
     return []
 
   let { baseArmyExp = 0, boostedExp = 0, premiumExp = 0, noviceBonus = 0,
-    battleResultMult = 1.0, battleHeroAwardsMult = 1.0, playerCountMult = 1.0, armyExpBoost = 0,
+    battleResultMult = 1.0, anyTeamMult = 1.0, lastGameDeserterMult = 1.0, battleHeroAwardsMult = 1.0, playerCountMult = 1.0, armyExpBoost = 0,
     isBattleResultMultDisabled = false, isArmyBoostDisabled = false,
     isBattleHeroMultDisabled = false, freemiumExpMult = 1.0
   } = details
@@ -123,6 +123,12 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
                           : "debriefing/battleResultMult"
   let battleResultText = isDeserter ? "debriefing/battleResultDeserterMultShort" : null
   let battleResultImage = isSuccess ? mkWinXpImage(xpIconSize) : null
+  let anyTeamMultText = "debriefing/anyTeamMultShort"
+  let anyTeamMultImage = null
+  let anyTeamMultLocId = "debriefing/anyTeamMultTooltip"
+  let lastGameDeserterMultText = "debriefing/lastGameDeserterMultShort"
+  let lastGameDeserterMultImage = null
+  let lastGameDeserterMultLocId = "debriefing/lastGameDeserterMultTooltip"
 
 
   let hasBoostBonus = boostedExp > 0
@@ -130,14 +136,16 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
   let hasPremiumAccount = (details?.premiumExpMul ?? 1.0) > 1.0
   let hasPremiumSquad = squads.findvalue(@(squad) (squad?.premSquadExpBonus ?? 0) > 0) != null
   let hasBattleResultMult = battleResultMult != 1.0
+  let hasAnyTeamMult = anyTeamMult != 1.0
+  let hasLastGameDeserterMult = lastGameDeserterMult != 1.0
   let hasBattleHeroMult = battleHeroAwardsMult != 1.0
   let hasPlayerCountMultIcon = playerCountMult != 1.0
   let hasFreemiumMult = freemiumExpMult != 1.0
   let needsParentheses = (hasBoostBonus || hasPremBonus)
-    && (hasBattleResultMult || hasBattleHeroMult || hasFreemiumMult)
+    && (hasBattleResultMult || hasAnyTeamMult || hasLastGameDeserterMult || hasBattleHeroMult || hasFreemiumMult)
   let showNotEnoughPlayersNotice = hasPlayerCountMultIcon || isBattleResultMultDisabled
     || isArmyBoostDisabled || isBattleHeroMultDisabled
-  let showDetailed = hasBattleHeroMult || hasBattleResultMult || showNotEnoughPlayersNotice
+  let showDetailed = hasBattleHeroMult || hasBattleResultMult || hasAnyTeamMult || hasLastGameDeserterMult || showNotEnoughPlayersNotice
     || hasPremBonus || hasBoostBonus || hasFreemiumMult || noviceBonus > 0
 
   let baseExp = showDetailed
@@ -163,6 +171,20 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
         withTooltip(
           mkValueWithIconArmyExp(battleResultMult, battleResultImage, battleResultText)
           @() loc(battleResultLocId))
+      ])
+  let lastGameDeserterMultIcon = !hasLastGameDeserterMult ? null
+    : horFlow([
+        multiplySign
+        withTooltip(
+          mkValueWithIconArmyExp(lastGameDeserterMult, lastGameDeserterMultImage, lastGameDeserterMultText)
+          @() loc(lastGameDeserterMultLocId))
+      ])
+  let anyTeamMultIcon = !hasAnyTeamMult ? null
+    : horFlow([
+        multiplySign
+        withTooltip(
+          mkValueWithIconArmyExp(anyTeamMult, anyTeamMultImage, anyTeamMultText)
+          @() loc(anyTeamMultLocId))
       ])
   let freemiumResultMultIcon = !hasFreemiumMult ? null
     : horFlow([
@@ -205,6 +227,8 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
         premExp
         needsParentheses ? txt(")") : null
         battleResultMultIcon
+        lastGameDeserterMultIcon
+        anyTeamMultIcon
         freemiumResultMultIcon
         battleHeroMultIcon
         playerCountMultIcon

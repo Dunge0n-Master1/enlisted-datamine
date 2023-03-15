@@ -2,15 +2,17 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
-let {
-  defTxtColor, activeTxtColor, accentTitleTxtColor
+let { defTxtColor, activeTxtColor, accentTitleTxtColor, titleTxtColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { taskMinHeight, taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
 let { rewardWidthToHeight, rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
+let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 
 
 let defCardSize = [hdpx(170), hdpx(210)]
+let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
 
 let function prepareRewards(rewards, itemMapping = {}) {
   let list = []
@@ -33,8 +35,8 @@ let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   return {
     rendObj = ROBJ_IMAGE
     size = [size, size]
-    image = Picture("{0}:{1}:{1}:K".subst(icon, size.tointeger()))
-    keepAspect = true
+    image = Picture("{0}:{1}:{1}:P".subst(icon, size.tointeger()))
+    keepAspect = KEEP_ASPECT_FIT
   }.__update(override)
 }
 
@@ -43,16 +45,19 @@ let function mkRewardImages(reward, sizeBg = defCardSize, override = {}) {
   if (cardImage == null)
     return null
 
-  let hasBg = bgImage != null
   return {
-    rendObj = hasBg ? ROBJ_IMAGE : null
-    size = sizeBg
-    image = hasBg ? Picture(bgImage) : null
-    children = type(cardImage) == "function" ? cardImage(sizeBg)
+    children = [
+      bgImage == null ? null : {
+        rendObj = ROBJ_IMAGE
+        size = sizeBg
+        image = Picture(bgImage)
+      }
+      type(cardImage) == "function" ? cardImage(sizeBg)
       : {
           rendObj = ROBJ_IMAGE
           image = Picture(cardImage)
         }.__update(cardImageParams)
+    ]
   }.__update(override)
 }
 
@@ -110,10 +115,31 @@ let function mkRewardTooltip(presentation) {
   return children.len() == 0 ? null : tooltipBox({ flow = FLOW_VERTICAL, children })
 }
 
+let function mkRewardBlock(rewardData, isFinished = false) {
+  let { reward = null, count = 1 } = rewardData
+  return {
+    children = [
+      mkRewardIcon(reward, taskRewardSize, isFinished ? { opacity = 0.5 } : {})
+      count == 1 ? null
+        : txt({
+            text = $"x{count}"
+            margin = [0, smallPadding]
+            hplace = ALIGN_RIGHT
+            vplace = ALIGN_BOTTOM
+            color = titleTxtColor
+            fontFx = FFT_GLOW
+            fontFxColor = 0xCC000000
+            fontFxFactor = hdpx(32)
+          }).__update(sub_txt)
+    ]
+  }
+}
+
 return {
   getOneReward
   mkRewardIcon
   mkSeasonTime
+  mkRewardBlock
   prepareRewards
   mkRewardImages
   mkRewardText

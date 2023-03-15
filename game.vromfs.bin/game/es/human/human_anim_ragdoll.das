@@ -26,7 +26,7 @@ def clipout_nodes(var tree : GeomNodeTree;
                   parent_wtm : float3x4;
                   prefix : string;
                   prefix_len : int;
-                  trace_handles : TraceMeshFaces implicit)
+                  trace_handles : TraceMeshFaces)
   let childCount = tree |> geomtree_getChildCount(node)
   for i in range(childCount)
     let childNode = tree |> geomtree_getChildNodeIdx(node, uint(i))
@@ -123,8 +123,8 @@ def human_anim_ragdoll_start_es(info : ParallelUpdateFrameDelayed;
   ragdoll |> ragdoll_setOverrideVel(vel)
 
 
-[es(tag=render, after=animchar_es)]
-def human_anim_ragdoll_es(info : UpdateStageInfoAct)
+[es(tag=render, before=human_anim_ragdoll_start_es)]
+def human_anim_ragdoll_es(info : ParallelUpdateFrameDelayed)
   var ragdollStarts = -1
   query() <| $ [es(REQUIRE=deadEntity)] (animchar__updatable : bool;
                                          human_net_phys__locationPos : DPoint3;

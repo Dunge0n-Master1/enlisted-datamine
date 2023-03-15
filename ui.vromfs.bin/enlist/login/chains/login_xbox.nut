@@ -4,7 +4,7 @@ let loginCb = require("%enlist/login/login_cb.nut")
 let auth = require("auth")
 let user = require("%xboxLib/impl/user.nut")
 let privileges = require("%xboxLib/impl/privileges.nut")
-let eventbus = require("eventbus")
+let { xbox_login } = require("%enlist/xbox/login.nut")
 
 
 // chain code
@@ -30,17 +30,11 @@ let function login_live(state, cb) {
   let xuid = state.stageResult.init_user.xuid
   log($"login live for user {xuid}")
   state.userInfo.xuid <- xuid
-  // We don't need to pass xbox user hash here because it is added as xbl-authz-actor-10 header
-  // that is just replaced with JWT disregarding of it's contents.
-  // Later we don't need user hash, but xuid is useful. So stringified xuid will suffice.
 
-  eventbus.subscribe_onehit("login_live", function(result) {
-    let status = result?.status
-    let status_text = auth.status_string(status)
+  xbox_login(function(status, status_text) {
     let full_error = $"{loc(failure_loc_key)} ({status_text})"
     error_cb(cb, failure_loc_key, true, full_error)(status == auth.YU2_OK)
   })
-  auth.login_live(xuid.tostring(), "login_live")
 }
 
 let function check_priveleges(_state, cb) {

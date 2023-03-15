@@ -4,10 +4,13 @@ let { minimapVisibleCurrentCapZonesEids, getZoneWatch } = require("%ui/hud/state
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let { watchedHeroEid } = require("%ui/hud/state/watched_hero.nut")
 let { capzoneWidget } = require("%ui/hud/components/capzone.nut")
-let smallUnseenBlink = require("%ui/components/unseenSignal.nut")(0.7).__merge({ key = "blink_on" })
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 
 let iconSz= [hdpxi(18), hdpxi(16)]
-
+let unseenIcon =  blinkUnseenIcon(0.7).__update({
+  key = "blink_on"
+  padding = [0 hdpx(15) 0 0]
+})
 let defIcon = {rendObj = ROBJ_IMAGE image=Picture("!ui/skin#waypoint.svg:{0}:{1}:K".subst(iconSz[0],iconSz[1])) size = iconSz transform={}}
 let capzoneSettings = {canHighlight=false, size=[fsh(2),fsh(2)], useBlurBack=false}
 
@@ -19,10 +22,7 @@ let function mkContract(zone, capz) {
   return !alwaysHide ? capz : {
     flow     = FLOW_HORIZONTAL
     children = [
-      {
-        padding = [0 hdpx(15) 0 0]
-        children = smallUnseenBlink
-      }
+      unseenIcon
       capz
     ]
   }

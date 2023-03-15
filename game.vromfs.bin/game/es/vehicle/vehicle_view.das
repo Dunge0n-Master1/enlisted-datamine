@@ -3,12 +3,13 @@ require vehicle
 require math.base
 require DagorMath
 require GamePhys
+require enlisted.events_enlisted
 
 let
   MSEC_TO_KMH = 3.6f
 
 [es(tag=gameClient, after=net_phys_update_es, REQUIRE=heroVehicle)]
-def vehicle_minimal_view(info : UpdateStageInfoAct;
+def vehicle_minimal_view(info : ParallelUpdateFrameDelayed;
                          vehicle_net_phys : VehiclePhysActor;
                          transform : float3x4;
                          var vehicle_view__gear : int&;

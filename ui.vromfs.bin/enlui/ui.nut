@@ -7,7 +7,7 @@ from "%enlSqGlob/ui_library.nut" import *
 #default:explicit-this
 #default:forbid-root-table
 
-require("%enlSqGlob/register_sqevents.nut")
+require("%enlSqGlob/sqevents.nut")
 let {DBGLEVEL} = require("dagor.system")
 let {logerr} = require("dagor.debug")
 let {scan_folder} = require("dagor.fs")

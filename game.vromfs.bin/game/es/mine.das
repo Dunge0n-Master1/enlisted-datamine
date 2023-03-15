@@ -10,6 +10,8 @@ require Grid
 require DagorMath
 require ecs.common
 require game.es.mine_common
+require PhysMat
+require Dacoll
 
 [es(on_event=EventEntityDestroyed, tag=server, REQUIRE=engeneer_mine)]
 def mine_was_destroyed_es(evt : Event;
@@ -128,3 +130,17 @@ def mine_zone_checker(info : UpdateStageInfoAct;
   if objectFound && mine__blockedToTime < 0.f
     detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, transform, mine_activation__delay)
     mine__activated = false
+
+[es(tag=server, on_appear, REQUIRE=(engeneer_mine, itemInWorld))]
+def attach_mine_to_ri(evt : Event;
+                      transform : float3x4;
+                      build_attach__traceLength : float = 0.3;
+                      var build_attach__riexHandle : uint64&)
+  var norm : float3
+  var len = build_attach__traceLength
+  var riMatId = PHYSMAT_INVALID
+  var riDesc = RendInstDesc()
+  let traceDownDir = float3(0., -1., 0.)
+  let tracePos = transform[3] - traceDownDir * len * 0.5
+  traceray_normalized(tracePos, traceDownDir, len, riMatId, norm, ETF_ALL, riDesc, get_material_id("engineerRay"))
+  build_attach__riexHandle = riDesc.riExtraHandle

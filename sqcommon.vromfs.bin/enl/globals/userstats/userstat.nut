@@ -637,4 +637,5 @@ return {
   requestAnoPlayerStats
 
   unlockRewardsInProgress
+  MAX_DELAY_FOR_MASSIVE_REQUEST_SEC
 }

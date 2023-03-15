@@ -6,6 +6,7 @@ require DagorSystem
 require game.events_game
 require EnlistedCamera
 require enlisted.events_enlisted
+require danetlibs.renderer.includes.render_events
 
 def initActions(var replay_input__next : int&;
                 var replay_input__prev : int&;

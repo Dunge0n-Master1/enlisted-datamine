@@ -2,7 +2,9 @@ require ecs
 require DagorImgui
 require imgui
 require imgui/imgui_boost
+require daslib/safe_addr
 require danetlibs.assets_import.main.import_rendinst_common
+require danetlibs.assets_import.main.asset_manager_events
 require danetlibs.assets_import.das_includes.rendinst_ui
 require danetlibs.assets_import.das_includes.texture_ui
 require danetlibs.assets_import.das_includes.collision_ui
@@ -26,9 +28,18 @@ def asset_import_viewer()
       createEntity("asset_manager")
     imgui::Text("It will load folder from \"asset_manager\" template")
 
-  query() <| $ [es(REQUIRE=asset__manager)] ()
+  query() <| $ [es(REQUIRE=asset__manager)] (var asset__clipmapInvalidationEnabled : bool&)
 
     imgui::BeginTabBar("Tabs")
+    if imgui::BeginTabItem("Common")
+
+      var clipmapInvalidation = asset__clipmapInvalidationEnabled
+      if imgui::Checkbox("Enable clipmap invalidation on texture asset changes", safe_addr(clipmapInvalidation))
+        asset__clipmapInvalidationEnabled = clipmapInvalidation
+        if clipmapInvalidation
+          broadcastEvent([[InvalidateClipmap]])
+      imgui::EndTabItem()
+
 
     if imgui::BeginTabItem("Create Asset")
       create_new_rendinst_asset()

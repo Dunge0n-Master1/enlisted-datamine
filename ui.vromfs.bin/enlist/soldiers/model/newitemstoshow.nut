@@ -3,9 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let { mark_as_seen } = require("%enlist/meta/clientApi.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { prepareItems, preferenceSort } = require("items_list_lib.nut")
-let { curCampItems, curCampSoldiers, objInfoByGuid } = require("state.nut")
-let { profile } = require("%enlist/meta/profile.nut")
-let { collectSoldierData } = require("collectSoldierData.nut")
+let { curCampItems, objInfoByGuid } = require("state.nut")
+let { profile, curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { hasModalWindows } = require("%ui/components/modalWindows.nut")
 
 let justPurchasedItems = mkWatched(persist, "justPurchasedItems", [])

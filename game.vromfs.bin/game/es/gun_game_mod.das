@@ -2,6 +2,7 @@ require ecs
 require app
 require DagorSystem
 require common_shooter.events_common_shooter
+require common_shooter.es.human_weap_common
 require enlisted.game.es.offender_cache_common
 require HumanPhys
 require game.utils.team
@@ -59,10 +60,7 @@ def init_gun_game_mod(evt : Event;
         else
           let ammoTemplate = getTemplateByName(weaponTemplateName)
           if ammoTemplate != null
-            let ammoHolders = getTemplateComponent(*ammoTemplate, "gun__ammoHolders")
-            if ammoHolders == null
-              continue
-            let holdersArray = *ammoHolders as Array
+            let holdersArray = getTemplateComponent(*ammoTemplate, "gun__ammoHolders") ?as Array
             if holdersArray != null && length(*holdersArray) > 0
               *levelObj |> set("selectedSessionAmmo", (*holdersArray)[0])
 

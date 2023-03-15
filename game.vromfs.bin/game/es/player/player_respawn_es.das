@@ -91,9 +91,23 @@ def destroy_possessed_entity(evt : Event; eid : EntityId; possessed : EntityId; 
   broadcastEvent([[EventTeamMemberLeave eid=eid, team=team]])
 
 [es(track=possessed, REQUIRE=player)]
-def set_possessed_by(evt : Event; eid : EntityId; possessed : EntityId)
-  query(possessed) <| $ [es] (var possessedByPlr : EntityId&)
+def set_possessed_by(evt : Event;
+                     eid : EntityId;
+                     possessed : EntityId;
+                     var controlled_soldier__sKind : das_string&;
+                     var controlled_soldier__sClass : das_string&;
+                     var controlled_soldier__sClassRare : int&)
+  query(possessed) <| $ [es] (var possessedByPlr : EntityId&;
+                              soldier__sKind : das_string const?;
+                              soldier__sClass : das_string const?;
+                              soldier__sClassRare : int)
     possessedByPlr = eid
+    if (!is_server())
+      return
+
+    controlled_soldier__sKind := soldier__sKind != null ? string(*soldier__sKind) : ""
+    controlled_soldier__sClass := soldier__sClass != null ? string(*soldier__sClass) : ""
+    controlled_soldier__sClassRare = soldier__sClassRare
 
 [es(tag=server, REQUIRE=player)]
 def server_tps_view_switch(evt : RequestCamSwitch; possessed : EntityId)

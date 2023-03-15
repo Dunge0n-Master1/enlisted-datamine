@@ -298,7 +298,7 @@ Human.PushObject{
 
 Human.BuildingAction{
   dev:i=3
-  btn:i=14
+  btn:i=7
   type:i=1
   stickyToggle:b=yes
 }
@@ -436,7 +436,11 @@ Ship.Steer{
 }
 
 Ship.Throttle{
-  dev:i=0
+  dev:i=3
+  axis:i=1
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
 }
 
 Ship.Accel{
@@ -598,13 +602,11 @@ Replay.SpeedUp{
 Replay.ToggleCamera{
   dev:i=3
   btn:i=6
-  stickyToggle:b=yes
 }
 
 Replay.DisableGameHUD{
   dev:i=3
   btn:i=7
-  stickyToggle:b=yes
 }
 
 Replay.AdvancedSettings{

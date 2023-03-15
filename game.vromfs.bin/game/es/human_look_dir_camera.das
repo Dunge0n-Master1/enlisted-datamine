@@ -10,10 +10,12 @@ require DagorMathUtils
 require AnimV20
 require app
 require replay
+require enlisted.events_enlisted
+require common_shooter.es.human_weap_common
 
 [es(after=after_net_phys_sync, REQUIRE=watchedByPlr)]
 def human_look_dir_camera_es(
-                             info : UpdateStageInfoAct;
+                             info : ParallelUpdateFrameDelayed;
                              isCameraTarget : bool;
                              human_net_phys : HumanActor;
                              camera__gunAimOffset : float2;
@@ -50,9 +52,11 @@ def human_look_dir_camera_es(
     camera__lookDir = angles_to_dir(ang)
 
 [es(tag=render, REQUIRE=hero, after=human_look_dir_camera_es, before=before_camera_sync)]
-def human_aiming_vertical_limit_es(info : UpdateStageInfoAct;
+def human_aiming_vertical_limit_es(info : ParallelUpdateFrameDelayed;
                                    var human_input__aimAngle : float2&;
                                    human_net_phys : HumanActor;
+                                   human_weap__crawlClampVertAngleRad : float2;
+                                   human_weap__clampVertAngleRad : float2;
                                    camera__aimingClampTau : float = 0.1)
   assume phys = human_net_phys.phys
   if !(phys |> human_phys_isAiming())
@@ -60,11 +64,12 @@ def human_aiming_vertical_limit_es(info : UpdateStageInfoAct;
 
   let interpK = get_phys_interpk_clamped(phys, info.curTime)
   let interpQuat = slerp(phys.previousState.location.O.quat, phys.currentState.location.O.quat, interpK)
-  let aimVertAngle = phys |> human_phys_clampVertAimAngle(human_input__aimAngle.y, interpQuat)
+  let vertLimits = phys.currentState.isCrawl ? human_weap__crawlClampVertAngleRad : human_weap__clampVertAngleRad
+  let aimVertAngle = human_weap_clamp_vert_aim_angle(human_input__aimAngle.y, interpQuat, vertLimits)
   human_input__aimAngle.y = approach(human_input__aimAngle.y, aimVertAngle, info.dt, camera__aimingClampTau)
 
 [es(after=human_look_dir_camera_es, REQUIRE=watchedByPlr, REQUIRE=deadEntity)]
-def human_look_dir_dead_camera_es(info : UpdateStageInfoAct;
+def human_look_dir_dead_camera_es(info : ParallelUpdateFrameDelayed;
                                   eid : EntityId;
                                   transform : float3x4&;
                                   death_cam__killer : EntityId;
@@ -87,7 +92,7 @@ def human_look_dir_dead_camera_es(info : UpdateStageInfoAct;
     camera__lookDir = approach(camera__lookDir, wishLookDir, info.dt, viscosity)
 
 [es(after=human_look_dir_camera_es, REQUIRE=watchedByPlr)]
-def human_look_dir_camera_in_vehicle_es(info : UpdateStageInfoAct; isInVehicle, isAlive : bool; human_net_phys : HumanActor; var camera__lookDir : float3&)
+def human_look_dir_camera_in_vehicle_es(info : ParallelUpdateFrameDelayed; isInVehicle, isAlive : bool; human_net_phys : HumanActor; var camera__lookDir : float3&)
 
   if !isInVehicle || !isAlive || is_replay_playing()
     return

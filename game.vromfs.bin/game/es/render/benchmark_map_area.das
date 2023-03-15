@@ -11,7 +11,7 @@ require game.es.events
 def addCameraPoint(pos : float3;
                    rot_rad : float;
                    var map_benchmark__cameraTracks : Array&)
-  using <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("pos", pos)
     obj |> set("rot", rot_rad)
     map_benchmark__cameraTracks |> push(obj)

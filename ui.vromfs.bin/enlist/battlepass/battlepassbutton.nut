@@ -1,12 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXXLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontXLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, defTxtColor, titleTxtColor, startBtnWidth, colPart,
-  defHorGradientImg, hoverHorGradientImg
+  defHorGradientImg, hoverHorGradientImg, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
-let { hasReward, currentProgress, nextUnlock
-} = require("%enlist/battlepass/bpState.nut")
+let { hasReward, currentProgress, nextUnlock } = require("%enlist/battlepass/bpState.nut")
 let { getOneReward, mkRewardIcon, rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
 let { timeTracker } = require("%enlist/battlepass/battlePassPkg.nut")
@@ -20,11 +19,9 @@ let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 
-
-let defTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
+let defTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let smallTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let starSize = colPart(0.33)
-let leftContentSize = startBtnWidth - rewardIconWidth
 let bpButtonHeight = colPart(1.3) + smallPadding * 2
 local visibleStars = null
 let showUnseenBPStars = function() {
@@ -100,16 +97,16 @@ let function taskLimitMessage() {
   return res.__update({
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
-    size = [leftContentSize, SIZE_TO_CONTENT]
-    padding = [smallPadding, bigPadding]
-    margin = [colPart(0.49), 0]
+    size = [flex(), SIZE_TO_CONTENT]
+    padding = [0, bigPadding]
+    margin = [smallPadding, 0]
     color = defTxtColor
     text = loc("unlocks/dailyTasksLimit")
   }.__update(smallTxtStyle))
 }
 
 
-let titleBpBlock = @(sf) {
+let titleBpBlock = {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = smallPadding
@@ -118,15 +115,7 @@ let titleBpBlock = @(sf) {
       rendObj = ROBJ_TEXT
       text = loc("bp/battlePassUpper")
     }.__update(defTxtStyle)
-    {
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
-      gap = smallPadding
-      children = [
-        rewardProgress
-        timeTracker(sf)
-      ]
-    }
+    rewardProgress
     taskLimitMessage
   ]
 }
@@ -166,7 +155,7 @@ let mkWidgetInfo = @(sf) {
         }
       : null
     {
-      size = flex()
+      size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       gap = bigPadding
       valign = ALIGN_CENTER
@@ -174,12 +163,13 @@ let mkWidgetInfo = @(sf) {
       children = [
         dynamicSeasonBPIcon(colPart(0.85))
         {
-          size = flex()
-          flow = FLOW_HORIZONTAL
+          size = [flex(), SIZE_TO_CONTENT]
           valign = ALIGN_CENTER
-          gap = { size = flex() }
+          vplace = ALIGN_CENTER
+          flow = FLOW_HORIZONTAL
+          gap = smallPadding
           children = [
-            titleBpBlock(sf)
+            titleBpBlock
             rewardBpBlock
           ]
         }
@@ -199,15 +189,21 @@ let highlightLine = @(isTop = true) {
 let bpWidgetOpen = {
   size = [startBtnWidth, SIZE_TO_CONTENT]
   children = [
-    watchElemState(@(sf) {
+    timeTracker({ pos = [0, -(fontSmall.fontSize + midPadding)] })
+    {
       size = [flex(), SIZE_TO_CONTENT]
-      sound = soundDefault
-      behavior = Behaviors.Button
-      onClick = @() openBPwindow()
-      children = mkWidgetInfo(sf)
-    })
-    highlightLine
-    highlightLine(false)
+      children = [
+        watchElemState(@(sf) {
+          size = [flex(), SIZE_TO_CONTENT]
+          sound = soundDefault
+          behavior = Behaviors.Button
+          onClick = @() openBPwindow()
+          children = mkWidgetInfo(sf)
+        })
+        highlightLine()
+        highlightLine(false)
+      ]
+    }
   ]
 }
 

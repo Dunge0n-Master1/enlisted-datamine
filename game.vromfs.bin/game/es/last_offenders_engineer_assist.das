@@ -41,7 +41,7 @@ def is_valid_assist(builder : EngineerInfo; offender_eid : EntityId)
 def put_engineer_assist_data_from_offender(offender : EntityId; engineer : EngineerInfo; var last_offenders__engineerAssists : Object&)
   let time = get_sync_time()
   if engineer.guid != ""
-    push_to_object(last_offenders__engineerAssists, "{offender}") <| $(var info : Object#)
+    push_to_object(last_offenders__engineerAssists, "{offender}") <| $(var info : Object)
       set(info, "time", time)
       set(info, "eid", engineer.eid)
       set(info, "playerEid", engineer.player)

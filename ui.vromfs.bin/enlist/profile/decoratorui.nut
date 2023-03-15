@@ -39,7 +39,7 @@ let {
 } = require("unseenProfileState.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
-let { playerRank } = require("%enlist/profile/rankState.nut")
+let { playerRank, hasRankUnseen } = require("%enlist/profile/rankState.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 
@@ -435,7 +435,7 @@ return {
   flow = FLOW_HORIZONTAL
   children = [
     decoratorBlock
-    mkRatingBlock(playerRank)
+    mkRatingBlock(playerRank, hasRankUnseen)
   ]
 }
 

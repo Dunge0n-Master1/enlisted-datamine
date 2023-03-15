@@ -131,7 +131,7 @@ let function openClustersMenu(event) {
     popupOffset = 0
     padding = 0
     margin = [0, 0, midPadding, 0]
-    popupHalign = ALIGN_LEFT
+    popupHalign = ALIGN_CENTER
     popupBg = { rendObj = null }
     children = clusterSelector
   })
@@ -154,30 +154,28 @@ let serversRow = Computed(function() {
 let function serverClusterBtn() {
   let text = loc("quickMatch/curServers", { server = serversRow.value })
   let btn = Bordered(text, isLocalClusters.value ? openClustersMenu : showCantChangeMessage,
-    { btnWidth = flex()
-      isEnables = canChangeQueueParams.value
-    })
+    { sEnables = canChangeQueueParams.value })
   return {
     watch = [isLocalClusters, canChangeQueueParams, serversRow]
-    size = [flex(), SIZE_TO_CONTENT]
     children = btn
   }
 }
 
 
-let serverInfoRow = @(override = {}) function () {
+let clusterInfoBtn = @(action) watchElemState(function (sf) {
   let text = loc("quickMatch/curServers", { server = serversRow.value })
   return {
     watch = serversRow
     size = [flex(), SIZE_TO_CONTENT]
-    children = {
-      rendObj = ROBJ_TEXT
-      text
-    }.__update(defTxtStyle)
-  }.__update(override)
-}
+    rendObj = ROBJ_TEXTAREA
+    onClick = action
+    halign = ALIGN_RIGHT
+    behavior = [Behaviors.TextArea, Behaviors.Button]
+    text
+  }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
+})
 
 return {
   serverClusterBtn
-  serverInfoRow
+  clusterInfoBtn
 }

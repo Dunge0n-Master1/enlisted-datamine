@@ -4,6 +4,8 @@ require ecs.common
 require app
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
+require common_shooter.es.human.human_reload_common
+require enlisted.events_enlisted
 require daslib.strings_boost
 require inventory
 require game.events_game
@@ -34,7 +36,7 @@ enum RecreateGunsFlags
   ParentLoaded = 1 << 1
 
 
-def init_gun_comps(var init : ComponentsInitializer#;
+def init_gun_comps(var init : ComponentsInitializer;
                    gun_slot : int;
                    eid : EntityId;
                    init_comps : Object? = null;
@@ -58,7 +60,7 @@ def create_gun_for_entity_impl(eid : EntityId;
                                weap_templ_name : string;
                                init_comps : Object?;
                                flags : int;
-                               create : block<(n : string; var ci : ComponentsInitializer#) : EntityId>)
+                               create : block<(n : string; var ci : ComponentsInitializer) : EntityId>)
   if weap_templ_name == ""
     return INVALID_ENTITY_ID
 
@@ -70,7 +72,7 @@ def create_gun_for_entity_impl(eid : EntityId;
         name = *n |> string()
 
   var gunEid = INVALID_ENTITY_ID
-  using() <| $(var init : ComponentsInitializer#)
+  using() <| $(var init : ComponentsInitializer)
     init_gun_comps(init, gun_slot, eid, init_comps, flags)
     gunEid = create |> invoke(name, init)
   return gunEid
@@ -94,7 +96,7 @@ def restore_ammo_type_impl(eid : EntityId;
     initialNum += (itemId == reserveAmmoItemId) ? 1 : 0
   for _i in range(initialNum, ammo_num)
     var itemEid = INVALID_ENTITY_ID
-    using() <| $(var init : ComponentsInitializer#)
+    using() <| $(var init : ComponentsInitializer)
       set(init, "item__ownerEid", eid)
       set(init, "item__lastOwner", eid)
       itemEid = createInstantiatedEntitySync(ammo_template, init)
@@ -260,7 +262,7 @@ def attach_item_to_gun_impl(eid : EntityId;
         logerr("Unknown slot_tag '{slot_tag}' for slot '{slot_name}' while creating gunMods for {human_weap__gunEids[gun_slot_id]}<{getEntityTemplateName(human_weap__gunEids[gun_slot_id])}>,\navailable slot tags are {avSlotTags}")
         return
 
-      using() <| $(var comps : ComponentsInitializer#)
+      using() <| $(var comps : ComponentsInitializer)
         set(comps, "slot_attach__attachedTo", gunEid)
 
         // Weapon mod might be a weapon itself, so try and set mandatory weapon components.
@@ -269,7 +271,7 @@ def attach_item_to_gun_impl(eid : EntityId;
           set(comps, "gun__salt", (*weapSalt)[gun_slot_id])
         set(comps, "gun__owner", eid)
 
-        using() <| $(var customPropsCopy : Object#)
+        using() <| $(var customPropsCopy : Object)
           if custom_props != null
             customPropsCopy := *custom_props
             set(comps, "custom_props", customPropsCopy)
@@ -389,7 +391,7 @@ def server_recreate_guns(eid : EntityId;
       gunInitComps = human_weap__weapInitialComponents[slotId] |> getRW_ecs_object()
 
     human_weap__gunEids[slotId] = create_gun_for_entity_impl(eid, slotId, weapTemplStr, gunInitComps, flags) <| $(n : string;
-                                                                                                                  var ci : ComponentsInitializer#)
+                                                                                                                  var ci : ComponentsInitializer)
       if is_dedicated()
         var newEid = createInstantiatedEntitySync(n, ci)
         if newEid == INVALID_ENTITY_ID
@@ -700,7 +702,7 @@ def human_weap_es(evt : CmdPostPhysUpdate;
 
 
 [es(tag=netClient, after=(human_phys_es, before_human_inventory_use_update), before=human_weap_update_es)]
-def human_weap_client_es(info : UpdateStageInfoAct;
+def human_weap_client_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          human_weap__gunEids : EidList;
                          human_net_phys : HumanActor;
@@ -891,7 +893,7 @@ def human_weap_update_additional_ammo_count_es(evt : Event;
     query(gunEid) <| $ [es] (gun__isDualMagReady : bool;
                              var gun__additionalAmmo : int&)
       if gun__isDualMagReady
-        find_ammo_for_gun(gunEid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult#)
+        find_ammo_for_gun(gunEid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult)
           gun__additionalAmmo = ammoForGun.ammoCount
 
 
@@ -905,7 +907,7 @@ def gun_update_additional_ammo_count_es(evt : Event;
     gun__additionalAmmo = 0
   else
     query(gun__owner) <| $ [es] (itemContainer : EidList)
-      find_ammo_for_gun(eid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult#)
+      find_ammo_for_gun(eid, itemContainer, INVALID_ITEM_ID, 0) <| $(ammoForGun : AmmoItemForGunResult)
         gun__additionalAmmo = ammoForGun.ammoCount
 
 
@@ -949,8 +951,8 @@ def reserve_ammo_props_init_es(evt : Event;
 [es(track=human_weap__mortarMode)]
 def switch_to_mortar_mode_es(evt : Event;
                              human_weap__mortarMode : bool;
-                             var human_net_phys : HumanActor)
-  human_net_phys.phys |> human_phys_setClampVertAimAngle(!human_weap__mortarMode)
+                             var human_weap__enableClampVertAimAngle : bool&)
+  human_weap__enableClampVertAimAngle = !human_weap__mortarMode
 
 
 [es(on_appear)]
@@ -961,3 +963,10 @@ def init_radio_slots_es(evt : Event;
                         var radio__equippedSlotId : int&)
   radio__unequippedSlotId = animchar_getSlotId(radio__unequippedSlotName)
   radio__equippedSlotId = animchar_getSlotId(radio__equippedSlotName)
+
+
+[es(tag=gameClient)]
+def human_weap_switch_to_first_weap_with_ammo(evt : CmdSwitchToFirstWeapWithAmmo;
+                                              human_weap__gunEids : EidList;
+                                              var human_net_phys : HumanActor)
+  switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)

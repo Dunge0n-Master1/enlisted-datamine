@@ -56,6 +56,7 @@ base_75mm_ansaldo_75_18_m34{
 tankgun_75mm_ansaldo_75_18_m34{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
+  _extends:t="gunsound_75mm_ansaldo_75_18_m34"
   _extends:t="base_75mm_ansaldo_75_18_m34"
   turret__triggerGroup:i=0
 }

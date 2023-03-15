@@ -35,7 +35,7 @@
   scopeImageQuality:i=1
   shouldRenderHeroCockpit:b=yes
   skiesQuality:t="high"
-  ssss:b=yes
+  ssss:t="high"
   lodsShiftDistMul:r=1.0
   cloudsQuality:t="volumetric"
   volumeFogQuality:t="close"

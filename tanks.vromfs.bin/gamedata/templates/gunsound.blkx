@@ -148,6 +148,10 @@ gunsound_20mm_tnsh{
   }
 }
 
+gunsound_20mm_oerlikon{
+  _extends:t="gunsound_20mm_tnsh"
+}
+
 gunsound_20mm_breda_m35{
   _extends:t="gunsound_base_cannon"
 
@@ -517,6 +521,10 @@ gunsound_76mm_f34{
     _tags:t="sound"
     path:t="/weapon/cannon/76mm_f34"
   }
+}
+
+gunsound_76mm_f32{
+  _extends:t="gunsound_76mm_f34"
 }
 
 gunsound_76mm_zis3{

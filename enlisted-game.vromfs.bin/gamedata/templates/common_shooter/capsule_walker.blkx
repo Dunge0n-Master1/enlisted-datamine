@@ -1,0 +1,25 @@
+capsule_walker_input{
+  capsule_walker_input__jump:i=0
+  capsule_walker_input__move:i=0
+  capsule_walker_input__aim:i=0
+  capsule_walker_input__aimAngles:p2=0.0, 0.0
+  _hide:b=yes
+}
+
+base_capsule_walker_hero_components{
+  _extends:t="capsule_walker_input"
+
+  "hero:tag"{
+  }
+}
+
+capsule_walker_hero_components{
+  _extends:t="base_capsule_walker_hero_components"
+}
+
+capsule_walker_hero_components_local{
+  _extends:t="capsule_walker_hero_components"
+}
+
+capsule_walker_hero_components_remote{
+}

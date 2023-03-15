@@ -172,13 +172,17 @@ let function trySwapItems(toOwnerGuid, targetDropData, draggedDropData) {
 
   let equippedItems = getSoldierItemSlots(toOwnerGuid, campItemsByLink.value)
   let toItem = equippedItems.findvalue(@(d) d.slotType == toSlotType && d.slotId == toSlotId)?.item
+  if (item?.basetpl == toItem?.basetpl)
+    // do not swap same items
+    return true
+
   if (checkFixedItem(toItem))
     return false
 
   // dropping item from the soldier's card into storage:
   if (targetDropData.scheme == null){
     // dropping item into empty storage slot, unequip:
-    if ("guid" not in targetDropData.item){
+    if ("guid" not in targetDropData.item) {
       unequipItem(draggedDropData)
       return false
     }

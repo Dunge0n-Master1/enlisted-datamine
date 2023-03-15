@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require ecs.common
 require DagorSystem
 
@@ -17,7 +18,7 @@ def private unlock_bulding(index : int; template_name : string; engineer_unlocks
     logerr("Engineer building template '{template_name}' not exist!")
     return
 
-  let unlockId = get_int(getTemplateComponent(*tmpl, "building__requireUnlockId")) ?? -1
+  let unlockId = getTemplateComponent(*tmpl, "building__requireUnlockId") ?? -1
   if unlockId == -1 || is_building_unlock(engineer_unlocks, unlockId)
     push(unlocks, index)
 

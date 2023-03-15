@@ -1,6 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 let {get_setting_by_blk_path} = require("settings")
+let { CmdPsnExternalMatchId } = require("%enlSqGlob/sqevents.nut")
 let {DBGLEVEL} = require("dagor.system")
 let dedicated = require_optional("dedicated")
 let debug = DBGLEVEL > 0 && (get_setting_by_blk_path("testPsnMatch") ?? false)
@@ -106,7 +107,7 @@ ecs.register_es("set_psn_match_server_activity_id_es",
 
 ecs.register_es("set_psn_match_server_es",
   {
-    [ecs.sqEvents.CmdPsnExternalMatchId] = function(evt, _eid, comp){
+    [CmdPsnExternalMatchId] = function(evt, _eid, comp){
       if (comp.psn_external_match_id == "" && (evt?.data.match_id ?? "") != "" && comp.psn_external_match_leader == evt?.data.player_id)
         comp["psn_external_match_id"] = $"{evt?.data.match_id}"
     },

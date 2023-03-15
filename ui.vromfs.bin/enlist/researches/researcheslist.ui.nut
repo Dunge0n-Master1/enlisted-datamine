@@ -33,7 +33,7 @@ let tableElement = require("researchTableElement.ui.nut")
 let { curArmy, curUnlockedSquads, armySquadsById, maxCampaignLevel
 } = require("%enlist/soldiers/model/state.nut")
 let { seenResearches } = require("unseenResearches.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { safeAreaSize, safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { iconByGameTemplate } = require("%enlSqGlob/ui/itemsInfo.nut")
 let researchIcons = require("%enlSqGlob/ui/researchIcons.nut")
@@ -59,6 +59,8 @@ let tblScrollHandler = ScrollHandler()
 let closestCurrentResearch = Computed(@() closestTargets.value?[selectedTable.value])
 let isResearchListVisible = Watched(false)
 let needScrollClosest = Watched(true)
+let unseenIcon = blinkUnseenIcon()
+let smallUnseenIcon = blinkUnseenIcon(0.7)
 
 let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
 
@@ -423,7 +425,7 @@ let function unseenInPageIcon(squadId, pageId) {
     watch = hasUnseen
     hplace = ALIGN_RIGHT
     vplace = ALIGN_TOP
-    children = hasUnseen.value ? unseenSignal() : null
+    children = hasUnseen.value ? unseenIcon : null
   }
 }
 
@@ -515,7 +517,7 @@ let mkPageInfoText = @(page, isSelected) {
 
 let function upgradePageTab(page, pageId) {
   let stateFlags = Watched(0)
-  let unseenIcon = unseenInPageIcon(page.squad_id, pageId)
+  let unseenTabIcon = unseenInPageIcon(page.squad_id, pageId)
   let closestResearchDef = Computed(@() closestTargets.value?[pageId])
 
   return function() {
@@ -543,7 +545,7 @@ let function upgradePageTab(page, pageId) {
       children = [
         mkPageIcon(closestResearchDef, page)
         mkPageInfoText(page, isSelected)
-        unseenIcon
+        unseenTabIcon
       ]
     }
   }
@@ -671,7 +673,7 @@ let function unseenInSquadIcon(squadId) {
   return @() {
     watch = hasUnseen
     hplace = ALIGN_RIGHT
-    children = hasUnseen.value ? unseenSignal(0.7) : null
+    children = hasUnseen.value ? smallUnseenIcon : null
   }
 }
 

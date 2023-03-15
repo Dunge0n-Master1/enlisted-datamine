@@ -11,14 +11,13 @@ let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let canSwitchSoldierLook = hasClientPermission("debug_soldier_look")
 
 let {
-  colFull, colPart, columnGap, bigPadding, defTxtColor, titleTxtColor
+  colFull, colPart, columnGap, bigPadding, defTxtColor, titleTxtColor,
+  accentColor, smallPadding, panelBgColor, activeTabBgImg
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let tabHeight = colPart(1)
 let equipBlockWidth = colFull(5)
-
-let defBgColor = 0xFF242D31
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
@@ -60,19 +59,22 @@ let curTabId = mkWatched(persist, "soldierTabIdx", soldierTabs.value[0])
 let getTabById = @(id) soldierTabsData?[id] ?? soldierTabsData[soldierTabs.value[0]]
 
 
-let mkSoldierAnim = @(delay) {
-  transform = {}
-  animations = [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, delay, duration = 0.3, play = true }
-    { prop = AnimProp.translate, from = [0,-77], to = [0,0], delay,
-      duration = 0.3, play = true, easing = OutQuart }
-    { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.3, playFadeOut = true }
-    { prop = AnimProp.translate, from = [0,0], to = [0,-77], duration = 0.3,
-      playFadeOut = true }
-  ]
+let idlePageSlotOverride = {
+  rendObj = ROBJ_SOLID
+  color = panelBgColor
 }
 
+let activePageSlotOverride = {
+  rendObj = ROBJ_IMAGE
+  image = activeTabBgImg
+}
+
+let selectedPageSlotLine = {
+  size = [flex(), smallPadding]
+  vplace = ALIGN_BOTTOM
+  rendObj = ROBJ_SOLID
+  color = accentColor
+}
 
 let mkTabsListUi = @(availTabs) @() {
   watch = [soldierTabs, curTabId]
@@ -82,13 +84,13 @@ let mkTabsListUi = @(availTabs) @() {
     .filter(@(id) availTabs.len() == 0 || availTabs.contains(id))
     .map(function(id) {
       let tab = soldierTabsData[id]
-      let isSelected = curTabId.value == id
-
+      let isSelected = Computed(@() curTabId.value == id)
       return watchElemState(function(sf) {
+        let isSelectedVal = isSelected.value
         let isHover = (sf & S_HOVER) != 0
-        let textStyle = isHover || isSelected ? hoverTxtStyle : defTxtStyle
+        let textStyle = isHover || isSelectedVal ? hoverTxtStyle : defTxtStyle
         let iconStyle = { margin = [0, bigPadding] }
-          .__update(isHover || isSelected ? hoverIconStyle : defIconStyle)
+          .__update(isHover || isSelectedVal ? hoverIconStyle : defIconStyle)
         let tabTextObj = "locId" in tab ? {
               margin = bigPadding
               rendObj = ROBJ_TEXT
@@ -101,16 +103,21 @@ let mkTabsListUi = @(availTabs) @() {
           size = [SIZE_TO_CONTENT, flex()]
           behavior = Behaviors.Button
           onClick = @() curTabId(id)
-          valign = ALIGN_CENTER
-          children = [
-            {
-              key = $"tab_{id}_(isSelected)"
-              size = flex()
-              rendObj = isSelected ? ROBJ_SOLID : null
-              color = defBgColor
-            }.__update(mkSoldierAnim(0))
-            tabTextObj
-          ]
+          children = @() {
+            watch = isSelected
+            size = [SIZE_TO_CONTENT, flex()]
+            valign = ALIGN_CENTER
+            children = [
+              {
+                key = $"tab_{id}_(isSelectedVal)"
+                size = [SIZE_TO_CONTENT, flex()]
+                halign = ALIGN_CENTER
+                valign = ALIGN_CENTER
+                children = tabTextObj
+              }.__update(isSelectedVal || isHover ? activePageSlotOverride : idlePageSlotOverride)
+              isSelectedVal ? selectedPageSlotLine : null
+            ]
+          }
         }
       })
     })
@@ -136,7 +143,7 @@ let mkSoldierDetailsUi = kwarg(function(
           watch = curTabId
           size = flex()
           children = getTabById(curTabId.value).content({
-            soldier
+            soldier = soldierWatch
             onResearchClickCb
           }, KWARG_NON_STRICT)
         }

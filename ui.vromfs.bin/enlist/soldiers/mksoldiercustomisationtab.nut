@@ -290,14 +290,14 @@ local function mkAppearanceBlock(soldier){
 
 
 let customizationTab = @(soldier) function(){
-  let { armyId, squadId } = soldier
+  let { armyId, squadId, guid } = soldier.value
   let canChangeAppearance = enableExtendedOufit.value
-  let isPlacedInReserve = !hasLinkByType(soldier, "squad")
-    || reserveSoldiers.value.findvalue(@(v) v.guid == soldier.guid) != null
+  let isPlacedInReserve = !hasLinkByType(soldier.value, "squad")
+    || reserveSoldiers.value.findvalue(@(v) v.guid == guid) != null
   let { isOutfitLocked = false } = squadsCfgById.value?[armyId][squadId]
 
   return {
-    watch = [enableExtendedOufit, reserveSoldiers, squadsCfgById]
+    watch = [enableExtendedOufit, reserveSoldiers, squadsCfgById, soldier]
     size = flex()
     gap = hdpx(10)
     flow = FLOW_VERTICAL
@@ -305,8 +305,8 @@ let customizationTab = @(soldier) function(){
     children = [
       isOutfitLocked || isPlacedInReserve? null
         : canChangeAppearance ? lookCustomizationBlock
-        : mkAppearanceBlock(soldier)
-      mkCallnameBlock(soldier)
+        : mkAppearanceBlock(soldier.value)
+      mkCallnameBlock(soldier.value)
     ]
   }
 }

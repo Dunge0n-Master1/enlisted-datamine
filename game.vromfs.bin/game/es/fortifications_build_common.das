@@ -118,6 +118,12 @@ def is_conflict_objects_in_building_box(tm, box; collobj : CollisionObject; coll
                     is_conflict_with_world(tm, collobj, collobj_offset, base_collres))
   return isConflict
 
+def soft_check_is_conflict_objects_in_building_box(tm : float3x4; box : BBox3)
+  let isConflict = (is_conflict_with_server_preview(tm, box) ||
+                    is_conflict_with_other_buildings(tm, box) ||
+                    is_conflict_with_objects_in_grid(tm, box))
+  return isConflict
+
 def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
   if radius < 0.0
     return false
@@ -280,14 +286,21 @@ def is_not_attachable_gun(building_eid : EntityId)
     return false
   return res
 
-def is_required_space_above_object_free(pos : float3; check_height : float; eps = 0.1)
+def is_required_space_above_object_free(pos : float3; diameter : float; check_height : float; eps = 0.1)
   if check_height == 0.f
     return true
-  var traceStart = pos
-  traceStart.y += check_height + eps
-  var height = check_height
-  var norm : float3
-  return !tracedown_normalized(traceStart, height, norm, ETF_DEFAULT)
+  let radius = 0.5 * diameter
+  let poses = [[float3 pos;
+                pos + float3(radius, 0.0, 0.0);
+                pos + float3(-radius, 0.0, 0.0);
+                pos + float3(0.0, 0.0, radius);
+                pos + float3(0.0, 0.0, -radius)]]
+  for curPos in poses
+    let traceStart = curPos + float3(0.0, check_height + eps, 0.0)
+    let dir = float3(0, -1, 0)
+    if rayhit_normalized(traceStart, dir, check_height, ETF_ALL, -1)
+      return false
+  return true
 
 def is_player_can_destroy_building(player_eid, player_team, building_eid)
   var canDestroy = true
@@ -298,3 +311,11 @@ def is_player_can_destroy_building(player_eid, player_team, building_eid)
       if is_teams_friendly(team, player_team)
         canDestroy = false
   return canDestroy
+
+def count_available_buildings_by_type(player_eid : EntityId; currentPreviewId : int)
+  var buildingsByType = -1
+  if currentPreviewId >= 0
+    query(player_eid) <| $ [es] (availableBuildings : IntList)
+      if currentPreviewId < length(availableBuildings)
+        buildingsByType = availableBuildings[currentPreviewId]
+  return buildingsByType

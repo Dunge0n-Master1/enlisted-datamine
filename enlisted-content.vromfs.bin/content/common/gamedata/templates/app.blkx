@@ -1,9 +1,0 @@
-app_timespeed{
-  app__timeSpeed:r=1.0
-}
-
-time_speed_delay_accum{
-  time_speed__accumulatedDelay:r=0.0
-  _extends:t="replicating"
-  _singleton:b=yes
-}

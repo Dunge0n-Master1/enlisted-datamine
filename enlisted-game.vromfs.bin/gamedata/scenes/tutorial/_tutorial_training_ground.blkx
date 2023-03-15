@@ -24,9 +24,9 @@ entity{
   mission_name:t="basic_tutorial_mission"
 
   "loading_images:list<t>"{
-    item:t="ui/loading_tutorial_01.jpg"
-    item:t="ui/loading_tutorial_02.jpg"
-    item:t="ui/loading_tutorial_03.jpg"
+    item:t="ui/loading_tutorial_01.avif"
+    item:t="ui/loading_tutorial_02.avif"
+    item:t="ui/loading_tutorial_03.avif"
   }
 }
 
@@ -420,7 +420,7 @@ entity{
 }
 
 entity{
-  _template:t="tutorial_target_silhouette_c+tutorial_memorize_entity"
+  _template:t="tutorial_grenade_target"
   transform:m=[[0.54765, 0.0, -0.836708] [0.0, 1.0, 0.0] [0.836708, 0.0, 0.54765] [-513.88, 10.1368, 150.496]]
   ri_extra__name:t="target_silhouette_c"
   tutorial_target__targetId:t="infantry_target_grenade"
@@ -552,28 +552,28 @@ entity{
 }
 
 entity{
-  _template:t="base_tutorial_zone"
+  _template:t="hidden_tutorial_zone"
   transform:m=[[3.34847, 0.0, 0.0525442] [0.0, 6.90808, 0.0] [0.671693, 0.0, 20.3346] [-612.38, 8.08919, 138.65]]
   tutorial_zone__zoneId:t="waypoint_zone_crouch_check"
   tutorial_zone__active:b=no
 }
 
 entity{
-  _template:t="base_tutorial_zone"
+  _template:t="hidden_tutorial_zone"
   transform:m=[[3.34059, 0.0, 0.203527] [0.0, 3.2274, 0.0] [-0.0468649, 0.0, 10.5188] [-582.888, 10.3606, 138.996]]
   tutorial_zone__zoneId:t="waypoint_zone_crawl_check"
   tutorial_zone__active:b=no
 }
 
 entity{
-  _template:t="base_tutorial_zone"
+  _template:t="hidden_tutorial_zone"
   transform:m=[[1.67065, 0.0, 0.0673883] [0.0, 6.90808, 0.0] [0.335128, 0.0, 26.0792] [-654.862, 11.5256, 138.721]]
   tutorial_zone__zoneId:t="waypoint_zone_jump_over"
   tutorial_zone__active:b=no
 }
 
 entity{
-  _template:t="base_tutorial_zone"
+  _template:t="hidden_tutorial_zone"
   transform:m=[[14.6831, 0.0, 0.681489] [0.0, 20.3092, 0.0] [2.94538, 0.0, 263.735] [-650.276, 10.1694, 148.376]]
   tutorial_zone__active:b=no
   tutorial_zone__active:b=no
@@ -581,7 +581,7 @@ entity{
 }
 
 entity{
-  _template:t="base_tutorial_zone"
+  _template:t="hidden_tutorial_zone"
   transform:m=[[12.4115, 0.0, 0.740444] [0.0, 6.90808, 0.0] [2.4897, 0.0, 286.551] [-635.024, 10.1694, 148.224]]
   tutorial_zone__active:b=no
   tutorial_zone__active:b=no

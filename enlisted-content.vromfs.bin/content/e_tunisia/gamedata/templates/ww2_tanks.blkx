@@ -1,6 +1,0 @@
-import:t="#content/e_tunisia/gamedata/gen/templates/gen_ww2_tanks.blk"
-import:t="#content/e_tunisia/gamedata/gen/templates/gen_ww2_tankguns_common.blk"
-import:t="uk_tanks.blk"
-import:t="usa_tanks.blk"
-import:t="it_tanks.blk"
-import:t="cannons.blk"

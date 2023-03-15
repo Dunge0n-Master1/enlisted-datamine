@@ -10,3 +10,32 @@ any_source_net_sound_descs{
   "anySourceNetSounds:tag"{
   }
 }
+
+game_object_compound_sound_generator{
+  _singleton:b=yes
+
+  _group{
+    _tags:t="server"
+
+    "game_object_compound_sound_generator__entityTypes:array"{
+    }
+
+    "game_object_compound_sound_generator__eids:list<eid>"{
+    }
+  }
+}
+
+game_object_spline_sound_generator{
+
+  _group{
+    _tags:t="server"
+    game_object_spline_sound_generator__entityTemplate:t=""
+    game_object_spline_sound_generator__pointRadiusMul:r=1.0
+
+    "game_object_spline_sound_generator__entityEid:eid"{
+    }
+
+    "game_object_spline_sound_generator__gameObjects:list<t>"{
+    }
+  }
+}

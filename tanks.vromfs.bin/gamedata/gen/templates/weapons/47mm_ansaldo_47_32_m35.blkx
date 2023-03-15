@@ -38,6 +38,7 @@ base_47mm_ansaldo_47_32_m35{
 tankgun_47mm_ansaldo_47_32_m35{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
+  _extends:t="gunsound_47mm_ansaldo_47_32_m35"
   _extends:t="base_47mm_ansaldo_47_32_m35"
   turret__triggerGroup:i=0
 }

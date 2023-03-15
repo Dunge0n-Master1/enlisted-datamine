@@ -11,7 +11,7 @@ wbm_r75{
   vehicle_net_phys__blk:t="content/tanks/gamedata/templates/motorcycles/wbm_r75.blk:VehiclePhys"
   canUseRespawnbaseType:t="motorcycle"
   damage_model__blk:t="content/tanks/gamedata/templates/motorcycles/wbm_r75.blk"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   vehicle_seats__enumVarName:t="bmw_r75"
 
   _group{

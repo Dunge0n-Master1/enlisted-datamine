@@ -218,52 +218,56 @@ plane_propeller_effects{
 }
 
 plane_piston_engine_effects{
+  _tags:t="render"
+  piston_engine_exhaust_fx__engineModeStartFxTemplate:t="plane_exhaust_start_effect"
+  piston_engine_exhaust_fx__engineModeNominalFxTemplate:t=""
+  piston_engine_exhaust_fx__engineModeCombatFxTemplate:t="trail_plane_exhaust_minor_effect"
+  piston_engine_exhaust_fx__engineModeWepFxTemplate:t="plane_exhaust_vapor_effect"
+  piston_engine_exhaust_fx__transitionThrottle:p2=0.8, 0.95
+  piston_engine_exhaust_fx__rpmToFxSpeed:r=0.01
 
-  piston_engine_exhaust_fx{
-    _tags:t="render"
+  "plane_piston_engine_effects__nodeId:list<i>"{
   }
 
-  _group{
-    _tags:t="render"
-    piston_engine_exhaust_fx__engineModeStartFxType:t="motor_exhaust_wep"
-    piston_engine_exhaust_fx__engineModeNominalFxType:t=""
-    piston_engine_exhaust_fx__engineModeCombatFxType:t="motor_wep"
-    piston_engine_exhaust_fx__engineModeWepFxType:t="motor_100throttle"
-    piston_engine_exhaust_fx__transitionThrottle:p2=0.8, 0.95
-    piston_engine_exhaust_fx__transitionMixture:p3=0.4, 0.8, 1.0
-    piston_engine_exhaust_fx__rpmToFxSpeed:r=0.01
+  "plane_piston_engine_effects__engineIndex:list<i>"{
+  }
 
-    "piston_engine_exhaust_fx__emitters:array"{
+  "plane_piston_engine_effects__engineMode:list<i>"{
+  }
 
-      "emitters:object"{
-        engineIndex:i=0
-        node:t="prop03_1"
-      }
+  "plane_piston_engine_effects__fxEid:list<eid>"{
+  }
 
-      "emitters:object"{
-        engineIndex:i=1
-        node:t="prop03_2"
-      }
+  "piston_engine_exhaust_fx__emitters:array"{
 
-      "emitters:object"{
-        engineIndex:i=2
-        node:t="prop03_3"
-      }
+    "emitters:object"{
+      engineIndex:i=0
+      node:t="prop03_1"
+    }
 
-      "emitters:object"{
-        engineIndex:i=3
-        node:t="prop03_4"
-      }
+    "emitters:object"{
+      engineIndex:i=1
+      node:t="prop03_2"
+    }
 
-      "emitters:object"{
-        engineIndex:i=4
-        node:t="prop03_5"
-      }
+    "emitters:object"{
+      engineIndex:i=2
+      node:t="prop03_3"
+    }
 
-      "emitters:object"{
-        engineIndex:i=5
-        node:t="prop03_6"
-      }
+    "emitters:object"{
+      engineIndex:i=3
+      node:t="prop03_4"
+    }
+
+    "emitters:object"{
+      engineIndex:i=4
+      node:t="prop03_5"
+    }
+
+    "emitters:object"{
+      engineIndex:i=5
+      node:t="prop03_6"
     }
   }
 }
@@ -315,26 +319,27 @@ contrail_effects{
   }
 }
 
-plane_damage_effects{
+plane_landcrash_fx{
   _tags:t="render"
-  plane_damage_fx__landCrashEffect:t="explosion_air_crash_land_effect"
-  plane_damage_fx__waterCrashEffect:t="explosion_air_crash_water_effect"
-  plane_damage_fx__waterLeakEffect:t="trail_plane_water_leak_effect"
-  plane_damage_fx__fuelLeakEffect:t="trail_plane_fuel_leak_effect"
-  plane_damage_fx__oilLeakEffect:t="trail_plane_oil_leak_effect"
-  plane_damage_fx__engineBurningEffect:t="trail_plane_fire_minor_effect"
-  plane_damage_fx__engineDamagedEffect:t="trail_plane_smoke_minor_effect"
-  plane_damage_fx__engineDestroyedEffect:t="trail_plane_smoke_major_effect"
-  plane_damage_fx__additionalFireEffect:t="trail_plane_fire_small_effect"
-  plane_damage_fx__lastDamagedEnginePartId:i=-1
+  plane_landcrash_fx__landCrashEffect:t="explosion_air_crash_land_effect"
+  plane_landcrash_fx__waterCrashEffect:t="explosion_air_crash_water_effect"
 
-  "plane_damage_fx__damageFxEid:eid"{
+  "plane_landcrash_fx__fxEid:eid"{
   }
+}
 
-  "plane_damage_fx__additionalFireFxEid:eid"{
-  }
+plane_engine_damage_fx{
+  _tags:t="render"
+  plane_engine_damage_fx__damagedEffect:t="trail_plane_smoke_minor_effect"
+  plane_engine_damage_fx__burningEffect:t="trail_plane_fire_minor_effect"
+  plane_engine_damage_fx__destroyedEffect:t="trail_plane_smoke_major_effect"
+  plane_engine_damage_fx__isAnyEngineDamaged:b=no
+  plane_engine_damage_fx__isAnyEngineBurning:b=no
+  _tracked:t="plane_engine_damage_fx__engineStates"
+  _tracked:t="plane_engine_damage_fx__isAnyEngineDamaged"
+  _tracked:t="plane_engine_damage_fx__isAnyEngineBurning"
 
-  "plane_damage_fx__enginesEmitters:list<t>"{
+  "plane_engine_damage_fx__emitters:list<t>"{
     collNode:t="engine1_dm"
     collNode:t="engine2_dm"
     collNode:t="engine3_dm"
@@ -343,10 +348,33 @@ plane_damage_effects{
     collNode:t="engine6_dm"
   }
 
-  "plane_damage_fx__enginesEmittersIds:list<i>"{
+  "plane_engine_damage_fx__emittersIds:list<i>"{
   }
 
-  "plane_damage_fx__fuelTankEmitters:list<t>"{
+  "plane_engine_damage_fx__engineStates:list<i>"{
+  }
+
+  "plane_engine_damage_fx__fxEids:list<eid>"{
+  }
+}
+
+plane_tank_damage_fx{
+  _tags:t="render"
+  plane_tank_damage_fx__waterLeakEffect:t="trail_plane_water_leak_effect"
+  plane_tank_damage_fx__fuelLeakEffect:t="trail_plane_fuel_leak_effect"
+  plane_tank_damage_fx__oilLeakEffect:t="trail_plane_oil_leak_effect"
+  plane_tank_damage_fx__additionalFireEffect:t="trail_plane_fire_small_effect"
+
+  "plane_tank_damage_fx__waterEmitters:list<t>"{
+    collNode:t="water1_dm"
+    collNode:t="water2_dm"
+    collNode:t="water3_dm"
+    collNode:t="water4_dm"
+    collNode:t="water5_dm"
+    collNode:t="water6_dm"
+  }
+
+  "plane_tank_damage_fx__fuelEmitters:list<t>"{
     collNode:t="tank1_dm"
     collNode:t="tank2_dm"
     collNode:t="tank3_dm"
@@ -365,10 +393,7 @@ plane_damage_effects{
     collNode:t="tank16_dm"
   }
 
-  "plane_damage_fx__fuelTankEmittersIds:list<i>"{
-  }
-
-  "plane_damage_fx__oilEmitters:list<t>"{
+  "plane_tank_damage_fx__oilEmitters:list<t>"{
     collNode:t="oil1_dm"
     collNode:t="oil2_dm"
     collNode:t="oil3_dm"
@@ -383,27 +408,32 @@ plane_damage_effects{
     collNode:t="oil12_dm"
   }
 
-  "plane_damage_fx__oilEmittersIds:list<i>"{
+  "plane_tank_damage_fx__waterEmittersIds:list<i>"{
   }
 
-  "plane_damage_fx__waterEmitters:list<t>"{
-    collNode:t="water1_dm"
-    collNode:t="water2_dm"
-    collNode:t="water3_dm"
-    collNode:t="water4_dm"
-    collNode:t="water5_dm"
-    collNode:t="water6_dm"
+  "plane_tank_damage_fx__fuelEmittersIds:list<i>"{
   }
 
-  "plane_damage_fx__waterEmittersIds:list<i>"{
+  "plane_tank_damage_fx__oilEmittersIds:list<i>"{
   }
 
-  "plane_damage_fx__tailSmokeEmitters:list<t>"{
-    collNode:t="tail_dm"
+  "plane_tank_damage_fx__waterFxEids:list<eid>"{
   }
 
-  "plane_damage_fx__tailSmokeEmittersIds:list<i>"{
+  "plane_tank_damage_fx__fuelFxEids:list<eid>"{
   }
+
+  "plane_tank_damage_fx__oilFxEids:list<eid>"{
+  }
+
+  "plane_tank_damage_fx__fuelState:list<i>"{
+  }
+}
+
+plane_damage_effects{
+  _extends:t="plane_landcrash_fx"
+  _extends:t="plane_engine_damage_fx"
+  _extends:t="plane_tank_damage_fx"
 }
 
 plane_minimal_view{
@@ -644,6 +674,10 @@ plane_base{
   _tracked:t="vehicleCameraType"
   _tracked:t="isAlive"
   _tracked:t="vehicle__localControls"
+  _tracked:t="enginesFire"
+  _tracked:t="oilLeakages"
+  _tracked:t="waterLeakages"
+  _tracked:t="fuelTanksFire"
   vehicle_seats__exitTime:r=1.0
   vehicle_seats__enterTime:r=2.0
   vehicle_seats__restrictToTeam:i=-1
@@ -778,8 +812,8 @@ plane_base{
 
   _group{
     _tags:t="server"
-    aircraft_state_engine__damagedTreshold:r=0.5
-    aircraft_state_engine__destroyedTreshold:r=0.99
+    aircraft_state_engine__damagedTreshold:r=0.8
+    aircraft_state_engine__destroyedTreshold:r=0.3
 
     "aircraft__isCapableOfTakeOff:b"{
       value:b=yes
@@ -801,6 +835,9 @@ plane_base{
     }
 
     "aircraft_state_engine__hasWater:list<b>"{
+    }
+
+    "aircraft_state__isFuelTankLeaks:list<b>"{
     }
   }
 

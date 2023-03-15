@@ -9,30 +9,17 @@ let { isPlatformRelevant } = require("%dngscripts/platform.nut")
 
 let debugOverrideTime = mkWatched(persist, "debugOverrideTime", null)
 
-let unlockOfferTime = Computed(function() {
-  let tbl = userstatStats.value?.stats.events
-  return {
-    start = debugOverrideTime.value?.start ?? tbl?["$startedAt"] ?? 0
-    end = debugOverrideTime.value?.end ?? tbl?["$endsAt"] ?? 0
-  }
-})
-
-console_register_command(@() debugOverrideTime(null), "meta.eventPromoTimeReset")
-console_register_command(@(start, end) debugOverrideTime({ start, end }), "meta.eventPromoSetTime")
-console_register_command(@() console_print("interval:", unlockOfferTime.value), "meta.eventPromoGetTime")
-
 let getNextUnlock = @(unlockName, unlocks)
   unlocks.findvalue(@(u) (u?.requirement ?? "") == unlockName)
 
-let unlocksMeta = Computed(function() {
-  let res = {
-    forcedUrl = []
-    promoteSquads = []
-  }
+let unlocksData = Computed(function() {
+  let events = {}
+  let forcedUrl = []
 
   foreach (unlock in unlocksSorted.value) {
-    let {
-      force_open_url = "", promote_squads = null, promote_campaign = null, platforms = null
+    local {
+      force_open_url = "", promote_squads = null, promote_campaign = null, platforms = null,
+      event_unlock = false, event_group = null
     } = unlock?.meta
 
     if (platforms != null
@@ -47,65 +34,82 @@ let unlocksMeta = Computed(function() {
 
     if (force_open_url != "") {
       let title = unlock?.localization.name ?? ""
-      res.forcedUrl.append({
+      forcedUrl.append({
         url = force_open_url
         image = unlock?.meta.image
         title = title != "" ? title : loc("eventWidget/specialOffer")
       })
+      continue
     }
 
+    if (event_unlock && event_group == null)
+      event_group = "events" // backward compatibility with single 'events' unlock
+    if (event_group == null)
+      continue
+
+    local event = events?[event_group]
+    if (event == null) {
+      let stat = userstatStats.value?.stats[event_group]
+      event = {
+        group = event_group
+        start = debugOverrideTime.value?.start ?? stat?["$startedAt"] ?? 0
+        end = debugOverrideTime.value?.end ?? stat?["$endsAt"] ?? 0
+        unlocks = []
+        squads = []
+      }
+      events[event_group] <- event
+    }
     if (promote_squads != null)
-      res.promoteSquads.extend(typeof promote_squads == "array"
+      event.squads.extend(typeof promote_squads == "array"
         ? promote_squads
         : [promote_squads])
+    else
+      event.unlocks.append(unlock)
   }
-  return res
-})
 
-let eventForcedUrl = Computed(@() unlocksMeta.value.forcedUrl)
-
-let squadsPromotion = Computed(@() unlocksMeta.value.promoteSquads)
-
-let eventUnlocks = Computed(function() {
-  let progresses = unlockProgress.value
-  let unlocks = unlocksSorted.value.filter(@(u) u?.meta.event_unlock ?? false)
-  let startUnlocks = unlocks.filter(@(u) (u?.requirement ?? "") == "")
-    .sort(@(a,b) a?.meta.taskListPlace == null ? 1
-      : b?.meta.taskListPlace == null ? -1
-      : a.meta.taskListPlace <=> b.meta.taskListPlace)
-  let res = []
-  foreach (unlock in startUnlocks) {
-    local step = 1
-    res.append(unlock.__merge({ step }, progresses?[unlock.name] ?? emptyProgress))
-    local nextUnlock = getNextUnlock(unlock.name, unlocks)
-    while (nextUnlock != null) {
-      step++
-      res.append(nextUnlock.__merge({ step }, progresses?[nextUnlock.name] ?? emptyProgress))
-      nextUnlock = getNextUnlock(nextUnlock.name, unlocks)
+  let progress = unlockProgress.value
+  foreach (event in events) {
+    let { unlocks } = event
+    let startUnlocks = unlocks.filter(@(u) (u?.requirement ?? "") == "")
+      .sort(@(a,b) a?.meta.taskListPlace == null ? 1
+        : b?.meta.taskListPlace == null ? -1
+        : a.meta.taskListPlace <=> b.meta.taskListPlace)
+    let targetUnlocks = []
+    foreach (unlock in startUnlocks) {
+      local step = 1
+      targetUnlocks.append(unlock.__merge({ step }, progress?[unlock.name] ?? emptyProgress))
+      local nextUnlock = getNextUnlock(unlock.name, unlocks)
+      while (nextUnlock != null) {
+        step++
+        targetUnlocks.append(nextUnlock.__merge({ step }, progress?[nextUnlock.name] ?? emptyProgress))
+        nextUnlock = getNextUnlock(nextUnlock.name, unlocks)
+      }
     }
+    local totalSteps = 1
+    for (local i = targetUnlocks.len() - 1; i >= 0; i--) {
+      let { step } = targetUnlocks[i]
+      totalSteps = max(totalSteps, step)
+      targetUnlocks[i].totalSteps <- totalSteps
+      if (step == 1)
+        totalSteps = 1
+    }
+    event.unlocks <- targetUnlocks
   }
 
-  local totalSteps = 1
-  for (local i = res.len() - 1; i >= 0; i--) {
-    let { step } = res[i]
-    totalSteps = max(totalSteps, step)
-    res[i].totalSteps <- totalSteps
-    if (step == 1)
-      totalSteps = 1
+  return {
+    events
+    forcedUrl
   }
-  return res
 })
-
-let hasReward = Computed(@() eventUnlocks.value.findvalue(@(r) r.hasReward) != null)
 
 let showNotActiveTaskMsgbox = @()
   msgbox.show({ text = loc("unlocks/eventUnlockNotActiveYet") })
 
+console_register_command(@() debugOverrideTime(null), "meta.eventPromoTimeReset")
+console_register_command(@(start, end) debugOverrideTime({ start, end }), "meta.eventPromoSetTime")
+
 return {
-  eventForcedUrl
-  squadsPromotion
-  unlockOfferTime
-  eventUnlocks
-  hasReward
+  eventForcedUrl = Computed(@() unlocksData.value.forcedUrl)
+  specialEvents = Computed(@() unlocksData.value.events)
   showNotActiveTaskMsgbox
 }

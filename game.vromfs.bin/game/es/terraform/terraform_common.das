@@ -16,7 +16,6 @@ enum CanTerraformCheckResult : int
   DisallowedMaterials
   NearByObjects
 
-let TRACE_HEIGHT = 0.5
 
 def check_material_valid_to_dig(matId : int;
                                 [[shared_comp]] dig_tool__allowedMaterials : Object)
@@ -44,13 +43,12 @@ def check_dig_materials_at_radius(pos : float3;
       return false
   return true
 
-def has_query_ri_in_radius(pos : float3; radius : float; height : float; trace_handle : TraceMeshFaces?)
+def has_query_ri_in_radius(pos : float3; radius : float; half_height : float; trace_handle : TraceMeshFaces?)
   var isHit = false
   var queryOut = ShapeQueryOutput()
 
-  let halfHeight = height * 0.5
-  let traceStart = pos + float3(0.0, halfHeight, 0.0)
-  let traceEnd = pos - float3(0.0, halfHeight, 0.0)
+  let traceStart = pos + float3(0.0, half_height, 0.0)
+  let traceEnd = pos - float3(0.0, half_height, 0.0)
   sphere_query_ri(traceStart, traceEnd, radius, queryOut, -1, trace_handle) <| $(desc : array<RendInstDesc>#)
     isHit = length(desc) != 0
 
@@ -72,6 +70,8 @@ def has_trace_ri_in_radius(pos : float3; radius : float; trace_height : float)
 def can_terraform_at_pos(terraform : TerraformComponent;
                          pos : float3;
                          radius : float;
+                         trace_height : float;
+                         query_ri_half_height : float;
                          trace_handle : TraceMeshFaces?;
                          [[shared_comp]] dig_tool__allowedMaterials : Object;
                          var matId : int&)
@@ -85,10 +85,10 @@ def can_terraform_at_pos(terraform : TerraformComponent;
   let origHeight = terraform_getHmapHeightOrigValAtPos(terraform, posXZ)
   let posWithOrigHeight = float3(pos.x, origHeight, pos.z)
 
-  if has_trace_ri_in_radius(pos, radius, TRACE_HEIGHT)
+  if has_trace_ri_in_radius(pos, radius, trace_height)
     return CanTerraformCheckResult NearByObjects
 
-  if has_query_ri_in_radius(posWithOrigHeight, radius, TRACE_HEIGHT, trace_handle)
+  if has_query_ri_in_radius(posWithOrigHeight, radius, query_ri_half_height, trace_handle)
     return CanTerraformCheckResult NearByObjects
 
   var isTerraformingBlocked = false

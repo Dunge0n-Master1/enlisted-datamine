@@ -13,3 +13,6 @@ struct AssetChangedEvent
 [cpp_event(broadcast)]
 struct AssetRemovedEvent
   asset : DagorAsset const?
+
+[cpp_event(broadcast)]
+struct InvalidateClipmap {}

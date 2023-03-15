@@ -15,8 +15,6 @@ if (getCurrentLoginUi() == null) { //when not set by game before
     setCurrentLoginUi(require("%enlist/login/ui/xbox.nut"))
   else if (platform.is_sony)
     setCurrentLoginUi(require("%enlist/login/ui/ps4.nut"))
-  else if (platform.is_nswitch)
-    setCurrentLoginUi(require("%enlist/login/ui/nswitch.nut"))
   else {
     let steam = require("steam")
     let epic = require("epic")

@@ -18,7 +18,7 @@ let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { playerRank } = require("%enlist/profile/rankState.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
-let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let {
   hasUnopenedAchievements, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
 } = require("%enlist/unlocks/unseenUnlocksState.nut")
@@ -26,6 +26,7 @@ let {
 
 let portraitWidth = columnWidth
 let squareBlockSize= [portraitWidth, portraitWidth]
+
 
 let defBlockBg = {
   size = squareBlockSize
@@ -91,15 +92,16 @@ let playerPortrait = @(sf) @() {
       hplace = ALIGN_CENTER
       vplace = ALIGN_BOTTOM
       children = !hasUnseenElements.value ? null
-        : hasUnopenedElements.value ? smallUnseenBlink
-        : smallUnseenNoBlink
+        : hasUnopenedElements.value ? blinkUnseen
+        : unblinkUnseen
     }
   ]
 }
 
 
 let nickNameBlock = @(sf) function() {
-  let curRank = getRankConfig(playerRank.value?.rank)
+  let { rank = 0 } = playerRank.value
+  let curRank = rank == 0 ? null : getRankConfig(rank)
   let pNick = userInfo.value?.nameorig ?? ""
   let nickFrame = chosenNickFrame.value?.guid
   return {
@@ -112,7 +114,7 @@ let nickNameBlock = @(sf) function() {
         text = frameNick(pNick, nickFrame)
         vplace = ALIGN_CENTER
       }.__update(sf & S_HOVER ? largeNickTxtHovered : largeNickTxtCommon)
-      {
+      curRank == null ? null : {
         rendObj = ROBJ_TEXT
         text = loc(curRank.locId)
       }.__update(sf & S_HOVER ? smallNickTxtHovered : smallNickTxtCommon)

@@ -11,7 +11,8 @@ let tooltipBox = require("%ui/style/tooltipBox.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let { rand } = require("math")
 let { withTooltip } = require("%ui/style/cursors.nut")
-let { getCratesListComp } = require("%enlist/soldiers/model/cratesContent.nut")
+let { requestCratesContent, requestedCratesContent
+} = require("%enlist/soldiers/model/cratesContent.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { Bordered, PrimaryFlat } = require("%ui/components/textButton.nut")
 let { titleTxtColor, smallPadding, commonBtnHeight, bigPadding, smallOffset,
@@ -62,6 +63,9 @@ let imageHeight = rewardWidth - hdpx(30)
 let imageSize = [(rewardWidthToHeight * imageHeight).tointeger(), imageHeight]
 let btnSize = [hdpx(280), commonBtnHeight]
 
+isOpened.subscribe(@(v) !v ? null
+  : dailyRewardsCrates.value.each(@(items, army) requestCratesContent(army, items)))
+
 let dayProgressBar = progressContainerCtor(
   $"!ui/uiskin/battlepass/progress_bar_mask.svg:{rewardWidth}:{progressBarHeight}:K",
   $"!ui/uiskin/battlepass/progress_bar_border.svg:{rewardWidth}:{progressBarHeight}:K",
@@ -94,6 +98,7 @@ let function mkStageCardView(rewardItems) {
     children = [
       mkRewardImages(rewardItems[0], imageSize, {
         pos = [0, -smallPadding]
+        size = imageSize
       })
       moreNumber <= 0 ? null
         : txt({
@@ -190,8 +195,8 @@ let mkStageCard = @(rewardsData, hasReward) {
       : wndParams.baseColor
     children = [
       hasReward
-        ? mkImage("ui/gameImage/enlisted_box_glow_small.png", {
-            keepAspect = true
+        ? mkImage("ui/gameImage/enlisted_box_glow_small.avif", {
+            keepAspect = KEEP_ASPECT_FIT
             transform = {}
             animations = rewardBlinkAnim
           })
@@ -213,62 +218,61 @@ let mkDailyReward = @(idx, progressBar, stageCard) {
   animations = mkMoveDownAnim(SHOW_WND_DELAY + idx * SHOW_STAGE_DELAY)
 }
 
-let mkDailyRewardsContent = @(cratesCompWatch)
-  function() {
-    let res = {watch = [dailyRewardsUnlock, curArmy, cratesCompWatch, itemMapping]}
-    if (dailyRewardsUnlock.value == null)
-      return res
-    let {
-      stage = 0, lastRewardedStage = 0, hasReward = false, stages = [],
-      required = 0, current = 0
-    } = dailyRewardsUnlock.value
+let function mkDailyRewardsContent() {
+  let res = { watch = [dailyRewardsUnlock, curArmy, requestedCratesContent, itemMapping] }
+  if (dailyRewardsUnlock.value == null)
+    return res
+  let {
+    stage = 0, lastRewardedStage = 0, hasReward = false, stages = [],
+    required = 0, current = 0
+  } = dailyRewardsUnlock.value
 
-    let totalStages = stages.len()
-    let passCycles = totalStages > 0 ? lastRewardedStage / totalStages : 0
-    let pastDays = passCycles * totalStages
-    let rewardStage = clampStage(dailyRewardsUnlock.value, lastRewardedStage)
-    let activeStage = clampStage(dailyRewardsUnlock.value, stage)
-    let todayStage = clampStage(dailyRewardsUnlock.value, stage + current - required + 1)
-    let rewardsItems = itemMapping.value
-    let cratesComp = cratesCompWatch.value
-    let curArmyId = curArmy.value
-    local startStage = totalStages <= REWARDS_IN_LINE ? 0
-      : hasReward ? rewardStage - 1
-      : activeStage - 2
-    startStage = clamp(startStage, 0, totalStages - REWARDS_IN_LINE)
-    return res.__update({
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      padding = [sh(4), wndPadding, 0, wndPadding]
-      clipChildren = true
-      children = stages.slice(startStage, startStage + REWARDS_IN_LINE)
-        .map(function(stageData, idx) {
-          let hasStageReward = idx + startStage == rewardStage && hasReward
-          let hasStageCompleted = hasReward
-            ? idx + startStage < rewardStage
-            : idx + startStage < activeStage
-          let progBar = mkProgressBar(idx + startStage, todayStage, pastDays,
-            hasStageReward, hasStageCompleted)
+  let totalStages = stages.len()
+  let passCycles = totalStages > 0 ? lastRewardedStage / totalStages : 0
+  let pastDays = passCycles * totalStages
+  let rewardStage = clampStage(dailyRewardsUnlock.value, lastRewardedStage)
+  let activeStage = clampStage(dailyRewardsUnlock.value, stage)
+  let todayStage = clampStage(dailyRewardsUnlock.value, stage + current - required + 1)
+  let rewardsItems = itemMapping.value
+  let cratesComp = requestedCratesContent.value
+  let curArmyId = curArmy.value
+  local startStage = totalStages <= REWARDS_IN_LINE ? 0
+    : hasReward ? rewardStage - 1
+    : activeStage - 2
+  startStage = clamp(startStage, 0, totalStages - REWARDS_IN_LINE)
+  return res.__update({
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_HORIZONTAL
+    padding = [sh(4), wndPadding, 0, wndPadding]
+    clipChildren = true
+    children = stages.slice(startStage, startStage + REWARDS_IN_LINE)
+      .map(function(stageData, idx) {
+        let hasStageReward = idx + startStage == rewardStage && hasReward
+        let hasStageCompleted = hasReward
+          ? idx + startStage < rewardStage
+          : idx + startStage < activeStage
+        let progBar = mkProgressBar(idx + startStage, todayStage, pastDays,
+          hasStageReward, hasStageCompleted)
 
-          local stageCard = emptyStageCard
-          if (stageData?.rewards) {
-            let rewardsCfg = calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId)
-            let { rewardCrate, rewardsData } = rewardsCfg
-            stageCard = withTooltip(mkStageCard(rewardsData, hasStageReward),
-              @() mkToolTip(rewardCrate, rewardsData))
-          }
-          else if (stageData?.rewardsBoosters) {
-            let uBoosterId = stageData.rewardsBoosters.keys()?[0]
-            let uBoostersPres = rewardsItems?[uBoosterId]
-            let bName = uBoostersPres?.name
-            stageCard = withTooltip(mkStageCard([uBoostersPres], hasStageReward),
-              @() mkBoosterToolTip(bName, stageData.rewardsBoosters, rewardsItems, curArmyId))
-          }
+        local stageCard = emptyStageCard
+        if (stageData?.rewards) {
+          let rewardsCfg = calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId)
+          let { rewardCrate, rewardsData } = rewardsCfg
+          stageCard = withTooltip(mkStageCard(rewardsData, hasStageReward),
+            @() mkToolTip(rewardCrate, rewardsData))
+        }
+        else if (stageData?.rewardsBoosters) {
+          let uBoosterId = stageData.rewardsBoosters.keys()?[0]
+          let uBoostersPres = rewardsItems?[uBoosterId]
+          let bName = uBoostersPres?.name
+          stageCard = withTooltip(mkStageCard([uBoostersPres], hasStageReward),
+            @() mkBoosterToolTip(bName, stageData.rewardsBoosters, rewardsItems, curArmyId))
+        }
 
-          return mkDailyReward(idx, progBar, stageCard)
-        })
-    })
-  }
+        return mkDailyReward(idx, progBar, stageCard)
+      })
+  })
+}
 
 let dailyRewardsHeader = {
   size = [flex(), SIZE_TO_CONTENT]
@@ -359,7 +363,7 @@ let function mkRollReward(cratesContent, rewardCard, animDelay, onEnter, onFinis
 let rewardBg = {
   size = flex()
   clipChildren = true
-  children = mkImage("ui/gameImage/enlisted_box_glow_small.png", {
+  children = mkImage("ui/gameImage/enlisted_box_glow_small.avif", {
     size = [pw(160), ph(160)]
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
@@ -535,12 +539,12 @@ let mkDailyRewardsHeader = @(receivedData)
         }.__update(h1_txt)
   }
 
-let function dailyRewards() {
-  let cratesCompWatch = getCratesListComp(dailyRewardsCrates)
-  let receivedData = keepref(Computed(function() {
+
+let function mkDailyRewards() {
+  let receivedData = Computed(function() {
     let unlock = dailyRewardsUnlock.value
     let mappedItems = itemMapping.value
-    let cratesComp = cratesCompWatch.value
+    let cratesComp = requestedCratesContent.value
     let boosteredTask = curBoosteredDailyTask.value
     let stageData = getCurLoginUnlockStage(unlock)
 
@@ -573,7 +577,7 @@ let function dailyRewards() {
 
     let crateItemsData = {}
     foreach (receivedItem in receivedItems) {
-      let { basetpl, count } = receivedItem
+      let { basetpl, count = 1 } = receivedItem
       let itemData = res.itemsData?[basetpl]
 
       if (basetpl in res.cratesContent) {
@@ -595,14 +599,14 @@ let function dailyRewards() {
       hasRewards = true
       crateItemsData
     })
-  }))
+  })
 
   return {
     rendObj = ROBJ_SOLID
     size = [wndWidth, SIZE_TO_CONTENT]
     color = Color(9, 14, 25)
     children = [
-      mkImage("ui/gameImage/daily_rewards_bg.jpg", { keepAspect = true })
+      mkImage("ui/gameImage/daily_rewards_bg.avif", { keepAspect = KEEP_ASPECT_FIT })
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
@@ -610,7 +614,7 @@ let function dailyRewards() {
           mkDailyRewardsHeader(receivedData)
           mkDailyRewardsAnimation(receivedData)
           dailyRewardsHeader
-          mkDailyRewardsContent(cratesCompWatch)
+          mkDailyRewardsContent
           mkButton(receivedData)
         ]
         transform = {}
@@ -628,7 +632,7 @@ let function open() {
     valign = ALIGN_CENTER
     halign = ALIGN_CENTER
     onClick = @() null
-    children = dailyRewards
+    children = mkDailyRewards()
   })
 }
 

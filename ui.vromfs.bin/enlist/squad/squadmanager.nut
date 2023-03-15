@@ -4,6 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {checkMultiplayerPermissions} = require("%enlist/permissions/permissions.nut")
 let { debounce } = require("%sqstd/timers.nut")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 let { fabs } = require("math")
 let { pushNotification, removeNotifyById, removeNotify, subscribeGroup
 } = require("%enlist/mainScene/invitationsLogState.nut")
@@ -17,10 +18,9 @@ let matching_api = require("matching.api")
 let msgbox = require("%enlist/components/msgbox.nut")
 let {join_voice_chat, leave_voice_chat} = require("%enlist/voiceChat/voiceState.nut")
 let {leaveChat, createChat, joinChat} = require("%enlist/chat/chatApi.nut")
-
 let squadState = require("%enlist/squad/squadState.nut")
 let { squadId, isInSquad, isSquadLeader, isInvitedToSquad, selfUid,
-  squadSharedData, squadServerSharedData, squadMembers, allMembersState,
+  squadSharedData, squadServerSharedData, squadMembers,
   squadSelfMember, myExtSquadData, notifyMemberRemoved, notifyMemberAdded
 } = squadState
 
@@ -37,48 +37,15 @@ let { hasValidBalance } = require("%enlist/currency/currencies.nut")
 const INVITE_ACTION_ID = "squad_invite_action"
 const SQUAD_OVERDRAFT = 0
 
-let setOnlineBySquad = @(contact, online) updateSquadPresences({ [contact.value.userId] = online })
+let setOnlineBySquad = @(userId, online) updateSquadPresences({ [userId.tostring()] = online })
 
-local class SquadMember {
-  userId = null
-
-  //persist data
-  state = null
-
-  //calculated data
-  isLeader = null
-  contact = null
-  subscriptions = null
-
-  constructor(user_id, squadIdWatched) {
-    this.userId = user_id
-    this.contact = Contact(user_id.tostring())
-
-    // state is observable collection of data variables that
-    // come from server
-    this.state = Watched({name = this.contact.value.realnick})
-    this.subscriptions = {}
-    this.isLeader = Computed(@() squadIdWatched.value == user_id)
-  }
-
-  function setState(state_) {
-    this.state = state_
-    return this
-  }
-
-  function addSubscription(watch_name, watch, func) {
-    if (watch == null)
-      return
-    if (watch_name in this.subscriptions)
-      return
-    watch.subscribe(func)
-    this.subscriptions[watch_name] <- { watch, func }
-  }
-
-  function clearSubscriptions() {
-    foreach (v in this.subscriptions)
-      v.watch.unsubscribe(v.func)
-    this.subscriptions.clear()
+let SquadMember = function(userId)  {
+  let realnick = Contact(userId.tostring()).value.realnick
+  return {
+    userId
+    isLeader = squadId.value == userId
+    state = {}
+    realnick
   }
 }
 
@@ -88,17 +55,17 @@ let function applyRemoteDataToSquadMember(member, msquad_data) {
 
   let newOnline = msquad_data?.online
   if (newOnline != null)
-    setOnlineBySquad(member.contact, newOnline)
+    setOnlineBySquad(member.userId, newOnline)
 
   let data = msquad_data?.data
   if (typeof(data) != "table")
     return {}
 
-  let oldVal = member.state.value
+  let oldVal = member.state
   foreach (k,v in data){
     if (k in oldVal && oldVal[k] == v)
       continue
-    member.state(oldVal.__merge(data))
+    member.state = oldVal.__merge(data)
     break
   }
 
@@ -107,11 +74,11 @@ let function applyRemoteDataToSquadMember(member, msquad_data) {
 
 
 let delayedInvites = mkWatched(persist, "delayedInvites", null)
-let isSquadDataInited = mkWatched(persist, "isSquadDataInited", false)
-let squadChatJoined = mkWatched(persist, "squadChatJoined", false)
+let isSquadDataInited = nestWatched("isSquadDataInited", false)
+let squadChatJoined = nestWatched("squadChatJoined", false)
 
 let myExtDataRW = {}
-let myDataRemote = mkWatched(persist, "myDataRemoteWatch", {})
+let myDataRemote = nestWatched("myDataRemoteWatch", {})
 let myDataLocal = Watched({})
 
 let voiceChatId          = @(s) $"squad-channel-{s}"
@@ -119,7 +86,7 @@ let voiceChatId          = @(s) $"squad-channel-{s}"
 squadId.subscribe(function(_val) {
   isSquadDataInited(false)
 })
-squadMembers.subscribe(@(list) validateNickNames(list.map(@(m) m.contact)))
+squadMembers.subscribe(@(list) validateNickNames(list.map(@(m) Contact(m.userId.tostring()))))
 
 let getSquadInviteUid = @(inviterSquadId) $"squad_invite_{inviterSquadId}"
 
@@ -176,25 +143,9 @@ let function setSelfRemoteData(member_data) {
   }
 }
 
-let function subscribeSquadMember(member) {
-  // add remote state change triggers here
-  allMembersState.mutate(@(m) m[member.userId] <- member.state.value)
-  member.addSubscription("memberData", member.state,
-    @(v) allMembersState.mutate(@(m) m[member.userId] <- clone v)) //!!FIX ME: States must be store in allMembersState by default, and only computed version in member
-}
-
-foreach (key, oldMember in squadMembers.value) {
-  //script reload
-  oldMember.clearSubscriptions()
-  let newMember = SquadMember(oldMember.userId, squadId).setState(oldMember.state)
-  squadMembers.mutate(@(v) v[key] <- newMember)
-  subscribeSquadMember(newMember)
-}
-
 let function reset() {
   squadId(null)
   isInvitedToSquad({})
-  allMembersState({})
 
   if (squadSharedData.squadChat.value != null) {
     squadChatJoined(false)
@@ -210,8 +161,7 @@ let function reset() {
     w.update(null)
 
   foreach (member in squadMembers.value) {
-    setOnlineBySquad(member.contact, null)
-    member.clearSubscriptions()
+    setOnlineBySquad(member.userId, null)
     sendEvent(notifyMemberRemoved, member.userId)
   }
   squadMembers.update({})
@@ -220,6 +170,16 @@ let function reset() {
   myExtSquadData.ready(false)
   myDataRemote({})
 }
+
+let function setSquadLeader(squadIdVal){
+  squadMembers.mutate(function(s){
+    foreach (uid, member in s){
+      s[uid].isLeader = member.userId == squadIdVal
+    }
+  })
+}
+squadId.subscribe(setSquadLeader)
+setSquadLeader(squadId.value)
 
 let function removeInvitedSquadmate(user_id) {
   if (!(user_id in isInvitedToSquad.value))
@@ -296,7 +256,6 @@ let requestMemberData = @(uid, isMe,  isNewMember, cb = @(_res) null)
           if (isMe && data)
             setSelfRemoteData(data)
           if (isNewMember) {
-            subscribeSquadMember(member)
             sendEvent(notifyMemberAdded, uid)
           }
         }
@@ -319,7 +278,7 @@ let function updateSquadInfo(squad_info) {
         continue
       }
 
-      let sMember = SquadMember(uid, squadId)
+      let sMember = SquadMember(uid)
       squadMembers.mutate(@(m) m[uid] <- sMember)
       removeInvitedSquadmate(uid)
       isNewMember = true
@@ -463,7 +422,7 @@ fetchSquadInfo = function(cb = null) {
 
       validateNickNames(validateList, function() {
         foreach (sender in validateList)
-        addInviteByContact(sender)
+          addInviteByContact(sender)
       })
     }
   })
@@ -485,13 +444,13 @@ let function addMember(member) {
   let userId = member.userId
   logSq("addMember", userId, member.name)
 
-  let squadMember = SquadMember(member.userId, squadId)
-  squadMember.contact.mutate(@(v) v.realnick = member.name)
-  setOnlineBySquad(squadMember.contact, true)
+  let squadMember = SquadMember(member.userId)
+  let realnick = Contact(member.userId.tostring()).value.realnick
+  squadMember.realnick = realnick
+  setOnlineBySquad(squadMember.userId, true)
   removeInvitedSquadmate(member.userId)
 
   squadMembers.mutate(@(val) val[userId] <- squadMember)
-  subscribeSquadMember(squadMember)
   sendEvent(notifyMemberAdded, userId)
 
   if (squadMembers.value.len() == availableSquadMaxMembers.value && isInvitedToSquad.value.len() > 0 && isSquadLeader.value) {
@@ -511,12 +470,9 @@ let function removeMember(member) {
   }
   else if (userId in squadMembers.value) {
     let m = squadMembers.value[userId]
-    setOnlineBySquad(m.contact, null)
-    m.clearSubscriptions()
+    setOnlineBySquad(m.userId, null)
     if (userId in squadMembers.value) //function above can clear userid
       squadMembers.mutate(@(v) delete v[userId])
-    if (userId in allMembersState.value)
-      allMembersState.mutate(@(v) delete v[userId])
     sendEvent(notifyMemberRemoved, userId)
     checkDisbandEmptySquad()
   }
@@ -538,7 +494,7 @@ let function dismissSquadMember(user_id) {
   if (!member)
     return
   msgbox.show({
-    text = loc("squad/kickPlayerQst", { name = getContactNick(member.contact) })
+    text = loc("squad/kickPlayerQst", { name = getContactNick(Contact(member.userId.tostring())) })
     buttons = [
       { text = loc("Yes"), action = @() MSquadAPI.dismissMember(user_id) }
       { text = loc("No"), isCancel = true, isCurrent = true }
@@ -549,9 +505,10 @@ let function dismissSquadMember(user_id) {
 let function dismissAllOfflineSquadmates() {
   if (!isSquadLeader.value)
     return
-  foreach (member in squadMembers.value)
-    if (!isContactOnline(member.contact.value.userId, onlineStatus.value))
+  foreach (member in squadMembers.value){
+    if (!isContactOnline(member.userId.tostring(), onlineStatus.value))
       MSquadAPI.dismissMember(member.userId)
+  }
 }
 
 let function transferSquad(user_id) {
@@ -827,18 +784,19 @@ let msubscribes = {
         { onSuccess = @(response) onMemberDataChanged(params.userId, response) })
   },
   ["msquad.notify_member_logout"] = function(params) {
-    let member = squadMembers.value?[params.userId]
-    if (member!=null) {
-      logSq($"member {params.userId} going to offline")
-      setOnlineBySquad(member.contact, false)
-      member.state.mutate(@(m) m.ready <- false)
-    }
+    let {userId} = params
+    if (userId not in squadMembers.value)
+      return
+    setOnlineBySquad(userId, false)
+    squadMembers.mutate(function(s){
+      s[userId].state.ready <- false
+    })
   },
   ["msquad.notify_member_login"] = function(params) {
     let member = squadMembers.value?[params.userId]
     if (member){
       logSq("member", params.userId, "going to online")
-      setOnlineBySquad(member.contact, true)
+      setOnlineBySquad(member.userId, true)
     }
   },
   ["msquad.notify_squad_created"] = onSquadCreated,
@@ -873,16 +831,15 @@ squadSharedData.squadChat.subscribe(function(value) {
   }
 })
 
-let squadOnlineMembers = Computed(@() squadMembers.value.filter(@(m)
-  isContactOnline(m.contact.value.userId, onlineStatus.value)), FRP_DONT_CHECK_NESTED)
+let squadOnlineMembers = Computed(@() squadMembers.value.filter(@(m) isContactOnline(m.userId.tostring(), onlineStatus.value)))
 
 let unsuitableCrossplayConditionMembers = Computed(function() {
   let myCPState = crossnetworkPlay.value
   let res = []
   foreach (m in squadOnlineMembers.value) {
-    let curPlayerCPState = m.state.value?.crossnetworkPlay
+    let curPlayerCPState = m.state?.crossnetworkPlay
     if (curPlayerCPState in CrossPlayStateWeight
-        && userInfo.value?.name != m.state.value.name
+        && userInfo.value?.name != m.state?.realnick
         && CrossPlayStateWeight[curPlayerCPState] != CrossPlayStateWeight[myCPState])
       res.append(m)
   }
@@ -891,7 +848,7 @@ let unsuitableCrossplayConditionMembers = Computed(function() {
 })
 
 let getUnsuitableVersionConditionMembers = @(gameMode) squadOnlineMembers.value.filter(function(m) {
-  let curPlayerVersion = m.state.value?.version
+  let curPlayerVersion = m.state?.version
   let { reqVersion = null } = gameMode
   return curPlayerVersion != null
     && reqVersion != null
@@ -918,7 +875,6 @@ return squadState.__merge({
   removeInvitedSquadmate
   revokeSquadInvite
   acceptSquadInvite
-  createSquadAndDo
   requestJoinSquad
 
   // events

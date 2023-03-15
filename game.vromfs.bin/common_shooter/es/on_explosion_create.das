@@ -1,15 +1,27 @@
 require ecs
+require app
 require common_shooter.events_common_shooter
 require math.base
+require Dacoll
 
 [es(tag=server)]
 def on_explosion_create(evt : CmdShellExplode;
                         shell__owner : EntityId;
                         shell__gun_props_id : int;
                         shell__shell_id__shell_id : int;
-                        on_explosion__create : StringList)
-  let dir = normalize_default(evt.vel, float3(0, -1, 0))
+                        on_explosion__create : StringList;
+                        on_explosion__doNotCreateUnderwater : Tag const?)
   let pos = evt.position
+
+  if on_explosion__doNotCreateUnderwater != null
+    var isUnderwater = false
+    let t = 0.0
+    traceht_water_at_time(pos, t, get_sync_time(), isUnderwater)
+    if isUnderwater
+      return
+
+  let dir = normalize_default(evt.vel, float3(0, -1, 0))
+
   for tmpl in on_explosion__create
     createEntity(string(tmpl)) <| $(var init)
       init |> set("on_explosion__owner", shell__owner)

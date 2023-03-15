@@ -2933,9 +2933,9 @@ entity{
   mission_name:t="stalingrad_entrance_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_tractor_plant_01.jpg"
-    item:t="ui/stalingrad_tractor_plant_04.jpg"
-    item:t="ui/stalingrad_tractor_plant_06.jpg"
+    item:t="ui/stalingrad_tractor_plant_01.avif"
+    item:t="ui/stalingrad_tractor_plant_04.avif"
+    item:t="ui/stalingrad_tractor_plant_06.avif"
   }
 }
 
@@ -2957,8 +2957,8 @@ entity{
 entity{
   _template:t="team_stalingrad_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2100.0
+  team__score:r=2100.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -3130,7 +3130,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[42.4887, 0.0, -20.9804] [0.0, 6.79064, 0.0] [24.6908, 0.0, 50.0027] [-275.504, 17.8716, 29.0034]]
   active:b=no
@@ -3160,7 +3160,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[35.2544, 0.0, -17.4082] [0.0, 6.79064, 0.0] [21.3314, 0.0, 43.1993] [-187.358, 16.9141, 133.048]]
   active:b=no
@@ -3191,7 +3191,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_c"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[35.2544, 0.0, -17.4082] [0.0, 6.79064, 0.0] [23.9397, 0.0, 48.4815] [-160.422, 16.973, 216.89]]
   active:b=no
@@ -3220,7 +3220,7 @@ entity{
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3_d"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=60.0
   capzone__capTeam:i=-1
   transform:m=[[42.4887, 0.0, -20.9804] [0.0, 9.99111, 0.0] [5.20913, 0.0, 10.5493] [-260.648, 18.8968, 59.0902]]
   active:b=no

@@ -5,6 +5,8 @@ require DmFire
 require DagorMath
 require game.es.events
 require game.es.vehicle.vehicle_events
+require game.utils.team
+require common_shooter.es.vehicle.vehicle_offender_common
 require EnlistedDm
 require EnlistedNet
 require enlisted.events_enlisted
@@ -13,8 +15,11 @@ def explosion_impl(offender : EntityId;
                    gun_props_id : int;
                    shell_id : int;
                    eid : EntityId;
+                   victim_team : int;
                    var damage_model : DamageModel&;
                    var lastOffender : EntityId&;
+                   var last_offender__gunPropsId : int&;
+                   var last_offender__shellId : int&;
                    var isAlive : bool&;
                    var isExploded : bool&)
   isAlive = false
@@ -23,8 +28,8 @@ def explosion_impl(offender : EntityId;
   let explosionDamageTypeId = find_damage_type_id_by_name("explosion")
   for i in iter_range(damage_model.dmData.parts)
     let damage = get_max_hp(damage_model.dmData, i)
-    lastOffender = offender
-    using <| $(var hitData : HitData#)
+    try_set_last_vehicle_offender(offender, gun_props_id, shell_id, victim_team, lastOffender, last_offender__gunPropsId, last_offender__shellId)
+    using() <| $(var hitData : HitData#)
       hitData.offender = offender
       hitData.gunPropsId = int16(gun_props_id)
       hitData.shellId = int16(shell_id)
@@ -33,17 +38,20 @@ def explosion_impl(offender : EntityId;
 [es(tag=server)]
 def kill_vehicle_es(evt : CmdKillVehicle;
                     eid : EntityId;
-                    last_offender__gunPropsId : int;
-                    last_offender__shellId : int;
+                    team : int = TEAM_UNASSIGNED;
                     var damage_model : DamageModel&;
                     var lastOffender : EntityId&;
+                    var last_offender__gunPropsId : int&;
+                    var last_offender__shellId : int&;
                     var isAlive : bool&;
                     var isExploded : bool&)
-  explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, damage_model, lastOffender, isAlive, isExploded)
+  explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, team, damage_model,
+                 lastOffender, last_offender__gunPropsId, last_offender__shellId, isAlive, isExploded)
 
 [es(tag=server)]
 def explosion_es(evt : CmdExplosionFatal;
                  eid : EntityId;
+                 team : int = TEAM_UNASSIGNED;
                  var damage_model : DamageModel&;
                  var lastOffender : EntityId&;
                  var last_offender__gunPropsId : int&;
@@ -53,20 +61,23 @@ def explosion_es(evt : CmdExplosionFatal;
   if !isExploded
     last_offender__gunPropsId = evt.gunPropsId
     last_offender__shellId = evt.shellId
-    explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, damage_model, lastOffender, isAlive, isExploded)
+    explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, team, damage_model,
+                   lastOffender, last_offender__gunPropsId, last_offender__shellId, isAlive, isExploded)
     sendEvent(eid, [[EventExplosionFatal offender=evt.offender, gunPropsId=evt.gunPropsId, shellId=evt.shellId]])
 
 [es(tag=server)]
 def explosion_crash_es(evt : CmdCrashExplosionFatal;
                        eid : EntityId;
-                       last_offender__gunPropsId : int;
-                       last_offender__shellId : int;
+                       team : int = TEAM_UNASSIGNED;
                        var damage_model : DamageModel&;
                        var lastOffender : EntityId&;
+                       var last_offender__gunPropsId : int&;
+                       var last_offender__shellId : int&;
                        var isAlive : bool&;
                        var isExploded : bool&)
   if !isExploded
-    explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, damage_model, lastOffender, isAlive, isExploded)
+    explosion_impl(evt.offender, last_offender__gunPropsId, last_offender__shellId, eid, team, damage_model,
+                   lastOffender, last_offender__gunPropsId, last_offender__shellId, isAlive, isExploded)
     sendEvent(eid, [[EventCrashExplosionFatal offender=evt.offender, crashType=evt.crashType]])
 
 
@@ -92,7 +103,7 @@ def explosion_fire_damage_impl(offender : EntityId;
     // We've exploded and we're probably gonna burn (visually), but if this explosion is due to
     // no crew left in vehicle then there's no burning currently, so surrounding fire damage
     // is not going to be applied, fix that by starting at least one dummy fire (related to vehicle_crew_dead_es).
-    using <| $(var desc : StartBurnDesc#)
+    using() <| $(var desc : StartBurnDesc#)
       desc.offender = offender
       desc.fireParamsId = get_fire_params_id(fire_damage__fireParamsPreset)
       if desc.fireParamsId < 0
@@ -179,6 +190,7 @@ def fatal_fire_es(evt : CmdFireFatal;
                   eid : EntityId;
                   fatal_fire__timeToExplosion : float;
                   fire_damage__timeToExplosion : float;
+                  team : int = TEAM_UNASSIGNED;
                   var fire_damage__isFatal : bool&;
                   var isAlive : bool&;
                   var lastOffender : EntityId&;
@@ -189,9 +201,7 @@ def fatal_fire_es(evt : CmdFireFatal;
   if !isExploded && !fire_damage__isFatal
     fire_damage__totalTime = max(fire_damage__totalTime, fire_damage__timeToExplosion - fatal_fire__timeToExplosion)
     fire_damage__isFatal = true
-    lastOffender = evt.offender
-    last_offender__gunPropsId = evt.gunPropsId
-    last_offender__shellId = evt.shellId
+    try_set_last_vehicle_offender(evt.offender, evt.gunPropsId, evt.shellId, team, lastOffender, last_offender__gunPropsId, last_offender__shellId)
     isAlive = false
     send_net_event(eid, [[EventFireFatal offender=evt.offender, gunPropsId=evt.gunPropsId, shellId=evt.shellId]])
 

@@ -9,7 +9,7 @@ require EnlistedCamera
 require DagorDataBlock
 require game.events_game
 require DagorStdGuiRender
-require game.es.render.render_events
+require danetlibs.renderer.includes.render_events
 
 let
   DEFAULT_SIGHT_COLOR = E3DCOLOR(0xFF000000)
@@ -197,7 +197,7 @@ def vehicle_sight_init_es(evt : Event;
   vehicle_sight__drawCircleDiameter |> clear()
   vehicle_sight__drawCircleSize |> clear()
 
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     datablock_load(blk, vehicle_sight__blk)
     vehicle_sight__fontSizeMult = blk |> datablock_getReal("fontSizeMult", vehicle_sight__fontSizeMult)
     vehicle_sight__lineSizeMult = blk |> datablock_getReal("lineSizeMult", vehicle_sight__lineSizeMult)

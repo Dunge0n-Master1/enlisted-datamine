@@ -50,19 +50,18 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
       if !(isPlayer is nothing)
         netPlayerArgIdx = i
 
-    var qblock <- quote() <|
+    var blk <- qmacro_block() <|
       if !is_server()
-        exec_server_cmd(serverCmdArguments)
+        exec_server_cmd($e(serverCmdArguments))
         return
 
-    apply_template(func.at, qblock) <| $(rules)
-      rules |> replaceVariable("serverCmdArguments") <| serverCmdArguments
-
+    blk |> force_at(func.at)
+    blk |> force_generated(true)
     var funcBlk = unsafe(reinterpret<ExprBlock?> func.body)
-    var blk <- move_unquote_block(qblock)
-    blk.blockFlags ^= ExprBlockFlags isClosure
     funcBlk.list |> emplace(blk, 0)
     astChanged = true
+
+    delete serverCmdArguments
 
     // net_hero
     if netHeroArgIdx >= 0
@@ -79,6 +78,7 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
         init <- ec
       ]]
 
+      el |> force_generated(true)
       funcBlk.list |> emplace(el, 0)
       heroEidArg.name := "_{heroEidArg.name}_"
       heroEidArg._type := null
@@ -100,6 +100,7 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
         init <- ec
       ]]
 
+      el |> force_generated(true)
       funcBlk.list |> emplace(el, 0)
       playerEidArg.name := "_{playerEidArg.name}_"
       playerEidArg._type := null

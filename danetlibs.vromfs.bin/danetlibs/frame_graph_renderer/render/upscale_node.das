@@ -22,15 +22,16 @@ class UpscaleTexGenerationNode : FrameGraphNode
       desc.activation = ResourceActivationAction DISCARD_AS_RTV_DSV
       desc.cFlags = TEXCF_RTARGET | TEXFMT_R8
       desc.mipLevels = 1u
-      registrar |> createRenderTarget(string_view("upscale_sampling_tex"), desc, ResolutionType MainView)
+      registrar |> createRenderTarget(string_view("upscale_sampling_tex"), desc, ResolutionType MainView, History No)
 
   def override execute(accessor : ResourceAccessor)
     query() <| $ [es] (upscale_shader : PostFxRenderer)
       let upscaleSamplingTex = accessor |> getTexture(string_view("upscale_sampling_tex"))
 
       setBlock(globalFrameBlockId, LAYER_FRAME)
-      upscale_render(upscaleSamplingTex.getTex2D, upscale_shader)
-      set_texture(upscale_sampling_texVarId, upscaleSamplingTex.getTexId)
+      upscale_render(upscaleSamplingTex |> get_tex2d, upscale_shader)
+      set_texture(upscale_sampling_texVarId, upscaleSamplingTex |> get_res_id)
+      setBlock(-1, LAYER_FRAME)
 
   def override onDeviceReset()
     query() <| $ [es] (var upscale_weights_buffer : UniqueBufHolder)

@@ -123,7 +123,7 @@ def resupply_gun_check(box_use_count : int;
 def resupply_gun(resupply_result : ResupplyGunResult;
                  requester : EntityId;
                  holder_ammo_count : int;
-                 reserve_ammo_template : string;
+                 reserve_ammo_template : string |#;
                  var item_container : EidList&;
                  is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
   let magazinesRefilled = resupply_result.emptyMagazinesRefilled + resupply_result.partialMagazinesRefilled
@@ -178,7 +178,7 @@ def has_ammo_holder(gun_eid; item_template)
 def try_refill_ammoholder_for_gun(requester_eid : EntityId;
                                   gun_eid : EntityId;
                                   gun_ammo : int;
-                                  ammo_template : string implicit;
+                                  ammo_template : string |#;
                                   ammo_num : int;
                                   var new_box_use_count : int&;
                                   var item_container : EidList;
@@ -188,12 +188,12 @@ def try_refill_ammoholder_for_gun(requester_eid : EntityId;
     logerr("Template '{ammo_template}' not exist in entity '{getEntityTemplateName(gun_eid)}'")
     return
 
-  let holderAmmoCount = *ammoTplComp |> getTemplateComponent("ammo_holder__ammoCount") |> get_int ?? 0
+  let holderAmmoCount = *ammoTplComp |> getTemplateComponent("ammo_holder__ammoCount") ?? 0
   if holderAmmoCount <= 0
     logerr("<{requester_eid}> ammo_holder.ammoCount is less than or equal to 0 in template: {ammo_template}")
     return
 
-  let ammoRefillsCount = max(1, get_int(getTemplateComponent(*ammoTplComp, "requiresAmmoRefillsCount")) ?? 1)
+  let ammoRefillsCount = max(1, getTemplateComponent(*ammoTplComp, "requiresAmmoRefillsCount") ?? 1)
 
   let resupplyResult = resupply_gun_check(new_box_use_count,
                                           ammoRefillsCount,

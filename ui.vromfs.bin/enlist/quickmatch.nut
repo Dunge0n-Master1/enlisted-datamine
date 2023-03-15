@@ -19,8 +19,9 @@ let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { is_xbox } = require("%dngscripts/platform.nut")
 let { selEvent, isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
-let lastQueue = mkWatched(persist, "lastQueue", null)
+let lastQueue = nestWatched("lastQueue", null)
 
 let isInEventGM = Computed(@() isEventModesOpened.value
   || (curQueueParam.value != null

@@ -11,20 +11,18 @@ require game.es.vehicle.vehicle_seats_common
 require DagorMathUtils
 require common_shooter.es.vehicle.vehicle_turret_common
 require game.utils.team
+require enlisted.events_enlisted
 
-def get_aim_yaw_delta_deg(transform : float3x4; turret_state : TurretState)
-  let wishWorldAng = float2(-turret_state.wishAngles.x, turret_state.wishAngles.y)
-  let localWishDir = rotate(inverse(transform), angles_to_dir(wishWorldAng))
-  let wishYaw = renorm_ang(dir_to_angles(localWishDir).x, turret_state.angles.x)
+def get_aim_yaw_delta_deg(turret_state : TurretState)
+  let wishYaw = renorm_ang(-turret_state.wishAngles.x, turret_state.angles.x)
   let curYaw = turret_state.angles.x
   return rad_to_deg(abs(wishYaw - curYaw))
 
 [es(no_order)]
-def turret_aim_activate_es(info : UpdateStageInfoAct;
+def turret_aim_activate_es(info : ParallelUpdateFrameDelayed;
                            animchar__updatable : bool;
                            vehicle_seats__seatEids : EidList;
                            turret_control__gunEids : EidList;
-                           transform : float3x4;
                            var phys_vars : PhysVars)
   if !animchar__updatable
     return
@@ -42,7 +40,7 @@ def turret_aim_activate_es(info : UpdateStageInfoAct;
       if turret__yawSpeedMulVarId >= 0
         setVar(phys_vars, turret__yawSpeedMulVarId, aimDrivesMult.x)
       var pitchMult = aimDrivesMult.y
-      if turret_guidance__pitchMultWhenAimingYaw < 1.0 && get_aim_yaw_delta_deg(transform, turret_state) >= turret_guidance__reductionAtYawAngleDeg
+      if turret_guidance__pitchMultWhenAimingYaw < 1.0 && get_aim_yaw_delta_deg(turret_state) >= turret_guidance__reductionAtYawAngleDeg
         pitchMult *= turret_guidance__pitchMultWhenAimingYaw
       if turret__pitchSpeedMulVarId >= 0
         setVar(phys_vars, turret__pitchSpeedMulVarId, pitchMult)
@@ -50,7 +48,7 @@ def turret_aim_activate_es(info : UpdateStageInfoAct;
 
 
 [es(after=turret_aim_activate_es, REQUIRE=movableCannon)]
-def movable_turret_reset_aim_yaw_es(info : UpdateStageInfoAct;
+def movable_turret_reset_aim_yaw_es(info : ParallelUpdateFrameDelayed;
                                     animchar__updatable : bool;
                                     vehicle_seats__seatEids : EidList;
                                     vehicle_seats__restrictToTeam : int;

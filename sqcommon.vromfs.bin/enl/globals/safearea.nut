@@ -3,7 +3,7 @@ from "ui_library.nut" import *
 let {get_setting_by_blk_path} = require("settings")
 let {fabs} = require("math")
 let {globalWatched} = require("%dngscripts/globalState.nut")
-let { mkOnlineSaveData } = require("mkOnlineSaveData.nut")
+let { getOrMkSaveData } = require("mkOnlineSaveData.nut")
 let platform = require("%dngscripts/platform.nut")
 
 let blkPath = "video/safeArea"
@@ -24,15 +24,14 @@ let function validate(val) {
 let safeAreaDefault = @() canChangeInOptions() ? validate(get_setting_by_blk_path(blkPath) ?? safeAreaList.top())
   : safeAreaList.top()
 
-let amountStorage = mkOnlineSaveData("safeAreaAmount", safeAreaDefault,
+let storedAmount = getOrMkSaveData("safeAreaAmount", safeAreaDefault,
   @(value) canChangeInOptions() ? validate(value) : safeAreaDefault())
-let storedAmount = amountStorage.watch
 
 let {debugSafeAreaAmount, debugSafeAreaAmountUpdate} = globalWatched("debugSafeAreaAmount", @() null)
 let {showSafeArea, showSafeAreaUpdate} = globalWatched("showSafeArea", @() false)
 
 let function setAmount(val) {
-  amountStorage.setValue(val)
+  storedAmount(val)
   debugSafeAreaAmountUpdate(null)
 }
 
@@ -46,7 +45,7 @@ console_register_command(
   function(val = 0.9) {
     if (val > 1.0 || val < 0.9) {
       vlog(@"SafeArea is supported between 0.9 (lowest visible area) and 1.0 (full visible area).
-This range is according console requirements. (Resetting to use in options = '{0}')".subst(amountStorage.value))
+This range is according console requirements. (Resetting to use in options = '{0}')".subst(storedAmount.value))
       debugSafeAreaAmountUpdate(null)
       return
     }

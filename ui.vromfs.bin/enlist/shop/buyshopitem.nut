@@ -481,10 +481,10 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
                 sf,
                 countVal,
                 shopItemPriceInc)
-              params = h2_txt
+              params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-            hotkeys = [[ "^J:Y | Enter | Space", { description = {skip = true}} ]]
+            hotkeys = [[ "^J:Y | Enter | Space" ]]
           }.__update(primaryFlatButtonStyle)
         })
       }

@@ -12,7 +12,7 @@ def award_vehicle_maintenance(eid : EntityId; vehicle_owner_player_eid : EntityI
         || squad_member__playerEid == vehicle_owner_player_eid
         || (get_int(vehicle_owner_player_eid, "team") ?? TEAM_UNASSIGNED) != team)
       return
-    using <| $(var awardList : Array#)
+    using() <| $(var awardList : Array)
       awardList |> push_soldier_stat(squad_member__playerEid, guid, stat)
       broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
         set(init, "list", awardList)

@@ -45,7 +45,7 @@ def private find_contact_point(collres : CollisionResource;
   let localDirection = rotate(itm, worldDir)
   let current = 10f
   var ret = [[HitInfo hit=false]]
-  collres_traceray(collres, IDENT_TM, geom_tree, localPoint, localDirection, current, true) <| $ [unused_argument(_)] (_ : bool; isects : CollResIntersectionsType#)
+  collres_traceray(collres, IDENT_TM, geom_tree, localPoint, localDirection, current, true, uint8(BehaviorFlag TRACEABLE)) <| $ [unused_argument(_)] (_ : bool; isects : CollResIntersectionsType#)
     for isect in isects
       if dmData_isTraceable(dm_data, int(isect.collisionNodeId), /*reverse*/false)
         let nodeName = collres_get_node(collres, int(isect.collisionNodeId)) |> collnode_get_name

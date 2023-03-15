@@ -53,3 +53,7 @@ def replay_set_postfx(enabled : bool = true)
 def replay_camera_inert_enable_cmd(factor : float = 2.0)
   query() <| $ [es] (var replay_camera__tpsLerpFactor : float&)
     replay_camera__tpsLerpFactor = factor
+
+[console_cmd(name="replay.operator_camera")]
+def replay_operator_camera_cmd()
+  broadcastEvent([[ReplaySetOperatorCamera]])

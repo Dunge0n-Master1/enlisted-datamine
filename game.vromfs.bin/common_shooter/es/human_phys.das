@@ -4,6 +4,7 @@ require EnlistedHuman
 require HumanPhys
 require DagorMath
 require game.es.events
+require enlisted.events_enlisted
 
 def is_in_air(human_phys__inAirTime : float)
   return human_phys__inAirTime != 0.
@@ -74,19 +75,25 @@ def update_friction(var human_net_phys : HumanActor&; human_phys__crawlTransitio
   currentState.frictionMult = isGointToCrawl ? human_phys__crawlTransitionFrictionMult : 1.0
 
 [es(tag=netClient, before=human_phys_es, REQUIRE=hero)]
-def human_phys_set_crawl_transition_friction_local(info : UpdateStageInfoAct;
+def human_phys_set_crawl_transition_friction_local(info : ParallelUpdateFrameDelayed;
                                                    human_phys__crawlTransitionFrictionMult : float;
                                                    var human_net_phys : HumanActor&)
   update_friction(human_net_phys, human_phys__crawlTransitionFrictionMult)
 
 [es(tag=server, before=human_phys_es)]
-def human_phys_set_crawl_transition_friction(info : UpdateStageInfoAct;
+def human_phys_set_crawl_transition_friction(info : ParallelUpdateFrameDelayed;
                                              human_phys__crawlTransitionFrictionMult : float;
                                              var human_net_phys : HumanActor&)
   update_friction(human_net_phys, human_phys__crawlTransitionFrictionMult)
 
+[es(after=keep_human_net_phys_cur_state_es)]
+def keep_human_net_phys_zoom_render_state_es(info : UpdateStageInfoAct;
+                                             human_net_phys__isZooming : bool;
+                                             var human_net_phys__isZoomingRenderData : bool&)
+  human_net_phys__isZoomingRenderData = human_net_phys__isZooming
+
 [es(after=human_phys_es)]
-def keep_human_net_phys_cur_state_es(info : UpdateStageInfoAct;
+def keep_human_net_phys_cur_state_es(info : ParallelUpdateFrameDelayed;
                                      human_net_phys : HumanActor;
                                      var human_net_phys__curMoveState : int&;
                                      var human_net_phys__isHoldBreath : bool&;
@@ -107,7 +114,8 @@ def keep_human_net_phys_cur_state_es(info : UpdateStageInfoAct;
                                      var human_net_phys__isHoldGunModeBit : bool&;
                                      var human_net_phys__maxStamina : float&;
                                      var human_net_phys__maxStaminaMult : float&;
-                                     var human_net_phys__staminaBoostMult : float&)
+                                     var human_net_phys__staminaBoostMult : float&;
+                                     var human_net_phys__isZooming : bool&)
   assume currentState = human_net_phys.phys.currentState
 
   human_net_phys__curMoveState = int(currentState.moveState)
@@ -130,9 +138,10 @@ def keep_human_net_phys_cur_state_es(info : UpdateStageInfoAct;
   human_net_phys__maxStamina = human_net_phys.phys.maxStamina
   human_net_phys__maxStaminaMult = human_net_phys.phys.currentState.maxStaminaMult
   human_net_phys__staminaBoostMult = human_net_phys.phys.currentState.staminaBoostMult
+  human_net_phys__isZooming = human_net_phys.phys.currentState.isZooming
 
 [es(after=before_net_phys_sync, before=after_net_phys_sync)]
-def human_phys_save_weap_state_es(info : UpdateStageInfoAct;
+def human_phys_save_weap_state_es(info : ParallelUpdateFrameDelayed;
                                   human_net_phys : HumanActor;
                                   var human_net_phys__weapEquipCurState : int&;
                                   var human_net_phys__weapEquipNextSlot : int&)

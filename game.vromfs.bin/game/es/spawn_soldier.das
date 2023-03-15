@@ -1,11 +1,14 @@
 require ecs
+require ecs.safe
 require ecs.common
+require app
 require DagorSystem
 require game.es.events
 require game.es.player_events
 require enlisted.game.es.spawn_soldier_events
 require game.es.spawn_soldier_common
 require game.es.vehicle.vehicle_events
+require common_shooter.es.human.human_parachute_common
 
 def get_item_sub_template(itemTemplate; slot) : string
   let tpl = getTemplateByName(itemTemplate)
@@ -13,7 +16,7 @@ def get_item_sub_template(itemTemplate; slot) : string
     logerr("Cannot create an equipment: template '{itemTemplate}' is not found for the slot '{slot}'")
     return ""
 
-  return get_string(getTemplateComponent(*tpl, "item__recreateInEquipment"), "base_vis_item")
+  return getTemplateComponent(*tpl, "item__recreateInEquipment") ?? "base_vis_item"
 
 [es(tag=server, on_appear)]
 def spawn_soldier(evt : Event; eid : EntityId; var soldierComponents : Object; var equipmentLeftToCreate : int&)
@@ -64,7 +67,11 @@ def spawn_soldier_done(evt : Event;
   let spawnerEid = eid
   let finalizeCreation <- @ <| (soldierEid : EntityId)
     // The soldier is initialized as soon as possible so as many parameters are synchronized in the initial replication packet
-    ecs::query(spawnerEid) <| $ [es] (equipmentEids : Object)
+    query(spawnerEid) <| $ [es] (equipmentEids : Object;
+                                 useVechicle : EntityId;
+                                 soldierIndexInSquad : int;
+                                 squadEid : EntityId;
+                                 playerEid : EntityId)
       for item in equipmentEids
         let itemEid = *get_Eid(item.value)
         sendEventImmediate(soldierEid, [[CmdEquipItemDirect itemEid=itemEid, slot=item.key, allowReorderSlots=false, dropPrevItem=true]])
@@ -79,6 +86,9 @@ def spawn_soldier_done(evt : Event;
           ecs::query(soldierEid) <| $ [es] (var footprintType : int&)
             footprintType = itemFootprintType
       init_item_container(soldierEid)
+
+      if !!useVechicle
+        use_vehicle_on_spawn(soldierEid, squadEid, playerEid, useVechicle, soldierIndexInSquad)
 
   let baseTemplateName = split_template(soldierTemplate)[0]
   let tpl = getTemplateByName(baseTemplateName)
@@ -97,14 +107,54 @@ def finalize_soldier_creation(evt : FinalizeSoldierCreation; eid : EntityId)
   let soldierEid : EntityId = eid
   ecs::query(evt.spawnerEid) <| $ [es] (playerEid : EntityId;
                                         squadEid : EntityId;
-                                        useVechicle : EntityId;
-                                        soldierIndexInSquad : int;
                                         shouldBePossessed : bool)
     if shouldBePossessed
       sendEvent(playerEid, [[CmdPossessEntity possessedEid=soldierEid]])
       ecs::query(squadEid) <| $ [es] (var squad__leader : EntityId&) { squad__leader = soldierEid; }
 
-    if useVechicle != INVALID_ENTITY_ID
-      sendEvent(playerEid, [[CmdUseVehicleOnSpawn possessed=soldierEid, squad=squadEid, vehicle=useVechicle, seatOrderNo=soldierIndexInSquad]])
-
   destroyEntity(evt.spawnerEid)
+
+// Do not send any net events from here, its used in finilizer block
+def use_vehicle_on_spawn(possessed : EntityId; squad : EntityId; player_eid : EntityId; vehicle : EntityId; seat_order_no : int)
+  query(vehicle) <| $ [es] (vehicle_seats__seatEids : EidList)
+    if seat_order_no >= length(vehicle_seats__seatEids)
+      logerr("Seats order index is out of range ({seat_order_no} >= {length(vehicle_seats__seatEids)})")
+      return
+
+    var isPlayer = false
+    let seatNo = get_int(vehicle_seats__seatEids[seat_order_no], "seats_order__seatNo") ?? -1
+    query(possessed) <| $ [es] (possessedByPlr : ecs::EntityId;
+                                var isInVehicle : bool&;
+                                var disable_collision : bool&;
+                                var human_anim__vehicleSelected : ecs::EntityId&;
+                                var human_vehicle__occupiedSeatEid : ecs::EntityId&;
+                                var vehicle__lastEid : ecs::EntityId&;
+                                var vehicle__lastTime : float&)
+      if seatNo >= 0
+        human_vehicle__occupiedSeatEid = vehicle_seats__seatEids[seatNo]
+
+      isPlayer = possessedByPlr != INVALID_ENTITY_ID
+      isInVehicle = true
+      disable_collision = true
+      human_anim__vehicleSelected = vehicle
+      vehicle__lastEid = vehicle
+      vehicle__lastTime = get_sync_time()
+
+    if seatNo < 0
+      return
+
+    query(vehicle_seats__seatEids[seatNo]) <| $ [es] (seat__component : int;
+                                                      var seat__isPlayer : bool&;
+                                                      var seat__ownerEid : EntityId&;
+                                                      var seat__playerEid : EntityId&;
+                                                      var seat__squadEid : EntityId&)
+      set(possessed, "", uint(seat__component), true)
+
+      seat__isPlayer = isPlayer
+      seat__ownerEid = possessed
+      seat__playerEid = player_eid
+      seat__squadEid = squad
+
+[es(tag=server, REQUIRE=player)]
+def cmd_use_vehicle_on_spawn_es(evt : CmdUseVehicleOnSpawn; eid : EntityId)
+  use_vehicle_on_spawn(evt.possessed, evt.squad, eid, evt.vehicle, evt.seatOrderNo)

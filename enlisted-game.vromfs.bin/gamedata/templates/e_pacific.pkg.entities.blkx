@@ -1,5 +1,3 @@
-import:t="#content/e_pacific/gamedata/templates/*.blk"
-
 pacific_guadalcanal_minimap{
   _extends:t="minimap"
   mapTex:t="pacific_guadalcanal_det_minimap*"

@@ -3,15 +3,15 @@ from "%enlSqGlob/ui_library.nut" import *
 let eventbus = require("eventbus")
 let { ndbWrite, ndbRead, ndbExists } = require("nestdb")
 
-let mkSaveDataKey = @(saveId) $"onlineSaveData/{saveId.replace("/", "-")}"
+let mkSaveDataKey = @(saveId) ["onlineSaveData", saveId]
 
 let onlineSaveDataCache = persist("onlineSaveDataCache", @() {})
 
-let function getOrMkSaveData(saveId, defValueFunc = @() null){
+let function getOrMkSaveData(saveId, defValueFunc = @() null, validate=@(v) v){
   if (saveId in onlineSaveDataCache)
     return onlineSaveDataCache[saveId]
   let key = mkSaveDataKey(saveId)
-  let val = ndbExists(key) ? ndbRead(key) : defValueFunc()
+  let val = validate(ndbExists(key) ? ndbRead(key) : defValueFunc())
   if (!ndbExists(key)) {
 //    log("mkOnlineSaveData: no key found", key)
     ndbWrite(key, val)
@@ -23,7 +23,7 @@ let function getOrMkSaveData(saveId, defValueFunc = @() null){
   onlineSaveDataCache[saveId] <- watch
   watch.subscribe(function(v) {
 //    log("mkOnlineSaveData: ndbWrite", key, v)
-    ndbWrite(key, v)
+    ndbWrite(key, validate(v))
   })
   return watch
 }
@@ -46,7 +46,6 @@ let function mkOnlineSaveData(saveId, defValueFunc = @() null, validateFunc = @(
     watch
     setValue = function(value) {
 //      log("mkOnlineSaveData: setValue", saveId, value)
-      update(value)
       eventbus.send("onlineData.setValue", {saveId, value})
     }
   }

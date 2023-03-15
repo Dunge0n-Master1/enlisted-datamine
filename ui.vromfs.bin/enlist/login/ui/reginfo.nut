@@ -28,7 +28,7 @@ let login = {
   children = [
     {
       rendObj = ROBJ_IMAGE
-      image = Picture("!ui/uiskin/gaijin_logo.png")
+      image = Picture("!ui/uiskin/gaijin_logo.avif")
       size = [hdpx(32), hdpx(32)]
     }
     text(loc("login/login"))

@@ -740,9 +740,9 @@ entity{
   mission_name:t="pacific_gavutu_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_01.jpg"
-    item:t="ui/pacific_gavutu_inv_02.jpg"
-    item:t="ui/pacific_gavutu_inv_04.jpg"
+    item:t="ui/pacific_gavutu_inv_01.avif"
+    item:t="ui/pacific_gavutu_inv_02.avif"
+    item:t="ui/pacific_gavutu_inv_04.avif"
   }
 }
 
@@ -815,7 +815,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -825,8 +825,8 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToDefuse:r=20.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.639618, 0.0, 0.829609] [0.0, 1.0, -0.0] [-0.799768, 0.0, 0.616611] [0.00790405, 0.303408, 0.133789]]
   capzone__iconOffsetY:r=3.0
@@ -845,7 +845,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -855,8 +855,8 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToDefuse:r=20.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.239519, 0.0, 0.902387] [0.0, 0.983117, -0.0] [-0.91947, 0.0, 0.244053] [-0.0703125, 0.228545, -0.226105]]
   capzone__iconOffsetY:r=3.0
@@ -877,7 +877,7 @@ entity{
   active:b=no
   ui_order:i=1
   capzone__owningTeam:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -908,7 +908,7 @@ entity{
   active:b=no
   ui_order:i=1
   capzone__owningTeam:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -950,7 +950,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
@@ -1394,5 +1394,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
 }

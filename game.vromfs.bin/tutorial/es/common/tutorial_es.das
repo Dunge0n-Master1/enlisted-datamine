@@ -134,3 +134,19 @@ def tutorial_press_key_init_es(evt : Event; tutor_condition__pressKey : StringLi
 def tutorial_press_key_process_es(evt : EventDaInputActionTriggered; eid : EntityId; tutor_condition__pressKeyCode : IntList)
   if tutor_condition__pressKeyCode |> find_index(int(evt.action)) >= 0
     destroyEntity(eid)
+
+[es(tag=server, on_appear, track=human_weap__curGunSlot, REQUIRE=watchedByPlr)]
+def tutorial_check_cur_gun_component_on_weapon_switch_es(evt : Event; human_weap__curGunSlot : int; human_weap__gunEids : EidList)
+  query() <| $ [es] (eid : EntityId; tutor_stage__curGunComponentAny : StringList)
+    for component in tutor_stage__curGunComponentAny
+      let compStr = string(component)
+      if has(human_weap__gunEids[human_weap__curGunSlot], compStr, ecs_hash(compStr))
+        destroyEntity(eid)
+
+[es(tag=server, on_appear)]
+def tutorial_check_cur_gun_component_es(evt : Event; eid : EntityId; tutor_stage__curGunComponentAny : StringList)
+  query() <| $ [es(REQUIRE=watchedByPlr)] (human_weap__curGunSlot : int; human_weap__gunEids : EidList)
+    for component in tutor_stage__curGunComponentAny
+      let compStr = string(component)
+      if has(human_weap__gunEids[human_weap__curGunSlot], compStr, ecs_hash(compStr))
+        destroyEntity(eid)

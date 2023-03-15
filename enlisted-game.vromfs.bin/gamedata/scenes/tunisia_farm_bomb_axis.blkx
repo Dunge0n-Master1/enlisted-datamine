@@ -11,9 +11,9 @@ entity{
   mission_name:t="tunisia_farm_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/tunisia_farm_inv_01.jpg"
-    item:t="ui/tunisia_farm_inv_02.jpg"
-    item:t="ui/tunisia_farm_inv_03.jpg"
+    item:t="ui/tunisia_farm_inv_01.avif"
+    item:t="ui/tunisia_farm_inv_02.avif"
+    item:t="ui/tunisia_farm_inv_03.avif"
   }
 }
 
@@ -47,8 +47,8 @@ entity{
 entity{
   _template:t="team_tunisia_axis+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1900.0
-  team__score:r=1900.0
+  team__scoreCap:r=1850.0
+  team__score:r=1850.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -77,7 +77,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{

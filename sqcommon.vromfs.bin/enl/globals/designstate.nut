@@ -37,7 +37,13 @@ let function setDesign(isNew) {
 console_register_command(function() {
   let newToggle = !toggleDesign.value
   toggleDesignUpdate(newToggle)
-  console_print($"New design option is {newToggle ? "on" : "off"}")
+  console_print($"New design menu option is {newToggle ? "on" : "off"}")
+}, "ui.toggleDesignOption")
+
+console_register_command(function() {
+  let isNew = !newDesign.value
+  setDesign(isNew)
+  console_print($"New design is {isNew ? "enabled" : "disabled"}")
 }, "ui.toggleDesign")
 
 return {

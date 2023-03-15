@@ -69,7 +69,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/berlin_doors.blk"
 }
 
 entity{
@@ -96,9 +96,9 @@ entity{
   mission_name:t="berlin_wilhelm_dom"
 
   "loading_images:list<t>"{
-    item:t="ui/berlin_wilhelm_01.jpg"
-    item:t="ui/berlin_wilhelm_02.jpg"
-    item:t="ui/berlin_wilhelm_03.jpg"
+    item:t="ui/berlin_wilhelm_01.avif"
+    item:t="ui/berlin_wilhelm_02.avif"
+    item:t="ui/berlin_wilhelm_03.avif"
   }
 }
 

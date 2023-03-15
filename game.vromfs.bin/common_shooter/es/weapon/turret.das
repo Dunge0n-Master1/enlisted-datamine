@@ -3,6 +3,7 @@ require ecs.common
 require app
 require common_shooter.events_common_shooter
 require common_shooter.es.weapon.turret_common
+require enlisted.events_enlisted
 require vehicle
 require turrets
 require EnlistedNet
@@ -138,7 +139,6 @@ def turret_weap_on_tickrate_changed_es(evt : Event;
 [es(tag=(netClient, input))]
 def turret_input_client_es(info : UpdateStageUpdateInput;
                            net_phys__currentStatePosition : float3;
-                           net_phys__currentStateOrient : float4;
                            vehicle__localControls : VehicleControlsState;
                            turret_control__gunEids : EidList;
                            turret_state__atTick : int;
@@ -158,9 +158,7 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
   if conn == null
     return
 
-  let currentOrient = quat(net_phys__currentStateOrient)
-
-  using() <| $(var bs : BitStream#)
+  using() <| $(var bs : BitStream)
     var turretCount = uint8(0)
     bs |> Write(turretCount)
     bs |> WriteCompressed(uint(turret_state__atTick))
@@ -174,8 +172,7 @@ def turret_input_client_es(info : UpdateStageUpdateInput;
                                                                       turret_input__isLocalControlLocked : bool = false;
                                                                       var turret_aim__shootAngles : float2&;
                                                                       var turret_aim__shootFlag : bool&)
-        let turretDir = angles_to_dir(turret_state.angles)
-        let dir = normalize(currentOrient * turretDir)
+        let dir = angles_to_dir(turret_state.angles)
         var tdirp = pack_unit_vec_uint(dir, 30u)
 
         if turret_input__isLocalControlLocked
@@ -261,7 +258,7 @@ def turret_apply_client_input(evt : TurretControlsMsg;
               for j in range(1, tickDiff)
                 using(latest) <| $(var forgedState : TurretControlsHistoryState#)
                   forgedState.atTick += j
-                  history |> push(forgedState)
+                  history |> push_clone(forgedState)
 
         using() <| $(var st : TurretControlsHistoryState#)
           let dir = unpack_unit_vec_uint(tdirp, 30u)
@@ -276,7 +273,7 @@ def turret_apply_client_input(evt : TurretControlsMsg;
             st.shootPos = float3()
           st.atTick = int(turretStateTick)
           st.shootFlag = shootFlag
-          history |> push(st)
+          history |> push_clone(st)
   if !isOk
     logerr_once("turret_weap_on_tickrate_changed_es: deserialization failed")
 
@@ -304,21 +301,21 @@ def turret_init_shoot_node(evt : Event;
 def turret_shoot_tm_save(animchar : AnimcharBaseComponent;
                          isAlive : bool;
                          turret_control__gunEids : EidList;
-                         net_phys__currentStateOrient : float4;
                          net_phys__currentStateVelocity : float3)
   if isAlive
-    let currentOrient = quat(net_phys__currentStateOrient)
     for gunEid in turret_control__gunEids
       query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (gun : Gun;
                                                        turret__shootNodeId : int = -1;
                                                        turret__aimWithShootNode : Tag const?;
                                                        var turret_state : TurretState)
-        let turretDir = angles_to_dir(turret_state.angles)
-        var dir = normalize(currentOrient * turretDir)
+        var dir = float3(1, 0, 0)
         if turret__aimWithShootNode != null && turret__shootNodeId >= 0
           var tm : float3x4
           *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(turret__shootNodeId, tm)
           dir = tm[0]
+        else
+          dir = angles_to_dir(turret_state.angles)
+
         var shootTm = IDENT_TM
         gun.shootNodeData |> gun_shoot_node_data_calcShootTm(dir, shootTm)
         turret_state.shoot.dir = shootTm[0]
@@ -332,9 +329,8 @@ def turret_shoot_tm_save_es(evt : CmdTurretsUpdate;
                             isAlive : bool = true;
                             animchar : AnimcharBaseComponent;
                             turret_control__gunEids : EidList;
-                            net_phys__currentStateOrient : float4;
                             net_phys__currentStateVelocity : float3)
-  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateVelocity)
 
 [es(tag=server, REQUIRE_NOT=deadEntity, after=(turret_shoot_tm_save_es, turret_set_angles_es), before=turret_weap_updater_es)]
 def turret_server_aim(evt : CmdTurretsUpdate;
@@ -350,9 +346,8 @@ def turret_shoot_tm_save_client_es(evt : CmdTurretsUpdate;
                                    animchar : AnimcharBaseComponent;
                                    isAlive : bool = true;
                                    turret_control__gunEids : EidList;
-                                   net_phys__currentStateOrient : float4;
                                    net_phys__currentStateVelocity : float3)
-  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateOrient, net_phys__currentStateVelocity)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateVelocity)
 
 
 [es(tag=gameClient, after=turret_shoot_tm_save_es, before=turret_weap_updater_es, REQUIRE=heroVehicle, REQUIRE_NOT=turretsCorrection)]
@@ -492,7 +487,7 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
 
 
 [es(tag=gameClient, after=after_collision_sync, REQUIRE=vehicleWithWatched)]
-def turret_update_visual_shoot_tm_es(evt : UpdateStageInfoAct;
+def turret_update_visual_shoot_tm_es(evt : ParallelUpdateFrameDelayed;
                                      turret_control__gunEids : EidList;
                                      net_phys__interpK : float;
                                      var turret_current_visual_shoot_tm : float3x4)

@@ -85,11 +85,6 @@ def human_common_input_entity_reset_es(evt : EventOnEntityReset;
   set_controlbit(HumanPhysControlType HCT_CROUCH, uint16(human_input__holdCrouch), ct)
   set_controlbit(HumanPhysControlType HCT_MELEE, uint16(human_input__melee), ct)
 
-[es(tag=gameClient, REQUIRE=human_state__forceStandUp, no_order)]
-def human_input_force_stand_up_es(info : UpdateStageUpdateInput; game_effect__attachedTo : EntityId)
-  ecs::query(game_effect__attachedTo) <| $ [es] (var human_input__standState : int&)
-    human_input__standState = 0
-
 [es(tag=input)]
 def human_common_input_action_triggered_es(evt : EventDaInputActionTriggered;
                                            eid : EntityId;
@@ -150,13 +145,15 @@ def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
                                             human_input__holdCrouch : int;
                                             input__enabled : bool;
                                             human_input__melee : int;
+                                            human_input__reload : int;
                                             var human_input__wishMelee : bool&;
                                             var human_input__standState : int&;
                                             var human_input__meleeInputStartTime : float&;
                                             human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
                                             human_input__shoot : int = -1;
                                             isInVehicle : bool = false;
-                                            bipod__enabled : bool = false)
+                                            bipod__enabled : bool = false;
+                                            var human_input__isNeedHctReloadReset : bool&)
   let action = int(evt.action)
   if !input__enabled
     return
@@ -166,3 +163,5 @@ def human_common_input_action_terminated_es(evt : EventDaInputActionTerminated;
   elif action == human_input__melee || (action == human_input__shoot && get_bool(human_weap__currentGunEid, "gun__melee") ?? false)
     human_input__wishMelee = human_input__meleeInputStartTime > 0.0
     human_input__meleeInputStartTime = -1.0
+  elif action == human_input__reload
+    human_input__isNeedHctReloadReset = true

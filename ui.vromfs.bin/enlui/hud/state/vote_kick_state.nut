@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { localPlayerTeam, localPlayerEid } = require("%ui/hud/state/local_player.nut")
 let { VoteKickResult } = require("dasevents")
+let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 
 let voteToKickEnabled = Watched(false)
 let voteToKickAccusedName = Watched(null)
@@ -41,7 +42,7 @@ ecs.register_es("vote_to_kick_process_ui_es",
         if (comp["team"] != localPlayerTeam.value)
           return
 
-        voteToKickAccusedName(comp["name"])
+        voteToKickAccusedName(remap_nick(comp["name"]))
         voteToKickYes(voteYes.getAll())
         voteToKickNo(voteNo.getAll())
         voteToKickAccused(accused)
@@ -78,7 +79,7 @@ ecs.register_es("vote_kick_notify_es",
         if (comp.team != localPlayerTeam.value || comp.is_local)
           return
         lastKickedPlayerInfo({
-          name = comp.name
+          name = remap_nick(comp.name)
           kicked = evt.kicked
         })
     },

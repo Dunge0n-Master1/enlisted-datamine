@@ -8,14 +8,14 @@ let { outfitSchemes, outfitShopTypes, curArmyOutfit, allOutfitByArmy
 let { findItemTemplate, allItemTemplates
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { appearanceToRender } = require("%enlist/scene/soldier_tools.nut")
-let { curSoldierInfo, soldiersList } = require("model/squadInfoState.nut")
+let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { apply_outfit, buy_outfit, use_outfit_orders } = require("%enlist/meta/clientApi.nut")
 let rand = require("%sqstd/rand.nut")()
 let { removeModalWindow } = require("%ui/components/modalWindows.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
-let { curCampItems } = require("%enlist/soldiers/model/state.nut")
+let { curCampItems, curSquadSoldiersInfo } = require("%enlist/soldiers/model/state.nut")
 let { isLinkedTo } = require("%enlSqGlob/ui/metalink.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { logerr } = require("dagor.debug")
@@ -69,7 +69,7 @@ let freeItemsBySquad = Computed(function(){
   let linkedItems = allOutfitByArmy.value?[armyId] ?? []
   let unlinkedItems = {}
   curArmyOutfit.value.each(@(val) unlinkedItems[val.basetpl] <- true)
-  foreach (soldier in soldiersList.value){
+  foreach (soldier in curSquadSoldiersInfo.value){
     let sGuid = soldier.guid
     let res = {}
     result[sGuid] <- res
@@ -152,7 +152,7 @@ let multipleItemsToApply = Computed(function(){
   if (itemToSave == null)
     return outfitToApply
 
-  let soldierGuids = soldiersList.value.reduce(@(res, val) res.append(val.guid), [])
+  let soldierGuids = curSquadSoldiersInfo.value.reduce(@(res, val) res.append(val.guid), [])
   let itemTypes = outfitShopTypes.value
 
   foreach (sGuid in soldierGuids){
@@ -252,6 +252,7 @@ let availableCItem = Computed(function(){
     }
 
   let templates = {}
+  let DB = ecs.g_entity_mgr.getTemplateDB()
   foreach (part in lookCustomizationParts){
     let { slotName } = part
     if (itemScheme?[slotName] == null || itemScheme[slotName].len() == 1)
@@ -267,11 +268,12 @@ let availableCItem = Computed(function(){
           continue
         local templ = templates?[val]
         if (templ == null) {
-          templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(val)
+          templ = DB.getTemplateByName(val)
           templates[val] <- templ
         }
         if (templ == null) {
-          logerr($"Not found look template for {val} at {key} slot")
+          if (DB.size() != 0)
+            logerr($"Not found look template for {val} at {key} slot")
           continue
         }
         iconAttachments.append({

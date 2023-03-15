@@ -5,6 +5,7 @@ let replayState = Watched({})
 let canShowReplayHud = Watched(true)
 let canShowGameHudInReplay = Watched(true)
 let isFpsCamera = Watched(false)
+let isOperatorCamera = Watched(false)
 let isTpsCamera = Watched(false)
 let isTpsFreeCamera = Watched(false)
 let curSoldierInfo = Watched(null)
@@ -14,8 +15,10 @@ let isReplayAccelerationTo = Watched(false)
 const FPS_CAMERA = "FPS_CAMERA"
 const TPS_CAMERA = "TPS_CAMERA"
 const TPS_FREE_CAMERA = "TPS_FREE_CAMERA"
+const OPERATOR_CAMERA = "OPERATOR_CAMERA"
 
 let activeCameraId = Computed(@() isTpsFreeCamera.value ? TPS_FREE_CAMERA
+  : isOperatorCamera.value ? OPERATOR_CAMERA
   : isTpsCamera.value ? TPS_CAMERA
   : isFpsCamera.value ? FPS_CAMERA
   : null)
@@ -51,10 +54,18 @@ ecs.register_es("replay_camera_is_tps", {
 }, { tags = "playingReplay" })
 
 ecs.register_es("replay_camera_is_fps", {
-  [["onInit", "onChange"]] = @(_, comp) isFpsCamera(comp.camera__active)
+  [["onInit", "onChange"]] = @(_, comp) isFpsCamera(comp.isHeroCockpitCam && comp.camera__active)
 }, {
   comps_track = [["camera__active", ecs.TYPE_BOOL]]
+  comps_ro = [["isHeroCockpitCam", ecs.TYPE_BOOL]]
   comps_no = [["camera__input_enabled"]]
+}, { tags = "playingReplay" })
+
+ecs.register_es("replay_camera_is_operator", {
+  [["onInit", "onChange"]] = @(_, comp) isOperatorCamera(comp.camera__active)
+}, {
+  comps_track = [["camera__active", ecs.TYPE_BOOL]]
+  comps_rq = [["replay_camera__operator"]]
 }, { tags = "playingReplay" })
 
 
@@ -93,6 +104,7 @@ return {
   FPS_CAMERA
   TPS_CAMERA
   TPS_FREE_CAMERA
+  OPERATOR_CAMERA
   activeCameraId
   isReplayAccelerationTo
 }

@@ -8,6 +8,7 @@ let scorePlayerInfoComps = [
   ["groupId", ecs.TYPE_INT64, INVALID_GROUP_ID],
   ["userid", ecs.TYPE_UINT64, INVALID_USER_ID],
   ["team", ecs.TYPE_INT, TEAM_UNASSIGNED],
+  ["army", ecs.TYPE_STRING],
   ["disconnected", ecs.TYPE_BOOL],
   ["possessed", ecs.TYPE_EID],
   ["decorators__nickFrame", ecs.TYPE_STRING],
@@ -15,6 +16,9 @@ let scorePlayerInfoComps = [
   ["player__roomOwner", ecs.TYPE_BOOL],
   ["player_info__military_rank", ecs.TYPE_INT],
   ["player_info__rating", ecs.TYPE_INT],
+  ["controlled_soldier__sKind", ecs.TYPE_STRING],
+  ["controlled_soldier__sClassRare", ecs.TYPE_INT],
+  ["controlled_soldier__sClass", ecs.TYPE_STRING]
 ]
 
 let scoringPlayerSoldiersStatsComps = [

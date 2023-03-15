@@ -18,8 +18,4 @@ return {
   xboxScarlett = [
     "content/enlisted/config/enlisted.default~xboxScarlett"
   ]
-  nswitch = [
-    "content/enlisted/config/enlisted.default~nswitch"
-    "content/enlisted/config/enlisted.gyro~nswitch"
-  ]
 }

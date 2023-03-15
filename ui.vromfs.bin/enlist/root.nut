@@ -48,7 +48,6 @@ let version_info = require("components/versionInfo.nut")
 let {noServerStatus, saveDataStatus} = require("%enlist/mainMenu/info_icons.nut")
 let speakingList = require("%ui/speaking_list.nut")
 
-
 let {mkSettingsMenuUi, showSettingsMenu} = require("%ui/hud/menus/settings_menu.nut")
 let emailLinkButton = require("mkLinkButton.nut")
 let settingsMenuUi = mkSettingsMenuUi({

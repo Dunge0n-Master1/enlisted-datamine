@@ -7,7 +7,7 @@ let {
   blurBgFillColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")()
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
@@ -19,8 +19,9 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { widgetUserName } = require("%enlist/components/userName.nut")
 let mkUnlockBtn = require("%enlist/campaigns/mkUnlockButton.nut")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
-let isOpened = mkWatched(persist,"isOpened", false)
+let isOpened = nestWatched("isOpened", false)
 
 const SHAKE_TEXT_ID = "SHAKE_TEXT_ID"
 const TOTAL_ROWS = 2
@@ -33,6 +34,7 @@ let selAnimOffset = hdpx(9)
 let campaignsFreeHeight = sh(75)
 let nameBlockHeight = hdpx(50)
 let btnOffset = nameBlockHeight + hdpx(12)
+let unseenIcon = blinkUnseenIcon().__update({ hplace = ALIGN_RIGHT })
 
 let campPerRow = Computed(@()
   max(1, math.ceil(visibleCampaigns.value.len().tofloat() / TOTAL_ROWS).tointeger()))
@@ -99,7 +101,7 @@ let mkCampaignImg = @(campaign, isAvailable, sf) {
     keepAspect = KEEP_ASPECT_FILL
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-    image = Picture($"ui/gameImage/{campaign}.jpg")
+    image = Picture($"ui/gameImage/{campaign}.avif")
   }.__update(isAvailable
     ? {
         transform = { scale = sf & S_HOVER ? [1.05, 1.05] : [1, 1] }
@@ -161,7 +163,7 @@ let campaignBtn = @(campaign) watchElemState(function(sf) {
       mkUnlockBtn(lock, { margin = [0, 0, btnOffset, 0] })
       isSelected ? mkSelectedFrame(size) : null
       campaign in unseenCampaigns.value
-        ? unseenSignal.__update({ hplace = ALIGN_RIGHT })
+        ? unseenIcon
         : null
     ]
 

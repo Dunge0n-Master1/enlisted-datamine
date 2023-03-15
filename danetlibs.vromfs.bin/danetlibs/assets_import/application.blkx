@@ -3,7 +3,8 @@ shaders:t="compiledShaders/game"
 assets{
 
   export{
-    cache:t="/cache"
+    cache:t="/../develop/.cache"
+    assetCache:t="/../develop/.asset-local"
     useCache2Fast:b=yes
 
     types{

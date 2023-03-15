@@ -12,6 +12,7 @@ require math.base
 require DagorSystem
 require DagorMath
 require DagorMathUtils
+require enlisted.events_enlisted
 
 [es(on_appear)]
 def human_ladder_anim_init_es(evt : Event;
@@ -33,7 +34,7 @@ def mult(matr : float3x4;
   return result
 
 [es(after=human_post_phys_ladder_update_es, REQUIRE_NOT=deadEntity)]
-def human_ladder_anim_es(info : UpdateStageInfoAct;
+def human_ladder_anim_es(info : ParallelUpdateFrameDelayed;
                          human_anim : HumanAnimCtx;
                          var animchar_effectors__effectorsState : Object;
                          human_ladder__ladderTm : float3x4&;

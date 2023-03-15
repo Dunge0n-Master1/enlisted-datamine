@@ -1,0 +1,292 @@
+tnt_block_exploder_sound{
+
+  _group{
+    _tags:t="sound"
+    gun_shot_dry_sound__path:t="player/weapon/tnt_block_exploder/activate"
+  }
+}
+
+tnt_block_exploder{
+  _extends:t="item"
+  _extends:t="equipable_gun"
+  _extends:t="tnt_block_exploder_sound"
+  animchar__res:t="sov_pm_2_char"
+  animchar_render__enabled:b=yes
+  collres__res:t="sov_pm_2_collision"
+  gun__blk:t="content/enlisted/gamedata/weapons/tnt_block_exploder.blk"
+  gun__locName:t="tnt_block_exploder"
+  gun__reloadable:b=no
+  gun__ammoSyncDelay:r=1.0
+  gun__ammo:i=0
+  gun__maxAmmo:i=0
+  gun__shotFreq:r=1.0
+  gun__automaticReload:b=yes
+  gun__visible:b=yes
+  gun__shootNodeName:t=""
+  weapon_rearsight_node__nodeName:t=""
+  item__iconRoll:r=30.0
+  item__iconScale:r=1.1
+  item__iconYaw:r=45.0
+  item__name:t="items/tnt_block_exploder"
+  item__template:t="tnt_block_exploder"
+  item__weapTemplate:t="tnt_block_exploder"
+  item__weapType:t="tnt_block_exploder"
+  item__weight:r=0.8
+  item__proto:t="content/enlisted/gamedata/weapons/tnt_block_exploder.blk"
+  item__locDetails:t=""
+  item__id:i=0
+  tnt_block_exploder__state:i=0
+  tnt_block_exploder__explodeAnimStartTime:r=0.0
+  tnt_block_exploder__explodeAnimEndTime:r=0.0
+  tnt_block_exploder__explodeAtBoltActionProgress:r=0.45
+  tnt_block_exploder__boltActionProgress:r=0.0
+  tnt_block_exploder__reloadProgress:r=0.0
+  tnt_block_exploder__reloadAnimTime:r=1.0
+  _tracked:t="gun__visible"
+  _tracked:t="tnt_block_exploder__state"
+
+  collres{
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/shells/tnt_block_exploder_dummy.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t=""
+  }
+
+  "item__weapSlots:array"{
+    slot:t="special"
+  }
+
+  _group{
+    ui__geom_node_idx:i=-1
+    ui__node_pos:p3=0.0, 0.0, 0.0
+    ui__geom_node_name:t="weaponRoot"
+    _tags:t="ui"
+  }
+
+  "specialWeapItem:tag"{
+  }
+
+  "itemInWeaponSlot:tag"{
+  }
+
+  "tntBlockExploder:tag"{
+  }
+
+  "doNotHideWeapWithoutAmmo:tag"{
+  }
+
+  "notShootableGun:tag"{
+  }
+
+  "disableMelee:tag"{
+  }
+
+  "gunAnimOffsetAlwaysInAim:tag"{
+  }
+}
+
+tnt_block_shell{
+  _extends:t="projectile_with_shell"
+  animchar__res:t="satchel_charge_char"
+  shell__expl_node:t="weaponRoot"
+  item__name:t="items/tnt_block"
+  gun__statName:t="tnt_block"
+  shell__infantryKillStat:t="infantry_tnt_kills"
+  shell__crewKillStat:t="crew_tnt_kills"
+  shell__vehicleKillStat:t="vehicle_tnt_kills"
+  shell__killSoldierStat:t="explosiveKills"
+
+  "animchar_no_update:tag"{
+  }
+}
+
+tnt_block_phys{
+  _extends:t="explosion_pack_phys"
+}
+
+tnt_block_activator{
+  on_create__spawnActivatedShellBlk:t="content/enlisted/gamedata/weapons/tnt_block.blk"
+  on_create__spawnShellTimer:r=0.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "ownerEid:eid"{
+  }
+}
+
+base_tnt_block{
+  _extends:t="replicating"
+  _extends:t="item"
+  _extends:t="melee_weapon"
+  _extends:t="placeable_item"
+  _extends:t="base_hitpoints"
+  _extends:t="base_dm_parts"
+  _extends:t="attachable_to_vehicle"
+  animchar_render__enabled:b=yes
+  animchar__res:t="tnt_charge_char"
+  collres__res:t="tnt_charge_collision"
+  grid_obj__gridType:t="loot"
+  grid_obj__fixedTmScale:r=-1.0
+  material:t="steel"
+  needsBlood:b=no
+  hitpoints__hp:r=10.0
+  hitpoints__hpRecoverySpd:r=0.0
+  hitpoints__hpThreshold:r=0.0
+  hitpoints__maxHp:r=10.0
+  hitpoints__shellDmgMult:r=0.3
+  hitpoints__stoppingPower:r=0.0
+  item__iconRoll:r=0.0
+  item__iconPitch:r=90.0
+  item__iconYaw:r=0.0
+  item__iconScale:r=0.5
+  item__name:t="items/tnt_block"
+  item__proto:t="base_tnt_block"
+  item__template:t="base_tnt_block"
+  item__weapType:t="tnt_block"
+  item__grenadeLikeType:t="tnt_block"
+  item__weight:r=0.8
+  gun__locName:t="tnt_block"
+  gun__reloadable:b=no
+  meleeSoundType:t=""
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/tnt_block.blk"
+  weap__sprintLerpFactor:r=1.0
+  placeable_item__additionalHeight:r=0.012
+  _replicated:t="gun__owner"
+  _tracked:t="gun__owner"
+
+  collres{
+  }
+
+  grid_obj{
+  }
+
+  "killer:eid"{
+  }
+
+  "ui__placeableItemMarker:tag"{
+    _tags:t="ui"
+  }
+
+  "gun__owner:eid"{
+  }
+
+  _group{
+    ui__node_pos:p3=0.0, 0.0, 0.0
+    _tags:t="ui"
+
+    "ui__nodePosByCollresBbox:tag"{
+    }
+  }
+
+  _group{
+    placeable_item__maxAnimLenSq:r=1.96
+    placeable_item__placeRequestSend:b=no
+    placeable_item__placeRequestReady:b=no
+    placeable_item__additionalRotation:p3=90.0, 0.0, 270.0
+    placeable_item__allowablePlaceHeight:r=0.15
+    _tags:t="gameClient"
+  }
+
+  _group{
+    tnt_block__activatorTemplate:t="tnt_block_activator"
+    _tags:t="server"
+  }
+
+  "item__weapSlots:array"{
+    slot:t="special"
+  }
+
+  "dm_parts__parts:object"{
+
+    "volumeBox_1:object"{
+      dmgMult:r=1.0
+      armor:r=0.0
+    }
+  }
+
+  "specialWeapItem:tag"{
+  }
+
+  "disableMelee:tag"{
+  }
+
+  "itemInWeaponSlot:tag"{
+  }
+
+  "allow_friendly_damage:tag"{
+  }
+
+  "animchar__noUpdateOnDedicated:tag"{
+  }
+
+  "vehicleTriggerable:tag"{
+  }
+
+  "tntBlock:tag"{
+  }
+
+  "fastPickup:tag"{
+  }
+
+  "canItemPickedUpOnlyByLastOwner:tag"{
+  }
+}
+
+ussr_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_ussr_char"
+  collres__res:t="tnt_charge_ussr_collision"
+  item__proto:t="ussr_tnt_block"
+  item__template:t="ussr_tnt_block"
+}
+
+ger_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_char"
+  collres__res:t="tnt_charge_collision"
+  item__proto:t="ger_tnt_block"
+  item__template:t="ger_tnt_block"
+}
+
+usa_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_usa_char"
+  collres__res:t="tnt_charge_usa_collision"
+  item__proto:t="usa_tnt_block"
+  item__template:t="usa_tnt_block"
+  placeable_item__additionalHeight:r=0.01
+}
+
+uk_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_char"
+  collres__res:t="tnt_charge_collision"
+  item__proto:t="uk_tnt_block"
+  item__template:t="uk_tnt_block"
+}
+
+it_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_char"
+  collres__res:t="tnt_charge_collision"
+  item__proto:t="it_tnt_block"
+  item__template:t="it_tnt_block"
+}
+
+jap_tnt_block{
+  _extends:t="base_tnt_block"
+  animchar__res:t="tnt_charge_jap_char"
+  collres__res:t="tnt_charge_collision"
+  item__proto:t="jap_tnt_block"
+  item__template:t="jap_tnt_block"
+}

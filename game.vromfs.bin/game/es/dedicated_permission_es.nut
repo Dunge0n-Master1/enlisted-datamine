@@ -5,6 +5,7 @@ let {readPermissions} = require("%enlSqGlob/permission_utils.nut")
 let {has_network, INVALID_CONNECTION_ID} = require("net")
 let {find_human_player_by_connid, find_local_player} = require("%dngscripts/common_queries.nut")
 let {debug} = require("dagor.debug")
+let { EventSqDedicatedPermissions, mkEventSqDedicatedPermissions } = require("%enlSqGlob/sqevents.nut")
 
 const LOCAL_PERM = "local."
 
@@ -23,7 +24,7 @@ let function hasDedicatedPermission(userid, permission){
 
 ecs.register_es("read_dedicated_permissions",
   {
-    [ecs.sqEvents.EventSqDedicatedPermissions] = function(evt,eid,comp){
+    [EventSqDedicatedPermissions] = function(evt,eid,comp){
       let senderEid = has_network()
           ? find_human_player_by_connid(evt.data?.fromconnid ?? INVALID_CONNECTION_ID)
           : find_local_player()
@@ -61,7 +62,7 @@ if (!isDedicated) { //we need code only on client in both offline and network mo
           return
 
         debug($"Send dedicated permissions for user: {userInfo.value.userId}")
-        ecs.client_send_event(eid, ecs.event.EventSqDedicatedPermissions({jwt = dedicatedPermJwt}))
+        ecs.client_send_event(eid, mkEventSqDedicatedPermissions({jwt = dedicatedPermJwt}))
       }
     },
     {

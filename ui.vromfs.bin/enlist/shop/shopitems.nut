@@ -67,11 +67,6 @@ let function isInInterval(ts, interval = []){
 let priorityDiscounts = Watched({})
 
 let function updateItemCost(sItem, purchases) {
-  let { shop_price = 0, shop_price_full = 0 } = sItem
-  if (shop_price > 0 && shop_price_full > shop_price)
-    sItem.shop_discount <- 100 - (100.0 * shop_price / shop_price_full + 0.5).tointeger()
-
-  sItem.curItemCost <- clone (sItem?.itemCost ?? {})
   local { shopItemPrice, discountInPercent = 0, discountIntervalTs = [] } = sItem
   local curItem = sItem
   let allItems = shopItemsBase.value
@@ -94,10 +89,20 @@ let function updateItemCost(sItem, purchases) {
   let priceIncrement = amount * (sItem?.shopItemPriceInc ?? 0)
   sItem.curShopItemPrice <- calcPriceWithDiscount(shopItemPrice, priceIncrement, discountInPercent)
 
-  foreach (itemId, cost in sItem?.itemCostInc ?? {})
-    sItem.curItemCost[itemId] <- (sItem.curItemCost?[itemId] ?? 0) + amount * cost
-
   return sItem
+}
+
+let function updateStoreItemCost(sItem, gItem) {
+  let item = {}.__update(sItem, gItem)
+  let showCountdown = (gItem?.discount_countdown ?? "0") != "0" //original param name is show_countdown, string
+  let discountInPercent = gItem?.discount_mul ? ((100 * (1.0 - gItem.discount_mul)) + 0.5).tointeger() : 0
+  local discountIntervalTs = []
+  if (showCountdown && gItem?.discount_till && serverTime.value < gItem.discount_till)
+    discountIntervalTs = [ serverTime.value, gItem.discount_till ]
+
+  let resItem = item.__update({ discountInPercent, discountIntervalTs,
+    curShopItemPrice = { price = 0, fullPrice = 0 } })
+  return resItem
 }
 
 let shopItems = Computed(function() {
@@ -105,6 +110,7 @@ let shopItems = Computed(function() {
   let needsUpdate = shopDiscountGen.value //warning disable: -declared-never-used
   let discounts = priorityDiscounts.value
   let items = shopItemsBase.value
+  let goods = goodsInfo.value
   return items
     .filter(function(item) {
       let { offerContainer = "" } = item
@@ -115,11 +121,21 @@ let shopItems = Computed(function() {
         && isPlatformRelevant(i?.platforms ?? [])) != null
     })
     .map(function(item, guid) {
-      let discountInPercent = discounts?[guid] ?? item?.discountInPercent ?? 0
-      return updateItemCost(
-        item.__merge({ guid, discountInPercent }, goodsInfo.value?[item?.purchaseGuid] ?? {})
-        purchasesCount.value
-      )
+      local newItem = item.__merge({ guid, curItemCost = item?.itemCost ?? {} })
+
+      let offerDiscount = guid not in discounts ? {}
+        : {
+            discountInPercent = discounts[guid]
+            discountIntervalTs = []
+          }
+      newItem.__update(offerDiscount, goodsInfo.value?[item?.purchaseGuid] ?? {})
+      newItem = updateItemCost(newItem, purchasesCount.value)
+
+      if (goods?[newItem?.pcLinkGuid] && (newItem?.curShopItemPrice.fullPrice ?? 0) == 0)
+        //Item from web store
+        newItem = updateStoreItemCost(newItem, goods[newItem.pcLinkGuid])
+
+      return newItem
     })
 })
 

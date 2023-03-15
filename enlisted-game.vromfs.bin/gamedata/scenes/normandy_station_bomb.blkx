@@ -830,7 +830,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -872,9 +872,9 @@ entity{
   mission_name:t="normandy_station_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_station_inv_04.jpg"
-    item:t="ui/normandy_station_inv_02.jpg"
-    item:t="ui/normandy_station_inv_03.jpg"
+    item:t="ui/normandy_station_inv_04.avif"
+    item:t="ui/normandy_station_inv_02.avif"
+    item:t="ui/normandy_station_inv_03.avif"
   }
 }
 
@@ -995,7 +995,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam1"
-  transform:m=[[-0.508498, -7.04054e-05, -0.861064] [4.02859e-05, 1.0, -0.000105556] [0.861063, -8.83639e-05, -0.508498] [-619.807, 17.1521, 610.535]]
+  transform:m=[[-0.0816459, -7.04054e-05, -0.996662] [8.23204e-05, 1.0, -7.73848e-05] [0.996661, -8.83637e-05, -0.0816458] [-619.912, 17.1521, 612.199]]
   groupName:t="sector_2"
   respawnBaseGroup:i=1
   active:b=no
@@ -1643,7 +1643,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.621998, 0.0, 0.783019] [0.0, 1.0, -0.0] [-0.783019, 0.0, 0.621998] [-619.922, 16.4206, 598.987]]
+  transform:m=[[-0.76206, 0.0, 0.647507] [0.0, 1.0, 0.0] [-0.647507, 0.0, -0.76206] [-619.922, 16.8675, 598.987]]
   groupName:t="sector_1"
   team:i=2
   respawnBaseGroup:i=3
@@ -1652,7 +1652,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.621998, 0.0, 0.783019] [0.0, 1.0, -0.0] [-0.783019, 0.0, 0.621998] [-620.201, 17.0061, 610.427]]
+  transform:m=[[0.407841, 0.0, 0.913053] [0.0, 1.0, -0.0] [-0.913053, 0.0, 0.40784] [-616.437, 16.7121, 599.875]]
   groupName:t="sector_1"
   team:i=2
   respawnBaseGroup:i=3

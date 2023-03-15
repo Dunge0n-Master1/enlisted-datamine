@@ -47,17 +47,24 @@ def sound_effect_update_moveable(evt : Event;
     set_pos(sound_effect__event.handle, transform * sound_effect__localOffset)
 
 
-[es(tag=sound, on_appear)]
-def sound_effect_appear(evt : Event;
-                        var sound_control__range : float&;
-                        sound_effect__path : string;
-                        sound_effect__abandonOnReset : bool;
-                        var sound_effect__event : SoundEvent&)
-  if sound_control__range <= 0.
-    sound_control__range = get_max_distance(sound_effect__path)
-    if sound_control__range <= 0.
-      sound_control__range = 35.
-      sound_debug("unknown range for {sound_effect__path}")
-    elif sound_control__range > 8000.
-      sound_debug("max distance {sound_control__range} for event {sound_effect__path} seems too big")
-  sound_effect__event.abandonOnReset = sound_effect__abandonOnReset
+[es(tag=sound, track=sound_bank_preset_state__isValid)]
+def sound_effect_init(evt : Event;
+                      sound_bank_preset_state__isValid : bool;
+                      sound_control__autoRange : bool;
+                      var sound_control__range : float&;
+                      sound_effect__path : string;
+                      sound_effect__abandonOnReset : bool;
+                      var sound_effect__event : SoundEvent&)
+  if sound_bank_preset_state__isValid
+    if sound_control__autoRange
+      sound_control__range = get_max_distance(sound_effect__path)
+      if sound_control__range <= 0.
+        sound_control__range = 35.
+        sound_debug("unknown range for {sound_effect__path}")
+      elif sound_control__range > 8000.
+        sound_debug("max distance {sound_control__range} for event {sound_effect__path} seems too big")
+    sound_effect__event.abandonOnReset = sound_effect__abandonOnReset
+  else
+    release_immediate(sound_effect__event.handle)
+    if sound_control__autoRange
+      sound_control__range = 0.

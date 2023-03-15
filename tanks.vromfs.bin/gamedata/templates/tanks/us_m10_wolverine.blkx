@@ -38,6 +38,7 @@ us_m10_wolverine_common{
       receiveDamageFromDMPart:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
       cockpitTemplate:t="us_m10_wolverine_gunner_cockpit"
+      isHoldGunModeAllowed:b=no
       maxPosWithOpenHatch:r=0.2
 
       "turretNames:array"{
@@ -99,6 +100,7 @@ us_m10_wolverine_common{
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
       cameraNodeName:t="bone_camera_driver"
+      isHoldGunModeAllowed:b=no
       seatAnimUpper:t="drive_driver"
       seatAnimLower:t="drive_driver"
 

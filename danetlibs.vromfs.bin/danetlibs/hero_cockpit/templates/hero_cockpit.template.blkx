@@ -3,6 +3,12 @@ hero_cockpit_shader_vars{
   _tags:t="render"
   hero_cockpit_vec_value:p4=0.0, 0.0, 0.0, 0.0
   hero_cockpit_camera_to_point_value:p4=0.0, 0.0, 0.0, 0.0
+  hero_cockpit__gunMaxLength:r=1.5
+  hero_cockpit__traceMaxBias:r=1.5
+  hero_cockpit__startFadeBeforeIntersection:r=0.3
+  hero_cockpit__fadeInterval:r=0.5
+  hero_cockpit__sampleOffsetAboveCamera:r=0.25
+  hero_cockpit__sampleBias:r=0.25
 
   "hero_cockpit_vec:ShaderVar"{
   }

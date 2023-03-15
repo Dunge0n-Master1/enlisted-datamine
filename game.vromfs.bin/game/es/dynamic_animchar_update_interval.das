@@ -1,8 +1,9 @@
 require ecs
 require DagorMath
+require enlisted.events_enlisted
 
 [es(tag=gameClient, before=human_anim_disable_nodes_client_update_es)]
-def optimize_animchar_camera_update(info : UpdateStageInfoAct;
+def optimize_animchar_camera_update(info : ParallelUpdateFrameDelayed;
                                     transform : float3x4;
                                     camera__animcharMaxDtThreshold = 0.f;
                                     camera__animcharDtThresholdMinDistance = 15.f;

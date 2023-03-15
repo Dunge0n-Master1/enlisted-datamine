@@ -8,6 +8,7 @@ require app
 require player
 require replay
 require DagorSystem
+require game.es.respawn_base_common
 
 [es(track=respawner__respStartTime, after=respawn_camera_apply_target_es)]
 def respawn_camera_delay_change_target_es(evt : Event;
@@ -96,22 +97,6 @@ def find_middle_resp_point(respTeam : int)
   if respsFound > 0
     pos = pos / float(respsFound)
   return pos
-
-def find_target_point_for_respawn_cam()
-  var pos = float3(0.0, 0.0, 0.0)
-  var pointsFound = 0
-  ecs::query() <| $ [es(REQUIRE=capzone)] (active : bool; transform : float3x4)
-    if active
-      pointsFound++
-      pos += transform[3]
-  if pointsFound == 0
-    ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase, customRespawnBase))] (active : bool; transform : float3x4)
-      if active
-        pointsFound++
-        pos += transform[3]
-  if pointsFound > 0
-    pos = pos / float(pointsFound)
-  return [[auto pointsFound, pos]]
 
 [es(tag=server, on_appear, on_event=EventLevelLoaded, track=(active, team), REQUIRE=active, REQUIRE=respbase)]
 def respawn_camera_set_target_params_es(evt : Event; team : int)

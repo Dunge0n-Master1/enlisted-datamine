@@ -23,8 +23,8 @@ let gameLauncher = require("%enlist/gameLauncher.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 
-let consoleAliases = ["sony", "xbox", "nswitch"]
-let allAliases = ["pc", "sony", "xbox", "nswitch", "mobile"]
+let consoleAliases = ["sony", "xbox"]
+let allAliases = ["pc", "sony", "xbox", "mobile"]
 let selectedCampaignsFilters = Watched([])
 let currentPassword = Watched("")
 

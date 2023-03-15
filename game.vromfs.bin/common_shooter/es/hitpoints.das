@@ -58,6 +58,7 @@ def update_hitpoints_impl(cur_time : float;
                           hitpoints__lastOffender : EntityId;
                           hitpoints__lastOffenderPlayer : EntityId;
                           hitpoints__lastVictimPlayer : EntityId;
+                          hitpoints__lastHitByEid : EntityId;
                           var hitpoints__hp : float&;
                           var isAlive : bool&; // we should change isAlive, as if we're sending event immediately receiver will observe that this entity is not dead yet
                           var isDowned : bool&;
@@ -93,7 +94,7 @@ def update_hitpoints_impl(cur_time : float;
       broadcastEvent([[EventAnyEntityResurrected eid=eid]])
     else
       if !killedByDowned
-        sendEvent(hitpoints__lastOffender, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType, killer=hitpoints__lastOffender]])
+        sendEvent(hitpoints__lastHitByEid, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType]])
       on_death(eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId, victim_team,
                death_desc__offenderTeam, hitpoints__lastOffender, hitpoints__lastOffenderPlayer,
                hitpoints__lastVictimPlayer)
@@ -110,7 +111,7 @@ def update_hitpoints_impl(cur_time : float;
       sendEventImmediate(eid, [[EventOnDownedThreshold]])
       if hitpoints__hp <= hitpoints__deathHpThreshold
         isAlive = false
-        sendEvent(hitpoints__lastOffender, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType, killer=hitpoints__lastOffender]])
+        sendEvent(hitpoints__lastHitByEid, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType]])
         on_death(eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId, victim_team,
                  death_desc__offenderTeam, hitpoints__lastOffender, hitpoints__lastOffenderPlayer,
                  hitpoints__lastVictimPlayer)
@@ -133,6 +134,7 @@ def hitpoints_es(info : UpdateStageInfoAct;
                  hitpoints__lastOffender : EntityId;
                  hitpoints__lastOffenderPlayer : EntityId;
                  hitpoints__lastVictimPlayer : EntityId;
+                 hitpoints__lastHitByEid : EntityId;
                  var hitpoints__timeFromLastDamage : float&;
                  var isAlive : bool&;
                  var isDowned : bool&;
@@ -150,7 +152,7 @@ def hitpoints_es(info : UpdateStageInfoAct;
                  entity_mods__downedTimerAdd : float = DEF_DOWNEDTIMERADD)
   update_hitpoints_impl(info.curTime, info.dt, eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId,
                         team, death_desc__offenderTeam, hitpoints__timeFromLastDamage, hitpoints__lastOffender,
-                        hitpoints__lastOffenderPlayer, hitpoints__lastVictimPlayer, hitpoints__hp, isAlive, isDowned,
+                        hitpoints__lastOffenderPlayer, hitpoints__lastVictimPlayer, hitpoints__lastHitByEid, hitpoints__hp, isAlive, isDowned,
                         hitpoints__stoppingPower, hitpoints__maxHp, hitpoints__downedEndTime,
                         hitpoints__revivingCount, hitpoints__hpThreshold,
                         hitpoints__hpRecoverySpd, hitpoints__recoveryTimeThreshold,
@@ -169,6 +171,7 @@ def force_update_hitpoints(evt : CmdUpdateHitpoints;
                            hitpoints__lastOffender : EntityId;
                            hitpoints__lastOffenderPlayer : EntityId;
                            hitpoints__lastVictimPlayer : EntityId;
+                           hitpoints__lastHitByEid : EntityId;
                            var hitpoints__timeFromLastDamage : float&;
                            var isAlive : bool&;
                            var isDowned : bool&;
@@ -187,7 +190,7 @@ def force_update_hitpoints(evt : CmdUpdateHitpoints;
   let dt = 0.f
   update_hitpoints_impl(evt.time, dt, eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId,
                         team, death_desc__offenderTeam, hitpoints__timeFromLastDamage, hitpoints__lastOffender,
-                        hitpoints__lastOffenderPlayer, hitpoints__lastVictimPlayer, hitpoints__hp, isAlive, isDowned,
+                        hitpoints__lastOffenderPlayer, hitpoints__lastVictimPlayer, hitpoints__lastHitByEid, hitpoints__hp, isAlive, isDowned,
                         hitpoints__stoppingPower, hitpoints__maxHp, hitpoints__downedEndTime,
                         hitpoints__revivingCount, hitpoints__hpThreshold,
                         hitpoints__hpRecoverySpd, hitpoints__recoveryTimeThreshold,
@@ -221,7 +224,8 @@ def hitpoints_apply_damage(evt : CmdApplyDamage;
                            hitpoints__stoppingPowerToHpMult : float = 1.;
                            hitpoints__killDownedByMeleeHit : bool = false;
                            isDowned : bool = false;
-                           team aka victim_team : int = TEAM_UNASSIGNED)
+                           team aka victim_team : int = TEAM_UNASSIGNED;
+                           var hitpoints__lastHitByEid : EntityId&)
   if evt.deltaHp < 0.
     return
 
@@ -311,6 +315,7 @@ def hitpoints_apply_damage(evt : CmdApplyDamage;
 
   hitpoints__timeFromLastDamage = 0.
   hitpoints__lastHitNodeId = int(evt.collNodeId)
+  hitpoints__lastHitByEid = offender
 
   try_set_last_offender(offender,
                         offenderTeam,

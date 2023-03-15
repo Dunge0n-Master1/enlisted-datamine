@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { usermail_list, usermail_take_reward } = require("%enlist/meta/clientApi.nut")
+let { usermail_list, usermail_take_reward, usermail_reset_reward
+} = require("%enlist/meta/clientApi.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let eventbus = require("eventbus")
@@ -61,14 +62,14 @@ let function onLettersUpdate(result) {
   })
 }
 
-let function requestLetters() {
+let function requestLetters(forceUpdate = false) {
   if (isRequest.value)
     return
 
   isRequest(true)
   let ts = lastTime.value
   lastTime(serverTime.value)
-  usermail_list(ts, MAX_AMOUNT, onLettersUpdate)
+  usermail_list(forceUpdate ? 0 : ts, MAX_AMOUNT, onLettersUpdate)
 }
 
 let function takeLetterReward(guid) {
@@ -80,8 +81,9 @@ let function takeLetterReward(guid) {
 }
 
 
-console_register_command(requestLetters, "usermail.request")
+console_register_command(@() requestLetters(true), "usermail.request")
 console_register_command(takeLetterReward, "usermail.getReward")
+console_register_command(@() usermail_reset_reward(onLettersUpdate), "usermail.resetReward")
 console_register_command(
   function(reward){
     let letter = {

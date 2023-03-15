@@ -5,7 +5,7 @@ require BehNodes
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require enlisted.game.es.artillery_radio_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require EnlistedBehTree
@@ -67,13 +67,24 @@ def prepare_artillery_strike(squad_eid, squad__leader : EntityId; squad__numAliv
   return ordered
 
 [es(tag=server)]
-def on_squad_mate_artillery_order_start(evt : CmdStartArtilleryOverOrder; eid aka squad_eid : EntityId)
-  find_query() <| $ [es] (squad_member__squad : EntityId;
-                          squad_member__orderType : int;
-                          var squad_member__orderPosition : float3&;
-                          var beh_tree : BehaviourTree&)
+def on_squad_mate_artillery_order_start(evt : CmdStartArtilleryOverOrder;
+                                        eid aka squad_eid : EntityId;
+                                        squad__leader : EntityId;
+                                        squad__ownerPlayer : EntityId)
+  var hasRadioManInVehicle = false
+  let found = find_query() <| $ [es] (squad_member__squad : EntityId;
+                                      squad_member__orderType : int;
+                                      isInVehicle : bool;
+                                      isAlive : bool;
+                                      isDowned : bool;
+                                      human_weap__radioEid : EntityId;
+                                      var squad_member__orderPosition : float3&;
+                                      var beh_tree : BehaviourTree&)
     if squad_member__squad != squad_eid
       return false
+
+    if isInVehicle && !!human_weap__radioEid && isAlive && !isDowned
+      hasRadioManInVehicle = true
     if squad_member__orderType != int(SquadMateOrder ESMO_ARTILLERY)
       return false
 
@@ -82,6 +93,8 @@ def on_squad_mate_artillery_order_start(evt : CmdStartArtilleryOverOrder; eid ak
     beh_tree.blackBoard |> set("artilleryPosEnd", evt.posEnd)
     beh_tree.blackBoard |> set("artilleryShouldSend", true)
     return true
+  if !found && hasRadioManInVehicle
+    sendEvent(squad__ownerPlayer, [[CmdStartArtilleryStrikeAtPos owner=squad__leader, pos=evt.targetPos, typeIndex=evt.typeIndex, posEnd=evt.posEnd]])
 
 [es(tag=server)]
 def on_squad_mate_artillery_order_stop(evt : RequestStopArtilleryOverOrder; eid aka squad_eid : EntityId)

@@ -70,7 +70,7 @@ def tutorial_stage_remove_group_es(evt : Event; tutor_stage__removeStageGroup : 
 
 [es(on_disappear, REQUIRE=tutor_stage__displayHint)]
 def tutorial_remove_hint_es(evt : Event; tutor_stage__hintGroup : string = "tutorial_hint")
-  using() <| $(var arr : Array#)
+  using() <| $(var arr : Array)
     tutorial_hint(tutor_stage__hintGroup, tutor_stage__hintGroup, "", arr)
 
 [es(on_appear)]
@@ -78,7 +78,7 @@ def tutorial_display_hint_es(evt : Event;
                              tutor_stage__displayHint : string;
                              tutor_stage__hintGroup : string = "tutorial_hint";
                              tutor_stage__hintKeys : Array const? = null)
-  using() <| $(var arr : Array#)
+  using() <| $(var arr : Array)
     if tutor_stage__hintKeys != null
       arr := *tutor_stage__hintKeys
     tutorial_hint(tutor_stage__hintGroup, tutor_stage__hintGroup, tutor_stage__displayHint, arr)
@@ -285,17 +285,17 @@ def tutorial_condition_hotkey_release(evt : EventDaInputActionTriggered; eid : E
     return
   destroyEntity(eid)
 
-[es(tag=gameClient, on_appear)]
+[es(tag=gameClient, on_appear, before=tutorial_stage_skip_es)]
 def tutorial_destroy_singleton(evt : Event; var tutor_action__destroySingletons : StringList)
   for singleton in tutor_action__destroySingletons
     string(singleton) |> getSingletonEntity |> destroyEntity
 
-[es(on_appear)]
+[es(on_appear, before=tutorial_stage_skip_es)]
 def tutorial_create_entity_es(evt : Event; tutor_action__createEntity : StringList)
   for entity in tutor_action__createEntity
     createEntity(string(entity))
 
-def private set_not_null(var obj : Object#; name : string; val)
+def private set_not_null(var obj : Object; name : string; val)
   if val != null
     obj |> set(name, *val)
 
@@ -308,7 +308,7 @@ def tutorial_memorize_entity_es(evt : Event;
                                 tutorial_target__active : bool const?;
                                 tutorial_zone__active : bool const?)
   query() <| $ [es] (var tutorial__memorizeEntities : Array)
-    using() <| $(var obj : Object#)
+    using() <| $(var obj : Object)
       obj |> set("template", getEntityTemplateName(eid))
       obj |> set("transform", transform)
       obj |> set_not_null("tutorial_target__targetId", tutorial_target__targetId)
@@ -473,3 +473,16 @@ def tutorial_activate_pve_stage(evt : Event; tutor_action__spawnBots : StringLis
     if find_index(tutor_action__spawnBots, pve_stage__name) >= 0
       addSubTemplate(eid, "pve_active")
       pve_stage__enemyCount = 0
+
+
+[es(on_appear, REQUIRE=tutor_stage__skip)]
+def tutorial_stage_skip_es(evt : Event; eid : EntityId)
+  destroyEntity(eid)
+
+
+[es(on_appear)]
+def tutorial_destroy_not_exist_target_es(evt : Event; eid : EntityId; tutor_stage__hitTarget : string)
+  let found = find_query() <| $ [es] (tutorial_target__targetId : string)
+    return tutorial_target__targetId == tutor_stage__hitTarget
+  if !found
+    destroyEntity(eid)

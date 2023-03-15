@@ -6,7 +6,7 @@ let {request_nick_by_uid_batch} = require("%enlist/netUtils.nut")
 let {ndbTryRead, ndbWrite} = require("nestdb")
 
 let function mkGlobalWatched(userIdStr, defVal){
-  let key = $"allContacts/{userIdStr}"
+  let key = ["allContacts",userIdStr]
   local container = ndbTryRead(key)
   if (container==null) {
     ndbWrite(key, defVal)

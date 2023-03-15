@@ -1,0 +1,1987 @@
+civil_vehicle_templ{
+  _extends:t="vehicle"
+  _extends:t="hit_track_fx_group"
+  _extends:t="base_damage_model"
+  _extends:t="base_damage_model_fx"
+  _extends:t="vehicle_engine_external_fire"
+  _extends:t="vehicle_fatal_explosion_external_fire"
+  zones_visitor__triggerTag:t="vehicleTriggerable"
+  _replicated:t="killer"
+  _replicated:t="dm_state"
+  _replicated:t="fire_damage_state"
+  _replicated:t="fire_damage__isBurn"
+  _replicated:t="isExploded"
+  lastStatPos:p3=0.0, 0.0, 0.0
+  collision_damage__threshold:r=5.0
+  collision_damage__velDeltaMult:r=10.0
+  collision_damage__velDeltaPower:r=2.0
+  isExploded:b=no
+  triggerDamageEffects:b=yes
+  vehicle_seat_damage__minVelocity:r=5.0
+  vehicle_seat_damage__velocityMult:r=0.5
+  vehicle_seat_damage__maxDmgPercent:r=0.3
+  explosion_fx__effectName:t="tank_explosion_template"
+  explosion_fx__nodeName:t="emtr_explosion_center"
+  explosion_fx__nodeId:i=-1
+  _tracked:t="isExploded"
+  fire_damage__isBurn:b=yes
+  fire_damage__totalTime:r=0.0
+  timeToExplosion:r=35.0
+  fire_damage__update_burn_interval:r=1.0
+  fire_damage__innerRadiusMult:r=2.0
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  "vehicleDisplayMarkerOverHead:tag"{
+    tags:t="ui"
+  }
+
+  "killer:eid"{
+  }
+
+  "dm_state:list<u16>"{
+  }
+
+  "notConsiderPassengersDM:tag"{
+  }
+
+  fire_damage{
+  }
+
+  fire_damage_state{
+  }
+
+  fire_protection{
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_driver"
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
+  "fire_attach_excludes__nodeIds:list<i>"{
+  }
+
+  "fire_attach_excludes__nodeNames:list<t>"{
+    name:t="wheel_r_01"
+    name:t="wheel_r_02"
+    name:t="wheel_l_01"
+    name:t="wheel_l_02"
+    name:t="wheel_l_drive"
+    name:t="wheel_r_drive"
+  }
+
+  "dm_phys_parts__enginePartIds:list<i>"{
+  }
+
+  "dm_phys_parts__transmissionPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__tracksPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__engine:array"{
+    engine:t="engine"
+  }
+
+  "dm_phys_parts__transmission:array"{
+    transmission:t="transmission"
+  }
+
+  "engine_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+        dmParts:t="engine"
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine"
+        }
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine_01"
+        }
+
+        "fx:object"{
+          name:t="pv_broken_exhaust_base_template"
+          emitter:t="emtr_fire_engine_02"
+        }
+      }
+    }
+  }
+
+  "fatal_explosion_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_fire_big_template"
+          emitter:t="emtr_fire_engine"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_01"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_02"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_03"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_04"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_05"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_06"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_07"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_08"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_09"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_10"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_11"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_12"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_13"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_14"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_15"
+        }
+
+        "fx:object"{
+          name:t="tank_fire_small_template"
+          emitter:t="emtr_fire_small_dmg_16"
+        }
+      }
+    }
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_small_template"
+          emitter:t="emtr_fire_ammo_02"
+        }
+      }
+    }
+  }
+
+  "fatal_fire_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_02"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_03"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_04"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_05"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_06"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_07"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_08"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_09"
+        }
+
+        "fx:object"{
+          name:t="tank_ammo_fire_template"
+          emitter:t="emtr_fire_ammo_10"
+        }
+      }
+    }
+  }
+
+  "destroyed_fx__fx:array"{
+
+    "fx:object"{
+
+      "dmParts:array"{
+      }
+
+      "fx:array"{
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_02"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_03"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_04"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_05"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_06"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_07"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_08"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_09"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_10"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_11"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_12"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_13"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_14"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_15"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_smoke_small_dmg_16"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo_01"
+        }
+
+        "fx:object"{
+          name:t="tank_smoke_destroyed_template"
+          emitter:t="emtr_fire_ammo_02"
+        }
+      }
+    }
+  }
+}
+
+vehicle_anim_steering_deflection{
+
+  _group{
+    vehicle_anim__steeringDeflection:t="steering_deflection"
+    vehicle_anim__steeringDeflectionId:i=0
+    vehicle_anim__steeringDeflectionValue:r=0.0
+    vehicle_anim__steeringDeflectionViscosity:r=0.1
+    vehicle_anim__steeringDeflectionLimit:p2=-10.0, 10.0
+    _tags:t="render"
+  }
+}
+
+vehicle_anim_speedometer_kmh{
+
+  _group{
+    _tags:t="render"
+    vehicle_anim__speedometerVarName:t="speed"
+    vehicle_anim__speedometerVarId:i=-1
+    vehicle_anim__speedometerMinMax:p2=0.0, 10.0
+    vehicle_anim__speedometerUnitsMult:r=3.6
+  }
+}
+
+vehicle_anim_speedometer_mph{
+  _extends:t="vehicle_anim_speedometer_kmh"
+
+  _group{
+    _tags:t="render"
+    vehicle_anim__speedometerUnitsMult:r=2.23
+  }
+}
+
+vehicle_seat_fire_ready{
+  _extends:t="vehicle_seat_default"
+  seat_anim__fireReadyUpper:t="fireready_passenger"
+  seat_anim__fireReadyLower:t="fireready_passenger"
+}
+
+civil_cars_steering_control_and_wheel_damage{
+  _extends:t="vehicle_steering_assist"
+  _extends:t="vehicle_maintenance"
+
+  meta_parts_state{
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_drive"
+  }
+}
+
+base_civil_fire_ready_vehicle_no_wheel{
+  _extends:t="civil_vehicle_templ"
+
+  "vehicle_seats__seatTemplates:shared:object"{
+    default:t="vehicle_seat_fire_ready"
+    driver:t="vehicle_seat_driver"
+  }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list_shared:shared:list<t>"{
+      template_name:t="vehicle_seat_fire_ready"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
+}
+
+base_civil_fire_ready_vehicle{
+  _extends:t="base_civil_fire_ready_vehicle_no_wheel"
+  _extends:t="civil_cars_steering_control_and_wheel_damage"
+}
+
+base_civil_fire_ready_vehicle_tracked{
+  _extends:t="base_civil_fire_ready_vehicle_no_wheel"
+
+  "vehicle_tracks_visual_pos:p2"{
+    _tags:t="render"
+  }
+
+  "vehicle_tracks_visual_pos_delta:p2"{
+    _tags:t="render"
+  }
+
+  "additional_data:list<p4>"{
+    _tags:t="render"
+  }
+
+  "forced_lod_for_hmap_deform:i"{
+    _tags:t="render"
+    value:i=2
+  }
+
+  "dm_phys_parts__tracksPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__tracks:array"{
+    tracks:t="track_l(_\w+)?"
+    tracks:t="track_r(_\w+)?"
+  }
+}
+
+opel_olympia{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="car_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_D5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="opel_olympia_38"
+  animchar__res:t="pv_opel_olympia_char"
+  collres__res:t="pv_opel_olympia_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/opel_olympia_ol38.blk:VehiclePhys"
+  vehicle_seats__enumVarName:t="opel_olympia_ol38"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/opel_olympia_ol38.blk"
+  car_painting__chance:r=0.9
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+gaz_67{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_A5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="gaz_67"
+  animchar__res:t="pv_gaz_67_char"
+  collres__res:t="pv_gaz_67_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/gaz_67.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/gaz_67.blk"
+  vehicle_seats__enumVarName:t="gaz_67"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine"
+      enemy:t="enemy/vehicle/car/gaz_67/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_start"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_stop"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/gaz_67/tracks"
+    enemy:t="enemy/vehicle/car/gaz_67/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+  }
+}
+
+vw_kubelwagen{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_C5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="vw_kubelwagen"
+  animchar__res:t="pv_kubelwagen_char"
+  collres__res:t="pv_kubelwagen_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/vw_kubelwagen.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/vw_kubelwagen.blk"
+  vehicle_seats__enumVarName:t="vw_kubelwagen"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_caramel_luster"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_canyon_copper"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="cls_body_01"
+  }
+}
+
+opel_blitz_kfz_305{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="opel_blitz_kfz_305"
+  animchar__res:t="pv_opel_blitz_kfz_305_char"
+  collres__res:t="pv_opel_blitz_kfz_305_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/opel_blitz_kfz_305.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/opel_blitz_kfz_305.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_kfz_305"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
+  }
+}
+
+opel_blitz_omnibus{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_F4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  vehicleType:t="bus"
+  vehicleName:t="opel_blitz_omnibus"
+  animchar__res:t="pv_opel_blitz_omnibus_char"
+  collres__res:t="pv_opel_blitz_omnibus_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/opel_blitz_omnibus.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/opel_blitz_omnibus.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="opel_blitz_omnibus"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_omnibus/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_omnibus/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_omnibus/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_omnibus/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_0"
+    part:t="cls_body_01"
+  }
+}
+
+willys_mb{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_B5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="willys_mb"
+  animchar__res:t="pv_willys_mb_char"
+  collres__res:t="pv_willys_mb_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/willys_mb.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/willys_mb.blk"
+  vehicle_seats__enumVarName:t="willys_mb"
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+ford_gpa{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="nodoor_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="simple_damage_model"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_B5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="offroad_car"
+  vehicleName:t="ford_gpa"
+  animchar__res:t="pv_ford_gpa_char"
+  collres__res:t="pv_ford_gpa_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/ford_gpa.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/ford_gpa.blk"
+  vehicle_seats__enumVarName:t="ford_gpa"
+  camera__offset:p3=0.0, -1.0, -3.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_start"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/vw_kubelwagen/engine_stop"
+      enemy:t="enemy/vehicle/car/vw_kubelwagen/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/vw_kubelwagen/tracks"
+    enemy:t="enemy/vehicle/car/vw_kubelwagen/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_battleship_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_military_green"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+gaz_m1{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="jeep_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_G4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="gaz_m1"
+  animchar__res:t="pv_gaz_m1_char"
+  collres__res:t="pv_gaz_m1_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/gaz_m1.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/gaz_m1.blk"
+  vehicle_seats__enumVarName:t="gaz_m1"
+  camera__offset:p3=0.0, -1.0, -3.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine"
+      enemy:t="enemy/vehicle/car/gaz_67/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_start"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/gaz_67/engine_stop"
+      enemy:t="enemy/vehicle/car/gaz_67/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/gaz_67/tracks"
+    enemy:t="enemy/vehicle/car/gaz_67/tracks"
+  }
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_black"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+vw_beetle{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="four_seats_vehicle"
+  _extends:t="car_vehicle_brakes_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_tracks_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="car_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E5"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  vehicleType:t="civil_car"
+  vehicleName:t="vw_beetle"
+  animchar__res:t="pv_vw_beetle_char"
+  collres__res:t="pv_vw_beetle_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/vw_beetle.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/vw_beetle.blk"
+  vehicle_seats__enumVarName:t="vw_beetle"
+  car_painting__chance:r=0.9
+
+  "car_painting__possibleColors:array"{
+
+    "item:object"{
+      color:t="vehicle_color_ocean_shimmer"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_perfect_blue"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_apple_green"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_thundercloud"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_dark_gray"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_pearl_white"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_caramel_luster"
+    }
+
+    "item:object"{
+      color:t="vehicle_color_white_aluminum"
+    }
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+  }
+}
+
+nissan_80{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_ten_seats_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="nissan_80"
+  animchar__res:t="pv_nissan_80_char"
+  collres__res:t="pv_nissan_80_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/nissan_80.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/nissan_80.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="nissan_80"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+  }
+}
+
+gmc_353_a{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="gmc_353_a"
+  animchar__res:t="pv_gmc_353_a_char"
+  collres__res:t="pv_gmc_353_a_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/gmc_353.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/gmc_353.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="gmc_353_a"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, 0.0, -0.05]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_drive"
+  }
+}
+
+gmc_353_b{
+  _extends:t="base_civil_fire_ready_vehicle"
+  _extends:t="truck_vehicle_brakes_sound"
+  _extends:t="truck_vehicle_tracks_sound"
+  _extends:t="car_vehicle_seat_sound"
+  _extends:t="car_vehicle_suspension_sound"
+  _extends:t="car_vehicle_engine_sound"
+  _extends:t="truck_vehicle_gear_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="gmc_353_b"
+  animchar__res:t="pv_gmc_353_b_char"
+  collres__res:t="pv_gmc_353_b_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/gmc_353.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/gmc_353.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="gmc_353_b"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, 0.0, -0.05]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_start"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/car/opel_blitz_kfz_305/engine_stop"
+      enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/engine_stop"
+    }
+  }
+
+  "vehicle_tracks_sound__path:shared:object"{
+    _tags:t="sound"
+    hero:t="player/vehicle/car/opel_blitz_kfz_305/tracks"
+    enemy:t="enemy/vehicle/car/opel_blitz_kfz_305/tracks"
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="commander"
+    part:t="driver"
+    part:t="cls_body_01"
+    part:t="cls_body_02"
+    part:t="cls_body_03"
+    part:t="cls_body_04"
+    part:t="cls_body_05"
+    part:t="cls_body_06"
+    part:t="cls_body_07"
+    part:t="cls_body_08"
+  }
+
+  "dm_phys_parts__wheelsPartIds:list<i>"{
+  }
+
+  "dm_phys_parts__wheels:array"{
+    wheel:t="wheel_r_01"
+    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_drive"
+    wheel:t="wheel_l_01"
+    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_drive"
+  }
+}
+
+tractor_stz_5_common{
+  _extends:t="base_civil_fire_ready_vehicle_tracked"
+  _extends:t="tank_t34_engine_sound"
+  _extends:t="tank_vehicle_gear_sound"
+  _extends:t="tank_vehicle_collision_sound_setup"
+  _extends:t="tank_vehicle_damage_sound_setup"
+  _extends:t="tank_light_vehicle_tracks_sound"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_E4"
+  _extends:t="car_vehicle_inside_snapshot"
+  _extends:t="simple_damage_model"
+  _extends:t="kick_passengers_on_flip"
+  vehicleType:t="truck"
+  vehicleName:t="tractor_stz_5"
+  animchar__res:t="pv_tractor_stz_5_char"
+  collres__res:t="pv_tractor_stz_5_collision"
+  vehicle_net_phys__blk:t="content/enlisted/gamedata/units/vehicles/tractor_stz_5.blk:VehiclePhys"
+  damage_model__blk:t="content/enlisted/gamedata/units/vehicles/tractor_stz_5.blk"
+  hitpoints__maxHp:r=550.0
+  hitpoints__hp:r=550.0
+  vehicle_seats__enumVarName:t="tractor_stz_5"
+  camera__offset:p3=0.0, -1.0, -6.0
+  car_painting__chance:r=0.9
+}
+
+tractor_stz_5{
+  _extends:t="tractor_stz_5_common"
+
+  "disableDMParts:list<t>"{
+    part:t="driver"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.0, -0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_pivot"
+      entranceNode:t="char_passenger_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+      isHoldGunModeAllowed:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+      isHoldGunModeAllowed:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+      isHoldGunModeAllowed:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+      isHoldGunModeAllowed:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+      isHoldGunModeAllowed:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+      isHoldGunModeAllowed:b=no
+    }
+  }
+}
+
+tractor_stz_5_opened{
+  _extends:t="tractor_stz_5_common"
+
+  "disableDMParts:list<t>"{
+    part:t="driver"
+    part:t="ex_decor_01"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.0, -0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_pivot"
+      entranceNode:t="char_passenger_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, -0.15, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.39, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+  }
+}

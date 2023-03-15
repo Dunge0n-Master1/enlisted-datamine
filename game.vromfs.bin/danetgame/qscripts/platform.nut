@@ -28,6 +28,8 @@ return platform.__merge({
   aliases,
   isPlatformRelevant,
   ps4RegionName,
-  hasTouchSupport = platform.is_mobile || (platform.is_pc && DBGLEVEL > 0 && dgs_get_settings()?.debug["touchScreen"]),
+  //to avoid making complex code with watches and stuff, where it is not needed,
+  //"assumed" isTouchPrimary value is used to adopt parts of UI code to touch-friendly layout
+  isTouchPrimary = platform.is_mobile || (platform.is_pc && DBGLEVEL > 0 && dgs_get_settings()?.debug["touchScreen"]),
   consoleRevision
 })

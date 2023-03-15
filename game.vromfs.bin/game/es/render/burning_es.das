@@ -10,13 +10,14 @@ require AnimV20
 require strings
 
 
-[es(track=burning__isBurning, tag=render, before=effect_animation_update_es)]
+[es(track=(burning__isBurning, animchar_render__enabled), tag=render, before=effect_animation_update_es)]
 def burning_effects_state_es(evt : Event; eid aka human_eid : EntityId;
                              [[shared_comp]] capsule_approximation : CapsuleApproximation;
                              animchar : AnimcharBaseComponent;
+                             animchar_render__enabled : bool;
                              burning__effectTemplate : string;
                              burning__isBurning : bool)
-  if burning__isBurning && !empty(burning__effectTemplate) // start burning
+  if burning__isBurning && !empty(burning__effectTemplate) && animchar_render__enabled // start burning
     for data in capsule_approximation.capsuleDatas
       var ctm : float3x4
       ctm[3] = (data.a + data.b) * 0.5

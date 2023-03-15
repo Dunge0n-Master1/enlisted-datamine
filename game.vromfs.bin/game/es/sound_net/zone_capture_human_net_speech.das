@@ -1,7 +1,7 @@
 require ecs
 require ecs.safe
 require game.utils.team
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require game.events_game
 require strings
 

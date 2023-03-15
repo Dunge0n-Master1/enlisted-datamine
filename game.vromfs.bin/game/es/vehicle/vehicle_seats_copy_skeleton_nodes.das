@@ -4,6 +4,7 @@ require ecs.soa_template
 require ecs.safe
 require AnimV20
 require GeomNodeTree
+require enlisted.events_enlisted
 
 
 [soa_template]
@@ -63,8 +64,8 @@ def init_seat_skeleton_nodes_to_copy(evt : Event;
         fill_nodes_map_recursive(nodeName, nodesPostfix, copy_to_animchar, copy_from_animchar, copyNodesMap)
 
 
-[soa_es, es(tag=render, after=animchar_es)]
-def animchar_copy_nodes_from_other_animchar(info : UpdateStageInfoAct;
+[soa_es, es(tag=render, after=animchar_es, before=slot_attach_init_tms_es)]
+def animchar_copy_nodes_from_other_animchar(info : ParallelUpdateFrameDelayed;
                                             copy_skeleton_nodes__copyFromEid : EntityId;
                                             copyNodesMap : CopyNodesMap_SOA;
                                             var animchar aka copy_to_animchar : AnimcharBaseComponent)

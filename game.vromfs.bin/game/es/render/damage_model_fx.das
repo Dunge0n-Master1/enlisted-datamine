@@ -1,6 +1,7 @@
 require ecs
 require ecs.safe
 require ecs.common
+require ecs.extra_set
 require math.base
 require AnimV20
 require GeomNodeTree
@@ -34,35 +35,35 @@ def vehicle_fx_on_appear(vehicle_eid : EntityId;
       set(init, "vehicle_fx__effectType", int(effect_type))
       set(init, "vehicle_fx__id", i)
 
-      using() <| $(var dmPartIds : IntList#)
-        let dmParts = fxDescItem?.dmParts ?as Array
-        if dmParts != null
-          for dmPartItem in *dmParts
-            let name = dmPartItem ?? ""
-            let id = find_part_id_by_name(damage_model, name)
-            if id >= 0
-              push(dmPartIds, id)
-            else
-              logwarn("Part '{name}' not found!")
-        set(init, "vehicle_fx__dmPartId", dmPartIds)
+      var dmPartIds : array<int>
+      let dmParts = fxDescItem?.dmParts ?as Array
+      if dmParts != null
+        for dmPartItem in *dmParts
+          let name = dmPartItem ?? ""
+          let id = find_part_id_by_name(damage_model, name)
+          if id >= 0
+            push(dmPartIds, id)
+          else
+            logwarn("Part '{name}' not found!")
+      set(init, "vehicle_fx__dmPartId", dmPartIds)
 
-      using() <| $(var fxTemplateNames : StringList#)
-        using() <| $(var nodeIds : IntList#)
-          let fxArray = fxDescItem?.fx ?as Array
-          if fxArray != null
-            for fxItem in *fxArray
-              let fx = fxItem as Object
-              let fxTemplateName = fx?.name ?? ""
-              let fxEmitterName = fx?.emitter ?? ""
-              let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, fxEmitterName)
-              if nodeId >= 0
-                push(fxTemplateNames, fxTemplateName)
-                push(nodeIds, nodeId)
-              else
-                logwarn("{vehicle_eid} <{getEntityTemplateName(vehicle_eid)}> FX emitter node '{fxEmitterName}' is not found!")
+      var fxTemplateNames : array<string>
+      var nodeIds : array<int>
+      let fxArray = fxDescItem?.fx ?as Array
+      if fxArray != null
+        for fxItem in *fxArray
+          let fx = fxItem as Object
+          let fxTemplateName = fx?.name ?? ""
+          let fxEmitterName = fx?.emitter ?? ""
+          let nodeId = geomtree_findNodeIndex(*animchar.nodeTree, fxEmitterName)
+          if nodeId >= 0
+            push(fxTemplateNames, fxTemplateName)
+            push(nodeIds, nodeId)
+          else
+            logwarn("{vehicle_eid} <{getEntityTemplateName(vehicle_eid)}> FX emitter node '{fxEmitterName}' is not found!")
 
-          set(init, "vehicle_fx_node__fxTemplateName", fxTemplateNames)
-          set(init, "vehicle_fx_node__nodeId", nodeIds)
+      set(init, "vehicle_fx_node__fxTemplateName", fxTemplateNames)
+      set(init, "vehicle_fx_node__nodeId", nodeIds)
 
     push(vehicle_fx_eids, vehicleFxEid)
 

@@ -24,49 +24,6 @@ PhysMats{
       scale:r=6.0
     }
 
-    meleeHitFx{
-      hitSfxMaterial:t="default"
-
-      melee{
-        fx:t="default_melee_hit"
-      }
-
-      knife{
-        fx:t="default_knife_hit"
-      }
-
-      hands{
-        fx:t="default_hands_hit"
-      }
-
-      axe{
-        fx:t="default_axe_hit"
-      }
-
-      shovel{
-        fx:t="default_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
-
     damageModel{
       ricochetAngleMult:r=2.0
       ricochetAngle:r=60.0
@@ -88,21 +45,6 @@ PhysMats{
     billboardDecal{
       type:t="soil_bullet_hole"
       scale:r=6.0
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
 
     damageModel{
@@ -132,11 +74,6 @@ PhysMats{
     sound_step_material:t="water"
     sound_material:t="water"
 
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
-
     damageModel{
       ricochetAngleMult:r=1.0
       ricochetAngle:r=60.0
@@ -150,26 +87,6 @@ PhysMats{
     sound_step_material:t="water"
     sound_material:t="water"
 
-    shellHitFx{
-
-      bullet{
-        smoke:t="water_splash"
-        jet:t="water_splash"
-        scaleRange:p2=0.1, 0.12
-      }
-
-      100mm_shell{
-        smoke:t="100mm_ap_hit_water"
-        jet:t="100mm_ap_hit_water"
-        scaleRange:p2=0.5, 1.5
-      }
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
-
     damageModel{
       ricochetAngleMult:r=0.5
       ricochetAngle:r=60.0
@@ -182,11 +99,6 @@ PhysMats{
     color:c=0, 0, 255, 200
     sound_step_material:t="water"
     sound_material:t="water"
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
 
     damageModel{
       ricochetAngleMult:r=1.0
@@ -206,48 +118,6 @@ PhysMats{
     vehicleSound{
       concrete:r=1.0
       collDesc:t="collConcrete"
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="ground_splash_direct"
-        scaleRange:p2=0.5, 0.7
-      }
-
-      100mm_shell{
-        smoke:t="100mm_ap_hit_stone"
-        jet:t="100mm_ap_hit_stone"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="concrete"
-
-      melee{
-        fx:t="concrete_melee_hit"
-      }
-
-      knife{
-        fx:t="concrete_knife_hit"
-      }
-
-      hands{
-        fx:t="concrete_hands_hit"
-      }
-
-      axe{
-        fx:t="concrete_axe_hit"
-      }
-
-      shovel{
-        fx:t="concrete_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -284,52 +154,11 @@ PhysMats{
       scale:r=4.0
     }
 
-    shellHitFx{
-
-      100mm_shell{
-        smoke:t="100mm_ap_hit_stone"
-        jet:t="100mm_ap_hit_stone"
-      }
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="concrete_splash"
-      }
-    }
-
     damageModel{
       ricochetAngleMult:r=0.6
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.2
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="concrete"
-
-      melee{
-        fx:t="concrete_melee_hit"
-      }
-
-      knife{
-        fx:t="concrete_knife_hit"
-      }
-
-      hands{
-        fx:t="concrete_hands_hit"
-      }
-
-      axe{
-        fx:t="concrete_axe_hit"
-      }
-
-      shovel{
-        fx:t="concrete_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
   }
 
@@ -346,42 +175,6 @@ PhysMats{
     billboardDecal{
       type:t="default_billboard_decal"
       scale:r=4.0
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="concrete_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="concrete"
-
-      melee{
-        fx:t="concrete_melee_hit"
-      }
-
-      knife{
-        fx:t="concrete_knife_hit"
-      }
-
-      hands{
-        fx:t="concrete_hands_hit"
-      }
-
-      axe{
-        fx:t="concrete_axe_hit"
-      }
-
-      shovel{
-        fx:t="concrete_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
   }
 
@@ -406,59 +199,32 @@ PhysMats{
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+  }
+
+  wood_solid{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
       armorThickness:r=15.0
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="wood"
-
-      melee{
-        fx:t="wood_melee_hit"
-      }
-
-      knife{
-        fx:t="wood_knife_hit"
-      }
-
-      hands{
-        fx:t="wood_hands_hit"
-      }
-
-      axe{
-        fx:t="wood_axe_hit"
-      }
-
-      shovel{
-        fx:t="wood_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
   }
 
@@ -484,58 +250,6 @@ PhysMats{
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.6
       armorThickness:r=0.1
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="wood"
-
-      melee{
-        fx:t="wood_melee_hit"
-      }
-
-      knife{
-        fx:t="wood_knife_hit"
-      }
-
-      hands{
-        fx:t="wood_hands_hit"
-      }
-
-      axe{
-        fx:t="wood_axe_hit"
-      }
-
-      shovel{
-        fx:t="wood_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
   }
 
@@ -567,58 +281,6 @@ PhysMats{
       ricochetCosineMult:r=0.6
       armorThickness:r=0.1
     }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="wood"
-
-      melee{
-        fx:t="wood_melee_hit"
-      }
-
-      knife{
-        fx:t="wood_knife_hit"
-      }
-
-      hands{
-        fx:t="wood_hands_hit"
-      }
-
-      axe{
-        fx:t="wood_axe_hit"
-      }
-
-      shovel{
-        fx:t="wood_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   glass{
@@ -649,52 +311,11 @@ PhysMats{
       collDesc:t="collMetal"
     }
 
-    shellHitFx{
-
-      100mm_shell{
-        smoke:t="bullet_hit_armor"
-        jet:t="bullet_hit_armor"
-      }
-
-      bullet{
-        smoke:t="metal_splash"
-        jet:t="metal_splash"
-      }
-    }
-
     damageModel{
       ricochetAngleMult:r=0.3
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.1
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="metal"
-
-      melee{
-        fx:t="metal_melee_hit"
-      }
-
-      knife{
-        fx:t="metal_knife_hit"
-      }
-
-      hands{
-        fx:t="metal_hands_hit"
-      }
-
-      axe{
-        fx:t="metal_axe_hit"
-      }
-
-      shovel{
-        fx:t="metal_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -719,52 +340,11 @@ PhysMats{
       collDesc:t="collMetal"
     }
 
-    shellHitFx{
-
-      100mm_shell{
-        smoke:t="bullet_hit_armor"
-        jet:t="bullet_hit_armor"
-      }
-
-      bullet{
-        smoke:t="metal_splash"
-        jet:t="metal_splash"
-      }
-    }
-
     damageModel{
       ricochetAngleMult:r=0.3
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.1
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="metal"
-
-      melee{
-        fx:t="metal_melee_hit"
-      }
-
-      knife{
-        fx:t="metal_knife_hit"
-      }
-
-      hands{
-        fx:t="metal_hands_hit"
-      }
-
-      axe{
-        fx:t="metal_axe_hit"
-      }
-
-      shovel{
-        fx:t="metal_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -789,52 +369,11 @@ PhysMats{
       collDesc:t="collMetal"
     }
 
-    shellHitFx{
-
-      100mm_shell{
-        smoke:t="bullet_hit_armor"
-        jet:t="bullet_hit_armor"
-      }
-
-      bullet{
-        smoke:t="metal_splash"
-        jet:t="metal_splash"
-      }
-    }
-
     damageModel{
       ricochetAngleMult:r=0.3
       ricochetAngle:r=60.0
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.1
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="metal"
-
-      melee{
-        fx:t="metal_melee_hit"
-      }
-
-      knife{
-        fx:t="metal_knife_hit"
-      }
-
-      hands{
-        fx:t="metal_hands_hit"
-      }
-
-      axe{
-        fx:t="metal_axe_hit"
-      }
-
-      shovel{
-        fx:t="metal_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -850,42 +389,6 @@ PhysMats{
 
   flesh{
     bf_class:t="flesh"
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="flesh_splash"
-        jet:t="flesh_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t=""
-
-      melee{
-        fx:t="flesh_melee_hit"
-      }
-
-      knife{
-        fx:t="flesh_knife_hit"
-      }
-
-      hands{
-        fx:t="flesh_hands_hit"
-      }
-
-      axe{
-        fx:t="flesh_axe_hit"
-      }
-
-      shovel{
-        fx:t="flesh_knife_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
 
     billboardDecal{
       type:t="blood_decal"
@@ -920,58 +423,6 @@ PhysMats{
       ricochetCosineMult:r=0.6
       armorThickness:r=0.05
     }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="cactus"
-
-      melee{
-        fx:t="cactus_default_hit"
-      }
-
-      knife{
-        fx:t="cactus_knife_hit"
-      }
-
-      hands{
-        fx:t="cactus_default_hit"
-      }
-
-      axe{
-        fx:t="cactus_axe_hit"
-      }
-
-      shovel{
-        fx:t="cactus_axe_hit"
-      }
-
-      default{
-        fx:t="cactus_default_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   soil{
@@ -984,22 +435,6 @@ PhysMats{
     billboardDecal{
       type:t="soil_bullet_hole"
       scale:r=4.0
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
 
     damageModel{
@@ -1022,22 +457,6 @@ PhysMats{
       scale:r=4.0
     }
 
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
-
     damageModel{
       ricochetAngleMult:r=2.0
       ricochetAngle:r=60.0
@@ -1056,22 +475,6 @@ PhysMats{
     billboardDecal{
       type:t="soil_bullet_hole"
       scale:r=4.0
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
 
     damageModel{
@@ -1094,22 +497,6 @@ PhysMats{
       scale:r=4.0
     }
 
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
-
     damageModel{
       ricochetAngleMult:r=2.0
       ricochetAngle:r=60.0
@@ -1129,22 +516,6 @@ PhysMats{
       type:t="soil_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.4
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   roadSoil{
@@ -1162,22 +533,6 @@ PhysMats{
       type:t="soil_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   roadmud{
@@ -1190,22 +545,6 @@ PhysMats{
     billboardDecal{
       type:t="soil_bullet_hole"
       scale:r=4.0
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=1.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
 
     damageModel{
@@ -1226,21 +565,6 @@ PhysMats{
       type:t="soil_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   moon_sand{
@@ -1252,21 +576,6 @@ PhysMats{
     billboardDecal{
       type:t="moon_sand_bullet_hole"
       scale:r=4.0
-    }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
   }
 
@@ -1285,22 +594,6 @@ PhysMats{
       type:t="soil_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-      spawnRateMult:r=0.7
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   sand_slope{
@@ -1317,22 +610,6 @@ PhysMats{
     billboardDecal{
       type:t="soil_bullet_hole"
       scale:r=4.0
-    }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-      spawnRateMult:r=0.7
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
   }
 
@@ -1351,22 +628,6 @@ PhysMats{
       type:t="soil_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-      spawnRateMult:r=0.7
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   quickSand{
@@ -1378,22 +639,6 @@ PhysMats{
     vehicleSound{
       concrete:r=1.0
     }
-
-    trackDirtFx{
-      back:t="track_sand_back"
-      front:t="track_sand_front"
-      spawnRateMult:r=0.5
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
-    }
   }
 
   snow{
@@ -1401,21 +646,13 @@ PhysMats{
     deformable_width:r=0.3
     sound_step_material:t="snow"
     sound_material:t="dirt"
+  }
 
-    trackDirtFx{
-      back:t="track_snow_back"
-      front:t="track_snow_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
+  hardSnow{
+    bf_class:t="snow"
+    deformable_width:r=0.3
+    sound_step_material:t="snow"
+    sound_material:t="dirt"
   }
 
   ice{
@@ -1427,22 +664,6 @@ PhysMats{
       type:t="metal_bullet_hole"
       scale:r=4.0
     }
-
-    trackDirtFx{
-      back:t="track_snow_back"
-      front:t="track_snow_front"
-      spawnRateMult:r=0.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
   }
 
   snowLower{
@@ -1450,22 +671,6 @@ PhysMats{
     deformable_width:r=0.2
     sound_step_material:t="snow"
     sound_material:t="dirt"
-
-    trackDirtFx{
-      back:t="track_snow_back"
-      front:t="track_snow_front"
-      spawnRateMult:r=0.5
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
   }
 
   roadSnow{
@@ -1473,22 +678,6 @@ PhysMats{
     deformable_width:r=0.05
     sound_step_material:t="snow"
     sound_material:t="dirt"
-
-    trackDirtFx{
-      back:t="track_snow_back"
-      front:t="track_snow_front"
-      spawnRateMult:r=0.2
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_water_splashes"
-      rotor:t="aircraft_propellers_water_splashes"
-    }
   }
 
   lava{
@@ -1508,49 +697,6 @@ PhysMats{
     billboardDecal{
       type:t="default_billboard_decal"
       scale:r=6.0
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="default"
-
-      melee{
-        fx:t="default_melee_hit"
-      }
-
-      knife{
-        fx:t="default_knife_hit"
-      }
-
-      hands{
-        fx:t="default_hands_hit"
-      }
-
-      axe{
-        fx:t="default_axe_hit"
-      }
-
-      shovel{
-        fx:t="default_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
 
     damageModel{
@@ -1573,48 +719,6 @@ PhysMats{
     billboardDecal{
       type:t="default_billboard_decal"
       scale:r=4.0
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="ground_splash_direct"
-        scaleRange:p2=0.5, 0.7
-      }
-
-      100mm_shell{
-        smoke:t="100mm_ap_hit_stone"
-        jet:t="100mm_ap_hit_stone"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="concrete"
-
-      melee{
-        fx:t="concrete_melee_hit"
-      }
-
-      knife{
-        fx:t="concrete_knife_hit"
-      }
-
-      hands{
-        fx:t="concrete_hands_hit"
-      }
-
-      axe{
-        fx:t="concrete_axe_hit"
-      }
-
-      shovel{
-        fx:t="concrete_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -1643,14 +747,6 @@ PhysMats{
       type:t="default_billboard_decal"
       scale:r=4.0
     }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="concrete_splash"
-      }
-    }
   }
 
   gravel{
@@ -1665,48 +761,6 @@ PhysMats{
     billboardDecal{
       type:t="default_billboard_decal"
       scale:r=4.0
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="concrete_splash"
-        jet:t="ground_splash_direct"
-        scaleRange:p2=0.5, 0.7
-      }
-
-      100mm_shell{
-        smoke:t="100mm_ap_hit_stone"
-        jet:t="100mm_ap_hit_stone"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="concrete"
-
-      melee{
-        fx:t="concrete_melee_hit"
-      }
-
-      knife{
-        fx:t="concrete_knife_hit"
-      }
-
-      hands{
-        fx:t="concrete_hands_hit"
-      }
-
-      axe{
-        fx:t="concrete_axe_hit"
-      }
-
-      shovel{
-        fx:t="concrete_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{
@@ -1762,34 +816,6 @@ PhysMats{
       scale:r=5.0
     }
 
-    meleeHitFx{
-      hitSfxMaterial:t="default"
-
-      melee{
-        fx:t="default_melee_hit"
-      }
-
-      knife{
-        fx:t="default_knife_hit"
-      }
-
-      hands{
-        fx:t="default_hands_hit"
-      }
-
-      axe{
-        fx:t="default_axe_hit"
-      }
-
-      shovel{
-        fx:t="default_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
     damageModel{
       armorThickness:r=0.01
     }
@@ -1817,58 +843,6 @@ PhysMats{
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.6
       armorThickness:r=0.7
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="wood"
-
-      melee{
-        fx:t="wood_melee_hit"
-      }
-
-      knife{
-        fx:t="wood_knife_hit"
-      }
-
-      hands{
-        fx:t="wood_hands_hit"
-      }
-
-      axe{
-        fx:t="wood_axe_hit"
-      }
-
-      shovel{
-        fx:t="wood_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
-
-    trackDirtFx{
-      back:t="track_dirt_back"
-      front:t="track_dirt_front"
-      spawnRateMult:r=0.3
-    }
-
-    planeWheelFx{
-      dust:t="aircraft_wheels_ground_dust"
-      friction:t="aircraft_wheels_ground_friction"
-    }
-
-    propellerFx{
-      propeller:t="aircraft_propellers_ground_dust"
-      rotor:t="aircraft_propellers_ground_dust"
     }
   }
 
@@ -1991,42 +965,6 @@ PhysMats{
       type:t="wood_bullet_hole"
       scale:r=4.0
     }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="wood_splash"
-        jet:t="wood_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="wood"
-
-      melee{
-        fx:t="wood_melee_hit"
-      }
-
-      knife{
-        fx:t="wood_knife_hit"
-      }
-
-      hands{
-        fx:t="wood_hands_hit"
-      }
-
-      axe{
-        fx:t="wood_axe_hit"
-      }
-
-      shovel{
-        fx:t="wood_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
-    }
   }
 
   softSteelDoor{
@@ -2049,42 +987,6 @@ PhysMats{
       ricochetCosinePower:r=2.0
       ricochetCosineMult:r=0.2
       armorThickness:r=40.0
-    }
-
-    shellHitFx{
-
-      bullet{
-        smoke:t="metal_splash"
-        jet:t="metal_splash"
-      }
-    }
-
-    meleeHitFx{
-      hitSfxMaterial:t="metal"
-
-      melee{
-        fx:t="metal_melee_hit"
-      }
-
-      knife{
-        fx:t="metal_knife_hit"
-      }
-
-      hands{
-        fx:t="metal_hands_hit"
-      }
-
-      axe{
-        fx:t="metal_axe_hit"
-      }
-
-      shovel{
-        fx:t="metal_axe_hit"
-      }
-
-      default{
-        fx:t="default_melee_hit"
-      }
     }
 
     bulletHole{

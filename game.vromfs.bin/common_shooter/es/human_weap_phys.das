@@ -4,6 +4,7 @@ require EnlistedHuman
 require HumanPhys
 require player
 require game.es.events
+require enlisted.events_enlisted
 
 def reset_human_aim_zoom(var human_net_phys : HumanActor; var camera__magnification : float&)
   human_net_phys.phys.currentState.aimPosition = 0.f
@@ -14,7 +15,7 @@ def reset_human_aim_zoom(var human_net_phys : HumanActor; var camera__magnificat
 
 [es(before=after_net_phys_sync, after=before_net_phys_sync)]
 def human_weap_phys_es(
-                       info : UpdateStageInfoAct;
+                       info : ParallelUpdateFrameDelayed;
                        human_weap__reloadAtTime : float;
                        human_weap__weapModActivateStartTime : float;
                        human_weap__blockAiming : bool;
@@ -23,7 +24,6 @@ def human_weap_phys_es(
                        var human_net_phys : HumanActor;
                        human_weap__staminaCanAim : bool = true;
                        human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
-                       human__lockZoom = false;
                        human_attached_gun__isAttached = false;
                        isDowned = false;
                        action__running = false)
@@ -44,20 +44,16 @@ def human_weap_phys_es(
     (ct.weapEquipState.curState == HUWeaponEquipState EES_EQUIPED) &&
     !isBoltActionInProgress &&
     human_weap__staminaCanAim &&
-    !isDowned && !human_weap__blockAiming && !human__lockZoom && !isCrawling && isShootingStandState)
+    !isDowned && !human_weap__blockAiming && !isCrawling && isShootingStandState)
 
   human_phys_state_set_can_zoom(ct,
     (!reloading || human_attached_gun__isAttached || canZoomReloading) &&
-    !isDowned && !human_weap__blockAiming && !human__lockZoom &&
+    !isDowned && !human_weap__blockAiming &&
     (!isBoltActionInProgress || canZoomInBoltAction)
     && !action__running && isShootingStandState)
 
 [es(track=human_anim__vehicleSelected, REQUIRE=human_anim__vehicleSelected)]
 def human_weap_zoom_reset_es(evt : Event; var human_net_phys : HumanActor; var camera__magnification : float&)
-  reset_human_aim_zoom(human_net_phys, camera__magnification)
-
-[es(track=human__lockZoom, REQUIRE=human__lockZoom)]
-def human_weap_lock_zoom_reset_es(evt : Event; var human_net_phys : HumanActor; var camera__magnification : float&)
   reset_human_aim_zoom(human_net_phys, camera__magnification)
 
 [es(on_event=EventEntityDowned)]

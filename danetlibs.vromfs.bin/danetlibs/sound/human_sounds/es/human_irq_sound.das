@@ -3,6 +3,7 @@ require soundHash
 require soundEvent
 require human_sounds.modules.human_sounds_events
 require sound_utils.modules.sound_utils_events
+require common_sounds.modules.common_sounds_events
 require sound_utils.modules.sound_player_common
 
 

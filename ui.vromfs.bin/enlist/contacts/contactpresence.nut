@@ -23,9 +23,9 @@ let mkUpdatePresences = @(watch, dbId) function(newPresences) {
 
   foreach (userId, p in newPresences) //faster way when you have 1000+ presences and updated only few of them
     if (p == null)
-      ndbDelete($"{dbId}/{userId}")
+      ndbDelete([dbId, userId])
     else
-      ndbWrite($"{dbId}/{userId}", p)
+      ndbWrite([dbId, userId], p)
 
   watch.mutate(function(v) {
     v.__update(newPresences)
@@ -44,7 +44,10 @@ let function updatePresences(newPresences) {
   onlineStatusBase.mutate(@(v) v.__update(newPresences.map(calcStatus)))
 }
 
-let isContactOnline = @(userId, onlineStatusVal) onlineStatusVal?[userId] == true
+let isContactOnline = function(userId, onlineStatusVal) {
+  let uid = type(userId) =="integer" ? userId.tostring() : userId
+  return onlineStatusVal?[uid] == true
+}
 
 let mkContactOnlineStatus = @(userId) Computed(@() onlineStatus.value?[userId])
 let mkContactIsOnline = @(userId) Computed(@() isContactOnline(userId, onlineStatus.value))

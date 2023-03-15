@@ -5,24 +5,32 @@ let { defTxtColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { doBuyUnlock, unlockPrices } = require("taskRewardsState.nut")
 let { mkRewardImages, prepareRewards, mkRewardTooltip } = require("%enlist/battlepass/rewardsPkg.nut")
-let { cardCountCircle, sizeCard, imageSize, gapCards } = require("%enlist/battlepass/bpPkg.nut")
+let { cardCountCircle, imageSize, gapCards } = require("%enlist/battlepass/bpPkg.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
-
+let rewardsItemsMapping = require("%enlist/items/itemsMapping.nut")
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { commonArmy } = require("%enlist/meta/profile.nut")
 
 let mkRewardsCards = @(rewards) {
   flow = FLOW_HORIZONTAL
-  margin = [fsh(2), 0, 0, 0]
+  margin = [fsh(2), 0, fsh(2), 0]
   gap = gapCards
   children = rewards.map(function(rewardData) {
-    let {count, reward} = rewardData
+    let { count, reward } = rewardData
     return {
-      size = sizeCard
       children = [
         withTooltip(mkRewardImages(reward, imageSize), @() mkRewardTooltip(reward))
         cardCountCircle(count)
       ]
     }
   })
+}
+
+let mkRewardName = function(reward, otherArmy) {
+  let armyName = loc($"{reward.armyId ?? commonArmy.value}/full")
+  return otherArmy
+    ? $"{armyName}: {loc(reward.name)}"
+    : loc(reward.name)
 }
 
 let function mkRewardsView(task) {
@@ -37,19 +45,46 @@ let function mkRewardsView(task) {
 
   let { lastRewardedStage, stages } = task
   local { rewards = null } = stages?[lastRewardedStage]
-  if (rewards) {
-    rewards = prepareRewards(rewards).filter(@(r) r != null)
-    let cards = mkRewardsCards(rewards)
+
+  if (rewards == null)
+    return null
+
+  return function() {
+    let countAll = rewards.len()
+    let possibleArmies = ["", curArmy.value, commonArmy.value]
+    rewards = prepareRewards(rewards, rewardsItemsMapping.value)
+      .filter(@(r) r != null)
+    local rewardsForArmy = rewards
+      .filter(@(r) possibleArmies.contains(r?.reward.armyId ?? "") )
+
+    local otherArmy = false
+    local countForArmy = rewardsForArmy.len()
+    if (countForArmy == 0) {
+      otherArmy = true
+      countForArmy = 1
+      rewardsForArmy.append(rewards[0])
+    }
+
+    let otherArmiesTxt = countForArmy == countAll ? null : {
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      rendObj = ROBJ_TEXT
+      text = loc("unlocks/eventMoreRewards", { count = countAll - countForArmy })
+      color = activeTxtColor
+    }.__update(body_txt)
+
+    let cards = mkRewardsCards(rewardsForArmy)
     children.append(cards)
 
-    if (rewards.len() == 1) {
-      let mainReward = rewards[0].reward
+    if (countForArmy == 1) {
+      let mainReward = rewardsForArmy[0].reward
       if ("name" in mainReward)
         children.append({
           rendObj = ROBJ_TEXT
-          text = loc(mainReward.name)
+          text = mkRewardName(mainReward, otherArmy)
           color = activeTxtColor
         }.__update(body_txt))
+      children.append(otherArmiesTxt)
 
       if ("description" in mainReward)
         children.append({
@@ -60,15 +95,18 @@ let function mkRewardsView(task) {
           text = loc(mainReward.description)
           color = defTxtColor
         }.__update(sub_txt))
+    } else {
+      children.append(otherArmiesTxt)
     }
-  }
 
-  return children.len() == 0 ? null : {
-    size = [flex(), SIZE_TO_CONTENT]
-    halign = ALIGN_CENTER
-    flow = FLOW_VERTICAL
-    gap = hdpx(10)
-    children
+    return {
+      watch = [rewardsItemsMapping, curArmy]
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      flow = FLOW_VERTICAL
+      gap = hdpx(10)
+      children
+    }
   }
 }
 

@@ -27,32 +27,6 @@ def set_armor_pickup_score(evt : Event; eid : EntityId; var item__pickupScore : 
   else
     logerr("item {getEntityTemplateName(eid)} has multiple pickupScore sources")
 
-
-[es(tag=server, on_appear)]
-def set_inventory_extension_pickup_score(evt : Event; eid : EntityId; var item__pickupScore : float&; item__inventoryExtension : float)
-  if item__pickupScore < 0.0
-    item__pickupScore = item__inventoryExtension
-  else
-    logerr("item {getEntityTemplateName(eid)} has multiple pickupScore sources")
-
-
-[es(tag=server, on_appear)]
-def set_pickup_score_by_rarity_es(evt : Event;
-                                  eid : EntityId;
-                                  var item__pickupScore : float&;
-                                  item__rarity : string;
-                                  [[shared_comp]] item_rarity__pickupScores : ecs::Object)
-  if item__pickupScore < 0.0
-    item__pickupScore = get_float(item_rarity__pickupScores[item__rarity]) ?? 0.0
-  else
-    logerr("item {getEntityTemplateName(eid)} has multiple pickupScore sources")
-
-
-[es(tag=server, on_appear, track=jetpack__fuel)]
-def set_jetpack_fuel_pickup_score(evt : Event; var item__pickupScore : float&; jetpack__fuel : float)
-  item__pickupScore = jetpack__fuel
-
-
 [es(tag=server, on_disappear, on_event=(EventEntityDied))]
 def human_inventory_on_death(evt : Event; eid, human_inventory__entityToUse : EntityId)
   if human_inventory__entityToUse != INVALID_ENTITY_ID
@@ -65,8 +39,7 @@ def human_inventory_server_es(info : UpdateStageInfoAct;
                               human_inventory__entityUseEnd : float;
                               var human_inventory__entityToUse : EntityId&;
                               human_inventory__targetToUse : EntityId;
-                              var itemContainer : EidList&;
-                              possessedByPlr : EntityId = INVALID_ENTITY_ID)
+                              var itemContainer : EidList&)
   if !human_inventory__entityToUse
     return
 
@@ -76,7 +49,7 @@ def human_inventory_server_es(info : UpdateStageInfoAct;
   var needRemove = true
   query(human_inventory__entityToUse) <| $ [es] (var item__useCount : int&) { needRemove = --item__useCount <= 0; }
 
-  if !needRemove || has(human_inventory__entityToUse, "canBeUsedOutOfInventory")
+  if !needRemove
     sendEventImmediate(human_inventory__entityToUse, [[EventOnLootItemUsed target=human_inventory__targetToUse]])
     sendEventImmediate(eid, [[EventOnLootUse itemEid=human_inventory__entityToUse]])
     human_inventory__entityToUse = INVALID_ENTITY_ID
@@ -84,9 +57,6 @@ def human_inventory_server_es(info : UpdateStageInfoAct;
   elif remove_item_from_cont(human_inventory__entityToUse, itemContainer)
     sendEventImmediate(human_inventory__entityToUse, [[EventOnLootItemUsed target=human_inventory__targetToUse]])
     sendEventImmediate(eid, [[EventOnLootUse itemEid=human_inventory__entityToUse]])
-
-    if !!possessedByPlr
-      sendEvent(possessedByPlr, [[EventPlayerOnLootUse entityToUse=human_inventory__entityToUse]])
     destroyEntity(human_inventory__entityToUse)
 
   sendEventImmediate(eid, [[EventInterruptItemUse]])

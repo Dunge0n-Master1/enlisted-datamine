@@ -2,6 +2,7 @@ require ecs
 require DagorMath
 require GamePhys
 require math.base
+require enlisted.events_enlisted
 
 [es(tag=gameClient, on_appear, REQUIRE=plane_wreckage)]
 def wreckage_phys_init_es(evt : Event;
@@ -16,7 +17,7 @@ def wreckage_phys_init_es(evt : Event;
   plane_wreckage__omega = rotate(plane_wreckage__tm, (plane_wreckage__omega + plane_wreckage__startMoment * invMass))
 
 [es(tag=gameClient, REQUIRE=plane_wreckage, no_order)]
-def wreckage_phys_es(info : UpdateStageInfoAct;
+def wreckage_phys_es(info : ParallelUpdateFrameDelayed;
                      eid : ecs::EntityId;
                      plane_wreckage__offset : float3;
                      plane_wreckage__mass : float;

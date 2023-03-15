@@ -11,6 +11,7 @@ stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterPenetration:r=0.3
 bulletType:t="ball"
 slopeEffectPreset:t="ap"
+shellAnimation:t="video/shells_animations/ball.ivf"
 effectiveDistance:r=400.0
 relativeVelHitShift:p2=300.0, 1000.0
 relativeVelArmorShift:p2=200.0, 1000.0

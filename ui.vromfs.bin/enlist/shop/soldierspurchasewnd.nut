@@ -8,8 +8,8 @@ let { shopItemContentCtor, curUnseenAvailShopGuids, purchaseInProgress
 let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, curSpecialization,
   isSoldiersPurchasing
 } = require("%enlist/shop/soldiersPurchaseState.nut")
-let { bigPadding, smallPadding, titleTxtColor, darkBgColor, activeBgColor,
-  hoverBgColor, selectedTxtColor, insideBorderColor
+let { bigPadding, smallPadding, titleTxtColor, defTxtColor, darkBgColor,
+  activeBgColor, hoverBgColor, selectedTxtColor, insideBorderColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
@@ -24,15 +24,26 @@ let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { mkShopItemView, mkShopItemPriceLine, mkProductView, mkLevelLockLine
 } = require("%enlist/shop/shopPkg.nut")
 let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
-let { getCratesListComp } = require("%enlist/soldiers/model/cratesContent.nut")
+let { requestCratesContent, requestedCratesContent, getShopItemsIds
+} = require("%enlist/soldiers/model/cratesContent.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-
 let { soldiersSquad, soldiersSquadParams, squadSoldiers, soldiersStatuses
 } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
 let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
+
+let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let perksList = require("%enlist/meta/perks/perksList.nut")
+let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
+let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
+let { perkPointIcon, getStatDescList, flexTextArea
+} = require("%enlist/soldiers/components/perksPackage.nut")
+let { configs } = require("%enlist/meta/configs.nut")
+
+let perkSchemes = Computed(@() configs.value?.perkSchemes ?? {})
+let soldierPerkSchemes = Computed(@() configs.value?.soldierPerkSchemes ?? {})
 
 const WND_UID = "SOLDIERS_PURCHASE_WND"
 
@@ -58,27 +69,28 @@ let function switchClass(classesToShow, delta){
   curSpecialization(classesToShow[idx].soldierClass)
 }
 
-let allSoldiersCrates = Computed(@() soldierShopItems.value
-  .reduce(@(res, s) res.extend(s?.crates ?? []), [])) //warning disable: -unwanted-modification
+isOpened.subscribe(function(v) {
+  if (v) {
+    let soldiers = getShopItemsIds(soldierShopItems.value)
+    soldiers.each(@(item, army) requestCratesContent(army, item))
+  }
+})
 
-let function getCrateContent(shopItems) {
-  let listComp = getCratesListComp(allSoldiersCrates)
-  return Computed(function() {
-    let res = []
-    shopItems.value.each(function(shopItem) {
-      let { armyId, id } = shopItem.crates[0]
-      let { inLineProirity, requirements, offerLine = 0} = shopItem
-      res.append({
-        shopItemId = shopItem.id
-        inLineProirity
-        offerLine
-        reqLevel = requirements.armyLevel
-        content = listComp.value?[id][armyId]
-      })
+let getCrateContent = @(shopItems) Computed(function() {
+  let res = []
+  shopItems.value.each(function(shopItem) {
+    let { armyId, id } = shopItem.crates[0]
+    let { inLineProirity, requirements, offerLine = 0} = shopItem
+    res.append({
+      shopItemId = shopItem.id
+      inLineProirity
+      offerLine
+      reqLevel = requirements.armyLevel
+      content = requestedCratesContent.value?[armyId][id]
     })
-    return res.sort(@(a, b) a.offerLine <=> b.offerLine || b.inLineProirity <=> a.inLineProirity)
   })
-}
+  return res.sort(@(a, b) a.offerLine <=> b.offerLine || b.inLineProirity <=> a.inLineProirity)
+})
 
 
 let specializationIconColor = @(sf, isSelected, isAvailable)
@@ -165,71 +177,170 @@ let hoverBox = @(sf, maxWidth) {
   borderColor = borderColor(sf, false)
 }
 
+let function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
+  if (perkScheme == null)
+    return null
+
+  let defaultPerk = perkScheme.findvalue(@(s) s.numChosen == 1)
+  if (defaultPerk == null || defaultPerk.perks.len() < 1)
+    return null
+
+  let perk = perksListVal?[defaultPerk.perks.top()]
+  if (perk == null)
+    return null
+
+  let perkStat = perk.cost.keys().top()
+
+  let textarea = flexTextArea({
+    text = "\n".join(getStatDescList(perksStatsCfgVal, perk, true))
+    size = [hdpx(225), SIZE_TO_CONTENT]
+    halign = ALIGN_LEFT
+  }.__update(sub_txt))
+
+  return {
+    flow = FLOW_HORIZONTAL
+    valign = ALIGN_TOP
+    halign = ALIGN_LEFT
+    gap = smallPadding
+    children = [
+      perkPointIcon(pPointsBaseParams[perkStat]).__update(isLocked ? { color = defTxtColor } : {})
+      textarea
+    ]
+  }
+}
+
+let statsRange = @(statsTable, stat, isLocked) {
+  flow = FLOW_HORIZONTAL
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = [
+    perkPointIcon(pPointsBaseParams[stat])
+      .__merge(isLocked ? { color = defTxtColor } : {})
+    {
+      rendObj = ROBJ_TEXT
+      color = defTxtColor
+      text = $"{statsTable[stat].min}-{statsTable[stat].max}"
+    }
+  ]
+}
+
+let function mkStatList(content, isLocked = false) {
+  let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
+    soldierRareMin } = content
+  let { pointsByTiers = [], perkPointsModifications = []
+    } = sClassesCfg.value?[soldierClasses[0]] ?? {}
+
+  local stats = {}
+  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
+  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
+  foreach(name in pPointsList) {
+    stats[name] <- {
+      min = pointsByTiers[soldierTierMin][name].min +
+        (perkPointsModifications[max(soldierRareMin, 0)]?[name] ?? 0)
+      max = statsMax[name].max +
+        (perkPointsModifications[maxRareModifications]?[name] ?? 0)
+    }
+  }
+  return {
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_LEFT
+    size = [hdpx(260), hdpx(32)]
+    gap = bigPadding
+    children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
+  }
+}
+
+
 let function mkShopItemCard(shopItem, armyData) {
   let { guid = null, curItemCost = {}, discountInPercent = 0 } = shopItem
   let squad = shopItem?.squads[0]
   let armyId = armyData?.guid ?? ""
   let currentLevel = armyData?.level ?? 0
   let { armyLevel = 0, isFreemium = false } = shopItem?.requirements
-
   let crateContent = shopItemContentCtor(shopItem)
+
   return watchElemState(function(sf) {
     let isLocked = armyLevel > currentLevel || (isFreemium && needFreemiumStatus.value)
+
+    let perkSchemeId = soldierPerkSchemes.value?[armyId][shopItem.soldierSpec] ?? ""
+    let perkScheme = perkSchemes.value?[perkSchemeId]
+    let perkElement = mkStartPerk(perksList.value, perksStatsCfg.value, perkScheme, isLocked)
+    let statsList = mkStatList(crateContent.value?.content, isLocked)
     let hasUnseenSignal = curUnseenAvailShopGuids.value?[shopItem.guid] ?? false
     let unseenSignalObj = !hasUnseenSignal ? null
       : shopItemNotifier
+
     return {
-      watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus]
-      rendObj = ROBJ_SOLID
-      guid
-      size = [hdpx(295), hdpx(370)]
-      maxWidth = CARD_MAX_WIDTH
+      watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus,
+        perkSchemes, soldierPerkSchemes, perksList, perksStatsCfg]
+      size = [hdpx(295), hdpx(500)]
+      flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
-      color = darkBgColor
       behavior = Behaviors.Button
-      onHover = function(on) {
-        setTooltip(on ? makeCrateToolTip(crateContent) : null)
-        if (hasUnseenSignal)
-          hoverHoldAction("markSeenShopItem", { armyId, guid },
-            @(v) markShopItemSeen(v.armyId, v.guid))(on)
-      }
-      onClick = function() {
-        clickShopItem(shopItem, armyData?.level ?? 0)
-        if (hasUnseenSignal)
-          markShopItemSeen(armyId, guid)
-      }
-      clipChildren = true
+      gap = smallPadding
       children = [
         {
-          size = flex()
+          guid
+          behavior = Behaviors.Button
+          rendObj = ROBJ_SOLID
+          size = [hdpx(295), hdpx(370)]
           maxWidth = CARD_MAX_WIDTH
-          flow = FLOW_VERTICAL
+          halign = ALIGN_CENTER
+          color = darkBgColor
+          onHover = function(on) {
+            setTooltip(on ? makeCrateToolTip(crateContent) : null)
+            if (hasUnseenSignal)
+              hoverHoldAction("markSeenShopItem", { armyId, guid },
+                @(v) markShopItemSeen(v.armyId, v.guid))(on)
+          }
+          onClick = function() {
+            clickShopItem(shopItem, armyData?.level ?? 0)
+            if (hasUnseenSignal)
+              markShopItemSeen(armyId, guid)
+          }
+          clipChildren = true
           children = [
-            mkShopItemView({
-              shopItem
-              isLocked
-              purchasingItem = purchaseInProgress
-              onCrateViewCb = @() viewShopItemsScene(shopItem)
-              onInfoCb = squad == null || armyLevel > currentLevel ? null
-                : @() buySquadWindow({
-                    shopItem
-                    productView = mkProductView(shopItem, allItemTemplates)
-                    armyId = squad.armyId
-                    squadId = squad.id
-                  })
-              unseenSignalObj
-              crateContent
-              itemTemplates = allItemTemplates
-              showVideo = shopItem?.video && sf
-              showDiscount = (curItemCost.len() > 0) && discountInPercent > 0
-            })
-            armyLevel > currentLevel ? mkLevelLockLine(armyLevel)
-              : mkShopItemPriceLine(shopItem)
+            {
+              size = flex()
+              maxWidth = CARD_MAX_WIDTH
+              flow = FLOW_VERTICAL
+              children = [
+                mkShopItemView({
+                  shopItem
+                  isLocked
+                  purchasingItem = purchaseInProgress
+                  onCrateViewCb = @() viewShopItemsScene(shopItem)
+                  onInfoCb = squad == null || armyLevel > currentLevel ? null
+                    : @() buySquadWindow({
+                        shopItem
+                        productView = mkProductView(shopItem, allItemTemplates)
+                        armyId = squad.armyId
+                        squadId = squad.id
+                      })
+                  unseenSignalObj
+                  crateContent
+                  itemTemplates = allItemTemplates
+                  showVideo = shopItem?.video && sf
+                  showDiscount = (curItemCost.len() > 0) && discountInPercent > 0
+                })
+                armyLevel > currentLevel ? mkLevelLockLine(armyLevel)
+                  : mkShopItemPriceLine(shopItem)
+              ]
+            }
+            hoverBox(sf, CARD_MAX_WIDTH)
           ]
         }
-        hoverBox(sf, CARD_MAX_WIDTH)
+        {
+          flow = FLOW_VERTICAL
+          valign = ALIGN_TOP
+          halign = ALIGN_LEFT
+          gap = bigPadding
+          padding = bigPadding
+          children = [ statsList, perkElement ]
+        }
       ]
-  }})
+    }
+  })
 }
 
 let mkSoldiersList = @(soldiersToShow) function() {
@@ -285,11 +396,16 @@ let soldiersPurchaseWnd = @(onCloseCb) {
   key = WND_UID
   size = flex()
   rendObj = ROBJ_WORLD_BLUR_PANEL
+  stopMouse = true
+  stopHover = true
   color = darkBgColor
   fillColor = darkBgColor
   valign = ALIGN_CENTER
   vplace = ALIGN_CENTER
-  onDetach = @() isSoldiersPurchasing(false)
+  onDetach = function() {
+    isSoldiersPurchasing(false)
+    isOpened(false)
+  }
   onAttach = function() {
     isOpened(true)
     isSoldiersPurchasing(true)

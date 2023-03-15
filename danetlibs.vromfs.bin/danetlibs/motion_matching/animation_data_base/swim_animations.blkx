@@ -2,100 +2,75 @@ tags:t="idle,swim"
 optional_tags:t="swim_underwater"
 
 clips{
+  default_animation_mask:t="full_body"
+  default_tags:t="swim"
 
   swim_idle{
-    animationMask:t="full_body"
     tags:t="swim,idle"
     angular_velocity:r=0.0
   }
 
   swim_idle_turn_left{
-    animationMask:t="full_body"
-    tags:t="swim"
     angular_velocity:r=30.0
   }
 
   swim_idle_turn_right{
-    animationMask:t="full_body"
-    tags:t="swim"
     angular_velocity:r=-30.0
   }
 
   swim_0{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
   }
 
   swim_45{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=45.0
     velocity_magnitude:r=0.7
   }
 
   swim_90{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=90.0
     velocity_magnitude:r=0.7
   }
 
   swim_135{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=135.0
     velocity_magnitude:r=0.7
   }
 
   swim_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=180.0
     velocity_magnitude:r=0.7
   }
 
   swim_225{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=225.0
     velocity_magnitude:r=0.7
   }
 
   swim_270{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=270.0
     velocity_magnitude:r=0.7
   }
 
   swim_315{
-    animationMask:t="full_body"
-    tags:t="swim"
     velocity_direction:r=315.0
     velocity_magnitude:r=0.7
   }
 
   swim_circle_right{
-    animationMask:t="full_body"
-    tags:t="swim"
     angular_velocity:r=30.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
   }
 
   swim_circle_left{
-    animationMask:t="full_body"
-    tags:t="swim"
     angular_velocity:r=-30.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
   }
 
   swim_turn_left_45{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=-45.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
@@ -103,8 +78,6 @@ clips{
   }
 
   swim_turn_right_45{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=45.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
@@ -112,8 +85,6 @@ clips{
   }
 
   swim_turn_left_90{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=-90.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
@@ -121,8 +92,6 @@ clips{
   }
 
   swim_turn_right_90{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=90.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
@@ -130,8 +99,6 @@ clips{
   }
 
   swim_turn_0_to_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=180.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
@@ -139,8 +106,6 @@ clips{
   }
 
   swim_turn_180_to_0{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=180.0
     velocity_direction:r=180.0
     velocity_magnitude:r=0.7
@@ -148,8 +113,6 @@ clips{
   }
 
   swim_turn_left_90_to_135{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=-45.0
     velocity_direction:r=-90.0
     velocity_magnitude:r=0.7
@@ -157,8 +120,6 @@ clips{
   }
 
   swim_turn_right_90_to_135{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=45.0
     velocity_direction:r=90.0
     velocity_magnitude:r=0.7
@@ -166,8 +127,6 @@ clips{
   }
 
   swim_turn_left_90_to_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=-90.0
     velocity_direction:r=-90.0
     velocity_magnitude:r=0.7
@@ -175,8 +134,6 @@ clips{
   }
 
   swim_turn_right_90_to_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=90.0
     velocity_direction:r=90.0
     velocity_magnitude:r=0.7
@@ -184,8 +141,6 @@ clips{
   }
 
   swim_turn_idle_to_0{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=0.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -194,8 +149,6 @@ clips{
   }
 
   swim_turn_idle_to_right_45{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=45.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -204,8 +157,6 @@ clips{
   }
 
   swim_turn_idle_to_right_90{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=90.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -214,8 +165,6 @@ clips{
   }
 
   swim_turn_idle_to_right_135{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=135.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -224,8 +173,6 @@ clips{
   }
 
   swim_turn_idle_to_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=180.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -234,8 +181,6 @@ clips{
   }
 
   swim_turn_idle_to_left_225{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=225.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -244,8 +189,6 @@ clips{
   }
 
   swim_turn_idle_to_left_270{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=270.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -254,8 +197,6 @@ clips{
   }
 
   swim_turn_idle_to_left_315{
-    animationMask:t="full_body"
-    tags:t="swim"
     rotate_direction_delta:r=315.0
     velocity_direction:r=0.0
     velocity_magnitude:r=0.0
@@ -264,7 +205,6 @@ clips{
   }
 
   swim_underwater{
-    animationMask:t="full_body"
     tags:t="swim,idle"
     optional_tags:t="swim_underwater"
     velocity_direction:r=0.0
@@ -272,64 +212,48 @@ clips{
   }
 
   swim_underwater_0{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=0.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_45{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=45.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_90{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=90.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_135{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=135.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_180{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=180.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_225{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=225.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_270{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=270.0
     velocity_magnitude:r=0.7
   }
 
   swim_underwater_315{
-    animationMask:t="full_body"
-    tags:t="swim"
     optional_tags:t="swim_underwater"
     velocity_direction:r=315.0
     velocity_magnitude:r=0.7

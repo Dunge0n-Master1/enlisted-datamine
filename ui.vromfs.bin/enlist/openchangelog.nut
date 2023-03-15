@@ -16,8 +16,8 @@ let close = @() isOpened(false)
 let open = @() isOpened(true)
 
 let gap = hdpx(10)
-let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote, {hotkeys=[[$"^{JB.B}"]], margin=0})
-let btnClose = textButton(loc("mainmenu/btnClose"), close, {hotkeys=[[$"^{JB.B}"]], margin=0})
+let btnNext  = textButton(loc("shop/nextItem"), nextPatchNote, {hotkeys=[[$"^J:Y | Enter"]], margin=0})
+let btnClose = textButton(loc("mainmenu/btnClose"), close, {hotkeys=[[$"^{JB.B} | Esc"]], margin=0})
 let closeBtn = fontIconButton("close", {
   skipDirPadNav = true
   onClick = close
@@ -88,7 +88,7 @@ let changelogRoot = {
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   hotkeys = [
-    ["^J:Y | J:Start | Esc | Space", {action=close, description = loc("mainmenu/btnClose")}]
+    ["^J:Start | Esc | Space", {action=close, description = loc("mainmenu/btnClose")}]
   ]
 }
 

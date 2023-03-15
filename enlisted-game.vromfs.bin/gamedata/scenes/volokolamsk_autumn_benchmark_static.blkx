@@ -279,7 +279,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_moscow/gamedata/volokolamsk_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
 }
 
 entity{
@@ -292,9 +292,9 @@ entity{
   mission_name:t="volokolamsk_quarry_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/volokolamsk_quarry_1.jpg"
-    item:t="ui/volokolamsk_quarry_2.jpg"
-    item:t="ui/volokolamsk_quarry_3.jpg"
+    item:t="ui/volokolamsk_quarry_1.avif"
+    item:t="ui/volokolamsk_quarry_2.avif"
+    item:t="ui/volokolamsk_quarry_3.avif"
   }
 }
 

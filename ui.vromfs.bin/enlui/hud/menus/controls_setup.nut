@@ -1,3 +1,4 @@
+import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {h2_txt, body_txt, fontawesome} = require("%enlSqGlob/ui/fonts_style.nut")
@@ -31,12 +32,10 @@ let game_name = require("app").get_game_name()
 
 let control = require("control")
 let DataBlock = require("DataBlock")
-let {
-  platformId, is_pc, is_xbox, is_sony, is_nswitch, is_mobile
-} = require("%dngscripts/platform.nut")
+let { platformId, is_pc, is_xbox, is_sony } = require("%dngscripts/platform.nut")
 
 
-let controlsSettingOnlyForGamePad = Watched(is_xbox || is_sony || is_nswitch || is_mobile)
+let controlsSettingOnlyForGamePad = Watched(is_xbox || is_sony)
 let {wasGamepad, isGamepad, ControlsTypes } = require("%ui/control/active_controls.nut")
 let {
   setUiClickRumble,
@@ -60,6 +59,7 @@ let {
   getActionsList, getActionTags, mkSubTagsFind
 } = require("controls_state.nut")
 let { voiceChatEnabled } = require("%enlSqGlob/voiceChatGlobalState.nut")
+let { EventControlsMenuToggle } = require("dasevents")
 
 
 let MenuRowBgOdd   = Color(20, 20, 20, 20)
@@ -124,6 +124,8 @@ let configuredButton = Watched(null)
 
 let showControlsMenu = mkWatched(persist, "showControlsMenu", false)
 //gui_scene.xmbMode.subscribe(@(v) vlog($"XMB mode = {v}"))
+
+showControlsMenu.subscribe(@(isShown) ecs.g_entity_mgr.broadcastEvent(EventControlsMenuToggle({isShown})))
 
 let function isGamepadColumn(col) {
   return col == 1

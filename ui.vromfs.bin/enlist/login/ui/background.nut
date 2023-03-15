@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {chooseRandom} = require("%sqstd/rand.nut")
 let {appBgImages} = require("%ui/appBgImages.nut")
 
-const default_bg = "ui/uiskin/grad_vert.png"
+const default_bg = "ui/uiskin/grad_vert.avif"
 
 
 local function background_size(parallaxK = 0){

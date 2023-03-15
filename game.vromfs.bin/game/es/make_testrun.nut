@@ -11,7 +11,7 @@ let { format } = require("string")
 let { get_local_unixtime = @() 0, get_time_msec } = require("dagor.time")
 
 const THUMBNAIL = "thumbnail"
-const SCREENSHOT_FMT = ".jpg"
+const SCREENSHOT_FMT = ".avif"
 
 // .../.logs~game/app-date/
 local reportFolder = get_log_directory().split("/")

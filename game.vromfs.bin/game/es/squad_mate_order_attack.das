@@ -4,7 +4,7 @@ require EnlistedWalkerai
 require DagorDataBlock
 require BehNodes
 require danetlibs.native_dasevents.main.native_events
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common

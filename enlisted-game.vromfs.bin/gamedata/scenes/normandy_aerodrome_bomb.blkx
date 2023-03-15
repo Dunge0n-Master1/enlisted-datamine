@@ -808,7 +808,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -849,9 +849,9 @@ entity{
   mission_name:t="normandy_aerodrome_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_airfield_01.jpg"
-    item:t="ui/normandy_airfield_02.jpg"
-    item:t="ui/normandy_airfield_03.jpg"
+    item:t="ui/normandy_airfield_01.avif"
+    item:t="ui/normandy_airfield_02.avif"
+    item:t="ui/normandy_airfield_03.avif"
   }
 }
 

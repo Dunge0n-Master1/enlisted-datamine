@@ -6,29 +6,29 @@ require game.es.terraform.scenery_terraforming_common
 require terraform
 
 def push_op_end(var arr : Array&)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("end", true)
     arr |> push(obj)
 
 def push_op_elevs_add(var arr : Array&; idx : int; x : float; z : float; radius : float; alt : float)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("add", float4(x, z, radius, alt))
     obj |> set("at", idx)
     arr |> push(obj)
 
 def push_op_elevs_del(var arr : Array&; idx : int)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("del", idx)
     arr |> push(obj)
 
 def push_op_egras_add(var arr : Array&; idx : int; x : float; z : float; radius : float)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("add2", float3(x, z, radius))
     obj |> set("at", idx)
     arr |> push(obj)
 
 def push_op_egras_del(var arr : Array&; idx : int)
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("del2", idx)
     arr |> push(obj)
 

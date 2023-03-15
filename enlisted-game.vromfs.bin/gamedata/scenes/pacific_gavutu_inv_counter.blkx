@@ -2557,17 +2557,17 @@ entity{
   mission_name:t="pacific_gavutu_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_gavutu_inv_01.jpg"
-    item:t="ui/pacific_gavutu_inv_02.jpg"
-    item:t="ui/pacific_gavutu_inv_03.jpg"
+    item:t="ui/pacific_gavutu_inv_01.avif"
+    item:t="ui/pacific_gavutu_inv_02.avif"
+    item:t="ui/pacific_gavutu_inv_03.avif"
   }
 }
 
 entity{
   _template:t="team_pacific_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1850.0
-  team__score:r=1850.0
+  team__scoreCap:r=2000.0
+  team__score:r=2000.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -2630,7 +2630,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[33.1129, 0.0, 13.9553] [0.0, 14.3889, 0.0] [-23.8469, 0.0, 56.5838] [392.691, 8.19372, -356.335]]
   active:b=no
@@ -2655,7 +2655,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   transform:m=[[0.722563, 0.0, -0.126323] [0.0, 0.690404, 0.0] [0.134235, -0.0, 0.767816] [196.21, 2.02725, -381.487]]
   active:b=no
@@ -2687,7 +2687,7 @@ entity{
   capzone__areaId:t="caparea_2_b"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=1
-  capzone__capTime:r=80.0
+  capzone__capTime:r=70.0
   capzone__decapTime:r=6000.0
   ui_order:i=4
   capzone__capReward:r=250.0
@@ -3825,5 +3825,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_gavutu_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_gavutu_common.blk"
 }

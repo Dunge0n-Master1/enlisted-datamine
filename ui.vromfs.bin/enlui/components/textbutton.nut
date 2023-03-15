@@ -63,7 +63,6 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       key
       group
       rendObj = ROBJ_BOX
-      size = SIZE_TO_CONTENT
       fillColor = fill_color(sf, style, isEnabled)
       borderWidth = border_width
       borderRadius = hdpx(4)
@@ -94,7 +93,7 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
 
       behavior = Behaviors.Button
       onClick = isEnabled ? handler : null
-    }.__merge(paramsExt, { sound })
+    }.__update(paramsExt, { sound })
   }
 
   return @() builder(stateFlags.value)
@@ -129,7 +128,7 @@ let onlinePurchaseStyle = {
     TextFocused = colors.BtnActionTextFocused
     TextHilite  = colors.BtnActionTextHilite
   }
-}.__update(body_txt, override)
+}.__update(override)
 
 let primaryButtonStyle = override.__merge({
   style = {

@@ -13,7 +13,7 @@ let { taskDescription, taskDescPadding, mkTaskLabel, taskLabelSize, taskHeader
 let { mkUnlockSlot, mkHideTrigger } = require("mkUnlockSlots.nut")
 let { userstatStats, unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let eliteBattlePassWnd = require("%enlist/battlepass/eliteBattlePassWnd.nut")
-let { eventUnlocks, showNotActiveTaskMsgbox } = require("eventsTaskState.nut")
+let { specialEvents, showNotActiveTaskMsgbox } = require("eventsTaskState.nut")
 let buyUnlockMsg = require("buyUnlockMsg.nut")
 let { isUnlockAvailable, getUnlockProgress, unlockProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
@@ -268,12 +268,15 @@ let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
 }
 
 
-let function eventTasksUi() {
+let eventTasksUi = @(eventId) function() {
+  let res = { watch = [specialEvents, unlockPrices, unlockProgress] }
+  let eUnlocks = specialEvents.value?[eventId].unlocks
+  if (eUnlocks == null)
+    return res
+
   let uProgress = unlockProgress.value
-  let eUnlocks = eventUnlocks.value
   let isMainActive = eUnlocks?[0].activity.active ?? true
-  return {
-    watch = [eventUnlocks, unlockPrices, unlockProgress]
+  return res.__update({
     size = [flex(), SIZE_TO_CONTENT]
     minHeight = ph(100)
     flow = FLOW_VERTICAL
@@ -281,7 +284,7 @@ let function eventTasksUi() {
     valign = ALIGN_CENTER
     children = eUnlocks.map(@(task, idx)
       mkEventTask(task, unlockPrices.value?[task.name], idx, uProgress, isMainActive))
-  }
+  })
 }
 
 

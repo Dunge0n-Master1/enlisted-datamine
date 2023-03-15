@@ -181,31 +181,51 @@ def destroy_resupply_hint_es(evt : Event)
     tutor_stage__next := ""
     destroyEntity(eid)
 
+
+def update_unlock_ids(human_weap__gunEids : EidList;
+                      tutor_action__unlockBuilding : StringList;
+                      var buildings__unlockIds : IntList)
+  buildings__unlockIds |> clear()
+  for gunEid in human_weap__gunEids
+    query(gunEid) <| $ [es] (previewTemplate : StringList)
+      for building in tutor_action__unlockBuilding
+        let index = find_index_if(each(previewTemplate)) <| $(val)
+          return find(string(val), string(building)) >= 0
+        if index >= 0
+          buildings__unlockIds |> push(index)
+
+
 [es(on_appear)]
-def tutorial_engineer_unlock_building(evt : Event; tutor_action__unlockBuilding : StringList)
+def tutorial_engineer_unlock_building_on_change_stage(evt : Event; tutor_action__unlockBuilding : StringList)
   query() <| $ [es(REQUIRE=hero)] (human_weap__gunEids : EidList; squad_member__squad : EntityId)
-    for gunEid in human_weap__gunEids
-      query(gunEid) <| $ [es] (previewTemplate : StringList)
-        query(squad_member__squad) <| $ [es] (var buildings__unlockIds : IntList)
-          buildings__unlockIds |> clear()
-          for building in tutor_action__unlockBuilding
-            let index = find_index_if(each(previewTemplate)) <| $(val)
-              return find(string(val), string(building)) >= 0
-            if index >= 0
-              buildings__unlockIds |> push(index)
+    query(squad_member__squad) <| $ [es] (var buildings__unlockIds : IntList)
+      update_unlock_ids(human_weap__gunEids, tutor_action__unlockBuilding, buildings__unlockIds)
+
 
 [es(on_appear, track=buildings__unlockIds)]
-def tutorial_engineer_unlock_building_es(evt : Event; var buildings__unlockIds : IntList)
+def tutorial_engineer_unlock_building_on_change_squad(evt : Event; var buildings__unlockIds : IntList)
   query() <| $ [es] (tutor_action__unlockBuilding : StringList)
-    buildings__unlockIds |> clear()
     query() <| $ [es(REQUIRE=hero)] (human_weap__gunEids : EidList)
-      for gunEid in human_weap__gunEids
-        query(gunEid) <| $ [es] (previewTemplate : StringList)
-          for building in tutor_action__unlockBuilding
-            let index = find_index_if(each(previewTemplate)) <| $(val)
-              return find(string(val), string(building)) >= 0
-            if index >= 0
-              buildings__unlockIds |> push(index)
+      update_unlock_ids(human_weap__gunEids, tutor_action__unlockBuilding, buildings__unlockIds)
+
+
+[es(on_appear)]
+def tutorial_engineer_state_update_current_unlock_ids(evt : Event; tutor_action__unlockBuilding : StringList)
+  query() <| $ [es] (var tutorial_engineer_state__currentUnlockIds : StringList)
+    tutorial_engineer_state__currentUnlockIds := tutor_action__unlockBuilding
+
+
+[es(on_appear, REQUIRE=hero)]
+def tutorial_engineer_unlock_building_on_change_hero(evt : Event;
+                                                     human_weap__gunEids : EidList;
+                                                     squad_member__squad : EntityId)
+  query() <| $ [es] (tutorial_engineer_state__currentUnlockIds : StringList)
+    if empty(tutorial_engineer_state__currentUnlockIds)
+      return
+
+    query(squad_member__squad) <| $ [es] (var buildings__unlockIds : IntList)
+      update_unlock_ids(human_weap__gunEids, tutorial_engineer_state__currentUnlockIds, buildings__unlockIds)
+
 
 [es(on_appear, REQUIRE=hero)]
 def tutorial_engineer_lock_building_menu_es(evt : Event; possessedByPlr : EntityId)

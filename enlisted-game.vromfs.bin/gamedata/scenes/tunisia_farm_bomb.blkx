@@ -11,9 +11,9 @@ entity{
   mission_name:t="tunisia_farm_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/tunisia_farm_inv_01.jpg"
-    item:t="ui/tunisia_farm_inv_02.jpg"
-    item:t="ui/tunisia_farm_inv_03.jpg"
+    item:t="ui/tunisia_farm_inv_01.avif"
+    item:t="ui/tunisia_farm_inv_02.avif"
+    item:t="ui/tunisia_farm_inv_03.avif"
   }
 }
 
@@ -78,7 +78,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{
@@ -109,7 +109,7 @@ entity{
   groupName:t="sector_1"
   active:b=no
   ui_order:i=0
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/village_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -118,9 +118,9 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=30.0
+  capzone__timeToPlant:r=25.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_05"
   capzone__bombTransformLocalPos:m=[[-0.690213, 0.0, 0.723605] [0.0, 1.0, 0.0] [-0.723605, 0.0, -0.690213] [-0.0852661, -2.43271, -0.0609131]]
 
@@ -137,7 +137,7 @@ entity{
   groupName:t="sector_2"
   active:b=no
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__caption:t="capzone/village_house"
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
@@ -148,7 +148,7 @@ entity{
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=25.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02"
   capzone__bombTransformLocalPos:m=[[0.995589, 0.0, 0.0938223] [0.0, 1.0, 0.0] [-0.0938223, 0.0, 0.995589] [0.233307, -2.21736, -0.161682]]
 
@@ -167,7 +167,7 @@ entity{
   active:b=no
   ui_order:i=2
   capzone__owningTeam:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=20.0
@@ -178,7 +178,7 @@ entity{
   capzone__plantingTeam:i=1
   capzone__timeToPlant:r=25.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.725936, 0.0, -0.687764] [0.0, 1.0, 0.0] [0.687764, 0.0, 0.725936] [-0.266724, -1.99732, -0.177734]]
 

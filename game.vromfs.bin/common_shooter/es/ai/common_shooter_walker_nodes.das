@@ -34,7 +34,7 @@ class UseMedkit : BehNodeAdapter
     waitTime = 0f
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid()
+    let eid = beh_tree_eid(owner)
 
     if !eventWasSent
       eventWasSent = true
@@ -96,7 +96,7 @@ class Extinguish : BehNodeAdapter
     eventSent = false
 
   def override update(dt : float) : EBehResult
-    let eid = beh_tree_eid()
+    let eid = beh_tree_eid(owner)
     if !eventSent
       eventSent = true
       send_net_event(eid, [[CmdPutOutFireStart]])
@@ -111,11 +111,11 @@ class Reviving : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_SUCCESS
-    query(beh_tree_eid()) <| $ [es] (eid : EntityId;
-                                     hitpoints__revivingCount : int = 0;
-                                     human_inventory__savedUseProgress : float = 0.;
-                                     human_inventory__entityUseEnd : float = -1.;
-                                     total_kits__selfRevive : int = 0)
+    query(beh_tree_eid(owner)) <| $ [es] (eid : EntityId;
+                                          hitpoints__revivingCount : int = 0;
+                                          human_inventory__savedUseProgress : float = 0.;
+                                          human_inventory__entityUseEnd : float = -1.;
+                                          total_kits__selfRevive : int = 0)
       if hitpoints__revivingCount != 0 || human_inventory__savedUseProgress > 0.
         res = EBehResult ER_RUNNING
         return
@@ -139,7 +139,7 @@ class Reviving : BehNodeAdapter
 class IsAgentPlayerBot : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var isBot = false
-    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+    query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
       query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] ()
         isBot = true
     return isBot ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
@@ -318,11 +318,12 @@ class ChooseBestWeapon : BehNodeAdapter
                 otherWeapon = i
             elif *specialAIWeaponType == 2 // pistols
               allowedGun = false
-              otherWeapon = i
-              otherWeaponPriority = 10
+              if otherWeaponPriority < 10
+                otherWeapon = i
+                otherWeaponPriority = 10
             elif *specialAIWeaponType == 3 // antitank rifles
               allowedGun = false
-              if otherWeaponPriority < 10
+              if otherWeaponPriority < 5
                 otherWeapon = i
                 otherWeaponPriority = 5
           let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
@@ -333,8 +334,9 @@ class ChooseBestWeapon : BehNodeAdapter
         if currWeapon == i
           currAllowed = true
         if square(firingRange.y) < distToTargetSq
-          if otherWeapon == -1
+          if otherWeaponPriority < 15
             otherWeapon = i
+            otherWeaponPriority = 15
           continue
         if square(firingRange.x) < distToTargetSq
           bestWeapons |> push(i)
@@ -363,7 +365,7 @@ class ChooseBestWeapon : BehNodeAdapter
 [beh_node(name="resetGrenadeThrowTime")]
 class ResetGrenadeThrowTime : BehNodeAdapter
   def override update(dt : float) : EBehResult
-    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+    query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
       query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__nextAllowedThrowGrenadeTime : float&)
         botPlayer__nextAllowedThrowGrenadeTime = get_sync_time()
     return EBehResult ER_SUCCESS
@@ -371,7 +373,7 @@ class ResetGrenadeThrowTime : BehNodeAdapter
 [beh_node(name="resetAntiTankGrenadeThrowLimiter")]
 class ResetAntiTankGrenadeThrowLimiter : BehNodeAdapter
   def override update(dt : float) : EBehResult
-    query(beh_tree_eid()) <| $ [es] (squad_member__playerEid : EntityId)
+    query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
       query(squad_member__playerEid) <| $ [es(REQUIRE=playerIsBot)] (var botPlayer__throwAntiTankGrenadeCounter : int&)
         ++botPlayer__throwAntiTankGrenadeCounter
     return EBehResult ER_SUCCESS

@@ -1659,4 +1659,28 @@ doors{
 
   frame_stable_stall_door_a{
   }
+
+  barracks_metal_rounded_window_1500x1000{
+  }
+
+  barracks_metal_rounded_window_2000x1000{
+  }
+
+  barracks_metal_rounded_window_frame_1500x1000{
+  }
+}
+
+filter_include{
+
+  "^frame_house_window_.*$"{
+  }
+
+  "^barrack_window_wooden_1200x1200_a_shutter_.*$"{
+  }
+
+  ".*villa_window_.*$"{
+  }
+
+  ".*villa_frame_.*$"{
+  }
 }

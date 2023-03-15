@@ -5,10 +5,11 @@ let { launch_network_session } = require("app")
 let statsd = require("statsd")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { EventGameSessionFinished, EventGameSessionStarted } = require("dasevents")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
 let { isInBattleState, isInBattleStateUpdate } = require("%enlSqGlob/inBattleState.nut")
-let lastGame = mkWatched(persist, "lastGame", null)
-let extraGameLaunchParams = mkWatched(persist, "extraGameLaunchParams", {})
+let lastGame = nestWatched("lastGame", null)
+let extraGameLaunchParams = nestWatched("extraGameLaunchParams", {})
 
 let isRealBattleStarted = Watched(false)
 

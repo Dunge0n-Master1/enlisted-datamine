@@ -45,7 +45,7 @@ def import_rendinst(filename : string;
       iterate_dag_textures("{asset__baseFolderAbsPath}/{lodFile}") <| $(texPath : string)
         console_print("tex {texPath}")
 
-    using <| $(var riBlk : DataBlock#)
+    using() <| $(var riBlk : DataBlock)
       for lodDist, lodFile in lodDistances, lodFiles
         riBlk |> datablock_add_new_block("lod") <| $(lod)
           lod |> add("range", lodDist)

@@ -24,6 +24,28 @@ def play_sound(name : string;
     add_sound(sound_event_group, sound_hash(""), handle)
 
 
+def human_melee_sound_delay_debug(group_id : string; weapon : Object const?;
+                                  sound_tags : Object;
+                                  is_watched_sound : bool;
+                                  human_voice_sound__path : Object;
+                                  var sound_event_group : SoundEventGroup&;
+                                  transform : float3x4)
+  let meleeDelay = 500
+  let secondaryMeleeDelay = 500
+
+  let voiceDelay = 1000
+  let voiceChance = 100
+
+  if group_id == "weapon_melee"
+    play_sound("", *weapon, sound_tags, float(meleeDelay) * 0.001, is_watched_sound, sound_event_group, transform)
+
+  if group_id == "weapon_secondary_melee"
+    play_sound("", *weapon, sound_tags, float(secondaryMeleeDelay) * 0.001, is_watched_sound, sound_event_group, transform)
+
+  if group_id == "voice_melee" && rnd_int(0, 100) <= voiceChance
+    play_sound(get_string(*weapon, "name", "hands/whoosh"), human_voice_sound__path, sound_tags, float(voiceDelay) * 0.001, is_watched_sound, sound_event_group, transform)
+
+
 [es(tag=sound, REQUIRE=humanSound)]
 def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
                           human_melee_sound__repeatThreshold : float;
@@ -35,7 +57,9 @@ def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
                           is_watched_sound : bool;
                           human_weap__gunEids : EidList const?;
                           human_weap__currentGunSlot : int const?;
-                          transform : float3x4)
+                          transform : float3x4;
+                          human_voice_effect__isActive = false;
+                          human_speech__isSpeaking = false)
   if get_sync_time() < human_melee_sound__repeatTime + human_melee_sound__repeatThreshold
     return
   human_melee_sound__repeatTime = get_sync_time()
@@ -59,32 +83,16 @@ def human_melee_sound_irq(evt : CmdSoundMeleeIrq;
       continue
 
     let groupId = (*group).id ?? ""
-
 /*
-    // tweak and debug sound delay
-
-    let meleeDelay = 500
-    let secondaryMeleeDelay = 500
-
-    let voiceDelay = 1000
-    let voiceChance = 100
-
-    if groupId == "weapon_melee"
-      play_sound("", *weapon, sound_tags, float(meleeDelay) * 0.001, is_watched_sound, sound_event_group, transform)
-
-    if groupId == "weapon_secondary_melee"
-      play_sound("", *weapon, sound_tags, float(secondaryMeleeDelay) * 0.001, is_watched_sound, sound_event_group, transform)
-
-    if groupId == "voice_melee"
-      if rnd_int(0, 100) <= voiceChance
-        play_sound(get_string(*weapon, "name", "hands/whoosh"), human_voice_sound__path, sound_tags, float(voiceDelay) * 0.001, is_watched_sound, sound_event_group, transform)
-
+    // debug: tweak and debug sound delay
+    human_melee_sound_delay_debug(groupId, weapon, sound_tags, is_watched_sound, human_voice_sound__path, sound_event_group, transform)
     continue
 */
-
     if rnd_int(0, 100) <= ((*weapon).chance ?? 100)
       let delayMs = (*weapon).delay ?? 0
       if groupId == "voice_melee"
+        if human_voice_effect__isActive || human_speech__isSpeaking
+          return
         play_sound(get_string(*weapon, "name", "hands/whoosh"), human_voice_sound__path, sound_tags, float(delayMs) * 0.001, is_watched_sound, sound_event_group, transform)
       else
         play_sound("", *weapon, sound_tags, float(delayMs) * 0.001, is_watched_sound, sound_event_group, transform)

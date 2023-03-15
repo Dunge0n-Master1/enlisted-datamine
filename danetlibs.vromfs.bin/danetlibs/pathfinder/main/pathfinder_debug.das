@@ -119,7 +119,7 @@ def path_get_lower_navmesh_pos(sx, sy, sz : float; ex, ey, ez : float; horz_exte
 def corridor_find_path(sx, sy, sz, ex, ey, ez : float; maxJumpUpHeight : float = FLT_MAX)
   let start = float3(sx, sy, sz)
   let end = float3(ex, ey, ez)
-  using() <| $(var path_corridor : dtPathCorridor#)
+  using() <| $(var path_corridor : dtPathCorridor)
     path_corridor |> init_path_corridor()
 
     let extents = float3(.5, FLT_MAX, .5)

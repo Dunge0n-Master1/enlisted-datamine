@@ -20,7 +20,7 @@ def vehicle_start_burn_part(vehicle_eid : EntityId;
                             var fire_damage__shellId : int&;
                             var fire_damage : FireDamageComponent&)
   let collNodeId = damage_model.dmData |> get_collision_node_id(part_id)
-  using <| $(var desc : StartBurnDesc#)
+  using() <| $(var desc : StartBurnDesc#)
     desc.offender = fire_damage__isBurn && !!fire_damage.offender ? fire_damage.offender : offender
     desc.fireParamsId = get_fire_params_id(fire_damage__fireParamsPreset)
     if desc.fireParamsId < 0

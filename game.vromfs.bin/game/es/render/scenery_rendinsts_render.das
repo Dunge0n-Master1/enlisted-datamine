@@ -13,6 +13,9 @@ def invalidate_bsphere_shadow(bsph : float4)
   worldRenderer_shadowsInvalidate(bbox)
 
 def invalidate_riextra_shadow(ri_extra : RiExtraComponent; var prevBsph : float4&)
+  if ri_extra.handle == RIEX_HANDLE_NULL
+    prevBsph = float4()
+    return
   let bsph = getRIGenExtraBSphere(ri_extra.handle)
   if prevBsph.w > 0.0
     invalidate_bsphere_shadow(prevBsph)

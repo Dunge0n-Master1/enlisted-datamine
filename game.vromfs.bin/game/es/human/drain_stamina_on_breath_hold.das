@@ -33,13 +33,3 @@ def drain_stamina_on_breath_hold_es(evt : CmdPostPhysUpdate;
     if human_net_phys.phys.currentState.stamina <= 0.f
       set_is_hold_breath(human_net_phys.phys.currentState, false)
       human_net_phys.phys.currentState.breathShortness = 1.
-
-[es(after=human_phys_es, before=after_net_phys_sync, REQUIRE=drainBreathOnLowStamina)]
-def drain_breath_on_low_stamina_hold_es(evt : CmdPostPhysUpdate; var human_net_phys : HumanActor)
-  let wasStamina = human_net_phys.phys.previousState.stamina
-
-  assume stamina = human_net_phys.phys.currentState.stamina
-  assume breathShortness = human_net_phys.phys.currentState.breathShortness
-  if wasStamina > 0. && stamina <= 0. && breathShortness <= 0.
-    breathShortness = 1.
-    stamina = 0.

@@ -6,6 +6,7 @@ if (isDedicated)
   return
 
 let {has_network} = require("net")
+let { mkCmdPsnExternalMatchId } = require("%enlSqGlob/sqevents.nut")
 let {EventTeamRoundResult, EventSessionFinished} = require("dasevents")
 let {EventOnDisconnectedFromServer} = require("gameevents")
 let { get_local_player_team } = require("%dngscripts/common_queries.nut")
@@ -100,7 +101,7 @@ let function leavePsnMatch(comp, reason=null){
 let createPsnMatch = debug
   ? @(eid, comp) ecs.client_send_event(
       eid,
-      ecs.event.CmdPsnExternalMatchId({
+      mkCmdPsnExternalMatchId({
         match_id = "123456789",
         player_id = comp.playerIdInSession
       })
@@ -125,7 +126,7 @@ let createPsnMatch = debug
           startPsnMatch(resp.matchId, comp)
           ecs.client_send_event(
             eid,
-            ecs.event.CmdPsnExternalMatchId({
+            mkCmdPsnExternalMatchId({
               match_id = $"{resp.matchId}",
               player_id = playerId
             })

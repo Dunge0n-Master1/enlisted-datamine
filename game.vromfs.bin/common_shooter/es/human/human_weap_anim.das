@@ -2,13 +2,14 @@ require ecs
 require app
 require PhysVars
 require HumanPhys
-require GunAnim
 require Gun
 require DagorMath
 require DagorSystem
 require EnlistedActor
 require EnlistedHuman
 require EnlistedWeapon
+require common_shooter.es.gun_anim_common
+require enlisted.events_enlisted
 
 
 [es(on_appear, before=anim_phys_init_es)]
@@ -23,13 +24,13 @@ def human_weap_anim_init(evt : Event;
 
 
 [es(no_order)]
-def human_weap_reset_reload_progress_es(info : UpdateStageInfoAct;
+def human_weap_reset_reload_progress_es(info : ParallelUpdateFrameDelayed;
                                         var gun_anim__reloadProgress : float&)
   gun_anim__reloadProgress = 0.0
 
 
 [es(after=human_weap_reset_reload_progress_es, before=human_gun_attach_es)]
-def human_weap_anim_es(info : UpdateStageInfoAct;
+def human_weap_anim_es(info : ParallelUpdateFrameDelayed;
                        human_weap__currentGunSlot : int;
                        human_weap__gunEids : EidList;
                        human_weap__gunMods : Array;

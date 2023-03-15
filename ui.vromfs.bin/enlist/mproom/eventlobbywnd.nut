@@ -151,6 +151,7 @@ let teamBlockHeaderHeight = hdpxi(68)
 let rowHeight = hdpx(28)
 let teamsColors = [Color(157, 38, 38), Color(40, 93, 147)]
 let armyIconSize = hdpx(20)
+let armyIconHeaderSize = hdpxi(40)
 let playersListHeaderHeight = verticalGap
 let cellGap = isWide ? localGap : hdpx(5)
 const WND_UID = "CHOOSE_CAMPAIGN_BLOCK"
@@ -171,7 +172,6 @@ let joinBtn = @(sf, team){
 }
 
 let function armmyIconsBlock(shoudBeMirrowed, armies = []){
-  let iconSize = hdpx(40).tostring()
   let armyIcons = armies.map(@(armyId) (armiesPresentation?[armyId].icon ?? armyId))
   let iconsToShow = []
   armyIcons.each(@(val) iconsToShow.contains(val) ? null : iconsToShow.append(val) )
@@ -182,7 +182,8 @@ let function armmyIconsBlock(shoudBeMirrowed, armies = []){
     gap = -hdpx(15)
     children = iconsToShow.map(@(val){
       rendObj = ROBJ_IMAGE
-      image = Picture($"!ui/skin#{val}:{iconSize}:{iconSize}:K")
+      size = [armyIconHeaderSize, armyIconHeaderSize]
+      image = Picture($"!ui/skin#{val}:{armyIconHeaderSize}:{armyIconHeaderSize}:K")
     })
   }
 }

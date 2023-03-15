@@ -19,13 +19,9 @@ require AnimV20
 require GeomNodeTree
 
 
-def do_gun_traceray(from : float3; dir : float3; var t : float&; ray_mat_id : int; ignore_human_eid : EntityId)
+def find_object_on_ray(from : float3; dir : float3; var t : float&; ignore_human_eid : EntityId)
   var retEid = INVALID_ENTITY_ID
-  var pmid : int
-  var norm : float3
-  using() <| $(var desc : RendInstDesc#)
-    traceray_normalized(from, dir, t, pmid, norm, 127, desc, ray_mat_id)
-  using() <| $(var intersections : IntersectedEntities#)
+  using() <| $(var intersections : IntersectedEntities)
     trace_entities_in_grid(ecs_hash("humans"), from, dir, t, ignore_human_eid, intersections, SortIntersections NO)
     trace_entities_in_grid(ecs_hash("vehicles"), from, dir, t, ignore_human_eid, intersections, SortIntersections YES)
     for isect in intersections
@@ -35,7 +31,7 @@ def do_gun_traceray(from : float3; dir : float3; var t : float&; ray_mat_id : in
   return retEid
 
 
-[es(REQUIRE=(human_input, human_weap), after=start_async_phys_sim_es)] // after start_async_phys_sim_es to start phys sim job earlier
+[es(REQUIRE=(human_input, human_weap, human_weap__traceInThread), after=(start_async_phys_sim_es, human_weap_ri_trace_wait_job_es))] // after start_async_phys_sim_es to start phys sim job earlier
 def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
                         eid : EntityId;
                         human_net_phys : HumanActor;
@@ -49,18 +45,30 @@ def human_weap_trace_es(info : ParallelUpdateFrameDelayed;
   let gunDir = angles_to_dir(human_weap__prevGunAngles)
   let gunEid = get_human_gun_eid(eid)
   if gunEid != INVALID_ENTITY_ID
-    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] (gun__aimRayMatId : int = -1)
+    query(gunEid) <| $ [es(REQUIRE_NOT=mortar)] ()
       let cameraTm = get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM
       let camPos = cameraTm[3]
-      human_weap__tracerayLen = 100.0
-      human_weap__traceIntersectedEid = do_gun_traceray(camPos, gunDir, human_weap__tracerayLen, gun__aimRayMatId, eid)
+      human_weap__traceIntersectedEid = find_object_on_ray(camPos, gunDir, human_weap__tracerayLen, eid)
+
+[es(after=after_guns_update_sync, REQUIRE=(hero, human_weap))]
+def cache_trace_gun_angles(info : UpdateStageInfoAct;
+                           eid : EntityId;
+                           var human_weap__traceGunAngles : float2&;
+                           human_weap__prevGunAngles : float2)
+  var shootTm : float3x4
+  if human_weap_get_aim_tm(eid, info.curTime, shootTm)
+    human_weap__traceGunAngles = dir_to_angles(shootTm[0])
+  else
+    human_weap__traceGunAngles = human_weap__prevGunAngles
 
 [es(after=human_phys_es, before=after_guns_update_sync, REQUIRE=(hero, human_weap))]
-def human_weap_update_es(info : UpdateStageInfoAct;
+def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          eid : EntityId;
                          human_weap__gunAngleTau : float;
                          isInVehicle : bool;
                          human_vehicle__isHoldingGunPassenger : bool;
+                         human_weap__crawlClampVertAngleRad : float2;
+                         human_weap__clampVertAngleRad : float2;
                          human_weap__lockedGrenadeThrowingCounter : int = 0;
                          human_weap__mortarMode : bool = false;
                          human_weap__jumpDeviation : float = 0.;
@@ -122,7 +130,8 @@ def human_weap_update_es(info : UpdateStageInfoAct;
 
   assume phys = human_net_phys.phys
   if !human_weap__mortarMode
-    apply_gun_angle_offsets(phys, atTime, gunAngles)
+    let vertLimits = phys.currentState.isCrawl ? human_weap__crawlClampVertAngleRad : human_weap__clampVertAngleRad
+    apply_gun_angle_offsets(phys, atTime, vertLimits, gunAngles)
   gunDir = angles_to_dir(gunAngles)
 
   let up = transform[1]

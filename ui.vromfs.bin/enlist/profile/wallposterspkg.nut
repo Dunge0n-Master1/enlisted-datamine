@@ -65,7 +65,7 @@ let function mkWpBottomRow(wallposter) {
               size = [iconSize, iconSize]
               image = Picture($"{icon}:{iconSize.tointeger()}:{iconSize.tointeger()}:K?Ac")
             }
-          : bpSeason == null ? null : staticSeasonBPIcon(bpSeason, iconSize)
+          : (bpSeason ?? 0) == 0 ? null : staticSeasonBPIcon(bpSeason, iconSize)
       }
       {
         size = [flex(), SIZE_TO_CONTENT]
@@ -102,6 +102,8 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = smallPadding
+    valign = ALIGN_CENTER
+    vplace = ALIGN_CENTER
     children = [
       mkWallposterImg(img, hasReceived, isHovered, wpSize)
       {
@@ -111,8 +113,9 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
         color = rowBg(sf, 0)
         children = [
           {
-            size = flex()
+            size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
+            gap = bigPadding
             children = [
               mkWpRow(nameLocId, loc("wp/name"), body_txt)
               { size = [flex(), smallOffset] }
@@ -148,7 +151,7 @@ let function makeBigWpImage(wallposter, onClick) {
         rendObj = ROBJ_IMAGE
         size = flex()
         image = Picture(img)
-        keepAspect = true
+        keepAspect = KEEP_ASPECT_FIT
       }
     ]
   }

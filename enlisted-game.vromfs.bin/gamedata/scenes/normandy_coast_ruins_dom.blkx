@@ -201,7 +201,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -260,17 +260,17 @@ entity{
   mission_name:t="normandy_coast_ruins_dom"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_coast_ruins_01.jpg"
-    item:t="ui/normandy_coast_ruins_02.jpg"
-    item:t="ui/normandy_coast_ruins_03.jpg"
+    item:t="ui/normandy_coast_ruins_01.avif"
+    item:t="ui/normandy_coast_ruins_02.avif"
+    item:t="ui/normandy_coast_ruins_03.avif"
   }
 }
 
 entity{
   _template:t="team_usa+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=2500.0
-  team__scoreCap:r=2500.0
+  team__score:r=2700.0
+  team__scoreCap:r=2700.0
   score_bleed__domBleed:r=4.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

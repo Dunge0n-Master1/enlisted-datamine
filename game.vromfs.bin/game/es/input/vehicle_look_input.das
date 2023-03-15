@@ -9,6 +9,7 @@ require GamePhys
 require math.ang
 require math.base
 
+require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
 
@@ -23,7 +24,7 @@ def vehicle_clamp_camera_angle(var aim_angle : float2&; var ct : HumanControlSta
 
 
 [es(tag=input, REQUIRE=setCameraDirByHero)]
-def human_vehicle_look_es(info : UpdateStageInfoAct;
+def human_vehicle_look_es(info : ParallelUpdateFrameDelayed;
                           input__enabled : bool;
                           vehicle__localControls : VehicleControlsState;
                           vehicleCameraType : int;
@@ -39,7 +40,7 @@ def human_vehicle_look_es(info : UpdateStageInfoAct;
     return true
 
 [es(tag=input, REQUIRE=heroVehicle)]
-def human_vehicle_look_passenger_es(info : UpdateStageInfoAct;
+def human_vehicle_look_passenger_es(info : ParallelUpdateFrameDelayed;
                                     vehicleCameraType : int;
                                     var camera__lookDir aka vehicle_camera__lookDir : float3&)
   if vehicleCameraType == int(VehicleCameraType VEHICLE_CAMERA_PASSENGER)
@@ -50,7 +51,7 @@ def human_vehicle_look_passenger_es(info : UpdateStageInfoAct;
       return true
 
 [es(tag=input, after=after_net_phys_sync, before=human_look_dir_camera_in_vehicle_es, REQUIRE_NOT=unlimitedVehicleCam)]
-def human_input_driver_in_vehicle_es(info : UpdateStageInfoAct;
+def human_input_driver_in_vehicle_es(info : ParallelUpdateFrameDelayed;
                                      input__enabled : bool;
                                      isInVehicle : bool;
                                      vehicle__globalSeatTm : float3x4;
@@ -71,7 +72,7 @@ def human_input_driver_in_vehicle_es(info : UpdateStageInfoAct;
 
 
 [es(tag=input, after=after_net_phys_sync, before=human_input_driver_in_vehicle_es)]
-def human_input_gunner_in_cockpit(info : UpdateStageInfoAct;
+def human_input_gunner_in_cockpit(info : ParallelUpdateFrameDelayed;
                                   input__enabled : bool;
                                   isInVehicle : bool;
                                   human_anim__vehicleSelected : EntityId;
@@ -87,7 +88,7 @@ def human_input_gunner_in_cockpit(info : UpdateStageInfoAct;
 
 
 [es(tag=input, after=after_net_phys_sync, before=human_input_driver_in_vehicle_es)]
-def human_input_machine_gunner_in_cockpit(info : UpdateStageInfoAct;
+def human_input_machine_gunner_in_cockpit(info : ParallelUpdateFrameDelayed;
                                           input__enabled : bool;
                                           isInVehicle : bool;
                                           human_anim__vehicleSelected : EntityId;
@@ -102,7 +103,7 @@ def human_input_machine_gunner_in_cockpit(info : UpdateStageInfoAct;
     vehicle_clamp_camera_angle(human_input__aimAngle, human_net_phys.phys.producedCT, gunnerFpsCamMaxAngle, cockpit__cameraDir)
 
 [es(tag=input, after=after_net_phys_sync, before=human_input_driver_in_vehicle_es)]
-def human_input_commander_cockpit_es(info : UpdateStageInfoAct;
+def human_input_commander_cockpit_es(info : ParallelUpdateFrameDelayed;
                                      input__enabled : bool;
                                      isInVehicle : bool;
                                      human_anim__vehicleSelected : EntityId;
@@ -117,7 +118,7 @@ def human_input_commander_cockpit_es(info : UpdateStageInfoAct;
     vehicle_clamp_camera_angle(human_input__aimAngle, human_net_phys.phys.producedCT, commanderCockpitFpsCamMaxAngle, cockpit__cameraDir)
 
 [es(tag=input, after=after_net_phys_sync, before=human_input_commander_cockpit_es)]
-def human_input_commander_no_turret_control_es(info : UpdateStageInfoAct;
+def human_input_commander_no_turret_control_es(info : ParallelUpdateFrameDelayed;
                                                input__enabled : bool;
                                                isInVehicle : bool;
                                                human_anim__vehicleSelected : EntityId;
@@ -133,7 +134,7 @@ def human_input_commander_no_turret_control_es(info : UpdateStageInfoAct;
     vehicle_clamp_camera_angle(human_input__aimAngle, human_net_phys.phys.producedCT, commanderFpsCamMaxAngle, vehicle__globalSeatTm[0])
 
 [es(tag=input, after=after_net_phys_sync, before=human_look_dir_camera_in_vehicle_es)]
-def human_input_passenger_in_vehicle_es(info : UpdateStageInfoAct;
+def human_input_passenger_in_vehicle_es(info : ParallelUpdateFrameDelayed;
                                         isInVehicle : bool;
                                         vehicle__globalSeatTm : float3x4;
                                         human_anim__vehicleSelected : EntityId;

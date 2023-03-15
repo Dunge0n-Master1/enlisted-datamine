@@ -4,8 +4,7 @@ let { sub_txt, h2_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { hasSpecialEvent, hasEventData, allActiveOffers, headingAndDescription, offersShortTitle
-} = require("offersState.nut")
+let { hasSpecialEvent, eventsAvailable, allActiveOffers } = require("offersState.nut")
 let offersWindow = require("offersWindow.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
@@ -14,15 +13,14 @@ let { accentTitleTxtColor, activeTxtColor, defBgColor, smallPadding, bigPadding,
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
-let {
-  needFreemiumStatus, campPresentation
+let { needFreemiumStatus, campPresentation
 } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
-let { eventForcedUrl, squadsPromotion } = require("%enlist/unlocks/eventsTaskState.nut")
+let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 
@@ -40,8 +38,8 @@ let customOfferActions = {
 }
 
 const SWITCH_SEC = 8.0
-const defOfferImg = "ui/stalingrad_tractor_plant_offer.jpg"
-const defExtUrlImg = "ui/normandy_village_04.jpg"
+const defOfferImg = "ui/stalingrad_tractor_plant_offer.avif"
+const defExtUrlImg = "ui/normandy_village_04.avif"
 
 let curWidgetIdx = Watched(0)
 let displayedOffers = {}
@@ -52,8 +50,8 @@ let mkOfferImage = @(img) {
   size = flex()
   image = Picture(img)
   keepAspect = KEEP_ASPECT_FILL
-  imageHalign = ALIGN_RIGHT
-  imageValign = ALIGN_TOP
+  imageHalign = ALIGN_CENTER
+  imageValign = ALIGN_BOTTOM
   animations = [
     { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.6, play = true }
     { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.6, playFadeOut = true }
@@ -92,17 +90,18 @@ let mkInfo = @(sf, nameTxt, override = {}) {
 }.__update(override)
 
 let function mkOfferInfo(sf, offer) {
-  let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItem = null } = offer
+  let {
+    endTime = 0, widgetTxt = "", discountInPercent = 0, shopItemGuid = null
+  } = offer
   let timerObject = mkCountdownTimer({
     timestamp = endTime
     override = timerStyle
   })
 
-  let { guid = null } = shopItem
-  if (guid not in displayedOffers) {
-    displayedOffers[guid] <- true
+  if (shopItemGuid not in displayedOffers) {
+    displayedOffers[shopItemGuid] <- true
     sendBigQueryUIEvent("display_offer", null, {
-      shopItem = guid
+      shopItem = shopItemGuid
       discountInPercent
     })
   }
@@ -125,7 +124,7 @@ let timeBeforeEvent = @(timestamp) timestamp <= 0 ? null : mkCountdownTimer({
   expiredLocId = ""
 })
 
-let widgetData = {
+let widgetData = freeze({
   [WidgetType.FREEMIUM] = {
     ctor = @(campaignId) @(sf) {
       size = flex()
@@ -143,10 +142,9 @@ let widgetData = {
     onClick = function(specOffer) {
       let action = customOfferActions?[specOffer.offerType] ?? offersWindow
       action(specOffer)
-      let { discountInPercent = 0, shopItem = null } = specOffer
-      let { guid = "" } = shopItem
+      let { discountInPercent = 0, shopItemGuid = "" } = specOffer
       sendBigQueryUIEvent("open_offer", null, {
-        shopItem = guid
+        shopItem = shopItemGuid
         discountInPercent
       })
     }
@@ -166,28 +164,28 @@ let widgetData = {
   },
 
   [WidgetType.EVENT_SPECIAL] = {
-    ctor = @(title) @(sf) mkInfo(sf, utf8ToUpper(title))
-    onClick = @(_) offersPromoWndOpen()
+    ctor = @(v) @(sf) mkInfo(sf, utf8ToUpper(v.titleshort))
+    onClick = @(v) offersPromoWndOpen(v.id)
   },
 
   [WidgetType.URL] = {
     ctor = @(v) @(sf) mkInfo(sf, v.title)
     onClick = @(v) openUrl(v.url)
   }
-}
+})
 
 let widgetList = Computed(function() {
   let list = []
 
   if (needFreemiumStatus.value)
     list.append({
-      id = WidgetType.FREEMIUM
+      widgetType = WidgetType.FREEMIUM
       data = gameProfile.value?.campaigns[curCampaign.value].title ?? curCampaign.value
       backImage = campPresentation.value?.widgetImage ?? defOfferImg
     })
 
   list.extend(allActiveOffers.value.map(@(specOffer) {
-    id = WidgetType.OFFER
+    widgetType = WidgetType.OFFER
     data = specOffer
     backImage = specOffer?.widgetImg ?? defOfferImg
   }))
@@ -200,23 +198,27 @@ let widgetList = Computed(function() {
     timeUntilStart()
 
     list.append({
-      id = WidgetType.EVENT_BASE
+      widgetType = WidgetType.EVENT_BASE
       data = { text = utf8ToUpper(title), queueId = promotedEvent.value?.queueId ?? "" }
       backImage = promotedEvent.value?.extraParams.image ?? defOfferImg
     })
   }
 
   list.extend(eventForcedUrl.value.map(@(v) {
-    id = WidgetType.URL
+    widgetType = WidgetType.URL
     data = v
     backImage = v?.image ?? defExtUrlImg
   }))
 
-  if ((hasSpecialEvent.value || squadsPromotion.value.len() > 0) && hasEventData.value)
-    list.append({
-      id = WidgetType.EVENT_SPECIAL
-      data = offersShortTitle.value
-      backImage = headingAndDescription.value?.heading.v ?? defOfferImg
+  if (hasSpecialEvent.value)
+    eventsAvailable.value.each(function(event) {
+      let { id, imagepromo = defOfferImg } = event
+      list.append({
+        id
+        widgetType = WidgetType.EVENT_SPECIAL
+        data = event
+        backImage = imagepromo
+      })
     })
 
   return list
@@ -245,8 +247,8 @@ let function offersPromoWidget() {
   if (widgets.len() == 0)
     return res
 
-  let { id = null, data = null, backImage = null, } = widgets?[curWidgetIdx.value]
-  let { ctor = null, onClick = null } = widgetData?[id]
+  let { widgetType = null, data = null, backImage = null } = widgets?[curWidgetIdx.value]
+  let { ctor = null, onClick = null } = widgetData?[widgetType]
   let content = ctor?(data)
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]

@@ -6,7 +6,7 @@ let { soundActive } = textButton
 let { bigPadding, defBgColor, blurBgColor, blurBgFillColor,
   smallPadding, defTxtColor, activeTxtColor, squadSlotHorSize,
   selectedTxtColor, airSelectedBgColor, fadedTxtColor, opaqueBgColor,
-  hoverBgColor, smallOffset
+  hoverBgColor, smallOffset, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -22,7 +22,7 @@ let { mkHorizontalSlot, mkEmptyHorizontalSlot, curDropData } = require("chooseSq
 let { isEventRoom } = require("%enlist/mpRoom/enlRoomState.nut")
 let { isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
 let { unseenSquads, markSeenSquads } = require("model/unseenSquads.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")()
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
@@ -57,9 +57,16 @@ let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
 let { sound_play } = require("sound")
+let { mkProductView } = require("%enlist/shop/shopPkg.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let buySquadWindow = require("%enlist/shop/buySquadWindow.nut")
+let { mkCurrencyImg } = require("%enlist/currency/currenciesComp.nut")
+let { currenciesById } = require("%enlist/currency/currencies.nut")
+
+
 
 let playSoundItemPlace = @() sound_play("ui/inventory_item_place")
-
+let unseenIcon = blinkUnseenIcon()
 
 let sentStatsdData = persist("sentStatsdData", @() {})
 
@@ -137,8 +144,9 @@ let moveParams = Computed(function(prev) {
 
 let buttonClose = textButton.Flat(loc("Close"), applyAndClose,
   { key = "closeSquadsManage" //used in tutorial
-    margin = 0,
-    padding = [0, hdpx(80)]})
+    margin = 0
+    size = [flex(), commonBtnHeight]
+  })
 
 let emptySquadToBuy = @(children){
   rendObj = ROBJ_BOX
@@ -165,7 +173,7 @@ let buySquadBtn = @(sf) {
 
 let squadsCountHint = @() {
   watch = squadsArmyLimits
-  size = [flex(), SIZE_TO_CONTENT]
+  size = [flex(1.5), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   children = [
     noteTextArea(loc("squads/maximumInBattleHint"))
@@ -258,7 +266,7 @@ let function manageBlock() {
 let squadUnseenMark = @(squadId) @() {
   watch = curArmyUnseenSquads
   hplace = ALIGN_RIGHT
-  children = (curArmyUnseenSquads.value?[squadId] ?? false) ? unseenSignal : null
+  children = (curArmyUnseenSquads.value?[squadId] ?? false) ? unseenIcon : null
 }
 
 let mkSquadFocused = @(squadId) function() {
@@ -495,7 +503,7 @@ let mkBuyPremBtn = @(onClick)
     halign = ALIGN_CENTER
     sound = soundActive
     children = {
-      keepAspect = true
+      keepAspect = KEEP_ASPECT_FIT
       rendObj = ROBJ_IMAGE
       size = [hdpx(30), hdpx(30)]
       image = Picture("!ui/squads/plus.svg:{0}:{1}:K".subst(hdpx(30), hdpx(30)))
@@ -611,6 +619,7 @@ let function leftPanel() {
         manageBlock
         {
           flow = FLOW_HORIZONTAL
+          gap = bigPadding
           size = [flex(), SIZE_TO_CONTENT]
           padding = [hdpx(10), 0]
           children = [
@@ -697,6 +706,28 @@ let function dropToReserveContainer() {
 
 
 let scrollHandlerRightPanel = ScrollHandler()
+
+let currencyIconSize = hdpx(30)
+let function getCurrencyIconById(currencyId, size = currencyIconSize){
+  let currency = currenciesById.value?[currencyId]
+  return currency ? mkCurrencyImg(currency, size).__update({ margin = bigPadding }) : null
+}
+
+let function onPremiumCb(data){
+  let {squad = null, shopItem = null, isInCampaign = false} = data
+  let armyId = squadsArmy.value
+  if (isInCampaign)
+    freemiumWnd()
+  else
+    buySquadWindow({
+      shopItem
+      productView = mkProductView(shopItem, allItemTemplates)
+      armyId
+      squadId = squad?.squadId
+    })
+  selectedSquadId(null)
+}
+
 let function rightPanel() {
   let sCount = slotsCount.value
   let children = []
@@ -711,16 +742,24 @@ let function rightPanel() {
       .extend(reserveChildren)
 
   let lockedChildren = curArmyLockedSquadsData.value
-    .map(@(val) mkHorizontalSlot(val.squad.__merge({
-      guid = ""
-      isLocked = true
-      idx = -1
-      onClick = @() showLockedSquadMsgbox(val.squad)
-      unlocObj = txt({
-        text = loc("campaignLevel", { lvl = val.unlockData.level })
-        margin = bigPadding
-      })
-    }), KWARG_NON_STRICT))
+    .map(function(val) {
+      let  unlocObj = val.isPremium
+        ? getCurrencyIconById(val.shopItem?.shopItemPrice.currencyId ?? "EnlistedGold")
+        : txt({
+            text = loc("campaignLevel", { lvl = val.shopItem?.level })
+            margin = bigPadding
+          })
+
+      return mkHorizontalSlot(val.squad.__merge({
+        guid = ""
+        isLocked = true
+        idx = -1
+        onClick = val.isPremium
+          ? @() onPremiumCb(val)
+          : @() showLockedSquadMsgbox(val.squad)
+        unlocObj
+      }), KWARG_NON_STRICT)
+    })
   if (lockedChildren.len() > 0) {
     children
       .append(txt(loc("squads/lockedSquads", "Locked squads")))

@@ -10,7 +10,7 @@ david_harleyson_wla{
   vehicle_net_phys__blk:t="content/tanks/gamedata/templates/motorcycles/david_harleyson_wla.blk:VehiclePhys"
   canUseRespawnbaseType:t="motorcycle"
   damage_model__blk:t="content/tanks/gamedata/templates/motorcycles/david_harleyson_wla.blk"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   vehicle_seats__enumVarName:t="harley_davidson_wla"
 
   _group{

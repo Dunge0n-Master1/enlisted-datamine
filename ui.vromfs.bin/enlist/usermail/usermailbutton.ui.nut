@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { isUsermailWndOpend, hasUnseenLetters } = require("%enlist/usermail/usermailState.nut")
 let { hasUsermail } = require("%enlist/featureFlags.nut")
-let { mkBlinkNotifier } = require("%ui/components/unseenComponents.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { fastAccessIconHeight, defTxtColor, hoverTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
@@ -23,8 +23,6 @@ return @() {
           onClick = @() isUsermailWndOpend(true)
           onHover = @(on) setTooltip(on ? loc("mail/mailTab") : null)
         })
-        !hasUnseenLetters.value ? null : mkBlinkNotifier.__update({
-          pos = [fastAccessIconHeight / 2, -fastAccessIconHeight / 2]
-        })
+        !hasUnseenLetters.value ? null : blinkUnseen
       ]
 }

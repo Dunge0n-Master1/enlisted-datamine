@@ -1,6 +1,7 @@
 require ecs
 require app
 require math.base
+require math.interpolation
 require game.utils.hero
 require enlisted.events_enlisted
 require common_shooter.events_common_shooter
@@ -50,9 +51,12 @@ def human_aim_punch_authority_es(info : UpdateStageInfoAct;
       human_aim_punch__queuedEvents |> erase(i)
     i--
 
+
 [es(tag = server)]
 def human_aim_punch_events_es(evt : EventOnEntityHit;
                               eid : EntityId;
+                              transform : float3x4;
+                              human_aim_punch__distanceSqToStrengthScale : Point2List;
                               var human_aim_punch__curPower : float&;
                               human_aim_punch__strengthDamageAdaptationMultiplier : float;
                               human_aim_punch__timeOffset : float = 0.1;
@@ -66,14 +70,15 @@ def human_aim_punch_events_es(evt : EventOnEntityHit;
 
   let curTime = get_sync_time()
   let time = curTime + human_aim_punch__timeOffset
-  var damageStrength = 0f
-  if evt.deltaHp > 0.0
-    damageStrength = deg_to_rad(min(evt.deltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
-  else
-    damageStrength = deg_to_rad(min(evt.blockingDeltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
+  let deltaHp = evt.deltaHp > 0.0 ? evt.deltaHp : evt.blockingDeltaHp
+  let damageStrength = deg_to_rad(min(deltaHp * human_aim_punch__hpMult, human_aim_punch__maxStrength))
+
+  let offenderTm = get_TMatrix(evt.offender, "transform")
+  let distToOffenderSq = offenderTm != null ? length_sq((*offenderTm)[3] - transform[3]) : 0.0
+  let strengthScaleByDistance = interpolate_by_point_list(human_aim_punch__distanceSqToStrengthScale, distToOffenderSq)
 
   let stabilityStrMult = 1.0 - clamp(entity_mods__moreStabilityWhenHitMult, 0.0, 1.0)
-  let strengthFromDamage = damageStrength * stabilityStrMult
+  let strengthFromDamage = damageStrength * stabilityStrMult * strengthScaleByDistance
   let strength = max(strengthFromDamage - human_aim_punch__curPower * human_aim_punch__strengthDamageAdaptationMultiplier, 0f)
 
   let dir = gfrnd() * TWOPI;

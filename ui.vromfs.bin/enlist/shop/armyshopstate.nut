@@ -26,9 +26,10 @@ let { is_pc, is_sony } = require("%dngscripts/platform.nut")
 let { openConsumable, openBundle, openBundles
 } = require("%enlist/consoleStore/consoleStore.nut")
 let { needNewItemsWindow } = require("%enlist/soldiers/model/newItemsToShow.nut")
-let { getCratesListComp } = require("%enlist/soldiers/model/cratesContent.nut")
+let {
+  removeCrateContent, requestedCratesContent, itemToShopItem, getShopListForItem
+} = require("%enlist/soldiers/model/cratesContent.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
-let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { currencyPresentation } = require("currencyPresentation.nut")
 let checkPurchases = require("%enlist/shop/checkPurchases.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
@@ -40,7 +41,7 @@ let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileC
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
 
-
+const SHOP_SECTION = "SHOP"
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
 
 let shopOrdersUsed = mkOnlinePersistentFlag("hasShopOrdersUsed")
@@ -50,8 +51,11 @@ let shopOrdersUsedActivate = shopOrdersUsed.activate
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
 let marketIdList = keepref(Computed(@() shopItemsBase.value.values()
-  .map(@(s) (s?.purchaseGuid ?? "") != "" ? { guid = s.purchaseGuid } : null)
-  .filter(@(m) m != null)))
+  .reduce(function(res, item) {
+    if ((item?.pcLinkGuid ?? "") != "")
+      res.append({ guid = item.pcLinkGuid })
+    return res
+  }, [] )))
 
 marketIds(marketIdList.value)
 marketIdList.subscribe(@(v) marketIds(v))
@@ -65,7 +69,7 @@ let shopItemToShow = Watched(null)
 let shopItemsToHighlight = Watched(null)
 
 curSection.subscribe(function(s) {
-  if (s != "SHOP"){
+  if (s != SHOP_SECTION){
     shopGroupItemsChain([])
     shopItemsToHighlight(null)
     shopItemToShow(null)
@@ -481,6 +485,7 @@ let function barterShopItem(shopItem, payData, count = 1) {
   shopItemToShow(shopItem)
   barter_shop_items(curArmy.value, shopItem.guid, payData, count, function(_) {
     purchaseInProgress(null)
+    removeCrateContent(shopItem?.crates ?? [])
     shopOrdersUsedActivate()
     seenCurrencies()
   })
@@ -495,6 +500,7 @@ let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
 
   buy_shop_items(curArmy.value, shopItem.guid, currencyId, price, count, function(res) {
     purchaseInProgress(null)
+    removeCrateContent(shopItem?.crates ?? [])
     cb?(res?.error == null)
   })
 }
@@ -508,6 +514,7 @@ let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = n
 
   buy_shop_offer(curArmy.value, shopItem.guid, currencyId, price, pOfferGuid, function(res) {
     purchaseInProgress(null)
+    removeCrateContent(shopItem?.crates ?? [])
     cb?(res?.error == null)
   })
 }
@@ -573,7 +580,7 @@ let function blinkCurrencies() {
 }
 
 let function setupBlinkCurrencies(...) {
-  if (curSection.value != "SHOP" || hasShopOrdersUsed.value)
+  if (curSection.value != SHOP_SECTION || hasShopOrdersUsed.value)
     gui_scene.clearTimer(blinkCurrencies)
   else
     gui_scene.setInterval(2.5, blinkCurrencies)
@@ -583,21 +590,34 @@ setupBlinkCurrencies()
 foreach (w in [curSection, hasShopOrdersUsed])
   w.subscribe(setupBlinkCurrencies)
 
-let allArmyCrates = Computed(@() curArmyShopItems.value
-  .reduce(@(res, s) res.extend(s?.crates ?? []), [])) //warning disable: -unwanted-modification
-
 let function shopItemContentCtor(shopItem) {
   if ((shopItem?.crates.len() ?? 0) == 0)
     return null
-  let listComp = getCratesListComp(allArmyCrates)
   return Computed(function() {
     let crate = shopItem.crates.findvalue(@(c) c.armyId == curArmy.value) ?? shopItem.crates[0]
     let { armyId, id } = crate
     return {
       id
       armyId
-      content = listComp.value?[id][armyId]
+      content = requestedCratesContent.value?[armyId][id]
     }
+  })
+}
+
+let function shopItemContentArrayCtor(shopItem) {
+  if ((shopItem?.crates.len() ?? 0) == 0)
+    return null
+  return Computed(function() {
+    let res = []
+    foreach (crate in shopItem.crates) {
+      let { armyId, id } = crate
+      res.append({
+        id
+        armyId
+        content = requestedCratesContent.value?[armyId][id]
+      })
+    }
+    return res
   })
 }
 
@@ -616,31 +636,10 @@ local function getShopItemPath(shopItem, allShopItems){
 }
 
 let function getShopItemsCmp(tpl) {
-  let allCratesListComp = getCratesListComp(allArmyCrates)
-  let basetpl = trimUpgradeSuffix(tpl)
   return Computed(function(){
-    let allShopItems = curArmyShopItems.value
-    let allCratesList = allCratesListComp.value
-    let itemCrates = {}
-    allCratesList.each(function(v, id) {
-      let itemsKeys = (v?[curArmy.value].items ?? {})
-        .keys()
-        .reduce(@(tbl, id) tbl.rawset(trimUpgradeSuffix(id), true), {})
-      if (basetpl in itemsKeys)
-        itemCrates[id] <- itemsKeys.len()
-    })
-    let ordered = []
-    allShopItems.each(function(shopItem) {
-      foreach (crate in shopItem?.crates ?? []) {
-        let size = itemCrates?[crate.id]
-        if (size != null) {
-          ordered.append({ shopItem, size })
-          break
-        }
-      }
-    })
-    ordered.sort(@(a, b) a.size <=> b.size)
-    return ordered.map(@(s) s.shopItem)
+    let shopItemIds = getShopListForItem(tpl, curArmy.value, itemToShopItem.value, allItemTemplates.value)
+    return (shopItemIds.len() < 1) ? []
+      : shopItemIds.map(@(shopItemId) curArmyItemsPrefiltered.value?[shopItemId])
   })
 }
 
@@ -660,7 +659,7 @@ local function openAndHighlightItems(targetShopItems, allShopItems){
   }
   shopItemsToHighlight(targetShopItems)
   shopGroupItemsChain(targetPath)
-  setCurSection("SHOP")
+  setCurSection(SHOP_SECTION)
 }
 
 let setCurArmyShopPath = @(path) shopGroupItemsChain(path)
@@ -692,11 +691,13 @@ let notOpenedShopItems = Computed(function() {
 })
 
 return {
+  SHOP_SECTION
   hasShopSection
   shopConfig
   curArmyShopInfo
   curArmyShowcase
   curArmyShopItems
+  curArmyItemsPrefiltered
   curArmyShopLines
   realCurrencies
   viewCurrencies
@@ -717,6 +718,7 @@ return {
   premiumProducts
   hasUnseenCurrencies
   shopItemContentCtor
+  shopItemContentArrayCtor
   isShopVisible
   getShopItemsCmp
   openAndHighlightItems
@@ -728,4 +730,5 @@ return {
   findSquadShopItem
   curAvailableShopItems
   notOpenedShopItems
+  requestedCratesContent
 }

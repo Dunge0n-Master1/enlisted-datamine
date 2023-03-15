@@ -67,7 +67,7 @@ def on_cmd_create_map_point(evt : CmdCreateMapPoint; eid : EntityId; possessed :
 [es(tag=gameClient, no_order, REQUIRE_NOT=userPointVehicleOffset)]
 def userpoint_update_vehicle_marker_position(act : UpdateStageInfoAct; userPointVehicleTargetEid : EntityId; var transform aka userpoint_transform : float3x4&)
   query(userPointVehicleTargetEid) <| $ [es(REQUIRE=vehicle)] (transform : float3x4; collres : CollisionResource)
-    userpoint_transform[3] = transform[3] + BBox3(collres.vFullBBox).center
+    userpoint_transform[3] = transform * BBox3(collres.vFullBBox).center
 
 [es(tag=gameClient, no_order)]
 def userpoint_update_point_on_vehicle_marker_position(act : UpdateStageInfoAct;
@@ -75,4 +75,4 @@ def userpoint_update_point_on_vehicle_marker_position(act : UpdateStageInfoAct;
                                                       var transform aka userpoint_transform : float3x4&;
                                                       userPointVehicleOffset : float3)
   query(userPointVehicleTargetEid) <| $ [es(REQUIRE=vehicle)] (transform : float3x4)
-    userpoint_transform[3] = transform[3] + userPointVehicleOffset
+    userpoint_transform[3] = transform * userPointVehicleOffset

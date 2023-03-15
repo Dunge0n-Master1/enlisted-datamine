@@ -77,5 +77,6 @@ tankgun_20mm_oerlikon{
   _extends:t="base_tankgun_autocannon"
   _extends:t="base_20mm_oerlikon"
   _extends:t="gunsound_20mm_kwk30"
+  _extends:t="gunsound_20mm_oerlikon"
   turret__triggerGroup:i=0
 }

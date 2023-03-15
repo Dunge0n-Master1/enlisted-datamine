@@ -34,7 +34,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { mkBpIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 
-const MAX_CLASSES_USAGE = 4
+const MAX_CLASSES_USAGE = 5
 let PRICE_HEIGHT = hdpx(48)
 
 const DISCOUNT_WARN_TIME = 600
@@ -87,8 +87,8 @@ let mkLevelLockLine = @(level) shopBottomLine.__merge({
   ]
 })
 
-let function mkShopItemPriceLine(shopItem, personalOffer = null) {
-  let children = mkShopItemPrice(shopItem, personalOffer)
+let function mkShopItemPriceLine(shopItem, personalOffer = null, isNarrow = false) {
+  let children = mkShopItemPrice(shopItem, personalOffer, isNarrow)
   return !children ? null : shopBottomLine.__merge({ children })
 }
 
@@ -282,7 +282,6 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
       ].extend(kindsList.map(mkItemUsageKind))
     }
 }
-
 
 let mkShopItemInfoBlock = @(crateContent) function() {
   let res = { watch = [allItemTemplates, crateContent] }

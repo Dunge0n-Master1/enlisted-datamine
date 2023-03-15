@@ -355,6 +355,11 @@ repeat{
     treeName:t="sub.grenadeEscape"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.bombEscape"
+  }
+
   orderedSelector{
     name:t="attack"
 
@@ -558,7 +563,7 @@ orderedSelector{
 
   subTree{
     name:t=""
-    treeName:t="sub.moveToPosition"
+    treeName:t="sub.moveToRegroupPosition"
   }
 }
 

@@ -76,11 +76,6 @@ struct CmdShowHint
   unique : string
   ttl : float
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
-struct CmdHumanQuickChatSpeech
-  phraseIdx : int
-  time : float
-
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct EventSpectateTarget
   target_eid : EntityId
@@ -138,10 +133,6 @@ struct EventRendinstDestroyed // server
   riexHandle : riex_handle_t
   riTm : float3x4
   riBBox : BBox3
-
-[event(unicast)]
-struct EventPlayerOnLootUse
-  entityToUse : EntityId
 
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamRoundResult
@@ -225,9 +216,6 @@ struct ReplaySetCamera {}
 struct CmdApplyRagdollParameters
   cur_time : float
 
-[event(unicast)]
-struct EventOnItemGenerated {}
-
 [cpp_event(broadcast)]
 struct EventGameObjectsCreated
   game_objects : EntityId
@@ -289,3 +277,6 @@ struct AFKShowDisconnectWarning {}
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct AFKShowWarning {}
+
+[event(broadcast)]
+struct ReplaySetOperatorCamera {}

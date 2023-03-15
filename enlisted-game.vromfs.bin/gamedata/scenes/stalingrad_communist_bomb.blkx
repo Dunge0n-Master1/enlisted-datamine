@@ -1201,12 +1201,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -1214,9 +1214,9 @@ entity{
   mission_name:t="stalingrad_communist_bomb"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_02.jpg"
-    item:t="ui/stalingrad_inv_05.jpg"
-    item:t="ui/stalingrad_inv_06.jpg"
+    item:t="ui/stalingrad_inv_02.avif"
+    item:t="ui/stalingrad_inv_05.avif"
+    item:t="ui/stalingrad_inv_06.avif"
   }
 }
 
@@ -1255,8 +1255,8 @@ entity{
 entity{
   _template:t="team_stalingrad_axis+team_narrator_destruction_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2200.0
+  team__score:r=2200.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1288,7 +1288,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1313,7 +1313,7 @@ entity{
   capzone__caption:t="capzone/repnikova_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   active:b=no
   ui_order:i=2
   capzone__owningTeam:i=1
@@ -1346,7 +1346,7 @@ entity{
   capzone__caption:t="capzone/offices"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -1371,7 +1371,7 @@ entity{
   capzone__caption:t="capzone/communal_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   active:b=no
   ui_order:i=4
   capzone__owningTeam:i=1
@@ -1404,7 +1404,7 @@ entity{
   capzone__caption:t="capzone/apartment_house"
   capzone__timeToPlant:r=20.0
   capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

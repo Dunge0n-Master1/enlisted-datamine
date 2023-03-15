@@ -140,7 +140,7 @@ base_m3a1_stuart_flame{
 
     "turretInfo:object"{
       turretName:t="turret_04"
-      gun:t="m1_flamethrower_shorted"
+      gun:t="m1_flamethrower_shorted+turret_with_several_types_of_shells+main_turret"
       barrelDm:t="gun_barrel_02"
       verDriveDm:t="drive_turret_v"
       horDriveDm:t="drive_turret_h"
@@ -172,7 +172,7 @@ m3a1_stuart_flame_turret_01_37mm_m6{
 
 m3a1_stuart_flame_turret_02_7_62mm_m1919a4{
   _extends:t="tankgun_7_62mm_m1919a4"
-  gun__shootNodeName:t="bone_mg_aa_v_01"
+  gun__shootNodeName:t="emtr_mg_aa_flame_01"
   turret__yawSpeed:r=90.0
   turret__pitchSpeed:r=90.0
   turret__aimNodeName:t="bone_mg_aa_h_01"
@@ -293,10 +293,11 @@ m1_flamethrower_shorted{
   gun__reloadTime:r=-1.0
   gun__maxAmmo:i=360
   gun__locName:t="ato_41_flamethrower"
-  gun__shootNodeName:t="bone_gun_barrel"
+  item__weapType:t="flamethrower"
+  gun__shootNodeName:t="emtr_mg_flame_02"
   turret__yawSpeed:r=45.0
   turret__pitchSpeed:r=45.0
-  turret__aimNodeName:t="bone_turret"
+  turret__aimNodeName:t="bone_mg_h_01"
   turret__limit:p4=-11.0, 11.0, -11.0, 11.0
   combatFiringRange:p2=0.0, 10.0
   combatShootTime:p2=0.7, 0.9
@@ -310,9 +311,9 @@ m1_flamethrower_shorted{
   flamethrower__fireTemplate:t="flamethrower_fire"
   flamethrower__streamEffectTemplate:t="flamethrower_flame_stream_effect"
   flamethrower__streamEffectNodeName:t="gunFx_main"
-  flamethrower__maxFlameLength:r=18.0
+  flamethrower__maxFlameLength:r=20.0
   flamethrower__flameStreamRadius:r=0.03
-  flamethrower__flameCloudRadius:r=0.8
+  flamethrower__flameCloudRadius:r=1.0
   flamethrower__streamDamagePerSecond:r=40.0
   flamethrower__cloudDamagePerSecond:r=5.0
   flamethrower__friendlyStreamDamagePerSecond:r=1.0
@@ -329,7 +330,6 @@ m1_flamethrower_shorted{
   flamethrower__dropletNormalOffset:r=0.3
   flamethrower__addFullForceTimePerSec:r=2.0
   flamethrower__maxFiresToReignite:i=3
-  flamethrower__backpackTemplate:t="flamethrower_backpack_roks_3_gasbag"
   flamethrower__streamEffectNodeIdx:i=-1
   flamethrower__active:b=no
   flamethrower__flameSpeed:r=0.0
@@ -358,7 +358,7 @@ m1_flamethrower_shorted{
     "defaultSet:array"{
 
       "shell:object"{
-        blk:t="content/e_ww2_common/gamedata/weapons/bullets/flamethrower_dummy.blk"
+        blk:t="content/enlisted/gamedata/weapons/bullets/flamethrower_dummy.blk"
         type:t="flamethrower"
         name:t="flamethrower"
       }

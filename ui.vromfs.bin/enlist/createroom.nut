@@ -31,14 +31,15 @@ let http = require("dagor.http")
 let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
 let {getBaseFromManifestUrl, getHashesFromManifest, requestModFiles} = require("%enlSqGlob/game_mods.nut")
 let { send_counter } = require("statsd")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
 const EVENT_MOD_VROM_INFO = "mod_info_vrom_loaded"
 let playersAmountList = [1, 2, 4, 8, 12, 16, 20, 24, 32, 40, 50, 64, 70, 80, 100, 128]
 let groupSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
-let usePassword = mkWatched(persist, "usePassword", false)
-let password = mkWatched(persist, "password", "")
+let usePassword = nestWatched("usePassword", false)
+let password = nestWatched("password", "")
 let focusedField = Watched(null)
 
 let function createRoomCb(response) {

@@ -12,6 +12,10 @@ require AnimatedPhys
 
 
 def find_node_index(animchar, arr, index)
+  let size = length(arr)
+  if index < 0 || index >= size
+    logerr("Turret init node index out of bounds. index: {index} , array size: {size}")
+    return -1
   let nodeName = get_ecs_string(arr, index)
   return nodeName == null ? -1 : geomtree_findNodeIndex(*animchar.nodeTree, "{nodeName}")
 
@@ -44,6 +48,15 @@ def resolve_turrets(evt : Event; turret_control__gunEids : EidList)
       sendEventImmediate(eid, [[CmdResolveTurrets]])
 
 [es(on_appear, on_event=CmdResolveTurrets, REQUIRE_NOT=resolvedTurret)]
+def turret_init_aim_node(evt : Event;
+                         turret__owner : EntityId;
+                         turret__aimNodeName : string;
+                         var turret__aimNodeId : int&)
+  if !empty(turret__aimNodeName) && turret__aimNodeId < 0
+    query(turret__owner) <| $ [es] (animchar : AnimcharBaseComponent)
+      turret__aimNodeId = geomtree_findNodeIndex(*animchar.nodeTree, turret__aimNodeName)
+
+[es(on_appear, on_event=CmdResolveTurrets, REQUIRE_NOT=resolvedTurret)]
 def turret_control_init_es(evt : Event;
                            eid : EntityId;
                            turret__owner : EntityId;
@@ -59,7 +72,9 @@ def turret_control_init_es(evt : Event;
                            var turret__wishYawVarId : int&;
                            var turret__wishPitchVarId : int&;
                            var turret__curYawVarId : int&;
+                           var turret__curWorldYawVarId : int&;
                            var turret__curPitchVarId : int&;
+                           var turret__curWorldPitchVarId : int&;
                            var turret__yawSpeedVarId : int&;
                            var turret__pitchSpeedVarId : int&;
                            var turret__yawSpeedMulVarId : int&;
@@ -93,6 +108,8 @@ def turret_control_init_es(evt : Event;
     if animVars != null
       turret__curYawVarId          = registerPullVar(phys_vars, *animVars, "curYawParamName")
       turret__curPitchVarId        = registerPullVar(phys_vars, *animVars, "curPitchParamName")
+      turret__curWorldYawVarId     = registerPullVar(phys_vars, *animVars, "curWorldYawParamName")
+      turret__curWorldPitchVarId   = registerPullVar(phys_vars, *animVars, "curWorldPitchParamName")
       turret__wishYawVarId         = registerVar(phys_vars, *animVars, "wishYawParamName")
       turret__wishPitchVarId       = registerVar(phys_vars, *animVars, "wishPitchParamName")
       turret__yawSpeedMulVarId     = registerVar(phys_vars, *animVars, "paramYawSpeedMul")

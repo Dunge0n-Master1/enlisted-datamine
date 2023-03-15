@@ -13,6 +13,7 @@ let { send_counter } = require("statsd")
 let { remove } = require("system")
 let { showModsInCustomRoomCreateWnd } = require("%enlist/featureFlags.nut")
 let { get_setting_by_blk_path } = require("settings")
+let { deep_clone } = require("%sqstd/underscore.nut")
 
 
 const USER_MODS_FOLDER = "userGameMods"
@@ -201,9 +202,16 @@ eventbus.subscribe(EVENT_RECEIVE_MOD_MANIFEST, function(response) {
   }
 
   mkdir(USER_MODS_FOLDER)
-  let resultFile = file($"{USER_MODS_FOLDER}/{manifest?.id}.json", "wb+")
-  resultFile.writeblob(response?.body)
-  resultFile.close()
+  let manifest_file_path = $"{USER_MODS_FOLDER}/{manifest?.id}.json"
+  try {
+    let resultFile = file(manifest_file_path, "wb+")
+    resultFile.writeblob(response?.body)
+    resultFile.close()
+  } catch(e) {
+    logGM("Save manifest failed: ", e, manifest_file_path)
+    modDownloadMessage("mods/FailedSaveManifest")
+    return
+  }
   eventbus.send(EVENT_MOD_VROM_INFO, manifest)
   let content = manifest.content[0]
   let hash = content.hash
@@ -238,7 +246,8 @@ let function requestModManifest(modId) {
 }
 
 
-eventbus.subscribe(EVENT_MOD_VROM_INFO, function(info) {
+eventbus.subscribe(EVENT_MOD_VROM_INFO, function(i) {
+  let info = deep_clone(i)
   if (info?.id != null){
     if (info?.title != null)
       info.title = info.title.tostring()

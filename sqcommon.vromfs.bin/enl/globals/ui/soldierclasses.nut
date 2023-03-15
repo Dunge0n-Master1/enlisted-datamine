@@ -855,6 +855,18 @@ let soldierClasses = freeze({
     rank = 10
     kind = "rifle"
   }.__update(eventCfg)
+  anti_tank_1_premium_1 = {
+    locId = "soldierClass/anti_tank"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "anti_tank"
+  }.__update(eventCfg)
+  anti_tank_1_premium_1_engineer = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(eventCfg)
   assault_event_1 = {
     locId = "soldierClass/assault"
     getGlyph = @(_) null

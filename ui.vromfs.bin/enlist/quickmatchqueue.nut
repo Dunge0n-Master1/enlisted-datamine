@@ -90,7 +90,7 @@ let function joinImpl(queue, queue_params) {
       let appIds = {}
       foreach (uid, member in squadOnlineMembers.value) {
         smembers.append(uid)
-        appIds[uid.tostring()] <- member.state.value?.appId ?? get_app_id()
+        appIds[uid.tostring()] <- member.state?.appId ?? get_app_id()
       }
       let squad = {
         members = smembers
@@ -122,18 +122,20 @@ let function joinQueue(queue, queue_params = {}) {
 
   let { maxGroupSize = 1, minGroupSize = 1 } = queue
   local notReadyMembers = ""
+  let squadOnlineMembersVal = squadOnlineMembers.value
+  let squadOnlineMembersAmount = squadOnlineMembersVal.len()
   foreach (member in squadOnlineMembers.value)
-    if ((!member.isLeader.value && !member.state.value?.ready) || member.state.value?.inBattle)
-      notReadyMembers += ((notReadyMembers != "") ? ", " : "") + remap_nick(member.contact.value.realnick)
+    if ((!member.isLeader && !member.state?.ready) || member.state?.inBattle)
+      notReadyMembers += ((notReadyMembers != "") ? ", " : "") + remap_nick(member?.realnick)
 
   if (notReadyMembers.len())
     return msgbox.show({text=loc("squad/notReadyMembers" { notReadyMembers })})
-  if (minGroupSize > squadOnlineMembers.value.len())
+  if (minGroupSize > squadOnlineMembersAmount)
     return msgbox.show({text=loc("squad/tooFewMembers" { reqMembers = minGroupSize })})
-  if (maxGroupSize < squadOnlineMembers.value.len())
+  if (maxGroupSize < squadOnlineMembersAmount)
     return msgbox.show({text=loc("squad/tooMuchMembers" { maxMembers = maxGroupSize })})
 
-  let offlineNum = squadMembers.value.len() - squadOnlineMembers.value.len()
+  let offlineNum = squadMembers.value.len() - squadOnlineMembersAmount
   local msg = offlineNum ? loc("squad/hasOfflineMembers", { number = offlineNum }) : ""
   if (isInvitedToSquad.value.len())
     msg = (msg.len() ? "\n" : "").concat(msg, loc("squad/hasInvites", { number = isInvitedToSquad.value.len() }))
@@ -198,17 +200,19 @@ local prevSquadMembers = {}
 let changeGen = @() squadMembersGeneration(squadMembersGeneration.value+1)
 
 let function onSquadMembersChange(v) {
+  local changedGen = false
   foreach (uid, member in v) {
     if (uid in prevSquadMembers)
       continue
     let isLeader = member?.isLeader
-    member.state.subscribe(function(s) {
-      if (!s.ready && !isLeader?.value)
-        changeGen()
-    })
+    if (!member.state?.ready && isLeader) {
+      changeGen()
+      changedGen = true
+      break
+    }
   }
   prevSquadMembers = v
-  if (v.len() != prevSquadMembers.len() || !isEqual(v.keys(), prevSquadMembers.keys()))
+  if (!changedGen && (v.len() != prevSquadMembers.len() || !isEqual(v.keys(), prevSquadMembers.keys())))
     changeGen()
 }
 squadMembers.subscribe(onSquadMembersChange)

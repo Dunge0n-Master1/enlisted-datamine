@@ -39,7 +39,7 @@ def texture_viewer()
     if !empty(assetPath)
       let assetName = get_base_name_with_ext(assetPath)
 
-      using <| $(var texBlk : DataBlock#)
+      using() <| $(var texBlk : DataBlock)
         texBlk |> add("name", assetName)
         texBlk |> add("convert", true)
         texBlk |> datablock_save_to_text_file(replace_extension(assetPath, "tex.blk"))

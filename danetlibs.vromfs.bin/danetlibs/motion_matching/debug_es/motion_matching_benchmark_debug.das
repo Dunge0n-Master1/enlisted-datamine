@@ -2,7 +2,6 @@ options no_aot
 require ecs
 require math.base
 require DagorConsole
-require EnlistedWalkerai
 require BehNodes
 require DagorDataBlock
 require DagorRandom
@@ -11,6 +10,7 @@ require DagorDebug3D
 require DagorTime
 require daProfiler
 require EnlistedCamera
+require MotionMatching
 
 [console_cmd(name="motion_matching.enable_on_base_soldier")]
 def enable_optinal_motion_matching()
@@ -35,11 +35,13 @@ def test_target_appear(event : Event; var test_target, test_target_center, test_
   test_target_velocity = float3(0, 0, 2)
 
 [es(on_appear, REQUIRE=animationTestPair)]
-def test_pair_appear(event : Event; var first_tester, second_tester : EntityId&; transform : float3x4)
+def test_pair_appear(event : Event; var tester_list : EidList; transform : float3x4)
   let right = transform[0]
 
-  first_tester = spawn_dev_soldier(transform[3] + right, "walk_soldier+dev_soldier_tag+animation_tester")
-  second_tester = spawn_dev_soldier(transform[3] - right, "walk_soldier+dev_soldier_tag+animation_tester")
+  tester_list |> push(spawn_dev_soldier(transform[3] - right, "walk_soldier+dev_soldier_tag+motion_matching_anim_tree_tester"))
+  tester_list |> push(spawn_dev_soldier(transform[3] + right, "walk_soldier+dev_soldier_tag+motion_matching_tester"))
+  tester_list |> push(spawn_dev_soldier(transform[3] + right, "walk_soldier+dev_soldier_tag+motion_matching_inertial_blend_tester"))
+
   enable_free_camera()
 
 def clamp_point_in_circle(center, point : float3; radius : float)
@@ -57,27 +59,39 @@ def tester_target_update(info : ecs::UpdateStageInfoAct;
                          test_target : float3)
   animation_tester__moveTarget = test_target
 
+
+[es(no_order, REQUIRE=motion_matching__animTreeTester)]
+def anim_tree_tester_update(info : ecs::UpdateStageInfoAct; var motion_matching__enabled : bool&)
+  motion_matching__enabled = false
+
+[es(no_order, REQUIRE=motion_matching__MMTester)]
+def mm_tester_update(info : ecs::UpdateStageInfoAct; var motion_matching__controller : MotionMatchingController)
+  motion_matching__controller.useInertialBlending = false
+
+[es(no_order, REQUIRE=motion_matching__inertialBlendTester)]
+def inertial_blend_tester_update(info : ecs::UpdateStageInfoAct; var motion_matching__controller : MotionMatchingController)
+  motion_matching__controller.useInertialBlending = true
+
 [es(no_order, REQUIRE=animationTestPair)]
 def test_pair_update(info : ecs::UpdateStageInfoAct;
                      var transform : float3x4&;
-                     first_tester, second_tester : EntityId)
+                     tester_list : EidList)
 
-  var firstPos = float3(0)
-  var secondPos = float3(0)
-  query(first_tester) <| $ [es] (transform : float3x4; var motion_matching__enabled : bool&)
-    motion_matching__enabled = false
-    firstPos = transform[3]
-  query(second_tester) <| $ [es] (transform : float3x4)
-    secondPos = transform[3]
+  var avgPos = float3(0)
+  if empty(tester_list)
+    return
 
-  let middle = (firstPos + secondPos) * 0.5f
-  transform[3] = middle
+  for eid in tester_list
+    query(eid) <| $ [es] (transform : float3x4)
+      avgPos += transform[3]
 
-  let backward = normalize(cross(secondPos - firstPos, float3(0, 1, 0)))
+  avgPos /= float(length(tester_list))
+  transform[3] = avgPos
+
   find_query() <| $ [es] (camera__active : bool; var transform : float3x4&)
     if !camera__active
       return false
-    transform[3] = middle + float3(0, 4, 0) + backward * 2.f
+    transform[3] = avgPos + float3(0, 1, 0) * 4f + float3(0, 0, -1) * 4f
     return true
 
 [es(no_order)]
@@ -104,35 +118,37 @@ def test_target_update(info : ecs::UpdateStageInfoAct;
   test_target_velocity = lerp(test_target_velocity, normalize(test_target_center - position) * maxVel, float3(t))
   test_target += test_target_velocity * info.dt
 
-  test_target.y = max(position.y, 0.f)
-  test_target = clamp_point_in_circle(test_target_center, test_target, 3.f)
+  let WALK_AREA_RADIUS = 30f
+  test_target = clamp_point_in_circle(test_target_center, test_target, WALK_AREA_RADIUS)
 
   let color = E3DCOLOR(0xFF00FF00)
   draw_debug_sphere_buffered(test_target, 0.1, color, 12, 10)
 
-[es(no_order, REQUIRE=animationTestPair)]
+[es(no_order)]
 def test_pair_text_update(info : UpdateStageInfoRenderDebug;
-                          first_tester, second_tester : EntityId)
+                          transform : float3x4;
+                          motion_matching__debugLabel : string)
 
-  query(first_tester) <| $ [es] (transform : float3x4)
-    add_debug_text_mark(transform[3], "anim tree", -1, 0f, E3DCOLOR(0xFFFFFFFF))
-  query(second_tester) <| $ [es] (transform : float3x4; motion_matching__distanceFactor : float)
-    add_debug_text_mark(transform[3], "motion matching {motion_matching__distanceFactor}", -1, 0f, E3DCOLOR(0xFFFFFFFF))
+  if !empty(motion_matching__debugLabel)
+    let pos = transform[3] - float3(0, 1, 0)
+    add_debug_text_mark(pos, motion_matching__debugLabel, -1, 0f, E3DCOLOR(0xFFFFFFFF))
+
 
 
 [es(no_order, REQUIRE=animationTestPair)]
 def test_pair_beh_tree_controll(info : ecs::UpdateStageInfoAct;
                                 transform : float3x4;
                                 test_target : float3;
-                                first_tester, second_tester : EntityId)
+                                tester_list : EidList)
 
   let right = transform[0]
-  let firstTarget =  test_target + right
-  let secondTarget = test_target - right
-  query(first_tester) <| $ [es] (var animation_tester__moveTarget : float3&)
-    animation_tester__moveTarget = firstTarget
-  query(second_tester) <| $ [es] (var animation_tester__moveTarget : float3&)
-    animation_tester__moveTarget = secondTarget
+  let distanceBetweenTester = 1.5f
+  let n = length(tester_list)
+  for eid, i in tester_list, range(n)
+    query(eid) <| $ [es] (var animation_tester__moveTarget : float3&)
+      let offset = (float(i) - float(n - 1) * 0.5f) * distanceBetweenTester
+      animation_tester__moveTarget = test_target + right * offset
+
 
 
 [es(no_order)]
@@ -149,10 +165,18 @@ def tester_beh_tree_controll(info : ecs::UpdateStageInfoAct;
 def spawn_test_pair()
   clear_bots()
 
-  find_query() <| $ [es(REQUIRE=animationTestSpawnArea)] (transform : float3x4)
-    createEntity("animation_test_pair") <| $(var init : ComponentsInitializer)
-      set(init, "transform", transform)
-    return true
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if camera__active
+      let cameraPos = transform[3]
+      let dir = transform[2]
+      var dist = 500.0f
+      var norm : float3
+      traceray_normalized(cameraPos, dir, dist, norm)
+      let spawnTransform = pos_tm(cameraPos + dist * dir)
+      createEntity("animation_test_pair") <| $(var init : ComponentsInitializer)
+        set(init, "transform", spawnTransform)
+    return camera__active
+
 
 
 
@@ -169,7 +193,7 @@ def spawn_bots(botCount : int)
   query() <| $ [es(REQUIRE=animationTestSpawnArea)] (transform : float3x4)
     let spawnArea = sqrt(float(botCount) + 1.f) * PI * 0.5
     for _i in range(0, botCount)
-      spawn_dev_soldier(transform[3] + randXZfloat3(spawnArea), "walk_soldier+dev_soldier_tag+animation_self_tester+motion_matching_animchar_component")
+      spawn_dev_soldier(transform[3] + randXZfloat3(spawnArea), "walk_soldier+dev_soldier_tag+animation_self_tester")
     cameraTm[0] = float3(1, 0, 0)
     cameraTm[1] = float3(0, 1, 0)
     cameraTm[2] = float3(0, 0, 1)

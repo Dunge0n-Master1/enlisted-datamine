@@ -5,9 +5,6 @@ require DagorMath
 require danetlibs/frame_graph_renderer/render/node_macro
 require ecs
 
-let
-  downsampled_far_depth_texVarId = get_shader_variable_id("downsampled_far_depth_tex", false)
-
 struct Trajectory
   start, vel : float3
   time, gravity, wideStart, wideEnd, colorGamma : float
@@ -20,12 +17,11 @@ def render_grenade_trajectory(t : Trajectory)
                      trajectory_center : ShaderVar;
                      trajectory_border : ShaderVar;
                      trajectory_total_thickness_gamma : ShaderVar)
-    DagorShaders::set_color4(trajectory_start_gravity.varId, Color4(float4(t.start, t.gravity)))
-    DagorShaders::set_color4(trajectory_vel_time.varId, Color4(float4(t.vel, t.time)))
+    DagorShaders::set_color4(trajectory_start_gravity.varId, t.start, t.gravity)
+    DagorShaders::set_color4(trajectory_vel_time.varId, t.vel, t.time)
     DagorShaders::set_color4(trajectory_center.varId, t.center)
     DagorShaders::set_color4(trajectory_border.varId, t.border)
-    DagorShaders::set_color4(trajectory_total_thickness_gamma.varId,
-                            Color4(float4(float(numSegments), t.wideStart, t.wideEnd, t.colorGamma)))
+    DagorShaders::set_color4(trajectory_total_thickness_gamma.varId, float(numSegments), t.wideStart, t.wideEnd, t.colorGamma)
   d3d_draw(PRIM_TRISTRIP, 0, 2 * numSegments)
 
 def render_grenade_trajectories()
@@ -62,18 +58,35 @@ def render_grenade_trajectories()
                                 center=centerColor,
                                 border=borderColor]])
 
+def is_forward_render()
+  return find_query() <| $ [es] (render_settings__forwardRendering : bool)
+    return render_settings__forwardRendering
+
 [frame_graph_node]
 class GrenadeTrajectoryNode : FrameGraphNode
   globalFrameBlockId = getBlockId("global_frame")
 
+  def override onDeviceReset() : void { pass; }
+
   def override declareResources(registrar : ResourceRegistrar)
-    registrar |> addPreviousNode(string_view("transparent_scene_late_node"))
-    registrar |> addFollowNode(string_view("after_world_render_node"))
+    if is_forward_render()
+      registrar |> modifyResource(string_view("target_after_transparent_scene_late"))
+      registrar |> bindResourceToShaderVar(string_view("depth_gbuf"),
+                                           string_view("depth_for_transparent_effects"),
+                                           ResourceUsageStage POST_RASTER,
+                                           false)
+    else
+      registrar |> addPreviousNode(string_view("transparent_scene_late_node"))
+      registrar |> addFollowNode(string_view("after_world_render_node"))
+      registrar |> bindResourceToShaderVar(string_view("downsampled_far_depth_tex"),
+                                           string_view("far_downsampled_depth"),
+                                           ResourceUsageStage POST_RASTER,
+                                           false)
 
-    registrar |> requestInputResource(string_view("far_downsampled_depth"))
-
-  def override execute(accessor : ResourceAccessor)
-    let farDownsampledDepth = accessor |> getTexture(string_view("far_downsampled_depth"))
-    set_texture(downsampled_far_depth_texVarId, farDownsampledDepth.getTexId)
+  [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
+    d3d_set_depth(null, false)
+    ecs::query() <| $ [es] (render_settings__forwardRendering : bool)
+      if render_settings__forwardRendering
+        DagorShaders::setBlock(-1, LAYER_FRAME)
 
     render_grenade_trajectories()

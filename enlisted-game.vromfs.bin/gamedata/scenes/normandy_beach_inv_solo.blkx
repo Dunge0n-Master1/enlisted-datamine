@@ -1664,7 +1664,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -2813,9 +2813,9 @@ entity{
   mission_name:t="normandy_beach_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_beach_inv_01.jpg"
-    item:t="ui/normandy_beach_inv_02.jpg"
-    item:t="ui/normandy_beach_inv_03.jpg"
+    item:t="ui/normandy_beach_inv_01.avif"
+    item:t="ui/normandy_beach_inv_02.avif"
+    item:t="ui/normandy_beach_inv_03.avif"
   }
 }
 
@@ -3459,7 +3459,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.968321, 0.0, 0.249712] [0.0, 1.0, 0.0] [-0.249712, 0.0, 0.968321] [-12.5567, 25.8454, 36.1054]]
+  transform:m=[[0.752604, 0.0, 0.658474] [0.0, 1.0, -0.0] [-0.658474, 0.0, 0.752604] [-11.247, 25.8454, 32.3404]]
   groupName:t="sector_1_c"
   respawnBaseGroup:i=1
   active:b=no

@@ -18,7 +18,7 @@ def update_offender_mark(var offender_marks : Array; offender : EntityId; showTi
       break
 
   query(offender) <| $ [es] (transform : float3x4)
-    using <| $(var obj : Object#)
+    using() <| $(var obj : Object)
       obj |> set("offender", offender)
       obj |> set("offenderPos", transform[3])
       obj |> set("showTimeEnd", showTimeEnd)

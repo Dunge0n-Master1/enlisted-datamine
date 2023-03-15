@@ -1,9 +1,9 @@
 tags:t="idle"
 
 clips{
+  default_animation_mask:t="no_hands"
 
   idle{
-    animationMask:t="no_hands"
     tags:t="idle"
     angular_velocity:r=0.0
   }

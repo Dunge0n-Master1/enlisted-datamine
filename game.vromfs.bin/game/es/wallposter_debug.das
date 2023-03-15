@@ -9,7 +9,7 @@ require danetlibs.console_commands.main.console_common
 [net_console_cmd(name="wallposter.add", hint="Add a wallposter with given template name to a player")]
 def add_wallposter_to_player_cmd(wallposter_template : string; [[net_player]] player_eid : EntityId)
   query(player_eid) <| $ [es] (var wallPosters__maxCount : int&; var wallPosters : Array&)
-    push_to_array(wallPosters) <| $(var obj : Object#)
+    push_to_array(wallPosters) <| $(var obj : Object)
       obj |> set("template", wallposter_template)
     wallPosters__maxCount += 1
 

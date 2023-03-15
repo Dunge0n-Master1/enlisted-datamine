@@ -18,6 +18,7 @@ let { perksStatsCfg, classesConfig, fallBackImage } = require("%enlist/meta/perk
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
+let { perksData, getPerkPointsInfo } = require("%enlist/soldiers/model/soldierPerks.nut")
 
 const MIN_ROLL_PERKS = 10
 const NEXT_ROLL_PERKS = 5
@@ -345,35 +346,49 @@ let perkPointsInfoTooltip = {
   ]
 }
 
-let mkPerksPointsBlock = @(perkPointsInfoWatch, prevPerkPointsData = {}) function() {
-  let res = { watch = perkPointsInfoWatch }
-  let perkPointsInfo = perkPointsInfoWatch.value
-  if (perkPointsInfo == null)
-    return res
 
-  let children = []
-  foreach (pPointId in perksPoints.pPointsList) {
-    let pointsAmount = perkPointsInfo.total?[pPointId] ?? 0
-    if (pointsAmount <= 0)
-      continue
-    let pPointCfg = perksPoints.pPointsBaseParams?[pPointId]
-    if (pPointCfg == null)
-      continue
+let function mkPerksPointsBlock(soldierGuid) {
+  if (soldierGuid == null)
+    return null
 
-    let usedValue = perkPointsInfo.used?[pPointId] ?? 0
-    let changed = pointsAmount - (prevPerkPointsData?[pPointId] ?? pointsAmount)
-    children.append(usedPerkPoints(pPointCfg, pPointId, usedValue, pointsAmount, changed))
-  }
-
-  return res.__update({
-    behavior = Behaviors.Button
-    size = SIZE_TO_CONTENT
-    flow = FLOW_HORIZONTAL
-    gap = bigPadding
-    onHover = @(on) setTooltip(on ? tooltipBox(perkPointsInfoTooltip) : null)
-    skipDirPadNav = true
-    children = children
+  let perkPointsInfoWatch = Computed(function() {
+    let perks = perksData.value?[soldierGuid]
+    return perks == null ? null : getPerkPointsInfo(perksList.value, perks)
   })
+
+  local cachedPerks = clone perkPointsInfoWatch.value?.total ?? {}
+  return function() {
+    let res = { watch = perkPointsInfoWatch }
+    let perkPointsInfo = perkPointsInfoWatch.value
+    if (perkPointsInfo == null)
+      return res
+
+    let children = []
+    foreach (pPointId in perksPoints.pPointsList) {
+      let pointsAmount = perkPointsInfo.total?[pPointId] ?? 0
+      if (pointsAmount <= 0)
+        continue
+      let pPointCfg = perksPoints.pPointsBaseParams?[pPointId]
+      if (pPointCfg == null)
+        continue
+
+      let usedValue = perkPointsInfo.used?[pPointId] ?? 0
+      let changed = pointsAmount - (cachedPerks?[pPointId] ?? pointsAmount)
+      if (changed != 0)
+        cachedPerks[pPointId] <- perkPointsInfo.total[pPointId]
+      children.append(usedPerkPoints(pPointCfg, pPointId, usedValue, pointsAmount, changed))
+    }
+
+    return res.__update({
+      behavior = Behaviors.Button
+      size = SIZE_TO_CONTENT
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      onHover = @(on) setTooltip(on ? tooltipBox(perkPointsInfoTooltip) : null)
+      skipDirPadNav = true
+      children = children
+    })
+  }
 }
 
 return {

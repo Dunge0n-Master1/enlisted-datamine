@@ -5,6 +5,7 @@ let json = require("json")
 let io = require("io")
 let { decode } = require("jwt")
 let eventbus = require("eventbus")
+let { mkCmdProfileJwtData } = require("%enlSqGlob/sqevents.nut")
 let { playerSelectedSquads, allAvailableArmies, curArmy } = require("%enlist/soldiers/model/state.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { isEventRoom } = require("%enlist/mpRoom/enlRoomState.nut")
@@ -76,7 +77,7 @@ let function splitStringBySize(str, maxSize) {
 const TRIES_TO_REQUEST_PROFILE = 1
 
 let function send(playerEid, jwt, data) {
-  ecs.client_send_event(playerEid, ecs.event.CmdProfileJwtData({ jwt = splitStringBySize(jwt, 4096) }))
+  ecs.client_send_event(playerEid, mkCmdProfileJwtData({ jwt = splitStringBySize(jwt, 4096) }))
   eventbus.send("updateArmiesData", data)
 }
 
@@ -157,7 +158,11 @@ let function debugApplyBoosterInBattle() {
 console_register_command(@(armyId) requestProfileDataJwt([armyId], @(_jwt, data)
   log.debugTableData(data, { recursionLevel = 7, printFn = debug }) ?? log("Done")),
   "profileData.debugArmyData")
-console_register_command(@(pretty) saveToFile(null/*teamArmy*/, pretty), "profileData.profileToJson", "[pretty] If set to true, then you will get a beautiful json output")
+
+console_register_command(@(pretty) saveToFile(null/*teamArmy*/, !!pretty),
+  "profileData.profileToJson",
+  "[pretty] If set to true, then you will get a beautiful json output")
+
 console_register_command(debugApplyBoosterInBattle, "profileData.debugApplyBoosterInBattle")
 
 return {

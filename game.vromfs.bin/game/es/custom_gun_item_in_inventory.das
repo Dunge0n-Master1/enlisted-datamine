@@ -5,6 +5,7 @@ require ecs.common
 require EnlistedHuman
 require HumanPhys
 require common_shooter.events_common_shooter
+require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
 
 [es(tag=server, on_appear, on_event=CmdReinitWeapons, after=(human_weap_created_server_es, human_weap_reinit_guns_es), track=itemContainer)]
@@ -73,7 +74,7 @@ def is_anim_progress_valid_to_change_weapon(human_net_phys : HumanActor)
   return false
 
 [es(after=next_weapon_item_request_es)]
-def device_animation_equip_special(info : UpdateStageInfoAct;
+def device_animation_equip_special(info : ParallelUpdateFrameDelayed;
                                    eid : EntityId;
                                    action__running : bool;
                                    human_net_phys : HumanActor;
@@ -91,7 +92,7 @@ def device_animation_equip_special(info : UpdateStageInfoAct;
     setOptional(nextItemGunEid, "animchar_render__enabled", true)
 
 [es(after=next_weapon_item_request_es)]
-def device_update_equip_special(info : UpdateStageInfoAct;
+def device_update_equip_special(info : ParallelUpdateFrameDelayed;
                                 action__running : bool;
                                 human_net_phys : HumanActor;
                                 currentInventoryGunIdx : int;

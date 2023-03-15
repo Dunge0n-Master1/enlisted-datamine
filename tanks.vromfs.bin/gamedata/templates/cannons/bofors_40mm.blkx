@@ -2,7 +2,7 @@ bofors_40mm_quadruple_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="bofors_40mm_quadruple_char"
   collres__res:t="bofors_40mm_quadruple_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/bofors_40mm_quadruple.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/bofors_40mm_quadruple.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__animVars:shared:array"{
@@ -107,7 +107,7 @@ bofors_40mm_twin_go{
   _extends:t="base_ai_gunner_turret"
   animchar__res:t="bofors_40mm_twin_char"
   collres__res:t="bofors_40mm_twin_collision"
-  phys_obj_net_phys__blk:t="content/e_ww2_common/gamedata/units/cannons/bofors_40mm_twin.blk"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/bofors_40mm_twin.blk"
   killLogName:t="aircraft_carrier/defence_turret"
 
   "turret_control__animVars:shared:array"{

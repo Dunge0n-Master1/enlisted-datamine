@@ -135,6 +135,9 @@ building_tool{
   "itemInWeaponSlot:tag"{
   }
 
+  "disallowUseInHoldGunMode:tag"{
+  }
+
   "previewEid:eid"{
   }
 }
@@ -153,19 +156,19 @@ building_tool_gun{
   fortification__rayMatName:t="engineerRay"
   minBuildingRadius:r=1.5
   animchar__res:t="hammer_char"
-  gun__blk:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"
   item__template:t="building_tools_item"
   animchar_render__enabled:b=yes
-  item__proto:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"
   item__id:i=0
   item__weapTemplate:t="building_tool_gun"
   item__iconRoll:r=43.0
-  item__iconYaw:r=90.0
+  item__iconYaw:r=0.0
   item__iconPitch:r=83.0
   item__name:t="items/hammer"
   item__weapType:t="building_tool"
   item__weight:r=0.5
-  melee_weapon__blk:t="content/e_ww2_common/gamedata/weapons/building_tool_gun.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"
   gun__locName:t="Hammer"
   gun__statName:t="melee"
   gun__reloadable:b=no
@@ -609,6 +612,20 @@ ussr_berlin_building_tool_award_item{
   item__userstats__pickupName:t="pickup_building_tool"
 }
 
+jp_building_tool_award_gun{
+  _extends:t="jp_building_tool_gun"
+  animchar__res:t="engineer_hammer_char"
+  item__weapTemplate:t="jp_building_tool_award_gun"
+  item__template:t="jp_building_tool_award_item"
+}
+
+jp_building_tool_award_item{
+  _extends:t="item_melee"
+  _extends:t="jp_building_tool_award_gun"
+  collres__res:t="construction_hammer_collision"
+  item__userstats__pickupName:t="pickup_building_tool"
+}
+
 artillery_radio_base{
   _extends:t="device_animation_state"
   _extends:t="ecs_no_debug"
@@ -640,11 +657,34 @@ feldfu_b_radio{
   item__iconYaw:r=130.0
   item__iconScale:r=2.4
   item__iconOffset:p2=0.0, 0.6
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/radio/feldfu_b_radio.blk"
   item__template:t="feldfu_b_radio_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/feldfu_b_radio.blk"
   item__weapTemplate:t="feldfu_b_radio_gun"
   item__name:t="items/feldfu_b_radio_communication_station"
+}
+
+gun_anim{
+  _tags:t="render"
+  gun_anim__boltActionVarId:i=-1
+  gun_anim__reloadVarId:i=-1
+  gun_anim__singleReloadVarId:i=-1
+  gun_anim__reloadStyleVarId:i=-1
+  gun_anim__singleReloadStateVarId:i=-1
+  gun_anim__haveProjectileInChamberVarId:i=-1
+  gun_anim__curNumAmmoVarId:i=-1
+  gun_anim__haveOpticsVarId:i=-1
+  gun_anim__isSecondMagVarId:i=-1
+  gun_anim__weapModStateVarId:i=-1
+
+  "gun_anim__singleReloadStates:list<i>"{
+  }
+
+  "gun_anim__reloadStyles:list<i>"{
+  }
+
+  "gun_anim__weapModStates:list<i>"{
+  }
 }
 
 feldfu_b_radio_gun{
@@ -690,10 +730,6 @@ feldfu_b_radio_gun{
   anim_phys{
   }
 
-  gun_anim{
-    _tags:t="render"
-  }
-
   "net__notInInitialScope:tag"{
   }
 
@@ -713,9 +749,9 @@ ussr_p13_radio{
   item__iconYaw:r=145.0
   item__iconScale:r=2.0
   item__iconOffset:p2=0.0, 0.47
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/radio/ussr_p13_radio.blk"
   item__template:t="ussr_p13_radio_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/ussr_p13_radio.blk"
   item__weapTemplate:t="ussr_p13_radio_gun"
   item__name:t="items/ussr_p13_radio_communication_station"
 }
@@ -727,6 +763,7 @@ ussr_p13_radio_gun{
   _extends:t="disable_update"
   _extends:t="replicating"
   _extends:t="gun_anim_vars"
+  _extends:t="gun_anim"
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
@@ -761,10 +798,6 @@ ussr_p13_radio_gun{
   }
 
   anim_phys{
-  }
-
-  gun_anim{
-    _tags:t="render"
   }
 
   "net__notInInitialScope:tag"{
@@ -786,9 +819,9 @@ scr_300{
   item__iconYaw:r=145.0
   item__iconScale:r=2.7
   item__iconOffset:p2=0.0, 0.66
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/radio/scr_300.blk"
   item__template:t="scr_300_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/scr_300.blk"
   item__weapTemplate:t="scr_300_gun"
   item__name:t="items/scr_300_communication_station"
 }
@@ -800,6 +833,7 @@ scr_300_gun{
   _extends:t="disable_update"
   _extends:t="replicating"
   _extends:t="gun_anim_vars"
+  _extends:t="gun_anim"
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
@@ -834,10 +868,6 @@ scr_300_gun{
   }
 
   anim_phys{
-  }
-
-  gun_anim{
-    _tags:t="render"
   }
 
   "net__notInInitialScope:tag"{
@@ -859,9 +889,9 @@ type_94_6_radio{
   item__iconYaw:r=145.0
   item__iconScale:r=1.0
   item__iconOffset:p2=0.0, 0.66
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/radio/type_94_6_radio.blk"
   item__template:t="type_94_6_radio_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/type_94_6_radio.blk"
   item__weapTemplate:t="type_94_6_radio_gun"
   item__name:t="items/type_94_6_radio"
 }
@@ -873,6 +903,7 @@ type_94_6_radio_gun{
   _extends:t="disable_update"
   _extends:t="replicating"
   _extends:t="gun_anim_vars"
+  _extends:t="gun_anim"
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
@@ -907,10 +938,6 @@ type_94_6_radio_gun{
   }
 
   anim_phys{
-  }
-
-  gun_anim{
-    _tags:t="render"
   }
 
   "net__notInInitialScope:tag"{
@@ -934,8 +961,8 @@ ita_rf1_radio{
   item__iconOffset:p2=0.0, 0.66
   item__template:t="ita_rf1_radio_gun_item"
   item__weapTemplate:t="ita_rf1_radio_gun"
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ita_rf1_radio.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/radio/ita_rf1_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/ita_rf1_radio.blk"
   item__name:t="items/scr_300_communication_station"
 }
 
@@ -946,6 +973,7 @@ ita_rf1_radio_gun{
   _extends:t="disable_update"
   _extends:t="replicating"
   _extends:t="gun_anim_vars"
+  _extends:t="gun_anim"
   gun__propsId:i=-1
   _replicated:t="gun__propsId"
   _replicated:t="gun__owner"
@@ -980,10 +1008,6 @@ ita_rf1_radio_gun{
   }
 
   anim_phys{
-  }
-
-  gun_anim{
-    _tags:t="render"
   }
 
   "net__notInInitialScope:tag"{
@@ -1008,7 +1032,7 @@ feldfu_b_radio_gun_item{
   _extends:t="item_gun"
   _extends:t="feldfu_b_radio"
   item__template:t="feldfu_b_radio_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/feldfu_b_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/feldfu_b_radio.blk"
   collres__res:t="feldfu_b_radio_collision"
 }
 
@@ -1016,7 +1040,7 @@ ussr_p13_radio_gun_item{
   _extends:t="item_gun"
   _extends:t="ussr_p13_radio"
   item__template:t="ussr_p13_radio_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/ussr_p13_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/ussr_p13_radio.blk"
   collres__res:t="ussr_p13_radio_collision"
 }
 
@@ -1024,14 +1048,14 @@ scr_300_gun_item{
   _extends:t="item_gun"
   _extends:t="scr_300"
   item__template:t="scr_300_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/scr_300.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/scr_300.blk"
   collres__res:t="scr_300_collision"
 }
 
 type_94_6_radio_gun_item{
   _extends:t="item_gun"
   _extends:t="type_94_6_radio"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/radio/type_94_6_radio.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/radio/type_94_6_radio.blk"
   collres__res:t="type_94_6_radio_collision"
 }
 
@@ -1039,17 +1063,16 @@ shovel{
   _extends:t="melee_weap_slots"
   _extends:t="base_dig_tool"
   animchar__res:t="ger_entrenchment_tool_char"
-  gun__blk:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  gun__blk:t="content/enlisted/gamedata/weapons/shovel.blk"
   item__template:t="shovel_item"
-  item__proto:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/shovel.blk"
   item__locDetails:t="Dmg: 1hp"
   item__id:i=0
   item__weapTemplate:t="shovel_weapon"
   item__name:t="items/shovel"
   item__weapType:t="melee"
   item__weight:r=0.7
-  item__iconYaw:r=90.0
-  melee_weapon__blk:t="content/enlisted/gamedata/weapons_enlisted/shovel.blk"
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/shovel.blk"
   gun__statName:t="melee"
   gun__reloadable:b=no
   melee_weapon__attackTime:r=1.2

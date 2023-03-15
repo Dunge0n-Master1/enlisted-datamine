@@ -23,12 +23,13 @@ let {
 
 let {isInBattleState} = require("%enlSqGlob/inBattleState.nut")
 let {isLoggedIn} = require("%enlSqGlob/login_state.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
-let isGetVersionInProgress = mkWatched(persist, "isGetVersionInProgress", false)
+let isGetVersionInProgress = nestWatched("isGetVersionInProgress", false)
 
-let remoteVromsVersion = mkWatched(persist, "remoteVromsVersion")
-let remoteVromsVersionNumber = mkWatched(persist, "remoteVromsVersionNumber")
-let downloadedVersion = mkWatched(persist, "downloadedVersion", Version(get_updated_game_version()).tostring())
+let remoteVromsVersion = nestWatched("remoteVromsVersion")
+let remoteVromsVersionNumber = nestWatched("remoteVromsVersionNumber")
+let downloadedVersion = nestWatched("downloadedVersion", Version(get_updated_game_version()).tostring())
 
 let eventbus = require("eventbus")
 

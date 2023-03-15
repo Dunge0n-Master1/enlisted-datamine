@@ -10,7 +10,7 @@ let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 let { titleTxtColor, maxContentWidth } = require("%enlSqGlob/ui/viewConst.nut")
-let { txt, autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
+let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
@@ -56,13 +56,13 @@ let selAnimOffset = hdpx(9)
 let infoMaxWidth = hdpx(500)
 
 let fbImageByCampaign = {
-  berlin = "ui/loading_berlin_26.jpg"
-  moscow = "ui/volokolamsk_village_01.jpg"
-  normandy = "ui/launcher_normandy_bg_2.jpg"
+  berlin = "ui/loading_berlin_26.avif"
+  moscow = "ui/volokolamsk_village_01.avif"
+  normandy = "ui/launcher_normandy_bg_2.avif"
 }
 
 let defTutorialParams = Computed(@() {
-  image = "ui/game_mode_tutorial_2.jpg"
+  image = "ui/game_mode_tutorial_2.avif"
   id = "tutorials"
   title = loc("tutorials")
   description = loc("tutorials/desc")
@@ -74,9 +74,9 @@ let defTutorialParams = Computed(@() {
 
 let hoveredGameMode = Watched(null)
 let isOpened = mkWatched(persist, "isOpened", false)
-let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value] ?? "ui/volokolamsk_city_01.jpg")
+let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value] ?? "ui/volokolamsk_city_01.avif")
 
-let defCustomGameImage = "ui/game_mode_moscow_solo.jpg"
+let defCustomGameImage = "ui/game_mode_moscow_solo.avif"
 
 let close = function(){
   if (isTutorialsWndOpened.value)
@@ -163,40 +163,28 @@ let nameBlockParams = {
   flow = FLOW_VERTICAL
 }
 
-let function nameBlock(name, width, icon, color, lockLevel = 0) {
-  local nameComp = txt({ text = name, color }.__update(body_txt))
-  local flow = null
-
-  if (calc_str_box(nameComp)[0] > (width - 2 * padding - (icon?.size[0] ?? 0))) {
-    flow = FLOW_HORIZONTAL
-    nameComp = autoscrollText({
-      text = name
-      textParams = { color }.__update(body_txt)
-      params = { halign = ALIGN_CENTER }
-    })
-  }
-
-  return {
-    rendObj = ROBJ_SOLID
-    size = nameBlockSize
-    valign = ALIGN_CENTER
-    children = [
-      {
-        flow
-        size = [flex(), SIZE_TO_CONTENT]
-        children = [
-          nameComp,
-          {
-            padding = [0, 0, 0, padding]
-            hplace = ALIGN_RIGHT
-            children = icon
-          }
-        ]
-      }
-      lockLevel > 0 ? mkLevelLock(lockLevel) : null
-    ]
-  }.__update(nameBlockParams)
-}
+let nameBlock = @(name, icon, color, lockLevel = 0){
+  children = [
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      children = [
+        {
+          rendObj = ROBJ_TEXTAREA
+          size = [flex(), SIZE_TO_CONTENT]
+          behavior = Behaviors.TextArea
+          text = name
+          color
+        }.__update(body_txt)
+        {
+          hplace = ALIGN_RIGHT
+          vplace = ALIGN_CENTER
+          children = icon
+        }
+      ]
+    }
+    lockLevel > 0 ? mkLevelLock(lockLevel) : null
+  ]
+}.__update(nameBlockParams)
 
 let modeFrameParams = {
   rendObj = ROBJ_BOX
@@ -207,9 +195,12 @@ let modeFrameParams = {
   transform = {}
 }
 
+let crossPlayIcon = crossplayIcon({iconSize = hdpx(26), iconColor = titleTxtColor})
+
 let function mkCustomGameButton(modeCfg, hasSeen, animations) {
-  let { image, title, id, onClick, isAvailable } = modeCfg
+  let { image, title, id, onClick, isAvailable, needShowCrossplayIcon } = modeCfg
   return watchElemState(@(sf) {
+    watch = [crossnetworkPlay]
     size = cardSize
     xmbNode = XmbNode()
     borderColor = sf & S_HOVER ? hoverColor : Color(80,80,80,80)
@@ -222,18 +213,15 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
     onClick
     children = [
       mkImage(image, defCustomGameImage, isAvailable, sf)
-      {
-        size = nameBlockSize
-        padding
-        valign = ALIGN_CENTER
-        children = {
-          rendObj = ROBJ_TEXTAREA
-          size = [flex(), SIZE_TO_CONTENT]
-          behavior = Behaviors.TextArea
-          text = utf8ToUpper(title)
-          color = titleTxtColor
-        }.__update(body_txt)
-      }.__update(nameBlockParams)
+      nameBlock(
+        utf8ToUpper(title),
+        needShowCrossnetworkPlayIcon && needShowCrossplayIcon
+          && crossnetworkPlay.value != CrossplayState.OFF
+            ? crossPlayIcon
+            : null,
+        titleTxtColor
+      )
+
       hasSeen ? null
         : {
             hplace = ALIGN_RIGHT
@@ -271,9 +259,6 @@ let mkTutorialsButton = @(unseenSign) watchElemState(function(sf) {
     children = [
       mkImage(image, defaultFbImage.value, isAvailable, sf)
       {
-        size = nameBlockSize
-        padding
-        valign = ALIGN_CENTER
         children = {
           rendObj = ROBJ_TEXTAREA
           behavior = Behaviors.TextArea
@@ -414,11 +399,10 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           isAvailable && !isLocked && (isLocal || hasValidBalance.value), sf)
         nameBlock(
           gameMode.title,
-          cardSize[0],
           needShowCrossnetworkPlayIcon
             && needShowCrossplayIcon
             && crossnetworkPlay.value != CrossplayState.OFF
-              ? crossplayIcon({iconSize = hdpx(26), iconColor = titleTxtColor})
+              ? crossPlayIcon
               : null,
           gameMode.isVersionCompatible ? titleTxtColor : Alert,
           isLocked ? lockLevel : 0
@@ -549,7 +533,7 @@ let mkInfo = @(gm) @() {
           halight = ALIGN_CENTER
           flow = FLOW_HORIZONTAL
           children = [
-            crossplayIcon({iconSize = hdpx(26)})
+            crossPlayIcon
             infoText({ text = loc("crossPlay/enabled/desc") })
           ]
         }

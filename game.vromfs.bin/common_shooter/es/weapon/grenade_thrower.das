@@ -4,8 +4,10 @@ require game.es.events
 require game.utils.animchar
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
+require common_shooter.es.human_weap_common
 require EnlistedWeapon
 require EnlistedPhys
+require EnlistedHuman
 require DaWeapons
 require DaWeaponProps
 require Gun
@@ -41,7 +43,8 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
   var gctrl = evt.gctrl
   assume gloc = evt.gloc
 
-  query(ownerEid) <| $ [es] (isInVehicle : bool = false;
+  query(ownerEid) <| $ [es] (var human_weap__quickThrowLastWeaponSlot : int&;
+                             isInVehicle : bool = false;
                              human_vehicle__isHoldingGunPassenger : bool = false;
                              human_weap__fastThrowExclusive : bool = true;
                              human_inventory__entityUseEnd : float = -1.0)
@@ -111,14 +114,18 @@ def grenade_thrower_phys_es(evt : CmdWeapPhysUpdate;
 
     // if throwProgressTime is set < 0.5, the grenade won't be thrown because the GTS_DRAW stage isn't finished
     let throwProgressTime = human_weap__fastThrowExclusive ? grenade_throw__fastThrowProgressTime : grenade_throw__throwProgressTime
-    gctrl.shoot = (grenade_thrower.state == GrenadeThrowState GTS_THROW &&
+    let isThrow = (grenade_thrower.state == GrenadeThrowState GTS_THROW &&
                   is_in_range(throwProgressTime,
                               prevThrowProgress,
                               grenade_thrower.throwProgress))
+    gctrl.shoot = isThrow
 
     let rndSeed = phys_time_to_seed(atTime)
     sendEventImmediate(eid, [[CmdGunUpdate atTime=atTime, isForReal=isForReal, seed=rndSeed, gctrl=gctrl, gloc=gloc]])
 
+    if isThrow && human_weap__quickThrowLastWeaponSlot >= 0
+      sendEvent(ownerEid, [[HumanWeapSetCurrentGun slot=uint8(human_weap__quickThrowLastWeaponSlot)]])
+      human_weap__quickThrowLastWeaponSlot = -1
 
 [es(on_appear)]
 def grenade_thrower_shoot_node_init(evt : Event;

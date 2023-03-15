@@ -11,6 +11,7 @@ require game.events_game
 require game.utils.hero
 require game.es.events
 require game.es.input.input_common
+require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.events_common_shooter
 
@@ -66,7 +67,7 @@ def rumble_concussion(evt : Event; eid : EntityId; concussion__isActive : bool; 
     sendEvent(eid, [[CmdRumble eventName=concussion__rumble]])
 
 [es(tag=input, no_order)]
-def rumble_when_effect_attached_es(info : UpdateStageInfoAct; game_effect__attachedTo : EntityId; ingame_rumble__whenEffectAttached : string)
+def rumble_when_effect_attached_es(info : ParallelUpdateFrameDelayed; game_effect__attachedTo : EntityId; ingame_rumble__whenEffectAttached : string)
   if is_gamepad_input() && has(game_effect__attachedTo, "human_input")
     sendEvent(game_effect__attachedTo, [[CmdRumble eventName=ingame_rumble__whenEffectAttached, duration=int(info.dt * 1000.0)]])
 

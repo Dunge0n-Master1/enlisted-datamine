@@ -322,7 +322,10 @@ return {
       gap = hdpx(5)
       children = [
         {children=captions, flow=FLOW_VERTICAL, gap = hdpx(3)}
-        {children=values,   flow=FLOW_VERTICAL, gap = hdpx(3)}
+        // {size = [0, 0] children=...} element here is to make only this part of the HUD to update when in a plane.
+        // plane HUD updates a lot because of the ALT\TAS meters (change every frame). Ideally this should not be a thing, but daRg
+        // can't yet deduce that we dont need to update parent elements unless they don't flow and have a const size
+        {size = [0, 0] children = {children=values,   flow=FLOW_VERTICAL, gap = hdpx(3)}}
       ]
       watch = watches
     }

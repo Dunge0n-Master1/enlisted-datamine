@@ -1,6 +1,8 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/library_logs.nut" import *
 
+let { mkEventOnSpawnError } = require("%enlSqGlob/sqevents.nut")
+
 let {TEAM_UNASSIGNED} = require("team")
 let debug = require("%enlSqGlob/library_logs.nut").with_prefix("[SPAWN]")
 let {logerr} = require("dagor.debug")
@@ -68,7 +70,7 @@ let function initPlayerRespawner(comp) {
 
 let function rejectSpawn(reason, team, playerEid, comp) {
   debug($"RejectSpawn: '{reason}' for team {team} and player {playerEid}")
-  ecs.server_send_event(playerEid, ecs.event.EventOnSpawnError({reason=reason}), [ecs.obsolete_dbg_get_comp_val(playerEid, "connid", -1)])
+  ecs.server_send_event(playerEid, mkEventOnSpawnError({reason=reason}), [ecs.obsolete_dbg_get_comp_val(playerEid, "connid", -1)])
 
   comp["respawner__enabled"] = true
   comp["respawner__respEndTime"] = 300 + get_sync_time() // TODO: see initPlayerRespawner

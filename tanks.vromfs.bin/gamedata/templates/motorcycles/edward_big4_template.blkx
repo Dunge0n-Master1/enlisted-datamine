@@ -10,12 +10,20 @@ edward_big4{
   vehicle_net_phys__blk:t="content/tanks/gamedata/templates/motorcycles/edward_big4.blk:VehiclePhys"
   canUseRespawnbaseType:t="motorcycle"
   damage_model__blk:t="content/tanks/gamedata/templates/motorcycles/edward_big4.blk"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   vehicle_seats__enumVarName:t="norton_big_4"
+  vehicle_commander_cam__attachToVehicle:b=yes
 
   _group{
     _tags:t="render"
     vehicle_anim__speedometerMinMax:p2=5.0, 85.0
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_mg_aa_v"
+    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+    animchar_camera_target__nodeIndex:i=-1
   }
 
   anim_phys{
@@ -44,6 +52,8 @@ edward_big4{
       seatAnimUpper:t="norton_big_4_gunner"
       seatAnimLower:t="norton_big_4_gunner"
       smokeScreen:b=no
+      cameraNodeName:t="bone_mg_aa_v"
+      cameraOffset:p3=-0.48, 0.2, -0.07
 
       "turretNames:array"{
         turretNames:t="turret_01"
@@ -93,6 +103,8 @@ edward_big4{
       seatAnimUpper:t="norton_big_4_passenger"
       seatAnimLower:t="norton_big_4_passenger"
       smokeScreen:b=no
+      cameraNodeName:t="char_passenger_02_pivot"
+      cameraOffset:p3=-0.0, 0.75, -0.0
     }
   }
 

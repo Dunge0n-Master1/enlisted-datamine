@@ -34,6 +34,6 @@ def collision_viewer()
       let assetPath = get_dlg_save_file("", "", "collision.blk")
       if !empty(assetPath)
 
-        using <| $(var assetBlk : DataBlock#)
+        using() <| $(var assetBlk : DataBlock)
           assetBlk |> add("name", "{asset__curCollisionPath}")
           assetBlk |> datablock_save_to_text_file(assetPath)

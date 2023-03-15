@@ -53,4 +53,4 @@ def human_inventory_input_flask_reset_sticky_toggle_on_interrupt(evt : EventInte
                                                                  human_inventory__entityToUse : EntityId;
                                                                  human_inventory_input__useFlask : int)
   if has(human_inventory__entityToUse, "flask")
-    reset_digital_action_sticky_toggle(uint16(human_inventory_input__useFlask))
+    broadcastEvent([[CmdResetDigitalActionStickyToggle action=uint16(human_inventory_input__useFlask)]])

@@ -7,6 +7,7 @@ let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut
 let { setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { settings, onlineSettingUpdated
 } = require("%enlist/options/onlineSettings.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 
 
@@ -16,7 +17,7 @@ let seenData = Computed(@() onlineSettingUpdated.value && settings.value?[SEEN_I
 
 let getTutorialType = @(orderId) getCurrencyPresentation(orderId).group
 
-let canRunTutorial = mkWatched(persist, "canRunTutorial", false)
+let canRunTutorial = nestWatched("canRunTutorial", false)
 needNewItemsWindow.subscribe(function(val) {
   if (val)
     canRunTutorial(true)

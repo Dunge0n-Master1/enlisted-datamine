@@ -1,3 +1,4 @@
+options no_global_variables = false
 module anim_graph_common shared
 
 require imgui
@@ -15,16 +16,15 @@ require imgui/imgui_node_editor_boost
 require daslib/static_let
 require daslib/safe_addr
 
+var private [[ignore_heap_usage]] context : EditorContext? // ignore heap usage because it is used c++ heap
+
+[finalize]
+def shutdown()
+  DestroyEditor(context)
+
 struct AnimgraphContext
   links : array<tuple<outIdx : int; inIdx : int>>
   params : array<tuple<paramId : int; inIdx : int>>
-
-struct EditorContextHandler
-  context : EditorContext? = null
-
-def finalize(var editor : EditorContextHandler)
-  if editor.context != null
-    DestroyEditor(editor.context)
 
 typedef
   BlendNodeRenderer = function<(var nod : IAnimBlendNode?; var graph : AnimationGraph; var state : IAnimStateHolder; var context : AnimgraphContext) : void>
@@ -499,16 +499,15 @@ def render_anim_graph2(var graph : AnimationGraph; var state : IAnimStateHolder;
   let focusRoot = imgui::Button("Focus root")
 
   static_let <|
+    var lastGraphPtr : uint64
     var forcedState = -1
-    var lastGraph : AnimationGraph?
     var resetState = false
 
-
-  unsafe
-    if lastGraph != addr(graph)
-      lastGraph = addr(graph)
-      forcedState = -1
-      resetState = false
+  let graphPtr = intptr(unsafe(addr(graph)))
+  if lastGraphPtr != graphPtr
+    lastGraphPtr = graphPtr
+    forcedState = -1
+    resetState = false
 
   imgui::Checkbox("Apply selected state", safe_addr(resetState))
   reset_state = resetState
@@ -529,7 +528,7 @@ def render_anim_graph2(var graph : AnimationGraph; var state : IAnimStateHolder;
       let stateName = graph |> anim_graph_getStateName(stateId)
       let stateIdx = graph |> anim_graph_getStateIdx(stateName)
       isSelected = forcedState == stateIdx
-      if imgui::Selectable(stateName, isSelected, ImGuiSelectableFlags SpanAllColumns)
+      if imgui::Selectable("{stateName} ({stateIdx})", isSelected, ImGuiSelectableFlags SpanAllColumns)
         forcedState = stateIdx
 
   if resetState && forcedState >= 0
@@ -611,15 +610,12 @@ def render_anim_graph2(var graph : AnimationGraph; var state : IAnimStateHolder;
   ImGuiEx_NextColumn()
 
 
-  static_let_finalize <|
-    var context : EditorContextHandler
-
-  if context.context == null
+  if context == null
     var config = Config()
     // config.SettingsFile = "Simple.json"
-    context.context = CreateEditor(safe_addr(config))
+    context = CreateEditor(safe_addr(config))
 
-  SetCurrentEditor(context.context)
+  SetCurrentEditor(context)
 
   var style & = unsafe(imgui_node_editor::GetStyle())
   style.NodeRounding = 0f
@@ -721,8 +717,8 @@ def render_anim_graph2(var graph : AnimationGraph; var state : IAnimStateHolder;
         if length(children) == 0
           var found = false
           for it in keys(allNodes)
-            allNodes |> find_if_exists(it) <| $(val : bool?)
-              if *val
+            allNodes |> get(it) <| $(val)
+              if val
                 children |> push(it)
                 found = true
             if found

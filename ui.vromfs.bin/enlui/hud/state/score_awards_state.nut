@@ -1,6 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { EventOnSquadStats } = require("%enlSqGlob/sqevents.nut")
 let awardsLog = require("%ui/hud/state/eventlog.nut").awards
 
 let isAwardExists = @(name) loc($"hud/awards/{name}", "") != ""
@@ -15,7 +16,7 @@ let getAwardsFromStats = @(stats) stats.reduce(@(res, statInfo, statName) res.ap
 
 ecs.register_es("add_player_score_awards_to_awardlog",
   {
-    [ecs.sqEvents.EventOnSquadStats] = function(evt, _eid, comp) {
+    [EventOnSquadStats] = function(evt, _eid, comp) {
       if (comp.is_local)
         getAwardsFromStats(evt.data.stats).each(@(awardData)
           awardsLog.pushEvent({awardData}))

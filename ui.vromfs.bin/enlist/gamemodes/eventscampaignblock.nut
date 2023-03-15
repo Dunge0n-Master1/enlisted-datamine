@@ -82,7 +82,7 @@ let mkCampaignImg = @(campaign, sf) {
     transitions = [ { prop = AnimProp.scale, duration = 0.4, easing = OutQuintic } ]
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
-    image = Picture($"ui/gameImage/{campaign}.jpg")
+    image = Picture($"ui/gameImage/{campaign}.avif")
   }
 }
 

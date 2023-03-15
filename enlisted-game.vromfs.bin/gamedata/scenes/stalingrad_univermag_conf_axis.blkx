@@ -2819,12 +2819,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -2832,9 +2832,9 @@ entity{
   mission_name:t="stalingrad_univermag_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_01.jpg"
-    item:t="ui/stalingrad_inv_04.jpg"
-    item:t="ui/stalingrad_inv_06.jpg"
+    item:t="ui/stalingrad_inv_01.avif"
+    item:t="ui/stalingrad_inv_04.avif"
+    item:t="ui/stalingrad_inv_06.avif"
   }
 }
 
@@ -2875,8 +2875,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -2902,7 +2902,7 @@ entity{
   capzone__capRewardPartCap:r=1.5
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capReward:r=500.0
+  capzone__capReward:r=350.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
   capzone__capTimeTeam2:r=70.0
@@ -3059,9 +3059,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-109.585, 5.47424, -17.7569]]
   active:b=no
@@ -3091,9 +3091,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam2:r=60.0
-  capzone__capTimeTeam1:r=60.0
+  capzone__capTimeTeam1:r=70.0
   capzone__decapTimeTeam2:r=30.0
-  capzone__decapTimeTeam1:r=30.0
+  capzone__decapTimeTeam1:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[-28.2155, 0.0, 28.3209] [0.0, 6.65669, 0.0] [-22.2666, 0.0, -22.1837] [31.2715, 7.8848, -90.7653]]
   active:b=no
@@ -3123,9 +3123,9 @@ entity{
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=130.0
   capzone__capTimeTeam1:r=80.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__decapTimeTeam1:r=40.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-202.461, 8.43397, -83.3394]]
   active:b=no

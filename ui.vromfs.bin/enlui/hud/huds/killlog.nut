@@ -21,7 +21,7 @@ let textElem = @(text, color = null) {
 }.__update(commonFont)
 
 let fontLogSize = calc_str_box(textElem("A"))[1]
-let killIconHeight = (fontLogSize*0.9).tointeger()
+let killIconHeight = fontLogSize.tointeger()
 
 let killIconsHeadshot = "killlog/kill_headshot.svg"
 
@@ -62,33 +62,29 @@ let mkIcon = memoize(function(image){
     children = [
       {
         rendObj = ROBJ_IMAGE
+        size = [killIconHeight, killIconHeight]
         image = image
-        size = [SIZE_TO_CONTENT, fontLogSize*1.2]
       }
     ]
   } : null
 })
 
 let function mkKillEventIcon(data) {
-  local image = null
-  if (data?.isHeadshot) {
-    image = getPicture(killIconsHeadshot)
-  } else {
-    image = getPicture(damageTypeIcons?[data?.damageType])
-  }
+  let { isHeadshot = false, damageType = 0 } = data
+  let image = getPicture(isHeadshot ? killIconsHeadshot : damageTypeIcons?[damageType])
   return mkIcon(image)
 }
 
 let killMsgAnim = [
   { prop=AnimProp.scale, from=[1,0.01], to=[1,1], duration=0.2, play=true, easing=OutCubic }
 ]
+
 let blurColor = Color(170,170,170,170)
-let function blurBack(){
-  let children = {rendObj=ROBJ_WORLD_BLUR size=flex() color = blurColor}
-  return {
-    children = children
-    size = flex()
-  }
+
+let blurBack = {
+  rendObj = ROBJ_WORLD_BLUR
+  size = flex()
+  color = blurColor
 }
 
 let function nameAndColor(entity) {//entity here is just table with description
@@ -106,7 +102,7 @@ let function nameAndColor(entity) {//entity here is just table with description
       : loc("log/teammate")
     color = (entity?.inMySquad ? MY_SQUAD_COLOR : MY_TEAM_COLOR)
   } else {
-    name = name != null && name != "" ? loc(name) : loc("log/enemy")
+    name = name != null && name != "" ? loc(name) : ""
   }
   return { name, color }
 }
@@ -145,6 +141,11 @@ let function message(data) {
     let { name, color } = nameAndColor(data.victim)
     children = data.victim.isHero
       ? textElem(loc("log/local_player_suicide"), color)
+      : data.victim.vehicle ?
+        [
+          gunInfo
+          textElem(name, color)
+        ]
       : [
           appendRank(textElem(loc("log/player_suicide", { user = name }), color), data.victim.rank)
           gunInfo

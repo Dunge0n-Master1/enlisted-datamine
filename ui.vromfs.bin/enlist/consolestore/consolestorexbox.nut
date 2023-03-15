@@ -2,26 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let logXbox = require("%enlSqGlob/library_logs.nut").with_prefix("[XBOX STORE]")
 let app = require("%xboxLib/impl/app.nut")
-let user = require("%xboxLib/impl/user.nut")
 let store = require("%xboxLib/impl/store.nut")
+let { xbox_login } = require("%enlist/xbox/login.nut")
 
 let auth = require("auth")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { check_purchases } = require("%enlist/meta/clientApi.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let { subscribe } = require("eventbus")
-
-
-let updateCb = function(result) {
-  let isSuccess = (result?.status ?? auth.YU2_OK) == auth.YU2_OK
-  logXbox($"Update purchases: is success: {isSuccess}, is logged in {userInfo.value != null}")
-  if (!isSuccess || userInfo.value == null)
-    return
-
-  logXbox("Update purchases after request")
-  check_purchases()
-}
-subscribe("xbox_update_purchases_after_app_state_changed", updateCb)
 
 
 app.register_constrain_callback(function(active) {
@@ -30,8 +17,15 @@ app.register_constrain_callback(function(active) {
     if (userInfo.value == null || isInBattleState.value)
       return
 
-    let xuid = user.get_xuid().tostring()
-    auth.login_live(xuid, "xbox_update_purchases_after_app_state_changed")
+    xbox_login(function(status, _) {
+      let isSuccess = status == auth.YU2_OK
+      logXbox($"Update purchases: is success: {isSuccess}, is logged in {userInfo.value != null}")
+      if (!isSuccess || userInfo.value == null)
+        return
+
+      logXbox("Update purchases after request")
+      check_purchases()
+    })
   }
 })
 

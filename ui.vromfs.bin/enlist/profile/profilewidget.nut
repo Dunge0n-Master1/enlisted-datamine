@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")(0.8)
+let { blinkUnseenIcon, noBlinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
   .__update({ hplace = ALIGN_RIGHT })
 let { sub_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { hasProfileCard } = require("%enlist/featureFlags.nut")
@@ -19,28 +19,29 @@ let { bigPadding, smallPadding, titleTxtColor, defTxtColor, isWide
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankIcon, rankIconSize } = require("%enlSqGlob/ui/rankPresentation.nut")
-let { playerRank } = require("%enlist/profile/rankState.nut")
+let { playerRank, hasRankUnseen, hasUnopenedRank } = require("%enlist/profile/rankState.nut")
 let {
   hasUnopenedAchievements, hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks
 } = require("%enlist/unlocks/unseenUnlocksState.nut")
 
 
 let PORTRAIT_WIDTH = hdpx(60)
-
-let unseenNoBlink = unseenSignal.__merge({ key = "blink_off", animations = null })
-let unseenBlink = unseenSignal.__merge({ key = "blink_on" })
+let unseenBlink = blinkUnseenIcon(0.8)
+let unseenNoBlink = noBlinkUnseenIcon(0.8)
 
 let hasUnseenElements = Computed(@() hasUnseenDecorators.value
   || hasUnseenMedals.value
   || hasUnseenWallposters.value
   || hasAchievementsReward.value
-  || hasUnseenWeeklyTasks.value)
+  || hasUnseenWeeklyTasks.value
+  || hasRankUnseen.value)
 
 let hasUnopenedElements = Computed(@() hasUnopenedDecorators.value
   || hasUnopenedMedals.value
   || hasUnopenedWallposters.value
   || hasUnopenedAchievements.value
-  || hasUnopenedWeeklyTasks.value)
+  || hasUnopenedWeeklyTasks.value
+  || hasUnopenedRank.value)
 
 let mkChosenPortrait = @(sf) @() {
   rendObj = ROBJ_BOX

@@ -1,5 +1,0 @@
-import:t="#content/e_modern/gamedata/gen/templates/gen_ww2_tanks.blk"
-import:t="#content/e_modern/gamedata/gen/templates/gen_ww2_tankguns_common.blk"
-import:t="tanks/gm_e_99.blk"
-import:t="tanks/rasf_object_972.blk"
-import:t="tanks/usmp_hamster.blk"

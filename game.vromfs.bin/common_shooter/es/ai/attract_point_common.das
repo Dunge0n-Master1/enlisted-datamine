@@ -59,7 +59,7 @@ def get_nearest_attract_point(cur_pos : float3; cur_poly : dtPolyRef; radius : f
   if !check_path
     return [[MaybeAttractPos pos=points[0]]]
 
-  using() <| $(var path_corridor : dtPathCorridor#)
+  using() <| $(var path_corridor : dtPathCorridor)
     path_corridor |> init_path_corridor()
     var tries = 2
     for point in points

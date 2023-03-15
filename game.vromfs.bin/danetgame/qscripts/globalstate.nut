@@ -17,7 +17,7 @@ let function readNewData(name){
 
 let function globalWatched(name, ctor=null) {
   assert(name not in registered, $"Global persistent state duplicate registration: {name}")
-  let key = $"GLOBAL_PERSIST_STATE/{name}"
+  let key = ["GLOBAL_PERSIST_STATE", name]
   local val
   if (ndbExists(key)) {
     val = ndbRead(key)
@@ -47,7 +47,7 @@ let usedKeys = {}
 
 let function nestWatched(key, def=null){
   assert(key not in usedKeys, @() $"persistent {key} already registered")
-  let ndbKey = $"PERSIST_STATE/{key}"
+  let ndbKey = ["PERSIST_STATE", key]
   local val
   if (ndbExists(ndbKey))
     val = ndbRead(ndbKey)

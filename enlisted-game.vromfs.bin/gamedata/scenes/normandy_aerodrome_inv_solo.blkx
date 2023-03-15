@@ -92,7 +92,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [52.3932, 14.4464, -433.938]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [48.9822, 14.4464, -442.551]]
   battle_area_polygon_point__forBattleAreaId:t="area1_2"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -196,7 +196,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-137.833, 10.0818, -370.507]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-136.524, 10.0818, -366.274]]
   battle_area_polygon_point__forBattleAreaId:t="area2b_2"
   battle_area_polygon_point__id:t="point5"
   battle_area_polygon_point__nextId:t="point1"
@@ -292,7 +292,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[0.926307, 0.0, -0.376768] [0.0, 1.0, 0.0] [0.376768, -0.0, 0.926307] [-100.747, 11.3714, -390.733]]
+  transform:m=[[0.926307, 0.0, -0.376768] [0.0, 1.0, 0.0] [0.376768, -0.0, 0.926307] [-94.7842, 11.3713, -380.006]]
   battle_area_polygon_point__forBattleAreaId:t="area3b_2"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point7"
@@ -300,7 +300,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[0.926307, 0.0, -0.376768] [0.0, 1.0, 0.0] [0.376768, -0.0, 0.926307] [-212.741, 11.3714, -353.001]]
+  transform:m=[[0.926307, 0.0, -0.376768] [0.0, 1.0, 0.0] [0.376768, -0.0, 0.926307] [-198.182, 11.3714, -333.785]]
   battle_area_polygon_point__forBattleAreaId:t="area3b_2"
   battle_area_polygon_point__id:t="point7"
   battle_area_polygon_point__nextId:t="point8"
@@ -340,7 +340,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-184.896, 12.5199, -676.822]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-187.467, 12.5199, -676.232]]
   battle_area_polygon_point__forBattleAreaId:t="area4_1"
   battle_area_polygon_point__id:t="point4"
   battle_area_polygon_point__nextId:t="point5"
@@ -348,7 +348,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [44.4658, 12.5199, -763.636]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [44.1613, 12.5199, -764.049]]
   battle_area_polygon_point__forBattleAreaId:t="area4_1"
   battle_area_polygon_point__id:t="point5"
   battle_area_polygon_point__nextId:t="point6"
@@ -396,7 +396,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-160.399, 12.4632, -342.203]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-164.111, 12.4632, -355.58]]
   battle_area_polygon_point__forBattleAreaId:t="area4_2"
   battle_area_polygon_point__id:t="point5"
   battle_area_polygon_point__nextId:t="point6"
@@ -468,7 +468,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-126.233, 10.7931, -367.893]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-125.498, 10.7931, -365.318]]
   battle_area_polygon_point__forBattleAreaId:t="area2_2"
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
@@ -516,7 +516,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[0.940077, 0.0, -0.340961] [0.0, 1.0, 0.0] [0.340961, -0.0, 0.940077] [-20.1652, 11.2518, -407.691]]
+  transform:m=[[0.940077, 0.0, -0.340961] [0.0, 1.0, 0.0] [0.340961, -0.0, 0.940077] [-17.1969, 11.2518, -403.746]]
   battle_area_polygon_point__forBattleAreaId:t="area3_1"
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
@@ -540,7 +540,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[0.927972, 0.0, -0.372651] [0.0, 1.0, 0.0] [0.372651, -0.0, 0.927972] [271.728, 11.2518, -517.826]]
+  transform:m=[[0.927972, 0.0, -0.372651] [0.0, 1.0, 0.0] [0.372651, -0.0, 0.927972] [271.825, 11.2518, -517.098]]
   battle_area_polygon_point__forBattleAreaId:t="area3_1"
   battle_area_polygon_point__id:t="point4"
   battle_area_polygon_point__nextId:t="point1"
@@ -855,6 +855,171 @@ entity{
 }
 
 entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.925823, 0.197534, -0.32223] [-0.186106, 0.980295, 0.0662285] [0.328963, -0.00134699, 0.944342] [172.758, 11.7756, -646.943]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.925085, 0.197312, -0.324478] [-0.184372, 0.980326, 0.0704821] [0.332001, -0.00537729, 0.943264] [186.675, 11.8245, -668.976]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.934829, 0.19524, -0.296606] [-0.187685, 0.980742, 0.0540308] [0.301443, 0.00515911, 0.95347] [114.417, 11.7748, -644.568]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.898934, 0.19736, -0.391109] [-0.182286, 0.980326, 0.0757175] [0.398358, 0.0032286, 0.917224] [101.435, 11.7765, -621.078]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.92368, 0.197205, -0.328521] [-0.186259, 0.980361, 0.0648004] [0.334849, 0.00133522, 0.942271] [-33.0182, 11.7783, -573.74]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.863806, 0.196835, -0.463784] [-0.175926, 0.980423, 0.0884371] [0.472112, 0.00519928, 0.881523] [-61.6019, 11.7707, -564.432]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.943543, 0.196687, -0.266536] [-0.188643, 0.980464, 0.0557221] [0.272289, -0.00229609, 0.962213] [82.9713, 11.7786, -633.941]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.936838, 0.197325, -0.288786] [-0.187447, 0.980331, 0.0617642] [0.295293, -0.00373096, 0.955399] [46.6374, 11.7802, -621.403]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.92224, 0.194979, -0.33385] [-0.182658, 0.980805, 0.0682394] [0.340747, -0.00195268, 0.940153] [18.8695, 11.7722, -610.313]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.936672, 0.196545, -0.289855] [-0.187575, 0.980494, 0.0587049] [0.29574, -0.000617679, 0.955268] [-50.1222, 11.7694, -586.3]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.899266, 0.197215, -0.39042] [-0.181921, 0.980357, 0.0761894] [0.397777, 0.00251106, 0.917479] [81.614, 11.7796, -613.521]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.354724, 0.196527, -0.914083] [-0.073215, 0.980496, 0.182393] [0.9321, 0.00222539, 0.362194] [19.0633, 11.7923, -578.223]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.383843, 0.19729, -0.902076] [-0.0761941, 0.980345, 0.181986] [0.920249, -0.00112134, 0.391331] [11.9733, 11.7946, -564.448]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.46859, 0.00899812, -0.88337] [0.00600276, 0.999893, 0.0133692] [0.883395, -0.0115673, 0.468486] [-150.051, 10.3766, -507.712]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.507393, -0.0505649, -0.86023] [0.0193047, 0.998693, -0.0473173] [0.861499, 0.00740195, 0.507706] [-145.923, 10.4266, -506.825]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.51805, 0.0496103, -0.85391] [-0.0690727, 0.997483, 0.0160465] [0.852557, 0.050669, 0.520173] [-142.174, 10.6164, -506.405]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.49867, -9.36053e-05, -0.866792] [-0.00139696, 0.999999, 0.000695687] [0.866791, 0.00155779, -0.49867] [-8.12004, 9.96601, -564.435]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.815714, 0.0013185, -0.578453] [-0.00149951, 0.999999, 0.0001648] [0.578453, 0.000732968, 0.815715] [-80.9659, 10.0317, -582.473]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.693423, 0.00149794, -0.720529] [0.000357107, 0.999997, 0.00242261] [0.72053, -0.0019372, 0.693421] [-84.8194, 10.0169, -584.11]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.195649, -0.0285756, 0.980258] [0.00934307, 0.999584, 0.0272742] [-0.98063, 0.00382246, 0.195835] [28.1943, 10.3432, -642.03]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[0.928237, -0.0123112, -0.371784] [0.0111364, 0.999924, -0.00530694] [0.371821, 0.000785774, 0.928304] [-15.9896, 9.92164, -600.874]]
+}
+
+entity{
+  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
+  transform:m=[[0.889543, 0.195735, -0.412796] [-0.179701, 0.980644, 0.0777494] [0.420024, 0.00501831, 0.907499] [-96.5512, 11.7735, -551.741]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.938071, -0.00726341, -0.346367] [0.00802639, 0.999968, 0.000768405] [0.34635, -0.00350089, 0.938099] [35.2543, 9.94843, -593.316]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[0.975063, -0.0350989, -0.219135] [0.0442858, 0.998328, 0.0371519] [0.217464, -0.04593, 0.974987] [-113.285, 9.96307, -511.958]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[0.0534328, -0.0571677, -0.996934] [0.0640697, 0.996499, -0.0537088] [0.996514, -0.0610035, 0.0569084] [88.8472, 10.0994, -548.307]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[-0.222101, -0.03276, -0.974473] [-0.0242458, 0.999312, -0.028069] [0.974722, 0.0173927, -0.222743] [129.614, 10.1743, -558.544]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[-0.472277, -0.0120589, -0.881368] [-0.0236714, 0.999719, -0.000993968] [0.881132, 0.0203938, -0.47243] [132.929, 10.2465, -556.419]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[-0.901299, -0.0139412, 0.432973] [-0.01082, 0.999895, 0.00967199] [-0.433063, 0.00403258, -0.901355] [246.473, 9.92206, -580.304]]
+}
+
+entity{
+  _template:t="opel_blitz_kfz_305"
+  transform:m=[[-0.861052, -0.0102807, 0.508412] [-0.00559832, 0.999927, 0.0107382] [-0.508485, 0.00639994, -0.861047] [241.783, 9.92608, -580.49]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[-0.412341, -0.00311918, -0.911024] [2.22026e-05, 0.999994, -0.00343384] [0.911029, -0.00143614, -0.412339] [-11.2638, 9.97318, -559.845]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.411724, 0.0252727, -0.910958] [0.0329761, 0.998548, 0.0426068] [0.910712, -0.0475821, 0.410293] [77.7871, 10.0387, -556.958]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.472073, -0.00108796, -0.881559] [-0.00677022, 0.999965, -0.00485952] [0.881534, 0.00826239, 0.472049] [83.2545, 9.98505, -559.262]]
+}
+
+entity{
+  _template:t="vw_kubelwagen"
+  transform:m=[[0.431626, 6.21922e-05, -0.902053] [-0.00277703, 0.999995, -0.00125984] [0.902049, 0.00304881, 0.431624] [88.201, 10.0004, -561.495]]
+}
+
+entity{
   _template:t="ri_gpu_object"
   ri_gpu_object__name:t="decal_broken_glass_a"
   ri_gpu_object__biom_indexes:p4=38.0, -1.0, -1.0, -1.0
@@ -1088,7 +1253,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -1139,9 +1304,9 @@ entity{
   mission_name:t="normandy_aerodrome_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_airfield_01.jpg"
-    item:t="ui/normandy_airfield_02.jpg"
-    item:t="ui/normandy_airfield_03.jpg"
+    item:t="ui/normandy_airfield_01.avif"
+    item:t="ui/normandy_airfield_02.avif"
+    item:t="ui/normandy_airfield_03.avif"
   }
 }
 
@@ -1853,7 +2018,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-163.533, 11.5035, -385.611]]
+  transform:m=[[0.999999, 0.0, -0.000418961] [0.0, 1.0, 0.0] [0.000418961, -0.0, 0.999999] [-161.218, 11.0779, -405.432]]
   respTime:i=150
   groupName:t="sector_3"
   team:i=2
@@ -1882,86 +2047,6 @@ entity{
 }
 
 entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.925823, 0.197534, -0.32223] [-0.186106, 0.980295, 0.0662285] [0.328963, -0.00134699, 0.944342] [172.758, 11.7756, -646.943]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.925085, 0.197312, -0.324478] [-0.184372, 0.980326, 0.0704821] [0.332001, -0.00537729, 0.943264] [186.675, 11.8245, -668.976]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.934829, 0.19524, -0.296606] [-0.187685, 0.980742, 0.0540308] [0.301443, 0.00515911, 0.95347] [114.417, 11.7748, -644.568]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.898934, 0.19736, -0.391109] [-0.182286, 0.980326, 0.0757175] [0.398358, 0.0032286, 0.917224] [101.435, 11.7765, -621.078]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.92368, 0.197205, -0.328521] [-0.186259, 0.980361, 0.0648004] [0.334849, 0.00133522, 0.942271] [-33.0182, 11.7783, -573.74]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.863806, 0.196835, -0.463784] [-0.175926, 0.980423, 0.0884371] [0.472112, 0.00519928, 0.881523] [-61.6019, 11.7707, -564.432]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.943543, 0.196687, -0.266536] [-0.188643, 0.980464, 0.0557221] [0.272289, -0.00229609, 0.962213] [82.9713, 11.7786, -633.941]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.936838, 0.197325, -0.288786] [-0.187447, 0.980331, 0.0617642] [0.295293, -0.00373096, 0.955399] [46.6374, 11.7802, -621.403]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.92224, 0.194979, -0.33385] [-0.182658, 0.980805, 0.0682394] [0.340747, -0.00195268, 0.940153] [18.8695, 11.7722, -610.313]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.936672, 0.196545, -0.289855] [-0.187575, 0.980494, 0.0587049] [0.29574, -0.000617679, 0.955268] [-50.1222, 11.7694, -586.3]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.899266, 0.197215, -0.39042] [-0.181921, 0.980357, 0.0761894] [0.397777, 0.00251106, 0.917479] [81.614, 11.7796, -613.521]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.354724, 0.196527, -0.914083] [-0.073215, 0.980496, 0.182393] [0.9321, 0.00222539, 0.362194] [19.0633, 11.7923, -578.223]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.383843, 0.19729, -0.902076] [-0.0761941, 0.980345, 0.181986] [0.920249, -0.00112134, 0.391331] [11.9733, 11.7946, -564.448]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.46859, 0.00899812, -0.88337] [0.00600276, 0.999893, 0.0133692] [0.883395, -0.0115673, 0.468486] [-150.051, 10.3766, -507.712]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.507393, -0.0505649, -0.86023] [0.0193047, 0.998693, -0.0473173] [0.861499, 0.00740195, 0.507706] [-145.923, 10.4266, -506.825]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.51805, 0.0496103, -0.85391] [-0.0690727, 0.997483, 0.0160465] [0.852557, 0.050669, 0.520173] [-142.174, 10.6164, -506.405]]
-}
-
-entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.57601, 0.0854253, -0.812968] [-0.0493864, 0.996345, 0.0697028] [-0.815949, 0.0, -0.578123] [-146.432, 10.0274, -483.653]]
   groupName:t="sector_4"
@@ -1983,21 +2068,6 @@ entity{
   groupName:t="sector_5"
   respawnBaseGroup:i=7
   active:b=no
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[-0.49867, -9.36053e-05, -0.866792] [-0.00139696, 0.999999, 0.000695687] [0.866791, 0.00155779, -0.49867] [-8.12004, 9.96601, -564.435]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.815714, 0.0013185, -0.578453] [-0.00149951, 0.999999, 0.0001648] [0.578453, 0.000732968, 0.815715] [-80.9659, 10.0317, -582.473]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.693423, 0.00149794, -0.720529] [0.000357107, 0.999997, 0.00242261] [0.72053, -0.0019372, 0.693421] [-84.8194, 10.0169, -584.11]]
 }
 
 entity{
@@ -2601,31 +2671,6 @@ entity{
 }
 
 entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.195649, -0.0285756, 0.980258] [0.00934307, 0.999584, 0.0272742] [-0.98063, 0.00382246, 0.195835] [28.1943, 10.3432, -642.03]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[0.928237, -0.0123112, -0.371784] [0.0111364, 0.999924, -0.00530694] [0.371821, 0.000785774, 0.928304] [-15.9896, 9.92164, -600.874]]
-}
-
-entity{
-  _template:t="hs_123a_1_no_bomb+vehicle_autodetect_team"
-  transform:m=[[0.889543, 0.195735, -0.412796] [-0.179701, 0.980644, 0.0777494] [0.420024, 0.00501831, 0.907499] [-96.5512, 11.7735, -551.741]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.938071, -0.00726341, -0.346367] [0.00802639, 0.999968, 0.000768405] [0.34635, -0.00350089, 0.938099] [35.2543, 9.94843, -593.316]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[0.975063, -0.0350989, -0.219135] [0.0442858, 0.998328, 0.0371519] [0.217464, -0.04593, 0.974987] [-113.285, 9.96307, -511.958]]
-}
-
-entity{
   _template:t="pzkpfw_vi_ausf_e_tiger_a_destroyed"
   transform:m=[[0.920736, -0.0041992, -0.390164] [-0.00936157, 0.999416, -0.0328484] [0.390074, 0.0338973, 0.920159] [-155.005, 11.3016, -446.889]]
 }
@@ -2647,7 +2692,7 @@ entity{
 
 entity{
   _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
-  transform:m=[[0.970327, 0.0277583, -0.240199] [-0.033486, 0.999243, -0.0197964] [0.239468, 0.0272523, 0.970522] [-178.664, 9.9339, -487.154]]
+  transform:m=[[0.99332, 0.0245184, -0.112756] [-0.027326, 0.999352, -0.0234223] [0.112108, 0.026347, 0.993347] [-180.277, 10.1679, -487.063]]
 }
 
 entity{
@@ -2661,38 +2706,8 @@ entity{
 }
 
 entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[0.0534328, -0.0571677, -0.996934] [0.0640697, 0.996499, -0.0537088] [0.996514, -0.0610035, 0.0569084] [88.8472, 10.0994, -548.307]]
-}
-
-entity{
-  _template:t="24kw_flak_generator"
-  transform:m=[[0.177307, -0.00711664, -0.98413] [0.0401051, 0.999195, 0.0] [0.983338, -0.0394686, 0.17745] [-144.998, 10.855, -471.303]]
-}
-
-entity{
   _template:t="88mm_flak_36_canon_b"
   transform:m=[[0.762977, 0.0617697, -0.643468] [-0.0806947, 0.996739, 0.0] [0.641369, 0.0519244, 0.765473] [-157.52, 10.3727, -510.426]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.222101, -0.03276, -0.974473] [-0.0242458, 0.999312, -0.028069] [0.974722, 0.0173927, -0.222743] [129.614, 10.1743, -558.544]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.472277, -0.0120589, -0.881368] [-0.0236714, 0.999719, -0.000993968] [0.881132, 0.0203938, -0.47243] [132.929, 10.2465, -556.419]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.901299, -0.0139412, 0.432973] [-0.01082, 0.999895, 0.00967199] [-0.433063, 0.00403258, -0.901355] [246.473, 9.92206, -580.304]]
-}
-
-entity{
-  _template:t="opel_blitz_kfz_305"
-  transform:m=[[-0.861052, -0.0102807, 0.508412] [-0.00559832, 0.999927, 0.0107382] [-0.508485, 0.00639994, -0.861047] [241.783, 9.92608, -580.49]]
 }
 
 entity{
@@ -2706,8 +2721,8 @@ entity{
 }
 
 entity{
-  _template:t="24kw_flak_generator"
-  transform:m=[[0.960729, 0.0177104, -0.276925] [-0.0561467, 0.989725, -0.131492] [0.27175, 0.141876, 0.951852] [-129.851, 11.7592, -460.301]]
+  _template:t="pzkpfw_v_ausf_g_panther_a_destroyed"
+  transform:m=[[0.494317, 0.0115091, 0.869206] [0.00354597, 0.999877, -0.0152559] [-0.869274, 0.0106235, 0.494216] [-162.481, 11.2258, -474.373]]
 }
 
 entity{
@@ -2993,7 +3008,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-163.533, 11.5035, -385.611]]
+  transform:m=[[0.999999, 0.0, -0.000418961] [0.0, 1.0, 0.0] [0.000418961, -0.0, 0.999999] [-160.979, 11.0779, -405.115]]
   team:i=2
   groupName:t="sector_3"
 }
@@ -3144,7 +3159,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-163.533, 11.5035, -385.611]]
+  transform:m=[[-0.0391256, 0.0, -0.999233] [0.0, 1.0, 0.0] [0.999233, 0.0, -0.0391256] [-161.233, 11.5035, -496.459]]
   resupply_zone__team:i=2
   groupName:t="sector_3"
   active:b=no
@@ -3196,24 +3211,4 @@ entity{
   resupply_zone__team:i=2
   groupName:t="sector_3_b"
   active:b=no
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[-0.412341, -0.00311918, -0.911024] [2.22026e-05, 0.999994, -0.00343384] [0.911029, -0.00143614, -0.412339] [-11.2638, 9.97318, -559.845]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.411724, 0.0252727, -0.910958] [0.0329761, 0.998548, 0.0426068] [0.910712, -0.0475821, 0.410293] [77.7871, 10.0387, -556.958]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.472073, -0.00108796, -0.881559] [-0.00677022, 0.999965, -0.00485952] [0.881534, 0.00826239, 0.472049] [83.2545, 9.98505, -559.262]]
-}
-
-entity{
-  _template:t="vw_kubelwagen"
-  transform:m=[[0.431626, 6.21922e-05, -0.902053] [-0.00277703, 0.999995, -0.00125984] [0.902049, 0.00304881, 0.431624] [88.201, 10.0004, -561.495]]
 }

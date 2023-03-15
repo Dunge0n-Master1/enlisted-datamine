@@ -137,6 +137,8 @@ def exhaust_fx_control_effects_es(evt : ParallelUpdateFrameDelayed;
 def exhaust_fx_update_effects_es(evt : ParallelUpdateFrameDelayed;
                                  vehicle_net_phys : VehiclePhysActor;
                                  animchar : AnimcharBaseComponent;
+                                 exhaust_fx__minExhaustHeightScale : float;
+                                 exhaust_fx__maxExhaustHeightScale : float;
                                  exhaust_fx__minIdleExhaustIntensity : float;
                                  var exhaustFxEmitter : ExhaustFxEmitter_SOA;
                                  var exhaust_fx__exhaustAccumulation : float&)
@@ -148,7 +150,8 @@ def exhaust_fx_update_effects_es(evt : ParallelUpdateFrameDelayed;
     query(eff.exhaust_fx_emitter__fxEid) <| $ [es] (var transform : float3x4&;
                                                     var effect__velocity : float3&;
                                                     var effect__spawnRate : float&;
-                                                    var effect__colorMult : E3DCOLOR&)
+                                                    var effect__colorMult : E3DCOLOR&;
+                                                    var effect__distance_scale : float&)
       transform = calc_effect_tm(animchar, eff.exhaust_fx_emitter__nodeId)
 
       let velocity = vehicle_net_phys.phys |> vehicle_phys_getCurrentStateVelocity()
@@ -157,6 +160,9 @@ def exhaust_fx_update_effects_es(evt : ParallelUpdateFrameDelayed;
       effect__velocity = velocity + localVelocity
 
       effect__spawnRate = saturate(intensity)
+      effect__distance_scale = cvt(vehicle_net_phys.phys.engineRPM,
+                                   vehicle_net_phys.phys.engineMinRPM, vehicle_net_phys.phys.engineMaxRPM,
+                                   exhaust_fx__minExhaustHeightScale, exhaust_fx__maxExhaustHeightScale)
 
       let mult = saturate(1.0 - exhaust_fx__exhaustAccumulation)
       let exhaustColorMult = Color4(float4(mult, mult, mult, effect__spawnRate))

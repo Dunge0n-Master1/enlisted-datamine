@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { columnGap, defTxtColor, colFull, colPart, midPadding } = require("%enlSqGlob/ui/designConst.nut")
-let { squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad, leaveSquad
+let { squadMembers, squadLen, isInvitedToSquad, enabledSquad, canInviteToSquad, leaveSquad
 } = require("%enlist/squad/squadManager.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
@@ -44,10 +44,10 @@ let leaveButton = FAButton("close", @() leaveSquad(), {
 })
 
 let squadControls = @() {
-  watch = squadMembers
+  watch = squadLen
   hplace = ALIGN_RIGHT
   flow = FLOW_HORIZONTAL
-  children = squadMembers.value.len() > 0 ? leaveButton : null
+  children = squadLen.value > 0 ? leaveButton : null
 }
 
 let horizontalContact = @(contact) smallContactBtn(contact, contextMenuActions)
@@ -55,10 +55,10 @@ let horizontalContact = @(contact) smallContactBtn(contact, contextMenuActions)
 let function squadMembersUi() {
   let squadList = []
   foreach (member in squadMembers.value)
-    if (member.isLeader.value)
-      squadList.insert(0, horizontalContact(member.contact))
+    if (member.isLeader)
+      squadList.insert(0, horizontalContact(Contact(member.userId.tostring())))
     else
-      squadList.append(horizontalContact(member.contact))
+      squadList.append(horizontalContact(Contact(member.userId.tostring())))
 
   foreach (uid, _ in isInvitedToSquad.value)
     squadList.append(horizontalContact(Contact(uid.tostring())))

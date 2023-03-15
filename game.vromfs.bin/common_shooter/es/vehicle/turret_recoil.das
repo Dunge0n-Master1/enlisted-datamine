@@ -2,6 +2,7 @@ require ecs
 require ecs.common
 require DagorMath
 require PhysVars
+require enlisted.events_enlisted
 
 [es(on_appear, REQUIRE=resolvedTurret)]
 def turret_recoil_init_es(evt : Event;
@@ -15,7 +16,7 @@ def turret_recoil_init_es(evt : Event;
     turret_recoil__duration = get_float(*turretObj, "gunRecoilDuration") ?? 0.5f
 
 [es(tag=gameClient, REQUIRE_NOT=deadEntity)]
-def turret_recoil_move_barrel_es(info : UpdateStageInfoAct; turret_control__gunEids : EidList; var phys_vars : PhysVars)
+def turret_recoil_move_barrel_es(info : ParallelUpdateFrameDelayed; turret_control__gunEids : EidList; var phys_vars : PhysVars)
   for turretEid in turret_control__gunEids
     query(turretEid) <| $ [es(REQUIRE=(resolvedTurret, gun))] (turret__gunRecoilVarId : int; turret_recoil__startTime, turret_recoil__duration : float)
       if turret__gunRecoilVarId < 0

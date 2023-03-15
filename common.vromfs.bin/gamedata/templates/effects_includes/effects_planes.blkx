@@ -1,0 +1,153 @@
+planes_effect_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  effect__spawnRate:r=1.0
+  _tracked:t="effect__velocity"
+  _tracked:t="effect__spawnRate"
+  _tracked:t="plane_effect__emitterPos"
+
+  _group{
+    _tags:t="render"
+    effect__velocity:p3=0.0, 0.0, 0.0
+    plane_effect__nodeId:i=-1
+    plane_effect__emitterPos:p3=0.0, 0.0, 0.0
+    plane_effect__emitterLocalPos:p3=0.0, 0.0, 0.0
+    plane_effect__minDistSqToUpdateEmitterTm:r=0.01
+
+    effect{
+    }
+
+    "plane_effect__planeEid:eid"{
+    }
+  }
+
+  "staticEffect:tag"{
+  }
+}
+
+trail_plane_water_leak_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_water_leak_cmps_fx"
+  }
+}
+
+trail_plane_fuel_leak_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_fuel_leak_cmps_fx"
+  }
+}
+
+trail_plane_oil_leak_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_oil_leak_cmps_fx"
+  }
+}
+
+trail_plane_smoke_minor_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_smoke_minor_cmps_fx"
+  }
+}
+
+trail_plane_smoke_major_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_smoke_major_cmps_fx"
+  }
+}
+
+plane_exhaust_effect_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="effect__velocity"
+
+  _group{
+    _tags:t="render"
+    effect__velocity:p3=0.0, 0.0, 0.0
+    plane_exhaust_effect__nodeId:i=0
+    plane_exhaust_effect__engineIndex:i=0
+    plane_exhaust_effect__engineMode:i=0
+    gun_flash_fx__timeToDestroy:r=3.0
+
+    effect{
+    }
+
+    "plane_exhaust_effect__planeEid:eid"{
+    }
+  }
+}
+
+trail_plane_exhaust_minor_effect{
+  _extends:t="plane_exhaust_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_exhaust_minor_cmps_fx"
+  }
+}
+
+plane_exhaust_start_effect{
+  _extends:t="plane_exhaust_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="smoke_plane_exhaust_start_cmps_fx"
+  }
+}
+
+plane_exhaust_vapor_effect{
+  _extends:t="plane_exhaust_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_exhaust_vapor_cmps_fx"
+  }
+}
+
+trail_plane_fire_minor_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_fire_minor_cmps_fx"
+  }
+}
+
+trail_plane_fire_major_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_fire_major_cmps_fx"
+  }
+}
+
+trail_plane_fire_small_effect{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="trail_plane_fire_small_cmps_fx"
+  }
+}
+
+explosion_midair_rocket_medium{
+  _extends:t="planes_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="explosion_midair_rocket_medium_cmps_fx"
+  }
+}

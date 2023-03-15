@@ -198,7 +198,7 @@ def burn_grid_objects(start : float3;
                       additional_check_length : float = 0.0;
                       excludeDamageEid = INVALID_ENTITY_ID) : FireCastResult
   var res = FireCastResult()
-  using() <| $(var intersections : IntersectedEntities#)
+  using() <| $(var intersections : IntersectedEntities)
     var t1 = hit_dist + additional_check_length
     var t2 = t1
     trace_entities_in_grid(ecs_hash("humans"), start, hit_dir, t1, excludeDamageEid, intersections, SortIntersections NO)
@@ -355,10 +355,9 @@ def shoot_fire(dt : float;
   let addFireTime = flamethrower__addFullForceTimePerSec * dt
   let hitPos = out.pos
   let hitDist = length(hitPos - start)
-  let hitDir = (hitPos - start) * safeinv(hitDist)
+  let hitDir = abs(hitDist) > VERY_SMALL_NUMBER ? (hitPos - start) / hitDist : gunDir
 
-  var castResult = FireCastResult()
-  castResult = burn_grid_objects(start, hitDir, hitDist, fire_template, damage, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length, excludeDamageEid)
+  var castResult = burn_grid_objects(start, hitDir, hitDist, fire_template, damage, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, FireCastResult(), additional_check_length, excludeDamageEid)
   if castResult.isHit
     flamethrower__flameCurrentLength = dot(castResult.pos - start, gunDir)
   if flamethrower__hitAnything != null
@@ -366,6 +365,7 @@ def shoot_fire(dt : float;
   if fire_template == ""
     return
   if !castResult.isHit
-    castResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage.offender, damage.gunPropsId, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
+    let newCastResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage.offender, damage.gunPropsId, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
+    castResult = newCastResult
   if castResult.isHit && !has(castResult.attachedToEid, "burning__absorbsFlameStream")
     cast_droplets(castResult.pos, castResult.norm, gunDir, fire_template, damage, minBetweenFireDistSq, droplets_spread, addFireTime, flamethrower__maxFiresToReignite, castResult)

@@ -3,9 +3,10 @@ from "%enlSqGlob/ui_library.nut" import *
 let { logerr } = require("dagor.debug")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
-let isMailboxVisible  = mkWatched(persist, "isMailboxVisible", false)
-let inbox = mkWatched(persist, "inbox", [], FRP_DONT_CHECK_NESTED)
+let isMailboxVisible  = nestWatched("isMailboxVisible", false)
+let inbox = nestWatched("inbox", [])
 let unreadNum = Computed(@() inbox.value.reduce(@(res, notify) notify.isRead ? res : res + 1, 0))
 let counter = persist("counter", @() { last = 0 })
 let hasUnread = Computed(@() unreadNum.value > 0)

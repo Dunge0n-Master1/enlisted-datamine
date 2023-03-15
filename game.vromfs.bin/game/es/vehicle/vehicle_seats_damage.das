@@ -3,9 +3,10 @@ require vehicle
 require math
 require math.base
 require game.es.events
+require enlisted.events_enlisted
 
 [es(after=after_net_phys_sync, before=vehicle_acceleration_es)]
-def vehicle_seats_collision_damage_es(info : UpdateStageInfoAct;
+def vehicle_seats_collision_damage_es(info : ParallelUpdateFrameDelayed;
                                       eid : EntityId;
                                       vehicle_seats__seatEids : EidList;
                                       net_phys__atTick : int;

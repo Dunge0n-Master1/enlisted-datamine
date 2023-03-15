@@ -1,5 +1,6 @@
 require ecs
 require PhysVars
+require enlisted.events_enlisted
 
 
 [es(on_appear)]
@@ -10,7 +11,7 @@ def grenade_anim_init(evt : Event;
 
 
 [es(no_order)]
-def grenade_thrower_anim_update(info : UpdateStageInfoAct;
+def grenade_thrower_anim_update(info : ParallelUpdateFrameDelayed;
                                 grenade_thrower__projectileEntity : EntityId;
                                 grenade_thrower__throwProgress : float)
   query(grenade_thrower__projectileEntity) <| $ [es] (grenade__throwProgressVarId : int; var phys_vars : PhysVars)

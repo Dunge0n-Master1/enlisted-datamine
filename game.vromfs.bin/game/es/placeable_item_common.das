@@ -25,6 +25,7 @@ def init_placeable_item_components(var init; tm; eid; team)
   set(init, "item__lastOwner", eid)
   set(init, "item__ownerEid", INVALID_ENTITY_ID)
   set(init, "placeable_item__ownerTeam", team)
+  set(init, "builder_info__team", team)
   set(init, "item__visible", true)
   set(init, "item__isOnGround", true)
 

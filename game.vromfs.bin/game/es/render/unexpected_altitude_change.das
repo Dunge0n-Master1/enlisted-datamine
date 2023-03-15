@@ -1,5 +1,5 @@
 require ecs
-require game.es.render.render_events
+require danetlibs.renderer.includes.render_events
 
 [es(tag=render, REQUIRE=(heroVehicle, airplane))]
 def in_airplane_es(var evt : QueryUnexpectedAltitudeChange&)

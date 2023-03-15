@@ -1,11 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let {
-  setCurSection, mainSectionId, jumpToArmyProgress
+let { setCurSection, mainSectionId, jumpToArmyProgress
 } = require("%enlist/mainMenu/sectionsState.nut")
-let {
-  soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
+let { soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
   armyLimitsDefault, curArmy, lockedSquadsByArmy
 } = require("state.nut")
 let { set_squad_order } = require("%enlist/meta/clientApi.nut")
@@ -15,11 +13,15 @@ let { READY } = require("%enlSqGlob/readyStatus.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
 let { markSeenSquads } = require("unseenSquads.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { curArmySquadsUnlocks, curArmyLevel } = require("armyUnlocksState.nut")
+let { allArmyUnlocks } = require("armyUnlocksState.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { addPopup } = require("%enlist/popup/popupsState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
+let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
+let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
+let { curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
+
 
 
 let justGainSquadId = Watched(null)
@@ -53,24 +55,37 @@ curCampaign.subscribe(function(_) {
 })
 
 let curArmyLockedSquadsData = Computed(function() {
-  let armyLevel = curArmyLevel.value
-  let unlocks = curArmySquadsUnlocks.value ?? []
-  return (lockedSquadsByArmy.value?[curArmy.value] ?? [])
-    .map(function(s) {
-      let unlock = unlocks.findvalue(@(u) u.unlockId == s.squadId)
+  let armyId = curArmy.value
+  let unlocks = allArmyUnlocks.value ?? []
+  let armyPremIcon = armiesPresentation?[armyId].premIcon
+  let campaignSquads = curCampaignAccessItem.value?.squads ?? []
+  let squads = (lockedSquadsByArmy.value?[armyId] ?? [])
+    .map(function(squad) {
+      let { squadId } = squad
+      let { battleExpBonus = 0 } = squadsCfgById.value?[armyId][squadId]
+      let isPremium = battleExpBonus > 0
+      local { premIcon = null } = squadsPresentation?[armyId][squadId]
+      if (isPremium)
+        premIcon = premIcon ?? armyPremIcon
+      let isInCampaign = campaignSquads.findvalue(@(sq) sq.id == squadId) != null
+      let unlock = unlocks.findvalue(function(u) {
+        if (u?.unlockId == squadId)
+          return true
+        let { squads = [] } = u
+        return squads.findvalue(@(squadInUnlock) squadInUnlock?.id == squadId)
+      })
       return {
-        squad = s
-        unlockData = unlock
-          ? {
-              level = unlock.level
-              canUnlock = armyLevel >= unlock.level
-            }
-          : null
+        squad = squad.__merge({premIcon})
+        isPremium
+        isInCampaign
+        shopItem = unlock
       }
     })
-    // TODO: Need to show premium squad too
-    .filter(@(s) s.unlockData != null)
-    .sort(@(a, b) (a.unlockData?.level ?? 0) <=> (b.unlockData?.level ?? 0))
+    .filter(@(s) s?.shopItem != null || s.isInCampaign)
+    .sort(@(a, b) ( (b.isInCampaign <=> a.isInCampaign)
+      || (b.isPremium <=> a.isPremium)
+      ||  (a?.shopItem?.level ?? 0) <=> (b?.shopItem?.level ?? 0)))
+  return squads
 })
 
 let squadsArmyLimits = Computed(@() limitsByArmy.value?[squadsArmy.value] ?? armyLimitsDefault)

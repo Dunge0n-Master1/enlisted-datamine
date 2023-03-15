@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import gui_scene, log
 
 let {DBGLEVEL} = require("dagor.system")
-let { platformId, is_nswitch, is_sony, is_ps5, is_xbox, is_xbox_scarlett, is_pc, is_mobile } = require("%dngscripts/platform.nut")
+let { platformId, is_sony, is_ps5, is_xbox, is_xbox_scarlett, is_pc } = require("%dngscripts/platform.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let dainput = require("dainput2")
 let { logerr } = require("dagor.debug")
@@ -39,7 +39,7 @@ isInBattleRumbleEnabled.subscribe(function(val) {
   save_settings()
 })
 
-let isAimAssistExists = is_xbox || is_sony || is_nswitch
+let isAimAssistExists = is_xbox || is_sony
 let aimAssistSave = mkOnlineSaveData("game/aimAssist", @() isAimAssistExists, @(v) v && isAimAssistExists)
 let isAimAssistEnabled = aimAssistSave.watch
 let setAimAssist = isAimAssistExists ? aimAssistSave.setValue
@@ -93,8 +93,6 @@ let aimSmoothSave = mkOnlineSaveData("game/aimSmooth", @() defaultAimSmooth, val
 
 let useGamepad = mkOnlineSaveData("game/useGamepad",
   function() {
-    if (is_mobile)
-      return ControlsTypes.AUTO
     if (is_pc)
       return DBGLEVEL ? ControlsTypes.AUTO : ControlsTypes.KB_MOUSE
     return ControlsTypes.GAMEPAD
@@ -103,9 +101,7 @@ let useGamepad = mkOnlineSaveData("game/useGamepad",
     ? v
     : is_pc
       ? ControlsTypes.KB_MOUSE
-      : is_mobile
-        ? ControlsTypes.AUTO
-        : ControlsTypes.GAMEPAD
+      : ControlsTypes.GAMEPAD
 )
 let use_gamepad_state = useGamepad.watch
 let function set_use_gamepad(v) {

@@ -1,0 +1,12 @@
+blood_settings{
+  _singleton:b=yes
+  _tags:t="render"
+  blood_begin_color_value:p4=0.157, 0.012, 0.0, 1.0
+  blood_end_color_value:p4=0.086, 0.024, 0.02, 0.96
+
+  "blood_begin_color:ShaderVar"{
+  }
+
+  "blood_end_color:ShaderVar"{
+  }
+}

@@ -123,7 +123,7 @@ let function showContentOnPictureBg(p) {
       rendObj = ROBJ_IMAGE
       hplace = ALIGN_CENTER
       color = null
-      keepAspect = true
+      keepAspect = KEEP_ASPECT_FIT
       image = p?.bgImage
     }
   })

@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require DaWeaponProps
 require EnlistedDm
 require common_shooter.events_common_shooter
@@ -19,6 +20,6 @@ def set_death_cam_killer(evt : EventOnEntityHit; eid : EntityId; var death_cam__
     let templateName = shellEntityProps.templName
     let shellTemplate = getTemplateByName(templateName)
     if shellTemplate != null
-      let isKillerCamAllowed = *shellTemplate |> getTemplateComponent("shell__isKillerCamAllowed") |> get_bool ?? true
+      let isKillerCamAllowed = *shellTemplate |> getTemplateComponent("shell__isKillerCamAllowed") ?? true
       if !isKillerCamAllowed
         death_cam__killer = INVALID_ENTITY_ID

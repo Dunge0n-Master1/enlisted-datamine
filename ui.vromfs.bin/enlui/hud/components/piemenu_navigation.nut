@@ -70,7 +70,6 @@ let quickchatNavigationHint = [
 let mkPieMenuNavigationTip = @(action, children, isInactive = Watched(false)) watchElemState(@(sf) {
   watch = isInactive
   behavior = isGamepad.value ? null : Behaviors.Button
-  rendObj = ROBJ_WORLD_BLUR
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   gap = hdpx(6)
@@ -83,9 +82,10 @@ let mkPieMenuNavigationTip = @(action, children, isInactive = Watched(false)) wa
 
 
 let pieMenuNavigation = {
+  rendObj = ROBJ_WORLD_BLUR
   watch = radius
-  size = [radius.value * 2, 0]
-  pos = [0, radius.value + hdpx(10)]
+  size = [radius.value * 2, SIZE_TO_CONTENT]
+  pos = [0, radius.value + hdpx(15)]
   flow = FLOW_HORIZONTAL
   gap = hdpx(30)
   children = [

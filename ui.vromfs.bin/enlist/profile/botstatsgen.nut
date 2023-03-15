@@ -41,10 +41,11 @@ let function makeBotData(botData){
   let seed = "".concat(name, rank).hash()
   let rand = Rand(seed)
 
-  let curRating = rankUnlock.value.findvalue(@(v) v.index == rank).progress
-  let nextRating = rankUnlock.value.findvalue(@(v) v.index == rank + 1).progress
-  let rating = rand.rint(curRating, nextRating - 1) * 100
+  let curRating = rankUnlock.value.findvalue(@(v) v.index == rank)?.progress ?? 0
+  let nextRating = rankUnlock.value.findvalue(@(v) v.index == rank + 1)?.progress ?? 1
+  local rating = rand.rint(curRating, nextRating - 1) * 100
   botData.player.rating = rating
+  rating = max(100, rating)
   let res = {}
   let main_game = {}
 

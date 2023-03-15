@@ -7,6 +7,7 @@ require EnlistedHuman
 require AnimV20
 require math.base
 require EnlistedActor
+require EnlistedPhysObj
 require game.es.events
 require common_shooter.events_common_shooter
 require game.utils.hero
@@ -39,21 +40,13 @@ def activate_target_grenade_resupply_zone()
   set_tutorial_zone_active("target_grenade_expl_zone", false)
   set_tutorial_zone_active("target_grenade_resupply_zone", true)
 
-
-def activate_target_grenade_expl_zone()
-  tutorial_hint("tutorial_hint", "tutorial_hint", "hint_tutorial_fire_range_switch_to_grenades", "Human.GrenadeNext")
-  set_tutorial_zone_active("target_grenade_expl_zone", true)
-  set_tutorial_zone_active("target_grenade_resupply_zone", false)
-  send_tutorial_stage_bq("tutorial_shooting_grenade")
-
-
 def has_grenade(itemContainer)
   for item in itemContainer
     if has(item, "item__grenadeType")
       return true
   return false
 
-[es(tag=gameClient, REQUIRE=shell__owner)]
+[es(tag=gameClient, REQUIRE=shell__owner, after=tutorial_target_destroy_es)]
 def tutorial_grenade_exploded_in_zone_es(evt : CmdShellExplode)
   query() <| $ [es] (eid : EntityId; tutor_condition__explodedInZone : string)
     var zoneId : string = ""
@@ -62,7 +55,13 @@ def tutorial_grenade_exploded_in_zone_es(evt : CmdShellExplode)
     if tutor_condition__explodedInZone == zoneId
       destroyEntity(eid)
 
-[es(tag=gameClient)]
+[es(on_disappear, REQUIRE=tutorial_target__grenade)]
+def grenade_target_destroy_es(evt : Event; tutorial_target__targetId : string)
+  query() <| $ [es] (eid : EntityId; tutor_stage__hitTarget : string; tutor_stage__hitTargetByWeapon : string)
+    if tutorial_target__targetId == tutor_stage__hitTarget && tutor_stage__hitTargetByWeapon == "grenade"
+      destroyEntity(eid)
+
+[es(tag=gameClient, after=(tutorial_target_destroy_es, tutorial_grenade_exploded_in_zone_es))]
 def tutorial_grenade_ressuply_observer_explode_es(evt : CmdShellExplode; eid : EntityId; shell__owner : EntityId)
   let currentShellEid = eid
 
@@ -84,21 +83,49 @@ def tutorial_grenade_ressuply_observer_explode_es(evt : CmdShellExplode; eid : E
     activate_target_grenade_resupply_zone()
     tutorial_human__hasGrenade = false
 
+
+[es(tag=gameClient, track=tutorial_zone__active)]
+def tutorial_grenade_resupply_observer_zone_activate(evt : Event;
+                                                     tutorial_zone__active : bool;
+                                                     tutorial_zone__zoneId : string)
+  if !tutorial_zone__active
+    return
+
+  let grenadeObserver = find_query() <| $ [es(REQUIRE=tutorial_observer__grenade_count)] (tutorial_observer__resupplyGrenadesOnActivatingZones : StringList)
+    return find_index(tutorial_observer__resupplyGrenadesOnActivatingZones, tutorial_zone__zoneId) > -1
+  if !grenadeObserver
+    return
+
+  query() <| $ [es(REQUIRE=hero)] (itemContainer : EidList;
+                                   var tutorial_human__hasGrenade : bool&)
+    if has_grenade(itemContainer)
+      return
+
+    activate_target_grenade_resupply_zone()
+    tutorial_human__hasGrenade = false
+
+
 [es(tag=gameClient, track=itemContainer)]
 def tutorial_grenade_ressuply_observer_es(evt : Event; itemContainer : EidList; var tutorial_human__hasGrenade : bool&)
-  query() <| $ [es(REQUIRE=tutorial_observer__grenade_count)] ()
+  query() <| $ [es(REQUIRE=tutorial_observer__grenade_count)] (tutorial_observer__restartFromStage : string)
     let hasGrenade = has_grenade(itemContainer)
     if hasGrenade && tutorial_human__hasGrenade != hasGrenade
-      activate_target_grenade_expl_zone()
+      query() <| $ [es] (eid : EntityId; var tutor_stage__next : das_string&)
+        tutor_stage__next := tutorial_observer__restartFromStage
+        set_tutorial_zone_active("target_grenade_resupply_zone", false)
+        destroyEntity(eid)
     tutorial_human__hasGrenade = hasGrenade
 
-[es(tag=gameClient, on_appear, on_disappear, REQUIRE=heroSquad, REQUIRE_NOT=(hero, tutorial_bot_anim_state), before=before_net_phys_sync)]
+[es(tag=gameClient, track=possessedByPlr, on_appear, on_event=EventComponentsDisappear, REQUIRE=heroSquad, REQUIRE_NOT=(hero, tutorial_bot_anim_state), before=before_net_phys_sync)]
 def tutorial_lock_bot_at_point_es(evt : Event;
                                   eid : EntityId;
                                   squad_member__memberIdx : int;
+                                  possessedByPlr : EntityId;
                                   var human_net_phys : HumanActor&;
                                   var transform aka bot_transform : float3x4;
                                   var beh_tree__enabled : bool&)
+  if !!possessedByPlr
+    return
   query() <| $ [es(REQUIRE=tutorial__botSpawnBase)] (transform : float3x4)
     let spreadAroundOrderPoint = 1.2
     let offset = calc_offset(squad_member__memberIdx, spreadAroundOrderPoint)
@@ -226,3 +253,15 @@ def tutorial_destroy_squad_es(evt : Event; eid : EntityId; respawner__enabled : 
 [es(on_event=(EventEntityDestroyed), REQUIRE=squad__ownerPlayer)]
 def tutorial_respawn_squad_es(evt : Event)
   spawn_squad_immediate()
+
+[es(tag=server, no_order, REQUIRE=grenade__selectedWeaponVar)]
+def tutorial_grenade_throw_es(info : UpdateStageInfoAct; transform : float3x4; phys_obj_net_phys : PhysObjActor)
+  let vel = phys_obj_net_phys.phys.currentState.velocity
+  if length_sq(vel) > 1E-4
+    return
+  query() <| $ [es] (eid : EntityId; tutor_condition__grenadeStopInZone : string)
+    var zoneId : string = ""
+    var zoneEid : EntityId = INVALID_ENTITY_ID
+    query_active_tutorial_zone(transform[3], zoneEid, zoneId)
+    if tutor_condition__grenadeStopInZone == zoneId
+      destroyEntity(eid)

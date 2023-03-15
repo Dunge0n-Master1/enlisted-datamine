@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { is_xbox, is_sony, is_pc, is_nswitch } = require("%dngscripts/platform.nut")
+let { is_xbox, is_sony, is_pc } = require("%dngscripts/platform.nut")
 let { endsWith, startsWith } = require("%sqstd/string.nut")
 let { CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 
@@ -33,7 +33,7 @@ let canInterractCrossPlatform = function(name, crossnetworkChatValue) {
     if (p.isFromPlatform(name))
       return p.isPlatform
 
-  return is_pc || is_nswitch //Everybody else
+  return is_pc //Everybody else
 }
 
 let function canInterractCrossPlatformByCrossplay(name, crossplayValue) {

@@ -168,7 +168,7 @@ let function CharClientEvent(settings) {
     debug($"CharClientEvent({name}): {mode}")
     if (mode == "eventbus") {
       doRequest = requestEventBus
-      eventbus.subscribe(event, process)
+      eventbus.subscribe(event, @(data) process(clone data))
     }
     else if (mode == "legacy") {
       doRequest = requestLegacy

@@ -43,7 +43,7 @@ def private time_to_dt(cur_time : float; time : float; defVal : float)
   return time < 0f ? defVal : cur_time - time
 
 
-def calc_danger(cur_time, agent_dangers__maxDangerDist : float; danger : Danger implicit; ai_target : Target implicit; ai_target__noiseLevel : float; is_ai : bool;
+def calc_danger(cur_time, agent_dangers__maxDangerDist : float; danger : Danger |#; ai_target : Target |#; ai_target__noiseLevel : float; is_ai : bool;
                 ai_coef : float2 = float2(1., 1.);
                 avoid_bullets_near_time : float = 10f;
                 last_shoot_coef : float2 = float2(1., 1.);
@@ -55,6 +55,6 @@ def calc_danger(cur_time, agent_dangers__maxDangerDist : float; danger : Danger 
   return danger.alertness * distCutOffMult * noiseK * aiK + inv(time_to_dt(cur_time, danger.lastBulletNearbyTime, 1e8), last_bullet_nearby_coef)
 
 
-def calc_traceable_ratio(cur_time : float; dangerMeter : float; danger : Danger implicit) : float
+def calc_traceable_ratio(cur_time : float; dangerMeter : float; danger : Danger |#) : float
   let timeMult = min(5f, cur_time - danger.lastTraceTime)
   return dangerMeter * timeMult

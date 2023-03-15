@@ -4,6 +4,7 @@ require game.es.events
 require AnimV20
 require vehicle
 require game.es.vehicle.vehicle_events
+require enlisted.events_enlisted
 require DagorSystem
 require GeomNodeTree
 require EffectorData
@@ -21,7 +22,7 @@ def vehicle_seats_effectors_init(evt : Event;
     if seatObj == null
       return
 
-    push_to_array(vehicle_seats__effectors) <| $(var obj : Object#)
+    push_to_array(vehicle_seats__effectors) <| $(var obj : Object)
       let effectors = get_ecs_object(seatObj, "effectors")
       let cockpitTemplate = get_string(seatObj, "cockpitTemplate", "")
       if effectors == null || cockpitTemplate != ""
@@ -38,8 +39,8 @@ def vehicle_seats_effectors_init(evt : Event;
         set(obj, field.key, index)
 
 
-[es(tag=render, before=animchar_effectors_update_es, after=human_anim_es)]
-def human_vehicle_effectors(info : UpdateStageInfoAct;
+[es(tag=render, before=before_animchar_update_sync, after=human_anim_es)]
+def human_vehicle_effectors(info : ParallelUpdateFrameDelayed;
                             animchar : AnimcharBaseComponent;
                             vehicle_seats__effectors : Array;
                             vehicle_seats__seatEids : EidList;

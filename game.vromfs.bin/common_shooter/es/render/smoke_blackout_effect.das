@@ -4,6 +4,7 @@ require DagorSystem
 require game.utils.hero
 require EnlistedDm
 require game.es.vehicle.vehicle_seats_common
+require danetlibs.renderer.includes.render_events
 
 def instant_effect_stop(smoke_blackout_effect__timeStartVarId : int;
                         smoke_blackout_effect__timeEndVarId : int;

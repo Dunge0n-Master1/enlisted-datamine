@@ -1,4 +1,0 @@
-use_health_pack{
-  hpToRestore:r=50.0
-  item:t="health_pack"
-}

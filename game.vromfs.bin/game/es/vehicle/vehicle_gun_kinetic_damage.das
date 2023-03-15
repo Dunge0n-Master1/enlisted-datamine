@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require ecs.safe
 
-[es(tag=server, on_appear, before=turret_control_create_guns_es_event_handler)]
+[es(tag=server, on_appear, before=turret_control_create_guns_es)]
 def vehicle_init_gun_kinetic_damage_mult(evt : Event;
                                          turrets__kineticDamageMult : float;
                                          [[shared_comp]] turret_control__turretInfo : Array;
@@ -15,5 +15,5 @@ def vehicle_init_gun_kinetic_damage_mult(evt : Event;
       (*object) |> set("gun__kineticDamageMult", turrets__kineticDamageMult)
   let numUnitedComps = numTurrets - length(turretsInitialComponents)
   for _i in range(numUnitedComps)
-    push_to_array(turretsInitialComponents) <| $(var object : Object#)
+    push_to_array(turretsInitialComponents) <| $(var object : Object)
       object |> set("gun__kineticDamageMult", turrets__kineticDamageMult)

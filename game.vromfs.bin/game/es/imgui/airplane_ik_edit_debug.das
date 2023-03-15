@@ -20,7 +20,7 @@ struct MoveCockpitDebugIkNode
 
 
 def save_cockpit_nodes(eid : EntityId)
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     components_to_blk(eid, blk, "move_cockpit_node__", true)
     let templateName = getEntityTemplateName(eid)
     datablock_get_block(blk, "offset:list<p3>") <| $(offsetArrayBlk)
@@ -30,7 +30,7 @@ def save_cockpit_nodes(eid : EntityId)
 
 
 def copy_component_value_to_clipboard(eid : EntityId; component_name : string; component_type : string)
-  using <| $(var blk : DataBlock#)
+  using() <| $(var blk : DataBlock)
     components_to_blk(eid, blk, component_name, false)
     datablock_get_block(blk, component_type) <| $(offsetArrayBlk)
       SetClipboardText("{offsetArrayBlk}")

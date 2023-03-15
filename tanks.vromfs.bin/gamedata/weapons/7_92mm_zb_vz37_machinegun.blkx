@@ -6,7 +6,7 @@ automaticReload:b=no
 sightsDistance:r=0.05
 
 shells{
-  shell:t="content/e_ww2_common/gamedata/weapons/bullets/30_06_springfield.blk"
+  shell:t="content/enlisted/gamedata/weapons/bullets/30_06_springfield.blk"
 }
 
 ammoHolders{

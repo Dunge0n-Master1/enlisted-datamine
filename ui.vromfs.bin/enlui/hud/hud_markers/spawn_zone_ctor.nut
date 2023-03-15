@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h0_txt, h1_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn } = require("%ui/hud/state/respawnState.nut")
+let { respawnsInBot, canUseRespawnbaseByType, needSpawnMenu, selectedRespawnGroupId, isFirstSpawn, respRequested } = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeam } = require("%ui/hud/state/local_player.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let {
@@ -69,6 +69,7 @@ let mkRespawnPoint = @(eid, isSelected, spawnIconInfo, selectedGroup, isActive, 
       pos = [0, -spawnIconInfo.size(isSelected)[0]*0.1]
       behavior = isReplay.value ? null : Behaviors.Button
       onClick = @() selectedRespawnGroupId.mutate(@(v) v[iconType] <- selectedGroup)
+      onDoubleClick = @() respRequested(true)
     }
   }
 let defPos = [0, -fsh(1)]

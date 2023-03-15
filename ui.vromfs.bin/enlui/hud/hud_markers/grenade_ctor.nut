@@ -13,7 +13,7 @@ let grenadeAnim = [{
 }]
 
 let defTransform = {}
-let grenadePic = Picture("!ui/skin#grenade.png")
+let grenadePic = Picture("!ui/skin#grenade.avif")
 let arrow = makeArrow({color=colorRed, anim = grenadeAnim, yOffs=0, pos=[0,-fsh(1.8)]})
 let mkGrenadeImage = memoize(@(willDamageHero) {
   size = [fsh(2.5), fsh(2.5)]

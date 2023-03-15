@@ -176,12 +176,6 @@ base_yak_9t_37mm_ns37{
         name:t="bt"
         type:t="ap_t"
       }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/37mm_ns37_ofzt_bullet.blk"
-        name:t="ofzt"
-        type:t="he_i_t"
-      }
     }
   }
 }

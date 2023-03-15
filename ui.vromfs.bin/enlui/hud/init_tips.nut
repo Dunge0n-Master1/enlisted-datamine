@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 let { minimalistHud } = require("%ui/hud/state/hudOptionsState.nut")
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 let {setTips} = require("%ui/hud/state/tips.nut")
@@ -37,7 +38,8 @@ let fullTips = [
     pos = [fsh(30), fsh(25)]
     gap = hdpx(2)
     children = [
-      mark_enemy_tip, swithAimBtnTip, hold_breath_tip, downed_grenade_usage_tip,
+      mark_enemy_tip, swithAimBtnTip,
+      hold_breath_tip, downed_grenade_usage_tip,
       switch_soldier_tip, medkit_tip, aim_stamina_tip, low_stamina_use_flask_tip,
       place_bipod_tip, prevent_reloading_tip,
       mortar_aiming_tip, mortar_switch_shell_tip, open_parachute_tip
@@ -68,11 +70,41 @@ let minTips = [
   }
 ]
 
-let function stips(...){
-  setTips(!isAlive.value || !canShowGameHudInReplay.value ? []
-    : forcedMinimalHud.value || minimalistHud.value ? minTips
-    : fullTips)
+let tutorialTips = [
+
+  {
+    pos = [-fsh(25), fsh(25)]
+    children = reload_tip
+  }
+  {
+    pos = [fsh(30), fsh(25)]
+    gap = hdpx(2)
+    children = [
+      swithAimBtnTip,
+      downed_grenade_usage_tip
+    ]
+  }
+  { children = medkit_usage }
+  { children = vehicle_under_water }
+  {
+    pos = [fsh(0), fsh(5)]
+    children = [downed_tip, burning_tip, redeploy_tip, plane_redeploy_tip]
+  }
+  {
+    pos = [fsh(-15), fsh(2)]
+    children = aimRangeValuesTip
+  }
+]
+
+let function getTips(){
+  if (!isAlive.value || !canShowGameHudInReplay.value)
+    return []
+  else if (isTutorial.value)
+    return tutorialTips
+  else if (forcedMinimalHud.value || minimalistHud.value)
+    return minTips
+  return fullTips
 }
-stips()
-foreach (option in [canShowGameHudInReplay, isAlive, forcedMinimalHud, minimalistHud])
-  option.subscribe(stips)
+setTips(getTips())
+foreach (option in [canShowGameHudInReplay, isAlive, forcedMinimalHud, minimalistHud, isTutorial])
+  option.subscribe(@(...) setTips(getTips()))

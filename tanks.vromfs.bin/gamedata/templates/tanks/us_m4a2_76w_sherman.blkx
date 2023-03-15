@@ -4,6 +4,7 @@ us_m4a2_76w_sherman{
 
 us_m4a2_76w_sherman_common{
   _extends:t="base_m4a2_76w_sherman"
+  gunnerFpsCamMaxAngle:p2=6.0, 6.0
   item__iconOffset:p2=0.0, 0.2
 
   "turrets__initAmmoDistribution:array"{

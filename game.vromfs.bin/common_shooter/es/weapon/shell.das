@@ -7,6 +7,7 @@ require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
 require common_shooter.es.weapon.shell_fx_common
+require enlisted.events_enlisted
 require game.es.events
 require game.es.smoke_occluders_common
 require AnimV20
@@ -113,7 +114,7 @@ def local_shell_expl_es(evt : CmdShellExplode;
 
 
 [es(tag=server, no_order)]
-def shell_es(info : UpdateStageInfoAct;
+def shell_es(info : ParallelUpdateFrameDelayed;
              eid : EntityId;
              shell__explNodeIdx : int;
              animchar : AnimcharBaseComponent;
@@ -134,7 +135,7 @@ def shell_es(info : UpdateStageInfoAct;
 
 
 [es(tag=netClient, no_order, REQUIRE=clientSide)]
-def destroy_client_shell_es(info : UpdateStageInfoAct;
+def destroy_client_shell_es(info : ParallelUpdateFrameDelayed;
                             eid : EntityId;
                             shell__explTime : float;
                             shell__launchAtTime : float;
@@ -159,7 +160,7 @@ def launcher_add_timer_es(evt : Event;
 
 
 [es(tag=server, after=shell_es, REQUIRE=retardable)]
-def shell_fuse_retarder_es(info : UpdateStageInfoAct;
+def shell_fuse_retarder_es(info : ParallelUpdateFrameDelayed;
                            var shell__explTime : float&;
                            transform : float3x4)
   let shellPos = transform[3]
@@ -175,7 +176,7 @@ def shell_fuse_retarder_es(info : UpdateStageInfoAct;
 
 
 [es(no_order)]
-def shell_smoke_effect_es(info : UpdateStageInfoAct;
+def shell_smoke_effect_es(info : ParallelUpdateFrameDelayed;
                           shell__explTime : float;
                           shell__shell_id__shell_id : int;
                           var effect__scale : float&;
@@ -195,7 +196,7 @@ def shell_smoke_effect_es(info : UpdateStageInfoAct;
 
 
 [es(after=shell_smoke_effect_es, REQUIRE=extinguishUnderwater)]
-def shell_smoke_extinguish_underwater_es(info : UpdateStageInfoAct;
+def shell_smoke_extinguish_underwater_es(info : ParallelUpdateFrameDelayed;
                                          transform : float3x4;
                                          var effect__scale : float&)
   if effect__scale > 0.0

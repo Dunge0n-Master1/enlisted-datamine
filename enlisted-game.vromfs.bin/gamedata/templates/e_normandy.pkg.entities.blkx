@@ -1,0 +1,120 @@
+minimap_normandy_beach_fortified{
+  _extends:t="minimap"
+  mapTex:t="normandy_beach_fortified_1x1_minimap*"
+  farMapTex:t="normandy_beach_fortified_1x1_far_minimap*"
+  left_top:p2=-512.0, 512.0
+  right_bottom:p2=512.0, -512.0
+  farLeftTop:p2=-8192.0, 5120.0
+  farRightBottom:p2=8192.0, -11264.0
+  northAngle:r=0.0
+}
+
+minimap_normandy_countryside_area{
+  _extends:t="minimap"
+  mapTex:t="normandy_countryside_area_2x2_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=1024.0, -1024.0
+  northAngle:r=0.0
+}
+
+minimap_normandy_coastal_area{
+  _extends:t="minimap"
+  mapTex:t="normandy_coastal_area_1x1_minimap*"
+  farMapTex:t="normandy_coastal_area_1x1_far_minimap*"
+  left_top:p2=-512.0, 512.0
+  right_bottom:p2=512.0, -512.0
+  farLeftTop:p2=-8192.0, 5120.0
+  farRightBottom:p2=8192.0, -11264.0
+  northAngle:r=0.0
+}
+
+minimap_normandy_urban_area{
+  _extends:t="minimap"
+  mapTex:t="normandy_urban_area_2x2_minimap*"
+  farMapTex:t="normandy_urban_area_2x2_far_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=1024.0, -1024.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
+normandy_countryside_area_2x2_v2_river_sound{
+  _extends:t="river_sound"
+
+  "spline_sound__points:list<p4>"{
+    pt:p4=921.0, 0.0, -364.0, 12.0
+    pt:p4=862.0, 0.0, -292.0, 14.0
+    pt:p4=807.0, 0.0, -201.0, 16.0
+    pt:p4=767.0, 0.0, -159.0, 14.0
+    pt:p4=671.0, 0.0, -111.0, 14.0
+    pt:p4=596.0, 0.0, -114.0, 16.0
+    pt:p4=510.0, 0.0, -126.0, 6.0
+    pt:p4=484.0, 0.0, -133.0, 12.0
+    pt:p4=438.0, 0.0, -165.0, 12.0
+    pt:p4=404.0, 0.0, -210.0, 10.0
+    pt:p4=368.0, 0.0, -272.0, 14.0
+    pt:p4=314.0, 0.0, -316.0, 14.0
+    pt:p4=258.0, 0.0, -339.0, 12.0
+    pt:p4=184.0, 0.0, -359.0, 10.0
+    pt:p4=158.0, 0.0, -356.0, 6.0
+    pt:p4=131.0, 0.0, -347.0, 10.0
+    pt:p4=48.0, 0.0, -311.0, 10.0
+    pt:p4=-32.0, 0.0, -270.0, 12.0
+    pt:p4=-104.0, 0.0, -247.0, 14.0
+    pt:p4=-273.0, 0.0, -243.0, 6.0
+    pt:p4=-315.0, 0.0, -247.0, 15.0
+    pt:p4=-333.0, 0.0, -230.0, 8.0
+    pt:p4=-358.0, 0.0, -210.0, 12.0
+    pt:p4=-373.0, 0.0, -191.0, 16.0
+    pt:p4=-378.0, 0.0, -139.0, 10.0
+    pt:p4=-370.0, 0.0, -97.0, 10.0
+    pt:p4=-338.0, 0.0, -55.0, 10.0
+    pt:p4=-227.0, 0.0, 10.0, 10.0
+    pt:p4=-182.0, 0.0, 29.0, 8.0
+    pt:p4=-77.0, 0.0, 80.0, 14.0
+    pt:p4=-14.0, 0.0, 130.0, 14.0
+    pt:p4=13.0, 0.0, 165.0, 18.0
+    pt:p4=27.0, 0.0, 212.0, 12.0
+    pt:p4=47.0, 0.0, 347.0, 14.0
+    pt:p4=73.0, 0.0, 394.0, 10.0
+    pt:p4=109.0, 0.0, 485.0, 14.0
+    pt:p4=160.0, 0.0, 546.0, 12.0
+    pt:p4=232.0, 0.0, 599.0, 14.0
+    pt:p4=308.0, 0.0, 627.0, 12.0
+    pt:p4=417.0, 0.0, 651.0, 8.0
+    pt:p4=491.0, 0.0, 662.0, 10.0
+    pt:p4=707.0, 0.0, 805.0, 10.0
+    pt:p4=772.0, 0.0, 839.0, 8.0
+    pt:p4=0.0, 0.0, 0.0, -1.0
+    pt:p4=-382.0, 0.0, -206.0, 10.0
+    pt:p4=-381.0, 0.0, -299.0, 14.0
+    pt:p4=-395.0, 0.0, -412.0, 18.0
+    pt:p4=-477.0, 0.0, -536.0, 10.0
+    pt:p4=-550.0, 0.0, -619.0, 12.0
+    pt:p4=-665.0, 0.0, -734.0, 14.0
+    pt:p4=-829.0, 0.0, -820.0, 10.0
+    pt:p4=0.0, 0.0, 0.0, -1.0
+    pt:p4=-327.0, 0.0, -255.0, 4.0
+    pt:p4=-369.0, 0.0, -292.0, 10.0
+  }
+}
+
+normandy_countryside_area_2x2_v2_lake_a_sound{
+  _extends:t="river_sound"
+
+  "spline_sound__points:list<p4>"{
+    pt:p4=-765.0, 0.0, 125.0, 24.0
+    pt:p4=-829.0, 0.0, 50.0, 18.0
+    pt:p4=-780.0, 0.0, 138.0, 25.0
+  }
+}
+
+normandy_countryside_area_2x2_v2_lake_b_sound{
+  _extends:t="river_sound"
+
+  "spline_sound__points:list<p4>"{
+    pt:p4=-742.0, 0.0, 247.0, 44.0
+    pt:p4=-753.0, 0.0, 228.0, 44.0
+  }
+}

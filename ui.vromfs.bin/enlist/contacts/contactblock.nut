@@ -8,7 +8,7 @@ let { squadMembers, isInvitedToSquad, enabledSquad, squadId
 let { getContactNick } = require("contact.nut")
 let { defTxtColor, titleTxtColor, smallPadding, bigPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { approvedUids } = require("%enlist/contacts/contactsWatchLists.nut")
+let { friendsUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { mkContactOnlineStatus } = require("contactPresence.nut")
 let contactContextMenu = require("contactContextMenu.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -107,22 +107,21 @@ let function statusIcon(isPlayerOnline) {
 
 
 let statusBlock = @(isPlayerOnline, contact) function() {
-  let watch = [enabledSquad, squadMembers, isInvitedToSquad, approvedUids]
+  let watch = [enabledSquad, squadMembers, isInvitedToSquad, friendsUids]
   let squadMember = enabledSquad.value && squadMembers.value?[contact.uid]
   let isInvited = isInvitedToSquad.value?[contact.uid]
   local squadStatusText = null
 
   if (squadMember != null) {
-    watch.append(squadMember.state, squadMember.isLeader)
-    squadStatusText = squadMember.state.value?.inBattle ? playerSquadStatuses.inBattle
-      : squadMember.isLeader.value ? playerSquadStatuses.leader
+    squadStatusText = squadMember.state?.inBattle ? playerSquadStatuses.inBattle
+      : squadMember.isLeader ? playerSquadStatuses.leader
       : !isPlayerOnline ? playerSquadStatuses.offlineInSquad
-      : squadMember.state.value?.ready ? playerSquadStatuses.ready
+      : squadMember.state?.ready ? playerSquadStatuses.ready
       : playerSquadStatuses.unready
   }
   else if (isInvited)
     squadStatusText = playerSquadStatuses.invited
-  else if (contact.userId in approvedUids.value)
+  else if (contact.userId in friendsUids.value)
     squadStatusText = isPlayerOnline == null ? playerSquadStatuses.unknown
       : isPlayerOnline ? playerSquadStatuses.online
       : playerSquadStatuses.offline
@@ -173,10 +172,12 @@ let function onContactClick(event, contact, contextMenuActions) {
     contactContextMenu.open(contact, event, contextMenuActions)
 }
 
+let diceIconSize = hdpxi(24)
 
 let diceIcon = {
   rendObj = ROBJ_IMAGE
-  image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst((iconHgt * 3 / 4).tointeger()))
+  size = array(2, diceIconSize)
+  image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst(diceIconSize))
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_CENTER
   pos = [hdpx(1), hdpx(2)]
@@ -193,9 +194,8 @@ let memberAvatarCtor = @(userId) function() {
     : null
   if (squadLeader == null)
     return res
-  watch.append(squadLeader.state)
-  let randomTeam = squadLeader.state.value?.isTeamRandom ?? false
-  let curArmy = squadLeader.state.value?.curArmy
+  let randomTeam = squadLeader.state?.isTeamRandom ?? false
+  let curArmy = squadLeader.state?.curArmy
   local icon = null
   if (!randomTeam && curArmy)
     icon = mkArmyIcon(curArmy, iconHgt * 4 / 3)

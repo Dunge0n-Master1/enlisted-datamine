@@ -585,7 +585,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_normandy/gamedata/normandy_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/normandy_doors.blk"
 }
 
 entity{
@@ -644,17 +644,17 @@ entity{
   mission_name:t="normandy_coast_city_assault"
 
   "loading_images:list<t>"{
-    item:t="ui/normandy_coast_city_01.jpg"
-    item:t="ui/normandy_coast_city_02.jpg"
-    item:t="ui/normandy_coast_city_03.jpg"
+    item:t="ui/normandy_coast_city_01.avif"
+    item:t="ui/normandy_coast_city_02.avif"
+    item:t="ui/normandy_coast_city_03.avif"
   }
 }
 
 entity{
   _template:t="team_usa+team_narrator_assault_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=3000.0
-  team__score:r=3000.0
+  team__scoreCap:r=3300.0
+  team__score:r=3300.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -691,7 +691,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.8
+  capzone__capRewardPartCap:r=1.5
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
@@ -700,7 +700,7 @@ entity{
   capzone__progress:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-280.854, 30.7565, 96.5235]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   ui_order:i=1
   capzone__capReward:r=600.0
   capzone__title:t="A"
@@ -722,7 +722,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  capzone__capRewardPartCap:r=1.8
+  capzone__capRewardPartCap:r=1.5
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
@@ -731,7 +731,7 @@ entity{
   capzone__progress:r=1.0
   transform:m=[[0.999971, -0.00761502, 0.0] [0.00760894, 0.999172, -0.0399697] [0.00030437, 0.0399686, 0.999201] [-155.419, 24.5704, 21.9055]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   ui_order:i=2
   capzone__capReward:r=600.0
   capzone__title:t="B"
@@ -762,19 +762,18 @@ entity{
   capzone__progress:r=1.0
   transform:m=[[27.8053, 0.0, 0.522062] [0.0, 11.5929, 0.0] [-0.810799, 0.0, 42.0462] [-309.457, 26.3326, -121.508]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   ui_order:i=3
   capzone__capReward:r=600.0
   capzone__title:t="C"
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
-  decal__height:r=2.0
-  decal__height:r=3.0
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
+  decal__height:r=3.0
 
   "capzone__activateChoice:object"{
     sector_3:r=1.0
@@ -792,7 +791,7 @@ entity{
   capzone__progress:r=1.0
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-139.929, 20.5181, -126.788]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   ui_order:i=4
   capzone__capReward:r=600.0
   capzone__title:t="D"

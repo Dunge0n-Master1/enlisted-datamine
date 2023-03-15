@@ -7,6 +7,7 @@ let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
 let medpackIconSize = [hdpxi(26), hdpxi(26)]
 let medpackIcon = {
   rendObj = ROBJ_IMAGE
+  size = medpackIconSize
   image = Picture($"ui/skin#syringe.svg:{medpackIconSize[0]}:{medpackIconSize[1]}")
 }
 

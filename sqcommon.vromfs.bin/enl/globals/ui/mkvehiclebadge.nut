@@ -6,11 +6,11 @@ let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { statusTier } = require("%enlSqGlob/ui/itemPkg.nut")
 let {
   colFull, colPart, columnGap, midPadding, defTxtColor, smallPadding,
-  defSlotBgImg, hoverSlotBgImg
+  defSlotBgImg, hoverSlotBgImg, bigPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
-let slotSize = [colFull(3), colPart(2.04) + 2 * columnGap]
+let slotSize = [colFull(3), colPart(1.02) * 2 + 3 * columnGap]
 
 
 let vehicleBg = @(flags, isSelected) isSelected ? hoverSlotBgImg
@@ -36,7 +36,7 @@ let function mkVehicleImage(gametemplate, skinId) {
 
 let mkHeaderText = @(text) {
   padding = [0, smallPadding]
-  pos = [0, -(columnGap + smallPadding)]
+  pos = [0, -(columnGap + bigPadding)]
   rendObj = ROBJ_TEXT
   text
 }.__update(defTxtStyle)
@@ -70,7 +70,7 @@ let function mkVehicleBadge(
     key = $"vehicle_badge_{gametemplate}"
     size = slotSize
     rendObj = ROBJ_MASK
-    image = Picture("ui/uiskin/vehicle_slot_mask.png")
+    image = Picture("ui/uiskin/vehicle_slot_mask.avif")
     behavior = onClick == null ? null : Behaviors.Button
     onClick
     children = [

@@ -5,11 +5,12 @@ let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { FAButton } = require("%ui/components/txtButton.nut")
 let { colPart, defBdColor, topWndBgColor, bottomWndBgColor, panelBgColor, defTxtColor,
-  titleTxtColor, commonBtnHeight, colFull, midPadding
+  titleTxtColor, commonBtnHeight, colFull, midPadding, smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
+let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 
 
 let defSize = premiumBtnSize
@@ -29,25 +30,38 @@ let function close(cb = null) {
 
 
 let mkMenuButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
-  ? watchElemState(@(sf) {
-      rendObj = ROBJ_SOLID
-      color = fillBgColor(sf)
-      size = [flex(), commonBtnHeight]
-      minWidth = SIZE_TO_CONTENT
-      behavior = Behaviors.Button
-      onClick = @() close(btn.cb)
-      valign = ALIGN_CENTER
-      padding = [0, midPadding]
-      children = {
-        rendObj = ROBJ_TEXT
-        text = btn?.name ?? ""
-      }.__update(sf != 0 ? titleTxtStyle : defTxtStyle)
-    }.__update(!needMoveCursor ? {} : {
-      key = "selected_menu_elem"
-      function onAttach() {
-        move_mouse_cursor("selected_menu_elem", false)
+  ? watchElemState(function(sf) {
+      let hotkeyOnHover = {
+        size = [defTxtStyle.fontSize, SIZE_TO_CONTENT]
+        children = sf & S_HOVER
+          ? mkImageCompByDargKey(JB.A, { height = defTxtStyle.fontSize })
+          : null
       }
-    }))
+      return {
+        rendObj = ROBJ_SOLID
+        color = fillBgColor(sf)
+        size = [flex(), commonBtnHeight]
+        minWidth = SIZE_TO_CONTENT
+        behavior = Behaviors.Button
+        flow = FLOW_HORIZONTAL
+        gap = smallPadding
+        onClick = @() close(btn.cb)
+        valign = ALIGN_CENTER
+        padding = midPadding
+        children = [
+          hotkeyOnHover
+          {
+            rendObj = ROBJ_TEXT
+            text = btn?.name ?? ""
+          }.__update(sf != 0 ? titleTxtStyle : defTxtStyle)
+        ]
+      }.__update(!needMoveCursor ? {} : {
+        key = "selected_menu_elem"
+        function onAttach() {
+          move_mouse_cursor("selected_menu_elem", false)
+        }
+      })
+    })
   : {
       rendObj = ROBJ_SOLID
       size = [flex(), hdpx(1)]

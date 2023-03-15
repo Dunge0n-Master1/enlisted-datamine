@@ -11,7 +11,7 @@ let defValue = freeze({
   vehicleTransmissionBroken = false
   vehicleTurretHorDriveBroken = false
   vehicleTurretVerDriveBroken = false
-  vehiclePartDamaged = true
+  vehiclePartDamaged = false
 })
 
 let { state, stateSetValue } = mkFrameIncrementObservable(defValue, "state")

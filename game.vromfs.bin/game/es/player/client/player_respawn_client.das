@@ -83,9 +83,9 @@ def player_possess_camera(evt : PossessTargetByPlayer; eid : EntityId; connid : 
 
 [es(tag=gameClient)]
 def on_possess_hero_msg(evt : PossessHero; eid : EntityId)
-  print("PossessHero {int(uint(eid))} {evt.possess ? "possess" : "unpossess"}")
   if is_replay_playing()
     return // don't try possess hero in replay
+  print("PossessHero {int(uint(eid))} {evt.possess ? "possess" : "unpossess"}")
   if evt.possess
     possessLocalPlayerIfLevelLoaded(eid)
   else

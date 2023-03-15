@@ -35,22 +35,22 @@ def aircraft_crew_g_force_visual(info : UpdateStageInfoAct;
   aircraft_crew__staminaPrev = aircraft_crew__stamina
 
   if g_force__visual < 0.f
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.4f, 0.f, 0.f, -g_force__visual)))
+    DagorShaders::set_color4(redout_blackout_colorVarId, 0.4f, 0.f, 0.f, -g_force__visual)
   else
-    DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.f, 0.f, 0.f, g_force__visual)))
+    DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, g_force__visual)
 
 [es(tag=(render), track=human_anim__vehicleSelected, REQUIRE=aircraftCrew)]
 def aircraft_crew_g_force_visual_remove(evt : Event; eid : EntityId; human_anim__vehicleSelected : EntityId)
   if !has(eid, "hero") || has(human_anim__vehicleSelected, "airplane")
     return
-  DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.f, 0.f, 0.f, 0.f)))
+  DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, 0.f)
 
 [es(tag=(render), track=isAlive)]
 def on_death_aircraft_crew_g_force_visual_remove(evt : Event; eid : EntityId; isAlive : bool)
   if !has(eid, "hero") || isAlive
     return
-  DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.f, 0.f, 0.f, 0.f)))
+  DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, 0.f)
 
 [es(on_event=(EventComponentsDisappear, EventEntityDestroyed), tag=render, no_order, REQUIRE=hero)]
 def stop_redout_blackout_effect_critical_es(evt : Event)
-  DagorShaders::set_color4(redout_blackout_colorVarId, Color4(float4(0.f, 0.f, 0.f, 0.f)))
+  DagorShaders::set_color4(redout_blackout_colorVarId, 0.f, 0.f, 0.f, 0.f)

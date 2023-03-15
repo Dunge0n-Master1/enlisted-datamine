@@ -17,6 +17,13 @@ base_cannon{
   }
 }
 
+vehicle_display_marker_over_head{
+
+  "vehicleDisplayMarkerOverHead:tag"{
+    tags:t="ui"
+  }
+}
+
 base_cannon_no_phys{
   _extends:t="replicating"
   _extends:t="phys_sleepable"
@@ -27,7 +34,7 @@ base_cannon_no_phys{
   _extends:t="base_tank_seat_templates"
   _extends:t="base_damage_model"
   _extends:t="base_damage_model_fx"
-  _extends:t="turret_sound_group"
+  _extends:t="turret_manual_sound_with_group"
   _extends:t="watched_vehicle_sound"
   _extends:t="vehicle_fatal_explosion_external_fire"
   _extends:t="vehicle_underwater"
@@ -40,6 +47,7 @@ base_cannon_no_phys{
   _tracked:t="isAlive"
   _tracked:t="vehicle__localControls"
   _tracked:t="vehicleCameraType"
+  _tracked:t="isTpsView"
   squad:i=-1
   team:i=-1
   vehicle_seats__exitTime:r=0.25
@@ -59,6 +67,7 @@ base_cannon_no_phys{
   camera__isStabilized:b=no
   camName:t="tank_fps_cam_perlin"
   vehicleCameraType:i=0
+  isTpsView:b=no
   vehicleDeathCameraTemplate:t="tank_cam"
   driverFpsCamMaxAngle:p2=90.0, 50.0
   passengerFpsCamMaxAngle:p2=90.0, 50.0
@@ -92,10 +101,6 @@ base_cannon_no_phys{
   "turret_aim__shootRange:r"{
     _tags:t="gameClient"
     value:r=300.0
-  }
-
-  "vehicleDisplayMarkerOverHead:tag"{
-    tags:t="ui"
   }
 
   "additiveSquadSpread:tag"{
@@ -136,11 +141,6 @@ base_cannon_no_phys{
     "fatal_explosion_external_fire__nodeNames:shared:array"{
       node:t="emtr_explosion_center"
     }
-  }
-
-  _group{
-    _tags:t="sound"
-    turret_sound__path:t="player/vehicle/tank/common/turret_manual"
   }
 
   "camera__look_at:dp3"{
@@ -311,7 +311,7 @@ movable_cannon_seat_templates{
     "dependent_templates:ecs::TemplatesListToInstantiate"{
     }
 
-    "dependent_templates_list:shared:list<t>"{
+    "dependent_templates_list_shared:shared:list<t>"{
       template_name:t="movable_cannon_seat_default_sit"
       template_name:t="movable_cannon_seat_driver"
       template_name:t="movable_cannon_seat_gunner"
@@ -323,6 +323,7 @@ movable_cannon_seat_templates{
 
 base_movable_cannon{
   _extends:t="base_cannon_no_phys"
+  _extends:t="vehicle_display_marker_over_head"
   _extends:t="movable_cannon_seat_templates"
   _extends:t="vehicle_sound"
   _extends:t="nodoor_vehicle_seat_sound"
@@ -424,7 +425,7 @@ base_movable_anti_tank_cannon{
 
 base_ai_gunner_turret{
   _extends:t="replicating"
-  _extends:t="turret_sound_group"
+  _extends:t="turret_sound_with_group"
   _extends:t="base_net_phys"
   _extends:t="phys_sleepable"
   _extends:t="animchar"

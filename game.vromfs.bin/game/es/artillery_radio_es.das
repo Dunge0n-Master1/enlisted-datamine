@@ -78,17 +78,21 @@ def artillery_radio_mode_server(info : UpdateStageInfoAct;
                                 eid : EntityId;
                                 isAlive : bool;
                                 isDowned : bool;
-                                human_net_phys : HumanActor;
                                 human_weap__radioEid : EntityId;
+                                human_unarmed__hiddenWeapon : bool;
                                 human_net_phys__isClimbing : bool = false;
                                 human_net_phys__isSwimming : bool = false;
                                 var radioMode__startTime : float&;
                                 var radioMode__endTime : float&;
-                                var human_weap__radioMode : bool&)
+                                var human_weap__radioMode : bool&;
+                                var human_net_phys : HumanActor)
   let isInputSet = human_net_phys.phys.appliedCT.isDeviceStateSet
-  let isAllowed = isAlive && !isDowned && !human_net_phys__isSwimming && !human_net_phys__isClimbing
-  if !isAllowed && human_weap__radioMode
-    force_stop_radio_mode(eid, human_weap__radioMode, radioMode__startTime, radioMode__endTime)
+  let isAllowed = isAlive && !isDowned && !human_net_phys__isSwimming && !human_net_phys__isClimbing && !human_unarmed__hiddenWeapon
+  if !isAllowed
+    if isInputSet
+      human_net_phys.phys.producedCT |> human_control_state_set_device_state(false)
+    if human_weap__radioMode
+      force_stop_radio_mode(eid, human_weap__radioMode, radioMode__startTime, radioMode__endTime)
     return
 
   if isAllowed && isInputSet && !human_weap__radioMode
@@ -162,11 +166,12 @@ def artillery_map_close_request(evt : Event;
 def artilery_request(evt : Event;
                      team : int;
                      isDowned : bool = false;
+                     human_unarmed__hiddenWeapon : bool;
                      var human_net_phys : HumanActor;
                      squad_member__squad : EntityId = INVALID_ENTITY_ID;
                      human_weap__radioEid : EntityId = INVALID_ENTITY_ID;
                      possessedByPlr : EntityId = INVALID_ENTITY_ID)
-  if isDowned
+  if isDowned || human_unarmed__hiddenWeapon
     return
 
   var isArtilleryAvailable = false

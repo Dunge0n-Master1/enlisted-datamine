@@ -39,6 +39,8 @@ let function resetData() {
 
 let function trackComponents(eid, comp) {
   if (comp.is_local) {
+    if (localPlayerEid.value != eid)
+      logObs($"[local_player_es] localPlayerEid = {eid}")
     localPlayerEid(eid)
     localPlayerTeam(comp.team)
     localPlayerName(comp.name)

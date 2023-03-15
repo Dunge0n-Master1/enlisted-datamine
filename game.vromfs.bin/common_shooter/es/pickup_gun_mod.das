@@ -34,9 +34,7 @@ def pickup_gun_mod_es(evt : CmdInventoryPickupGunMod;
                       eid : EntityId;
                       human_weap__currentGunSlot : int;
                       human_weap__gunMods : Array;
-                      human_weap__currentGunEid : EntityId;
-                      human_weap__gunEids : EidList;
-                      human_weap__autoequipMods : bool)
+                      human_weap__currentGunEid : EntityId)
   let itemEid = evt.item
   if human_weap__currentGunSlot < 0
     pickup_item(eid, itemEid)
@@ -49,16 +47,5 @@ def pickup_gun_mod_es(evt : CmdInventoryPickupGunMod;
       remove_item_from_weap_impl(eid, curSlot, gunAttachable__slotName, toGround)
       pickup_and_install_item_on_weap_impl(eid, itemEid, curSlot, gunAttachable__slotName)
       return
-    if human_weap__autoequipMods
-      if is_gunmod_allowed(curGunEid, itemEid) // if can attach to current gun
-        if get_gunMod_eid_by_slot(curSlot, gunAttachable__slotName, human_weap__gunMods) == INVALID_ENTITY_ID
-          pickup_and_install_item_on_weap_impl(eid, itemEid, curSlot, gunAttachable__slotName)
-          return
-      for slot in iter_range(human_weap__gunEids) // find first gun to can attach gunMod
-        if slot == curSlot || human_weap__gunEids[slot] == INVALID_ENTITY_ID // skip the current slot because the check has already been
-          continue
-        let modEid = get_gunMod_eid_by_slot(slot, gunAttachable__slotName, human_weap__gunMods)
-        if modEid == INVALID_ENTITY_ID && is_gunmod_allowed(human_weap__gunEids[slot], itemEid)
-          pickup_and_install_item_on_weap_impl(eid, itemEid, slot, gunAttachable__slotName)
-          return
+
     pickup_item(eid, itemEid)

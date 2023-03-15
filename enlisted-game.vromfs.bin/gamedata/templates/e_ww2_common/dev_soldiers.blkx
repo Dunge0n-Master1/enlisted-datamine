@@ -1,0 +1,174 @@
+duck_hunt{
+  duck__min:p3=0.0, 0.0, 0.0
+  duck__max:p3=0.0, 0.0, 0.0
+  duck__phaseShift:r=0.0
+  duck__dir:p3=1.0, 0.0, 0.0
+  duck__speed:r=0.25
+  duck__halfDist:r=2.5
+}
+
+dev_soldier_tag{
+
+  "devSoldier:tag"{
+  }
+}
+
+attachable_wear_belt_dev_with_nodes_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_with_nodes_item"
+  animchar__res:t="belt_with_nodes_char"
+  collres__res:t="belt_with_nodes_collision"
+  _tracked:t="attaches_list"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="pot"
+  }
+}
+
+attachable_wear_tunic_dev_with_nodes_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_tunic_with_nodes_item"
+  animchar__res:t="tunic_with_nodes_char"
+  collres__res:t="tunic_with_nodes_collision"
+  _tracked:t="attaches_list"
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="backpack"
+    slot:t="pot"
+  }
+}
+
+attachable_wear_overcoat_dev_with_nodes_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_overcoat_with_nodes_item"
+  animchar__res:t="overcoat_with_nodes_char"
+  collres__res:t="overcoat_with_nodes_collision"
+  animchar_fast_phys__res:t="overcoat_with_nodes_fastphys"
+  _tracked:t="attaches_list"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="belt_1"
+    slot:t="backpack"
+    slot:t="pot"
+  }
+}
+
+attachable_wear_tornister_backpack_m39_nodes_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_tornister_backpack_m39_nodes_item"
+  animchar__res:t="tornister_backpack_m39_nodes_char"
+  collres__res:t="tornister_backpack_m39_nodes_collision"
+  animchar_fast_phys__res:t="tornister_backpack_m39_nodes_fastphys"
+  _tracked:t="attaches_list"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="tunic"
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "skeleton_attach__remapAffectSlots:list<t>"{
+    slot:t="pot"
+  }
+}
+
+attachable_wear_pot_with_nodes_item{
+  _extends:t="attachable_pot"
+  item__uniqueName:t="attachable_wear_pot_with_nodes_item"
+  animchar__res:t="pot_with_nodes_char"
+  collres__res:t="pot_with_nodes_collision"
+  animchar_fast_phys__res:t="pot_with_nodes_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="backpack"
+    slot:t="belt_1"
+    slot:t="tunic"
+  }
+
+  "skeleton_attach__skipParentsRemapNodes:list<t>"{
+    node:t="d_pot_01_A"
+    node:t="d_pot_01_B"
+  }
+}
+
+dev_soldier{
+  _extends:t="usa_base_soldier"
+  _extends:t="dev_soldier_tag"
+  _extends:t="stats_count_as_kill"
+  beh_tree__node:t="wanderer"
+
+  "devSoldier:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_01_us_summer_item:t="face"
+    attachable_wear_tunic_dev_with_nodes_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_01_ger_summer_item:t="pants"
+    attachable_wear_belt_dev_with_nodes_item:t="belt_1"
+    attachable_wear_tornister_backpack_m39_nodes_item:t="backpack"
+    attachable_wear_pot_with_nodes_item:t="pot"
+  }
+}
+
+walk_soldier{
+  _extends:t="dev_soldier"
+  beh_tree__node:t="walker"
+}
+
+editor_soldier{
+  _extends:t="dev_soldier"
+  hitpoints__hp:r=999999995904.0
+  hitpoints__maxHp:r=999999995904.0
+
+  "human_weap__weapTemplates:object"{
+    melee:t="knife_weapon"
+  }
+
+  "editor_soldier:tag"{
+  }
+}
+
+dead_dev_soldier{
+  _extends:t="usa_base_soldier"
+  _extends:t="dev_soldier_tag"
+  _extends:t="stats_count_as_kill"
+  hitpoints__hp:r=-100.0
+
+  "devSoldier:tag"{
+  }
+
+  "human_equipment__initialEquip:object"{
+    attachable_wear_head_01_us_summer_item:t="face"
+    attachable_wear_tunic_01_ger_summer_item:t="tunic"
+    attachable_wear_gloves_01_us_summer_item:t="gloves"
+    attachable_wear_pants_01_ger_summer_item:t="pants"
+  }
+}

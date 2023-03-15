@@ -167,13 +167,13 @@ def capture_zone(zone_eid : EntityId;
     active = false // forcefully deactivate, so nobody will be able to push any events to it
 
   let reCap = capzone__owningTeam == capzone__capTeam
+  capzone__owningTeam = capzone__capTeam
   if capzone__deactivateAfterTimeout > 0.
-    if capzone__owningTeam != capzone__capTeam
+    if !reCap
       broadcast_net_event([[EventZoneIsAboutToBeCaptured zone=zone_eid, team=capzone__capTeam]])
-  elif capzone__owningTeam != capzone__capTeam || capzone__checkAllZonesInGroup
+  elif !reCap || capzone__checkAllZonesInGroup
     broadcast_net_event([[EventZoneCaptured zone=zone_eid, team=capzone__capTeam]])
 
-  capzone__owningTeam = capzone__capTeam
   if !reCap
     sendEvent(zone_eid, [[EventAwardZoneCapturers]])
 
@@ -239,7 +239,7 @@ def capzone_capturing_enter(evt : EventCapZoneEnter;
   let teamId = "{team}"
   var presence = getRW_ecs_array(teamPresence, teamId)
   if presence == null
-    teamPresence |> push_to_object(teamId) <| $(var arr : Array#)
+    teamPresence |> push_to_object(teamId) <| $(var arr : Array)
       push(arr, evt.visitor)
   else
     push(*presence, evt.visitor)
@@ -282,7 +282,7 @@ def capzone_capturing_exit(evt : EventCapZoneLeave;
     if idx >= 0
       (*presence) |> erase(idx)
   else
-    teamPresence |> push_to_object(teamId) <| $ [unused_argument(arr)] (var arr : Array#) {}
+    teamPresence |> push_to_object(teamId) <| $ [unused_argument(arr)] (var arr : Array) {}
   on_team_presence_changed(eid, active, capzone__presenceAdvantageToDominate, capzone__advantageWeights,
                            teamPresence, capzone__onlyTeamCanCapture, capzone__allowDecap, capzone__canCaptureByPresenceDomination,
                            capzone__locked, capzone__autoCap, capzone__autoDecap, capzone__decapOnNeutral,

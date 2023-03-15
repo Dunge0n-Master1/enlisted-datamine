@@ -1,9 +1,0 @@
-helmet_rus_a_item{
-  _override:b=yes
-  item__armorAmount:r=0.2
-}
-
-attachable_wear_rus_armor_item{
-  _override:b=yes
-  item__armorAmount:r=0.2
-}

@@ -33,9 +33,11 @@ def vehicle_seats_enter_exit_kick_request_es(evt : RequestKickFromVehicle;
 def private detach_human_from_seat(eid : EntityId; seat__component : int)
   query(eid) <| $ [es] (var isInVehicle : bool&;
                         var isInVehicleHidden : bool&;
+                        var disable_collision : bool&;
                         var human_anim__vehicleSelected : EntityId&;
                         var human_vehicle__occupiedSeatEid : EntityId&)
     isInVehicle = false
+    disable_collision = false
     isInVehicleHidden = false
     human_anim__vehicleSelected = INVALID_ENTITY_ID
     human_vehicle__occupiedSeatEid = INVALID_ENTITY_ID
@@ -51,7 +53,7 @@ def private vehicle_trace_exit_pos(var human_net_phys : HumanActor?; var exitPos
     var dist = length(dir)
     dir *= safeinv(dist)
     var norm : float3
-    if !forcibly && traceray_normalized(pos, dir, dist, norm)
+    if !forcibly && dist > FLT_EPSILON && traceray_normalized(pos, dir, dist, norm)
       return false
     let posXZ = pos.xz
     let lmeshHt = traceht_lmesh(posXZ)
@@ -125,53 +127,26 @@ def private vehicle_teleport_entity_to_node(eid : EntityId; tree : GeomNodeTree 
 
   return res
 
-def private vehicle_find_nearest_exit_point(pos : float3; forbidden_radius : float; var nearest_exit_point_tm : float3x4&) : bool
-  var bestDistSq = VERY_BIG_NUMBER
-
-  query() <| $ [es] (transform : float3x4; exit_point__accessibility_radius : float)
-    let distSq = distance_sq(transform[3], pos)
-    if distSq < square(exit_point__accessibility_radius) && distSq < bestDistSq && distSq > square(forbidden_radius)
-      bestDistSq = distSq
-      nearest_exit_point_tm = transform
-
-  return bestDistSq < VERY_BIG_NUMBER
-
 def private vehicle_teleport_entity_by_bounding_box(eid : EntityId; collres : CollisionResource; vehicle_tm : float3x4)
-  let transform = get_TMatrix(eid, "transform")
-  if transform == null
-    return
-
-  var requesterTm = *transform
-
-  let vehicleBox = BBox3(collres.vFullBBox.bmin.xyz, collres.vFullBBox.bmax.xyz)
-
-  var nearestExitPointTm : float3x4
-  if vehicle_find_nearest_exit_point(requesterTm[3], length(vehicleBox.width) * 0.5, nearestExitPointTm)
-    var exitPos = nearestExitPointTm[3]
-    var t = 50.0
-    if tracedown_normalized(exitPos, t, ETF_DEFAULT)
-      exitPos.y -= (t - 0.25)
-
-    nearestExitPointTm[3] = exitPos
-    teleport_phys_actor(eid, nearestExitPointTm)
-    return
-
-  query(eid) <| $ [es] (var human_net_phys : HumanActor?)
+  query(eid) <| $ [es] (var transform : float3x4; var human_net_phys : HumanActor?)
+    let vehicleBox = BBox3(collres.vFullBBox.bmin.xyz, collres.vFullBBox.bmax.xyz)
     let additionalCollRad = 0.2
     let collRad = (human_net_phys != null ? human_net_phys.phys.collRad : 0.2) + additionalCollRad
     let vehicleLeft = vehicle_tm[2]
-    let relativeVehicleTm = inverse(vehicle_tm) * requesterTm
+    let relativeVehicleTm = inverse(vehicle_tm) * transform
+    // we try to exit on the side we are closer to firstly hence the sign of relativeVehicleTm
+    let vehicleSideOffset = sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft
 
     let existWishPos = [[float3[2]
-      requesterTm[3] + sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft;
-      requesterTm[3] - sign(relativeVehicleTm[3].z) * 0.5 * (vehicleBox.width.z + collRad) * vehicleLeft ]]
+      transform[3] + vehicleSideOffset;
+      transform[3] - vehicleSideOffset ]]
 
     for i in range(0, 2)
       // Check left & right side
       var exitPos = existWishPos[i]
-      if vehicle_trace_exit_pos(human_net_phys, exitPos, requesterTm)
-        requesterTm[3] = exitPos
-        teleport_phys_actor(eid, requesterTm)
+      if vehicle_trace_exit_pos(human_net_phys, exitPos, transform)
+        transform[3] = exitPos
+        teleport_phys_actor(eid, transform)
         return
 
 

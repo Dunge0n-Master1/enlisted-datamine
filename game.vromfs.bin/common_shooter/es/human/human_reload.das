@@ -9,6 +9,7 @@ require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
+require common_shooter.es.human.human_reload_common
 require EnlistedHuman
 require EnlistedActor
 require EnlistedWeapon
@@ -17,7 +18,6 @@ require DagorMath
 require DagorRandom
 require DaWeaponProps
 require Gun
-require GunAnim
 require HumanPhys
 require enlisted.events_enlisted
 
@@ -207,7 +207,7 @@ def human_weap_request_reload_es(evt : CmdRequestReload;
       gun__ammoOnSwitch = gun__maxAmmo
       human_weap__reloadMode = int(ReloadAmmoMode CONSUME)
 
-    find_ammo_for_gun(gunEid, itemContainer, INVALID_ITEM_ID, gun__ammo) <| $(ammoForGun : AmmoItemForGunResult#)
+    find_ammo_for_gun(gunEid, itemContainer, INVALID_ITEM_ID, gun__ammo) <| $(ammoForGun : AmmoItemForGunResult)
       if ammoForGun.itemIndex < 0
         return
 
@@ -313,7 +313,7 @@ def client_track_ammo_holder_es(evt : ecs::Event;
 
 
 [es(before=human_weap_update_es)]
-def human_weap_reload_es(info : UpdateStageInfoAct;
+def human_weap_reload_es(info : ParallelUpdateFrameDelayed;
                          eid : ecs::EntityId;
                          human_weap__currentGunEid : ecs::EntityId;
                          var human_weap__reloadAtTime : float&;

@@ -53,6 +53,7 @@ let mkSquadsList = kwarg(@(
       canFocus = @() false
       scrollSpeed = 10.0
       isViewport = true
+      scrollToEdge = true
     })
     children
   }.__merge(bgOverride)

@@ -3,22 +3,23 @@ require vehicle
 require EnlistedPhysObj
 require EnlistedShip
 require EnlistedActor
+require enlisted.events_enlisted
 
 [es(after=vehicle_seats_update_sleep_physobj_es, tag=server)]
-def save_phys_obj_sleep_state_phys_es(info : UpdateStageInfoAct;
+def save_phys_obj_sleep_state_phys_es(info : ParallelUpdateFrameDelayed;
                                       phys_obj_net_phys : PhysObjActor;
                                       var phys__isAsleep : bool&)
   phys__isAsleep = phys_obj_net_phys.isAsleep
 
 [es(after=(vehicle_seats_update_sleep_vehicle_es, vehicle_floats_wakeup_es), tag=server)]
-def save_vehicle_sleep_state_phys_es(info : UpdateStageInfoAct;
+def save_vehicle_sleep_state_phys_es(info : ParallelUpdateFrameDelayed;
                                      vehicle_net_phys : VehiclePhysActor;
                                      var phys__isAsleep : bool&)
   phys__isAsleep = vehicle_net_phys.isAsleep
 
 
 [es(after=vehicle_seats_update_sleep_ship_es, tag=server)]
-def save_ship_sleep_state_phys_es(info : UpdateStageInfoAct;
+def save_ship_sleep_state_phys_es(info : ParallelUpdateFrameDelayed;
                                   ship_net_phys : ShipActor;
                                   var phys__isAsleep : bool&)
   phys__isAsleep = ship_net_phys.isAsleep

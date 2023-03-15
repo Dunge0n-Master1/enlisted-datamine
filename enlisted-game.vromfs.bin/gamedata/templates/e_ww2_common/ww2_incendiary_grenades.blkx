@@ -1,0 +1,222 @@
+incendiary_grenade_base{
+  _extends:t="grenade_base"
+}
+
+incendiary_grenade_shell_base{
+  _extends:t="incendiary_grenade_base"
+  _extends:t="projectile_with_shell"
+  shell__explNodeIdx:i=-1
+
+  "animchar__actOnDemand:tag"{
+  }
+}
+
+incendiary_grenade_phys_base{
+  _extends:t="awared_danger"
+  _extends:t="projectile_phys_with_shell"
+  _extends:t="incendiary_grenade_base"
+  _extends:t="projectile_phys"
+  _extends:t="fire_splash_shell"
+  _extends:t="hud_grenade_marker"
+  _extends:t="grenade_throw_sound"
+  _extends:t="grenade_phys_collision_sound"
+  shell_explosion_fx__infoTemplate:t="hit_effect_group_phosphorus_grenade_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
+  active:b=no
+  start_omega:p3=3.0, 0.0, -15.0
+  ai_target_node__node:t="weaponRoot"
+  _tracked:t="active"
+
+  "on_explosion__create:list<t>"{
+    tmplt:t="incendiary_grenade_spread+on_explosion"
+    tmplt:t="white_phosphorus_damage_zone+incendiary_grenade_explode_sound+on_explosion"
+  }
+
+  "on_explosion__doNotCreateUnderwater:tag"{
+  }
+
+  "shell__concussionMaxRadius:r"{
+    value:r=0.0
+    _tags:t="server"
+  }
+
+  "ai_target_node__nodeId:i"{
+    value:i=-1
+    _tags:t="server"
+  }
+
+  "extinguishUnderwater:tag"{
+  }
+}
+
+white_phosphorus_damage_zone{
+  _extends:t="replicating"
+  _extends:t="white_phosphorus_smoke_effect"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  dmgzone__damage:r=1.75
+  dmgzone__lastUpdate:r=-1.0
+  dmgzone__updateInterval:r=1.0
+  dm__damageType:t="gas"
+  dm__damageTypeId:i=-1
+  dmgzone__shellId:i=-1
+  dmgzone__gunPropsId:i=-1
+  sphere_zone__radius:r=6.5
+  game_effect__timeToDestroy:r=8.0
+  game_effect__destroyAt:r=-1.0
+
+  _group{
+    _tags:t="server"
+    obstacle__padding:r=1.2
+    obstacle__handle:i=0
+  }
+
+  "dmgzone__offender:eid"{
+  }
+
+  "dmgzone__doNotDamageUnderwater:tag"{
+  }
+}
+
+incendiary_grenade_fire{
+  _extends:t="fire_source"
+  sphere_zone__radius:r=0.3
+  dmgzone__maxRadius:r=0.67
+  fire_source__spreadTime:r=0.5
+  fire_source__fullForceTime:r=2.0
+  fire_source__maxFullForceTime:r=2.0
+  fire_source__fadeTime:r=8.0
+  dmgzone__fireAffect:r=2.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_spot_2m_nosmoke_cmps_fx"
+  }
+}
+
+incendiary_grenade_spread{
+  _extends:t="explosion_spread"
+  explosion_spread__traceCount:i=5
+  explosion_spread__length:p2=2.0, 12.0
+  explosion_spread__downLengthMult:r=1.75
+  explosion_spread__createOnTrace:t="incendiary_grenade_fire"
+  explosion_spread__staticDir:p3=0.0, 1.0, 0.0
+  explosion_spread__stepBack:r=-0.4
+}
+
+incendiary_grenade{
+  _extends:t="incendiary_grenade_shell_base"
+}
+
+incendiary_grenade_item_base{
+  _extends:t="item_grenade"
+  item__locDetails:t=""
+  item__grenadeType:t="incendiary"
+}
+
+m_15_incendiary_grenade_base{
+  animchar__res:t="us_m15_white_phosphorus_grenade_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/m_15_incendiary_grenade"
+}
+
+m_15_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="m_15_incendiary_grenade_base"
+}
+
+m_15_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="m_15_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons/grenades/m_15_incendiary_grenade.blk"
+}
+
+m_15_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="m_15_incendiary_grenade_base"
+  item__weight:r=0.88
+  item__template:t="m_15_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_m_15_incendiary_grenade"
+  item__shell:t="content/enlisted/gamedata/weapons/grenades/m_15_incendiary_grenade.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/grenades/m_15_incendiary_grenade.blk"
+}
+
+type_91_incendiary_grenade_base{
+  animchar__res:t="jap_type91_phosphorus_grenade_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/type_91_incendiary_grenade"
+}
+
+type_91_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="type_91_incendiary_grenade_base"
+}
+
+type_91_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="type_91_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
+}
+
+type_91_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="type_91_incendiary_grenade_base"
+  item__weight:r=0.5
+  item__template:t="type_91_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_type_91_incendiary_grenade"
+  item__shell:t="content/enlisted/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/grenades/type_91_incendiary_grenade.blk"
+}
+
+uk_no_77_incendiary_grenade_base{
+  animchar__res:t="uk_n77_grenade_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/uk_no_77_incendiary_grenade"
+}
+
+uk_no_77_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+}
+
+uk_no_77_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+}
+
+uk_no_77_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="uk_no_77_incendiary_grenade_base"
+  item__weight:r=0.5
+  item__template:t="uk_no_77_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_uk_no_77_incendiary_grenade"
+  item__shell:t="content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/grenades/uk_no_77_incendiary_grenade.blk"
+}
+
+srcm_mod_35_incendiary_grenade_base{
+  animchar__res:t="srcm_mod_35_phos_char"
+  collres__res:t="grenade_an_m8_ready_collision"
+  item__name:t="items/srcm_mod_35_incendiary_grenade"
+}
+
+srcm_mod_35_incendiary_grenade{
+  _extends:t="incendiary_grenade"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+}
+
+srcm_mod_35_incendiary_grenade_phys{
+  _extends:t="incendiary_grenade_phys_base"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+}
+
+srcm_mod_35_incendiary_grenade_item{
+  _extends:t="incendiary_grenade_item_base"
+  _extends:t="srcm_mod_35_incendiary_grenade_base"
+  item__weight:r=0.5
+  item__template:t="srcm_mod_35_incendiary_grenade_item"
+  item__userstats__pickupName:t="pickup_srcm_mod_35_incendiary_grenade"
+  item__shell:t="content/enlisted/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/grenades/srcm_mod_35_incendiary_grenade.blk"
+}

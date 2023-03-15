@@ -35,7 +35,7 @@ const HIGH_WORTH_REWARD = 3
 let localGap = hugePadding * 2
 let maxWidth = (sizeCard[0] + 3*gapCards) * (isWide ? 4 : 3) - 3*gapCards
 let titleAndDescriptionBlockHeight = hdpx(330)
-let cardBlockSize = isWide ? [hdpx(1600), flex()] : [hdpx(1400), flex()]
+let cardBlockSize = isWide ? [hdpx(1600), SIZE_TO_CONTENT] : [hdpx(1400), SIZE_TO_CONTENT]
 
 let showingItem = Computed(function() {
   if (curItem.value == null)

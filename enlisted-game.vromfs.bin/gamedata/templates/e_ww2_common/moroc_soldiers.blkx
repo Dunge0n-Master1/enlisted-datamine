@@ -1,0 +1,28 @@
+uk_tropical_1{
+  animchar__res:t="uk_tropical_1_char"
+  collres__res:t="uk_tropical_1_collision"
+  animchar_fast_phys__res:t="uk_tropical_1_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+moroc_human_voice{
+
+  _group{
+    _tags:t="sound"
+    human_speech__locale:t="fr"
+  }
+}
+
+moroc_base_soldier{
+  _extends:t="usa_soldier"
+  _extends:t="enlisted_base_soldier"
+  _extends:t="moroc_human_voice"
+}
+
+ai_aircraft_crew_moroc_soldier{
+  _extends:t="moroc_base_soldier"
+  _extends:t="ai_aircraft_crew_soldier_base"
+}

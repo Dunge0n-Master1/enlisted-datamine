@@ -25,3 +25,7 @@ struct EventHidGlobalInputSink
 
 [event(unicast)]
 struct EventCheckHumanInputIsSingular {}
+
+[event(broadcast)]
+struct CmdResetDigitalActionStickyToggle
+  action : uint16

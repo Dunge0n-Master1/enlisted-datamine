@@ -133,11 +133,12 @@ let mkResetButtons = @(guid) {
   ]
 }
 
-let function soldierLook(soldier) {
-  let { guid } = soldier
+let soldierLook = @(soldier) function() {
+  let { guid } = soldier.value
   let soldierHeadId = mkSoldierHead(guid)
   let soldierFaceId = mkSoldierFace(guid)
   return {
+    watch = soldier
     size = flex()
     flow = FLOW_VERTICAL
     gap = smallPadding

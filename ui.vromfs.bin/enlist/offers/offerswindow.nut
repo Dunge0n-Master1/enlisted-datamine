@@ -28,6 +28,7 @@ let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { campaignsByArmy, squadsByArmies } = require("%enlist/meta/profile.nut")
+let { shopItems } = require("%enlist/shop/shopItems.nut")
 
 
 let specOfferWidth = hdpx(700)
@@ -121,8 +122,8 @@ let mkOfferDesc = @(descLocId, params = {}) descLocId == "" ? null
       text = loc(descLocId, params)
     }.__update(sub_txt)
 
-let function mkOfferShopItem(personalOffer, ownSquads) {
-  let { shopItem = null, descLocId = "" } = personalOffer
+let function mkOfferShopItem(personalOffer, shopItem, ownSquads) {
+  let { descLocId = "" } = personalOffer
   if (shopItem == null)
     return null
 
@@ -199,9 +200,10 @@ let mkOfferLifetimeInfo = @(lifeTime) {
 
 let function curOfferUi() {
   let offer = visibleOffersInWindow.value?[curOfferIdx.value]
+  let allShopItems = shopItems.value
   let ownSquads = squadsByArmies.value
   return {
-    watch = [visibleOffersInWindow, curOfferIdx, squadsByArmies]
+    watch = [visibleOffersInWindow, curOfferIdx, squadsByArmies, shopItems]
     size = [fsh(130), flex()]
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
@@ -239,7 +241,7 @@ let function curOfferUi() {
             {
               size = [flex(), SIZE_TO_CONTENT]
               padding = bigPadding
-              children = mkOfferShopItem(offer, ownSquads)
+              children = mkOfferShopItem(offer, allShopItems[offer.shopItemGuid], ownSquads)
             }
           ]
         }

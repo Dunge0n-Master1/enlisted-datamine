@@ -78,6 +78,8 @@ let itemTypesData = {
 
   sideweapon = { svg = "item_pistol.svg" }
   melee = { svg = "melee.svg" }
+  axe = { svg = "melee.svg" }
+  sword = { svg = "melee.svg" }
 
   explosion_pack = { svg = "explosion_pack_icon.svg" }
   grenade = { svg = "item_grenade.svg" }
@@ -96,6 +98,7 @@ let itemTypesData = {
   repair_kit = { svg = "item_repair_kit.svg" }
   flask_usable = { svg = "flask_icon.svg" }
   binoculars_usable = { svg = "binoculars_icon.svg" }
+  small_backpack = { svg = "item_backpack.svg" }
   backpack = { svg = "item_backpack.svg" }
 
   vehicle = { svg = "tank_icon.svg" }

@@ -172,7 +172,7 @@ def scenery_remover_on_netclient_finalize_client_es(info : UpdateStageInfoAct;
   destroyEntity(eid)
 
 
-[es(tag=server, on_event=EventLevelLoaded, before=(obstacle_level_ri_loaded_es, ri_extra_gen_blk_es_event_handler))]
+[es(tag=server, on_event=EventLevelLoaded, before=(obstacle_level_ri_loaded_es, ri_extra_gen_blk_es))]
 def scenery_remover_on_level_loaded_es(evt : Event)
   query() <| $ [es] (scenery_remove__apply : bool;
                      scenery_remove__exclude : StringList;

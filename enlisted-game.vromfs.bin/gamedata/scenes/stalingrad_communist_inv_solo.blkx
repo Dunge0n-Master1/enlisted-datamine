@@ -3973,12 +3973,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -3986,9 +3986,9 @@ entity{
   mission_name:t="stalingrad_communist_inv"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_03.jpg"
-    item:t="ui/stalingrad_inv_05.jpg"
-    item:t="ui/stalingrad_inv_09.jpg"
+    item:t="ui/stalingrad_inv_03.avif"
+    item:t="ui/stalingrad_inv_05.avif"
+    item:t="ui/stalingrad_inv_09.avif"
   }
 }
 
@@ -6759,6 +6759,14 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[0.708351, 0.0, -0.705859] [0.0, 1.0, 0.0] [0.705859, 0.0, 0.708351] [-310.261, 6.03651, 206.558]]
+  resupply_zone__team:i=1
+  groupName:t="sector_3_b"
+  active:b=no
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
   transform:m=[[-0.967444, 0.0, -0.253085] [0.0, 1.0, 0.0] [0.253085, 0.0, -0.967444] [107.633, 5.83493, 167.742]]
   resupply_zone__team:i=2
   groupName:t="sector_3_c"
@@ -6770,6 +6778,22 @@ entity{
   transform:m=[[0.681802, 0.0, 0.731536] [0.0, 1.0, 0.0] [-0.731536, 0.0, 0.681802] [-335.171, 6.03651, 208.139]]
   resupply_zone__team:i=1
   groupName:t="sector_3_c"
+  active:b=no
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[-0.967444, 0.0, -0.253085] [0.0, 1.0, 0.0] [0.253085, 0.0, -0.967444] [100.948, 5.83493, 168.633]]
+  resupply_zone__team:i=2
+  groupName:t="sector_3_d"
+  active:b=no
+}
+
+entity{
+  _template:t="resupply_for_ground_vehicle_zone"
+  transform:m=[[0.681802, 0.0, 0.731536] [0.0, 1.0, 0.0] [-0.731536, 0.0, 0.681802] [-335.171, 6.03651, 208.139]]
+  resupply_zone__team:i=1
+  groupName:t="sector_3_d"
   active:b=no
 }
 
@@ -6842,22 +6866,6 @@ entity{
   transform:m=[[0.649434, 0.0, -0.760418] [0.0, 1.0, 0.0] [0.760418, 0.0, 0.649434] [-183.698, 6.58482, 208.027]]
   resupply_zone__team:i=1
   groupName:t="sector_2_b"
-  active:b=no
-}
-
-entity{
-  _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.967444, 0.0, -0.253085] [0.0, 1.0, 0.0] [0.253085, 0.0, -0.967444] [100.948, 5.83493, 168.633]]
-  resupply_zone__team:i=2
-  groupName:t="sector_3_d"
-  active:b=no
-}
-
-entity{
-  _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.708351, 0.0, -0.705859] [0.0, 1.0, 0.0] [0.705859, 0.0, 0.708351] [-310.261, 6.03651, 206.558]]
-  resupply_zone__team:i=1
-  groupName:t="sector_3_b"
   active:b=no
 }
 

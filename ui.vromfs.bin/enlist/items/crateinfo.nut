@@ -91,16 +91,14 @@ let mkItemsListWithHeader = @(itemTpls, armyId, header = null) function() {
   }
 }
 
-local function mkCrateItemsInfo(crContent, header = null, addChild = null, isRestrictedItem = false) {
-  let { armyId, content } = crContent
+local function mkCrateItemsInfo(armyId, content, header = null, addChild = null, isRestrictedItem = false) {
   let { items = null, groupLocId = "" } = content
-
   if ((items?.len() ?? 0) == 0)
     return null
 
   if (header == null) {
-    let minAmount = crContent?.content.itemsAmount.x ?? 1
-    let maxAmount = crContent?.content.itemsAmount.y ?? 1
+    let minAmount = content?.itemsAmount.x ?? 1
+    let maxAmount = content?.itemsAmount.y ?? 1
     header = minAmount == maxAmount
       ? loc("crateContentHeader", {
           amountText = colorize(soldierLvlColor, minAmount)
@@ -154,15 +152,14 @@ local function mkCrateItemsInfo(crContent, header = null, addChild = null, isRes
   }
 }
 
-let function mkCrateShuffleInfo(contentData) {
-  let { content } = contentData
+let function mkCrateShuffleInfo(armyId, content) {
   let mainItemsData = (content?.mainItemsData ?? {}).filter(@(d) (d?.shuffleMax ?? 0) > 0)
   if (mainItemsData.len() == 0)
     return null
 
   let isOpenedOnce = content.openingsCount > 0
   let children = mainItemsData.values()
-    .map(@(data) mkCrateItemsInfo(data, loc("shop/guaranteedContent", data),
+    .map(@(data) mkCrateItemsInfo(armyId, data, loc("shop/guaranteedContent", data),
       isOpenedOnce
         ? txt({ text = loc("shop/alreadyReceived", data), color = activeTxtColor })
         : null
@@ -191,8 +188,7 @@ let mkSClassRow = @(sClass, armyId) @() {
   ]
 }
 
-let function mkCrateSoldiersInfo(contentData) {
-  let { armyId, content } = contentData
+let function mkCrateSoldiersInfo(armyId, content) {
   let { soldierClasses = [] } = content
   if (soldierClasses.len() == 0)
     return null
@@ -236,17 +232,17 @@ let function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTE
 
   let header = headerTxt == "" ? null : mkTextArea(headerTxt).__update(body_txt)
   return tooltipBox(function() {
-    let crateContentVal = crateContent.value
+    let { armyId = "", content = null } = crateContent.value
     return {
       watch = [crateContent, isLootBoxProhibited]
       gap = bigPadding
       flow = FLOW_VERTICAL
-      children = crateContentVal?.content == null ? spinner
+      children = content == null ? spinner
         : [
             header
-            mkCrateItemsInfo(crateContentVal, null, null, isLootBoxProhibited.value)
-            mkCrateShuffleInfo(crateContentVal)
-            mkCrateSoldiersInfo(crateContentVal)
+            mkCrateItemsInfo(armyId, content, null, null, isLootBoxProhibited.value)
+            mkCrateShuffleInfo(armyId, content)
+            mkCrateSoldiersInfo(armyId, content)
           ]
     }
   }, size)

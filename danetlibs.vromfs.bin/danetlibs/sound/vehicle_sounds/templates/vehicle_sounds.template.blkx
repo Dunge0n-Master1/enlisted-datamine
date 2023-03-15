@@ -684,6 +684,29 @@ tank_t34_engine_sound{
   }
 }
 
+tank_abrams_engine_sound{
+  _extends:t="base_vehicle_engine_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_engine_sound__path:shared:object"{
+      hero:t="player/vehicle/tank/abrams/engine_interior"
+      enemy:t="enemy/vehicle/tank/abrams/engine"
+    }
+
+    "vehicle_engine_sound__startPath:shared:object"{
+      hero:t="player/vehicle/tank/abrams/engine_start_interior"
+      enemy:t="enemy/vehicle/tank/abrams/engine_start"
+    }
+
+    "vehicle_engine_sound__stopPath:shared:object"{
+      hero:t="player/vehicle/tank/abrams/engine_stop_interior"
+      enemy:t="enemy/vehicle/tank/abrams/engine_stop"
+    }
+  }
+}
+
 motorcycle_vehicle_engine_sound{
   _extends:t="base_vehicle_engine_sound"
 
@@ -993,6 +1016,7 @@ vehicle_sound{
   _group{
     _tags:t="sound"
     sound_control__range:r=160.0
+    sound_control__autoRange:b=no
   }
 }
 

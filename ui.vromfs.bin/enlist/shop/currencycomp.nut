@@ -44,7 +44,7 @@ let function mkCurrencyImage(icon, sizeArr = [hdpx(30), hdpx(30)]) {
   return{
     rendObj = ROBJ_IMAGE
     size = sizeArr
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = Picture($"{icon}:{svgSize[0]}:{svgSize[1]}:K")
     fallbackImage = Picture($"!ui/uiskin/currency/weapon_order.svg:{svgSize[0]}:{svgSize[1]}:K")
   }
@@ -263,6 +263,7 @@ let function mkDiscountWidget(discountInPercent, override = {}) {
     children = [
       {
         rendObj = ROBJ_IMAGE
+        size
         imageValign = ALIGN_TOP
         image = Picture($"!ui/gameImage/discount_corner.svg:{size[0].tointeger()}:{size[1].tointeger()}:K")
         color = accentTitleTxtColor

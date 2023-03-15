@@ -1,9 +1,10 @@
 require ecs
 require ecs.common
 require strings
+require enlisted.events_enlisted
 
 [es(tag=ui, REQUIRE=vehicleWithWatched, no_order)]
-def ui_update_wathed_vehicle_turret_ammo(info : UpdateStageInfoAct;
+def ui_update_wathed_vehicle_turret_ammo(info : ParallelUpdateFrameDelayed;
                                          turret_control__gunEids : EidList;
                                          ui_turrets_state__updateInterval : float = 0.1;
                                          disableVehicleResupply : Tag const?;
@@ -25,7 +26,7 @@ def ui_update_wathed_vehicle_turret_ammo(info : UpdateStageInfoAct;
         reloadAmmo[turret__groupName] += gun__totalAmmo
         if gun__ammo > 0 && !key_exists(firstLoadedGunInGroup, turret__groupName)
           firstLoadedGunInGroup[turret__groupName] = gunEid
-      ui_turrets_state__ammo |> push_to_object("{gunEid}") <| $(var ammo : Object#)
+      ui_turrets_state__ammo |> push_to_object("{gunEid}") <| $(var ammo : Object)
         ammo |> set("curAmmo", gun__ammo)
         ammo |> set("totalAmmo", gun__totalAmmo)
         ammo |> set("canBeResuppliedOnPoint", disableVehicleResupply == null)
@@ -33,7 +34,7 @@ def ui_update_wathed_vehicle_turret_ammo(info : UpdateStageInfoAct;
         if gun__ammo_by_shell != null
           ammo |> set("ammoByBullet", *gun__ammo_by_shell)
     for group in keys(groupAmmo)
-      ui_turrets_state__ammo |> push_to_object(group) <| $(var ammo : Object#)
+      ui_turrets_state__ammo |> push_to_object(group) <| $(var ammo : Object)
         ammo |> set("groupAmmo", groupAmmo[group])
         ammo |> set("reloadAmmo", reloadAmmo[group])
         if key_exists(firstLoadedGunInGroup, group)

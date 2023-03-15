@@ -1078,9 +1078,9 @@ entity{
   mission_name:t="berlin_ministry_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/berlin_moat_01.jpg"
-    item:t="ui/berlin_moat_02.jpg"
-    item:t="ui/berlin_opera_inv_03.jpg"
+    item:t="ui/berlin_moat_01.avif"
+    item:t="ui/berlin_moat_02.avif"
+    item:t="ui/berlin_opera_inv_03.avif"
   }
 }
 

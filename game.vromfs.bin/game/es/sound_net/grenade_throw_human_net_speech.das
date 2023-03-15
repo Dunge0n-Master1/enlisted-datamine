@@ -1,6 +1,6 @@
 require ecs
 require common_shooter.events_common_shooter
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require soundNetProps
 require strings
 

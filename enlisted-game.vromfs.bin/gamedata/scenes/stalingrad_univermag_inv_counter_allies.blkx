@@ -3282,12 +3282,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -3295,9 +3295,9 @@ entity{
   mission_name:t="stalingrad_univermag_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/stalingrad_inv_01.jpg"
-    item:t="ui/stalingrad_inv_04.jpg"
-    item:t="ui/stalingrad_inv_06.jpg"
+    item:t="ui/stalingrad_inv_01.avif"
+    item:t="ui/stalingrad_inv_04.avif"
+    item:t="ui/stalingrad_inv_06.avif"
   }
 }
 
@@ -3449,7 +3449,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-208.514, 7.99945, -89.948]]
   active:b=no
@@ -3564,7 +3564,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_a"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-32.8484, 6.80055, -136.163]]
   active:b=no
@@ -3592,7 +3592,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_4_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   transform:m=[[-28.2155, 0.0, 28.3209] [0.0, 6.65669, 0.0] [-22.2666, 0.0, -22.1837] [31.2715, 7.8848, -90.7653]]
   active:b=no

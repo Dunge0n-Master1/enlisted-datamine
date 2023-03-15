@@ -1,4 +1,5 @@
 reverb_sound{
+  _extends:t="sound_bank_preset_state"
   _extends:t="replicating"
   _singleton:b=yes
 
@@ -65,23 +66,36 @@ shore_sound{
   }
 }
 
-river_sound{
+spline_sound{
   _extends:t="sound_bank_preset_state"
+  _extends:t="global_sound_listener_position"
   _extends:t="replicating"
 
   _group{
     _tags:t="sound"
-    river_sound__path:t="ambient/positioned/river_mid"
-    river_sound__wasStarted:b=no
-    river_sound__pos:p3=0.0, 0.0, 0.0
-    river_sound__radius:r=0.0
-    river_sound__pointId:i=-1
+    spline_sound__pos:p3=0.0, 0.0, 0.0
+    spline_sound__radius:r=0.0
+    spline_sound__pointId:i=-1
+    spline_sound__range:r=0.0
+    spline_sound__isInside:b=no
+    spline_sound__path:t=""
+    spline_sound__floorOnWater:b=no
 
-    "river_sound__event:SoundEvent"{
+    "spline_sound__event:SoundEvent"{
     }
   }
 
-  "river_sound__points:list<p3>"{
+  "spline_sound__points:list<p4>"{
+  }
+}
+
+river_sound{
+  _extends:t="spline_sound"
+
+  _group{
+    _tags:t="sound"
+    spline_sound__floorOnWater:b=yes
+    spline_sound__path:t="ambient/positioned/river_mid"
   }
 }
 
@@ -115,6 +129,56 @@ ambient_sound{
   }
 }
 
+volume_ambient_sound{
+  _extends:t="game_object_sound"
+  _extends:t="sound_bank_preset_state"
+  _extends:t="global_sound_listener_position"
+
+  _group{
+    _tags:t="sound"
+    volume_ambient_sound__extent_maxRadiusSq:p4=0.0, 0.0, 0.0, 0.0
+    volume_ambient_sound__range:r=0.0
+    volume_ambient_sound__autoRange:b=yes
+
+    "volume_ambient_sound__event:SoundEvent"{
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+    game_object_sound__path:t="ambient/positioned"
+  }
+}
+
+compound_ambient_sound{
+  _extends:t="game_object_compound_sound"
+  _extends:t="sound_bank_preset_state"
+  _extends:t="global_sound_listener_position"
+
+  _group{
+    _tags:t="sound"
+    compound_ambient_sound__curVolIdx:i=0
+    compound_ambient_sound__curDistSq:r=0.0
+    compound_ambient_sound__curPt:p3=0.0, 0.0, 0.0
+    compound_ambient_sound__closestDistSq:r=0.0
+    compound_ambient_sound__closestPt:p3=0.0, 0.0, 0.0
+    compound_ambient_sound__dist:p2=0.0, 0.0
+    compound_ambient_sound__range:r=0.0
+    compound_ambient_sound__autoRange:b=yes
+
+    "compound_ambient_sound__event:SoundEvent"{
+    }
+
+    "compound_ambient_sound__extents_maxRadiusSq:list<p4>"{
+    }
+  }
+
+  _group{
+    _tags:t="sound"
+    game_object_sound__path:t="ambient/positioned"
+  }
+}
+
 biome_sound_query{
   _extends:t="replicating"
   _singleton:b=yes
@@ -144,62 +208,81 @@ biome_sound_query{
   }
 }
 
-rain_global_sound_var{
+global_sound_var_base{
   _extends:t="replicating"
+  _extends:t="sound_bank_preset_state"
   _singleton:b=yes
+}
+
+rain_global_sound_var{
+  _extends:t="global_sound_var_base"
 
   _group{
     _tags:t="sound"
+    rain_global_sound_var__nextTime:r=0.0
     rain_global_sound_var__name:t="rain"
     rain_global_sound_var__mult:r=1.0
+    rain_global_sound_var__interval:r=1.0
+
+    "rain_global_sound_var__id:SoundVarId"{
+    }
   }
 }
 
 daytime_global_sound_var{
-  _extends:t="replicating"
-  _singleton:b=yes
+  _extends:t="global_sound_var_base"
 
   _group{
     _tags:t="sound"
+    daytime_global_sound_var__nextTime:r=0.0
     daytime_global_sound_var__name:t="daytime"
+    daytime_global_sound_var__interval:r=5.0
+
+    "daytime_global_sound_var__id:SoundVarId"{
+    }
   }
 }
 
 altitude_global_sound_var{
-  _extends:t="replicating"
-  _singleton:b=yes
+  _extends:t="global_sound_var_base"
 
   _group{
     _tags:t="sound"
     altitude_global_sound_var__nextTime:r=0.0
     altitude_global_sound_var__name:t="altitude"
-    altitude_global_sound_var__interval:r=1.0
+    altitude_global_sound_var__interval:r=1.5
+
+    "altitude_global_sound_var__id:SoundVarId"{
+    }
   }
 }
 
 region_global_sound_var{
-  _extends:t="replicating"
-  _singleton:b=yes
+  _extends:t="global_sound_var_base"
 
   _group{
     _tags:t="sound"
-    region_global_sound_var__curNextTime:p2=0.0, 0.0
-    region_global_sound_var__values:p2=0.0, 0.0
-    region_global_sound_var__value:r=0.0
-    region_global_sound_var__updateInterval:r=3.0
+    region_global_sound_var__nextTime:r=0.0
+    region_global_sound_var__updateInterval:r=2.0
     region_global_sound_var__name:t="region"
+
+    "region_global_sound_var__id:SoundVarId"{
+    }
   }
 }
 
 birds_global_sound_var{
-  _extends:t="replicating"
-  _singleton:b=yes
+  _extends:t="global_sound_var_base"
 
   _group{
     _tags:t="sound"
+    birds_global_sound_var__value:r=-1.0
     birds_global_sound_var__name:t="action"
     birds_global_sound_var__noiseTime:r=-10.0
     birds_global_sound_var__timeRange:p2=9.5, 10.0
+
+    "birds_global_sound_var__id:SoundVarId"{
+    }
   }
 }
 
@@ -208,4 +291,24 @@ global_sound_vars{
   _extends:t="daytime_global_sound_var"
   _extends:t="altitude_global_sound_var"
   _extends:t="region_global_sound_var"
+}
+
+base_menu_music{
+  _extends:t="sound_bank_preset_state"
+  _extends:t="replicating"
+  _tracked:t="menu_music__theme"
+  _singleton:b=yes
+
+  _group{
+    _tags:t="sound"
+    menu_music__path:t=""
+    menu_music__var:t="menu_music_theme"
+    menu_music__theme:t=""
+
+    "menu_music__event:SoundEvent"{
+    }
+
+    "menu_music__themes:object"{
+    }
+  }
 }

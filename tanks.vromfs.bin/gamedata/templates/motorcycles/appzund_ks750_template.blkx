@@ -133,7 +133,7 @@ appzund_ks750_common{
   vehicle_net_phys__blk:t="content/tanks/gamedata/templates/motorcycles/appzund_ks750.blk:VehiclePhys"
   canUseRespawnbaseType:t="motorcycle"
   damage_model__blk:t="content/tanks/gamedata/templates/motorcycles/appzund_ks750.blk"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   vehicle_seats__enumVarName:t="zundapp_ks750"
 
   _group{

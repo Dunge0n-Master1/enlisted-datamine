@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, smallPadding, columnGap, sidePadding, footerContentHeight, colPart
+let { defTxtColor, smallPadding, columnGap, sidePadding, colPart
 } = require("%enlSqGlob/ui/designConst.nut")
 let { startswith } = require("string")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -12,6 +12,7 @@ let gamepadImgByKey = require("%ui/components/gamepadImgByKey.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { getHotkeysComps } = require("hotkeysPanelStateComps.nut")
 let {cursorPresent, cursorOverStickScroll, config, cursorOverClickable} = gui_scene
+let { safeAreaVerPadding } = require("%enlSqGlob/safeArea.nut")
 
 
 let navState = { value = [] }
@@ -128,7 +129,7 @@ let svgImg = memoize(function(image){
     valign = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
     image = Picture("!ui/skin#{0}.svg:{1}:{1}:K".subst(image, h.tointeger()))
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
   })
 })
 
@@ -141,11 +142,10 @@ let manualHint = @(images, text=""){
 }
 
 
-let function gamepadCursorNavImages(cType){
-  switch (cType) {
-    case controlsTypes.ds4gamepad: return ["ds4/lstick_4" "ds4/dpad"]
-    case controlsTypes.nxJoycon: return ["nswitch/lstick_4" "nswitch/dpad"]
-  }
+let function gamepadCursorNavImages(cType) {
+  if (cType == controlsTypes.ds4gamepad)
+    return ["ds4/lstick_4" "ds4/dpad"]
+
   return ["x1/lstick_4" "x1/dpad"]
 }
 
@@ -199,10 +199,9 @@ let function tipsC() {
 
 let hotkeysButtonsBar = @() {
   watch = show_tips
-  size = [flex(), footerContentHeight]
-  padding = [0, sidePadding]
+  size = [flex(), SIZE_TO_CONTENT]
+  padding = [0 , sidePadding, safeAreaVerPadding.value, sidePadding]
   vplace = ALIGN_BOTTOM
-  valign = ALIGN_CENTER
   children = show_tips.value ? tipsC : null
 }
 

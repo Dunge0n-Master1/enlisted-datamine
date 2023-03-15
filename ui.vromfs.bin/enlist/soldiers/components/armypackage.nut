@@ -6,21 +6,18 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 
-let mkPicture = @(sIcon, size)
-  Picture("!ui/skin#{0}:{1}:{1}:K".subst(sIcon, size.tointeger()))
-
-let mkIcon = @(image, size, override) image == null ? null : {
+let mkIcon = @(sIcon, size, override) sIcon == null ? null : {
   rendObj = ROBJ_IMAGE
   size = [size, size]
-  image = image
+  image = Picture("!ui/skin#{0}:{1}:{1}:K".subst(sIcon, size.tointeger()))
   margin = bigGap
 }.__update(override)
 
 let mkArmyIcon = @(armyId, size = armyIconHeight, override = {})
-  mkIcon(mkPicture(armiesPresentation?[armyId].icon ?? armyId, size), size, override)
+  mkIcon(armiesPresentation?[armyId].icon ?? armyId, size, override)
 
 let mkArmySimpleIcon = @(armyId, size = armyIconHeight, override = {})
-  mkIcon(mkPicture(armiesPresentation?[armyId].smallIcon ?? armyId, size), size, override)
+  mkIcon(armiesPresentation?[armyId].smallIcon ?? armyId, size, override)
 
 let getArmyColor = @(selected, sf)
   (selected || (sf & S_HOVER)) ? hoverTitleTxtColor : activeTitleTxtColor

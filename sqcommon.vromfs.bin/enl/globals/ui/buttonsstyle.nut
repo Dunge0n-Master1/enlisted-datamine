@@ -4,11 +4,14 @@ let { commonBtnHeight, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut
 let {
   glareAnimation, animChildren
 } = require("%enlSqGlob/ui/glareAnimation.nut")
+let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let BgHover = Color(220, 220, 220)
+let purchaseGradient = mkColoredGradientX(0xFFC22B0A, 0xFF790808)
 
 // btn styles to use in computed styles
 let purchaseButtonStyle = {
+  size = [SIZE_TO_CONTENT, commonBtnHeight]
   style = {
     BgActive = Color(178,35,9)
     BgHover
@@ -20,7 +23,7 @@ let purchaseButtonStyle = {
       }
     : {
         rendObj = ROBJ_IMAGE
-        image = Picture("!ui/gameImage/purchase_btn_bg.svg:200:20:K?Ac")
+        image = purchaseGradient
       }
 }
 
@@ -30,7 +33,7 @@ let primaryBtnAnimation = [
 ]
 
 let primaryFlatButtonStyle = {
-  size = [SIZE_TO_CONTENT, commonBtnHeight],
+  size = [SIZE_TO_CONTENT, commonBtnHeight]
   style = {
     BgActive = Color(1,79,181)
     BgHover

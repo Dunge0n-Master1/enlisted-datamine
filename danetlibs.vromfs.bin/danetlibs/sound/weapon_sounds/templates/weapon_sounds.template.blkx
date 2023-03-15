@@ -2,8 +2,8 @@ projectile_sound{
 
   _group{
     _tags:t="sound"
-    projectile_sound__hit:t="auto_select"
-    projectile_sound__explode:t="auto_select"
+    projectile_sound__hit:t="autoSelect"
+    projectile_sound__explode:t="autoSelect"
   }
 }
 

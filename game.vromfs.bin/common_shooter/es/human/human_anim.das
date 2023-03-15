@@ -14,7 +14,7 @@ require EnlistedWeapon
 require game.es.events
 require enlisted.events_enlisted
 require DagorRandom
-require debug.logerr_once
+require DagorSystem
 require strings
 
 def private calc_head_pitch_yaw(state : HumanPhysState)
@@ -24,22 +24,22 @@ def private calc_head_pitch_yaw(state : HumanPhysState)
   return float2(-atan2(localHeadDir.z, localHeadDir.x) - yawPitch.x,
                  atan2(localHeadDir.y, length(localHeadDir.xz)) - yawPitch.y)
 
-def calc_head_roll_pitch_yaw(actor : HumanActor;
-                             at_time : float;
-                             head_additional_roll : float;
-                             head_additional_pitch : float;
-                             head_additional_yaw : float;
-                             var head_roll : float&;
-                             var head_pitch : float&;
-                             var head_yaw : float&)
-  assume phys = actor.phys
-  let interpK = get_phys_interpk_clamped(phys, at_time)
+// just for easier reading
+struct Angles
+  roll : float
+  pitch : float
+  yaw : float
+
+def calc_head_roll_pitch_yaw(phys : HumanPhys;
+                             interpK : float;
+                             rotation : float3)
   let prevHead = calc_head_pitch_yaw(phys.previousState)
   let curHead = calc_head_pitch_yaw(phys.currentState)
 
-  head_roll = clamp(deg_to_rad(head_additional_roll), deg_to_rad(-30.0), deg_to_rad(30.0))
-  head_yaw = clamp(lerp(prevHead.x, curHead.x, interpK) + deg_to_rad(head_additional_yaw), deg_to_rad(-45.0), deg_to_rad(45.0))
-  head_pitch = clamp(lerp(prevHead.y, curHead.y, interpK) + deg_to_rad(head_additional_pitch), deg_to_rad(-70.0), deg_to_rad(60.0))
+  let roll = clamp(deg_to_rad(rotation.x), deg_to_rad(-30.0), deg_to_rad(30.0))
+  let pitch = clamp(lerp(prevHead.y, curHead.y, interpK) + deg_to_rad(rotation.y), deg_to_rad(-70.0), deg_to_rad(60.0))
+  let yaw = clamp(lerp(prevHead.x, curHead.x, interpK) + deg_to_rad(rotation.z), deg_to_rad(-45.0), deg_to_rad(45.0))
+  return [[Angles roll=roll, pitch=pitch, yaw=yaw]]
 
 def calc_shoot_pitch(actor : HumanActor;
                      eid : EntityId;
@@ -59,7 +59,19 @@ def calc_shoot_pitch(actor : HumanActor;
     human_gun_get_shoot_tm(*gun, phys, at_time, shootTm)
     interpGun = quat(shootTm)
 
-  pitch = atan2(dot(tm[1], shootTm[0]), dot(tm[0], shootTm[0]))
+  let y = dot(tm[1], shootTm[0])
+  let x = dot(tm[0], shootTm[0])
+  //we need to clamp x to be positive, because we can't have pitch +-PI
+  pitch = atan2(y, x < 0f ? 0f : x)
+
+def get_gun_head_rotation(is_crawl : bool; gun_eid : EntityId; attached_gun_eid : EntityId)
+  var rot = float3(0.0)
+  let usedGunEid = gun_eid != INVALID_ENTITY_ID ? gun_eid : attached_gun_eid
+  query(usedGunEid) <| $ [es] (gun__addHeadRotation : float3;
+                               gun__addHeadRotationCrawl : float3)
+    rot = is_crawl ? gun__addHeadRotationCrawl : gun__addHeadRotation
+
+  return rot
 
 [es(tag=gameClient, REQUIRE_NOT=animchar__actOnDemand, no_order)]
 def human_head_anim_es(info : ParallelUpdateFrameDelayed;
@@ -73,66 +85,40 @@ def human_head_anim_es(info : ParallelUpdateFrameDelayed;
                        human_anim__headYawRotVisc : float = 0.2;
                        human_anim : HumanAnimCtx;
                        var phys_vars : PhysVars;
-                       var human_head_dir__prevAdditionalRoll : float&;
-                       var human_head_dir__prevAdditionalPitch : float&;
-                       var human_head_dir__prevAdditionalYaw : float&)
+                       var human_head_dir__addHeadRotation : float3&)
   if !animchar__updatable || !animchar__visible
     return
 
-  var additionalHeadRoll = 0.0
-  var additionalHeadPitch = 0.0
-  var additionalHeadYaw = 0.0
-
-  let currentGunEid = (human_weap__currentGunEid != INVALID_ENTITY_ID
-                    ?  human_weap__currentGunEid
-                    :  human_attached_gun__attachedGunEid)
-  query(currentGunEid) <| $ [es] (gun__additionalHeadRoll : float = 0.0;
-                                  gun__additionalHeadPitch : float = 0.0;
-                                  gun__additionalHeadYaw : float = 0.0;
-                                  gun__additionalHeadRollInCrawlMult : float = 1.0;
-                                  gun__additionalHeadPitchInCrawlMult : float = 1.0;
-                                  gun__additionalHeadYawInCrawlMult : float = 1.0)
-    let isCrawl = human_net_phys.phys.currentState.isCrawl
-    let rollMult = isCrawl ? gun__additionalHeadRollInCrawlMult : 1.0
-    let pitchMult = isCrawl ? gun__additionalHeadPitchInCrawlMult : 1.0
-    let yawMult = isCrawl ? gun__additionalHeadYawInCrawlMult : 1.0
-    additionalHeadRoll = lerp(human_head_dir__prevAdditionalRoll, gun__additionalHeadRoll * rollMult, human_head_dir__interpolationSpeed)
-    additionalHeadPitch = lerp(human_head_dir__prevAdditionalPitch, gun__additionalHeadPitch * pitchMult, human_head_dir__interpolationSpeed)
-    additionalHeadYaw = lerp(human_head_dir__prevAdditionalYaw, gun__additionalHeadYaw * yawMult, human_head_dir__interpolationSpeed)
-    human_head_dir__prevAdditionalRoll = additionalHeadRoll
-    human_head_dir__prevAdditionalPitch = additionalHeadPitch
-    human_head_dir__prevAdditionalYaw = additionalHeadYaw
-
-  var headRoll : float;
-  var headPitch : float;
-  var headYaw : float;
-
-  calc_head_roll_pitch_yaw(human_net_phys, info.curTime,
-                           additionalHeadRoll, additionalHeadPitch, additionalHeadYaw,
-                           headRoll, headPitch, headYaw)
-
   assume phys = human_net_phys.phys
-  let dt = info.dt
+
+  let targetAddHeadRotation = get_gun_head_rotation(phys.currentState.isCrawl,
+                                                    human_weap__currentGunEid,
+                                                    human_attached_gun__attachedGunEid)
+  human_head_dir__addHeadRotation = lerp(human_head_dir__addHeadRotation,
+                                         targetAddHeadRotation,
+                                         float3(human_head_dir__interpolationSpeed))
+
   let interpK = get_phys_interpk_clamped(phys, get_sync_time())
+  var headAngles = calc_head_roll_pitch_yaw(phys, interpK, human_head_dir__addHeadRotation)
 
   if phys.currentState.isAiming
     let breathOffset = lerp(phys.previousState.breathOffset, phys.currentState.breathOffset, float2(interpK))
-    headYaw += breathOffset.x * 0.9
-    headPitch += breathOffset.y * 0.9
+    headAngles.yaw += breathOffset.x * 0.9
+    headAngles.pitch += breathOffset.y * 0.9
     var hd : float
     var att : float
     var bank : float
     let q = quat(prevLocoQuat)
     quat_to_euler(q, hd, att, bank)
-    headPitch += att
-    headPitch = max(0.0, headPitch)
+    headAngles.pitch += att
+    headAngles.pitch = max(0.0, headAngles.pitch)
 
   let prevHeadYawVar = phys_vars |> getVar(human_anim.headYawVarId)
-  let newHeadYawVar = approach(prevHeadYawVar, rad_to_deg(headYaw),
-                               dt, human_anim__headYawRotVisc)
+  let newHeadYawVar = approach(prevHeadYawVar, rad_to_deg(headAngles.yaw),
+                               info.dt, human_anim__headYawRotVisc)
 
-  phys_vars |> setVar(human_anim.headRollVarId, rad_to_deg(headRoll))
-  phys_vars |> setVar(human_anim.headPitchVarId, rad_to_deg(headPitch))
+  phys_vars |> setVar(human_anim.headRollVarId, rad_to_deg(headAngles.roll))
+  phys_vars |> setVar(human_anim.headPitchVarId, rad_to_deg(headAngles.pitch))
   phys_vars |> setVar(human_anim.headYawVarId, newHeadYawVar)
 
 [es(on_appear)]
@@ -216,14 +202,14 @@ def init_human_idle_upper_anim_state(evt : Event;
     return
   human_anim__idleUpperStateId = anim_graph_getStateIdx(*animchar.animGraph, human_anim__idleUpperState)
   if human_anim__idleUpperStateId < 0
-    logerr_once("anim state {human_anim__idleUpperState} not found for {getEntityTemplateName(eid)}")
+    logerr("anim state {human_anim__idleUpperState} not found for {getEntityTemplateName(eid)}")
 
 [es(tag=server, on_appear, track=agent_dangers__hasTraceableDangers)]
 def human_anim_idling_state(evt : Event; agent_dangers__hasTraceableDangers : bool; var human_anim__isIdling : bool&)
   human_anim__isIdling = !agent_dangers__hasTraceableDangers
 
-[es(REQUIRE_NOT=animchar__actOnDemand, no_order, parallel_for=1)]
-def human_anim_es(info : UpdateStageInfoAct;
+[es(REQUIRE_NOT=animchar__actOnDemand, parallel_for=1)]
+def human_anim_es(info : ParallelUpdateFrameDelayed;
                   ragdoll : PhysRagdoll const?;
                   human_anim__climbHeights : Array;
                   dm_parts__hitPartsAnimationId : Array const?;
@@ -237,7 +223,6 @@ def human_anim_es(info : UpdateStageInfoAct;
                   hitpoints__lastHitNodeId : int = -1;
                   human_inventory__entityToUse : EntityId = INVALID_ENTITY_ID;
                   human_inventory__targetToUse : EntityId = INVALID_ENTITY_ID;
-                  human_inventory__entityUseStart : float = -1.0;
                   human_inventory__entityUseEnd : float = -1.0;
                   human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
                   human_net_phys__isClimbing : bool = false;
@@ -284,6 +269,8 @@ def human_anim_es(info : UpdateStageInfoAct;
                   human_melee_charge__animProgress : float = 0.0;
                   animchar__updatable : bool;
                   animchar__visible : bool = true;
+                  animchar__accumDt = -1.f;
+                  animchar__dtThreshold = 0.f;
                   human_anim__jumpStartStateRange : float2;
                   human_anim__jumpEndStateRange : float2;
                   human_anim__jumpStartTime : float;
@@ -299,7 +286,7 @@ def human_anim_es(info : UpdateStageInfoAct;
                   var phys_vars : PhysVars;
                   var animchar__animSpeed : float&;
                   var human_anim__jumpTimer : float&)
-  if !animchar__updatable || !animchar__visible
+  if !animchar__updatable || (!animchar__visible && ((animchar__accumDt + info.dt) < animchar__dtThreshold))
     return
 
   var pitch : float;
@@ -405,31 +392,14 @@ def human_anim_es(info : UpdateStageInfoAct;
     let reload = phys_vars |> getVar(human_anim.reloadVarId)
     stateUpperBody = reload > 0.0 ? HumanStateUpperBody E_READY : HumanStateUpperBody E_DOWN
 
-  query(eid) <| $ [es] (human_weap__bulletDeflectionState : Object)
-    let startTime = get_float(human_weap__bulletDeflectionState, "startTime") ?? -1.0
-    let endTime = get_float(human_weap__bulletDeflectionState, "endTime") ?? -1.0
-    if curTime >= startTime && curTime < endTime
-      stateUpperBody = HumanStateUpperBody E_DEFLECT
-      let deflAngle = get_float(human_weap__bulletDeflectionState, "deflAngle") ?? 0.0
-      phys_vars |> setVar(human_anim.deflectionProgressVarId, sqrt(sqrt(cvt(curTime, startTime, endTime, 0.0, 1.0))))
-      phys_vars |> setVar(human_anim.deflectionAngleVarId, deflAngle)
-
   if human_inventory__entityToUse != INVALID_ENTITY_ID && info.curTime < human_inventory__entityUseEnd
-    if has(human_inventory__entityToUse, "item__healAnimEnumValue")
+    query(human_inventory__entityToUse) <| $ [es] (item__healAnimEnumValue : int;
+                                                   item__healTargetAnimEnumValue : int)
       stateUpperBody = HumanStateUpperBody E_HEAL
-      query(human_inventory__entityToUse) <| $ [es] (item__healAnimEnumValue : int;
-                                                     item__healTargetAnimEnumValue : int)
-        let isTarget = human_inventory__targetToUse != INVALID_ENTITY_ID && human_inventory__targetToUse != eid
-        let healEnum = (isTarget && item__healTargetAnimEnumValue > -1 ?
-                       item__healTargetAnimEnumValue : item__healAnimEnumValue)
-        phys_vars |> setVar(human_anim.healItemSelectedVarId, float(healEnum))
-    else
-      query(human_inventory__entityToUse) <| $ [es(REQUIRE=item__defibrillator)] (defibrillator_anim__firstStageTime : float;
-                                                                                  defibrillator_anim__finalStageTime : float)
-        if (info.curTime < human_inventory__entityUseStart + defibrillator_anim__firstStageTime)
-          stateUpperBody = HumanStateUpperBody E_USE_DEFIBRILLATOR_START
-        if (info.curTime > human_inventory__entityUseEnd - defibrillator_anim__finalStageTime)
-          stateUpperBody = HumanStateUpperBody E_USE_DEFIBRILLATOR_FINISH
+      let isTarget = human_inventory__targetToUse != INVALID_ENTITY_ID && human_inventory__targetToUse != eid
+      let healEnum = (isTarget && item__healTargetAnimEnumValue > -1
+                      ? item__healTargetAnimEnumValue : item__healAnimEnumValue)
+      phys_vars |> setVar(human_anim.healItemSelectedVarId, float(healEnum))
 
   if burning__isPuttingOut
     stateUpperBody = HumanStateUpperBody E_PUT_OUT_FIRE

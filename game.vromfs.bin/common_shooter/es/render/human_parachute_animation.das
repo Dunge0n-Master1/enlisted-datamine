@@ -38,7 +38,7 @@ def parachute_init_animation(evt : Event;
 
 
 [es(tag=gameClient, after=human_anim_es)]
-def parachute_animation_continuous(info : UpdateStageInfoAct;
+def parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
                                    var animchar : AnimcharBaseComponent&;
                                    var parachute_anim__lastDeployState : bool&;
                                    var parachute_anim__openedAtTime : float&;
@@ -108,7 +108,7 @@ def human_parachute_init_animation(evt : Event;
 
 
 [es(tag=gameClient, after=human_anim_es)]
-def human_parachute_animation_continuous(info : UpdateStageInfoAct;
+def human_parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
                                          eid : EntityId;
                                          var human_parachute_anim__lastDeployState : bool&;
                                          var human_parachute_anim__openedAtTime : float&;

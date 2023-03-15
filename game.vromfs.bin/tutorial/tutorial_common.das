@@ -18,8 +18,7 @@ enum ZoneCheck : int
 let
   HINT_DEFAULT_TTL = 999999
 
-let
-  TUTORIAL_IDENTITY_BOX = BBox3(float3(-0.1, -0.1, -0.1), float3(0.1, 0.1, 0.1))
+let [[ignore_heap_usage]] TUTORIAL_IDENTITY_BOX = BBox3(float3(-0.1, -0.1, -0.1), float3(0.1, 0.1, 0.1))  // ignore heap usage because it is used c++ heap
 
 
 def private check_tutorial_zone(isIntersect : bool; zoneCheck : int)
@@ -93,9 +92,9 @@ def set_active_capzone(isActive : bool)
   query() <| $ [es(REQUIRE=capzone)] (var active : bool&)
     active = isActive
 
-def tutorial_hint(event : string; unique : string; text : string; hotkeys : Array#; ttl : int = HINT_DEFAULT_TTL)
+def tutorial_hint(event : string; unique : string; text : string; hotkeys : Array; ttl : int = HINT_DEFAULT_TTL)
   let eid = get_local_player_eid()
-  server_send_schemeless_event(eid, typeinfo(undecorated_typename type<CmdTutorialHint>), eid) <| $(var init : Object#)
+  server_send_schemeless_event(eid, typeinfo(undecorated_typename type<CmdTutorialHint>), eid) <| $(var init : Object)
     set(init, "event", event)
     set(init, "unique", unique)
     set(init, "text", text)
@@ -103,17 +102,17 @@ def tutorial_hint(event : string; unique : string; text : string; hotkeys : Arra
     set(init, "ttl", ttl)
 
 def tutorial_hint(event : string; unique : string; text : string; hotkey : string; ttl : int = HINT_DEFAULT_TTL)
-  using() <| $(var arr : Array#)
+  using() <| $(var arr : Array)
     arr |> push(hotkey)
     tutorial_hint(event, unique, text, arr, ttl)
 
-def tutorial_hint(event : string; unique : string; text : string; ttl : int; cb : block<(var arr : Array#) : void>)
-  using() <| $(var arr : Array#)
+def tutorial_hint(event : string; unique : string; text : string; ttl : int; cb : block<(var arr : Array) : void>)
+  using() <| $(var arr : Array)
     invoke(cb, arr)
     tutorial_hint(event, unique, text, arr, ttl)
 
 def tutorial_hint(event : string; unique : string; text : string; ttl : int = HINT_DEFAULT_TTL)
-  using() <| $(var arr : Array#)
+  using() <| $(var arr : Array)
     tutorial_hint(event, unique, text, arr, ttl)
 
 def set_tutorial_stage(stage)

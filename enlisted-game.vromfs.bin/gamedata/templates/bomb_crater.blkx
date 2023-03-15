@@ -25,6 +25,7 @@ bomb_crater_config{
       name:t="stone"
       name:t="rocks"
       name:t="gravel"
+      name:t="hardSnow"
     }
 
     "crater_config__disabledPhysMatIds:list<i>"{
@@ -86,6 +87,7 @@ bomb_crater_config{
       is_african_bed_c:b=no
       is_african_bed_d:b=no
       is_african_bed_e:b=no
+      military_barracks_decor_jamb_flat_a_1900:b=no
       well_concrete_a_ring:b=no
       well_concrete_a_cap:b=no
       concrete_barrier_a:b=no
@@ -144,6 +146,7 @@ bomb_crater_config{
 
   _group{
     _tags:t="render"
+    bomb_crater_config__smokeEffectTemplate:t="explosion_smoke_crater_effect"
 
     "bomb_crater_config__decalNames:list<t>"{
       name:t="explosion"

@@ -31,6 +31,10 @@ let function getPartIdx(partName) {
   return isStringInteger(s) ? s.tointeger() : 0
 }
 
+let getWeaponByPartName = @(vehicleArmament, partName) vehicleArmament.findvalue(
+  @(gun) (gun?.name ?? "") == partName,
+  vehicleArmament?[getPartIdx(partName)])
+
 let function getCrewMemberLocName(vehicle, partName) {
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(vehicle.gametemplate)
   let seats = template?.getCompValNullable("vehicle_seats__seats").getAll()
@@ -260,12 +264,12 @@ let function getXrayPartDesc(vehicle, vehicleUpgradedData, dmBlkPath, partName, 
     case "drive_turret_h":
     case "drive_turret_v":
       let isHorizontal = partType == "drive_turret_h"
-      let weapon = vehicleUpgradedData?.armament[getPartIdx(partName)]
+      let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
       desc = getWeaponDriveTurretDesc(weapon, isHorizontal, !isHorizontal)
       break
     case "gun_barrel":
     case "cannon_breech":
-      let weapon = vehicleUpgradedData?.armament[getPartIdx(partName)]
+      let weapon = getWeaponByPartName(vehicleUpgradedData.armament, partName)
       let status = getWeaponStatus(weapon)
       if (partType == "gun_barrel")
         title = getGunBarrelLocName(status)

@@ -21,6 +21,9 @@ let styles = {
     animColor = HighlightFailure
     sound = "ui/enlist/notification"
   }
+  silence = {
+    animColor = HighlightNeutral
+  }
 }
 let popupWidth = calc_comp_size({rendObj = ROBJ_TEXT text = "" size=[fontH(1000), SIZE_TO_CONTENT]}.__update(body_txt))[0]
 let defPopupBlockPos = [-safeAreaBorders.value[1] - popupWidth, -(safeAreaBorders.value[2] + 4*bigGap)]
@@ -42,9 +45,9 @@ let function popupBlock() {
       anim_start(prefix + popup.id)
     }
 
-    let style = styles?[popup.styleName] ?? POPUP_STYLE
-     if (prevVisIdx == -1)
-       sound_play(style.sound)
+    let style = styles?[popup?.styleName] ?? POPUP_STYLE
+    if (prevVisIdx == -1 && style?.sound != null)
+      sound_play(style.sound)
 
     children.append({
       size = SIZE_TO_CONTENT

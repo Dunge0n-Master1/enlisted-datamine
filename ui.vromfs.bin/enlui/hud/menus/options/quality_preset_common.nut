@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {get_setting_by_blk_path} = require("settings")
+let { globalWatched } = require("%dngscripts/globalState.nut")
+let { get_setting_by_blk_path } = require("settings")
 
 const BARE_MINIMUM = "bare minimum"
 const MINIMUM = "minimum"
@@ -10,23 +11,15 @@ const HIGH = "high"
 const ULTRA = "ultra"
 const CUSTOM = "custom"
 
-const QualityPresetBlkPath = "graphics/preset"
+const graphicsPresetBlkPath = "graphics/preset"
 
-let savedGraphicsPreset = Watched(get_setting_by_blk_path(QualityPresetBlkPath) ?? MEDIUM)
-let setGraphicsPreset = @(v) savedGraphicsPreset(v)
-let curGraphicsPreset = Computed(@() savedGraphicsPreset.value)
-
-let isBareMinimum = Computed(@() savedGraphicsPreset.value == BARE_MINIMUM)
-
-let wasPresetSet = get_setting_by_blk_path(QualityPresetBlkPath)!=null
-
-if (!wasPresetSet){
-  setGraphicsPreset(CUSTOM)
-}
+let { graphicsPreset, graphicsPresetUpdate } = globalWatched("graphicsPreset", @() get_setting_by_blk_path(graphicsPresetBlkPath) ?? MEDIUM)
+let isBareMinimum = Computed(@() graphicsPreset.value == BARE_MINIMUM)
 
 return {
   BARE_MINIMUM, MINIMUM, LOW, MEDIUM, HIGH, ULTRA, CUSTOM,
-  QualityPresetBlkPath,
-  savedGraphicsPreset, setGraphicsPreset, curGraphicsPreset,
+  graphicsPresetBlkPath,
+  graphicsPreset,
+  graphicsPresetUpdate,
   isBareMinimum
 }

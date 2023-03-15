@@ -14,6 +14,7 @@ require DagorMath
 require DagorMathUtils
 require EnlistedCamera
 require EnlistedInputControls
+require enlisted.events_enlisted
 require game.es.input.input_events
 require common_shooter.es.input.turret_input_common
 require common_shooter.es.weapon.turret_common
@@ -67,7 +68,7 @@ def turret_init_zoom(evt : Event; turret_input__minZoom : float; var turret_inpu
   turret_input__zoom = turret_input__minZoom
 
 [es(tag=input, REQUIRE=input__enabled)]
-def turret_update_turret_aim_point(info : UpdateStageInfoAct;
+def turret_update_turret_aim_point(info : ParallelUpdateFrameDelayed;
                                    turret_control__gunEids : EidList;
                                    var isTurretAimPosValid : bool&;
                                    var turretAimPos : float3&)
@@ -85,7 +86,7 @@ def vehicle_input_set_direction(evt : Event; turret_control__gunEids : EidList)
     setOptional(gunEid, "turret__isGunDirInited", false)
 
 [es(tag=input)]
-def turret_update_aim_point_es(info : UpdateStageInfoAct; turret_control__gunEids : EidList)
+def turret_update_aim_point_es(info : ParallelUpdateFrameDelayed; turret_control__gunEids : EidList)
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret__isGunDirInited : bool;
                                                                          turret_input__aimAngles : float2;
@@ -94,7 +95,7 @@ def turret_update_aim_point_es(info : UpdateStageInfoAct; turret_control__gunEid
         turret_input__aimPos = calc_aim_pos(turret_input__aimAngles)
 
 [es(tag=input, after=(vehicle_input_gunner_limits_control_es, vehicle_input_commander_limits_control_es))]
-def turret_camera_look_dir_es(info : UpdateStageInfoAct;
+def turret_camera_look_dir_es(info : ParallelUpdateFrameDelayed;
                               turret_control__gunEids : EidList;
                               disableTurretCam : bool = false;
                               var camera__lookDir : float3&)
@@ -110,7 +111,7 @@ def turret_camera_look_dir_es(info : UpdateStageInfoAct;
       camera__lookDir = normalize(turret_input__aimPos - camPos)
 
 [es(tag=input, REQUIRE=heroVehicle, before=turret_aim_angles_to_look_dir_es)]
-def human_vehicle_lock_turrets_input_es(evt : UpdateStageInfoAct;
+def human_vehicle_lock_turrets_input_es(evt : ParallelUpdateFrameDelayed;
                                         turret_control__gunEids : EidList;
                                         vehicle_look__lockAllTurrentControll : bool = false;
                                         var turret_control__isInputLocked : bool&)
@@ -141,7 +142,7 @@ def human_vehicle_unlock_turrets_hero_leave_vehicle_input_es(evt : Event;
       turret_input__isLocalControlLocked = false
 
 [es(tag=input, after=turret_camera_look_dir_es, before=human_look_dir_camera_in_vehicle_es)]
-def turret_aim_angles_to_look_dir_es(info : UpdateStageInfoAct;
+def turret_aim_angles_to_look_dir_es(info : ParallelUpdateFrameDelayed;
                                      turret_control__gunEids : EidList;
                                      camera__lookDir : float3)
   for gunEid in turret_control__gunEids
@@ -181,7 +182,7 @@ def turret_input_reset_magnification_es(evt : Event; turret_input__minZoom : flo
     camera__magnification = turret_input__minZoom
 
 [es(tag=gameClient, REQUIRE=heroVehicle, before=shooter_cam_update_tm_es, after=human_optics_camera_es)]
-def turret_zoom_es(info : UpdateStageInfoAct;
+def turret_zoom_es(info : ParallelUpdateFrameDelayed;
                    turret_control__gunEids : EidList;
                    vehicleCameraType : int;
                    cockpit__zoomOutFov : float const?;
@@ -237,7 +238,7 @@ def vehicle_input_grenade_launcher_input_terminated(evt : EventDaInputActionTerm
     stop_weapons(turret_control__gunEids, TRIGGER_GRENADE_LAUNCHER)
 
 [es(tag=input)]
-def vehicle_input_gunner_es(info : UpdateStageInfoAct;
+def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
                             input__enabled : bool;
                             turret_control__gunEids : EidList;
                             vehicle_input__aim : int;
@@ -311,7 +312,7 @@ def turret_input_local_es(info : UpdateStageUpdateInput;
         sendEventImmediate(eid, [[EventOnTurretShooting isStart=false, turretNo=turretNo]])
 
 [es(tag=input)]
-def vehicle_input_gunner_turret_with_group_es(info : UpdateStageInfoAct;
+def vehicle_input_gunner_turret_with_group_es(info : ParallelUpdateFrameDelayed;
                                               eid : EntityId;
                                               input__enabled : bool;
                                               turret_control__gunEids : EidList)

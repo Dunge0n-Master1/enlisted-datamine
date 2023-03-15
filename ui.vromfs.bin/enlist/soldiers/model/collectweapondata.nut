@@ -337,6 +337,7 @@ let function getVehicleData(templateId) {
       gunData["gun__template"] <- gun
       gunData["gun__shellsAmmo"] <- (gunData?["gun__shellsAmmo"] ?? []).reduce(@(sum, val) sum + val, 0)
       gunData["gun__maxAmmo"] <- max(gunData["gun__maxAmmo"], gunData["gun__shellsAmmo"])
+      gunData["name"] <- turretData?.barrelDm
       if (gunData == null)
         continue
       vehicleData.armament <- (vehicleData?.armament ?? []).append(gunData)

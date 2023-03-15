@@ -5,6 +5,7 @@ require EnlistedNet
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
 require DagorSystem
 require game.utils.hero
 require game.utils.team
@@ -15,7 +16,7 @@ require vehicle
 require app
 require replay
 
-def recreate_vehicle(vehicle_eid : EntityId; phys_actor : BasePhysActor; mode : VehicleControlsState implicit; turret_control_components : string)
+def recreate_vehicle(vehicle_eid : EntityId; phys_actor : BasePhysActor; mode : VehicleControlsState#; turret_control_components : string)
   let heroComponents = "+{phys_actor.physTypeStr}_hero_components"
   let controlComponents = "+{phys_actor.physTypeStr}_control_components"
   var templName = getEntityTemplateName(vehicle_eid)
@@ -91,13 +92,13 @@ def find_owner_player_for_vehicle(vehicle_seats__seatEids : EidList) : EntityId
   return playerEid
 
 [es(tag=server, no_order)]
-def vehicle_seats_update_controls(info : UpdateStageInfoAct;
+def vehicle_seats_update_controls(info : ParallelUpdateFrameDelayed;
                                   eid : EntityId;
                                   vehicle_seats__seatEids : EidList;
                                   vehicle_seats_can_acquire_controls : IntList const?;
                                   var vehicle__allAcquiredControls : VehicleControlsState&;
                                   var replication : NetObject?)
-  using <| $(var vehicleMode : VehicleControlsState#)
+  using() <| $(var vehicleMode : VehicleControlsState#)
     for seatNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__ownerEid, seat__playerEid : EntityId;
                                 seat__isPlayer : bool;
@@ -112,7 +113,7 @@ def vehicle_seats_update_controls(info : UpdateStageInfoAct;
           ? (*vehicle_seats_can_acquire_controls)[seatNo]
           : int(VehicleControlTypes VEHICLE_CONTROLS_MOVEMENT))
 
-        using <| $(var seatMode : VehicleControlsState#)
+        using() <| $(var seatMode : VehicleControlsState#)
           if seat__isPlayer
             seatMode |> determine_controls_for_player(seat__ownerEid, seatEid, seat__playerEid, vehicle_seats__seatEids, canAcquireControls)
           else
@@ -147,7 +148,7 @@ def vehicle_seats_update_controls(info : UpdateStageInfoAct;
         stop_vehicle_control_server(*physActor)
 
 [es(tag=gameClient, no_order)]
-def vehicle_seats_apply_controls(info : UpdateStageInfoAct;
+def vehicle_seats_apply_controls(info : ParallelUpdateFrameDelayed;
                                  eid : EntityId;
                                  vehicle_seats__seatEids : EidList;
                                  var vehicle__localControls : VehicleControlsState&;
@@ -158,7 +159,7 @@ def vehicle_seats_apply_controls(info : UpdateStageInfoAct;
 
   let hero = get_controlled_hero()
 
-  using <| $(var mode : VehicleControlsState#)
+  using() <| $(var mode : VehicleControlsState#)
     for seatEid in vehicle_seats__seatEids
       query(seatEid) <| $ [es] (seat__ownerEid : EntityId; seat__ownerControls : VehicleControlsState)
         if seat__ownerEid == hero
@@ -226,7 +227,7 @@ def detect_camera_type(owner, wishCamera, isInHatch, isGunner)
   return wishCamera
 
 [es(tag=gameClient, no_order, REQUIRE=vehicleWithWatched)]
-def vehicle_seats_apply_camera_type(info : UpdateStageInfoAct;
+def vehicle_seats_apply_camera_type(info : ParallelUpdateFrameDelayed;
                                     cockpit__isHeroInCockpit : bool = false;
                                     vehicle_seats__seatEids : EidList;
                                     var vehicleCameraType aka vehicle__vehicleCameraType : int&;

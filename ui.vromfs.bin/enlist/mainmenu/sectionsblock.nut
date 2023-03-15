@@ -8,6 +8,7 @@ let { columnGap, midPadding, colPart } = require("%enlSqGlob/ui/designConst.nut"
 let { mkTab, backgroundMarker } = require("%enlist/components/mkTab.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
 let campaignTitle = require("%enlist/campaigns/campaignTitleUi.nut")
+let { sound_play } = require("sound")
 
 let navHeight = colPart(1.19)
 
@@ -16,8 +17,10 @@ let isFirstSection = Computed(@() curSection.value == sectionsSorted?[0].id)
 let function trySwitchSection(sectionId) {
   let onExitCb = sectionsSorted
     .findvalue(@(s) s?.id == curSection.value)?.onExitCb ?? @() true
-  if (onExitCb())
+  if (onExitCb()) {
     setCurSection(sectionId)
+    sound_play("ui/enlist/button_click")
+  }
 }
 
 
@@ -46,7 +49,7 @@ let function changeTab(delta, isLooped = false) {
 }
 
 
-let gamepadNav = @(key, action) @() {
+let gamepadNav = @(key, action) {
   size = [SIZE_TO_CONTENT, premiumBtnSize]
   valign = ALIGN_CENTER
   children = mkHotkey(key, action)
@@ -61,7 +64,7 @@ let maintabs = {
   hplace = ALIGN_LEFT
   children = [
     backgroundMarker
-    @() {
+    {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_HORIZONTAL
       gap = midPadding

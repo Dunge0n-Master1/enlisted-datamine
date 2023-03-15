@@ -13,6 +13,7 @@ stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
 stabilityReductionAfterPenetration:r=0.3
 slopeEffectPreset:t="ap"
+shellAnimation:t="video/shells_animations/he_ball.ivf"
 onHitChanceMultFire:r=2.0
 effectiveDistance:r=3000.0
 relativeVelHitShift:p2=300.0, 3000.0
@@ -41,8 +42,7 @@ stabilityRicochetModifier{
 visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
-  tracer:t="12mmWhiteGreen"
-  trail:t="smallTrail"
+  tracer:t="noColor"
 }
 
 hitpower{
@@ -87,6 +87,6 @@ hitFx{
 }
 
 tracer{
-  headColor:c=208, 255, 191, 200
-  smokeColor:c=228, 228, 228, 228
+  headColor:c=0, 0, 0, 0
+  smokeColor:c=0, 0, 0, 0
 }

@@ -14,6 +14,8 @@ let commonMultipliersCfg = [
   { stat = "premiumSquadAndPremiumMult", locId = "debriefing/tooltipPremiumSquadAndPremiumMult"},
   { stat = "battleHeroAwardsMult", locId = "debriefing/tooltipBattleHeroAwardsMult"},
   { stat = "playerCountMult", locId = "debriefing/tooltipPlayerCountMult"},
+  { stat = "anyTeamMult", locId = "debriefing/anyTeamMult"},
+  { stat = "lastGameDeserterMult", locId = "debriefing/lastGameDeserterMult"},
 ]
 
 let function getPremMultiplier(stats) {
@@ -36,11 +38,13 @@ let function getBattleResultMultiplier(stats, result) {
 }
 
 let squadMultipliersCfg = [].extend(commonMultipliersCfg, [
-  { stat = "expBonus", locId = "debriefing/squadBonusExp", convertVal = @(v) 1 + v},
+  { stat = "expBonus", locId = "debriefing/squadBonusExp", convertVal = @(v) 1 + v },
+  { stat = "squadExpBoost", locId = "debriefing/squadExpBoost", convertVal = @(v) 1 + v },
 ]).map(@(s) { toString = @(v) v.tostring() }.__update(s))
 
 let soldierMultipliersCfg = [].extend(commonMultipliersCfg, [
-  { stat = "classBonus", locId = "debriefing/classBonusExp", convertVal = @(v) 1 + v},
+  { stat = "classBonus", locId = "debriefing/classBonusExp", convertVal = @(v) 1 + v },
+  { stat = "soldierExpBoost", locId = "debriefing/soldierExpBoost", convertVal = @(v) 1 + v },
 ]).map(@(s) { toString = @(v) v.tostring() }.__update(s))
 
 let function mkTooltipMultipliersText(stats, cfg) {

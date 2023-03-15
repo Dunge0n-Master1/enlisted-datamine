@@ -66,7 +66,7 @@ def hero_melee_wounds_es(evt : ParallelUpdateFrameDelayed;
     animchar |> animchar_get_tm(rootTm)
 
     let startPos = rootTm[3] + melee_wounds__offset * rootTm[0]
-    using() <| $(var intersections : IntersectedEntities#)
+    using() <| $(var intersections : IntersectedEntities)
       var t1 = melee_wounds__length;
       trace_entities_in_grid(ecs_hash("humans"), startPos, rootTm[1], t1, melee_wounds__boneBreakOwner, intersections, SortIntersections YES)
       if length(intersections) > 0

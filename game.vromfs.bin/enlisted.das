@@ -18,6 +18,7 @@ require ship_sounds.ship_sounds_init
 require plane_sounds.plane_sounds_init
 require weapon_sounds.weapon_sounds_init
 require human_sounds.human_sounds_init
+require human_sounds_net.human_sounds_net_init
 require danetlibs.wounds.wounds_init
 require danetlibs.render_debug.render_debug_init
 require danetlibs.imgui_daeditor.imgui_daeditor_init
@@ -50,12 +51,13 @@ def private load_sound() : bool
   ok = load_plane_sounds("%danetlibs/sound/plane_sounds") && ok
   ok = load_weapon_sounds("%danetlibs/sound/weapon_sounds") && ok
   ok = load_human_sounds("%danetlibs/sound/human_sounds") && ok
+  ok = load_human_sounds_net("%danetlibs/sound/human_sounds_net") && ok
 
   if ecs_has_tag("sound") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/sound") && ok
     ok = load_folder("%scripts/game/es/sound/vehicle") && ok
     if sound_override_voices_locale() || app::get_game_name() == "aot"
-      ok = load_das("%scripts/game/es/sound/optional/human_voice_override.das") && ok
+      ok = load_das("%scripts/game/es/sound/optional/human_speech_override.das") && ok
 
   if ecs_has_tag("soundNet") || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/sound_net") && ok
@@ -74,6 +76,10 @@ def private load_editor() : bool
   var ok = true
   if typeinfo(builtin_module_exists DagorEditor) || app::get_game_name() == "aot"
     ok = load_folder("%scripts/game/es/daEditor") && ok
+
+  if (typeinfo(builtin_module_exists DagorImgui) && typeinfo(builtin_module_exists DagorEditor)) || app::get_game_name() == "aot"
+    ok = load_folder("%scripts/game/es/imgui/daEditor") && ok
+
   return ok
 
 
@@ -164,13 +170,6 @@ def private load_sandbox() : bool
   return ok
 
 
-def private load_modern_conflict() : bool
-  var ok = true
-  if app::get_game_name() == "modern_conflict" || app::get_game_name() == "aot"
-    ok = load_folder("%modern_conflict") && ok
-  return ok
-
-
 [init]
 def load
   var ok = true
@@ -201,7 +200,6 @@ def load
   ok = load_dedicated() && ok
   ok = load_replay() && ok
   ok = load_dev() && ok
-  ok = load_modern_conflict() && ok
   ok = load_imgui() && ok
   ok = load_sandbox() && ok
 

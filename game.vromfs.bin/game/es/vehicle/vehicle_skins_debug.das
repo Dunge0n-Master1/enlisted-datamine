@@ -1,5 +1,6 @@
 options no_aot
 require ecs
+require ecs.safe
 require EcsUtils
 require strings
 require DagorConsole
@@ -22,11 +23,11 @@ def vehicle_save_skins_to_profile(filter = "_skins";
     fw |> df_puts("let shared\n")
     fw |> df_puts("  vehCamouflageCfg <- \{\{\n")
 
-    using() <| $(var regexTester : RegExp#)
+    using() <| $(var regexTester : RegExp)
       regexTester |> compile(fileRegExp, "", 0)
       getTemplateDB() |> find_templateDB() <| $(name; tmpl)
         if (regexTester |> test(name, 0)) != 0
-          let skins = get_ecs_array(getTemplateComponent(tmpl, "skin__objTexReplace"))
+          let skins = getTemplateComponent(tmpl, "skin__objTexReplace") ?as Array
           if skins != null
             for skin in *skins
               let data = skin |> get_ecs_object()

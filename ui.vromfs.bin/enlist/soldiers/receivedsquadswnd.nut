@@ -29,7 +29,7 @@ let closeButton = closeBtnBase({ onClick = @() receivedData(null) })
 let mkImage = @(img, override = {}) {
   rendObj = ROBJ_IMAGE
   size = flex()
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture(img)
 }.__update(override)
 

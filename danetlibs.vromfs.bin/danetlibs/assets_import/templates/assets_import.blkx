@@ -9,11 +9,9 @@ asset_manager{
   asset__rendInstType:i=-1
   asset__curCollisionPath:t=""
   asset__currentSearchFilter:t=""
+  asset__clipmapInvalidationEnabled:b=no
 
   "asset__manager:DagorAssetMgr"{
-  }
-
-  "asset__exportableTypes:list<i>"{
   }
 
   _group{
@@ -24,13 +22,10 @@ asset_manager{
     "activeRI__lodFiles:list<t>"{
     }
   }
-
-  "asset__currentDagTextures:list<t>"{
-  }
 }
 
 composit_child_rendinst{
-  _extends:t="game_rendinst"
+  _extends:t="rendinst"
 
   "ignoredEditable:tag"{
     _tags:t="render"
@@ -51,5 +46,6 @@ custom_animchar{
   _extends:t="animchar"
   _extends:t="replicating"
   animchar__res:t=""
+  animchar__animStateDirty:b=no
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 }

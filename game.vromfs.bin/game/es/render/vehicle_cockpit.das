@@ -16,6 +16,7 @@ require DagorMathUtils
 require WorldRenderer
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
+require enlisted.events_enlisted
 require dm
 require strings
 
@@ -66,6 +67,7 @@ def vehicle_change_cockpit_es(evt : Event;
     set(init, "cockpit__seatNo", heroSeatIdx)
     set(init, "cockpit__cameraTime", 1.f)
     set(init, "cockpit__zoomTime", 0.f)
+    set(init, "cockpit__isAttached", true)
     if effectors != null
       set(init, "cockpit__effectorsInfo", *effectors)
 
@@ -117,9 +119,7 @@ def filter_update_hidden(var filter : UInt8List; animchar_render : AnimcharRendC
       filter[nodeId] = uint8(~0)
 
 [es(tag=render, after=after_animchar_update_sync, REQUIRE_NOT=cockpit__binocular)]
-def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
-                              eid : EntityId;
-                              var animchar_render__enabled : bool&;
+def vehicle_attach_cockpit_es(info : ParallelUpdateFrameDelayed;
                               var transform : float3x4;
                               var cockpit__isAttached : bool&;
                               var cockpit__attachNodeIndex : int&;
@@ -168,11 +168,16 @@ def vehicle_attach_cockpit_es(info : UpdateStageInfoAct;
     if cockpit__angles != null
       transform = transform * make_rot_cw_zyx(*cockpit__angles * DEG_TO_RAD)
 
+[es(tag=render, after=vehicle_attach_cockpit_es, REQUIRE_NOT=cockpit__binocular)]
+def vehicle_destroy_cockpit_es(info : UpdateStageInfoAct;
+                               eid : EntityId;
+                               cockpit__isAttached : bool;
+                               var animchar_render__enabled : bool&)
   if !cockpit__isAttached
     animchar_render__enabled = false
     destroyEntity(eid)
 
-[es(tag=render, track=cockpit__isAttached)]
+[es(tag=render, on_appear, track=cockpit__isAttached)]
 def vehicle_cockpit_slits_init(evt : Event;
                                eid : EntityId;
                                animchar : AnimcharBaseComponent;
@@ -248,7 +253,7 @@ def vehicle_cockpit_visible_nodes_destroy(evt : Event;
                                              animchar_render : AnimcharRendComponent)
     reset_all_nodes_filter(animchar_render__nodeVisibleStgFilters, animchar_render)
 
-[es(tag=render, track=cockpit__isAttached)]
+[es(tag=render, on_appear, track=cockpit__isAttached)]
 def vehicle_cockpit_visible_nodes_init(evt : Event;
                                        cockpit__isAttached : bool;
                                        cockpit__vehicleEid : EntityId;
@@ -425,7 +430,7 @@ def set_cockpit_transition_rotation(cockpit__endOrientX : float4;
   in_out_tm[2] = z
 
 [es(tag=render, after=(vehicle_cockpit_slits, vehicle_attach_cockpit_es), before=animchar_cam_target__with_offset_es)]
-def vehicle_cockpit_slits_transition(info : UpdateStageInfoAct;
+def vehicle_cockpit_slits_transition(info : ParallelUpdateFrameDelayed;
                                      cockpit__seatNo : int;
                                      cockpit__attachNodeIndex : int;
                                      cockpit__startCameraPos : float3;
@@ -495,7 +500,7 @@ def vehicle_cockpit_slits_transition(info : UpdateStageInfoAct;
     cockpit__currentSlit = cockpit__nextSlit
 
 [es(tag=render, REQUIRE=cockpit__vehicleEid, after=(after_animchar_update_sync, vehicle_attach_cockpit_es, vehicle_cockpit_slits_transition))]
-def vehicle_cockpit_update_animchar(info : UpdateStageInfoAct;
+def vehicle_cockpit_update_animchar(info : ParallelUpdateFrameDelayed;
                                     transform : float3x4;
                                     var animchar : AnimcharBaseComponent;
                                     var animchar_node_wtm : AnimcharNodesMat44;
@@ -505,7 +510,7 @@ def vehicle_cockpit_update_animchar(info : UpdateStageInfoAct;
   animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)
 
 [es(tag=render, after=(animchar_es, vehicle_attach_cockpit_es), before=animchar_cam_target__with_offset_es)]
-def vehicle_cockpit_slits(info : UpdateStageInfoAct;
+def vehicle_cockpit_slits(info : ParallelUpdateFrameDelayed;
                           cockpit__isAttached : bool;
                           cockpit__zoomTime : float;
                           cockpit__minZoom : float;
@@ -549,7 +554,7 @@ def vehicle_cockpit_slits(info : UpdateStageInfoAct;
 
 
 [es(tag=render, after=(animchar_es, vehicle_attach_cockpit_es), before=vehicle_cockpit_slits)]
-def vehicle_cockpit_camera_dir(info : UpdateStageInfoAct;
+def vehicle_cockpit_camera_dir(info : ParallelUpdateFrameDelayed;
                                cockpit__isAttached : bool;
                                cockpit__attachNodeIndex : int;
                                cockpit__vehicleEid : EntityId)

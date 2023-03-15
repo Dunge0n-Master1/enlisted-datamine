@@ -27,7 +27,7 @@ let tutorialImage = @(image) image == null ? null :{
   size = imageSize
   hplace = ALIGN_CENTER
   image = Picture(image)
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
 }
 
 let function close(){
@@ -162,7 +162,7 @@ let function squadTextTutorial(squadType){
     maxWidth = maxContentWidth
     rendObj = ROBJ_IMAGE
     halign = ALIGN_CENTER
-    image = Picture("ui/squads_tutorial_background.png")
+    image = Picture("ui/squads_tutorial_background.avif")
     keepAspect = KEEP_ASPECT_FILL
     padding = [smallPadding, largePadding]
     clipChildren = true

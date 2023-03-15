@@ -5,7 +5,7 @@ from "minimap" import MinimapState
 let {hudIsInteractive} = require("%ui/hud/state/interactive_state.nut")
 let mmContext = require("minimap_ctx.nut")
 let {isGamepad, isTouch} = require("%ui/control/active_controls.nut")
-let command = require("%ui/hud/send_minimap_mark.nut")
+let { command } = require("%ui/hud/send_minimap_mark.nut")
 let {controlHudHint} = require("%ui/components/controlHudHint.nut")
 let mouseButtons = require("%enlSqGlob/mouse_buttons.nut")
 let {mmChildrenCtors} = require("%ui/hud/minimap_ctors.nut")
@@ -60,17 +60,6 @@ let minimapState = MinimapState({
 })
 minimapDefaultVisibleRadius.subscribe(@(r) minimapState.setVisibleRadius(r))
 let mapTransform = { rotate = curMinimapShape.rotate }
-
-
-ecs.register_es("camera_zoom_when_artillery_is_started_es",
-  {
-    [[ "onInit", "onChange" ]] = @(_eid, comp) minimapState.setTargetVisibleRadius(comp.level__minimapTargetVisibleRadius),
-  },
-  {
-    comps_track = [["level__minimapTargetVisibleRadius", ecs.TYPE_FLOAT]]
-  }
-)
-
 
 let blurredWorld = {
   rendObj = ROBJ_MASK

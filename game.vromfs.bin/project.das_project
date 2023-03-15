@@ -5,7 +5,6 @@ let
     "game" => "%scripts/game";
     "enlisted" => "%scripts";
     "enlisted_pkg_dev" => "%enlisted_pkg_dev";
-    "modern_conflict" => "%modern_conflict";
     "common_shooter" => "%scripts/common_shooter";
     "danetlibs" => "%danetlibs";
     "sound_utils" => "%danetlibs/sound/sound_utils";
@@ -14,6 +13,7 @@ let
     "environment_sounds" => "%danetlibs/sound/environment_sounds";
     "door_sounds" => "%danetlibs/sound/door_sounds";
     "human_sounds" => "%danetlibs/sound/human_sounds";
+    "human_sounds_net" => "%danetlibs/sound/human_sounds_net";
     "vehicle_sounds" => "%danetlibs/sound/vehicle_sounds";
     "vehicle_sounds_net" => "%danetlibs/sound/vehicle_sounds_net";
     "ship_sounds" => "%danetlibs/sound/ship_sounds";

@@ -36,7 +36,7 @@ let function mkRewardIcon(reward, size = colPart(0.49), override = {}) {
     rendObj = ROBJ_IMAGE
     size = [size, size]
     image = Picture("{0}:{1}:{1}:K".subst(icon, size.tointeger()))
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
   }.__update(override)
 }
 

@@ -1,5 +1,5 @@
-import:t="#content/e_stalingrad/gamedata/templates/stalingrad_guns.blk"
-import:t="#content/e_stalingrad/gamedata/templates/stalingrad_items.blk"
+import:t="#content/enlisted/gamedata/templates/stalingrad_guns.blk"
+import:t="#content/enlisted/gamedata/templates/stalingrad_items.blk"
 
 minimap_battle_of_stalingrad{
   _extends:t="minimap"

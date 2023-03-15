@@ -13,7 +13,7 @@ def try_init_shell(shell : Object; var gun__shells : Array&)
   push(gun__shells, string(*shellBlk))
   return true
 
-def init_ammo_set(eid : EntityId; ammo_set : Array const? const&; set_index : int; var gun__shells : Array&; var out_set_indices : Array implicit&)
+def init_ammo_set(eid : EntityId; ammo_set : Array const? const&; set_index : int; var gun__shells : Array&; var out_set_indices : Array&)
   if ammo_set == null
     logerr("Cannot read ammo set array for {getEntityTemplateName(eid)}.
             Wrong type: gun.ammoSetsInfo should be array of arrays of objects")
@@ -37,7 +37,7 @@ def ammo_sets_init_shell_props(evt : Event;
   clear(gun__ammoSets)
   for ammoSetObj, setIndex in gun__ammoSetsInfo, iter_range(gun__ammoSetsInfo)
     let ammoSet = get_ecs_array(ammoSetObj)
-    using() <| $(var ammoSetIndices : Array#)
+    using() <| $(var ammoSetIndices : Array)
       init_ammo_set(eid, ammoSet, setIndex, gun__shells, ammoSetIndices)
       push(gun__ammoSets, ammoSetIndices)
 

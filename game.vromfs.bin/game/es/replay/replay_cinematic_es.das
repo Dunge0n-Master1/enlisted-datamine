@@ -151,3 +151,7 @@ def cinematic_enable_custom_settings_es(evt : CmdSetCinematicCustomSettings; var
 [es(tag=(playingReplay, render))]
 def set_camera_lerp_factor_es(evt : CmdSetCameraLerpFactor; var replay_camera__tpsLerpFactor : float&)
   replay_camera__tpsLerpFactor = evt.lerpFactor
+
+[es(tag=(playingReplay, render))]
+def set_camera_stop_lerp_factor_es(evt : CmdSetCameraStopLerpFactor; var replay_camera__stopInertia : float&)
+  replay_camera__stopInertia = evt.stopLerpFactor

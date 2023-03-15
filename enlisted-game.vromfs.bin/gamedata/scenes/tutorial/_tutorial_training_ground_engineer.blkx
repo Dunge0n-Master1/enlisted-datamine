@@ -7,9 +7,9 @@ entity{
   mission_name:t="basic_tutorial_mission"
 
   "loading_images:list<t>"{
-    item:t="ui/loading_tutorial_01.jpg"
-    item:t="ui/loading_tutorial_02.jpg"
-    item:t="ui/loading_tutorial_03.jpg"
+    item:t="ui/loading_tutorial_01.avif"
+    item:t="ui/loading_tutorial_02.avif"
+    item:t="ui/loading_tutorial_03.avif"
   }
 }
 
@@ -27,6 +27,10 @@ entity{
 
 entity{
   _template:t="tutorial_destroy_player_ammo"
+}
+
+entity{
+  _template:t="tutorial_engineer_state"
 }
 
 entity{
@@ -97,6 +101,10 @@ entity{
 }
 
 entity{
+  _template:t="tutorial_memorize_holder"
+}
+
+entity{
   _template:t="postfx_roundctrl"
 }
 
@@ -143,7 +151,7 @@ entity{
 }
 
 entity{
-  _template:t="tutorial_target_silhouette_c"
+  _template:t="tutorial_target_silhouette_c+tutorial_memorize_entity"
   transform:m=[[-0.00797134, 0.0, -0.999968] [0.0, 1.0, 0.0] [0.999968, 0.0, -0.00797134] [-511.533, 10.1923, 143.457]]
   tutorial_target__targetId:t="target"
   tutorial_target__active:b=no

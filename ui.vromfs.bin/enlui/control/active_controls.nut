@@ -8,15 +8,13 @@ let controlsTypes = require("controls_types.nut")
 let forcedControlsType = mkWatched(persist, "forcedControlsType")
 let defRaw = platform.is_pc ? 0 : 1
 let lastActiveControlsTypeRaw = mkWatched(persist, "lastActiveControlsTypeRaw", defRaw)
-let def = platform.hasTouchSupport
+let def = platform.isTouchPrimary
           ? controlsTypes.touch
           : platform.is_pc
             ? controlsTypes.keyboardAndMouse
             : platform.is_sony
               ? controlsTypes.ds4gamepad
-              : platform.is_nswitch
-                ? controlsTypes.nxJoycon
-                : controlsTypes.x1gamepad
+              : controlsTypes.x1gamepad
 
 let lastActiveControlsType = mkWatched(persist, "lastActiveControlType", def)
 
@@ -38,15 +36,13 @@ const EV_INPUT_USED = "input_dev_used"
 
 let function update_input_types(new_val){
   let map = {
-    [1] = platform.hasTouchSupport ? controlsTypes.touch : controlsTypes.keyboardAndMouse,
+    [1] = platform.isTouchPrimary ? controlsTypes.touch : controlsTypes.keyboardAndMouse,
     [2] = controlsTypes.x1gamepad,
     //[3] = controlsTypes.ds4gamepad, //< no such value sent
   }
   local ctype = map?[new_val] ?? def
   if (platform.is_sony && ctype==controlsTypes.x1gamepad)
     ctype = controlsTypes.ds4gamepad
-  else if (platform.is_nswitch)
-    ctype = controlsTypes.nxJoycon
   lastActiveControlsTypeRaw.update(new_val ?? defRaw)
   lastActiveControlsType.update(ctype)
 }
@@ -66,8 +62,7 @@ keepref(isTouch)
 
 let isGamepad = Computed(@() forcedControlsType.value == ControlsTypes.GAMEPAD || [
                                   controlsTypes.x1gamepad,
-                                  controlsTypes.ds4gamepad,
-                                  controlsTypes.nxJoycon
+                                  controlsTypes.ds4gamepad
                                 ].contains(lastActiveControlsType.value)
                             )
 keepref(isGamepad)

@@ -51,15 +51,15 @@ VehiclePhys{
   suspension{
     suspensionOffsets:p3=-0.15, -0.12, 0.12
     defaultGearRadius:r=0.372
-    defaultDampeningForce:p2=5000.0, 500.0
+    defaultDampeningForce:p2=5000.0, 5000.0
     hasSuspensionOnDriveGear:b=yes
     dampeningRelaxationRatio:r=0.4
     dampeningCompressionRatio:r=0.15
     brokenWheelSteeringDeflection:r=-15.0
     wheel_l_01:r=0.455
     wheel_r_01:r=0.455
-    wheel_l_02:r=0.52
-    wheel_r_02:r=0.52
+    wheel_l_02:r=0.11
+    wheel_r_02:r=0.11
     recalcWtms:b=yes
 
     steeringDeflection{

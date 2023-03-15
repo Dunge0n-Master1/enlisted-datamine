@@ -4,7 +4,7 @@ route_prober{
   statistics_reported:b=no
   diff_sum_min:i=0
   rtt_sum_threshold:i=0
-  echo_period_seconds:r=1.0
+  echo_period_seconds:r=2.0
   next_echo_broadcast:r=0.0
   _singleton:b=yes
 

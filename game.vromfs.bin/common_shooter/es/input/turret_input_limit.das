@@ -2,6 +2,7 @@ require ecs
 require vehicle
 require math.base
 require math.ang
+require enlisted.events_enlisted
 require common_shooter.es.input.turret_input_common
 
 def clamp_turret_controller_camera_angle(turret_control__gunEids : EidList;
@@ -33,7 +34,7 @@ def clamp_turret_controller_camera_angle(turret_control__gunEids : EidList;
 
 
 [es(tag=gameClient, after=after_net_phys_sync, before=human_look_dir_camera_in_vehicle_es)]
-def vehicle_input_gunner_limits_control_es(info : UpdateStageInfoAct;
+def vehicle_input_gunner_limits_control_es(info : ParallelUpdateFrameDelayed;
                                            input__enabled : bool;
                                            vehicleCameraType : int;
                                            turret_control__gunEids : EidList;
@@ -56,7 +57,7 @@ def vehicle_input_gunner_limits_control_es(info : UpdateStageInfoAct;
   clamp_turret_controller_camera_angle(turret_control__gunEids, dir, gunnerFpsCamMaxAngle)
 
 [es(tag=gameClient, after=after_net_phys_sync, before=human_look_dir_camera_in_vehicle_es)]
-def vehicle_input_commander_limits_control_es(info : UpdateStageInfoAct;
+def vehicle_input_commander_limits_control_es(info : ParallelUpdateFrameDelayed;
                                               input__enabled : bool;
                                               vehicleCameraType : int;
                                               turret_control__gunEids : EidList;

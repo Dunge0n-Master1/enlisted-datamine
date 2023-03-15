@@ -19,6 +19,7 @@ let matching_errors = require("matching.errors")
 let {squadId} = require("%enlist/squad/squadState.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { soundActive } = textButton
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 let selectedRoom = Watched(null)
 let { strip } = require("string")
@@ -184,6 +185,9 @@ let function listItem(roomInfo) {
 
     let modTitle = roomInfo?.modTitles?[gameLanguage]
       ?? roomInfo?.modTitles.title ?? roomInfo?.mod ?? ""
+    local { creator = "" } = roomInfo
+    creator = creator != "" ? remap_others(creator) : loc("creator/auto")
+
     return {
       rendObj = ROBJ_SOLID
       color = color
@@ -204,7 +208,7 @@ let function listItem(roomInfo) {
         itemText(modTitle, {pw=colWidths[1]})
         itemText(loc(roomInfo?.sessionState ?? "no_session"), {pw=colWidths[2]})
         itemText(tostring_any(roomInfo.membersCnt), {pw=colWidths[3]})
-        itemText(roomInfo?.creator ?? loc("creator/auto"), {pw=colWidths[4]})
+        itemText(creator, {pw=colWidths[4]})
       ]
     }
   }

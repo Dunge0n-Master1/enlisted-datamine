@@ -1,0 +1,377 @@
+_infoCommonComponents{
+
+  ri_hit_points{
+    desc:t="Special values are: 0 (default HP with regeneration), -1 (default HP with no regeneration) and -2 (invincible). Anything more than 0 is explicit hit points value with no regeneration."
+  }
+}
+
+rendinst_base{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  ri_extra__destroyed:b=no
+
+  "riExtraAuthority:tag"{
+    _tags:t="server"
+  }
+
+  "riOffender:eid"{
+    _tags:t="server"
+  }
+
+  ri_extra{
+  }
+}
+
+rendinst_handle{
+  _extends:t="rendinst_base"
+
+  "ri_extra__handle:u64"{
+    value:i64=-1
+  }
+}
+
+rendinst{
+  _extends:t="rendinst_base"
+  ri_extra__bboxMin:p3=0.0, 0.0, 0.0
+  ri_extra__bboxMax:p3=0.0, 0.0, 0.0
+
+  "ri_extra__name:t"{
+    value:t="sandbags_wall_medium_rounded_a"
+
+    _info{
+      desc:t="Render model name for this extra render instance (RI)"
+    }
+  }
+}
+
+game_rendinst{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_shadow__prevBSphere:p4=0.0, 0.0, 0.0, 0.0
+
+  "gameRendInstTag:tag"{
+  }
+
+  "ri_extra__overrideHitPoints:i"{
+    value:i=0
+    _info:t="ri_hit_points"
+  }
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+
+  _info{
+    desc:t="Game level model (render instance or RI) with physical destruction (some are immortal). You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
+  }
+}
+
+game_rendinst_decor{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_shadow__prevBSphere:p4=0.0, 0.0, 0.0, 0.0
+  ri_extra__hasCollision:b=yes
+
+  "gameRendInstTag:tag"{
+  }
+
+  "ri_extra__overrideHitPoints:i"{
+    value:i=-2
+    _info:t="ri_hit_points"
+  }
+
+  _info{
+    desc:t="Game level model (render instance or RI) without physical destruction. You can also create, copy and remove RI via Toolbox panel at right top corner of editor (Toolbox/RendInsts)."
+  }
+}
+
+unbaked_rendinst{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_shadow__prevBSphere:p4=0.0, 0.0, 0.0, 0.0
+  nonCreatableObj:b=yes
+  _skipInitialReplication:t="rebake__tm,rebake__name"
+  rebake__tm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  rebake__name:t=""
+
+  "unbakedRendInstTag:tag"{
+  }
+
+  "ri_extra__overrideHitPoints:i"{
+    value:i=0
+    _info:t="ri_hit_points"
+  }
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+
+  _info{
+    desc:t="Original level model (render instance or RI) unbaked from level that could be freely moved, rotated and scaled. Please note, that you can select, remove and copy RI via Toolbox panel at right top corner of editor (RendInsts)."
+  }
+}
+
+enbaked_ri{
+
+  "enbakedRITag:tag"{
+    _tags:t="render"
+  }
+
+  "ignoredEditable:tag"{
+    _tags:t="render"
+  }
+}
+
+unbaked_door_ri{
+  _extends:t="replicating"
+  ri_replicateDoorTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ri_extra__name:t=""
+  _skipInitialReplication:t="rebake__tm,rebake__name"
+  rebake__tm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  rebake__name:t=""
+
+  "clonedRIDoorTag:tag"{
+  }
+}
+
+rebaked_rendinst{
+  _extends:t="rendinst"
+  ri_shadow__prevBSphere:p4=0.0, 0.0, 0.0, 0.0
+  nonCreatableObj:b=yes
+  editableObj:b=no
+
+  "rebakedRendInstTag:tag"{
+  }
+}
+
+animated_scripted_rendinst{
+  _extends:t="rendinst"
+  _extends:t="key_track_animated"
+  _extends:t="set_rotation"
+}
+
+sandbags_ri{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+}
+
+sandbags_wall_high_10x8_canopy_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="sandbags_wall_high_10x8_canopy_a"
+}
+
+sandbags_wall_low_l2000_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="sandbags_wall_low_l2000_a"
+}
+
+target_round_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_round_a"
+}
+
+target_round_b{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_round_b"
+}
+
+target_round_c{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_round_c"
+}
+
+target_silhouette_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_silhouette_a"
+}
+
+target_silhouette_b{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_silhouette_b"
+}
+
+target_silhouette_c{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_silhouette_c"
+}
+
+target_tank_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_tank_a"
+}
+
+target_tank_a_mission{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="target_tank_a_mission"
+}
+
+russia_red_onion{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="russia_red_onion"
+}
+
+russia_yellow_onion{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="russia_yellow_onion"
+}
+
+storage_tank_c{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="storage_tank_c"
+}
+
+opel_blitz_kfz_305_broken{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="opel_blitz_kfz_305_broken"
+}
+
+88mm_flak_36_canon_b{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="88mm_flak_36_canon_b"
+}
+
+150cm_flak_sw_37{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="150cm_flak_sw_37"
+}
+
+24kw_flak_generator{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="24kw_flak_generator"
+}
+
+bf_109g_14_a_destroyed{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="bf_109g_14_a_destroyed"
+}
+
+tree_spruce_christmas_c{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="tree_spruce_christmas_c"
+}
+
+debris_wooden_planks_stack_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="debris_wooden_planks_stack_a"
+}
+
+sawmill_wood_boards_a{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="sawmill_wood_boards_a"
+}
+
+russia_wooden_planks_b{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="russia_wooden_planks_b"
+}
+
+ammunition_box_n{
+  _extends:t="rendinst"
+  _extends:t="replicating"
+  ri_extra__name:t="ammunition_box_n"
+}
+
+animated_scene_rendinst{
+  _extends:t="replicating"
+  _extends:t="key_track_animated"
+  _extends:t="set_rotation"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  initialTransform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  ri_extra__destroyed:b=no
+
+  ri_extra{
+  }
+
+  "ri_extra__handle:u64"{
+    value:i64=-1
+  }
+}
+
+floating_rendinst_system{
+  _singleton:b=yes
+  floatingRiSystem__randomWavesAmplitude:r=0.0
+  floatingRiSystem__randomWavesLength:r=0.5
+  floatingRiSystem__randomWavesPeriod:r=1.0
+  floatingRiSystem__randomWavesVelocity:p2=0.6, 0.6
+
+  "floatingRiSystem__volumePresets:object"{
+
+    "default_1:array"{
+      volPos:p3=0.0, 0.0, 0.0
+    }
+
+    "default_4:array"{
+      volPos:p3=-1.0, 0.0, -1.0
+      volPos:p3=-1.0, 0.0, 1.0
+      volPos:p3=1.0, 0.0, -1.0
+      volPos:p3=1.0, 0.0, 1.0
+    }
+
+    "default_12:array"{
+      volPos:p3=-1.0, 0.5, 0.0
+      volPos:p3=1.0, 0.5, 0.0
+      volPos:p3=-0.8, 0.0, -1.0
+      volPos:p3=-0.4, 0.0, -1.0
+      volPos:p3=0.0, 0.0, -1.0
+      volPos:p3=0.4, 0.0, -1.0
+      volPos:p3=0.8, 0.0, -1.0
+      volPos:p3=-0.8, 0.0, 1.0
+      volPos:p3=-0.4, 0.0, 1.0
+      volPos:p3=0.0, 0.0, 1.0
+      volPos:p3=0.4, 0.0, 1.0
+      volPos:p3=0.8, 0.0, 1.0
+    }
+  }
+
+  "floatingRiSystem__userVolumePresets:object"{
+  }
+}
+
+floating_rendinst_res_group{
+  floatingRiGroup__wreckageFloatDuration:r=15.0
+  floatingRiGroup__updateDistSq:r=1000000.0
+  floatingRiGroup__interactionType:i=0
+  floatingRiGroup__interactionDistSq:r=0.0
+  floatingRiGroup__elasticity:r=0.1
+  floatingRiGroup__physUpdateDt:r=0.0417
+  floatingRiGroup__maxShiftDist:r=1000.0
+  floatingRiGroup__viscosity:r=0.57
+  floatingRiGroup__minDistToGround:r=-1000000.0
+
+  _group{
+    _track:b=yes
+    floatingRiGroup__resName:t=""
+    floatingRiGroup__inertiaMult:p3=80.0, 0.1, 80.0
+    floatingRiGroup__volumesCount:i=-1
+    floatingRiGroup__volumePresetName:t=""
+    floatingRiGroup__spheresRad:r=0.57
+    floatingRiGroup__density:r=500.0
+    floatingRiGroup__densityRandRange:r=0.0
+  }
+
+  floatingRiGroup__riPhysFloatingModel{
+  }
+}

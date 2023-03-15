@@ -380,6 +380,11 @@ repeat{
     treeName:t="sub.grenadeEscape"
   }
 
+  subTree{
+    name:t=""
+    treeName:t="sub.bombEscape"
+  }
+
   setIntVar{
     to:t="grenadeAttackFailed"
     value:i=0
@@ -643,7 +648,7 @@ orderedSelector{
 
   subTree{
     name:t=""
-    treeName:t="sub.moveToPosition"
+    treeName:t="sub.moveToRegroupPosition"
   }
 }
 

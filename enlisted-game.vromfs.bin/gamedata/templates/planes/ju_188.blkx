@@ -349,60 +349,6 @@ ju_188{
   }
 }
 
-base_ju_188_20mm_mg15120_turret{
-  item__name:t="guns/cannonmg15120_turret"
-  gun__blk:t="gamedata/weapons/ju_188/20mm_mg15120_turret.blk"
-  gun__shotFreq:r=12.5
-  gun__locName:t="cannonmg15120_turret"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=250
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="automatic"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="automatic"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=250
-  }
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "default:array"{
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
-        name:t="spur"
-        type:t="i_t"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
-        name:t="mgesch"
-        type:t="he_i_mine"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
-        name:t="pzgr"
-        type:t="aphe"
-      }
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/20x82mm_pzgr_m_ph_bullet.blk"
-        name:t="ph"
-        type:t="ap_i"
-      }
-    }
-  }
-}
-
 base_ju_188_13mm_mg131_turret{
   item__name:t="guns/gunmg131_turret"
   gun__blk:t="gamedata/weapons/ju_188/13mm_mg131_turret.blk"
@@ -452,42 +398,6 @@ base_ju_188_13mm_mg131_turret{
         blk:t="gamedata/weapons/shells/13mm_mg_131_pzbrand_bullet.blk"
         name:t="pzbrand"
         type:t="ap_i_ball"
-      }
-    }
-  }
-}
-
-base_ju_188_sc_50_launcher{
-  item__name:t="guns/de_sc50"
-  gun__blk:t="gamedata/weapons/ju_188/sc_50_launcher.blk"
-  gun__shotFreq:r=10.0
-  gun__locName:t="de_sc50"
-  gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=1
-
-  "gun__firingModes:array"{
-
-    "mode:object"{
-      modeType:t="manual"
-    }
-  }
-
-  "gun__firingModeNames:array"{
-    mode:t="bolt_action"
-  }
-
-  "gun__shellsAmmo:array"{
-    ammo:i=1
-  }
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "default:array"{
-
-      "shell:object"{
-        blk:t="gamedata/weapons/shells/sc_50.blk"
-        name:t="sc_50"
-        type:t="he_frag_tank"
       }
     }
   }
@@ -553,40 +463,58 @@ base_ju_188_7_92mm_mg81_turret{
   }
 }
 
-planegun_ju_188_sc_50_launcher_01{
-  _extends:t="sc_50_launcher"
-  _extends:t="base_ju_188_sc_50_launcher"
-  _extends:t="gunsound_sc_50_launcher_aircraft"
-  gun__shootNodeName:t="bomb1"
-  slot_attach__slotName:t="bomb1"
-  gun__maxAmmo:i=1
-}
+base_ju_188_20mm_mg15120_turret{
+  item__name:t="guns/cannonmg15120_turret"
+  gun__blk:t="gamedata/weapons/ju_188/20mm_mg15120_turret.blk"
+  gun__shotFreq:r=12.5
+  gun__locName:t="cannonmg15120_turret"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=250
 
-planegun_ju_188_sc_50_launcher_02{
-  _extends:t="sc_50_launcher"
-  _extends:t="base_ju_188_sc_50_launcher"
-  _extends:t="gunsound_sc_50_launcher_aircraft"
-  gun__shootNodeName:t="bomb2"
-  slot_attach__slotName:t="bomb2"
-  gun__maxAmmo:i=1
-}
+  "gun__firingModes:array"{
 
-planegun_ju_188_sc_50_launcher_03{
-  _extends:t="sc_50_launcher"
-  _extends:t="base_ju_188_sc_50_launcher"
-  _extends:t="gunsound_sc_50_launcher_aircraft"
-  gun__shootNodeName:t="bomb3"
-  slot_attach__slotName:t="bomb3"
-  gun__maxAmmo:i=1
-}
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
 
-planegun_ju_188_sc_50_launcher_04{
-  _extends:t="sc_50_launcher"
-  _extends:t="base_ju_188_sc_50_launcher"
-  _extends:t="gunsound_sc_50_launcher_aircraft"
-  gun__shootNodeName:t="bomb4"
-  slot_attach__slotName:t="bomb4"
-  gun__maxAmmo:i=1
+  "gun__firingModeNames:array"{
+    mode:t="automatic"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=250
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x82mm_brgr_g_spur_bullet.blk"
+        name:t="spur"
+        type:t="i_t"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x82mm_mgesch_bullet.blk"
+        name:t="mgesch"
+        type:t="he_i_mine"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x82mm_pzgr_bullet.blk"
+        name:t="pzgr"
+        type:t="aphe"
+      }
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/20x82mm_pzgr_m_ph_bullet.blk"
+        name:t="ph"
+        type:t="ap_i"
+      }
+    }
+  }
 }
 
 base_ju_188_sc_250_launcher{

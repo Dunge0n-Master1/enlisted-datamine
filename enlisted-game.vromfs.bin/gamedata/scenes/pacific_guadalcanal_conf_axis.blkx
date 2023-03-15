@@ -4405,17 +4405,17 @@ entity{
   mission_name:t="pacific_guadalcanal_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/pacific_guadalcanal_inv_07.jpg"
-    item:t="ui/pacific_guadalcanal_inv_14.jpg"
-    item:t="ui/pacific_guadalcanal_inv_18.jpg"
+    item:t="ui/pacific_guadalcanal_inv_07.avif"
+    item:t="ui/pacific_guadalcanal_inv_14.avif"
+    item:t="ui/pacific_guadalcanal_inv_18.avif"
   }
 }
 
 entity{
   _template:t="team_pacific_allies+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=1850.0
+  team__score:r=1850.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -5899,5 +5899,5 @@ entity{
 }
 
 import{
-  scene:t="content/e_pacific/gamedata/scenes/_pacific_guadalcanal_common.blk"
+  scene:t="content/enlisted/gamedata/scenes/_pacific_guadalcanal_common.blk"
 }

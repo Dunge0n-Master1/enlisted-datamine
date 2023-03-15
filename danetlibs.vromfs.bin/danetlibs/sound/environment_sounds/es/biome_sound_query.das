@@ -1,4 +1,5 @@
 require ecs
+require soundEvent
 require soundSystem
 require landMesh
 require DagorMath

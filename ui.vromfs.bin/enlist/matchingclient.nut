@@ -6,8 +6,6 @@ let matching_errors = require("matching.errors")
 let connectHolder = require("%enlist/connectHolderR.nut")
 let loginState = require("%enlSqGlob/login_state.nut")
 let appInfo =  require("%dngscripts/appInfo.nut")
-let platform = require("%dngscripts/platform.nut")
-let nswitchNetwork = platform.is_nswitch ? require("nswitch.network") : null
 let eventbus = require("eventbus")
 
 local matchingLoginActions = []
@@ -24,10 +22,6 @@ let function netStateCall(func) {
   else
     matchingLoginActions.append(func)
 }
-
-let mkDetailsDisconnect = platform.is_nswitch
-         ? @() { text = loc("Details"), action = @() nswitchNetwork.handleRequestAndShowError() }
-         : null
 
 
 let function matchingCallImpl(cmd, cb = null, params = null) {
@@ -59,13 +53,9 @@ eventbus.subscribe("matching.logged_out", function(notify) {
 
   if (notify != null) {
     if (notify.reason == matching_errors.DisconnectReason.ConnectionClosed && notify.message.len() == 0) {
-      let buttons = [{ text = loc("Ok"), isCurrent = true, action = @() null }]
-      let detailsBtn = mkDetailsDisconnect?()
-      if (detailsBtn != null)
-        buttons.append(detailsBtn)
       msgbox.show({
         text = loc("error/CLIENT_ERROR_CONNECTION_CLOSED")
-        buttons = buttons
+        buttons = [{ text = loc("Ok"), isCurrent = true, action = @() null }]
       })
     }
     else {

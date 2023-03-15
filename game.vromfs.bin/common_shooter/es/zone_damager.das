@@ -49,19 +49,22 @@ def burn_damage(cur_time, dt : float; victim_eid, offender_eid : EntityId; victi
 def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
                           curTime, dt, dmgzone_damage, dmgzone_fireAffect, fire_source__startTime : float;
                           gun_props_id, shell_id, team_to_damage, damage_type_id : int;
-                          damage_in_vehicle : bool;
+                          damage_in_vehicle : bool; dmgzone__doNotDamageUnderwater : Tag const?;
                           var eids_in_zone : EidList?)
   ecs::query(visitor_eid) <| $ [es(REQUIRE=dmgzoneVulnerable, REQUIRE_NOT=deadEntity)] (transform : float3x4;
                                                                                         isInVehicleHidden : bool = false;
                                                                                         team : int = TEAM_UNASSIGNED;
                                                                                         game_effect__invisible : bool = false;
                                                                                         entity_mods__zoneDamageMult : float = 1.0;
+                                                                                        human_net_phys__isUnderwater : bool = false;
                                                                                         dmgzone_fire_resistance__maxTicks : int = 0;
                                                                                         var dmgzone_fire_resistance__currentTicks : int?;
                                                                                         var dmgzone_fire_resistance__lastTickAt : float?)
     if !damage_in_vehicle && isInVehicleHidden
       return
     if team_to_damage != TEAM_UNASSIGNED && team_to_damage != team
+      return
+    if human_net_phys__isUnderwater && dmgzone__doNotDamageUnderwater != null
       return
     if game_effect__invisible && offender_eid |> has("dmgzone__ignoreInvisibleTargets")
       return
@@ -95,6 +98,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
                dmgzone__damage : float;
                var dmgzone__lastUpdate : float&;
                var dmgzone__eidsInZone : EidList?;
+               dmgzone__doNotDamageUnderwater : Tag const?;
                dmgzone__updateInterval : float = 1.0;
                dmgzone__teamToDamage : int = TEAM_UNASSIGNED;
                dmgzone__damageInVehicle : bool = true;
@@ -125,7 +129,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
       dmgzone_check_visitor(visitorEid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
-                            dmgzone__damageInVehicle, dmgzone__eidsInZone)
+                            dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
   else
     let invTm = inverse(transform)
     let zoneRadiusSq = square(sphere_zone__radius)
@@ -135,7 +139,7 @@ def dmgzone_es(info : UpdateStageInfoAct;
       dmgzone_check_visitor(eid, offenderEid,
                             info.curTime, dt, dmgzone__damage, dmgzone__fireAffect, fire_source__startTime,
                             dmgzone__gunPropsId, dmgzone__shellId, dmgzone__teamToDamage, dm__damageTypeId,
-                            dmgzone__damageInVehicle, dmgzone__eidsInZone)
+                            dmgzone__damageInVehicle, dmgzone__doNotDamageUnderwater, dmgzone__eidsInZone)
 
 
 [es(tag=server, tag=dev, on_appear, REQUIRE=box_zone, REQUIRE=dmgzone__damage)]

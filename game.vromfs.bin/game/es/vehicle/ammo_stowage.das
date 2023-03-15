@@ -6,7 +6,7 @@ require common_shooter.events_common_shooter
 
 def set_part_rel_hp(var part : DamagePart&; hp : float)
   part.relHpFixed = rel_hp_float_to_fixed_floor(hp)
-  part.state = int(part.relHpFixed) > HP_DAMAGED_STATE_TRESHOLD_FIXED ? (DamagePartState DP_STATE_NORMAL) : (DamagePartState DP_STATE_DAMAGED)
+  part.state = uint(part.relHpFixed) > uint(HP_DAMAGED_STATE_TRESHOLD_FIXED) ? (DamagePartState DP_STATE_NORMAL) : (DamagePartState DP_STATE_DAMAGED)
 
 def restore_slot_part(part_id : int; var damage_model : DamageModel&)
   if uint(part_id) >= uint(length(damage_model.dmData.parts))

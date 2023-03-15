@@ -26,7 +26,7 @@ def get_assist_crew(vehicle_eid, offender_eid, offender_squad_eid : EntityId)
   return <- result
 
 def write_offender_info(eid, player_eid, squad_eid : EntityId; guid : string; time : float; is_crew : bool; var out_obj : Object&)
-  push_to_object(out_obj, "{eid}") <| $(var offenderInfo : Object#)
+  push_to_object(out_obj, "{eid}") <| $(var offenderInfo : Object)
     set(offenderInfo, "time", time)
     set(offenderInfo, "player", player_eid)
     set(offenderInfo, "squad", squad_eid)

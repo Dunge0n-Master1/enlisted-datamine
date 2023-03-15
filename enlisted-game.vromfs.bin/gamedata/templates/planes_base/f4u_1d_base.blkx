@@ -13,7 +13,6 @@ f4u_1d_wreckage{
 f4u_1d_base{
   _extends:t="plane_with_cockpit"
   _extends:t="base_f4u_1d"
-  plane_engine_sound__engine:t="engine07"
   collres__res:t="f4u_1d_collision"
   plane_net_phys__blk:t="gamedata/units/f4u_1d.blk"
   damage_model__blk:t="gamedata/units/f4u_1d.blk"
@@ -31,6 +30,11 @@ f4u_1d_base{
     _tags:t="render"
     animchar_camera_target__node_name:t=""
     animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
+  }
+
+  _group{
+    _tags:t="sound"
+    plane_engine_sound__engine:t="engine07"
   }
 
   "plane_hit_sound__canopyNodes:list<t>"{

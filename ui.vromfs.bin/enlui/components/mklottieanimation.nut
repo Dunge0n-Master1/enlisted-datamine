@@ -23,7 +23,7 @@ let function mkLottieAnimation(lottie, params = defSize) {
     key = image
     animated = true
     size = [width, height]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     vplace = ALIGN_CENTER
     hplace = ALIGN_CENTER
   }

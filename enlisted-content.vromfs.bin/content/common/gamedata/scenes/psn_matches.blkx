@@ -1,3 +1,0 @@
-entity{
-  _template:t="psn_external_match_id+psn_external_match_id_update"
-}

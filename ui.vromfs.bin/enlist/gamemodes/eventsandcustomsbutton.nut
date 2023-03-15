@@ -7,7 +7,7 @@ let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let { mkLeftPanelButton } = isNewDesign.value
   ? require("%enlist/components/mkPanelBtn.nut")
   : require("%enlist/components/mkPanelButton.nut")
-let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
 let { hasCustomRooms, openCustomGameMode, openEventsGameMode, eventGameModes
 } = require("eventModesState.nut")
 let { unseenEvents } = require("unseenEvents.nut")
@@ -24,7 +24,7 @@ let buttonContent = @(sf) {
   children = [
     @() {
       watch = unseenEvents
-      children = unseenEvents.value.len() > 0 ? smallUnseenNoBlink : null
+      children = unseenEvents.value.len() > 0 ? blinkUnseen : null
     }
     {
       rendObj = ROBJ_TEXT

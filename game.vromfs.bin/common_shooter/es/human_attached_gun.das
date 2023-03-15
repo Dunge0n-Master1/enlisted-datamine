@@ -174,7 +174,7 @@ def human_track_attached_gun(evt : Event;
   human_attached_gun__isAttached = !!human_attached_gun__attachedGunEid
 
 [es(after=(after_net_phys_sync, human_weap_update_es), before=human_anim_es)]
-def human_attached_gun_rotate_body(update : UpdateStageInfoAct;
+def human_attached_gun_rotate_body(update : ParallelUpdateFrameDelayed;
                                    human_attached_gun__attachedGunEid : EntityId;
                                    var transform aka human_transform : float3x4&)
   query(human_attached_gun__attachedGunEid) <| $ [es] (transform aka gun_transform : float3x4; stationary_gun__humanOffset : float3)
@@ -191,7 +191,7 @@ def interp_dir(prev : float3; cur : float3; interpK : float)
 
 
 [es(after=after_net_phys_sync, before=(human_anim_es, mounted_gun_es))]
-def human_attached_gun_controls_update_es(info : UpdateStageInfoAct;
+def human_attached_gun_controls_update_es(info : ParallelUpdateFrameDelayed;
                                           eid : EntityId;
                                           isAlive : bool;
                                           isDowned : bool = false;
@@ -228,8 +228,8 @@ def human_attached_gun_controls_update_es(info : UpdateStageInfoAct;
       detach_from_gun(eid, human_attached_gun__attachedGunEid)
 
 
-[es(before=animchar_effectors_update_es, after=(after_net_phys_sync, human_anim_es))]
-def human_attached_gun_effectors_update_es(info : UpdateStageInfoAct;
+[es(before=before_animchar_update_sync, after=(after_net_phys_sync, human_anim_es))]
+def human_attached_gun_effectors_update_es(info : ParallelUpdateFrameDelayed;
                                            var human_net_phys : HumanActor;
                                            var animchar_effectors__effectorsState : Object&;
                                            animchar : AnimcharBaseComponent const?;

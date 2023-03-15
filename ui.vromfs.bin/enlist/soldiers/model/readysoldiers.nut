@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { debounce } = require("%sqstd/timers.nut")
 let {
   curSquad, curSquadSoldiersInfo, soldiersBySquad, vehicleBySquad, objInfoByGuid,
-  curCampSquads, curCampItems, curCampSoldiers
+  curCampSquads, curCampItems
 } = require("state.nut")
 let { getLinkedArmyName, getLinkedSlotData } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
@@ -11,6 +11,7 @@ let readyStatus = require("%enlSqGlob/readyStatus.nut")
 let { READY, OUT_OF_VEHICLE, TOO_MUCH_CLASS, OUT_OF_SQUAD_SIZE, NOT_READY_BY_EQUIP } = readyStatus
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let sClassesConfig = require("config/sClassesConfig.nut")
+let { curCampSoldiers } = require("%enlist/meta/profile.nut")
 
 let invalidEquipSoldiers = mkWatched(persist, "invalidEquipSoldiers")
 

@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { doesLocTextExist } = require("dagor.localize")
 let { h0_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
+let tooltipBox = require("%ui/style/tooltipBox.nut")
 let {
   defTxtColor, blurBgColor, bigPadding, defInsideBgColor,
   rowBg
@@ -10,8 +11,8 @@ let {
 let { UserNameColor } = require("%ui/style/colors.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let {
-  refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName,
-  isLbWndOpened, lbSelCategories, LB_PAGE_ROWS, bestBattlesByMode, isRefreshLbEnabled
+  refreshLbData, curLbRequestData, curLbData, curLbSelfRow, curLbErrName, isLbWndOpened,
+  isRefreshLbEnabled, lbSelCategories, LB_PAGE_ROWS, bestBattlesByMode, ratingBattlesCountByMode
 } = require("lbState.nut")
 let { selLbMode } = require("%enlist/gameModes/eventModesState.nut")
 let { RANK, NAME } = require("lbCategory.nut")
@@ -69,7 +70,7 @@ let function mkLbRankCell(category, rowData, override) {
         ? {
             rendObj = ROBJ_IMAGE
             size = [wreathSize, wreathSize]
-            image = Picture("ui/uiskin/scanner_range.png")
+            image = Picture("ui/uiskin/scanner_range.avif")
           }
         : null
         {
@@ -129,7 +130,7 @@ let lbHeaderFlag = {
 let lbHeaderImg = {
   size = [flex(), headerImgHeight]
   rendObj = ROBJ_IMAGE
-  image = Picture("ui/pacific_usa_login_screen.jpg")
+  image = Picture("ui/pacific_usa_login_screen.avif")
   keepAspect = KEEP_ASPECT_FILL
 }
 
@@ -153,10 +154,29 @@ let lbWindowHeader = {
   ]
 }
 
-let getColumnDescription = function (locNameId) {
-  let locId = $"{locNameId}/desc"
-  return doesLocTextExist(locId) ? loc(locId) : ""
+
+let getColumnDescription = function(locId, textParams = null) {
+  let descLocId = $"{locId}/desc"
+  let description = doesLocTextExist(descLocId) ? loc(descLocId, textParams) : ""
+
+  return description
 }
+
+let categoryTooltip = Computed(function() {
+  let count = ratingBattlesCountByMode.value?[selLbMode.value] ?? 20
+
+  return {
+    common = @(category) "\n\n".join([loc(category.locId),
+      getColumnDescription(category.locId)]),
+    BATTLE_RATING = @(category) "\n\n".join([loc(category.locId),
+      getColumnDescription(category.locId, { count })])
+    TOURNAMENT_BATTLE_RATING = @(category) "\n\n".join([loc(category.locId),
+      getColumnDescription(category.locId, { count })])
+  }
+})
+
+let mkCategoryTooltip = @(category, categoryTooltipVal)
+  (categoryTooltipVal?[category.id] ?? categoryTooltipVal.common)(category)
 
 let mkHeaderName = @(category) {
     size = [flex(category.relWidth), SIZE_TO_CONTENT]
@@ -170,12 +190,22 @@ let mkHeaderName = @(category) {
           color = defTxtColor
         }.__update(tiny_txt)
       : withTooltip({
-            rendObj = ROBJ_IMAGE
-            color = defTxtColor
-            image = Picture($"{category.icon}:{iconHeaderSize}:{iconHeaderSize}:K")
-          },
-          @() "\n\n".join([loc(category.locId), getColumnDescription(category.locId)], true)
-        )
+          rendObj = ROBJ_IMAGE
+          color = defTxtColor
+          size = [iconHeaderSize, iconHeaderSize]
+          image = Picture(category.icon)
+        },
+        @() function() {
+          let text = mkCategoryTooltip(category, categoryTooltip.value)
+          return tooltipBox({
+            watch = categoryTooltip
+            rendObj = ROBJ_TEXTAREA
+            behavior = Behaviors.TextArea
+            maxWidth = hdpx(500)
+            text
+            color = Color(180, 180, 180, 120)
+          })
+        })
   }.__update(styleByCategory?[category] ?? {})
 
 let lbHeaderRow = @(categories) {

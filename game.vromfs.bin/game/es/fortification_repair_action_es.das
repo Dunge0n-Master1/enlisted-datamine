@@ -4,15 +4,21 @@ require math.base
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require EnlistedNet
+require enlisted.game.es.fortifications_build_common
 
 [es(tag=server, before=fortification_repair_start_es)]
 def before_fortification_repair_start_es(evt : EventRepairFortificationStart;
                                          isInVehicle : bool;
                                          human_weap__currentGunEid : EntityId;
+                                         squad_member__playerEid : EntityId;
                                          var fortification_repair__repairCost : float&;
                                          var fortification_repair__canRepair : bool&)
   fortification_repair__canRepair = false
-  query(evt.target) <| $ [es(REQUIRE=fortification_repair__costPercent, REQUIRE_NOT=builder_preview)] ()
+  query(evt.target) <| $ [es(REQUIRE=fortification_repair__costPercent, REQUIRE_NOT=builder_preview)] (additiveBuildNeedRepair : bool = false; buildTypeId : int = -1)
+    if additiveBuildNeedRepair
+      let count = count_available_buildings_by_type(squad_member__playerEid, buildTypeId)
+      if count <= 0
+        return
     fortification_repair__canRepair = (!isInVehicle && has(human_weap__currentGunEid, "previewTemplate"))
   fortification_repair__repairCost = 0f
 

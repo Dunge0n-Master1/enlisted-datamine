@@ -153,9 +153,9 @@ local function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
 
   let animDelay = p.animDelay
   let hasNewLevel = squad.wasExp + squad.exp >= squad.toLevelExp
-  let premIcon = (squad?.premSquadExpBonus ?? 0) > 0
-    ? armiesPresentation?[p.armyId].premIcon
-    : squadsPresentation?[p.armyId][squad?.id].premIcon
+  local { premIcon = null } = squadsPresentation?[p.armyId][squad?.id]
+  if ((squad?.premSquadExpBonus ?? 0) > 0)
+    premIcon = premIcon ?? armiesPresentation?[p.armyId].premIcon
   return {
     content = {
       size = squadCardSize

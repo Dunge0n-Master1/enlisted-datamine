@@ -1,5 +1,6 @@
 import "%dngscripts/ecs.nut" as ecs
 let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
+let { mkEventOnSquadStats, EventSquadMembersStats } = require("%enlSqGlob/sqevents.nut")
 let {EventAnyEntityDied} = require("dasevents")
 let {EventLevelLoaded} = require("gameevents")
 let { get_sync_time, INVALID_CONNECTION_ID, has_network } = require("net")
@@ -125,7 +126,7 @@ let function sendSquadStatsToPlayer(stats, playerEid, connid) {
   let connectionsToSend = has_network() ? connid
     : find_local_player() == playerEid ? playerEid
     : INVALID_CONNECTION_ID
-  server_send_net_sqevent(playerEid, ecs.event.EventOnSquadStats({stats}), [connectionsToSend])
+  server_send_net_sqevent(playerEid, mkEventOnSquadStats({stats}), [connectionsToSend])
 }
 
 let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
@@ -260,7 +261,7 @@ ecs.register_es("squad_stats_es",
 ecs.register_es("squad_stats_kills_es",
   {
     [EventAnyEntityDied] = onEntityDied,
-    [ecs.sqEvents.EventSquadMembersStats] = onSquadMembersStats,
+    [EventSquadMembersStats] = onSquadMembersStats,
   },
   {},
   {tags="server"})

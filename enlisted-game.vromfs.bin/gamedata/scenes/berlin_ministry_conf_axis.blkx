@@ -1078,17 +1078,17 @@ entity{
   mission_name:t="berlin_ministry_conf"
 
   "loading_images:list<t>"{
-    item:t="ui/berlin_moat_01.jpg"
-    item:t="ui/berlin_moat_02.jpg"
-    item:t="ui/berlin_opera_inv_03.jpg"
+    item:t="ui/berlin_moat_01.avif"
+    item:t="ui/berlin_moat_02.avif"
+    item:t="ui/berlin_opera_inv_03.avif"
   }
 }
 
 entity{
   _template:t="team_germany_berlin+team_narrator_confrontation_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2100.0
-  team__score:r=2100.0
+  team__scoreCap:r=2200.0
+  team__score:r=2200.0
   team__squadSpawnCost:i=250
   team__minScoreCap:r=100.0
   team__firstSpawnCostMul:r=0.0
@@ -1223,7 +1223,7 @@ entity{
   capzone__capRewardPartCap:r=1.5
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1_a"
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=110.0
   capzone__capTimeTeam2:r=70.0
@@ -1347,6 +1347,8 @@ entity{
   capzone__capTeam:i=-1
   capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
+  capzone__decapTimeTeam2:r=35.0
+  capzone__decapTimeTeam1:r=45.0
   capzone__caption:t="capzone/construction"
   capzone__icon:t="AAA"
   capzone__iconOffsetY:r=2.0
@@ -1356,8 +1358,6 @@ entity{
   groupName:t="sector_4"
   ui_order:i=4
   active:b=no
-  capzone__decapTimeTeam2:r=35.0
-  capzone__decapTimeTeam1:r=45.0
 
   "capzone__activateChoiceTeam2:object"{
     sector_5_b:r=1.0
@@ -1377,9 +1377,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-141.909, 1.03529, 179.674]]
@@ -1406,9 +1406,9 @@ entity{
   capzone__capReward:r=250.0
   capzone__lockAfterActivate:b=yes
   capzone__unlockAfterTime:r=120.0
-  capzone__capTimeTeam2:r=80.0
+  capzone__capTimeTeam2:r=70.0
   capzone__capTimeTeam1:r=90.0
-  capzone__decapTimeTeam2:r=40.0
+  capzone__decapTimeTeam2:r=35.0
   capzone__decapTimeTeam1:r=45.0
   capzone__capTeam:i=-1
   transform:m=[[0.885815, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-67.8056, 3.47001, 268.459]]

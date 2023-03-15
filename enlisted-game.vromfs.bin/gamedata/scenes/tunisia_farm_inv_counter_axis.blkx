@@ -831,9 +831,9 @@ entity{
   mission_name:t="tunisia_farm_inv_counter"
 
   "loading_images:list<t>"{
-    item:t="ui/tunisia_farm_inv_01.jpg"
-    item:t="ui/tunisia_farm_inv_02.jpg"
-    item:t="ui/tunisia_farm_inv_03.jpg"
+    item:t="ui/tunisia_farm_inv_01.avif"
+    item:t="ui/tunisia_farm_inv_02.avif"
+    item:t="ui/tunisia_farm_inv_03.avif"
   }
 }
 
@@ -897,7 +897,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_tunisia/gamedata/tunisia_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/tunisia_doors.blk"
 }
 
 entity{
@@ -927,7 +927,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_5"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -951,7 +951,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4_a"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -979,7 +979,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_4_b"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1006,7 +1006,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_3_a"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1035,7 +1035,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_3_b"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=90.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
@@ -1066,7 +1066,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=80.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1093,7 +1093,7 @@ entity{
   capzone__curTeamCapturingZone:i=-1
   capzone__onlyTeamCanCapture:i=2
   groupName:t="sector_1"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=70.0
   capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0

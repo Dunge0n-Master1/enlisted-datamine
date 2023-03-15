@@ -9,7 +9,7 @@ require math
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require HumanPhys
 require EnlistedWeapon
 require DaWeaponProps
@@ -73,7 +73,7 @@ def on_squad_mate_bring_ammo_order(evt : RequestSquadMateOrder; eid : EntityId; 
   if evt.orderType == SquadMateOrder ESMO_BRING_AMMO && squad__isLeaderNeedsAmmo
     let requestAmmoAllowTime = get_float(squad__leader, "requestAmmoAllowTime") ?? 0f
     if requestAmmoAllowTime > get_sync_time()
-      using() <| $(var data : Object#)
+      using() <| $(var data : Object)
         set(data, "time", int(requestAmmoAllowTime - get_sync_time()))
         send_net_event(squad__leader, [[CmdHeroLogExEvent event="squad_order_canceled", key="msg/canRequestIn", data=ecs_addr(data)]], target_entity_conn(squad__leader))
     else

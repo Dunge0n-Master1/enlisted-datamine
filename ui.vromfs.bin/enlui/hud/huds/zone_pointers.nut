@@ -59,7 +59,7 @@ let mkZoneIcon = memoize(@(eid, title, icon, isDefendZone) (!isDefendZone && (ti
 
 let mkPointer = @(capturingAndDefend) freeze({
   rendObj = ROBJ_IMAGE
-  image = Picture("!ui/skin#target_pointer.png")
+  image = Picture("!ui/skin#target_pointer.avif")
   size = [fsh(4), fsh(4.8)]
   pos = [fsh(0.05), -fsh(0.34)]
   color = pointerColor

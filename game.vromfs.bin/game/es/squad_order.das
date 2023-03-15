@@ -7,7 +7,7 @@ require BehNodes
 require EnlistedWeapon
 require game.es.events
 require game.es.vehicle.vehicle_events
-require game.es.sound_net.sound_net_events
+require human_sounds_net.modules.human_sounds_net_events
 require enlisted.events_enlisted
 require player
 require math

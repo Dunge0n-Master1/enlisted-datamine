@@ -319,7 +319,7 @@ let offersByPremItem = Computed(function() {
   let offers = allActiveOffers.value
   let res = {}
   foreach (shopItem in premiumProducts.value) {
-    let offer = offers.findvalue(@(o) o?.shopItem.guid == shopItem.guid)
+    let offer = offers.findvalue(@(o) o?.shopItemGuid == shopItem.guid)
     if (offer != null)
       res[shopItem.guid] <- offer
   }
@@ -420,7 +420,7 @@ let premiumBlockContent = @() {
 let premiumInfoBlock = {
   size = flex()
   children = [
-    mkImage("ui/gameImage/premium_bg.jpg", { keepAspect = true })
+    mkImage("ui/gameImage/premium_bg.avif", { keepAspect = KEEP_ASPECT_FIT })
     premiumBlockContent()
   ]
   transform = {}
@@ -458,7 +458,7 @@ let function open() {
             size = [flex(), ph(75)]
             maxWidth = hdpx(180)
             hplace = ALIGN_RIGHT
-            children = mkImage("ui/gameImage/premium_decor_left.jpg")
+            children = mkImage("ui/gameImage/premium_decor_left.avif")
           }
         }
         {
@@ -471,7 +471,7 @@ let function open() {
             {
               size = [flex(), ph(75)]
               maxWidth = hdpx(180)
-              children = mkImage("ui/gameImage/premium_decor_right.jpg")
+              children = mkImage("ui/gameImage/premium_decor_right.avif")
             }
             closeBtnBase({
               padding = fsh(1)

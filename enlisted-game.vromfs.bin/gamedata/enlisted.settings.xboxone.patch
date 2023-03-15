@@ -18,10 +18,10 @@
       scopeImageQuality:i=0
       shouldRenderHeroCockpit:b=true
       skiesQuality:t="low"
-      ssss:b=false
       lodsShiftDistMul:r=1.3
       fxTarget:t="lowres"
       giQuality:t="minimum"
+      ssss:t="off"
     }
   }
 
@@ -67,7 +67,7 @@
   scopeImageQuality:i=0
   shouldRenderHeroCockpit:b=true
   skiesQuality:t="low"
-  ssss:b=false
+  ssss:t="off"
   lodsShiftDistMul:r=1.3
   fxTarget:t="lowres"
   giQuality:t="minimum"

@@ -9,6 +9,7 @@ require AnimV20
 require AnimatedPhys
 require game.es.events
 require game.es.device_animation_common
+require enlisted.events_enlisted
 
 [es(track=human_weap__currentGunSlot)]
 def device_animation_check_unequipped(evt : Event; human_weap__currentGunSlot : int; human_net_phys : HumanActor; human_weap__gunEids : ecs::EidList)
@@ -28,7 +29,7 @@ def device_animation_check_unequipped(evt : Event; human_weap__currentGunSlot : 
       set_backpack_state(phys_vars, device_anim__state, device_anim__progress, device_anim__stateVarId, device_anim__progressVarId, device_anim__states, 0.0)
 
 [es(no_order)]
-def device_animation_equip(info : UpdateStageInfoAct;
+def device_animation_equip(info : ParallelUpdateFrameDelayed;
                            eid : EntityId;
                            item__ownerEid : EntityId;
                            device_anim__stateVarId : int;
@@ -64,7 +65,7 @@ def device_animation_equip(info : UpdateStageInfoAct;
         animchar_act(animchar, 0.0, true)
 
 [es(no_order)]
-def device_animation(act : ecs::UpdateStageInfoAct;
+def device_animation(act : ParallelUpdateFrameDelayed;
                      eid : EntityId;
                      device_anim__stateVarId aka gun_device_anim__stateVarId : int;
                      device_anim__progressVarId aka gun_device_anim__progressVarId : int;

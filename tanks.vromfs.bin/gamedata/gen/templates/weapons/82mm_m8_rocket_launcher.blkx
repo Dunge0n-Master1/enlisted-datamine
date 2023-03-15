@@ -13,5 +13,6 @@ tankgun_82mm_m8_rocket_launcher{
   _extends:t="tankgun"
   _extends:t="base_tankgun_cannon"
   _extends:t="base_82mm_m8_rocket_launcher"
+  _extends:t="gunsound_82mm_m8_rocket_launcher"
   turret__triggerGroup:i=0
 }

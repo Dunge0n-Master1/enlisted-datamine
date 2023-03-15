@@ -38,15 +38,15 @@ let getPicture = memoize(function getPicture(name, iconSz) {
   return Picture(imagename)
 })
 
-let capzonBlurback = memoize(@(height) {
-    size = [height, height]
-    rendObj = ROBJ_MASK
-    image = Picture("ui/skin#white_circle.svg:{0}:{0}:K".subst(height.tointeger()))
-    children = [{size = flex() rendObj = ROBJ_WORLD_BLUR color = Color(220, 220, 220, 255)}]
-  })
+let capzonIconBackground = memoize(@(height) {
+  size = [height, height]
+  rendObj = ROBJ_IMAGE
+  image = Picture("!ui/skin#white_circle.svg:{0}:{0}:K".subst(height.tointeger()))
+  color = Color(160, 160, 160, 255)
+})
 
 let zSize = [fsh(3), fsh(3)]
-let blur_back = capzonBlurback(zSize[1])
+let zoneIconBackground = capzonIconBackground(zSize[1])
 let zIconSz = [zSize[0] / 1.5, zSize[1] / 1.5]
 let zMargin = (zSize[0] / 1.5).tointeger()
 
@@ -83,10 +83,10 @@ let function resupplyZoneCtor(zoneWatch) {
         halign  = ALIGN_CENTER
         valign = ALIGN_CENTER
         size = zSize
-        children = [
-          blur_back
-          active ? zoneIcon : null
-        ]
+        children = active ? [
+          zoneIconBackground
+          zoneIcon
+        ] : null
       }
       transitions = zTransitions
       animations = active ? animActive : null
@@ -128,7 +128,7 @@ let animations = [
   { prop=AnimProp.opacity, from=0, to=1, duration=0.5, play=true, easing=InOutCubic}
   { prop=AnimProp.opacity, from=1, to=0, duration=0.3, playFadeOut=true, easing=InOutCubic}
 ]
-let pic = Picture("!ui/skin#target_pointer.png")
+let pic = Picture("!ui/skin#target_pointer.avif")
 
 let mkZonePointer = memoize(function(eid) {
   let zoneWatch = resupply_zones_GetWatched(eid)

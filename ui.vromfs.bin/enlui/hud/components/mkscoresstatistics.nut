@@ -228,6 +228,7 @@ local function mkTable(players, params = STATISTICS_VIEW_PARAMS) {
       isDeserter = player?.isDeserter ?? false
       roomOwner = player?.player__roomOwner ?? false
       canForgive = params?.canForgivePlayers?[eid.tostring()] ?? false
+      haveSessionResult = params?.result != null
     }
 
     if (res.isAlly)

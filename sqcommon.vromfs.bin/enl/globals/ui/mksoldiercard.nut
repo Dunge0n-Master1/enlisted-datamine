@@ -15,7 +15,7 @@ let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
 
-let iconDead = Picture("ui/skin#lb_deaths.png")
+let iconDead = Picture("ui/skin#lb_deaths.avif")
 
 let function listSquadColor(flags, selected, isFaded, hasAlertStyle, isDead) {
   if (isDead)

@@ -1,6 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
+let { EventSqChatMessage, mkCmdChatMessage } = require("%enlSqGlob/sqevents.nut")
 let { setIntervalForUpdateFunc } = require("%ui/helpers/timers.nut")
 let { INVALID_USER_ID } = require("matching.errors")
 let { TEAM_UNASSIGNED } = require("team")
@@ -58,7 +59,7 @@ let function pushMsg(sender_team, name_from, user_id_from, text, send_mode, qmsg
 
 local function sendChatCmd(params = {mode="team", text=""}) {
   params = params.__merge({mode=params?.mode ?? "team"})
-  let evt = ecs.event.CmdChatMessage(params)
+  let evt = mkCmdChatMessage(params)
   ecs.client_msg_sink(evt)
 }
 
@@ -95,7 +96,7 @@ let function onChatMessage(evt, _eid, _comp) {
 }
 
 ecs.register_es("chat_client_es", {
-    [ecs.sqEvents.EventSqChatMessage] = onChatMessage
+    [EventSqChatMessage] = onChatMessage
   }, {comps_rq = ["msg_sink"]}
 )
 

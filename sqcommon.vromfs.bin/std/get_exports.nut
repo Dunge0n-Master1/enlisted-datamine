@@ -1,6 +1,9 @@
+local argv = require_optional("dagor.system")?.argv ?? ::__argv
+
+
 let function get_arg_value_by_name(name){
   name = $"-{name}"
-  foreach (a in __argv){
+  foreach (a in argv){
     let l = name.len()
     if (a.slice(0,l) == name){
       if (a.len() > l)
@@ -14,7 +17,7 @@ let function get_arg_value_by_name(name){
 
 let function get_all_exports_for_file(fpath){
   let m = require(fpath.replace("\\","/"))
-  if (typeof m != "table")
+  if (type(m) != "table")
     return null
   return m.keys()
 }
@@ -33,7 +36,7 @@ let function get_all_exports_in_folder(root = "."){
       continue
     try{
       let fields = get_all_exports_for_file(fpath)
-      if (typeof fields != "array")
+      if (type(fields) != "array")
         continue
       res[fpath] <- fields
     }
@@ -54,7 +57,7 @@ if (__name__ == "__main__"){
   }
   else if (fpath!=null){
     let fields = get_all_exports_for_file(fpath)
-    if (typeof fields == "array")
+    if (type(fields) == "array")
       println(" ".join(["EXPORT FIELDS:"].extend(fields)))
   }
   else

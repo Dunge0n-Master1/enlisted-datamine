@@ -105,7 +105,7 @@ def get_most_effective_heal_item(item_container : EidList;
 
 [es(on_appear, track=(isAlive, isDowned, isInVehicle, burning__isBurning, hitpoints__hp, hitpoints__maxHp, total_kits__selfHeal,
   total_kits__selfRevive, human_breath__isUnderWater, human_net_phys__isSwimming, human_freefall__isFreefall, hitpoints__criticalHpRatio, human_parachute__isDeployed,
-  maintenance__isExtinguishAvailable, maintenance__isRepairAvailable))]
+  human_unarmed__hiddenWeapon, maintenance__isExtinguishAvailable, maintenance__isRepairAvailable))]
 def human_inventory_update_can_use_heal(evt : Event;
                                         isAlive : bool;
                                         isDowned : bool;
@@ -120,6 +120,7 @@ def human_inventory_update_can_use_heal(evt : Event;
                                         human_freefall__isFreefall : bool;
                                         hitpoints__criticalHpRatio : float;
                                         human_parachute__isDeployed : bool;
+                                        human_unarmed__hiddenWeapon : bool;
                                         maintenance__isExtinguishAvailable : bool = false;
                                         maintenance__isRepairAvailable : bool = false;
                                         var human_inventory__canUseMedkit : bool&)
@@ -132,6 +133,7 @@ def human_inventory_update_can_use_heal(evt : Event;
 
   human_inventory__canUseMedkit = (isAlive && !human_breath__isUnderWater && !human_net_phys__isSwimming && !human_freefall__isFreefall && !human_parachute__isDeployed
                                && (!burning__isBurning || !isInVehicle) && needMedkitUse && (canSelfHeal || canSelfRevive || canSelfExtinguish)
+                               && !human_unarmed__hiddenWeapon
                                && !maintenance__isExtinguishAvailable && !maintenance__isRepairAvailable)
 
 

@@ -27,8 +27,8 @@ enum SimulateMode
   FIND_HIT_POS_ONLY
 
 
-def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignore_vehicle : EntityId; cb : block<(intersections : IntersectedEntities#) : void>)
-  using() <| $(var intersections : IntersectedEntities#)
+def trace_shootable_objects(from, dir : float3; len : float; ignore_human, ignore_vehicle : EntityId; cb : block<(intersections : IntersectedEntities) : void>)
+  using() <| $(var intersections : IntersectedEntities)
     var t1 = len; var t2 = len; var t3 = len
     trace_entities_in_grid(ecs_hash("humans"), from, dir, t1, ignore_human, intersections, SortIntersections NO)
     trace_entities_in_grid(ecs_hash("vehicles"), from, dir, t2, ignore_vehicle, intersections, SortIntersections NO)
@@ -98,7 +98,7 @@ def simulate_shot(owner_eid : EntityId;
               vehicleEid = human_anim__vehicleSelected
               projectileOwnerTeam = team
 
-            trace_shootable_objects(prevPos, dir, len, owner_eid, vehicleEid) <| $(sortedIntersectedList : IntersectedEntities#)
+            trace_shootable_objects(prevPos, dir, len, owner_eid, vehicleEid) <| $(sortedIntersectedList : IntersectedEntities)
               var entitiesIntersected = false
               if length(sortedIntersectedList) > 0
                 for isect in sortedIntersectedList

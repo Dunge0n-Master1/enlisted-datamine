@@ -1,0 +1,51 @@
+ground_holes_updater{
+  _extends:t="replicating"
+  _singleton:b=yes
+  changed_ground_holes:b=no
+  first_holes_update:b=yes
+  should_render_ground_holes:b=no
+  gound_holes_temp_tex_size:i=1024
+  gound_holes_main_tex_size:i=2048
+  ground_holes_scale_offset:p4=-1.0, -1.0, -1.0, -1.0
+
+  _group{
+    _track:b=yes
+    update_ground_holes:b=no
+  }
+
+  _group{
+    _tags:t="render"
+    hmapHolesPrepareRenderer_name:t="heightmap_holes_prepare"
+    hmapHolesProcessRenderer_name:t="heightmap_holes_process"
+
+    "hmapHolesPrepareRenderer:ShadersECS"{
+    }
+
+    "hmapHolesProcessRenderer:PostFxRenderer"{
+    }
+
+    "hmapHolesTex:UniqueTexHolder"{
+    }
+
+    "hmapHolesTmpTex:UniqueTexHolder"{
+    }
+
+    "hmapHolesBuf:UniqueBufHolder"{
+    }
+
+    "holes:list<p4>"{
+    }
+  }
+}
+
+ground_hole{
+  _extends:t="replicating"
+  _track:b=yes
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  ground_hole_sphere_shape:b=no
+
+  _group{
+    processed:b=no
+    _tags:t="gameClient"
+  }
+}

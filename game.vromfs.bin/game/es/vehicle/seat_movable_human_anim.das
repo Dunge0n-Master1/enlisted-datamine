@@ -1,9 +1,10 @@
 require ecs
 require math.base
 require EnlistedHuman
+require enlisted.events_enlisted
 
 [es(tag=server, REQUIRE=seat_anim__lowerMove, no_order)]
-def seat_movable_set_walk_dir_server(info : UpdateStageInfoAct;
+def seat_movable_set_walk_dir_server(info : ParallelUpdateFrameDelayed;
                                      seat__vehicleEid : EntityId;
                                      seat__ownerEid : EntityId)
   query(seat__ownerEid) <| $ [es] (var human_net_phys : HumanActor)
@@ -11,7 +12,7 @@ def seat_movable_set_walk_dir_server(info : UpdateStageInfoAct;
       human_net_phys.phys.currentState.walkDir = net_phys__currentStateVelocity.xz
 
 [es(tag=netClient, REQUIRE=seat_anim__lowerMove, no_order)]
-def seat_movable_set_walk_dir_local(info : UpdateStageInfoAct;
+def seat_movable_set_walk_dir_local(info : ParallelUpdateFrameDelayed;
                                     seat__vehicleEid : EntityId;
                                     seat__ownerEid : EntityId)
   query(seat__ownerEid) <| $ [es(REQUIRE=hero)] (var human_net_phys : HumanActor)
@@ -19,7 +20,7 @@ def seat_movable_set_walk_dir_local(info : UpdateStageInfoAct;
       human_net_phys.phys.currentState.walkDir = net_phys__currentStateVelocity.xz
 
 [es(tag=gameClient, no_order)]
-def seat_set_walk_anim(info : UpdateStageInfoAct;
+def seat_set_walk_anim(info : ParallelUpdateFrameDelayed;
                        seat__vehicleEid : EntityId;
                        seat_anim__lowerMove : das_string;
                        seat_anim__lowerIdle : das_string;

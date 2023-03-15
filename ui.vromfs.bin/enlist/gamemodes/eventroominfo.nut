@@ -17,6 +17,7 @@ let {
   crossnetworkPlay, isCrossplayOptionNeeded, CrossplayState
 } = require("%enlSqGlob/crossnetwork_state.nut")
 let colorize = require("%ui/components/colorize.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
 
 let textAreaOffset = hdpx(10)
@@ -225,7 +226,7 @@ let function mkRoomInfo(room){
       isMod ? mkModHeader(room?.modName,  loc(room?.mode ?? "")) : null
       mkRoomCreateTime(room)
       isInRoom.value ? null : mkRoomStatusRow(room?.launcherState ?? "")
-      mkInfoTextRow(loc("rooms/Creator"), room?.creatorText ?? "")
+      mkInfoTextRow(loc("rooms/Creator"), remap_others(room?.creator ?? ""))
       mkInfoTextRow(loc("current_mode"), loc(room?.mode ?? ""))
       mkInfoTextRow(loc("options/difficulty"), optLoc(room?.difficulty))
       mkCampaignList(room?.campaigns ?? [])

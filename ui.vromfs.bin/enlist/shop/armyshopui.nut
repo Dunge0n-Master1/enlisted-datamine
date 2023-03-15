@@ -34,6 +34,7 @@ let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignC
 let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
+let starterPack = require("%enlist/soldiers/starterPackPromoWnd.nut")
 
 
 const SHOP_CONTAINER_WIDTH = 120 // sh
@@ -90,7 +91,7 @@ let contIcon = {
   hplace = ALIGN_LEFT
   flipX = true
   size = array(2, CONT_ICON_SIZE)
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture($"!ui/skin#logistics_icon.svg:{CONT_ICON_SIZE}:{CONT_ICON_SIZE}:K")
 }
 
@@ -99,9 +100,9 @@ let mkShopNotifier = @(locId)
 let shopGroupNotifier = mkShopNotifier(loc("hint/newShopItemsAvailable"))
 let shopItemNotifier = mkShopNotifier(loc("hint/newShopItemAvailable"))
 
-let function mkShopItemCard(shopItem, offersByItem, armyData) {
+let function mkShopItemCard(shopItem, offersByItem, armyData, isNarrow) {
   let { guid, offerContainer = "", curItemCost = {}, discountInPercent = 0,
-    unlockCampaign = CAMPAIGN_NONE, squads = [] } = shopItem
+    unlockCampaign = CAMPAIGN_NONE, squads = [], isStarterPack = false } = shopItem
   let armyId = armyData?.guid ?? ""
   let squad = squads.filter(@(s) s.armyId == armyId)?[0]
   let offer = offersByItem?[guid]
@@ -112,7 +113,8 @@ let function mkShopItemCard(shopItem, offersByItem, armyData) {
 
   let containerIcon = isGroupContainer ? contIcon : null
   let crateContent = shopItemContentCtor(shopItem)
-  let onInfoCb = unlockCampaign != CAMPAIGN_NONE ? @() freemiumWnd(unlockCampaign)
+  let onInfoCb = isStarterPack ? @() starterPack(shopItem)
+    : unlockCampaign != CAMPAIGN_NONE ? @() freemiumWnd(unlockCampaign)
     : squad != null ? @() buySquadWindow({
         shopItem
         productView = mkProductView(shopItem, allItemTemplates)
@@ -172,7 +174,7 @@ let function mkShopItemCard(shopItem, offersByItem, armyData) {
             })
             isGroupContainer ? null
               : armyLevel > currentLevel ? mkLevelLockLine(armyLevel)
-              : mkShopItemPriceLine(shopItem, offer)
+              : mkShopItemPriceLine(shopItem, offer, isNarrow)
           ]
         }
         hoverBox(sf, CARD_MAX_WIDTH)
@@ -186,6 +188,7 @@ let function mkShopLine(line, offersByItem, config = {}) {
   if (count == 0)
     return null
 
+  let isNarrow = count >= 3
   let height = fsh(config?.height ?? CARD_DEFAULT_HEIGHT)
   return @() {
     watch = curArmyData
@@ -193,7 +196,8 @@ let function mkShopLine(line, offersByItem, config = {}) {
     flow = FLOW_HORIZONTAL
     gap = bigPadding
     halign = ALIGN_CENTER
-    children = line.map(@(shopItem) mkShopItemCard(shopItem, offersByItem, curArmyData.value))
+    children = line.map(@(shopItem)
+      mkShopItemCard(shopItem, offersByItem, curArmyData.value, isNarrow))
   }
 }
 

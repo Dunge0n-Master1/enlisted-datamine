@@ -19,7 +19,6 @@ struct EventOnSelectNextBulletId
 
 [event(unicast)]
 struct EventEntityKilledToPart
-  killer : EntityId
   collNodeId : int
   damageType : int
 
@@ -88,7 +87,7 @@ struct EventProjectileHitScene
   rendinstCellIdx : int
   rendinstIdx : int
   rendinstPool : int
-  rendinstOffs : int
+  rendinstOffs : uint
   rendinstLayer : int
   matId : int
   norm : float3
@@ -105,18 +104,6 @@ struct EventOnMeleeHitClient
   interp_delay_ticks : uint8
   additional_interp_delay : float
   from : ConnectionId
-
-[event(unicast)]
-struct EventPlayerInjuredEntity
-  victim : ecs::EntityId
-  offender : ecs::EntityId
-  damageDesc_damageTypeId : uint16
-  damageDesc_gunPropsId : int16
-  damageDesc_collNodeId : int16
-  damageDesc_deltaHp : float
-  damageDesc_armorMult : float
-  victimPlrEid : ecs::EntityId
-  offenderPlrEid : ecs::EntityId
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDowned
@@ -307,6 +294,10 @@ struct CmdSetWishAmmoItemType
   slot_id : int
   item_id : int
 
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestQuickThrowGrenade
+  grenade_ammo_id : int
+
 [event(unicast)]
 struct CmdToggleWishAmmoItemType
   slot_id : int
@@ -422,15 +413,9 @@ struct CmdAutoequipGunMod
 struct CmdInventoryDropGun
   slotId : int
 
-[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
-struct HumanAttachToGunRequest {}
-
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct HumanAttachToGunResponse
   gun_eid : EntityId
-
-[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
-struct HumanDetachFromGunRequest {}
 
 [cpp_event(unicast)]
 struct HumanDetachFromGunResponse {}

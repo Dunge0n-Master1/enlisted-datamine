@@ -29,12 +29,12 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/stalingrad_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/stalingrad_doors.blk"
 }
 
 entity{
   _template:t="sound_effect_generator"
-  ri_extra_gen__blk:t="content/e_stalingrad/gamedata/sound/stalingrad_sound_effects.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/sound/stalingrad_sound_effects.blk"
 }
 
 entity{
@@ -711,7 +711,7 @@ entity{
 
 entity{
   _template:t="ground_effect"
-  ground_effect__fx_name:t="land_snow_storm"
+  ground_effect__fx_name:t="envir_dust_ground_snow_15m_effect"
   ground_effect__biome_group_name:t="powder_snow"
   ground_effect__biome_weight_for_active_thr:r=0.9
   ground_effect__grid_cell_size:r=8.0
@@ -1123,4 +1123,21 @@ entity{
 entity{
   _template:t="vw_kubelwagen"
   transform:m=[[-0.125325, 0.0122442, -0.99204] [0.00781689, 0.999905, 0.0113537] [0.992085, -0.00633177, -0.125409] [-437.451, 15.0358, 407.736]]
+}
+
+entity{
+  _template:t="game_object_compound_sound_generator"
+
+  "game_object_compound_sound_generator__entityTypes:array"{
+
+    "entity:object"{
+      singleEntityTemplate:t="volume_ambient_sound"
+      compoundEntityTemplate:t="compound_ambient_sound"
+      soundName:t="plant"
+
+      "objectTypes:object"{
+        ambient_sound_plant_box:t="box"
+      }
+    }
+  }
 }

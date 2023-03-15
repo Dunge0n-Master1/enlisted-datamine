@@ -60,7 +60,7 @@ entity{
 
 entity{
   _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/e_berlin/gamedata/berlin_doors.blk"
+  ri_extra_gen__blk:t="content/enlisted/gamedata/berlin_doors.blk"
 }
 
 entity{

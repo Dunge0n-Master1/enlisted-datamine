@@ -19,7 +19,7 @@ let { respawnTimer, forceSpawnButton, squadNameBlock, mkSquadSpawnDesc, mkKeyboa
   respAnims, commonBlockWidth, missionNameUI, respawnHint
 } = require("%ui/hud/menus/respawn/respawnPkg.nut")
 let soldiersRespawnBlock = require("%ui/hud/menus/respawn/soldiersRespawnBlock.nut")
-let { mkSquadCard } = require("%enlSqGlob/ui/mkSquadCard.nut")
+let { mkSquadCard, mkLockedSquadCard } = require("%enlSqGlob/ui/mkSquadCard.nut")
 let { mkSquadSpawnIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let cursors = require("%ui/style/cursors.nut")
@@ -226,17 +226,24 @@ let function squadsListUI() {
   let listComp = spawnlist.map(function(squad, idx) {
     let isSelected = Computed(@() spawnSquadId.value == squad.squadId)
     let onClick = @() spawnSquadId(squad.squadId)
-    let { icon, squadType, level, premIcon, expireTime = 0} = squad
-    return mkSquadCard({
-      idx
-      isSelected
-      onClick
-      icon
-      squadType
-      level
-      premIcon
-      expireTime
-    })
+    let { icon, squadType, level, premIcon, canSpawn, expireTime = 0} = squad
+    return canSpawn
+      ? mkSquadCard({
+          idx
+          isSelected
+          onClick
+          icon
+          squadType
+          level
+          premIcon
+          expireTime
+        })
+      : mkLockedSquadCard({
+          idx
+          icon
+          squadType
+          premIcon
+        })
   })
   return {
     watch = [squadsList, spawnSquadId]

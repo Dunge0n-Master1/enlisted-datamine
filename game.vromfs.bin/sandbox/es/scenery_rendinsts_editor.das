@@ -31,7 +31,7 @@ def unbake_door(eid, tm, name; var riunb : Array&)
 
   entity_object_editor_selectEntity(createdEid, true)
 
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("tm", tm)
     obj |> set("name", name)
     riunb |> push(obj)
@@ -43,7 +43,7 @@ def remove_door(eid, tm, name; var rirmv : Array&)
     destroyEntity(eid)
     return
 
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("tm", tm)
     obj |> set("name", name)
     rirmv |> push(obj)
@@ -96,7 +96,7 @@ def scenery_rendinsts_unbake_rendinst_es(evt : CmdRIToolUnbakeRendInst;
   elif !remove_rendinst(evt.tm, evt.name)
     return
 
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("tm", evt.tm)
     obj |> set("name", evt.name)
     riunb |> push(obj)
@@ -159,7 +159,7 @@ def scenery_rendinsts_remove_rendinst_es(evt : CmdRIToolRemoveRendInst;
       return
     if has(evt.eid, "rebakedRendInstTag")
       destroyEntity(evt.eid)
-      using() <| $(var obj : Object#)
+      using() <| $(var obj : Object)
         obj |> set("tm", evt.tm)
         obj |> set("name", evt.name)
         rirmv |> push(obj)
@@ -168,7 +168,7 @@ def scenery_rendinsts_remove_rendinst_es(evt : CmdRIToolRemoveRendInst;
   if !remove_rendinst(evt.tm, evt.name)
     return
 
-  using() <| $(var obj : Object#)
+  using() <| $(var obj : Object)
     obj |> set("tm", evt.tm)
     obj |> set("name", evt.name)
     rirmv |> push(obj)
@@ -243,7 +243,7 @@ def scenery_rendinsts_add_selected_es(evt : CmdRIToolAddSelected;
     rendinsts_removes__selected |> clear()
 
   if evt.action == "select" || evt.action == "multiselect"
-    using() <| $(var obj : Object#)
+    using() <| $(var obj : Object)
       obj |> set("tm", evt.tm)
       obj |> set("name", evt.name)
       obj |> set("bsph", evt.bsph)

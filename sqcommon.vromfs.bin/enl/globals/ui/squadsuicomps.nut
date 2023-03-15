@@ -75,7 +75,7 @@ let mkSquadSpawnIcon = @(size = hdpxi(20))
     margin = smallPadding
     hplace = ALIGN_RIGHT
     size = [size, size]
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = Picture($"ui/skin#ban_icon.svg:{size}:{size}:K")
     color = spawnNotReadyColor
   }
@@ -95,7 +95,7 @@ local function mkSquadIcon(img, override = {}) {
   return {
     rendObj = ROBJ_IMAGE
     size = flex()
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     image = Picture(img)
   }.__update(override)
 }
@@ -124,7 +124,7 @@ let mkSquadTypeIcon = @(squadType, sf, selected, iconSize = squadTypeIconSize) {
     size = [iconSize, iconSize]
     rendObj = ROBJ_IMAGE
     image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
-    keepAspect = true
+    keepAspect = KEEP_ASPECT_FIT
     color = txtColor(sf, selected)
   }
 }
@@ -173,7 +173,7 @@ let mkSquadLevel = @(level, sf, selected) level == null ? null
 let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
   rendObj = ROBJ_IMAGE
   size = [premIconSize, premIconSize]
-  keepAspect = true
+  keepAspect = KEEP_ASPECT_FIT
   image = Picture($"{premIcon}:{premIconSize}:{premIconSize}:K")
 }.__update(override ?? {})
 

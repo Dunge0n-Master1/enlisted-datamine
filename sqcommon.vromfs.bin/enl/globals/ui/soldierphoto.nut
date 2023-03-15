@@ -4,7 +4,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let {getTexReplaceString, getTexSetString} = require("%ui/components/itemTexReplace.nut")
 let { Point2 } = require("dagor.math")
 
-local cachedPhoto = null
 
 let smallIconsCache = {}
 let largeIconsCache = {}
@@ -116,23 +115,22 @@ let function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
     return {
       size
       rendObj = ROBJ_IMAGE
-      image = Picture("ui/soldiers/soldier_default.jpg")
+      image = Picture("ui/soldiers/soldier_default.avif")
       clipChildren = true
       children = inner
     }.__update(style)
 
-  cachedPhoto = Picture(photoName)
   return {
     children = [
       {
         size
         rendObj = ROBJ_IMAGE
-        image = Picture("ui/soldiers/soldier_bg.jpg")
+        image = Picture("ui/soldiers/soldier_bg.avif")
       }.__update(style)
       {
         size
         rendObj = ROBJ_IMAGE
-        image = cachedPhoto
+        image = Picture(photoName)
         clipChildren = true
         children = inner
       }.__update(style)
@@ -146,7 +144,19 @@ let function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
   }
 }
 
+let mkSoldierPhotoWithoutFrame = @(photoName, size, style = {}) {
+  size = [size[0], flex()]
+  clipChildren = true
+  children = {
+    size
+    rendObj = ROBJ_IMAGE
+    image = Picture(photoName ?? "ui/soldiers/soldier_default.jpg")
+    clipChildren = true
+  }.__update(style)
+}
+
 return {
   mkSoldierPhotoName
   mkSoldierPhoto
+  mkSoldierPhotoWithoutFrame
 }

@@ -20,7 +20,7 @@ import:t="tanks/us_m2a4.blk"
 
 us_halftrack_m3_75mm_gmc{
   _extends:t="base_tank"
-  particle_phys__blk:t="content/e_ww2_common/gamedata/suspension/empty.blk"
+  particle_phys__blk:t="content/enlisted/gamedata/suspension/empty.blk"
   animchar__res:t="halftrack_m3_t48_char"
   collres__res:t="halftrack_m3_t48_collision"
   vehicle_net_phys__blk:t="content/tanks/gamedata/units/tanks/halftrack_m3_t48.blk:VehiclePhys"

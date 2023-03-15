@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid } = require("state.nut")
+let { curSoldierIdx, defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { manage_squad_soldiers, dismiss_reserve_soldier, update_profile,
   lastRequests, swap_soldiers_equipment } = require("%enlist/meta/clientApi.nut")
 let { allReserveSoldiers } = require("reserve.nut")
@@ -9,10 +10,8 @@ let { READY, TOO_MUCH_CLASS, NOT_FIT_CUR_SQUAD, NOT_READY_BY_EQUIP, invalidEquip
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
 let { debounce } = require("%sqstd/timers.nut")
-let { collectSoldierData } = require("collectSoldierData.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { curSoldierIdx, defSoldierGuid } = require("squadInfoState.nut")
 let sClassesCfg = require("config/sClassesConfig.nut")
 let { curSection} = require("%enlist/mainMenu/sectionsState.nut")
 let { getClosestResearch, focusResearch } = require("%enlist/researches/researchesFocus.nut")

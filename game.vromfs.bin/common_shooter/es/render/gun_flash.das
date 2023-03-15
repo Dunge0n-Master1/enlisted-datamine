@@ -3,6 +3,7 @@ require AnimV20
 require GeomNodeTree
 require DagorSystem
 require math.base
+require enlisted.events_enlisted
 
 [es(tag=render, on_appear)]
 def gun_flash_fx_init(evt : Event;
@@ -50,7 +51,7 @@ def gun_flash_fx_init_es(evt : Event;
   transform = transform * scale_tm(gun_flash_fx__scaleMultiplier)
 
 [es(tag=render, after=after_animchar_update_sync, before=effect_attached_es)]
-def gun_flash_fx_update(info : UpdateStageInfoAct;
+def gun_flash_fx_update(info : ParallelUpdateFrameDelayed;
                         gun_flash_fx__gunEid : EntityId;
                         gun_flash_fx__nodeId : int;
                         var transform : float3x4&)
@@ -60,7 +61,7 @@ def gun_flash_fx_update(info : UpdateStageInfoAct;
     transform[3] = tm[3]
 
 [es(tag=render, no_order)]
-def gun_flash_fx_check_destruction_time(info : UpdateStageInfoAct; eid : EntityId; var gun_flash_fx__timeToDestroy : float&)
+def gun_flash_fx_check_destruction_time(info : ParallelUpdateFrameDelayed; eid : EntityId; var gun_flash_fx__timeToDestroy : float&)
   gun_flash_fx__timeToDestroy -= info.dt
   if gun_flash_fx__timeToDestroy <= 0.
     destroyEntity(eid)

@@ -1,6 +1,7 @@
 require ecs
 require ecs.safe
 require ecs.common
+require ecs.extra_set
 require net
 require app
 require terraform
@@ -12,6 +13,7 @@ require Dacoll
 require RendInst
 require RiDestr
 require math.base
+require math.interpolation
 require DagorMath
 require DagorSystem
 require PhysMat
@@ -27,33 +29,6 @@ enum RIPoolFlags
   None = 0
   Removable = 1
   Blocking = 2
-
-
-def interpolate_by_point_list(list : Point2List; value : float)
-  if length(list) == 0
-    return 0.0
-
-  var min = list[0]
-  var max = list[length(list) - 1]
-
-  if value <= min.x
-    return min.x
-  if value >= max.x
-    return max.x
-
-  let listLen = length(list)
-  for i in range(listLen)
-    let it = list[listLen - i - 1]
-    if value > it.x
-      min = it
-      break
-  for it in list
-    if value <= it.x
-      max = it
-      break
-
-  let t = safediv(value - min.x, max.x - min.x)
-  return lerp(min.y, max.y, t)
 
 def is_ri_pool_has_flag(handle : riex_handle_t; ri_pool_flags : IntList; flag : RIPoolFlags)
   if !riex_isRiGenExtraValid(handle)
@@ -309,7 +284,7 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
                      bomb_crater_config__maxHeightAtLand : float;
                      bomb_crater_config__splashToCraterRadius : Point2List;
                      crater_config__scaleByPhysmats : Object)
-    using <| $(var splashParams : SplashParams#)
+    using() <| $(var splashParams : SplashParams#)
       splashParams = calc_splash_params(int(launch_desc.shellId.shellId), false)
 
       let position = evt.pos
@@ -372,24 +347,24 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
   // gridWidth is side of quad of bomb crater outer radius measured in diameters of small tracing spheres
   // gridWidth^2 is area of bomb crater outer radius quad and total count of tracing spheres
   if bomb_crater_terraformer__processedPartsCount >= square(bomb_crater_terraformer__gridWidth)
-    using() <| $(var ri_handles_to_remove : UInt64List#)
-      reserve(ri_handles_to_remove, length(bomb_crater_terraformer__riHandlesToRemove))
+    var ri_handles_to_remove : array<uint64>
+    reserve(ri_handles_to_remove, length(bomb_crater_terraformer__riHandlesToRemove))
 
-      for handle in bomb_crater_terraformer__riHandlesToRemove
-        if find_index(ri_handles_to_remove, handle) < 0
-          push(ri_handles_to_remove, handle)
+    for handle in bomb_crater_terraformer__riHandlesToRemove
+      if find_index(ri_handles_to_remove, handle) < 0
+        push(ri_handles_to_remove, handle)
 
-      let craterEid = createEntity("bomb_crater") <| $(var init : ComponentsInitializer)
-        set(init, "bomb_crater__position", bomb_crater_terraformer__position)
-        set(init, "bomb_crater__innerRadius", bomb_crater_terraformer__innerRadius)
-        set(init, "bomb_crater__innerDepth", bomb_crater_terraformer__innerDepth)
-        set(init, "bomb_crater__outerRadius", bomb_crater_terraformer__outerRadius)
-        set(init, "bomb_crater__outerAlt", bomb_crater_terraformer__outerAlt)
-        set(init, "bomb_crater__partRadius", partRadius)
-        set(init, "bomb_crater__availablePartsMask", bomb_crater_terraformer__availablePartsMask)
-        set(init, "bomb_crater__gridWidth", bomb_crater_terraformer__gridWidth)
-        set(init, "bomb_crater__riHandlesToRemove", ri_handles_to_remove)
-        set(init, "bomb_crater__mainPhysmatId", bomb_crater_terraformer__mainPhysmatId)
+    let craterEid = createEntity("bomb_crater") <| $(var init : ComponentsInitializer)
+      set(init, "bomb_crater__position", bomb_crater_terraformer__position)
+      set(init, "bomb_crater__innerRadius", bomb_crater_terraformer__innerRadius)
+      set(init, "bomb_crater__innerDepth", bomb_crater_terraformer__innerDepth)
+      set(init, "bomb_crater__outerRadius", bomb_crater_terraformer__outerRadius)
+      set(init, "bomb_crater__outerAlt", bomb_crater_terraformer__outerAlt)
+      set(init, "bomb_crater__partRadius", partRadius)
+      set(init, "bomb_crater__availablePartsMask", bomb_crater_terraformer__availablePartsMask)
+      set(init, "bomb_crater__gridWidth", bomb_crater_terraformer__gridWidth)
+      set(init, "bomb_crater__riHandlesToRemove", ri_handles_to_remove)
+      set(init, "bomb_crater__mainPhysmatId", bomb_crater_terraformer__mainPhysmatId)
     destroyEntity(eid)
     return
 

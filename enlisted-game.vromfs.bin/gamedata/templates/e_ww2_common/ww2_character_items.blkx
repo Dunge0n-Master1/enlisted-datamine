@@ -1,0 +1,651 @@
+attachable_pants{
+  _extends:t="attachable_wear"
+  _extends:t="attachable_wear_broken_bones"
+  footprintType:i=1
+
+  "torn_wounds__name_list:list<t>"{
+    name:t="right_leg"
+    name:t="left_leg"
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="pants"
+  }
+}
+
+attachable_boots{
+  _extends:t="attachable_wear"
+  _extends:t="attachable_wear_broken_bones"
+  footprintType:i=1
+
+  "torn_wounds__name_list:list<t>"{
+    name:t="right_leg"
+    name:t="left_leg"
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="boots"
+  }
+}
+
+attachable_tunic{
+  _extends:t="attachable_wear"
+  _extends:t="attachable_wear_broken_bones"
+
+  "torn_wounds__name_list:list<t>"{
+    name:t="right_hand"
+    name:t="left_hand"
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="tunic"
+  }
+}
+
+base_attachable_gibs{
+  _extends:t="base_local_vis_item"
+  _extends:t="disable_update"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  slot_attach__slotName:t=""
+  skeleton_attach__attached:b=yes
+  animchar__updatable:b=no
+
+  "skeleton_attach__attachedTo:eid"{
+  }
+
+  "attachable_gibs:tag"{
+  }
+}
+
+attachable_gloves{
+  _extends:t="attachable_wear"
+  _extends:t="attachable_wear_broken_bones"
+
+  "item__equipToSlots:array"{
+    slot:t="gloves"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="gloves"
+  }
+}
+
+attachable_hair{
+  _extends:t="item"
+  _extends:t="slot_attachable"
+  animchar_hider__camThreshold:r=0.3
+  slot_attach__slotName:t="head_armor"
+
+  "item__equipToSlots:array"{
+    slot:t="hair"
+  }
+}
+
+attachable_head_base{
+  _extends:t="attachable_wear_without_collres_animchar"
+  _extends:t="attachable_wear_broken_bones"
+  animchar__updatable:b=yes
+  animchar_hider__camThreshold:r=0.3
+  randomAnimStart:b=yes
+
+  "animchar_attaches__animated:tag"{
+  }
+
+  "animcharParams:object"{
+  }
+
+  "animchar__noUpdateOnDeath:tag"{
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="face"
+  }
+
+  animchar_node_collapser{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+
+    "animchar_node_collapser__nodes:object"{
+      "Bip01 Head":t="Bip01 Neck"
+    }
+  }
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details__groups:object"{
+
+      "dirts:array"{
+        item:t="dirt_face_01_tex"
+        item:t="dirt_face_02_tex"
+        item:t="dirt_face_03_tex"
+        item:t="dirt_face_04_tex"
+        item:t="dirt_face_05_tex"
+        item:t="dirt_face_06_tex"
+      }
+
+      "bloods:array"{
+        item:t="blood_face_01_tex"
+        item:t="blood_face_02_tex"
+        item:t="blood_face_03_tex"
+        item:t="blood_face_04_tex"
+        item:t="blood_face_05_tex"
+      }
+
+      "scars:array"{
+        item:t="scar_01_tex"
+        item:t="scar_02_tex"
+        item:t="scar_03_tex"
+        item:t="scar_04_tex"
+        item:t="scar_05_tex"
+        item:t="scar_06_tex"
+        item:t="scar_07_tex"
+      }
+
+      "stubbles:array"{
+        item:t="stubble_01_tex"
+      }
+    }
+
+    "dynamic_details__presets:array"{
+
+      "preset:object"{
+
+        "dirts:object"{
+          details_min:i=1
+          details_max:i=1
+        }
+
+        "bloods:object"{
+          details_max:i=1
+        }
+
+        "scars:object"{
+          details_max:i=1
+        }
+
+        "stubbles:object"{
+          details_max:i=1
+        }
+      }
+    }
+  }
+
+  "animchar__noUpdateOnDedicated:tag"{
+  }
+
+  "isAttachableHead:tag"{
+  }
+}
+
+attachable_head{
+  _extends:t="attachable_head_base"
+  _extends:t="base_collres_vis_item"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+}
+
+dynamic_details{
+  _tags:t="render"
+  _singleton:b=yes
+
+  "dynamic_details_mgr:DynamicDetailsTextureManager"{
+  }
+
+  "dynamicDetails:list<t>"{
+    name:t="dirt_face_01_tex"
+    name:t="dirt_face_02_tex"
+    name:t="dirt_face_03_tex"
+    name:t="dirt_face_04_tex"
+    name:t="dirt_face_05_tex"
+    name:t="dirt_face_06_tex"
+    name:t="blood_face_01_tex"
+    name:t="blood_face_02_tex"
+    name:t="blood_face_03_tex"
+    name:t="blood_face_04_tex"
+    name:t="blood_face_05_tex"
+    name:t="scar_01_tex"
+    name:t="scar_02_tex"
+    name:t="scar_03_tex"
+    name:t="scar_04_tex"
+    name:t="scar_05_tex"
+    name:t="scar_06_tex"
+    name:t="scar_07_tex"
+    name:t="stubble_01_tex"
+  }
+}
+
+dynamic_details_hero_preset_1{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_01_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_03_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_07_tex"
+      }
+
+      "special_array_04:object"{
+        texture:t="stubble_01_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_2{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_02_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_02_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_06_tex"
+      }
+
+      "special_array_04:object"{
+        texture:t="stubble_01_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_3{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_03_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_01_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_05_tex"
+      }
+
+      "special_array_04:object"{
+        texture:t="stubble_01_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_4{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_04_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_04_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_04_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_5{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_05_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_05_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_07_tex"
+      }
+
+      "special_array_04:object"{
+        texture:t="stubble_01_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_6{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_06_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_03_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_06_tex"
+      }
+
+      "special_array_04:object"{
+        texture:t="stubble_01_tex"
+      }
+    }
+  }
+}
+
+dynamic_details_hero_preset_7{
+
+  _group{
+    _tags:t="render"
+
+    "dynamic_details_preset:array"{
+
+      "special_array_01:object"{
+        texture:t="dirt_face_01_tex"
+      }
+
+      "special_array_02:object"{
+        texture:t="blood_face_02_tex"
+      }
+
+      "special_array_03:object"{
+        texture:t="scar_06_tex"
+      }
+    }
+  }
+}
+
+attachable_shovel{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="shovel"
+  }
+}
+
+attachable_ammo_case{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="ammo_case"
+  }
+}
+
+attachable_pot{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="pot"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="pot"
+  }
+}
+
+attachable_roll{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="roll"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="roll"
+  }
+}
+
+attachable_belt1{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="belt_1"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="belt_1"
+  }
+}
+
+attachable_belt2{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="belt_2"
+  }
+}
+
+attachable_front_belt_l{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="front_belt_l"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="front_belt_l"
+  }
+}
+
+attachable_front_belt_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="front_belt_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="front_belt_r"
+  }
+}
+
+attachable_side_belt_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="side_belt_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="side_belt_r"
+  }
+}
+
+attachable_side_belt_l{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="side_belt_l"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="side_belt_l"
+  }
+}
+
+attachable_front_rear_belt_l{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="rear_belt_l"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="rear_belt_l"
+  }
+}
+
+attachable_rear_belt_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="rear_belt_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="rear_belt_r"
+  }
+}
+
+attachable_bag{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="bag"
+  }
+}
+
+attachable_chest{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="chest"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="chest"
+  }
+}
+
+attachable_binoculars{
+  _extends:t="attachable_chest"
+
+  "attachableBinoculars:tag"{
+  }
+}
+
+attachable_bag_l{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="bag_l"
+  }
+}
+
+attachable_flask_r{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="flask_r"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="flask"
+  }
+}
+
+attachable_backpack{
+  _extends:t="attachable_wear"
+  menu_item__rotationOffset:p3=-0.15, 0.1, 0.0
+  attachable_backpack__capacity:i=0
+
+  "item__equipToSlots:array"{
+    slot:t="backpack"
+  }
+}
+
+attachable_parachute_canopy{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="parachute_canopy"
+  }
+}
+
+attachable_face_equipment{
+  _extends:t="attachable_wear"
+  animchar_hider__camThreshold:r=0.3
+
+  "item__equipToSlots:array"{
+    slot:t="face_equipment"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="face_equipment"
+  }
+}
+
+attachable_gasmask{
+  _extends:t="attachable_wear"
+
+  "item__equipToSlots:array"{
+    slot:t="gasmask"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="gasmask"
+  }
+}
+
+attachable_skined_helmet{
+  _extends:t="attachable_wear"
+  animchar_hider__camThreshold:r=0.3
+
+  "hides:array"{
+    hides:t="hair"
+  }
+
+  "item__equipToSlots:array"{
+    slot:t="skined_helmet"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="helmet"
+  }
+}
+
+attachable_helmet_deco{
+  _extends:t="item"
+  _extends:t="slot_attachable"
+  animchar_hider__camThreshold:r=0.3
+  slot_attach__slotName:t="head_armor"
+
+  "item__equipToSlots:array"{
+    slot:t="helmet_deco"
+  }
+
+  "hideFlags:array"{
+    hideFlag:t="helmet_deco"
+  }
+}

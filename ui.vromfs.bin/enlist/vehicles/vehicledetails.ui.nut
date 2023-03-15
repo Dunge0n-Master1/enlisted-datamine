@@ -25,7 +25,7 @@ let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.n
 let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
 let { isItemActionInProgress } = require("%enlist/soldiers/model/itemActions.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
-let unseenSignal = require("%ui/components/unseenSignal.nut")
+let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { canModifyItems, mkItemUpgradeData, mkItemDisposeData
 } = require("%enlist/soldiers/model/mkItemModifyData.nut")
@@ -41,6 +41,7 @@ let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 
+let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 
 let function txt(text) {
   return type(text) == "string"
@@ -165,7 +166,7 @@ let function mkUpgradeBtn(item) {
                 }
               })
             !isUpgradeUsed.value && item?.basetpl in curUnseenAvailableUpgrades.value
-              ? unseenSignal(0.8).__update({ hplace = ALIGN_RIGHT })
+              ? unseenIcon
               : null
           ]
         }

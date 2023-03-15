@@ -6,7 +6,7 @@ let {
 } = require("%ui/hud/state/vehicle_turret_state.nut")
 let {mkCountdownTimer} = require("%ui/helpers/timers.nut")
 
-let circleProgressImage = Picture("ui/skin#scanner_range.png")
+let circleProgressImage = Picture("ui/skin#scanner_range.avif")
 let aim_color = Color(200, 200, 200, 150)
 let aim_bgcolor = Color(0, 0, 0, 25)
 let overheatFg = Color(160, 0, 0, 180)
@@ -77,7 +77,7 @@ let crosshair = @() {
   children = [bgAim aim overheatBlock]
 }
 
-let isCrosshairEnabled = Computed(@() vehicleTurrets.value.findvalue(@(turret) turret.isLocalControlLocked) == null)
+let isCrosshairEnabled = Computed(@() vehicleTurrets.value.findvalue(@(turret) turret.showCrosshair && !turret.isLocalControlLocked) != null)
 
 let function root() {
   return {

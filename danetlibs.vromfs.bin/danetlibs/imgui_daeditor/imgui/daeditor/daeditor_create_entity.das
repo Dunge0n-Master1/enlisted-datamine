@@ -10,11 +10,12 @@ require imgui/imgui_boost
 
 require daslib/static_let
 require daslib/safe_addr
+require daslib/defer
+require %danetlibs.imgui_daeditor.imgui.imgui_common
 require danetlibs.imgui_daeditor.daEditor.daEditor_common
 
 let
   TEMPLATE_MAX_LEN = 1024
-
 
 def DasHelpMarker(desc : string)
   TextDisabled("(?)")
@@ -34,10 +35,9 @@ def create_entity_daeditor()
   DasHelpMarker("Insert template name here.\nDouble LMB click to paste template name.\nCtrl + double LMB click to append template")
   imgui::SameLine()
 
-  static_let <|
-    var templateName : ImGuiInputTextBuffer?
-  if templateName == null
-    templateName = new ImGuiInputTextBuffer("", TEMPLATE_MAX_LEN)
+  let templateNameStr = imgui_get_blk_val("daeditor_create_entity", "templateName", "")
+  var templateName = new ImGuiInputTextBuffer(templateNameStr, TEMPLATE_MAX_LEN)
+
   InputText("##edit", *templateName)
 
   imgui::SameLine()
@@ -58,9 +58,14 @@ def create_entity_daeditor()
   DasHelpMarker("Filter (\"incl,-excl\")")
   imgui::SameLine()
 
-  static_let_finalize <|
-    var filter = new ImGuiTextFilter
+  var filter = new ImGuiTextFilter
+  defer <|
+    unsafe
+      delete filter
+  *filter |> set() <| imgui_get_blk_val("daeditor_create_entity", "filter", "")
   *filter |> Draw("##create_entity_filter")
+
+  imgui_set_blk_val("daeditor_create_entity", "filter", to_string(*filter))
 
   static_let <|
     var selectedItem = ""
@@ -92,3 +97,5 @@ def create_entity_daeditor()
     imgui::EndTable()
 
   imgui::EndChild()
+
+  imgui_set_blk_val("daeditor_create_entity", "templateName", to_string(*templateName))

@@ -10,7 +10,7 @@ let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { bigPadding, commonBtnHeight, soldierLockedLvlColor, activeTxtColor,
-  blurBgFillColor
+  blurBgFillColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let { CAMPAIGN_NONE, curCampaignAccessItem,
@@ -18,7 +18,7 @@ let { CAMPAIGN_NONE, curCampaignAccessItem,
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { uType, allArmyUnlocks } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { mkHeaderFlag }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
+let { mkHeaderFlag, primeFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { weapInfoBtn } = require("%enlist/soldiers/components/campaignPromoPkg.nut")
 let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
@@ -28,6 +28,9 @@ let { allItemTemplates, findItemTemplate } = require("%enlist/soldiers/model/all
 let { decoratorsPresentation } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { mkPortraitIcon, mkNickFrame, NICKFRAME_SIZE
 } = require("%enlist/profile/decoratorPkg.nut")
+let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 
 
 const WND_UID = "freemiumWindow"
@@ -308,6 +311,57 @@ let function purchaseButton() {
   })
 }
 
+let function mkDiscountInfo(discountInPercent, endTime) {
+  return {
+    flow = FLOW_HORIZONTAL
+    size = flex()
+    valign = ALIGN_CENTER
+    halign = ALIGN_RIGHT
+    children = [
+      mkHeaderFlag({
+        size = [SIZE_TO_CONTENT, hdpx(48)]
+        flow = FLOW_VERTICAL
+        valign = ALIGN_CENTER
+        padding = [0, fsh(5), 0, fsh(1)]
+        children = [
+          txt({
+            text = utf8ToUpper(loc("shop/discountNotify"))
+            color = titleTxtColor
+          }.__update(sub_txt))
+          endTime == 0 ? null : mkCountdownTimer({ timestamp = endTime })
+        ]
+      }, primeFlagStyle.__merge({
+        size = SIZE_TO_CONTENT
+        offset = 0
+        flagColor = 0xFF007800
+      }))
+      mkDiscountWidget(discountInPercent)
+    ]
+  }
+}
+
+let function purchaseBlock() {
+  let res = { watch = [curCampaignAccessItem] }
+  if (curCampaignAccessItem.value == null)
+    return res
+
+  let { discountIntervalTs = [], discountInPercent = 0 } = curCampaignAccessItem.value
+  let [ beginTime = 0, endTime = 0 ] = discountIntervalTs
+  let isDiscountActive = beginTime > 0
+    && beginTime <= serverTime.value
+    && (serverTime.value <= endTime || endTime == 0)
+
+  return {
+    watch = [curCampaignAccessItem, serverTime]
+    flow = FLOW_VERTICAL
+    size = [SIZE_TO_CONTENT, commonBtnHeight * 2]
+    children = [
+      purchaseButton
+      !isDiscountActive ? null : mkDiscountInfo(discountInPercent, endTime)
+    ]
+  }
+}
+
 let function mkVehicleSquad(squadData) {
   let { startVehicle } = squadData
   return {
@@ -490,7 +544,7 @@ let freemiumBlockContent = {
       padding = fsh(2)
       children = [
         squadsBlock
-        purchaseButton
+        purchaseBlock
       ]
     }
   ]
@@ -540,7 +594,7 @@ let function open(campGroupId = null) {
             size = [flex(), ph(75)]
             maxWidth = hdpx(180)
             hplace = ALIGN_RIGHT
-            children = mkImage("ui/gameImage/premium_decor_left.jpg")
+            children = mkImage("ui/gameImage/premium_decor_left.avif")
           }
         }
         {
@@ -553,7 +607,7 @@ let function open(campGroupId = null) {
             {
               size = [flex(), ph(75)]
               maxWidth = hdpx(180)
-              children = mkImage("ui/gameImage/premium_decor_right.jpg")
+              children = mkImage("ui/gameImage/premium_decor_right.avif")
             }
             closeBtnBase({
               padding = fsh(1)
