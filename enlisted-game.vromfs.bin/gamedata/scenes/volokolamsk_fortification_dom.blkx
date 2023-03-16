@@ -514,7 +514,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [1198.49, 1000.0, -640.605]]
+  transform:m=[[-0.536524, 0.0, 0.843885] [0.0, 1.0, 0.0] [-0.843885, 0.0, -0.536524] [1788.67, 1000.0, -1779.49]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -523,7 +523,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [1327.43, 800.0, -553.659]]
+  transform:m=[[-0.536524, 0.0, 0.843885] [0.0, 1.0, 0.0] [-0.843885, 0.0, -0.536524] [1920.15, 800.0, -1696.45]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -532,7 +532,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [1327.43, 1000.0, -553.659]]
+  transform:m=[[-0.536524, 0.0, 0.843885] [0.0, 1.0, 0.0] [-0.843885, 0.0, -0.536524] [1920.15, 1000.0, -1696.45]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -541,7 +541,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [1186.81, 800.0, -632.959]]
+  transform:m=[[-0.536524, 0.0, 0.843885] [0.0, 1.0, 0.0] [-0.843885, 0.0, -0.536524] [1777.22, 800.0, -1771.5]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -549,14 +549,14 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [2703.75, 1000.0, -942.853]]
+  transform:m=[[-0.561561, 0.0, 0.827435] [0.0, 1.0, 0.0] [-0.827435, 0.0, -0.561561] [2356.8, 680.196, -311.602]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-653.583, 1000.0, 3447.3]]
+  transform:m=[[0.0735279, 0.0, -0.997294] [0.0, 1.0, 0.0] [0.997294, -0.0, 0.0735279] [-603.718, 1000.0, 4715.07]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -565,7 +565,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-502.775, 800.0, 3460.74]]
+  transform:m=[[0.0735279, 0.0, -0.997294] [0.0, 1.0, 0.0] [0.997294, -0.0, 0.0735279] [-452.331, 800.0, 4717.43]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -574,7 +574,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-512.648, 1000.0, 3464.24]]
+  transform:m=[[0.0735279, 0.0, -0.997294] [0.0, 1.0, 0.0] [0.997294, -0.0, 0.0735279] [-461.921, 1000.0, 4721.64]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -583,7 +583,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-653.583, 800.0, 3447.3]]
+  transform:m=[[0.0735279, 0.0, -0.997294] [0.0, 1.0, 0.0] [0.997294, -0.0, 0.0735279] [-603.718, 800.0, 4715.07]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -591,13 +591,13 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-1654.55, 1000.0, 4526.6]]
+  transform:m=[[0.146357, 0.0, -0.989233] [0.0, 1.0, 0.0] [0.989233, 0.0, 0.146357] [-1630.12, 545.561, 3725.4]]
   resupply_zone__team:i=2
 }
 
 entity{
   _template:t="aircraft_box_battle_area"
-  transform:m=[[13659.1, 0.0, 59.6812] [0.0, 6175.29, 0.0] [-59.1769, 0.0, 13658.9] [-133.617, 241.569, 428.328]]
+  transform:m=[[13659.1, 0.0, 59.6812] [0.0, 6175.29, 0.0] [-59.1769, 0.0, 13658.9] [-134.055, 241.712, 434.86]]
   battle_area__team:i=-1
 }
 

@@ -1,3 +1,8 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [115.71, 5.32566, -417.628]]
@@ -3510,7 +3515,7 @@ entity{
   groupName:t="sector_3_b"
   capzone__capTime:r=35.0
   capzone__capTeam:i=-1
-  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 6.8964, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 7.46217, -92.1479]]
+  transform:m=[[-10.0648, 0.0, -63.7642] [0.0, 7.31018, 0.0] [48.0597, 0.0, -7.58579] [-123.057, 6.80561, -92.1479]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3
@@ -3521,7 +3526,7 @@ entity{
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
   decal__thickness:r=0.4
-  decal__height:r=1.5
+  decal__height:r=2.7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
 
@@ -3992,7 +3997,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.394289, 0.0, -0.918986] [0.0, 1.0, 0.0] [0.918986, 0.0, -0.394289] [-65.0895, 6.12495, -5.03615]]
+  transform:m=[[-0.0442435, 0.0, -0.99902] [0.0, 1.0, 0.0] [0.99902, 0.0, -0.0442435] [-71.4024, 6.12495, -3.37224]]
   team:i=2
   respawnBaseGroup:i=1
   maxVehicleOnSpawn:i=2
@@ -4988,7 +4993,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-64.1061, 6.38347, -3.09548]]
+  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-68.9352, 6.38347, -4.25856]]
   team:i=1
   respawnBaseGroup:i=2
   maxVehicleOnSpawn:i=2
@@ -5065,7 +5070,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.984755, 0.0, -0.173945] [0.0, 1.0, 0.0] [0.173945, 0.0, -0.984755] [2097.58, 1000.0, 13.9067]]
+  transform:m=[[-0.989452, 0.0, -0.144859] [0.0, 1.0, 0.0] [0.144859, 0.0, -0.989452] [3403.8, 1000.0, 409.369]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5074,7 +5079,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.984755, 0.0, -0.173945] [0.0, 1.0, 0.0] [0.173945, 0.0, -0.984755] [2069.51, 800.0, 178.454]]
+  transform:m=[[-0.989452, 0.0, -0.144859] [0.0, 1.0, 0.0] [0.144859, 0.0, -0.989452] [3380.59, 800.0, 574.672]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5083,7 +5088,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.984755, 0.0, -0.173945] [0.0, 1.0, 0.0] [0.173945, 0.0, -0.984755] [2069.51, 1000.0, 178.454]]
+  transform:m=[[-0.989452, 0.0, -0.144859] [0.0, 1.0, 0.0] [0.144859, 0.0, -0.989452] [3380.59, 1000.0, 574.672]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5092,7 +5097,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.984755, 0.0, -0.173945] [0.0, 1.0, 0.0] [0.173945, 0.0, -0.984755] [2103.62, 800.0, -12.6554]]
+  transform:m=[[-0.989452, 0.0, -0.144859] [0.0, 1.0, 0.0] [0.144859, 0.0, -0.989452] [3409.06, 800.0, 382.64]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5100,14 +5105,14 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[-0.968964, 0.0, -0.247206] [0.0, 1.0, 0.0] [0.247206, 0.0, -0.968964] [2073.08, 1000.0, 1060.01]]
+  transform:m=[[-0.968964, 0.0, -0.247206] [0.0, 1.0, 0.0] [0.247206, 0.0, -0.968964] [2241.14, 669.567, 1625.88]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.990242, 0.0, -0.139356] [0.0, 1.0, 0.0] [0.139356, 0.0, 0.990242] [-2524.81, 1000.0, 189.793]]
+  transform:m=[[0.996727, 0.0, -0.0808351] [0.0, 1.0, 0.0] [0.0808351, -0.0, 0.996727] [-3673.99, 1000.0, 189.92]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5116,7 +5121,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.990242, 0.0, -0.139356] [0.0, 1.0, 0.0] [0.139356, 0.0, 0.990242] [-2524.81, 800.0, 189.793]]
+  transform:m=[[0.996727, 0.0, -0.0808351] [0.0, 1.0, 0.0] [0.0808351, -0.0, 0.996727] [-3673.99, 800.0, 189.92]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5125,7 +5130,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.990242, 0.0, -0.139356] [0.0, 1.0, 0.0] [0.139356, 0.0, 0.990242] [-2497.77, 1000.0, 316.135]]
+  transform:m=[[0.996727, 0.0, -0.0808351] [0.0, 1.0, 0.0] [0.0808351, -0.0, 0.996727] [-3654.43, 1000.0, 317.634]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5134,7 +5139,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.990242, 0.0, -0.139356] [0.0, 1.0, 0.0] [0.139356, 0.0, 0.990242] [-2494.0, 800.0, 346.467]]
+  transform:m=[[0.996727, 0.0, -0.0808351] [0.0, 1.0, 0.0] [0.0808351, -0.0, 0.996727] [-3652.46, 800.0, 348.135]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -5142,22 +5147,13 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.967396, 0.0, -0.253265] [0.0, 1.0, 0.0] [0.253265, 0.0, 0.967396] [-2616.72, 1000.0, -168.558]]
+  transform:m=[[0.967396, 0.0, -0.253265] [0.0, 1.0, 0.0] [0.253265, 0.0, 0.967396] [-2871.28, 592.181, -1131.74]]
   resupply_zone__team:i=2
 }
 
 entity{
-  _template:t="level"
+  _template:t="stalingrad_level"
   level__blk:t="content/enlisted/levels/battle_of_stalingrad.blk"
-  level__timeRange:p2=15.48, 16.49
-
-  "level__weatherChoice:object"{
-    weather_cloudy_sunset_b:r=1.0
-  }
-
-  "level__timeVec:array"{
-    level__timeVec:r=6.1
-  }
 }
 
 entity{
@@ -5395,7 +5391,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.394289, 0.0, -0.918986] [0.0, 1.0, 0.0] [0.918986, 0.0, -0.394289] [-65.0895, 6.12495, -5.03615]]
+  transform:m=[[-0.394289, 0.0, -0.918986] [0.0, 1.0, 0.0] [0.918986, 0.0, -0.394289] [-69.5884, 6.12495, -2.16655]]
   resupply_zone__team:i=2
   groupName:t="sector_1_a"
   active:b=no
@@ -5539,7 +5535,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-64.1061, 6.38347, -3.09548]]
+  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-67.3959, 6.38347, -4.16918]]
   resupply_zone__team:i=1
   groupName:t="sector_5_b"
   active:b=no
@@ -5555,7 +5551,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.394289, 0.0, -0.918986] [0.0, 1.0, 0.0] [0.918986, 0.0, -0.394289] [-65.0895, 6.12495, -5.03615]]
+  transform:m=[[-0.163928, 0.0, -0.986472] [0.0, 1.0, 0.0] [0.986472, 0.0, -0.163928] [-71.3158, 6.12495, -3.30229]]
   team:i=2
   groupName:t="sector_1_a"
   active:b=no
@@ -5699,7 +5695,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respMotorcycle"
-  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-64.1061, 6.38347, -3.09548]]
+  transform:m=[[-0.584712, 0.0, -0.811241] [0.0, 1.0, 0.0] [0.811242, 0.0, -0.584712] [-68.8083, 6.38347, -4.12008]]
   team:i=1
   groupName:t="sector_5_b"
   active:b=no
@@ -5726,9 +5722,4 @@ entity{
 entity{
   _template:t="opel_blitz_kfz_305+still_obstacle"
   transform:m=[[0.980119, -0.0138628, 0.197927] [0.0134961, 0.999904, 0.00320148] [-0.197952, -0.000466592, 0.980212] [-416.978, 5.08358, -39.9115]]
-}
-
-import{
-  scene:t="content/enlisted/gamedata/scenes/_stalingrad_sounds.blk"
-  scene:t="content/enlisted/gamedata/scenes/_stalingrad_city_biome_fx.blk"
 }

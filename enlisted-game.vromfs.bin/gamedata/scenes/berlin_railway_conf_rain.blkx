@@ -1170,7 +1170,7 @@ entity{
   capzone__caption:t="capzone/farm_house"
   capzone__deactivateAfterTimeout:r=25.0
   decal__height:r=2.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   sphere_zone__radius:r=10.0
   capzone__iconOffsetY:r=2.5
 
@@ -1198,7 +1198,7 @@ entity{
   capzone__caption:t="capzone/village_house"
   capzone__deactivateAfterTimeout:r=25.0
   decal__height:r=2.0
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   sphere_zone__radius:r=10.0
   capzone__iconOffsetY:r=1.5
 
@@ -1226,7 +1226,7 @@ entity{
   capzone__caption:t="capzone/village_house"
   capzone__deactivateAfterTimeout:r=25.0
   decal__height:r=2.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   sphere_zone__radius:r=10.0
   capzone__iconOffsetY:r=1.5
 
@@ -1258,7 +1258,7 @@ entity{
   capzone__caption:t="capzone/farm_house"
   capzone__deactivateAfterTimeout:r=25.0
   decal__height:r=1.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   sphere_zone__radius:r=10.0
   capzone__iconOffsetY:r=1.5
 
@@ -1290,7 +1290,7 @@ entity{
   capzone__caption:t="capzone/station"
   capzone__deactivateAfterTimeout:r=25.0
   sphere_zone__radius:r=23.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.5
   capzone__iconOffsetY:r=1.5
 
@@ -1322,7 +1322,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   decal__height:r=2.6
 
   "capzone__activateChoiceTeam1:object"{
@@ -1351,7 +1351,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   decal__height:r=2.6
   capzone__iconOffsetY:r=1.0
 

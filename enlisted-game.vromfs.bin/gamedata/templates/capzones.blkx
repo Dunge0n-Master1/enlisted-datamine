@@ -61,7 +61,7 @@ projective_decal{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
   "decal__thickness:r"{
-    value:r=0.4
+    value:r=0.15
 
     _info{
       desc:t="Width of the strategic point boundaries decal line"

@@ -132,7 +132,7 @@ entity{
   transform:m=[[16.1833, 0.0, -2.15183] [0.0, 1.0, 0.0] [0.972095, 0.0, 7.31085] [31.4917, 7.22142, 291.071]]
   capzone__title:t="A"
   capzone__caption:t="capzone/railway_station"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__height:r=2.0
 }
 
@@ -141,7 +141,7 @@ entity{
   transform:m=[[11.8665, 0.0, -1.59052] [0.0, 1.0, 0.0] [0.803588, 0.0, 5.99538] [-58.9688, 5.61992, 162.449]]
   capzone__title:t="B"
   capzone__caption:t="capzone/utility_house"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__id:i=1
   decal__height:r=0.3
 }
@@ -151,7 +151,7 @@ entity{
   transform:m=[[5.84098, 0.0, -0.772541] [0.0, 1.0, 0.0] [0.733346, 0.0, 5.54464] [41.8724, 7.80332, 153.897]]
   capzone__title:t="C"
   capzone__caption:t="capzone/repnikova_house"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__height:r=0.3
 }
 

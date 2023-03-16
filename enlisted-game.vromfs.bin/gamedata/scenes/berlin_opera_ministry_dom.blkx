@@ -57,7 +57,7 @@ entity{
   transform:m=[[11.6168, 0.0, -0.66278] [0.0, 5.30157, 0.0] [0.145696, 0.0, 9.6988] [-313.074, 13.7502, 346.439]]
   capzone__title:t="A"
   capzone__caption:t="capzone/south_wing"
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.4
 }
 
@@ -66,7 +66,7 @@ entity{
   transform:m=[[14.4898, 0.0, -0.789491] [0.0, 9.9818, 0.0] [0.445242, 0.0, 16.2996] [-311.353, 9.60114, 389.491]]
   capzone__title:t="B"
   capzone__caption:t="capzone/central_building"
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.4
 }
 

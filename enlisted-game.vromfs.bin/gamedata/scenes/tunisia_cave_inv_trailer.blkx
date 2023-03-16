@@ -1500,7 +1500,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.0
 
   "capzone__activateChoice:object"{
@@ -1529,7 +1529,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.0
   capzone__iconOffsetY:r=7.0
 
@@ -1590,7 +1590,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.0
   capzone__iconOffsetY:r=10.0
 

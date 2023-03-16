@@ -74,7 +74,7 @@ entity{
   ui_order:i=1
   capzone__title:t="A"
   capzone__caption:t="capzone/main_house"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__height:r=0.1
   capzone__acivateRespawnGroup:i=3
 }
@@ -87,14 +87,14 @@ entity{
   capzone__caption:t="capzone/mill"
   ui_order:i=2
   decal__height:r=1.0
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   capzone__acivateRespawnGroup:i=4
 }
 
 entity{
   _template:t="domination_box_capzone+capzone_respawn_activator"
   transform:m=[[29.9186, 0.0, 12.2931] [0.0, 2.08315, 0.0] [-2.08441, 0.0, 5.29924] [-30.1713, 70.8043, -301.436]]
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__height:r=0.4
   ui_order:i=3
   capzone__title:t="C"
@@ -106,7 +106,7 @@ entity{
   _template:t="domination_sphere_capzone+capzone_respawn_activator"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-80.322, 68.2345, -193.834]]
   sphere_zone__radius:r=5.6
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   capzone__title:t="D"
   capzone__caption:t="capzone/artillery_emplacement"
   ui_order:i=4
@@ -119,7 +119,7 @@ entity{
   ui_order:i=5
   capzone__title:t="E"
   capzone__caption:t="capzone/barn"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   capzone__acivateRespawnGroup:i=7
 }
 

@@ -352,7 +352,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   decal__height:r=0.3
 
   "capzone__activateChoice:object"{
@@ -423,7 +423,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   decal__height:r=0.3
 
   "capzone__activateChoice:object"{
@@ -704,7 +704,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
 }
 
 entity{
@@ -763,7 +763,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
 
   "capzone__activateChoice:object"{
     2_capzone_goebbels_villa:r=1.0

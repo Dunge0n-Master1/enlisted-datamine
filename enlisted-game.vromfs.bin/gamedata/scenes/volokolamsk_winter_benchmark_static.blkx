@@ -128,7 +128,7 @@ entity{
   ui_order:i=2
   capzone__title:t="B"
   capzone__caption:t="capzone/сathedral"
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 }
 

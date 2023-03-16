@@ -115,7 +115,7 @@ entity{
   transform:m=[[20.5928, 0.0, 0.502505] [0.0, 11.6237, 0.0] [-0.566292, 0.0, 24.0005] [715.555, 5.52056, 643.335]]
   capzone__title:t="A"
   capzone__caption:t="capzone/headquarters"
-  decal__thickness:r=0.2
+  decal__thickness:r=0.15
   decal__height:r=3.0
 }
 
@@ -476,7 +476,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-39.3422, 1000.0, 2641.25]]
+  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-433.825, 1000.0, 3957.92]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -485,7 +485,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [109.945, 800.0, 2736.75]]
+  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-284.537, 800.0, 4053.42]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -494,7 +494,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [96.5051, 1000.0, 2719.21]]
+  transform:m=[[0.302499, 0.0, -0.953151] [0.0, 1.0, 0.0] [0.953151, -0.0, 0.302499] [-277.283, 1000.0, 3990.77]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -503,7 +503,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-39.3422, 800.0, 2641.25]]
+  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-433.825, 800.0, 3957.92]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -511,14 +511,14 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-1103.75, 1000.0, 3487.77]]
+  transform:m=[[0.327869, 0.0, -0.944724] [0.0, 1.0, 0.0] [0.944724, 0.0, 0.327869] [-1157.34, 751.904, 2783.44]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [1366.27, 1000.0, -1521.59]]
+  transform:m=[[-0.277842, 0.0, 0.960626] [0.0, 1.0, 0.0] [-0.960626, 0.0, -0.277842] [1765.6, 1000.0, -2878.17]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -527,7 +527,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [1366.27, 800.0, -1521.59]]
+  transform:m=[[-0.280626, 0.0, 0.959817] [0.0, 1.0, 0.0] [-0.959817, 0.0, -0.280626] [1765.6, 800.0, -2878.17]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -536,7 +536,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [1235.75, 1000.0, -1596.7]]
+  transform:m=[[-0.225352, 0.0, 0.974277] [0.0, 1.0, 0.0] [-0.974277, 0.0, -0.225352] [1615.79, 1000.0, -2892.33]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -545,7 +545,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [1195.94, 800.0, -1576.41]]
+  transform:m=[[-0.225352, 0.0, 0.974277] [0.0, 1.0, 0.0] [-0.974277, 0.0, -0.225352] [1590.58, 800.0, -2915.36]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -553,7 +553,7 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [2484.1, 1000.0, -2379.41]]
+  transform:m=[[-0.323429, 0.0, 0.946252] [0.0, 1.0, 0.0] [-0.946252, 0.0, -0.323429] [2408.0, 708.835, -1835.98]]
   resupply_zone__team:i=2
 }
 

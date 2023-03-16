@@ -3249,7 +3249,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
   capzone__iconOffsetY:r=1.0
 

@@ -70,19 +70,3 @@ motionMatchingPerFrameLimit:i=8//-1 no limit
 "@override:replay"{
   "@override:storageLimitMB":i=300
 }
-
-debug{
-  watchdog{
-    enabled:b=yes
-    game_session{
-      chance:i=500
-      trigger:i=4000
-    }
-    loading{
-      chance:i=0
-    }
-    menu{
-      chance:i=0
-    }
-  }
-}

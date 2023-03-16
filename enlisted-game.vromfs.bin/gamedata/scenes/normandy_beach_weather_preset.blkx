@@ -147,7 +147,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
   capzone__iconOffsetY:r=1.0
 
@@ -531,7 +531,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
 
   "capzone__activateChoice:object"{
@@ -637,7 +637,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
 
   "capzone__activateChoice:object"{
     sector_5:r=1.0
@@ -758,7 +758,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.2
 
   "capzone__activateChoice:object"{
@@ -872,7 +872,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
 }
 
 entity{
@@ -1700,7 +1700,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/mill"
   decal__height:r=2.4
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   sphere_zone__radius:r=11.0
   capzone__iconOffsetY:r=3.0
 }
@@ -1836,7 +1836,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
   capzone__iconOffsetY:r=2.0
 
@@ -1969,7 +1969,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
   capzone__iconOffsetY:r=1.0
 

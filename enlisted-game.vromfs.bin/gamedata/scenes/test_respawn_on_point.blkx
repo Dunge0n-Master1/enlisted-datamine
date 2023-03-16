@@ -113,7 +113,7 @@ entity{
   capzone__title:t="A"
   ui_order:i=0
   decal__height:r=0.3
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   decal__id:i=0
 }
 

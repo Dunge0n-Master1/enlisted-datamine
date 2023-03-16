@@ -2250,7 +2250,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -2342,7 +2342,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -2370,7 +2370,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.5
 
   "capzone__activateChoice:object"{
@@ -2468,7 +2468,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.5
 
   "capzone__activateChoice:object"{
@@ -2593,7 +2593,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -2690,7 +2690,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.5
 
   "capzone__activateChoice:object"{
@@ -2802,7 +2802,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=9
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.5
 }
 
@@ -2902,7 +2902,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=10
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -3006,7 +3006,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=11
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -3125,7 +3125,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=12
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.5
 }
 
@@ -3755,7 +3755,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=13
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
 
   "capzone__activateChoice:object"{
@@ -3896,7 +3896,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=14
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.5
 
   "capzone__activateChoice:object"{

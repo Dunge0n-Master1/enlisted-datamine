@@ -144,7 +144,7 @@ entity{
   capzone__title:t="A"
   capzone__caption:t="capzone/lumber_plant"
   capzone__checkAllZonesInGroup:b=yes
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -176,7 +176,7 @@ entity{
   capzone__title:t="B"
   capzone__caption:t="capzone/garage"
   capzone__checkAllZonesInGroup:b=yes
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.5
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -209,7 +209,7 @@ entity{
   capzone__caption:t="capzone/sawmill"
   capzone__checkAllZonesInGroup:b=yes
   sphere_zone__radius:r=20.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.0
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -242,7 +242,7 @@ entity{
   capzone__caption:t="capzone/barn"
   capzone__checkAllZonesInGroup:b=yes
   sphere_zone__radius:r=19.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.7
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -275,7 +275,7 @@ entity{
   capzone__caption:t="capzone/warehouse"
   capzone__checkAllZonesInGroup:b=yes
   sphere_zone__radius:r=15.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=3.0
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -304,7 +304,7 @@ entity{
   capzone__caption:t="capzone/field_headquarters"
   capzone__checkAllZonesInGroup:b=yes
   sphere_zone__radius:r=14.5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.2
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

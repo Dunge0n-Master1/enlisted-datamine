@@ -59,7 +59,7 @@ entity{
   capzone__title:t="A"
   capzone__caption:t="capzone/barricades"
   decal__height:r=0.3
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   capzone__iconOffsetY:r=1.5
 }
 
@@ -70,7 +70,7 @@ entity{
   capzone__title:t="B"
   capzone__caption:t="capzone/ruins"
   decal__height:r=1.0
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   capzone__iconOffsetY:r=1.0
 }
 
@@ -81,7 +81,7 @@ entity{
   capzone__title:t="C"
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=0.3
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
   capzone__iconOffsetY:r=1.5
 }
 

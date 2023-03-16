@@ -133,7 +133,7 @@ entity{
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
   decal__height:r=2.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   capzone__iconOffsetY:r=1.0
 
   "capzone__activateChoice:object"{
@@ -163,7 +163,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.0
   capzone__iconOffsetY:r=2.5
 
@@ -193,7 +193,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.0
   capzone__iconOffsetY:r=2.5
 
@@ -223,7 +223,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.5
   capzone__iconOffsetY:r=2.0
 
@@ -254,7 +254,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=7
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.0
   capzone__iconOffsetY:r=1.0
 
@@ -285,7 +285,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.8
   capzone__iconOffsetY:r=2.5
 
@@ -314,7 +314,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=9
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.1
 }
 
@@ -337,7 +337,7 @@ entity{
   capzone__createRespawnBaseForTeam:i=2
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=10
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.1
 }
 
@@ -2898,7 +2898,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.0260471, 0.0, -0.999661] [0.0, 1.0, 0.0] [0.999661, 0.0, 0.0260471] [-624.161, 1000.0, 2748.41]]
+  transform:m=[[0.158268, 0.0, -0.987397] [0.0, 1.0, 0.0] [0.987396, -0.0, 0.158268] [-598.291, 1000.0, 3690.99]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2907,7 +2907,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.0260471, 0.0, -0.999661] [0.0, 1.0, 0.0] [0.999661, 0.0, 0.0260471] [-791.056, 800.0, 2745.04]]
+  transform:m=[[0.196803, 0.0, -0.980443] [0.0, 1.0, 0.0] [0.980443, -0.0, 0.196803] [-762.145, 800.0, 3659.09]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2916,7 +2916,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.0260471, 0.0, -0.999661] [0.0, 1.0, 0.0] [0.999661, 0.0, 0.0260471] [-791.056, 1000.0, 2745.04]]
+  transform:m=[[0.196803, 0.0, -0.980443] [0.0, 1.0, 0.0] [0.980443, -0.0, 0.196803] [-762.145, 1000.0, 3659.09]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2925,7 +2925,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.0260471, 0.0, -0.999661] [0.0, 1.0, 0.0] [0.999661, 0.0, 0.0260471] [-596.995, 800.0, 2750.45]]
+  transform:m=[[0.150092, 0.0, -0.988673] [0.0, 1.0, 0.0] [0.988672, -0.0, 0.150092] [-571.875, 800.0, 3697.65]]
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2933,14 +2933,14 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[-0.157002, 0.0, -0.987599] [0.0, 1.0, 0.0] [0.987599, 0.0, -0.157002] [-2099.59, 1000.0, 3130.97]]
+  transform:m=[[-0.157002, 0.0, -0.987599] [0.0, 1.0, 0.0] [0.987599, 0.0, -0.157002] [-1746.71, 797.954, 2529.53]]
   resupply_zone__team:i=1
 }
 
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.217759, 0.0, 0.976002] [0.0, 1.0, 0.0] [-0.976002, 0.0, -0.217759] [941.199, 1000.0, -1638.53]]
+  transform:m=[[-0.314668, 0.0, 0.949201] [0.0, 1.0, 0.0] [-0.949201, 0.0, -0.314668] [1094.17, 1000.0, -3169.85]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2949,7 +2949,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.217759, 0.0, 0.976002] [0.0, 1.0, 0.0] [-0.976002, 0.0, -0.217759] [941.199, 800.0, -1638.53]]
+  transform:m=[[-0.314668, 0.0, 0.949201] [0.0, 1.0, 0.0] [-0.949201, 0.0, -0.314668] [1094.17, 800.0, -3169.85]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2958,7 +2958,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.217759, 0.0, 0.976002] [0.0, 1.0, 0.0] [-0.976002, 0.0, -0.217759] [813.414, 1000.0, -1657.64]]
+  transform:m=[[-0.314668, 0.0, 0.949201] [0.0, 1.0, 0.0] [-0.949201, 0.0, -0.314668] [968.952, 1000.0, -3201.69]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2967,7 +2967,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.217759, 0.0, 0.976002] [0.0, 1.0, 0.0] [-0.976002, 0.0, -0.217759] [783.694, 800.0, -1664.78]]
+  transform:m=[[-0.314668, 0.0, 0.949201] [0.0, 1.0, 0.0] [-0.949201, 0.0, -0.314668] [940.099, 800.0, -3211.78]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -2975,7 +2975,7 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [2254.74, 1000.0, -1979.19]]
+  transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [2143.12, 787.646, -1684.15]]
   resupply_zone__team:i=2
 }
 

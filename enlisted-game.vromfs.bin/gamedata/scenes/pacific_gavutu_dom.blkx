@@ -655,7 +655,7 @@ entity{
 entity{
   _template:t="domination_sphere_capzone"
   transform:m=[[0.490661, 0.0, -0.498951] [0.0, 0.822773, 0.0] [0.614366, 0.0, 0.604158] [72.3868, 1.14435, -304.454]]
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.1
   sphere_zone__radius:r=30.0
   capzone__iconOffsetY:r=4.0

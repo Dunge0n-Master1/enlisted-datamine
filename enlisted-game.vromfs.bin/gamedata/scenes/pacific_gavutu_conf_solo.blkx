@@ -2646,7 +2646,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse_at_the_pier"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.4
 
   "capzone__activateChoiceTeam1:object"{
@@ -2674,7 +2674,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/communications_center"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.2
   sphere_zone__radius:r=35.0
   capzone__iconOffsetY:r=2.0
@@ -2771,7 +2771,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hangar"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.1
 
   "capzone__activateChoiceTeam1:object"{
@@ -2834,7 +2834,7 @@ entity{
   capzone__caption:t="capzone/hangar"
   capzone__deactivateAfterTimeout:r=25.0
   capzone__iconOffsetY:r=2.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.7
 
   "capzone__activateChoiceTeam2:object"{

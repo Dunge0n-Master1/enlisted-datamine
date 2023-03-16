@@ -132,49 +132,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.774617, 0.0, -0.632431] [0.0, 1.0, 0.0] [0.632431, 0.0, -0.774617] [845.969, 1000.0, 1519.5]]
-  team:i=1
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
-}
-
-entity{
-  _template:t="respAircraftInAir"
-  respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.774617, 0.0, -0.632431] [0.0, 1.0, 0.0] [0.632431, 0.0, -0.774617] [741.157, 800.0, 1649.42]]
-  team:i=1
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
-}
-
-entity{
-  _template:t="respAircraftInAir"
-  respawnbaseType:t="aircraft_fighter"
-  transform:m=[[-0.774617, 0.0, -0.632431] [0.0, 1.0, 0.0] [0.632431, 0.0, -0.774617] [741.157, 1000.0, 1649.42]]
-  team:i=1
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
-}
-
-entity{
-  _template:t="respAircraftInAir"
-  respawnbaseType:t="aircraft_assault"
-  transform:m=[[-0.774617, 0.0, -0.632431] [0.0, 1.0, 0.0] [0.632431, 0.0, -0.774617] [864.209, 800.0, 1499.27]]
-  team:i=1
-  maxVehicleOnSpawn:i=1
-  respTime:i=120
-}
-
-entity{
-  _template:t="resupply_in_air_zone"
-  transform:m=[[-0.877112, 0.0, -0.480288] [0.0, 1.0, 0.0] [0.480288, 0.0, -0.877112] [245.487, 1000.0, 2920.45]]
-  resupply_zone__team:i=1
-}
-
-entity{
-  _template:t="respAircraftInAir"
-  respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.781323, 0.0, 0.624126] [0.0, 1.0, 0.0] [-0.624126, 0.0, 0.781323] [-2793.05, 1000.0, -1560.11]]
+  transform:m=[[0.578169, 0.0, -0.815917] [0.0, 1.0, 0.0] [0.815917, -0.0, 0.578169] [-3052.0, 1000.0, 2905.17]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -183,7 +141,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.781323, 0.0, 0.624126] [0.0, 1.0, 0.0] [-0.624126, 0.0, 0.781323] [-2793.05, 800.0, -1560.11]]
+  transform:m=[[0.643611, 0.0, -0.765353] [0.0, 1.0, 0.0] [0.765353, -0.0, 0.643611] [-3160.45, 800.0, 2778.27]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -192,7 +150,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_fighter"
-  transform:m=[[0.781323, 0.0, 0.624126] [0.0, 1.0, 0.0] [-0.624126, 0.0, 0.781323] [-2866.32, 1000.0, -1453.69]]
+  transform:m=[[0.622229, 0.0, -0.782835] [0.0, 1.0, 0.0] [0.782835, -0.0, 0.622229] [-3160.45, 1000.0, 2778.27]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -201,7 +159,7 @@ entity{
 entity{
   _template:t="respAircraftInAir"
   respawnbaseType:t="aircraft_assault"
-  transform:m=[[0.781323, 0.0, 0.624126] [0.0, 1.0, 0.0] [-0.624126, 0.0, 0.781323] [-2885.78, 800.0, -1430.12]]
+  transform:m=[[0.571176, 0.0, -0.820827] [0.0, 1.0, 0.0] [0.820827, -0.0, 0.571176] [-3035.46, 800.0, 2926.82]]
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
@@ -209,8 +167,50 @@ entity{
 
 entity{
   _template:t="resupply_in_air_zone"
-  transform:m=[[0.944518, 0.0, 0.328457] [0.0, 1.0, 0.0] [-0.328457, 0.0, 0.944518] [-2532.64, 1000.0, -2971.05]]
+  transform:m=[[0.498217, 0.0, -0.867053] [0.0, 1.0, 0.0] [0.867053, -0.0, 0.498217] [-3519.98, 707.089, 1348.17]]
   resupply_zone__team:i=2
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.524493, 0.0, 0.851414] [0.0, 1.0, 0.0] [-0.851414, 0.0, -0.524493] [915.46, 1000.0, -2992.41]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.523379, 0.0, 0.852099] [0.0, 1.0, 0.0] [-0.852099, 0.0, -0.523379] [915.46, 800.0, -2992.41]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_fighter"
+  transform:m=[[-0.497487, 0.0, 0.86747] [0.0, 1.0, 0.0] [-0.86747, 0.0, -0.497487] [787.675, 1000.0, -3011.52]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="respAircraftInAir"
+  respawnbaseType:t="aircraft_assault"
+  transform:m=[[-0.487383, 0.0, 0.873187] [0.0, 1.0, 0.0] [-0.873187, 0.0, -0.487383] [757.955, 800.0, -3018.66]]
+  team:i=1
+  maxVehicleOnSpawn:i=1
+  respTime:i=120
+}
+
+entity{
+  _template:t="resupply_in_air_zone"
+  transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [1563.57, 731.983, -1439.35]]
+  resupply_zone__team:i=1
 }
 
 entity{

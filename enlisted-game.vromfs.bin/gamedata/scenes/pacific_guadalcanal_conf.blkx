@@ -4495,7 +4495,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/guest_house"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.6
   sphere_zone__radius:r=18.0
   capzone__iconOffsetY:r=2.0
@@ -4525,7 +4525,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/headquarters"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.0
 
   "capzone__activateChoiceTeam1:object"{
@@ -4556,7 +4556,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/city_center"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.0
 
   "capzone__activateChoiceTeam1:object"{
@@ -4588,7 +4588,7 @@ entity{
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ruins"
   capzone__deactivateAfterTimeout:r=25.0
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.0
   sphere_zone__radius:r=22.0
   capzone__iconOffsetY:r=3.0

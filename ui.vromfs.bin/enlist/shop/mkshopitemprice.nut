@@ -210,7 +210,7 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
   local {
     curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, discountInPercent = 0,
-    discountIntervalTs = [], isPriceHidden = false
+    discountIntervalTs = [], isPriceHidden = false, showSpecialOfferText = false
   } = shopItem
   let { price } = curShopItemPrice
   let [ beginTime = 0, endTime = 0 ] = discountIntervalTs
@@ -220,6 +220,10 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
   let discountData = personalOffer != null ? {
         endTime = personalOffer.endTime
         locId = "specialOfferShort"
+      }
+    : showSpecialOfferText ? {
+        locId = "specialOfferShort"
+        endTime
       }
     : discountInPercent > 0 || (discountInPercent == 0 && isDiscountActive) ? {
         endTime

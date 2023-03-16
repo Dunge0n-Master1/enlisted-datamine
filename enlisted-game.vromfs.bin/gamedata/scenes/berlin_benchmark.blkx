@@ -148,7 +148,7 @@ entity{
   capzone__title:t="B"
   capzone__caption:t="capzone/artillery_emplacement"
   decal__height:r=0.3
-  decal__thickness:r=0.3
+  decal__thickness:r=0.15
 }
 
 entity{

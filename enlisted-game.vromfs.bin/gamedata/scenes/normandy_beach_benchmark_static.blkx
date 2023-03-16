@@ -299,7 +299,7 @@ entity{
   transform:m=[[2.39954, 0.0, 0.995925] [0.0, 1.0, 0.0] [-0.534627, 0.0, 1.28811] [-30.6206, 69.2551, -301.696]]
   capzone__title:t="B"
   capzone__caption:t="capzone/normandy_cathedral"
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.4
   ui_order:i=2
 }

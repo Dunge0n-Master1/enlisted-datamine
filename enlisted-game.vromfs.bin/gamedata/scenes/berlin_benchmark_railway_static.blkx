@@ -449,7 +449,7 @@ entity{
   sphere_zone__radius:r=23.0
   capzone__title:t="B"
   decal__height:r=1.5
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   active:b=yes
 }
 
