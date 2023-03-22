@@ -8,6 +8,8 @@ let sysinfo = require_optional("sysinfo")
 let {version, build_number} = require("%dngscripts/appInfo.nut")
 let {tostring_r} = require("%sqstd/string.nut")
 
+let {dgs_get_settings} = require("dagor.system")
+
 let function char_login(auth_token, user_cb) {
   let request = {
     game =  contactsGameId
@@ -17,6 +19,7 @@ let function char_login(auth_token, user_cb) {
     local si = sysinfo.get_user_system_info()
     si.game_version <- version.value
     si.game_build <- build_number.value
+    si.graphicsQuality <- (dgs_get_settings()?.graphics?.preset ?? "medium")
     request["sysinfo"] <- si
   }
 
