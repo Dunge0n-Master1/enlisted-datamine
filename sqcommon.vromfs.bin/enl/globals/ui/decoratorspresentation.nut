@@ -237,6 +237,9 @@ local portraits = {
   engineerDay23_event_portrait = {
     icon = "ui/portraits/event/engineerDay23_event_portrait.avif"
   }
+  portrait_preorder_paratrooper = {
+    icon = "ui/portraits/event/portrait_preorder_paratrooper.avif"
+  }
 
 
 
@@ -389,6 +392,7 @@ local nickFrames = {
   nickFrame_samurai = @(n) $"┄{n}┄"
   nickFrame_mgun = @(n) $"┏{n}┏"
   nickFrame_preorder_mgun = @(n) $"┏{n}┏"
+  nickFrame_preorder_paratrooper = @(n) $"┒{n}┒"
 }
 
 local decoratorsPresentation = {

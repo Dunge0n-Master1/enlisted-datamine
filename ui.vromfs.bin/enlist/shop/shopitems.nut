@@ -94,8 +94,7 @@ let function updateItemCost(sItem, purchases) {
 
 let function updateStoreItemCost(sItem, gItem) {
   let item = {}.__update(sItem, gItem)
-  let { showSpecialOfferText = false, hideDiscount = false } = sItem
-  let discountInPercent = !hideDiscount && gItem?.discount_mul
+  let discountInPercent = gItem?.discount_mul
     ? ((100 * (1.0 - gItem.discount_mul)) + 0.5).tointeger()
     : 0
 
@@ -105,7 +104,7 @@ let function updateStoreItemCost(sItem, gItem) {
     discountIntervalTs = [ serverTime.value, gItem.discount_till ]
 
   let resItem = item.__update({ discountInPercent, discountIntervalTs,
-    curShopItemPrice = { price = 0, fullPrice = 0 }, showSpecialOfferText })
+    curShopItemPrice = { price = 0, fullPrice = 0 } })
   return resItem
 }
 

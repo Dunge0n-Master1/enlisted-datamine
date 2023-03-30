@@ -14,9 +14,9 @@ hitpower{
   HitPower100m:p2=0.9, 100.0
   HitPower200m:p2=0.8, 300.0
   HitPower400m:p2=0.7, 400.0
-  HitPower600m:p2=0.3, 600.0
-  HitPower1000m:p2=0.1, 1000.0
-  HitPower1500m:p2=0.01, 1500.0
+  HitPower600m:p2=0.5, 600.0
+  HitPower1000m:p2=0.3, 1000.0
+  HitPower1500m:p2=0.2, 1500.0
 }
 
 armorpower{

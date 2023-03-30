@@ -38,7 +38,7 @@ let mkPurchaseText = @(isSoldier) isSoldier ? loc("mainmenu/enlistFor") : loc("m
 let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
   let { curItemCost, curShopItemPrice, shop_price_curr = "",
     shop_price = 0, shop_price_full = 0, discountInPercent = 0,
-    isPriceHidden = false
+    isPriceHidden = false, hideDiscount = false
   } = shopItem
 
   let hasBarter = hasItemsToBarter(curItemCost, campItems)
@@ -97,7 +97,8 @@ let function mkItemPurchaseInfo(shopItem, campItems, currencies, isNarrow) {
           oldPriceLine.__merge({ color = defTxtColor })
         ]})
     }
-    children.append(mkDiscountWidget(discountInPercent))
+    if (!hideDiscount)
+      children.append(mkDiscountWidget(discountInPercent))
 
     return {
       flow = FLOW_HORIZONTAL
@@ -221,13 +222,9 @@ local function mkShopItemPrice(shopItem, personalOffer = null, isNarrow = false)
         endTime = personalOffer.endTime
         locId = "specialOfferShort"
       }
-    : showSpecialOfferText ? {
-        locId = "specialOfferShort"
-        endTime
-      }
     : discountInPercent > 0 || (discountInPercent == 0 && isDiscountActive) ? {
         endTime
-        locId = "shop/discountNotify"
+        locId = showSpecialOfferText ? "specialOfferShort" : "shop/discountNotify"
       }
     : null
 
