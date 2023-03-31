@@ -49,6 +49,30 @@ civil_vehicle_templ{
     tags:t="ui"
   }
 
+  _group{
+    _tags:t="input"
+
+    "vehicle__steerTips:list<t>"{
+      tip:t="Vehicle.Brake"
+      tip:t="Vehicle.HandBrake"
+      tip:t="Vehicle.Accel"
+      tip:t="Vehicle.Steer"
+      tip:t="Vehicle.Throttle"
+      tip:t="Vehicle.Horn"
+    }
+  }
+
+  _group{
+    _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_driver"
+
+    "engine_fire_fx__eids:list<eid>"{
+    }
+
+    "vehicle_fxs__effectsEids:list<eid>"{
+    }
+  }
+
   "killer:eid"{
   }
 
@@ -65,17 +89,6 @@ civil_vehicle_templ{
   }
 
   fire_protection{
-  }
-
-  _group{
-    _tags:t="render"
-    animchar_camera_target__node_name:t="bone_camera_driver"
-
-    "engine_fire_fx__eids:list<eid>"{
-    }
-
-    "vehicle_fxs__effectsEids:list<eid>"{
-    }
   }
 
   "fire_attach_excludes__nodeIds:list<i>"{

@@ -1,0 +1,4 @@
+entity{
+  _template:t="custom_bot_profile"
+  customBotProfile:t="%enlSqGlob/data/mech_event_bot_profile.json"
+}

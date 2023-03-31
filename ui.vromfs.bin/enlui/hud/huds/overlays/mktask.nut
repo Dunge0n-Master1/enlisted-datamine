@@ -7,15 +7,14 @@ let {
 let {
   darkBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { DAILY_TASK_KEY } = require("%enlSqGlob/userstats/unlocksState.nut")
+let { DAILY_TASK_KEY, getUnlockProgress, unlockProgress
+} = require("%enlSqGlob/userstats/unlocksState.nut")
 
-let function mkTaskContent(unlockDesc) {
-  let {
-    isCompleted = false, isFinished = false, required = 0, current = 0
-  } = unlockDesc
-  let progress = { isCompleted, required, current, isFinished }
-  return watchElemState(@(sf) {
+let mkTaskContent = @(unlockDesc) watchElemState(function(sf) {
+  let progress = getUnlockProgress(unlockDesc)
+  return {
     size = [flex(), SIZE_TO_CONTENT]
+    watch = [unlockProgress]
     valign = ALIGN_CENTER
     behavior = Behaviors.Button
     children = {
@@ -28,8 +27,8 @@ let function mkTaskContent(unlockDesc) {
         taskHeader(unlockDesc, progress, true, sf)
       ]
     }
-  })
-}
+  }
+})
 
 let mkUnlockSlot = @(unlockDesc) watchElemState(@(sf) {
   size = [flex(), SIZE_TO_CONTENT]

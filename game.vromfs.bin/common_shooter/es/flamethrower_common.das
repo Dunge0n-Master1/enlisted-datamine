@@ -211,37 +211,30 @@ def burn_grid_objects(start : float3;
         res.attachedToEid = it.eid
         res.norm = it.norm
         break
-  if !res.isHit
-    var t = hit_dist
-    var pmid = -1
-    var norm : float3
-    var riDesc = RendInstDesc()
-    if traceray_normalized(start, hit_dir, t, pmid, norm, ETF_RI, riDesc, -1) && riDesc.isValid
-      res.isHit = true
-      res.pos = start + hit_dir * t
-      res.norm = norm
-      broadcast_net_event([[CmdSpawnCharredArea pos=res.pos, normal=norm]])
-      deal_fire_damage_ri(riDesc.riExtraHandle, res.pos, damage, true)
   return res
 
 def burn_static_objects(start : float3;
                         hit_dir : float3;
                         hit_dist : float;
                         fire_template : string;
-                        owner : EntityId;
-                        gun_props_id : int;
+                        damage : FlameDamage;
                         min_between_fire_dist_sq : float;
                         add_fire_time : float;
                         max_fires_to_reignite : int;
                         cast_result : FireCastResult;
                         additional_check_length : float = 0.0) : FireCastResult
   var norm : float3
+  var pmid = -1
+  var riDesc = RendInstDesc()
   var dist = hit_dist + additional_check_length
-  let isRayHit = traceray_normalized(start, hit_dir, dist, norm, ETF_ALL)
+  let isRayHit = traceray_normalized(start, hit_dir, dist, pmid, norm, ETF_ALL, riDesc, -1)
   if isRayHit
     let hitPos = start + hit_dir * dist
-    broadcast_net_event([[CmdSpawnCharredArea pos=hitPos, normal=norm]])
-    let isFireCreated = !!create_fire(hitPos, fire_template, owner, gun_props_id, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    if riDesc.isValid
+      deal_fire_damage_ri(riDesc.riExtraHandle, hitPos, damage, true)
+    let isFireCreated = !!create_fire(hitPos, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    if isFireCreated
+      broadcast_net_event([[CmdSpawnCharredArea pos=hitPos, normal=norm]])
     return [[FireCastResult isHit=true, isFireCreated=isFireCreated, pos=hitPos, norm=norm]]
   return FireCastResult()
 
@@ -266,7 +259,7 @@ def cast_droplets(hit_pos : float3;
   let start = hit_pos + hit_norm * spread.normalOffset
 
   if !burn_grid_objects(start, dir, spread.maxLength, fire_template, damage, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result).isHit
-    burn_static_objects(start, dir, spread.maxLength, fire_template, damage.offender, damage.gunPropsId, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
+    burn_static_objects(start, dir, spread.maxLength, fire_template, damage, min_between_fire_dist_sq, add_fire_time, max_fires_to_reignite, cast_result)
 
 struct FlameTraceResult
   hit : bool
@@ -365,7 +358,7 @@ def shoot_fire(dt : float;
   if fire_template == ""
     return
   if !castResult.isHit
-    let newCastResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage.offender, damage.gunPropsId, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
+    let newCastResult = burn_static_objects(start, hitDir, hitDist, fire_template, damage, minBetweenFireDistSq, addFireTime, flamethrower__maxFiresToReignite, castResult, additional_check_length)
     castResult = newCastResult
   if castResult.isHit && !has(castResult.attachedToEid, "burning__absorbsFlameStream")
     cast_droplets(castResult.pos, castResult.norm, gunDir, fire_template, damage, minBetweenFireDistSq, droplets_spread, addFireTime, flamethrower__maxFiresToReignite, castResult)

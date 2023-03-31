@@ -36,7 +36,7 @@ def vehicle_input_horn_triggered(evt : EventDaInputActionTriggered;
                                  eid : EntityId;
                                  input__enabled : bool;
                                  vehicle_input_horn : int;
-                                 human_vehicle__isHoldingGunPassenger : bool)
+                                 human_vehicle__isHoldingGunPassenger : bool = false)
   if input__enabled && int(evt.action) == vehicle_input_horn && !human_vehicle__isHoldingGunPassenger
     send_net_event(eid, [[CmdVehicleHornRequest enable=true, player=get_local_player_eid()]])
 

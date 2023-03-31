@@ -53,6 +53,8 @@ vehicle_input_horn{
 walker_input{
   _tags:t="input"
   _extends:t="vehicle_input"
+  mech_input__strafe:i=0
+  mech_input__shootFlameThrower:i=0
 }
 
 vehicle_input{

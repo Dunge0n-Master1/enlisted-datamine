@@ -7,7 +7,7 @@ let isNoBotsMode = @() noBotsModeQuery.perform(@(...) true) ?? false
 
 ecs.register_es("enlisted_player_score_es",
 {
-  [["onInit", "onChange"]] = @(_, comp) comp["scoring_player__score"] = calcScoringPlayerScore(comp, isNoBotsMode())
+  [["onInit", "onChange"]] = @(_, comp) comp.scoring_player__score = calcScoringPlayerScore(comp, isNoBotsMode())
 },
 {
   comps_rw = [

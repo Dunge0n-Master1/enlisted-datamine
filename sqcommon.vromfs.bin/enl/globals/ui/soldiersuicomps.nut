@@ -24,7 +24,7 @@ let iconSize = hdpxi(26)
 let formatIconName = memoize(function(icon, width, height = null) {
   if (icon.endswith(".svg")) {
     log("getting svg icon for soldiers")
-    return $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:K"
+    return $"{icon}:{width.tointeger()}:{(height ?? width).tointeger()}:P"
   }
   return $"{icon}?Ac"
 })
@@ -224,8 +224,8 @@ let experienceTooltip = kwarg(function(
 })
 
 let function mkSoldierMedalIcon(soldierInfo, size) {
-  let { heroTpl = null, armyId = null } = soldierInfo
-  let { heroIcon = null } = soldiersPresentation?[armyId]
+  let { heroTpl = null, armyId = null, country = null } = soldierInfo
+  let heroIcon = soldiersPresentation?[country] ?? soldiersPresentation?[armyId] // FIXME backward compatibility
   if ((heroTpl ?? "") == "" || heroIcon == null)
     return null
 
@@ -233,6 +233,7 @@ let function mkSoldierMedalIcon(soldierInfo, size) {
     rendObj = ROBJ_IMAGE
     size = [size, size]
     image = Picture(formatIconName(heroIcon, size))
+    keepAspect = KEEP_ASPECT_FIT
   }
 }
 

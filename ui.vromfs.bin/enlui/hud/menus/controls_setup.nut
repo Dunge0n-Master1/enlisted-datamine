@@ -180,6 +180,7 @@ let function makeTabsList() {
     {id="Vehicle" text=loc("controls/tab/Vehicle")}
     {id="Plane" text=loc("controls/tab/Plane")}
     {id="Drone" text=loc("controls/tab/Drone")}
+    {id="Mech" text=loc("controls/tab/Mech")}
     {id="Other" text=loc("controls/tab/Other")}
     {id="UI" text=loc("controls/tab/UI")}
     {id="VoiceChat" text=loc("controls/tab/VoiceChat") isEnabled = @() isVoiceChatAvailable }

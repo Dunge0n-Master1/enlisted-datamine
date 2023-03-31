@@ -107,6 +107,7 @@ let itemTypesData = {
   aircraft = { svg = "aircraft_icon.svg" }
   assault_aircraft = { svg = "aircraft_icon.svg" }
   fighter_aircraft = { svg = "aircraft_icon.svg" }
+  mech = { svg = "mech_icon.svg" }
 }
 
 let function itemTypeIcon(iType, iSubType = null, override = {}) {

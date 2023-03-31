@@ -43,7 +43,7 @@ let { perkPointIcon, getStatDescList, flexTextArea
 let { configs } = require("%enlist/meta/configs.nut")
 
 let perkSchemes = Computed(@() configs.value?.perkSchemes ?? {})
-let soldierPerkSchemes = Computed(@() configs.value?.soldierPerkSchemes ?? {})
+let soldierSchemes = Computed(@() configs.value?.soldierSchemes ?? {})
 
 const WND_UID = "SOLDIERS_PURCHASE_WND"
 
@@ -262,7 +262,7 @@ let function mkShopItemCard(shopItem, armyData) {
   return watchElemState(function(sf) {
     let isLocked = armyLevel > currentLevel || (isFreemium && needFreemiumStatus.value)
 
-    let perkSchemeId = soldierPerkSchemes.value?[armyId][shopItem.soldierSpec] ?? ""
+    let { perkSchemeId = "" } = soldierSchemes.value?[armyId][shopItem.soldierSpec]
     let perkScheme = perkSchemes.value?[perkSchemeId]
     let perkElement = mkStartPerk(perksList.value, perksStatsCfg.value, perkScheme, isLocked)
     let statsList = mkStatList(crateContent.value?.content, isLocked)
@@ -272,7 +272,7 @@ let function mkShopItemCard(shopItem, armyData) {
 
     return {
       watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus,
-        perkSchemes, soldierPerkSchemes, perksList, perksStatsCfg]
+        perkSchemes, soldierSchemes, perksList, perksStatsCfg]
       size = [hdpx(295), hdpx(500)]
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER

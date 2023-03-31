@@ -10,7 +10,7 @@ let { MINES_ORDER } = require("%ui/hud/huds/player_info/mineIcon.nut")
 
 let soldierFieldKeys = [
   "guid", "name", "surname", "callname", "sClass", "sKind", "tier", "level", "maxLevel",
-  "exp", "availPerks", "perksCount", "heroTpl"
+  "exp", "availPerks", "perksCount", "heroTpl", "country"
 ]
 
 let function getWeaponData(weapSlotIdx, soldier) {
@@ -126,7 +126,7 @@ let soldiers = Computed(function() {
   let country = armyData.value.country
   foreach (squad in squadsList) {
     foreach (soldier in squad.squad)
-      res[soldier.guid] <- collectSoldierData(soldier, armyId, squad.squadId, country)
+      res[soldier.guid] <- collectSoldierData(soldier, armyId, squad.squadId, soldier?.country ?? country)
   }
   return res
 })

@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { gear, neutralGear, rpm, cruiseControl, speed, isAutomaticTransmission
+let { enabled, gear, neutralGear, rpm, cruiseControl, speed, isAutomaticTransmission
 } = require("%ui/hud/state/vehicle_view_state.nut")
-let { inTank, isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
+let { isVehicleAlive } = require("%ui/hud/state/vehicle_state.nut")
 
 let mkText = @(txt) {
   rendObj = ROBJ_TEXT
@@ -74,6 +74,6 @@ let vehicleHudComponents = [
 
 return @() {
   flow = FLOW_VERTICAL
-  watch = [inTank, isVehicleAlive]
-  children = !inTank.value || !isVehicleAlive.value ? null : vehicleHudComponents
+  watch = [enabled, isVehicleAlive]
+  children = !enabled.value || !isVehicleAlive.value ? null : vehicleHudComponents
 }

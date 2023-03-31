@@ -53,6 +53,15 @@ armorPartNamesGround{
     p:t="composite_armor_turret"
     p:t="ex_era_hull"
     p:t="ex_era_turret"
+    p:t="leg_r_01"
+    p:t="leg_r_02"
+    p:t="leg_r_03"
+    p:t="leg_r_foot"
+    p:t="leg_l_01"
+    p:t="leg_l_02"
+    p:t="leg_l_03"
+    p:t="leg_l_foot"
+    p:t="rocket_turret"
 
     p{
       name:t="gun_barrel"
@@ -1364,6 +1373,15 @@ armorPartNamesGround{
     p:t="antenna_target_tagging_mount_"
     p:t="fire_director_"
     p:t="fire_director_mount_"
+    p:t="leg_r_01"
+    p:t="leg_r_02"
+    p:t="leg_r_03"
+    p:t="leg_r_foot"
+    p:t="leg_l_01"
+    p:t="leg_l_02"
+    p:t="leg_l_03"
+    p:t="leg_l_foot"
+    p:t="rocket_turret"
 
     p{
       name:t="optic_"

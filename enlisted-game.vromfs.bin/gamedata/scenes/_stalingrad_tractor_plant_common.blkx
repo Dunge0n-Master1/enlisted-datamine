@@ -1124,20 +1124,3 @@ entity{
   _template:t="vw_kubelwagen"
   transform:m=[[-0.125325, 0.0122442, -0.99204] [0.00781689, 0.999905, 0.0113537] [0.992085, -0.00633177, -0.125409] [-437.451, 15.0358, 407.736]]
 }
-
-entity{
-  _template:t="game_object_compound_sound_generator"
-
-  "game_object_compound_sound_generator__entityTypes:array"{
-
-    "entity:object"{
-      singleEntityTemplate:t="volume_ambient_sound"
-      compoundEntityTemplate:t="compound_ambient_sound"
-      soundName:t="plant"
-
-      "objectTypes:object"{
-        ambient_sound_plant_box:t="box"
-      }
-    }
-  }
-}

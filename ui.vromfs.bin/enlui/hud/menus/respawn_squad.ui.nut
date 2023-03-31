@@ -13,8 +13,9 @@ let {mkCountdownTimerPerSec} = require("%ui/helpers/timers.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
-        squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, maxSpawnVehiclesOnPointBySquad, nextSpawnOnVehicleInTimeBySquad,
-        canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId} = require("%ui/hud/state/respawnState.nut")
+  squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, maxSpawnVehiclesOnPointBySquad, nextSpawnOnVehicleInTimeBySquad,
+  canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId, spawnScore
+} = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeamSquadsCanSpawn, localPlayerTeamInfo } = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 
@@ -96,11 +97,11 @@ let availableSpawnZonesCount = Computed(@() spawnZonesState.value
                     && localPlayerTeam.value == v?.forTeam ? sum + 1 : sum, 0))
 
 let function spawnInfoBlock() {
-  let { canSpawn = false, readinessPercent = 0, squadType = null} = curSquadData.value
+  let { canSpawn = false, readinessPercent = 0, scorePrice = 0, isAffordable = true, squadType = null} = curSquadData.value
   let spawnInfo = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]
-      watch = [isGamepad, canSpawnCurrentSoldier]
+      watch = [isGamepad, canSpawnCurrentSoldier, spawnScore]
       flow = FLOW_VERTICAL
       gap = bigPadding
       halign = ALIGN_CENTER
@@ -109,7 +110,7 @@ let function spawnInfoBlock() {
         isGamepad.value
           ? null
           : mkKeyboardHint("Space", loc("respawn/spawn_current_squad"))
-        mkSquadSpawnDesc(canSpawn, readinessPercent, canSpawnCurrentSoldier.value)
+        mkSquadSpawnDesc(canSpawn, readinessPercent, canSpawnCurrentSoldier.value, isAffordable, scorePrice, spawnScore.value)
       ]
     }
   ]
@@ -134,7 +135,15 @@ let function spawnInfoBlock() {
     )
   ] : []
 
-  let children = !canSpawnCurrent.value ? restrictionsBlock
+  let notAffordableText = @() textarea(
+    loc("respawn/notAffordable", { price = scorePrice, score = spawnScore.value }),
+    {
+      watch = spawnScore
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+    }.__update(body_txt))
+
+  let children = !isAffordable ? [notAffordableText] : !canSpawnCurrent.value ? restrictionsBlock
     : localPlayerTeamSquadsCanSpawn.value
       ? [
           respawnTimer(loc("respawn/respawn_squad"), sub_txt)

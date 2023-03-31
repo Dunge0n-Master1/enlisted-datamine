@@ -64,7 +64,7 @@ def squad_revive_es(evt : EventEntityDied;
   if !doesEntityExist(victimSquadEid)
     return
 
-  query(victimSquadEid) <| $ [es] (squad__allMembers : EidList; var squad__isAlive : bool&)
+  query(victimSquadEid) <| $ [es] (squad__allMembers : EidList; squad__disableSquadRotation : bool; var squad__isAlive : bool&)
     var aliveSquadMembers = 0
     if !squad__isAlive
       return
@@ -76,7 +76,7 @@ def squad_revive_es(evt : EventEntityDied;
     let damageName = DAMAGE_TYPE_NAMES?[damageType] ?? "{damageType}"
     print("[SPAWN] Soldier is dead {victim_eid} player <{victimPlayerEid}>: Damage: {damageName} Squad: {victimSquadEid}; Offender: {offender} <{offenderPlayerEid}>; Left: {aliveSquadMembers}")
 
-    if aliveSquadMembers == 0
+    if aliveSquadMembers == 0 && !squad__disableSquadRotation
       squad__isAlive = false
       update_revive_squads_points_on_squad_death(victimSquadEid, victimPlayerEid)
 
@@ -142,14 +142,15 @@ def init_squad_revive_points(evt : Event;
   for pts in squads__revivePointsList
     pts = 100
 
-  var nonVehicleSquadsCount = squadCount
+  var rotationSquadsCount = squadCount
   for squad in *squads
-    if (squad as Object)?.curVehicle != null
-      nonVehicleSquadsCount -= 1
+    let squadObj = squad as Object
+    if squadObj?.curVehicle != null || squadObj?.disableSquadRotation != null
+      rotationSquadsCount -= 1
 
-  let respawnsToFullRestore = get_respawns_to_full_restore(squads__respawnsToFullRestoreSquadBySquadsCount, nonVehicleSquadsCount)
+  let respawnsToFullRestore = get_respawns_to_full_restore(squads__respawnsToFullRestoreSquadBySquadsCount, rotationSquadsCount)
   squads__revivePointsPerSquad = get_revive_points_heal(respawnsToFullRestore)
-  print("Non-vehicle squads count is {nonVehicleSquadsCount}. Set {squads__revivePointsPerSquad} revive points per squad for player {eid}.")
+  print("Non-vehicle squads count is {rotationSquadsCount}. Set {squads__revivePointsPerSquad} revive points per squad for player {eid}.")
 
 
 [es(tag=server, on_appear, track=isArmiesReceived)]

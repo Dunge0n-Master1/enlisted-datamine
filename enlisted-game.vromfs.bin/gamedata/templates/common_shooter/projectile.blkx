@@ -226,6 +226,7 @@ base_bomb_projectile{
   _extends:t="animchar"
   _extends:t="disable_ricochet"
   _extends:t="hud_bomb_marker"
+  projectile__destroyVel:r=0.0
   projectile__stopped:b=no
   projectile__exploded:b=no
   projectile__minLifeTime:r=4.0
@@ -378,6 +379,7 @@ ai_bomb_projectile{
   _extends:t="hud_bomb_marker"
   _extends:t="ai_bomb_projectile_sound"
   _extends:t="bomb_projectile_lifetime_sound"
+  projectile__destroyVel:r=0.0
   projectile__hasKv:b=no
   projectile__stopped:b=no
   projectile__exploded:b=no

@@ -14,7 +14,6 @@ fire_source_no_fx{
   visibilityRestrictionBottomOffset:r=-0.35
   destroy_underwater__nextCheckTime:r=0.0
   destroy_underwater__checkPeriod:r=1.0
-  _replicated:t="fire_source__startTime"
   fire_source__startTime:r=0.0
   dmgzone__maxRadius:r=1.45
   fire_source__effectScale:r=1.0
@@ -45,7 +44,6 @@ fire_source_no_fx{
 }
 
 fire_timings{
-  _replicated:t="fire_source__fullForceTime"
   fire_source__spreadTime:r=0.5
   fire_source__fullForceTime:r=20.0
   fire_source__maxFullForceTime:r=30.0

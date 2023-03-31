@@ -29,7 +29,7 @@ let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { selectArmy, objInfoByGuid } = require("%enlist/soldiers/model/state.nut")
+let { selectArmy } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
 let { setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
@@ -825,7 +825,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       let soldierCard = mkSoldierCard({
         stat = soldierStat
         awards = soldierAwards
-        info = collectSoldierPhoto(soldierData, null, objInfoByGuid.value, [], false)
+        info = collectSoldierPhoto(soldierData, null)
         animDelay = animDelay + soldierAnimDelay
         mkAppearAnimations = mkAppearAnimations
       })

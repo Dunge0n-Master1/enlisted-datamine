@@ -24,6 +24,7 @@ let squadTypeSvg = soldierKinds.map(@(c) c.icon)
       tank = "tank_icon.svg"
       aircraft = "aircraft_icon.svg"
       bike = "bike_icon.svg"
+      mech = "mech_icon.svg"
     })
   .map(@(key) $"ui/skin#{key}")
 
@@ -57,16 +58,18 @@ let mkKeyboardHint = @(keyBordKey, postKeyTxt = null){
   ]
 }
 
-let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier = true) {
+let function mkSquadSpawnDesc(canSpawnSquad, readiness, canSpawnSoldier, isAffordable, price, score) {
   if (canSpawnSquad == null || readiness == null)
     return mkTextArea(loc("respawn/squadNotChoosen"))
 
-  let descKeyId = !canSpawnSquad && readiness == 100 ? "respawn/squadNotParticipate"
+  let descKeyId = !canSpawnSquad && readiness == 100 && price <= 0 ? "respawn/squadNotParticipate"
+    : price > 0 && !isAffordable ? "respawn/notAffordableSubtext"
     : !canSpawnSquad ? "respawn/squadNotReady"
     : !canSpawnSoldier ? "respawn/soldierNotReady"
-    : readiness == 100 ? "respawn/squadReady"
-    : "respawn/squadPartiallyReady"
-  return mkTextArea(loc(descKeyId, { number = readiness }))
+    : readiness < 100 ? "respawn/squadPartiallyReady"
+    : price > 0 ? "respawn/squadReadyWithCost"
+    : "respawn/squadReady"
+  return mkTextArea(loc(descKeyId, { number = readiness, price, score }))
 }
 
 let mkSquadSpawnIcon = @(size = hdpxi(20))

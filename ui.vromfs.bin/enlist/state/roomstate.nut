@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let {DC_CONNECTION_LOST, DC_CONNECTION_CLOSED, EventOnNetworkDestroyed, EventOnConnectedToServer, EventOnDisconnectedFromServer} = require("net")
+let { DC_CONNECTION_CLOSED, EventOnNetworkDestroyed, EventOnConnectedToServer, EventOnDisconnectedFromServer} = require("net")
 let { DBGLEVEL } = require("dagor.system")
 let { logerr } = require("dagor.debug")
 let { system = null } = require_optional("system")
@@ -398,11 +398,10 @@ let function onDisconnectedFromServer(evt, _eid, _comp) {
   if (lastSessionStartData.value == null)
     return
 
-  local connLost = false
+  local connLost = true
   switch (evt?.last_client_dc ?? evt[0]) {
-    case DC_CONNECTION_LOST:
     case DC_CONNECTION_CLOSED:
-      connLost = true
+      connLost = false
   }
 
   let { sessionId, loginTime } = lastSessionStartData.value

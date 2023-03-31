@@ -63,6 +63,8 @@ let currentRespawnGroup = Computed(@() selectedRespawnGroupId.value?[canUseRespa
 
 let squadMemberIdForSpawn = mkWatched(persist, "squadMemberIdForSpawn", 0)
 let squadsRevivePoints = mkWatched(persist, "squadsRevivePoints", [])
+let squadsAffordability = mkWatched(persist, "squadsAffordability", [])
+let squadsScorePrice = mkWatched(persist, "squadsScorePrice", [])
 let soldierRevivePoints = mkWatched(persist, "soldierRevivePoints", [])
 let isSpectatorEnabled = mkWatched(persist, "isSpectatorEnabled", false)
 let maxSpawnVehiclesOnPointBySquad = mkWatched(persist, "maxSpawnVehiclesOnPointBySquad", [])
@@ -79,6 +81,8 @@ let showSquadSpawn = Computed(@() needSpawnMenu.value && !respawnsInBot.value)
 let timeToCanRespawn = mkCountdownTimerPerSec(canRespawnTime)
 let isSquadAvailableByTime = Watched([])
 let canSpawnOnVehicleBySquad = Computed(@() maxSpawnVehiclesOnPointBySquad.value.map(@(maxVehicles, k) maxVehicles == -1 && (isSquadAvailableByTime.value?[k] ?? true)))
+let spawnScoreActual = mkWatched(persist, "spawnScore", 0)
+let spawnScore = Computed(@() needSpawnMenu.value ? spawnScoreActual.value : 0) //we no need to recalc while not in the respawn screen.
 
 let function updateVehicleSpawnAvailableTimer(...) {
   let curTime = app.get_sync_time()
@@ -127,7 +131,9 @@ let squadsList = Computed(function(prev) {
       if ((squad?.battleExpBonus ?? 0) > 0)
         premIcon = premIcon ?? armiesPresentation?[armyId].premIcon
       let readinessPercent = squadsRevivePoints.value?[idx] ?? -1
-      local canSpawn = readinessPercent == 100
+      let isAffordable = squadsAffordability.value?[idx] ?? true
+      let scorePrice = squadsScorePrice.value[idx] ?? 0
+      local canSpawn = readinessPercent == 100 && isAffordable
       if (canSpawn) {
         if (squad?.curVehicle != null) {
           let { canUseRespawnbaseType = null, canUseRespawnbaseSubtypes = [] } = get_can_use_respawnbase_type(squad.curVehicle?.gametemplate)
@@ -155,6 +161,8 @@ let squadsList = Computed(function(prev) {
 
         canSpawn = canSpawn
         readinessPercent = readinessPercent
+        isAffordable
+        scorePrice
       }
     })
   }
@@ -400,6 +408,27 @@ ecs.register_es("squads_state_ui_es", {
   ]
 })
 
+ecs.register_es("respawn_affordability_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) equalUpdate(squadsAffordability, comp.squads__affordabilityList?.getAll() ?? [])
+}, {
+  comps_track = [["squads__affordabilityList", ecs.TYPE_BOOL_LIST]]
+  comps_rq = ["localPlayer"]
+})
+
+ecs.register_es("respawn_spawn_cost_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) equalUpdate(squadsScorePrice, comp?.respawner__scorePricePerSquad?.getAll() ?? [])
+}, {
+  comps_track = [["respawner__scorePricePerSquad", ecs.TYPE_INT_LIST]]
+  comps_rq = ["localPlayer"]
+})
+
+ecs.register_es("respawn_score_state_ui_es", {
+    [["onInit", "onChange"]] = @(_, comp) spawnScoreActual(comp.respawner__spawnScore)
+}, {
+  comps_track = [["respawner__spawnScore", ecs.TYPE_INT]]
+  comps_rq = ["localPlayer"]
+})
+
 ecs.register_es("solder_revive_points_state_ui_es", {
     [["onInit","onDestroy","onChange"]] = function(_evt, _eid, comp) {
       if (comp.is_local)
@@ -449,6 +478,7 @@ let state = {
   canSpawnCurrentSoldier
   soldiersList
   curSoldierIdx
+  spawnScore
   respawnBlockedReason
   // functions
   updateSpawnSquadId

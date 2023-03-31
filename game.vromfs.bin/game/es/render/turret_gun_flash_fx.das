@@ -72,9 +72,6 @@ def turret_gun_flash_fx_created_es(evt : Event;
       ]])
       continue
 
-    let fxType = get_type_by_name(fx)
-    prefetch_effect(fxType)
-
     push(turretGunFx, [[TurretGunFx
       turret_gun_fx__fxTemplate=fx,
       turret_gun_fx__nodeId=geomtree_findNodeIndex(*animchar.nodeTree, node)

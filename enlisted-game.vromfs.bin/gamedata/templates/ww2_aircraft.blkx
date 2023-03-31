@@ -1752,6 +1752,38 @@ p_47d_28_driver_cockpit{
   }
 }
 
+p_47m_1_re{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    node:t="m10_bazooka_0"
+    node:t="m10_bazooka_1"
+    node:t="pylon_bomb1"
+    node:t="pylon_bomb2"
+  }
+
+  "animchar__objTexReplace:object"{
+    "p_47m_1_re_bostwick_a*":t="p_47m_1_re_boxted_a*"
+    "p_47m_1_re_bostwick_n*":t="p_47m_1_re_boxted_n*"
+  }
+}
+
+p_47m_1_re_driver_cockpit{
+  _override:b=yes
+
+  "disableDMParts:list<t>"{
+    node:t="m10_bazooka_0"
+    node:t="m10_bazooka_1"
+    node:t="pylon_bomb1"
+    node:t="pylon_bomb2"
+  }
+
+  "animchar__objTexReplace:object"{
+    "p_47m_1_re_bostwick_a*":t="p_47m_1_re_boxted_a*"
+    "p_47m_1_re_bostwick_n*":t="p_47m_1_re_boxted_n*"
+  }
+}
+
 p_47d_22_re_joan_premium{
   _extends:t="p_47d_22_re"
 

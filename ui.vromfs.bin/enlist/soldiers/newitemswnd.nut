@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor
+  bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -120,22 +120,36 @@ let function soldierMedal(soldier) {
     : withTooltip(medal, @() loc("hero/medal"))
 }
 
-let curItemName = @(item) {
-  flow = FLOW_HORIZONTAL
-
-  gap = bigPadding
-  valign = ALIGN_CENTER
-  padding = [bigPadding, 0]
-  transform = {}
-  animations = textAnimations(ANIM_TEXT_TRIGGER)
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      size = SIZE_TO_CONTENT
-      text =  getObjectName(item)
-    }.__update(h2_txt)
-    soldierMedal(item)
-  ]
+let curItemName = function(item, armyInfoId) {
+  let belongingObject = (armyInfoId ?? "") == "" ? null
+    : {
+        rendObj = ROBJ_TEXT
+        text = loc($"{armyInfoId}/full")
+        color = warningColor
+      }.__update(body_txt)
+  return {
+    flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
+    children = [
+      {
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding
+        valign = ALIGN_CENTER
+        padding = [bigPadding, 0]
+        children = [
+          {
+            rendObj = ROBJ_TEXT
+            size = SIZE_TO_CONTENT
+            text =  getObjectName(item)
+          }.__update(h2_txt)
+          soldierMedal(item)
+        ]
+      }
+      belongingObject
+    ]
+    transform = {}
+    animations = textAnimations(ANIM_TEXT_TRIGGER)
+  }
 }
 
 let underline = {
@@ -223,7 +237,7 @@ let function newIemsWndContent() {
   if (itemsToShow == null)
     return null
 
-  let { itemsGuids, soldiersGuids, allItems, header } = itemsToShow
+  let { itemsGuids, soldiersGuids, allItems, header, armyByGuid } = itemsToShow
   justPurchasedItems(clone itemsGuids)
 
   let itemsCount = itemsGuids.len()
@@ -247,19 +261,20 @@ let function newIemsWndContent() {
       sound_play("ui/debriefing/new_equip")
     }
     isDisarmed = true
+    armyByGuid
   })
 
   animEndTime = get_time_msec() + 1000 * animBlock.totalTime
   let curItemValue = curItem.value
   let specialUnlockHeader =
     activeUnlocks.value?[specialUnlock.value].meta.congratulationLangId ?? ""
+
   return {
     watch = [newItemsToShow, curItem, specialUnlock, isAnimFinished]
     size = [sw(80), fsh(86)]
     flow = FLOW_VERTICAL
     gap = smallPadding
     halign = ALIGN_CENTER
-
     children = [
       {
         size = flex()
@@ -269,7 +284,7 @@ let function newIemsWndContent() {
         children = [
           title(specialUnlockHeader == "" ? header : specialUnlockHeader)
           underline
-          curItemName(curItemValue)
+          curItemName(curItemValue, armyByGuid?[curItemValue.guid])
           soldiersCount <= 0 || curItemValue?.itemtype != "soldier" ? null
             : {
                 rendObj = ROBJ_SOLID

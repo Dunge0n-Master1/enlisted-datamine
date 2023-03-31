@@ -8,6 +8,9 @@ ship_control_components{
   "vehicle_input_axes:list<r>"{
     _tags:t="input"
   }
+
+  "hasVehicleControl:tag"{
+  }
 }
 
 base_ship{
@@ -95,6 +98,30 @@ base_ship{
     _tags:t="gameClient"
   }
 
+  _group{
+    _tags:t="input"
+
+    "vehicle__steerTips:list<t>"{
+      tip:t="Vehicle.Brake"
+      tip:t="Vehicle.Accel"
+      tip:t="Vehicle.Steer"
+      tip:t="Vehicle.Throttle"
+      tip:t="Vehicle.Horn"
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "dependent_templates:ecs::TemplatesListToInstantiate"{
+    }
+
+    "dependent_templates_list_shared:shared:list<t>"{
+      template_name:t="vehicle_seat_fire_ready"
+      template_name:t="vehicle_seat_driver"
+    }
+  }
+
   "nonLethalExplodeOnFire:tag"{
   }
 
@@ -124,18 +151,6 @@ base_ship{
   "vehicle_seats__seatTemplates:shared:object"{
     default:t="vehicle_seat_fire_ready"
     driver:t="vehicle_seat_driver"
-  }
-
-  _group{
-    _tags:t="server"
-
-    "dependent_templates:ecs::TemplatesListToInstantiate"{
-    }
-
-    "dependent_templates_list_shared:shared:list<t>"{
-      template_name:t="vehicle_seat_fire_ready"
-      template_name:t="vehicle_seat_driver"
-    }
   }
 
   "last_driver:eid"{
@@ -221,13 +236,6 @@ civil_boat{
     _replicate:b=yes
     hitpoints__maxHp:r=250.0
     hitpoints__hp:r=250.0
-  }
-
-  _group{
-    _track:b=yes
-    vehicle_view__rpm:i=0
-    vehicle_view__speed:i=0
-    vehicle_view__fuelPct:r=0.0
   }
 
   _group{

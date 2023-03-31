@@ -293,7 +293,9 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
     ["squad__id"]             = [squadId, ecs.TYPE_INT],
     ["squad__ownerPlayer"]    = [playerEid, ecs.TYPE_EID],
     ["squad__respawnBaseEid"] = [spawnParams.baseEid, ecs.TYPE_EID],
-    ["squad__squadProfileId"] = [squadParams.squadProfileId, ecs.TYPE_STRING]
+    ["squad__squadProfileId"] = [squadParams.squadProfileId, ecs.TYPE_STRING],
+    ["squad__disableSquadRotation"] = [squadParams?.disableSquadRotation ?? false, ecs.TYPE_BOOL],
+    ["squad__revivePointsAfterDeath"] = [squadParams?.disableSquadRotation ? 100 : -1, ecs.TYPE_INT]
   },
   @(squadEid) cb(squad, spawnParams, squadParams.__merge({ squadEid = squadEid })))
 
@@ -370,8 +372,8 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
 }
 
 let function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
-                               squadProfileId = "", possessed = ecs.INVALID_ENTITY_ID) {
-  let squadParams = {team, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId}
+                               squadProfileId = "", disableSquadRotation = false, possessed = ecs.INVALID_ENTITY_ID) {
+  let squadParams = {team, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId, disableSquadRotation}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnVehicle)
 }
 

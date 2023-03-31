@@ -31,6 +31,17 @@ muzzle_ground_20mm{
   }
 }
 
+muzzle_ground_40mm_event{
+  _extends:t="turret_gun_flash_effect_base"
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_muzzle_20_60mm_cmps_fx"
+    effect__distance_scale:r=1.0
+    gun_flash_fx__scaleMultiplier:r=0.45
+  }
+}
+
 muzzle_ground_40mm_slow{
   _extends:t="turret_gun_flash_effect_base"
 

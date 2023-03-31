@@ -281,6 +281,9 @@ return freeze({
     usa_modern_inf_2 = genSquadUsa("usa_modern_inf_2")
     usa_modern_inf_3 = genSquadUsa("usa_modern_inf_3")
     usa_modern_tank_1 = genSquadUsa("usa_modern_tank_1")
+
+//mech event
+    usa_normandy_mech_1 = genSquadUsa("usa_normandy_mech_1")
   }
 
   normandy_axis = {
@@ -330,6 +333,9 @@ return freeze({
     ger_normandy_event_assault_1 = genSquadGer("ger_normandy_event_assault_1", {premIcon = ICON_EVENT})
     ger_normandy_prem_pilot_fighter_3 = genSquadGer("ger_normandy_prem_pilot_fighter_3")
     ger_normandy_prem_assault_5 = genSquadGer("ger_normandy_prem_assault_5")
+
+//mech event
+    ger_normandy_mech_1 = genSquadGer("ger_normandy_mech_1")
   }
 
   tunisia_allies = {
@@ -455,6 +461,9 @@ return freeze({
     allies_stalingrad_prem_assault_1 = genSquadUssr("allies_stalingrad_prem_assault_1")
     allies_stalingrad_prem_assault_1_ch = genSquadUssr("allies_stalingrad_prem_assault_1")
     allies_stalingrad_prem_tank_2 = genSquadUssr("allies_stalingrad_prem_tank_2")
+
+//mech event
+    allies_stalingrad_mech_1 = genSquadUssr("allies_stalingrad_mech_1")
   }
 
 
@@ -491,6 +500,9 @@ return freeze({
     axis_stalingrad_prem_assault_1 = genSquadGer("axis_stalingrad_prem_assault_1")
     axis_stalingrad_prem_assault_1_ch = genSquadGer("axis_stalingrad_prem_assault_1")
     axis_stalingrad_prem_tank_2 = genSquadGer("axis_stalingrad_prem_tank_2")
+
+//mech event
+    axis_stalingrad_mech_1 = genSquadGer("axis_stalingrad_mech_1")
   }
 
 

@@ -20,6 +20,7 @@ squad{
     squad__overlapMembersUpdate:r=0.3
     squad__id:i=-1
     squad__revivePointsAfterDeath:i=-1
+    squad__disableSquadRotation:b=no
     squad__isLeaderNeedsAmmo:b=no
 
     "squad__orderUseEntity:eid"{

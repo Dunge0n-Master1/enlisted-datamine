@@ -236,6 +236,18 @@ respVehicle{
   }
 }
 
+respMech{
+  _extends:t="respMotorcycle"
+
+  "respbase__addTemplatesOnSpawn:list<t>"{
+    _info:t="vehicle_added_templates"
+    add:t="destroy_inactive_vehicle"
+    add:t="vehicle_spawn_validation"
+    add:t="destroyOnDamageWithoutCrew"
+    add:t="vehicle_spawn_restriction"
+  }
+}
+
 respMotorcycle{
   _extends:t="respawnBase"
   _extends:t="replicating"

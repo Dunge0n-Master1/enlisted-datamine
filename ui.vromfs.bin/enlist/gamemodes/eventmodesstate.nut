@@ -60,7 +60,7 @@ let eventCustomProfile = Computed(@() eventCustomProfilePath.value != null
   ? loadJson($"%{eventCustomProfilePath.value}")
   : null)
 
-let eventCampaigns = Computed(@() selEvent.value?.campaigns ?? [])
+let eventCampaigns = Computed(@() selEvent.value?.campaignsToShow ?? [])
 
 let hasChoosedCampaign = Watched(false)
 

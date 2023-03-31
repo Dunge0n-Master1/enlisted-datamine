@@ -47,11 +47,11 @@ let canSpawnTeamSquads = @(team, playerSpawnCount)
       playerSpawnCount < comp["team__eachSquadMaxSpawns"])
   )
 
-let updateTeamScore = @(team, playerSpawnCount) teamSquadQueryPerform(team, function (_eid, comp) {
+let updateTeamScore = @(team, playerSpawnCount, squadCostMult) teamSquadQueryPerform(team, function (_eid, comp) {
   let membersCount = comp["team__memberEids"].len().tofloat()
   if (membersCount <= 0)
     return
-  local spawnCost = comp["team__squadSpawnCost"] / membersCount
+  local spawnCost = ((squadCostMult ?? 1) * comp.team__squadSpawnCost) / membersCount
   if (playerSpawnCount == 0)
     spawnCost *= comp["team__firstSpawnCostMul"]
 
@@ -78,8 +78,9 @@ let function rejectSpawn(reason, team, playerEid, comp) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function onSuccessfulSpawn(comp) {
-  updateTeamScore(comp.team, comp["squads__spawnCount"])
+let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal) {
+  updateTeamScore(comp.team, comp.squads__spawnCount, spawnCostTeamMult)
+  comp.respawner__spawnScore = comp.respawner__spawnScore - spawnCostPersonal
   comp["squads__spawnCount"]++
   comp["squads__squadsCanSpawn"] = canSpawnPlayerSquads(comp.team, comp["squads__spawnCount"])
   if (comp["scoring_player__firstSpawnTime"] <= 0.0)
@@ -283,6 +284,8 @@ let validateSpawnRotation = @(playerEid, squadId, memberId) respawnPointsQuery.p
   return squadRevivePoints == 100 && soldierRevivePoints == 100
 }) ?? true
 
+let validateSpawnCost = @(score, cost) cost <= 0 || score >= cost
+
 let noBotsModeQuery = ecs.SqQuery("noBotsModeQuery", {comps_rq=["noBotsMode"]})
 
 let isNoBotsMode = @() noBotsModeQuery.perform(@(...) true) ?? false
@@ -372,6 +375,7 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
     vehicle   = vehicle
     vehicleComps = vehicleComps
     squadProfileId = squadProfileId
+    disableSquadRotation = squadInfo?.disableSquadRotation
   })
 
   let spawnCtx = {
@@ -386,9 +390,17 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
   }
 
   let soldierId = squad?[memberId]?.id ?? -1
-  if (comp.shouldValidateSpawnRules && !validateSpawnRotation(eid, squadId, soldierId)) {
-    rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by spawn rotation rules", team, eid, comp)
-    return
+  let spawnCostPersonalScore = comp.respawner__scorePricePerSquad?[squadId] ?? 0
+  let personalScore = comp.respawner__spawnScore
+
+  if (comp.shouldValidateSpawnRules) {
+    if (!validateSpawnRotation(eid, squadId, soldierId)) {
+      rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by spawn rotation rules", team, eid, comp)
+      return
+    } else if (!validateSpawnCost(personalScore, spawnCostPersonalScore)) {
+      rejectSpawn($"Spawn squad {squadId} member {soldierId} is not allowed by score: cost {spawnCostPersonalScore} / score {personalScore}", team, eid, comp)
+      return
+    }
   }
 
   if (vehicle) {
@@ -397,10 +409,10 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
       nextSpawnTimeBySquad = comp.respawner__nextSpawnOnVehicleTimeBySquad
     })
     if (trySpawnVehicleSquad(spawnCtx, comp))
-      onSuccessfulSpawn(comp)
+      onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore)
   }
   else if (trySpawnSquad(spawnCtx, comp))
-    onSuccessfulSpawn(comp)
+    onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore)
 }
 
 let comps = {
@@ -417,6 +429,7 @@ let comps = {
     ["respawner__canRespawnTime", ecs.TYPE_FLOAT],
     ["respawner__canRespawnWaitNumber", ecs.TYPE_INT],
     ["respawner__enabled", ecs.TYPE_BOOL],
+    ["respawner__spawnScore", ecs.TYPE_INT],
   ]
 
   comps_ro = [
@@ -427,7 +440,8 @@ let comps = {
     ["army", ecs.TYPE_STRING],
     ["scoring_player__firstSpawnTime", ecs.TYPE_FLOAT],
     ["shouldValidateSpawnRules", ecs.TYPE_BOOL],
-    ["playerIsBot", ecs.TYPE_TAG, null]
+    ["playerIsBot", ecs.TYPE_TAG, null],
+    ["respawner__scorePricePerSquad", ecs.TYPE_INT_LIST, null],
   ]
 }
 

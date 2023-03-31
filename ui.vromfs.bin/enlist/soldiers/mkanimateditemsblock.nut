@@ -2,7 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let {bigPadding, unitSize, slotBaseSize, listCtors, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let {
+  bigPadding, unitSize, slotBaseSize, listCtors, smallPadding, warningColor
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { bgColor, txtColor } = listCtors
 let {gray} = require("%ui/components/std.nut")
 let dtxt = require("%ui/components/text.nut").dtext
@@ -145,33 +147,49 @@ let mkItemByTypeMap = {
   }
 }
 
+let alertIconSize = hdpxi(16)
+
+let alertIconObject = {
+  padding = smallPadding
+  margin = smallPadding
+  rendObj = ROBJ_SOLID
+  color = warningColor
+  children = {
+    size = [alertIconSize, alertIconSize]
+    rendObj = ROBJ_IMAGE
+    image = Picture("!ui/uiskin/campaign/change_campaing.svg:{0}:{0}:K".subst(alertIconSize))
+  }
+}
+
 let function mkItemExt(item, params) {
+  let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
+
   let ctor = mkItemByTypeMap?[item?.itemtype]
-  let ctorAddParams = ctor == null ? {}
-    : { isDisarmed = params?.isDisarmed }
+  let itemObject = (ctor ?? mkItem)({
+    item = item
+    onClickCb = onItemClick != null ? @(...) onItemClick(item) : null
+    itemSize = getItemSize(item?.itemtype)
+    canDrag = false
+    isInteractive = onItemClick != null
+    pauseTooltip = pauseTooltip ?? Watched(false)
+  }.__update(ctor == null ? {} : { isDisarmed }))
+  let campObject = item.guid in armyByGuid ? alertIconObject : null
+
   animDelay += ITEM_DELAY
   return {
-    transform = {}
     key = item?.guid ?? item
-    animations = params.hasAnim ? [
+    children = [ itemObject, campObject ]
+    transform = {}
+    animations = hasAnim ? [
       { prop = AnimProp.opacity,                      from = 0, to = 0, duration = animDelay,
         play = true, easing = InOutCubic, trigger = trigger + SKIP_ANIM_POSTFIX }
       { prop = AnimProp.opacity,   delay = animDelay, from = 0, to = 1, duration = 0.4,
-        play = true, easing = InOutCubic, trigger = trigger, onFinish = params.onVisibleCb}
+        play = true, easing = InOutCubic, trigger = trigger, onFinish = onVisibleCb}
       { prop = AnimProp.scale,     delay = animDelay, from = [1.5, 2], to = [1, 1], duration = 0.5,
         play = true, easing = InOutCubic, trigger = trigger }
       { prop = AnimProp.translate, delay = animDelay, from = [sh(40), -sh(20)], to = [0, 0], duration = 0.5,
         play = true, easing = OutCubic, trigger = trigger }
     ] : []
-
-    children = (ctor ?? mkItem)({
-      item = item
-      onClickCb = params?.onItemClick ? @(...) params.onItemClick(item) : null
-      itemSize = getItemSize(item?.itemtype)
-      canDrag = false
-      isInteractive = params?.onItemClick ? true : false
-      pauseTooltip = params?.pauseTooltip ?? Watched(false)
-    }.__update(ctorAddParams))
   }
 }
 
@@ -180,7 +198,7 @@ let function blockContent(items, columnsAmount, params) {
   let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * bigPadding
   return {
     flow = FLOW_HORIZONTAL
-    children = wrap (items.map(@(item) mkItemExt(item, params)), {
+    children = wrap(items.map(@(item) mkItemExt(item, params)), {
       width = containerWidth
       hGap = bigPadding
       vGap = bigPadding
@@ -194,9 +212,12 @@ let function itemsBlock(items, blockId, params) {
   if (!items.len())
     return null
 
+  let { hasItemTypeTitle, width } = params
+  let viewBlockId = hasItemTypeTitle ? blockId : null
+
   let itemSize = getItemSize(items?[0].itemtype)
-  let columnsAmount = params.width != null
-    ? ((params.width - (params.width / itemSize[0] - 1).tointeger() * bigPadding) / itemSize[0]).tointeger()
+  let columnsAmount = width != null
+    ? ((width - (width / itemSize[0] - 1).tointeger() * bigPadding) / itemSize[0]).tointeger()
     : max(minColumns, calc_golden_ratio_columns(items.len(), itemSize[0] / itemSize[1]))
 
   return {
@@ -204,8 +225,7 @@ let function itemsBlock(items, blockId, params) {
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     gap = bigPadding
-
-    children = (blockId ? [blockTitle(blockId, params)] : [])
+    children = (viewBlockId ? [blockTitle(viewBlockId, params)] : [])
       .append(blockContent(items, columnsAmount, params))
   }
 }
@@ -236,12 +256,20 @@ let ITEMS_REWARDS_PARAMS = {
   onVisibleCb = null
   width = null
   onItemClick = null
+  armyByGuid = {}
+  isDisarmed = false
+  pauseTooltip = null
 }
 
-local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
+let function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
   params = ITEMS_REWARDS_PARAMS.__merge(params)
-  animDelay = params.baseAnimDelay
-  trigger = params.animTrigger
+
+  let {
+    baseAnimDelay, animTrigger, hasAnim, titleText, addChildren
+  } = params
+
+  animDelay = baseAnimDelay
+  trigger = animTrigger
   let underline = {
     rendObj = ROBJ_FRAME
     size = [pw(80), 1]
@@ -249,7 +277,7 @@ local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
     borderWidth = [0, 0, 1, 0]
     color = Color(100, 100, 100, 50)
     transform = {}
-    animations = params.hasAnim ? [
+    animations = hasAnim ? [
       { prop = AnimProp.scale, from = [0, 1], to = [0, 1], duration = 0.2,
         play = true, easing = InOutCubic, trigger = trigger }
       { prop = AnimProp.scale, delay = 0.2 from = [0, 1], to = [1, 1], duration = 1,
@@ -260,9 +288,9 @@ local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
   let blocks = itemBlocks.keys()
 
   let children = []
-  if (params.titleText.len())
+  if (titleText.len())
     children.append(
-      dropTitle(params.titleText)
+      dropTitle(titleText)
       underline
     )
   else
@@ -271,13 +299,15 @@ local function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
   children.append({
     flow = FLOW_VERTICAL
     gap = bigPadding
-    children = blocks.map(@(blockId) itemsBlock(itemBlocks[blockId], params.hasItemTypeTitle ? blockId : null, params))
+    children = blocks.map(@(blockId)
+      itemsBlock(itemBlocks[blockId], blockId, params)
+    )
   })
 
-  children.extend(params.addChildren.map(@(comp) appearAnim(comp, params.hasAnim)))
+  children.extend(addChildren.map(@(comp) appearAnim(comp, hasAnim)))
 
   return {
-    totalTime = params.hasAnim ? animDelay : 0
+    totalTime = hasAnim ? animDelay : 0
     component = {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL

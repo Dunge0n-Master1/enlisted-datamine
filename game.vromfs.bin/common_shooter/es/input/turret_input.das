@@ -251,8 +251,11 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
     return
 
   var isShootingPassenger = false
-  query() <| $ [es(REQUIRE=hero)] (human_vehicle__isShootingPassenger : bool)
+  var humanInputAim = int(BAD_ACTION_HANDLE)
+  query() <| $ [es(REQUIRE=hero)] (human_vehicle__isShootingPassenger : bool;
+                                   human_input__aim : int)
     isShootingPassenger = human_vehicle__isShootingPassenger
+    humanInputAim = human_input__aim
 
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int;
@@ -264,8 +267,9 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
       elif turret__triggerGroup == TRIGGER_MG
         turret_input__shootFlag = get_action_state_or(uint16(vehicle_input__shootMachinegun), turret_input__shootFlag)
 
-  var aAim = get_analog_stick_action_state(uint16(vehicle_input__aim))
-  let touchAim = get_stick_value(uint16(vehicle_input__aim))
+  let inputAim = uint16(isShootingPassenger ? humanInputAim : vehicle_input__aim)
+  var aAim = get_analog_stick_action_state(inputAim)
+  let touchAim = get_stick_value(inputAim)
   aAim.x = clamp(aAim.x + touchAim.x, -1.0, 1.0)
   aAim.y = clamp(aAim.y + touchAim.y, -1.0, 1.0)
   assume sens_scale = get_sens_scale()

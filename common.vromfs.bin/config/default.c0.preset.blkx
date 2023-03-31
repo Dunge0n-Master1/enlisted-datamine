@@ -591,6 +591,33 @@ Inventory.UseFlask{
   type:i=1
 }
 
+Mech.Strafe{
+  dev:i=31
+  zone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+
+  minBtn{
+    dev:i=1
+    btn:i=18
+  }
+
+  maxBtn{
+    dev:i=1
+    btn:i=16
+  }
+}
+
+Mech.ShootSecondary{
+  dev:i=1
+  btn:i=19
+}
+
+Mech.ShootFlamethrower{
+  dev:i=1
+  btn:i=34
+}
+
 Vehicle.Shoot{
   dev:i=2
   btn:i=0

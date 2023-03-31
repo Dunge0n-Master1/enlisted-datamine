@@ -69,6 +69,7 @@ let newStats = @() {
   time = 0.0 // float
   spawnTime = -1.0 // float
   score = 0
+  squadId = null
 }
 
 let soldierStatsQuery = ecs.SqQuery("soldierStatsQuery", { comps_rw = [["soldierStats", ecs.TYPE_OBJECT]] })
@@ -88,6 +89,8 @@ let function listSquadPlayer(squadEid) {
   playersSquads[squadEid] <- ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? ecs.INVALID_ENTITY_ID
 }
 
+let getSquadIdQuery = ecs.SqQuery("getSquadIdQuery", { comps_ro = [["squad__id", ecs.TYPE_INT]] })
+
 let function onMemberCreated(_evt, _eid, comp) {
   let guid = comp["guid"]
   if (!guid || !guid.len())
@@ -97,6 +100,7 @@ let function onMemberCreated(_evt, _eid, comp) {
   let data = getMemberData(comp["squad_member__playerEid"], guid)
   data.spawns++
   data.spawnTime = get_sync_time()
+  data.squadId = getSquadIdQuery(comp.squad_member__squad, @(_, c) c.squad__id)
   logBR("onMemberCreated ", comp["squad_member__playerEid"], guid)
 }
 
@@ -133,8 +137,10 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
   comps_ro=[
     ["possessed", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
     ["connid", ecs.TYPE_INT, INVALID_CONNECTION_ID],
+    ["respawner__spawnScoreGainMultBySquad", ecs.TYPE_FLOAT_LIST],
   ],
   comps_rw=[
+    ["respawner__spawnScore", ecs.TYPE_INT],
     ["scoring_player__kills", ecs.TYPE_INT],
     ["scoring_player__tankKills", ecs.TYPE_INT],
     ["scoring_player__planeKills", ecs.TYPE_INT],
@@ -208,6 +214,7 @@ let squadStatsFilter = {
 let function onSquadMembersStats(evt, _, __) {
   let awardsByPlayer = {}
   let awardsByGuid = {}
+  let awardsByPlayerSquad = {}
   foreach (data in evt.data.list) {
     local { stat, playerEid = ecs.INVALID_ENTITY_ID, squadEid = ecs.INVALID_ENTITY_ID, guid = "", eid = ecs.INVALID_ENTITY_ID, amount = 1
     } = data
@@ -232,6 +239,13 @@ let function onSquadMembersStats(evt, _, __) {
     if (!(guid in awardsByGuid))
       awardsByGuid[guid] <- {}
     awardsByGuid[guid][stat] <- (awardsByGuid[guid]?[stat] ?? 0) + amount
+    if (mData?.squadId != null) {
+      if (!(playerEid in awardsByPlayerSquad))
+        awardsByPlayerSquad[playerEid] <- {}
+      if (!(mData.squadId in awardsByPlayerSquad[playerEid]))
+        awardsByPlayerSquad[playerEid][mData.squadId] <- {}
+      awardsByPlayerSquad[playerEid][mData.squadId][stat] <- (awardsByPlayerSquad[playerEid][mData.squadId]?[stat] ?? 0) + amount
+    }
   }
   let isNoBots = isNoBotsMode()
   awardsByPlayer.each(@(playerStats, playerEid)
@@ -240,6 +254,15 @@ let function onSquadMembersStats(evt, _, __) {
         let statCompName = $"scoring_player__{stat}"
         if (statCompName in playerComps)
           playerComps[statCompName] += increment
+      })
+      let playerSquadStats = (awardsByPlayerSquad?[playerEid] ?? {})
+      playerSquadStats.each(function(stats, squadId) {
+        stats.each(function(increment, stat){
+          let squadSpawnScoreMult = playerComps.respawner__spawnScoreGainMultBySquad?[squadId] ?? 1.0
+          let statScore = getScore(stat, isNoBots)
+          if (statScore > 0 && increment > 0)
+            playerComps.respawner__spawnScore += increment * statScore * squadSpawnScoreMult
+        })
       })
       let personalStats = (getSoldierInfoQuery(playerComps.possessed, @(_, comp) awardsByGuid?[comp.guid]) ?? {})
       let squadStats = playerStats.filter(@(_, stat) stat in squadStatsFilter)

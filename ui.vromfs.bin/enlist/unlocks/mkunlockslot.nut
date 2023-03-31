@@ -45,7 +45,7 @@ let function mkAllRewardsIcons(stageData, isFinished) {
 
 let function mkTaskRewards(unlockDesc, isAllRewardsVisible = false, rewardsAnim = null) {
   local children
-  let { personalData = {} } = unlockDesc
+  let { personalData = {}, periodic = false } = unlockDesc
   let { rewards = null, boosterRewards = null } = personalData
   let { items = {} } = boosterRewards
   if (rewards != null)
@@ -57,6 +57,7 @@ let function mkTaskRewards(unlockDesc, isAllRewardsVisible = false, rewardsAnim 
       stage, lastRewardedStage, isFinished, hasReward, stages = []
     } = unlockDesc
     let actualStage = isFinished ? stages.len() - 1
+      : periodic ? 0
       : hasReward ? lastRewardedStage
       : stage
     let stageData = stages?[actualStage].rewards

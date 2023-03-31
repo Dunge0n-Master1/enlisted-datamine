@@ -3,3 +3,6 @@ import:t="#content/enlisted_extra/gamedata/gen/templates/gen_ww2_tankguns_common
 import:t="tanks/gm_e_99.blk"
 import:t="tanks/rasf_object_972.blk"
 import:t="tanks/usmp_hamster.blk"
+import:t="aprilfools_2023/ger_mbm_trixter.blk"
+import:t="aprilfools_2023/us_lbm_bulldog.blk"
+import:t="aprilfools_2023/ussr_mbm_victor.blk"

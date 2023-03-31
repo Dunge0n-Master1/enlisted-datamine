@@ -7933,7 +7933,7 @@ lad_mg{
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.15
   gun__shotFreq:r=10.0
-  gun_spread__maxDeltaAngle:r=0.87
+  gun_spread__maxDeltaAngle:r=0.55
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.07, 0.5
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -7988,6 +7988,9 @@ lad_mg_gun{
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.9, 0.9, 0.9
   gun__crawlRecoilMult:r=0.8
+  gun_anim_var__fpsGunOffsetAlong:r=0.16
+  gun_anim_var__fpsGunOffsetAcross:r=0.02
+  gun_anim_var__fpsGunOffsetUp:r=0.015
 
   _group{
     _tags:t="sound"
@@ -25735,6 +25738,9 @@ coenders_mp_gun{
   gun__recoilControlMult:r=0.3
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.9, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=0.15
+  gun_anim_var__fpsGunOffsetAcross:r=0.02
+  gun_anim_var__fpsGunOffsetUp:r=0.02
 
   _group{
     _tags:t="sound"

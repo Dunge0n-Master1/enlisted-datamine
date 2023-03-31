@@ -1,0 +1,592 @@
+mbm_victor_sound{
+  _extends:t="mech_sound"
+
+  _group{
+    _tags:t="sound"
+
+    "vehicle_horn_sound__path:shared:object"{
+      path:t="events/mh/enemy/vehicle/01/horn"
+    }
+  }
+}
+
+base_ussr_mbm_victor{
+  _extends:t="base_xray"
+  _extends:t="base_vehicle_common"
+  _extends:t="base_mech_turret_mapping"
+  _extends:t="mech_kill_award"
+  _extends:t="base_mech_xray_limbs_hider"
+  _extends:t="vehicle_marker_ui"
+  _extends:t="hud_vehicle_marker"
+  _extends:t="base_cannon_no_phys"
+  _extends:t="base_turret_controls"
+  _extends:t="mech_cockpit"
+  _extends:t="mech_seat_controls"
+  _extends:t="mech_camera_setup"
+  _extends:t="mbm_victor_sound"
+  gunner_cam_limit__useCockpitDir:b=yes
+  destroyIfNoCrewLeft:b=yes
+  vehicle__mapIcon:t="mech_icon"
+  user_point__icon:t="mech_icon"
+  vehicle_seats__restrictToTeam:i=-1
+  vehicle_seats__autoDetectRestrictToTeam:b=yes
+  vehicle_seats__enterTime:r=3.0
+  vehicle_seats__exitTime:r=4.0
+  canUseRespawnbaseType:t="motorcycle"
+  netLodZones:p4=2500.0, 22500.0, 62500.0, 6250000.0
+  team:i=0
+  camera__isStabilized:b=yes
+  pair_collision__tag:t="collidableToVehicle"
+  killLogName:t="ussr_mbm_victor"
+  animchar__res:t="ussr_mbm_victor_char"
+  collres__res:t="ussr_mbm_victor_collision"
+  walker_net_phys__blk:t="content/enlisted_extra/gamedata/units/mechs/ussr_mbm_victor.blk"
+  damage_model__blk:t="content/enlisted_extra/gamedata/units/mechs/ussr_mbm_victor.blk"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="ussr_mbm_victor_dmg_char"
+  xray_resource__modelName:t="ussr_mbm_victor"
+  dmg_animchar__renderable:b=no
+  _tracked:t="dmg_animchar__renderable"
+  hitmarks__showUserHits:b=no
+  drowningHeight:r=2.0
+  item__name:t="items/ussr_mbm_victor"
+
+  "phys__hasCustomMoveLogic:tag"{
+  }
+
+  _group{
+    _tags:t="gameClient"
+    dm_panel__redrawInterval:r=1.0
+    dm_panel__redrawAtTime:r=0.0
+
+    "dm_panel__turretNodeNames:list<t>"{
+      node:t="bone_turret"
+      node:t="bone_turret_01"
+      node:t="bone_turret_02"
+      node:t="bone_turret_03"
+      node:t="bone_turret_04"
+      node:t="bone_turret_05"
+      node:t="bone_turret_06"
+    }
+  }
+
+  _group{
+    _tags:t="input"
+    vehicle__steerTipDuration:r=-1.0
+
+    "vehicle__steerTips:list<t>"{
+      tip:t="Mech.Strafe"
+      tip:t="Vehicle.Brake"
+      tip:t="Vehicle.Accel"
+      tip:t="Vehicle.Steer"
+      tip:t="Vehicle.Throttle"
+      tip:t="Vehicle.Horn"
+    }
+  }
+
+  _group{
+    _tags:t="render"
+
+    "visual_dmg_remap__partIdToNodeIdMain:list<i>"{
+    }
+
+    "visual_dmg_remap__partIdToNodeIdDmg:list<i>"{
+    }
+
+    "visual_dmg_remap__partIdToNodeIdDstr:list<i>"{
+    }
+
+    "visual_dmg_remap__collNodeIdToNodeIdMain:list<i>"{
+    }
+
+    "visual_dmg_remap__collNodeIdToNodeIdDmg:list<i>"{
+    }
+
+    "visual_dmg_remap__collNodeIdToNodeIdDstr:list<i>"{
+    }
+  }
+
+  "dm_phys_parts__transmission:array"{
+  }
+
+  "dm_phys_parts__tracks:array"{
+  }
+
+  cockpit_animchar_res_preload{
+    _tags:t="gameClient"
+  }
+
+  "turrets__initAmmoDistribution:array"{
+
+    "ammo:object"{
+      slot:i=0
+      fill:b=yes
+    }
+
+    "ammo:object"{
+      slot:i=1
+      fill:b=yes
+    }
+  }
+
+  "vehicle_seats_receive_damage_from_dm_part:list<i>"{
+  }
+
+  "isTank:tag"{
+  }
+
+  "walker_phys__chainIk:tag"{
+  }
+
+  "ownedBySquad:eid"{
+  }
+
+  "ownedByPlayer:eid"{
+  }
+
+  "vehicleOffenders:object"{
+    _tags:t="server"
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  "collidableToVehicle:tag"{
+  }
+
+  "collidableToShip:tag"{
+  }
+
+  "collidableToPlane:tag"{
+  }
+
+  "collidableToPhysObj:tag"{
+  }
+
+  capsule_approximation{
+  }
+
+  "capsule_approximation__nodeNames:array"{
+  }
+
+  "capsule_approximation__complexNodeNames:array"{
+  }
+
+  walker_net_phys{
+  }
+
+  dmg_animchar{
+    _tags:t="render"
+  }
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+    node:t="emtr_flamethrower_a"
+    node:t="emtr_flamethrower_b"
+    node:t="emtr_flamethrower_c"
+    node:t="emtr_flamethrower_d"
+    node:t=""
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_40mm_event"
+    fx:t="muzzle_ground_8mm"
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+    fx:t=""
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_twin_01"
+    node:t="emtr_flamethrower_a"
+    node:t="emtr_flamethrower_b"
+    node:t="emtr_flamethrower_c"
+    node:t="emtr_flamethrower_d"
+    node:t="bone_gun"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_08_yaw"
+      curPitchParamName:t="gun_08_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="mbm_victor_turret_85mm_d5t_01+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="ussr_mbm_victor_turret_02_7_62mm_dt"
+      barrelDm:t="gun_barrel_03"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretGroup:t="flamethrower_turrets"
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      gun:t="mbm_trixter_flamethrower_a+turret_with_several_types_of_shells"
+      salt:i=1
+      trigger:t="flamethrower_turrets"
+    }
+
+    "turretInfo:object"{
+      turretGroup:t="flamethrower_turrets"
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      gun:t="mbm_trixter_flamethrower_b+turret_with_several_types_of_shells"
+      salt:i=1
+      trigger:t="flamethrower_turrets"
+    }
+
+    "turretInfo:object"{
+      turretGroup:t="flamethrower_turrets"
+      needsAssignedGunner:b=no
+      turretName:t="turret_05"
+      gun:t="mbm_trixter_flamethrower_c+turret_with_several_types_of_shells"
+      salt:i=1
+      trigger:t="flamethrower_turrets"
+    }
+
+    "turretInfo:object"{
+      turretGroup:t="flamethrower_turrets"
+      turretName:t="turret_06"
+      needsAssignedGunner:b=no
+      gun:t="mbm_trixter_flamethrower_d+turret_with_several_types_of_shells"
+      salt:i=1
+      trigger:t="flamethrower_turrets"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      gun:t="mbm_victor_turret_rocket"
+      trigger:t="rockets"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      barrelDm:t="rocket_turret"
+    }
+  }
+}
+
+mbm_victor_turret_rocket{
+  _extends:t="base_tank_rocket_gun"
+  _extends:t="reloadable_turret"
+  _extends:t="mech_turret_rocket_base"
+  gun__blk:t="content/enlisted/gamedata/weapons/bm_8_24/m_8_launcher.blk"
+  gun__projectileTemplate:t="victor_rocket_projectile"
+  gun__projectileDebugTemplate:t="victor_rocket_projectile+bomb_projectile_debug"
+  item__name:t="guns/82mm_M8_rocket_launcher"
+  gun__locName:t="82mm_M8_rocket_launcher"
+  gun__shootNodeItemTemplate:t="victor_rocket_item"
+  gun__reloadTime:r=17.0
+  gun__maxAmmo:i=12
+  gun__ammo:i=12
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="content/enlisted/gamedata/weapons/shells/m_8_rocket_bm_8_24.blk"
+        name:t="82mm_M8_rocket_launcher"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=120
+  }
+}
+
+victor_rocket_item{
+  _extends:t="base_tank_rocket_item"
+  animchar__res:t="m_8_rocket_char"
+}
+
+victor_rocket_projectile{
+  _extends:t="base_mech_projectile"
+  animchar__res:t="m_8_rocket_char"
+}
+
+mbm_victor_turret_85mm_d5t_01{
+  _extends:t="mbm_victor_turret_85mm_d5t"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__triggerGroup:i=0
+  turret__yawSpeed:r=45.0
+  turret__pitchSpeed:r=45.0
+  turret__limit:p4=-180.0, 180.0, -15.5, 45.0
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "defaultSet:array"{
+
+      "shell:object"{
+        blk:t="gamedata/gen/weapons/shells/75mm_m6_75mm_usa_apcr_m.blk"
+        name:t="75mm_t45"
+        type:t="apcr_tank"
+      }
+    }
+  }
+}
+
+mbm_victor_turret_85mm_d5t{
+  _extends:t="tankgun"
+  _extends:t="base_tankgun_machinegun"
+  _extends:t="gunsound_85mm_d5t"
+  turret__aimNodeName:t="bone_turret"
+  gun__shotFreq:r=0.85
+  gun__reloadTime:r=5.0
+  gun__maxAmmo:i=10
+  item__name:t="guns/85mm_d5t"
+  gun__blk:t="gamedata/gen/weapons/85mm_d5t.blk"
+  gun__locName:t="85mm_d5t"
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="automatic"
+    }
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=200
+  }
+}
+
+ussr_mbm_victor_turret_02_7_62mm_dt{
+  _extends:t="tankgun_7_62mm_dt"
+  gun__shootNodeName:t="bone_mg_twin_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=630
+  }
+}
+
+ussr_mbm_victor{
+  _extends:t="base_ussr_mbm_victor"
+  drowningHeight:r=4.0
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraOffset:p3=0.15, -0.0, -0.0
+      cockpitTemplate:t="ussr_mbm_victor_driver_cockpit"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.3, 0.28, 0.13]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="ussr_mbm_victor_gunner_cockpit"
+      hatchRotationAxis:p3=1.8, 0.0, 0.0
+      maxPosWithOpenHatch:r=0.4
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "hatchNodes:array"{
+        node:t="hatch_05"
+        node:t="hatch_06"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/commander"
+      attachNode:t="commander"
+      shouldHideOwner:b=yes
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.1, -0.14]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="commander"
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+    }
+  }
+}
+
+ussr_mbm_victor_driver_cockpit{
+  _extends:t="base_driver_cockpit_no_slits"
+  animchar__res:t="pzkpfw_iii_p_driver_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__minZoom:r=-0.1
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.0211287, 1.04949, -0.10341
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.02
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="emtr_lantern_01"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+}
+
+ussr_mbm_victor_gunner_cockpit{
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="pzkpfw_iii_p_gunner_char"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_bm_rocket_sight.blk"
+  cockpit__offset:p3=1.0, 0.01, 0.15
+  cockpit__minZoom:r=-0.02
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.01
+  }
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-1.1, 0.0, 0.2
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+  }
+}

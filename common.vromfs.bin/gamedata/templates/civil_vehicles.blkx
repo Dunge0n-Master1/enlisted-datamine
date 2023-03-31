@@ -40,12 +40,18 @@ walker_hero_components{
 }
 
 walker_control_components{
+
+  "hasVehicleControl:tag"{
+  }
 }
 
 vehicle_control_components{
 
   "vehicle_input_axes:list<r>"{
     _tags:t="input"
+  }
+
+  "hasVehicleControl:tag"{
   }
 }
 
@@ -70,6 +76,9 @@ phys_obj_control_components{
 
   "vehicle_input_axes:list<r>"{
     _tags:t="input"
+  }
+
+  "hasVehicleControl:tag"{
   }
 }
 
@@ -487,16 +496,16 @@ vehicle_no_ai{
   grid_obj{
   }
 
-  _group{
-    _track:b=yes
-    vehicle_view__gear:i=0
-    vehicle_view__neutralGear:i=0
-    vehicle_view__rpm:i=0
-    vehicle_view__cruiseControl:i=0
-    vehicle_view__speed:i=0
-    vehicle_view__fuelPct:r=0.0
-    vehicle_view__isHandBraking:b=no
-    vehicle_view__isAutomaticTransmission:b=yes
+  "setCameraDirByHero:tag"{
+  }
+
+  collres{
+  }
+
+  phys_vars{
+  }
+
+  vehicle_net_phys{
   }
 
   _group{
@@ -531,18 +540,6 @@ vehicle_no_ai{
     _tags:t="render"
     dm_panel__prevLod:i=-1
     dm_panel__outlineResolutionScale:r=1.0
-  }
-
-  "setCameraDirByHero:tag"{
-  }
-
-  collres{
-  }
-
-  phys_vars{
-  }
-
-  vehicle_net_phys{
   }
 
   pair_collision__gridHolders{

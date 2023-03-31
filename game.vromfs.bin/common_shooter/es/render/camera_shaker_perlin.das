@@ -10,6 +10,7 @@ require EnlistedDm
 require HumanPhys
 require EnlistedHuman
 require DaWeapons
+require enlisted.events_enlisted
 require common_shooter.es.render.camera_shaker_common
 require common_shooter.events_common_shooter
 
@@ -34,6 +35,25 @@ def camera_shaker_perlin_add_trauma_by_distance(evt : CmdAddCameraTraumaByDistan
     let maxDistSq = square(evt.maxDistance)
     let maxTrauma = cvt(maxDistSq - distanceSq, 0.f, maxDistSq, 0.f, evt.maxTrauma)
     camera_shaker__trauma = calc_trauma(camera_shaker__trauma, evt.addTrauma, maxTrauma)
+
+
+[es(tag=gameClient)]
+def step_shake_camera_es(evt : EventStepShakeCamera;
+                         transform : float3x4&;
+                         camera__target : EntityId;
+                         camera__active : bool&;
+                         bindToVehicle : bool = false;
+                         var camera_shaker__trauma : float&)
+  if !camera__active || bindToVehicle || get_bool(camera__target, "isInVehicle") ?? false
+    return
+  let pos = evt.position
+  let distance = length(pos - transform[3])
+  let maxDistance = evt.max_distance
+  if distance < maxDistance
+    let maxPower = evt.wish_shake
+    let shakePower = cvt(distance, 0.f, maxDistance, maxPower, 0.f)
+    camera_shaker__trauma = shakePower
+
 
 [es(tag=gameClient)]
 def camera_shaker_perlin_punch(evt : CmdCameraPunch;

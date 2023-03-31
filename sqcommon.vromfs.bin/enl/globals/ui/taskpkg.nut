@@ -236,14 +236,19 @@ let function mkEmblemQty(unlockDesc) {
       }.__update(tiny_txt)
 }
 
+
 let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true) {
-  let { lastRewardedStage = 0, stages = [] } = unlockDesc
-  let { hasReward=false, current, required } = progress
+  let { lastRewardedStage = 0, stages = [], periodic = false } = unlockDesc
+  let { hasReward = false, current, required } = progress
   let emblemImg = getTaskEmblemImg(unlockDesc, current >= required)
   let passedProgress = lastRewardedStage <= 0 ? 0
     : stages?[lastRewardedStage - 1].progress ?? 0
   let curStageCurrent = current - passedProgress
   let curStageRequired = required - passedProgress
+  let progBarValue = hasReward ? 1
+    : !periodic && curStageRequired > 0 ? curStageCurrent.tofloat() / curStageRequired
+    : 0
+
   return emblemImg == "" ? null
     : {
         size = [EMBLEM_SIZE + bigPadding * 2, SIZE_TO_CONTENT]
@@ -259,9 +264,7 @@ let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true) {
             ]
           }
           progressBar({
-            value = hasReward ? 1
-              : curStageRequired > 0 ? curStageCurrent.tofloat() / curStageRequired
-              : 0
+            value = progBarValue
             color = taskProgressColor
             bgColor = taskDefColor
             customStyle = { borderWidth = 0 }

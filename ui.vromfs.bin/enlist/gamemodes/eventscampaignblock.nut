@@ -218,7 +218,7 @@ let lobbyCampaignBlock = watchElemState(@(sf){
   padding = [0, localGap]
   children = [
     campaignsCount.value < 2 || hasChoosedCampaign.value ? null : mkText(loc("army/selectNew"), defTxtColor, sub_txt)
-      @(){
+    @(){
         watch = [curCampaign, gameProfile]
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
@@ -229,13 +229,11 @@ let lobbyCampaignBlock = watchElemState(@(sf){
           text = loc(gameProfile.value?.campaigns[curCampaign.value]?.title ?? curCampaign.value)
           animations = mkBlinkAnim("campaign_blink")
         }.__update(body_txt)
-      }
+    }
   ]
 })
 
-let function closeCb() {
-  removeModalWindow(WND_UID)
-}
+let closeCb = @() removeModalWindow(WND_UID)
 
 if (isOpened.value)
   open()
@@ -243,8 +241,10 @@ isOpened.subscribe(@(v) v ? open() : closeCb())
 
 
 let function checkWndRequired(_) {
-  if (!isCurCampaignAvailable.value && eventCampaigns.value.len() > 1 && isEventModesOpened.value)
+  if (!isCurCampaignAvailable.value && eventCampaigns.value.len() > 1 && isEventModesOpened.value) {
+    setCurCampaign(eventCampaigns.value[0])
     isOpened(true)
+  }
 }
 
 foreach(v in [isCurCampaignAvailable, eventCampaigns, isEventModesOpened])

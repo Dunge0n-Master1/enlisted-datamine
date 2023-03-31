@@ -1014,10 +1014,22 @@ let rewardsPresentation = {
     icon = "ui/skin#/research/squad_points_icon.svg"
     cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/germany/ger_moscow_event_antitank_1_image.avif")
   },
+  ["423"] = {
+    name = loc("items/mech_event_crate")
+    description = loc("items/mech_event_crate/desc")
+    cardImage = mkImageCtor([200, 200], [0, 0], "!ui/skin#/random_reward_chest.avif") //432 * 600
+  },
 
 
 
   // boosters presentation
+  ["mech_event_weapon_prize"] = defRewardPresentation.__merge({
+    name = loc("items/mech_event_crate")
+    description = loc("items/mech_event_crate/desc")
+    icon = "ui/skin#/currency/random_reward_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/random_reward_order.svg") //432 * 600
+  }),
   ["every_day_award_small_pack"] = defRewardPresentation.__merge({
     name = loc("smallTrophyTitle_2")
     cardImage = "ui/skin#rewards/crate_small_2.avif"

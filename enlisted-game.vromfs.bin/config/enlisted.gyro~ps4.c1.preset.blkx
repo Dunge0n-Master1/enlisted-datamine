@@ -362,6 +362,43 @@ Spectator.Aim{
   maxVal:r=1.0
 }
 
+Mech.Strafe{
+  dev:i=3
+  axis:i=0
+  inverse:b=yes
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+  relIncScale:r=0.0
+
+  mod{
+    dev:i=3
+    btn:i=12
+  }
+}
+
+Mech.ShootSecondary{
+  dev:i=1
+  btn:i=19
+}
+
+Mech.ShootSecondary{
+  dev:i=3
+  btn:i=15
+}
+
+Mech.ShootFlamethrower{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
+Mech.ShootFlamethrower{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
 Vehicle.Shoot{
   dev:i=3
   btn:i=17
@@ -418,12 +455,13 @@ Vehicle.NextCockpitView{
 
 Vehicle.ShootGrenadeLauncher{
   dev:i=3
-  btn:i=7
+  btn:i=6
+}
 
-  mod{
-    dev:i=3
-    btn:i=6
-  }
+Vehicle.Horn{
+  dev:i=3
+  btn:i=13
+  type:i=1
 }
 
 Ship.Steer{

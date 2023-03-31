@@ -64,6 +64,17 @@ watched_entity_snapshot{
   }
 }
 
+watched_entity_snapshot_3d{
+  _extends:t="watched_entity_snapshot"
+
+  _group{
+    _tags:t="sound"
+
+    "watchedEntitySnapshot3d:tag"{
+    }
+  }
+}
+
 sound_control{
   _extends:t="sound_bank_preset_state"
   _tracked:t="sound_control__shouldPlay"

@@ -170,6 +170,28 @@ struct EventTeamWon
 struct EventTeamLost
   team : int
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+struct EventMechStepInfo
+  limbIdx : int
+  pos : float3
+  detach : bool
+  isNextStep : bool
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+struct EventMechStepRelativeInfo
+  limbIdx : int
+  pos : float3
+
+[event(broadcast)]
+struct EventStepShakeCamera
+  position : float3
+  max_distance : float
+  wish_shake : float
+
+[event(unicast)]
+struct EventMechStepSound
+  pos : float3
+
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventTeamLowScore
   teamId : int

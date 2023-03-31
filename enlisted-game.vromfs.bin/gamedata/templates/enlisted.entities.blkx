@@ -1643,6 +1643,7 @@ respawner{
   respawner__respTime:r=11.0
   respawner__respTimeout:r=15.0
   respawner__missionStartDelay:r=30.0
+  respawner__spawnScore:i=0
   respawner__isFirstSpawn:b=yes
   _extends:t="replicating"
   _replicated:t="respawner__enabled"
@@ -1656,6 +1657,8 @@ respawner{
   _replicated:t="respawner__respToBot"
   _replicated:t="respawner__chosenRespawn"
   _replicated:t="respawner__isFirstSpawn"
+  _replicated:t="respawner__spawnScore"
+  _replicated:t="respawner__scorePricePerSquad"
   _tracked:t="respawner__enabled"
   _tracked:t="respawner__spectatorEnabled"
   _tracked:t="respawner__respStartTime"
@@ -1665,6 +1668,11 @@ respawner{
   _tracked:t="respawner__respToBot"
   _tracked:t="respawner__chosenRespawn"
   _tracked:t="respawner__isFirstSpawn"
+  _tracked:t="respawner__spawnScore"
+  _tracked:t="respawner__scorePricePerSquad"
+
+  "respawner__scorePricePerSquad:list<i>"{
+  }
 
   "respawner__chosenRespawn:eid"{
   }
@@ -1690,6 +1698,12 @@ respawner{
     }
 
     "respawner__lastSpawnTimeBySquad:list<i>"{
+    }
+
+    "respawner__scorePricePerSquadPerSpawn:object"{
+    }
+
+    "respawner__spawnCountPerSquad:list<i>"{
     }
   }
 
@@ -1813,6 +1827,11 @@ enlisted_player{
   "soldier_revive_points__points:array"{
   }
 
+  "squads__affordabilityList:list<b>"{
+    _tags:t="ui"
+    _track:b=yes
+  }
+
   _group{
     _replicate:b=yes
     squads__spawnCount:i=0
@@ -1912,6 +1931,9 @@ enlisted_player{
     scoring_player__bestPossessedInfantryKillstreak:i=0
     scoring_player__isBattleHero:b=no
     scoring_player__minScoreForXpMultipliers:i=500
+
+    "respawner__spawnScoreGainMultBySquad:list<r>"{
+    }
 
     "scoring_player__isEnoughScoreForXpMultipliers:b"{
       _track:b=yes

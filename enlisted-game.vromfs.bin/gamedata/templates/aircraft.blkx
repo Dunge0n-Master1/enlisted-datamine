@@ -93,6 +93,9 @@ plane_control_components{
   "vehicle_input_axes:list<r>"{
     _tags:t="input"
   }
+
+  "hasVehicleControl:tag"{
+  }
 }
 
 plane_cutting{

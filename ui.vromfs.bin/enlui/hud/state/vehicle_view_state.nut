@@ -14,6 +14,7 @@ let comps = freeze([
 
 let defValue = freeze(comps.reduce(function(res, b){
   res[b.name] <- b.def
+  res.enabled <- false
   return res
 } ,{}))
 
@@ -25,6 +26,7 @@ ecs.register_es("ui_vehicle_view_state",
     [["onInit","onChange"]] = function(_, comp){
       let res = {}
       comps.each(@(v) res[v.name] <- comp[v.comp])
+      res.enabled <- true
       stateSetValue(res)
     }
     function onDestroy(_, __){
@@ -33,7 +35,7 @@ ecs.register_es("ui_vehicle_view_state",
   },
   {
     comps_track = comps.map(@(obj) [obj.comp, obj.typ, obj.name]),
-    comps_rq = ["isTank", "vehicleWithWatched"] // only needed for tanks now
+    comps_rq = ["vehicleView", "vehicleWithWatched"]
     comps_no = ["deadEntity"]
   },
   { tags="ui" }

@@ -27,7 +27,7 @@ let mkRewardsCards = @(rewards) {
 }
 
 let mkRewardName = function(reward, otherArmy) {
-  let armyName = loc($"{reward.armyId ?? commonArmy.value}/full")
+  let armyName = loc($"{reward?.armyId ?? commonArmy.value}/full")
   return otherArmy
     ? $"{armyName}: {loc(reward.name)}"
     : loc(reward.name)

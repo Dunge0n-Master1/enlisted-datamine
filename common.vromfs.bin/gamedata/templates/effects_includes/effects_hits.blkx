@@ -770,6 +770,56 @@ hit_footstep_puddle_splash_effect{
   }
 }
 
+hit_footstep_big_dirt_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_big_dirt_cmps_fx"
+  }
+}
+
+hit_footstep_big_mud_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_big_mud_cmps_fx"
+  }
+}
+
+hit_footstep_big_sand_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=yes
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_big_sand_cmps_fx"
+  }
+}
+
+hit_footstep_big_snow_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_big_snow_cmps_fx"
+  }
+}
+
+hit_footstep_big_stone_effect{
+  _extends:t="hit_effect_base"
+  paint_from_biome:b=no
+
+  _group{
+    _tags:t="render"
+    effect__name:t="hit_footstep_big_stone_cmps_fx"
+  }
+}
+
 hit_blood_entry_effect{
   _extends:t="hit_effect_base"
   effect__colorMult:c=255, 255, 255, 255

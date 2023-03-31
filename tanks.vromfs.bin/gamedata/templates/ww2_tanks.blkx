@@ -432,6 +432,10 @@ vehicle_maintenance{
 
 base_tank_without_xray_common{
   _extends:t="vehicle"
+  _extends:t="base_vehicle_common"
+}
+
+base_vehicle_common{
   _extends:t="base_turret_controls"
   _extends:t="turret_controls_hit_result_info"
   _extends:t="base_damage_model"
@@ -1265,6 +1269,24 @@ base_vehicle_attach_rules{
   }
 }
 
+vehicle_view{
+
+  "vehicleView:tag"{
+  }
+
+  _group{
+    _track:b=yes
+    vehicle_view__gear:i=0
+    vehicle_view__neutralGear:i=0
+    vehicle_view__rpm:i=0
+    vehicle_view__cruiseControl:i=0
+    vehicle_view__speed:i=0
+    vehicle_view__fuelPct:r=0.0
+    vehicle_view__isHandBraking:b=no
+    vehicle_view__isAutomaticTransmission:b=yes
+  }
+}
+
 base_tank{
   _extends:t="base_tank_without_xray"
   _extends:t="tank_camera_setup"
@@ -1272,6 +1294,7 @@ base_tank{
   _extends:t="base_phys_modifications"
   _extends:t="base_tank_sound"
   _extends:t="base_vehicle_attach_rules"
+  _extends:t="vehicle_view"
   net__physId:i=-1
   netLodZones:p4=2500.0, 22500.0, 62500.0, 6250000.0
   _tracked:t="animchar__objTexReplace"
@@ -1311,6 +1334,17 @@ base_tank{
     }
 
     "visual_dmg_remap__collNodeIdToNodeIdDstr:list<i>"{
+    }
+  }
+
+  _group{
+    _tags:t="input"
+
+    "vehicle__steerTips:list<t>"{
+      tip:t="Vehicle.Brake"
+      tip:t="Vehicle.Accel"
+      tip:t="Vehicle.Steer"
+      tip:t="Vehicle.Throttle"
     }
   }
 

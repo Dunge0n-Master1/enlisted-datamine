@@ -12,6 +12,7 @@ let squadTypeSvg = soldierKinds.map(@(c) c.icon)
       tank = "tank_icon.svg"
       aircraft = "aircraft_icon.svg"
       bike = "bike_icon.svg"
+      mech = "mech_icon.svg"
     })
   .map(@(key) $"ui/skin#{key}")
 

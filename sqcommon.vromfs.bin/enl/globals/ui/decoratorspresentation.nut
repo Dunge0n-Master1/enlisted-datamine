@@ -240,6 +240,9 @@ local portraits = {
   portrait_preorder_paratrooper = {
     icon = "ui/portraits/event/portrait_preorder_paratrooper.avif"
   }
+  mech_event_portrait = {
+    icon = "ui/portraits/event/mech_event_portrait.avif"
+  }
 
 
 
