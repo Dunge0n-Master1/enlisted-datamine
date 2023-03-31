@@ -360,7 +360,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=10000.0
-    armorThickness:r=75.0
+    armorThickness:r=65.0
   }
 
   ex_decor_04{
@@ -1267,7 +1267,7 @@ DamageParts{
     movement:b=yes
     fire:b=yes
     armorClass:t="CHA_tank"
-    hp:r=750.0
+    hp:r=600.0
     armorThickness:r=50.0
     armorThrough:r=150.0
     restrainDamage:r=0.5
@@ -1531,7 +1531,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=110.0
+    armorThickness:r=88.0
   }
 
   leg_r_02{
@@ -1550,7 +1550,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 
   leg_r_03{
@@ -1569,7 +1569,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 
   leg_r_foot{
@@ -1588,7 +1588,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 
   leg_l_01{
@@ -1607,7 +1607,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=110.0
+    armorThickness:r=88.0
   }
 
   leg_l_02{
@@ -1626,7 +1626,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 
   leg_l_03{
@@ -1645,7 +1645,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 
   leg_l_foot{
@@ -1664,7 +1664,7 @@ DamageParts{
     pressureDamageMult:r=0.0
     armorClass:t="RHA_tank"
     hp:r=2200.0
-    armorThickness:r=80.0
+    armorThickness:r=70.0
   }
 }
 

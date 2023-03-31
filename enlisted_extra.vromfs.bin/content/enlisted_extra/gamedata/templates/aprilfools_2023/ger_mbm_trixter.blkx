@@ -800,8 +800,8 @@ mbm_trixter_flamethrower_common{
   turret__shootNodeId:i=-1
   turret__triggerGroup:i=4
   gun__overheatReduce:r=0.0
-  gun__overheatReduceOnOverheat:r=1.0
-  gun__overheatPerShot:r=0.12
+  gun__overheatReduceOnOverheat:r=0.25
+  gun__overheatPerShot:r=0.15
   item__name:t="guns/ato_41_flamethrower"
   gun__blk:t="content/tanks/gamedata/gen/weapons/20mm_tnsh.blk"
   gun__shotFreq:r=5.0

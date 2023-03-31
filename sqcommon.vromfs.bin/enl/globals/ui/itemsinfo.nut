@@ -220,9 +220,8 @@ let function localizeSoldierName(soldier) {
 }
 
 let function getObjectName(obj) {
-  if (obj?.itemtype != "soldier")
-    return getItemName(obj)
-  return "{name} {surname}".subst(localizeSoldierName(obj))
+  let { name, surname } = localizeSoldierName(obj)
+  return surname == "" ? getItemName(obj) : $"{name} {surname}"
 }
 
 let function soldierNameSlicer(soldier = null, useCallname = true) {

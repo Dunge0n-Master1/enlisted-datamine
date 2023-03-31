@@ -132,7 +132,7 @@ let squadsList = Computed(function(prev) {
         premIcon = premIcon ?? armiesPresentation?[armyId].premIcon
       let readinessPercent = squadsRevivePoints.value?[idx] ?? -1
       let isAffordable = squadsAffordability.value?[idx] ?? true
-      let scorePrice = squadsScorePrice.value[idx] ?? 0
+      let scorePrice = squadsScorePrice.value?[idx] ?? 0
       local canSpawn = readinessPercent == 100 && isAffordable
       if (canSpawn) {
         if (squad?.curVehicle != null) {

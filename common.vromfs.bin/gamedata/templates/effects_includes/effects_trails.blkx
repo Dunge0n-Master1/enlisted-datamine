@@ -17,7 +17,7 @@ trail_rocket_dark_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="trail_rocket_dark_cmps_fx"
+    effect__name:t="trail_rocket_p_burn_fx"
   }
 }
 
@@ -26,7 +26,7 @@ trail_rocket_small_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="trail_rocket_small_cmps_fx"
+    effect__name:t="trail_rocket_p_burn_fx"
   }
 }
 
@@ -35,7 +35,7 @@ trail_rocket_medium_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="trail_rocket_medium_cmps_fx"
+    effect__name:t="trail_rocket_p_burn_fx"
   }
 }
 
@@ -44,7 +44,7 @@ trail_rocket_heavy_effect{
 
   _group{
     _tags:t="render"
-    effect__name:t="trail_rocket_heavy_cmps_fx"
+    effect__name:t="trail_rocket_p_burn_fx"
   }
 }
 
