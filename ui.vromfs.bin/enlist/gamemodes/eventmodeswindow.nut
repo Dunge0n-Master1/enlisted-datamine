@@ -12,7 +12,7 @@ let JB = require("%ui/control/gui_buttons.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { BtnActionBgDisabled }  = require("%ui/style/colors.nut")
 let {
-  eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms,
+  eventGameModes, isEventModesOpened, isCustomRoomsMode, hasCustomRooms, isCurCampaignAvailable,
   selEvent, selectEvent, selLbMode, eventCustomSquads, eventsSquadList, eventsArmiesList,
   eventCurArmyIdx, eventCampaigns, allEventsToShow, inactiveEventsToShow,
   customRoomsModeSaved, eventCustomProfile, curTab, eventStartTime
@@ -45,12 +45,12 @@ let shortLbUi = require("%enlist/leaderboard/shortLb.ui.nut")
 let {
   lbCurrentTable, openLbWnd, curLbIdx, lbPlayersCount, curLbSelfRow
 } = require("%enlist/leaderboard/lbState.nut")
-let { curCampaign, addCurCampaignOverride, removeCurCampaignOverride
+let { addCurCampaignOverride, removeCurCampaignOverride, curCampaign, setCurCampaign
 } = require("%enlist/meta/curCampaign.nut")
 let {
   verticalGap, localPadding, localGap, armieChooseBlockWidth, eventBlockWidth
 } = require("eventModeStyle.nut")
-let eventsCampaignBlock = require("eventsCampaignBlock.nut")
+let { eventsCampaignBlock, isOpened } = require("eventsCampaignBlock.nut")
 let eventModeDesciption = require("eventModeDesciption.nut")
 let { room, roomIsLobby, lobbyStatus, LobbyStatus } = require("%enlist/state/roomState.nut")
 let lobbyWnd = require("%enlist/mpRoom/eventLobbyWnd.nut")
@@ -104,6 +104,17 @@ let windowTabs = Computed(function(){
   )
     tabs.append(FEATURED_MODS_TAB_ID)
   return tabs
+})
+
+let needCampaignsWindow = Computed(@() curTab.value == CUSTOM_MATCHES_TAB_ID
+  && !isCurCampaignAvailable.value
+  && eventCampaigns.value.len() > 1 && isEventModesOpened.value)
+
+needCampaignsWindow.subscribe(function(v) {
+  if (v) {
+    setCurCampaign(eventCampaigns.value[0])
+    isOpened(true)
+  }
 })
 
 windowTabs.subscribe(function(v) {

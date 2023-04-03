@@ -1,9 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
-let {
-  eventCampaigns, hasChoosedCampaign, isCurCampaignAvailable, isEventModesOpened
-} = require("eventModesState.nut")
+let { eventCampaigns, hasChoosedCampaign } = require("eventModesState.nut")
 let {
   defTxtColor, blurBgFillColor, smallPadding, titleTxtColor, blurBgColor, maxContentWidth,
   defBgColor, shadowStyle, commonBtnHeight
@@ -202,7 +200,7 @@ let function mkBlinkAnim(trigger) {
   return res
 }
 
-let lobbyCampaignBlock = watchElemState(@(sf){
+let eventsCampaignBlock = watchElemState(@(sf){
   rendObj = ROBJ_SOLID
   watch = [campaignsCount, hasChoosedCampaign]
   margin = [0,0,hdpx(150),0]
@@ -240,15 +238,7 @@ if (isOpened.value)
 isOpened.subscribe(@(v) v ? open() : closeCb())
 
 
-let function checkWndRequired(_) {
-  if (!isCurCampaignAvailable.value && eventCampaigns.value.len() > 1 && isEventModesOpened.value) {
-    setCurCampaign(eventCampaigns.value[0])
-    isOpened(true)
-  }
+return {
+  isOpened
+  eventsCampaignBlock
 }
-
-foreach(v in [isCurCampaignAvailable, eventCampaigns, isEventModesOpened])
-  v.subscribe(checkWndRequired)
-
-
-return lobbyCampaignBlock

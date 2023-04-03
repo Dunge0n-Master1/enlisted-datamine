@@ -1285,8 +1285,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=1500.0
+  team__score:r=1500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1331,7 +1331,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/american_embassy"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=40.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1356,7 +1356,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goebbels_villa"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1381,7 +1381,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goebbels_villa"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1405,10 +1405,10 @@ entity{
   groupName:t="sector_3_a"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ministry_gardens"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=40.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1431,10 +1431,10 @@ entity{
   groupName:t="sector_3_b"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1
-  capzone__capReward:r=500.0
+  capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=40.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1460,7 +1460,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/greenhouse"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -2150,7 +2150,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [426.652, 4.64244, -307.725]]
+  transform:m=[[-0.221768, 0.0, -0.975101] [0.0, 1.0, 0.0] [0.975101, 0.0, -0.221768] [341.862, 4.64243, -270.386]]
   groupName:t="sector_4"
   team:i=1
   respTime:i=150
@@ -2543,7 +2543,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMech"
   active:b=no
-  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [422.862, 5.83966, -306.318]]
+  transform:m=[[-0.225067, 0.0, -0.974344] [0.0, 1.0, 0.0] [0.974344, 0.0, -0.225067] [330.95, 5.83965, -274.164]]
   team:i=1
   groupName:t="sector_4"
 }
@@ -2670,7 +2670,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [426.652, 4.64244, -307.725]]
+  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [265.018, 4.64256, -346.089]]
   resupply_zone__team:i=1
   groupName:t="sector_4"
   active:b=no
@@ -2783,7 +2783,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMech"
   active:b=no
-  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [427.538, 5.83967, -307.713]]
+  transform:m=[[-0.0882816, 0.0, -0.996097] [0.0, 1.0, 0.0] [0.996096, 0.0, -0.0882816] [340.651, 5.83966, -267.704]]
   team:i=1
   groupName:t="sector_4"
 }
@@ -2791,7 +2791,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMech"
   active:b=no
-  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [434.26, 5.83966, -310.494]]
+  transform:m=[[-0.328313, 0.0, -0.94457] [0.0, 1.0, 0.0] [0.94457, 0.0, -0.328313] [349.405, 5.83964, -269.792]]
   team:i=1
   groupName:t="sector_4"
 }

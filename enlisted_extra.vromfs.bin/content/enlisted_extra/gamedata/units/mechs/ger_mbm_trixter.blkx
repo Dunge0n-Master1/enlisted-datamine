@@ -2171,15 +2171,15 @@ WalkerPhys{
   walkingProps{
     stepHeight:r=0.75
     stepHeightMax:r=2.3
-    stepsPerSecMin:r=0.8
-    stepsPerSecMax:r=2.0
-    steeringDegPerSec:r=90.0
-    minSteeringDegPerSec:r=25.0
+    stepsPerSecMin:r=1.5
+    stepsPerSecMax:r=2.4
+    steeringDegPerSec:r=95.0
+    minSteeringDegPerSec:r=35.0
     limbVertDiffToRoll:r=2.0
     limbVertDiffToFall:r=2.05
     limbVertDiffToAvoid:r=2.0
     maxTorsoPitch:r=5.0
-    throttleAdjustSpeed:r=0.25
+    throttleAdjustSpeed:r=0.4
     throttleDecreaseSpeed:r=0.8
     runThrottle:r=0.95
     footSpread:r=0.9
