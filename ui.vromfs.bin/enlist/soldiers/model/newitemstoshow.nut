@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { mark_as_seen } = require("%enlist/meta/clientApi.nut")
 let { configs } = require("%enlist/meta/configs.nut")
-let { preferenceSort } = require("items_list_lib.nut")
+let { prepareItems, preferenceSort } = require("items_list_lib.nut")
 let { curArmy } = require("state.nut")
 let { profile, itemsByArmies, soldiersByArmies, commonArmy } = require("%enlist/meta/profile.nut")
 let { collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
@@ -40,6 +40,7 @@ let newItemsToShow = Computed(function() {
         armyByGuid[guid] <- armyId
     itemsObjects.__update(armyItems)
   }
+  let joinedItems = prepareItems(itemsObjects.keys(), itemsObjects)
 
   local soldiersObjects = {}
   foreach (armyId, armySoldiers in newSoldiers.value) {
@@ -54,7 +55,7 @@ let newItemsToShow = Computed(function() {
   soldiersObjects = soldiersObjects.map(collectSoldierData)
 
   let allItems = [].extend(
-    itemsObjects.values().sort(preferenceSort),
+    joinedItems.sort(preferenceSort),
     soldiersObjects.values().sort(preferenceSort))
   return allItems.len() > 0
     ? {
