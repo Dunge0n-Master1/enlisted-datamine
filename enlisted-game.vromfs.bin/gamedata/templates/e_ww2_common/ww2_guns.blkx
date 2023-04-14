@@ -36897,6 +36897,7 @@ lunge_mine_shell_phys{
   item__name:t="items/ni_05_lunge_mine"
   shell__vehicleKillStat:t="lunge_mine_vehicle_kills"
   shell__crewKillStat:t="lunge_mine_crew_kills"
+  shell__crewKillAward:t="lunge_mine_kills"
   shell__infantryKillStat:t="lunge_mine_kills"
   shell__killSoldierStat:t="explosiveKills"
   shell__startPos:p3=0.0, 0.0, 0.0

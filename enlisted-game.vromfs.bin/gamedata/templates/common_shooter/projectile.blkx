@@ -262,7 +262,8 @@ bomb_projectile{
   _extends:t="bomb_projectile_sound"
   _extends:t="bomb_projectile_lifetime_sound"
   shell__infantryKillStat:t="infantry_bomb_kills"
-  shell__crewKillStat:t="infantry_bomb_kills"
+  shell__crewKillStat:t="crew_bomb_kills"
+  shell__crewKillAward:t="infantry_bomb_kills"
   shell__vehicleKillStat:t="vehicle_bomb_kills"
 }
 
@@ -392,7 +393,8 @@ ai_bomb_projectile{
   shell__maxDamageRIRadius:r=30.0
   shell__explosionCone:r=0.0349
   shell__infantryKillStat:t="infantry_bomb_kills"
-  shell__crewKillStat:t="infantry_bomb_kills"
+  shell__crewKillStat:t="crew_bomb_kills"
+  shell__crewKillAward:t="infantry_bomb_kills"
   shell__vehicleKillStat:t="vehicle_bomb_kills"
   _tracked:t="projectile__stopped"
   _tracked:t="projectile__exploded"

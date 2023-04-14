@@ -207,6 +207,10 @@ struct EventPlayerSquadFinishedCapturing {}
 struct EventOnBarbwireDamageAward {}
 
 [event(unicast)]
+struct EventAddPlayerStat
+  stat : string
+
+[event(unicast)]
 struct EventAddPlayerAwardWithStat
   stat : string
 

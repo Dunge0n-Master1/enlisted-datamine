@@ -104,6 +104,7 @@ tnt_block_shell{
   gun__statName:t="tnt_block"
   shell__infantryKillStat:t="infantry_tnt_kills"
   shell__crewKillStat:t="crew_tnt_kills"
+  shell__crewKillAward:t="infantry_tnt_kills"
   shell__vehicleKillStat:t="vehicle_tnt_kills"
   shell__killSoldierStat:t="explosiveKills"
 

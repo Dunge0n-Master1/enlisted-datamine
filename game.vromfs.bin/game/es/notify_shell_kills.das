@@ -9,6 +9,12 @@ require enlisted.events_enlisted
 require EnlistedDm
 require strings
 
+def send_shell_kill_stat_award(player : EntityId; stat : string; award : string)
+  if !empty(stat)
+    sendEvent(player, [[EventAddPlayerStat stat=stat]])
+  if !empty(award)
+    add_award(player, award)
+
 def check_shell_kill(victim_eid : EntityId; shell_id : int; offender_player_eid : EntityId; offender_guid : string)
   let shellTemplateName = get_shell_template_by_shell_id(shell_id)
   if empty(shellTemplateName)
@@ -17,14 +23,16 @@ def check_shell_kill(victim_eid : EntityId; shell_id : int; offender_player_eid 
   if shellTemplate == null
     return
   let vehicleStat = *shellTemplate |> getTemplateComponent("shell__vehicleKillStat") ?? ""
+  let vehicleAward = *shellTemplate |> getTemplateComponent("shell__vehicleKillAward") ?? vehicleStat
   let infantryStat = *shellTemplate |> getTemplateComponent("shell__infantryKillStat") ?? ""
+  let infantryAward = *shellTemplate |> getTemplateComponent("shell__infantryKillAward") ?? infantryStat
   let crewStat = *shellTemplate |> getTemplateComponent("shell__crewKillStat") ?? ""
+  let crewAward = *shellTemplate |> getTemplateComponent("shell__crewKillAward") ?? crewStat
   let soldierStat = *shellTemplate |> getTemplateComponent("shell__killSoldierStat") ?? ""
-  let hasVehicleStat = !empty(vehicleStat)
-  let hasInfantryStat = !empty(infantryStat)
-  let hasCrewStat = !empty(crewStat)
-  let hasSoldierStat = !empty(soldierStat)
-  if !hasVehicleStat && !hasInfantryStat && !hasCrewStat && !hasSoldierStat
+
+  if (empty(vehicleStat) && empty(vehicleAward) &&
+      empty(infantryStat) && empty(infantryAward) &&
+      empty(crewStat) && empty(crewAward) && empty(soldierStat))
     return
 
   query(victim_eid) <| $ [es] (human_anim__vehicleSelected : EntityId = INVALID_ENTITY_ID;
@@ -33,14 +41,14 @@ def check_shell_kill(victim_eid : EntityId; shell_id : int; offender_player_eid 
     let victimIsInVehicle = human_anim__vehicleSelected != INVALID_ENTITY_ID
     let victimIsVehicle = vehicle != null
     let victimIsHuman = human != null
-    if hasVehicleStat && victimIsVehicle
-      sendEvent(offender_player_eid, [[EventAddPlayerAwardWithStat stat=vehicleStat]])
-    elif hasInfantryStat && victimIsHuman && !victimIsInVehicle
-      sendEvent(offender_player_eid, [[EventAddPlayerAwardWithStat stat=infantryStat]])
-    elif hasCrewStat && victimIsHuman && victimIsInVehicle
-      sendEvent(offender_player_eid, [[EventAddPlayerAwardWithStat stat=crewStat]])
+    if victimIsVehicle
+      send_shell_kill_stat_award(offender_player_eid, vehicleStat, vehicleAward)
+    elif victimIsHuman && !victimIsInVehicle
+      send_shell_kill_stat_award(offender_player_eid, infantryStat, infantryAward)
+    elif victimIsHuman && victimIsInVehicle
+      send_shell_kill_stat_award(offender_player_eid, crewStat, crewAward)
 
-    if victimIsHuman && hasSoldierStat
+    if victimIsHuman && !empty(soldierStat)
       send_award_stat(offender_player_eid, offender_guid, soldierStat)
 
 [es(tag=server)]

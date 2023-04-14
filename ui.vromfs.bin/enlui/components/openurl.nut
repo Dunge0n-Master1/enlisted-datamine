@@ -16,6 +16,9 @@ let { getStoreUrl, getEventUrl, getPremiumUrl, getBattlePassUrl, getSquadCashUrl
 let openLinksInEmbeddedBrowser = get_setting_by_blk_path("openLinksInEmbeddedBrowser") ?? false
 let useKongZhongOpenUrl = get_setting_by_blk_path("useKongZhongOpenUrl") ?? false
 
+let requestQueue = {}
+local requestAuth = null
+
 let function open_url(url) {
   if (type(url)!="string" || (!startswith(url, "http://") && !startswith(url, "https://")))
     return false
@@ -128,7 +131,7 @@ let function getUrlTypeByUrl(url) {
 }
 
 
-local function isWegameLoginRequiredUrl(url) {
+let function isWegameLoginRequiredUrl(url) {
   if (!wegame.is_running())
     return false
 
@@ -137,7 +140,55 @@ local function isWegameLoginRequiredUrl(url) {
 }
 
 
-local function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBrowser = false, goToUrl = null) {
+let function processQueue() {
+  if (requestQueue.len() == 0) {
+    logOU("Queue is empty")
+    return
+  }
+  if (requestAuth != null) {
+    logOU($"Processing {requestAuth}")
+    return
+  }
+
+  let self = callee()
+  requestAuth = requestQueue.findindex(@(_) true)
+  let { baseUrl, goToUrl, ssoService = null } = requestQueue[requestAuth]
+  eventbus.subscribe_onehit(requestAuth,
+    function(result)  {
+      delete requestQueue[requestAuth]
+      requestAuth = null
+      if (result.status == YU2_OK) {
+        // use result.url string
+        logOU($"Authenticated Url = {result.url}")
+        goToUrl(result.url)
+      }
+      else {
+        logOU($"Error: failed to get_authenticated_url, status = {result.status}")
+        goToUrl(baseUrl) // anyway open url without authentication
+      }
+      self()
+    }
+  )
+
+  if (!useKongZhongOpenUrl) {
+    if (ssoService == null || get_authenticated_url_sso == null) {
+      logOU($"Error: failed to get_authenticated_url_sso, service is undefined")
+      goToUrl(baseUrl) // anyway open url without authentication
+      delete requestQueue[requestAuth]
+      requestAuth = null
+      self()
+    }
+    else
+      get_authenticated_url_sso(baseUrl, AUTH_TOKEN_HOST, ssoService, requestAuth)
+  }
+  else if (isWegameLoginRequiredUrl(baseUrl))
+    wegame.get_authenticated_url(baseUrl, requestAuth)
+  else
+    get_kongzhong_authenticated_url(baseUrl, requestAuth)
+}
+
+
+let function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBrowser = false, goToUrl = null) {
   let url = baseUrl ? strip(baseUrl) : ""
   if (url == "") {
     logOU("Error: tried to openUrl an empty url")
@@ -155,39 +206,21 @@ local function openUrl(baseUrl, isAlreadyAuthenticated = false, shouldExternalBr
     logOU("Warning: trying to open steam url without steam overlay")
 
   if (isAlreadyAuthenticated || !urlType.autologin) {
+    logOU($"Direct Url = {url}")
     goToUrl(url)
     return
   }
 
   let cbEvent = $"openUrl.{url}"
-  eventbus.subscribe_onehit(cbEvent,
-    function(result)  {
-      if (result.status == YU2_OK) {
-        // use result.url string
-        logOU($"Authentcated Url = {result.url}")
-        goToUrl(result.url)
-        return
-      }
-      logOU($"Error: failed to get_authenticated_url, status = {result.status}")
-      goToUrl(baseUrl) // anyway open url without authentication
-    }
-  )
+  if (cbEvent in requestQueue) {
+    logOU("Already queued")
+    return
+  }
 
-  if (!useKongZhongOpenUrl) {
-    let { ssoService = null } = urlType
-    if (ssoService == null || get_authenticated_url_sso == null) {
-      logOU($"Error: failed to get_authenticated_url_sso, service is undefined")
-      goToUrl(baseUrl) // anyway open url without authentication
-    }
-    else
-      get_authenticated_url_sso(baseUrl, AUTH_TOKEN_HOST, ssoService, cbEvent)
-  }
-  else {
-    if (isWegameLoginRequiredUrl(baseUrl))
-      wegame.get_authenticated_url(baseUrl, cbEvent)
-    else
-      get_kongzhong_authenticated_url(baseUrl, cbEvent)
-  }
+  let queuedData = urlType.__merge({ baseUrl, goToUrl })
+  logOU("Queued data:", queuedData)
+  requestQueue[cbEvent] <- queuedData
+  processQueue()
 }
 
 console_register_command(open_url, "app.open_url")

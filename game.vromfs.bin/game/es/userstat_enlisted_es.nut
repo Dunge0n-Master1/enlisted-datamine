@@ -5,7 +5,7 @@ let {userstatsAdd} = require("%scripts/game/utils/userstats.nut")
 let {get_gun_stat_type_by_props_id, DM_MELEE, DM_PROJECTILE, DM_BACKSTAB} = require("dm")
 let getSoldierInfoFromCache = require("%scripts/game/es/soldier_info_cache.nut")
 let {
-  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventAddPlayerAwardWithStat,
+  EventAnyEntityDied, EventPlayerSquadHelpedToDestroyPoint, EventAddPlayerAwardWithStat, EventAddPlayerStat,
   EventPlayerSquadFinishedCapturing, EventOnPlayerWipedOutInfantrySquad
 } = require("dasevents")
 
@@ -173,6 +173,7 @@ ecs.register_es("userstats_player_squad_wipeout_es",
 ecs.register_es("userstats_add_player_stat",
   {
     [EventAddPlayerAwardWithStat] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
+    [EventAddPlayerStat] = @(evt, _, comp) userstatsAdd(comp.userstats, null, evt.stat, null),
   },
   {comps_rw=[["userstats", ecs.TYPE_OBJECT]]},
   {tags="server", before="send_userstats_es"})
