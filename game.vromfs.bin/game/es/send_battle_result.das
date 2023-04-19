@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.events_game
 require enlisted.events_enlisted
 require lagcatcher

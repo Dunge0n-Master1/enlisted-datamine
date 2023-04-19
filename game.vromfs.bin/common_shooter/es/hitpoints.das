@@ -8,8 +8,8 @@ require common_shooter.es.hitpoints_common
 require game.es.vehicle.vehicle_seats_common
 require game.events_game
 require game.utils.team
-require EnlistedDm
-require EnlistedNet
+require DngDm
+require DngNet
 require vehicle
 require game.events_game
 
@@ -93,7 +93,7 @@ def update_hitpoints_impl(cur_time : float;
       send_net_event(eid, [[EventEntityResurrected]])
       broadcastEvent([[EventAnyEntityResurrected eid=eid]])
     else
-      if !killedByDowned
+      if !killedByDowned && hitpoints__lastHitByEid == hitpoints__lastOffender
         sendEvent(hitpoints__lastHitByEid, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType]])
       on_death(eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId, victim_team,
                death_desc__offenderTeam, hitpoints__lastOffender, hitpoints__lastOffenderPlayer,
@@ -111,7 +111,8 @@ def update_hitpoints_impl(cur_time : float;
       sendEventImmediate(eid, [[EventOnDownedThreshold]])
       if hitpoints__hp <= hitpoints__deathHpThreshold
         isAlive = false
-        sendEvent(hitpoints__lastHitByEid, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType]])
+        if hitpoints__lastHitByEid == hitpoints__lastOffender
+          sendEvent(hitpoints__lastHitByEid, [[EventEntityKilledToPart collNodeId=death_desc__collNodeId, damageType=death_desc__damageType]])
         on_death(eid, death_desc__damageType, death_desc__gunPropsId, death_desc__shellId, death_desc__collNodeId, victim_team,
                  death_desc__offenderTeam, hitpoints__lastOffender, hitpoints__lastOffenderPlayer,
                  hitpoints__lastVictimPlayer)

@@ -76,7 +76,7 @@ let isRankUnlock = @(task) (task?.meta.rank_unlock ?? 0) > 0
   && (task?.stages[0].updStats[0].value ?? 0) == 0
 let isWeeklyTask = @(task) task?.meta.weekly_unlock ?? false
 let isAchievementTask = @(task) task?.meta.achievement ?? false
-let isEventTask = @(task) task?.meta.event_unlock ?? false
+let isEventTask = @(task) task?.meta.event_unlock ?? (task?.meta.event_group != null) // backward compatibility
 let getUnlockLimit = @(task) task?.meta.unlock_limit ?? 0
 let getProgressDiv = @(task) task?.meta.descProgressDiv.tointeger() ?? 0
 

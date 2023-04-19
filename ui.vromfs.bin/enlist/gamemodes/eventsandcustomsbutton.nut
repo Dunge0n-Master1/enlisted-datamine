@@ -8,7 +8,7 @@ let { mkLeftPanelButton } = isNewDesign.value
   ? require("%enlist/components/mkPanelBtn.nut")
   : require("%enlist/components/mkPanelButton.nut")
 let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
-let { hasCustomRooms, openCustomGameMode, openEventsGameMode, eventGameModes
+let { hasCustomRooms, openCustomGameMode, openEventsGameMode, hasBaseEvent
 } = require("eventModesState.nut")
 let { unseenEvents } = require("unseenEvents.nut")
 
@@ -30,6 +30,7 @@ let buttonContent = @(sf) {
       rendObj = ROBJ_TEXT
       size = [flex(), SIZE_TO_CONTENT]
       padding = [0, midPadding]
+      behavior = Behaviors.Marquee
       halign = ALIGN_RIGHT
       text = loc("events_and_custom_matches")
     }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
@@ -37,13 +38,11 @@ let buttonContent = @(sf) {
 }
 
 let function resButton() {
-  let hasAnyEvent = eventGameModes.value.len() > 0
-  let btnAction = hasAnyEvent ? openEventsGameMode : openCustomGameMode
+  let btnAction = hasBaseEvent.value ? openEventsGameMode : openCustomGameMode
   return {
-    watch = [hasCustomRooms, eventGameModes]
-    children = hasCustomRooms.value || eventGameModes.value.len() > 0
-      ? mkLeftPanelButton(buttonContent, buttonSize, btnAction, "!ui/uiskin/events/events_icon.svg")
-      : null
+    watch = [hasCustomRooms, hasBaseEvent]
+    children = hasBaseEvent.value || !hasCustomRooms.value ? null
+      : mkLeftPanelButton(buttonContent, buttonSize, btnAction, "!ui/uiskin/events/events_icon.svg")
   }
 }
 

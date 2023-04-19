@@ -2,7 +2,7 @@ require daslib/enum_trait
 require ecs
 require ecs.common
 require app
-require EnlistedNet
+require DngNet
 require inventory
 require game.utils.net_utils
 require game.es.events
@@ -10,9 +10,9 @@ require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require common_shooter.es.human.human_reload_common
-require EnlistedHuman
-require EnlistedActor
-require EnlistedWeapon
+require DngHuman
+require DngActor
+require DngWeapon
 require DagorSystem
 require DagorMath
 require DagorRandom
@@ -268,7 +268,7 @@ def human_weap_request_reload_es(evt : CmdRequestReload;
       human_weap__isReloadRequested = true
       gun__ammoToReloadCount = ammoForGun.ammoCount
 
-      sendEvent(eid, [[EventWeapOnReload]])
+      sendEvent(eid, [[EventHumanStartedReload]])
 
 
 [es(tag=server, no_order, track=gun__ammo, on_appear)]

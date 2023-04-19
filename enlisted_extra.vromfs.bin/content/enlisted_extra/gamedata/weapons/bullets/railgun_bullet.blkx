@@ -30,12 +30,6 @@ visual{
   tracer:t="37mmBlue"
 }
 
-hitFx{
-  fxScale:p2=1.0, 1.3
-  defaultFx:t="event_foolmoon_sniper_hit_cmps_fx"
-  jetFx:t="event_foolmoon_sniper_hit_cmps_fx"
-}
-
 tracer{
   beam:b=yes
   beamTime:r=0.5

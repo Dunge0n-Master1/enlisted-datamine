@@ -10,7 +10,7 @@ let DEFAULT_SQUAD_USA = isNewDesign.value
   ? "army_icons/usa_army.svg"
   : "usaf.svg"
 let DEFAULT_SQUAD_JAP = isNewDesign.value
-  ? "army_icons/jap_army.svg"
+  ? "army_icons/japan_army.svg"
   : "japan.svg"
 const SMALL_SQUAD_GER = "army_icons/germany_color_small.svg"
 const SMALL_SQUAD_USSR = "army_icons/ussr_color_small.svg"

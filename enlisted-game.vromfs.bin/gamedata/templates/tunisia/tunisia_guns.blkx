@@ -52,7 +52,7 @@ carcano_m38{
 }
 
 carcano_m38_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38"
   _extends:t="rifle_carbine_muzzle_preset"
@@ -71,6 +71,9 @@ carcano_m38_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.95
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.02
+  gun_anim_var__fpsGunOffsetAcross:r=0.015
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   "gun_mods__slots:object"{
 
@@ -172,7 +175,7 @@ carcano_m38_7_35{
 }
 
 carcano_m38_7_35_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38_7_35"
   _extends:t="rifle_carbine_muzzle_preset"
@@ -191,6 +194,9 @@ carcano_m38_7_35_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.95
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.03
+  gun_anim_var__fpsGunOffsetAcross:r=0.015
+  gun_anim_var__fpsGunOffsetUp:r=0.058
 
   "gun_mods__slots:object"{
 
@@ -292,7 +298,7 @@ carcano_m38_7_35_with_scope_mount{
 }
 
 carcano_m38_7_35_with_scope_mount_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m38_7_35_with_scope_mount"
   _extends:t="rifle_carbine_muzzle_preset"
@@ -312,6 +318,9 @@ carcano_m38_7_35_with_scope_mount_gun{
   gun__adsSpeedMult:r=0.95
   gun__statName:t="sniper"
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.03
+  gun_anim_var__fpsGunOffsetAcross:r=0.015
+  gun_anim_var__fpsGunOffsetUp:r=0.058
 
   "gun_mods__slots:object"{
 
@@ -455,7 +464,7 @@ carcano_m41{
 }
 
 carcano_m41_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m41"
   _extends:t="rifle_muzzle_preset"
@@ -474,6 +483,9 @@ carcano_m41_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.95
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   "gun_mods__slots:object"{
 
@@ -575,7 +587,7 @@ carcano_m91{
 }
 
 carcano_m91_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m91"
   _extends:t="rifle_muzzle_preset"
@@ -594,6 +606,9 @@ carcano_m91_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.85
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.005
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   "gun_mods__slots:object"{
 
@@ -671,7 +686,7 @@ carcano_m91_with_scope_mount{
 }
 
 carcano_m91_with_scope_mount_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_m91_with_scope_mount"
   _extends:t="rifle_muzzle_preset"
@@ -691,6 +706,9 @@ carcano_m91_with_scope_mount_gun{
   gun__adsSpeedMult:r=0.75
   gun__statName:t="sniper"
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.008
+  gun_anim_var__fpsGunOffsetAcross:r=0.055
+  gun_anim_var__fpsGunOffsetUp:r=0.015
 
   "gun_mods__slots:object"{
 
@@ -803,7 +821,7 @@ carcano_moschetto_91{
 }
 
 carcano_moschetto_91_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="carcano_moschetto_91"
   _extends:t="rifle_carbine_muzzle_preset"
@@ -822,6 +840,9 @@ carcano_moschetto_91_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.95
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.06
+  gun_anim_var__fpsGunOffsetUp:r=0.015
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -956,7 +977,7 @@ smle_mk3{
 }
 
 smle_mk3_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="rifle_ww2_preset"
   _extends:t="smle_mk3"
   _extends:t="rifle_muzzle_preset"
@@ -972,6 +993,9 @@ smle_mk3_gun{
   gun__visualRecoilMult:r=1.0
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.12
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.065
 
   "gun_mods__slots:object"{
 
@@ -1094,7 +1118,7 @@ armaguerra_mod_39{
 }
 
 armaguerra_mod_39_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="armaguerra_mod_39"
   _extends:t="rifle_muzzle_preset"
@@ -1111,6 +1135,9 @@ armaguerra_mod_39_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.75
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -1179,8 +1206,8 @@ beretta_m31{
   gun_deviation__shotTau:r=0.1
   gun_deviation__extraDeviationTau:r=0.3
   gun_deviation__maxDeviation:r=30.0
-  gun__reloadTime:r=3.2
-  gun__altReloadTime:r=3.8
+  gun__reloadTime:r=2.8
+  gun__altReloadTime:r=2.4
 
   "gun__ammoHolders:array"{
     ammoHolders:t="carcano_m38_magazine"
@@ -1204,7 +1231,7 @@ beretta_m31{
 }
 
 beretta_m31_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="beretta_m31"
   _extends:t="rifle_muzzle_preset"
@@ -1221,6 +1248,9 @@ beretta_m31_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.7
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.11
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.044
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -1318,7 +1348,7 @@ pavesi_m42{
 }
 
 pavesi_m42_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="pavesi_m42"
   _extends:t="rifle_muzzle_break_2_preset"
@@ -1335,6 +1365,9 @@ pavesi_m42_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.75
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -1437,7 +1470,7 @@ pavesi_prototype_svt_copy{
 }
 
 pavesi_prototype_svt_copy_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="pavesi_prototype_svt_copy"
   _extends:t="rifle_muzzle_break_2_preset"
@@ -1558,7 +1591,7 @@ scotti_model_x{
 }
 
 scotti_model_x_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="scotti_model_x"
   _extends:t="rifle_muzzle_preset"
@@ -1575,6 +1608,9 @@ scotti_model_x_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=1.1
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.15
+  gun_anim_var__fpsGunOffsetAcross:r=-0.005
+  gun_anim_var__fpsGunOffsetUp:r=0.065
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -1670,7 +1706,7 @@ beretta_m1918_30{
 }
 
 beretta_m1918_30_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m1918_30"
   _extends:t="smg_muzzle_preset"
@@ -1689,6 +1725,9 @@ beretta_m1918_30_gun{
   meleeSoundType:t="mgun"
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=-0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.05
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -1778,7 +1817,7 @@ sw_light_rifle_mk_1{
 }
 
 sw_light_rifle_mk_1_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="sw_light_rifle_mk_1"
   _extends:t="smg_muzzle_preset"
@@ -1889,7 +1928,7 @@ sw_light_rifle_mk_2{
 }
 
 sw_light_rifle_mk_2_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="sw_light_rifle_mk_2"
   _extends:t="smg_muzzle_preset"
@@ -1907,6 +1946,9 @@ sw_light_rifle_mk_2_gun{
   meleeSoundType:t="mgun"
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=-0.06
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.037
 
   _group{
     _tags:t="sound"
@@ -2007,7 +2049,7 @@ turner_automatic_rifle{
 }
 
 turner_automatic_rifle_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="semiauto_ww2_preset"
   _extends:t="turner_automatic_rifle"
   _extends:t="rifle_muzzle_preset"
@@ -2024,6 +2066,9 @@ turner_automatic_rifle_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.9
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.04
+  gun_anim_var__fpsGunOffsetAcross:r=0.015
+  gun_anim_var__fpsGunOffsetUp:r=0.055
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"
@@ -2126,7 +2171,7 @@ beretta_m38_42{
 }
 
 beretta_m38_42_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m38_42"
   _extends:t="smg_muzzle_break_preset"
@@ -2145,6 +2190,9 @@ beretta_m38_42_gun{
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=0.09
+  gun_anim_var__fpsGunOffsetAcross:r=0.005
+  gun_anim_var__fpsGunOffsetUp:r=0.005
 
   _group{
     _tags:t="sound"
@@ -2243,7 +2291,7 @@ beretta_m1{
 }
 
 beretta_m1_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="beretta_m1"
   _extends:t="smg_muzzle_break_preset"
@@ -2262,6 +2310,9 @@ beretta_m1_gun{
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=0.11
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=-0.025
 
   _group{
     _tags:t="sound"
@@ -2361,7 +2412,7 @@ ovp_1918{
 }
 
 ovp_1918_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="ovp_1918"
   _extends:t="smg_muzzle_preset"
@@ -2379,6 +2430,9 @@ ovp_1918_gun{
   gun__recoilControlMult:r=0.4
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=0.13
+  gun_anim_var__fpsGunOffsetAcross:r=0.075
+  gun_anim_var__fpsGunOffsetUp:r=0.037
 
   _group{
     _tags:t="sound"
@@ -2472,7 +2526,7 @@ tz_45{
 }
 
 tz_45_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="tz_45"
   _extends:t="smg_muzzle_break_preset"
@@ -2589,7 +2643,7 @@ thompson_m1921_28_box{
 }
 
 thompson_m1921_28_box_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_45acp_ww2_preset"
   _extends:t="thompson_m1921_28_box"
   _extends:t="smg_muzzle_break_preset"
@@ -2609,6 +2663,9 @@ thompson_m1921_28_box_gun{
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=1.0, 0.9, 0.9
   gun__crawlRecoilMult:r=0.8
+  gun_anim_var__fpsGunOffsetAlong:r=0.17
+  gun_anim_var__fpsGunOffsetAcross:r=0.065
+  gun_anim_var__fpsGunOffsetUp:r=0.035
 
   _group{
     _tags:t="sound"
@@ -2701,7 +2758,7 @@ sten_mk3{
 }
 
 sten_mk3_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="sten_mk3"
   _extends:t="smg_muzzle_preset"
@@ -2718,6 +2775,9 @@ sten_mk3_gun{
   gun__recoilControlMult:r=0.3
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   _group{
     _tags:t="sound"
@@ -2767,7 +2827,7 @@ owen_mk1_42{
   item__weapTemplate:t="owen_mk1_42_gun"
   item__name:t="items/owen_mk1_42"
   item__weapType:t="submachine_gun"
-  item__weight:r=4.0
+  item__weight:r=4.2
   gun__locName:t="Owen Gun MkI/42"
   gun__statName:t="submachine_gun"
   gun__sightsDistance:r=0.05
@@ -2805,7 +2865,7 @@ owen_mk1_42{
 }
 
 owen_mk1_42_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="owen_mk1_42"
   _extends:t="smg_muzzle_break_preset"
@@ -2823,6 +2883,9 @@ owen_mk1_42_gun{
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=1.0, 3.7, 3.7
   gun__rotInertia:p3=0.1, 2.0, 2.0
+  gun_anim_var__fpsGunOffsetAlong:r=-0.02
+  gun_anim_var__fpsGunOffsetAcross:r=0.055
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -2917,7 +2980,7 @@ beretta_m1923{
 }
 
 beretta_m1923_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1923"
   _extends:t="pistol_muzzle_preset"
@@ -3001,7 +3064,7 @@ beretta_m1934{
 }
 
 beretta_m1934_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1934"
   _extends:t="pistol_muzzle_preset"
@@ -3054,7 +3117,7 @@ beretta_m1934_gold{
 }
 
 beretta_m1934_gold_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="beretta_m1934_gold"
   _extends:t="pistol_muzzle_preset"
@@ -3145,7 +3208,7 @@ webley_mk6{
 }
 
 webley_mk6_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="webley_mk6"
   _extends:t="pistol_big_muzzle_preset"
@@ -3196,7 +3259,7 @@ webley_mk6_nickel{
 }
 
 webley_mk6_nickel_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="webley_mk6_nickel"
   _extends:t="pistol_big_muzzle_preset"
@@ -3288,7 +3351,7 @@ enfield_no2_mk1{
 }
 
 enfield_no2_mk1_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="pistol_ww2_preset"
   _extends:t="enfield_no2_mk1"
   _extends:t="pistol_big_muzzle_preset"
@@ -3374,7 +3437,7 @@ bren_mk1{
 }
 
 bren_mk1_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mg_ww2_preset"
   _extends:t="bren_mk1"
   _extends:t="mg_rapid_muzzle_preset"
@@ -3394,6 +3457,9 @@ bren_mk1_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.5
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.17
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -3511,7 +3577,7 @@ besal_lmg{
 }
 
 besal_lmg_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mg_ww2_preset"
   _extends:t="besal_lmg"
   _extends:t="mg_rapid_muzzle_preset"
@@ -3531,6 +3597,9 @@ besal_lmg_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.5
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.05
+  gun_anim_var__fpsGunOffsetAcross:r=0.035
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -3636,7 +3705,7 @@ charlton_automatic_rifle{
 }
 
 charlton_automatic_rifle_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mg_ww2_preset"
   _extends:t="charlton_automatic_rifle"
   _extends:t="mg_rapid_muzzle_preset"
@@ -3657,6 +3726,9 @@ charlton_automatic_rifle_gun{
   weap__sprintLerpFactor:r=0.7
   gun__adsSpeedMult:r=0.65
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=-0.1
+  gun_anim_var__fpsGunOffsetAcross:r=0.055
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -3774,7 +3846,7 @@ solothurn_s_18_100{
 }
 
 solothurn_s_18_100_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="ptr_ww2_preset"
   _extends:t="solothurn_s_18_100"
   _extends:t="high_caliber_muzzle_brake_2_preset"
@@ -3852,7 +3924,7 @@ atr_boys{
   item__weapTemplate:t="atr_boys_gun"
   item__name:t="items/atr_boys"
   item__weapType:t="rifle"
-  item__weight:r=10.0
+  item__weight:r=16.3
   gun__locName:t="atr_boys"
   gun__statName:t="rifle"
   gun__shotFreq:r=0.55
@@ -3893,7 +3965,7 @@ atr_boys{
 }
 
 atr_boys_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="ptr_ww2_preset"
   _extends:t="atr_boys"
   _extends:t="high_caliber_muzzle_brake_3_preset"
@@ -4038,7 +4110,7 @@ vickers_berthier{
 }
 
 vickers_berthier_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mg_ww2_preset"
   _extends:t="vickers_berthier"
   _extends:t="mg_rapid_muzzle_preset"
@@ -4059,6 +4131,9 @@ vickers_berthier_gun{
   gun_attach__slot:t="weapon"
   weap__sprintLerpFactor:r=0.5
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.2
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   _group{
     _tags:t="sound"
@@ -4186,7 +4261,7 @@ smle_mk3_grenade_launcher{
 }
 
 smle_mk3_grenade_launcher_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="rifle_ww2_preset"
   _extends:t="smle_mk3_grenade_launcher"
   _extends:t="rifle_muzzle_preset"
@@ -4202,6 +4277,9 @@ smle_mk3_grenade_launcher_gun{
   gun__visualRecoilMult:r=1.0
   gun_attach__slot:t="weapon"
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.12
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.065
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"

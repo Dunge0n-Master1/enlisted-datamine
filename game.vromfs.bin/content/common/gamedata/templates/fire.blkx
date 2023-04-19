@@ -1,0 +1,80 @@
+damage_zone_obstacle_base{
+
+  _group{
+    _tags:t="server"
+    obstacle__handle:i=0
+    obstacle__padding:r=1.2
+  }
+}
+
+damage_fire_base{
+  _extends:t="damage_zone_obstacle_base"
+  sphere_zone__radius:r=1.0
+  dmgzone__teamToDamage:i=-1
+  dmgzone__damageInVehicle:b=no
+  dmgzone__damage:r=0.0
+  dmgzone__fireAffect:r=30.0
+  dmgzone__lastUpdate:r=-1.0
+  dm__damageType:t="fire"
+  dm__damageTypeId:i=-1
+}
+
+fire_source_no_fx{
+  _extends:t="replicating"
+  _extends:t="damage_fire_base"
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  sphere_zone__radius:r=0.55
+  visibilityRestrictionRadius:r=0.65
+  visibilityRestrictionHeight:r=1.0
+  visibilityRestrictionBottomOffset:r=-0.35
+  destroy_underwater__nextCheckTime:r=0.0
+  destroy_underwater__checkPeriod:r=1.0
+  fire_source__startTime:r=0.0
+  dmgzone__maxRadius:r=1.45
+  fire_source__effectScale:r=1.0
+  fire_source__effectMinScale:r=0.2
+  dmgzone__gunPropsId:i=-1
+  dmgzone__shellId:i=-1
+
+  "dmgzone__offender:eid"{
+  }
+
+  "humanTriggerable:tag"{
+  }
+
+  "fire_source:tag"{
+  }
+
+  "fire_affected_optics:list<i>"{
+  }
+
+  "destroyUnderwater:tag"{
+  }
+}
+
+fire_timings{
+  fire_source__spreadTime:r=0.5
+  fire_source__fullForceTime:r=20.0
+  fire_source__maxFullForceTime:r=30.0
+  fire_source__fadeTime:r=10.0
+}
+
+fire_source{
+  _extends:t="bonfire_effect_no_occluders"
+  _extends:t="fire_source_no_fx"
+  _extends:t="fire_timings"
+  effect__scale:r=1.0
+  _tracked:t="effect__scale"
+  fire_source__spreadTime:r=0.5
+  fire_source__fullForceTime:r=20.0
+  fire_source__maxFullForceTime:r=30.0
+  fire_source__fadeTime:r=10.0
+
+  _group{
+    _tags:t="render"
+    effect__name:t="fire_molotov_cmps_fx"
+  }
+
+  "attachedNoScaleEffect:tag"{
+  }
+}

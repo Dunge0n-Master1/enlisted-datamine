@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { midPadding, titleTxtColor, defTxtColor, commonBorderRadius, defVertGradientImg, accentColor
+let { midPadding, titleTxtColor, defTxtColor, commonBorderRadius, accentColor, colPart
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
-let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
 let { soundActive } = require("%ui/components/textButton.nut")
+let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 
 
 let markerTarget = MoveToAreaTarget()
@@ -25,6 +25,10 @@ let tabTxtStyle = @(sf, isSelected) {
     : defTxtColor
 }.__update(fontXLarge)
 
+
+let tabBottomPadding = midPadding * 2
+
+
 let function mkTab(tab, curSection) {
   let { action, id, locId, isUnseenWatch = Watched(false) } = tab
   let isSelected = Computed(@() curSection.value == id)
@@ -42,7 +46,7 @@ let function mkTab(tab, curSection) {
           rendObj = ROBJ_TEXT
           text = utf8ToUpper(loc(locId))
           size = [SIZE_TO_CONTENT, flex()]
-          padding = [0, midPadding , midPadding * 2, midPadding]
+          padding = [0, midPadding, tabBottomPadding, midPadding]
           valign = ALIGN_BOTTOM
           key = id
           behavior = [Behaviors.Button, Behaviors.RecalcHandler]
@@ -62,31 +66,31 @@ let function mkTab(tab, curSection) {
 }
 
 let backgroundMarker = {
-  flow = FLOW_VERTICAL
-  gap = midPadding
   behavior = Behaviors.MoveToArea
   subPixel = true
   target = markerTarget
   viscosity = 0.1
-  children = [
-    {
-      size = [flex(), premiumBtnSize]
-      rendObj = ROBJ_IMAGE
-      image = defVertGradientImg
-    }
-    {
-      size = flex()
-      rendObj = ROBJ_BOX
-      borderWidth = 0
-      borderRadius = commonBorderRadius
-      fillColor = accentColor
-    }
-  ]
+  valign = ALIGN_BOTTOM
+  children = {
+    rendObj = ROBJ_BOX
+    size = [flex(), colPart(0.06)]
+    borderWidth = 0
+    borderRadius = commonBorderRadius
+    fillColor = accentColor
+  }
 }
+
+
+let mkGamepadNav = @(key, action) mkHotkey(key, action, {
+  size = [SIZE_TO_CONTENT, flex()]
+  valign = ALIGN_TOP
+  pos = [0, tabBottomPadding]
+})
 
 
 return {
   mkTab
   backgroundMarker
   requestMoveToElem
+  mkGamepadNav
 }

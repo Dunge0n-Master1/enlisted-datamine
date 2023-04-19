@@ -4,9 +4,9 @@ require DagorMathUtils
 require math.base
 require ecs.common
 require Dacoll
-require EnlistedActor
+require DngActor
 require DagorMath
-require EnlistedNet
+require DngNet
 require GamePhys
 require game.es.events
 require DagorRandom
@@ -190,6 +190,7 @@ def update_limb_progres(limbIdx : int;
 [es(tag=gameClient, REQUIRE_NOT=disableUpdate, after=walker_update_limbs_phys_es, after=before_net_phys_sync)]
 def walker_interpolate_remote_phys_es(info : ParallelUpdateFrameDelayed;
                                       eid : EntityId;
+                                      isAlive : bool;
                                       animchar__visible : bool;
                                       var walker_net_phys : WalkerPhysActor&;
                                       step_shake__maxDist = 20.0;
@@ -223,5 +224,5 @@ def walker_interpolate_remote_phys_es(info : ParallelUpdateFrameDelayed;
 
   update_limb_progres(0, leftLimbState, walker_net_phys, curProgress.x)
   update_limb_progres(1, rightLimbState, walker_net_phys, curProgress.y)
-
-  create_limb_fx(eid, walker_net_phys, animchar__visible, step_shake__maxDist, step_shake__wishShake)
+  if isAlive
+    create_limb_fx(eid, walker_net_phys, animchar__visible, step_shake__maxDist, step_shake__wishShake)

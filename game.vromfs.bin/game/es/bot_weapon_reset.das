@@ -1,7 +1,7 @@
 require ecs
 require HumanPhys
 require common_shooter.events_common_shooter
-require EnlistedHuman
+require DngHuman
 
 [es(tag=server, track=possessedByPlr, REQUIRE_NOT=deadEntity)]
 def bot_weapon_reset_when_remove_possessed(evt : Event;

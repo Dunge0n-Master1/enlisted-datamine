@@ -108,6 +108,12 @@ let soldierKinds = freeze({
     colorsByRare = colorsByRare
     locId = "soldierClass/medic"
   }
+  paratrooper = {
+    icon = "paratrooper.svg"
+    iconsByRare = ["paratrooper.svg", "paratrooper_veteran.svg"]
+    colorsByRare = colorsByRare
+    locId = "soldierClass/paratrooper"
+  }
 })
 
 let soldierClasses = freeze({
@@ -426,6 +432,27 @@ let soldierClasses = freeze({
     rank = 1
     kind = "medic"
   }
+  paratrooper = {
+    locId = "soldierClass/paratrooper"
+    getIcon = mkRankIcon(1)
+    getGlyph = mkRankGlyph(1)
+    rank = 1
+    kind = "paratrooper"
+  }
+  paratrooper_2 = {
+    locId = "soldierClass/paratrooper_2"
+    getIcon = mkRankIcon(2)
+    getGlyph = mkRankGlyph(2)
+    rank = 2
+    kind = "paratrooper"
+  }
+  paratrooper_3 = {
+    locId = "soldierClass/paratrooper_3"
+    getIcon = mkRankIcon(3)
+    getGlyph = mkRankGlyph(3)
+    rank = 3
+    kind = "paratrooper"
+  }
 
  // FIXME looks like legacy data
 //PREMIUM
@@ -597,6 +624,12 @@ let soldierClasses = freeze({
     rank = 10
     kind = "mgun"
   }.__update(premiumCfg)
+  mgun_premium_1_engineer_ch = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
   mgun_premium_1_legacy = {
     locId = "soldierClass/mgun"
     getGlyph = @(_) null
@@ -619,7 +652,7 @@ let soldierClasses = freeze({
     locId = "soldierClass/mgun"
     getGlyph = @(_) null
     rank = 10
-    kind = "engineer"
+    kind = "mgun"
   }.__update(eventCfg)
   mgun_3_premium_1 = {
     locId = "soldierClass/mgun"
@@ -897,6 +930,24 @@ let soldierClasses = freeze({
     rank = 10
     kind = "engineer"
   }.__update(premiumCfg)
+  paratrooper_1_event_1 = {
+    locId = "soldierClass/paratrooper"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "paratrooper"
+  }.__update(eventCfg)
+  paratrooper_2_premium_1 = {
+    locId = "soldierClass/paratrooper"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "paratrooper"
+  }.__update(premiumCfg)
+  paratrooper_2_event_1 = {
+    locId = "soldierClass/paratrooper"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "paratrooper"
+  }.__update(eventCfg)
 })
 
 const GLYPHS_TAG = "t"

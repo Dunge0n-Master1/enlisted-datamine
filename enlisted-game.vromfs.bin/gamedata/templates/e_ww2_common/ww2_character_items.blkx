@@ -84,6 +84,7 @@ attachable_hair{
 attachable_head_base{
   _extends:t="attachable_wear_without_collres_animchar"
   _extends:t="attachable_wear_broken_bones"
+  _extends:t="node_collapser"
   animchar__updatable:b=yes
   animchar_hider__camThreshold:r=0.3
   randomAnimStart:b=yes
@@ -99,10 +100,6 @@ attachable_head_base{
 
   "item__equipToSlots:array"{
     slot:t="face"
-  }
-
-  animchar_node_collapser{
-    _tags:t="render"
   }
 
   _group{

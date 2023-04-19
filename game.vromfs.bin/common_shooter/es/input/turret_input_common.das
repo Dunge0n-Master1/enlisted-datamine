@@ -6,7 +6,7 @@ require DagorMath
 require DagorMathUtils
 require DagorInput
 require math.ang
-require EnlistedCamera
+require DngCamera
 require common_shooter.es.weapon.turret_common
 
 def calc_aim_pos(aim_angles : float2)

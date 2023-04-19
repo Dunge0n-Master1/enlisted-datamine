@@ -3,7 +3,7 @@ require soundHash
 require soundEvent
 require sound_utils.modules.sound_player_common
 require game.es.events
-require EnlistedHuman
+require DngHuman
 require DagorSystem
 require DagorMath
 require PhysMat

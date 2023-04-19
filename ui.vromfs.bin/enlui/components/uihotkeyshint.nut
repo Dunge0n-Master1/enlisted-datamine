@@ -5,7 +5,7 @@ let formatInputBinding = require("%ui/control/formatInputBinding.nut")
 let parseDargHotkeys =  require("%ui/components/parseDargHotkeys.nut")
 let {isGamepad} = require("%ui/control/active_controls.nut")
 let {HUD_TIPS_HOTKEY_FG} = require("%ui/hud/style.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 
 let function mkHintRow(hotkeys, params={}) {
   let textFunc = params?.textFunc ??@(text) {

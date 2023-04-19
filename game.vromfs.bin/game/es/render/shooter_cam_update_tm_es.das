@@ -136,7 +136,7 @@ def shooter_cam_update_tm_es(info : UpdateStageInfoAct;
       vehicleOffsetMult = replay_cam__tpsOffsetMultiplierVehicle
     camera__prevOffset = offset
 
-    let magnification = camera__magnification * shooter_cam__magnificationMult
+    let magnification = isTpsView ? 1. : (camera__magnification * shooter_cam__magnificationMult)
     fov = rad_to_deg(atan(tan(deg_to_rad(fovSettings * 0.5f)) * safeinv(magnification))) * 2.f
     camera__totalMagnification = magnification
 

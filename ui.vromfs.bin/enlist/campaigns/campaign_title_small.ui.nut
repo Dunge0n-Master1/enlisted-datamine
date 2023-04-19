@@ -4,7 +4,10 @@ let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { hasCampaignSelection }  = require("campaign_sel_state.nut")
-let campaignSelectWnd = require("%enlist/campaigns/campaign_select_wnd.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
+let campaignSelectWnd = isNewDesign.value
+  ? require("%enlist/campaigns/chooseCampaignWnd.nut")
+  : require("%enlist/campaigns/campaign_select_wnd.nut")
 let { shadowStyle, titleTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 let text = @(text, sf) {

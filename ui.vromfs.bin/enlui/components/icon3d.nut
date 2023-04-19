@@ -61,8 +61,8 @@ let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
   let silhouetteColorInactive = ",".join(params?.silhouetteInactive ?? iconWidgetDef.silhouette)
   let imageHeight = height.tointeger()
   let imageWidth = width.tointeger()
-  let zenith = "lightZenith" in item ? $"zenith:r={item.lightZenith};" : ""
-  let azimuth = "lightAzimuth" in item ? $"azimuth:r={item.lightAzimuth};" : ""
+  let zenith = item?.lightZenith ? $"zenith:r={item.lightZenith};" : ""
+  let azimuth = item?.lightAzimuth ? $"azimuth:r={item.lightAzimuth};" : ""
   let objTexReplace = getTexReplaceString(item)
   let objTexSet = getTexSetString(item)
 

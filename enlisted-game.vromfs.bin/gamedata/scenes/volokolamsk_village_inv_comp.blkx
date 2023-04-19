@@ -63,7 +63,7 @@ entity{
 }
 
 entity{
-  _template:t="team_ussr+team_narrator_invasion_defence+respawn_creators_team"
+  _template:t="team_stalingrad_allies+team_narrator_invasion_defence+respawn_creators_team"
   team__countAdd:r=0.5
   team__memberCount:r=0.5
   team__scoreCap:r=5000.0
@@ -74,11 +74,11 @@ entity{
   team__winSubtitle:t="debriefing/won_defence_subtitle"
   team__loseSubtitle:t="debriefing/lost_defence_subtitle"
   team__winTitle:t="debriefing/ussr_won_defence"
-  team__spawnBotArmy:t="moscow_allies"
+  team__spawnBotArmy:t="stalingrad_allies"
 }
 
 entity{
-  _template:t="team_germany_winter+team_narrator_invasion_attack+respawn_creators_team"
+  _template:t="team_stalingrad_axis+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
   team__scoreCap:r=2000.0
   team__score:r=2000.0
@@ -90,7 +90,7 @@ entity{
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
   team__winTitle:t="debriefing/ger_won_invasion"
-  team__spawnBotArmy:t="moscow_axis"
+  team__spawnBotArmy:t="stalingrad_axis"
 }
 
 entity{

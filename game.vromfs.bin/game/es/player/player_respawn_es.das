@@ -1,8 +1,8 @@
 require app
 require DagorSystem
 require ecs
-require EnlistedActor
-require EnlistedHuman
+require DngActor
+require DngHuman
 require game.events_game
 require game.es.player_common
 require game.es.player_events
@@ -12,7 +12,7 @@ require GameTimers
 require HumanPhys
 require level
 require math.base
-require EnlistedNet
+require DngNet
 require player
 require replay
 

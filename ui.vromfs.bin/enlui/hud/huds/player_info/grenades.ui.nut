@@ -6,10 +6,10 @@ let { grenades, grenadesEids } = require("%ui/hud/state/inventory_grenades_es.nu
 let {blurBack, notSelectedItemColor, HUD_ITEMS_COLOR, iconSize, itemAppearing} = require("style.nut")
 let { grenadeIcon } = require("grenadeIcon.nut")
 
-let getGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, iconSize))
+let getGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, iconSize[1]))
 
 let curGrenadeSize = [fsh(2.5), fsh(2.5)]
-let getCurGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, curGrenadeSize))
+let getCurGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, curGrenadeSize[1]))
 
 let small_count = @(count, color) {
   rendObj = ROBJ_TEXT

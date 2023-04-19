@@ -3,7 +3,7 @@ require app
 require game.utils.team
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require CollRes
 require RendInst
 require math.base

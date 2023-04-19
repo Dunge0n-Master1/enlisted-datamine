@@ -31,7 +31,7 @@ let mkHint = @(hint) {
   text = hint
 }.__update(defTxtStyle)
 
-let mkAddUserButton = FAButton("user-plus", showContactsListWnd, {
+let addUserButton = FAButton("user-plus", showContactsListWnd, {
   hint = mkHint(loc("tooltips/addUser"))
   btnWidth = smallBtnSize
   btnHeight = smallBtnSize
@@ -65,7 +65,7 @@ let function squadMembersUi() {
 
   if (maxMembers.value > 1 && canInviteToSquad.value)
     for(local i = squadList.len(); i < maxMembers.value; i++)
-      squadList.append(mkAddUserButton())
+      squadList.append(addUserButton)
 
   return {
     watch = [squadMembers, isInvitedToSquad, canInviteToSquad, maxMembers, roomIsLobby]

@@ -2,7 +2,7 @@ require ecs
 require math
 require math.base
 require DagorMath
-require EnlistedPhysObj
+require DngPhysObj
 require game.es.events
 require DaWeaponProps
 require common_shooter.events_common_shooter

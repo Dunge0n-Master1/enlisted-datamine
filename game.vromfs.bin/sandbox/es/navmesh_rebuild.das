@@ -71,6 +71,31 @@ def navmesh_rebuild_start_es(evt : CmdNavMeshRebuildStart)
 
   rebuildNavMesh_init()
 
+  find_query() <| $ [es] (nav_rebuild__agentMaxSlope : float)
+    rebuildNavMesh_setup("agentMaxSlope", nav_rebuild__agentMaxSlope)
+    return true
+  find_query() <| $ [es] (nav_rebuild__vertsPerPoly : int)
+    rebuildNavMesh_setup("vertsPerPoly", float(nav_rebuild__vertsPerPoly))
+    return true
+  find_query() <| $ [es] (nav_rebuild__regionMinSize : float)
+    rebuildNavMesh_setup("regionMinSize", nav_rebuild__regionMinSize)
+    return true
+  find_query() <| $ [es] (nav_rebuild__regionMergeSize : float)
+    rebuildNavMesh_setup("regionMergeSize", nav_rebuild__regionMergeSize)
+    return true
+  find_query() <| $ [es] (nav_rebuild__minBorderSize : int)
+    rebuildNavMesh_setup("minBorderSize", float(nav_rebuild__minBorderSize))
+    return true
+  find_query() <| $ [es] (nav_rebuild__detailSampleDist : float)
+    rebuildNavMesh_setup("detailSampleDist", nav_rebuild__detailSampleDist)
+    return true
+  find_query() <| $ [es] (nav_rebuild__detailSampleMaxError : float)
+    rebuildNavMesh_setup("detailSampleMaxError", nav_rebuild__detailSampleMaxError)
+    return true
+  find_query() <| $ [es] (nav_rebuild__edgeMaxLen : float)
+    rebuildNavMesh_setup("edgeMaxLen", nav_rebuild__edgeMaxLen)
+    return true
+
   query() <| $ [es] (elevs : Array)
     for elev in elevs
       let data = get_Point4(elev) ?? float4(0.0, 0.0, 0.0, 0.0)
@@ -134,9 +159,7 @@ def navmesh_rebuild_step_es(info : UpdateStageInfoAct;
     rebuildNavMesh_close()
     return
 
-  let startTime = ref_time_ticks()
   let result = rebuildNavMesh_update(true)
-  let elapsedTime = float(get_time_usec(startTime)) * 0.001
 
   if !result
     navmesh_rebuilding__errors += 1

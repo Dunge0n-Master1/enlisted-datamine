@@ -2,7 +2,7 @@ options no_aot
 require ecs
 require DagorConsole
 require DagorDebug3D
-require EnlistedNet
+require DngNet
 require game.es.net_console_macro
 require game.es.server_debug_common
 require game.utils.team

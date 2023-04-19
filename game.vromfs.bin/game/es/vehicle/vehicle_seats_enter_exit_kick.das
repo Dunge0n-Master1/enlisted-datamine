@@ -5,9 +5,9 @@ require game.es.vehicle.vehicle_events
 require game.events_game
 require game.es.vehicle.vehicle_seats_common
 require vehicle
-require EnlistedActor
-require EnlistedHuman
-require EnlistedNet
+require DngActor
+require DngHuman
+require DngNet
 require GamePhys
 
 require AnimV20
@@ -151,7 +151,12 @@ def private vehicle_teleport_entity_by_bounding_box(eid : EntityId; collres : Co
 
 
 
-[es(tag=server)]
+[es(REQUIRE=customExitPos)]
+def remove_vehicle_exit_animator(evt : CmdKickFromVehicle)
+  removeSubTemplate(evt.eid, "human_vehicle_custom_exit_animator")
+
+
+[es]
 def vehicle_seats_enter_exit_kick_server_es(evt : CmdKickFromVehicle;
                                             eid : EntityId;
                                             animchar : AnimcharBaseComponent;
@@ -160,7 +165,8 @@ def vehicle_seats_enter_exit_kick_server_es(evt : CmdKickFromVehicle;
                                             vehicle_seats__seatEids : EidList;
                                             //vehicle_seats_hide_owner: BoolList;
                                             var last_driver : EntityId&;
-                                            var last_driver_leave_time : float&)
+                                            var last_driver_leave_time : float&;
+                                            customExitPos : float3 const?)
   let requester = evt.eid
 
   let playerEid = get_Eid(requester, "possessedByPlr") ?? INVALID_ENTITY_ID
@@ -208,8 +214,12 @@ def vehicle_seats_enter_exit_kick_server_es(evt : CmdKickFromVehicle;
       if seat__availableControls.canControlVehicle
         last_driver = requester
         last_driver_leave_time = get_sync_time()
-
-      if seat__entranceNodeId >= 0
+      if customExitPos != null
+        query(requester) <| $ [es] (var transform aka soldier_transform : float3x4&;
+                                    var human_net_phys : HumanActor&)
+          soldier_transform[3] = soldier_transform * (*customExitPos)
+          human_net_phys.phys.currentState.location.P = DPoint3(soldier_transform[3])
+      elif seat__entranceNodeId >= 0
         if !vehicle_teleport_entity_to_node(requester, animchar.nodeTree, seat__entranceNodeId)
           var found = false
           for otherSeatEid in vehicle_seats__seatEids

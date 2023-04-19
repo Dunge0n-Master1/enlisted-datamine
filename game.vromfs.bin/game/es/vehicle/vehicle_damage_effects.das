@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require app
 require dm
-require EnlistedDm
+require DngDm
 require game.es.events
 require game.es.vehicle.vehicle_events
 require DmFire

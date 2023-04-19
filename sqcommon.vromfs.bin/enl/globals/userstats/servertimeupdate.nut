@@ -6,8 +6,16 @@ let time = require("serverTime.nut")
 
 let gameStartServerTimeMsec = mkWatched(persist, "gameStartServerTimeMsec", 0)
 let lastReceivedServerTime = mkWatched(persist, "lastReceivedServerTime", 0)
-let updateTime = @() gameStartServerTimeMsec.value <= 0 ? null
-  : time((gameStartServerTimeMsec.value + get_time_msec()) / 1000)
+
+let function updateTime() {
+  if (gameStartServerTimeMsec.value <= 0)
+    return
+  let newTime = (gameStartServerTimeMsec.value + get_time_msec()) / 1000
+  // keep local time monotone
+  if (newTime > time.value)
+    time(newTime)
+}
+
 updateTime()
 gameStartServerTimeMsec.subscribe(@(_t) updateTime())
 setInterval(1.0, updateTime)

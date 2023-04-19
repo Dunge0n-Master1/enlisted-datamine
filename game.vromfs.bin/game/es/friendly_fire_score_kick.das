@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require player
 require math
 require math.base

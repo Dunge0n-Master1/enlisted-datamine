@@ -15,7 +15,7 @@ def is_border(seg : float4)
   return (int(seg.x) & 1) != 0
 
 
-[es(no_order, tag=(render, sound))]
+[es(no_order, tag=(render, sound, dev))]
 def ocean_sound_debug_draw(info : UpdateStageInfoRenderDebug;
                            ocean_sound__points : Point4List;
                            ocean_sound__waterLevel : float)

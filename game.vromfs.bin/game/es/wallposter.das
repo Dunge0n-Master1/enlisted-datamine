@@ -4,7 +4,7 @@ require Dacoll
 require CollRes
 require RendInst
 require PhysMat
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events
 require game.utils.hero

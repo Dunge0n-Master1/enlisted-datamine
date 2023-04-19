@@ -2,15 +2,15 @@ require ecs
 require ecs.safe
 require Gun
 require ecs.common
-require EnlistedNet
+require DngNet
 require app
 require enlisted.events_enlisted
 require game.utils.team
-require EnlistedWeapon
+require DngWeapon
 require game.es.sound_net.sound_net_events
 require math
 require math.base
-require EnlistedPlane
+require DngPlane
 require GamePhys
 require strings
 

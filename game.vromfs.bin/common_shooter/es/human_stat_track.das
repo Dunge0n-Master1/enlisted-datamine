@@ -6,7 +6,7 @@ require common_shooter.events_common_shooter
 require app
 require math
 require DaWeaponProps
-require EnlistedDm
+require DngDm
 require strings
 require game.es.stat_bq_common
 require daslib/strings_boost

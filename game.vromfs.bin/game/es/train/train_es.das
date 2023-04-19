@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require math.base
 require math.shooter_phys_common
 require GamePhys
@@ -7,9 +7,9 @@ require CollRes
 require DagorMath
 require DagorConsole
 require PhysObj
-require EnlistedPhysObj
-require EnlistedHuman
-require EnlistedActor
+require DngPhysObj
+require DngHuman
+require DngActor
 require game.es.events
 require enlisted.events_enlisted
 require enlisted.game.es.train.train_common

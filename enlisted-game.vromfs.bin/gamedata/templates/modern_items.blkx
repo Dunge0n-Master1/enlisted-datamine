@@ -318,12 +318,9 @@ attachable_wear_armor_vest_tactical_us_female{
 
 attachable_wear_armor_ww_rus_a_aztec{
   _extends:t="attachable_wear_rus_armor"
+  _extends:t="node_collapser"
   animchar__res:t="armor_ww_rus_a_aztec_char"
   collres__res:t="armor_ww_rus_a_aztec_collision"
-
-  animchar_node_collapser{
-    _tags:t="render"
-  }
 
   "animchar_node_collapser__nodes:object"{
     "Bip01 Neck":t=""

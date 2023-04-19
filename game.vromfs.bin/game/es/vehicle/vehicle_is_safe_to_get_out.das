@@ -1,5 +1,5 @@
 require ecs
-require EnlistedPlane
+require DngPlane
 require DagorMath
 
 [es(tag=server, no_order)]

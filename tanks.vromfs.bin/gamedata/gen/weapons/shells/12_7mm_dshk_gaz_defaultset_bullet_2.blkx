@@ -13,9 +13,6 @@ armorFragmentsDamageAngle:r=15.0
 armorFragmentsAmount:i=15
 armorFragmentsArmorPower:r=2.0
 armorFragmentsHit:r=8.0
-groundCollisionEffect:t="hit_12_18mm_dirt_ap"
-ricochetEffect:t="hit_12_18mm_metal_ap"
-waterCollisionEffect:t="hit_12_18mm_water"
 secondaryShattersPreset:t="ap"
 
 hitpower{
@@ -290,32 +287,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_12_18mm_dirt_ap"
-  jetFx:t="hit_12_18mm_dirt_ap"
-
-  steel{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

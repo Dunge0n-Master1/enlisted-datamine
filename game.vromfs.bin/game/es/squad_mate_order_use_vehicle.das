@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
@@ -7,7 +7,7 @@ require human_sounds_net.modules.human_sounds_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
-require EnlistedBehTree
+require DngBehTree
 require game.es.squad_order_common
 
 [es(tag=server)]
@@ -107,7 +107,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
             beh_tree__orderIsInVehicle     = true
             beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
 
-          EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+          DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
           if beh_tree__latencyLoadBlackBoard != null
             *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
           beh_tree.blackBoard |> set("vehicleEid", int(uint(vehicleEid)))
@@ -116,7 +116,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
           beh_tree__orderIsInVehicle     = true
           beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
 
-          EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+          DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
 
           if beh_tree__latencyLoadBlackBoard != null
             *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(vehicleEid)))
@@ -222,7 +222,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
 
           beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
 
-        EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+        DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
 
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
@@ -234,7 +234,7 @@ def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
 
         beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
 
-        EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+        DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))
         beh_tree.blackBoard |> set("vehicleEid", int(uint(leaderVehicleEid)))

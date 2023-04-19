@@ -61,6 +61,10 @@ base_churchill_3{
       wishYawParamName:t="gun_01_aim:targetYaw"
       wishPitchParamName:t="gun_01_aim:targetPitch"
       gunRecoilParamName:t="gun_01_recoil"
+      hasStabilizerParamName:t="gun_01_aim:hasStab"
+      stabilizerPitchParamName:t="gun_01_aim:stabPitch"
+      stabilizerErrorParamName:t="gun_01_aim:stabError"
+      stabilizerPitchMultParamName:t="gun_01_aim:stabPitchMult"
     }
 
     "vars:object"{
@@ -110,6 +114,8 @@ churchill_3_turret_01_57mm_6pdr_qqf_mk_5_l50{
   turret__pitchSpeed:r=10.0
   turret__aimNodeName:t="bone_turret"
   turret__limit:p4=-180.0, 180.0, -12.0, 20.0
+  turret__stabilizerPitchFrictionMult:r=0.8
+  turret__stabilizerPitchSpeedLimitKph:r=10.0
 
   "turret__limitsTable:list<p4>"{
     lim1:p4=-180.0, -135.0, 0.0, 20.0
@@ -119,6 +125,12 @@ churchill_3_turret_01_57mm_6pdr_qqf_mk_5_l50{
     lim5:p4=11.0, 45.0, -5.0, 20.0
     lim6:p4=45.0, 135.0, -12.0, 20.0
     lim7:p4=135.0, 180.0, 0.0, 20.0
+  }
+
+  "turret__stabilizerErrorByKphSpeedTable:list<p2>"{
+    row:p2=5.0, 0.0
+    row:p2=8.0, 0.2
+    row:p2=10.0, 0.4
   }
 
   "gun__shellsAmmo:array"{

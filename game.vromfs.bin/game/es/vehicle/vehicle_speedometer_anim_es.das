@@ -2,6 +2,7 @@ require ecs
 require vehicle
 require PhysVars
 require DagorMath
+require GamePhys
 require enlisted.events_enlisted
 
 

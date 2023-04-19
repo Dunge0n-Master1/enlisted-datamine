@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require game.utils.net_utils
 require common_shooter.events_common_shooter
@@ -9,8 +9,8 @@ require DagorMath
 require math.base
 require app
 require strings
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require AnimV20
 require game.utils.team
 require GeomNodeTree
@@ -307,14 +307,8 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
       enemyDetectMaxDistance = marker__enemyDetectMaxDistance
 
   var aimPos = humanAimTm[3]
-  var aimDir = humanAimTm[0]
   query(evt.markOwnerEid) <| $ [es] (transform : float3x4)
     aimPos = transform[3]
-    aimDir = transform[0]
-
-  let smokeTraceEnd = aimPos + aimDir * enemyDetectMaxDistance
-  if rayhit_smoke_occluders(aimPos, smokeTraceEnd)
-    return
 
   var enemyEid = INVALID_ENTITY_ID
   var vehicleEid = INVALID_ENTITY_ID
@@ -361,6 +355,10 @@ def map_user_point_create_es(evt : CmdCreateMapUserPoint;
       if newObj != null
         userPointVehicleTargetEid = vehicleEid
         obj = newObj
+
+  if rayhit_smoke_occluders(aimPos, pos)
+    return
+
   create_map_user_point(evt.item_name, pos, evt.norm, eid, team, *obj, false) <| $(var init : ComponentsInitializer)
     if !empty(userPointCustomIcon)
       set(init, "userPointCustomIcon", userPointCustomIcon)

@@ -2,7 +2,7 @@ module turrets_common shared
 require ecs
 require ecs.common
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 
 struct GunOwner
   eid : EntityId = INVALID_ENTITY_ID

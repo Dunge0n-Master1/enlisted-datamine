@@ -6,7 +6,7 @@ require game.es.events
 require game.es.input.input_events
 require ForceFeedbackRumble
 require game.es.input.input_common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 
 

@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require WeapHelpers
-require EnlistedHuman
+require DngHuman
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
 

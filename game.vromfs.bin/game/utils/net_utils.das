@@ -2,7 +2,7 @@ module net_utils shared
 
 require ecs
 require game.utils.team
-require EnlistedNet
+require DngNet
 require player
 
 def enum_connections_squad(squad_eid : EntityId) : array<IConnection?>

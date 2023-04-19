@@ -1,0 +1,815 @@
+muzzle_flash{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+muzzle_ground_60mm{
+  fx:t="muzzle_ground_60mm_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+  soundEnableDistance:r=100.0
+  farPlane:r=6000.0
+  group:t="highres"
+}
+
+muzzle_ground_125mm{
+  fx:t="muzzle_ground_125mm_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=4
+  soundEnableDistance:r=100.0
+  farPlane:r=6000.0
+  group:t="highres"
+}
+
+side_muzzle_flash{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.5
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.0
+  group:t="highres"
+}
+
+fire_muzzle_extractor_smoke{
+  fx:t="fire_muzzle_extractor_smoke_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_6_8mm{
+  fx:t="fire_muzzle_6_8mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_6_8mm_no_flash{
+  fx:t="fire_muzzle_6_8mm_no_flash_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm{
+  fx:t="fire_muzzle_8_14mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm_no_flash{
+  fx:t="fire_muzzle_8_14mm_no_flash_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+muzzle_flash_8_14_rapid{
+  fx:t="fire_muzzle_8_14mm_rapid_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_8_14mm_rapid_brake{
+  fx:t="fire_muzzle_8_14mm_rapid_brake_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm{
+  fx:t="fire_muzzle_14_20mm_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm_rapid{
+  fx:t="fire_muzzle_14_20mm_rapid_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+fire_muzzle_14_20mm_brake_double{
+  fx:t="fire_muzzle_14_20mm_brake_double_cmps_fx"
+  minScale:r=4.0
+  maxScale:r=4.0
+  numInstances:i=1000
+  numReserved:i=30
+}
+
+generic_weapon_hit_ground{
+  fx:t="hit_100_150mm_ap_sand_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="[cal=25;mat=0]impact/shell"
+}
+
+fab_100_hit_ground{
+  fx:t="hit_100_150mm_ap_sand_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=1.0
+  granularity:i=4
+  numInstances:i=200
+  numReserved:i=30
+  minScale:r=1.0
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="[cal=75;mat=0]impact/bomb"
+}
+
+hit_28_38mm_dirt_ap{
+  fx:t="hit_28_38mm_dirt_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="ground_splash"
+  soundEnableDistance:r=150.0
+  group:t="highres"
+}
+
+hit_28_38mm_metal_ap{
+  fx:t="hit_28_38mm_metal_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_28_38mm_stone_ap{
+  fx:t="hit_28_38mm_stone_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_stone_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_28_38mm_dirt_he{
+  fx:t="hit_28_38mm_dirt_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_20_37"
+  soundEnableDistance:r=1000.0
+  group:t="highres"
+}
+
+hit_28_38mm_metal_he{
+  fx:t="hit_28_38mm_metal_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_metal_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_28_38mm_wood_he{
+  fx:t="hit_28_38mm_wood_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_20_37"
+  soundEnableDistance:r=1000.0
+  group:t="highres"
+}
+
+hit_28_38mm_stone_he{
+  fx:t="hit_28_38mm_stone_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_20_37"
+  soundEnableDistance:r=1000.0
+  group:t="highres"
+}
+
+hit_8_11mm_dirt_ap{
+  fx:t="hit_8_11mm_dirt_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_ground"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_8_11mm_metal_ap{
+  fx:t="hit_8_11mm_metal_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_8_11mm_wood_ap{
+  fx:t="hit_8_11mm_wood_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_wood"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_8_11mm_stone_ap{
+  fx:t="hit_8_11mm_stone_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_stone"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_19_27mm_dirt_ap{
+  fx:t="hit_19_27mm_dirt_ap_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="ground_splash"
+  soundEnableDistance:r=150.0
+  group:t="highres"
+}
+
+hit_19_27mm_metal_ap{
+  fx:t="hit_19_27mm_metal_ap_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_19_27mm_wood_ap{
+  fx:t="hit_19_27mm_wood_ap_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="splash_wood"
+  soundEnableDistance:r=150.0
+  group:t="highres"
+}
+
+hit_19_27mm_stone_ap{
+  fx:t="hit_19_27mm_stone_ap_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_stone_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_19_27mm_dirt_he{
+  fx:t="hit_19_27mm_dirt_he_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_20_37"
+  soundEnableDistance:r=1000.0
+  group:t="highres"
+}
+
+hit_19_27mm_metal_he{
+  fx:t="hit_19_27mm_metal_he_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_metal_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_19_27mm_wood_he{
+  fx:t="hit_19_27mm_wood_he_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_20_37"
+  soundEnableDistance:r=1000.0
+  group:t="highres"
+}
+
+hit_19_27mm_stone_he{
+  fx:t="hit_19_27mm_stone_he_cmps_fx"
+  numInstances:i=120
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_stone_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_39_58mm_dirt_ap{
+  fx:t="hit_39_58mm_dirt_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_stone_small"
+  soundEnableDistance:r=500.0
+  group:t="highres"
+}
+
+hit_39_58mm_metal_ap{
+  fx:t="hit_39_58mm_metal_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_39_58mm_wood_ap{
+  fx:t="hit_39_58mm_wood_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_39_58mm_stone_ap{
+  fx:t="hit_39_58mm_stone_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_37_50"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_39_58mm_dirt_he{
+  fx:t="hit_39_58mm_dirt_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_37_50"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_39_58mm_metal_he{
+  fx:t="hit_39_58mm_metal_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_metal"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_39_58mm_wood_he{
+  fx:t="hit_39_58mm_wood_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_39_58mm_stone_he{
+  fx:t="hit_39_58mm_stone_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground_37_50"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_8_11mm_metal_he{
+  fx:t="hit_8_11mm_metal_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=30
+  group:t="highres"
+}
+
+hit_8_11mm_wood_he{
+  fx:t="hit_8_11mm_wood_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=30
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_wood"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_8_11mm_stone_he{
+  fx:t="hit_8_11mm_stone_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=30
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_stone"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_12_18mm_metal_he{
+  fx:t="hit_12_18mm_metal_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_12_18mm_wood_he{
+  fx:t="hit_12_18mm_wood_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_wood"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_12_18mm_stone_he{
+  fx:t="hit_12_18mm_stone_he_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_stone"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_12_18mm_metal_ap{
+  fx:t="hit_12_18mm_metal_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_12_18mm_wood_ap{
+  fx:t="hit_12_18mm_wood_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_wood"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_12_18mm_stone_ap{
+  fx:t="hit_12_18mm_stone_ap_cmps_fx"
+  numInstances:i=180
+  numReserved:i=40
+  onePointNumber:i=10
+  sfxPathStudio:t="aircraft/effects"
+  sfxEvent:t="bullethit_stone"
+  soundEnableDistance:r=100.0
+  group:t="highres"
+}
+
+hit_59_80mm_dirt_ap{
+  fx:t="hit_20_60mm_ap_sand_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="no_explosive_ground"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_metal_ap{
+  fx:t="hit_100_150mm_he_metal_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  group:t="highres"
+}
+
+hit_59_80mm_wood_ap{
+  fx:t="hit_100_150mm_he_wood_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="no_explosive_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_stone_ap{
+  fx:t="hit_100_150mm_he_stone_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="no_explosive_concrete"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_dirt_he{
+  fx:t="hit_59_80mm_dirt_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_ground"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_metal_he{
+  fx:t="hit_59_80mm_metal_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_metal"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_wood_he{
+  fx:t="hit_59_80mm_wood_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_59_80mm_stone_he{
+  fx:t="hit_59_80mm_stone_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_concrete"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_81_132mm_heat{
+  fx:t="hit_81_132mm_heat_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="explosion_metal"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_dirt_ap{
+  fx:t="hit_106_132mm_dirt_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=30
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_no_expl_ground"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_metal_ap{
+  fx:t="hit_106_132mm_metal_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=30
+  group:t="highres"
+}
+
+hit_106_132mm_wood_ap{
+  fx:t="hit_106_132mm_wood_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=30
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_no_expl_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_stone_ap{
+  fx:t="hit_106_132mm_stone_ap_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=30
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_no_expl_concrete"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_dirt_he{
+  fx:t="hit_106_132mm_dirt_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_explosion_ground"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_metal_he{
+  fx:t="hit_106_132mm_metal_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_explosion_metal"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_wood_he{
+  fx:t="hit_106_132mm_wood_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_explosion_wood"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+hit_106_132mm_stone_he{
+  fx:t="hit_106_132mm_stone_he_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=10
+  sfxPathStudio:t="ground/explosions"
+  sfxEvent:t="art_explosion_concrete"
+  soundEnableDistance:r=5000.0
+  group:t="highres"
+}
+
+wood_small_destr{
+  fx:t="envir_destr_tree_green_med_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.25
+  maxScale:r=0.5
+  group:t="highres"
+  sfx:t="env_effects/object_crash/wood_small"
+}
+
+wood_mid_destr{
+  fx:t="envir_destr_tree_green_big_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=1.0
+  group:t="highres"
+  sfx:t="env_effects/object_crash/wood_mid"
+}
+
+water_splash_swimming_a_fx{
+  fx:t="water_hit_swimming_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.2
+  group:t="highres"
+}
+
+contrail{
+  fx:t="trail_plane_contrail_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+water_splash_a_fx{
+  fx:t="hit_footstep_puddle_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.2
+  group:t="highres"
+}
+
+footstep_mud_chunks_fx{
+  fx:t="hit_footstep_mud_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.2
+  group:t="highres"
+}
+
+footstep_snow_chunks_fx{
+  fx:t="hit_footstep_snow_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.2
+  group:t="highres"
+}
+
+ground_splash{
+  fx:t="hit_footstep_sand_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+ground_splash_direct{
+  fx:t="hit_footstep_stone_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.1
+  granularity:i=4
+  numInstances:i=100
+  numReserved:i=30
+  minScale:r=0.5
+  maxScale:r=2.0
+  group:t="highres"
+}
+
+footstep_fx{
+  fx:t="hit_footstep_dirt_cmps_fx"
+  lifeTime:r=0.0
+  softnessDepth:r=0.01
+  granularity:i=4
+  numInstances:i=1000
+  numReserved:i=30
+  minScale:r=0.8
+  maxScale:r=1.2
+  group:t="highres"
+}

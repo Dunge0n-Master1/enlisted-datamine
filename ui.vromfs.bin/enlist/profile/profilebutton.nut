@@ -11,8 +11,8 @@ let {
 let { hasAchievementsReward } = require("%enlist/unlocks/taskListState.nut")
 let { chosenNickFrame, chosenPortrait } = require("%enlist/profile/decoratorState.nut")
 let { frameNick, getPortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { midPadding, defTxtColor, titleTxtColor, columnWidth, defVertGradientImg,
-  hoverVertGradientImg, colPart
+let { midPadding, defTxtColor, titleTxtColor, columnWidth, colPart, defItemBlur, accentColor,
+  panelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkPortraitIcon } = require("decoratorPkg.nut")
 let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
@@ -26,19 +26,6 @@ let {
 
 let portraitWidth = columnWidth
 let squareBlockSize= [portraitWidth, portraitWidth]
-
-
-let defBlockBg = {
-  size = squareBlockSize
-  rendObj = ROBJ_IMAGE
-  image = defVertGradientImg
-}
-
-let hoverBlockBg = {
-  size = squareBlockSize
-  rendObj = ROBJ_IMAGE
-  image = hoverVertGradientImg
-}
 
 
 let hasUnseenElements = Computed(@() hasUnseenDecorators.value
@@ -73,19 +60,23 @@ let largeNickTxtHovered = {
 
 let playerRankBlock = @(sf) @() {
   watch = playerRank
+  rendObj = ROBJ_WORLD_BLUR
+  size = squareBlockSize
+  color = defItemBlur
+  fillColor = sf & S_HOVER ? accentColor : panelBgColor
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
-  children = [
-    sf & S_HOVER ? hoverBlockBg : defBlockBg
-    mkRankIcon(playerRank.value?.rank, colPart(0.53))
-  ]
+  children = mkRankIcon(playerRank.value?.rank, colPart(0.53))
 }
 
 
 let playerPortrait = @(sf) @() {
   watch = [hasUnseenElements, hasUnopenedElements, chosenPortrait]
+  rendObj = ROBJ_WORLD_BLUR
+  size = squareBlockSize
+  color = defItemBlur
+  fillColor = sf & S_HOVER ? accentColor : panelBgColor
   children = [
-    sf & S_HOVER ? hoverBlockBg : defBlockBg
     mkPortraitIcon(getPortrait(chosenPortrait.value?.guid), portraitWidth)
     {
       pos = [0, midPadding]

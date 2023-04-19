@@ -16,9 +16,9 @@ let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksS
 
 let mkTaskContent = @(task)
   function() {
-    let progress = getUnlockProgress(task)
+    let progress = getUnlockProgress(task, unlockProgress.value)
     return {
-      watch = [unlockProgress]
+      watch = unlockProgress
       size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       children = {

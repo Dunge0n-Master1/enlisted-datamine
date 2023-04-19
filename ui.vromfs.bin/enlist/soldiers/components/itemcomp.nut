@@ -19,14 +19,14 @@ let { equipItem, swapItems } = require("%enlist/soldiers/model/itemActions.nut")
 let { iconByItem, getItemName, getItemDesc, trimUpgradeSuffix
 } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curHoveredItem } = require("%enlist/showState.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { unequipItem } = require("%enlist/soldiers/unequipItem.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkItemUpgradeData } = require("%enlist/soldiers/model/mkItemModifyData.nut")
-let mkAmmo = require("mkAmmo.nut")
+let { mkAmmoSlot } = require("mkAmmo.nut")
 let { getWeaponData } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
@@ -386,7 +386,7 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
 
   let weapData = getWeaponData(item?.gametemplate ?? "")
   let needShowAmmo = weapData?["caliber"] != null || weapData?["bullets"] != null
-  let ammoBox = needShowAmmo ? mkAmmo(item, soldierGuid, weapData, slotType) : null
+  let ammoBox = needShowAmmo ? mkAmmoSlot(item, soldierGuid, weapData, slotType) : null
 
   let stateFlags = Watched(0)
   selectKey = selectKey ?? (item != null

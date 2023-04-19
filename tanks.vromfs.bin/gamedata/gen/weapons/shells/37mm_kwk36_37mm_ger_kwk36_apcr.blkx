@@ -12,13 +12,7 @@ stucking:r=0.7
 stuckingAngle:r=45.0
 bulletType:t="apcr_tank"
 fresnel:p3=0.23, 0.1, 2.0
-shellAnimation:t="video/shells_animations/apcr.ivf"
 bulletName:t="37mm_pzgr_40"
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_28_38mm_metal_ap"
-groundCollisionEffect:t="hit_28_38mm_dirt_ap"
-ricochetEffect:t="hit_28_38mm_metal_ap"
-waterCollisionEffect:t="hit_28_38mm_water"
 explosionPatchRadius:r=0.4
 modelName:t="tank_bullet_apcr"
 secondaryShattersPreset:t="apcr"
@@ -205,32 +199,6 @@ ballistics{
       mod3:p2=30.0, 0.6
       mod4:p2=50.0, 1.0
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_28_38mm_dirt_ap"
-  jetFx:t="hit_28_38mm_dirt_ap"
-
-  steel{
-    fx:t="hit_28_38mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_28_38mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_28_38mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_28_38mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

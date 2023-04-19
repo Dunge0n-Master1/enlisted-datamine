@@ -5,6 +5,7 @@ require ProjectiveDecals
 require DagorMath
 require DagorShaders
 require DagorDriver3D
+require DagorResPtr
 
 [cpp_event(broadcast)]
 struct OnRenderDecals {}
@@ -55,13 +56,13 @@ def blood_decals_init(evt : Event;
 def blood_decals_prepare_render(stg : UpdateStageInfoBeforeRender;
                                 var blood_decals_manager : RingBufferDecals;
                                 blood_decals_traces_result : ecs::FloatList;
-                                var blood_decals_traces_buf : UniqueBufHolder;
+                                blood_decals_traces_buf : UniqueBufHolder;
                                 blood_decals_traces_queue : ecs::IPoint2List;
                                 blood_decals_depth_shader : PostFxRenderer;
                                 blood_decals_depth_atlas : UniqueTexHolder)
 
 
-  *blood_decals_traces_buf.getBuf |> updateData(blood_decals_traces_result, uint(VBLOCK_DISCARD));
+  *getBuf(blood_decals_traces_buf) |> updateData(blood_decals_traces_result, uint(VBLOCK_DISCARD));
 
   if !blood_decals_traces_queue |> empty
 

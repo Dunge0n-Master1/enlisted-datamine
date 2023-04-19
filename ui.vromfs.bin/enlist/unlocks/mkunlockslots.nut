@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, titleTxtColor, colPart, defHorGradientImg, hoverHorGradientImg
+let { smallPadding, titleTxtColor, colPart, defTxtColor, accentColor, defItemBlur,
+  transpPanelBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { statusBlock, taskDescription, taskHeader, taskDescPadding,
   taskMinHeight, taskSlotPadding, mkTaskEmblem
@@ -12,6 +13,8 @@ let { rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
 
+let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
+let hoverTxtColor = { color = darkTxtColor }.__update(fontSmall)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontSmall)
 let btnOffset = colPart(0.36)
 let mkHideTrigger = @(task) $"hide_task_{task.name}"
@@ -19,7 +22,7 @@ let mkHideTrigger = @(task) $"hide_task_{task.name}"
 
 let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
   function() {
-    let progress = getUnlockProgress(unlockDesc)
+    let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
     return {
       watch = unlockProgress
       size = [flex(), SIZE_TO_CONTENT]
@@ -31,7 +34,10 @@ let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
         valign = ALIGN_CENTER
         children = [
           mkTaskEmblem(unlockDesc, progress, canTakeReward)
-          taskHeader(unlockDesc, progress, canTakeReward, sf)
+          taskHeader(unlockDesc, progress, canTakeReward, sf,
+            { size = [flex(), SIZE_TO_CONTENT] }.__update(sf & S_HOVER
+              ? hoverTxtColor
+              : defTxtStyle ))
         ]
       }
     }
@@ -126,29 +132,25 @@ let mkUnlockSlot = kwarg(@(
 )
   watchElemState(@(sf) {
     key = task.name
+    rendObj = ROBJ_WORLD_BLUR
     size = [flex(), SIZE_TO_CONTENT]
+    fillColor = sf & S_HOVER ? accentColor : transpPanelBgColor
+    color = defItemBlur
     minHeight = taskMinHeight
     behavior = onClick == null ? null : Behaviors.Button
     sound = soundDefault
     onClick
+    margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
+    transform = {}
+    animations = (hasShowAnim && needShowAnim(task)
+      ? [{ prop = AnimProp.translate, from = [colPart(4),0], to = [0,0],
+          duration = 0.25, play = true }]
+      : []).append(
+            { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.35,
+              trigger = mkHideTrigger(task) },
+            { prop = AnimProp.opacity, from = 0, to = 0, duration = 3,
+              delay = 0.3, trigger = mkHideTrigger(task) })
     children = [
-      {
-        rendObj = ROBJ_IMAGE
-        size = flex()
-        margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
-        image = defHorGradientImg
-      }
-      sf & S_HOVER
-        ? {
-            rendObj = ROBJ_IMAGE
-            size = flex()
-            margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
-            image = hoverHorGradientImg
-            animations = [{
-              prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
-            }]
-          }
-        : null
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
@@ -185,15 +187,6 @@ let mkUnlockSlot = kwarg(@(
         ? statusBlock(task, hasWaitIcon, rerolls > 0)
         : null
     ]
-    transform = {}
-    animations = (hasShowAnim && needShowAnim(task)
-      ? [{ prop = AnimProp.translate, from = [colPart(4),0], to = [0,0],
-          duration = 0.25, play = true }]
-      : []).append(
-            { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.35,
-              trigger = mkHideTrigger(task) },
-            { prop = AnimProp.opacity, from = 0, to = 0, duration = 3,
-              delay = 0.3, trigger = mkHideTrigger(task) })
   })
 )
 

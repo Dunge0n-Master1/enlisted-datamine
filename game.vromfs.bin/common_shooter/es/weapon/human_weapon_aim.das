@@ -1,7 +1,7 @@
 require ecs
 require math.base
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require DagorMath
 require DagorMathUtils

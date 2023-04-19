@@ -290,7 +290,7 @@ let noBotsModeQuery = ecs.SqQuery("noBotsModeQuery", {comps_rq=["noBotsMode"]})
 
 let isNoBotsMode = @() noBotsModeQuery.perform(@(...) true) ?? false
 
-local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId) {
+local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId, existedVehicleEid) {
   if (team == TEAM_UNASSIGNED) {
     debug($"Cannot create player possessed entity for team {team}")
     return
@@ -370,6 +370,7 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
 
   squadParams.__update({
     playerEid = eid
+    existedVehicleEid = existedVehicleEid
     isBot     = comp.playerIsBot
     squad     = squad
     vehicle   = vehicle
@@ -446,10 +447,10 @@ let comps = {
 }
 
 ecs.register_es("spawn_squad_es", {
-  [CmdSpawnSquad] = @(evt, eid, comp) spawnSquadImpl(eid, comp, evt.team, evt.squadId, evt.memberId, evt.respawnGroupId),
+  [CmdSpawnSquad] = @(evt, eid, comp) spawnSquadImpl(eid, comp, evt.team, evt.squadId, evt.memberId, evt.respawnGroupId, evt.existedVehicleEid),
   [CmdSpawnEntityForPlayer] = function(evt, eid, comp) {
     if (comp.isFirstSpawn)
-      spawnSquadImpl(eid, comp, evt.team, 0, 0, -1)
+      spawnSquadImpl(eid, comp, evt.team, 0, 0, -1, ecs.INVALID_ENTITY_ID )
   }
 }, comps)
 

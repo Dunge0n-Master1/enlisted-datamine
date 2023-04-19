@@ -2,8 +2,8 @@ mass:r=0.41
 cartridgeMass:r=0.41
 momentOfInertia:p3=0.04, 0.008, 0.04
 caliber:r=0.04
-speed:r=80.0
-speedPitch:r=3.7
+speed:r=70.0
+speedPitch:r=-3.0
 physMat:t="bulletRay"
 useFutureContacts:b=yes
 logCCD:b=no
@@ -44,11 +44,6 @@ splashDamage{
   penetration:p2=4.0, 4.0
   damage:r=10.0
   dmgOffset:p3=0.0, 0.25, 0.0
-}
-
-explFx{
-  fxScale:p2=1.0, 1.0
-  effectTemplName:t="explosion_effect_medium+disable_effect_sfx"
 }
 
 explSound{

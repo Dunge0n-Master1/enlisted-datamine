@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge, fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { colPart, colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, commonBorderRadius,
-  selectedBgColor, smallPadding, transpPanelBgColor, commonWndPadding, navHeight
+  accentColor, smallPadding, transpBgColor, navHeight, footerContentHeight, darkTxtColor,
+  panelBgColor, defItemBlur
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -35,10 +36,10 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 } = require("%enlist/squad/squadManager.nut")
-let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
 let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
+let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 
 
 let fbImageByCampaign = {
@@ -57,7 +58,7 @@ let defCustomGameImage = "ui/game_mode_moscow_solo.avif"
 
 let titleTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let activeTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
 let descTxtStyle = { color = titleTxtColor }.__update(fontSmall)
 
 
@@ -66,9 +67,6 @@ let cardSize = [colFull(4), colPart(7.516)]
 let nameBlockSize = [colFull(4), colPart(1.322)]
 let unseenPanelPos = [0, -colPart(0.709) - colPart(0.387)]
 let cardDescritionHeight = cardSize[1] - nameBlockSize[1]
-
-let nameBlockBgImg = mkColoredGradientY(0xFF444555, 0xFF181F34)
-let activeNameBlockBgImg = mkColoredGradientY(0xFF5979B4, 0xFF2B2D44)
 
 
 let defTutorialParams = Computed(@() {
@@ -82,15 +80,18 @@ let defTutorialParams = Computed(@() {
 })
 
 
-let close = function(){
-  if (isTutorialsWndOpened.value)
-    isTutorialsWndOpened(false)
-  else
+let function close(needToClose = true) {
+  if (needToClose)
     isOpened(false)
+  else
+    isTutorialsWndOpened(false)
 }
 
 
-let backBtn = Bordered(loc("gamemenu/btnBack"), close, { hotkeys = [[$"^{JB.B} | Esc"]] })
+let backBtn = Bordered(loc("gamemenu/btnBack"), @() close(!isTutorialsWndOpened.value),
+  { hotkeys = [[$"^{JB.B} | Esc"]] })
+
+
 let topBlock = {
   size = [flex(), navHeight]
   valign = ALIGN_CENTER
@@ -180,7 +181,7 @@ let descriptionBlock = @(text, sf) @() {
   watch = crossnetworkPlay
   size = [flex(), cardDescritionHeight]
   rendObj = ROBJ_SOLID
-  color = transpPanelBgColor
+  color = transpBgColor
   padding = [colPart(0.4), smallPadding]
   valign = ALIGN_BOTTOM
   transform = sf == 0 ? { translate = [0, cardSize[1]] } : { translate = [0, 0] }
@@ -195,26 +196,34 @@ let descriptionBlock = @(text, sf) @() {
 }
 
 
-let nameBlock = @(name, sf, isSelected = false) {
-  rendObj = ROBJ_IMAGE
+let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @() {
+  watch = crossnetworkPlay
+  rendObj = ROBJ_WORLD_BLUR
   size = [flex(), nameBlockSize[1]]
-  image = isSelected || sf != 0 ? activeNameBlockBgImg : nameBlockBgImg
+  fillColor = isSelected || sf != 0 ? accentColor : panelBgColor
+  color = defItemBlur
   valign = ALIGN_CENTER
-  gap = midPadding
+  padding = [0, smallPadding]
+  halign = ALIGN_RIGHT
   children = [
     {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [pw(80), SIZE_TO_CONTENT]
       text = name
       halign = ALIGN_CENTER
-    }.__update(defTxtStyle)
+      hplace = ALIGN_CENTER
+    }.__update(isSelected || (sf & S_HOVER) != 0 ? activeTxtStyle : defTxtStyle)
+    needShowCrossnetworkPlayIcon && needShowCrossplayIcon
+      && crossnetworkPlay.value != CrossplayState.OFF
+        ? crossplayIcon({ iconSize = colPart(0.5) })
+        : null
   ]
 }
 
 
 let function mkCustomGameButton(modeCfg, hasSeen, animations) {
-  let { image, title, id, onClick, description } = modeCfg
+  let { image, title, id, onClick, description, needShowCrossplayIcon = false } = modeCfg
   return watchElemState(@(sf) {
     size = cardSize
     xmbNode = XmbNode()
@@ -233,7 +242,7 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
         clipChildren = true
         children = [
           descriptionBlock(description, sf)
-          nameBlock(utf8ToUpper(title), sf)
+          nameBlock(utf8ToUpper(title), sf, needShowCrossplayIcon)
         ]
       }
       hasSeen ? null
@@ -356,7 +365,7 @@ let selectedLine = {
   rendObj = ROBJ_BOX
   borderWidth = 0
   borderRadius = commonBorderRadius
-  fillColor = selectedBgColor
+  fillColor = accentColor
   vplace = ALIGN_BOTTOM
   pos = [0, midPadding]
 }
@@ -397,7 +406,6 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           return
         if (isGamepad.value)
           move_mouse_cursor(id, false)
-        gui_scene.setXmbFocus(xmbNode)
       }
       behavior = Behaviors.Button
       onClick = @() gameModeOnClickAction(gameMode)
@@ -414,7 +422,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           clipChildren = true
           children = [
             descriptionBlock(description, sf)
-            nameBlock(gameMode.title, sf, isSelected)
+            nameBlock(gameMode.title, sf, needShowCrossplayIcon, isSelected)
           ]
         }
         hasSeen ? null
@@ -481,8 +489,8 @@ let function gameModesList() {
       isViewport = true
     })
     halign = ALIGN_CENTER
-    children = [
-      makeHorizScroll({
+    children = makeHorizScroll(
+      {
         onDetach = @() isTutorialsWndOpened(false)
         flow = FLOW_HORIZONTAL
         gap
@@ -497,8 +505,6 @@ let function gameModesList() {
           wheelStep = 0.82
         }
       })
-      isTutorialsWndOpened.value ? backBtn : null
-    ]
   }
 }
 
@@ -535,6 +541,7 @@ let serverBlock = {
 
 let bottomBlock = {
   size = [flex(), SIZE_TO_CONTENT]
+  padding = [0, 0, footerContentHeight, 0]
   vplace = ALIGN_BOTTOM
   children = [
     crossplayDescBlock
@@ -543,10 +550,11 @@ let bottomBlock = {
 }
 
 
-let changeGameModeWnd = {
+let changeGameModeWnd = @() {
+  watch = safeAreaBorders
   size = flex()
   hplace = ALIGN_CENTER
-  padding = commonWndPadding
+  padding = safeAreaBorders.value
   behavior = Behaviors.Button
   onClick = @() null
   children = [

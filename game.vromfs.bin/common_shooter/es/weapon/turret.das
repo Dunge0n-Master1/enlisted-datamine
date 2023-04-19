@@ -6,15 +6,15 @@ require common_shooter.es.weapon.turret_common
 require enlisted.events_enlisted
 require vehicle
 require turrets
-require EnlistedNet
+require DngNet
 require math.base
 require math.shooter_phys_common
 require game.es.events
 require debug.logerr_once
 require DagorMathUtils
-require EnlistedWeapon
-require EnlistedActor
-require EnlistedPhys
+require DngWeapon
+require DngActor
+require DngPhys
 require Dacoll
 require DaWeapons
 require GridCollision
@@ -25,7 +25,7 @@ require DagorMath
 require Gun
 require BitStream
 require game.utils.hero
-require EnlistedWeapon
+require DngWeapon
 require BallisticsProps
 require DaWeaponProps
 

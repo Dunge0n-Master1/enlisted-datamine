@@ -1,4 +1,4 @@
-require EnlistedNet
+require DngNet
 require ecs
 require ecs.safe
 require ecs.common

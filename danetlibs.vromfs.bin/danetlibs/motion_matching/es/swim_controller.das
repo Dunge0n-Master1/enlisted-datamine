@@ -3,6 +3,7 @@ require math.base
 require strings
 require DagorMath
 require DagorSystem
+require AnimV20
 require %danetlibs/motion_matching/es/mm_events
 require %danetlibs/motion_matching/es/tags_common
 
@@ -31,22 +32,24 @@ def update_mm_progress(act : ParallelUpdateFrameDelayed;
 
 [es(tag=gameClient, before=mm_lod_selector)]
 def update_mm_trajectory(act : ParallelUpdateFrameDelayed;
-                         transform : float3x4;
-                         var motion_matching__goalTags : StringList;
-                         var motion_matching__prevTransform : float3x4&;
+                         animchar : AnimcharBaseComponent;
+                         var motion_matching__prevAnimcharRotation : float4&;
                          var motion_matching__linearVelocity, motion_matching__angularVelocity : float3&;
-                         motion_matching__idleVelocityBarrier : float;
                          human_net_phys__velocity : float3;
                          motion_matching__enabled : bool)
   if motion_matching__enabled
     var instantOmega : float3
-    let quaternion = inverse(quat(motion_matching__prevTransform)) * quat(transform)
+    var tm : float3x4
+    animchar |> animchar_get_tm(tm);
+    let animcharRotation = quat(tm);
+    let quaternion = inverse(quat(motion_matching__prevAnimcharRotation)) * animcharRotation
     quat_to_euler(quaternion, instantOmega.x, instantOmega.y, instantOmega.z)
-    motion_matching__linearVelocity = rotate(inverse(transform), human_net_phys__velocity)
-    let CONPATIBLE_ROTATION = quat(float3(0, 1, 0), deg_to_rad(90.f))
-    motion_matching__linearVelocity = CONPATIBLE_ROTATION * motion_matching__linearVelocity
+    motion_matching__linearVelocity = inverse(animcharRotation) * human_net_phys__velocity
     motion_matching__angularVelocity = float3(0.0, safediv(instantOmega.x, act.dt), 0.0)
-    let isIdle = abs(motion_matching__angularVelocity.y) < PI * 0.01 && length(motion_matching__linearVelocity) < motion_matching__idleVelocityBarrier
 
-    set_tag(motion_matching__goalTags, isIdle, "idle")
-    motion_matching__prevTransform = transform
+    // I don't like how immediate is `idle` tag apply, we need to do something with it
+    // Maybe just use amortized velocity? we already have it
+    // let isIdle = abs(motion_matching__angularVelocity.y) < PI * 0.01 && length(motion_matching__linearVelocity) < 0.01
+    // set_tag(motion_matching__goalTags, isIdle, "idle")
+
+    motion_matching__prevAnimcharRotation = float4(animcharRotation)

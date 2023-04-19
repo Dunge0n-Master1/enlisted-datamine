@@ -3,7 +3,7 @@ require app
 require DagorMath
 require DagorMathUtils
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 require Dacoll

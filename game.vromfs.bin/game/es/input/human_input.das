@@ -10,7 +10,7 @@ require DagorMathUtils
 require HumanPhys
 require HumanPhys
 require TouchInput
-require EnlistedHuman
+require DngHuman
 require game.es.human.human_use_object_common
 
 let MOVE_THRESHOLD = 0.1f

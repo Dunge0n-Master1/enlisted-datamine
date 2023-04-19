@@ -5,17 +5,17 @@ let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { statusTier } = require("%enlSqGlob/ui/itemPkg.nut")
 let {
-  colFull, colPart, columnGap, midPadding, defTxtColor, smallPadding,
-  defSlotBgImg, hoverSlotBgImg, bigPadding
+  colFull, colPart, columnGap, midPadding, defTxtColor, smallPadding, hoverSlotBgColor,
+  defSlotBgColor, defItemBlur, bigPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
-let slotSize = [colFull(3), colPart(1.02) * 2 + 3 * columnGap]
+let slotSize = [colFull(3), colPart(1) * 2 + 4 * columnGap + bigPadding]
 
 
-let vehicleBg = @(flags, isSelected) isSelected ? hoverSlotBgImg
-    : flags & S_HOVER ? hoverSlotBgImg
-    : defSlotBgImg
+let vehicleBgColor = @(flags, isSelected) isSelected ? hoverSlotBgColor
+  : flags & S_HOVER ? hoverSlotBgColor
+  : defSlotBgColor
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
@@ -76,8 +76,9 @@ let function mkVehicleBadge(
     children = [
       {
         size = flex()
-        rendObj = ROBJ_IMAGE
-        image = vehicleBg(sf, isSelected)
+        rendObj = ROBJ_WORLD_BLUR
+        fillColor = vehicleBgColor(sf, isSelected)
+        color = defItemBlur
         children = gametemplate == "" ? null
           : [
               mkVehicleImage(gametemplate, skin?.id)

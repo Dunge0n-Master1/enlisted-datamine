@@ -1,9 +1,9 @@
 require ecs
 require ecs.common
 require daslib/strings_boost
-require EnlistedDm
+require DngDm
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require DaWeapons
 require DagorMath
 require DagorSystem

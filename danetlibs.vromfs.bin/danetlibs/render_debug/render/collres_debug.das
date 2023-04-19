@@ -5,7 +5,7 @@ require DagorConsole
 require AnimV20
 require CollRes
 require GeomNodeTree
-require EnlistedCamera
+require DngCamera
 require RendInst
 require Dacoll
 require PhysMat
@@ -87,7 +87,7 @@ def for_each_collres_near_camera(fn : function<(collres : CollisionResource; tra
 
     end_draw_cached_debug_lines()
 
-[es(REQUIRE=drawCollisionResource, no_order)]
+[es(tag=(render, dev), REQUIRE=drawCollisionResource, no_order)]
 def debug_dynamic_collision(info : UpdateStageInfoRenderDebug)
   for_each_collres_near_camera(@@draw_node_collision_geometry)
 
@@ -105,7 +105,7 @@ def toggle_draw_coll_res_names()
   if !exists
     createEntity("collres_names_debug")
 
-[es(REQUIRE=drawCollresNames, no_order)]
+[es(tag=(render, dev), REQUIRE=drawCollresNames, no_order)]
 def draw_collres_node_names(info : UpdateStageInfoRenderDebug)
   for_each_collres_near_camera(@@draw_node_names)
 
@@ -163,12 +163,22 @@ def get_node_info(node) : string
   if node.nodeType == uint8(int(CollisionResourceNodeType COLLISION_NODE_TYPE_MESH)) || node.nodeType == uint8(int(CollisionResourceNodeType COLLISION_NODE_TYPE_CONVEX))
     get_collnode_geom(node) <| $ [unused_argument(vertices)] (indices; vertices)
       geomInfo += " ({length(indices) / 3} triangles)"
-  geomInfo += "; " + format_scale(node.flags, node.tm)
+  if node.geomNodeId != -1
+    geomInfo += "; geomNodeId: {node.geomNodeId}"
+  else
+    geomInfo += "; " + format_scale(node.flags, node.tm)
   return "node {node.nodeIndex}: {node |> collnode_get_name()}" + geomInfo
+
+def get_grid_info(collres : CollisionResource; flag : uint8)
+  var width : int3
+  var leafSize : float3
+  if collres |> collres_getGridSize(flag, width, leafSize)
+    return "{width.x}x{width.y}x{width.z} leaf " + format("%.2f", max(leafSize.x, max(leafSize.y, leafSize.z)))
+  return "no"
 
 def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animchar : AnimcharBaseComponent const?; dist : float; best_node_idx : int; intersection_pos : float3; collres : CollisionResource)
   let markOffsetScale = dist * 0.22
-  let markPos = intersection_pos + cam_itm[0] * markOffsetScale + cam_itm[1] * markOffsetScale * 0.5
+  let markPos = intersection_pos + cam_itm[0] * markOffsetScale + cam_itm[1] * markOffsetScale * 0.75
   let node = collres |> collres_get_node(best_node_idx)
   let nodeTree = animchar != null ? animchar.nodeTree : null
   var ntm : float3x4
@@ -176,7 +186,7 @@ def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animch
   draw_debug_sphere_buffered(transform * collres.boundingSphere.c, collres.boundingSphere.r, E3DCOLOR(0xFFBBBB00), 24, 1)
   draw_debug_box_buffered(node.modelBBox, ntm, E3DCOLOR(0xFFBF00FF), 1)
   var meshCnt, triCnt, ptCnt, boxCnt, sphCnt, capCnt, cvxCnt : int
-  var traceableCnt, collidableCnt : int
+  var traceableCnt, collidableCnt, geomCnt : int
   let nodesCnt = collres |> collres_get_nodesCount()
   var scaledCnt = 0
   var notUniformCnt = 0
@@ -212,6 +222,8 @@ def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animch
       traceableCnt++
     if (uint(inode.behaviorFlags) & uint(BehaviorFlag PHYS_COLLIDABLE)) != 0u
       collidableCnt++
+    if (inode.geomNodeId != -1)
+      geomCnt++
   var nodesText = "Total nodes: {nodesCnt}"
   if meshCnt != 0
     nodesText += "; mesh: {meshCnt} (triangles: {triCnt}"
@@ -231,16 +243,21 @@ def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animch
     nodesText += "; cap: {capCnt}"
   if cvxCnt != 0
     nodesText += "; cvx: {cvxCnt}"
-  nodesText += "; traceable: {traceableCnt}; phys_collidable: {collidableCnt}"
+  if traceableCnt != 0
+    nodesText += "; traceable: {traceableCnt}"
+  if collidableCnt != 0
+    "; phys_collidable: {collidableCnt}"
+  if geomCnt != 0
+    "; geom_attached: {geomCnt}"
   add_debug_text_mark(markPos, name, -1, 0.0, E3DCOLOR(0xFF8FFF8F))
   add_debug_text_mark(markPos, format("dist %.2fm; tm ", dist) + format_scale(transform), -1, 1.2, E3DCOLOR(0xFF8FFF8F))
   add_debug_text_mark(markPos, "Selected " + get_node_info(node), -1, 2.4, E3DCOLOR(0xFF8FFF8F))
   add_debug_text_mark(markPos, nodesText, -1, 3.6, E3DCOLOR(0xFF8FFF8F))
   if noteType != 0
     add_debug_text_mark(markPos, "Last scaled " + get_node_info(collres |> collres_get_node(noteId)), -1, 4.8, E3DCOLOR(0xFF8FFF8F))
-  add_debug_text_mark(markPos, "Grids: trace={collres |> collres_check_grid_available(uint8(BehaviorFlag TRACEABLE))} coll={collres |> collres_check_grid_available(uint8(BehaviorFlag PHYS_COLLIDABLE))}", -1, noteType != 0 ? 6.0 : 4.8, E3DCOLOR(0xFF8FFF8F))
+  add_debug_text_mark(markPos, "Grids: trace={get_grid_info(collres, uint8(BehaviorFlag TRACEABLE))} coll={get_grid_info(collres, uint8(BehaviorFlag PHYS_COLLIDABLE))}", -1, noteType != 0 ? 6.0 : 4.8, E3DCOLOR(0xFF8FFF8F))
 
-[es(tag=render, no_order, REQUIRE=collisionRulerDebug)]
+[es(tag=(render, dev), no_order, REQUIRE=collisionRulerDebug)]
 def draw_collision_ruler_es(evt : UpdateStageInfoRenderDebug)
   let camItm = get_TMatrix(get_cur_cam_entity(), "transform")
   if camItm == null

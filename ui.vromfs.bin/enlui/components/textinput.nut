@@ -133,6 +133,7 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     size = [flex(), fontH(100)], textmargin = [sh(1), sh(0.5)], valignText = ALIGN_BOTTOM,
     margin = [sh(1), 0], padding = 0, borderRadius = hdpx(3), valign = ALIGN_CENTER,
     xmbNode = null, imeOpenJoyBtn = null, charMaskTypes = null,
+    placeholderTextMargin = [0, sh(0.5)],
 
     //handlers
     onBlur = null, onReturn = null,
@@ -221,7 +222,8 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
       fontSize
       color = rcolors.placeHolderColor
       animations = [failAnim(text_state)]
-      margin = [0, sh(0.5)]
+      margin = placeholderTextMargin
+      valignText
     }
     placeholderObj = placeholder instanceof Watched
       ? @() phBase.__update({ watch = placeholder, text = placeholder.value })
@@ -282,7 +284,6 @@ let function textInput(text_state, options={}, frameCtor=defaultFrame) {
     fillColor = rcolors.backGroundColor
     borderWidth = 0
     borderRadius
-    clipChildren = true
     size = [flex(), SIZE_TO_CONTENT]
     group
     animations = [failAnim(text_state)]
@@ -353,9 +354,7 @@ let textInputColors = {
 
 
 let makeTextInput = @(text_state, options, frameCtor)
-  textInput(text_state,
-    options.__merge({ colors = textInputColors }),
-    frameCtor)
+  textInput(text_state, { colors = textInputColors }.__update(options), frameCtor)
 
 
 let export = class{

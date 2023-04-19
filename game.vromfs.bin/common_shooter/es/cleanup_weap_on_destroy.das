@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWeapon
+require DngWeapon
 
 [es(on_disappear, tag=server)]
 def destroy_ammo_holder_in_real_gun_es(evt : Event; gun__ammoHolderEid : ecs::EntityId)

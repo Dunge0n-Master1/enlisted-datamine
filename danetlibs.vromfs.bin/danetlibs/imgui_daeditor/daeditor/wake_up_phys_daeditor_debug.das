@@ -1,11 +1,11 @@
 options no_aot
 require ecs
 require vehicle
-require EnlistedPhysObj
+require DngPhysObj
 require PhysObj
 require Ship
-require EnlistedShip
-require EnlistedActor
+require DngShip
+require DngActor
 
 [es(no_order, REQUIRE=daeditor__selected)]
 def animchar_update_phys_obj_wake_up_es(info : UpdateStageInfoAct;

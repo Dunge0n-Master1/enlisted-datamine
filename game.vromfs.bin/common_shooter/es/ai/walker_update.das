@@ -1,6 +1,6 @@
 require ecs
 require walkerai
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require game.es.events
 require BehNodes

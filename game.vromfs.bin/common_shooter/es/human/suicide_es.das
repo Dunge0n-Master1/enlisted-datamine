@@ -1,6 +1,6 @@
 require ecs
 require game.es.events
-require EnlistedDm
+require DngDm
 
 [es(on_event=RequestSuicide, tag=server, REQUIRE=hitpoints)]
 def human_suicide_es(evt : Event;

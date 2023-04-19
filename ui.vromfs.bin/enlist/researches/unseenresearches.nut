@@ -1,7 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { allResearchStatus, CAN_RESEARCH, RESEARCHED } = require("researchesState.nut")
+let {
+  hasResearchesSection, allResearchStatus, CAN_RESEARCH, RESEARCHED
+} = require("researchesState.nut")
+let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
+let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
+
 
 const SEEN_ID = "seen/researches"
 
@@ -69,9 +74,26 @@ let function resetSeen() {
   return reseted
 }
 
+
+let curUnseenResearches = Computed(function() {
+  if (!hasResearchesSection.value || !isCurCampaignProgressUnlocked.value)
+    return null
+
+  let armyId = curArmyData.value?.guid
+  if (armyId == null)
+    return null
+
+  return {
+    hasUnseen = (seenResearches.value?.unseen[armyId].len() ?? 0) > 0
+    hasUnopened = (seenResearches.value?.unopened[armyId].len() ?? 0) > 0
+  }
+})
+
+
 console_register_command(@() console_print("Reseted armies count = {0}".subst(resetSeen())), "meta.resetSeenResearches")
 
 return {
   markSeen
   seenResearches
+  curUnseenResearches
 }

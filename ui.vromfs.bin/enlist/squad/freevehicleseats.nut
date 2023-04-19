@@ -18,6 +18,7 @@ let freeSeatsBlock = @() {
     watch = freeSeatsInVehicle
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
+    size = [flex(), SIZE_TO_CONTENT]
     text = freeSeatsInVehicle.value.len() <= 0 ? null
       : loc("vehicle_seats/free", { seats = ", ".join(freeSeatsInVehicle.value.map(@(seat)
           colorize(titleTxtColor, loc(seat.locName)))) })

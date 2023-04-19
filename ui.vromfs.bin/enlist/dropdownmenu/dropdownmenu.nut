@@ -1,9 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { hasToggleDesign, isNewDesign } = require("%enlSqGlob/designState.nut")
-let mkDropMenuBtn = isNewDesign.value
-  ? require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
-  : require("%enlist/components/mkDropDownMenu.nut")
+let { hasToggleDesign } = require("%enlSqGlob/designState.nut")
+let mkDropMenuBtn = require("%enlist/components/mkDropDownMenu.nut")
 let {
   btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign, btnCBR
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
@@ -133,6 +131,6 @@ let function buttons(){
   return res.filter(@(v) v!=null)
 }
 let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden,
-  hasToggleDesign, isNewDesign]
+  hasToggleDesign]
 
 return mkDropMenuBtn(buttons, watch)

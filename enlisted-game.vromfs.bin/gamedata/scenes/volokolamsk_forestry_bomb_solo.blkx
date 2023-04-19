@@ -10,6 +10,10 @@ import{
   scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_biome_fx.blk"
 }
 
+import{
+  scene:t="content/enlisted/gamedata/scenes/_volokolamsk_autumn_common.blk"
+}
+
 entity{
   _template:t="battle_area_polygon_point"
   transform:m=[[0.859014, 0.0, 0.511952] [0.0, 1.0, 0.0] [-0.511952, 0.0, 0.859014] [-1208.46, -2.922, 347.326]]
@@ -503,50 +507,8 @@ entity{
 }
 
 entity{
-  _template:t="wind"
-}
-
-entity{
-  _template:t="postfx_color_grading_tonemap_death_alive_enlisted"
-}
-
-entity{
-  _template:t="shaderVars"
-
-  "shader_vars__vars:object"{
-    hmap_displacement_up:r=0.3
-    ocean1:c=142, 137, 71, 0
-    ocean0:c=76, 63, 5, 0
-    ocean_density:r=0.1
-    land_selfillum_worldscale:r=0.9
-    river1:c=142, 137, 71, 0
-    river0:c=76, 63, 5, 0
-    hmap_displacement_down:r=-0.15
-    puddle_flat_hmap_reduce:r=0.03
-    autodetect_land_selfillum_color:p4=0.53, 0.0, 0.0, 0.16
-    paint_details_tex:t="volokolamsk_building_colors_tex_palette*"
-    land_selfillum_strength:r=32.0
-    water_color_noise_size:r=71.0
-    river_density:r=0.3
-  }
-}
-
-entity{
-  _template:t="postfx_roundctrl"
-}
-
-entity{
-  _template:t="door_mult_ent_generator"
-  ri_extra_gen__blk:t="content/enlisted/gamedata/volokolamsk_doors.blk"
-}
-
-entity{
   _template:t="session_finalizer"
   session_finalizer__timer:r=10.0
-}
-
-entity{
-  _template:t="minimap_battle_of_moscow_volokolamsk_countryside_autumn"
 }
 
 entity{
@@ -1153,21 +1115,6 @@ entity{
   _template:t="resupply_in_air_zone"
   transform:m=[[0.119539, 0.0, 0.992829] [0.0, 1.0, 0.0] [-0.992829, 0.0, 0.119539] [1563.57, 731.983, -1439.35]]
   resupply_zone__team:i=1
-}
-
-entity{
-  _template:t="volokolamsk_level"
-  level__blk:t="content/enlisted/levels/battle_of_moscow_volokolamsk_countryside_autumn.blk"
-}
-
-entity{
-  _template:t="clouds_hole_target"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
-}
-
-entity{
-  _template:t="water"
-  water__strength:r=1.3
 }
 
 entity{

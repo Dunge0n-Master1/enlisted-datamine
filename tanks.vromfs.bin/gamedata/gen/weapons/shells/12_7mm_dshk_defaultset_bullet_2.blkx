@@ -1,34 +1,39 @@
-mass:r=0.041
+mass:r=0.0443
 caliber:r=0.0127
-speed:r=850.0
-Cx:r=0.15
-maxDistance:r=2000.0
+speed:r=860.0
+Cx:r=0.409
+maxDistance:r=3400.0
+explosiveType:t="petn"
+explosiveMass:r=0.0019
+bulletName:t="i_ball_mdz"
 normalizationPreset:t="default"
 bulletType:t="he_i_ball"
-bulletName:t="i_ball_mdz"
-nearHitPower:p2=1.0, 50.0
-midHitPower:p2=0.9, 300.0
-farHitPower:p2=0.1, 700.0
-endHitPower:p2=0.008, 1500.0
-explodeTreshold:r=0.1
-explodeHitPower:r=12.0
-explodeArmorPower:r=3.0
+effectiveDistance:r=3000.0
+explodeTreshold:r=0.25
+explodeHitPower:r=7.5
+explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.1
 shutterDamage:b=yes
-shutterAmount:i=10
+shutterAmount:i=8
 shutterArmorPower:r=3.0
-shutterHit:r=3.5
-groundCollisionEffect:t="hit_12_18mm_dirt_he"
-ricochetEffect:t="hit_12_18mm_metal_ap"
-waterCollisionEffect:t="hit_12_18mm_water"
+shutterHit:r=2.5
 secondaryShattersPreset:t="ap"
 
+hitpower{
+  HitPower10m:p2=1.0, 10.0
+  HitPower1000m:p2=0.95, 1000.0
+  HitPower1500m:p2=0.85, 1500.0
+  HitPower2000m:p2=0.3, 2000.0
+  HitPower2500m:p2=0.2, 2500.0
+  HitPower3000m:p2=0.1, 3000.0
+}
+
 armorpower{
-  ArmorPower0m:p2=2.0, 10.0
-  ArmorPower100m:p2=2.0, 100.0
-  ArmorPower500m:p2=1.5, 500.0
-  ArmorPower1000m:p2=1.0, 1000.0
-  ArmorPower1450m:p2=0.5, 1450.0
+  ArmorPower0m:p2=3.5, 5.0
+  ArmorPower100m:p2=3.3, 100.0
+  ArmorPower500m:p2=3.2, 500.0
+  ArmorPower1000m:p2=3.0, 1000.0
+  ArmorPower1450m:p2=0.1, 1450.0
   ArmorPower1500m:p2=0.0, 1500.0
 }
 
@@ -41,9 +46,10 @@ visual{
 damage{
 
   kinetic{
-    damage:r=1.0
+    damage:r=3.0
+    onHitChanceMultFire:r=2.0
     correctionPenetrationByRelativeVelocity:p2=200.0, 1000.0
-    correctionDamageByRelativeVelocity:p2=300.0, 1000.0
+    correctionDamageByRelativeVelocity:p2=300.0, 3000.0
     damageType:t="generic"
 
     energyToDamage{
@@ -71,21 +77,25 @@ damage{
 
   splash{
     radius:p2=0.03, 0.1
-    penetration:r=3.0
-    damage:r=12.0
+    penetration:r=2.5
+    damage:r=7.5
     damageType:t="explosion"
   }
 
   shatter{
     radius:r=0.2
-    count:i=10
+    count:i=8
     penetration:r=3.0
-    damage:r=3.5
+    damage:r=2.5
     damageType:t="shatter"
   }
 
   explosive{
-    fuseArmorTreshold:r=0.1
+    type:t="petn"
+    mass:r=0.0019
+    fuseArmorTreshold:r=0.25
+    strengthEquivalent:r=1.7
+    brisanceEquivalent:r=1.3
   }
 
   secondaryShatter{
@@ -307,32 +317,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_12_18mm_dirt_he"
-  jetFx:t="hit_12_18mm_dirt_he"
-
-  steel{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

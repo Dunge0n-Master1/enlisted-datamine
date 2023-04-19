@@ -2,8 +2,8 @@ require ecs
 require math.base
 require game.events_game
 require enlisted.events_enlisted
-require EnlistedCamera
-require EnlistedHuman
+require DngCamera
+require DngHuman
 require HumanPhys
 require app
 require game.es.player_common

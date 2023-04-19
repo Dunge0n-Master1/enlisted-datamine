@@ -282,6 +282,14 @@ let objectsToObserve = {
     watch = soldierInSoldiers
     slaveWatches = [curCampItems, soldierViewGen, soldiersLook, allOutfitByArmy]
   },
+  soldiers_quarters = {
+    compName = "menu_char_to_control",
+    createEntityFunc = @(guid, transform, callback = null)
+      {eid = createSoldier({ guid, transform, callback, soldiersLook = soldiersLook.value,
+        premiumItems = allOutfitByArmy.value })}
+    watch = soldierInSoldiers
+    slaveWatches = [curCampItems, soldierViewGen, soldiersLook, allOutfitByArmy]
+  },
   soldier_customization = {
     compName = "menu_char_to_control",
     recreateSoldier = true
@@ -340,6 +348,14 @@ let objectsToObserve = {
   },
   armory = {
     compName = "menu_weapon_to_control",
+    createEntityFunc = @(template, transform, callback=null)
+      createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
+    watch = itemInArmory
+    shouldResetCameraDirection = Watched(true)
+    slaveWatches = [itemInArmoryAttachments]
+  },
+  items_inventory = {
+    compName = "menu_new_items_to_control",
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
     watch = itemInArmory

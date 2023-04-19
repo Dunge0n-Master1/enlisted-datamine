@@ -12,6 +12,18 @@ entity{
 }
 
 entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  respawnCameraStaticSideLook:b=yes
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  respawnCameraStaticSideLook:b=yes
+}
+
+entity{
   _template:t="static_cam"
   camera__active:b=yes
   transform:m=[[0.631776, 0.0, -0.775151] [-0.00212011, 0.999996, -0.00172796] [0.775148, 0.00273509, 0.631773] [-547.775, 13.2347, 138.886]]

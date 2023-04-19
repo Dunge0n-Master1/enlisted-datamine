@@ -6,6 +6,7 @@ let { INVALID_ITEM_ID } = require("humaninv")
 let { CmdTrackHeroWeapons } = require("gameevents")
 let { grenadesEids } = require("inventory_grenades_es.nut")
 let { mkFrameIncrementObservable } = require("%ui/ec_to_watched.nut")
+let { CmdShowAllWeaponsUi } = require("dasevents")
 
 const EES_EQUIPED = 0
 const EES_HOLSTERING = 1
@@ -56,6 +57,14 @@ ecs.register_es("hero_throw_mode_es",
     comps_rq = ["watchedByPlr"]
     comps_track = [["human_weap__throwMode", ecs.TYPE_BOOL]]
   }
+)
+
+let showAllWeaponsTrigger = Watched(0)
+ecs.register_es("hero_show_all_weapons",
+  {
+    [CmdShowAllWeaponsUi] = @(...) showAllWeaponsTrigger.trigger()
+  },
+  {},{ tags="ui" }
 )
 
 let canStartMeleeCharge = Watched(false)
@@ -306,5 +315,6 @@ return {
   canStartMeleeCharge
   EWS_NUM
   isThrowMode
+  showAllWeaponsTrigger
 }
 

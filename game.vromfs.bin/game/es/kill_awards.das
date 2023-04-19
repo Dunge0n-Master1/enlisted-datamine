@@ -3,7 +3,7 @@ require ecs.common
 require app
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require game.utils.team
 require math.base
 require strings
@@ -57,9 +57,11 @@ def kill_award_es(evt : EventPlayerKilledEntity;
 
     let damageType = int(evt.deathDesc_damageTypeId)
     let nodeType = dm_parts__type != null ? get_string(*dm_parts__type, int(evt.deathDesc_collNodeId), "") : ""
-    find_query() <| $ [es(REQUIRE=awards__firstBlood)] (eid : EntityId)
-      sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="first_blood"]])
-      destroyEntity(eid)
+    find_query() <| $ [es] (eid : EntityId; var awards__isFirstBloodSpilled : bool&)
+      if !awards__isFirstBloodSpilled
+        awards__isFirstBloodSpilled = true
+        sendEvent(evt.killerPlayerEid, [[EventAddPlayerAwardWithStat stat="first_blood"]])
+        destroyEntity(eid)
       return true
     if damageType == int(DamageType DM_PROJECTILE) && nodeType == "head"
       add_award(awards, "headshot")

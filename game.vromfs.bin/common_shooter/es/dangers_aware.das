@@ -5,8 +5,8 @@ require math.base
 require DagorMath
 require DagorRandom
 require Grid
-require EnlistedDm
-require EnlistedWalkerai
+require DngDm
+require DngWalkerai
 require common_shooter.events_common_shooter
 
 let

@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common

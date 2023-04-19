@@ -8,6 +8,7 @@ base_gameobj{
   net__physId:i=-1
   grid_obj__gridType:t="vehicles"
   grid_obj__fixedTmScale:r=-1.0
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
 
   grid_obj{
@@ -20,6 +21,9 @@ base_gameobj{
   }
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
@@ -43,9 +47,13 @@ bm_13n_gameobj{
   animchar__res:t="bm_13n_char"
   collres__res:t="bm_13n_collision"
   phys_obj_net_phys__blk:t="content/enlisted/gamedata/gameobjs/bm_13n.blk"
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{

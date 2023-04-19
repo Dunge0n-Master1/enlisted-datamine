@@ -100,6 +100,16 @@ team_generic_capture{
     "team_bots__customSpawnsDestroyed:list<p3>"{
     }
   }
+
+  _group{
+    _tags:t="server"
+
+    "team__lastAutoSpawnCapZoneEid:eid"{
+    }
+
+    "team__prevAutoSpawnCapZoneEid:eid"{
+    }
+  }
 }
 
 respawn_creators_team{
@@ -122,6 +132,7 @@ team_usa{
   _replicated:t="team__icon"
   _replicated:t="team__name"
   _replicated:t="team__lang"
+  paratroopersAircraftCrewAndPlaneTemplate:t="c_47_paratroopers+ai_aircraft_crew_usa"
 
   "team__armies:list<t>"{
     army:t="normandy_allies"
@@ -162,6 +173,7 @@ team_germany{
   team__lang:t="de"
   team__name:t="Germany forces"
   team__icon:t="!ui/uiskin/balkenkreuz.svg"
+  paratroopersAircraftCrewAndPlaneTemplate:t="ju_52_paratroopers+ai_aircraft_crew_ger"
 
   "team__armies:list<t>"{
     army:t="normandy_axis"
@@ -258,6 +270,7 @@ team_ussr{
   team__lang:t="ru"
   team__name:t="USSR forces"
   team__icon:t="!ui/uiskin/ussr.svg"
+  paratroopersAircraftCrewAndPlaneTemplate:t="c_47_paratroopers+ai_aircraft_crew_sov"
 
   "team__unitTemplates:object"{
     ussr_summer_soldier_1:r=1.0
@@ -298,6 +311,7 @@ team_ussr_berlin{
   team__lang:t="ru"
   team__name:t="USSR forces"
   team__icon:t="!ui/uiskin/ussr.svg"
+  paratroopersAircraftCrewAndPlaneTemplate:t="c_47_paratroopers+ai_aircraft_crew_sov"
 
   "team__unitTemplates:object"{
     ussr_summer_soldier_1:r=1.0
@@ -339,6 +353,7 @@ team_ussr_winter{
   team__lang:t="ru"
   team__name:t="USSR forces"
   team__icon:t="ui/uiskin/ussr.svg"
+  paratroopersAircraftCrewAndPlaneTemplate:t="c_47_paratroopers+ai_aircraft_crew_sov"
 
   "team__unitTemplates:object"{
     ussr_winter_soldier_9:r=1.0
@@ -407,6 +422,7 @@ team_pacific_allies{
 
 team_pacific_axis{
   _extends:t="team_germany"
+  paratroopersAircraftCrewAndPlaneTemplate:t="l2d_paratroopers+ai_aircraft_crew_jap"
 
   "team__armies:list<t>"{
     army:t="pacific_axis"

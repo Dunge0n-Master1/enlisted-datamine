@@ -8,7 +8,7 @@ let { mkText, perkIcon, flexTextArea, getStatDescList, mkPerkCostChildren
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
 let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { defTxtColor, gap, bigPadding, activeBgColor, perkBigIconSize, defBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let textButton = require("%ui/components/textButton.nut")

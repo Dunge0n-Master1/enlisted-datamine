@@ -5,7 +5,7 @@ let { mkCurrencyOverall, mkCurrencyImage } = require("currencyComp.nut")
 let { setCurSection, curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let {
-  viewArmyCurrency, realCurrencies, viewCurrencies
+  viewArmyCurrency, realCurrencies, viewCurrencies, isItemsShopOpened
 } = require("armyShopState.nut")
 let {
   currencyPresentation, ticketGroups, getCurrencyPresentation
@@ -13,7 +13,7 @@ let {
 
 
 let openShop = @() setCurSection("SHOP")
-let isInShop = Computed(@() curSection.value == "SHOP")
+let isInShop = Computed(@() curSection.value == "SHOP" || isItemsShopOpened.value)
 
 let ADDING_ORDER_SIZE = [hdpx(20), hdpx(20)]
 
@@ -117,7 +117,7 @@ let mkArmyCurrency = @(armyCurrency, isShop)
   getSortedCards(armyCurrency).map(@(value)
     mkCurrencyOverall(value.type,
       value.cards,
-      value.isInteractive ? openShop : null,
+      value.isInteractive && !isShop ? openShop : null,
       value,
       isShop))
 

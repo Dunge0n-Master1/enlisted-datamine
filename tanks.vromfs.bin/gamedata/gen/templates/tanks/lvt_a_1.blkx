@@ -64,6 +64,10 @@ base_lvt_a_1{
       wishYawParamName:t="gun_01_aim:targetYaw"
       wishPitchParamName:t="gun_01_aim:targetPitch"
       gunRecoilParamName:t="gun_01_recoil"
+      hasStabilizerParamName:t="gun_01_aim:hasStab"
+      stabilizerPitchParamName:t="gun_01_aim:stabPitch"
+      stabilizerErrorParamName:t="gun_01_aim:stabError"
+      stabilizerPitchMultParamName:t="gun_01_aim:stabPitchMult"
     }
 
     "vars:object"{
@@ -163,6 +167,8 @@ lvt_a_1_turret_01_37mm_m6{
   turret__pitchSpeed:r=4.0
   turret__aimNodeName:t="bone_turret"
   turret__limit:p4=-180.0, 180.0, -10.0, 25.0
+  turret__stabilizerPitchFrictionMult:r=0.8
+  turret__stabilizerPitchSpeedLimitKph:r=16.0
 
   "turret__limitsTable:list<p4>"{
     lim1:p4=-180.0, -170.0, -10.0, 25.0
@@ -170,6 +176,12 @@ lvt_a_1_turret_01_37mm_m6{
     lim3:p4=-130.0, 130.0, -10.0, 25.0
     lim4:p4=130.0, 170.0, 2.0, 25.0
     lim5:p4=170.0, 180.0, -12.0, 25.0
+  }
+
+  "turret__stabilizerErrorByKphSpeedTable:list<p2>"{
+    row:p2=5.0, 0.0
+    row:p2=10.0, 0.05
+    row:p2=12.0, 0.4
   }
 
   "gun__shellsAmmo:array"{

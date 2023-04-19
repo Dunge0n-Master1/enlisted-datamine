@@ -59,6 +59,7 @@ repeat{
 
         findDanger{
           paramName:t="shootEnemy"
+          outSeeTimeParam:t="shootEnemyTime"
           radiusParamName:t="enemyNearRadius"
           minDanger:r=0.1
           tag:t="human"
@@ -74,6 +75,13 @@ repeat{
       name:t=""
       refId:t="orderType"
     }
+  }
+}
+
+repeat{
+  name:t="sub.parachuteBeh"
+
+  freefallOrParachuteBeh{
   }
 }
 

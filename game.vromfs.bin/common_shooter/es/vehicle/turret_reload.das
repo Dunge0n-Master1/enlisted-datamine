@@ -2,6 +2,7 @@ require ecs
 require app
 require DaWeaponProps
 require game.es.vehicle.vehicle_events
+require common_shooter.events_common_shooter
 require DagorMath
 require Gun
 
@@ -86,3 +87,34 @@ def turret_change_between_shot_time(evt : Event;
     gun_force_next_shot_time(gun, nextShotTime)
     gun.curState.timeBetweenShots *= reloadMultRatio
   gun__currentTimeBetweenShotMult = gun__timeBetweenShotMult
+
+[es(tag=server, on_appear)]
+def turret_keep_base_reload_timer(evt : Event; gun__reloadTime : float; var gun__reloadTimeBase : float&)
+  gun__reloadTimeBase = gun__reloadTime
+
+[es(tag=server, on_appear, track=(turret__perksReloadMult, turret__ammoStowageReloadMult))]
+def set_turret_reload_mult(evt : Event;
+                           turret__perksReloadMult : float = 1.0;
+                           turret__ammoStowageReloadMult : float = 1.0;
+                           var gun__timeBetweenShotMult : float&)
+  gun__timeBetweenShotMult = turret__perksReloadMult * turret__ammoStowageReloadMult
+
+[es(tag=server, after=turret_keep_base_reload_timer, on_appear, track=(turret__perksReloadMult, turret__ammoStowageReloadMult))]
+def set_turret_reload_mult_reloadable(evt : Event;
+                                      gun__reloadTimeBase : float;
+                                      turret__perksReloadMult : float = 1.0;
+                                      turret__ammoStowageReloadMult : float = 1.0;
+                                      var gun__reloadTime : float&)
+  gun__reloadTime = gun__reloadTimeBase * turret__perksReloadMult * turret__ammoStowageReloadMult
+
+[es(tag=server, REQUIRE=gun__timeBetweenShotsIsReload, REQUIRE_NOT=gun__reloadTime)]
+def turret_reload_status(info : CmdGunUpdate;
+                         gun : Gun;
+                         var gun__isReloading : bool&)
+  gun__isReloading = gun.nextShotAtTime > info.atTime
+
+[es(tag=server, track=gun__reloadFinishTime)]
+def turret_reload_status_reloadable(evt : Event;
+                                    gun__reloadFinishTime : float;
+                                    var gun__isReloading : bool&)
+  gun__isReloading = gun__reloadFinishTime >= 0.

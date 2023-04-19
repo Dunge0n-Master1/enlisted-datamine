@@ -6,6 +6,7 @@ let {
   watchedHeroSquadMembers, selectedBotForOrderEid, isPersonalContextCommandMode,
   watchedHeroSquadMembersGetWatched, watchedHeroSquadMembersOrderedSet
 } = require("%ui/hud/state/squad_members.nut")
+let { isSquadSoldiersMenuAvailable } = require("%ui/hud/state/squad_soldiers_menu_state.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 let { SUCCESS_TEXT_COLOR, DEFAULT_TEXT_COLOR } = require("%ui/hud/style.nut")
@@ -21,6 +22,7 @@ let cancelContextCommandHint = require("%ui/hud/huds/cancel_context_command_hint
 let { squadFormation } = require("%ui/hud/state/squad_formation.nut")
 let { squadBehaviour } = require("%ui/hud/state/squad_behaviour.nut")
 let { SquadBehaviour, SquadFormationSpread } = require("%enlSqGlob/dasenums.nut")
+let { showTips } = require("%ui/hud/state/hudOptionsState.nut")
 
 let sIconSize = hdpxi(15)
 let iconSize = hdpxi(40)
@@ -260,7 +262,7 @@ let squadControlHints = @() {
   minHeight = hdpx(20)
   hplace = ALIGN_CENTER
   flow = FLOW_VERTICAL
-  watch = isPersonalContextCommandMode
+  watch = [isPersonalContextCommandMode, isSquadSoldiersMenuAvailable]
 
   children = [
     isPersonalContextCommandMode.value
@@ -281,10 +283,10 @@ let squadControlHints = @() {
           text = loc("controls/Human.SwitchContextCommandMode"),
           inputId = "Human.SwitchContextCommandMode"
         }.__update(sub_txt))
-        tipCmp({
+        isSquadSoldiersMenuAvailable.value ? tipCmp({
           text = loc("controls/HUD.SquadSoldiersMenu"),
           inputId = "HUD.SquadSoldiersMenu"
-        }.__update(sub_txt))
+        }.__update(sub_txt)) : null
       ]
     }
   ]
@@ -298,11 +300,11 @@ let function members() {
   return {
     flow = FLOW_VERTICAL
     gap
-    watch = [doNotShowMembers, isSpectatorEnabled]
+    watch = [doNotShowMembers, isSpectatorEnabled, showTips]
     children = [
       squadStatus
       squadMembersList
-      isSpectatorEnabled.value ? null : squadControlHints
+      !showTips.value || isSpectatorEnabled.value ? null : squadControlHints
     ]
   }
 }

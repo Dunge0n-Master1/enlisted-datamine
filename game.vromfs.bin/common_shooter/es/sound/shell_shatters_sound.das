@@ -2,10 +2,10 @@ require ecs
 require app
 require soundEvent
 require soundSystem
-require soundProps
+require shellSoundProps
 require common_shooter.events_common_shooter
 require sound_utils.modules.sound_physmat_common
-require EnlistedDm
+require DngDm
 require Dacoll
 require DagorRandom
 require math.base

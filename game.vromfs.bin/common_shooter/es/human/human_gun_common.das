@@ -1,19 +1,19 @@
 module human_gun_common shared
 require ecs
 require ecs.extra_set
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require Gun
 require DaWeaponProps
 
-def human_gun_update_reload(gun : Gun;
-                            gun_eid : EntityId;
-                            gun__manuallyUnloaded : bool;
-                            shoot : bool;
-                            is_for_real : bool;
-                            gun_ammo : int;
-                            gun_owner : EntityId;
-                            at_time : float)
+def try_reload_empty_gun(gun : Gun;
+                         gun_eid : EntityId;
+                         gun__manuallyUnloaded : bool;
+                         shoot : bool;
+                         is_for_real : bool;
+                         gun_ammo : int;
+                         gun_owner : EntityId;
+                         at_time : float)
   if is_server() && is_for_real && gun_ammo == 0
     let reloadOnShoot = get_bool(gun_owner, "human_weap__reloadOnShoot") ?? true
     let reloadOnEmptyMag = get_bool(gun_owner, "human_weap__reloadOnEmptyMag") ?? true

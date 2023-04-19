@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require dm
-require EnlistedDm
+require DngDm
 require math.base
 require vehicle
 require game.es.events

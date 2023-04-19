@@ -78,9 +78,10 @@ let unseenEquipSlotsTiers = Computed(@()
 
 let slotsLinkTiers = Computed(function() {
   let res = {}
+  let itemsList = itemsByArmies.value
   foreach (armyId in curArmiesList.value) {
     res[armyId] <- {}
-    foreach (item in itemsByArmies.value?[armyId] ?? {}) {
+    foreach (item in itemsList?[armyId] ?? {}) {
       if ("tier" not in item)
         continue
       foreach (linkTo, linkSlot in item.links)

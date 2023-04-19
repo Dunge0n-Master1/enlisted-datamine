@@ -1,14 +1,14 @@
 require app
 require DagorSystem
 require ecs
-require EnlistedActor
-require EnlistedCamera
+require DngActor
+require DngCamera
 require game.es.camera_common
 require game.es.player_common
 require game.es.player_events
 require game.events_game
 require level
-require EnlistedNet
+require DngNet
 require player
 require strings
 require replay

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor, colPart,
-  defHorGradientImg
+  lightHoverBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("unlocksText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
@@ -12,6 +12,8 @@ let faComp = require("%ui/components/faComp.nut")
 let mkSpinner = require("%ui/components/mkSpinner.nut")(colPart(0.4))
 let { getStageByIndex } = require("%enlSqGlob/unlocks_utils.nut")
 let { progressBar } = require("%enlSqGlob/ui/defComponents.nut")
+let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
+let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -56,7 +58,7 @@ let mkTaskLabel = @(labelName) {
 let isDailyTask = @(task) task.table == "daily"
 let isWeeklyTask = @(task) task?.meta.weekly_unlock ?? false
 let isAchievementTask = @(task) task?.meta.achievement ?? false
-let isEventTask = @(task) task?.meta.event_unlock ?? false
+let isEventTask = @(task) task?.meta.event_unlock ?? (task?.meta.event_group != null) // backward compatibility
 let getUnlockLimit = @(task) task?.meta.unlock_limit ?? 0
 let getProgressDiv = @(task) task?.meta.descProgressDiv.tointeger() ?? 0
 
@@ -107,9 +109,9 @@ let statusBlock = @(unlockDesc, hasWaitIcon = Watched(false), canReroll = false)
               image = Picture("ui/uiskin/tasks/task_status_mask.avif")
               children = [
                 {
-                  rendObj = ROBJ_IMAGE
+                  rendObj = ROBJ_SOLID
                   size = flex()
-                  image = defHorGradientImg
+                  color = lightHoverBgColor
                 }
               ]
             }
@@ -135,7 +137,7 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
     if (isDailyTask(unlockDesc) && isCompleted) {
       let locId = isCompleted && !canTakeReward ? "finishedTaskText" : "completeTaskText"
       return mkTaskTextArea(utf8ToUpper(loc(locId)), sf,
-      { animations = hasReward && canTakeReward ? blinkAnimation : {}}.__update(
+      { animations = hasReward && canTakeReward ? blinkAnimation.animations : []}.__update(
         hasReward && canTakeReward ? titleTxtStyle : defTxtStyle))
     }
 
@@ -193,16 +195,21 @@ let taskDescription = @(description, sf = 0, style = {})
   : mkTaskTextArea(description, sf, style)
 
 
-let mkEmblemImg = @(img, iSize, hasAnim = false) {
-  size = [iSize, iSize]
-  children = [
-    {
-      rendObj = ROBJ_IMAGE
-      size = [iSize, iSize]
-      image = Picture("ui/skin#tasks/{0}.svg:{1}:{1}:K".subst(img, iSize))
-    }
-    hasAnim ? rewardAnimBg : null
-  ]
+let mkEmblemImg = @(img, iSize, hasAnim = false) function() {
+  let colorIdx = seasonIndex.value % bpColors.len()
+  return {
+    watch = seasonIndex
+    size = [iSize, iSize]
+    children = [
+      {
+        rendObj = ROBJ_IMAGE
+        size = [iSize, iSize]
+        color = bpColors[colorIdx]
+        image = Picture("{0}.svg:{1}:{1}:K".subst(img, iSize))
+      }
+      hasAnim ? rewardAnimBg : null
+    ]
+  }
 }
 
 
@@ -223,12 +230,15 @@ let function mkEmblemQty(unlockDesc) {
 
 
 let function getTaskEmblemImg(unlockDesc, isCompleted) {
-  let img = isDailyTask(unlockDesc) ? "star"
-    : isWeeklyTask(unlockDesc) ? "star"
-    : isAchievementTask(unlockDesc) ? "medal"
-    : isEventTask(unlockDesc) ? "medal"
-    : ""
-  return img == "" ? "" : "{0}_{1}".subst(img, isCompleted ? "filled" : "empty")
+  if (isDailyTask(unlockDesc) || isWeeklyTask(unlockDesc))
+    return isCompleted
+      ? "ui/skin#star_level_filled"
+      : "ui/skin#star_level_empty"
+  if (isAchievementTask(unlockDesc) || isEventTask(unlockDesc))
+    return isCompleted
+      ? "ui/skin#tasks/medal_filled"
+      : "ui/skin#tasks/medal_empty"
+  return ""
 }
 
 
@@ -258,11 +268,18 @@ let function mkTaskEmblem(unlockDesc, progress, canTakeReward = true) {
               mkEmblemQty(unlockDesc)
             ]
           }
-          progressBar(progBarValue, {
-              size = [flex(), colPart(0.07)]
-              bgColor = 0x55555555
+          function() {
+            let colorIdx = seasonIndex.value % bpColors.len()
+            return {
+              size = flex()
+              watch = seasonIndex
+              children = progressBar(progBarValue, {
+                size = [flex(), colPart(0.07)]
+                progressColor = bpColors[colorIdx]
+              }
+            )
             }
-          )
+          }
         ]
       }
 }

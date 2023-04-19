@@ -2,7 +2,7 @@ require ecs
 require soundEvent
 require soundHash
 require math
-require EnlistedPlane
+require DngPlane
 require DagorMath
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=plane_engine_sound_es)]

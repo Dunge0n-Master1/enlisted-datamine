@@ -1240,7 +1240,7 @@ def inspect_item(uid : int; var filter : ImGuiTextFilter; eids : array<EntityId>
         TableNextColumn()
         continue
 
-      let flags = tmp != null && !empty(name) ? getRegExpInheritedFlags(tmp, name) : 0u
+      let flags = tmp != null && !empty(name) ? getRegExpInheritedFlags(mgr, tmp, name) : 0u
       let idxBefore = TableGetRowIndex()
       if !is_cont_type(type_info.userType)
         TableNextRow()

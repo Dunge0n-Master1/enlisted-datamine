@@ -5,7 +5,7 @@ require common_shooter.events_common_shooter
 require Gun
 require DaWeapons
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 
 def cancel_grenade_throw(eid : EntityId;
                          transform : float3x4;

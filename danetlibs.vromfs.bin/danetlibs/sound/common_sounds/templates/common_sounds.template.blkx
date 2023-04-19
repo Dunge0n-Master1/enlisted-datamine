@@ -4,7 +4,6 @@ sound_effect{
   _group{
     _tags:t="sound"
     sound_control__range:r=0.0
-    sound_control__autoRange:b=yes
   }
 
   _group{
@@ -12,6 +11,7 @@ sound_effect{
     sound_effect__path:t=""
     sound_effect__localOffset:p3=0.0, 0.0, 0.0
     sound_effect__abandonOnReset:b=no
+    sound_effect__autoRange:b=yes
 
     "sound_effect__event:SoundEvent"{
     }

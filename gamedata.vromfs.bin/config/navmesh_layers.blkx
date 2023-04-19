@@ -437,6 +437,18 @@ filter_exclude{
 
   "^workshop_brick_window_6_16m_c.*$"{
   }
+
+  "^workshop_gates_660_740cm_door_r.*$"{
+  }
+
+  "^workshop_gates_660_740cm_door_l.*$"{
+  }
+
+  "^workshop_arch_gates_450_450cm_door_r.*$"{
+  }
+
+  "^workshop_arch_gates_450_450cm_door_l.*$"{
+  }
 }
 
 doors{
@@ -1660,6 +1672,15 @@ doors{
   frame_stable_stall_door_a{
   }
 
+  factory_xix_entry_group_gate_l{
+  }
+
+  factory_xix_entry_group_gate_r{
+  }
+
+  factory_xix_entry_group_frame{
+  }
+
   barracks_metal_rounded_window_1500x1000{
   }
 
@@ -1668,19 +1689,3308 @@ doors{
 
   barracks_metal_rounded_window_frame_1500x1000{
   }
+
+  normandy_fence_steel_a_gate_shutter_a{
+  }
 }
 
 filter_include{
 
-  "^frame_house_window_.*$"{
+  "^frame_house_window_1200.*$"{
+  }
+
+  "^frame_house_window_2400.*$"{
   }
 
   "^barrack_window_wooden_1200x1200_a_shutter_.*$"{
   }
 
-  ".*villa_window_.*$"{
+  ".*villa_frame_.*$"{
   }
 
-  ".*villa_frame_.*$"{
+  "^stalingrad_department_store_window_frame_.*$"{
+  }
+
+  "^stalingrad_drama_theater_window_.*$"{
+  }
+}
+
+transparent{
+  ignoreTracing:b=yes
+
+  goebbels_villa_fences_a{
+  }
+
+  goebbels_villa_fences_b{
+  }
+
+  goebbels_villa_fences_c{
+  }
+
+  goebbels_villa_fences_d{
+  }
+
+  goebbels_villa_fences_e{
+  }
+
+  goebbels_villa_fences_f{
+  }
+
+  goebbels_villa_balustrade_a{
+  }
+
+  goebbels_villa_balustrade_b{
+  }
+
+  goebbels_villa_balustrade_c{
+  }
+
+  goebbels_villa_balustrade_d{
+  }
+
+  pv_opel_blitz_kfz_305_destroyed_a{
+  }
+
+  pv_opel_blitz_kfz_305_destroyed_a_cabine{
+  }
+
+  pv_opel_blitz_kfz_305_destroyed_b_cabine{
+  }
+
+  fachwerk_indoor_stairs_wood_a{
+  }
+
+  fachwerk_indoor_stairs_wood_a_railings_a{
+  }
+
+  fachwerk_indoor_stairs_wood_a_railings_b{
+  }
+
+  fachwerk_indoor_stairs_wood_a_railings_c{
+  }
+
+  fachwerk_indoor_stairs_wood_a_railings_d{
+  }
+
+  fachwerk_indoor_stairs_wood_b{
+  }
+
+  fachwerk_indoor_stairs_wood_c{
+  }
+
+  frame_admin_center_a_inner_stairs{
+  }
+
+  frame_stairs_outdoor_a{
+  }
+
+  frame_stairs_outdoor_b{
+  }
+
+  frame_stairs_outdoor_c{
+  }
+
+  frame_stairs_outdoor_d{
+  }
+
+  frame_stairs_outdoor_e{
+  }
+
+  grain_elevator_walls_b_stairs_a{
+  }
+
+  grain_elevator_walls_b_stairs_b{
+  }
+
+  grain_elevator_walls_b_stairs_c{
+  }
+
+  is_african_bed_b{
+  }
+
+  is_african_bench_a{
+  }
+
+  is_african_dinner_chair_b{
+  }
+
+  is_african_dinner_chair_d{
+  }
+
+  is_african_dinner_chair_e{
+  }
+
+  is_african_dinner_table_a{
+  }
+
+  is_african_dinner_table_b{
+  }
+
+  is_african_dinner_table_c{
+  }
+
+  is_african_dinner_table_d{
+  }
+
+  is_african_dinner_table_e{
+  }
+
+  is_african_dinner_table_f{
+  }
+
+  is_african_rack_a{
+  }
+
+  is_african_rack_b{
+  }
+
+  is_african_rack_c{
+  }
+
+  is_african_rope_machine_a{
+  }
+
+  is_african_sofa_b{
+  }
+
+  is_african_sofa_c{
+  }
+
+  is_african_sofa_d{
+  }
+
+  is_african_sofa_e{
+  }
+
+  is_african_sofa_h{
+  }
+
+  is_african_stool_a{
+  }
+
+  is_african_stool_b{
+  }
+
+  is_african_table_a{
+  }
+
+  is_african_table_d{
+  }
+
+  is_african_teatable_chair_a{
+  }
+
+  is_african_teatable_chair_b{
+  }
+
+  is_african_teatable_chair_c{
+  }
+
+  is_african_teatable_chair_d{
+  }
+
+  is_african_teatable_table_c{
+  }
+
+  is_armchair_b{
+  }
+
+  is_armchair_c{
+  }
+
+  is_armchair_victorian_a{
+  }
+
+  is_armchair_victorian_a_dmg_a{
+  }
+
+  is_armchair_victorian_a_dmg_b{
+  }
+
+  is_banquette_a{
+  }
+
+  is_banquette_a_damaged_a{
+  }
+
+  is_banquette_a_damaged_b{
+  }
+
+  is_banquette_b{
+  }
+
+  is_banquette_b_damaged_a{
+  }
+
+  is_banquette_b_damaged_b{
+  }
+
+  is_bed_d_dmg_a{
+  }
+
+  is_bed_d_dmg_b{
+  }
+
+  is_bench_a{
+  }
+
+  is_birdcage_a{
+  }
+
+  is_book_shelf_b{
+  }
+
+  is_book_shelf_c{
+  }
+
+  is_bookshelf_a{
+  }
+
+  is_bookshelf_b{
+  }
+
+  is_chair_a{
+  }
+
+  is_chair_b{
+  }
+
+  is_chair_c{
+  }
+
+  is_chair_c_broken_a{
+  }
+
+  is_chair_c_broken_b{
+  }
+
+  is_chair_d{
+  }
+
+  is_chair_d_broken_a{
+  }
+
+  is_chair_d_broken_b{
+  }
+
+  is_chair_d_broken_c{
+  }
+
+  is_coat_rack_a{
+  }
+
+  is_coat_rack_a_broken_a{
+  }
+
+  is_coat_rack_a_broken_b{
+  }
+
+  is_desk_b{
+  }
+
+  is_desk_b_dmg_a{
+  }
+
+  is_desk_b_dmg_b{
+  }
+
+  is_gramophone_a{
+  }
+
+  is_pooltable_a{
+  }
+
+  is_rocking_chair_a{
+  }
+
+  is_rocking_chair_a_dmg_a{
+  }
+
+  is_rocking_chair_a_dmg_b{
+  }
+
+  is_rocking_chair_dmg_a{
+  }
+
+  is_rocking_chair_dmg_b{
+  }
+
+  is_school_desk_a{
+  }
+
+  is_stool_a{
+  }
+
+  is_stool_b{
+  }
+
+  is_stool_tavern_a{
+  }
+
+  is_table_a{
+  }
+
+  is_table_a_dmg_a{
+  }
+
+  is_table_a_tablecloth{
+  }
+
+  is_table_b{
+  }
+
+  is_table_c{
+  }
+
+  is_table_c_broken{
+  }
+
+  is_table_c_tablecloth{
+  }
+
+  is_table_dressing_a{
+  }
+
+  is_table_tavern_a{
+  }
+
+  is_telescope_a{
+  }
+
+  bunker_chair_a{
+  }
+
+  bunker_table_a{
+  }
+
+  bunker_table_a_for_training{
+  }
+
+  cafe_chair_metal_a{
+  }
+
+  cafe_table_metal_a{
+  }
+
+  dugout_bench_1_5m_a{
+  }
+
+  dugout_bench_2_5m_a{
+  }
+
+  dugout_bunk_a{
+  }
+
+  dugout_table_a{
+  }
+
+  furniture_set_01_bench_a{
+  }
+
+  furniture_set_01_chear_a{
+  }
+
+  furniture_set_01_chear_a_burnt{
+  }
+
+  furniture_set_01_stool_a{
+  }
+
+  furniture_set_01_table_a{
+  }
+
+  furniture_set_01_table_a_burnt{
+  }
+
+  furniture_set_02_bench_a{
+  }
+
+  furniture_set_02_stool_a{
+  }
+
+  furniture_set_02_stool_b{
+  }
+
+  furniture_set_02_stool_c{
+  }
+
+  hp_bed_a_madeup{
+  }
+
+  hp_gurney_a{
+  }
+
+  hp_gurney_b{
+  }
+
+  hp_lamp_a_a{
+  }
+
+  hp_lamp_a_b{
+  }
+
+  hp_lamp_a_c{
+  }
+
+  hp_operating_table_a{
+  }
+
+  hp_operating_table_a_dmg{
+  }
+
+  hp_stillage_a{
+  }
+
+  hp_stillage_b{
+  }
+
+  hp_stool_b{
+  }
+
+  hp_table_a{
+  }
+
+  hp_trolley_a{
+  }
+
+  hp_wheelchair_a{
+  }
+
+  kitchen_table_a{
+  }
+
+  mansion_table_small_a{
+  }
+
+  mbs_field_table_a{
+  }
+
+  mbs_field_table_b{
+  }
+
+  mbs_field_table_c{
+  }
+
+  military_barracks_decor_bench_wood_a{
+  }
+
+  military_barracks_decor_table_wood_a{
+  }
+
+  reichchancellery_lobby_table_a{
+  }
+
+  russia_working_wooden_table_a{
+  }
+
+  table_town_a{
+  }
+
+  table_town_round_1000_a{
+  }
+
+  table_town_round_1000_a_dmg_a{
+  }
+
+  table_town_round_1000_a_dmg_b{
+  }
+
+  welding_table_a{
+  }
+
+  wood_bench_a{
+  }
+
+  wood_bench_b{
+  }
+
+  wood_bench_c{
+  }
+
+  wood_box_a{
+  }
+
+  wood_box_b{
+  }
+
+  wood_box_bottle_a{
+  }
+
+  wood_box_bottle_b{
+  }
+
+  wood_table_small_b{
+  }
+
+  wood_table_small_b_snow{
+  }
+
+  work_table_a{
+  }
+
+  work_table_b{
+  }
+
+  trench_step_wood_a{
+  }
+
+  tripod_lift_wood_a{
+  }
+
+  tripod_lift_wood_a_broken{
+  }
+
+  tripod_lift_wood_b{
+  }
+
+  tripod_lift_wood_b_basement{
+  }
+
+  tripod_lift_wood_c{
+  }
+
+  graveyard_cross_wood_a{
+  }
+
+  graveyard_cross_wood_b{
+  }
+
+  graveyard_cross_wood_c{
+  }
+
+  graveyard_cross_wood_d{
+  }
+
+  graveyard_cross_wood_e{
+  }
+
+  graveyard_cross_wood_f{
+  }
+
+  graveyard_cross_wood_g{
+  }
+
+  graveyard_cross_wood_h{
+  }
+
+  graveyard_cross_wood_i{
+  }
+
+  graveyard_cross_wood_j{
+  }
+
+  graveyard_cross_wood_k{
+  }
+
+  graveyard_cross_wood_l{
+  }
+
+  graveyard_cross_wood_m{
+  }
+
+  graveyard_cross_wood_n{
+  }
+
+  graveyard_cross_wood_o{
+  }
+
+  graveyard_cross_wood_p{
+  }
+
+  graveyard_cross_wood_q{
+  }
+
+  graveyard_cross_wood_r{
+  }
+
+  wooden_trash_a{
+  }
+
+  wooden_trash_c{
+  }
+
+  wooden_trash_d{
+  }
+
+  wooden_trash_e{
+  }
+
+  wooden_trash_f{
+  }
+
+  wooden_trash_g{
+  }
+
+  wooden_trash_h{
+  }
+
+  wooden_trash_i{
+  }
+
+  wooden_trash_j{
+  }
+
+  wooden_trash_k{
+  }
+
+  wooden_trash_l{
+  }
+
+  pacific_wooden_trash_a{
+  }
+
+  pacific_wooden_trash_d{
+  }
+
+  pacific_wooden_trash_e{
+  }
+
+  pacific_wooden_trash_f{
+  }
+
+  pacific_wooden_trash_g{
+  }
+
+  pacific_wooden_trash_h{
+  }
+
+  wood_hedgehog_a{
+  }
+
+  wood_hedgehog_b{
+  }
+
+  wood_hedgehog_dirty_a{
+  }
+
+  wood_hedgehog_dirty_b{
+  }
+
+  wood_hedgehog_big_a{
+  }
+
+  wood_hedgehog_big_b{
+  }
+
+  wood_hedgehog_big_c{
+  }
+
+  african_scaffold_a{
+  }
+
+  african_scaffold_b{
+  }
+
+  african_scaffold_c{
+  }
+
+  african_scaffold_d{
+  }
+
+  african_scaffold_e{
+  }
+
+  african_scaffold_e_ivy_a{
+  }
+
+  african_scaffold_e_ivy_b{
+  }
+
+  african_scaffold_e_ivy_c{
+  }
+
+  african_scaffold_f{
+  }
+
+  african_scaffold_g{
+  }
+
+  tunisian_troglodyte_ladder_a{
+  }
+
+  tunisian_troglodyte_ladder_b{
+  }
+
+  tunisian_troglodyte_ladder_c{
+  }
+
+  wood_ladder_a{
+  }
+
+  wood_ladder_a_snow{
+  }
+
+  wood_ladder_b{
+  }
+
+  wood_ladder_b_snow{
+  }
+
+  wood_ladder_c{
+  }
+
+  wood_ladder_d{
+  }
+
+  garage_wooden_shelf_a{
+  }
+
+  garage_wooden_shelf_f{
+  }
+
+  tunis_village_decor_stairs_steps_a_a{
+  }
+
+  tunis_village_decor_stairs_steps_a_c{
+  }
+
+  tunis_unic_mosque_fence_a{
+  }
+
+  tunis_unic_mosque_fence_b{
+  }
+
+  tunis_unic_mosque_fence_c{
+  }
+
+  tunis_unic_mosque_fence_d{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_a{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_a_dmg{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_b{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_b_down{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_b_down_dmg{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_b_top{
+  }
+
+  tunis_city_house_door_market_fence_3000x4800_b_top_dmg{
+  }
+
+  tunis_city_house_door_market_fence_5000x3000_a{
+  }
+
+  tunis_city_house_door_market_fence_5000x3000_a_dmg{
+  }
+
+  tunis_city_house_door_market_fence_6000x6000_a{
+  }
+
+  tunis_city_house_door_market_fence_6000x6000_a_dmg{
+  }
+
+  tunis_city_house_window_arc_3000x1600_a{
+  }
+
+  tunis_city_house_window_arc_3000x1600_b{
+  }
+
+  tunis_city_house_window_arc_3000x2200_a{
+  }
+
+  tunis_city_house_window_700x300_a{
+  }
+
+  tunis_city_house_window_700x300_b{
+  }
+
+  tunis_city_house_window_700x300_c{
+  }
+
+  tunis_city_house_window_300x300_a{
+  }
+
+  tunis_city_house_window_300x300_b{
+  }
+
+  tunis_city_house_window_300x300_c{
+  }
+
+  tunis_city_house_window_300x700_a{
+  }
+
+  tunis_city_house_window_300x700_b{
+  }
+
+  tunis_city_house_window_300x700_c{
+  }
+
+  tunis_city_house_window_fence_1000x1000_a{
+  }
+
+  tunis_city_house_window_shutter_1000x1000_a{
+  }
+
+  tunis_city_house_window_shutter_1000x1000_b{
+  }
+
+  tunis_city_house_window_shutter_1000x1000_b_dmg{
+  }
+
+  tunis_city_house_window_shutter_1000x1000_c{
+  }
+
+  tunis_city_house_window_shutter_1000x1000_c_dmg{
+  }
+
+  tunis_city_house_window_shutter_1000x1600_a_l{
+  }
+
+  tunis_city_house_window_shutter_1000x1600_a_r{
+  }
+
+  tunis_city_house_window_shutter_1200x1600_a_l{
+  }
+
+  tunis_city_house_window_shutter_1200x1600_a_r{
+  }
+
+  tunis_city_house_window_shutter_1200x1900_a_l{
+  }
+
+  tunis_city_house_window_shutter_1200x1900_a_r{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_a_l{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_a_r{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_b_l{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_b_r{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_c_l{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_c_r{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_d_l{
+  }
+
+  tunis_city_house_window_shutter_2000x1600_d_r{
+  }
+
+  tunis_city_house_window_shutter_500x1600_a{
+  }
+
+  tunis_city_house_window_shutter_500x1600_a_dmg{
+  }
+
+  tunis_city_house_window_shutter_500x1600_b{
+  }
+
+  tunis_city_house_window_shutter_500x1600_b_dmg{
+  }
+
+  tunis_city_house_fence_rail_a{
+  }
+
+  tunis_city_house_fence_rail_a_dmg{
+  }
+
+  tunis_city_house_fence_rail_b{
+  }
+
+  tunis_city_house_fence_rail_b_dmg{
+  }
+
+  tunis_city_house_fence_rail_c{
+  }
+
+  tunis_city_house_fence_rail_c_dmg{
+  }
+
+  tunis_city_house_fence_rail_d{
+  }
+
+  tunis_city_house_fence_rail_d_dmg{
+  }
+
+  tunis_city_house_balcony_shutter_850x1350_a_l{
+  }
+
+  tunis_city_house_balcony_shutter_850x1350_a_r{
+  }
+
+  tunis_city_house_balcony_b{
+  }
+
+  tunis_city_house_balcony_c{
+  }
+
+  tunis_city_house_balcony_d{
+  }
+
+  tunisia_brick_fence_a_gate_l{
+  }
+
+  tunisia_brick_fence_a_gate_r{
+  }
+
+  tunisia_brick_fence_c_wood{
+  }
+
+  tunis_village_decor_window_1000_flat_a{
+  }
+
+  tunis_village_decor_window_1000_flat_a_dmg{
+  }
+
+  tunis_village_decor_window_1200_arch_a{
+  }
+
+  tunis_village_decor_window_1200_arch_a_dmg{
+  }
+
+  tunis_village_decor_window_1200_arch_b{
+  }
+
+  tunis_village_decor_window_1200_arch_b_dmg{
+  }
+
+  tunis_village_decor_window_1200_flat_a{
+  }
+
+  tunis_village_decor_window_1200_flat_a_dmg{
+  }
+
+  tunis_village_decor_window_1600_flat_a{
+  }
+
+  tunis_village_decor_window_1900_flat_a{
+  }
+
+  tunis_village_decor_window_1900_flat_a_dmg{
+  }
+
+  wooden_cellular_roof_a{
+  }
+
+  wooden_cellular_roof_a_ivy_a{
+  }
+
+  wooden_cellular_roof_a_ivy_b{
+  }
+
+  wooden_cellular_roof_a_ivy_c{
+  }
+
+  wood_fence_a{
+  }
+
+  wood_fence_b{
+  }
+
+  wood_fence_c{
+  }
+
+  wood_fence_d{
+  }
+
+  wood_fence_e{
+  }
+
+  wood_fence_f_1{
+  }
+
+  wood_fence_f_2{
+  }
+
+  wood_fence_f_3{
+  }
+
+  wood_fence_f_gates{
+  }
+
+  wood_fence_snow_a_3{
+  }
+
+  wood_fence_snow_a_gates{
+  }
+
+  wood_fence_snow_b_1{
+  }
+
+  wood_fence_snow_b_2{
+  }
+
+  wood_fence_snow_b_3{
+  }
+
+  wood_fence_snow_b_gates{
+  }
+
+  wood_fence_snow_c_3{
+  }
+
+  wood_fence_snow_c_gates{
+  }
+
+  wood_fence_snow_d_1{
+  }
+
+  wood_fence_snow_d_2{
+  }
+
+  wood_fence_snow_d_3{
+  }
+
+  wood_fence_snow_d_gates{
+  }
+
+  wood_fence_snow_e_1{
+  }
+
+  wood_fence_snow_e_2{
+  }
+
+  wood_fence_snow_e_3{
+  }
+
+  wood_fence_snow_f_1{
+  }
+
+  wood_fence_snow_f_2{
+  }
+
+  wood_fence_snow_f_3{
+  }
+
+  wood_fence_snow_f_gates{
+  }
+
+  wood_fence_snow_g_1{
+  }
+
+  wood_fence_snow_g_2{
+  }
+
+  wooden_fence_a_a{
+  }
+
+  wooden_fence_a_b{
+  }
+
+  wooden_fence_a_c{
+  }
+
+  wooden_fence_a_d{
+  }
+
+  wooden_fence_a_e{
+  }
+
+  wooden_fence_a_fourth{
+  }
+
+  wooden_fence_a_half{
+  }
+
+  wooden_fence_a_post_a{
+  }
+
+  wooden_fence_b_a{
+  }
+
+  wooden_fence_b_a_burnt{
+  }
+
+  wooden_fence_b_b{
+  }
+
+  wooden_fence_b_b_burnt{
+  }
+
+  wooden_fence_b_c{
+  }
+
+  wooden_fence_b_c_burnt{
+  }
+
+  wooden_fence_b_d{
+  }
+
+  wooden_fence_b_d_burnt{
+  }
+
+  wooden_fence_b_e{
+  }
+
+  wooden_fence_b_e_burnt{
+  }
+
+  wooden_fence_b_fourth{
+  }
+
+  wooden_fence_b_fourth_burnt{
+  }
+
+  wooden_fence_b_half{
+  }
+
+  wooden_fence_b_half_burnt{
+  }
+
+  wooden_fence_b_post_a{
+  }
+
+  wooden_fence_b_post_a_burnt{
+  }
+
+  wooden_fence_c_a{
+  }
+
+  wooden_fence_c_b{
+  }
+
+  wooden_fence_c_c{
+  }
+
+  wooden_fence_c_d{
+  }
+
+  wooden_fence_c_e{
+  }
+
+  wooden_fence_c_half{
+  }
+
+  wooden_fence_c_post_a{
+  }
+
+  wooden_fence_d_a{
+  }
+
+  wooden_fence_d_b{
+  }
+
+  wooden_fence_d_c{
+  }
+
+  wooden_fence_d_d{
+  }
+
+  wooden_fence_d_e{
+  }
+
+  wooden_fence_d_fourth{
+  }
+
+  wooden_fence_d_half{
+  }
+
+  wooden_fence_d_post_a{
+  }
+
+  wooden_fence_e_a{
+  }
+
+  wooden_fence_e_b{
+  }
+
+  wooden_fence_e_c{
+  }
+
+  wooden_fence_e_d{
+  }
+
+  wooden_fence_e_e{
+  }
+
+  wooden_fence_e_fourth{
+  }
+
+  wooden_fence_e_half{
+  }
+
+  wooden_fence_f_a{
+  }
+
+  wooden_fence_f_a_burnt{
+  }
+
+  wooden_fence_f_b{
+  }
+
+  wooden_fence_f_b_burnt{
+  }
+
+  wooden_fence_f_c{
+  }
+
+  wooden_fence_f_c_burnt{
+  }
+
+  wooden_fence_f_d{
+  }
+
+  wooden_fence_f_d_burnt{
+  }
+
+  wooden_fence_f_e{
+  }
+
+  wooden_fence_f_e_burnt{
+  }
+
+  wooden_fence_f_fourth{
+  }
+
+  wooden_fence_f_fourth_burnt{
+  }
+
+  wooden_fence_f_half{
+  }
+
+  wooden_fence_f_half_burnt{
+  }
+
+  wooden_fence_g_c{
+  }
+
+  wooden_fence_h_a{
+  }
+
+  wooden_fence_h_b{
+  }
+
+  wooden_fence_h_c{
+  }
+
+  wooden_fence_h_d{
+  }
+
+  wooden_fence_h_e{
+  }
+
+  wooden_fence_h_fourth{
+  }
+
+  wooden_fence_h_half{
+  }
+
+  wooden_fence_i_a{
+  }
+
+  wooden_fence_i_b{
+  }
+
+  wooden_fence_i_c{
+  }
+
+  wooden_fence_i_d{
+  }
+
+  wooden_fence_i_e{
+  }
+
+  wooden_fence_i_eighth{
+  }
+
+  wooden_fence_i_f{
+  }
+
+  wooden_fence_i_fourth{
+  }
+
+  wooden_fence_i_half{
+  }
+
+  wooden_fence_j_a{
+  }
+
+  wooden_fence_j_b{
+  }
+
+  wooden_fence_j_c{
+  }
+
+  wooden_fence_j_d{
+  }
+
+  wooden_fence_j_e{
+  }
+
+  wooden_fence_j_eighth{
+  }
+
+  wooden_fence_j_fourth{
+  }
+
+  wooden_fence_j_half{
+  }
+
+  wooden_fence_k_a{
+  }
+
+  wooden_fence_k_b{
+  }
+
+  wooden_fence_k_c{
+  }
+
+  wooden_fence_k_d{
+  }
+
+  wooden_fence_k_e{
+  }
+
+  wooden_fence_k_half{
+  }
+
+  wooden_fence_l_a{
+  }
+
+  wooden_fence_l_b{
+  }
+
+  wooden_fence_l_c{
+  }
+
+  wooden_fence_l_d{
+  }
+
+  wooden_fence_l_e{
+  }
+
+  wooden_fence_m_a{
+  }
+
+  wooden_fence_m_b{
+  }
+
+  wooden_fence_m_c{
+  }
+
+  wooden_fence_m_d{
+  }
+
+  wooden_fence_m_e{
+  }
+
+  wooden_fence_m_f{
+  }
+
+  wooden_fence_m_fourth{
+  }
+
+  wooden_fence_m_half{
+  }
+
+  wooden_fence_n_a{
+  }
+
+  wooden_fence_n_post_a{
+  }
+
+  wooden_fence_o_b{
+  }
+
+  wooden_fence_o_c{
+  }
+
+  wooden_fence_o_d{
+  }
+
+  wooden_fence_o_e{
+  }
+
+  wooden_fence_p_c{
+  }
+
+  wooden_fence_p_d{
+  }
+
+  wooden_fence_p_e{
+  }
+
+  wooden_fence_q_section_1800_a{
+  }
+
+  wooden_fence_q_section_1800_b{
+  }
+
+  wooden_fence_q_section_450{
+  }
+
+  wooden_fence_q_section_900{
+  }
+
+  hangar_window_1x3_a{
+  }
+
+  hangar_window_1x3_a_broken{
+  }
+
+  hangar_window_2x2_a{
+  }
+
+  hangar_window_2x2_a_broken{
+  }
+
+  hangar_window_3x3_a{
+  }
+
+  hangar_window_3x3_a_broken{
+  }
+
+  airfield_anemometer_a{
+  }
+
+  aborigen_village_big_house_a{
+  }
+
+  aborigen_village_big_house_a_burned_a{
+  }
+
+  aborigen_village_big_house_on_leg_a{
+  }
+
+  aborigen_village_big_house_on_leg_b{
+  }
+
+  aborigen_village_big_house_on_leg_c{
+  }
+
+  aborigen_village_medium_house_a{
+  }
+
+  aborigen_village_medium_house_b{
+  }
+
+  aborigen_village_medium_house_b_no_dmg{
+  }
+
+  aborigen_village_medium_house_burned_a{
+  }
+
+  aborigen_village_medium_house_burned_b{
+  }
+
+  aborigen_village_medium_house_burned_c{
+  }
+
+  aborigen_village_medium_house_c{
+  }
+
+  aborigen_village_medium_house_on_leg_a{
+  }
+
+  aborigen_village_medium_house_on_leg_c{
+  }
+
+  aborigen_village_module_burned_a_a{
+  }
+
+  aborigen_village_module_burned_a_b{
+  }
+
+  aborigen_village_module_burned_a_c{
+  }
+
+  aborigen_village_module_burned_a_d{
+  }
+
+  aborigen_village_module_burned_a_window_a{
+  }
+
+  aborigen_village_module_roof_burned_a_a{
+  }
+
+  aborigen_village_module_roof_burned_a_b{
+  }
+
+  aborigen_village_module_roof_burned_a_c{
+  }
+
+  aborigen_village_module_roof_burned_a_d{
+  }
+
+  aborigen_village_module_roof_burned_b_b{
+  }
+
+  aborigen_village_module_roof_burned_b_c{
+  }
+
+  aborigen_village_module_roof_burned_c_a{
+  }
+
+  aborigen_village_module_roof_burned_c_b{
+  }
+
+  aborigen_village_module_roof_burned_c_c{
+  }
+
+  aborigen_village_module_roof_burned_d_a{
+  }
+
+  aborigen_village_round_module_c_hole{
+  }
+
+  aborigen_village_round_module_c_hole_dmg{
+  }
+
+  aborigen_village_round_roof_burned_a{
+  }
+
+  aborigen_village_round_roof_burned_b{
+  }
+
+  aborigen_village_round_roof_burned_c{
+  }
+
+  aborigen_village_round_roof_burned_d{
+  }
+
+  aborigen_village_small_house_a{
+  }
+
+  aborigen_village_small_house_burned_a{
+  }
+
+  aborigen_village_small_house_round_a{
+  }
+
+  aborigen_village_small_house_round_burned_a{
+  }
+
+  northeuropean_village_building_brick_a_window_4000_a_l_bottom{
+  }
+
+  northeuropean_village_building_brick_a_window_4000_a_l_top{
+  }
+
+  northeuropean_village_building_brick_a_window_4000_a_r_bottom{
+  }
+
+  northeuropean_village_building_brick_a_window_4000_a_r_top{
+  }
+
+  protestant_church_brick_a_bench_b{
+  }
+
+  protestant_church_brick_a_fence_b{
+  }
+
+  protestant_church_brick_a_fence_c{
+  }
+
+  protestant_church_brick_a_ladder_a{
+  }
+
+  protestant_church_brick_a_ladder_b{
+  }
+
+  protestant_church_brick_a_table_a{
+  }
+
+  protestant_church_brick_a_window_a{
+  }
+
+  protestant_church_brick_a_window_b{
+  }
+
+  protestant_church_brick_a_window_c_a{
+  }
+
+  protestant_church_brick_a_window_c_b{
+  }
+
+  protestant_church_brick_a_window_e{
+  }
+
+  protestant_church_brick_a_window_f{
+  }
+
+  frame_house_fence_2000_a{
+  }
+
+  frame_house_fence_2000_b{
+  }
+
+  frame_house_fence_2000_c{
+  }
+
+  frame_house_fence_4000_a{
+  }
+
+  frame_house_fence_4000_b{
+  }
+
+  frame_house_fence_4000_c{
+  }
+
+  frame_house_railing_1000_a{
+  }
+
+  frame_house_railing_1000_b{
+  }
+
+  frame_house_railing_a{
+  }
+
+  frame_house_railing_b{
+  }
+
+  russia_decor_window_shutters_1600_a_l{
+  }
+
+  russia_decor_window_shutters_1600_a_r{
+  }
+
+  russia_decor_window_shutters_1600_b_l{
+  }
+
+  russia_decor_window_shutters_1600_b_r{
+  }
+
+  russia_decor_window_shutters_1600_c_l{
+  }
+
+  russia_decor_window_shutters_1600_c_r{
+  }
+
+  russia_decor_window_shutters_1600_d_l{
+  }
+
+  russia_decor_window_shutters_1600_d_r{
+  }
+
+  russia_decor_window_frame_1200_flat_d{
+  }
+
+  russia_decor_stairs_1000_b{
+  }
+
+  russia_decor_stairs_3200_a{
+  }
+
+  russia_decor_stairs_wood_1000_b{
+  }
+
+  russia_decor_stairs_wood_1000_c{
+  }
+
+  russia_decor_stairs_wood_3200_a{
+  }
+
+  horse_cart_a{
+  }
+
+  horse_cart_c_a{
+  }
+
+  horse_cart_c_a_stuff{
+  }
+
+  horse_cart_c_b{
+  }
+
+  horse_cart_c_b_stuff{
+  }
+
+  horse_cart_d_a{
+  }
+
+  horse_cart_e_a_stuff{
+  }
+
+  horse_cart_water_barrel_a{
+  }
+
+  horse_cart_water_pump_a{
+  }
+
+  horse_cart_winter_a{
+  }
+
+  horse_plough_a{
+  }
+
+  us_navy_cart_a{
+  }
+
+  russia_monastery_gatetower_decor_window_4000_8edg_a{
+  }
+
+  russia_monastery_housing_decore_window_a_wood{
+  }
+
+  russia_monastery_housing_decore_window_a_wood{
+  }
+
+  russia_monastery_housing_decore_window_a_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_a_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_a_wood_r{
+  }
+
+  russia_monastery_housing_decore_window_a_wood_r{
+  }
+
+  russia_monastery_housing_decore_window_b_wood{
+  }
+
+  russia_monastery_housing_decore_window_b_wood{
+  }
+
+  russia_monastery_housing_decore_window_b_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_b_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_b_wood_r{
+  }
+
+  russia_monastery_housing_decore_window_b_wood_r{
+  }
+
+  russia_monastery_housing_decore_window_c_wood{
+  }
+
+  russia_monastery_housing_decore_window_c_wood{
+  }
+
+  russia_monastery_housing_decore_window_c_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_c_wood_l{
+  }
+
+  russia_monastery_housing_decore_window_c_wood_r{
+  }
+
+  russia_monastery_housing_decore_window_c_wood_r{
+  }
+
+  russia_monastery_stairs_11462{
+  }
+
+  russia_monastery_stairs_14000{
+  }
+
+  bridge_railing_a{
+  }
+
+  bridge_railing_b{
+  }
+
+  bridge_railing_c{
+  }
+
+  bridge_railing_d{
+  }
+
+  bridge_railing_e{
+  }
+
+  bridge_railing_f{
+  }
+
+  bridge_railing_g{
+  }
+
+  bridge_railing_h{
+  }
+
+  bridge_railing_i{
+  }
+
+  wooden_trailer_c{
+  }
+
+  wooden_wheelbarrow_a{
+  }
+
+  wooden_wheelbarrow_b{
+  }
+
+  wooden_wheelbarrow_c{
+  }
+
+  wooden_crate_a{
+  }
+
+  wooden_log_clothesline_a{
+  }
+
+  wooden_log_clothesline_b{
+  }
+
+  stalingrad_city_balcony_1500x2000_b{
+  }
+
+  stalingrad_city_balcony_1500x2700_a{
+  }
+
+  stalingrad_city_balcony_1500x2700_a_broken_a{
+  }
+
+  stalingrad_city_balcony_1500x2700_a_broken_b{
+  }
+
+  stalingrad_city_balcony_1500x2700_b{
+  }
+
+  stalingrad_city_balcony_1500x2700_b_broken_a{
+  }
+
+  stalingrad_city_balcony_1500x2700_b_broken_b{
+  }
+
+  stalingrad_department_store_interior_stairs_a{
+  }
+
+  stalingrad_department_store_interior_stairs_c{
+  }
+
+  stalingrad_department_store_interior_stairs_d{
+  }
+
+  stalingrad_department_store_exterior_handrail{
+  }
+
+  stalingrad_drama_theater_decor_railings_a{
+  }
+
+  stalingrad_drama_theater_decor_railings_b{
+  }
+
+  stalingrad_drama_theater_decor_railings_c{
+  }
+
+  stalingrad_drama_theater_decor_railings_d{
+  }
+
+  stalingrad_drama_theater_decor_railings_e{
+  }
+
+  stalingrad_drama_theater_decor_railings_f{
+  }
+
+  stalingrad_drama_theater_decor_railings_g{
+  }
+
+  stalingrad_drama_theater_exterior_railing_a{
+  }
+
+  stalingrad_drama_theater_exterior_railing_a_damaged_a{
+  }
+
+  stalingrad_drama_theater_exterior_railing_b{
+  }
+
+  stalingrad_drama_theater_exterior_railing_c{
+  }
+
+  stalingrad_drama_theater_exterior_railing_d{
+  }
+
+  stalingrad_fence_a_metal_gate_grille{
+  }
+
+  stalingrad_fence_b{
+  }
+
+  stalingrad_fence_b_low{
+  }
+
+  stalingrad_fence_b_medium{
+  }
+
+  stalingrad_fence_b_short{
+  }
+
+  stalingrad_fence_c{
+  }
+
+  stalingrad_fence_c_low{
+  }
+
+  stalingrad_fence_c_medium{
+  }
+
+  stalingrad_fence_c_short{
+  }
+
+  stalingrad_fence_d{
+  }
+
+  stalingrad_fence_d_half{
+  }
+
+  stalingrad_fence_d_metal_gate_grille{
+  }
+
+  stalingrad_fence_d_star{
+  }
+
+  stalingrad_oblispolkom_handrails_a_broken_a{
+  }
+
+  stalingrad_oblispolkom_handrails_a_broken_b{
+  }
+
+  stalingrad_oblispolkom_handrails_a_broken_c{
+  }
+
+  stalingrad_oblispolkom_handrails_b_broken_a{
+  }
+
+  stalingrad_oblispolkom_handrails_b_broken_b{
+  }
+
+  stalingrad_oblispolkom_handrails_b_broken_c{
+  }
+
+  stalingrad_oblispolkom_handrails_c_broken_a{
+  }
+
+  stalingrad_oblispolkom_handrails_c_broken_b{
+  }
+
+  stalingrad_oblispolkom_handrails_d_broken_a{
+  }
+
+  stalingrad_oblispolkom_handrails_d_broken_b{
+  }
+
+  stalingrad_oblispolkom_handrails_e_broken_a{
+  }
+
+  stalingrad_oblispolkom_wall_metal_stair_a_broken{
+  }
+
+  stalingrad_oblispolkom_wall_metal_stair_b_broken{
+  }
+
+  stalingrad_oblispolkom_wall_metal_stair_c_broken{
+  }
+
+  stalingrad_oblispolkom_window_2500_a_l{
+  }
+
+  stalingrad_oblispolkom_window_2500_a_r{
+  }
+
+  stalingrad_oblispolkom_window_frame_2500_a{
+  }
+
+  stalingrad_oblispolkom_window_frame_2500_a_broken_a{
+  }
+
+  stalingrad_oblispolkom_window_frame_2500_a_broken_b{
+  }
+
+  stalingrad_railway_interior_fence_column_a{
+  }
+
+  stalingrad_railway_interior_fence_column_b{
+  }
+
+  stalingrad_railway_interior_fence_column_d{
+  }
+
+  stalingrad_railway_interior_fence_column_destroyed_a{
+  }
+
+  stalingrad_railway_interior_fence_column_destroyed_d{
+  }
+
+  stalingrad_railway_interior_fence_column_destroyed_e{
+  }
+
+  stalingrad_railway_interior_fence_column_e{
+  }
+
+  stalingrad_repnikova_lattice_a{
+  }
+
+  stalingrad_repnikova_lattice_b{
+  }
+
+  stalingrad_repnikova_lattice_c{
+  }
+
+  stalingrad_repnikova_window_1800x2700_l{
+  }
+
+  stalingrad_repnikova_window_1800x2700_r{
+  }
+
+  stalingrad_repnikova_window_750x3600_b_frame_damaged{
+  }
+
+  stalingrad_tribune_plank_a{
+  }
+
+  stalingrad_tribune_plank_a_dmg{
+  }
+
+  stalingrad_tribune_plank_b{
+  }
+
+  stalingrad_tribune_plank_b_dmg{
+  }
+
+  stalingrad_utility_shop_shield{
+  }
+
+  stalingrad_water_tower_window_a{
+  }
+
+  stalingrad_water_tower_window_b{
+  }
+
+  stalingrad_water_tower_window_d{
+  }
+
+  stalingrad_water_tower_window_e{
+  }
+
+  banquet_hall_window_a_shutters_a{
+  }
+
+  banquet_hall_window_a_shutters_b{
+  }
+
+  banquet_hall_window_a_shutters_c{
+  }
+
+  banquet_hall_window_b_shutter_left_a{
+  }
+
+  banquet_hall_window_b_shutter_left_b{
+  }
+
+  banquet_hall_window_b_shutter_left_c{
+  }
+
+  banquet_hall_window_b_shutter_right_a{
+  }
+
+  banquet_hall_window_b_shutter_right_b{
+  }
+
+  banquet_hall_window_b_shutter_right_c{
+  }
+
+  banquet_hall_window_c_a{
+  }
+
+  banquet_hall_window_c_b{
+  }
+
+  barrack_window_wooden_1200x1200_a_shutter_l{
+  }
+
+  barrack_window_wooden_1200x1200_a_shutter_r{
+  }
+
+  barrack_metal_rounded_window_1500x1000{
+  }
+
+  berlin_american_embassy_window_a{
+  }
+
+  berlin_lb_window_a{
+  }
+
+  berlin_lb_window_b{
+  }
+
+  berlin_lb_window_c{
+  }
+
+  berlin_lb_window_d{
+  }
+
+  berlin_lb_window_e{
+  }
+
+  berlin_lb_window_i{
+  }
+
+  berlin_lb_window_j{
+  }
+
+  berlin_window_arch_b_1600_frame{
+  }
+
+  berlin_window_arch_b_1600_frame_destroyed_a{
+  }
+
+  berlin_window_arch_b_1600_frame_destroyed_b{
+  }
+
+  berlin_window_arch_b_1600_frame_destroyed_c{
+  }
+
+  berlin_window_arch_b_1900_frame{
+  }
+
+  berlin_window_arch_b_1900_frame_destroyed_a{
+  }
+
+  berlin_window_arch_b_1900_frame_destroyed_b{
+  }
+
+  berlin_window_arch_b_1900_frame_destroyed_c{
+  }
+
+  berlin_window_arch_b_2200_frame{
+  }
+
+  berlin_window_arch_b_2200_frame_destroyed_a{
+  }
+
+  berlin_window_arch_b_2200_frame_destroyed_b{
+  }
+
+  berlin_window_arch_b_2200_frame_destroyed_c{
+  }
+
+  berlin_window_flat_b_1600_frame{
+  }
+
+  berlin_window_flat_b_1600_frame_destroyed_a{
+  }
+
+  berlin_window_flat_b_1600_frame_destroyed_b{
+  }
+
+  berlin_window_flat_b_1600_frame_destroyed_c{
+  }
+
+  berlin_window_flat_b_1600_frame_dmg{
+  }
+
+  berlin_window_flat_b_1900_frame{
+  }
+
+  berlin_window_flat_b_1900_frame_destroyed_a{
+  }
+
+  berlin_window_flat_b_1900_frame_destroyed_b{
+  }
+
+  berlin_window_flat_b_1900_frame_destroyed_c{
+  }
+
+  berlin_window_flat_b_1900_frame_dmg{
+  }
+
+  berlin_window_flat_b_2200_frame{
+  }
+
+  berlin_window_flat_b_2200_frame_destroyed_a{
+  }
+
+  berlin_window_flat_b_2200_frame_destroyed_b{
+  }
+
+  berlin_window_flat_b_2200_frame_destroyed_c{
+  }
+
+  berlin_window_flat_b_2200_frame_dmg{
+  }
+
+  berlin_window_flat_c_1600_frame_destroyed_b{
+  }
+
+  building_window_lattice_metal{
+  }
+
+  european_railway_station_ruins_hall_window_1500x2500_frame{
+  }
+
+  european_railway_station_ruins_hall_window_1500x2500_frame_dmg{
+  }
+
+  excavator_window_frame_front_a{
+  }
+
+  excavator_window_frame_front_b{
+  }
+
+  excavator_window_frame_side{
+  }
+
+  fachwerk_window_wood_1000_flat_a_r{
+  }
+
+  fachwerk_window_wood_1400_arch_a_l{
+  }
+
+  fachwerk_window_wood_1400_arch_a_r{
+  }
+
+  fachwerk_window_wood_1400_flat_a_l{
+  }
+
+  fachwerk_window_wood_1400_flat_a_r{
+  }
+
+  fachwerk_window_wood_1600_flat_a_l{
+  }
+
+  fachwerk_window_wood_1600_flat_a_r{
+  }
+
+  frame_horsehouse_window_1200_a_l{
+  }
+
+  frame_horsehouse_window_1200_a_r{
+  }
+
+  frame_horsehouse_window_small_a{
+  }
+
+  german_village_window_1900_arch_a_l{
+  }
+
+  german_village_window_1900_arch_a_r{
+  }
+
+  german_village_window_wide_wood_1000_flat_a_l{
+  }
+
+  german_village_window_wide_wood_1000_flat_a_r{
+  }
+
+  gothic_bell_tower_window_1000x1500_shutter_r{
+  }
+
+  gothic_bell_tower_window_1500x2500_shutter_l{
+  }
+
+  gothic_bell_tower_window_1500x2500_shutter_r{
+  }
+
+  gothic_church_window_1100x3500_a{
+  }
+
+  gothic_church_window_1100x3500_b{
+  }
+
+  gothic_church_window_440x2310_a{
+  }
+
+  gothic_church_window_440x2310_b{
+  }
+
+  hitler_office_window_1900x6900_a{
+  }
+
+  hitler_office_window_1900x6900_b{
+  }
+
+  honour_courtyard_window_a_left_a{
+  }
+
+  honour_courtyard_window_a_right_a{
+  }
+
+  honour_courtyard_window_b_left_a{
+  }
+
+  honour_courtyard_window_b_right_a{
+  }
+
+  honour_courtyard_window_c{
+  }
+
+  honour_courtyard_window_d{
+  }
+
+  honour_courtyard_window_e{
+  }
+
+  kroll_opera_main_hall_window_1500x2500_a_dmg_a{
+  }
+
+  kroll_opera_main_hall_window_1500x2500_a_dmg_b{
+  }
+
+  kroll_opera_main_hall_window_b{
+  }
+
+  kroll_opera_main_hall_window_b_dmg{
+  }
+
+  kroll_opera_main_hall_window_shutter_1500x2500_a_l{
+  }
+
+  kroll_opera_main_hall_window_shutter_1500x2500_a_r{
+  }
+
+  kroll_opera_royal_hall_left_wing_window_1000x630{
+  }
+
+  kroll_opera_royal_hall_middle_arc_window_shutter_1120x2650_a_l{
+  }
+
+  kroll_opera_royal_hall_middle_arc_window_shutter_1120x2650_a_r{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_double_840x2050_a_l{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_double_840x2050_a_r{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_shutter_580x1680_a_l{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_shutter_840x2050_a_l{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_shutter_840x2050_a_r{
+  }
+
+  kroll_opera_royal_hall_middle_flat_window_triple_580x1680_a_l{
+  }
+
+  main_entrance_window_1200_1600_a{
+  }
+
+  main_entrance_window_1200_3000_a{
+  }
+
+  main_entrance_window_1500_1800_c{
+  }
+
+  medieval_window_1000x1500_shutter_r{
+  }
+
+  medieval_window_1500x2000_shutter_l{
+  }
+
+  medieval_window_1500x2000_shutter_r{
+  }
+
+  medieval_window_1500x2500_flat_l{
+  }
+
+  medieval_window_1500x2500_flat_r{
+  }
+
+  medieval_window_1500x2500_shutter_l{
+  }
+
+  medieval_window_1500x2500_shutter_r{
+  }
+
+  medieval_window_shutter_1685x2400_a_l{
+  }
+
+  medieval_window_shutter_1685x2400_a_r{
+  }
+
+  medieval_window_shutter_600x700_l{
+  }
+
+  medieval_window_shutter_600x700_r{
+  }
+
+  medieval_window_shutter_780x2280_c{
+  }
+
+  military_barracks_b_window_frame_flat_a_1900{
+  }
+
+  military_barracks_b_window_frame_flat_a_1900_dmg{
+  }
+
+  ministry_window_wood_frame_a{
+  }
+
+  ministry_window_wood_frame_b{
+  }
+
+  ministry_window_wood_frame_c{
+  }
+
+  ministry_window_wood_frame_d{
+  }
+
+  ministry_window_wood_frame_e{
+  }
+
+  normandy_barn_a_window_frame_1440x3480_wooden_a{
+  }
+
+  normandy_barn_a_window_frame_1860x5520_wooden_a{
+  }
+
+  normandy_barn_a_window_frame_2040x3480_wooden_a{
+  }
+
+  normandy_barn_b_window_frame_1200x2275_wooden_a{
+  }
+
+  normandy_barn_b_window_frame_2275x4200_wooden_a{
+  }
+
+  normandy_barn_b_window_frame_2407x2057_wooden_a{
+  }
+
+  normandy_city_buildings_store_front_window_2000x2500_b{
+  }
+
+  normandy_city_buildings_store_front_window_2000x2500_b_dmg{
+  }
+
+  normandy_decor_window_1000_flat_d_r{
+  }
+
+  normandy_decor_window_1400_arch_d_l{
+  }
+
+  normandy_decor_window_1400_arch_d_r{
+  }
+
+  normandy_decor_window_1600_flat_d_broken{
+  }
+
+  normandy_decor_window_1600_flat_d_l{
+  }
+
+  normandy_decor_window_1600_flat_d_l_broken{
+  }
+
+  normandy_decor_window_1600_flat_d_r{
+  }
+
+  normandy_decor_window_1600_flat_d_r_broken{
+  }
+
+  normandy_decor_window_1900_arch_d_l{
+  }
+
+  normandy_decor_window_1900_arch_d_r{
+  }
+
+  normandy_decor_window_1900_flat_d_l{
+  }
+
+  normandy_decor_window_1900_flat_d_r{
+  }
+
+  normandy_decor_window_arch_1600{
+  }
+
+  normandy_decor_window_arch_1900{
+  }
+
+  normandy_decor_window_archflat_1600{
+  }
+
+  normandy_decor_window_archflat_1900{
+  }
+
+  normandy_decor_window_flat_1000{
+  }
+
+  normandy_decor_window_flat_1000_wide{
+  }
+
+  normandy_decor_window_flat_1600{
+  }
+
+  normandy_decor_window_flat_1900{
+  }
+
+  normandy_decor_window_flatarch_1600{
+  }
+
+  normandy_decor_window_flatarch_1900{
+  }
+
+  normandy_decor_window_frame_1000_flat_d{
+  }
+
+  normandy_decor_window_grille_a{
+  }
+
+  normandy_decor_window_grille_b{
+  }
+
+  normandy_decor_window_grille_c{
+  }
+
+  normandy_decor_window_grille_d{
+  }
+
+  normandy_decor_window_grille_e{
+  }
+
+  normandy_decor_window_grille_f{
+  }
+
+  normandy_decor_window_shutters_1600_arch_d_l{
+  }
+
+  normandy_decor_window_shutters_1600_arch_d_r{
+  }
+
+  normandy_decor_window_shutters_1600_flat_d_l{
+  }
+
+  normandy_decor_window_shutters_1600_flat_d_r{
+  }
+
+  normandy_decor_window_shutters_1900_arch_d_l{
+  }
+
+  normandy_decor_window_shutters_1900_arch_d_r{
+  }
+
+  normandy_decor_window_shutters_1900_flat_d_l{
+  }
+
+  normandy_decor_window_shutters_1900_flat_d_r{
+  }
+
+  normandy_decor_window_wide_1000_flat_d_l{
+  }
+
+  normandy_decor_window_wide_1000_flat_d_r{
+  }
+
+  normandy_mansion_3story_a_decor_door_frame_window_black_a{
+  }
+
+  normandy_mansion_3story_a_decor_door_frame_window_central{
+  }
+
+  normandy_mansion_3story_a_decor_windows_frame_window_2800_flat_a{
+  }
+
+  normandy_mansion_3story_a_decor_windows_frame_window_3100_flat_a{
+  }
+
+  normandy_mansion_3story_a_decor_windows_frame_window_3100_arch_a{
+  }
+
+  normandy_mansion_3story_a_decor_windows_frame_window_4100_flat_a{
+  }
+
+  normandy_mansion_3story_b_decor_window_1600_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_1600_flatarch_a_r{
+  }
+
+  normandy_mansion_3story_b_decor_window_1900_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_1900_flatarch_a_r{
+  }
+
+  normandy_mansion_3story_b_decor_window_2500_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_2500_flatarch_a_r{
+  }
+
+  normandy_mansion_3story_b_decor_window_2800_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_2800_flatarch_a_r{
+  }
+
+  normandy_mansion_3story_b_decor_window_3100_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_3100_flatarch_a_r{
+  }
+
+  normandy_mansion_3story_b_decor_window_3700_flatarch_a_l{
+  }
+
+  normandy_mansion_3story_b_decor_window_3700_flatarch_a_r{
+  }
+
+  normandy_barn_b_stable_a_l{
+  }
+
+  normandy_barn_b_stable_a_r{
+  }
+
+  normandy_barn_b_stable_a_b{
+  }
+
+  normandy_barn_b_stable_shutter_l{
+  }
+
+  normandy_barn_b_stable_shutter_r{
+  }
+
+  old_building_window_130x150_arch_a_a{
+  }
+
+  old_building_window_130x150_arch_a_b{
+  }
+
+  old_building_window_130x150_arch_a_c{
+  }
+
+  old_building_window_290x170_flat_c_a{
+  }
+
+  old_building_window_290x170_flat_c_b{
+  }
+
+  old_building_window_290x170_flat_c_c{
+  }
+
+  old_building_window_310x180_arch_e_a{
+  }
+
+  old_building_window_310x180_arch_e_b{
+  }
+
+  old_building_window_310x180_arch_e_c{
+  }
+
+  old_building_window_340x240_flat_b_a{
+  }
+
+  old_building_window_340x240_flat_b_b{
+  }
+
+  old_building_window_340x240_flat_b_c{
+  }
+
+  old_building_window_360x200_flat_a_a{
+  }
+
+  old_building_window_360x200_flat_a_b{
+  }
+
+  old_building_window_360x200_flat_a_c{
+  }
+
+  old_building_window_360x240_arch_c_a{
+  }
+
+  old_building_window_360x240_arch_c_b{
+  }
+
+  old_building_window_360x240_arch_c_c{
+  }
+
+  railway_station_ruins_warehouse_window_shutter_1350x2500_l{
+  }
+
+  railway_station_ruins_warehouse_window_shutter_1350x2500_r{
+  }
+
+  railway_station_ruins_warehouse_window_transom_1350x2500{
+  }
+
+  reichchancellery_1_floor_building_window_a{
+  }
+
+  reichchancellery_1_floor_building_window_b{
+  }
+
+  reichchancellery_1_floor_building_window_c{
+  }
+
+  reichchancellery_1_floor_building_window_d{
+  }
+
+  reichchancellery_1_floor_building_window_e{
+  }
+
+  reichchancellery_barracks_window_1200_1200_a{
+  }
+
+  reichchancellery_barracks_window_1300_1500_a{
+  }
+
+  reichchancellery_barracks_window_1400_2000_a{
+  }
+
+  reichchancellery_barracks_window_1400_2000_a_l{
+  }
+
+  reichchancellery_barracks_window_1400_2000_a_r{
+  }
+
+  reichchancellery_barracks_window_1400_2000_b{
+  }
+
+  reichchancellery_barracks_window_1400_2000_b_l{
+  }
+
+  reichchancellery_barracks_window_1400_2000_b_r{
+  }
+
+  reichchancellery_barracks_window_1400_2000_c{
+  }
+
+  reichchancellery_barracks_window_1400_2000_c_l{
+  }
+
+  reichchancellery_barracks_window_1400_2000_d{
+  }
+
+  reichchancellery_greenhouse_window_a_a{
+  }
+
+  reichchancellery_greenhouse_window_a_b{
+  }
+
+  reichchancellery_greenhouse_window_a_c{
+  }
+
+  reichchancellery_greenhouse_window_a_d{
+  }
+
+  reichchancellery_greenhouse_window_a_e{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_b_frame_a{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_b_shutter_a{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_b_shutter_b{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_c_frame_a{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_c_shutter_a{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_c_shutter_b{
+  }
+
+  reichchancellery_president_office_entrance_right_window_c_d_frame_a{
+  }
+
+  reichchancellery_small_garage_window_a_a{
+  }
+
+  ruin_window_grille_metal_a{
+  }
+
+  ruins_restaurant_window_shutter_1500x2500_a_l{
+  }
+
+  ruins_restaurant_window_shutter_1500x2500_a_r{
+  }
+
+  ruins_restaurant_window_transom_1500x2500_a{
+  }
+
+  russia_barrack_a_window_a{
+  }
+
+  russia_barrack_a_window_b_l{
+  }
+
+  russia_barrack_a_window_b_r{
+  }
+
+  russia_church_a_decor_window_3400_arc_a{
+  }
+
+  russia_church_a_decor_window_4000_arc_a{
+  }
+
+  russia_church_a_decor_window_4000_arc_b{
+  }
+
+  russia_church_a_decor_window_5000_arc_a{
+  }
+
+  russia_church_a_decor_window_5000_arc_b{
+  }
+
+  russia_church_a_decor_window_5000_arc_c{
+  }
+
+  russia_church_b_decor_window_2500_ark_a{
+  }
+
+  russia_church_b_decor_window_3300_ark_a{
+  }
+
+  russia_church_b_decor_window_4100_ark_a{
+  }
+
+  russia_church_b_decor_window_5000_ark_a{
+  }
+
+  russia_church_wood_a_decor_window_1600_flat_a{
+  }
+
+  russia_church_wood_a_decor_window_2000_flat_a{
+  }
+
+  russia_church_wood_a_decor_window_3000_flat_a{
+  }
+
+  russia_church_wood_b_decor_window_glass_1600_a{
+  }
+
+  russia_church_wood_b_decor_window_glass_2000_a{
+  }
+
+  russia_church_wood_b_decor_window_glass_2000_b{
+  }
+
+  russia_church_wood_c_decor_window_2200_flat_a{
+  }
+
+  russia_fire_station_a_window_a_l{
+  }
+
+  russia_fire_station_a_window_a_r{
+  }
+
+  russia_fire_station_a_window_b_l{
+  }
+
+  russia_fire_station_a_window_b_r{
+  }
+
+  russia_fire_station_a_window_c_l{
+  }
+
+  russia_fire_station_a_window_c_r{
+  }
+
+  russia_fire_station_barn_a_window_a_l{
+  }
+
+  russia_fire_station_barn_a_window_a_r{
+  }
+
+  russia_garage_a_window_front{
+  }
+
+  russia_garage_a_window_side{
+  }
+
+  russia_hydropowerplant_decor_window_2000_a{
+  }
+
+  russia_hydropowerplant_decor_window_2100_a_l{
+  }
+
+  russia_hydropowerplant_decor_window_2100_a_r{
+  }
+
+  russia_hydropowerplant_decor_window_3000_a_l{
+  }
+
+  russia_hydropowerplant_decor_window_3000_a_r{
+  }
+
+  russia_hydropowerplant_decor_window_3000_b_l{
+  }
+
+  russia_hydropowerplant_decor_window_3000_b_middle{
+  }
+
+  russia_hydropowerplant_decor_window_3000_b_r{
+  }
+
+  russia_hydropowerplant_decor_window_3000_b_up{
+  }
+
+  russia_mansion_decor_window_1600_circle_a{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_1200_flat_a_l{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_1200_flat_a_r{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_2600_flat_a_l{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_2600_flat_a_r{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_3000_flat_a_l{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_3000_flat_a_r{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_3300_flat_a_l{
+  }
+
+  russia_mansion_decor_window_jamb_wood_int_3300_flat_a_r{
+  }
+
+  russia_mansion_decor_window_up_3400_arch_a_fake{
+  }
+
+  russia_monastery_central_church_window_frame_2000_flat_a{
+  }
+
+  russia_monastery_housing_decore_atticwindow_wood{
+  }
+
+  russia_sawmill_b_window_1100_a{
+  }
+
+  russia_sawmill_b_window_1100_a_dmg{
+  }
+
+  russia_sawmill_b_window_1300_a{
+  }
+
+  russia_sawmill_b_window_1300_a_down{
+  }
+
+  russia_sawmill_b_window_1300_a_down_dmg{
+  }
+
+  russia_sawmill_b_window_1500_a{
+  }
+
+  russia_sawmill_b_window_1500_a_down{
+  }
+
+  russia_sawmill_b_window_1500_a_down_dmg{
+  }
+
+  russia_sawmill_b_window_1500_b{
+  }
+
+  russia_sawmill_b_window_1500_b_down{
+  }
+
+  russia_sawmill_b_window_1500_b_down_dmg{
+  }
+
+  russia_sawmill_b_window_1500_c{
+  }
+
+  russia_sawmill_b_window_1500_c_down{
+  }
+
+  russia_sawmill_b_window_1500_c_down_dmg{
+  }
+
+  russia_sawmill_b_window_2300_a{
+  }
+
+  russia_sawmill_b_window_2300_a_dmg{
+  }
+
+  russia_sawmill_b_window_2300_b{
+  }
+
+  russia_sawmill_b_window_2300_b_dmg{
+  }
+
+  russia_sawmill_b_window_2400_a{
+  }
+
+  russia_sawmill_b_window_2400_a_dmg{
+  }
+
+  russia_sawmill_b_window_2400_b{
+  }
+
+  russia_sawmill_b_window_2400_b_dmg{
+  }
+
+  russia_sawmill_b_window_2400_c{
+  }
+
+  russia_sawmill_b_window_2400_c_dmg{
+  }
+
+  russia_sawmill_b_window_2400_d{
+  }
+
+  russia_sawmill_b_window_2400_d_dmg{
+  }
+
+  russia_sawmill_b_window_3700_a{
+  }
+
+  russia_sawmill_b_window_3700_a_dmg{
+  }
+
+  russia_sawmill_b_window_ext_wood_1200_a{
+  }
+
+  russia_sawmill_b_window_ext_wood_1200_a_dmg{
+  }
+
+  russia_switch_post_a_window_shutter_900x1200_r{
+  }
+
+  russia_town_window_jamb_1600_a_l{
+  }
+
+  russia_town_window_jamb_1600_a_r{
+  }
+
+  russia_town_window_up_jamb_1600_a_l{
+  }
+
+  russia_town_window_up_jamb_1600_a_r{
+  }
+
+  russia_town_window_wide_frame_left_2500_brick_a{
+  }
+
+  russia_town_window_wide_frame_right_2500_brick_a{
+  }
+
+  russia_water_pump_a_window_shutter_1100x1500_l{
+  }
+
+  russia_water_pump_a_window_shutter_1100x1500_r{
+  }
+
+  russia_water_pump_a_window_shutter_1300x2100_l{
+  }
+
+  russia_water_pump_a_window_shutter_1300x2100_r{
+  }
+
+  russia_window_2500x1500_a_l{
+  }
+
+  russia_window_2500x1500_a_r{
+  }
+
+  shed_decor_window_1000_a{
+  }
+
+  soviet_window_frame_2200x2500_c_window{
+  }
+
+  soviet_window_frame_2200x2500_c_window_dmg{
+  }
+
+  soviet_window_frame_2200x2500_d_window{
+  }
+
+  soviet_window_frame_2200x2500_d_window_dmg{
+  }
+
+  soviet_window_frame_2200x2500_f_broken_b{
+  }
+
+  soviet_window_frame_2200x2500_f_broken_b_dmg{
+  }
+
+  soviet_window_shutter_1500x2500_a_l{
+  }
+
+  soviet_window_shutter_1500x2500_a_r{
+  }
+
+  soviet_window_shutter_1500x2500_b_l{
+  }
+
+  soviet_window_shutter_1500x2500_b_r{
+  }
+
+  soviet_window_shutter_1500x2500_c_l{
+  }
+
+  soviet_window_shutter_1500x2500_c_r{
+  }
+
+  barbed_wire_a{
+  }
+
+  barbed_wire_dmg{
+  }
+
+  barbed_wire_b{
+  }
+
+  barbed_wire_barrier_a{
+  }
+
+  barbed_wire_training_a{
+  }
+
+  barbedwire_a{
+  }
+
+  barbedwire_a_dmg{
+  }
+
+  barbedwire_engineer_a{
+  }
+
+  barbedwire_engineer_dmg_a{
+  }
+
+  czech_hedgehog_barbwire_a{
+  }
+
+  czech_hedgehog_barbwire_b{
+  }
+
+  czech_hedgehog_barbwire_c{
+  }
+
+  russia_fence_prison_camp_barbwire_a{
+  }
+
+  russia_fence_prison_camp_barbwire_a_gate_3000_a_l{
+  }
+
+  russia_fence_prison_camp_barbwire_a_gate_3000_a_r{
+  }
+
+  russia_fence_prison_camp_barbwire_a_gate_4000_a_l{
+  }
+
+  russia_fence_prison_camp_barbwire_a_gate_4000_a_r{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_1500_type_a{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_1500_type_b{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_1500_type_c{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_3000_type_a{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_3000_type_b{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_3000_type_c{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_750_type_a{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_750_type_b{
+  }
+
+  russia_fence_prison_camp_barbwire_a_section_750_type_c{
+  }
+
+  tank_barrier_wood_a_end_barbwire{
+  }
+
+  tank_barrier_wood_a_inner_angle_a_barbwire{
+  }
+
+  tank_barrier_wood_a_inner_angle_b_barbwire{
+  }
+
+  tank_barrier_wood_a_inner_angle_c_barbwire{
+  }
+
+  tank_barrier_wood_a_outer_angle_a_barbwire{
+  }
+
+  tank_barrier_wood_a_outer_angle_b_barbwire{
+  }
+
+  tank_barrier_wood_a_outer_angle_c_barbwire{
+  }
+
+  tank_barrier_wood_a_straight_a_barbwire{
+  }
+
+  bridge_crossing{
+  }
+
+  bridge_crossing_training{
+  }
+
+  normandy_bridge_b_fence_a{
+  }
+
+  normandy_bridge_b_fence_b{
+  }
+
+  normandy_bridge_b_fence_c{
+  }
+
+  berlin_bridge_a_fence{
+  }
+
+  berlin_bridge_a_fence_dmg{
+  }
+
+  berlin_bridge_b{
+  }
+
+  berlin_bridge_c{
+  }
+
+  fishing_lodge_a{
+  }
+
+  fishing_net_a{
+  }
+
+  fishing_net_b{
+  }
+
+  fishing_net_c{
+  }
+
+  fishing_net_d{
+  }
+
+  fishing_net_e{
+  }
+
+  fishing_net_f{
+  }
+
+  vineyards_pole_a{
+  }
+
+  vineyards_pole_b{
+  }
+
+  vineyards_pole_dmg{
+  }
+
+  vineyards_pole_single{
+  }
+
+  vineyards_pole_single_dmg{
   }
 }

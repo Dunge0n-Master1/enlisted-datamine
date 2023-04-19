@@ -60,15 +60,9 @@ white_phosphorus_damage_zone{
   dm__damageTypeId:i=-1
   dmgzone__shellId:i=-1
   dmgzone__gunPropsId:i=-1
-  sphere_zone__radius:r=6.5
+  sphere_zone__radius:r=5.2
   game_effect__timeToDestroy:r=8.0
   game_effect__destroyAt:r=-1.0
-
-  _group{
-    _tags:t="server"
-    obstacle__padding:r=1.2
-    obstacle__handle:i=0
-  }
 
   "dmgzone__offender:eid"{
   }

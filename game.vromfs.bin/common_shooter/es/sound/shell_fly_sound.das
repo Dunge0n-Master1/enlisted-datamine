@@ -8,7 +8,7 @@ require DagorSystem
 require game.utils.hero
 require game.utils.team
 require soundSystem
-require EnlistedDm
+require DngDm
 require math.base
 
 

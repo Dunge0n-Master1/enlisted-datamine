@@ -26,7 +26,7 @@ def player_rearm_cmd(ammo : int = -1; [[net_hero]] hero : EntityId)
           init |> set("item__lastOwner", hero)
           init |> set("item__ownerEid", hero)
 
-[es(tag=render, no_order, REQUIRE=player_with_name_debug)]
+[es(tag=(render, dev), no_order, REQUIRE=player_with_name_debug)]
 def draw_founded_player(evt : UpdateStageInfoRenderDebug;
                         name aka found_name : string)
   query() <| $ [es(REQUIRE=player)] (name : string;

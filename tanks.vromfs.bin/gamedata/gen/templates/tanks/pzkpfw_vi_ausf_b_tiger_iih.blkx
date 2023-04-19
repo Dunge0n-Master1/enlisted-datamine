@@ -22,7 +22,7 @@ base_pzkpfw_vi_ausf_b_tiger_iih{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
     node:t="emtr_mg_flame_03"
-    node:t="emtr_mortar_flame_01"
+    node:t=""
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{

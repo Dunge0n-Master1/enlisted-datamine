@@ -1,6 +1,6 @@
 require ecs
 require game.events_game
-require EnlistedNet
+require DngNet
 
 [es(tag=server, on_appear)]
 def tutorial_action_kill_squad_member_es(evt : Event; var tutor_action__killSquadMember : int&)

@@ -1,0 +1,344 @@
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="decal_broken_glass_a"
+  ri_gpu_object__biom_indexes:p4=38.0, 0.5, 0.0, 0.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=10.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=1.0, 1.75
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=7016
+  ri_gpu_object__is_using_normal:b=yes
+  ri_gpu_object__up_vector:p3=0.0, 1.0, 0.0
+  ri_gpu_object__decal:b=yes
+  ri_gpu_object__transparent:b=yes
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="decal_paper_trash"
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=25.0
+  ri_gpu_object__incline_delta:r=0.0
+  ri_gpu_object__scale_range:p2=0.8, 1.0
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3016
+  ri_gpu_object__is_using_normal:b=yes
+  ri_gpu_object__up_vector:p3=0.0, 1.0, 0.0
+  ri_gpu_object__decal:b=yes
+  ri_gpu_object__transparent:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=38.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=32.0, 0.3, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="decal_paper_trash_a"
+      weight:r=5.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="decal_paper_trash_b"
+      weight:r=5.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="decal_paper_trash_c"
+      weight:r=5.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="trash_concrete"
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=16.0
+  ri_gpu_object__incline_delta:r=10.0
+  ri_gpu_object__scale_range:p2=0.9, 1.05
+  ri_gpu_object__rotate_range:p2=0.0, 960.0
+  ri_gpu_object__seed:i=812
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=38.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=32.0, 0.1, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "gpu_object:object"{
+      name:t="debris_trash_concrete_small_part_c3"
+      weight:r=1.0
+    }
+
+    "gpu_object:object"{
+      name:t="debris_trash_concrete_small_part_c2"
+      weight:r=1.0
+    }
+
+    "gpu_object:object"{
+      name:t="debris_trash_concrete_small_part_b3"
+      weight:r=0.5
+    }
+
+    "gpu_object:object"{
+      name:t="debris_trash_concrete_small_part_b1"
+      weight:r=0.5
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_bricks"
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=3
+  ri_gpu_object__cell_size:r=10.0
+  ri_gpu_object__scale_range:p2=0.95, 1.0
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=2814
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=38.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=39.0, 0.7, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_bricks_a"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_bricks_b"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_bricks_g"
+      weight:r=5.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_metal_can"
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=25.0
+  ri_gpu_object__scale_range:p2=0.95, 1.0
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=2814
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=38.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=39.0, 0.7, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=32.0, 0.2, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_metal_can_a"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_metal_can_b"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_metal_can_c"
+      weight:r=5.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_metal_can_d"
+      weight:r=5.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="debris_wood_plank"
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=8.0
+  ri_gpu_object__scale_range:p2=0.95, 1.0
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3814
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=38.0, 0.4, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=39.0, 0.5, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_trash_wood_plank_a"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="debris_trash_wood_plank_b"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="ministry_building_o_debris_wood_pile_b"
+      weight:r=5.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="branches"
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=25.0
+  ri_gpu_object__scale_range:p2=0.7, 1.25
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3214
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=20.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=21.0, 0.3, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=22.0, 0.5, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_dry_branches_c"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="tree_branches_small_a"
+      weight:r=0.33
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="small stones"
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=5
+  ri_gpu_object__cell_size:r=12.0
+  ri_gpu_object__scale_range:p2=0.4, 0.7
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3294
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=20.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=21.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=22.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=1.0, 0.7, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=5.0, 0.7, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=6.0, 0.4, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="generic_stone_small_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="generic_stone_small_b"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="generic_stone_small_c"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="small stones railroads"
+  ri_gpu_object__biom_indexes:p4=34.0, 0.5, 0.0, 0.0
+  ri_gpu_object__grid_size:i=4
+  ri_gpu_object__grid_tiling:i=10
+  ri_gpu_object__cell_size:r=16.0
+  ri_gpu_object__scale_range:p2=0.1, 0.3
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3294
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="generic_stone_small_a"
+      weight:r=1.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="generic_stone_small_b"
+      weight:r=1.0
+    }
+  }
+}
+
+entity{
+  _template:t="ri_gpu_object"
+  ri_gpu_object__name:t="autumn_leaves_pile"
+  ri_gpu_object__grid_size:i=8
+  ri_gpu_object__grid_tiling:i=1
+  ri_gpu_object__cell_size:r=35.0
+  ri_gpu_object__scale_range:p2=0.9, 1.2
+  ri_gpu_object__rotate_range:p2=0.0, 360.0
+  ri_gpu_object__seed:i=3814
+  ri_gpu_object__is_using_normal:b=yes
+
+  "ri_gpu_object__biome_params:array"{
+    ri_gpu_object__biome_params:p4=20.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=21.0, 0.5, 0.0, 0.0
+    ri_gpu_object__biome_params:p4=22.0, 0.5, 0.0, 0.0
+  }
+
+  "ri_gpu_object__multiple_objects:array"{
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaves_pile_a"
+      weight:r=15.0
+    }
+
+    "ri_gpu_object__multiple_objects:object"{
+      name:t="autumn_leaves_pile_b"
+      weight:r=15.0
+    }
+  }
+}

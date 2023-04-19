@@ -25,11 +25,6 @@ splashDamage{
   dmgOffset:p3=0.0, 0.25, 0.0
 }
 
-explFx{
-  fxScale:p2=0.8, 0.9
-  effectTemplName:t="explosion_ampule+disable_effect_sfx"
-}
-
 ccdSpheres{
   ccd:p4=0.0, 0.05, 0.0, 0.015
   ccd:p4=0.0, 0.2, 0.0, 0.015

@@ -8,6 +8,7 @@ jp_type_98_ta_se_common{
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
   item__iconOffset:p2=0.0, 0.0
+  destroyIfNoCrewLeft:b=no
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0

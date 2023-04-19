@@ -7,7 +7,7 @@ let { autoscrollText, txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { READY } = require("%enlSqGlob/readyStatus.nut")
-let { mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { mkSquadSpecIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { kindIcon, kindName } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
 
@@ -130,7 +130,7 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
           flow = FLOW_HORIZONTAL
           gap = gap
           children = [
-            mkSquadPremIcon(squad?.premIcon, { pos = [0, -hdpx(2)] })
+            mkSquadSpecIcon(squad, { pos = [0, -hdpx(2)] })
             autoscrollText({
               group = group
               text = loc(squad?.titleLocId)

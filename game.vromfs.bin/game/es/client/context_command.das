@@ -1,11 +1,11 @@
 require ecs
 require game.utils.team
-require EnlistedWalkerai
+require DngWalkerai
 require GridCollision
 require RendInst
 require Dacoll
 require HumanPhys
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
@@ -15,10 +15,10 @@ require game.es.battle_area_common
 require zones
 require CollRes
 require game.es.squad_order_common
-require EnlistedNet
+require DngNet
 require matching
 require math.base
-require EnlistedCamera
+require DngCamera
 require DagorMathUtils
 require DagorMath
 

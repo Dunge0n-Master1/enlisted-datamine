@@ -1,7 +1,7 @@
 options no_aot
 require ecs
 require DagorConsole
-require EnlistedNet
+require DngNet
 require game.utils.hero
 require game.es.net_console_macro
 

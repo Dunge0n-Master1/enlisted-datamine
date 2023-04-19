@@ -15,12 +15,13 @@ let {weaponItems} = require("player_info/player_weapon_switch.nut")
 let mkAmmoInfo = require("player_info/player_ammo.ui.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {minimalistHud} = require("%ui/hud/state/hudOptionsState.nut")
-let { currentGunEid } = require("%ui/hud/state/hero_weapons.nut")
-let {mkMedkitIcon} = require("player_info/medkitIcon.nut")
+let { currentGunEid, showAllWeaponsTrigger } = require("%ui/hud/state/hero_weapons.nut")
+let mkMedkitIcon = require("player_info/medkitIcon.nut")
 let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 let hasMedkit = Computed(@() selfHealMedkits.value > 0)
-let medkitIco = mkMedkitIcon(hdpx(25))
+let medkitIco = mkMedkitIcon(hdpx(25), defTxtColor)
 let playerMedkits = @() {
   watch = hasMedkit
   children = hasMedkit.value ? medkitIco : null
@@ -95,6 +96,7 @@ let function activateShowAllWeapons(...){
   gui_scene.resetTimeout(4, hideAllWeapons)
 }
 activateShowAllWeapons()
+showAllWeaponsTrigger.subscribe(activateShowAllWeapons)
 controlledHeroEid.subscribe(activateShowAllWeapons)
 currentGunEid.subscribe(function(eid) {
   if (eid != ecs.INVALID_ENTITY_ID)

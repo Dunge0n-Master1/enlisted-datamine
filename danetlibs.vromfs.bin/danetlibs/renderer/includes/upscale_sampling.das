@@ -8,7 +8,7 @@ let UPSCALE_WEIGHTS_COUNT = 64
 let UPSCALE_DATA_SIZE = typeinfo(sizeof type<float4>)
 
 [generic]
-def upload_weights(var upscale_weights_buffer : UniqueBufHolder)
+def upload_weights(upscale_weights_buffer : UniqueBufHolder)
   let UPSCALE_WEIGHTS_DATA <- [{ float[UPSCALE_WEIGHTS_COUNT * 4]
     //Bottom Right
     0.75 * 0.25; 0.25 * 0.25; 0.75 * 0.25; 0.75 * 0.75;
@@ -79,7 +79,7 @@ def upload_weights(var upscale_weights_buffer : UniqueBufHolder)
     0f; 0.75; 0.25; 0f;
     0.75 * 0.25; 0.75 * 0.75; 0.75 * 0.25; 0.25 * 0.25
   }]
-  *upscale_weights_buffer.getBuf |> updateData(UPSCALE_WEIGHTS_DATA, VBLOCK_WRITEONLY | VBLOCK_DISCARD)
+  *getBuf(upscale_weights_buffer) |> updateData(UPSCALE_WEIGHTS_DATA, VBLOCK_WRITEONLY | VBLOCK_DISCARD)
 
 [generic]
 def init_upscale(var upscale_weights_buffer : UniqueBufHolder)

@@ -1,6 +1,6 @@
 options no_global_variables = false
 require ecs
-require EnlistedNet
+require DngNet
 require DagorSystem
 
 var // these variables keep constant values that don't change at runtime (after set), variables for non constant values are prohibited

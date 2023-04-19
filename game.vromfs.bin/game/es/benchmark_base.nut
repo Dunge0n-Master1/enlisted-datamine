@@ -36,6 +36,9 @@ let benchStatsComps = [
   ["frames", ecs.TYPE_INT],
   ["slowFrames", ecs.TYPE_INT],
   ["verySlowFrames", ecs.TYPE_INT],
+  ["rangeDt", ecs.TYPE_FLOAT],
+  ["rangeFrames", ecs.TYPE_INT],
+  ["rangeAvgTimes", ecs.TYPE_ARRAY],
   ["maxMemoryUsedKb", ecs.TYPE_INT],
   ["allMemoryUsedKb", ecs.TYPE_INT64],
   ["maxDeviceVRamUsedKb", ecs.TYPE_INT],
@@ -79,9 +82,28 @@ let function saveAndResetStats(){
       let avgCpuOnlyCycleTimeUsec = get_avg_cpu_only_cycle_time_usec()
       let avgCpuOnlyCycleFps = avgCpuOnlyCycleTimeUsec > 0.0 ? 1.0 / (avgCpuOnlyCycleTimeUsec / 1000000.0) : 0.0
 
+      let rangeAvgTimes = comps.rangeAvgTimes?.getAll() ?? []
+
+      local maxRangeAvgTime = 0.0
+      foreach(rangeAvgTime in rangeAvgTimes) {
+        if (rangeAvgTime > maxRangeAvgTime)
+          maxRangeAvgTime = rangeAvgTime
+      }
+
+      let threshold = 0.97 * maxRangeAvgTime
+      local slowestRangeAvgTime = 0.0
+
+      foreach(rangeAvgTime in rangeAvgTimes) {
+        if ((threshold > rangeAvgTime) && (rangeAvgTime > slowestRangeAvgTime))
+          slowestRangeAvgTime = rangeAvgTime
+      }
+
+      let minFPS = slowestRangeAvgTime > 0.0 ? 1.0 / slowestRangeAvgTime : 0.0
+
       prevMsec = prevMsec > firstMsec ? prevMsec : firstMsec+1
       let res = "\n".concat(
         $"avg_fps={1000.0 * frames / (prevMsec - firstMsec)}",
+        $"min_fps={minFPS}",
         $"score={frames}",
         $"slow_frames_pct={100.0 * slowFrames / frames}",
         $"very_slow_frames_pct={100.0 * verySlowFrames / frames}",
@@ -114,6 +136,13 @@ let function saveAndResetStats(){
         comps[compName] = 0.0
       else if (compName == "firstMsec")
         comps[compName] = get_time_msec()
+      else if (compName == "rangeDt")
+        comps[compName] = 0.0
+      else if (compName == "rangeAvgTimes") {
+        if (comps.currentRun == 0)
+          comps[compName] = array(500)
+        comps[compName].clear()
+      }
       else
         comps[compName] = 0
     if (comps.currentRun > comps.benchmark_runs)

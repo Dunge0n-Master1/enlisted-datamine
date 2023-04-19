@@ -1,7 +1,7 @@
 require ecs
 require game.utils.team
 require enlisted.events_enlisted
-require EnlistedNet
+require DngNet
 
 [es(tag=server, on_event=ParallelUpdateFrameDelayed, no_order)]
 def train_escort_net_narrator(evt : Event;

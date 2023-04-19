@@ -1,11 +1,11 @@
 require ecs
 require ecs.safe
-require EnlistedDm
+require DngDm
 require game.utils.team
 require game.events_game
 require enlisted.events_enlisted
 require enlisted.game.es.offender_cache_common
-require EnlistedNet
+require DngNet
 require strings
 
 def get_name(player_eid : EntityId; eid : EntityId; is_vehicle : bool)

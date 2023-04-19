@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require inventory
 require DagorMath
 require DagorSystem

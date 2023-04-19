@@ -133,7 +133,6 @@ def dynamic_query_daeditor()
     unsafe(heap_collect())
     gcSteps = 0
 
-  let now = DagorTime::ref_time_ticks()
   let dt = DagorTime::get_time_usec(int64(lastUpdateDate))
   let sec = double(dt) / double(1000_000)
   if sec > 0.2lf && compsChanged

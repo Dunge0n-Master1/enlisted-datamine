@@ -3,7 +3,7 @@ require enlisted.events_enlisted
 require game.es.vehicle.vehicle_seats_common
 require game.events_game
 require game.utils.team
-require EnlistedPhysObj
+require DngPhysObj
 require game.es.events
 require DagorSystem
 require DagorMath
@@ -12,7 +12,7 @@ require RendInst
 require PhysObj
 require vehicle
 require AnimV20
-require EnlistedNet
+require DngNet
 require ecs
 
 [es(on_appear, tag=server)]

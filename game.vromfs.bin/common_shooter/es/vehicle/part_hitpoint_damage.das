@@ -1,7 +1,7 @@
 require ecs
 require math.base
 require dm
-require EnlistedDm
+require DngDm
 require game.es.vehicle.vehicle_seats_common
 require game.es.vehicle.vehicle_events
 require game.utils.team

@@ -4,7 +4,7 @@ require DagorConsole
 require enlisted.events_enlisted
 require game.utils.team
 require soundSystem
-require EnlistedNet
+require DngNet
 
 
 [console_cmd(name="narrator.team")]

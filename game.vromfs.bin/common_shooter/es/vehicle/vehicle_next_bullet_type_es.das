@@ -2,7 +2,7 @@ require ecs
 require app
 require DaWeaponProps
 require Gun
-require EnlistedWeapon
+require DngWeapon
 require game.es.vehicle.vehicle_events
 require common_shooter.events_common_shooter
 

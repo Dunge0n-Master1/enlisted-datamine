@@ -8,7 +8,7 @@ let {soundOutputDevice, soundOutputDeviceUpdate,
 } = require("%enlSqGlob/sound_state.nut")
 
 let {startsWith} = require("%sqstd/string.nut")
-let {sound_set_callbacks, sound_get_output_devices, sound_get_record_devices, sound_set_output_device} = require("sound")
+let {sound_set_callbacks, sound_get_output_devices, sound_get_record_devices, sound_set_output_device} = require("%dngscripts/sound_system.nut")
 
 let function findBestOutputDevice(devs_list) {
   return devs_list?[0] // first device in list is a device choosen by system as default

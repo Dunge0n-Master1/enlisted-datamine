@@ -10,7 +10,7 @@ def human_parachute_create_canopy(evt : CmdEquipItemDirect;
                                   eid : EntityId)
   query(evt.itemEid) <| $ [es] (parachute_backpack__canopyTemplate : string;
                                 var parachute_backpack__canopyEid : EntityId&)
-    if parachute_backpack__canopyTemplate != ""
+    if parachute_backpack__canopyTemplate != "" && !parachute_backpack__canopyEid
       parachute_backpack__canopyEid = parachute_create_for_eid(eid, parachute_backpack__canopyTemplate)
 
 

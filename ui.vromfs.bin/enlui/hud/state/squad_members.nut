@@ -85,7 +85,7 @@ let function getState(data) {
     currentAiAction = data.currentAiAction
     eid = data.eid
     guid = data.guid
-    name = data.callname != "" ? data.callname : $"{loc(name)} {loc(surname)}"
+    name = data.callname != "" ? data.callname : $"{name} {surname}"
     isAlive = data.isAlive
     hp = data.hp.tofloat()
     maxHp = data.maxHp.tofloat()
@@ -96,6 +96,7 @@ let function getState(data) {
     hasFlask = data.hasFlask
     targetReviveCount = data.targetReviveCount
     sKind = data.sKind
+    displayedKind = data.displayedKind
     sClassRare = data.sClassRare
     canBeLeader = data.canBeLeader
     isPersonalOrder = data.isPersonalOrder

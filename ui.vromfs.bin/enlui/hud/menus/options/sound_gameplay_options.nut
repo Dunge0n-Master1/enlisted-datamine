@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { get_setting_by_blk_path } = require("settings")
 let { getOnlineSaveData, optionCheckBox, optionCtor } = require("%ui/hud/menus/options/options_lib.nut")
-let { headshotSoundEnabled, battleMusicEnabled } = require("%ui/hud/state/sound_options_state.nut")
+let { headshotSoundEnabled, battleMusicEnabled, humanCapzoneCapturingSoundEnabled } = require("%ui/hud/state/sound_options_state.nut")
 
 let mkWidgetCtor = @(actionCb) function (opt, group, xmbNode) {
   let optSetValue = opt.setValue
@@ -36,5 +36,8 @@ return {
   )
   battleMusicOption = mkOption(
     loc("sound/battle_music_enabled"), "battle_music_enabled", true, battleMusicEnabled
+  )
+  humanCapzoneCapturingSoundOption = mkOption(
+    loc("sound/human_capzone_capturing_sound_enabled"), "human_capzone_capturing_sound_enabled", true, humanCapzoneCapturingSoundEnabled
   )
 }

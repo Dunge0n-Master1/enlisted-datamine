@@ -1,6 +1,6 @@
 require ecs
 require common_shooter.events_common_shooter
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 
 [es]

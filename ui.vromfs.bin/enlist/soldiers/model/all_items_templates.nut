@@ -6,9 +6,8 @@ let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 
 let templatesCombined = Computed(function() {
   let all = {}
-  let templatesServer = configs.value?.items_templates ?? {}
-  let { boosters = {} } = configs.value
-  foreach (armyId, armyTemplates in templatesServer) {
+  let { boosters = {}, items_templates = {} } = configs.value
+  foreach (armyId, armyTemplates in items_templates) {
     if (armyId not in all)
       all[armyId] <- {}
     foreach (key, item in armyTemplates)

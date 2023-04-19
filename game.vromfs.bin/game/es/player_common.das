@@ -11,7 +11,7 @@ require game.events_game
 require game.utils.net_utils
 require GameTimers
 require level
-require EnlistedNet
+require DngNet
 require game.utils.team
 
 

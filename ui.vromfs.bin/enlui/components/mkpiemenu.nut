@@ -10,7 +10,7 @@ let {HUD_TIPS_HOTKEY_FG} = require("%ui/hud/style.nut")
 
 let cfgMax = {
   itemsOffset = 1
-  gamepadHotkeys = ["J:LB", "J:D.Up", "J:RB", "J:D.Right", "J:Y", "J:D.Down", "J:X", "J:L.Thumb", "J:D.Left"]
+  gamepadHotkeys = ["J:LB", "J:D.Up", "J:RB", "J:D.Right", "J:Y", "J:D.Down", "J:X", "J:LS.Tilted", "J:D.Left"]
 }
 let cfgByAmount = {
   [1] = ["J:D.Up"],

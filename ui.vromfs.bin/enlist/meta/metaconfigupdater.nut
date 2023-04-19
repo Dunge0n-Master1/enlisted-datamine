@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 let { update_meta_config } = require("%enlist/meta/clientApi.nut")
-let { metaConfig, profile } = require("%enlist/meta/servProfile.nut")
+let { metaConfig } = require("%enlist/meta/servProfile.nut")
 
 enum ProhibitionStatus {
   Undefined = "Undefined"
@@ -14,8 +14,7 @@ let isLootBoxProhibited = Computed(@() (metaConfig.value?.prohibitingLootbox
   ?? ProhibitionStatus.Prohibited) == ProhibitionStatus.Prohibited)
 
 local function setProhibitingLootbox(state) {
-  profile.mutate(@(v)
-    v.metaConfig <- (v?.metaConfig ?? {}).__merge({ prohibitingLootbox = state }))
+  metaConfig.mutate(@(v) v.__update({ prohibitingLootbox = state }))
   update_meta_config(metaConfig.value, @(_) metaGen(metaGen.value + 1))
 }
 

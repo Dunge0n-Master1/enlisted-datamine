@@ -8,7 +8,7 @@ require soundSystem
 require soundHash
 
 
-[es(tag=(sound, render), no_order)]
+[es(tag=(sound, render, dev), no_order)]
 def compound_ambient_sound_debug(act : UpdateStageInfoRenderDebug;
                                  eid : EntityId;
                                  game_object_sound__name : string;

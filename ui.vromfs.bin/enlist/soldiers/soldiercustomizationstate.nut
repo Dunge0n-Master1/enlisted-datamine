@@ -260,8 +260,9 @@ let availableCItem = Computed(function(){
 
     let iconAttachments = []
     let lookItem = customizationToApply.value?[slotName] ?? curSoldierItems?[slotName]
-    let itemTemplate = findItemTemplate(allItemTemplates, armyId, lookItem)?.gametemplate ?? ""
-    let slotTemplates = findItemTemplate(allItemTemplates, armyId, lookItem)?.slotTemplates ?? {}
+    let lookItemTemplate = findItemTemplate(allItemTemplates, armyId, lookItem)
+    let itemTemplate = lookItemTemplate?.gametemplate ?? ""
+    let slotTemplates = lookItemTemplate?.slotTemplates ?? {}
     if (slotTemplates.len() > 0)
       foreach (key, val in slotTemplates){
         if (val == "")

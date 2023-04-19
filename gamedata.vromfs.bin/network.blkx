@@ -22,7 +22,7 @@ venus{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -89,7 +89,7 @@ mars{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -156,7 +156,7 @@ phobos{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -225,7 +225,7 @@ titan{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -295,7 +295,7 @@ sun{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
   }
 
   char{
@@ -366,7 +366,7 @@ stable{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
   }
 
   char{
@@ -437,7 +437,7 @@ enceladus{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -509,7 +509,7 @@ naiad{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -576,7 +576,7 @@ jupiter{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
   }
 
   char{
@@ -912,7 +912,7 @@ ganymede{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
   }
 
   char{
@@ -980,7 +980,7 @@ oberon{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
   }
 
   char{
@@ -1046,7 +1046,7 @@ venita{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -1114,7 +1114,7 @@ neptune{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -1179,7 +1179,7 @@ andromeda{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 
@@ -1244,7 +1244,7 @@ nereide{
   }
 
   eventLog{
-    host:t="client-logs.warthunder.com"
+    host:t="client-logs.gaijin.net"
     project:t="cr"
   }
 

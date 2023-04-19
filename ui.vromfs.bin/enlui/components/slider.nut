@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let colors = require("%ui/style/colors.nut")
 let {buttonSound} = require("%ui/style/sounds.nut")
 let math = require("math")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 
 let calcFrameColor = @(sf) (sf & S_KB_FOCUS) ? colors.TextActive
                            : (sf & S_HOVER)    ? colors.TextHover

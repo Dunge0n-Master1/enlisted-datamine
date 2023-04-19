@@ -613,6 +613,78 @@ let missions = {
     army = MissionArmy.AXIS
   }
 
+  normandy_factory_inv = {
+    image = "ui/normandy_smn_10_result.avif"
+    locId = "lobbies/normandy_factory_inv"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_factory_inv_axis = {
+    image = "ui/normandy_smn_10_result.avif"
+    locId = "lobbies/normandy_factory_inv_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_factory_inv_counter = {
+    image = "ui/normandy_smn_02_result.avif"
+    locId = "lobbies/normandy_factory_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_factory_inv_counter_axis = {
+    image = "ui/normandy_smn_02_result.avif"
+    locId = "lobbies/normandy_factory_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_factory_conf = {
+    image = "ui/normandy_smn_09_result.avif"
+    locId = "lobbies/normandy_factory_conf"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_factory_conf_axis = {
+    image = "ui/normandy_smn_09_result.avif"
+    locId = "lobbies/normandy_factory_conf_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_power_inv = {
+    image = "ui/normandy_smn_03_result.avif"
+    locId = "lobbies/normandy_power_inv"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_power_inv_axis = {
+    image = "ui/normandy_smn_07_result.avif"
+    locId = "lobbies/normandy_power_inv_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_power_inv_counter = {
+    image = "ui/normandy_smn_07_result.avif"
+    locId = "lobbies/normandy_power_inv_counter"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_power_inv_counter_axis = {
+    image = "ui/normandy_smn_03_result.avif"
+    locId = "lobbies/normandy_power_inv_counter_axis"
+    army = MissionArmy.AXIS
+  }
+
+  normandy_power_conf = {
+    image = "ui/normandy_smn_01_result.avif"
+    locId = "lobbies/normandy_power_conf"
+    army = MissionArmy.ALLIES
+  }
+
+  normandy_power_conf_axis = {
+    image = "ui/normandy_smn_01_result.avif"
+    locId = "lobbies/normandy_power_conf_axis"
+    army = MissionArmy.AXIS
+  }
+
   berlin_chancellery_dom = {
     image = "ui/berlin_chancellery_dom_01.avif"
     locId = "lobbies/berlin_chancellery_dom"
@@ -647,11 +719,31 @@ let missions = {
     image = "ui/berlin_garden_inv_02.avif"
     locId = "lobbies/berlin_garden_assault"
     type = MissionType.ASSAULT
+	army = MissionArmy.ALLIES
+  }
+
+  berlin_garden_assault_axis = {
+    image = "ui/berlin_garden_inv_02.avif"
+    locId = "lobbies/berlin_garden_assault_axis"
+    type = MissionType.ASSAULT
+	army = MissionArmy.AXIS
   }
 
   berlin_garden_inv = {
     image = "ui/berlin_garden_inv_01.avif"
     locId = "lobbies/berlin_garden_inv"
+  }
+
+  berlin_garden_inv_counter = {
+    image = "ui/berlin_garden_inv_03.avif"
+    locId = "lobbies/berlin_garden_inv_counter"
+    army = MissionArmy.AXIS
+  }
+
+  berlin_garden_inv_counter_allies = {
+    image = "ui/berlin_garden_inv_03.avif"
+    locId = "lobbies/berlin_garden_inv_counter_allies"
+    army = MissionArmy.ALLIES
   }
 
   berlin_goering_dom = {
@@ -893,6 +985,34 @@ let missions = {
     image = "ui/tunisia_cave_inv_01.avif"
     locId = "lobbies/tunisia_cave_inv_axis"
     army = MissionArmy.AXIS
+  }
+
+  tunisia_city_assault = {
+    image = "ui/tunisia_city_inv_01.avif"
+    locId = "lobbies/tunisia_city_assault"
+    type = MissionType.ASSAULT
+	army = MissionArmy.ALLIES
+  }
+
+  tunisia_city_assault_axis = {
+    image = "ui/tunisia_city_inv_01.avif"
+    locId = "lobbies/tunisia_city_assault_axis"
+    type = MissionType.ASSAULT
+	army = MissionArmy.AXIS
+  }
+
+  tunisia_city_assault_counter = {
+    image = "ui/tunisia_city_inv_02.avif"
+    locId = "lobbies/tunisia_city_assault_counter"
+    type = MissionType.ASSAULT
+	army = MissionArmy.ALLIES
+  }
+
+  tunisia_city_assault_counter_axis = {
+    image = "ui/tunisia_city_inv_02.avif"
+    locId = "lobbies/tunisia_city_assault_counter_axis"
+    type = MissionType.ASSAULT
+	army = MissionArmy.AXIS
   }
 
   tunisia_city_inv = {
@@ -1343,6 +1463,12 @@ let missions = {
     locId = "lobbies/pacific_guadalcanal_conf"
     type = MissionType.CONFRONTATION
     army = MissionArmy.ALLIES
+  }
+
+  pacific_guadalcanal_dom = {
+    image = "ui/pacific_guadalcanal_inv_01.avif"
+    locId = "lobbies/pacific_guadalcanal_dom"
+    type = MissionType.DOMINATION
   }
 
   pacific_guadalcanal_conf_axis = {

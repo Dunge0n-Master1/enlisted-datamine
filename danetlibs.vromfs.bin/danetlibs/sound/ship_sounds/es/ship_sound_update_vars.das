@@ -1,7 +1,7 @@
 require ecs
 require DagorMath
 require math.base
-require EnlistedShip
+require DngShip
 require Dacoll
 require CollRes
 require sound_utils_net.modules.sound_utils_net_events

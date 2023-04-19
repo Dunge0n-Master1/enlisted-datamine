@@ -9,7 +9,7 @@ require enlisted.game.es.offender_cache_common
 require game.utils.team
 require app
 require dm
-require EnlistedDm
+require DngDm
 require vehicle
 require BallisticsProps
 require DagorSystem

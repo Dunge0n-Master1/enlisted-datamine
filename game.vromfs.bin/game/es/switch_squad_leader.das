@@ -13,9 +13,10 @@ def find_next_member(members : EidList; leader_eid : EntityId)
       continue
     query(memberEid) <| $ [es(REQUIRE_NOT=deadEntity)] (eid : EntityId;
                                                         isDowned : bool;
+                                                        isAlive : bool;
                                                         squad_member__memberIdx : int;
                                                         squad_member__canBeLeader : bool)
-      if !squad_member__canBeLeader || (isDowned && foundUndowned)
+      if !isAlive || !squad_member__canBeLeader || (isDowned && foundUndowned)
         return
       let priority = ((squad_member__memberIdx - curMemberIdx + 10000) % 10000)
       if !foundEid || priority < foundPriority || (!isDowned && !foundUndowned)

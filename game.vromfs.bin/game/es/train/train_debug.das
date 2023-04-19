@@ -59,12 +59,12 @@ def train_destroy()
   destory_train()
 
 
-[es(no_order, REQUIRE=trainCartsDebug)]
+[es(tag=(render, dev), no_order, REQUIRE=trainCartsDebug)]
 def draw_train_cart_names(info : UpdateStageInfoRenderDebug; eid : EntityId; transform : float3x4)
   add_debug_text_mark(transform[3], "{getEntityTemplateName(eid)}", -1, 0f, E3DCOLOR(0xFF00FF00))
 
 
-[es(no_order, REQUIRE=trainTreeDebug)]
+[es(tag=(render, dev), no_order, REQUIRE=trainTreeDebug)]
 def draw_train_geom_tree(info : UpdateStageInfoRenderDebug;
                          animchar : AnimcharBaseComponent)
   let color = E3DCOLOR(0xFF00FF00)

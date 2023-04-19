@@ -11,8 +11,8 @@ require game.events_game
 require game.utils.team
 require DagorSystem
 require game.es.battle_area_common
-require EnlistedNet
-require EnlistedDm
+require DngNet
+require DngDm
 
 
 def find_index_in_kill_list(killList : ecs::Array; visitor : EntityId)

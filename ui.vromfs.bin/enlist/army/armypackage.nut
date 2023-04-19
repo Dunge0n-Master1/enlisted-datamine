@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
-let { colPart, commonBorderRadius, defVertGradientImg
+let { colPart, commonBorderRadius, panelBgColor, defItemBlur
 } = require("%enlSqGlob/ui/designConst.nut")
 
 let armyIconSize = colPart(0.45)
@@ -35,8 +35,9 @@ let armyMarker = {
   borderRadius = commonBorderRadius
   children = {
     size = flex()
-    rendObj = ROBJ_IMAGE
-    image = defVertGradientImg
+    rendObj = ROBJ_WORLD_BLUR
+    fillColor = panelBgColor
+    color = defItemBlur
   }
 }
 

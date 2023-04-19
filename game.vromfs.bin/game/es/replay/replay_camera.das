@@ -6,14 +6,14 @@ require game.utils.hero
 require DagorConsole
 require DagorMath
 require DagorSystem
-require EnlistedHuman
+require DngHuman
 require Dacoll
 require math
 require math.base
 require game.utils.team
 require player
 require enlisted.events_enlisted
-require EnlistedCamera
+require DngCamera
 require game.es.player_common
 
 [es(tag=playingReplay, REQUIRE=(deadEntity, watchedByPlr), before=enlisted_next_replay_target_es)]

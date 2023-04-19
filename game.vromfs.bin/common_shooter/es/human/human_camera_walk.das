@@ -4,7 +4,7 @@ require math.easing
 require DagorMath
 require HumanPhys
 require Gun
-require EnlistedHuman
+require DngHuman
 
 def camera_walk_bhv(info : UpdateStageInfoAct&;
                     eid : EntityId;

@@ -14,12 +14,12 @@ let {isDowned} = require("%ui/hud/state/health_state.nut")
 let isMachinegunner = require("%ui/hud/state/machinegunner_state.nut")
 let {localPlayerEid, localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {round_by_value} = require("%sqstd/math.nut")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let {is_fast_pickup_item} = require("humaninv")
 let {CmdSetMarkMain} = require("dasevents")
 let {
   ACTION_USE, ACTION_REQUEST_AMMO, ACTION_RECOVER, ACTION_PICK_UP, ACTION_SWITCH_WEAPONS,
-  ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT, ACTION_THROW_BACK,
+  ACTION_OPEN_DOOR, ACTION_CLOSE_DOOR, ACTION_REMOVE_SPRAY, ACTION_DENIED_TOO_MUCH_WEIGHT,
   ACTION_LOOT_BODY, ACTION_OPEN_WINDOW, ACTION_CLOSE_WINDOW, ACTION_REVIVE_TEAMMATE } =  require("hud_actions")
 let {localTeamEnemyHint} = require("%ui/hud/huds/enemy_hint.nut")
 let { isInHatch } = require("%ui/hud/state/hero_in_vehicle_state.nut")
@@ -51,7 +51,6 @@ let function getItemPrice(entity_eid) {
 let pickupkeyId = "Inventory.Pickup"
 let forcedPickupkeyId = "Inventory.ForcedPickup"
 let usekeyId = "Human.Use"
-let throwBackKeyId = "Human.ThrowBack"
 
 let actionsMap = {
   [ACTION_USE] = {
@@ -88,7 +87,6 @@ let actionsMap = {
   [ACTION_OPEN_DOOR] = {text = loc("hud/open_door", "Open door"), key=usekeyId},
   [ACTION_CLOSE_DOOR] = {text = loc("hud/close_door", "Close door"), key=usekeyId},
   [ACTION_REMOVE_SPRAY] = {text = loc("hud/remove_spray", "Remove spray"), key=usekeyId},
-  [ACTION_THROW_BACK] = {text = loc("hud/throw_back", "Throw grenade back"), key=throwBackKeyId},
   [ACTION_DENIED_TOO_MUCH_WEIGHT] = {
     textf = function(params) {
       params.item = params.item.subst({ nickname = loc("teammate") })

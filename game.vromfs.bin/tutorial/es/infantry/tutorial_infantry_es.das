@@ -3,11 +3,11 @@ require dm
 require app
 require player
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require math.base
-require EnlistedActor
-require EnlistedPhysObj
+require DngActor
+require DngPhysObj
 require game.es.events
 require common_shooter.events_common_shooter
 require game.utils.hero

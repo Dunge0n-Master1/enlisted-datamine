@@ -5,8 +5,7 @@ let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { mkSoldierPhotoWithoutFrame } = require("%enlSqGlob/ui/soldierPhoto.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
-  colPart, defTxtColor, titleTxtColor, haveLevelColor, gainLevelColor,
-  lockLevelColor
+  colPart, defTxtColor, titleTxtColor, haveLevelColor, deadTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 
 
@@ -49,7 +48,7 @@ let function mkClassIcon(armyId, sClass, override = {}, cSize = classSize) {
 }
 
 
-let function mkKindIcon(sKind, sClassRare, kindSize = defKindSize) {
+let function mkKindIcon(sKind, sClassRare, kindSize = defKindSize, color = null) {
   if (sKind == null)
     return null
 
@@ -61,7 +60,7 @@ let function mkKindIcon(sKind, sClassRare, kindSize = defKindSize) {
   return {
     rendObj = ROBJ_IMAGE
     size = [kindSize, kindSize]
-    color = colorsByRare?[sClassRare] ?? defTxtColor
+    color = color ?? colorsByRare?[sClassRare] ?? titleTxtColor
     image = getKindIcon(sKindImg, kindSize)
   }
 }
@@ -104,12 +103,12 @@ let function mkSoldierBadgeData(soldier, allPerks, expGrid, thresholdColor) {
 let function levelBlock(allParams) {
   local {
     curLevel, tier = 1, gainLevel = 0, leftLevel = 0, lockedLevel = 0,
-    fontSize = hdpx(12), hasLeftLevelBlink = false, guid = "",
-    isFreemiumMode = false, thresholdColor = 0
+    fontSize = colPart(0.193), hasLeftLevelBlink = false, guid = "",
+    isFreemiumMode = false, thresholdColor = 0, isStarBlack = false
   } = allParams
-  local color = haveLevelColor
+  local color = isStarBlack ? deadTxtColor : haveLevelColor
   local freemiumStars = 0
-  if (isFreemiumMode && curLevel + leftLevel < MAX_LEVEL_SOLDIER) {
+  if (!isStarBlack && isFreemiumMode && curLevel + leftLevel < MAX_LEVEL_SOLDIER) {
     lockedLevel = tier == MAX_LEVEL_SOLDIER ? 1 : 0
     freemiumStars = MAX_LEVEL_SOLDIER - curLevel - leftLevel
     color = thresholdColor
@@ -123,10 +122,10 @@ let function levelBlock(allParams) {
       curLevel > 1
         ? mkAnimatedLevelIcon(guid, color, fontSize)
         : null
-      mkIconBar(gainLevel, gainLevelColor, fontSize)
+      mkIconBar(gainLevel, isStarBlack ? deadTxtColor : titleTxtColor, fontSize)
       mkIconBar(leftLevel, color, fontSize, "star-o", hasLeftLevelBlink)
       mkIconBar(freemiumStars, color, fontSize, "star-o")
-      mkIconBar(lockedLevel, lockLevelColor, fontSize)
+      mkIconBar(lockedLevel, isStarBlack ? deadTxtColor : titleTxtColor, fontSize)
     ]
     animations = [ mkHiddenAnim() ]
   }

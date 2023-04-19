@@ -4,27 +4,26 @@ let { fontLarge, fontXXLarge, fontSmall, fontXLarge
 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-let { colFull, midPadding, colPart, panelBgColor, columnGap, commonBorderRadius, bigPadding,
-  navHeight, footerContentHeight, defTxtColor, titleTxtColor, smallPadding, hoverTxtColor,
-  defBdColor, leftAppearanceAnim
+let { colFull, midPadding, colPart, panelBgColor, columnGap, bigPadding, navHeight, highlightLine,
+  footerContentHeight, defTxtColor, titleTxtColor, smallPadding, defBdColor, leftAppearanceAnim
 } = require("%enlSqGlob/ui/designConst.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
-let { curArmy, armySquadsById, soldiersBySquad } = require("%enlist/soldiers/model/state.nut")
+let { curArmy, armySquadsById } = require("%enlist/soldiers/model/state.nut")
 let { mkBackWithImage } = require("%enlist/soldiers/mkSquadPromo.nut")
 let { unseenSquads, markSeenSquads } = require("%enlist/soldiers/model/unseenSquads.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
-let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { mkSquadIcon, isSquadPremium, mkSquadSpecIconFields
+} = require("%enlSqGlob/ui/squadsUiComps.nut")
 let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
-let { squadsArmy, selectedSquadId, chosenSquads, applyAndClose, squadsArmyLimits, changeList,
-  reserveSquads, slotsCount, curArmyLockedSquadsData, closeAndOpenCampaign,
-  sendSquadActionToBQ, selectedSquad, changeSquadOrderByUnlockedIdx, maxSquadsInBattle
-} = require("%enlist/soldiers/model/chooseSquadsState.nut")
+let { squadsArmy, selectedSquadId, chosenSquads, squadsArmyLimits, changeList, unlockedSquads,
+  reserveSquads, slotsCount, curArmyLockedSquadsData, closeAndOpenCampaign, displaySquads,
+  sendSquadActionToBQ, selectedSquad, changeSquadOrderByUnlockedIdx, maxSquadsInBattle,
+  previewSquads } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let squadInfo = require("%enlist/squad/squadInfo.nut")
-let { openChooseSoldiersWnd } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
-let { mkDraggableSquadCard, isSquadDragged, squadSlotToPurchase
+let { squadInfo, lockedSquadInfo } = require("%enlist/squad/squadInfo.nut")
+let { mkDraggableSquadCard, isSquadDragged, squadSlotToPurchase, mkLockedPremiumCard
 } = require("%enlist/squadmanagement/mkSquadAdditionalCard.nut")
 let { mkLockedSquadCard } = require("%enlSqGlob/ui/mkSquadCard.nut")
 let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut")
@@ -39,7 +38,7 @@ let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { openUnlockSquadScene } = require("%enlist/soldiers/unlockSquadScene.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
-let { needFreemiumStatus, disableBuySquadSlot
+let { needFreemiumStatus, disableBuySquadSlot, curCampaignAccessItem
 } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let premium = require("%enlist/currency/premium.nut")
@@ -50,21 +49,29 @@ let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
 let shopItemClick = require("%enlist/shop/shopItemClick.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
+let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
+let { mkProductView } = require("%enlist/shop/shopPkg.nut")
+let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let presetsBlock = require("%enlist/squadmanagement/squadPresetsBlock.nut")
+let { set_squad_order } = require("%enlist/meta/clientApi.nut")
 
 
-const RESERVE_SQUADS_PER_PAGE = 32
+const RESERVE_SQUADS_PER_PAGE = 40
+const SQUADS_PER_ROW = 8
+const ANIM_ITEM_TIME = 0.04
 let isOpened = keepref(Computed(@() squadsArmy.value != null))
 let curReservePage = Watched(0)
 let squadInfoBtnParams = { btnWidth = flex() }
-let squadIconSize = colPart(1.4)
+let squadIconSize = colPart(0.87)
+let premIconSize = colPart(0.75)
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let hoverTxtStyle = { color = hoverTxtColor }.__update(fontSmall)
 let headerTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let mainInfoTxtStyle = { color = defTxtColor }.__update(fontXLarge)
 let squadListsWidth = colFull(16)
 let smallIconHeight = colPart(0.43)
-const ANIM_ITEM_TIME = 0.04
+let presetsButtonHeight = colPart(1.55)
+let presetsButtonMinWidth = colFull(3.5)
 
 curArmy.subscribe(@(_v) curReservePage(0))
 
@@ -113,49 +120,108 @@ let currencies = {
 }
 
 
-let squadImage = @(icon) {
+let squadImage = @(icon) mkSquadIcon(icon, {
   size = [squadIconSize, squadIconSize]
-  pos = [0, (squadIconSize / 2).tointeger()]
-  margin = bigPadding
-  padding = midPadding
-  vplace = ALIGN_BOTTOM
-  valign = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  rendObj = ROBJ_BOX
-  fillColor = panelBgColor
-  borderWidth = 0
-  borderRadius = commonBorderRadius
-  children = mkSquadIcon(icon)
+  hplace = ALIGN_RIGHT
+  margin = midPadding
+})
+
+
+let mkSquadImage = @(squadCfg, armyId) function() {
+  let { image, icon } = squadCfg
+  return {
+    size = [flex(), colPart(4.5)]
+    children = [
+      mkBackWithImage(image, false)
+      mkSquadSpecIconFields(armyId, squadCfg, isSquadPremium(squadCfg),
+        { size = [premIconSize, premIconSize]})
+      squadImage(icon)
+    ]
+  }
 }
 
 
-let mkSquadImage = @(squadCfg) {
-  size = [flex(), colPart(4.5)]
-  children = [
-    mkBackWithImage(squadCfg.image, false)
-    squadImage(squadCfg.icon)
-  ]
+let squadInfoBtn = Bordered(loc("squads/squadInfo"), function() {
+  let armyId = squadsArmy.value
+  openUnlockSquadScene({
+    armyId
+    squad = armySquadsById.value?[armyId][selectedSquadId.value]
+    squadCfg = squadsCfgById.value?[armyId][selectedSquadId.value]
+    unlockInfo = null
+  })}, squadInfoBtnParams.__merge({ hotkeys = [["^J:Y"]] }))
+
+
+let function premiumInfoButtons(shopItem) {
+  let crateContent = shopItemContentCtor(shopItem)
+  let productView = mkProductView(shopItem, allItemTemplates, crateContent)
+  let hasUrl = shopItem?.url != null && shopItem.url != ""
+  return {
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    gap = bigPadding
+    vplace = ALIGN_BOTTOM
+    children =  [
+      Bordered(loc("squads/purchase"),
+        @() buyShopItem({ shopItem, productView }),
+        squadInfoBtnParams.__merge({ hotkeys = [["^J:Y"]] }))
+      hasUrl ? null
+        : Bordered(loc("squads/squadInfo"), @() shopItemClick(shopItem), squadInfoBtnParams)
+    ]
+  }
 }
 
 
-let squadButtonsBlock = @(squadCfg) function() {
+let btnFreemiumIcon = {
+  padding = [0, smallPadding]
+  hplace = ALIGN_RIGHT
+  vplace = ALIGN_CENTER
+  children = mkFreemiumXpImage(smallIconHeight)
+}
+
+
+let function freemiumSquadBlock() {
+  let goToUnlockBtn = Bordered(loc("squads/squadInfo"), @(_) freemiumWnd(),
+    squadInfoBtnParams.__merge({
+      bgChild = btnFreemiumIcon
+      hotkeys = [["^J:Y"]]
+    }))
+  return {
+    watch = [isEventRoom, isEventModesOpened]
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    gap = bigPadding
+    children = [
+      {
+        rendObj = ROBJ_TEXTAREA
+        size = [flex(), SIZE_TO_CONTENT]
+        behavior = Behaviors.TextArea
+        text = loc("freemium/newDesc")
+      }.__update(defTxtStyle)
+      isEventRoom.value || isEventModesOpened.value ? null : goToUnlockBtn
+    ]
+  }
+}
+
+
+let squadButtonsBlock = @(squadCfg, isLocked, isPremium) function() {
   let { squadType, id, nameLocId } = squadCfg
   let isBattleSquad = chosenSquads.value.findvalue(@(v) v?.squadId == id) != null
-  let curSquadGuid = selectedSquad.value?.guid
-  let curSquadSoldiers = soldiersBySquad.value?[curSquadGuid] ?? []
-  let isLocked = curArmyLockedSquadsData.value.findvalue(@(v) v?.squad.squadId == id) != null
   let unlock = curArmySquadsUnlocks.value
     .findvalue(@(u) u.unlockType == "squad" && u.unlockId == id)
+  local lockedShopItem = null
+  if (isPremium && isLocked)
+    lockedShopItem = curArmyLockedSquadsData.value.findvalue(@(v) v.squad.squadId == id)?.shopItem
+  let campaignSquads = curCampaignAccessItem.value?.squads ?? []
+  let isInCampaign = campaignSquads.findvalue(@(sq) sq.id == id) != null
   return {
-    watch = [chosenSquads, selectedSquad, soldiersBySquad, curArmySquadsUnlocks,
-      curArmyLockedSquadsData]
+    watch = [chosenSquads, selectedSquad, curArmySquadsUnlocks,
+      curArmyLockedSquadsData, curCampaignAccessItem]
     size = [flex(), SIZE_TO_CONTENT]
-    padding = bigPadding
     flow = FLOW_VERTICAL
     vplace = ALIGN_BOTTOM
     gap = midPadding
     children = [
-      !isLocked || unlock == null
+      !isLocked
         ? {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
@@ -163,11 +229,11 @@ let squadButtonsBlock = @(squadCfg) function() {
             children = [
               Bordered(isBattleSquad ? loc("squads/toReserve") : loc("squads/toBattle"), changeList,
                 squadInfoBtnParams.__merge({ hotkeys = [["^J:X"]] }))
-              Bordered(loc("squads/soldierManagement"),
-                @() openChooseSoldiersWnd(curSquadGuid, curSquadSoldiers?[0].guid),
-                squadInfoBtnParams)
+              squadInfoBtn
             ]
           }
+        : isInCampaign ? freemiumSquadBlock
+        : isPremium ? premiumInfoButtons(lockedShopItem)
         : lockedSquadBlock(unlock, nameLocId)
       squadType in tutorials
         ? Bordered(loc("squads/tutorial"), @() openSquadTextTutorial(squadType), squadInfoBtnParams)
@@ -177,69 +243,56 @@ let squadButtonsBlock = @(squadCfg) function() {
 }
 
 
-let squadInfoBtn = watchElemState(@(sf) {
-  behavior = Behaviors.Button
-  onClick = function() {
-    let armyId = squadsArmy.value
-    openUnlockSquadScene({
-      armyId
-      squad = armySquadsById.value?[armyId][selectedSquadId.value]
-      squadCfg = squadsCfgById.value?[armyId][selectedSquadId.value]
-      unlockInfo = null
-    })
-  }
-  flow = FLOW_HORIZONTAL
-  gap = smallPadding
-  valign = ALIGN_CENTER
-  pos = [0, -colPart(0.5)]
-  children = [
-    {
-      rendObj = ROBJ_IMAGE
-      image =  Picture("{0}:{1}:{1}:K".subst("ui/skin#info/info_icon.svg", defTxtStyle.fontSize))
-      color = sf & S_HOVER ? hoverTxtColor : defTxtColor
-    }
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("squads/squadInfo")
-    }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle )
-  ]
-})
-
 let function selectedSquadInfo() {
-  let squadCfg = squadsCfgById.value?[squadsArmy.value][selectedSquadId.value]
-  let res = { watch = [selectedSquadId, squadsCfgById, squadsArmy] }
+  let armyId = squadsArmy.value
+  let squadCfg = squadsCfgById.value?[armyId][selectedSquadId.value]
+  let res = { watch = [selectedSquadId, squadsCfgById, squadsArmy, curArmyLockedSquadsData,
+    reserveSquads] }
   if (squadCfg == null)
     return res
+  let isLocked = curArmyLockedSquadsData.value.findvalue(@(v)
+    v?.squad.squadId == squadCfg.id) != null
+  let isPremium = isSquadPremium(squadCfg)
   return res.__update({
-    size = [colFull(5), colPart(10.1)]
-    minHeight = SIZE_TO_CONTENT
+    size = [colFull(5), SIZE_TO_CONTENT]
     rendObj = ROBJ_SOLID
     color = panelBgColor
     halign = ALIGN_CENTER
+    hplace = ALIGN_RIGHT
     flow = FLOW_VERTICAL
-    gap = colPart(0.7)
+    gap = colPart(0.4)
     children = [
-      mkSquadImage(squadCfg)
-      squadInfo(false)
-      squadButtonsBlock(squadCfg)
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        children = [
+          mkSquadImage(squadCfg, armyId)
+          highlightLine()
+        ]
+      }
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
+        padding = [0, columnGap, columnGap, columnGap]
+        valign = ALIGN_BOTTOM
+        flow = FLOW_VERTICAL
+        gap = colPart(0.4)
+        children = [
+          isLocked ? lockedSquadInfo(squadCfg) : squadInfo(false)
+          squadButtonsBlock(squadCfg, isLocked, isPremium)
+        ]
+      }
     ]
-  })
+  }, leftAppearanceAnim(ANIM_ITEM_TIME))
 }
 
-let selectedSquadInfoUi = {
-  hplace = ALIGN_RIGHT
-  children = [
-    squadInfoBtn
-    selectedSquadInfo
-  ]
-}.__update(leftAppearanceAnim(ANIM_ITEM_TIME))
 
 
 let function squadsArmyInfo(){
   local infantryCur = 0
   local bikeCur = 0
   local vehicleCur = 0
-  chosenSquads.value.each(function(squad) {
+  displaySquads.value.each(function(squad) {
     if (squad == null)
       return
     let { vehicleType = "" } = squad
@@ -256,14 +309,14 @@ let function squadsArmyInfo(){
   let bikeStr = loc("squads/maxBike", { bikeCur, bikeMax = maxBikeSquads })
   let vehicleStr = loc("squads/maxVehicle", { vehicleCur, vehicleMax = maxVehicleSquads })
   return {
-    watch = [squadsArmyLimits, chosenSquads]
+    watch = [squadsArmyLimits, displaySquads]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = smallPadding
     children = [
     {
       rendObj = ROBJ_TEXT
-      text = loc("squads/maxSquads", { curSquads, maxSquads = chosenSquads.value.len() })
+      text = loc("squads/maxSquads", { curSquads, maxSquads = maxSquadsInBattle.value })
     }.__update(titleTxtStyle)
     {
       rendObj = ROBJ_TEXT
@@ -273,12 +326,22 @@ let function squadsArmyInfo(){
 }}
 
 
+let function saveAndClose() {
+  let armyId = squadsArmy.value
+  let guids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.guid)
+  let ids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.squadId)
+  markSeenSquads(armyId, ids)
+  set_squad_order(armyId, guids)
+  squadsArmy(null)
+}
+
+
 let leftHeaderBlock = {
   flow = FLOW_HORIZONTAL
   gap = colFull(1)
   hplace = ALIGN_LEFT
   children = [
-    Bordered(loc("bp/close"), applyAndClose, { hotkeys = [[$"^{JB.B} | Esc"]] })
+    Bordered(loc("bp/close"), saveAndClose, { hotkeys = [[$"^{JB.B} | Esc"]] })
     {
       rendObj = ROBJ_TEXT
       text = loc("squadManagement")
@@ -355,10 +418,17 @@ let function getSquadsToShow(data, curPage) {
 }
 
 
-let function mkSquadReserveList(reserve, locked) {
-  local animIdx = 0
+let function mkSquadAnimDelay(idx) {
+  let currentRow = idx / SQUADS_PER_ROW
+  let rowAdditionalDelay = currentRow * 0.1
+  return (idx % SQUADS_PER_ROW) * 0.05 + rowAdditionalDelay
+}
+
+let function mkSquadReserveList(reserve, locked, curPage) {
+  local animIdx = -curPage * RESERVE_SQUADS_PER_PAGE
   return reserve.map( function(squad, index) {
-    animIdx = index
+    let animationsDelay = mkSquadAnimDelay(animIdx)
+    animIdx++
     let idx = index + slotsCount.value
     let { squadType, icon, level, premIcon, squadId } = squad
     return mkDraggableSquadCard({
@@ -370,25 +440,37 @@ let function mkSquadReserveList(reserve, locked) {
       level
       premIcon
       isReserve = true
-      animDelay = animIdx * ANIM_ITEM_TIME
+      animDelay = animationsDelay
     })
   }).extend(locked.map(function(val, idx) {
-    let { isPremium } = val
-    let onClick = isPremium
-      ? @() shopItemClick(val.shopItem)
-      : @() selectedSquadId(val.squad.squadId)
+    let { isPremium, isInCampaign } = val
+    let onClick = @() selectedSquadId(val.squad.squadId)
     let { level = null } = val.shopItem
-    let { icon, squadType } = val.squad
+    let { icon, squadType, squadId } = val.squad
+    let animationsDelay = mkSquadAnimDelay(animIdx)
     animIdx++
-    return mkLockedSquadCard({
-      premIcon = val?.squad.premIcon
-      idx
-      level
-      onClick
-      icon
-      squadType
-      animDelay = animIdx * ANIM_ITEM_TIME
-    })
+    return isPremium
+      ? mkLockedPremiumCard({
+          premIcon = val?.squad.premIcon
+          idx
+          onClick
+          icon
+          squadType
+          animDelay = animationsDelay
+          shopItem = val.shopItem
+          squadId
+          isInCampaign
+        })
+      : mkLockedSquadCard({
+          idx
+          level
+          onClick
+          icon
+          squadType
+          squadId
+          curSelectedSquad = selectedSquadId
+          animDelay = animationsDelay
+        })
   }))
 }
 
@@ -402,7 +484,7 @@ let reserveSquadsList = @(squadsData) function() {
     borderWidth = isSquadDragged.value ? [hdpx(1), 0] : 0
     padding = [smallPadding, 0]
     behavior = Behaviors.DragAndDrop
-    size = [squadListsWidth, colPart(6.96)]
+    size = [squadListsWidth, SIZE_TO_CONTENT]
     onDrop = function(squadIdx) {
       let dropSquad = chosenSquads.value?[squadIdx]
       if (dropSquad == null)
@@ -418,11 +500,12 @@ let reserveSquadsList = @(squadsData) function() {
 
 
 let function reserveBlock() {
-  let squadsData = mkSquadReserveList(reserveSquads.value, curArmyLockedSquadsData.value)
+  let squadsData = mkSquadReserveList(reserveSquads.value, curArmyLockedSquadsData.value,
+    curReservePage.value)
   let pagesCount = (squadsData.len() - 1) / RESERVE_SQUADS_PER_PAGE + 1
   let reserveSquadsCount = reserveSquads.value.len()
   return {
-    watch = [reserveSquads, curArmyLockedSquadsData]
+    watch = [reserveSquads, curArmyLockedSquadsData, curReservePage]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     gap = bigPadding
@@ -432,13 +515,12 @@ let function reserveBlock() {
         size = [flex(), SIZE_TO_CONTENT]
         children = [
           reserveSquadsList(squadsData)
-          selectedSquadInfoUi
+          selectedSquadInfo
         ]
       }
     ]
   }
 }
-
 
 let freemiumIcon = mkFreemiumXpImage(smallIconHeight).__update({
   hplace = ALIGN_RIGHT
@@ -454,17 +536,19 @@ let premiumIcon = premiumImage(smallIconHeight, {
 
 let function choosenSquadsBlock() {
   let extendedSlots = []
-  if (needFreemiumStatus.value && maxSquadsInBattle.value > 0)
-    extendedSlots.append(squadSlotToPurchase(freemiumWnd, freemiumIcon))
-  else if (!hasPremium.value && premiumSquadsInBattle.value > 0)
-    extendedSlots.append(squadSlotToPurchase(premiumWnd, premiumIcon))
-  else if (!disableBuySquadSlot.value) {
-    let shopItem = armySlotItem.value
-    if (shopItem && hasPremium.value)
-      extendedSlots.append(squadSlotToPurchase(@() buyShopItem({ shopItem })))
+  if (previewSquads.value == null) {
+    if (needFreemiumStatus.value && maxSquadsInBattle.value > 0)
+      extendedSlots.append(squadSlotToPurchase(freemiumWnd, freemiumIcon))
+    else if (!hasPremium.value && premiumSquadsInBattle.value > 0)
+      extendedSlots.append(squadSlotToPurchase(premiumWnd, premiumIcon))
+    else if (!disableBuySquadSlot.value) {
+      let shopItem = armySlotItem.value
+      if (shopItem && hasPremium.value)
+        extendedSlots.append(squadSlotToPurchase(@() buyShopItem({ shopItem })))
+    }
   }
   return {
-    watch = [chosenSquads, needFreemiumStatus, maxSquadsInBattle, hasPremium, premiumSquadsInBattle,
+    watch = [displaySquads, needFreemiumStatus, maxSquadsInBattle, hasPremium, premiumSquadsInBattle,
       disableBuySquadSlot, armySlotItem]
     size = flex()
     flow = FLOW_VERTICAL
@@ -474,20 +558,32 @@ let function choosenSquadsBlock() {
       squadsArmyInfo
       {
         size = [flex(), SIZE_TO_CONTENT]
+        clipChildren = true
         flow = FLOW_HORIZONTAL
         gap = columnGap
-        children = mkCurSquadsList({
-          curSquadsList = chosenSquads
-          curSquadId = selectedSquadId
-          setCurSquadId = selectedSquadId
-          isDraggable = true
-          addedObj = {
-            size = [flex(), SIZE_TO_CONTENT]
-            flow = FLOW_HORIZONTAL
-            gap = columnGap
-            children = extendedSlots
+        children = [
+          mkCurSquadsList({
+            curSquadsList = displaySquads
+            curSquadId = selectedSquadId
+            setCurSquadId = @(id) selectedSquadId(id)
+            isDraggable = true
+            maxSquadsLen = maxSquadsInBattle.value
+            addedObj = {
+              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_HORIZONTAL
+              gap = columnGap
+              children = extendedSlots
+            }
+          })
+          {
+            halign = ALIGN_RIGHT
+            size = SIZE_TO_CONTENT
+            children = Bordered(loc("squads/presets"), presetsBlock.open, {
+              minWidth = presetsButtonMinWidth
+              btnHeight = presetsButtonHeight
+            })
           }
-        })
+        ]
       }
     ]
   }
@@ -538,6 +634,7 @@ let function choosenSquadHotkeys() {
 let bodyUi = {
   size = flex()
   flow = FLOW_VERTICAL
+  padding = [0, 0, footerContentHeight, 0]
   children = [
     choosenSquadHotkeys
     reserveBlock
@@ -546,31 +643,20 @@ let bodyUi = {
 }
 
 
-let bottomWndBlock = {
-  size = [flex(), footerContentHeight]
-}
-
-
 let curArmyUnseenSquads = Computed(@() unseenSquads.value?[squadsArmy.value] ?? {})
 
 
 let chooseSquadsScene = @() {
   watch = [squadsArmy, safeAreaBorders]
+  rendObj = ROBJ_WORLD_BLUR_PANEL
   size = flex()
   flow = FLOW_VERTICAL
+  gap = colPart(0.5)
   padding = safeAreaBorders.value
   onDetach = @() markSeenSquads(squadsArmy.value, curArmyUnseenSquads.value.keys())
-  children = [
-    {
-      size = flex()
-      flow = FLOW_VERTICAL
-      gap = colPart(1.12)
-      children = [
-        headerUi
-        bodyUi
-      ]
-    }
-    bottomWndBlock
+  children =  [
+    headerUi
+    bodyUi
   ]
 }
 

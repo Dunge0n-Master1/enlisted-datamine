@@ -31,6 +31,7 @@ def spawn_tutorial_player_immediate_es(evt : CmdSpawnEntityForPlayer;
                                    possessed=evt.possessed,
                                    squadId=respawner__respRequestedSquadId,
                                    memberId=respawner__respRequestedMemberId,
-                                   respawnGroupId=respawner__respawnGroupId]])
+                                   respawnGroupId=respawner__respawnGroupId,
+                                   existedVehicleEid=INVALID_ENTITY_ID]])
     return true
 

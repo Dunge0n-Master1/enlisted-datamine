@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedHuman
+require DngHuman
 require game.es.events
 
 [es(tag=gameClient, track=itemContainer, on_appear)]

@@ -37,10 +37,6 @@ struct CmdUpdateHitpoints
 [cpp_event(unicast, with_scheme)]
 struct CmdAddDefaultEntitiesInNetScopeForPlayer {}
 
-[cpp_event(unicast, with_scheme, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
-struct RequestCamSwitch
-  isTpsView : bool
-
 [event(unicast, with_scheme, routing=ROUTING_SERVER_TO_CLIENT)]
 struct SetLocalPlayerMsg {}
 

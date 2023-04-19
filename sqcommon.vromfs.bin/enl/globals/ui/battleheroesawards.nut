@@ -3,6 +3,9 @@ let { partition } = require("%sqstd/underscore.nut")
 const WINNING_TEAM_BATTLE_HEROES_COUNT = 4
 const LOSING_TEAM_BATTLE_HEROES_COUNT = 3
 
+const SQUAD_COMMAND_MIN_NUM_SQUADS = 2
+const SQUAD_COMMAND_MAX_NUM_SQUADS = 3
+
 enum BattleHeroesAward {
   TOP_PLACE = "top_place"
   TOP_VEHICLE_SQUAD = "top_vehicle_squad"
@@ -19,12 +22,20 @@ enum BattleHeroesAward {
   TOP_KIND_TANKER = "top_kind_tanker"
   TOP_KIND_ANTI_TANK = "top_kind_anti_tank"
   TOP_KIND_SNIPER = "top_kind_sniper"
+  TOP_KIND_MEDIC = "top_kind_medic"
+  TOP_KIND_BIKER = "top_kind_biker"
+  TOP_KIND_PARATROOPER = "top_kind_paratrooper"
   TOP_VEHICLES_DESTROYED = "top_vehicles_destroyed"
   TOP_MELEE_KILLS = "top_melee_kills"
   TOP_GRENADE_KILLS = "top_grenade_kills"
   TOP_LONG_RANGE_KILLS = "top_long_range_kills"
+  BERSERK = "berserk"
+  FURIOUS = "furious"
+  CONTRIBUTION_TO_VICTORY = "contribution_to_victory"
+  PARATROOPER = "paratrooper"
   TACTICIAN = "tactician"
   UNIVERSAL = "universal"
+  SQUAD_COMMAND = "squad_command"
   MULTISPECIALIST = "multispecialist"
   BATTLE_HEROES_CARD = "battle_heroes_card"
   PLAYER_BATTLE_HERO = "player_battle_hero"
@@ -43,6 +54,9 @@ let soldierKindAwards = {
   [BattleHeroesAward.TOP_KIND_TANKER] = true,
   [BattleHeroesAward.TOP_KIND_ANTI_TANK] = true,
   [BattleHeroesAward.TOP_KIND_SNIPER] = true,
+  [BattleHeroesAward.TOP_KIND_MEDIC] = true,
+  [BattleHeroesAward.TOP_KIND_BIKER] = true,
+  [BattleHeroesAward.TOP_KIND_PARATROOPER] = true,
 }
 
 let soldierAwards = soldierKindAwards.__merge({
@@ -50,6 +64,10 @@ let soldierAwards = soldierKindAwards.__merge({
   [BattleHeroesAward.TOP_MELEE_KILLS] = true,
   [BattleHeroesAward.TOP_GRENADE_KILLS] = true,
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = true,
+  [BattleHeroesAward.BERSERK] = true,
+  [BattleHeroesAward.FURIOUS] = true,
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = true,
+  [BattleHeroesAward.PARATROOPER] = true,
   [BattleHeroesAward.TACTICIAN] = true,
   [BattleHeroesAward.UNIVERSAL] = true,
 })
@@ -69,6 +87,7 @@ let awardPriority = {
   [BattleHeroesAward.TOP_VEHICLE_SQUAD] = 2,
   [BattleHeroesAward.TOP_INFANTRY_SQUAD] = 2,
   [BattleHeroesAward.UNIVERSAL] = 1,
+  [BattleHeroesAward.SQUAD_COMMAND] = 1,
   bigAward = 1,
   // Small awards
   [BattleHeroesAward.TOP_KIND_RIFLE] = 0,
@@ -83,10 +102,17 @@ let awardPriority = {
   [BattleHeroesAward.TOP_KIND_TANKER] = 0,
   [BattleHeroesAward.TOP_KIND_ANTI_TANK] = 0,
   [BattleHeroesAward.TOP_KIND_SNIPER] = 0,
+  [BattleHeroesAward.TOP_KIND_MEDIC] = 0,
+  [BattleHeroesAward.TOP_KIND_BIKER] = 0,
+  [BattleHeroesAward.TOP_KIND_PARATROOPER] = 0,
   [BattleHeroesAward.TOP_VEHICLES_DESTROYED] = 0,
   [BattleHeroesAward.TOP_MELEE_KILLS] = 0,
   [BattleHeroesAward.TOP_GRENADE_KILLS] = 0,
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = 0,
+  [BattleHeroesAward.BERSERK] = 0,
+  [BattleHeroesAward.FURIOUS] = 0,
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = 0,
+  [BattleHeroesAward.PARATROOPER] = 0,
   [BattleHeroesAward.TACTICIAN] = 0,
 }
 
@@ -97,6 +123,10 @@ let requiredValueTable = {
   [BattleHeroesAward.TOP_MELEE_KILLS] = 3,
   [BattleHeroesAward.TOP_GRENADE_KILLS] = 7,
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = 5,
+  [BattleHeroesAward.BERSERK] = 10,
+  [BattleHeroesAward.FURIOUS] = 3,
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = 250,
+  [BattleHeroesAward.PARATROOPER] = 5,
 }
 
 let requiredScoreTable = {
@@ -121,6 +151,16 @@ let requiredScoreTable = {
     no_mode       = { withBots = 1200, noBots = 500 }
   },
   [BattleHeroesAward.TOP_INFANTRY_SQUAD] = {
+    domination    = { withBots = 800,  noBots = 400 }
+    invasion      = { withBots = 1200, noBots = 500 }
+    confrontation = { withBots = 1200, noBots = 500 }
+    assault       = { withBots = 1200, noBots = 500 }
+    destruction   = { withBots = 1200, noBots = 500 }
+    escort        = { withBots = 1200, noBots = 500 }
+    gun_game      = { withBots = 800, noBots =  400 }
+    no_mode       = { withBots = 1200, noBots = 500 }
+  },
+  [BattleHeroesAward.SQUAD_COMMAND] = { // min score for each squad to participate in award calculation
     domination    = { withBots = 800,  noBots = 400 }
     invasion      = { withBots = 1200, noBots = 500 }
     confrontation = { withBots = 1200, noBots = 500 }
@@ -211,4 +251,6 @@ return {
   isBigAward
   WINNING_TEAM_BATTLE_HEROES_COUNT
   LOSING_TEAM_BATTLE_HEROES_COUNT
+  SQUAD_COMMAND_MIN_NUM_SQUADS
+  SQUAD_COMMAND_MAX_NUM_SQUADS
 }

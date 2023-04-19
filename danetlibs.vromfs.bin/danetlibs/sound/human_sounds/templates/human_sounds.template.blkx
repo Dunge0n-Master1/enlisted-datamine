@@ -79,16 +79,6 @@ human_death_sound{
   }
 }
 
-human_fall_sound{
-  _tracked:t="human_fall_sound__isFalling"
-
-  _group{
-    _tags:t="sound"
-    human_fall_sound__isFalling:b=no
-    human_fall_sound__threshold:r=20.0
-  }
-}
-
 human_idle_sound{
 
   _group{

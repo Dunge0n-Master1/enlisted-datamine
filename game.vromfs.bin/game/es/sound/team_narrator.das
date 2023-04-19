@@ -109,6 +109,12 @@ def team_narrator_start(evt : CmdStartNarrator; var narrator_sound_event : Sound
 
 
 [es(tag=sound)]
+def net_narrator_start(evt : CmdNetStartNarrator; var narrator_sound_event : SoundEvent&; var narrator_queue : Array&; var narrator_history : Object&)
+  let isOurTeam = true
+  start_narrator(evt.phrase, isOurTeam, evt.replace, get_local_player_team(), narrator_sound_event, narrator_queue, narrator_history)
+
+
+[es(tag=sound)]
 def team_narrator_round_result(evt : EventTeamRoundResult; var narrator_sound_event : SoundEvent&; var narrator_queue : Array&; var narrator_history : Object&)
   let isOurTeam = evt.team == get_local_player_team()
   if isOurTeam

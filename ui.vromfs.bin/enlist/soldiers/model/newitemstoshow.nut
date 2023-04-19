@@ -4,7 +4,8 @@ let { mark_as_seen } = require("%enlist/meta/clientApi.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { prepareItems, preferenceSort } = require("items_list_lib.nut")
 let { curArmy } = require("state.nut")
-let { profile, itemsByArmies, soldiersByArmies, commonArmy } = require("%enlist/meta/profile.nut")
+let { soldiers, items } = require("%enlist/meta/servProfile.nut")
+let { itemsByArmies, soldiersByArmies, commonArmy } = require("%enlist/meta/profile.nut")
 let { collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { hasModalWindows } = require("%ui/components/modalWindows.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -86,10 +87,11 @@ let function markNewItemsSeen() {
   mark_as_seen(itemsGuids, soldiersGuids, @(_) isMarkSeenInProgress(false))
 
   //no need to wait for server answer to close this window
-  profile.mutate(function(p) {
-    p.soldiers <- markSeenGuids(p?.soldiers, soldiersGuids)
-    p.items <- markSeenGuids(p?.items, itemsGuids)
-  })
+  let newSoldiersData = markSeenGuids(soldiers.value, soldiersGuids)
+  soldiers.update(newSoldiersData)
+
+  let newItemsData = markSeenGuids(items.value, itemsGuids)
+  items.update(newItemsData)
 }
 
 return {

@@ -3,7 +3,7 @@
 //shouldDecreaseSize, allowedSizeIncrease = 0
 module events shared
 require ecs
-require EnlistedNet
+require DngNet
 require Dacoll
 
 [cpp_event(unicast)]
@@ -37,10 +37,6 @@ struct EventAnyEntityDowned
 struct CmdTeleportEntity
   newTm : float3x4
   hard : bool
-
-[cpp_event(unicast)]
-struct CmdSetCameraTarget
-  target : EntityId
 
 [event(unicast)]
 struct EventOnVehiclePartTypeDamaged
@@ -108,6 +104,14 @@ struct CmdKill
 [event(unicast)]
 struct EventOnLootItemUsed
   target : ecs::EntityId
+
+[cpp_event(unicast)]
+struct EventOnApplyWounds
+  pos : float3
+  normal : float3
+  coll_node : int
+  explosion : bool
+  damage : float
 
 [cpp_event(unicast)]
 struct CmdPostPhysUpdate
@@ -300,7 +304,7 @@ struct EventOnPhysImpulse
   atTime : float
   nodeId : int
   pos : float3
-  dir : float3
+  impulse : float3
 
 [cpp_event(unicast)]
 struct EventFlashExploded
@@ -328,7 +332,8 @@ struct CmdUseUsefulBox
   requesterEid : EntityId
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
-struct CmdUsefulBoxCompleteUse {}
+struct CmdUsefulBoxCompleteUse
+  box : EntityId
 
 [cpp_event(unicast)]
 struct EventRIGenExtraRequested {}

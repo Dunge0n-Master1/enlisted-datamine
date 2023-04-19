@@ -1,14 +1,14 @@
 require ecs
 require GamePhys
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require math.base
 require DagorMath
 require DagorMathUtils
 require game.es.events
 require common_shooter.es.human_weap_common
 
-def binary_search_height(phys : HumanPhys;
+def binary_search_height(var phys : HumanPhys;
                          tm : float3x4;
                          var bad_ht : float;
                          var good_ht : float;
@@ -29,7 +29,7 @@ def binary_search_height(phys : HumanPhys;
   return good_ht
 
 
-def check_height(phys : HumanPhys;
+def check_height(var phys : HumanPhys;
                  tm : float3x4;
                  gun_angles : float;
                  lean : float;
@@ -49,7 +49,7 @@ def check_height(phys : HumanPhys;
   res_ht = binary_search_height(phys, tm, saturate(prev_ht), saturate(ht), iter, lean, gun_mat_id, max_backoff, gun_angles)
   return true
 
-def binary_search_lean(phys : HumanPhys;
+def binary_search_lean(var phys : HumanPhys;
                        tm : float3x4;
                        var bad_lean : float;
                        var good_lean : float;
@@ -72,7 +72,7 @@ def binary_search_lean(phys : HumanPhys;
 def clamp_lean(val, limit : float)
   return clamp(val, -limit, limit)
 
-def check_lean(phys : HumanPhys;
+def check_lean(var phys : HumanPhys;
                tm : float3x4;
                gun_angles : float;
                ht : float;
@@ -93,7 +93,7 @@ def check_lean(phys : HumanPhys;
                                 clamp_lean(lean, phys.leanDegrees), iter, ht, gun_mat_id, max_backoff, gun_angles)
   return true
 
-def find_better_height(phys : HumanPhys;
+def find_better_height(var phys : HumanPhys;
                        tm : float3x4;
                        wish_height : float;
                        wish_lean : float;
@@ -111,7 +111,7 @@ def find_better_height(phys : HumanPhys;
       return true
   return false
 
-def find_better_lean(phys : HumanPhys;
+def find_better_lean(var phys : HumanPhys;
                      tm : float3x4;
                      wish_height : float;
                      wish_lean : float;

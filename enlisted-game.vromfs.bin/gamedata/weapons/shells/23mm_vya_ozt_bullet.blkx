@@ -14,7 +14,6 @@ explosiveType:t="a_ix_2"
 stabilityReductionAfterPenetration:r=0.15
 explosiveMass:r=0.0156
 bulletType:t="frag_i_t"
-shellAnimation:t="video/shells_animations/he.ivf"
 hitPowerMult:r=1.0
 onHitChanceMultFire:r=2.0
 effectiveDistance:r=10000.0
@@ -30,11 +29,6 @@ shutterDamageRadius:r=2.5
 shutterAmount:i=20
 shutterArmorPower:r=6.0
 shutterHit:r=3.5
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_he"
-groundCollisionEffect:t="hit_19_27mm_dirt_he"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -62,29 +56,6 @@ visual{
   traceFreq:i=1
   tracer:t="20mmRed"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

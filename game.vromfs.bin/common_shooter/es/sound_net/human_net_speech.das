@@ -1,7 +1,7 @@
 require ecs
 require ecs.safe
 require app
-require EnlistedNet
+require DngNet
 require soundSystem
 require game.utils.team
 require DagorMath

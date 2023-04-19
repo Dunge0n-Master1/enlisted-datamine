@@ -1,7 +1,7 @@
 require ecs
 require vehicle
 require turrets
-require EnlistedActor
+require DngActor
 require DaWeapons
 require DagorMath
 require DagorSystem

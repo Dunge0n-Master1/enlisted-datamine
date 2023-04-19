@@ -1,6 +1,6 @@
 require ecs
 require strings
-require EnlistedPhysObj
+require DngPhysObj
 require game.es.events
 require game.events_game
 require DagorMath

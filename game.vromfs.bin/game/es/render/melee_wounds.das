@@ -2,7 +2,7 @@ require ecs
 require app
 require enlisted.events_enlisted
 require Grid
-require EnlistedWounds
+require DngWounds
 require PhysDecl
 require AnimV20
 require ecs.common
@@ -13,7 +13,7 @@ require GridCollision
 require CollisionTraces
 require danetlibs.native_dasevents.main.native_events
 require common_shooter.events_common_shooter
-require EnlistedDm
+require DngDm
 
 def apply_melee_wounds(owner : EntityId; attach_eid : EntityId; break_param : int)
   query(attach_eid) <| $ [es] (var broken_bones_nodes : BrokenBonesNodes)

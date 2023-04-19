@@ -1,17 +1,17 @@
 require ecs
 require game.events_game
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
 require app
 require game.es.mine_common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require Action
 require game.es.inventory_common
 require game.es.events
 require DagorMath
 require common_shooter.events_common_shooter
-require EnlistedPhysObj
+require DngPhysObj
 
 let MINE_POSSIBLE_SLOTS = [[HUWeaponSlots HUWeaponSlots EWS_PRIMARY; HUWeaponSlots EWS_SECONDARY;
     HUWeaponSlots EWS_TERTIARY; HUWeaponSlots EWS_MELEE; HUWeaponSlots EWS_SPECIAL]]

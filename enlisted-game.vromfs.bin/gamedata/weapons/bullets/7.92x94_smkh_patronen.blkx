@@ -24,13 +24,6 @@ visual{
   trail:t="smallTrail"
 }
 
-hitFx{
-  fxScale:p2=2.0, 2.2
-  defaultFx:t="ground_splash"
-  jetFx:t="ground_splash_direct"
-  preset:t="bullet"
-}
-
 hitpower{
   HitPower10m:p2=1.0, 10.0
   HitPower100m:p2=0.95, 150.0

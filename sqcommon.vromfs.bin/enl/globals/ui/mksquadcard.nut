@@ -2,21 +2,25 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
-let { colFull, titleTxtColor, smallPadding, midPadding, bigPadding, colPart,
-  commonBorderRadius, defSlotBgImg, hoverSlotBgImg, accentColor, defLockedSlotBgImg,
-  hoverLockedSlotBgImg, rightAppearanceAnim
+let { colFull, titleTxtColor, smallPadding, midPadding, bigPadding, colPart, commonBorderRadius,
+  defSlotBgColor, defItemBlur, hoverSlotBgColor, reseveSlotBgColor, accentColor,
+  rightAppearanceAnim, deadTxtColor, defLockedSlotBgColor, hoverSlotTxtColor,
+  hoverLockedSlotBgColor, levelNestGradient, hoverLevelNestGradient, miniPadding, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkSquadIcon, mkSquadTypeIcon } = require("%enlSqGlob/ui/squadInfoPkg.nut")
+let { mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let faComp = require("%ui/components/faComp.nut")
 
 
 let premIconSize = colPart(0.60)
 let selectionLineHeight = colPart(0.08)
 let selectionLineOffset = colPart(0.1)
-let squadCardSize = [colFull(2), colPart(1.55) + selectionLineHeight + selectionLineOffset]
+let bottomOffset = selectionLineHeight + selectionLineOffset
+let squadCardSize = [colFull(2), colPart(1.55) + bottomOffset]
 let squadContentSize = [colFull(2), colPart(1.55)]
+let unavaliableIconSize = colPart(0.55)
 const defaultSquadIcon = "!ui/uiskin/squad_default.svg"
-const LOCKED_SQUAD_PANEL_COLOR = 0xCC000000
+const LOCKED_SQUAD_PANEL_COLOR = 0x77000000
 
 
 let defTxtStyle = {
@@ -28,29 +32,43 @@ let smallTxtStyle = {
 }.__update(fontSmall)
 
 
+let hoverSmallTxtStyle = {
+  color = darkTxtColor
+}.__update(fontSmall)
+
+
+
+let squadBgCommon = @(flags, isSelected) isSelected || (flags & S_HOVER) != 0 ? hoverSlotBgColor
+  : defSlotBgColor
+let squadBgReserve = @(flags, isSelected) isSelected || (flags & S_HOVER) != 0 ? hoverSlotBgColor
+: reseveSlotBgColor
+
+
 let mkCardText = @(text, txtStyle = defTxtStyle) {
   rendObj = ROBJ_TEXT
   text
 }.__update(txtStyle)
 
 
-let mkSquadLevel = @(level) mkCardText(loc("level/short", { level = level + 1 }),
-  smallTxtStyle.__merge({ vplace = ALIGN_BOTTOM }))
+let mkSquadLevel = @(level, sf, isSelected) mkCardText(loc("level/short", { level = level + 1 }),
+  { vplace = ALIGN_BOTTOM }.__merge(isSelected || (sf & S_HOVER) != 0 || (sf & S_ACTIVE) != 0
+    ? hoverSmallTxtStyle
+    : smallTxtStyle) )
 
-let squadTimer = @(expireTime) mkCountdownTimer({
+
+let squadTimer = @(expireTime, sf, isSelected) mkCountdownTimer({
   timestamp = expireTime
-  color = titleTxtColor
+  color = isSelected || (sf & S_HOVER) != 0|| (sf & S_ACTIVE) != 0 ? hoverSlotTxtColor : titleTxtColor
   override = { vplace = ALIGN_BOTTOM }
   isSmall = true
 })
 
 
-let mkSquadInfoBlock = @(squadType, level, addChild = null, expireTime = 0) {
+let mkSquadInfoBlock = @(squadType, addChild = null) {
   size = flex()
   halign = ALIGN_CENTER
   children = [
-    mkSquadTypeIcon(squadType, false)
-    expireTime <= 0 ? mkSquadLevel(level) : squadTimer(expireTime)
+    mkSquadTypeIcon(squadType)
     {
       pos = [colPart(0.05), -colPart(0.16)]
       hplace = ALIGN_RIGHT
@@ -58,14 +76,6 @@ let mkSquadInfoBlock = @(squadType, level, addChild = null, expireTime = 0) {
     }
   ]
 }
-
-
-let mkSquadPremIcon = @(premIcon, override = null) premIcon == null ? null : {
-  rendObj = ROBJ_IMAGE
-  size = [premIconSize, premIconSize]
-  keepAspect = KEEP_ASPECT_FIT
-  image = Picture($"{premIcon}:{premIconSize}:{premIconSize}:K")
-}.__update(override ?? {})
 
 
 let selectionLine = {
@@ -78,8 +88,23 @@ let selectionLine = {
 }
 
 
+let mkLevelBlock = @(sf, isCardSelected, level = -1, expireTime = 0) {
+  rendObj = ROBJ_IMAGE
+  image = isCardSelected || (sf & S_HOVER) != 0 ? hoverLevelNestGradient : levelNestGradient
+  size = [flex(), SIZE_TO_CONTENT]
+  padding = [miniPadding, bigPadding]
+  vplace = ALIGN_BOTTOM
+  valign = ALIGN_CENTER
+  halign = ALIGN_RIGHT
+  children = expireTime > 0 ? squadTimer(expireTime)
+    : level >= 0 ? mkSquadLevel(level, sf, isCardSelected)
+    : null
+}
+
+
 let mkSquadCard = kwarg(function(idx, isSelected, addChild = null, icon = "", onDoubleClick = null,
-  squadType = null, level = null, premIcon = null, onClick = null, expireTime = 0, animDelay = 0
+  squadType = null, level = null, premIcon = null, onClick = null, expireTime = 0, animDelay = 0,
+  isReserve = false
 ) {
   let isCardSelected = isSelected.value
   icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
@@ -98,29 +123,26 @@ let mkSquadCard = kwarg(function(idx, isSelected, addChild = null, icon = "", on
         size = flex()
         children = [
           {
-            rendObj = ROBJ_BOX
+            rendObj = ROBJ_WORLD_BLUR
             size = squadContentSize
-            borderRadius = commonBorderRadius
+            fillColor = isReserve
+              ? squadBgReserve(sf, isCardSelected)
+              : squadBgCommon(sf, isCardSelected)
+            color = defItemBlur
             children = [
-              {
-                rendObj = ROBJ_IMAGE
-                size = squadContentSize
-                image = isCardSelected ? hoverSlotBgImg
-                  : sf & S_HOVER ? hoverSlotBgImg
-                  : defSlotBgImg
-              }
               {
                 size = flex()
                 padding = [bigPadding, smallPadding]
                 flow = FLOW_HORIZONTAL
                 children = [
                   mkSquadIcon(icon)
-                  mkSquadInfoBlock(squadType, level, addChild, expireTime)
+                  mkSquadInfoBlock(squadType, addChild)
                 ]
               }
+              mkLevelBlock(sf, isCardSelected, level, expireTime)
             ]
           }
-          mkSquadPremIcon(premIcon)
+          mkSquadPremIcon(premIcon, { size = [premIconSize, premIconSize] })
         ]
       }
       isCardSelected ? selectionLine : null
@@ -131,65 +153,151 @@ let mkSquadCard = kwarg(function(idx, isSelected, addChild = null, icon = "", on
 
 let lockedSquadInfo = @(unlockLvl) unlockLvl == null ? null : {
   rendObj = ROBJ_SOLID
-  size = [flex(), SIZE_TO_CONTENT]
+  size = [flex(), ph(40)]
   color = LOCKED_SQUAD_PANEL_COLOR
-  padding = [smallPadding, midPadding]
+  padding = midPadding
   vplace = ALIGN_BOTTOM
   valign = ALIGN_CENTER
   children = [
+    faComp("lock", {
+      fontSize = defTxtStyle.fontSize
+      color = defTxtStyle.color
+    })
     {
       rendObj = ROBJ_TEXTAREA
       size = [flex(), SIZE_TO_CONTENT]
       behavior = Behaviors.TextArea
       text = loc("squads/reqLevel", { level = unlockLvl})
-    }.__update(smallTxtStyle)
-    faComp("lock", {
-      fontSize = fontMedium.fontSize
-      color = smallTxtStyle.color
-      hplace = ALIGN_RIGHT
-    })
+      halign = ALIGN_RIGHT
+    }.__update(defTxtStyle)
   ]
 }
 
 
-let mkLockedSquadCard = kwarg(function(idx, icon = "", squadType = null,
-  level = null, onClick = null, animDelay = 0, premIcon = null
+let skullIcon = {
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/skin#skull_white.svg:{0}:{0}:K".subst(unavaliableIconSize))
+  color = deadTxtColor
+  vplace = ALIGN_BOTTOM
+  size = [unavaliableIconSize, unavaliableIconSize]
+}
+
+
+let blockSign = {
+  rendObj = ROBJ_IMAGE
+  image = Picture($"!ui/uiskin/block_sign.svg:{unavaliableIconSize}:{unavaliableIconSize}:K")
+  color = deadTxtColor
+  vplace = ALIGN_BOTTOM
+  size = [unavaliableIconSize, unavaliableIconSize]
+}
+
+
+let mkLockedSquadCard = kwarg(function(idx, icon = "", squadType = null, level = null,
+  onClick = null, animDelay = 0, premIcon = null, canSpawn = true, isAlive = true, squadId = false,
+  curSelectedSquad = Watched(null)
 ) {
   icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
   return watchElemState(@(sf) {
-    rendObj = ROBJ_BOX
-    borderRadius = commonBorderRadius
+    watch = curSelectedSquad
+    size = squadCardSize
+    flow = FLOW_VERTICAL
+    gap = selectionLineOffset
     key = $"squad{idx}"
-    size = squadContentSize
     behavior = Behaviors.Button
-    onClick = onClick
+    onClick
     xmbNode = XmbNode()
     children = [
       {
-        rendObj = ROBJ_IMAGE
-        image = sf & S_HOVER ? hoverLockedSlotBgImg : defLockedSlotBgImg
+        rendObj = ROBJ_WORLD_BLUR
         size = squadContentSize
-      }
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-        padding = [bigPadding, smallPadding]
-        flow = FLOW_HORIZONTAL
+        fillColor = sf & S_HOVER ? hoverLockedSlotBgColor : defLockedSlotBgColor
+        color = defItemBlur
         children = [
-          mkSquadIcon(icon)
           {
             size = [flex(), SIZE_TO_CONTENT]
-            halign = ALIGN_CENTER
-            children = mkSquadTypeIcon(squadType, false)
+            padding = [bigPadding, smallPadding]
+            flow = FLOW_HORIZONTAL
+            children = [
+              mkSquadIcon(icon, { opacity = 0.6 })
+              {
+                size = [flex(), flex()]
+                halign = ALIGN_CENTER
+                children = [
+                  mkSquadTypeIcon(squadType, isAlive || canSpawn ? {} : { opacity = 0.6 })
+                  !isAlive ? skullIcon
+                    : !canSpawn ? blockSign
+                    : null
+                ]
+              }
+            ]
           }
+          premIcon != null ? mkSquadPremIcon(premIcon, { size = [premIconSize, premIconSize] })
+            : !isAlive || !canSpawn ? null
+            : lockedSquadInfo(level)
         ]
       }
-      premIcon == null ? lockedSquadInfo(level) : mkSquadPremIcon(premIcon)
+      curSelectedSquad.value == squadId ? selectionLine : null
     ]
   }.__update(rightAppearanceAnim(animDelay)))
+})
+
+
+let mkRespawnSquadCard = kwarg(function(idx, isSelected, icon = "", squadType = null, level = null,
+  premIcon = null, onClick = null, isAlive = true, canSpawn = true
+) {
+  let isCardSelected = isSelected.value
+  icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
+  if (!isAlive || !canSpawn)
+    return mkLockedSquadCard({ idx, icon, squadType, level, premIcon, canSpawn, isAlive })
+
+  return watchElemState(@(sf) {
+    key = $"squad{idx}"
+    size = squadCardSize
+    flow = FLOW_VERTICAL
+    gap = selectionLineOffset
+    behavior = Behaviors.Button
+    onClick = isAlive ? onClick : null
+    xmbNode = XmbNode()
+    children = [
+      {
+        size = flex()
+        children = [
+          {
+            rendObj = ROBJ_WORLD_BLUR
+            size = squadContentSize
+            fillColor = !canSpawn ? defLockedSlotBgColor
+              : isCardSelected || (sf & S_HOVER) != 0 ? hoverSlotBgColor
+              : defSlotBgColor
+            color = defItemBlur
+            children = [
+              {
+                size = flex()
+                padding = [bigPadding, smallPadding]
+                flow = FLOW_HORIZONTAL
+                children = [
+                  mkSquadIcon(icon)
+                  mkSquadInfoBlock(squadType)
+                ]
+              }
+              mkLevelBlock(sf, isCardSelected, level)
+            ]
+          }
+          mkSquadPremIcon(premIcon, { size = [premIconSize, premIconSize] })
+        ]
+      }
+      isCardSelected ? selectionLine : null
+    ]
+  })
 })
 
 
 return {
   mkSquadCard
   mkLockedSquadCard
+  mkRespawnSquadCard
+  squadCardSize
+  mkSquadInfoBlock
+  mkLevelBlock
+  selectionLine
+  squadContentSize
 }

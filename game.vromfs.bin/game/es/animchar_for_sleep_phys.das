@@ -1,8 +1,8 @@
 require ecs
 require vehicle
-require EnlistedPhysObj
-require EnlistedShip
-require EnlistedActor
+require DngPhysObj
+require DngShip
+require DngActor
 require enlisted.events_enlisted
 
 [es(after=vehicle_seats_update_sleep_physobj_es, tag=server)]
@@ -24,12 +24,21 @@ def save_ship_sleep_state_phys_es(info : ParallelUpdateFrameDelayed;
                                   var phys__isAsleep : bool&)
   phys__isAsleep = ship_net_phys.isAsleep
 
-[es(track=phys__isAsleep, on_appear)]
-def animchar_update_sleep_phys_es(evt : Event;
-                                  eid : EntityId;
+[es(before=(before_animchar_update_sync, anim_phys_updater_es), REQUIRE_NOT=animchar__updatableOnSleepPhys)]
+def animchar_update_sleep_phys_es(evt : ParallelUpdateFrameDelayed;
                                   phys__isAsleep : bool;
-                                  var animchar__updatable : bool&)
-  animchar__updatable = has(eid, "animchar__updatableOnSleepPhys") || !phys__isAsleep
+                                  var animchar__updatable : bool&;
+                                  var animchar__forceUpdateOnTmChanged : bool&)
+  animchar__updatable = !phys__isAsleep || animchar__forceUpdateOnTmChanged
+  animchar__forceUpdateOnTmChanged = false
+
+//Required for changing position after changing network lod (or other reason of changing tm). Entity must be updated in correct pos
+[es(track=transform, REQUIRE=(transform, phys__isAsleep), REQUIRE_NOT=animchar__updatableOnSleepPhys)]
+def update_anim_after_network_lod_changed(evt : Event;
+                                          animchar__updatable : bool;
+                                          var animchar__forceUpdateOnTmChanged : bool&)
+  if !animchar__updatable
+    animchar__forceUpdateOnTmChanged = true
 
 [es(on_appear, REQUIRE=animchar__updatableOnSleepPhys)]
 def wakeup_sleeping_animchar(evt : Event; var animchar__updatable : bool&)

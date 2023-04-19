@@ -6,7 +6,7 @@ require enlisted.events_enlisted
 require HumanPhys
 require AnimV20
 require GeomNodeTree
-require EnlistedHuman
+require DngHuman
 
 [es(tag=server, on_appear, track=itemContainer)]
 def binocular_track_inventory(evt : Event; eid : EntityId; itemContainer : EidList; var human_binocular__eid : EntityId&)
@@ -169,7 +169,7 @@ def binocular_switch_cockpit(evt : CmdSwitchBinocularCockpit;
         set(init, "cockpit__vehicleEid", eid)
         set(init, "cockpit__seatNo", -1)
         set(init, "cockpit__cameraTime", 1.f)
-        set(init, "cockpit__zoomTime", 0.f)
+        set(init, "cockpit__forwardOffsetTime", 0.f)
         set(init, "cockpit__isAttached", true)
     else
       cockpit__isHeroInCockpit = false
@@ -259,11 +259,11 @@ def binocular_disable_on_hero_change_server(evt : Event;
 
 
 [es(tag=gameClient)]
-def binocular_disable_on_die_client(evt : EventSoldierRecreateOnDie; eid : EntityId)
+def binocular_disable_on_die_client(evt : EventBeforeEntityRecreatedOnDeath; eid : EntityId)
   sendEventImmediate(eid, [[CmdSwitchBinocularCockpit enabled=false]])
 
 
-[es(tag=server, on_event=(EventSoldierRecreateOnDie, EventEntityDied), before=drop_held_weapon_on_death)]
+[es(tag=server, on_event=(EventBeforeEntityRecreatedOnDeath, EventEntityDied), before=drop_held_weapon_on_death)]
 def binocular_disable_on_die_server(evt : Event;
                                     eid : EntityId;
                                     human_binocular__eid : EntityId;

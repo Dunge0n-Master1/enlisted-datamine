@@ -1,6 +1,6 @@
 require ecs
 require math.base
-require EnlistedHuman
+require DngHuman
 require enlisted.events_enlisted
 
 [es(tag=server, REQUIRE=seat_anim__lowerMove, no_order)]

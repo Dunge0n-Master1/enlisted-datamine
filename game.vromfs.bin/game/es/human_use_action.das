@@ -4,7 +4,7 @@ require game.es.human_use_action_common
 require game.es.action_common
 require game.utils.team
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require inventory
 require enlisted.events_enlisted
 
@@ -58,8 +58,6 @@ def human_use_action_es(info : ParallelUpdateFrameDelayed;
         useActionAvailable = int(HumanAction ACTION_LOOT_BODY)
       elif has(selectedObjectEid, "squad_member__squad") && has(selectedObjectEid, "human")
         useActionAvailable = int(HumanAction ACTION_REQUEST_AMMO)
-      elif has(selectedObjectEid, "shell__shell_id__shell_id")
-        useActionAvailable = int(HumanAction ACTION_THROW_BACK)
       elif has(selectedObjectEid, "human_gun_attached")
         useActionAvailable = int(HumanAction ACTION_USE)
       elif has(selectedObjectEid, "buildByPlayer")

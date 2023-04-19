@@ -4,7 +4,7 @@ require ecs
 require app
 require dm
 require DmFire
-require EnlistedDm
+require DngDm
 require DagorMath
 require game.es.vehicle.vehicle_events
 

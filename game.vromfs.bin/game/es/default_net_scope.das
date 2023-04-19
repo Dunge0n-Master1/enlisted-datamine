@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require player
 require game.es.player_events
 require game.events_game

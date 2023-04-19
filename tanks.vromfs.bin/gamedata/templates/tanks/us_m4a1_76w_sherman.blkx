@@ -158,7 +158,7 @@ us_m4a1_76w_sherman_common{
 us_m4a1_76w_sherman_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
-  cockpit__minZoom:r=-0.05
+  cockpit__minForwardOffset:r=-0.05
   cockpit__offset:p3=-0.0, 0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -187,7 +187,7 @@ us_m4a1_76w_sherman_driver_cockpit{
   _extends:t="base_driver_cockpit"
   animchar__res:t="ba_11_driver_char"
   cockpit__offset:p3=-0.3, -0.26, 0.23
-  cockpit__minZoom:r=-0.0
+  cockpit__minForwardOffset:r=-0.0
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"

@@ -1,8 +1,8 @@
 require ecs
-require EnlistedHuman
-require EnlistedActor
+require DngHuman
+require DngActor
 require HumanPhys
-require EnlistedNet
+require DngNet
 require game.utils.net_utils
 
 [es(tag=server, track=possessed, REQUIRE=possessed)]

@@ -12,13 +12,7 @@ onHitChanceMultFire:r=10.0
 stabilityReductionAfterRicochet:r=0.5
 relativeVelHitShift:p2=300.0, 1000.0
 bulletType:t="ap_i"
-shellAnimation:t="video/shells_animations/ap.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_ap"
-groundCollisionEffect:t="hit_19_27mm_dirt_ap"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -48,29 +42,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

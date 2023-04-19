@@ -105,11 +105,18 @@ availableClusters.subscribe(function(available) {
   clusters(validateClusters(clusters.value, available))
 })
 
-let selectedClusters = Computed(@() !isAutoClusterSafe.value ? clone clusters.value
-  : ownCluster.value ? { [ownCluster.value] = true }
-  : {})
+let selectedClusters = Computed(function() {
+  if (!isAutoCluster.value)
+    return clone clusters.value
+  let available = availableClusters.value
+  let ownId = ownCluster.value
+  if (available.contains(ownId))
+    return { [ownCluster.value] = true }
+  return { [available[0]] = true }
+})
 
-selectedClusters.subscribe(@(v) logC("auto:", isAutoCluster.value, "selectedClusters:", v))
+selectedClusters.subscribe(@(v)
+  logC("auto:", isAutoCluster.value, "own:", ownCluster.value, "selectedClusters:", v))
 
 let oneOfSelectedClusters = Computed(function() {
   foreach (c, has in selectedClusters.value)

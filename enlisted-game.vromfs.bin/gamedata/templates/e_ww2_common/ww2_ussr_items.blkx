@@ -518,6 +518,7 @@ attachable_wear_martial_01_lightgr_ussr_summer_item{
 
 attachable_wear_ameba_poncho_01_ussr_summer_item{
   _extends:t="attachable_tunic"
+  _extends:t="node_collapser"
   item__uniqueName:t="attachable_wear_ameba_poncho_01_ussr_summer_item"
   animchar__res:t="ameba_poncho_01_ussr_summer_char"
   collres__res:t="ameba_poncho_01_ussr_summer_collision"
@@ -525,10 +526,6 @@ attachable_wear_ameba_poncho_01_ussr_summer_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
-  }
-
-  animchar_node_collapser{
-    _tags:t="render"
   }
 
   _group{
@@ -1118,6 +1115,7 @@ attachable_wear_tunic_greenwood_10_ussr_winter_item{
 attachable_wear_tunic_cape_10_ussr_winter_item{
   _extends:t="attachable_tunic"
   _extends:t="tunic_10_animation_blacklist"
+  _extends:t="node_collapser"
   item__uniqueName:t="attachable_wear_tunic_cape_10_ussr_winter_item"
   animchar__res:t="tunic_cape_10_ussr_winter_char"
   collres__res:t="tunic_cape_10_ussr_winter_collision"
@@ -1125,10 +1123,6 @@ attachable_wear_tunic_cape_10_ussr_winter_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
-  }
-
-  animchar_node_collapser{
-    _tags:t="render"
   }
 
   _group{

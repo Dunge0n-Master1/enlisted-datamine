@@ -11,10 +11,10 @@ let { DAILY_TASK_KEY, getUnlockProgress, unlockProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 
 let mkTaskContent = @(unlockDesc) watchElemState(function(sf) {
-  let progress = getUnlockProgress(unlockDesc)
+  let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
   return {
     size = [flex(), SIZE_TO_CONTENT]
-    watch = [unlockProgress]
+    watch = unlockProgress
     valign = ALIGN_CENTER
     behavior = Behaviors.Button
     children = {

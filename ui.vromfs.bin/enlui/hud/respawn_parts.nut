@@ -7,7 +7,7 @@ let { textarea } = require("%ui/components/textarea.nut")
 let mkTeamIcon = require("%ui/hud/components/teamIcon.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { timeToRespawn, timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber,
-  respRequested } = require("%ui/hud/state/respawnState.nut")
+  respRequested, paratroopersPointSelectorOn } = require("%ui/hud/state/respawnState.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { localPlayerTeamIcon } = require("%ui/hud/state/teams.nut")
@@ -105,7 +105,7 @@ let forceSpawnButton = @(override = {}) @() {
   valign = ALIGN_CENTER
   children = canRespawnWaitNumber.value > 0 ? null
     : respRequested.value ? cancelSpawnButton(timeToCanRespawn.value)
-    : respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1 ? null
+    : (respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1) && !paratroopersPointSelectorOn.value ? null
     : spawnButton(timeToCanRespawn.value)
 }.__update(override)
 

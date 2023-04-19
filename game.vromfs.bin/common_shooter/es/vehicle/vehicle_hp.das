@@ -1,9 +1,9 @@
 require ecs
 require game.es.vehicle.vehicle_events
 require game.es.events
-require EnlistedNet
+require DngNet
 require dm
-require EnlistedDm
+require DngDm
 require vehicle
 require player
 

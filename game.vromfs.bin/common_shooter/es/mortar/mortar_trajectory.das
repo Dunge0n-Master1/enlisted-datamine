@@ -4,7 +4,7 @@ require game.utils.hero
 require game.es.events
 require DaWeaponProps
 require Gun
-require EnlistedWeapon
+require DngWeapon
 require common_shooter.es.mortar.mortar_common
 require common_shooter.events_common_shooter
 

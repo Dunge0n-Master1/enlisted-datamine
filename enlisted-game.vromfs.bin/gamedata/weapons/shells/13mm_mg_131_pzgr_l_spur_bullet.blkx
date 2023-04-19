@@ -14,9 +14,6 @@ stabilityReductionAfterPenetration:r=0.3
 relativeVelHitShift:p2=300.0, 1000.0
 bulletType:t="ap_t_ball"
 slopeEffectPreset:t="ap"
-groundCollisionEffect:t="hit_12_18mm_dirt_ap"
-ricochetEffect:t="hit_12_18mm_metal_ap"
-waterCollisionEffect:t="hit_12_18mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -49,29 +46,6 @@ visual{
   traceFreq:i=1
   tracer:t="12mmRed"
   trail:t="smallTrail"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

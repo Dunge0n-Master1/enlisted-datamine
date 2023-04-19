@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require GridCollision
 require CollisionTraces
@@ -14,6 +14,7 @@ require enlisted.game.es.placeable_item_common
 require strings
 require game.es.events
 require game.es.inventory_common
+require GeomNodeTree
 
 
 [es(tag=gameClient, before=placeable_item_place_request)]

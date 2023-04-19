@@ -5,9 +5,9 @@ require game.events_game
 require common_shooter.events_common_shooter
 require DagorMath
 require HumanPhys
-require EnlistedHuman
-require EnlistedPhysObj
-require EnlistedShip
+require DngHuman
+require DngPhysObj
+require DngShip
 require PhysObj
 require Ship
 

@@ -815,9 +815,9 @@ engine18{
   outside{
     path:t="aircraft/engines"
     eventFront:t=""
-    eventBack:t="engine18"
+    eventBack:t="engine04"
     eventSurround:t=""
-    eventLod1:t="engine18"
+    eventLod1:t="engine04"
     rpmSmooth:r=0.012
     loadScale:r=6.0
     loadSmooth:r=0.05

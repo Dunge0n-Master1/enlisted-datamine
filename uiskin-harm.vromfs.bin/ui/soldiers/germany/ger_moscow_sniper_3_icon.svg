@@ -1,0 +1,23 @@
+<svg id="ger_moscow_sniper_3_icon" data-name="ger moscow sniper 3 icon" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f2f2f2;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #151515;
+      }
+    </style>
+  </defs>
+  <path id="Shape_244_copy_5" data-name="Shape 244 copy 5" class="cls-1" d="M84.063,29.145H95L75,6.662,55,29.145H65.937v91.711H55l20,22.482,20-22.482H84.063Z"/>
+  <path id="Shape_244_copy_6" data-name="Shape 244 copy 6" class="cls-2" d="M75,146.278,50.649,118.9H63.983V31.1H50.649L75,3.722,99.351,31.1H86.017v87.8H99.351ZM59.355,122.81,75,140.4l15.645-17.59H82.109V27.192h8.536L75,9.6,59.355,27.191h8.536v95.618H59.355Z"/>
+  <polygon class="cls-1" points="107.087 36.913 107.087 113.087 145.174 75 107.087 36.913"/>
+  <path class="cls-3" d="M105.08691,117.915V32.08447L148.002,75Zm4-76.17334v66.51709L142.3457,75Z"/>
+  <polygon class="cls-1" points="42.913 36.913 42.913 113.087 4.826 75 42.913 36.913"/>
+  <path class="cls-3" d="M44.91309,117.915,1.99756,75,44.91309,32.08447ZM7.65479,75l33.2583,33.25879V41.7417Z"/>
+</svg>

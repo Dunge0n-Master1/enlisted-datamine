@@ -1,0 +1,460 @@
+base_pzkpfw_vi_ausf_h1_tiger{
+  _extends:t="base_tank"
+  _extends:t="pzkpfw_vi_ausf_h1_tiger_ammo_stowages"
+  killLogName:t="germ_pzkpfw_vi_ausf_h1_tiger"
+  animchar__res:t="pzkpfw_VI_ausf_h1_tiger_char"
+  collres__res:t="pzkpfw_VI_ausf_h1_tiger_collision"
+  vehicle_net_phys__blk:t="gamedata/gen/units/tanks/pzkpfw_vi_ausf_h1_tiger.blk:VehiclePhys"
+  particle_phys__blk:t="gamedata/suspension/empty.blk"
+  dmg_animchar__res:t="pzkpfw_VI_ausf_h1_tiger_dmg_char"
+  xray_resource__modelName:t="pzkpfw_VI_ausf_h1_tiger"
+  cockpit__zoomOutFov:r=2.7475
+  cockpit__zoomInFov:r=5.3955
+  cockpit__sightName:t="sight_model/default_tank_spg"
+  cockpit__sightFov:r=20.0
+  drowningHeight:r=2.288
+  damage_model__blk:t="gamedata/gen/units/tanks/pzkpfw_vi_ausf_h1_tiger.blk"
+  item__name:t="items/germ_pzkpfw_vi_ausf_h1_tiger"
+  turret_control__grenadeLauncherSalvoSize:i=2
+  skin__template:t="pzkpfw_vi_ausf_h1_tiger_skins"
+
+  "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="emtr_gun_flame"
+    node:t="emtr_mg_flame_01"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_06"
+  }
+
+  "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t="muzzle_ground_100mm_brake"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+    fx:t="muzzle_ground_8mm"
+  }
+
+  "turret_gun_flash_fx__flashFxScale:shared:array"{
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "turret_control__emitterNodes:shared:array"{
+    node:t="bone_gun_barrel"
+    node:t="bone_mg_gun_twin"
+    node:t="emtr_mortar_flame_01"
+    node:t="emtr_mortar_flame_02"
+    node:t="emtr_mortar_flame_03"
+    node:t="emtr_mortar_flame_04"
+    node:t="emtr_mortar_flame_05"
+    node:t="emtr_mortar_flame_06"
+  }
+
+  "turret_control__animVars:shared:array"{
+
+    "vars:object"{
+      curYawParamName:t="turret_01_yaw"
+      curPitchParamName:t="gun_01_pitch"
+      aimActiveParamName:t="aim_01_active"
+      paramYawSpeed:t="turret_01_yaw_speed"
+      paramYawSpeedMul:t="turret_01_yaw_mul"
+      paramYawAccel:t="turret_01_yaw_accel"
+      paramMinYawAngle:t="turret_01_min_yaw_angle"
+      paramMaxYawAngle:t="turret_01_max_yaw_angle"
+      paramMinPitchAngle:t="turret_01_min_pitch_angle"
+      paramMaxPitchAngle:t="turret_01_max_pitch_angle"
+      paramPitchSpeed:t="gun_01_pitch_speed"
+      paramPitchSpeedMul:t="gun_01_pitch_mul"
+      paramPitchAccel:t="gun_01_pitch_accel"
+      wishYawParamName:t="gun_01_aim:targetYaw"
+      wishPitchParamName:t="gun_01_aim:targetPitch"
+      gunRecoilParamName:t="gun_01_recoil"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_02_yaw"
+      curPitchParamName:t="gun_02_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_03_yaw"
+      curPitchParamName:t="gun_03_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_04_yaw"
+      curPitchParamName:t="gun_04_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_05_yaw"
+      curPitchParamName:t="gun_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_06_yaw"
+      curPitchParamName:t="gun_06_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_07_yaw"
+      curPitchParamName:t="gun_07_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="turret_08_yaw"
+      curPitchParamName:t="gun_08_pitch"
+    }
+  }
+
+  "turret_control__turretInfo:shared:array"{
+
+    "turretInfo:object"{
+      turretName:t="turret_01"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_01_88mm_kwk36+turret_with_several_types_of_shells+main_turret"
+      barrelDm:t="gun_barrel"
+      breechDm:t="cannon_breech"
+      verDriveDm:t="drive_turret_v"
+      horDriveDm:t="drive_turret_h"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_02"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_02_7_92mm_mg34"
+      barrelDm:t="gun_barrel_01"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_03"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_03_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_04"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_04_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_05"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_05_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_06_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_07_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_08"
+      needsAssignedGunner:b=no
+      turretGroup:t="smoke"
+      gun:t="pzkpfw_vi_ausf_h1_tiger_turret_08_91mm_germ_smoke_grenade_launcher"
+      salt:i=1
+    }
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_01_88mm_kwk36{
+  _extends:t="tankgun_88mm_kwk36"
+  gun__shootNodeName:t="bone_gun_barrel"
+  turret__yawSpeed:r=12.0
+  turret__pitchSpeed:r=4.0
+  turret__aimNodeName:t="bone_turret"
+  turret__limit:p4=-180.0, 180.0, -8.0, 16.0
+
+  "turret__limitsTable:list<p4>"{
+    lim1:p4=-180.0, -140.0, -2.0, 16.0
+    lim2:p4=-140.0, -127.0, -8.0, 16.0
+    lim3:p4=-127.0, -120.0, -2.0, 16.0
+    lim4:p4=-120.0, -47.0, -8.0, 16.0
+    lim5:p4=-47.0, -40.0, -2.0, 16.0
+    lim6:p4=-40.0, 36.0, -8.0, 16.0
+    lim7:p4=36.0, 46.0, -2.0, 16.0
+    lim8:p4=46.0, 140.0, -8.0, 16.0
+    lim9:p4=140.0, 180.0, -2.0, 16.0
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=20
+    ammo:i=18
+    ammo:i=18
+    ammo:i=18
+    ammo:i=18
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_02_7_92mm_mg34{
+  _extends:t="tankgun_7_92mm_mg34"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=2175
+    ammo:i=2175
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_03_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_01"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_04_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_02"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_05_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_03"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_06_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_04"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_07_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_05"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_turret_08_91mm_germ_smoke_grenade_launcher{
+  _extends:t="tankgun_91mm_germ_smoke_grenade_launcher"
+  gun__shootNodeName:t="emtr_mortar_flame_06"
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_ammo_stowages{
+  _tags:t="server"
+  _extends:t="vehicle_ammo_stowages"
+
+  "ammo_stowage__stowageTemplates:shared:list<t>"{
+    stowage:t="pzkpfw_vi_ausf_h1_tiger_primary_ammo_stowage"
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_primary_ammo_stowage{
+  _extends:t="ammo_stowage"
+
+  "ammo_stowage__clusterTemplates:shared:list<t>"{
+    cluster:t="pzkpfw_vi_ausf_h1_tiger_primary_shells_ammo_cluster"
+  }
+
+  "ammo_stowage__turretNames:shared:list<t>"{
+    gun:t="turret_01"
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_primary_shells_ammo_cluster{
+  _extends:t="ammo_cluster"
+  ammo_cluster__isShell:b=yes
+
+  "ammo_cluster__slotNames:shared:list<t>"{
+    part:t="ammo_body_09"
+    part:t="ammo_body_10"
+    part:t="ammo_body_11"
+    part:t="ammo_body_12"
+    part:t="ammo_body_13"
+    part:t="ammo_body_14"
+    part:t="ammo_body_15"
+    part:t="ammo_body_16"
+    part:t="ammo_body_01"
+    part:t="ammo_body_02"
+    part:t="ammo_body_03"
+    part:t="ammo_body_04"
+    part:t="ammo_body_05"
+    part:t="ammo_body_06"
+    part:t="ammo_body_07"
+    part:t="ammo_body_08"
+    part:t="ammo_body_32"
+    part:t="ammo_body_33"
+    part:t="ammo_body_34"
+    part:t="ammo_body_35"
+    part:t="ammo_body_36"
+    part:t="ammo_body_37"
+    part:t="ammo_body_38"
+    part:t="ammo_body_39"
+    part:t="ammo_body_24"
+    part:t="ammo_body_25"
+    part:t="ammo_body_26"
+    part:t="ammo_body_27"
+    part:t="ammo_body_28"
+    part:t="ammo_body_29"
+    part:t="ammo_body_30"
+    part:t="ammo_body_31"
+    part:t="ammo_body_22"
+    part:t="ammo_body_23"
+    part:t="ammo_body_17"
+    part:t="ammo_body_18"
+    part:t="ammo_body_42"
+    part:t="ammo_body_43"
+    part:t="ammo_body_40"
+    part:t="ammo_body_41"
+    part:t="ammo_body_44"
+    part:t="ammo_body_45"
+    part:t="ammo_body_46"
+    part:t="ammo_body_19"
+    part:t="ammo_body_20"
+    part:t="ammo_body_21"
+  }
+
+  "ammo_cluster__slotsMaxAmmo:list<i>"{
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+    count:i=2
+  }
+}
+
+pzkpfw_vi_ausf_h1_tiger_skins{
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_green"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green*"
+      }
+    }
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_blots"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
+      }
+    }
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_lines"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_winter"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_dunkelgelb*"
+      }
+    }
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_ger_camo_winter_waves"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_winter_waves_bicolor*"
+      }
+    }
+
+    "skin:object"{
+      id:t="pzkpfw_vi_ausf_h1_tiger_grey"
+
+      "objTexReplace:object"{
+        "ger_camo_dunkelgelb*":t="ger_camo_grey*"
+      }
+    }
+  }
+}

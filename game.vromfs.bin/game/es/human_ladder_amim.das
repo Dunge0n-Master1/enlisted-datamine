@@ -4,8 +4,8 @@ require game.es.events
 require AnimV20
 require GeomNodeTree
 require EffectorData
-require EnlistedHumanAnim
-require EnlistedHuman
+require DngHumanAnim
+require DngHuman
 require PhysVars
 require math
 require math.base
@@ -63,9 +63,11 @@ def human_ladder_anim_es(info : ParallelUpdateFrameDelayed;
     let ladderItm = inverse(human_ladder__ladderTm)
     let ladderZScale = length(human_ladder__ladderTm[2])
     let ladderZSign = sign(dot(human_ladder__ladderTm[2], transform[2]))
+    let ladderWidth = length(human_ladder__ladderTm[0])
+    let toLadderDir = normalize(x0z(human_ladder__ladderTm[3] - transform[3]))
     let lhandZposInLadderTransform = ladderZSign * human_anim__ladder__handSidesOffset * safeinv(ladderZScale) * 0.5f
     let rhandZposInLadderTransform = -ladderZSign * human_anim__ladder__handSidesOffset * safeinv(ladderZScale) * 0.5f
-    let topHandPos = transform[3] + human_anim__ladder__handToLegsOffset
+    let topHandPos = transform[3] + human_anim__ladder__handToLegsOffset + ladderWidth * toLadderDir
     let posInLadderTransform = ladderItm * topHandPos
     let vertPosInLadderTransform = posInLadderTransform.y + 0.5f// 0.5 basis
     var ladderProgress = vertPosInLadderTransform * float(human_ladder__numSteps - 1) * 0.5f // 1 cycle - 4 steps

@@ -59,6 +59,9 @@ base_ship{
   ship_net_phys{
   }
 
+  base_net_phys_ptr{
+  }
+
   pair_collision__gridHolders{
   }
 
@@ -255,6 +258,9 @@ civil_boat{
   }
 
   ship_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{

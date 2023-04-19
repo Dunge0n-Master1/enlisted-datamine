@@ -1,8 +1,8 @@
 require ecs
 require inventory
 require ecs.common
-require EnlistedCamera
-require EnlistedHuman
+require DngCamera
+require DngHuman
 require HumanPhys
 require DagorMath
 require DagorMathUtils

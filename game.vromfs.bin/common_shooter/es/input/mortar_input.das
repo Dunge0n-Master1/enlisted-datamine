@@ -1,9 +1,9 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require common_shooter.events_common_shooter
 require DagorInput
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require game.es.input.input_events
 require common_shooter.es.mortar.mortar_common
@@ -13,7 +13,7 @@ require DagorMathUtils
 require math.base
 require Dacoll
 require Gun
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
 require DagorSystem
 require enlisted.events_enlisted

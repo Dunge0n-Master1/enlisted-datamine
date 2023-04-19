@@ -25,7 +25,6 @@ relativeVelHitShift:p2=300.0, 1000.0
 midArmorPower:p2=4.0, 600.0
 explodeOnRendinst:b=yes
 farArmorPower:p2=4.0, 1000.0
-shellAnimation:t="video/shells_animations/he.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
 fuseDelayDist:r=0.3
 explodeTreshold:r=0.1
@@ -37,11 +36,6 @@ shutterDamageRadius:r=5.0
 shutterAmount:i=80
 shutterArmorPower:r=6.0
 shutterHit:r=6.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_28_38mm_metal_he"
-groundCollisionEffect:t="hit_28_38mm_dirt_he"
-ricochetEffect:t="hit_28_38mm_metal_ap"
-waterCollisionEffect:t="hit_28_38mm_water"
 explosionPatchRadius:r=1.0
 
 stabilityRicochetModifier{
@@ -56,29 +50,6 @@ visual{
   traceFreq:i=1
   tracer:t="37mmLightRed"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_28_38mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_28_38mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

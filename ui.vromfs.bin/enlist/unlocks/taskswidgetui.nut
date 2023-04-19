@@ -23,7 +23,7 @@ let { isUnlockAvailable, getUnlockProgress, unlockProgress
 let { PrimaryFlat, Purchase, soundDefault } = require("%ui/components/textButton.nut")
 let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 
@@ -53,7 +53,7 @@ let function askForRerollConfirm(unlockDesc) {
 }
 
 let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
-  let progress = getUnlockProgress(unlockDesc)
+  let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
   let buttons = []
   if (leftRerolls > 0)
     buttons.append({

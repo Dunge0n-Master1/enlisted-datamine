@@ -9,7 +9,7 @@ let { curCampItems } = require("%enlist/soldiers/model/state.nut")
 let { isProductionCircuit } = require("%dngscripts/appInfo.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkItemCurrency, mkCurrencyImage } = require("%enlist/shop/currencyComp.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { HighlightFailure, MsgMarkedText, TextActive, TextHighlight, textColor
 } = require("%ui/style/colors.nut")
 let { bigPadding, smallPadding, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")

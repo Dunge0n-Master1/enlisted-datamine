@@ -2,7 +2,7 @@ require ecs
 require app
 require math.base
 require GamePhys
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require game.events_game
 

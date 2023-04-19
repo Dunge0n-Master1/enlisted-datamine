@@ -24,7 +24,7 @@ me_410a_1_u4{
         turret:t="turret_03"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"

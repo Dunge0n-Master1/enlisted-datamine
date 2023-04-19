@@ -4,14 +4,14 @@ require app
 require math.base
 require math.random
 require walkerai
-require EnlistedWalkerai
+require DngWalkerai
 require BehNodes
 require game.es.events
 require game.es.ai.walker_common
 require game.utils.team
 require Dacoll
 require DagorDataBlock
-require EnlistedDm
+require DngDm
 require DagorMath
 require common_shooter.events_common_shooter
 require CollRes

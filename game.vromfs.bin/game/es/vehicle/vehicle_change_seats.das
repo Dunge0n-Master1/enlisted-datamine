@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require app
-require EnlistedNet
+require DngNet
 require vehicle
 require math
 require math.base

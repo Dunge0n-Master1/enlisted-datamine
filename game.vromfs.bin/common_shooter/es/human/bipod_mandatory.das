@@ -1,7 +1,7 @@
 require ecs
 require common_shooter.events_common_shooter
 require game.es.events
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 
 [es(REQUIRE=gun__bipodMandatory)]

@@ -11,7 +11,6 @@ local standardPistol = [i(3, ""), i(2, ""), i(19)]
 local weaponToAnimState = freeze({
   defaultPoses = [i(11)]
   unarmedPoses = [i(1, ""), i(2, ""), i(3, ""), i(4, "")]
-  sittingPoses = [i(20)]
   standardRifle
   specificRifle
   specificGun
@@ -197,6 +196,12 @@ local weaponToAnimState = freeze({
   thompson_bsa_1929_gun =      [i(13), i(15)]
   thompson_30_cal_gun =        [i(10), i(24)]
   delisle_commando_carbine_gun = [i(9), i(12), i(13), i(14), i(16)]
+  type_100_rifle_gun =         [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  m1a1_carbine_gun =           [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
+  svd_38_gun =                 [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  lahti_saloranta_m26_gun =    [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  winchester_automatic_rifle_gun = [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  fn_model_1930_gun =          [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
 
   beretta_m38_gun =            [i(9), i(11), i(12), i(15), i(16)]
   beretta_m38_42_gun =         [i(11), i(13), i(15)]
@@ -253,6 +258,8 @@ local weaponToAnimState = freeze({
   as_44_gun =                  [i(9), i(12), i(13), i(16)]
   stl_ppsh_41_phosphated_gun = [i(9), i(13), i(15)]
   thompson_m1928a1_50_drum_gun = [i(9), i(16)]
+  thompson_m1928a1_100_drum_gun = [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  vickers_mk1_no2_gun =        [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
 
   browning_m1918_gun =         [i(12), i(13), i(15), i(16), i(18)]
   charlton_automatic_rifle_gun = [i(13), i(15)]
@@ -270,6 +277,9 @@ local weaponToAnimState = freeze({
   dt_29_gun =                  [i(13), i(15)]
   stl_dt_29_gun =              [i(13), i(15)]
   fg_42_gun =                  [i(12), i(14), i(16)]
+  fg_42_with_grenade_launcher_gun = [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
+  krieghoff_fg_gun =           [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
+  grb_39_gun =                 [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
   rd_44_gun =                  [i(11), i(13), i(15)]
   madsen_gun =                 [i(8), i(15)]
   zb_26_gun =                  [i(8), i(15)]
@@ -279,6 +289,7 @@ local weaponToAnimState = freeze({
   stl_mg_42_handheld_gun =     [i(8), i(12), i(16)]
   type_11_lmg_gun =            [i(8), i(13), i(16)]
   mg_45_gun =                  [i(8), i(12), i(16)]
+  type_4_rifle_gun =           [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
 
   ptrs_41_gun =                [i(7), i(6), i(18), i(16), i(17)]
   stl_ptrs_41_gun =            [i(7), i(6), i(18), i(16), i(17)]
@@ -309,4 +320,34 @@ local weaponToAnimState = freeze({
 //  m1917_enfield_gun =          specificRifle  //wip asset
 })
 
-return weaponToAnimState
+local weaponToSittingAnimState = freeze({
+  defaultPoses =                [i(20)]
+  grb_39_gun =                  [i(112), i(113), i(114)]
+  svd_38_gun =                  [i(112), i(113), i(114)]
+  type_100_rifle_gun =          [i(112), i(113), i(114)]
+  m1a1_carbine_gun =            [i(112), i(113), i(114)]
+  thompson_m1928a1_100_drum_gun = [i(112), i(113), i(114)]
+  krieghoff_fg_gun =            [i(112), i(113), i(114)]
+  lahti_saloranta_m26_gun =     [i(112), i(113), i(114)]
+  type_4_rifle_gun =            [i(112), i(113), i(114)]
+  fg_42_with_grenade_launcher_gun = [i(112), i(113), i(114)]
+  winchester_automatic_rifle_gun = [i(112), i(113), i(114)]
+  fn_model_1930_gun = [i(112), i(113), i(114)]
+  vickers_mk1_no2_gun =         [i(112), i(113), i(114)]
+})
+
+let getMentionedAnimStates = @(weaponToAnimStates) weaponToAnimStates.reduce(function(tbl, val) {
+  val.each(@(id) tbl[id] <- true)
+  return tbl
+}, {})
+
+let allIdleAnims =
+  getMentionedAnimStates(weaponToAnimState)
+  .__merge(getMentionedAnimStates(weaponToSittingAnimState))
+  .keys().sort()
+
+return {
+  weaponToAnimState
+  weaponToSittingAnimState
+  allIdleAnims
+}

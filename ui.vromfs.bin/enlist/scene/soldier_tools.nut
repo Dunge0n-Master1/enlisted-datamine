@@ -214,12 +214,15 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
     return {}
 
   let { guid } = soldier
+  let soldiersDefaultLook = soldiersLook?[guid]
+  if (soldiersDefaultLook == null)
+    return {}
+
   let armyId = getLinkedArmyName(soldier ?? {})
   let faceOverride = getSoldierFace(guid)
 
   // basic soldier look
   local slotTmpls = {}
-  let soldiersDefaultLook = soldiersLook?[guid] ?? {}
   foreach (slotType, templ in soldiersDefaultLook.items) {
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
     if (itemTemplate != null)

@@ -3,7 +3,7 @@ require math.base
 require Plane
 require player
 require DagorInput
-require EnlistedPlane
+require DngPlane
 require game.es.events
 require game.es.input.input_events
 require enlisted.tutorial.tutorial_common

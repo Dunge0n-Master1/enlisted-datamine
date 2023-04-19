@@ -34,7 +34,7 @@ f4f_3_base{
 
   _group{
     _tags:t="sound"
-    plane_engine_sound__engine:t="engine11"
+    plane_engine_sound__engine:t="engine18"
   }
 
   "plane_hit_sound__canopyNodes:list<t>"{

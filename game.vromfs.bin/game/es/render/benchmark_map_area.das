@@ -2,7 +2,7 @@ require ecs
 require app
 require DagorTime
 require Dacoll
-require EnlistedCamera
+require DngCamera
 require DagorMath
 require DagorSystem
 require game.es.events

@@ -2,7 +2,7 @@ module repair_common shared
 
 require ecs
 require dm
-require EnlistedDm
+require DngDm
 
 def repair_vehicle(recovery_ratio : float;
                    var meta_parts_state : MetaPartsState&;

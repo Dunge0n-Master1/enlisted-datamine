@@ -1,9 +1,9 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require enlisted.events_enlisted
 require enlisted.game.es.squad_personal_order_common
 require enlisted.game.es.context_command_common
-require EnlistedNet
+require DngNet
 require danetlibs.native_dasevents.main.native_events
 require game.es.squad_order_common
 

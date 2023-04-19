@@ -1,8 +1,12 @@
 base_cannon{
   _extends:t="base_cannon_no_phys"
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
@@ -329,6 +333,7 @@ base_movable_cannon{
   _extends:t="nodoor_vehicle_seat_sound"
   cockpit__cameraDir:p3=1.0, 0.0, 0.0
   _tracked:t="cockpit__eid"
+  collision_physMatId:i=-1
   vehicle_seats__restrictToGroup:i64=0
   _replicated:t="vehicle_seats__restrictToGroup"
   pair_collision__tag:t="collidableToVehicle"
@@ -349,6 +354,9 @@ base_movable_cannon{
   }
 
   vehicle_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
@@ -432,6 +440,7 @@ base_ai_gunner_turret{
   _extends:t="base_dm_parts"
   _extends:t="base_turret_controls"
   hitpoints__hp:r=100.0
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
   animchar__updatable:b=yes
   animchar__res:t=""
@@ -456,6 +465,9 @@ base_ai_gunner_turret{
   grid_obj__fixedTmScale:r=-1.0
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{

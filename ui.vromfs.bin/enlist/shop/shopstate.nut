@@ -8,6 +8,7 @@ let { curArmy, armySquadsById, armyItemCountByTpl
 let { shopItems } = require("shopItems.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let { curUnseenAvailShopGuids, notOpenedShopItems } = require("armyShopState.nut")
 
 
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
@@ -120,38 +121,109 @@ let function hasBaseOrderInPrice(shopItem) {
   return false
 }
 
+let function hasPriceContainsGold(shopItem) {
+  let { price = 0, currencyId = "" } = shopItem?.shopItemPrice
+  return currencyId == "EnlistedGold" && price > 0
+}
 
-let hasSquadsInShopItem = @(shopItem) (shopItem?.squads ?? []).len() > 0
+let function hasPriceContainsOrders(shopItem) {
+  let { itemCost = {} } = shopItem
+  return itemCost.len() > 0
+}
+
+let function isExternalPurchase(shopItem) {
+  let { shop_price = 0, shop_price_curr = "", storeId = "", devStoreId = "" } = shopItem
+  return (shop_price_curr != "" && shop_price > 0) //PC type
+    || storeId != "" || devStoreId != ""//Consoles type
+}
+
 
 let armyGroups = [
   {
-    id = "squads"
-    filterFunc = @(shopItem) hasSquadsInShopItem(shopItem)
+    id = "premium"
+    reqFeatured = true
+    filterFunc = @(shopItem) !hasPriceContainsOrders(shopItem)
+      && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem))
   }
   {
-    id = "other"
-    filterFunc = @(shopItem) !hasSquadsInShopItem(shopItem) && !hasBaseOrderInPrice(shopItem)
+    id = "battlepass"
+    filterFunc = @(shopItem)
+      hasPriceContainsOrders(shopItem) && !hasBaseOrderInPrice(shopItem)
   }
 ]
 
-let sortFunc = @(a,b)
+
+let sortItemsFunc = @(a, b)
   (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
 
-let curGroupIdx = mkWatched(persist, "curGroupIdx", 0)
+let sortFeaturedFunc = @(a, b)
+  (a?.featuredWeight ?? 0) <=> (b?.featuredWeight ?? 0)
+    || (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
 
 
-let curArmyItemsByGroup = Computed(function() {
+let curGroupIdx = Watched(0)
+let curFeaturedIdx = Watched(0)
+
+
+let curItemsByGroup = Computed(function() {
   let prefilteredItems = curArmyItemsPrefiltered.value
-  let res = armyGroups.map(@(group) {
+  let res = {}
+  foreach (group in armyGroups)
+    res[group.id] <- prefilteredItems.filter(group.filterFunc).values().sort(sortItemsFunc)
+
+  return res
+})
+
+
+let curShopItemsByGroup = Computed(function() {
+  let items = curItemsByGroup.value
+  return armyGroups.map(@(group) {
     id = group.id
-    goods = prefilteredItems.filter(group.filterFunc).values().sort(sortFunc)
+    goods = (items?[group.id] ?? []).filter(@(item) (item?.featuredWeight ?? 0) == 0)
   })
+})
+
+
+let maxDiscountByGroup = Computed(@() curItemsByGroup.value
+  .map(@(group) group.reduce(@(r, v) max(r, v?.hideDiscount ? 0 : v?.discountInPercent ?? 0), 0)))
+
+let specialOfferByGroup = Computed(@() curItemsByGroup.value
+  .map(@(group) group
+    .findvalue(@(v) (v?.discountInPercent ?? 0) > 0 && v?.showSpecialOfferText) != null))
+
+let curFeaturedByGroup = Computed(@() curItemsByGroup.value
+  .map(@(group) group
+    .filter(@(item) (item?.featuredWeight ?? 0) > 0)
+    .sort(sortFeaturedFunc)
+  ))
+
+
+let curShopDataByGroup = Computed(function() {
+  let curUnseen = curUnseenAvailShopGuids.value
+  let curUnopened = {}
+  foreach (guid in notOpenedShopItems.value)
+    curUnopened[guid] <- true
+
+  let maxDiscounts = maxDiscountByGroup.value
+  let specialOffer = specialOfferByGroup.value
+  let res = {}
+  foreach (id, group in curItemsByGroup.value)
+    res[id] <- {
+      hasUnseen = group.findvalue(@(v) v.guid in curUnseen) != null
+      unopened = group.filter(@(v) v.guid in curUnopened).map(@(v) v.guid)
+      discount = maxDiscounts?[id] ?? 0
+      showSpecialOffer = specialOffer?[id] ?? false
+    }
+
   return res
 })
 
 
 return {
-  curArmyItemsByGroup
+  curShopItemsByGroup
+  curShopDataByGroup
+  curFeaturedByGroup
   curGroupIdx
+  curFeaturedIdx
   shopConfig
 }

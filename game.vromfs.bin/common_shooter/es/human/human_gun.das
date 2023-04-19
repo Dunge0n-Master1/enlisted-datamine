@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require app
-require EnlistedNet
+require DngNet
 require math
 require math.base
 require common_shooter.events_common_shooter
@@ -13,15 +13,15 @@ require DagorSystem
 require DagorMath
 require DagorDataBlock
 require Gun
-require EnlistedPhys
-require EnlistedWeapon
+require DngPhys
+require DngWeapon
 require AnimV20
 require HumanPhys
 require PhysDecl
 require PhysVars
 require AnimatedPhys
 require DaWeapons
-require EnlistedHuman
+require DngHuman
 require DagorMath
 require math.base
 require ecs.safe
@@ -85,7 +85,7 @@ def human_gun_es(evt : CmdWeapPhysUpdate;
   let gloc = evt.gloc
   let shoot = gctrl.shoot && !gun__isOverheat
   // TODO: move to separate server system
-  human_gun_update_reload(gun, eid, gun__manuallyUnloaded, gctrl.shoot, isForReal, gun__ammo, ownerEid, (atTime - dt))
+  try_reload_empty_gun(gun, eid, gun__manuallyUnloaded, gctrl.shoot, isForReal, gun__ammo, ownerEid, (atTime - dt))
 
   let rndSeed = phys_time_to_seed(atTime)
   using() <| $(var gctr : GunControls#)
@@ -210,6 +210,16 @@ def human_gun_reset_reload_anim_on_vehicle_enter_client_es(evt : EventEnterVehic
                                                            var anim_phys : AnimatedPhys)
   reset_reload_anim(gun_anim__reloadVarId, gun_anim__singleReloadVarId, phys_vars, animchar, anim_phys)
 
+
+def approach_var(var phys_vars : PhysVars&;
+                 var_id : int;
+                 target_value : float;
+                 dt : float;
+                 viscosity : float)
+  let new_value = approach(getVar(phys_vars, var_id), target_value, dt, viscosity)
+  phys_vars |> setVar(var_id, new_value)
+
+
 [es(tag=gameClient, before=before_animchar_update_sync)]
 def human_gun_phys_vars_es(info : ParallelUpdateFrameDelayed;
                            reye_offset__fwd0Id : int;
@@ -231,40 +241,41 @@ def human_gun_phys_vars_es(info : ParallelUpdateFrameDelayed;
     return
 
   let gun = human_weap__currentGunSlot >= 0 ? human_weap__gunEids[human_weap__currentGunSlot] : INVALID_ENTITY_ID
-  query(gun) <| $ [es] (gun_anim_var__reyeOffsetFwd0 : float;
-                        gun_anim_var__gunOffsetAlong : float;
-                        gun_anim_var__gunOffsetAcross : float;
-                        gun_anim_var__gunOffsetUp : float;
-                        gun_tps_anim_var__reyeOffsetFwd0 : float = 0.;
-                        gun_tps_anim_var__gunOffsetAlong : float = -0.1;
-                        gun_tps_anim_var__gunOffsetAcross : float = 0.05;
-                        gun_tps_anim_var__gunOffsetUp : float = -0.2;
+  query(gun) <| $ [es] (gun_anim_var__defReyeOffsetFwd0 : float;
+                        gun_anim_var__defGunOffsetAlong : float;
+                        gun_anim_var__defGunOffsetAcross : float;
+                        gun_anim_var__defGunOffsetUp : float;
+                        gun_anim_var__tpsReyeOffsetFwd0 : float = 0.;
+                        gun_anim_var__tpsGunOffsetAlong : float = -0.1;
+                        gun_anim_var__tpsGunOffsetAcross : float = 0.05;
+                        gun_anim_var__tpsGunOffsetUp : float = -0.2;
+                        gun_anim_var__fpsReyeOffsetFwd0 : float const?;
+                        gun_anim_var__fpsGunOffsetAlong : float const?;
+                        gun_anim_var__fpsGunOffsetAcross : float const?;
+                        gun_anim_var__fpsGunOffsetUp : float const?;
                         gunAnimOffsetAlwaysInAim : Tag const?)
     assume isAim = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_AIM)
     assume isCrouch = human_net_phys__isCrouch
     assume isCrawl = human_net_phys__isCrawl
-    if !isAim && !(isCrouch || isCrawl) && (hero == null || isTpsView) && !bipod__enabled && gunAnimOffsetAlwaysInAim == null
-      assume fwd0 = approach(getVar(phys_vars, reye_offset__fwd0Id), gun_tps_anim_var__reyeOffsetFwd0, info.dt, gun_offset__tau)
-      assume across = approach(getVar(phys_vars, gun_offset__acrossId), gun_tps_anim_var__gunOffsetAcross, info.dt, gun_offset__tau)
-      assume up = approach(getVar(phys_vars, gun_offset__upId), gun_tps_anim_var__gunOffsetUp, info.dt, gun_offset__tau)
-      assume along = approach(getVar(phys_vars, gun_offset__alongId), gun_tps_anim_var__gunOffsetAlong, info.dt, gun_offset__tau)
-
-      setVar(phys_vars, reye_offset__fwd0Id, fwd0)
-      setVar(phys_vars, gun_offset__acrossId, across)
-      setVar(phys_vars, gun_offset__upId, up)
-      setVar(phys_vars, gun_offset__alongId, along)
+    let isTpsViewOnSoldier = hero == null || isTpsView
+    if !isAim && !(isCrouch || isCrawl) && isTpsViewOnSoldier && !bipod__enabled && gunAnimOffsetAlwaysInAim == null
+      phys_vars |> approach_var(reye_offset__fwd0Id, gun_anim_var__tpsReyeOffsetFwd0, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__alongId, gun_anim_var__tpsGunOffsetAlong, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__acrossId, gun_anim_var__tpsGunOffsetAcross, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__upId, gun_anim_var__tpsGunOffsetUp, info.dt, gun_offset__tau)
       return
 
-    let fwd0 = approach(getVar(phys_vars, reye_offset__fwd0Id), gun_anim_var__reyeOffsetFwd0, info.dt, gun_offset__tau)
-    let across = approach(getVar(phys_vars, gun_offset__acrossId), gun_anim_var__gunOffsetAcross, info.dt, gun_offset__tau)
-    let up = approach(getVar(phys_vars, gun_offset__upId), gun_anim_var__gunOffsetUp, info.dt, gun_offset__tau)
-    let along = approach(getVar(phys_vars, gun_offset__alongId), gun_anim_var__gunOffsetAlong, info.dt, gun_offset__tau)
+    if !isTpsViewOnSoldier
+      phys_vars |> approach_var(reye_offset__fwd0Id, gun_anim_var__fpsReyeOffsetFwd0 ?? gun_anim_var__defReyeOffsetFwd0, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__alongId, gun_anim_var__fpsGunOffsetAlong ?? gun_anim_var__defGunOffsetAlong, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__acrossId, gun_anim_var__fpsGunOffsetAcross ?? gun_anim_var__defGunOffsetAcross, info.dt, gun_offset__tau)
+      phys_vars |> approach_var(gun_offset__upId, gun_anim_var__fpsGunOffsetUp ?? gun_anim_var__defGunOffsetUp, info.dt, gun_offset__tau)
+      return
 
-    setVar(phys_vars, reye_offset__fwd0Id, fwd0)
-    setVar(phys_vars, gun_offset__acrossId, across)
-    setVar(phys_vars, gun_offset__upId, up)
-    setVar(phys_vars, gun_offset__alongId, along)
-
+    phys_vars |> approach_var(reye_offset__fwd0Id, gun_anim_var__defReyeOffsetFwd0, info.dt, gun_offset__tau)
+    phys_vars |> approach_var(gun_offset__acrossId, gun_anim_var__defGunOffsetAcross, info.dt, gun_offset__tau)
+    phys_vars |> approach_var(gun_offset__alongId, gun_anim_var__defGunOffsetAlong, info.dt, gun_offset__tau)
+    phys_vars |> approach_var(gun_offset__upId, gun_anim_var__defGunOffsetUp, info.dt, gun_offset__tau)
 
 [es(tag=(gameClient, net), track=gun__firingModeIndex)]
 def human_gun_update_firing_mode_client_es(evt : Event;
@@ -287,10 +298,10 @@ def human_gun_update_firing_mode_name_es(evt : Event;
 [es(tag=server, on_appear)]
 def human_gun_init_offsets_es(evt : Event;
                               gun__propsId : int;
-                              var gun_anim_var__reyeOffsetFwd0 : float&;
-                              var gun_anim_var__gunOffsetAlong : float&;
-                              var gun_anim_var__gunOffsetAcross : float&;
-                              var gun_anim_var__gunOffsetUp : float&;
+                              var gun_anim_var__defReyeOffsetFwd0 : float&;
+                              var gun_anim_var__defGunOffsetAlong : float&;
+                              var gun_anim_var__defGunOffsetAcross : float&;
+                              var gun_anim_var__defGunOffsetUp : float&;
                               var gun__animOffset : float3&)
   gun_to_anim_get_props(gun__propsId) <| $(p : GunToAnimProps)
     assume ownerAnimVars = p.ownerAnimVars
@@ -299,10 +310,10 @@ def human_gun_init_offsets_es(evt : Event;
     gun__animOffset.y =  ownerAnimVars |> datablock_getReal("gun_offset_up", 0.0)
     gun__animOffset.z = -ownerAnimVars |> datablock_getReal("gun_offset_across", 0.0)
 
-    gun_anim_var__reyeOffsetFwd0 = datablock_getReal(p.ownerAnimVars, "reye_offset_fwd0", 0f)
-    gun_anim_var__gunOffsetAcross = datablock_getReal(p.ownerAnimVars, "gun_offset_across", 0f)
-    gun_anim_var__gunOffsetUp = datablock_getReal(p.ownerAnimVars, "gun_offset_up", 0f)
-    gun_anim_var__gunOffsetAlong = datablock_getReal(p.ownerAnimVars, "gun_offset_along", 0f)
+    gun_anim_var__defReyeOffsetFwd0 = datablock_getReal(p.ownerAnimVars, "reye_offset_fwd0", 0f)
+    gun_anim_var__defGunOffsetAcross = datablock_getReal(p.ownerAnimVars, "gun_offset_across", 0f)
+    gun_anim_var__defGunOffsetUp = datablock_getReal(p.ownerAnimVars, "gun_offset_up", 0f)
+    gun_anim_var__defGunOffsetAlong = datablock_getReal(p.ownerAnimVars, "gun_offset_along", 0f)
 
 [es(REQUIRE=human, on_appear, before=human_gun_phys_vars_es)]
 def human_gun_offset_var_init(evt : Event;

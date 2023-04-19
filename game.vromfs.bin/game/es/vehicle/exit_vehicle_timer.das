@@ -1,8 +1,9 @@
 require ecs
 require game.es.events
 require game.es.vehicle.vehicle_seats_common
+require game.es.vehicle.vehicle_events
 
-[es(tag=server, no_order)]
+[es(no_order)]
 def exit_vehicle_timer_es(info : UpdateStageInfoAct;
                           eid : EntityId;
                           possessedByPlr : EntityId;
@@ -15,3 +16,4 @@ def exit_vehicle_timer_es(info : UpdateStageInfoAct;
   elif info.curTime >= exit_vehicle__atTime
     exit_vehicle_now(eid, human_anim__vehicleSelected)
     exit_vehicle__atTime = -1.f
+

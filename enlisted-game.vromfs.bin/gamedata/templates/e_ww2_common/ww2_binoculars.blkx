@@ -1,9 +1,9 @@
 binocular_cockpit_base{
   _extends:t="base_cockpit"
   animchar__res:t="binocular_visor_char"
-  cockpit__zoomTimeMul:r=1.3
+  cockpit__forwardOffsetTimeMul:r=1.3
   cockpit__cameraTimeMul:r=1.5
-  cockpit__minZoom:r=-0.1
+  cockpit__minForwardOffset:r=-0.1
   cockpit__offset:p3=0.0, 0.0, 0.3
   cockpit__scale:p3=0.3, 0.3, 0.3
 
@@ -32,16 +32,16 @@ binocular_cockpit_base{
 binocular_base_item{
   _extends:t="item_gun"
   _extends:t="disable_item_drop"
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="rifle_ww2_preset"
   _extends:t="scope_gunmod"
   _extends:t="gun_with_additional_head_angles"
   animchar__res:t="ussr_binoculars_char"
   collres__res:t="ussr_binoculars_collision"
-  gun_tps_anim_var__reyeOffsetFwd0:r=0.0
-  gun_tps_anim_var__gunOffsetAlong:r=0.01
-  gun_tps_anim_var__gunOffsetAcross:r=-0.052
-  gun_tps_anim_var__gunOffsetUp:r=0.16
+  gun_anim_var__tpsReyeOffsetFwd0:r=0.0
+  gun_anim_var__tpsGunOffsetAlong:r=0.01
+  gun_anim_var__tpsGunOffsetAcross:r=-0.052
+  gun_anim_var__tpsGunOffsetUp:r=0.16
   item__iconRoll:r=90.0
   item__iconScale:r=0.9
   item__iconYaw:r=0.0

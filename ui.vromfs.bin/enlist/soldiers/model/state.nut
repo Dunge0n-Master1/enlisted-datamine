@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let json = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { profile } = require("%enlist/meta/servProfile.nut")
+let servProfile = require("%enlist/meta/servProfile.nut")
 let { endswith } = require("string")
 let { gameProfile, allArmiesInfo } = require("config/gameProfile.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
@@ -14,7 +14,7 @@ let { add_army_exp, reset_profile, update_profile, set_vehicle_to_squad, drop_it
   soldiers_regenerate_view, add_squad, add_all_squads, add_soldier, add_items, add_items_by_type,
   check_purchases, get_shop_item, remove_squad, add_outfit
 } = require("%enlist/meta/clientApi.nut")
-let { armies, curArmiesList, itemsByArmies, curArmiesListExt,
+let { armies, curArmiesList, itemsByArmies, curArmiesListExt, commonArmy,
   curCampItems, soldiersByArmies, curCampSoldiers, squadsByArmies, curCampSquads, campItemsByLink
 } = require("%enlist/meta/profile.nut")
 let { getObjectsByLinkSorted, getObjectsTableByLinkType, getLinkedSquadGuid, getItemIndex
@@ -122,6 +122,7 @@ let function mixSquadData(config, presentation) {
     capacity = config?.size ?? 0
     squadType = config?.squadType ?? "unknown"
     vehicleType = config?.vehicleType ?? ""
+    isParatroopers = config?.isParatroopers
     icon = presentation?.icon ?? ""
     image = presentation?.image ?? ""
     nameLocId = presentation?.nameLocId ?? "squad/defaultName"
@@ -237,7 +238,19 @@ let chosenSquadsByArmy = Computed(function() {
 
 let curChoosenSquads = Computed(@() chosenSquadsByArmy.value?[curArmy.value] ?? [])
 
+let curForcedSquadId = Watched(null)
+let function setCurForcedSquadId(squadId) {
+  curForcedSquadId(squadId)
+}
+let function clearCurForcedSquadId() {
+  curForcedSquadId(null)
+}
+
 let curSquadId = Computed(function() {
+  let forcedSquadId = curForcedSquadId.value
+  if (forcedSquadId != null)
+    return forcedSquadId
+
   local squadId = null
   let choosenSquads = curChoosenSquads.value ?? []
   if (choosenSquads.len() > 0) {
@@ -304,7 +317,7 @@ let itemCountByArmy = Computed(function() {
 
 let armyItemCountByTpl = Computed(function() {
   let curArmyId = curArmy.value
-  let commonArmyId = gameProfile.value?.commonArmy
+  let commonArmyId = commonArmy.value
   let res = {}
   foreach (armyId, armyData in itemCountByArmy.value) {
     if (armyId != curArmyId && armyId != commonArmyId)
@@ -362,7 +375,7 @@ let function dumpProfile() {
     return
 
   let path = $"enlisted_profile_{userId}.json"
-  json.save(path, profile.value, { logger = log_for_user })
+  json.save(path, servProfile.map(@(w) w.value), { logger = log_for_user })
   console_print($"Current user profile saved to {path}")
 }
 
@@ -487,7 +500,10 @@ return {
   curCampSquads
   curCampItems
   curSquadId
+  curForcedSquadId
   setCurSquadId
+  setCurForcedSquadId
+  clearCurForcedSquadId
   curUnlockedSquads
   allUnlockedSquadsSoldiers
   curUnlockedSquadsSoldiers

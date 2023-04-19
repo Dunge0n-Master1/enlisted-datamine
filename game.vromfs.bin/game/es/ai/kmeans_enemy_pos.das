@@ -3,6 +3,7 @@ require DagorMath
 require DagorRandom
 require game.utils.team
 require math
+require math.base
 
 struct MeanPos
   eid : EntityId
@@ -10,14 +11,24 @@ struct MeanPos
   pos : float3
   accumPos : float3
   amountOfPoints : int
+  noiseRadius : float2
+
+def random_circle_offset(min_max_radius : float2)
+  let rndAngle  = rnd_float(0.0, TWOPI)
+  let rndRadius = rnd_float(min_max_radius.x, min_max_radius.y)
+  var cosAngle = 0.
+  var sinAngle = 0.
+  sincos(rndAngle, sinAngle, cosAngle)
+  return float3(cosAngle * rndRadius, 0., sinAngle * rndRadius)
 
 [es(tag=server, after=human_phys_es)]
 def kmeans_enemy_pos(act : UpdateStageInfoAct)
   var posCache : array<MeanPos>
   query <| $ [es] (eid : EntityId;
                    mean_pos__pos : float3&;
-                   mean_pos__team : int)
-    posCache |> emplace([[MeanPos eid=eid, team=mean_pos__team, pos=mean_pos__pos]])
+                   mean_pos__team : int;
+                   mean_pos__noiseRadius : float2 = float2())
+    posCache |> emplace([[MeanPos eid=eid, team=mean_pos__team, pos=mean_pos__pos, noiseRadius=mean_pos__noiseRadius]])
   if posCache |> empty()
     return
   var enemyPoints : array<tuple<team : int; offset : float3> >
@@ -40,7 +51,9 @@ def kmeans_enemy_pos(act : UpdateStageInfoAct)
       posCache[closest].amountOfPoints++
   for pos in posCache
     if pos.amountOfPoints > 0
-      let meanPos = pos.accumPos * safeinv(float(pos.amountOfPoints))
+      var meanPos = pos.accumPos * safeinv(float(pos.amountOfPoints))
+      if pos.noiseRadius.y > 0.0
+        meanPos += random_circle_offset(pos.noiseRadius)
       query(pos.eid) <| $ [es] (var mean_pos__pos : float3&)
         mean_pos__pos = meanPos
     elif !(enemyPoints |> empty()) // assign to random point

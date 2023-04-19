@@ -5,7 +5,7 @@ require game.es.input.input_events
 require game.es.input.input_common
 require DagorInput
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.action_common
 
 

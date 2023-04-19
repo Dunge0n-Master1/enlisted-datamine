@@ -35,7 +35,7 @@ let function colPart(delta) {
 
 let colFullMin = @(cols) colFull(max(cols, cols + columnsCount - DEF_COLLS_COUNT))
 
-let accentColor = 0xFFF8BD41
+let accentColor = 0xFFFAFAFA
 let footerContentHeight = colPart(0.58) + safeAreaVerPadding.value
 
 let lightDefBgColor = 0xFF42516C
@@ -50,6 +50,7 @@ let hoverAvailSlotBgImg  = mkDiagonalColoredGradient(0xFF7EA367, 0xFF3A4B2D)
 let defLockedSlotBgImg   = mkDiagonalColoredGradient(0xFF582727, 0xFF582727)
 let hoverLockedSlotBgImg = mkDiagonalColoredGradient(0xFF8D3434, 0xFF8D3434)
 let levelNestGradient    = mkColoredGradientX(0x00FFFFFF, 0x22FFFFFF, 6, false)
+let hoverLevelNestGradient = mkColoredGradientX(0x00000000, 0x33555555, 6, false)
 
 
 let defVertGradientImg = mkColoredGradientY(lightDefBgColor, darkDefBgColor)
@@ -59,6 +60,14 @@ let hoverHorGradientImg = mkColoredGradientX(lightHoverBgColor, darkHoverBgColor
 
 
 let activeTabBgImg = mkColoredGradientY(0xFF384560, 0xFF262940)
+
+let lineGradient = mkColoredGradientX(0x5AFFFFFF, 0x00FFFFFF, 12, false)
+let highlightLine = @(isTop = true) {
+  rendObj = ROBJ_IMAGE
+  size = [flex(), colPart(0.064)]
+  image = lineGradient
+  vplace = isTop ? ALIGN_TOP : ALIGN_BOTTOM
+}
 
 
 const DEF_APPEARANCE_TIME = 0.4
@@ -88,6 +97,7 @@ return {
   hoverVertGradientImg
   defHorGradientImg
   hoverHorGradientImg
+  highlightLine
 
   // Gaps
   columnGap
@@ -107,16 +117,26 @@ return {
   navHeight = colPart(1.2)
   fastAccessIconHeight = colPart(0.52)
   footerContentHeight
-  commonWndPadding = [0, sidePadding, footerContentHeight, sidePadding]
 
-
-  panelBgColor  = 0xFF132438
-  transpPanelBgColor = 0x990A131A
+  defItemBlur = 0xFFA0A2A3
+  defSlotBgColor = 0x99303841
+  hoverSlotBgColor = 0xFFA0A2A3
+  reseveSlotBgColor = 0xFF424C37
+  defLockedSlotBgColor = 0xFF402729
+  hoverLockedSlotBgColor = 0xFF624A4D
+  enableItemIdleBgColor  = 0x99596756
+  panelBgColor  = 0xFF313C45
+  transpPanelBgColor = 0xAA313C45
+  hoverPanelBgColor = 0xFF59676E
+  darkPanelBgColor = 0xFF13181F
+  transpBgColor = 0x88111111
+  fullTransparentBgColor = 0x00000000
   hoverBgColor  = 0xFF19304b
   disabledBgColor = 0xFF292E33
   blockedBgColor = 0xFFD6603C
   activeBgColor = accentColor
   accentColor
+  briteAccentColor = 0xFFFCB11D
   topWndBgColor = 0xDD090929
   bottomWndBgColor = 0xDD220202
   discountBgColor = 0xFFF8BD41
@@ -125,29 +145,29 @@ return {
   selectedBgColor = 0xFFF8BD41
   lightDefBgColor
   darkDefBgColor
+  lightHoverBgColor
 
   //BdColor
-  defBdColor    = 0xFF45545C
+  fadeBdColor   = 0xFF1C2226
+  defBdColor    = 0xFFB3BDC1
   hoverBdColor  = 0xFF132438
   activeBdColor = 0xFF132438
   blinkBdColor  = 0xFFABB3BA
 
   // TxtColor
-  disabledTxtColor = 0xFF545A5D
+  disabledTxtColor = 0xFF4B575D
   weakTxtColor  = 0xFFA4A4A4
-  defTxtColor   = 0xFFC4C4C4
+  defTxtColor   = 0xFFB3BDC1
   hoverTxtColor = 0xFFD4D4D4
   titleTxtColor = 0xFFFAFAFA
-  darkTxtColor = 0xFF010101
+  hoverSlotTxtColor = 0xFF404040
+  neutralTxtColor = 0xFFB3BDC1
+  darkTxtColor = 0xFF313841
   squadInfoColor = 0xFF8C909B
   attentionTxtColor = 0xFFFFBE30
   negativeTxtColor = 0xFFEE5656
   completedTxtColor = 0xFF2968E9
-
-  // ItemSlots
-  lockedItemIdleBgColor  = 0xFF312424
-  lockedItemHoverBgColor = 0xFF3A2828
-  debugItemBgColor       = 0xFF282939
+  deadTxtColor = 0xAA101010
 
   // soldier and squad slot color
   defSlotBgImg
@@ -157,6 +177,7 @@ return {
   defLockedSlotBgImg
   hoverLockedSlotBgImg
   levelNestGradient
+  hoverLevelNestGradient
   activeTabBgImg
   haveLevelColor = 0xFFF8BD41
   gainLevelColor = 0xFFFFCE68

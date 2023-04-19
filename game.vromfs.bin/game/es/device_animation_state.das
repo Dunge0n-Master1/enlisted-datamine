@@ -1,9 +1,9 @@
 require ecs
 require app
 require PhysVars
-require EnlistedHumanAnim
+require DngHumanAnim
 require game.es.device_state_common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require AnimV20
 require AnimatedPhys

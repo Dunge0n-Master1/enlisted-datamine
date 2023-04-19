@@ -2,7 +2,7 @@ require DagorConsole
 require DagorRandom
 require DagorSystem
 require ecs
-require EnlistedPhys
+require DngPhys
 
 [es(tag=server, no_order)]
 def try_lower_tickrate_randomly(info : UpdateStageInfoAct;

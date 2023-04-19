@@ -13,15 +13,15 @@ let MINES_ORDER = {
 }
 
 let mineIcon = memoize(function(gType, size) {
-  return Picture("ui/skin#{0}:{1}:{2}:K"
-    .subst(mineIconNames?[gType] ?? mineIconNames.antitank_mine, size[0], size[1]))
+  return Picture("ui/skin#{0}:{1}:{1}:K"
+    .subst(mineIconNames?[gType] ?? mineIconNames.antitank_mine, size))
 })
 
-let mkMineIcon = memoize(@(mineType, size) mineType == null ? null : {
+let mkMineIcon = memoize(@(mineType, size, color) mineType == null ? null : {
   rendObj = ROBJ_IMAGE
   size = [size, size]
-  image = mineIcon(mineType, [size, size])
-  tint = Color(220, 220, 220)
+  image = mineIcon(mineType, size)
+  color
 })
 
 return {

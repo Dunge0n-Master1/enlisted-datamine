@@ -1,7 +1,7 @@
 require ecs
 require vehicle
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
 require DagorMathUtils

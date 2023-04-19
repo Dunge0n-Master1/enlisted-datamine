@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require sound_utils_net.modules.sound_utils_net_events
 require human_sounds.modules.human_voice_effect_common

@@ -1,12 +1,12 @@
 require game.es.events
 require ecs
 require app
-require EnlistedNet
+require DngNet
 require math
 require math.base
 require inventory
 require game.utils.hero
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require AnimV20
 require GeomNodeTree
@@ -34,7 +34,7 @@ let REPEAT_ANIM_KEYS = [[string[]
 [es(on_appear)]
 def hit_reaction_init(evt : Event;
                       eid : EntityId;
-                      animchar : AnimcharBaseComponent;
+                      var animchar : AnimcharBaseComponent;
                       collres : CollisionResource;
                       hit_reaction__anims : Object;
                       hit_reaction__animNodeDefault : string = "default";
@@ -42,7 +42,7 @@ def hit_reaction_init(evt : Event;
                       var hit_reaction__fifoNodeIdx : int&;
                       var hit_reaction__animNodeIdxs : IntList&;
                       var hit_reaction__repeatNodeIdxs : int2&)
-  var animGraph = animchar.animGraph
+  assume animGraph = animchar.animGraph
   if animGraph != null
     let fifoNodeIdx = *animGraph |> anim_graph_getBlendNodeId(hit_reaction__fifoNode)
     assume fifoNode = *animGraph |> anim_graph_getBlendNodePtr(fifoNodeIdx)
@@ -92,7 +92,7 @@ def hit_reaction_init(evt : Event;
 
 
 def hit_reaction_impl(eid : EntityId;
-                      animchar : AnimcharBaseComponent;
+                      var animchar : AnimcharBaseComponent;
                       human_net_phys__isCrawl : bool;
                       hit_reaction__fifoNodeIdx : int;
                       hit_reaction__animNodeIdxs : IntList&;
@@ -101,7 +101,7 @@ def hit_reaction_impl(eid : EntityId;
                       damageType : int;
                       hit_dir : float3;
                       collNodeId : int)
-  var animGraph = animchar.animGraph
+  assume animGraph = animchar.animGraph
   if animGraph != null
     let animNodesCount = length(hit_reaction__animNodeIdxs)
     let animDirsCount = length(ANIM_DIR_KEYS)
@@ -159,45 +159,26 @@ def hit_reaction_impl(eid : EntityId;
 
 
 [es(tag=render, tag=gameClient)]
-def human_hit_reaction_projectile_client_es(evt : EventOnProjectileHitClient;
-                                            eid : EntityId;
-                                            animchar : AnimcharBaseComponent;
-                                            human_net_phys__isCrawl : bool = false;
-                                            hit_reaction__fifoNodeIdx : int;
-                                            hit_reaction__animNodeIdxs : IntList&;
-                                            hit_reaction__repeatNodeIdxs : int2;
-                                            transform : float3x4;
-                                            human_hit_reaction__use : bool)
+def human_hit_reaction_client_es(evt : CmdOnHeroHit;
+                                 eid : EntityId;
+                                 var animchar : AnimcharBaseComponent;
+                                 human_net_phys__isCrawl : bool = false;
+                                 hit_reaction__fifoNodeIdx : int;
+                                 hit_reaction__animNodeIdxs : IntList&;
+                                 hit_reaction__repeatNodeIdxs : int2;
+                                 transform : float3x4;
+                                 human_hit_reaction__use : bool)
   if human_hit_reaction__use
-    let hitInfo = evt.projHitInfo
     hit_reaction_impl(
       eid, animchar, human_net_phys__isCrawl, hit_reaction__fifoNodeIdx,
       hit_reaction__animNodeIdxs, hit_reaction__repeatNodeIdxs,
-      transform, int(DamageType DM_PROJECTILE), hitInfo.dir, hitInfo.isect.collNodeId)
-
-
-[es(tag=render, tag=gameClient)]
-def human_hit_reaction_melee_client_es(evt : EventOnMeleeHitClient;
-                                       eid : EntityId;
-                                       animchar : AnimcharBaseComponent;
-                                       human_net_phys__isCrawl : bool = false;
-                                       hit_reaction__fifoNodeIdx : int;
-                                       hit_reaction__animNodeIdxs : IntList&;
-                                       hit_reaction__repeatNodeIdxs : int2;
-                                       transform : float3x4;
-                                       human_hit_reaction__use : bool)
-  if human_hit_reaction__use
-    let damageDesc = evt.damageDesc
-    hit_reaction_impl(
-      eid, animchar, human_net_phys__isCrawl, hit_reaction__fifoNodeIdx,
-      hit_reaction__animNodeIdxs, hit_reaction__repeatNodeIdxs,
-      transform, int(damageDesc.damageType), damageDesc.hitDir, int(damageDesc.collNodeId))
+      transform, evt.damageType, evt.hitDir, evt.collNodeId)
 
 
 [es(tag=render, tag=server)]
 def human_hit_reaction_local_es(evt : EventOnEntityHit;
                                 eid : EntityId;
-                                animchar : AnimcharBaseComponent;
+                                var animchar : AnimcharBaseComponent;
                                 human_net_phys__isCrawl : bool = false;
                                 hit_reaction__fifoNodeIdx : int;
                                 hit_reaction__animNodeIdxs : IntList&;

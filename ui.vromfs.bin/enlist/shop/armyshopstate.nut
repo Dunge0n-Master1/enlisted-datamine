@@ -18,7 +18,8 @@ let { curArmyData, curArmy, curCampItemsCount, armySquadsById, armyItemCountByTp
 } = require("%enlist/soldiers/model/state.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { hasCurArmyReserve } = require("%enlist/soldiers/model/reserve.nut")
-let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases
+let { buy_shop_items, buy_shop_offer, barter_shop_items, check_purchases,
+  buy_shop_items_list, barter_shop_items_list
 } = require("%enlist/meta/clientApi.nut")
 let { purchasesCount, curArmiesList } = require("%enlist/meta/profile.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
@@ -40,6 +41,10 @@ let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
+let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
+let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
+
 
 const SHOP_SECTION = "SHOP"
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
@@ -491,6 +496,19 @@ let function barterShopItem(shopItem, payData, count = 1) {
   })
 }
 
+let function barterShopItemList(shopItemsList, itemData, payData, cb) {
+  if (purchaseInProgress.value != null)
+    return
+
+  purchaseInProgress(shopItemsList.top())
+
+  barter_shop_items_list(curArmy.value, itemData, payData, function(res) {
+    purchaseInProgress(null)
+    cb?(res?.error == null)
+  })
+
+}
+
 let function buyShopItem(shopItem, currencyId, price, cb = null, count = 1) {
   if (purchaseInProgress.value != null)
     return
@@ -515,6 +533,18 @@ let function buyShopOffer(shopItem, currencyId, price, cb = null, pOfferGuid = n
   buy_shop_offer(curArmy.value, shopItem.guid, currencyId, price, pOfferGuid, function(res) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
+    cb?(res?.error == null)
+  })
+}
+
+let function buyShopItemList(shopItemsList, itemData, payData, cb) {
+  if (purchaseInProgress.value != null)
+    return
+
+  purchaseInProgress(shopItemsList.top())
+
+  buy_shop_items_list(curArmy.value, itemData, payData, function(res) {
+    purchaseInProgress(null)
     cb?(res?.error == null)
   })
 }
@@ -635,13 +665,15 @@ local function getShopItemPath(shopItem, allShopItems){
   return path
 }
 
-let function getShopItemsCmp(tpl) {
-  return Computed(function(){
-    let shopItemIds = getShopListForItem(tpl, curArmy.value, itemToShopItem.value, allItemTemplates.value)
-    return (shopItemIds.len() < 1) ? []
-      : shopItemIds.map(@(shopItemId) curArmyItemsPrefiltered.value?[shopItemId])
-  })
-}
+let getShopItems = @(tpl, armyId, itemToShopItemV, allItemTemplatesV, curArmyItemsPrefilteredV)
+  getShopListForItem(tpl, armyId, itemToShopItemV, allItemTemplatesV)
+    .map(@(shopItemId) curArmyItemsPrefilteredV?[shopItemId])
+
+let getShopItemsList = @(tpl) getShopItems(tpl, curArmy.value,
+  itemToShopItem.value, allItemTemplates.value, curArmyItemsPrefiltered.value)
+
+let getShopItemsCmp = @(tpl) Computed(@() getShopItems(tpl, curArmy.value,
+  itemToShopItem.value, allItemTemplates.value, curArmyItemsPrefiltered.value))
 
 local function openAndHighlightItems(targetShopItems, allShopItems){
   local longestPathIdx = -1
@@ -690,6 +722,52 @@ let notOpenedShopItems = Computed(function() {
   return notOpenedGuids
 })
 
+
+let isItemsShopOpened = mkWatched(persist, "isItemsShopOpened", false)
+let itemsToPresent = Watched({})
+
+let function addToPresentList(itemsList) {
+  itemsToPresent.mutate(function(presentData) {
+    foreach (item in itemsList) {
+      let armyId = getLinkedArmyName(item)
+      if (armyId not in presentData)
+        presentData[armyId] <- {}
+
+      let { basetpl, count = 1 } = item
+      presentData[armyId][basetpl] <- (presentData[armyId]?[basetpl] ?? 0) + count
+    }
+  })
+}
+
+
+let curSuitableItemTypes = Computed(function() {
+  let armyId = curArmyData.value?.guid
+  let { sClass = null, equipScheme = {} } = curSoldierInfo.value
+  let lockedSlots = classSlotLocksByArmy.value?[armyId][sClass] ?? []
+  let res = {}
+  foreach (slotId, scheme in equipScheme)
+    if (lockedSlots.indexof(slotId) == null)
+      foreach (itemType in scheme.itemTypes)
+        res[itemType] <- true
+
+  return res
+})
+
+
+let curSuitableShopItems = Computed(function() {
+  let armyId = curArmyData.value?.guid
+  let itemTypes = curSuitableItemTypes.value
+  let res = {}
+  let templates = allItemTemplates.value?[armyId] ?? {}
+  foreach (tpl, shopGuids in itemToShopItem.value?[armyId] ?? {})
+    if (itemTypes?[templates?[tpl].itemtype] ?? false)
+      foreach (shopGuid in shopGuids)
+        res[shopGuid] <- true
+
+  return res
+})
+
+
 return {
   SHOP_SECTION
   hasShopSection
@@ -712,6 +790,8 @@ return {
   buyItemByGuid
   buyItemByStoreId
   buyCurrency
+  buyShopItemList
+  barterShopItemList
   getBuyRequirementError
   isAvailableByLimit
   curUnseenAvailShopGuids
@@ -720,6 +800,7 @@ return {
   shopItemContentCtor
   shopItemContentArrayCtor
   isShopVisible
+  getShopItemsList
   getShopItemsCmp
   openAndHighlightItems
   curArmyShopFolder
@@ -731,4 +812,9 @@ return {
   curAvailableShopItems
   notOpenedShopItems
   requestedCratesContent
+  isItemsShopOpened
+  itemsToPresent
+  addToPresentList
+  curSuitableItemTypes
+  curSuitableShopItems
 }

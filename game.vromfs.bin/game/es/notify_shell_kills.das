@@ -6,7 +6,7 @@ require game.events_game
 require game.es.awards_common
 require enlisted.game.es.offender_cache_common
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require strings
 
 def send_shell_kill_stat_award(player : EntityId; stat : string; award : string)

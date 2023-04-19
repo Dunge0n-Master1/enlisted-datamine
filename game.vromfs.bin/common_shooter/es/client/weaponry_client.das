@@ -1,7 +1,7 @@
 require ecs
 require common_shooter.events_common_shooter
 require game.events_game
-require EnlistedWeaponRender
+require DngWeaponRender
 require DaWeapons
 require BallisticsProps
 

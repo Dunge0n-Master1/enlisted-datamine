@@ -1,6 +1,6 @@
 require ecs
 require ecs.safe
-require EnlistedNet
+require DngNet
 require game.es.awards_common
 require enlisted.events_enlisted
 require strings

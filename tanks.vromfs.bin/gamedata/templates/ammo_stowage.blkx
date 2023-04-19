@@ -7,6 +7,7 @@ turret_with_ammo_stowage{
 
 ammo_cluster{
   ammo_cluster__isShell:b=yes
+  ammo_cluster__reloadTimeMult:r=1.0
   ammo_cluster__restoreAfterDead:b=no
 
   "ammo_cluster__slotNames:shared:list<t>"{
@@ -28,9 +29,20 @@ ammo_cluster{
   }
 }
 
+ammo_cluster_first_stage{
+
+  "ammo_cluster__isFirstStage:tag"{
+  }
+}
+
 ammo_stowage{
   ammo_stowage__numAmmo:i=0
-  ammo_stowage__removeLoadedAmmo:b=yes
+  ammo_stowage__maxAmmoFirstStage:i=0
+
+  "ammo_stowage__numAmmoFirstStage:i"{
+    value:i=0
+    _track:b=yes
+  }
 
   "ammo_stowage__vehicleEid:eid"{
   }
@@ -45,6 +57,28 @@ ammo_stowage{
   }
 
   "ammo_stowage__gunEids:list<eid>"{
+  }
+
+  _group{
+    _tags:t="server"
+    ammo_stowage__isReloading:b=no
+    ammo_stowage__replenishmentDelay:r=4.0
+    ammo_stowage__replenishmentTime:r=15.0
+
+    "ammo_stowage__replenishmentStartTime:r"{
+      value:r=-1.0
+      _track:b=yes
+    }
+
+    "ammo_stowage__nextReplenishmentAtTime:r"{
+      value:r=-1.0
+      _track:b=yes
+    }
+
+    "ammo_stowage__replenishmentTimeMult:r"{
+      value:r=1.0
+      _track:b=yes
+    }
   }
 }
 

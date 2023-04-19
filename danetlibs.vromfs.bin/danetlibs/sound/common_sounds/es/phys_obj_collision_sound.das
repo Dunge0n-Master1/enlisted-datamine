@@ -3,7 +3,7 @@ require ecs
 require soundEvent
 require math.base
 require DagorMath
-require EnlistedPhysObj
+require DngPhysObj
 require sound_utils_net.modules.sound_utils_net_events
 
 [es(tag=sound)]

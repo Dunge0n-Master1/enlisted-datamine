@@ -106,7 +106,7 @@ let mkSelectedActionHint = @(curIdx, available, actions, radius) function() {
   })
 }
 
-local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null) {
+local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null, stickNo = 1) {
   let closeWithoutClick = function() {
     curIdx(null)
     showPieMenu(false)
@@ -143,7 +143,7 @@ local function mkPieMenuRoot(actions, curIdx, radius, showPieMenu, key = null) {
     children = [
       mkBlurBack(radius)
       mkPieMenuDarg({
-        stickNo = 1
+        stickNo
         devId = isGamepad.value ? DEVID_JOYSTICK : DEVID_MOUSE
         onClick = @(_) showPieMenu(false) // if we close and an item is selected, onDetach will handle the click. Otherwise, pie menu will just close
         radius = radius
@@ -254,7 +254,7 @@ local function filterAndUpdateActions(actions, showPieMenu, mkDefCtor, curIdx){
 }
 
 let function mkPieMenu(actions, curIdx = Watched(null), showPieMenu = Watched(false),
-  radius = Watched(hdpx(350)), elemSize = null, key = null
+  radius = Watched(hdpx(350)), elemSize = null, key = null, stickNo = 1
 ){
   elemSize = elemSize ?? Computed(@() array(2, (0.4 * radius.value).tointeger()))
 
@@ -269,7 +269,7 @@ let function mkPieMenu(actions, curIdx = Watched(null), showPieMenu = Watched(fa
     return res.__update({
       size = flex()
       children = [
-        mkPieMenuRoot(actionsV, curIdx, radius.value, showPieMenu, key)
+        mkPieMenuRoot(actionsV, curIdx, radius.value, showPieMenu, key, stickNo)
         { key = kbdHotkeyStub, hotkeys = [[kbdHotkeyStub, @() null]] }
       ]
       function onAttach(elem) {

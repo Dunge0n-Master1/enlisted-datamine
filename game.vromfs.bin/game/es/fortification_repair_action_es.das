@@ -3,7 +3,7 @@ require app
 require math.base
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
-require EnlistedNet
+require DngNet
 require enlisted.game.es.fortifications_build_common
 
 [es(tag=server, before=fortification_repair_start_es)]

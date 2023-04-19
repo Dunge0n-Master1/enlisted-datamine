@@ -26,8 +26,7 @@ let { allSquadsPoints, viewArmy, armiesResearches, viewSquadId,
   LOCKED, DEPENDENT, RESEARCHED, GROUP_RESEARCHED, BALANCE_ATTRACT_TRIGGER
 } = require("researchesState.nut")
 let { researchToShow } = require("researchesFocus.nut")
-let { mkActiveBlock, mkCardText, mkSquadPremIcon
-} = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { mkActiveBlock, mkCardText, mkSquadSpecIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let researchDetailsPopup = require("researchDetailsPopup.ui.nut")
 let tableElement = require("researchTableElement.ui.nut")
 let { curArmy, curUnlockedSquads, armySquadsById, maxCampaignLevel
@@ -42,7 +41,7 @@ let { attractToImage } = require("%enlist/components/hoverImage.nut")
 let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { onlinePurchaseStyle, smallStyle, Bordered } = require("%ui/components/textButton.nut")
 let { mkDisabledSectionBlock } = require("%enlist/mainMenu/disabledSections.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { mkLockByCampaignProgress } = require("%enlist/soldiers/lockCampaignPkg.nut")
 let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
@@ -284,7 +283,7 @@ let function buyLevelBtn() {
 let function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
     let lvlBlock = colorize(accColor, $"{curLvl + 1}/{maxLvl + 1}")
     let expBlock = colorize(accColor, $"{curExp}/{expToNextLvl}")
-    return $"{lvlBlock} {loc("research/squad_level")} \n {loc("research/sqaud_next_level")} {expBlock}"
+    return $"{lvlBlock} {loc("research/squad_level")}\n{loc("research/squad_next_level")} {expBlock}"
 }
 
 let function squadProgressBlock() {
@@ -326,7 +325,7 @@ let squadNameBlock = @() {
   flow = FLOW_HORIZONTAL
   gap = smallPadding
   children = [
-    mkSquadPremIcon(curSquadData.value?.premIcon)
+    mkSquadSpecIcon(curSquadData.value)
     {
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea

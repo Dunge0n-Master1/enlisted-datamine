@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require game.es.events
 require enlisted.game.es.enlisted_squad_common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorConsole
 require DagorDataBlock
 require BehNodes

@@ -4,8 +4,8 @@ let squadsParams = require("squadsParams.nut")
 let { soldiersByArmies } = require("%enlist/meta/profile.nut")
 let { unseenSoldiers } = require("unseenSoldiers.nut")
 let {
-  curArmy, curArmiesList, limitsByArmy, getItemIndex, soldiersBySquad,
-  curChoosenSquads
+  curArmy, curArmiesList, getItemIndex, soldiersBySquad,
+  curChoosenSquads, curArmyLimits
 } = require("state.nut")
 let { getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
 
@@ -23,7 +23,7 @@ let allReserveSoldiers = Computed(function() {
 
 let curArmyReserve = Computed(@() allReserveSoldiers.value?[curArmy.value] ?? [])
 
-let curArmyReserveCapacity = Computed(@() limitsByArmy.value?[curArmy.value].soldiersReserve ?? 0)
+let curArmyReserveCapacity = Computed(@() curArmyLimits.value.soldiersReserve)
 
 let hasCurArmyReserve = Computed(@() curArmyReserve.value.len() < curArmyReserveCapacity.value)
 

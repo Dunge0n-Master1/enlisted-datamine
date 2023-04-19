@@ -43,13 +43,14 @@ class GbufferDiffuseOverride : FrameGraphNode
     registrar |> addFollowNode(string_view("resolve_gbuffer_node"))
     registrar |> requestState() <| $(var requirements : NodeStateRequirements#)
       requirements |> set_render_override([[OverrideRenderState colorWr = WriteMask RGB]])
+    registrar |> modifyResource(string_view("gbuf_0"))
 
   [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
     query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
-      __scope_render_target() <| $()
-        set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
-        set_int(get_shader_variable_id("debug_fix_gbuffer", true), 0)
-        debug_fill_gbuffer |> render()
+      set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
+      set_int(get_shader_variable_id("debug_fix_gbuffer", true), 0)
+      d3d_set_render_target((accessor |> getTexture(string_view("gbuf_0"))) |> get_tex2d, 0)
+      debug_fill_gbuffer |> render()
 
 
 
@@ -67,13 +68,14 @@ class GbufferSpecularOverride : FrameGraphNode
     registrar |> addFollowNode(string_view("resolve_gbuffer_node"))
     registrar |> requestState() <| $(var requirements : NodeStateRequirements#)
       requirements |> set_render_override([[OverrideRenderState colorWr = WriteMask GREEN]])
+    registrar |> modifyResource(string_view("gbuf_2"))
 
   [unused_argument(accessor)] def override execute(accessor : ResourceAccessor)
     query(eid) <| $ [es] (debug_fill_gbuffer : PostFxRenderer; debug_fill_color : float4)
-      __scope_render_target() <| $()
-        set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
-        set_int(get_shader_variable_id("debug_fix_gbuffer", true), 2)
-        debug_fill_gbuffer |> render()
+      set_color4(get_shader_variable_id("gbuffer_fix_color", true), debug_fill_color)
+      set_int(get_shader_variable_id("debug_fix_gbuffer", true), 0)
+      d3d_set_render_target((accessor |> getTexture(string_view("gbuf_2"))) |> get_tex2d, 0)
+      debug_fill_gbuffer |> render()
 
 
 [es(on_event=BeforeLoadLevel)]

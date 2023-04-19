@@ -5,7 +5,7 @@ require DagorConsole
 require DagorDebug3D
 require enlisted.events_enlisted
 require player
-require EnlistedNet
+require DngNet
 require game.es.server_debug_common
 require game.utils.team
 require game.es.net_console_macro

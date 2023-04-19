@@ -3,8 +3,8 @@ require HumanPhys
 require DagorSystem
 require DagorMath
 require PhysVars
-require EnlistedHuman
-require EnlistedPhys
+require DngHuman
+require DngPhys
 require math
 require math.easing
 

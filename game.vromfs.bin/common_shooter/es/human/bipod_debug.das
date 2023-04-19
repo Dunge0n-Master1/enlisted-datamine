@@ -1,6 +1,6 @@
 options no_aot
 require ecs
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require GamePhys
 require DagorDebug3D

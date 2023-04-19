@@ -1,9 +1,9 @@
 module teleport_common shared
 require ecs
-require EnlistedActor
+require DngActor
 require DagorSystem
 require game.es.server_debug_common
-require EnlistedNet
+require DngNet
 
 def teleport_eid_to(eid : EntityId; pos : float3; use_camera_pos : bool = false)
   var targetTm : float3x4

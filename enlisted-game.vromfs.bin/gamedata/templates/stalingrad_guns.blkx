@@ -56,7 +56,7 @@ kar98k_wartime_production{
 }
 
 kar98k_wartime_production_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="carbine_ww2_preset"
   _extends:t="kar98k_wartime_production"
   _extends:t="rifle_muzzle_preset"
@@ -75,6 +75,9 @@ kar98k_wartime_production_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.95
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.03
+  gun_anim_var__fpsGunOffsetUp:r=0.055
 
   "gun_mods__slots:object"{
 
@@ -262,7 +265,7 @@ mannlicher_m93_roman{
 }
 
 mannlicher_m93_roman_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="rifle_ww2_preset"
   _extends:t="mannlicher_m93_roman"
   _extends:t="rifle_muzzle_preset"
@@ -281,6 +284,9 @@ mannlicher_m93_roman_gun{
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.85
   meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.25
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.065
 
   "gun_mods__slots:object"{
 
@@ -635,7 +641,7 @@ orita_m1941{
 }
 
 orita_m1941_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="orita_m1941"
   _extends:t="smg_muzzle_preset"
@@ -934,7 +940,7 @@ ppsh_2{
 }
 
 ppsh_2_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="ppsh_2"
   _extends:t="smg_muzzle_break_preset"
@@ -952,6 +958,9 @@ ppsh_2_gun{
   gun__recoilOffsMult:r=0.3
   gun__crawlRecoilMult:r=0.8
   meleeSoundType:t="mgun"
+  gun_anim_var__fpsGunOffsetAlong:r=0.2
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.09
 
   _group{
     _tags:t="sound"
@@ -1111,7 +1120,7 @@ stl_ppsh_41{
 }
 
 stl_ppsh_41_gun{
-  _extends:t="base_equipable_gun"
+  _extends:t="equipable_gun"
   _extends:t="mp_ww2_preset"
   _extends:t="stl_ppsh_41"
   _extends:t="smg_muzzle_break_3_preset"
@@ -1132,6 +1141,9 @@ stl_ppsh_41_gun{
   gun__crawlRecoilMult:r=0.8
   meleeSoundType:t="mgun"
   gun__barrelTipOffsetOverride:p3=0.65, 0.02, 0.0
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.055
 
   _group{
     _tags:t="sound"
@@ -1452,6 +1464,9 @@ stl_mg_42_handheld_gun{
   gun__staminaToStartAim:r=0.0
   gun__visualRecoilMult:r=1.6
   gun__crawlRecoilMult:r=0.8
+  gun_anim_var__fpsGunOffsetAlong:r=0.23
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.025
 
   "gun__reduceToWalkWhenShot:tag"{
   }
@@ -1661,6 +1676,8 @@ ampula_shell_phys{
   on_exploded__create:t="ampula_fire+ampula_shell_explode_sound"
   molotov_fire__minDistanceBetween:r=1.0
   ai_target_node__node:t="weaponRoot"
+  shell_explosion_fx__infoTemplate:t="hit_effect_group_ampula_explosion"
+  shell__waterImpactFx:t="hit_water_medium_effect"
 
   "shell__concussionMaxRadius:r"{
     value:r=0.0
@@ -1952,7 +1969,7 @@ stl_ussr_building_tool_gun{
     template:t="sandbags_wall_dshk_1942_preview"
     template:t="sandbags_wall_maxim_preview"
     template:t="sandbags_wall_ampulomet_preview"
-    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_ussr_25mm_72k_preview"
     template:t="cannon_ussr_towed_at_53k_movable_preview"
     template:t="czech_hedgehog_a_preview"
     template:t="ussr_rallypoint_preview"
@@ -2005,7 +2022,7 @@ stl_ger_building_tool_gun{
     template:t="sandbags_wall_mg_131_preview"
     template:t="sandbags_wall_mg_34_preview"
     template:t="sandbags_wall_ampulomet_preview"
-    template:t="cannon_germ_20mm_flak38_flakvierling_preview"
+    template:t="cannon_germ_20mm_flak38_preview"
     template:t="cannon_germ_towed_at_pak38_movable_preview"
     template:t="czech_hedgehog_a_preview"
     template:t="ger_rallypoint_preview"

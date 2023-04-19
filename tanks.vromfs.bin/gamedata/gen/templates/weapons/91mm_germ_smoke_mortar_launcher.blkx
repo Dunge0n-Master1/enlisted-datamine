@@ -20,7 +20,18 @@ base_91mm_germ_smoke_mortar_launcher{
 tankgun_91mm_germ_smoke_mortar_launcher{
   _extends:t="tankgun"
   _extends:t="base_tankgun_smoke_grenade_launcher"
+  _extends:t="91mm_germ_smoke_mortar_launcher_grenade"
   _extends:t="base_91mm_germ_smoke_mortar_launcher"
   _extends:t="gunsound_91mm_germ_smoke_mortar_launcher"
+  gun__projectileTemplate:t="91mm_germ_smoke_mortar_launcher_projectile"
   turret__triggerGroup:i=3
+}
+
+91mm_germ_smoke_mortar_launcher_grenade{
+  animchar__res:t="nbks_39b_char"
+}
+
+91mm_germ_smoke_mortar_launcher_projectile{
+  _extends:t="tank_smoke_grenade_projectile"
+  _extends:t="91mm_germ_smoke_mortar_launcher_grenade"
 }

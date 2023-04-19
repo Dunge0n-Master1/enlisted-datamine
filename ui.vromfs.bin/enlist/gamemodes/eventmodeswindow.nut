@@ -45,7 +45,7 @@ let shortLbUi = require("%enlist/leaderboard/shortLb.ui.nut")
 let {
   lbCurrentTable, openLbWnd, curLbIdx, lbPlayersCount, curLbSelfRow
 } = require("%enlist/leaderboard/lbState.nut")
-let { addCurCampaignOverride, removeCurCampaignOverride, curCampaign, setCurCampaign
+let { addCurCampaignOverride, removeCurCampaignOverride, curCampaignLocId, setCurCampaign
 } = require("%enlist/meta/curCampaign.nut")
 let {
   verticalGap, localPadding, localGap, armieChooseBlockWidth, eventBlockWidth
@@ -516,12 +516,12 @@ let function ClusterAndRandTeamButtons() {
 }
 
 let curCampaignName = @() {
-  watch = [curCampaign, gameProfile, eventCustomProfile]
+  watch = [curCampaignLocId, eventCustomProfile]
   rendObj = ROBJ_TEXT
   color = titleTxtColor
   text = eventCustomProfile.value != null
     ? ""
-    : loc(gameProfile.value?.campaigns[curCampaign.value]?.title ?? curCampaign.value)
+    : loc(curCampaignLocId.value)
 }.__update(sub_txt)
 
 
@@ -651,7 +651,7 @@ let rightBlock = @() {
   ]
   children = [
     isCustomRoomsUi.value ? null
-      : eventCampaigns.value.len() > 1 && eventCustomProfile.value == null ? eventsCampaignBlock
+      : eventCampaigns.value.len() > 1 ? eventsCampaignBlock
       : { size = [SIZE_TO_CONTENT, hdpx(150) + commonBtnHeight + localGap]}
     {
       flow = FLOW_VERTICAL

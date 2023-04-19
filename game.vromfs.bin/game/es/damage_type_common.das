@@ -1,6 +1,6 @@
 module damage_type_common shared public
 require ecs
-require EnlistedDm
+require DngDm
 require daslib/enum_trait
 
 let DAMAGE_TYPES_COUNT = typeinfo(enum_length type<DamageType>)

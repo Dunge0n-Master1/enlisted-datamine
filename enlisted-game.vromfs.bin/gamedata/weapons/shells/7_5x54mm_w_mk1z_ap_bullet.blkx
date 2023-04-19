@@ -10,9 +10,6 @@ stabilityCaliberToArmorThreshold:r=5.0
 relativeVelHitShift:p2=300.0, 1000.0
 bulletType:t="ap_ball"
 slopeEffectPreset:t="ap"
-groundCollisionEffect:t="hit_8_11mm_dirt_ap"
-ricochetEffect:t="hit_8_11mm_metal_ap"
-waterCollisionEffect:t="hit_8_11mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -44,29 +41,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

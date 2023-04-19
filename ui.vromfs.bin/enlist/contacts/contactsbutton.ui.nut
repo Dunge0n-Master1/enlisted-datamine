@@ -7,21 +7,26 @@ let { fastAccessIconHeight, defTxtColor, hoverTxtColor, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 
 let accentStyle = { color = accentColor }.__update(fontSmall)
-let advancedIconPos = [fastAccessIconHeight / 3, fastAccessIconHeight / 2]
+let advancedIconPos = fastAccessIconHeight / 3
 
 
 let counterText = @(counterWatch, overrride = {}) function() {
+  let res = { watch = counterWatch }
   let number = counterWatch.value.len()
-  return {
+  return number <= 0 ? res : res.__update({
     watch = counterWatch
     rendObj = ROBJ_TEXT
-    text = number <= 0 ? null : number
-  }.__update(accentStyle, overrride)}
+    text = number
+  }.__update(accentStyle, overrride))
+}
 
 
-let onlineFriendsCounter = counterText(friendsOnlineUids, { pos = advancedIconPos })
+let onlineFriendsCounter = counterText(friendsOnlineUids, {
+  pos = [advancedIconPos, 0]
+  vplace = ALIGN_TOP
+})
 let invitationsCounter = counterText(requestsToMeUids, {
-  pos = advancedIconPos
+  pos = [advancedIconPos, advancedIconPos]
   vplace = ALIGN_BOTTOM
 })
 

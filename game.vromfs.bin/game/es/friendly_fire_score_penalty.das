@@ -12,7 +12,7 @@ require enlisted.game.es.enlisted_squad_common
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
-require EnlistedDm
+require DngDm
 
 def is_offender_player_in_vehicle(player_eid : EntityId; vehicle_seats__seatEids : EidList)
   var found = false

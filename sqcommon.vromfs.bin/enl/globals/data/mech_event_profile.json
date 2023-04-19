@@ -54,353 +54,7 @@
       "isArmyProgressLocked" : false,
       "isFakeSquads" : true,
       "level" : 1,
-      "squads" : [         
-      {
-            "artilleryCooldownMul" : 1.0,
-            "artilleryTypeUnlocks" : [],
-            "curVehicle" : {
-               "gametemplate" : "us_lbm_bulldog",
-               "guid" : "us_lbm_bulldog_5405"
-            },
-            "engineerUnlocks" : [2],
-            "exp" : 0,
-            "expBonus" : 0.0,
-            "isRented" : false,
-            "level" : 0,
-            "paratrooperBoxUnlocks" : [],
-            "squad" : [
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "usa",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_17_us_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "head" : {
-                        "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_m43_tankers_jacket_item",
-                        "slot" : "pants"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_jacket_wb_us_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "usa_base_soldier",
-                  "guid" : "usa_normandy_soldier_tanker_5342",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 4,
-                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 8,
-                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "usa_knife_weapon",
-                     "primary" : "m3_submachine_gun_gun",
-                     "secondary" : "",
-                     "tertiary" : "colt_new_service_m1909_gun"
-                  },
-                  "id" : 0,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Donald",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Phillips",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "usa",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_18b_us_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "head" : {
-                        "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_01_us_summer_item",
-                        "slot" : "pants"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_jacket_us_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "usa_base_soldier",
-                  "guid" : "usa_normandy_soldier_tanker_5362",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 4,
-                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 8,
-                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "usa_knife_weapon",
-                     "primary" : "m3_submachine_gun_gun",
-                     "secondary" : "",
-                     "tertiary" : "colt_new_service_m1909_gun"
-                  },
-                  "id" : 1,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Billy",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Dennis",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "usa",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_26_us_item",
-                        "slot" : "face"
-                     },
-                     "flask_r" : {
-                        "gametemplate" : "attachable_wear_flask_tanker_jacket_us_item",
-                        "slot" : "flask_r"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "head" : {
-                        "gametemplate" : "tanker_helmet_01_us_summer_item",
-                        "slot" : "head"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_01_us_summer_item",
-                        "slot" : "pants"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_jacket_us_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "usa_base_soldier",
-                  "guid" : "usa_normandy_soldier_tanker_5383",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 4,
-                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 8,
-                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "usa_knife_weapon",
-                     "primary" : "m3_submachine_gun_gun",
-                     "secondary" : "",
-                     "tertiary" : "colt_new_service_m1909_gun"
-                  },
-                  "id" : 2,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "usa_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Dan",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Sandoval",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               }
-            ],
-            "squadId" : "usa_normandy_mech_1",
-            "squadType" : "mech",
-            "toLevelExp" : 31800,
-            "vehicleType" : "tank",
-            "disableSquadRotation" : true,
-            "spawnCostTeamScoreMult" : 0,
-            "spawnScoreGainMult" : 0.0,
-            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
-         },
+      "squads" : [
          {
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
@@ -3599,6 +3253,352 @@
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
             "curVehicle" : {
+               "gametemplate" : "us_lbm_bulldog",
+               "guid" : "us_lbm_bulldog_5405"
+            },
+            "engineerUnlocks" : [2],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "paratrooperBoxUnlocks" : [],
+            "squad" : [
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "usa",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_17_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_m43_tankers_jacket_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_jacket_wb_us_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "usa_normandy_soldier_tanker_5342",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 4,
+                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "usa_knife_weapon",
+                     "primary" : "m3_submachine_gun_gun",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Donald",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Phillips",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "usa",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_18b_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_01_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_jacket_us_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "usa_normandy_soldier_tanker_5362",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 4,
+                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "usa_knife_weapon",
+                     "primary" : "m3_submachine_gun_gun",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Billy",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Dennis",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "usa",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_m_28_01_us_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_m36_tanker_jacket_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_26_us_item",
+                        "slot" : "face"
+                     },
+                     "flask_r" : {
+                        "gametemplate" : "attachable_wear_flask_tanker_jacket_us_item",
+                        "slot" : "flask_r"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "head" : {
+                        "gametemplate" : "tanker_helmet_01_us_summer_item",
+                        "slot" : "head"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_01_us_summer_item",
+                        "slot" : "pants"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_jacket_us_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "usa_base_soldier",
+                  "guid" : "usa_normandy_soldier_tanker_5383",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 4,
+                        "reserveAmmoTemplate" : "m3_submachine_gun_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 8,
+                        "reserveAmmoTemplate" : "colt_new_service_m1909_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "usa_knife_weapon",
+                     "primary" : "m3_submachine_gun_gun",
+                     "secondary" : "",
+                     "tertiary" : "colt_new_service_m1909_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "usa_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Dan",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Sandoval",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "usa_normandy_mech_1",
+            "squadType" : "mech",
+            "toLevelExp" : 31800,
+            "vehicleType" : "tank",
+            "disableSquadRotation" : true,
+            "spawnCostTeamScoreMult" : 0,
+            "spawnScoreGainMult" : 0.0,
+            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
                "gametemplate" : "us_m4a2_sherman_1944",
                "guid" : "us_m4a2_sherman_1944_5487",
                "mods" : [
@@ -4265,7 +4265,7 @@
                }
             ],
             "squadId" : "usa_normandy_pilot_assaulter_2",
-            "squadType" : "aircraft",
+            "squadType" : "assault_aircraft",
             "toLevelExp" : 20570,
             "vehicleType" : "assault_aircraft"
          }
@@ -4329,360 +4329,6 @@
       "isFakeSquads" : true,
       "level" : 1,
       "squads" : [
-        {
-            "artilleryCooldownMul" : 1.0,
-            "artilleryTypeUnlocks" : [],
-            "curVehicle" : {
-               "gametemplate" : "ger_mbm_trixter",
-               "guid" : "ger_mbm_trixter_6302"
-            },
-            "engineerUnlocks" : [2],
-            "exp" : 0,
-            "expBonus" : 0.0,
-            "isRented" : false,
-            "level" : 0,
-            "paratrooperBoxUnlocks" : [],
-            "squad" : [
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_11_ger_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_02_ger_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_ger_cap_summer_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "ger_normandy_soldier_tanker_6238",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "mp34o_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "walther_pp_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "mp34o_gun",
-                     "secondary" : "",
-                     "tertiary" : "walther_pp_gun"
-                  },
-                  "id" : 0,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Clemens",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Koeckerbauer",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_10_us_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_01_ger_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_b_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_ger_cap_summer_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "ger_normandy_soldier_tanker_6260",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "mp34o_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "walther_pp_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "mp34o_gun",
-                     "secondary" : "",
-                     "tertiary" : "walther_pp_gun"
-                  },
-                  "id" : 1,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Gerhard",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Zierhofer",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_18b_us_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_01_ger_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_ger_cap_shirt_summer_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "ger_normandy_soldier_tanker_6281",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "mp34o_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "walther_pp_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "mp34o_gun",
-                     "secondary" : "",
-                     "tertiary" : "walther_pp_gun"
-                  },
-                  "id" : 2,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Engelhard",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Gall",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               }
-            ],
-            "squadId" : "ger_normandy_mech_1",
-            "squadType" : "mech",
-            "toLevelExp" : 31800,
-            "vehicleType" : "tank",
-            "disableSquadRotation" : true,
-            "spawnCostTeamScoreMult" : 0,
-            "spawnScoreGainMult" : 0.0,
-            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
-         },
          {
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
@@ -8045,6 +7691,360 @@
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
             "curVehicle" : {
+               "gametemplate" : "ger_mbm_trixter",
+               "guid" : "ger_mbm_trixter_6302"
+            },
+            "engineerUnlocks" : [2],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "paratrooperBoxUnlocks" : [],
+            "squad" : [
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_11_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_ger_cap_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_normandy_soldier_tanker_6238",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "mp34o_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "walther_pp_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "mp34o_gun",
+                     "secondary" : "",
+                     "tertiary" : "walther_pp_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Clemens",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Koeckerbauer",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_10_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_b_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_ger_cap_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_normandy_soldier_tanker_6260",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "mp34o_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "walther_pp_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "mp34o_gun",
+                     "secondary" : "",
+                     "tertiary" : "walther_pp_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Gerhard",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Zierhofer",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_tanker_m44_camo_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_18b_us_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_tanker_pants_ss_camo_m44_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_ger_cap_shirt_summer_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_ss_camo_m44_b_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "ger_normandy_soldier_tanker_6281",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "mp34o_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "walther_pp_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "mp34o_gun",
+                     "secondary" : "",
+                     "tertiary" : "walther_pp_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Engelhard",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Gall",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "ger_normandy_mech_1",
+            "squadType" : "mech",
+            "toLevelExp" : 31800,
+            "vehicleType" : "tank",
+            "disableSquadRotation" : true,
+            "spawnCostTeamScoreMult" : 0,
+            "spawnScoreGainMult" : 0.0,
+            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
                "gametemplate" : "germ_pzkpfw_IV_ausf_J",
                "guid" : "germ_pzkpfw_IV_ausf_J_6377",
                "mods" : [
@@ -8737,7 +8737,7 @@
                }
             ],
             "squadId" : "ger_normandy_pilot_assaulter_2",
-            "squadType" : "aircraft",
+            "squadType" : "assault_aircraft",
             "toLevelExp" : 11430,
             "vehicleType" : "assault_aircraft"
          }
@@ -8800,361 +8800,7 @@
       "isArmyProgressLocked" : false,
       "isFakeSquads" : true,
       "level" : 1,
-      "squads" : [         
-         {
-            "artilleryCooldownMul" : 1.0,
-            "artilleryTypeUnlocks" : [],
-            "curVehicle" : {
-               "gametemplate" : "ussr_mbm_victor",
-               "guid" : "ussr_mbm_victor_2184"
-            },
-            "engineerUnlocks" : [2],
-            "exp" : 0,
-            "expBonus" : 0.0,
-            "isRented" : false,
-            "level" : 0,
-            "paratrooperBoxUnlocks" : [],
-            "squad" : [
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "ussr",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_42_ussr_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "attachable_wear_tanker_helmet_gls_09_ussr_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ussr_base_soldier",
-                  "guid" : "allies_stalingrad_soldier_tanker_2113",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "knife_weapon",
-                     "primary" : "ppd_34_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
-                  },
-                  "id" : 0,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Pavel",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Vinogradov",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "ussr",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "ussr_gen_head_02",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_01_us_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "attachable_wear_tanker_helmet_gls_09_ussr_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ussr_base_soldier",
-                  "guid" : "allies_stalingrad_soldier_tanker_2136",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "knife_weapon",
-                     "primary" : "ppd_34_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
-                  },
-                  "id" : 1,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Arseniy",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Muravev",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "ussr",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
-                        "slot" : "belt_1"
-                     },
-                     "chest" : {
-                        "gametemplate" : "attachable_wear_binoculars_01_ussr_winter_item",
-                        "slot" : "chest"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_02_us_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "attachable_wear_tanker_helmet_09_ussr_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ussr_base_soldier",
-                  "guid" : "allies_stalingrad_soldier_tanker_2160",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 6,
-                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "knife_weapon",
-                     "primary" : "ppd_34_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_nagant_m1895_gun"
-                  },
-                  "id" : 2,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Timofey",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Titov",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               }
-            ],
-            "squadId" : "allies_stalingrad_mech_1",
-            "squadType" : "mech",
-            "toLevelExp" : 31800,
-            "vehicleType" : "tank",
-            "disableSquadRotation" : true,
-            "spawnCostTeamScoreMult" : 0,
-            "spawnScoreGainMult" : 0.0,
-            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
-         },
+      "squads" : [
          {
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
@@ -12323,6 +11969,360 @@
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
             "curVehicle" : {
+               "gametemplate" : "ussr_mbm_victor",
+               "guid" : "ussr_mbm_victor_2184"
+            },
+            "engineerUnlocks" : [2],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "paratrooperBoxUnlocks" : [],
+            "squad" : [
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "ussr",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_42_ussr_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_tanker_helmet_gls_09_ussr_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "allies_stalingrad_soldier_tanker_2113",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "ppd_34_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_nagant_m1895_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Pavel",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Vinogradov",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "ussr",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "ussr_gen_head_02",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_01_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_tanker_helmet_gls_09_ussr_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "allies_stalingrad_soldier_tanker_2136",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "ppd_34_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_nagant_m1895_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Arseniy",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Muravev",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "ussr",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_backpack_01_ussr_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_belt_1_01_ussr_winter_item",
+                        "slot" : "belt_1"
+                     },
+                     "chest" : {
+                        "gametemplate" : "attachable_wear_binoculars_01_ussr_winter_item",
+                        "slot" : "chest"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_01_ussr_summer_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_us_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_03_gray_ussr_summer_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "attachable_wear_tanker_helmet_09_ussr_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_jacket_m35_ussr_01_gray_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ussr_base_soldier",
+                  "guid" : "allies_stalingrad_soldier_tanker_2160",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 6,
+                        "reserveAmmoTemplate" : "ppd_3438_box_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "nagant_m1895_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "knife_weapon",
+                     "primary" : "ppd_34_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_nagant_m1895_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Timofey",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Titov",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "allies_stalingrad_mech_1",
+            "squadType" : "mech",
+            "toLevelExp" : 31800,
+            "vehicleType" : "tank",
+            "disableSquadRotation" : true,
+            "spawnCostTeamScoreMult" : 0,
+            "spawnScoreGainMult" : 0.0,
+            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
                "gametemplate" : "ussr_t_34_1940_L_11",
                "guid" : "ussr_t_34_1940_L_11_2259",
                "mods" : [
@@ -13147,7 +13147,7 @@
                }
             ],
             "squadId" : "allies_stalingrad_pilot_assaulter_2",
-            "squadType" : "aircraft",
+            "squadType" : "assault_aircraft",
             "toLevelExp" : 18370,
             "vehicleType" : "assault_aircraft"
          }
@@ -13211,352 +13211,6 @@
       "isFakeSquads" : true,
       "level" : 1,
       "squads" : [
-         {
-            "artilleryCooldownMul" : 1.0,
-            "artilleryTypeUnlocks" : [],
-            "curVehicle" : {
-               "gametemplate" : "ger_mbm_trixter",
-               "guid" : "ger_mbm_trixter_3022"
-            },
-            "engineerUnlocks" : [2],
-            "exp" : 0,
-            "expBonus" : 0.0,
-            "isRented" : false,
-            "level" : 0,
-            "paratrooperBoxUnlocks" : [],
-            "squad" : [
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_12_ger_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_cap_bclava_ger_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "axis_stalingrad_soldier_tanker_2959",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 7,
-                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "walther_ppk_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "stl_mp_28_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
-                  },
-                  "id" : 0,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Herbert",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Oehler",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "attachable_wear_head_male_11_ger_item",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "hair" : {
-                        "gametemplate" : "hair_02_ger_summer_item",
-                        "slot" : "hair"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_cap_bclava_hphones_ger_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "axis_stalingrad_soldier_tanker_2979",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 7,
-                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "walther_ppk_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "stl_mp_28_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
-                  },
-                  "id" : 1,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Engelbert",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Jochems",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               },
-               {
-                  "availPerks" : 0,
-                  "callname" : "",
-                  "country" : "germany",
-                  "equipment" : {
-                     "backpack" : {
-                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
-                        "slot" : "backpack"
-                     },
-                     "belt_1" : {
-                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
-                        "slot" : "belt_1"
-                     },
-                     "face" : {
-                        "gametemplate" : "ger_gen_head_05",
-                        "slot" : "face"
-                     },
-                     "gloves" : {
-                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
-                        "slot" : "gloves"
-                     },
-                     "pants" : {
-                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
-                        "slot" : "pants"
-                     },
-                     "skined_helmet" : {
-                        "gametemplate" : "tanker_cap_bclava_ger_winter_item",
-                        "slot" : "skined_helmet"
-                     },
-                     "tunic" : {
-                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
-                        "slot" : "tunic"
-                     }
-                  },
-                  "exp" : 0,
-                  "gametemplate" : "ger_base_soldier",
-                  "guid" : "axis_stalingrad_soldier_tanker_3001",
-                  "human_weap__weapInfo" : [
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 7,
-                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 5,
-                        "reserveAmmoTemplate" : "walther_ppk_magazine"
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     },
-                     {
-                        "gunSlots" : {},
-                        "numReserveAmmo" : 0,
-                        "reserveAmmoTemplate" : ""
-                     }
-                  ],
-                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
-                  "human_weap__weapTemplates" : {
-                     "grenade" : "grenade_thrower",
-                     "melee" : "ger_knife_weapon",
-                     "primary" : "stl_mp_28_gun",
-                     "secondary" : "",
-                     "tertiary" : "stl_walther_ppk_gun"
-                  },
-                  "id" : 2,
-                  "inventory" : [
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     },
-                     {
-                        "gametemplate" : "ger_repair_kit_item"
-                     }
-                  ],
-                  "isPremium" : false,
-                  "level" : 1,
-                  "maxLevel" : 4,
-                  "name" : "Thaddaeus",
-                  "perks" : [
-                     {
-                        "name" : "starter_tanker_3",
-                        "stats" : [
-                           {
-                              "statKey" : "less_fall_dmg",
-                              "statValue" : 0.8000000119209290
-                           }
-                        ]
-                     }
-                  ],
-                  "perksCount" : 1,
-                  "sClass" : "tanker_3",
-                  "sKind" : "tanker",
-                  "surname" : "Crisolli",
-                  "tier" : 3,
-                  "weaponPreset" : ""
-               }
-            ],
-            "squadId" : "axis_stalingrad_mech_1",
-            "squadType" : "mech",
-            "toLevelExp" : 31800,
-            "vehicleType" : "tank",
-            "disableSquadRotation" : true,
-            "spawnCostTeamScoreMult" : 0,
-            "spawnScoreGainMult" : 0.0,
-            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
-         },
          {
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
@@ -16753,6 +16407,352 @@
             "artilleryCooldownMul" : 1.0,
             "artilleryTypeUnlocks" : [],
             "curVehicle" : {
+               "gametemplate" : "ger_mbm_trixter",
+               "guid" : "ger_mbm_trixter_3022"
+            },
+            "engineerUnlocks" : [2],
+            "exp" : 0,
+            "expBonus" : 0.0,
+            "isRented" : false,
+            "level" : 0,
+            "paratrooperBoxUnlocks" : [],
+            "squad" : [
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_12_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_cap_bclava_ger_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_stalingrad_soldier_tanker_2959",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "stl_mp_28_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_walther_ppk_gun"
+                  },
+                  "id" : 0,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Herbert",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Oehler",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "attachable_wear_head_male_11_ger_item",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "hair" : {
+                        "gametemplate" : "hair_02_ger_summer_item",
+                        "slot" : "hair"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_cap_bclava_hphones_ger_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_stalingrad_soldier_tanker_2979",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "stl_mp_28_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_walther_ppk_gun"
+                  },
+                  "id" : 1,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Engelbert",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Jochems",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               },
+               {
+                  "availPerks" : 0,
+                  "callname" : "",
+                  "country" : "germany",
+                  "equipment" : {
+                     "backpack" : {
+                        "gametemplate" : "attachable_wear_pioniersturmgepack_01_ger_summer_item",
+                        "slot" : "backpack"
+                     },
+                     "belt_1" : {
+                        "gametemplate" : "attachable_wear_tanker_belt_01_ger_summer_item",
+                        "slot" : "belt_1"
+                     },
+                     "face" : {
+                        "gametemplate" : "ger_gen_head_05",
+                        "slot" : "face"
+                     },
+                     "gloves" : {
+                        "gametemplate" : "attachable_wear_hands_01_ussr_summer_item",
+                        "slot" : "gloves"
+                     },
+                     "pants" : {
+                        "gametemplate" : "attachable_wear_pants_tanker_ger_winter_item",
+                        "slot" : "pants"
+                     },
+                     "skined_helmet" : {
+                        "gametemplate" : "tanker_cap_bclava_ger_winter_item",
+                        "slot" : "skined_helmet"
+                     },
+                     "tunic" : {
+                        "gametemplate" : "attachable_wear_tanker_tunic_black_winter_item",
+                        "slot" : "tunic"
+                     }
+                  },
+                  "exp" : 0,
+                  "gametemplate" : "ger_base_soldier",
+                  "guid" : "axis_stalingrad_soldier_tanker_3001",
+                  "human_weap__weapInfo" : [
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 7,
+                        "reserveAmmoTemplate" : "mp_28_20_round_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 5,
+                        "reserveAmmoTemplate" : "walther_ppk_magazine"
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     },
+                     {
+                        "gunSlots" : {},
+                        "numReserveAmmo" : 0,
+                        "reserveAmmoTemplate" : ""
+                     }
+                  ],
+                  "human_weap__weapInitialComponents" : [ {}, {}, {}, {}, {} ],
+                  "human_weap__weapTemplates" : {
+                     "grenade" : "grenade_thrower",
+                     "melee" : "ger_knife_weapon",
+                     "primary" : "stl_mp_28_gun",
+                     "secondary" : "",
+                     "tertiary" : "stl_walther_ppk_gun"
+                  },
+                  "id" : 2,
+                  "inventory" : [
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     },
+                     {
+                        "gametemplate" : "ger_repair_kit_item"
+                     }
+                  ],
+                  "isPremium" : false,
+                  "level" : 1,
+                  "maxLevel" : 4,
+                  "name" : "Thaddaeus",
+                  "perks" : [
+                     {
+                        "name" : "starter_tanker_3",
+                        "stats" : [
+                           {
+                              "statKey" : "gearChangeTimeMult",
+                              "statValue" : 0.4499999880790710
+                           }
+                        ]
+                     }
+                  ],
+                  "perksCount" : 1,
+                  "sClass" : "tanker_3",
+                  "sKind" : "tanker",
+                  "surname" : "Crisolli",
+                  "tier" : 3,
+                  "weaponPreset" : ""
+               }
+            ],
+            "squadId" : "axis_stalingrad_mech_1",
+            "squadType" : "mech",
+            "toLevelExp" : 31800,
+            "vehicleType" : "tank",
+            "disableSquadRotation" : true,
+            "spawnCostTeamScoreMult" : 0,
+            "spawnScoreGainMult" : 0.0,
+            "spawnCostPerSpawnPersonalScore" : [250, 500, 1000]
+         },
+         {
+            "artilleryCooldownMul" : 1.0,
+            "artilleryTypeUnlocks" : [],
+            "curVehicle" : {
                "gametemplate" : "germ_pzkpfw_III_ausf_N_stalingrad",
                "guid" : "germ_pzkpfw_III_ausf_N_stalingrad_3109",
                "mods" : [
@@ -17549,7 +17549,7 @@
                }
             ],
             "squadId" : "axis_stalingrad_pilot_assaulter_2",
-            "squadType" : "aircraft",
+            "squadType" : "assault_aircraft",
             "toLevelExp" : 19200,
             "vehicleType" : "assault_aircraft"
          }

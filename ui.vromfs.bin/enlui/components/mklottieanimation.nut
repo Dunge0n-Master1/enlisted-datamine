@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { colPart } = require("%enlSqGlob/ui/designConst.nut")
+let { isLottieEnabled } = require("%enlSqGlob/wipFeatures.nut")
 
 
 let defSize = {
@@ -11,6 +12,8 @@ let getPicture = memoize(@(source) LottieAnimation(source))
 
 
 let function mkLottieAnimation(lottie, params = defSize) {
+  if (!isLottieEnabled)
+    return null
   let { width, height } = params
   let lottieString = $"lottie:t={lottie}; canvasWidth:i={width}; canvasHeight:i={height}; loop:b=true; play:b=true;"
   let imageSource = $"ui/skin#render\{{lottieString}\}.render"

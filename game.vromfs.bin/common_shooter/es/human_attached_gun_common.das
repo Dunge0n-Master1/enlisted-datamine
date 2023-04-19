@@ -4,9 +4,9 @@ require game.utils.team
 require Gun
 require common_shooter.events_common_shooter
 require HumanPhys
-require EnlistedActor
-require EnlistedHuman
-require EnlistedNet
+require DngActor
+require DngHuman
+require DngNet
 require EffectorData
 
 

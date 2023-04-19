@@ -21,7 +21,7 @@ def gun_spread_debug()
     createEntity("gun_spread_debug_draw")
 
 
-[es(no_order, REQUIRE=gunSpreadDebug)]
+[es(tag=(render, dev), no_order, REQUIRE=gunSpreadDebug)]
 def draw_gun_spread(evt : UpdateStageInfoRenderDebug)
   query() <| $ [es(REQUIRE=hero)] (human_weap__currentGunEid : EntityId)
     query(human_weap__currentGunEid) <| $ [es] (gun : Gun&)

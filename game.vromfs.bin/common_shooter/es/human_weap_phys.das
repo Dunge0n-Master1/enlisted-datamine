@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require player
 require game.es.events

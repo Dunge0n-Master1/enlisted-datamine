@@ -1,0 +1,1151 @@
+import:t="civil_vehicles.blk"
+
+vehicles_grid{
+  editableObj:b=no
+  _extends:t="replicating"
+  _singleton:b=yes
+  grid_holder__type:t="vehicles"
+  grid_holder__typeHash:i=0
+  grid_holder__cellSize:i=32
+
+  grid_holder{
+  }
+}
+
+vehicle{
+  _extends:t="vehicle_no_ai"
+  agent_dangers__tag:t="vehicle"
+  ai_target__invisibleTimeTo:r=0.0
+  ai_target__noiseLevel:r=0.0
+
+  "hitpoints__invulnerableTimeTo:r"{
+    value:r=0.0
+    _hide:b=yes
+  }
+
+  "hitpoints__invulnerabiltyTime:r"{
+    value:r=6.0
+    _hide:b=yes
+  }
+
+  ai_target{
+    _tags:t="server"
+  }
+}
+
+vehicle_steering_assist{
+
+  _group{
+    _tags:t="input"
+    vehicle_steering_assist__error:r=0.0
+    vehicle_steering_assist__errorReduceViscocity:r=0.2
+    vehicle_steering_assist__prevError:r=0.0
+    vehicle_steering_assist__pidK:p3=0.25, 0.1, 0.25
+    vehicle_steering_assist__brakingPidK:p3=0.01, 0.65, 2.0
+    vehicle_steering_assist__steeringThreshold:r=0.75
+  }
+}
+
+turret_control_components{
+
+  "turretInput:tag"{
+    _tags:t="input"
+  }
+
+  _group{
+    _tags:t="input"
+    turret_input__prevCmdSendTick:i=-1
+  }
+}
+
+airplane_turret_control_components{
+  _extends:t="turret_control_components"
+}
+
+tank_turret_control_components{
+  _extends:t="turret_control_components"
+  turret_input__actionSet:t="VehicleTurret"
+
+  _group{
+    _tags:t="input"
+    vehicle_input__aim:i=0
+    vehicle_input__zoomToggle:i=0
+    vehicle_input__zoom:i=0
+    vehicle_input__shoot:i=0
+    vehicle_input__shootSecondary:i=0
+    vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
+    vehicle_input__shootTurret03:i=0
+    vehicle_input__mainNextBulletType:i=0
+    vehicle_input__secondaryNextBulletType:i=0
+    vehicle_input__toggleStabilizer:i=0
+  }
+}
+
+cannon_turret_control_components{
+  _extends:t="turret_control_components"
+  turret_input__actionSet:t="VehicleTurret"
+
+  _group{
+    _tags:t="input"
+    vehicle_input__aim:i=0
+    vehicle_input__zoomToggle:i=0
+    vehicle_input__zoom:i=0
+    vehicle_input__shoot:i=0
+    vehicle_input__shootSecondary:i=0
+    vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
+    vehicle_input__shootTurret03:i=0
+    vehicle_input__mainNextBulletType:i=0
+    vehicle_input__secondaryNextBulletType:i=0
+    vehicle_input__toggleStabilizer:i=0
+  }
+}
+
+bike_turret_control_components{
+  _extends:t="turret_control_components"
+  turret_input__actionSet:t="VehicleTurret"
+
+  _group{
+    _tags:t="input"
+    vehicle_input__aim:i=0
+    vehicle_input__zoomToggle:i=0
+    vehicle_input__zoom:i=0
+    vehicle_input__shoot:i=0
+    vehicle_input__shootSecondary:i=0
+    vehicle_input__shootMachinegun:i=0
+    vehicle_input__shootGrenadeLauncher:i=0
+    vehicle_input__shootTurret03:i=0
+    vehicle_input__mainNextBulletType:i=0
+    vehicle_input__secondaryNextBulletType:i=0
+    vehicle_input__toggleStabilizer:i=0
+  }
+}
+
+turret_input{
+  _tracked:t="turret_input__shootFlag"
+
+  "turretInput:tag"{
+    _tags:t="input"
+  }
+
+  _group{
+    _tags:t="input"
+    turret_input__firstUpdate:b=no
+    turret_input__shootFlag:b=no
+    turret_input__aimPos:p3=0.0, 0.0, 0.0
+    turret_input__aimAngles:p2=0.0, 0.0
+    turret_input__isLocalControlLocked:b=no
+  }
+}
+
+first_watched_turret{
+  _tags:t="gameClient"
+
+  "firstWatchedTurret:tag"{
+  }
+
+  _group{
+    _tags:t="input"
+    turret_input__aimPos:p3=0.0, 0.0, 0.0
+  }
+}
+
+first_turret{
+  _extends:t="first_watched_turret"
+  isForestall:b=yes
+
+  "firstTurretInput:tag"{
+    _tags:t="input"
+  }
+
+  _group{
+    _tags:t="input"
+    turret_input__isZoom:b=no
+    turret_input__zoom:r=0.0
+    turret_input__minZoom:r=1.0
+    turret_input__maxZoom:r=2.0
+  }
+}
+
+turret_with_several_types_of_shells{
+  currentBulletId:i=0
+  nextBulletId:i=0
+  lastBulletId:i=0
+  _tracked:t="currentBulletId"
+  _tracked:t="nextBulletId"
+  _replicated:t="currentBulletId"
+  _replicated:t="nextBulletId"
+
+  "turretWithSeveralTypeOfShells:tag"{
+  }
+}
+
+main_turret{
+
+  "xrayActivator:tag"{
+  }
+
+  "mainTurret:tag"{
+  }
+
+  "aiAvoidTurret:tag"{
+  }
+}
+
+resolved_turret{
+
+  "resolvedTurret:tag"{
+  }
+}
+
+controlled_by_ai_gunner{
+
+  "controlledByAiGunner:tag"{
+  }
+}
+
+turret_ammo_sets{
+  currentBulletId:i=0
+  _replicated:t="currentBulletId"
+  _replicated:t="ammo_set__shellIds"
+  _tracked:t="currentBulletId"
+  _tracked:t="ammo_set__shellIds"
+
+  "ammo_set__shellIds:list<i>"{
+  }
+
+  "gun__ammoSets:array"{
+  }
+}
+
+ui_turret_reload_progress{
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    ui_turret_reload_progress__startTime:r=-1.0
+    ui_turret_reload_progress__finishTime:r=-1.0
+    ui_turret_reload_progress__progressStopped:r=-1.0
+  }
+}
+
+ui_turret_replenishment_progress{
+
+  _group{
+    _replicate:b=yes
+    _track:b=yes
+    turret__replenishmentStartTime:r=-1.0
+    turret__replenishmentFinishTime:r=-1.0
+  }
+
+  _group{
+    _tags:t="ui"
+    _track:b=yes
+    ui_turret_replenishment_progress__startTime:r=-1.0
+    ui_turret_replenishment_progress__finishTime:r=-1.0
+  }
+}
+
+turret_base{
+  _extends:t="base_gun"
+  _extends:t="turret_ammo_sets"
+  _extends:t="turret_gun_sound"
+  _extends:t="ui_turret_reload_progress"
+  _extends:t="ui_turret_replenishment_progress"
+  _extends:t="hit_effect_group_turret"
+  gun__useLocalPlayerTracer:b=no
+  gun__blk:t="content/tanks/gamedata/weapons/empty.blk"
+  gun__shootNodeName:t="bone_gun_barrel"
+  gun__onShotConcussionRadiusCaliberCoeff:r=70.0
+  gun__recoilAmount:r=0.1
+  gun__reloadable:b=no
+  gun__ammo:i=0
+  _replicated:t="gun__ammo"
+  _replicated:t="gun__ammo_by_shell"
+  _replicated:t="turret__isBroken"
+  _replicated:t="turret__isUnderwater"
+  _replicated:t="turret_aim_drives_mult"
+  _tracked:t="gun__ammo"
+  _tracked:t="gun__ammo_by_shell"
+  _tracked:t="turret__isControlledByAi"
+  _tracked:t="turret_ai__atackTarget"
+  _tracked:t="turret_ai__chaseTarget"
+  turret__triggerGroup:i=0
+  turret__id:i=-1
+  turret__name:t=""
+  turret__isGunDirInited:b=no
+  turret__flashNodeId:i=-1
+  turret__isBroken:b=no
+  turret__isUnderwater:b=no
+  turret__canZoom:b=yes
+  turret__stabilizerError:r=0.0
+  turret_aim__shootToPos:p3=0.0, 0.0, 0.0
+  turret_aim__shootAngles:p2=0.0, 0.0
+  turret_aim__atTick:i=0
+  turret_aim__shootFlag:b=no
+  turret_dm_part__barrelDm:i=-1
+  turret_dm_part__breechDm:i=-1
+  turret_drive_dm_part__verDriveDm:i=-1
+  turret_drive_dm_part__horDriveDm:i=-1
+  turret_ai__nextTargetCheckAtTime:r=-1.0
+  turret_ai__targetCheckInterval:r=1.0
+  turret_ai__identDist:r=1000.0
+  turret_ai__atackDist:r=600.0
+  turret_ai__attackTimer:r=0.0
+  turret_ai__sleepTime:r=0.0
+  turret_ai__pauseTime:r=0.0
+  turret_ai__distrTime:r=0.0
+  turret_ai__minWindow:p2=-0.5, -0.75
+  turret_ai__maxWindow:p2=0.5, 0.75
+  turret_ai__amplitude:p2=4.0, 4.0
+  turret_ai__period:p2=0.25, 0.5
+  turret_ai__distrTimer:r=10.0
+  turret_ai__attackTimerr:r=2.5
+  turret_ai__sleepTimer:r=2.0
+  turret_ai__pauseTimer:r=0.25
+  turret_ai__distrStartTime:r=0.0
+  turret__aimNodeId:i=-1
+
+  "turret__numAmmoFirstStage:i"{
+    vlaue:i=-1
+    _replicate:b=yes
+  }
+
+  _group{
+    _track:b=yes
+    turret__yawSpeed:r=-1.0
+    turret__pitchSpeed:r=-1.0
+    turret__yawAccel:r=-1.0
+    turret__pitchAccel:r=-1.0
+  }
+
+  _group{
+
+    "turret__resolved:b"{
+      value:b=no
+      _hide:b=yes
+    }
+
+    "turret__emitterNodeId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__yawSpeedVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__wishYawVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__wishPitchVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__curYawVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__curWorldYawVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__curPitchVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__curWorldPitchVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__yawSpeedMulVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__pitchSpeedMulVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__gunRecoilVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__turretAimActiveVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__stabilizerYawActiveVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__stabilizerPitchActiveVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__stabilizerErrorVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__stabilizerYawFrictionMultVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__stabilizerPitchFrictionMultVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__pitchSpeedVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__yawAccelVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__pitchAccelVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__minYawAngleVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__maxYawAngleVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__minPitchAngleVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+
+    "turret__maxPitchAngleVarId:i"{
+      value:i=-1
+      _hide:b=yes
+    }
+  }
+
+  _group{
+    _tags:t="gameClient"
+    turret_recoil__duration:r=0.0
+    turret_recoil__startTime:r=0.0
+  }
+
+  _group{
+    _tags:t="server"
+    turret_aim_sync__prevShootAngles:p2=0.0, 0.0
+  }
+
+  _group{
+    _tags:t="gameClient"
+    turret_aim__shootDirWithCorrection:p3=0.0, 0.0, 0.0
+    turret_aim__shootCorrectionPos:p3=0.0, 0.0, 0.0
+    turret_aim__shootCorrectionDir:p3=1.0, 0.0, 0.0
+    turret_aim__correctionTraceLen:r=0.0
+  }
+
+  "turret__perksReloadMult:r"{
+    value:r=1.0
+    _replicate:b=yes
+    _track:b=yes
+  }
+
+  "turret__ammoStowageReloadMult:r"{
+    value:r=1.0
+    _replicate:b=yes
+    _track:b=yes
+  }
+
+  "turret_aim__target:eid"{
+  }
+
+  "turret__isCut:b"{
+    _replicate:b=yes
+    _track:b=yes
+    value:b=no
+  }
+
+  "turret_isVisible:b"{
+    _replicate:b=yes
+    _track:b=yes
+    value:b=yes
+  }
+
+  "isTurret:tag"{
+  }
+
+  "gun__shellsAmmo:array"{
+  }
+
+  "gun__ammo_by_shell:list<i>"{
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="manual"
+  }
+
+  "turret__owner:eid"{
+  }
+
+  "turret__isControlledByAi:b"{
+    _tags:t="server"
+    value:b=no
+  }
+
+  "turret_controls_history:TurretControlsHistory"{
+    _tags:t="server"
+  }
+
+  turret_state{
+  }
+
+  turret_state_remote{
+  }
+
+  turret_aim_drives_mult{
+  }
+
+  "turret_ai__atackTarget:eid"{
+  }
+
+  "turret_ai__chaseTarget:eid"{
+  }
+}
+
+reloadable_turret{
+  _replicated:t="gun__reloadStartTime"
+  _replicated:t="gun__reloadFinishTime"
+  _replicated:t="gun__reloadTime"
+  _tracked:t="gun__reloadStartTime"
+  _tracked:t="gun__reloadFinishTime"
+  _tracked:t="gun__reloadTime"
+  gun__reloadable:b=yes
+  gun__reloadTime:r=3.0
+  gun__reloadStartTime:r=-1.0
+  gun__reloadFinishTime:r=-1.0
+
+  "gun__isReloading:b"{
+    value:b=no
+    _tags:t="server"
+    _track:b=yes
+  }
+
+  "gunAutoReloadOnEmpty:tag"{
+  }
+
+  "forbidReloadIfNotEmpty:tag"{
+  }
+
+  "gun__containerEntity:eid"{
+  }
+}
+
+tankgun{
+  _extends:t="turret_base"
+  gun__projectileTemplate:t="bullet_projectile"
+  gun__projectileDebugTemplate:t="bullet_projectile+bullet_projectile_debug"
+}
+
+plane_machinegun{
+  _extends:t="turret_base"
+  _extends:t="reloadable_turret"
+}
+
+turret_with_group{
+  turret__groupHash:i=0
+  turret__groupName:t=""
+}
+
+ten_seats_vehicle{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+  }
+}
+
+truck_ten_seats_vehicle{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/car_driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="char_driver_pivot"
+      entranceNode:t="char_driver_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="passenger1"
+      canPlaceManually:b=yes
+      seatEnum:t="left_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_01_pivot"
+      entranceNode:t="char_passenger_01_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger2"
+      canPlaceManually:b=yes
+      seatEnum:t="right_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_02_pivot"
+      entranceNode:t="char_passenger_02_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger3"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_03_pivot"
+      entranceNode:t="char_passenger_03_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger4"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_04_pivot"
+      entranceNode:t="char_passenger_04_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger5"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_05_pivot"
+      entranceNode:t="char_passenger_05_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger6"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_06_pivot"
+      entranceNode:t="char_passenger_06_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger7"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_07_pivot"
+      entranceNode:t="char_passenger_07_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger8"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_08_pivot"
+      entranceNode:t="char_passenger_08_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger9"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger9"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_09_pivot"
+      entranceNode:t="char_passenger_09_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="passenger10"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+
+    "seats:object"{
+      name:t="passenger10"
+      locName:t="vehicle_seats/shooter"
+      seatOwnsEntityControl:b=no
+      attachNode:t="char_passenger_10_pivot"
+      entranceNode:t="char_passenger_10_landing"
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+      seatComponent:t="isPassenger"
+      nextSeat:t="driver"
+      canPlaceManually:b=yes
+      seatEnum:t="left_track_seat"
+    }
+  }
+}
+
+vehicle_seats_order{
+  _singleton:b=yes
+
+  "vehicleSeatsOrder:array"{
+
+    "seat:object"{
+      name:t="commander"
+    }
+
+    "seat:object"{
+      name:t="main_gunner"
+    }
+
+    "seat:object"{
+      name:t="driver"
+    }
+
+    "seat:object"{
+      name:t="loader"
+    }
+
+    "seat:object"{
+      name:t="additional_gunner"
+      multiple:b=yes
+    }
+
+    "seat:object"{
+      name:t="external_gunner"
+      multiple:b=yes
+    }
+  }
+}
+
+seats_layout_d_g_c{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      turretName:t="turret_01"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+    }
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+    }
+
+    "seats:object"{
+      name:t="commander"
+      attachNode:t="commander"
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="commander"
+    }
+  }
+}
+
+seats_layout_d_g_l_mg{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/commander"
+      attachNode:t="loader"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+    }
+
+    "seats:object"{
+      locName:t="vehicle_seats/radioman"
+      attachNode:t="machine_gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="machine_gunner"
+    }
+  }
+}
+
+seats_layout_d_g_c_l_mg{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      turretName:t="turret_01"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+    }
+
+    "seats:object"{
+      attachNode:t="loader"
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+    }
+
+    "seats:object"{
+      name:t="commander"
+      attachNode:t="commander"
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="commander"
+    }
+
+    "seats:object"{
+      attachNode:t="machine_gunner"
+      locName:t="vehicle_seats/radioman"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="machine_gunner"
+    }
+  }
+}
+
+three_seats_vehicle{
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/driver"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="driver"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      seatComponent:t="isDriver"
+      nextSeat:t="main_gunner"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="driver"
+      cameraNodeName:t="bone_camera_driver"
+    }
+
+    "seats:object"{
+      name:t="main_gunner"
+      locName:t="vehicle_seats/gunner"
+      attachNode:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isGunner"
+      nextSeat:t="driver"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="gunner"
+      cameraNodeName:t="bone_camera_gunner"
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+    }
+
+    "seats:object"{
+      attachNode:t="loader"
+      locName:t="vehicle_seats/commander"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      seatComponent:t="isPassenger"
+      shouldHideOwner:b=yes
+      receiveDamageFromDMPart:t="loader"
+    }
+  }
+}
+
+high_speed_warning{
+  vehicle__isHighSpeedWarningEnabled:b=no
+  _tracked:t="vehicle__isHighSpeedWarningEnabled"
+  vehicle__highSpeedWarningLimits:p2=0.0, 0.0
+}
+
+_componentFilters{
+  turret__numAmmoFirstStage:t="filter_possessed_and_spectated_vehicle"
+  gun__ammo_by_shell:t="filter_possessed_and_spectated_vehicle"
+  currentBulletId:t="filter_possessed_and_spectated_vehicle"
+  nextBulletId:t="filter_possessed_and_spectated_vehicle"
+  turret__replenishmentStartTime:t="filter_possessed_and_spectated_vehicle"
+  turret__replenishmentFinishTime:t="filter_possessed_and_spectated_vehicle"
+  turret__perksReloadMult:t="filter_possessed_and_spectated_vehicle"
+  turret__ammoStowageReloadMult:t="filter_possessed_and_spectated_vehicle"
+}

@@ -467,9 +467,10 @@ let function createEventRoom() {
   let modName = modInfo?.title
   let modDescription = modInfo?.description
   let modVersion = modInfo?.version
+  let modAuthor = modInfo?.authors[0]
 
   if (isAnyModEnabled() && modHash != null)
-    roomParams.public.__update({ modId, modHash, modName, modDescription, modVersion })
+    roomParams.public.__update({ modId, modHash, modName, modDescription, modVersion, modAuthor })
 
   let crossPlatform = getCrossPlatformsList()
   if (crossPlatform.len() > 0)

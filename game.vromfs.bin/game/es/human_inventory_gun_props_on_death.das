@@ -1,6 +1,6 @@
 require ecs
 require game.events_game
-require EnlistedWeapon
+require DngWeapon
 
 [es(tag=server)]
 def human_inventory_fill_guns_custom_props_on_death(evt : EventEntityDied; eid : EntityId; human_weap__gunEids : EidList)

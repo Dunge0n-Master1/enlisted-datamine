@@ -3,15 +3,15 @@ require ecs
 require ecs.safe
 require ecs.common
 require math.base
-require EnlistedNet
+require DngNet
 require DagorMath
 require common_shooter.events_common_shooter
 require common_shooter.es.weapon.shell_fx_common
-require EnlistedWeapon
-require EnlistedWeaponRender
+require DngWeapon
+require DngWeaponRender
 require Dacoll
 require enlisted.events_enlisted
-require EnlistedPhysObj
+require DngPhysObj
 require strings
 
 def private spawn_effect_aux(pos : float3;

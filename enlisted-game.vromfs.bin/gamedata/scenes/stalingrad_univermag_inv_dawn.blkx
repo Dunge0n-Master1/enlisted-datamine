@@ -3380,7 +3380,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.3
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=3
@@ -3409,7 +3409,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.0
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=4
@@ -3467,7 +3467,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=0.4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=6
@@ -3525,7 +3525,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=2.7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=8
@@ -3638,7 +3638,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.8
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=12
@@ -3662,7 +3662,7 @@ entity{
   capzone__deactivateAfterTimeout:r=25.0
   capzone__spawnAtZoneTimeout:r=25.0
   capzone__createRespawnBaseForTeam:i=2
-  decal__thickness:r=0.4
+  decal__thickness:r=0.15
   decal__height:r=1.5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__createdRespawnBaseGroup:i=13

@@ -9,7 +9,6 @@ let { Bordered } = require("%ui/components/txtButton.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isResearchesOpened } = require("%enlist/mainMenu/sectionsState.nut")
-let { selectedTable } = require("researchesState.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
@@ -18,21 +17,15 @@ let { colPart, columnGap, titleTxtColor } = require("%enlSqGlob/ui/designConst.n
 
 let headerTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
 
-
-let pagesBgImages = [
-  mkColoredGradientY(0xDD090929, 0xDD220202),
-  mkColoredGradientY(0xDD241308, 0xDD260202),
-  mkColoredGradientY(0xDD072110, 0xDD0A1D02)
-]
+let pagesBgImage = mkColoredGradientY(0xDD090929, 0xDD220202)
 
 let profileWindow = {
   size = flex()
   children = [
-    @() {
-      watch = selectedTable
+    {
       size = flex()
       rendObj = ROBJ_IMAGE
-      image = pagesBgImages[selectedTable.value]
+      image = pagesBgImage
     }
     @() {
       watch = safeAreaBorders

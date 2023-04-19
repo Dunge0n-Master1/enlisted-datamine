@@ -504,9 +504,11 @@ let tiersStars = @(minTier, maxTier) maxTier <= 0 ? null : {
 
 let mkMsgBoxView = @(shopItem, crateContent, countWatched, showDiscount = false)
   function() {
-    let { armyId = null } = crateContent?.value
+    if (crateContent == null)
+      return null
+    let { armyId = null, content = {} } = crateContent.value
     let templates = allItemTemplates.value?[armyId]
-    let { minTier, maxTier } = getTierInterval(crateContent?.value.content.items, templates)
+    let { minTier, maxTier } = getTierInterval(content?.items, templates)
     return {
       watch = [crateContent, allItemTemplates]
       rendObj = ROBJ_SOLID

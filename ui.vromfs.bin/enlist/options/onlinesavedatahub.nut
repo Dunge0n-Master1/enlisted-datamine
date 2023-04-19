@@ -12,9 +12,8 @@ let function onChange(_) {
   foreach(saveId, value in settings.value) {
     let nest = getOrMkSaveData(saveId).value
 //    log($"mkOnlineSaveData: from online settings: {saveId} {value}, nest = {nest}")
-    if (value == nest)
-      continue
-    eventbus.send($"onlineData.changed.{saveId}", { value })
+    if (!isEqual(value, nest))
+      eventbus.send($"onlineData.changed.{saveId}", { value })
   }
 }
 onlineSettingUpdated.subscribe(onChange)
@@ -26,7 +25,7 @@ eventbus.subscribe("onlineData.setValue", function(msg) {
     logerr($"onlineSaveDataHub: try to set value to {saveId} while online options not inited")
     return
   }
-  if (settings.value?[saveId] != value)
+  if (!isEqual(settings.value?[saveId], value))
     settings.mutate(function(s) { s[saveId] <- value })
 })
 

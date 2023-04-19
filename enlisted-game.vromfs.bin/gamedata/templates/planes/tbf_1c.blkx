@@ -15,7 +15,7 @@ tbf_1c{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=0.1, 1.35, 0.0
+      cameraOffset:p3=0.1, 1.319, 0.0
       cockpitTemplate:t="tbf_1c_driver_cockpit"
       roomSpace:i=0
 
@@ -24,11 +24,9 @@ tbf_1c{
         turret:t="turret_02"
         turret:t="turret_03"
         turret:t="turret_04"
-        turret:t="turret_05"
-        turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -48,7 +46,7 @@ tbf_1c{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_07"
+        turret:t="turret_05"
       }
     }
 
@@ -64,7 +62,7 @@ tbf_1c{
       roomSpace:i=2
 
       "turretNames:array"{
-        turret:t="turret_08"
+        turret:t="turret_06"
       }
     }
   }
@@ -72,8 +70,6 @@ tbf_1c{
   "turret_control__emitterNodes:shared:array"{
     node:t="bomb1"
     node:t="bomb2"
-    node:t="bomb3"
-    node:t="bomb4"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -103,22 +99,14 @@ tbf_1c{
     }
 
     "vars:object"{
-      curYawParamName:t="weapon_05_yaw"
-      curPitchParamName:t="weapon_05_pitch"
-    }
-
-    "vars:object"{
-      curYawParamName:t="weapon_06_yaw"
-      curPitchParamName:t="weapon_06_pitch"
-    }
-
-    "vars:object"{
       paramMinPitchAngle:t="turret1_min_pitch_angle"
       wishPitchParamName:t="gun1_aim:targetPitch"
       paramYawSpeedMul:t="turret1_yaw_mul"
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -137,6 +125,8 @@ tbf_1c{
       paramYawSpeed:t="turret2_yaw_speed"
       paramMaxYawAngle:t="turret2_max_yaw_angle"
       aimActiveParamName:t="gun2_aim_active"
+      curWorldPitchParamName:t="gun2_world_pitch"
+      curWorldYawParamName:t="turret2_world_yaw"
       paramPitchSpeedMul:t="gun2_pitch_mul"
       paramYawAccel:t="turret2_yaw_accel"
       paramPitchAccel:t="gun2_pitch_accel"
@@ -167,41 +157,27 @@ tbf_1c{
 
     "turretInfo:object"{
       turretName:t="turret_03"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_tbf_1c_500lb_anm_64a_1_launcher_03"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_04"
-      turretGroup:t="bomb_turrets"
-      trigger:t="bombs"
-      gun:t="planegun_tbf_1c_500lb_anm_64a_1_launcher_04"
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_05"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_tbf_1c_12_7mm_browning50_early_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_06"
+      turretName:t="turret_04"
       turretGroup:t="main_turrets"
       trigger:t="machine_guns"
       gun:t="planegun_tbf_1c_12_7mm_browning50_early_02"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_07"
+      turretName:t="turret_05"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_tbf_1c_12_7mm_browning50_turret_01"
     }
 
     "turretInfo:object"{
-      turretName:t="turret_08"
+      turretName:t="turret_06"
       turretGroup:t="turrets_gunner1"
       trigger:t="machine_guns"
       gun:t="planegun_tbf_1c_7_62mm_browning30_turret_01"
@@ -211,8 +187,6 @@ tbf_1c{
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="bomb1"
     node:t="bomb2"
-    node:t="bomb3"
-    node:t="bomb4"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
@@ -220,8 +194,6 @@ tbf_1c{
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
-    fx:t=""
-    fx:t=""
     fx:t=""
     fx:t=""
     fx:t="muzzle_air_15mm"
@@ -237,13 +209,12 @@ tbf_1c{
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
-    scale:r=1.0
-    scale:r=1.0
   }
 
   "disableDMParts:list<t>"{
     part:t="uncle_tom_pylon_a_l"
     part:t="uncle_tom_pylon_a_r"
+    part:t="pilot1_dm"
   }
 }
 
@@ -469,24 +440,6 @@ planegun_tbf_1c_500lb_anm_64a_1_launcher_02{
   gun__maxAmmo:i=1
 }
 
-planegun_tbf_1c_500lb_anm_64a_1_launcher_03{
-  _extends:t="500lb_anm_64a_1_launcher"
-  _extends:t="base_tbf_1c_500lb_anm_64a_1_launcher"
-  _extends:t="gunsound_500lb_anm_64a_1_launcher_aircraft"
-  gun__shootNodeName:t="bomb3"
-  slot_attach__slotName:t="bomb3"
-  gun__maxAmmo:i=1
-}
-
-planegun_tbf_1c_500lb_anm_64a_1_launcher_04{
-  _extends:t="500lb_anm_64a_1_launcher"
-  _extends:t="base_tbf_1c_500lb_anm_64a_1_launcher"
-  _extends:t="gunsound_500lb_anm_64a_1_launcher_aircraft"
-  gun__shootNodeName:t="bomb4"
-  slot_attach__slotName:t="bomb4"
-  gun__maxAmmo:i=1
-}
-
 planegun_tbf_1c_12_7mm_browning50_early_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
@@ -547,4 +500,24 @@ tbf_1c_driver_cockpit{
   animchar__res:t="tbf_1c_cockpit_char"
   plane_anim__blk:t="gamedata/units/tbf_1c.blk"
   plane_sight__blk:t="gamedata/units/tbf_1c.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0115, 0.0395, 0.0005
+    item:p3=0.0285, -0.011, -0.0335
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=15.4, 28.3
+    item:p2=-44.6, 3.0
+  }
 }

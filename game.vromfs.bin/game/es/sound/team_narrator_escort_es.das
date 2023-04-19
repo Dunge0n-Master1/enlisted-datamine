@@ -6,7 +6,9 @@ require game.utils.team
 require game.es.capzones_common
 
 def narrator_escort_on_zone_captured(zone : EntityId; team : int)
-  query(zone) <| $ [es(REQUIRE=trainTriggerable)] ([[shared_comp]] narrator__phrase : Object; capzone__alwaysHide : bool = false)
+  query(zone) <| $ [es(REQUIRE=trainTriggerable)] (active : bool;
+                                                   [[shared_comp]] narrator__phrase : Object;
+                                                   capzone__alwaysHide : bool = false)
     if capzone__alwaysHide
       return
 
@@ -15,7 +17,10 @@ def narrator_escort_on_zone_captured(zone : EntityId; team : int)
     if phraseByTeam == null
       return
 
-    let zonesInfo = get_all_captured_zones_info(team)
+    // we might not have the most recent zone data replicated yet (in this case capTeam is important)
+    // but the event we got does. So use event's info for that one cap zone
+    let capturedZoneInfo = [[ZoneInfo eid=zone, team=team, active=active]]
+    let zonesInfo = get_all_captured_zones_info(team, capturedZoneInfo)
     // use capturedAlly because we pass zone team(not a hero team) to get_all_captured_zones_info
     if is_half_zone_captured(zonesInfo.capturedAlly, zonesInfo.total)
       let zoneCaptured = (*phraseByTeam)["zone_captured"] ?as Object

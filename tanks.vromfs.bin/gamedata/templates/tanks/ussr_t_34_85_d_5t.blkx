@@ -13,7 +13,7 @@ ussr_t_34_85_d_5t{
       locName:t="vehicle_seats/gunner"
       ignoreAttachNodeRotation:b=yes
       attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.55, 0.13]]
-      seatComponent:t="isDriver"
+      seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="commander"
       cameraNodeName:t="bone_turret"
       cockpitTemplate:t="ussr_t_34_85_d_5t_gunner_cockpit"
@@ -90,7 +90,7 @@ ussr_t_34_85_d_5t_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_15.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.05
+  cockpit__minForwardOffset:r=-0.05
   cockpit__offset:p3=-0.0, -0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

@@ -3,9 +3,9 @@ require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
 require math.base
 require HumanPhys
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedCamera
+require DngHuman
+require DngWeapon
+require DngCamera
 require DagorMath
 require DagorMathUtils
 require DagorSystem
@@ -84,7 +84,7 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
                          entity_mods__aimingAfterFireMult : float = 1.0;
                          entity_mods__boltActionMult : float = 1.0;
                          entity_mods__deviationBufferSizeMult : float = 1.0;
-                         human_use_object__selectedObject : EntityId const? = null;
+                         grenade_rethrow__grenadeEid : EntityId const? = null;
                          entity_mods__shotDeviationAdd : float = 0.0;
                          human_weap__fastThrowExclusive : bool = true;
                          human_weap__maxParallaxDeviation : float = 10.0;
@@ -187,7 +187,7 @@ def human_weap_update_es(info : ParallelUpdateFrameDelayed;
 
   human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                         updCtx, transform, gunDir, gunShootDir, transform,
-                        ct, human_use_object__selectedObject,
+                        ct, grenade_rethrow__grenadeEid,
                         human_unarmed__active, human_attached_gun__attachedGunEid,
                         human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
                         human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)

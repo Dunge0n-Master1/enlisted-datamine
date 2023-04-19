@@ -50,16 +50,6 @@ uk_a22_mk_I_churchill{
       curYawParamName:t="turret_yaw"
       curPitchParamName:t="gun_pitch"
       gunRecoilParamName:t="gun_recoil"
-
-      "gunFlash:object"{
-        node:t="emtr_gun_flame"
-        fx:t="muzzle_flash"
-        fxId:i=-1
-        scale:r=0.7
-        nodeId:i=-1
-        time:r=0.2
-        multTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
-      }
     }
   }
 }
@@ -94,16 +84,6 @@ uk_a22b_mk_III_churchill_1942{
       curYawParamName:t="turret_yaw"
       curPitchParamName:t="gun_pitch"
       gunRecoilParamName:t="gun_recoil"
-
-      "gunFlash:object"{
-        node:t="emtr_gun_flame"
-        fx:t="muzzle_flash"
-        fxId:i=-1
-        scale:r=0.7
-        nodeId:i=-1
-        time:r=0.2
-        multTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
-      }
     }
   }
 }

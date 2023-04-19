@@ -1,7 +1,7 @@
 require ecs
 require game.es.events
 require game.es.action_common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 
 [es]

@@ -11,14 +11,9 @@ stucking:r=0.7
 stuckingAngle:r=45.0
 bulletType:t="apbc_usa_tank"
 fresnel:p3=0.23, 0.1, 2.0
-shellAnimation:t="video/shells_animations/ap.ivf"
 bulletName:t="47mm_m39_apc"
 fuseDelayDist:r=1.2
 explodeTreshold:r=9.0
-explosionEffect:t="hit_39_58mm_metal_ap"
-groundCollisionEffect:t="hit_39_58mm_dirt_ap"
-ricochetEffect:t="hit_39_58mm_metal_ap"
-waterCollisionEffect:t="hit_39_58mm_water"
 explosionPatchRadius:r=0.7
 secondaryShattersPreset:t="ap"
 
@@ -395,32 +390,6 @@ ballistics{
       mod3:p2=30.0, 0.6
       mod3:p2=45.0, 0.9
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_39_58mm_dirt_ap"
-  jetFx:t="hit_39_58mm_dirt_ap"
-
-  steel{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

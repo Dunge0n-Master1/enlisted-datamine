@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
 require game.es.events

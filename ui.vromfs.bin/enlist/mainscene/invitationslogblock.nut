@@ -6,9 +6,9 @@ let { inbox, clearAll, markReadAll, hasUnread, isMailboxVisible, onNotifyRemove,
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { defTxtColor, hoverTxtColor, colPart, smallPadding, bigPadding,
-  panelBgColor, titleTxtColor
+  panelBgColor, titleTxtColor, commonBorderRadius, defBdColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { FAFlatButton, SmallBordered } = require("%ui/components/txtButton.nut")
+let { FAFlatButton } = require("%ui/components/txtButton.nut")
 
 const MAILBOX_MODAL_UID = "mailbox_modal_wnd"
 let wndWidth = colPart(7.2)
@@ -31,7 +31,23 @@ let item = @(notify) {
   flow = FLOW_HORIZONTAL
   gap = bigPadding
   children = [
-    SmallBordered(notify.text, @() onNotifyShow(notify), { btnWidth = flex() })
+    {
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_BOX
+      borderWidth = hdpx(1)
+      borderRadius = commonBorderRadius
+      behavior = Behaviors.Button
+      borderColor = defBdColor
+      onClick =  @() onNotifyShow(notify)
+      padding = [smallPadding, bigPadding]
+      clipChildren = true
+      children = {
+        size = [flex(), SIZE_TO_CONTENT]
+        rendObj = ROBJ_TEXTAREA
+        behavior = Behaviors.TextArea
+        text = notify.text
+      }.__update(titleTxtStyle)
+    }
     mkRemoveBtn(notify)
   ]
 }

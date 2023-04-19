@@ -310,26 +310,31 @@ let vehicleModFactory = {
   disable_dm_part                             = mkCalcInsert("disableDMParts")
 }
 
-let function convertGunMods(armies) {
+let function convertGunMods(db, soldier) {
+  let weapons = soldier?.human_weap__weapInfo ?? {}
+  foreach (weapon in weapons) {
+    let gunSlots = weapon?.gunSlots
+    if (gunSlots == null)
+      continue
+
+    weapon.gunMods <- {}
+    foreach (slotid, slotTemplateId in gunSlots) {
+      let slotTemplate = db.getTemplateByName(slotTemplateId)
+      if (!slotTemplate)
+        continue
+      weapon.gunMods[slotid] <- slotTemplate.getCompVal("gunAttachable__slotTag")
+    }
+
+    delete weapon.gunSlots
+  }
+}
+
+let function armyConvertGunMods(armies) {
   let db = ecs.g_entity_mgr.getTemplateDB()
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
       foreach (soldier in squad?.squad ?? []) {
-        foreach (weapon in (soldier?["human_weap__weapInfo"] ?? {})){
-          let gunSlots = weapon?.gunSlots
-          if (gunSlots == null)
-            continue
-
-          weapon.gunMods <- {}
-          foreach (slotid, slotTemplateId in gunSlots) {
-            let slotTemplate = db.getTemplateByName(slotTemplateId)
-            if (!slotTemplate)
-              continue
-            weapon.gunMods[slotid] <- slotTemplate.getCompVal("gunAttachable__slotTag")
-          }
-
-          delete weapon.gunSlots
-        }
+        convertGunMods(db, soldier)
       }
     }
   }
@@ -356,15 +361,19 @@ let function applyUpgradesToComponents(gunTemplate, upgrades) {
   return result
 }
 
-let function applyGunUpgrades(armies) {
+let function applyGunUpgrades(soldier) {
+  let weapTemplates = soldier.human_weap__weapTemplates
+  foreach (slotNo, upgrades in (soldier?.human_weap__weapInitialComponents ?? [])) {
+    let gunComps = applyUpgradesToComponents(weapTemplates?[weaponSlotsKeys?[slotNo]], upgrades)
+    soldier.human_weap__weapInitialComponents[slotNo].__update(gunComps)
+  }
+}
+
+let function armyApplyGunUpgrades(armies) {
   foreach (army in armies) {
     foreach (squad in army?.squads ?? []) {
       foreach (soldier in squad?.squad ?? []) {
-        let weapTemplates = soldier["human_weap__weapTemplates"]
-        foreach (slotNo, upgrades in (soldier?["human_weap__weapInitialComponents"] ?? [])) {
-          let gunComps = applyUpgradesToComponents(weapTemplates?[weaponSlotsKeys?[slotNo]], upgrades)
-          soldier["human_weap__weapInitialComponents"][slotNo].__update(gunComps)
-        }
+        applyGunUpgrades(soldier)
       }
     }
   }
@@ -500,8 +509,8 @@ let applyGameMode = @(armies) gameModeModifiersQuery.perform(function (_, game_m
 
 let function applyModsToArmies(armies) {
   applyGameMode(armies)
-  convertGunMods(armies)
-  applyGunUpgrades(armies)
+  armyConvertGunMods(armies)
+  armyApplyGunUpgrades(armies)
   applyVehicleMods(armies)
   return armies
 }
@@ -509,4 +518,6 @@ let function applyModsToArmies(armies) {
 return {
   applyModsToArmies
   applyPerks
+  convertGunMods
+  applyGunUpgrades
 }

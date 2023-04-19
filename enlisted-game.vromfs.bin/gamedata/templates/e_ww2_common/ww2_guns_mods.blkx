@@ -517,6 +517,27 @@ scope_pe_mosin_4x{
   }
 }
 
+scope_uvp{
+  _extends:t="scope_gunmod"
+  animchar__res:t="scope_pu_char"
+  item__template:t="scope_uvp_item"
+  item__proto:t="scope_uvp"
+  gunAttachable__slot:i=-1
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_uvp"
+  gunmod__deviationMult:r=0.3
+  gunmod__zoomFactor:r=7.0
+  gunmod__camShiftMin:r=0.24
+  gunmod__camShiftMax:r=0.24
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_uvp"
+
+  "gunAttachable:tag"{
+  }
+}
+
 scope_pu_6x{
   _extends:t="scope_gunmod"
   animchar__res:t="scope_pu_char"
@@ -1059,6 +1080,7 @@ steel_helm_phys{
   collres__res:t="helmet_1_collision"
   phys_obj_net_phys__blk:t="content/enlisted/gamedata/items/steel_helmet.blk"
   pair_collision__tag:t="collidableToPhysObj"
+  collision_physMatId:i=-1
 
   collres{
   }
@@ -1067,6 +1089,9 @@ steel_helm_phys{
   }
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
@@ -1224,6 +1249,31 @@ schiessbecher_grenade_launcher{
   gun__statName:t="launcher"
   weapon_mod__activateTime:r=2.8
   weapon_mod__deactivateTime:r=2.8
+
+  "gunAttachable:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="content/enlisted/gamedata/weapons/grenades/schiessbecher_grenade.blk"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/grenades/schiessbecher_grenade.blk"
+  }
+}
+
+schiessbecher_grenade_launcher_fg_42{
+  _extends:t="grenade_laucher_base"
+  animchar__res:t="fg_42_grenade_launcher_char"
+  item__template:t="schiessbecher_grenade_launcher_item"
+  item__proto:t="content/enlisted/gamedata/weapons/schiessbecher_grenade_launcher.blk"
+  item__name:t="items/schiessbecher_grenade_launcher"
+  gunAttachable__slotTag:t="schiessbecher_grenade_launcher"
+  gun__blk:t="content/enlisted/gamedata/weapons/schiessbecher_grenade_launcher.blk"
+  gun__locName:t="Schiessbecher grenade launcher"
+  gun__statName:t="launcher"
+  weapon_mod__activateTime:r=4.0
+  weapon_mod__deactivateTime:r=4.0
 
   "gunAttachable:tag"{
   }

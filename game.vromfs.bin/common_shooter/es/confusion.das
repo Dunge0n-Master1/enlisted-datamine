@@ -1,8 +1,8 @@
 require ecs
 require app
-require EnlistedDm
+require DngDm
 require DagorMath
-require EnlistedHuman
+require DngHuman
 require DaWeaponProps
 require game.es.events
 require common_shooter.es.confusion_common

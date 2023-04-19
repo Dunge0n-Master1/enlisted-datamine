@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require math.base
 require zones
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
@@ -16,10 +16,10 @@ require DagorMath
 require DagorSystem
 require DaWeaponProps
 require Dacoll
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require game.events_game
-require EnlistedDm
+require DngDm
 
 
 def explode_local_shell(shell_id : EntityId;

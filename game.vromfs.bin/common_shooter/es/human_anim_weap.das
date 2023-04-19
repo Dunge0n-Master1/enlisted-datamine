@@ -1,12 +1,12 @@
 require ecs
 require math.base
-require EnlistedHuman
-require EnlistedHumanAnim
+require DngHuman
+require DngHumanAnim
 require PhysVars
 require DagorRandom
 require DagorMath
 require DagorSystem
-require EnlistedWeapon
+require DngWeapon
 require enlisted.events_enlisted
 
 def set_phys_selected_weapon_var_from_props(var phys_vars : PhysVars;

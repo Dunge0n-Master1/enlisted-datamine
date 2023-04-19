@@ -2,10 +2,10 @@ options always_export_initializer = true
 
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require DagorDataBlock
 require BehNodes
-require EnlistedWalkerai
+require DngWalkerai
 require app
 require strings
 require math.base
@@ -13,11 +13,11 @@ require inventory
 require walkerai
 require HumanPhys
 require DagorRandom
-require EnlistedHuman
+require DngHuman
 require common_shooter.es.squad_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
 require common_shooter.events_common_shooter
-
+require game.es.enlisted_squad_common
 
 [beh_node(name="useMedkit")]
 class UseMedkit : BehNodeAdapter
@@ -144,6 +144,20 @@ class IsAgentPlayerBot : BehNodeAdapter
         isBot = true
     return isBot ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
+[beh_node(name="freefallOrParachuteBeh")]
+class FreefallOrParachuteBeh : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    let eid = beh_tree_eid(owner)
+    var freefallOrParachute = false
+    query(eid) <| $ [es] (var beh_tree__isFreefallOrParachute : bool&;
+                          human_freefall__isFreefall : bool = false;
+                          parachuteDeployed : Tag const?)
+      freefallOrParachute = human_freefall__isFreefall || parachuteDeployed != null
+      beh_tree__isFreefallOrParachute = freefallOrParachute
+
+    if !freefallOrParachute
+      reset_squad_mate_behaviour(eid)
+    return freefallOrParachute ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 def find_best_grenade_ammo_item_id(item_container : EidList; grenade_types_list : StringList;
                                    use_exclude_list : bool; exclude_grenade_types_list : StringList) : int
@@ -307,38 +321,40 @@ class ChooseBestWeapon : BehNodeAdapter
 
         var allowedGun = false
         var firingRange = float2()
+        var specialAIWeapType = 0
         query(gunEid) <| $ [es] (specialAIWeaponType : int const?; combatFiringRange : float2;
                                  gun__totalAmmo : int = 0; gun__ammo : int = 0; gun__isOverheat : bool = false)
           let isCurrent = i == currWeapon
+          let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
+          firingRange = float2(combatFiringRange.x, combatFiringRange.y * rangeCoef)
           allowedGun = (gun__totalAmmo + gun__ammo) > 0 && !gun__isOverheat
           if allowedGun && specialAIWeaponType != null
-            if *specialAIWeaponType == 1 // rocket launchers (not implemented yet)
+            specialAIWeapType = *specialAIWeaponType
+            if specialAIWeapType == 1 // rocket launchers (not implemented yet)
               allowedGun = false
-              if otherWeaponPriority == 0
+              if otherWeaponPriority == 0 && distToTargetSq < square(firingRange.y)
                 otherWeapon = i
-            elif *specialAIWeaponType == 2 // pistols
+            elif specialAIWeapType == 2 // pistols
               allowedGun = false
               if otherWeaponPriority < 10
                 otherWeapon = i
                 otherWeaponPriority = 10
-            elif *specialAIWeaponType == 3 // antitank rifles
+            elif specialAIWeapType == 3 // antitank rifles
               allowedGun = false
               if otherWeaponPriority < 5
                 otherWeapon = i
                 otherWeaponPriority = 5
-          let rangeCoef = isCurrent ? 1.0 : switchRadiusCoef
-          firingRange = float2(combatFiringRange.x, combatFiringRange.y * rangeCoef)
         if !allowedGun
           continue
 
         if currWeapon == i
           currAllowed = true
-        if square(firingRange.y) < distToTargetSq
-          if otherWeaponPriority < 15
+        if distToTargetSq > square(firingRange.y)
+          if otherWeaponPriority < 15 && specialAIWeapType == 0 // avoid special weapons at far distances
             otherWeapon = i
             otherWeaponPriority = 15
           continue
-        if square(firingRange.x) < distToTargetSq
+        if distToTargetSq > square(firingRange.x)
           bestWeapons |> push(i)
         elif goodWeapon == -1 || firingRange.x < closestStartFireRange
           closestStartFireRange = firingRange.x

@@ -1,16 +1,21 @@
 module events_common_shooter shared
 require ecs
 require dm
-require EnlistedDm
+require DngDm
 require Gun
 require DaWeapons
 require DaWeaponProps
-require EnlistedNet
+require DngNet
 require BitStream
+require RendInst
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct CmdNextBulletIdRequest
   triggerGroup : int
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdRequestStabilizer
+  enabled : bool
 
 [event(unicast)]
 struct EventOnSelectNextBulletId
@@ -66,17 +71,10 @@ struct EventOnGunCreated
   gunEid : ecs::EntityId
 
 [cpp_event(unicast)]
-struct EventOnProjectileHitClient
-  offender : ecs::EntityId
-  launchDesc : LaunchDesc
-  projHitInfo : ProjectileHitInfo
-  interp_delay_ticks : uint8
-  additional_interp_delay : float
-  victim_pos : float3
-  gunEid : ecs::EntityId
-  from : ConnectionId
-  sceneHitRicochetStability : float
-  traceRayMatId : int
+struct CmdOnHeroHit
+  damageType : int
+  hitDir : float3
+  collNodeId : int
 
 [cpp_event(unicast)]
 struct EventProjectileHitScene
@@ -95,15 +93,7 @@ struct EventProjectileHitScene
   sceneIntersectionsExceeded : bool
   collType : int
   vel : float3
-
-[cpp_event(unicast)]
-struct EventOnMeleeHitClient
-  offender : ecs::EntityId
-  damageDesc : DamageDesc
-  timeOfHit : float
-  interp_delay_ticks : uint8
-  additional_interp_delay : float
-  from : ConnectionId
+  riexHandle : riex_handle_t
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDowned
@@ -118,14 +108,6 @@ struct EventPlayerKilledEntity
   deathDesc_damageTypeId : uint16
   victimPlayerEid : EntityId
   killerPlayerEid : EntityId
-
-[event(unicast)]
-struct EventPlayerGotDamage
-  victimEid : EntityId
-  offenderEid : EntityId
-  damageDesc_deltaHp : float
-  victimPlayerEid : EntityId
-  offenderPlayerEid : EntityId
 
 [cpp_event(unicast)]
 struct EventOnPartDamaged
@@ -215,6 +197,10 @@ struct HumanWeapSetCurrentGun
 [event(unicast)]
 struct CmdReinitWeapons {}
 
+[event(unicast)]
+struct CmdReinitWeaponInSlot
+  slot : int
+
 [event(broadcast)]
 struct EventOnGunBlocksShoot
   reason : string
@@ -259,7 +245,7 @@ struct CmdShellExplode
 struct CmdShellExplosionFx {}
 
 [event(unicast)]
-struct EventWeapOnReload {}
+struct EventHumanStartedReload {}
 
 [cpp_event(unicast)]
 struct CmdUnloadAmmo
@@ -447,3 +433,10 @@ struct CmdInitPolyCapzoneAreas {}
 struct CmdShellExplodeFx
   position : float3
   effectTemplate : string
+
+[cpp_event(unicast)]
+struct EventShotDry {}
+
+[cpp_event(unicast)]
+struct CmdGuidanceLockSwitch
+  on : bool

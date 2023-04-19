@@ -1,27 +1,36 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let soldierEquipUi = require("soldierEquipUi.nut")
-let soldierPerksUi = require("soldierPerks.ui.nut")
-let mkSoldierCustomisationTab = require("mkSoldierCustomisationTab.nut")
+let soldierPerksUi = require("soldierPerksUi.nut")
+let soldierAppearanceUi = require("soldierAppearanceUi.nut")
+
+
 let soldierLookUi = require("soldierLook.ui.nut")
 let faComp = require("%ui/components/faComp.nut")
 
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let { notChoosenPerkSoldiers } = require("model/soldierPerks.nut")
+let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
+let { curUnseenUpgradesBySoldier, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let canSwitchSoldierLook = hasClientPermission("debug_soldier_look")
 
 let {
   colFull, colPart, columnGap, bigPadding, defTxtColor, titleTxtColor,
-  accentColor, smallPadding, panelBgColor, activeTabBgImg
+  accentColor, panelBgColor, hoverPanelBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
+let {
+  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
+} = require("%enlSqGlob/ui/soldiersUiComps.nut")
 
 
-let tabHeight = colPart(1)
+let tabHeight = colPart(0.8)
 let equipBlockWidth = colFull(5)
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let hoverTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
 
 let defIconStyle = { fontSize = hdpx(15), color = defTxtColor }
 let hoverIconStyle = { fontSize = hdpx(15), color = titleTxtColor }
@@ -30,15 +39,26 @@ let hoverIconStyle = { fontSize = hdpx(15), color = titleTxtColor }
 let soldierTabsData = {
   weaponry = {
     locId = "soldierWeaponry"
-    content = soldierEquipUi // TODO: need to insert new designed UI
+    content = soldierEquipUi
+    childCtor = @(soldier) soldier == null ? null
+      : mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
+          let weapCount = unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0
+          let upgrCount = (isUpgradeUsed.value ?? false) ? 0
+            : (curUnseenUpgradesBySoldier.value?[soldier?.guid] ?? 0)
+          return weapCount + upgrCount > 0
+        }))
   }
   perks = {
     locId = "soldierPerks"
-    content = soldierPerksUi // TODO: need to insert new designed UI
+    content = soldierPerksUi
+    childCtor = @(soldier) soldier == null ? null
+      : mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
+          (notChoosenPerkSoldiers.value?[soldier.guid] ?? 0) > 0
+        ))
   }
   customize = {
-    iconId = "pencil"
-    content = mkSoldierCustomisationTab // TODO: need to insert new designed UI
+    locId = "soldierAppearance"
+    content = soldierAppearanceUi
   }
   look = {
     iconId = "address-card"
@@ -64,19 +84,8 @@ let idlePageSlotOverride = {
   color = panelBgColor
 }
 
-let activePageSlotOverride = {
-  rendObj = ROBJ_IMAGE
-  image = activeTabBgImg
-}
 
-let selectedPageSlotLine = {
-  size = [flex(), smallPadding]
-  vplace = ALIGN_BOTTOM
-  rendObj = ROBJ_SOLID
-  color = accentColor
-}
-
-let mkTabsListUi = @(availTabs) @() {
+let mkTabsList = @(soldier, availTabs) @() {
   watch = [soldierTabs, curTabId]
   size = [flex(), tabHeight]
   flow = FLOW_HORIZONTAL
@@ -88,7 +97,9 @@ let mkTabsListUi = @(availTabs) @() {
       return watchElemState(function(sf) {
         let isSelectedVal = isSelected.value
         let isHover = (sf & S_HOVER) != 0
-        let textStyle = isHover || isSelectedVal ? hoverTxtStyle : defTxtStyle
+        let textStyle = isSelectedVal ? activeTxtStyle
+          : isHover ? hoverTxtStyle
+          : defTxtStyle
         let iconStyle = { margin = [0, bigPadding] }
           .__update(isHover || isSelectedVal ? hoverIconStyle : defIconStyle)
         let tabTextObj = "locId" in tab ? {
@@ -109,19 +120,23 @@ let mkTabsListUi = @(availTabs) @() {
             valign = ALIGN_CENTER
             children = [
               {
+                rendObj = ROBJ_SOLID
+                color = isSelectedVal ? accentColor
+                  : isHover ? hoverPanelBgColor
+                  : panelBgColor
                 key = $"tab_{id}_(isSelectedVal)"
                 size = [SIZE_TO_CONTENT, flex()]
                 halign = ALIGN_CENTER
                 valign = ALIGN_CENTER
                 children = tabTextObj
-              }.__update(isSelectedVal || isHover ? activePageSlotOverride : idlePageSlotOverride)
-              isSelectedVal ? selectedPageSlotLine : null
+              }
+              tab?.childCtor(soldier)
             ]
           }
         }
       })
     })
-}
+}.__update(idlePageSlotOverride)
 
 
 let mkSoldierDetailsUi = kwarg(function(
@@ -138,7 +153,7 @@ let mkSoldierDetailsUi = kwarg(function(
       flow = FLOW_VERTICAL
       gap = columnGap
       children = [
-        mkTabsListUi(availTabs)
+        mkTabsList(soldier, availTabs)
         @() {
           watch = curTabId
           size = flex()

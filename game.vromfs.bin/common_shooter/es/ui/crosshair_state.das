@@ -10,9 +10,9 @@ require DagorMath
 require CollRes
 require RendInst
 require HumanPhys
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedUI
+require DngHuman
+require DngWeapon
+require DngUI
 require Gun
 require DagorMathUtils
 

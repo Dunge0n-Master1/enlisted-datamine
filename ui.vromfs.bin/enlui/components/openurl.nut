@@ -30,7 +30,7 @@ let function open_url(url) {
     if (openLinksInEmbeddedBrowser)
       showBrowser(url)
     else
-      shell_execute({file=url})
+      shell_execute({file=url, force_sync=false}) // do not open url sync, due game can freeze
   }
   else if (platform.is_android)
     shell_execute({file=url, cmd="action"})

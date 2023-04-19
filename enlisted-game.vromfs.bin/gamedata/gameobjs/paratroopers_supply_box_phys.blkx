@@ -1,0 +1,20 @@
+mass:r=200.0
+momentOfInertia:p3=0.7, 0.7, 0.7
+centerOfMass:p3=0.0, 0.5, 0.0
+physMat:t="walkRay"
+useFutureContacts:b=yes
+logCCD:b=no
+addToWorld:b=yes
+skipUpdateOnSleep:b=yes
+sleepUpdateFrequency:i=10
+
+collisionResource{
+
+  props{
+    airdrop_of_supply_landed_cls:t="convex_hull"
+  }
+}
+
+ccdSpheres{
+  ccd:p4=0.0, 0.2, 0.0, 0.15
+}

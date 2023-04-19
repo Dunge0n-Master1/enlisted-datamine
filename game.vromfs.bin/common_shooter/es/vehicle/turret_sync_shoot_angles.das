@@ -1,8 +1,8 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.utils.net_utils
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 require DagorMathUtils
 require common_shooter.events_common_shooter
 require common_shooter.es.weapon.turret_common

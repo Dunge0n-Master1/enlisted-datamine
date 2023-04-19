@@ -1,16 +1,16 @@
 require game.es.events
 require ecs
 require app
-require EnlistedNet
+require DngNet
 require math
 require math.base
 require math.linear
 require inventory
-require EnlistedDm
+require DngDm
 require DagorMath
 require GamePhys
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 
@@ -34,12 +34,11 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
                                action__running : bool = false;
                                var camera__aimPosition : float&;
                                var camera__gunAimOffset : float2&;
-                               var camera__look_at : DPoint3&)
+                               var camera__look_at : DPoint3&;
+                               isReplayObserved : Tag const?)
 
   query(human_weap__currentGunEid) <| $ [es] (entity_cam_nodes__aimNodeIdx : int;
-                                              animchar : AnimcharBaseComponent;
-                                              weapon_frontsight_node__nodeIdx : int const?;
-                                              weapon_rearsight_node__nodeIdx : int const?;
+                                              weap__sightEid : EntityId;
                                               gun__maxSightOffset : float = 0.03;
                                               gun__sightOffsetToAimPositionPower : float = 3.;
                                               weapon_sight__minDistFrom : float = 0.05)
@@ -52,60 +51,68 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
     let physCurrentStateAimPosition = human_net_phys.phys.currentState.aimPosition
     var wishAimPosition = lerp(physPreviousStateAimPosition, physCurrentStateAimPosition, interpK)
 
-    let wofsF = *animchar.nodeTree |> geomtree_getWtmOfs()
-    let wofs = DPoint3(wofsF)
-    var aimPos = *animchar.nodeTree |> geomtree_getNodeWposRel(entity_cam_nodes__aimNodeIdx)
-    var aimOffset = float2(0.0, 0.0)
+    query(weap__sightEid) <| $ [es] (animchar : AnimcharBaseComponent;
+                                     weapon_frontsight_node__nodeIdx : int const?;
+                                     weapon_rearsight_node__nodeIdx : int const?)
+      let wofsF = *animchar.nodeTree |> geomtree_getWtmOfs()
+      let wofs = DPoint3(wofsF)
+      var aimPos = *animchar.nodeTree |> geomtree_getNodeWposRel(entity_cam_nodes__aimNodeIdx)
+      var aimOffset = float2(0.0, 0.0)
 
-    if weapon_frontsight_node__nodeIdx != null && weapon_rearsight_node__nodeIdx != null
-      let weaponFrontsightNodeIdx = *weapon_frontsight_node__nodeIdx
-      let weaponRearsightNodeIdx = *weapon_rearsight_node__nodeIdx
+      if weapon_frontsight_node__nodeIdx != null && weapon_rearsight_node__nodeIdx != null
+        let weaponFrontsightNodeIdx = *weapon_frontsight_node__nodeIdx
+        let weaponRearsightNodeIdx = *weapon_rearsight_node__nodeIdx
 
-      assert(weaponFrontsightNodeIdx >= 0)
-      assert(weaponRearsightNodeIdx >= 0)
-      let fsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
-      let rsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponRearsightNodeIdx)
-      var frontSightTm : float3x4
-      *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(0, frontSightTm)
-      frontSightTm[3] = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
+        assert(weaponFrontsightNodeIdx >= 0)
+        assert(weaponRearsightNodeIdx >= 0)
+        let fsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
+        let rsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponRearsightNodeIdx)
+        var frontSightTm : float3x4
+        *animchar.nodeTree |> geomtree_getNodeWtmRelScalar(0, frontSightTm)
+        frontSightTm[3] = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
 
-      let relativeRearPos = inverse(frontSightTm) * rsPos // relative pos
-      // Now construct augmented tm so we can use it
-      var augmentedFrontSightTm = frontSightTm
-      augmentedFrontSightTm[0] = human__aimTm[2]
-      augmentedFrontSightTm[1] = human__aimTm[1]
-      augmentedFrontSightTm[2] = -human__aimTm[0]
+        let relativeRearPos = inverse(frontSightTm) * rsPos // relative pos
+        // Now construct augmented tm so we can use it
+        var augmentedFrontSightTm = frontSightTm
+        // fix fps camera in replay
+        // human__aimTm is local and server variable, so we can't get this varible in replay
+        // for 'restore' it we need to sync HCT_SHOOT, but if we will use frontSightTm
+        // we get the same result, so let's use frontSightTm without any extra replication
+        if isReplayObserved == null
+          augmentedFrontSightTm[0] = human__aimTm[2]
+          augmentedFrontSightTm[1] = human__aimTm[1]
+          augmentedFrontSightTm[2] = -human__aimTm[0]
 
-      var len = length(fsPos - aimPos)
-      let dir = rsPos - fsPos
-      let dist = length(dir)
-      len = max(dist + weapon_sight__minDistFrom, len + human_weap__gunOffset.x)
-      let currentRearSightPos = (normalize(relativeRearPos) * len)
-      let trueAimPos = frontSightTm * currentRearSightPos
-      let wishAimPos = augmentedFrontSightTm * currentRearSightPos
+        var len = length(fsPos - aimPos)
+        let dir = rsPos - fsPos
+        let dist = length(dir)
+        len = max(dist + weapon_sight__minDistFrom, len + human_weap__gunOffset.x)
+        let currentRearSightPos = (normalize(relativeRearPos) * len)
+        let trueAimPos = frontSightTm * currentRearSightPos
+        let wishAimPos = augmentedFrontSightTm * currentRearSightPos
 
-      let aimPosOffsetDir = wishAimPos - trueAimPos
-      let aimPosOffsetLenSq = length_sq(aimPosOffsetDir)
-      if aimPosOffsetLenSq < square(gun__maxSightOffset)
-        aimPos = wishAimPos
+        let aimPosOffsetDir = wishAimPos - trueAimPos
+        let aimPosOffsetLenSq = length_sq(aimPosOffsetDir)
+        if aimPosOffsetLenSq < square(gun__maxSightOffset)
+          aimPos = wishAimPos
+        else
+          let offsetRatio = safediv(gun__maxSightOffset, sqrt(aimPosOffsetLenSq))
+          aimPos = trueAimPos + aimPosOffsetDir * offsetRatio
+          wishAimPosition = min(wishAimPosition, pow(offsetRatio, gun__sightOffsetToAimPositionPower))
+        if !human_net_phys.phys.currentState |> human_phys_state_can_aim()
+          wishAimPosition = 0.0
+        aimOffset = float2(0.0, atan2(-relativeRearPos.y, relativeRearPos.z))
+
+      let aimSpeed = human_net_phys.phys.aimSpeed * human_net_phys.phys.currentState.aimSpeedMult
+      camera__aimPosition = move_to(camera__aimPosition, wishAimPosition, info.dt, aimSpeed)
+
+      if !action__running
+        camera__look_at = lerp(camera__look_at, wofs + DPoint3(aimPos), camera__aimPosition)
+        aimOffset = lerp(float2(0.0, 0.0), aimOffset, float2(camera__aimPosition))
       else
-        let offsetRatio = safediv(gun__maxSightOffset, sqrt(aimPosOffsetLenSq))
-        aimPos = trueAimPos + aimPosOffsetDir * offsetRatio
-        wishAimPosition = min(wishAimPosition, pow(offsetRatio, gun__sightOffsetToAimPositionPower))
-      if !human_net_phys.phys.currentState |> human_phys_state_can_aim()
-        wishAimPosition = 0.0
-      aimOffset = float2(0.0, atan2(-relativeRearPos.y, relativeRearPos.z))
+        aimOffset = float2(0.0, 0.0)
 
-    let aimSpeed = human_net_phys.phys.aimSpeed * human_net_phys.phys.currentState.aimSpeedMult
-    camera__aimPosition = move_to(camera__aimPosition, wishAimPosition, info.dt, aimSpeed)
-
-    if !action__running
-      camera__look_at = lerp(camera__look_at, wofs + DPoint3(aimPos), camera__aimPosition)
-      aimOffset = lerp(float2(0.0, 0.0), aimOffset, float2(camera__aimPosition))
-    else
-      aimOffset = float2(0.0, 0.0)
-
-    camera__gunAimOffset = approach(camera__gunAimOffset, aimOffset, info.dt, 0.1)
+      camera__gunAimOffset = approach(camera__gunAimOffset, aimOffset, info.dt, 0.1)
 
 [es(tag=render, REQUIRE=hero, after=camera_set_sync, before=before_camera_sync,
      after=human_gun_lookat_camera_es, after=human_optics_lookat_camera_es)]

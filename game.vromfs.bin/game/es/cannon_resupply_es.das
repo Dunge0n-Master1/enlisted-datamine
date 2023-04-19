@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require DagorMath
 require enlisted.events_enlisted
 require danetlibs.native_dasevents.main.native_events

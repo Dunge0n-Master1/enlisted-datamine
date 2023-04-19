@@ -10,15 +10,9 @@ bulletType:t="he_frag_tank"
 fresnel:p3=0.23, 0.1, 2.0
 explodeOnRendinst:b=yes
 useEffectiveArmorThicknessForShatter:b=yes
-shellAnimation:t="video/shells_animations/he.ivf"
 bulletName:t="76mm_sprgr_39"
 explodeTreshold:r=0.1
 fuseDelayDist:r=0.0
-selfDestructionFx:t="explosion_air_selfexplosion_med"
-explosionEffect:t="hit_59_80mm_metal_he"
-groundCollisionEffect:t="hit_59_80mm_dirt_he"
-ricochetEffect:t="hit_59_80mm_metal_ap"
-waterCollisionEffect:t="hit_59_80mm_water"
 explosionPatchRadius:r=2.2
 modelName:t="tank_bullet_he"
 secondaryShattersPreset:t="ap"
@@ -372,32 +366,6 @@ ballistics{
       mod2:p2=15.0, 0.7
       mod3:p2=30.0, 0.99
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_59_80mm_dirt_he"
-  jetFx:t="hit_59_80mm_dirt_he"
-
-  steel{
-    fx:t="hit_59_80mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_59_80mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_59_80mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_59_80mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

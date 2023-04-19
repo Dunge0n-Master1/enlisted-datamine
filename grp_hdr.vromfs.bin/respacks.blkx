@@ -15,14 +15,14 @@ ddsxTexPacks{
 }
 
 hash_md5{
-  "tomoe_hq_aircrafts/skins_harm.dxp.bin":t="31dc81234e1b2b31136237c58f33f55e"
+  "tomoe_hq_aircrafts/skins_harm.dxp.bin":t="fe6dd3dec7ef0f8754d4c9f56b16b2a2"
   "tomoe_hq_characters/gameres_harm.dxp.bin":t="2118e7cae2dd563f2cf2ae6a6ab970d6"
-  tomoe_hq_gameres_harm.dxp.bin:t="cc260c8e1fc4de056ae0241b0f90a20a"
+  tomoe_hq_gameres_harm.dxp.bin:t="764f53db716fccb28e530a878d72626e"
   tomoe_hq_rendinst_harm.dxp.bin:t="5c1a3cd732d6cf4c01b325174477e48f"
   tomoe_hq_skins_harm.dxp.bin:t="ed3350ed4071bd530b30aa5badc3bb25"
-  "tomoe_hq_tanks/germ_skins_harm.dxp.bin":t="cc28516574defb8ee77b559ba8af8f54"
+  "tomoe_hq_tanks/germ_skins_harm.dxp.bin":t="b09ab860a4039eca6b1f3515ae897c13"
   "tomoe_hq_tanks/italy_skins_harm.dxp.bin":t="0433ed5d5044ea3397b304c2f1b98935"
-  "tomoe_hq_tanks/usa_skins_harm.dxp.bin":t="030de347b2d436a3d53e18b02708085d"
+  "tomoe_hq_tanks/usa_skins_harm.dxp.bin":t="a0ecdb6b21108b432d49ad5acdc95339"
   "tomoe_hq_tanks/ussr_skins_harm.dxp.bin":t="32eb3d8d6920c1e6ee3af4bbebd06f1f"
   tomoe_hq_vehicles_customization_harm.dxp.bin:t="5b8d6e7f6667852b75273756381c3689"
 }

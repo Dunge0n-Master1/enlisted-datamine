@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require inventory
 require common_shooter.events_common_shooter

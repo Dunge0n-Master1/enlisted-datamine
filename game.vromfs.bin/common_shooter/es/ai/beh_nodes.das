@@ -4,7 +4,7 @@ require app
 require strings
 require BehNodes
 require game.es.action_common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require DagorConsole
 require DagorRandom

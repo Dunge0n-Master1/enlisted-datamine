@@ -58,9 +58,6 @@ def replay_update_operator_view_es(info : UpdateStageInfoAct;
     let tripodOffset = operator__horizontalOffset * operator__tripodLen
     let posWithOffset = transform[3] + operator__verticalOffset
 
-    camera_transform[2] = normalize(transform[3] + operator__offsetFromLegs - camera_transform[3]) // fwd
-    camera_transform[0] = normalize(-cross(camera_transform[2], float3(0, 1, 0))) // right
-    camera_transform[1] = normalize(cross(camera_transform[2], camera_transform[0])) // up
     operator__newPos = posWithOffset + tripodOffset
     var queryOut = ShapeQueryOutput()
     if sphere_cast(posWithOffset, operator__newPos, 0.1f, queryOut, -1)
@@ -70,3 +67,7 @@ def replay_update_operator_view_es(info : UpdateStageInfoAct;
 
     operator__tripodLen = lerp(operator__tripodLen, operator__tripodLenTarget, operator__tripodLerpCoef)
     camera_transform[3] = operator__newPos
+
+    camera_transform[2] = normalize(transform[3] + operator__offsetFromLegs - camera_transform[3]) // fwd
+    camera_transform[0] = normalize(-cross(camera_transform[2], float3(0, 1, 0))) // right
+    camera_transform[1] = normalize(cross(camera_transform[2], camera_transform[0])) // up

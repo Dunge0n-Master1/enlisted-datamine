@@ -12,7 +12,7 @@ let function updatePS4Achievements(_) {
     if (trophy_id > 0) {// valid gaijin <-> psn mapping
 
       trophy_id -= 1 // psn trophies ids begin from 0, adjust
-      let progress = getUnlockProgress(unlockDesc)
+      let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
       let completed = progress.current >= progress.required
       let unlocked = ps4.is_trophy_unlocked(trophy_id)
       if (completed && !unlocked)

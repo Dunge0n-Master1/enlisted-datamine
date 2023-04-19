@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart,
-  leftAppearanceAnim
+let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart, leftAppearanceAnim,
+  DEF_APPEARANCE_TIME
 } = require("%enlSqGlob/ui/designConst.nut")
 let { leaveQueue, isInQueue } = require("%enlist/quickMatchQueue.nut")
 let { joinQueue } = require("quickMatch.nut")
@@ -25,7 +25,9 @@ let { Contact } = require("%enlist/contacts/contact.nut")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { showSquadMembersCrossPlayRestrictionMsgBox,
-  showSquadVersionRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
+  showSquadVersionRestrictionMsgBox
+} = require("%enlist/restrictionWarnings.nut")
+let { Flat } = require("%ui/components/txtButton.nut")
 
 
 let defStartTxtStyle = {
@@ -62,52 +64,40 @@ let leaveMatchBgStyle = {
 }
 
 
-let function mkBtnHoverImage(sf, bgStyle) {
-  if (sf == 0)
-    return null
+let blinkAnimation = [{prop = AnimProp.color, from = 0x00F27272 , to = 0x44AA7272, duration = 3,
+  loop = true, play = true, easing = CosineFull }]
 
-  let { hoverBg, activeBg } = bgStyle
-  let isActive = sf & S_ACTIVE
-  return {
-    key = $"{isActive}"
-    size = flex()
-    rendObj = ROBJ_IMAGE
-    image = isActive ? activeBg : hoverBg
-    animations = [
-      { prop = AnimProp.opacity, from = 0.0, to = 1.0, duration = 0.3, play = true }
-      { prop = AnimProp.opacity, from = 1.0, to = 0.0, duration = 0.3, playFadeOut = true }
-    ]
-  }
-}
 
 
 let function btnCtor(txt, action, params = {}) {
   let { defTextColor, hoverTextColor, activeTextColor } = params.txtStyle
-  let { hotkeys = null } = params
-  return watchElemState(@(sf) {
-    size = [startBtnWidth, colPart(1.54)]
-    rendObj = ROBJ_IMAGE
-    behavior = Behaviors.Button
-    image = params.bgStyle.defBg
-    onClick = action
+  let { bgStyle, hotkeys = null } = params
+  return Flat(txt, action, {
+    btnWidth = startBtnWidth
+    btnHeight = colPart(1.54)
     hotkeys
-    children = [
-      mkBtnHoverImage(sf, params.bgStyle)
-      {
-        key = $"txt_{sf}"
-        size = [flex(), SIZE_TO_CONTENT]
-        rendObj = ROBJ_TEXT
-        text = txt
-        color = sf & S_ACTIVE ? activeTextColor
-          : sf & S_HOVER ? hoverTextColor
-          : defTextColor
-        halign = ALIGN_CENTER
-        vplace = ALIGN_CENTER
+    style = {
+      defTxtColor = defTextColor
+      hoverTxtColor = hoverTextColor
+      activeTxtColor = activeTextColor
+    }
+    txtFont = fontXLarge
+    bgComp = function(sf, _isEnabled = true) {
+      let { defBg, hoverBg, activeBg } = bgStyle
+      let isActive = sf & S_ACTIVE
+      return {
+        key = $"{isActive}"
+        size = flex()
+        rendObj = ROBJ_IMAGE
+        image = sf & S_ACTIVE ? activeBg
+          : sf & S_HOVER ? hoverBg
+          : defBg
         animations = [
+          { prop = AnimProp.opacity, from = 0.0, to = 1.0, duration = 0.3, play = true }
           { prop = AnimProp.opacity, from = 1.0, to = 0.0, duration = 0.3, playFadeOut = true }
         ]
-      }.__update(fontXLarge)
-    ]
+      }
+    }
   })
 }
 
@@ -126,28 +116,50 @@ let leaveQuickMatchButton = btnCtor(loc("Leave queue"), @() leaveQueue(),
     hotkeys = [[$"^{JB.B} | Esc", @() leaveQueue()]]
   })
 
-let function mkJoinQuickMatchButton(cb = null) {
-  let function action() {
-    if (isSquadLeader.value && unsuitableCrossplayConditionMembers.value.len() != 0) {
-      showSquadMembersCrossPlayRestrictionMsgBox(unsuitableCrossplayConditionMembers.value)
-      return
-    }
 
-    let unsuitableByVersion = getUnsuitableVersionConditionMembers(currentGameMode.value)
-    if (unsuitableByVersion.len() != 0) {
-      showSquadVersionRestrictionMsgBox(unsuitableByVersion.values())
-      return
-    }
-
-    showCurNotReadySquadsMsg(cb ?? quickMatchFn)
+let function checkPlayAvailability() {
+  if (isSquadLeader.value && unsuitableCrossplayConditionMembers.value.len() != 0) {
+    showSquadMembersCrossPlayRestrictionMsgBox(unsuitableCrossplayConditionMembers.value)
+    return
   }
-  return btnCtor(loc("START"), action,
+
+  let unsuitableByVersion = getUnsuitableVersionConditionMembers(currentGameMode.value)
+  if (unsuitableByVersion.len() != 0) {
+    showSquadVersionRestrictionMsgBox(unsuitableByVersion.values())
+    return
+  }
+
+  let campaign = curCampaign.value
+  let lockedUserIds = allMembersState.value
+    .filter(@(m) !(m?.unlockedCampaigns ?? []).contains(campaign))
+    .keys()
+  if (lockedUserIds.len() > 0) {
+    showMsgbox({
+      text = loc("msg/cantGoBattle/membersCampaignLocked", {
+        campaign = colorize(MsgMarkedText,
+          loc(gameProfile.value?.campaigns[campaign].title ?? campaign))
+        membersList = colorize(MsgMarkedText,
+          ", ".join(lockedUserIds.map(@(userId)
+            remap_nick(Contact(userId.tostring()).value.realnick))))
+      })
+    })
+    return
+  }
+
+  showCurNotReadySquadsMsg(quickMatchFn)
+}
+
+
+let function mkJoinQuickMatchButton() {
+  return btnCtor(loc("START"), checkPlayAvailability,
     {
       bgStyle = defStartBgStyle
       txtStyle = defStartTxtStyle
       hotkeys = [["^J:Y", { skip = true }]]
+      animations = blinkAnimation
     })
 }
+
 
 let quickMatchButton = @() {
   watch = isInQueue
@@ -156,47 +168,30 @@ let quickMatchButton = @() {
     : mkJoinQuickMatchButton()
 }
 
-let function checkSquadCampaignAndJoinQuickMatch() {
-  let campaign = curCampaign.value
-  let lockedUserIds = allMembersState.value
-    .filter(@(m) !(m?.unlockedCampaigns ?? []).contains(campaign))
-    .keys()
-  if (lockedUserIds.len() == 0) {
-    quickMatchFn()
-    return
-  }
-  showMsgbox({
-    text = loc("msg/cantGoBattle/membersCampaignLocked", {
-      campaign = colorize(MsgMarkedText,
-        loc(gameProfile.value?.campaigns[campaign].title ?? campaign))
-      membersList = colorize(MsgMarkedText,
-        ", ".join(lockedUserIds.map(@(userId)
-          remap_nick(Contact(userId.tostring()).value.realnick))))
-    })
+
+let quickMatchBtn = btnCtor(loc("START"), checkPlayAvailability,
+  {
+    bgStyle =defStartBgStyle
+    txtStyle =defStartTxtStyle
+    hotkeys = [["^J:Y", checkPlayAvailability ]]
+    animations = blinkAnimation
   })
-}
 
+let pressWhenReadyBtn = btnCtor(loc("Press when ready"),
+  @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)),
+  {
+    bgStyle = defStartBgStyle
+    txtStyle = defStartTxtStyle
+    hotkeys = [["^J:Y", @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)) ]]
+    animations = blinkAnimation
+  })
 
-let quickMatchBtn = btnCtor(loc("START"), checkSquadCampaignAndJoinQuickMatch,
-    {
-      bgStyle =defStartBgStyle
-      txtStyle =defStartTxtStyle
-      hotkeys = [["^J:Y", checkSquadCampaignAndJoinQuickMatch ]]
-    })
-  let pressWhenReadyBtn = btnCtor(loc("Press when ready"),
-    @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)),
-    {
-      bgStyle = defStartBgStyle
-      txtStyle = defStartTxtStyle
-      hotkeys = [["^J:Y", @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)) ]]
-    })
-
-  let setNotReadyBtn = btnCtor(loc("Set not ready"), @() myExtSquadData.ready(false),
-    {
-      bgStyle = leaveMatchBgStyle
-      txtStyle = leaveMatchTxtStyle
-      hotkeys = [[$"^{JB.B}" ]]
-    })
+let setNotReadyBtn = btnCtor(loc("Set not ready"), @() myExtSquadData.ready(false),
+  {
+    bgStyle = leaveMatchBgStyle
+    txtStyle = leaveMatchTxtStyle
+    hotkeys = [[$"^{JB.B}" ]]
+  })
 
 
 let function squadMatchButton(){
@@ -218,6 +213,7 @@ let startTutorialBtn = btnCtor(loc("TUTORIAL"), startTutorial,
     bgStyle = defStartBgStyle
     txtStyle = defStartTxtStyle
     hotkeys = [["^J:Y", startTutorial]]
+    animations = blinkAnimation
   })
 
 let startLocalGameMode = @() gameLauncher.startGame({
@@ -229,20 +225,21 @@ let localGameBtn = btnCtor(loc("START"), startLocalGameMode,
     bgStyle = defStartBgStyle
     txtStyle = defStartTxtStyle
     hotkeys = [["^J:Y", startLocalGameMode]]
+    animations = blinkAnimation
   })
 
 
 let startBtn = @() {
   watch = [curUnfinishedBattleTutorial, isInSquad, currentGameMode]
   children = [
-    isInSquad.value ? squadMatchButton()
+    isInSquad.value ? squadMatchButton
       : curUnfinishedBattleTutorial.value != null ? startTutorialBtn
       : currentGameMode.value?.isLocal ? localGameBtn
       : quickMatchButton
     isInSquad.value || (!curUnfinishedBattleTutorial.value && !currentGameMode.value?.isLocal)
-      ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] })
+      ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, vplace = ALIGN_CENTER, pos = [hdpxi(20), 0] })
       : null
   ]
-}.__update(leftAppearanceAnim())
+}.__update(leftAppearanceAnim(DEF_APPEARANCE_TIME + 0.2))
 
 return startBtn

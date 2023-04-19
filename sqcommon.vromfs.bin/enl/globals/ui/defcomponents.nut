@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { panelBgColor, accentColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
+let { darkPanelBgColor, accentColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 
 let emptyProgress = @(val, color) {
   rendObj = ROBJ_SOLID
   size = [pw(val), flex()]
-  color = color ?? panelBgColor
+  color = color ?? darkPanelBgColor
 }
 
 let receivedProgress = @(val, color){
@@ -21,7 +21,7 @@ let function progressBar(value, override = {}) {
   let bgColor = override?.bgColor
   let progressColor = override?.progressColor
   return {
-    size = [flex(), hdpx(10)]
+    size = [flex(), colPart(0.161)]
     flow = FLOW_HORIZONTAL
     children = [
       receivedProgress(valueProgress, progressColor)
@@ -40,7 +40,7 @@ let receivedGradProgress = @(image){
 let function gradientProgressBar(value, override = {}) {
   let valueProgress = clamp(100.0 * value, 0, 100)
   let bgImage = override.bgImage
-  let emptyColor = override?.emptyColor ?? panelBgColor
+  let emptyColor = override?.emptyColor ?? darkPanelBgColor
   return {
     size = [flex(), colPart(0.161)]
     flow = FLOW_HORIZONTAL

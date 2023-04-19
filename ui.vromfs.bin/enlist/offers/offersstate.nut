@@ -230,10 +230,11 @@ let function recalcAvailableEvents(_ = null) {
 eventsData.subscribe(recalcAvailableEvents)
 recalcAvailableEvents()
 
-let eventsAvailable = Computed(@() eventsData.value
+let eventsKeysSorted = Computed(@() eventsData.value
   .values()
   .filter(@(evt) evt.published && evt.id in availableEventTime.value)
-  .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id))
+  .sort(@(a, b) b.start <=> a.start || a.end <=> b.end || a.id <=> b.id)
+  .map(@(evt) evt.id))
 
 let function processEventDesc(response) {
   let id = descRequestedId.value
@@ -313,8 +314,8 @@ console_register_command(@()
 return {
   isSpecOffersOpened
   isRequestInProgress = Computed(@() descRequestedId.value != null)
-  hasSpecialEvent = Computed(@() eventsAvailable.value.len() > 0)
-  eventsAvailable
+  eventsData
+  eventsKeysSorted
 
   isUnseen
   markSeen

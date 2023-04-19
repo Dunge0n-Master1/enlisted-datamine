@@ -137,6 +137,7 @@ let function premiumDescBlock() {
       premiumDesc(2, $"+{maxSquadsInBattle}", loc("premiumDescSquadUnits"))
       premiumDesc(3, $"+{soldiersReserve}", loc("premiumDescReserve"))
       premiumDesc(4, "+2", loc("premiumDecalSlots"))
+      premiumDesc(5, "+2", loc("premiumPresetsSlots"))
     ]
   }
 }

@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require ecs.safe
-require EnlistedNet
+require DngNet
 require vehicle
 require player
 require math

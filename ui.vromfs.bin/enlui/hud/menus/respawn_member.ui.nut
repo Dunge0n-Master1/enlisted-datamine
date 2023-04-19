@@ -11,8 +11,6 @@ let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
 let { squadBlock, headerBlock, panel, respawnTimer, forceSpawnButton
 } = require("%ui/hud/respawn_parts.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { mkKeyboardHint } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { isGamepad } = require("%ui/control/active_controls.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 let { mkAiActionIcon, mkGrenadeIcon, mkMineIcon, mkMemberHealsBlock,
   mkMemberFlaskBlock } = require("%ui/hud/components/squad_member.nut")
@@ -70,7 +68,8 @@ let function currentSquadButtons(membersList, activeTeammateEid, infoByGuid, exp
             children = [
               mkMemberHealsBlock(member, sIconSize)
               mkMemberFlaskBlock(member, sIconSize)
-              mkGrenadeIcon(member, sIconSize) ?? mkMineIcon(member, sIconSize)
+              mkGrenadeIcon(member, sIconSize)
+                ?? mkMineIcon(member, sIconSize)
               mkAiActionIcon(member, sIconSize)
             ]
           }
@@ -156,12 +155,6 @@ let memberRespawn = @() panel(
     squadInfoBlock
     memberSpawnList
     forceSpawnButton({ size = [flex(), fsh(8)] })
-    @() {
-      watch = isGamepad
-      children = isGamepad.value
-        ? null
-        : mkKeyboardHint("Space", loc("respawn/spawn_current_soldier"))
-    }
     respawnTimer(loc("respawn/respawn_in_bot"), sub_txt)
   ],
   {

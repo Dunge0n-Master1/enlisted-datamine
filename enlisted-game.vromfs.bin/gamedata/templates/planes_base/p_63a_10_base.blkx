@@ -19,6 +19,7 @@ p_63a_10_base{
   plane_collision__blk:t="gamedata/units/p_63a_10.blk"
   plane_anim__blk:t="gamedata/units/p_63a_10.blk"
   plane_sight__blk:t="gamedata/units/p_63a_10.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_fighter"
   is_seaplane:b=no
   plane_wreckage__template:t="p_63a_10_wreckage"

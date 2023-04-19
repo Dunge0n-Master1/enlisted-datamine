@@ -1,7 +1,7 @@
 require ecs
 require game.utils.net_utils
 require game.events_game
-require EnlistedNet
+require DngNet
 
 [es(tag=server, no_order)]
 def afk_server_es(info : UpdateStageInfoAct;

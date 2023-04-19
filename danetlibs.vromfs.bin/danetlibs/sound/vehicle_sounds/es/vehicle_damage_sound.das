@@ -4,7 +4,7 @@ require soundHash
 require soundEvent
 require vehicle_sounds_net.modules.vehicle_sounds_net_events
 require sound_utils.modules.sound_player_common
-require EnlistedNet
+require DngNet
 
 
 [es(tag=sound, on_event=(EventExplosionFatal, EventCrashExplosionFatal))]

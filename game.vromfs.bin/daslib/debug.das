@@ -4,6 +4,8 @@ options no_global_variables = false
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options persistent_heap = true
+options strict_smart_pointers = true
+
 module debug shared
 
 require math
@@ -499,7 +501,7 @@ class private DAStackWalker: DapiStackWalker
         // print("AOT {fileName}\n")
         let n = length(ctx.stack)
         if n > 0
-            ctx.stack[n - 1].name = "def {pp.info.name} [AOT]"
+            ctx.stack[n - 1].name = pp.info != null ? "def {pp.info.name} [AOT]" : "def [AOT]"
             ctx.stack[n - 1].path = "{fileName}"
 
             self->collectGlobals()
@@ -567,16 +569,19 @@ enum DABreakpointState
     Initialized
     Instrumented
 
+typedef
+    DAContextAt = uint64
+
 struct private DABreakpoint
     id: uint64
     line: uint
 
     prevState: DABreakpointState
     state: DABreakpointState
+    ctxAt : DAContextAt
 
 typedef
     DABreakpoints = table<string; array<DABreakpoint>>
-    DAContextAt = uint64
 
 struct private DAContext
     id: uint64
@@ -992,7 +997,7 @@ class private DAgent: DapiDebugAgent
             for br in brs
                 br.prevState = br.state
 
-        self->getContextDataFor(ctx) <| $(var ctxData: DAContext) // TODO: speedup getContextDataFor
+        let found = self->getContextDataFor(ctx) <| $(var ctxData: DAContext) // TODO: speedup getContextDataFor
             *ctxData.ctx |> clear_instruments()
             *ctxData.ctx |> instrument_node(true) <| $(ati)
                 if ati.fileInfo == null
@@ -1001,6 +1006,7 @@ class private DAgent: DapiDebugAgent
                 for fileBr, brs in keys(breakpoints), values(breakpoints)
                     if compare_path(fileBr, file)
                         for br in brs
+                            br.ctxAt = ctxData.at
                             if br.state == DABreakpointState Uninitialized
                                 br.state = DABreakpointState Initialized
                         for br in brs
@@ -1011,7 +1017,17 @@ class private DAgent: DapiDebugAgent
                         break
                 return false
 
+        if !found
+            // removed context, uninitialize related breakpoints
+            let ctxAt = ctx_at(ctx)
+            for brs in values(breakpoints)
+                for br in brs
+                    if br.ctxAt == ctxAt
+                        br.state = DABreakpointState Uninitialized
+                        br.ctxAt = 0ul
+
         for fileBr, brs in keys(breakpoints), values(breakpoints)
+            let baseName = fileBr |> base_name()
             for br in brs
                 let wasVerified = br.prevState == DABreakpointState Instrumented
                 let isVerified = br.state == DABreakpointState Instrumented
@@ -1021,7 +1037,7 @@ class private DAgent: DapiDebugAgent
                         breakpoint=[[Breakpoint
                             id=double(br.id),
                             verified=br.state == DABreakpointState Instrumented,
-                            source=[[ Source path=fileBr, name=fileBr |> base_name()]],
+                            source=[[ Source path=fileBr, name=baseName]],
                             line=double(br.line),
                             message=br.state == DABreakpointState Uninitialized ? "{fileBr}: instrumentation wasn't initined" : br.state == DABreakpointState Initialized ? "{fileBr}: instumentation is inited, but this line is without instructions" : ""
                         ]]
@@ -1037,6 +1053,7 @@ class private DAgent: DapiDebugAgent
         // unsafe
         //     print("dap: context destroyed {intptr(addr(ctx))} {ctx.category} `{ctx.name}`\n")
         self->removeContext(ctx)
+        invalidateBreakpoints(ctx)
 
     def getContextDataFor(var ctx: Context; cb: block<(var ctx: DAContext): void>): bool
         let at = ctx_at(ctx)
@@ -1073,17 +1090,25 @@ class private DAgent: DapiDebugAgent
             let aid = uint(a.ctx.category)
             let bid = uint(b.ctx.category)
             return aid > bid
-        // TODO: send `threads` event
+
+        if server != null && server.threadsDone
+            server->sendEvent("thread", JV([[ThreadEvent
+                reason="started",
+                threadId=double(contextId)
+            ]]))
+
         return true
 
     def removeContext(var ctx: Context): void
         let idx = self->getContextIdx(ctx)
         if idx >= 0
-            self->removeContextIdx(idx)
-
-    def removeContextIdx(idx: int)
-        delete contexts[idx]
-        contexts |> erase(idx)
+            if server != null && server.threadsDone
+                server->sendEvent("thread", JV([[ThreadEvent
+                    reason="exited",
+                    threadId=double(contexts[idx].id)
+                ]]))
+            delete contexts[idx]
+            contexts |> erase(idx)
 
 class private DAServer: Server
     port: int
@@ -1116,9 +1141,10 @@ class private DAServer: Server
 
     def restart()
         if _server != null
-            var session : smart_ptr<NetworkServer>
-            self->save(session)
-            gc0_save_smart_ptr("telnet-session", session)
+            unsafe
+                var session : smart_ptr<NetworkServer>
+                self->save(session)
+                gc0_save_smart_ptr("telnet-session", session)
 
     def override tick()
         Server`tick(self)
@@ -1635,9 +1661,8 @@ class private EvalWalker : DapiStackWalker
 def private getStackVariableDefinitions(var ctx:Context; at: LineInfo)
     let text = build_string <| $ ( st )
         var walker = new EvalWalker(st)
-        var walker_adapter <- make_stack_walker(walker)
+        var inscope walker_adapter <- make_stack_walker(walker)
         walk_stack(walker_adapter,ctx,at)
-        walker_adapter := null
         unsafe
             delete walker
     var lines <- split(text,"\n")
@@ -1688,7 +1713,7 @@ def getRequire ( var ctx:Context; var self_text:string& )
 def compileAndRun ( text, self_text:string ) : tuple<ok:bool;result:string>
     var failed = true
     var result = ""
-    var access := make_file_access("")
+    var inscope access <- make_file_access("")
     access |> set_file_source("__project", text)
     fopen(self_text, "rb") <| $(fr)
         if fr != null
@@ -1699,6 +1724,7 @@ def compileAndRun ( text, self_text:string ) : tuple<ok:bool;result:string>
     using <| $(var mg:ModuleGroup)
         using <| $(var cop:CodeOfPolicies)
             cop.allow_local_variable_shadowing = true
+            cop.export_all = true
             compile_file("__project",access,unsafe(addr(mg)),cop) <| $(ok,program,errors)
                 if ok
                     simulate(program) <| $ ( sok; context; serrors )

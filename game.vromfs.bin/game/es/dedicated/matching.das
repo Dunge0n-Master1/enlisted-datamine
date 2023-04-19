@@ -1,7 +1,7 @@
 require ecs
 require game.events_game
 require matching
-require EnlistedMatching
+require DngMatching
 
 [es(tag=server, on_event=EventLevelLoaded)]
 def level_loaded_events_es(evt : Event)

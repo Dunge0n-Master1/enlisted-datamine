@@ -8,7 +8,7 @@ require math.base
 require DagorMath
 require DagorSystem
 require GeomNodeTree
-require EnlistedCamera
+require DngCamera
 require strings
 
 let ATTACH_TO_TURRET_TOUCH_COUNT = 2

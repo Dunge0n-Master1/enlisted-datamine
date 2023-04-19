@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require BehNodes
 require danetlibs.native_dasevents.main.native_events
@@ -8,7 +8,7 @@ require enlisted.game.es.enlisted_squad_common
 require human_sounds_net.modules.human_sounds_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
 require enlisted.game.es.bomb_site_common
-require EnlistedBehTree
+require DngBehTree
 require game.es.squad_order_common
 
 def order_defuse(squadmate_eid : EntityId;

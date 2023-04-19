@@ -205,6 +205,9 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
 
 return {
   purchaseMsgBox = kwarg(show)
+  buyCurrencyText
+  currencyImage
+  mkItemCostInfo
   openShopByCurrencyId
   setOpenShopFunctions = @(list) openShopByCurrencyId.__update(list)
 }

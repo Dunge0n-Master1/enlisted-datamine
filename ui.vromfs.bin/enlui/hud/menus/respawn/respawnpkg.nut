@@ -1,25 +1,27 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, defTxtColor, colPart, accentColor, titleTxtColor, smallPadding, midPadding,
-  colFull
+let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { bigPadding, defTxtColor, colPart, accentColor, titleTxtColor, midPadding, colFull,
+  deadTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let mkTeamIcon = require("%ui/hud/components/teamIcon.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
+let { Bordered, Accented } = require("%ui/components/txtButton.nut")
 let { timeToRespawn, timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber,
-  respRequested } = require("%ui/hud/state/respawnState.nut")
+  respRequested, paratroopersPointSelectorOn } = require("%ui/hud/state/respawnState.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { localPlayerTeamIcon } = require("%ui/hud/state/teams.nut")
 let colorize = require("%ui/components/colorize.nut")
-let { mkHintRow } = require("%ui/components/uiHotkeysHint.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let missionTxtStyle = { color = titleTxtColor }.__update(fontLarge)
+let deadTxtStyle = { color = deadTxtColor }.__update(fontMedium)
+
 let sIconSize = colPart(0.24)
 let commonBlockWidth = colFull(4) + bigPadding * 2
 
@@ -52,18 +54,18 @@ let respAnims = [
 
 
 let squadNameBlock = @(squadLoc, titleTxtStyle) {
-  size = [flex(), SIZE_TO_CONTENT]
+  size = [colFull(4) + midPadding * 2, SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   gap = bigPadding
+  padding = [midPadding, 0]
   valign = ALIGN_CENTER
   children = [
     teamIcon
     {
-      size = [flex(), SIZE_TO_CONTENT]
       rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
       behavior = Behaviors.TextArea
-      text = loc($"squad/{squadLoc}")
-      halign = ALIGN_CENTER
+      text = loc($"regiment/{squadLoc}")
     }.__update(titleTxtStyle)
   ]
 }
@@ -85,15 +87,21 @@ let respawnTimer = @(locId) function() {
 }
 
 
-let spawnButton = @(timeLeft) Bordered(
+let btnParams = {
+  btnWidth = flex()
+  btnHeight = colPart(0.911)
+}
+
+
+let spawnButton = @(timeLeft) Accented(
   "{0}{1}".subst(loc("Go!"), timeLeft ? " ({0})".subst(timeLeft) : ""),
   requestRespawn,
-  { hotkeys = [["^J:Y | Space | Enter | @Human.Use"]] })
+  { hotkeys = [["^J:Y | Space | Enter | @Human.Use"]] }.__update(btnParams))
 
 let cancelSpawnButton = @(timeLeft) Bordered(
   "{0}{1}".subst(loc("pressToCancel"), timeLeft ? " ({0})".subst(timeLeft) : ""),
   cancelRequestRespawn,
-  { hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]] })
+  { hotkeys = [[$"^{JB.B} | Esc | @Human.Use"]] }.__update(btnParams))
 
 let forceSpawnButton = @() {
   watch = [timeToCanRespawn, respEndTime, canRespawnTime, canRespawnWaitNumber, respRequested]
@@ -102,7 +110,7 @@ let forceSpawnButton = @() {
   valign = ALIGN_CENTER
   children = canRespawnWaitNumber.value > 0 ? null
     : respRequested.value ? cancelSpawnButton(timeToCanRespawn.value)
-    : respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1 ? null
+    : (respEndTime.value > 0 && respEndTime.value - canRespawnTime.value <= 1) && !paratroopersPointSelectorOn.value ? null
     : spawnButton(timeToCanRespawn.value)
 }
 
@@ -111,8 +119,8 @@ let function mkSquadSpawnDesc(canSpawnSquad, canSpawnSoldier) {
   let desc = !canSpawnSquad ? "respawn/squadNotParticipate"
       : !canSpawnSquad ? "respawn/squadNotReady"
       : !canSpawnSoldier ? "respawn/soldierNotReady"
-      : "respawn/squadReady"
-  return {
+      : null
+  return desc == null ? null : {
     size = [flex(), SIZE_TO_CONTENT]
     rendObj = ROBJ_TEXTAREA
     behavior = Behaviors.TextArea
@@ -121,26 +129,10 @@ let function mkSquadSpawnDesc(canSpawnSquad, canSpawnSoldier) {
   }.__update(titleTxtStyle)
 }
 
-let mkKeyboardHint = @(keyBordKey, postKeyTxt = null){
-  size = [flex(), SIZE_TO_CONTENT]
-  hplace = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  flow = FLOW_VERTICAL
-  gap = smallPadding
-  children = [
-    mkHintRow(keyBordKey, { color = accentColor })
-    {
-      rendObj = ROBJ_TEXT
-      text = postKeyTxt
-    }.__update(titleTxtStyle)
-  ]
-}
 
-
-let backgroundColor = 0x881E2227
 let bgConfig = {
-  rendObj = ROBJ_SOLID
-  color = backgroundColor
+  rendObj = ROBJ_WORLD_BLUR
+  color = 0xFF777777
   padding = [midPadding, bigPadding]
 }
 
@@ -151,13 +143,14 @@ let function missionNameUI() {
   return res.__update({
     size = [commonBlockWidth, SIZE_TO_CONTENT]
     hplace = ALIGN_RIGHT
+    padding = [midPadding, 0]
     children = {
       size = [flex(), SIZE_TO_CONTENT]
       rendObj = ROBJ_TEXTAREA
       behavior = Behaviors.TextArea
       text = loc(missionName.value, {
         mission_type = loc($"missionType/{missionType.value}") })
-    }.__update(titleTxtStyle)
+    }.__update(missionTxtStyle)
   }.__update(bgConfig))
 }
 
@@ -182,11 +175,11 @@ return {
   respawnTimer
   forceSpawnButton
   mkSquadSpawnDesc
-  mkKeyboardHint
   bgConfig
   respAnims
   defTxtStyle
   titleTxtStyle
+  deadTxtStyle
   sIconSize
   commonBlockWidth
   missionNameUI

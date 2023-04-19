@@ -17,8 +17,7 @@ let {
 let { BtnActionBgDisabled, BtnActionTextNormal }  = require("%ui/style/colors.nut")
 let { smallCampaignIcon } = require("%enlist/gameModes/roomsPkg.nut")
 let { isEditEventRoomOpened } = require("%enlist/gameModes/createEventRoomState.nut")
-let {
-  verticalGap, localPadding, localGap, armieChooseBlockWidth
+let { verticalGap, localPadding, localGap, armieChooseBlockWidth, armiesGap
 } = require("%enlist/gameModes/eventModeStyle.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let {
@@ -171,7 +170,7 @@ let joinBtn = @(sf, team){
   }
 }
 
-let function armmyIconsBlock(shoudBeMirrowed, armies = []){
+let function armyIconsBlock(shoudBeMirrowed, armies = []){
   let armyIcons = armies.map(@(armyId) (armiesPresentation?[armyId].icon ?? armyId))
   let iconsToShow = []
   armyIcons.each(@(val) iconsToShow.contains(val) ? null : iconsToShow.append(val) )
@@ -179,18 +178,18 @@ let function armmyIconsBlock(shoudBeMirrowed, armies = []){
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     hplace = shoudBeMirrowed ? ALIGN_RIGHT : ALIGN_LEFT
-    gap = -hdpx(15)
+    gap = armiesGap
     children = iconsToShow.map(@(val){
       rendObj = ROBJ_IMAGE
       size = [armyIconHeaderSize, armyIconHeaderSize]
-      image = Picture($"!ui/skin#{val}:{armyIconHeaderSize}:{armyIconHeaderSize}:K")
+      image = Picture($"ui/skin#{val}:{armyIconHeaderSize}:{armyIconHeaderSize}")
     })
   }
 }
 
 let teamBlockHeader = @(sf, team) function(){
   let children = [
-    armmyIconsBlock(isMirrored(team), roomTeamArmies.value?[team] ?? [])
+    armyIconsBlock(isMirrored(team), roomTeamArmies.value?[team] ?? [])
     team == curTeam.value || !canChangeTeam.value ? {size = flex()} : joinBtn(sf, team)
   ]
   return {

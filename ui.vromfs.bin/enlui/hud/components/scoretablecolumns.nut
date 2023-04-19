@@ -193,11 +193,12 @@ let function mkPlayerClass(playerData, isInteractive, sf) {
   )
 }
 
-let function mkPlayerBattleIcon(playerData, isInteractive, sf) {
+let function mkPlayerBattleIcon(playerData, isInteractive, sf, params) {
   if (playerData?.haveSessionResult)
     return mkPlayerRank(playerData, isInteractive)
 
-  if (!playerData.isAlly)
+  let { isReplay = false } = params
+  if (!playerData.isAlly && !isReplay)
     return null
 
   return mkPlayerClass(playerData, isInteractive, sf)
@@ -412,7 +413,7 @@ let COLUMN_PLAYER_NAME = {
           ? mkMemberIcon((playerData.player.memberIndex + 1).tostring(), playerData, sf)
               .__update({ padding = [0, bigGap] })
           : null
-        mkPlayerBattleIcon(playerData, isInteractive, sf)
+        mkPlayerBattleIcon(playerData, isInteractive, sf, params)
       ]
     }
   })

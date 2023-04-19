@@ -21,7 +21,7 @@ require Grid
 require GridCollision
 require enlisted.game.es.train.train_common
 require enlisted.game.es.terraform.terraform_common
-require EnlistedDm
+require DngDm
 require strings
 
 
@@ -266,7 +266,7 @@ def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
       let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
       let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
 
-      let eid = createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
+      createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
         set(init, "bomb_crater_terraformer__position", position)
         set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
         set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
@@ -298,7 +298,7 @@ def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;
         let mainMatId = calc_main_physmat_in_crater(position, outerRadius)
         let craterScaleForMat = get_crater_scale_by_main_physmat_in_crater(mainMatId, crater_config__scaleByPhysmats)
 
-        let eid = createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
+        createEntity("bomb_crater_terraformer") <| $(var init : ComponentsInitializer)
           set(init, "bomb_crater_terraformer__position", position)
           set(init, "bomb_crater_terraformer__innerRadius", innerRadius * craterScaleForMat.x)
           set(init, "bomb_crater_terraformer__innerDepth",  innerDepth  * craterScaleForMat.y)
@@ -354,7 +354,7 @@ def process_bomb_crater_terraformer(crater_config__disabledPhysMatIds : IntList;
       if find_index(ri_handles_to_remove, handle) < 0
         push(ri_handles_to_remove, handle)
 
-    let craterEid = createEntity("bomb_crater") <| $(var init : ComponentsInitializer)
+    createEntity("bomb_crater") <| $(var init : ComponentsInitializer)
       set(init, "bomb_crater__position", bomb_crater_terraformer__position)
       set(init, "bomb_crater__innerRadius", bomb_crater_terraformer__innerRadius)
       set(init, "bomb_crater__innerDepth", bomb_crater_terraformer__innerDepth)

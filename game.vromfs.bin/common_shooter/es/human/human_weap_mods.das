@@ -1,10 +1,10 @@
 require ecs
 require ecs.common
 require app
-require EnlistedNet
+require DngNet
 require game.es.events
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require DagorMath
 require DagorSystem
 require AnimV20

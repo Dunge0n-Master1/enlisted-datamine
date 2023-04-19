@@ -3,7 +3,7 @@ require walkerai
 require HumanPhys
 require math
 require game.es.events
-require EnlistedHuman
+require DngHuman
 require game.events_game
 
 [es(tag=server, no_order)]

@@ -382,6 +382,26 @@ bren_mk2_gun_item{
   dropTm:m=[[0.0, 1.0, 0.0] [0.0, 0.0, -1.0] [-1.0, 0.0, 0.0] [-0.3, 0.03, 0.0]]
 }
 
+vickers_mk1_no2_gun_item{
+  _extends:t="item_gun"
+  _extends:t="vickers_mk1_no2"
+  collres__res:t="vickers_mk_1_no_2_collision"
+}
+
+vickers_mk1_no2_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="dp_27_ammo_char"
+  item__template:t="vickers_mk1_no2_magazine"
+  item__proto:t="vickers_mk1_no2_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="vickers_mk1_no2_magazine"
+  ammo_holder__ammoCount:i=100
+  item__weight:r=2.0
+  item__volume:r=1.3
+  item__name:t="items/vickers_mk1_no2_magazine"
+  collres__res:t="dp_27_ammo_collision"
+}
+
 lewis_lmg_gun_item{
   _extends:t="item_gun"
   _extends:t="lewis_lmg"
@@ -524,6 +544,32 @@ browning_wz_1928_gun_item{
   _extends:t="item_gun"
   _extends:t="browning_wz_1928"
   collres__res:t="browning_wz_1928_collision"
+}
+
+winchester_automatic_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="winchester_automatic_rifle"
+  collres__res:t="w_a_r_collision"
+}
+
+winchester_automatic_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="browning_m1918_ammo_char"
+  item__template:t="winchester_automatic_rifle_magazine"
+  item__proto:t="winchester_automatic_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="winchester_automatic_rifle_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=1.0
+  item__volume:r=0.3
+  item__name:t="items/winchester_automatic_rifle_magazine"
+  collres__res:t="browning_m1918_ammo_collision"
+}
+
+fn_model_1930_gun_item{
+  _extends:t="item_gun"
+  _extends:t="fn_model_1930"
+  collres__res:t="fn_m1930_collision"
 }
 
 browning_m1918a1_gun_item{
@@ -810,7 +856,7 @@ thompson_m1928a1_100_drum_gun_item{
 thompson_m1928a1_100_drum_magazine{
   _extends:t="item_magazine"
   animchar__res:t="thompson_m1928a1_100_drum_ammo_char"
-  item__template:t="m1921_thompson_100_drum"
+  item__template:t="thompson_m1928a1_100_drum_magazine"
   item__proto:t="thompson_m1928a1_100_drum_magazine"
   item__locDetails:t=""
   ammo_holder__templateName:t="thompson_m1928a1_100_drum_magazine"
@@ -1572,6 +1618,12 @@ arisaka_type_38_with_grenade_discharger_gun_item{
   _extends:t="item_gun"
   _extends:t="arisaka_type_38_with_grenade_discharger"
   collres__res:t="arisaka_type_38_grenade_discharger_collision"
+}
+
+type_100_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_100_rifle"
+  collres__res:t="type_100_rifle_paratrooper_collision"
 }
 
 arisaka_grenade_discharger_item{
@@ -2835,6 +2887,18 @@ fg_42_gun_item{
   collres__res:t="fg_42_collision"
 }
 
+krieghoff_fg_gun_item{
+  _extends:t="item_gun"
+  _extends:t="krieghoff_fg"
+  collres__res:t="krieghoff_fg_collision"
+}
+
+fg_42_with_grenade_launcher_gun_item{
+  _extends:t="item_gun"
+  _extends:t="fg_42_with_grenade_launcher"
+  collres__res:t="fg_42_with_grenade_launcher_collision"
+}
+
 fg_42_model_2_gun_item{
   _extends:t="item_gun"
   _extends:t="fg_42_model_2"
@@ -3814,6 +3878,26 @@ avt_40_magazine{
   collres__res:t="avs_36_ammo_collision"
 }
 
+svd_38_gun_item{
+  _extends:t="item_gun"
+  _extends:t="svd_38"
+  collres__res:t="svt_38_collision"
+}
+
+svd_38_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="avs_36_ammo_char"
+  item__template:t="svd_38_magazine"
+  item__proto:t="svd_38_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="svd_38_magazine"
+  ammo_holder__ammoCount:i=10
+  item__weight:r=0.3
+  item__volume:r=0.2
+  item__name:t="items/svd_38_magazine"
+  collres__res:t="avs_36_ammo_collision"
+}
+
 m50_reising_gun_item{
   _extends:t="item_gun"
   _extends:t="m50_reising"
@@ -4478,7 +4562,7 @@ anm8_smoke_grenade_item{
 
 mk2_grenade_item{
   _extends:t="item_grenade"
-  animchar__res:t="grenade_mk2_char"
+  animchar__res:t="mk2_with_fingers_grenade_char"
   collres__res:t="grenade_mk2_collision"
   item__template:t="mk2_grenade_item"
   item__proto:t="content/enlisted/gamedata/weapons/grenades/usa_mk2.blk"
@@ -5371,6 +5455,24 @@ scope_pe_mosin_4x_item{
   gunAttachable__slotName:t="scope"
   gunAttachable__gunSlotName:t="scope"
   gunAttachable__slotTag:t="scope_pe_mosin_4x"
+
+  "gunAttachable:tag"{
+  }
+}
+
+scope_uvp_item{
+  _extends:t="item_scope"
+  animchar__res:t="scope_pe_svd_38_char"
+  collres__res:t="scope_pe_svd_38_collision"
+  item__template:t="scope_uvp_item"
+  item__proto:t="scope_uvp"
+  item__locDetails:t=""
+  item__weight:r=0.3
+  item__volume:r=0.5
+  item__name:t="items/scope_uvp"
+  gunAttachable__slotName:t="scope"
+  gunAttachable__gunSlotName:t="scope"
+  gunAttachable__slotTag:t="scope_uvp"
 
   "gunAttachable:tag"{
   }
@@ -7200,6 +7302,26 @@ type_ko_rifle_magazine{
   item__weight:r=0.35
   item__volume:r=0.2
   item__name:t="items/type_ko_rifle_magazine"
+  collres__res:t="gewehr_41_ammo_collision"
+}
+
+type_4_rifle_gun_item{
+  _extends:t="item_gun"
+  _extends:t="type_4_rifle"
+  collres__res:t="type_4_rifle_collision"
+}
+
+type_4_rifle_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="gewehr_41_ammo_char"
+  item__template:t="type_4_rifle_magazine"
+  item__proto:t="type_4_rifle_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="type_4_rifle_magazine"
+  ammo_holder__ammoCount:i=10
+  item__weight:r=0.35
+  item__volume:r=0.2
+  item__name:t="items/type_4_rifle_magazine"
   collres__res:t="gewehr_41_ammo_collision"
 }
 

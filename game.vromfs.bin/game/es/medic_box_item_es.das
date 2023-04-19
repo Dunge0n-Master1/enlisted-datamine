@@ -1,7 +1,7 @@
 require ecs
 require game.es.events
 require common_shooter.es.human_weap_common
-require EnlistedHuman
+require DngHuman
 require game.es.events_common_shooter
 require enlisted.events_enlisted
 require AnimatedPhys

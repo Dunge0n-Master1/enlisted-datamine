@@ -8,7 +8,7 @@ let {nestWatched} = require("%dngscripts/globalState.nut")
 let { fabs } = require("math")
 let { pushNotification, removeNotifyById, removeNotify, subscribeGroup
 } = require("%enlist/mainScene/invitationsLogState.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")    // CODE SMELLS: ui state in logic module!
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")    // CODE SMELLS: ui state in logic module!
 let { blockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { Contact, validateNickNames, getContactNick } = require("%enlist/contacts/contact.nut")

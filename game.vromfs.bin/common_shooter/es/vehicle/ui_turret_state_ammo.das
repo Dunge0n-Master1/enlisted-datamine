@@ -18,7 +18,11 @@ def ui_update_wathed_vehicle_turret_ammo(info : ParallelUpdateFrameDelayed;
   var reloadAmmo : table<string; int>
   var firstLoadedGunInGroup : table<string; EntityId>
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int; turret__groupName : string = ""; gun__ammo_by_shell : IntList const?)
+    query(gunEid) <| $ [es] (gun__ammo : int;
+                             gun__totalAmmo : int;
+                             turret__numAmmoFirstStage : int = -1;
+                             turret__groupName : string = "";
+                             gun__ammo_by_shell : IntList const?)
       if !empty(turret__groupName)
         if !key_exists(groupAmmo, turret__groupName)
           groupAmmo[turret__groupName] = 0
@@ -29,6 +33,8 @@ def ui_update_wathed_vehicle_turret_ammo(info : ParallelUpdateFrameDelayed;
       ui_turrets_state__ammo |> push_to_object("{gunEid}") <| $(var ammo : Object)
         ammo |> set("curAmmo", gun__ammo)
         ammo |> set("totalAmmo", gun__totalAmmo)
+        if turret__numAmmoFirstStage >= 0
+          ammo |> set("firstStageAmmo", turret__numAmmoFirstStage)
         ammo |> set("canBeResuppliedOnPoint", disableVehicleResupply == null)
         ammo |> set("canBeResuppliedByEngineer", fortification_repair__costPercent != null)
         if gun__ammo_by_shell != null

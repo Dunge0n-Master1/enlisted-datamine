@@ -78,7 +78,13 @@ aircraft_request{
     aircraft_request__aircraftSpawnHeight:r=600.0
     aircraft_request__aircraftSpawnDistance:r=7500.0
     aircraft_request__aircraftTemplate:t="ai_he_111_h16+plane_spawn_in_air+requested_aircraft"
+    aircraft_request__spawnDelayedTemplate:t="aircraft_request_spawn_delayed"
+    aircraft_request__spawnerTemplate:t="aircraft_request_spawner"
+    aircraft_request__originTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
     aircraft_request__aircraftTargetMarkTemplate:t="aircraft_request_target_mark"
+
+    "aircraft_request__spawners:list<eid>"{
+    }
 
     "aircraft_request__targetMarks:list<eid>"{
     }
@@ -97,6 +103,19 @@ aircraft_request{
 
   "aircraft_request:tag"{
   }
+}
+
+aircraft_request_spawn_delayed{
+  aircraft_request__aircraftSpawnDelaySec:r=1.0
+  aircraft_request__aircraftNextSpawnSec:r=0.0
+
+  "aircraft_request__aircraftLeader:eid"{
+  }
+}
+
+aircraft_request_spawner{
+  team:i=0
+  aircraft_request_spawner__bias:p3=0.0, 0.0, 0.0
 }
 
 moscow_ger_team_aircraft_request{

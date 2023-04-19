@@ -3,7 +3,7 @@ require statBQ
 require jsonwriter
 require game.events_game
 require game.es.stat_bq_common
-require EnlistedDm
+require DngDm
 require enlisted.game.es.offender_cache_common
 
 [es(tag=server, REQUIRE=human)]

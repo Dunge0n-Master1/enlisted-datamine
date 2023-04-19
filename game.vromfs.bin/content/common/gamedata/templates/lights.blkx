@@ -1,0 +1,582 @@
+local_light{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="transform"
+  _replicated:t="transform"
+  shreddableInDarkZone:b=yes
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    light__max_radius:r=0.0
+    light__offset:p3=0.0, 0.0, 0.0
+    light__color:c=255, 250, 200, 255
+    light__brightness:r=1.0
+    light__dynamic_light:b=no
+    light__affect_volumes:b=yes
+    light__render_gpu_objects:b=no
+  }
+}
+
+light{
+  _extends:t="local_light"
+  _extends:t="replicating"
+}
+
+omni_light_restriction_box{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "restriction_box:tag"{
+  }
+}
+
+local_omni_light{
+  _extends:t="local_light"
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    light__contact_shadows:b=yes
+    light__use_box:b=yes
+    light__automatic_box:b=no
+    light__box:m=[[0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0] [0.0, 0.0, 0.0]]
+    light__direction:p3=0.0, -1.0, 0.0
+    light__texture_name:t=""
+  }
+
+  _group{
+    _tags:t="render"
+    _track:b=yes
+    _replicate:b=yes
+    omni_light__shadows:b=no
+    omni_light__dynamic_obj_shadows:b=no
+    omni_light__shadow_shrink:i=0
+    omni_light__shadow_quality:i=2
+  }
+
+  omni_light{
+    _tags:t="render"
+  }
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+omni_light{
+  _extends:t="local_omni_light"
+  _extends:t="replicating"
+}
+
+base_spot_light{
+  _extends:t="light"
+  light__texture_name:t=""
+  _tracked:t="light__texture_name"
+  _replicated:t="light__texture_name"
+
+  spot_light{
+    _tags:t="render"
+  }
+
+  _group{
+    _tags:t="render"
+    _track:b=yes
+    _replicate:b=yes
+    spot_light__inner_attenuation:r=0.9
+    spot_light__dynamic_light:b=no
+    spot_light__shadows:b=no
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__contact_shadows:b=no
+    spot_light__shadow_shrink:i=0
+  }
+}
+
+spot_light{
+  _extends:t="base_spot_light"
+
+  "destroyable_with_rendinst:tag"{
+  }
+}
+
+omni_light_huge{
+  _extends:t="omni_light"
+  light__max_radius:r=20.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=230, 130, 59, 10
+  light__brightness:r=5.0
+  shreddableInDarkZone:b=no
+}
+
+omni_light_for_cornellbox{
+  _extends:t="omni_light"
+  light__max_radius:r=1.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=199, 199, 199, 255
+  light__brightness:r=100.0
+  shreddableInDarkZone:b=no
+}
+
+spot_light_huge{
+  _extends:t="spot_light"
+  light__max_radius:r=13.0
+  light__color:c=224, 145, 93, 255
+  light__brightness:r=30.0
+  light__nightly:b=yes
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=0
+    spot_light__shadow_quality:i=1
+  }
+}
+
+spot_light_gaint{
+  _extends:t="spot_light"
+  light__max_radius:r=20.0
+  light__color:c=224, 145, 93, 255
+  light__brightness:r=150.0
+  light__nightly:b=yes
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=0
+    spot_light__shadow_quality:i=1
+  }
+}
+
+spot_light_long{
+  _extends:t="spot_light"
+  light__max_radius:r=13.0
+  light__color:c=224, 145, 93, 255
+  light__brightness:r=130.0
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=yes
+    spot_light__shadow_shrink:i=0
+  }
+}
+
+spot_light_little{
+  _extends:t="spot_light"
+  light__max_radius:r=9.0
+  light__color:c=224, 178, 76, 255
+  light__brightness:r=15.0
+  light__nightly:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+  }
+}
+
+omni_light_bunker{
+  _extends:t="spot_light"
+  light__max_radius:r=7.0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=4.0
+
+  _group{
+    _tags:t="render"
+    spot_light__shadows:b=yes
+    spot_light__shadow_shrink:i=1
+  }
+}
+
+light_bunker_wall{
+  _extends:t="omni_light"
+  light__max_radius:r=2.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 100, 50, 255
+  light__brightness:r=1.0
+}
+
+light_bunker_wall_b{
+  _extends:t="omni_light"
+  light__max_radius:r=3.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=240, 200, 150, 255
+  light__brightness:r=6.0
+}
+
+light_bunker_wall_red{
+  _extends:t="omni_light"
+  light__max_radius:r=4.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 0, 0, 255
+  light__brightness:r=3.0
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_singlelamp_sconce_b"
+}
+
+emergency_lamp_wall{
+  _extends:t="omni_light"
+  light__max_radius:r=5.2
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 40, 10, 255
+  light__brightness:r=1.0
+}
+
+light_bunker_ceiling{
+  _extends:t="spot_light"
+  light__max_radius:r=7.0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=8.0
+
+  _group{
+    _tags:t="render"
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+  }
+}
+
+light_small_lantern{
+  _extends:t="omni_light"
+  light__max_radius:r=2.1
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 210, 50, 255
+  light__brightness:r=0.3
+  light__contact_shadows:b=no
+}
+
+light_teleport_wc{
+  _extends:t="spot_light"
+  light__max_radius:r=10.0
+  light__color:c=100, 150, 255, 255
+  light__brightness:r=0.0
+  _replicated:t="light__brightness"
+  teleportLightBrightness:r=16.0
+
+  _group{
+    _tags:t="render"
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+  }
+}
+
+light_chandelier_big{
+  _extends:t="omni_light"
+  light__max_radius:r=6.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 170, 80, 255
+  light__brightness:r=4.0
+}
+
+light_chandelier_big_far{
+  _extends:t="omni_light"
+  light__max_radius:r=13.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 170, 80, 255
+  light__brightness:r=4.5
+  light__contact_shadows:b=no
+}
+
+light_chandelier_big_far_b{
+  _extends:t="spot_light"
+  light__max_radius:r=18.0
+  light__color:c=255, 230, 200, 255
+  light__brightness:r=20.0
+
+  _group{
+    _tags:t="render"
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+  }
+}
+
+light_chandelier_big_antiprobe{
+  _extends:t="omni_light"
+  light__max_radius:r=6.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 170, 80, 255
+  light__brightness:r=4.0
+  light__use_box:b=no
+}
+
+light_sconce_big{
+  _extends:t="omni_light"
+  light__max_radius:r=5.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 172, 50, 255
+  light__brightness:r=3.1
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_multilamp_sconce_a"
+}
+
+light_sconce_medium{
+  _extends:t="omni_light"
+  light__max_radius:r=3.5
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 152, 70, 255
+  light__brightness:r=2.5
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_doublelamp_sconce_a"
+}
+
+light_sconce_small{
+  _extends:t="omni_light"
+  light__max_radius:r=2.5
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 140, 50, 255
+  light__brightness:r=0.7
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_singlelamp_sconce_a"
+}
+
+light_sconce_small_b{
+  _extends:t="omni_light"
+  light__max_radius:r=3.0
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 152, 70, 255
+  light__brightness:r=2.2
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_singlelamp_sconce_b"
+}
+
+omni_atmospheric_entry_light{
+  _extends:t="omni_light"
+  light__contact_shadows:b=no
+  light__max_radius:r=500.0
+  light__offset:p3=0.0, 4.0, 0.0
+  light__color:c=255, 255, 255, 255
+  light__brightness:r=10000.0
+  shreddableInDarkZone:b=no
+}
+
+gunlight{
+  light__max_radius:r=25.0
+  light__offset:p3=0.0, 0.2, 0.0
+  light__color:c=255, 250, 200, 255
+  light__brightness:r=65.0
+  lightModTm:m=[[-0.8, 0.0, 0.0] [0.0, 0.8, 0.0] [0.0, 0.0, -0.8] [0.0, 0.0, 0.0]]
+  light__contact_shadows:b=yes
+  light__dynamic_light:b=yes
+  light__direction:p3=0.0, 0.0, 1.0
+  light__nightly:b=no
+  light__texture_name:t="ies_flashlight_a"
+
+  omni_light{
+    _tags:t="render"
+  }
+}
+
+gunlight_spot{
+  _extends:t="base_spot_light"
+  light__max_radius:r=25.0
+  lightModTm:m=[[1.25, 0.0, 0.0] [0.0, 1.25, 0.0] [0.0, 0.0, 1.25] [0.0, 0.0, 0.2]]
+  light__color:c=255, 250, 200, 255
+  light__brightness:r=130.0
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__dynamic_light:b=yes
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=yes
+    spot_light__shadow_shrink:i=1
+  }
+}
+
+spot_light_little_b{
+  _extends:t="spot_light"
+  light__max_radius:r=8.0
+  light__color:c=208, 191, 152, 255
+  light__brightness:r=81.0
+  light__nightly:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+  }
+}
+
+spot_light_little_b_5m{
+  _extends:t="spot_light"
+  light__max_radius:r=5.0
+  light__color:c=208, 191, 152, 255
+  light__brightness:r=41.0
+  light__nightly:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+  }
+}
+
+spot_light_little_c{
+  _extends:t="spot_light"
+  light__max_radius:r=6.0
+  light__color:c=224, 178, 76, 255
+  light__brightness:r=35.0
+  light__nightly:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+  }
+}
+
+light_monitor_a{
+  _extends:t="omni_light"
+  light__max_radius:r=1.5
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=80, 117, 255, 255
+  light__brightness:r=1.2
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_monitor_a"
+}
+
+sign_red_light{
+  _extends:t="omni_light"
+  light__max_radius:r=3.1
+  light__offset:p3=0.0, 0.0, 0.0
+  light__color:c=255, 20, 21, 255
+  light__brightness:r=2.5
+  light__contact_shadows:b=no
+  light__texture_name:t="ies_hand_lantern_a"
+}
+
+spot_light_work_a{
+  _extends:t="spot_light"
+  light__max_radius:r=7.0
+  light__color:c=208, 191, 152, 255
+  light__brightness:r=121.0
+  light__nightly:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.1
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=yes
+    spot_light__shadow_shrink:i=0
+  }
+}
+
+spot_light_workshop_a{
+  _extends:t="spot_light"
+  light__max_radius:r=12.0
+  light__color:c=220, 140, 65, 255
+  light__brightness:r=50.0
+  light__nightly:b=no
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+    spot_light__shadow_quality:i=1
+  }
+}
+
+spot_light_workshop_b{
+  _extends:t="spot_light"
+  light__max_radius:r=6.0
+  light__color:c=220, 140, 65, 255
+  light__brightness:r=15.0
+  light__nightly:b=no
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=1
+    spot_light__shadow_quality:i=1
+  }
+}
+
+sg_light_spot_ceiling_white{
+  _extends:t="spot_light"
+  light__max_radius:r=12.0
+  light__color:c=255, 240, 230, 255
+  light__brightness:r=800.0
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=no
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=0
+    spot_light__shadow_quality:i=1
+  }
+}
+
+sg_light_spot_ceiling_red{
+  _extends:t="sg_light_spot_ceiling_white"
+  light__color:c=255, 5, 0, 255
+}
+
+sg_light_spot_ceiling_green{
+  _extends:t="sg_light_spot_ceiling_white"
+  light__color:c=80, 255, 0, 255
+}
+
+spot_light_street_poles{
+  _extends:t="spot_light"
+  light__max_radius:r=9.0
+  light__color:c=224, 145, 93, 255
+  light__brightness:r=30.0
+  light__nightly:b=yes
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+    spot_light__shadow_quality:i=1
+  }
+}
+
+spot_light_fliker_street_poles{
+  _extends:t="spot_light"
+  light__max_radius:r=9.0
+  light__color:c=224, 145, 93, 255
+  light__brightness:r=30.0
+  light__nightly:b=yes
+  light__flicker_attack_time:p2=0.5, 0.4
+  light__flicker_on_time:p2=0.5, 0.4
+  light__flicker_release_time:p2=0.5, 0.4
+  light__flicker_off_time:p2=0.5, 0.4
+  light__flicker_on_brightness:p2=4.5, 0.5
+  light__flicker_off_brightness:p2=0.0, 3.0
+  light__flicker_seed:r=1.0
+  shreddableInDarkZone:b=no
+
+  _group{
+    _tags:t="render"
+    spot_light__inner_attenuation:r=0.0001
+    spot_light__shadows:b=yes
+    spot_light__dynamic_obj_shadows:b=no
+    spot_light__shadow_shrink:i=2
+    spot_light__shadow_quality:i=1
+  }
+}

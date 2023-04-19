@@ -261,32 +261,6 @@ ballistics{
   }
 }
 
-hitFx{
-  fxScale:p2=3.0, 3.0
-  defaultFx:t="event_foolmoon_explosion_plasma_cmps_fx"
-  jetFx:t="event_foolmoon_explosion_plasma_cmps_fx"
-
-  steel{
-    fx:t="event_foolmoon_explosion_plasma_cmps_fx"
-    fxScale:p2=3.0, 3.0
-  }
-
-  wood{
-    fx:t="event_foolmoon_explosion_plasma_cmps_fx"
-    fxScale:p2=3.0, 3.0
-  }
-
-  glass{
-    fx:t="event_foolmoon_explosion_plasma_cmps_fx"
-    fxScale:p2=3.0, 3.0
-  }
-
-  stone{
-    fx:t="event_foolmoon_explosion_plasma_cmps_fx"
-    fxScale:p2=3.0, 3.0
-  }
-}
-
 explSound{
   explSoundPath:t="events/moonbase/impact/plasma_explosion"
 }

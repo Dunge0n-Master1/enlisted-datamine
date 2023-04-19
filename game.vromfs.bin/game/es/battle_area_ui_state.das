@@ -232,6 +232,15 @@ def reinit_battle_areas_on_trigger_changed(evt : Event)
 def reinit_battle_areas_on_zone_changed(evt : Event)
   set_require_update_battle_areas_in_ui()
 
+[es(tag=ui, track=squad__isAlive)]
+def reinit_battle_areas_on_player_squad_death(evt : Event; squad__isAlive : bool; squad__ownerPlayer : EntityId)
+  if !squad__isAlive && get_local_player_eid() == squad__ownerPlayer
+    set_require_update_battle_areas_in_ui()
+
+[es(tag=ui, track=human_anim__vehicleSelected, REQUIRE=(human_anim__vehicleSelected, watchedByPlr))]
+def reinit_battle_areas_on_player_vehicle_exit(evt : Event)
+  set_require_update_battle_areas_in_ui()
+
 def init_box_battle_area_lines(tm : float3x4; var points : array<float2>&)
   let diag2 = (tm[0].xz + tm[2].xz) * 0.5
   let diag1 = (tm[0].xz - tm[2].xz) * 0.5
@@ -244,6 +253,7 @@ def init_box_battle_area_lines(tm : float3x4; var points : array<float2>&)
 [es(tag=ui, no_order)]
 def areas_update_es(info : ParallelUpdateFrameDelayed;
                     var battle_area__requireUpdate : bool&;
+                    var battle_area__showActiveArea : bool&;
                     var battle_area__activeBattleAreasPolygon : Point2List;
                     var battle_area__nextBattleAreasPolygon : Point2List)
   if !battle_area__requireUpdate
@@ -257,12 +267,11 @@ def areas_update_es(info : ParallelUpdateFrameDelayed;
   var nextBattleAreasInfo : array<BattleAreaInfo>
 
   var heroCaprureTag = "humanTriggerable"
-  var heroTeam = TEAM_UNASSIGNED
+  let heroTeam = get_local_player_team()
 
-  query() <| $ [es(REQUIRE=watchedByPlr)] (zones_visitor__triggerTag : string;
-                                           team : int)
-    heroCaprureTag := zones_visitor__triggerTag
-    heroTeam = team
+  query() <| $ [es(REQUIRE=watchedByPlr)] (zones_visitor__triggerTag : string; human_freefall__isFreefall : bool = false; isAlive : bool)
+    if !human_freefall__isFreefall && isAlive
+      heroCaprureTag := zones_visitor__triggerTag
 
   query() <| $ [es(REQUIRE=battle_area, REQUIRE_NOT=hideOnMinimap)] (eid : EntityId;
                                                                      active : bool;
@@ -319,5 +328,7 @@ def areas_update_es(info : ParallelUpdateFrameDelayed;
       ]])
 
   build_battle_area_polygon(battleAreasInfo, battle_area__activeBattleAreasPolygon)
+  battle_area__showActiveArea = true
   if length(battleAreasInfo) != length(nextBattleAreasInfo)
+    battle_area__showActiveArea = false
     build_battle_area_polygon(nextBattleAreasInfo, battle_area__nextBattleAreasPolygon)

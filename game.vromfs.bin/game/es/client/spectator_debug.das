@@ -1,10 +1,11 @@
 options no_aot
 require ecs
 require DagorConsole
-require EnlistedCamera
+require DngCamera
 require game.utils.hero
 require daslib/strings_boost
 require game.es.client.spectator_common
+require game.es.camera_common
 
 
 [console_cmd(name="camera.spectate")]

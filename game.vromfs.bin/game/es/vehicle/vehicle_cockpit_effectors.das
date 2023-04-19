@@ -41,35 +41,50 @@ def human_vehicle_cockpit_effectors_reset(evt : Event;
       effector.weight = 0.0
 
 
+def for_each_effector(var animchar_effectors__effectorsState : Object&;
+                      cockpit__effectors : Object;
+                      blk : block<(var effector_data : EffectorData&; effector_index : int)>)
+  for field in cockpit__effectors
+    let effectorName = field.key
+    let effectorIndex = cockpit__effectors[effectorName] ?? -1
+    if effectorIndex < 0
+      return
+    var effector = getNullableRW_EffectorData(animchar_effectors__effectorsState, effectorName)
+
+    if effector == null
+      continue
+
+    invoke(blk, *effector, effectorIndex)
+
+
 [es(tag=render, before=before_animchar_update_sync, after=(human_anim_es, plane_anim_es))]
 def human_vehicle_cockpit_effectors(info : ParallelUpdateFrameDelayed;
                                     animchar aka cockpit_animchar : AnimcharBaseComponent;
                                     cockpit__vehicleEid : EntityId;
                                     cockpit__effectors : Object;
                                     cockpit__offset : float3)
-  query() <| $ [es(REQUIRE=hero)] (var animchar_effectors__effectorsState : Object; transform : float3x4)
+  query() <| $ [es(REQUIRE=hero)] (transform : float3x4;
+                                   human_vehicle__exitAtTime : float = -1.0;
+                                   var animchar_effectors__effectorsState : Object&)
+    if human_vehicle__exitAtTime > info.curTime
+      animchar_effectors__effectorsState |> for_each_effector(cockpit__effectors) <| $ [unused_argument(index)] (effector; index)
+        effector.weight = 0.0
+      return
+
     var cockpitRootTm : float3x4
     var vehicleTransform : float3x4
     query(cockpit__vehicleEid) <| $ [es] (transform : float3x4)
       vehicleTransform = transform
     geomtree_getNodeWtmRelScalar(*cockpit_animchar.nodeTree, 0, cockpitRootTm)
     cockpitRootTm[3] = cockpitRootTm * -cockpit__offset
-    for field in cockpit__effectors
-      let effectorName = field.key
-      let effectorIndex = cockpit__effectors[effectorName] ?? -1
-      if effectorIndex < 0
-        return
-      var effector = getNullableRW_EffectorData(animchar_effectors__effectorsState, effectorName)
 
-      if effector == null
-        continue
-
+    animchar_effectors__effectorsState |> for_each_effector(cockpit__effectors) <| $(effector; index)
       let vehicleWofs = geomtree_calc_optimal_wofs(vehicleTransform[3])
       let dWofs = vehicleWofs - geomtree_calc_optimal_wofs(transform[3])
 
       var vehicleLocalWtm = vehicleTransform
       vehicleLocalWtm[3] = vehicleTransform[3] - vehicleWofs
-      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, effectorIndex, effector.wtm)
+      geomtree_getNodeWtmRelScalar(*animchar.nodeTree, index, effector.wtm)
       effector.wtm = vehicleLocalWtm * (inverse(cockpitRootTm) * effector.wtm)
       effector.position = effector.wtm[3] + dWofs
       effector.weight = 1.f

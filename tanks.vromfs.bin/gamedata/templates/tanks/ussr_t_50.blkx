@@ -101,7 +101,7 @@ ussr_t_50_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.27
+  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, -0.0, 0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

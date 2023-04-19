@@ -21,18 +21,19 @@ def add_award(player_eid : EntityId; award_type : string; cb : block<(var id : O
 def add_award(player_eid : EntityId; award_type : string)
   add_award(player_eid, award_type) <| $ [unused_argument(it)] (it) {}
 
-def push_soldier_stat(var awards : Array; player : EntityId; guid : string; stat : string; amount : float = 1.0)
+def push_soldier_stat(var awards : Array; player : EntityId; guid : string; stat : string; amount : float = 1.0; should_override : bool = false)
   push_to_array(awards) <| $(var obj : Object)
     obj |> set("stat", stat)
     obj |> set("playerEid", player)
     obj |> set("guid", guid)
     obj |> set("amount", amount)
+    obj |> set("shouldOverride", should_override)
 
-def push_soldier_stat(var awards : Array; soldier : CachedSoldier; stat : string; amount : float = 1.0)
-  push_soldier_stat(awards, soldier.player, soldier.guid, stat, amount)
+def push_soldier_stat(var awards : Array; soldier : CachedSoldier; stat : string; amount : float = 1.0; should_override : bool = false)
+  push_soldier_stat(awards, soldier.player, soldier.guid, stat, amount, should_override)
 
-def send_award_stat(player : EntityId; guid : string; stat : string; amount : float = 1.0)
+def send_award_stat(player : EntityId; guid : string; stat : string; amount : float = 1.0; should_override : bool = false)
   using() <| $(var awardList : Array)
-    awardList |> push_soldier_stat(player, guid, stat, amount)
+    awardList |> push_soldier_stat(player, guid, stat, amount, should_override)
     broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
       set(init, "list", awardList)

@@ -48,16 +48,6 @@ us_halftrack_m3_75mm_gmc{
       curPitchParamName:t="gun_pitch"
       gunRecoilParamName:t="gun_recoil"
       gunRecoilDuration:r=0.5
-
-      "gunFlash:object"{
-        node:t="emtr_gun_flame"
-        fx:t="muzzle_flash"
-        fxId:i=-1
-        scale:r=0.7
-        nodeId:i=-1
-        time:r=0.2
-        multTm:m=[[0.0, 1.0, 0.0] [1.0, 0.0, 0.0] [0.0, 0.0, -1.0] [0.0, 0.0, 0.0]]
-      }
     }
   }
 

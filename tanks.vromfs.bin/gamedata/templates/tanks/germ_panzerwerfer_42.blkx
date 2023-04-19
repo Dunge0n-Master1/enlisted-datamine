@@ -125,7 +125,7 @@ germ_panzerwerfer_42_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_panzerwerfer.blk"
   animchar__res:t="pz_2c_commander_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
-  cockpit__minZoom:r=-0.27
+  cockpit__minForwardOffset:r=-0.27
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"

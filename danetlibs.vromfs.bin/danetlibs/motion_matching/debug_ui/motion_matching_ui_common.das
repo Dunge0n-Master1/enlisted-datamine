@@ -26,6 +26,12 @@ def safe_slider(title : string; var value : float&; min_value, max_value : float
   value = tmpValue
   return result
 
+def safe_checkbox(title : string; var value : bool&)
+  var tmpValue = value
+  let result = imgui::Checkbox(title, safe_addr(tmpValue))
+  value = tmpValue
+  return result
+
 def edit_weights(var weights : FeatureWeights; nodes_name : StringList; prediction_times : FloatList)
   let hash = unsafe(addr(weights))
   for p, v, name in weights.nodePositions, weights.nodeVelocities, nodes_name
@@ -93,8 +99,26 @@ def edit_list(var list : auto(TT)&; text : string) : tuple<edited : bool; enlarg
     edited = true
   return [[auto edited, enlarged, eraseIdx]]
 
+def edit_root_update_params(var controller : MotionMatchingController)
+  safe_checkbox("Root synchronization", controller.rootSynchronization)
+  safe_checkbox("Root adjustment", controller.rootAdjustment)
+  if controller.rootAdjustment
+    imgui::Indent();
+    safe_slider("velocity ratio", controller.rootAdjustmentVelocityRatio, 0f, 1f)
+    safe_slider("time to adjust position", controller.rootAdjustmentPosTime, 0f, 1f)
+    safe_slider("angular velocity ratio", controller.rootAdjustmentAngVelocityRatio, 0f, 1f)
+    safe_slider("time to adjust rotation", controller.rootAdjustmentRotTime, 0f, 1f)
+    imgui::Unindent();
+  safe_checkbox("Root clamping", controller.rootClamping)
+  if controller.rootClamping
+    imgui::Indent();
+    safe_slider("distance", controller.rootClampingMaxDistance, 0f, 1f)
+    safe_slider("angle", controller.rootClampingMaxAngle, 0f, PI)
+    imgui::Unindent();
+
 def edit_params(eid : EntityId)
   query(eid) <| $ [es] (motion_matching__presetIdx : int;
+                        var motion_matching__controller : MotionMatchingController;
                         var motion_matching__animationBlendTime : float&;
                         var motion_matching__trajectoryInertionFactor : float&;
                         var motion_matching__linearVelocityViscosity : float&;
@@ -109,6 +133,8 @@ def edit_params(eid : EntityId)
         console_command("motion_matching.debug_nodes")
       if imgui::Button("toggle debug trajectory")
         console_command("motion_matching.debug_trajectory")
+
+      edit_root_update_params(motion_matching__controller)
 
       imgui::EndTabItem()
 
@@ -399,6 +425,8 @@ def motion_matching_imgui(eid : EntityId)
     edit_params(eid)
 
     var dataBase = motion_matching__controller.dataBase
+    if dataBase == null
+      return
 
     edit_tags(eid, *dataBase)
     edit_presets(motion_matching__dataBaseEid)

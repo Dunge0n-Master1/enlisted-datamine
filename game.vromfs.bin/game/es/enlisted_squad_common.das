@@ -1,18 +1,18 @@
 module enlisted_squad_common shared
 require ecs
 require DagorRandom
-require EnlistedDm
-require EnlistedWalkerai
+require DngDm
+require DngWalkerai
 require game.es.ai.walker_common
 require DagorDataBlock
 require game.es.events
 require BehNodes
 require game.events_game
 require enlisted.game.es.squad_behaviour_command_common
-require EnlistedBehTree
+require DngBehTree
 require enlisted.game.es.enlisted_covers_common
 require game.es.squad_order_common
-require EnlistedNet
+require DngNet
 
 variant MaybeOrder
   order : SquadMateOrder
@@ -30,6 +30,7 @@ def reset_squad_mate_ai_components(squadMemberEid : EntityId)
                                    var beh_tree__orderShouldUseVehicle : bool&;
                                    var beh_tree__isInVehicle : bool&;
                                    var beh_tree__shouldUseVehicle : bool&;
+                                   var beh_tree__isFreefallOrParachute : bool&;
                                    var beh_tree__useBomb : bool&)
     beh_tree__navPointId = -1
     beh_tree__capturedCapzone = INVALID_ENTITY_ID
@@ -39,6 +40,7 @@ def reset_squad_mate_ai_components(squadMemberEid : EntityId)
     beh_tree__isInVehicle = false
     beh_tree__shouldUseVehicle = false
     beh_tree__useBomb = false
+    beh_tree__isFreefallOrParachute = false
 
   reset_covers(squadMemberEid)
 
@@ -55,7 +57,7 @@ def reload_squad_mate_beh_tree(squadMemberEid : EntityId)
     was_maxStanceOrderEndTime = beh_tree.blackBoard |> datablock_getReal("maxStanceOrderEndTime", 0.0)
     was_maxStanceAtLeast      = beh_tree.blackBoard |> datablock_getInt("maxStanceAtLeast", STANCE_CRAWL)
 
-  EnlistedBehTree::load_beh_tree_from_ecs(squadMemberEid)
+  DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
 
   query(squadMemberEid) <| $ [es] (var beh_tree : BehaviourTree&;
                                    var beh_tree__latencyLoadBlackBoard : Object?)
@@ -81,21 +83,22 @@ def reset_squad_mate_behaviour(squadMemberEid : EntityId;
 
 def reset_squad_mate_behaviour(squadMemberEid : EntityId;
                                resetIfOnTrain : bool = false)
-  query(squadMemberEid) <| $ [es] (squad_member__squad : EntityId;
-                                   beh_tree__isInTrainBeh : bool;
-                                   beh_tree__data__findCoverBeh : string;
-                                   beh_tree__data__checkCoverBeh : string;
-                                   beh_tree__data__findCoverAroundLeaderBeh : string;
-                                   beh_tree__data__findCoverAroundLeaderAwayBeh : string;
-                                   beh_tree__data__findCoverAroundPointBeh : string;
-                                   beh_tree__data__checkCoverAroundPointBeh : string;
-                                   beh_tree__data__agressiveBeh : string;
-                                   beh_tree__data__passiveBeh : string;
-                                   beh_tree__data__defendPoint : string;
-                                   var beh_tree__refs__behaviour : das_string&;
-                                   var beh_tree__refs__findCoverRef : das_string&;
-                                   var beh_tree__refs__checkCoverRef : das_string&)
-    if beh_tree__isInTrainBeh && !resetIfOnTrain
+  query(squadMemberEid) <| $ [es(REQUIRE_NOT=ignoreResetSquadMateBehavior)] (squad_member__squad : EntityId;
+                                                                             beh_tree__isInTrainBeh : bool;
+                                                                             human_freefall__isFreefall : bool;
+                                                                             beh_tree__data__findCoverBeh : string;
+                                                                             beh_tree__data__checkCoverBeh : string;
+                                                                             beh_tree__data__findCoverAroundLeaderBeh : string;
+                                                                             beh_tree__data__findCoverAroundLeaderAwayBeh : string;
+                                                                             beh_tree__data__findCoverAroundPointBeh : string;
+                                                                             beh_tree__data__checkCoverAroundPointBeh : string;
+                                                                             beh_tree__data__agressiveBeh : string;
+                                                                             beh_tree__data__passiveBeh : string;
+                                                                             beh_tree__data__defendPoint : string;
+                                                                             var beh_tree__refs__behaviour : das_string&;
+                                                                             var beh_tree__refs__findCoverRef : das_string&;
+                                                                             var beh_tree__refs__checkCoverRef : das_string&)
+    if beh_tree__isInTrainBeh && !resetIfOnTrain || human_freefall__isFreefall
       return
 
     query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int;

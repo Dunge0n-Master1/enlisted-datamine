@@ -15,7 +15,7 @@ let function update_xbox_achievements(_) {
 
   let unlocks = []
   foreach (unlockDesc in unlocksSorted.value) {
-    let progress = getUnlockProgress(unlockDesc)
+    let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
     let id = unlockDesc.xboxId
     let name = unlockDesc.name
     let percents = (100.0 * (progress.current * 1.0 / progress.required)).tointeger()

@@ -31,7 +31,7 @@ p_40e_ussr{
         turret:t="turret_09"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"

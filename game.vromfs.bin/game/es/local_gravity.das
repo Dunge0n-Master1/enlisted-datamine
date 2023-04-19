@@ -1,6 +1,6 @@
 require ecs
-require EnlistedHuman
-require EnlistedPhysObj
+require DngHuman
+require DngPhysObj
 require game.es.events
 require GamePhys
 

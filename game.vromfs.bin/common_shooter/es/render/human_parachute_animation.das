@@ -2,10 +2,7 @@ require ecs
 require DagorSystem
 require AnimV20
 require enlisted.events_enlisted
-
-let
-  upperHash = ecs_hash("upper")
-  lowerHash = ecs_hash("lower")
+require common_shooter.es.render.animation_common
 
 [es(tag=gameClient, on_appear)]
 def parachute_init_animation(evt : Event;
@@ -79,11 +76,6 @@ def parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
       *animGraph |> anim_graph_enqueueState(*animchar.animState, parachute_anim__closedStateId)
 
 
-def set_human_anim_state(eid : EntityId; state : int)
-  send_change_anim_state_event(eid, "lower", lowerHash, state)
-  send_change_anim_state_event(eid, "upper", upperHash, state)
-
-
 [es(tag=gameClient, on_appear)]
 def human_parachute_init_animation(evt : Event;
                                    animchar : AnimcharBaseComponent;
@@ -113,8 +105,6 @@ def human_parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
                                          var human_parachute_anim__lastDeployState : bool&;
                                          var human_parachute_anim__openedAtTime : float&;
                                          var human_parachute_anim__closedAtTime : float&;
-                                         human_parachute_anim__openingSoundTemplate : string;
-                                         human_parachute_anim__closingSoundTemplate : string;
                                          human_parachute_anim__openDuration : float;
                                          human_parachute_anim__closeDuration : float;
                                          human_parachute_anim__openedStateId : int;
@@ -126,12 +116,8 @@ def human_parachute_animation_continuous(info : ParallelUpdateFrameDelayed;
   if human_parachute_anim__lastDeployState != deployed
     if deployed
       human_parachute_anim__openedAtTime = info.curTime
-      createEntity(human_parachute_anim__openingSoundTemplate) <| $(init)
-        init |> set("game_effect__attachedTo", eid)
     else
       human_parachute_anim__closedAtTime = info.curTime
-      createEntity(human_parachute_anim__closingSoundTemplate) <| $(init)
-        init |> set("game_effect__attachedTo", eid)
     human_parachute_anim__lastDeployState = deployed
 
   if deployed

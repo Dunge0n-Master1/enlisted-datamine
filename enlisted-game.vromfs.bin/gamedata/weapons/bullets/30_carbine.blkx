@@ -25,13 +25,6 @@ armorpower{
   ArmorPower1500m:p2=0.1, 1500.0
 }
 
-hitFx{
-  fxScale:p2=1.0, 1.3
-  defaultFx:t="ground_splash"
-  jetFx:t="ground_splash_direct"
-  preset:t="bullet"
-}
-
 tracer{
   ignitionTime:r=0.002
   smokeColor:c=255, 230, 179, 204

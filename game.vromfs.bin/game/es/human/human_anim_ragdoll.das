@@ -3,10 +3,10 @@ require app
 require math.base
 require game.events_game
 require strings
-require EnlistedHumanAnim
-require EnlistedHuman
-require EnlistedActor
-require EnlistedNet
+require DngHumanAnim
+require DngHuman
+require DngActor
+require DngNet
 require PhysVars
 require PhysDecl
 require HumanPhys

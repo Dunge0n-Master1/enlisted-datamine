@@ -23,12 +23,12 @@ base_7_92mm_mg34{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/7_92mm_mg34_defaultset_bullet_1.blk"
-        type:t="ap_i_ball"
+        type:t="ap_ball"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/7_92mm_mg34_defaultset_bullet_2.blk"
-        type:t="ap_i_ball"
+        type:t="ap_ball"
       }
 
       "shell:object"{
@@ -41,12 +41,12 @@ base_7_92mm_mg34{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/7_92mm_mg34_7_92mm_mg34_ap_bullet_1.blk"
-        type:t="ap_i_ball"
+        type:t="ap_ball"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/7_92mm_mg34_7_92mm_mg34_ap_bullet_2.blk"
-        type:t="ap_i_ball"
+        type:t="ap_ball"
       }
     }
   }

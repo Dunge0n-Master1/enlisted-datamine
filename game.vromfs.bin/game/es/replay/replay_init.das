@@ -1,6 +1,7 @@
 require ecs
 require app
-require EnlistedCamera
+require game.es.camera_common
+require DngCamera
 require DagorDataBlock
 require DagorSystem
 require replay

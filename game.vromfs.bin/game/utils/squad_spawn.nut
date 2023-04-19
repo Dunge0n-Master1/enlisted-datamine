@@ -105,6 +105,7 @@ let function mkBaseComps(soldier) {
   comps["soldier__id"] <- soldier.id
   comps["soldier__sClass"] <- soldier?.sClass ?? ""
   comps["soldier__sKind"] <- soldier?.sKind ?? ""
+  comps["soldier__displayedKind"] <- soldier?.sKind ?? ""
   comps["soldier__sClassRare"] <- soldier?.sClassRare ?? 0
 
   return comps
@@ -229,6 +230,8 @@ let function spawnSolidersInSquad(squad, spawnParams, squadParams, vehicleEid = 
       ["human_net_phys__isSimplifiedPhys"] = isBot,
     })
 
+  vehicleEid = vehicleEid || squadParams?.existedVehicleEid
+
   spawnSoldier({
     soldier             = squad[leaderNo]
     comps               = leaderParams
@@ -302,8 +305,8 @@ local function spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, cb) {
   return true
 }
 
-let function spawnSquad(squad, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
-  let squadParams = {team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
+let function spawnSquad(squad, existedVehicleEid, team, playerEid, mkSpawnParamsCb, squadId = 0, memberId = 0, squadProfileId = "", addTemplatesOnSpawn = null) {
+  let squadParams = {existedVehicleEid, team, playerEid, squadId, memberId, squadProfileId, addTemplatesOnSpawn}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnSolidersInSquad)
 }
 
@@ -372,8 +375,8 @@ let function spawnVehicle(squad, spawnParams, squadParams) {
 }
 
 let function spawnVehicleSquad(squad, team, playerEid, isBot, vehicle, mkSpawnParamsCb, vehicleComps = {}, squadId = 0, memberId = 0,
-                               squadProfileId = "", disableSquadRotation = false, possessed = ecs.INVALID_ENTITY_ID) {
-  let squadParams = {team, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId, disableSquadRotation}
+                               squadProfileId = "", disableSquadRotation = false, possessed = ecs.INVALID_ENTITY_ID, existedVehicleEid=ecs.INVALID_ENTITY_ID) {
+  let squadParams = {team, existedVehicleEid, playerEid, isBot, vehicle, vehicleComps, squadId, memberId, possessed, squadProfileId, disableSquadRotation}
   return spawnSquadEntity(squad, squadParams, mkSpawnParamsCb, spawnVehicle)
 }
 

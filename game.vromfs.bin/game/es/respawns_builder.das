@@ -7,6 +7,7 @@ require math.linear
 require Ballistics
 require ecs
 require app
+require game.es.respawn_base_common
 
 [es(on_appear, tag=server, REQUIRE=team__memberEids)]
 def building_respawn_update_team_es(evt : Event; eid : EntityId)
@@ -31,12 +32,7 @@ def building_respawn_create_es(evt : Event;
       return false
   if respawnBaseGroup >= 0
     return
-  find_query() <| $ [es] (team__id : int; var respawnCreatorId : int&)
-    if team__id == team
-      respawnBaseGroup = respawnCreatorId
-      respawnCreatorId++
-      return true
-    return false
+  respawnBaseGroup = get_new_respawn_group(team)
 
 [es(tag=server, after=respawn_destroyer_on_spawns_change)]
 def building_respawn_disabler_by_enemy(info : UpdateStageInfoAct;

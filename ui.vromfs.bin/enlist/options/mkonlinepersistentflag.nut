@@ -7,7 +7,7 @@ let { watch, setValue } = mkOnlineSaveData("onlinePersistentFlags", @() {})
 let function mkOnlinePersistentWatched(id, flag) {
   let function save(val) {
     if (onlineSettingUpdated.value && val)
-      setValue(watch.value.__update({ [id] = true }))
+      setValue(watch.value.__merge({ [id] = true }))
   }
   save(flag.value)
   flag.subscribe(save)
@@ -19,7 +19,7 @@ let mkOnlinePersistentFlag = @(id) {
   flag = Computed(@() watch.value?[id] ?? false)
   activate = function() {
     if (onlineSettingUpdated.value)
-      setValue(watch.value.__update({ [id] = true }))
+      setValue(watch.value.__merge({ [id] = true }))
   }
 }
 
@@ -29,7 +29,7 @@ console_register_command(@()
 console_register_command(function(id) {
   let val = !(watch.value?[id] ?? false)
   console_print($"Persistent flag {id} switched to {val}")
-  setValue(watch.value.__update({ [id] = val }))
+  setValue(watch.value.__merge({ [id] = val }))
 }, "ui.togglePersistentFlag")
 
 return {

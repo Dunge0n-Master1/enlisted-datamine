@@ -1,6 +1,6 @@
 require danetlibs.wounds.render.burning_common
 require ecs
-require EnlistedDm
+require DngDm
 
 enum BurningState : int
   BURNING_UNBURNED = 0

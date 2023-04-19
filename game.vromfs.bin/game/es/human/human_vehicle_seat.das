@@ -3,7 +3,7 @@ require math
 require math.base
 require DagorMath
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require GeomNodeTree
 require AnimV20
 require CollRes
@@ -26,28 +26,7 @@ def get_seat_tm(human_eid, vehicle_eid; var out_tm)
         ownerSeatEid = seatEid
         break
 
-    query(ownerSeatEid) <| $ [es] (seats_attach_nodes__nodeId : int;
-                                   seats_attach_nodes__collNodeId : int;
-                                   seats_attach_nodes__ignoreAttachNodeRotation : bool;
-                                   seats_attach_nodes__nodeItm : float3x4;
-                                   seats_attach_nodes__attachTm : float3x4)
-      if seats_attach_nodes__nodeId >= 0
-        geomtree_getNodeWtmScalar(*animchar.nodeTree, seats_attach_nodes__nodeId, out_tm)
-      elif seats_attach_nodes__collNodeId >= 0
-        collres_get_collision_node_tm(collres, seats_attach_nodes__collNodeId,
-                                      transform, null, out_tm)
-      else
-        out_tm = transform
-
-      if seats_attach_nodes__ignoreAttachNodeRotation
-        let nodePos = out_tm[3]
-        out_tm = out_tm * seats_attach_nodes__nodeItm
-        out_tm[3] = nodePos
-      elif det(out_tm) < 0.0f
-        orthonormalize(out_tm)
-
-      out_tm = out_tm * seats_attach_nodes__attachTm
-      res = true
+    res = get_seat_attach_tm(ownerSeatEid, animchar, collres, transform, out_tm)
   return res
 
 [es(before=before_animchar_update_sync)]

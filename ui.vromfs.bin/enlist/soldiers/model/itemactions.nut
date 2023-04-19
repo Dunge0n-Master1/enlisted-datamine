@@ -18,11 +18,11 @@ let function upgradeItem(guidsTbl, spendItemGuids, cb = null) {
   upgrade_items_count(guidsTbl, spendItemGuids, mkActionCb(cb))
 }
 
-let function equipItem(itemGuid, slotType, slotId, targetGuid) {
+let function equipItem(itemGuid, slotType, slotId, targetGuid, cb = null) {
   if (isItemActionInProgress.value)
     return
   isItemActionInProgress(true)
-  equip_item(targetGuid, itemGuid, slotType, slotId, mkActionCb(null))
+  equip_item(targetGuid, itemGuid, slotType, slotId, mkActionCb(cb))
 }
 
 let function swapItems(soldierGuid1, slotType1, slotId1, soldierGuid2, slotType2, slotId2){

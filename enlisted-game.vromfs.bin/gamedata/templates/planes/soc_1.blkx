@@ -25,7 +25,7 @@ soc_1{
         turret:t="turret_03"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -371,11 +371,11 @@ soc_1_driver_cockpit{
 
   "move_cockpit_node__offset:list<p3>"{
     item:p3=0.02, 0.02, 0.01
-    item:p3=0.024, -0.0245, -0.028
+    item:p3=0.019, 0.001, -0.0335
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    item:p2=15.0, 10.0
-    item:p2=-38.3, -5.7
+    item:p2=15.7, 10.0
+    item:p2=-65.7, 6.3
   }
 }

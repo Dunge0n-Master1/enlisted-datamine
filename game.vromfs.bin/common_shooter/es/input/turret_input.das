@@ -1,10 +1,10 @@
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require game.es.events
 require DagorInput
@@ -12,8 +12,8 @@ require TouchInput
 require math.base
 require DagorMath
 require DagorMathUtils
-require EnlistedCamera
-require EnlistedInputControls
+require DngCamera
+require DngInputControls
 require enlisted.events_enlisted
 require game.es.input.input_events
 require common_shooter.es.input.turret_input_common
@@ -120,12 +120,14 @@ def human_vehicle_lock_turrets_input_es(evt : ParallelUpdateFrameDelayed;
                                    human_vehicle__occupiedSeatEid : EntityId;
                                    human_vehicle__isShootingPassenger : bool)
     let asLook = get_analog_stick_action_state(uint16(human_input__look))
-    let isFreeLookInHatch = asLook.bActive && human_input__standState == int(HumanPhysControlType HCT_CROUCH)
-    let isLocalControlLocked = isFreeLookInHatch || human_vehicle__isShootingPassenger
-    let needLockAllTurrets = vehicle_look__lockAllTurrentControll || human_vehicle__isShootingPassenger
-    if turret_control__isInputLocked == isLocalControlLocked
-      return
-    query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__availableHatchControls : VehicleControlsState)
+    query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__availableHatchControls : VehicleControlsState;
+                                                     seat__isHatchControlInversed : bool = false)
+      let isInHatch = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ^^ seat__isHatchControlInversed
+      let isFreeLook = asLook.bActive && isInHatch
+      let isLocalControlLocked = isFreeLook || human_vehicle__isShootingPassenger
+      let needLockAllTurrets = vehicle_look__lockAllTurrentControll || human_vehicle__isShootingPassenger
+      if turret_control__isInputLocked == isLocalControlLocked
+        return
       for gunEid in turret_control__gunEids
         query(gunEid) <| $ [es] (turret__id : int; var turret_input__isLocalControlLocked : bool&)
           turret_control__isInputLocked = isLocalControlLocked
@@ -352,3 +354,13 @@ def vehicle_next_bullet_type_input(evt : EventDaInputActionTriggered;
 
     if input__enabled && int(evt.action) == vehicle_input__secondaryNextBulletType
       send_net_event(eid, [[CmdNextBulletIdRequest triggerGroup = 1]])
+
+[es(tag=input)]
+def vehicle_toggle_stabilizer_input(evt : EventDaInputActionTriggered;
+                                    input__enabled : bool;
+                                    turret_control__isStabilizerEnabled : bool;
+                                    vehicle_input__toggleStabilizer : int)
+
+  if input__enabled && int(evt.action) == vehicle_input__toggleStabilizer
+    query() <| $ [es(REQUIRE=hero)] (eid : EntityId) // send to controlled entity
+      send_net_event(eid, [[CmdRequestStabilizer enabled=!turret_control__isStabilizerEnabled]])

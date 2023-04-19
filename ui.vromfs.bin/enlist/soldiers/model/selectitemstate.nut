@@ -26,7 +26,7 @@ let { room, roomIsLobby } = require("%enlist/state/roomState.nut")
 let { isObjGuidBelongToRentedSquad } = require("squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { itemToShopItem, getShopListForItem } = require("%enlist/soldiers/model/cratesContent.nut")
-let { curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
+let { curArmyItemsPrefiltered, itemsToPresent } = require("%enlist/shop/armyShopState.nut")
 
 
 let selectParamsList = mkWatched(persist, "selectParamsList", [])
@@ -302,7 +302,7 @@ let function checkSelectItem(item) {
   return null
 }
 
-let function selectItem(item) {
+let function selectItem(item, cb = null) {
   // do not equip same item
   if (item?.basetpl == curEquippedItem.value?.basetpl)
     return
@@ -316,11 +316,11 @@ let function selectItem(item) {
   equipItem(item?.guid,
     selectParamsSlotType.value,
     selectParamsSlotId.value,
-    ownerGuid)
+    ownerGuid, cb)
 }
 
 let unseenViewSlotTpls = Computed(function() {
-  let { armyId = null } = selectParams.value
+  let armyId = selectParamsArmyId.value
   let allUnseen = unseenTiers.value?[armyId].byTpl
   if (allUnseen == null)
     return {}
@@ -384,7 +384,7 @@ let function getItemForSlot(soldier, inventory, slotType, count, chooseFunc, arm
 let sameTypeTier = @(item1, item2) item1 != null && item2 != null
   && item1.itemtype == item2.itemtype && (item1?.tier ?? 0) == (item2?.tier ?? 0)
 
-let function getAlternativeEquipList(soldier, chooseFunc, excludeSlots = []) {
+let function getAlternativeEquipList(soldier, chooseFunc, excludeSlots = [], _excludeGuids = {}) {
   let armyId = getLinkedArmyName(soldier)
   let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLink.value)
     .filter(@(i) !(excludeSlots.findindex(@(v) v.slotType == i.slotType) != null
@@ -457,7 +457,7 @@ let function getEmptyNeededSlots(slotsItems, equipScheme) {
   return slotToGroup
 }
 
-let function getPossibleEquipList(soldier) {
+let function getPossibleEquipList(soldier, _excludeGuids = {}) {
   let { guid = null, equipScheme = {} } = soldier
   let slotsItems = getSoldierItemSlots(guid, campItemsByLink.value)
   let soldierSlotsCountTbl = soldierSlotsCount(guid, equipScheme).value
@@ -540,18 +540,24 @@ let function getPossibleUnequipList(ownerGuid) {
   return equipList
 }
 
+let trimArmyHead = @(armyId) armyId.split("_").top()
+
 let viewItemMoveVariants = Computed(function() {
   let item = viewItem.value
   if (item == null || item.guid == "" || item?.isFixed)
     return []
 
   let curArmyId = getLinkedArmyName(item)
+  let curSuffix = trimArmyHead(curArmyId)
   let templates = allItemTemplates.value
   let res = []
   foreach (campaign, campaignArmies in allAvailableArmies.value)
     foreach (armyId in campaignArmies) {
       let template = templates?[armyId][item.basetpl]
-      if (armyId == curArmyId || template == null || template?.isFixed)
+      if (template == null
+          || armyId == curArmyId
+          || trimArmyHead(armyId) != curSuffix
+          || template?.isFixed)
         continue
 
       if (item?.equipSchemeId != template?.equipSchemeId)
@@ -580,6 +586,43 @@ let closeNeeded = keepref(Computed(@() room.value != null && !roomIsLobby.value
   && !(room.value?.gameStarted ?? false)))
 
 closeNeeded.subscribe(@(v) v ? itemClear() : null)
+
+
+let autoSelectTemplate = Watched(null)
+
+let function mkNewItemAlerts(soldier) {
+  return Computed(function() {
+    let armyId = curArmy.value
+    let templates = allItemTemplates.value?[armyId] ?? {}
+    let itemTypes = {}
+    foreach (itemTpl, count in itemsToPresent.value?[armyId] ?? {}) {
+      if (count <= 0)
+        continue
+
+      let { itemtype = null } = templates?[itemTpl]
+      if (itemtype != null)
+        itemTypes[itemtype] <- true
+    }
+
+    let { sClass = null, equipScheme = {} } = soldier.value
+    let lockedSlots = classSlotLocksByArmy.value?[armyId][sClass] ?? []
+    let curSlotId = selectParams.value?.slotType
+
+    let res = {}
+    foreach (slotId, scheme in equipScheme) {
+      if (slotId == curSlotId || lockedSlots.indexof(slotId) != null)
+        continue
+
+      foreach (itemType in scheme.itemTypes) {
+        if (itemTypes?[itemType] ?? false)
+          res[slotId] <- true
+      }
+    }
+
+    return res
+  })
+}
+
 
 console_register_command(function(armyId) {
   let { guid = "" } = viewItem.value
@@ -622,4 +665,6 @@ return {
   getAlternativeEquipList
   getBetterItem
   getWorseItem
+  mkNewItemAlerts
+  autoSelectTemplate
 }

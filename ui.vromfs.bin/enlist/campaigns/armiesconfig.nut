@@ -1,12 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
 
 let armyLevelsData = Computed(function() {
-  let { maxLevel = 0 } = gameProfile.value?.campaigns[curCampaign.value]
+  let { maxLevel = 0 } = curCampaignConfig.value
   let { army_levels_data = [] } = configs.value
   return maxLevel > 0 ? army_levels_data.slice(0, maxLevel) : army_levels_data
 })

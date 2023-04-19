@@ -3,7 +3,7 @@ require app
 require vehicle_sounds_net.modules.vehicle_sounds_net_events
 require sound_utils_net.modules.sound_utils_net_events
 require vehicle
-require EnlistedNet
+require DngNet
 
 let MAX_HORN_TIME = 30.
 

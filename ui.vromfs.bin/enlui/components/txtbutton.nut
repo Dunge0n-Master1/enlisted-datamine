@@ -1,8 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontFontawesome, fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { disabledTxtColor, defTxtColor, titleTxtColor, commonBtnHeight, smallBtnHeight, panelBgColor,
-  defBdColor, commonBorderRadius, midPadding, hoverTxtColor, hoverBgColor
+let { disabledTxtColor, defTxtColor, titleTxtColor, commonBtnHeight, smallBtnHeight, defBdColor,
+  commonBorderRadius, midPadding, hoverTxtColor, hoverBgColor, accentColor, darkTxtColor,
+  darkPanelBgColor, briteAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
@@ -15,8 +16,8 @@ let { soundActive } = require("%ui/components/textButton.nut")
 
 let defTxtStyle = {
   defTxtColor
-  hoverTxtColor = titleTxtColor
-  activeTxtColor = titleTxtColor
+  hoverTxtColor = darkTxtColor
+  activeTxtColor = defTxtColor
   disabledTxtColor
 }
 
@@ -33,8 +34,18 @@ let function textColor(sf, style = {}, isEnabled = true) {
 let pressedBtnStyle = {
   defTxtColor = titleTxtColor
   hoverTxtColor = hoverTxtColor
-  defBgColor = panelBgColor
+  defBgColor = darkPanelBgColor
   hoverBgColor = hoverBgColor
+}
+
+
+let accentBtnStyle = {
+  defTxtColor = darkTxtColor
+  hoverTxtColor = darkTxtColor
+  activeTxtColor = darkTxtColor
+  defBgColor = briteAccentColor
+  hoverBgColor = accentColor
+  activeBgColor = 0xFFB4B4B4
 }
 
 
@@ -43,6 +54,8 @@ let defBorderStyle = {
   defBdColor
   hoverBdColor = titleTxtColor
   activeBdColor = titleTxtColor
+  borderWidth = hdpx(1)
+  borderRadius = commonBorderRadius
 }
 
 let function borderColor(sf, style = {}, isEnabled = true) {
@@ -57,8 +70,8 @@ let function borderColor(sf, style = {}, isEnabled = true) {
 
 let defBgStyle = {
   defBgColor = null
-  hoverBgColor = null
-  activeBgColor = panelBgColor
+  hoverBgColor = accentColor
+  activeBgColor = darkPanelBgColor
   disabledBgColor = null
 }
 
@@ -78,12 +91,23 @@ let defHotkeyParams = {
   margin = midPadding
 }
 
-let textButton = @(fill_color, border_width) function(text, handler, params={}) {
+
+let defButtonBg = @(sf, style, isEnabled) {
+  size = flex()
+  rendObj = ROBJ_BOX
+  fillColor = fillColor(sf, style, isEnabled)
+  borderWidth = style?.borderWidth ?? defBorderStyle.borderWidth
+  borderRadius = style?.borderRadius ?? defBorderStyle.borderRadius
+  borderColor = borderColor(sf, style, isEnabled)
+}
+
+
+let function textButton (text, handler, params={}) {
   let group = ElemGroup()
   let { stateFlags = Watched(0) } = params
   let {
-    txtFont = fontLarge, isEnabled = true, style = {}, bgChild = null, fgChild = null,
-    btnHeight = commonBtnHeight, btnWidth = null, sound = {}, hint = null
+    txtFont = fontLarge, isEnabled = true, style = {}, bgComp = null, fgChild = null,
+    btnHeight = commonBtnHeight, btnWidth = null, sound = {}, hint = null, onHoverFunc = null
   } = params
   let minWidth = btnWidth ?? SIZE_TO_CONTENT
   let function builder(sf) {
@@ -96,14 +120,9 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       gamepadBtn = mkImageCompByDargKey(gamepadHotkey
         defHotkeyParams.__merge({ height = txtFont.fontSize}, params?.hotkeyParams ?? {}))
     }
-
+    let bgChild = bgComp?(sf, isEnabled) ?? defButtonBg(sf, style, isEnabled)
     return {
       watch = [stateFlags, isGamepad]
-      rendObj = ROBJ_BOX
-      fillColor = fill_color(sf, style, isEnabled)
-      borderWidth = border_width
-      borderRadius = commonBorderRadius
-      borderColor = borderColor(sf, style, isEnabled)
       size = [btnWidth ?? SIZE_TO_CONTENT, btnHeight]
       key = handler
       group
@@ -114,13 +133,17 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
       clipChildren = true
       behavior = Behaviors.Button
       onDetach = @() stateFlags(0)
-      onHover = @(on) hint == null ? null : setTooltip(!on ? null : tooltipCtor(hint))
+      onHover = function(on) {
+        onHoverFunc?(on)
+        if (hint != null)
+          setTooltip(!on ? null : tooltipCtor(hint))
+      }
       onClick = isEnabled ? handler : null
       sound = soundActive.__update(sound)
 
       children = [
-        isGamepad.value ? gamepadBtn : null
         bgChild
+        isGamepad.value ? gamepadBtn : null
         {
           rendObj = ROBJ_TEXT
           text = (type(text)=="function") ? text() : text
@@ -136,41 +159,46 @@ let textButton = @(fill_color, border_width) function(text, handler, params={}) 
   return @() builder(stateFlags.value)
 }
 
-let Bordered = textButton(fillColor, hdpx(1))
-let Flat = textButton(fillColor, 0)
 
-local defaultButton = @(text, handler, params = {}) Bordered(text, handler, params)
+local defaultButton = @(text, handler, params = {}) textButton(text, handler, params)
 
 let export = class {
   Default = @(_self, text, handler, params = {}) defaultButton(text, handler, params)
-  Bordered = @(text, handler, params = {}) Bordered(text, handler, params)
-  SmallBordered = @(text, handler, params = {}) Bordered(text, handler, {
+  Bordered = @(text, handler, params = {}) textButton(text, handler, params)
+  Flat = @(text, handler, params = {}) textButton(text, handler, {
+    style = { borderWidth = 0 }
+  }.__merge(params))
+  SmallBordered = @(text, handler, params = {}) textButton(text, handler, {
     btnHeight = smallBtnHeight
     txtFont = fontMedium
   }.__merge(params))
-  PressedBordered = @(text, handler, params = {}) Bordered(text, handler, {
+  PressedBordered = @(text, handler, params = {}) textButton(text, handler, {
     style = pressedBtnStyle
   }.__merge(params))
-  FAButton = @(iconId, callBack, params = {}) function() {
+  FAButton = @(iconId, handler, params = {}) function() {
     let icon = isGamepad.value && params?.hotkeys != null ? null : fa[iconId]
     return {
       watch = isGamepad
-      children = Bordered(icon, callBack, {
+      children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
           txtFont = fontFontawesome
         }.__merge(params))
     }
   }
-  FAFlatButton = @(iconId, callBack, params = {}) function() {
+  FAFlatButton = @(iconId, handler, params = {}) function() {
     let icon = isGamepad.value && params?.hotkeys != null ? null : fa[iconId]
     return {
       watch = isGamepad
-      children = Flat(icon, callBack, {
+      children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
           txtFont = fontFontawesome
+          style = { borderWidth = 0 }
         }.__merge(params))
     }
   }
+  Accented = @(text, handler, params = {}) textButton(text, handler, {
+    style = { borderWidth = 0 }.__merge(accentBtnStyle)
+  }.__merge(params))
   setDefaultButton = function(buttonCtor) { defaultButton = buttonCtor }
 }()
 

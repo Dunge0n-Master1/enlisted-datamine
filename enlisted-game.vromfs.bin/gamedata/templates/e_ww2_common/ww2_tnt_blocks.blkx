@@ -136,8 +136,6 @@ base_tnt_block{
   animchar_render__enabled:b=yes
   animchar__res:t="tnt_charge_char"
   collres__res:t="tnt_charge_collision"
-  grid_obj__gridType:t="loot"
-  grid_obj__fixedTmScale:r=-1.0
   material:t="steel"
   needsBlood:b=no
   hitpoints__hp:r=10.0
@@ -166,9 +164,6 @@ base_tnt_block{
   _tracked:t="gun__owner"
 
   collres{
-  }
-
-  grid_obj{
   }
 
   "killer:eid"{

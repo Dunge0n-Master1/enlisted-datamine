@@ -6,7 +6,7 @@ require ecs.common
 require math
 require math.base
 require BehNodes
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require HumanPhys
 require Dacoll
@@ -248,6 +248,7 @@ class TryCallArtilleryNode : BehNodeAdapter
   callTimer : float = 0.0
   callingAtTime : float = 0.0
   callRetryTime : float2 = float2(5.0, 10.0)
+  callRecheckTime : float2 = float2(10.0, 20.0)
   leaderTargetEidParamName : string
   randDist : float2 = float2(5.0, 15.0)
 
@@ -256,6 +257,7 @@ class TryCallArtilleryNode : BehNodeAdapter
     repeatRange = datablock_getPoint2(data, "repeatRange", repeatRange)
     callTime = datablock_getReal(data, "callTime", callTime)
     callRetryTime = datablock_getPoint2(data, "callRetryTime", callRetryTime)
+    callRecheckTime = datablock_getPoint2(data, "callRecheckTime", callRecheckTime)
     leaderTargetEidParamName = datablock_getStr(data, "leaderTargetEidParam", "leaderTargetEid")
     randDist = datablock_getPoint2(data, "randDist", randDist)
 
@@ -326,6 +328,14 @@ class TryCallArtilleryNode : BehNodeAdapter
         callArtillery = true
 
     if callArtillery
+      var typeIndex : int
+      var pos : float3
+      var posEnd : float3
+      var delayTime : float
+      if !try_generate_ai_artillery_strike(agent.eid, playerEid, leaderTargetEidParamName, randDist, typeIndex, pos, posEnd, delayTime) && rnd_float(0.0, 1.0) > 0.12
+        query(playerEid) <| $ [es] (var artillery__nextTimeAICallArtillery : float&)
+          artillery__nextTimeAICallArtillery = get_sync_time() + rnd_float(callRecheckTime.x, callRecheckTime.y)
+        return EBehResult ER_FAILED
       callTimer = callTime
       return EBehResult ER_RUNNING
 

@@ -76,7 +76,7 @@ def client_perf_stat_es(info : UpdateStageInfoAct;
     resize(perf_stat__data, fps + 1)
   perf_stat__data[fps]++
 
-[es(tag=gameClient, no_order)]
+[es(tag=(render, dev), no_order)]
 def client_perf_stat_draw_es(info : UpdateStageInfoRenderDebug; perf_stat__data : IntList; perf_stat__draw : bool)
   if !perf_stat__draw
     return

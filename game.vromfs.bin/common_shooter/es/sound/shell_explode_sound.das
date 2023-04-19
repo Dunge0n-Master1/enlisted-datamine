@@ -1,6 +1,6 @@
 require ecs
 require soundEvent
-require soundProps
+require shellSoundProps
 require common_shooter.events_common_shooter
 
 

@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require game.es.input.input_events
 require DagorInput
-require EnlistedInputControls
+require DngInputControls
 require enlisted.events_enlisted
 require common_shooter.es.input.turret_input_common
 

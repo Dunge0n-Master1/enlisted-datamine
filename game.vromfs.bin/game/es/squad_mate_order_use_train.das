@@ -5,7 +5,7 @@ require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.bomb_site_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
-require EnlistedBehTree
+require DngBehTree
 require CollRes
 require DagorMath
 require math.base
@@ -120,7 +120,7 @@ def apply_train_behaviour(agentEid : EntityId)
         beh_tree__refs__behaviour := beh_tree__data__orderReq
         beh_tree__refs__orderType := beh_tree__data__runToTrain
 
-        EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+        DngBehTree::load_beh_tree_from_ecs(agentEid)
 
         if beh_tree__latencyLoadBlackBoard != null
           *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -151,7 +151,7 @@ def apply_train_behaviour(agentEid : EntityId)
 
       beh_tree__refs__behaviour := beh_tree__data__useTrain
 
-      EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+      DngBehTree::load_beh_tree_from_ecs(agentEid)
 
       if beh_tree__latencyLoadBlackBoard != null
         *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -195,7 +195,7 @@ def apply_train_out_behaviour(agentEid : EntityId)
 
       beh_tree__refs__behaviour := beh_tree__data__outTrain
 
-      EnlistedBehTree::load_beh_tree_from_ecs(agentEid)
+      DngBehTree::load_beh_tree_from_ecs(agentEid)
 
       if beh_tree__latencyLoadBlackBoard != null
         *beh_tree__latencyLoadBlackBoard |> set("enterPosition", trainData.enterPoint)
@@ -334,6 +334,6 @@ def set_agent_train_behavior(evt : Event;
 
 [es(on_event=EventLevelLoaded)]
 def create_ai_train_beh_on_level_loaded(evt : Event)
-  let shouldCreateAiTrainEntity = find_query() <| $ [es] (walker_agent__aiTrainBehaviourEntity : string)
+  find_query() <| $ [es] (walker_agent__aiTrainBehaviourEntity : string)
     createEntity(walker_agent__aiTrainBehaviourEntity)
     return true

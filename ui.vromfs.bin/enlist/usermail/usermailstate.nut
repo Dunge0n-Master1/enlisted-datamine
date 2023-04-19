@@ -5,7 +5,7 @@ let { usermail_list, usermail_take_reward, usermail_reset_reward
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let eventbus = require("eventbus")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { subscribe } = require("%enlSqGlob/notifications/matchingNotifications.nut")
 
 const MAX_AMOUNT = 20

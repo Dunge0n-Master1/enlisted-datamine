@@ -1,7 +1,7 @@
 require ecs
 require DaWeaponProps
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require GamePhys
 require Gun
 require HumanPhys

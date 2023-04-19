@@ -4,6 +4,13 @@ require soundEvent
 require enlisted.events_enlisted
 require game.events_game
 require game.utils.team
+require DagorDataBlock
+require DagorSystem
+
+
+[es(tag=sound, on_appear)]
+def capzone_capturing_sound_enabled_init(evt : Event; var human__capzoneCapturingSoundEnabled : bool&)
+  human__capzoneCapturingSoundEnabled = dgs_get_settings() |> datablock_get_block_by_name("sound") |> datablock_getBool("human_capzone_capturing_sound_enabled", true)
 
 
 [es(tag=sound)]
@@ -31,15 +38,16 @@ def is_hero_capturing_something(capturer__capZonesIn : EidList; hero_team : int;
   return isCapturing
 
 
-[es(tag=sound, REQUIRE=hero, track=(capturer__capZonesIn, isAlive, isDowned, isInVehicle), on_appear)]
+[es(tag=sound, REQUIRE=hero, track=(capturer__capZonesIn, isAlive, isDowned, isInVehicle, human__capzoneCapturingSoundEnabled), on_appear)]
 def capzone_capturing_sounds_track_hero_zones_in(evt : Event;
                                                  capturer__capZonesIn : EidList;
                                                  team aka hero_team : int;
                                                  isAlive, isDowned : bool;
                                                  isInVehicle : bool = false;
                                                  human__capzoneCapturingSoundPath : string;
+                                                 human__capzoneCapturingSoundEnabled : bool;
                                                  var human__capzoneCapturingSoundEvent : SoundEvent&)
-  let isCapturing = isAlive && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
+  let isCapturing = isAlive && human__capzoneCapturingSoundEnabled && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
   if human__capzoneCapturingSoundEvent.enabled != isCapturing
     human__capzoneCapturingSoundEvent.enabled = isCapturing
     release(human__capzoneCapturingSoundEvent.handle)
@@ -54,8 +62,9 @@ def capzone_capturing_sounds_track_capture_status(evt : Event)
                                    isAlive, isDowned : bool;
                                    isInVehicle : bool = false;
                                    human__capzoneCapturingSoundPath : string;
+                                   human__capzoneCapturingSoundEnabled : bool;
                                    var human__capzoneCapturingSoundEvent : SoundEvent&)
-    let isCapturing = isAlive && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
+    let isCapturing = isAlive && human__capzoneCapturingSoundEnabled && is_hero_capturing_something(capturer__capZonesIn, hero_team, isDowned, isInVehicle)
     if human__capzoneCapturingSoundEvent.enabled != isCapturing
       human__capzoneCapturingSoundEvent.enabled = isCapturing
       release(human__capzoneCapturingSoundEvent.handle)

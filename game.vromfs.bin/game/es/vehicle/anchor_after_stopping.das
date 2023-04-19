@@ -1,5 +1,5 @@
 require ecs
-require EnlistedShip
+require DngShip
 require Ship
 require vehicle
 require DagorMath

@@ -21,12 +21,6 @@ stuckingAngle:r=45.0
 bulletType:t="ap_t"
 slopeEffectPreset:t="apc"
 fresnel:p3=0.23, 0.1, 2.0
-selfDestructionFx:t="explosion_air_selfexplosion_med"
-shellAnimation:t="video/shells_animations/aphe.ivf"
-explosionEffect:t="hit_59_80mm_metal_ap"
-groundCollisionEffect:t="hit_59_80mm_dirt_ap"
-ricochetEffect:t="hit_59_80mm_metal_ap"
-waterCollisionEffect:t="hit_59_80mm_water"
 explosionPatchRadius:r=1.8
 
 stabilityRicochetModifier{
@@ -58,29 +52,6 @@ visual{
   traceFreq:i=1
   tracer:t="30mmWhite"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_59_80mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_59_80mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_59_80mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_59_80mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

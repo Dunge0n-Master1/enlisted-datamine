@@ -31,7 +31,7 @@ let MAKE_PARAMS = {
 }
 
 
-let modItemCtor = @(item, itemSize, _hasTypeIcon)
+let modItemCtor = @(item, itemSize, _hasTypeIcon, _itemName, _btmObject = null)
   iconByItem(item, {
     width = itemSize[0] - columnGap
     height = itemSize[1] - columnGap

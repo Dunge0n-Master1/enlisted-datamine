@@ -10,7 +10,7 @@ let {localPlayerTeam, localPlayerName} = require("state/local_player.nut")
 let { DBGLEVEL } = require("dagor.system")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let {sound_play_one_shot} = require("sound")
+let {sound_play_one_shot} = require("%dngscripts/sound_system.nut")
 let {UserNameColor} = require("%ui/style/colors.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 

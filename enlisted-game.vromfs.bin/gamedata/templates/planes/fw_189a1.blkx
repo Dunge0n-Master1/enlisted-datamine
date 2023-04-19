@@ -28,7 +28,7 @@ fw_189a1{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_11"
         l.hand:t="throttle_lhand_11"
         r.foot:t="pedal_rfoot_11"

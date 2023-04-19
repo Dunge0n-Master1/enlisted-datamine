@@ -150,7 +150,7 @@ uk_churchill_3_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.27
+  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.566273, -0.0507082, 0.199528
 
   "cockpit__attachNodeNames:list<t>"{

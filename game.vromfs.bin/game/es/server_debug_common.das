@@ -1,6 +1,6 @@
 module server_debug_common shared
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 
 

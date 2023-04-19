@@ -11,7 +11,7 @@ require DagorSystem
 require BallisticsProps
 require Ballistics
 require strings
-require EnlistedDm
+require DngDm
 require daslib/algorithm
 
 

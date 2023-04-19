@@ -1,9 +1,9 @@
 require ecs
-require EnlistedNet
+require DngNet
 require inventory
 require ecs.common
 require DagorSystem
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
 require DagorMathUtils

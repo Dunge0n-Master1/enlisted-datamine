@@ -53,7 +53,7 @@ let { getFirstLinkByType } = require("%enlSqGlob/ui/metalink.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { squads } = require("%enlist/meta/profile.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { hasMassVehDecorPaste } = require("%enlist/featureFlags.nut")
 
 

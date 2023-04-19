@@ -9,8 +9,9 @@ let armyData = require("%ui/hud/state/armyData.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
-let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
-let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
+let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 
 let sIconSize = hdpxi(15)
 
@@ -27,9 +28,9 @@ let function addCardChild(soldier, _isSelected) {
     flow = FLOW_HORIZONTAL
     gap = hdpx(2)
     children = [
-      targetHealCount > 0 ? mkMedkitIcon(sIconSize) : null
-      hasFlask ? mkFlaskIcon(sIconSize) : null
-      mkGrenadeIcon(grenadeType, sIconSize) ?? mkMineIcon(mineType, sIconSize)
+      targetHealCount > 0 ? mkMedkitIcon(sIconSize, defTxtColor) : null
+      hasFlask ? mkFlaskIcon(sIconSize, defTxtColor) : null
+      mkGrenadeIcon(grenadeType, sIconSize, defTxtColor) ?? mkMineIcon(mineType, sIconSize, defTxtColor)
     ]
   }
 }

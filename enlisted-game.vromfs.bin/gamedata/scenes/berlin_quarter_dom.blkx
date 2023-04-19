@@ -403,14 +403,12 @@ entity{
   _template:t="resupply_in_air_zone"
   transform:m=[[-0.157002, 0.0, -0.987599] [0.0, 1.0, 0.0] [0.987599, 0.0, -0.157002] [1795.85, 1263.7, 3798.08]]
   resupply_zone__team:i=1
-  sphere_zone__radius:r=500.0
 }
 
 entity{
   _template:t="resupply_in_air_zone"
   transform:m=[[-0.157002, 0.0, -0.987599] [0.0, 1.0, 0.0] [0.987599, 0.0, -0.157002] [4449.47, 1289.56, -2192.78]]
   resupply_zone__team:i=2
-  sphere_zone__radius:r=500.0
 }
 
 entity{

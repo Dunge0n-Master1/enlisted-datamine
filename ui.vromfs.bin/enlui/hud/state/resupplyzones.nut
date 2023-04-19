@@ -5,6 +5,7 @@ let { TEAM_UNASSIGNED } = require("team")
 let { watchedTeam } = require("%ui/hud/state/watched_hero.nut")
 let { isVehicleCanBeRessuplied, inGroundVehicle, inPlane, vehicleResupplyType } = require("%ui/hud/state/vehicle_state.nut")
 let { mkWatchedSetAndStorage, MK_COMBINED_STATE } = require("%ui/ec_to_watched.nut")
+let { vehicleInfo, showSquadSpawn } = require("%ui/hud/state/respawnState.nut")
 let {
   resupply_zones_GetWatched,
   resupply_zones_UpdateEid,
@@ -12,22 +13,34 @@ let {
   resupply_zones_State
 } = mkWatchedSetAndStorage("resupply_zones_", MK_COMBINED_STATE)
 
+let DB = ecs.g_entity_mgr.getTemplateDB()
+
+let spawnMenuGroundVehicle = Computed(function() {
+  if (!showSquadSpawn.value || vehicleInfo.value?.gametemplate == null)
+    return false
+  let vehicleTemplate = DB.getTemplateByName(vehicleInfo.value?.gametemplate)
+  return vehicleTemplate?.getCompValNullable("airplane") == null
+})
+
 let heroActiveResupplyZonesEids = Computed(function(){
   let isInPlane = inPlane.value
   let isInGroundVehicle = inGroundVehicle.value
   let vehicleType = vehicleResupplyType.value
-  if ((!isInGroundVehicle && !isInPlane) || !isVehicleCanBeRessuplied.value)
+  let isSpawnMenuGroundVehicle = spawnMenuGroundVehicle.value
+  if (((!isInGroundVehicle && !isInPlane) || !isVehicleCanBeRessuplied.value) && !isSpawnMenuGroundVehicle)
     return {}
   let heroTeam = watchedTeam.value
   return resupply_zones_State.value.filter(function(z) {
     let {team, active, isForPlanes, isForGroundVehicles, acceptedVehicleType} = z
     return active
       && (team == TEAM_UNASSIGNED || team == heroTeam)
-      && (acceptedVehicleType == "" || acceptedVehicleType == vehicleType)
-      && (
-        (isInPlane && isForPlanes) ||
-        (isInGroundVehicle && isForGroundVehicles)
-      )
+      && (showSquadSpawn.value
+        ? isSpawnMenuGroundVehicle && isForGroundVehicles
+        : ((acceptedVehicleType == "" || acceptedVehicleType == vehicleType)
+          && (
+            (isInPlane && isForPlanes) ||
+            (isInGroundVehicle && isForGroundVehicles)
+          )))
   })
 })
 

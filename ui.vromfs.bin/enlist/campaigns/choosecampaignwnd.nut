@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { colPart, colFull, defTxtColor, titleTxtColor, midPadding, commonBorderRadius,
-  selectedBgColor, navHeight, sidePadding
+  navHeight, sidePadding, defItemBlur, panelBgColor, darkTxtColor, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
@@ -18,7 +18,6 @@ let { nestWatched } = require("%dngscripts/globalState.nut")
 let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { unseenPanel } = require("%ui/components/unseenComponents.nut")
 let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -32,12 +31,11 @@ let cardSize = [colFull(4), colPart(7.516)]
 let nameBlockSize = [colFull(4), colPart(1.322)]
 let unseenPanelPos = [0, -colPart(0.709) - colPart(0.387)]
 
-let nameBlockBgImg = mkColoredGradientY(0xFF444555, 0xFF181F34)
-let activeNameBlockBgImg = mkColoredGradientY(0xFF5979B4, 0xFF2B2D44)
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
 let titleTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
+let hoverTxtStyle = { color = darkTxtColor }.__update(fontMedium)
 
 let tblScrollHandler = ScrollHandler()
 
@@ -46,7 +44,7 @@ let selectedLine = {
   rendObj = ROBJ_BOX
   borderWidth = 0
   borderRadius = commonBorderRadius
-  fillColor = selectedBgColor
+  fillColor = accentColor
   vplace = ALIGN_BOTTOM
   pos = [0, midPadding]
 }
@@ -86,7 +84,7 @@ let function close() {
 
 let function open() {
   close()
-  sceneWithCameraAdd(campaignSelectWnd, "armory")
+  sceneWithCameraAdd(campaignSelectWnd, "researches")
   isOpened(true)
 }
 
@@ -133,9 +131,10 @@ let mkImage = @(image, isAvailable, sf) {
 
 
 let nameBlock = @(name, sf, isSelected = false) {
-  rendObj = ROBJ_IMAGE
+  rendObj = ROBJ_WORLD_BLUR
   size = [flex(), nameBlockSize[1]]
-  image = isSelected || (sf & S_ACTIVE) || (sf & S_HOVER) ? activeNameBlockBgImg : nameBlockBgImg
+  fillColor = isSelected || (sf & S_ACTIVE) || (sf & S_HOVER) ? accentColor : panelBgColor
+  color = defItemBlur
   valign = ALIGN_CENTER
   vplace = ALIGN_BOTTOM
   gap = midPadding
@@ -146,7 +145,7 @@ let nameBlock = @(name, sf, isSelected = false) {
       size = [flex(), SIZE_TO_CONTENT]
       text = name
       halign = ALIGN_CENTER
-    }.__update(defTxtStyle)
+    }.__update(isSelected || (sf & S_HOVER) != 0 ? hoverTxtStyle : defTxtStyle)
   ]
 }
 
@@ -166,15 +165,15 @@ let mkCampaignCard = @(campaign, idx) watchElemState(function(sf) {
   let isAvailable = unlockedCampaigns.value.contains(campaign)
   let isUnseen = campaign in unseenCampaigns.value
   let title = loc(gameProfile.value?.campaigns[campaign]?.title ?? campaign)
-  let campaignImg = $"ui/gameImage/{campaign}"
+  let campaignImg = $"ui/uiskin/campaign/{campaign}"
   let isSelected = selectedCampaign.value == campaign
   let animations = mkAnimations(idx, unlockedCampaigns.value.len())
   let lockedCampaign = lockedCampaigns.value?[campaign]
-  let xmbNode = XmbNode()
   return {
     watch = [unlockedCampaigns, unseenCampaigns, gameProfile, lockedCampaigns,
       selectedCampaign, isGamepad]
     size = cardSize
+    xmbNode = XmbNode()
     animations
     key = idx
     transform = {}
@@ -187,7 +186,6 @@ let mkCampaignCard = @(campaign, idx) watchElemState(function(sf) {
         return
       if (isGamepad.value)
         move_mouse_cursor(idx, false)
-      gui_scene.setXmbFocus(xmbNode)
     }
     onHover = hoverHoldAction("unseenCampaign", campaign, markSeenCampaign)
     children = [
@@ -240,6 +238,7 @@ let topBlock = {
 
 campaignSelectWnd = @() {
   watch = safeAreaBorders
+  rendObj = ROBJ_WORLD_BLUR_PANEL
   size = flex()
   padding = [safeAreaBorders.value[0] , sidePadding + safeAreaBorders.value[1]]
   children = [

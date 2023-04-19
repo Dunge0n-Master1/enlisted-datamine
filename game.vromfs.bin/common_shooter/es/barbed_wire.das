@@ -1,8 +1,8 @@
 require ecs
 require PhysMat
 require HumanPhys
-require EnlistedHuman
-require EnlistedDm
+require DngHuman
+require DngDm
 
 [es(tag=server, on_appear)]
 def barbwire_mat_damage_init(evt : Event; barbwire_damage__matName : string; var barbwire_damage__matId : int&)

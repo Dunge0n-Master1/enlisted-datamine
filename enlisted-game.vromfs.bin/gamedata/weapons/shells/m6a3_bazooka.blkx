@@ -52,11 +52,6 @@ cumulativeDamage{
   onHitChanceMultFire:r=15.0
 }
 
-explFx{
-  fxScale:p2=1.8, 1.9
-  effectTemplName:t="explosion_effect_medium+disable_effect_sfx"
-}
-
 explSound{
   explSoundPath:t="impact/grenade"
 }

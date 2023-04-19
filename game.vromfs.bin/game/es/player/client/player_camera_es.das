@@ -1,5 +1,5 @@
 require ecs
-require EnlistedCamera
+require DngCamera
 require game.es.camera_common
 require game.es.events
 require game.events_game

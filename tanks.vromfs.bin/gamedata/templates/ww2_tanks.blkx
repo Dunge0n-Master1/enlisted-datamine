@@ -7,6 +7,7 @@ import:t="ammo_stowage.blk"
 import:t="uk_tanks.blk"
 import:t="usa_tanks.blk"
 import:t="jp_tanks.blk"
+import:t="jp_cannon.blk"
 import:t="germ_tanks.blk"
 import:t="ussr_tanks.blk"
 import:t="it_tanks.blk"
@@ -215,6 +216,12 @@ base_turret_controls{
   }
 
   "turret_control__gunEids:list<eid>"{
+  }
+
+  "turret_control__isStabilizerEnabled:b"{
+    value:b=yes
+    _replicate:b=yes
+    _track:b=yes
   }
 }
 
@@ -1296,7 +1303,6 @@ base_tank{
   _extends:t="base_vehicle_attach_rules"
   _extends:t="vehicle_view"
   net__physId:i=-1
-  netLodZones:p4=2500.0, 22500.0, 62500.0, 6250000.0
   _tracked:t="animchar__objTexReplace"
   _tracked:t="dmg_animchar__renderable"
   vehicle__turretControlComponents:t="tank_turret_control_components"
@@ -1489,6 +1495,12 @@ base_tankgun_cannon{
   }
 
   "gun__timeBetweenShotsIsReload:tag"{
+  }
+
+  "gun__isReloading:b"{
+    value:b=no
+    _tags:t="server"
+    _track:b=yes
   }
 
   "gun_sound__shotPath:shared:object"{

@@ -1,6 +1,6 @@
 require ecs
 require AnimV20
-require EnlistedDm
+require DngDm
 require DagorShaders
 require MaterialRecreate
 

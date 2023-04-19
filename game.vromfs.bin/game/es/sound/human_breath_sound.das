@@ -1,7 +1,7 @@
 require ecs
 require app
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require soundEvent
 require soundHash
 require sound_utils.modules.sound_player_common

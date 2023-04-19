@@ -3,7 +3,7 @@ require ecs
 require ecs.safe
 require net
 require Action
-require EnlistedNet
+require DngNet
 require game.events_game
 require game.utils.net_utils
 require DagorSystem

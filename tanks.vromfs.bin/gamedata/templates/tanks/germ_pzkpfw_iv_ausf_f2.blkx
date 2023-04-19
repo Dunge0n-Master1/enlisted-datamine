@@ -28,6 +28,14 @@ germ_pzkpfw_iv_ausf_f2{
     part:t="ex_armor_body_r_01"
     part:t="ex_armor_body_r_02"
   }
+
+  _group{
+    _tags:t="gameClient"
+
+    "vehicle_attach__bodyParts:list<t>"{
+      part:t="turret_01_back"
+    }
+  }
 }
 
 germ_pzkpfw_iv_ausf_f2_7th_regiment_10th_division_tunis_battlepass_premium{
@@ -227,7 +235,7 @@ germ_pzkpfw_iv_ausf_f2_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
-  cockpit__minZoom:r=-0.4
+  cockpit__minForwardOffset:r=-0.4
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"

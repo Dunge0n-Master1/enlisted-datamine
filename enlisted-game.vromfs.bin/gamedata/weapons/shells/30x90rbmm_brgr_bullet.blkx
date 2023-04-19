@@ -26,11 +26,6 @@ shutterDamageRadius:r=0.4
 shutterAmount:i=13
 shutterArmorPower:r=6.0
 shutterHit:r=3.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_28_38mm_metal_he"
-groundCollisionEffect:t="hit_28_38mm_dirt_he"
-ricochetEffect:t="hit_28_38mm_metal_ap"
-waterCollisionEffect:t="hit_28_38mm_water"
 explosionPatchRadius:r=1.0
 
 stabilityRicochetModifier{
@@ -51,29 +46,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_28_38mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_28_38mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

@@ -12,7 +12,9 @@ let { CmdChangeTimeOfDay, CmdSetCameraFov, CmdSetBloomThreshold, CmdSetChromatic
 let { take_screenshot_nogui } = require("screencap")
 let { chooseRandom } = require("%sqstd/rand.nut")
 let { is_upsampling } = require("videomode")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let msgbox = require("%ui/components/msgbox.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 const SNOW_TEMPLATE = "camera_snow_heavy_template"
 const RAIN_TEMPLATE = "camera_rain_heavy_template"
@@ -54,7 +56,7 @@ let isCinemaRecording = Watched(false)
 let superPixel = Watched(1)
 let isCustomSettings = Watched(false)
 let isSettingsChecked = Watched(false)
-
+let isHudSettingsEnable = Watched(false)
 
 ecs.register_es("ui_time_of_day_track_es",
   {
@@ -279,6 +281,15 @@ let function changeSuperPixel(newVal) {
 let toggleCustomSettings = @() ecs.g_entity_mgr.broadcastEvent(
   CmdSetCinematicCustomSettings({ enabled = !isCustomSettings.value }))
 
+let function takeScreenshot() {
+  take_screenshot_nogui()
+  addPopup({
+    id = "cinema_screenshot_done_alert"
+    text = loc("replay/screenshotDone")
+    needPopup = true
+    showTime = 2
+  })
+}
 
 let function makeScreenShot(){
   if (is_upsampling() && !isCustomSettings.value && !isSettingsChecked.value)
@@ -289,21 +300,21 @@ let function makeScreenShot(){
           text = loc("replay/setOptimalSettings")
           action = function() {
             toggleCustomSettings()
-            take_screenshot_nogui()
+            takeScreenshot()
             isSettingsChecked(true)
           }
         },
         {
           text = loc("replay/screenshotAnyway")
           action = function() {
-            take_screenshot_nogui()
+            takeScreenshot()
             isSettingsChecked(true)
           }
         }
       ]
     })
   else
-    take_screenshot_nogui()
+    takeScreenshot()
 }
 
 
@@ -314,8 +325,10 @@ let updateDofFilmic = @() ecs.g_entity_mgr.broadcastEvent(
 
 isDofCameraEnabled.subscribe(function(v) {
   updateDofCinematic()
-  isDofFilmic(v)
-  updateDofFilmic()
+  if (isReplay.value) {
+    isDofFilmic(v)
+    updateDofFilmic()
+  }
 })
 
 isDofFocalActive.subscribe(function(v) {
@@ -404,4 +417,5 @@ return {
   changeSuperPixel
   makeScreenShot
   superPixel
+  isHudSettingsEnable
 }

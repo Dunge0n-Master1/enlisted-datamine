@@ -35,6 +35,7 @@ let function resetData() {
   localPlayerUserId(get_user_id())
   localPlayerSpecTarget(ecs.INVALID_ENTITY_ID)
   localPlayerGroupId(INVALID_GROUP_ID)
+  localPlayerGroupMembers({})
 }
 
 let function trackComponents(eid, comp) {
@@ -47,6 +48,8 @@ let function trackComponents(eid, comp) {
     localPlayerUserId(get_user_id())
     localPlayerSpecTarget(comp.specTarget)
     localPlayerGroupId(comp.groupId)
+    // first reset group members and then collect them again, for prevent duplicate
+    localPlayerGroupMembers({})
     groupmateQuery.perform(addGroupmate)
   } else if (localPlayerEid.value == eid) {
     resetData()

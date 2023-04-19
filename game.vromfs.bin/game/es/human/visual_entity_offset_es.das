@@ -4,7 +4,7 @@ require GeomNodeTree
 require DagorSystem
 require DagorMath
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require Dacoll
 require RendInst
 
@@ -40,7 +40,7 @@ def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; ca
                                                      var animchar_render__root_pos : vec4f&;
                                                      visual_entity_offset__visNodeId : int;
                                                      visual_entity_offset__posNodeId : int;
-                                                     human_net_phys : HumanActor;
+                                                     var human_net_phys : HumanActor;
                                                      animchar__updatable : bool;
                                                      transform : float3x4;
                                                      isTpsView : bool;
@@ -85,7 +85,7 @@ def visual_offset_updater_es(info : UpdateStageInfoAct; transform : float3x4; ca
     var out_pmid : int
     var out_norm : float3
     var out_desc = RendInstDesc()
-    if traceray_normalized(fromPos, dir, len, out_pmid, out_norm, ETF_ALL, out_desc, -1, human_net_phys.phys.traceHandle) || backoff > 0.0f || backup > 0.0f
+    if traceray_normalized(fromPos, dir, len, out_pmid, out_norm, ETF_ALL, out_desc, -1, human_net_phys.phys |> human_phys_getTraceHandle()) || backoff > 0.0f || backup > 0.0f
       let deltaLen = max(-visual_entity_offset__maxOffsetLen, len - initialLen) // negative sign as we have negative delta len (len is less than initialLen)
       let offset = rotate(itm, (dir * deltaLen) - transform[0] * (backoff * visual_entity_offset__backoffMult)) + float3(0.0f, backup, 0.0f)
       assert(length_sq(offset) < 1e10f)

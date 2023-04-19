@@ -20,17 +20,14 @@ base_is_2_1944{
   "turret_gun_flash_fx__flashNodes:shared:array"{
     node:t="emtr_gun_flame"
     node:t="emtr_mg_flame_01"
-    node:t="emtr_mg_aa_flame_01"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
     fx:t="muzzle_ground_125mm_brake"
     fx:t="muzzle_ground_8mm"
-    fx:t="muzzle_ground_15mm"
   }
 
   "turret_gun_flash_fx__flashFxScale:shared:array"{
-    scale:r=1.0
     scale:r=1.0
     scale:r=1.0
   }
@@ -38,7 +35,6 @@ base_is_2_1944{
   "turret_control__emitterNodes:shared:array"{
     node:t="bone_gun_barrel"
     node:t="bone_mg_gun_twin"
-    node:t="bone_mg_aa_v_01"
   }
 
   "turret_control__animVars:shared:array"{
@@ -66,24 +62,6 @@ base_is_2_1944{
       curYawParamName:t="turret_02_yaw"
       curPitchParamName:t="gun_02_pitch"
     }
-
-    "vars:object"{
-      curYawParamName:t="turret_03_yaw"
-      curPitchParamName:t="gun_03_pitch"
-      aimActiveParamName:t="aim_03_active"
-      paramYawSpeed:t="turret_03_yaw_speed"
-      paramYawSpeedMul:t="turret_03_yaw_mul"
-      paramYawAccel:t="turret_03_yaw_accel"
-      paramMinYawAngle:t="turret_03_min_yaw_angle"
-      paramMaxYawAngle:t="turret_03_max_yaw_angle"
-      paramMinPitchAngle:t="turret_03_min_pitch_angle"
-      paramMaxPitchAngle:t="turret_03_max_pitch_angle"
-      paramPitchSpeed:t="gun_03_pitch_speed"
-      paramPitchSpeedMul:t="gun_03_pitch_mul"
-      paramPitchAccel:t="gun_03_pitch_accel"
-      wishYawParamName:t="gun_03_aim:targetYaw"
-      wishPitchParamName:t="gun_03_aim:targetPitch"
-    }
   }
 
   "turret_control__turretInfo:shared:array"{
@@ -102,13 +80,6 @@ base_is_2_1944{
       turretName:t="turret_02"
       gun:t="is_2_1944_turret_02_7_62mm_dt"
       barrelDm:t="gun_barrel_01"
-      salt:i=1
-    }
-
-    "turretInfo:object"{
-      turretName:t="turret_03"
-      gun:t="is_2_1944_turret_03_12_7mm_dshk"
-      barrelDm:t="gun_barrel_02"
       salt:i=1
     }
   }
@@ -139,19 +110,6 @@ is_2_1944_turret_02_7_62mm_dt{
   "gun__shellsAmmo:array"{
     ammo:i=945
     ammo:i=945
-  }
-}
-
-is_2_1944_turret_03_12_7mm_dshk{
-  _extends:t="tankgun_12_7mm_dshk"
-  gun__shootNodeName:t="bone_mg_aa_v_01"
-  turret__yawSpeed:r=90.0
-  turret__pitchSpeed:r=90.0
-  turret__aimNodeName:t="bone_mg_aa_h_01"
-  turret__limit:p4=-180.0, 180.0, -10.0, 60.0
-
-  "gun__shellsAmmo:array"{
-    ammo:i=250
   }
 }
 

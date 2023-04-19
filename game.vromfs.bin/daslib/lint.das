@@ -2,6 +2,7 @@ options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options no_aot = true
+options strict_smart_pointers = true
 
 module lint shared private
 
@@ -35,21 +36,21 @@ class LintVisitor : AstVisitor
             if ann.annotation.name=="no_lint"
                 noLint = true
                 break
-    def override visitFunction(fun:FunctionPtr) : FunctionPtr
+    def override visitFunction(var fun:FunctionPtr) : FunctionPtr
         noLint = false
-        return fun
+        return <- fun
     def override preVisitExprBlock(blk:smart_ptr<ExprBlock>) : void
         exprForTerminator |> push(0ul)
-    def override visitExprBlock(blk:smart_ptr<ExprBlock>) : ExpressionPtr
+    def override visitExprBlock(var blk:smart_ptr<ExprBlock>) : ExpressionPtr
         exprForTerminator |> pop()
-        return blk
-    def override visitExprBlockExpression(blk:smart_ptr<ExprBlock>;expr:ExpressionPtr) : ExpressionPtr
+        return <- blk
+    def override visitExprBlockExpression(blk:smart_ptr<ExprBlock>;var expr:ExpressionPtr) : ExpressionPtr
         let lb = exprForTerminator |> back()
         if lb != 0ul
             let eb = intptr(get_ptr(expr))
             if lb != eb
                 self->lint_error("unreachable code", expr.at)
-        return expr
+        return <- expr
     def override preVisitExprLabel(expr:smart_ptr<ExprLabel>) : void
         exprForTerminator |> pop()
         exprForTerminator |> push(0ul)
@@ -83,8 +84,12 @@ class LintVisitor : AstVisitor
         if !v.access_flags.access_ref && !v.access_flags.access_pass && !v.access_flags.access_get && (v.init == null || v.init.flags.noSideEffects)
             self->lint_error("unused variable {v.name}: {describe(v._type)} (add an underscore prefix if you really need it)", v.at)
             return
-        if !v.access_flags.access_get && !v.access_flags.access_ref && (v.init == null || v.init.flags.noSideEffects)
-            self->lint_error("variable {v.name}: {describe(v._type)} was written, but never read", v.at)
+        if !v.access_flags.access_get && !v.access_flags.access_ref
+            let sideEffects = (v.init != null && !v.init.flags.noSideEffects)
+            if !sideEffects
+                self->lint_error("variable {v.name}: {describe(v._type)} is never used", v.at)
+            else
+                self->lint_error("variable {v.name}: {describe(v._type)} is never used (be careful, initializer has side effects)", v.at)
             return
         if can_make_const && v._type.baseType != Type tPointer && !v._type.flags.constant && !v._type.flags.removeConstant && !v.access_flags.access_ref// && !v._type.flags.smartPtr
             self->lint_error("variable {v.name}: {describe(v._type)} can be made const (declare with 'let')", v.at)

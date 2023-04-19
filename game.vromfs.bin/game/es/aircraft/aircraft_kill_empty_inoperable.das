@@ -1,6 +1,6 @@
 require ecs
 require Plane
-require EnlistedPlane
+require DngPlane
 require game.es.vehicle.vehicle_seats_common
 
 [es(tag=server, REQUIRE=(airplane, deadIfNoCrewLeft),

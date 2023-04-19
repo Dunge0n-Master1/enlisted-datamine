@@ -18,7 +18,9 @@ def ammo_stowage_init_stowages(evt : Event;
 def ammo_stowage_init_clusters(evt : Event;
                                [[shared_comp]] ammo_stowage__clusterTemplates : StringList;
                                ammo_stowage__vehicleEid : EntityId;
+                               var ammo_stowage__maxAmmoFirstStage : int&;
                                var ammo_stowage__clusters : EidList&)
+  ammo_stowage__maxAmmoFirstStage = 0
   for clusterTemplate in ammo_stowage__clusterTemplates
     let clusterEid = createEntity(string(clusterTemplate)) <| $(var init)
       init |> set("ammo_cluster__vehicleEid", ammo_stowage__vehicleEid)
@@ -38,6 +40,7 @@ def delete_ammo_clusters(evt : Event; ammo_stowage__clusters : EidList)
 def ammo_cluster_init(evt : Event;
                       eid : EntityId;
                       ammo_cluster__vehicleEid : EntityId;
+                      ammo_cluster__isFirstStage : Tag const?;
                       [[shared_comp]] ammo_cluster__slotNames : StringList;
                       var ammo_cluster__slotsAmmo : IntList&;
                       var ammo_cluster__slotsMaxAmmo : IntList&;
@@ -57,13 +60,21 @@ def ammo_cluster_init(evt : Event;
   for i in iter_range(ammo_cluster__mapSlotToPartId)
     ammo_cluster__mapSlotToPartId[i] = -1
 
-  query(ammo_cluster__vehicleEid) <| $ [es] (damage_model : DamageModel)
+  query(ammo_cluster__vehicleEid) <| $ [es] (damage_model : DamageModel; ammo_stowage__stowages : EidList)
     for i, partName in iter_range(ammo_cluster__slotNames), ammo_cluster__slotNames
       if partName != ""
         let partId = find_part_id_by_name(damage_model, string(partName))
         ammo_cluster__mapSlotToPartId[i] = partId
         if partId < 0
           logerr("ammo stowage: ammo part {partName} not found in template {getEntityTemplateName(ammo_cluster__vehicleEid)}")
+    if ammo_cluster__isFirstStage != null
+      var firstStageMaxAmmo = 0
+      for ammo in ammo_cluster__slotsMaxAmmo
+        firstStageMaxAmmo += ammo
+      for stowage in ammo_stowage__stowages
+        query(stowage) <| $ [es] (ammo_stowage__clusters : EidList; var ammo_stowage__maxAmmoFirstStage : int&)
+          if find_index(ammo_stowage__clusters, eid) >= 0
+            ammo_stowage__maxAmmoFirstStage += firstStageMaxAmmo
 
 
 def connect_gun_to_ammo_stowage(ammo_stowage__stowages : EidList; gun_eid : EntityId)

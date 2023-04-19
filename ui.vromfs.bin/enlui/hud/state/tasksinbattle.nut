@@ -18,7 +18,7 @@ let function appendAllSteps(res, unlockName, step, byRequirement) {
 }
 
 let battleUnlocks = Computed(function() {
-  let filterFunc = isEvent.value ? @(u) u?.meta.event_unlock ?? false
+  let filterFunc = isEvent.value ? @(u) u?.meta.event_unlock ?? (u?.meta.event_group != null) // backward compatibility
     : @(u) (u?.meta.isVisibleInBattle ?? true) && (u.table == DAILY_TASK_KEY || (u?.meta.weekly_unlock ?? false))
   let unlocks = unlocksSorted.value.filter(filterFunc)
   if (!isEvent.value)

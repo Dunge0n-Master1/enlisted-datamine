@@ -207,6 +207,10 @@ struct RequestVehicleSeat
 struct CmdKickFromVehicle
   eid : EntityId
 
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdStartParatroopersExit
+  aircraftEid : EntityId
+
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]
 struct RequestKickFromVehicle
   requester : EntityId

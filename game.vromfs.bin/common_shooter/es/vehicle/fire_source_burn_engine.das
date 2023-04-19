@@ -7,7 +7,7 @@ require math.base
 require CollRes
 require game.utils.team
 require game.es.vehicle.vehicle_events
-require EnlistedDm
+require DngDm
 require common_shooter.es.vehicle.vehicle_damage_common
 
 def should_fire_affect_engine_at_pos(collres : CollisionResource;

@@ -17,16 +17,10 @@ slopeEffectPreset:t="ap"
 relativeVelArmorShift:p2=200.0, 1000.0
 fresnel:p3=0.23, 0.1, 2.0
 armorFragmentsDamage:b=yes
-shellAnimation:t="video/shells_animations/ap.ivf"
 armorFragmentsDamageRadius:r=2.0
 armorFragmentsDamageAngle:r=18.0
 armorFragmentsArmorPower:r=3.0
 armorFragmentsHit:r=10.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_39_58mm_metal_ap"
-groundCollisionEffect:t="hit_39_58mm_dirt_ap"
-ricochetEffect:t="hit_39_58mm_metal_ap"
-waterCollisionEffect:t="hit_39_58mm_water"
 explosionPatchRadius:r=0.7
 
 stabilityRicochetModifier{
@@ -58,29 +52,6 @@ visual{
   traceFreq:i=1
   tracer:t="50mmLightRed"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

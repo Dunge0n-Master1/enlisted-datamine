@@ -282,6 +282,17 @@ def check_exists_navmesh_path_from_respawn_to_capzone(respawnPointEid : EntityId
 
   return result > 0
 
+def find_middle_resp_point(respTeam : int)
+  var pos = float3(0.0, 0.0, 0.0)
+  var respsFound = 0
+  ecs::query() <| $ [es(REQUIRE=respbase, REQUIRE_NOT=(aircraftRespbase, playerRespawnBase))] (eid : EntityId; team : int; active : bool; transform : float3x4)
+    if (active || has(eid, "customRespawnBase")) && (is_teams_friendly(team, respTeam) || team == TEAM_UNASSIGNED)
+      respsFound++
+      pos += transform[3]
+  if respsFound > 0
+    pos = pos / float(respsFound)
+  return pos
+
 def find_target_point_for_respawn_cam()
   var pos = float3(0.0, 0.0, 0.0)
   var pointsFound = 0
@@ -297,3 +308,13 @@ def find_target_point_for_respawn_cam()
   if pointsFound > 0
     pos = pos / float(pointsFound)
   return [[auto pointsFound, pos]]
+
+def get_new_respawn_group(team : int) : int
+  var groupId = -1
+  find_query() <| $ [es] (team__id : int; var respawnCreatorId : int&)
+    if team__id == team
+      groupId = respawnCreatorId
+      respawnCreatorId++
+      return true
+    return false
+  return groupId

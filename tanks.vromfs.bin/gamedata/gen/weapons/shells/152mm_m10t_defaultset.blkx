@@ -8,15 +8,9 @@ maxDistance:r=10000.0
 normalizationPreset:t="ap"
 bulletType:t="ac_shell_tank"
 fresnel:p3=0.23, 0.1, 2.0
-shellAnimation:t="video/shells_animations/aphe.ivf"
 bulletName:t="152mm_g_530"
 fuseDelayDist:r=1.2
 explodeTreshold:r=19.0
-selfDestructionFx:t="explosion_air_selfexplosion_big"
-explosionEffect:t="hit_106_132mm_dirt_ap"
-groundCollisionEffect:t="hit_106_132mm_dirt_ap"
-ricochetEffect:t="hit_106_132mm_metal_ap"
-waterCollisionEffect:t="hit_106_132mm_water_ap"
 explosionPatchRadius:r=2.8
 modelName:t="tank_bullet_ap"
 secondaryShattersPreset:t="ap"
@@ -366,32 +360,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_106_132mm_dirt_ap"
-  jetFx:t="hit_106_132mm_dirt_ap"
-
-  steel{
-    fx:t="hit_106_132mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_106_132mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_106_132mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_106_132mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

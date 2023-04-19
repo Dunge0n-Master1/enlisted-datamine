@@ -5,11 +5,12 @@ let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { comboboxBorderColor } = require("%ui/style/colors.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let {
-  soldierReset, soldierResetAll, mkSoldierDisarmed, setSoldierDisarmed, allIdleAnims,
+  soldierReset, soldierResetAll, mkSoldierDisarmed, setSoldierDisarmed,
   mkSoldierIdle, setSoldierIdle, allSoldierHeads, mkSoldierHead, setSoldierHead,
   FACE_ID_COUNT, mkSoldierFace, setSoldierFace, mkSoldierSlotsSwap, setSoldierSlotsSwap,
   faceGenOverrides, faceGenRandomize, faceGenAll, faceGenSave
 } = require("%enlist/scene/soldier_overrides.nut")
+let { allIdleAnims } = require("%enlSqGlob/menu_poses_for_weapons.nut")
 let checkBox = require("%ui/components/checkbox.nut")
 let comboBox = require("%ui/components/combobox.nut")
 let { Horiz } = require("%ui/components/slider.nut")
@@ -18,7 +19,7 @@ let { show } = require("%enlist/components/msgbox.nut")
 
 const debugUiColor = 0xFFAA0000
 
-let idleAnims = Computed(@() [null].extend(allIdleAnims.value))
+let idleAnims = Computed(@() [null].extend(allIdleAnims))
 let soldierHeads = Computed(@() [null].extend(allSoldierHeads.value))
 let hasFaceGenOverrides = Computed(@() faceGenOverrides.value.len() > 0)
 

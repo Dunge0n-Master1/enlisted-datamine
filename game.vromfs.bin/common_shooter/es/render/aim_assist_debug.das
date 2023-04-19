@@ -7,7 +7,7 @@ require DagorMath
 require DagorMathUtils
 require Gun
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 require CollRes
@@ -35,7 +35,7 @@ def debug_aim_assist_cmd(aim_assist_debug_draw : bool = true)
     set(init, "aim_assist__debugDraw", aim_assist_debug_draw)
 
 
-[es(tag=render, tag=dev, no_order)]
+[es(tag=(render, dev), no_order)]
 def aim_assist_debug_es(evt : UpdateStageInfoRenderDebug;
                         human_net_phys : HumanActor;
                         human_weap__currentGunEid : EntityId;

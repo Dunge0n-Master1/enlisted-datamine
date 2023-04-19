@@ -1,15 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let flaskIcon = memoize(@(size)
-  Picture("ui/skin#flask_icon.svg:{0}:{1}:K".subst(size[0], size[1])))
+  Picture("ui/skin#flask_icon.svg:{0}:{0}:K".subst(size)))
 
-let mkFlaskIcon = memoize(@(size) {
+let mkFlaskIcon = memoize(@(size, color) {
   size = [size, size]
   rendObj = ROBJ_IMAGE
-  image = flaskIcon([size, size])
+  color
+  image = flaskIcon(size)
 })
 
-return {
-  flaskIcon
-  mkFlaskIcon
-}
+return mkFlaskIcon

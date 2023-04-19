@@ -231,7 +231,6 @@ sov_soldier{
   team:i=1
   beh_tree__enabled:b=no
   entity_danger__debug:b=no
-  unit_indicator__ignorePlayers:b=no
   animchar_fast_phys__res:t="ussr_summer_5_fastphys"
 
   animchar_fast_phys{
@@ -449,6 +448,6 @@ ussr_base_soldier{
 }
 
 ai_aircraft_crew_ussr_soldier{
-  _extends:t="ussr_base_soldier"
   _extends:t="ai_aircraft_crew_soldier_ussr_base"
+  _extends:t="ussr_summer_5"
 }

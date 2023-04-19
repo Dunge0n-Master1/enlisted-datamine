@@ -9,7 +9,7 @@ require Grid
 require matching
 require math
 require math.base
-require EnlistedNet
+require DngNet
 require net
 require player
 

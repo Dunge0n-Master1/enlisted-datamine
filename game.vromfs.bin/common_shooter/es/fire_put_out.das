@@ -3,7 +3,7 @@ require app
 require player
 require AnimV20
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require common_shooter.events_common_shooter
 
 [es(on_event=CmdPutOutFireStart)]

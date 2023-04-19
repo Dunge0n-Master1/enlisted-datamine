@@ -16,7 +16,10 @@ class UpscaleTexGenerationNode : FrameGraphNode
     registrar |> addPreviousNode(string_view("prepare_lights_node"))
     registrar |> addFollowNode(string_view("combine_shadows_node"))
 
-    registrar |> requestInputResource(string_view("checkerboard_depth"), true)
+    registrar |> bindResourceToShaderVar(string_view("downsampled_checkerboard_depth_tex"),
+                                         string_view("checkerboard_depth"),
+                                         ResourceUsageStage POST_RASTER,
+                                         false)
 
     using() <| $(var desc : TextureResourceDescription#)
       desc.activation = ResourceActivationAction DISCARD_AS_RTV_DSV
@@ -34,7 +37,7 @@ class UpscaleTexGenerationNode : FrameGraphNode
       setBlock(-1, LAYER_FRAME)
 
   def override onDeviceReset()
-    query() <| $ [es] (var upscale_weights_buffer : UniqueBufHolder)
+    query() <| $ [es] (upscale_weights_buffer : UniqueBufHolder)
       upload_weights(upscale_weights_buffer)
 
 [cpp_event(broadcast)]

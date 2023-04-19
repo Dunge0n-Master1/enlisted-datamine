@@ -9,6 +9,11 @@ def benchmark_update_es(
                         var prevMsec : int&;
                         var frames : int&;
                         var slowFrames : int&;
+
+                        var rangeDt : float&;
+                        var rangeFrames : int&;
+                        var rangeAvgTimes : Array;
+
                         var verySlowFrames : int&;
                         var maxMemoryUsedKb : int&;
                         var allMemoryUsedKb : int64&;
@@ -25,17 +30,29 @@ def benchmark_update_es(
     return
 
   let msec = get_time_msec()
-  let dt = float(msec - prevMsec) * 0.001
   frames = frames + 1
-  if averageDt == 0.0
-    averageDt = dt
-  else
-    averageDt = dt * 0.1 + averageDt * 0.9
 
-  if dt > averageDt * 2.5 && frames > 50
-    slowFrames = slowFrames + 1
-  if dt > averageDt * 5.0
-    verySlowFrames = verySlowFrames + 1
+  // ignore first iteration, no prevMsec info yet
+  if (prevMsec != 0)
+    let dt = float(msec - prevMsec) * 0.001
+
+    if averageDt == 0.0
+      averageDt = dt
+    else
+      averageDt = dt * 0.1 + averageDt * 0.9
+
+    if dt > averageDt * 2.5 && frames > 50
+      slowFrames = slowFrames + 1
+    if dt > averageDt * 5.0
+      verySlowFrames = verySlowFrames + 1
+
+    rangeDt += dt
+    rangeFrames += 1
+    if (rangeDt > 1.0)
+      push(rangeAvgTimes, float(rangeDt) / float(rangeFrames))
+      rangeDt = 0.0
+      rangeFrames = 0
+
   prevMsec = msec
 
   // allocated system ram

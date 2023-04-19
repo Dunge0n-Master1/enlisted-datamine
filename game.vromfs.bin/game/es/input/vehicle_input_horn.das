@@ -3,7 +3,7 @@ require DagorInput
 require game.es.input.input_events
 require vehicle_sounds_net.modules.vehicle_sounds_net_events
 require player
-require EnlistedNet
+require DngNet
 
 def init(var vehicle_input_horn : int&; vehicle_input_action : string)
   vehicle_input_horn = int(get_action_handle(vehicle_input_action, TYPEGRP_DIGITAL))

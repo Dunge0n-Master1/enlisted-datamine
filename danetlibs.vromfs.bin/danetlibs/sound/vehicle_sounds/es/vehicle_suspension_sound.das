@@ -6,7 +6,7 @@ require Dacoll
 require PhysMat
 require vehicle
 require soundEvent
-require soundProps
+require vehicleSoundProps
 require sound_utils.modules.sound_player_common
 require sound_utils_net.modules.sound_utils_net_events
 

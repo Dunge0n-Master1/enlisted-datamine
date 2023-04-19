@@ -11,7 +11,7 @@ boundingRadius:r=0.1
 collisionResource{
 
   props{
-    cls_body:t="box"
+    cls_body:t="convex_hull"
   }
 }
 
@@ -20,6 +20,7 @@ ccdSpheres{
 }
 
 DamageParts{
+  formatVersion:i=2
 
   turret_front{
     vital:b=no
@@ -181,6 +182,52 @@ DamageParts{
     armorClass:t="RHA_tank"
     hp:r=500.0
     armorThickness:r=15.0
+  }
+
+  drive_turret_v{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThickness:r=30.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
+  }
+
+  drive_turret_h{
+    hitTestType:t="inner"
+    malfunctionDamage:r=0.7
+    stopChanceOnDeadPart:r=1.0
+    castOnKillAfterTankPartDead:b=no
+    fireProtectionHp:r=5.0
+    externalArmor:b=no
+    minRelHpSelfRepair:r=0.5
+    maxRelHpSelfRepair:r=0.5
+    selfRepairDelay:r=0.0
+    selfRepairTime:r=-1.0
+    ignoreDeadWithSplash:b=no
+    splashPenetrationToArmorThreshold:r=0.33
+    pressureDamageMult:r=0.0
+    sonicDamageMult:r=0.0
+    vital:b=yes
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
+    armorThickness:r=30.0
+    armorThrough:r=15.0
+    hidableInViewer:b=no
   }
 }
 

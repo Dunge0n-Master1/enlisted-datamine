@@ -1,7 +1,7 @@
 require ecs
 require player
 require ecs.common
-require EnlistedWalkerai
+require DngWalkerai
 require enlisted.events_enlisted
 
 def private write_member_data(var states : Object&; member_eid : EntityId)
@@ -22,6 +22,7 @@ def private write_member_data(var states : Object&; member_eid : EntityId)
                                total_kits__targetHeal : int = 0;
                                total_kits__targetRevive : int = 0;
                                soldier__sKind : string;
+                               soldier__displayedKind : string;
                                soldier__sClassRare : int;
                                squad_member__canBeLeader : bool = false;
                                squad_member__isPersonalOrder : bool = false;
@@ -51,6 +52,7 @@ def private write_member_data(var states : Object&; member_eid : EntityId)
     *state |> set("hasFlask", hasFlask)
     *state |> set("targetReviveCount", total_kits__targetRevive)
     *state |> set("sKind", soldier__sKind)
+    *state |> set("displayedKind", soldier__displayedKind)
     *state |> set("sClassRare", soldier__sClassRare)
     *state |> set("canBeLeader", squad_member__canBeLeader)
     *state |> set("isPersonalOrder", squad_member__isPersonalOrder)

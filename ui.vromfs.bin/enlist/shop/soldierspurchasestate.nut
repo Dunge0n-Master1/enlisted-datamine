@@ -6,8 +6,6 @@ let { getClassCfg, soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut"
 
 const SOLDIER_GROUP = "soldier_silver_group"
 const BATTLE_PASS_SOLDIER_GROUP = "soldier_battlepass_group"
-const DEF_SPECIALIZATION = "rifle"
-let curSpecialization = Watched(DEF_SPECIALIZATION)
 let isSoldiersPurchasing = Watched(false)
 
 
@@ -22,7 +20,7 @@ let unseenSoldierShopItems = Computed(function() {
   return guids
 })
 
-let function extractClasses(crateContent) {
+let function extractKinds(crateContent) {
   let classesList = crateContent?.content.soldierClasses ?? {}
   return classesList.len() == 0 ? null : classesList
     .map(@(sClass) getClassCfg(sClass).kind)
@@ -30,13 +28,13 @@ let function extractClasses(crateContent) {
     .keys()
 }
 
-let function getClassList(itemsContent) {
+let function getKindsList(itemsContent) {
   let result = itemsContent.reduce(function(res, content) {
-    let sClass = extractClasses(content)
-    if (sClass?[0] != null && sClass.len() == 1
-      && res.findvalue(@(v) v.soldierClass == sClass[0]) == null) {
+    let sKind = extractKinds(content)
+    if (sKind?[0] != null && sKind.len() == 1
+      && res.findvalue(@(v) v.soldierKind == sKind[0]) == null) {
         let info = {
-          soldierClass = sClass[0]
+          soldierKind = sKind[0]
           reqLvl = content.reqLevel
         }
         res.append(info)
@@ -49,7 +47,7 @@ let function getClassList(itemsContent) {
 let function getSoldiersList(cratesContent, sShopItems) {
   let classesArr = clone cratesContent
   let classes = classesArr
-  let classesToShow = getClassList(classes)
+  let kindsToShow = getKindsList(classes)
 
   let soldiersToShow = sShopItems.reduce(function(res, content) {
     let soldierSpec = cratesContent.findvalue(@(crate)
@@ -61,7 +59,7 @@ let function getSoldiersList(cratesContent, sShopItems) {
     .sort(@(a, b) (b?.limit == 1) <=> (a?.limit == 1)
       || (soldierClasses?[a.soldierSpec].rank ?? 0) <=> (soldierClasses?[b.soldierSpec].rank ?? 0))
 
-  return { classesToShow, soldiersToShow }
+  return { kindsToShow, soldiersToShow }
 }
 
 
@@ -69,6 +67,5 @@ return {
   soldierShopItems
   unseenSoldierShopItems
   getSoldiersList
-  curSpecialization
   isSoldiersPurchasing
 }

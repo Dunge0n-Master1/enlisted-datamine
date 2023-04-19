@@ -85,6 +85,7 @@ VehiclePhys{
       exhaustDir:p3=-0.1, 0.0, 0.0
       intake:p3=2.5, 1.1, 0.6
       thrust:r=21000.0
+      reverseMult:r=0.4
     }
 
     waterJet{
@@ -92,6 +93,7 @@ VehiclePhys{
       exhaustDir:p3=-0.1, 0.0, 0.0
       intake:p3=2.5, 1.1, -0.6
       thrust:r=21000.0
+      reverseMult:r=0.4
     }
   }
 }

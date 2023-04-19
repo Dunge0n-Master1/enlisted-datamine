@@ -7,20 +7,6 @@ let {TEAM0_COLOR_FG, TEAM1_COLOR_FG, TEAM0_COLOR_FG_TR, TEAM1_COLOR_FG_TR} = req
 let {lerp} = require("%sqstd/math.nut")
 let {get_sync_time} = require("net")
 
-let ZoneProgress = {
-  rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("ui/skin#circle_progress.avif")
-  halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
-}
-
-let ZoneDefendProgress = {
-  rendObj = ROBJ_PROGRESS_CIRCULAR
-  image = Picture("!ui/skin#icon_defend.avif")
-  halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
-}
-
 let transformCenterPivot = {pivot = [0.5, 0.5]}
 let animCapturing = [
   { prop=AnimProp.opacity, from=0.1, to=1.0, duration=1.0, play=true, loop=true, easing=CosineFull}
@@ -32,27 +18,66 @@ let INACTIVATED_ZONE_FG = Color(160, 150, 120)
 let CAPTURE_ZONE_BG = Color(80, 75, 50, 160)
 let LOCK_ZONE_FG = Color(160, 160, 160, 160)
 
-let function getCapZoneColors(capzone_data, heroTeam, bright = false) {
+let defaultImage = Picture("ui/skin#circle_progress.avif")
+let defendImage = Picture("!ui/skin#icon_defend.avif")
+
+let function getZoneProgressIcon(capzone_data, hero_team, size, color) {
+  let isDefendZone = capzone_data.attackTeam > TEAM_UNASSIGNED && capzone_data.attackTeam != hero_team && capzone_data.bombPlantingTeam == TEAM_UNASSIGNED
+  let zoneDefendProgress = {
+    rendObj = ROBJ_PROGRESS_CIRCULAR
+    image = isDefendZone
+      ? defendImage
+      : defaultImage
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+  }
+  return zoneDefendProgress.__merge({
+    size
+    transform = transformCenterPivot
+    bgColor = color.bg
+    fgColor = color.fg
+  })
+}
+
+let function getCapZoneColors(capzone_data, hero_team) {
   local colorFg = null
   local colorBg = null
-  if (capzone_data.capTeam == TEAM_UNASSIGNED || capzone_data.progress == 0.0) {
-    if (!capzone_data.active && capzone_data.wasActive) {
-      colorFg = INACTIVATED_ZONE_FG
-      colorBg = CAPTURE_ZONE_BG
-    } else if (bright) {
-      colorFg = Color(160, 160, 160)
-      colorBg = Color(160, 160, 160)
-    } else {
-      colorFg = NEUTRAL_TRANSP
+
+  let currentlyNoCap = capzone_data.capTeam == TEAM_UNASSIGNED || capzone_data.progress == 0.0
+  let noLongerActive = !capzone_data.active && capzone_data.wasActive
+
+  if (capzone_data.onlyTeamCanCapture == TEAM_UNASSIGNED) {
+    if (currentlyNoCap || !noLongerActive) {
       colorBg = NEUTRAL_TRANSP
     }
-  } else if (capzone_data.capTeam == heroTeam) {
-    colorFg = capzone_data.active ? TEAM0_COLOR_FG : TEAM0_COLOR_FG_TR
-    colorBg = CAPTURE_ZONE_BG
-  } else {
-    colorFg = capzone_data.active ? TEAM1_COLOR_FG : TEAM1_COLOR_FG_TR
-    colorBg = CAPTURE_ZONE_BG
+    else {
+      colorBg = CAPTURE_ZONE_BG
+    }
   }
+  else if (capzone_data.onlyTeamCanCapture == hero_team) {
+    colorBg = TEAM1_COLOR_FG
+  }
+  else {
+    colorBg = TEAM0_COLOR_FG
+  }
+
+  if (currentlyNoCap) {
+    if (noLongerActive) {
+      colorFg = INACTIVATED_ZONE_FG
+    }
+    else {
+      colorFg = NEUTRAL_TRANSP
+    }
+  }
+  else {
+    if (capzone_data.capTeam == hero_team) {
+      colorFg = capzone_data.active ? TEAM0_COLOR_FG : TEAM0_COLOR_FG_TR
+    }
+    else {
+      colorFg = capzone_data.active ? TEAM1_COLOR_FG : TEAM1_COLOR_FG_TR
+    }
+  }
+
   return { fg = colorFg, bg = colorBg }
 }
 
@@ -76,19 +101,14 @@ let function getLockProgress(zoneData) {
   return timeLeft / unlockAfterTime
 }
 
-let function mkGenericProgress(zoneData, heroTeam, size, color, progress, isAnimationAvailable) {
-  let zoneGeneric = ZoneProgress.__merge({
-    size
-    transform = transformCenterPivot
-    bgColor = color.bg
-    fgColor = color.fg
+let function mkGenericProgress(zoneData, heroTeam, zone_progress_icon, _color, progress, is_animation_available) {
+  let zoneGeneric = zone_progress_icon.__merge({
     fValue = progress
   })
   let progressIndicator = !zoneData.isCapturing ? null
     : zoneGeneric.__merge({
-      bgColor = CAPTURE_ZONE_BG
       fgColor = (zoneData.curTeamCapturingZone == heroTeam) ? TEAM0_COLOR_FG : TEAM1_COLOR_FG
-      animations = zoneData.isCapturing && isAnimationAvailable ? animCapturing : null
+      animations = is_animation_available ? animCapturing : null
       key = zoneData.eid
     })
 
@@ -97,24 +117,19 @@ let function mkGenericProgress(zoneData, heroTeam, size, color, progress, isAnim
   })
 }
 
-let mkLockProgress = @(zoneData, _heroTeam, size, color, _progress, _isAnimationAvailable)
-  ZoneProgress.__merge({
-    size
+let mkLockProgress = @(capzone_data, _hero_team, zone_progress_icon, _color, _progress, _is_animation_available)
+zone_progress_icon.__merge({
     behavior = Behaviors.RtPropUpdate
-    bgColor = color.bg
     fgColor = LOCK_ZONE_FG
     fValue = 1
     update = function() {
-      this.fValue = getLockProgress(zoneData)
+      this.fValue = getLockProgress(capzone_data)
     }
   })
 
-let function mkTrainProgress(zoneData, heroTeam, size, color, progress, isAnimationAvailable) {
+let function mkTrainProgress(zoneData, heroTeam, zone_progress_icon, color, progress, is_animation_available) {
   let hasConflict = zoneData.curTeamCapturingZone < TEAM_UNASSIGNED
-  let zoneGeneric = ZoneProgress.__merge({
-    size
-    transform = transformCenterPivot
-    bgColor = color.bg
+  let zoneGeneric = zone_progress_icon.__merge({
     fgColor = zoneData.curTeamCapturingZone == heroTeam ? TEAM0_COLOR_FG
       : (zoneData.curTeamCapturingZone > TEAM_UNASSIGNED || hasConflict) ? TEAM1_COLOR_FG
       : color.fg
@@ -122,9 +137,8 @@ let function mkTrainProgress(zoneData, heroTeam, size, color, progress, isAnimat
   })
   let progressIndicator = !hasConflict ? null
     : zoneGeneric.__merge({
-      bgColor = CAPTURE_ZONE_BG
       fgColor = TEAM0_COLOR_FG
-      animations = isAnimationAvailable ? animCapturing : null
+      animations = is_animation_available ? animCapturing : null
       key = zoneData.eid
     })
 
@@ -133,13 +147,9 @@ let function mkTrainProgress(zoneData, heroTeam, size, color, progress, isAnimat
   })
 }
 
-let function mkBombProgress(zoneData, heroTeam, size, color, progress, isAnimationAvailable) {
-  let zoneGeneric = ZoneProgress.__merge({
-    size
+let function mkBombProgress(zoneData, heroTeam, zone_progress_icon, _color, progress, isAnimationAvailable) {
+  let zoneGeneric = zone_progress_icon.__merge({
     behavior = Behaviors.RtPropUpdate
-    transform = transformCenterPivot
-    bgColor = color.bg
-    fgColor = color.fg
     fValue = 0
     update = function() {
       let currentProgress = getZoneProgress(zoneData) ?? progress
@@ -150,7 +160,6 @@ let function mkBombProgress(zoneData, heroTeam, size, color, progress, isAnimati
   let isHeroTeamPlanting = zoneData.bombPlantingTeam == heroTeam
 
   let zoneCapturing = zoneGeneric.__merge({
-    bgColor = CAPTURE_ZONE_BG
     fgColor = isHeroTeamPlanting ? TEAM0_COLOR_FG : TEAM1_COLOR_FG
     key = {}
     animations = zoneData.isBombPlanted && isAnimationAvailable ? animBombTicking : null
@@ -161,45 +170,21 @@ let function mkBombProgress(zoneData, heroTeam, size, color, progress, isAnimati
   })
 }
 
-let function mkDefendProgress(zoneData, heroTeam, size, color, progress, isAnimationAvailable) {
-  let zoneDefendProgressCapturing = ZoneDefendProgress.__merge({
-    size
-    transform = transformCenterPivot
-    bgColor = CAPTURE_ZONE_BG
-    fgColor = (zoneData?.active) ? (zoneData.capTeam == heroTeam) ? TEAM0_COLOR_FG : TEAM1_COLOR_FG : color.fg
-    fValue = progress
-  })
+let function mkProgress(capzone_data, hero_team, size, is_animation_available = true) {
+  let color = getCapZoneColors(capzone_data, hero_team)
+  let {progress, trainZone, locked, bombPlantingTeam} = capzone_data
 
-  return zoneDefendProgressCapturing.__merge({
-    size
-    transform = transformCenterPivot
-    children = zoneData.isCapturing
-      ? zoneDefendProgressCapturing.__merge({
-          key = zoneData.eid
-          animations = isAnimationAvailable ? animCapturing : null
-          bgColor = (zoneData.curTeamCapturingZone == heroTeam) ? TEAM0_COLOR_FG : TEAM1_COLOR_FG
-          transform = transformCenterPivot
-        })
-      : null
-  })
-}
-
-let function mkProgress(zoneData, heroTeam, size, isAnimationAvailable = true) {
-  let color = getCapZoneColors(zoneData, heroTeam)
-  let {progress, trainZone, locked, attackTeam, bombPlantingTeam} = zoneData
-
-  let isDefendZone = attackTeam > -1 && attackTeam != heroTeam
   let isBombZone = bombPlantingTeam > -1
+
+  let zoneProgressIcon = getZoneProgressIcon(capzone_data, hero_team, size, color)
 
   let progressCtor = locked
     ? mkLockProgress
     : isBombZone
       ? mkBombProgress
-      : zoneData.trainZone
+      : capzone_data.trainZone
         ? mkTrainProgress
-        : isDefendZone
-          ? mkDefendProgress
-          : mkGenericProgress
+        : mkGenericProgress
 
   local prgs = 0
   if (trainZone)
@@ -208,7 +193,7 @@ let function mkProgress(zoneData, heroTeam, size, isAnimationAvailable = true) {
     prgs = 1
   else if (progress > 0.0)
     prgs = lerp(0, 1, 0.015, 0.985, progress)
-  return progressCtor(zoneData, heroTeam, size, color, prgs, isAnimationAvailable)
+  return progressCtor(capzone_data, hero_team, zoneProgressIcon, color, prgs, is_animation_available)
 }
 
 return mkProgress

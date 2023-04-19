@@ -1,7 +1,7 @@
 options no_aot
 require ecs
 require app
-require EnlistedCamera
+require DngCamera
 require DagorConsole
 require game.events_game
 require enlisted.events_enlisted

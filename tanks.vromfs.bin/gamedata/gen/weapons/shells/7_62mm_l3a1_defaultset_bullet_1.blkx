@@ -7,9 +7,6 @@ normalizationPreset:t="default"
 bulletType:t="ap_ball"
 modelName:t="tank_bullet_ball"
 effectiveDistance:r=400.0
-groundCollisionEffect:t="hit_8_11mm_dirt_ap"
-ricochetEffect:t="hit_8_11mm_metal_ap"
-waterCollisionEffect:t="hit_8_11mm_water"
 secondaryShattersPreset:t="ap"
 
 hitpower{
@@ -286,32 +283,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_8_11mm_dirt_ap"
-  jetFx:t="hit_8_11mm_dirt_ap"
-
-  steel{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

@@ -18,10 +18,10 @@ require DagorMathUtils
 require DaWeaponProps
 require DaWeapons
 require Dacoll
-require EnlistedNet
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedPhys
+require DngNet
+require DngHuman
+require DngWeapon
+require DngPhys
 require HumanPhys
 require WeapHelpers
 require Gun
@@ -363,6 +363,39 @@ def server_init_gun_es(evt : Event;
     if has(gun__owner, "hero")
       sendEvent(gun__owner, [[CmdTrackHeroWeapons]])
 
+def recreate_gun_slot(eid : EntityId;
+                      slot : int;
+                      human_weap__weapTemplates : Object;
+                      flags : int;
+                      var human_weap__gunEids : EidList;
+                      var human_weap__gunMods : Array;
+                      var human_weap__weapInitialComponents : Array)
+  destroyEntity(human_weap__gunEids[slot])
+  var gunMods = human_weap__gunMods[slot] |> getRW_ecs_EidList()
+  if gunMods != null
+    for gunModEid in *gunMods
+      destroyEntity(gunModEid)
+    *gunMods |> clear()
+  let weaponSlotName = get_human_weapon_slot_name(slot)
+  let weapTempl = human_weap__weapTemplates |> get_ecs_string(weaponSlotName)
+  let weapTemplStr = weapTempl != null ? *weapTempl |> string() : ""
+  // Create entity synchronously on dedicated in order to be able add all it's guns in net scope on avatar creation
+  // (i.e. this reduces latency for weapons creation). This also might reduce unwanted replication traffic
+  var gunInitComps : Object? = null
+  if slot < length(human_weap__weapInitialComponents)
+    gunInitComps = human_weap__weapInitialComponents[slot] |> getRW_ecs_object()
+
+  human_weap__gunEids[slot] = create_gun_for_entity_impl(eid, slot, weapTemplStr, gunInitComps, flags) <| $(n : string;
+                                                                                                            var ci : ComponentsInitializer)
+    if is_dedicated()
+      var newEid = createInstantiatedEntitySync(n, ci)
+      if newEid == INVALID_ENTITY_ID
+        // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
+        logerr("Template dependency '{n}' isn't instantiated in '{getEntityTemplateName(eid)}'")
+        newEid = createEntitySync(n, ci)
+      return newEid
+    else
+      return createEntity(n, ci)
 
 def server_recreate_guns(eid : EntityId;
                          human_weap__weapTemplates : Object;
@@ -373,37 +406,12 @@ def server_recreate_guns(eid : EntityId;
   human_weap__gunEids |> resize(int(HUWeaponSlots EWS_NUM))
   var currentGunSlot = -1
   for slotId in range(int(HUWeaponSlots EWS_NUM))
-    destroyEntity(human_weap__gunEids[slotId])
-    var gunMods = human_weap__gunMods[slotId] |> getRW_ecs_EidList()
-    if gunMods != null
-      for gunModEid in *gunMods
-        destroyEntity(gunModEid)
-      *gunMods |> clear()
     if currentGunSlot < 0
       currentGunSlot = slotId
-    let weaponSlotName = get_human_weapon_slot_name(slotId)
-    let weapTempl = human_weap__weapTemplates |> get_ecs_string(weaponSlotName)
-    let weapTemplStr = weapTempl != null ? *weapTempl |> string() : ""
-    // Create entity synchronously on dedicated in order to be able add all it's guns in net scope on avatar creation
-    // (i.e. this reduces latency for weapons creation). This also might reduce unwanted replication traffic
-    var gunInitComps : Object? = null
-    if slotId < length(human_weap__weapInitialComponents)
-      gunInitComps = human_weap__weapInitialComponents[slotId] |> getRW_ecs_object()
-
-    human_weap__gunEids[slotId] = create_gun_for_entity_impl(eid, slotId, weapTemplStr, gunInitComps, flags) <| $(n : string;
-                                                                                                                  var ci : ComponentsInitializer)
-      if is_dedicated()
-        var newEid = createInstantiatedEntitySync(n, ci)
-        if newEid == INVALID_ENTITY_ID
-          // createInstantiatedEntitySync may fail if the entity wasn't instantiated, it shouldn't be fatal, but should be fixed
-          logerr("Template dependency '{n}' isn't instantiated in '{getEntityTemplateName(eid)}'")
-          newEid = createEntitySync(n, ci)
-        return newEid
-      else
-        return createEntity(n, ci)
-
+    recreate_gun_slot(eid, slotId, human_weap__weapTemplates, flags, human_weap__gunEids, human_weap__gunMods, human_weap__weapInitialComponents)
     if !human_weap__gunEids[slotId] && slotId == currentGunSlot
       currentGunSlot = -1
+
   return currentGunSlot
 
 
@@ -437,6 +445,15 @@ def human_weap_created_server_es(evt : Event;
   if human_net_phys != null
     setup_human_actor_weapon_slot(human_weap__gunEids, human_weap__currentGunSlot, *human_net_phys)
 
+[es(tag=server)]
+def human_weap_server_recreate_gun_for_slot(evt : CmdReinitWeaponInSlot;
+                                            eid : EntityId;
+                                            human_weap__weapTemplates : Object;
+                                            var human_weap__gunEids : EidList;
+                                            var human_weap__gunMods : Array;
+                                            var human_weap__weapInitialComponents : Array)
+  let flags = int(RecreateGunsFlags Attach) | int(RecreateGunsFlags ParentLoaded)
+  recreate_gun_slot(eid, evt.slot, human_weap__weapTemplates, flags, human_weap__gunEids, human_weap__gunMods, human_weap__weapInitialComponents)
 
 [es(tag=netClient, on_appear)]
 def human_weap_created_client_es(evt : Event;
@@ -532,7 +549,7 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
                             entity_mods__aimingAfterFireMult : float = 1.0;
                             entity_mods__boltActionMult : float = 1.0;
                             entity_mods__deviationBufferSizeMult : float = 1.0;
-                            human_use_object__selectedObject : EntityId const? = null;
+                            grenade_rethrow__grenadeEid : EntityId const? = null;
                             entity_mods__shotDeviationAdd : float = 0.0;
                             human_weap__fastThrowExclusive : bool = true;
                             human_unarmed__active : bool = false;
@@ -567,7 +584,7 @@ def human_weap_post_phys_es(evt : CmdPostPhysUpdate;
 
     human_weap_gun_update(human_net_phys, human_weap__gunEids, human_weap__throwMode,
                           updCtx,  transform, gunDir, gunDir, physTransform,
-                          human_net_phys.phys.appliedCT, human_use_object__selectedObject,
+                          human_net_phys.phys.appliedCT, grenade_rethrow__grenadeEid,
                           human_unarmed__active, human_attached_gun__attachedGunEid,
                           human_weap__jumpDeviation, human_weap__changePosDeviationCanAim, human_weap__changePosDeviationCanNotAim,
                           human_phys__jumpEndTime, human_phys__afterJumpDelay, human_phys__isInAirLong)

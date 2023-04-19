@@ -3,7 +3,7 @@ require game.es.events
 require game.es.input.input_events
 require enlisted.events_enlisted
 require DagorInput
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMathUtils
 

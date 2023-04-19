@@ -1,7 +1,7 @@
 require ecs
 require app
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require game.utils.team
 require math.base

@@ -3,9 +3,9 @@ require strings
 require vehicle
 require math.base
 require DagorMath
-require EnlistedUI
+require DngUI
 require DagorShaders
-require EnlistedCamera
+require DngCamera
 require DagorDataBlock
 require game.events_game
 require DagorStdGuiRender

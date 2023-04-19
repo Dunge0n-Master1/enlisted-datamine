@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require DagorRandom
 require math
 require math.base

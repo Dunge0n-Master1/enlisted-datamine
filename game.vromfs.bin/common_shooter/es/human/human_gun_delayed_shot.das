@@ -1,9 +1,9 @@
 require ecs
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.human.human_gun_common
 require Gun
-require EnlistedPhys
+require DngPhys
 
 [es(REQUIRE=(animchar_render__enabled, gun__propsId))]
 def human_gun_delayed_shot_update(evt : CmdWeapPhysUpdate;
@@ -35,7 +35,7 @@ def human_gun_delayed_shot_update(evt : CmdWeapPhysUpdate;
   else
     gun_delayed_shot__delayTime = -1.
 
-  human_gun_update_reload(gun, eid, gun__manuallyUnloaded, gctrl.shoot, isForReal, gun__ammo, ownerEid, (atTime - dt))
+  try_reload_empty_gun(gun, eid, gun__manuallyUnloaded, gctrl.shoot, isForReal, gun__ammo, ownerEid, (atTime - dt))
 
   let rndSeed = phys_time_to_seed(atTime)
 

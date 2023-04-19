@@ -23,7 +23,7 @@ let ITEM_DETAILS_BRIEF = [
 
 let ITEM_DETAILS_FULL = [
   { key = "caliber", measure = "mm", mult = 1000, precision = 0.01 }
-  { key = "hitPowerTotal", precision = 0.1 }
+  { key = "hitPowerTotal", precision = 0.1, range = [0, 26] }
   { key = "explodeHitPower", precision = 0.1 }
   { key = "hitpower", measure = "meters", precision = 0.1, baseKey = "hitPowerTotal" }
   { key = "cumulativeArmorPower", measure = "mm", precision = 0.1 }
@@ -129,14 +129,12 @@ let itemDescByType = {
 
 let itemNameByType = {
   function booster(item) {
-    let { bType = "", expMul = 0.0 } = item
+    let { expMul = 0.0 } = item
 
     let percent = 100 * expMul
-    let limitsText = loc("textInRoundBracket", {
-      txt = itemDescByType.booster(item)
-    })
+    let limits = itemDescByType.booster(item)
 
-    return loc($"boostName/{bType}", { percent, limitsText })
+    return loc("startBtn/boosterRow", { percent, limits })
   }
 }
 
@@ -230,11 +228,11 @@ let function soldierNameSlicer(soldier = null, useCallname = true) {
   if (callname != "" && useCallname)
     return callname
   if (surname == "")
-    return loc(name)
+    return name
   let first = utf8(name).slice(0, 1)
   return (CASE_PAIR_UPPER.indexof(first) == null && CASE_PAIR_LOWER.indexof(first) == null)
-    ? $"{loc(name)} {loc(surname)}"
-    : $"{first}. {loc(surname)}"
+    ? $"{name} {surname}"
+    : $"{first}. {surname}"
 }
 
 let function getErrorSlots(slotsItems, equipScheme) {

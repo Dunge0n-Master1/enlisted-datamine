@@ -7,9 +7,9 @@ require game.utils.team
 require zones
 require AnimV20
 require GeomNodeTree
-require EnlistedWeapon
-require EnlistedHuman
-require EnlistedCamera
+require DngWeapon
+require DngHuman
+require DngCamera
 require DagorMath
 require Grid
 require RendInst
@@ -201,7 +201,7 @@ def hero_human_use_human_object_es(info : ParallelUpdateFrameDelayed;
         break
 
 
-[es(REQUIRE=hero, after=(hero_human_use_grenade_rethrow_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
+[es(REQUIRE=hero, after=(hero_human_pre_use_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]
 def hero_human_use_downed_human_object_es(info : ParallelUpdateFrameDelayed;
                                           animchar : AnimcharBaseComponent;
                                           team aka team_hero : int;

@@ -7,7 +7,7 @@ entitiesPath:t="content/enlisted/gamedata/templates/enlisted.entities.blk"
 contactsGameId:t="enlisted"
 matchingGameName:t="enlisted"
 windowTitle:t="Enlisted"
-bgImage:t="ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif;"
+bgImage:t="ui/game_def_login_screen.avif; ui/game_d_day_login_screen_2.avif; ui/game_tunisia_login_screen_2.avif; ui/armored_train_login_screen.avif; ui/stalingrad_login_screen.avif; ui/burning_sky_loading_screen.avif; ui/pacific_usa_login_screen.avif; ui/pacific_jap_login_screen.avif; ui/high_caliber_login_screen.avif; ui/ussr_moscow_prem_mgun_2.avif; ui/ger_normandy_prem_assault_2.avif; ui/ussr_berlin_prem_assault_1.avif; ui/ger_moscow_prem_mgun_2.avif; ui/airborn_forces_login_screen.avif;"
 scene:t="content/enlisted/gamedata/scenes/campaigns_menu_squad_customization_scene.blk"
 allowEmptyScenes:b=yes
 needPlatformMorphemesReplacement:b=yes
@@ -945,45 +945,45 @@ graphicsAutodetect{
   presets{
 
     "bare minimum"{
-      timeMs30:r=30.0
-      timeMs60:r=15.0
-      timeMs120:r=7.0
-      timeMs240:r=3.0
+      timeMs30:r=10.0905
+      timeMs60:r=5.0452
+      timeMs120:r=2.5226
+      timeMs240:r=1.2613
     }
 
     minimum{
-      timeMs30:r=17.0
-      timeMs60:r=8.0
-      timeMs120:r=4.0
-      timeMs240:r=2.0
+      timeMs30:r=7.1498
+      timeMs60:r=3.5749
+      timeMs120:r=1.7875
+      timeMs240:r=0.8937
     }
 
     low{
-      timeMs30:r=11.0
-      timeMs60:r=5.5
-      timeMs120:r=2.5
-      timeMs240:r=1.25
+      timeMs30:r=6.5156
+      timeMs60:r=3.2578
+      timeMs120:r=1.6289
+      timeMs240:r=0.8144
     }
 
     medium{
-      timeMs30:r=6.5
-      timeMs60:r=3.0
-      timeMs120:r=1.5
-      timeMs240:r=0.75
+      timeMs30:r=5.766
+      timeMs60:r=2.883
+      timeMs120:r=1.4415
+      timeMs240:r=0.7207
     }
 
     high{
-      timeMs30:r=4.5
-      timeMs60:r=2.0
-      timeMs120:r=1.0
-      timeMs240:r=0.5
+      timeMs30:r=5.1894
+      timeMs60:r=2.5947
+      timeMs120:r=1.2974
+      timeMs240:r=0.6487
     }
 
     ultra{
-      timeMs30:r=3.5
-      timeMs60:r=1.25
-      timeMs120:r=0.6
-      timeMs240:r=0.3
+      timeMs30:r=3.5749
+      timeMs60:r=1.7875
+      timeMs120:r=0.8937
+      timeMs240:r=0.4469
     }
   }
 }
@@ -1423,6 +1423,13 @@ mountPoints{
 addonBasePath{
 
   addon{
+    vrom:t="content/enlisted/uiskin-harm.vromfs.bin"
+    harmonization:b=yes
+    mountAsPack:b=yes
+    src:t="../develop/gui/enlisted/harmonized"
+  }
+
+  addon{
     vrom:t="content/enlisted/uiskin.vromfs.bin"
     vromOptionalForServer:b=yes
     mountAsPack:b=yes
@@ -1560,7 +1567,7 @@ addonBasePath{
 embeddedUpdater{
 
   reload{
-    enlist:b=no
+    overlay_ui:b=no
     gameSq:b=yes
     gameDas:b=yes
   }
@@ -1573,7 +1580,7 @@ unitedVdata.dynModel{
 
 ui{
   script:t="%ui/ui.nut"
-  enlist_script:t="%enlist/root.nut"
+  overlay_ui_script:t="%enlist/root.nut"
 }
 
 net{
@@ -1584,6 +1591,11 @@ net{
       maxSimultaneousDestrs:i=64
     }
   }
+}
+
+menu{
+  modId:t="hangar"
+  scene:t="userGameMods/hangar.blk"
 }
 
 gameplay{

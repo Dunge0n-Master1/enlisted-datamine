@@ -1,7 +1,7 @@
 module squad_common shared
 require ecs
 require pathfinder
-require EnlistedWalkerai
+require DngWalkerai
 require math
 require math.base
 require game.es.squad_order_common

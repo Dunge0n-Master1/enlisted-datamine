@@ -2,7 +2,7 @@ require app
 require ecs
 require math
 require math.base
-require EnlistedNet
+require DngNet
 require game.es.events
 require game.events_game
 require game.utils.team
@@ -11,9 +11,9 @@ require common_shooter.events_common_shooter
 require common_shooter.es.human_attached_gun_common
 require danetlibs.native_dasevents.main.native_events
 require Gun
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedActor
+require DngHuman
+require DngWeapon
+require DngActor
 require HumanPhys
 require DagorMath
 require GamePhys

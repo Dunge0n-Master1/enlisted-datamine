@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require ecs.common
 require DagorInput
 require game.es.input.input_events

@@ -2,7 +2,7 @@ require ecs
 require DagorShaders
 require DagorSystem
 require game.utils.hero
-require EnlistedDm
+require DngDm
 require game.es.vehicle.vehicle_seats_common
 require danetlibs.renderer.includes.render_events
 

@@ -1,7 +1,7 @@
 require ecs
 require app
 require game.es.events
-require EnlistedPhysObj
+require DngPhysObj
 require PhysObj
 
 [es]

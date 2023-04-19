@@ -4,8 +4,8 @@ require game.es.events
 require game.events_game
 require DagorMathUtils
 require Gun
-require EnlistedHuman
-require EnlistedActor
+require DngHuman
+require DngActor
 require HumanPhys
 
 [es]

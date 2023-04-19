@@ -1,7 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let cursors = require("%ui/style/cursors.nut")
+let colorize = require("%ui/components/colorize.nut")
 let researchBtnsUi = require("researchBtnsUi.nut")
-let squadInfo = require("%enlist/squad/squadInfo.nut")
+let { squadInfo } = require("%enlist/squad/squadInfo.nut")
 let researchStatusesCfg = require("researchStatuses.nut")
 
 let { toIntegerSafe } = require("%sqstd/string.nut")
@@ -20,12 +22,16 @@ let {
 let {
   mkResearchPageSlot, mkResearchPageInfo, mkResearchColumn, mkResearchInfo,
   mkPointsInfo, mkWarningText, squadInfoWidth, mkPageInfoAnim, mkResearchItem,
-  slotSize, slotGapSize
+  slotSize, slotGapSize, childSlotSize
 } = require("researchesPkg.nut")
+let { isSquadPremium } = require("%enlSqGlob/ui/squadsUiComps.nut")
 
+
+const CUSTOM_STYLE_COLUMNS = 4
 
 let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
 
+let levelAndExpColor = 0xFFFFB200
 
 let miniGap = (columnGap * 0.5).tointeger()
 let headerHeight = colPart(4.5)
@@ -102,16 +108,22 @@ let function pagesInfoUi() {
   }
 }
 
+let function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
+  let lvlBlock = colorize(accColor, $"{curLvl + 1}/{maxLvl + 1}")
+  let expBlock = colorize(accColor, $"{curExp}/{expToNextLvl}")
+  return $"{lvlBlock} {loc("research/squad_level")}\n{loc("research/squad_next_level")} {expBlock}"
+}
+
 
 let function progressUi() {
   let res = {
     watch = [curSquadData, curSquadProgress, curSquadPoints]
   }
-  let isSquadPremium = (curSquadData.value?.battleExpBonus ?? 0) > 0
-  if (isSquadPremium)
+  let isSquadPrem = isSquadPremium(curSquadData.value)
+  if (isSquadPrem)
     return res
 
-  let { level, exp, nextLevelExp } = curSquadProgress.value
+  let { level, maxLevel, exp, nextLevelExp } = curSquadProgress.value
   let points = curSquadPoints.value
   return res.__update({
     size = flex()
@@ -120,9 +132,15 @@ let function progressUi() {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = miniGap
+      behavior = Behaviors.Button
+      onHover = @(on) cursors.setTooltip(on
+        ? getProgressTooltip(level, maxLevel, exp, nextLevelExp, levelAndExpColor)
+        : null)
       children = [
         mkPointsInfo(level, points)
-        progressBar(exp.tofloat() / nextLevelExp)
+        progressBar(nextLevelExp > 0 ? exp.tofloat() / nextLevelExp
+          : level == maxLevel ? 1.0
+          : 0.0)
       ]
     }
   })
@@ -205,6 +223,7 @@ let tableViewStructure = Computed(function() {
       children = []
       template = gametemplate
       tplCount = 0
+      toChildren = 0
     })
     if (gametemplate != null) {
       hasTemplatesLine = true
@@ -296,49 +315,101 @@ let tableViewStructure = Computed(function() {
     }
   }
 
+  local toChildren = 0
+  for (local i = columns.len() - 1; i >= 0 ; i--) {
+    let column = columns[i]
+    if (column.children.findvalue(@(ch) ch != null) != null)
+      toChildren = 0
+    else
+      toChildren++
+    column.toChildren = toChildren
+  }
+
   return { columns, maxChildHeight, hasTemplatesLine }
 })
+
+
+let customNests = {
+  [2] = {
+    size = [0, SIZE_TO_CONTENT]
+    pos = [0, childSlotSize[1]]
+  },
+  [3] = { pos = [0, childSlotSize[1]] },
+  [4] = { size = [0, SIZE_TO_CONTENT] }
+}
 
 
 let function researchesTreeUi() {
   let { researches } = tableStructure.value
   let { research_id = null } = selectedResearch.value
   let rStatuses = researchStatuses.value
-  let { columns, maxChildHeight, hasTemplatesLine } = tableViewStructure.value
-  let minHeightFlex = hasTemplatesLine ? 0.1 : 1
+  let { columns, maxChildHeight } = tableViewStructure.value
   let columnsCount = columns.len()
+  let pageIdx = selectedTable.value
+  let hasLongBranches = (maxChildHeight?[0] ?? 0) + (maxChildHeight?[1] ?? 0) > 2
+  let hasResearchItem = columns.findindex(@(c)
+    (c?.template ?? "") != "" && (c?.tplCount ?? 0) > 0) != null
+  let offsetFactor = hasLongBranches || hasResearchItem ? 0
+    : 100 * (maxChildHeight[1] + 1) / (maxChildHeight[0] + maxChildHeight[1] + 3)
+  let hasItemLink = columns.findindex(@(c) c?.template != null) != null
 
+  local reqCustomNests = false
   let treeObject = {
     size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
+    gap = columnGap
     padding = [0, colPart(1)]
-    valign = ALIGN_CENTER
     children = [
       {
         flow = FLOW_HORIZONTAL
         children = columns.map(@(column, idx) mkResearchItem(column, idx == columnsCount - 1))
       }
-      { size = [0, flex(maxChildHeight[1] + minHeightFlex)] }
       {
-        flow = FLOW_HORIZONTAL
-        children = columns.map(function(column, idx) {
-          let { main, children } = column
-          let rMain = researches[main]
-          let rChildren = children.map(@(child) {
-              multiresearchGroup = child.multiresearchGroup
-              researches = child.children.map(@(c) researches[c])
-            }
-          )
-          return mkResearchColumn(idx, rMain, rChildren, research_id, rStatuses,
-            researchCbCtor, researchDoubleCbCtor)
-        })
+        size = [SIZE_TO_CONTENT, flex()]
+        flow = FLOW_VERTICAL
+        children = [
+          {
+            size = [0, ph(offsetFactor)]
+          }
+          {
+            flow = FLOW_HORIZONTAL
+            children = columns.map(function(column, idx) {
+              let { main, children, toChildren } = column
+
+              let prevChildren = columns?[idx - 1].children ?? []
+              let hasChildren = children.findvalue(@(ch) ch != null) != null
+                && prevChildren.findvalue(@(ch) ch != null) != null
+              let hasMult = children.findvalue(@(ch) (ch?.multiresearchGroup ?? 0) > 0) != null
+                && reqCustomNests
+              let hasLongBranch = children.reduce(@(r, ch) r + (ch?.children ?? []).len(), 0) > 2
+              if (toChildren >= CUSTOM_STYLE_COLUMNS)
+                reqCustomNests = true
+              else if (toChildren == 0)
+                reqCustomNests = false
+              let childrenStyleId = hasItemLink || hasChildren || hasMult || hasLongBranch ? 0
+                : reqCustomNests ? toChildren
+                : CUSTOM_STYLE_COLUMNS
+
+              let rMain = researches[main]
+              let rChildren = children.map(@(child) child == null ? null
+                : {
+                    multiresearchGroup = child.multiresearchGroup
+                    researches = child.children.map(@(c) researches[c])
+                  })
+              let columnObject = mkResearchColumn(pageIdx, idx, rMain, rChildren, research_id, rStatuses,
+                hasLongBranches, researchCbCtor, researchDoubleCbCtor, childrenStyleId)
+              let nest = reqCustomNests ? (customNests?[childrenStyleId] ?? {}) : {}
+              return { children = columnObject }.__update(nest)
+            })
+          }
+        ]
       }
-      { size = [0, flex(maxChildHeight[0] + minHeightFlex)] }
     ]
   }
 
   return {
-    watch = [tableStructure, tableViewStructure, selectedResearch, researchStatuses, columnsInScreen]
+    watch = [ tableStructure, tableViewStructure, selectedResearch,
+      researchStatuses, columnsInScreen, selectedTable]
     size = flex()
     children = columnsCount > columnsInScreen.value
       ? makeHorizScroll(treeObject, {

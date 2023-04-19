@@ -1,7 +1,9 @@
+let { pow } = require("math")
 let { isNoBotsMode, getMissionType } = require("%enlSqGlob/missionType.nut")
 let {
   BattleHeroesAward, requiredScoreTable, requiredValueTable, requiredSoldierKindScoreTable, getAwardBySoldierKind,
-  awardScoreStats, tacticianStats, isBigAward, WINNING_TEAM_BATTLE_HEROES_COUNT, LOSING_TEAM_BATTLE_HEROES_COUNT
+  awardScoreStats, tacticianStats, isBigAward, WINNING_TEAM_BATTLE_HEROES_COUNT, LOSING_TEAM_BATTLE_HEROES_COUNT,
+  SQUAD_COMMAND_MIN_NUM_SQUADS, SQUAD_COMMAND_MAX_NUM_SQUADS
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { logerr } = require("dagor.debug")
 let calcSoldierScore = require("%scripts/game/utils/calcSoldierScore.nut")
@@ -31,6 +33,24 @@ let statAwardConfig = {
   [BattleHeroesAward.TOP_LONG_RANGE_KILLS] = {
     playerStat = @(player) (player.stats?["scoring_player__longRangeKills"] ?? 0)
     soldierStat = @(soldier) (soldier.stats?["longRangeKills"] ?? 0)
+  },
+  [BattleHeroesAward.BERSERK] = {
+    playerStat = @(player) (player.stats?["scoring_player__bestOneSoldierLifeInfantryKills"] ?? 0)
+    // Priority to soldier that made kills and not just participated as crew
+    soldierStat = @(soldier) pow(soldier.stats?["bestOneLifeInfantryKillsWithCrew"] ?? 0, 2) + (soldier.stats?["bestOneLifeInfantryKills"] ?? 0)
+  },
+  [BattleHeroesAward.FURIOUS] = {
+    playerStat = @(player) (player.stats?["scoring_player__bestOneSoldierLifeVehicleKills"] ?? 0)
+    // Priority to soldier that made kills and not just participated as crew
+    soldierStat = @(soldier) pow(soldier.stats?["bestOneLifeVehicleKillsWithCrew"] ?? 0, 2) + (soldier.stats?["bestOneLifeVehicleKills"] ?? 0)
+  },
+  [BattleHeroesAward.CONTRIBUTION_TO_VICTORY] = {
+    playerStat = @(player) player.stats?["scoring_player__contributionToVictory"] ?? 0
+    soldierStat = @(soldier) soldier.stats?["contributionToVictory"] ?? 0
+  },
+  [BattleHeroesAward.PARATROOPER] = {
+    playerStat = @(player) player.stats?["scoring_player__bestOneSodierLifeParatrooperKills"] ?? 0
+    soldierStat = @(soldier) soldier.stats?["bestOneLifeParatrooperKills"] ?? 0
   },
 }
 
@@ -181,6 +201,44 @@ let function getUniversalAwards(players, awards) {
   }).values().filter(@(a) a != null)
 }
 
+let function getPlayerSquadCommandInfo(player, requiredSquadScore) {
+  let squads = player.squads
+    .filter(@(squad) squad.score > requiredSquadScore)
+    .sort(@(a, b) b.score <=> a.score)
+    .slice(0, SQUAD_COMMAND_MAX_NUM_SQUADS)
+  let stat = squads.reduce(@(res, squad) res + squad.score, 0)
+  let numSquads = squads.len()
+  return { player, stat, numSquads }
+}
+
+let function getSquadCommandAwards(players, awards) {
+  let bigAwards = awards.filter(@(a) isBigAward(a.award))
+  let bigAwardsByTeam = groupBy(bigAwards, "team")
+  let requiredSquadScore = getRequiredScoreForReward(BattleHeroesAward.SQUAD_COMMAND)
+  return groupBy(players, "team").map(function(teamPlayers, team) {
+    let teamBigAwards = bigAwardsByTeam?[team] ?? []
+    let topTeamPlayer = teamBigAwards.findvalue(@(a) a.award == BattleHeroesAward.TOP_PLACE)?.playerEid
+    let awardedPlayer = getTopStatPlayer(teamPlayers
+      .filter(@(player) player.eid != topTeamPlayer)
+      .map(@(player) getPlayerSquadCommandInfo(player, requiredSquadScore))
+      .filter(@(award) award.numSquads >= SQUAD_COMMAND_MIN_NUM_SQUADS)
+    )?.player
+
+    if (awardedPlayer == null)
+      return null
+
+    let bigAwardsByPlayer = teamBigAwards?.map(@(awards) groupBy(awards,"playerEid")) ?? {}
+    let awardLimit = awardedPlayer.isWinnerTeam ? WINNING_TEAM_BATTLE_HEROES_COUNT : LOSING_TEAM_BATTLE_HEROES_COUNT
+    let isTeamAwardOverLimit = bigAwardsByPlayer.len() >= awardLimit
+    let hasBigAward = bigAwardsByPlayer?[awardedPlayer.eid] != null
+    if (isTeamAwardOverLimit && !hasBigAward)
+      return null
+
+    return getTopScoreSoldierOfPlayer(awardedPlayer).__merge({award=BattleHeroesAward.SQUAD_COMMAND})
+
+  }).values().filter(@(a) a != null)
+}
+
 let function sanitize(award) {
   if (award?.soldier.stats != null)
     delete award.soldier.stats
@@ -215,6 +273,9 @@ let function calcBattleHeroAwards(detailedPlayersScore) {
   let tacticianAward = getTacticianAward(detailedPlayersScore, awards)
   if (tacticianAward != null)
     awards.append(tacticianAward)
+
+  let squadCommandAwards = getSquadCommandAwards(detailedPlayersScore, awards)
+  awards.extend(squadCommandAwards)
 
   let universalAwards = getUniversalAwards(detailedPlayersScore, awards)
   awards.extend(universalAwards)

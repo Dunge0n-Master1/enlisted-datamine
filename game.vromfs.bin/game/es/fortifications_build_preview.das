@@ -6,7 +6,7 @@ require game.utils.team
 require DagorMathUtils
 require game.es.events
 require danetlibs.native_dasevents.main.native_events
-require EnlistedHuman
+require DngHuman
 require DagorSystem
 require ecs.common
 require math.base
@@ -22,7 +22,7 @@ require zones
 require math
 require ecs
 require app
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 
 [es(on_appear)]

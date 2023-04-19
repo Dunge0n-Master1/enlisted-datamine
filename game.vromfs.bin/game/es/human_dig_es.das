@@ -1,7 +1,7 @@
 require ecs
-require EnlistedNet
+require DngNet
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require Dacoll
 require terraform
 require DagorConsole
@@ -31,7 +31,7 @@ def human_dig_es(evt : EventDigRequest;
                  eid : EntityId;
                  human__aimTm : float3x4;
                  human_weap__currentGunEid : EntityId;
-                 human_net_phys : HumanActor)
+                 var human_net_phys : HumanActor)
   query(human_weap__currentGunEid) <| $ [es(REQUIRE=canDig)] (dig_tool__distance : float;
                                                               dig_tool__radius : float;
                                                               dig_tool__depth : float;
@@ -51,7 +51,7 @@ def human_dig_es(evt : EventDigRequest;
                                                            checkRadius,
                                                            digging_config__traceHeight,
                                                            digging_config__queryRIHalfHeight,
-                                                           human_net_phys.phys.traceHandle,
+                                                           human_phys_getTraceHandle(human_net_phys.phys),
                                                            dig_tool__allowedMaterials,
                                                            matId)
 

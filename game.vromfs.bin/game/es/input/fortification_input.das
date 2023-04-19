@@ -2,7 +2,7 @@ require ecs
 require DagorInput
 require enlisted.events_enlisted
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require net
 require game.es.input.input_common
 

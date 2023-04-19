@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let idleAnims = require("%enlSqGlob/menu_poses_for_weapons.nut")
+let { allIdleAnims } = require("%enlSqGlob/menu_poses_for_weapons.nut")
 let { templatesCombined } = require("%enlist/soldiers/model/all_items_templates.nut")
 let faceGen = require("%enlist/faceGen.nut")
 let { genFacesOverrides } = require("%enlist/faceGen/animTree_gen_faces.nut")
@@ -14,11 +14,6 @@ let soldierOverrides = mkWatched(persist, "soldierOverrides", {})
 let faceGenOverrides = mkWatched(persist, "faceGenOverrides", {})
 
 let DB = ecs.g_entity_mgr.getTemplateDB()
-
-let allIdleAnims = Computed(@() idleAnims.reduce(function(tbl, val) {
-  val.each(@(id) tbl[id] <- true)
-  return tbl
-}, {}).keys().sort())
 
 let animcharToHead = Computed(function() {
   let res = {}
@@ -68,17 +63,17 @@ let getSoldierIdle = @(guid, data) data?[guid].idleAnim
 
 let setSoldierIdle = @(guid, idleAnim)
   getSoldierIdle(guid, soldierOverrides.value) == idleAnim ? null
-    : allIdleAnims.value.contains(idleAnim) ? update(guid, { idleAnim })
+    : allIdleAnims.contains(idleAnim) ? update(guid, { idleAnim })
     : remove(guid, "idleAnim")
 
 let function switchSoldierIdle(guid, dir) {
   let curAnim = getSoldierIdle(guid, soldierOverrides.value)
-  let idx = allIdleAnims.value.indexof(curAnim)
+  let idx = allIdleAnims.indexof(curAnim)
   if (idx == null)
-    return setSoldierIdle(guid, allIdleAnims.value[0])
+    return setSoldierIdle(guid, allIdleAnims[0])
 
-  let length = allIdleAnims.value.len()
-  setSoldierIdle(guid, allIdleAnims.value[(idx + dir + length) % length])
+  let length = allIdleAnims.len()
+  setSoldierIdle(guid, allIdleAnims[(idx + dir + length) % length])
 }
 
 let getSoldierHead = @(guid, data) data?[guid].headId
@@ -187,7 +182,6 @@ return {
   mkSoldierSlotsSwap = @(guid) Computed(@() isSoldierSlotsSwap(guid, soldierOverrides.value))
   setSoldierSlotsSwap
 
-  allIdleAnims
   getSoldierIdle = @(guid) getSoldierIdle(guid, soldierOverrides.value)
   mkSoldierIdle = @(guid) Computed(@() getSoldierIdle(guid, soldierOverrides.value))
   setSoldierIdle

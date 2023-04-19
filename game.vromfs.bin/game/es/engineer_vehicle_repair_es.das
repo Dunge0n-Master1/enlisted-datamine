@@ -1,6 +1,6 @@
 require dm
 require ecs
-require EnlistedDm
+require DngDm
 require game.es.events
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted

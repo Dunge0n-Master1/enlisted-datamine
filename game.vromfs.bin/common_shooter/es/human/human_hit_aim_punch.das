@@ -7,13 +7,13 @@ require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require DagorSystem
 require DagorMath
 require DagorRandom
 require DaWeaponProps
 require DaWeapons
-require EnlistedDm
+require DngDm
 
 // human_aim_punch event structure - float3
 // [0](float) - time

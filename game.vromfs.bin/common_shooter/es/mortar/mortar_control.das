@@ -2,7 +2,7 @@ require ecs
 require Gun
 require math
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require game.es.device_state_common
 require game.es.events
 

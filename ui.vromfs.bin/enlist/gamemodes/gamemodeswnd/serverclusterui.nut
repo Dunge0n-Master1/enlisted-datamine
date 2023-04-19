@@ -1,16 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, smallPadding, hoverTxtColor
+let { colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, smallPadding, hoverTxtColor,
+  panelBgColor, hoverPanelBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
 let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster, hasAutoClusterOption,
   isAutoClusterSafe
 } = require("%enlist/clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
-let squadClusters = squadSharedData.clusters
-let squadAutoCluster = squadSharedData.isAutoCluster
-let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
+let squadClustersWatched = squadSharedData.clusters
+let squadAutoClusterWatched = squadSharedData.isAutoCluster
+let { addPopup, removePopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let mkCheckbox = require("%ui/components/mkCheckbox.nut")
@@ -24,8 +25,13 @@ const NO_SERVER_ERROR = "noServerPopup"
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let hoverTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let fillBgColor = @(sf) sf != 0 ? 0xFF3B516A : 0xFF132438
+let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
+let fillBgColor = @(sf) (sf & S_ACTIVE) != 0 || (sf & S_HOVER) != 0
+  ? hoverPanelBgColor
+  : panelBgColor
 let isLocalClusters = Computed(@() !isInSquad.value || isSquadLeader.value)
+let squadClusters = Computed(@() squadClustersWatched.value ?? {})
+let squadAutoCluster = Computed(@() squadAutoClusterWatched.value ?? false)
 
 
 let function toggleServerSelection(server) {
@@ -44,10 +50,10 @@ let function toggleServerSelection(server) {
 }
 
 
-let mkServerBtn = @(server, txt, isAutoSelected = false) watchElemState(function(sf) {
+let function mkServerBtn(server, txt, isAutoSelected = false) {
   let isSelected = Computed(@() server in clusters.value)
-  return {
-    watch = isSelected
+  return watchElemState(@(sf) {
+    watch = [isSelected, isAutoCluster]
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
@@ -61,12 +67,12 @@ let mkServerBtn = @(server, txt, isAutoSelected = false) watchElemState(function
       {
         rendObj = ROBJ_TEXT
         text = txt
-      }.__update(isSelected.value ? titleTxtStyle
+      }.__update(isSelected.value && !isAutoCluster.value ? titleTxtStyle
         : sf & S_HOVER ? hoverTxtStyle
         : defTxtStyle)
     ]
-  }
-})
+  })
+}
 
 
 let optimalServerButton = watchElemState(@(sf) {
@@ -161,21 +167,41 @@ let function serverClusterBtn() {
   }
 }
 
-
-let clusterInfoBtn = @(action) watchElemState(function (sf) {
-  let text = loc("quickMatch/curServers", { server = serversRow.value })
+let serversToShow = @(group = null) watchElemState(function(sf) {
+  let text = availableClusters.value.len() == clusters.value.len()
+    ? loc("quickMatch/Server/Any")
+    : isAutoCluster.value ? loc("options/auto")
+    : ", ".join(clusters.value.keys())
   return {
-    watch = serversRow
+    watch = [isAutoCluster, clusters, availableClusters]
     size = [flex(), SIZE_TO_CONTENT]
-    rendObj = ROBJ_TEXTAREA
-    onClick = action
-    halign = ALIGN_RIGHT
-    behavior = [Behaviors.TextArea, Behaviors.Button]
-    text
-  }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
+    group
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    flow = FLOW_HORIZONTAL
+    gap = smallPadding
+    children = [
+      {
+        rendObj = ROBJ_TEXT
+        text = loc("server")
+      }.__update(sf & S_ACTIVE ? activeTxtStyle
+        : sf & S_HOVER ? hoverTxtStyle
+        : defTxtStyle)
+      {
+        flow = FLOW_HORIZONTAL
+        gap = smallPadding
+        children = {
+          rendObj = ROBJ_TEXT
+          text
+        }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
+      }
+    ]
+  }
 })
+
+
 
 return {
   serverClusterBtn
-  clusterInfoBtn
+  serversToShow
 }

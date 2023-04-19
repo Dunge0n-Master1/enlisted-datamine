@@ -82,6 +82,7 @@ let function addContextMenu(x, y, width, actions) {
     return null //no need to open empty menu
 
   modalPopupWnd.add([x, y], {
+    uid = CONTEXT_UID
     rendObj = ROBJ_SOLID
     padding = smallPadding
     color = defBdColor

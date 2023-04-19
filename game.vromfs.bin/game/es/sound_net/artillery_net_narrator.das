@@ -1,7 +1,7 @@
 require ecs
 require game.utils.team
 require enlisted.events_enlisted
-require EnlistedNet
+require DngNet
 
 [es(tag=server, on_appear)]
 def artillery_net_narrator_appear(evt : Event;

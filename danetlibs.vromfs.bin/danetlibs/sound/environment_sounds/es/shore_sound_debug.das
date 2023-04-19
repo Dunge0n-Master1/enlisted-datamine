@@ -6,7 +6,7 @@ require DagorDebug3D
 require soundSystem
 
 
-[es(no_order, tag=(render, sound))]
+[es(no_order, tag=(render, sound, dev))]
 def shore_sound_debug_draw(info : UpdateStageInfoRenderDebug;
                            shore_sound__offsets : Point2List;
                            transform : float3x4)

@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require vehicle
 require game.utils.hero
 require math

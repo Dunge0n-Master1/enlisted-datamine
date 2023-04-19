@@ -42,12 +42,12 @@ def make_input_buffer ( var buf : ImGuiInputTextBuffer; txt:string; len:int )
         memcpy ( addr(buf.buffer[0]), reinterpret<void?> txt, bytes )
 
 def ImGuiInputTextBuffer ( txt:string; len:int )
-    var buf : ImGuiInputTextBuffer
+    var buf <- ImGuiInputTextBuffer()
     make_input_buffer(buf, txt, len)
     return <- buf
 
 def ImGuiInputTextBuffer ( txt:string; len:int; var cb:lambda<(var it:ImGuiInputTextBuffer; var itc:ImGuiInputTextCallbackData):int> )
-    var buf : ImGuiInputTextBuffer
+    var buf <- ImGuiInputTextBuffer()
     make_input_buffer(buf, txt, len)
     buf.callback <- cb
     return <- buf
@@ -82,7 +82,7 @@ struct ImGuiSizeConstraints
     at: LineInfo
 
 def ImGuiSizeConstraints(var lmb:lambda<(var data:ImGuiSizeCallbackData):void>)
-    var self : ImGuiSizeConstraints
+    var self <- ImGuiSizeConstraints()
     self.callback <- lmb
     return <- self
 
@@ -96,7 +96,7 @@ struct ImGuiComboGetter
     at : LineInfo
 
 def ImGuiComboGetter(var lmb:lambda<(idx:int;var result:string&):bool>)
-    var self : ImGuiComboGetter
+    var self <- ImGuiComboGetter()
     self.callback <- lmb
     return <-self
 
@@ -110,7 +110,7 @@ struct ImGuiPlotGetter
     at : LineInfo
 
 def ImGuiPlotGetter(var lmb:lambda<(idx:int):float>)
-    var self : ImGuiPlotGetter
+    var self <- ImGuiPlotGetter()
     self.callback <- lmb
     return <-self
 
@@ -132,15 +132,15 @@ def PlotHistogram(
     unsafe
         _builtin_PlotHistogram(getter, lab, values_count, values_offset, overlay_text, scale_min, scale_max, gsize)
 
-// let IM_COL32_WHITE = IM_COL32(255,255,255,255)
-// let IM_COL32_BLACK = IM_COL32(0,0,0,255)
-// let IM_COL32_BLACK_TRANS = IM_COL32(0,0,0,0)
+let IM_COL32_WHITE = IM_COL32(255,255,255,255)
+let IM_COL32_BLACK = IM_COL32(0,0,0,255)
+let IM_COL32_BLACK_TRANS = IM_COL32(0,0,0,0)
 
-// def IM_COL32(R,G,B,A:uint)
-//     return (A<<IM_COL32_A_SHIFT) | (B<<IM_COL32_B_SHIFT) | (G<<IM_COL32_G_SHIFT) | (R<<IM_COL32_R_SHIFT)
+def IM_COL32(R,G,B,A:uint)
+    return (A<<uint(IM_COL32_A_SHIFT)) | (B<<uint(IM_COL32_B_SHIFT)) | (G<<uint(IM_COL32_G_SHIFT)) | (R<<uint(IM_COL32_R_SHIFT))
 
-// def IM_COL32(R,G,B,A:int)
-//     return (uint(A)<<IM_COL32_A_SHIFT) | (uint(B)<<IM_COL32_B_SHIFT) | (uint(G)<<IM_COL32_G_SHIFT) | (uint(R)<<IM_COL32_R_SHIFT)
+def IM_COL32(R,G,B,A:int)
+    return (uint(A)<<uint(IM_COL32_A_SHIFT)) | (uint(B)<<uint(IM_COL32_B_SHIFT)) | (uint(G)<<uint(IM_COL32_G_SHIFT)) | (uint(R)<<uint(IM_COL32_R_SHIFT))
 
 def Combo ( lab:string; current_item:int? implicit; items:array<string>; popul_max_heigh_in_items : int = -1 )
     let nItems = length(items)

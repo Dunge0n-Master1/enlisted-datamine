@@ -8,8 +8,8 @@ require game.utils.team
 require DaWeaponProps
 require BallisticsProps
 require Plane
-require EnlistedPlane
-require EnlistedCamera
+require DngPlane
+require DngCamera
 require DagorSystem
 require DagorMath
 require DaWeapons
@@ -97,12 +97,12 @@ def plane_target_forestall(info : ParallelUpdateFrameDelayed;
           let forestallSelectorDir = plane_input__mouseAimEnabled ? normalize(turretAimPos - cameraPos) : camera_transform[2]
           var minForestallAngle = forestallCutoffAngle
 
-          query() <| $ [es(REQUIRE=airplane)] (eid : EntityId;
-                                               transform aka target_transform : float3x4;
-                                               isAlive : bool;
-                                               team : int;
-                                               plane_net_phys : PlaneActor;
-                                               forestall_target__maxDist : float = 0.)
+          query() <| $ [es(REQUIRE=airplane, REQUIRE_NOT=hideForestall)] (eid : EntityId;
+                                                                          transform aka target_transform : float3x4;
+                                                                          isAlive : bool;
+                                                                          team : int;
+                                                                          plane_net_phys : PlaneActor;
+                                                                          forestall_target__maxDist : float = 0.)
             if !isAlive || eid == heroPlaneEid || team == TEAM_UNASSIGNED || is_teams_friendly(heroTeam, team)
               return
 

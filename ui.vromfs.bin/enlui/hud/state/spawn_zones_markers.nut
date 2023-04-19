@@ -28,7 +28,8 @@ ecs.register_es("spawn_zones_markers",
                                   isActive = comp["respawn_icon__active"],
                                   isPlayerSpawn = comp["respawn_icon__isPlayerSpawn"]
                                   activateAtTime = comp["respawn_icon__activateAtTime"],
-                                  enemyAtRespawn = comp["respawn_icon__isEnemyAtRespawn"]
+                                  enemyAtRespawn = comp["respawn_icon__isEnemyAtRespawn"],
+                                  queueSize = comp["respawn_icon__queueSize"]
                                 }
                               )
     }
@@ -50,7 +51,8 @@ ecs.register_es("spawn_zones_markers",
       ["respawn_icon__isHidden", ecs.TYPE_BOOL],
       ["respawn_icon__activateAtTime", ecs.TYPE_FLOAT],
       ["respawn_icon__isEnemyAtRespawn", ecs.TYPE_BOOL],
-      ["respawn_icon__isPlayerSpawn", ecs.TYPE_BOOL]
+      ["respawn_icon__isPlayerSpawn", ecs.TYPE_BOOL],
+      ["respawn_icon__queueSize", ecs.TYPE_INT]
     ]
   }
 )

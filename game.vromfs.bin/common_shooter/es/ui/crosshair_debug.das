@@ -10,8 +10,8 @@ require DagorSystem
 require DagorMath
 require DagorConsole
 require DagorDebug3D
-require EnlistedWeapon
-require EnlistedUI
+require DngWeapon
+require DngUI
 
 
 [console_cmd(name="hud.force_crosshair")]

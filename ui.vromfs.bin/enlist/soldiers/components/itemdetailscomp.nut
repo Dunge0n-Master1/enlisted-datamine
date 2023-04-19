@@ -155,11 +155,13 @@ let mkDetailsInfo = @(viewItemWatch, isFullMode = Watched(true))
 
     let isVehicle = item?.itemtype == "vehicle"
     let isFull = isFullMode.value
+    let blockWidth = isFull ? inventoryItemDetailsWidth : inventoryItemDetailsWidth * 0.8
 
     return res.__update(blur({
       flow = FLOW_VERTICAL
       halign = ALIGN_RIGHT
       gap = smallPadding
+      size = [blockWidth, SIZE_TO_CONTENT]
       children = [
         mkItemHeader(item)
         isFull ? mkItemDescription(item) : null

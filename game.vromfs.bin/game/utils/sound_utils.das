@@ -5,7 +5,7 @@ require ecs.safe
 require app
 require game.utils.net_utils
 require game.utils.team
-require EnlistedNet
+require DngNet
 require soundHash
 require soundSystem
 require sound_utils_net.modules.sound_utils_net_events

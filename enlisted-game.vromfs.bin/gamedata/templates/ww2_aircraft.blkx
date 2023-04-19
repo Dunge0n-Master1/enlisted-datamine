@@ -108,7 +108,7 @@ fw_190d_12_galland_battlepass_premium{
         turret:t="turret_08"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -158,7 +158,7 @@ me_410b_1_an_bp_premium{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -190,6 +190,55 @@ me410_an_battlepass_premium_driver_cockpit{
 
   "animchar__objTexReplace:object"{
     "me_410a_1_a*":t="me410_an_a*"
+  }
+}
+
+bf_109g_14_petrle_battlepass_premium{
+  _extends:t="bf_109g_14"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_14_a*":t="bf_109g_14_petrle_c*"
+    "bf_109g_14_n*":t="bf_109g_14_petrle_n*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.1, -0.1]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.89, 0.788, -0.056
+      cockpitTemplate:t="bf_109g_14_petrle_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+bf_109g_14_petrle_battlepass_premium_driver_cockpit{
+  _extends:t="bf_109g_14_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_14_a*":t="bf_109g_14_petrle_c*"
+    "bf_109g_14_n*":t="bf_109g_14_petrle_n*"
   }
 }
 
@@ -231,7 +280,7 @@ yak_3_czech45_battlepass_premium{
         turret:t="turret_03"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -278,7 +327,7 @@ yak_3_fyodorov_battlepass_premium{
         turret:t="turret_03"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -324,7 +373,7 @@ yak_9_grey_battlepass_premium{
         turret:t="turret_02"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -339,6 +388,56 @@ yak_9_grey_battlepass_premium_driver_cockpit{
 
   "animchar__objTexReplace:object"{
     "yak_9t_a*":t="yak_9_grey_a*"
+  }
+}
+
+la_5fn_lyubenyuks_battlepass_premium{
+  _extends:t="la_5fn"
+
+  "animchar__objTexReplace:object"{
+    "la_5fn_type_41_c*":t="la_5fn_lyubenyuks_c*"
+    "la_5fn_type_41_n*":t="la_5fn_lyubenyuks_n*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.57, 0.92, 0.0
+      cockpitTemplate:t="la_5fn_lyubenyuks_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+la_5fn_lyubenyuks_battlepass_premium_driver_cockpit{
+  _extends:t="la_5fn_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "la_5fn_type_41_c*":t="la_5fn_lyubenyuks_c*"
+    "la_5fn_type_41_n*":t="la_5fn_lyubenyuks_n*"
   }
 }
 
@@ -393,7 +492,7 @@ bf_109f_2_winkel_premium{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.955, 0.76, -0.03
+      cameraOffset:p3=-1.12, 0.76, -0.03
       cockpitTemplate:t="bf_109f_2_winkel_driver_cockpit"
 
       "turretNames:array"{
@@ -406,7 +505,7 @@ bf_109f_2_winkel_premium{
         turret:t="turret_07"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -536,7 +635,7 @@ bf_109f_2_black8_premium{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.955, 0.76, -0.03
+      cameraOffset:p3=-1.12, 0.76, -0.03
       cockpitTemplate:t="bf_109f_2_black8_driver_cockpit"
 
       "turretNames:array"{
@@ -549,7 +648,7 @@ bf_109f_2_black8_premium{
         turret:t="turret_07"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -721,7 +820,7 @@ bf_110c_7_summer40_premium_skin{
         turret:t="turret_09"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -791,7 +890,7 @@ bf_110f_2_winter_bp_prem{
         turret:t="turret_09"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -860,7 +959,7 @@ ju_87b_2_winter_battlepass_premium{
         turret:t="turret_07"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -892,6 +991,56 @@ ju_87b_2_winter_battlepass_premium_driver_cockpit{
   "animchar__objTexReplace:object"{
     "ju_87b_2_a*":t="ju_87b_2_winter_camo_a*"
     "ju_87b_2_a_dmg*":t="ju_87b_2_winter_camo_a_dmg*"
+  }
+}
+
+hs_123a_1_triple_camo_battlepass_premium{
+  _extends:t="hs_123a_1"
+
+  "animchar__objTexReplace:object"{
+    "hs_123a1_late_a*":t="hs_123a1_camouflage_c*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-2.12, 0.843, -0.036
+      cockpitTemplate:t="hs_123a_1_triple_camo_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+hs_123a_1_triple_camo_battlepass_premium_driver_cockpit{
+  _extends:t="hs_123a_1_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "hs_123a1_late_a*":t="hs_123a1_camouflage_c*"
   }
 }
 
@@ -936,7 +1085,7 @@ il_2_1941_4_battlepass_premium{
         turret:t="turret_16"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1106,7 +1255,7 @@ yak_1_series1_19_baranov_battlepass{
         turret:t="turret_05"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1122,6 +1271,54 @@ yak_1_series1_19_baranov_battlepass_driver_cockpit{
   "animchar__objTexReplace:object"{
     "yak_1_early_green_a*":t="yak_1_series1_19_baranov_a*"
     "yak_1_early_green_a_dmg*":t="yak_1_series1_19_baranov_a_dmg*"
+  }
+}
+
+mig_3_series_1_15_za_partiu_battlepass_premium{
+  _extends:t="mig_3_series_1_15"
+
+  "animchar__objTexReplace:object"{
+    "mig_3_series_34_c*":t="mig_3_series_1_15_c*"
+    "mig_3_series_34_n*":t="mig_3_series_1_15_n*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.1, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.26, 0.65, 0.0
+      cockpitTemplate:t="mig_3_series_1_15_za_partiu_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+mig_3_series_1_15_za_partiu_battlepass_premium_driver_cockpit{
+  _extends:t="mig_3_series_1_15_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "mig_3_series_34_c*":t="mig_3_series_1_15_c*"
+    "mig_3_series_34_n*":t="mig_3_series_1_15_n*"
   }
 }
 
@@ -1195,7 +1392,7 @@ bf_109g_10_winter44_battlepass_premium{
         turret:t="turret_05"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1247,7 +1444,7 @@ bf_110g_2_herget_battlepass_premium{
         turret:t="turret_07"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1320,7 +1517,7 @@ bf_109g_10_red19_30mm_underwing_normandy_premium{
         turret:t="turret_05"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1404,7 +1601,7 @@ ju_188_at_twitch_drop_premium{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1523,7 +1720,7 @@ a_20g_25_usaaf_eotvd_battlepass_premium{
         turret:t="turret_13"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1658,7 +1855,7 @@ p_51d_5_honey_battlepass_premium{
         turret:t="turret_08"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1706,7 +1903,7 @@ p_51c_10_redtail_premium{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1825,7 +2022,7 @@ p_47d_22_re_joan_premium{
         turret:t="turret_15"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1925,7 +2122,7 @@ f4f_3_battlepass_premium{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -1978,7 +2175,7 @@ sbd_3_pacific{
         turret:t="turret_05"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2129,6 +2326,24 @@ sbd_3_pacific_driver_cockpit{
   }
 }
 
+tbf_1c{
+  _override:b=yes
+
+  "animchar__objTexReplace:object"{
+    "tbf_1c_c*":t="tbf_1c_a12_c*"
+    "tbf_1c_n*":t="tbf_1c_a12_n*"
+  }
+}
+
+tbf_1c_driver_cockpit{
+  _override:b=yes
+
+  "animchar__objTexReplace:object"{
+    "tbf_1c_c*":t="tbf_1c_a12_c*"
+    "tbf_1c_n*":t="tbf_1c_a12_n*"
+  }
+}
+
 a6m2_mod11_battlepass_premium{
   _extends:t="a6m2_mod11"
 
@@ -2162,7 +2377,7 @@ a6m2_mod11_battlepass_premium{
         turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2213,7 +2428,7 @@ e13a1_static{
         turret:t="turret_04"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2229,6 +2444,191 @@ e13a1_static_driver_cockpit{
   "animchar__objTexReplace:object"{
     "aichi_e13a_c*":t="aichi_e13a_7_c*"
     "aichi_e13a_n*":t="aichi_e13a_7_n*"
+  }
+}
+
+l2d{
+  _extends:t="c_47"
+  item__name:t="items/l2d"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-0.0999983, 1.12534e-07, 0.994992] [0.0695387, 0.999463, 0.00698864] [-0.992567, 0.0697564, -0.0997546] [-0.14, -0.54, 0.34]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cockpitTemplate:t="l2d_driver_cockpit"
+      roomSpace:i=0
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner9"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[2.01462e-05, -0.139171, -0.990259] [2.81613e-06, 0.990203, -0.139163] [1.00012, 1.4903e-08, 2.03873e-05] [0.0, 0.12, 0.15]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=yes
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner4"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.43041e-06, -0.275616, 0.961197] [-3.72314e-07, 0.960708, 0.275476] [-0.999756, 1.48975e-08, -1.48975e-06] [-0.06, 0.11, -0.14]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=yes
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner5"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.43041e-06, -0.275616, 0.961197] [-3.72314e-07, 0.960708, 0.275476] [-0.999756, 1.48975e-08, -1.48975e-06] [-0.06, 0.11, -0.14]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=yes
+    }
+
+    "seats:object"{
+      name:t="passenger7"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner6"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.43041e-06, -0.275616, 0.961197] [-3.72314e-07, 0.960708, 0.275476] [-0.999756, 1.48975e-08, -1.48975e-06] [-0.06, 0.11, -0.14]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=yes
+    }
+
+    "seats:object"{
+      name:t="passenger8"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner3"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[0.998214, -0.0523031, -1.19898e-08] [0.0522321, 0.996859, -6.27375e-10] [1.19995e-08, 3.23889e-18, 0.999017] [-0.21, 0.08, -0.03]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=yes
+    }
+  }
+
+  "animchar__objTexReplace:object"{
+    "c_47a_c*":t="l2d_camo_2*"
+  }
+}
+
+l2d_paratroopers{
+  _extends:t="l2d"
+  _extends:t="squad_controlled_plane"
+  _extends:t="vehicle_seats_effectors"
+  _extends:t="paratrooper_plane_camera"
+
+  "replay_camera__attachToHuman:tag"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="paratrooper"
+      locName:t="vehicle_seats/paratrooper"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-0.0999983, 1.12534e-07, 0.994992] [0.0695387, 0.999463, 0.00698864] [-0.992567, 0.0697564, -0.0997546] [-0.14, -0.54, 0.34]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="pilot_dm"
+      roomSpace:i=0
+      canPlaceManually:b=yes
+      isHoldGunModeAllowed:b=no
+      cockpitTemplate:t="l2d_driver_cockpit"
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner9"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-2.16253e-07, -0.241846, -0.969993] [-4.14199e-08, 0.969313, -0.241676] [0.999533, 3.70563e-10, -2.21353e-07] [-0.02, 0.1, 0.05]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner11"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-2.16253e-07, -0.241846, -0.969993] [-4.14199e-08, 0.969313, -0.241676] [0.999533, 3.70563e-10, -2.21353e-07] [-0.02, 0.1, 0.05]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner7"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.44682e-06, -0.325437, 0.94516] [-1.02148e-06, 0.944147, 0.325088] [-0.999234, -4.93922e-07, -1.69997e-06] [-0.06, 0.11, -0.1]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner5"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.44682e-06, -0.325437, 0.94516] [-1.02148e-06, 0.944147, 0.325088] [-0.999234, -4.93922e-07, -1.69997e-06] [-0.06, 0.11, -0.1]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner6"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.44682e-06, -0.325437, 0.94516] [-1.02148e-06, 0.944147, 0.325088] [-0.999234, -4.93922e-07, -1.69997e-06] [-0.06, 0.11, -0.1]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passanger"
+      locName:t="vehicle_seats/pilot"
+      attachNode:t="gunner3"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[0.998214, -0.0523031, -1.19898e-08] [0.0522321, 0.996859, -6.27375e-10] [1.19995e-08, 3.23889e-18, 0.999017] [-0.21, 0.08, -0.03]]
+      seatComponent:t="isDriver"
+      canPlaceManually:b=no
+    }
+  }
+}
+
+l2d_driver_cockpit{
+  _extends:t="c_47_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "c_47a_c*":t="l2d_camo_2*"
   }
 }
 
@@ -2304,6 +2704,55 @@ p_40e_ussr_driver_cockpit{
   }
 }
 
+yak_7b_red_nose_battlepass_premium{
+  _extends:t="yak_7b"
+
+  "animchar__objTexReplace:object"{
+    "yak7b_c*":t="yak_7b_red_nose_c*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.15, 0.05, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-0.86, 0.608, 0.0
+      cockpitTemplate:t="yak_7b_red_nose_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+yak_7b_red_nose_battlepass_premium_driver_cockpit{
+  _extends:t="yak_7b_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "yak7b_c*":t="yak_7b_red_nose_c*"
+  }
+}
+
 fw_190a_4{
   _override:b=yes
 
@@ -2346,6 +2795,56 @@ potez_633_driver_cockpit{
 
   "animchar__objTexReplace:object"{
     "potez_633_a*":t="potez_633_romania_a*"
+  }
+}
+
+fw_190a_4_stalingrad_battlepass_premium{
+  _extends:t="fw_190a_4"
+
+  "animchar__objTexReplace:object"{
+    "fw_190a_4_a*":t="fw_190a_4_stalingrad_1942_c*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.1, 0.0, -0.15]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.05, 0.808, -0.029
+      cockpitTemplate:t="fw_190a_4_stalingrad_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+fw_190a_4_stalingrad_battlepass_premium_driver_cockpit{
+  _extends:t="fw_190a_4_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "fw_190a_4_a*":t="fw_190a_4_stalingrad_1942_c*"
   }
 }
 
@@ -2413,7 +2912,7 @@ hurricane_mk2b_night_twitch_drop_premium{
         turret:t="turret_12"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2468,7 +2967,7 @@ hurricane_mk2b_africa_premium{
         turret:t="turret_12"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2572,7 +3071,7 @@ spitfire_vc_trop_battlepass_premium{
         turret:t="turret_04"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2650,7 +3149,7 @@ c_202_black_cat_battlepass_premium{
         turret:t="turret_04"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2725,7 +3224,7 @@ spitfire_ix_e_raf_johnnie_dday_premium{
         turret:t="turret_04"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -2963,6 +3462,30 @@ plane_with_cockpit{
   "cockpit__isHeroInCockpit:b"{
     _tags:t="gameClient"
     value:b=no
+  }
+}
+
+paratrooper_plane_camera{
+  camName:t="soldier_cam_perlin"
+
+  "defaultCameraTypes:shared:object"{
+    driver:t="passenger"
+    paratrooper:t="passenger"
+    passenger:t="passenger"
+    passenger1:t="passenger"
+    passenger2:t="passenger"
+    passenger3:t="passenger"
+    passenger4:t="passenger"
+    passenger5:t="passenger"
+    passenger6:t="passenger"
+    passenger7:t="passenger"
+    passenger8:t="passenger"
+    passenger9:t="passenger"
+    passenger10:t="passenger"
+  }
+
+  "camNames:array"{
+    camNames:t="soldier_cam_perlin"
   }
 }
 

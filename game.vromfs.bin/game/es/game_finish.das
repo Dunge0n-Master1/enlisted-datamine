@@ -1,7 +1,7 @@
 require ecs
 require game.es.player_events
 require game.events_game
-require EnlistedNet
+require DngNet
 require statsd
 
 [es(tag=server)]

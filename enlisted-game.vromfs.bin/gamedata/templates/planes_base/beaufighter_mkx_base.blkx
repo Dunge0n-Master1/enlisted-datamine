@@ -1,5 +1,5 @@
 base_beaufighter_mkx{
-  plane_phys_damage__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
+  plane_phys_damage__blk:t="gamedata/units/beaufighter_mkx.blk"
   animchar__res:t="beaufighter_mkx_char"
 }
 
@@ -14,11 +14,12 @@ beaufighter_mkx_base{
   _extends:t="plane_with_cockpit"
   _extends:t="base_beaufighter_mkx"
   collres__res:t="beaufighter_mkx_collision"
-  plane_net_phys__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
-  damage_model__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
-  plane_collision__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
-  plane_anim__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
-  plane_sight__blk:t="content/enlisted/gamedata/units/beaufighter_mkx.blk"
+  plane_net_phys__blk:t="gamedata/units/beaufighter_mkx.blk"
+  damage_model__blk:t="gamedata/units/beaufighter_mkx.blk"
+  plane_collision__blk:t="gamedata/units/beaufighter_mkx.blk"
+  plane_anim__blk:t="gamedata/units/beaufighter_mkx.blk"
+  plane_sight__blk:t="gamedata/units/beaufighter_mkx.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="beaufighter_mkx_wreckage"

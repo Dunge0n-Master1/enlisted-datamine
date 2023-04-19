@@ -5,7 +5,7 @@ require math.base
 require math.ang
 require DagorMathUtils
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 
 

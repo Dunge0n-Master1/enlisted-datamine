@@ -6,28 +6,24 @@ require enlisted.events_enlisted
 require game.utils.team
 require game.es.capzones_common
 
-[es(tag=sound, track=(active, capzone__capTeam), REQUIRE_NOT=(capzone__bombTemplate, trainTriggerable))]
+[es(tag=sound, track=capzone__capTeam, REQUIRE_NOT=(capzone__bombTemplate, trainTriggerable))]
 def narrator_common_on_cap_zone_change_es(evt : Event;
                                           eid : EntityId;
                                           capzone__capTeam : int;
                                           active : bool;
                                           var ui_capzone__capTeamPrev : int&;
                                           capzone__title : string = "")
-  if !active
-    return
 
-  if capzone__capTeam == TEAM_UNASSIGNED || ui_capzone__capTeamPrev != TEAM_UNASSIGNED
-    ui_capzone__capTeamPrev = capzone__capTeam
-    return
+  if active && capzone__capTeam != TEAM_UNASSIGNED && ui_capzone__capTeamPrev == TEAM_UNASSIGNED
+    query() <| $ [es(REQUIRE=watchedByPlr)] (team : int; capturer__capZonesIn : EidList)
+      let isAlliesCapture = is_teams_friendly(team, capzone__capTeam)
+      let isHeroCapture = isAlliesCapture && has_value(capturer__capZonesIn, eid)
+      assume title = capzone__title
+      if isHeroCapture && try_play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, "pointCapturingPlayer")
+        return
+      elif !try_play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, isAlliesCapture ? "point{title}CapturingAlly" : "point{title}CapturingEnemy")
+        play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, isAlliesCapture ? "pointCapturingAlly" : "pointCapturingEnemy")
 
-  query() <| $ [es(REQUIRE=watchedByPlr)] (team : int; capturer__capZonesIn : EidList)
-    let isAlliesCapture = is_teams_friendly(team, capzone__capTeam)
-    let isHeroCapture = isAlliesCapture && has_value(capturer__capZonesIn, eid)
-    assume title = capzone__title
-    if isHeroCapture && try_play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, "pointCapturingPlayer")
-      return
-    elif !try_play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, isAlliesCapture ? "point{title}CapturingAlly" : "point{title}CapturingEnemy")
-      play_narrator_major_event("zone_capture_start", "Zone is being captured", isAlliesCapture, isAlliesCapture ? "pointCapturingAlly" : "pointCapturingEnemy")
   ui_capzone__capTeamPrev = capzone__capTeam
 
 

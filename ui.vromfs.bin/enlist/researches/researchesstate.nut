@@ -195,11 +195,13 @@ let isCampaignLevelLow = @(campLevel, pageId)
 let allResearchStatus = Computed(function() {
   let res = {}
   let campLevel = maxCampaignLevel.value
+  let allArmiesResearches = armiesResearches.value
+  let researchesState = stateResearches.value
+  let armySquads = armySquadsById.value
   foreach (armyId in curArmiesList.value) {
-    let researches = armiesResearches.value?[armyId].researches ?? {}
-    let researched = stateResearches.value?[armyId].researched ?? {}
-    let squadProgress = stateResearches.value?[armyId].squadProgress
-    let squads = armySquadsById.value?[armyId] ?? {}
+    let researches = allArmiesResearches?[armyId].researches ?? {}
+    let { researched = {}, squadProgress = null } = researchesState?[armyId]
+    let squads = armySquads?[armyId] ?? {}
     let groups = calcResearchedGroups(researches, researched)
     res[armyId] <- researches.map(@(research)
       isResearched(research, researched) ? RESEARCHED

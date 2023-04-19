@@ -1,8 +1,8 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require ecs.common
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common

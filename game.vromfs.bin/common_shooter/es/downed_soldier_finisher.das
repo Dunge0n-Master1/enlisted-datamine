@@ -5,7 +5,7 @@ require DagorRandom
 require game.es.vehicle.vehicle_events
 require game.events_game
 require game.utils.team
-require EnlistedHuman
+require DngHuman
 
 
 [es(REQUIRE=human, tag=server, on_event=EventOnDownedThreshold)]

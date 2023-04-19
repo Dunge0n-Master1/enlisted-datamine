@@ -11,7 +11,7 @@ require DagorMathUtils
 require AnimV20
 require GeomNodeTree
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require GamePhys
 
 
@@ -571,7 +571,7 @@ def solve_bipod_placing(eid : EntityId; full_check : bool)
   query(eid) <| $ [es] (human_weap__currentGunEid : EntityId;
                         human_input__aimAngle : float2;
                         human_input__standState : int;
-                        human_net_phys : HumanActor;
+                        var human_net_phys : HumanActor;
                         human_net_phys__isSwimming : bool;
                         human_net_phys__isOnGround : bool;
                         human_net_phys__isUnderwater : bool;
@@ -618,7 +618,7 @@ def solve_bipod_placing(eid : EntityId; full_check : bool)
       let gunPosCrouch = calc_fpv_gun_pos_for_height(human_net_phys, humanTm, 0.0,  0.0)
       let gunPosCrawl  = calc_fpv_gun_pos_for_height(human_net_phys, humanTm, 0.0, -1.0)
 
-      assume humanTraceHandle = human_net_phys.phys.traceHandle
+      assume humanTraceHandle = human_phys_getTraceHandle(human_net_phys.phys)
 
       let humanRadius = human_net_phys.phys.walkRad
       let humanHeight = !isCrawl ? human_net_phys.phys.standingHeight : (humanRadius * 2.01)

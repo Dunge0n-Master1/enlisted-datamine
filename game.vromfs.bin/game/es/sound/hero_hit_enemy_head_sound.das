@@ -2,7 +2,7 @@ require ecs
 require sound_utils.modules.sound_player_common
 require soundSystem
 require common_shooter.events_common_shooter
-require EnlistedDm
+require DngDm
 
 [es(tag=sound, REQUIRE=(humanSound, watchedByPlr))]
 def head_shot_kill_sound(evt : EventHeadShotKill;

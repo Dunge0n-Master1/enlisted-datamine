@@ -10,7 +10,6 @@ let function prepareProfileData(profile) {
   let deleteSoldierKeys = [
     "bodyScale", // used in menu only
     "perkPoints", // used in menu only
-    "perksCount", // used in menu only
     "heroTpl", // used in menu only
     "appearance__rndSeed", // if appearance__rndSeed is not set, a random one will be used. we don't need persistent looks for non player profiles
   ]

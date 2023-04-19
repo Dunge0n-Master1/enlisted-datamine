@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.action_common
 require game.es.events
 require game.events_game
@@ -43,7 +43,7 @@ def useful_box_use_finish_es(evt : CmdUseUsefulBox;
   useful_box__useCount -= useful_box__requiredUseCount
   useful_box__requiredUseCount = 0
   useful_box__successUse = false
-  send_net_event(evt.requesterEid, [[CmdUsefulBoxCompleteUse]])
+  send_net_event(evt.requesterEid, [[CmdUsefulBoxCompleteUse box=eid]])
   sendEvent(eid, [[EventOnUsefulBoxSuccessfulUse requester=evt.requesterEid]])
 
 [es(tag=gameClient, track=useful_box__useCount)]

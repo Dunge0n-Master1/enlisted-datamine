@@ -9,7 +9,7 @@ require game.utils.team
 require common_shooter.events_common_shooter
 require enlisted.game.es.offender_cache_common
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 require math.base
 
 
@@ -212,6 +212,7 @@ def enlisted_kill_award_es(evt : EventEntityDied;
                            squad_member__playerEid : EntityId = INVALID_ENTITY_ID;
                            statsCountAsKill : Tag const?;
                            vehicle : Tag const?;
+                           vehicle_kill__stat : string = "";
                            transform aka victim_transform : float3x4)
   assume killerEid = evt.offender
   assume gunPropsId = evt.gunPropsId
@@ -245,6 +246,8 @@ def enlisted_kill_award_es(evt : EventEntityDied;
       awardList |> add_vehicle_kill_assist(victim_eid, offender.player)
       awardList |> add_assists_for_markers(victimPos, offender.player, offenderPlayerTeam)
       awardList |> add_vehicle_kill_awards(offender, victim_eid, crewForAssist, engineerForAssist)
+      if !empty(vehicle_kill__stat)
+        sendEvent(offender.player, [[OnScoringVehicleKillBySquadMember victim=victim_eid, offender=killerEid]])
     else
       awardList |> add_assists_for_kill(victim_eid, killerEid)
       if engineerForAssist.isValid
@@ -324,18 +327,128 @@ def marker_soldier_owner_es(evt : Event;
                             var marker_enemy__ownerSoldierEid : EntityId&)
   marker_enemy__ownerSoldierEid = get_Eid(userPointOwner, "possessed") ?? INVALID_ENTITY_ID
 
+def collect_best_one_life_stat(var list : Array&;
+                               player_eid : EntityId;
+                               guid : string;
+                               value : int;
+                               crew_value : int;
+                               stats : Object;
+                               stat_name : string;
+                               crew_stat_name : string)
+  let prevBest = (stats[guid] ?as Object)?[crew_stat_name] ?? 0
+  if crew_value > prevBest
+    list |> push_soldier_stat(player_eid, guid, crew_stat_name, float(crew_value), /*override*/ true)
+    list |> push_soldier_stat(player_eid, guid, stat_name, float(value), /*override*/ true)
+
+def increase_kills_stat_for_crew(var statList : Array&;
+                                 soldier_stats : Object;
+                                 vehicle : EntityId;
+                                 offender : EntityId;
+                                 squad : EntityId)
+  var maxValue = 0
+  if !vehicle
+    return maxValue
+
+  query(squad) <| $ [es] (squad__allMembers : EidList)
+    for member in squad__allMembers
+      if member == offender
+        continue
+      query(member) <| $ [es(REQUIRE_NOT=deadEntity)] (guid : string;
+                                                       human_anim__vehicleSelected : EntityId;
+                                                       squad_member__kills : int;
+                                                       squad_member__playerEid : EntityId;
+                                                       var squad_member__killsAsCrew : int&)
+        if vehicle == human_anim__vehicleSelected
+          squad_member__killsAsCrew += 1
+          let value = squad_member__kills
+          let crewValue = squad_member__kills + squad_member__killsAsCrew
+          maxValue = max(maxValue, crewValue)
+          statList |> collect_best_one_life_stat(squad_member__playerEid, guid, value, crewValue, soldier_stats,
+                                                 "bestOneLifeInfantryKills", "bestOneLifeInfantryKillsWithCrew")
+
+  return maxValue
+
+def increase_vehicle_kills_stat_for_crew(var statList : Array&;
+                                         soldier_stats : Object;
+                                         vehicle : EntityId;
+                                         offender : EntityId;
+                                         squad : EntityId)
+  var maxValue = 0
+  if !vehicle
+    return maxValue
+
+  query(squad) <| $ [es] (squad__allMembers : EidList)
+    for member in squad__allMembers
+      if member == offender
+        continue
+      query(member) <| $ [es(REQUIRE_NOT=deadEntity)] (guid : string;
+                                                       human_anim__vehicleSelected : EntityId;
+                                                       squad_member__vehicleKills : int;
+                                                       squad_member__playerEid : EntityId;
+                                                       var squad_member__vehicleKillsAsCrew : int&)
+        if vehicle == human_anim__vehicleSelected
+          squad_member__vehicleKillsAsCrew += 1
+          let value = squad_member__vehicleKills
+          let crewValue = squad_member__vehicleKills + squad_member__vehicleKillsAsCrew
+          maxValue = max(maxValue, crewValue)
+          statList |> collect_best_one_life_stat(squad_member__playerEid, guid, value, crewValue, soldier_stats,
+                                                 "bestOneLifeVehicleKills", "bestOneLifeVehicleKillsWithCrew")
+
+  return maxValue
+
 [es(tag=server)]
 def count_squad_member_kills(evt : OnScoringKillBySquadMember;
                              eid aka player_eid : EntityId;
+                             soldierStats : Object;
+                             var scoring_player__bestOneSoldierLifeInfantryKills : int&;
                              var scoring_player__bestPossessedInfantryKillstreak : int&)
   query(evt.offender) <| $ [es] (possessedByPlr : EntityId;
+                                 guid : string;
                                  human_anim__vehicleSelected : EntityId;
+                                 squad_member__squad : EntityId;
+                                 squad_member__killsAsCrew : int;
                                  var squad_member__kills : int&;
                                  var squad_member__possessedInfantryKills : int&)
     squad_member__kills += 1
+
+    using() <| $(var statList : Array)
+      let value = squad_member__kills
+      let crewValue = squad_member__kills + squad_member__killsAsCrew
+      statList |> collect_best_one_life_stat(player_eid, guid, value, crewValue, soldierStats, "bestOneLifeInfantryKills", "bestOneLifeInfantryKillsWithCrew")
+      let maxSquadStat = statList |> increase_kills_stat_for_crew(soldierStats, human_anim__vehicleSelected, evt.offender, squad_member__squad)
+
+      broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
+        set(init, "list", statList)
+
+      scoring_player__bestOneSoldierLifeInfantryKills = max(scoring_player__bestOneSoldierLifeInfantryKills, max(crewValue, maxSquadStat))
+
     if possessedByPlr == player_eid && !human_anim__vehicleSelected
       squad_member__possessedInfantryKills += 1
       scoring_player__bestPossessedInfantryKillstreak = max(scoring_player__bestPossessedInfantryKillstreak, squad_member__possessedInfantryKills)
+
+[es(tag=server)]
+def count_squad_member_vehicle_kills(evt : OnScoringVehicleKillBySquadMember;
+                                     eid aka player_eid : EntityId;
+                                     soldierStats : Object;
+                                     var scoring_player__bestOneSoldierLifeVehicleKills : int&)
+  query(evt.offender) <| $ [es] (guid : string;
+                                 human_anim__vehicleSelected : EntityId;
+                                 squad_member__squad : EntityId;
+                                 squad_member__vehicleKillsAsCrew : int;
+                                 var squad_member__vehicleKills : int&)
+    squad_member__vehicleKills += 1
+
+    using() <| $(var statList : Array)
+      let value = squad_member__vehicleKills
+      let crewValue = squad_member__vehicleKills + squad_member__vehicleKillsAsCrew
+
+      statList |> collect_best_one_life_stat(player_eid, guid, value, crewValue, soldierStats, "bestOneLifeVehicleKills", "bestOneLifeVehicleKillsWithCrew")
+      let maxSquadStat = statList |> increase_vehicle_kills_stat_for_crew(soldierStats, human_anim__vehicleSelected, evt.offender, squad_member__squad)
+
+      broadcast_schemeless_event(typeinfo(undecorated_typename type<EventSquadMembersStats>)) <| $(var init : Object)
+        set(init, "list", statList)
+
+      scoring_player__bestOneSoldierLifeVehicleKills = max(scoring_player__bestOneSoldierLifeVehicleKills, max(crewValue, maxSquadStat))
 
 [es(tag=server)]
 def count_kills_by_player(evt : OnScoringKillBySquadMember;

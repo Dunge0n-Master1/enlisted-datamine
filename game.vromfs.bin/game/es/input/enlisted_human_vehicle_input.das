@@ -2,8 +2,8 @@ require ecs
 require game.es.input.input_events
 require DagorInput
 require enlisted.events_enlisted
-require EnlistedWalkerai
-require EnlistedNet
+require DngWalkerai
+require DngNet
 require game.es.squad_order_common
 
 

@@ -30,11 +30,6 @@ shutterDamageRadius:r=1.5
 shutterAmount:i=15
 shutterArmorPower:r=6.0
 shutterHit:r=3.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_he"
-groundCollisionEffect:t="hit_19_27mm_dirt_he"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

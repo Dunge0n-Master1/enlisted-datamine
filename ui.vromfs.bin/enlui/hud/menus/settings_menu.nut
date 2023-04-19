@@ -14,6 +14,8 @@ let { save_changed_settings, get_setting_by_blk_path, set_setting_by_blk_path,
   remove_setting_by_blk_path } = require("settings")
 let onlineSettingUpdated = require_optional("onlineStorage")
   ? require("%enlist/options/onlineSettings.nut").onlineSettingUpdated : null
+let { runBenchmarkBtn } = require("%enlSqGlob/ui/benchmarkWnd.nut")
+let { is_pc } = require("%dngscripts/platform.nut")
 
 let closeMenu = @() showSettingsMenu(false)
 
@@ -212,6 +214,9 @@ let function mkSettingsMenuUi(menu_params) {
   return function(){
     let optionsValue = getResultOptions()
     let tabs = getResultTabs(getFoundTabsByOptions(), menuTabsOrder.value)
+    let allLeftButtons = clone (menu_params?.leftButtons ?? [])
+    if (is_pc && currentTab.value == "Graphics")
+      allLeftButtons.append(runBenchmarkBtn)
     return {
       size = flex()
       key = "settings_menu_root"
@@ -229,7 +234,7 @@ let function mkSettingsMenuUi(menu_params) {
         currentTab = currentTab
         onClose = close
         buttons = [
-          { size=flex(), flow = FLOW_HORIZONTAL, children = menu_params?.leftButtons }
+          { size=flex(), flow = FLOW_HORIZONTAL, children = allLeftButtons }
           textButton(loc("Ok"), saveAndApply(close, optionsValue), {
             hotkeys = [
               [$"^{JB.B} | J:Start | Esc", {action=saveAndApply(closeMenu, optionsValue), description={skip=true}}],

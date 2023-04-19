@@ -15,9 +15,7 @@ fuseDelayDist:r=0.2
 slopeEffectPreset:t="ap"
 onHitChanceMultFire:r=8.0
 effectiveDistance:r=3000.0
-ricochetEffect:t="hit_12_18mm_metal_ap"
 relativeVelHitShift:p2=300.0, 3000.0
-waterCollisionEffect:t="hit_12_18mm_water"
 explodeHitPower:r=7.5
 explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.1
@@ -50,29 +48,6 @@ hitpower{
   HitPower2000m:p2=0.3, 2000.0
   HitPower2500m:p2=0.2, 2500.0
   HitPower3000m:p2=0.1, 3000.0
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 armorpower{

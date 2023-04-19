@@ -19,6 +19,7 @@ let { useful_boxes_marker_ctor } = require("hud_markers/simple_marker_ctor.nut")
 let { spawn_zone_ctor } = require("hud_markers/spawn_zone_ctor.nut")
 let { aircraft_ctor } = require("hud_markers/aircraft_ctor.nut")
 let { tank_ctor } = require("hud_markers/tank_ctor.nut")
+let { paratroopers_point_ctor} = require("%ui/hud/menus/troopers_point_chooser.nut")
 
 let { hudMarkerEnable } = require("%ui/hud/state/hudOptionsState.nut")
 let { forcedMinimalHud } = require("state/hudGameModes.nut")
@@ -75,6 +76,7 @@ let function hudUnder() {
     squad_order_ctor,
     watched_hero_squad_personal_orders_ctor,
     fortification_preview_forward_ctor,
+    paratroopers_point_ctor,
     spawn_zone_ctor, //optimize more
     tank_ctor
   ]

@@ -31,6 +31,8 @@ require danetlibs.verify_ecs.verify_ecs_init
 require danetlibs.blood_decals.blood_decals_init
 require danetlibs.frame_graph_renderer.frame_graph_renderer_init
 require danetlibs.assets_import.assets_import_init
+require danetlibs.node_collapser.node_collapser_init
+
 
 def private sound_override_voices_locale() : bool
   var locale = ""
@@ -175,7 +177,7 @@ def load
   var ok = true
   if ecs_has_tag("dasDebug") || app::get_game_name() == "aot"
     load_optional_folder("%dngdas/das/remote/es")
-    if typeinfo(builtin_module_exists EnlistedWalkerai)
+    if typeinfo(builtin_module_exists DngWalkerai)
       load_optional_folder("%dngdas/das/remote/es/ai")
 
   ok = load_folder("%scripts/game/es") && ok
@@ -216,6 +218,7 @@ def load
   ok = load_blood_decals("%danetlibs/blood_decals") && ok
   ok = load_frame_graph_renderer("%danetlibs/frame_graph_renderer") && ok
   ok = load_assets_import("%danetlibs/assets_import") && ok
+  ok = load_node_collapser("%danetlibs/node_collapser") && ok
 
   if app::get_game_name() == "aot"
     assert(ok)

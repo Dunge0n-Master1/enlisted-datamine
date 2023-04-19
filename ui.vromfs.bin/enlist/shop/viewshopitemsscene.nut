@@ -22,7 +22,9 @@ let { mkDetailsInfo, detailsStatusTier } = require("%enlist/soldiers/components/
 let { blur, mkVehicleDetails, mkUpgrades } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
-let { bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize, detailsHeaderColor
+let {
+  bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize, detailsHeaderColor,
+  inventoryItemDetailsWidth
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { curSelectedItem } = require("%enlist/showState.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -148,23 +150,23 @@ let function purchaseBtnUi() {
   }
 }
 
-let vehicleDetails = @() {
+let vehicleDetails = @() blur({
   watch = curSelectedItem
   flow = FLOW_VERTICAL
-  halign = ALIGN_RIGHT
+  halign = ALIGN_LEFT
+  size = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
+  gap = bigPadding
   children = [
-    blur({
-      children = {
-        rendObj = ROBJ_TEXT
-        color = detailsHeaderColor
-        text = getItemName(curSelectedItem.value)
-      }.__update(h2_txt)
-    })
+    {
+      rendObj = ROBJ_TEXT
+      color = detailsHeaderColor
+      text = getItemName(curSelectedItem.value)
+    }.__update(h2_txt)
     detailsStatusTier(curSelectedItem.value)
     mkVehicleDetails(curSelectedItem.value, true)
     mkUpgrades(curSelectedItem.value)
   ]
-}
+})
 
 let function mkShopItemInfo(item) {
   let crateContent = shopItemContentCtor(item)

@@ -9,7 +9,7 @@ require Dacoll
 require DagorDebug3D
 require DagorTime
 require daProfiler
-require EnlistedCamera
+require DngCamera
 require MotionMatching
 
 [console_cmd(name="motion_matching.enable_on_base_soldier")]

@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require game.es.squad_order_common

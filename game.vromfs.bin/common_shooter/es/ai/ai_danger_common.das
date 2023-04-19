@@ -4,7 +4,7 @@ require walkerai
 require math
 require math.base
 require DagorMath
-require EnlistedWalkerai
+require DngWalkerai
 require game.es.ai.walker_common
 
 def private logistic(x : float; k = 1.; max = 1.)

@@ -1,7 +1,17 @@
-germ_20mm_flak38{
+turret_aa_kwk30{
+  _extends:t="aa_turret_base"
+  _extends:t="gunsound_20mm_kwk30"
+  item__name:t="guns/20mm_kwk30"
+  gun__blk:t="gamedata/gen/weapons/20mm_kwk30.blk"
+  gun__locName:t="20mm_kwk30"
+}
+
+germ_20mm_flak38_common{
   _extends:t="base_anti_aircraft_cannon"
+  _extends:t="vehicle_display_marker_over_head"
   killLogName:t="germ_20mm_flak38"
   phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38.blk"
+  damage_model__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38.blk"
   vehicle_seats_camera_nodes__defaultNode:t="bone_camera_gunner"
   animchar__res:t="towed_at_flak_38_char"
   collres__res:t="towed_at_flak_38_collision"
@@ -12,6 +22,9 @@ germ_20mm_flak38{
   vehicle_commander_cam__attachToVehicle:b=yes
   commanderFpsCamMaxAngle:p2=90.0, 30.0
   gunnerFpsCamMaxAngle:p2=10.0, 10.0
+
+  "vehicle_seats__effectors:array"{
+  }
 
   "phys_vars__skipVisibilityCheck:tag"{
   }
@@ -27,7 +40,7 @@ germ_20mm_flak38{
     _tags:t="server"
 
     "fatal_explosion_external_fire__nodeNames:shared:array"{
-      node:t="guns"
+      node:t="emtr_explosion_center"
     }
   }
 
@@ -50,7 +63,7 @@ germ_20mm_flak38{
       name:t="main_gunner"
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.2, -0.4, 0.0]]
+      attachTm:m=[[0.992397, 0.121853, 0.0] [-0.121853, 0.992397, 0.0] [0.0, 0.0, 0.999611] [-0.17, -0.4, 0.0]]
       seatComponent:t="isDriver"
       ignoreAttachNodeRotation:b=yes
       cameraType:t="gunner"
@@ -76,11 +89,17 @@ germ_20mm_flak38{
       "turretNames:array"{
         turret:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
   }
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
-    node:t="bone_gun_barrel"
+    node:t="emtr_gun_flame"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
@@ -120,7 +139,7 @@ germ_20mm_flak38{
     "turretInfo:object"{
       turretName:t="turret_01"
       turretGroup:t="main_turrets"
-      gun:t="aa_gun_flak38_turret_01_20mm_kwk38+turret_with_several_types_of_shells+main_turret"
+      gun:t="turret_aa_kwk30+turret_with_several_types_of_shells+main_turret"
       salt:i=1
     }
   }
@@ -136,22 +155,22 @@ germ_20mm_flak38{
 
         "fx:object"{
           name:t="tank_smoke_big_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
           name:t="tank_smoke_small_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
           name:t="tank_fire_big_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
 
         "fx:object"{
           name:t="tank_fire_small_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
       }
     }
@@ -168,7 +187,7 @@ germ_20mm_flak38{
 
         "fx:object"{
           name:t="tank_ammo_fire_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
       }
     }
@@ -185,7 +204,7 @@ germ_20mm_flak38{
 
         "fx:object"{
           name:t="tank_smoke_small_template"
-          emitter:t="guns"
+          emitter:t="emtr_explosion_center"
         }
       }
     }
@@ -197,8 +216,8 @@ germ_20mm_flak38_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
-  cockpit__zoomTimeMul:r=3.0
-  cockpit__minZoom:r=0.0
+  cockpit__forwardOffsetTimeMul:r=3.0
+  cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     item:p3=-0.8, 0.31, -0.15
@@ -225,35 +244,5 @@ germ_20mm_flak38_gunner_cockpit{
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
-  }
-}
-
-aa_gun_flak38_turret_01_20mm_kwk38{
-  _override:b=yes
-  gun__shootNodeName:t="bone_gun_barrel"
-  turret__aimNodeName:t="bone_turret"
-  turret__limit:p4=-180.0, 180.0, 7.5, 87.0
-  turret__yawSpeed:r=90.0
-  turret__pitchSpeed:r=45.0
-  turret__triggerGroup:i=0
-  gun__reloadTime:r=8.0
-  gun__overheatReduce:r=0.2
-  gun__overheatReduceOnOverheat:r=0.1
-  gun__overheatPerShot:r=0.08
-
-  "gun__shellsAmmo:array"{
-    ammo:i=240
-  }
-
-  "gun__ammoSetsInfo:shared:array"{
-
-    "HE:array"{
-
-      "shell:object"{
-        blk:t="gamedata/gen/weapons/shells/20mm_kwk38_defaultset_bullet_2.blk"
-        name:t="20mm_sprgr"
-        type:t="he_frag_i_t"
-      }
-    }
   }
 }

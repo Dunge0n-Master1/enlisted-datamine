@@ -1,5 +1,5 @@
 require ecs
-require EnlistedHuman
+require DngHuman
 require DagorMath
 require enlisted.events_enlisted
 

@@ -88,7 +88,7 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
     res[soldier.guid] <- status
   }
   foreach (soldier in reserve) {
-    let { sKind } = soldier
+    let { sKind = null } = soldier
     local status
     if ((maxClasses?[sKind] ?? 0) <= 0)
       status = sKind in kindResearches ? TOO_MUCH_CLASS

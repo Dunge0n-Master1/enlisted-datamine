@@ -1,6 +1,6 @@
 require ecs
-require EnlistedActor
-require EnlistedHuman
+require DngActor
+require DngHuman
 require HumanPhys
 require math
 require math.base

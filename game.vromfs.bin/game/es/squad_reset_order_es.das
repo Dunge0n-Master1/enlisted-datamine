@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require math
 require zones
 require DagorDataBlock

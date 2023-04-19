@@ -1,5 +1,5 @@
 require ecs
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require math.base
 

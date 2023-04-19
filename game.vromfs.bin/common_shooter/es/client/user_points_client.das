@@ -1,5 +1,5 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.events_game
 require common_shooter.events_common_shooter
 require Dacoll
@@ -7,7 +7,7 @@ require DagorMath
 require CollRes
 require PhysMat
 require common_shooter.es.user_points_common
-require EnlistedCamera
+require DngCamera
 
 def try_set_mark_from_vehicle(vehicle_eid : EntityId; player_eid : EntityId; mark_type : string; ray_mat : int)
   var wasSet = false

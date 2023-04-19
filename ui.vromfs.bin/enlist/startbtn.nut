@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { bigPadding, accentColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { accentColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { leaveQueue, isInQueue } = require("%enlist/quickMatchQueue.nut")
 let { joinQueue } = require("quickMatch.nut")
 let textButton = require("%ui/components/textButton.nut")
@@ -157,7 +157,7 @@ let startBtn = @() {
       : currentGameMode.value?.isLocal ? localGameBtn
       : quickMatchButton
     isInSquad.value || (!curUnfinishedBattleTutorial.value && !currentGameMode.value?.isLocal)
-      ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] })
+      ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, vplace = ALIGN_CENTER, pos = [hdpxi(20), 0] })
       : null
   ]
   size = [startBtnWidth, SIZE_TO_CONTENT]

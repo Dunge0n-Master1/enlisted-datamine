@@ -276,6 +276,20 @@ agit_poster_battlepass_f{
   ri_extra__name:t="agit_poster_battlepass_f"
 }
 
+wallposter_battlepass_season_9_preview{
+  _extends:t="wallposter_preview"
+  ri_preview__name:t="agit_poster_battlepass_g"
+  instantiateTemplate:t="agit_poster_battlepass_g"
+  previewRotation:p3=-90.0, 0.0, -90.0
+  wallposter_menu__text:t="agit_poster/battlepass_season_9"
+  wallposter_menu__image:t="building_wall"
+}
+
+agit_poster_battlepass_g{
+  _extends:t="wallposter"
+  ri_extra__name:t="agit_poster_battlepass_g"
+}
+
 agit_poster_ny_ussr_a_preview{
   _extends:t="wallposter_preview"
   ri_preview__name:t="agit_poster_ny_ussr_a"

@@ -1,0 +1,58 @@
+import{
+  scene:t="content/enlisted/gamedata/scenes/_stalingrad_tractor_plant_common.blk"
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=1
+  moveCameraToHeight:r=200.0
+  respawnSelectorDistanceMult:r=1.8
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [229.434, 169.098, 36.6645]]
+}
+
+entity{
+  _template:t="respawn_camera"
+  respawnCameraForTeam:i=2
+  moveCameraToHeight:r=200.0
+  respawnSelectorDistanceMult:r=2.35
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-416.685, 195.954, -265.449]]
+}
+
+entity{
+  _template:t="briefing_invasion"
+  mission_name:t="stalingrad_entrance_inv"
+
+  "loading_images:list<t>"{
+    item:t="ui/stalingrad_tractor_plant_01.avif"
+    item:t="ui/stalingrad_tractor_plant_04.avif"
+    item:t="ui/stalingrad_tractor_plant_06.avif"
+  }
+}
+
+entity{
+  _template:t="screen_fade_anim"
+  screen_fade:r=0.9
+  anim_track_on:b=yes
+}
+
+entity{
+  _template:t="ui_disabled"
+}
+
+entity{
+  _template:t="benchmark"
+  benchmark_name:t="stalingrad"
+
+  "camera_tracks:array"{
+
+    "camera_tracks:object"{
+      from_fov:r=90.0
+      from_pos:p3=-122.0, 26.7, -6.67
+      to_dir:p3=-0.468, -0.046, 0.882
+      duration:r=10000.0
+      to_pos:p3=-122.0, 26.7, -6.67
+      to_fov:r=90.0
+      from_dir:p3=-0.468, -0.046, 0.882
+    }
+  }
+}

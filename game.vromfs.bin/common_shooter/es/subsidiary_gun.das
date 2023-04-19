@@ -1,13 +1,13 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require DaWeaponProps
 require DaWeapons
 require Gun
-require EnlistedPhys
+require DngPhys
 require DagorSystem
 require inventory
-require EnlistedWeapon
+require DngWeapon
 require common_shooter.events_common_shooter
 require common_shooter.es.human.human_gun_common
 require common_shooter.es.human.human_reload_common
@@ -18,7 +18,7 @@ def subsidiary_gun_phys_es(evt : CmdWeapPhysUpdate; eid, subsidiaryGunEid : ecs:
     return
 
   query(subsidiaryGunEid) <| $ [es] (gun : Gun; gun__manuallyUnloaded : bool; gun__ammo : int)
-    human_gun_update_reload(gun, subsidiaryGunEid, gun__manuallyUnloaded, evt.gctrl.shoot, evt.isForReal, gun__ammo, evt.owner, (evt.atTime - evt.dt))
+    try_reload_empty_gun(gun, subsidiaryGunEid, gun__manuallyUnloaded, evt.gctrl.shoot, evt.isForReal, gun__ammo, evt.owner, (evt.atTime - evt.dt))
 
   let gctrl = [[GunControls() shoot=false, wishShoot=false, boltActionMult = evt.gctrl.boltActionMult, timeStep = evt.gctrl.timeStep]]
   sendEventImmediate(eid, [[CmdGunUpdate atTime=evt.atTime, isForReal=evt.isForReal, seed=phys_time_to_seed(evt.atTime), gctrl=gctrl, gloc=evt.gloc]])
@@ -125,7 +125,7 @@ def subsidiary_gun_activation_es(evt : Event; eid : ecs::EntityId; slot_attach__
 def subsidiary_gun_destroyed_es(evt : Event; slot_attach__attachedTo : ecs::EntityId; oldTemplateName : string)
   remote_recreate_entity_from(slot_attach__attachedTo, oldTemplateName)
 
-[es(REQUIRE=subsidiaryGun, no_order)]
+[es(REQUIRE=subsidiaryGun, REQUIRE_NOT=weapon_mod__alwaysVisible, no_order)]
 def subsidiary_gun_visibility_es(act : ecs::UpdateStageInfoAct;
                                  gun__owner : EntityId;
                                  weapon_mod__active : bool;

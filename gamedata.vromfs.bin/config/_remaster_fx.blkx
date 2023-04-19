@@ -1,0 +1,55 @@
+muzzle_air_8mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_ground_40mm_slow{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_ground_8mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_ground_20mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_air_20mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_air_15mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}
+
+muzzle_air_50mm{
+  fx:t="misc_placeholder_cmps_fx"
+  numInstances:i=70
+  numReserved:i=20
+  onePointNumber:i=50
+  group:t="highres"
+}

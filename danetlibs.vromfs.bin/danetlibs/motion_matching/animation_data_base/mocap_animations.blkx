@@ -14,16 +14,4 @@ clips{
 
   walk1_mirror_subject5{
   }
-
-  walk3_subject5{
-    tags:t="crouch"
-  }
-
-  ground1_subject1{
-    tags:t="crawl"
-  }
-
-  ground1_subject4{
-    tags:t="crawl"
-  }
 }

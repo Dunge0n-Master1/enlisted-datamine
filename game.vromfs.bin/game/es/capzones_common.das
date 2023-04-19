@@ -7,6 +7,11 @@ require enlisted.events_enlisted
 require net
 require DagorRandom
 
+struct ZoneInfo
+  eid : EntityId
+  active : bool
+  team : int
+
 struct CapturedZoneStat
   total : int
   capturedAlly : int
@@ -73,19 +78,44 @@ def all_capzones_in_group_captured_by_team(skip_eid : EntityId; team_id : int; g
             !is_capzone_captured_by_team(capzone__owningTeam, capzone__mustBeCapturedByTeam, capzone__progress, team_id))
 
 
+def count_zone_state(var zones_state : CapturedZoneStat&; info : ZoneInfo&; hero_team : int)
+  if !info.active
+    return
+
+  zones_state.total += 1
+
+  if info.team != TEAM_UNASSIGNED
+    if is_teams_friendly(info.team, hero_team)
+      zones_state.capturedAlly += 1
+    else
+      zones_state.capturedEnemy += 1
+
+
+def get_all_captured_zones_info(hero_team : int; zone_info_overwrite : ZoneInfo&)
+  var info = [[CapturedZoneStat]]
+  query() <| $ [es] (eid : EntityId;
+                     capzone__capTeam : int;
+                     capzone__alwaysShow : bool = false;
+                     capzone__alwaysHide : bool = false;
+                     active : bool = false)
+    if zone_info_overwrite.eid == eid
+      info |> count_zone_state(zone_info_overwrite, hero_team)
+    else
+      let isActive = (active || capzone__alwaysShow) && !capzone__alwaysHide
+      let zoneInfo = [[ZoneInfo active=isActive, team=capzone__capTeam]]
+      info |> count_zone_state(zoneInfo, hero_team)
+  return info
+
+
 def get_all_captured_zones_info(hero_team : int)
   var info = [[CapturedZoneStat]]
   query() <| $ [es] (capzone__capTeam : int;
                      capzone__alwaysShow : bool = false;
                      capzone__alwaysHide : bool = false;
                      active : bool = false)
-    if (active || capzone__alwaysShow) && !capzone__alwaysHide
-      if capzone__capTeam != TEAM_UNASSIGNED
-        if is_teams_friendly(capzone__capTeam, hero_team)
-          info.capturedAlly += 1
-        else
-          info.capturedEnemy += 1
-      info.total += 1
+    let isActive = (active || capzone__alwaysShow) && !capzone__alwaysHide
+    let zoneInfo = [[ZoneInfo active=isActive, team=capzone__capTeam]]
+    info |> count_zone_state(zoneInfo, hero_team)
   return info
 
 

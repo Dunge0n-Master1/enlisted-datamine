@@ -1,5 +1,5 @@
 options no_aot = true
-
+options strict_smart_pointers
 module logerr_once shared
 
 require ast
@@ -24,7 +24,7 @@ class AssertOnceMacro : AstFunctionAnnotation
     let once_name = make_unique_private_name("__logerr_once", call.at)
     if !add_global_var(compiling_module(), once_name, call.at) <| quote(true)
       errors := "can't add global variable {once_name}"
-      return [[ExpressionPtr]]
+      return <- [[ExpressionPtr]]
 
     return <- qmacro_block() <|
       if $i(once_name)

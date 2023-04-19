@@ -64,6 +64,10 @@ base_m3a1_stuart_flame{
       wishYawParamName:t="gun_01_aim:targetYaw"
       wishPitchParamName:t="gun_01_aim:targetPitch"
       gunRecoilParamName:t="gun_01_recoil"
+      hasStabilizerParamName:t="gun_01_aim:hasStab"
+      stabilizerPitchParamName:t="gun_01_aim:stabPitch"
+      stabilizerErrorParamName:t="gun_01_aim:stabError"
+      stabilizerPitchMultParamName:t="gun_01_aim:stabPitchMult"
     }
 
     "vars:object"{
@@ -112,7 +116,7 @@ base_m3a1_stuart_flame{
 
     "turretInfo:object"{
       turretName:t="turret_01"
-      gun:t="m3a1_stuart_flame_turret_01_37mm_m6+turret_with_several_types_of_shells+main_turret"
+      gun:t="m3a1_stuart_flame_turret_01_37mm_m5_early+turret_with_several_types_of_shells+main_turret"
       barrelDm:t="gun_barrel"
       breechDm:t="cannon_breech"
       verDriveDm:t="drive_turret_v"
@@ -149,13 +153,15 @@ base_m3a1_stuart_flame{
   }
 }
 
-m3a1_stuart_flame_turret_01_37mm_m6{
-  _extends:t="tankgun_37mm_m6"
+m3a1_stuart_flame_turret_01_37mm_m5_early{
+  _extends:t="tankgun_37mm_m5_early"
   gun__shootNodeName:t="bone_gun_barrel"
   turret__yawSpeed:r=20.0
   turret__pitchSpeed:r=4.0
   turret__aimNodeName:t="bone_turret"
   turret__limit:p4=-180.0, 180.0, -10.0, 20.0
+  turret__stabilizerPitchFrictionMult:r=0.8
+  turret__stabilizerPitchSpeedLimitKph:r=24.0
 
   "turret__limitsTable:list<p4>"{
     lim1:p4=-180.0, -160.0, -2.0, 20.0
@@ -163,10 +169,16 @@ m3a1_stuart_flame_turret_01_37mm_m6{
     lim3:p4=160.0, 180.0, -2.0, 20.0
   }
 
+  "turret__stabilizerErrorByKphSpeedTable:list<p2>"{
+    row:p2=5.0, 0.0
+    row:p2=10.0, 0.05
+    row:p2=12.0, 0.4
+  }
+
   "gun__shellsAmmo:array"{
-    ammo:i=36
     ammo:i=35
-    ammo:i=35
+    ammo:i=34
+    ammo:i=34
   }
 }
 

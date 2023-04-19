@@ -78,8 +78,9 @@ let itemTypesData = {
 
   sideweapon = { svg = "item_pistol.svg" }
   melee = { svg = "melee.svg" }
-  axe = { svg = "melee.svg" }
-  sword = { svg = "melee.svg" }
+  axe = { svg = "item_axe.svg" }
+  sword = { svg = "item_sword.svg" }
+  shovel = { svg = "item_shovel.svg" }
 
   explosion_pack = { svg = "explosion_pack_icon.svg" }
   grenade = { svg = "item_grenade.svg" }
@@ -98,14 +99,14 @@ let itemTypesData = {
   repair_kit = { svg = "item_repair_kit.svg" }
   flask_usable = { svg = "flask_icon.svg" }
   binoculars_usable = { svg = "binoculars_icon.svg" }
-  small_backpack = { svg = "item_backpack.svg" }
+  small_backpack = { svg = "item_small_backpack.svg" }
   backpack = { svg = "item_backpack.svg" }
 
   vehicle = { svg = "tank_icon.svg" }
   tank = { svg = "tank_icon.svg" }
   bike = { svg = "bike_icon.svg" }
   aircraft = { svg = "aircraft_icon.svg" }
-  assault_aircraft = { svg = "aircraft_icon.svg" }
+  assault_aircraft = { svg = "assault_aircraft_icon.svg" }
   fighter_aircraft = { svg = "aircraft_icon.svg" }
   mech = { svg = "mech_icon.svg" }
 }

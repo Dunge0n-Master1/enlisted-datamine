@@ -381,6 +381,11 @@ Human.PushObject{
   btn:i=48
 }
 
+Human.SupplyMenu{
+  dev:i=1
+  btn:i=33
+}
+
 Human.LeanX{
   dev:i=31
   dzone:r=0.35

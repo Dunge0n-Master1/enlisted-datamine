@@ -78,6 +78,7 @@ builded_auto_turret{
   hitpoints__hpRecoverySpd:r=0.0
   hitpoints__hpThreshold:r=0.0
   hitpoints__stoppingPower:r=0.0
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
   animchar__updatable:b=yes
   animchar__res:t="sg_turret_rounded_char"
@@ -125,6 +126,9 @@ builded_auto_turret{
   }
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{

@@ -3,7 +3,7 @@ require app
 require math
 require DagorMath
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require GamePhys
 require DagorRandom
 require game.es.events

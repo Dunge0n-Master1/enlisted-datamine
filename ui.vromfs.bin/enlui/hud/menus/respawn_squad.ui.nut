@@ -14,7 +14,7 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let { missionName, missionType } = require("%enlSqGlob/missionParams.nut")
 let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
   squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, maxSpawnVehiclesOnPointBySquad, nextSpawnOnVehicleInTimeBySquad,
-  canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId, spawnScore
+  canUseRespawnbaseByType, respawnBlockedReason, selectedRespawnGroupId, paratroopersPointSelectorOn, spawnScore, paratroopersOn
 } = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeamSquadsCanSpawn, localPlayerTeamInfo } = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
@@ -22,8 +22,9 @@ let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
 let {respawnTimer, forceSpawnButton, panel, headerBlock} = require("%ui/hud/respawn_parts.nut")
 let respawnSquadInfoUi = require("respawn_squad_info.ui.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
-let { mkSquadSpawnIcon, mkSquadSpawnDesc, mkKeyboardHint } = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { mkSquadSpawnIcon, mkSquadSpawnDesc } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
+let paratroopersButtonBlock = require("%ui/hud/huds/troopers_button.nut")
 
 let blocksGap = smallPadding
 let vehicleIconSize = hdpxi(28)
@@ -107,9 +108,6 @@ let function spawnInfoBlock() {
       halign = ALIGN_CENTER
       children = [
         vehicleSpawnInfoBlock(squadType)
-        isGamepad.value
-          ? null
-          : mkKeyboardHint("Space", loc("respawn/spawn_current_squad"))
         mkSquadSpawnDesc(canSpawn, readinessPercent, canSpawnCurrentSoldier.value, isAffordable, scorePrice, spawnScore.value)
       ]
     }
@@ -142,18 +140,19 @@ let function spawnInfoBlock() {
       size = [flex(), SIZE_TO_CONTENT]
       halign = ALIGN_CENTER
     }.__update(body_txt))
-
+  let firstSpawnCond = isFirstSpawn.value && (!paratroopersPointSelectorOn.value || paratroopersOn.value)
   let children = !isAffordable ? [notAffordableText] : !canSpawnCurrent.value ? restrictionsBlock
     : localPlayerTeamSquadsCanSpawn.value
       ? [
           respawnTimer(loc("respawn/respawn_squad"), sub_txt)
-          isFirstSpawn.value || availableSpawnZonesCount.value <= 1 ||
+          firstSpawnCond || (availableSpawnZonesCount.value <= 1 && !paratroopersPointSelectorOn.value) ||
           (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0
             ? forceSpawnButton()
-            : textarea(loc("respawn/choose_respawn_point"), {
+            : textarea(paratroopersPointSelectorOn.value ? loc("respawn/landingPoint") : loc("respawn/choose_respawn_point"), {
                 size = [flex(), SIZE_TO_CONTENT]
                 halign = ALIGN_CENTER
               }.__update(body_txt))
+          paratroopersButtonBlock
           spawnsLeftText
         ]
       : [
@@ -166,7 +165,7 @@ let function spawnInfoBlock() {
   return {
     watch = [curSquadData, localPlayerTeamSquadsCanSpawn, canSpawnCurrent,
              respawnBlockedReason, timeLeft, isFirstSpawn, selectedRespawnGroupId,
-             availableSpawnZonesCount]
+             availableSpawnZonesCount, paratroopersPointSelectorOn]
     minHeight = fontH(370) //timer appears and change size
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -266,8 +265,9 @@ let missionNameUI = @() {
 
 
 let selectSpawnTitle = @() {
+  watch = [ paratroopersPointSelectorOn ]
   rendObj = ROBJ_TEXT
-  text = loc("select_spawn")
+  text = paratroopersPointSelectorOn.value ? loc("respawn/selectLandingPoint") : loc("select_spawn")
 }.__update(h2_txt, strokeStyle)
 let showSpawnHint = Computed(@() !isFirstSpawn.value && availableSpawnZonesCount.value > 0)
 
@@ -275,7 +275,7 @@ let selectSpawnHint = @(){
   watch = [showSpawnHint, verPadding]
   hplace = ALIGN_CENTER
   pos = [0, verPadding.value + fsh(10)]
-  children = showSpawnHint.value ? selectSpawnTitle : null
+  children = showSpawnHint.value || paratroopersPointSelectorOn.value ? selectSpawnTitle : null
 }
 return {
   children = [

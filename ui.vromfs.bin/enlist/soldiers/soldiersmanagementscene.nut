@@ -2,31 +2,31 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let mkSoldierDetailsUi = require("%enlist/soldiers/mkSoldierDetailsUi.nut")
-let squadInfo = require("%enlist/squad/squadInfo.nut")
+let { squadInfo } = require("%enlist/squad/squadInfo.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
-let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let faComp = require("%ui/components/faComp.nut")
 let reqUpgradeMsgBox = require("%enlist/soldiers/researchUpgradeMsgBox.nut")
 let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 
+let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { fontSmall, fontLarge, fontXLarge, fontXXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontXSmall, fontSmall, fontLarge, fontXLarge, fontXXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
-let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { curArmy, curSquadParams } = require("%enlist/soldiers/model/state.nut")
 let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { soldierKindsList, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkSoldierBadgeData } = require("%enlSqGlob/ui/soldiersComps.nut")
 let { curCanUnequipSoldiersList } = require("model/selectItemState.nut")
@@ -48,17 +48,22 @@ let {
   changeSoldierOrderByIdx, getCanTakeSlots, isPurchaseWndOpend
 } = require("model/chooseSoldiersState.nut")
 let {
-  titleTxtColor, defTxtColor, accentColor, commonBorderRadius,
-  colPart, colFull, columnGap, smallPadding, blinkBdColor,
+  titleTxtColor, defTxtColor, accentColor, commonBorderRadius, defItemBlur,
+  colPart, colFull, columnGap, smallPadding, blinkBdColor, darkTxtColor,
   attentionTxtColor, hoverBgColor, panelBgColor, bigPadding,
-  navHeight
+  midPadding, miniPadding, navHeight, hoverPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
+let { curSoldierKind } = require("model/soldiersState.nut")
+let soldierDismissButton = require("%enlist/soldiers/soldierDismissButton.nut")
 
 
 const PAGE_SIZE = 11
 const NO_SOLDIER_SLOT_IDX = -1
 
 let unseenIcon = blinkUnseenIcon(0.9, attentionTxtColor, "th-large")
+
+let amountTxtStyle = { color = titleTxtColor }.__update(fontXSmall)
+let activeTxtStyle = { color = darkTxtColor }.__update(fontXSmall)
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let nameTxtStyle = { color = defTxtColor }.__update(fontLarge)
 let headerTxtStyle = { color = defTxtColor }.__update(fontXLarge)
@@ -67,10 +72,10 @@ let titleTxtStyle = { color = titleTxtColor }.__update(fontXXLarge)
 
 let sKindSize = colPart(0.35)
 let sKindOffset = (columnGap * 0.3).tointeger()
-let sKindBg = mkColoredGradientY(0xFF384560, 0xFF262940)
 
 
 let reserveWidth = colFull(8)
+let reserveHeaderHeight = colPart(1)
 let vehicleSquadWidth = colFull(6)
 let reserveHeight = (soldierCardSize[1] + columnGap) * 3
 
@@ -81,7 +86,6 @@ let wrapParams = {
   vGap = columnGap
 }
 
-let curSoldierKind = Watched(soldierKindsList[0])
 let curPageIdx = Watched(0)
 
 curSoldierKind.subscribe(@(_) curPageIdx(0))
@@ -147,31 +151,12 @@ let slotsHighlight = Computed(function() {
   return soldier == null ? [] : getCanTakeSlots(soldier, squadSoldiers.value)
 })
 
-let reserveAvailableSize = Computed(@() reserveSoldiers.value
-  .findindex(@(s)
-    (soldiersStatuses.value?[s.guid] ?? NOT_FIT_CUR_SQUAD) & NOT_FIT_CUR_SQUAD
-  ) ?? reserveSoldiers.value.len()
-)
-
-let hasEmptySlotsBlink = Computed(@()
-  reserveSoldiers.value.slice(0, reserveAvailableSize.value)
-    .findindex(@(s) unseenSoldiers.value?[s.guid] ?? false) != null
-)
-
 
 let soldiersPaginator = mkDotPaginator({
   id = "soldiers"
   pageWatch = curPageIdx
   dotSize = hdpx(15)
 })
-
-
-let selectedKindLine = {
-  size = [flex(), smallPadding]
-  vplace = ALIGN_BOTTOM
-  rendObj = ROBJ_SOLID
-  color = accentColor
-}
 
 
 let currencies = {
@@ -206,20 +191,26 @@ let headerUi = {
         }.__update(titleTxtStyle)
       ]
     }
+    {
+      hplace = ALIGN_CENTER
+      vplace = ALIGN_TOP
+      padding = midPadding
+      children = promoWidget("soldiers_manage")
+    }
     currencies
   ]
 }
 
 
-let idleSpecOverride = {
-  rendObj = ROBJ_SOLID
-  color = panelBgColor
-}
+let unseenKinds = Computed(function() {
+  let unseen = unseenSoldiers.value
+  return reserveBadges.value.reduce(function(r, v) {
+    if (v.guid in unseen && v.sKind not in r)
+      r.rawset(v.sKind, true)
+    return r
+  }, {})
+})
 
-let activeSpecOverride = {
-  rendObj = ROBJ_IMAGE
-  image = sKindBg
-}
 
 let specializationsUi = {
   flow = FLOW_VERTICAL
@@ -230,32 +221,57 @@ let specializationsUi = {
       rendObj = ROBJ_TEXT
       text = utf8ToUpper(loc(getKindCfg(curSoldierKind.value).locId))
     }.__update(nameTxtStyle)
-    {
-      size = [reserveWidth, SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      children = soldierKindsList.map(@(kindId) watchElemState(function(sf) {
-        let isSelected = Computed(@() curSoldierKind.value == kindId)
-        return {
-          size = [flex(), SIZE_TO_CONTENT]
-          behavior = Behaviors.Button
-          onClick = @() curSoldierKind(kindId)
-          children = function() {
-            let isActive = isSelected.value || (sf & S_HOVER) != 0
-            let iconColor = isActive ? titleTxtColor : defTxtColor
-            return {
-              watch = isSelected
-              size = [flex(), SIZE_TO_CONTENT]
-              halign = ALIGN_CENTER
-              children = [
-                kindIcon(kindId, sKindSize, null, iconColor).__update({
-                  margin = [bigPadding, 0]
-                })
-                isSelected.value ? selectedKindLine : null
-              ]
-            }.__update(isActive ? activeSpecOverride : idleSpecOverride)
-          }
-        }
-      }))
+    function() {
+      let { maxClasses = {} } = curSquadParams.value
+      return {
+        watch = curSquadParams
+        size = [reserveWidth, reserveHeaderHeight]
+        flow = FLOW_HORIZONTAL
+        children = soldierKindsList.map(function(sKind) {
+          let isSelected = Computed(@() curSoldierKind.value == sKind)
+          let isUnseen = Computed(@() sKind in unseenKinds.value)
+          let amount = Computed(@() reserveBadges.value
+            .reduce(@(r, v) v.sKind == sKind ? r + 1 : r, 0))
+          let isSuitable = sKind in maxClasses
+          return watchElemState(@(sf) {
+            size = flex()
+            behavior = Behaviors.Button
+            onClick = @() curSoldierKind(sKind)
+            children = function() {
+              let isActive = isSelected.value
+              let iconColor = isActive ? darkTxtColor : titleTxtColor
+              return {
+                watch = isSelected
+                rendObj = ROBJ_WORLD_BLUR
+                color = defItemBlur
+                fillColor = isSelected.value ? accentColor
+                  : sf & S_HOVER ? hoverPanelBgColor
+                  : panelBgColor
+                size = flex()
+                children = [
+                  kindIcon(sKind, sKindSize, null, iconColor).__update({
+                    margin = [bigPadding, 0]
+                    hplace = ALIGN_CENTER
+                    vplace = ALIGN_CENTER
+                    opacity = !isSuitable && !isActive && (sf & S_HOVER) <= 0 ? 0.3 : 1
+                  })
+                  @() {
+                    watch = amount
+                    margin = [miniPadding, smallPadding]
+                    rendObj = ROBJ_TEXT
+                    text = amount.value > 0 ? amount.value : null
+                  }.__update(isActive ? activeTxtStyle : amountTxtStyle)
+                  @() {
+                    watch = isUnseen
+                    hplace = ALIGN_RIGHT
+                    children = isUnseen.value ? unblinkUnseen : null
+                  }
+                ]
+              }
+            }
+          })
+        })
+      }
     }
   ]
 }
@@ -363,6 +379,40 @@ let unseenMark = @(soldierGuid) @() {
 }
 
 
+let function autoMoveToReserve(squadSoldierIdx, sKind) {
+  curSoldierKind(sKind)
+  curPageIdx(0)
+  soldierToReserveByIdx(squadSoldierIdx)
+}
+
+
+let function swapSoldierPlace() {
+  let soldier = selectedSoldier.value
+  if (soldier == null)
+    return
+
+  let { guid, sKind } = soldier
+  let squadSoldierIdx = activeSoldiers.value.findindex(@(s) s?.guid == guid)
+  if (squadSoldierIdx != null) {
+    autoMoveToReserve(squadSoldierIdx, sKind)
+    return
+  }
+
+  let reservedSoldierIdx = reserveSoldiers.value.findindex(@(s) s.guid == guid)
+  if (reservedSoldierIdx == null)
+    return
+
+  let freeIdx = activeSoldiers.value.indexof(null)
+  if (freeIdx == null) {
+    showMsgbox({ text = loc("noFreeSlotForNewSoldier") })
+    return
+  }
+
+  let offset = maxSoldiersInBattle.value
+  changeSoldierOrderByIdx(reservedSoldierIdx + offset, freeIdx)
+}
+
+
 let function mkSoldierSlot(soldier, idx, inPageIdx, tgtHighlight, hasVehicle, colorScemeId, addObjects) {
   let isSelectedWatch = Computed(@() selectedSoldierGuid.value == soldier.guid)
   let isDropTarget = Computed(@() idx < maxSoldiersInBattle.value
@@ -394,6 +444,7 @@ let function mkSoldierSlot(soldier, idx, inPageIdx, tgtHighlight, hasVehicle, co
       group
       onDrop
       onClick
+      onDoubleClick = swapSoldierPlace
       onHover = function(on) {
         hoverHoldAction("markSeenSoldier",
           { armyId = curArmy.value, guid = soldier?.guid },
@@ -427,7 +478,26 @@ let function mkSoldierSlot(soldier, idx, inPageIdx, tgtHighlight, hasVehicle, co
 }
 
 
-let function mkEmptySlot(idx, tgtHighlight, hasBlink, hasVehicle) {
+let function chooseSelectedReserveSoldier(slotIdx) {
+  let soldier = selectedSoldier.value
+  if (soldier == null)
+    return
+
+  let { guid } = soldier
+  let squadSoldierIdx = activeSoldiers.value.findindex(@(s) s?.guid == guid)
+  if (squadSoldierIdx != null)
+    return
+
+  let reservedSoldierIdx = reserveSoldiers.value.findindex(@(s) s.guid == guid)
+  if (reservedSoldierIdx == null)
+    return
+
+  let offset = maxSoldiersInBattle.value
+  changeSoldierOrderByIdx(reservedSoldierIdx + offset, slotIdx)
+}
+
+
+let function mkEmptySlot(idx, tgtHighlight, hasVehicle) {
   let group = ElemGroup()
   let onDrop = @(data) changeSoldierOrderByIdx(data?.soldierIdx, idx)
   let isDropTarget = Computed(@() curDropTargIdx.value == idx
@@ -437,6 +507,7 @@ let function mkEmptySlot(idx, tgtHighlight, hasBlink, hasVehicle) {
   let stateFlags = Watched(0)
   let moveData = mkMoveComputed(idx, idx, maxSoldiersInBattle, hasVehicle)
   return function() {
+    let hasBlink = needHighlight.value
     let nest = {
       watch = [stateFlags, isDropTarget, needHighlight]
       group = group
@@ -444,13 +515,14 @@ let function mkEmptySlot(idx, tgtHighlight, hasBlink, hasVehicle) {
       key = $"emptySlot_{idx}"
       onDrop = onDrop
       dropData = null
+      onClick = @() chooseSelectedReserveSoldier(idx)
     }
     let child = {
       key = $"empty_slot_{idx}{hasBlink}"
       size = flex()
       children = [
         mkEmptySoldierBadge(stateFlags.value, isDropTarget.value, hasBlink)
-        needHighlight.value ? highlightBorder : null
+        hasBlink ? highlightBorder : null
       ]
     }
     let yGap = hasVehicle ? yAnimBigDist : yAnimDist
@@ -470,7 +542,7 @@ let mkSeatText = @(seatLocId) seatLocId == null ? null
 
 let mkSoldiersList = kwarg(@(
   soldiers, hasUnseen = false, idxOffset = Watched(0), isInReserve = false,
-  tgtHighlight = Watched([]), slotsBlinkWatch = Watched(false), prevObject = null,
+  tgtHighlight = Watched([]), prevObject = null,
   hasVehicle = false, seats = null
 ) function() {
   let curWrapParams = wrapParams.__merge({
@@ -478,12 +550,11 @@ let mkSoldiersList = kwarg(@(
     vGap = hasVehicle ? 3 * columnGap : columnGap
   })
 
-  let hasBlink = slotsBlinkWatch.value
   let soldiersList = (prevObject == null ? [] : [prevObject])
     .extend(soldiers.value.map(function(s, idx) {
       let absIdx = (isInReserve ? s.absIdx : idx) + idxOffset.value
       if (s == null)
-        return mkEmptySlot(absIdx, tgtHighlight, hasBlink, hasVehicle)
+        return mkEmptySlot(absIdx, tgtHighlight, hasVehicle)
 
       let addObjects = hasUnseen ? [unseenMark(s.guid)] : []
       if (isInReserve && s.guid in curCanUnequipSoldiersList.value)
@@ -499,7 +570,7 @@ let mkSoldiersList = kwarg(@(
     }))
 
   return {
-    watch = [soldiers, idxOffset, tgtHighlight, slotsBlinkWatch, curCanUnequipSoldiersList]
+    watch = [soldiers, idxOffset, tgtHighlight, curCanUnequipSoldiersList]
     children = wrap(soldiersList, curWrapParams)
   }
 })
@@ -584,7 +655,6 @@ let squadSoldiersUi = @() {
       hasUnseen = false
       idxOffset = Watched(0)
       tgtHighlight = slotsHighlight
-      slotsBlinkWatch = hasEmptySlotsBlink
       hasVehicle = isVehicleSquad.value
       seats = curVehicleSeats.value
     })
@@ -592,18 +662,11 @@ let squadSoldiersUi = @() {
 }
 
 
-let function autoMoveToReserve(squadSoldierIdx, sKind) {
-  curSoldierKind(sKind)
-  curPageIdx(0)
-  soldierToReserveByIdx(squadSoldierIdx)
-}
-
-
 let reserveStateFlags = Watched(0)
 let reserveUi = {
-  size = flex()
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
-  gap = columnGap
+  gap = midPadding
   children = [
     specPagesDotsUi
     specializationsUi
@@ -656,33 +719,6 @@ let curSoldierBadgeData = Computed(function() {
 })
 
 
-let function swapSoldierPlace() {
-  let soldier = selectedSoldier.value
-  if (soldier == null)
-    return
-
-  let { guid, sKind } = soldier
-  let squadSoldierIdx = activeSoldiers.value.findindex(@(s) s?.guid == guid)
-  if (squadSoldierIdx != null) {
-    autoMoveToReserve(squadSoldierIdx, sKind)
-    return
-  }
-
-  let reservedSoldierIdx = reserveSoldiers.value.findindex(@(s) s.guid == guid)
-  if (reservedSoldierIdx == null)
-    return
-
-  let freeIdx = activeSoldiers.value.indexof(null)
-  if (freeIdx == null) {
-    showMsgbox({ text = loc("noFreeSlotForNewSoldier") })
-    return
-  }
-
-  let offset = maxSoldiersInBattle.value
-  changeSoldierOrderByIdx(reservedSoldierIdx + offset, freeIdx)
-}
-
-
 let function swapButtonUi() {
   let res = {
     watch = [selectedSoldier, activeSoldiers]
@@ -694,6 +730,7 @@ let function swapButtonUi() {
   let isActive = activeSoldiers.value.findindex(@(s) s?.guid == soldier.guid) != null
   let btnLocId = isActive ? "MoveToReserve" : "TakeToBattle"
   return res.__update({
+    hplace = ALIGN_CENTER
     children = Bordered(loc(btnLocId), swapSoldierPlace, { hotkeys = [["^J:X"]] })
   })
 }
@@ -705,10 +742,13 @@ let manageBlockUi = {
     {
       size = flex()
       flow = FLOW_VERTICAL
-      gap = colPart(1)
       children = [
         reserveUi
-        squadInfo()
+        {
+          size = flex()
+          valign = ALIGN_CENTER
+          children = squadInfo()
+        }
         squadSoldiersUi
       ]
     }
@@ -727,7 +767,16 @@ let manageBlockUi = {
             children = badgeData == null ? null : mkSoldierPresentation(badgeData)
           }
         }
-        swapButtonUi
+        @() {
+          watch = [selectedSoldier, activeSoldiers]
+          hplace = ALIGN_CENTER
+          valign = ALIGN_BOTTOM
+          children = [
+            swapButtonUi
+            soldierDismissButton(selectedSoldier.value,
+              @() selectedSoldierGuid(activeSoldiers.value[0].guid))
+          ]
+        }
       ]
     }
   ]
@@ -776,7 +825,7 @@ let isOpened = keepref(Computed(@()
 let open = function() {
   curSquadSoldierIdx(curSoldierIdx.value)
   curSoldierIdx(-1)
-  sceneWithCameraAdd(chooseSoldiersScene, "soldiers")
+  sceneWithCameraAdd(chooseSoldiersScene, "soldiers_quarters")
   curSoldierKind(selectedSoldier.value.sKind)
   curPageIdx(0)
 }

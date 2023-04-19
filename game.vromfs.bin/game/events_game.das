@@ -280,3 +280,11 @@ struct AFKShowWarning {}
 
 [event(broadcast)]
 struct ReplaySetOperatorCamera {}
+
+[event(unicast)]
+struct CmdSetCameraTarget
+  target : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestCamSwitch
+  isTpsView : bool

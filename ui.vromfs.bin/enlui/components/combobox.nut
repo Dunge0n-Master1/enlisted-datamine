@@ -10,39 +10,60 @@ let {mkImageCompByDargKey} = require("gamepadImgByKey.nut")
 let {isGamepad, isTouch} = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
-let borderColor = comboboxBorderColor
-
 let listItemSound = {
   click  = "ui/button_click_inactive"
   hover = "ui/menu_highlight_settings"
   active = "ui/button_action"
 }
 
-let function fillColor(sf) {
+let defaultStyle = freeze({
+  borderColor     = comboboxBorderColor
+  borderWidth     = hdpx(1)
+  borderRadius    = hdpx(3)
+  fillColorActive = BtnBgActive
+  fillColorHover  = BtnBgHover
+  fillColor       = ControlBgOpaque
+  color           = Active
+  colorDisabled   = Inactive
+  colorHover      = BtnTextHover
+  liColor         = TextDefault
+  liColorCurrent  = TextHighlight
+  liColorHover    = BtnTextHover
+  liPadding       = [0,hdpx(8),0,hdpx(8)]
+  liMargin        = fsh(0.5)
+  labelMargin     = [fsh(0.5),fsh(1.0),fsh(0.5),fsh(1.0)]
+  arrowMargin     = hdpx(3)
+  arrowPadding    = [hdpx(1), 0, 0, hdpx(2)]
+  gapSize         = hdpx(1)
+})
+
+let function fillColor(sf, style) {
   if (sf & S_ACTIVE)
-    return BtnBgActive
+    return style.fillColorActive
   if (sf & S_HOVER)
-    return BtnBgHover
-  return ControlBgOpaque
+    return style.fillColorHover
+  return style.fillColor
 }
 
 let hotkeyLoc = loc("controls/check/toggleOrEnable/prefix", "Toggle")
 
 let function comboStyle(style_params) {
+  let style = defaultStyle.__merge(style_params?.style ?? {})
+
   let function label(params) {
     let sf = params?.sf ?? 0
-    local color = Active
+    local color = style.color
     let disabled = params?.disabled ?? false
     if (disabled)
-      color = Inactive
+      color = style.colorDisabled
     else if (sf & S_HOVER)
-      color = BtnTextHover
+      color = style.colorHover
 
     let labelText = {
       group = params?.group
       rendObj = ROBJ_TEXT
       //behavior = Behaviors.Marquee
-      margin = [fsh(0.5),fsh(1.0),fsh(0.5),fsh(1.0)]
+      margin = style.labelMargin
       text = params?.text
       color
       size = [flex(), SIZE_TO_CONTENT]
@@ -51,10 +72,10 @@ let function comboStyle(style_params) {
     let function popupArrow() {
       return !disabled ? {
         size = [ph(100), ph(100)]
-        margin = hdpx(3)
+        margin = style.arrowMargin
         children = {
           rendObj = ROBJ_TEXT
-          padding = [hdpx(1), 0, 0, hdpx(2)]
+          padding = style.arrowPadding
           text = isGamepad.value ? fa["caret-right"] : fa["caret-down"]
           color
           hplace = ALIGN_CENTER
@@ -90,15 +111,15 @@ let function comboStyle(style_params) {
       let sf = stateFlags.value
       return{
         rendObj = ROBJ_BOX
-        fillColor = fillColor(sf)
+        fillColor = fillColor(sf, style)
         size = flex()
-        borderColor = borderColor
+        borderColor = style.borderColor
         children = [
           label({text=text, sf=sf, group=group, disabled=disabled}),
           sf & S_HOVER ? hotkeysElem : null
         ]
-        borderWidth = hdpx(1)
-        borderRadius = hdpx(3)
+        borderWidth = style.borderWidth
+        borderRadius = style.borderRadius
         watch = stateFlags
         margin = 0
       }
@@ -111,13 +132,9 @@ let function comboStyle(style_params) {
 
     return function() {
       let sf = stateFlags.value
-      local textColor
-      if (is_current)
-        textColor = (sf & S_HOVER) ? BtnTextHover : TextHighlight
-      else
-        textColor = (sf & S_HOVER) ? BtnTextHover : TextDefault
-
-      let bgColor = (sf & S_HOVER) ? BtnBgHover : ControlBgOpaque
+      let textColor = (sf & S_HOVER) ? style.colorHover
+        : is_current ? style.liColorCurrent : style.liColor
+      let bgColor = (sf & S_HOVER) ? style.fillColorHover : style.fillColor
       let hotkey_hint = (sf & S_HOVER) && isGamepad.value
         ? mkImageCompByDargKey(JB.A, {hplace = ALIGN_RIGHT vplace = ALIGN_CENTER}) : null
 
@@ -134,7 +151,7 @@ let function comboStyle(style_params) {
 
         rendObj = ROBJ_BOX
         fillColor = bgColor
-        padding = [0,hdpx(8),0,hdpx(8)]
+        padding = style.liPadding
         borderWidth = 0
         flow = FLOW_HORIZONTAL
         onClick = action
@@ -144,7 +161,7 @@ let function comboStyle(style_params) {
         children = [
           {
             rendObj = ROBJ_TEXT
-            margin = fsh(0.5)
+            margin = style.liMargin
             group
             text
             color = textColor
@@ -180,14 +197,18 @@ let function comboStyle(style_params) {
   }
 
   return {
-    popupBgColor = ControlBgOpaque
-    popupBdColor = borderColor
-    popupBorderWidth = hdpx(1)
+    popupBgColor = style.fillColor
+    popupBdColor = style.borderColor
+    popupBorderWidth = style.borderWidth
     dropDir = style_params?.dropDir
     boxCtor
     rootBaseStyle
     listItem
-    itemGap = {rendObj=ROBJ_SOLID size=[flex(),hdpx(1)] color=borderColor}
+    itemGap = {
+      rendObj = ROBJ_SOLID
+      size = [flex(), style.gapSize]
+      color = style.borderColor
+    }
     closeButton
     onOpenDropDown
     onCloseDropDown

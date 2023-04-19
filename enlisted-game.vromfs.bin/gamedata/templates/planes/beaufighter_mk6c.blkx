@@ -24,9 +24,11 @@ beaufighter_mk6c{
         turret:t="turret_02"
         turret:t="turret_03"
         turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -46,17 +48,19 @@ beaufighter_mk6c{
       roomSpace:i=1
 
       "turretNames:array"{
-        turret:t="turret_05"
+        turret:t="turret_07"
       }
     }
   }
 
   "turret_control__emitterNodes:shared:array"{
+    node:t="bomb_wing_l"
+    node:t="bomb_wing_r"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
     node:t="flare4"
-    node:t="flare9"
+    node:t="flare11"
   }
 
   "turret_control__animVars:shared:array"{
@@ -82,12 +86,24 @@ beaufighter_mk6c{
     }
 
     "vars:object"{
+      curYawParamName:t="weapon_05_yaw"
+      curPitchParamName:t="weapon_05_pitch"
+    }
+
+    "vars:object"{
+      curYawParamName:t="weapon_06_yaw"
+      curPitchParamName:t="weapon_06_pitch"
+    }
+
+    "vars:object"{
       paramMinPitchAngle:t="turret1_min_pitch_angle"
       wishPitchParamName:t="gun1_aim:targetPitch"
       paramYawSpeedMul:t="turret1_yaw_mul"
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -104,34 +120,48 @@ beaufighter_mk6c{
 
     "turretInfo:object"{
       turretName:t="turret_01"
-      turretGroup:t="cannon_turrets"
-      trigger:t="cannons"
-      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_01"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_beaufighter_mk6c_250lbs_launcher_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_02"
-      turretGroup:t="cannon_turrets"
-      trigger:t="cannons"
-      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_02"
+      turretGroup:t="bomb_turrets"
+      trigger:t="bombs"
+      gun:t="planegun_beaufighter_mk6c_250lbs_launcher_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_03"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
-      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_03"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_01"
     }
 
     "turretInfo:object"{
       turretName:t="turret_04"
       turretGroup:t="cannon_turrets"
       trigger:t="cannons"
-      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_04"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_02"
     }
 
     "turretInfo:object"{
       turretName:t="turret_05"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_03"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_06"
+      turretGroup:t="cannon_turrets"
+      trigger:t="cannons"
+      gun:t="planegun_beaufighter_mk6c_20mm_hispanomki_04"
+    }
+
+    "turretInfo:object"{
+      turretName:t="turret_07"
       turretGroup:t="turrets_gunner0"
       trigger:t="machine_guns"
       gun:t="planegun_beaufighter_mk6c_7_7mm_vikkersk_turret_01"
@@ -139,14 +169,18 @@ beaufighter_mk6c{
   }
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
+    node:t="bomb_wing_l"
+    node:t="bomb_wing_r"
     node:t="flare1"
     node:t="flare2"
     node:t="flare3"
     node:t="flare4"
-    node:t="flare9"
+    node:t="flare11"
   }
 
   "turret_gun_flash_fx__flashFx:shared:array"{
+    fx:t=""
+    fx:t=""
     fx:t="muzzle_air_20mm"
     fx:t="muzzle_air_20mm"
     fx:t="muzzle_air_20mm"
@@ -160,6 +194,15 @@ beaufighter_mk6c{
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
+    scale:r=1.0
+    scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="rp3_pylon_mk2_l"
+    part:t="rp3_pylon_mk2_r"
+    part:t="pylon_torpedo"
+    part:t="bomb_pylon_fuse"
   }
 }
 
@@ -277,11 +320,64 @@ base_beaufighter_mk6c_20mm_hispanomki{
   }
 }
 
+base_beaufighter_mk6c_250lbs_launcher{
+  item__name:t="guns/uk_250lbs"
+  gun__blk:t="gamedata/weapons/beaufighter_mk6c/250lbs_launcher.blk"
+  gun__shotFreq:r=10.0
+  gun__locName:t="uk_250lbs"
+  gun__shootNodeName:t="bone_mg_gun_twin"
+  gun__maxAmmo:i=1
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="manual"
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="bolt_action"
+  }
+
+  "gun__shellsAmmo:array"{
+    ammo:i=1
+  }
+
+  "gun__ammoSetsInfo:shared:array"{
+
+    "default:array"{
+
+      "shell:object"{
+        blk:t="gamedata/weapons/shells/250lbs.blk"
+        name:t="250lbs"
+        type:t="he_frag_tank"
+      }
+    }
+  }
+}
+
+planegun_beaufighter_mk6c_250lbs_launcher_01{
+  _extends:t="250lbs_launcher"
+  _extends:t="base_beaufighter_mk6c_250lbs_launcher"
+  _extends:t="gunsound_250lbs_launcher_aircraft"
+  gun__shootNodeName:t="bomb_wing_l"
+  slot_attach__slotName:t="bomb_wing_l"
+  gun__maxAmmo:i=1
+}
+
+planegun_beaufighter_mk6c_250lbs_launcher_02{
+  _extends:t="250lbs_launcher"
+  _extends:t="base_beaufighter_mk6c_250lbs_launcher"
+  _extends:t="gunsound_250lbs_launcher_aircraft"
+  gun__shootNodeName:t="bomb_wing_r"
+  slot_attach__slotName:t="bomb_wing_r"
+  gun__maxAmmo:i=1
+}
+
 planegun_beaufighter_mk6c_20mm_hispanomki_01{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
-  _extends:t="gunsound_20mm_hispanomkii_aircraft"
   gun__shootNodeName:t="flare1"
   gun__maxAmmo:i=240
 }
@@ -290,7 +386,6 @@ planegun_beaufighter_mk6c_20mm_hispanomki_02{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
-  _extends:t="gunsound_20mm_hispanomkii_aircraft"
   gun__shootNodeName:t="flare2"
   gun__maxAmmo:i=240
 }
@@ -299,7 +394,6 @@ planegun_beaufighter_mk6c_20mm_hispanomki_03{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
-  _extends:t="gunsound_20mm_hispanomkii_aircraft"
   gun__shootNodeName:t="flare3"
   gun__maxAmmo:i=240
 }
@@ -308,7 +402,6 @@ planegun_beaufighter_mk6c_20mm_hispanomki_04{
   _extends:t="tankgun"
   _extends:t="base_plane_machinegun"
   _extends:t="base_beaufighter_mk6c_20mm_hispanomki"
-  _extends:t="gunsound_20mm_hispanomkii_aircraft"
   gun__shootNodeName:t="flare4"
   gun__maxAmmo:i=240
 }
@@ -318,7 +411,7 @@ planegun_beaufighter_mk6c_7_7mm_vikkersk_turret_01{
   _extends:t="base_plane_machinegun"
   _extends:t="base_beaufighter_mk6c_7_7mm_vikkersk_turret"
   _extends:t="gunsound_7_7mm_vikkersk_turret_aircraft"
-  gun__shootNodeName:t="flare9"
+  gun__shootNodeName:t="flare11"
   gun__maxAmmo:i=1000
   turret__aimNodeName:t="turret1"
   turret__limit:p4=-50.0, 50.0, -7.0, 55.0
@@ -346,12 +439,12 @@ beaufighter_mk6c_driver_cockpit{
   }
 
   "move_cockpit_node__offset:list<p3>"{
-    offset:p3=0.0, 0.0, 0.0
-    offset:p3=0.0, 0.01, 0.0
+    item:p3=-0.004, 0.0135, -0.05
+    item:p3=0.0125, -0.006, 0.003
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    rot:p2=0.0, 0.0
-    rot:p2=0.0, 0.0
+    item:p2=7.4, 12.8
+    item:p2=-21.1, -2.9
   }
 }

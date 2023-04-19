@@ -7,8 +7,8 @@ require enlisted.events_enlisted
 require DagorMath
 require AnimV20
 require CollRes
-require EnlistedNet
-require EnlistedShip
+require DngNet
+require DngShip
 require vehicle
 require Dacoll
 

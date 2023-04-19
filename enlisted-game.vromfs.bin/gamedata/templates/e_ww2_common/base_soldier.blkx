@@ -49,6 +49,11 @@ soldier_army_info{
   soldier__sKind:t=""
   soldier__sClassRare:i=0
   soldier__id:i=-1
+
+  "soldier__displayedKind:t"{
+    value:t=""
+    _replicate:b=yes
+  }
 }
 
 enlisted_human_cannon_resupply{
@@ -90,203 +95,9 @@ moving_platform_visitor{
   }
 }
 
-base_soldier{
-  _extends:t="human_backstab"
-  _extends:t="human_icon"
-  _extends:t="equipment_char_flags"
-  _extends:t="device_anim"
-  _extends:t="locked_looting_soldier_base"
-  _extends:t="locked_use_objects_soldier_base"
-  _extends:t="human_enter_exit_vehicle_timer"
-  _extends:t="soldier_army_info"
-  _extends:t="aircraft_crew_replicated_components"
-  _extends:t="moving_platform_visitor"
-  human_anim__isNodesDisabled:b=no
-  weaponPreset:t=""
-  name:t=""
-  surname:t=""
-  callname:t=""
-  guid:t=""
+soldier_human_equipment{
   _replicated:t="human_equipment__slots"
-  _replicated:t="beh_tree__enabled"
-  _replicated:t="flask__affectEid"
   _tracked:t="human_equipment__slots"
-  _tracked:t="hitpoints__deathHpThreshold"
-  _tracked:t="agent_dangers__hasTraceableDangers"
-  _tracked:t="hasFlask"
-  animchar__res:t="soldier_base_model_char"
-  collres__res:t="soldier_base_model_collision"
-  human_weight_influence__minWeight:r=0.0
-  human_weight_influence__maxWeightJumpMult:r=1.0
-  human_weight_influence__maxWeightSpeedMult:r=1.0
-  human_weight_influence__maxweight:r=35.0
-  human_weight_influence__staminaDrainMult:r=2.5
-  hero_tracer__shellId:i=-1
-  hero_tracer__shellName:t="content/enlisted/gamedata/weapons/bullets/tracer_shell.blk"
-  hitpoints__hpThreshold:r=3.0
-  hitpoints__maxHp:r=10.0
-  hitpoints__deathHpThreshold:r=-10.0
-  hitpoints__downedKillChanceBase:r=0.2
-  hitpoints__downedKillChanceMult:r=0.5
-  hitpoints__downedHpPerSecond:r=0.5
-  hitpoints__downedKillWhenBurning:b=yes
-  hitpoints__canBeRevivedByTeammates:b=no
-  hitpoints__alwaysAllowRevive:b=no
-  hitpoints__shatterDmgArmor:r=0.01
-  hitpoints__shellSplashDmgMult:r=1.0
-  walker_agent__minShootAngle:r=5.0
-  walker_agent__aiMinShootAngle:r=5.0
-  walker_agent__maxShootDistToTarget:r=10.0
-  walker_agent__aiMaxShootDistToTarget:r=1.0
-  walker_agent__predictMult:r=0.5
-  walker_agent__aiPredictMult:r=1.0
-  walker_agent__aimSpeed:r=600.0
-  walker_agent__minMaxAimSpeed:p2=400.0, 1000.0
-  walker_agent__distToTargetRandomX:p2=0.4, 0.8
-  walker_agent__distToTargetRandomY:p2=0.1, 0.2
-  walker_agent__minMaxDist:p2=5.0, 25.0
-  walker_agent__aimViscosity:r=0.1
-  walker_agent__shotsToMaxAccuracy:i=5
-  walker_agent__timeToMaxAccuracy:r=3.0
-  walker_agent__aiShotsToMaxAccuracy:i=1
-  walker_agent__aiTimeToMaxAccuracy:r=1.0
-  agent_dangers__hasTraceableDangers:b=no
-  agent_dangers__hasTraceableDangerThreshold:r=0.1
-  agent_dangers__checkTimes:p2=0.2, 0.5
-  ragdoll__use_ccd:b=yes
-  ragdoll__deactivationFactor:r=0.16
-  human_broken_bones__tearOffImpulse:r=7.5
-  human_broken_bones__tearOffImpulseUp:r=1.0
-  canRemoveWhilePossessed:b=no
-  beh_tree__enabled:b=no
-  maxLootableAmmoCount:i=1
-  camName:t="soldier_cam_perlin"
-  collision_damage__pushThreshold:r=1.0
-  trajectory__wide_start:r=0.03
-  trajectory__wide_end:r=0.03
-  trajectory__center:c=100, 0, 0, 70
-  zones_visitor__lastTriggerTag:t=""
-  appearance__rndSeed:i=0
-  human_coll_damage__minDmgSpd:r=10.0
-  human_coll_damage__minFallDmgVal:r=3.0
-  animchar_fast_phys__res:t="soldier_base_model_fastphys"
-
-  "walker_agent__getBackToNavmeshTraces:list<p3>"{
-    _tags:t="server"
-  }
-
-  "walker_agent__getBackToNavmeshPolys:list<u64>"{
-    _tags:t="server"
-  }
-
-  "flask__affectEid:eid"{
-  }
-
-  "entity_mods:object"{
-    _tags:t="server"
-  }
-
-  _group{
-    _replicate:b=yes
-    entity_mods__speedMult:r=1.0
-    entity_mods__staminaDrain:r=1.0
-    entity_mods__sprintStaminaDrain:r=1.0
-    entity_mods__sprintSpeedMult:r=1.0
-    entity_mods__reloadMult:r=1.0
-    entity_mods__recoilMult:r=1.0
-    entity_mods__jumpMult:r=1.0
-    entity_mods__shotDeviationMult:r=1.0
-    entity_mods__meleeDamageMult:r=1.0
-    entity_mods__staminaBoostMult:r=1.0
-    entity_mods__restoreStaminaMult:r=1.0
-    entity_mods__jamChanceMult:r=1.0
-    entity_mods__accelerationMult:r=1.0
-    entity_mods__boltActionMult:r=1.0
-    entity_mods__healAmountMult:r=1.0
-    entity_mods__healAmountTargetMult:r=1.0
-    entity_mods__medicMedpacksMult:r=1.0
-    entity_mods__medicMedboxPacksMult:r=1.0
-    entity_mods__fasterChangeWeaponMult:r=1.0
-    entity_mods__lessFallDmgMult:r=1.0
-    entity_mods__breathAimMult:r=1.0
-    entity_mods__climbingSpeedMult:r=1.0
-    entity_mods__weightRunSpeedMult:r=1.0
-    entity_mods__horizontalRecoilOffsMult:r=1.0
-    entity_mods__verticalRecoilOffsMult:r=1.0
-    entity_mods__fasterChangePoseMult:r=1.0
-    entity_mods__longerHoldBreathMult:r=1.0
-    entity_mods__oftenHoldBreathMult:r=1.0
-    entity_mods__crawlCrouchSpeedMult:r=1.0
-    entity_mods__rotationShotSpreadDecrMult:r=1.0
-    entity_mods__maxHpMult:r=1.0
-    entity_mods__hpToRegen:r=1.0
-    entity_mods__moreStabilityWhenHitMult:r=0.0
-    entity_mods__lessStoppingPower:r=0.0
-    entity_mods__hpChange:r=0.0
-    entity_mods__aimingAfterFireMult:r=1.0
-    entity_mods__weaponTurningSpeedMult:r=1.0
-    entity_mods__fireDamageMult:r=1.0
-    entity_mods__vehicleChangeSeatTimeMult:r=1.0
-    entity_mods__vehicleExtinguishTimeMult:r=1.0
-    entity_mods__vehicleRepairUsagesPerKit:i=1
-    entity_mods__vehicleRepairTimeMult:r=1.0
-    entity_mods__vehicleRepairRecoveryRatioAdd:r=0.0
-    entity_mods__vehicleReloadMult:r=1.0
-    entity_mods__canChangeShellDuringVehicleGunReload:b=no
-    entity_mods__turretPitchMultWhenAimingYaw:r=0.0
-    entity_mods__aircraftDetectAndIdentifyRangeMult:r=1.0
-    entity_mods__aircraftPeripheryAngleMult:r=1.0
-    entity_mods__negativeGToleranceMult:r=1.0
-    entity_mods__positiveGToleranceMult:r=1.0
-    entity_mods__aircraftCrewMaxStaminaMult:r=1.0
-    entity_mods__aircraftCrewRestoreStaminaMult:r=1.0
-    entity_mods__pilotLostControlsSensetivityAddMult:r=0.0
-    entity_mods__pilotHeadStabilisationMult:r=1.0
-    entity_mods__shakePowerMult:r=1.0
-    entity_mods__timeToBuildMul:r=1.0
-    entity_mods__medkitUseTimeMult:r=1.0
-    entity_mods__medkitUseTimeTargetMult:r=1.0
-    entity_mods__aimSpeedMult:r=1.0
-    entity_mods__grenadeThrowDistMult:r=1.0
-    entity_mods__meleeSpeedMult:r=1.0
-  }
-
-  _group{
-    _tags:t="server"
-    entity_mods__concussionDurationMult:r=1.0
-    entity_mods__concussionShakeMult:r=1.0
-    entity_mods__flamethrowerFuelMult:r=1.0
-  }
-
-  _group{
-    _tags:t="gameClient"
-    human_anim__dynamicRagdollClipoutTimeout:r=0.4
-    human_anim__dynamicRagdollClipoutOffset:p3=0.0, 0.5, 0.0
-  }
-
-  _group{
-    projectile_impulse__cinematicArtistrySpeedMult:r=0.25
-    projectile_impulse__cinematicArtistryMultDead:r=0.0
-    projectile_impulse__maxVelocity:r=10.0
-    projectile_impulse__maxOmega:r=4.0
-    _tags:t="gameClient"
-  }
-
-  _group{
-    _hide:b=yes
-
-    "human_anim__disableHubsIds:list<ip2>"{
-    }
-
-    "human_anim__disableNodesIds:list<i>"{
-    }
-  }
-
-  _group{
-    _tags:t="gameClient"
-    hasFlask:b=no
-    ui__flaskUseTipMinStamina:r=40.0
-  }
 
   "human_equipment__itemRemap:object"{
   }
@@ -759,6 +570,204 @@ base_soldier{
       }
     }
   }
+}
+
+base_soldier{
+  _extends:t="human_backstab"
+  _extends:t="human_icon"
+  _extends:t="equipment_char_flags"
+  _extends:t="device_anim"
+  _extends:t="locked_looting_soldier_base"
+  _extends:t="locked_use_objects_soldier_base"
+  _extends:t="human_enter_exit_vehicle_timer"
+  _extends:t="soldier_army_info"
+  _extends:t="aircraft_crew_replicated_components"
+  _extends:t="moving_platform_visitor"
+  _extends:t="soldier_human_equipment"
+  human_anim__isNodesDisabled:b=no
+  weaponPreset:t=""
+  name:t=""
+  surname:t=""
+  callname:t=""
+  guid:t=""
+  animchar__res:t="soldier_base_model_char"
+  collres__res:t="soldier_base_model_collision"
+  human_weight_influence__minWeight:r=0.0
+  human_weight_influence__maxWeightJumpMult:r=1.0
+  human_weight_influence__maxWeightSpeedMult:r=1.0
+  human_weight_influence__maxweight:r=35.0
+  human_weight_influence__staminaDrainMult:r=2.5
+  hero_tracer__shellId:i=-1
+  hero_tracer__shellName:t="content/enlisted/gamedata/weapons/bullets/tracer_shell.blk"
+  hitpoints__hpThreshold:r=3.0
+  hitpoints__maxHp:r=10.0
+  hitpoints__deathHpThreshold:r=-10.0
+  _tracked:t="hitpoints__deathHpThreshold"
+  _tracked:t="agent_dangers__hasTraceableDangers"
+  _tracked:t="hasFlask"
+  hitpoints__downedKillChanceBase:r=0.2
+  hitpoints__downedKillChanceMult:r=0.5
+  hitpoints__downedHpPerSecond:r=0.5
+  hitpoints__downedKillWhenBurning:b=yes
+  hitpoints__canBeRevivedByTeammates:b=no
+  hitpoints__alwaysAllowRevive:b=no
+  hitpoints__shatterDmgArmor:r=0.01
+  hitpoints__shellSplashDmgMult:r=1.0
+  walker_agent__minShootAngle:r=5.0
+  walker_agent__aiMinShootAngle:r=5.0
+  walker_agent__maxShootDistToTarget:r=10.0
+  walker_agent__aiMaxShootDistToTarget:r=1.0
+  walker_agent__predictMult:r=0.5
+  walker_agent__aiPredictMult:r=1.0
+  walker_agent__aimSpeed:r=600.0
+  walker_agent__minMaxAimSpeed:p2=400.0, 1000.0
+  walker_agent__distToTargetRandomX:p2=0.4, 0.8
+  walker_agent__distToTargetRandomY:p2=0.1, 0.2
+  walker_agent__minMaxDist:p2=5.0, 25.0
+  walker_agent__aimViscosity:r=0.1
+  walker_agent__shotsToMaxAccuracy:i=5
+  walker_agent__timeToMaxAccuracy:r=3.0
+  walker_agent__aiShotsToMaxAccuracy:i=1
+  walker_agent__aiTimeToMaxAccuracy:r=1.0
+  agent_dangers__hasTraceableDangers:b=no
+  agent_dangers__hasTraceableDangerThreshold:r=0.1
+  agent_dangers__checkTimes:p2=0.2, 0.5
+  ragdoll__use_ccd:b=yes
+  ragdoll__deactivationFactor:r=0.16
+  human_broken_bones__tearOffImpulse:r=7.5
+  human_broken_bones__tearOffImpulseUp:r=1.0
+  canRemoveWhilePossessed:b=no
+  beh_tree__enabled:b=no
+  _replicated:t="beh_tree__enabled"
+  _replicated:t="flask__affectEid"
+  maxLootableAmmoCount:i=1
+  camName:t="soldier_cam_perlin"
+  collision_damage__pushThreshold:r=1.0
+  trajectory__wide_start:r=0.03
+  trajectory__wide_end:r=0.03
+  trajectory__center:c=100, 0, 0, 70
+  zones_visitor__lastTriggerTag:t=""
+  appearance__rndSeed:i=0
+  human_coll_damage__minDmgSpd:r=10.0
+  human_coll_damage__minFallDmgVal:r=3.0
+  animchar_fast_phys__res:t="soldier_base_model_fastphys"
+
+  "walker_agent__getBackToNavmeshTraces:list<p3>"{
+    _tags:t="server"
+  }
+
+  "walker_agent__getBackToNavmeshPolys:list<u64>"{
+    _tags:t="server"
+  }
+
+  "flask__affectEid:eid"{
+  }
+
+  "entity_mods:object"{
+    _tags:t="server"
+  }
+
+  _group{
+    _replicate:b=yes
+    entity_mods__speedMult:r=1.0
+    entity_mods__staminaDrain:r=1.0
+    entity_mods__sprintStaminaDrain:r=1.0
+    entity_mods__sprintSpeedMult:r=1.0
+    entity_mods__reloadMult:r=1.0
+    entity_mods__recoilMult:r=1.0
+    entity_mods__jumpMult:r=1.0
+    entity_mods__shotDeviationMult:r=1.0
+    entity_mods__meleeDamageMult:r=1.0
+    entity_mods__staminaBoostMult:r=1.0
+    entity_mods__restoreStaminaMult:r=1.0
+    entity_mods__jamChanceMult:r=1.0
+    entity_mods__accelerationMult:r=1.0
+    entity_mods__boltActionMult:r=1.0
+    entity_mods__healAmountMult:r=1.0
+    entity_mods__healAmountTargetMult:r=1.0
+    entity_mods__medicMedpacksMult:r=1.0
+    entity_mods__medicMedboxPacksMult:r=1.0
+    entity_mods__fasterChangeWeaponMult:r=1.0
+    entity_mods__lessFallDmgMult:r=1.0
+    entity_mods__breathAimMult:r=1.0
+    entity_mods__climbingSpeedMult:r=1.0
+    entity_mods__weightRunSpeedMult:r=1.0
+    entity_mods__horizontalRecoilOffsMult:r=1.0
+    entity_mods__verticalRecoilOffsMult:r=1.0
+    entity_mods__fasterChangePoseMult:r=1.0
+    entity_mods__longerHoldBreathMult:r=1.0
+    entity_mods__oftenHoldBreathMult:r=1.0
+    entity_mods__crawlCrouchSpeedMult:r=1.0
+    entity_mods__rotationShotSpreadDecrMult:r=1.0
+    entity_mods__maxHpMult:r=1.0
+    entity_mods__hpToRegen:r=1.0
+    entity_mods__moreStabilityWhenHitMult:r=0.0
+    entity_mods__lessStoppingPower:r=0.0
+    entity_mods__hpChange:r=0.0
+    entity_mods__aimingAfterFireMult:r=1.0
+    entity_mods__weaponTurningSpeedMult:r=1.0
+    entity_mods__fireDamageMult:r=1.0
+    entity_mods__vehicleChangeSeatTimeMult:r=1.0
+    entity_mods__vehicleExtinguishTimeMult:r=1.0
+    entity_mods__vehicleRepairUsagesPerKit:i=1
+    entity_mods__vehicleRepairTimeMult:r=1.0
+    entity_mods__vehicleRepairRecoveryRatioAdd:r=0.0
+    entity_mods__vehicleReloadMult:r=1.0
+    entity_mods__canChangeShellDuringVehicleGunReload:b=no
+    entity_mods__turretPitchMultWhenAimingYaw:r=0.0
+    entity_mods__aircraftDetectAndIdentifyRangeMult:r=1.0
+    entity_mods__aircraftPeripheryAngleMult:r=1.0
+    entity_mods__negativeGToleranceMult:r=1.0
+    entity_mods__positiveGToleranceMult:r=1.0
+    entity_mods__aircraftCrewMaxStaminaMult:r=1.0
+    entity_mods__aircraftCrewRestoreStaminaMult:r=1.0
+    entity_mods__pilotLostControlsSensetivityAddMult:r=0.0
+    entity_mods__pilotHeadStabilisationMult:r=1.0
+    entity_mods__shakePowerMult:r=1.0
+    entity_mods__timeToBuildMul:r=1.0
+    entity_mods__medkitUseTimeMult:r=1.0
+    entity_mods__medkitUseTimeTargetMult:r=1.0
+    entity_mods__aimSpeedMult:r=1.0
+    entity_mods__grenadeThrowDistMult:r=1.0
+    entity_mods__meleeSpeedMult:r=1.0
+  }
+
+  _group{
+    _tags:t="server"
+    entity_mods__concussionDurationMult:r=1.0
+    entity_mods__concussionShakeMult:r=1.0
+    entity_mods__flamethrowerFuelMult:r=1.0
+  }
+
+  _group{
+    _tags:t="gameClient"
+    human_anim__dynamicRagdollClipoutTimeout:r=0.4
+    human_anim__dynamicRagdollClipoutOffset:p3=0.0, 0.5, 0.0
+  }
+
+  _group{
+    projectile_impulse__cinematicArtistrySpeedMult:r=0.25
+    projectile_impulse__cinematicArtistryMultDead:r=0.0
+    projectile_impulse__maxVelocity:r=10.0
+    projectile_impulse__maxOmega:r=4.0
+    _tags:t="gameClient"
+  }
+
+  _group{
+    _hide:b=yes
+
+    "human_anim__disableHubsIds:list<ip2>"{
+    }
+
+    "human_anim__disableNodesIds:list<i>"{
+    }
+  }
+
+  _group{
+    _tags:t="gameClient"
+    hasFlask:b=no
+    ui__flaskUseTipMinStamina:r=40.0
+  }
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -925,8 +934,7 @@ squad_member_ui{
   }
 }
 
-dead_enlisted_base_soldier{
-  _extends:t="dead_entity"
+dummy_enlisted_base_soldier{
   _extends:t="base_burning"
   _extends:t="animchar_turn_dir"
   _extends:t="base_hitpoints"
@@ -994,7 +1002,8 @@ dead_enlisted_base_soldier{
   isInVehicleHiddenLocal:b=no
   human__visible:b=yes
   human_inventory__dropLootOffset:p3=0.1, 0.6, 0.0
-  isAlive:b=no
+  isAlive:b=yes
+  hitpoints__hp:r=10.0
   disable_collision:b=no
   bodyCleanupTime:r=60.0
   damage_model__blk:t="content/enlisted/gamedata/units/humans/human.blk"
@@ -1021,9 +1030,6 @@ dead_enlisted_base_soldier{
   human_vehicle__isInHatch:b=no
 
   "human_vehicle__occupiedSeatEid:eid"{
-  }
-
-  "animchar__physSymDependence:tag"{
   }
 
   _group{
@@ -1187,6 +1193,19 @@ dead_enlisted_base_soldier{
   }
 }
 
+dead_enlisted_base_soldier{
+  _extends:t="dummy_enlisted_base_soldier"
+  _extends:t="dead_entity"
+  isAlive:b=no
+  hitpoints__hp:r=0.0
+
+  "animchar__physSymDependence:tag"{
+  }
+
+  "human_parachute__eid:eid"{
+  }
+}
+
 enlisted_human_quickchat_requests{
   human_quickchat__requestAmmoBoxMarkerShowTime:r=10.0
   human_quickchat__requestRallyPointMarkerShowTime:r=10.0
@@ -1233,9 +1252,16 @@ landing_outside_battle_area_redeploy{
   }
 }
 
-enlisted_parachuter{
+parachute_wind{
   human_parachute_wind__speed:r=9.0
   human_parachute_wind__deadZone:r=45.0
+  human_parachute_wind__paratroopers:b=no
+  human_parachute_wind__landingPoint:p2=0.0, 0.0
+  human_parachute_wind__leaderPosDist:r=5.0
+}
+
+enlisted_parachuter{
+  _extends:t="parachute_wind"
   human_parachute_redeploy__redeployDelay:r=2.0
 
   _group{
@@ -1352,11 +1378,13 @@ enlisted_base_soldier{
   _extends:t="human_parachute"
   _extends:t="human_aim_stamina"
   _extends:t="human_melee_charge"
+  _extends:t="human_vehicle_exit_animator_states"
   collision_damage__lethalSpeed:r=20.0
   collision_damage__damageOnLeavingVehicleTemplate:t="damage_on_leaving_vehicle"
   _tracked:t="human_use_object__selectedBuilding"
   _tracked:t="human_unarmed__hiddenWeapon"
   _tracked:t="stockOfBuilderCapabilities"
+  _tracked:t="human_paratroopers_supply_box__selectedEid"
   hitpoints__clearOffenderTimer:r=30.0
   hitpoints__penetrationStopPower:r=15.0
   hitpoints__fatalFallSpeed:r=16.0
@@ -1543,5 +1571,8 @@ enlisted_base_soldier{
       min:r=0.0
       max:r=1.0
     }
+  }
+
+  "human_paratroopers_supply_box__selectedEid:eid"{
   }
 }

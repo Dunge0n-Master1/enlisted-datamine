@@ -1,5 +1,5 @@
 require ecs
-require EnlistedCamera
+require DngCamera
 require enlisted.events_enlisted
 
 [es(tag=render, no_order, REQUIRE=cockpitEntity)]

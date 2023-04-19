@@ -1,13 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
-let { sound_set_volume } = require("sound")
+let { sound_set_volume } = require("%dngscripts/sound_system.nut")
 let {is_pc} = require("%dngscripts/platform.nut")
 let {soundOutputDevicesList, soundOutputDevice, soundOutputDeviceUpdate} = require("%enlSqGlob/sound_state.nut")
 let {
   getOnlineSaveData, optionSpinner, optionCtor, optionPercentTextSliderCtor
 } = require("options_lib.nut")
-let { headshotSoundOption, battleMusicOption } = require("%ui/hud/menus/options/sound_gameplay_options.nut")
+let { headshotSoundOption, battleMusicOption, humanCapzoneCapturingSoundOption } = require("%ui/hud/menus/options/sound_gameplay_options.nut")
 
 local function optionVolSliderCtor(opt, group, xmbNode) {
   let optSetValue = opt.setValue // saved original reference to avoid recursive call of opt.setValue
@@ -70,6 +70,6 @@ return {
     optOutputDevice,
     optVolumeMaster, optVolumeAmbient, optVolumeSfx,
     optVolumeInterface, optVolumeMusic, optVolumeDialogs, optVolumeGuns,
-    headshotSoundOption, battleMusicOption
+    headshotSoundOption, battleMusicOption, humanCapzoneCapturingSoundOption
   ]
 }

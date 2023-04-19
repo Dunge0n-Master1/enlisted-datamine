@@ -290,13 +290,6 @@ ballistics{
   }
 }
 
-hitFx{
-  fxScale:p2=1.3, 1.5
-  defaultFx:t="event_foolmoon_hit_cmps_fx"
-  jetFx:t="event_foolmoon_hit_cmps_fx"
-  preset:t="bullet"
-}
-
 tracer{
   headColor:c=0, 0, 0, 0
   smokeColor:c=0, 0, 0, 0

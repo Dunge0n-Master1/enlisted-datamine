@@ -2,6 +2,7 @@ require ecs
 require app
 require game.es.events
 require game.es.door_operations_common
+require DagorSystem
 
 
 [es]
@@ -26,6 +27,13 @@ def door_operations_apply_server(evt : Event; var rendinst_axis_rotation__target
   rendinst_axis_rotation__targetAngle = door_operations__serverTargetAngle
 
 [es(tag=server, on_appear)]
-def door_operations_init_server(evt : Event; rendinst_axis_rotation__targetAngle : float; var door_operations__serverTargetAngle : float&)
+def door_operations_verify_server(evt : Event;
+                                  rendinst_axis_rotation__targetAngle : float;
+                                  var door_operations__serverTargetAngle : float&;
+                                  eid : EntityId)
+  if door_operations__serverTargetAngle == rendinst_axis_rotation__targetAngle
+    return
+  logerr("{getEntityTemplateName(eid)} door angle uninited in blk {door_operations__serverTargetAngle} != {rendinst_axis_rotation__targetAngle}")
+  // The line below will trigger serverTargetAngle replication to the client. This can be easily avoided by fixing it in the door template in blk
   door_operations__serverTargetAngle = rendinst_axis_rotation__targetAngle
 

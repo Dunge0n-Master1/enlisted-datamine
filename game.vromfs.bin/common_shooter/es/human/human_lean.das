@@ -1,6 +1,6 @@
 require ecs
 require math.base
-require EnlistedHuman
+require DngHuman
 require game.es.events
 
 [es(REQUIRE_NOT=deadEntity)]

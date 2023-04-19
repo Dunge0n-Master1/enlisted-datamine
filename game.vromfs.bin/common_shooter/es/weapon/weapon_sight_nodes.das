@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedNet
+require DngNet
 require math
 require math.base
 require math.linear
@@ -8,13 +8,13 @@ require game.events_game
 require common_shooter.es.concussion_common
 require Gun
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require DagorSystem
 require DagorMath
 require DagorRandom
 require DaWeaponProps
 require DaWeapons
-require EnlistedDm
+require DngDm
 require dm
 require AnimV20
 require GeomNodeTree
@@ -58,27 +58,37 @@ def update_gun_tm_info_for_render(info : UpdateStageInfoAct;
   geomtree_getNodeWtmScalar(*animchar.nodeTree, weapon_rearsight_node__nodeIdx, newTm)
   weapon_rearsight_node__nodeTm = mat44f(newTm)
 
+[es(tag=render, on_appear, track=gun_anim__weapModEid)]
+def weapon_change_eid_for_sights_es(evt : Event;
+                                    eid : EntityId;
+                                    gun_anim__weapModEid : EntityId;
+                                    var weap__sightEid : EntityId&)
+  if has(gun_anim__weapModEid, "weapon_rearsight_node__nodeIdx")
+    weap__sightEid = gun_anim__weapModEid
+  else
+    weap__sightEid = eid
+
 [es]
 def weapon_switch_sight_es(evt : CmdWeapSwitchSight;
-                           eid : EntityId;
-                           animchar : AnimcharBaseComponent;
-                           sightPresets : Array;
-                           var weap__current_sight_preset : int&;
-                           var weapon_frontsight_node__nodeIdx : int&;
-                           var weapon_rearsight_node__nodeIdx : int&)
-  let sightPresetsCount = sightPresets |> length()
-  assert(sightPresetsCount > 0)
-  let inc = evt.toNext ? +1 : -1
-  weap__current_sight_preset = (weap__current_sight_preset + inc + sightPresetsCount) % sightPresetsCount;
+                           weap__sightEid : EntityId)
+  query(weap__sightEid) <| $ [es] (animchar : AnimcharBaseComponent;
+                                   sightPresets : Array;
+                                   var weap__current_sight_preset : int&;
+                                   var weapon_frontsight_node__nodeIdx : int&;
+                                   var weapon_rearsight_node__nodeIdx : int&)
+    let sightPresetsCount = sightPresets |> length()
+    assert(sightPresetsCount > 0)
+    let inc = evt.toNext ? +1 : -1
+    weap__current_sight_preset = (weap__current_sight_preset + inc + sightPresetsCount) % sightPresetsCount;
 
-  let preset = get_ecs_object(sightPresets[weap__current_sight_preset])
+    let preset = get_ecs_object(sightPresets[weap__current_sight_preset])
 
-  let frontsightNodeName = preset |> get_string("frontsightNode", "")
-  if frontsightNodeName != ""
-    let nodeIdx = find_weapon_sight_node_idx(eid, animchar, frontsightNodeName)
-    weapon_frontsight_node__nodeIdx = nodeIdx
+    let frontsightNodeName = preset |> get_string("frontsightNode", "")
+    if frontsightNodeName != ""
+      let nodeIdx = find_weapon_sight_node_idx(weap__sightEid, animchar, frontsightNodeName)
+      weapon_frontsight_node__nodeIdx = nodeIdx
 
-  let rearsightNodeName = preset |> get_string("rearsightNode", "")
-  if rearsightNodeName != ""
-    let nodeIdx = find_weapon_sight_node_idx(eid, animchar, rearsightNodeName)
-    weapon_rearsight_node__nodeIdx = nodeIdx
+    let rearsightNodeName = preset |> get_string("rearsightNode", "")
+    if rearsightNodeName != ""
+      let nodeIdx = find_weapon_sight_node_idx(weap__sightEid, animchar, rearsightNodeName)
+      weapon_rearsight_node__nodeIdx = nodeIdx

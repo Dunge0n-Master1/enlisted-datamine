@@ -1,4 +1,4 @@
-from "ecs" import *
+from "%sqstd/ecs.nut" import *
 let {TEAM_UNASSIGNED} = require("team")
 
 let find_human_player_by_connidQuery = SqQuery("find_human_player_by_connidQuery", {comps_ro=[["connid", TYPE_INT]], comps_rq=["player"], comps_no=["playerIsBot"]})

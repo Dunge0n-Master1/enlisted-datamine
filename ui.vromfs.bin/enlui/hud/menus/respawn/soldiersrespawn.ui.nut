@@ -8,9 +8,8 @@ let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
 let { respRequested, spawnSquadId } = require("%ui/hud/state/respawnState.nut")
 let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
 let { localPlayerEid } = require("%ui/hud/state/local_player.nut")
-let { isGamepad } = require("%ui/control/active_controls.nut")
 let { sendNetEvent, RequestNextRespawnEntity } = require("dasevents")
-let { respawnTimer, forceSpawnButton, squadNameBlock, mkKeyboardHint, bgConfig,
+let { respawnTimer, forceSpawnButton, squadNameBlock, bgConfig,
   respAnims, commonBlockWidth, missionNameUI, titleTxtStyle, respawnHint
 } = require("%ui/hud/menus/respawn/respawnPkg.nut")
 let soldiersRespawnBlock = require("%ui/hud/menus/respawn/soldiersRespawnBlock.nut")
@@ -67,9 +66,9 @@ let topBlock = {
       gap = bigPadding
       children = [
         squadNameBlock(spawnSquadId.value, titleTxtStyle).__update(bgConfig)
-        soldiersRespawnBlock
+        soldiersRespawnBlock()
       ]
-    }.__update(bgConfig)
+    }
     respawnHint(loc("respawn/soldierDied"))
     missionNameUI
   ]
@@ -90,12 +89,6 @@ let spawnInfoBlock = {
   ].extend(array(10).map(@(_, n)
     [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]))
   children = [
-    @() {
-      watch = isGamepad
-      children = isGamepad.value
-        ? null
-        : mkKeyboardHint("Space", loc("respawn/spawn_current_soldier"))
-    }
     respawnTimer("respawn/soldierRespawnTimer")
     forceSpawnButton
   ]

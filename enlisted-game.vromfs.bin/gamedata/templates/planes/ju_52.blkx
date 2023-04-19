@@ -1,0 +1,214 @@
+ju_52{
+  _extends:t="ju_52_base"
+  _extends:t="squad_controlled_plane"
+  _extends:t="vehicle_seats_effectors"
+  _extends:t="paratrooper_plane_camera"
+  item__name:t="items/ju_52"
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-0.0114734, -0.743114, 0.669078] [0.00471275, 0.66911, 0.74323] [-1.00003, 0.0116809, -0.00417502] [0.09, 0.15, -0.03]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cockpitTemplate:t="ju_52_driver_cockpit"
+      roomSpace:i=0
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner9"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-5.96035e-08, -0.292365, -0.956287] [0.0, 0.956303, -0.29237] [0.999999, -1.49011e-08, -5.96046e-08] [-0.46, 0.04, 0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner10"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.19207e-07, -0.292365, -0.956287] [-1.48975e-08, 0.956071, -0.2923] [0.999999, -1.49011e-08, -1.19209e-07] [0.0, 0.04, 0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner8"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.19207e-07, -0.292365, -0.956287] [-1.48975e-08, 0.956071, -0.2923] [0.999999, -1.49011e-08, -1.19209e-07] [0.0, 0.04, 0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner11"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.19207e-07, -0.292365, -0.956287] [-1.48975e-08, 0.956071, -0.2923] [0.999999, -1.49011e-08, -1.19209e-07] [0.0, 0.04, 0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner4"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.43041e-06, -0.275616, 0.961197] [-3.72313e-07, 0.960705, 0.275475] [-0.999756, 1.48975e-08, -1.48975e-06] [0.42, 0.03, -0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/shooter"
+      attachNode:t="gunner5"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.43041e-06, -0.275616, 0.961197] [-3.72313e-07, 0.960705, 0.275475] [-0.999756, 1.48975e-08, -1.48975e-06] [0.42, 0.03, -0.12]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+  }
+}
+
+ju_52_driver_cockpit{
+  _extends:t="base_plane_cockpit"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__angles:p3=0.0, 0.0, 0.0
+  cockpit__scale:p3=1.0, 1.0, 1.0
+  animchar__res:t="ju_52_3m_cockpit_char"
+  plane_anim__blk:t="gamedata/units/ju_52.blk"
+  plane_sight__blk:t="gamedata/units/ju_52.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0035, 0.095, 0.008
+    item:p3=-0.0395, 0.0365, 0.023
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=45.8, 36.8
+    item:p2=-55.6, 21.6
+  }
+}
+
+ju_52_paratroopers{
+  _extends:t="ju_52"
+
+  "replay_camera__attachToHuman:tag"{
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/paratrooper"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-0.00998108, -0.80888, 0.587715] [-0.0137265, 0.587431, 0.808256] [-0.999827, 0.0, -0.0169799] [0.13, 0.15, -0.01]]
+      seatComponent:t="isPassenger"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-3.571, 0.398, 0.53
+      roomSpace:i=0
+      canPlaceManually:b=yes
+      isHoldGunModeAllowed:b=no
+      cockpitTemplate:t="ju_52_driver_cockpit"
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+
+    "seats:object"{
+      name:t="passenger1"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner9"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-6.74621e-08, -0.292365, -0.956287] [-2.03837e-09, 0.956303, -0.29237] [0.999999, -2.28803e-08, -6.43484e-08] [-0.44, 0.05, 0.03]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger2"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner10"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-6.74621e-08, -0.292365, -0.956287] [-2.03837e-09, 0.956303, -0.29237] [0.999999, -2.28803e-08, -6.43484e-08] [-0.44, 0.05, 0.03]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger3"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner8"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-6.74621e-08, -0.292365, -0.956287] [-2.03837e-09, 0.956303, -0.29237] [0.999999, -2.28803e-08, -6.43484e-08] [-0.44, 0.05, 0.03]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger4"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner5"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.48957e-06, -0.275615, 0.961196] [-3.98746e-07, 0.960704, 0.275474] [-0.999755, 2.33424e-08, -1.54209e-06] [0.42, 0.05, -0.04]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger5"
+      locName:t="vehicle_seats/paratrooper"
+      attachNode:t="gunner4"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[-1.48957e-06, -0.275615, 0.961196] [-3.98746e-07, 0.960704, 0.275474] [-0.999755, 2.33424e-08, -1.54209e-06] [0.42, 0.05, -0.04]]
+      seatComponent:t="isPassenger"
+      canPlaceManually:b=no
+    }
+
+    "seats:object"{
+      name:t="passenger6"
+      locName:t="vehicle_seats/pilot"
+      attachNode:t="gunner3"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[0.997552, -0.0697554, -5.94012e-15] [0.069756, 0.99756, -4.15372e-16] [5.95533e-15, -3.24151e-21, 1.00011] [-0.24, 0.16, 0.03]]
+      seatComponent:t="isDriver"
+      canPlaceManually:b=no
+    }
+  }
+}

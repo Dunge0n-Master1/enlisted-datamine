@@ -3,8 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let servProfile = require("servProfile.nut")
 let { items, soldiers, squads } = servProfile
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
-let { curCampaign } = require("curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+let { curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 const NO_ARMY = "__no_army__"
@@ -32,8 +32,7 @@ let squadsByArmies = Computed(@() divideByArmies(verify(squads.value)))
 
 let commonArmy = Computed(@() gameProfile.value?.commonArmy)
 
-let curArmiesList = Computed(@()
-  (gameProfile.value?.campaigns[curCampaign.value].armies ?? []).map(@(a) a.id))
+let curArmiesList = Computed(@() (curCampaignConfig.value?.armies ?? []).map(@(a) a.id))
 
 let curArmiesListExt = Computed(function() {
   let armiesList = clone curArmiesList.value

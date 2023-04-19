@@ -2,17 +2,16 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let cursors = require("%ui/style/cursors.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { progressBar, txt } = require("%enlSqGlob/ui/defcomps.nut")
-let { mkSquadIcon, mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let {
-  gap, slotBaseSize, soldierLvlColor, smallPadding, activeTxtColor
+let { mkSquadIcon, mkSquadSpecIconFields, isSquadPremium
+} = require("%enlSqGlob/ui/squadsUiComps.nut")
+let { gap, slotBaseSize, soldierLvlColor, smallPadding, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { combineMultispecialistAward } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let mkBattleHeroAwardIcon = require("%enlSqGlob/ui/battleHeroAwardIcon.nut")
 let { mkSquadExpTooltipText } = require("%enlist/debriefing/components/mkExpTooltipText.nut")
-let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
-let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
+
 
 const trigger = "content_anim"
 
@@ -20,6 +19,7 @@ let TIME_TO_NEXT_SQUAD = 0.5
 let UNLOCK_ADD_EXP_TIME = 1.0
 
 let squadCardSize = [slotBaseSize[0], hdpx(136)]
+let heroAwardSize = [hdpx(50), hdpx(50)]
 
 let colon = loc("ui/colon")
 
@@ -41,9 +41,10 @@ let function mkSquadTooltipText(squad, result) {
   return "\n".join(textList)
 }
 
-let mkAwards = @(awards) combineMultispecialistAward(awards).map(@(award) cursors.withTooltip(
-  mkBattleHeroAwardIcon(award, [hdpx(50), hdpx(50)]),
-  @() loc($"debriefing/award_{award?.id ?? award}")))
+let mkAwards = @(awards) combineMultispecialistAward(awards).map(@(award)
+  cursors.withTooltip(mkBattleHeroAwardIcon(award, heroAwardSize).__update({
+    size = [pw(100.0 / awards.len()), heroAwardSize[1]] }),
+    @() loc($"debriefing/award_{award?.id ?? award}")))
 
 let mkShowAnim = @(duration) [{
   prop = AnimProp.opacity, from = 1, to = 1, duration,
@@ -125,8 +126,9 @@ let function mkProgress(wasLevel, wasExp, addExp, toLevelExp, squad, result, awa
       }
       {
         size = [flex(), SIZE_TO_CONTENT]
+        hplace = ALIGN_CENTER
+        halign = ALIGN_CENTER
         flow = FLOW_HORIZONTAL
-        gap = gap
         children = mkAwards(awards)
       }
     ]
@@ -147,15 +149,12 @@ local function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
   p = SQUAD_CARD_PARAMS.__merge(p)
 
   let res = { content = null, duration = 0 }
-  let squad = p.squad
+  let { armyId, squad = null } = p
   if (squad == null)
     return res
 
   let animDelay = p.animDelay
   let hasNewLevel = squad.wasExp + squad.exp >= squad.toLevelExp
-  local { premIcon = null } = squadsPresentation?[p.armyId][squad?.id]
-  if ((squad?.premSquadExpBonus ?? 0) > 0)
-    premIcon = premIcon ?? armiesPresentation?[p.armyId].premIcon
   return {
     content = {
       size = squadCardSize
@@ -174,7 +173,7 @@ local function mkSquadProgress(p = SQUAD_CARD_PARAMS) {
             animations = p.mkAppearAnimations(animDelay, @() sound_play("ui/debriefing/new_equip"))
             children = [
               mkSquadIcon(squad?.icon, squadIconStyle)
-              mkSquadPremIcon(premIcon)
+              mkSquadSpecIconFields(armyId, squad, isSquadPremium(squad))
             ]
           }
           {

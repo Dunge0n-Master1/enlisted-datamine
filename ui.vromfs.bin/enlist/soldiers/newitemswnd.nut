@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let {
   bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -12,6 +13,8 @@ let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
+let soldierSlotsCount = require("model/soldierSlotsCount.nut")
+let { previewPreset } = require("%enlist/preset/presetEquipUi.nut")
 let { get_time_msec } = require("dagor.time")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { getObjectName, getItemDesc } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -22,7 +25,7 @@ let {
 let { curSelectedItem } = require("%enlist/showState.nut")
 let mkAnimatedItemsBlock = require("%enlist/soldiers/mkAnimatedItemsBlock.nut")
 let { mkSoldierMedalIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkTierStars, mkItemTier } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates, findItemTemplate
 } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -43,6 +46,12 @@ let { mkPerksPoints } = require("%enlist/soldiers/soldierPerksPkg.nut")
 let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
 let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
+let {
+  addToPresentList, curSuitableItemTypes, isItemsShopOpened
+} = require("%enlist/shop/armyShopState.nut")
+let { openSelectItem, autoSelectTemplate } = require("model/selectItemState.nut")
+let { curSoldierInfo } = require("model/curSoldiersState.nut")
+
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
 const ITEM_SELECT_DELAY = 0.01
@@ -247,7 +256,6 @@ let function newIemsWndContent() {
     : soldiersCount > 1 ? "delivery/soldiers"
     : "delivery/soldier"
 
-  sound_play( itemsCount > 0 ? "ui/weaponry_delivery" : "ui/troops_reinforcement")
   let animBlock = mkAnimatedItemsBlock({ items = allItems }, {
     width = sw(80)
     addChildren = []
@@ -390,8 +398,50 @@ let function soldierDismissBtn() {
   return res.__update({ children = dismissBtn(curItem.value, @() curItem(nextItemToShow)) })
 }
 
+
+let function equipItemBtn() {
+  let res = { watch = [isNewDesign, curItem, curSuitableItemTypes] }
+  if (!isNewDesign.value)
+    return res
+
+  let item = curItem.value
+  let { basetpl = null, itemtype = null } = item
+  if (basetpl == null || itemtype == null)
+    return res
+
+  let soldier = curSoldierInfo.value
+  if (soldier == null)
+    return res
+
+  let { guid, equipScheme } = soldier
+  let slotType = equipScheme.findindex(@(scheme) scheme.itemTypes.indexof(itemtype) != null)
+  if (slotType == null)
+    return res
+
+  let { slotsIncrease = null } = previewPreset.value
+  let slotsCountWatch = soldierSlotsCount(guid, equipScheme, slotsIncrease)
+  let slotId = slotType in slotsCountWatch.value ? 0 : -1
+  return (curSuitableItemTypes.value?[itemtype] ?? false)
+    ? res.__update({ children = textButton(loc("equip/quickEquip"), function() {
+        tryMarkSeen()
+        isItemsShopOpened(false)
+        autoSelectTemplate(basetpl)
+        openSelectItem({
+          armyId = getLinkedArmyName(item)
+          ownerGuid = guid
+          slotType
+          slotId
+        })
+      }) })
+    : res
+}
+
+
 let function upgradeItemBtn() {
-  let res = { watch = curItem }
+  let res = { watch = [isNewDesign, curItem] }
+  if (isNewDesign.value)
+    return res
+
   let justUpgradedItem = curItem.value
   let upgradeDataWatch = mkItemUpgradeData(justUpgradedItem)
   let upgradeData = upgradeDataWatch.value
@@ -455,16 +505,26 @@ let newItemsWnd = @() {
       gap = smallPadding
       children = wndCanBeClosed.value || isAnimFinished.value
         ? [
-            textButton(loc("Ok"), tryMarkSeen, {
-              hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]]
-            })
+            @() {
+              watch = isNewDesign
+              children = textButton(loc(isNewDesign ? "shop/continueShopping" : "Ok"), tryMarkSeen,
+                { hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]] }
+              )
+            }
             soldierDismissBtn
             vehicleSquadBtn
             upgradeItemBtn
+            equipItemBtn
           ]
         : null
     }
   ]
+}
+
+let function playOpenSceneSound() {
+  sound_play( (newItemsToShow.value?.itemsGuids ?? []).len() > 0
+    ? "ui/weaponry_delivery"
+    : "ui/troops_reinforcement")
 }
 
 let function close() {
@@ -474,9 +534,13 @@ let function close() {
 }
 
 let function open() {
+  playOpenSceneSound()
   anim_start(ANIM_TITLE_TRIGGER)
   sceneWithCameraAdd(newItemsWnd, "new_items")
-  curItem(newItemsToShow.value?.allItems[0])
+
+  let items = newItemsToShow.value?.allItems ?? []
+  curItem(items?[0])
+  addToPresentList(items)
 }
 
 if (needNewItemsWindow.value || specialUnlock.value != null)

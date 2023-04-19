@@ -5,9 +5,9 @@ require DaWeapons
 require HumanPhys
 require DagorRandom
 require DagorMath
-require EnlistedWeapon
-require EnlistedHuman
-require EnlistedPhys
+require DngWeapon
+require DngHuman
+require DngPhys
 require enlisted.events_enlisted
 
 def process_aim_offs(var aim_offs : float2&; var aim_angles : float2&; tau, dt : float)

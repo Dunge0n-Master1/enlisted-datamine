@@ -24,8 +24,7 @@ def vehicle_seats_effectors_init(evt : Event;
 
     push_to_array(vehicle_seats__effectors) <| $(var obj : Object)
       let effectors = get_ecs_object(seatObj, "effectors")
-      let cockpitTemplate = get_string(seatObj, "cockpitTemplate", "")
-      if effectors == null || cockpitTemplate != ""
+      if effectors == null
         return
       for field in *effectors
         let nodeValue = get_string(field.value, "")
@@ -52,7 +51,9 @@ def human_vehicle_effectors(info : ParallelUpdateFrameDelayed;
   geomtree_getNodeWtmRelScalar(*animchar.nodeTree, 0, vehicleRootTm)
   for seatOwnerNo, seatEid in iter_range(vehicle_seats__seatEids), vehicle_seats__seatEids
     let ownerEid = get_Eid(seatEid, "seat__ownerEid") ?? INVALID_ENTITY_ID
-    query(ownerEid) <| $ [es] (var animchar_effectors__effectorsState : Object; transform : float3x4)
+    query(ownerEid) <| $ [es] (var animchar_effectors__effectorsState : Object; transform : float3x4; isInVehicle : bool)
+      if !isInVehicle
+        return
       let effectors = get_ecs_object(vehicle_seats__effectors[seatOwnerNo])
       if effectors == null
         return
@@ -74,3 +75,18 @@ def human_vehicle_effectors(info : ParallelUpdateFrameDelayed;
         effector.position = effector.wtm[3] + d_wofs
         effector.weight = 1.f
         effector.wtm[3] = effector.position
+
+[es(tag=render, track=seat__ownerEid)]
+def clear_effectors_on_seat_change(evt : Event; seat__ownerEid : EntityId)
+  query(seat__ownerEid) <| $ [es] (var animchar_effectors__effectorsState : Object)
+    for effName in animchar_effectors__effectorsState
+      var effector = getNullableRW_EffectorData(animchar_effectors__effectorsState, effName.key)
+      if effector != null
+        effector.weight = 0f
+
+[es(tag=render, track=isInVehicle, REQUIRE=isInVehicle)]
+def clear_effectors_on_vehicle_exit(evt : Event; var animchar_effectors__effectorsState : Object)
+  for effName in animchar_effectors__effectorsState
+    var effector = getNullableRW_EffectorData(animchar_effectors__effectorsState, effName.key)
+    if effector != null
+      effector.weight = 0f

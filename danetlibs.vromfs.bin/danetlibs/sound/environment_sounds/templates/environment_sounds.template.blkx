@@ -179,6 +179,21 @@ compound_ambient_sound{
   }
 }
 
+compound_sound_effect{
+  _extends:t="replicating"
+  _extends:t="sound_bank_preset_state"
+  _extends:t="global_sound_listener_position"
+
+  _group{
+    _tags:t="sound"
+    compound_sound_effect__range:r=0.0
+    compound_sound_effect__path:t=""
+
+    "compound_sound_effect__event:SoundEvent"{
+    }
+  }
+}
+
 biome_sound_query{
   _extends:t="replicating"
   _singleton:b=yes

@@ -1,6 +1,6 @@
 require ecs
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require enlisted.events_enlisted
 
 [es(before=before_net_phys_sync)]

@@ -6,7 +6,7 @@ require soundProps
 require game.es.sound.sound_events
 require sound_utils.modules.sound_player_common
 require common_shooter.events_common_shooter
-require EnlistedDm
+require DngDm
 require DagorSystem
 require strings
 

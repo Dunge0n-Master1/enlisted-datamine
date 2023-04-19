@@ -10,13 +10,13 @@ require DagorMathUtils
 require math.base
 require math.ang
 require player
-require EnlistedHuman
+require DngHuman
 require AnimV20
 require GeomNodeTree
 require Dacoll
 require HumanPhys
 require GamePhys
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require common_shooter.es.human.bipod_common
 

@@ -2,6 +2,7 @@ options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options no_aot = true
+options strict_smart_pointers = true
 
 module unroll shared private
 
@@ -31,10 +32,10 @@ class UnrollMacro : AstFunctionAnnotation
         unsafe
             var mblk = reinterpret<ExprMakeBlock?> call.arguments[0]
             var blk = reinterpret<ExprBlock?> mblk._block
-            if blk.finalList.length != 0
+            if blk.finalList |> length != 0
                 errors := "not expecting finally section in the unroll"
                 return [[ExpressionPtr]]
-            if blk.list.length != 1 || !(blk.list[0] is ExprFor)
+            if blk.list |> length != 1 || !(blk.list[0] is ExprFor)
                 errors := "expecting unroll <| for ..."
                 return [[ExpressionPtr]]
             let efor = reinterpret<ExprFor?> blk.list[0]

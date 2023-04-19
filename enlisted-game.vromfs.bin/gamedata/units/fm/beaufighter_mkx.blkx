@@ -125,7 +125,7 @@ Aerodynamics{
   BombBayCd:r=0.0
   FuseCd:r=0.0
   AirbrakeCd:r=0.0
-  CockpitDoorCd:r=0.007
+  CockpitDoorCd:r=0.0532
   FlapsPolarBlending1:p2=0.0, 0.0
   FlapsPolarBlending2:p2=1.0, 1.0
   ClToCmCoeff:r=0.001
@@ -689,6 +689,13 @@ Engine0{
       toRPM:r=240.0
     }
   }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=1500.0
+    Automatic:b=no
+  }
 }
 
 Engine1{
@@ -1044,6 +1051,13 @@ Engine1{
       fromRPM:r=120.0
       toRPM:r=240.0
     }
+  }
+
+  FireExtinguisher{
+    Num:i=0
+    UseTime:r=5.0
+    Power:r=1500.0
+    Automatic:b=no
   }
 }
 

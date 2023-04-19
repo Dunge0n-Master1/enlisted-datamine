@@ -2,8 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { fontMedium, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, midPadding, smallPadding, colPart
-} = require("%enlSqGlob/ui/designConst.nut")
+let { defTxtColor, midPadding } = require("%enlSqGlob/ui/designConst.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
 let { isInQueue, leaveQueue, joinQueue, timeInQueue, curQueueParam
 } = require("%enlist/quickMatchQueue.nut")
@@ -18,7 +17,6 @@ let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_stat
 let { is_xbox } = require("%dngscripts/platform.nut")
 let { selEvent, isEventModesOpened } = require("%enlist/gameModes/eventModesState.nut")
 let mkCheckbox = require("%ui/components/mkCheckbox.nut")
-let { mkArmyIcon } = require("%enlist/army/armyPackage.nut")
 let {nestWatched} = require("%dngscripts/globalState.nut")
 
 
@@ -83,17 +81,12 @@ let function setRandTeamValue(val) {
 }
 
 
-let randTeamCheckbox = @(hideIcons = false) @() {
-  watch = [isInEventGM, curArmiesList]
+let randTeamCheckbox = @() {
+  watch = [isInEventGM, curArmiesList, matchRandomTeam]
   flow = FLOW_HORIZONTAL
   gap = midPadding
   valign = ALIGN_CENTER
   children = [
-    hideIcons ? null : {
-      flow = FLOW_HORIZONTAL
-      gap = smallPadding
-      children = curArmiesList.value.map(@(armyId) mkArmyIcon(armyId, colPart(0.35)))
-    }
     {
       rendObj = ROBJ_TEXT
       text = loc("queue/join_any_team")

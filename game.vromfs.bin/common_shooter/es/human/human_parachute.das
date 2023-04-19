@@ -1,22 +1,9 @@
 require ecs
 require app
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require common_shooter.events_common_shooter
 require common_shooter.es.human.human_parachute_common
-require math.base
-require GamePhys
-require DagorMath
-
-
-
-[es(on_appear, REQUIRE=parachute)]
-def parachute_attach_on_create(evt : Event;
-                               eid : EntityId;
-                               item__ownerEid : EntityId)
-  query(item__ownerEid) <| $ [es] (var human_parachute__eid : EntityId&)
-    human_parachute__eid = eid
-  addSubTemplate(item__ownerEid, "has_parachute")
 
 
 [es(on_appear, track=parachute__deployed)]
@@ -94,22 +81,8 @@ def human_parachute_disable_on_death(evt : Event;
 def human_parachute(evt : CmdPostPhysUpdate;
                     human_parachute__eid : EntityId;
                     var human_net_phys : HumanActor)
-  query(human_parachute__eid) <| $ [es] (parachute__maxFallSpeed : float;
-                                         parachute__deployTime : float;
-                                         parachute__deployedAtTime : float)
-    let dt = evt.dt
-    assume curState = human_net_phys.phys.currentState
-
-    if curState.velocity.y < 0.0
-      let currentVelocity = length(curState.velocity)
-      let wantedVelocityRatio = cvt(get_sync_time(), parachute__deployedAtTime, parachute__deployedAtTime + parachute__deployTime,
-                                    0.0, 1.0)
-      let wantedVelocity = currentVelocity + (parachute__maxFallSpeed - currentVelocity) * square(wantedVelocityRatio)
-      // g = k*V^2 where V is desired max speed
-      let k = safediv(gravity(), square(wantedVelocity))
-      let ungravitatedVelocity = curState.velocity + float3(0.0, gravity() * dt, 0.0)
-      curState.velocity -= k * normalize(ungravitatedVelocity) * length_sq(ungravitatedVelocity) * dt
-
+  assume velocity = human_net_phys.phys.currentState.velocity
+  velocity = parachute_update_phys(human_parachute__eid, velocity, evt.dt)
 
 [es(tag=server, on_appear, REQUIRE=parachuteDeployed)]
 def human_parachute_disable_freefall_on_deploy(evt : Event;
@@ -123,6 +96,10 @@ def human_parachute_enable_freefall_on_land(evt : Event;
                                             var human_freefall__canFreefall : bool&)
   human_freefall__canFreefall = true
 
+[es(tag=server, on_appear, REQUIRE=parachuteDeployed)]
+def horizontal_air_resistance_turn_off_on_parachute_deployed(evt : Event;
+                                                             var horizontal_air_resistance__isOn : bool&)
+  horizontal_air_resistance__isOn = false
 
 [es(tag=server, on_appear, REQUIRE=parachuteDeployed)]
 def human_parachute_disable_weapons_on_deploy(evt : Event;

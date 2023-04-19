@@ -1,11 +1,11 @@
 require ecs
 require DagorMath
-require EnlistedDm
+require DngDm
 require app
 require game.es.vehicle.vehicle_seats_common
 require game.es.events
 require game.events_game
-require EnlistedHuman
+require DngHuman
 require vehicle
 require game.utils.team
 require math.base

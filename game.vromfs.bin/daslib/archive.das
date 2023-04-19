@@ -1,6 +1,7 @@
 options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
+options strict_smart_pointers
 
 module archive shared private
 
@@ -87,7 +88,7 @@ def public write_raw ( var arch:Archive; var value : auto(TT)& )
     assert(!arch.reading)
     arch.stream->write(unsafe(addr(value)), typeinfo(sizeof value))
 
-[expect_any_enum(value)]
+[expect_any_enum(value) || expect_any_workhorse_raw(value) || expect_value_handle(value)]
 def public serialize ( var arch:Archive; var value : auto(TT)& )
     //! Serializes structured data, based on the `value` type.
     arch |> serialize_raw(value)
@@ -104,10 +105,6 @@ def public serialize ( var arch:Archive; var value:auto(TT)& )
         var mnh = get_function_mangled_name_hash(value)
         arch |> write_raw(mnh)
 
-[expect_any_workhorse_raw(value)]
-def public serialize ( var arch:Archive; var value : auto(TT)& )
-    arch |> serialize_raw(value)
-
 def public serialize ( var arch:Archive; var value : float3x3 )
     arch |> serialize_raw(value)
 
@@ -121,14 +118,14 @@ def public serialize ( var arch:Archive; var value : float4x4 )
 def public serialize ( var arch:Archive; var value : auto(TT)& )
     if arch.reading
         delete value
-    apply(value) <| $ ( name:string; field )
+    apply(value) <| $ [unused_argument(name)] ( name:string; field )
         arch |> _::serialize(field)
 
 [expect_any_tuple(value)]
 def public serialize ( var arch:Archive; var value : auto(TT)& )
     if arch.reading
         delete value
-    apply(value) <| $ ( name:string; field )
+    apply(value) <| $ [unused_argument(name)] ( name:string; field )
         arch |> _::serialize(field)
 
 [expect_any_variant(value)]
@@ -142,7 +139,7 @@ def public serialize ( var arch:Archive; var value : auto(TT)& )
     else
         var index = variant_index(value)
         arch |> write_raw(index)
-    apply(value) <| $ ( name:string; field )
+    apply(value) <| $ [unused_argument(name)] ( name:string; field )
         arch |> _::serialize(field)
 
 def public serialize ( var arch:Archive; var value : auto(TT)[] )
@@ -168,7 +165,7 @@ def public serialize ( var arch:Archive; var value : table<auto(KT);auto(VT)> )
         var len : int
         arch |> read_raw(len)
         delete value
-        for i in range(len)
+        for _ in range(len)
             var k : KT-const-&-#
             arch |> _::serialize(k)
             arch |> _::serialize(value[k])
@@ -187,14 +184,14 @@ def public serialize ( var arch:Archive; var value : string& )
             var tbuf: array<uint8>
             arch |> read_raw(len)
             tbuf |> resize(len+1)                           // todo: implement preallocat string with raii
-            arch.stream->read(addr(tbuf[0]), len+1)
+            arch.stream->read(addr(tbuf[0]), len)
             let tstr = reinterpret<string#> addr(tbuf[0])
             value := tstr
             delete tbuf
         else
             var len = length(value)
             arch |> write_raw(len)
-            arch.stream->write(reinterpret<void?> value, len+1)
+            arch.stream->write(reinterpret<void?> value, len)
 
 def public serialize ( var arch:Archive; var value:auto(TT)? )
     if arch.reading

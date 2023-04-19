@@ -8,9 +8,9 @@ let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCountry, countr
   isAutoClusterSafe, hasAutoClusterOption
 } = require("clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
-let squadClusters = squadSharedData.clusters
-let squadAutoCluster = squadSharedData.isAutoCluster
-let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
+let squadClustersWatched = squadSharedData.clusters
+let squadAutoClusterWatched = squadSharedData.isAutoCluster
+let { addPopup, removePopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { multiselect, styleCommon, styleDisabled } = require("%enlist/components/multiselect.nut")
@@ -22,6 +22,8 @@ const SELECTION_ERROR_UID = "groupSizePopup"
 let selectorWidth = hdpx(500)
 
 let isLocalClusters = Computed(@() !isInSquad.value || isSquadLeader.value)
+let squadClusters = Computed(@() squadClustersWatched.value ?? {})
+let squadAutoCluster = Computed(@() squadAutoClusterWatched.value ?? false)
 
 let btnParams = {
   size = [flex(), hdpx(50)]

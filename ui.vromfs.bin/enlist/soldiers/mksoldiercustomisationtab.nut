@@ -20,7 +20,7 @@ let {
 } = require("%enlist/soldiers/components/currencyButton.nut")
 let obsceneFilter = require("%enlSqGlob/obsceneFilter.nut")
 let spinner = require("%ui/components/spinner.nut")({ height = commonBtnHeight })
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { lookCustomizationBlock } = require("soldierCustomizationPkg.nut")
 let { enableExtendedOufit } = require("%enlist/campaigns/campaignConfig.nut")
 let { reserveSoldiers } = require("model/chooseSoldiersState.nut")
@@ -90,7 +90,7 @@ let stdText = @(text){
 let soldierNameColorized = function(soldier, callname){
   let { name, surname } = localizeSoldierName(soldier)
   callname = callname != "" ? colorize(0xFFFFFF, $"\"{callname}\"") : null
-  return " ".join([loc(name), callname, loc(surname)], true)
+  return " ".join([name, callname, surname], true)
 }
 
 let function filterAndSetCallname(callNameToSet, soldier, prevCallname){

@@ -1,7 +1,7 @@
 require ecs
 require app
 require math.base
-require EnlistedWalkerai
+require DngWalkerai
 require pathfinder
 require DagorDataBlock
 require DagorRandom

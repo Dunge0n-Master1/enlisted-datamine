@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, colPart, titleTxtColor, commonBorderRadius, bigPadding, accentColor, panelBgColor
+let { colFull, colPart, titleTxtColor, bigPadding, accentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
@@ -12,23 +12,35 @@ let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let { allArmiesInfo } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curArmiesList, curArmy } = require("%enlist/soldiers/model/state.nut")
 let { eventsArmiesList, eventCurArmyIdx } = require("%enlist/gameModes/eventModesState.nut")
-let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defcomponents.nut")
-let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
+let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { randTeamAvailable, randTeamCheckbox, alwaysRandTeamSign, crossplayHint, matchRandomTeam,
   isCurQueueReqRandomSide
 } = require("%enlist/army/anyTeamCheckbox.nut")
+let { squadMembers, enabledSquad, squadId } = require("%enlist/squad/squadState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
+let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
+let cursors = require("%ui/style/cursors.nut")
 
 
 let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let defTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 
+let wndSize = [colFull(8), colPart(6.45)]
+let defPosSize = {
+  size = wndSize
+  pos = [ sw(50) - wndSize[0] / 2, sh(45) - wndSize[1] / 2 ]
+}
+
+let posSize = Watched(defPosSize)
+isInQueue.subscribe(@(v) v ? null : posSize(defPosSize))
+
+let defSlotBgImg  = mkColoredGradientY(0xCC444555, 0xCC181F34)
 
 const TIME_BEFORE_SHOW_QUEUE = 15
 const MIN_VISIBLE_PLAYERS_AMOUNT = 2
 const WND_UID = "queueWaitingWindow"
-let wndSize = [colFull(8), colPart(6.45)]
+
 let titleHeight = colPart(0.903)
 let curArmyInfo = Computed(function() {
   local armyList = curArmiesList.value
@@ -69,7 +81,8 @@ let maxMinPlayersAmount = Computed(@() (currentGameMode.value?.queue.modes ?? []
 
 
 let function armiesBlock() {
-  let res = { watch = [queueInfo, timeInQueue, curArmiesList, curArmy, curArmyInfo] }
+  let res = { watch = [queueInfo, timeInQueue, curArmiesList, curArmy, curArmyInfo,
+    matchRandomTeam, enabledSquad, squadId, squadMembers] }
   if (timeInQueue.value < TIME_BEFORE_SHOW_QUEUE && (queueInfo.value?.matched ?? 0) < 0)
     return res
 
@@ -87,18 +100,24 @@ let function armiesBlock() {
     }.__update(headerTxtStyle)
     halign = ALIGN_CENTER
     children = curArmyInfo.value.armyList.map(function(army, idx) {
-      let isSelected = army == curArmyInfo.value.armyId
+      let squadLeader = enabledSquad.value
+        ? squadMembers.value?[squadId.value]
+        : null
+      let squadArmy = squadLeader?.state.curArmy
+      let isSelected = squadArmy == army || army == curArmyInfo.value.armyId
+      let needAccent = squadLeader?.state.isTeamRandom
+        ?? (matchRandomTeam.value || isSelected)
       return @() {
-        watch = [matchRandomTeam, allArmiesInfo, maxMinPlayersAmount]
+        watch = [allArmiesInfo, maxMinPlayersAmount]
         rendObj = ROBJ_BOX
-        borderWidth = matchRandomTeam.value || isSelected ? [0, 0, hdpx(2), 0] : 0
+        borderWidth = needAccent ? [0, 0, hdpx(2), 0] : 0
         borderColor = accentColor
         flow = FLOW_HORIZONTAL
         gap = { size = flex() }
         valign = ALIGN_CENTER
         halign = ALIGN_CENTER
         children = [
-          mkArmyIcon(allArmiesInfo.value?[army].id, colFull(1), matchRandomTeam.value || isSelected
+          mkArmyIcon(allArmiesInfo.value?[army].id, colFull(1), needAccent
             ? { color = accentColor }
             : {})
           maxMinPlayersAmount.value < MIN_VISIBLE_PLAYERS_AMOUNT ? null
@@ -133,7 +152,7 @@ let function mkRandomTeamContent() {
     halign = ALIGN_CENTER
     children = [
       randomTeamHint(matchRandomTeam.value)
-      isCurQueueReqRandomSide.value ? alwaysRandTeamSign : randTeamCheckbox(true)
+      isCurQueueReqRandomSide.value ? alwaysRandTeamSign : randTeamCheckbox
     ]
   })
 }
@@ -164,11 +183,8 @@ let hintsBlock = {
 
 
 let wndContent = {
-  rendObj = ROBJ_BOX
-  fillColor = panelBgColor
-  borderRadius = commonBorderRadius
+  rendObj = ROBJ_WORLD_BLUR_PANEL
   size = wndSize
-  padding = [0, 0, titleHeight / 2, 0 ]
   pos = [0, sh(45) - wndSize[1]]
   transform = {}
   animations = [
@@ -177,30 +193,50 @@ let wndContent = {
     { prop=AnimProp.translate, from=[0,0], to=[0, sh(30)], duration=0.7, playFadeOut=true, easing=OutCubic }
     { prop=AnimProp.opacity, from=1.0, to=0.0, duration=0.6, playFadeOut=true, easing=OutCubic }
   ]
-  flow = FLOW_VERTICAL
-  gap = { size = flex() }
-  halign = ALIGN_CENTER
   children = [
-    queueTitle
-    timerBlock
-    armiesBlock
-    hintsBlock
+    {
+      size = flex()
+      rendObj = ROBJ_IMAGE
+      image = defSlotBgImg
+      padding = [0, 0, titleHeight / 2, 0 ]
+      flow = FLOW_VERTICAL
+      gap = { size = flex() }
+      halign = ALIGN_CENTER
+      children = [
+        queueTitle
+        timerBlock
+        armiesBlock
+        hintsBlock
+      ]
+    }
   ]
 }
 
 
-let open = @() addModalWindow({
-  key = WND_UID
-  size = SIZE_TO_CONTENT
-  vplace = ALIGN_CENTER
-  hplace = ALIGN_CENTER
-  stopHover = true
-  stopMouse = true
-  behavior = Behaviors.Button
-  hotkeys = [[$"^{JB.B} | Esc", @() leaveQueue()]]
-  children = wndContent
-  onClick = @() null
-})
 
-
-isInQueue.subscribe(@(v) v ? open() : removeModalWindow(WND_UID))
+return function queueWaitingBlock() {
+  let res = { watch = [isInQueue, posSize] }
+  if (!isInQueue.value)
+    return res
+  let pos = posSize.value.pos
+  return res.__update({
+    key = WND_UID
+    size = wndSize
+    behavior = Behaviors.MoveResize
+    moveResizeCursors = null
+    cursor = cursors.normal
+    pos = pos
+    onMoveResize = function(dx, dy, _dw, _dh) {
+      let newPosSize = {
+        size = wndSize
+        pos = [
+          clamp(pos[0] + dx, 0, sw(100) - wndSize[0]),
+          clamp(pos[1] + dy, 0, sh(90) - wndSize[1])
+        ]}
+      posSize.update(newPosSize)
+      return newPosSize
+    }
+    hotkeys = [[$"^{JB.B} | Esc", @() leaveQueue()]]
+    children = wndContent
+  })
+}

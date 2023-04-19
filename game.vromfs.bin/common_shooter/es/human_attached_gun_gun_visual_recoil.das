@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWeapon
+require DngWeapon
 require DaWeapons
 require DagorMath
 

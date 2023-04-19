@@ -4,7 +4,7 @@ require DagorMathUtils
 require math.base
 require BallisticsProps
 require PhysObj
-require EnlistedPhysObj
+require DngPhysObj
 require DaWeaponProps
 require turrets
 require common_shooter.es.forestall_common
@@ -12,7 +12,7 @@ require common_shooter.events_common_shooter
 require human_sounds_net.modules.human_sounds_net_events
 require game.utils.team
 require walkerai
-require EnlistedNet
+require DngNet
 require AnimV20
 require GeomNodeTree
 

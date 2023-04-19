@@ -82,7 +82,7 @@ let mkResearchUnlockedView = @(research_id) {
         text = utf8ToUpper(loc("research/unlocked"))
       }.__update(headerTxtStyle)
     ]
-  }.__update(mkPageInfoAnim(0.5))
+  }.__update(mkPageInfoAnim(0.1))
 }
 
 
@@ -140,7 +140,7 @@ let function researchBtnUi() {
           ]
         }
       ]
-    }.__update(mkPageInfoAnim(0.5))
+    }.__update(mkPageInfoAnim(0.1))
   })
 }
 

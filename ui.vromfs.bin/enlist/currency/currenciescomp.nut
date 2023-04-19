@@ -17,6 +17,14 @@ let {
 } = require("%enlist/shop/currencyComp.nut")
 
 
+let CURENCY_PARAMS = {
+  iconSize = hdpx(16)
+  txtStyle = { color = activeTxtColor }
+  dimStyle = { color = defTxtColor }.__update(tiny_txt)
+  discountStyle = { color = bonusColor }
+}
+
+
 let curencyById = @(currencyId) currenciesById.value?[currencyId]
 
 let oldPriceLine = {
@@ -32,26 +40,27 @@ let mkCurrencyImg = @(currency, iconSize) {
   image = Picture(currency.image(iconSize))
 }
 
-let mkCurrencyCount = @(count, txtStyle = { color = activeTxtColor }) {
+let mkCurrencyCount = @(count, txtStyle = null) {
   rendObj = ROBJ_TEXT
   text = count
-}.__update(body_txt, txtStyle)
+}.__update(body_txt, txtStyle ?? CURENCY_PARAMS.txtStyle)
 
-let mkCurrencyStroke = @(count, txtStyle = { color = activeTxtColor }) {
+let mkCurrencyStroke = @(count, txtStyle = null) {
   children = [
     mkCurrencyCount(count, txtStyle)
-    oldPriceLine.__merge(txtStyle)
+    oldPriceLine.__merge(txtStyle ?? CURENCY_PARAMS.txtStyle)
   ]
 }
 
 let mkCurrency = kwarg(
-  function(currency, price, fullPrice = null, iconSize = hdpx(16),
-    txtStyle = { color = activeTxtColor },
-    discountStyle = { color = bonusColor },
-    dimStyle = { color = defTxtColor }
+  function(currency, price, fullPrice = null, iconSize = null,
+    txtStyle = null, discountStyle = null, dimStyle = null
   ) {
     let hasPrice = price != null
     let hasDiscount = (fullPrice ?? 0) > price && (price ?? 0) >= 0
+    let countStyle = hasDiscount
+      ? (discountStyle ?? CURENCY_PARAMS.discountStyle)
+      : (txtStyle ?? CURENCY_PARAMS.txtStyle)
     return {
       flow = FLOW_VERTICAL
       halign = ALIGN_RIGHT
@@ -63,7 +72,7 @@ let mkCurrency = kwarg(
               gap = gap
               children = [
                 mkCurrencyImg(currency, hdpx(10))
-                mkCurrencyStroke(fullPrice, dimStyle.__update(tiny_txt))
+                mkCurrencyStroke(fullPrice, dimStyle ?? CURENCY_PARAMS.dimStyle)
               ]
             }
           : null
@@ -72,9 +81,9 @@ let mkCurrency = kwarg(
           valign = ALIGN_CENTER
           gap = gap
           children = [
-            mkCurrencyImg(currency, iconSize)
+            mkCurrencyImg(currency, iconSize ?? CURENCY_PARAMS.iconSize)
             hasPrice
-              ? mkCurrencyCount(price, hasDiscount ? discountStyle : txtStyle)
+              ? mkCurrencyCount(price, countStyle)
               : mkDefaultTooltipText(loc("currency/notAvailable"))
           ]
         }
@@ -86,7 +95,7 @@ let mkCurrency = kwarg(
 let function currencyBtn(
   btnText, currencyId, price = null, priceFull = null, cb = @() null,
   style = {}, txtColor = TextNormal, txtHoverColor = TextHover,
-  discountStyle = { color = bonusColor }
+  discountStyle = null
 ) {
   let hasPrice = !("" == (price ?? ""))
   let hasPriceFull = !("" == (priceFull ?? ""))
@@ -104,7 +113,7 @@ let function currencyBtn(
         mkCurrencyImg(curencyById(currencyId), hdpx(30))
         hasPrice
           ? mkCurrencyCount(price, hasPriceFull
-              ? discountStyle
+              ? discountStyle ?? CURENCY_PARAMS.discountStyle
               : { color = sf & S_HOVER ? txtHoverColor : txtColor })
           : null
         hasPrice && hasPriceFull

@@ -41,3 +41,7 @@ def try_redeploy_soldier(info : UpdateStageInfoAct;
 
     teleport_or_request(eid, closestRespbasePos)
     sendEvent(eid, [[EventEntityRedeployed]])
+
+[es(tag=server, on_disappear, REQUIRE=human__redeployable)]
+def reset_redeploy_timer_if_not_redeployable(evt : Event; var redeploy__atTime : float&)
+  redeploy__atTime = -1.0

@@ -19,6 +19,7 @@ let { heroSoldierKind } = require("%ui/hud/state/soldier_class_state.nut")
 let { MedicHealState } = require("%enlSqGlob/dasenums.nut")
 let { heroMedicMedpacks } = require("%ui/hud/state/medic_state.nut")
 let { teammatesAvatarsSet, teammatesAvatarsGetWatched } = require("%ui/hud/state/human_teammates.nut")
+let { showTeammateName, showTeammateMarkers } = require("%ui/hud/state/hudOptionsState.nut")
 
 let defTransform = {}
 let hpIconSize = [fsh(2.5), fsh(2.5)]
@@ -120,7 +121,7 @@ let hasEngineers = Computed(@() engineersInSquad.value >0)
 
 let unit = function(eid, showMed){
   let infoState = teammatesAvatarsGetWatched(eid)
-  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers]
+  let watch = [infoState, hasEngineers, showMed ? needShowMed : null, forcedMinimalHud, watchedHeroSquadEid, localPlayerGroupMembers, showTeammateName, showTeammateMarkers]
   return function() {
     let info = infoState.value
     if (!info.isAlive )
@@ -137,7 +138,7 @@ let unit = function(eid, showMed){
     let isGroupmate = !isSquadmate && info.squad_member__playerEid in localPlayerGroupMembers.value
 
     let minHud = forcedMinimalHud.value
-    let showName = info?.name && isGroupmate && !isBot
+    let showName = info?.name && isGroupmate && !isBot && showTeammateName.value
     let nameComp = showName
       ? teammateName(eid, frameNick(remap_nick(info?.name), info?["decorators__nickFrame"]),
             HUD_COLOR_TEAMMATE_INNER)
@@ -200,7 +201,11 @@ let unit = function(eid, showMed){
             ]
           }
           nameComp
-          showMed && needShowMed.value && iconHpColor ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER) : icon
+          showTeammateMarkers.value
+          ? (showMed && needShowMed.value && iconHpColor
+             ? mkHpIcon(eid, iconHpColor, HUD_COLOR_MEDIC_HP_OUTER)
+             : icon)
+          : {size=[fsh(1).tointeger(), fsh(1.25).tointeger()]}
         ]
       }
     }

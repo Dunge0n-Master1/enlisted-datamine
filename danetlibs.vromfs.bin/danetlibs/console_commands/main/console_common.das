@@ -6,7 +6,7 @@ require strings
 require math.base
 require DagorConsole
 require DagorSystem
-require EnlistedNet
+require DngNet
 require daslib/strings_boost
 
 

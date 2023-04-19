@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 #explicit-this
 
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let getByPath = require("%sqstd/table.nut").getValInTblPath
 let {get_time_msec} = require("dagor.time")
 const MAX_EVENTS_DEFAULT = 10

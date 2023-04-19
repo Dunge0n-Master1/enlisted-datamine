@@ -8,6 +8,8 @@ let ammoRequestCooldown = require("huds/ammo_request_cooldown_hint.nut")
 let vehicleSeats = require("huds/vehicle_seats.ui.nut")
 let vehicleChangeSeats = require("huds/vehicle_change_seats.nut")
 let pushObjectTip = require("huds/push_object_tip.nut")
+let paratroopersSupplyBoxTip = require("huds/paratroopers_supply_box_tip.nut")
+let grenadeRethrowTip = require("huds/grenade_rethrow_tip.nut")
 let fortificationAction = require("%ui/hud/huds/fortification_builder_action.nut")
 let { enterVehicleIndicator, exitVehicleIndicator } = require("%ui/hud/huds/enter_exit_vehicle.nut")
 let putOutFire = require("%ui/hud/huds/put_out_fire_indicator.nut")
@@ -73,13 +75,15 @@ let {inPlane} = require("%ui/hud/state/vehicle_state.nut")
 let {showBigMap} = require("%ui/hud/menus/big_map.nut")
 let {showArtilleryMap} = require("menus/artillery_radio_map.nut")
 let {
-  minimalistHud, showBattleChat, showSelfAwards
+  minimalistHud, showBattleChat
 } = require("%ui/hud/state/hudOptionsState.nut")
+let { mkHudElement, HUD_FLAGS, hudFlags } = require("%ui/hud/state/hudFlagsState.nut")
 let {showSquadSpawn} = require("%ui/hud/state/respawnState.nut")
 let {playerDeaths} = require("huds/player_deaths.nut")
 let {tkWarning} = require("huds/team_kills.nut")
 let {text} = require("%ui/components/text.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
+let logHUD = require("%enlSqGlob/library_logs.nut").with_prefix("[HUD] ")
 
 let minHud = keepref(Computed(@() forcedMinimalHud.value || minimalistHud.value))
 let showGameMode = Computed( @() !minHud.value || showSquadSpawn.value || showBigMap.value)
@@ -178,89 +182,129 @@ let spectatorKeys = @() {
   children = hasSpectatorKeys.value ? spectatorKeys_tip : null
 }
 
-let function tutorialHudLayout(){
-  let chat = hasServiceMessages.value ? serviceMessages
+let chat = @() {
+  size = [flex(), SIZE_TO_CONTENT]
+  watch = [hasServiceMessages, showChat]
+  children = hasServiceMessages.value ? serviceMessages
     : showChat.value ? chatRoot
     : null
-  /// Left Panel
-  hudLayoutState.leftPanelTop([planeHud, vehicleHud])
-  hudLayoutState.leftPanelMiddle([chat, vehicleSeats, squadMembersUi, artilleryOrderUi])
-  hudLayoutState.leftPanelBottom([minimap_mod])
-
-  /// Center Panel
-  hudLayoutState.centerPanelTop([hints, warnings, noRespawnTip, vehicleChangeSeats,
-    enterVehicleIndicator, exitVehicleIndicator])
-
-  hudLayoutState.centerPanelMiddle([
-    outsideBattleAreaWarning, vehicleWarnings, vehicleRepair, maintenanceProgress,
-    fortificationRepairProgress, bombSiteProgress, ammoRequestCooldown, putOutFire,
-    fortificationAction,playerDeaths])
-
-  hudLayoutState.centerPanelBottom([
-        playerEventsRoot, cannotDigAtPosTip, ammoDepletedInTank, actionsRoot,
-        throw_grenade_tip, artillery_ratio_tip, vehicleResupplyTip,
-        spectatorKeys, friendly_fire_warning, pushObjectTip
-    ])
-
-  /// Right Panel
-  hudLayoutState.rightPanelTop([hitcamera])
-  hudLayoutState.rightPanelBottom([playerDynamic])
 }
+
+let LEFT_PANEL_TOP = [
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI | HUD_FLAGS.NO_SQUAD_SPAWN, comp = planeHud }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI | HUD_FLAGS.NO_SQUAD_SPAWN, comp = vehicleHud }
+]
+
+let LEFT_PANEL_MIDDLE = [
+  { flags = HUD_FLAGS.MINIMAL, comp = chat }
+
+  { flags = HUD_FLAGS.FULL, comp = chat }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.TUTORIAL, comp = vehicleSeats }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI, comp = squadMembersUi }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI, comp = artilleryOrderUi }
+]
+
+let LEFT_PANEL_BOTTOM = [
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.PLAYER_UI | HUD_FLAGS.NO_MINIMALIST | HUD_FLAGS.NO_SQUAD_SPAWN | HUD_FLAGS.NO_HARDCORE, comp = vehicleSeats }
+  { flags = HUD_FLAGS.NO_MINIMALIST | HUD_FLAGS.PLAYER_UI | HUD_FLAGS.NO_SQUAD_SPAWN, comp = minimap_mod }
+]
+
+let CENTER_PANEL_TOP = [
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.PLAYER_UI, comp = gameMode }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_TIPS, comp = spectatorMode_tip }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = noRespawnTip }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = vehicleChangeSeats }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = enterVehicleIndicator }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = exitVehicleIndicator }
+
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI, comp = gameMode }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = hints }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = warnings }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = spectatorMode_tip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = noRespawnTip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = vehicleChangeSeats }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = enterVehicleIndicator }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = exitVehicleIndicator }
+]
+
+let CENTER_PANEL_MIDDLE = [
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = playerEventsRoot }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = vehicleRepair }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = maintenanceProgress }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = fortificationRepairProgress }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = bombSiteProgress }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.MINIMAL, comp = tkWarning }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = putOutFire }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = fortificationAction }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = playerDeaths }
+
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = outsideBattleAreaWarning }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = playerEventsRoot }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = vehicleWarnings }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = vehicleRepair }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = maintenanceProgress }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = fortificationRepairProgress }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = bombSiteProgress }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL, comp = tkWarning }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = ammoRequestCooldown }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = putOutFire }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = fortificationAction }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_AWARDS, comp = awards }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = playerDeaths }
+]
+
+let CENTER_PANEL_BOTTOM = [
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_TIPS | HUD_FLAGS.NO_BIG_MAP, comp = actionsRoot }
+  { flags = HUD_FLAGS.MINIMAL | HUD_FLAGS.SHOW_TIPS, comp = artillery_ratio_tip }
+  { flags = HUD_FLAGS.MINIMAL, comp = friendly_fire_warning }
+
+  { flags = HUD_FLAGS.TUTORIAL | HUD_FLAGS.FULL, comp = playerEventsRoot }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = lieDownToShootAccuratelyTip }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = hasToChargeTip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = cannotDigAtPosTip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_GAME_MODE_HINTS, comp = ammoDepletedInTank }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = lie_down_to_save_from_expl_tip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.NO_BIG_MAP | HUD_FLAGS.SHOW_TIPS, comp = actionsRoot }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = throw_grenade_tip }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = melee_charge_tip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = artillery_ratio_tip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = vehicleResupplyTip }
+  { flags = HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = spectatorKeys }
+  { flags = HUD_FLAGS.FULL, comp = friendly_fire_warning }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = pushObjectTip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = paratroopersSupplyBoxTip }
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.SHOW_TIPS, comp = grenadeRethrowTip }
+]
+
+let RIGHT_PANEL_TOP = [
+  { flags = HUD_FLAGS.FULL | HUD_FLAGS.PLAYER_UI, comp = hitcamera }
+]
+
+let RIGHT_PANEL_MIDDLE = [
+  { flags = HUD_FLAGS.PLAYER_UI | HUD_FLAGS.NO_TUTORIAL | HUD_FLAGS.FULL | HUD_FLAGS.NO_BIG_MAP, comp = killLog }
+]
+
+let RIGHT_PANEL_BOTTOM = [
+  { flags = HUD_FLAGS.NO_MINIMALIST | HUD_FLAGS.PLAYER_UI, comp = playerDynamic }
+]
 
 let function setHudLayout(...) {
-  let isHudMinimal = minHud.value
-  let onlyFull = isHudMinimal ? @(_list) [] : @(list) list
-  let chat = hasServiceMessages.value ? serviceMessages
-    : showChat.value ? chatRoot
-    : null
-  let mnlstHud = minimalistHud.value
+  logHUD($"hudFlags = {hudFlags.value}")
 
-  if (isTutorial.value){
-    tutorialHudLayout()
-    return
-  }
   /// Left Panel
-  hudLayoutState.leftPanelTop(showSquadSpawn.value ? null : onlyFull([planeHud, vehicleHud]))
-  hudLayoutState.leftPanelMiddle(isHudMinimal ? [chat] : [chat, squadMembersUi, artilleryOrderUi])
-  hudLayoutState.leftPanelBottom((minimalistHud.value || showSquadSpawn.value)
-    ? []
-    : [!forcedMinimalHud.value ? vehicleSeats : null, minimap_mod])
+  hudLayoutState.leftPanelTop(LEFT_PANEL_TOP.map(mkHudElement))
+  hudLayoutState.leftPanelMiddle(LEFT_PANEL_MIDDLE.map(mkHudElement))
+  hudLayoutState.leftPanelBottom(LEFT_PANEL_BOTTOM.map(mkHudElement))
 
   /// Center Panel
-  hudLayoutState.centerPanelTop(isHudMinimal
-    ? [gameMode, spectatorMode_tip, noRespawnTip, vehicleChangeSeats, enterVehicleIndicator, exitVehicleIndicator]
-    : [gameMode, hints, warnings, spectatorMode_tip, noRespawnTip, vehicleChangeSeats,
-        enterVehicleIndicator, exitVehicleIndicator])
-
-  hudLayoutState.centerPanelMiddle(isHudMinimal
-    ? [
-        playerEventsRoot, vehicleRepair, maintenanceProgress, fortificationRepairProgress, bombSiteProgress,
-        tkWarning, putOutFire, fortificationAction, playerDeaths
-      ]
-    : [
-        outsideBattleAreaWarning, playerEventsRoot,
-        vehicleWarnings, vehicleRepair, maintenanceProgress, fortificationRepairProgress,
-        bombSiteProgress, tkWarning, ammoRequestCooldown, putOutFire,
-        fortificationAction, showSelfAwards.value ? awards : null, playerDeaths
-      ]
-  )
-
-  hudLayoutState.centerPanelBottom(!isHudMinimal
-    ? [
-        lieDownToShootAccuratelyTip, hasToChargeTip,
-        cannotDigAtPosTip, ammoDepletedInTank, lie_down_to_save_from_expl_tip,
-        showBigMap.value ? null : actionsRoot, throw_grenade_tip, melee_charge_tip, artillery_ratio_tip,
-        vehicleResupplyTip, spectatorKeys, friendly_fire_warning,
-        pushObjectTip
-      ]
-    : [ actionsRoot, artillery_ratio_tip, friendly_fire_warning ])
+  hudLayoutState.centerPanelTop(CENTER_PANEL_TOP.map(mkHudElement))
+  hudLayoutState.centerPanelMiddle(CENTER_PANEL_MIDDLE.map(mkHudElement))
+  hudLayoutState.centerPanelBottom(CENTER_PANEL_BOTTOM.map(mkHudElement))
 
   /// Right Panel
-  hudLayoutState.rightPanelTop(onlyFull([hitcamera]))
-  hudLayoutState.rightPanelMiddle(onlyFull(showBigMap.value ? [] : [killLog]))
-  hudLayoutState.rightPanelBottom(mnlstHud ? [] : [playerDynamic])
+  hudLayoutState.rightPanelTop(RIGHT_PANEL_TOP.map(mkHudElement))
+  hudLayoutState.rightPanelMiddle(RIGHT_PANEL_MIDDLE.map(mkHudElement))
+  hudLayoutState.rightPanelBottom(RIGHT_PANEL_BOTTOM.map(mkHudElement))
 }
 setHudLayout()
-foreach (s in [showChat, minHud, minimalistHud, forcedMinimalHud, showSelfAwards, showSquadSpawn,
-                showBigMap, isTutorial, hasServiceMessages])
-  s.subscribe(setHudLayout)
+hudFlags.subscribe(setHudLayout)

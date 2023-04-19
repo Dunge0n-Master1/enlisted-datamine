@@ -177,7 +177,6 @@ entity{
   team:i=1
   maxVehicleOnSpawn:i=1
   respTime:i=120
-  sphere_zone__radius:r=500.0
 }
 
 entity{
@@ -208,7 +207,6 @@ entity{
   team:i=2
   maxVehicleOnSpawn:i=1
   respTime:i=120
-  sphere_zone__radius:r=500.0
 }
 
 entity{

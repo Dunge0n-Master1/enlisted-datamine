@@ -3,7 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium, fontSmall, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, titleTxtColor, defTxtColor, topWndBgColor, bottomWndBgColor, sidePadding,
-  panelBgColor, hoverBgColor, colPart, commonBtnHeight, accentColor, colFull, smallPadding
+  panelBgColor, hoverPanelBgColor, colPart, commonBtnHeight, accentColor, colFull, smallPadding,
+  darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let textInput = require("%ui/components/textInput.nut")
@@ -36,11 +37,14 @@ let hasFriendOnlineNotification = require("%enlist/contacts/onlineNotifications.
 const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
 let contactListWidth = colFull(6)
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let bigTitleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let bigActiveTxtStyle = { color = darkTxtColor }.__update(fontMedium)
+let bigHoverTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 let bigCommonTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let nickTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let wndGradient = mkColoredGradientY(topWndBgColor, bottomWndBgColor)
 let contactBtnHeight = colFull(1)
+let invitesCount = Computed(@() {}.__update(requestsToMeUids.value,
+  myRequestsUids.value, rejectedByMeUids.value))
 
 
 const APPROVED_TAB = "approved"
@@ -53,54 +57,63 @@ let curTab = Watched(APPROVED_TAB)
 let searchPlayer = Watched("")
 let contactTabs = [
   {
-    loc = loc("contacts/contacts")
+    header = loc("contacts/contacts")
     id = APPROVED_TAB
     action = @() curTab(APPROVED_TAB)
+    countWatched = friendsOnlineUids
   }
   {
-    loc = loc("contacts/requests")
+    header = loc("contacts/requests")
     id = INVITES_TAB
     action = @() curTab(INVITES_TAB)
+    countWatched = invitesCount
   }
   {
-    loc = loc("contacts/myBlacklist")
+    header = loc("contacts/myBlacklist")
     id = BLACKLIST_TAB
     action = @() curTab(BLACKLIST_TAB)
+    countWatched = blockedUids
   }
 ]
 
 
-let friendsCounter = @() {
-  watch = [friendsOnlineUids, curTab]
-  padding = [0, smallPadding]
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_TOP
-  children = friendsOnlineUids.value.len() <= 0 ? null : {
+let mkTabContactsCounter = @(countWatched) function() {
+  let count = countWatched.value.len()
+  return {
+    watch = countWatched
     rendObj = ROBJ_TEXT
-    text = friendsOnlineUids.value.len()
+    padding = [0, smallPadding]
+    hplace = ALIGN_RIGHT
+    vplace = ALIGN_TOP
+    text = count <= 0 ? "" : count
   }.__update(defTxtStyle)
 }
 
-let mkContactTab = @(text, action, isSelected = false, addChild = null) watchElemState(@(sf) {
-  watch = friendsOnlineUids
-  size = [flex(), commonBtnHeight]
-  rendObj = ROBJ_BOX
-  fillColor = sf & S_ACTIVE ? panelBgColor :
-    sf & S_HOVER ? hoverBgColor
-    : panelBgColor
-  behavior = Behaviors.Button
-  onClick = action
-  borderWidth = isSelected ? [0, 0, colPart(0.05), 0] : 0
-  borderColor = accentColor
-  valign = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  children = [
-    addChild
-    {
-      rendObj = ROBJ_TEXT
-      text
-    }.__update(isSelected ? bigTitleTxtStyle : bigCommonTxtStyle)
-  ]
+
+let mkContactTab = @(tab) watchElemState(function(sf) {
+  let { header, action, countWatched, id } = tab
+  let isSelected = curTab.value == id
+  return {
+    watch = curTab
+    size = [flex(), commonBtnHeight]
+    rendObj = ROBJ_SOLID
+    color = isSelected ? accentColor
+      : sf & S_HOVER ? hoverPanelBgColor
+      : panelBgColor
+    behavior = Behaviors.Button
+    onClick = action
+    valign = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    children = [
+      mkTabContactsCounter(countWatched)
+      {
+        rendObj = ROBJ_TEXT
+        text = header
+      }.__update(isSelected || (sf & S_ACTIVE) != 0 ? bigActiveTxtStyle
+        : sf & S_HOVER ? bigHoverTxtStyle
+        : bigCommonTxtStyle)
+    ]
+  }
 })
 
 
@@ -124,6 +137,7 @@ let closeButton = fontIconButton("close", {
 let header = @() {
   watch = userInfo
   size = [flex(), contactBtnHeight]
+  padding = bigPadding
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   children = [
@@ -175,12 +189,13 @@ let function clearOrExitWnd() {
 let searchBlock = @() {
   watch = curTab
   size = [flex(), SIZE_TO_CONTENT]
+  padding = [0, bigPadding]
   children = [
     textInput(searchPlayer, {
       placeholder = loc(isOnlineContactsSearchEnabled
         ? "contacts/friendSearch"
         : "contacts/mailInvite")
-      margin = bigPadding
+      textmargin = bigPadding
       onChange = doSearch
       onReturn = @() doSearch(searchPlayer.value)
       onEscape = clearOrExitWnd
@@ -195,7 +210,7 @@ let placeholder = {
   color = panelBgColor
   valign = ALIGN_CENTER
   size = [flex(), contactBtnHeight]
-  padding = bigPadding
+  padding = [bigPadding, bigPadding * 2]
   children = {
     rendObj = ROBJ_TEXT
     text = loc("contacts/list_empty")
@@ -281,8 +296,8 @@ let mkContactsGroupContent = @(groupKeys) function() {
     children.append({
       rendObj = ROBJ_TEXT
       text = locByPlatform($"contacts/{name}")
-      padding = [bigPadding, 0]
-    })
+      padding = bigPadding
+    }.__update(bigActiveTxtStyle))
     if (contactsArr.len() == 0) {
       children.append(placeholder)
     }
@@ -302,17 +317,13 @@ let mkContactsGroupContent = @(groupKeys) function() {
 }
 
 
-let function modeSwitcher() {
-  return isContactsManagementEnabled ?
-    {
-      watch = curTab
+let modeSwitcher = !isContactsManagementEnabled ? null
+  : {
       size = [flex(), commonBtnHeight]
       flow = FLOW_HORIZONTAL
-      children = contactTabs.map(@(tab) mkContactTab(tab.loc, tab.action, curTab.value == tab.id,
-        tab.id == APPROVED_TAB ? friendsCounter : null))
+      children = contactTabs.map(mkContactTab)
     }
-  : null
-}
+
 
 let searchTbl = [{
   uidsWatch = searchContactsResults,
@@ -369,6 +380,8 @@ let trackFriendsOnline = {
 
 let contactsBlock = @() {
   watch = curTab
+  rendObj = ROBJ_SOLID
+  color = panelBgColor
   size = [colFull(6), flex()]
   hplace = ALIGN_RIGHT
   stopMouse = true
@@ -381,8 +394,6 @@ let contactsBlock = @() {
   children = [
     header
     {
-      rendObj = ROBJ_SOLID
-      color = panelBgColor
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = bigPadding
@@ -400,11 +411,9 @@ let contactsBlock = @() {
 let function changeMode(delta) {
   let tabsCount = contactTabs.len()
   let curIdx = contactTabs.findindex(@(v) v.id == curTab.value)
-  if (curIdx == null)
-    curTab(0)
-  else {
+  if (curIdx != null) {
     let nextIdx = (curIdx + delta + tabsCount) % tabsCount
-    curTab(contactTabs[nextIdx].option)
+    curTab(contactTabs[nextIdx].id)
   }
 }
 

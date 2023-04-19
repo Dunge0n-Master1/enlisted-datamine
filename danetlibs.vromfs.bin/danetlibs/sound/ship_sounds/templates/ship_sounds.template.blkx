@@ -111,7 +111,6 @@ ship_sound{
   _group{
     _tags:t="sound"
     sound_control__range:r=160.0
-    sound_control__autoRange:b=no
   }
 
   _group{

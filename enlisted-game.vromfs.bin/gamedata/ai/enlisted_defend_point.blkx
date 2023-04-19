@@ -332,6 +332,7 @@ repeat{
 
       findDanger{
         paramName:t="shootEnemy"
+        outSeeTimeParam:t="shootEnemyTime"
         radiusParamName:t="enemyDefendRadius"
         minDanger:r=0.1
         tag:t="human"
@@ -362,6 +363,7 @@ repeat{
 
           findDanger{
             paramName:t="shootEnemy"
+            outSeeTimeParam:t="shootEnemyTime"
             radiusParamName:t="enemyNearRadius"
             minDanger:r=0.1
             tag:t="human"
@@ -376,6 +378,7 @@ repeat{
 
           findDanger{
             paramName:t="shootEnemy"
+            outSeeTimeParam:t="shootEnemyTime"
             radiusParamName:t="enemyRadius"
             minDanger:r=0.1
             tag:t="human"

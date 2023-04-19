@@ -2,16 +2,12 @@ import "%dngscripts/ecs.nut" as ecs
 let logBR = require("%enlSqGlob/library_logs.nut").with_prefix("[BattleReward] ")
 let { mkEventOnSquadStats, EventSquadMembersStats } = require("%enlSqGlob/sqevents.nut")
 let {EventAnyEntityDied} = require("dasevents")
-let {EventLevelLoaded} = require("gameevents")
 let { get_sync_time, INVALID_CONNECTION_ID, has_network } = require("net")
 let {find_local_player} = require("%dngscripts/common_queries.nut")
 let { isNoBotsMode } = require("%enlSqGlob/missionType.nut")
 let { scoreSquads, scoreAlone} = require("%enlSqGlob/expScoringValues.nut")
 let {server_send_net_sqevent} = require("ecs.netevent")
-
-// TODO: this need to be removed when EventSquadMembersStats is remade to send playerEid instead of squadEid.
-// But for now we keep it to find player by squadEid even if squad entity is no longer exists.
-let playersSquads = persist("playersSquads", @() {})
+let calcSoldierScore = require("%scripts/game/utils/calcSoldierScore.nut")
 
 let newStats = @() {
   spawns = 0
@@ -65,10 +61,17 @@ let newStats = @() {
   meleeKills = 0
   explosiveKills = 0
   longRangeKills = 0
+  bestOneLifeInfantryKills = 0
+  bestOneLifeInfantryKillsWithCrew = 0
+  bestOneLifeVehicleKills = 0
+  bestOneLifeVehicleKillsWithCrew = 0
+  bestOneLifeParatrooperKills = 0
+  contributionToVictory = 0
   gunGameLevelup = 0
   time = 0.0 // float
   spawnTime = -1.0 // float
   score = 0
+  previousLifeScore = 0.0 // float
   squadId = null
 }
 
@@ -83,11 +86,6 @@ let function getMemberData(playerEid, guid) {
   return stats[guid]
 }
 
-let function listSquadPlayer(squadEid) {
-  if (squadEid in playersSquads)
-    return
-  playersSquads[squadEid] <- ecs.obsolete_dbg_get_comp_val(squadEid, "squad__ownerPlayer") ?? ecs.INVALID_ENTITY_ID
-}
 
 let getSquadIdQuery = ecs.SqQuery("getSquadIdQuery", { comps_ro = [["squad__id", ecs.TYPE_INT]] })
 
@@ -96,7 +94,6 @@ let function onMemberCreated(_evt, _eid, comp) {
   if (!guid || !guid.len())
     return
 
-  listSquadPlayer(comp["squad_member__squad"])
   let data = getMemberData(comp["squad_member__playerEid"], guid)
   data.spawns++
   data.spawnTime = get_sync_time()
@@ -105,7 +102,6 @@ let function onMemberCreated(_evt, _eid, comp) {
 }
 
 let getSoldierInfoQuery = ecs.SqQuery("getSoldierInfoQuery", { comps_ro = [["guid", ecs.TYPE_STRING], ["squad_member__playerEid", ecs.TYPE_EID]] })
-let getSquadOwnerPlayerQuery = ecs.SqQuery("getSquadOwnerPlayerQuery", { comps_ro = [["squad__ownerPlayer", ecs.TYPE_EID]] })
 
 let function onEntityDied(evt, _eid, _comp) {
   let victimEid = evt.victim
@@ -122,6 +118,7 @@ let function onEntityDied(evt, _eid, _comp) {
     victimData.time += get_sync_time() - victimData.spawnTime
     victimData.spawnTime = -1
   }
+  victimData.previousLifeScore = calcSoldierScore(victimData, isNoBotsMode())
 }
 
 let function sendSquadStatsToPlayer(stats, playerEid, connid) {
@@ -194,7 +191,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
   ]
 })
 
-let getScore = @(stat, isNoBots) (isNoBots ? scoreAlone : scoreSquads)?[stat] ?? 0
+let getStatScore = @(stat, isNoBots) (isNoBots ? scoreAlone : scoreSquads)?[stat] ?? 0
 
 let squadStatsFilter = {
   captures = true
@@ -216,7 +213,13 @@ let function onSquadMembersStats(evt, _, __) {
   let awardsByGuid = {}
   let awardsByPlayerSquad = {}
   foreach (data in evt.data.list) {
-    local { stat, playerEid = ecs.INVALID_ENTITY_ID, squadEid = ecs.INVALID_ENTITY_ID, guid = "", eid = ecs.INVALID_ENTITY_ID, amount = 1
+    local {
+      stat,
+      playerEid = ecs.INVALID_ENTITY_ID,
+      guid = "",
+      eid = ecs.INVALID_ENTITY_ID,
+      amount = 1,
+      shouldOverride = false
     } = data
 
     if (eid != ecs.INVALID_ENTITY_ID) {
@@ -224,14 +227,15 @@ let function onSquadMembersStats(evt, _, __) {
       guid = soldier?.guid ?? ""
       playerEid = soldier?["squad_member__playerEid"] ?? ecs.INVALID_ENTITY_ID
     }
-    playerEid = (playerEid != ecs.INVALID_ENTITY_ID)
-      ? playerEid
-      : playersSquads?[squadEid] ?? getSquadOwnerPlayerQuery(squadEid, @(_,comp) comp["squad__ownerPlayer"]) ?? ecs.INVALID_ENTITY_ID
+
     if (playerEid == ecs.INVALID_ENTITY_ID || guid == "")
       continue
 
     let mData = getMemberData(playerEid, guid)
-    mData[stat] += amount
+    if (shouldOverride)
+      mData[stat] = amount
+    else
+      mData[stat] += amount
 
     if (!(playerEid in awardsByPlayer))
       awardsByPlayer[playerEid] <- {}
@@ -259,7 +263,7 @@ let function onSquadMembersStats(evt, _, __) {
       playerSquadStats.each(function(stats, squadId) {
         stats.each(function(increment, stat){
           let squadSpawnScoreMult = playerComps.respawner__spawnScoreGainMultBySquad?[squadId] ?? 1.0
-          let statScore = getScore(stat, isNoBots)
+          let statScore = getStatScore(stat, isNoBots)
           if (statScore > 0 && increment > 0)
             playerComps.respawner__spawnScore += increment * statScore * squadSpawnScoreMult
         })
@@ -267,7 +271,7 @@ let function onSquadMembersStats(evt, _, __) {
       let personalStats = (getSoldierInfoQuery(playerComps.possessed, @(_, comp) awardsByGuid?[comp.guid]) ?? {})
       let squadStats = playerStats.filter(@(_, stat) stat in squadStatsFilter)
       let statsToSend = personalStats.__merge(squadStats) // override some personal with squad stats
-        .map(@(val, stat) { amount = val, score = getScore(stat, isNoBots) })
+        .map(@(val, stat) { amount = val, score = getStatScore(stat, isNoBots) })
       sendSquadStatsToPlayer(statsToSend, playerEid, playerComps.connid)
     }))
 }
@@ -288,11 +292,3 @@ ecs.register_es("squad_stats_kills_es",
   },
   {},
   {tags="server"})
-
-let function onLevelLoaded(_evt, _eid, _comp) {
-  playersSquads.clear()
-}
-
-ecs.register_es("squad_stats_on_level_load_es", {
-  [EventLevelLoaded] = onLevelLoaded
-}, {})

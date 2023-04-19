@@ -1,0 +1,20 @@
+<svg id="emblem_infantry_23" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #eee;
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #151515;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M10.7,144.727V17.273H139.3V144.727H10.7Z"/>
+  <path class="cls-2" d="M141,16V146H9V16H141Zm-3,3V143H12V19H138Z"/>
+  <path id="Shape_36_copy" data-name="Shape 36 copy" class="cls-2" d="M75.059,141.37H74.941s-10.923-15.078-35.262-9.736V116.081l6.545-36.545,8.3,26.782,7.836-6.529V86.043h2.731V47.457l2.256,2.375,7.6-40.326h0.119l7.6,40.326,2.256-2.375V86.043h2.731V99.789l7.836,6.529,8.3-26.782,6.545,36.545v15.553C85.982,126.292,75.059,141.37,75.059,141.37Z"/>
+</svg>

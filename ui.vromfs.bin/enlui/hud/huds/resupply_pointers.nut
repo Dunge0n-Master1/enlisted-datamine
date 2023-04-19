@@ -5,6 +5,7 @@ let { resupply_zones_GetWatched, heroActiveResupplyZonesEids } = require("%ui/hu
 let {DEFAULT_TEXT_COLOR} = require("%ui/hud/style.nut")
 let {safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let { logerr } = require("dagor.debug")
+let { showSquadSpawn } = require("%ui/hud/state/respawnState.nut")
 
 let ZONE_ICON_COLOR = Color(200,200,200,200)
 
@@ -107,20 +108,23 @@ let function resupplyZoneCtor(zoneWatch) {
   }
 }
 
-let function distanceText(eid, radius) {
-  return {
-    rendObj = ROBJ_TEXT
-    color = DEFAULT_TEXT_COLOR
-    hplace = ALIGN_CENTER
-    halign = ALIGN_CENTER
-    pos = [0, fsh(3.5)]
-    size = [fsh(5), fontH(100)]
+let distanceText = @(eid, radius) function() {
+  local res = { watch = showSquadSpawn }
+  if (!showSquadSpawn.value)
+    res.__update({
+      rendObj = ROBJ_TEXT
+      color = DEFAULT_TEXT_COLOR
+      hplace = ALIGN_CENTER
+      halign = ALIGN_CENTER
+      pos = [0, fsh(3.5)]
+      size = [fsh(5), fontH(100)]
 
-    behavior = Behaviors.DistToSphere
-    targetEid = eid
-    radius
-    minDistance = 0
-  }.__update(sub_txt)
+      behavior = Behaviors.DistToSphere
+      targetEid = eid
+      radius
+      minDistance = 0
+    }, sub_txt)
+  return res
 }
 
 let pointerColor = Color(200,200,200)

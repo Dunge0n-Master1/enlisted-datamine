@@ -1,10 +1,10 @@
 require ecs
-require EnlistedNet
+require DngNet
 require app
 require math
 require math.base
 require game.utils.hero
-require EnlistedWalkerai
+require DngWalkerai
 require game.es.events
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
@@ -12,10 +12,10 @@ require DagorMathUtils
 require DaWeaponProps
 require DaWeapons
 require Gun
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require HumanPhys
-require EnlistedPhys
+require DngPhys
 require GamePhys
 require PhysVars
 require game.es.device_state_common

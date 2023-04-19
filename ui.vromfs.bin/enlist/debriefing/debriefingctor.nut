@@ -12,7 +12,7 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { secondsToTimeSimpleString } = require("%ui/helpers/time.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let dtxt = require("%ui/components/text.nut").dtext
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { armiesUnlocks } = require("%enlist/campaigns/armiesConfig.nut")
@@ -797,6 +797,7 @@ let function squadsAndSoldiersExpBlock(debriefing) {
       squadAwards = [BattleHeroesAward.PLAYER_BATTLE_HERO].extend(squadAwards)
 
     let squadCard = mkSquadProgress({
+      squadId
       squad
       awards = squadAwards
       animDelay

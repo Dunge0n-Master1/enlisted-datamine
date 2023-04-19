@@ -4,7 +4,7 @@ require math.base
 require math.ang
 require vehicle
 require game.utils.hero
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require AnimV20
 require GeomNodeTree
@@ -77,24 +77,26 @@ def rotate_hatch_node(var animchar : AnimcharBaseComponent;
     let nodeTm = hatch__node_tm * rot_m
     geomtree_setNodeTmScalar(*animchar.nodeTree, hatch__node_id, nodeTm)
 
+[es(tag=server)]
+def vehicle_seats_toggle_hatch_state(evt : CmdToggleHatch;
+                                     human_vehicle__occupiedSeatEid : EntityId)
+  query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__isPlayer : bool;
+                                                   seats_hatch_nodes__isValid : bool;
+                                                   var seat__isInHatch : bool&)
+    if seats_hatch_nodes__isValid && seat__isPlayer
+      seat__isInHatch = !seat__isInHatch
+
+[es(tag=server, track=seat__ownerEid, REQUIRE=seat__ownerEid)]
+def vehicle_seats_reset_hatch_state(evt : Event;
+                                    seat__isHatchControlInversed : bool = false;
+                                    var seat__isInHatch : bool&)
+  seat__isInHatch = seat__isHatchControlInversed
+
 [es(tag=server, REQUIRE_NOT=playerIsBot)]
 def vehicle_seats_hatch_reset_input_when_hero_changed(evt : PossessTargetByPlayer)
-  query(evt.target) <| $ [es] (var human_net_phys : HumanActor; isInVehicle : bool)
-    if isInVehicle
-      // reset crouch input on server, because bots may crouch in vehicle and this will open the hatch
-      human_control_state_set_control_bit(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_CROUCH, false)
-
-[es(tag=server, after=after_net_phys_sync)]
-def vehicle_seats_hatch_crouch_es(info : ParallelUpdateFrameDelayed; vehicle_seats__seatEids : EidList)
-  for seatEid in vehicle_seats__seatEids
-    query(seatEid) <| $ [es] (seats_hatch_nodes__isValid : bool; seat__ownerEid : EntityId; seat__isPlayer : bool; seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
-      if !seats_hatch_nodes__isValid || !seat__isPlayer
-        return
-      seat__isInHatch = false
-      query(seat__ownerEid) <| $ [es] (human_net_phys : HumanActor)
-        seat__isInHatch = is_control_bit_set(human_net_phys.phys.appliedCT, HumanPhysControlType HCT_CROUCH) ^^ seat__isHatchControlInversed
-      return
-
+  query(evt.target) <| $ [es] (human_vehicle__occupiedSeatEid : EntityId)
+    query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
+      seat__isInHatch = seat__isHatchControlInversed
 
 [es(after=vehicle_seats_hatch_crouch_es)]
 def vehicle_seats_hatch_es(info : ParallelUpdateFrameDelayed;
@@ -106,7 +108,7 @@ def vehicle_seats_hatch_es(info : ParallelUpdateFrameDelayed;
   for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (var seats_attach_nodes__attachTm : float3x4;
                               var seats_hatch_nodes__openPos : float&;
-                              var seat__isInHatch : bool&;
+                              seat__isInHatch : bool;
                               seats_hatch_nodes__maxPos : float;
                               seats_hatch_nodes__rotAxis : float3;
                               seats_hatch_nodes__isValid : bool;
@@ -135,7 +137,6 @@ def vehicle_seats_hatch_es(info : ParallelUpdateFrameDelayed;
       let trgPos = (isInHatch ? 1.0f : 0.0f) * seats_hatch_nodes__openPos * seats_hatch_nodes__maxPos
       let k = clamp(safediv(seats_hatch_nodes__maxPos - curPos * 2.0f, seats_hatch_nodes__maxPos), 0.0f, 1.0f)
       var pos = seats_attach_nodes__initialTm[3]
-      seat__isInHatch = (seats_hatch_nodes__openPos != 0.f)
       pos.y = approach(seats_attach_nodes__attachTm[3].y, pos.y + trgPos, info.dt, 0.1f)
       seats_attach_nodes__attachTm[3] = pos
       let angles = seats_hatch_nodes__rotAxis * (1.0f - k) * hatchRot

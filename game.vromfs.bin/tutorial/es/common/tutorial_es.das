@@ -7,10 +7,10 @@ require CollRes
 require RendInst
 require DagorMath
 require DmFire
-require EnlistedDm
+require DngDm
 require DagorSystem
 require DagorInput
-require EnlistedActor
+require DngActor
 require game.events_game
 require game.utils.team
 require game.es.vehicle.vehicle_events

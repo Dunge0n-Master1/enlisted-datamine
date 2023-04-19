@@ -10,9 +10,6 @@ explodeTreshold:r=3.0
 explodeHitPower:r=5.5
 explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.035
-groundCollisionEffect:t="hit_8_11mm_dirt_he"
-ricochetEffect:t="hit_8_11mm_metal_he"
-waterCollisionEffect:t="hit_8_11mm_water"
 secondaryShattersPreset:t="ap"
 
 hitpower{
@@ -303,32 +300,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_8_11mm_dirt_he"
-  jetFx:t="hit_8_11mm_dirt_he"
-
-  steel{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

@@ -8,6 +8,9 @@ let { mkSeasonTime } = require("%enlist/battlepass/rewardPkg.nut")
 let defTxtStyle = { color = titleTxtColor }.__update(fontSmall)
 
 let imagePath = "!ui/uiskin/battlepass/bp_seasons/bp_season_{0}.svg:{1}:{1}:K"
+let bpBgPath = "!ui/uiskin/battlepass/bp_seasons/bp_bg_{0}.avif"
+
+let bpColors =  freeze([0xFFD04B2C, 0xFF31DDED, 0xFFC5EA2D, 0xFFF57E32])
 
 let function staticSeasonBPIcon(seasonBPIndex, size) {
   let fallbackImage = $"!ui/uiskin/battlepass/bp_logo.svg:{size}:{size}:K"
@@ -17,6 +20,19 @@ let function staticSeasonBPIcon(seasonBPIndex, size) {
     size = [size, size]
     image = Picture(bpImagePath)
     fallbackImage = Picture(fallbackImage)
+  }
+}
+
+
+let dynamicSeasonBpBg = @(size, opacity) function() {
+  let bpIdx = seasonIndex.value % bpColors.len()
+  let bpImagePath = bpBgPath.subst(bpIdx)
+  return {
+    watch = seasonIndex
+    rendObj = ROBJ_IMAGE
+    size
+    opacity
+    image = Picture(bpImagePath)
   }
 }
 
@@ -47,4 +63,6 @@ return {
   timeTracker
   dynamicSeasonBPIcon
   staticSeasonBPIcon
+  dynamicSeasonBpBg
+  bpColors
 }

@@ -358,7 +358,7 @@ s_5k_rocket_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -518,7 +518,7 @@ br_20_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -675,7 +675,7 @@ hvar_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -722,7 +722,7 @@ rp_3_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.15
   }
 }
@@ -739,7 +739,7 @@ m_8bazooka_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -756,7 +756,7 @@ rbs_82_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.2
   }
 }
@@ -773,7 +773,7 @@ rbs_132_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.2
   }
 }
@@ -850,7 +850,7 @@ ros_82_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_dark_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.2
   }
 }
@@ -867,7 +867,7 @@ ros_82_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -888,7 +888,7 @@ m8_rocket_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
     rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
@@ -899,7 +899,8 @@ panzerwerfer_42_projectile{
   _group{
     _tags:t="render"
     rocket_motor_trail__fireEffect:t="trail_rocket_medium_effect"
-    rocket_motor_trail__hazeEffect:t="trail_rocket_launch_smoke_effect"
+    rocket_motor_trail__hazeEffect:t=""
+    rocket_motor_trail__endSmokeViscosity:r=0.05
   }
 }
 

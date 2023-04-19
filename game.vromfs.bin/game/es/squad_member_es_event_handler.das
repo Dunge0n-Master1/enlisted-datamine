@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 
 def check_squad_alive_members(squad_eid : EntityId)
   if squad_eid != ecs::INVALID_ENTITY_ID

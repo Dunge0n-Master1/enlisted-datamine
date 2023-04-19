@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require ecs.soa_template
-require EnlistedCamera
+require DngCamera
 require vehicle
 require math
 require math.base
@@ -83,9 +83,15 @@ def get_effect_name(eid : EntityId; mat_name : string; mat_fx_type_id : int; cha
 def spawn_effect(fx_name : string; emm_tm : float3x4&)
   if empty(fx_name)
     return INVALID_ENTITY_ID
-  return createEntity("hit_fx_readback_info") <| $(init)
-    init |> set("transform", emm_tm)
-    init |> set("hit_fx_name", fx_name)
+  let needPaintFromBiome = getTemplateComponent(*getTemplateByName(fx_name), "paint_from_biome") ?? false
+
+  if (needPaintFromBiome)
+    return createEntity("hit_fx_readback_info") <| $(init)
+      init |> set("transform", emm_tm)
+      init |> set("hit_fx_name", fx_name)
+  else
+    return createEntity(fx_name) <| $(init)
+      init |> set("transform", emm_tm)
 
 [es(tag = render, on_disappear, REQUIRE=track_fx__info, REQUIRE=track_fx__default)]
 def das_clear_vehicle_dirt_fx_es(evt : Event;

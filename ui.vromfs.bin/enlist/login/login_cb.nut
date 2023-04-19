@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let auth  = require("auth")
 let msgbox = require("%enlist/components/msgbox.nut")
 let urlText = require("%enlist/components/urlText.nut")

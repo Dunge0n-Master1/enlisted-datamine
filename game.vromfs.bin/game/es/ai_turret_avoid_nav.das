@@ -7,7 +7,7 @@ require game.utils.team
 require Gun
 require DagorMath
 require DagorConsole
-require EnlistedWalkerai
+require DngWalkerai
 require Dacoll
 
 def get_area_name(turret_avoid_nav__areaId : int)

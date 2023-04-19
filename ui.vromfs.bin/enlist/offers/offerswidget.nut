@@ -4,7 +4,7 @@ let { sub_txt, h2_bold_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { startBtnWidth } = require("%enlist/startBtn.nut")
 let { doesLocTextExist } = require("dagor.localize")
-let { hasSpecialEvent, eventsAvailable, allActiveOffers } = require("offersState.nut")
+let { eventsData, eventsKeysSorted, allActiveOffers } = require("offersState.nut")
 let offersWindow = require("offersWindow.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
@@ -16,8 +16,7 @@ let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStar
 let { needFreemiumStatus, campPresentation
 } = require("%enlist/campaigns/campaignConfig.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
-let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { curCampaign  } = require("%enlist/meta/curCampaign.nut")
+let { curCampaignLocId } = require("%enlist/meta/curCampaign.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
@@ -180,7 +179,7 @@ let widgetList = Computed(function() {
   if (needFreemiumStatus.value)
     list.append({
       widgetType = WidgetType.FREEMIUM
-      data = gameProfile.value?.campaigns[curCampaign.value].title ?? curCampaign.value
+      data = curCampaignLocId.value
       backImage = campPresentation.value?.widgetImage ?? defOfferImg
     })
 
@@ -210,16 +209,19 @@ let widgetList = Computed(function() {
     backImage = v?.image ?? defExtUrlImg
   }))
 
-  if (hasSpecialEvent.value)
-    eventsAvailable.value.each(function(event) {
-      let { id, imagepromo = defOfferImg } = event
-      list.append({
-        id
-        widgetType = WidgetType.EVENT_SPECIAL
-        data = event
-        backImage = imagepromo
-      })
+  eventsKeysSorted.value.each(function(eventId) {
+    let event = eventsData.value?[eventId]
+    if (event == null)
+      return
+
+    let { id, imagepromo = defOfferImg } = event
+    list.append({
+      id
+      widgetType = WidgetType.EVENT_SPECIAL
+      data = event
+      backImage = imagepromo
     })
+  })
 
   return list
 })

@@ -9,7 +9,6 @@ require EcsUtils
 require enlisted.game.es.blk_utils_common
 require strings
 
-require daslib/static_let
 require daslib/safe_addr
 
 

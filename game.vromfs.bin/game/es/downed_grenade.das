@@ -1,14 +1,14 @@
 require ecs
-require EnlistedNet
+require DngNet
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require common_shooter.es.human_weap_common
 require common_shooter.events_common_shooter
 require Gun
 require DaWeapons
 require DaWeaponProps
-require EnlistedWeapon
+require DngWeapon
 require enlisted.events_enlisted
 require common_shooter.es.human.human_reload_common
 

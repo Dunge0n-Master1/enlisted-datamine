@@ -1,12 +1,12 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require game.es.ai.walker_common
 require HumanPhys
 require CollRes
 require DagorMath
 require DagorMathUtils
 require AnimV20
-require EnlistedHuman
+require DngHuman
 require Grid
 require GridCollision
 require DagorDataBlock

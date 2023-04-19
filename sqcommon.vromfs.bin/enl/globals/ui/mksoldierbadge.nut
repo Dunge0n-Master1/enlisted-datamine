@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colFull, colPart, columnGap, smallPadding, commonBorderRadius,
-  accentColor, panelBgColor, hoverTxtColor, titleTxtColor, miniPadding,
-  defSlotBgImg, hoverSlotBgImg, defAvailSlotBgImg, hoverAvailSlotBgImg,
-  defLockedSlotBgImg, hoverLockedSlotBgImg, levelNestGradient, midPadding, rightAppearanceAnim
+let { colFull, colPart, columnGap, smallPadding, commonBorderRadius, deadTxtColor,
+  reseveSlotBgColor, accentColor, panelBgColor, hoverTxtColor, titleTxtColor, miniPadding,
+  defSlotBgColor, defItemBlur, hoverSlotBgColor, levelNestGradient, midPadding,
+  rightAppearanceAnim, defLockedSlotBgColor, hoverLockedSlotBgColor, hoverLevelNestGradient
 } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
 
@@ -20,6 +20,7 @@ const LOCKED_COLOR_SCHEME_ID = "locked"
 
 
 let selectionLineHeight = colPart(0.06)
+let levelInfoHeight = colPart(0.38)
 let soldierCardSize = [colFull(2), colPart(1.21)]
 let premClassSize = colPart(0.4)
 
@@ -28,15 +29,16 @@ let slotIconHoverColor = 0xFF6A7B84
 
 
 let soldierBgSchemes = {
-  [SQUAD_COLOR_SCHEME_ID] = @(flags, isSelected) isSelected ? hoverSlotBgImg
-    : flags & S_HOVER ? hoverSlotBgImg
-    : defSlotBgImg,
-  [RESERVE_COLOR_SCHEME_ID] = @(flags, isSelected) isSelected ? hoverAvailSlotBgImg
-    : flags & S_HOVER ? hoverAvailSlotBgImg
-    : defAvailSlotBgImg,
-  [LOCKED_COLOR_SCHEME_ID] = @(flags, isSelected) isSelected ? hoverLockedSlotBgImg
-    : flags & S_HOVER ? hoverLockedSlotBgImg
-    : defLockedSlotBgImg
+  [SQUAD_COLOR_SCHEME_ID] = @(flags, isSelected) isSelected ? hoverSlotBgColor
+    : flags & S_HOVER ? hoverSlotBgColor
+    : defSlotBgColor,
+  [RESERVE_COLOR_SCHEME_ID] = @(flags, isSelected) isSelected ? hoverSlotBgColor
+    : flags & S_HOVER ? hoverSlotBgColor
+    : reseveSlotBgColor,
+  [LOCKED_COLOR_SCHEME_ID] = @(flags, isSelected)
+    isSelected ? defLockedSlotBgColor
+      : flags & S_HOVER ? hoverLockedSlotBgColor
+      : defLockedSlotBgColor
 }
 
 
@@ -89,13 +91,60 @@ let mkEmptySoldierBadge = @(sf = 0, isSelected = false, hasBlink = false, isBuyS
 }
 
 
-let function mkSoldierBadge(
-  idx, soldier, isSelected, sf = 0, onClick = null, colorScemeId = SQUAD_COLOR_SCHEME_ID
-) {
-  let {
-    guid, armyId, tier, sKind, sClass, photo, perksCount, perksLevel, maxLevel,
-    thresholdColor = null, sClassRare = null, isPremium = false
+let function mkSoldierInfo(soldier, sf, isSelected, isAlive = true, hasLockedSheme = false) {
+  let { guid, armyId, tier, sKind, sClass, perksLevel, maxLevel,
+    perksCount = 0, thresholdColor = null, sClassRare = null, isPremium = false,
+    displayedKind = null
   } = soldier
+  let needDarkTxt = !hasLockedSheme && (isSelected || (sf & S_HOVER) != 0)
+  return {
+    size = flex()
+    flow = FLOW_VERTICAL
+    children = [
+      {
+        size = flex()
+        flow = FLOW_HORIZONTAL
+        gap = { size = flex() }
+        padding = [miniPadding, midPadding]
+        valign = ALIGN_CENTER
+        children = [
+          mkKindIcon(displayedKind ?? sKind, sClassRare, colPart(0.5), needDarkTxt || !isAlive
+            ? deadTxtColor
+            : null)
+          isPremium ? null : mkClassIcon(armyId, sClass, {}, colPart(0.5))
+        ]
+      }
+      {
+        size = [flex(), levelInfoHeight]
+        padding = miniPadding
+        hplace = ALIGN_RIGHT
+        halign = ALIGN_RIGHT
+        valign = ALIGN_CENTER
+        vplace = ALIGN_BOTTOM
+        rendObj = ROBJ_IMAGE
+        image = isSelected || (sf & S_HOVER) != 0 ? hoverLevelNestGradient : levelNestGradient
+        children = levelBlock({
+          guid
+          tier
+          thresholdColor
+          isStarBlack = !isAlive
+          curLevel = perksCount
+          leftLevel = max(perksLevel - perksCount, 0)
+          lockedLevel = max(maxLevel - perksLevel, 0)
+          hasLeftLevelBlink = true
+          isFreemiumMode = thresholdColor != null
+        })
+      }
+    ]
+  }
+}
+
+
+let function mkSoldierBadge(
+  idx, soldier, isSelected, sf = 0, onClick = null, colorSchemeId = SQUAD_COLOR_SCHEME_ID
+) {
+  let { guid, armyId, sClass, photo, isPremium = false } = soldier
+  let hasLockedSheme = colorSchemeId == LOCKED_COLOR_SCHEME_ID
   return {
     key = $"soldier_badge_{guid}_{idx}"
     size = soldierCardSize
@@ -106,8 +155,9 @@ let function mkSoldierBadge(
     children = [
       {
         size = flex()
-        rendObj = ROBJ_IMAGE
-        image = soldierBgSchemes[colorScemeId](sf, isSelected)
+        rendObj = ROBJ_WORLD_BLUR
+        fillColor = soldierBgSchemes[colorSchemeId](sf, isSelected)
+        color = defItemBlur
       }
       {
         size = flex()
@@ -120,42 +170,52 @@ let function mkSoldierBadge(
               isPremium ? mkClassIcon(armyId, sClass, {}, premClassSize) : null
             ]
           }
+          mkSoldierInfo(soldier, sf, isSelected, true, hasLockedSheme)
+        ]
+      }
+      isSelected ? selectionLine : null
+    ]
+  }
+}
+
+
+let skullIcon = {
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/skin#skull_white.svg:{0}:{0}:K".subst(colPart(0.8)))
+  color = deadTxtColor
+  vplace = ALIGN_CENTER
+  size = [colPart(0.8), colPart(0.8)]
+}
+
+
+let function mkSoldierRespawnBadge(idx, soldier, isSelected, sf = 0
+){
+  let { guid, armyId, sClass, photo, isPremium = false, isAlive = true } = soldier
+  let colorSchemeId = isAlive ? SQUAD_COLOR_SCHEME_ID : LOCKED_COLOR_SCHEME_ID
+  return {
+    key = $"soldier_badge_{guid}_{idx}"
+    size = soldierCardSize
+    rendObj = ROBJ_MASK
+    image = Picture("ui/uiskin/soldier_slot_mask.avif")
+    children = [
+      {
+        size = flex()
+        rendObj = ROBJ_WORLD_BLUR
+        fillColor = soldierBgSchemes[colorSchemeId](sf, isSelected)
+        color = defItemBlur
+      }
+      {
+        size = flex()
+        flow = FLOW_HORIZONTAL
+        children = [
           {
-            size = flex()
-            flow = FLOW_VERTICAL
+            size = [SIZE_TO_CONTENT, flex()]
             children = [
-              {
-                size = flex()
-                flow = FLOW_HORIZONTAL
-                gap = { size = flex() }
-                padding = [miniPadding, midPadding]
-                valign = ALIGN_CENTER
-                children = [
-                  mkKindIcon(sKind, sClassRare, colPart(0.5))
-                  isPremium ? null : mkClassIcon(armyId, sClass, {}, colPart(0.5))
-                ]
-              }
-              {
-                size = [pw(75), SIZE_TO_CONTENT]
-                padding = miniPadding
-                hplace = ALIGN_RIGHT
-                halign = ALIGN_RIGHT
-                vplace = ALIGN_BOTTOM
-                rendObj = ROBJ_IMAGE
-                image = levelNestGradient
-                children = levelBlock({
-                  guid
-                  tier
-                  thresholdColor
-                  curLevel = perksCount
-                  leftLevel = max(perksLevel - perksCount, 0)
-                  lockedLevel = max(maxLevel - perksLevel, 0)
-                  hasLeftLevelBlink = true
-                  isFreemiumMode = thresholdColor != null
-                })
-              }
+              isAlive ? mkSoldierBadgePhoto(photo) : skullIcon
+              isPremium ? mkClassIcon(armyId, sClass, {}, premClassSize) : null
             ]
           }
+          mkSoldierInfo(soldier, sf, isSelected, isAlive)
         ]
       }
       isSelected ? selectionLine : null
@@ -206,7 +266,7 @@ let function mkSoldierPresentation(soldier) {
         lockedLevel = max(maxLevel - perksLevel, 0)
         hasLeftLevelBlink = true
         isFreemiumMode = thresholdColor != null
-        fontSize = hdpx(24)
+        fontSize = hdpx(0.38)
       }).__update({ key = $"soldier_{guid}_level" }, rightAppearanceAnim(0.6))
     ]
   }
@@ -221,4 +281,9 @@ return {
   mkEmptySoldierBadge
   mkSoldierPresentation
   soldierCardSize
+  selectionLine
+  selectionLineHeight
+  mkSoldierRespawnBadge
+  levelInfoHeight
+  soldierBgSchemes
 }

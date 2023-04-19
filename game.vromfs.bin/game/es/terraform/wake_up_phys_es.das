@@ -2,8 +2,8 @@ require ecs
 require vehicle
 require PhysObj
 require Ship
-require EnlistedShip
-require EnlistedPhysObj
+require DngShip
+require DngPhysObj
 require DagorMath
 require Grid
 require GridCollision

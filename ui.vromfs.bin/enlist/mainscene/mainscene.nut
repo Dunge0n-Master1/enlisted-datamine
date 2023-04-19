@@ -1,25 +1,24 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart, bigPadding, startBtnWidth, midPadding, leftAppearanceAnim, rightAppearanceAnim
+let { colPart, bigPadding, startBtnWidth, midPadding, leftAppearanceAnim,
+  rightAppearanceAnim, DEF_APPEARANCE_TIME
 } = require("%enlSqGlob/ui/designConst.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
-let squads_list = require("%enlist/squad/squadsList.ui.nut")
+let { choosenSquadsList } = require("%enlist/squad/squadsList.ui.nut")
 let startBtn = require("%enlist/startButton.nut")
-let { changeGameModeBtn, selectedGameMode, openChangeGameModeWnd
-} = require("%enlist/mainScene/changeGameModeButton.nut")
+let { changeGameModeBtn, selectedGameMode } = require("%enlist/mainScene/changeGameModeButton.nut")
 let eventsAndCustomsButton = require("%enlist/gameModes/eventsAndCustomsButton.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/army/anyTeamCheckbox.nut")
 let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
-let { weeklyTasksUi } = require("%enlist/unlocks/weeklyTaskButton.nut")
-let achievementsButtonsUi = require("%enlist/unlocks/achievementsButton.nut")
+let weeklyTasksUi = require("%enlist/unlocks/weeklyTasksBtn.nut")
 let battlepassWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
 let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 let offersPanel = require("%enlist/offers/offersPanel.nut")
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
-let squadInfo = require("%enlist/squad/squadInfo.nut")
-let { clusterInfoBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
+let { squadInfo } = require("%enlist/squad/squadInfo.nut")
+let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 
 
 let armyGameModeBlock = @() {
@@ -29,9 +28,8 @@ let armyGameModeBlock = @() {
   gap = midPadding
   halign = ALIGN_RIGHT
   children = [
-    clusterInfoBtn(openChangeGameModeWnd)
-    selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox()
-    changeGameModeBtn
+    selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox
+    changeGameModeBtn()
   ]
 }
 
@@ -50,7 +48,6 @@ let topBlock = {
         hasBattlePass.value ? battlepassWidgetOpen : null
         dailyTasksUi
         weeklyTasksUi
-        achievementsButtonsUi
       ]
     }.__update(rightAppearanceAnim())
     @() {
@@ -82,24 +79,29 @@ let bottomBlock = {
       gap = { size = flex() }
       children = [
         {
-          size = [SIZE_TO_CONTENT, colPart(2.4)]
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_VERTICAL
+          gap = midPadding
           children = [
             squadInfo()
             armySelectUi.__merge({ vplace = ALIGN_BOTTOM})
           ]
-        }.__update(rightAppearanceAnim())
+        }.__update(rightAppearanceAnim(DEF_APPEARANCE_TIME + 0.2))
         {
           size = [startBtnWidth, SIZE_TO_CONTENT]
           children = armyGameModeBlock
-        }.__update(leftAppearanceAnim())
+        }.__update(leftAppearanceAnim(DEF_APPEARANCE_TIME + 0.2))
       ]
     }
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
-      gap = { size = flex()}
       children = [
-        squads_list
+        {
+          clipChildren = true
+          size = [flex(), SIZE_TO_CONTENT]
+          children = choosenSquadsList
+        }.__update(rightAppearanceAnim(DEF_APPEARANCE_TIME + 0.2))
         startBtn
       ]
     }
@@ -109,7 +111,10 @@ let bottomBlock = {
 
 return {
   size = flex()
-  onAttach = @() isMainMenuVisible(true)
+  onAttach = function() {
+    curSoldierIdx(null)
+    isMainMenuVisible(true)
+  }
   onDetach = @() isMainMenuVisible(false)
   margin = [colPart(1.8), 0, 0, 0]
   flow = FLOW_VERTICAL

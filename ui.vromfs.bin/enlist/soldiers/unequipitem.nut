@@ -5,7 +5,7 @@ let { getLinksByType, getFirstLinkedObjectGuid, getLinkedSquadGuid
 let { getDemandingSlots, getDemandingSlotsInfo, objInfoByGuid, getSoldierItemSlots
 } = require("%enlist/soldiers/model/state.nut")
 let { equipItem } = require("%enlist/soldiers/model/itemActions.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { campItemsByLink, squads, soldiers } = require("%enlist/meta/profile.nut")
 let { isSquadRented } = require("model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
@@ -17,7 +17,7 @@ let showUnequipImpossible = @(text) popupsState.addPopup({
   styleName = "error"
 })
 
-let function unequip(slotType, slotId, ownerGuid) {
+let function unequip(slotType, slotId, ownerGuid, cb = null) {
   let owner = objInfoByGuid.value?[ownerGuid]
   let sList = soldiers.value
   let soldier = sList?[ownerGuid] ?? sList?[getFirstLinkedObjectGuid(owner, sList)]
@@ -47,22 +47,22 @@ let function unequip(slotType, slotId, ownerGuid) {
       }
     }
   }
-  equipItem(null, slotType, slotId, ownerGuid)
+  equipItem(null, slotType, slotId, ownerGuid, cb)
 }
 
-let function unequipBySlot(slotData) {
+let function unequipBySlot(slotData, cb = null) {
   let { slotType, slotId, ownerGuid } = slotData
-  unequip(slotType, slotId, ownerGuid)
+  unequip(slotType, slotId, ownerGuid, cb)
 }
 
-let function unequipItem(data) {
+let function unequipItem(data, cb = null) {
   let { item = null, slotType = null, slotId = null, soldierGuid = null } = data
   if (item == null || slotType == null)
     return
   let ownerGuid = soldierGuid ?? getLinksByType(item, slotType)?[0]
   if (!ownerGuid)
     return
-  unequip(slotType, slotId, ownerGuid)
+  unequip(slotType, slotId, ownerGuid, cb)
 }
 
 return {

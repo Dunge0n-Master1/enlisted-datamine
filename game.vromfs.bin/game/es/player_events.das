@@ -1,6 +1,6 @@
 module player_events shared
 require ecs
-require EnlistedNet
+require DngNet
 
 [event(unicast)]
 struct CheckAndReportNoHero {}

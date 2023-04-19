@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { whichTeamAttack, isBombMission } = require("%ui/hud/state/capZones.nut")
 let { myScore, myScoreBleed, myScoreBleedFast } = require("%ui/hud/state/team_scores.nut")
 let {playerEvents} = require("%ui/hud/state/eventlog.nut")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 
 let isDominationMode = keepref(Computed(@() !isBombMission.value && whichTeamAttack.value < 0))
 
@@ -21,7 +21,8 @@ let events = {
     watch = Computed(@() isDominationMode.value && (myScore.value < 0.05))
   }
 }
-events.each(function(e){
+
+foreach (e in events) {
   let {event=defEvent, sound = defSound, watch} = e
   keepref(watch)
   watch.subscribe(function(val) {
@@ -30,5 +31,5 @@ events.each(function(e){
       playerEvents.pushEvent(event)
     }
   })
-})
-
+  return e
+}

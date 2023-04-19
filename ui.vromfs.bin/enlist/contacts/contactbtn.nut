@@ -2,8 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall, fontLarge, fontXXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { accentColor, disabledIndicatorColor, enabledIndicatorColor, defTxtColor, titleTxtColor,
-  activeBgColor, smallPadding, colPart, midPadding, hoverBgColor, panelBgColor, colFull, bigPadding,
-  commonBorderRadius
+  activeBgColor, smallPadding, colPart, midPadding, hoverPanelBgColor, panelBgColor, colFull,
+  bigPadding, commonBorderRadius
 } = require("%enlSqGlob/ui/designConst.nut")
 let { buttonSound } = require("%ui/style/sounds.nut")
 let { squadMembers, isInvitedToSquad, enabledSquad, squadId
@@ -24,7 +24,7 @@ let { roomIsLobby } = require("%enlist/state/roomState.nut")
 let defNickStyle = { color = defTxtColor }.__update(fontLarge)
 let activeNickStyle = { color = titleTxtColor }.__update(fontLarge)
 let statusCommonStyle = fontSmall
-let iconHgt = hdpxi(32)
+let iconHgt = colPart(0.28)
 
 
 let playerStatusIcons = freeze({
@@ -83,14 +83,14 @@ let playerStatuses = freeze({
 })
 
 
-let userNickname = @(isPlayerOnline, contact) {
+let userNickname = @(contact, override) {
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.Marquee
   clipChildren = true
   scrollOnHover = true
   rendObj = ROBJ_TEXT
   text = getContactNick(contact)
-}.__update(isPlayerOnline ? activeNickStyle : defNickStyle)
+}.__update(override)
 
 
 let function mkStatusIcon(isPlayerOnline) {
@@ -110,11 +110,10 @@ let function statusBlock(isPlayerOnline, contact) {
     let isInvited = isInvitedToSquad.value?[contact.uid]
     local squadStatusText = null
     if (squadMember != null) {
-      watch.append(squadMember.state, squadMember.isLeader)
-      squadStatusText = squadMember.state.value?.inBattle ? playerStatuses.inBattle
-        : squadMember.isLeader.value ? playerStatuses.leader
+      squadStatusText = squadMember.state?.inBattle ? playerStatuses.inBattle
+        : squadMember?.isLeader ? playerStatuses.leader
         : !isPlayerOnline ? playerStatuses.offlineInSquad
-        : squadMember.state.value?.ready ? playerStatuses.ready
+        : squadMember.state?.ready ? playerStatuses.ready
         : playerStatuses.unready
     }
     else if (isInvited)
@@ -166,19 +165,9 @@ let function onContactClick(event, contact, contextMenuActions) {
     contactActionsMenu.open(contact, event, contextMenuActions)
 }
 
-let diceIconSize = hdpxi(24)
-
-let diceIcon = {
-  rendObj = ROBJ_IMAGE
-  size = array(2, diceIconSize)
-  image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst(diceIconSize))
-  vplace = ALIGN_BOTTOM
-  hplace = ALIGN_CENTER
-  pos = [hdpx(1), hdpx(2)]
-}
 
 
-let memberAvatarCtor = @(userId) function() {
+let memberAvatarCtor = @(userId, iconHeight = iconHgt) function() {
   let watch = [enabledSquad, squadMembers, squadId, roomIsLobby]
   let res = { watch }
   if (roomIsLobby.value)
@@ -188,21 +177,26 @@ let memberAvatarCtor = @(userId) function() {
     : null
   if (squadLeader == null)
     return res
-  watch.append(squadLeader.state)
-  let randomTeam = squadLeader.state.value?.isTeamRandom ?? false
-  let curArmy = squadLeader.state.value?.curArmy
+  let randomTeam = squadLeader.state?.isTeamRandom ?? false
+  let curArmy = squadLeader.state?.curArmy
   local icon = null
   if (!randomTeam && curArmy)
-    icon = mkArmyIcon(curArmy, iconHgt * 4 / 3)
+    icon = mkArmyIcon(curArmy, iconHeight, {
+      margin = 0
+      padding = 0
+    })
   else
     icon = curArmiesList.value.map(@(army, idx) {
-      pos = [iconHgt * 3.0 / 4 * (idx - 1 / 2.0), - iconHgt / 5]
-      children = mkArmyIcon(army, iconHgt)
+      pos = [iconHeight * 3.0 / 4 * (idx - 1 / 2.0), 0]
+      children = mkArmyIcon(army, iconHeight, {
+        margin = 0
+        padding = 0
+      })
     })
       .reverse()
-      .append(diceIcon)
   return res.__update({
-    vplace = ALIGN_BOTTOM
+    size = [SIZE_TO_CONTENT, iconHeight]
+    hplace = ALIGN_RIGHT
     children = icon
   })
 }
@@ -223,7 +217,7 @@ let contactBtn = @(contact, contextMenuActions = [], inContactActions = [])
       watch = [contact, isPlayerOnline]
       size = [colFull(6), colFull(1)]
       rendObj = ROBJ_SOLID
-      color = sf & S_HOVER ? hoverBgColor : panelBgColor
+      color = sf & S_HOVER ? hoverPanelBgColor : panelBgColor
       padding = [midPadding, bigPadding]
       gap = bigPadding
       flow = FLOW_HORIZONTAL
@@ -233,17 +227,19 @@ let contactBtn = @(contact, contextMenuActions = [], inContactActions = [])
       stopHover = true
       sound = buttonSound
       children = [
-        memberAvatarCtor(userId.tointeger())
         {
           size = flex()
           flow = FLOW_VERTICAL
           gap = { size = flex() }
           valign = ALIGN_CENTER
           children = [
-            userNickname(isPlayerOnline.value, contact.value)
+            userNickname(contact.value, isPlayerOnline.value || (sf & S_HOVER) != 0
+              ? activeNickStyle
+              : defNickStyle)
             statusBlock(isPlayerOnline.value, contact.value)
           ]
         }
+        memberAvatarCtor(userId.tointeger(), colPart(0.4))
         !isGamepad.value && (sf & S_HOVER) ? actionsButtons : null
       ]
     }
@@ -264,13 +260,13 @@ let smallContactBtn = @(contact, contextMenuActions) watchElemState(function(sf)
   let isPlayerOnline = mkContactOnlineStatus(userId)
   let uid = userId.tointeger()
   let squadMember = enabledSquad.value && squadMembers.value?[uid]
-  let isReady = squadMember?.state.value.ready ?? false
+  let isReady = squadMember?.state.ready ?? false
   let isLeader = enabledSquad.value && squadId.value == uid
   return {
     watch = [contact, isPlayerOnline, enabledSquad, squadId, squadMembers]
     size = [colFull(3), colPart(0.854)]
     rendObj = ROBJ_BOX
-    fillColor = sf & S_HOVER ? hoverBgColor : panelBgColor
+    fillColor = sf & S_HOVER ? hoverPanelBgColor : panelBgColor
     borderWidth = 0
     borderRadius = commonBorderRadius
     behavior = Behaviors.Button
@@ -286,8 +282,17 @@ let smallContactBtn = @(contact, contextMenuActions) watchElemState(function(sf)
         gap = { size = flex() }
         valign = ALIGN_CENTER
         children = [
-          userNickname(isPlayerOnline.value, contact.value)
-          statusBlock(isPlayerOnline.value, contact.value)
+          userNickname(contact.value, isPlayerOnline.value || (sf & S_HOVER) != 0
+            ? activeNickStyle
+            : defNickStyle)
+          {
+            size = [flex(), SIZE_TO_CONTENT]
+            valign = ALIGN_BOTTOM
+            children = [
+              statusBlock(isPlayerOnline.value, contact.value)
+              memberAvatarCtor(userId.tointeger())
+            ]
+          }
         ]
       }
       !isReady ? null : {

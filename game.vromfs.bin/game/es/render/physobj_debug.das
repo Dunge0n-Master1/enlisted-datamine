@@ -1,6 +1,6 @@
 options no_aot
 require ecs
-require EnlistedPhysObj
+require DngPhysObj
 require ecs.ecs_template
 require DagorConsole
 require DagorDebug3D
@@ -11,7 +11,7 @@ struct physobj_ccd_debug_draw
   physobj_ccd_debug_draw : Tag
 
 
-[es(tag=dev, no_order, REQUIRE=physobj_ccd_debug_draw)]
+[es(tag=(render, dev), no_order, REQUIRE=physobj_ccd_debug_draw)]
 def physobj_ccd_debug_es(info : UpdateStageInfoRenderDebug)
   begin_draw_cached_debug_lines(true, true, false)
   query() <| $ [es] (phys_obj_net_phys : PhysObjActor; transform : float3x4)

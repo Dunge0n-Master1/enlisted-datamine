@@ -13,6 +13,7 @@ let {
 } = require("%ui/hud/huds/crosshair_state_es.nut")
 
 let hitHair = require("%ui/hud/huds/hit_marks.nut").hitMarks
+let { showCrosshairHints } = require("%ui/hud/state/hudOptionsState.nut")
 
 let reloadTimer = mkCountdownTimer(reloadEndTime)
 let reloadProgress = Computed(@()
@@ -135,8 +136,9 @@ let overlayTransparencyBlock = {
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
 }
-let mkCrosshairElement = @(children) {size = [sw(100), sh(100)], children = children}
-let canShowForbidden = Computed(@() teammateAim.value && !isAiming.value)
+// TODO: remove {size = [0, 0] children=...} when daRg learns not to update all the layout when updating mkCrosshair element
+let mkCrosshairElement = @(children) {size = [0, 0], children = {size = [sw(100), sh(100)], children = children}}
+let canShowForbidden = Computed(@() teammateAim.value && !isAiming.value && showCrosshairHints.value)
 let crossHairTypeToShow = Computed(@() debugForceCrosshair.value ? crosshairType?.value : showCustomCrosshair.value ? crosshairCustomType?.value : null)
 
 let forbiddenBlock = @(){
@@ -157,7 +159,7 @@ let crosshair = mkCrosshair(@() [
   crossHairTypeToShow
 )
 
-let crosshairForbidden = mkCrosshair(@() teammateAim.value ? forbidBlock : null, teammateAim)
+let crosshairForbidden = mkCrosshair(@() showCrosshairHints.value && teammateAim.value ? forbidBlock : null, [showCrosshairHints, teammateAim])
 let crosshairOverheat = mkCrosshair(@() overheatBlock, null)
 let crosshairReload = mkCrosshair(@() reloadBlock, null)
 let crosshairHitmarks = mkCrosshair(@() hitMarkBlock, null)

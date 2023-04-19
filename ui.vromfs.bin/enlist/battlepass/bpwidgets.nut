@@ -20,7 +20,7 @@ let {
 } = require("%enlSqGlob/ui/taskPkg.nut")
 let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
 let { hasEliteBattlePass } = require("eliteBattlePass.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")

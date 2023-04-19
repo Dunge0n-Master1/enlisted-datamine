@@ -3,7 +3,7 @@ require math
 require player
 require DagorConsole
 require DagorSystem
-require EnlistedActor
+require DngActor
 
 [es(tag=server, no_order)]
 def vehicle_phys_calc_controls_tick_delta_es(evt : UpdateStageInfoAct;

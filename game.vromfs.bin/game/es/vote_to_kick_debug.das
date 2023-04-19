@@ -1,6 +1,6 @@
 options no_aot
 require ecs
-require EnlistedNet
+require DngNet
 require player
 require game.utils.team
 require strings

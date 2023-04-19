@@ -6,9 +6,9 @@ require math.easing
 require game.es.events
 require game.utils.hero
 require game.events_game
-require EnlistedDm
+require DngDm
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require DaWeapons
 require enlisted.events_enlisted
 require common_shooter.es.render.camera_shaker_common
@@ -35,7 +35,6 @@ def camera_shaker_perlin_add_trauma_by_distance(evt : CmdAddCameraTraumaByDistan
     let maxDistSq = square(evt.maxDistance)
     let maxTrauma = cvt(maxDistSq - distanceSq, 0.f, maxDistSq, 0.f, evt.maxTrauma)
     camera_shaker__trauma = calc_trauma(camera_shaker__trauma, evt.addTrauma, maxTrauma)
-
 
 [es(tag=gameClient)]
 def step_shake_camera_es(evt : EventStepShakeCamera;

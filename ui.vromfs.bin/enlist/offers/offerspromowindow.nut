@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { debounce } = require("%sqstd/timers.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -14,7 +15,7 @@ let { strokeStyle, bigPadding, hoverBgColor, accentTitleTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkFormatText } = require("%enlist/components/formatText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { hasSpecialEvent, isRequestInProgress, eventsAvailable, isUnseen, markSeen
+let { isRequestInProgress, eventsData, eventsKeysSorted, isUnseen, markSeen
 } = require("offersState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { eventTasksUi } = require("%enlist/unlocks/tasksWidgetUi.nut")
@@ -85,7 +86,7 @@ let formatText = mkFormatText({
 let scrollHandler = ScrollHandler()
 
 let curEventId = mkWatched(persist, "curEventId", null)
-let curEventData = Computed(@() eventsAvailable.value.findvalue(@(e) e.id == curEventId.value))
+let curEventData = Computed(@() eventsData.value?[curEventId.value])
 
 
 let closeBtnSmall = closeBtnBase({
@@ -303,14 +304,13 @@ if (curEventId.value != null)
 curEventId.subscribe(@(v) v != null ? open() : close())
 
 let needShowOfferWindow = Computed(@() canDisplayOffers.value
-  && hasSpecialEvent.value
+  && eventsKeysSorted.value.len() > 0
   && isUnseen.value)
 
-let openOfferWindowDelayed = @()
-  gui_scene.resetTimeout(0.3, function() {
-    if (needShowOfferWindow.value)
-      curEventId(eventsAvailable.value[0].id)
-  })
+let openOfferWindowDelayed = debounce(function() {
+  if (needShowOfferWindow.value)
+    curEventId(eventsKeysSorted.value[0])
+}, 0.3)
 
 needShowOfferWindow.subscribe(@(v) v ? openOfferWindowDelayed() : null)
 openOfferWindowDelayed()

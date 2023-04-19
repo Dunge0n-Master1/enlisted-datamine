@@ -29,6 +29,22 @@ attachable_wear_jap_type98_trousers_w_boots_medic_squad_item{
   collres__res:t="jap_type98_trousers_w_boots_medic_squad_collision"
 }
 
+attachable_wear_snif_pants_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_snif_pants_item"
+  animchar__res:t="snif_pants_char"
+  collres__res:t="snif_pants_collision"
+}
+
+attachable_wear_snif_pants_w_parachute_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_snif_pants_w_parachute_item"
+  animchar__res:t="snif_pants_w_parachute_char"
+  collres__res:t="snif_pants_w_parachute_collision"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_pants_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_pants_item"
+}
+
 attachable_wear_jap_type98_trousers_w_boots_t98_tunic_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_jap_type98_trousers_w_boots_t98_tunic_item"
@@ -322,6 +338,22 @@ attachable_wear_jap_white_shirt_no_band_medic_item{
   collres__res:t="jap_white_shirt_no_band_medic_collision"
 }
 
+attachable_wear_snif_tunic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_snif_tunic_item"
+  animchar__res:t="snif_tunic_char"
+  collres__res:t="snif_tunic_collision"
+}
+
+attachable_wear_snif_tunic_w_parachute_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_snif_tunic_w_parachute_item"
+  animchar__res:t="snif_tunic_w_parachute_char"
+  collres__res:t="snif_tunic_w_parachute_collision"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_tunic_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_tunic_item"
+}
+
 attachable_wear_jap_half_sleeve_shirt_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_jap_half_sleeve_shirt_item"
@@ -422,6 +454,11 @@ attachable_wear_field_cap_rifle_squad_item{
   animchar__res:t="field_cap_rifle_squad_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="attachable_wear_field_cap_rifle_squad_item"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="head"
+    slot:t="face"
+  }
 }
 
 attachable_wear_field_cap_w_cover_w_cap_rifle_squad_item{
@@ -584,6 +621,23 @@ attachable_wear_jap_officer_cap_t98_tunic_item{
   animchar__res:t="jap_officer_cap_t98_tunic_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="attachable_wear_jap_officer_cap_t98_tunic_item"
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="head"
+    slot:t="face"
+  }
+}
+
+attachable_wear_jap_bread_bag_snif_item{
+  _extends:t="attachable_bag_l"
+  item__uniqueName:t="attachable_wear_jap_bread_bag_snif_item"
+  animchar__res:t="jap_bread_bag_snif_char"
+  collres__res:t="jap_bread_bag_snif_collision"
+  animchar_fast_phys__res:t="jap_bread_bag_snif_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_jap_bread_bag_t98_tunic_item{
@@ -889,12 +943,83 @@ attachable_wear_jap_pilot_coverall_n_vest_parachute_item{
   }
 }
 
+type3_parachute_animation_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_101_weapon"
+    anim:t="enlisted_idle_102_weapon"
+    anim:t="enlisted_idle_103_weapon"
+    anim:t="enlisted_idle_104_weapon"
+    anim:t="enlisted_idle_112_weapon"
+    anim:t="enlisted_idle_113_weapon"
+    anim:t="enlisted_idle_114_weapon"
+  }
+}
+
+attachable_wear_type3_parachute_snif_tunic_item{
+  _extends:t="attachable_backpack"
+  _extends:t="type3_parachute_animation_blacklist"
+  item__uniqueName:t="attachable_wear_type3_parachute_snif_tunic_item"
+  animchar__res:t="type3_parachute_snif_tunic_char"
+  collres__res:t="type3_parachute_snif_tunic_collision"
+  animchar_fast_phys__res:t="type3_parachute_snif_tunic_fastphys"
+  item__replaceOnParachuteOpen:t="attachable_wear_type3_parachute_opened_snif_tunic_item"
+  item__replaceOnSpawnOnGround:t=""
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_type3_parachute_opened_snif_tunic_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_type3_parachute_opened_snif_tunic_item"
+  animchar__res:t="type3_parachute_opened_snif_tunic_char"
+  collres__res:t="type3_parachute_opened_snif_tunic_collision"
+  animchar_fast_phys__res:t="type3_parachute_opened_snif_tunic_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
+  }
+}
+
 attachable_wear_jap_roll_t98_tunic_item{
   _extends:t="attachable_roll"
   item__uniqueName:t="attachable_wear_jap_roll_t98_tunic_item"
   animchar__res:t="jap_roll_t98_tunic_char"
   collres__res:t="jap_roll_t98_tunic_collision"
   animchar_fast_phys__res:t="jap_roll_t98_tunic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_jap_roll_snif_item{
+  _extends:t="attachable_roll"
+  item__uniqueName:t="attachable_wear_jap_roll_snif_item"
+  animchar__res:t="jap_roll_snif_char"
+  collres__res:t="jap_roll_snif_collision"
+  animchar_fast_phys__res:t="jap_roll_snif_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -913,6 +1038,13 @@ attachable_wear_jap_type14_nambu_holster_t98_coat_item{
   item__uniqueName:t="attachable_wear_jap_type14_nambu_holster_t98_coat_item"
   animchar__res:t="jap_type14_nambu_holster_t98_coat_char"
   collres__res:t="jap_type14_nambu_holster_t98_coat_collision"
+}
+
+attachable_wear_jap_type14_nambu_holster_snif_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_jap_type14_nambu_holster_snif_item"
+  animchar__res:t="jap_type14_nambu_holster_snif_char"
+  collres__res:t="jap_type14_nambu_holster_snif_collision"
 }
 
 attachable_wear_jap_combat_gasmask_bag_tropic_shirt_item{
@@ -1243,12 +1375,31 @@ attachable_wear_jap_type94_bandolier_tropic_shirt_item{
   collres__res:t="jap_type94_bandolier_tropic_shirt_collision"
 }
 
+attachable_wear_jap_17_pocket_bandolier_snif_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_jap_17_pocket_bandolier_snif_item"
+  animchar__res:t="jap_17_pocket_bandolier_snif_char"
+  collres__res:t="jap_17_pocket_bandolier_snif_collision"
+}
+
 attachable_wear_jap_type94_canteen_t98_tunic_item{
   _extends:t="attachable_flask_r"
   item__uniqueName:t="attachable_wear_jap_type94_canteen_t98_tunic_item"
   animchar__res:t="jap_type94_canteen_t98_tunic_char"
   collres__res:t="jap_type94_canteen_t98_tunic_collision"
   animchar_fast_phys__res:t="jap_type94_canteen_t98_tunic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_jap_type94_canteen_snif_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_jap_type94_canteen_snif_item"
+  animchar__res:t="jap_type94_canteen_snif_char"
+  collres__res:t="jap_type94_canteen_snif_collision"
+  animchar_fast_phys__res:t="jap_type94_canteen_snif_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"

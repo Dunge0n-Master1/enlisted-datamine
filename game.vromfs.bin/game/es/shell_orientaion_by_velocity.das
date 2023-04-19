@@ -1,6 +1,6 @@
 require ecs
 require GamePhys
-require EnlistedPhysObj
+require DngPhysObj
 require game.es.events
 
 [es(tag=server, REQUIRE=shell__orientationByVelocity)]

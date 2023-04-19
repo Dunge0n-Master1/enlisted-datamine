@@ -392,6 +392,11 @@ actionSets{
       group_tag:t="Other"
     }
 
+    Human.SupplyMenu{
+      type:t="digital_button"
+      group_tag:t="Other"
+    }
+
     Inventory.Pickup{
       type:t="digital_button"
       group_tag:t="Other"
@@ -503,6 +508,43 @@ actionSets{
     }
   }
 
+  VehicleTurret{
+    group_tag:t="Vehicle"
+
+    Vehicle.ZoomToggle{
+      type:t="digital_button"
+    }
+
+    Vehicle.Zoom{
+      type:t="digital_button"
+    }
+
+    Vehicle.Shoot{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootSecondary{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootMachinegun{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootGrenadeLauncher{
+      type:t="digital_button"
+    }
+
+    Vehicle.ShootTurret03{
+      type:t="digital_button"
+    }
+
+    Vehicle.StabilizerToggle{
+      type:t="digital_button"
+      group_tag:t="Vehicle,not_important"
+    }
+  }
+
   Vehicle{
     group_tag:t="Vehicle"
 
@@ -548,6 +590,10 @@ actionSets{
       reuse_defined_earlier:b=yes
     }
 
+    Vehicle.ShootGrenadeLauncher{
+      reuse_defined_earlier:b=yes
+    }
+
     Vehicle.NextBulletType{
       type:t="digital_button"
     }
@@ -588,38 +634,6 @@ actionSets{
     Human.ToggleHatch{
       type:t="digital_button"
       group_tag:t="Vehicle"
-    }
-  }
-
-  VehicleTurret{
-    group_tag:t="Vehicle"
-
-    Vehicle.ZoomToggle{
-      type:t="digital_button"
-    }
-
-    Vehicle.Zoom{
-      type:t="digital_button"
-    }
-
-    Vehicle.Shoot{
-      type:t="digital_button"
-    }
-
-    Vehicle.ShootSecondary{
-      type:t="digital_button"
-    }
-
-    Vehicle.ShootMachinegun{
-      type:t="digital_button"
-    }
-
-    Vehicle.ShootGrenadeLauncher{
-      type:t="digital_button"
-    }
-
-    Vehicle.ShootTurret03{
-      type:t="digital_button"
     }
   }
 

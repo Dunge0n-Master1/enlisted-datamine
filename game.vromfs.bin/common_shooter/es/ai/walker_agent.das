@@ -5,9 +5,9 @@ require game.es.ai.walker_common
 require common_shooter.events_common_shooter
 require pathfinder
 require game.utils.team
-require EnlistedWalkerai
-require EnlistedHuman
-require EnlistedWeapon
+require DngWalkerai
+require DngHuman
+require DngWeapon
 require DagorMath
 require DagorSystem
 require DaWeapons

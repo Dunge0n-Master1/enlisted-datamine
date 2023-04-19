@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let {
   mkLevelIcon, mkSoldierMedalIcon
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")

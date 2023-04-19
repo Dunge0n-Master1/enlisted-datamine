@@ -2,15 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sectionsSorted, curSection, setCurSection } = require("sectionsState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let profileInfoBlock = require("profileInfoBlock.nut")
-let { columnGap, midPadding, colPart } = require("%enlSqGlob/ui/designConst.nut")
-let { mkTab, backgroundMarker } = require("%enlist/components/mkTab.nut")
-let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
+let { columnGap, midPadding, navHeight } = require("%enlSqGlob/ui/designConst.nut")
+let { mkTab, backgroundMarker, mkGamepadNav } = require("%enlist/components/mkTab.nut")
 let campaignTitle = require("%enlist/campaigns/campaignTitleUi.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 
-let navHeight = colPart(1.19)
 
 let isFirstSection = Computed(@() curSection.value == sectionsSorted?[0].id)
 
@@ -48,13 +45,6 @@ let function changeTab(delta, isLooped = false) {
   trySwitchSection(tabId)
 }
 
-
-let gamepadNav = @(key, action) {
-  size = [SIZE_TO_CONTENT, premiumBtnSize]
-  valign = ALIGN_CENTER
-  children = mkHotkey(key, action)
-}
-
 let changeTabWrap = @(delta) changeTab(delta, true)
 
 let maintabs = {
@@ -87,8 +77,8 @@ let sectionsUi = {
   gap = columnGap
   children = [
     maintabs
-    gamepadNav("^J:LB | Q", @() changeTab(-1))
-    gamepadNav("^J:RB | E", @() changeTab(1))
+    mkGamepadNav("^J:LB | Q", @() changeTab(-1))
+    mkGamepadNav("^J:RB | E", @() changeTab(1))
     {
       hotkeys = [
         ["^Tab", @() changeTabWrap(1)],
@@ -111,7 +101,7 @@ let navHeader = {
         sectionsHotkeys
       ]
     }
-    campaignTitle()
+    campaignTitle
   ]
 }
 

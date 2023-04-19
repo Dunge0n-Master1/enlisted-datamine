@@ -12,17 +12,12 @@ require DagorMathUtils
 require DagorRandom
 require Dacoll
 require GamePhys
-require EnlistedPhys
+require DngPhys
 require Plane
-require EnlistedPlane
-require EnlistedActor
+require DngPlane
+require DngActor
 require game.es.artillery_aircraft_common
 require game.es.turrets_common
-
-enum AIAircraftState : int
-  FLY_TO_TARGET
-  FLY_BOMBING
-  FLY_TO_END
 
 [es(tag=server, no_order, REQUIRE=requested_aircraft)]
 def aircraft_request_distance_lifetime_es(info : UpdateStageInfoAct;
@@ -71,6 +66,76 @@ def aircraft_request_on_aircraft_destroyed(evt : Event;
         destroyEntity(targetMarkEid)
       destroyEntity(requested_aircraft__aircraftRequesterEid)
 
+[es(tag=server, no_order)]
+def aircraft_request_spawn_airplane_delayed_es(info : UpdateStageInfoAct;
+                                               eid : EntityId;
+                                               artillery__offender : EntityId;
+                                               aircraft_request__aircraftStartRelativeSpeed : float;
+                                               aircraft_request__aircraftAfterBombingHeight : float;
+                                               aircraft_request__aircraftBombingHeight : float;
+                                               aircraft_request__aircraftTemplate : string;
+                                               aircraft_request__aircraftSpawnDistance : float;
+                                               aircraft_request__aircraftSpawnDelaySec : float;
+                                               aircraft_request__spawnDelayedTemplate : string;
+                                               aircraft_request__originTm : float3x4;
+                                               var aircraft_request__aircraftLeader : EntityId&;
+                                               var aircraft_request__spawners : EidList&;
+                                               var aircraft_request__aircraftNextSpawnSec : float&;
+                                               var aircraft_request__spawnedAircrafts : EidList&)
+  if length(aircraft_request__spawners) <= 0
+    removeSubTemplate(eid, aircraft_request__spawnDelayedTemplate)
+    return
+
+  aircraft_request__aircraftNextSpawnSec -= info.dt
+  if aircraft_request__aircraftNextSpawnSec > 0.
+    return
+  aircraft_request__aircraftNextSpawnSec = aircraft_request__aircraftSpawnDelaySec
+
+  query(artillery__offender) <| $ [es] (team aka owner_team : int)
+    assume originTm = aircraft_request__originTm
+    query(aircraft_request__spawners[0]) <| $ [es] (aircraft_request_spawner__bias : float3)
+      assume bias = aircraft_request_spawner__bias
+      let origPoint = originTm[3] + bias.x * originTm[0] + bias.y * originTm[1] + bias.z * originTm[2]
+      var spawnPos = origPoint - originTm[0] * aircraft_request__aircraftSpawnDistance
+      var aircraftStartRelativeSpeed = aircraft_request__aircraftStartRelativeSpeed
+
+      query(aircraft_request__aircraftLeader) <| $ [es] (transform : float3x4; plane_net_phys : PlaneActor)
+        assume phys = plane_net_phys.phys
+        aircraftStartRelativeSpeed = (phys.speed - phys.Vmin) / (phys.Vmax - phys.Vmin)
+        spawnPos = transform[3] + bias.x * originTm[0] + bias.y * originTm[1] + bias.z * originTm[2]
+
+      let endPos   = float3(origPoint.x, aircraft_request__aircraftAfterBombingHeight, origPoint.z) + originTm[0] * aircraft_request__aircraftSpawnDistance
+
+      let flyToPos = float3(origPoint.x, aircraft_request__aircraftBombingHeight, origPoint.z)
+
+      let trgPos2D = origPoint.xz
+      let trgPos3D = float3(trgPos2D.x, traceht_lmesh(trgPos2D), trgPos2D.y)
+
+      let aircraftEid = createEntity(aircraft_request__aircraftTemplate) <| $(var init : ComponentsInitializer)
+        set(init, "team", team)
+
+        set(init, "startVelDir", float3(1.f, 0.f, 0.f))
+        set(init, "startRelativeSpeed", aircraftStartRelativeSpeed)
+
+        set(init, "requested_aircraft__aircraftRequesterEid", eid)
+
+        set(init, "ai_aircraft__endPos", endPos)
+        set(init, "ai_aircraft__flyPos", flyToPos)
+        set(init, "ai_aircraft__targetPos", trgPos3D)
+        set(init, "redirectProjectileOffender", artillery__offender)
+        var tm = originTm
+        tm[3] = spawnPos
+
+        set(init, "transform", tm)
+
+      push(aircraft_request__spawnedAircrafts, aircraftEid)
+
+      if !aircraft_request__aircraftLeader
+        aircraft_request__aircraftLeader = aircraftEid
+
+    destroyEntity(aircraft_request__spawners[0])
+    aircraft_request__spawners |> erase(0)
+
 [es(tag=server, on_appear)]
 def aircraft_request_started_es(evt : Event;
                                 eid : EntityId;
@@ -81,17 +146,15 @@ def aircraft_request_started_es(evt : Event;
                                 artillery__lifeTime : float;
                                 var artillery__deadTime : float&;
                                 aircraft_request__interval : float;
-                                aircraft_request__aircraftStartRelativeSpeed : float;
-                                aircraft_request__aircraftAfterBombingHeight : float;
-                                aircraft_request__aircraftBombingHeight : float;
                                 aircraft_request__aircraftSpawnHeight : float;
-                                aircraft_request__aircraftTemplate : string;
                                 aircraft_request__aircraftTargetMarkTemplate : string;
-                                aircraft_request__aircraftSpawnDistance : float;
                                 aircraft_request__aircraftBiases : Point3List;
+                                aircraft_request__spawnDelayedTemplate : string;
+                                aircraft_request__spawnerTemplate : string;
+                                var aircraft_request__originTm : float3x4&;
                                 var aircraft_request__targetMarks : EidList&;
-                                var aircraft_request__spawnedAircraftsCount : int&;
-                                var aircraft_request__spawnedAircrafts : EidList&)
+                                var aircraft_request__spawners : EidList&;
+                                var aircraft_request__spawnedAircraftsCount : int&)
   artillery__deadTime = get_sync_time() + artillery__lifeTime
 
   query(artillery__callerEid) <| $ [es] (team : int;
@@ -113,47 +176,22 @@ def aircraft_request_started_es(evt : Event;
 
   query(artillery__offender) <| $ [es] (team aka owner_team : int)
     let dir = calc_aircraft_request_dir(owner_team)
-
-    let xAxis = float3(dir.y, 0., -dir.x)
-    let yAxis = float3(0., 1., 0.)
-    let zAxis = cross(xAxis, yAxis)
+    assume originTm = aircraft_request__originTm
+    originTm[0] = float3(dir.y, 0., -dir.x)
+    originTm[1] = float3(0., 1., 0.)
+    originTm[2] = cross(originTm[0], originTm[1])
+    originTm[3] = artillery__targetPos + float3(0., aircraft_request__aircraftSpawnHeight, 0.)
 
     for bias in aircraft_request__aircraftBiases
-      var origPoint = float3()
-
-      origPoint = artillery__targetPos + float3(0., aircraft_request__aircraftSpawnHeight, 0.)
-      origPoint = origPoint + bias.x * xAxis + bias.y * yAxis + bias.z * zAxis
-
-      let spawnPos = origPoint - xAxis * aircraft_request__aircraftSpawnDistance
-      let endPos   = float3(origPoint.x, aircraft_request__aircraftAfterBombingHeight, origPoint.z) + xAxis * aircraft_request__aircraftSpawnDistance
-
-      let flyToPos = float3(origPoint.x, aircraft_request__aircraftBombingHeight, origPoint.z)
+      let origPoint = originTm[3] + bias.x * originTm[0] + bias.y * originTm[1] + bias.z * originTm[2]
 
       let trgPos2D = origPoint.xz
       let trgPos3D = float3(trgPos2D.x, traceht_lmesh(trgPos2D), trgPos2D.y)
 
-      let aircraftEid = createEntity(aircraft_request__aircraftTemplate) <| $(var init : ComponentsInitializer)
+      let spawner = createEntity(aircraft_request__spawnerTemplate) <| $(var init : ComponentsInitializer)
         set(init, "team", team)
-
-        set(init, "startVelDir", float3(1.f, 0.f, 0.f))
-        set(init, "startRelativeSpeed", aircraft_request__aircraftStartRelativeSpeed)
-
-        set(init, "requested_aircraft__aircraftRequesterEid", eid)
-
-        set(init, "ai_aircraft__endPos", endPos)
-        set(init, "ai_aircraft__flyPos", flyToPos)
-        set(init, "ai_aircraft__targetPos", trgPos3D)
-        set(init, "redirectProjectileOffender", artillery__offender)
-        var tm = IDENT_TM
-
-        tm[0] = xAxis
-        tm[1] = yAxis
-        tm[2] = zAxis
-        tm[3] = spawnPos
-
-        set(init, "transform", tm)
-
-      push(aircraft_request__spawnedAircrafts, aircraftEid)
+        set(init, "aircraft_request_spawner__bias", bias)
+      aircraft_request__spawners |> push(spawner)
 
       let targetMarkEid = createEntity(aircraft_request__aircraftTargetMarkTemplate) <| $(var init : ComponentsInitializer)
         set(init, "artillery__targetPos", trgPos3D)
@@ -162,6 +200,7 @@ def aircraft_request_started_es(evt : Event;
       push(aircraft_request__targetMarks, targetMarkEid)
 
     aircraft_request__spawnedAircraftsCount = length(aircraft_request__aircraftBiases)
+  addSubTemplate(eid, aircraft_request__spawnDelayedTemplate)
 
 def calc_ballistic_end_pos(vel : float3;
                            pos : float3;
@@ -363,53 +402,61 @@ def calculate_pid_value(input : float;
 
   return clamp(curError * pid.x + intError + deltaError * pid.z, minVal, maxVal)
 
-[es(tag=server, no_order, REQUIRE=ai_aircraft, REQUIRE_NOT=deadEntity)]
-def ai_aircraft_autopilot_es(info : CmdPostPhysUpdate;
-                             ai_aircraft__speedPidK : float3;
-                             ai_aircraft__rollPidK : float3;
-                             ai_aircraft__pitchPidK : float3;
-                             ai_aircraft__yawPidK : float3;
-                             var ai_aircraft__speedPrevError : float&;
-                             var ai_aircraft__speedError : float&;
-                             var ai_aircraft__rollPrevError : float&;
-                             var ai_aircraft__rollError : float&;
-                             var ai_aircraft__yawPrevError : float&;
-                             var ai_aircraft__yawError : float&;
-                             var ai_aircraft__pitchPrevError : float&;
-                             var ai_aircraft__pitchError : float&;
-                             var plane_net_phys : PlaneActor&;
-                             ai_aircraft__wishSpeed : float;
-                             ai_aircraft__flyPos : float3;
-                             transform : float3x4)
-  let dt = plane_net_phys.phys.timeStep
+def ai_aircraft_autopilot_impl(aircraft_eid : EntityId)
+  query(aircraft_eid) <| $ [es] (ai_aircraft__speedPidK : float3;
+                                 ai_aircraft__rollPidK : float3;
+                                 ai_aircraft__pitchPidK : float3;
+                                 ai_aircraft__yawPidK : float3;
+                                 var ai_aircraft__speedPrevError : float&;
+                                 var ai_aircraft__speedError : float&;
+                                 var ai_aircraft__rollPrevError : float&;
+                                 var ai_aircraft__rollError : float&;
+                                 var ai_aircraft__yawPrevError : float&;
+                                 var ai_aircraft__yawError : float&;
+                                 var ai_aircraft__pitchPrevError : float&;
+                                 var ai_aircraft__pitchError : float&;
+                                 var plane_net_phys : PlaneActor&;
+                                 ai_aircraft__wishSpeed : float;
+                                 ai_aircraft__flyPos : float3;
+                                 transform : float3x4)
+    let dt = plane_net_phys.phys.timeStep
 
-  let valRoll = calculate_pid_value(plane_net_phys.phys.currentState.location.O.roll,
-                                    0., ai_aircraft__rollPidK, -180., +180., dt,
-                                    ai_aircraft__rollError, ai_aircraft__rollPrevError)
+    let valRoll = calculate_pid_value(plane_net_phys.phys.currentState.location.O.roll,
+                                      0., ai_aircraft__rollPidK, -180., +180., dt,
+                                      ai_aircraft__rollError, ai_aircraft__rollPrevError)
 
-  let aircraftAng = dir_to_angles(transform[0])
-  let targetAng   = dir_to_angles(normalize(ai_aircraft__flyPos - float3(plane_net_phys.phys.currentState.location.P)))
+    let aircraftAng = dir_to_angles(transform[0])
+    let targetAng   = dir_to_angles(normalize(ai_aircraft__flyPos - float3(plane_net_phys.phys.currentState.location.P)))
 
-  let angPitch = rad_to_deg(renorm_ang(aircraftAng.y, targetAng.y) - targetAng.y)
+    let angPitch = rad_to_deg(renorm_ang(aircraftAng.y, targetAng.y) - targetAng.y)
 
-  let valPitch = calculate_pid_value(angPitch, 0., ai_aircraft__pitchPidK, -180., +180., dt,
-                                     ai_aircraft__pitchError, ai_aircraft__pitchPrevError)
+    let valPitch = calculate_pid_value(angPitch, 0., ai_aircraft__pitchPidK, -180., +180., dt,
+                                      ai_aircraft__pitchError, ai_aircraft__pitchPrevError)
 
-  plane_net_phys.phys |> flight_model_setAileronControl(valRoll)
-  plane_net_phys.phys |> flight_model_setElevatorControl(valPitch)
+    plane_net_phys.phys |> flight_model_setAileronControl(valRoll)
+    plane_net_phys.phys |> flight_model_setElevatorControl(valPitch)
 
-  let ang = rad_to_deg(renorm_ang(aircraftAng.x, targetAng.x) - targetAng.x)
+    let ang = rad_to_deg(renorm_ang(aircraftAng.x, targetAng.x) - targetAng.x)
 
-  let valYaw = calculate_pid_value(ang, 0., ai_aircraft__yawPidK, -180., +180.,
-                                   dt, ai_aircraft__yawError, ai_aircraft__yawPrevError)
+    let valYaw = calculate_pid_value(ang, 0., ai_aircraft__yawPidK, -180., +180.,
+                                    dt, ai_aircraft__yawError, ai_aircraft__yawPrevError)
 
-  plane_net_phys.phys |> flight_model_setRudderControl(valYaw)
+    plane_net_phys.phys |> flight_model_setRudderControl(valYaw)
 
-  let powerControll = calculate_pid_value(length(float3(plane_net_phys.phys.vel)), ai_aircraft__wishSpeed,
-                                          ai_aircraft__speedPidK, +0., +180., dt,
-                                          ai_aircraft__speedError, ai_aircraft__speedPrevError)
+    let powerControll = calculate_pid_value(length(float3(plane_net_phys.phys.vel)), ai_aircraft__wishSpeed,
+                                            ai_aircraft__speedPidK, +0., +180., dt,
+                                            ai_aircraft__speedError, ai_aircraft__speedPrevError)
 
-  plane_net_phys.phys |> flight_model_setPowerControlAll(powerControll)
+    plane_net_phys.phys |> flight_model_setPowerControlAll(powerControll)
+
+[es(tag=server, no_order, REQUIRE=ai_aircraft, REQUIRE_NOT=(deadEntity, clientAiAircraft))]
+def ai_aircraft_autopilot_server_es(info : CmdPostPhysUpdate; eid : EntityId)
+  ai_aircraft_autopilot_impl(eid)
+
+[es(tag=gameClient, no_order, REQUIRE=(ai_aircraft, clientAiAircraft), REQUIRE_NOT=deadEntity)]
+def ai_aircraft_autopilot_client_es(info : CmdPostPhysUpdate; eid : EntityId)
+  // paratroopersAircraft is controlled from the client to allow it to have LOCALLY_CONTROLED_ net role
+  ai_aircraft_autopilot_impl(eid)
 
 [es(tag=gameClient, after=update_projectile_es, REQUIRE=ai_bomb_projectile)]
 def update_bomb_projectile_es(info : ParallelUpdateFrameDelayed;

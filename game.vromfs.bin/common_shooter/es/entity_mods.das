@@ -1,7 +1,7 @@
 require ecs
 require common_shooter.es.entity_mods_common
 require DagorMath
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require ecs.safe
 require game.es.events

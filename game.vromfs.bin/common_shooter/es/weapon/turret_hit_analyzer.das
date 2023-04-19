@@ -5,8 +5,8 @@ require debug.logerr_once
 require game.utils.team
 require game.utils.hero
 require game.es.events
-require EnlistedWeapon
-require EnlistedDm
+require DngWeapon
+require DngDm
 require DagorSystem
 require DagorMath
 require DaWeaponProps

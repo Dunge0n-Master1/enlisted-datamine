@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWeapon
+require DngWeapon
 require vehicle
 
 def manage_ai_gunner_tag(eid : EntityId; condition : bool)

@@ -12,15 +12,18 @@ require sound_utils_net.modules.sound_utils_net_events
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(vehicle_phys_es, sound_control_update))]
 def vehicle_engine_sound_update_vars(evt : Event;
                                      vehicle_net_phys : VehiclePhysActor;
+                                     vehicle__fuel : float = 0.0;
+                                     vehicle__fuelUse : float = 0.0;
                                      var vehicle_engine_sound_vars__rpm : float&;
                                      var vehicle_engine_sound_vars__load : float&;
                                      var vehicle_engine_sound_vars__isStarted : bool&;
                                      isAlive : bool = true)
   assume phys = vehicle_net_phys.phys
   let isOnGround = phys.currentState.leftTrack.isOnGround || phys.currentState.rightTrack.isOnGround
+  let noFuel = (vehicle__fuelUse > 0.0 && vehicle__fuel <= 0.0)
   vehicle_engine_sound_vars__rpm = cvt(phys.engineRPM, phys.engineMinRPM, phys.engineMaxRPM, 0., 100.)
-  vehicle_engine_sound_vars__load = isOnGround ? phys.engineLoad : 0.
-  vehicle_engine_sound_vars__isStarted = isAlive && phys.engineReadyness > 0. && phys.isICEWorking
+  vehicle_engine_sound_vars__load = isOnGround ? abs(phys.engineLoad) : 0.
+  vehicle_engine_sound_vars__isStarted = isAlive && phys.engineReadyness > 0. && phys.isICEWorking && !noFuel
 
 
 [es(tag=sound, after=(vehicle_phys_es, sound_control_update, vehicle_engine_sound_update_vars))]

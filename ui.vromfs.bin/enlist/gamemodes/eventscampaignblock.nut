@@ -8,7 +8,7 @@ let {
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { localGap } = require("%enlist/gameModes/eventModeStyle.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
+let { curCampaign, setCurCampaign, curCampaignLocId } = require("%enlist/meta/curCampaign.nut")
 let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
 let math = require("%sqstd/math.nut")
@@ -216,18 +216,18 @@ let eventsCampaignBlock = watchElemState(@(sf){
   padding = [0, localGap]
   children = [
     campaignsCount.value < 2 || hasChoosedCampaign.value ? null : mkText(loc("army/selectNew"), defTxtColor, sub_txt)
-    @(){
-        watch = [curCampaign, gameProfile]
+      @(){
+        watch = curCampaignLocId
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         valign = ALIGN_CENTER
         children = {
           rendObj = ROBJ_TEXT
           size = [flex(), SIZE_TO_CONTENT]
-          text = loc(gameProfile.value?.campaigns[curCampaign.value]?.title ?? curCampaign.value)
+          text = loc(curCampaignLocId.value)
           animations = mkBlinkAnim("campaign_blink")
         }.__update(body_txt)
-    }
+      }
   ]
 })
 

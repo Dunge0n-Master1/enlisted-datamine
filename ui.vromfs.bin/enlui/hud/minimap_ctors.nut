@@ -20,6 +20,7 @@ let aircraftMapMarkers = require("%ui/hud/minimap_markers/aircraft_map_markers.n
 let tankMapMarkers = require("%ui/hud/minimap_markers/vehicle_map_markers.nut")
 let engineerMapMarkers = require("%ui/hud/minimap_markers/engineer_map_markers.nut")
 let destroyableRiMarkers = require("%ui/hud/minimap_markers/minimap_destroyable_ri.nut")
+let simpleMarkers = require("%ui/hud/minimap_markers/simple_map_markers.nut")
 let mortarMarkers = require("%ui/hud/minimap_markers/mortar_map_markers.nut")
 let enemyAttackMarkers = require("%ui/hud/minimap_markers/enemy_attack_markers.nut")
 let engineer_buildings_map_markers = require("%ui/hud/minimap_markers/engineer_buildings_map_markers.nut")
@@ -34,6 +35,7 @@ let mmChildrenCtors = freeze([
   mortarMarkers
   aircraftMapMarkers
   tankMapMarkers
+  simpleMarkers
   engineerMapMarkers
   destroyableRiMarkers
   enemy_building_user_point_markers

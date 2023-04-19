@@ -1,7 +1,7 @@
 module fortifications_build_common shared
 require game.utils.team
 require GridCollision
-require EnlistedWeapon
+require DngWeapon
 require DagorSystem
 require DagorMath
 require Grid

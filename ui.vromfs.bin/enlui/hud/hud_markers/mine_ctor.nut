@@ -37,7 +37,6 @@ let function mine(eid){
   return function(){
     let blockedByTimer = watch.value.blockedToTime >= 0
     let mineType = watch.value?.type
-    let mIco = mineIconMemo(mineType, mineIconSize)
     return {
       data = {
         eid
@@ -54,7 +53,7 @@ let function mine(eid){
       key = eid
       sortOrder = eid
       transform = {}
-      image = blockedByTimer ? null : mIco
+      image = blockedByTimer ? null : mineIconMemo(mineType, mineIconSize[0])
       size = blockedByTimer ? mineTimerSize : mineIconSize
       watch
 

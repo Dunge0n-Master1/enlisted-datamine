@@ -10,11 +10,6 @@ bulletType:t="frag_i_t"
 bulletName:t="37mm_mgr_18"
 fuseDelayDist:r=0.0
 explodeTreshold:r=0.1
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_28_38mm_metal_he"
-groundCollisionEffect:t="hit_28_38mm_dirt_he"
-ricochetEffect:t="hit_28_38mm_metal_ap"
-waterCollisionEffect:t="hit_28_38mm_water"
 explosionPatchRadius:r=1.0
 secondaryShattersPreset:t="ap"
 
@@ -219,32 +214,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_28_38mm_dirt_he"
-  jetFx:t="hit_28_38mm_dirt_he"
-
-  steel{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_28_38mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_28_38mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_28_38mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

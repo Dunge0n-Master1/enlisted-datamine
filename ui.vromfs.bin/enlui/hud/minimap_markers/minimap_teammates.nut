@@ -34,8 +34,8 @@ let mkIconPlayerGroupmate = memoize(@(fillColor) freeze({
   rendObj = ROBJ_IMAGE
   color = fillColor
   image = teammate_arrow
-  size = SIZE_TO_CONTENT
   pos = [0, -unitArrowSz[1] * 0.1]
+  size = teammateArrowSz
 }))
 
 let mkTextPlayerGroupmate = memoize(@(num) freeze({

@@ -24,7 +24,7 @@ b5n2{
         turret:t="turret_02"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -37,7 +37,7 @@ b5n2{
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[-1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [-0.0, 0.0, 1.0] [0.15, 0.0, 0.0]]
+      attachTm:m=[[-1.0, 0.0, -8.74228e-08] [0.0, 1.0, 0.0] [8.74228e-08, 0.0, -1.0] [0.0, 0.0, 0.0]]
       seatComponent:t="isGunner"
       receiveDamageFromDMPart:t="gunner1_dm"
       directTurretControl:b=yes
@@ -74,6 +74,8 @@ b5n2{
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -282,4 +284,24 @@ b5n2_driver_cockpit{
   animchar__res:t="b5n2_cockpit_char"
   plane_anim__blk:t="gamedata/units/b5n2.blk"
   plane_sight__blk:t="gamedata/units/b5n2.blk"
+
+  "move_cockpit_node__nodeName:list<t>"{
+    node:t="stick_rhand_1"
+    node:t="throttle_lhand_1"
+  }
+
+  "move_cockpit_node__nodeId:list<i>"{
+    nodeId:i=-1
+    nodeId:i=-1
+  }
+
+  "move_cockpit_node__offset:list<p3>"{
+    item:p3=0.0155, 0.042, -0.0015
+    item:p3=0.011, -0.026, -0.039
+  }
+
+  "move_cockpit_node__rotation:list<p2>"{
+    item:p2=15.4, 28.3
+    item:p2=-44.6, 3.0
+  }
 }

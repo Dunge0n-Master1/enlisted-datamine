@@ -15,11 +15,6 @@ bulletType:t="t_shell"
 effectiveDistance:r=300.0
 slopeEffectPreset:t="ap"
 relativeVelHitShift:p2=300.0, 1000.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_ap"
-groundCollisionEffect:t="hit_19_27mm_dirt_ap"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -49,29 +44,6 @@ visual{
   traceFreq:i=1
   tracer:t="20mmBrightRed"
   trail:t="noTrail"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

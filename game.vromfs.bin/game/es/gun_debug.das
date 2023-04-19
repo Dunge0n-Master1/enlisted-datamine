@@ -8,10 +8,10 @@ require DagorDebug3D
 require Dacoll
 require Gun
 require DaWeapons
-require EnlistedPhys
+require DngPhys
 require GridCollision
 require game.utils.hero
-require EnlistedNet
+require DngNet
 require game.es.server_debug_common
 require daslib/safe_addr
 require game.es.net_console_macro

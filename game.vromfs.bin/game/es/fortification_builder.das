@@ -8,7 +8,7 @@ require math.base
 require CollRes
 require Dacoll
 require ecs
-require EnlistedNet
+require DngNet
 require player
 
 [es(tag=server, no_order, REQUIRE=buildingRestrictedZone)]

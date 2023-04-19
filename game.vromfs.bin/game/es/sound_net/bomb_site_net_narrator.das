@@ -2,7 +2,7 @@ require ecs
 require enlisted.events_enlisted
 require game.utils.team
 require game.es.stat_bq_common
-require EnlistedNet
+require DngNet
 
 [es(tag=server, REQUIRE=bomb_site__operator)]
 def bomb_site_net_narrator_planting(evt : EventBombSitePlanting)

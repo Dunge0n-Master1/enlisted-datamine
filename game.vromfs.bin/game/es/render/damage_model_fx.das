@@ -7,7 +7,7 @@ require AnimV20
 require GeomNodeTree
 require dm
 require DmFire
-require EnlistedDm
+require DngDm
 require fx
 require DagorSystem
 require game.es.vehicle.vehicle_events
@@ -186,7 +186,7 @@ def start_fx(vehicle_eid : EntityId;
       var emitterTm = IDENT_TM
       emitterTm[3] = nodeTm[3]
 
-      let eid = createEntity(string(fxTemplateName)) <| $(var init)
+      createEntity(string(fxTemplateName)) <| $(var init)
         set(init, "transform", emitterTm)
         set(init, "vehicle_effect__type", int(effect_type))
         set(init, "vehicle_effect__vehicleFxId", vehicle_fx_id)

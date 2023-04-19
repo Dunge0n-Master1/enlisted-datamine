@@ -51,7 +51,7 @@ let function collectSoldierDataImpl(
   soldier, perksDataV, curCampSquadsV, armiesV, classesCfgV, campItemsV, soldiersOutfit,
   soldiersPremiumItems, soldierSchemesV
 ) {
-  let { guid = null, sClass = null} = soldier
+  let { guid = null, sClass = null, basetpl = null } = soldier
   if (guid == null)
     return soldier
 
@@ -61,7 +61,8 @@ let function collectSoldierDataImpl(
   let perksCount = getPerksCount(perks)
 
   let { kind = sClass } = classesCfgV?[sClass] //kind by default is sClass to compatibility with 16.02.2021 pserver version
-  let { country = null } = soldierSchemesV?[armyId][sClass]
+  let { country = null } = (soldierSchemesV?[armyId] ?? {})
+    .findvalue(@(data) basetpl == data.gametemplate)
   return collectSoldierPhoto(soldier.__merge({
     primaryWeapon = getSoldierItem(guid, "primary", campItemsV)
       ?? getSoldierItem(guid, "secondary", campItemsV)

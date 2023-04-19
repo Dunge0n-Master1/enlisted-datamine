@@ -287,6 +287,11 @@ Human.PushObject{
   btn:i=6
 }
 
+Human.SupplyMenu{
+  dev:i=3
+  btn:i=9
+}
+
 Human.BuildingAction{
   dev:i=3
   btn:i=7
@@ -757,7 +762,7 @@ HUD.Scores{
 
 HUD.BuildingToolMenu{
   dev:i=3
-  btn:i=2
+  btn:i=16
   type:i=1
 }
 

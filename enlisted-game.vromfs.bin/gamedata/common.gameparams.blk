@@ -36,16 +36,17 @@ commonScenes{
   scene:t="content/enlisted/gamedata/scenes/bullet_types_water.blk"
   scene:t="content/enlisted/gamedata/scenes/shell_explosions.blk"
   scene:t="content/enlisted/gamedata/scenes/projectile_params.blk"
+  scene:t="content/enlisted/gamedata/scenes/common_paratroopers_supply_schemes.blk"
 }
 
 commonClientScenes{
   scene:t="content/common/gamedata/scenes/_common_render_scene.blk"//should be created before WorldRenderer
   scene:t="content/enlisted/gamedata/scenes/common_xray_scene.blk"
   scene:t="content/common/gamedata/scenes/animchars_shadows_culling.blk"
-  scene:t="%danetlibs/ssss/scenes/ssss_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_cutting_planes_mgr_scene.blk"
   scene:t="content/enlisted/gamedata/scenes/_common_wounds.blk"
   scene:t="content/common/gamedata/scenes/hero_cockpit.blk"
+  scene:t="content/common/gamedata/scenes/outdated_effects.blk"
 }
 
 bulletHoles
@@ -131,4 +132,11 @@ terraform {
   minLevel:r = -1.5
   maxLevel:r = 1.1
   maxPrimHeight:r = 0.7
+}
+
+treeCrownTransmittance {
+  brightness:r = 0.7; // default - 0.5
+  falloffStart:r = 0.01; // default - 0.01
+  falloffStop:r = 1.6; // default - 1.
+  enabled:b = yes; // default - no
 }

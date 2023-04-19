@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, titleTxtColor, defTxtColor, sidePadding, colPart, colFull, midPadding,
-  footerContentHeight
+let { bigPadding, titleTxtColor, defTxtColor, sidePadding, colPart, midPadding, footerContentHeight,
+  smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { spawnZonesState } = require("%ui/hud/state/spawn_zones_markers.nut")
 let { secondsToTimeSimpleString } = require("%ui/helpers/time.nut")
@@ -11,21 +11,22 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let { isFirstSpawn, spawnCount, spawnSquadId, squadIndexForSpawn,
   squadsList, curSquadData, canSpawnCurrent, canSpawnCurrentSoldier, maxSpawnVehiclesOnPointBySquad,
   nextSpawnOnVehicleInTimeBySquad, canUseRespawnbaseByType, respawnBlockedReason,
-  selectedRespawnGroupId
+  selectedRespawnGroupId, paratroopersPointSelectorOn, spawnScore, paratroopersOn
 } = require("%ui/hud/state/respawnState.nut")
 let { localPlayerTeamSquadsCanSpawn, localPlayerTeamInfo } = require("%ui/hud/state/teams.nut")
 let {localPlayerTeam} = require("%ui/hud/state/local_player.nut")
-let { respawnTimer, forceSpawnButton, squadNameBlock, mkSquadSpawnDesc, mkKeyboardHint, bgConfig,
-  respAnims, commonBlockWidth, missionNameUI, respawnHint
+let { respawnTimer, forceSpawnButton, squadNameBlock, mkSquadSpawnDesc, bgConfig, respAnims,
+  commonBlockWidth, missionNameUI, respawnHint
 } = require("%ui/hud/menus/respawn/respawnPkg.nut")
 let soldiersRespawnBlock = require("%ui/hud/menus/respawn/soldiersRespawnBlock.nut")
-let { mkSquadCard, mkLockedSquadCard } = require("%enlSqGlob/ui/mkSquadCard.nut")
+let { mkRespawnSquadCard, squadCardSize } = require("%enlSqGlob/ui/mkSquadCard.nut")
 let { mkSquadSpawnIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
+let paratroopersButtonBlock = require("%ui/hud/huds/troopers_button.nut")
 
-
+const MAX_SQUADS = 10
 let vehicleIconSize = colPart(0.5)
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -45,6 +46,18 @@ let function spawnsLeftText() {
     halign = ALIGN_CENTER
     text = loc("respawn/leftRespawns", { num = maxSpawn - spawnCount.value })
   }, defTxtStyle)
+}
+
+let function spawnPriceText(price) {
+  let score = spawnScore.value
+  return price <= 0 ? {} : {
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    size = [flex(), SIZE_TO_CONTENT]
+    watch = spawnScore
+    halign = ALIGN_CENTER
+    text = loc("respawn/squadReadyWithCost", { score, price })
+  }.__update(defTxtStyle)
 }
 
 let vehicleIcon = memoize(function(squadType) {
@@ -104,8 +117,30 @@ let availableSpawnZonesCount = Computed(@() spawnZonesState.value
                     && localPlayerTeam.value == v?.forTeam ? sum + 1 : sum, 0))
 
 
+let function choosePoinHint() {
+  let res = { watch = [paratroopersPointSelectorOn, availableSpawnZonesCount,
+    canUseRespawnbaseByType, selectedRespawnGroupId, isFirstSpawn] }
+  let hideHint = isFirstSpawn.value
+    || (availableSpawnZonesCount.value <= 1 && !paratroopersPointSelectorOn.value)
+    || (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0
+
+  if (hideHint)
+    return res
+
+  return res.__update({
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    size = [flex(), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+    text = paratroopersPointSelectorOn.value
+      ? loc("respawn/landingPoint")
+      : loc("respawn/choose_respawn_point")
+  })
+}
+
+
 let function spawnInfoBlock() {
-  let { canSpawn = false, squadType = null} = curSquadData.value
+  let { canSpawn = false, scorePrice = 0, isAffordable = true, squadType = null} = curSquadData.value
   let children = [ @() {
     size = [flex(), SIZE_TO_CONTENT]
     watch = [isGamepad, canSpawnCurrentSoldier]
@@ -114,9 +149,7 @@ let function spawnInfoBlock() {
     halign = ALIGN_CENTER
     children = [
       vehicleSpawnInfoBlock(squadType)
-      isGamepad.value
-        ? null
-        : mkKeyboardHint("Space", loc("respawn/spawn_current_squad"))
+      choosePoinHint
       mkSquadSpawnDesc(canSpawn, canSpawnCurrentSoldier.value)
     ]
   }]
@@ -137,24 +170,35 @@ let function spawnInfoBlock() {
         : reason
     }
 
-  let restrictionsBlock = !respawnBlockedReason.value?.reason ? []
-    : [{
-      rendObj = ROBJ_TEXT
-      behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      text = restrictionsText
-    }.__update(defTxtStyle)]
+  let defText = {
+    rendObj = ROBJ_TEXT
+    behavior = Behaviors.TextArea
+    size = [flex(), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+  }.__update(defTxtStyle)
 
-  children.extend(!canSpawnCurrent.value ? restrictionsBlock
+  let restrictionsBlock = !respawnBlockedReason.value?.reason ? []
+    : [defText.__merge({text = restrictionsText})]
+
+  let notAffordableBlock = [
+    @() defText.__merge({
+      watch = spawnScore
+      text = loc("respawn/notAffordable", {price=scorePrice, score=spawnScore.value})
+    })
+    defText.__merge({text = loc("respawn/notAffordableSubtext")})
+  ]
+  let firstSpawnCond = isFirstSpawn.value && (!paratroopersPointSelectorOn.value || paratroopersOn.value)
+  children.extend(!isAffordable ? notAffordableBlock : !canSpawnCurrent.value ? restrictionsBlock
     : localPlayerTeamSquadsCanSpawn.value
       ? [
         respawnTimer("respawn/squadRespawnTimer")
-          isFirstSpawn.value || availableSpawnZonesCount.value <= 1 ||
-          (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0
-            ? forceSpawnButton
-            : null
-          spawnsLeftText
+        firstSpawnCond || (availableSpawnZonesCount.value <= 1 && !paratroopersPointSelectorOn.value) ||
+        (selectedRespawnGroupId.value?[canUseRespawnbaseByType.value] ?? -1) >= 0
+          ? forceSpawnButton
+          : null
+        paratroopersButtonBlock
+        spawnsLeftText
+        spawnPriceText(scorePrice)
         ]
       : [{
           rendObj = ROBJ_TEXTAREA
@@ -166,7 +210,7 @@ let function spawnInfoBlock() {
   return {
     watch = [curSquadData, localPlayerTeamSquadsCanSpawn, canSpawnCurrent,
       respawnBlockedReason, timeLeft, isFirstSpawn, selectedRespawnGroupId,
-      availableSpawnZonesCount]
+      availableSpawnZonesCount, paratroopersPointSelectorOn]
     size = [commonBlockWidth, SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     valign = ALIGN_BOTTOM
@@ -216,38 +260,32 @@ let squadShortcuts = @() {
 
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 let function squadsListUI() {
-  let squadsCount = squadsList.value.len()
-  let blockWidth = min(colFull(2 * squadsCount), colFull(19))
-  let spawnlist = squadsList.value .map(@(s) s.__merge({ addedRightObj = s.canSpawn
-      ? null
-      : mkSquadSpawnIcon
-    }))
+  let spawnlist = squadsList.value.map(@(s) s.__merge({ addedRightObj = s.canSpawn
+    ? null
+    : mkSquadSpawnIcon
+  }))
+
+  let maxBlockWidth = MAX_SQUADS * squadCardSize[0] + (MAX_SQUADS - 1) * bigPadding
 
   let listComp = spawnlist.map(function(squad, idx) {
     let isSelected = Computed(@() spawnSquadId.value == squad.squadId)
     let onClick = @() spawnSquadId(squad.squadId)
-    let { icon, squadType, level, premIcon, canSpawn, expireTime = 0} = squad
-    return canSpawn
-      ? mkSquadCard({
-          idx
-          isSelected
-          onClick
-          icon
-          squadType
-          level
-          premIcon
-          expireTime
-        })
-      : mkLockedSquadCard({
-          idx
-          icon
-          squadType
-          premIcon
-        })
+    let { icon, squadType, level, premIcon, canSpawn, readinessPercent = 0 } = squad
+    let isAlive = readinessPercent > 0
+    return mkRespawnSquadCard({
+      idx
+      isSelected
+      onClick
+      icon
+      squadType
+      level
+      premIcon
+      isAlive
+      canSpawn
+    })
   })
   return {
     watch = [squadsList, spawnSquadId]
-    size = [blockWidth, SIZE_TO_CONTENT]
     vplace = ALIGN_BOTTOM
     xmbNode = XmbContainer({
       canFocus = @() false
@@ -261,6 +299,7 @@ let function squadsListUI() {
       },
       {
           size = SIZE_TO_CONTENT
+          maxWidth = maxBlockWidth
           rootBase = class {
             key = "squadList"
             behavior = Behaviors.Pannable
@@ -272,14 +311,32 @@ let function squadsListUI() {
 }
 
 
+let soldierSpawn = @() {
+  watch = spawnSquadId
+  flow = FLOW_VERTICAL
+  gap = smallPadding
+  children = [
+    squadNameBlock(spawnSquadId.value, titleTxtStyle).__update(bgConfig)
+    soldiersRespawnBlock(true)
+  ]
+}
+
+
 let chooseSquadBlock = {
   flow = FLOW_VERTICAL
   gap = bigPadding
   children = [
-    squadShortcuts
-    squadsListUI
+    soldierSpawn
+    {
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      children = [
+        squadShortcuts
+        squadsListUI
+      ]
+    }.__update(bgConfig)
   ]
-}.__update(bgConfig)
+}
 
 
 let showSpawnHint = Computed(@() !isFirstSpawn.value && availableSpawnZonesCount.value > 0)
@@ -287,7 +344,7 @@ let showSpawnHint = Computed(@() !isFirstSpawn.value && availableSpawnZonesCount
 let selectSpawnHint = @() {
   watch = showSpawnHint
   hplace = ALIGN_CENTER
-  children = respawnHint(showSpawnHint.value ? loc("select_spawn") : null)
+  children = respawnHint(paratroopersPointSelectorOn.value ? loc("respawn/selectLandingPoint") : showSpawnHint.value ? loc("select_spawn") : null)
 }
 
 
@@ -296,18 +353,13 @@ let topBlock = {
   animations = respAnims
   transform = {}
   children = [
-    @(){
-      watch = spawnSquadId
-      size = [commonBlockWidth, SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = bigPadding
+    {
+      size = [flex(), SIZE_TO_CONTENT]
       children = [
-        squadNameBlock(spawnSquadId.value, titleTxtStyle).__update(bgConfig)
-        soldiersRespawnBlock(true)
+        missionNameUI
       ]
-    }.__update(bgConfig)
+    }
     selectSpawnHint
-    missionNameUI
   ]
 }
 

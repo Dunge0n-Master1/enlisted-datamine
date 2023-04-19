@@ -936,6 +936,7 @@ sequencer{
     stopDist:r=0.75
     aimToTarget:b=yes
     maxStanceParam:t="maxStance"
+    timeLimit:r=3.0
   }
 
   meleeAttack{
@@ -988,6 +989,12 @@ sequencer{
         name:t=""
         treeName:t="sub.findDangerZone"
       }
+
+      not{
+
+        isGrenadeSelected{
+        }
+      }
     }
   }
 
@@ -1025,6 +1032,9 @@ sequencer{
             rhs:t="shootEnemy"
           }
 
+          isGrenadeSelected{
+          }
+
           recalculateTree{
           }
         }
@@ -1032,19 +1042,24 @@ sequencer{
     }
   }
 
-  setIntVar{
-    to:t="isInShootState"
-    value:i=0
-  }
+  orderedSelector{
 
-  chooseBestWeapon{
-    targetParam:t="shootEnemy"
-    allowGrenades:b=yes
-    switchRadiusCoef:r=0.85
-  }
+    decideOnAttackTarget{
+      targetParam:t="shootEnemy"
+      targetSeeTimeParam:t="shootEnemyTime"
+      stillTimeOutParam:t="attackStillTime"
+      turnAngleOutParam:t="attackTurnAngle"
+      focusTimeOutParam:t="attackFocusTime"
+      gotoCoverOutParam:t="attackGotoCover"
+    }
 
-  setCurrentAiAction{
-    state:t="attack"
+    failed{
+
+      wait{
+        range:p2=0.5, 1.0
+        resetable:b=yes
+      }
+    }
   }
 
   orderedSelector{
@@ -1097,7 +1112,7 @@ sequencer{
               }
 
               wait{
-                range:p2=0.5, 1.0
+                range:p2=1.0, 1.5
                 resetable:b=yes
               }
 
@@ -1175,9 +1190,10 @@ sequencer{
 
               moveToTarget{
                 targetUnitParam:t="shootEnemy"
-                stopDist:r=0.5
+                stopDist:r=0.75
                 aimToTarget:b=yes
                 maxStanceParam:t="maxStance"
+                timeLimit:r=3.0
               }
 
               meleeAttack{
@@ -1230,6 +1246,70 @@ sequencer{
         }
       }
     }
+  }
+
+  sequencer{
+
+    reaction{
+      event:t="regularCheck"
+
+      continue{
+      }
+    }
+
+    reaction{
+      event:t="onEnemyPlayerNear"
+
+      continue{
+      }
+    }
+
+    reaction{
+      event:t="onTraceableDanger"
+
+      continue{
+      }
+    }
+
+    wait{
+      timeParam:t="attackStillTime"
+      resetable:b=yes
+      aimSpeedCoef:r=0.01
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="onBulletNearby"
+
+        continue{
+        }
+      }
+
+      rotateToPoint{
+        angleParam:t="attackTurnAngle"
+      }
+
+      wait{
+        timeParam:t="attackFocusTime"
+        resetable:b=yes
+      }
+    }
+  }
+
+  setIntVar{
+    to:t="isInShootState"
+    value:i=0
+  }
+
+  chooseBestWeapon{
+    targetParam:t="shootEnemy"
+    allowGrenades:b=yes
+    switchRadiusCoef:r=0.85
+  }
+
+  setCurrentAiAction{
+    state:t="attack"
   }
 }
 
@@ -1510,6 +1590,16 @@ sequencer{
           name:t=""
           treeName:t="sub.findDangerGrenadeNearby"
         }
+      }
+    }
+
+    not{
+
+      findDanger{
+        paramName:t="shootEnemy"
+        radiusParamName:t="enemyNearRadius"
+        minDanger:r=0.5
+        tag:t="human"
       }
     }
 
@@ -2077,6 +2167,43 @@ sequencer{
 
     sequencer{
 
+      success{
+
+        sequencer{
+
+          isUnderwater{
+          }
+
+          findSwimUpPos{
+            posParam:t="swimUpPos"
+            swimUpDirParam:t="swimUpDir"
+            radius:r=1.0
+            tries:i=5
+          }
+
+          parallel{
+
+            moveToPos{
+              posParam:t="swimUpPos"
+              sprintTimerRange:p2=10.0, 20.0
+              minDistToSprint:r=10.0
+              distThreshold:r=1.5
+              avoidAiObstacles:b=yes
+            }
+
+            waitSwimUpPos{
+              delay:r=0.1
+              maxTime:r=4.0
+              swimUpDirParam:t="swimUpDir"
+            }
+          }
+
+          swimUp{
+            swimUpDirParam:t="swimUpDir"
+          }
+        }
+      }
+
       moveToPos{
         posParam:t="wishPosition"
         sprintTimerRange:p2=10.0, 20.0
@@ -2085,7 +2212,7 @@ sequencer{
         tryClimbing:b=yes
         maxStanceParam:t="maxStance"
         stuckDirParam:t="stuckDir"
-        timeToStuck:r=0.9
+        timeToStuck:r=2.5
         incObstacles:b=no
         avoidAiObstacles:b=no
         distThreshold:r=1.0
@@ -2097,9 +2224,71 @@ sequencer{
       }
     }
 
+    sequencer{
+
+      or{
+
+        isSwimming{
+        }
+
+        isUnderwater{
+        }
+      }
+
+      not{
+
+        checkDistance{
+          posParam:t="wishPosition"
+          radius:r=2.0
+          yRadius:r=1.0
+        }
+      }
+
+      orderedSelector{
+
+        moveByDir{
+          endPos:t="wishPosition"
+          duration:r=1.2
+          distThresholsd:r=0.2
+        }
+
+        sequencer{
+
+          findWayBackToNavmesh{
+            outPosParam:t="outStuckPos"
+          }
+
+          moveByDir{
+            endPos:t="outStuckPos"
+            duration:r=1.2
+            distThresholsd:r=0.2
+          }
+        }
+      }
+
+      setIntVar{
+        to:t="resetAIPointsGenerator"
+        value:i=1
+      }
+    }
+
+    isUnderwater{
+    }
+
     ifThenElse{
 
-      isOnNavmesh{
+      and{
+
+        isOnNavmesh{
+        }
+
+        not{
+
+          isVarsIntEqual{
+            lhs:t="resetAIPointsGenerator"
+            rhs_value:i=2
+          }
+        }
       }
 
       failed{
@@ -2129,14 +2318,30 @@ sequencer{
     resetable:b=yes
   }
 
-  findWayBackToNavmesh{
-    outPosParam:t="outStuckPos"
-  }
+  orderedSelector{
 
-  moveByDir{
-    endPos:t="outStuckPos"
-    duration:r=1.2
-    distThresholsd:r=0.1
+    sequencer{
+
+      findWayBackToNavmesh{
+        outPosParam:t="outStuckPos"
+      }
+
+      moveByDir{
+        endPos:t="outStuckPos"
+        duration:r=1.2
+        distThresholsd:r=0.1
+      }
+
+      setIntVar{
+        to:t="resetAIPointsGenerator"
+        value:i=1
+      }
+    }
+
+    setIntVar{
+      to:t="resetAIPointsGenerator"
+      value:i=1
+    }
   }
 }
 
@@ -2148,19 +2353,30 @@ sequencer{
     resetable:b=yes
   }
 
-  getPointAroundAIPos{
-    dirParam:t="stuckDir"
-    outPosParam:t="outStuckPos"
-    forwPosParam:t="outStuckForwPos"
-    fromPosParam:t="moveFromPos"
-    toPosParam:t="wishPosition"
-    resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
-  }
+  orderedSelector{
 
-  moveByDir{
-    endPos:t="outStuckPos"
-    duration:r=1.5
-    distThresholsd:r=0.1
+    sequencer{
+
+      getPointAroundAIPos{
+        dirParam:t="stuckDir"
+        outPosParam:t="outStuckPos"
+        forwPosParam:t="outStuckForwPos"
+        fromPosParam:t="moveFromPos"
+        toPosParam:t="wishPosition"
+        resetAIPointsGeneratorParam:t="resetAIPointsGenerator"
+      }
+
+      moveByDir{
+        endPos:t="outStuckPos"
+        duration:r=1.5
+        distThresholsd:r=0.1
+      }
+    }
+
+    setIntVar{
+      to:t="resetAIPointsGenerator"
+      value:i=2
+    }
   }
 }
 

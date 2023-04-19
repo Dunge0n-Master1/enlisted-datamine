@@ -3,9 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { FAButton } = require("%ui/components/txtButton.nut")
+let { FAFlatButton  } = require("%ui/components/txtButton.nut")
 let { colPart, defBdColor, topWndBgColor, bottomWndBgColor, panelBgColor, defTxtColor,
-  titleTxtColor, commonBtnHeight, colFull, midPadding, smallPadding
+  commonBtnHeight, colFull, midPadding, smallPadding, titleTxtColor, hoverPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { premiumBtnSize } = require("%enlist/currency/premiumComp.nut")
@@ -17,7 +17,7 @@ let defSize = premiumBtnSize
 const WND_UID = "main_menu_header_buttons"
 let wndGradient = mkColoredGradientY(topWndBgColor, bottomWndBgColor)
 let fillBgColor = @(sf) sf & S_ACTIVE ? 0xFF3B516A
-  : sf & S_HOVER ? 0xFF495567
+  : sf & S_HOVER ? hoverPanelBgColor
   : panelBgColor
 let defTxtStyle = { color = defTxtColor }.__update(fontLarge)
 let titleTxtStyle = { color = titleTxtColor }.__update(fontLarge)
@@ -38,6 +38,7 @@ let mkMenuButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
           : null
       }
       return {
+        watch = isGamepad
         rendObj = ROBJ_SOLID
         color = fillBgColor(sf)
         size = [flex(), commonBtnHeight]
@@ -49,11 +50,11 @@ let mkMenuButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
         valign = ALIGN_CENTER
         padding = midPadding
         children = [
-          hotkeyOnHover
+          isGamepad.value ? hotkeyOnHover : null
           {
             rendObj = ROBJ_TEXT
             text = btn?.name ?? ""
-          }.__update(sf != 0 ? titleTxtStyle : defTxtStyle)
+          }.__update( (sf & S_ACTIVE) != 0 || (sf & S_HOVER) != 0 ? titleTxtStyle : defTxtStyle)
         ]
       }.__update(!needMoveCursor ? {} : {
         key = "selected_menu_elem"
@@ -101,8 +102,7 @@ local function mkDropMenuBtn(buttons, watch) {
   let watchTo = type(watch) != "array" ? [watch] : watch
   let menuButtonsUi = mkMenuButtons(buttons, watchTo)
   let onClick = @(event) openMenu(event, menuButtonsUi)
-  return FAButton("bars", onClick, {
-    rendObj = null
+  return FAFlatButton("bars", onClick, {
     btnWidth = defSize
     btnHeight = defSize
     hideTxtWithGamepad = true

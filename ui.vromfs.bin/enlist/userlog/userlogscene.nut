@@ -7,17 +7,15 @@ let mkWindowTab = require("%enlist/components/mkWindowTab.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-let { USERLOG_WIDTH } = require("userLogPkg.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let {
-  sceneWithCameraAdd, sceneWithCameraRemove
-} = require("%enlist/sceneWithCamera.nut")
+let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-let {
-  defBgColor, blurBgColor, tinyOffset, smallOffset, smallPadding
+let { defBgColor, blurBgColor, tinyOffset, smallOffset, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { requestUserLogs, isUserLogsRequesting } = require("userLogState.nut")
+let { userLogsRequest, isUserLogsRequesting } = require("userLogState.nut")
 
+
+let USERLOG_WIDTH = fsh(100)
 
 let isOpened = mkWatched(persist, "isOpened", false)
 let curTabIdx = mkWatched(persist, "curTabIdx", 0)
@@ -90,7 +88,7 @@ let userLogWindow = @() {
 }
 
 let function open() {
-  requestUserLogs()
+  userLogsRequest()
   sceneWithCameraAdd(userLogWindow, "events")
 }
 

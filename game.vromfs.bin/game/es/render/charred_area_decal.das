@@ -1,7 +1,7 @@
 require ecs
 require enlisted.events_enlisted
 require math.base
-require EnlistedCamera
+require DngCamera
 
 [es(tag=gameClient)]
 def create_charred_area_decal(evt : CmdSpawnCharredArea;

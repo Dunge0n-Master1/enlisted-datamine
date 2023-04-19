@@ -17,6 +17,8 @@ let buildingToolMenu = require("%ui/hud/huds/building_tool_menu.ui.nut")
 let { isBuildingToolMenuAvailable } = require("%ui/hud/state/building_tool_state.nut")
 let squadSoldiersMenu = require("%ui/hud/huds/squad_soldiers_menu.ui.nut")
 let { showSquadSoldiersMenu, isSquadSoldiersMenuAvailable } = require("%ui/hud/state/squad_soldiers_menu_state.nut")
+let supplyMenu = require("%ui/hud/huds/paratroopers_supply_menu.ui.nut")
+let { showSupplyMenu } = require("%ui/hud/state/paratroopers_supply_menu_state.nut")
 let { forceDisableBattleChat } = require("%ui/hud/state/hudOptionsState.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let dainput = require("dainput2")
@@ -110,6 +112,12 @@ let huds = [
     menu = artilleryMap
     group = groups.gameHud
     id = "ArtilleryMap"
+  },
+  {
+    show = showSupplyMenu
+    menu = supplyMenu
+    group = groups.gameHud
+    id = "SupplyMenu"
   },
   {
     show = showBigMap

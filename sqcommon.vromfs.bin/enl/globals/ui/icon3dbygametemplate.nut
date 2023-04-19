@@ -47,6 +47,8 @@ let function getIconInfoByGameTemplate(template, params = {}) {
     headgenTex0 = template.getCompValNullable("headgen__tex0")
     headgenTex1 = template.getCompValNullable("headgen__tex1")
     blendFactor = template.getCompValNullable("headgen__blendFactor")
+    lightZenith = reassign(template.getCompValNullable("item__lightZenith"), "lightZenith")
+    lightAzimuth = reassign(template.getCompValNullable("item__lightAzimuth"), "lightAzimuth")
   }
 }
 

@@ -1,6 +1,6 @@
 require ecs
 require Plane
-require EnlistedPlane
+require DngPlane
 require ecs.soa_template
 require enlisted.events_enlisted
 

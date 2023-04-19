@@ -1,25 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, bigPadding, defTxtColor, titleTxtColor, startBtnWidth, colPart,
-  defHorGradientImg, hoverHorGradientImg, midPadding
+let { smallPadding, bigPadding, defTxtColor, startBtnWidth, colPart, transpPanelBgColor, midPadding,
+  defItemBlur, titleTxtColor, highlightLine
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
-let { hasReward, currentProgress, nextUnlock } = require("%enlist/battlepass/bpState.nut")
+let { hasReward, currentProgress, nextUnlock, seasonIndex } = require("%enlist/battlepass/bpState.nut")
 let { getOneReward, mkRewardIcon, rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
-let { timeTracker } = require("%enlist/battlepass/battlePassPkg.nut")
+let { timeTracker, dynamicSeasonBPIcon, bpColors, dynamicSeasonBpBg
+} = require("%enlist/battlepass/battlePassPkg.nut")
 let { rewardAnimBg, taskLabelSize } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
 let { hasEliteBattlePass } = require("%enlist/battlepass/eliteBattlePass.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
-let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
-let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 
-let defTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
+let defTxtStyle = { color = defTxtColor }.__update(fontXLarge)
+let hoverTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let smallTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let starSize = colPart(0.33)
 let bpButtonHeight = colPart(1.3) + smallPadding * 2
@@ -35,22 +35,26 @@ bpStarsAnimGen.subscribe(function(_v) {
 })
 
 
-let function mkStar(idx, isFilled = false, hasRewardAnim = false, hasAppearAnim = false) {
+let mkStar = @(idx, isFilled = false, hasRewardAnim = false, hasAppearAnim = false) function() {
   let trigger = $"bp_star_{idx}"
+  let colorIdx = seasonIndex.value % bpColors.len()
   return {
+    watch = seasonIndex
     size = [starSize, starSize]
     children = [
       {
         rendObj = ROBJ_IMAGE
         size = [starSize, starSize]
-        image = Picture("ui/skin#tasks/star_empty.svg:{0}:{0}:K".subst(starSize))
+        color = bpColors[colorIdx]
+        image = Picture("ui/skin#star_level_empty.svg:{0}:{0}:K".subst(starSize))
       }
       !isFilled ? null
         : {
             rendObj = ROBJ_IMAGE
             size = [starSize, starSize]
-            image = Picture("ui/skin#tasks/star_filled.svg:{0}:{0}:K".subst(starSize))
+            image = Picture("ui/skin#star_level_filled.svg:{0}:{0}:K".subst(starSize))
             transform = {}
+            color = bpColors[colorIdx]
             animations = [
               { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3,
                 play = hasAppearAnim, onFinish = @() sound_play("ui/debriefing/squad_star"),
@@ -106,7 +110,7 @@ let function taskLimitMessage() {
 }
 
 
-let titleBpBlock = {
+let titleBpBlock = @(sf) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = smallPadding
@@ -114,7 +118,7 @@ let titleBpBlock = {
     {
       rendObj = ROBJ_TEXT
       text = loc("bp/battlePassUpper")
-    }.__update(defTxtStyle)
+    }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
     rewardProgress
     taskLimitMessage
   ]
@@ -137,23 +141,10 @@ let function rewardBpBlock() {
 
 let mkWidgetInfo = @(sf) {
   size = [flex(), SIZE_TO_CONTENT]
-  minHeight = bpButtonHeight
+  animations = [{
+    prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
+  }]
   children = [
-    {
-      rendObj = ROBJ_IMAGE
-      size = flex()
-      image = defHorGradientImg
-    }
-    sf & S_HOVER
-      ? {
-          rendObj = ROBJ_IMAGE
-          size = flex()
-          image = hoverHorGradientImg
-          animations = [{
-            prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
-          }]
-        }
-      : null
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
@@ -169,7 +160,7 @@ let mkWidgetInfo = @(sf) {
           flow = FLOW_HORIZONTAL
           gap = smallPadding
           children = [
-            titleBpBlock
+            titleBpBlock(sf)
             rewardBpBlock
           ]
         }
@@ -178,32 +169,29 @@ let mkWidgetInfo = @(sf) {
   ]
 }
 
-let lineGradient = mkColoredGradientX(0x5AFFFFFF, 0x00FFFFFF, 12, false)
-let highlightLine = @(isTop = true) {
-  rendObj = ROBJ_IMAGE
-  size = [flex(), colPart(0.064)]
-  image = lineGradient
-  vplace = isTop ? ALIGN_TOP : ALIGN_BOTTOM
-}
 
 let bpWidgetOpen = {
   size = [startBtnWidth, SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = midPadding
   children = [
-    timeTracker({ pos = [0, -(fontSmall.fontSize + midPadding)] })
-    {
+    timeTracker()
+    watchElemState(@(sf) {
+      rendObj = ROBJ_WORLD_BLUR
       size = [flex(), SIZE_TO_CONTENT]
+      minHeight = bpButtonHeight
+      color = defItemBlur
+      fillColor = transpPanelBgColor
+      behavior = Behaviors.Button
+      sound = soundDefault
+      onClick = @() openBPwindow()
       children = [
-        watchElemState(@(sf) {
-          size = [flex(), SIZE_TO_CONTENT]
-          sound = soundDefault
-          behavior = Behaviors.Button
-          onClick = @() openBPwindow()
-          children = mkWidgetInfo(sf)
-        })
+        dynamicSeasonBpBg([colPart(6.03), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
+        mkWidgetInfo(sf)
         highlightLine()
         highlightLine(false)
       ]
-    }
+    })
   ]
 }
 

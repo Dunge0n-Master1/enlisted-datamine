@@ -3,7 +3,7 @@ require turrets
 require common_shooter.events_common_shooter
 require game.es.vehicle.vehicle_seats_common
 require enlisted.events_enlisted
-require EnlistedCamera
+require DngCamera
 require DagorMathUtils
 require GridCollision
 require CollisionTraces

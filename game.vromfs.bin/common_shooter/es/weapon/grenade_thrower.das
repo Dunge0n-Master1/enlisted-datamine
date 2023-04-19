@@ -5,9 +5,9 @@ require game.utils.animchar
 require common_shooter.events_common_shooter
 require common_shooter.es.grenade_thrower_common
 require common_shooter.es.human_weap_common
-require EnlistedWeapon
-require EnlistedPhys
-require EnlistedHuman
+require DngWeapon
+require DngPhys
+require DngHuman
 require DaWeapons
 require DaWeaponProps
 require Gun

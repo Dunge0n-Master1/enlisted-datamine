@@ -4,14 +4,14 @@ require ecs.common
 require player
 require game.utils.hero
 require game.es.stat_bq_common
-require EnlistedDm
+require DngDm
 require game.events_game
 require enlisted.events_enlisted
 require DagorConsole
 require DagorMath
 require Dacoll
 require enlisted.game.es.enlisted_squad_common
-require EnlistedNet
+require DngNet
 require game.es.server_debug_common
 require game.es.net_console_macro
 
@@ -74,7 +74,7 @@ def squad_change_team()
   broadcastEvent([[EventTeamMemberJoined eid=playerEid, team = newTeam]])
   set(playerEid, "team", newTeam)
   set(playerEid, "armiesReceivedTeam", newTeam)
-  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1]])
+  sendEvent(playerEid, [[CmdSpawnSquad team=newTeam, possessed=possessed, squadId=0, memberId=0, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
 
 def spawn_soldiers_at_pos(pos : float3; count, team : int; spawn_template : string; cell_size : float)
   query() <| $ [es(REQUIRE=devSoldier)] (eid : EntityId) { destroyEntity(eid); }
@@ -141,7 +141,7 @@ def spawnSquadById(squadId : string; squadForUserid : uint64; memberId : int)
 
           kill_squad(get_squad_eid(0u, 0u))
 
-          sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadNo, memberId=memberId, respawnGroupId=-1]])
+          sendEvent(eid, [[CmdSpawnSquad team=team, possessed=INVALID_ENTITY_ID, squadId=squadNo, memberId=memberId, respawnGroupId=-1, existedVehicleEid=INVALID_ENTITY_ID]])
 
           return true
 

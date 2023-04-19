@@ -29,6 +29,171 @@ fury_builder_preview{
   avaliableAngles:p2=-5.0, 5.0
 }
 
+cannon_ussr_25mm_72k_preview{
+  _extends:t="cannon_ussr_25mm_72k_preview_common"
+  instantiateTemplate:t="builded_cannon_ussr_25mm_72k"
+}
+
+cannon_ussr_25mm_72k_preview_common{
+  _extends:t="base_animchar_builder_preview"
+  animchar__res:t="towed_at_72k_char"
+  collres__res:t="towed_at_72k_collision"
+  preview_phys__blk:t="content/enlisted/gamedata/units/cannons/ussr_25mm_72k.blk"
+  avaliableAngles:p2=-10.0, 10.0
+  buildingSoundTag:t="cannon"
+  building_builder__maxTimeToBuild:r=16.0
+  buildingCost:r=6.0
+  building__requireUnlockId:i=1
+  building_menu__text:t="building_tool/aaa_cannon_72k"
+  building_menu__image:t="building_aaa"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="aim_01_active"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=0.0
+  }
+}
+
+builded_cannon_ussr_25mm_72k{
+  _extends:t="builded_cannon_ussr_25mm_72k_common"
+  _extends:t="ussr_25mm_72k_common"
+}
+
+builded_cannon_ussr_25mm_72k_common{
+  _extends:t="base_building"
+  building_destroy__maxTimeToDestroy:r=16.0
+  fortification_repair__costPercent:r=0.5
+  building_menu__image:t="building_aaa"
+  building_menu__text:t="building_tool/aaa_cannon_72k"
+  isTpsView:b=no
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "disableVehicleResupply:tag"{
+  }
+}
+
+cannon_jp_20mm_type98_preview{
+  _extends:t="cannon_jp_20mm_type98_preview_common"
+  instantiateTemplate:t="builded_cannon_jp_20mm_type98"
+}
+
+cannon_jp_20mm_type98_preview_common{
+  _extends:t="base_animchar_builder_preview"
+  animchar__res:t="towed_at_20mm_type_98_char"
+  collres__res:t="towed_at_20mm_type_98_collision"
+  preview_phys__blk:t="content/enlisted/gamedata/units/cannons/jp_20mm_type98.blk"
+  avaliableAngles:p2=-10.0, 10.0
+  buildingSoundTag:t="cannon"
+  building_builder__maxTimeToBuild:r=16.0
+  buildingCost:r=6.0
+  building__requireUnlockId:i=1
+  building_menu__text:t="building_tool/aaa_cannon_type98"
+  building_menu__image:t="building_aaa"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="aim_01_active"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=0.0
+  }
+}
+
+builded_cannon_jp_20mm_type98{
+  _extends:t="builded_cannon_jp_20mm_type98_common"
+  _extends:t="jp_20mm_type98_common"
+}
+
+builded_cannon_jp_20mm_type98_common{
+  _extends:t="base_building"
+  building_destroy__maxTimeToDestroy:r=16.0
+  fortification_repair__costPercent:r=0.5
+  building_menu__image:t="building_aaa"
+  building_menu__text:t="building_tool/aaa_cannon_type98"
+  isTpsView:b=no
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "disableVehicleResupply:tag"{
+  }
+}
+
+cannon_us_20mm_polsten_preview{
+  _extends:t="cannon_us_20mm_polsten_preview_common"
+  instantiateTemplate:t="builded_cannon_us_20mm_polsten"
+}
+
+cannon_us_20mm_polsten_preview_common{
+  _extends:t="base_animchar_builder_preview"
+  animchar__res:t="towed_polsten_char"
+  collres__res:t="towed_polsten_collision"
+  preview_phys__blk:t="content/enlisted/gamedata/units/cannons/germ_polsten.blk"
+  avaliableAngles:p2=-10.0, 10.0
+  buildingSoundTag:t="cannon"
+  building_builder__maxTimeToBuild:r=16.0
+  buildingCost:r=6.0
+  building__requireUnlockId:i=1
+  building_menu__text:t="building_tool/aaa_cannon_polsten"
+  building_menu__image:t="building_aaa"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="aim_01_active"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=0.0
+  }
+}
+
+builded_cannon_us_20mm_polsten{
+  _extends:t="builded_cannon_us_20mm_polsten_common"
+  _extends:t="germ_20mm_polsten_common"
+}
+
+builded_cannon_us_20mm_polsten_common{
+  _extends:t="base_building"
+  building_destroy__maxTimeToDestroy:r=16.0
+  fortification_repair__costPercent:r=0.5
+  building_menu__image:t="building_aaa"
+  building_menu__text:t="building_tool/aaa_cannon_polsten"
+  isTpsView:b=no
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "disableVehicleResupply:tag"{
+  }
+}
+
 cannon_germ_20mm_flak38_flakvierling_preview{
   _extends:t="cannon_germ_20mm_flak38_flakvierling_preview_common"
   instantiateTemplate:t="builded_cannon_germ_20mm_flak38_flakvierling"
@@ -93,6 +258,89 @@ builded_cannon_germ_20mm_flak38_flakvierling_common{
   fortification_repair__costPercent:r=0.5
   building_menu__image:t="building_aaa"
   building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"
+  isTpsView:b=no
+
+  "building__destructionAwardStat:t"{
+    _tags:t="server"
+    value:t="enemyBuiltGunDestructions"
+  }
+
+  "disableVehicleResupply:tag"{
+  }
+}
+
+cannon_germ_20mm_flak38_preview{
+  _extends:t="cannon_germ_20mm_flak38_preview_common"
+  instantiateTemplate:t="builded_cannon_germ_20mm_flak38"
+}
+
+cannon_germ_20mm_flak38_green_preview{
+  _extends:t="cannon_germ_20mm_flak38_preview_common"
+  instantiateTemplate:t="builded_cannon_germ_20mm_flak38_green"
+}
+
+cannon_germ_20mm_flak38_desert_preview{
+  _extends:t="cannon_germ_20mm_flak38_preview_common"
+  instantiateTemplate:t="builded_cannon_germ_20mm_flak38_desert"
+}
+
+cannon_germ_20mm_flak38_preview_common{
+  _extends:t="base_animchar_builder_preview"
+  animchar__res:t="towed_at_flak_38_char"
+  collres__res:t="towed_at_flak_38_collision"
+  preview_phys__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38.blk"
+  avaliableAngles:p2=-10.0, 10.0
+  buildingSoundTag:t="cannon"
+  building_builder__maxTimeToBuild:r=16.0
+  buildingCost:r=6.0
+  building__requireUnlockId:i=1
+  building_menu__text:t="building_tool/aaa_cannon_flak38"
+  building_menu__image:t="building_aaa"
+
+  phys_vars{
+  }
+
+  anim_phys{
+  }
+
+  "previewAnimVarParams:list<t>"{
+    param:t="aim_01_active"
+  }
+
+  "previewAnimVarParamsValue:list<r>"{
+    value:r=0.0
+  }
+}
+
+builded_cannon_germ_20mm_flak38{
+  _extends:t="builded_cannon_germ_20mm_flak38_common"
+  _extends:t="germ_20mm_flak38_common"
+}
+
+builded_cannon_germ_20mm_flak38_green{
+  _extends:t="builded_cannon_germ_20mm_flak38_common"
+  _extends:t="germ_20mm_flak38_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_bronzegruen*"
+  }
+}
+
+builded_cannon_germ_20mm_flak38_desert{
+  _extends:t="builded_cannon_germ_20mm_flak38_common"
+  _extends:t="germ_20mm_flak38_common"
+
+  "animchar__objTexReplace:object"{
+    "ger_camo_grey*":t="ger_camo_dunkelgelb*"
+  }
+}
+
+builded_cannon_germ_20mm_flak38_common{
+  _extends:t="base_building"
+  building_destroy__maxTimeToDestroy:r=16.0
+  fortification_repair__costPercent:r=0.5
+  building_menu__image:t="building_aaa"
+  building_menu__text:t="building_tool/aaa_cannon_flak38"
   isTpsView:b=no
 
   "building__destructionAwardStat:t"{
@@ -1794,7 +2042,11 @@ base_rallypoint{
   _group{
     _tags:t="sound"
     sound_control__range:r=50.0
-    sound_control__autoRange:b=no
+  }
+
+  _group{
+    _tags:t="sound"
+    sound_effect__autoRange:b=no
   }
 
   "rallypoint:tag"{
@@ -1880,7 +2132,7 @@ ammunition_box_grenade_resupply{
   grenadeResupplyItem:t=""
 }
 
-useful_box_base{
+useful_box_without_grid_base{
   _extends:t="animchar"
   team:i=-1
   useful_box__hintEmpty:t=""
@@ -1899,8 +2151,6 @@ useful_box_base{
   building_destroy__maxTimeToDestroy:r=9.0
   minimap__visibleRadius:r=5000.0
   minimap__visibleForAll:b=yes
-  grid_obj__gridType:t="vehicles"
-  grid_obj__fixedTmScale:r=-1.0
 
   "engineer_building__isUsable:tag"{
   }
@@ -1911,9 +2161,6 @@ useful_box_base{
   }
 
   "blockTerraform:tag"{
-  }
-
-  grid_obj{
   }
 
   phys_vars{
@@ -1942,6 +2189,15 @@ useful_box_base{
   }
 }
 
+useful_box_base{
+  _extends:t="useful_box_without_grid_base"
+  grid_obj__gridType:t="vehicles"
+  grid_obj__fixedTmScale:r=-1.0
+
+  grid_obj{
+  }
+}
+
 ammunition_box_base{
   _extends:t="base_ri_building"
   _extends:t="useful_box_base"
@@ -1949,6 +2205,7 @@ ammunition_box_base{
   useful_box__hintFull:t="resupply/ammo_refill"
   useful_box__hintEnemy:t="resupply/enemy_crate"
   useful_box__maxUseCount:i=10
+  useful_box__useSound:t="player/walker/ww2_soldier/items/ammo/pick"
   building_menu__text:t="building_tool/ammunition_box"
   building_menu__image:t="building_ammo_box"
   ri_extra__name:t="ammunition_supply_a_destructible_part"
@@ -1989,19 +2246,21 @@ resource_box_base{
   useful_box__hintFull:t="resupply/resource_box_refill"
   useful_box__hintEnemy:t="resupply/enemy_crate"
   useful_box__maxUseCount:i=10
+  useful_box__useSound:t="player/walker/ww2_soldier/items/healing/pick"
 
   "resourceBox:tag"{
   }
 }
 
 medik_box_base{
-  _extends:t="useful_box_base"
+  _extends:t="useful_box_without_grid_base"
   building_menu__image:t="med_box"
   useful_box__hintEmpty:t="resupply/medkit_box_empty"
   useful_box__hintFull:t="resupply/medkit_box_refill"
   useful_box__hintItemFull:t="resupply/medkit_box_item_is_full"
   useful_box__hintEnemy:t="resupply/medkit_box_enemy"
   useful_box__maxUseCount:i=10
+  useful_box__useSound:t="player/walker/ww2_soldier/items/healing/pick"
   useful_box__giveItem:t="medkit_item"
   useful_box__itemExistTag:t="item__medkit"
   collres__res:t="sanitary_box_collision"

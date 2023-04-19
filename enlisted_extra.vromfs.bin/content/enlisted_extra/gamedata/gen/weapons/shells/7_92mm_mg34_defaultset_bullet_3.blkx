@@ -289,32 +289,6 @@ ballistics{
   }
 }
 
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_8_11mm_dirt_ap"
-  jetFx:t="hit_8_11mm_dirt_ap"
-
-  steel{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
-}
-
 tracer{
   headColor:c=102, 255, 102, 220
   smokeColor:c=0, 0, 0, 0

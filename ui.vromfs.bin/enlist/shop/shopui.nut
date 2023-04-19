@@ -4,35 +4,83 @@ let shopItemClick = require("shopItemClick.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
 let viewShopItemsScene = require("viewShopItemsScene.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
+let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 
+let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { makeVertScroll, styling } = require("%ui/components/scrollbar.nut")
-let { colFull, colPart, columnGap } = require("%enlSqGlob/ui/designConst.nut")
-let { curArmyItemsByGroup, curGroupIdx } = require("shopState.nut")
-let { mkShopGroup, mkShopItem } = require("shopPackage.nut")
+let { mkShopGroup, mkBaseShopItem, mkShopFeatured, mkDiscountBar } = require("shopPackage.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { shopItemContentCtor, curUnseenAvailShopGuids } = require("armyShopState.nut")
-let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
-let { markShopItemSeen } = require("%enlist/shop/unseenShopItems.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
+let { markShopItemSeen, markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { curShopItemsByGroup, curFeaturedByGroup, curShopDataByGroup,
+  curGroupIdx, curFeaturedIdx
+} = require("shopState.nut")
+let { colFull, colPart, columnGap, smallPadding, midPadding, darkTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
-let smallOffset = (columnGap / 3).tointeger()
-let contentWidth = colFull(18)
-let blinkUnseenIcon = blinkUnseen.__merge({ margin = smallOffset })
+const SWITCH_SEC = 8.0
+
+let contentWidth = colFull(20)
 
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
+let discountInfoStyle = { color = darkTxtColor }.__update(fontLarge)
 
-let shopNavigationUi = @() {
-  watch = [curArmyItemsByGroup, curGroupIdx]
-  size = flex()
-  flow = FLOW_VERTICAL
-  gap = columnGap
-  children = curArmyItemsByGroup.value.map(@(group, idx)
-    mkShopGroup(group.id, curGroupIdx.value == idx, @() curGroupIdx(idx))
-  )
+
+let paginatorTimer = Watched(SWITCH_SEC)
+
+let featuredPaginator = mkDotPaginator({
+  id = "featured"
+  pageWatch = curFeaturedIdx
+  dotSize = columnGap
+  switchTime = paginatorTimer
+})
+
+
+let function shopNavigationUi() {
+  let dataByGroup = curShopDataByGroup.value
+  return {
+    watch = [curShopItemsByGroup, curShopDataByGroup, curGroupIdx]
+    size = flex()
+    flow = FLOW_VERTICAL
+    gap = columnGap
+    children = curShopItemsByGroup.value.map(function(group, idx) {
+      let { hasUnseen = false, unopened = [], discount = 0, showSpecialOffer = false } = dataByGroup?[group.id]
+      return {
+        size = [flex(), SIZE_TO_CONTENT]
+        valign = ALIGN_CENTER
+        children = [
+          mkShopGroup(group.id, curGroupIdx.value == idx, function() {
+            curFeaturedIdx(0)
+            curGroupIdx(idx)
+            markShopItemOpened(curArmyData.value?.guid, unopened)
+          })
+          {
+            size = flex()
+            padding = [0, 0, midPadding, 0]
+            halign = ALIGN_RIGHT
+            children = [
+              !hasUnseen ? null
+                : unopened.len() > 0 ? blinkUnseen
+                : unblinkUnseen
+              discount == 0 && !showSpecialOffer ? null
+                : mkDiscountBar(
+                    {
+                      rendObj = ROBJ_TEXT
+                      text = discount > 0 ? $"-{discount}%" : loc("specialOfferShort")
+                    }.__update(discountInfoStyle), true
+                  ).__update({ vplace = ALIGN_BOTTOM })
+            ]
+          }
+        ]
+      }
+    })
+  }
 }
 
 
@@ -64,7 +112,7 @@ let function shopItemAction(sItem, armyId, content) {
   shopItemClick(sItem)
 }
 
-let function mkShopItemCard(sItem, offers, army) {
+let function mkShopItemCard(sItem, idx, offers, army, isFeatured = false) {
   let itemGuid = sItem.guid
   let { guid = "", level = 0 } = army
   let crateContent = shopItemContentCtor(sItem)
@@ -89,34 +137,68 @@ let function mkShopItemCard(sItem, offers, army) {
           @(v) markShopItemSeen(v.guid, v.itemGuid))(on)
     }
 
+    let itemView = isFeatured
+      ? mkShopFeatured(guid, sItem, offer, content, templates, lockTxt, clickCb, hoverCb)
+      : mkBaseShopItem(idx, guid, sItem, offer, content, templates, lockTxt, clickCb, hoverCb)
+
     return {
       watch = [crateContent, curUnseenAvailShopGuids, needFreemiumStatus, allItemTemplates]
       children = [
-        mkShopItem(guid, sItem, offer, content, templates, lockTxt, clickCb, hoverCb)
-        hasNotifier ? blinkUnseenIcon : null
+        itemView
+        hasNotifier ? unblinkUnseen : null
       ]
     }
   }
 }
 
+
+let function mkFeatured(army, featured, offers) {
+  return {
+    children = [
+      function() {
+        let sItem = featured[curFeaturedIdx.value]
+        return {
+          watch = curFeaturedIdx
+          children = mkShopItemCard(sItem, 0, offers, army, true)
+        }
+      }
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        padding = smallPadding
+        vplace = ALIGN_BOTTOM
+        children = featuredPaginator(featured.len())
+      }
+    ]
+  }
+}
+
+
 let function contentUi() {
-  let sItems = curArmyItemsByGroup.value?[curGroupIdx.value].goods ?? []
+  let res = {
+    watch = [curShopItemsByGroup, curFeaturedByGroup, curGroupIdx, offersByShopItem, curArmyData]
+  }
+  let curGroup = curShopItemsByGroup.value?[curGroupIdx.value]
+  let { id = "", goods = [] } = curGroup
+  if (goods.len() == 0)
+    return res
+
+  let featured = curFeaturedByGroup.value?[id] ?? []
   let offers = offersByShopItem.value
   let army = curArmyData.value
   gui_scene.resetTimeout(0.01, @() anim_skip("unhover_anim"))
-  return {
-    watch = [curArmyItemsByGroup, curGroupIdx, offersByShopItem, curArmyData]
+
+  let shopContent = featured.len() == 0 ? [] : [mkFeatured(army, featured, offers)]
+  shopContent.extend(goods.map(@(sItem, idx) mkShopItemCard(sItem, idx, offers, army)))
+
+  return res.__update({
     size = [contentWidth, flex()]
     children = makeVertScroll({
       size = [contentWidth, SIZE_TO_CONTENT]
-      children = wrap(
-        sItems.map(@(sItem) mkShopItemCard(sItem, offers, army)),
-        {
-          width = contentWidth
-          vGap = columnGap
-          hGap = columnGap
-        }
-      )
+      children = wrap(shopContent, {
+        width = contentWidth
+        vGap = columnGap
+        hGap = columnGap
+      })
     }, {
       size = flex()
       rootBase = class {
@@ -125,7 +207,7 @@ let function contentUi() {
       }
       styling = scrollStyle
     })
-  }
+  })
 }
 
 
@@ -138,4 +220,5 @@ return {
     navigationUi
     contentUi
   ]
+  onAttach = @() curGroupIdx(0)
 }

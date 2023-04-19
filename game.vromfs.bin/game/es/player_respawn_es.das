@@ -3,11 +3,11 @@ require common_shooter.events_common_shooter
 require enlisted.game.es.enlisted_squad_common
 require DagorSystem
 require ecs
-require EnlistedDm
+require DngDm
 require game.es.player_common
 require game.es.player_events
 require GameTimers
-require EnlistedNet
+require DngNet
 require level
 
 [es(tag=server, on_event=EventLevelLoaded)]

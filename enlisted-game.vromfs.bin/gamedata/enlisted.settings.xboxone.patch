@@ -41,14 +41,14 @@
 }
 
 "@override:dx12"{
-  onlyPreallocatedHeaps:b=no
-  preallocHeap { sizeMB:i=1024; }
-  preallocHeap { sizeMB:i=32;   cpuCached:b=yes; }
+  onlyPreallocatedHeaps:b=yes
+  preallocHeap { sizeMB:i=2084; }
+  preallocHeap { sizeMB:i=96;   cpuCached:b=yes; }
   preallocHeap { sizeMB:i=4;    gpuExec:b=yes; }
 }
 
 "@override:texStreaming"{
-  forceMemQuotaKB:i=2355200  // 2300M
+  forceMemQuotaKB:i=1871872  // 1828M
   alwaysRelease:b=yes
 }
 

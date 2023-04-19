@@ -2,13 +2,13 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { configs } = require("%enlist/meta/configs.nut")
 let { perksData, getTotalPerkValue } = require("soldierPerks.nut")
-let { slotsIncrease,curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { slotsIncrease, curCampSoldiers } = require("%enlist/meta/profile.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
 
 let slotTypeToPerk = Computed(@() configs.value?.perks.slotCountPerks ?? {})
 
-let function soldierSlotsCount(soldierGuid, equipScheme) {
+let function soldierSlotsCount(soldierGuid, equipScheme, slotsIncreaseTbl = null) {
   let baseSlots = equipScheme.map(@(s) s?.listSize ?? 0)
     .filter(@(s) s > 0)
   if (baseSlots.len() == 0)
@@ -21,7 +21,7 @@ let function soldierSlotsCount(soldierGuid, equipScheme) {
       : val)
     let soldier = curCampSoldiers.value?[soldierGuid]
     if (soldier != null) {
-      let incByItems = slotsIncrease.value?[soldierGuid]
+      let incByItems = slotsIncreaseTbl ?? slotsIncrease.value?[soldierGuid]
       modSlots = modSlots.map(@(val, slotType) val + (incByItems?[slotType] ?? 0))
     }
     return modSlots

@@ -7,7 +7,8 @@ require common_shooter.es.vehicle.vehicle_offender_common
 require game.events_game
 require game.utils.team
 require DagorSystem
-require EnlistedPlane
+require DngPlane
+require game.es.vehicle.vehicle_events
 
 [es(tag=server, on_disappear, REQUIRE=requested_aircraft, before=vehicle_seats_kick_from_destroyed)]
 def aircraft_with_ai_crew_on_disappear(evt : Event;
@@ -22,14 +23,16 @@ def aircraft_with_ai_crew_on_appear(evt : Event;
                                     team : int;
                                     vehicle_seats__seatEids : EidList;
                                     item__name : string;
-                                    ai_aircraft_crew__soldier_template : string)
+                                    ai_aircraft_crew__soldier_template : string;
+                                    paratroopersAircraft : Tag const?)
   for seatEid in vehicle_seats__seatEids
     query(seatEid) <| $ [es] (seat__component : int;
                               var seat__ownerEid : EntityId&)
       var soldierTemplate = ai_aircraft_crew__soldier_template
       if seat__component == int(ecs_hash("isDriver"))
         soldierTemplate += "+ai_aircraft_crew_pilot"
-
+      elif paratroopersAircraft != null
+        return
       let baseTemplateName = split_template(soldierTemplate)[0]
       let tpl = getTemplateByName(baseTemplateName)
       let soldierEid = createEntity(soldierTemplate) <| $(var init : ComponentsInitializer)
@@ -50,10 +53,20 @@ def aircraft_with_ai_crew_on_appear(evt : Event;
 
 [es(tag=server, REQUIRE=ai_aircraft)]
 def on_ai_aircraft_died(evt : EventEntityDied;
-                        vehicle_seats__seatEids : EidList)
-  for seatEid in vehicle_seats__seatEids
-    query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
-      sendEvent(seat__ownerEid, [[CmdKill offender=evt.offender, damageType=uint16(evt.damageType), gunPropsId=evt.gunPropsId, shellId=evt.shellId]])
+                        eid : EntityId;
+                        vehicle_seats__seatEids : EidList;
+                        paratroopersAircraft : Tag const?;
+                        paratroopers_aircraft__kicked : bool const?)
+  if paratroopersAircraft != null
+    if *paratroopers_aircraft__kicked
+      return
+    let ownerEid = get_Eid(vehicle_seats__seatEids[0], "seat__ownerEid") ?? INVALID_ENTITY_ID
+    if !!ownerEid
+      sendEvent(eid, [[CmdKickFromVehicle eid=ownerEid]])
+  else
+    for seatEid in vehicle_seats__seatEids
+      query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
+        sendEvent(seat__ownerEid, [[CmdKill offender=evt.offender, damageType=uint16(evt.damageType), gunPropsId=evt.gunPropsId, shellId=evt.shellId]])
 
 [es(tag=server, REQUIRE=aiAircraftCrewPilot)]
 def on_ai_aircraft_crew_pilot_died(evt : EventEntityDied;

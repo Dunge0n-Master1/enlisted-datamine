@@ -3,9 +3,9 @@ require app
 require game.es.input.input_events
 require DagorInput
 require player
-require EnlistedCamera
-require EnlistedHuman
-require EnlistedNet
+require DngCamera
+require DngHuman
+require DngNet
 require enlisted.events_enlisted
 
 def init(var human_input__squadNext : int&)

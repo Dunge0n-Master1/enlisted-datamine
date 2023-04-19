@@ -6,7 +6,7 @@ let { CheckBoxContentActive, CheckBoxContentHover, CheckBoxContentDefault, Contr
 } = require("%ui/style/colors.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 
 let checkFontSize = hdpx(12)

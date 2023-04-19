@@ -3,9 +3,9 @@ require ecs.common
 require game.es.vehicle.vehicle_seats_common
 require vehicle
 require PhysObj
-require EnlistedPhysObj
+require DngPhysObj
 require Ship
-require EnlistedShip
+require DngShip
 require enlisted.events_enlisted
 
 

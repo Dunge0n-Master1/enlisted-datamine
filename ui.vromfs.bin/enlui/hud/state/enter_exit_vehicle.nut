@@ -43,6 +43,7 @@ ecs.register_es("exit_vehicle_ui_es",
   {
     comps_track = [["exit_vehicle__atTime", ecs.TYPE_FLOAT]],
     comps_rq = ["hero"]
+    comps_no = ["human_vehicle__hideExitProgress"]
   }
 )
 
@@ -53,7 +54,7 @@ ecs.register_es("enter_vehicle_ui_es",
   },
   {
     comps_track = [["enter_vehicle__atTime", ecs.TYPE_FLOAT]],
-    comps_rq = ["hero"]
+    comps_rq = ["watchedByPlr"]
   }
 )
 

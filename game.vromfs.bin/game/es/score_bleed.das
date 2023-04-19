@@ -2,7 +2,7 @@ require ecs
 require DagorMath
 require game.events_game
 require enlisted.events_enlisted
-require EnlistedNet
+require DngNet
 
 [es(tag=server, no_order)]
 def score_bleed_update(info : UpdateStageInfoAct;

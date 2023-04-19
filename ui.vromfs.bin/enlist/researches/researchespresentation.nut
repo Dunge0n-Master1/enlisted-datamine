@@ -61,6 +61,16 @@ let function appendArtilleryTypeUnlocks(effect, _context) {
   }
 }
 
+let function appendParatrooperBox(effect, _context) {
+  let id = firstValue(effect, {}).findindex(@(_) true) ?? "0"
+  return {
+    name = $"research/paratrooper_box{id}"
+    description = $"research/paratrooper_box{id}_desc"
+    icon_id = $"paratrooper_box_icon"
+    iconOverride = { scale = 0.8, pos = [0.4, 0.5] }
+  }
+}
+
 let function appendArtilleryCooldownMul(effect, _context) {
   let value = (1.0 / firstValue(effect, 1.0)).tointeger()
   return {
@@ -309,6 +319,7 @@ let RESEARCH_DATA_APPENDERS = {
   building_unlock = appendBuildingUnlocks
   artillery_cooldown_mul = appendArtilleryCooldownMul
   artillery_type_unlock = appendArtilleryTypeUnlocks
+  paratrooper_box = appendParatrooperBox
   squad_class_limit = appendSquadClassLimit
   class_training = appendMaxTrainingLevel
   weapon_upgrades = appendWeaponUpgrades

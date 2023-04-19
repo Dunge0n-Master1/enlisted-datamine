@@ -12,16 +12,10 @@ onHitChanceMultFire:r=10.0
 stabilityReductionAfterPenetration:r=0.15
 relativeVelHitShift:p2=300.0, 1000.0
 bulletType:t="ap_i"
-shellAnimation:t="video/shells_animations/ap_belt.ivf"
 nearArmorPower:p2=15.0, 50.0
 midArmorPower:p2=9.0, 300.0
 farArmorPower:p2=0.2, 1200.0
 relativeVelArmorShift:p2=200.0, 1000.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_ap"
-groundCollisionEffect:t="hit_19_27mm_dirt_ap"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05

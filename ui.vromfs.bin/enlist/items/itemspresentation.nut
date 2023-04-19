@@ -163,19 +163,19 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/gold_weapons.avif"
     cardImageParams = mkImageParams([144, 170], [0, 17])
     specialRewards = {
-      [9] = {
-        normandy_allies = "lanchester_model_1"
-        normandy_axis = "coenders_mp"
-        berlin_allies = "lad_mg"
-        berlin_axis = "coenders_mp"
-        moscow_allies = "ppsh_40"
-        moscow_axis = "mkb_42_w"
+      [10] = {
+        normandy_allies = "winchester_automatic_rifle"
+        normandy_axis = "fn_model_1930"
+        berlin_allies = "svd_38"
+        berlin_axis = "lahti_saloranta_m26"
+        moscow_allies = "svd_38"
+        moscow_axis = "lahti_saloranta_m26"
         tunisia_allies = "lanchester_model_1"
         tunisia_axis = "scotti_model_x"
-        stalingrad_allies = "ppsh_40"
-        stalingrad_axis = "mkb_42_w"
-        pacific_allies = "lanchester_model_1"
-        pacific_axis = "nambu_type_1_early_smg"
+        stalingrad_allies = "svd_38"
+        stalingrad_axis = "lahti_saloranta_m26"
+        pacific_allies = "winchester_automatic_rifle"
+        pacific_axis = "fn_model_1930"
       }
     }
   },
@@ -1018,6 +1018,46 @@ let rewardsPresentation = {
     name = loc("items/mech_event_crate")
     description = loc("items/mech_event_crate/desc")
     cardImage = mkImageCtor([200, 200], [0, 0], "!ui/skin#/random_reward_chest.avif") //432 * 600
+  },
+  ["436"] = {
+    name = loc("squad/usa_normandy_event_paratrooper_1")
+    description = loc("squadannounce/usa_normandy_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/usa/usa_normandy_event_paratrooper_1_image.avif")
+  },
+  ["437"] = {
+    name = loc("squad/ger_normandy_event_paratrooper_1")
+    description = loc("squadannounce/ger_normandy_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/germany/ger_normandy_event_paratrooper_1_image.avif")
+  },
+  ["438"] = {
+    name = loc("squad/allies_pacific_event_paratrooper_1")
+    description = loc("squadannounce/allies_pacific_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/usa/allies_pacific_event_paratrooper_1_image.avif")
+  },
+  ["439"] = {
+    name = loc("squad/axis_pacific_event_paratrooper_1")
+    description = loc("squadannounce/axis_pacific_event_paratrooper_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/japan/axis_pacific_event_paratrooper_1_image.avif")
+  },
+  ["440"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_9"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.avif"
+    cardImage = "ui/skin#/battlepass/posters.avif"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
+  },
+  ["441"] = {
+    name = loc("items/berlin_operation_medic_portrait")
+    description = loc("decorator/berlin_operation_medic_portrait/tip")
+    icon = "ui/portraits/default_portrait.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
 
 

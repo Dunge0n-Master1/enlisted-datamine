@@ -13,7 +13,7 @@ require CollisionTraces
 require PhysMat
 require Dacoll
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require math
 require math.base
 require game.utils.hero
@@ -42,12 +42,12 @@ def is_on_lmesh(pos : float3)
 
 def watch_step(cur_eid : EntityId; pos : float3; offset, max_len : float;
                var in_out_mat_id : int&; var out_water_depth : float&;
-               human_net_phys : HumanActor)
+               var human_net_phys : HumanActor)
 
   let from = float3(pos.x, pos.y + offset, pos.z)
   var len = max_len
   var matId = PHYSMAT_INVALID
-  if !tracedown_normalized(from, len, matId, ETF_DEFAULT, human_net_phys.phys.traceHandle)
+  if !tracedown_normalized(from, len, matId, ETF_DEFAULT, human_net_phys.phys |> human_phys_getTraceHandle())
     len = max_len
     matId = PHYSMAT_INVALID
 
@@ -89,7 +89,7 @@ def play_footstep(desc : Object;
                   _puddleDepth : float;
                   var _matId : int&;
                   var _waterDepth : float&;
-                  human_net_phys : HumanActor)
+                  var human_net_phys : HumanActor)
   let nodePos = transform[3]
   let volume = (!is_watched_sound && is_teams_friendly(team, (get_int(get_controlled_hero(), "team") ?? TEAM_UNASSIGNED))) ? _friendVolume : 1.
 
@@ -152,7 +152,7 @@ def human_steps_sound_irqs_update(info : ParallelUpdateFrameDelayed)
                      human_steps_sound__farawayThresholdSq : float;
                      human_net_phys__states : int = int(StateFlag ST_ON_GROUND);
                      human_net_phys__isClimbing : bool = false;
-                     human_net_phys : HumanActor)
+                     var human_net_phys : HumanActor)
 
     if human_steps_sound__irqObjIdx < FIRST_VALID_IRQ_OBJ_IDX
       return
@@ -203,10 +203,12 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
                      [[shared_comp]] human_steps_sound__path : Object;
                      [[shared_comp]] human_steps_sound__descs : Object;
                      [[shared_comp]] human_steps_sound__jumpFx : Object;
+                     [[shared_comp]] sound_paths : Object;
                      sound_tags : Object;
                      human_steps_sound__farawayThresholdSq : float;
                      human_steps_sound__traceStepOffsetLen : float2;
                      human_steps_sound__friendVolume : float;
+                     human_steps_sound__fallSpeedCollThreshold : float;
                      human_step_sound_queries__biomePhysMatId : int;
                      human_step_sound_queries__biomeOverridesWater : bool;
                      human_step_sound_queries__puddleDepth : float;
@@ -216,7 +218,7 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
                      var human_steps_sound__waterDepth : float&;
                      var human_steps_sound__physStates : int&;
                      var human_steps_sound__lastTimeOnGround : float&;
-                     human_net_phys : HumanActor)
+                     var human_net_phys : HumanActor)
 
     if human_steps_sound__physStates < 0
       human_steps_sound__physStates = human_net_phys__states
@@ -239,8 +241,16 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
       name = "jump"
       sound_player_common::play_path(human_steps_sound__jumpFx, sound_tags, is_watched_sound, transform[3])
     elif read_flag(StateFlag ST_ON_GROUND, raisedStates)
-      let threshold = 0.1
-      if !human_net_phys__isClimbing && info.curTime > human_steps_sound__lastTimeOnGround + threshold
+      let lastTimeOnGroundThreshold = 0.1
+      if !human_net_phys__isClimbing && info.curTime > human_steps_sound__lastTimeOnGround + lastTimeOnGroundThreshold
+
+        let speed = -min(human_net_phys.phys.currentState.velocity.y, human_net_phys.phys.previousState.velocity.y)
+        if speed >= human_steps_sound__fallSpeedCollThreshold
+          var handle = play_path("collision", sound_paths, sound_tags, is_watched_sound, transform[3], false)
+          set_var_optional(handle, "force", 1.)
+          abandon(handle)
+          return
+
         name = "land"
     elif read_flag(StateFlag ST_SWIM, raisedStates)
       if !read_flag(StateFlag ST_ON_GROUND, human_net_phys__states)
@@ -258,7 +268,7 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
     elif read_flag(StateFlag ST_CRAWL, clearedStates)
       name = "upGround"
 
-    if name != ""
+    if !empty(name)
       let desc = sound_player_common::get_desc(human_steps_sound__descs, name)
       if desc != null
         play_footstep(*desc,

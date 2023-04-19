@@ -1,20 +1,23 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { colPart, columnGap, bigPadding, smallPadding, defTxtColor, rightAppearanceAnim
+let {
+  colPart, columnGap, bigPadding, smallPadding, miniPadding, defTxtColor,
+  rightAppearanceAnim
 } = require("%enlSqGlob/ui/designConst.nut")
 let armySelectUi = require("%enlist/army/armySelectionUi.nut")
-let squads_list = require("%enlist/squad/squadsList.ui.nut")
-let squadInfo = require("%enlist/squad/squadInfo.nut")
+let { unlockedSquadsList } = require("%enlist/squad/squadsList.ui.nut")
+let { squadInfo } = require("%enlist/squad/squadInfo.nut")
 let researchScene = require("%enlist/researches/researchScene.nut")
 let mkSoldierDetailsUi = require("%enlist/soldiers/mkSoldierDetailsUi.nut")
 let reqUpgradeMsgBox = require("%enlist/soldiers/researchUpgradeMsgBox.nut")
 
 let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontSmall, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { ceil } = require("%sqstd/math.nut")
-let { openChooseSoldiersWnd } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
+let { openChooseSoldiersWnd, isPurchaseWndOpend
+} = require("%enlist/soldiers/model/chooseSoldiersState.nut")
+let { Bordered, FAButton } = require("%ui/components/txtButton.nut")
 let { mkSoldierBadgeData } = require("%enlSqGlob/ui/soldiersComps.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
@@ -26,12 +29,23 @@ let { curArmy, curSquad, curSquadId } = require("%enlist/soldiers/model/state.nu
 let { curSoldierInfo, curSoldiersDataList, curSoldierIdx
 } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { mkSoldierBadge, mkSoldierPresentation } = require("%enlSqGlob/ui/mkSoldierBadge.nut")
-
+let { mkAlertInfo } = require("%enlist/soldiers/model/soldiersState.nut")
+let { needSoldiersManageBySquad } = require("%enlist/soldiers/model/reserve.nut")
+let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
+let { mkAlertIcon, REQ_MANAGE_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
+let {
+  seenResearches, markSeen, curUnseenResearches
+} = require("%enlist/researches/unseenResearches.nut")
+let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
+let { scene } = require("%enlist/showState.nut")
+let { squadContentSize } = require("%enlSqGlob/ui/mkSquadCard.nut")
+let { openChooseSquadsWnd } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 
 const COLUMNS = 3
 
 
-let squadInfoHeight = colPart(3)
+let squadInfoHeight = colPart(1)
 let soldierInfoOffcet = colPart(2.2)
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -45,19 +59,16 @@ let curSoldiersBadgeData = Computed(function() {
 })
 
 
+let allertUnseenWatch = Computed(@()
+  needSoldiersManageBySquad.value?[curSquad.value?.guid] ?? false)
+
+
 let squadInfoUi = @() {
   watch = curSquadId
-  size = [flex(), squadInfoHeight]
-  children = {
-    key = $"squad_info_{curSquadId.value}"
-    flow = FLOW_VERTICAL
-    gap = columnGap
-    children = [
-      squadInfo()
-      Bordered(loc("btn/squadUpgrades"), researchScene)
-    ]
-  }.__update(rightAppearanceAnim(0.1))
-}
+  minHeight = squadInfoHeight
+  key = $"squad_info_{curSquadId.value}"
+  children = squadInfo()
+}.__update(rightAppearanceAnim(0.1))
 
 
 let function curSoldiersListUi() {
@@ -82,13 +93,22 @@ let function curSoldiersListUi() {
       if (idx >= sCount)
         break
 
+      let alertObj = {
+        padding = miniPadding
+        hplace = ALIGN_RIGHT
+        children = mkAlertInfo(sList[idx], false)
+      }
       let seatLocId = seats?[idx].locName
       let child = hasVehicle
         ? {
             children = [
-              watchElemState(@(sf)
-                mkSoldierBadge(idx, sList[idx], idx == curIdx, sf, @() curSoldierIdx(idx))
-              )
+              watchElemState(@(sf) {
+                behavior = Behaviors.Button
+                children = [
+                  mkSoldierBadge(idx, sList[idx], idx == curIdx, sf, @() curSoldierIdx(idx))
+                  alertObj
+                ]
+              })
               seatLocId == null ? null
                 : {
                     padding = [0, smallPadding]
@@ -98,10 +118,13 @@ let function curSoldiersListUi() {
                   }.__update(defTxtStyle)
             ]
           }.__update(rightAppearanceAnim(0.05 * idx + 0.1))
-        : watchElemState(@(sf)
-            mkSoldierBadge(idx, sList[idx], idx == curIdx, sf, @() curSoldierIdx(idx))
-              .__update(rightAppearanceAnim(0.05 * idx))
-          )
+        : watchElemState(@(sf) {
+            behavior = Behaviors.Button
+            children = [
+              mkSoldierBadge(idx, sList[idx], idx == curIdx, sf, @() curSoldierIdx(idx))
+              alertObj
+            ]
+          }.__update(rightAppearanceAnim(0.05 * idx)))
 
       rowChildren.append(child)
     }
@@ -116,8 +139,10 @@ let function curSoldiersListUi() {
     flow = FLOW_VERTICAL
     gap = hasVehicle ? columnGap * 3 : columnGap
     children
-    onAttach = @() curSoldierIdx(0)
-    onDetach = @() curSoldierIdx(null)
+    onAttach = function() {
+      if (curSoldierIdx.value == null)
+        curSoldierIdx(0)
+    }
   })
 }
 
@@ -146,11 +171,38 @@ let function curVehicleUi() {
 }
 
 
+let curVehNamesSpaceUi = @() {
+  watch = curVehicleBadgeData
+  size = [0, curVehicleBadgeData.value == null ? 0 : columnGap + bigPadding]
+}
+
+
+let changeSoldierBtn = Bordered(loc("soldier/manageButton"), function() {
+    openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
+  }, {
+    fgChild = {
+      flow = FLOW_HORIZONTAL
+      margin = miniPadding
+      hplace = ALIGN_RIGHT
+      valign = ALIGN_CENTER
+      vplace = ALIGN_TOP
+      children = [
+        mkAlertIcon(REQ_MANAGE_SIGN, allertUnseenWatch)
+        @() {
+          watch = unseenSoldierShopItems
+          children = unseenSoldierShopItems.value.len() > 0 ? unblinkUnseen : null
+        }
+      ]
+    }
+  })
+
+
 let soldiersUi = {
   size = flex()
   flow = FLOW_VERTICAL
   gap = columnGap
   children = [
+    curVehNamesSpaceUi
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
@@ -160,19 +212,56 @@ let soldiersUi = {
         curSoldiersListUi
       ]
     }
-    Bordered(loc("soldier/manageButton"), function() {
-      openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
-    })
+    changeSoldierBtn
   ]
 }
 
 
+let squadManagementBtn = FAButton("exchange",
+  @() openChooseSquadsWnd(curArmy.value, curSquadId.value), {
+  size = squadContentSize
+  fontSize = fontLarge.fontSize
+})
+
+
 let squadsUi = {
+  size = [flex(), SIZE_TO_CONTENT]
+  clipChildren = true
   flow = FLOW_VERTICAL
   gap = bigPadding
   children = [
+    function() {
+      let { hasUnseen = false, hasUnopened = false } = curUnseenResearches.value
+      return {
+        watch = curUnseenResearches
+        children = Bordered(loc("btn/squadUpgrades"),
+          function() {
+            researchScene()
+            let armyId = curArmy.value
+            let unopened = seenResearches.value?.unopened[armyId] ?? {}
+            if (unopened.len() > 0)
+              markSeen(armyId, unopened.keys(), true)
+          }, {
+            fgChild = !hasUnseen ? null
+              : hasUnopened ? blinkUnseen
+              : unblinkUnseen
+          })
+      }
+    }
     armySelectUi
-    squads_list
+    {
+      flow = FLOW_HORIZONTAL
+      size = [flex(), SIZE_TO_CONTENT]
+      gap = bigPadding
+      children = [
+        squadManagementBtn
+        {
+          size = [flex(), SIZE_TO_CONTENT]
+          clipChildren = true
+          children = unlockedSquadsList
+        }
+      ]
+    }
   ]
 }
 
@@ -220,6 +309,8 @@ let function resetSoldierChoise(_) {
 foreach(v in [curSquadId, curArmy, curSection])
   v.subscribe(resetSoldierChoise)
 
+foreach(w in [curSection, scene, isPurchaseWndOpend])
+  w.subscribe(@(_) closeEquipPresets())
 
 return {
   size = flex()

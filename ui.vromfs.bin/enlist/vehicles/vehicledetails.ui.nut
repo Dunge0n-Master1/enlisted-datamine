@@ -306,6 +306,7 @@ return function() {
     children = !isDmViewerEnabled.value
       ? [
           blur({
+            size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
             gap = bigPadding
             children = [

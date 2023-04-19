@@ -70,6 +70,11 @@ placeable_item{
 
 placeable_item_in_world{
   _extends:t="item_in_world"
+  grid_obj__gridType:t="interactable"
+  grid_obj__fixedTmScale:r=-1.0
+
+  grid_obj{
+  }
 
   "net__inInitialScope:tag"{
   }
@@ -123,10 +128,7 @@ base_mine_item_gun{
   checkTriggerInterval:r=0.1
   material:t="steel"
   needsBlood:b=no
-  unit_indicator__noRadar:b=yes
   meleeSoundType:t=""
-  grid_obj__gridType:t="interactable"
-  grid_obj__fixedTmScale:r=-1.0
   hitpoints__hp:r=10.0
   hitpoints__maxHp:r=10.0
   hitpoints__hpRecoverySpd:r=0.0
@@ -141,9 +143,6 @@ base_mine_item_gun{
   "build_attach__riexHandle:u64"{
     value:i64=-1
     _tags:t="server"
-  }
-
-  grid_obj{
   }
 
   "item__weapSlots:array"{

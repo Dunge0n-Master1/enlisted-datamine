@@ -2,7 +2,7 @@ require ecs
 require ecs.safe
 require strings
 require Plane
-require EnlistedPlane
+require DngPlane
 require game.es.events
 require game.es.awards_common
 require game.es.vehicle.vehicle_seats_common

@@ -7,7 +7,7 @@ require game.es.events
 require dm
 require AnimV20
 require CollRes
-require EnlistedPlane
+require DngPlane
 require Plane
 require strings
 require DagorSystem

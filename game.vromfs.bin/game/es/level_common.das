@@ -2,7 +2,7 @@ module level_common shared
 require math.maybe_pos public
 require math.base
 require ecs
-require EnlistedNet
+require DngNet
 require DagorMath
 require DagorRandom
 require gameObject

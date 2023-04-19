@@ -16,7 +16,7 @@ require GridCollision
 require common_shooter.es.ai.ai_danger_common
 require game.es.ai.walker_common
 require SmokeOccluder
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
 
@@ -28,15 +28,26 @@ struct TargetData
   isHidden : bool
   targetPos : float3
   stance : int
+  moving : int
 
-def TargetData(eid : EntityId; team : int; target : Target; stance : int)
+def TargetData(eid : EntityId; team : int; target : Target; stance : int; moving : int)
   return [[TargetData eid = eid,
            team = team,
            isAlive = target.isAlive,
            isDowned = target.isDowned,
            isHidden = target.isHidden,
            targetPos = target.targetPos,
-           stance = stance]]
+           stance = stance,
+           moving = moving]]
+
+def categorize_moving(move_state : HUMoveState)
+  if move_state == HUMoveState EMS_STAND
+    return 0
+  if move_state == HUMoveState EMS_RUN
+    return 2
+  if move_state == HUMoveState EMS_SPRINT
+    return 3
+  return 1
 
 def find_danger(var agent_dangers : AgentDangers; eid : EntityId)
   for i in iter_range(agent_dangers.dangers)
@@ -51,14 +62,17 @@ def ai_danger_update_alertness(act : UpdateStageInfoAct)
                                                            human_net_phys : HumanActor const?; vehicle_seats__seatEids : EidList const?)
     var stance = STANCE_STAND
     var targetTeam = team
+    var moving = 0
     if human_net_phys != null
-      stance = determinate_stance(human_net_phys.phys.currentState)
+      assume currentState = human_net_phys.phys.currentState
+      stance = determinate_stance(currentState)
+      moving = categorize_moving(currentState.moveState)
     if vehicle_seats__seatEids != null && team == TEAM_UNASSIGNED
       for seatEid in *vehicle_seats__seatEids
         query(seatEid) <| $ [es] (seat__ownerEid : EntityId)
           query(seat__ownerEid) <| $ [es] (team aka passenger_team : int)
             targetTeam = passenger_team
-    var targetData = TargetData(eid, targetTeam, ai_target, stance)
+    var targetData = TargetData(eid, targetTeam, ai_target, stance, moving)
     targets[uint(eid)] <- targetData
 
   query() <| $ [es] (eid : EntityId;
@@ -81,7 +95,9 @@ def ai_danger_update_alertness(act : UpdateStageInfoAct)
                      agent_dangers__targetAirplanePilots : bool;
                      agent_dangers__targetParachuterMaxHeight : float;
                      agent_dangers__checkTimes = float2(0.3, 0.7);
-                     agent_dangers__frustumAngle = 40.; agent_dangers__blindDistance = 200.)
+                     agent_dangers__frustumAngle = 40.;
+                     agent_dangers__frustumAngleCosMovingCoefs = float3(0.75, 0.25, -0.1);
+                     agent_dangers__blindDistance = 200.)
 
     if !isAlive || !beh_tree__enabled
       clear(agent_dangers.dangers)
@@ -131,8 +147,17 @@ def ai_danger_update_alertness(act : UpdateStageInfoAct)
           erase(agent_dangers.dangers, dangerIdx)
         continue
 
+      var frustumCoef = 1.0
+      if target.moving > 0
+        if target.moving == 1
+          frustumCoef = agent_dangers__frustumAngleCosMovingCoefs.x
+        if target.moving == 2
+          frustumCoef = agent_dangers__frustumAngleCosMovingCoefs.y
+        if target.moving == 3
+          frustumCoef = agent_dangers__frustumAngleCosMovingCoefs.z
+
       let frustumCos = dot(normalize(targetDir), agent_dangers__standShootDir)
-      let inFrustum = frustumCos >= frustumMinCos
+      let inFrustum = frustumCos >= frustumMinCos * frustumCoef
       let inVehicleCoef = isInVehicle ? alertness_calc__inVehicleCoef : 1.
       let alertness = calc_target_alertness(dist, inFrustum, frustumCos, target.stance, target.isDowned,
                                             agent_dangers__maxDangerDist, alertness_calc__distCoef,

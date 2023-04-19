@@ -3,23 +3,23 @@ require app
 require math.base
 require game.utils.hero
 require game.es.events
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common
 require common_shooter.es.human_weap_common
 require PhysVars
 require HumanPhys
-require EnlistedHuman
-require EnlistedHumanAnim
-require EnlistedNetPhys
-require EnlistedWeapon
+require DngHuman
+require DngHumanAnim
+require DngNetPhys
+require DngWeapon
 require DagorSystem
 require DagorMath
 require DagorRandom
 require DaWeaponProps
 require DaWeapons
-require EnlistedDm
+require DngDm
 require NetPropsRegistry
 require game.es.action_common
 require AnimV20
@@ -164,10 +164,12 @@ def charge_melee_weapon_phys_es(evt : CmdWeapPhysUpdate;
     let isSprintState = (int(currentState.states) & int(StateFlag ST_SPRINT)) != 0
     let isSprinting = isSprintContol && (isSprintState || (wasCharging && isRunSpeed)) && isValidState
     let isStartBlocked = !isValidState || human_melee_charge__isOnCooldown || currentState.stamina < human_melee_charge__minStaminaLevelToStart
+    let shouldStopCharge = !isSprinting || currentState.stamina <= 0.
+
     human_melee_charge__canStart = isSprinting && !isStartBlocked && !human_melee_charge__isActive
     human_melee_charge__isActive = isChargeInputTriggered && (wasCharging || !isStartBlocked)
 
-    if currentState.stamina <= 0.
+    if shouldStopCharge
       human_melee_charge__isActive = false
 
     human_melee_charge__isChargeOrAttack ||= human_melee_charge__isActive

@@ -9,6 +9,7 @@ require GridCollision
 require CollisionTraces
 require game.es.node_attach_common
 require AnimV20
+require GeomNodeTree
 require CollRes
 require common_shooter.events_common_shooter
 require DagorMathUtils

@@ -132,7 +132,7 @@ def facegen_facial_haier_es(
   for i in range(facial_nodes_count)
 
     for attach_eid in attaches_list
-      let result = query(attach_eid) <| $ [es] (slot_attach__slotName : das_string&)
+      query(attach_eid) <| $ [es] (slot_attach__slotName : das_string&)
         if facial_hairs[i] == slot_attach__slotName
           destroyEntity(attach_eid)
 

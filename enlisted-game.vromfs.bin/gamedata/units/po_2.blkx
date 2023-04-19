@@ -482,13 +482,8 @@ DamageEffects{
     name:t="fuse_dm"
 
     onHit{
-      damage:r=20.0
-      tail_dm:r=0.2
-    }
-
-    onHit{
-      damage:r=30.0
-      tail_dm:r=0.4
+      flame:r=0.2
+      smoke:r=0.2
     }
 
     onHit{
@@ -880,7 +875,8 @@ DamageEffects{
     }
 
     onHit{
-      damage:r=50.0
+      damage:r=80.0
+      expl:r=0.5
       fire:r=0.7
       leak:r=0.9
     }
@@ -898,7 +894,7 @@ DamageEffects{
     }
 
     onKill{
-      damage:r=50.0
+      damage:r=80.0
       fire:r=50.0
       leak:r=30.0
     }

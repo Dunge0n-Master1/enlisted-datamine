@@ -29,10 +29,3 @@ visual{
   tracer:t="7mmYellow"
   trail:t="smallTrail"
 }
-
-hitFx{
-  fxScale:p2=1.0, 3.0
-  defaultFx:t="ground_expl"
-  jetFx:t="ground_expl"
-  preset:t="bullet"
-}

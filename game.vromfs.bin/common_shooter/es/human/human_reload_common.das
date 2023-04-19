@@ -5,7 +5,7 @@ require math
 require inventory
 require DaWeaponProps
 require WeapHelpers
-require EnlistedWeapon
+require DngWeapon
 require DagorMath
 require Gun
 require game.es.events
@@ -16,10 +16,17 @@ enum ReloadAmmoMode
   INFINITE = 1
 
 
+enum GunReloadStyle
+  RELOAD_STYLE_SIMPLE
+  RELOAD_STYLE_ALT
+  RELOAD_STYLE_ALT_JAMMED
+  RELOAD_STYLE_JAMMED
+  RELOAD_STYLE_DUAL_MAG
+
+
 struct AmmoItemForGunResult
   ammoCount : int = 0
   itemIndex : int = -1
-  haveDiffAmmoType : bool = false
   singleReload : bool = false
   availableAmmoCount : int = 0
   ammoPropsId : int = 0
@@ -29,7 +36,6 @@ struct AmmoItemForGunResult
 struct AmmoData
   itemIndex : int
   availableAmmoCount : int
-  maxShells : int
   ammoPropsId : int
 
 
@@ -67,13 +73,15 @@ def find_ammo_for_gun(gun_eid : EntityId;
   res.singleReload = singleReload.isSingle
 
   var ammoData : array<AmmoData>
-  var maxShellsCount = 0
+  var gunMaxAmmo = 0
   var totalAmmoCount = 0
-  var maxAmmoCount = 0
+  var bestHolderAmmoCount = 0
   var isShell = false
   query(gun_eid) <| $ [es] (gun__ammoHolderIds : IntList;
                             gun__shell_prop_ids : GunShellPropIds;
                             gun__maxAmmo : int)
+    gunMaxAmmo = max(gunMaxAmmo, gun__maxAmmo)
+    // try to load gun__ammoHolderIds[0] firstly
     var defaultAmmoHolderItemId = INVALID_ITEM_ID
     if wish_ammo_item_id == INVALID_ITEM_ID && length(gun__ammoHolderIds) > 1
       for itemEid in item_container
@@ -97,19 +105,19 @@ def find_ammo_for_gun(gun_eid : EntityId;
 
         if ammo_holder__id != INVALID_ITEM_ID && is_ammo_for_gun(ammo_holder__id, gun__ammoHolderIds)
           let availableAmmoCount = ammo_holder__ammoCount >= 0 ? ammo_holder__ammoCount : gun__maxAmmo
-          maxShellsCount = max(maxShellsCount, gun__maxAmmo)
-          maxAmmoCount = max(maxAmmoCount, availableAmmoCount)
+
+          bestHolderAmmoCount = max(bestHolderAmmoCount, availableAmmoCount)
           totalAmmoCount += availableAmmoCount
+
           ammoData |> push([[AmmoData
             itemIndex = i,
             availableAmmoCount = availableAmmoCount,
-            maxShells = gun__maxAmmo,
             ammoPropsId = ammo_holder__id]])
 
-        if shell_props != null && res.ammoCount <= 1 && is_shell_for_gun(*shell_props, gun__shell_prop_ids)
+        if shell_props != null && is_shell_for_gun(*shell_props, gun__shell_prop_ids)
           res.itemIndex = i
           res.ammoCount = 1
-          res.availableAmmoCount = res.ammoCount
+          res.availableAmmoCount = 1
           res.singleReload = false
           res.ammoPropsId = ammo_holder__id
           isShell = true
@@ -118,15 +126,14 @@ def find_ammo_for_gun(gun_eid : EntityId;
     return res
 
   if singleReload.maxAmmo > 0
-    res.singleReload = (maxShellsCount - num_ammo) <= singleReload.maxAmmo || totalAmmoCount <= num_ammo || maxAmmoCount < num_ammo
+    res.singleReload = (gunMaxAmmo - num_ammo) <= singleReload.maxAmmo || totalAmmoCount <= num_ammo || bestHolderAmmoCount < num_ammo
 
   for ammo in ammoData
-    res.haveDiffAmmoType = true
     var ammoCount = ammo.availableAmmoCount
     var match = ammoCount > res.ammoCount
     if res.singleReload
       res.singleReloadAmmoCount = min(ammo.availableAmmoCount, singleReload.ammoCount)
-      ammoCount = min(ammo.maxShells, ammoCount + num_ammo)
+      ammoCount = min(gunMaxAmmo, ammoCount + num_ammo)
       match = (ammo.availableAmmoCount > 0 &&
               (res.availableAmmoCount == 0 || (ammo.availableAmmoCount >= singleReload.ammoCount && ammo.availableAmmoCount < res.availableAmmoCount)))
 

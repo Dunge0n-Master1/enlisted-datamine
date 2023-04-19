@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedWalkerai
+require DngWalkerai
 require pathfinder
 require DagorDataBlock
 require BehNodes
@@ -11,13 +11,13 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require human_sounds_net.modules.human_sounds_net_events
 require HumanPhys
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
 require player
 require app
-require EnlistedNet
+require DngNet
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
-require EnlistedBehTree
+require DngBehTree
 require game.es.squad_order_common
 require game.utils.net_utils
 

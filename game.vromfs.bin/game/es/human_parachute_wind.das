@@ -1,10 +1,10 @@
 require ecs
 require app
 require DagorMath
-require EnlistedHuman
+require DngHuman
 require game.es.events
 require math.base
-
+require game.es.battle_area_common
 
 struct LandPositionInfo
   pos : float2
@@ -30,16 +30,27 @@ def human_parachute_wind(evt : CmdPostPhysUpdate;
                          human_parachute__eid : EntityId;
                          human_parachute_wind__speed : float;
                          human_parachute_wind__deadZone : float;
-                         var human_net_phys : HumanActor)
+                         var human_net_phys : HumanActor;
+                         human_parachute_wind__paratroopers : bool;
+                         human_parachute_wind__landingPoint : float2)
   query(human_parachute__eid) <| $ [es] (parachute__deployedAtTime : float;
                                          parachute__deployTime : float)
-    let parachuteLandInfo = get_parachute_land_pos(team)
-    if !parachuteLandInfo.found || length_sq(transform[3].xz - parachuteLandInfo.pos) < square(human_parachute_wind__deadZone)
+    var windTargetPos = float2()
+    var findTarget = false
+    if !human_parachute_wind__paratroopers
+      let parachuteLandInfo = get_parachute_land_pos(team)
+      if !parachuteLandInfo.found
+        return
+      windTargetPos = parachuteLandInfo.pos
+      findTarget = true
+    else
+      windTargetPos = human_parachute_wind__landingPoint
+      findTarget = true
+    if length_sq(transform[3].xz - windTargetPos) < square(human_parachute_wind__deadZone) || !findTarget
       return
-
     let windSpeedScaled = cvt(get_sync_time(), parachute__deployedAtTime, parachute__deployedAtTime + parachute__deployTime,
                               0.0, human_parachute_wind__speed)
-    let windVelocity = normalize(parachuteLandInfo.pos - transform[3].xz) * windSpeedScaled
+    let windVelocity = normalize(windTargetPos - transform[3].xz) * windSpeedScaled
 
     assume curVelocity = human_net_phys.phys.currentState.velocity
     let afterWindHumanVelocity = float3(windVelocity.x, curVelocity.y, windVelocity.y)

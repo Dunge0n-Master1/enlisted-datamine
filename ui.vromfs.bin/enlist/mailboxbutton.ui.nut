@@ -4,7 +4,7 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {Alert,Inactive} = require("%ui/style/colors.nut")
 let { isMailboxVisible, unreadNum, hasUnread
 } = require("%enlist/mainScene/invitationsLogState.nut")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let squareIconButton = require("%enlist/components/squareIconButton.nut")
 let mailboxWndOpen = require("mailboxBlock.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")

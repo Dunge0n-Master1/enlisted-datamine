@@ -225,7 +225,7 @@ let gunFiringModeNamesShortDesc  = @(val, _itemData, _setup, _itemBase) val.len(
       ]
     }
 
-let itemDetalesConstructors = @(isFull) {
+let itemDetailsConstructors = @(isFull) {
   "bullets" : @(val, itemData, _setup, _itemBase) val <= 0 ? null
     : mkTextRow(loc("itemDetails/bullets"),
         loc(itemData?.magazine_type ?? "magazine_type/default",
@@ -403,9 +403,6 @@ let function mkDetailsTable(tbl, setup, baseVal = 1.0) {
   }
 }
 
-let containerFullSize = [inventoryItemDetailsWidth, SIZE_TO_CONTENT]
-let containerShortSize = [inventoryItemDetailsWidth * 0.8, SIZE_TO_CONTENT]
-
 let function mkDetails(detailsList, constructors, item, isFull) {
   let { upgradesId = null, upgradeIdx = 0, gametemplate = null, itemtype = null } = item
   if (gametemplate == null)
@@ -439,8 +436,9 @@ let function mkDetails(detailsList, constructors, item, isFull) {
     return children.len() == 0
       ? res
       : res.__update({
+          size = [flex(), SIZE_TO_CONTENT]
           children = {
-            size = isFull ? containerFullSize : containerShortSize
+            size = [flex(), SIZE_TO_CONTENT]
             gap = smallPadding
             flow = FLOW_VERTICAL
             children = children
@@ -685,8 +683,9 @@ let function mkUpgrades(item, isFull = true) {
     }).extend(pendingUpgrades)
 
   return children.len() == 0 ? null : {
+    size = [flex(), SIZE_TO_CONTENT]
     children = {
-      size = isFull ? containerFullSize : containerShortSize
+      size = [flex(), SIZE_TO_CONTENT]
       gap = isFull ? bigPadding : 0
       flow = FLOW_VERTICAL
       children = children
@@ -705,21 +704,19 @@ let function diffUpgrades(item, nextIdx = null) {
 }
 
 let function mkItemDescription(item) {
-  let descLoc = getItemDesc(item)
-  return descLoc == "" ? null : {
-    children = {
-      size = containerFullSize
-      padding = smallPadding
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = descLoc
-      color = BASE_COLOR
-    }.__update(sub_txt)
-  }
+  let text = getItemDesc(item)
+  return text == "" ? null : {
+    size = [flex(), SIZE_TO_CONTENT]
+    padding = smallPadding
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    text
+    color = defTxtColor
+  }.__update(sub_txt)
 }
 
 let mkItemDetails = @(item, isFull)
-  mkDetails(getItemDetails(isFull), itemDetalesConstructors(isFull), item, isFull)
+  mkDetails(getItemDetails(isFull), itemDetailsConstructors(isFull), item, isFull)
 
 let mkVehicleDetails = @(vehicle, isFull)
   mkDetails(VEHICLE_DETAILS, VEHICLE_DETAILS_CONSTRUCTORS, vehicle, isFull)

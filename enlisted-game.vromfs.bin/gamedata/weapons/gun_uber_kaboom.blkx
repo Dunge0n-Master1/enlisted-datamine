@@ -44,16 +44,3 @@ shotDeviation{
   omegaDevInc:p2=0.05, 0.5
   extraDeviationTau:r=0.4
 }
-
-gunFlash{
-
-  gunFx_main{
-    fx:t="muzzle_flash"
-    scale:r=0.04
-  }
-
-  gunFx_add_bolt{
-    fx:t="side_muzzle_flash"
-    scale:r=0.01
-  }
-}

@@ -11,7 +11,7 @@ def recreate_on_death(evt : ParallelUpdateFrameDelayed)
     return true
   find_query() <| $ [es(REQUIRE_NOT=deadEntity)] (eid : EntityId; isAlive : bool; entity__recreateToOnDeath : string)
     if !isAlive
-      sendEventImmediate(eid, [[EventSoldierRecreateOnDie]])
+      sendEventImmediate(eid, [[EventBeforeEntityRecreatedOnDeath]])
       let sourceFullTemplate = getEntityFutureTemplateName(eid)
       let sourceTemplates <- split_template(sourceFullTemplate)
       var destTemplate = entity__recreateToOnDeath

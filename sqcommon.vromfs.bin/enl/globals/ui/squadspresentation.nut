@@ -275,6 +275,8 @@ return freeze({
     usa_normandy_prem_tank_5 = genSquadUsa("usa_normandy_prem_tank_5")
     usa_normandy_prem_pilot_fighter_2 = genSquadUsa("usa_normandy_prem_pilot_fighter_2")
     usa_normandy_prem_assault_4 = genSquadUsa("usa_normandy_prem_assault_4")
+    usa_normandy_prem_paratrooper_1 = genSquadUsa("usa_normandy_prem_paratrooper_1")
+    usa_normandy_event_paratrooper_1 = genSquadUsa("usa_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
 
 //modern squads
     usa_modern_inf_1 = genSquadUsa("usa_modern_inf_1")
@@ -333,6 +335,8 @@ return freeze({
     ger_normandy_event_assault_1 = genSquadGer("ger_normandy_event_assault_1", {premIcon = ICON_EVENT})
     ger_normandy_prem_pilot_fighter_3 = genSquadGer("ger_normandy_prem_pilot_fighter_3")
     ger_normandy_prem_assault_5 = genSquadGer("ger_normandy_prem_assault_5")
+    ger_normandy_prem_paratrooper_1 = genSquadGer("ger_normandy_prem_paratrooper_1")
+    ger_normandy_event_paratrooper_1 = genSquadGer("ger_normandy_event_paratrooper_1", {premIcon = ICON_EVENT})
 
 //mech event
     ger_normandy_mech_1 = genSquadGer("ger_normandy_mech_1")
@@ -529,8 +533,10 @@ return freeze({
     allies_pacific_mgun_2 = genSquadUsa("allies_pacific_mgun_2")
     allies_pacific_flametrooper_2 = genSquadUsa("allies_pacific_flametrooper_2")
     allies_pacific_assault_3 = genSquadUsa("allies_pacific_assault_3")
-    allies_pacific_pilot_assaulter_2 = genSquadUsa("allies_pacific_pilot_assaulter_2")
     allies_pacific_antitank_2 = genSquadUsa("allies_pacific_antitank_2")
+    allies_pacific_pilot_assaulter_2 = genSquadUsa("allies_pacific_pilot_assaulter_2")
+    allies_pacific_radioman_2 = genSquadUsa("allies_pacific_radioman_2")
+    allies_pacific_tank_3 = genSquadUsa("allies_pacific_tank_3")
 
 
 //prems
@@ -541,6 +547,7 @@ return freeze({
     allies_pacific_prem_pilot_fighter_1 = genSquadUsa("allies_pacific_prem_pilot_fighter_1")
     allies_pacific_prem_engineer_1 = genSquadUsa("allies_pacific_prem_engineer_1")
     allies_pacific_event_assault_1 = genSquadUsa("allies_pacific_event_assault_1", {premIcon = ICON_EVENT})
+    allies_pacific_event_paratrooper_1 = genSquadUsa("allies_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
   }
 
 
@@ -567,8 +574,10 @@ return freeze({
     axis_pacific_mgun_2 = genSquadJap("axis_pacific_mgun_2")
     axis_pacific_flametrooper_2 = genSquadJap("axis_pacific_flametrooper_2")
     axis_pacific_assault_3 = genSquadJap("axis_pacific_assault_3")
-    axis_pacific_pilot_assaulter_2 = genSquadJap("axis_pacific_pilot_assaulter_2")
     axis_pacific_antitank_2 = genSquadJap("axis_pacific_antitank_2")
+    axis_pacific_pilot_assaulter_2 = genSquadJap("axis_pacific_pilot_assaulter_2")
+    axis_pacific_radioman_2 = genSquadJap("axis_pacific_radioman_2")
+    axis_pacific_tank_3 = genSquadJap("axis_pacific_tank_3")
 
 
 //prems
@@ -579,5 +588,6 @@ return freeze({
     axis_pacific_prem_pilot_fighter_1 = genSquadJap("axis_pacific_prem_pilot_fighter_1")
     axis_pacific_prem_engineer_1 = genSquadJap("axis_pacific_prem_engineer_1")
     axis_pacific_event_rifle_1 = genSquadJap("axis_pacific_event_rifle_1", {premIcon = ICON_EVENT})
+    axis_pacific_event_paratrooper_1 = genSquadJap("axis_pacific_event_paratrooper_1", {premIcon = ICON_EVENT})
   }
 })

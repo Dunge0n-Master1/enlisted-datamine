@@ -1,5 +1,5 @@
 require ecs
-require EnlistedHuman
+require DngHuman
 require common_shooter.events_common_shooter
 
 

@@ -39,6 +39,17 @@ minimap_normandy_urban_area{
   northAngle:r=0.0
 }
 
+normandy_smn_minimap{
+  _extends:t="minimap"
+  mapTex:t="normandy_smn_2x2_minimap*"
+  farMapTex:t="normandy_smn_2x2_far_minimap*"
+  left_top:p2=-1024.0, 1024.0
+  right_bottom:p2=1024.0, -1024.0
+  farLeftTop:p2=-8192.0, 8192.0
+  farRightBottom:p2=8192.0, -8192.0
+  northAngle:r=0.0
+}
+
 normandy_countryside_area_2x2_v2_river_sound{
   _extends:t="river_sound"
 

@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
-let { colFull, colPart, defTxtColor, hoverTxtColor, titleTxtColor, columnGap, commonBorderRadius,
-  panelBgColor, accentColor
+let { colFull, colPart, defTxtColor, titleTxtColor, columnGap, accentColor, darkPanelBgColor,
+  darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkArmyIcon, requestMoveToElem, armyMarker, armyIconSize
 } = require("%enlist/army/armyPackage.nut")
@@ -16,16 +16,14 @@ let function armyBtn(armyId) {
   return watchElemState(function(sf) {
     let iconOverride = {
       color = isSelected.value ? accentColor
-        : sf & S_ACTIVE ? titleTxtColor
-        : sf & S_HOVER ? hoverTxtColor
-        : defTxtColor
+        : sf & S_ACTIVE ? defTxtColor
+        : sf & S_HOVER ? titleTxtColor
+        : darkTxtColor
     }
     if (isSelected.value)
       wasSelected = false
     return {
       watch = [curArmy, isSelected]
-      rendObj = ROBJ_BOX
-      borderRadius = commonBorderRadius
       behavior = [Behaviors.Button, Behaviors.RecalcHandler]
       function onClick(evt){
         if (!isSelected.value)
@@ -60,9 +58,8 @@ let function selectArmyByHotkey(val) {
 
 
 let armyButtonsBlock = {
-  rendObj = ROBJ_BOX
-  borderRadius = commonBorderRadius
-  fillColor = panelBgColor
+  rendObj = ROBJ_SOLID
+  color = darkPanelBgColor
   children = [
     armyMarker
     @() {
@@ -76,7 +73,7 @@ let armyButtonsBlock = {
 let armyHotkeysBlock = {
   size = [colFull(1), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  gap = { size = flex() }
+  gap = columnGap
   children = [
     mkHotkey("^J:LT | A", @() selectArmyByHotkey(0))
     mkHotkey("^J:RT | D", @() selectArmyByHotkey(1))

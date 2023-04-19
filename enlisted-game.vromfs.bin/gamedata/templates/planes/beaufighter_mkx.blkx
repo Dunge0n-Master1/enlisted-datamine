@@ -40,7 +40,7 @@ beaufighter_mkx{
         turret:t="turret_18"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -186,6 +186,8 @@ beaufighter_mkx{
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -398,6 +400,14 @@ beaufighter_mkx{
     scale:r=1.0
     scale:r=1.0
     scale:r=1.0
+  }
+
+  "disableDMParts:list<t>"{
+    part:t="drop_tank"
+    part:t="pylon_torpedo"
+    part:t="bomb_pylon_fuse"
+    part:t="bomb_pylon_r"
+    part:t="bomb_pylon_l"
   }
 }
 
@@ -806,12 +816,12 @@ beaufighter_mkx_driver_cockpit{
   }
 
   "move_cockpit_node__offset:list<p3>"{
-    item:p3=0.002, 0.017, 0.0015
-    item:p3=0.006, 0.037, 0.0155
+    item:p3=-0.004, 0.0135, -0.05
+    item:p3=0.0125, -0.006, 0.003
   }
 
   "move_cockpit_node__rotation:list<p2>"{
-    item:p2=0.0, 10.6
-    item:p2=-2.0, 20.9
+    item:p2=7.4, 12.8
+    item:p2=-21.1, -2.9
   }
 }

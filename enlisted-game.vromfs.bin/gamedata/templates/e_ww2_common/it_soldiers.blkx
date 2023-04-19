@@ -13,6 +13,6 @@ it_base_soldier{
 }
 
 ai_aircraft_crew_it_soldier{
-  _extends:t="it_base_soldier"
   _extends:t="ai_aircraft_crew_soldier_base"
+  _extends:t="ger_summer_2"
 }

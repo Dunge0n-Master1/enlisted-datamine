@@ -6,8 +6,8 @@ require common_shooter.es.human_weap_common
 require common_shooter.events_common_shooter
 require DagorInput
 require HumanPhys
-require EnlistedHuman
-require EnlistedNet
+require DngHuman
+require DngNet
 require inventory
 
 
@@ -194,12 +194,12 @@ def human_grenade_input_entity_reset_es(evt : EventOnEntityReset;
 def human_throw_back_grenade_es(evt : EventDaInputActionTriggered;
                                 input__enabled : bool;
                                 human_input__throwBack : int;
-                                human_use_object__selectedObject : EntityId;
+                                grenade_rethrow__grenadeEid : EntityId;
                                 var human_net_phys : HumanActor&)
-  if !input__enabled || int(evt.action) != human_input__throwBack
+  if !input__enabled || int(evt.action) != human_input__throwBack || !grenade_rethrow__grenadeEid
     return
-  ecs::query(human_use_object__selectedObject) <| $ [es(REQUIRE=shell__shell_id__shell_id)] ()
-    human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_THROW_BACK, true)
+
+  human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_THROW_BACK, true)
 
 [es(tag=input)]
 def human_cancel_throw_back_grenade_es(evt : EventDaInputActionTerminated;

@@ -7,7 +7,7 @@ let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { save_settings, get_setting_by_blk_path, set_setting_by_blk_path } = require("settings")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
-let { addPopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 
 const FRIEND_NOTIFICATION = "hasFriendOnlineNotification"
 let hasFriendOnlineNotification = Watched(get_setting_by_blk_path(FRIEND_NOTIFICATION) ?? true)

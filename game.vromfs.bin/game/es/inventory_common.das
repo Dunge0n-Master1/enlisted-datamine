@@ -4,7 +4,7 @@ require ecs.common
 require inventory
 require DagorMath
 require DagorMathUtils
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require AnimV20
 require CollRes

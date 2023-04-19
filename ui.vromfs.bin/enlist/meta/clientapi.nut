@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
-let { profile } = require("servProfile.nut")
+let servProfile = require("servProfile.nut")
 let rand = require("%sqstd/rand.nut")()
 let { updateAllConfigs } = require("%enlist/meta/configs.nut")
 let { serverTimeUpdate } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
@@ -65,7 +65,13 @@ let function handleMessages(msg) {
       logerr($"Not empty removed field on full profile update on '{method}'")
       delete result.removed
     }
-    profile(result)
+    foreach (key, data in result) {
+      if (key in servProfile)
+        servProfile[key].update(data)
+      else
+        logApi($"Try to full update not existed profile watch '{key}' on '{method}'", data)
+    }
+
     logApi($"Full profile update on '{method}' takes {diffTime(curTime)} ms")
   }
   else if (typeof result == "table") {
@@ -74,26 +80,32 @@ let function handleMessages(msg) {
       let curTime = get_time_msec()
       local count = 0
       local removed = 0
-      profile.mutate(function(data) {
-        foreach (k, v in result)
-          if (type(v) == "table" && k != "removed" && v.len() > 0) {
-            ++count
-            data[k] <- k in data ? data[k].__merge(v) : v
-          }
 
-        foreach (tableId, list in (result?.removed ?? {})) {
-          if (tableId not in data) {
-            logerr($"Trying to remove unknown table '{tableId}' from profile on '{method}'")
-            continue
-          }
-          ++removed
-          let tbl = clone data[tableId]
-          foreach (fieldId in list)
-            if (fieldId in tbl)
-              delete tbl[fieldId]
-          data[tableId] <- tbl
-        }
-      })
+      foreach (profileId, _ in servProfile) {
+        if (profileId not in result && profileId not in result?.removed)
+          continue
+
+        let needAddData = profileId in result
+          && type(result[profileId]) == "table"
+          && result[profileId].len() > 0
+        let needRemoveData = profileId in result?.removed
+
+        if (needAddData || needRemoveData)
+          servProfile[profileId].mutate(function(curVal) {
+            if (needAddData) {
+              ++count
+              curVal.__update(result[profileId])
+            }
+
+            if (needRemoveData) {
+              ++removed
+              foreach (fieldId in result.removed[profileId])
+                if (fieldId in curVal)
+                  delete curVal[fieldId]
+            }
+          })
+      }
+
       logApi($"Profile updated:{count} deleted:{removed} tables of '{method}' takes {diffTime(curTime)} ms")
     }
   }
@@ -321,9 +333,19 @@ return {
     params = { armyId, shopItemGuid, payItems, count }
   }, cb)
 
+  barter_shop_items_list = @(armyId, itemData, payData, cb) request({
+    method = "barter_shop_items_list"
+    params = { armyId, itemData, payData }
+  }, cb)
+
   buy_shop_items = @(armyId, shopItemGuid, currencyId, price, count, cb = null) request({
     method = "buy_shop_items"
     params = { armyId, shopItemGuid, currencyId, price, count }
+  }, cb)
+
+  buy_shop_items_list = @(armyId, itemData, payData, cb) request({
+    method = "buy_shop_items_list"
+    params = { armyId, itemData, payData }
   }, cb)
 
   update_offers = @(cb = null) request({

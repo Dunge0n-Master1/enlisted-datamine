@@ -2,7 +2,7 @@ module user_points_common shared
 require ecs
 require app
 require game.utils.team
-require EnlistedNet
+require DngNet
 require common_shooter.events_common_shooter
 require Dacoll
 require PhysMat

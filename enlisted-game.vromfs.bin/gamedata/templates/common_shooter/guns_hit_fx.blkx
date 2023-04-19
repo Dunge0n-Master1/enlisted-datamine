@@ -9,6 +9,7 @@ global_hit_fx_info{
 
       "wood:list<t>"{
         value:t="wood"
+        value:t="wood_solid"
         value:t="wood_railway"
         value:t="window_wood"
         value:t="softWoodDoor"
@@ -221,8 +222,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -292,8 +318,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -363,8 +414,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -434,8 +510,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -499,8 +600,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -565,7 +691,27 @@ global_hit_fx_info{
 
           "bushes:object"{
             fx:t="explosion_grenades_smoke_shell_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
           }
         }
       }
@@ -629,8 +775,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -694,8 +865,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -760,7 +956,27 @@ global_hit_fx_info{
 
           "bushes:object"{
             fx:t="explosion_grenades_smoke_shell_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
           }
         }
       }
@@ -824,8 +1040,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -889,8 +1130,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -955,7 +1221,27 @@ global_hit_fx_info{
 
           "bushes:object"{
             fx:t="explosion_grenades_smoke_shell_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
           }
         }
       }
@@ -1020,8 +1306,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -1085,8 +1396,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -1151,7 +1487,27 @@ global_hit_fx_info{
 
           "bushes:object"{
             fx:t="explosion_grenades_smoke_shell_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="explosion_grenades_smoke_shell_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
           }
         }
       }
@@ -1216,8 +1572,33 @@ global_hit_fx_info{
           }
 
           "bushes:object"{
-            fx:t="hit_basic_vegitables_effect"
-            penetrationFx:t="hit_basic_vegitables_effect"
+            fx:t="hit_basic_bush_green_effect"
+            penetrationFx:t="hit_basic_bush_green_effect"
+          }
+
+          "bushes_fall:object"{
+            fx:t="hit_basic_bush_fall_effect"
+            penetrationFx:t="hit_basic_bush_fall_effect"
+          }
+
+          "bushes_palm:object"{
+            fx:t="hit_basic_bush_palm_effect"
+            penetrationFx:t="hit_basic_bush_palm_effect"
+          }
+
+          "bushes_dead:object"{
+            fx:t="hit_basic_bush_dead_effect"
+            penetrationFx:t="hit_basic_bush_dead_effect"
+          }
+
+          "bushes_snow:object"{
+            fx:t="hit_basic_bush_snow_effect"
+            penetrationFx:t="hit_basic_bush_snow_effect"
+          }
+
+          "cactus:object"{
+            fx:t="hit_basic_cactus_effect"
+            penetrationFx:t="hit_basic_cactus_effect"
           }
         }
       }
@@ -1405,7 +1786,7 @@ global_hit_fx_info{
           key:r=8.0
           key:r=12.0
           key:r=15.0
-          key:r=21.0
+          key:r=26.0
           key:r=60.0
           key:r=100.0
         }
@@ -1509,6 +1890,11 @@ hit_effect_group_melee{
     glass:t="hit_basic_glass_effect"
     flesh:t="hit_blood_entry_effect"
     fabric:t="hit_melee_metal_effect"
-    bushes:t="hit_basic_vegitables_effect"
+    bushes:t="hit_basic_bush_green_effect"
+    bushes_fall:t="hit_basic_bush_fall_effect"
+    bushes_palm:t="hit_basic_bush_palm_effect"
+    bushes_dead:t="hit_basic_bush_dead_effect"
+    bushes_snow:t="hit_basic_bush_snow_effect"
+    cactus:t="hit_basic_cactus_effect"
   }
 }

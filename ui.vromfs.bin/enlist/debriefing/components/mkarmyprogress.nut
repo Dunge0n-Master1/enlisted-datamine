@@ -8,7 +8,7 @@ let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { mkCurrencyImage, mkCurrencyTooltip } = require("%enlist/shop/currencyComp.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkArmyBaseExpTooltip, mkArmyPremiumExpTooltip, mkArmyResultExpTooltip
 } = require("%enlist/debriefing/components/mkArmyExpTooltip.nut")
 let { mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage, mkPremiumSquadXpImage,
@@ -495,20 +495,20 @@ let mkGainAwards = @(unlockedRewards) {
   ]
 }.__update(rewardStyle)
 
-let mkExpBoosterWithTooltip = @(boosterType, value, locId) withTooltip(
+let mkExpBoosterWithTooltip = @(value) withTooltip(
   {
     flow = FLOW_VERTICAL
     gap = smallPadding
     halign = ALIGN_CENTER
     children = [
-      mkXpBooster({ bType = boosterType }, { size = [hdpx(70), hdpx(86)] })
+      mkXpBooster({ size = [hdpx(70), hdpx(86)] })
       {
         rendObj = ROBJ_TEXT
         text = loc("expBoost", { boost = (100.0 * value + 0.5).tointeger() })
       }
     ]
   }
-  @() loc(locId, { percent = colorize(awardPositiveColor, 100 * value) }))
+  @() loc("boostTotal/global", { percent = colorize(awardPositiveColor, 100 * value) }))
 
 let function mkArmyProgress(
   armyId, armyWasLevel, armyWasExp, armyAddExp, progressCfg, unlockRewards,
@@ -525,17 +525,6 @@ let function mkArmyProgress(
   let squadToUnlock = squadIndexToUnlock != null
     ? { squadId = squadIndexToUnlock }.__update(progressCfg?.lockedSquads[squadIndexToUnlock])
     : null
-
-  let boostersOrder = [
-    { val   = boosts?.soldier
-      bType = "soldier",
-      locId = "boostTotal/soldier"},
-    { val   = boosts?.squad
-      bType = "squad"
-      locId = "boostTotal/squad"},
-    { val   = boosts?.army
-      bType = "army"
-      locId = "boostTotal/army"}]
 
   let unlockedRewards = unlockRewards
     .filter(@(u) !(u?.isNext ?? false))
@@ -584,8 +573,7 @@ let function mkArmyProgress(
               onFinish, gainRewardContent)
         ]
       }
-    ].extend(boostersOrder.map(@(booster) booster.val <= 0 ? null :
-        mkExpBoosterWithTooltip(booster.bType, booster.val, booster.locId)))
+    ].append((boosts?.positive ?? 0) <= 0 ? null : mkExpBoosterWithTooltip(boosts.positive))
   }
 
   return {

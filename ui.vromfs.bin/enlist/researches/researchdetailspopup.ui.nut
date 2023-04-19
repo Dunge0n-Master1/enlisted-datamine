@@ -14,7 +14,7 @@ let { LOCKED, CAN_RESEARCH, DEPENDENT, RESEARCHED, NOT_ENOUGH_EXP, BALANCE_ATTRA
   research, isResearchInProgress, isBuyLevelInProgress, tableStructure, CHANGE_RESEARCH_TPL
 } = require("researchesState.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let multiresearchWarningMsgbox = require("multiresearchWarningMsgbox.nut")

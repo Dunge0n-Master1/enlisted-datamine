@@ -10,4 +10,5 @@ return {
   armieChooseBlockWidth = hdpx(124)
   eventBlockWidth = isWide ? hdpx(280) : hdpx(230)
   lockIconSize = hdpxi(16)
+  armiesGap = hdpx(8)
 }

@@ -19,7 +19,7 @@ let {
 } = require("model/chooseSquadsState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 
 let squadIconSize = [hdpx(60), hdpx(60)]
 let squadTypeIconSize = hdpxi(20)

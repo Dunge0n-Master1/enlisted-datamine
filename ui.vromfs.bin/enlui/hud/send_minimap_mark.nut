@@ -2,7 +2,8 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let {localPlayerEid} = require("%ui/hud/state/local_player.nut")
-let {CmdCreateMapPoint} = require("dasevents")
+let {CmdCreateMapPoint, CmdCreateParatroopersSpawn, sendNetEvent} = require("dasevents")
+let { Point2 } = require("dagor.math")
 
 let function mapCoordsToReal(event, minimapState){
   let rect = event.targetRect
@@ -19,6 +20,12 @@ let function command(event, minimapState){
   ecs.g_entity_mgr.sendEvent(localPlayerEid.value, CmdCreateMapPoint({x = worldPos.x, z = worldPos.z}))
 }
 
+let function troopersSpawnCoords(event, minimapState){
+  let worldPos = mapCoordsToReal(event, minimapState)
+  sendNetEvent(localPlayerEid.value, CmdCreateParatroopersSpawn({point = Point2(worldPos.x, worldPos.z)}))
+}
+
 return {
   command
+  troopersSpawnCoords
 }

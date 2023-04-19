@@ -60,3 +60,26 @@ def init_soldier_tpl_deps(baseTemplate : ecs::Template;
         depsList |> push(*ptname)
     set(initOut, depsCompKey, depsCompHash, depsList)
   return true
+
+def get_item_sub_template(itemTemplate; slot) : string
+  let tpl = getTemplateByName(itemTemplate)
+  if tpl == null
+    logerr("Cannot create an equipment: template '{itemTemplate}' is not found for the slot '{slot}'")
+    return ""
+
+  return getTemplateComponent(*tpl, "item__recreateInEquipment") ?? "base_vis_item"
+
+def get_item_template_for_equipment(item_template : string; is_spawn_in_vehicle : bool)
+  let tpl = getTemplateByName(item_template)
+  if tpl == null
+    logerr("Cannot replace an equipment: template '{item_template}' is not found")
+    return item_template
+
+  let baseTemplate = (!is_spawn_in_vehicle
+    ? getTemplateComponent(*tpl, "item__replaceOnSpawnOnGround") ?? item_template
+    : item_template)
+  if empty(baseTemplate)
+    return ""
+
+  let addTemplate = getTemplateComponent(*tpl, "item__recreateInEquipment") ?? "base_vis_item"
+  return "{baseTemplate}+{addTemplate}"

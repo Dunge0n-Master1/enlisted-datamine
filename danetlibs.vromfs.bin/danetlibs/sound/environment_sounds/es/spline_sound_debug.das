@@ -9,7 +9,7 @@ require Dacoll
 let DEBUG_ADD_DRAW_HEIGHT = 0.5
 
 
-[es(no_order, tag=(render, sound))]
+[es(no_order, tag=(render, sound, dev))]
 def spline_sound_debug_draw(info : UpdateStageInfoRenderDebug;
                             spline_sound__points : Point4List;
                             spline_sound__floorOnWater : bool)

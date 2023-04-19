@@ -9,8 +9,8 @@ require TouchInput
 require Gun
 require GridCollision
 require HumanPhys
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require AnimV20
 require GeomNodeTree
 require CollRes

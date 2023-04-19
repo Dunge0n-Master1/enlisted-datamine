@@ -1,6 +1,6 @@
 module human_use_object_common shared
 require ecs
-require EnlistedNet
+require DngNet
 require math.base
 require game.es.events
 

@@ -180,7 +180,6 @@ ger_soldier{
   beh_tree__enabled:b=no
   entity_danger__debug:b=no
   beh_tree__blackboard__enemyRadius:r=90.0
-  unit_indicator__ignorePlayers:b=no
   team:i=2
 
   "human_weap__weapTemplates:object"{
@@ -377,6 +376,6 @@ ger_base_soldier{
 }
 
 ai_aircraft_crew_ger_soldier{
-  _extends:t="ger_base_soldier"
   _extends:t="ai_aircraft_crew_soldier_base"
+  _extends:t="ger_summer_2"
 }

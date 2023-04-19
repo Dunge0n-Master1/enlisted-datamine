@@ -1,6 +1,6 @@
 options no_aot
 require ecs
-require EnlistedNet
+require DngNet
 require DagorConsole
 require game.utils.hero
 require game.events_game

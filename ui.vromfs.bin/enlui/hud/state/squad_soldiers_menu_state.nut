@@ -31,7 +31,8 @@ let squadSoldiersMenuItems = Computed(function() {
   return actualSquadSoldiers.map(@(member) mkSoldierItem(member, member.eid == controlledHeroEid.value))
 })
 
-let isSquadSoldiersMenuAvailable = Computed(@() canChangeSquadMember.value && heroSquadNumAliveMembers.value > 0)
+let isSquadSoldiersMenuAvailable = Computed(@() canChangeSquadMember.value
+                                             && heroSquadNumAliveMembers.value > 1)
 
 return {
   squadSoldiersMenuItems

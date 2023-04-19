@@ -4,7 +4,7 @@ let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { ceil } = require("math")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { smallPadding, bigPadding, perkIconSize, defTxtColor, titleTxtColor,
   soldierWndWidth, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -514,4 +514,8 @@ return {
   mkPerksListBtn
   mkRetrainingPoints
   perksUi
+  onPerksChoice
+  onBuyLevel
+  showNotEnoughOrdersMsg
+  showTrainResearchMsg
 }

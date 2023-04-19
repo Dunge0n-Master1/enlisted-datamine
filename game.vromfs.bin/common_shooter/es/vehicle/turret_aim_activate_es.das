@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require vehicle
 require turrets
-require EnlistedWeapon
+require DngWeapon
 require PhysVars
 require math.base
 require DagorMath

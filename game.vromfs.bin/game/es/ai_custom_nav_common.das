@@ -3,7 +3,7 @@ module ai_custom_nav_common shared
 require ecs
 require app
 require game.events_game
-require EnlistedWalkerai
+require DngWalkerai
 
 require pathfinder
 

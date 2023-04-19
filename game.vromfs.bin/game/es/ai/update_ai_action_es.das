@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require HumanPhys
 
 [es(tag=server, no_order)]

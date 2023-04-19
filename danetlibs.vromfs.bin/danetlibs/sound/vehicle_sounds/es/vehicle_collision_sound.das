@@ -3,7 +3,7 @@ require DagorMath
 require math.base
 require soundEvent
 require soundSystem
-require soundProps
+require vehicleSoundProps
 require sound_utils.modules.sound_player_common
 require sound_utils_net.modules.sound_utils_net_events
 require sound_utils.modules.sound_utils_events

@@ -5,7 +5,7 @@ require PhysMat
 require DagorSystem
 require common_shooter.es.weapon.weaponry_fx_common
 require strings
-require EnlistedDm
+require DngDm
 
 def get_fx_name(field_name : string; info_for_material : Object)
   let fxName = info_for_material[field_name] ?as string

@@ -1,8 +1,8 @@
 require game.es.events
 require ecs
-require EnlistedNet
+require DngNet
 require inventory
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require game.events_game
 

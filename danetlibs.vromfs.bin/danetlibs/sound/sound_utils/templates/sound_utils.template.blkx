@@ -82,7 +82,6 @@ sound_control{
   _group{
     _tags:t="sound"
     sound_control__range:r=22.0
-    sound_control__autoRange:b=no
     sound_control__inRange:b=no
     sound_control__shouldPlay:b=no
     sound_control__enable:b=yes

@@ -5,7 +5,7 @@ require jsonwriter
 require game.es.player_events
 require game.es.stat_bq_common
 require enlisted.game.utils.armies_common
-require EnlistedNet
+require DngNet
 
 def add_user_id_and_team(var jw; userid; team)
   add_user_id(jw, userid)

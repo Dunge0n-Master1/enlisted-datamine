@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require strings
-require EnlistedNet
+require DngNet
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
@@ -10,8 +10,8 @@ require DagorSystem
 require game.utils.hero
 require game.utils.team
 require game.utils.net_utils
-require EnlistedActor
-require EnlistedHuman
+require DngActor
+require DngHuman
 require vehicle
 require app
 require replay

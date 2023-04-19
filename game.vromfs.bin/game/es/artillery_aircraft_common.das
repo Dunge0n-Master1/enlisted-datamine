@@ -6,6 +6,11 @@ require DagorSystem
 
 module artillery_aircraft_common shared
 
+enum AIAircraftState : int
+  FLY_TO_TARGET
+  FLY_BOMBING
+  FLY_TO_END
+
 def calc_aircraft_request_dir(ownerTeam : int)
   var countFriendlyTeam = 0
   var spawnFriendlyTeam = float3()

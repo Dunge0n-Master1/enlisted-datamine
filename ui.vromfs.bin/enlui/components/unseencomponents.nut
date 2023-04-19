@@ -9,6 +9,7 @@ let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 let panelTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let defUnseenDotSize = colPart(0.4)
+let unblinkSignDotSize = colPart(0.2)
 
 
 let unseenAnimDot = mkLottieAnimation("ui/lottieAnimations/notifier.json", {
@@ -25,11 +26,16 @@ let blinkUnseen = {
 
 
 let unblinkUnseen = {
-  rendObj = ROBJ_IMAGE
   size = [defUnseenDotSize, defUnseenDotSize]
-  vplace = ALIGN_TOP
   hplace = ALIGN_RIGHT
-  image = Picture("ui/skin#tasks/ellipse_lotty_green.svg:{0}:{0}:K".subst(defUnseenDotSize))
+  halign = ALIGN_CENTER
+  vplace = ALIGN_TOP
+  valign = ALIGN_CENTER
+  children = {
+    size = [unblinkSignDotSize, unblinkSignDotSize]
+    rendObj = ROBJ_IMAGE
+    image = Picture("ui/skin#tasks/ellipse_lotty_green.svg:{0}:{0}:K".subst(unblinkSignDotSize))
+  }
 }
 
 

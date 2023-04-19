@@ -379,8 +379,10 @@ let function freemiumProgressBar(
 ) {
   if (nextUnlockLvl == level && expCur == expToReceive && hasNotReceivedReward && hasFreemium)
     return completedProgressLine(1, glareAnimation(2), color, darkColor)
-  if (nextUnlockLvl > level && expCur >= expToReceive)
-    return acquiredProgressLine(1, [], color, color)
+  if (nextUnlockLvl > level && expCur >= expToReceive){
+    let animColor = color
+    return acquiredProgressLine(1, [], color, animColor)
+  }
 
   progress = expToReceive > 0
     ? 1.0 - (expToReceive - expCur) / expToReceive.tofloat()

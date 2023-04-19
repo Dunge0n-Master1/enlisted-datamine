@@ -1,6 +1,6 @@
 require ecs
 require DagorMath
-require EnlistedNet
+require DngNet
 require math.base
 require enlisted.events_enlisted
 
@@ -48,11 +48,12 @@ def aircraft_identification(info : ParallelUpdateFrameDelayed;
 [es(tag=gameClient, no_order, REQUIRE=ai_aircraft)]
 def hidden_ai_aircraft_identification(info : ParallelUpdateFrameDelayed;
                                       transform : float3x4;
+                                      hud_aircraft_marker__visibilityHeight : float;
                                       var hud_aircraft_marker__isVisible : bool&)
   // If hidden, aircraft is at -500 height (get_hidden_pos().y)
   // The catch is that it may be slightly extrapolated from the server-side position
   // That's why there is a 10 meter allowance
-  hud_aircraft_marker__isVisible = transform[3].y > (get_hidden_pos().y + 10.f)
+  hud_aircraft_marker__isVisible = transform[3].y > (get_hidden_pos().y + hud_aircraft_marker__visibilityHeight)
 
 [es(tag=gameClient, after=aircraft_identification, REQUIRE_NOT=ai_aircraft)]
 def hidden_aircraft_identification(info : ParallelUpdateFrameDelayed;

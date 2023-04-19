@@ -4,13 +4,13 @@ require ecs.safe
 require math.base
 require DagorMath
 require Plane
-require EnlistedPlane
-require EnlistedActor
-require EnlistedDm
+require DngPlane
+require DngActor
+require DngDm
 require dm
 require game.utils.team
 require game.es.events
-require EnlistedNet
+require DngNet
 require enlisted.events_enlisted
 require game.es.vehicle.vehicle_events
 require game.es.aircraft.aircraft_common
@@ -180,9 +180,12 @@ def plane_landing_reset_look_dir(evt : CmdResetupVehicle;
   plane_input.resetLookDirection = true
 
 [es(tag=input)]
-def plane_langing_resetup_input(evt : CmdResetupVehicle; var plane_input : PlaneInput; var flaps_position : int&)
-  plane_input.currFlapsPosIndex = uint8(0)
-  flaps_position = length(plane_input.flapsIndices) > 0 ? int(plane_input.flapsIndices[0]) : 0
+def plane_langing_resetup_input(evt : CmdResetupVehicle;
+                                plane__flapsIndices : IntList;
+                                var plane__currFlapsPosIndex : int&;
+                                var flaps_position : int&)
+  plane__currFlapsPosIndex = 0
+  flaps_position = length(plane__flapsIndices) > 0 ? plane__flapsIndices[0] : 0
 
 [es(tag=server, on_event=CmdResetupVehicle)]
 def plane_landing_set_status_after_repair(evt : Event;

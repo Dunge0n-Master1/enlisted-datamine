@@ -222,6 +222,9 @@ parachute_deployed{
 
   "parachuteDeployed:tag"{
   }
+
+  "ignoreResetSquadMateBehavior:tag"{
+  }
 }
 
 has_parachute{
@@ -236,10 +239,12 @@ has_parachute{
 
 human_parachute{
   human_parachute__canDeployManually:b=yes
-  human_parachute__canDeploy:b=no
-  human_parachute__isDeployed:b=no
+  _extends:t="human_parachute_sound"
+  _tracked:t="human_parachute_anim__lastDeployState"
   _tracked:t="human_parachute__canDeploy"
   _tracked:t="human_parachute__isDeployed"
+  human_parachute__canDeploy:b=no
+  human_parachute__isDeployed:b=no
   _replicated:t="human_parachute__canDeploy"
 
   "human_parachute__eid:eid"{
@@ -260,8 +265,6 @@ human_parachute{
 
   _group{
     _tags:t="gameClient"
-    human_parachute_anim__openingSoundTemplate:t="human_parachute_affect_open"
-    human_parachute_anim__closingSoundTemplate:t="human_parachute_affect_land"
     human_parachute_anim__openedState:t="parachute_cycle_anim"
     human_parachute_anim__openedStateId:i=-1
     human_parachute_anim__closingState:t="parachute_landing_anim"
@@ -308,7 +311,13 @@ parachute{
   }
 }
 
+human_vehicle_exit_animator_states{
+  human_vehicle__ExitAnim:t="parachute_jump_anim"
+  human_vehicle__ExitAnimId:i=-1
+}
+
 human_freefall{
+  _extends:t="horizontal_air_resistance"
   human_freefall__isFreefall:b=no
   human_freefall__canFreefall:b=yes
   human_freefall__minPlaneHeight:r=30.0
@@ -370,6 +379,16 @@ shooter_human{
 
     "squad_member__playerEid:eid"{
     }
+  }
+
+  _group{
+    _tags:t="server"
+    squad_member__vehicleKills:i=0
+    squad_member__vehicleKillsAsCrew:i=0
+    squad_member__killsAsCrew:i=0
+    paratrooper_award__wasInDamagedSquadPlane:b=no
+    paratrooper_award__isActive:b=no
+    paratrooper_award__kills:i=0
   }
 
   _group{

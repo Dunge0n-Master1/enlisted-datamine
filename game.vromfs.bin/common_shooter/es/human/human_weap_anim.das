@@ -5,11 +5,12 @@ require HumanPhys
 require Gun
 require DagorMath
 require DagorSystem
-require EnlistedActor
-require EnlistedHuman
-require EnlistedWeapon
+require DngActor
+require DngHuman
+require DngWeapon
 require common_shooter.es.gun_anim_common
 require enlisted.events_enlisted
+require common_shooter.es.human.human_reload_common
 
 
 [es(on_appear, before=anim_phys_init_es)]

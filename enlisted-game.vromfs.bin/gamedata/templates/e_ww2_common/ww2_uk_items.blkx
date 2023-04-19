@@ -94,6 +94,76 @@ attachable_wear_head_12_uk_item{
   collres__res:t="head_iten_18_collision"
 }
 
+attachable_wear_headgenmesh_english_01_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_01_item"
+  animchar__res:t="headgenmesh_english_01_char"
+  collres__res:t="headgenmesh_english_01_collision"
+}
+
+attachable_wear_headgenmesh_english_02_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_02_item"
+  animchar__res:t="headgenmesh_english_02_char"
+  collres__res:t="headgenmesh_english_02_collision"
+}
+
+attachable_wear_headgenmesh_english_03_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_03_item"
+  animchar__res:t="headgenmesh_english_03_char"
+  collres__res:t="headgenmesh_english_03_collision"
+}
+
+attachable_wear_headgenmesh_english_04_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_04_item"
+  animchar__res:t="headgenmesh_english_04_char"
+  collres__res:t="headgenmesh_english_04_collision"
+}
+
+attachable_wear_headgenmesh_english_05_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_05_item"
+  animchar__res:t="headgenmesh_english_05_char"
+  collres__res:t="headgenmesh_english_05_collision"
+}
+
+attachable_wear_headgenmesh_english_06_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_06_item"
+  animchar__res:t="headgenmesh_english_06_char"
+  collres__res:t="headgenmesh_english_06_collision"
+}
+
+attachable_wear_headgenmesh_english_07_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_07_item"
+  animchar__res:t="headgenmesh_english_07_char"
+  collres__res:t="headgenmesh_english_07_collision"
+}
+
+attachable_wear_headgenmesh_english_08_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_08_item"
+  animchar__res:t="headgenmesh_english_08_char"
+  collres__res:t="headgenmesh_english_08_collision"
+}
+
+attachable_wear_headgenmesh_english_09_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_09_item"
+  animchar__res:t="headgenmesh_english_09_char"
+  collres__res:t="headgenmesh_english_09_collision"
+}
+
+attachable_wear_headgenmesh_english_10_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_headgenmesh_english_10_item"
+  animchar__res:t="headgenmesh_english_10_char"
+  collres__res:t="headgenmesh_english_10_collision"
+}
+
 attachable_wear_head_moroc_01_item{
   _extends:t="attachable_head"
   item__uniqueName:t="attachable_wear_head_moroc_01_item"
@@ -155,6 +225,13 @@ attachable_wear_head_moroc_09_item{
   item__uniqueName:t="attachable_wear_head_moroc_09_item"
   animchar__res:t="head_maroc_09_char"
   collres__res:t="head_maroc_09_collision"
+}
+
+attachable_wear_head_uk_prem_01_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_uk_prem_01_item"
+  animchar__res:t="head_uk_prem_01_char"
+  collres__res:t="head_uk_prem_01_collision"
 }
 
 attachable_wear_head_hero_1_uk_item{
@@ -364,6 +441,22 @@ attachable_wear_kd_bush_jacket_01_uk_tropic_item{
   collres__res:t="kd_bush_jacket_01_uk_tropic_collision"
 }
 
+attachable_wear_uk_denison_smock_2nd_pattern_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_uk_denison_smock_2nd_pattern_item"
+  animchar__res:t="uk_denison_smock_2nd_pattern_char"
+  collres__res:t="uk_denison_smock_2nd_pattern_collision"
+}
+
+attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_uk_denison_smock_2nd_pattern_w_parachute_item"
+  animchar__res:t="uk_denison_smock_2nd_pattern_w_parachute_char"
+  collres__res:t="uk_denison_smock_2nd_pattern_w_parachute_collision"
+  item__replaceOnParachuteOpen:t="attachable_wear_uk_denison_smock_2nd_pattern_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_uk_denison_smock_2nd_pattern_item"
+}
+
 attachable_wear_airtex_biker_jerkin_tunic_01_uk_tropic_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_airtex_biker_jerkin_tunic_01_uk_tropic_item"
@@ -542,6 +635,24 @@ tanker_mk2_helmet_03_uk_tropic_item{
   }
 }
 
+hsat_mk2_denison_smock_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="hsat_mk2_denison_smock_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="hsat_mk2_denison_smock_item"
+  animchar_fast_phys__res:t="hsat_mk2_denison_smock_fastphys"
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 sas_hat_tropic_item{
   _extends:t="attachable_skined_helmet"
   animchar__res:t="sas_hat_tropic_char"
@@ -713,11 +824,54 @@ bandolier_animation_blacklist{
   }
 }
 
+attachable_wear_uk_map_case_kd_bushes_jacket_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_uk_map_case_kd_bushes_jacket_item"
+  animchar__res:t="uk_map_case_kd_bushes_jacket_char"
+  collres__res:t="uk_map_case_kd_bushes_jacket_collision"
+  animchar_fast_phys__res:t="uk_map_case_kd_bushes_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_uk_map_case_serge_dress_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_uk_map_case_serge_dress_item"
+  animchar__res:t="uk_map_case_serge_dress_char"
+  collres__res:t="uk_map_case_serge_dress_collision"
+  animchar_fast_phys__res:t="uk_map_case_serge_dress_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_p37_small_pack_01_uk_summer_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_p37_small_pack_01_uk_summer_item"
+  animchar__res:t="p37_small_pack_01_uk_summer_char"
+  collres__res:t="p37_small_pack_01_uk_summer_collision"
+  animchar_fast_phys__res:t="p37_small_pack_01_uk_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_uk_p37_grenade_pouch_side_l_sas_squad_item{
   _extends:t="attachable_side_belt_l"
   item__uniqueName:t="attachable_wear_uk_p37_grenade_pouch_side_l_sas_squad_item"
   animchar__res:t="uk_p37_grenade_pouch_side_l_sas_squad_char"
   collres__res:t="uk_p37_grenade_pouch_side_l_sas_squad_collision"
+}
+
+attachable_wear_uk_compass_pocket_serge_dress_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_uk_compass_pocket_serge_dress_item"
+  animchar__res:t="uk_compass_pocket_serge_dress_char"
+  collres__res:t="uk_compass_pocket_serge_dress_collision"
 }
 
 attachable_wear_uk_flask_in_pouch_serge_dress_item{
@@ -726,6 +880,18 @@ attachable_wear_uk_flask_in_pouch_serge_dress_item{
   animchar__res:t="uk_flask_in_pouch_serge_dress_char"
   collres__res:t="uk_flask_in_pouch_serge_dress_collision"
   animchar_fast_phys__res:t="uk_flask_in_pouch_serge_dress_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_uk_flask_kd_bush_jacket_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_uk_flask_kd_bush_jacket_item"
+  animchar__res:t="uk_flask_kd_bush_jacket_char"
+  collres__res:t="uk_flask_kd_bush_jacket_collision"
+  animchar_fast_phys__res:t="uk_flask_kd_bush_jacket_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -768,6 +934,58 @@ attachable_wear_uk_entrenching_tools_sas_tropic_item{
   }
 }
 
+attachable_wear_respirator_haversack_uk_01_tropic_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_respirator_haversack_uk_01_tropic_item"
+  animchar__res:t="respirator_haversack_uk_01_tropic_char"
+  collres__res:t="respirator_haversack_uk_01_tropic_collision"
+  animchar_fast_phys__res:t="respirator_haversack_uk_01_tropic_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_lanchester_pouch_serge_dress_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_lanchester_pouch_serge_dress_item"
+  animchar__res:t="lanchester_pouch_serge_dress_char"
+  collres__res:t="lanchester_pouch_serge_dress_collision"
+}
+
+attachable_wear_pistol_holster_rac_chest_serge_dress_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_pistol_holster_rac_chest_serge_dress_item"
+  animchar__res:t="pistol_holster_rac_chest_serge_dress_char"
+  collres__res:t="pistol_holster_rac_chest_serge_dress_collision"
+}
+
+attachable_wear_uk_compass_pocket_kd_bush_jacket_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_uk_compass_pocket_kd_bush_jacket_item"
+  animchar__res:t="uk_compass_pocket_kd_bush_jacket_char"
+  collres__res:t="uk_compass_pocket_kd_bush_jacket_collision"
+}
+
+attachable_wear_uk_m37_basic_pouches_shold_serge_dress_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_uk_m37_basic_pouches_shold_serge_dress_item"
+  animchar__res:t="uk_m37_basic_pouches_shold_serge_dress_char"
+  collres__res:t="uk_m37_basic_pouches_shold_serge_dress_collision"
+}
+
+attachable_wear_uk_vickers_k_pouches_denison_smock_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_uk_vickers_k_pouches_denison_smock_item"
+  animchar__res:t="uk_vickers_k_pouches_denison_smock_char"
+  collres__res:t="uk_vickers_k_pouches_denison_smock_collision"
+  animchar_fast_phys__res:t="uk_vickers_k_pouches_denison_smock_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_stan_bandolier_01_uk_summer_item{
   _extends:t="attachable_chest"
   _extends:t="bandolier_animation_blacklist"
@@ -804,6 +1022,13 @@ attachable_wear_thompson_puch_l_02_uk_tropic_item{
   item__iconYaw:r=140.0
 }
 
+attachable_wear_pistol_holster_rac_mk1_kd_bush_jacket_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_pistol_holster_rac_mk1_kd_bush_jacket_item"
+  animchar__res:t="pistol_holster_rac_mk1_kd_bush_jacket_char"
+  collres__res:t="pistol_holster_rac_mk1_kd_bush_jacket_collision"
+}
+
 attachable_wear_enfield_puch_r_02_uk_tropic_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_enfield_puch_r_02_uk_tropic_item"
@@ -823,6 +1048,20 @@ attachable_wear_enfield_pouch_r_moroccan_uk_item{
   item__uniqueName:t="attachable_wear_enfield_pouch_r_moroccan_uk_item"
   animchar__res:t="enfield_pouch_r_moroccan_uk_char"
   collres__res:t="enfield_pouch_r_moroccan_uk_collision"
+}
+
+attachable_wear_enfield_pouch_l_serge_dress_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_enfield_pouch_l_serge_dress_item"
+  animchar__res:t="enfield_pouch_l_serge_dress_char"
+  collres__res:t="enfield_pouch_l_serge_dress_collision"
+}
+
+attachable_wear_enfield_pouch_r_serge_dress_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_enfield_pouch_r_serge_dress_item"
+  animchar__res:t="enfield_pouch_r_serge_dress_char"
+  collres__res:t="enfield_pouch_r_serge_dress_collision"
 }
 
 attachable_wear_thompson_puch_r_02_uk_tropic_item{
@@ -926,6 +1165,18 @@ attachable_wear_p37_backpack_goumier_item{
   }
 }
 
+attachable_wear_p37_backpack_kd_bush_jacket_item{
+  _extends:t="attachable_backpack"
+  animchar__res:t="p37_backpack_kd_bush_jacket_char"
+  collres__res:t="p37_backpack_kd_bush_jacket_collision"
+  item__uniqueName:t="attachable_wear_p37_backpack_kd_bush_jacket_item"
+  animchar_fast_phys__res:t="p37_backpack_kd_bush_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_small_pack_m37_01_uk_summer_item{
   _extends:t="attachable_backpack"
   animchar__res:t="small_pack_m37_01_uk_summer_char"
@@ -959,6 +1210,51 @@ attachable_wear_parachute_denim_tank_suit_uk_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_xtype_parachute_denison_smock_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_xtype_parachute_denison_smock_item"
+  animchar__res:t="xtype_parachute_denison_smock_char"
+  collres__res:t="xtype_parachute_denison_smock_collision"
+  animchar_fast_phys__res:t="xtype_parachute_denison_smock_fastphys"
+  item__replaceOnParachuteOpen:t="attachable_wear_xtype_parachute_denison_smock_opened_item"
+  item__replaceOnSpawnOnGround:t=""
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_xtype_parachute_denison_smock_opened_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_xtype_parachute_denison_smock_opened_item"
+  animchar__res:t="xtype_parachute_denison_smock_opened_char"
+  collres__res:t="xtype_parachute_denison_smock_opened_collision"
+  animchar_fast_phys__res:t="xtype_parachute_denison_smock_opened_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
   }
 }
 
@@ -1087,6 +1383,27 @@ attachable_wear_uk_p37_webbing_belt_sas_tropic_item{
   item__uniqueName:t="attachable_wear_uk_p37_webbing_belt_sas_tropic_item"
   animchar__res:t="uk_p37_webbing_belt_sas_tropic_char"
   collres__res:t="uk_p37_webbing_belt_sas_tropic_collision"
+}
+
+attachable_wear_uk_p37_webbing_belt_serge_dress_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_p37_webbing_belt_serge_dress_item"
+  animchar__res:t="uk_p37_webbing_belt_serge_dress_char"
+  collres__res:t="uk_p37_webbing_belt_serge_dress_collision"
+}
+
+attachable_wear_uk_p37_webbing_belt_kd_bush_jacket_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_p37_webbing_belt_kd_bush_jacket_item"
+  animchar__res:t="uk_p37_webbing_belt_kd_bush_jacket_char"
+  collres__res:t="uk_p37_webbing_belt_kd_bush_jacket_collision"
+}
+
+attachable_wear_uk_p37_webbing_belt_denison_smock_item{
+  _extends:t="attachable_belt2"
+  item__uniqueName:t="attachable_wear_uk_p37_webbing_belt_denison_smock_item"
+  animchar__res:t="uk_p37_webbing_belt_denison_smock_char"
+  collres__res:t="uk_p37_webbing_belt_denison_smock_collision"
 }
 
 uk_m37_basic_pouches_blacklist{

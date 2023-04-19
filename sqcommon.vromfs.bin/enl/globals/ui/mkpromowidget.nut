@@ -18,6 +18,7 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
 
 
 let freemiumBlockStyle = @(config) {
@@ -44,7 +45,9 @@ let freemiumBlockText = @(config) {
 let premiumBlockStyle = @(_config) {
   borderColor = accentTitleTxtColor
   iconSize = hdpx(36)
-  iconPath = "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
+  iconPath = isNewDesign.value
+    ? "!ui/uiskin/premium/icon_prem.svg:{0}:{0}:K"
+    : "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
 }
 
 let premiumBlockText = @(_config) {

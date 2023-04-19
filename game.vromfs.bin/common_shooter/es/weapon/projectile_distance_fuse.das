@@ -2,7 +2,7 @@ require ecs
 require math.base
 require DaWeapons
 require Ballistics
-require EnlistedWeapon
+require DngWeapon
 require enlisted.events_enlisted
 
 [es(tag=server, no_order, REQUIRE_NOT=projectile__inactive)]

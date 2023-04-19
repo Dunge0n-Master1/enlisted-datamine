@@ -3,11 +3,11 @@ require DagorMath
 require Dacoll
 require DagorShaders
 require app
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require Gun
 require math.base
-require EnlistedCamera
+require DngCamera
 require player
 require danetlibs.renderer.includes.render_events
 
@@ -35,10 +35,10 @@ def get_hero_cockpit_vec_impl(hero_cockpit__gunMaxLength, hero_cockpit__traceMax
 
   var humanTraceHandle : TraceMeshFaces?
   var isAiming, inVehicle : bool
-  query(heroEid) <| $ [es] (human_net_phys : HumanActor;
+  query(heroEid) <| $ [es] (var human_net_phys : HumanActor;
                             human_net_phys__isAiming : bool;
                             isInVehicle : bool)
-    humanTraceHandle = human_net_phys.phys.traceHandle
+    humanTraceHandle = human_net_phys.phys |> human_phys_getTraceHandle()
     isAiming = human_net_phys__isAiming
     inVehicle = isInVehicle
 

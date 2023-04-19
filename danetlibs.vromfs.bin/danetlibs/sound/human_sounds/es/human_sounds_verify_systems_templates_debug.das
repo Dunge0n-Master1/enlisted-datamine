@@ -46,15 +46,6 @@ struct HumanDeathSound
 
 
 [req_template]
-struct HumanFallSound
-  human_net_phys__isUnderwater : bool
-  human_net_phys__deltaVelIgnoreAmount : float
-  human_net_phys__velocity : float3
-  human_fall_sound__isFalling : bool
-  human_fall_sound__threshold : float
-
-
-[req_template]
 struct HumanIdleSoundRequiredComponents
   sound_control__shouldPlay : bool
   sound_tags : Object

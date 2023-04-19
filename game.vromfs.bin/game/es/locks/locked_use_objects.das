@@ -3,9 +3,6 @@ require game.events_game
 require game.es.game_effect_macro
 require game.es.vehicle.vehicle_events
 
-[es_game_effect(bool_flag=human_use_object__lockGrenadeRethrowing, tag=locked_use_object__lockGrenadeRethrowing)]
-def lock_grenade_rethrowing_es() { pass; }
-
 [es_game_effect(bool_flag=locked__stationaryGunUseLockedByAffect, tag=locked_use_object__lockStationaryGunUse)]
 def lock_stationary_gun_use_es() { pass; }
 

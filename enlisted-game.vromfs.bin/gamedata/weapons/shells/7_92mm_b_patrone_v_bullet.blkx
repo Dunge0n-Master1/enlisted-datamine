@@ -11,7 +11,6 @@ stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
 stabilityReductionAfterPenetration:r=0.3
 slopeEffectPreset:t="ap"
-shellAnimation:t="video/shells_animations/he_ball.ivf"
 onHitChanceMultFire:r=4.0
 effectiveDistance:r=400.0
 relativeVelHitShift:p2=300.0, 1000.0
@@ -21,9 +20,6 @@ explodeArmorPower:r=2.5
 explodeRadius:p2=0.03, 0.035
 relativeVelArmorShift:p2=200.0, 1000.0
 hitPowerMult:r=2.5
-groundCollisionEffect:t="hit_8_11mm_dirt_he"
-ricochetEffect:t="hit_8_11mm_metal_he"
-waterCollisionEffect:t="hit_8_11mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -55,29 +51,6 @@ armorpower{
   ArmorPower1000m:p2=3.0, 1000.0
   ArmorPower1450m:p2=0.1, 1450.0
   ArmorPower1500m:p2=0.0, 1500.0
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_8_11mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_8_11mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_8_11mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

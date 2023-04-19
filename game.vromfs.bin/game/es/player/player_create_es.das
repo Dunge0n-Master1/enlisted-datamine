@@ -2,7 +2,7 @@ require app
 require DagorDataBlock
 require DagorSystem
 require ecs
-require EnlistedActor
+require DngActor
 require game.es.events
 require game.es.player_events
 require game.es.player_common
@@ -12,7 +12,7 @@ require game.utils.net_utils
 require GameTimers
 require level
 require matching
-require EnlistedNet
+require DngNet
 require player
 require danetlibs.native_dasevents.main.native_events
 

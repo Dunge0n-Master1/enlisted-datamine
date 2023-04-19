@@ -1,6 +1,6 @@
 require game.es.events
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 require game.utils.hero
 require app
 require ecs

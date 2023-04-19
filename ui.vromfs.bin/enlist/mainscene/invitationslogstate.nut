@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { logerr } = require("dagor.debug")
 let msgbox = require("%enlist/components/msgbox.nut")
-let { addPopup, removePopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup, removePopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let isMailboxVisible  = nestWatched("isMailboxVisible", false)

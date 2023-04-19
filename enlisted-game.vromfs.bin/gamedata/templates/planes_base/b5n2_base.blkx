@@ -19,6 +19,7 @@ b5n2_base{
   plane_collision__blk:t="gamedata/units/b5n2.blk"
   plane_anim__blk:t="gamedata/units/b5n2.blk"
   plane_sight__blk:t="gamedata/units/b5n2.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="b5n2_wreckage"
@@ -30,11 +31,6 @@ b5n2_base{
     _tags:t="render"
     animchar_camera_target__node_name:t=""
     animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
-  }
-
-  _group{
-    _tags:t="sound"
-    plane_engine_sound__engine:t="engine12"
   }
 
   "plane_hit_sound__canopyNodes:list<t>"{

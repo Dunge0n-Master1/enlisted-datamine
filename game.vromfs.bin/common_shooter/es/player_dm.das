@@ -1,22 +1,9 @@
 require common_shooter.events_common_shooter
 require ecs
-require EnlistedDm
+require DngDm
 require game.events_game
 
-[es]
-def process_entity_hit_by_player(evt : EventOnEntityHit)
-  if evt.deltaHp != 0.f
-    let victimPlrEid : EntityId = get_Eid(evt.victim, "possessedByPlr") ?? INVALID_ENTITY_ID
-    let offenderPlrEid : EntityId = get_Eid(evt.offender, "possessedByPlr") ?? INVALID_ENTITY_ID
-    if victimPlrEid != INVALID_ENTITY_ID
-      sendEvent(offenderPlrEid, [[EventPlayerGotDamage
-                                  victimEid=evt.victim,
-                                  offenderEid=evt.offender,
-                                  damageDesc_deltaHp=evt.deltaHp,
-                                  victimPlayerEid=victimPlrEid,
-                                  offenderPlayerEid=offenderPlrEid]])
-
-[es]
+[es(tag=server)]
 def process_entity_died_by_player(evt : EventAnyEntityDied)
   var offenderPlayer : EntityId = evt.offenderPlayer
   if offenderPlayer == INVALID_ENTITY_ID

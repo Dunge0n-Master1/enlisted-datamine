@@ -33,3 +33,7 @@ entity{
 entity{
   _template:t="hit_effect_group_antitank_mine_explosion"
 }
+
+entity{
+  _template:t="hit_effect_group_ampula_explosion"
+}

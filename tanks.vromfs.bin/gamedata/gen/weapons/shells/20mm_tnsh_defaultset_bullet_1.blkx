@@ -4,13 +4,7 @@ speed:r=800.0
 maxDistance:r=3000.0
 normalizationPreset:t="default"
 bulletType:t="ap_i"
-shellAnimation:t="video/shells_animations/ap_belt.ivf"
 Cx:r=0.53
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_ap"
-groundCollisionEffect:t="hit_19_27mm_dirt_ap"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 secondaryShattersPreset:t="ap"
 
 hitpower{
@@ -171,32 +165,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_19_27mm_dirt_ap"
-  jetFx:t="hit_19_27mm_dirt_ap"
-
-  steel{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

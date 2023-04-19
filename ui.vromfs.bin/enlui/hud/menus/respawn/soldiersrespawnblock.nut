@@ -1,6 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { bigPadding, colPart, colFull, smallPadding, midPadding, titleTxtColor
+let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { bigPadding, colFull, smallPadding, midPadding, levelNestGradient, defTxtColor, colPart,
+  defItemBlur
 } = require("%enlSqGlob/ui/designConst.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
 let {
@@ -9,47 +11,63 @@ let {
 } = require("%ui/hud/state/respawnState.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
-let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
-let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
-let { mkSoldierBadge, LOCKED_COLOR_SCHEME_ID, SQUAD_COLOR_SCHEME_ID
+let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
+let { mkSoldierRespawnBadge, LOCKED_COLOR_SCHEME_ID, SQUAD_COLOR_SCHEME_ID, selectionLine,
+  levelInfoHeight, soldierCardSize, selectionLineHeight, soldierBgSchemes
 } = require("%enlSqGlob/ui/mkSoldierBadge.nut")
-let { iconByItem } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { bgConfig, sIconSize } = require("%ui/hud/menus/respawn/respawnPkg.nut")
+let { iconByItem, soldierNameSlicer } = require("%enlSqGlob/ui/itemsInfo.nut")
+let { bgConfig, sIconSize, deadTxtStyle } = require("%ui/hud/menus/respawn/respawnPkg.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
 let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
 let { logerr } = require("dagor.debug")
 let soldiersData = require("%ui/hud/state/soldiersData.nut")
+let { makeVertScroll, styling } = require("%ui/components/scrollbar.nut")
 
 
+let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let seatsOrderWatch = mkVehicleSeats(vehicleInfo)
 let canSpawnOnVehicle = Computed(@()
   canSpawnOnVehicleBySquad.value?[squadIndexForSpawn.value] ?? false)
+let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
 
-let itemIcon = @(item) {
-  color = titleTxtColor
-  hplace = ALIGN_RIGHT
-  padding = [midPadding, bigPadding]
+let itemIcon = @(item, isAlive) {
+  size = flex()
+  halign = ALIGN_CENTER
   children = iconByItem(item, {
-    width = colFull(2) - bigPadding * 2
-    height = colPart(0.645)
+    picSaturate = isAlive ? 1 : 0.3
+    width = soldierCardSize[0] - smallPadding * 2
+    height = soldierCardSize[1] - levelInfoHeight - smallPadding * 2
   })
-}.__update(bgConfig)
+}
 
 
-let function additionalSoldierItems(soldier) {
-  let { grenadeType = null, mineType = null, targetHealCount = 0, hasFlask = false } = soldier
+let function additionalSoldierItems(soldier, sf, isSelected) {
+  let { grenadeType = null, mineType = null, targetHealCount = 0, hasFlask = false, isAlive = true
+  } = soldier
+  let needDarkColor = !isAlive || isSelected || (sf & S_HOVER) != 0
   return {
-    size = [flex(), colPart(0.38)]
+    rendObj = ROBJ_IMAGE
+    image = levelNestGradient
+    size = [flex(), levelInfoHeight]
+    padding = [0, smallPadding]
     halign = ALIGN_RIGHT
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     children = [
-      targetHealCount > 0 ? mkMedkitIcon(sIconSize) : null
-      hasFlask ? mkFlaskIcon(sIconSize) : null
-      mkGrenadeIcon(grenadeType, sIconSize) ?? mkMineIcon(mineType, sIconSize)
+      targetHealCount > 0
+        ? mkMedkitIcon(sIconSize, needDarkColor ? deadTxtStyle.color : defTxtColor)
+        : null
+      hasFlask
+        ? mkFlaskIcon(sIconSize, needDarkColor ? deadTxtStyle.color : defTxtColor)
+        : null
+      grenadeType == null ? null
+        : mkGrenadeIcon(grenadeType, sIconSize, needDarkColor ? deadTxtStyle.color : defTxtColor)
+      mineType == null ? null
+        : mkMineIcon(mineType, sIconSize, needDarkColor ? deadTxtStyle.color : defTxtColor)
     ]
   }
 }
@@ -57,9 +75,10 @@ let function additionalSoldierItems(soldier) {
 
 let soldiersRespawnBlock = @(isSquadSpawn) @() {
   size = [flex(), SIZE_TO_CONTENT]
-  watch = [soldiersData, localPlayerSquadMembers, respawnSelection, seatsOrderWatch]
+  watch = [soldiersData, localPlayerSquadMembers, respawnSelection, seatsOrderWatch, soldiersList,
+    curSoldierIdx]
   flow = FLOW_VERTICAL
-  gap = bigPadding
+  gap = smallPadding
   children = (isSquadSpawn ? soldiersList.value : localPlayerSquadMembers.value).map(
   function(val, idx) {
     let soldierInfo = soldiersData.value?[val.guid] ?? {}
@@ -67,68 +86,116 @@ let soldiersRespawnBlock = @(isSquadSpawn) @() {
       logerr($"Not found member info for respawn screen {val.guid}")
       return null
     }
-    let isCurrent = val?.eid == respawnSelection.value
+    let isCurrent = val?.eid == respawnSelection.value || (curSoldierIdx.value ?? 0) == idx
     let soldier = val.__merge(soldierInfo, { perksLevel = val?.level ?? 0 })
     let seatInfo = seatsOrderWatch.value?[idx]
     let seatName = loc(seatInfo?.locName)
+    local weaponName = null
+    if (seatInfo == null)
+      weaponName = soldierInfo.weapons.findvalue(@(v) v?.isPrimary)?.name
     let { isAlive = true } = soldier
-    return @() {
+    let soldierBg = soldierBgSchemes[isAlive ? SQUAD_COLOR_SCHEME_ID : LOCKED_COLOR_SCHEME_ID]
+    return {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
+      gap = smallPadding
       children = [
-        seatInfo == null ? null : {
-          rendObj = ROBJ_TEXT
-          text = seatName
-          margin = [smallPadding, 0]
-        }
         {
           size = [flex(), SIZE_TO_CONTENT]
+          valign = ALIGN_CENTER
           flow = FLOW_HORIZONTAL
-          gap = { size = flex() }
+          gap = smallPadding
           children = [
-            watchElemState(@(sf) mkSoldierBadge(idx, soldier, isCurrent, sf,
-              !isAlive ? null : function() {
-                curSoldierIdx(idx)
-                if(!isSquadSpawn){
-                  requestRespawnToEntity(soldier.eid)
-                  if (isCurrent)
-                    @() respRequested(true)
-                }
-              }, isAlive ? SQUAD_COLOR_SCHEME_ID : LOCKED_COLOR_SCHEME_ID))
             {
-              size = [colFull(2), SIZE_TO_CONTENT]
+              rendObj = ROBJ_TEXT
+              size = [flex(), SIZE_TO_CONTENT]
+              behavior = Behaviors.Marquee
+              text = soldierNameSlicer(soldier, true)
+            }.__update(isAlive ? defTxtStyle : deadTxtStyle)
+            seatInfo == null && weaponName == null ? null : {
+              rendObj = ROBJ_TEXT
+              size = [flex(), SIZE_TO_CONTENT]
+              halign = ALIGN_RIGHT
+              behavior = Behaviors.Marquee
+              text = seatName ?? weaponName
+            }.__update(isAlive ? defTxtStyle : deadTxtStyle)
+          ]
+        }
+        watchElemState(@(sf) {
+          picSaturate = 0.2
+          brightnes = 0.2
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_HORIZONTAL
+          gap = smallPadding
+          halign = ALIGN_CENTER
+          behavior = Behaviors.Button
+          onClick = function() {
+            if (!isAlive)
+              return
+            curSoldierIdx(idx)
+            if(!isSquadSpawn)
+              requestRespawnToEntity(soldier.eid)
+          }
+          onDoubleClick = function(){
+            if (!isAlive)
+              return
+            if(!isSquadSpawn) {
+              requestRespawnToEntity(soldier.eid)
+              respRequested(true)
+            }
+          }
+          children = [
+            mkSoldierRespawnBadge(idx, soldier, isCurrent, sf)
+            {
+              size = soldierCardSize
+              rendObj = ROBJ_WORLD_BLUR
+              fillColor = soldierBg(sf, isCurrent)
+              color = defItemBlur
               flow = FLOW_VERTICAL
               halign = ALIGN_RIGHT
               children = [
                 soldier.weapons.reduce(function(res, weap, idx){
                   let needToShowWeapon = weap.templateName != "" && idx <= 2
                   if (res == null && needToShowWeapon)
-                    res = itemIcon({ gametemplate = weap.templateName })
+                    res = itemIcon({ gametemplate = weap.templateName }, isAlive)
                   return res
                 }, null)
-                additionalSoldierItems(soldier)
+                additionalSoldierItems(val, sf, isCurrent)
               ]
             }
           ]
-        }
+        })
+        isCurrent ? selectionLine : { size = [flex(), selectionLineHeight] }
       ]
     }
   })
 }
 
 
-let respawnBlock = @(isSquadSpawn = false) {
+let respawnBlock = @(isSquadSpawn = false) @() {
   watch = vehicleInfo
-  size = [colFull(4), SIZE_TO_CONTENT]
+  size = [colFull(4) + midPadding * 2, SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = bigPadding
   halign = ALIGN_CENTER
   children = [
     vehicleInfo.value == null ? null
       : mkCurVehicle({ canSpawnOnVehicle, vehicleInfo, soldiersList })
-    soldiersRespawnBlock(isSquadSpawn)
+    makeVertScroll(
+      soldiersRespawnBlock(isSquadSpawn)
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        maxHeight = colPart(12.1)
+        rootBase = class {
+          key = "respawnList"
+          behavior = Behaviors.Pannable
+          wheelStep = 0.2
+        }
+        styling = scrollStyle
+      }
+    )
   ]
-}
+}.__update(bgConfig)
 
 
 return respawnBlock

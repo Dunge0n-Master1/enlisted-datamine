@@ -1,12 +1,15 @@
 module events_enlisted shared
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require common_shooter.events_common_shooter
 require enlisted.game.es.medic_common
 require game.es.squad_order_common
 require game.es.binocular_common
-require EnlistedWeapon
+require DngWeapon
 require DaWeaponProps
+require DaWeapons
+require CollisionTraces
+require DngDm
 
 [cpp_event(broadcast)]
 struct ParallelUpdateFrameDelayed
@@ -160,6 +163,11 @@ struct OnScoringKillBySquadMember
   offender : EntityId
 
 [event(unicast)]
+struct OnScoringVehicleKillBySquadMember
+  victim : EntityId
+  offender : EntityId
+
+[event(unicast)]
 struct EventOnPlayerWipedOutInfantrySquad {}
 
 [event(broadcast)]
@@ -170,14 +178,14 @@ struct EventTeamWon
 struct EventTeamLost
   team : int
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventMechStepInfo
   limbIdx : int
   pos : float3
   detach : bool
   isNextStep : bool
 
-[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventMechStepRelativeInfo
   limbIdx : int
   pos : float3
@@ -277,6 +285,7 @@ struct CmdRequestRespawn
   squadId : int
   memberId : int
   spawnGroup : int
+  isParatroopers : bool
 
 [event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
 struct CmdCancelRequestRespawn
@@ -334,6 +343,22 @@ struct EventPlayerSquadHelpedToDestroyPoint {}
 struct CmdVoteToKick
   voteYes : bool
   accused : EntityId
+
+[event(unicast)]
+struct CmdOpenSupplyMenu
+  boxEid : EntityId
+
+[event(unicast)]
+struct CmdCloseSupplyMenu
+  needApplyPreset : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct RequestApplySupplyScheme
+  boxEid : EntityId
+  index : int
+
+[event(broadcast)]
+struct CmdShowAllWeaponsUi {}
 
 [event(unicast)]
 struct CmdOpenArtilleryMap {}
@@ -394,6 +419,27 @@ struct CmdSpawnSquad
   squadId : int
   memberId : int
   respawnGroupId : int
+  existedVehicleEid : EntityId
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdCreateParatroopersSpawn
+  point : float2
+
+[event(unicast)]
+struct CmdParatroopersPointDeleted{}
+
+[event(unicast)]
+struct CmdPickParatroopersPoint
+  coordX : float
+  coordY : float
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdTurnParatroopersCamera
+  paratroopersCameraOn : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdParatroopersSpawnConfirm
+  spawnPos : float3
 
 [event(broadcast)]
 struct EventFirstPlayerConnected
@@ -551,6 +597,11 @@ struct CmdStartNarrator
   replace : bool
 
 [event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
+struct CmdNetStartNarrator
+  phrase : string
+  replace : bool
+
+[event(broadcast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdTeamStartNarrator
   team : int
   phrase : string
@@ -639,7 +690,7 @@ struct HumanUseItemRequest
   target : EntityId
 
 [event(unicast)]
-struct EventSoldierRecreateOnDie {}
+struct EventBeforeEntityRecreatedOnDeath {}
 
 [event(unicast)]
 struct RequestSwitchBinocular
@@ -652,6 +703,9 @@ struct CmdSwitchBinocular
 [event(unicast)]
 struct CmdSwitchBinocularCockpit
   enabled : bool
+
+[event(unicast, routing=ROUTING_CLIENT_CONTROLLED_ENTITY_TO_SERVER)]
+struct CmdToggleHatch {}
 
 [cpp_event(broadcast)]
 struct EventSquadMembersStats
@@ -699,6 +753,26 @@ struct OnShellHitEntityFx
   directHit : bool
   stopped : bool
   projectileEid : EntityId
+
+[cpp_event(broadcast)]
+struct ProjectileOnHitEntityWithHp
+  result : ProjectileHitResult
+  projectile_eid : EntityId
+  victim : EntityId
+  isect : IntersectedEntityData
+  launch_desc : LaunchDesc
+  vel : float3
+  dir : float3
+  waterLen : float
+  curTime : float
+  offender : EntityId
+  prev_projectile_dist : float
+  piercing_shift : float
+  allow_detonation : bool
+  gun_eid : EntityId
+  sceneHitRicochetStability : float
+  trace_ray_mat_id : int
+  check_if_should_apply_damage : bool
 
 [event(broadcast)]
 struct CmdSetCinematicModeEnabled
@@ -891,3 +965,6 @@ struct CmdSwitchToFirstWeapWithAmmo {}
 [event(broadcast)]
 struct EventControlsMenuToggle
   isShown : bool
+
+[event(unicast)]
+struct CmdUpdateCameraByVehicleType {}

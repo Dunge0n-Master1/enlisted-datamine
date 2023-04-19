@@ -4,9 +4,9 @@ require ecs.common
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.es.vehicle.vehicle_seats_common
-require EnlistedActor
-require EnlistedHuman
-require EnlistedNet
+require DngActor
+require DngHuman
+require DngNet
 require game.utils.team
 require matching
 

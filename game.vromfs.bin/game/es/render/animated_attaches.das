@@ -1,5 +1,5 @@
 require ecs
-require EnlistedCamera
+require DngCamera
 require AnimV20
 require math.base
 require enlisted.events_enlisted

@@ -5,8 +5,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { shopItemContentCtor, curUnseenAvailShopGuids, purchaseInProgress
 } = require("%enlist/shop/armyShopState.nut")
-let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, curSpecialization,
-  isSoldiersPurchasing
+let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, isSoldiersPurchasing
 } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { bigPadding, smallPadding, titleTxtColor, defTxtColor, darkBgColor,
   activeBgColor, hoverBgColor, selectedTxtColor, insideBorderColor
@@ -41,7 +40,12 @@ let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints
 let { perkPointIcon, getStatDescList, flexTextArea
 } = require("%enlist/soldiers/components/perksPackage.nut")
 let { configs } = require("%enlist/meta/configs.nut")
+let {
+  curSoldierKind, DEF_KIND
+} = require("%enlist/soldiers/model/soldiersState.nut")
 
+
+let curShopSoldierKind = Watched(DEF_KIND)
 let perkSchemes = Computed(@() configs.value?.perkSchemes ?? {})
 let soldierSchemes = Computed(@() configs.value?.soldierSchemes ?? {})
 
@@ -58,15 +62,15 @@ let isOpened = Watched(false)
 let mkShopNotifier = @(locId) mkNotifierNoBlink(locId, { margin = hdpx(3) })
 let shopItemNotifier = mkShopNotifier(loc("hint/newShopItemAvailable"))
 
-let function switchClass(classesToShow, delta){
-  let amountClasses = classesToShow.len()
-  local idx = classesToShow.findindex(@(val)
-    val?.soldierClass == curSpecialization.value)
+let function switchKind(kindsToShow, delta){
+  let amountKinds = kindsToShow.len()
+  local idx = kindsToShow.findindex(@(val)
+    val?.soldierKind == curShopSoldierKind.value)
   if (idx == null)
     return
 
-  idx = (idx + delta + amountClasses) % amountClasses
-  curSpecialization(classesToShow[idx].soldierClass)
+  idx = (idx + delta + amountKinds) % amountKinds
+  curSoldierKind(kindsToShow[idx].soldierKind)
 }
 
 isOpened.subscribe(function(v) {
@@ -104,18 +108,18 @@ let currentLimits = mkSClassLimitsComp(soldiersSquad, soldiersSquadParams,
 
 let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
   watchElemState(function(sf) {
-    let { soldierClass, reqLvl } = soldier
+    let { soldierKind, reqLvl } = soldier
     let curArmyLvl = armyData?.level ?? 0
-    let isSelected = soldierSpec == soldierClass
+    let isSelected = soldierSpec == soldierKind
 
-    let classInfo = currentLimits.value.findvalue(@(x) x.total > 0 && x.sKind == soldierClass)
+    let classInfo = currentLimits.value.findvalue(@(x) x.total > 0 && x.sKind == soldierKind)
     let isAvailable = reqLvl <= curArmyLvl && classInfo != null
 
     return {
       size = [hdpx(48), SIZE_TO_CONTENT]
       behavior = Behaviors.Button
       watch = currentLimits
-      onClick = @() curSpecialization(soldierClass)
+      onClick = @() curSoldierKind(soldierKind)
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
       gap = smallPadding
@@ -129,8 +133,8 @@ let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
           valign = ALIGN_CENTER
           halign = ALIGN_CENTER
           children = [
-            kindIcon(soldierClass, hdpx(26), null, specializationIconColor(sf, isSelected, isAvailable))
-            soldierClass in unseenSpecs
+            kindIcon(soldierKind, hdpx(26), null, specializationIconColor(sf, isSelected, isAvailable))
+            soldierKind in unseenSpecs
               ? smallUnseenNoBlink.__update({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
               : null
           ]
@@ -146,8 +150,8 @@ let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
   })
 
 
-let specializationsBlock = @(classesToShow, unseenSpecs) @() {
-  watch = [curArmyData, curSpecialization, isGamepad]
+let specializationsBlock = @(kindsToShow, unseenSpecs) @() {
+  watch = [curArmyData, curShopSoldierKind, isGamepad]
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
   gap = bigPadding
@@ -160,10 +164,10 @@ let specializationsBlock = @(classesToShow, unseenSpecs) @() {
     {
       flow = FLOW_HORIZONTAL
       valign = ALIGN_TOP
-      children = classesToShow
-        .map(@(v) mkSpecializationBtn(v, curSpecialization.value, curArmyData.value, unseenSpecs))
-        .insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchClass(classesToShow, -1)) : null)
-        .append(isGamepad.value ? mkHotkey("^J:RB", @() switchClass(classesToShow, 1)) : null)
+      children = kindsToShow
+        .map(@(v) mkSpecializationBtn(v, curShopSoldierKind.value, curArmyData.value, unseenSpecs))
+        .insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchKind(kindsToShow, -1)) : null)
+        .append(isGamepad.value ? mkHotkey("^J:RB", @() switchKind(kindsToShow, 1)) : null)
     }
   ]
 }
@@ -344,9 +348,9 @@ let function mkShopItemCard(shopItem, armyData) {
 }
 
 let mkSoldiersList = @(soldiersToShow) function() {
-  let soldiers = soldiersToShow.filter(@(s) s?.soldierKind == curSpecialization.value)
+  let soldiers = soldiersToShow.filter(@(s) s?.soldierKind == curShopSoldierKind.value)
   return {
-    watch = [curArmyData, curSpecialization]
+    watch = [curArmyData, curShopSoldierKind]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = bigPadding
@@ -365,7 +369,7 @@ let function wndContent(onCloseCb) {
         unseenSpecializations[val.content.soldierClasses[0]] <- true
     })
     let contentToShow = getSoldiersList(crateContent.value, soldierShopItems.value)
-    let { classesToShow, soldiersToShow } = contentToShow
+    let { kindsToShow, soldiersToShow } = contentToShow
     return {
       watch = [crateContent, unseenSoldierShopItems, soldierShopItems]
       rendObj = ROBJ_BOX
@@ -373,7 +377,7 @@ let function wndContent(onCloseCb) {
       borderColor = insideBorderColor
       fillColor = darkBgColor
       padding = [hdpx(60), hdpx(40)]
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [flex(), sh(70)]
       halign = ALIGN_CENTER
       children = [
         closeBtnBase({ onClick = onCloseCb })
@@ -381,7 +385,7 @@ let function wndContent(onCloseCb) {
           flow = FLOW_VERTICAL
           gap = hdpx(40)
           children = [
-            specializationsBlock(classesToShow, unseenSpecializations)
+            specializationsBlock(kindsToShow, unseenSpecializations)
             mkSoldiersList(soldiersToShow)
           ]
         }
@@ -390,6 +394,19 @@ let function wndContent(onCloseCb) {
     }
   }
 }
+
+
+let function updateSoldierKind(_) {
+  let sKind = curSoldierKind.value
+  let crateContent = getCrateContent(soldierShopItems)
+  let contentToShow = getSoldiersList(crateContent.value, soldierShopItems.value)
+  let { kindsToShow } = contentToShow
+  if (kindsToShow.findvalue(@(v) v.soldierKind == sKind) != null)
+    curShopSoldierKind(sKind)
+}
+
+foreach (v in [curSoldierKind, requestedCratesContent])
+  v.subscribe(updateSoldierKind)
 
 
 let soldiersPurchaseWnd = @(onCloseCb) {

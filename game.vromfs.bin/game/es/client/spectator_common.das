@@ -1,12 +1,13 @@
 module spectator_common shared
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require DagorMath
 require strings
-require EnlistedCamera
+require DngCamera
 require player
 require game.events_game
+require game.es.camera_common
 
 
 def set_spectated(cam_eid : EntityId; var spectatedEid : EntityId&; new_eid : EntityId; initial : bool = false) : void

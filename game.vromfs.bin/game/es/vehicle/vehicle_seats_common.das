@@ -6,10 +6,13 @@ require player
 require vehicle
 require game.utils.hero
 require app
-require EnlistedNet
+require DngNet
 require math.base
 require Grid
 require GridCollision
+require AnimV20
+require CollRes
+require GeomNodeTree
 require game.es.events
 require game.es.vehicle.vehicle_events
 require game.utils.net_utils
@@ -32,6 +35,35 @@ def find_seat_eid_with_owner(owner_eid, seat_eids) : EntityId
   let seatNo = find_seat_with_owner(owner_eid, seat_eids)
   return uint(seatNo) >= uint(length(seat_eids)) ? INVALID_ENTITY_ID : seat_eids[seatNo]
 
+def get_seat_attach_tm(seat_eid : EntityId;
+                       animchar : AnimcharBaseComponent;
+                       collres : CollisionResource;
+                       transform : float3x4;
+                       var out_tm : float3x4)
+  var res = false
+  query(seat_eid) <| $ [es] (seats_attach_nodes__nodeId : int;
+                             seats_attach_nodes__collNodeId : int;
+                             seats_attach_nodes__ignoreAttachNodeRotation : bool;
+                             seats_attach_nodes__nodeItm : float3x4;
+                             seats_attach_nodes__attachTm : float3x4)
+    if seats_attach_nodes__nodeId >= 0
+      geomtree_getNodeWtmScalar(*animchar.nodeTree, seats_attach_nodes__nodeId, out_tm)
+    elif seats_attach_nodes__collNodeId >= 0
+      collres_get_collision_node_tm(collres, seats_attach_nodes__collNodeId,
+                                    transform, null, out_tm)
+    else
+      out_tm = transform
+
+    if seats_attach_nodes__ignoreAttachNodeRotation
+      let nodePos = out_tm[3]
+      out_tm = out_tm * seats_attach_nodes__nodeItm
+      out_tm[3] = nodePos
+    elif det(out_tm) < 0.0f
+      orthonormalize(out_tm)
+
+    out_tm = out_tm * seats_attach_nodes__attachTm
+    res = true
+  return res
 
 def find_seat_no(name : string; seats : ecs::Array) : int
   if name == ""
@@ -183,7 +215,9 @@ def enter_vehicle(requester : EntityId; vehicle : EntityId; vehicle_seats__seatE
 
 def cancel_exit_timer(requester : EntityId) : bool
   var res = true
-  query(requester) <| $ [es] (var exit_vehicle__atTime : float?)
+  query(requester) <| $ [es] (var exit_vehicle__atTime : float?; human_vehicle__exitAnimator : Tag const?)
+    if human_vehicle__exitAnimator != null && exit_vehicle__atTime != null && *exit_vehicle__atTime > get_sync_time()
+      return
     if exit_vehicle__atTime == null || *exit_vehicle__atTime < get_sync_time()
       res = false
       return
@@ -196,15 +230,22 @@ def start_exit_vehicle_timer(requester : EntityId; exit_time : float) : bool
   var timerStarted = false
   query(requester) <| $ [es] (possessedByPlr : EntityId;
                               var exit_vehicle__atTime : float&;
-                              entity_mods__vehicleChangeSeatTimeMult : float = 1.0)
+                              entity_mods__vehicleChangeSeatTimeMult : float = 1.0;
+                              human_vehicle__exitAnimatorTime : float const?;
+                              var human_vehicle__exitAtTime : float?)
     if !possessedByPlr
       return
-    exit_vehicle__atTime = get_sync_time() + exit_time * entity_mods__vehicleChangeSeatTimeMult
+    if human_vehicle__exitAnimatorTime != null
+      exit_vehicle__atTime = exit_vehicle__atTime < 0. ? get_sync_time() + *human_vehicle__exitAnimatorTime : exit_vehicle__atTime
+      assert(human_vehicle__exitAtTime != null)
+      *human_vehicle__exitAtTime = exit_vehicle__atTime // human_vehicle__exitAtTime is non-replicated component, so that animation can't be interupted by a change from server
+    else
+      exit_vehicle__atTime = get_sync_time() + exit_time * entity_mods__vehicleChangeSeatTimeMult
     timerStarted = true
   return timerStarted
 
 def exit_vehicle_now(requester : EntityId; vehicle : EntityId)
-  if is_server()
+  if is_server() || has(requester, "human_vehicle__exitAnimator")
     sendEvent(vehicle, [[CmdKickFromVehicle eid=requester]])
 
 def exit_vehicle(requester : EntityId; vehicle : EntityId; exit_time : float)

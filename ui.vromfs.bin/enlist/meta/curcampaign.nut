@@ -3,6 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let {mkOnlineSaveData} = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { squadLeaderState, isInSquad, isSquadLeader } = require("%enlist/squad/squadState.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedProgressCampaigns } = require("campaigns.nut")
+let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
+
 
 let curCampaignStorage = mkOnlineSaveData("curCampaign")
 let setCurCampaign = curCampaignStorage.setValue
@@ -27,6 +29,9 @@ let curCampaign = Computed(@()
   ?? selectedCampaign.value
   ?? unlockedCampaigns.value?[0])
 
+let curCampaignConfig = Computed(@() gameProfile.value?.campaigns[curCampaign.value])
+let curCampaignLocId = Computed(@() curCampaignConfig.value?.title ?? curCampaign.value)
+
 let function addCurCampaignOverride(id, campaign) {
   let cfg = campaignOverride.value.findvalue(@(c) c.id == id)
   if (cfg == null)
@@ -47,6 +52,8 @@ return {
   setCurCampaign
   setRoomCampaign = @(campaign) roomCampaign(campaign)
   curCampaign
+  curCampaignConfig
+  curCampaignLocId
   canChangeCampaign = Computed(@() !isInSquad.value || isSquadLeader.value)
   isCurCampaignProgressUnlocked = Computed(@() curCampaign.value not in lockedProgressCampaigns.value)
   addCurCampaignOverride

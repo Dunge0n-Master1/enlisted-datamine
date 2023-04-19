@@ -7,15 +7,14 @@ require game.utils.team
 require zones
 require AnimV20
 require GeomNodeTree
-require EnlistedWeapon
-require EnlistedHuman
+require DngWeapon
+require DngHuman
 require DagorMath
 require Grid
 require RendInst
 require CollRes
 require Dacoll
 require GridCollision
-require common_shooter.es.grenade_thrower_common
 
 
 [es(tag=server, REQUIRE=human_use_object__selectedObject, REQUIRE_NOT=deadEntity)]
@@ -61,18 +60,6 @@ def hero_human_use_current_vehicle_object_es(info : ParallelUpdateFrameDelayed;
     return
   human_use_object__selectedObject = human_anim__vehicleSelected
   human_use_object__lookAtSelected = true
-
-
-[es(REQUIRE=hero, after=hero_human_pre_use_object_es, before=hero_human_final_use_object_sync)]
-def hero_human_use_grenade_rethrow_object_es(info : ParallelUpdateFrameDelayed;
-                                             eid : EntityId;
-                                             human_use_object__lockGrenadeRethrowing : bool = false;
-                                             var human_use_object__selectedObject : EntityId&)
-  // We have something better already
-  if human_use_object__selectedObject != INVALID_ENTITY_ID || human_use_object__lockGrenadeRethrowing
-    return
-
-  human_use_object__selectedObject = find_rethrowable_grenade(eid)
 
 
 [es(REQUIRE=hero, after=(hero_human_use_craft_bag, hero_human_use_current_vehicle_object_es, hero_human_pre_use_object_es), before=hero_human_final_use_object_sync)]

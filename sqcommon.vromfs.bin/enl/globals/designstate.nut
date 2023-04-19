@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { globalWatched } = require("%dngscripts/globalState.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
-let { reload_ui_scripts, reload_enlist_scripts } = require("app")
+let { reload_ui_scripts, reload_overlay_ui_scripts } = require("app")
 
 let { newDesign, newDesignUpdate } = globalWatched("newDesign", @() false)
 let { enlistDirty, enlistDirtyUpdate } = globalWatched("enlistDirty", @() false)
@@ -16,7 +16,7 @@ isInBattleState.subscribe(function(inBattle) {
   }
   if (!inBattle && enlistDirty.value) {
     enlistDirtyUpdate(false)
-    reload_enlist_scripts()
+    reload_overlay_ui_scripts()
   }
 })
 
@@ -30,7 +30,7 @@ let function setDesign(isNew) {
     reload_ui_scripts()
   } else {
     battleDirtyUpdate(true)
-    reload_enlist_scripts()
+    reload_overlay_ui_scripts()
   }
 }
 

@@ -4,23 +4,31 @@ let { fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let faComp = require("%ui/components/faComp.nut")
 let tooltipCtor = require("%ui/style/tooltipCtor.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { READY } = require("%enlSqGlob/readyStatus.nut")
-let { mkSquadPremIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { kindIcon, kindName } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let freeVehicleSeats = require("%enlist/squad/freeVehicleSeats.nut")
-let { curSquadId, curSquad, curSquadParams } = require("%enlist/soldiers/model/state.nut")
+let { curSquadId, curSquad, curArmy, soldiersBySquad } = require("%enlist/soldiers/model/state.nut")
+let squadsParams = require("%enlist/soldiers/model/squadsParams.nut")
 let { vehicleCapacity } = require("%enlist/soldiers/model/squadInfoState.nut")
-let { curSoldiersDataList } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { curSquadSoldiersStatus } = require("%enlist/soldiers/model/readySoldiers.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadInfoPkg.nut")
-let {
-  colPart, squadInfoColor, titleTxtColor, smallPadding, colFull, bigPadding, miniPadding
+let { colPart, titleTxtColor, smallPadding, colFull, bigPadding, midPadding,
+  defTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
+let sClassesConfig = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let { getObjectsByLinkSorted } = require("%enlSqGlob/ui/metalink.nut")
+let { curCampSoldiers } = require("%enlist/meta/profile.nut")
+let { selectedSquad, selectedSquadId } = require("%enlist/soldiers/model/chooseSquadsState.nut")
 
 
-let defTxtStyle = { color = squadInfoColor }.__update(fontSmall)
+let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let headerTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+
+let squadIdToShow = Computed(@() selectedSquadId.value ?? curSquadId.value)
+let squadToShow = Computed(@() selectedSquad.value ?? curSquad.value)
+
+let curSquadParams = Computed(@()
+  squadsParams.value?[curArmy.value][squadIdToShow.value])
 
 
 let maxSquadVehicleSize = Computed(function() {
@@ -36,20 +44,21 @@ let mkSClassLimitsComp = Computed(function() {
   if (maxClasses.len() == 0)
     return res
 
-  let soldierStatus = curSquadSoldiersStatus.value
+  let soldiers = soldiersBySquad.value?[squadToShow.value.guid] ?? []
   let usedClasses = {}
-  foreach (soldier in curSoldiersDataList.value) {
-    if (soldierStatus?[soldier.guid] != READY)
+  foreach (soldier in soldiers) {
+    let { sClass = "" } = soldier
+    let sKind = sClassesConfig.value[sClass]?.kind
+    if (sKind == null)
       continue
-    let { sKind = "" } = soldier
     usedClasses[sKind] <- (usedClasses?[sKind] ?? 0) + 1
   }
 
-  let fillerClass = curSquad.value?.fillerClass
+  let fillerClass = squadToShow.value?.fillerClass
   foreach (sKind, total in maxClasses)
     res.append({
-      sKind = sKind
-      total = total
+      sKind
+      total
       used = usedClasses?[sKind] ?? 0
       isFiller = sKind == fillerClass
     })
@@ -97,9 +106,8 @@ let mkClassAmount = @(sClass) {
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   children = [
-    kindIcon(sClass.sKind, colPart(0.4), null, squadInfoColor)
+    kindIcon(sClass.sKind, colPart(0.4), null, defTxtColor)
     {
-      size = [SIZE_TO_CONTENT, colPart(0.25)]
       rendObj = ROBJ_TEXT
       text = $"{sClass.used}/{sClass.total}"
     }.__update(defTxtStyle)
@@ -112,7 +120,7 @@ let gapWithLine = {
   rendObj = ROBJ_VECTOR_CANVAS
   commands = [
     [VECTOR_WIDTH, hdpx(1)],
-    [VECTOR_COLOR, squadInfoColor],
+    [VECTOR_COLOR, defTxtColor],
     [VECTOR_LINE, 50, 0, 50, 100]
   ]
 }
@@ -133,16 +141,16 @@ let sizeHint = @(bAmount, maxAmount) {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   maxWidth = hdpx(500)
-  color = squadInfoColor
   text = loc("hint/maxSquadSize", {
     battle = bAmount
     max = maxAmount
   })
-}
+}.__update(defTxtStyle)
 
 
-let squadSizeUi = @(battleAmount) function() {
-  let res = { watch = [battleAmount, maxSquadVehicleSize] }
+let squadSizeUi = @(squadGuid) function() {
+  let battleAmount = getObjectsByLinkSorted(curCampSoldiers.value, squadGuid, "squad").len()
+  let res = { watch = [maxSquadVehicleSize, curCampSoldiers] }
   let amount = maxSquadVehicleSize.value
   if (amount <= 0)
     return res
@@ -151,15 +159,15 @@ let squadSizeUi = @(battleAmount) function() {
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     behavior = Behaviors.Button
-    onHover = @(on) setTooltip(!on ? null : tooltipCtor(sizeHint(battleAmount.value, amount)))
+    onHover = @(on) setTooltip(!on ? null : tooltipCtor(sizeHint(battleAmount, amount)))
     skipDirPadNav = true
     valign = ALIGN_BOTTOM
     children = [
-      faComp("user", { fontSize = colPart(0.2), color = squadInfoColor })
+      faComp("user", { fontSize = colPart(0.2), color = defTxtColor })
       {
         size = [SIZE_TO_CONTENT, fontSmall.fontSize]
         rendObj = ROBJ_TEXT
-        text = loc("membersCount", { count = $"{battleAmount.value}/{amount}"})
+        text = loc("membersCount", { count = $"{battleAmount}/{amount}"})
       }.__update(defTxtStyle)
     ]
   })
@@ -167,16 +175,12 @@ let squadSizeUi = @(battleAmount) function() {
 
 
 let infoBlock = @(squad) {
-  flow = FLOW_HORIZONTAL
+  size = [flex(), SIZE_TO_CONTENT]
   gap = smallPadding
-  children = [
-    mkSquadPremIcon(squad?.premIcon)
-    {
-      rendObj = ROBJ_TEXT
-      text = loc(squad?.titleLocId)
-    }.__update(headerTxtStyle)
-  ]
-}
+  rendObj = ROBJ_TEXTAREA
+  behavior = Behaviors.TextArea
+  text = loc(squad?.titleLocId)
+}.__update(headerTxtStyle)
 
 
 let mkSquadLevel = @(level) {
@@ -185,38 +189,39 @@ let mkSquadLevel = @(level) {
 }.__update(defTxtStyle)
 
 
-let function squadHeader(needIcon = false, needVehicleSeatsInfo = true) {
-  let battleAmount = Computed(@() curSoldiersDataList.value.reduce(@(res, s)
-    curSquadSoldiersStatus.value?[s.guid] == READY ? res + 1 : res, 0))
-
+let function squadInfo(needIcon = false, needVehicleSeatsInfo = true) {
   return function() {
-    let res = { watch = [curSquad, curSquadSoldiersStatus] }
-    let squad = curSquad.value
+    let res = { watch = [squadToShow, curSquadSoldiersStatus, curArmy] }
+    let squad = squadToShow.value
     if (!squad)
       return res
 
     return res.__update({
+      size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
-      gap = bigPadding
       behavior = Behaviors.Button
       onHover = @(on) setTooltip(on ? tooltipCtor(classAmountHint) : null)
       skipDirPadNav = true
+      vplace = ALIGN_CENTER
+      gap = midPadding
       children = [
         {
           flow = FLOW_HORIZONTAL
-          gap = bigPadding
+          gap = midPadding
           valign = ALIGN_CENTER
           children = [
-            needIcon ? mkSquadIcon(curSquad.value?.icon, { size = [colPart(1.1), colPart(1.1)] }) : null
+            needIcon ? mkSquadIcon(squad?.icon, { size = [colPart(1.1), colPart(1.1)] })
+              : null
             {
               flow = FLOW_VERTICAL
-              gap = miniPadding
+              gap = midPadding
               children = [
+                squadClassesUi
                 {
                   flow = FLOW_HORIZONTAL
                   gap = gapWithLine
                   children = [
-                    squadSizeUi(battleAmount)
+                    squadSizeUi(squad.guid)
                     @() {
                       watch = [allSquadsLevels, curSquadId]
                       children = mkSquadLevel(allSquadsLevels.value?[curSquadId.value] ?? 0)
@@ -224,7 +229,6 @@ let function squadHeader(needIcon = false, needVehicleSeatsInfo = true) {
                   ]
                 }
                 needVehicleSeatsInfo ? freeVehicleSeats : null
-                squadClassesUi
               ]
             }
           ]
@@ -236,4 +240,52 @@ let function squadHeader(needIcon = false, needVehicleSeatsInfo = true) {
 }
 
 
-return squadHeader
+let mkLockedClassAmount = @(sClass, amount) {
+  size = [colPart(0.4), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = [
+    kindIcon(sClass, colPart(0.4), null, defTxtColor)
+    {
+      size = [SIZE_TO_CONTENT, colPart(0.25)]
+      rendObj = ROBJ_TEXT
+      text = amount
+    }.__update(defTxtStyle)
+  ]
+}
+
+
+
+let reserveSquadClassesUi = @(data) @() {
+  watch = sClassesConfig
+  flow = FLOW_HORIZONTAL
+  valign = ALIGN_CENTER
+  gap = gapWithLine
+  children = data
+    .reduce(function(res, soldier) {
+      let sKind = sClassesConfig.value?[soldier.sClass].kind
+      if (sKind != null)
+        res[sKind] <- (res?[sKind] ?? 0) + 1
+      return res
+    }, {})
+    .reduce(@(res, count, sKind) res.append(mkLockedClassAmount(sKind, count)), [])
+}
+
+
+let lockedSquadInfo = @(squadCfg) {
+  size = [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  gap = bigPadding
+  skipDirPadNav = true
+  children = [
+    reserveSquadClassesUi(squadCfg.startSoldiers)
+    infoBlock(squadCfg)
+  ]
+}
+
+
+return {
+  squadInfo
+  lockedSquadInfo
+}

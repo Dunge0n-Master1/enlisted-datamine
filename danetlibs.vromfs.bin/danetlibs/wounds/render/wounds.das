@@ -1,6 +1,6 @@
 require app
 require ecs
-require EnlistedWounds
+require DngWounds
 require danetlibs.wounds.render.wounds_events
 
 

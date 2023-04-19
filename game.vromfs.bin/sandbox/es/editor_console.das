@@ -1,8 +1,9 @@
 options no_aot
 require ecs
-require EnlistedCamera
+require DngCamera
 require DagorConsole
 require game.es.teleport_common
+require game.es.camera_common
 
 [console_cmd(name="editor.test_mode")]
 def editor_test_mode_cmd()

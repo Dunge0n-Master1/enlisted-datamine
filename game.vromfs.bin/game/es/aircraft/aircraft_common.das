@@ -1,9 +1,9 @@
 module aircraft_common shared
 require ecs
 require Plane
-require EnlistedPlane
+require DngPlane
 require dm
-require EnlistedDm
+require DngDm
 require game.es.events
 require game.es.vehicle.vehicle_events
 require math.base

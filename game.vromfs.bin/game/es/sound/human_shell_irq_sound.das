@@ -3,7 +3,7 @@ require HumanPhys
 require soundEvent
 require soundHash
 require DaWeaponProps
-require soundProps
+require shellSoundProps
 require strings
 require common_sounds.modules.common_sounds_events
 require sound_utils.modules.sound_player_common

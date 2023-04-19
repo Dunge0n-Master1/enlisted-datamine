@@ -1,6 +1,6 @@
 require ecs
 require math.base
-require EnlistedCamera
+require DngCamera
 
 // seems that sndsys::update_listener_pos is called after game code update, so get_listener_pos() is 1 frame delayed;
 // should get listener_position directly from camera for systems where it is important.

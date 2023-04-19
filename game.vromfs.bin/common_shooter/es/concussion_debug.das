@@ -11,7 +11,7 @@ require DaWeaponProps
 require DaWeapons
 require AnimV20
 require GeomNodeTree
-require EnlistedDm
+require DngDm
 
 [console_cmd(name="affect.concussion")]
 def console_activate_concussion()

@@ -2007,7 +2007,7 @@ entity{
   capzone__onlyTeamCanCapture:i=1
   groupName:t="sector_3"
   capzone__capTime:r=60.0
-  capzone__capTeam:i=2
+  capzone__capTeam:i=-1
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3

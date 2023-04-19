@@ -2,8 +2,8 @@ require ecs
 require math
 require math.base
 require Plane
-require EnlistedPlane
-require EnlistedCamera
+require DngPlane
+require DngCamera
 require DagorMath
 require DagorMathUtils
 require DagorSystem

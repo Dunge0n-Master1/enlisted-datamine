@@ -11,9 +11,9 @@ let { soundDefault } = require("%ui/components/textButton.nut")
 
 let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
   function() {
-    let progress = getUnlockProgress(unlockDesc)
+    let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
     return {
-      watch = [unlockProgress]
+      watch = unlockProgress
       size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       children = {

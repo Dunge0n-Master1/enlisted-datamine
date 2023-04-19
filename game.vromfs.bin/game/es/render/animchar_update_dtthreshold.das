@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedHumanAnim
+require DngHumanAnim
 require enlisted.events_enlisted
 
 [es(tag=render, REQUIRE_NOT=animchar__actOnDemand, before=(animchar_es, net_phys_update_es))]

@@ -5,9 +5,10 @@ let { HEAL_RES_COMMON, HEAL_RES_REVIVE, ATTACK_RES } = require("%ui/hud/state/sq
 let { DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
 let { mkMineIcon } = require("%ui/hud/huds/player_info/mineIcon.nut")
-let { mkMedkitIcon } = require("%ui/hud/huds/player_info/medkitIcon.nut")
-let { mkFlaskIcon } = require("%ui/hud/huds/player_info/flaskIcon.nut")
+let mkMedkitIcon = require("%ui/hud/huds/player_info/medkitIcon.nut")
+let mkFlaskIcon = require("%ui/hud/huds/player_info/flaskIcon.nut")
 let { kindIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { controlledHeroEid } = require("%ui/hud/state/controlled_hero.nut")
 let {AI_ACTION_UNKNOWN, AI_ACTION_STAND, AI_ACTION_HEAL,
   AI_ACTION_HIDE, AI_ACTION_MOVE, AI_ACTION_ATTACK, AI_ACTION_IN_COVER, AI_ACTION_RELOADING, AI_ACTION_DOWNED} = require("ai")
@@ -17,19 +18,19 @@ let calcIconHpColor = @(ratio, defColor) ratio < 0.3 ? Color(200,50,50)
   : defColor
 
 let mkGrenadeIconByMember = @(member, size) member.isAlive && member.grenadeType != null
-  ? mkGrenadeIcon(member.grenadeType, size)
+  ? mkGrenadeIcon(member.grenadeType, size, defTxtColor)
   : null
 
 let mkMineIconByMember = @(member, size) member.isAlive && member.mineType != null
-  ? mkMineIcon(member.mineType, size)
+  ? mkMineIcon(member.mineType, size, defTxtColor)
   : null
 
 let mkMemberHealsBlock = @(member, size) member.isAlive && member.targetHealCount > 0
-  ? mkMedkitIcon(size)
+  ? mkMedkitIcon(size, defTxtColor)
   : null
 
 let mkMemberFlaskBlock = @(member, size) member.isAlive && member.hasFlask
-  ? mkFlaskIcon(size)
+  ? mkFlaskIcon(size, defTxtColor)
   : null
 
 let animByTrigger = @(color, time, trigger) trigger
@@ -88,7 +89,7 @@ let mkStatusIcon = @(member, size, color=DEFAULT_TEXT_COLOR) {
     animByTrigger(Color(0, 100, 200, 200), 3.0, member?.hitTriggers[HEAL_RES_REVIVE])
   ]
   children = member.isAlive
-    ? kindIcon(member?.sKind, size, member?.sClassRare).__update({color, vplace = ALIGN_CENTER})
+    ? kindIcon(member?.displayedKind ?? member?.sKind, size, member?.sClassRare).__update({color, vplace = ALIGN_CENTER})
     : deaths
 }
 

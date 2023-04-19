@@ -173,43 +173,39 @@ cutting_planes_manager{
 }
 
 plane_wheel_effects{
+  _tags:t="render"
+  plane_wheel_fx__wheelAngularAccelMin:r=30.0
+  plane_wheel_fx__wheelDustFxTemplate:t="plane_ground_dust_effect"
+  plane_wheel_fx__wheelFrictionFxTemplate:t="plane_ground_dust_friction_effect"
 
-  plane_wheel_fx{
-    _tags:t="render"
+  "plane_wheel_fx__nodeIds:list<i>"{
   }
 
-  _group{
-    _tags:t="render"
-    plane_wheel_fx__wheelDustPhysmatFxType:t="dust"
-    plane_wheel_fx__wheelFrictionPhysmatFxType:t="friction"
-    plane_wheel_fx__velMult:r=0.7
-    plane_wheel_fx__spawnRate:p4=10.0, 30.0, 0.0, 1.0
-    plane_wheel_fx__wheelAngularAccelMin:r=30.0
+  "plane_wheel_fx__dustFxEids:list<eid>"{
+  }
 
-    "plane_wheel_fx__emitters:list<t>"{
-      node:t="wheel_l"
-      node:t="wheel_1l"
-      node:t="wheel_r"
-      node:t="wheel_1r"
-      node:t="wheel_c"
-      node:t="wheel_2c"
-      node:t="wheel_3c"
-    }
+  "plane_wheel_fx__frictionFxEids:list<eid>"{
+  }
+
+  "plane_wheel_fx__emitters:list<t>"{
+    node:t="wheel_l"
+    node:t="wheel_1l"
+    node:t="wheel_r"
+    node:t="wheel_1r"
+    node:t="wheel_c"
+    node:t="wheel_2c"
+    node:t="wheel_3c"
   }
 }
 
 plane_propeller_effects{
 
-  propeller_fx__effects{
-    _tags:t="render"
-  }
-
   _group{
     _tags:t="render"
-    propeller_fx__propellerFxTypeId:i=-1
-    propeller_fx__helicopterRotorFxTypeId:i=-1
-    propeller_fx__propellerFxType:t="propeller"
-    propeller_fx__helicopterRotorFxType:t="rotor"
+    propeller_fx__ground_type:t="plane_ground_dust_effect"
+    propeller_fx__water_type:t="plane_water_effect"
+    propeller_fx__updateAtTime:r=0.0
+    propeller_fx__updateInterval:r=0.2
     propeller_fx__groundDustAlt:r=50.0
     propeller_fx__groundDustForce:p2=150.0, 2500.0
     propeller_fx__groundDustSpeed:p2=30.0, 100.0
@@ -217,6 +213,12 @@ plane_propeller_effects{
     propeller_fx__waterSplashAlt:r=40.0
     propeller_fx__waterSplashForce:p2=250.0, 4000.0
     propeller_fx__waterSplashSpeed:p2=30.0, 100.0
+
+    "propeller_fx__effectsEids:list<eid>"{
+    }
+
+    "propeller_fx__matId:list<i>"{
+    }
   }
 }
 
@@ -277,15 +279,20 @@ plane_piston_engine_effects{
 
 contrail_effects{
 
-  contrail_fx{
-    _tags:t="render"
-  }
-
   _group{
     _tags:t="render"
-    contrail_fx__fxType:t="contrail"
+    contrail_fx__fxTemplate:t="trail_plane_exhaust_contrail_effect"
     contrail_fx__maxContrailTemperature:r=-20.0
     contrail_fx__minThrottle:r=0.05
+
+    "contrail_fx__engineIndices:list<i>"{
+    }
+
+    "contrail_fx__nodeIds:list<i>"{
+    }
+
+    "contrail_fx__fxEids:list<eid>"{
+    }
 
     "contrail_fx__emitters:array"{
 
@@ -659,6 +666,7 @@ plane_base{
   _extends:t="plane_landing"
   _extends:t="plane_landing_repair"
   _extends:t="plane_landing_hook"
+  _extends:t="plane_increased_damage"
   battle_area__timeToDamageType:t="aircraft"
   plane_input__autoDisableMouseAim:b=no
   plane_input__mouseAimEnabled:b=yes
@@ -844,10 +852,21 @@ plane_base{
     }
   }
 
+  _group{
+    _tags:t="gameClient"
+    plane__currFlapsPosIndex:i=0
+
+    "plane__flapsIndices:list<i>"{
+    }
+  }
+
   plane_anim{
   }
 
   plane_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
@@ -1108,13 +1127,13 @@ ai_aircraft{
   }
 
   _group{
-    _tags:t="server"
     ai_aircraft__state:i=0
     ai_aircraft__endPos:p3=0.0, 0.0, 0.0
     ai_aircraft__flyPos:p3=0.0, 0.0, 0.0
     ai_aircraft__targetPos:p3=0.0, 0.0, 0.0
     ai_aircraft__shootOffset:p3=0.0, 0.0, 0.0
     ai_aircraft__minDistToHide:r=1000.0
+    ai_aircraft__distToKickParatroopers:r=400.0
     ai_aircraft__wishSpeed:r=75.0
     ai_aircraft__shoot_angles:p2=0.5, 0.7
     ai_aircraft__prevShootLength:r=-1.0
@@ -1140,6 +1159,7 @@ ai_aircraft{
 
   _group{
     _tags:t="ui"
+    hud_aircraft_marker__visibilityHeight:r=10.0
     hud_aircraft_marker__clampToBorder:b=yes
     hud_aircraft_marker__isVisible:b=no
     hud_aircraft_marker__isIdentified:b=yes
@@ -1157,6 +1177,7 @@ debug_aircraft{
 }
 
 requested_aircraft{
+  _extends:t="periodic_random_effects"
 
   "requested_aircraft:tag"{
   }

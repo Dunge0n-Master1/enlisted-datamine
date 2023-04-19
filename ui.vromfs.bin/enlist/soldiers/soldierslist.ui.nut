@@ -22,7 +22,6 @@ let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.
 let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 
-
 let quickMatchButtonWidth = hdpx(400)
 
 let mainContent = {

@@ -44,7 +44,7 @@ def turret_gun_flash_fx_inserter_es(info : ParallelUpdateFrameDelayed;
 
         tm = tm * get_mult_tm(fxScale ?? 1.0)
 
-        let flashEid = createEntity(add_sub_template_name(string(gunFx.turret_gun_fx__fxTemplate),
+        createEntity(add_sub_template_name(string(gunFx.turret_gun_fx__fxTemplate),
             "turret_gun_flash_fx")) <| $(var init : ComponentsInitializer)
           set(init, "transform", tm)
           set(init, "gun_flash_fx__gunEid", eid)

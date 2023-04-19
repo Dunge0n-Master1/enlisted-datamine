@@ -4,27 +4,7 @@ require math.base
 require DagorMath
 require MotionMatching
 require danetlibs/motion_matching/es/mm_events
-require danetlibs/motion_matching/es/motion_matching_common
 
-[es(on_appear)]
-def init_anim_data_base_weights(evt : Event;
-                                var dataBase : AnimationDataBase;
-                                weightsPath : string;
-                                rootMotionPath : string;
-                                var main_database__root_node : das_string;
-                                var main_database__direction_nodes : StringList;
-                                var main_database__direction_weights : FloatList;
-                                var main_database__center_of_mass_nodes : StringList;
-                                var main_database__center_of_mass_params : Point4List;
-                                var main_database__presetsTagsName : StringList)
-
-  deserialize_presets(weightsPath, dataBase.tagsPresets, dataBase.nodesName, dataBase.predictionTimes, main_database__presetsTagsName)
-  deserialize_root_motions(rootMotionPath, main_database__root_node, main_database__direction_nodes, main_database__direction_weights, main_database__center_of_mass_nodes, main_database__center_of_mass_params)
-
-  dataBase.nodeCount = dataBase.nodesName |> length()
-  dataBase.trajectorySize = dataBase.predictionTimes |> length()
-
-  dataBase.featuresSize = get_features_sizes(dataBase.nodeCount, dataBase.trajectorySize)
 
 [es(before=trajectory_prediction, tag=tools)]
 def tool_input(info : UpdateStageInfoAct;
@@ -61,7 +41,7 @@ def mm_lod_selector(info : ParallelUpdateFrameDelayed;
     motion_matching__distanceFactor += 0.2f * sqrt(distance)
     return true
 
-[es(before=update_matched_nodes_es)]
+[es(before=mm_update_goal_trajectory_es)]
 def trajectory_prediction(info : ParallelUpdateFrameDelayed;
                           motion_matching__linearVelocity : float3;
                           motion_matching__angularVelocity : float3;

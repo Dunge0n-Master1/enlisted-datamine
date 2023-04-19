@@ -94,7 +94,7 @@ let unlockProgress = Computed(function() {
   return allKeys.map(@(_, name) calcUnlockProgress(progressList?[name], unlockDataList?[name]))
 })
 
-let getUnlockProgress = @(unlockDesc) unlockProgress.value?[unlockDesc?.name] ?? (clone emptyProgress)
+let getUnlockProgress = @(unlockDesc, unlockProgressVal) unlockProgressVal?[unlockDesc?.name] ?? (clone emptyProgress)
 
 let mkRequirements = memoize(@(reqStr) reqStr.split("&").map(@(v) strip(v)).filter(@(v) v!=""))
 let isUnlockAvailable = @(unlockProgressV, unlock)

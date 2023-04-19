@@ -1,8 +1,8 @@
 require ecs
-require EnlistedNet
+require DngNet
 require game.es.events
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require RendInst
 require DagorMath
 require CollRes

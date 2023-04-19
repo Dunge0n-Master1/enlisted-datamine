@@ -1,39 +1,54 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
+let { sub_txt, tiny_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let { round } = require("math")
 
-let noInfoHeight = hdpxi(35)
-let withInfoHeight = hdpxi(55)
-let padding = hdpx(10)
+let darkColor = 0xFF113322
 
-let function mkBoosterMark(expMul, infoText = null, override = {}) {
-  let isEmptyInfo = (infoText ?? "") == ""
-  let height = isEmptyInfo ? noInfoHeight : withInfoHeight
-  let offs = [0, (0.3 * height).tointeger(), 0, (0.1 * height).tointeger()]
+let downArrow = {
+  rendObj = ROBJ_TEXT
+  color = 0xFFCC3300
+  text = fa["arrow-circle-down"]
+}.__update(fontawesome, {fontSize = fsh(1.35)})
+
+let function mkBoosterMark(expMul, expPenalty = 0.0, infoText = null, override = {}) {
+  let offs = [5, 25, 10, 5]
+  let boosterVal = round(((expMul + 1.0) * (expPenalty + 1.0) - 1.0) * 100)
+  let text = loc("expBooster", { booster = boosterVal >= 0 ? $"+{boosterVal}" : boosterVal })
+
   return {
-    size = [SIZE_TO_CONTENT, height]
-    padding = [0, 0.2 * height + padding, 0, padding]
     rendObj = ROBJ_9RECT
-    image = Picture($"!ui/skin#booster_bg.svg:{(1.1 * height + 0.5).tointeger()}:{height}?Ac")
+    image = Picture($"!ui/skin#booster_bg.svg?Ac")
     texOffs = offs
     screenOffs = offs
+    padding = [hdpxi(5), hdpxi(15), hdpxi(10), hdpxi(10)]
+    size = [SIZE_TO_CONTENT, hdpxi(60)]
 
     flow = FLOW_VERTICAL
     valign = ALIGN_CENTER
 
     children = [
       {
-        rendObj = ROBJ_TEXT
-        color = 0xFFB5E1CF
-        text = loc("expBoost", { boost = (100.0 * expMul + 0.5).tointeger() })
-      }.__update(sub_txt)
-      isEmptyInfo ? null
+        flow = FLOW_HORIZONTAL
+        valign = ALIGN_CENTER
+        gap = hdpx(5)
+        children = [
+          expPenalty != 0 ? downArrow : null
+          {
+            rendObj = ROBJ_TEXTAREA
+            behavior = Behaviors.TextArea
+            color = darkColor
+            text
+          }.__update(sub_txt)
+        ]
+      }
+      "" == (infoText ?? "") ? null
         : {
             rendObj = ROBJ_TEXT
-            color = 0xFF2B4637
+            color = darkColor
             text = infoText
           }.__update(tiny_txt)
-      { size = [0, 0.1 *height] } //bottom padding does not work with valign, but need offset for shadow
     ]
   }.__update(override)
 }

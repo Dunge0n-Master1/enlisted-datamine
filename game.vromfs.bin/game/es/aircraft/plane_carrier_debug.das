@@ -1,7 +1,7 @@
 options no_aot
 require ecs
 require math.base
-require EnlistedPlane
+require DngPlane
 require ecs.ecs_template
 require DagorConsole
 require DagorDebug3D

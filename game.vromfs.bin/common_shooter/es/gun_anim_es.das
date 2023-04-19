@@ -5,6 +5,7 @@ require AnimV20
 require common_shooter.es.gun_anim_common
 require daslib/enum_trait
 require enlisted.events_enlisted
+require common_shooter.es.human.human_reload_common
 
 [es(on_appear)]
 def gun_anim_init_es(evt : Event;

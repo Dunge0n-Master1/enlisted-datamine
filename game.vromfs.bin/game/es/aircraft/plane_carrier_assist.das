@@ -2,8 +2,8 @@ require ecs
 require math.base
 require DagorMath
 require Plane
-require EnlistedPlane
-require EnlistedActor
+require DngPlane
+require DngActor
 require game.es.events
 require game.events_game
 

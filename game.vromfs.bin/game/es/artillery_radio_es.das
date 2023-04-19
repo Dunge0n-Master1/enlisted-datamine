@@ -1,14 +1,14 @@
 require ecs
 require ecs.safe
 require app
-require EnlistedNet
+require DngNet
 require game.es.events
 require enlisted.events_enlisted
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require enlisted.game.es.artillery_radio_common
 require game.utils.hero
-require EnlistedWalkerai
+require DngWalkerai
 require DagorSystem
 require game.utils.team
 require game.es.squad_order_common

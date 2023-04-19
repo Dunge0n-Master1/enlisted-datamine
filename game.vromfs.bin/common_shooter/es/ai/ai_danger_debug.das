@@ -4,7 +4,7 @@ require walkerai
 require math
 require math.base
 require DagorMath
-require EnlistedWalkerai
+require DngWalkerai
 require DagorRandom
 require strings
 require common_shooter.es.ai.ai_danger_common

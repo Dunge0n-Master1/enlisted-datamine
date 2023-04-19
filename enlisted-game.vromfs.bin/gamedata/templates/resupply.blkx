@@ -27,7 +27,7 @@ resupply_zone{
 
 resupply_in_air_zone{
   _extends:t="resupply_zone"
-  sphere_zone__radius:r=1000.0
+  sphere_zone__radius:r=500.0
   resupply_zone__resupplyFuel:b=yes
 
   "planeResupply:tag"{

@@ -19,6 +19,7 @@ tbf_1c_base{
   plane_collision__blk:t="gamedata/units/tbf_1c.blk"
   plane_anim__blk:t="gamedata/units/tbf_1c.blk"
   plane_sight__blk:t="gamedata/units/tbf_1c.blk"
+  plane_input__autopilotImpl:t="No"
   canUseRespawnbaseType:t="aircraft_assault"
   is_seaplane:b=no
   plane_wreckage__template:t="tbf_1c_wreckage"
@@ -30,11 +31,6 @@ tbf_1c_base{
     _tags:t="render"
     animchar_camera_target__node_name:t=""
     animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
-  }
-
-  _group{
-    _tags:t="sound"
-    plane_engine_sound__engine:t="engine16"
   }
 
   "plane_hit_sound__canopyNodes:list<t>"{

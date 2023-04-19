@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let { body_txt, giant_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { bigPadding, titleTxtColor, strokeStyle, accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let navState = require("%enlist/navState.nut")

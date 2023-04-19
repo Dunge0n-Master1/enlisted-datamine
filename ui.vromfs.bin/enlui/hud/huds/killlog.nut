@@ -79,12 +79,12 @@ let killMsgAnim = [
   { prop=AnimProp.scale, from=[1,0.01], to=[1,1], duration=0.2, play=true, easing=OutCubic }
 ]
 
-let blurColor = Color(170,170,170,170)
+const BLUR_COLOR = 0x33000000
 
 let blurBack = {
   rendObj = ROBJ_WORLD_BLUR
   size = flex()
-  color = blurColor
+  color = BLUR_COLOR
 }
 
 let function nameAndColor(entity) {//entity here is just table with description

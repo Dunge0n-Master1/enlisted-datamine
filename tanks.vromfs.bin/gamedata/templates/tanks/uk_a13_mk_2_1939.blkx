@@ -98,7 +98,7 @@ uk_a13_mk_2_1939_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.2
+  cockpit__minForwardOffset:r=-0.2
   cockpit__offset:p3=-0.6, -0.063, -0.092
 
   "cockpit__attachNodeNames:list<t>"{

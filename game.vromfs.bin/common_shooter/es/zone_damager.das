@@ -2,7 +2,7 @@ require ecs
 require ecs.common
 require math.base
 require dm
-require EnlistedDm
+require DngDm
 require zones
 require game.utils.team
 require DagorSystem

@@ -1,6 +1,6 @@
 require ecs
 require ecs.common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require BehNodes
 require danetlibs.native_dasevents.main.native_events
@@ -8,7 +8,7 @@ require human_sounds_net.modules.human_sounds_net_events
 require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
-require EnlistedBehTree
+require DngBehTree
 require game.es.squad_order_common
 
 def squadmate_attack_order_speech(squadmate_eid : EntityId; leader_eid : EntityId; squad_member_response = "confirm")

@@ -93,6 +93,18 @@ attachable_wear_pants_m39_frog_camo_item{
   }
 }
 
+attachable_wear_pants_m39_frog_camo_blck_boots_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_01_us_winter_item"
+
+  "animchar__objTexReplace:object"{
+    "us_pants_M1939_long_tex_d*":t="us_pants_m39_long_frog_camo_tex_d*"
+    "us_pants_M1939_long_tex_n*":t="us_pants_m39_long_frog_camo_tex_n*"
+    "us_winterboots_tex_d*":t="jia_paratrooper_boots_tex_d*"
+    "us_winterboots_tex_n*":t="jia_paratrooper_boots_tex_n*"
+  }
+}
+
 attachable_wear_pants_m39_brown_frog_camo_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_pants_04_us_summer_item"
@@ -177,6 +189,21 @@ attachable_wear_airborne_pants_light_item{
   }
 }
 
+attachable_wear_usmc_m43_hbt_jump_smock_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+  animchar__res:t="usmc_m43_hbt_jump_smock_char"
+  collres__res:t="usmc_m43_hbt_jump_smock_collision"
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item"
+  animchar__res:t="usmc_m43_hbt_jump_smock_t5_parachute_char"
+  collres__res:t="usmc_m43_hbt_jump_smock_t5_parachute_collision"
+  item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+}
+
 attachable_wear_tunic_01_us_summer_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_tunic_01_us_summer_item"
@@ -247,6 +274,16 @@ attachable_wear_shirt_camo_M44_green_item{
 
   "animchar__objTexReplace:object"{
     "us_shirt_M44_camo_tex_d*":t="us_shirt_m44_camo_green_tex_d*"
+  }
+}
+
+attachable_wear_shirt_M44_no_camo_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_shirt_camo_M44_item"
+
+  "animchar__objTexReplace:object"{
+    "us_shirt_M44_camo_tex_d*":t="us_shirt_m44_tex_d*"
+    "us_shirt_M44_camo_tex_n*":t="us_shirt_m44_tex_n*"
   }
 }
 
@@ -399,6 +436,15 @@ attachable_wear_airborne_jacket_light_item{
   "animchar__objTexReplace:object"{
     "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_light_tex_d*"
   }
+}
+
+attachable_wear_airborne_jacket_w_parachute_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_airborne_jacket_w_parachute_item"
+  animchar__res:t="airborne_jacket_w_parachute_char"
+  collres__res:t="airborne_jacket_w_parachute_collision"
+  item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_item"
 }
 
 attachable_wear_coat_01_us_winter_item{
@@ -810,6 +856,16 @@ attachable_wear_hbt_cap_1943_pattern_04_us_summer_item{
   item__uniqueName:t="attachable_wear_hbt_cap_1943_pattern_04_us_summer_item"
 }
 
+attachable_wear_us_m1_helmet_w_cover_skinfrog_gr_tunic_04_summer_item{
+  _extends:t="attachable_skined_helmet"
+  _extends:t="attachable_wear_us_m1_helmet_w_cover_tunic_04_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "m1_camouflage_cover_tex_d*":t="m1_camouflage_cover_frog_skin_gr_tex_d*"
+    "m1_camouflage_cover_tex_n*":t="m1_camouflage_cover_frog_skin_gr_tex_n*"
+  }
+}
+
 m44_goggles_01_item{
   _extends:t="attachable_helmet_deco"
   animchar__res:t="m44_goggles_01_char"
@@ -975,6 +1031,48 @@ attachable_wear_head_hero_10_usa_item{
   _extends:t="dynamic_details_hero_preset_3"
 }
 
+attachable_wear_head_americ_prem_01_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_01_item"
+  animchar__res:t="head_americ_prem_01_char"
+  collres__res:t="head_americ_prem_01_collision"
+}
+
+attachable_wear_head_americ_prem_02_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_02_item"
+  animchar__res:t="head_americ_prem_02_char"
+  collres__res:t="head_americ_prem_02_collision"
+}
+
+attachable_wear_head_americ_prem_03_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_03_item"
+  animchar__res:t="head_americ_prem_03_char"
+  collres__res:t="head_americ_prem_03_collision"
+}
+
+attachable_wear_head_americ_prem_04_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_04_item"
+  animchar__res:t="head_americ_prem_04_char"
+  collres__res:t="head_americ_prem_04_collision"
+}
+
+attachable_wear_head_americ_prem_05_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_05_item"
+  animchar__res:t="head_americ_prem_05_char"
+  collres__res:t="head_americ_prem_05_collision"
+}
+
+attachable_wear_head_americ_prem_06_item{
+  _extends:t="attachable_head"
+  item__uniqueName:t="attachable_wear_head_americ_prem_06_item"
+  animchar__res:t="head_americ_prem_06_char"
+  collres__res:t="head_americ_prem_06_collision"
+}
+
 attachable_wear_m2_flamethrower_gasbag_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_m2_flamethrower_gasbag_item"
@@ -1028,6 +1126,112 @@ attachable_wear_parachute_a2_jacket_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+t5_parachute_animation_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_101_weapon"
+    anim:t="enlisted_idle_102_weapon"
+    anim:t="enlisted_idle_103_weapon"
+    anim:t="enlisted_idle_104_weapon"
+    anim:t="enlisted_idle_110_weapon"
+    anim:t="enlisted_idle_112_weapon"
+    anim:t="enlisted_idle_113_weapon"
+    anim:t="enlisted_idle_114_weapon"
+  }
+}
+
+attachable_wear_t5_airborne_parachute_airborn_item{
+  _extends:t="attachable_backpack"
+  _extends:t="t5_parachute_animation_blacklist"
+  item__uniqueName:t="attachable_wear_t5_airborne_parachute_airborn_item"
+  animchar__res:t="t5_airborne_parachute_airborn_char"
+  collres__res:t="t5_airborne_parachute_airborn_collision"
+  animchar_fast_phys__res:t="t5_airborne_parachute_airborn_fastphys"
+  item__replaceOnParachuteOpen:t="attachable_wear_t5_airborne_parachute_opened_airborn_item"
+  item__replaceOnSpawnOnGround:t=""
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_t5_airborne_parachute_opened_airborn_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_t5_airborne_parachute_opened_airborn_item"
+  animchar__res:t="t5_airborne_parachute_opened_airborn_char"
+  collres__res:t="t5_airborne_parachute_opened_airborn_collision"
+  animchar_fast_phys__res:t="t5_airborne_parachute_opened_airborn_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
+  }
+}
+
+attachable_wear_t5_airborne_parachute_jump_smock_item{
+  _extends:t="attachable_backpack"
+  _extends:t="t5_parachute_animation_blacklist"
+  item__uniqueName:t="attachable_wear_t5_airborne_parachute_jump_smock_item"
+  animchar__res:t="t5_airborne_parachute_jump_smock_char"
+  collres__res:t="t5_airborne_parachute_jump_smock_collision"
+  animchar_fast_phys__res:t="t5_airborne_parachute_jump_smock_fastphys"
+  item__replaceOnParachuteOpen:t="attachable_wear_t5_airborne_parachute_opened_jump_smock_item"
+  item__replaceOnSpawnOnGround:t=""
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_t5_airborne_parachute_opened_jump_smock_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_t5_airborne_parachute_opened_jump_smock_item"
+  animchar__res:t="t5_airborne_parachute_opened_jump_smock_char"
+  collres__res:t="t5_airborne_parachute_opened_jump_smock_collision"
+  animchar_fast_phys__res:t="t5_airborne_parachute_opened_jump_smock_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
   }
 }
 
@@ -1328,6 +1532,18 @@ attachable_wear_flask_tanker_coverall_jacket_item{
   animchar__res:t="flask_tanker_coverall_jacket_char"
   collres__res:t="flask_tanker_coverall_jacket_collision"
   animchar_fast_phys__res:t="flask_tanker_coverall_jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m43_entrenching_tool_jump_smock_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_m43_entrenching_tool_jump_smock_item"
+  animchar__res:t="m43_entrenching_tool_jump_smock_char"
+  collres__res:t="m43_entrenching_tool_jump_smock_collision"
+  animchar_fast_phys__res:t="m43_entrenching_tool_jump_smock_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -1660,6 +1876,13 @@ attachable_wear_us_m1_rigger_pouch_tanker_coall_jacket_item{
   collres__res:t="us_m1_rigger_pouch_tanker_coall_jacket_collision"
 }
 
+attachable_wear_us_m1_rigger_pouch_airborn_item{
+  _extends:t="attachable_front_belt_l"
+  item__uniqueName:t="attachable_wear_us_m1_rigger_pouch_airborn_item"
+  animchar__res:t="us_m1_rigger_pouch_airborn_char"
+  collres__res:t="us_m1_rigger_pouch_airborn_collision"
+}
+
 attachable_wear_us_thompson_drum_pouch_m41_jacket_item{
   _extends:t="attachable_front_belt_r"
   item__uniqueName:t="attachable_wear_us_thompson_drum_pouch_m41_jacket_item"
@@ -1859,6 +2082,13 @@ attachable_wear_six_pocket_bandoleer_airborne_jacket_item{
   collres__res:t="six_pocket_bandoleer_airborne_jacket_collision"
 }
 
+attachable_wear_six_pocket_bandoleer_airborne_jacket_parachute_item{
+  _extends:t="attachable_chest"
+  item__uniqueName:t="attachable_wear_six_pocket_bandoleer_airborne_jacket_parachute_item"
+  animchar__res:t="six_pocket_bandoleer_airborne_jacket_parachute_char"
+  collres__res:t="six_pocket_bandoleer_airborne_jacket_parachute_collision"
+}
+
 attachable_wear_us_six_pocket_bandoleer_m41_jacket_item{
   _extends:t="attachable_chest"
   item__uniqueName:t="attachable_wear_us_six_pocket_bandoleer_m41_jacket_item"
@@ -1925,6 +2155,13 @@ attachable_wear_us_m23_cartridge_belt_up_jacket_m41_item{
   collres__res:t="us_m23_cartridge_belt_up_jacket_m41_collision"
 }
 
+attachable_wear_us_m23_cartridge_belt_jump_smock_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_jump_smock_item"
+  animchar__res:t="us_m23_cartridge_belt_jump_smock_char"
+  collres__res:t="us_m23_cartridge_belt_jump_smock_collision"
+}
+
 attachable_wear_backpack_m_36_02_us_summer_item{
   _extends:t="attachable_backpack"
   animchar__res:t="backpack_m_36_02_us_summer_char"
@@ -1957,6 +2194,18 @@ attachable_wear_pouch_m1924_02_us_summer_item{
   animchar__res:t="pouch_m1924_02_us_summer_char"
   collres__res:t="pouch_m1924_02_us_summer_collision"
   animchar_fast_phys__res:t="pouch_m1924_02_us_summer_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_m1924_first_aid_kit_jump_smock_item{
+  _extends:t="attachable_front_rear_belt_l"
+  item__uniqueName:t="attachable_wear_m1924_first_aid_kit_jump_smock_item"
+  animchar__res:t="m1924_first_aid_kit_jump_smock_char"
+  collres__res:t="m1924_first_aid_kit_jump_smock_collision"
+  animchar_fast_phys__res:t="m1924_first_aid_kit_jump_smock_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -2063,6 +2312,8 @@ us_gasbag_m7_blacklist{
   "animationBlacklistForMenu:list<t>"{
     anim:t="enlisted_idle_18_weapon"
     anim:t="enlisted_idle_14_weapon"
+    anim:t="enlisted_idle_101_weapon"
+    anim:t="enlisted_idle_102_weapon"
   }
 }
 
@@ -2145,6 +2396,18 @@ attachable_wear_coatbelt_1939_03_us_winter_item{
   item__uniqueName:t="attachable_wear_coatbelt_1939_03_us_winter_item"
   animchar__res:t="coatbelt_1939_03_us_winter_char"
   collres__res:t="coatbelt_1939_03_us_winter_collision"
+}
+
+attachable_wear_flask_jump_smock_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_flask_jump_smock_item"
+  animchar__res:t="flask_jump_smock_char"
+  collres__res:t="flask_jump_smock_collision"
+  animchar_fast_phys__res:t="flask_jump_smock_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
 }
 
 attachable_wear_flask_01_us_winter_item{

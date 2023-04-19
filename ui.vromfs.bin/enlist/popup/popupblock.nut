@@ -1,10 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { popupsGen, getPopups } = require("popupsState.nut")
+let { popupsGen, getPopups } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { BtnBgNormal } = require("%ui/style/colors.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 

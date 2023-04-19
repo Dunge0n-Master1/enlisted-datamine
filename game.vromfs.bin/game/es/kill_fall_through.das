@@ -1,7 +1,7 @@
 require ecs
 require game.es.events
 require enlisted.events_enlisted
-require EnlistedDm
+require DngDm
 
 [es(tag=server, after=net_phys_update_es)]
 def kill_fall_through(info : UpdateStageInfoAct;

@@ -3,7 +3,7 @@ require app
 require net
 require enlisted.events_enlisted
 require game.es.events
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorSystem
 require game.events_game

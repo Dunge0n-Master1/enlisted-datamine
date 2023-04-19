@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { forcedMinimalHud } = require("%ui/hud/state/hudGameModes.nut")
 
 let {Point2} = require("dagor.math")
-let {controlledVehicleEid, inPlane} = require("%ui/hud/state/vehicle_state.nut")
+let {controlledVehicleEid, inPlane, inVehicle} = require("%ui/hud/state/vehicle_state.nut")
 let {tank_markers_Set, tank_markers_GetWatched} = require("%ui/hud/state/vehicle_markers.nut")
 
 let teammateName = require("%ui/hud/components/teammateName.nut")
@@ -85,7 +85,7 @@ let sz = [0,0]
 
 let tank = function(eid, repairMarker){
   let infoState = tank_markers_GetWatched(eid)
-  let watch = [infoState, forcedMinimalHud, controlledVehicleEid, inPlane, hasRepairKit]
+  let watch = [infoState, forcedMinimalHud, controlledVehicleEid, inPlane, hasRepairKit, inVehicle]
   return function(){
     if (controlledVehicleEid.value == eid)
       return {watch}
@@ -97,9 +97,11 @@ let tank = function(eid, repairMarker){
     let maxIconDistance = minHud && !inPlane.value ? MIN_HUD_ICON_MAX_DIST : ICON_MAX_DIST
     let minDistance = !repairMarker && hasRepairKit.value && repairRequired ? maxRepairIconDistance : 0
     let maxDistance = !repairMarker ? maxIconDistance : maxRepairIconDistance
-    let ico = !repairMarker
-      ? isEmpty ? null : mkIcon(getIconColors(hasSquadmates, hasGroupmates))
-      : hasRepairKit.value && repairRequired ? mkRepairIcon(getIconColors(hasSquadmates, hasGroupmates)) : null
+    let ico = isEmpty
+      ? null
+      : repairMarker && hasRepairKit.value && repairRequired && !inVehicle.value
+        ? mkRepairIcon(getIconColors(hasSquadmates, hasGroupmates))
+        : mkIcon(getIconColors(hasSquadmates, hasGroupmates))
     return {
       data = {
         eid

@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { titleTxtColor, colPart, blockedBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { titleTxtColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
 
 let squadIconSize = [colPart(1.2), colPart(1.2)]
 let squadTypeIconCircle = colPart(0.55)
@@ -11,6 +11,7 @@ let squadTypeSvg = soldierKinds.map(@(c) c.icon)
   .__update({
       tank = "tank_icon.svg"
       aircraft = "aircraft_icon.svg"
+      assault_aircraft = "assault_aircraft_icon.svg"
       bike = "bike_icon.svg"
       mech = "mech_icon.svg"
     })
@@ -36,15 +37,8 @@ local function mkSquadIcon(img, override = {}) {
   }.__update(override)
 }
 
-let blockSign = {
-  rendObj = ROBJ_IMAGE
-  image = Picture($"!ui/uiskin/block_sign.svg:{squadTypeIconSize}:{squadTypeIconSize}:K")
-  color = blockedBgColor
-  size = [squadTypeIconCircle, squadTypeIconCircle]
-}
 
-
-let function mkSquadTypeIcon(squadType, isLocked) {
+let function mkSquadTypeIcon(squadType, override = {}) {
   let isTank = squadType == "tank"
   let iconSize = isTank ? (squadTypeIconSize * 0.9).tointeger() : squadTypeIconSize
   return {
@@ -55,18 +49,15 @@ let function mkSquadTypeIcon(squadType, isLocked) {
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     size = [squadTypeIconCircle, squadTypeIconCircle]
-    children = [
-      {
-        rendObj = ROBJ_IMAGE
-        size = [iconSize, iconSize]
-        keepAspect = KEEP_ASPECT_FIT
-        color = titleTxtColor
-        pos = isTank ? [iconSize * 0.1, 0] : [0, 0]
-        image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
-      }
-      isLocked ? blockSign : null
-  ]
-  }
+    children = {
+      rendObj = ROBJ_IMAGE
+      size = [iconSize, iconSize]
+      keepAspect = KEEP_ASPECT_FIT
+      color = titleTxtColor
+      pos = isTank ? [iconSize * 0.1, 0] : [0, 0]
+      image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
+    }
+  }.__update(override)
 }
 
 return {

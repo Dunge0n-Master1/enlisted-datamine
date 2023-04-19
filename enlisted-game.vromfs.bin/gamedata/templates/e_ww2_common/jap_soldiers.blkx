@@ -87,6 +87,6 @@ jap_base_soldier{
 }
 
 ai_aircraft_crew_jap_soldier{
-  _extends:t="jap_base_soldier"
   _extends:t="ai_aircraft_crew_soldier_base"
+  _extends:t="ger_summer_2"
 }

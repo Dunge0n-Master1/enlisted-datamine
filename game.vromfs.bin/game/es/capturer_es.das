@@ -1,6 +1,6 @@
 require ecs
 require zones
-require EnlistedNet
+require DngNet
 require danetlibs.native_dasevents.main.native_events
 require enlisted.events_enlisted
 require ecs.common

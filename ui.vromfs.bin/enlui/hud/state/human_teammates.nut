@@ -15,6 +15,7 @@ let heroesTrackComps = [
   ["human_quickchat__requestAmmoBoxMarkerShowUpTo", ecs.TYPE_FLOAT],
   ["human_quickchat__requestRallyPointMarkerShowUpTo", ecs.TYPE_FLOAT],
   ["medic__healState", ecs.TYPE_INT],
+  ["isAlive", ecs.TYPE_BOOL],
 ]
 
 let teammatePlayerInfoQuery = ecs.SqQuery("teammatePlayerInfoQuery", {
@@ -27,6 +28,12 @@ let teammatePlayerInfoQuery = ecs.SqQuery("teammatePlayerInfoQuery", {
   ]
 })
 
+let humanTeammatesStatsQuery = ecs.SqQuery("humanTeammatesStatsQuery", {
+  comps_rq = ["human"]
+  comps_no = ["watchedByPlr", "deadEntity"]
+  comps_ro = heroesTrackComps
+})
+
 let {alivePossessedTeammates, alivePossessedTeammatesModify, alivePossessedTeammatesSetKeyVal, alivePossessedTeammatesDeleteKey} = mkFrameIncrementObservable({}, "alivePossessedTeammates")
 
 let {
@@ -36,43 +43,45 @@ let {
   teammatesAvatarsDestroyEid
 } = mkWatchedSetAndStorage("teammatesAvatars")
 
+let function set_human_teammates_stats(player_team, eid, comp) {
+  if (player_team != comp.team) {
+    teammatesAvatarsDestroyEid(eid)
+    alivePossessedTeammatesDeleteKey(eid)
+    return
+  }
+
+  let res = {}
+  foreach (i in heroesTrackComps)
+    res[i[0]] <- comp[i[0]]
+  res.isAlive <- comp.isAlive
+  res.eid <- eid
+  teammatePlayerInfoQuery(comp.possessedByPlr, @(_, playerComp) res.__update(playerComp))
+
+  teammatesAvatarsUpdateEid(eid, res)
+  if (comp.possessedByPlr == ecs.INVALID_ENTITY_ID || localPlayerEid.value == comp.squad_member__playerEid) {
+    alivePossessedTeammatesDeleteKey(eid)
+  }
+  else {
+    alivePossessedTeammatesSetKeyVal(eid, res)
+  }
+}
+
 ecs.register_es("human_teammates_stats_ui_es",
   {
-    [["onChange","onInit"]] = function(_evt, eid, comp){
-      if (localPlayerTeam.value != comp["team"]){
-        teammatesAvatarsDestroyEid(eid)
-        alivePossessedTeammatesDeleteKey(eid)
-        return
-      }
-      let res = {}
-      foreach (i in heroesTrackComps)
-        res[i[0]] <- comp[i[0]]
-      res.isAlive <- comp.isAlive
-      res.eid <- eid
-      teammatePlayerInfoQuery(comp.possessedByPlr, @(_, playerComp) res.__update(playerComp))
-
-      teammatesAvatarsUpdateEid(eid, res)
-      if (comp.possessedByPlr == ecs.INVALID_ENTITY_ID || localPlayerEid.value == comp.squad_member__playerEid) {
-        alivePossessedTeammatesDeleteKey(eid)
-      }
-      else {
-        alivePossessedTeammatesSetKeyVal(eid, res)
-      }
-    },
+    [["onChange","onInit"]] = @(_evt, eid, comp) set_human_teammates_stats(localPlayerTeam.value, eid, comp),
     function onDestroy(_evt, eid, _comp){
       teammatesAvatarsDestroyEid(eid)
       alivePossessedTeammatesDeleteKey(eid)
     }
   },
   {
-    comps_ro = [
-      ["isAlive", ecs.TYPE_BOOL ],
-    ]
     comps_rq = ["human"]
     comps_no = ["watchedByPlr", "deadEntity"]
     comps_track = heroesTrackComps
   }
 )
+
+localPlayerTeam.subscribe(@(team) humanTeammatesStatsQuery(@(eid, comp) set_human_teammates_stats(team, eid, comp)))
 
 //===============player teammates stats===============
 

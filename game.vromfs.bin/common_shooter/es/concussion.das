@@ -1,5 +1,5 @@
 require ecs
-require EnlistedDm
+require DngDm
 require DagorMath
 require common_shooter.events_common_shooter
 require common_shooter.es.concussion_common

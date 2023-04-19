@@ -1,5 +1,6 @@
 require ecs
 require ecs.common
+require ecs.safe
 require app
 require player
 require math
@@ -22,13 +23,14 @@ require DagorSystem
 require DagorRandom
 require DagorMath
 require DagorMathUtils
-require EnlistedHuman
-require EnlistedWeapon
-require EnlistedNet
-require EnlistedActor
-require EnlistedPhysObj
-require EnlistedPhys
-require EnlistedDm
+require DngHuman
+require DngWeapon
+require DngNet
+require DngActor
+require DngPhysObj
+require DngPhys
+require DngDm
+require WeaponDm
 require Ballistics
 require BallisticsProps
 require GeomNodeTree
@@ -536,7 +538,7 @@ def projectile_on_hit_scene(pos : float3;
 
   phys_mat_damage_model_get_props(pmid) <| $(dmPhysProps : PhysMatDamageModelProps)
     let projectileSpeedThreshold = 10.0
-    let angleThreshold = 0.0872 //~5 degrees
+    let angleThreshold = 0.043619 //~2.5 degrees
     let derivationShift = 0.7 //0.5 - without derivation
     let thresholdMass = 1.0
 
@@ -708,7 +710,8 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
         allowDetonation=allow_detonation,
         sceneIntersectionsExceeded=sceneIntersectionsExceeded,
         collType=coll_type,
-        vel=projectile_ballistics.state.vel]])
+        vel=projectile_ballistics.state.vel,
+        riexHandle = riHandle]])
 
     shouldStop = result.shouldStop
   return shouldStop
@@ -1043,3 +1046,158 @@ def projectile_create_smoke_occluders_on_explode(evt : CmdShellExplosionFx;
   create_smoke_occluders_impl(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                               launch_desc, dm_projectile_state, projectile_ballistics, scene_hit_place__matId, projectile__isUnderwater,
                               scene_hit_place__pos, scene_hit_place__norm)
+
+[es]
+def process_projectile_on_hit_entity_with_hp(var evt : ProjectileOnHitEntityWithHp&)
+  let projectile_eid = evt.projectile_eid
+  let victim = evt.victim
+  assume isect = evt.isect
+  assume launch_desc = evt.launch_desc
+  let vel = evt.vel
+  let dir = evt.dir
+  let waterLen = evt.waterLen
+  let curTime = evt.curTime
+  let offender = evt.offender
+  let prev_projectile_dist = evt.prev_projectile_dist
+  let piercing_shift = evt.piercing_shift
+  let allow_detonation = evt.allow_detonation
+  let gun_eid = evt.gun_eid
+  let sceneHitRicochetStability = evt.sceneHitRicochetStability
+  let trace_ray_mat_id = evt.trace_ray_mat_id
+  let check_if_should_apply_damage = evt.check_if_should_apply_damage
+  assume result = evt.result
+
+  assume shellId = launch_desc.shellId
+  let ballProjProps = projectile_try_get_props(int(shellId.shellId))
+  if ballProjProps == null
+    result = ProjectileHitResult HitAndDestroyProjectile
+    return
+
+  let projectileDist = prev_projectile_dist + isect.t
+  let invul = check_shell_invulnerability(victim, projectileDist, dir, isect.pos, curTime)
+
+  //Variables for onHitFxApply
+  let shellIdShellId = int(shellId.shellId)
+  let isectPos = isect.pos
+  let isectNorm = isect.norm
+  let isectCollNodeId = isect.collNodeId
+  let onHitFxApply <- @ <| (hitpoints_hp : float; spawn_blood_vfx : bool; damage : float; entity_pmid : int; stopped : bool) : void
+    var bloodSplash = HitBloodType NONE
+    if spawn_blood_vfx && !invul.haveDeflectedShell
+      bloodSplash = hitpoints_hp > damage ? HitBloodType ONE_SIDE : HitBloodType TWO_SIDE
+    broadcastEvent([[OnShellHitEntityFx shellId=shellIdShellId, pos=isectPos, dir=dir,
+                     pmid=invul.haveDeflectedShell ? get_material_id("steel") : entity_pmid,
+                     norm=isectNorm, bloodSplash=bloodSplash, nodeCollId=isectCollNodeId, withSound=false, victimEid=victim,
+                     directHit=true, stopped=stopped, projectileEid=projectile_eid]])
+    sendEvent(victim, [[EventOnApplyWounds pos=isectPos, normal=isectNorm, coll_node=isectCollNodeId, explosion=false, damage=damage]])
+
+  if invul.isInvulnerable
+    query(victim) <| $ [es] (material : das_string const?; needsBlood = false; hitpoints__hp = 0.0)
+      var entityPmid = -1
+      if !invul.haveDeflectedShell
+        entityPmid = get_material_id(material ?? "flesh")
+      onHitFxApply |> invoke(hitpoints__hp, needsBlood, 0.0/*damage*/, entityPmid, true)
+    sendEvent(victim, [[ProjectileHitInvulnerableNotification hitPos=isect.pos, hitDir=dir]])
+    result = ProjectileHitResult HitAndDestroyProjectile // as invulnerable entitities too
+    return
+
+  if invul.haveDeflectedShell && (!is_server() || get_hitdet_type() == HitDetectionType ServerSide || !check_if_should_apply_damage)
+    set_deflect_shell(victim, invul, curTime)
+
+  result = ProjectileHitResult Ignore
+  query(victim) <| $ [es] (dm_parts__bulletTransparent : BoolList;
+                           dm_parts__dmgMult : FloatList;
+                           dm_parts__partsArmor : FloatList;
+                           hitpoints__hp : float;
+                           hitpoints__penetrationStopPower : float const?;
+                           material : das_string const?;
+                           var hitpoints__bulletInvulnerableCurDamageMult : float?;
+                           var hitpoints__invulnerableTimeTo : float?;
+                           isAlive = true;
+                           needsBlood = true;
+                           hitpoints__bulletInvulnerableNextDamageMult = 2.0;
+                           hitpoints__maxDamageReductionMult = 0.1;
+                           hitpoints__maxPartArmorForBloodFx = 0.0;
+                           entity_mods__lessStoppingPower = 0.0;
+                           entity_mods__defArmor = 0.0;
+                           entity_mods__armorMult = 1.0)
+    if dm_parts__bulletTransparent?[isect.collNodeId] ?? false
+      return
+
+    let kineticDamageMult = get_float(gun_eid, "gun__kineticDamageMult") ?? 1.f
+    let partDmgMult = kineticDamageMult * (dm_parts__dmgMult?[isect.collNodeId] ?? 1.f)
+    let waterArmor = max(0.f, isect.t - waterLen) * get_damage_model_params().waterArmorThicknessEquivalent
+    let partArmorRaw = dm_parts__partsArmor?[isect.collNodeId] ?? 0.f
+    let partArmor = max(invul.haveDeflectedShell ? invul.deflArmor : 0.f,
+                        partArmorRaw * entity_mods__armorMult)
+
+    let totalProjectileDist = projectileDist + piercing_shift
+    let projectileSpeed = length(vel)
+    var kineticDamage = calc_kinetic_damage(int(shellId.shellId), totalProjectileDist)
+    // In case of zero damage (projectile doens't have 'hitPowerMult' value in its BLK)
+    // try to recalc it with kinetic energy to damage transformation
+    // This projectile might be launched by a vehile, turret, etc.
+    if kineticDamage < 1.e-6f
+      kineticDamage = calc_damage(int(shellId.damageId), (*ballProjProps).mass, projectileSpeed)
+
+    let totalPartArmor = entity_mods__defArmor + waterArmor + partArmor
+
+    let penetration   = calc_armor_penetration(int(shellId.shellId), int(shellId.damageId), *ballProjProps,
+                                               totalProjectileDist, projectileSpeed)
+    let reductionMult = cvt(totalPartArmor, 0.f, penetration, 1.f, hitpoints__maxDamageReductionMult)
+    let damageMult = partDmgMult * reductionMult
+
+    var damage = kineticDamage * damageMult
+    var stoppingPower = calc_stopping_power(entity_mods__lessStoppingPower, int(shellId.shellId), partDmgMult)
+    let isDamageReduced = invul.isDamageReduced && is_server()
+    if isDamageReduced && hitpoints__bulletInvulnerableCurDamageMult != null
+      assume curDamageMult = *hitpoints__bulletInvulnerableCurDamageMult
+      damage *= curDamageMult
+      stoppingPower *= curDamageMult
+      curDamageMult *= hitpoints__bulletInvulnerableNextDamageMult
+      if curDamageMult >= 1.0 && hitpoints__invulnerableTimeTo != null
+        *hitpoints__invulnerableTimeTo = curTime
+
+    assume newHitPos = isect.pos
+
+    if is_server()
+      let dd = DamageDesc(DamageType DM_PROJECTILE, damage, newHitPos, dir, isect.norm, int(shellId.shellId),
+                          int(launch_desc.gunPropsId), int(isect.collNodeId), stoppingPower, /*actionPropsId*/ - 1,
+                          damageMult, reductionMult, penetration)
+      if (check_if_should_apply_damage)
+        damage_entity(victim, offender, dd)
+      else
+        apply_damage(victim, offender, dd)
+    else
+      let proj_hit_info = [[ProjectileHitInfo isect=isect, vel=vel, dir=dir, waterLen=waterLen,
+        prevProjDist=prev_projectile_dist, piercingShift=piercing_shift, timeOfHit=curTime, allowDetonation=allow_detonation]]
+      notify_server_about_projectile_hit(victim, offender, gun_eid, launch_desc, proj_hit_info,
+        sceneHitRicochetStability, trace_ray_mat_id)
+
+    var entityPmid = -1
+    if !invul.haveDeflectedShell
+      entityPmid = get_material_id(material ?? "flesh")
+      sendEvent(victim, [[EventOnProjectileHit hitPos=newHitPos, norm=isect.norm, shellId=int(shellId.shellId),
+                          physMatId=entityPmid, collNodeId=isect.collNodeId, projectileEid=projectile_eid]])
+
+    sendEvent(victim, [[EventOnPhysImpulse atTime=get_sync_time(), nodeId=isect.collNodeId, pos=newHitPos,
+                        impulse=vel * (*ballProjProps).mass]])
+
+    if allow_detonation
+      detonate_shell_server(projectile_eid, shellId, int(launch_desc.gunPropsId), newHitPos, offender,
+                            INVALID_ENTITY_ID, isect.norm, INVALID_ENTITY_ID)
+
+    broadcastEvent([[ProjectileHitShake position=newHitPos, damage=damage]])
+
+    let updatePiercingShift = projectile_eid != INVALID_ENTITY_ID
+    let canPierceRes = can_projectile_pierce_hp_entity(gun_eid, int(launch_desc.shellId.shellId), damage, projectileDist,
+                                                       piercing_shift, updatePiercingShift, hitpoints__penetrationStopPower)
+    if updatePiercingShift
+      query(projectile_eid) <| $ [es] (var dm_projectile_state : ProjectileState&)
+        dm_projectile_state.piercingShift = canPierceRes.newPiercingShift
+
+    result = ((isAlive && !canPierceRes.canPierce) ? ProjectileHitResult HitAndDestroyProjectile :
+                                                     ProjectileHitResult HitAndContinue) // Until dead bodies (ragdolls) are synced it shouldn't influence projectiles
+
+    let spawnBloodVfx = needsBlood && partArmor <= hitpoints__maxPartArmorForBloodFx
+    onHitFxApply |> invoke(hitpoints__hp, spawnBloodVfx, damage, entityPmid, result == ProjectileHitResult HitAndDestroyProjectile)

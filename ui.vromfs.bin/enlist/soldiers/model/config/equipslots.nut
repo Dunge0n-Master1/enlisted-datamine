@@ -10,7 +10,7 @@ let headerHeight = columnGap + miniOffset
 let baseSlotHeight = colPart(1.6)
 let miniSlotSize = colPart(1)
 let bigSlotSize = colFull(2)
-let modSize = [colPart(1) + miniOffset, ((baseSlotHeight - miniOffset) * 0.5).tointeger()]
+let modSize = [colPart(1) + miniOffset, baseSlotHeight]
 let baseItemSize = [colFull(4), baseSlotHeight]
 
 
@@ -20,7 +20,7 @@ let equipSlotRows = [
       slotType = "primary"
       slotSize = [colFull(5), baseSlotHeight]
       itemSize = baseItemSize
-      slotImg = "assault_rifle.svg"
+      slotImg = "empty_slot_weapon.svg"
       hasName = true
       hasTypeIcon = true
       headerLocId = $"slot/empty_primary"
@@ -31,7 +31,7 @@ let equipSlotRows = [
       slotType = "secondary"
       slotSize = [colFull(5), baseSlotHeight]
       itemSize = baseItemSize
-      slotImg = "assault_rifle.svg"
+      slotImg = "empty_slot_weapon.svg"
       hasName = true
       hasTypeIcon = true
       headerLocId = $"slot/empty_secondary"
@@ -41,7 +41,6 @@ let equipSlotRows = [
     {
       slotType = "side"
       slotSize = [colFull(3), baseSlotHeight]
-      itemSize = [colFull(2), baseSlotHeight]
       slotImg = "item_pistol.svg"
       hasName = true
       headerLocId = $"slot/empty_side"
@@ -80,7 +79,6 @@ let equipSlotRows = [
     }
     {
       rowsAmount = 2
-      minSlotsAmount = 6
       slotSize = [miniSlotSize, miniSlotSize]
       unitedSlots = [
         {
@@ -91,12 +89,27 @@ let equipSlotRows = [
         {
           slotType = "inventory"
           slotSize = [miniSlotSize, miniSlotSize]
-          slotImg = "item_medkit.svg"
+          slotImg = "item_backpack.svg"
         }
       ]
     }
   ]
 ]
+
+
+let function getSlotParams(slotType) {
+  foreach (row in equipSlotRows)
+    foreach (slot in row) {
+      if ((slot?.slotType ?? "") == slotType)
+        return slot
+
+      foreach (unitedSlot in slot?.unitedSlots ?? [])
+        if ((unitedSlot?.slotType ?? "") == slotType)
+          return unitedSlot
+    }
+
+  return null
+}
 
 
 return {
@@ -106,4 +119,5 @@ return {
   modSize
   baseItemSize
   headerHeight
+  getSlotParams
 }

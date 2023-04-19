@@ -2,7 +2,7 @@ module player_kill_common shared
 
 require DagorSystem
 require ecs
-require EnlistedDm
+require DngDm
 require game.es.player_common
 require GameTimers
 

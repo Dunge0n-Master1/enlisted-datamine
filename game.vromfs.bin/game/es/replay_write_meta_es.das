@@ -2,7 +2,7 @@ require ecs
 require app
 require net
 require strings
-require EnlistedNet
+require DngNet
 require CurrentCircuit
 require rapidjson
 require game.events_game

@@ -35,8 +35,7 @@ let selectedBuildingQuery = ecs.SqQuery("selectedBuildingQuery", {
     ["fortification_repair__text", ecs.TYPE_STRING, "hud/resupply_cannon"],
     ["isAlive", ecs.TYPE_BOOL, true],
     ["undestroyableBuilding", ecs.TYPE_TAG, null],
-    ["builder_preview", ecs.TYPE_TAG, null],
-    ["building_destroy__timeToDestroy", ecs.TYPE_FLOAT, null],
+    ["building__destroyable", ecs.TYPE_TAG, null],
     ["fortification__canRepairDead", ecs.TYPE_TAG, null],
     ["additiveBuildNeedRepair", ecs.TYPE_BOOL, true],
     ["buildByPlayer", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID],
@@ -90,7 +89,7 @@ ecs.register_es("ui_building_selected_object_es",
         alive = comp["isAlive"]
         canRepairDead = comp["fortification__canRepairDead"] != null
         fortificationRepairText = comp["fortification_repair__text"]
-        canBeDestroyed = (comp["builder_preview"] != null || comp["building_destroy__timeToDestroy"] != null) && comp["undestroyableBuilding"] == null
+        canBeDestroyed = comp.building__destroyable != null && comp.undestroyableBuilding == null
         && (comp.buildByPlayer == localPlayerEid.value || comp.builder_info__team != localPlayerTeam.value || comp.undestroyableyByTeammates == null)
       })
       selectedBuildingName(name)

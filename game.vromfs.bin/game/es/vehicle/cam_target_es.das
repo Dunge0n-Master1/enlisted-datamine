@@ -27,7 +27,7 @@ def setup_camera_as_active(cam_eid : EntityId)
   query(get_local_player_eid()) <| $ [es] (var activeCamEid : EntityId&)
     activeCamEid = cam_eid
 
-[es(track=vehicleCameraType, tag=gameClient)]
+[es(track=vehicleCameraType, tag=gameClient, on_event=CmdUpdateCameraByVehicleType)]
 def on_change_vehicle_camera_type_es(evt : Event;
                                      vehicleCameraType : int;
                                      vehicleDeathCameraTemplate : string;

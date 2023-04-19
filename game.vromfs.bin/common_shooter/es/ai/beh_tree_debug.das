@@ -1,18 +1,18 @@
 options no_aot
 require ecs
 require ecs.common
-require EnlistedNet
+require DngNet
 require app
 require DagorConsole
 require DagorDebug3D
 require DagorMath
-require EnlistedWalkerai
-require EnlistedBehTree
+require DngWalkerai
+require DngBehTree
 require BehNodes
 require walkerai
 require math
 require math.base
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require game.es.server_debug_common
 require ecs.ecs_template
@@ -186,7 +186,7 @@ def debug_stuck_detector(evt : UpdateStageInfoRenderDebug)
     draw_debug_sphere_buffered(transform[3] + float3(0, 1, 0), stuck_detector__value, col, 12, 1)
 
 
-[es(tag=dev, tag=render, no_order)]
+[es(tag=(render, dev), no_order)]
 def entity_dangers_debug(evt : UpdateStageInfoRenderDebug; eid : EntityId; agent_dangers__standShootPos : float3; agent_dangers : AgentDangers; transform : float3x4; entity_danger__debug : bool)
   if !entity_danger__debug || length(agent_dangers.dangers) == 0
     return
@@ -286,10 +286,10 @@ def debug_draw_attractive_places(act : UpdateStageInfoRenderDebug; attract_point
 def reload_beh_tree(id : uint = 0u)
   sceneload_reload_ai()
   if id != 0u
-    EnlistedBehTree::load_beh_tree_from_ecs(EntityId(id))
+    DngBehTree::load_beh_tree_from_ecs(EntityId(id))
     return
   query() <| $ [es(REQUIRE=beh_tree)] (eid : EntityId)
-    EnlistedBehTree::load_beh_tree_from_ecs(eid)
+    DngBehTree::load_beh_tree_from_ecs(eid)
 
 
 //Can be executed multiple times without issues

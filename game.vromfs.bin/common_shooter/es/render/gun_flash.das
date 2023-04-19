@@ -27,10 +27,11 @@ def gun_flash_fx_on_shot(evt : Event;
                          eid : EntityId;
                          animchar : AnimcharBaseComponent;
                          animchar__visible : bool = true;
+                         auto_gun_controller__enabled : bool = false;
                          [[shared_comp]] gun_flash_fx__template : StringList;
                          [[shared_comp]] gun_flash_fx__scale : FloatList;
                          gun_flash_fx__nodeIds : IntList)
-  if !animchar__visible
+  if !animchar__visible && !auto_gun_controller__enabled
     return
   for nodeId, fxTemplate, scale in gun_flash_fx__nodeIds, gun_flash_fx__template, gun_flash_fx__scale
     if nodeId < 0

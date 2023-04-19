@@ -1,5 +1,5 @@
 require app
-require EnlistedNet
+require DngNet
 require ecs
 require Gun
 require game.es.events
@@ -7,7 +7,7 @@ require game.es.input.input_events
 require game.es.vehicle.vehicle_seats_common
 require DagorInput
 require TouchInput
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require common_shooter.events_common_shooter
 

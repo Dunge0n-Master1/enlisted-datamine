@@ -3,7 +3,7 @@ require ecs
 require ecs.verify_common
 require ecs.verify_macro
 require soundEvent
-require EnlistedPhysObj
+require DngPhysObj
 
 
 [req_template]

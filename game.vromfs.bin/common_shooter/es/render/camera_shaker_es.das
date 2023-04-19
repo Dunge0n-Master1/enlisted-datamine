@@ -3,9 +3,9 @@ require game.es.events
 require math
 require math.base
 require DagorMath
-require EnlistedPhysObj
+require DngPhysObj
 require CameraShaker
-require EnlistedCameraShaker
+require DngCameraShaker
 require BallisticsProps
 require enlisted.events_enlisted
 

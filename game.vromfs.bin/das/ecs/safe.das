@@ -86,7 +86,7 @@ def operator .(var t : Object == const; name : string) : ChildComponent?
 
 
 [generic, constant_expression(name=false), unused_argument(name)]
-def operator ?.(t : Object const? const; name : string) : ChildComponent const? const
+def operator ?.(t : Object const? const == const; name : string) : ChildComponent const? const
   if t != null
     static_if typeinfo(is_argument name)
       return (*t)[name]
@@ -96,7 +96,7 @@ def operator ?.(t : Object const? const; name : string) : ChildComponent const? 
 
 
 [generic, constant_expression(name=false), unused_argument(name)]
-def operator ?.(var t : Object?; name : string) : ChildComponent?
+def operator ?.(var t : Object? == const; name : string) : ChildComponent?
   if t != null
     static_if typeinfo(is_argument name)
       return (*t)[name]

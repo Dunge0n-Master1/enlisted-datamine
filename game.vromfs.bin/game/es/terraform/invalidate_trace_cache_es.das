@@ -1,5 +1,5 @@
 require ecs
-require EnlistedHuman
+require DngHuman
 require vehicle
 require Dacoll
 require DagorMath
@@ -14,10 +14,10 @@ def invalidate_trace_cache(var traceHandle)
 def private trace_cache_invalidation_impl(pos : float3; radius : float)
   for_each_entity_in_grid(ecs_hash("humans"), BSphere3(pos, radius), GridEntCheck POS) <| $(eid : EntityId)
     query(eid) <| $ [es] (var human_net_phys : HumanActor)
-      human_net_phys.phys.traceHandle |> invalidate_trace_cache()
+      human_net_phys.phys |> human_phys_getTraceHandle() |> invalidate_trace_cache()
 
     query(eid) <| $ [es] (var vehicle_net_phys : VehiclePhysActor)
-      vehicle_net_phys.phys.traceHandle |> invalidate_trace_cache()
+      vehicle_net_phys.phys |> vehicle_phys_getTraceHandle() |> invalidate_trace_cache()
 
 [es(REQUIRE=terraform)]
 def trace_cache_invalidation_es(evt : CmdDig)

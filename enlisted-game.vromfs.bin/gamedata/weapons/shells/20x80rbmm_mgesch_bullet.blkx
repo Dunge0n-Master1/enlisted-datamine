@@ -19,15 +19,9 @@ slopeEffectPreset:t="ap"
 effectiveDistance:r=700.0
 fresnel:p3=0.23, 0.1, 2.0
 relativeVelHitShift:p2=300.0, 1000.0
-shellAnimation:t="video/shells_animations/he_i_shell.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
 explodeTreshold:r=0.4
 fuseDelayDist:r=0.3
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_he"
-groundCollisionEffect:t="hit_19_27mm_dirt_he"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -58,29 +52,6 @@ visual{
   range_percent_of_ammo:p2=100.0, 0.0
   traceFreq:i=1
   tracer:t="noColor"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

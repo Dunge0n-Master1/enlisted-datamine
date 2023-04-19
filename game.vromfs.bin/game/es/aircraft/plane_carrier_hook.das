@@ -2,7 +2,7 @@ require ecs
 require math.base
 require DagorMath
 require Plane
-require EnlistedPlane
+require DngPlane
 require GamePhys
 require game.es.events
 

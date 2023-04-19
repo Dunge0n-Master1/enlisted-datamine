@@ -110,7 +110,7 @@ us_t54e1{
 us_t54e1_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="pzkpfw_iii_b_commander_char"
-  cockpit__minZoom:r=-0.05
+  cockpit__minForwardOffset:r=-0.05
   cockpit__offset:p3=-2.37704, 0.573652, -0.61302
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -171,7 +171,7 @@ us_t54e1_driver_cockpit{
   _extends:t="base_driver_cockpit"
   animchar__res:t="ba_11_driver_char"
   cockpit__offset:p3=-0.3, -0.26, 0.23
-  cockpit__minZoom:r=-0.0
+  cockpit__minForwardOffset:r=-0.0
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"

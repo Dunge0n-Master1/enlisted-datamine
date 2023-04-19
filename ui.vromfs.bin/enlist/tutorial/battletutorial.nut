@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
-let { curCampaign, curArmy } = require("%enlist/soldiers/model/state.nut")
+let { curArmy } = require("%enlist/soldiers/model/state.nut")
+let { curCampaignConfig } = require("%enlist/meta/curCampaign.nut")
 let debriefingState = require("%enlist/debriefing/debriefingStateInMenu.nut")
 let { lastGame } = require("%enlist/gameLauncher.nut")
 let { defTutorial, getTutorialScene, defTutorialTank, getTutorialTankScene,
@@ -23,7 +24,7 @@ let curTutorialGroup = Computed(function() {
       practiceScene = defPractice
     }
 
-  let groupId = gameProfile.value?.campaigns[curCampaign.value].tutorial
+  let groupId = curCampaignConfig.value?.tutorial
   let group = gameProfile.value?.tutorials[groupId]
   if (groupId == null || group == null)
     return null

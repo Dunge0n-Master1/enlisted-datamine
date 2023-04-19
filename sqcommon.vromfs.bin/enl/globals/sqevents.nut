@@ -2,7 +2,7 @@ let {registerUnicastEvent, registerBroadcastEvent } = require("%dngscripts/ecs.n
 
 let broadcastEvents = {}
 foreach (name, payload in {
-  EventSquadMembersStats = { list = [/*squadEid, guid, eid, stat, amount*/] }
+  EventSquadMembersStats = { list = [/*stat, playerEid, guid, eid, amount, shouldOverride*/] }
   EventOnBattleResult = {stats = {guid = {}}}
 })
   broadcastEvents.__update(registerBroadcastEvent(payload,name))

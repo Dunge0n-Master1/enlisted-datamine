@@ -10,8 +10,7 @@ let { curArmy, curSquadId, curSquad, curSquadParams, curVehicle, objInfoByGuid
 } = require("model/state.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let { curArmyReserve, needSoldiersManageBySquad } = require("model/reserve.nut")
-let { notChoosenPerkSoldiers, perksData } = require("model/soldierPerks.nut")
-let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
+let { perksData } = require("model/soldierPerks.nut")
 let { unseenSquadsVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let { vehicleCapacity, isSquadRented, buyRentedSquad } = require("model/squadInfoState.nut")
 let { curSoldierInfo, curSoldiersDataList, curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
@@ -19,14 +18,13 @@ let { curSquadSoldiersStatus } = require("model/readySoldiers.nut")
 let mkMainSoldiersBlock = require("%enlSqGlob/ui/mkSoldiersList.nut")
 let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
 let {
-  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
+  mkAlertIcon, REQ_MANAGE_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let squadHeader = require("components/squadHeader.nut")
 let {
   hasSquadVehicle, selectVehParams
 } = require("%enlist/vehicles/vehiclesListState.nut")
 let { openChooseSoldiersWnd } = require("model/chooseSoldiersState.nut")
-let { curUnseenUpgradesBySoldier, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let sClassesConfig = require("model/config/sClassesConfig.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
@@ -37,6 +35,7 @@ let { setTooltip } = require("%ui/style/cursors.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
+let { mkAlertInfo } = require("model/soldiersState.nut")
 
 
 let vehicleInfo = Computed(function() {
@@ -63,22 +62,6 @@ let function openChooseVehicle(event) {
     }))
 }
 
-let mkAlertInfo = @(soldierInfo, _isSelected) {
-  flow = FLOW_HORIZONTAL
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_TOP
-  children = [
-    mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
-      let weapCount = unseenSoldiersWeaponry.value?[soldierInfo?.guid].len() ?? 0
-      let upgrCount = (isUpgradeUsed.value ?? false) ? 0
-        : (curUnseenUpgradesBySoldier.value?[soldierInfo?.guid] ?? 0)
-      return weapCount + upgrCount > 0
-    }))
-    mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
-      (notChoosenPerkSoldiers.value?[soldierInfo?.guid] ?? 0) > 0
-    ))
-  ]
-}
 
 let allowedReserve = Computed(function() {
   let { maxClasses = null } = curSquadParams.value

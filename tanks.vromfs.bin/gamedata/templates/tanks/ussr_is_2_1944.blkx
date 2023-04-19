@@ -1,4 +1,20 @@
-ussr_is_2_1944{
+ussr_is_2_1944_berlin{
+  _extends:t="ussr_is_2_1944_common"
+
+  "disableDMParts:list<t>"{
+    part:t="ex_armor_turret_l_01"
+    part:t="ex_armor_turret_l_02"
+    part:t="ex_armor_turret_l_03"
+    part:t="ex_armor_turret_r_01"
+    part:t="ex_armor_turret_r_02"
+    part:t="ex_armor_turret_r_03"
+    part:t="bone_mg_aa_h_01"
+    part:t="bone_mg_aa_v_01"
+    part:t="gun_barrel_02"
+  }
+}
+
+ussr_is_2_1944_common{
   _extends:t="base_is_2_1944"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
@@ -17,6 +33,7 @@ ussr_is_2_1944{
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
+      cockpitTemplate:t="ussr_is_2_1944_driver_cockpit"
     }
 
     "seats:object"{
@@ -30,11 +47,11 @@ ussr_is_2_1944{
       shouldHideOwner:b=yes
       receiveDamageFromDMPart:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
+      cockpitTemplate:t="ussr_is_2_1944_gunner_cockpit"
 
       "turretNames:array"{
         turret:t="turret_01"
         turret:t="turret_02"
-        turret:t="turret_03"
       }
     }
 
@@ -43,14 +60,17 @@ ussr_is_2_1944{
       locName:t="vehicle_seats/commander"
       attachNode:t="commander"
       shouldHideOwner:b=yes
+      hatchRotationAxis:p3=1.6, 0.0, 0.0
       maxPosWithOpenHatch:r=0.7
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.1, 0.0, 0.15]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, -0.3, 0.22]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
+      cockpitTemplate:t="ussr_is_2_1944_commander_cockpit"
+      cameraNodeName:t="bone_turret"
 
       "hatchNodes:array"{
-        node:t="hatch_03"
+        node:t="hatch_01"
         node:t="hatch_02"
       }
     }
@@ -70,21 +90,168 @@ ussr_is_2_1944{
       }
     }
   }
+}
 
-  "disableDMParts:list<t>"{
-    part:t="ex_armor_turret_r_01"
-    part:t="ex_armor_turret_r_02"
-    part:t="ex_armor_turret_r_03"
-    part:t="ex_armor_turret_l_01"
-    part:t="ex_armor_turret_l_02"
-    part:t="ex_armor_turret_l_03"
-    part:t="ex_armor_01"
-    part:t="ex_armor_02"
-    part:t="ex_armor_03"
-    part:t="ex_armor_04"
-    part:t="ex_armor_05"
-    part:t="ex_armor_06"
-    part:t="ex_armor_07"
-    part:t="ex_armor_08"
+ussr_is_2_1944_driver_cockpit{
+  _extends:t="base_driver_cockpit"
+  animchar__res:t="kv_1_driver_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.192792, -0.0259184, -1.49218e-05
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="track_l"
+    node:t="track_r"
+    node:t="ex_decor_l_01"
+    node:t="ex_decor_r_01"
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.07
+  }
+}
+
+ussr_is_2_1944_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__minForwardOffset:r=-0.27
+  cockpit__offset:p3=-0.0, -0.0, -0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.00491715, -0.0407845, 0.682348
+    item:p3=-0.21, 0.93964, 0.500114
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+    node:t="bone_turret"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+    slit:t="cam_front"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.11
+    slit:r=0.2
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+    slit:b=no
+  }
+}
+
+ussr_is_2_1944_commander_cockpit{
+  _extends:t="base_commander_tower_cockit_no_slits"
+  animchar__res:t="pzkpfw_iii_b_commander_char"
+  cockpit__offset:p3=-0.495364, 0.82, 0.494493
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_mask"
+    node:t="gun_barrel"
+  }
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+    item:p3=0.0, 0.0, 0.0
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+    slit:r=-0.09
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
+    slit:b=no
+    slit:b=no
+    slit:b=no
+    slit:b=no
+    slit:b=no
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+    slit:t="cam_front_left"
+    slit:t="cam_rear_left"
+    slit:t="cam_rear"
+    slit:t="cam_rear_right"
+    slit:t="cam_front_right"
+  }
+}
+
+is_2_1944_skins{
+  _override:b=yes
+
+  "skin__objTexReplace:array"{
+
+    "skin:object"{
+      id:t="is_2_1944_winter"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_2_1944_forest"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_forest_01*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_2_1944_ussr_camo_brown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_brown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_2_1944_ussr_camo_green_ltbrown_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_2_1944_ussr_camo_desert_yellow_brown"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_desert_yellow_brown*"
+      }
+    }
+
+    "skin:object"{
+      id:t="is_2_1944_ussr_camo_winter_lines"
+
+      "objTexReplace:object"{
+        "ussr_camo_green*":t="ussr_camo_winter_lines*"
+      }
+    }
   }
 }

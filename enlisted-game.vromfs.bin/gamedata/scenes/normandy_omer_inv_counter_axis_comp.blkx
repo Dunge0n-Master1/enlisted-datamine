@@ -5257,18 +5257,6 @@ entity{
 }
 
 entity{
-  _template:t="respawnChooser+respVehicle+vehicle_resp_soft_ground_collision"
-  transform:m=[[0.924306, 0.0, 0.381655] [0.0, 1.0, 0.0] [-0.381655, 0.0, 0.924306] [-340.272, 5.22429, 34.1527]]
-  respTime:i=150
-  groupName:t="sector_2_b"
-  respawnBaseGroup:i=1
-  respawnBaseGroup:i=1
-  team:i=2
-  maxVehicleOnSpawn:i=2
-  active:b=no
-}
-
-entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[-0.983555, 0.0043271, 0.180558] [0.00145503, 0.999871, -0.0160359] [0.180603, 0.0155095, 0.983434] [154.386, 3.11776, -102.75]]
   groupName:t="sector_5_b"
@@ -6016,14 +6004,6 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.924306, 0.0, 0.381655] [0.0, 1.0, 0.0] [-0.381655, 0.0, 0.924306] [-340.23, 5.22429, 34.1632]]
-  team:i=2
-  groupName:t="sector_2_b"
-}
-
-entity{
-  _template:t="respawnChooser+respMotorcycle"
-  active:b=no
   transform:m=[[-0.612157, 0.0, 0.790737] [0.0, 1.0, 0.0] [-0.790737, 0.0, -0.612157] [255.976, 4.55636, -286.682]]
   team:i=1
   groupName:t="sector_5_c"
@@ -6354,7 +6334,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.828437, 0.0, -0.560084] [0.0, 1.0, 0.0] [0.560084, 0.0, -0.828437] [300.749, 2.61557, -136.083]]
+  transform:m=[[-0.828437, 0.0, -0.560084] [0.0, 1.0, 0.0] [0.560084, 0.0, -0.828437] [282.628, 2.61557, -111.203]]
   resupply_zone__team:i=1
   groupName:t="sector_5"
   active:b=no
@@ -6362,7 +6342,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.964574, 0.0, 0.263814] [0.0, 1.0, 0.0] [-0.263814, 0.0, 0.964574] [4.43129, 2.43893, 90.8674]]
+  transform:m=[[0.964574, 0.0, 0.263814] [0.0, 1.0, 0.0] [-0.263814, 0.0, 0.964574] [12.5487, 2.43893, 94.4578]]
   resupply_zone__team:i=2
   groupName:t="sector_5"
   active:b=no
@@ -6370,7 +6350,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.880377, 0.0, -0.474275] [0.0, 1.0, 0.0] [0.474275, 0.0, -0.880377] [241.109, 2.97177, -64.7022]]
+  transform:m=[[-0.880377, 0.0, -0.474275] [0.0, 1.0, 0.0] [0.474275, 0.0, -0.880377] [217.04, 2.97177, -36.8219]]
   resupply_zone__team:i=1
   groupName:t="sector_4"
   active:b=no
@@ -6378,7 +6358,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.991541, 0.0, 0.129795] [0.0, 1.0, 0.0] [-0.129795, 0.0, 0.991541] [-45.6349, 2.63684, 151.069]]
+  transform:m=[[0.991541, 0.0, 0.129795] [0.0, 1.0, 0.0] [-0.129795, 0.0, 0.991541] [-107.584, 2.63684, 80.3486]]
   resupply_zone__team:i=2
   groupName:t="sector_4"
   active:b=no
@@ -6386,7 +6366,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.880377, 0.0, -0.474275] [0.0, 1.0, 0.0] [0.474275, 0.0, -0.880377] [241.547, 2.97177, -65.0724]]
+  transform:m=[[-0.880377, 0.0, -0.474275] [0.0, 1.0, 0.0] [0.474275, 0.0, -0.880377] [217.046, 2.97177, -37.0077]]
   resupply_zone__team:i=1
   groupName:t="sector_4_c"
   active:b=no
@@ -6394,7 +6374,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.996827, 0.0, -0.0796045] [0.0, 1.0, 0.0] [0.0796045, 0.0, 0.996827] [-40.5376, 2.63684, 153.276]]
+  transform:m=[[0.996827, 0.0, -0.0796045] [0.0, 1.0, 0.0] [0.0796045, 0.0, 0.996827] [-107.327, 2.63684, 80.5575]]
   resupply_zone__team:i=2
   groupName:t="sector_4_c"
   active:b=no
@@ -6402,7 +6382,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.0472648, 0.0, 0.998883] [0.0, 1.0, 0.0] [-0.998883, 0.0, -0.0472648] [141.714, 2.6573, -112.117]]
+  transform:m=[[-0.0472648, 0.0, 0.998883] [0.0, 1.0, 0.0] [-0.998883, 0.0, -0.0472648] [164.456, 2.6573, -114.691]]
   resupply_zone__team:i=1
   groupName:t="sector_3"
   active:b=no
@@ -6410,7 +6390,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.994379, 0.0, 0.105884] [0.0, 1.0, 0.0] [-0.105884, 0.0, 0.994379] [-141.481, 2.63684, 172.217]]
+  transform:m=[[0.994379, 0.0, 0.105884] [0.0, 1.0, 0.0] [-0.105884, 0.0, 0.994379] [-111.24, 2.63683, 187.466]]
   resupply_zone__team:i=2
   groupName:t="sector_3"
   active:b=no
@@ -6418,7 +6398,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.651357, 0.0, 0.758771] [0.0, 1.0, 0.0] [-0.758771, 0.0, -0.651357] [53.9199, 2.59345, -12.3755]]
+  transform:m=[[-0.651357, 0.0, 0.758771] [0.0, 1.0, 0.0] [-0.758771, 0.0, -0.651357] [60.6891, 2.59345, -6.8451]]
   resupply_zone__team:i=1
   groupName:t="sector_2"
   active:b=no
@@ -6426,7 +6406,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.892444, 0.0, 0.451161] [0.0, 1.0, 0.0] [-0.451161, 0.0, 0.892444] [-216.071, 2.63684, 112.877]]
+  transform:m=[[0.892444, 0.0, 0.451161] [0.0, 1.0, 0.0] [-0.451161, 0.0, 0.892444] [-194.936, 2.63685, 133.751]]
   resupply_zone__team:i=2
   groupName:t="sector_2"
   active:b=no
@@ -6434,7 +6414,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.438463, 0.0, 0.898749] [0.0, 1.0, 0.0] [-0.898749, 0.0, -0.438463] [44.4598, 2.6573, 119.048]]
+  transform:m=[[-0.438463, 0.0, 0.898749] [0.0, 1.0, 0.0] [-0.898749, 0.0, -0.438463] [44.1438, 2.6573, 126.73]]
   resupply_zone__team:i=1
   groupName:t="sector_1"
   active:b=no
@@ -6442,7 +6422,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.865577, 0.0, 0.500779] [0.0, 1.0, 0.0] [-0.500779, 0.0, 0.865577] [-311.673, 3.09705, 47.1184]]
+  transform:m=[[0.865577, 0.0, 0.500779] [0.0, 1.0, 0.0] [-0.500779, 0.0, 0.865577] [-269.381, 3.09703, 30.859]]
   resupply_zone__team:i=2
   groupName:t="sector_1"
   active:b=no
@@ -6450,7 +6430,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.53947, 0.0, 0.842005] [0.0, 1.0, 0.0] [-0.842005, 0.0, -0.53947] [255.843, 4.55636, -286.869]]
+  transform:m=[[-0.53947, 0.0, 0.842005] [0.0, 1.0, 0.0] [-0.842005, 0.0, -0.53947] [199.627, 3.65891, -215.804]]
   resupply_zone__team:i=1
   groupName:t="sector_5_b"
   active:b=no
@@ -6458,7 +6438,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.941712, 0.0, -0.336423] [0.0, 1.0, 0.0] [0.336423, 0.0, -0.941712] [138.725, 2.57243, 89.8257]]
+  transform:m=[[-0.941712, 0.0, -0.336423] [0.0, 1.0, 0.0] [0.336423, 0.0, -0.941712] [146.782, 2.57243, 59.0509]]
   resupply_zone__team:i=2
   groupName:t="sector_5_b"
   active:b=no
@@ -6466,7 +6446,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.513792, 0.0, 0.857916] [0.0, 1.0, 0.0] [-0.857916, 0.0, -0.513792] [168.687, 2.62567, -141.598]]
+  transform:m=[[-0.513792, 0.0, 0.857916] [0.0, 1.0, 0.0] [-0.857916, 0.0, -0.513792] [191.564, 2.62567, -149.294]]
   resupply_zone__team:i=1
   groupName:t="sector_4_b"
   active:b=no
@@ -6474,7 +6454,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.971121, 0.0, -0.238585] [0.0, 1.0, 0.0] [0.238585, 0.0, 0.971121] [-108.244, 2.68949, 82.8534]]
+  transform:m=[[0.971121, 0.0, -0.238585] [0.0, 1.0, 0.0] [0.238585, 0.0, 0.971121] [-136.699, 2.68954, 28.3365]]
   resupply_zone__team:i=2
   groupName:t="sector_4_b"
   active:b=no
@@ -6482,7 +6462,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.577847, 0.0, 0.816146] [0.0, 1.0, 0.0] [-0.816146, 0.0, -0.577847] [143.694, 2.6573, -108.285]]
+  transform:m=[[-0.577847, 0.0, 0.816146] [0.0, 1.0, 0.0] [-0.816146, 0.0, -0.577847] [163.495, 2.65728, -115.452]]
   resupply_zone__team:i=1
   groupName:t="sector_3_b"
   active:b=no
@@ -6490,7 +6470,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.0343762, 0.0, -0.999409] [0.0, 1.0, 0.0] [0.999409, 0.0, 0.0343762] [-191.937, 2.68949, 147.282]]
+  transform:m=[[0.0343762, 0.0, -0.999409] [0.0, 1.0, 0.0] [0.999409, 0.0, 0.0343762] [-216.255, 2.6895, 119.634]]
   resupply_zone__team:i=2
   groupName:t="sector_3_b"
   active:b=no
@@ -6498,7 +6478,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.983369, 0.0, 0.181618] [0.0, 1.0, 0.0] [-0.181618, 0.0, -0.983369] [104.373, 2.6573, -60.5339]]
+  transform:m=[[-0.983369, 0.0, 0.181618] [0.0, 1.0, 0.0] [-0.181618, 0.0, -0.983369] [120.475, 2.65729, -41.8561]]
   resupply_zone__team:i=1
   groupName:t="sector_3_c"
   active:b=no
@@ -6506,7 +6486,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.983763, 0.0, 0.179474] [0.0, 1.0, 0.0] [-0.179474, 0.0, 0.983763] [-142.312, 2.51978, 172.578]]
+  transform:m=[[0.983763, 0.0, 0.179474] [0.0, 1.0, 0.0] [-0.179474, 0.0, 0.983763] [-112.659, 2.51978, 186.781]]
   resupply_zone__team:i=2
   groupName:t="sector_3_c"
   active:b=no
@@ -6514,7 +6494,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.915949, 0.0, 0.401294] [0.0, 1.0, 0.0] [-0.401294, 0.0, -0.915949] [283.175, 1.80354, -14.4815]]
+  transform:m=[[-0.915949, 0.0, 0.401294] [0.0, 1.0, 0.0] [-0.401294, 0.0, -0.915949] [301.783, 1.80354, 9.13618]]
   resupply_zone__team:i=1
   groupName:t="sector_3_d"
   active:b=no
@@ -6522,7 +6502,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.962707, 0.0, 0.270545] [0.0, 1.0, 0.0] [-0.270545, 0.0, 0.962707] [-87.4494, 2.68949, 198.11]]
+  transform:m=[[0.962707, 0.0, 0.270545] [0.0, 1.0, 0.0] [-0.270545, 0.0, 0.962707] [-143.273, 2.68949, 173.262]]
   resupply_zone__team:i=2
   groupName:t="sector_3_d"
   active:b=no
@@ -6530,7 +6510,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.9787, 0.0, -0.205294] [0.0, 1.0, 0.0] [0.205294, 0.0, -0.9787] [1.19546, 2.65521, -54.851]]
+  transform:m=[[-0.9787, 0.0, -0.205294] [0.0, 1.0, 0.0] [0.205294, 0.0, -0.9787] [-27.6648, 2.65518, -21.8873]]
   resupply_zone__team:i=1
   groupName:t="sector_2_b"
   active:b=no
@@ -6538,15 +6518,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.924306, 0.0, 0.381655] [0.0, 1.0, 0.0] [-0.381655, 0.0, 0.924306] [-340.272, 5.22429, 34.1527]]
-  resupply_zone__team:i=2
-  groupName:t="sector_2_b"
-  active:b=no
-}
-
-entity{
-  _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.612157, 0.0, 0.790737] [0.0, 1.0, 0.0] [-0.790737, 0.0, -0.612157] [255.976, 4.55636, -286.682]]
+  transform:m=[[-0.612157, 0.0, 0.790737] [0.0, 1.0, 0.0] [-0.790737, 0.0, -0.612157] [199.948, 3.65891, -215.801]]
   resupply_zone__team:i=1
   groupName:t="sector_5_c"
   active:b=no
@@ -6554,7 +6526,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.666684, 0.0, -0.745341] [0.0, 1.0, 0.0] [0.745341, 0.0, 0.666684] [-37.2117, 2.67885, 32.8405]]
+  transform:m=[[0.666684, 0.0, -0.745341] [0.0, 1.0, 0.0] [0.745341, 0.0, 0.666684] [-56.1428, 2.67885, -43.7949]]
   resupply_zone__team:i=2
   groupName:t="sector_5_c"
   active:b=no
@@ -6562,7 +6534,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.676273, 0.0, 0.736651] [0.0, 1.0, 0.0] [-0.736651, 0.0, -0.676273] [-138.879, 2.59726, -51.2039]]
+  transform:m=[[-0.676273, 0.0, 0.736651] [0.0, 1.0, 0.0] [-0.736651, 0.0, -0.676273] [-173.236, 2.59726, -44.9017]]
   resupply_zone__team:i=1
   groupName:t="sector_1_b"
   active:b=no
@@ -6570,7 +6542,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.696647, 0.0, 0.717416] [0.0, 1.0, 0.0] [-0.717416, 0.0, -0.696647] [16.9077, 2.71616, 170.655]]
+  transform:m=[[-0.696647, 0.0, 0.717416] [0.0, 1.0, 0.0] [-0.717416, 0.0, -0.696647] [-13.3353, 2.71616, 184.255]]
   resupply_zone__team:i=2
   groupName:t="sector_1_b"
   active:b=no
@@ -6578,15 +6550,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.855418, 0.0, 0.517938] [0.0, 1.0, 0.0] [-0.517938, 0.0, -0.855418] [48.7688, 2.65521, 42.8414]]
-  resupply_zone__team:i=1
-  groupName:t="sector_2_b"
-  active:b=no
-}
-
-entity{
-  _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[-0.92965, 0.0, -0.368446] [0.0, 1.0, 0.0] [0.368446, 0.0, -0.92965] [-50.2874, 2.61037, 210.391]]
+  transform:m=[[-0.92965, 0.0, -0.368446] [0.0, 1.0, 0.0] [0.368446, 0.0, -0.92965] [-156.113, 2.61037, 166.467]]
   resupply_zone__team:i=2
   groupName:t="sector_2_b"
   active:b=no

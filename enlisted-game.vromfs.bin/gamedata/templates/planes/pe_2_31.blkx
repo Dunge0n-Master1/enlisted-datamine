@@ -30,7 +30,7 @@ pe_2_31{
         turret:t="turret_08"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"
@@ -71,7 +71,7 @@ pe_2_31{
         turret:t="turret_12"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_ailerons"
         l.hand:t="stick_ailerons"
         r.foot:t="pedal_rfoot_1"

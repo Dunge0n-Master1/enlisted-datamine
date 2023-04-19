@@ -1,19 +1,6 @@
 stat_name:t="launcher"
 selWeaponVar:t="type_97_automatic_cannon"
 
-gunFlash{
-
-  gunFx_main{
-    fx:t="muzzle_flash"
-    scale:r=0.04
-  }
-
-  gunFx_add_bolt{
-    fx:t="side_muzzle_flash"
-    scale:r=0.01
-  }
-}
-
 ownerAnimVars{
   reye_offset_fwd0:r=-0.1
   gun_offset_along:r=0.15

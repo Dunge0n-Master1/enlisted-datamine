@@ -2,6 +2,7 @@ options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
 options no_aot = true
+options strict_smart_pointers
 
 module array_boost shared public
 
@@ -40,6 +41,22 @@ def public temp_array ( var arr : auto implicit ==const )
 def public temp_array ( arr : auto implicit ==const)
     unsafe
         return <- array_helper ( arr, decltype(arr[0]) )
+
+[unsafe_operation, template (a), unused_argument(a)]
+def public temp_array ( var data : auto? ==const; lenA : int; a : auto(TT) ) : array<TT -const-#>
+    var res : array<TT -const-#>
+    if lenA>=1
+        unsafe
+            _builtin_make_temp_array(res, data, lenA)
+    return <- res
+
+[unsafe_operation, template (a), unused_argument(a)]
+def public temp_array ( data : auto? ==const; lenA : int; a : auto(TT) ) : array<TT -const-#>
+    var res : array<TT -const-#>
+    if lenA>=1
+        unsafe
+            _builtin_make_temp_array(res, data, lenA)
+    return <- res
 
 [expect_any_array(v)]
 def empty(v:auto(VecT))

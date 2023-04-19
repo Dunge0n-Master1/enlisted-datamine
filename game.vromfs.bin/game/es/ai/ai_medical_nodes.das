@@ -6,7 +6,7 @@ require ecs.common
 require math
 require math.base
 require BehNodes
-require EnlistedWalkerai
+require DngWalkerai
 require DagorDataBlock
 require HumanPhys
 require Dacoll

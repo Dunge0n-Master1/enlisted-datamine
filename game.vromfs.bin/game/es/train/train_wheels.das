@@ -3,7 +3,8 @@ require AnimV20
 require GeomNodeTree
 require DagorSystem
 require DagorMath
-require EnlistedPhysObj
+require GamePhys
+require DngPhysObj
 
 [es(on_appear)]
 def init_train_wheels(evt : Event;

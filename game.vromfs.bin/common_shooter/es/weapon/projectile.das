@@ -7,8 +7,8 @@ require Ballistics
 require BallisticsProps
 require DagorMath
 require DagorSystem
-require EnlistedDm
-require EnlistedWeapon
+require DngDm
+require DngWeapon
 require AnimV20
 require GeomNodeTree
 require GamePhys

@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWounds
+require DngWounds
 require dm
 require game.events_game
 

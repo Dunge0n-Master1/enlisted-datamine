@@ -375,50 +375,42 @@ b_34{
 
 a5m4{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.18, 0.18
   plane_carrier_assist__windForce:r=15.0
 }
 
 a6m2_mod11{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.145, 0.08
 }
 
 a6m3{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.145, 0.08
 }
 
 a6m5{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.145, 0.08
 }
 
 b5n2{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.16, 0.16
 }
 
 ki_44_2{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.1, 0.1
 }
 
 ki_61_1a_hei{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.1, 0.1
 }
 
 soc_1{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.17, 0.17
   vehicle_resupply__type:t="water"
 
@@ -430,31 +422,26 @@ soc_1{
 
 f4u_1d{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.16, 0.16
 }
 
 f4u_1c{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.16, 0.16
 }
 
 sb2c_1c{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.18, 0.18
 }
 
 boomerang_mkii{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.24, 0.24
 }
 
 firefly_mki{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   camera__lookAroundOffsetRange:p2=0.18, 0.18
 }
 
@@ -469,7 +456,6 @@ f2a3_driver_cockpit{
 
 e13a1{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   vehicle_resupply__type:t="water"
 
   "canUseRespawnbaseSubtypes:list<t>"{
@@ -480,31 +466,5 @@ e13a1{
 
 sbd_3_pacific{
   _override:b=yes
-  _extends:t="plane_increased_damage"
   plane_carrier_assist__forwardForce:r=6.0
-}
-
-d3a1{
-  _override:b=yes
-  _extends:t="plane_increased_damage"
-}
-
-d4y1{
-  _override:b=yes
-  _extends:t="plane_increased_damage"
-}
-
-f2a3{
-  _override:b=yes
-  _extends:t="plane_increased_damage"
-}
-
-p_400{
-  _override:b=yes
-  _extends:t="plane_increased_damage"
-}
-
-seafire_mk3{
-  _override:b=yes
-  _extends:t="plane_increased_damage"
 }

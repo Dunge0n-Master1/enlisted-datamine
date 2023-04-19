@@ -381,7 +381,6 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
           return
         if (isGamepad.value)
           move_mouse_cursor(id, false)
-        gui_scene.setXmbFocus(xmbNode)
       }
       function onHover(on) {
         hoveredGameMode(on ? gameMode : null)

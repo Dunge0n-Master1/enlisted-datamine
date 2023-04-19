@@ -1,11 +1,11 @@
 require ecs
 require ecs.extra_set
 require app
-require EnlistedNet
+require DngNet
 require player
 require game.utils.net_utils
 require ecs.common
-require EnlistedDm
+require DngDm
 require game.utils.team
 require game.es.events
 require enlisted.events_enlisted

@@ -9,7 +9,7 @@ let {
   tierText, kindIcon, classIcon, classNameColored, levelBlock, experienceTooltip,
   classTooltip, rankingTooltip, mkSoldierMedalIcon, calcExperienceData
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let {  gap, noteTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { gap, noteTxtColor, defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldiersData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
@@ -33,37 +33,18 @@ let mkClassBonus = @(classBonusWatch) function() {
     @() loc("tooltip/soldierExpBonus"))
 }
 
-let callnameBlock = @(callname, soldierName) {
+let callnameBlock = @(callname) {
   size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_VERTICAL
-  valign = ALIGN_BOTTOM
-  halign = ALIGN_LEFT
-  clipChildren = true
-  children = [
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      behavior = Behaviors.Marquee
-      delay = 1
-      speed = 50
-      rendObj = ROBJ_TEXT
-      text = callname
-      color = noteTxtColor
-    }.__update(h2_txt)
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      key = "soldierName_small"
-      rendObj = ROBJ_TEXT
-      text = soldierName
-      color = noteTxtColor
-      padding = [0, 0, hdpx(2), 0]
-    }.__update(sub_txt)
-  ]
-}
-
+  behavior = Behaviors.Marquee
+  delay = 1
+  speed = 50
+  rendObj = ROBJ_TEXT
+  text = callname
+  color = noteTxtColor
+}.__update(h2_txt)
 
 let nameField = function(soldierWatch){
   return function(){
-    let soldierName = getObjectName(soldierWatch.value)
     let { callname = "" } = soldierWatch.value
     return {
       flow = FLOW_HORIZONTAL
@@ -71,12 +52,12 @@ let nameField = function(soldierWatch){
       size = [flex(), SIZE_TO_CONTENT]
       gap = hdpx(5)
       children = [
-        callname != "" ? callnameBlock(callname, soldierName)
+        callname != "" ? callnameBlock(callname)
         : {
             size = [flex(), SIZE_TO_CONTENT]
             key = "soldierName_big"
             rendObj = ROBJ_TEXT
-            text = soldierName
+            text = getObjectName(soldierWatch.value)
             color = noteTxtColor
           }.__update(h2_txt)
       ]
@@ -126,6 +107,16 @@ let levelBlockWithProgress = @(
     @() experienceTooltip(levelData))
 }
 
+let mkSoldierNameSmall = @(soldier)
+  (soldier?.callname ?? "") == "" ? null : {
+    size = SIZE_TO_CONTENT
+    key = "soldierName_small"
+    rendObj = ROBJ_TEXT
+    text = getObjectName(soldier)
+    color = defTxtColor
+    padding = [0, 0, 0, hdpx(12)]
+  }.__update(sub_txt)
+
 let function mkNameBlock(soldier) {
   let soldierWatch = mkSoldiersData(soldier)
   let perksWatch = Computed(@() clone perksData.value?[soldier.value?.guid])
@@ -140,7 +131,7 @@ let function mkNameBlock(soldier) {
     let medal = mkSoldierMedalIcon(soldierWatch.value, hdpx(24))
     return {
       watch = [soldierWatch, campPresentation, needFreemiumStatus]
-      size = [flex(), (soldierWatch.value?.callname ?? "") != "" ? hdpx(82) : hdpx(65)]
+      size = [flex(), hdpx(65)]
       flow = FLOW_VERTICAL
       animations = hdrAnimations
       transform = {}
@@ -193,6 +184,7 @@ let function mkNameBlock(soldier) {
                   },
                   @() classTooltip(armyId, sClass, sKind))
                 mkClassBonus(classBonusWatch)
+                mkSoldierNameSmall(soldierWatch.value)
               ]
             }
           ]

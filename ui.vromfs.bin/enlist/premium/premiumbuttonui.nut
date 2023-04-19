@@ -10,6 +10,7 @@ let { premiumActiveInfo, premiumImage, premiumBg
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
+let { hasPremium } = require("%enlist/currency/premium.nut")
 
 
 let IMAGE_WIDTH = colFull(1) - midPadding * 2
@@ -21,7 +22,7 @@ let hasDiscount = Computed(@() premiumProducts.value.findindex(@(i)
 
 
 let premiumWidget = watchElemState(@(sf) {
-  watch = hasDiscount
+  watch = [hasDiscount, hasPremium]
   rendObj = ROBJ_SOLID
   color = panelBgColor
   size = [btnWidth, btnWidth]
@@ -36,6 +37,9 @@ let premiumWidget = watchElemState(@(sf) {
   onHover = @(on) cursors.setTooltip(on
     ? tooltipBox(premiumActiveInfo())
     : null)
+  animations = hasPremium.value ? null
+    : [{prop = AnimProp.color, from = panelBgColor, to = 0xFF302438, duration = 3,
+        loop = true, play = true, easing = CosineFull }]
   children = [
     {
       rendObj = ROBJ_IMAGE

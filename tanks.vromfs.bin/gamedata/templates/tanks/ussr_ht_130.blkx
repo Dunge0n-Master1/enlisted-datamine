@@ -65,7 +65,7 @@ ussr_ht_130{
 ussr_ht_130_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minZoom:r=-0.27
+  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.35, -0.01, 0.22
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

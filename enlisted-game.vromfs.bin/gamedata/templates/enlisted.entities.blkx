@@ -66,6 +66,7 @@ import:t="#content/enlisted_extra/gamedata/templates/tanks/*.blk"
 import:t="%danetlibs/gpu_benchmark/templates/graphics_autodetect.blk"
 import:t="%danetlibs/assets_import/templates/assets_import.blk"
 import:t="%danetlibs/ground_holes/templates/ground_holes.template.blk"
+import:t="%danetlibs/node_collapser/templates/node_collapser.template.blk"
 
 terraform{
   _extends:t="replicating"
@@ -115,10 +116,19 @@ rendinsts_removes{
 battle_area_ui_state{
   _singleton:b=yes
   battle_area__requireUpdate:b=yes
+  battle_area__projectionOn:b=no
+  battle_area__projectionOnDist:r=1.0
+  _tracked:t="battle_area__requireUpdate"
+  _tracked:t="battle_area__projectionOn"
   _tracked:t="battle_area__activeBattleAreasPolygon"
   _tracked:t="battle_area__nextBattleAreasPolygon"
+  _tracked:t="battle_area__activeBattleAreasScreenProjections"
+  battle_area__showActiveArea:b=yes
 
   "battle_area__activeBattleAreasPolygon:list<p2>"{
+  }
+
+  "battle_area__activeBattleAreasScreenProjections:list<r>"{
   }
 
   "battle_area__nextBattleAreasPolygon:list<p2>"{
@@ -1223,6 +1233,9 @@ respawn_point_selector{
     respawn_icon__position:p3=0.0, 0.0, 0.0
     respawn_icon__isHidden:b=no
     respawn_icon__isPlayerSpawn:b=no
+
+    "respawn_point__respawnersQueue:list<eid>"{
+    }
   }
 
   _group{
@@ -1236,9 +1249,6 @@ respawn_point_selector{
     respawn_point__lastRespawnTime:r=0.0
     respawn_point__cachedPathsPos:p3=0.0, 0.0, 0.0
 
-    "respawn_point__respawnersQueue:list<eid>"{
-    }
-
     "respawn_point__respawnersTimeouts:list<r>"{
     }
 
@@ -1246,7 +1256,20 @@ respawn_point_selector{
     }
   }
 
+  "respawn_icon__queueSize:i"{
+    value:i=0
+    _track:b=yes
+    _tags:t="ui"
+  }
+
   "target:eid"{
+  }
+}
+
+paratroopers_respawn_point_selector{
+  _extends:t="respawn_point_selector"
+
+  "paratroopersIcon:tag"{
   }
 }
 
@@ -1463,6 +1486,7 @@ enlisted_userstat_filter{
     kills_by_engineer_kind:b=yes
     kills_by_biker_kind:b=yes
     kills_by_medic_kind:b=yes
+    kills_by_paratrooper_kind:b=yes
     tank_kills_by_rifle_kind:b=yes
     tank_kills_by_mgun_kind:b=yes
     tank_kills_by_assault_kind:b=yes
@@ -1477,6 +1501,7 @@ enlisted_userstat_filter{
     tank_kills_by_engineer_kind:b=yes
     tank_kills_by_biker_kind:b=yes
     tank_kills_by_medic_kind:b=yes
+    tank_kills_by_paratrooper_kind:b=yes
     plane_kills_by_rifle_kind:b=yes
     plane_kills_by_mgun_kind:b=yes
     plane_kills_by_assault_kind:b=yes
@@ -1491,6 +1516,7 @@ enlisted_userstat_filter{
     plane_kills_by_engineer_kind:b=yes
     plane_kills_by_biker_kind:b=yes
     plane_kills_by_medic_kind:b=yes
+    plane_kills_by_paratrooper_kind:b=yes
     kills_by_engineer_buildings:b=yes
     tank_kills_by_engineer_buildings:b=yes
     plane_kills_by_engineer_buildings:b=yes
@@ -1619,6 +1645,296 @@ friendly_fire_forgivable{
   }
 }
 
+paraptroopers_respawner{
+  _extends:t="replicating"
+  respawner__paratroopersSquad:b=no
+  respawner__paratroopersChooserOn:b=no
+  respawner__paratroopersPointCoords:p3=0.0, 0.0, 0.0
+  respawner__paratroopersPointPickHeightMult:r=5.0
+  respawner__paratroopersAircraftStartPointOffset:r=1000.0
+  respawner__paratroopersAircraftEndPointOffset:r=4500.0
+  respawner__paratroopersAircraftHeight:r=450.0
+  respawner__paratroopersAircraftSpawnDist:r=20.0
+  respawner__paratroopersAircraftHeightOffset:r=10.0
+  respawner__paratroopersAircraftHeightToDistanceOffsetMult:r=2.0
+  respawner__paratroopersAircraftTemplate:t="plane_spawn_in_air+ai_aircraft+client_ai_aircraft+paratroopers_aircraft+requested_aircraft"
+  _replicated:t="respawner__paratroopersSupplySlotsInfo"
+  _tracked:t="respawner__paratroopersSupplySlotsInfo"
+
+  "respawner__paratroopersAircraftAngels:shared:list<r>"{
+    angle:r=-0.52
+    angle:r=0.0
+    angle:r=0.52
+  }
+
+  "paratroopersIconEid:eid"{
+  }
+
+  "respawner__paratroopersSupplySlotsInfo:array"{
+  }
+}
+
+client_ai_aircraft{
+  client_ai_aircraft__delayedExit:r=-1.0
+
+  "clientAiAircraft:tag"{
+  }
+}
+
+paratroopers_supply_schemes{
+  _tags:t="server"
+  _singleton:b=yes
+  paratroopers__supplySchemesJson:t="%enlSqGlob/data/paratroopers_schemes.json"
+
+  "paratroopers__supplySchemes:object"{
+  }
+}
+
+paratroopers_aircraft_inside_snapshot{
+  _extends:t="watched_entity_snapshot_3d"
+
+  _group{
+    _tags:t="sound"
+    watched_entity_snapshot__path:t="aircraft/engines/engine_airborne"
+  }
+}
+
+paratroopers_aircraft_sound{
+  _extends:t="paratroopers_aircraft_inside_snapshot"
+
+  _group{
+    _tags:t="server"
+    paratroopers_aircraft_net_speech__narratorEnabled:b=yes
+    paratroopers_aircraft_net_speech__narratorGetReadyAt:r=0.0
+    paratroopers_aircraft_net_speech__narratorDistToKickParatroopersSq:r=0.0
+    paratroopers_aircraft_net_speech__narratorGetReadyDelay:r=2.0
+    paratroopers_aircraft_net_speech__narratorDistToKickParatroopersOffset:r=175.0
+    paratroopers_aircraft_net_speech__narratorFlyToKickTimerOffset:r=3.5
+  }
+
+  _group{
+    _tags:t="sound"
+    paratroopers_aircraft_siren__distToStartSq:r=0.0
+    paratroopers_aircraft_siren__path:t="player/effects/parachute_siren"
+    paratroopers_aircraft_siren__distToStartOffset:r=75.0
+
+    "paratroopers_aircraft_siren__event:SoundEvent"{
+    }
+  }
+}
+
+supply_box_parachute_canopy_item_sound{
+
+  _group{
+    _tags:t="sound"
+    parachute_item_deploy_sound__deployedPath:t=""
+    parachute_item_deploy_sound__undeployedPath:t="enemy/effects/parachute_box_landing"
+  }
+}
+
+supply_box_parachute{
+  parachute__template:t="parachute_canopy_item+supply_box_parachute_canopy_item_sound"
+  parachute__autoDeployHeight:r=280.0
+  parachute__deleteAtTime:r=-1.0
+  parachute__deleteAfterTime:r=1.0
+
+  "human_parachute__eid:eid"{
+  }
+}
+
+paratroopers_supply_box_in_air{
+  _extends:t="animchar"
+  _extends:t="horizontal_air_resistance"
+  _extends:t="paratroopers_supply_box"
+  _extends:t="parachute_wind"
+  human_parachute_wind__deadZone:r=9.0
+  horizontal_air_resistance__accel:r=10.0
+  animchar__res:t="airdrop_of_supply_landed_char"
+  collision_physMatId:i=-1
+  pair_collision__tag:t="collidableToHuman"
+  collres__res:t="airdrop_of_supply_landed_collision"
+  net__physId:i=-1
+  phys_obj_net_phys__blk:t="content/enlisted/gamedata/gameobjs/paratroopers_supply_box_phys.blk"
+
+  _group{
+    _tags:t="server"
+    supply_box__deployedTemplate:t="paratroopers_supply_box_deployed"
+    supply_box__landingTimer:r=-1.0
+    supply_box__landingTime:r=1.0
+    supply_box__collisionDamageMinVelocity:r=1.0
+    supply_box__collisionDamageLethalVelocity:r=3.0
+
+    "supply_box__hasLanded:b"{
+      value:b=no
+      _track:b=yes
+    }
+  }
+
+  anim_phys{
+  }
+
+  phys_vars{
+  }
+
+  pair_collision__gridHolders{
+  }
+
+  "pair_collision__gridNames:list<t>"{
+    h:t="humans"
+    h:t="vehicles"
+  }
+
+  "collidableToHuman:tag"{
+  }
+
+  collres{
+  }
+
+  phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
+  }
+}
+
+paratroopers_supply_box_deployed{
+  _extends:t="paratroopers_supply_box"
+  _extends:t="rendinst"
+  ri_extra__name:t="airdrop_of_supply_landed_rendinst"
+
+  "isRendinstDestr:tag"{
+    _tags:t="render"
+  }
+}
+
+paratroopers_supply_box{
+  _extends:t="replicating"
+  _extends:t="supply_box_parachute"
+  building_destroy__lastDamageAtTime:r=-1.0
+  building_destroy__timeToResetDestructionTimer:r=5.0
+  building_destroy__distanceVerifyThreshold:r=1.5
+  building_destroy__timeToDestroy:r=0.0
+  building_destroy__maxTimeToDestroy:r=9.0
+  building_menu__text:t="building_tool/paratroopers_supply_box"
+  actionTimerColor:p3=255.0, 0.0, 0.0
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+  _tracked:t="attaches_list"
+  buildingRadius:r=1.5
+  object__useDist:r=2.0
+  supply_box__maxUseDistSq:r=16.0
+  supply_box__useSound:t="player/walker/ww2_soldier/items/healing/pick"
+  supply_box__initVel:p3=0.0, 0.0, 0.0
+
+  "building__destroyable:tag"{
+  }
+
+  "building_destroy__operator:eid"{
+  }
+
+  "attaches_list:list<eid>"{
+  }
+
+  "supply_box__squad:eid"{
+  }
+
+  "supply_box__isActive:b"{
+    value:b=yes
+    _replicate:b=yes
+  }
+
+  _group{
+    _tags:t="ui"
+    hud_icon__image:t="paratrooper_box"
+    hud_icon__offsetY:r=0.6
+    hud_icon__maxDistance:r=100.0
+    hud_icon__opacityRangeX:p2=0.5, 0.8
+    hud_icon__opacityRangeY:p2=0.5, 0.8
+    hud_icon__opacityCenterMinMult:r=1.0
+    map_icon__image:t="paratrooper_box"
+
+    "hud_icon__visibleToSquad:eid"{
+    }
+
+    "hud_icon__isActive:b"{
+      value:b=yes
+      _track:b=yes
+    }
+
+    "map_icon__visibleToSquad:eid"{
+    }
+
+    "map_icon__isActive:b"{
+      value:b=yes
+      _track:b=yes
+    }
+  }
+
+  _group{
+    _tags:t="server"
+
+    "supply_box__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "supply_box__template_deps_list:list<t>"{
+    }
+  }
+}
+
+periodic_random_effects{
+  periodic_random_effects__nextSpawnTime:r=-1.0
+  periodic_random_effects__spawnPeriod:p2=0.5, 0.8
+  periodic_random_effects__spawnOffsetsX:p2=4.0, 14.0
+  periodic_random_effects__spawnOffsetsY:p2=6.0, 9.0
+  periodic_random_effects__spawnOffsetsZ:p2=9.0, 14.0
+
+  "periodic_random_effects__templates:shared:list<t>"{
+    template_name:t="explosion_midair_tiny_effect"
+    template_name:t="explosion_grenades_air_effect"
+    template_name:t="explosion_packet_air_effect"
+  }
+}
+
+paratroopers_aircraft{
+  _extends:t="replicating"
+  _extends:t="paratroopers_aircraft_sound"
+  paratroopers_aircraft__parachuteTemplate:t="parachute_canopy_item"
+  paratroopers_aircraft__kickTimePeriod:r=0.3
+  paratroopers_aircraft__kickTimer:r=-1.0
+  paratroopers_aircraft__kicked:b=no
+  paratroopers_aircraft__flyToKickTimer:r=-1.0
+  paratroopers_aircraft__exitVertVelocity:r=-2.0
+  paratroopers_aircraft__squadId:i=-1
+  paratroopers_aircraft__memberId:i=-1
+  customExitPos:p3=2.1, -2.3, 0.0
+  _replicated:t="paratroopers_aircraft__kicked"
+
+  "paratroopers_aircraft__respawnerEid:eid"{
+  }
+
+  "hideForestall:tag"{
+  }
+
+  "paratroopersAircraft:tag"{
+  }
+
+  _group{
+    _tags:t="server"
+    paratroopers_aircraft__supplyBoxTemplate:t="paratroopers_supply_box_in_air"
+    paratroopers_aircraft__supplyBoxSpawnOffset:p3=-2.0, -2.0, 0.0
+    paratroopers_aircraft__wasSupplyBoxSpawned:b=no
+    paratroopers_aircraft__kickSupplyBoxAtTime:r=-1.0
+    paratroopers_aircraft__kickSupplyBoxDelay:r=0.0
+
+    "paratroopers_aircraft__supplyBoxSquad:eid"{
+    }
+  }
+
+  _group{
+    _tags:t="ui"
+    hud_aircraft_marker__visibilityHeight:r=10000.0
+  }
+}
+
 respawner{
   respawner__enabled:b=no
   respawner__spectatorEnabled:b=no
@@ -1645,7 +1961,9 @@ respawner{
   respawner__missionStartDelay:r=30.0
   respawner__spawnScore:i=0
   respawner__isFirstSpawn:b=yes
+  respawner__isRespawnCameraCreated:b=no
   _extends:t="replicating"
+  _extends:t="paraptroopers_respawner"
   _replicated:t="respawner__enabled"
   _replicated:t="respawner__squad"
   _replicated:t="respawner__spectatorEnabled"
@@ -1909,6 +2227,10 @@ enlisted_player{
     scoring_player__meleeKills:i=0
     scoring_player__explosiveKills:i=0
     scoring_player__longRangeKills:i=0
+    scoring_player__bestOneSoldierLifeInfantryKills:i=0
+    scoring_player__bestOneSoldierLifeVehicleKills:i=0
+    scoring_player__bestOneSodierLifeParatrooperKills:i=0
+    scoring_player__contributionToVictory:r=0.0
     scoring_player__gunGameLevelup:i=0
     scoring_player__battleTimeLastStartedAt:r=-1.0
     scoring_player__isGameFinished:b=no
@@ -2484,9 +2806,14 @@ ai_aircraft_crew_pilot{
 }
 
 ai_aircraft_crew_soldier_base{
-  killLogName:t=""
+  _extends:t="dummy_enlisted_base_soldier"
+  _extends:t="soldier_human_equipment"
+  _extends:t="human_simple_vehicle_anim"
   _extends:t="stats_count_as_kill"
   _extends:t="disable_update"
+  _extends:t="ger_summer_2"
+  killLogName:t=""
+  animchar__appliedAnimSpeed:r=0.0
 
   "aiAircraftCrewSoldier:tag"{
   }
@@ -2500,18 +2827,31 @@ ai_aircraft_crew_soldier_base{
     attachable_wear_gloves_01_us_summer_item:t="gloves"
     attachable_wear_pants_01_ger_summer_item:t="pants"
   }
+
+  "animchar__animState:object"{
+    upper:i=-1
+    lower:i=-1
+  }
+
+  "animchar__animStateDirty:b"{
+    value:b=yes
+    _hide:b=yes
+  }
+
+  _group{
+    _tags:t="server"
+
+    "human_weap__template_deps:ecs::TemplatesListToInstantiate"{
+    }
+
+    "human_weap__template_deps_list:list<t>"{
+      tmpl:t="attachable_wear_head_01_us_summer_item"
+    }
+  }
 }
 
 ai_aircraft_crew_soldier_ussr_base{
-  killLogName:t=""
-  _extends:t="stats_count_as_kill"
-  _extends:t="disable_update"
-
-  "aiAircraftCrewSoldier:tag"{
-  }
-
-  "notTakeDamageFromBattleArea:tag"{
-  }
+  _extends:t="ai_aircraft_crew_soldier_base"
 
   "human_equipment__initialEquip:object"{
     attachable_wear_head_01_ussr_summer_item:t="face"
@@ -2526,15 +2866,7 @@ ai_aircraft_crew_soldier_ussr_base{
 }
 
 ai_aircraft_crew_soldier_usa_base{
-  killLogName:t=""
-  _extends:t="stats_count_as_kill"
-  _extends:t="disable_update"
-
-  "aiAircraftCrewSoldier:tag"{
-  }
-
-  "notTakeDamageFromBattleArea:tag"{
-  }
+  _extends:t="ai_aircraft_crew_soldier_base"
 
   "human_equipment__initialEquip:object"{
     attachable_wear_head_male_05_us_item:t="face"
@@ -2613,7 +2945,7 @@ disable_round_end_postfx{
   }
 }
 
-base_equipable_gun{
+equipable_gun{
   _override:b=yes
 
   _group{

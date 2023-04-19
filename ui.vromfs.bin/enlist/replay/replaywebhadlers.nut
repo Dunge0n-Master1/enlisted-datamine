@@ -8,6 +8,11 @@ let {
 let { records, isReplayProtocolValid } = require("%enlist/replay/replaySettings.nut")
 let datacache = require("datacache")
 
+let DATACACHE_ERROR_TO_TEXT = {
+  [datacache.ERR_MEMORY_LIMIT] = "replay/memoryLimit",
+  [datacache.ERR_ABORTED] = "replay/userAborted",
+}
+
 eventbus.subscribe("replay.download", function(params) {
   if (replayDownload.value.downloadRequestId != "") // do not download second file
     return
@@ -33,7 +38,7 @@ eventbus.subscribe("replay.download", function(params) {
     if (result?.error) {
       replayDownload.mutate(function (v) {
         v.state = REPLAY_DOWNLOAD_FAILED
-        v.stateText = datacache.ERR_MEMORY_LIMIT == result?.error_code ? "replay/memoryLimit" : "replay/HttpError"
+        v.stateText = DATACACHE_ERROR_TO_TEXT?[result?.error_code] ?? "replay/HttpError"
         v.downloadRequestId = ""
         v.contentLen = -1
       })
@@ -56,7 +61,7 @@ eventbus.subscribe("replay.download", function(params) {
         v.downloadRequestId = ""
         v.contentLen = -1
       })
-    else
+    else if (records.value.findindex(@(v) v.id == result.path) == -1)
       records.mutate(@(v) v.append({
         title = result.path.split("/").top()
         id = result.path

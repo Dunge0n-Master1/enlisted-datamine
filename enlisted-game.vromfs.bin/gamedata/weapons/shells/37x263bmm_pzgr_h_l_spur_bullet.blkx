@@ -14,13 +14,8 @@ relativeVelArmorShift:p2=200.0, 1000.0
 stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterPenetration:r=0.15
 bulletType:t="apcr_t"
-selfDestructionFx:t="explosion_air_selfexplosion_small"
 slopeEffectPreset:t="apcr"
-explosionEffect:t="hit_39_58mm_metal_ap"
 fresnel:p3=0.23, 0.1, 2.0
-groundCollisionEffect:t="hit_39_58mm_dirt_ap"
-shellAnimation:t="video/shells_animations/apcr.ivf"
-ricochetEffect:t="hit_39_58mm_metal_ap"
 relativeVelHitShift:p2=300.0, 1000.0
 explosionPatchRadius:r=0.7
 
@@ -42,29 +37,6 @@ hitpower{
   HitPower0m:p2=1.0, 0.0
   HitPower1000m:p2=0.9, 0.0
   HitPower10000m:p2=0.8, 10000.0
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_39_58mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_39_58mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_39_58mm_stone_ap"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

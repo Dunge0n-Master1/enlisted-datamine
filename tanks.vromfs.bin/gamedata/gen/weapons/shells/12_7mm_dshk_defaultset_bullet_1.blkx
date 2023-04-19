@@ -1,51 +1,33 @@
-mass:r=0.0437
+mass:r=0.0456
 caliber:r=0.0127
-speed:r=850.0
-Cx:r=0.15
-maxDistance:r=2500.0
+speed:r=865.0
+Cx:r=0.3413
+maxDistance:r=3400.0
+bulletName:t="ap_i_t_ball_bzt_44"
 normalizationPreset:t="default"
 bulletType:t="ap_i_t_ball"
-bulletName:t="ap_i_t_ball_bzt_44"
-armorFragmentsDamage:b=yes
-armorFragmentsDamageRadius:r=1.0
-armorFragmentsDamageAngle:r=15.0
-armorFragmentsAmount:i=15
-armorFragmentsArmorPower:r=2.0
-armorFragmentsHit:r=8.0
-groundCollisionEffect:t="hit_12_18mm_dirt_ap"
-ricochetEffect:t="hit_12_18mm_metal_ap"
-waterCollisionEffect:t="hit_12_18mm_water"
+effectiveDistance:r=3000.0
 secondaryShattersPreset:t="ap"
 
 hitpower{
-  HitPower0m:p2=1.0, 0.0
-  HitPower1000m:p2=0.9, 0.0
-  HitPower10000m:p2=0.8, 10000.0
-}
-
-armorpower{
-  ArmorPower0m:p2=22.0, 10.0
-  ArmorPower100m:p2=21.0, 100.0
-  ArmorPower500m:p2=15.0, 500.0
-  ArmorPower1000m:p2=10.0, 1000.0
-  ArmorPower1500m:p2=6.0, 1500.0
-  ArmorPower2000m:p2=5.0, 2000.0
-  ArmorPower2500m:p2=3.0, 2500.0
-}
-
-visual{
-  range_percent_of_ammo:p2=100.0, 0.0
-  traceFreq:i=1
-  tracer:t="12mmRed"
-  trail:t="noTrail"
+  HitPower10m:p2=1.0, 10.0
+  HitPower1000m:p2=0.95, 1000.0
+  HitPower1500m:p2=0.85, 1500.0
+  HitPower2000m:p2=0.3, 2000.0
+  HitPower2500m:p2=0.2, 2500.0
+  HitPower3000m:p2=0.1, 3000.0
 }
 
 damage{
 
   kinetic{
-    onHitChanceMultFire:r=10.0
-    correctionDamageByRelativeVelocity:p2=300.0, 1000.0
     damageType:t="generic"
+    demarrePenetrationK:r=0.9
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+    onHitChanceMultFire:r=10.0
+    correctionDamageByRelativeVelocity:p2=300.0, 3000.0
 
     energyToDamage{
       p0:p2=3000.0, 5.0
@@ -116,6 +98,13 @@ damage{
       }
     }
   }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="12mmRed"
+  trail:t="noTrail"
 }
 
 ballistics{
@@ -289,32 +278,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_12_18mm_dirt_ap"
-  jetFx:t="hit_12_18mm_dirt_ap"
-
-  steel{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_ap"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_ap"
-    fxScale:p2=1.0, 1.0
   }
 }
 

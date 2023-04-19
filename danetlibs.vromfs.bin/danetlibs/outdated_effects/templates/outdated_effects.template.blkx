@@ -1,0 +1,11 @@
+outdated_effects{
+  _singleton:b=yes
+  _tags:t="render"
+  outdated_effects__check_once:b=yes
+  outdated_effects__check_all_effects:b=no
+  _tracked:t="outdated_effects__check_once"
+  _tracked:t="outdated_effects__check_all_effects"
+
+  "outdated_effects:list<t>"{
+  }
+}

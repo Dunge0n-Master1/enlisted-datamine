@@ -9,7 +9,7 @@ require DagorSystem
 require Dacoll
 require Ballistics
 require BallisticsProps
-require EnlistedDm
+require DngDm
 require enlisted.events_enlisted
 
 

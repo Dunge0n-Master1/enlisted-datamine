@@ -13,9 +13,9 @@ require HumanPhys
 require DaWeaponProps
 require DaWeapons
 require DagorSystem
-require EnlistedWeapon
-require EnlistedHuman
-require EnlistedNet
+require DngWeapon
+require DngHuman
+require DngNet
 require Gun
 require AnimV20
 require DagorMath
@@ -31,7 +31,7 @@ def reset_weapon_state(var phys : HumanPhys&)
   weapEquipState.curState = HUWeaponEquipState EES_HOLSTERING
   weapEquipState.nextSlot = phys.appliedCT.chosenWeapon
 
-def check_gun_trace(phys : HumanPhys;
+def check_gun_trace(var phys : HumanPhys;
                     gun_tm : float3x4;
                     len_override : float;
                     gun_mat_id : int;
@@ -40,7 +40,7 @@ def check_gun_trace(phys : HumanPhys;
   assume currentState = phys.currentState
   assume weaponParams = phys.weaponParams[int(currentState.weapEquipState.curSlot)]
 
-  let traceHandle = phys.traceHandle
+  let traceHandle = human_phys_getTraceHandle(phys)
   let gunDir = currentState.gunDir
 
   backoff = 0.
@@ -311,7 +311,7 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
                           gun_shoot_dir : float3;
                           phys_transform : float3x4;
                           ct : HumanControlState;
-                          human_use_object__selectedObject : EntityId const?;
+                          grenade_rethrow__grenadeEid : EntityId const?;
                           human_unarmed__active : bool;
                           human_attached_gun__attachedGunEid : EntityId;
                           human_weap__jumpDeviation : float;
@@ -337,8 +337,8 @@ def human_weap_gun_update(var human_net_phys : HumanActor;
     var grenadeEid = INVALID_ENTITY_ID
     if is_server()
       grenadeEid = find_rethrowable_grenade(ctx.eid)
-    elif human_use_object__selectedObject != null
-      grenadeEid = *human_use_object__selectedObject
+    elif grenade_rethrow__grenadeEid != null
+      grenadeEid = *grenade_rethrow__grenadeEid
     if grenadeEid != INVALID_ENTITY_ID
       human_weap__throwMode = throw_grenade_away(ctx.eid, grenadeEid, human_weap__gunEids)
     if is_server() && !human_weap__throwMode

@@ -205,14 +205,3 @@ ballistics{
     }
   }
 }
-
-hitFx{
-  fxScale:p2=0.8, 1.0
-  defaultFx:t="50_75_ap_hit_ground"
-  jetFx:t="50_75_ap_hit_ground"
-
-  steel{
-    fx:t="cannon_hit_apds"
-    fxScale:p2=0.8, 1.0
-  }
-}

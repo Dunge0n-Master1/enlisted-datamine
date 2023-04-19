@@ -37,7 +37,7 @@ records.subscribe(function(_) {
 })
 
 let mkProtocolBlock = @(isValid) {
-  size = [flex(1.5), SIZE_TO_CONTENT]
+  size = [flex(1.3), SIZE_TO_CONTENT]
   rendObj = ROBJ_TEXT
   text = isValid ? loc("replay/readyToPlay") : loc("replay/protocolMisMatch")
 }.__update(isValid ? defTxtStyle : disabledTxtStyle)
@@ -53,11 +53,11 @@ let listHeader = [
   }
   {
     locId = loc("replay/gameTime")
-    size = [flex(0.5), flex()]
+    size = [flex(0.7), flex()]
   }
   {
     locId = loc("replay/availabilityStatus")
-    size = [flex(1.5), flex()]
+    size = [flex(1.3), flex()]
   }
 ]
 
@@ -109,7 +109,7 @@ let function mkReplay(record, idx) {
           { mission_type=loc($"missionType/{replayInfo?.mission_type}" ?? "unknownMissionType") })
       }.__update(body_txt)
       {
-        size = [flex(0.5), SIZE_TO_CONTENT]
+        size = [flex(0.7), SIZE_TO_CONTENT]
         rendObj = ROBJ_TEXT
         text = secondsToStringLoc(replayInfo?.total_play_time ?? 0)
       }.__update(body_txt)

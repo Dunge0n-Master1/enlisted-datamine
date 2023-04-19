@@ -1,32 +1,33 @@
 require ecs
 require game.utils.team
 require game.es.battle_area_common
+require game.es.vehicle.vehicle_seats_common
 require zones
 
 def check_shreddable_in_deactivating_zones()
   query() <| $ [es(REQUIRE=(shredOutsideBattleArea, shredInDeactivatingBattleArea), REQUIRE_NOT=builder_info__team)] (eid : EntityId; transform : float3x4; team = int(TEAM_UNASSIGNED))
-    if !has_active_non_deactivating_human_battle_area_at(transform[3], team)
+    if !has_active_non_deactivating_human_battle_area_at(transform[3], team) && !is_vehicle_with_alive_crew(eid)
       destroyEntity(eid)
   query() <| $ [es(REQUIRE=(shredOutsideBattleArea, shredInDeactivatingBattleArea))] (eid : EntityId; transform : float3x4; builder_info__team : int)
-    if !has_active_non_deactivating_human_battle_area_at(transform[3], builder_info__team)
+    if !has_active_non_deactivating_human_battle_area_at(transform[3], builder_info__team) && !is_vehicle_with_alive_crew(eid)
       destroyEntity(eid)
 
 def check_shreddable()
   query() <| $ [es(REQUIRE=shredOutsideBattleArea, REQUIRE_NOT=(shredInDeactivatingBattleArea, builder_info__team))] (eid : EntityId; transform : float3x4; team = int(TEAM_UNASSIGNED))
-    if is_tm_outside_battle_area(transform, team)
+    if is_tm_outside_battle_area(transform, team) && !is_vehicle_with_alive_crew(eid)
       destroyEntity(eid)
   query() <| $ [es(REQUIRE=shredOutsideBattleArea, REQUIRE_NOT=shredInDeactivatingBattleArea)] (eid : EntityId; transform : float3x4; builder_info__team : int)
-    if is_tm_outside_battle_area(transform, builder_info__team)
+    if is_tm_outside_battle_area(transform, builder_info__team) && !is_vehicle_with_alive_crew(eid)
       destroyEntity(eid)
 
 [es(tag=server, REQUIRE=shredOutsideBattleArea, REQUIRE_NOT=shredInDeactivatingBattleArea, on_appear)]
 def out_battle_area_shredder_create_check(evt : Event; eid : EntityId; transform : float3x4; team = int(TEAM_UNASSIGNED))
-  if is_tm_outside_battle_area(transform, team)
+  if is_tm_outside_battle_area(transform, team) && !is_vehicle_with_alive_crew(eid)
     destroyEntity(eid)
 
 [es(tag=server, REQUIRE=(shredOutsideBattleArea, shredInDeactivatingBattleArea), on_appear)]
 def out_non_deactivating_battle_area_shredder_create_check(evt : Event; eid : EntityId; transform : float3x4; team = int(TEAM_UNASSIGNED))
-  if !has_active_non_deactivating_human_battle_area_at(transform[3], team)
+  if !has_active_non_deactivating_human_battle_area_at(transform[3], team) && !is_vehicle_with_alive_crew(eid)
     destroyEntity(eid)
 
 [es(tag=server, REQUIRE=(battle_area, humanTriggerable), on_event=EventEntityDestroyed)]

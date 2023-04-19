@@ -7,10 +7,10 @@ require game.es.events
 require game.es.vehicle.vehicle_events
 require game.utils.net_utils
 require dm
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require DagorMath
-require EnlistedNet
+require DngNet
 
 
 [es(tag=server)]

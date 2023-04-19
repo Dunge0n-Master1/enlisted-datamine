@@ -38,10 +38,10 @@ gun_without_bipod{
 }
 
 gun_anim_vars{
-  gun_anim_var__reyeOffsetFwd0:r=-0.0
-  gun_anim_var__gunOffsetAlong:r=0.0
-  gun_anim_var__gunOffsetAcross:r=0.0
-  gun_anim_var__gunOffsetUp:r=0.0
+  gun_anim_var__defReyeOffsetFwd0:r=-0.0
+  gun_anim_var__defGunOffsetAlong:r=0.0
+  gun_anim_var__defGunOffsetAcross:r=0.0
+  gun_anim_var__defGunOffsetUp:r=0.0
 }
 
 base_gun{
@@ -317,7 +317,7 @@ gun_anim{
   }
 }
 
-base_stationary_gun{
+stationary_gun{
   _extends:t="visual_gun_with_animchar_updatable"
   _extends:t="gun_sound_with_animchar"
   _extends:t="gun_overheat_speech_enable"
@@ -347,7 +347,7 @@ base_stationary_gun{
   mounted_gun__active:b=no
   stationary_gun_fulcrum__nodeId:i=-1
   gun__boxNodeId:i=-1
-  entity__recreateToOnDeath:t="base_dead_stationary_gun"
+  entity__recreateToOnDeath:t="dead_stationary_gun"
 
   "stationary_gun:tag"{
   }
@@ -369,21 +369,13 @@ base_stationary_gun{
   }
 }
 
-base_dead_stationary_gun{
+dead_stationary_gun{
   _extends:t="stationary_mg42_without_shell_ejection"
 
   "animchar__physSymDependence:tag"{
   }
 
   "dm_parts__parts:object"{
-  }
-}
-
-stationary_gun{
-  _extends:t="base_stationary_gun"
-
-  gun_flash_fx{
-    _tags:t="render"
   }
 }
 
@@ -404,7 +396,7 @@ gun_autodetach{
   gun_autodetach__nodeId:i=-1
 }
 
-base_equipable_gun{
+equipable_gun{
   _extends:t="visual_gun"
   _extends:t="melee_weapon"
   _extends:t="gun_sound_with_animchar"
@@ -433,6 +425,7 @@ base_equipable_gun{
   gun_attach__mainSlotId:i=-1
   gun_attach__alternativeSlot:t="weapon"
   gun_attach__altSlotId:i=-1
+  _tracked:t="gun_anim__weapModEid"
   rumble__isHighBand:b=yes
   rumble__maxShellImpulse:r=2.0
 
@@ -441,6 +434,9 @@ base_equipable_gun{
     weapon_rearsight_node__nodeIdx:i=-1
 
     weapon_rearsight_node__nodeTm{
+    }
+
+    "weap__sightEid:eid"{
     }
   }
 
@@ -465,14 +461,6 @@ base_equipable_gun{
   }
 
   "gun_attach__holsterSlotsIds:list<i>"{
-  }
-}
-
-equipable_gun{
-  _extends:t="base_equipable_gun"
-
-  gun_flash_fx{
-    _tags:t="render"
   }
 }
 
@@ -553,6 +541,7 @@ projectile_phys{
   active:b=no
   ignoreObjs__time:r=0.0
   ai_target__invisibleTimeTo:r=0.0
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
   ai_target__noiseLevel:r=0.0
   local_gravity:r=9.8
@@ -567,6 +556,9 @@ projectile_phys{
   }
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{

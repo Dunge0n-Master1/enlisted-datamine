@@ -2,9 +2,9 @@ base_plane_cockpit{
   _extends:t="base_cockpit"
   _extends:t="plane_cutting"
   _extends:t="vehicle_decals"
-  cockpit__zoomTimeMul:r=1.3
+  cockpit__forwardOffsetTimeMul:r=1.3
   cockpit__cameraTimeMul:r=1.5
-  cockpit__minZoom:r=-0.27
+  cockpit__minForwardOffset:r=-0.27
   fixed_sight_presents:b=no
   fixed_sight_pos:p2=0.0, 0.0
   gyro_sight_presents:b=no

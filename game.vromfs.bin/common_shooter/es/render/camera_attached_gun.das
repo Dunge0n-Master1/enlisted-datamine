@@ -1,11 +1,12 @@
 require ecs
 require app
 require game.es.events
+require game.es.camera_common
 require game.utils.hero
 require common_shooter.events_common_shooter
 require DagorSystem
-require EnlistedCamera
-require EnlistedHuman
+require DngCamera
+require DngHuman
 
 
 [es(tag=gameClient)]

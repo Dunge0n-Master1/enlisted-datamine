@@ -3,8 +3,8 @@ require math.base
 require game.es.events
 require game.es.vehicle.vehicle_seats_common
 require vehicle
-require EnlistedPlane
-require EnlistedHuman
+require DngPlane
+require DngHuman
 require DagorMath
 require GamePhys
 

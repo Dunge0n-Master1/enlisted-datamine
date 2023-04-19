@@ -7,7 +7,7 @@ let { dbgShow, dbgData } = require("debriefingDbgState.nut")
 local cfg = {
   state = debriefingState
   savePath = "debriefing.json"
-  samplePath = ["../prog/enlist/debriefing/debriefing_sample.json"]
+  samplePath = ["debriefing_sample.json"]
   loadPostProcess = function(_debriefingData) {} //for difference in json saving format, as integer keys in table
 }
 
@@ -43,7 +43,6 @@ let saveDebriefingBySession = @()
 
 let loadSample = @(idx) loadDebriefing(cfg.samplePath[idx])
 
-console_register_command(@() loadSample(0), "ui.debriefing_sample")
 console_register_command(@() saveDebriefing(), "ui.debriefing_save")
 console_register_command(@() loadDebriefing(), "ui.debriefing_load")
 console_register_command(@() saveDebriefingBySession(), "ui.debriefing_save_by_session")
@@ -70,9 +69,10 @@ let function saveToFile(dData, path) {
 return {
   init = function(params) {
     cfg = cfg.__merge(params.filter(@(_value, key) key in cfg))
-    for(local i = 1; i < cfg.samplePath.len(); i++) {
-      let idx = i
-      console_register_command(@() loadSample(idx), $"ui.debriefing_sample{idx+1}")
+    for(local i = 0; i < cfg.samplePath.len(); i++) {
+      let idx = i // to capture i value
+      let cmd = i > 0 ? $"{i + 1}" : ""
+      console_register_command(@() loadSample(idx), $"ui.debriefing_sample{cmd}")
     }
   }
   saveDebriefingToFile = saveToFile

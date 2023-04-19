@@ -1,7 +1,7 @@
 module wounds_events shared
 
 require ecs
-require EnlistedDm
+require DngDm
 
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdRestoreEntityHp

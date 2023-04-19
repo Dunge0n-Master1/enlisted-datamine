@@ -6,10 +6,10 @@ require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
 require inventory
-require EnlistedNet
+require DngNet
 require DagorSystem
-require EnlistedHuman
-require EnlistedWeapon
+require DngHuman
+require DngWeapon
 require HumanPhys
 require WeapHelpers
 require Gun

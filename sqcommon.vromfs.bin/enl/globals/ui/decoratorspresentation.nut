@@ -243,6 +243,9 @@ local portraits = {
   mech_event_portrait = {
     icon = "ui/portraits/event/mech_event_portrait.avif"
   }
+  berlin_operation_medic_portrait = {
+    icon = "ui/portraits/event/berlin_operation_medic_portrait.avif"
+  }
 
 
 

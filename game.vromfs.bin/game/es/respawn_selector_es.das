@@ -7,6 +7,7 @@ require game.utils.team
 require math
 require math.base
 require app
+require enlisted.events_enlisted
 
 [es(tag=server, on_appear)]
 def respawn_bases_check_group_es(evt : Event; respawnBaseGroup : int)
@@ -28,6 +29,10 @@ def calc_tm_for_respawn_group_icon(icon_team, icon_group, icon_type)
   return tm
 
 def create_respawn_icon(active, icon_group, icon_type, icon_tm, icon_team, custom_respawn)
+  let isPlayerSpawn = find_query() <| $ [es(REQUIRE=playerRespawnBase)] (team : int; respawnBaseGroup : int; respawnbaseType : string)
+    if team == icon_team && icon_group == respawnBaseGroup && icon_type == respawnbaseType
+      return true
+    return false
   let iconTemplate = custom_respawn ? "respawn_point_selector" : "respawn_point_selector+auto_respawn_point_selector"
   createEntitySync(iconTemplate) <| $(var init : ComponentsInitializer)
     set(init, "respawn_icon__active", active)
@@ -36,6 +41,8 @@ def create_respawn_icon(active, icon_group, icon_type, icon_tm, icon_team, custo
     set(init, "selectedGroup", icon_group)
     set(init, "respawnIconType", icon_type)
     set(init, "team", icon_team)
+    if isPlayerSpawn
+      set(init, "respawn_icon__isPlayerSpawn", true)
 
 def update_respawn_icon(respawn_base_group, respawn_base_type, respawn_base_team, respawn_base_by_group_active, custom_respawn)
   let isIconExist = find_query() <| $ [es] (eid : EntityId;

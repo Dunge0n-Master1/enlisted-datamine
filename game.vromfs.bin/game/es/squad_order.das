@@ -1,10 +1,10 @@
 require ecs
 require ecs.common
-require EnlistedWalkerai
+require DngWalkerai
 require DagorRandom
 require DagorDataBlock
 require BehNodes
-require EnlistedWeapon
+require DngWeapon
 require game.es.events
 require game.es.vehicle.vehicle_events
 require human_sounds_net.modules.human_sounds_net_events

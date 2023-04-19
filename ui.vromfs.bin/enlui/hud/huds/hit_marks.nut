@@ -5,6 +5,7 @@ let {cos, sin, PI} = require("math")
 let {hitMarks, downedColor, hitColor, killColor, killSize, hitSize, killTtl, hitTtl, showWorldKillMark} = require("%ui/hud/state/hit_marks_es.nut")
 let u = require("%sqstd/underscore.nut")
 let {HIT_RES_DOWNED, HIT_RES_KILLED, HIT_RES_NORMAL} = require("dm")
+let { showCrosshairHints } = require("%ui/hud/state/hudOptionsState.nut")
 
 let animations = [
   { prop=AnimProp.opacity, from=0.2, to=1, duration=0.1, play=true, easing=InCubic }
@@ -117,10 +118,13 @@ hitMarks.subscribe(updateHitMarks)
 updateHitMarks(hitMarks.value)
 
 let function hitHair() {
+  if (!showCrosshairHints.value)
+    return { watch = showCrosshairHints }
+
   let curHitMark = currentHitMark.value
   let key = curHitMark?.id ?? {}
   return {
-    watch = [hitMarks]
+    watch = [currentHitMark, showCrosshairHints]
     size = SIZE_TO_CONTENT
     children = {
       rendObj = ROBJ_VECTOR_CANVAS

@@ -41,8 +41,7 @@ let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
 } = require("%enlist/researches/researchesFocus.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
 let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId,
-  selectParamsOwnerGuid, selectParamsSlotType, selectParamsSlotId, curEquippedItem,
-  viewItem, viewSoldierInfo, paramsForPrevItems,
+  curEquippedItem, viewItem, viewSoldierInfo, paramsForPrevItems,
   openSelectItem, trySelectNext, curInventoryItem, checkSelectItem, selectItem, itemClear,
   selectNextSlot, selectPreviousSlot, unseenViewSlotTpls, viewItemMoveVariants, ItemCheckResult
 } = require("model/selectItemState.nut")
@@ -77,11 +76,9 @@ let selectedKey = Watched(null)
 viewItem.subscribe(function(item) { selectedKey(getItemSelectKey(item)) })
 
 let selectedSlot = Computed(function() {
-  let ownerGuid = selectParamsOwnerGuid.value
-  let slotType = selectParamsSlotType.value
-  let slotId = selectParamsSlotId.value
-  local guid
-  if (ownerGuid != "" && slotType != "")
+  let { ownerGuid = null, slotType = null, slotId = null } = selectParams.value
+  local guid = null
+  if (ownerGuid && slotType)
     guid = getEquippedItemGuid(campItemsByLink.value, ownerGuid, slotType, slotId)
   return guid ?? "_".concat(ownerGuid, slotType, slotId)
 })
@@ -132,7 +129,7 @@ let prevItemParams = {
   onDoubleClickCb = unequipItem
 }
 
-let function showMessage(item, checkInfo) {
+let function processItemDrop(item, checkInfo) {
   let { result, soldier = null, slotType = null, soldierClass = null, level = null } = checkInfo
   let buttons = [{ text = loc("Ok"), isCancel = true }]
   local text = ""
@@ -159,16 +156,11 @@ let function showMessage(item, checkInfo) {
       isCurrent = true })
 
   } else if (result == ItemCheckResult.IN_SHOP) {
-    let shopItemsCmp = getShopItemsCmp(item.basetpl)
-    if (shopItemsCmp.value.len() > 0){
-      text = loc("shop/dontHaveItem", {item = loc(shopItemsCmp.value[0].nameLocId)})
-      buttons.append({
-        text = loc("btn/buy")
-        action = function() {
-          clickShopItem(shopItemsCmp.value[0], curArmyData.value?.level ?? 0)
-        }
-        isCurrent = true })
-    }
+    // open purchase window instead of message box
+    let shopItemsCmp = getShopItemsCmp(item.basetpl).value?[0]
+    if (shopItemsCmp)
+      clickShopItem(shopItemsCmp, curArmyData.value?.level ?? 0)
+    return
   }
   msgbox.show({ text, buttons })
 }
@@ -176,7 +168,7 @@ let function showMessage(item, checkInfo) {
 let dropExceptionCb = function(dropItem) {
   let checkDropItem = checkSelectItem(dropItem)
   if (checkDropItem)
-    showMessage(dropItem, checkDropItem)
+    processItemDrop(dropItem, checkDropItem)
 }
 
 let mkStdCtorData = @(size) {
@@ -203,7 +195,7 @@ let mkStdCtorData = @(size) {
         return
       let checkSelectInfo = checkSelectItem(item)
       if (checkSelectInfo){
-        showMessage(item, checkSelectInfo)
+        processItemDrop(item, checkSelectInfo)
         return
       }
       selectItem(item)
@@ -212,7 +204,7 @@ let mkStdCtorData = @(size) {
   }.__update(override))
 }
 
-let defaultCtorData = mkStdCtorData([3.0 * unitSize, 2.0 * unitSize]).__update({ itemsInRow = 2 })
+let defaultCtorData = mkStdCtorData([3.25 * unitSize, 2.0 * unitSize]).__update({ itemsInRow = 2 })
 let mainWeaponCtorData = mkStdCtorData([7.0 * unitSize, 2.0 * unitSize])
 
 let getCtorData = @(typesInSlots, itemType)
@@ -376,9 +368,8 @@ let function mkObtainButton(item) {
 
 let function obtainButtonUi() {
   let item = viewItem.value
-
   return {
-    watch = [viewItem, viewSoldierInfo]
+    watch = viewItem
     children = mkObtainButton(item)
   }
 }
@@ -720,7 +711,7 @@ let quickEquipHotkeys = function() {
             action = function() {
               let checkSelectInfo = checkSelectItem(item)
               if (checkSelectInfo){
-                showMessage(item, checkSelectInfo)
+                processItemDrop(item, checkSelectInfo)
                 return
               }
               selectItem(item)
@@ -773,7 +764,7 @@ let selectItemScene = @() {
   size = [sw(100), sh(100)]
   flow = FLOW_VERTICAL
   key = "selectItemScene"
-  onAttach = function(){
+  onAttach = function() {
     if (armoryWndHasBeenOpend.value && isNewbie.value){
       openArmoryTutorial()
       markSeenArmoryTutorial()

@@ -17,11 +17,6 @@ effectiveDistance:r=700.0
 bulletType:t="i_t"
 relativeVelHitShift:p2=300.0, 1000.0
 relativeVelArmorShift:p2=200.0, 1000.0
-selfDestructionFx:t="explosion_air_selfexplosion_small"
-explosionEffect:t="hit_19_27mm_metal_he"
-groundCollisionEffect:t="hit_19_27mm_dirt_he"
-ricochetEffect:t="hit_19_27mm_metal_ap"
-waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -50,29 +45,6 @@ visual{
   traceFreq:i=1
   tracer:t="20mmWhite"
   trail:t="black"
-}
-
-hitFx{
-
-  steel{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_19_27mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_19_27mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_19_27mm_stone_he"
-    fxScale:p2=1.0, 1.0
-  }
 }
 
 tracer{

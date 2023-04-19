@@ -1,4 +1,5 @@
 options no_aot
+options strict_smart_pointers
 module net_console_macro shared
 
 require daslib/ast_boost
@@ -6,7 +7,7 @@ require daslib/templates_boost
 require rtti
 require ecs.macro_common
 
-require EnlistedNet public
+require DngNet public
 require ecs public
 require player public
 require DagorConsole public
@@ -26,13 +27,13 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
     if (func.flags & FunctionFlags exports) == FunctionFlags exports
       return true
 
-    let nameArg = find_arg("name", args)
+    let nameArg = find_arg(args, "name")
     if !validate_string_argument(nameArg, "name", errors)
       return false
 
     func.flags |= FunctionFlags exports
 
-    var serverCmdArguments <- new [[ExprStringBuilder()]]
+    var inscope serverCmdArguments <- new [[ExprStringBuilder()]]
     serverCmdArguments.elements |> emplace_new(new [[ExprConstString() value := "{nameArg}"]])
 
     var netHeroArgIdx = -1
@@ -42,15 +43,15 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
       serverCmdArguments.elements |> emplace_new(new [[ExprVar() name := arg.name]])
 
       // net_hero
-      let isHero = find_arg("net_hero", arg.annotation)
+      let isHero = find_arg(arg.annotation, "net_hero")
       if !(isHero is nothing)
         netHeroArgIdx = i
       // net_player
-      let isPlayer = find_arg("net_player", arg.annotation)
+      let isPlayer = find_arg(arg.annotation, "net_player")
       if !(isPlayer is nothing)
         netPlayerArgIdx = i
 
-    var blk <- qmacro_block() <|
+    var inscope blk <- qmacro_block() <|
       if !is_server()
         exec_server_cmd($e(serverCmdArguments))
         return
@@ -68,10 +69,10 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
       assume heroEidArg = func.arguments[netHeroArgIdx]
 
       // all of this should probably be moved to a function used both for netHeroArg and netPlayerArg
-      var ec <- new [[ExprCall() at=func.at, name := "get_controlled_hero_eid"]]
+      var inscope ec <- new [[ExprCall() at=func.at, name := "get_controlled_hero_eid"]]
       ec.arguments |> emplace_new(new [[ExprVar() name := "_{heroEidArg.name}_"]])
 
-      var el <- new [[ExprLet() at=func.at, atInit=func.at]]
+      var inscope el <- new [[ExprLet() at=func.at, atInit=func.at]]
       el.variables |> emplace_new() <| new [[Variable() at = func.at,
         name := heroEidArg.name,
         _type <- new [[TypeDecl() baseType=Type autoinfer, flags=TypeDeclFlags constant, at=func.at]],
@@ -82,18 +83,18 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
       funcBlk.list |> emplace(el, 0)
       heroEidArg.name := "_{heroEidArg.name}_"
       heroEidArg._type := null
-      heroEidArg._type <- new [[TypeDecl() baseType=Type tUInt, at=func.at]]
+      heroEidArg._type |> move_new() <| new [[TypeDecl() baseType=Type tUInt, at=func.at]]
       heroEidArg.init := null
-      heroEidArg.init <- new [[ExprConstUInt() at=func.at, value=0u]]
+      heroEidArg.init |> move_new() <| new [[ExprConstUInt() at=func.at, value=0u]]
 
     // net player
     if netPlayerArgIdx >= 0
       assume playerEidArg = func.arguments[netPlayerArgIdx]
 
-      var ec <- new [[ExprCall() at=func.at, name := "get_controlled_player_eid"]]
+      var inscope ec <- new [[ExprCall() at=func.at, name := "get_controlled_player_eid"]]
       ec.arguments |> emplace_new(new [[ExprVar() name := "_{playerEidArg.name}_"]])
 
-      var el <- new [[ExprLet() at=func.at, atInit=func.at]]
+      var inscope el <- new [[ExprLet() at=func.at, atInit=func.at]]
       el.variables |> emplace_new() <| new [[Variable() at = func.at,
         name := playerEidArg.name,
         _type <- new [[TypeDecl() baseType=Type autoinfer, flags=TypeDeclFlags constant, at=func.at]],
@@ -104,11 +105,11 @@ class NetConsoleCommandAnnotation : AstFunctionAnnotation
       funcBlk.list |> emplace(el, 0)
       playerEidArg.name := "_{playerEidArg.name}_"
       playerEidArg._type := null
-      playerEidArg._type <- new [[TypeDecl() baseType=Type tUInt, at=func.at]]
+      playerEidArg._type |> move_new() <| new [[TypeDecl() baseType=Type tUInt, at=func.at]]
       playerEidArg.init := null
-      playerEidArg.init <- new [[ExprConstUInt() at=func.at, value=0u]]
+      playerEidArg.init |> move_new() <| new [[ExprConstUInt() at=func.at, value=0u]]
 
-    let hint = find_arg("hint", args)
+    let hint = find_arg(args, "hint")
     func |> append_annotation("DagorConsole", "console_cmd", [{auto
       [[auto "name", [[RttiValue tString="{nameArg}"]] ]];
       [[auto "hint", [[RttiValue tString=hint is nothing ? "" : "{hint}"]] ]]

@@ -3,7 +3,7 @@ require app
 require ecs.common
 require game.es.events
 require game.utils.team
-require EnlistedWalkerai
+require DngWalkerai
 require DagorConsole
 require DagorDebug3D
 require DagorRandom

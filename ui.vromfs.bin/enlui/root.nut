@@ -74,13 +74,17 @@ let function root() {
     children.append(serviceInfo)
   if (sandboxEditorEnabled.value)
     children.append(sandboxEditor)
-  if (isReplay.value)
+  if (isReplay.value) {
+    let idxToRemove = children.findindex(@(v) v == hotkeysButtonsBar)
+    if (idxToRemove != null)
+      children.remove(idxToRemove)
     children.append({
       eventHandlers = {
         ["Replay.DisableHUD"] = @(_event) canShowReplayHud(!canShowReplayHud.value),
         ["Replay.DisableGameHUD"] = @(_event) canShowGameHudInReplay(!canShowGameHudInReplay.value)
       }
     })
+  }
 
   return {
     watch = [showLoading, uiDisabled, editorIsActive, showUIinEditor, levelLoaded, sandboxEditorEnabled, isReplay]

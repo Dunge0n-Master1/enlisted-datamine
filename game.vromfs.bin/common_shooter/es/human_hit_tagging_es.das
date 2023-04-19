@@ -1,10 +1,10 @@
 require ecs
 require game.es.events
 require app
-require EnlistedHuman
+require DngHuman
 require HumanPhys
 require DagorMath
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 require enlisted.events_enlisted
 

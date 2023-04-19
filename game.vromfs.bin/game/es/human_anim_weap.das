@@ -1,6 +1,6 @@
 require ecs
 require math.base
-require EnlistedHumanAnim
+require DngHumanAnim
 require PhysVars
 require DagorRandom
 require DagorMath

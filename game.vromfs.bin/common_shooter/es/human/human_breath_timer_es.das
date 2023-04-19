@@ -1,9 +1,9 @@
 require ecs
 require math
-require EnlistedDm
+require DngDm
 require AnimV20
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require Dacoll
 require GeomNodeTree
 

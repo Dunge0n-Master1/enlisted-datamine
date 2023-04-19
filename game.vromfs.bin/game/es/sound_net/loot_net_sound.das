@@ -1,7 +1,7 @@
 require ecs
 require ecs.common
 require app
-require EnlistedNet
+require DngNet
 require soundHash
 require game.es.events
 require game.es.sound_net.sound_net_events

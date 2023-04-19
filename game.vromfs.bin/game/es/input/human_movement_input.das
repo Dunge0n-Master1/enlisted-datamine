@@ -14,9 +14,9 @@ require DagorInput
 require DagorDriver3D
 require TouchInput
 require HumanPhys
-require EnlistedHuman
-require EnlistedInputControls
-require EnlistedCamera
+require DngHuman
+require DngInputControls
+require DngCamera
 
 let DEFAULT_VERT_LOOK_ANGLE_LIMIT_DEG = float2(-72.0, 87.0)
 let DEFAULT_VERT_LOOK_ANGLE_LIMIT_RAD = deg_to_rad(DEFAULT_VERT_LOOK_ANGLE_LIMIT_DEG)

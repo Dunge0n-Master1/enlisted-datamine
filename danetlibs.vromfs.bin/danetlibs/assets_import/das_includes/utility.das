@@ -3,7 +3,7 @@ require daslib/strings_boost
 require ecs
 require Dacoll
 require DagorSystem
-require EnlistedCamera
+require DngCamera
 require AssetsImport
 require math.base
 require stddlg

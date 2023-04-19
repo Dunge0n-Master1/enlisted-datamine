@@ -60,7 +60,11 @@ let playerInfoQuery = ecs.SqQuery("playerInfoQuery",
 let scorePlayerInfoQuery = ecs.SqQuery("scorePlayerInfoQuery", {
   comps_ro = [
     ["scoring_player__battleTime", ecs.TYPE_FLOAT],
-    ["scoring_player__battleTimeLastStartedAt", ecs.TYPE_FLOAT]
+    ["scoring_player__battleTimeLastStartedAt", ecs.TYPE_FLOAT],
+    ["scoring_player__bestOneSoldierLifeInfantryKills", ecs.TYPE_INT, 0],
+    ["scoring_player__bestOneSoldierLifeVehicleKills", ecs.TYPE_INT, 0],
+    ["scoring_player__bestOneSodierLifeParatrooperKills", ecs.TYPE_INT, 0],
+    ["scoring_player__contributionToVictory", ecs.TYPE_FLOAT, 0]
   ].extend(scorePlayerInfoComps, scoringPlayerPlayerOnlyStatsComps)
 })
 let playerAwardsQuery = ecs.SqQuery("playerAwardsQuery", { comps_ro = [["awards", ecs.TYPE_ARRAY]] })

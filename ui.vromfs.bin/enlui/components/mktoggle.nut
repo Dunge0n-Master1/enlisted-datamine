@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { activeBgColor, colPart, titleTxtColor, smallPadding, panelBgColor, defBdColor,
   hoverTxtColor, hoverBdColor, disabledTxtColor, disabledBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { sound_play } = require("sound")
+let { sound_play } = require("%dngscripts/sound_system.nut")
 
 
 let knobSize = [colPart(0.25), colPart(0.25)]

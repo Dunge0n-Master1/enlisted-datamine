@@ -4,7 +4,7 @@ require game.es.input.input_events
 require game.es.input.input_common
 require DagorSystem
 require game.events_game
-require EnlistedCamera
+require DngCamera
 require enlisted.events_enlisted
 require danetlibs.renderer.includes.render_events
 

@@ -6,6 +6,7 @@ let {safeAreaAmount, safeAreaBlkPath, safeAreaList, safeAreaSetAmount,
   safeAreaCanChangeInOptions} = require("%enlSqGlob/safeArea.nut")
 let platform = require("%dngscripts/platform.nut")
 let {DBGLEVEL} = require("dagor.system")
+let { isNewDesign } = require("%enlSqGlob/designState.nut")
 
 let {loc_opt, defCmp, getOnlineSaveData, mkSliderWithText,
   optionPercentTextSliderCtor, optionCheckBox, optionCombo, optionSlider,
@@ -65,6 +66,7 @@ let optSafeArea = optionCtor({
   available = safeAreaList
   valToString = @(s) $"{s*100}%"
   isEqual = defCmp
+  restart = isNewDesign.value
 })
 
 const defVideoMode = "fullscreen"

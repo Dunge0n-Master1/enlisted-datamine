@@ -1,6 +1,6 @@
 require ecs
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require enlisted.events_enlisted
 
 [es(track=entity_mods__staminaBoostMult, on_appear)]

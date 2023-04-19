@@ -1,7 +1,7 @@
 options always_export_initializer = true
 
 require ecs
-require EnlistedNet
+require DngNet
 require app
 require enlisted.game.es.ai.ai_aiming_common
 require enlisted.game.es.squad_behaviour_command_common
@@ -13,6 +13,7 @@ require CollRes
 require DagorSystem
 require DagorDataBlock
 require math
+require math.random
 require DagorMathUtils
 require DagorMath
 require DagorRandom
@@ -23,10 +24,10 @@ require pathfinder
 require Dacoll
 require RendInst
 require SmokeOccluder
-require EnlistedWalkerai
+require DngWalkerai
 require enlisted.events_enlisted
 require HumanPhys
-require EnlistedHuman
+require DngHuman
 require vehicle
 require zones
 require game.utils.team
@@ -1437,32 +1438,50 @@ class GetRandomPointAroundTarget : BehNodeAdapter
 [beh_node(name="rotateToPoint")]
 class RotateToPoint : BehNodeAdapter
   posParam : int = -1
+  angleParam : int = -1
+  aimSpeedCoef : float = 1.0
 
   walker_agent__aimVelocity = float2()
   wishAimingSpeed : float = 16.
   wishDir : float3
 
   def override loadFromBlk(var data : DataBlock) : void
-    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+    if datablock_find_param(data, "posParam") >= 0
+      posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3(0., 0., 0.))
+    elif datablock_find_param(data, "angleParam") >= 0
+      angleParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "angleParam", ""), 0.)
+    aimSpeedCoef = owner.blackBoard |> datablock_getReal("aimSpeedCoef", 1.0)
 
   def override init()
     let agentEid = beh_tree_eid(owner)
     query(agentEid) <| $ [es] (agent_dangers__standShootPos : float3;
+                               walker_agent : EntityAgent;
                                walker_agent__minMaxAimSpeed : float2;
                                walker_agent__minMaxDist : float2)
-      let agentShootPos = agent_dangers__standShootPos
-
-      let dist = length(owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos);
-
-      let ratio = ((walker_agent__minMaxAimSpeed.y - walker_agent__minMaxAimSpeed.x) /
-                   (walker_agent__minMaxDist.y - walker_agent__minMaxDist.x))
-
-      wishAimingSpeed = clamp(walker_agent__minMaxAimSpeed.y - ratio * (dist - walker_agent__minMaxDist.x),
-                              walker_agent__minMaxAimSpeed.x, walker_agent__minMaxAimSpeed.y);
-
-      wishAimingSpeed = deg_to_rad(wishAimingSpeed)
-
-      wishDir = normalize(owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos);
+      assume minMaxDist = walker_agent__minMaxDist
+      assume minMaxAimSpeed = walker_agent__minMaxAimSpeed
+      assume agentShootPos = agent_dangers__standShootPos
+      if posParam >= 0
+        let delta = owner.blackBoard |> datablock_getPoint3(posParam) - agentShootPos
+        let dist = length(delta)
+        let ratio = (minMaxAimSpeed.y - minMaxAimSpeed.x) * safeinv(minMaxDist.y - minMaxDist.x)
+        wishAimingSpeed = clamp(minMaxAimSpeed.y - ratio * (dist - minMaxDist.x), minMaxAimSpeed.x, minMaxAimSpeed.y)
+        wishAimingSpeed = deg_to_rad(wishAimingSpeed)
+        wishAimingSpeed *= aimSpeedCoef
+        wishDir = normalize(delta)
+      else
+        wishAimingSpeed = deg_to_rad(minMaxAimSpeed.x)
+        wishAimingSpeed *= aimSpeedCoef
+        let turnAngle = (angleParam >= 0) ? (owner.blackBoard |> datablock_getReal(angleParam)) : 0.0
+        if abs(turnAngle) < 0.0001
+          wishDir = float3()
+        else
+          let shootDir = walker_agent.shootDir
+          let angleDir = atan2(shootDir.z, shootDir.x) + turnAngle
+          wishDir.x = cos(angleDir)
+          wishDir.y = shootDir.y * 0.5
+          wishDir.z = sin(angleDir)
+          wishDir = normalize(wishDir)
 
   def override update(dt : float) : EBehResult
     if length_sq(wishDir) < 1e-3
@@ -2560,6 +2579,7 @@ class FindCoverAroundPoint : BehNodeAdapter
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
+    let visibleMap = get_global_visible_covers_map()
     query() <| $ [es] (var covers : CoversComponent&)
       query(beh_tree_eid(owner)) <| $ [es] (walker_agent : EntityAgent;
                                             team : int = TEAM_UNASSIGNED;
@@ -2584,13 +2604,20 @@ class FindCoverAroundPoint : BehNodeAdapter
         let heightUp2 = float3(0.0, 1.0, 0.0)
 
         let midPos = walker_agent.pos * 0.3 + centerPos * 0.7
-        let likelyChangeCover = rnd_float(0.0, 1.0) < keepOldCoverChance
+        let likelyKeepCover = rnd_float(0.0, 1.0) < keepOldCoverChance
+
+        let maxOffDistSq = square(0.3)
 
         var bestDistSq = FLT_MAX
         var bestCoverId = int2(-1, 0)
         var bestZeroUsed = false
+        var bestFound = false
         covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
                                                                  tm : mat44f#)
+          if bestFound
+            return
+          if team != TEAM_UNASSIGNED && glob_vis_covers_map_has_other_teams(visibleMap, id, team)
+            return
           assume cover     = covers.list[id]
           assume coverDesc = covers.coverDescs[id]
 
@@ -2611,15 +2638,19 @@ class FindCoverAroundPoint : BehNodeAdapter
 
           let numSlots = length(coverDesc.slots)
 
-          let isPrevCover = prevCoverId.x == id && likelyChangeCover
+          let isPrevCover = prevCoverId.x == id && likelyKeepCover
           var totalUsed = 0
           if !isPrevCover
             for i in range(0, numSlots)
               totalUsed += coverDesc.slots[i].numUsed
           let zeroUsed = totalUsed == 0
 
+          var slotBestCoverId = int2(id, -1)
+          var slotBestDistSq = bestDistSq
+          var slotBestZeroUsed = false
           for i in range(0, numSlots)
-            if coverDesc.slots[i].numUsed > 0 && !(isPrevCover && i == prevCoverId.y)
+            let isPrevCoverSlot = isPrevCover && i == prevCoverId.y
+            if coverDesc.slots[i].numUsed > 0 && !isPrevCoverSlot
               continue
             let zeroUsedForSlot = zeroUsed || (numSlots >= 5 && (i == 0 || i == numSlots - 1))
             let coverId = int2(id, i)
@@ -2632,7 +2663,7 @@ class FindCoverAroundPoint : BehNodeAdapter
               if cosAngle > possibleCosAngle
                 let distToCenterSq = length_sq(coverOffset)
                 let distFromAgentSq = distance_sq(midPos, coverCheckPos)
-                if distToCenterSq >= minDistSq && distToCenterSq <= maxDistSq && (distFromAgentSq < bestDistSq || (!bestZeroUsed && zeroUsedForSlot) || isPrevCover)
+                if distToCenterSq >= minDistSq && distToCenterSq <= maxDistSq && (distFromAgentSq < slotBestDistSq || (!bestZeroUsed && zeroUsedForSlot) || isPrevCover)
                   if traceVisible && !isPrevCover
                     let dir = normalize(coverOffset)
                     var t1 = length(coverOffset)
@@ -2641,11 +2672,25 @@ class FindCoverAroundPoint : BehNodeAdapter
                     if (traceray_normalized(centerPos + heightUp1, dir, t1, norm, ETF_ALL)
                      && traceray_normalized(centerPos + heightUp2, dir, t2, norm, ETF_ALL))
                       continue
-                  bestDistSq = distFromAgentSq
-                  bestCoverId = coverId
-                  bestZeroUsed = zeroUsedForSlot
-                  if isPrevCover
+                  slotBestDistSq = distFromAgentSq
+                  slotBestCoverId = coverId
+                  slotBestZeroUsed = zeroUsedForSlot
+                  if isPrevCoverSlot
+                    bestDistSq = slotBestDistSq
+                    bestCoverId = slotBestCoverId
+                    bestZeroUsed = slotBestZeroUsed
+                    bestFound = true
                     return
+          if slotBestCoverId.y != -1
+            assume cover     = covers.list[slotBestCoverId.x]
+            assume coverDesc = covers.coverDescs[slotBestCoverId.x]
+            let coverAIPos = coverDesc.slots[slotBestCoverId.y].pos - cover.dir * wallOffset
+            var newPos = coverAIPos
+            if project_to_nearest_navmesh_point(newPos, 0.5)
+              if distance_sq(newPos, coverAIPos) <= maxOffDistSq && abs(newPos.y - coverAIPos.y) < 0.3
+                bestDistSq = slotBestDistSq
+                bestCoverId = slotBestCoverId
+                bestZeroUsed = slotBestZeroUsed
 
         if bestCoverId.x != -1
           assume cover     = covers.list[bestCoverId.x]
@@ -2805,12 +2850,17 @@ class FindWayBackToNavmesh : BehNodeAdapter
     angleStep = data |> datablock_getReal("angleStep", angleStep)
 
   def override init()
-    currentPolyIndex = 0
+    currentPolyIndex = -1
     currentTraceIndex = 0
-    query(beh_tree_eid(owner)) <| $ [es] (transform : float3x4; var walker_agent__getBackToNavmeshPolys : UInt64List&)
+    query(beh_tree_eid(owner)) <| $ [es] (transform : float3x4;
+                                          var walker_agent__getBackToNavmeshPolys : UInt64List&;
+                                          var walker_agent__getBackToNavmeshTraces : Point3List&)
+      walker_agent__getBackToNavmeshPolys |> clear()
+      walker_agent__getBackToNavmeshTraces |> clear()
       find_polys_in_circle(transform[3], radius, heightHalfOffset) <| $(polyRefs)
         for polyRef in polyRefs
           walker_agent__getBackToNavmeshPolys |> push(polyRef)
+      shuffle(walker_agent__getBackToNavmeshPolys)
 
   def override exit()
     query(beh_tree_eid(owner)) <| $ [es] (var walker_agent__getBackToNavmeshPolys : UInt64List&;
@@ -2859,6 +2909,7 @@ class FindWayBackToNavmesh : BehNodeAdapter
         if currentPolyIndex < length(walker_agent__getBackToNavmeshPolys)
           let polyRef = walker_agent__getBackToNavmeshPolys[currentPolyIndex]
           collect_traces_for_poly(agent.pos, polyRef, walker_agent__getBackToNavmeshTraces, traceDist)
+          shuffle(walker_agent__getBackToNavmeshTraces)
         res = EBehResult ER_RUNNING
         return
 
@@ -2883,3 +2934,229 @@ class IsOnNavmesh : BehNodeAdapter
     if project_to_nearest_navmesh_point(pos, extents) && abs(pos.y - agent.pos.y) < 0.5
       return EBehResult ER_SUCCESS
     return EBehResult ER_FAILED
+
+[beh_node(name="decideOnAttackTarget")]
+class DecideOnAttackTarget : BehNodeAdapter
+  targetEidParam = -1
+  targetSeeTimeParam = -1
+  targetAcceptTime : float = 0.3
+
+  lastTargetEidParam = -1
+  lastTargetSeenParam = -1
+  lastTargetTimeParam = -1
+  forgetTargetTime : float = 7.5
+
+  hunchLevelParam = -1
+  prevHunchTimeParam = -1
+  hunchTimeForDist1 = float3(3.5, 5.0, 60.)
+  hunchTimeForDist2 = float3(1.0, 3.5, 25.)
+  hunchTimeForDist3 = float3(0.5, 1.0, 2.)
+  hunchDistDiv12 : float = 0.0
+  hunchDistDiv23 : float = 0.0
+
+  stillBackTimeRange = float2(0.5, 1.5)
+  stillSideTimeRange = float2(0.5, 1.0)
+  turnExactBackChance = 0.5
+  turnExactSideChance = 0.8
+
+  followTurnAngleRange = float2(50.0, 70.0)
+  sideTurnAngleRange = float2(70.0, 110.0)
+  backTurnAngleRange = float2(110.0, 150.0)
+  deviateExactAngle : float = 10.0
+  backAngle : float = 135.0
+
+  focusBackTimeRange = float2(0.3, 0.5)
+  focusSideTimeRange = float2(0.25, 0.4)
+  focusAheadTimeRange = float2(0.2, 0.3)
+  focusProneAddTimeRange = float2(0.2, 0.5)
+  refocusTimeRange = float2(0.1, 0.2)
+
+  stillTimeOutParam = -1
+  turnAngleOutParam = -1
+  focusTimeOutParam = -1
+  gotoCoverOutParam = -1
+
+  def override loadFromBlk(data : DataBlock) : void
+    targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetParam", ""), 0)
+    targetSeeTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetSeeTimeParam", ""), -1.0)
+
+    lastTargetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetEidParam", "lastTargetEid"), 0)
+    lastTargetSeenParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetSeenParam", "lastTargetSeen"), false)
+    lastTargetTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetTimeParam", "lastTargetTime"), 0.0)
+
+    hunchLevelParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "hunchLevelParam", "hunchLevel"), 0.0)
+    prevHunchTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "prevHunchTimeParam", "prevHunchTime"), -1.0)
+    hunchDistDiv12 = safeinv(hunchTimeForDist1.z - hunchTimeForDist2.z)
+    hunchDistDiv23 = safeinv(hunchTimeForDist2.z - hunchTimeForDist3.z)
+
+    followTurnAngleRange *= DEG_TO_RAD
+    sideTurnAngleRange *= DEG_TO_RAD
+    backTurnAngleRange *= DEG_TO_RAD
+    deviateExactAngle *= DEG_TO_RAD
+    backAngle *= DEG_TO_RAD
+
+    stillTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "stillTimeOutParam", ""), 0.0)
+    turnAngleOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "turnAngleOutParam", ""), 0.0)
+    focusTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "focusTimeOutParam", ""), 0.0)
+    gotoCoverOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "gotoCoverOutParam", ""), false)
+
+  def override update(dt : float) : EBehResult
+    var agent = beh_tree_entity_agent(*owner)
+
+    let targetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(targetEidParam)))
+    if targetEid == INVALID_ENTITY_ID
+      return EBehResult ER_FAILED
+
+    var lastTargetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(lastTargetEidParam)))
+    var lastTargetSeen = owner.blackBoard |> datablock_getBool(lastTargetSeenParam)
+    let lastTargetTime = owner.blackBoard |> datablock_getReal(lastTargetTimeParam)
+
+    let curTime = get_sync_time()
+    if curTime - lastTargetTime  > forgetTargetTime
+      lastTargetEid = INVALID_ENTITY_ID
+      lastTargetSeen = false
+
+    let targetSeeTime = owner.blackBoard |> datablock_getReal(targetSeeTimeParam)
+    if targetSeeTime >= 0.0 && curTime - targetSeeTime >= targetAcceptTime
+      var focusTime = 0.0
+      if targetEid != lastTargetEid
+        owner.blackBoard |> set(lastTargetEidParam, int(uint(targetEid)))
+        focusTime = rnd_float(focusAheadTimeRange.x, focusAheadTimeRange.y)
+      elif !lastTargetSeen
+        focusTime = rnd_float(refocusTimeRange.x, refocusTimeRange.y)
+
+      query(targetEid) <| $ [es] (human_net_phys : HumanActor)
+        if human_net_phys.phys.currentState.isCrawl
+          focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
+
+      owner.blackBoard |> set(lastTargetSeenParam, true)
+      owner.blackBoard |> set(lastTargetTimeParam, curTime)
+
+      owner.blackBoard |> set(prevHunchTimeParam, -1.0)
+      owner.blackBoard |> set(hunchLevelParam, 0.0)
+
+      owner.blackBoard |> set(stillTimeOutParam, 0.0)
+      owner.blackBoard |> set(turnAngleOutParam, 0.0)
+      owner.blackBoard |> set(focusTimeOutParam, focusTime)
+      owner.blackBoard |> set(gotoCoverOutParam, false)
+      return EBehResult ER_SUCCESS
+
+    owner.blackBoard |> set(lastTargetSeenParam, false)
+
+    var hasTargetPos = false
+    var targetPos = float3()
+    query(targetEid) <| $ [es] (transform : float3x4)
+      hasTargetPos = true
+      targetPos = transform[3]
+
+    var targetCrawl = false
+    query(targetEid) <| $ [es] (human_net_phys : HumanActor)
+      targetCrawl = human_net_phys.phys.currentState.isCrawl
+
+    if targetEid == lastTargetEid
+      var turnAngle = 0.0
+      if hasTargetPos && lastTargetSeen
+        let delta = targetPos - agent.pos
+        let angleTo = atan2(delta.z, delta.x)
+        let angleDir = atan2(agent.shootDir.z, agent.shootDir.x)
+        turnAngle = rnd_float(followTurnAngleRange.x, followTurnAngleRange.y)
+        if angle_diff(angleDir, angleTo) < 0.0
+          turnAngle = -turnAngle
+      else
+        turnAngle = rnd_float(-PI, PI)
+
+      var focusTime = rnd_float(refocusTimeRange.x, refocusTimeRange.y)
+      if targetCrawl
+        focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
+
+      owner.blackBoard |> set(stillTimeOutParam, 0.0)
+      owner.blackBoard |> set(turnAngleOutParam, turnAngle)
+      owner.blackBoard |> set(focusTimeOutParam, focusTime)
+      owner.blackBoard |> set(gotoCoverOutParam, false)
+      return EBehResult ER_SUCCESS
+
+    let dist = hasTargetPos ? distance(targetPos, agent.pos) : 0.0
+    var time = 0.0
+    if dist > hunchTimeForDist1.z
+      time = rnd_float(hunchTimeForDist1.x, hunchTimeForDist1.y)
+    elif dist > hunchTimeForDist2.z
+      let ratio = (dist - hunchTimeForDist2.z) * hunchDistDiv12
+      let time1 = rnd_float(hunchTimeForDist1.x, hunchTimeForDist1.y)
+      let time2 = rnd_float(hunchTimeForDist2.x, hunchTimeForDist2.y)
+      time = lerp(time2, time1, ratio)
+    elif dist > hunchTimeForDist3.z
+      let ratio = (dist - hunchTimeForDist3.z) * hunchDistDiv23
+      let time2 = rnd_float(hunchTimeForDist2.x, hunchTimeForDist2.y)
+      let time3 = rnd_float(hunchTimeForDist3.x, hunchTimeForDist3.y)
+      time = lerp(time3, time2, ratio)
+    else
+      time = rnd_float(hunchTimeForDist3.x, hunchTimeForDist3.y)
+
+    let prevHunchTime = owner.blackBoard |> datablock_getReal(prevHunchTimeParam)
+    let deltaTime = (prevHunchTime >= 0.0) ? (curTime - prevHunchTime) : 0.0
+    let hunchAdd = time > 0.0 ? (deltaTime / time) : 1.0
+    let wasHunchLevel = owner.blackBoard |> datablock_getReal(hunchLevelParam)
+    var newHunchLevel = min(1.0, wasHunchLevel + hunchAdd)
+    if newHunchLevel != wasHunchLevel
+      owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
+    if prevHunchTime != curTime
+      owner.blackBoard |> set(prevHunchTimeParam, curTime)
+
+    if newHunchLevel < 1.0
+      return EBehResult ER_FAILED // ignore target until hunchLevel >= 1.0
+
+    var stillTime = 0.0
+    var turnAngle = 0.0
+    var focusTime = 0.0
+    let gotoCover = false // TO BE USED LATER (for bots using covers)
+
+    if hasTargetPos
+      let delta = targetPos - agent.pos
+      let angleTo = atan2(delta.z, delta.x)
+      let angleDir = atan2(agent.shootDir.z, agent.shootDir.x)
+
+      let angleDiff = angle_diff(angleDir, angleTo)
+      if abs(angleDiff) > backAngle
+        stillTime = rnd_float(stillBackTimeRange.x, stillBackTimeRange.y)
+        focusTime = rnd_float(focusBackTimeRange.x, focusBackTimeRange.y)
+        if rnd_float(0.0, 1.0) < turnExactBackChance
+          turnAngle = angleDiff + rnd_float(-deviateExactAngle, deviateExactAngle)
+        else
+          turnAngle = rnd_float(backTurnAngleRange.x, backTurnAngleRange.y)
+          if angleDiff < 0.0
+            turnAngle = -turnAngle
+          if rnd_float(0.0, 1.0) < 0.5
+            turnAngle = -turnAngle
+      else
+        stillTime = rnd_float(stillSideTimeRange.x, stillSideTimeRange.y)
+        focusTime = rnd_float(focusSideTimeRange.x, focusSideTimeRange.y)
+        if rnd_float(0.0, 1.0) < turnExactSideChance
+          turnAngle = angleDiff + rnd_float(-deviateExactAngle, deviateExactAngle)
+        else
+          turnAngle = rnd_float(sideTurnAngleRange.x, sideTurnAngleRange.y)
+          if angleDiff < 0.0
+            turnAngle = -turnAngle
+          if rnd_float(0.0, 1.0) < 0.5
+            turnAngle = -turnAngle
+    else
+      // fallback (target with no transform?)
+      stillTime = 0.0
+      turnAngle = rnd_float(-PI, PI)
+      focusTime = rnd_float(focusBackTimeRange.x, focusBackTimeRange.y)
+
+    if focusTime > 0.0 && targetCrawl
+      focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
+
+    if lastTargetEid != INVALID_ENTITY_ID
+      owner.blackBoard |> set(lastTargetEidParam, int(uint(INVALID_ENTITY_ID))) // hunch searching, not target yet
+
+    newHunchLevel = 0.5
+    owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
+
+    owner.blackBoard |> set(stillTimeOutParam, stillTime)
+    owner.blackBoard |> set(turnAngleOutParam, turnAngle)
+    owner.blackBoard |> set(focusTimeOutParam, focusTime)
+    owner.blackBoard |> set(gotoCoverOutParam, gotoCover)
+    return EBehResult ER_SUCCESS
+
+

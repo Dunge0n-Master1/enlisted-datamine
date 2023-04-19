@@ -9,8 +9,8 @@ require HumanPhys
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require enlisted.events_enlisted
-require EnlistedNet
-require EnlistedHuman
+require DngNet
+require DngHuman
 require enlisted.game.es.placeable_item_common
 require PhysVars
 require Gun

@@ -20,13 +20,6 @@ armorpower{
   ArmorPower1500m:p2=0.1, 1500.0
 }
 
-hitFx{
-  fxScale:p2=0.3, 0.5
-  defaultFx:t="100mm_ap_hit_ground"
-  jetFx:t="100mm_ap_hit_ground"
-  preset:t="100mm_shell"
-}
-
 tracer{
   luminosity:r=10.0
   burnTime:r=10.0

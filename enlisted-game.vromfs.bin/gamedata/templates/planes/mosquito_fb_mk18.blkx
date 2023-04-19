@@ -26,7 +26,7 @@ mosquito_fb_mk18{
         turret:t="turret_05"
       }
 
-      "effectors:object"{
+      "cockpitEffectors:object"{
         r.hand:t="stick_rhand_1"
         l.hand:t="throttle_lhand_1"
         r.foot:t="pedal_rfoot_1"

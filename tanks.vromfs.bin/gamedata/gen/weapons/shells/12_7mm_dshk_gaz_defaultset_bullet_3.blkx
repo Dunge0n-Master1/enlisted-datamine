@@ -18,9 +18,6 @@ shutterDamage:b=yes
 shutterAmount:i=10
 shutterArmorPower:r=3.0
 shutterHit:r=3.5
-groundCollisionEffect:t="hit_12_18mm_dirt_he"
-ricochetEffect:t="hit_12_18mm_metal_ap"
-waterCollisionEffect:t="hit_12_18mm_water"
 secondaryShattersPreset:t="ap"
 
 armorpower{
@@ -307,32 +304,6 @@ ballistics{
       mod3:p2=30.0, 0.2
       mod3:p2=45.0, 0.3
     }
-  }
-}
-
-hitFx{
-  fxScale:p2=1.0, 1.0
-  defaultFx:t="hit_12_18mm_dirt_he"
-  jetFx:t="hit_12_18mm_dirt_he"
-
-  steel{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  wood{
-    fx:t="hit_12_18mm_wood_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  glass{
-    fx:t="hit_12_18mm_metal_he"
-    fxScale:p2=1.0, 1.0
-  }
-
-  stone{
-    fx:t="hit_12_18mm_stone_he"
-    fxScale:p2=1.0, 1.0
   }
 }
 

@@ -65,15 +65,16 @@ let shopPriceFrame = @(bgImg, priceContent) {
 let mkPriceText = @(price, currencyId) loc($"priceText/{currencyId}",
   { price }, $"{price}{currencyId}")
 
-let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price) {
+let function mkItemPurchaseInfo(currencies, currencyPrice, shop_price_curr, shop_price, params = {}) {
   let { price, fullPrice, currencyId = null } = currencyPrice
   let currency = currencies.findvalue(@(c) c.id == currencyId)
+  let { iconSize = colPart(0.4), txtStyle = null } = params
   if (currency != null && price > 0)
-    return mkCurrency({ currency, price, fullPrice })
+    return mkCurrency({ currency, price, fullPrice, iconSize, txtStyle })
 
   // this block for console platform specific prices:
   if (shop_price_curr != "" && shop_price > 0)
-    return mkCurrencyCount(mkPriceText(shop_price, shop_price_curr), {})
+    return mkCurrencyCount(mkPriceText(shop_price, shop_price_curr), txtStyle)
 
   return null
 }
@@ -134,4 +135,6 @@ let function mkShopItemPrice(shopItem, lockObject) {
 
 return {
   mkShopItemPrice
+  mkItemPurchaseInfo
+  mkItemBarterInfo
 }

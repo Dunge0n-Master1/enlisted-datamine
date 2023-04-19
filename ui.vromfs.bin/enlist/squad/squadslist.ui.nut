@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let mkCurSquadsList = require("%enlSqGlob/ui/mkCurSquadsList.nut")
-let { curArmy, curSquadId, setCurSquadId, curChoosenSquads, curUnlockedSquads
+let { curArmy, curSquadId, setCurSquadId, setCurForcedSquadId,
+  clearCurForcedSquadId, curChoosenSquads, curUnlockedSquads
 } = require("%enlist/soldiers/model/state.nut")
 let { allSquadsLevels } = require("%enlist/researches/researchesState.nut")
 let { notChoosenPerkSquads } = require("%enlist/soldiers/model/soldierPerks.nut")
@@ -11,11 +12,7 @@ let { needSoldiersManageBySquad } = require("%enlist/soldiers/model/reserve.nut"
 let { curUnseenUpgradesBySquad, isUpgradeUsed } = require("%enlist/soldiers/model/unseenUpgrades.nut")
 let { mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-let mkSquadManagementBtn = require("%enlist/squad/mkSquadManagementBtn.nut")
 let { openChooseSquadsWnd } = require("%enlist/soldiers/model/chooseSquadsState.nut")
-
-let restSquadsCount = Computed(@()
-  max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
 
 let mkManageAlert = @(guid) mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
   needSoldiersManageBySquad.value?[guid] ?? false))
@@ -30,26 +27,52 @@ let mkUnseenAlert = @(guid) mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
 let mkPerksAlert = @(squadId) mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
   (notChoosenPerkSquads.value?[curArmy.value][squadId] ?? 0) > 0))
 
-let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
-  .map(@(squad) squad.__merge({
-    onDoubleClick = @() openChooseSquadsWnd(curArmy.value, squad.squadId)
-    addChild = @() {
-      flow = FLOW_HORIZONTAL
-      hplace = ALIGN_RIGHT
-      valign = ALIGN_CENTER
-      children = [
-        mkManageAlert(squad.guid)
-        mkUnseenAlert(squad.guid)
-        mkPerksAlert(squad.squadId)
-      ]
-    }
-    level = allSquadsLevels.value?[squad.squadId] ?? 0
-  })))
 
 
-return mkCurSquadsList({
-  curSquadsList
+let mkSquadViewData = @(armyId, squad, levels) {
+  onDoubleClick = @() openChooseSquadsWnd(armyId, squad.squadId)
+  addChild = @() {
+    flow = FLOW_HORIZONTAL
+    hplace = ALIGN_RIGHT
+    valign = ALIGN_CENTER
+    children = [
+      mkManageAlert(squad.guid)
+      mkUnseenAlert(squad.guid)
+      mkPerksAlert(squad.squadId)
+    ]
+  }
+  level = levels?[squad.squadId] ?? 0
+}
+
+let curChoosenSquadsList = Computed(function() {
+  let armyId = curArmy.value
+  let levels = allSquadsLevels.value
+  return (curChoosenSquads.value ?? [])
+    .map(@(squad) squad.__merge( mkSquadViewData(armyId, squad, levels) ))
+})
+
+let curUnlockedSquadsList = Computed(function() {
+  let armyId = curArmy.value
+  let levels = allSquadsLevels.value
+  return (curUnlockedSquads.value ?? [])
+    .map(@(squad) squad.__merge( mkSquadViewData(armyId, squad, levels) ))
+})
+
+let choosenSquadsList = mkCurSquadsList({
+  curSquadsList = curChoosenSquadsList
   curSquadId
   setCurSquadId
-  addedObj = mkSquadManagementBtn(restSquadsCount)
+  onAttach = clearCurForcedSquadId
 })
+
+let unlockedSquadsList = mkCurSquadsList({
+  curSquadsList = curUnlockedSquadsList
+  curSquadId
+  setCurSquadId = setCurForcedSquadId
+  reserveIdx = Computed(@() curChoosenSquadsList.value.len())
+})
+
+return {
+  choosenSquadsList
+  unlockedSquadsList
+}

@@ -8,7 +8,7 @@ require AnimV20
 require GeomNodeTree
 require DagorMath
 require DagorSystem
-require EnlistedCamera
+require DngCamera
 require strings
 require enlisted.events_enlisted
 

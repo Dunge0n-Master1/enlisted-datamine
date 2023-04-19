@@ -4,7 +4,7 @@ require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.bomb_site_common
 require game.es.vehicle.vehicle_seats_common
 require BehNodes
-require EnlistedBehTree
+require DngBehTree
 
 [es(tag=server, no_order, REQUIRE=aiBombBehaviour)]
 def on_squad_leader_use_bomb_es(act : UpdateStageInfoAct)

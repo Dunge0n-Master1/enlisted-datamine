@@ -45,6 +45,7 @@ return freeze(autoSoldierIcons.__update({
   artillery_type_unlock_11_icon = "ui/uiskin/marker_bomb.svg"
   artillery_type_unlock_12_icon = "ui/uiskin/marker_bomb.svg"
   artillery_type_unlock_13_icon = "ui/uiskin/marker_bomb.svg"
+  paratrooper_box_icon = "ui/uiskin/paratrooper_box_icon.svg"
 
   squad_usa = "ui/uiskin/squad_usa_default.svg"
   squad_ussr ="ui/uiskin/squad_ussr_default.svg"

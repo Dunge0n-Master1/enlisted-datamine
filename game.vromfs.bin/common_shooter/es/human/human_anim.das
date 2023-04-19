@@ -2,15 +2,15 @@ require ecs
 require app
 require AnimV20
 require math.base
-require EnlistedHumanAnim
-require EnlistedHuman
-require EnlistedActor
+require DngHumanAnim
+require DngHuman
+require DngActor
 require PhysVars
 require PhysDecl
 require HumanPhys
 require HumanAnim
 require DagorMath
-require EnlistedWeapon
+require DngWeapon
 require game.es.events
 require enlisted.events_enlisted
 require DagorRandom
@@ -528,3 +528,11 @@ def human_anim_es(info : ParallelUpdateFrameDelayed;
     send_change_anim_state_event(eid, "upper", ecs_hash("upper"), human_anim__stationaryGunAnimId)
   animchar__animSpeed = spd * safeinv(animchar__scale)
   human_anim__previousHeight = animHeight
+
+[es(REQUIRE_NOT=(animchar__actOnDemand, human_net_phys, deadEntity), on_appear)]
+def simple_human_vehicle_anim_es(evt : Event;
+                                 eid : EntityId;
+                                 human_vehicle_anim__upperId : int;
+                                 human_vehicle_anim__lowerId : int)
+  send_change_anim_state_event(eid, "upper", ecs_hash("upper"), human_vehicle_anim__upperId)
+  send_change_anim_state_event(eid, "lower", ecs_hash("lower"), human_vehicle_anim__lowerId)

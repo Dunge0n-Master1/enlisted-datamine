@@ -6,10 +6,10 @@ require game.utils.animchar
 require game.utils.team
 require math.base
 require common_shooter.events_common_shooter
-require EnlistedWeapon
-require EnlistedPhys
-require EnlistedNet
-require EnlistedWeapon
+require DngWeapon
+require DngPhys
+require DngNet
+require DngWeapon
 require DaWeapons
 require DaWeaponProps
 require DagorSystem
@@ -64,10 +64,11 @@ def throw_grenade_away(eid : EntityId;
                                 transform : float3x4;
                                 shell__owner : EntityId = INVALID_ENTITY_ID;
                                 shell__rethrower : EntityId = INVALID_ENTITY_ID;
+                                grenade__rethrownTemplate : string = "";
                                 var active : bool&;
                                 var gun__visible : bool?)
     shell_entity_get_props(shell__shell_id__shell_id) <| $(entProps : ShellEntityTypeProps)
-      let templName = entProps.templName
+      let templName = grenade__rethrownTemplate == "" ? entProps.templName : grenade__rethrownTemplate
       if templName == ""
         return
       res = true

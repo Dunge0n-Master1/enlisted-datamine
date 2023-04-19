@@ -827,7 +827,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=3
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=25.0
+  capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01"
@@ -858,7 +858,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=20.0
+  capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_03_without_antenna"
@@ -890,7 +890,7 @@ entity{
   capzone__createdRespawnBaseGroup:i=5
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=20.0
+  capzone__timeToPlant:r=15.0
   capzone__timeToDefuse:r=20.0
   capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_04_without_antenna"
@@ -920,9 +920,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=20.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_01_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.639618, 0.0, 0.829609] [0.0, 1.0, -0.0] [-0.799768, 0.0, 0.616611] [0.00790405, 0.303408, 0.133789]]
   capzone__iconOffsetY:r=3.0
@@ -947,9 +947,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
-  capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
-  capzone__timeToExplosion:r=35.0
+  capzone__timeToPlant:r=15.0
+  capzone__timeToDefuse:r=20.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTemplate:t="bomb_site+bomb_site_radar_hardware_animchar_02_without_antenna"
   capzone__bombTransformLocalPos:m=[[0.239519, 0.0, 0.902387] [0.0, 0.983117, -0.0] [-0.91947, 0.0, 0.244053] [-0.0703125, 0.228545, -0.226105]]
   capzone__iconOffsetY:r=3.0

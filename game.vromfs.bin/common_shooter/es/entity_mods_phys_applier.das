@@ -1,5 +1,5 @@
 require ecs
-require EnlistedHuman
+require DngHuman
 require enlisted.events_enlisted
 
 [es(no_order)]

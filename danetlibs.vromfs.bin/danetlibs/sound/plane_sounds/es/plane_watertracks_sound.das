@@ -1,7 +1,7 @@
 require ecs
 require soundEvent
 require soundSystem
-require EnlistedPlane
+require DngPlane
 
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(plane_phys_es, sound_control_update, vehicle_sound_update_speed))]

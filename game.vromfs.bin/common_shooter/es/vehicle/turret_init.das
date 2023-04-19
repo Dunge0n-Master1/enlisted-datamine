@@ -68,6 +68,8 @@ def turret_control_init_es(evt : Event;
                            turret__pitchAccel : float = -1.0;
                            turret__fireFxOn : bool = true;
                            turret__limit : float4 const? = null;
+                           turret__stabilizerYawFrictionMult : float = 0.0;
+                           turret__stabilizerPitchFrictionMult : float = 0.0;
                            var turret__resolved : bool&;
                            var turret__wishYawVarId : int&;
                            var turret__wishPitchVarId : int&;
@@ -87,7 +89,12 @@ def turret_control_init_es(evt : Event;
                            var turret__maxPitchAngleVarId : int&;
                            var turret__gunRecoilVarId : int&;
                            var turret__emitterNodeId : int&;
-                           var turret__turretAimActiveVarId : int&)
+                           var turret__turretAimActiveVarId : int&;
+                           var turret__stabilizerYawActiveVarId : int&;
+                           var turret__stabilizerPitchActiveVarId : int&;
+                           var turret__stabilizerErrorVarId : int&;
+                           var turret__stabilizerYawFrictionMultVarId : int&;
+                           var turret__stabilizerPitchFrictionMultVarId : int&)
   if !turret__owner
     // Turret without owner is not attached to any vehicle.
     // So, such turret do not need to be resoved.
@@ -99,6 +106,7 @@ def turret_control_init_es(evt : Event;
 
   query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__animVars : Array;
                                   [[shared_comp]] turret_control__emitterNodes : Array;
+                                  turret_control__isStabilizerEnabled : bool = true;
                                   animchar : AnimcharBaseComponent;
                                   var anim_phys : AnimatedPhys;
                                   var phys_vars : PhysVars)
@@ -120,6 +128,14 @@ def turret_control_init_es(evt : Event;
       turret__pitchAccelVarId      = registerVar(phys_vars, *animVars, "paramPitchAccel")
       turret__gunRecoilVarId       = registerVar(phys_vars, *animVars, "gunRecoilParamName")
       turret__turretAimActiveVarId = registerVar(phys_vars, *animVars, "aimActiveParamName", 1.f)
+      let stabilizerVal = turret_control__isStabilizerEnabled ? 1. : 0.
+      turret__stabilizerYawActiveVarId   = registerVar(phys_vars, *animVars, "stabilizerYawParamName", stabilizerVal)
+      turret__stabilizerPitchActiveVarId = registerVar(phys_vars, *animVars, "stabilizerPitchParamName", stabilizerVal)
+      turret__stabilizerErrorVarId       = registerVar(phys_vars, *animVars, "stabilizerErrorParamName")
+      turret__stabilizerYawFrictionMultVarId = registerVar(phys_vars, *animVars, "stabilizerYawMultParamName", clamp(1.0 - turret__stabilizerYawFrictionMult, 0., 1.))
+      turret__stabilizerPitchFrictionMultVarId = registerVar(phys_vars, *animVars, "stabilizerPitchMultParamName", clamp(1.0 - turret__stabilizerPitchFrictionMult, 0., 1.))
+      let hasStab = turret__stabilizerYawActiveVarId >= 0 || turret__stabilizerPitchActiveVarId >= 0
+      registerVar(phys_vars, *animVars, "hasStabilizerParamName", hasStab ? 1.0 : 0.0)
       if turret__limit != null
         turret__minYawAngleVarId     = registerVar(phys_vars, *animVars, "paramMinYawAngle")
         turret__maxYawAngleVarId     = registerVar(phys_vars, *animVars, "paramMaxYawAngle")

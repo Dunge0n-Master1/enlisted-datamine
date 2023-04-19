@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {h2_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {connectivity} = require("%ui/hud/state/network.nut")
-let {sound_play} = require("sound")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 let {CONNECTIVITY_OK, CONNECTIVITY_NO_PACKETS} = require("connectivity")
 
 connectivity.subscribe(function(value) {

@@ -7,8 +7,8 @@ require game.es.events
 require game.es.vehicle.vehicle_events
 require game.utils.team
 require common_shooter.es.vehicle.vehicle_offender_common
-require EnlistedDm
-require EnlistedNet
+require DngDm
+require DngNet
 require enlisted.events_enlisted
 
 def explosion_impl(offender : EntityId;

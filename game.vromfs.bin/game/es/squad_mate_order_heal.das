@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require pathfinder
 require DagorDataBlock
 require BehNodes
@@ -10,7 +10,7 @@ require enlisted.events_enlisted
 require enlisted.game.es.enlisted_squad_common
 require human_sounds_net.modules.human_sounds_net_events
 require enlisted.game.es.stat_bq.send_squad_cmd_stat_bq_common
-require EnlistedBehTree
+require DngBehTree
 require game.es.squad_order_common
 
 def order_heal(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int) : bool
@@ -38,7 +38,7 @@ def order_heal(squad_eid, squad__leader : EntityId; squad__numAliveMembers : int
     beh_tree__refs__orderType := beh_tree__data__healReq
 
     // NOTE: not using reload_squad_mate_beh_tree() here intentionally
-    EnlistedBehTree::load_beh_tree_from_ecs(nearestTeammate.eid)
+    DngBehTree::load_beh_tree_from_ecs(nearestTeammate.eid)
 
     if beh_tree__latencyLoadBlackBoard != null
       *beh_tree__latencyLoadBlackBoard |> set("healRequester", int(uint(squad__leader)))

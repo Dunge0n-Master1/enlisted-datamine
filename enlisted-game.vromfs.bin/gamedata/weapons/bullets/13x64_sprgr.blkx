@@ -49,13 +49,6 @@ visual{
   trail:t="smallTrail"
 }
 
-hitFx{
-  fxScale:p2=2.0, 2.2
-  defaultFx:t="ground_splash"
-  jetFx:t="ground_splash_direct"
-  preset:t="bullet"
-}
-
 tracer{
   ignitionTime:r=0.001
   smokeColor:c=255, 230, 179, 204

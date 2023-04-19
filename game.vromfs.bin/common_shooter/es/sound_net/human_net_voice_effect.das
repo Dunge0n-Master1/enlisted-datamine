@@ -1,6 +1,6 @@
 require ecs
 require app
-require EnlistedNet
+require DngNet
 require human_sounds_net.modules.human_sounds_net_events
 require game.utils.net_utils
 

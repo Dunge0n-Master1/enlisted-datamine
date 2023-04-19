@@ -104,7 +104,17 @@ gunsound_7_92mm_mg42{
 }
 
 gunsound_8mm_breda_mod38{
-  _extends:t="gunsound_7_92mm_mg34"
+  _extends:t="gunsound_base_mgun"
+
+  _group{
+    _tags:t="sound"
+    gun_sound__startLoopWithNOneshots:i=0
+  }
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/mgun_mounted/8mm_breda_mod38"
+  }
 }
 
 gunsound_12_7mm_dshk{

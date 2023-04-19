@@ -1,5 +1,5 @@
 require ecs
-require EnlistedShip
+require DngShip
 require math.base
 require DagorMath
 require GamePhys

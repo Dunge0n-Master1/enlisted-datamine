@@ -4,7 +4,7 @@ require app
 require game.es.events
 require DaWeaponProps
 require NetPropsRegistry
-require EnlistedWeapon
+require DngWeapon
 require DagorDataBlock
 require DagorSystem
 require common_shooter.es.human.human_gun_common

@@ -4,11 +4,12 @@ require DagorMath
 require CollRes
 require game.es.vehicle.vehicle_seats_common
 require vehicle
-require EnlistedWeapon
+require DngWeapon
 require DagorMathUtils
-require EnlistedHuman
-require EnlistedCamera
+require DngHuman
+require DngCamera
 require common_shooter.es.input.turret_input_common
+require enlisted.events_enlisted
 
 def private set_turret_watched(turret_control__gunEids : EidList; seat__ownerControls : VehicleControlsState)
   var foundTurret = INVALID_ENTITY_ID
@@ -37,13 +38,23 @@ def private set_turret_watched_for_vehicle(seat__vehicleEid : EntityId; seat__ow
 def replay_camera_set_bind_to_vehicle_es(evt : Event; camera__active : bool; var bindToVehicle : bool&; isTpsView : bool = false)
   if camera__active
     query() <| $ [es(REQUIRE=watchedByPlr)] (human_anim__vehicleSelected : EntityId)
-      bindToVehicle = !!human_anim__vehicleSelected && !isTpsView
+      bindToVehicle = !!human_anim__vehicleSelected && !isTpsView && !!(get_Eid(human_anim__vehicleSelected, "cockpit__eid") ?? INVALID_ENTITY_ID) && !has(human_anim__vehicleSelected, "replay_camera__attachToHuman")
+      sendEvent(human_anim__vehicleSelected, [[CmdUpdateCameraByVehicleType]])
 
 [es(tag=playingReplay, on_appear, track=human_anim__vehicleSelected, REQUIRE=watchedByPlr, before=on_change_vehicle_camera_type_es)]
 def replay_human_camera_set_bind_to_vehicle_es(evt : Event; human_anim__vehicleSelected : EntityId)
   find_query() <| $ [es] (camera__active : bool; var bindToVehicle : bool&; isTpsView : bool = false)
     if camera__active
-      bindToVehicle = !!human_anim__vehicleSelected && !isTpsView
+      bindToVehicle = !!human_anim__vehicleSelected && !isTpsView  && !!(get_Eid(human_anim__vehicleSelected, "cockpit__eid") ?? INVALID_ENTITY_ID) && !has(human_anim__vehicleSelected, "replay_camera__attachToHuman")
+      sendEvent(human_anim__vehicleSelected, [[CmdUpdateCameraByVehicleType]])
+    return camera__active
+
+[es(tag=playingReplay, on_appear, track=cockpit__eid, REQUIRE=vehicleWithWatched, REQUIRE_NOT=replay_camera__attachToHuman, before=on_change_vehicle_camera_type_es)]
+def replay_human_camera_set_bind_to_vehicle_with_cockpit_es(evt : Event; eid : EntityId; cockpit__eid : EntityId)
+  find_query() <| $ [es] (camera__active : bool; var bindToVehicle : bool&; isTpsView : bool = false)
+    if camera__active
+      bindToVehicle = !isTpsView && !!cockpit__eid
+      sendEvent(eid, [[CmdUpdateCameraByVehicleType]])
     return camera__active
 
 [es(tag=playingReplay, on_appear, track=human_anim__vehicleSelected, REQUIRE=watchedByPlr, after=fix_camera_target_es)]
@@ -96,6 +107,13 @@ def set_human_turret_watched_es(evt : Event; eid : EntityId; human_anim__vehicle
   if seatId <= -1
     query() <| $ [es(REQUIRE=firstWatchedTurret)] (eid : EntityId)
       removeSubTemplate(eid, "first_watched_turret")
+
+
+[es(tag=playingReplay, after=turret_update_visual_shoot_tm_es, REQUIRE=vehicleWithWatched, REQUIRE_NOT=(turret_current_visual_shoot_tm, turret_control__gunEids))]
+def replay_set_camera_dir_in_civil_vehicle_es(info : UpdateStageInfoAct; var camera__lookDir : float3&)
+  query() <| $ [es(REQUIRE=watchedByPlr)] (human_net_phys : HumanActor)
+    camera__lookDir = human_net_phys.phys.currentState.headDir
+
 
 [es(tag=playingReplay, after=turret_update_visual_shoot_tm_es, REQUIRE=vehicleWithWatched)]
 def replay_set_camera_dir_in_vehicle_es(info : UpdateStageInfoAct;

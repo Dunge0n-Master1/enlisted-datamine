@@ -1,19 +1,16 @@
+us_m8_scott_pacific{
+  _extends:t="us_m8_scott_common"
+}
+
 us_m8_scott{
+  _extends:t="us_m8_scott_common"
+}
+
+us_m8_scott_common{
   _extends:t="base_m8_scott"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconScale:r=0.8
-
-  "bullet_holes__ignoreCollisionNodes:array"{
-    _tags:t="render"
-  }
-
-  "bullet_holes__movingCollisionNodes:array"{
-    _tags:t="render"
-    movingCollisionNodes:t="cls_turret_01"
-    movingCollisionNodes:t="turret_front"
-    movingCollisionNodes:t="turret_side"
-    movingCollisionNodes:t="gun_mask"
-  }
+  vehicle_seats__enumVarName:t="tank"
 
   "vehicle_seats__seats:shared:array"{
 
@@ -58,14 +55,14 @@ us_m8_scott{
       attachNode:t="bone_mg_aa_h_01"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[0.93, 0.05, 0.0] [-0.05, 0.93, 0.0] [0.0, 0.0, 1.0] [-0.28, -0.55, -0.02]]
+      attachTm:m=[[0.913982, 0.17894, 5.45789e-17] [-0.17894, 0.913982, -1.13133e-10] [-2.33378e-11, 1.19203e-10, 0.999934] [-0.2, -0.55, 0.03]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="commander"
       isHoldGunModeAllowed:b=no
       maxPosWithOpenHatch:r=0.6
       hatchRotationAxis:p3=0.0, 0.0, 0.0
-      seatAnimUpper:t="drive_passenger"
-      seatAnimLower:t="drive_passenger"
+      seatAnimUpper:t="drive_driver"
+      seatAnimLower:t="drive_driver"
 
       "hatchTurretNames:array"{
         turret:t="turret_02"

@@ -1,5 +1,5 @@
 require ecs
-require EnlistedPhys
+require DngPhys
 require DagorMath
 require game.utils.team
 require common_shooter.events_common_shooter

@@ -115,7 +115,9 @@ ecs.register_es("add_scene_camera_es", {
       cameraScenes.mutate(@(val) val.append(comp.scene))
     }
     onDestroy = function(_eid, comp) {
-      cameraScenes.mutate(@(val) val.remove(cameraScenes.value.indexof(comp.scene)))
+      let idx = cameraScenes.value.indexof(comp.scene)
+      if (idx != null)
+        cameraScenes.mutate(@(val) val.remove(idx))
     }
   }, { comps_ro = [["scene", ecs.TYPE_STRING]] }
 )

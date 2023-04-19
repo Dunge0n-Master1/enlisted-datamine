@@ -15,7 +15,6 @@ base_m8_greyhound{
   drowningHeight:r=1.868
   damage_model__blk:t="gamedata/gen/units/tanks/m8_greyhound.blk"
   item__name:t="items/us_m8_greyhound"
-  destroyIfNoCrewLeft:b=no
   skin__template:t="m8_greyhound_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{
@@ -61,6 +60,10 @@ base_m8_greyhound{
       wishYawParamName:t="gun_01_aim:targetYaw"
       wishPitchParamName:t="gun_01_aim:targetPitch"
       gunRecoilParamName:t="gun_01_recoil"
+      hasStabilizerParamName:t="gun_01_aim:hasStab"
+      stabilizerPitchParamName:t="gun_01_aim:stabPitch"
+      stabilizerErrorParamName:t="gun_01_aim:stabError"
+      stabilizerPitchMultParamName:t="gun_01_aim:stabPitchMult"
     }
 
     "vars:object"{
@@ -122,6 +125,14 @@ m8_greyhound_turret_01_37mm_m6{
   turret__pitchSpeed:r=4.0
   turret__aimNodeName:t="bone_turret"
   turret__limit:p4=-180.0, 180.0, -10.0, 20.0
+  turret__stabilizerPitchFrictionMult:r=0.8
+  turret__stabilizerPitchSpeedLimitKph:r=10.0
+
+  "turret__stabilizerErrorByKphSpeedTable:list<p2>"{
+    row:p2=5.0, 0.0
+    row:p2=8.0, 0.2
+    row:p2=10.0, 0.4
+  }
 
   "gun__shellsAmmo:array"{
     ammo:i=28

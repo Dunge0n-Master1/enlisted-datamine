@@ -25,11 +25,11 @@ let finishedOpacity = 0.5
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
 
 let mkTaskContent = @(task, sf) function() {
-  let progress = getUnlockProgress(task)
+  let progress = getUnlockProgress(task, unlockProgress.value)
   let { isFinished = false, activity = null } = task
   let { active = false } = activity
   return {
-    watch = [unlockProgress]
+    watch = unlockProgress
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = tinyOffset

@@ -1,8 +1,8 @@
 require ecs
-require EnlistedDm
+require DngDm
 require game.events_game
 require game.utils.team
-require EnlistedNet
+require DngNet
 
 [es(tag=server, REQUIRE=damage_model, track=isAlive)]
 def damage_model_death_es(evt : Event;

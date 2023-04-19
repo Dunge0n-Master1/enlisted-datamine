@@ -107,6 +107,7 @@ tankgun_flak38_flakvierling_20mm_kwk30_dr{
 
 cannon_germ_20mm_flak38_flakvierling_without_camo{
   _extends:t="base_anti_aircraft_cannon"
+  _extends:t="vehicle_display_marker_over_head"
   killLogName:t="germ_20mm_flak38_flakvierling"
   phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/cannons/germ_20mm_flak38_flakvierling.blk"
   vehicle_seats_camera_nodes__defaultNode:t="sight"
@@ -381,8 +382,8 @@ germ_20mm_flak38_flakvierling_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
-  cockpit__zoomTimeMul:r=3.0
-  cockpit__minZoom:r=0.0
+  cockpit__forwardOffsetTimeMul:r=3.0
+  cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     item:p3=-0.9, 0.56, 0.26

@@ -1,6 +1,7 @@
 options indenting = 4
 options no_unused_block_arguments = false
 options no_unused_function_arguments = false
+options strict_smart_pointers
 options no_aot = true
 
 module quirrel_boost shared private
@@ -198,7 +199,7 @@ def read_arg(var arg : smart_ptr<ast::Variable>&; vmIdx : int64; argName : strin
             if ann.basicType != Type tString
                 errors := "{errors}\nuse incorrect raw_param annotation type, string required ([[raw_param=<paramCheckName>...]] {arg.name} : int64)"
             else
-                var expr <- qmacro_expr(${let $i(argName) = $v(vmIdx);})
+                var inscope expr <- qmacro_expr(${let $i(argName) = $v(vmIdx);})
                 funcBody |> emplace(expr, 0)
                 paramsCheck |> push("{ann.sValue}", 0)
             return <- funcBody
@@ -206,7 +207,7 @@ def read_arg(var arg : smart_ptr<ast::Variable>&; vmIdx : int64; argName : strin
     if arg._type.baseType == Type tPointer
         if arg._type.firstType.annotation != null && arg._type.firstType.annotation.name == "SQVM"
             vm_arg = true
-            var expr <- qmacro_expr(${var $i(argName) = _vm_;})
+            var inscope expr <- qmacro_expr(${var $i(argName) = _vm_;})
             funcBody |> emplace(expr, 0)
             return <- funcBody
         else
@@ -214,16 +215,16 @@ def read_arg(var arg : smart_ptr<ast::Variable>&; vmIdx : int64; argName : strin
             if arg._type.isConst && !arg._type.isRefType && !arg._type.firstType.isConst
                 errors := "{errors}\nargument {arg.name} which is constant pointer should point to constant data\nAdd const before question mark ('int const?)"
 
-    var res : array<ExpressionPtr>
+    var inscope res : array<ExpressionPtr>
     if nullable_arg && optional_args
-        var reader <- qmacro_block <|
+        var inscope reader <- qmacro_block <|
             if !(_::getStackValue(_vm_, $v(vmIdx), _nargs_) <| $($i(argName) : $t(arg._type)) { $b(funcBody); })
                 let valueType = sq_gettype(_vm_, $v(vmIdx))
                 sq_throwerror(_vm_, "Unable to read argument '{$v(argName)}'. Expected '{$v(describe(arg._type))}, got {valueType}'")
                 _runtime_error_ = true
         res |> emplace(reader)
     else
-        var reader <- qmacro_block <|
+        var inscope reader <- qmacro_block <|
             if !(_::getStackValue(_vm_, $v(vmIdx)) <| $($i(argName) : $t(arg._type)) { $b(funcBody); })
                 let valueType = sq_gettype(_vm_, $v(vmIdx))
                 sq_throwerror(_vm_, "Unable to read argument '{$v(argName)}'. Expected '{$v(describe(arg._type))}, got {valueType}'")
@@ -240,10 +241,10 @@ class QuirrelCallAnnotation : AstFunctionAnnotation
             return
         for ann in func.annotations
             if ann.annotation.name == "quirrel_wrapper"
-                let nameArg = find_arg("name", ann.arguments)
-                let moduleArg = find_arg("module_name", ann.arguments)
-                let paramsCheckArg = find_arg("params_check", ann.arguments)
-                let paramsArg = find_arg("params", ann.arguments)
+                let nameArg = ann.arguments |> find_arg("name")
+                let moduleArg = ann.arguments |> find_arg("module_name")
+                let paramsCheckArg = ann.arguments |> find_arg("params_check")
+                let paramsArg = ann.arguments |> find_arg("params")
                 let mn = get_mangled_name(func)
                 let mnh = hash(mn)
                 sqdas_bind_func(*get_ptr(ctx), mnh, "{nameArg}", "{moduleArg}", paramsArg as tInt, "{paramsCheckArg}")
@@ -259,23 +260,23 @@ class QuirrelBindAnnotation : AstFunctionAnnotation
         return true
 
     def override patch ( var fn:FunctionPtr; var group:ModuleGroup; args,progArgs:AnnotationArgumentList; var errors : das_string; var astChanged:bool& ) : bool
-        let bindedArg = find_arg("binded", args)
+        let bindedArg = args |> find_arg("binded")
         if bindedArg is tBool // function was already binded
             return true
 
-        let nameArg = find_arg("name", args)
+        let nameArg = args |> find_arg("name")
         if !(nameArg is nothing) && !(nameArg is tString)
             errors := "annotation argument 'name' expecting string [quirrel_bind(name=<bind name>)]"
             return false
 
-        let moduleArg = find_arg("module_name", args)
+        let moduleArg = args |> find_arg("module_name")
         if !(moduleArg is nothing) && !(moduleArg is tString)
             errors := "annotation argument 'module_name' expecting string [quirrel_bind(module_name=<mod name>)]"
             return false
 
         let voidResult = fn.result.baseType == Type tVoid
 
-        let rawReturnArg = find_arg("raw_return", args)
+        let rawReturnArg = args |> find_arg("raw_return")
         if !(rawReturnArg is nothing) && !(rawReturnArg is tBool)
             errors := "annotation argument 'raw_return' expecting bool [quirrel_bind(raw_return)] or [quirrel_bind(raw_return=true)]"
             return false
@@ -292,7 +293,7 @@ class QuirrelBindAnnotation : AstFunctionAnnotation
         let bindName = nameArg is nothing ? string(fn.name) : nameArg as tString
         let wrapperName = "wrapper_{bindName}"
 
-        let sameWrapper <- fn._module |> find_unique_function(wrapperName)
+        var inscope sameWrapper <- fn._module |> find_unique_function(wrapperName)
         if sameWrapper != null
             errors := "multiple functions with same bind name '{bindName}'"
             return false
@@ -319,15 +320,19 @@ class QuirrelBindAnnotation : AstFunctionAnnotation
         var optionalArgs = true
         var optionalArgsNum = 0
         while argIdx >= 0
-            assume arg = fn.arguments[argIdx]
-            let argName = "{arg.name}"
-            var nullableArg = false
-            var vmArg = false
-            funcBody <- read_arg(arg, int64(argIdx) + INITIAL_IDX_OFFSET, argName, optionalArgs, errors, funcBody, paramsCheck, nullableArg, vmArg)
-            if !vmArg
-                optionalArgs &&= nullableArg
-                optionalArgsNum += optionalArgs ? 1 : 0
-            argIdx -= 1
+            if true
+                assume arg = fn.arguments[argIdx]
+                let argName = "{arg.name}"
+                var nullableArg = false
+                var vmArg = false
+                var inscope newFuncBody <- read_arg(arg, int64(argIdx) + INITIAL_IDX_OFFSET, argName, optionalArgs, errors, funcBody, paramsCheck, nullableArg, vmArg)
+                unsafe
+                    delete funcBody
+                    funcBody <- newFuncBody
+                if !vmArg
+                    optionalArgs &&= nullableArg
+                    optionalArgsNum += optionalArgs ? 1 : 0
+                argIdx -= 1
         paramsCheck |> push(".", 0)
 
         if length(errors) > 0
@@ -340,15 +345,15 @@ class QuirrelBindAnnotation : AstFunctionAnnotation
 
         if length(fn.arguments) > 0
             if optionalArgsNum > 0
-                var nArgsExpr <- qmacro_expr(${ var _nargs_ = sq_gettop(_vm_); })
+                var inscope nArgsExpr <- qmacro_expr(${ var _nargs_ = sq_gettop(_vm_); })
                 funcBody |> emplace(nArgsExpr, 0)
-            var errorsExpr <- qmacro_expr(${ var _runtime_error_ = false; })
+            var inscope errorsExpr <- qmacro_expr(${ var _runtime_error_ = false; })
             funcBody |> emplace(errorsExpr, 0)
             funcBody |> emplace_new <| qmacro_expr(${ return _runtime_error_ ? -1l : $v(voidResult && !isManualReturn ? 0l : 1l); })
         else
             funcBody |> emplace_new <| qmacro_expr(${ return $v(voidResult && !isManualReturn ? 0l : 1l); })
 
-        var bindFn <- qmacro_function(wrapperName) <| $ [unused_argument(_vm_)] (var _vm_ : quirrel::SQVM?) : int64
+        var inscope bindFn <- qmacro_function(wrapperName) <| $ [unused_argument(_vm_)] (var _vm_ : quirrel::SQVM?) : int64
             $b(funcBody)
 
         bindFn.body |> force_at(fn.body.at)

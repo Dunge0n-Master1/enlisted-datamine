@@ -16,22 +16,24 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let { allArmyUnlocks } = require("armyUnlocksState.nut")
 let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
-let { addPopup } = require("%enlist/popup/popupsState.nut")
+let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
 
 
-
 let justGainSquadId = Watched(null)
 let selectedSquadId = Watched(null)
+let previewSquads = Watched(null)
 let squadsArmy = mkWatched(persist, "squadsArmy")
 let curChoosenSquads = Computed(@() chosenSquadsByArmy.value?[squadsArmy.value] ?? [])
 let curUnlockedSquads = Computed(@() squadsByArmy.value?[squadsArmy.value] ?? [])
 
 let chosenSquads = mkWatched(persist, "chosen", [])
 let reserveSquads = mkWatched(persist, "reserve", [])
+let displaySquads = Computed(@() previewSquads.value ?? clone chosenSquads.value)
+
 let unlockedSquads = Computed(@() (clone chosenSquads.value).extend(reserveSquads.value))
 let slotsCount = Computed(@() chosenSquads.value.len())
 let focusedSquads = mkWatched(persist, "focused", {})
@@ -166,17 +168,41 @@ let function moveIndex(list, idxFrom, idxTo) {
   return res
 }
 
-let function getCantTakeReason(squad, squadsList, idxTo) {
-  let { expireTime = 0, vehicleType = "" } = squad
-  if (expireTime > 0 && expireTime < serverTime.value)
-    return loc("msg/cantTakeExpiredSquad")
+let squadPlaceReasonData = {
+  limit = {
+    type = "limit"
+    getErrorText = @() loc("msg/cantTakeExpiredSquad")
+  }
+  squadTypeZero = @(squadType) {
+    type = $"{squadType}Zero"
+    squadType
+    getErrorText = @() loc($"msg/{squadType}IsZero")
+  }
+  squadTypeFull = @(squadType) {
+    type = $"{squadType}Full"
+    squadType
+    getErrorText = @() loc($"msg/{squadType}Full", { maxSquads = squadsArmyLimits.value[squadType] })
+  }
+}
 
-  let typeKey = vehicleType == "bike" ? "maxBikeSquads"
-    : vehicleType != "" ? "maxVehicleSquads"
-    : "maxInfantrySquads"
+let getSquadTypeLimitId = @(squadType) squadType == "bike" ? "maxBikeSquads"
+  : squadType != "" ? "maxVehicleSquads"
+  : "maxInfantrySquads"
+
+let function isSquadExpired(squad) {
+  let { expireTime = 0 } = squad
+  return expireTime > 0 && expireTime < serverTime.value
+}
+
+let function getCantTakeSquadReasonData(squad, squadsList, idxTo) {
+  if (isSquadExpired(squad))
+    return squadPlaceReasonData.limit()
+
+  let { vehicleType = 0 } = squad
+  let typeKey = getSquadTypeLimitId(vehicleType)
   let maxType = squadsArmyLimits.value[typeKey]
   if (maxType <= 0)
-    return { text = loc($"msg/{typeKey}IsZero") }
+    return squadPlaceReasonData.squadTypeZero(typeKey)
 
   local curCount = 0
   foreach (idx, s in squadsList) {
@@ -197,8 +223,11 @@ let function getCantTakeReason(squad, squadsList, idxTo) {
   if (curCount < maxType)
     return null
 
-  return loc($"msg/{typeKey}Full", { maxSquads = maxType })
+  return squadPlaceReasonData.squadTypeFull(typeKey)
 }
+
+let getCantTakeReason = @(squad, squadsList, idxTo)
+  getCantTakeSquadReasonData(squad, squadsList, idxTo)?.getErrorText()
 
 let function sendSquadActionToBQ(eventType, squadGuid, squadId) {
   sendBigQueryUIEvent("squad_management", null, {
@@ -363,6 +392,12 @@ let function closeAndOpenCampaign() {
   close()
 }
 
+let function getUnlockedSquadsBySquadIds(squadIdsList) {
+  return squadIdsList
+    .map(@(squadId) unlockedSquads.value.findvalue(@(squad) squad?.squadId == squadId))
+    .filter(@(squad) squad != null)
+}
+
 console_register_command(function(squadId) {
   if (squadId in focusedSquads.value)
     unfocusSquad(squadId)
@@ -387,6 +422,8 @@ return {
   curArmyLockedSquadsData
   chosenSquads
   reserveSquads
+  previewSquads
+  displaySquads
   slotsCount
   changeSquadOrderByUnlockedIdx
   moveIndex
@@ -402,4 +439,7 @@ return {
   selectedSquadSoldiers
   selSquadVehicleGameTpl
   sendSquadActionToBQ
+  getUnlockedSquadsBySquadIds
+  isSquadExpired
+  getCantTakeSquadReasonData
 }

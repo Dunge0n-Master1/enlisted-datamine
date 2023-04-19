@@ -10,11 +10,3 @@ collisionResource{
     mg_body:t="box"
   }
 }
-
-gunFlash{
-
-  gunFx_main{
-    fx:t="muzzle_flash"
-    scale:r=0.04
-  }
-}

@@ -892,5 +892,6 @@ unitedVdata.rendInst{
   VB1:i=65536
   VB2:i=65536
   VB3:i=65536
-  VB4:i=0
+  VB4:i=32768
+  VB5:i=0
 }

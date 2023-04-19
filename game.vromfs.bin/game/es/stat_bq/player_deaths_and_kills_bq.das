@@ -3,7 +3,7 @@ require statBQ
 require jsonwriter
 require game.events_game
 require game.es.stat_bq_common
-require EnlistedDm
+require DngDm
 require matching
 
 def add_type_and_pos(var jw; eid; prefix)

@@ -11,7 +11,7 @@ require game.utils.net_utils
 require game.utils.team
 require GameTimers
 require matching
-require EnlistedNet
+require DngNet
 require player
 
 let DEF_SPECTATE_TIME : float = 5.f

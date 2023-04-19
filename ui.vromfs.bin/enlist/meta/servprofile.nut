@@ -1,9 +1,6 @@
-from "%enlSqGlob/ui_library.nut" import *
-let {nestWatched} = require("%dngscripts/globalState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
-let profile = nestWatched("PLAYER_PROFILE", {})
-
-let export = {
+return {
   items = {}
   wallposters = {}
   soldiers = {}
@@ -13,10 +10,8 @@ let export = {
   armies = {}
   soldierPerks = {}
   researches = {}
-  deliveries = {}
   armyEffects = {}
   slotsIncrease = {}
-  savedEvents = {}
   purchasesCount = {}
   purchasesExt = {}
   receivedUnlocks = {}
@@ -29,8 +24,4 @@ let export = {
   medals = {}
   offers = {}
   metaConfig = {}
-}.map(@(value, key) Computed(@() profile.value?[key] ?? value))
-
-export.__update({ profile })
-
-return export
+}.map(@(defValue, key) nestWatched($"PLAYER_PROFILE_{key}", defValue))

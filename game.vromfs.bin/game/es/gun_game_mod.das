@@ -11,11 +11,11 @@ require DagorRandom
 require game.events_game
 require enlisted.events_enlisted
 require ecs.safe
-require EnlistedHuman
+require DngHuman
 require Grid
 require DagorMath
 require game.es.awards_common
-require EnlistedNet
+require DngNet
 
 [es(tag=server, on_appear, REQUIRE=possessed,
     on_event=EventApplyDevMode, after=(apply_dev_mode, apply_dev_mode_client_only))]

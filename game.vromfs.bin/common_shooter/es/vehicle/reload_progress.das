@@ -44,16 +44,3 @@ def turret_reloadable_reload_progress_start_end(evt : Event;
                                                 var ui_turret_reload_progress__finishTime : float&)
   ui_turret_reload_progress__startTime = gun__reloadStartTime
   ui_turret_reload_progress__finishTime = gun__reloadFinishTime
-
-[es(tag=ui, REQUIRE=turretInput, on_appear, track=gun__reloadTime)]
-def reloadable_turret_ui_track_reload_time_mult(evt : Event;
-                                                gun__reloadTimeBase : float;
-                                                gun__reloadTime : float;
-                                                var ui_turret_reload_progress__reloadTimeMult : float&)
-  ui_turret_reload_progress__reloadTimeMult = safediv(gun__reloadTime, gun__reloadTimeBase)
-
-[es(tag=ui, REQUIRE=turretInput, on_appear, track=gun__timeBetweenShotMult)]
-def turret_ui_track_reload_time_mult(evt : Event;
-                                     gun__timeBetweenShotMult : float;
-                                     var ui_turret_reload_progress__reloadTimeMult : float&)
-  ui_turret_reload_progress__reloadTimeMult = gun__timeBetweenShotMult

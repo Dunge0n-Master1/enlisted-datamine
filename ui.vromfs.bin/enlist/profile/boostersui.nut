@@ -3,19 +3,11 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let {
-  boosterItems, allBoosters
-} = require("%enlist/soldiers/model/boosters.nut")
-let {
-  disabledTxtColor, smallPadding, smallOffset, blurBgFillColor, accentColor, darkBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
-let {
-  mkXpBooster, boosterWidthToHeight, mkBoosterExpireInfo
-} = require("%enlist/components/mkXpBooster.nut")
-let { rewardBgSizePx } = require("%enlist/items/itemsPresentation.nut")
-
-let bImgHeight = rewardBgSizePx[1]
-let bImgSize = [(boosterWidthToHeight * bImgHeight).tointeger(), bImgHeight]
+let { boosterItems, allBoosters } = require("%enlist/soldiers/model/boosters.nut")
+let { disabledTxtColor, smallPadding, smallOffset, blurBgFillColor,
+  accentColor, blockedTxtColor, darkBgColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { mkXpBooster, mkBoosterExpireInfo } = require("%enlist/components/mkXpBooster.nut")
+let { abs } = require("math")
 
 let emptyBoostersText = txt({
   text = loc("profile/boostersIsEmpty")
@@ -27,36 +19,36 @@ let function mkBooster(boosterBase) {
   let { campaignLimit } = boosterBase
   let limitText = campaignLimit.len() == 0 ? loc("allCampaigns")
     : ", ".join(campaignLimit.map(@(c) loc(c.title)))
+  let typeText = boosterBase.expMul > 0 ? $"booster/expBonusTitle"
+    : "booster/expPenaltyTitle"
+  let valueText = boosterBase.expMul > 0 ? "booster/expBonusVal" : "booster/expPenaltyVal"
   return {
-    rendObj = ROBJ_SOLID
     xmbNode = XmbNode()
     behavior = Behaviors.Button
     size = [hdpx(400), hdpx(170)]
     margin = [0, 0, 0, hdpx(110)]
-    flow = FLOW_VERTICAL
-    color = blurBgFillColor
     children = [
       {
-        rendObj = ROBJ_SOLID
         size = flex()
-        color = darkBgColor
-        padding = [0, 0, hdpx(5), hdpx(110)]
-        children = mkBoosterExpireInfo(boosterBase,
-          true,
-          {
-            margin = [0, smallOffset]
-            flow = FLOW_HORIZONTAL
-          }
-        )
-      }
-      {
+        flow = FLOW_VERTICAL
         children = [
           {
-            size = bImgSize
-            pos = [-hdpx(90), -hdpx(40)]
-            children = mkXpBooster(boosterBase, {size = [hdpx(170),hdpx(200)]})
+            rendObj = ROBJ_SOLID
+            size = [flex(), SIZE_TO_CONTENT]
+            color = darkBgColor
+            padding = [hdpx(5), 0, hdpx(5), hdpx(110)]
+            children = mkBoosterExpireInfo(boosterBase,
+              true,
+              {
+                margin = [0, smallOffset]
+                flow = FLOW_HORIZONTAL
+              }
+            )
           }
           {
+            rendObj = ROBJ_SOLID
+            size = [flex(), SIZE_TO_CONTENT]
+            color = blurBgFillColor
             flow = FLOW_VERTICAL
             padding = [0, 0, 0, hdpx(110)]
             children = [
@@ -64,20 +56,25 @@ let function mkBooster(boosterBase) {
                 text = limitText
                 margin = [hdpx(7), 0]
               }).__update(sub_txt)
-              txt(loc($"booster/expBonus/{boosterBase.bType}")).__update(sub_txt)
+              txt(loc(typeText)).__update(sub_txt)
               txt({
-                text = loc("booster/expBonus", {exp = (boosterBase.expMul * 100).tostring()})
-                color = accentColor
+                text = loc(valueText, {exp = abs(boosterBase.expMul * 100).tostring()})
+                color = boosterBase.expMul > 0 ? accentColor : blockedTxtColor
                 margin = [hdpx(14), 0]
               }).__update(h2_txt)
               txt({
                 padding = [0, 0, hdpx(20), 0]
-                text = loc($"booster/type/{boosterBase.bType}")
+                text = loc("booster/allTypes")
               }).__update(sub_txt)
             ]
           }
         ]
       }
+      mkXpBooster({
+        size = [hdpx(170), hdpx(200)]
+        pos = [-hdpx(90), 0]
+        margin = 0
+      })
     ]
   }
 }

@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { isNewDesign, hasToggleDesign } = require("%enlSqGlob/designState.nut")
+let { hasToggleDesign } = require("%enlSqGlob/designState.nut")
 let mkDropMenuBtn = require("%enlist/dropdownmenu/mkDropDownMenuBlock.nut")
 let {
-  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign
+  btnOptions, btnControls, btnExit, btnLogout, SEPARATOR, btnGSS, btnSupport, btnToggleDesign,
+  btnCBR
 } = require("%enlist/mainMenu/defMainMenuItems.nut")
 let { openChangelog } = require("%enlist/openChangelog.nut")
 let { isInQueue } = require("%enlist/state/queueState.nut")
@@ -18,7 +19,7 @@ let openUrl = require("%ui/components/openUrl.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { enlistedForumUrl, feedbackUrl } = require("%enlSqGlob/supportUrls.nut")
 let { hasCampaignSelection }  = require("%enlist/campaigns/campaign_sel_state.nut")
-let campaignSelectWnd = require("%enlist/campaigns/campaign_select_wnd.nut")
+let campaignSelectWnd = require("%enlist/campaigns/chooseCampaignWnd.nut")
 let { changelogDisabled } = require("%enlist/changeLogState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -119,7 +120,7 @@ let function buttons(){
     res.append(SEPARATOR)
   if (hasCampaignSelection.value)
     res.append(btnChangeCampaign)
-  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS)
+  res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS, btnCBR)
   if (hasToggleDesign.value)
     res.append(btnToggleDesign)
   if (is_xbox){
@@ -131,6 +132,7 @@ let function buttons(){
     res.append(SEPARATOR, btnDebugProfile, btnDebugConfigs)
   return res.filter(@(v) v!=null)
 }
-let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden, hasToggleDesign, isNewDesign]
+let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden,
+  hasToggleDesign]
 
 return mkDropMenuBtn(buttons, watch)

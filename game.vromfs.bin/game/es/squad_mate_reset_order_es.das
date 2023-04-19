@@ -1,5 +1,5 @@
 require ecs
-require EnlistedWalkerai
+require DngWalkerai
 require danetlibs.native_dasevents.main.native_events
 require enlisted.game.es.enlisted_squad_common
 require game.es.battle_area_common
@@ -13,6 +13,7 @@ def squadmate_reset_personal_order_far_away_es(act : UpdateStageInfoAct;
                                                eid : EntityId;
                                                transform : float3x4;
                                                squad_member__squad : EntityId;
+                                               human_anim__vehicleSelected : EntityId;
                                                var squad_member__orderType : int&;
                                                var squad_member__orderPosition : float3&;
                                                var squad_member__orderUseEntity : EntityId&;
@@ -22,6 +23,8 @@ def squadmate_reset_personal_order_far_away_es(act : UpdateStageInfoAct;
   if squad_member__orderType != int(SquadMateOrder ESMO_DEFEND_POINT) && squad_member__orderType != int(SquadMateOrder ESMO_USE_VEHICLE)
     return
   if squad_member__orderType == int(SquadMateOrder ESMO_DEFEND_POINT) && squad_member__orderUseEntity != INVALID_ENTITY_ID // ignore "control point" orders
+    return
+  if has(human_anim__vehicleSelected, "paratroopersAircraft")
     return
   query(squad_member__squad) <| $ [es] (squad__leader : EntityId; squad__maxOrderDistance : float)
     if eid == squad__leader

@@ -2,8 +2,8 @@ module flamethrower_common shared
 
 require ecs
 require app
-require EnlistedNet
-require EnlistedDm
+require DngNet
+require DngDm
 require math.base
 require game.es.events
 require game.es.riextra_damage_common

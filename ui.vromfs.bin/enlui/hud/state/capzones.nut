@@ -211,6 +211,7 @@ let function onCapzonesInitialized(_evt, eid, comp) {
     unlockAfterTime = comp["capzone__unlockAfterTime"]
     capzoneTwoChains = comp["capzoneTwoChains"] != null
     isBattleContract = comp["battle_contract"] != null
+    onlyTeamCanCapture = comp["capzone__onlyTeamCanCapture"]
   }
   zone.wasActive <- zone.active
   capZonesSetKeyVal(eid, zone)

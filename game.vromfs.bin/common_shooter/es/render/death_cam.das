@@ -1,7 +1,7 @@
 require ecs
 require ecs.safe
 require DaWeaponProps
-require EnlistedDm
+require DngDm
 require common_shooter.events_common_shooter
 
 [es(tag=render, REQUIRE=watchedByPlr)]

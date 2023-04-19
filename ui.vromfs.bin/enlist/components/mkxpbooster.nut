@@ -15,13 +15,7 @@ let typeImgOffsetPH = 100.0 * 14 / 210
 
 let defOverride = { color = defTxtColor }.__update(sub_txt)
 
-let imgByBtype = {
-  ["global"]   = "ui/skin#/battlepass/boost_global.avif"
-  army         = "ui/skin#/battlepass/boost_army.avif"
-  squad        = "ui/skin#/battlepass/boost_squad.avif"
-  soldier      = "ui/skin#/battlepass/boost_soldier.avif"
-}
-let imgUnknown = "ui/skin#/battlepass/random.avif"
+let imgBooster = "ui/skin#/battlepass/boost_global.avif"
 let durationIconSize = hdpxi(20)
 
 let durationBoosterBlock = txt({
@@ -51,23 +45,20 @@ let function mkDurationInfo(icon, text, override = {}) {
   }
 }
 
-let mkXpBooster = function(booster, override = {}) {
-  let { bType = null } = booster
-  return {
+let mkXpBooster = @(override = {}) {
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  margin = bigPadding
+  image = Picture("ui/skin#/battlepass/bg_boost.avif")
+  children = {
+    size = [pw(typeImgPW), ph(typeImgPH)]
+    pos = [0, ph(typeImgOffsetPH)]
+    vplace = ALIGN_CENTER
+    hplace = ALIGN_CENTER
     rendObj = ROBJ_IMAGE
-    size = flex()
-    margin = bigPadding
-    image = Picture("ui/skin#/battlepass/bg_boost.avif")
-    children = {
-      size = [pw(typeImgPW), ph(typeImgPH)]
-      pos = [0, ph(typeImgOffsetPH)]
-      vplace = ALIGN_CENTER
-      hplace = ALIGN_CENTER
-      rendObj = ROBJ_IMAGE
-      image = Picture(imgByBtype?[bType] ?? imgUnknown)
-    }
-  }.__update(override)
-}
+    image = Picture(imgBooster)
+  }
+}.__update(override)
 
 let function mkBoosterInfo(booster, override = sub_txt) {
   let { expMul = 0 } = booster

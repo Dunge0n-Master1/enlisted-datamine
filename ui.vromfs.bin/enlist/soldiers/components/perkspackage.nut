@@ -91,7 +91,6 @@ local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, change
   }
   return {
     halign = ALIGN_RIGHT
-    size = [SIZE_TO_CONTENT, hdpx(20)]
     key = $"{pPointId}-{totalValue}-{changedValue}"
     children = [
       {
@@ -219,8 +218,9 @@ let getPerkItemsText = @(armyId, items)
   items.len() == 0 ? ""
     : $" {loc("perks/itemsInfo", { items = ", ".join(getPerkItems(armyId, items)) })}"
 
-let mkPerkDesc = @(perksStatsTable, armyId, perk) "{0}{1}".subst(", "
-  .join(getStatDescList(perksStatsTable, perk)), getPerkItemsText(armyId, perk?.items ?? []))
+let mkPerkDesc = @(perksStatsTable, armyId, perk, separator = ", ") "{0}{1}"
+  .subst(separator.join(getStatDescList(perksStatsTable, perk)),
+    getPerkItemsText(armyId, perk?.items ?? []))
 
 let defIconCtor = @(iconSettings) perkIcon(iconSettings.perk, iconSettings.iconSize,
                                               iconSettings?.color)

@@ -29,7 +29,7 @@ def draw_collision_debug_common(phys : bool;
 
   rendinst_drawDebugCollisions(flags, view_pos, true, max_coll_dist_sq, max_label_dist_sq)
 
-[es(tag=render, no_order, REQUIRE=collision_debug, on_event=RenderDebugWithJitter)]
+[es(tag=(dev, render), no_order, REQUIRE=collision_debug, on_event=RenderDebugWithJitter)]
 def draw_collision_debug(evt : Event;
                          collision_debug__collMaxDistSq : float;
                          collision_debug__labelMaxDistSq : float;

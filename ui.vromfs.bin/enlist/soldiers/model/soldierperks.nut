@@ -16,7 +16,7 @@ let {
 } = require("%enlist/meta/clientApi.nut")
 let serverPerks = require("%enlist/meta/servProfile.nut").soldierPerks
 let { configs } = require("%enlist/meta/configs.nut")
-let popupsState = require("%enlist/popup/popupsState.nut")
+let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 
 let perkActionsInProgress = Watched({})

@@ -1,9 +1,9 @@
 require ecs
 require AnimV20
 require DagorMath
-require EnlistedHuman
-require EnlistedPhys
-require EnlistedWeapon
+require DngHuman
+require DngPhys
+require DngWeapon
 require GeomNodeTree
 require Gun
 require math

@@ -83,6 +83,7 @@ base_train{
   grid_obj__fixedTmScale:r=-1.0
   material:t="steel"
   damage_model__isExtendTraceModeAllowed:b=no
+  collision_physMatId:i=-1
   pair_collision__tag:t="collidableToPhysObj"
   havePairCollision:b=no
   collisionGridTraceable:b=yes
@@ -98,6 +99,9 @@ base_train{
   }
 
   phys_obj_net_phys{
+  }
+
+  base_net_phys_ptr{
   }
 
   pair_collision__gridHolders{
