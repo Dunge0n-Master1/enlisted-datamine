@@ -762,7 +762,7 @@ HUD.Scores{
 
 HUD.BuildingToolMenu{
   dev:i=3
-  btn:i=16
+  btn:i=2
   type:i=1
 }
 

@@ -116,6 +116,12 @@ def restore_ammo_impl(eid : EntityId;
   var result = false
   query(eid) <| $ [es] (human_weap__weapInfo : Array;
                         var itemContainer : EidList)
+    if gun_slot >= length(human_weap__weapInfo)
+      let guid = get_string(eid, "guid", "none")
+      print("Failed to restore ammo for eid {eid}  template '{getEntityTemplateName(eid)}'  guid {guid}")
+      print("weapInfo count {length(human_weap__weapInfo)}  gunEids count {length(human_weap__gunEids)}  wanted slot {gun_slot}")
+      logerr("Can't restore ammo for guid {guid}. See log for more details")
+      return
     query(human_weap__gunEids[gun_slot]) <| $ [es(REQUIRE=gun)] (gun__ammo : int = 0; gun__ammoHolderEid : EntityId = INVALID_ENTITY_ID)
       let weapInfoSlot = human_weap__weapInfo[gun_slot] |> get_ecs_object()
       let curAmmoHolderItemId = get_int(gun__ammoHolderEid, "item__id") ?? INVALID_ITEM_ID
@@ -125,8 +131,8 @@ def restore_ammo_impl(eid : EntityId;
       if numReserveAmmo > 0
         let reserveAmmoTemplate = weapInfoSlot |> get_ecs_string("reserveAmmoTemplate")
         if reserveAmmoTemplate == null
-          logerr("'reserveAmmoTemplate' is missed in human_weap.weapInfo. See log for details.")
           print("eid: {eid} of template '{getEntityTemplateName(eid)}'")
+          logerr("'reserveAmmoTemplate' is missed in human_weap.weapInfo. See log for details.")
           for item in human_weap__weapInfo
             let obj = item |> get_ecs_object()
             let objReserveAmmoTemplate = obj |> get_ecs_string("reserveAmmoTemplate")

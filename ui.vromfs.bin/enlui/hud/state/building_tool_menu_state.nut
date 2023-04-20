@@ -32,6 +32,8 @@ showBuildingToolMenu.subscribe(@(v) v ? null : openPath([]))
 
 return {
   buildingToolMenuItems
+  openBuildingToolMenuPath = openPath
+  buildingToolMenuPath = path
   radius
   elemSize
   showBuildingToolMenu
