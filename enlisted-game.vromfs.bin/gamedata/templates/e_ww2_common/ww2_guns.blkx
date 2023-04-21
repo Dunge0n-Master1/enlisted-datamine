@@ -37545,9 +37545,9 @@ type_4_rifle{
   _extends:t="ironsights_open_semiauto"
   reload__singleReloadMaxAmmo:i=9
   reload__singleReloadAmmoCount:i=5
-  single_reload__prepareTime:r=2.0
-  single_reload__loopTime:r=1.4
-  single_reload__postTime:r=1.2
+  single_reload__prepareTime:r=1.2
+  single_reload__loopTime:r=0.8
+  single_reload__postTime:r=0.8
   animchar__res:t="type_4_rifle_char"
   gun__blk:t="content/enlisted/gamedata/weapons/type_4_rifle.blk"
   item__template:t="type_4_rifle_gun_item"
@@ -37570,11 +37570,11 @@ type_4_rifle{
   gun_deviation__movementDevInc:p2=0.0, 15.0
   gun_deviation__onShotDeviationChange:r=0.0
   gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__extraDeviationTau:r=0.15
   gun_deviation__maxDeviation:r=30.0
-  gun__reloadTime:r=5.2
+  gun__reloadTime:r=3.6
   gun__boltFreq:r=7.0
-  gun__kineticDamageMult:r=1.0
+  gun__kineticDamageMult:r=1.033
 
   "gun__ammoHolders:array"{
     ammoHolders:t="type_4_rifle_magazine"
@@ -37608,10 +37608,11 @@ type_4_rifle_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.138
-  gun__recoilDirAmount:r=0.76
+  gun__recoilAmount:r=0.115
+  gun__recoilDirAmount:r=0.72
   gun__recoilDir:r=0.35
   gun__visualRecoilMult:r=0.7
+  gun__recoilControlMult:r=0.7
   gun_attach__slot:t="weapon"
   gun__adsSpeedMult:r=0.75
   meleeSoundType:t="rifle"

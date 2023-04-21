@@ -39,7 +39,7 @@ let adminUserStats  = CharClientEvent({name     = "userStats.admin",
 
 const STATS_REQUEST_TIMEOUT = 45000
 const STATS_UPDATE_INTERVAL = 300000 //unlocks progress update interval
-const MAX_DELAY_FOR_MASSIVE_REQUEST_SEC = 60 //random delay up to this value when all player want the same config simultaneously.
+const MAX_DELAY_FOR_MASSIVE_REQUEST_SEC = 120 //random delay up to this value when all player want the same config simultaneously.
 
 let chardToken = keepref(Computed(@() userInfo.value?.token))
 let userId = keepref(Computed(@() userInfo.value?.userId))

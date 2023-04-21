@@ -149,7 +149,7 @@ let contactActionButton = @(action, userId) function() {
   return {
     watch = isVisible
     children = isVisible.value
-      ? FAButton("plus", @() action.action(userId),{
+      ? FAButton(action.icon, @() action.action(userId),{
           btnWidth = colPart(0.6)
           btnHeight = colPart(0.6)
           key = userId

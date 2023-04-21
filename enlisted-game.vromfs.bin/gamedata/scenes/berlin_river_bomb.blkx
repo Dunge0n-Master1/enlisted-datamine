@@ -864,6 +864,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=4
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTransformLocalPos:m=[[0.908204, 0.0, 0.0542443] [0.0, 0.909822, 0.0] [-0.0542443, 0.0, 0.908204] [0.0, -1.73266, 0.0]]
 
   "capzone__activateChoice:object"{
@@ -890,6 +893,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTransformLocalPos:m=[[0.124138, 0.0, -0.992265] [0.0, 1.0, 0.0] [0.992265, -0.0, 0.124138] [0.0, -2.00512, 0.0]]
 
   "capzone__activateChoice:object"{
@@ -916,6 +922,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=7
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTransformLocalPos:m=[[0.189532, 0.0, 0.981874] [0.0, 1.0, -0.0] [-0.981874, 0.0, 0.189532] [-0.06604, -1.55683, 0.012207]]
 
   "capzone__activateChoice:object"{
@@ -942,6 +951,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=8
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTransformLocalPos:m=[[-0.321108, 0.0, -0.947043] [0.0, 1.0, 0.0] [0.947043, 0.0, -0.321108] [0.0, -1.86411, 0.0]]
 }
 
@@ -964,6 +976,9 @@ entity{
   capzone__createdRespawnBaseGroup:i=8
   capzone__createRespawnBase:t="respawnBaseGroupActivator"
   capzone__plantingTeam:i=1
+  capzone__timeToPlant:r=20.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__bombTransformLocalPos:m=[[0.0926584, 0.0, 0.995698] [0.0, 1.0, -0.0] [-0.995698, 0.0, 0.0926584] [0.0, -1.30363, 0.0]]
 }
 

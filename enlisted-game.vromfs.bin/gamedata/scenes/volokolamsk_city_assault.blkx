@@ -80,8 +80,8 @@ entity{
 entity{
   _template:t="team_germany_winter+team_narrator_assault_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2000.0
-  team__score:r=2000.0
+  team__scoreCap:r=2300.0
+  team__score:r=2300.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -474,16 +474,16 @@ entity{
   capzone__mustBeCapturedByTeam:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=50.0
+  capzone__capTime:r=40.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__capTeam:i=1
   capzone__progress:r=1.0
   transform:m=[[-9.60811, 0.0, -25.3947] [0.0, 7.62857, 0.0] [22.8178, 0.0, -8.61679] [-1415.0, 5.60893, 568.444]]
   active:b=no
-  capzone__decapTime:r=50.0
+  capzone__decapTime:r=40.0
   ui_order:i=1
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="A"
   capzone__caption:t="capzone/artillery_emplacement"
   capzone__checkAllZonesInGroup:b=yes
@@ -515,7 +515,7 @@ entity{
   active:b=no
   capzone__decapTime:r=30.0
   ui_order:i=2
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="B"
   capzone__caption:t="capzone/food_storehouse"
   capzone__checkAllZonesInGroup:b=yes
@@ -547,7 +547,7 @@ entity{
   active:b=no
   capzone__decapTime:r=30.0
   ui_order:i=3
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="C"
   capzone__caption:t="capzone/field_hospital"
   capzone__checkAllZonesInGroup:b=yes
@@ -579,7 +579,7 @@ entity{
   active:b=no
   capzone__decapTime:r=30.0
   ui_order:i=4
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="D"
   capzone__caption:t="capzone/barn"
   capzone__checkAllZonesInGroup:b=yes
@@ -609,7 +609,7 @@ entity{
   active:b=no
   capzone__decapTime:r=30.0
   ui_order:i=5
-  capzone__capReward:r=250.0
+  capzone__capReward:r=500.0
   capzone__title:t="E"
   capzone__caption:t="capzone/headquarters"
   capzone__checkAllZonesInGroup:b=yes

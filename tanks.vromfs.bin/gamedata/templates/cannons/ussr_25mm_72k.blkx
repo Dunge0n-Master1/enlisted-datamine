@@ -63,7 +63,7 @@ ussr_25mm_72k_common{
       cameraOffset:p3=-0.65, -0.0, 0.0
       directTurretControl:b=yes
       cockpitTemplate:t="ussr_25mm_72k_gunner_cockpit"
-      hideHeroAnimcharLocal:b=no
+      hideHeroAnimcharLocal:b=yes
       canLoadInHatch:b=yes
       maxPosWithOpenHatch:r=0.0
       hatchRotationAxis:p3=0.0, 0.0, 0.0

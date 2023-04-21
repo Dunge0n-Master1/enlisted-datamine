@@ -80,6 +80,11 @@ placeable_item_in_world{
   }
 }
 
+lootable_placeable_item_in_world{
+  _extends:t="placeable_item_in_world"
+  grid_obj__gridType:t="loot"
+}
+
 attached_to_vehicle{
   _extends:t="placeable_item_in_world"
   _extends:t="node_attached_itm"

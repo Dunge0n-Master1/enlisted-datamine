@@ -84,7 +84,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=0
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/train"
   capzone__deactivateAfterTimeout:r=25.0
@@ -113,7 +113,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/crossroads"
   capzone__deactivateAfterTimeout:r=25.0
@@ -136,7 +136,7 @@ entity{
   capzone__caption:t="capzone/apartments"
   capzone__capRewardPartCap:r=1.25
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=50.0
   capzone__capTeam:i=-1
@@ -191,7 +191,7 @@ entity{
   capzone__caption:t="capzone/station_restaurant"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -218,7 +218,7 @@ entity{
   capzone__caption:t="capzone/canteen"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=55.0
   capzone__capTeam:i=-1
@@ -249,7 +249,7 @@ entity{
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=4
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/station"
   capzone__deactivateAfterTimeout:r=25.0
@@ -269,7 +269,7 @@ entity{
   capzone__caption:t="capzone/ticket_offices"
   capzone__capRewardPartCap:r=1.5
   capzone__onlyTeamCanCapture:i=2
-  capzone__capReward:r=600.0
+  capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__capTime:r=60.0
   capzone__capTeam:i=-1

@@ -319,8 +319,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_escort_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1300.0
-  team__score:r=1300.0
+  team__scoreCap:r=1500.0
+  team__score:r=1500.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0

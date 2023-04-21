@@ -721,7 +721,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/tool_shop"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -748,7 +749,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/tool_shop"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -775,7 +777,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/crash_site"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -802,7 +805,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/conveyor_line"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -829,7 +833,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/workshop"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0
@@ -852,7 +857,8 @@ entity{
   capzone__capReward:r=500.0
   capzone__caption:t="capzone/quenching"
   capzone__timeToPlant:r=20.0
-  capzone__timeToDefuse:r=15.0
+  capzone__timeToDefuse:r=30.0
+  capzone__timeToExplosion:r=40.0
   capzone__checkAllZonesInGroup:b=yes
   capzone__deactivateAfterTimeout:r=0.0
   capzone__spawnAtZoneTimeout:r=25.0

@@ -160,6 +160,7 @@ base_tnt_block{
   melee_weapon__blk:t="content/enlisted/gamedata/weapons/tnt_block.blk"
   weap__sprintLerpFactor:r=1.0
   placeable_item__additionalHeight:r=0.012
+  placeable_item__template:t="lootable_placeable_item_in_world"
   _replicated:t="gun__owner"
   _tracked:t="gun__owner"
 

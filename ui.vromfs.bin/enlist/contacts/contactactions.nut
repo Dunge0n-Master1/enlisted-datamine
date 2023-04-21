@@ -1,6 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let fa = require("%ui/components/fontawesome.map.nut")
 let { inviteToSquad, dismissSquadMember, transferSquad, revokeSquadInvite,
   leaveSquad, isInSquad, isSquadLeader, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad
 } = require("%enlist/squad/squadManager.nut")
@@ -42,7 +41,7 @@ let achievementUrl = get_setting_by_blk_path("achievementsUrl") ?? "https://achi
 let actions = {
   INVITE_TO_SQUAD = {
     locId = "Invite to squad"
-    icon = fa["handshake-o"]
+    icon = "handshake-o"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && canInviteToSquad.value
       && !isInMySquad(userId, squadMembers)
@@ -60,6 +59,7 @@ let actions = {
 
   INVITE_TO_ROOM = {
     locId = "Invite to room"
+    icon = "handshake-o"
     mkIsVisible = @(userId) Computed(@() canInviteToRoom.value
       && userId.tointeger() not in playersWaitingResponseFor.value
       && !isInMyRoom(userId.tointeger())
@@ -72,7 +72,7 @@ let actions = {
 
   INVITE_TO_FRIENDS = {
     locId = "Invite to friends"
-    icon = fa["user-plus"]
+    icon = "user-plus"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && isInternalContactsAllowed
       && userId not in blockedUids.value
@@ -91,7 +91,7 @@ let actions = {
 
   INVITE_TO_PSN_FRIENDS = {
     locId = "contacts/psn/friends/request"
-    icon = fa["user-plus"]
+    icon = "user-plus"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && (platform.is_sony && consoleCompare.psn.isFromPlatform(Contact(userId).value.realnick))
       && userId not in psnApprovedUids.value
@@ -108,14 +108,14 @@ let actions = {
 
   CANCEL_INVITE = {
     locId = "Cancel Invite"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value && userId in myRequestsUids.value)
     action      = @(userId) execContactsCharAction(userId, "contacts_cancel_request")
   }
 
   APPROVE_INVITE = {
     locId = "Approve Invite"
-    icon = fa["user-plus"]
+    icon = "user-plus"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && (userId in requestsToMeUids.value || userId in rejectedByMeUids.value)
       && canInterractCrossPlatformByCrossplay(
@@ -131,7 +131,7 @@ let actions = {
 
   REJECT_INVITE = {
     locId = "Reject Invite"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && userId in requestsToMeUids.value)
     action      = function(userId) {
@@ -142,7 +142,7 @@ let actions = {
 
   REMOVE_FROM_FRIENDS = {
     locId = "Break approval"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@()
       canInterractCrossPlatform(
         Contact(userId).value.realnick,
@@ -162,7 +162,7 @@ let actions = {
 
   ADD_TO_BLACKLIST = {
     locId = "Add to blacklist"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@()
       canInterractCrossPlatform(
         Contact(userId).value.realnick,
@@ -191,14 +191,14 @@ let actions = {
 
   REMOVE_FROM_BLACKLIST = {
     locId = "Remove from blacklist"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value && userId in myBlacklistUids.value)
     action      = @(userId) execContactsCharAction(userId, "contacts_remove_from_blacklist")
   }
 
   REMOVE_FROM_BLACKLIST_XBOX = {
     locId = "Remove from blacklist"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && userId in xboxBlockedUids.value
       && canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick)
@@ -208,7 +208,7 @@ let actions = {
 
   REMOVE_FROM_BLACKLIST_PSN = {
     locId = "Remove from blacklist"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value && userId in psnBlockedUids.value)
     action      = @(userId) open_player_profile(
       (uid2console.value?[userId] ?? "-1").tointeger(),
@@ -220,6 +220,7 @@ let actions = {
 
   REMOVE_FROM_SQUAD = {
     locId = "Remove from squad"
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() enabledSquad.value
       && userId != myUserId.value && isSquadLeader.value && isInMySquad(userId, squadMembers))
     action      = @(userId) dismissSquadMember(userId.tointeger())
@@ -227,6 +228,7 @@ let actions = {
 
   PROMOTE_TO_LEADER = {
     locId = "Promote to squad chief"
+    icon = "flag"
     mkIsVisible = @(userId) Computed(@() enabledSquad.value
       && userId != myUserId.value && isSquadLeader.value && isInMySquad(userId, squadMembers))
     action      = @(userId) transferSquad(userId.tointeger())
@@ -234,7 +236,7 @@ let actions = {
 
   REVOKE_INVITE = {
     locId = "Revoke invite"
-    icon = fa["remove"]
+    icon = "remove"
     mkIsVisible = @(userId) Computed(@() isSquadLeader.value
       && !isInMySquad(userId, squadMembers) && (isInvitedToSquad.value?[userId.tointeger()] ?? false))
     action      = @(userId) revokeSquadInvite(userId.tointeger())
@@ -242,12 +244,14 @@ let actions = {
 
   LEAVE_SQUAD = {
     locId = "Leave squad"
+    icon = "child"
     mkIsVisible = @(userId) Computed(@() enabledSquad.value && userId == myUserId.value && isInSquad.value)
     action      = @(_userId) leaveSquad()
   }
 
   COMPARE_ACHIEVEMENTS = {
     locId = "Compare achievements"
+    icon = "line-chart"
     mkIsVisible = @(userId) Computed(@() platform.is_pc && achievementUrl != "" && userId != myUserId.value)
     action      = @(userId)
       openUrl(
@@ -259,6 +263,7 @@ let actions = {
 
   SHOW_USER_LIVE_PROFILE = {
     locId = "show_user_live_profile"
+    icon = "id-card"
     mkIsVisible = @(userId) Computed(@() canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick))
     action      = showUserInfo
   }

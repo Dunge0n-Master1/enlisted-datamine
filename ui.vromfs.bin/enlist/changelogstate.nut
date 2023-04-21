@@ -73,9 +73,12 @@ let shouldUpdateLegacyData = keepref(Computed(@() onlineSettingUpdated.value
 shouldUpdateLegacyData.subscribe(function(v) {
   if (!v)
     return
-  let iVersion = delete settings.value[LEGACY_ID]
+  let iVersion = settings.value[LEGACY_ID]
   let id = versions.value.findvalue(@(ver) versionToInt(ver.version) == iVersion)?.id ?? 0
-  settings.mutate(@(value) value[SAVE_ID] <- id)
+  defer(@() settings.mutate(function(value) {
+    value[SAVE_ID] <- id
+    delete value[LEGACY_ID]
+  }))
 })
 
 // <<< LEGACY

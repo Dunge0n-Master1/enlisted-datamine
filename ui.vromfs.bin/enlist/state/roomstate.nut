@@ -399,7 +399,7 @@ let function onDisconnectedFromServer(evt, _eid, _comp) {
     return
 
   local connLost = true
-  switch (evt?.last_client_dc ?? evt[0]) {
+  switch (evt[0]) {
     case DC_CONNECTION_CLOSED:
       connLost = false
   }

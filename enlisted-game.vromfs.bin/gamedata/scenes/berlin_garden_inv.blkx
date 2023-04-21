@@ -1285,8 +1285,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1600.0
-  team__score:r=1600.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1331,7 +1331,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/american_embassy"
-  capzone__capTime:r=70.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1357,7 +1357,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goebbels_villa"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1383,7 +1383,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goebbels_villa"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1410,7 +1410,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/ministry_gardens"
-  capzone__capTime:r=75.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1436,7 +1436,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
-  capzone__capTime:r=80.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1462,7 +1462,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/greenhouse"
-  capzone__capTime:r=85.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1483,11 +1483,12 @@ entity{
   transform:m=[[-0.894814, 0.0, -0.28918] [0.0, 1.0, 0.0] [0.308762, 0.0, -0.951132] [458.397, 3.22786, -514.966]]
   sphere_zone__radius:r=13.5
   groupName:t="sector_5_a"
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hitlers_bunker"
-  capzone__capTime:r=85.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no

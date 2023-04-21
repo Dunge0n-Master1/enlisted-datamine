@@ -1247,8 +1247,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_invasion_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=1750.0
-  team__score:r=1750.0
+  team__scoreCap:r=1800.0
+  team__score:r=1800.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -1284,7 +1284,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/goering_strasse"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1312,7 +1312,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/tiergarten"
-  capzone__capTime:r=60.0
+  capzone__capTime:r=50.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1340,7 +1340,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1367,7 +1367,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/warehouse"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1394,7 +1394,7 @@ entity{
   capzone__capReward:r=500.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/garage"
-  capzone__capTime:r=85.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1421,7 +1421,7 @@ entity{
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/fountain_yard"
-  capzone__capTime:r=55.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no
@@ -1466,11 +1466,12 @@ entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
   transform:m=[[27.1486, 0.0, 5.24555] [0.0, 3.40527, 0.0] [-2.48601, 0.0, 13.7339] [377.522, 7.7857, -624.062]]
   groupName:t="sector_5"
+  capzone__capRewardPartCap:r=1.0
   capzone__onlyTeamCanCapture:i=1
   capzone__capReward:r=250.0
   capzone__icon:t="AAA"
   capzone__caption:t="capzone/hitlers_office"
-  capzone__capTime:r=65.0
+  capzone__capTime:r=60.0
   capzone__decapTime:r=6000.0
   capzone__capTeam:i=-1
   active:b=no

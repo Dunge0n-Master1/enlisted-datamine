@@ -79,7 +79,7 @@ let killMsgAnim = [
   { prop=AnimProp.scale, from=[1,0.01], to=[1,1], duration=0.2, play=true, easing=OutCubic }
 ]
 
-const BLUR_COLOR = 0x33000000
+const BLUR_COLOR = 0x11000000
 
 let blurBack = {
   rendObj = ROBJ_WORLD_BLUR

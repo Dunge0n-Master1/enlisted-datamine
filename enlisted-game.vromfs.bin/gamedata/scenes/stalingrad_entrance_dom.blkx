@@ -525,8 +525,8 @@ entity{
 entity{
   _template:t="team_stalingrad_allies+team_narrator_domination+respawn_creators_team"
   team__id:i=1
-  team__score:r=3000.0
-  team__scoreCap:r=3000.0
+  team__score:r=2800.0
+  team__scoreCap:r=2800.0
   score_bleed__domBleed:r=5.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3
@@ -541,8 +541,8 @@ entity{
 entity{
   _template:t="team_stalingrad_axis+team_narrator_domination+respawn_creators_team"
   team__id:i=2
-  team__score:r=3000.0
-  team__scoreCap:r=3000.0
+  team__score:r=3100.0
+  team__scoreCap:r=3100.0
   score_bleed__domBleed:r=5.0
   score_bleed__domBleedOn:b=no
   score_bleed__totalDomZoneCount:i=3

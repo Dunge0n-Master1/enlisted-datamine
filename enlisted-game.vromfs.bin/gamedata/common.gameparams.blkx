@@ -96,7 +96,7 @@ rendinstOpt
 }
 
 unitedVdata.dynModel.def { // hint for initial minimum allocated buffer size, in KB (for IB and VBs)
-  IB:i=49152
+  IB:i=65536
   VB1:i=65536
   VB2:i=65536
   VB3:i=32768

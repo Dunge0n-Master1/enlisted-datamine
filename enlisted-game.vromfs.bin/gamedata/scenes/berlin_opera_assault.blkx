@@ -43,8 +43,8 @@ entity{
 entity{
   _template:t="team_ussr_berlin+team_narrator_assault_attack+respawn_creators_team"
   team__memberCount:r=0.0
-  team__scoreCap:r=2400.0
-  team__score:r=2400.0
+  team__scoreCap:r=2600.0
+  team__score:r=2600.0
   team__squadSpawnCost:i=250
   team__firstSpawnCostMul:r=0.0
   team__zeroScoreFailTimer:r=60.0
@@ -77,7 +77,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"
-  capzone__capTime:r=30.0
+  capzone__capTime:r=20.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[35.4462, 0.0, -0.999877] [0.0, 11.1732, 0.0] [0.986714, 0.0, 35.52] [-311.066, 8.55304, 398.957]]
@@ -110,12 +110,12 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=15.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[1.27385, 0.0, 0.0] [0.0, 1.27385, 0.0] [0.0, 0.0, 1.27385] [-307.193, 3.19395, 287.217]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
@@ -145,12 +145,12 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_2"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=15.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[1.27385, 0.0, 0.0] [0.0, 1.27385, 0.0] [0.0, 0.0, 1.27385] [-373.939, 3.30225, 316.849]]
   active:b=no
-  capzone__decapTime:r=20.0
+  capzone__decapTime:r=15.0
   capzone__autoDecap:b=no
   capzone__autoCap:b=no
   capzone__owningTeam:i=2
@@ -180,7 +180,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=20.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[2.73728, 0.0, 0.0] [0.0, 2.67924, 0.0] [0.0, 0.0, 3.27051] [-305.0, 3.29863, 186.569]]
@@ -210,7 +210,7 @@ entity{
   capzone__mustBeCapturedByTeam:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_3"
-  capzone__capTime:r=25.0
+  capzone__capTime:r=20.0
   capzone__capTeam:i=2
   capzone__progress:r=1.0
   transform:m=[[23.6852, 0.0, -0.650528] [0.0, 9.50833, 0.0] [-0.416845, 0.0, 30.2882] [-395.434, 4.48852, 192.782]]
