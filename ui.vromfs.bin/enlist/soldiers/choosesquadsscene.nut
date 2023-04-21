@@ -49,8 +49,9 @@ let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
 let { unseenSquadTutorials, markSeenSquadTutorial
 } = require("%enlist/tutorial/unseenSquadTextTutorial.nut")
 let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut")
-let { needFreemiumStatus, disableBuySquadSlot
-} = require("%enlist/campaigns/campaignConfig.nut")
+let campaign = require("%enlist/campaigns/campaignConfig.nut")
+let { needFreemiumStatus, disableBuySquadSlot } = campaign
+let freemiumSquadsInBattle = campaign.maxSquadsInBattle
 let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
@@ -524,9 +525,9 @@ let extendSlots = function() {
   if (previewSquads.value == null) {
     if (!isCurCampaignProgressUnlocked.value)
       children.append(unlockCampaignPromo(premBlockBg))
-    else if (needFreemiumStatus.value && maxSquadsInBattle.value > 0)
+    else if (needFreemiumStatus.value && freemiumSquadsInBattle.value > 0)
       children.append(
-        mkPrimeSlots(squadNum, maxSquadsInBattle.value, freemiumIcon, "squad/plusFreemiumSquadSlot"),
+        mkPrimeSlots(squadNum, freemiumSquadsInBattle.value, freemiumIcon, "squad/plusFreemiumSquadSlot"),
         mkBuyPremBtn(@(_) freemiumWnd())
       )
     else if (!hasPremium.value && premiumSquadsInBattle.value > 0)
@@ -540,7 +541,7 @@ let extendSlots = function() {
 
   return {
     watch = [isCurCampaignProgressUnlocked, hasPremium, premiumSquadsInBattle, needFreemiumStatus,
-      maxSquadsInBattle, chosenSquads, disableBuySquadSlot, previewSquads]
+      freemiumSquadsInBattle, chosenSquads, disableBuySquadSlot, previewSquads]
     valign = ALIGN_CENTER
     children
   }

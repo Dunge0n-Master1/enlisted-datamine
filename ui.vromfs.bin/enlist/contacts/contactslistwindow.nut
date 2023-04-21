@@ -38,6 +38,7 @@ const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
 let contactListWidth = colFull(6)
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let bigActiveTxtStyle = { color = darkTxtColor }.__update(fontMedium)
+let headerTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 let bigHoverTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 let bigCommonTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let nickTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
@@ -294,13 +295,17 @@ let mkContactsGroupContent = @(groupKeys) function() {
       .map(@(contact) contactBtn(contact, contextMenuActions, inContactActions))
 
     children.append({
-      rendObj = ROBJ_TEXT
-      text = locByPlatform($"contacts/{name}")
-      padding = bigPadding
-    }.__update(bigActiveTxtStyle))
-    if (contactsArr.len() == 0) {
+      rendObj = ROBJ_SOLID
+      size = [flex(), SIZE_TO_CONTENT]
+      color = hoverPanelBgColor
+      children = {
+        rendObj = ROBJ_TEXT
+        text = locByPlatform($"contacts/{name}")
+        padding = bigPadding
+      }.__update(headerTxtStyle)
+    })
+    if (contactsArr.len() == 0)
       children.append(placeholder)
-    }
     else
       children.extend(contactsArr)
 
