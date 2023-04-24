@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { fontMedium, fontSmall, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { bigPadding, titleTxtColor, defTxtColor, topWndBgColor, bottomWndBgColor, sidePadding,
   panelBgColor, hoverPanelBgColor, colPart, commonBtnHeight, accentColor, colFull, smallPadding,
-  darkTxtColor
+  darkTxtColor, transpPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 let textInput = require("%ui/components/textInput.nut")
@@ -297,7 +297,7 @@ let mkContactsGroupContent = @(groupKeys) function() {
     children.append({
       rendObj = ROBJ_SOLID
       size = [flex(), SIZE_TO_CONTENT]
-      color = hoverPanelBgColor
+      color = transpPanelBgColor
       children = {
         rendObj = ROBJ_TEXT
         text = locByPlatform($"contacts/{name}")

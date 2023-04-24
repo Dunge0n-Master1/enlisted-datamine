@@ -1258,6 +1258,8 @@ parachute_wind{
   human_parachute_wind__paratroopers:b=no
   human_parachute_wind__landingPoint:p2=0.0, 0.0
   human_parachute_wind__leaderPosDist:r=5.0
+  human_parachute_wind__isEnabled:b=yes
+  human_parachute_wind__verticalSpeedThreshold:r=-0.1
 }
 
 enlisted_parachuter{

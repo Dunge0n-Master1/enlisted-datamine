@@ -29,10 +29,18 @@ def human_parachute_wind(evt : CmdPostPhysUpdate;
                          team : int;
                          human_parachute__eid : EntityId;
                          human_parachute_wind__speed : float;
+                         human_parachute_wind__verticalSpeedThreshold : float;
+                         human_parachute_wind__paratroopers : bool;
+                         human_parachute_wind__landingPoint : float2;
                          human_parachute_wind__deadZone : float;
                          var human_net_phys : HumanActor;
-                         human_parachute_wind__paratroopers : bool;
-                         human_parachute_wind__landingPoint : float2)
+                         var human_parachute_wind__isEnabled : bool&)
+  if !human_parachute_wind__isEnabled
+    return
+  assume curVelocity = human_net_phys.phys.currentState.velocity
+  if curVelocity.y > human_parachute_wind__verticalSpeedThreshold
+    human_parachute_wind__isEnabled = false
+    return
   query(human_parachute__eid) <| $ [es] (parachute__deployedAtTime : float;
                                          parachute__deployTime : float)
     var windTargetPos = float2()
@@ -52,7 +60,6 @@ def human_parachute_wind(evt : CmdPostPhysUpdate;
                               0.0, human_parachute_wind__speed)
     let windVelocity = normalize(windTargetPos - transform[3].xz) * windSpeedScaled
 
-    assume curVelocity = human_net_phys.phys.currentState.velocity
     let afterWindHumanVelocity = float3(windVelocity.x, curVelocity.y, windVelocity.y)
 
     curVelocity = afterWindHumanVelocity
