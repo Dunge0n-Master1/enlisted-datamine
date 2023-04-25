@@ -160,6 +160,7 @@ building_tool_gun{
   minBuildingRadius:r=1.5
   animchar__res:t="hammer_char"
   gun__blk:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"
+  gun__canAim:b=no
   item__template:t="building_tools_item"
   animchar_render__enabled:b=yes
   item__proto:t="content/enlisted/gamedata/weapons/building_tool_gun.blk"

@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let codes_by_countries = {
   RU = {
     Russia="RU",
-    Ukraine="UA",
     Belarus="BY",
     ["Kazakhstan"]="KZ",
     ["Kyrgyzstan"]="KG",
@@ -58,6 +57,7 @@ let codes_by_countries = {
     ["San Marino"]="SM",
     Spain="ES",
     Switzerland="CH",
+    Ukraine="UA",
     ["United Kingdom"]="GB",
     ["Vatican city"]="VA",
   }

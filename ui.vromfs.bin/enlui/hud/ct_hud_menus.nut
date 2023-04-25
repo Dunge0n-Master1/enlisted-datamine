@@ -83,7 +83,7 @@ let function switchMenu(id){
 
 let function mkMenuEventHandlers(menu) {
   let eventName = menu?.event
-  let holdToToggleDurMsec = menu?.holdToToggleDurMsec ?? 500
+  let holdToToggleDurMsec = menu?.holdToToggleDurMsec() ?? 500
   if (!( menu?.show instanceof Watched) && !("close" in menu && "open" in menu))
     return {}
 

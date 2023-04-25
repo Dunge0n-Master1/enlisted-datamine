@@ -21,6 +21,7 @@ let supplyMenu = require("%ui/hud/huds/paratroopers_supply_menu.ui.nut")
 let { showSupplyMenu } = require("%ui/hud/state/paratroopers_supply_menu_state.nut")
 let { forceDisableBattleChat } = require("%ui/hud/state/hudOptionsState.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 let dainput = require("dainput2")
 //local { forcedMinimalHud } = require("state/hudGameModes.nut")
 
@@ -60,6 +61,7 @@ let huds = [
   {
     show = showBuildingToolMenu
     menu = buildingToolMenu
+    holdToToggleDurMsec = @() isGamepad.value ? -1 : null
     close = @() showBuildingToolMenu(false)
     open = openBuildingToolMenu
     event = "HUD.BuildingToolMenu"
@@ -74,7 +76,7 @@ let huds = [
     },
     close = @() showPieMenu(false)
     menu = pieMenu
-    holdToToggleDurMsec = -1
+    holdToToggleDurMsec = @() -1
     event = "HUD.CommandsMenu"
     group = groups.pieMenu
     id = "PieMenu"
@@ -83,7 +85,7 @@ let huds = [
     show = showSquadSoldiersMenu
     menu = squadSoldiersMenu
     open = openSquadSoldiersMenu
-    holdToToggleDurMsec = -1
+    holdToToggleDurMsec = @() -1
     close = @() showSquadSoldiersMenu(false)
     event = "HUD.SquadSoldiersMenu"
     group = groups.pieMenu
