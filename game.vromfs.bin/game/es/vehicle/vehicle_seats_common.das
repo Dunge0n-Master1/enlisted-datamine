@@ -235,9 +235,8 @@ def start_exit_vehicle_timer(requester : EntityId; exit_time : float) : bool
                               var human_vehicle__exitAtTime : float?)
     if !possessedByPlr
       return
-    if human_vehicle__exitAnimatorTime != null
+    if human_vehicle__exitAnimatorTime != null && human_vehicle__exitAtTime != null
       exit_vehicle__atTime = exit_vehicle__atTime < 0. ? get_sync_time() + *human_vehicle__exitAnimatorTime : exit_vehicle__atTime
-      assert(human_vehicle__exitAtTime != null)
       *human_vehicle__exitAtTime = exit_vehicle__atTime // human_vehicle__exitAtTime is non-replicated component, so that animation can't be interupted by a change from server
     else
       exit_vehicle__atTime = get_sync_time() + exit_time * entity_mods__vehicleChangeSeatTimeMult

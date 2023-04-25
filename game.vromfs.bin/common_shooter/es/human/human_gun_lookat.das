@@ -63,8 +63,9 @@ def human_gun_lookat_camera_es(info : UpdateStageInfoAct;
         let weaponFrontsightNodeIdx = *weapon_frontsight_node__nodeIdx
         let weaponRearsightNodeIdx = *weapon_rearsight_node__nodeIdx
 
-        assert(weaponFrontsightNodeIdx >= 0)
-        assert(weaponRearsightNodeIdx >= 0)
+        if weaponFrontsightNodeIdx < 0 || weaponRearsightNodeIdx < 0
+          return
+
         let fsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponFrontsightNodeIdx)
         let rsPos = *animchar.nodeTree |> geomtree_getNodeWposRel(weaponRearsightNodeIdx)
         var frontSightTm : float3x4

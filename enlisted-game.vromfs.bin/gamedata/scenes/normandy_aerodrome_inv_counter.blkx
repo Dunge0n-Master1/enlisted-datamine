@@ -1345,7 +1345,7 @@ entity{
   groupName:t="sector_1"
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-331.097, 9.8609, -475.95]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 0.403621, 0.0] [0.0, 0.0, 1.0] [-331.097, 9.8609, -475.95]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=1
