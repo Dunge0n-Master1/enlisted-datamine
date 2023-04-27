@@ -235,7 +235,7 @@ def reload_impl(owner : EntityId;
 
     let itemEid = item_container[ammoForGun.itemIndex]
 
-    shell_props = gun__shell_prop_ids[0]
+    shell_props = length(gun__shell_prop_ids) > 0 ? gun__shell_prop_ids[0] : ShellPropIds()
     query(itemEid) <| $ [es] (shell_props aka item_shell_props : ShellPropIds)
       gun_shell_props = item_shell_props
     gun__curShellId = shell_props

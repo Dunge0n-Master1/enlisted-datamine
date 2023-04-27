@@ -9,7 +9,7 @@ let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let { notFoundMsg, errorTxtStyle, noteStyle
+let { notFoundMsg, notFoundHeader, noteStyle
 } = require(isNewDesign.value ? "equipDesign.nut" : "equipDesignOld.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 
@@ -19,21 +19,16 @@ let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { buyCurrencyText, openShopByCurrencyId, currencyImage, mkItemCostInfo
 } = require("%enlist/currency/purchaseMsgBox.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
-let { curCampItems } = require("%enlist/soldiers/model/state.nut")
+let { curCampItems, curArmyData } = require("%enlist/soldiers/model/state.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { getShopItemsList, buyShopItemList, barterShopItemList
 } = require("%enlist/shop/armyShopState.nut")
 let { shopItemByTemplateData } = require("%enlist/preset/presetEquipUtils.nut")
 
-let mkCostInfo = @(price, fullPrice, currencyId) currencyId == null
-  ? {
-      rendObj = ROBJ_TEXT
-      text = loc("preset/equip/buyUnavailable")
-      margin = [bigPadding * 4, 0]
-    }.__update(noteStyle)
+let mkCostInfo = @(price, fullPrice, currencyId) currencyId == null ? null
   : {
       flow = FLOW_VERTICAL
-      margin = [bigPadding * 4, 0]
+      margin = [bigPadding, 0]
       children = [
         {
           rendObj = ROBJ_TEXT
@@ -49,36 +44,62 @@ let mkNotEnoughMoney = @(needMoreCurrency, currency) needMoreCurrency > 0 ? {
       {
         rendObj = ROBJ_TEXT
         text = loc("shop/notEnoughCurrency", { priceDiff = needMoreCurrency })
-      }.__update(errorTxtStyle, { color = HighlightFailure })
+      }.__update(notFoundHeader, { color = HighlightFailure })
       currencyImage(currency)
     ]
   } : null
 
-let mkNotFound = @(notFoundItems, priceView, hasDiscountExpired) {
+let mkItemNameList = @(items, showCount) ",\n".join(items.keys().map(function(tpl) {
+  let strings = [getItemName(shopItemByTemplateData(tpl))]
+  if (showCount && items[tpl] > 1)
+    strings.append(loc("common/amountShort", { count = items[tpl] }))
+  return " ".join(strings)
+}))
+
+let mkNotFound = @(notFoundItems, unavailableItems, priceView, hasDiscountExpired) {
   flow = FLOW_VERTICAL
   children = [
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("preset/equip/notFoundMsg")
-    }.__update(errorTxtStyle)
-    {
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = loc("preset/equip/notFoundItems", {
-        items = ",\n".join(notFoundItems.keys().map(function(tpl) {
-          let strings = [getItemName(shopItemByTemplateData(tpl))]
-          if (notFoundItems[tpl] > 1)
-            strings.append(loc("common/amountShort", { count = notFoundItems[tpl] }))
-          return " ".join(strings)
-        }))
-      })
-    }.__update(notFoundMsg)
-    priceView.costInfo
-    priceView.notEnoughMoneyInfo
-    !hasDiscountExpired ? null : {
-      rendObj = ROBJ_TEXT
-      text = loc("shop/discount_ended")
-    }.__update(errorTxtStyle)
+    notFoundItems.len() == 0 ? null : {
+      flow = FLOW_VERTICAL
+      gap = bigPadding
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          text = loc("preset/equip/notFoundMsg")
+        }.__update(notFoundHeader)
+        {
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          text = unavailableItems.len() > 0
+            ? mkItemNameList(notFoundItems, true)
+            : loc("preset/equip/notFoundItems", { items = mkItemNameList(notFoundItems, true) })
+        }.__update(notFoundMsg)
+
+        priceView.costInfo
+        priceView.notEnoughMoneyInfo
+
+        !hasDiscountExpired ? null : {
+          rendObj = ROBJ_TEXT
+          text = loc("shop/discount_ended")
+        }.__update(notFoundHeader)
+      ]
+    }
+
+    unavailableItems.len() == 0 ? null : {
+      flow = FLOW_VERTICAL
+      margin = [bigPadding * 4, 0, 0, 0]
+      children = [
+        {
+          rendObj = ROBJ_TEXT
+          text = loc("preset/equip/buyUnavailable")
+        }.__update(notFoundHeader)
+        {
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          text = loc("preset/equip/notFoundItems", { items = mkItemNameList(unavailableItems, true) })
+        }.__update(notFoundMsg)
+      ]
+    }
   ]
 }
 
@@ -157,15 +178,28 @@ let mkBuyCurrencyBtn = @(currency, action) {
   }
 }
 
-let missingItemsPriceView = function(notFoundItemsList, onSuccessCb, hasDiscountExpired) {
+let missingItemsPriceView = function(notFoundItemsList, unavailableItems,
+  onSuccessCb, hasDiscountExpired) {
   let shopItemsTbl = {}
+
   foreach (itemTpl, count in notFoundItemsList) {
     let shopItem = getShopItemsList(itemTpl)?[0]
-    if (shopItem != null)
-      shopItemsTbl[shopItem.guid] <- {
-        shopItem
-        count = count + (shopItemsTbl?[shopItem.guid].count ?? 0)
-      }
+    if (shopItem == null) {
+      unavailableItems[itemTpl] <- count
+      continue
+    }
+    // can't automatically buy limited items
+    // or items above required level
+    let { requirements, limit = -1 } = shopItem
+    if (limit > 0 || (requirements?.armyLevel ?? 0) > (curArmyData.value?.level ?? 0)) {
+      unavailableItems[itemTpl] <- count
+      continue
+    }
+
+    shopItemsTbl[shopItem.guid] <- {
+      shopItem
+      count = count + (shopItemsTbl?[shopItem.guid].count ?? 0)
+    }
   }
 
   local hasBarter = true
@@ -182,9 +216,8 @@ let missingItemsPriceView = function(notFoundItemsList, onSuccessCb, hasDiscount
   local totalFullPrice = 0
   foreach (buyData in shopItemsTbl) {
     let { count, shopItem } = buyData
-    let { guid, curItemCost = {}, discountIntervalTs = [], limit = -1 } = shopItem
-    if (limit > 0)
-      continue // can't automatically buy limited items
+    let { guid, curItemCost = {}, discountIntervalTs = [] } = shopItem
+
     itemData[guid] <- count
 
     hasBarter = hasBarter && curItemCost.len() > 0
@@ -260,13 +293,16 @@ let showNotFoundMsg = function(notFoundPresetItemsVal, onSuccessCb) {
   // as this would mess up button animations
   let hasDiscountExpired = Watched(false)
   local priceView = {}
+  let unavailableItems = {}
   let buttonsWatched = Computed(function() {
-    priceView = missingItemsPriceView(notFoundPresetItemsVal, onSuccessCb, hasDiscountExpired)
+    priceView = missingItemsPriceView(notFoundPresetItemsVal, unavailableItems,
+      onSuccessCb, hasDiscountExpired)
     return priceView.buttons
   })
 
+  let canBuyList = notFoundPresetItemsVal.filter(@(_count, tpl) tpl not in unavailableItems)
   msgbox.showMessageWithContent({
-    content = mkNotFound(notFoundPresetItemsVal, priceView, hasDiscountExpired.value)
+    content = mkNotFound(canBuyList, unavailableItems, priceView, hasDiscountExpired.value)
     buttons = buttonsWatched
   })
 }

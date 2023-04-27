@@ -8,12 +8,12 @@ let { fontLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let defTxtStyle = { color = defTxtColor }.__update(fontLarge)
 let hoverTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let disabledTxtStyle = { color = disabledTxtColor }.__update(fontLarge)
-let errorTxtStyle = { color = attentionTxtColor }.__update(fontLarge)
+let notFoundHeader = { color = attentionTxtColor }.__update(fontLarge)
 let noteStyle = { color = titleTxtColor }.__update(fontSmall)
 
 let styles = freeze({
   notFoundMsg = defTxtStyle
-  errorTxtStyle
+  notFoundHeader
   noteStyle
   rowHeight = commonBtnHeight
   panelScreenOffset = [-hdpx(400), -hdpx(68)]

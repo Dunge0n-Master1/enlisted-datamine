@@ -11,7 +11,7 @@ let { ControlBgOpaque } = require("%ui/style/colors.nut")
 let styles = freeze({
   rowHeight = commonBtnHeight
   notFoundMsg = { color = TextNormal }.__update(body_txt)
-  errorTxtStyle = { color = accentColor }.__update(body_txt)
+  notFoundHeader = { color = accentColor }.__update(body_txt)
   noteStyle = sub_txt
   panelScreenOffset = [hdpx(390), -hdpx(770)]
 

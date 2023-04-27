@@ -170,7 +170,7 @@ def human_spawn_blood_fx(victim_eid : EntityId; coll_node_id : int; blood_splash
       if sideFx != "" && length_sq(reflectedDir) > 1e-5f
         spawn_human_binded_fx(gen_fx_tm(pos, ((normalize(reflectedDir) + norm) * 0.5f), scale), itm, sideFx, victim_eid, coll_node_id, bloodColor)
 
-      if blood_splash != HitBloodType TWO_SIDE || exitFx == ""
+      if blood_splash != HitBloodType TWO_SIDE || exitFx == "" || length_sq(dir) < FLT_EPSILON
         return true
       let t = 2.
       let tracePos = pos + 2. * dir

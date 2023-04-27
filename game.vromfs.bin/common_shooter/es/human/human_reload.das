@@ -283,13 +283,19 @@ def server_update_is_ammo_loaded_es(evt : ecs::Event;
 
 
 [es(tag=gameClient, after=gun_init_es, on_appear)]
-def init_gun_cur_shell_id_es(evt : ecs::Event;
+def init_gun_cur_shell_id_es(evt : Event;
+                             eid : EntityId;
                              gun__shell_prop_ids : GunShellPropIds;
                              shell_props : ShellPropIds;
+                             gun__shells : Array const?;
                              var gun__curShellId : ShellPropIds&)
-  gun__curShellId = (int(shell_props.shellId) >= 0
-                       ? shell_props
-                       : gun__shell_prop_ids[0])
+  if int(shell_props.shellId) >= 0
+    gun__curShellId = shell_props
+  elif length(gun__shell_prop_ids) > 0
+    gun__curShellId = gun__shell_prop_ids[0]
+  else
+    gun__curShellId = ShellPropIds()
+    logerr("{getEntityTemplateName(eid)} has empty gun__shell_prop_ids. gun__shells: {gun__shells}")
 
 
 [es(tag=gameClient, after=gun_init_es, track=gun__isAmmoLoaded, on_appear)]
