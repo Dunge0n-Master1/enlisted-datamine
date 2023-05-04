@@ -20,9 +20,23 @@ hitpower{
 
 damage{
 
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.3
+    damageType:t="shatter"
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=0.0, 180.0
+      countPortion:r=1.0
+    }
+  }
+
   kinetic{
-    damageType:t="generic"
     damage:r=5.0
+    damageType:t="generic"
 
     energyToDamage{
       p0:p2=3000.0, 5.0
@@ -44,20 +58,6 @@ damage{
       p16:p2=5000000.0, 350.0
       p17:p2=8000000.0, 370.0
       p18:p2=12000000.0, 900.0
-    }
-  }
-
-  shatter{
-    useRealShatters:b=yes
-    countPortion:r=0.2
-    damageType:t="shatter"
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=0.0, 180.0
-      countPortion:r=1.0
     }
   }
 
@@ -116,6 +116,10 @@ damage{
     strengthEquivalent:r=1.0
     brisanceEquivalent:r=1.0
   }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
 }
 
 visual{

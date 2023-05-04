@@ -1,14 +1,26 @@
-ussr_gaz_mm_72k{
+ussr_gaz_mm_72k_moscow_premium{
+  _extends:t="base_gaz_mm_72k_common"
+}
+
+base_gaz_mm_72k_common{
   _extends:t="base_gaz_mm_72k"
+  _extends:t="vehicle_steering_assist"
+  _extends:t="tank_with_wheels_vehicle_tracks_sound"
+  _extends:t="forestall"
+  vehicle_seats__exitTime:r=1.0
+  vehicle_commander_cam__attachToVehicle:b=yes
+
+  "vehicle_seats__effectors:array"{
+  }
+
+  "item__iconRecalcAnim:tag"{
+    _tags:t="ui"
+  }
 
   _group{
     _tags:t="render"
-
-    "bullet_holes__ignoreCollisionNodes:array"{
-    }
-
-    "bullet_holes__movingCollisionNodes:array"{
-    }
+    animchar_camera_target__node_name:t="bone_camera_driver"
+    animchar_camera_target__node_offset:p3=0.0, 0.0, 0.0
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -19,54 +31,106 @@ ussr_gaz_mm_72k{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.996191, 0.0871554, 0.0] [-0.0871554, 0.996191, 0.0] [0.0, 0.0, 0.999997] [-0.12, -0.37, 0.03]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
       shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
       cameraNodeName:t="bone_camera_driver"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+      cameraType:t="commander"
+      cameraOffset:p3=-0.6, 0.1, 0.0
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
       name:t="main_gunner"
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.21, 0.0]]
       seatComponent:t="isGunner"
-      nextSeat:t="driver"
-      shouldHideOwner:b=no
-      receiveDamageFromDMPart:t="gunner"
+      ignoreAttachNodeRotation:b=yes
+      cameraType:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
+      cameraOffset:p3=-0.65, -0.0, 0.0
+      directTurretControl:b=yes
+      cockpitTemplate:t="ussr_gaz_mm_72k_gunner_cockpit"
+      hideHeroAnimcharLocal:b=yes
+      canLoadInHatch:b=yes
+      maxPosWithOpenHatch:r=0.0
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHatchControlInversed:b=yes
+      isHoldGunModeAllowed:b=no
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_01"
+      }
 
       "turretNames:array"{
         turret:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        l.hand:t="lefthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
 
     "seats:object"{
-      name:t="commander"
-      locName:t="vehicle_seats/commander"
+      name:t="machine_gunner"
       locName:t="vehicle_seats/commander"
       attachNode:t="commander"
       shouldHideOwner:b=no
       ignoreAttachNodeRotation:b=yes
-      maxPosWithOpenHatch:r=0.4
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, 0.1, 0.1]]
-      cameraType:t="commander"
-      seatComponent:t="isDriver"
+      attachTm:m=[[0.98769, 0.156432, 0.0] [-0.156432, 0.98769, 0.0] [0.0, 0.0, 1.00001] [-0.11, -0.39, -0.03]]
+      seatComponent:t="isPassenger"
+      isHoldGunModeAllowed:b=no
       receiveDamageFromDMPart:t="commander"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        l.hand:t="lefthand_4"
+        r.foot:t="pedal_rfoot_4"
+        l.foot:t="pedal_lfoot_4"
+      }
     }
 
     "seats:object"{
-      attachNode:t="loader"
+      name:t="loader"
       locName:t="vehicle_seats/loader"
+      attachNode:t="loader"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.0, -0.0, 0.0]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.1, -0.21, -0.0]]
       seatComponent:t="isPassenger"
-      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="loader"
-      cameraNodeName:t="bone_camera_driver"
+      cameraNodeName:t="root"
+      nextSeat:t="main_gunner"
+      vehicleReloadMult:r=0.7
+      isHoldGunModeAllowed:b=no
+
+      "loaderTurretNames:array"{
+        turret:t="turret_01"
+      }
+
+      "effectors:object"{
+        r.hand:t="righthand_3"
+        r.foot:t="pedal_rfoot_3"
+        l.foot:t="pedal_lfoot_3"
+      }
     }
   }
 
@@ -95,9 +159,9 @@ ussr_gaz_mm_72k{
 
   "dm_phys_parts__wheels:array"{
     wheel:t="wheel_r_01"
-    wheel:t="wheel_r_02"
+    wheel:t="wheel_r_drive"
     wheel:t="wheel_l_01"
-    wheel:t="wheel_l_02"
+    wheel:t="wheel_l_drive"
   }
 }
 
@@ -129,5 +193,41 @@ gaz_mm_72k_skins{
         "ussr_camo_green*":t="ussr_camo_green_ltbrown_lines*"
       }
     }
+  }
+}
+
+ussr_gaz_mm_72k_gunner_cockpit{
+  vehicle_sight__blk:t="gamedata/sight/jp_ring.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__forwardOffsetDuration:r=0.33
+  cockpit__minForwardOffset:r=0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.8, 0.35, -0.45
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.21
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
   }
 }

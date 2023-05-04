@@ -59,9 +59,9 @@ let function is_retriable_login_error(loginerror) {
 }
 
 let function performConnect(login_info) {
-  logM($"matching.performConnect", getState().loginFailCount)
+  logM($"matching.performConnect", login_info != null, getState().loginFailCount)
   serverResponseError(false)
-  if (getState().connecting) {
+  if (getState().connecting || login_info == null) {
     return
   }
   setState("stopped", false)

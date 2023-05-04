@@ -13,6 +13,7 @@ let RENDER_PARAMS = @"ui/skin#render{
   {objTexSetRules}
   {paintColor}
   {blendFactor}
+  {recalcAnimation}
 }.render"
 
 let iconWidgetDef = {
@@ -108,6 +109,7 @@ let function iconWidget(item, params = iconWidgetDef, iconAttachments = null) {
     hideNodes = hideNodes.len() > 0 ? "hideNodes{{0}}".subst("".join(hideNodes)) : ""
     paintColor = paintColorParam
     blendFactor = item?.blendFactor ? $"blendfactor:r={item?.blendFactor}" : ""
+    recalcAnimation = item?.recalcAnimation ? "recalcAnimation:b=yes" : ""
   })
   let image = getPicture(imageSource)
 

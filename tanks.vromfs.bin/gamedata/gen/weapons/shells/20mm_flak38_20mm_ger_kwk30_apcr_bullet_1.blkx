@@ -1,50 +1,34 @@
 bulletCount:i=10
 mass:r=0.1
 caliber:r=0.02
+damageMass:r=0.06
+ballisticCaliber:r=0.02
+damageCaliber:r=0.012
 speed:r=1050.0
+Cx:r=0.3219
 maxDistance:r=3000.0
 normalizationPreset:t="apcr"
 bulletType:t="apcr_t"
 fresnel:p3=0.23, 0.1, 2.0
-bulletName:t="20mm_pzgr_40"
 modelName:t="tank_bullet_apcr"
 secondaryShattersPreset:t="apcr"
 
 hitpower{
-  HitPower0m:p2=1.0, 300.0
-  HitPower1000m:p2=0.7, 1000.0
-  HitPower1500m:p2=0.6, 1500.0
-  HitPower2500m:p2=0.6, 2500.0
-  HitPower10000m:p2=0.5, 10000.0
-}
-
-armorpower{
-  ArmorPower0m:p2=64.0, 10.0
-  ArmorPower100m:p2=63.0, 100.0
-  ArmorPower250m:p2=45.0, 250.0
-  ArmorPower500m:p2=26.0, 500.0
-  ArmorPower750m:p2=15.0, 750.0
-  ArmorPower1000m:p2=8.0, 1000.0
-  ArmorPower1250m:p2=5.0, 1250.0
-  ArmorPower1500m:p2=3.0, 1500.0
-  ArmorPower2000m:p2=1.0, 2000.0
-  ArmorPower2500m:p2=1.0, 2500.0
-  ArmorPower3000m:p2=1.0, 3000.0
-}
-
-visual{
-  range_percent_of_ammo:p2=100.0, 0.0
-  traceFreq:i=1
-  tracer:t="20mmPink"
-  trail:t="black"
+  HitPower0m:p2=1.0, 0.0
+  HitPower1000m:p2=0.9, 0.0
+  HitPower10000m:p2=0.8, 10000.0
 }
 
 damage{
 
   kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.65
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
     correctionPenetrationByRelativeVelocity:p2=200.0, 1000.0
     correctionDamageByRelativeVelocity:p2=300.0, 1000.0
-    damageType:t="generic"
 
     energyToDamage{
       p0:p2=3000.0, 5.0
@@ -115,6 +99,13 @@ damage{
       }
     }
   }
+}
+
+visual{
+  range_percent_of_ammo:p2=100.0, 0.0
+  traceFreq:i=1
+  tracer:t="20mmPink"
+  trail:t="black"
 }
 
 ballistics{

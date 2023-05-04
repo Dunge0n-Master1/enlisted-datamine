@@ -32,6 +32,24 @@ repeat{
         }
       }
     }
+
+    success{
+
+      sequencer{
+
+        findWeaponSlotWithTag{
+          tag:t="buildingTool"
+          toParam:t="buildToolSlot"
+        }
+
+        isWeaponSlotSelected{
+          slotParam:t="buildToolSlot"
+        }
+
+        chooseBestWeapon{
+        }
+      }
+    }
   }
 
   subTree{

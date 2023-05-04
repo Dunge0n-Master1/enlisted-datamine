@@ -1059,6 +1059,32 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/portraits/default_portrait.svg")
   },
+  ["442"] = {
+    name = loc("squad/ussr_moscow_event_tank_1")
+    description = loc("squadannounce/ussr_moscow_event_tank_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/ussr/ussr_moscow_event_tank_1_image.avif")
+  },
+  ["443"] = {
+    name = loc("squad/ger_moscow_event_tank_1")
+    description = loc("squadannounce/ger_moscow_event_tank_1")
+    icon = "ui/skin#/research/squad_points_icon.svg"
+    cardImage = mkImageCtor([400, 300], [0, 0], "!ui/soldiers/germany/ger_moscow_event_tank_1_image.avif")
+  },
+  ["444"] = {
+    name = loc("items/victory_day_2023_event_order")
+    description = loc("items/victory_day_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
+  ["445"] = {
+    name = loc("items/victory_day_2023_event_crate")
+    description = loc("items/victory_day_2023_event_crate/desc")
+    icon = "ui/skin#/currency/random_reward_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/random_reward_order.svg") //432 * 600
+  },
 
 
 

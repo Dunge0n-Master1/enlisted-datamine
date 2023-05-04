@@ -1,12 +1,12 @@
 bulletCount:i=10
-mass:r=0.147
+mass:r=0.148
 caliber:r=0.02
-speed:r=780.0
+speed:r=800.0
+Cx:r=0.5198
 maxDistance:r=4000.0
 normalizationPreset:t="ap"
 secondaryShattersPreset:t="ap_small_arms"
 bulletType:t="ap_i_t"
-bulletName:t="20mm_pzgr"
 
 hitpower{
   HitPower0m:p2=1.0, 0.0

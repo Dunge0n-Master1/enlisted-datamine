@@ -15,25 +15,23 @@ struct respbase_only_active_debug
   respbase_only_active_debug : Tag
 
 [console_cmd(name="respbase.respbase_debug", hint="Draw respawn bases for humans and vehicles")]
-def respbase_debug_command()
+def respbase_debug_command(toggle : int = -1)
   var found = false
   query() <| $ [es(REQUIRE=respbase_debug)] (eid : EntityId)
     destroyEntity(eid)
     found = true
-  if !found
+  if (!found && toggle < 0) || toggle >= 1
     createEntity("respbase_debug")
-  console_print("{found ? "deactivate" : "activate"} respbase debug")
 
 
 [console_cmd(name="respbase.respbase_only_active_debug", hint="Draw active respawn bases for humans and vehicles")]
-def respbase_only_active_debug_command()
+def respbase_only_active_debug_command(toggle : int = -1)
   var found = false
   query() <| $ [es(REQUIRE=respbase_only_active_debug)] (eid : EntityId)
     destroyEntity(eid)
     found = true
-  if !found
+  if (!found && toggle < 0) || toggle >= 1
     createEntity("respbase_only_active_debug")
-  console_print("{found ? "deactivate" : "activate"} respbase only active debug")
 
 
 def draw_debug_respawn_info(transform : float3x4;

@@ -1,10 +1,23 @@
-germ_flakpanzer_I_ausf_A{
+germ_flakpanzer_i_ausf_a_moscow_premium{
+  _extends:t="germ_flakpanzer_i_ausf_a_common"
+}
+
+germ_flakpanzer_i_ausf_a_common{
   _extends:t="base_flpz_i_ausf_a"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
+  _extends:t="forestall"
+  vehicle_seats__exitTime:r=1.0
+  vehicle_commander_cam__attachToVehicle:b=yes
 
-  "bullet_holes__movingCollisionNodes:array"{
+  "vehicle_seats__effectors:array"{
+  }
+
+  _group{
     _tags:t="render"
+    animchar_camera_target__node_name:t="bone_camera_gunner"
+    animchar_camera_target__node_offset:p3=0.0, 0.5, 0.0
+    animchar_camera_target__nodeIndex:i=-1
   }
 
   "vehicle_seats__seats:shared:array"{
@@ -15,29 +28,97 @@ germ_flakpanzer_I_ausf_A{
       seatOwnsEntityControl:b=yes
       attachNode:t="driver"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.25, 0.0]]
+      attachTm:m=[[0.882965, -0.469466, -0.0] [0.469466, 0.882965, 0.0] [0.0, -0.0, 1.00027] [-0.59, -0.3, -0.03]]
       seatComponent:t="isDriver"
       nextSeat:t="main_gunner"
-      shouldHideOwner:b=yes
+      shouldHideOwner:b=no
       receiveDamageFromDMPart:t="driver"
-      cameraNodeName:t="bone_camera_driver"
+      cameraOffset:p3=0.15, -0.0, -0.0
+      cockpitTemplate:t="germ_flakpanzer_i_ausf_a_driver_cockpit"
+      seatAnimUpper:t="drive_passenger"
+      seatAnimLower:t="drive_passenger"
+
+      "effectors:object"{
+        r.hand:t="righthand_1"
+        l.hand:t="lefthand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
     }
 
     "seats:object"{
       name:t="main_gunner"
       locName:t="vehicle_seats/gunner"
       attachNode:t="gunner"
-      ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.25, -0.5, 0.0]]
+      attachTm:m=[[0.981495, 0.190781, 0.0] [-0.190781, 0.981495, 0.0] [0.0, 0.0, 0.999598] [-0.13, -0.4, 0.0]]
       seatComponent:t="isGunner"
-      nextSeat:t="driver"
-      shouldHideOwner:b=no
-      receiveDamageFromDMPart:t="gunner"
+      ignoreAttachNodeRotation:b=yes
       cameraNodeName:t="bone_camera_gunner"
+      directTurretControl:b=yes
+      cockpitTemplate:t="germ_20mm_flak38_gunner_cockpit"
+      hideHeroAnimcharLocal:b=yes
+      canLoadInHatch:b=yes
+      maxPosWithOpenHatch:r=0.0
+      hatchRotationAxis:p3=0.0, 0.0, 0.0
+      isHatchControlInversed:b=yes
+      isHoldGunModeAllowed:b=no
+      cameraOffset:p3=0.0, 0.2, 0.0
+
+      "hatchNodes:array"{
+        node:t="bone_camera_gunner"
+      }
+
+      "hatchTurretNames:array"{
+        turret:t="turret_01"
+      }
 
       "turretNames:array"{
         turret:t="turret_01"
       }
+
+      "effectors:object"{
+        r.hand:t="righthand_2"
+        r.foot:t="pedal_rfoot_2"
+        l.foot:t="pedal_lfoot_2"
+      }
     }
+  }
+}
+
+flpz_i_ausf_a_turret_01_20mm_flak38{
+  _override:b=yes
+  gun__shotFreq:r=4.66
+}
+
+germ_flakpanzer_i_ausf_a_driver_cockpit{
+  _extends:t="base_driver_cockpit_no_slits"
+  animchar__res:t="pzkpfw_iii_e_driver_char"
+  cockpit__offset:p3=0.8, 1.1, 0.35
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=-0.07
+    slit:r=-0.05
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=no
+    slit:b=no
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front"
+    slit:t="cam_left"
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="root"
+    node:t="root"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
   }
 }

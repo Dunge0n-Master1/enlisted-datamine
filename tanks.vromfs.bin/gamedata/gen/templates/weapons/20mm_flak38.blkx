@@ -23,25 +23,21 @@ base_20mm_flak38{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_defaultset_bullet_1.blk"
-        name:t="20mm_pzgr"
         type:t="ap_i_t"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_defaultset_bullet_2.blk"
-        name:t="20mm_sprgr"
         type:t="he_frag_i_t"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_defaultset_bullet_3.blk"
-        name:t="20mm_sprgr"
         type:t="he_frag_i_t"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_defaultset_bullet_4.blk"
-        name:t="20mm_sprgr"
         type:t="he_frag_i_t"
       }
     }
@@ -50,7 +46,6 @@ base_20mm_flak38{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_20mm_ger_kwk30_he.blk"
-        name:t="20mm_sprgr"
         type:t="he_frag_i_t"
       }
     }
@@ -59,7 +54,6 @@ base_20mm_flak38{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_20mm_ger_kwk30_ap.blk"
-        name:t="20mm_pzgr"
         type:t="ap_i_t"
       }
     }
@@ -68,13 +62,11 @@ base_20mm_flak38{
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_20mm_ger_kwk30_apcr_bullet_1.blk"
-        name:t="20mm_pzgr_40"
         type:t="apcr_t"
       }
 
       "shell:object"{
         blk:t="gamedata/gen/weapons/shells/20mm_flak38_20mm_ger_kwk30_apcr_bullet_2.blk"
-        name:t="20mm_pzgr"
         type:t="ap_i_t"
       }
     }

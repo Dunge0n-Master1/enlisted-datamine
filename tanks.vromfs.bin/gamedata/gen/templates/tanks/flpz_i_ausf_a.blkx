@@ -90,15 +90,15 @@ flpz_i_ausf_a_ammo_stowages{
   _extends:t="vehicle_ammo_stowages"
 
   "ammo_stowage__stowageTemplates:shared:list<t>"{
-    stowage:t="flpz_i_ausf_a_ammo_stowage"
+    stowage:t="flpz_i_ausf_a_ammo_stowage_1"
   }
 }
 
-flpz_i_ausf_a_ammo_stowage{
+flpz_i_ausf_a_ammo_stowage_1{
   _extends:t="ammo_stowage"
 
   "ammo_stowage__clusterTemplates:shared:list<t>"{
-    cluster:t="flpz_i_ausf_a_ammo_cluster"
+    cluster:t="flpz_i_ausf_a_ammo_cluster_1_1"
   }
 
   "ammo_stowage__turretNames:shared:list<t>"{
@@ -106,7 +106,7 @@ flpz_i_ausf_a_ammo_stowage{
   }
 }
 
-flpz_i_ausf_a_ammo_cluster{
+flpz_i_ausf_a_ammo_cluster_1_1{
   _extends:t="ammo_cluster"
   ammo_cluster__isShell:b=yes
 

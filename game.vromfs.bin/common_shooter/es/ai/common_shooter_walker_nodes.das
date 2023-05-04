@@ -406,6 +406,16 @@ class IsMeleeWeaponSelected : BehNodeAdapter
     let agent = beh_tree_entity_agent(*owner)
     return agent.phys.producedCT.chosenWeapon == HUWeaponSlots EWS_MELEE ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
+[beh_node(name="isWeaponSlotSelected")]
+class IsWeaponSlotSelected : BehNodeAdapter
+  slotParam : int = -1
+  def override loadFromBlk(var data : DataBlock) : void
+    slotParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "slotParam", ""), -1)
+  def override update(dt : float) : EBehResult
+    let agent = beh_tree_entity_agent(*owner)
+    let slot = datablock_getInt(owner.blackBoard, slotParam)
+    return int(agent.phys.producedCT.chosenWeapon) == slot ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+
 [beh_node(name="isBipodWeaponSelected")]
 class IsBipodWeaponSelected : BehNodeAdapter
   def override update(dt : float) : EBehResult

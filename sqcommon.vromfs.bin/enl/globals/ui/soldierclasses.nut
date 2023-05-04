@@ -780,6 +780,12 @@ let soldierClasses = freeze({
     rank = 10
     kind = "tanker"
   }.__update(premiumCfg)
+  tanker_2_event_1 = {
+    locId = "soldierClass/tanker"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "tanker"
+  }.__update(eventCfg)
   tanker_3_premium_1 = {
     locId = "soldierClass/tanker"
     getGlyph = @(_) null

@@ -3,11 +3,11 @@ mass:r=0.115
 explosiveType:t="np_10"
 explosiveMass:r=0.006
 caliber:r=0.02
+Cx:r=0.5
 normalizationPreset:t="heat"
 bulletType:t="he_frag_i_t"
 fresnel:p3=0.23, 0.1, 2.0
 explodeOnRendinst:b=yes
-bulletName:t="20mm_sprgr"
 speed:r=900.0
 maxDistance:r=4000.0
 selfDestructionInAir:b=yes
@@ -24,9 +24,23 @@ hitpower{
 
 damage{
 
+  shatter{
+    useRealShatters:b=yes
+    countPortion:r=0.3
+    damageType:t="shatter"
+
+    segment{
+      radiusScale:r=1.085
+      penetrationScale:r=1.0
+      damageScale:r=1.0
+      angles:p2=0.0, 180.0
+      countPortion:r=1.0
+    }
+  }
+
   kinetic{
-    damageType:t="generic"
     damage:r=1.5
+    damageType:t="generic"
 
     energyToDamage{
       p0:p2=3000.0, 5.0
@@ -48,44 +62,6 @@ damage{
       p16:p2=5000000.0, 350.0
       p17:p2=8000000.0, 370.0
       p18:p2=12000000.0, 900.0
-    }
-  }
-
-  shatter{
-    useRealShatters:b=yes
-    countPortion:r=0.2
-    damageType:t="shatter"
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=0.0, 90.0
-      countPortion:r=0.4
-    }
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=91.0, 180.0
-      countPortion:r=0.1
-    }
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=181.0, 269.0
-      countPortion:r=0.1
-    }
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=270.0, 359.0
-      countPortion:r=0.4
     }
   }
 
@@ -144,6 +120,10 @@ damage{
     strengthEquivalent:r=1.7
     brisanceEquivalent:r=1.3
   }
+}
+
+shatterDamage{
+  breachConeAngle:r=45.0
 }
 
 visual{
