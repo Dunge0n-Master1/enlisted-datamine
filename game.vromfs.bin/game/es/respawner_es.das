@@ -97,9 +97,12 @@ def respawn_to_next_soldier(soldier_eid, player_eid, squad_member__squad : Entit
 
 [es(tag=server, on_appear)]
 def set_respawner_squad_on_spawn(evt : Event; eid, squad__ownerPlayer : EntityId)
-  query(squad__ownerPlayer) <| $ [es] (var respawner__squad : EntityId&; var respawner__isFirstSpawn : bool&)
+  query(squad__ownerPlayer) <| $ [es] (var respawner__squad : EntityId&;
+                                       var respawner__isFirstSpawn : bool&;
+                                       var respawner__paratroopersSquad : bool&)
     respawner__squad = eid
     respawner__isFirstSpawn = false
+    respawner__paratroopersSquad = false
 
 [es(tag=server, on_disappear)]
 def reset_respawner_squad_on_destroy(evt : Event; eid, squad__ownerPlayer : EntityId)

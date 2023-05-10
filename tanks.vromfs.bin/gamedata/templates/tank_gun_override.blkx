@@ -414,7 +414,7 @@ tankgun_20mm_tnsh{
 tankgun_20mm_flak38{
   _override:b=yes
   gun__shotFreq:r=4.66
-  gun__reloadTime:r=7.0
+  gun__reloadTime:r=5.0
   gun__overheatReduce:r=0.05
   gun__overheatReduceOnOverheat:r=0.1
   gun__overheatPerShot:r=0.05
@@ -426,7 +426,7 @@ tankgun_25mm_72k{
   gun__overheatReduce:r=0.05
   gun__overheatReduceOnOverheat:r=0.1
   gun__overheatPerShot:r=0.08
-  gun__reloadTime:r=5.0
+  gun__reloadTime:r=3.0
   gun__maxAmmo:i=7
 }
 

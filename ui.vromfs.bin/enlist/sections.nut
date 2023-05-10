@@ -39,9 +39,9 @@ let { getStoreUrl, getEventUrl} = require("%ui/networkedUrls.nut")
 let { isEventUnseen, markEventSeen } = require("gameModes/eventUnseenSignState.nut")
 let { markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
 let { seenArmyProgress, markOpened } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
-let { discountBgColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { defTxtColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 
+let primeColor = Color(146, 10, 1)
 
 let function researchesAlertUi() {
   let { hasUnseen = false, hasUnopened = false } = curUnseenResearches.value
@@ -77,7 +77,7 @@ let hasShopAlert = Computed(@() hasShopSection.value
   && isShopVisible.value
   && (maxCurArmyDiscount.value > 0 || hasUnseenShopItems.value))
 
-let discountBg = { color = discountBgColor }
+let discountBg = { color = primeColor }
 
 let shopAlertBlink = Computed(@()
   curSection.value != "SHOP"
@@ -89,7 +89,7 @@ let function shopAlertUi() {
   let children = percents > 0
       ? mkNotifier(loc("shop/discount", { percents }), {}, discountBg)
     : haveSpecialOfferArmy.value
-      ? mkNotifier(loc("specialOfferShort"))
+      ? mkNotifier(loc("specialOfferShort"), {}, discountBg)
     : hasShopAlert.value
       ? mkNotifier(loc("hint/newShopItemsAvailable"))
     : null

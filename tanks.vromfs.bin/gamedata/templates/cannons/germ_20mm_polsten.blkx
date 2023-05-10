@@ -27,20 +27,13 @@ aa_gun_base{
 }
 
 aa_turret_base{
-  _extends:t="tankgun"
-  _extends:t="base_tankgun_autocannon"
+  _extends:t="tankgun_20mm_flak38"
   _extends:t="aa_gun_base"
-  gun__shotFreq:r=4.66
-  gun__maxAmmo:i=20
   gun__shootNodeName:t="bone_gun_barrel"
   turret__limit:p4=-180.0, 180.0, 7.5, 87.0
   turret__yawSpeed:r=90.0
   turret__pitchSpeed:r=45.0
   turret__triggerGroup:i=0
-  gun__reloadTime:r=7.0
-  gun__overheatReduce:r=0.05
-  gun__overheatReduceOnOverheat:r=0.1
-  gun__overheatPerShot:r=0.05
 
   "aiAvoidTurret:tag"{
   }

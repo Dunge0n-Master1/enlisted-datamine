@@ -4,13 +4,13 @@ let cursors = require("%ui/style/cursors.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let premiumWnd = require("premiumWnd.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
-let { smallPadding, bigPadding, discountBgColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 
 let IMAGE_WIDTH = hdpx(35)
+let primeColor = Color(146, 10, 1)
 
 let premDiscount = Computed(@()
   premiumProducts.value
@@ -38,7 +38,7 @@ let premiumWidget = @() {
     premDiscount.value == 0 ? null
       : mkNotifierBlink(loc("shop/discount", { percents = premDiscount.value }),
           { size = SIZE_TO_CONTENT },
-          { color = discountBgColor })
+          { color = primeColor })
   ]
 }
 

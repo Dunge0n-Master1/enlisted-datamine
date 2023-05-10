@@ -55,7 +55,7 @@ germ_flakpanzer_i_ausf_a_common{
       ignoreAttachNodeRotation:b=yes
       cameraNodeName:t="bone_camera_gunner"
       directTurretControl:b=yes
-      cockpitTemplate:t="germ_20mm_flak38_gunner_cockpit"
+      cockpitTemplate:t="germ_flakpanzer_i_ausf_a_gunner_cockpit"
       hideHeroAnimcharLocal:b=yes
       canLoadInHatch:b=yes
       maxPosWithOpenHatch:r=0.0
@@ -120,5 +120,41 @@ germ_flakpanzer_i_ausf_a_driver_cockpit{
   }
 
   "cockpit__attachNodeIndices:list<i>"{
+  }
+}
+
+germ_flakpanzer_i_ausf_a_gunner_cockpit{
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_zf_3x8_flakpanzer.blk"
+  _extends:t="base_gunner_cockpit"
+  animchar__res:t="t_26_1940_gunner_char"
+  cockpit__offset:p3=0.0, 0.0, 0.0
+  cockpit__forwardOffsetDuration:r=0.33
+  cockpit__minForwardOffset:r=0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.8, 0.31, -0.15
+  }
+
+  "cockpit__attachNodeNames:list<t>"{
+    node:t="bone_gun"
+  }
+
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="gun_barrel"
+  }
+
+  "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
+  }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.21
+  }
+
+  "cockpit__slitIsGun:list<b>"{
+    slit:b=yes
   }
 }
