@@ -18,6 +18,7 @@ require player
 require game.es.respawn_camera_common
 require DagorMath
 require math.base
+require game.events_game
 
 [es(tag=server, no_order)]
 def kick_paratroopers(info : UpdateStageInfoAct;
@@ -49,7 +50,7 @@ def kick_paratroopers_start(evt : CmdKickFromVehicle;
                             var paratroopers_aircraft__kickTimer : float&;
                             var paratroopers_aircraft__kicked : bool&;
                             var paratroopers_aircraft__kickSupplyBoxAtTime : float&)
-  if paratroopers_aircraft__kicked
+  if paratroopers_aircraft__kicked || !(get_bool(evt.eid, "isAlive") ?? true)
     return
   let time = get_sync_time()
   paratroopers_aircraft__kicked = true
@@ -233,3 +234,12 @@ def paratroopers_aircraft_set_kick_distance(evt : Event;
   let distTraveledInPlane = vehicle_seats__exitTime * vel
   let distTraveledInAir = vel * t - accel * t * t * 0.5
   ai_aircraft__distToKickParatroopers = square(distTraveledInPlane + distTraveledInAir)
+
+[es]
+def kick_paratrooper_when_died(evt : EventEntityDied;
+                               eid : EntityId;
+                               human_anim__vehicleSelected : EntityId)
+  query(human_anim__vehicleSelected) <| $ [es(REQUIRE=paratroopersAircraft)] (vehicle_seats__seatEids : EidList)
+    let ownerEid = get_Eid(vehicle_seats__seatEids[0], "seat__ownerEid") ?? INVALID_ENTITY_ID
+    if ownerEid == eid
+      sendEvent(human_anim__vehicleSelected, [[CmdKickFromVehicle eid=eid]])

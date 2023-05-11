@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { bigPadding, sidePadding, midPadding, footerContentHeight
 } = require("%enlSqGlob/ui/designConst.nut")
-let JB = require("%ui/control/gui_buttons.nut")
 let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
 let { respRequested, spawnSquadId } = require("%ui/hud/state/respawnState.nut")
 let respawnSelection = require("%ui/hud/state/respawnSelection.nut")
@@ -85,7 +84,7 @@ let spawnInfoBlock = {
   hotkeys = [
     ["^Right | J:D.Right", @() changeRespawn(-1)],
     ["^Left | J:D.Left",  @() changeRespawn(1)],
-    [$"^Enter| {JB.A}", @() forceRespawn()]
+    ["^Enter", @() forceRespawn()]
   ].extend(array(10).map(@(_, n)
     [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]))
   children = [

@@ -161,7 +161,7 @@ def human_vehicle_toggle_hold_gun_mode_input_es(evt : EventDaInputActionTriggere
       switch_to_first_weap_with_ammo(human_weap__gunEids, human_net_phys.phys)
 
     if human_binocular__mode
-      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode None]])
+      send_net_event(eid, [[CmdSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode ChoosePrevGunSlot]])
 
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_HOLD_GUN_MODE, isEnablingHoldGunMode)
   else

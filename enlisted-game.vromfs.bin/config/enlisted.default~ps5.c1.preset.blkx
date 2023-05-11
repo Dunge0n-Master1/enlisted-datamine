@@ -749,7 +749,7 @@ Human.ThrowDowned{
 Human.UseBinocular{
   dev:i=3
   btn:i=0
-  type:i=5
+  type:i=1
 }
 
 HUD.BigMap{
