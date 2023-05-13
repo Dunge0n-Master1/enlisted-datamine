@@ -407,12 +407,16 @@ let function progressBarVariation(nextUnlockLvl, level, expCur, expToReceive,
 
 let levelsUnlocks = function() {
   let { color = null, darkColor = null } = campPresentation.value
+
   let army = curArmyData.value
   local hasNotReceivedReward = false
   let children = allArmyUnlocks.value.map(function(unlock) {
     local unlockObj = emptyLevelUnlock
     let { unlockType, level = 0, campaignGroup = CAMPAIGN_NONE } = unlock
     let isFreemium = campaignGroup != CAMPAIGN_NONE
+
+    if (isFreemium && !isCampaignBought.value)
+      return null
 
     if (unlockType == uType.SQUAD) {
       unlockObj = mkSquadBlockByUnlock(unlock, army)
@@ -462,6 +466,7 @@ let levelsUnlocks = function() {
       ]
     }
   })
+  .filter(@(v) v != null)
 
   return {
     watch = [

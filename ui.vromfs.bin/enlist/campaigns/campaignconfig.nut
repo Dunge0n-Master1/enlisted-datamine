@@ -32,25 +32,16 @@ let curShopCampaignItems = Computed(function() {
   return res
 })
 
-let isPurchaseableCampaign = Computed(@() curShopCampaignItems.value.len() > 0)
+// TODO should be cleaned up after meta 2.0 will be applied
+let isPurchaseableCampaign = Computed(@() false)
 
-let isCampaignBought = Computed(function() {
-  if (!isPurchaseableCampaign.value)
-    return false
+let isCampaignBought = Computed(@() curShopCampaignItems.value
+  .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null)
 
-  return curShopCampaignItems.value
-    .findindex(@(item) (purchasesCount.value?[item.guid].amount ?? 0) > 0) != null
-})
+let needFreemiumStatus = Computed(@() false)
 
-let needFreemiumStatus = Computed(@() isPurchaseableCampaign.value && !isCampaignBought.value)
-
-let curCampaignAccessItem = Computed(function() {
-  if (!isPurchaseableCampaign.value)
-    return null
-
-  return curShopCampaignItems.value.reduce(@(res, item)
-    (item?.isPrimaryBuy ?? false) > (res?.isPrimaryBuy ?? false) ? item : res)
-})
+let curCampaignAccessItem = Computed(@() curShopCampaignItems.value.reduce(@(res, item)
+  (item?.isPrimaryBuy ?? false) > (res?.isPrimaryBuy ?? false) ? item : res))
 
 let curUpgradeDiscount = Computed(@()
   armyEffects.value?[curArmy.value].freemiumUpgradeDiscount ?? 0.0)

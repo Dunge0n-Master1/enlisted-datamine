@@ -36,7 +36,7 @@ let checkPurchases = require("%enlist/shop/checkPurchases.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { shopItemsBase, shopItems, shopDiscountGen
 } = require("shopItems.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
+let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 let qrWindow = require("%enlist/mainMenu/qrWindow.nut")
 let { isPlayerRecommendedEmailRegistration } = require("%enlist/profile/profileCountry.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
@@ -190,15 +190,18 @@ let curArmyItemsPrefiltered = Computed(function() {
   let itemsByTime = shownByTimestamp.value
   let squadsById = armySquadsById.value
   let purchases = purchasesCount.value
+  let notFreemium = isCampaignBought.value
   let debugPermission = isDebugShowPermission.value
   return shopItems.value.filter(function(item, id) {
-    let { armies = [], isHidden = false, isHiddenOnChinese = false } = item
+    let { armies = [], isHidden = false, isHiddenOnChinese = false, requirements = {} } = item
+    let { campaignGroup = CAMPAIGN_NONE } = requirements
     return (armies.contains(armyId) || armies.len() == 0)
       && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
       && !(isChineseVersion && isHiddenOnChinese)
       && isAvailableBySquads(item, squadsById)
       && isAvailableByLimit(item, purchases)
       && isAvailableByPermission(item, debugPermission)
+      && (notFreemium || campaignGroup == CAMPAIGN_NONE)
   })
 })
 
@@ -418,12 +421,10 @@ let function getBuyRequirementError(shopItem) {
 }
 
 let curAvailableShopItems = Computed(function() {
-  let needFreemium = needFreemiumStatus.value
   let { level = 0 } = curArmyData.value
   return curArmyShopItems.value.filter(@(item) (item?.offerContainer ?? "") == ""
     && item?.itemCost
     && (item?.requirements.armyLevel ?? 0) <= level
-    && (!item?.requirements.campaignGroup || !needFreemium)
   )
 })
 

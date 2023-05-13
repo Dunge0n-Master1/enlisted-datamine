@@ -10,7 +10,7 @@ let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyShowcase } = require("%enlist/shop/armyShopState.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { CAMPAIGN_NONE, isPurchaseableCampaign, isCampaignBought, needFreemiumStatus
+let { CAMPAIGN_NONE, isCampaignBought, needFreemiumStatus
 } = require("%enlist/campaigns/campaignConfig.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 
@@ -158,7 +158,7 @@ let curArmyNextUnlockLevel = Computed(function() {
     rewardUnlocks[unlock.level] <- unlock
 
   let maxLevel = max(findMax(squadUnlocks.keys()), findMax(rewardUnlocks.keys()))
-  let haveFreemium = isPurchaseableCampaign.value && isCampaignBought.value
+  let haveFreemium = isCampaignBought.value
   local nextLevel = 0
   for (local lvl = 1; lvl <= maxLevel; lvl++) {
     nextLevel = lvl
