@@ -29,22 +29,25 @@ const URL = "https://sandbox.enlisted.net/api/feed/get_featured/"
 const MOD_DOWNLOAD_URL = "https://sandbox.enlisted.net/post/{0}/manifest/{1}/"
 const MOD_URL = "https://sandbox.enlisted.net/post/{0}"
 
-
 let function getfeaturedModInfo(mod) {
-  let isInvalidData = mod.findvalue(@(v) v == null)
-  if (isInvalidData)
-    return null
-  let { description, preview, title, author, id, version } = mod
-  let imageToShow = preview.split("?")[0]
-  let modUrl = MOD_URL.subst(id)
-  return {
-    description
-    imageToShow
-    title
-    authorsNick = author.nick
-    id
-    version
-    modUrl
+  try{
+    let { description, preview, title, author, id, version } = mod
+    let imageToShow = preview.split("?")[0]
+    let modUrl = MOD_URL.subst(id)
+    return {
+      description
+      imageToShow
+      title
+      authorsNick = author.nick
+      id
+      version
+      modUrl
+    }
+  }
+  catch(e){
+    log("incorrect featured mod")
+    log(e)
+    logerr("incorrect featured mod")
   }
 }
 

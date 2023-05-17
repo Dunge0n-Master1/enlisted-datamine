@@ -672,3 +672,7 @@ def human_input_disable_aim_on_hero_change(evt : Event;
                                            var human_net_phys : HumanActor)
   if !possessedByPlr
     human_net_phys.phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, false)
+
+[es(tag=input, REQUIRE=human_input, track=human_weap__currentGunSlot, REQUIRE=human_weap__currentGunSlot)]
+def human_input_reset_charge_on_weapon_change_es(evt : Event; var human_melee_charge__activateAtTime : float&)
+  human_melee_charge__activateAtTime = 0.f

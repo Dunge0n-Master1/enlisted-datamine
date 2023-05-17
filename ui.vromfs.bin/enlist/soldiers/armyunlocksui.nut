@@ -48,7 +48,7 @@ let { weapInfoBtn, btnSizeSmall, progressBarWidth, rewardToScroll,
 let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let mkBuyArmyLevel = require("mkBuyArmyLevel.nut")
 let { mkSquadIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
-let { CAMPAIGN_NONE, needFreemiumStatus, isPurchaseableCampaign, isCampaignBought,
+let { CAMPAIGN_NONE, needFreemiumStatus, isCampaignBought,
   disableArmyExp, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
@@ -89,7 +89,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.append(mkUnlockInfo(unlockText))
   else if (!hasReceived
       && unlockCb != null
-      && (!isFreemium || (isPurchaseableCampaign.value && isCampaignBought.value))) {
+      && (!isFreemium || !needFreemiumStatus.value)) {
     let buttonCtor = isShowcase ? Purchase : PrimaryFlat
     children.append(buttonCtor(unlockText ?? unlockLocTxt,
       unlockCb,
@@ -105,7 +105,7 @@ let mkUnlockCardButton = @(unlockInfo) function() {
     children.insert(0, freemiumPromoLink)
 
   return {
-    watch = [isPurchaseableCampaign, isCampaignBought, needFreemiumStatus]
+    watch = [needFreemiumStatus, needFreemiumStatus]
     vplace = ALIGN_BOTTOM
     minWidth = btnSizeSmall[0]
     hplace = ALIGN_RIGHT
@@ -235,11 +235,12 @@ let mkSquadBlockByUnlock = @(unlock, armyData) function() {
   return {
     watch = [squadsCfgById, armySquadsById, curArmyNextUnlockLevel, curArmyLevel,
       curBuyLevelData, disableArmyExp, needFreemiumStatus]
+    behavior = Behaviors.Button
+    xmbNode = XmbNode()
     children = squadCfg == null ? null
-      : mkLevelFrame(
-          mkSquadSmallCard({ squad, armyId, unlockInfo, squadCfg,
-            progressWatch = squadUnlockInProgress })
-        )
+      : mkLevelFrame(mkSquadSmallCard({
+          squad, armyId, unlockInfo, squadCfg, progressWatch = squadUnlockInProgress
+        }))
   }
 }
 

@@ -25,6 +25,7 @@ us_halftrack_m13_common{
   _extends:t="base_halftrack_m13"
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="forestall"
+  destroyIfNoCrewLeft:b=no
   item__iconScale:r=0.8
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5

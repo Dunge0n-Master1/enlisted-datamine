@@ -254,7 +254,8 @@ let function onCapZoneChanged(_evt, eid, comp) {
       changedZoneVals[zonePropName] <- v?.getAll() ?? v
     }
   }
-  let attackTeam = comp["capzone__checkAllZonesInGroup"] ?
+  let checkAllZonesInGroup = comp.capzone__checkAllZonesInGroup
+  let attackTeam = checkAllZonesInGroup ?
                      comp["capzone__mustBeCapturedByTeam"] : comp["capzone__onlyTeamCanCapture"]
   let alwaysHide = comp["capzone__alwaysHide"]
   let heroTeam = localPlayerTeam.value
@@ -269,7 +270,7 @@ let function onCapZoneChanged(_evt, eid, comp) {
       changedZoneVals["alwaysHide"] <- alwaysHide
     let newZone = zone.__merge(changedZoneVals)
     if ("curTeamCapturingZone" in changedZoneVals){
-      notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, zone.attackTeam)
+      notifyOnZoneVisitor(changedZoneVals.curTeamCapturingZone, zone.prevTeamCapturingZone, heroTeam, checkAllZonesInGroup ? changedZoneVals.curTeamCapturingZone : zone.attackTeam)
       newZone.prevTeamCapturingZone = zone.curTeamCapturingZone
     }
     newZone.isCapturing = newZone.curTeamCapturingZone != TEAM_UNASSIGNED

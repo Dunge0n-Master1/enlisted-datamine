@@ -15,7 +15,6 @@ base_halftrack_m13{
   drowningHeight:r=1.752
   damage_model__blk:t="gamedata/gen/units/tanks/halftrack_m13.blk"
   item__name:t="items/us_halftrack_m13"
-  destroyIfNoCrewLeft:b=no
   skin__template:t="halftrack_m13_skins"
 
   "turret_gun_flash_fx__flashNodes:shared:array"{

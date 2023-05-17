@@ -15,6 +15,7 @@ require walkerai
 require DngNet
 require AnimV20
 require GeomNodeTree
+require DagorMath
 
 struct AiGunnerTarget
   pos : float3 = float3(0, 0, 0)
@@ -121,7 +122,9 @@ def ai_gunner_find_target(info : UpdateStageInfoAct;
         *animchar.originalNodeTree |> geomtree_getNodeTmScalar(turret__aimNodeId, tm)
         *animchar.nodeTree |> geomtree_getNodeWtmScalar(parNodeId, wt)
 
-        let turretItm = inverse(wt * tm)
+        var turretTm = wt * tm
+        orthonormalize(turretTm)
+        let turretItm = inverse(turretTm)
 
         let limit = turret_ai__limitAngles ?? turret__limit
 

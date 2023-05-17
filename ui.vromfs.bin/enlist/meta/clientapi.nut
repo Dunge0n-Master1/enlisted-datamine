@@ -65,12 +65,13 @@ let function handleMessages(msg) {
       logerr($"Not empty removed field on full profile update on '{method}'")
       delete result.removed
     }
-    foreach (key, data in result) {
-      if (key in servProfile)
-        servProfile[key].update(data)
-      else
-        logApi($"Try to full update not existed profile watch '{key}' on '{method}'", data)
-    }
+
+    foreach (key, _ in result)
+      if (key not in servProfile)
+        logApi($"Try to full update not existed profile field '{key}' on '{method}'")
+
+    foreach (profileId, _ in servProfile)
+      servProfile[profileId].update(result?[profileId] ?? {})
 
     logApi($"Full profile update on '{method}' takes {diffTime(curTime)} ms")
   }

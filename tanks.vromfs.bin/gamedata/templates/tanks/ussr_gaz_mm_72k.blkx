@@ -7,6 +7,9 @@ base_gaz_mm_72k_common{
   _extends:t="vehicle_steering_assist"
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
   _extends:t="forestall"
+  destroyIfNoCrewLeft:b=no
+  armorThicknessHull:p3=0.0, 0.0, 0.0
+  armorThicknessTurret:p3=7.0, 0.0, 0.0
   vehicle_seats__exitTime:r=1.0
   vehicle_seats__enterTime:r=2.0
   vehicle_commander_cam__attachToVehicle:b=yes
