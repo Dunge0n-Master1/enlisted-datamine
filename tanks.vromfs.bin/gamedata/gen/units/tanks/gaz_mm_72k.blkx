@@ -26,6 +26,8 @@ VehiclePhys{
     cls_body_02:t="convex_hull"
     cls_body_03:t="convex_hull"
     cls_body_04:t="convex_hull"
+    body_side:t="convex_hull"
+    body_back:t="convex_hull"
   }
 
   engine{
@@ -803,8 +805,8 @@ DamageParts{
     sonicDamageMult:r=0.0
     vital:b=yes
     ldmInner:b=yes
-    armorClass:t="armor_tank_engine"
-    hp:r=70.0
+    armorClass:t="tank_structural_steel"
+    hp:r=150.0
     armorThickness:r=10.0
     armorThrough:r=10.0
   }

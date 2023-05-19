@@ -7,6 +7,8 @@ base_gaz_mm_72k_common{
   _extends:t="vehicle_steering_assist"
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
   _extends:t="forestall"
+  _extends:t="car_vehicle_horn_sound"
+  _extends:t="vehicle_horn_note_D5"
   destroyIfNoCrewLeft:b=no
   armorThicknessHull:p3=0.0, 0.0, 0.0
   armorThicknessTurret:p3=7.0, 0.0, 0.0
@@ -45,6 +47,7 @@ base_gaz_mm_72k_common{
       seatAnimLower:t="drive_passenger"
       cameraType:t="commander"
       cameraOffset:p3=-0.6, 0.1, 0.0
+      isHoldGunModeAllowed:b=no
 
       "effectors:object"{
         r.hand:t="righthand_1"
@@ -63,7 +66,7 @@ base_gaz_mm_72k_common{
       ignoreAttachNodeRotation:b=yes
       cameraType:t="gunner"
       cameraNodeName:t="bone_camera_gunner"
-      cameraOffset:p3=-0.65, -0.0, 0.0
+      cameraOffset:p3=-0.65, -0.15, 0.0
       directTurretControl:b=yes
       cockpitTemplate:t="ussr_gaz_mm_72k_gunner_cockpit"
       hideHeroAnimcharLocal:b=yes
@@ -72,6 +75,7 @@ base_gaz_mm_72k_common{
       hatchRotationAxis:p3=0.0, 0.0, 0.0
       isHatchControlInversed:b=yes
       isHoldGunModeAllowed:b=no
+      receiveDamageFromDMPart:t="gunner"
 
       "hatchNodes:array"{
         node:t="bone_camera_gunner"

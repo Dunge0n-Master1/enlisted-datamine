@@ -876,6 +876,13 @@ def human_weap_set_current_gun_es(evt : HumanWeapSetCurrentGun;
   human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(int(evt.slot)))
   human_net_phys.phys.currentState.weapEquipState.curSlot = HUWeaponSlots(int(evt.slot))
 
+[es(on_appear, tag=gameClient, REQUIRE=hero)]
+def human_weap_reset_gun_slot_es(evt : Event;
+                                 human_weap__currentGunSlot : int;
+                                 var human_net_phys : HumanActor)
+  if human_weap__currentGunSlot >= 0
+    human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots(human_weap__currentGunSlot))
+    human_net_phys.phys.currentState.weapEquipState.curSlot = HUWeaponSlots(human_weap__currentGunSlot)
 
 [es]
 def human_weap_weap_throw_back_abort_es(evt : HumanWeapThrowBackAbort;
