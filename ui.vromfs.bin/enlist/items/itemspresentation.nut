@@ -1085,6 +1085,13 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
     cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/random_reward_order.svg") //432 * 600
   },
+  ["446"] = {
+    name = loc("items/armedForces_day_2023_event_order")
+    description = loc("items/armedForces_day_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = mkImageCtor([72, 100], [0, 12], "!ui/skin#/currency/event_order.svg")
+  },
 
 
 
