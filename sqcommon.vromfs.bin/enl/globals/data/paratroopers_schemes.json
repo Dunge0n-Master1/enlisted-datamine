@@ -16,7 +16,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -43,7 +43,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -70,7 +70,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -129,7 +129,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -147,7 +147,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -165,7 +165,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -215,9 +215,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -246,9 +246,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -301,7 +301,7 @@
                      "gunSlots" : {
                         "scope" : "unertl_8x_sight_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "m1903_springfield_magazine"
                   }
                ],
@@ -345,7 +345,7 @@
                      "gunSlots" : {
                         "scope" : "unertl_8x_sight_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "m1903_springfield_magazine"
                   }
                ],
@@ -405,7 +405,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -432,7 +432,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -459,7 +459,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -518,7 +518,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -539,7 +539,7 @@
                      "gunSlots" : {
                         "scope" : "scope_m84_item"
                      },
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -557,7 +557,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -607,9 +607,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "wrg_36_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
                   }
                ]
@@ -638,9 +638,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "wrg_36_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
                   }
                ]
@@ -693,7 +693,7 @@
                      "gunSlots" : {
                         "scope" : "scope_zf_4_fg_42"
                      },
-                     "numReserveAmmo" : 3,
+                     "numReserveAmmo" : 6,
                      "reserveAmmoTemplate" : "fg_42_magazine"
                   }
                ],
@@ -738,7 +738,7 @@
                      "gunSlots" : {
                         "scope" : "scope_zf_4_fg_42"
                      },
-                     "numReserveAmmo" : 3,
+                     "numReserveAmmo" : 6,
                      "reserveAmmoTemplate" : "fg_42_magazine"
                   }
                ],
@@ -799,7 +799,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "lanchester_magazine"
                   }
                ],
@@ -827,7 +827,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "lanchester_magazine"
                   }
                ],
@@ -855,7 +855,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "lanchester_magazine"
                   }
                ],
@@ -915,7 +915,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -933,7 +933,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -951,7 +951,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -1001,9 +1001,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -1032,9 +1032,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -1087,7 +1087,7 @@
                      "gunSlots" : {
                         "scope" : "unertl_8x_sight_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "m1903_springfield_magazine"
                   }
                ],
@@ -1131,7 +1131,7 @@
                      "gunSlots" : {
                         "scope" : "unertl_8x_sight_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "m1903_springfield_magazine"
                   }
                ],
@@ -1191,7 +1191,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -1218,7 +1218,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -1245,7 +1245,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 2,
+                     "numReserveAmmo" : 4,
                      "reserveAmmoTemplate" : "mg_42_handheld_magazine"
                   }
                ],
@@ -1304,7 +1304,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -1325,7 +1325,7 @@
                      "gunSlots" : {
                         "scope" : "scope_m84_item"
                      },
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -1343,7 +1343,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "panzerfaust_60_shell_item"
                   }
                ]
@@ -1393,9 +1393,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "wrg_36_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
                   }
                ]
@@ -1424,9 +1424,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "wrg_36_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "wrg_36_smoke_item" ]
                   }
                ]
@@ -1479,7 +1479,7 @@
                      "gunSlots" : {
                         "scope" : "scope_zf4_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "gewehr_43_magazine"
                   }
                ],
@@ -1523,7 +1523,7 @@
                      "gunSlots" : {
                         "scope" : "scope_zf4_item"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "gewehr_43_magazine"
                   }
                ],
@@ -1583,7 +1583,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -1610,7 +1610,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -1637,7 +1637,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "browning_m1918_magazine"
                   }
                ],
@@ -1696,7 +1696,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -1714,7 +1714,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -1732,7 +1732,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m6a1_bazooka_item"
                   }
                ]
@@ -1782,9 +1782,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -1813,9 +1813,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "two_inch_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "two_inch_smoke_shell_item" ]
                   }
                ]
@@ -1868,7 +1868,7 @@
                      "gunSlots" : {
                         "scope" : "scope_m82"
                      },
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m1_garand_magazine"
                   }
                ],
@@ -1913,7 +1913,7 @@
                      "gunSlots" : {
                         "scope" : "scope_m82"
                      },
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m1_garand_magazine"
                   }
                ],
@@ -1974,7 +1974,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 4,
+                     "numReserveAmmo" : 8,
                      "reserveAmmoTemplate" : "type_11_lmg_magazine"
                   }
                ],
@@ -2001,7 +2001,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 4,
+                     "numReserveAmmo" : 8,
                      "reserveAmmoTemplate" : "type_11_lmg_magazine"
                   }
                ],
@@ -2028,7 +2028,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 4,
+                     "numReserveAmmo" : 8,
                      "reserveAmmoTemplate" : "type_11_lmg_magazine"
                   }
                ],
@@ -2087,7 +2087,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "type_5_rocket_item"
                   }
                ]
@@ -2105,7 +2105,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "type_5_rocket_item"
                   }
                ]
@@ -2123,7 +2123,7 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "type_5_rocket_item"
                   }
                ]
@@ -2173,9 +2173,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
                   }
                ]
@@ -2204,9 +2204,9 @@
                "human_weap__weapInfo" : [
                   {},
                   {
-                     "numReserveAmmo" : 10,
+                     "numReserveAmmo" : 20,
                      "reserveAmmoTemplate" : "type_89_mortar_he_shell_item",
-                     "additionalNumReserveAmmos" : [ 10 ],
+                     "additionalNumReserveAmmos" : [ 20 ],
                      "additionalReserveAmmoTemplates" : [ "type_89_mortar_smoke_shell_item" ]
                   }
                ]
@@ -2259,7 +2259,7 @@
                      "gunSlots" : {
                         "scope" : "scope_arisaka_type_99"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "arisaka_7mm_magazine"
                   }
                ],
@@ -2303,7 +2303,7 @@
                      "gunSlots" : {
                         "scope" : "scope_arisaka_type_99"
                      },
-                     "numReserveAmmo" : 5,
+                     "numReserveAmmo" : 10,
                      "reserveAmmoTemplate" : "arisaka_7mm_magazine"
                   }
                ],
@@ -2369,7 +2369,7 @@
                      "gunSlots" : {
                         "scope" : "scope_m84_item"
                      },
-                     "numReserveAmmo" : 6,
+                     "numReserveAmmo" : 12,
                      "reserveAmmoTemplate" : "m1_garand_magazine"
                   }
                ],

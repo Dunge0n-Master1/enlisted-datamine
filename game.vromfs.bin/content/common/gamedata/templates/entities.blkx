@@ -437,6 +437,12 @@ base_menu_animchar{
   animchar__appliedAnimSpeed:r=0.0
   randomAnimStart:b=yes
 
+  "animchar__actOnCreate:tag"{
+  }
+
+  "animchar__considerAsVisible:tag"{
+  }
+
   "animchar__animStateNames:object"{
     upper:t="presentation_idle"
     lower:t="presentation_idle"

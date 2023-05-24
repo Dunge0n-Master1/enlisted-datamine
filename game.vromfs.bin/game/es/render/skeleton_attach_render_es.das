@@ -94,3 +94,36 @@ def skeleton_attach_es(info : UpdateStageInfoBeforeRender;
   animchar_bsph = animchar_render_prepareSphere(animchar_render, animchar_node_wtm)
   skeleton_attached_to(animchar, animchar__visible, attaches_list, info.dt, animchar_bbox, animchar_bsph, animchar_attaches_bbox);
 
+[es(tag=gameClient, on_appear, REQUIRE=attachedToParent)]
+def init_skeleton_attachment_wtm_ofs(evt : Event;
+                                     skeleton_attach__skeletonRemap : UInt16List;
+                                     skeleton_attach__skeletonRecalcBranch : UInt8List;
+                                     slot_attach__attachedTo : EntityId;
+                                     var animchar aka attachment_animchar : AnimcharBaseComponent&)
+  query(slot_attach__attachedTo) <| $ [es] (animchar aka attached_to_animchar : AnimcharBaseComponent)
+    assume attNodeTree = *attached_to_animchar.nodeTree
+    assume nodeTree = *attachment_animchar.nodeTree;
+
+    let wtmOfs = geomtree_getWtmOfs(attNodeTree)
+    geomtree_setWtmOfs(nodeTree, wtmOfs)
+
+    for skelNode in skeleton_attach__skeletonRemap
+      let nodeNo = get_node_no(skelNode)
+      let remappedNodeNo = get_remapped_node_no(skelNode)
+      geomtree_getNodeTm(nodeTree, nodeNo) = geomtree_getNodeTm(attNodeTree, remappedNodeNo)
+      geomtree_getNodeWtmRel(nodeTree, nodeNo) = geomtree_getNodeWtmRel(attNodeTree, remappedNodeNo)
+
+    for nodeNo in skeleton_attach__skeletonRecalcBranch
+      let intNodeNo = int(nodeNo)
+      let parentNodeIdx = geomtree_getParentNodeIdx(nodeTree, intNodeNo)
+      let parentNodeWtm = float3x4(geomtree_getNodeWtmRel(nodeTree, parentNodeIdx))
+      let curNoteWtm = float3x4(geomtree_getNodeTm(nodeTree, intNodeNo))
+      geomtree_getNodeWtmRel(nodeTree, intNodeNo) = mat44f(parentNodeWtm * curNoteWtm)
+      geomtree_calcWtmForBranch(nodeTree, intNodeNo)
+
+    // TODO: remove bind existing checks if any major update came out since 03.05.23 (so everyone has the binds 100%)
+    static_if typeinfo(builtin_function_exists @@ < (var arg0 : AnimV20::AnimcharBaseComponent implicit; arg1 : float const) : void > _::animchar_updateFastPhys)
+      attachment_animchar |> animchar_resetFastPhysWtmOfs(wtmOfs)
+      // simulate fastphys for some frames to let fastphys items settle
+      let fastPhysSimTimeOnReset = 1.5
+      attachment_animchar |> animchar_updateFastPhys(fastPhysSimTimeOnReset)

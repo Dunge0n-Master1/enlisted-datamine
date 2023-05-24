@@ -1685,6 +1685,7 @@ paratroopers_supply_schemes{
   _tags:t="server"
   _singleton:b=yes
   paratroopers__supplySchemesJson:t="%enlSqGlob/data/paratroopers_schemes.json"
+  paratroopers__supplySchemesNoBotsJson:t="%enlSqGlob/data/paratroopers_schemes_no_bots.json"
 
   "paratroopers__supplySchemes:object"{
   }
