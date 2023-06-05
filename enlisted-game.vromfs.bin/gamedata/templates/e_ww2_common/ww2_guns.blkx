@@ -18562,6 +18562,8 @@ vickers_mk1_no2_gun{
   gun_anim_var__fpsGunOffsetAcross:r=0.04
   gun_anim_var__fpsGunOffsetUp:r=-0.07
   gun__adsSpeedMult:r=0.5
+  gun__rotationSpringMult:p3=1.0, 3.0, 3.0
+  gun__rotInertia:p3=0.1, 2.0, 2.0
 
   _group{
     _tags:t="sound"
