@@ -1,199 +1,26 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let msgbox = require("%enlist/components/msgbox.nut")
+let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { smallPadding, bigPadding, defTxtColor, hoverBgColor, disabledTxtColor, defBgColor
+let { smallPadding, bigPadding, hoverBgColor, disabledTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { dailyTasksByDifficulty, receiveTaskRewards, getTotalRerolls, getLeftRerolls,
-  isRerollInProgress, canTakeDailyTaskReward, doRerollUnlock
-} = require("taskListState.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
-let { weeklyTasks } = require("weeklyUnlocksState.nut")
-let { hasUnopenedWeeklyTasks, hasUnseenWeeklyTasks } = require("unseenUnlocksState.nut")
-let { taskHeader, taskDescription, taskDescPadding, mkTaskLabel, weeklyTasksTitle
-} = require("%enlSqGlob/ui/taskPkg.nut")
-let { mkUnlockSlot, mkHideTrigger } = require("mkUnlockSlot.nut")
-let { userstatStats, unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
-let eliteBattlePassWnd = require("%enlist/battlepass/eliteBattlePassWnd.nut")
+let { receiveTaskRewards } = require("taskListState.nut")
+let { taskDescription, taskDescPadding, mkTaskLabel
+} = require("%enlSqGlob/ui/tasksPkg.nut")
+let { mkUnlockSlot } = require("mkUnlockSlots.nut")
+let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let { specialEvents, showNotActiveTaskMsgbox } = require("eventsTaskState.nut")
 let buyUnlockMsg = require("buyUnlockMsg.nut")
-let { isUnlockAvailable, getUnlockProgress, unlockProgress
+let { isUnlockAvailable, unlockProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
-let { PrimaryFlat, Purchase, soundDefault } = require("%ui/components/textButton.nut")
+let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
-let { sound_play } = require("%dngscripts/sound_system.nut")
-let profileScene = require("%enlist/profile/profileScene.nut")
-let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
 
-
-let mkRerollText = @(leftRerolls, totalRerolls) {
-  size = [sw(30), SIZE_TO_CONTENT]
-  halign = ALIGN_CENTER
-  rendObj = ROBJ_TEXTAREA
-  behavior = Behaviors.TextArea
-  color = defTxtColor
-  text = "\n".concat(
-    loc("unlocks/reroll/youCanReroll"),
-    loc("unlocks/reroll/info", {
-      left = leftRerolls
-      total = totalRerolls
-    }))
-}.__update(sub_txt)
-
-let function askForRerollConfirm(unlockDesc) {
-  msgbox.show({
-    text = loc("unlocks/reroll/askForConfirm")
-    buttons = [
-      { text = loc("Ok"), action = @() doRerollUnlock(unlockDesc) }
-      { text = loc("Cancel"), isCurrent = true, isCancel = true }
-    ]
-  })
-}
-
-let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
-  let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
-  let buttons = []
-  if (leftRerolls > 0)
-    buttons.append({
-      text = loc("btn/rerollUnlock")
-      action = @() askForRerollConfirm(unlockDesc)
-    })
-  buttons.append({ text = loc("Ok"), isCurrent = true, isCancel = true })
-
-  msgbox.showMessageWithContent({
-    content = {
-      flow = FLOW_VERTICAL
-      size = [sh(100), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      margin = [0,0,fsh(5),0]
-      gap = fsh(5)
-      children = [
-        taskHeader(unlockDesc, progress, true, 0, {
-          halign = ALIGN_CENTER
-        }.__update(body_txt))
-        taskDescription(unlockDesc.localization.description, 0, { halign = ALIGN_CENTER})
-        leftRerolls > 0 ? mkRerollText(leftRerolls, totalRerolls) : null
-      ]
-    }
-    buttons
-  })
-}
-
-local curTimeout = null
-
-let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
-  return {
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      halign = ALIGN_RIGHT
-      children = tasksList.value.map(@(tasks, taskStype) {
-          size = [flex(), SIZE_TO_CONTENT]
-          flow = FLOW_VERTICAL
-          children = tasks.map(function(task) {
-            let leftRerolls = getLeftRerolls(task, stats)
-            let totalRerolls = getTotalRerolls(task, stats)
-            let onClick = !task.hasReward ? @() openTaskMsgbox(task, leftRerolls, totalRerolls)
-              : canTakeReward
-                ? function() {
-                    if (curTimeout != null)
-                      return
-                    anim_start(mkHideTrigger(task))
-                    sound_play("ui/reward_receive")
-                    curTimeout = gui_scene.setTimeout(0.5, function() {
-                      curTimeout = null
-                      receiveTaskRewards(task)
-                    })
-                  }
-              : @() msgbox.show({
-                  text = loc("unlocks/dailyTasksLimitOnReward")
-                  buttons = [
-                    {
-                      text = loc("bp/buyBattlePass")
-                      action = eliteBattlePassWnd
-                    }
-                    { text = loc("Cancel"), isCancel = true}
-                  ]
-                })
-            return mkUnlockSlot({
-              task
-              onClick
-              hasWaitIcon = isRerollInProgress
-              rerolls = leftRerolls
-              rightObject = taskStype == "hardTasks"
-                ? mkTaskLabel("main_task_lable")
-                : mkTaskLabel()
-              hasShowAnim = true
-              canTakeReward
-            })
-          })
-        }
-      ).values()
-    }
-  }
-
-let function dailyTasksUi() {
-  let res = {
-    watch = [dailyTasksByDifficulty, canTakeDailyTaskReward, userstatStats]
-  }
-  let { easyTasks = [], hardTasks = [] } = dailyTasksByDifficulty.value
-  if (easyTasks.len() <= 0 && hardTasks.len() <= 0)
-    return res
-
-  let canTakeReward = canTakeDailyTaskReward.value
-  let stats = userstatStats.value?.stats
-  return res.__update({
-    size = [startBtnWidth, SIZE_TO_CONTENT]
-    flow = FLOW_VERTICAL
-    gap = bigPadding
-    children = mkDailyTasksBlock(dailyTasksByDifficulty, stats, canTakeReward)
-  })
-}
-
-let widgetStyle = {
-  size = [flex(), SIZE_TO_CONTENT]
-  behavior = Behaviors.Button
-  sound = soundDefault
-}
-
-let mkHoverBar = @(sf) sf & S_HOVER
-  ? {
-      rendObj = ROBJ_SOLID
-      size = flex()
-      color = defBgColor
-      animations = [{
-        prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true
-      }]
-    }
-  : null
-
-let weeklyUnseenSign = @() {
-  watch = [hasUnseenWeeklyTasks, hasUnopenedWeeklyTasks]
-  margin = bigPadding
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_CENTER
-  children = !hasUnseenWeeklyTasks.value ? null
-    : hasUnopenedWeeklyTasks.value ? smallUnseenBlink
-    : smallUnseenNoBlink
-}
-
-let weeklyTasksUi = @() {
-  watch = weeklyTasks
-  size = [startBtnWidth, SIZE_TO_CONTENT]
-  children = weeklyTasks.value.len() == 0 ? null
-    : watchElemState(@(sf) {
-        onClick = @() profileScene("weeklyTasks")
-        children = [
-          mkHoverBar(sf)
-          weeklyTasksTitle(sf)
-          weeklyUnseenSign
-        ]
-      }.__update(widgetStyle))
-}
 
 let btnHeight = hdpxi(46)
 let btnMinWidth = hdpxi(200)
+let waitingSpinner = spinner()
 
 let function mkBtnBuyTask(task) {
   let hasBlockedByRequirement = Computed(function() {
@@ -207,7 +34,7 @@ let function mkBtnBuyTask(task) {
     valign = ALIGN_CENTER
     halign = ALIGN_RIGHT
     children = hasBlockedByRequirement.value ? null
-      : purchaseInProgress.value?[task.name] ? spinner
+      : purchaseInProgress.value?[task.name] ? waitingSpinner
       : Purchase(loc("bp/Purchase"),
           @() buyUnlockMsg(task),
           {
@@ -225,7 +52,7 @@ let mkBtnReceiveReward = @(task) @() {
   size = [SIZE_TO_CONTENT, btnHeight]
   valign = ALIGN_CENTER
   halign = ALIGN_RIGHT
-  children = unlockRewardsInProgress.value?[task.name] ? spinner
+  children = unlockRewardsInProgress.value?[task.name] ? waitingSpinner
     : PrimaryFlat(loc("bp/getNextReward"),
         @() receiveTaskRewards(task),
         {
@@ -274,7 +101,6 @@ let function mkEventTask(task, taskPrice, idx, uProgress, isMainActive) {
               })
           : null
         rightObject = mkTaskLabel(isMain ? "main_task_lable" : null)
-        bgColor = defBgColor
       })
       {
         flow = FLOW_VERTICAL
@@ -320,7 +146,5 @@ let eventTasksUi = @(eventId) function() {
 }
 
 return {
-  dailyTasksUi
-  weeklyTasksUi
   eventTasksUi
 }

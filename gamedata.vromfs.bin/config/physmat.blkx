@@ -140,6 +140,37 @@ PhysMats{
     }
   }
 
+  brick_red{
+    bf_class:t="concrete"
+    color:c=255, 255, 0, 200
+    damage_k:r=0.3
+    sound_step_material:t="concrete"
+    sound_material:t="concrete"
+    is_solid:b=yes
+
+    vehicleSound{
+      concrete:r=1.0
+      collDesc:t="collConcrete"
+    }
+
+    bulletHole{
+      type:t="bullet_hole"
+      scale:r=0.7
+    }
+
+    billboardDecal{
+      type:t="brick_red_decal"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=0.95
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.2
+    }
+  }
+
   stone{
     bf_class:t="stone"
     color:c=255, 255, 0, 200
@@ -206,7 +237,207 @@ PhysMats{
     }
   }
 
+  wood_snow{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+  }
+
+  wood_fall{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+  }
+
+  wood_dead{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+  }
+
+  wood_palm{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=0.1
+    }
+  }
+
   wood_solid{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=15.0
+    }
+  }
+
+  wood_snow_solid{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=15.0
+    }
+  }
+
+  wood_fall_solid{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=15.0
+    }
+  }
+
+  wood_dead_solid{
+    bf_class:t="wood"
+    damage_k:r=0.3
+    sound_step_material:t="wood"
+    sound_material:t="wood"
+
+    vehicleSound{
+      concrete:r=0.5
+      collDesc:t="collWood"
+    }
+
+    billboardDecal{
+      type:t="wood_bullet_hole"
+      scale:r=4.0
+    }
+
+    damageModel{
+      ricochetAngleMult:r=1.5
+      ricochetAngle:r=60.0
+      ricochetCosinePower:r=2.0
+      ricochetCosineMult:r=0.6
+      armorThickness:r=15.0
+    }
+  }
+
+  wood_palm_solid{
     bf_class:t="wood"
     damage_k:r=0.3
     sound_step_material:t="wood"
@@ -891,7 +1122,7 @@ PhysMats{
   }
 
   bushes_fall{
-    bf_class:t="bushes_fall"
+    bf_class:t="bushes"
     sound_step_material:t="highgrass"
 
     softCollision{
@@ -904,7 +1135,7 @@ PhysMats{
   }
 
   bushes_snow{
-    bf_class:t="bushes_snow"
+    bf_class:t="bushes"
     sound_step_material:t="highgrass"
 
     softCollision{
@@ -917,7 +1148,7 @@ PhysMats{
   }
 
   bushes_dead{
-    bf_class:t="bushes_dead"
+    bf_class:t="bushes"
     sound_step_material:t="highgrass"
 
     softCollision{
@@ -930,7 +1161,7 @@ PhysMats{
   }
 
   bushes_palm{
-    bf_class:t="bushes_palm"
+    bf_class:t="bushes"
     sound_step_material:t="highgrass"
 
     softCollision{
@@ -1100,22 +1331,6 @@ InteractPropsList{
       en:b=no
     }
 
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
-      en:b=no
-    }
-
     barbwire{
       en:b=no
     }
@@ -1151,22 +1366,6 @@ InteractPropsList{
       en:b=no
     }
 
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
-      en:b=no
-    }
-
     barbwire{
       en:b=no
     }
@@ -1183,22 +1382,6 @@ InteractPropsList{
   climbAiRay{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 
@@ -1226,22 +1409,6 @@ InteractPropsList{
   gunRay{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 
@@ -1304,43 +1471,11 @@ InteractPropsList{
     bushes{
       en:b=no
     }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
-      en:b=no
-    }
   }
 
   aimRay{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 
@@ -1364,22 +1499,6 @@ InteractPropsList{
   cameraRay{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 
@@ -1518,22 +1637,6 @@ InteractPropsList{
     bushes{
       en:b=no
     }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
-      en:b=no
-    }
   }
 
   wheel{
@@ -1666,43 +1769,11 @@ InteractPropsList{
     bushes{
       en:b=no
     }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
-      en:b=no
-    }
   }
 
   spraySpawnerRay{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 
@@ -1730,22 +1801,6 @@ InteractPropsList{
   bombCraterCast{
 
     bushes{
-      en:b=no
-    }
-
-    bushes_fall{
-      en:b=no
-    }
-
-    bushes_snow{
-      en:b=no
-    }
-
-    bushes_dead{
-      en:b=no
-    }
-
-    bushes_palm{
       en:b=no
     }
 

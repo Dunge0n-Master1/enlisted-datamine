@@ -2,9 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let colors = require("%ui/style/colors.nut")
-let { bigPadding, titleTxtColor, defTxtColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, titleTxtColor, smallPadding, panelBgColor, bigPadding, defItemBlur,
+  darkPanelBgColor, disabledTxtColor, fullTransparentBgColor, colFull
+} = require("%enlSqGlob/ui/designConst.nut")
 let textInput = require("%ui/components/textInput.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
@@ -17,7 +17,7 @@ let { INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, ADD_TO_BLACKLIST, IN
   REJECT_INVITE, REMOVE_FROM_SQUAD, REMOVE_FROM_FRIENDS, PROMOTE_TO_LEADER, SHOW_USER_LIVE_PROFILE,
   REMOVE_FROM_BLACKLIST_PSN, REMOVE_FROM_BLACKLIST_XBOX
 } = require("contactActions.nut")
-let contactBlock = require("contactBlock.nut")
+let mkContactBlock = require("contactBlock.nut")
 let { Contact, getContactNick } = require("contact.nut")
 let { approvedUids, psnApprovedUids, xboxApprovedUids, friendsOnlineUids, requestsToMeUids,
   myRequestsUids, rejectedByMeUids, blockedUids, isInternalContactsAllowed
@@ -35,9 +35,9 @@ let checkbox = require("%ui/components/checkbox.nut")
 let hasFriendOnlineNotification = require("%enlist/contacts/onlineNotifications.nut")
 
 const CONTACTLIST_MODAL_UID = "contactsListWnd_modalUid"
-let contactListWidth = hdpx(300)
-let defTxtStyle = { color = defTxtColor }.__update(sub_txt)
-let headerTxtStyle = { color = titleTxtColor }.__update(body_txt)
+let contactListWidth = hdpx(400)
+let defTxtStyle = freeze({ color = defTxtColor }.__update(sub_txt))
+let headerTxtStyle = freeze({ color = titleTxtColor }.__update(body_txt))
 
 
 const APPROVED_TAB = "approved"
@@ -52,7 +52,8 @@ let searchPlayer = Watched("")
 
 let headerTxt = @(text) txt(text, {
   padding = [hdpx(2), fsh(1)]
-  behavior = [Behaviors.Marquee,Behaviors.Button]
+  behavior = [Behaviors.Marquee, Behaviors.Button]
+  skipDirPadNav = true
   size = [flex(), SIZE_TO_CONTENT]
   speed = hdpx(100)
   scrollOnHover = true
@@ -69,6 +70,7 @@ let function resetSearch() {
 }
 
 let closeButton = fontIconButton("close", {
+  skipDirPadNav = true
   onClick = function() {
     resetSearch()
     closeWnd()
@@ -84,17 +86,18 @@ let header = @() {
   valign = ALIGN_CENTER
   rendObj = ROBJ_SOLID
   padding = [bigPadding, bigPadding, bigPadding, windowPadding]
-  color = colors.WindowHeader
+  color = panelBgColor
   children = [
     {
       size = [flex(), SIZE_TO_CONTENT]
       rendObj = ROBJ_TEXT
-      color = colors.Inactive
+      color = disabledTxtColor
       text = userInfo.value?.nameorig == null
         ? loc("contactsHdr")
         : userInfo.value.nameorig
       clipChildren = true
       behavior = [Behaviors.Marquee, Behaviors.Button]
+      skipDirPadNav = true
       scrollOnHover = true
     }.__update(headerTxtStyle)
     closeButton
@@ -154,7 +157,7 @@ let searchBlock = @() {
 
 let counterText = @(count) count > 0 ? count : null
 let placeholder = txt(loc("contacts/list_empty"), {
-  color=colors.Inactive,
+  color = disabledTxtColor,
   margin = [fsh(1), windowPadding]
 }.__update(defTxtStyle))
 
@@ -254,7 +257,10 @@ let mkContactsGroupContent = @(groupKeys) function() {
         c.value.realnick.tolower().indexof(searchPlayerVal) != null)
 
     contactsArr = sortContacts(contactsArr, onlineStatus.value)
-      .map(@(contact) contactBlock(contact, contextMenuActions, inContactActions))
+      .map(@(contact) {
+        size = [flex(), colFull(1)]
+        children = mkContactBlock(contact, contextMenuActions, inContactActions)
+      })
 
     children.append(headerTxt(locByPlatform($"contacts/{name}")))
     if (contactsArr.len() == 0)
@@ -267,6 +273,11 @@ let mkContactsGroupContent = @(groupKeys) function() {
 
   return {
     watch
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      wrap = false
+      scrollToEdge = true
+    })
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     children
@@ -326,12 +337,13 @@ let tabsContent = {
   invites        = mkContactsGroupContent(invitesKeys)
 }
 
-let trackFriendsOnline = {
+let trackFriendsOnline = freeze({
   padding = smallPadding
   size = [flex(), SIZE_TO_CONTENT]
+  margin = [0, hdpx(5)]
   halign = ALIGN_CENTER
   children = checkbox(hasFriendOnlineNotification, loc("contacts/friendNotificaion"))
-}
+})
 
 let contactsBlock = @() {
   watch = display
@@ -339,18 +351,17 @@ let contactsBlock = @() {
   hplace = ALIGN_RIGHT
   vplace = ALIGN_BOTTOM
   rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = colors.WindowBlur
-  valign = ALIGN_BOTTOM
+  color = defItemBlur
   stopMouse = true
   key = "contactsBlock"
   onAttach = @() isContactsWndVisible(true)
   onDetach = @() isContactsWndVisible(false)
-  hotkeys = [[$"^{JB.B} | Esc", { action = clearOrExitWnd }]]
+  hotkeys = [[$"^{JB.B} | Esc", { action = clearOrExitWnd, description = loc("Close") }]]
 
   children = {
     size = flex()
     rendObj = ROBJ_SOLID
-    color = colors.WindowContacts
+    color = darkPanelBgColor
     flow = FLOW_VERTICAL
     children = [
       header
@@ -377,15 +388,16 @@ let btnContactsNav = @() {
   size = SIZE_TO_CONTENT
   children = isContactsManagementEnabled ? {
     hotkeys = [
-      ["^J:RB | Tab", {action = @() changeMode(1), description = loc("contacts/next_mode")} ],
       ["^J:LB | L.Shift Tab | R.Shift Tab", { action = @() changeMode(-1),
-        description=loc("contacts/prev_mode")} ]
+        description = loc("contacts/prev_list")} ],
+      ["^J:RB | Tab", {action = @() changeMode(1),
+        description = loc("contacts/next_list")} ]
     ]
   } : null
 }
 
 
-let popupBg = { rendObj = ROBJ_WORLD_BLUR_PANEL, fillColor = colors.ModalBgTint }
+let popupBg = { rendObj = ROBJ_WORLD_BLUR_PANEL, fillColor = fullTransparentBgColor }
 let function show(){
   if (!isContactsEnabled)
     return

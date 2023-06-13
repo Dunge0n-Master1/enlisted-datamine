@@ -2,6 +2,7 @@ require ecs
 require player
 require soundEvent
 
+
 [es(tag=sound, on_appear)]
 def vote_to_kick_start_sound(evt : Event; kick_voting__accused : EntityId)
   if get_local_player_eid() != kick_voting__accused

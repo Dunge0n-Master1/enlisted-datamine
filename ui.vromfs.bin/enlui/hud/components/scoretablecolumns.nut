@@ -98,9 +98,9 @@ let deserterIcon = @(playerData, sf) {
   padding = [hdpx(2), 0]
 }
 
-let getFramedNick = @(player)
+let getFramedNick = @(player, isGroupmate)
   frameNick( //TEMP FIX: Recieve already corrent name from server
-    remap_others(player.name),
+    remap_others(player.name, !isGroupmate),
     player?.decorators__nickFrame
   )
 
@@ -198,7 +198,7 @@ let function mkPlayerBattleIcon(playerData, isInteractive, sf, params) {
     return mkPlayerRank(playerData, isInteractive)
 
   let { isReplay = false } = params
-  if (!playerData.isAlly && !isReplay)
+  if ((!playerData.isAlly || playerData.isDeserter || playerData.disconnected) && !isReplay)
     return null
 
   return mkPlayerClass(playerData, isInteractive, sf)
@@ -284,7 +284,7 @@ let function openContextMenu(event, playerData, localPlayerEid, params) {
       action = @() complain(
         playerData.sessionId,
         playerUid,
-        getFramedNick(playerData.player)
+        getFramedNick(playerData.player, playerData.isGroupmate)
       )
     })
 
@@ -295,11 +295,14 @@ let countAssistActions = @(data)
   ( (data?["scoring_player__assists"] ?? 0)
   + (data?["scoring_player__tankKillAssists"] ?? 0)
   + (data?["scoring_player__planeKillAssists"] ?? 0)
+  + (data?["scoring_player__aiPlaneKillAssists"] ?? 0)
   + (data?["scoring_player__tankKillAssistsAsCrew"] ?? 0)
   + (data?["scoring_player__planeKillAssistsAsCrew"] ?? 0)
+  + (data?["scoring_player__aiPlaneKillAssistsAsCrew"] ?? 0)
   + (data?["scoring_player__crewKillAssists"] ?? 0)
   + (data?["scoring_player__crewTankKillAssists"] ?? 0)
   + (data?["scoring_player__crewPlaneKillAssists"] ?? 0)
+  + (data?["scoring_player__crewAiPlaneKillAssists"] ?? 0)
   + (data?["scoring_player__hostedOnSoldierSpawns"] ?? 0)
   + (data?["scoring_player__reviveAssists"] ?? 0)
   + (data?["scoring_player__healAssists"] ?? 0)
@@ -320,7 +323,9 @@ let countEngineerActions = @(data)
   + (data?["scoring_player__builtGunTankKills"] ?? 0)
   + (data?["scoring_player__builtGunTankKillAssists"] ?? 0)
   + (data?["scoring_player__builtGunPlaneKills"] ?? 0)
+  + (data?["scoring_player__builtGunAiPlaneKills"] ?? 0)
   + (data?["scoring_player__builtGunPlaneKillAssists"] ?? 0)
+  + (data?["scoring_player__builtGunAiPlaneKillAssists"] ?? 0)
   + (data?["scoring_player__builtBarbwireActivations"] ?? 0)
   + (data?["scoring_player__builtCapzoneFortificationActivations"] ?? 0)
   + (data?["scoring_player__builtAmmoBoxRefills"] ?? 0) )
@@ -332,7 +337,7 @@ let countCapzoneKills = @(data)
 let mkPlayerName = @(playerData, stateFlags) {
   children = [
     rowText(
-      getFramedNick(playerData.player),
+      getFramedNick(playerData.player, playerData.isGroupmate),
       SIZE_TO_CONTENT,
       playerData,
       stateFlags
@@ -429,7 +434,8 @@ let COLUMN_VEHICLE_KILLS = {
   headerIcon = "ui/skin#kills_technics_icon.svg"
   locId = "scoring/killsVehicles"
   mkContent = @(playerData, _params, _idx) rowText((playerData.player?["scoring_player__tankKills"] ?? 0)
-    + (playerData.player?["scoring_player__planeKills"] ?? 0), flex(), playerData)
+    + (playerData.player?["scoring_player__planeKills"] ?? 0)
+    + (playerData.player?["scoring_player__aiPlaneKills"] ?? 0), flex(), playerData)
 }
 let COLUMN_ASSISTS = {
   width = NUM_COL_WIDTH

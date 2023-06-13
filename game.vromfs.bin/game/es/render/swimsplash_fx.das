@@ -16,6 +16,7 @@ def swim_spash_fx_on_appear(evt : Event;
                             var swimsplash__nodeIds : IntList;
                             var swimsplash__prevPositions : Point3List;
                             var swimsplash__timeSinceLastSplashes : FloatList)
+  reserve(swimsplash__prevPositions, length(capsule_approximation.capsuleDatas) + 1) // reserve bytes for safe v_ldu
   for capsule in capsule_approximation.capsuleDatas
     push(swimsplash__nodeIds, capsule.nodeIndex)
     push(swimsplash__prevPositions, geomtree_getNodeWpos(*animchar.nodeTree, capsule.nodeIndex))

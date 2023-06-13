@@ -7,9 +7,11 @@ let { portraits, nickFrames } = require("%enlSqGlob/ui/decoratorsPresentation.nu
 let { medalsPresentation } = require("%enlist/profile/medalsPresentation.nut")
 let { accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
+let { darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { mkRadialGradientImg } = require("%darg/helpers/mkGradientImg.nut")
+let { mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
 
-
-let rewardBgSizePx = [170, 210]
+let rewardBgSizePx = [hdpx(170), hdpx(210)]
 let rewardWidthToHeight = rewardBgSizePx[0].tofloat() / rewardBgSizePx[1]
 
 let mkSizeByParent = @(size) [pw(100.0 * size[0] / rewardBgSizePx[0]), ph(100.0 * size[1] / rewardBgSizePx[1])]
@@ -107,9 +109,29 @@ let function mkReward(reward, pName = "") {
   return null
 }
 
+let goldRadialGradient = {
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = mkRadialGradientImg({
+    width = 16
+    height = 16
+    points = [
+      { color = [0xFA, 0xD9, 0x7A] }
+      { color = [0xC3, 0xAA, 0x5C] }
+    ]
+  })
+}
+
+let goldVerticalGradient = freeze({
+  rendObj = ROBJ_IMAGE
+  size = flex()
+  image = mkColoredGradientY({colorTop=0xFFFAD97A, colorBottom=0xFF7D6D3D})
+})
+
 let defRewardPresentation = {
   cardImage = "ui/skin#rewards/crate_small_1.avif"
   cardImageParams = mkImageParams([240, 240])
+  cardImageOpen = "ui/skin#rewards/crate_small_1_open.avif"
 }
 
 let rewardsPresentation = {
@@ -1106,14 +1128,22 @@ let rewardsPresentation = {
   ["every_day_award_small_pack"] = defRewardPresentation.__merge({
     name = loc("smallTrophyTitle_2")
     cardImage = "ui/skin#rewards/crate_small_2.avif"
+    cardImageOpen = "ui/skin#rewards/crate_small_2_open.avif"
   }),
   ["every_day_award_medium_pack"] = defRewardPresentation.__merge({
     name = loc("mediumTrophyTitle_1")
     cardImage = "ui/skin#rewards/crate_medium_1.avif"
+    cardImageOpen = "ui/skin#rewards/crate_medium_1_open.avif"
   }),
   ["every_day_award_big_pack"] = defRewardPresentation.__merge({
     name = loc("bigTrophyTitle_1")
     cardImage = "ui/skin#rewards/crate_big_1.avif"
+    cardImageOpen = "ui/skin#rewards/crate_big_1_open.avif"
+    background = goldRadialGradient
+    progressConfig = {
+      textColor = darkTxtColor
+      background = goldVerticalGradient
+    }
   })
 }
 

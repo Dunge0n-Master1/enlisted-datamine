@@ -1,14 +1,50 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { is_xboxone_X, is_xbox_scarlett, isXboxScarlett, is_xboxone_s, is_xbox_anaconda,
-  is_ps4_simple, is_ps4_pro, is_ps5 } = require("%dngscripts/platform.nut")
+let { is_xbox, is_xboxone, is_xboxone_X, is_xbox_scarlett, isXboxScarlett, is_xboxone_s, is_xbox_anaconda,
+  is_ps4_simple, is_ps4_pro, is_ps5, is_ps4, is_console } = require("%dngscripts/platform.nut")
 let { loc_opt, optionSpinner, optionCtor } = require("%ui/hud/menus/options/options_lib.nut")
 
 let { resolutionToString } = require("%ui/hud/menus/options/render_options.nut")
 let { resolutionList } = require("%ui/hud/menus/options/resolution_state.nut")
 let { get_setting_by_blk_path } = require("settings")
-let { ConsolePresetBlkPath, consoleGraphicsPreset, consoleGraphicsPresetUpdate, forceGraphicPreset, availableGraphicPresets,
-  XB1_MODE_CHANGE_ENABLED } = require("%ui/hud/menus/options/quality_preset_console_common.nut")
+
+let { get_arg_value_by_name, DBGLEVEL } = require("dagor.system")
+let { globalWatched } = require("%dngscripts/globalState.nut")
+
+const ConsolePresetBlkPath = "graphics/consolePreset"
+let XB1_MODE_CHANGE_ENABLED = (is_xboxone && !is_xboxone_X) ? false : true
+
+local availableGraphicPresets = ["HighFPS"]
+if (is_xbox) {
+  if (is_xboxone_s && DBGLEVEL > 0)
+    availableGraphicPresets = ["UltraHighFPS", "HighFPS"]
+  else if (XB1_MODE_CHANGE_ENABLED)
+    availableGraphicPresets = [ "HighFPS", "HighQuality" ]
+  else
+    availableGraphicPresets = [ "HighFPS" ]
+}
+else if (is_ps4)
+  availableGraphicPresets = [ "HighFPS" ]
+else if (is_ps5)
+  availableGraphicPresets = [ "HighFPS", "HighQuality" ]
+
+local forceGraphicPreset = is_console ? get_arg_value_by_name("graphicPreset") : null
+if (forceGraphicPreset != null) {
+  if (availableGraphicPresets.contains(forceGraphicPreset)) {
+    log("force graphic preset {0}".subst(forceGraphicPreset))
+    availableGraphicPresets = [forceGraphicPreset]
+  }
+  else {
+    log("unknown graphic preset {0}, allowed presets: {1}".subst(forceGraphicPreset), availableGraphicPresets)
+    forceGraphicPreset = null
+  }
+}
+
+
+let { consoleGraphicsPreset, consoleGraphicsPresetUpdate } = globalWatched("consoleGraphicsPreset",
+  @() get_setting_by_blk_path(ConsolePresetBlkPath) ?? availableGraphicPresets[0])
+
+wlog(consoleGraphicsPreset, "consoleGraphicsPreset")
 
 const hfps_anisotropy = 2
 const hq_anisotropy = 4
@@ -92,6 +128,12 @@ let optPSGraphicsPreset = optionCtor({
 })
 
 return {
+  ConsolePresetBlkPath
+  consoleGraphicsPreset
+  consoleGraphicsPresetUpdate
+  forceGraphicPreset
+  availableGraphicPresets
+  XB1_MODE_CHANGE_ENABLED
   optXboxGraphicsPreset
   optPSGraphicsPreset
 }

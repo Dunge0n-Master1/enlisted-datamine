@@ -1,18 +1,20 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let {Alert,Inactive} = require("%ui/style/colors.nut")
+let { defTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let { isMailboxVisible, unreadNum, hasUnread
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let {sound_play} = require("%dngscripts/sound_system.nut")
-let squareIconButton = require("%enlist/components/squareIconButton.nut")
+let { FAFlatButton } = require("%ui/components/txtButton.nut")
 let mailboxWndOpen = require("mailboxBlock.nut")
 let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
+let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 
 let animsCounter = [
   {prop = AnimProp.scale from =[3.0, 3.0] to = [1.0,1.0]  duration = 0.5 trigger="new_mail" easing = OutCubic}
 ]
 let soundNewMail = "ui/enlist/notification"
+let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
 
 let function readNumCounter(){
   let num = unreadNum.value
@@ -41,25 +43,24 @@ unreadNum.subscribe(function(v) {
   prevUnread = v
 })
 
-return function() {
-  return {
-    watch = [hasUnread, isMailboxVisible]
-    children = [
-      squareIconButton({
-        onClick = mailboxWndOpen
-        tooltipText = loc("tooltips/invites")
-        iconId = "flag"
-        selected = isMailboxVisible
-        key = hasUnread.value
-        animations = hasUnread.value
-          ? [{prop = AnimProp.scale, from =[1.0, 1.0], to = [1.1, 1.1], duration = 1.3, loop = true, play = true, easing = CosineFull }]
-          : null
-      }, {
-        animations = hasUnread.value
-          ? [{prop = AnimProp.color, from = Inactive, to = Alert, duration = 1.3, loop = true, play = true, easing = CosineFull }]
-          : null
-      })
-      readNumCounter
-    ]
-  }
+let hoverHint = {
+  rendObj = ROBJ_TEXT
+  text = loc("tooltips/invites")
+}.__update(hintTxtStyle)
+
+return @() {
+  watch = [hasUnread, isMailboxVisible]
+  children = [
+    FAFlatButton("flag", mailboxWndOpen, {
+      hint = hoverHint
+      selected = isMailboxVisible
+      btnWidth = navBottomBarHeight
+      btnHeight = navBottomBarHeight
+      key = hasUnread.value
+      animations = hasUnread.value
+        ? [{prop = AnimProp.scale, from =[1.0, 1.0], to = [1.1, 1.1], duration = 1.3, loop = true, play = true, easing = CosineFull }]
+        : null
+    })
+    readNumCounter
+  ]
 }

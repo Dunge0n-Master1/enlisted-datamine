@@ -178,7 +178,7 @@ smle_mk3_bayonet_item{
 armaguerra_mod_39_gun_item{
   _extends:t="item_gun"
   _extends:t="armaguerra_mod_39"
-  collres__res:t="scotti_model_x_collision"
+  collres__res:t="armaguerra_mod_39_collision"
 }
 
 beretta_m31_gun_item{

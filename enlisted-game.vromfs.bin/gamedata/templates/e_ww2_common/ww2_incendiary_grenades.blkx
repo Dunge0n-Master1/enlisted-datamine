@@ -60,7 +60,7 @@ white_phosphorus_damage_zone{
   dm__damageTypeId:i=-1
   dmgzone__shellId:i=-1
   dmgzone__gunPropsId:i=-1
-  sphere_zone__radius:r=5.2
+  sphere_zone__radius:r=3.4
   game_effect__timeToDestroy:r=8.0
   game_effect__destroyAt:r=-1.0
 
@@ -90,7 +90,7 @@ incendiary_grenade_fire{
 incendiary_grenade_spread{
   _extends:t="explosion_spread"
   explosion_spread__traceCount:i=5
-  explosion_spread__length:p2=2.0, 12.0
+  explosion_spread__length:p2=2.0, 8.0
   explosion_spread__downLengthMult:r=1.75
   explosion_spread__createOnTrace:t="incendiary_grenade_fire"
   explosion_spread__staticDir:p3=0.0, 1.0, 0.0

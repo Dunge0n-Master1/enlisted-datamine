@@ -46,6 +46,11 @@ repeat{
     treeName:t="sub.bombEscape"
   }
 
+  setIntVar{
+    to:t="coverAttack"
+    value:i=0
+  }
+
   orderedSelector{
 
     orderedSelector{
@@ -65,8 +70,23 @@ repeat{
           tag:t="human"
         }
 
+        getTime{
+          to:t="enemyNearTime"
+        }
+
         subTree{
           treeName:t="sub.oneShootAttack"
+        }
+      }
+
+      failed{
+
+        sequencer{
+
+          decreaseDangerLevel{
+            paramName:t="dangerLevel"
+            decreaseCoef:r=0.5
+          }
         }
       }
     }

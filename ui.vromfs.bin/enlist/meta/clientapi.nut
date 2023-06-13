@@ -1,25 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let eventbus = require("eventbus")
 let servProfile = require("servProfile.nut")
 let rand = require("%sqstd/rand.nut")()
 let { updateAllConfigs } = require("%enlist/meta/configs.nut")
 let { serverTimeUpdate } = require("%enlSqGlob/userstats/serverTimeUpdate.nut")
 let { get_time_msec } = require("dagor.time")
+let { doRequest } = require("%enlist/profileServer/profileServer.nut")
 let { logerr } = require("dagor.debug")
 let logApi = require("%enlSqGlob/library_logs.nut").with_prefix("[ClientApi] ")
 
 const MAX_REQUESTS_HISTORY = 20
 const LONG_TIME = 100 // threshold for long requests and calls logging
+
 let requestData = persist("requestData", @() { id = rand.rint(), callbacks = {}})
 let debugDelay = mkWatched(persist, "debugDelay", 0)
 let lastRequests = mkWatched(persist, "lastRequests", [])
 
 let diffTime = @(time) get_time_msec() - time
 
-let function handleMessages(msg) {
-  let result = clone msg.data?.result
-  let idStr = msg.id
+let function handleMessages(msg, idStr) {
+  let result = clone msg?.result
   let cb = idStr in requestData.callbacks ? delete requestData.callbacks[idStr] : null
   local reqTime = 0
   local method
@@ -41,7 +41,8 @@ let function handleMessages(msg) {
   })
 
   if (!result) {
-    let errorStr = msg.data?.error.message ?? "unknown error"
+    let errorStr = msg?.error.message ?? "unknown error"
+    console_print(errorStr)
     if (cb)
       cb({ error = errorStr })
     return
@@ -120,7 +121,7 @@ let function handleMessages(msg) {
   }
 }
 
-eventbus.subscribe("profile_srv.response", handleMessages)
+let cleanKeys = ["method", "params", "token"]
 
 let function requestImpl(data, cb = null) {
   let idStr = (++requestData.id).tostring()
@@ -133,7 +134,10 @@ let function requestImpl(data, cb = null) {
     v.append({ id = idStr, request = data, reqTime = get_time_msec() })
   })
 
-  eventbus.send("profile_srv.request", {id = idStr, data})
+  let { method, params = null, token = null } = data
+  let args = clone data
+  cleanKeys.each(@(key) key in args ? delete args[key] : null)
+  doRequest(method, params, args, idStr, handleMessages, token)
 }
 
 local request = requestImpl
@@ -169,139 +173,124 @@ return {
 
   get_userlogs = @(timestamp = 0, cb = null, token = null) request({
     method = "get_userlogs"
-    token = token
-    params = { timestamp }}, cb)
+    token
+    params = { timestamp }
+  }, cb)
 
   equip_item = @(target, item, slot, index, cb = null) request({
     method = "equip_item"
-    params = {
-      target = target
-      item = item
-      slot = slot
-      index = index ?? -1
-  }}, cb)
+    params = { target, item, slot, index = index ?? -1 }
+  }, cb)
 
   equip_by_list = @(target, equipList, cb = null) request({
     method = "equip_by_list"
-    params = { target = target, equipList = equipList }
+    params = { target, equipList }
   }, cb)
 
-  set_soldier_to_squad = @(soldier, ind, squad) request({
-    method = "set_soldier_to_squad"
-    params = {soldier = soldier, ind=ind, squad=squad}
-  })
-
-  swap_soldiers_equipment = @(soldierAGuid, soldierBGuid, cb = null) request({
+  swap_soldiers_equipment = @(soldierAGuid, soldierBGuid) request({
     method = "swap_soldiers_equipment"
     params = { soldierAGuid, soldierBGuid }
-  }, cb)
+  })
 
   set_vehicle_to_squad = @(vehicle, squad)  request({
     method = "set_vehicle_to_squad"
-    params = {vehicle = vehicle, squad=squad}
+    params = { vehicle, squad }
   })
 
-  set_squad_order = @(armyId, orderedGuids, cb = null) request({
+  set_squad_order = @(armyId, orderedGuids) request({
     method = "set_squad_order"
-    params = {armyId = armyId, orderedGuids = orderedGuids}
-  }, cb)
+    params = { armyId, orderedGuids }
+  })
 
-  rent_squad = @(armyId, squadId, rentTime, price, cb = null) request({
+  rent_squad = @(armyId, squadId, rentTime, price) request({
     method = "rent_squad"
     params = { armyId, squadId, rentTime, price }
-  }, cb)
+  })
 
-  set_soldier_order = @(squad, orderedGuids, cb = null)  request({
+  // UNUSED
+  set_soldier_order = @(squad, orderedGuids)  request({
     method = "set_soldier_order"
-    params = {squad = squad, orderedGuids = orderedGuids}
-  }, cb)
+    params = { squad, orderedGuids }
+  })
 
+  // UNUSED
   set_reserve_order = @(armyId, orderedGuids, cb = null) request({
     method = "set_reserve_order"
-    params = {armyId = armyId, orderedGuids = orderedGuids}
+    params = { armyId, orderedGuids }
   }, cb)
 
   manage_squad_soldiers = @(armyId, squadGuid, squadSoldiers, reserveSoldiers, cb = null) request({
     method = "manage_squad_soldiers"
-    params = {
-      armyId = armyId, squadGuid = squadGuid,
-      squadSoldiers = squadSoldiers, reserveSoldiers = reserveSoldiers
-    }
+    params = { armyId, squadGuid, squadSoldiers, reserveSoldiers }
   }, cb)
+
   dismiss_reserve_soldier = @(armyId, soldierGuid, cb = null) request({
     method = "dismiss_reserve_soldier"
-    params = { armyId = armyId, soldierGuid = soldierGuid }
+    params = { armyId, soldierGuid }
   }, cb)
 
   swap_items = @(soldier1, slot1, index1, soldier2, slot2, index2, cb = null) request({
     method = "swap_items"
-    params = {
-        soldier1 = soldier1,
-        slot1 = slot1,
-        index1 = index1 ?? -1,
-        soldier2 = soldier2,
-        slot2 = slot2,
-        index2 = index2 ?? -1
-    }
+    params = { soldier1, slot1, index1 = index1 ?? -1, soldier2, slot2, index2 = index2 ?? -1 }
   }, cb)
 
-  drop_items = @(armyId, crateId, cb = null) request({
+  drop_items = @(armyId, crateId) request({
     method = "drop_items"
     params = { armyId, crateId }
-  }, cb)
+  })
 
   get_crates_content = @(armyId, crates, cb) request({
     method = "get_crates_content"
-    params = { armyId = armyId, crates = crates }
+    params = { armyId, crates }
   }, cb)
 
-  add_squad = @(armyId, squadId, cb = null) request({
+  add_squad = @(armyId, squadId) request({
     method = "add_squad"
     params = { armyId, squadId }
-  }, cb)
+  })
 
-  remove_squad = @(guid, cb = null) request({
+  remove_squad = @(squadId) request({
     method = "remove_squad"
-    params = { guid }
-  }, cb)
+    params = { squadId }
+  })
 
-  add_all_squads = @(cb = null) request({
+  add_all_squads = @() request({
     method = "add_all_squads"
-  }, cb)
+  })
 
-  add_soldier = @(armyId, sClass, tier, cb = null) request({
+  add_soldier = @(armyId, sClass, tier) request({
     method = "add_soldier"
     params = { armyId, sClass, tier }
-  }, cb)
+  })
 
-  add_items = @(armyId, itemTmpl, count, cb = null) request({
+  add_items = @(armyId, itemTmpl, count) request({
     method = "add_items"
     params = { armyId, itemTmpl, count }
-  }, cb)
+  })
 
   remove_item = @(itemGuid, count = 1) request({
     method = "remove_item"
     params = { itemGuid, count }
   })
 
-  add_items_by_type = @(armyId, itemTypes, count, cb = null) request({
+  add_items_by_type = @(armyId, itemTypes, count) request({
     method = "add_items_by_type"
     params = { armyId, itemTypes, count }
-  }, cb)
+  })
 
   add_army_exp = @(armyId, exp, cb) request({
     method = "add_army_exp"
-    params = { armyId = armyId, exp = exp }
+    params = { armyId, exp }
   }, cb)
 
   buy_army_exp = @(armyId, exp, cost, cb = null) request({
     method = "buy_army_exp"
-    params = { armyId = armyId, exp = exp, cost = cost }
+    params = { armyId, exp, cost }
   }, cb)
 
   buy_squad_exp = @(armyId, squadId, exp, cost, cb = null) request({
     method = "buy_squad_exp"
-    params = { armyId = armyId, squadId = squadId, exp = exp, cost = cost }
+    params = { armyId, squadId, exp, cost }
   }, cb)
 
   use_soldier_levelup_orders = @(guid, barterData, cb = null) request({
@@ -311,23 +300,23 @@ return {
 
   buy_soldier_exp = @(guid, exp, cost, cb = null) request({
     method = "buy_soldier_exp"
-    params = { guid = guid, exp = exp, cost = cost }
+    params = { guid, exp, cost }
   }, cb)
 
   buy_soldier_max_level = @(guid, cost, cb = null) request({
     method = "buy_soldier_max_level"
-    params = { guid = guid, cost = cost }
+    params = { guid, cost }
   }, cb)
 
   unlock_squad = @(armyId, squadId, cb) request({
     method = "unlock_squad"
-    params = { armyId = armyId, squadId = squadId }
+    params = { armyId, squadId }
   }, cb)
 
-  get_army_level_reward = @(armyId, unlockGuid, cb = null) request({
+  get_army_level_reward = @(armyId, unlockGuid) request({
     method = "get_army_level_reward"
-    params = { armyId = armyId, unlockGuid = unlockGuid }
-  }, cb)
+    params = { armyId, unlockGuid }
+  })
 
   barter_shop_items = @(armyId, shopItemGuid, payItems, count, cb = null) request({
     method = "barter_shop_items"
@@ -351,7 +340,6 @@ return {
 
   update_offers = @(cb = null) request({
     method = "update_offers"
-    params = {}
   }, cb)
 
   buy_shop_offer = @(armyId, shopItemGuid, currencyId, price, offerGuid = "", cb = null) request({
@@ -364,10 +352,10 @@ return {
     params = { shopId }
   }, cb)
 
-  transfer_item = @(itemGuid, armyId, cb = null) request({
+  transfer_item = @(itemGuid, armyId) request({
     method = "transfer_item"
     params = { itemGuid, armyId }
-  }, cb)
+  })
 
   use_transfer_item_order_count = @(itemGuidsTbl, armyId, orders, cb = null) request({
     method = "use_transfer_item_order_count"
@@ -376,23 +364,20 @@ return {
 
   reset_profile = @(cb) request({
     method = "reset_profile"
-    params = {}
   }, cb)
 
-  soldiers_regenerate_view = @(cb = null) request({
+  soldiers_regenerate_view = @() request({
     method = "soldiers_regenerate_view"
-    params = {}
-  }, cb)
+  })
 
-  reset_mutations_timestamp = @(cb = null) request({
+  reset_mutations_timestamp = @() request({
     method = "reset_mutations_timestamp"
-    params = {}
-  }, cb)
+  })
 
-  apply_profile_mutation = @(key, cb = null) request({
+  apply_profile_mutation = @(key) request({
     method = "apply_profile_mutation"
     params = { key }
-  }, cb)
+  })
 
   soldier_train = @(guid, steps, cb = null) request({
     method = "soldier_train"
@@ -406,7 +391,7 @@ return {
 
   add_exp_to_soldiers = @(list, cb) request({
     method = "add_exp_to_soldiers"
-    params = { list = list }
+    params = { list }
   }, cb)
 
   add_perk_points = @(guid, count, cb = null) request({
@@ -416,32 +401,32 @@ return {
 
   get_perks_choice = @(soldierGuid, tierIdx, slotIdx, cb) request({
     method = "get_perks_choice"
-    params = { soldierGuid = soldierGuid, tierIdx = tierIdx, slotIdx = slotIdx }
+    params = { soldierGuid, tierIdx, slotIdx }
   }, cb)
 
   choose_perk = @(soldierGuid, tierIdx, slotIdx, perkId, cb) request({
     method = "choose_perk"
-    params = { soldierGuid = soldierGuid, tierIdx = tierIdx, slotIdx = slotIdx, perkId = perkId }
+    params = { soldierGuid, tierIdx, slotIdx, perkId }
   }, cb)
 
   change_perk_choice = @(soldierGuid, tierIdx, slotIdx, cost, cb) request({
     method = "change_perk_choice"
-    params = { soldierGuid = soldierGuid, tierIdx = tierIdx, slotIdx = slotIdx, cost = cost }
+    params = { soldierGuid, tierIdx, slotIdx, cost }
   }, cb)
 
   drop_perk = @(soldierGuid, tierIdx, slotIdx) request({
     method = "drop_perk"
-    params = { soldierGuid = soldierGuid, tierIdx = tierIdx, slotIdx = slotIdx }
+    params = { soldierGuid, tierIdx, slotIdx }
   }, null)
 
-  add_army_squad_exp_by_id = @(armyId, exp, squadId, cb = null) request({
+  add_army_squad_exp_by_id = @(armyId, exp, squadId) request({
     method = "add_army_squad_exp_by_id"
-    params = { armyId = armyId, exp = exp, squadId = squadId }
-  }, cb)
+    params = { armyId, exp, squadId }
+  })
 
   do_research = @(armyId, researchId, cb = null) request({
     method = "research"
-    params = {armyId = armyId, researchId = researchId}
+    params = { armyId, researchId }
   }, cb)
 
   change_research = @(armyId, researchFrom, researchTo, payItems, cb = null) request({
@@ -454,19 +439,19 @@ return {
     params = { armyId, researchFrom, researchTo, cost }
   }, cb)
 
-  upgrade_items_count = @(guidsTbl, sacrificeItems, cb = null) request({
+  upgrade_items_count = @(itemData, sacrificeItems, cb = null) request({
     method = "upgrade_items_count"
-    params = { itemData = guidsTbl, sacrificeItems }
+    params = { itemData, sacrificeItems }
   }, cb)
 
-  dispose_items_count = @(guidsTbl, cb = null) request({
+  dispose_items_count = @(itemData, cb = null) request({
     method = "dispose_items_count"
-    params = { itemData = guidsTbl }
+    params = { itemData }
   }, cb)
 
   gen_perks_points_statistics = @(tier, count, genId, cb) request({
     method = "gen_perks_points_statistics"
-    params = {tier = tier, count = count, genId = genId }
+    params = { tier, count, genId }
   }, cb)
 
   get_profile_data_jwt = @(armies, cb) request({
@@ -477,73 +462,67 @@ return {
 
   gen_default_profile = @(target, armies, cb) request({
     method = "gen_default_profile"
-    params = {target = target, armies = armies}
+    params = { target, armies }
     timeout_factor = 4.0
   }, cb)
 
   gen_tutorial_profiles = @(cb) request({
     method = "gen_tutorial_profiles"
-    params = {}
   }, cb)
 
+  // UNUSED
   get_info_for_matching_jwt = @(cb) request({
     method = "get_info_for_matching_jwt"
-    params = {}
   }, cb)
 
   mark_as_seen = @(itemsGuids, soldiersGuids = [], cb = null) request({
     method = "mark_as_seen"
-    params = {itemsGuids = itemsGuids, soldiersGuids = soldiersGuids}
+    params =  { itemsGuids, soldiersGuids }
   }, cb)
 
-  reward_single_player_mission = @(missionId, armyId, squads, soldiers, cb = null) request({
+  reward_single_player_mission = @(missionId, armyId, squads, soldiers) request({
     method = "reward_single_player_mission"
-    params = {
-      missionId = missionId,
-      armyId = armyId,
-      squads = squads,
-      soldiers = soldiers
-    }
-  }, cb)
+    params = { missionId, armyId, squads, soldiers }
+  })
 
-  premium_add = @(durationSec, cb = null) request({
+  premium_add = @(duration) request({
     method = "premium_add"
-    params = { duration = durationSec }
-  }, cb)
+    params = { duration }
+  })
 
-  premium_remove = @(durationSec, cb = null) request({
+  premium_remove = @(duration) request({
     method = "premium_remove"
-    params = { duration = durationSec }
-  }, cb)
+    params = { duration }
+  })
 
-  use_callname_change_order = @(soldierGuid, callname, ticket, cb = null) request({
+  use_callname_change_order = @(guid, callname, ticket, cb = null) request({
     method = "use_callname_change_order"
-    params = { guid = soldierGuid, callname, ticket }
+    params = { guid, callname, ticket }
   }, cb)
 
-  buy_callname_change = @(soldierGuid, callname, cost, cb = null) request({
+  buy_callname_change = @(guid, callname, cost, cb = null) request({
       method = "buy_callname_change"
-      params = { guid = soldierGuid, callname, cost }
+      params = { guid, callname, cost }
   }, cb)
 
-  appearance_change = @(soldierGuid, cb = null) request({
+  appearance_change = @(guid, cb = null) request({
     method = "appearance_change"
-    params = { guid = soldierGuid }
+    params = { guid }
   }, cb)
 
-  use_appearance_change_order = @(soldierGuid, ticket, cb = null) request({
+  use_appearance_change_order = @(guid, ticket, cb = null) request({
     method = "use_appearance_change_order"
-    params = { guid = soldierGuid, ticket }
+    params = { guid, ticket }
   }, cb)
 
-  buy_appearance_change = @(soldierGuid, cost, cb = null) request({
+  buy_appearance_change = @(guid, cost, cb = null) request({
       method = "buy_appearance_change"
-      params = { guid = soldierGuid, cost }
+      params = { guid, cost }
   }, cb)
 
-  inventory_add_item = @(itemdef) request({
+  inventory_add_item = @(itemdef, quantity = 1) request({
     method = "inventory_add_item"
-    params = { itemdef, quantity = 1 }
+    params = { itemdef, quantity }
   })
 
   gen_testdrive_squad_profile_jwt = @(armyId, squadId, shopItemGuid, cb) request({
@@ -551,30 +530,29 @@ return {
     params = { armyId, squadId, shopItemGuid }
   }, cb)
 
-  choose_decorator = @(cType, guid, cb = null) request({
+  choose_decorator = @(cType, guid) request({
     method = "choose_decorator"
     params = { cType, guid }
-  }, cb)
+  })
 
   buy_decorator = @(guid, cost, cb = null) request({
     method = "buy_decorator"
     params = { guid, cost }
   }, cb)
 
-  add_decorator = @(guid, lifeTime = 0, cb = null) request({
+  add_decorator = @(guid, lifeTime = 0) request({
     method = "add_decorator"
     params = { guid, lifeTime }
-  }, cb)
+  })
 
-  add_all_decorators = @(cb = null) request({
+  add_all_decorators = @() request({
     method = "add_all_decorators"
-    params = {}
-  }, cb)
+  })
 
-  add_veh_decorators = @(cType, id, cb = null) request({
+  add_veh_decorators = @(cType, id) request({
     method = "add_veh_decorators"
     params = { cType, id }
-  }, cb)
+  })
 
   apply_decorator = @(guid, vehGuid, cType, details, slot, cb = null) request({
     method = "apply_decorator"
@@ -591,30 +569,30 @@ return {
     params = { decorators, vehGuid, cost }
   }, cb)
 
-  mark_decorators_as_seen = @(guids, cb = null) request({
+  mark_decorators_as_seen = @(guids) request({
     method = "mark_decorators_as_seen"
     params = { guids }
-  }, cb)
+  })
 
-  mark_veh_decorators_as_seen = @(guids, cb = null) request({
+  mark_veh_decorators_as_seen = @(guids) request({
     method = "mark_veh_decorators_as_seen"
     params = { guids }
-  }, cb)
+  })
 
-  add_medal = @(id, cb = null) request({
+  add_medal = @(id) request({
     method = "add_medal"
     params = { id }
-  }, cb)
+  })
 
-  mark_medals_as_seen = @(guids, cb = null) request({
+  mark_medals_as_seen = @(guids) request({
     method = "mark_medals_as_seen"
     params = { guids }
-  }, cb)
+  })
 
-  mark_wallposters_as_seen = @(guids, cb = null) request({
+  mark_wallposters_as_seen = @(guids) request({
     method = "mark_wallposters_as_seen"
     params = { guids }
-  }, cb)
+  })
 
   debug_apply_booster_in_battle = @(battleBoosters) request({
     method = "debug_apply_booster_in_battle"

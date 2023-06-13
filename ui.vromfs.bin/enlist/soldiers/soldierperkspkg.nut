@@ -30,7 +30,7 @@ let { mkCurrency } = require("%enlist/currency/currenciesComp.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { soldierTrainingInProgress, trainSoldier
 } = require("%enlist/soldiers/model/trainState.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(40) })
+let spinner = require("%ui/components/spinner.nut")
 let { TRAINING_ORDER, trainingPrices, getTrainingPrice, maxTrainByClass
 } = require("%enlist/soldiers/model/config/soldierTrainingConfig.nut")
 let { mkCurrencyButton } = require("%enlist/soldiers/components/currencyButton.nut")
@@ -40,6 +40,7 @@ let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 
 local slotNumber = 0
+let waitingSpinner = spinner(hdpx(20))
 
 let choosePerkIcon = noBlinkUnseenIcon()
   .__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
@@ -392,7 +393,7 @@ let function mkSoldierTrainBtn(soldier, perks) {
 
     let children = []
     if (!isAvailable)
-      children.append(spinner)
+      children.append(waitingSpinner)
 
     let { stepsLeft = 0 } = perks
     let freemiumDiscount = 1.0 - curUpgradeDiscount.value

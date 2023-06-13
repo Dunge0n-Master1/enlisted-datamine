@@ -184,7 +184,7 @@ ecs.register_es("plane_basic_hud_es",
 ecs.register_es("plane_view_engines_temp_hud_es",
   {
     onInit = function(_eid, comps) {
-      enginesState.each(@(state) state.active(false))
+      enginesState.each(@(st) st.active(false))
       foreach (i, _ in comps.plane_view_engine__headTemp)
         enginesState[i].active(true)
     }
@@ -196,7 +196,7 @@ ecs.register_es("plane_view_engines_temp_hud_es",
       }
     }
     onDestroy = function(_eid, _comps) {
-      enginesState.each(@(state) state.active(false))
+      enginesState.each(@(st) st.active(false))
     }
   },
   {

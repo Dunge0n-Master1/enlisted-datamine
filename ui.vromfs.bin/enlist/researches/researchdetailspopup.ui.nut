@@ -6,87 +6,20 @@ let { gap, bigGap, blurBgColor, blurBgFillColor, researchListTabPadding
 let {statusIconLocked, statusIconChosen} =  require("%enlSqGlob/ui/style/statusIcon.nut")
 let {TextDefault} = require("%ui/style/colors.nut")
 let textButton = require("%ui/components/textButton.nut")
-let hoverImage = require("%enlist/components/hoverImage.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(72) })
-let { LOCKED, CAN_RESEARCH, DEPENDENT, RESEARCHED, NOT_ENOUGH_EXP, BALANCE_ATTRACT_TRIGGER,
-  GROUP_RESEARCHED, selectedResearch, researchStatuses, curSquadProgress, buySquadLevel,
-  research, isResearchInProgress, isBuyLevelInProgress, tableStructure, CHANGE_RESEARCH_TPL
+let spinner = require("%ui/components/spinner.nut")
+let {
+  selectedResearch, researchStatuses, isResearchInProgress, isBuyLevelInProgress
 } = require("researchesState.nut")
-let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
-let { sound_play } = require("%dngscripts/sound_system.nut")
-let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
-let mkTextRow = require("%darg/helpers/mkTextRow.nut")
-let multiresearchWarningMsgbox = require("multiresearchWarningMsgbox.nut")
-let changeResearchMsgbox = require("changeResearchMsgbox.nut")
 let { mkGlyphsStyle } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { disableSquadExp } = require("%enlist/campaigns/campaignConfig.nut")
-let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
+let statusCfg = require("researchStatuses.nut")
 
 
 let priceIconSize = hdpx(30)
-
-let mrInfo = @(research) (research?.multiresearchGroup ?? 0) <= 0 ? null
-  : loc("research/groupCanResearch")
+let waitingSpinner = spinner(hdpx(36))
 let mkActiveText = @(text) { rendObj = ROBJ_TEXT, text }.__update(body_txt)
 
-let statusCfg = {
-  [LOCKED] = @(_researchDef) {
-    warning = loc("research/warnResearchLocked")
-  },
-  [DEPENDENT] = @(researchDef) {
-    warning = loc("Need to research previous")
-    onResearch = function() {
-      foreach (researchId in researchDef.requirements)
-        if (researchStatuses.value?[researchId] != RESEARCHED)
-          hoverImage.attractToImage(researchId)
-    }
-  },
-  [NOT_ENOUGH_EXP] = @(researchDef) {
-    warning = loc("Not enough army exp")
-    info = mrInfo(researchDef)
-    onResearch = function() {
-      anim_start(BALANCE_ATTRACT_TRIGGER)
-      let cost = curSquadProgress.value?.levelCost ?? 0
-      if (cost <= 0 || disableSquadExp.value)
-        return
-      purchaseMsgBox({
-        price = cost
-        currencyId = "EnlistedGold"
-        title = loc("Not enough army exp")
-        description = loc("buy/squadLevelConfirmForResearch")
-        purchase = @() multiresearchWarningMsgbox(researchDef, tableStructure.value.researches,
-            @() buySquadLevel(function(isSuccess) {
-              if (!isSuccess)
-                return
-              sound_play("ui/purchase_level_squad")
-              research(researchDef.research_id)
-            }))
-        alwaysShowCancel = true
-        srcComponent = "buy_researches_level_on_research"
-      })
-    }
-  },
-  [GROUP_RESEARCHED] = @(researchDef) {
-    info = loc("research/groupResearched")
-    researchText = loc("research/changeResearch")
-    onResearch = @() changeResearchMsgbox(researchDef)
-    researchPrice = {
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_CENTER
-      children = mkTextRow(loc("research/researchPrice"), mkActiveText,
-        { ["{price}"] = mkItemCurrency({ currencyTpl = CHANGE_RESEARCH_TPL, count = 1 }) }) //warning disable: -forgot-subst
-    }
-  },
-  [CAN_RESEARCH] = @(researchDef) {
-    info = mrInfo(researchDef)
-    onResearch = @() multiresearchWarningMsgbox(researchDef, tableStructure.value.researches,
-      function() {
-        sound_play("ui/upgrade_unlock")
-        research(researchDef.research_id)
-      })
-  }
-}
 
 let mkResearchDescription = @(researchDef) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -121,7 +54,7 @@ let function mkResearchPrice(researchDef) {
 let mkResearchBtn = @(onResearch, researchText) @() {
   watch = [isBuyLevelInProgress, isResearchInProgress]
   children = isBuyLevelInProgress.value || isResearchInProgress.value
-    ? spinner
+    ? waitingSpinner
     : textButton.PrimaryFlat(researchText, onResearch, {
         hotkeys = [[ "^J:X | Enter", { description = {skip = true}} ]]
         margin = 0

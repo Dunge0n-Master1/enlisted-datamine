@@ -29,6 +29,7 @@ let textButton = require("%ui/components/textButton.nut")
 let { needFreemiumStatus, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 
 const WND_UID = "choose_perk_wnd"
+let waitingSpinner = spinner()
 
 let perkCardStyle = {
   skipDirPadNav = true
@@ -304,7 +305,7 @@ let function footer() {
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
     children = isRollAnimation.value ? null
-      : perkActionsInProgress.value.len() > 0 ? spinner
+      : perkActionsInProgress.value.len() > 0 ? waitingSpinner
       : @() {
           watch = needFreemiumStatus
           size = [flex(), SIZE_TO_CONTENT]
@@ -344,7 +345,8 @@ let function footer() {
   }
 }
 
-let soldierInfo = {
+let soldierInfo = @() {
+  watch = soldier
   hplace = ALIGN_CENTER
   halign = ALIGN_CENTER
   vplace = ALIGN_TOP
@@ -352,8 +354,7 @@ let soldierInfo = {
   padding = [bigPadding,0]
   gap = bigPadding * 2
   children = [
-    @() {
-      watch = soldier
+    {
       flow = FLOW_HORIZONTAL
       gap = bigPadding
       children = [

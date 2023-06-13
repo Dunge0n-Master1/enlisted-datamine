@@ -9,7 +9,7 @@ let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows
 let { commonBtnHeight, bigPadding, maxContentWidth } = require("%enlSqGlob/ui/viewConst.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let textInput = require("%ui/components/textInput.nut")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 let fontIconButton = require("%ui/components/fontIconButton.nut")
 let { exitGameMsgBox } = require("%enlist/mainMsgBoxes.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
@@ -21,6 +21,7 @@ const WE_GAME_ID = "auth_wegame"
 let isLoginInProgress = Watched(false)
 let additionalTxt = Watched("")
 let wndHeaderTxt = Watched("")
+let waitingSpinner = spinner()
 
 let function loginWithNick(){
   isLoginInProgress(true)
@@ -71,7 +72,7 @@ let inputBlock = @(){
   gap = hdpx(20)
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  children = isLoginInProgress.value ? spinner : [
+  children = isLoginInProgress.value ? waitingSpinner : [
     wndHeader
     {
       size = [hdpx(500), SIZE_TO_CONTENT]

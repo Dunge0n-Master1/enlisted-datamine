@@ -14,12 +14,12 @@ require sound_utils_net.modules.sound_utils_net_events
 //
 // ..........................................................
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def rain_global_sound_var_toggle(evt : Event;
-                                 sound_bank_preset_state__isValid : bool;
+                                 sound_banks_state__isPresetLoaded : bool;
                                  rain_global_sound_var__name : string;
                                  var rain_global_sound_var__id : SoundVarId&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     rain_global_sound_var__id = get_var_id_global(rain_global_sound_var__name)
     if !rain_global_sound_var__id
       sound_debug("rain '{rain_global_sound_var__name}' global var is missing: may remove template from scene")
@@ -47,12 +47,12 @@ def rain_global_sound_var_update(info : ParallelUpdateFrameDelayed;
 //
 // ..........................................................
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def daytime_global_sound_var_toggle(evt : Event;
-                                    sound_bank_preset_state__isValid : bool;
+                                    sound_banks_state__isPresetLoaded : bool;
                                     daytime_global_sound_var__name : string;
                                     var daytime_global_sound_var__id : SoundVarId&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     daytime_global_sound_var__id = get_var_id_global(daytime_global_sound_var__name)
     if !daytime_global_sound_var__id
       sound_debug("daytime '{daytime_global_sound_var__name}' global var is missing: may remove template from scene")
@@ -79,12 +79,12 @@ def daytime_global_sound_var_update(info : ParallelUpdateFrameDelayed;
 //
 // ..........................................................
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def altitude_global_sound_var_toggle(evt : Event;
-                                     sound_bank_preset_state__isValid : bool;
+                                     sound_banks_state__isPresetLoaded : bool;
                                      altitude_global_sound_var__name : string;
                                      var altitude_global_sound_var__id : SoundVarId&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     altitude_global_sound_var__id = get_var_id_global(altitude_global_sound_var__name)
     if !altitude_global_sound_var__id
       sound_debug("altitude '{altitude_global_sound_var__name}' global var is missing: may remove template from scene")
@@ -117,12 +117,12 @@ def altitude_global_sound_var_update(info : ParallelUpdateFrameDelayed;
 //
 // ..........................................................
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def region_global_sound_var_toggle(evt : Event;
-                                   sound_bank_preset_state__isValid : bool;
+                                   sound_banks_state__isPresetLoaded : bool;
                                    region_global_sound_var__name : string;
                                    var region_global_sound_var__id : SoundVarId&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     region_global_sound_var__id = get_var_id_global(region_global_sound_var__name)
     if !region_global_sound_var__id
       sound_debug("region '{region_global_sound_var__name}' global var is missing: may remove template from scene")

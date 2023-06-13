@@ -1,21 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let mainScreenUi = isNewDesign.value
-  ? require("%enlist/mainScene/mainScene.nut")
-  : require("soldiers/soldiersList.ui.nut")
+let { fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { mkSoldiersUi } = require("soldiers/soldiersList.ui.nut")
+let { buildShopUi } = require("shop/mkShopUi.nut")
+let { buildResearchesUi } = require("researches/mkResearchesUi.nut")
+let { mkMainSceneContent } = require("%enlist/mainScene/mainScene.nut")
 
-let shopUi = isNewDesign.value
-  ? require("shop/shopUi.nut")
-  : require("shop/armyShopUi.nut")
-
-let researchesUi = isNewDesign.value
-  ? require("researches/researchesUi.nut")
-  : require("researches/researchesList.ui.nut")
-
-let squadSoldiersUi = require("%enlist/squad/squadSoldiersUi.nut")
-
-let armyUnlocksUi = require("soldiers/armyUnlocksUi.nut")
+let armyProgressScene = require("%enlist/soldiers/armyProgressScene.nut")
 let { mkNotifierBlink, mkNotifierNoBlink } = require("%enlist/components/mkNotifier.nut")
 let {
   setSectionsSorted, curSection, mainSectionId
@@ -39,19 +30,36 @@ let { getStoreUrl, getEventUrl} = require("%ui/networkedUrls.nut")
 let { isEventUnseen, markEventSeen } = require("gameModes/eventUnseenSignState.nut")
 let { markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
 let { seenArmyProgress, markOpened } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
-let { defTxtColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { mkDiscountBar } = require("%enlist/shop/shopPackage.nut")
+let { chapterIdx } = require("%enlist/shop/shopState.nut")
+let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let primeColor = Color(146, 10, 1)
+
+
+let defTxtStyle = { color = titleTxtColor }.__update(fontXSmall)
+
+let notifierStyle = {
+  size = [flex(), SIZE_TO_CONTENT]
+}
+
+let notifierTextStyle = {
+  size = [flex(), SIZE_TO_CONTENT]
+  behavior = Behaviors.Marquee
+  rendObj = ROBJ_TEXT
+}.__update(defTxtStyle)
 
 let function researchesAlertUi() {
   let { hasUnseen = false, hasUnopened = false } = curUnseenResearches.value
   let mkNotifier = hasUnopened ? mkNotifierBlink : mkNotifierNoBlink
   return {
     watch = curUnseenResearches
-    hplace = ALIGN_RIGHT
-    pos = [0, hdpx(30)]
+    size = [flex(), SIZE_TO_CONTENT]
+    pos = [0, hdpx(5)]
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_TOP
     children = !hasUnseen ? null
-      : mkNotifier(loc("hint/newResearchesAvailable"))
+      : mkNotifier(loc("hint/newResearchesAvailable"), notifierStyle, {}, notifierTextStyle)
   }
 }
 
@@ -77,29 +85,44 @@ let hasShopAlert = Computed(@() hasShopSection.value
   && isShopVisible.value
   && (maxCurArmyDiscount.value > 0 || hasUnseenShopItems.value))
 
+let isShopOpen = Computed(@() curSection.value == "SHOP")
+
+
 let discountBg = { color = primeColor }
 
-let shopAlertBlink = Computed(@()
-  curSection.value != "SHOP"
-    && (notOpenedShopItems.value.len() > 0 || maxCurArmyDiscount.value > 0))
+let watchShopAlert = freeze([isShopOpen, hasShopAlert, maxCurArmyDiscount, haveSpecialOfferArmy])
 
 let function shopAlertUi() {
-  let mkNotifier = shopAlertBlink.value ? mkNotifierBlink : mkNotifierNoBlink
+  if (!hasShopAlert.value)
+    return { watch = watchShopAlert }
+
   let percents = maxCurArmyDiscount.value
-  let children = percents > 0
-      ? mkNotifier(loc("shop/discount", { percents }), {}, discountBg)
-    : haveSpecialOfferArmy.value
-      ? mkNotifier(loc("specialOfferShort"), {}, discountBg)
-    : hasShopAlert.value
-      ? mkNotifier(loc("hint/newShopItemsAvailable"))
-    : null
+  if (percents > 0)
+    return {
+      children = mkDiscountBar({
+        rendObj = ROBJ_TEXT
+        text = $"-{percents}%"
+        color = Color(0,0,0)
+      })
+      watch = watchShopAlert
+      hplace = ALIGN_RIGHT
+      vplace = ALIGN_BOTTOM
+      pos = [0, hdpx(5)]
+    }
+
+  let ctor = isShopOpen.value ? mkNotifierNoBlink : mkNotifierBlink
   return {
-    watch = [hasShopAlert, maxCurArmyDiscount, shopAlertBlink, haveSpecialOfferArmy]
-    hplace = ALIGN_RIGHT
-    pos = [0, hdpx(30)]
-    children
+    watch = watchShopAlert
+    size = [flex(), SIZE_TO_CONTENT]
+    pos = [0, hdpx(5)]
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_TOP
+    children = haveSpecialOfferArmy.value
+      ? ctor(loc("specialOfferShort"), notifierStyle, discountBg, notifierTextStyle)
+      : ctor(loc("hint/newShopItemsAvailable"), notifierStyle, {}, notifierTextStyle)
   }
 }
+
 
 let hasUnseenArmyProgress = Computed(@() hasCampaignSection.value
   && isCurCampaignProgressUnlocked.value
@@ -111,24 +134,29 @@ let hasUnopenedArmyProgress = Computed(@() hasCampaignSection.value
 )
 
 
+const CAMPAIGN_PROGRESS = "CAMPAIGN"
+let campaignWatched = [curSection, hasLevelDiscount, curLevelDiscount,
+        hasUnseenArmyProgress, hasUnopenedArmyProgress]
 let campaignTabData = {
-  locId = "menu/campaignRewards"
+  locId = "menu/progress"
   descId = "menu/campaignRewardsDesc"
-  content = armyUnlocksUi
-  id = "SQUADS"
+  content = armyProgressScene
+  id = CAMPAIGN_PROGRESS
   camera = "researches"
   addChild = function() {
-    let mkNotifier = curSection.value != "SQUADS" && hasUnopenedArmyProgress.value
+    let mkNotifier = curSection.value != CAMPAIGN_PROGRESS && hasUnopenedArmyProgress.value
       ? mkNotifierBlink
       : mkNotifierNoBlink
     return {
-      watch = [curSection, hasLevelDiscount, curLevelDiscount,
-        hasUnseenArmyProgress, hasUnopenedArmyProgress]
-      hplace = ALIGN_RIGHT
-      pos = [0, hdpx(30)]
-      children = hasLevelDiscount.value ? mkNotifier(loc("shop/discount",
-          { percents = curLevelDiscount.value }), {}, discountBg)
-        : hasUnseenArmyProgress.value ? mkNotifier(loc("hint/takeReward"))
+      watch = campaignWatched
+      size = [flex(), SIZE_TO_CONTENT]
+      pos = [0, hdpx(5)]
+      hplace = ALIGN_CENTER
+      vplace = ALIGN_TOP
+      children = hasLevelDiscount.value
+          ? mkNotifier(loc("shop/discount", { percents = curLevelDiscount.value }), {}, discountBg)
+        : hasUnseenArmyProgress.value
+          ? mkNotifier(loc("hint/takeReward"), notifierStyle, {}, notifierTextStyle)
         : null
     }
   }
@@ -153,31 +181,27 @@ let campaignTabData = {
 
 
 
-let sections = []
+let sections = [
+  {
+    locId = "menu/battles"
+    getContent = mkMainSceneContent
+    id = mainSectionId
+    camera = "soldiers"
+  }
 
-sections.append({
-  locId = isNewDesign.value ? "menu/battles" : "menu/soldier"
-  content = mainScreenUi
-  id = mainSectionId
-  camera = "soldiers"
-})
+  {
+    locId = "menu/squads"
+    getContent = mkSoldiersUi
+    id = "SQUAD_SOLDIERS"
+    camera = "soldiers"
+  }
 
-sections.append(isNewDesign.value
-  ? {
-      locId = "menu/squads"
-      descId = "menu/quartersDesc"
-      content = squadSoldiersUi
-      id = "SQUAD_SOLDIERS"
-      camera = "soldiers_quarters"
-    }
-  : campaignTabData
-)
+  campaignTabData
 
-if (!isNewDesign.value)
-  sections.append({
+  {
     locId = "menu/researches"
     descId = "menu/researchesDesc"
-    content = researchesUi
+    getContent = buildResearchesUi
     id = "RESEARCHES"
     camera = "researches"
     addChild = researchesAlertUi
@@ -188,35 +212,30 @@ if (!isNewDesign.value)
         markSeen(armyId, unopened.keys(), true)
       return true
     }
-  })
-
-
-sections.append({
-  locId = isNewDesign.value ? "menu/shop" : "menu/enlistedShop"
-  content = shopUi
-  id = "SHOP"
-  camera = "researches"
-  addChild = shopAlertUi
-  onExitCb = function() {
-    if (!isNewDesign.value)
-      markShopItemOpened(curArmyData.value?.guid, notOpenedShopItems.value)
-    return true
   }
-  animations = !isNewDesign.value ? null
-    : [{ prop = AnimProp.color, from = defTxtColor, to = accentColor, duration = 3,
-        loop = true, play = true, easing = CosineFull }]
-})
 
-if (isNewDesign.value)
-  sections.append({
-    locId = "menu/progress"
-    content = armyUnlocksUi
-    id = "ARMY_PROGRESS"
+  {
+    locId = "menu/shop"
+    getContent = buildShopUi
+    id = "SHOP"
     camera = "researches"
-  })
+    addChild = shopAlertUi
+    onBackCb = function() {
+      if (chapterIdx.value >= 0) {
+        chapterIdx(-1)
+        return false
+      }
+      return true
+    }
+    onExitCb = function() {
+      markShopItemOpened(curArmyData.value?.guid, notOpenedShopItems.value)
+      return true
+    }
+    animations = null
+  }
+]
 
-
-if (getStoreUrl() != null)
+if (getStoreUrl() != null )
   sections.append({
     locId = "menu/store"
     id = "STORE"

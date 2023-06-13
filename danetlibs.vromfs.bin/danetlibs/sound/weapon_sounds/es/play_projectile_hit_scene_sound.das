@@ -7,7 +7,6 @@ require strings
 
 let CALIBER_THRESHOLD = 0.025
 
-
 [es(tag=sound)]
 def play_projectile_hit_scene_sound(evt : CmdPlayProjectileHitSceneSound;
                                     projectile_sound__hit : string;

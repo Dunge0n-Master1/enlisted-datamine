@@ -15,6 +15,7 @@ let spinner = require("%ui/components/spinner.nut")
 const MAX_LB_ROWS = 10
 let rowHeight = hdpx(25)
 let fullHeight = (MAX_LB_ROWS + 3) * rowHeight
+let waitingSpinner = spinner()
 
 let styleByCategory = {
   [RANK] = { halign = ALIGN_LEFT },
@@ -68,7 +69,7 @@ let function shortEventLb() {
   local children = null
   local valign = ALIGN_CENTER
   if (curLbData.value == null)
-    children = spinner
+    children = waitingSpinner
   else if (curLbData.value.len() == 0)
     children = exclamation(
       loc(curLbErrName.value != null ? $"error/{curLbErrName.value}" : "leaderboard/noLbData"))

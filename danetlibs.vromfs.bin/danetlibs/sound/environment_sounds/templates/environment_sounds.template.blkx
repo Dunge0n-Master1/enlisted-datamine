@@ -1,5 +1,5 @@
 reverb_sound{
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _extends:t="replicating"
   _singleton:b=yes
 
@@ -50,7 +50,7 @@ underwater_sound{
 }
 
 shore_sound{
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _extends:t="replicating"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
 
@@ -67,8 +67,7 @@ shore_sound{
 }
 
 spline_sound{
-  _extends:t="sound_bank_preset_state"
-  _extends:t="global_sound_listener_position"
+  _extends:t="sound_banks_state"
   _extends:t="replicating"
 
   _group{
@@ -100,7 +99,7 @@ river_sound{
 }
 
 ocean_sound{
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _extends:t="replicating"
 
   _group{
@@ -118,7 +117,7 @@ ocean_sound{
 
 ambient_sound{
   _extends:t="replicating"
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
 
   _group{
     _tags:t="sound"
@@ -131,8 +130,7 @@ ambient_sound{
 
 volume_ambient_sound{
   _extends:t="game_object_sound"
-  _extends:t="sound_bank_preset_state"
-  _extends:t="global_sound_listener_position"
+  _extends:t="sound_banks_state"
 
   _group{
     _tags:t="sound"
@@ -152,8 +150,7 @@ volume_ambient_sound{
 
 compound_ambient_sound{
   _extends:t="game_object_compound_sound"
-  _extends:t="sound_bank_preset_state"
-  _extends:t="global_sound_listener_position"
+  _extends:t="sound_banks_state"
 
   _group{
     _tags:t="sound"
@@ -176,21 +173,6 @@ compound_ambient_sound{
   _group{
     _tags:t="sound"
     game_object_sound__path:t="ambient/positioned"
-  }
-}
-
-compound_sound_effect{
-  _extends:t="replicating"
-  _extends:t="sound_bank_preset_state"
-  _extends:t="global_sound_listener_position"
-
-  _group{
-    _tags:t="sound"
-    compound_sound_effect__range:r=0.0
-    compound_sound_effect__path:t=""
-
-    "compound_sound_effect__event:SoundEvent"{
-    }
   }
 }
 
@@ -225,7 +207,7 @@ biome_sound_query{
 
 global_sound_var_base{
   _extends:t="replicating"
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _singleton:b=yes
 }
 
@@ -309,7 +291,7 @@ global_sound_vars{
 }
 
 base_menu_music{
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _extends:t="replicating"
   _tracked:t="menu_music__theme"
   _singleton:b=yes

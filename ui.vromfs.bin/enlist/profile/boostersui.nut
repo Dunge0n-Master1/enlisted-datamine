@@ -23,7 +23,12 @@ let function mkBooster(boosterBase) {
     : "booster/expPenaltyTitle"
   let valueText = boosterBase.expMul > 0 ? "booster/expBonusVal" : "booster/expPenaltyVal"
   return {
-    xmbNode = XmbNode()
+    xmbNode = XmbNode({
+      canFocus = @() true
+      wrap = false
+      isGridLine=true
+      scrollToEdge = [false, true]
+    })
     behavior = Behaviors.Button
     size = [hdpx(400), hdpx(170)]
     margin = [0, 0, 0, hdpx(110)]
@@ -90,11 +95,6 @@ let boostersListUi = function() {
   let scrollBoostersList = makeVertScroll({
       size = [flex(), SIZE_TO_CONTENT]
       padding = [hdpx(40), 0]
-      xmbNode = XmbContainer({
-        canFocus = @() false
-        scrollSpeed = 5
-        isViewport = true
-      })
       halign = ALIGN_CENTER
       flow = FLOW_VERTICAL
       children = boostersList
@@ -103,6 +103,12 @@ let boostersListUi = function() {
   )
 
   return {
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      isGridLine=true
+      scrollSpeed = [0, 2.0]
+      scrollToEdge = [false, true]
+    })
     rendObj = ROBJ_BOX
     watch = [boosterItems, allBoosters]
     size = flex()

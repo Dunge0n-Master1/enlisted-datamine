@@ -1,7 +1,7 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("json")
+let { json_to_string } = require("json")
 let io = require("io")
 let { decode } = require("jwt")
 let eventbus = require("eventbus")
@@ -89,7 +89,7 @@ let function requestAndSend(playerEid, teamArmy) {
 local function saveJwtResultToJson(jwt, data, fileName, pretty = true) {
   fileName = $"{fileName}.json"
   local file = io.file(fileName, "wt+")
-  file.writestring(json.to_string(data, pretty))
+  file.writestring(json_to_string(data, pretty))
   file.close()
   console_print($"Saved json payload to {fileName}")
   fileName = $"{fileName}.jwt"

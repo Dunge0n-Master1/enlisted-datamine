@@ -519,7 +519,7 @@ scope_pe_mosin_4x{
 
 scope_uvp{
   _extends:t="scope_gunmod"
-  animchar__res:t="scope_pu_char"
+  animchar__res:t="scope_pe_svd_38_char"
   item__template:t="scope_uvp_item"
   item__proto:t="scope_uvp"
   gunAttachable__slot:i=-1
@@ -1012,7 +1012,7 @@ unertl_8x_sight{
   }
 }
 
-scope_zf_41_gewehr_41{
+scope_zf_41{
   _extends:t="scope_gunmod"
   animchar__res:t="g_41_w_zf_41_scope_char"
   item__template:t="scope_zf_41_item"
@@ -1110,7 +1110,7 @@ grenade_laucher_base{
   _extends:t="grenade_launcher_gunmod"
   item__weight:r=0.3
   item__volume:r=0.5
-  item__iconYaw:r=90.0
+  item__iconYaw:r=-90.0
   gunAttachable__slot:i=-1
   gunAttachable__slotName:t="grenade_launcher"
   gunAttachable__gunSlotName:t="grenade_launcher"
@@ -1183,7 +1183,7 @@ vpgs_grenade_launcher{
   item__weight:r=0.3
   item__volume:r=0.5
   item__name:t="items/vpgs_41"
-  item__iconYaw:r=90.0
+  item__iconYaw:r=-90.0
   gunAttachable__slot:i=-1
   gunAttachable__slotName:t="grenade_launcher"
   gunAttachable__gunSlotName:t="grenade_launcher"

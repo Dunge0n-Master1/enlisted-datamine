@@ -11,11 +11,11 @@ require strings
 
 
 def raise_sound_tag(tag : string; var tags : Object&)
-  if tag != ""
+  if !empty(tag)
     set(tags, tag, true)
 
 def clear_sound_tag(tag : string; var tags : Object&)
-  if tag != ""
+  if !empty(tag)
     erase(tags, tag)
 
 def set_sound_tag(tag : string; enable : bool; var tags : Object&)
@@ -29,7 +29,7 @@ def read_sound_tag(tag : string; tags : Object) : bool
 
 
 def get_desc(descs : Object; desc_str : string) : Object const?
-  return desc_str != "" ? (descs[desc_str] ?as Object) : null
+  return !empty(desc_str) ? (descs[desc_str] ?as Object) : null
 
 
 def test_tags(opt : Object; all_tags : Object) : bool
@@ -110,7 +110,7 @@ def play_name_path(name : string;
                    path : string;
                    pos : float3;
                    is_abandon : bool = true)
-  if name != "" || path != ""
+  if !empty(name) || !empty(path)
     return play_name_path_impl(name, path, pos, is_abandon)
   return invalid_sound_event_handle()
 
@@ -120,9 +120,9 @@ def play_desc_path(desc : Object;
                    pos : float3;
                    var group : SoundEventGroup&)
   reject_sound(group, id)
-  if path != "" && is_valid(desc)
+  if !empty(path) && is_valid(desc)
     let name = desc.name ?? ""
-    if name != ""
+    if !empty(name)
       return play_name_path_impl(name, path, id, pos, group)
   return invalid_sound_event_handle()
 
@@ -130,9 +130,9 @@ def play_desc_path(desc : Object;
                    path : string;
                    pos : float3;
                    is_abandon : bool = true)
-  if path != "" && is_valid(desc)
+  if !empty(path) && is_valid(desc)
     let name = desc.name ?? ""
-    if name != ""
+    if !empty(name)
       return play_name_path_impl(name, path, pos, is_abandon)
   return invalid_sound_event_handle()
 
@@ -243,6 +243,34 @@ def play(desc_id : string;
         return play_name_path(name, path, id, pos, group)
     return invalid_sound_event_handle()
   sound_debug("no desc '{desc_id}' exists")
+  return invalid_sound_event_handle()
+
+
+def play_desc(desc_obj : Object;
+              path_obj : Object;
+              tags : Object;
+              is_watched_sound : bool;
+              pos : float3;
+              id : uint;
+              var group : SoundEventGroup&)
+  reject_sound(group, id)
+  if is_valid(desc_obj, tags)
+    var path = ""
+    if get_option_path(path_obj, tags, is_watched_sound, path)
+      return play_name_path(desc_obj.name ?? "", path, id, pos, group)
+  return invalid_sound_event_handle()
+
+
+def play_desc(desc_obj : Object;
+              path_obj : Object;
+              tags : Object;
+              is_watched_sound : bool;
+              pos : float3;
+              is_abandon : bool = true)
+  if is_valid(desc_obj, tags)
+    var path = ""
+    if get_option_path(path_obj, tags, is_watched_sound, path)
+      return play_name_path(desc_obj.name ?? "", path, pos, is_abandon)
   return invalid_sound_event_handle()
 
 

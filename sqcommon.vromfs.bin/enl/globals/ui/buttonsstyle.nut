@@ -7,7 +7,7 @@ let {
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let BgHover = Color(220, 220, 220)
-let purchaseGradient = mkColoredGradientX(0xFFC22B0A, 0xFF790808)
+let purchaseGradient = mkColoredGradientX({colorLeft=0xFFC22B0A, colorRight=0xFF790808})
 
 // btn styles to use in computed styles
 let purchaseButtonStyle = {

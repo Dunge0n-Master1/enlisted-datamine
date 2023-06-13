@@ -235,9 +235,7 @@ def terraform_crater_update_ri_pool_flags(evt : Event;
                                                              crater_config__maxRIRadiusToRemove)
 
 
-[es(tag=server, REQUIRE=shouldCreateBulletCrater)]
-def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
-                                             launch_desc : LaunchDesc)
+def create_crater_by_damage_id(position : float3; damage_id : int; explosive_mass_override : float const?)
   query() <| $ [es] (bullet_crater_config__innerRadiusScale : float;
                      bullet_crater_config__outerRadiusScale : float;
                      bullet_crater_config__innerDepthScale : float;
@@ -249,13 +247,14 @@ def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
     if bulletCraterExplosiveMassToCraterRadiusLen < 1
       return
 
-    let explosiveMass = explosive_get_props(int(launch_desc.shellId.damageId))?.mass ?? 0.0
-    if explosiveMass < bullet_crater_config__explosiveMassToCraterRadius[0].x
+    let explosiveMass = explosive_mass_override ?? explosive_get_props(damage_id)?.mass ?? 0.0
+    let minExplosiveMass = bullet_crater_config__explosiveMassToCraterRadius[0].x
+    let maxExplosiveMass = bullet_crater_config__explosiveMassToCraterRadius[bulletCraterExplosiveMassToCraterRadiusLen - 1].x
+    if explosiveMass < minExplosiveMass
       return
-    if explosiveMass > bullet_crater_config__explosiveMassToCraterRadius[bulletCraterExplosiveMassToCraterRadiusLen - 1].x
+    if explosiveMass > maxExplosiveMass
       return
 
-    let position = evt.pos
     let outerRadius = interpolate_by_point_list(bullet_crater_config__explosiveMassToCraterRadius, explosiveMass) * bullet_crater_config__outerRadiusScale
 
     if is_valid_place_for_crater(position, outerRadius, bullet_crater_config__maxHeightAtLand)
@@ -273,6 +272,22 @@ def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
         set(init, "bomb_crater_terraformer__outerRadius", outerRadius * craterScaleForMat.z)
         set(init, "bomb_crater_terraformer__outerAlt",    outerAlt    * craterScaleForMat.w)
         set(init, "bomb_crater_terraformer__mainPhysmatId", mainMatId)
+
+
+[es(tag=server, REQUIRE=shouldCreateShellCrater)]
+def terraform_crater_on_shell_explosion(evt : EventShellExplodedServer;
+                                        transform : float3x4;
+                                        shell__shell_id__damage_id : int;
+                                        bullet_crater__explosiveMassOverride : float const?)
+  create_crater_by_damage_id(transform[3], shell__shell_id__damage_id, bullet_crater__explosiveMassOverride)
+
+
+[es(tag=server, REQUIRE=shouldCreateBulletCrater)]
+def terraform_crater_on_projectile_explosion(evt : EventShellExplodedServer;
+                                             launch_desc : LaunchDesc;
+                                             bullet_crater__explosiveMassOverride : float const?)
+  create_crater_by_damage_id(evt.pos, int(launch_desc.shellId.damageId), bullet_crater__explosiveMassOverride)
+
 
 [es(tag=server, REQUIRE=shouldCreateCrater)]
 def terraform_crater_on_bomb_explosion(evt : EventShellExplodedServer;

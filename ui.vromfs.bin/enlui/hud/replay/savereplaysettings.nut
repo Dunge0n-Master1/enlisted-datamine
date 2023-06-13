@@ -15,6 +15,7 @@ let {
   showSelfAwards, showTeammateName, showTeammateMarkers, showCrosshairHints,
   showTips, showGameModeHints, showPlayerUI
 } = require("%ui/hud/state/hudOptionsState.nut")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 
 let savedReplayPresets = mkOnlineSaveData("savedReplayPresets", @() {})
 let savedReplayPresetsStored = savedReplayPresets.watch
@@ -237,8 +238,9 @@ let function resetHudSettings() {
   showPlayerUI(true)
 }
 
-isHudSettingsEnable.subscribe(@(v) v ? null : resetHudSettings())
-if (!isHudSettingsEnable.value)
+let needResetHudSettings = Computed(@() isHudSettingsEnable.value && isReplay.value)
+needResetHudSettings.subscribe(@(v) v ? resetHudSettings() : null)
+if (isReplay.value && !isHudSettingsEnable.value)
   resetHudSettings()
 
 local defaultSettings = {}

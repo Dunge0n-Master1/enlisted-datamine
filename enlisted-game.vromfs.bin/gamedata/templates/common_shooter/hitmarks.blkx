@@ -1,0 +1,6 @@
+hitmarks_groups_id_table{
+  _extends:t="replicating"
+
+  "hitmarksGroupsNamesList:list<t>"{
+  }
+}

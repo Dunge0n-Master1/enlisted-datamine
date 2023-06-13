@@ -269,7 +269,7 @@ def move_primary_cart_es(evt : CmdPostPhysUpdate;
       query(cartEid) <| $ [es(REQUIRE_NOT=train__primaryCart)] (var phys_obj_net_phys aka secondary_phys_obj_net_phys : PhysObjActor;
                                                                 collres : CollisionResource;
                                                                 train__offset : float)
-        secondary_phys_obj_net_phys.phys.previousState = secondary_phys_obj_net_phys.phys.currentState
+        secondary_phys_obj_net_phys.phys.previousState := secondary_phys_obj_net_phys.phys.currentState
         secondary_phys_obj_net_phys.phys.previousState.atTick = evt.tick
 
         assume secondaryCurrentState = secondary_phys_obj_net_phys.phys.currentState

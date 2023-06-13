@@ -7,8 +7,6 @@ let {exitGameMsgBox, logoutMsgBox} = require("%enlist/mainMsgBoxes.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { gaijinSupportUrl, bugReportUrl } = require("%enlSqGlob/supportUrls.nut")
 let { get_setting_by_blk_path } = require("settings")
-let { isNewDesign, setDesign } = require("%enlSqGlob/designState.nut")
-let msgbox = require("%enlist/components/msgbox.nut")
 let qrWindow = require("qrWindow.nut")
 
 let SEPARATOR = {}
@@ -59,24 +57,6 @@ let btnBugReport = (bugReportUrl == "" || !platform.is_pc) ? null : {
   cb = @() openUrl(bugReportUrl)
 }
 
-let btnToggleDesign = {
-  id = "ToggleDesign"
-  name = isNewDesign.value ? loc("gamemenu/btnLegacyDesign") : loc("gamemenu/btnNewDesign")
-  cb = function() {
-    if (isNewDesign.value)
-      setDesign(false)
-    else {
-      msgbox.show({
-        text = loc("gamemenu/hintNewDesign")
-        buttons = [
-          { text = loc("Cancel"), isCurrent = true }
-          { text = loc("Ok"), action = @() setDesign(true) }
-        ]
-      })
-    }
-  }
-}
-
 return {
   btnControls
   btnOptions
@@ -86,6 +66,5 @@ return {
   btnCBR
   btnSupport
   btnBugReport
-  btnToggleDesign
   SEPARATOR
 }

@@ -297,7 +297,6 @@ base_ger_mbm_trixter{
   xray_resource__modelName:t="ger_mbm_trixter"
   dmg_animchar__renderable:b=no
   _tracked:t="dmg_animchar__renderable"
-  hitmarks__showUserHits:b=no
   drowningHeight:r=2.0
   item__name:t="items/ger_mbm_trixter"
   turret_control__grenadeLauncherSalvoSize:i=30

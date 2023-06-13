@@ -67,7 +67,7 @@ def public base64_decode ( _in:string; var out:array<uint8> ) : int
         outlen = base64_decode(inp,out)
     return outlen
 
-def base64_decode ( inp:array<uint8>#; var out:array<uint8> ) : int
+def base64_decode ( inp:array<uint8> | #; var out:array<uint8> ) : int
     let inlen = inp |> length
     var j = 0
     out |> clear()

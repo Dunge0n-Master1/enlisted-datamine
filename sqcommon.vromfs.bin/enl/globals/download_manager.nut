@@ -10,9 +10,9 @@ local log = Log()
 log = log.with_prefix("[DOWNLOAD MANAGER] ")
 
 let statusText = {
-  [http.SUCCESS] = "SUCCESS",
-  [http.FAILED] = "FAILED",
-  [http.ABORTED] = "ABORTED",
+  [http.HTTP_SUCCESS] = "SUCCESS",
+  [http.HTTP_FAILED] = "FAILED",
+  [http.HTTP_ABORTED] = "ABORTED",
 }
 let EVENT_HTTP_DOWNLOAD = "EVENT_HTTP_DOWNLOAD"
 
@@ -55,10 +55,10 @@ eventbus.subscribe(EVENT_HTTP_DOWNLOAD, tryCatch(function(response){
   let cache_key = response.context
   log($"HTTP response for {cache_key}")
   //send_counter("download files response", 1, { http_code, status })
-  if (status != http.SUCCESS) {
-    if (status == http.ABORTED)
+  if (status != http.HTTP_SUCCESS) {
+    if (status == http.HTTP_ABORTED)
       setDownloadStatus(cache_key, HTTP_ABORTED)
-    else if (status == http.FAILED)
+    else if (status == http.HTTP_FAILED)
       setDownloadStatus(cache_key, HTTP_FAILED)
     throw($"http status {statusText?[status]}")
   }

@@ -1,12 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, smallPadding, hoverTxtColor,
-  panelBgColor, hoverPanelBgColor, darkTxtColor
+let { colFull, defTxtColor, midPadding, smallPadding, panelBgColor,
+  hoverPanelBgColor, darkTxtColor, darkPanelBgColor, commonBtnHeight, titleTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { canChangeQueueParams, isInQueue } = require("%enlist/state/queueState.nut")
-let { availableClusters, clusters, clusterLoc, isAutoCluster, ownCluster, hasAutoClusterOption,
-  isAutoClusterSafe
+let { availableClusters, clusters, clusterLoc, countryLoc, isAutoCluster, ownCountry
 } = require("%enlist/clusterState.nut")
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
 let squadClustersWatched = squadSharedData.clusters
@@ -15,6 +14,7 @@ let { addPopup, removePopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
 let modalPopupWnd = require("%ui/components/modalPopupWnd.nut")
 let mkCheckbox = require("%ui/components/mkCheckbox.nut")
+let { hasAutoCluster } = require("%enlist/featureFlags.nut")
 
 
 const CLUSTER_PANEL_UID = "clustersSelector"
@@ -22,10 +22,6 @@ const SELECTION_ERROR_UID = "groupSizePopup"
 const NO_SERVER_ERROR = "noServerPopup"
 
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let hoverTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
-let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
 let fillBgColor = @(sf) (sf & S_ACTIVE) != 0 || (sf & S_HOVER) != 0
   ? hoverPanelBgColor
   : panelBgColor
@@ -53,58 +49,44 @@ let function toggleServerSelection(server) {
 let function mkServerBtn(server, txt, isAutoSelected = false) {
   let isSelected = Computed(@() server in clusters.value)
   return watchElemState(@(sf) {
-    watch = [isSelected, isAutoCluster]
+    watch = isSelected
     rendObj = ROBJ_SOLID
     size = [flex(), SIZE_TO_CONTENT]
-    flow = FLOW_HORIZONTAL
-    behavior = Behaviors.Button
     padding = [smallPadding, midPadding]
     color = fillBgColor(sf)
-    onClick = @() isAutoSelected ? null : toggleServerSelection(server)
-    gap = bigPadding
-    children = [
-      mkCheckbox(isSelected, !isAutoSelected, false)
+    children = mkCheckbox(isSelected, txt,
       {
-        rendObj = ROBJ_TEXT
-        text = txt
-      }.__update(isSelected.value && !isAutoCluster.value ? titleTxtStyle
-        : sf & S_HOVER ? hoverTxtStyle
-        : defTxtStyle)
-    ]
+        isActive = !isAutoSelected
+        size = [flex(), SIZE_TO_CONTENT]
+        onClick = @() toggleServerSelection(server)
+      })
   })
 }
 
 
 let optimalServerButton = watchElemState(@(sf) {
-  watch = [isAutoClusterSafe, ownCluster]
+  watch = [isAutoCluster, ownCountry]
   rendObj = ROBJ_SOLID
   size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_HORIZONTAL
   color = fillBgColor(sf)
   padding = [smallPadding, midPadding]
-  behavior = Behaviors.Button
-  onClick = @() isAutoCluster(!isAutoCluster.value)
-  gap = bigPadding
-  children = [
-    mkCheckbox(isAutoCluster)
+  children = mkCheckbox(isAutoCluster,
+    loc("quickMatch/Server/Optimal", { code = countryLoc(ownCountry.value) }),
     {
-      rendObj = ROBJ_TEXT
-      text = loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
-    }.__update(isAutoClusterSafe.value ? titleTxtStyle
-      : sf & S_HOVER ? hoverTxtStyle
-      : defTxtStyle)
-  ]
+      size = [flex(), SIZE_TO_CONTENT]
+      onClick = @() isAutoCluster(!isAutoCluster.value)
+    })
 })
 
 let clusterSelector = @() {
-  watch = [availableClusters, isAutoClusterSafe, clusters, hasAutoClusterOption]
+  watch = [availableClusters, isAutoCluster, clusters, hasAutoCluster]
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = hdpx(2)
   children = [
-    !hasAutoClusterOption.value ? null : optimalServerButton
+    hasAutoCluster.value ? optimalServerButton : null
   ].extend(availableClusters.value.map(@(val)
-    mkServerBtn(val, clusterLoc(val), isAutoClusterSafe.value)))
+    mkServerBtn(val, clusterLoc(val), isAutoCluster.value)))
 }
 
 let showCantChangeInQueue = @() addPopup({
@@ -132,6 +114,8 @@ let function openClustersMenu(event) {
   }
   removePopup(SELECTION_ERROR_UID)
   modalPopupWnd.add(event.targetRect, {
+    rendObj = ROBJ_SOLID
+    color = darkPanelBgColor
     uid = CLUSTER_PANEL_UID
     size = [colFull(4), SIZE_TO_CONTENT]
     popupOffset = 0
@@ -145,59 +129,59 @@ let function openClustersMenu(event) {
 
 isInQueue.subscribe(@(_) modalPopupWnd.remove(CLUSTER_PANEL_UID))
 
-
-let serversRow = Computed(function() {
+let mkServersRow = @(locFn = @(v) v) Computed(function(){
   if (isLocalClusters.value)
-    return isAutoClusterSafe.value ? loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
+    return isAutoCluster.value
+      ? loc("quickMatch/Server/Optimal", { code = countryLoc(ownCountry.value) })
       : availableClusters.value.len() == clusters.value.len() ? loc("quickMatch/Server/Any")
-      : ", ".join(clusters.value.keys().map(@(val) clusterLoc(val)))
-  return squadAutoCluster.value ? loc("quickMatch/Server/Optimal", { code = clusterLoc(ownCluster.value) })
-    : availableClusters.value.len() == squadClusters.value.len() ? loc("quickMatch/Server/Any")
-    : ", ".join(squadClusters.value.keys().map(@(val) clusterLoc(val)))
+      : ", ".join(clusters.value.keys().map(locFn))
+  return squadAutoCluster.value
+    ? loc("quickMatch/Server/OptimalSquad")
+    : ", ".join(squadClusters.value.keys().map(locFn))
 })
 
 
 let function serverClusterBtn() {
+  let serversRow = mkServersRow(clusterLoc)
   let text = loc("quickMatch/curServers", { server = serversRow.value })
   let btn = Bordered(text, isLocalClusters.value ? openClustersMenu : showCantChangeMessage,
-    { sEnables = canChangeQueueParams.value })
+    {
+      size = [SIZE_TO_CONTENT, commonBtnHeight]
+      sEnables = canChangeQueueParams.value
+    })
   return {
+    size = [flex(), commonBtnHeight]
+    halign = ALIGN_CENTER
     watch = [isLocalClusters, canChangeQueueParams, serversRow]
     children = btn
   }
 }
 
-let serversToShow = @(group = null) watchElemState(function(sf) {
-  let text = availableClusters.value.len() == clusters.value.len()
-    ? loc("quickMatch/Server/Any")
-    : isAutoCluster.value ? loc("options/auto")
-    : ", ".join(clusters.value.keys())
-  return {
-    watch = [isAutoCluster, clusters, availableClusters]
-    size = [flex(), SIZE_TO_CONTENT]
-    group
-    halign = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    flow = FLOW_HORIZONTAL
-    gap = smallPadding
-    children = [
-      {
-        rendObj = ROBJ_TEXT
-        text = loc("server")
-      }.__update(sf & S_ACTIVE ? activeTxtStyle
-        : sf & S_HOVER ? hoverTxtStyle
-        : defTxtStyle)
-      {
-        flow = FLOW_HORIZONTAL
-        gap = smallPadding
-        children = {
-          rendObj = ROBJ_TEXT
-          text
-        }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
-      }
-    ]
-  }
-})
+
+let txtColor = @(sf) sf & S_ACTIVE
+  ? titleTxtColor
+  : sf & S_HOVER ? darkTxtColor : defTxtColor
+
+let function serversToShow(group = null, onClick = null) {
+  let serversRow = mkServersRow()
+  return watchElemState(function(sf) {
+    return {
+      watch = [serversRow]
+      size = [flex(), SIZE_TO_CONTENT]
+      rendObj = ROBJ_TEXT
+      behavior = Behaviors.Marquee
+      skipDirPadNav = true
+      group
+      onClick
+      margin = [0, hdpx(15), 0, hdpx(15)]
+      scrollOnHover = true
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      text = loc("quickMatch/curServers", { server = serversRow.value })
+      color = txtColor(sf)
+    }.__update(fontMedium)
+  })
+}
 
 
 

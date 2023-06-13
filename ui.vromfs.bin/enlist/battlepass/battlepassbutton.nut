@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { smallPadding, bigPadding, defTxtColor, startBtnWidth, colPart, transpPanelBgColor, midPadding,
-  defItemBlur, titleTxtColor, highlightLine
+  defItemBlur, highlightLineTop, highlightLineBottom, hoverSlotBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { hasReward, currentProgress, nextUnlock, seasonIndex } = require("%enlist/battlepass/bpState.nut")
@@ -18,9 +18,6 @@ let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
 
-let defTxtStyle = { color = defTxtColor }.__update(fontXLarge)
-let hoverTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
-let smallTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let starSize = colPart(0.33)
 let bpButtonHeight = colPart(1.3) + smallPadding * 2
 local visibleStars = null
@@ -106,7 +103,7 @@ let function taskLimitMessage() {
     margin = [smallPadding, 0]
     color = defTxtColor
     text = loc("unlocks/dailyTasksLimit")
-  }.__update(smallTxtStyle))
+  }.__update(fontSmall))
 }
 
 
@@ -118,7 +115,8 @@ let titleBpBlock = @(sf) {
     {
       rendObj = ROBJ_TEXT
       text = loc("bp/battlePassUpper")
-    }.__update(sf & S_HOVER ? hoverTxtStyle : defTxtStyle)
+      color = sf & S_HOVER ? darkTxtColor : defTxtColor
+    }.__update(fontXLarge)
     rewardProgress
     taskLimitMessage
   ]
@@ -132,7 +130,7 @@ let function rewardBpBlock() {
   return {
     watch = nextUnlock
     size = [SIZE_TO_CONTENT, bpButtonHeight]
-    padding = [0, taskLabelSize[0] + smallPadding, 0, 0]
+    padding = [0, taskLabelSize[0], 0, 0]
     valign = ALIGN_CENTER
     children = cardIcon
   }
@@ -172,24 +170,22 @@ let mkWidgetInfo = @(sf) {
 
 let bpWidgetOpen = {
   size = [startBtnWidth, SIZE_TO_CONTENT]
-  flow = FLOW_VERTICAL
-  gap = midPadding
   children = [
-    timeTracker()
+    timeTracker({ pos = [0, -(fontSmall.fontSize + midPadding)] })
     watchElemState(@(sf) {
       rendObj = ROBJ_WORLD_BLUR
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = bpButtonHeight
       color = defItemBlur
-      fillColor = transpPanelBgColor
+      fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
       behavior = Behaviors.Button
       sound = soundDefault
-      onClick = @() openBPwindow()
+      onClick = openBPwindow
       children = [
         dynamicSeasonBpBg([colPart(6.03), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
         mkWidgetInfo(sf)
-        highlightLine()
-        highlightLine(false)
+        highlightLineTop
+        highlightLineBottom
       ]
     })
   ]

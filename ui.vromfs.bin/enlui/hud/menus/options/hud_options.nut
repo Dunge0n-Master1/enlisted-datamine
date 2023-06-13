@@ -52,7 +52,7 @@ return {
       @(enabled) showPlayerUI(enabled))
     mkOption(loc("gameplay/minimalist_hud"), "minimalist_hud", false,
       @(enabled) minimalistHud(enabled))
-    !platform.is_pc || forceDisableBattleChat
+    !platform.is_pc || forceDisableBattleChat.value
       ? null
       : mkOption(loc("gameplay/show_battle_chat", "Show Battle Chat"), "show_battle_chat", true, setShowBattleChat)
     mkOption(loc("gameplay/self_awards"), "show_self_awards", true, @(enabled) showSelfAwards(enabled))

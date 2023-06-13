@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { tiny_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
@@ -15,12 +15,13 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let {
   mkCurrencyTooltipContainer, mkDefaultTooltipText
 } = require("%enlist/shop/currencyComp.nut")
+let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let CURENCY_PARAMS = {
   iconSize = hdpx(16)
   txtStyle = { color = activeTxtColor }
-  dimStyle = { color = defTxtColor }.__update(tiny_txt)
+  dimStyle = { color = defTxtColor }.__update(sub_txt)
   discountStyle = { color = bonusColor }
 }
 
@@ -62,20 +63,10 @@ let mkCurrency = kwarg(
       ? (discountStyle ?? CURENCY_PARAMS.discountStyle)
       : (txtStyle ?? CURENCY_PARAMS.txtStyle)
     return {
-      flow = FLOW_VERTICAL
-      halign = ALIGN_RIGHT
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      gap = midPadding
       children = [
-        hasPrice && hasDiscount
-          ? {
-              flow = FLOW_HORIZONTAL
-              valign = ALIGN_CENTER
-              gap = gap
-              children = [
-                mkCurrencyImg(currency, hdpx(10))
-                mkCurrencyStroke(fullPrice, dimStyle ?? CURENCY_PARAMS.dimStyle)
-              ]
-            }
-          : null
         {
           flow = FLOW_HORIZONTAL
           valign = ALIGN_CENTER
@@ -87,6 +78,9 @@ let mkCurrency = kwarg(
               : mkDefaultTooltipText(loc("currency/notAvailable"))
           ]
         }
+        hasPrice && hasDiscount
+          ? mkCurrencyStroke(fullPrice, dimStyle ?? CURENCY_PARAMS.dimStyle)
+          : null
       ]
     }
 

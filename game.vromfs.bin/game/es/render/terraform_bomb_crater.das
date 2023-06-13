@@ -87,10 +87,16 @@ def terraform_crater_create_land_decal(evt : EventBombCraterTerraformed;
 
 [es(tag=render)]
 def create_smoke_emitter_on_terraform_bomb_crater(evt : EventBombCraterTerraformed;
-                                                  bomb_crater_config__smokeEffectTemplate : string)
+                                                  bomb_crater_config__minOuterRadiusForSoundEffect : float;
+                                                  bomb_crater_config__smokeEffectTemplate : string;
+                                                  bomb_crater_config__smokeEffectWithSoundTemplate : string)
   var tm = scale_tm(evt.outerRadius)
   tm[3] = evt.pos
-  createEntity(bomb_crater_config__smokeEffectTemplate) <| $(var init : ComponentsInitializer)
+
+  let effectTemplate = (evt.outerRadius >= bomb_crater_config__minOuterRadiusForSoundEffect
+                     ? bomb_crater_config__smokeEffectWithSoundTemplate
+                     : bomb_crater_config__smokeEffectTemplate)
+  createEntity(effectTemplate) <| $(var init : ComponentsInitializer)
     set(init, "transform", tm)
 
 [es(tag=render)]

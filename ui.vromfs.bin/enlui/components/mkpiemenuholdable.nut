@@ -13,8 +13,6 @@ let function locAction(action) {
 }
 let closeHotkey = $"^{JB.B} | Esc"
 
-let isCurrent = @(sf, curIdx, idx) (sf & S_HOVER) || curIdx == idx
-
 let white = Color(255,255,255)
 let dark = Color(200,200,200)
 let disabledColor = Color(60,60,60)
@@ -22,49 +20,46 @@ let curTextColor = Color(250,250,200,200)
 let defTextColor = Color(150,150,150,50)
 let disabledTextColor = Color(50, 50, 50, 50)
 
-local function mkDefTxtCtor(text, available) {
+let mkDefTxtCtor = @(text, available) function(curIdx, idx) {
   if (!(text instanceof Watched))
     text = Watched(text)
-  return @(curIdx, idx)
-    watchElemState(@(sf) {
-      watch = [available, text]
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = text.value
-      color = !available.value ? disabledTextColor
-        : isCurrent(sf, curIdx.value, idx) ? curTextColor
-        : defTextColor
-      hplace = ALIGN_CENTER
-      vplace = ALIGN_CENTER
-      maxWidth = hdpx(140)
-      valign = ALIGN_CENTER
-    })
+  let isActive = Computed(@() curIdx.value == idx)
+  return watchElemState(@(sf) {
+    watch = [available, text, isActive]
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    text = text.value
+    color = !available.value ? disabledTextColor
+      : (sf & S_HOVER) || isActive.value ? curTextColor
+      : defTextColor
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    maxWidth = hdpx(140)
+    valign = ALIGN_CENTER
+  })
 }
 
 let mkDefImageCtor = @(elemSize) function (curImage, fallbackImage=null, available = Watched(true)) {
-  if (curImage==null)
+  if (curImage == null)
     return null
-  if (!(curImage instanceof Watched))
-    curImage = Watched(curImage)
-
   let fallbackPicture = fallbackImage != null ? Picture(fallbackImage) : null
-  let function ctor(curIdx, idx){
-    return watchElemState(function(sf) {
-      return {
-        rendObj = ROBJ_IMAGE
-        watch = [available, curImage]
-        image = ( curImage.value == "" ) ? fallbackPicture : Picture(curImage.value)
-        fallbackImage = fallbackPicture
-        color = !available.value ? disabledColor
-          : (curIdx.value==idx || (sf & S_HOVER)) ? white
-          : dark
-        size = elemSize
-        hplace = ALIGN_CENTER
-        vplace = ALIGN_CENTER
-      }
+  return function(curIdx, idx) {
+    if (!(curImage instanceof Watched))
+      curImage = Watched(curImage)
+    let isActive = Computed(@() curIdx.value == idx)
+    return watchElemState(@(sf) {
+      rendObj = ROBJ_IMAGE
+      watch = [available, curImage, isActive]
+      image = curImage.value == "" ? fallbackPicture : Picture(curImage.value)
+      fallbackImage = fallbackPicture
+      color = !available.value ? disabledColor
+        : (sf & S_HOVER) || isActive.value ? white
+        : dark
+      size = elemSize
+      hplace = ALIGN_CENTER
+      vplace = ALIGN_CENTER
     })
   }
-  return ctor
 }
 
 

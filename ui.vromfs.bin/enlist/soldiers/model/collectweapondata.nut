@@ -45,6 +45,8 @@ let VEHICLE_DATA_FIELDS = {
   ["vehicle_seats__seats"] = TYPE_ARRAY,
   ["damage_model__blk"] = TYPE_STRING,
   ["turret_control__turretInfo"] = TYPE_ARRAY,
+  ["armorThicknessHull"] = TYPE_POINT3,
+  ["armorThicknessTurret"] = TYPE_POINT3,
 }
 
 let SHELLS_DATA_FIELDS = {
@@ -82,6 +84,8 @@ let SHELLS_DATA_FIELDS = {
 }
 
 let ignoreArmorClass = { wood = true, tank_structural_steel = true }
+
+let armorPointKeys = { x = "front", y = "side", z = "back" }
 
 let MODEL_DATA_FIELDS = {
   VehiclePhys = {
@@ -140,8 +144,13 @@ let function readTemplate(template, scheme) {
         break
       case TYPE_POINT2:
         let point = template.getCompValNullable(key)
-        if (point != null && (point?.x ?? 0) != 0 && (point?.y ?? 0) != 0)
-          value = Point2(point.x, point.y)
+        if (point != null)
+          value = Point2(point?.x ?? 0.0, point?.y ?? 0.0)
+        break
+      case TYPE_POINT3:
+        let point = template.getCompValNullable(key)
+        if (point != null)
+          value = Point3(point?.x ?? 0.0, point?.y ?? 0.0, point?.z ?? 0.0)
         break
       case TYPE_ARRAY:
         value = template.getCompValNullable(key)?.getAll()
@@ -317,6 +326,18 @@ let function getWeaponData(templateId) {
   return itemData
 }
 
+let function processArmorOverride(data, sourceKey, targetKey) {
+  if (sourceKey not in data)
+    return
+  let points = delete data[sourceKey]
+  let armor = {}
+  foreach (key, target in armorPointKeys)
+    if (key in points)
+      armor[target] <- points[key]
+  if (armor.len() > 0)
+    data[targetKey] <- armor
+}
+
 let function getVehicleData(templateId) {
   let tmplDB = ecs.g_entity_mgr.getTemplateDB()
   let template = tmplDB.getTemplateByName(templateId)
@@ -368,10 +389,10 @@ let function getVehicleData(templateId) {
     let armorOrders = {} // to get damage parts of minimal order
     foreach (armorKey, armorData in armorParts) {
       let val = armorData?.armorThickness ?? 0.0
-      if (val <= 0 || armorData?.armorClass in ignoreArmorClass)
+      if (val <= 0.0 || armorData?.armorClass in ignoreArmorClass)
         continue
       local counter = 0
-      local [part, dir, dirAlt = null] = armorKey.split("_")
+      local [ part, dir, dirAlt = null ] = armorKey.split("_")
       if (dirAlt != null) {
         // multi turret vehicles
         counter = dir.tointeger()
@@ -393,6 +414,10 @@ let function getVehicleData(templateId) {
     if (addFront)
       addFront.front <- addFront?.front ?? addFront?.side
   }
+
+  // vehicle template with predefined armor setup
+  processArmorOverride(vehicleData, "armorThicknessHull", "armor__body")
+  processArmorOverride(vehicleData, "armorThicknessTurret", "armor__turret")
 
   return vehicleData
 }

@@ -58,8 +58,9 @@ let mkDotPaginator = kwarg(function(
       children = [
         {
           flow = FLOW_HORIZONTAL
-          children = array(pages).map(@(_, idx)
-            watchElemState(@(sf) {
+          children = array(pages).map(function(_, idx) {
+            let isSelected = pageWatch.value == idx
+            return watchElemState(@(sf) {
               behavior = Behaviors.Button
               onClick = @() pageWatch(idx)
               onHover = function(on) {
@@ -70,15 +71,15 @@ let mkDotPaginator = kwarg(function(
                 else
                   startSwitchTimer()
               }
-              children = faComp("circle", {
+              children = faComp(isSelected ? "circle" : "circle-o", {
                 padding = smallPadding
                 fontSize = dotSize
-                color = pageWatch.value == idx ? titleTxtColor
+                color = isSelected ? titleTxtColor
                   : sf & S_HOVER ? activeTxtColor
                   : defTxtColor
               })
             })
-          )
+          })
         }
         mkProgressLine(id, pageWatch.value, switchTime.value)
       ]

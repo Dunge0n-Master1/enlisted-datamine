@@ -24,7 +24,7 @@ let squadHeader = require("components/squadHeader.nut")
 let {
   hasSquadVehicle, selectVehParams
 } = require("%enlist/vehicles/vehiclesListState.nut")
-let { openChooseSoldiersWnd } = require("model/chooseSoldiersState.nut")
+let { openChooseSoldiersWnd, isPurchaseWndOpend } = require("model/chooseSoldiersState.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let sClassesConfig = require("model/config/sClassesConfig.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
@@ -36,172 +36,195 @@ let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { mkAlertInfo } = require("model/soldiersState.nut")
+let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { scene } = require("%enlist/showState.nut")
+let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
 
+foreach(w in [curSection, scene, isPurchaseWndOpend])
+  w.subscribe(@(_) closeEquipPresets())
 
-let vehicleInfo = Computed(function() {
-  let vehGuid = curVehicle.value
-  if (vehGuid == null)
-    return null
+let prevSoldier = mkWatched(persist, "prevSoldier", null)
+let function mkSquadInfo() {
+  let vehicleInfo = Computed(function() {
+    let vehGuid = curVehicle.value
+    if (vehGuid == null)
+      return null
 
-  let skin = (vehDecorators.value ?? {})
-    .findvalue(@(d) d.cType == "vehCamouflage" && d.vehGuid == vehGuid)
+    let skin = (vehDecorators.value ?? {})
+      .findvalue(@(d) d.cType == "vehCamouflage" && d.vehGuid == vehGuid)
 
-  let override = skin == null ? {} : { skin }
-  let vehicle = objInfoByGuid.value?[vehGuid]
-  return vehicle == null ? null : vehicle.__merge(override)
-})
-
-let seatsOrderWatch = mkVehicleSeats(vehicleInfo)
-
-let function openChooseVehicle(event) {
-  if (event.button >= 0 && event.button <= 2)
-    selectVehParams.mutate(@(params) params.__update({
-      armyId = curArmy.value
-      squadId = curSquadId.value
-      isCustomMode = false
-    }))
-}
-
-
-let allowedReserve = Computed(function() {
-  let { maxClasses = null } = curSquadParams.value
-  if (maxClasses == null)
-    return 0
-  let classesCfgV = sClassesConfig.value
-  return curArmyReserve.value.reduce(function(res, s) {
-    let kind = s?.sKind ?? classesCfgV?[s.sClass].kind
-    return (maxClasses?[kind] ?? 0) > 0 ? res + 1 : res
-  }, 0)
-})
-
-let function reserveAvailableBlock() {
-  let res = { watch = allowedReserve }
-  let count = allowedReserve.value
-  if (count <= 0)
-    return res
-  return res.__update({
-    hplace = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    flow = FLOW_HORIZONTAL
-    margin = [bigPadding * 2, 0,]
-    rendObj = ROBJ_TEXTAREA
-    behavior = Behaviors.TextArea
-    text = loc("squad/reserveAvailable", { count, countColored = colorize(activeTxtColor, count) })
-    color = noteTxtColor
-  }.__update(tiny_txt))
-}
-
-let function manageSoldiersBtn() {
-  let squad = curSquad.value
-  let { guid = null, squadId = null } = squad
-  let armyId = getLinkedArmyName(squad)
-  let needSoldiersManage = needSoldiersManageBySquad.value?[guid] ?? false
-  let hasUnseesSoldiers = unseenSoldierShopItems.value.len() > 0
-  let res = { watch = [needSoldiersManageBySquad, curSquad,
-    disabledSectionsData, unseenSoldierShopItems] }
-  return disabledSectionsData.value?.SOLDIERS_MANAGING ?? false ? res
-    : res.__update({
-      size = [flex(), SIZE_TO_CONTENT]
-      children = Flat(loc("soldier/manageButton"),
-        function() {
-          if (isSquadRented(squad)) {
-            buyRentedSquad({ armyId, squadId, hasMsgBox = true })
-            return
-          }
-          openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
-        }, {
-          fgChild = {
-            flow = FLOW_HORIZONTAL
-            hplace = ALIGN_RIGHT
-            vplace = ALIGN_TOP
-            gap = smallPadding
-            children = [
-              needSoldiersManage ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true)) : null
-              hasUnseesSoldiers
-                ? smallUnseenNoBlink.__merge({ size = [hdpxi(15), hdpxi(15)], fontSize = hdpxi(14) })
-                : null
-            ]
-          }
-          onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
-          size = [flex(), SIZE_TO_CONTENT]
-          fontSize = sub_txt.fontSize
-          maxWidth = slotBaseSize[0]
-          hplace = ALIGN_CENTER
-          margin = 0
-        }
-      )
-    })
-}
-
-let curSquadUnseenVehicleCount = Computed(@() unseenSquadsVehicle.value?[curSquad.value?.guid].len() ?? 0)
-let function unseenVehiclesMark() {
-  let res = { watch = curSquadUnseenVehicleCount }
-  if (curSquadUnseenVehicleCount.value > 0)
-    res.__update(blinkingIcon("arrow-up", curSquadUnseenVehicleCount.value))
-  return res
-}
-
-let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(curSoldiersDataList.value.len()))
-
-let freeSeatsBlock = @(freeSeats) freeSeats.len() == 0 ? null : {
-  size = [flex(), SIZE_TO_CONTENT]
-  flow = FLOW_VERTICAL
-  children = [
-    note(loc("vehicle_seats/freeSeats"))
-    {
-      rendObj = ROBJ_TEXTAREA
-      size = [flex(), SIZE_TO_CONTENT]
-      behavior = Behaviors.TextArea
-      text = ", ".join(freeSeats.map(@(seat) loc(seat.locName)))
-    }.__update(tiny_txt)
-  ]
-}
-
-return function() {
-  let res = { watch = [
-    curSquadId, perksData, vehicleInfo, seatsOrderWatch, freeSeatsInVehicle,
-    curSoldiersDataList, needFreemiumStatus, campPresentation
-  ] }
-  if (curSquadId.value == null)
-    return res
-
-  return res.__update({
-    size = [SIZE_TO_CONTENT, flex()]
-    children = mkMainSoldiersBlock({
-      soldiersListWatch = curSoldiersDataList
-      expToLevelWatch = Computed(@() perkLevelsGrid.value?.expToLevel)
-      hasVehicleWatch = Computed(@() hasSquadVehicle(curSquad.value))
-      seatsOrderWatch
-      curSoldierIdxWatch = curSoldierIdx
-      soldiersReadyWatch = curSquadSoldiersStatus
-      isFreemiumMode = needFreemiumStatus.value
-      thresholdColor = campPresentation.value?.color
-      curVehicleUi = mkCurVehicle({
-        openChooseVehicle
-        vehicleInfo
-        topRightChild = unseenVehiclesMark
-        soldiersList = curSoldiersDataList
-      })
-      canDeselect = true
-      addCardChild = mkAlertInfo
-      headerBlock = squadHeader({
-        curSquad = curSquad
-        curSquadParams = curSquadParams
-        soldiersList = curSoldiersDataList
-        vehicleCapacity = vehicleCapacity
-        soldiersStatuses = curSquadSoldiersStatus
-      })
-      bottomObj = @() {
-        size = [flex(), SIZE_TO_CONTENT]
-        margin = vehicleInfo.value != null ? null : [bigPadding, 0, 0, 0]
-        flow = FLOW_VERTICAL
-        gap = smallPadding
-        children = [
-          freeSeatsBlock(freeSeatsInVehicle.value)
-          reserveAvailableBlock
-          manageSoldiersBtn
-        ]
-      }
-    })
+    let override = skin == null ? {} : { skin }
+    let vehicle = objInfoByGuid.value?[vehGuid]
+    return vehicle == null ? null : vehicle.__merge(override)
   })
+
+  let seatsOrderWatch = mkVehicleSeats(vehicleInfo)
+
+  let function openChooseVehicle(event) {
+    if (event.button >= 0 && event.button <= 2)
+      selectVehParams.mutate(@(params) params.__update({
+        armyId = curArmy.value
+        squadId = curSquadId.value
+        isCustomMode = false
+      }))
+  }
+
+
+  let allowedReserve = Computed(function() {
+    let { maxClasses = null } = curSquadParams.value
+    if (maxClasses == null)
+      return 0
+    let classesCfgV = sClassesConfig.value
+    return curArmyReserve.value.reduce(function(res, s) {
+      let kind = s?.sKind ?? classesCfgV?[s.sClass].kind
+      return (maxClasses?[kind] ?? 0) > 0 ? res + 1 : res
+    }, 0)
+  })
+
+  let function reserveAvailableBlock() {
+    let res = { watch = allowedReserve }
+    let count = allowedReserve.value
+    if (count <= 0)
+      return res
+    return res.__update({
+      hplace = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      flow = FLOW_HORIZONTAL
+      margin = [bigPadding * 2, 0,]
+      rendObj = ROBJ_TEXTAREA
+      behavior = Behaviors.TextArea
+      text = loc("squad/reserveAvailable", { count, countColored = colorize(activeTxtColor, count) })
+      color = noteTxtColor
+    }.__update(tiny_txt))
+  }
+
+  let function manageSoldiersBtn() {
+    let squad = curSquad.value
+    let { guid = null, squadId = null } = squad
+    let armyId = getLinkedArmyName(squad)
+    let needSoldiersManage = needSoldiersManageBySquad.value?[guid] ?? false
+    let hasUnseesSoldiers = unseenSoldierShopItems.value.len() > 0
+    let res = { watch = [needSoldiersManageBySquad, curSquad,
+      disabledSectionsData, unseenSoldierShopItems] }
+    return disabledSectionsData.value?.SOLDIERS_MANAGING ?? false ? res
+      : res.__update({
+        size = [flex(), SIZE_TO_CONTENT]
+        children = Flat(loc("soldier/manageButton"),
+          function() {
+            if (isSquadRented(squad)) {
+              buyRentedSquad({ armyId, squadId, hasMsgBox = true })
+              return
+            }
+            openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
+          }, {
+            fgChild = {
+              flow = FLOW_HORIZONTAL
+              hplace = ALIGN_RIGHT
+              vplace = ALIGN_TOP
+              gap = smallPadding
+              children = [
+                needSoldiersManage ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true)) : null
+                hasUnseesSoldiers
+                  ? smallUnseenNoBlink.__merge({ size = [hdpxi(15), hdpxi(15)], fontSize = hdpxi(14) })
+                  : null
+              ]
+            }
+            hotkeys = [["^J:X"]]
+            onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
+            size = [flex(), SIZE_TO_CONTENT]
+            fontSize = sub_txt.fontSize
+            maxWidth = slotBaseSize[0]
+            hplace = ALIGN_CENTER
+            margin = 0
+          }
+        )
+      })
+  }
+
+  let curSquadUnseenVehicleCount = Computed(@() unseenSquadsVehicle.value?[curSquad.value?.guid].len() ?? 0)
+  let function unseenVehiclesMark() {
+    let res = { watch = curSquadUnseenVehicleCount }
+    if (curSquadUnseenVehicleCount.value > 0)
+      res.__update(blinkingIcon("arrow-up", curSquadUnseenVehicleCount.value))
+    return res
+  }
+
+  let freeSeatsInVehicle = Computed(@() seatsOrderWatch.value.slice(curSoldiersDataList.value.len()))
+
+  let freeSeatsBlock = @(freeSeats) freeSeats.len() == 0 ? null : {
+    size = [flex(), SIZE_TO_CONTENT]
+    flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
+    children = [
+      note(loc("vehicle_seats/freeSeats")).__update(sub_txt)
+      {
+        rendObj = ROBJ_TEXTAREA
+        size = [flex(), SIZE_TO_CONTENT]
+        behavior = Behaviors.TextArea
+        halign = ALIGN_CENTER
+        text = ", ".join(freeSeats.map(@(seat) loc(seat.locName)))
+      }.__update(sub_txt)
+    ]
+  }
+
+  return function() {
+    let res = { watch = [
+      curSquadId, perksData, vehicleInfo, seatsOrderWatch, freeSeatsInVehicle,
+      curSoldiersDataList, needFreemiumStatus, campPresentation
+    ] }
+    if (curSquadId.value == null)
+      return res
+
+    return res.__update({
+      size = [SIZE_TO_CONTENT, flex()]
+      onDetach = function() {
+        prevSoldier({squadId = curSquadId.value, soldier = curSoldierIdx.value})
+        if (curSection.value!="SQUAD_SOLDIERS")
+          curSoldierIdx(null)
+      }
+      onAttach = function() {
+        if (curSoldierIdx.value == null && curSquadId.value == prevSoldier.value?.squadId) {
+          curSoldierIdx(prevSoldier.value.soldier)
+          prevSoldier(null)
+        }
+      }
+      children = mkMainSoldiersBlock({
+        soldiersListWatch = curSoldiersDataList
+        expToLevelWatch = Computed(@() perkLevelsGrid.value?.expToLevel)
+        hasVehicleWatch = Computed(@() hasSquadVehicle(curSquad.value))
+        seatsOrderWatch
+        curSoldierIdxWatch = curSoldierIdx
+        soldiersReadyWatch = curSquadSoldiersStatus
+        isFreemiumMode = needFreemiumStatus.value
+        thresholdColor = campPresentation.value?.color
+        curVehicleUi = mkCurVehicle({
+          openChooseVehicle
+          vehicleInfo
+          topRightChild = unseenVehiclesMark
+          soldiersList = curSoldiersDataList
+        })
+        canDeselect = true
+        addCardChild = mkAlertInfo
+        headerBlock = squadHeader({
+          curSquad = curSquad
+          curSquadParams = curSquadParams
+          soldiersList = curSoldiersDataList
+          vehicleCapacity = vehicleCapacity
+          soldiersStatuses = curSquadSoldiersStatus
+        })
+        bottomObj = @() {
+          size = [flex(), SIZE_TO_CONTENT]
+          margin = vehicleInfo.value != null ? null : [bigPadding, 0, 0, 0]
+          flow = FLOW_VERTICAL
+          gap = smallPadding
+          children = [
+            freeSeatsBlock(freeSeatsInVehicle.value)
+            reserveAvailableBlock
+            manageSoldiersBtn
+          ]
+        }
+      })
+    })
+  }
 }
+return {mkSquadInfo}

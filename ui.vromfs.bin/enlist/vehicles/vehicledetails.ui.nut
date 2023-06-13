@@ -22,7 +22,7 @@ let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { blur, mkItemDescription, mkVehicleDetails, mkUpgrades
 } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { scrollToCampaignLvl } = require("%enlist/soldiers/model/armyUnlocksState.nut")
-let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
+let spinner = require("%ui/components/spinner.nut")
 let { isItemActionInProgress } = require("%enlist/soldiers/model/itemActions.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
@@ -42,6 +42,7 @@ let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 
 let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
+let waitingSpinner = spinner(hdpx(25))
 
 let function txt(text) {
   return type(text) == "string"
@@ -271,7 +272,7 @@ let manageButtons = @() {
     padding = [bigPadding, 0, bigPadding, bigPadding]
     valign = ALIGN_BOTTOM
     children = isItemActionInProgress.value
-      ? [spinner]
+      ? [waitingSpinner]
       : [
           goShopBtn(viewVehicle.value)
           mkUpgradeBtn(viewVehicle.value)

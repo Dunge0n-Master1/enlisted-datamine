@@ -6,6 +6,7 @@ require enlisted.events_enlisted
 require enlisted.game.es.context_command_common
 require enlisted.game.es.squad_behaviour_command_common
 require enlisted.game.es.terraform.terraform_common
+require common_shooter.es.hit_result_common
 require app
 require ecs
 require DagorSystem

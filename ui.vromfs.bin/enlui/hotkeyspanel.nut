@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let { body_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let { startswith } = require("string")
 let {lastActiveControlsType, isGamepad} = require("%ui/control/active_controls.nut")
 let controllerType = require("%ui/control/controller_type.nut")
@@ -15,9 +15,6 @@ let {verPadding, horPadding} = require("%enlSqGlob/safeArea.nut")
 let {getHotkeysComps, hotkeysPanelCompsGen} = require("hotkeysPanelStateComps.nut")
 let {cursorPresent, cursorOverStickScroll, config, cursorOverClickable} = gui_scene
 
-let text_font = sub_txt?.font
-let text_size = sub_txt.fontSize
-
 let panel_ver_padding = fsh(1)
 
 let function mktext(text){
@@ -25,9 +22,7 @@ let function mktext(text){
     rendObj = ROBJ_TEXT
     text
     color = colors.BtnTextNormal
-    font=text_font
-    fontSize = text_size
-  }
+  }.__update(body_txt)
 }
 
 let defaultJoyAHint = loc("ui/cursor.activate")
@@ -38,7 +33,7 @@ gui_scene.setHotkeysNavHandler(function(state) {
 })
 
 let padding = hdpx(5)
-let height = text_size
+let height = calc_str_box(mktext("H"))[1]*1.1
 
 let function mkNavBtn(params = {hotkey=null, gamepad=true}){
   let description = params?.hotkey?.description
@@ -47,7 +42,7 @@ let function mkNavBtn(params = {hotkey=null, gamepad=true}){
     return null
   let btnNames = params?.hotkey.btnName ?? []
   let children = params?.gamepad
-       ? btnNames.map(@(btnName) gamepadImgByKey.mkImageCompByDargKey(btnName, {height=height}))
+       ? btnNames.map(@(btnName) gamepadImgByKey.mkImageCompByDargKey(btnName, {height}))
        : btnNames.map(@(btnName) {rendObj = ROBJ_TEXT text = btnName })
 
   if (type(description)=="string")

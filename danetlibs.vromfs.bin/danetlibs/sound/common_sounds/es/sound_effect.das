@@ -47,15 +47,15 @@ def sound_effect_update_moveable(evt : Event;
     set_pos(sound_effect__event.handle, transform * sound_effect__localOffset)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def sound_effect_init(evt : Event;
-                      sound_bank_preset_state__isValid : bool;
+                      sound_banks_state__isPresetLoaded : bool;
                       sound_effect__autoRange : bool;
                       var sound_control__range : float&;
                       sound_effect__path : string;
                       sound_effect__abandonOnReset : bool;
                       var sound_effect__event : SoundEvent&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     if sound_effect__autoRange
       sound_control__range = get_max_distance(sound_effect__path)
       if sound_control__range <= 0.

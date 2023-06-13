@@ -25,7 +25,6 @@ def redeploy_after_landing_set_timer(evt : Event;
                                      landing_redeploy__time : float;
                                      landing_redeploy__blackoutTime : float;
                                      redeploy__insideAreaTag : string;
-                                     var redeploy__hideBattleAreaWarning : bool&;
                                      var redeploy__delay : float&;
                                      var redeploy__atTime : float&)
   if isOutsideBattleArea
@@ -36,7 +35,6 @@ def redeploy_after_landing_set_timer(evt : Event;
       return has(zone, redeploy__insideAreaTag, ecs_hash(redeploy__insideAreaTag))
     if inHumanZone
       removeSubTemplate(eid, "landing_outside_battle_area_redeploy")
-      redeploy__hideBattleAreaWarning = false
 
 def kill_vehicle_if_empty(vehicle_eid : EntityId)
   query(vehicle_eid) <| $ [es(REQUIRE_NOT=deadEntity)] (vehicle_seats__seatEids : EidList; var isAlive : bool&)
@@ -52,3 +50,7 @@ def destroy_left_vehicle_after_redeploy(evt : Event;
   if isAllRedeployed
     kill_vehicle_if_empty(redeployed_landing_redeploy__vehicle)
   removeSubTemplate(redeployed_eid, "landing_outside_battle_area_redeploy")
+
+[es(tag=server, on_appear, track=isOutsideBattleArea, REQUIRE_NOT=human__awaitsRedeploy)]
+def reset_battle_area_warning(evt : Event; isOutsideBattleArea : bool; var redeploy__hideBattleAreaWarning : bool&)
+  redeploy__hideBattleAreaWarning &&= isOutsideBattleArea

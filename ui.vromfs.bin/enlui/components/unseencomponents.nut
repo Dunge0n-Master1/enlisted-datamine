@@ -1,27 +1,59 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let mkLottieAnimation = require("%ui/components/mkLottieAnimation.nut")
-let { colPart, titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { colPart, titleTxtColor, fullTransparentBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 
 
 let panelTxtStyle = { color = titleTxtColor }.__update(fontLarge)
-let defUnseenDotSize = colPart(0.4)
-let unblinkSignDotSize = colPart(0.2)
+let unseenColor = 0xFF00FF6C
+let defUnseenDotSize = colPart(0.35)
+let blinkingSize = colPart(0.3)
+let unblinkSignDotSize = colPart(0.135)
+
+const BLINK_TRIGGER = "start_blinking_animation"
+const BLINK_DELAY = 4
 
 
-let unseenAnimDot = mkLottieAnimation("ui/lottieAnimations/notifier.json", {
-  width = defUnseenDotSize
-  height = defUnseenDotSize
-})
+let smallDot = {
+  rendObj = ROBJ_VECTOR_CANVAS
+  size = [unblinkSignDotSize, unblinkSignDotSize]
+  color = unseenColor
+  fillColor = unseenColor
+  commands =  [[ VECTOR_ELLIPSE, 50, 50, 50, 50 ]]
+}
+
+
+gui_scene.setInterval(BLINK_DELAY, @() anim_start(BLINK_TRIGGER))
 
 let blinkUnseen = {
   size = [defUnseenDotSize, defUnseenDotSize]
-  vplace = ALIGN_TOP
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
   hplace = ALIGN_RIGHT
-  children = unseenAnimDot
+  vplace = ALIGN_TOP
+  children = [
+    {
+      rendObj = ROBJ_VECTOR_CANVAS
+      size = [blinkingSize, blinkingSize]
+      fillColor = fullTransparentBgColor
+      color = unseenColor
+      opacity = 0
+      commands =  [
+        [ VECTOR_ELLIPSE, 50, 50, 50, 50 ],
+        [VECTOR_WIDTH, 50]
+      ]
+      transform = {}
+      animations = [
+        { prop = AnimProp.opacity, from = 1, to = 0.3, duration = 0.8, play = true, easing = OutCubic,
+          trigger = BLINK_TRIGGER }
+        { prop = AnimProp.scale, from = [0,0], to = [1, 1], duration = 0.8, trigger = BLINK_TRIGGER,
+          play = true}
+      ]
+    }
+    smallDot
+  ]
 }
 
 
@@ -31,17 +63,13 @@ let unblinkUnseen = {
   halign = ALIGN_CENTER
   vplace = ALIGN_TOP
   valign = ALIGN_CENTER
-  children = {
-    size = [unblinkSignDotSize, unblinkSignDotSize]
-    rendObj = ROBJ_IMAGE
-    image = Picture("ui/skin#tasks/ellipse_lotty_green.svg:{0}:{0}:K".subst(unblinkSignDotSize))
-  }
+  children = smallDot
 }
 
 
-let panelBgImg = mkTwoSidesGradientX(0x00116C15, 0xFF116C15, false)
+let panelBgImg = mkTwoSidesGradientX({sideColor = 0x00116C15, centerColor = 0x00116C15, isAlphaPremultiplied=false})
 
-let unseenPanel = @(text, override = {}) {
+let unseenPanel = @(text, override = null, txtStyle = null) {
   size = [flex(), colPart(0.709)]
   rendObj = ROBJ_IMAGE
   image = panelBgImg
@@ -51,8 +79,8 @@ let unseenPanel = @(text, override = {}) {
     rendObj = ROBJ_TEXT
     text = utf8ToUpper(text)
     halign = ALIGN_CENTER
-  }.__update(panelTxtStyle)
-}.__update(override)
+  }.__update(panelTxtStyle, txtStyle ?? {})
+}.__update(override ?? {})
 
 return {
   blinkUnseen

@@ -5,6 +5,7 @@ require game.es.events
 require enlisted.game.es.offender_cache_common
 require common_shooter.events_common_shooter
 require common_shooter.es.hitpoints_common
+require common_shooter.es.hit_result_common
 require game.es.vehicle.vehicle_seats_common
 require game.events_game
 require game.utils.team

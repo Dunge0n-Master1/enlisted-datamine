@@ -334,6 +334,10 @@ def set_slot_attach__rotation_tm(evt : Event; slot_attach__rotOffset : float3; v
   euler_to_quat(offset.x, offset.y, offset.z, q)
   make_tm(q, float3(), slot_attach__rotTm)
 
+[es(tag=gameClient, track=slot_attach__posOffset, on_appear, after=set_slot_attach__rotation_tm)]
+def set_slot_attach__position_tm(evt : Event; slot_attach__posOffset : float3; var slot_attach__rotTm : float3x4&)
+  slot_attach__rotTm[3] = slot_attach__posOffset
+
 [es(on_appear)]
 def human_weap_init_gun_trace(evt : Event;
                               human_weap__gunMat : string = "gunRay";

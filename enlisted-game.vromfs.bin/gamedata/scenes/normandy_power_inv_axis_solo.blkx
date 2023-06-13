@@ -2031,12 +2031,14 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
+  respawnSelectorDistanceMult:r=2.2
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-616.634, 317.064, 400.939]]
 }
 
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=2
+  respawnSelectorDistanceMult:r=2.2
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-606.564, 323.692, 1001.26]]
 }
 

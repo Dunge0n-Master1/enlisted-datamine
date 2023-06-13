@@ -1,0 +1,158 @@
+player{
+  team:i=-1
+  name:t=""
+  disconnected:b=no
+  disconnectedAtTime:r=-1.0
+  is_local:b=no
+  platformUid:t=""
+  platform:t=""
+  playerIdInSession:t=""
+  groupId:i64=0
+  origGroupId:i64=0
+  wishGroupId:i64=0
+  player_group__memberIndex:i=0
+  connid:i=-1
+  psnMatchCreationAttempt:i=0
+  connectedAtTime:r=-1.0
+  startedAtTime:r=-1.0
+  canBeLocal:b=yes
+  _extends:t="replicating"
+  _extends:t="player_hits_counter"
+  markerDistMult:r=1.0
+  countAsAlive:b=yes
+  appId:i=0
+  clientNetFlags:i=0
+  _tracked:t="groupId"
+  _tracked:t="squadFormationSpread"
+  _tracked:t="team"
+  _tracked:t="is_local"
+  _tracked:t="possessed"
+  _tracked:t="disconnected"
+  _tracked:t="awards"
+  _tracked:t="specTarget"
+  _tracked:t="userstats"
+  _tracked:t="userstats_mode"
+  _tracked:t="player__limitVehicleByGroup"
+  _replicated:t="groupId"
+  _replicated:t="squadFormationSpread"
+  _replicated:t="possessed"
+  _replicated:t="specTarget"
+  _replicated:t="team"
+  _replicated:t="name"
+  _replicated:t="disconnected"
+  _replicated:t="playerIdInSession"
+  _replicated:t="player_group__memberIndex"
+  _replicated:t="player__limitVehicleByGroup"
+  ban_status:t="UNDEFINED"
+  receive_logerr:b=no
+  player__limitVehicleByGroup:b=no
+
+  _group{
+    _track:b=yes
+    _replicate:b=yes
+    scoring_player__kills:i=0
+    scoring_player__firstSpawnTime:r=-1.0
+    scoring_player__battleTime:r=0.0
+  }
+
+  _group{
+    _tags:t="server"
+    squadFormationSpread:i=1
+  }
+
+  player{
+  }
+
+  "possessed:eid"{
+  }
+
+  "specTarget:eid"{
+  }
+
+  "net__notInInitialScope:tag"{
+  }
+
+  "awards:array"{
+  }
+
+  "userstats:object"{
+    _tags:t="server"
+  }
+
+  "userstats_mode:object"{
+    _tags:t="server"
+  }
+
+  "regionstats:object"{
+    _tags:t="server"
+  }
+
+  "activeCamName:t"{
+    _tags:t="gameClient"
+    value:t=""
+  }
+
+  "activeCamEid:eid"{
+    _tags:t="gameClient"
+  }
+
+  "killEntityTimer:u64"{
+    _tags:t="server"
+    value:i64=0
+  }
+
+  "player__wishAnyTeam:b"{
+    value:b=no
+    _tags:t="server"
+  }
+}
+
+local_player{
+
+  "localPlayer:tag"{
+  }
+}
+
+first_blood_award{
+  awards__isFirstBloodSpilled:b=no
+}
+
+player_afk{
+
+  _group{
+    afk__disconnectTimeout:r=-1.0
+    afk__showWarningTimeout:i=-1
+    afk__showDisconnectWarningTimeout:i=-1
+    afk__time:r=0.0
+    afk__packedState:i=0
+    afk__walkPacked:i=0
+    afk__wishLookDirPacked:i=0
+    afk__wishShootDirPacked:i=0
+    _tags:t="server"
+  }
+}
+
+bot_player{
+  _extends:t="player"
+
+  "playerIsBot:tag"{
+  }
+}
+
+player_hits_counter{
+
+  _group{
+    hits_counter__verified:i=0
+    hits_counter__failed:i=0
+    _tags:t="server"
+  }
+}
+
+player_group{
+  player_group__id:i64=0
+  player_group__maxBotPlayers:i=4
+  player_group__wishTeam:i=-1
+
+  "player_group__members:list<u64>"{
+  }
+}

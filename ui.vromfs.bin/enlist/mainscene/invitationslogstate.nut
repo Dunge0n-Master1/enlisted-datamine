@@ -13,6 +13,18 @@ let hasUnread = Computed(@() unreadNum.value > 0)
 
 let getPopupId = @(notify) $"mailbox_{notify.id}"
 
+enum InvitationsStyle {
+  PRIMARY = "primary"
+  TO_BATTLE = "toBattle"
+}
+
+enum InvitationsTypes {
+  TO_FRIEND = "friendInvitation"
+  TO_SQUAD = "squadInvitation"
+  SQUAD_REMOVE = "squadRemove"
+  FRIEND_REMOVE = "friendRemove"
+}
+
 let subscriptions = {}
 let function subscribeGroup(actionsGroup, actions) {
   if (actionsGroup in subscriptions || actionsGroup == "") {
@@ -117,4 +129,6 @@ return {
   subscribeGroup
   onNotifyRemove
   onNotifyShow
+  InvitationsStyle
+  InvitationsTypes
 }

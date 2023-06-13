@@ -695,8 +695,8 @@ base_soldier{
     entity_mods__horizontalRecoilOffsMult:r=1.0
     entity_mods__verticalRecoilOffsMult:r=1.0
     entity_mods__fasterChangePoseMult:r=1.0
-    entity_mods__longerHoldBreathMult:r=1.0
-    entity_mods__oftenHoldBreathMult:r=1.0
+    entity_mods__holdBreathDrainMult:r=1.0
+    entity_mods__breathRestoreMult:r=1.0
     entity_mods__crawlCrouchSpeedMult:r=1.0
     entity_mods__rotationShotSpreadDecrMult:r=1.0
     entity_mods__maxHpMult:r=1.0
@@ -925,7 +925,7 @@ friendly_fire_penalty{
 }
 
 squad_member_ui{
-  tags:t="ui"
+  _tags:t="ui"
 
   "squad_member_ui__grenadeTypes:list<t>"{
   }
@@ -1137,6 +1137,10 @@ dummy_enlisted_base_soldier{
   }
 
   animchar_attaches_bbox{
+    _tags:t="render"
+  }
+
+  animchar_attaches_bbox_precalculated{
     _tags:t="render"
   }
 
@@ -1416,7 +1420,10 @@ enlisted_base_soldier{
   human_net_phys__botCollisionMaterialId:i=-1
   net_phys__collisionMaterialId:i=-1
   net_phys__ignoreMaterialId:i=-1
-  dmgzone_fire_resistance__maxTicks:i=0
+  dmgzone_fire_resistance__maxTicks:i=4
+  dmgzone_fire_resistance__underwaterTicks:i=-30
+  dmgzone_fire_resistance__wetDelaySec:r=1.0
+  dmgzone_fire_resistance__wetTimerSec:r=0.0
   dmgzone_fire_resistance__decayInterval:r=1.0
   dmgzone_fire_resistance__lastTickAt:r=0.0
   dmgzone_fire_resistance__currentTicks:i=0

@@ -1,4 +1,5 @@
 tnt_block_exploder_sound{
+  _extends:t="gun_shot_dry_sound"
 
   _group{
     _tags:t="sound"
@@ -161,6 +162,7 @@ base_tnt_block{
   weap__sprintLerpFactor:r=1.0
   placeable_item__additionalHeight:r=0.012
   placeable_item__template:t="lootable_placeable_item_in_world"
+  attachable_to_vehicle__template:t="attached_to_vehicle+lootable_placeable_item_in_world"
   _replicated:t="gun__owner"
   _tracked:t="gun__owner"
 

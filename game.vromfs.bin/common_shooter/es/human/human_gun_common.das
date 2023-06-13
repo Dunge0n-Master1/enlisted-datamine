@@ -14,6 +14,9 @@ def try_reload_empty_gun(gun : Gun;
                          gun_ammo : int;
                          gun_owner : EntityId;
                          at_time : float)
+  if get_bool(gun_eid, "gun_reload__isReloading") ?? false
+    return
+
   if is_server() && is_for_real && gun_ammo == 0
     let reloadOnShoot = get_bool(gun_owner, "human_weap__reloadOnShoot") ?? true
     let reloadOnEmptyMag = get_bool(gun_owner, "human_weap__reloadOnEmptyMag") ?? true

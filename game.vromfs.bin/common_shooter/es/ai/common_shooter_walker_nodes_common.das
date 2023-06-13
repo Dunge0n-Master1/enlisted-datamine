@@ -1,6 +1,7 @@
 module common_shooter_walker_nodes_common shared
 
 require ecs
+require app
 require math.base
 require game.es.battle_area_common
 require RendInst
@@ -17,3 +18,15 @@ def is_point_safe(pos : float3; member_team : int)
         return true
     return false;
   return !danger
+
+def check_human_reload(eid : EntityId)
+  var reload = 0
+  query(eid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__currentGunEid : EntityId)
+    let atTime = get_sync_time()
+    if atTime < human_weap__reloadAtTime
+      reload = 1 // reloading
+    else
+      query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int)
+        if gun__totalAmmo > 0 && gun__ammo == 0
+          reload = -1 // need to reload
+  return reload

@@ -8,11 +8,11 @@ require soundSystem
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=birds_sound_update)]
 def shore_sound_update(evt : Event;
-                       sound_bank_preset_state__isValid : bool;
+                       sound_banks_state__isPresetLoaded : bool;
                        shore_sound__event : SoundEvent&;
                        shore_sound__offsets : Point2List;
                        transform : float3x4)
-  if sound_bank_preset_state__isValid && length(shore_sound__offsets) >= 2
+  if sound_banks_state__isPresetLoaded && length(shore_sound__offsets) >= 2
     let listener = inverse(transform) * soundSystem::get_listener_pos()
     var idx = 0
     while idx < length(shore_sound__offsets) - 2 && listener.x >= shore_sound__offsets[idx + 1].x
@@ -24,11 +24,11 @@ def shore_sound_update(evt : Event;
     set_pos(shore_sound__event.handle, pos)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def shore_sound_toggle(evt : Event;
-                       sound_bank_preset_state__isValid : bool;
+                       sound_banks_state__isPresetLoaded : bool;
                        shore_sound__path : string;
                        var shore_sound__event : SoundEvent&)
   release_immediate(shore_sound__event.handle)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     shore_sound__event |> play(shore_sound__path)

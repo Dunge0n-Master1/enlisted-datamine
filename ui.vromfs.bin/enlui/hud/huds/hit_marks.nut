@@ -4,7 +4,7 @@ let {Point3} = require("dagor.math")
 let {cos, sin, PI} = require("math")
 let {hitMarks, downedColor, hitColor, killColor, killSize, hitSize, killTtl, hitTtl, showWorldKillMark} = require("%ui/hud/state/hit_marks_es.nut")
 let u = require("%sqstd/underscore.nut")
-let {HIT_RES_DOWNED, HIT_RES_KILLED, HIT_RES_NORMAL} = require("dm")
+let {HitResult} = require("%enlSqGlob/dasenums.nut")
 let { showCrosshairHints } = require("%ui/hud/state/hudOptionsState.nut")
 
 let animations = [
@@ -73,15 +73,15 @@ let function updateLocalCache(...){
   let commonHitMarkAnims = mkAnimations(hitTtl.value/3.0) //this is needed because of different time scale. Hitmarks can disappear with not smooth animation
   let commonKillMarkAnims = mkAnimations(killTtl.value/3.0)
   hitMarkParams = {
-    [HIT_RES_NORMAL] = {size = hitSize.value, color = hitColor.value, animations = commonHitMarkAnims},
-    [HIT_RES_DOWNED] = {size = killSize.value, color = downedColor.value, animations = commonHitMarkAnims},
-    [HIT_RES_KILLED] = {size = killSize.value, color = killColor.value, animations = commonKillMarkAnims}
+    [HitResult.HIT_RES_NORMAL] = {size = hitSize.value, color = hitColor.value, animations = commonHitMarkAnims},
+    [HitResult.HIT_RES_DOWNED] = {size = killSize.value, color = downedColor.value, animations = commonHitMarkAnims},
+    [HitResult.HIT_RES_KILLED] = {size = killSize.value, color = killColor.value, animations = commonKillMarkAnims}
   }
   showWorldKillMarkCached = showWorldKillMark.value
   posHitMarksParams = {
-    [HIT_RES_NORMAL] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = hitSize.value transform = {} color = hitColor.value},
-    [HIT_RES_DOWNED] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = killSize.value transform = {} color = downedColor.value},
-    [HIT_RES_KILLED] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = killSize.value transform = {} color = killColor.value},
+    [HitResult.HIT_RES_NORMAL] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = hitSize.value transform = {} color = hitColor.value},
+    [HitResult.HIT_RES_DOWNED] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = killSize.value transform = {} color = downedColor.value},
+    [HitResult.HIT_RES_KILLED] = {rendObj = ROBJ_VECTOR_CANVAS commands = simpleHitMark size = killSize.value transform = {} color = killColor.value},
   }
 }
 {
@@ -131,7 +131,7 @@ let function hitHair() {
       transform = {}
       key = key
       commands = curHitMark!=null && !curHitMark.isImmunityHit ? simpleHitMark : null
-    }.__update(hitMarkParams?[curHitMark?.hitRes] ?? hitMarkParams[HIT_RES_NORMAL])
+    }.__update(hitMarkParams?[curHitMark?.hitRes] ?? hitMarkParams[HitResult.HIT_RES_NORMAL])
   }
 }
 
@@ -145,7 +145,7 @@ let function mkPosHitMark(mark){
     }
     animations = animations
     transform = {}
-    children = posHitMarksParams?[mark?.hitRes] ?? posHitMarksParams[HIT_RES_NORMAL]
+    children = posHitMarksParams?[mark?.hitRes] ?? posHitMarksParams[HitResult.HIT_RES_NORMAL]
     key = mark?.id ?? {}
   }
 }

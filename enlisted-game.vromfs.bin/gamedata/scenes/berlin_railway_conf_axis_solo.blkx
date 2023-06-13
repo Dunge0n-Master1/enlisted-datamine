@@ -1195,7 +1195,7 @@ entity{
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0
   capzone__capTeam:i=-1
-  transform:m=[[1.4875, 0.0, 0.0] [0.0, 0.978176, 0.0] [0.0, 0.0, 0.895643] [1415.56, 9.24893, 290.429]]
+  transform:m=[[1.4875, 0.0, 0.0] [0.0, 0.655344, 0.0] [0.0, 0.0, 0.895643] [1415.56, 9.24893, 290.429]]
   active:b=no
   ui_order:i=1
   capzone__icon:t="AAA"
@@ -1225,7 +1225,7 @@ entity{
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0
   capzone__capTeam:i=-1
-  transform:m=[[1.1132, 0.0, 0.0] [0.0, 1.10583, 0.0] [0.0, 0.0, 1.5075] [1303.98, 9.79922, 279.836]]
+  transform:m=[[1.1132, 0.0, 0.0] [0.0, 0.311906, 0.0] [0.0, 0.0, 1.5075] [1303.98, 9.79922, 279.836]]
   active:b=no
   ui_order:i=2
   capzone__icon:t="AAA"
@@ -1259,7 +1259,7 @@ entity{
   capzone__decapTimeTeam2:r=20.0
   capzone__decapTimeTeam1:r=20.0
   capzone__capTeam:i=-1
-  transform:m=[[1.2666, 0.0, 0.0] [0.0, 0.685243, 0.0] [0.0, 0.0, 0.932814] [1299.9, 9.38402, 341.355]]
+  transform:m=[[1.2666, 0.0, 0.0] [0.0, 0.335877, 0.0] [0.0, 0.0, 0.932814] [1299.9, 9.38402, 341.355]]
   active:b=no
   ui_order:i=2
   capzone__icon:t="AAA"

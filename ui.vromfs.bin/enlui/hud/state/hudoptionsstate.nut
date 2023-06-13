@@ -2,6 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {get_setting_by_blk_path} = require("settings")
 let isDmm = require("%enlSqGlob/dmm_distr.nut")
+let { is_pc } = require("%dngscripts/platform.nut")
+let { isHarmonizationEnabled } = require("%enlSqGlob/harmonizationState.nut")
 
 let hudMarkerEnable = mkWatched(persist, "hudMarkerEnable", get_setting_by_blk_path("gameplay/hud_markers") ?? true)
 let minimalistHud = mkWatched(persist, "minimalistHud", get_setting_by_blk_path("gameplay/minimalist_hud") ?? false)
@@ -15,14 +17,16 @@ let showGameModeHints = mkWatched(persist, "showGameModeHints", get_setting_by_b
 let showPlayerUI = mkWatched(persist, "showPlayerUI", get_setting_by_blk_path("gameplay/show_player_ui") ?? true)
 
 
-let forceDisableBattleChat = isDmm || (get_setting_by_blk_path("gameplay/force_disable_battle_chat") ?? false)
+let forceDisableBattleChat = Computed(@() isDmm
+  || (get_setting_by_blk_path("gameplay/force_disable_battle_chat") ?? false)
+  || (is_pc && isHarmonizationEnabled.value))
 
 let setShowBattleChat = @(val) showBattleChat(val)
 
 return {
   hudMarkerEnable
   minimalistHud
-  showBattleChat = Computed(@() !forceDisableBattleChat && showBattleChat.value)
+  showBattleChat = Computed(@() !forceDisableBattleChat.value && showBattleChat.value)
   showSelfAwards
   setShowBattleChat
   forceDisableBattleChat

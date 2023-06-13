@@ -360,6 +360,16 @@ repeat{
     treeName:t="sub.bombEscape"
   }
 
+  setIntVar{
+    to:t="coverAttack"
+    value:i=0
+  }
+
+  setIntVar{
+    to:t="dangerNearbyBeware"
+    value:i=0
+  }
+
   orderedSelector{
     name:t="attack"
 
@@ -386,6 +396,11 @@ repeat{
             tag:t="human"
           }
 
+          setIntVar{
+            to:t="dangerNearbyBeware"
+            value:i=1
+          }
+
           getTime{
             to:t="enemyNearTime"
           }
@@ -396,6 +411,11 @@ repeat{
         }
 
         sequencer{
+
+          isVarsIntEqual{
+            lhs:t="dangerNearbyBeware"
+            rhs_value:i=0
+          }
 
           findDanger{
             paramName:t="shootEnemy"
@@ -416,24 +436,43 @@ repeat{
               resetable:b=yes
             }
 
-            sequencer{
+            success{
 
-              checkAtTime{
-                timeParam:t="rememberEnemyTime"
-                range:p2=0.0, 10.0
-              }
+              sequencer{
 
-              checkTarget{
-                targetUnitParam:t="rememberEnemy"
-              }
+                checkAtTime{
+                  timeParam:t="rememberEnemyTime"
+                  range:p2=0.0, 10.0
+                }
 
-              wanderLook{
-                posParam:t="rememberEnemyPos"
-                range:p2=0.2, 0.1
-                maxStanceParam:t="coverStance"
+                checkTarget{
+                  targetUnitParam:t="rememberEnemy"
+                }
+
+                wanderLook{
+                  posParam:t="rememberEnemyPos"
+                  range:p2=0.2, 0.1
+                  maxStanceParam:t="coverStance"
+                }
               }
             }
           }
+        }
+      }
+    }
+
+    failed{
+
+      sequencer{
+
+        isVarsIntEqual{
+          lhs:t="dangerNearbyBeware"
+          rhs_value:i=0
+        }
+
+        decreaseDangerLevel{
+          paramName:t="dangerLevel"
+          decreaseCoef:r=0.5
         }
       }
     }
@@ -444,6 +483,11 @@ repeat{
     isVarsIntEqual{
       lhs:t="tryBuild"
       rhs_value:i=1
+    }
+
+    isVarsIntEqual{
+      lhs:t="dangerNearbyBeware"
+      rhs_value:i=0
     }
 
     setIntVar{
@@ -489,6 +533,19 @@ repeat{
       }
     }
 
+    orderedSelector{
+
+      isVarsIntEqual{
+        lhs:t="dangerNearbyBeware"
+        rhs_value:i=1
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.passiveStay"
+      }
+    }
+
     setCurrentAiAction{
       state:t="move"
     }
@@ -496,11 +553,6 @@ repeat{
     subTree{
       name:t=""
       treeName:t="sub.passiveMove"
-    }
-
-    subTree{
-      name:t=""
-      treeName:t="sub.passiveStay"
     }
   }
 

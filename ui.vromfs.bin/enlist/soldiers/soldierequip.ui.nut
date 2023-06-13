@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
+let spinner = require("%ui/components/spinner.nut")
 let { Flat } = require("%ui/components/textButton.nut")
 let {
   smallPadding, bigPadding, soldierWndWidth, unitSize, slotBaseSize, defTxtColor
@@ -27,6 +27,7 @@ let { mkPresetEquipBlock, previewPreset, previewHighlightColor
 const opacityForDisabledItems = 0.3
 const MAX_ITEMS_IN_ROW = 4
 const MAX_SLOT_TYPES_IN_ROW = 3
+let waitingSpinner = spinner(hdpx(25))
 
 let function openEquipMenu(p /*onClick params from mkItem*/) {
   openSelectItem({
@@ -219,7 +220,7 @@ let mkEquipPresetBtn = @() {
   size = [flex(), SIZE_TO_CONTENT]
   halign = ALIGN_CENTER
   children = isItemActionInProgress.value
-    ? spinner
+    ? waitingSpinner
     : {
         size = [flex(), SIZE_TO_CONTENT]
         halign = ALIGN_CENTER

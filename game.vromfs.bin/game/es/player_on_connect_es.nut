@@ -15,7 +15,7 @@ let tryToAssignTeamByCommandLine = @(userid)
   get_all_arg_values_by_name("team_for_userid")?.map(@(t) t.split(",")).findvalue(@(t) t[0] == userid.tostring())?[1].tointeger()
 
 let groupMatesQuery = ecs.SqQuery("groupMatesQuery", {
-  comps_ro = [["team", ecs.TYPE_INT], ["groupId", ecs.TYPE_INT64]]
+  comps_ro = [["team", ecs.TYPE_INT], ["groupId", ecs.TYPE_INT64], ["wishGroupId", ecs.TYPE_INT64]]
   comps_rq = ["player"]
 })
 
@@ -58,12 +58,30 @@ let function onPlayerConnected(evt, eid, comp) {
     debug($"Player {eid} with team {team} and groupId {groupId} got a new {wishTeam} team. Because avaliable teams count starting from {availableTeamStartFrom}.")
   }
 
+
+  local useOrigGroupId = false
   groupMatesQuery(function(gmEid, gmComp) {
-    if (gmEid != eid && gmComp.groupId == groupId && gmComp.team != TEAM_UNASSIGNED) {
-      wishTeam = gmComp.team
-      return true
+    if (gmEid != eid && gmComp.wishGroupId == groupId && gmComp.team != TEAM_UNASSIGNED) {
+      if (wishTeam == TEAM_UNASSIGNED || wishTeam == gmComp.team) {
+        wishTeam = gmComp.team
+        if (groupId != gmComp.groupId) {
+          debug($"GroupId for Player {eid} with team {team} and orig groupId {groupId} was changed to {gmComp.groupId}")
+          comp.groupId = gmComp.groupId
+        }
+        useOrigGroupId = false
+        return true
+      }
+      else {
+        useOrigGroupId = true
+        return null
+      }
     }
   })
+
+  if (useOrigGroupId) {
+    debug($"GroupId for Player {eid} with team {team} and groupId {groupId} was changed to orig {comp.origGroupId} because other teammates in group with different team")
+    comp.groupId = comp.origGroupId
+  }
 
   if (wishTeam == TEAM_UNASSIGNED) {
     let [teamId, teamEid] = assign_team()
@@ -113,10 +131,11 @@ ecs.register_es("player_on_connect_script_es", {
     ["team", ecs.TYPE_INT],
     ["possessed", ecs.TYPE_EID],
     ["connectedAtTime", ecs.TYPE_FLOAT],
+    ["groupId", ecs.TYPE_INT64],
     ["startedAtTime", ecs.TYPE_FLOAT]
   ]
   comps_ro=[
-    ["groupId", ecs.TYPE_INT64],
+    ["origGroupId", ecs.TYPE_INT64],
     ["userid", ecs.TYPE_UINT64, INVALID_USER_ID],
     ["connid", ecs.TYPE_INT, INVALID_CONNECTION_ID]
   ]

@@ -202,28 +202,30 @@ let function armorRowCtor(tbl, _itemData, setup, _itemBase) {
   }
 }
 
-let gunFiringModeNamesShortDesc  = @(val, _itemData, _setup, _itemBase) val.len() == 0 ? null
-  : {
-      size = [flex(),SIZE_TO_CONTENT]
-      flow = FLOW_HORIZONTAL
-      valign = ALIGN_TOP
-      halign = ALIGN_RIGHT
-      gap = hdpx(3)
-      children = [
-        {
-          flow = FLOW_VERTICAL
-          valign = ALIGN_TOP
-          halign = ALIGN_RIGHT
-          children = val.map(@(name) mkText(loc($"firing_mode/{name}")))
-        }
-        {
-          size = [RANGE_SIZE[0], SIZE_TO_CONTENT]
-          valign = ALIGN_TOP
-          halign = ALIGN_LEFT
-          children = mkText(loc("itemDetails/gun__firingModeNames"))
-        }
-      ]
-    }
+let gunFiringModeNamesShortDesc  = function(val, _itemData, _setup, _itemBase) {
+  if (val.len() == 0)
+    return null
+  return {
+    size = [flex(),SIZE_TO_CONTENT]
+    flow = FLOW_HORIZONTAL
+    valign = ALIGN_TOP
+    halign = ALIGN_LEFT
+    gap = hdpx(3)
+    children = [
+      {
+        valign = ALIGN_TOP
+        halign = ALIGN_LEFT
+        children = mkText(loc("itemDetails/gun__firingModeNames"))
+      }
+      {
+        flow = FLOW_VERTICAL
+        valign = ALIGN_TOP
+        halign = ALIGN_RIGHT
+        children = val.map(@(name) mkText(loc($"firing_mode/{name}")))
+      }
+    ]
+  }
+}
 
 let itemDetailsConstructors = @(isFull) {
   "bullets" : @(val, itemData, _setup, _itemBase) val <= 0 ? null

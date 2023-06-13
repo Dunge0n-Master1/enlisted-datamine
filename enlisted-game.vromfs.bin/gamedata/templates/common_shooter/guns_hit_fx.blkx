@@ -13,6 +13,14 @@ global_hit_fx_info{
         value:t="wood_railway"
         value:t="window_wood"
         value:t="softWoodDoor"
+        value:t="wood_fall"
+        value:t="wood_palm"
+        value:t="wood_dead"
+        value:t="wood_snow"
+        value:t="wood_fall_solid"
+        value:t="wood_palm_solid"
+        value:t="wood_dead_solid"
+        value:t="wood_snow_solid"
       }
 
       "stone:list<t>"{
@@ -1809,6 +1817,24 @@ global_hit_fx_info{
       killFx:t="hit_blood_entry_effect_longer"
       killSideFx:t="hit_blood_flow_light_effect_longer"
       killExitFx:t="hit_blood_exit_effect_longer"
+    }
+
+    "global_hit_fx__canopyEffects:object"{
+      bushes:t="hit_basic_bush_green_effect"
+      bushes_fall:t="hit_basic_bush_fall_effect"
+      bushes_palm:t="hit_basic_bush_palm_effect"
+      bushes_dead:t="hit_basic_bush_dead_effect"
+      bushes_snow:t="hit_basic_bush_snow_effect"
+      wood:t="hit_basic_bush_green_effect"
+      wood_fall:t="hit_basic_bush_fall_effect"
+      wood_palm:t="hit_basic_bush_palm_effect"
+      wood_dead:t="hit_basic_bush_dead_effect"
+      wood_snow:t="hit_basic_bush_snow_effect"
+      wood_solid:t="hit_basic_bush_green_effect"
+      wood_fall_solid:t="hit_basic_bush_fall_effect"
+      wood_palm_solid:t="hit_basic_bush_palm_effect"
+      wood_dead_solid:t="hit_basic_bush_dead_effect"
+      wood_snow_solid:t="hit_basic_bush_snow_effect"
     }
   }
 }

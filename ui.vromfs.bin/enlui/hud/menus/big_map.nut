@@ -108,9 +108,9 @@ let modeHotkeyTip = tipCmp({
   style = {rendObj=null}
 })
 
-let mkPlacePointsTip = @(mapSize, addChild) @() {
-  watch = [mapSize, isGamepad]
-  size = [mapSize.value[0], SIZE_TO_CONTENT]
+let mkPlacePointsTip = @(mapSizeW, addChild) @() {
+  watch = [mapSizeW, isGamepad]
+  size = [mapSizeW.value[0], SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   gap = fsh(0.5)

@@ -239,6 +239,7 @@ has_parachute{
 
 human_parachute{
   human_parachute__canDeployManually:b=yes
+  human_parachute__lookDirClamp:p2=50.0, 50.0
   _extends:t="human_parachute_sound"
   _tracked:t="human_parachute_anim__lastDeployState"
   _tracked:t="human_parachute__canDeploy"
@@ -312,8 +313,8 @@ parachute{
 }
 
 human_vehicle_exit_animator_states{
-  human_vehicle__ExitAnim:t="parachute_jump_anim"
-  human_vehicle__ExitAnimId:i=-1
+  human_vehicle__exitAnim:t="parachute_jump_anim"
+  human_vehicle__exitAnimId:i=-1
 }
 
 human_freefall{
@@ -349,6 +350,8 @@ shooter_human{
   requestAmmoAllowTime:r=0.0
   requestAmmoCooldown:r=10.0
   _replicated:t="requestAmmoAllowTime"
+  hitmarks_victim__group:t="infantry"
+  hitmarks_victim__groupId:i=-1
 
   _group{
     _track:b=yes

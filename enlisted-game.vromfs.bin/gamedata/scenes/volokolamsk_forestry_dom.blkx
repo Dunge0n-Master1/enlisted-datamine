@@ -21,7 +21,7 @@ entity{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_domination"
   mission_name:t="volokolamsk_forestry_dom"
 
   "loading_images:list<t>"{

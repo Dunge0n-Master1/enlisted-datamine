@@ -48,7 +48,6 @@ base_us_lbm_bulldog{
   xray_resource__modelName:t="us_lbm_bulldog"
   dmg_animchar__renderable:b=no
   _tracked:t="dmg_animchar__renderable"
-  hitmarks__showUserHits:b=no
   drowningHeight:r=2.0
   item__name:t="items/us_lbm_bulldog"
   turret_control__grenadeLauncherSalvoSize:i=30

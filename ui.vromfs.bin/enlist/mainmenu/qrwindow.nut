@@ -7,11 +7,12 @@ let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
 let mkQrCode = require("%ui/components/mkQrCode.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 
 
 const WND_UID = "qr_window"
 const URL_REFRESH_SEC = 300 //short token life time is 5 min.
+let waitingSpinner = spinner()
 
 let function close(onCloseCb = null) {
   onCloseCb?()
@@ -23,7 +24,7 @@ let waitInfo = {
   halign = ALIGN_CENTER
   children = [
     { rendObj = ROBJ_TEXT, text = loc("xbox/waitingMessage"), color = TextDefault }.__update(sub_txt)
-    spinner
+    waitingSpinner
   ]
 }
 

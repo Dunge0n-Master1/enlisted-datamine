@@ -1,80 +1,55 @@
 from "%darg/ui_imports.nut" import *
-let { colPart } = require("%enlSqGlob/ui/designConst.nut")
-
-let fontXXSmall = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.193) // 12px
-})
-
-let fontXSmall = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.225) // 14px
-})
-
-let fontSmall = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.258) // 16px
-})
-
-let fontMedium = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.29) // 18px
-})
-
-let fontLarge = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.354) // 22px
-})
-
-let fontXLarge = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.42) // 26px
-})
-
-let fontXXLarge = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.564) // 35px
-})
-
-let fontGiant = freeze({
-  font = Fonts.trebuchet
-  fontSize = colPart(0.806) // 50px
-})
-
-let fontLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontLarge.fontSize
-})
-
-let fontXLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontXLarge.fontSize
-})
-
-let fontXXLargeBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontXXLarge.fontSize
-})
-
-let fontGiantBold = freeze({
-  font = Fonts.trebuchet_bold
-  fontSize = fontGiant.fontSize
-})
-
-let fontFontawesome = freeze({
-  font = Fonts.fontawesome
-  fontSize = colPart(0.338)
-})
+let fonts = require("fonts_style.nut")
 
 
-let fontTactical = freeze({
-  font = Fonts.tactical
-  fontSize = fontLarge.fontSize
-})
+
+/**
+
+
+    !!!THIS IS JUST COPY of fonts_style.nut!!!
+    DO NOT ADD ANYTHING HERE!
+    WE KEEP IT only for simpler merging of 'new' desgin
+
+
+
+
+*/
+
+
+
+
+
+
+//!!!
+let fontXXSmall = fonts.tiny_txt //should be 12px, but tiny_txt =13px
+//!!!
+let fontXSmall = fonts.tiny_txt //should be 14px, but tiny_txt =13px
+
+let fontSmall = fonts.sub_txt //should be 16px
+
+//!!!
+let fontMedium = fonts.sub_txt //should be 18px but sub_txt is 16px
+let fontLarge = fonts.body_txt // 22px
+
+let fontXLarge = fonts.h2_txt  // 26px
+
+let fontXXLarge = fonts.h1_txt //35px
+let fontGiant = fonts.h0_txt // 50px
+
+//let fontLargeBold = fonts.body_bold_txt
+
+//let fontXLargeBold = fonts.h2_bold_txt
+
+//let fontXXLargeBold = fonts.h1_bold_txt
+
+let fontFontawesome = fonts.fontawesome
+
+let fontTactical = fonts.tactical_font
 
 
 return {
   fontXXSmall, fontXSmall, fontSmall, fontMedium, fontLarge, fontXLarge,
-  fontXXLarge, fontGiant, fontLargeBold, fontXLargeBold, fontXXLargeBold,
-  fontGiantBold, fontTactical, fontFontawesome
+  fontXXLarge, fontGiant,
+  //fontLargeBold, fontXLargeBold, fontXXLargeBold,
+  fontTactical, fontFontawesome
 }

@@ -19,7 +19,7 @@ let {
   canUseOrder, mkCurrencyButton
 } = require("%enlist/soldiers/components/currencyButton.nut")
 let obsceneFilter = require("%enlSqGlob/obsceneFilter.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = commonBtnHeight })
+let spinner = require("%ui/components/spinner.nut")
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { lookCustomizationBlock } = require("soldierCustomizationPkg.nut")
 let { enableExtendedOufit } = require("%enlist/campaigns/campaignConfig.nut")
@@ -36,6 +36,7 @@ let changeAppearanceGoldCost = Computed(@() configs.value?.gameProfile.changeApp
 let callnameChangeInProgress = Watched(false)
 let appearanceChangeInProgress = Watched(false)
 let isWaitingObsceneFilter = Watched(false)
+let waitingSpinner = spinner(commonBtnHeight/2)
 
 let tiOptions = {
   margin = [hdpx(8),0,0,0]
@@ -152,7 +153,7 @@ let function mkCallnameBlock(soldier){
         ? {
             size =[flex(), SIZE_TO_CONTENT]
             halign = ALIGN_CENTER
-            children = spinner
+            children = waitingSpinner
           }
         : {
             size = [flex(), SIZE_TO_CONTENT]

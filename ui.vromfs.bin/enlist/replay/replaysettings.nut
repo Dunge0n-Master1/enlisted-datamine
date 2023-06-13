@@ -1,5 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
-let { scan_folder } = require("dagor.fs")
+let { scan_folder, file_exists } = require("dagor.fs")
 let { flatten } = require("%sqstd/underscore.nut")
 let { showReplayTabInProfile } = require("%enlist/featureFlags.nut")
 let { load_replay_meta_info, replay_play } = require("app")
@@ -68,7 +68,7 @@ let function deleteReplay(replayPath){
     return
   if (record?.key != null)
     datacache.del_entry("records", record.key)
-  else
+  else if (file_exists(replayPath))
     remove(replayPath)
   currentRecord(null)
   updateReplays()
@@ -97,7 +97,7 @@ let function replayPlay(path) {
   if (allowProtoMismatch)
     buttons.append({
       text = loc("replay/playAnyway")
-      action = @() replay_play(path, 0)
+      action = @() replay_play(path, replayInfo?.first_human_spawn_time ?? 0)
       isCurrent = true
     })
 

@@ -4,12 +4,12 @@ let { achievementsByTypes, receiveTaskRewards } = require("taskListState.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let {
-  smallPadding, bigPadding, defBgColor
+  smallPadding, bigPadding, defBgColor, smallOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { mkAchievementTitle, mkTaskEmblem, taskHeader, taskDescription, taskDescPadding,
   statusBlock, taskMinHeight, taskSlotPadding, mkGetTaskRewardBtn
-} = require("%enlSqGlob/ui/taskPkg.nut")
-let { mkTaskRewards } = require("mkUnlockSlot.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
+let { mkTaskRewards } = require("mkUnlockSlots.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksState.nut")
 
@@ -91,10 +91,11 @@ let achievementsBlockUI = {
         canFocus = @() false
         scrollSpeed = 5
         isViewport = true
+        wrap = false
       })
       flow = FLOW_VERTICAL
       gap = smallPadding
-      margin = [0,0,0,hdpxi(18)]
+      margin = [0,0,0,smallOffset]
       halign = ALIGN_CENTER
       children = [mkAchievementTitle(achievements, "achievementsTitle")]
         .extend(achievements.map(@(achievement) mkAchievementSlot(achievement)))

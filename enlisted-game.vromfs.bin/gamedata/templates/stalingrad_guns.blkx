@@ -61,7 +61,7 @@ kar98k_wartime_production_gun{
   _extends:t="kar98k_wartime_production"
   _extends:t="rifle_muzzle_preset"
   _extends:t="hit_effect_group_12_14mm"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -270,7 +270,7 @@ mannlicher_m93_roman_gun{
   _extends:t="mannlicher_m93_roman"
   _extends:t="rifle_muzzle_preset"
   _extends:t="hit_effect_group_12_14mm"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun_shell_ejection__timeMult:r=0.35
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
@@ -1965,29 +1965,29 @@ stl_ussr_building_tool_gun{
   item__template:t="stl_ussr_building_tools_item"
 
   "previewTemplate:list<t>"{
+    template:t="ussr_rallypoint_preview"
+    template:t="ammunition_box_a_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="barbedwire_engineer_a_preview"
     template:t="sandbags_wall_2_preview"
-    template:t="sandbags_wall_dshk_1942_preview"
-    template:t="sandbags_wall_maxim_preview"
-    template:t="sandbags_wall_ampulomet_preview"
     template:t="cannon_ussr_25mm_72k_preview"
     template:t="cannon_ussr_towed_at_53k_movable_preview"
-    template:t="czech_hedgehog_a_preview"
-    template:t="ussr_rallypoint_preview"
-    template:t="barbedwire_engineer_a_preview"
-    template:t="ammunition_box_a_preview"
+    template:t="sandbags_wall_maxim_preview"
+    template:t="sandbags_wall_dshk_1942_preview"
+    template:t="sandbags_wall_ampulomet_preview"
   }
 
   "buildingLimits:list<i>"{
+    limit:i=1
+    limit:i=3
+    limit:i=6
     limit:i=10
-    limit:i=1
-    limit:i=1
-    limit:i=1
+    limit:i=10
     limit:i=2
     limit:i=1
-    limit:i=6
     limit:i=1
-    limit:i=10
-    limit:i=3
+    limit:i=1
+    limit:i=1
   }
 }
 
@@ -2018,29 +2018,29 @@ stl_ger_building_tool_gun{
   item__template:t="stl_ger_building_tools_item"
 
   "previewTemplate:list<t>"{
+    template:t="ger_rallypoint_preview"
+    template:t="ammunition_box_a_preview"
+    template:t="czech_hedgehog_a_preview"
+    template:t="barbedwire_engineer_a_preview"
     template:t="sandbags_wall_2_preview"
-    template:t="sandbags_wall_mg_131_preview"
-    template:t="sandbags_wall_mg_34_preview"
-    template:t="sandbags_wall_ampulomet_preview"
     template:t="cannon_germ_20mm_flak38_preview"
     template:t="cannon_germ_towed_at_pak38_movable_preview"
-    template:t="czech_hedgehog_a_preview"
-    template:t="ger_rallypoint_preview"
-    template:t="barbedwire_engineer_a_preview"
-    template:t="ammunition_box_a_preview"
+    template:t="sandbags_wall_mg_34_preview"
+    template:t="sandbags_wall_mg_131_preview"
+    template:t="sandbags_wall_ampulomet_preview"
   }
 
   "buildingLimits:list<i>"{
+    limit:i=1
+    limit:i=3
+    limit:i=6
     limit:i=10
-    limit:i=1
-    limit:i=1
-    limit:i=1
+    limit:i=10
     limit:i=2
     limit:i=1
-    limit:i=6
     limit:i=1
-    limit:i=10
-    limit:i=3
+    limit:i=1
+    limit:i=1
   }
 }
 

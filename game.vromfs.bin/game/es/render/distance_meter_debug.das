@@ -9,6 +9,8 @@ require Dacoll
 require PhysMat
 require pathfinder
 require enlisted.events_enlisted
+require DagorInput
+
 
 [console_cmd(name="distance.meter", hint="Measure distance between points and sum distance of the path; shoot to add or delete point, reload to delete all points")]
 def distance_meter_command(nav_mesh = false)
@@ -69,16 +71,14 @@ def distance_meter_input(evt : EventDaInputActionTriggered;
                          distance_meter__traceTo : float3;
                          distance_meter__selectedPointIdx : int;
                          var distance_meter__points : Point3List)
-  query() <| $ [es] (human_input__shoot : int; human_input__reload : int)
-    let action = int(evt.action)
-    if action == human_input__shoot
-      if distance_meter__traceTo != float3(0., 0., 0.)
-        if distance_meter__selectedPointIdx >= 0
-          distance_meter__points |> erase(distance_meter__selectedPointIdx)
-        else
-          distance_meter__points |> push(distance_meter__traceTo)
-    elif action == human_input__reload
-      clear(distance_meter__points)
+  if evt.action == get_action_handle("Human.Shoot", TYPEGRP_DIGITAL)
+    if distance_meter__traceTo != float3(0., 0., 0.)
+      if distance_meter__selectedPointIdx >= 0
+        distance_meter__points |> erase(distance_meter__selectedPointIdx)
+      else
+        distance_meter__points |> push(distance_meter__traceTo)
+  elif evt.action == get_action_handle("Human.Reload", TYPEGRP_DIGITAL)
+    clear(distance_meter__points)
 
 
 def draw_navmesh_line(startPoint : float3;
@@ -93,15 +93,17 @@ def draw_navmesh_line(startPoint : float3;
     req.maxJumpUpHeight = FLT_MAX
     find_path(req, 1., 0.25) <| $(path)
       distance = 0.
-      for j in range(1, length(path))
-        draw_cached_debug_line(path[j - 1], path[j], color)
-        draw_cached_debug_sphere(path[j], 0.001 * length(path[j] - cameraPos), color, 24)
-        distance += length(path[j] - path[j - 1])
-      draw_cached_debug_line(path[length(path) - 1], finishPoint, color)
-      distance += length(finishPoint - path[length(path) - 1])
       if length(path) > 0
+        for j in range(1, length(path))
+          draw_cached_debug_line(path[j - 1], path[j], color)
+          draw_cached_debug_sphere(path[j], 0.001 * length(path[j] - cameraPos), color, 24)
+          distance += length(path[j] - path[j - 1])
+        draw_cached_debug_line(path[length(path) - 1], finishPoint, color)
+        distance += length(finishPoint - path[length(path) - 1])
         midPointPosition = path[length(path) / 2]
       else
+        distance = length(startPoint - finishPoint)
+        draw_cached_debug_line(startPoint, finishPoint, color)
         midPointPosition = (startPoint + finishPoint) / 2.
 
 

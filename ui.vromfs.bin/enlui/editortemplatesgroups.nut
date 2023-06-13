@@ -49,6 +49,7 @@ let function initTemplatesGroups(for_debug) {
   add_group_require("Weapons", "animchar__res")
   add_group_variext("Weapons", "?item__lootType=gun", "+item_in_world")
   add_group_variext("Weapons", "?item__lootType=magazine", "+item_in_world")
+  add_group_variext("Weapons", "?item__weapType=melee", "+item_in_world")
 
   add_group_require("Equipment", "collres__res")
   add_group_require("Equipment", "animchar__res")
@@ -64,6 +65,7 @@ let function initTemplatesGroups(for_debug) {
   add_group_require("Other items", "!slot_attach*")
   add_group_require("Other items", "!?item__lootType=gun")
   add_group_require("Other items", "!?item__lootType=magazine")
+  add_group_require("Other items", "!?item__weapType=melee")
   add_group_require("Other items", "!vehicle")
   add_group_variext("Other items", "item__*", "+item_in_world")
 

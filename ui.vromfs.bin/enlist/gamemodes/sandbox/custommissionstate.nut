@@ -6,7 +6,7 @@ let { file } = require("io")
 let { request_ugm_manifest } = require("game_load")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { debounce } = require("%sqstd/timers.nut")
-let json = require("json")
+let { parse_json } = require("json")
 let regexp2 = require("regexp2")
 let logGM = require("%enlSqGlob/library_logs.nut").with_prefix("[CustomGameMod] ")
 let { send_counter } = require("statsd")
@@ -46,16 +46,16 @@ let reUrlPath = regexp2(@"^https?:\/\/{0}\/post\/\w{16}\/manifest\/.*\/$".subst(
 const FILE_REQUESTED = 0
 const FILE_ERROR = 1
 let statusText = {
-  [http.SUCCESS] = "SUCCESS",
-  [http.FAILED] = "FAILED",
-  [http.ABORTED] = "ABORTED",
+  [http.HTTP_SUCCESS] = "SUCCESS",
+  [http.HTTP_FAILED] = "FAILED",
+  [http.HTTP_ABORTED] = "ABORTED",
 }
 
 let function jsonSafeParse(v){
   if (v=="")
     return null
   try{
-    return json.parse(v)
+    return parse_json(v)
   }
   catch(e) {
     return null
@@ -109,7 +109,7 @@ eventbus.subscribe(EVENT_RECEIVE_FILE_MOD, function(response){
     return
   }
   let { status, http_code } = response
-  if (status != http.SUCCESS || http_code == null || http_code >= 300 || http_code < 200) {
+  if (status != http.HTTP_SUCCESS || http_code == null || http_code >= 300 || http_code < 200) {
     logGM("request status =", status, statusText?[status], http_code)
     send_counter("event_file_mod_receive_error", 1, { http_code })
     setHashError(hash)
@@ -188,7 +188,7 @@ eventbus.subscribe(EVENT_RECEIVE_MOD_MANIFEST, function(response) {
   })
 
   let { status, http_code } = response
-  if (status != http.SUCCESS || http_code == null || http_code >= 300 || http_code < 200) {
+  if (status != http.HTTP_SUCCESS || http_code == null || http_code >= 300 || http_code < 200) {
     modDownloadMessage("mods/failedDownload")
     logGM("EVENT_RECEIVE_MOD_MANIFEST status =", status, statusText?[status], http_code)
     send_counter("event_manifest_mod_receive_error", 1, { http_code })

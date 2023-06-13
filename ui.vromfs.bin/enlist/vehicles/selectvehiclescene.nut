@@ -4,8 +4,8 @@ let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let {
-  vehicles, squadsWithVehicles, viewVehicle, selectVehicle, selectVehParams, curSquadId, setCurSquadId,
-  CAN_USE, CANT_USE, vehicleClear
+  vehicles, squadsWithVehicles, viewVehicle, selectedVehicle, selectVehicle, selectVehParams,
+  curSquadId, setCurSquadId, CAN_USE, CANT_USE, vehicleClear
 } = require("vehiclesListState.nut")
 let { getSquadConfig } = require("%enlist/soldiers/model/state.nut")
 let {
@@ -21,7 +21,7 @@ let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let { freemiumWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { freemiumWidget } = require("%enlist/components/mkPromoWidget.nut")
 
 
 let showNotAvailable = Watched(false)
@@ -71,8 +71,8 @@ let function groupByStatus(itemsList) {
     foreach (item in items)
       children.append(vehiclesListCard({
         item
-        onClick = @(item) viewVehicle(item)
-        onDoubleClick = @(item) selectVehicle(item)
+        onClick = @(item_) viewVehicle(item_)
+        onDoubleClick = @(item_) selectVehicle(item_)
       }))
   }
   return children
@@ -191,6 +191,7 @@ let selectVehicleScene = @() {
 }
 
 let function open() {
+  viewVehicle(selectedVehicle.value)
   sceneWithCameraAdd(selectVehicleScene, "vehicles")
 }
 
@@ -200,8 +201,12 @@ if (selectVehParams.value?.armyId != null
   open()
 
 selectVehParams.subscribe(function(p) {
-  if (p?.armyId != null && p?.squadId != null && !(p?.isCustomMode ?? false))
+  let { armyId = null, squadId = null, isCustomMode = false } = p
+  if (armyId != null && squadId != null && !isCustomMode)
     open()
-  else
+  else {
     sceneWithCameraRemove(selectVehicleScene)
+    if (!isCustomMode)
+      viewVehicle(null)
+  }
 })

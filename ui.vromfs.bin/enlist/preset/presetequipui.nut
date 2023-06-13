@@ -1,26 +1,24 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let { rowHeight, panelStyle, // comboStyle = {},
+let { rowHeight, panelStyle, defInputStyle, hoverInputStyle,
   textState, bgState, panelScreenOffset, innerBtnStyle = {}
-} = require(isNewDesign.value ? "equipDesign.nut" : "equipDesignOld.nut")
+} = require("equipDesign.nut")
 let panel = require("%enlist/components/panel.nut")
-//let comboBox = require("%ui/components/combobox.nut")
-//let { getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
-let { FAButton } = require(isNewDesign.value
-  ? "%ui/components/txtButton.nut" : "%ui/components/textButton.nut")
+let { FAButton } = require("%ui/components/txtButton.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 let tooltipCtor = require("%ui/style/tooltipCtor.nut")
 let { stateChangeSounds } = require("%ui/style/sounds.nut")
-
 let { showNotFoundMsg } = require("%enlist/preset/notFoundMsg.nut")
 
 let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { presetEquipList, notFoundPresetItems, applyEquipmentPreset, saveEquipmentPreset,
-  PreviewState, PresetTarget
+  renameEquipmentPreset, PreviewState, PresetTarget
 } = require("%enlist/preset/presetEquipUtils.nut")
+
+let textInput = require("%ui/components/textInput.nut")
+let MAX_NAME_LEN = 20
 
 let frameColors = {
   [PreviewState.OK] = Color(20,255,10),
@@ -59,30 +57,13 @@ let presetAction = function(presetCfg, presetTarget) {
     applyEquipmentPreset(presetCfg, presetTarget)
 }
 
-/*
-let presetTargetCombo = function(soldier) {
-  let comboItems = [PresetTarget.SOLDIER].map(
-    @(i) [i, loc($"btn/preset/{i}", { sKind = loc(getKindCfg(soldier?.sKind).locId) })] )
-
-  return {
-    size = [flex(), rowHeight]
-    valign = ALIGN_CENTER
-    children = comboBox(applyPresetTarget, comboItems, {
-      xmbNode = XmbNode()
-      style = comboStyle
-    })
-  }
-}
-*/
-
 let actionBtn = @(icon, action, hint, onHover = null) FAButton(icon, action, {
   btnWidth = rowHeight
   btnHeight = rowHeight
   onHover = function(on) {
     if (onHover != null)
       onHover(on)
-    setTooltip(!on ? null : isNewDesign.value
-      ? tooltipCtor({ rendObj = ROBJ_TEXT, text = hint }) : hint)
+    setTooltip(!on ? null : tooltipCtor({ rendObj = ROBJ_TEXT, text = hint }))
   }
 }.__update(innerBtnStyle))
 
@@ -101,39 +82,107 @@ let btnApplyPreset = @(presetCfg, presetTarget)
         loc("squads/presets/apply"),
         @(on) previewPreset(on ? presetCfg : null))
 
+let selectedRenameSlot = Watched(-1)
+let renameTextWatch = Watched("")
+
+let btnRenamePreset = @(presetCfg, idx, textWatch) presetCfg?.fnRename == null ? null
+  : actionBtn("pencil",
+      function() {
+        textWatch(presetCfg.locId)
+        selectedRenameSlot(idx)
+      },
+      loc("squads/presets/rename"))
+
+let stopRenameAction = function() {
+  renameTextWatch("")
+  selectedRenameSlot(-1)
+}
+
+let mkRenameSlot = function(presetCfg, textWatch) {
+  let applyRename = function() {
+    renameEquipmentPreset(presetCfg, textWatch.value)
+    stopRenameAction()
+  }
+  let xmbNode = XmbNode()
+  return watchElemState(@(sf) {
+    size = [flex(), rowHeight]
+    flow = FLOW_HORIZONTAL
+    valign = ALIGN_BOTTOM
+    rendObj = ROBJ_BOX
+    behavior = Behaviors.Button
+    onHover = @(on) previewPreset(on ? presetCfg : null)
+    children = [
+      textInput.Underlined(textWatch, {
+        size = [flex(), rowHeight]
+        margin = 0
+        textmargin = 0
+        placeholderTextMargin = 0
+        valignText = ALIGN_CENTER
+        placeholder = presetCfg.locId
+        maxChars = MAX_NAME_LEN
+        onEscape = stopRenameAction
+        onReturn = applyRename
+        onChange = @(val) textWatch(val)
+        onAttach = @(elem) set_kb_focus(elem)
+        onImeFinish = function(applied) {
+          if (!applied)
+            return
+          applyRename()
+        }
+        xmbNode
+      }.__update(sf & S_HOVER ? hoverInputStyle : defInputStyle))
+      actionBtn("check", applyRename, loc("squads/presets/apply"))
+    ]
+  }.__update(bgState(sf, false)))
+}
+
+let function mkPresetSlot(presetCfg, presetTarget, idx) {
+  let xmbNode = XmbNode()
+  return watchElemState(@(sf) {
+    size = [flex(), rowHeight]
+    flow = FLOW_HORIZONTAL
+    rendObj = ROBJ_BOX
+    behavior = Behaviors.Button
+    children = [
+      {
+        size = [flex(), rowHeight]
+        behavior = Behaviors.Button
+        onHover = @(on) previewPreset(on ? presetCfg : null)
+        onClick = @() presetAction(presetCfg, presetTarget)
+        sound = stateChangeSounds
+        flow = FLOW_HORIZONTAL
+        xmbNode
+        children = [
+          {
+            rendObj = ROBJ_TEXT
+            valign = ALIGN_CENTER
+            behavior = Behaviors.Marquee
+            text = presetCfg.locId
+            scrollOnHover = true
+          }.__update(textState(sf, presetCfg?.isLockedPrem ?? false))
+          presetCfg?.isLockedPrem ? premiumImage(rowHeight * 0.7, { pos = [0, hdpx(7)]}) : null
+        ]
+      }
+      sf & S_HOVER ? btnApplyPreset(presetCfg, presetTarget) : null
+      sf & S_HOVER ? btnRenamePreset(presetCfg, idx, renameTextWatch) : null
+      sf & S_HOVER ? btnSavePreset(presetCfg) : null
+    ]
+  }.__update(bgState(sf, presetCfg?.isLockedPrem ?? false)))
+}
+
 let makePresetList = function(presetCfgList, soldier, presetTarget) {
   if (soldier == null)
     return []
 
-  let presetList = presetCfgList.map(function(presetCfg) {
-    return watchElemState(@(sf) {
-      size = [flex(), rowHeight]
-      flow = FLOW_HORIZONTAL
-      rendObj = ROBJ_BOX
-      behavior = Behaviors.Button
-      children = [
-        {
-          size = [flex(), rowHeight]
-          behavior = Behaviors.Button
-          onHover = @(on) previewPreset(on ? presetCfg : null)
-          onClick = @() presetAction(presetCfg, presetTarget)
-          sound = stateChangeSounds
-          flow = FLOW_HORIZONTAL
-          children = [
-            {
-              rendObj = ROBJ_TEXT
-              valign = ALIGN_CENTER
-              behavior = Behaviors.Marquee
-              text = presetCfg.locId
-              scrollOnHover = true
-            }.__update(textState(sf, presetCfg?.isLockedPrem ?? false))
-            presetCfg?.isLockedPrem ? premiumImage(rowHeight * 0.7, { pos = [0, hdpx(7)]}) : null
-          ]
-        }
-        sf & S_HOVER ? btnApplyPreset(presetCfg, presetTarget) : null
-        sf & S_HOVER ? btnSavePreset(presetCfg) : null
-      ]
-    }.__update(bgState(sf, presetCfg?.isLockedPrem ?? false)))
+  let presetList = presetCfgList.map(function(presetCfg, idx) {
+    let isRenaming = Computed(@() selectedRenameSlot.value == idx)
+    return @() {
+      watch = isRenaming
+      size = [flex(), SIZE_TO_CONTENT]
+      children = isRenaming.value
+        ? mkRenameSlot(presetCfg, renameTextWatch)
+        : mkPresetSlot(presetCfg, presetTarget, idx)
+    }
   })
   return presetList
 }
@@ -143,10 +192,10 @@ let presetEquipButtons = @(presetCmpList, soldier, presetTarget) {
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
   size = [flex(), SIZE_TO_CONTENT]
-  // children = [presetTargetCombo(soldier)].extend(
-  //   makePresetList(presetCmpList, soldier, presetTarget))
+  xmbNode = XmbContainer()
   children = makePresetList(presetCmpList, soldier, presetTarget)
 }
+
 
 let content = @() {
   watch = [presetEquipList, curSoldierInfo, applyPresetTarget]
@@ -157,14 +206,19 @@ let content = @() {
 
 const WND_UID = "equipPresetView"
 let presetEquipPanel = panel()
-let { setPosition } = presetEquipPanel
+let { setPosition, isOpen, open, close } = presetEquipPanel
 
 let mkPresetEquipBlock = function(event) {
+  if (isOpen()) {
+    close()
+    return null
+  }
+
   let offset = panelScreenOffset
   let x = event.targetRect.l + offset[0]
   let y = event.targetRect.t + offset[1]
   setPosition([x, y])
-  presetEquipPanel.open(content, {
+  open(content, {
     key = WND_UID
     style = panelStyle
   })
@@ -173,7 +227,7 @@ let mkPresetEquipBlock = function(event) {
 }
 
 return {
-  closeEquipPresets = @() presetEquipPanel.close()
+  closeEquipPresets = @() close()
   mkPresetEquipBlock
   previewPreset
   previewHighlightColor

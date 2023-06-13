@@ -41,6 +41,7 @@ require common_shooter.es.squad_common
 require common_shooter.events_common_shooter
 require enlisted.game.es.bomb_site_common
 require enlisted.game.es.enlisted_squad_common
+require enlisted.game.es.ai.ai_covers_common
 require walkerai
 require game.es.squad_order_common
 require math.linear
@@ -994,11 +995,13 @@ class FindWeaponSlotWithTag : BehNodeAdapter
 class GetOrderPosition : BehNodeAdapter
   posParam : int = -1
   orderPosParam : int = -1
+  traceVisible : bool = false
 
   def override loadFromBlk(var data : DataBlock) : void
     let agent = beh_tree_entity_agent(*owner)
     posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", "wishPosition"), agent.pos)
     orderPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "orderPosParam", "wishPosition"), agent.pos)
+    traceVisible = datablock_getBool(data, "traceVisible", traceVisible)
 
   def override update(dt : float) : EBehResult
     let agent = beh_tree_entity_agent(*owner)
@@ -1021,8 +1024,23 @@ class GetOrderPosition : BehNodeAdapter
                                             squad__regroupPos : float3;
                                             squad__spreadAroundOrderPoint : float3)
         if !squad_member__isPersonalOrder && squad__leader != agent.eid
-          let wishPosition = find_best_squad_pos(squad__leader, squad__orderType, squad__regroupPos,
+          var wishPosition = find_best_squad_pos(squad__leader, squad__orderType, squad__regroupPos,
             squad_member__offset, squad__spreadAroundOrderPoint.x)
+
+          if wishPosition.isValidPt && traceVisible
+            let actorRadius = 0.3
+            var ofs = wishPosition.p - squad__regroupPos; ofs.y = 0.0
+            let dir = normalize(ofs)
+            var t1 = length(ofs) + actorRadius
+            var t2 = t1
+            var norm : float3
+            if (traceray_normalized(squad__regroupPos + float3(0.0, 0.3, 0.0), dir, t1, norm, ETF_ALL)
+             || traceray_normalized(squad__regroupPos + float3(0.0, 1.3, 0.0), dir, t2, norm, ETF_ALL))
+              let dist = max(0.0, min(t1, t2) - actorRadius)
+              let projExtents = float3(0.5, 2.5, 0.5)
+              var tracedPos = squad__regroupPos + dir * dist
+              if pathfinder::project_to_nearest_navmesh_point_no_obstacles(tracedPos, projExtents)
+                wishPosition.p = tracedPos
 
           if wishPosition.isValidPt && is_point_safe(wishPosition.p, agent.teamId)
             set(owner.blackBoard, orderPosParam, wishPosition.p)
@@ -1394,9 +1412,8 @@ class GetRandomPointAroundTarget : BehNodeAdapter
       return EBehResult ER_FAILED
 
     var agentTeam = TEAM_UNASSIGNED
-    query(beh_tree_eid(owner)) <| $ [es] (squad_member__playerEid : EntityId)
-      query(squad_member__playerEid) <| $ [es] (team : int)
-        agentTeam = team
+    query(beh_tree_eid(owner)) <| $ [es] (team : int)
+      agentTeam = team
 
     for _i in range(maxTries)
       var pos = targetPos
@@ -1417,16 +1434,13 @@ class GetRandomPointAroundTarget : BehNodeAdapter
         for_each_entity_in_grid(ecs_hash("humans"), BSphere3(pos, minDistanceFromAllies), GridEntCheck BOUNDING) <| $(human_eid : EntityId)
           query(human_eid) <| $ [es(REQUIRE_NOT=deadEntity)] (isAlive : bool;
                                                               transform : float3x4;
-                                                              squad_member__playerEid : EntityId;
+                                                              team : int = TEAM_UNASSIGNED;
                                                               isInVehicleHidden : bool = false)
             if !isAlive || isInVehicleHidden
               return
             if distance_sq(transform[3], pos) > minDistanceFromAlliesSq
               return
-            var human_team = TEAM_UNASSIGNED
-            query(squad_member__playerEid) <| $ [es] (team : int)
-              human_team = team
-            if human_team == agentTeam
+            if team == agentTeam
               ++numAllies
         if numAllies > 0
           continue
@@ -1528,17 +1542,30 @@ class RotateToPoint : BehNodeAdapter
 class IsSquadLeaderCrawl : BehNodeAdapter
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
-
     let agentEid = beh_tree_eid(owner)
-
     query(agentEid) <| $ [es] (squad_member__squad : EntityId)
       query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
         query(squad__leader) <| $ [es] (human_net_phys : HumanActor)
           assume squadLeaderPhys = human_net_phys.phys
-
           if determinate_stance(squadLeaderPhys.currentState) == STANCE_CRAWL
             res = EBehResult ER_SUCCESS
+    return res
 
+[beh_node(name="isSquadLeaderMoving")]
+class IsSquadLeaderMoving : BehNodeAdapter
+  def override update(dt : float) : EBehResult
+    var res = EBehResult ER_FAILED
+    let agentEid = beh_tree_eid(owner)
+    query(agentEid) <| $ [es] (squad_member__squad : EntityId)
+      query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
+        query(squad__leader) <| $ [es] (human_net_phys : HumanActor;
+                                        isDowned : bool = false)
+          if isDowned
+            return
+          assume currentState = human_net_phys.phys.currentState
+          assume moveState = currentState.moveState
+          if moveState == HUMoveState EMS_WALK || moveState == HUMoveState EMS_RUN || moveState == HUMoveState EMS_SPRINT
+            res = EBehResult ER_SUCCESS
     return res
 
 [beh_node(name="isAgressiveBehaviour")]
@@ -2040,12 +2067,15 @@ class MoveByDir : BehNodeAdapter
   endPosParam : int = -1
 
   distThresholdSq : float = 0.25
+  rotateToMoveDir : bool = true
 
   def override loadFromBlk(var data : DataBlock) : void
     duration = data |> datablock_getReal("duration", duration)
 
     let distThreshold = data |> datablock_getReal("distThreshold", 0.5)
     distThresholdSq = distThreshold * distThreshold
+
+    rotateToMoveDir = data |> datablock_getBool("rotateToMoveDir", rotateToMoveDir)
 
     endPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPos", ""), float3(0., 0., 0.))
 
@@ -2070,8 +2100,9 @@ class MoveByDir : BehNodeAdapter
 
       let dir = normalize(endPos - startPos)
 
-      phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(dir.x, 0., dir.z)))
-      phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(dir.x, 0., dir.z)))
+      if rotateToMoveDir
+        phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(dir.x, 0., dir.z)))
+        phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(dir.x, 0., dir.z)))
 
       phys.producedCT |> human_control_state_set_world_walk_dir(dir.xz, dir.xz)
       phys.producedCT |> human_control_state_set_walk_speed(1.)
@@ -2543,6 +2574,7 @@ class GetPointAroundAIPos : BehNodeAdapter
     ++counter
     return EBehResult ER_SUCCESS
 
+
 [beh_node(name="findCoverAroundPoint")]
 class FindCoverAroundPoint : BehNodeAdapter
   centerParam   : int = -1
@@ -2551,21 +2583,23 @@ class FindCoverAroundPoint : BehNodeAdapter
 
   radius     : float = 5.0
   minDist    : float = 0.0
-  wallOffset : float = 0.25
 
   possibleCosAngle   : float = 0.5
-  coverSideThreshold : float = 0.1
+  possibleAngleParam : int = -1
+
   keepOldCoverChance : float = 0.6
 
+  maxOccupied  : int = -1
   traceVisible : bool = false
 
   def override loadFromBlk(var data : DataBlock) : void
-    coverSideThreshold = datablock_getReal(data, "coverSideThreshold", 0.1)
     radius = datablock_getReal(data, "radius", 5.)
     minDist = datablock_getReal(data, "minDist", 0.0)
-    wallOffset = datablock_getReal(data, "wallOffset", 0.5)
+
     let possibleAngle = datablock_getReal(data, "possibleAngle", 90.)
     possibleCosAngle  = cos(deg_to_rad(possibleAngle))
+    if datablock_find_param(data, "possibleAngleParam") >= 0
+      possibleAngleParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "possibleAngleParam", ""), 90.)
 
     let agent = beh_tree_entity_agent(*owner)
     centerParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "centerParam", ""), agent.pos)
@@ -2574,12 +2608,19 @@ class FindCoverAroundPoint : BehNodeAdapter
     if maxDistParamName != ""
       maxDistParam = owner.blackBoard |> get_or_create(maxDistParamName, radius)
 
-    traceVisible = datablock_getBool(data, "traceVisible", false)
     keepOldCoverChance = datablock_getReal(data, "keepOldCoverChance", 0.6)
+
+    maxOccupied = datablock_getInt(data, "maxOccupied", maxOccupied)
+    traceVisible = datablock_getBool(data, "traceVisible", traceVisible)
+
+  def override init()
+    if possibleAngleParam >= 0
+      possibleCosAngle = cos(deg_to_rad(datablock_getReal(owner.blackBoard, possibleAngleParam)))
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
     let visibleMap = get_global_visible_covers_map()
+
     query() <| $ [es] (var covers : CoversComponent&)
       query(beh_tree_eid(owner)) <| $ [es] (walker_agent : EntityAgent;
                                             team : int = TEAM_UNASSIGNED;
@@ -2600,97 +2641,81 @@ class FindCoverAroundPoint : BehNodeAdapter
         box.bmax.xyz = centerPos + float3(maxDist, 2.5f, maxDist)
         box.bmin.xyz = centerPos - float3(maxDist, 0.5f, maxDist)
 
-        let heightUp1 = float3(0.0, 1.5, 0.0)
-        let heightUp2 = float3(0.0, 1.0, 0.0)
-
         let midPos = walker_agent.pos * 0.3 + centerPos * 0.7
         let likelyKeepCover = rnd_float(0.0, 1.0) < keepOldCoverChance
 
-        let maxOffDistSq = square(0.3)
+        let traceStartPos = centerPos + float3(0.0, 1.0, 0.0)
+        let traceHeightUp = float3(0.0, 0.5, 0.0)
 
         var bestDistSq = FLT_MAX
         var bestCoverId = int2(-1, 0)
-        var bestZeroUsed = false
+        var bestScore = 0
         var bestFound = false
+
+        let filterInfo = get_filter_covers_info()
         covers_box_cull(covers, box) <| $ [unused_argument(tm)] (id : int;
                                                                  tm : mat44f#)
           if bestFound
             return
+          if tm.col3.xyz == float3() // was destroyed
+            return
           if team != TEAM_UNASSIGNED && glob_vis_covers_map_has_other_teams(visibleMap, id, team)
             return
+
           assume cover     = covers.list[id]
           assume coverDesc = covers.coverDescs[id]
-
-          if coverDesc.numUsedSlots >= length(coverDesc.slots)
-            return
-
-          let heightDiff = abs(cover.groundLeft.y - cover.groundRight.y)
-          let groundLen = max(1.0, length_sq(cover.groundLeft - cover.groundRight))
-          if heightDiff / groundLen > coverSideThreshold
-            return
-
-          let minH = min(cover.groundLeft.y, cover.groundRight.y)
-          if minH > box.bmax.xyz.y
-            return
-          let maxH = max(cover.groundLeft.y + cover.hLeft, cover.groundRight.y + cover.hRight)
-          if maxH < box.bmin.xyz.y
+          if filter_cover(cover, coverDesc, box, maxOccupied, filterInfo)
             return
 
           let numSlots = length(coverDesc.slots)
-
           let isPrevCover = prevCoverId.x == id && likelyKeepCover
-          var totalUsed = 0
-          if !isPrevCover
-            for i in range(0, numSlots)
-              totalUsed += coverDesc.slots[i].numUsed
-          let zeroUsed = totalUsed == 0
 
           var slotBestCoverId = int2(id, -1)
           var slotBestDistSq = bestDistSq
-          var slotBestZeroUsed = false
+          var slotBestScore = bestScore
           for i in range(0, numSlots)
             let isPrevCoverSlot = isPrevCover && i == prevCoverId.y
-            if coverDesc.slots[i].numUsed > 0 && !isPrevCoverSlot
+            let score = eval_cover_score_stay(cover, coverDesc, i) + (isPrevCoverSlot ? 1 : 0)
+            if score < slotBestScore
               continue
-            let zeroUsedForSlot = zeroUsed || (numSlots >= 5 && (i == 0 || i == numSlots - 1))
-            let coverId = int2(id, i)
-            if !bestZeroUsed || zeroUsedForSlot
-              let coverCheckPos = coverDesc.slots[i].pos
-              if !is_point_safe(coverCheckPos - cover.dir * wallOffset, team)
+            let coverSlotPos = get_cover_slot_pos(cover, coverDesc, i) + traceHeightUp
+            let coverSlotOfs = coverSlotPos - traceStartPos
+            let cosAngle = dot(cover.dir, normalize(float3(coverSlotOfs.x, 0.0, coverSlotOfs.z)))
+            if cosAngle < possibleCosAngle
+              continue
+            let distToCenterSq = length_sq(coverSlotOfs)
+            let distFromAgentSq = distance_sq(midPos, coverSlotPos)
+            if distToCenterSq < minDistSq || distToCenterSq > maxDistSq
+              continue
+            if distFromAgentSq > slotBestDistSq && score == slotBestScore && !isPrevCoverSlot
+              continue
+            if !is_point_safe(coverSlotPos, team)
+              continue
+            if traceVisible && !isPrevCoverSlot
+              let dir = normalize(coverSlotOfs)
+              var t1 = length(coverSlotOfs)
+              var t2 = t1
+              var norm : float3
+              if (traceray_normalized(traceStartPos, dir, t1, norm, ETF_ALL)
+               && traceray_normalized(traceStartPos + traceHeightUp, dir, t2, norm, ETF_ALL))
                 continue
-              let coverOffset = coverCheckPos - centerPos
-              let cosAngle = dot(cover.dir, normalize(float3(coverOffset.x, 0.0, coverOffset.z)))
-              if cosAngle > possibleCosAngle
-                let distToCenterSq = length_sq(coverOffset)
-                let distFromAgentSq = distance_sq(midPos, coverCheckPos)
-                if distToCenterSq >= minDistSq && distToCenterSq <= maxDistSq && (distFromAgentSq < slotBestDistSq || (!bestZeroUsed && zeroUsedForSlot) || isPrevCover)
-                  if traceVisible && !isPrevCover
-                    let dir = normalize(coverOffset)
-                    var t1 = length(coverOffset)
-                    var t2 = t1
-                    var norm : float3
-                    if (traceray_normalized(centerPos + heightUp1, dir, t1, norm, ETF_ALL)
-                     && traceray_normalized(centerPos + heightUp2, dir, t2, norm, ETF_ALL))
-                      continue
-                  slotBestDistSq = distFromAgentSq
-                  slotBestCoverId = coverId
-                  slotBestZeroUsed = zeroUsedForSlot
-                  if isPrevCoverSlot
-                    bestDistSq = slotBestDistSq
-                    bestCoverId = slotBestCoverId
-                    bestZeroUsed = slotBestZeroUsed
-                    bestFound = true
-                    return
+            slotBestDistSq = distFromAgentSq
+            slotBestCoverId = int2(id, i)
+            slotBestScore = score
+            if isPrevCoverSlot
+              bestDistSq = slotBestDistSq
+              bestCoverId = slotBestCoverId
+              bestScore = slotBestScore
+              bestFound = true
+              return
           if slotBestCoverId.y != -1
             assume cover     = covers.list[slotBestCoverId.x]
             assume coverDesc = covers.coverDescs[slotBestCoverId.x]
-            let coverAIPos = coverDesc.slots[slotBestCoverId.y].pos - cover.dir * wallOffset
-            var newPos = coverAIPos
-            if project_to_nearest_navmesh_point(newPos, 0.5)
-              if distance_sq(newPos, coverAIPos) <= maxOffDistSq && abs(newPos.y - coverAIPos.y) < 0.3
-                bestDistSq = slotBestDistSq
-                bestCoverId = slotBestCoverId
-                bestZeroUsed = slotBestZeroUsed
+            let coverAIPos = get_cover_slot_pos(cover, coverDesc, slotBestCoverId.y)
+            if check_cover_pos_valid(coverAIPos)
+              bestDistSq = slotBestDistSq
+              bestCoverId = slotBestCoverId
+              bestScore = slotBestScore
 
         if bestCoverId.x != -1
           assume cover     = covers.list[bestCoverId.x]
@@ -2701,11 +2726,9 @@ class FindCoverAroundPoint : BehNodeAdapter
           if coverDesc.slots[bestCoverId.y].numUsed == 1
             coverDesc.numUsedSlots += 1
 
-          let coverAIPos = coverDesc.slots[bestCoverId.y].pos - cover.dir * wallOffset
+          let coverAIPos = get_cover_slot_pos(cover, coverDesc, bestCoverId.y)
           owner.blackBoard |> set(coverPosParam, coverAIPos)
-
           res = EBehResult ER_SUCCESS
-
     return res
 
 [beh_node(name="onceUntilReset")]
@@ -2746,21 +2769,25 @@ class CanHoldWeaponInVehicle : BehNodeAdapter
     return (get_bool(beh_tree_eid(owner), "human_vehicle__canHoldWeapon") ?? false) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
 
 [beh_node(name="checkReloadWeapon")]
-class ReloadWeapon : BehNodeAdapter
+class CheckReloadWeapon : BehNodeAdapter
+  checkOnly : bool = false
+
+  def override loadFromBlk(var data : DataBlock) : void
+    checkOnly = data |> datablock_getBool("checkOnly", checkOnly)
 
   def override update(dt : float) : EBehResult
-    var res = EBehResult ER_SUCCESS
     let ownerEid = beh_tree_eid(owner)
-    query(ownerEid) <| $ [es] (human_weap__reloadAtTime : float; human_weap__currentGunEid : EntityId)
-      let atTime = get_sync_time()
-      if atTime < human_weap__reloadAtTime
-        res = EBehResult ER_RUNNING
-      else
-        query(human_weap__currentGunEid) <| $ [es] (gun__ammo : int; gun__totalAmmo : int)
-          if gun__totalAmmo > 0 && gun__ammo == 0
-            sendEventImmediate(ownerEid, [[CmdRequestReload atTime=atTime, gunEid=human_weap__currentGunEid]])
-            res = EBehResult ER_RUNNING
-    return res
+    let reload = check_human_reload(ownerEid)
+    if checkOnly
+      return reload != 0 ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
+    if reload > 0
+      return EBehResult ER_RUNNING
+    if reload < 0
+      query(ownerEid) <| $ [es] (human_weap__currentGunEid : EntityId)
+        let atTime = get_sync_time()
+        sendEventImmediate(ownerEid, [[CmdRequestReload atTime=atTime, gunEid=human_weap__currentGunEid]])
+      return EBehResult ER_RUNNING
+    return EBehResult ER_SUCCESS
 
 [beh_node(name="findDangerousBomb")]
 class FindDangerousBomb : BehNodeAdapter
@@ -2937,6 +2964,8 @@ class IsOnNavmesh : BehNodeAdapter
 
 [beh_node(name="decideOnAttackTarget")]
 class DecideOnAttackTarget : BehNodeAdapter
+  checkOnly : bool = false
+
   targetEidParam = -1
   targetSeeTimeParam = -1
   targetAcceptTime : float = 0.3
@@ -2974,9 +3003,10 @@ class DecideOnAttackTarget : BehNodeAdapter
   stillTimeOutParam = -1
   turnAngleOutParam = -1
   focusTimeOutParam = -1
-  gotoCoverOutParam = -1
 
   def override loadFromBlk(data : DataBlock) : void
+    checkOnly = datablock_getBool(data, "checkOnly", checkOnly)
+
     targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetParam", ""), 0)
     targetSeeTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetSeeTimeParam", ""), -1.0)
 
@@ -2998,7 +3028,6 @@ class DecideOnAttackTarget : BehNodeAdapter
     stillTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "stillTimeOutParam", ""), 0.0)
     turnAngleOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "turnAngleOutParam", ""), 0.0)
     focusTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "focusTimeOutParam", ""), 0.0)
-    gotoCoverOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "gotoCoverOutParam", ""), false)
 
   def override update(dt : float) : EBehResult
     var agent = beh_tree_entity_agent(*owner)
@@ -3029,19 +3058,20 @@ class DecideOnAttackTarget : BehNodeAdapter
         if human_net_phys.phys.currentState.isCrawl
           focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
 
-      owner.blackBoard |> set(lastTargetSeenParam, true)
-      owner.blackBoard |> set(lastTargetTimeParam, curTime)
+      if !checkOnly
+        owner.blackBoard |> set(lastTargetSeenParam, true)
+        owner.blackBoard |> set(lastTargetTimeParam, curTime)
 
-      owner.blackBoard |> set(prevHunchTimeParam, -1.0)
-      owner.blackBoard |> set(hunchLevelParam, 0.0)
+        owner.blackBoard |> set(prevHunchTimeParam, -1.0)
+        owner.blackBoard |> set(hunchLevelParam, 0.0)
 
-      owner.blackBoard |> set(stillTimeOutParam, 0.0)
-      owner.blackBoard |> set(turnAngleOutParam, 0.0)
-      owner.blackBoard |> set(focusTimeOutParam, focusTime)
-      owner.blackBoard |> set(gotoCoverOutParam, false)
+        owner.blackBoard |> set(stillTimeOutParam, 0.0)
+        owner.blackBoard |> set(turnAngleOutParam, 0.0)
+        owner.blackBoard |> set(focusTimeOutParam, focusTime)
       return EBehResult ER_SUCCESS
 
-    owner.blackBoard |> set(lastTargetSeenParam, false)
+    if !checkOnly
+      owner.blackBoard |> set(lastTargetSeenParam, false)
 
     var hasTargetPos = false
     var targetPos = float3()
@@ -3069,10 +3099,10 @@ class DecideOnAttackTarget : BehNodeAdapter
       if targetCrawl
         focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
 
-      owner.blackBoard |> set(stillTimeOutParam, 0.0)
-      owner.blackBoard |> set(turnAngleOutParam, turnAngle)
-      owner.blackBoard |> set(focusTimeOutParam, focusTime)
-      owner.blackBoard |> set(gotoCoverOutParam, false)
+      if !checkOnly
+        owner.blackBoard |> set(stillTimeOutParam, 0.0)
+        owner.blackBoard |> set(turnAngleOutParam, turnAngle)
+        owner.blackBoard |> set(focusTimeOutParam, focusTime)
       return EBehResult ER_SUCCESS
 
     let dist = hasTargetPos ? distance(targetPos, agent.pos) : 0.0
@@ -3097,9 +3127,9 @@ class DecideOnAttackTarget : BehNodeAdapter
     let hunchAdd = time > 0.0 ? (deltaTime / time) : 1.0
     let wasHunchLevel = owner.blackBoard |> datablock_getReal(hunchLevelParam)
     var newHunchLevel = min(1.0, wasHunchLevel + hunchAdd)
-    if newHunchLevel != wasHunchLevel
+    if newHunchLevel != wasHunchLevel && !checkOnly
       owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
-    if prevHunchTime != curTime
+    if prevHunchTime != curTime && !checkOnly
       owner.blackBoard |> set(prevHunchTimeParam, curTime)
 
     if newHunchLevel < 1.0
@@ -3108,7 +3138,6 @@ class DecideOnAttackTarget : BehNodeAdapter
     var stillTime = 0.0
     var turnAngle = 0.0
     var focusTime = 0.0
-    let gotoCover = false // TO BE USED LATER (for bots using covers)
 
     if hasTargetPos
       let delta = targetPos - agent.pos
@@ -3150,13 +3179,11 @@ class DecideOnAttackTarget : BehNodeAdapter
     if lastTargetEid != INVALID_ENTITY_ID
       owner.blackBoard |> set(lastTargetEidParam, int(uint(INVALID_ENTITY_ID))) // hunch searching, not target yet
 
-    newHunchLevel = 0.5
-    owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
+    if !checkOnly
+      newHunchLevel = 0.5
+      owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
 
-    owner.blackBoard |> set(stillTimeOutParam, stillTime)
-    owner.blackBoard |> set(turnAngleOutParam, turnAngle)
-    owner.blackBoard |> set(focusTimeOutParam, focusTime)
-    owner.blackBoard |> set(gotoCoverOutParam, gotoCover)
+      owner.blackBoard |> set(stillTimeOutParam, stillTime)
+      owner.blackBoard |> set(turnAngleOutParam, turnAngle)
+      owner.blackBoard |> set(focusTimeOutParam, focusTime)
     return EBehResult ER_SUCCESS
-
-

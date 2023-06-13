@@ -22,6 +22,7 @@
       fxTarget:t="lowres"
       giQuality:t="minimum"
       ssss:t="off"
+      decompressed_shaders_cache_size_in_mb:i=20
     }
   }
 
@@ -72,6 +73,7 @@
   fxTarget:t="lowres"
   giQuality:t="minimum"
   "@override:staticShadowMaxUpdateAmount":r=0.005
+  decompressed_shaders_cache_size_in_mb:i=20
 }
 
 authGameId:t=el

@@ -106,11 +106,11 @@ let mkBoosterItemRow = @(itemTemplate, tpl, armyId, count) {
   ]
 }
 
-let mkTextArea = @(txt) {
+let mkTextArea = @(text) {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   size = [flex(), SIZE_TO_CONTENT]
-  text = txt
+  text
   color = activeTxtColor
 }.__update(sub_txt)
 

@@ -92,11 +92,11 @@ def vehicle_seats_reset_hatch_state(evt : Event;
                                     var seat__isInHatch : bool&)
   seat__isInHatch = seat__isHatchControlInversed
 
-[es(tag=server, REQUIRE_NOT=playerIsBot)]
-def vehicle_seats_hatch_reset_input_when_hero_changed(evt : PossessTargetByPlayer)
-  query(evt.target) <| $ [es] (human_vehicle__occupiedSeatEid : EntityId)
-    query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
-      seat__isInHatch = seat__isHatchControlInversed
+[es(tag=server, on_disappear, REQUIRE=hero)]
+def vehicle_seats_hatch_reset_input_when_hero_changed(evt : Event;
+                                                      human_vehicle__occupiedSeatEid : EntityId)
+  query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__isHatchControlInversed : bool = false; var seat__isInHatch : bool&)
+    seat__isInHatch = seat__isHatchControlInversed
 
 [es(after=vehicle_seats_hatch_crouch_es)]
 def vehicle_seats_hatch_es(info : ParallelUpdateFrameDelayed;

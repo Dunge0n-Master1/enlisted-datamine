@@ -12,6 +12,7 @@ let WND_UID = "eventFiltersPopup"
 let isRoomFilterOpened = Watched(false)
 let columnWidth = hdpx(440)
 let rowHeight = hdpx(38)
+let circleSize = [hdpxi(18), hdpxi(18)]
 let locOn = loc($"option/on")
 let locOff = loc($"option/off")
 
@@ -73,9 +74,14 @@ let mkCheckIcon = @(watched) @() {
   children = watched.value ? faComp("check", {valign = ALIGN_CENTER}) : null
 }
 
+
+let checkCircleIconOn = Picture($"!ui/skin#on_radiobutton.svg:{circleSize[0]}:{circleSize[1]}:K")
+let checkCircleIconOff = Picture($"!ui/skin#off_radiobutton.svg:{circleSize[0]}:{circleSize[1]}:K")
+
 let mkCheckCircleIcon = @(v) {
+  size = circleSize
   rendObj = ROBJ_IMAGE
-  image = Picture($"ui/skin#{v ? "on" : "off"}_radiobutton.svg")
+  image = v ? checkCircleIconOn : checkCircleIconOff
 }
 
 let mkCircleCheck = @(watched) @() {

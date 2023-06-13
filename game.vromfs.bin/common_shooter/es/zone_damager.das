@@ -58,8 +58,8 @@ def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
                                                                                         entity_mods__zoneDamageMult : float = 1.0;
                                                                                         human_net_phys__isUnderwater : bool = false;
                                                                                         dmgzone_fire_resistance__maxTicks : int = 0;
-                                                                                        var dmgzone_fire_resistance__currentTicks : int?;
-                                                                                        var dmgzone_fire_resistance__lastTickAt : float?)
+                                                                                        var dmgzone_fire_resistance__currentTicks : int&;
+                                                                                        var dmgzone_fire_resistance__lastTickAt : float&)
     if !damage_in_vehicle && isInVehicleHidden
       return
     if team_to_damage != TEAM_UNASSIGNED && team_to_damage != team
@@ -79,12 +79,10 @@ def dmgzone_check_visitor(visitor_eid, offender_eid : EntityId;
       ddesc.shellId = int16(shell_id)
       damage_entity(visitor_eid, offender_eid, ddesc)
 
-    if dmgzone_fireAffect > 0.0
-      var shouldDamage = true
-      if dmgzone_fire_resistance__currentTicks != null && dmgzone_fire_resistance__lastTickAt != null
-        *dmgzone_fire_resistance__currentTicks += 1
-        *dmgzone_fire_resistance__lastTickAt = curTime
-        shouldDamage = dmgzone_fire_resistance__maxTicks < *dmgzone_fire_resistance__currentTicks
+    if dmgzone_fireAffect > 0.0 && dmgzone_fire_resistance__currentTicks >= 0 //check is human dry
+      dmgzone_fire_resistance__currentTicks += 1
+      dmgzone_fire_resistance__lastTickAt = curTime
+      let shouldDamage = dmgzone_fire_resistance__maxTicks < dmgzone_fire_resistance__currentTicks
 
       if shouldDamage
         burn_damage(curTime, dt, visitor_eid, offender_eid, team, transform[3],

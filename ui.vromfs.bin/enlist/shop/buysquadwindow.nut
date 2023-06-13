@@ -22,7 +22,7 @@ let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { isTestDriveProfileInProgress, startSquadTestDrive } = require("%enlist/battleData/testDrive.nut")
 let { Bordered, Purchase, PrimaryFlat } = require("%ui/components/textButton.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
+let spinner = require("%ui/components/spinner.nut")
 let { mkPrice } = require("%enlist/shop/mkShopItemPrice.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
 let { CAMPAIGN_NONE } = require("%enlist/campaigns/campaignConfig.nut")
@@ -36,7 +36,7 @@ let { mkWallposterImg } = require("%enlist/profile/wallpostersPkg.nut")
 
 
 let defTxtStyle = { color = activeTxtColor }.__update(sub_txt)
-
+let waitingSpinner = spinner(btnSizeBig[1]/2)
 let buySquadParams = mkWatched(persist, "buySquadParams")
 
 let open = @(params) buySquadParams(params)
@@ -184,7 +184,7 @@ let function mkButtonsBlock(viewOptions, rentOptions) {
       timerObj
       purchaseBtn
       canRentSquad.value ? rentBtn : null
-      isTestDriveProfileInProgress.value ? spinner
+      isTestDriveProfileInProgress.value ? waitingSpinner
         : Bordered(loc("testDrive/squad"),
             @() startSquadTestDrive(armyId, squadId, shopItem?.guid ?? ""),
             {

@@ -85,21 +85,20 @@ let function getShopItemsIds(items) {
 
 let itemToShopItem = Computed(function(){
   let res = {}
-  let allCrates = configs.value?.all_crates
-  shopItems.value.each(function(shopItem, shopItemId){
+  let { all_crates = {} } = configs.value
+  shopItems.value.each(function(shopItem, shopItemId) {
     let crates = shopItem?.crates ?? []
-    crates.each(function(crate){
-      let {armyId, id} = crate
-      local itemsInCrate = allCrates[armyId][id]
+    crates.each(function(crate) {
+      let { armyId, id } = crate
+      let itemsInCrate = all_crates?[armyId][id] ?? []
       if (armyId not in res)
         res[armyId] <- {}
 
-      local allKeys = {}
-      foreach(item in itemsInCrate){
+      let allKeys = {}
+      foreach (item in itemsInCrate)
         allKeys[trimUpgradeSuffix(item)] <- true
-      }
 
-      itemsInCrate.each(function(item){
+      itemsInCrate.each(function(item) {
         if (item not in res[armyId])
           res[armyId][item] <- {}
         res[armyId][item][shopItemId] <- allKeys.len()

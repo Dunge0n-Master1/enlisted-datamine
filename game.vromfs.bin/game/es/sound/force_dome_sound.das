@@ -5,6 +5,7 @@ require math.base
 require DagorMath
 require enlisted.events_enlisted
 
+
 [es(tag=sound, no_order)]
 def force_dome_sound_update(info : ParallelUpdateFrameDelayed;
                             force_dome_sound__path : string;

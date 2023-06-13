@@ -160,7 +160,7 @@ let function mkEndSeasonMessage() {
   let hasAlert = Computed(@() timeLeft.value <= BP_LEFT_DAYS_ALERT * DAY_SEC)
   return @() {
     watch = hasAlert
-    size = [fsh(36), hdpx(180)]
+    size = [fsh(36), hdpx(150)]
     children = !hasAlert.value ? null
       : [
           {
@@ -345,7 +345,7 @@ let function mkCard(reward, count, templates, onClick, isSelected, isReceived, i
     children = [
       {
         xmbNode = XmbNode()
-        behavior = Behaviors.Button
+        behavior = isSelected.value ? null : Behaviors.Button
         onClick
         flow = FLOW_VERTICAL
         gap = 0.1 * imageHeight //FIXME: icon offset

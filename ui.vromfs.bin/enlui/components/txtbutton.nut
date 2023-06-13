@@ -2,8 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontFontawesome, fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { disabledTxtColor, defTxtColor, titleTxtColor, commonBtnHeight, smallBtnHeight, defBdColor,
-  commonBorderRadius, midPadding, hoverTxtColor, hoverBgColor, accentColor, darkTxtColor,
-  darkPanelBgColor, briteAccentColor
+  commonBorderRadius, midPadding, hoverTxtColor, hoverPanelBgColor, accentColor, darkTxtColor,
+  darkPanelBgColor, brightAccentColor, hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
@@ -35,7 +35,7 @@ let pressedBtnStyle = {
   defTxtColor = titleTxtColor
   hoverTxtColor = hoverTxtColor
   defBgColor = darkPanelBgColor
-  hoverBgColor = hoverBgColor
+  hoverBgColor = hoverPanelBgColor
 }
 
 
@@ -43,7 +43,7 @@ let accentBtnStyle = {
   defTxtColor = darkTxtColor
   hoverTxtColor = darkTxtColor
   activeTxtColor = darkTxtColor
-  defBgColor = briteAccentColor
+  defBgColor = brightAccentColor
   hoverBgColor = accentColor
   activeBgColor = 0xFFB4B4B4
 }
@@ -70,7 +70,7 @@ let function borderColor(sf, style = {}, isEnabled = true) {
 
 let defBgStyle = {
   defBgColor = null
-  hoverBgColor = accentColor
+  hoverBgColor = hoverSlotBgColor
   activeBgColor = darkPanelBgColor
   disabledBgColor = null
 }
@@ -94,7 +94,7 @@ let defHotkeyParams = {
 
 let defButtonBg = @(sf, style, isEnabled) {
   size = flex()
-  rendObj = ROBJ_BOX
+  rendObj = style?.rendObj ?? ROBJ_BOX
   fillColor = fillColor(sf, style, isEnabled)
   borderWidth = style?.borderWidth ?? defBorderStyle.borderWidth
   borderRadius = style?.borderRadius ?? defBorderStyle.borderRadius
@@ -106,7 +106,7 @@ let function textButton (text, handler, params={}) {
   let group = ElemGroup()
   let { stateFlags = Watched(0) } = params
   let {
-    txtFont = fontLarge, isEnabled = true, style = {}, bgComp = null, fgChild = null,
+    txtParams = fontLarge, isEnabled = true, style = {}, bgComp = null, fgChild = null,
     btnHeight = commonBtnHeight, btnWidth = null, sound = {}, hint = null, onHoverFunc = null
   } = params
   let minWidth = btnWidth ?? SIZE_TO_CONTENT
@@ -118,7 +118,7 @@ let function textButton (text, handler, params={}) {
       if ((sf & S_HOVER) != 0 || (sf & S_ACTIVE) != 0)
         gamepadHotkey = JB.A
       gamepadBtn = mkImageCompByDargKey(gamepadHotkey
-        defHotkeyParams.__merge({ height = txtFont.fontSize}, params?.hotkeyParams ?? {}))
+        defHotkeyParams.__merge({ height = txtParams.fontSize}, params?.hotkeyParams ?? {}))
     }
     let bgChild = bgComp?(sf, isEnabled) ?? defButtonBg(sf, style, isEnabled)
     return {
@@ -150,7 +150,7 @@ let function textButton (text, handler, params={}) {
           color = textColor(sf, style, isEnabled)
           margin = [fsh(1), fsh(3)]
           group
-        }.__update(txtFont)
+        }.__update(txtParams)
         fgChild
       ]
     }.__merge(params)
@@ -170,7 +170,7 @@ let export = class {
   }.__merge(params))
   SmallBordered = @(text, handler, params = {}) textButton(text, handler, {
     btnHeight = smallBtnHeight
-    txtFont = fontMedium
+    txtParams = fontMedium
   }.__merge(params))
   PressedBordered = @(text, handler, params = {}) textButton(text, handler, {
     style = pressedBtnStyle
@@ -181,7 +181,7 @@ let export = class {
       watch = isGamepad
       children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
-          txtFont = fontFontawesome
+          txtParams = fontFontawesome
         }.__merge(params))
     }
   }
@@ -191,8 +191,8 @@ let export = class {
       watch = isGamepad
       children = textButton(icon, handler, {
           btnWidth = commonBtnHeight
-          txtFont = fontFontawesome
-          style = { borderWidth = 0 }
+          txtParams = fontFontawesome
+          style = { borderWidth = 0 rendObj = ROBJ_WORLD_BLUR_PANEL }
         }.__merge(params))
     }
   }

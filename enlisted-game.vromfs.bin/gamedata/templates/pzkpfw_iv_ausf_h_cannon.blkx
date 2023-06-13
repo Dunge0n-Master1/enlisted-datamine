@@ -9,7 +9,6 @@ pzkpfw_IV_ausf_H_turret{
   _extends:t="vehicle_enter_accessibility"
   _extends:t="vehicle_maintenance"
   vehicle__brokenUsePrompt:t="hud/train_turret_locked_needs_repair"
-  hitmarks__showUserHits:b=no
   killLogName:t="Tank"
   phys_obj_net_phys__blk:t="content/enlisted/gamedata/units/pzkpfw_iv_ausf_h_cannon.blk"
   damage_model__blk:t="content/enlisted/gamedata/units/pzkpfw_iv_ausf_h_cannon.blk"
@@ -47,6 +46,12 @@ pzkpfw_IV_ausf_H_turret{
   fire_damage__timeToExplosion:r=80.0
 
   "vehicle__lockIfTurretBroken:tag"{
+  }
+
+  "hitmarks__groups:list<t>"{
+  }
+
+  "hitmarks__groupsIds:list<i>"{
   }
 
   "engineer_building__isUsable:tag"{

@@ -1,41 +1,49 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { gap } = require("%enlSqGlob/ui/viewConst.nut")
+let { defTxtColor, colFull } = require("%enlSqGlob/ui/designConst.nut")
 let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
-let { bigGap } = require("%enlSqGlob/ui/viewConst.nut")
-let { isSquadLeader, squadLen, squadMembers, isInvitedToSquad, squadSelfMember,
-  enabledSquad, canInviteToSquad, myExtSquadData, leaveSquad
+let { squadLen, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad,
+  leaveSquad, squadSelfMember, myExtSquadData, isSquadLeader
 } = require("%enlist/squad/squadManager.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
 let { Contact } = require("%enlist/contacts/contact.nut")
-let contactBlock = require("%enlist/contacts/contactBlock.nut")
+let mkContactBlock = require("%enlist/contacts/contactBlock.nut")
 let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut")
-let squareIconButton = require("%enlist/components/squareIconButton.nut")
-let textButton = require("%ui/components/textButton.nut")
 let {
   INVITE_TO_FRIENDS, REMOVE_FROM_SQUAD, PROMOTE_TO_LEADER, REVOKE_INVITE,
   SHOW_USER_LIVE_PROFILE, INVITE_TO_PSN_FRIENDS
 } = require("%enlist/contacts/contactActions.nut")
+let { FAFlatButton } = require("%ui/components/txtButton.nut")
+let textButton = require("%ui/components/textButton.nut")
 let { roomIsLobby } = require("%enlist/state/roomState.nut")
 let { showCurNotReadySquadsMsg } = require("%enlist/soldiers/model/notReadySquadsState.nut")
-
 
 let contextMenuActions = [INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, REMOVE_FROM_SQUAD,
   PROMOTE_TO_LEADER, REVOKE_INVITE, SHOW_USER_LIVE_PROFILE]
 let maxMembers = Computed(@() currentGameMode.value?.queue.maxGroupSize ?? 1)
 
-let mkAddUserButton = @() squareIconButton({
-  onClick = showContactsListWnd
-  tooltipText = loc("tooltips/addUser")
-  iconId = "user-plus"
+let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
+
+
+let mkHint = @(text) {
+  rendObj = ROBJ_TEXT
+  text
+}.__update(hintTxtStyle)
+
+
+let addUserButton = FAFlatButton("user-plus", showContactsListWnd, {
+  hint = mkHint(loc("tooltips/addUser"))
+  btnWidth = navBottomBarHeight
+  btnHeight = navBottomBarHeight
 })
 
-let leaveButton = squareIconButton({
-    onClick = @() leaveSquad()
-    tooltipText = loc("tooltips/disbandSquad")
-    iconId = "close"
-  },
-  { margin = [hdpx(8), 0, 0, hdpx(1)] })
+let leaveButton = FAFlatButton("close", @() leaveSquad(), {
+  hint = mkHint(loc("tooltips/disbandSquad"))
+  btnWidth = navBottomBarHeight
+  btnHeight = navBottomBarHeight
+})
 
 let squadControls = @() {
   watch = squadLen
@@ -45,31 +53,8 @@ let squadControls = @() {
 }
 
 let horizontalContact = @(contact) {
-  size = [(navBottomBarHeight * 4.0).tointeger(), navBottomBarHeight]
-  children = contactBlock(contact, contextMenuActions)
-}
-
-let function squadMembersUi() {
-  let squadList = []
-  foreach (member in squadMembers.value)
-    if (member.isLeader)
-      squadList.insert(0, horizontalContact(Contact(member.userId.tostring())))
-    else
-      squadList.append(horizontalContact(Contact(member.userId.tostring())))
-
-  foreach (uid, _ in isInvitedToSquad.value)
-    squadList.append(horizontalContact(Contact(uid.tostring())))
-
-  if (maxMembers.value > 1 && canInviteToSquad.value)
-    for(local i = squadList.len(); i < maxMembers.value; i++)
-      squadList.append(mkAddUserButton())
-
-  return {
-    watch = [squadMembers, isInvitedToSquad, canInviteToSquad, maxMembers, roomIsLobby]
-    flow = FLOW_HORIZONTAL
-    gap = hdpx(4)
-    children = squadList
-  }
+  size = [colFull(3), navBottomBarHeight]
+  children = mkContactBlock(contact, contextMenuActions)
 }
 
 let squadReadyButton = @(ready) textButton(
@@ -89,22 +74,49 @@ let squadReadyButton = @(ready) textButton(
   })
 
 let function squadReadyButtonPlace() {
-  let res = { watch = [squadSelfMember, isSquadLeader, roomIsLobby] }
+  let res = { watch = [squadSelfMember, isSquadLeader, roomIsLobby, myExtSquadData.ready] }
   if (squadSelfMember.value && !isSquadLeader.value) {
-    res.watch.append(myExtSquadData.ready)
-    res.size <- [SIZE_TO_CONTENT, navBottomBarHeight]
-    res.children <- roomIsLobby.value ? null
-      : squadReadyButton(myExtSquadData.ready)
+    res.__update({
+      size = [SIZE_TO_CONTENT, navBottomBarHeight]
+       children = roomIsLobby.value
+         ? null
+         : squadReadyButton(myExtSquadData.ready)
+    })
   }
   return res
 }
+
+let function squadMembersUi() {
+  let squadList = []
+  foreach (member in squadMembers.value)
+    if (member.isLeader)
+      squadList.insert(0, horizontalContact(Contact(member.userId.tostring())))
+    else
+      squadList.append(horizontalContact(Contact(member.userId.tostring())))
+
+  foreach (uid, _ in isInvitedToSquad.value)
+    squadList.append(horizontalContact(Contact(uid.tostring())))
+
+  if (maxMembers.value > 1 && canInviteToSquad.value)
+    for(local i = squadList.len(); i < maxMembers.value; i++)
+      squadList.append(addUserButton)
+
+  return {
+    watch = [squadMembers, isInvitedToSquad, canInviteToSquad, maxMembers]
+    flow = FLOW_HORIZONTAL
+    valign = ALIGN_CENTER
+    gap
+    children = squadList
+  }
+}
+
 
 return @() {
   stopMouse = true
   watch = enabledSquad
   valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
-  gap = bigGap
+  gap
   children = enabledSquad.value
     ? [
         squadControls

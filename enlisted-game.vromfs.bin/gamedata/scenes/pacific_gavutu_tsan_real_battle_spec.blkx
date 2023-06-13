@@ -2667,6 +2667,16 @@ entity{
 }
 
 entity{
+  _template:t="session_timer"
+  session_timer__time_left:r=600.0
+}
+
+entity{
+  _template:t="custom_profile"
+  customProfile:t="%enlSqGlob/data/bots_profile_normal.json"
+}
+
+entity{
   _template:t="door_mult_ent_generator"
   ri_extra_gen__blk:t="content/enlisted/gamedata/pacific_doors.blk"
 }

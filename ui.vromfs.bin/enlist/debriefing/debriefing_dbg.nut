@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("%sqstd/json.nut")
+let { loadJson, saveJson, json_to_string } = require("%sqstd/json.nut")
 let debriefingState = require("debriefingStateInMenu.nut") //can be overrided by game
 let { dbgShow, dbgData } = require("debriefingDbgState.nut")
 
@@ -12,11 +12,11 @@ local cfg = {
 }
 
 let saveDebriefing = @(path = null)
-  json.save(path ?? cfg.savePath, cfg.state.data.value, {logger = log_for_user})
+  saveJson(path ?? cfg.savePath, cfg.state.data.value, {logger = log_for_user})
 
 local function loadDebriefing(path = null) {
   path = path ?? cfg.savePath
-  let data = json.load(path, { logger = log_for_user })
+  let data = loadJson(path, { logger = log_for_user })
   if (data == null)
     return false
 
@@ -53,7 +53,7 @@ let function saveToLog(dData) {
   if (dData?.isDebug)
     return
   let { sessionId = "0" } = dData
-  let jsonstr = json.to_string(dData, true)
+  let jsonstr = json_to_string(dData, true)
   log($"Debriefing for session {sessionId } json:\n======\n{jsonstr}======")
 }
 

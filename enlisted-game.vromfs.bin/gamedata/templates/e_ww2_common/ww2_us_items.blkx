@@ -1,3 +1,10 @@
+attachable_wear_utility_hbt_usmc_p44_pants_item{
+  _extends:t="attachable_pants"
+  item__uniqueName:t="attachable_wear_utility_hbt_usmc_p44_pants_item"
+  animchar__res:t="utility_hbt_usmc_p44_pants_char"
+  collres__res:t="utility_hbt_usmc_p44_pants_collision"
+}
+
 attachable_wear_pants_01_us_summer_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pants_01_us_summer_item"
@@ -115,6 +122,26 @@ attachable_wear_pants_m39_brown_frog_camo_item{
   }
 }
 
+attachable_wear_pants_m39_lbrown_frog_camo_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_04_us_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "us_pants_M1939_long_2_tex_d*":t="us_pants_m39_long_frog_camo_lbrown_tex_d*"
+    "us_pants_M1939_long_2_tex_n*":t="us_pants_m39_long_frog_camo_tex_n*"
+  }
+}
+
+attachable_wear_pants_m39_green_frog_camo_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pants_04_us_summer_item"
+
+  "animchar__objTexReplace:object"{
+    "us_pants_M1939_long_2_tex_d*":t="us_pants_m39_long_frog_camo_green_tex_d*"
+    "us_pants_M1939_long_2_tex_n*":t="us_pants_m39_long_frog_camo_tex_n*"
+  }
+}
+
 attachable_wear_pants_m39_long_camo_item{
   _extends:t="attachable_pants"
   _extends:t="attachable_wear_pants_04_us_summer_item"
@@ -189,11 +216,56 @@ attachable_wear_airborne_pants_light_item{
   }
 }
 
+attachable_wear_airborne_pants_olive_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_airborne_pants_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_pants_tex_d*":t="usa_m42_airborne_pants_olive_tex_d*"
+  }
+}
+
+attachable_wear_airborne_pants_frog_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_airborne_pants_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_pants_tex_d*":t="usa_m42_airborne_pants_frog_tex_d*"
+  }
+}
+
 attachable_wear_usmc_m43_hbt_jump_smock_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
   animchar__res:t="usmc_m43_hbt_jump_smock_char"
   collres__res:t="usmc_m43_hbt_jump_smock_collision"
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_green_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_green_tex_d*"
+  }
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_brown_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_brown_tex_d*"
+  }
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_lbrown_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_lbrown_tex_d*"
+  }
 }
 
 attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item{
@@ -202,6 +274,36 @@ attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item{
   animchar__res:t="usmc_m43_hbt_jump_smock_t5_parachute_char"
   collres__res:t="usmc_m43_hbt_jump_smock_t5_parachute_collision"
   item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_item"
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_green_t5_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_green_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_green_tex_d*"
+  }
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_brown_t5_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_brown_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_brown_tex_d*"
+  }
+}
+
+attachable_wear_usmc_m43_hbt_jump_smock_lbrown_t5_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_usmc_m43_hbt_jump_smock_t5_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_usmc_m43_hbt_jump_smock_lbrown_item"
+
+  "animchar__objTexReplace:object"{
+    "usmc_m43_hbt_jump_smock_tex_d*":t="usmc_m43_hbt_jump_smock_lbrown_tex_d*"
+  }
 }
 
 attachable_wear_tunic_01_us_summer_item{
@@ -438,6 +540,24 @@ attachable_wear_airborne_jacket_light_item{
   }
 }
 
+attachable_wear_airborne_jacket_olive_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_airborne_jacket_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_olive_tex_d*"
+  }
+}
+
+attachable_wear_airborne_jacket_frog_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_airborne_jacket_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_frog_tex_d*"
+  }
+}
+
 attachable_wear_airborne_jacket_w_parachute_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_airborne_jacket_w_parachute_item"
@@ -445,6 +565,39 @@ attachable_wear_airborne_jacket_w_parachute_item{
   collres__res:t="airborne_jacket_w_parachute_collision"
   item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_item"
   item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_item"
+}
+
+attachable_wear_airborne_jacket_light_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_airborne_jacket_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_light_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_light_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_light_tex_d*"
+  }
+}
+
+attachable_wear_airborne_jacket_olive_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_airborne_jacket_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_olive_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_olive_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_olive_tex_d*"
+  }
+}
+
+attachable_wear_airborne_jacket_frog_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_airborne_jacket_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_airborne_jacket_frog_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_airborne_jacket_frog_item"
+
+  "animchar__objTexReplace:object"{
+    "usa_m42_airborne_jacket_tex_d*":t="usa_m42_airborne_jacket_frog_tex_d*"
+  }
 }
 
 attachable_wear_coat_01_us_winter_item{
@@ -627,6 +780,25 @@ attachable_wear_m37_combat_shirt_item{
   collres__res:t="m37_combat_shirt_collision"
 }
 
+attachable_wear_utility_hbt_usmc_p44_shirt_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_utility_hbt_usmc_p44_shirt_item"
+  animchar__res:t="utility_hbt_usmc_p44_shirt_char"
+  collres__res:t="utility_hbt_usmc_p44_shirt_collision"
+}
+
+attachable_wear_hbt_usmc_p44_shirt_w_m43jacket_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_hbt_usmc_p44_shirt_w_m43jacket_item"
+  animchar__res:t="hbt_usmc_p44_shirt_w_m43jacket_char"
+  collres__res:t="hbt_usmc_p44_shirt_w_m43jacket_collision"
+  animchar_fast_phys__res:t="hbt_usmc_p44_shirt_w_m43jacket_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_hands_01_afro_summer_item{
   _extends:t="attachable_gloves"
   _extends:t="attachable_wear_hands_01_ussr_summer_item"
@@ -686,6 +858,72 @@ hair_02_us_summer_item{
   _extends:t="attachable_hair"
   item__uniqueName:t="hair_02_us_summer_item"
   animchar__res:t="hair_02_us_summer_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_01_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_01_item"
+  animchar__res:t="head_americ_prem_hair_01_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_02_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_02_item"
+  animchar__res:t="head_americ_prem_hair_02_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_03_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_03_item"
+  animchar__res:t="head_americ_prem_hair_03_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_04_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_04_item"
+  animchar__res:t="head_americ_prem_hair_04_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_05_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_05_item"
+  animchar__res:t="head_americ_prem_hair_05_char"
+  collres__res:t="medkit_collision"
+
+  "hideFlags:array"{
+    hideFlag:t="hair"
+  }
+}
+
+head_americ_prem_hair_06_item{
+  _extends:t="attachable_hair"
+  item__uniqueName:t="head_americ_prem_hair_06_item"
+  animchar__res:t="head_americ_prem_hair_06_char"
   collres__res:t="medkit_collision"
 
   "hideFlags:array"{
@@ -2298,6 +2536,13 @@ attachable_wear_us_m23_cartridge_belt_jacket_m41_item{
   item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_jacket_m41_item"
   animchar__res:t="us_m23_cartridge_belt_jacket_m41_char"
   collres__res:t="us_m23_cartridge_belt_jacket_m41_collision"
+}
+
+attachable_wear_us_m23_cartridge_belt_hbt_usmc_p44_jacket_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_us_m23_cartridge_belt_hbt_usmc_p44_jacket_item"
+  animchar__res:t="us_m23_cartridge_belt_hbt_usmc_p44_jacket_char"
+  collres__res:t="us_m23_cartridge_belt_hbt_usmc_p44_jacket_collision"
 }
 
 attachable_wear_belt_m36_03_us_summer_item{

@@ -1,12 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { Alert } = require("%ui/style/colors.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { defTxtColor, brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { friendsOnlineUids, requestsToMeUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { isContactsVisible } = require("contactsState.nut")
 let buildCounter = require("buildCounter.nut")
-let squareIconButton = require("%enlist/components/squareIconButton.nut")
+let { FAFlatButton } = require("%ui/components/txtButton.nut")
+let { navBottomBarHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 
 let counterText = @(count) count > 0 ? count : null
+let hintTxtStyle = { color = defTxtColor }.__update(sub_txt)
 
 let onlineFriendsCounter = buildCounter(
   Computed(@() counterText(friendsOnlineUids.value.len())),
@@ -17,17 +20,21 @@ let invitationsCounter = buildCounter(
   {
     pos = [-hdpx(3), -hdpx(4)]
     vplace = ALIGN_BOTTOM
-    color = Alert
+    color = brightAccentColor
   })
+
+let hoverHint = {
+  rendObj = ROBJ_TEXT
+  text = loc("tooltips/contactsButton")
+}.__update(hintTxtStyle)
 
 let contactsButton = @(onClick) @() {
   watch = isContactsVisible
   children = [
-    squareIconButton({
-      onClick
-      tooltipText = loc("tooltips/contactsButton")
-      iconId = "users"
-      selected = isContactsVisible
+    FAFlatButton("users", onClick, {
+      tooltipText = hoverHint
+      btnWidth = navBottomBarHeight
+      btnHeight = navBottomBarHeight
     })
     onlineFriendsCounter
     invitationsCounter

@@ -5,6 +5,7 @@ let {fabs} = require("math")
 let {globalWatched} = require("%dngscripts/globalState.nut")
 let { getOrMkSaveData } = require("mkOnlineSaveData.nut")
 let platform = require("%dngscripts/platform.nut")
+let { reload_ui_scripts, reload_overlay_ui_scripts } = require("app")
 
 let blkPath = "video/safeArea"
 let safeAreaList = (platform.is_xbox) ? [0.9, 0.95, 1.0]
@@ -50,6 +51,8 @@ This range is according console requirements. (Resetting to use in options = '{0
       return
     }
     debugSafeAreaAmountUpdate(val)
+    reload_overlay_ui_scripts()
+    reload_ui_scripts()
   }, "ui.safeAreaSet"
 )
 

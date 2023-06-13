@@ -1263,7 +1263,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_box+defend_zone_respawnbase"
-  transform:m=[[-11.4581, 0.0, 30.9642] [0.0, 7.61342, 0.0] [-21.4578, 0.0, -7.9553] [493.11, 7.0219, -499.557]]
+  transform:m=[[-11.4581, 0.0, 30.9642] [0.0, 7.23275, 0.0] [-21.4578, 0.0, -7.9553] [493.11, 6.9227, -499.557]]
   groupName:t="sector_3_c"
   capzone__capRewardPartCap:r=1.375
   capzone__onlyTeamCanCapture:i=1

@@ -67,10 +67,10 @@ let function faceGen(faceConfig = null) {
 }
 
 let function safeFaceToJson(data) {
-  let json = require("json")
+  let { json_to_string } = require("json")
   let io = require("io")
   let file = io.file("EUFaces.json", "wt+")
-  file.writestring(json.to_string(data, true))
+  file.writestring(json_to_string(data, true))
   file.close()
   log("Saved to EUFaces.json")
 }

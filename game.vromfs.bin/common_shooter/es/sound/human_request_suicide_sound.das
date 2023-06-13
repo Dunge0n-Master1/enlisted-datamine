@@ -1,6 +1,7 @@
 require ecs
 require sound_utils.modules.sound_player_common
 
+
 [es(tag=sound, REQUIRE=humanSound, on_event=RequestSuicide)]
 def human_request_suicide_sound(evt : Event;
                                 [[shared_comp]] sound_paths : Object;

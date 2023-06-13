@@ -1,7 +1,6 @@
 turret_aa_polsten{
   _extends:t="aa_turret_base"
-  _extends:t="gunsound_20mm_kwk30"
-  _extends:t="gunsound_20mm_oerlikon"
+  _extends:t="gunsound_20mm_polsten"
   item__name:t="guns/20mm_polsten"
   gun__locName:t="20mm_polsten"
   gun__blk:t="gamedata/gen/weapons/20mm_oerlikon.blk"
@@ -261,7 +260,7 @@ germ_polsten_gunner_cockpit{
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
-  cockpit__forwardOffsetTimeMul:r=3.0
+  cockpit__forwardOffsetDuration:r=0.33
   cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

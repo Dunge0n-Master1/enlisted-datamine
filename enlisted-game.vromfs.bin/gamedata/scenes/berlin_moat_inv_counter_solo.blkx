@@ -1027,7 +1027,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[2.73417, 0.0, 0.0] [0.0, 2.25981, 0.0] [0.0, 0.0, 2.04384] [-453.973, 6.14622, 140.341]]
+  transform:m=[[2.73417, 0.0, 0.0] [0.0, 1.46813, 0.0] [0.0, 0.0, 2.04384] [-453.973, 6.14622, 140.341]]
   capzone__onlyTeamCanCapture:i=1
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_1"

@@ -2,9 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { smallPadding, activeBgColor, hoverBgColor, defBgColor, selectedTxtColor,
+let { smallPadding, activeBgColor, defBgColor, selectedTxtColor,
   defTxtColor, spawnNotReadyColor, multySquadPanelSize, blinkingSignalsGreenDark
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
@@ -96,18 +97,21 @@ local function mkSquadIcon(img, override = {}) {
   }.__update(override)
 }
 
-let squadBgColor = @(flags, selected, hasAlertStyle = false)
-  selected ? activeBgColor
-    : flags & S_HOVER ? hoverBgColor
-    : hasAlertStyle ? Color(30,0,0,150) : defBgColor
+let squadBgColor = @(sf, selected, hasAlertStyle = false)
+  selected
+    ? activeBgColor
+    : sf & S_HOVER
+      ? hoverSlotBgColor
+      : hasAlertStyle ? Color(30,0,0,150) : defBgColor
 
 
 let blockActiveBgColor = mul_color(activeBgColor, 0.5)
-let blockHoverBgColor = mul_color(hoverBgColor, 0.5)
-let squadBlockBgColor = @(flags, isSelected)
-  isSelected ? blockActiveBgColor
-    : flags & S_HOVER ? blockHoverBgColor
-    : defBgColor
+let squadBlockBgColor = @(sf, isSelected)
+  isSelected
+    ? blockActiveBgColor
+    : sf & S_HOVER
+      ? hoverSlotBgColor
+      : defBgColor
 
 let mkCardText = @(t, sf, selected) txt({
   text = t
@@ -209,7 +213,7 @@ let squadTimer = {
 let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
   squadType = null, squadSize = null, level = null, isFaded = false,
   premIcon = null, onClick = null, addedRightObj = null, mkChild = null,
-  expireTime = 0
+  expireTime = 0, onDoubleClick = null, onHover=null
 ) {
   let stateFlags = Watched(0)
   let selected = isSelected.value
@@ -231,12 +235,14 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
       rendObj = ROBJ_SOLID
       size = multySquadPanelSize
       color = squadBgColor(sf, selected)
-      key = $"squad{idx}"
+      key = idx
       behavior = Behaviors.Button
+      onHover
       xmbNode = XmbNode()
       opacity = isFaded ? 0.7 : 1.0
       onElemState = @(nsf) stateFlags(nsf)
-      onClick = onClick
+      onClick
+      onDoubleClick
       watch = stateFlags
       children = [
         mkSquadIcon(icon, {

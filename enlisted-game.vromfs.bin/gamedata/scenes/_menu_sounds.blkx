@@ -5,3 +5,7 @@ entity{
 entity{
   _template:t="music_launcher_ambient_sound"
 }
+
+entity{
+  _template:t="menu_ambient_sound"
+}

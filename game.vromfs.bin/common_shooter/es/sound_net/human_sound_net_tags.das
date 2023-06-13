@@ -2,6 +2,8 @@ require ecs
 require ecs.safe
 require ecs.common
 require soundHash
+require strings
+
 
 [es(tag=server, after=human_sound_tags_es, track=human_equipment__slots, on_appear, on_event=CmdTrackHeroWeapons)]
 def human_sound_net_tags_track_equipment(evt : Event;
@@ -13,5 +15,5 @@ def human_sound_net_tags_track_equipment(evt : Event;
     if slot != null
       if ((*slot).item ?? INVALID_ENTITY_ID) != INVALID_ENTITY_ID
         let tag = (*slot).soundTag ?? ""
-        if tag != "" && find_index(human_sound_net_tags__equipmentList, tag) == -1
+        if !empty(tag) && find_index(human_sound_net_tags__equipmentList, tag) == -1
           human_sound_net_tags__equipmentList |> push(tag)

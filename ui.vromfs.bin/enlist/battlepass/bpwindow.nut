@@ -26,7 +26,7 @@ let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let {
   bpHeader, bpTitle, sizeCard, mkCard, btnSize, btnBuyPremiumPass, gapCards
 } = require("bpPkg.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let eliteBattlePassWnd = require("eliteBattlePassWnd.nut")
 let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
@@ -43,6 +43,7 @@ let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
 let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 
 
+let waitingSpinner = spinner(hdpx(35))
 let progressWidth = hdpxi(174)
 let sizeBlocks    = fsh(40)
 let sizeStar      = hdpx(15)
@@ -274,7 +275,7 @@ let bpInfoPremPass = function() {
 let btnReceiveReward = @() {
   watch = [hasReward, receiveRewardInProgress]
   halign = ALIGN_CENTER
-  children = receiveRewardInProgress.value ? spinner
+  children = receiveRewardInProgress.value ? waitingSpinner
     : hasReward.value ? PrimaryFlat(loc("bp/getNextReward"), receiveNextReward, {
       hotkeys = [["^J:X | Enter | Space", { skip = true }]]
       size = btnSize
@@ -340,7 +341,7 @@ let function buttonsBlock() {
       btnReceiveReward
       hasEliteBattlePass.value || !canBuyBattlePass.value ? null
         : btnBuyPremiumPass(loc("bp/buy"), eliteBattlePassWnd )
-      buyUnlockInProgress.value ? spinner
+      buyUnlockInProgress.value ? waitingSpinner
         : price && !hasReward.value ? mkBtnBuySkipStage(price)
         : null
     ]
@@ -394,25 +395,36 @@ let closeButton = closeBtnBase({ onClick = @() isOpened(false) })
 let bpWindow = @(){
   size = flex()
   watch = [safeAreaBorders, hasEliteBattlePass, showingItem]
-  padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
+  padding = [
+    safeAreaBorders.value[0] + hdpx(30),
+    safeAreaBorders.value[1] + hdpx(25),
+    safeAreaBorders.value[0] + hdpx(60),
+    safeAreaBorders.value[1] + hdpx(25)
+  ]
   flow = FLOW_VERTICAL
-  behavior = Behaviors.MenuCameraControl
   children = [
-    bpHeader(showingItem.value, closeButton)
     {
+      flow = FLOW_VERTICAL
+      behavior = Behaviors.MenuCameraControl
       size = flex()
       children = [
+        bpHeader(showingItem.value, closeButton)
         {
-          flow = FLOW_VERTICAL
+          size = flex()
           children = [
             {
-              margin = [0,0,hdpx(80),0]
-              children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+              flow = FLOW_VERTICAL
+              children = [
+                {
+                  margin = [0,0,hdpx(80),0]
+                  children = bpTitle(hasEliteBattlePass.value, hdpx(100))
+                }
+                bpLeftBlock
+              ]
             }
-            bpLeftBlock
+            bpRightBlock
           ]
         }
-        bpRightBlock
       ]
     }
     bpUnlocksList

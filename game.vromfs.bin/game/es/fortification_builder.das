@@ -117,7 +117,9 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return
       let baseCollres = get_building_collres(previewCollres, ri_preview__name)
-      if is_conflict_objects_in_building_box(transform, BBox3(buildingBoxMin, buildingBoxMax), previewCollobj, previewCollobjOffset, eid, baseCollres)
+      let isConflictObjectsInBuildingBox = is_conflict_objects_in_building_box(transform, BBox3(buildingBoxMin, buildingBoxMax), previewCollobj, previewCollobjOffset, eid, baseCollres)
+      let isAboveOtherBuilding = is_above_other_building(buildingPos, buildingRadius)
+      if isConflictObjectsInBuildingBox || isAboveOtherBuilding
         sendEvent(operatorEid, [[CmdHeroLogEvent event="building_cannot_confirm_when_objects_in", text="building_cannot_confirm_when_objects_in"]])
         send_net_event(operatorEid, [[EventSetBuildingTarget target=INVALID_ENTITY_ID]])
         return

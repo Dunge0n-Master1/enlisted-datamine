@@ -19,7 +19,7 @@ let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
 let { mkCounter } = require("%enlist/shop/mkCounter.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 
 const WND_UID = "item_transfer_msg"
@@ -27,6 +27,7 @@ let costHeight = hdpx(60)
 
 let transferStatus = Watched(null)
 let close = @() removeModalWindow(WND_UID)
+let waitingSpinner = spinner(hdpx(35))
 
 let textArea = @(text, style = body_txt) {
   size = [hdpx(800), SIZE_TO_CONTENT]
@@ -211,7 +212,7 @@ let exitHotkeys = { hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true 
 let mkButtons = @(item, countWatched, selVariant, costCfg, missOrders) function() {
   local children = []
   if (transferStatus.value?.isInProgress)
-    children = spinner
+    children = waitingSpinner
   else if (transferStatus.value != null)
     children = Flat(loc("Ok"), close, exitHotkeys)
   else {
@@ -266,25 +267,19 @@ let function mkTransferContent(item, moveVariants, requiredOrders) {
     halign = ALIGN_CENTER
     gap = smallOffset
     children = [
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-        halign = ALIGN_CENTER
+      textArea(loc("transferReqArmyLevel/desc"), sub_txt)
+      @() {
+        watch = [curCampItemsCount, costCfg]
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding
+        hplace = ALIGN_CENTER
+        valign = ALIGN_CENTER
         children = [
-          textArea(loc("transferReqArmyLevel/desc"), sub_txt)
-          @() {
-            watch = [curCampItemsCount, costCfg]
-            flow = FLOW_HORIZONTAL
-            gap = bigPadding
-            hplace = ALIGN_RIGHT
-            valign = ALIGN_CENTER
-            children = [
-              txt(loc("shop/youHave"))
-              mkItemCurrency({
-                currencyTpl = costCfg.value.orderTpl
-                count = curCampItemsCount.value?[costCfg.value.orderTpl] ?? 0
-              })
-            ]
-          }
+          txt(loc("shop/youHave"))
+          mkItemCurrency({
+            currencyTpl = costCfg.value.orderTpl
+            count = curCampItemsCount.value?[costCfg.value.orderTpl] ?? 0
+          })
         ]
       }
       {

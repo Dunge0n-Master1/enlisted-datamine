@@ -41,7 +41,7 @@ def get_asset_status_color(status : AssetLoadingStatus)
   else //status == AssetLoadingStatus NotLoaded
     return float4(1f, 1f, 1f, 1f)
 
-def dag_tex_id_to_imgui(tex_id : D3DRESID)
+def dag_tex_id_to_imgui(tex_id : D3DRESID&)
   unsafe
     return reinterpret<void?> tex_id
 

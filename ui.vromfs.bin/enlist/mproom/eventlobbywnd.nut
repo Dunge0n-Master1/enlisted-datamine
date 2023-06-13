@@ -8,7 +8,6 @@ let {
   lobbyStatus, LobbyStatus, isLocalDedicated, canStartWithLocalDedicated, roomTeamArmies,
   cancelSessionStart, myInfoUpdateInProgress
 } = require("enlRoomState.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let {
@@ -24,7 +23,7 @@ let {
   myCampaign, setMyArmy, curTeam, setMyTeam, canChangeTeam, isReady, setReady,
   hasBalanceCheckedByEntrance, myArmy
 } = require("myRoomMemberParams.nut")
-let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
+let { mkSquadsList } = require("%enlist/soldiers/squads_list.ui.nut")
 let { mkMenuScene } = require("%enlist/mainMenu/mkMenuScene.nut")
 let { selectArmyBlock, footer, mkPanel } = require("%enlist/gameModes/eventModesPkg.nut")
 let { mkEventRoomInfo } = require("%enlist/gameModes/eventRoomInfo.nut")
@@ -57,7 +56,8 @@ let modsDownloadInfo = require("%enlist/gameModes/sandbox/modsDownloadInfo.ui.nu
 let { is_console } = require("%dngscripts/platform.nut")
 
 let startBtnSize = [hdpx(400), hdpx(80)]
-let spinnerSize = hdpx(60)
+let spinnerSize = hdpx(30)
+let waitingSpinner = spinner(spinnerSize)
 
 let needModDownloadButton = Computed(function() {
   if (is_console || canOperateRoom.value)
@@ -105,8 +105,9 @@ let mkStatusWithSpinner = @(text){
   flow = FLOW_HORIZONTAL
   hplace = ALIGN_CENTER
   valign = ALIGN_CENTER
+  gap = bigPadding
   children = [
-    spinner({ height = spinnerSize })
+    waitingSpinner
     {
       rendObj = ROBJ_TEXT
       color = accentColor
@@ -157,7 +158,7 @@ const WND_UID = "CHOOSE_CAMPAIGN_BLOCK"
 
 let isMirrored = @(team) team == 1
 
-let joinBtn = @(sf, team){
+let joinBtn = @(sf, team) {
   size = [hdpx(150), commonBtnHeight]
   rendObj = ROBJ_BOX
   hplace = isMirrored(team) ? ALIGN_LEFT : ALIGN_RIGHT
@@ -348,16 +349,19 @@ let teamChooseBlockUi = @(){
   children = roomTeamArmies.value.map(@(_, team) teamBlock(team))
 }
 
-let leftBlock = @() {
-  watch = [myArmiesList, canChangeTeam, curArmy]
-  size = [armieChooseBlockWidth, flex()]
-  flow = FLOW_VERTICAL
-  halign = ALIGN_CENTER
-  gap = bigPadding
-  children = [
-    canChangeTeam.value ? selectArmyBlock(myArmiesList.value, myArmy.value, setMyArmy) : null
-    squads_list
-  ]
+let leftBlock = function() {
+  let squads_list = mkSquadsList()
+  return {
+    watch = [myArmiesList, canChangeTeam, curArmy]
+    size = [armieChooseBlockWidth, flex()]
+    flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
+    gap = bigPadding
+    children = [
+      canChangeTeam.value ? selectArmyBlock(myArmiesList.value, myArmy.value, setMyArmy) : null
+      squads_list
+    ]
+  }
 }
 
 let centralBlock = {
@@ -400,7 +404,7 @@ let getInactiveBattleButtonParams = @(isClickable)
     style = mkDisabledStyle(isClickable)
   })
 
-let infoSpinner = spinner({ height = spinnerSize, opacity = 0.5, color = 0xFF000000 }).__update({
+let infoSpinner = spinner(spinnerSize, 0.5,0xFF000000 ).__update({
   transform = {}
   animations = [{ prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = InCubic }]
 })
@@ -412,7 +416,7 @@ let infoUpdateSpinner = @() {
 }
 
 let mkButtonWithActiveBoostersMark = @(button) {
-  size = [startBtnWidth, SIZE_TO_CONTENT]
+  size = [flex(), SIZE_TO_CONTENT]
   children = [
     button
     button == null ? null : mkActiveBoostersMark({ hplace = ALIGN_RIGHT, pos = [hdpx(20), bigPadding] })
@@ -469,7 +473,13 @@ let readyButton = mkBattleButton(loc("contact/Ready"), function(){
   setReady(true)
 })
 
-let notReadyButton = mkInactiveBattleButton(loc("contact/notReady"), @() setReady(false))
+let waitingMsgbox = @() showMsgbox({
+    text = loc("msg/waitingInProgress")
+    buttons = [{ text = loc("Ok"), isCancel = true }]
+  })
+
+let notReadyButton = @(isWaitLauch) mkInactiveBattleButton(loc("contact/notReady"),
+  @() isWaitLauch ? waitingMsgbox() : setReady(false))
 let disbalanceButton = mkInactiveBattleButton(loc("lobby/disbalance"), null)
 
 let function leaveRoomConfirm() {
@@ -526,9 +536,9 @@ let function startSessionWithMsg() {
     })
 }
 
-let mkStartButton = @(status, canOperate, roomData) function() {
+let mkStartButton = @(status, canOperate, roomData, isWaitLauch) function() {
   local children = null
-  let readyBtn = isReady.value ? notReadyButton : readyButton
+  let readyBtn = isReady.value ? notReadyButton(isWaitLauch) : readyButton
   if (status == LobbyStatus.ReadyToStart || status == LobbyStatus.TeamsDisbalanced)
     children = canOperate
         ? [
@@ -624,7 +634,7 @@ let function rightBlock() {
         gap = bigPadding
         children = [
           mkStatusBlock(roomData, status)
-          mkStartButton(status, canOperate, roomData)
+          mkStartButton(status, canOperate, roomData, isWaitLauch)
           needModDownloadButton.value
             ? Bordered(loc("mods/downloadFromLobby"), function() {
                 let { modId, modVersion } = room.value.public

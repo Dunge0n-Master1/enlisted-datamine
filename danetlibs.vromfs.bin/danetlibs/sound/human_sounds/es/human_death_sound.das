@@ -2,6 +2,7 @@ require ecs
 require soundEvent
 require sound_utils.modules.sound_player_common
 
+
 [es(tag=sound, on_event=EventEntityDied, REQUIRE=humanDeathSound)]
 def human_death_sound(evt : Event;
                       [[shared_comp]] human_voice_sound__path : Object;

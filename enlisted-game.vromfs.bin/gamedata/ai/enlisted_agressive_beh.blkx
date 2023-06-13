@@ -385,8 +385,17 @@ repeat{
     treeName:t="sub.bombEscape"
   }
 
+  subTree{
+    treeName:t="sub.checkEndCoverAttack"
+  }
+
   setIntVar{
     to:t="grenadeAttackFailed"
+    value:i=0
+  }
+
+  setIntVar{
+    to:t="dangerNearbyBeware"
     value:i=0
   }
 
@@ -409,7 +418,9 @@ repeat{
         }
       }
 
-      hasGrenade{
+      isVarsIntEqual{
+        lhs:t="coverAttack"
+        rhs_value:i=0
       }
 
       findDanger{
@@ -417,6 +428,11 @@ repeat{
         radiusParamName:t="enemyVehicleRadius"
         minDanger:r=0.0
         tag:t="vehicle"
+      }
+
+      setIntVar{
+        to:t="dangerNearbyBeware"
+        value:i=1
       }
 
       setIntVar{
@@ -429,8 +445,43 @@ repeat{
         value:i=0
       }
 
+      hasGrenade{
+      }
+
       subTree{
         treeName:t="sub.attackVehicle"
+      }
+    }
+
+    sequencer{
+
+      not{
+
+        isVarsIntEqual{
+          lhs:t="coverAttack"
+          rhs_value:i=0
+        }
+      }
+
+      copyIntVar{
+        to:t="shootEnemy"
+        from:t="coverAttackEnemy"
+      }
+
+      setIntVar{
+        to:t="dangerNearbyBeware"
+        value:i=1
+      }
+
+      getTime{
+        to:t="enemyNearTime"
+      }
+
+      success{
+
+        subTree{
+          treeName:t="sub.oneShootAttack"
+        }
       }
     }
 
@@ -444,6 +495,11 @@ repeat{
         tag:t="human"
       }
 
+      setIntVar{
+        to:t="dangerNearbyBeware"
+        value:i=1
+      }
+
       getTime{
         to:t="enemyNearTime"
       }
@@ -454,6 +510,11 @@ repeat{
     }
 
     sequencer{
+
+      isVarsIntEqual{
+        lhs:t="dangerNearbyBeware"
+        rhs_value:i=0
+      }
 
       findDanger{
         paramName:t="shootEnemy"
@@ -474,22 +535,116 @@ repeat{
           resetable:b=yes
         }
 
-        sequencer{
+        success{
 
-          checkAtTime{
-            timeParam:t="rememberEnemyTime"
-            range:p2=0.0, 10.0
-          }
+          sequencer{
 
-          checkTarget{
-            targetUnitParam:t="rememberEnemy"
-          }
+            checkAtTime{
+              timeParam:t="rememberEnemyTime"
+              range:p2=0.0, 10.0
+            }
 
-          wanderLook{
-            posParam:t="rememberEnemyPos"
-            range:p2=0.2, 0.1
-            maxStanceParam:t="coverStance"
+            checkTarget{
+              targetUnitParam:t="rememberEnemy"
+            }
+
+            wanderLook{
+              posParam:t="rememberEnemyPos"
+              range:p2=0.2, 0.1
+              maxStanceParam:t="coverStance"
+            }
           }
+        }
+      }
+    }
+
+    failed{
+
+      sequencer{
+
+        isVarsIntEqual{
+          lhs:t="dangerNearbyBeware"
+          rhs_value:i=0
+        }
+
+        decreaseDangerLevel{
+          paramName:t="dangerLevel"
+          decreaseCoef:r=0.5
+        }
+      }
+    }
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      isVarsIntEqual{
+        lhs:t="isInShootState"
+        rhs_value:i=1
+      }
+
+      initPeriodicTimer{
+        timeParam:t="onBulletNearbyTimer"
+        timePeriod:p2=2.0, 4.0
+      }
+
+      initPeriodicTimer{
+        timeParam:t="onTraceableDangerTimer"
+        timePeriod:p2=2.0, 4.0
+      }
+
+      initPeriodicTimer{
+        timeParam:t="onFollowPosFindDangerTimer"
+        timePeriod:p2=2.0, 4.0
+      }
+    }
+
+    continue{
+    }
+  }
+
+  orderedSelector{
+
+    not{
+
+      isVarsIntEqual{
+        lhs:t="coverAttack"
+        rhs_value:i=0
+      }
+    }
+
+    sequencer{
+      name:t="followPosition"
+
+      getRegroupPos{
+        posParam:t="regroupPosition"
+      }
+
+      copyPoint3Var{
+        from:t="regroupPosition"
+        to:t="storedRegroupPosition"
+      }
+
+      setCurrentAiAction{
+        state:t="move"
+      }
+
+      subTree{
+        name:t=""
+        treeName:t="sub.move"
+      }
+
+      orderedSelector{
+
+        isVarsIntEqual{
+          lhs:t="dangerNearbyBeware"
+          rhs_value:i=1
+        }
+
+        subTree{
+          name:t=""
+          treeName:t="sub.stay"
         }
       }
     }
@@ -522,6 +677,11 @@ repeat{
       rhs_value:i=1
     }
 
+    isVarsIntEqual{
+      lhs:t="dangerNearbyBeware"
+      rhs_value:i=0
+    }
+
     setIntVar{
       to:t="tryBuild"
       value:i=0
@@ -531,62 +691,6 @@ repeat{
       name:t=""
       treeName:t="sub.tryBuildAndPlace"
     }
-  }
-
-  sequencer{
-    name:t="followPosition"
-
-    orderedSelector{
-
-      sequencer{
-
-        isVarsIntEqual{
-          lhs:t="isInShootState"
-          rhs_value:i=1
-        }
-
-        initPeriodicTimer{
-          timeParam:t="onBulletNearbyTimer"
-          timePeriod:p2=2.0, 4.0
-        }
-
-        initPeriodicTimer{
-          timeParam:t="onTraceableDangerTimer"
-          timePeriod:p2=2.0, 4.0
-        }
-
-        initPeriodicTimer{
-          timeParam:t="onFollowPosFindDangerTimer"
-          timePeriod:p2=2.0, 4.0
-        }
-      }
-
-      continue{
-      }
-    }
-
-    setCurrentAiAction{
-      state:t="move"
-    }
-
-    subTree{
-      name:t=""
-      treeName:t="sub.move"
-    }
-
-    subTree{
-      name:t=""
-      treeName:t="sub.stay"
-    }
-  }
-
-  getRegroupPos{
-    posParam:t="regroupPosition"
-  }
-
-  copyPoint3Var{
-    from:t="regroupPosition"
-    to:t="storedRegroupPosition"
   }
 }
 
@@ -627,6 +731,20 @@ orderedSelector{
         radiusParamName:t="enemyNearRadius"
         minDanger:r=0.1
         tag:t="human"
+      }
+
+      increaseDangerLevel{
+        paramName:t="dangerLevel"
+        targetParam:t="shootEnemy"
+      }
+
+      decideOnAttackTarget{
+        targetParam:t="shootEnemy"
+        targetSeeTimeParam:t="shootEnemyTime"
+        stillTimeOutParam:t="attackStillTime"
+        turnAngleOutParam:t="attackTurnAngle"
+        focusTimeOutParam:t="attackFocusTime"
+        checkOnly:b=yes
       }
 
       recalculateTree{

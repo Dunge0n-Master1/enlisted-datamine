@@ -26,11 +26,6 @@ def get_weapon_name_for_report(gun_props_id : int; shell_id : int)
       return name
   return ""
 
-def get_score_id(victim_plane : Tag const?; victim_tank : Tag const?)
-  return (victim_plane != null ? "planeKills"
-        : victim_tank != null ? "tankKills"
-        : "kills")
-
 [es(tag=server)]
 def report_kill_es(evt : EventAnyEntityDied) // broadcast
   let victimEid = evt.victim
@@ -43,8 +38,7 @@ def report_kill_es(evt : EventAnyEntityDied) // broadcast
   query(victimEid) <| $ [es] (team aka victim_team : int const?;
                               reportKill : bool = true;
                               vehicle aka victim_vehicle : Tag const?;
-                              airplane aka victim_airplane : Tag const?;
-                              isTank aka victim_isTank : Tag const?;
+                              vehicle_kill__stat : string = "kills";
                               dm_parts__type : StringList const?;
                               transform aka victim_transform : float3x4 const?)
     if !reportKill
@@ -71,7 +65,7 @@ def report_kill_es(evt : EventAnyEntityDied) // broadcast
     let gunName = get_weapon_name_for_report(gunPropsId, shellId)
     let killerName = get_name(killerPlayerEid, killerEid, isKillerVehicle)
     let victimName = get_name(victimPlayerEid, victimEid, isVictimVehicle)
-    let scoreId = get_score_id(victim_airplane, victim_isTank)
+    let scoreId = vehicle_kill__stat
 
     broadcast_net_event([[EventKillReport
       victim = victimEid,

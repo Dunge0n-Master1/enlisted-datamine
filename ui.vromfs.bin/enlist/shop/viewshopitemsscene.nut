@@ -10,7 +10,7 @@ let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { PrimaryFlat, Flat } = require("%ui/components/textButton.nut")
 let {
   mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine, mkShopItemPriceLine,
-  mkShopItemInfoBlock
+  mkShopItemInfoBlock, mkMsgBoxView
 } = require("shopPkg.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
@@ -110,6 +110,7 @@ let function purchaseBtnUi() {
   let { level = 0 } = curArmyData.value
   let btnCtor = armyLevel > level ? Flat : PrimaryFlat
   let crateContent = shopItemContentCtor(shopItemData)
+  let countWatched = Watched(1)
   return {
     watch = [curArmyData, shopItem, purchaseIsPossible]
     rendObj = ROBJ_BOX
@@ -129,10 +130,9 @@ let function purchaseBtnUi() {
               @() buyShopItem({
                 shopItem = shopItemData
                 activatePremiumBttn
-                productView = mkShopItemImg(shopItemData.image, {
-                  size = [fsh(40), fsh(24)]
-                })
+                productView = mkMsgBoxView(shopItemData, crateContent, countWatched)
                 description = mkShopItemInfoBlock(crateContent)
+                countWatched
               }),
               {
                 itemView = mkShopItemImg(shopItemData.image, {
@@ -144,6 +144,7 @@ let function purchaseBtnUi() {
           },
           {
             margin = 0
+            hotkeys = [["^J:Y"]]
             minWidth = pw(100)
           }
       )

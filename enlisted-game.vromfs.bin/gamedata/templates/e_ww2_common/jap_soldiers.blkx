@@ -62,6 +62,7 @@ jap_soldier_speechless{
   _tracked:t="engineer__isMenuOpen"
   _extends:t="shooter_human"
   _extends:t="human_breath"
+  _extends:t="human_bush_collision_effects"
   _extends:t="human_sound"
   _extends:t="human_sound_paths"
   _extends:t="human_net_sound"
@@ -69,7 +70,6 @@ jap_soldier_speechless{
   _extends:t="enlisted_human_marker"
   _extends:t="base_human_actions"
   beh_tree__blackboard__enemyRadius:r=90.0
-  human_net_phys__blk:t="content/enlisted/gamedata/units/walkers/usa_soldier.blk"
 }
 
 jap_soldier{

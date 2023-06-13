@@ -75,7 +75,7 @@ let function mkItemMods(p) {
       slotType = slot.slotType
       bgStyle = modBgStyle
       isInteractive = p.isInteractive
-      hasUnseenSign = p.hasUnseenSign
+      hasUnseenSign = p.hasModsUnseenSign
       isDisabled = p.isDisabled
       canDrag = p.canDrag
       onClickCb = p.onClickCb
@@ -91,7 +91,7 @@ let function mkItemMods(p) {
 
 local function mkItemWithMods(p = MAKE_PARAMS) {
   p = MAKE_PARAMS.__merge(p)
-  let mods = mkItemMods(p.__merge({ hasUnseenSign = p.hasModsUnseenSign }))
+  let mods = mkItemMods(p)
   if (mods)
     p.__update({ mods })
 

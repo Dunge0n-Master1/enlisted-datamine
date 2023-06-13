@@ -19,8 +19,8 @@ let defTextAnims = [
 let mkBigControlIcon = @(text, params = {})
   (text ?? "") == "" ? null : makeSvgImgFromText(text, {height=hdpx(36)}.__update(params))
 
-let hasHotkey = @(key, isGamepad)
-  is_action_binding_set(get_action_handle(key, 0xFFFF), isGamepad ? 1 : 0)
+let hasHotkey = @(key, isGamepadV)
+  is_action_binding_set(get_action_handle(key, 0xFFFF), isGamepadV ? 1 : 0)
 let gkImg = function(h) {
   if (typeof h == "array")
     h = h.findvalue(@(key) hasHotkey(key, isGamepad.value))

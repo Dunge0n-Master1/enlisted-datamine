@@ -132,7 +132,7 @@ entity{
 
 entity{
   _template:t="domination_box_capzone"
-  transform:m=[[18.0037, 0.0, 0.376661] [0.0, 10.5586, 0.0] [-0.0703578, 0.0, 14.592] [44.6478, 72.0401, -313.297]]
+  transform:m=[[18.0037, 0.0, 0.376661] [0.0, 7.82838, 0.0] [-0.0703578, 0.0, 14.592] [44.6478, 71.8673, -313.297]]
   capzone__title:t="A"
   capzone__caption:t="capzone/field_headquarters"
   decal__thickness:r=0.15

@@ -336,18 +336,6 @@ def move_along_surface_test(sx, sy, sz, ex, ey, ez : float; startPoly = 0ul; end
     console_print("move_along_surface({start}, {end}) == {res} @{req.end} distToStart:{distToStart} distToEnd:{distToEnd} endPoly:{req.endPoly}")
 
 
-[console_cmd(name="nmesh.debug_nmesh_connections_around_camera")]
-def console_debug_nmesh_connections_around_camera()
-  clear_buffered_debug_lines()
-  clear_buffered_debug_solids()
-  query() <| $ [es(REQUIRE=buffered_text_mark__pos)] (eid : EntityId)
-    destroyEntity(eid)
-  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
-    if camera__active
-      draw_polys_and_connections(transform[3])
-    return camera__active
-
-
 //Note: dtPolyRef referes to poly, not a triangle. Sometimes they coincide. But often they don't.
 [console_cmd(name="nmesh.draw_triangle")]
 def console_draw_triangle(id : dtPolyRef)
@@ -364,6 +352,18 @@ def console_draw_triangle(id : dtPolyRef)
     draw_debug_triangle_buffered(res.p0, res.p1, res.p2, E3DCOLOR(0x770000ff), duration)
 
 
+[console_cmd(name="nmesh.debug_nmesh_connections_around_camera")]
+def console_debug_nmesh_connections_around_camera()
+  clear_buffered_debug_lines()
+  clear_buffered_debug_solids()
+  query() <| $ [es(REQUIRE=buffered_text_mark__pos)] (eid : EntityId)
+    destroyEntity(eid)
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if camera__active
+      console_debug_nmesh_connections(transform[3].x, transform[3].y, transform[3].z)
+    return camera__active
+
+
 [console_cmd(name="nmesh.debug_nmesh_connections")]
 def console_debug_nmesh_connections(x, y, z : float)
   clear_buffered_debug_lines()
@@ -371,20 +371,31 @@ def console_debug_nmesh_connections(x, y, z : float)
   query() <| $ [es(REQUIRE=buffered_text_mark__pos)] (eid : EntityId)
     destroyEntity(eid)
 
-  draw_polys_and_connections(float3(x, y, z))
-
-
-def draw_polys_and_connections(start : float3)
-  var visited : array<dtPolyRef>
-  var frontier : array<tuple<poly : dtPolyRef; depth : int>>
-
-  var ref : dtPolyRef
-  let extents = float3(0.1, 2.0, 0.1)
-  var p = start
-  if project_to_nearest_navmesh_point(p, extents, ref)
-    frontier |> emplace([[auto ref, 2]])
-    while (length(frontier) > 0)
-      debug_draw_poly_connections(frontier, visited)
+  iterate_over_polys_recursively(float3(x, y, z), 3) <| $(thisPoly : dtPolyRef)
+    var res : NavMeshTriangle
+    var polyFlags = uint16(0)
+    let elevation = float3(.0, 3.0, .0)
+    let elevation2 = float3(.0, 3.005, .0)
+    let duration = 7000
+    get_triangle_by_poly(thisPoly, res)
+    get_poly_flags(thisPoly, polyFlags)
+    let center = get_poly_center(polyFlags, res)
+    let thisPolyIsJumplink = (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) != 0
+    if !thisPolyIsJumplink
+      draw_diminished_triangle(res.p0 + elevation, res.p1 + elevation, res.p2 + elevation, duration)
+      draw_debug_text_mark_buffered(center + elevation, "{thisPoly}", duration)
+    else
+      draw_debug_line_buffered(res.p0 + elevation, res.p1 + elevation, E3DCOLOR(0xff5555ff), duration * 3)
+      draw_debug_circle_buffered(res.p0 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff7777ff), 3, duration * 3)
+      draw_debug_circle_buffered(res.p1 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff3333ff), 3, duration * 3)
+      draw_debug_text_mark_buffered(center + elevation, "({thisPoly})", duration)
+    for_each_linked_poly(thisPoly) <| $(linkedPolyRef)
+      get_poly_flags(linkedPolyRef, polyFlags)
+      get_triangle_by_poly(linkedPolyRef, res)
+      let linkedCenter = get_poly_center(polyFlags, res)
+      draw_debug_arrow_buffered(center + elevation2, linkedCenter + elevation2, E3DCOLOR(0xffffffff), duration * 3)
+      print("poly_connections: link {thisPoly} -> {linkedPolyRef}")
+    return false
 
 
 def draw_diminished_triangle(p1, p2, p3 : float3; duration : int)
@@ -405,39 +416,36 @@ def get_poly_center(flags : uint16; triangle : NavMeshTriangle)
     return (triangle.p0 + triangle.p1) / 2.0
 
 
-def debug_draw_poly_connections(var frontier : array<tuple<poly : dtPolyRef; depth : int>>; var visited : array<dtPolyRef>)
-  var res : NavMeshTriangle
-  var polyFlags = uint16(0)
-  let elevation = float3(.0, 3.0, .0)
-  let elevation2 = float3(.0, 3.005, .0)
-  let thisPoly = frontier[0].poly
-  var depth = frontier[0].depth
-  let duration = 7000
-  frontier |> erase(0)
-  visited |> push(thisPoly)
-  get_triangle_by_poly(thisPoly, res)
-  get_poly_flags(thisPoly, polyFlags)
-  let center = get_poly_center(polyFlags, res)
-  let thisPolyIsJumplink = (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) != 0
-  if !thisPolyIsJumplink
-    draw_diminished_triangle(res.p0 + elevation, res.p1 + elevation, res.p2 + elevation, duration)
-    draw_debug_text_mark_buffered(center + elevation, "{thisPoly}", duration)
-    depth--
-  else
-    draw_debug_line_buffered(res.p0 + elevation, res.p1 + elevation, E3DCOLOR(0xff5555ff), duration * 3)
-    draw_debug_circle_buffered(res.p0 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff7777ff), 3, duration * 3)
-    draw_debug_circle_buffered(res.p1 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff3333ff), 3, duration * 3)
-    draw_debug_text_mark_buffered(center + elevation, "({thisPoly})", duration)
-  if depth > 0
-    for_each_linked_poly(thisPoly) <| $(linkedPolyRef)
-      get_poly_flags(linkedPolyRef, polyFlags)
-      get_triangle_by_poly(linkedPolyRef, res)
-      let inFrontierIdx = find_index_if(frontier) <| $(item) { return item.poly == linkedPolyRef; }
-      if find_index(visited, linkedPolyRef) == -1 && inFrontierIdx == -1
-        frontier |> emplace([[auto linkedPolyRef, depth]])
-      let linkedCenter = get_poly_center(polyFlags, res)
-      draw_debug_arrow_buffered(center + elevation2, linkedCenter + elevation2, E3DCOLOR(0xffffffff), duration * 3)
-      print("poly_connections: link {thisPoly} -> {linkedPolyRef}")
+[console_cmd(name="nmesh.nmesh_info_around_camera")]
+def console_nmesh_info_around_camera()
+  clear_buffered_debug_lines()
+  clear_buffered_debug_solids()
+  query() <| $ [es(REQUIRE=buffered_text_mark__pos)] (eid : EntityId)
+    destroyEntity(eid)
+  var pos = float3()
+  find_query() <| $ [es] (camera__active : bool; transform : float3x4)
+    if camera__active
+      pos = transform[3]
+    return camera__active
 
+  iterate_over_polys_recursively(pos, 4) <| $(thisPoly : dtPolyRef)
+    var res : NavMeshTriangle
+    var polyFlags = uint16(0)
+    var area : uint8
+    let elevation = float3(.0, 3.0, .0)
+    let duration = 7000
+    get_triangle_by_poly(thisPoly, res)
+    get_poly_flags(thisPoly, polyFlags)
+    get_poly_area(thisPoly, area)
+    let center = get_poly_center(polyFlags, res)
+    draw_debug_text_mark_buffered(center + elevation, "({thisPoly}) F:{polyFlags} A:{area}", duration)
+    let thisPolyIsJumplink = (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) != 0
+    if !thisPolyIsJumplink
+      draw_diminished_triangle(res.p0 + elevation, res.p1 + elevation, res.p2 + elevation, duration)
+    else
+      draw_debug_line_buffered(res.p0 + elevation, res.p1 + elevation, E3DCOLOR(0xff5555ff), duration * 3)
+      draw_debug_circle_buffered(res.p0 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff7777ff), 3, duration * 3)
+      draw_debug_circle_buffered(res.p1 + elevation, normalize(res.p1 - res.p0), 0.05, E3DCOLOR(0xff3333ff), 3, duration * 3)
+    return false
 
 

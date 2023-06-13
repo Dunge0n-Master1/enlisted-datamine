@@ -12,7 +12,7 @@ import{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-561.297, 3.2548, 703.447]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-537.736, 3.2548, 793.186]]
   battle_area_polygon_point__forBattleAreaId:t="2_area1"
   battle_area_polygon_point__id:t="point1"
   battle_area_polygon_point__nextId:t="point2"
@@ -52,7 +52,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-387.077, 3.19951, 708.839]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-362.891, 3.19951, 801.367]]
   battle_area_polygon_point__forBattleAreaId:t="2_area1"
   battle_area_polygon_point__id:t="point6"
   battle_area_polygon_point__nextId:t="point1"
@@ -60,7 +60,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-383.574, 3.29863, 328.109]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-383.574, 3.29863, 295.657]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point12"
   battle_area_polygon_point__nextId:t="point13"
@@ -908,7 +908,7 @@ entity{
 
 entity{
   _template:t="battle_area_polygon_point"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-162.918, 3.29865, 317.736]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-162.918, 3.29865, 271.614]]
   battle_area_polygon_point__forBattleAreaId:t="2_area2"
   battle_area_polygon_point__id:t="point13"
   battle_area_polygon_point__nextId:t="point14"
@@ -1436,7 +1436,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.993455, 0.0, -0.114224] [0.0, 1.0, 0.0] [0.114224, 0.0, 0.993455] [-553.568, 5.60089, 633.077]]
+  transform:m=[[0.17962, 0.0, -0.983736] [0.0, 1.0, 0.0] [0.983736, -0.0, 0.17962] [-468.515, 3.78837, 777.961]]
   team:i=1
   groupName:t="sector_2"
 }
@@ -1447,7 +1447,7 @@ entity{
   groupName:t="sector_2"
   team:i=1
   maxVehicleOnSpawn:i=2
-  transform:m=[[0.993455, 0.0, -0.114224] [0.0, 1.0, 0.0] [0.114224, 0.0, 0.993455] [-553.568, 5.60089, 633.077]]
+  transform:m=[[0.17962, 0.0, -0.983736] [0.0, 1.0, 0.0] [0.983736, -0.0, 0.17962] [-468.908, 3.78837, 777.858]]
   active:b=no
   respawnBaseGroup:i=1
 }
@@ -1499,7 +1499,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respVehicle"
-  transform:m=[[0.0637128, 0.0, 0.997968] [0.0, 1.0, 0.0] [-0.997968, 0.0, 0.0637128] [-368.19, 3.70131, 376.215]]
+  transform:m=[[-0.0192938, 0.0, 0.999813] [0.0, 1.0, 0.0] [-0.999813, 0.0, -0.0192938] [-368.947, 4.00056, 337.626]]
   groupName:t="sector_2"
   team:i=2
   respTime:i=150
@@ -1511,7 +1511,7 @@ entity{
 entity{
   _template:t="respawnChooser+respMotorcycle"
   active:b=no
-  transform:m=[[0.0637128, 0.0, 0.997968] [0.0, 1.0, 0.0] [-0.997968, 0.0, 0.0637128] [-368.19, 3.70131, 376.215]]
+  transform:m=[[-0.0192938, 0.0, 0.999813] [0.0, 1.0, 0.0] [-0.999813, 0.0, -0.0192938] [-368.745, 4.00056, 337.649]]
   team:i=2
   groupName:t="sector_2"
 }
@@ -1910,7 +1910,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.993455, 0.0, -0.114224] [0.0, 1.0, 0.0] [0.114224, 0.0, 0.993455] [-553.568, 5.60089, 633.077]]
+  transform:m=[[0.17962, 0.0, -0.983736] [0.0, 1.0, 0.0] [0.983736, -0.0, 0.17962] [-468.832, 3.78837, 778.457]]
   resupply_zone__team:i=1
   groupName:t="sector_2"
   active:b=no
@@ -1950,7 +1950,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.0637128, 0.0, 0.997968] [0.0, 1.0, 0.0] [-0.997968, 0.0, 0.0637128] [-368.19, 3.70131, 376.215]]
+  transform:m=[[-0.0192938, 0.0, 0.999813] [0.0, 1.0, 0.0] [-0.999813, 0.0, -0.0192938] [-368.778, 4.00056, 337.328]]
   resupply_zone__team:i=2
   groupName:t="sector_2"
   active:b=no

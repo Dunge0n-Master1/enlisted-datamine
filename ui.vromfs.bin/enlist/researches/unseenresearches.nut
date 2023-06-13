@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  hasResearchesSection, allResearchStatus, CAN_RESEARCH, RESEARCHED
+  hasResearchesSection, allResearchStatus, armiesResearches, viewArmy,
+  CAN_RESEARCH, RESEARCHED
 } = require("researchesState.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
@@ -90,10 +91,22 @@ let curUnseenResearches = Computed(function() {
 })
 
 
+let mkCurUnseenResearchesBySquads = @() Computed(function() {
+  let unseen = seenResearches.value?.unseen[viewArmy.value]
+  let res = {}
+  foreach(r in armiesResearches.value?[viewArmy.value].researches ?? {})
+    if (r.research_id in unseen)
+      res[r.squad_id] <- true
+
+  return res
+})
+
+
 console_register_command(@() console_print("Reseted armies count = {0}".subst(resetSeen())), "meta.resetSeenResearches")
 
 return {
   markSeen
   seenResearches
   curUnseenResearches
+  mkCurUnseenResearchesBySquads
 }

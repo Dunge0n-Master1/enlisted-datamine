@@ -1012,7 +1012,7 @@ entity{
   team__briefing:t="confrontation/attackers_goals"
   team__winSubtitle:t="debriefing/won_invasion_subtitle"
   team__loseSubtitle:t="debriefing/lost_invasion_subtitle"
-  team__winTitle:t="debriefing/axis_won_invasion"
+  team__winTitle:t="debriefing/axis_won_invasion_title"
   team__spawnBotArmy:t="tunisia_axis"
 }
 

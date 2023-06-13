@@ -63,6 +63,7 @@ let playerUserstatComps = [
   ["scoring_player__bestPossessedInfantryKillstreak", ecs.TYPE_INT, 0],
   ["scoring_player__tankKills", ecs.TYPE_INT, 0],
   ["scoring_player__planeKills", ecs.TYPE_INT, 0],
+  ["scoring_player__aiPlaneKills", ecs.TYPE_INT, 0],
   ["scoring_player__battleTime", ecs.TYPE_FLOAT, 0.0],
   ["scoring_player__soldierDeaths", ecs.TYPE_INT, 0],
   ["scoring_player__squadDeaths", ecs.TYPE_INT, 0],
@@ -76,7 +77,9 @@ let playerUserstatComps = [
   ["scoring_player__builtGunTankKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunTankKillAssists", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunPlaneKills", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunAiPlaneKills", ecs.TYPE_INT, 0],
   ["scoring_player__builtGunPlaneKillAssists", ecs.TYPE_INT, 0],
+  ["scoring_player__builtGunAiPlaneKillAssists", ecs.TYPE_INT, 0],
   ["scoring_player__builtBarbwireActivations", ecs.TYPE_INT, 0],
   ["scoring_player__builtCapzoneFortificationActivations", ecs.TYPE_INT, 0],
   ["scoring_player__enemyBuiltFortificationDestructions", ecs.TYPE_INT, 0],
@@ -96,7 +99,9 @@ let getEngineerBuildingUsages = @(comp)
   + comp["scoring_player__builtGunTankKills"]
   + comp["scoring_player__builtGunTankKillAssists"]
   + comp["scoring_player__builtGunPlaneKills"]
+  + comp["scoring_player__builtGunAiPlaneKills"]
   + comp["scoring_player__builtGunPlaneKillAssists"]
+  + comp["scoring_player__builtGunAiPlaneKillAssists"]
   + comp["scoring_player__builtBarbwireActivations"]
   + comp["scoring_player__builtCapzoneFortificationActivations"]
 
@@ -119,7 +124,7 @@ let function getPlayerCurrentUserstats(comp, roundResult = null) {
   if (comp.scoring_player__bestPossessedInfantryKillstreak >= 10)
     addStatValue(stats, 1, "best_possessed_infantry_killstreak_10")
   addStat(stats, comp, "scoring_player__tankKills", "tank_kills")
-  addStat(stats, comp, "scoring_player__planeKills", "aircraft_kills")
+  addStatValue(stats, comp.scoring_player__planeKills + comp.scoring_player__aiPlaneKills, "aircraft_kills")
   addStat(stats, comp, "scoring_player__soldierDeaths", "deaths")
   addStat(stats, comp, "scoring_player__squadDeaths", "squad_deaths")
   addStat(stats, comp, "scoring_player__assists", "assists")

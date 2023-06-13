@@ -98,6 +98,8 @@ let itemCountRarity = @(item, sf, isSelected) {
   ]
 }
 
+let isSameItem = @(item1, item2) (item1?.basetpl ?? "") == (item2?.basetpl ?? "")
+
 let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) {
   let isAllowed = (item.status.flags & CANT_USE) == 0
   let { isShowDebugOnly = false } = item
@@ -108,10 +110,8 @@ let function card(item, onClick = @(_item) null, onDoubleClick = @(_item) null) 
     })
 
   return watchElemState(function(sf) {
-    let textColor = (sf & S_HOVER) || item == viewVehicle.value
-      ? hoverTxtColor
-      : defTxtColor
-    let isSelected = item == viewVehicle.value
+    let isSelected = isSameItem(item, viewVehicle.value)
+    let textColor = (sf & S_HOVER) || isSelected ? hoverTxtColor : defTxtColor
     let decorators = vehDecorators.value ?? {}
     return {
       watch = [viewVehicle, selectedVehicle, vehDecorators]

@@ -130,8 +130,6 @@ let headerBlock = {
 }
 
 let rankToolTip = {
-  rendObj = ROBJ_SOLID
-  color = Color(0, 0, 0, 210)
   size = [flex(), SIZE_TO_CONTENT]
   vplace = ALIGN_CENTER
   children = {
@@ -194,10 +192,14 @@ let rankToolTip = {
 let open = @() addModalWindow({
   rendObj = ROBJ_WORLD_BLUR_PANEL
   size = flex()
-  vplace = ALIGN_CENTER
   key = RANK_WND_UID
   onClick = @() null
-  children = rankToolTip
+  children = {
+    size = flex()
+    rendObj = ROBJ_SOLID
+    color = Color(0, 0, 0, 210)
+    children = rankToolTip
+  }
 })
 
 return open

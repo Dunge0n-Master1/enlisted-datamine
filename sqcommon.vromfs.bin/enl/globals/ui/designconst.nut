@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { safeAreaHorPadding, safeAreaVerPadding } = require("%enlSqGlob/safeArea.nut")
-let { mkColoredGradientY, mkDiagonalColoredGradient, mkColoredGradientX
-} = require("%enlSqGlob/ui/gradients.nut")
+let { mkColoredGradientY, mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 
 let maxColumnWidth = hdpx(62).tointeger()
 const DEF_COLLS_COUNT = 24
@@ -33,71 +32,71 @@ let function colPart(delta) {
   return res + (res % 2)
 }
 
-let colFullMin = @(cols) colFull(max(cols, cols + columnsCount - DEF_COLLS_COUNT))
 
 let accentColor = 0xFFFAFAFA
 let footerContentHeight = colPart(0.58) + safeAreaVerPadding.value
 
-let lightDefBgColor = 0xFF42516C
-let darkDefBgColor = 0xFF2B2D44
-let lightHoverBgColor = 0xFF5979B4
-let darkHoverBgColor = darkDefBgColor
 
-let defSlotBgImg         = mkDiagonalColoredGradient(0xFF444555, 0xFF181F34)
-let hoverSlotBgImg       = mkDiagonalColoredGradient(lightHoverBgColor, darkDefBgColor)
-let defAvailSlotBgImg    = mkDiagonalColoredGradient(0xFF596756, 0xFF293924)
-let hoverAvailSlotBgImg  = mkDiagonalColoredGradient(0xFF7EA367, 0xFF3A4B2D)
-let defLockedSlotBgImg   = mkDiagonalColoredGradient(0xFF582727, 0xFF582727)
-let hoverLockedSlotBgImg = mkDiagonalColoredGradient(0xFF8D3434, 0xFF8D3434)
-let levelNestGradient    = mkColoredGradientX(0x00FFFFFF, 0x22FFFFFF, 6, false)
-let hoverLevelNestGradient = mkColoredGradientX(0x00000000, 0x33555555, 6, false)
+let levelNestGradient    = mkColoredGradientX({colorLeft=0x00FFFFFF, colorRight=0x22FFFFFF, width=6, isAlphaPremultiplied=false})
+let hoverLevelNestGradient = mkColoredGradientX({colorLeft=0x00000000, colorRight=0x33555555, width=6, isAlphaPremultiplied=false})
 
 
-let defVertGradientImg = mkColoredGradientY(lightDefBgColor, darkDefBgColor)
-let hoverVertGradientImg = mkColoredGradientY(lightHoverBgColor, darkHoverBgColor)
-let defHorGradientImg = mkColoredGradientX(lightDefBgColor, darkDefBgColor)
-let hoverHorGradientImg = mkColoredGradientX(lightHoverBgColor, darkHoverBgColor)
-
-
-let activeTabBgImg = mkColoredGradientY(0xFF384560, 0xFF262940)
-
-let lineGradient = mkColoredGradientX(0x5AFFFFFF, 0x00FFFFFF, 12, false)
-let highlightLine = @(isTop = true) {
+let lineGradient = mkColoredGradientX({colorLeft=0x5AFFFFFF, colorRight=0x00FFFFFF, width=12, isAlphaPremultiplied=false})
+let highlightLineHgt = colPart(0.064)
+let mkHighlightLine = @(isTop = true) freeze({
   rendObj = ROBJ_IMAGE
-  size = [flex(), colPart(0.064)]
+  size = [flex(), highlightLineHgt]
   image = lineGradient
   vplace = isTop ? ALIGN_TOP : ALIGN_BOTTOM
-}
+})
 
+let highlightLineTop = mkHighlightLine()
+let highlightLineBottom = mkHighlightLine(false)
+
+let lineVertGradient = mkColoredGradientY({colorTop=0x5AFFFFFF, colorBottom=0x00FFFFFF, height=12, isAlphaPremultiplied=false})
+
+let mkHighlightVertLine = @(isLeft = true) freeze({
+  rendObj = ROBJ_IMAGE
+  size = [highlightLineHgt, flex()]
+  image = lineVertGradient
+  hplace = isLeft ? ALIGN_LEFT : ALIGN_RIGHT
+})
+let highlightVertLineLeft = mkHighlightVertLine()
+let highlightVertLineRight = mkHighlightVertLine(false)
+
+let mkAnimationList = @(delay, toLeft = true, trigger = null) [
+  { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, trigger,
+    play = (trigger == null) }
+  { prop = AnimProp.opacity, from = 0, to = 1, delay, duration = 0.2, trigger,
+    play = (trigger == null) }
+  toLeft
+    ? { prop = AnimProp.translate, from = [sw(20),0], to = [0,0], delay, trigger,
+        duration = 0.2, easing = OutQuart, play = (trigger == null) }
+    : { prop = AnimProp.translate, from = [-sw(20),0], to = [0,0], delay, trigger,
+        duration = 0.2, easing = OutQuart, play = (trigger == null) }
+  { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.2, playFadeOut = true }
+]
 
 const DEF_APPEARANCE_TIME = 0.4
-let appearanceAnim = @(delay, toLeft = true) {
+let appearanceAnim = @(delay, toLeft = true, trigger = null) {
   transform = {}
-  animations = [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, delay, duration = 0.2, play = true }
-    toLeft
-      ? { prop = AnimProp.translate, from = [sw(20),0], to = [0,0], delay,
-          duration = 0.2, play = true, easing = OutQuart }
-      : { prop = AnimProp.translate, from = [-sw(20),0], to = [0,0], delay,
-          duration = 0.2, play = true, easing = OutQuart }
-    { prop = AnimProp.opacity, from = 1, to = 0, duration = 0.2, playFadeOut = true }
-  ]
+  animations = mkAnimationList(delay, toLeft)
+    .extend(trigger != null ? mkAnimationList(delay, toLeft, trigger) : [])
 }
 
 return {
   colFull
   columnWidth
   colPart
-  colFullMin
 
 
   //Gradients
-  defVertGradientImg
-  hoverVertGradientImg
-  defHorGradientImg
-  hoverHorGradientImg
-  highlightLine
+  highlightLineTop
+  highlightLineBottom
+  highlightLineHgt
+  highlightVertLineLeft
+  highlightVertLineRight
+
 
   // Gaps
   columnGap
@@ -106,6 +105,7 @@ return {
   midPadding = colPart(0.13) // 8px
   smallPadding = colPart(0.065) //4px
   miniPadding = colPart(0.04) //2px
+  contentGap = colPart(1.1)
 
 
   //Size
@@ -115,9 +115,16 @@ return {
   commonBorderRadius = hdpx(2)
   startBtnWidth = colFull(5)
   navHeight = colPart(1.2)
+  contentOffset = colPart(0.4)
+  mainContentOffset = colPart(1.2)
+  selectionLineHeight = colPart(0.06)
+  selectionLineOffset = colPart(0.1)
   fastAccessIconHeight = colPart(0.52)
   footerContentHeight
+  hotkeysBarHeight = colPart(0.354)
+  navigationBtnHeight = colFull(1)
 
+  //BgColor
   defItemBlur = 0xFFA0A2A3
   defSlotBgColor = 0x99303841
   hoverSlotBgColor = 0xFFA0A2A3
@@ -131,28 +138,15 @@ return {
   darkPanelBgColor = 0xFF13181F
   transpBgColor = 0x88111111
   fullTransparentBgColor = 0x00000000
-  hoverBgColor  = 0xFF19304b
   disabledBgColor = 0xFF292E33
-  blockedBgColor = 0xFFD6603C
-  activeBgColor = accentColor
   accentColor
-  briteAccentColor = 0xFFFCB11D
-  topWndBgColor = 0xDD090929
-  bottomWndBgColor = 0xDD220202
+  brightAccentColor = 0xFFFCB11D
   discountBgColor = 0xFFF8BD41
-  enabledIndicatorColor = 0xFF65FE7A
-  disabledIndicatorColor = 0xFFD9281D
-  selectedBgColor = 0xFFF8BD41
-  lightDefBgColor
-  darkDefBgColor
-  lightHoverBgColor
 
   //BdColor
-  fadeBdColor   = 0xFF1C2226
   defBdColor    = 0xFFB3BDC1
+  disabledBdColor = 0xFF4B575D
   hoverBdColor  = 0xFF132438
-  activeBdColor = 0xFF132438
-  blinkBdColor  = 0xFFABB3BA
 
   // TxtColor
   disabledTxtColor = 0xFF4B575D
@@ -161,30 +155,23 @@ return {
   hoverTxtColor = 0xFFD4D4D4
   titleTxtColor = 0xFFFAFAFA
   hoverSlotTxtColor = 0xFF404040
-  neutralTxtColor = 0xFFB3BDC1
   darkTxtColor = 0xFF313841
-  squadInfoColor = 0xFF8C909B
   attentionTxtColor = 0xFFFFBE30
   negativeTxtColor = 0xFFEE5656
   completedTxtColor = 0xFF2968E9
   deadTxtColor = 0xAA101010
 
   // soldier and squad slot color
-  defSlotBgImg
-  hoverSlotBgImg
-  defAvailSlotBgImg
-  hoverAvailSlotBgImg
-  defLockedSlotBgImg
-  hoverLockedSlotBgImg
   levelNestGradient
   hoverLevelNestGradient
-  activeTabBgImg
   haveLevelColor = 0xFFF8BD41
   gainLevelColor = 0xFFFFCE68
   lockLevelColor = 0xFFAAAAAA
 
   //Animations
-  rightAppearanceAnim = @(delay = DEF_APPEARANCE_TIME) appearanceAnim(delay, false)
-  leftAppearanceAnim = @(delay = DEF_APPEARANCE_TIME) appearanceAnim(delay)
+  rightAppearanceAnim = @(delay = DEF_APPEARANCE_TIME, trigger = null)
+    appearanceAnim(delay, false, trigger)
+  leftAppearanceAnim = @(delay = DEF_APPEARANCE_TIME, trigger = null)
+    appearanceAnim(delay, true, trigger)
   DEF_APPEARANCE_TIME
 }

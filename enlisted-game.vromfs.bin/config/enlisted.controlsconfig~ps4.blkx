@@ -19,7 +19,7 @@ actionSets{
 
     VoiceChat.Record{
       type:t="digital_button"
-      group_tag:t="VoiceChat"
+      group_tag:t="Other,platform=pc"
     }
   }
 
@@ -511,14 +511,6 @@ actionSets{
   VehicleTurret{
     group_tag:t="Vehicle"
 
-    Vehicle.ZoomToggle{
-      type:t="digital_button"
-    }
-
-    Vehicle.Zoom{
-      type:t="digital_button"
-    }
-
     Vehicle.Shoot{
       type:t="digital_button"
     }
@@ -564,6 +556,14 @@ actionSets{
       gpadAxisScaleX:r=1.5
       gpadAxisScaleY:r=1.0
       smoothValue:r=0.25
+    }
+
+    Vehicle.ZoomToggle{
+      type:t="digital_button"
+    }
+
+    Vehicle.Zoom{
+      type:t="digital_button"
     }
 
     Human.Look{

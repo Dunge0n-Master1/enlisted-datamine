@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let {
   mkTaskEmblem, taskHeader, taskMinHeight, taskSlotPadding,
   taskDescription, taskDescPadding
-} = require("%enlSqGlob/ui/taskPkg.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
 let {
   darkBgColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")

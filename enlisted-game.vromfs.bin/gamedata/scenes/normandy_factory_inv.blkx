@@ -3532,12 +3532,14 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=2
+  respawnSelectorDistanceMult:r=2.2
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-616.634, 317.064, 400.939]]
 }
 
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
+  respawnSelectorDistanceMult:r=2.2
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-606.564, 323.692, 1001.26]]
 }
 
@@ -4713,7 +4715,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [229.301, 5.46992, 166.218]]
+  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [248.77, 5.46992, 158.656]]
   resupply_zone__team:i=1
   groupName:t="sector_3_a"
   active:b=no
@@ -4833,7 +4835,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [229.301, 5.46992, 166.218]]
+  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [216.895, 5.46992, 178.666]]
   resupply_zone__team:i=1
   groupName:t="sector_3_b"
   active:b=no
@@ -5629,7 +5631,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.996132, 0.0, 0.0878683] [0.0, 1.0, -0.0] [-0.0878683, 0.0, 0.996132] [198.214, 6.14594, 129.534]]
+  transform:m=[[0.820098, 0.0, 0.572222] [0.0, 1.0, -0.0] [-0.572222, 0.0, 0.820098] [196.817, 6.14594, 128.129]]
   groupName:t="sector_2_b"
   respawnBaseGroup:i=6
   active:b=no
@@ -5637,7 +5639,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.239906, 0.0, 0.970796] [0.0, 1.0, -0.0] [-0.970796, 0.0, 0.239906] [195.3, 6.14594, 135.176]]
+  transform:m=[[0.239906, 0.0, 0.970796] [0.0, 1.0, -0.0] [-0.970796, 0.0, 0.239906] [193.201, 6.14594, 132.538]]
   groupName:t="sector_2_b"
   respawnBaseGroup:i=6
   active:b=no
@@ -6005,7 +6007,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [229.301, 5.46992, 166.218]]
+  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [216.666, 5.46992, 178.082]]
   resupply_zone__team:i=1
   groupName:t="sector_3_c"
   active:b=no
@@ -6125,7 +6127,7 @@ entity{
 
 entity{
   _template:t="resupply_for_ground_vehicle_zone"
-  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [229.301, 5.46992, 166.218]]
+  transform:m=[[0.168789, 5.82077e-11, 0.985652] [0.000871665, 1.0, -0.00014927] [-0.985651, 0.000884353, 0.168789] [217.105, 5.46992, 178.152]]
   resupply_zone__team:i=1
   groupName:t="sector_3_d"
   active:b=no

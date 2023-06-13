@@ -114,7 +114,9 @@ def deserialize_presets(path : string;
         presets[j].trajectoryInertionFactor = presetBlk |> datablock_getReal("trajectoryInertionFactor", 0f)
         presets[j].linearVelocityViscosity = presetBlk |> datablock_getReal("linearVelocityViscosity", 0f)
         presets[j].angularVelocityViscosity = presetBlk |> datablock_getReal("angularVelocityViscosity", 0f)
-        presets[j].metricaTolerance = presetBlk |> datablock_getReal("metricaTolerance", 0f)
+        presets[j].metricaToleranceMin = presetBlk |> datablock_getReal("metricaToleranceMin", 0f)
+        presets[j].metricaToleranceMax = presetBlk |> datablock_getReal("metricaToleranceMax", 0f)
+        presets[j].metricaToleranceDecayTime = presetBlk |> datablock_getReal("metricaToleranceDecayTime", 0f)
 
     result = true
   if presets |> length() == 0

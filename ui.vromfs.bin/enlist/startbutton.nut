@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart, leftAppearanceAnim,
-  DEF_APPEARANCE_TIME
+let { titleTxtColor, accentColor, defTxtColor, startBtnWidth, colPart, leftAppearanceAnim
+//  ,DEF_APPEARANCE_TIME
 } = require("%enlSqGlob/ui/designConst.nut")
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
 let { leaveQueue, isInQueue } = require("%enlist/quickMatchQueue.nut")
 let { joinQueue } = require("quickMatch.nut")
 let { leaveRoom, room } = require("%enlist/state/roomState.nut")
@@ -28,6 +29,8 @@ let { showSquadMembersCrossPlayRestrictionMsgBox,
   showSquadVersionRestrictionMsgBox
 } = require("%enlist/restrictionWarnings.nut")
 let { Flat } = require("%ui/components/txtButton.nut")
+let mkGlare = require("%enlist/components/mkGlareAnim.nut")
+let { multySquadPanelSize } = require("%enlSqGlob/ui/viewConst.nut")
 
 
 let defStartTxtStyle = {
@@ -40,6 +43,12 @@ let leaveMatchTxtStyle = {
   defTextColor = defTxtColor
   hoverTextColor = titleTxtColor
   activeTextColor = defTxtColor
+  txtParams = {
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    size = [pw(70), SIZE_TO_CONTENT]
+    halign = ALIGN_CENTER
+  }.__update(fontXLarge)
 }
 
 
@@ -70,18 +79,18 @@ let blinkAnimation = [{prop = AnimProp.color, from = 0x00F27272 , to = 0x44AA727
 
 
 let function btnCtor(txt, action, params = {}) {
-  let { defTextColor, hoverTextColor, activeTextColor } = params.txtStyle
+  let { defTextColor, hoverTextColor, activeTextColor, txtParams = fontXLarge } = params.txtStyle
   let { bgStyle, hotkeys = null } = params
   return Flat(txt, action, {
     btnWidth = startBtnWidth
-    btnHeight = colPart(1.54)
+    btnHeight = multySquadPanelSize[1]
     hotkeys
     style = {
       defTxtColor = defTextColor
       hoverTxtColor = hoverTextColor
       activeTxtColor = activeTextColor
     }
-    txtFont = fontXLarge
+    txtParams
     bgComp = function(sf, _isEnabled = true) {
       let { defBg, hoverBg, activeBg } = bgStyle
       let isActive = sf & S_ACTIVE
@@ -171,8 +180,8 @@ let quickMatchButton = @() {
 
 let quickMatchBtn = btnCtor(loc("START"), checkPlayAvailability,
   {
-    bgStyle =defStartBgStyle
-    txtStyle =defStartTxtStyle
+    bgStyle = defStartBgStyle
+    txtStyle = defStartTxtStyle
     hotkeys = [["^J:Y", checkPlayAvailability ]]
     animations = blinkAnimation
   })
@@ -181,7 +190,7 @@ let pressWhenReadyBtn = btnCtor(loc("Press when ready"),
   @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)),
   {
     bgStyle = defStartBgStyle
-    txtStyle = defStartTxtStyle
+    txtStyle = leaveMatchTxtStyle.__merge({ defTextColor = titleTxtColor })
     hotkeys = [["^J:Y", @() showCurNotReadySquadsMsg(@() myExtSquadData.ready(true)) ]]
     animations = blinkAnimation
   })
@@ -193,11 +202,16 @@ let setNotReadyBtn = btnCtor(loc("Set not ready"), @() myExtSquadData.ready(fals
     hotkeys = [[$"^{JB.B}" ]]
   })
 
+isInBattleState.subscribe(function(inBattle) {
+  if (!inBattle) {
+    myExtSquadData.ready(false)
+  }
+})
 
 let function squadMatchButton(){
   local btn = isInQueue.value ? leaveQuickMatchButton : quickMatchBtn
-    if (!isSquadLeader.value && squadSelfMember.value != null)
-      btn = myExtSquadData.ready.value ? setNotReadyBtn : pressWhenReadyBtn
+  if (!isSquadLeader.value && squadSelfMember.value != null)
+    btn = myExtSquadData.ready.value ? setNotReadyBtn : pressWhenReadyBtn
   return {
     watch = [isInQueue, isSquadLeader, squadSelfMember, myExtSquadData.ready]
     children = btn
@@ -208,6 +222,7 @@ let function squadMatchButton(){
 let startTutorial = @() gameLauncher.startGame({
   game = "enlisted", scene = curUnfinishedBattleTutorial.value
 })
+
 let startTutorialBtn = btnCtor(loc("TUTORIAL"), startTutorial,
   {
     bgStyle = defStartBgStyle
@@ -239,7 +254,14 @@ let startBtn = @() {
     isInSquad.value || (!curUnfinishedBattleTutorial.value && !currentGameMode.value?.isLocal)
       ? mkActiveBoostersMark({ hplace = ALIGN_RIGHT, vplace = ALIGN_CENTER, pos = [hdpxi(20), 0] })
       : null
+    mkGlare({
+      nestWidth = startBtnWidth
+      glareWidth = colPart(2)
+      glareDuration = 0.7
+      glareOpacity = 0.5
+      glareDelay = 5
+    })
   ]
-}.__update(leftAppearanceAnim(DEF_APPEARANCE_TIME + 0.2))
+}.__update(leftAppearanceAnim(0.1))
 
 return startBtn

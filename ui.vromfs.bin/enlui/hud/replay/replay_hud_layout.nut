@@ -5,8 +5,7 @@ let { fontXLarge, fontSmall, fontLarge, fontMedium
 } = require("%enlSqGlob/ui/fontsStyle.nut")
 let console = require("console")
 let { colFull, colPart, panelBgColor, columnGap, commonBtnHeight, defTxtColor, midPadding,
-  smallPadding, bigPadding, maxContentWidth, titleTxtColor, accentColor, smallBtnHeight,
-  hoverBgColor
+  smallPadding, bigPadding, maxContentWidth, titleTxtColor, accentColor, smallBtnHeight
 } = require("%enlSqGlob/ui/designConst.nut")
 let { Bordered, FAButton, SmallBordered, PressedBordered
 } = require("%ui/components/txtButton.nut")
@@ -18,7 +17,8 @@ let { replayCurTime, replayPlayTime, replayTimeSpeed, canShowReplayHud, isTpsFre
 let camera = require("camera")
 let { format } = require("string")
 let { ReplaySetFpsCamera, ReplaySetFreeTpsCamera, ReplaySetTpsCamera,
-  ReplayToggleFreeCamera, NextReplayTarget, ReplaySetOperatorCamera
+  ReplayToggleFreeCamera, NextReplayTarget, ReplaySetOperatorCamera,
+  CmdReplayRewind, CmdReplayRewindSaveState, CmdReplayRewindLoadState
 } = require("dasevents")
 let { setInteractiveElement } = require("%ui/hud/state/interactive_state.nut")
 let { localPlayerName } = require("%ui/hud/state/local_player.nut")
@@ -104,6 +104,31 @@ let brightTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
 let hintTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 
+ecs.register_es("replay_rewind_save_hud_state_es", {
+  [[CmdReplayRewindSaveState]] = function(evt, _eid, _comp) {
+    evt.state["showSelfAwards"] = showSelfAwards.value
+    evt.state["showTeammateName"] = showTeammateName.value
+    evt.state["showTeammateMarkers"] = showTeammateMarkers.value
+    evt.state["showCrosshairHints"] = showCrosshairHints.value
+    evt.state["showTips"] = showTips.value
+    evt.state["showGameModeHints"] = showGameModeHints.value
+    evt.state["showPlayerUI"] = showPlayerUI.value
+    evt.state["isHudSettingsEnable"] = isHudSettingsEnable.value
+  }
+}, {}, {tags="playingReplay", before="replay_rewind_state_save_es"})
+
+ecs.register_es("replay_rewind_load_hud_state_es", {
+  [[CmdReplayRewindLoadState]] = function(evt, _eid, _comp) {
+    isHudSettingsEnable(evt.state?.isHudSettingsEnable ?? isHudSettingsEnable.value)
+    showSelfAwards(evt.state?.showSelfAwards ?? showSelfAwards.value)
+    showTeammateName(evt.state?.showTeammateName ?? showTeammateName.value)
+    showTeammateMarkers(evt.state?.showTeammateMarkers ?? showTeammateMarkers.value)
+    showCrosshairHints(evt.state?.showCrosshairHints ?? showCrosshairHints.value)
+    showTips(evt.state?.showTips ?? showTips.value)
+    showGameModeHints(evt.state?.showGameModeHints ?? showGameModeHints.value)
+    showPlayerUI(evt.state?.showPlayerUI ?? showPlayerUI.value)
+  }
+}, {}, {tags="playingReplay"})
 
 let function timeSpeedIncrease(curTimeSpeed) {
   foreach (timeSpeed in timeSpeedVariants)
@@ -125,10 +150,7 @@ let function timeSpeedDecrese(curTimeSpeed) {
 let hideReplayHudBtn = FAButton("chevron-down", @() canShowReplayHud(false), {
   btnHeight = hideHudBtnSize[0]
   btnWidth = hideHudBtnSize[1]
-  style = {
-    defBgColor = panelBgColor
-    hoverBgColor
-  }
+  style = { defBgColor = panelBgColor }
 })
 
 let hideReplayBlock = {
@@ -194,7 +216,8 @@ let replayTopBlock = @() {
     mkReplayTimeLine(replayCurTime, {
       min = 0
       max = replayPlayTime.value
-      canChangeVal = false
+      canChangeVal = true
+      setValue = @(time) ecs.g_entity_mgr.broadcastEvent(CmdReplayRewind({ time = time * 1000 }))
     })
   ]
 }
@@ -456,18 +479,6 @@ let mkSettingsHeader = @(text) {
   text = utf8ToUpper(text)
 }.__update(titleTxtStyle)
 
-let mkCheckboxBlock = @(title, value, isActive = Watched(true)) @() {
-  watch = isActive
-  flow = FLOW_HORIZONTAL
-  gap = bigPadding
-  children = [
-    {
-      rendObj = ROBJ_TEXT
-      text = title
-    }.__update(hintTxtStyle)
-    mkCheckbox(value, isActive.value)
-  ]
-}
 
 let enviromentSettings = {
   size = [flex(), SIZE_TO_CONTENT]
@@ -500,14 +511,26 @@ let enviromentSettings = {
       }
     }
     @() {
-      watch = isAllSettingsEnabled
+      watch = [isSnowAvailable, isRainAvailable, isLightningAvailable]
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       gap = { size = flex() }
       children = [
-        mkCheckboxBlock(loc("replay/weatherSnow"), isSnow, isSnowAvailable)
-        mkCheckboxBlock(loc("replay/weatherRain"), isRain, isRainAvailable)
-        mkCheckboxBlock(loc("replay/weatherLightning"), isLightning, isLightningAvailable)
+        mkCheckbox(isSnow, loc("replay/weatherSnow"), {
+          isActive = isSnowAvailable.value
+          textParams = hintTxtStyle
+          size = [flex(), SIZE_TO_CONTENT]
+        })
+        mkCheckbox(isRain, loc("replay/weatherRain"), {
+          isActive = isRainAvailable.value
+          textParams = hintTxtStyle
+          size = [flex(), SIZE_TO_CONTENT]
+        })
+        mkCheckbox(isLightning, loc("replay/weatherLightning"), {
+          isActive = isLightningAvailable.value
+          textParams = hintTxtStyle
+          size = [flex(), SIZE_TO_CONTENT]
+        })
       ]
     }
     @() {
@@ -619,7 +642,9 @@ let dofSettings = @() {
       setValue = @(newVal) changeBokeSize(newVal)
       isEnabled = isAllSettingsEnabled.value
     })
-    mkCheckboxBlock(loc("replay/isFocalActive"), isDofFocalActive, isAllSettingsEnabled)
+    mkCheckbox(isDofFocalActive, loc("replay/isFocalActive"), {
+      isActive = isAllSettingsEnabled.value
+    })
     mkReplaySlider(dofFocalLength, loc("replay/focalLength"), {
       min = 12
       max = 300
@@ -629,19 +654,34 @@ let dofSettings = @() {
   ]
 }
 
-let hudSettings = {
+let hudSettings = @() {
+  watch = isAllSettingsEnabled
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = bigPadding
   children =  [
     mkSettingsHeader(loc("replay/hudSettings"))
-    mkCheckboxBlock(loc("gameplay/self_awards"), showSelfAwards, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_teammate_name"), showTeammateName, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_teammate_markers"), showTeammateMarkers, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_crosshair_hints"), showCrosshairHints, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_tips"), showTips, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_game_mode_hints"), showGameModeHints, isAllSettingsEnabled)
-    mkCheckboxBlock(loc("gameplay/show_player_ui"), showPlayerUI, isAllSettingsEnabled)
+    mkCheckbox(showSelfAwards, loc("gameplay/self_awards"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showTeammateName, loc("gameplay/show_teammate_name"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showTeammateMarkers, loc("gameplay/show_teammate_markers"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showCrosshairHints, loc("gameplay/show_crosshair_hints"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showTips, loc("gameplay/show_tips"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showGameModeHints, loc("gameplay/show_game_mode_hints"), {
+      isActive = isAllSettingsEnabled.value
+    })
+    mkCheckbox(showPlayerUI, loc("gameplay/show_player_ui"), {
+      isActive = isAllSettingsEnabled.value
+    })
   ]
 }
 
@@ -803,12 +843,15 @@ isCinemaRecording.subscribe(@(v) v ? null : addPopup({
 }))
 
 
-let screenVideoBlock = {
+let screenVideoBlock = @() {
+  watch = isAllSettingsEnabled
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
   gap = smallPadding
   children = [
-    mkCheckboxBlock(loc("replay/enablePostBloom"), enablePostBloom, isAllSettingsEnabled)
+    mkCheckbox(enablePostBloom, loc("replay/enablePostBloom"), {
+      isActive = isAllSettingsEnabled.value
+    })
     mkSettingsHeader(loc("replay/screenVideoHeader"))
     makeScreenshotBlock
     is_win32 ? null : recordVideoBlock

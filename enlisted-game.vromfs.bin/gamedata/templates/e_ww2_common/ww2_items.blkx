@@ -1453,9 +1453,6 @@ wz_38m_gun_item{
 mosin_1928_grenade_launcher_gun_item{
   _extends:t="item_gun"
   _extends:t="mosin_1928_grenade_launcher"
-  item__template:t="mosin_1928_grenade_launcher_gun_item"
-  item__proto:t="content/enlisted/gamedata/weapons/mosin_1928_grenade_launcher.blk"
-  item__locDetails:t="7.62x54mm;"
   collres__res:t="mosin_1928_grenade_launcher_collision"
 }
 
@@ -4922,6 +4919,7 @@ flask_base_item{
   flask__affectTemplate:t="flask_affect"
   item__selfUseVisEntityTemplateName:t="flask_base_in_use"
   item__healAnimEnumName:t="flask_usa"
+  distanceOffset:r=0.5
 
   "item__ignoreAimInterrupt:tag"{
   }
@@ -6428,7 +6426,7 @@ diakov_rifle_grenade_item{
 mosin_m91_30_vpgs_gun_item{
   _extends:t="item_gun"
   _extends:t="mosin_m91_30_vpgs"
-  collres__res:t="mosin_1928_grenade_launcher_collision"
+  collres__res:t="mosin_m91_30_vpgs_collision"
 }
 
 vpgs_grenade_launcher_item{

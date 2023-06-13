@@ -213,91 +213,6 @@ def gun_mod_custom_props_init_es(evt : Event;
   server_init_gun_ammo(eid)
 
 
-def attach_item_to_gun_impl(eid : EntityId;
-                            human_weap__gunEids : EidList;
-                            gun_slot_id : int;
-                            slot_tag : string;
-                            slot_name : string;
-                            var human_weap__gunMods : Array;
-                            var custom_props : Object? = null)
-  if !human_weap__gunEids[gun_slot_id]
-    return
-
-  query(eid) <| $ [es] (var human_weap__gunModsBySlot : Array)
-    var gunModSlots = human_weap__gunModsBySlot[gun_slot_id] |> getRW_ecs_object()
-    if gunModSlots == null
-      return
-
-    if !*gunModSlots |> has(slot_name)
-      return
-
-    // Unload ammo from weapon mod, if any.
-    human_gun_mod_to_custom_props(eid, gun_slot_id, slot_name, null)
-
-    *gunModSlots |> set(slot_name, slot_tag)
-
-    var gunMods = getRW_ecs_EidList(human_weap__gunMods[gun_slot_id])
-    for i in iter_range(*gunMods)
-      let gunModEid = (*gunMods)[i]
-      var erased = false
-      query(gunModEid) <| $ [es] (gunAttachable__gunSlotName : string)
-        if gunAttachable__gunSlotName == slot_name
-          destroyEntity(gunModEid)
-          *gunMods |> erase(i)
-          erased = true
-      if erased
-        break
-
-    if slot_tag == ""
-      return
-
-    let gunEid = human_weap__gunEids[gun_slot_id]
-    query(gunEid) <| $ [es] (gun_mods__slots : Object)
-      let slot = gun_mods__slots |> get_ecs_object(slot_name)
-      if slot == null
-        logerr("Gun '{getEntityTemplateName(gunEid)}' does not have slot '{slot_name}' in component 'gun_mods.slots'")
-        return
-      let slotName = *slot |> get_ecs_string(slot_tag)
-      if slotName == null
-        var avSlotTags = ""
-        for kv in *slot
-          avSlotTags += kv.key
-          avSlotTags += ","
-        if avSlotTags != ""
-          avSlotTags = avSlotTags |> chop(0, length(avSlotTags) - 1)
-        logerr("Unknown slot_tag '{slot_tag}' for slot '{slot_name}' while creating gunMods for {human_weap__gunEids[gun_slot_id]}<{getEntityTemplateName(human_weap__gunEids[gun_slot_id])}>,\navailable slot tags are {avSlotTags}")
-        return
-
-      using() <| $(var comps : ComponentsInitializer)
-        set(comps, "slot_attach__attachedTo", gunEid)
-
-        // Weapon mod might be a weapon itself, so try and set mandatory weapon components.
-        let weapSalt = get_ecs_IntList(eid, "human_weap__salt")
-        if weapSalt != null
-          set(comps, "gun__salt", (*weapSalt)[gun_slot_id])
-        set(comps, "gun__owner", eid)
-
-        using() <| $(var customPropsCopy : Object)
-          if custom_props != null
-            customPropsCopy := *custom_props
-            set(comps, "custom_props", customPropsCopy)
-            // Weapon mod might be created asynchronously, so we can't keep ref
-            // to 'custom_props', we copy custom_props instead. But that's not enough,
-            // custom_props might contain ammo holder eid that'll get freed if not reset,
-            // so we reset it here. Ownership will be passed to weapon mod eventually.
-            human_gun_mod_reset_custom_props(*custom_props)
-
-          var modEid = INVALID_ENTITY_ID
-          if is_dedicated()
-            // Use createEntitySync on the server because we want as many set value to be at initial replication.
-            // Otherwise the data will be sent as replica. In the sake of traffic reduction.
-            modEid = createEntitySync(*slotName |> string(), comps)
-          else
-            modEid = createEntity(*slotName |> string(), comps)
-
-          *gunMods |> push(modEid)
-
-
 struct GunModInSlot
   key : string
   value : string
@@ -325,7 +240,7 @@ def server_init_gun(eid : EntityId;
               *gunModsInSlot |> set(slotName, "")
 
         if length(*gunModsInSlot) > 0
-          // Temp copy since we modifying gunModsBySlot[slot_id] within attach_item_to_gun_impl()
+          // Temp copy since we modifying gunModsBySlot[slot_id] within attach_item_to_gun_impl2()
           var gunModsInSlotCopy : array<GunModInSlot>
           gunModsInSlotCopy |> reserve(length(*gunModsInSlot))
           for gunMod in *gunModsInSlot
@@ -334,7 +249,7 @@ def server_init_gun(eid : EntityId;
             gunModsInSlotCopy |> push([[GunModInSlot key=gunMod.key, value=value]])
           for gunMod in gunModsInSlotCopy
             var nullCustomProps : Object? = null
-            attach_item_to_gun_impl(eid, human_weap__gunEids, slot_id, gunMod.value,
+            attach_item_to_gun_impl2(eid, human_weap__gunEids, slot_id, gunMod.value,
                                     gunMod.key, human_weap__gunMods, nullCustomProps)
 
       server_init_gun_ammo(gunEidInSlot)

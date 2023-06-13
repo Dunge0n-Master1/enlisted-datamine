@@ -127,6 +127,10 @@ let saveEquipmentPreset = function(presetCfg) {
   return presetCfg?.fnSave(curSoldierInfo.value, campItemsByLink.value) ?? false
 }
 
+let renameEquipmentPreset = function(presetCfg, newName) {
+  return presetCfg?.fnRename(curSoldierInfo.value, newName) ?? false
+}
+
 console_register_command(function(slot) {
     if (curSoldierInfo.value == null)
       log("Soldier not selected")
@@ -143,6 +147,7 @@ console_register_command(resetEquipmentPreset, "meta.resetEquipPreset")
 return {
   applyEquipmentPreset
   saveEquipmentPreset
+  renameEquipmentPreset
   PresetTarget
   presetEquipList
   notFoundPresetItems = notFoundItems

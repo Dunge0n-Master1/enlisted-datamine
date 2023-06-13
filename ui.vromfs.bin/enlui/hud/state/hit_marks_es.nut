@@ -2,8 +2,8 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { TEAM_UNASSIGNED } = require("team")
-let {DmProjectileHitNotification,
-  DM_PROJECTILE, DM_MELEE, DM_BACKSTAB, HIT_RES_DOWNED, HIT_RES_KILLED, HIT_RES_NONE, HIT_RES_NORMAL} = require("dm")
+let {DmProjectileHitNotification, DM_PROJECTILE, DM_MELEE, DM_BACKSTAB } = require("dm")
+let {HitResult} = require("%enlSqGlob/dasenums.nut")
 let {get_time_msec} = require("dagor.time")
 let {EventHeroChanged} = require("gameevents")
 let {EventAnyEntityDied,EventOnEntityHit} = require("dasevents")
@@ -78,8 +78,8 @@ let function onHit(victimEid, _offender, extHitPos, damageType, hitRes) {
   let time = get_time_msec()
 
   local hitPos = null
-  let isDownedHit = hitRes == HIT_RES_DOWNED
-  let isKillHit = hitRes == HIT_RES_KILLED
+  let isDownedHit = hitRes == HitResult.HIT_RES_DOWNED
+  let isKillHit = hitRes == HitResult.HIT_RES_KILLED
   let independentKill = damageType == DM_DIED
   let isMelee = [DM_BACKSTAB, DM_MELEE].indexof(damageType)!=null
   if (isMelee)
@@ -105,20 +105,22 @@ let function onHit(victimEid, _offender, extHitPos, damageType, hitRes) {
 }
 
 let getVictimShowHits = ecs.SqQuery("getVictimShowHits", {comps_ro=[
-  ["hitmarks_victim__showUserHits", ecs.TYPE_BOOL, true],
+  ["hitmarks_victim__groupId", ecs.TYPE_INT],
   ["deadEntity", ecs.TYPE_TAG, null],
+]})
+
+let getHitmarksGroupsId = ecs.SqQuery("getHitmarksGroupsId", {comps_ro=[
+  ["hitmarks__groupsIds", ecs.TYPE_INT_LIST]
 ]})
 
 let function onProjectileHit(evt, eid, comp) {
   let victimEid = evt[0]
   let hitPos = evt[1]
-  let shouldShowHitMarks = ecs.obsolete_dbg_get_comp_val(comp["human_anim__vehicleSelected"], "hitmarks__showUserHits", false)
-    && (getVictimShowHits(victimEid, @(_, comp) comp.deadEntity == null && comp.hitmarks_victim__showUserHits) ?? true)
-
+  let hitmarksGroupsId = getHitmarksGroupsId(comp.human_anim__vehicleSelected, @(_, comp) comp.hitmarks__groupsIds.getAll()) ?? []
+  let shouldShowHitMarks = getVictimShowHits(victimEid, @(_, comp) comp.deadEntity == null && hitmarksGroupsId.contains(comp.hitmarks_victim__groupId)) ?? false
   if (!shouldShowHitMarks || victimEid == eid)
     return
-
-  onHit(victimEid, eid, hitPos, DM_PROJECTILE, HIT_RES_NORMAL)
+  onHit(victimEid, eid, hitPos, DM_PROJECTILE, HitResult.HIT_RES_NORMAL)
 }
 
 let function onEntityHit(evt, _eid, _comp) {
@@ -132,7 +134,7 @@ let function onEntityHit(evt, _eid, _comp) {
     return
 
   let hitRes = evt.hitResult
-  if (hitRes != HIT_RES_NONE)
+  if (hitRes != HitResult.HIT_RES_NONE)
     onHit(victimEid, offender, evt.hitPos, evt.damageType, hitRes)
 }
 
@@ -145,7 +147,7 @@ let function onEntityDied(evt, _eid, _comp) {
     return
 
   let tm = ecs.obsolete_dbg_get_comp_val(victim, "transform", null)
-  onHit(victim, offender, tm.getcol(3), DM_DIED, HIT_RES_KILLED)
+  onHit(victim, offender, tm.getcol(3), DM_DIED, HitResult.HIT_RES_KILLED)
 }
 
 

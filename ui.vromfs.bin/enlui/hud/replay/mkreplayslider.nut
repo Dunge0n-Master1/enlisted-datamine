@@ -1,24 +1,31 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { accentColor, colPart, titleTxtColor, defBdColor, hoverTxtColor, defTxtColor,
-  smallPadding, disabledTxtColor
+let { accentColor, colPart, titleTxtColor, defTxtColor, smallPadding, darkTxtColor,
+  hoverPanelBgColor, darkPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 
-let calcFrameColor = @(sf) sf & S_HOVER ? accentColor : titleTxtColor
-let calcKnobColor =  @(sf, isEnabled) !isEnabled ? disabledTxtColor
-  : sf & S_ACTIVE ? accentColor
-  : titleTxtColor
+let knobSize = [colPart(0.22), colPart(0.22)]
+
+let calcEmptyFrameColor = @(sf, isEnabled) !isEnabled ? hoverPanelBgColor
+  : sf & S_HOVER ? darkPanelBgColor
+  : hoverPanelBgColor
+
+let calcKnobFrameColor = @(sf, isEnabled) !isEnabled ? hoverPanelBgColor
+  : sf & S_ACTIVE ? darkTxtColor
+  : sf & S_HOVER ? hoverPanelBgColor
+  : accentColor
+
+
 
 let defLabelStyle = {
   color = defTxtColor
 }.__update(fontSmall)
 
-let hoverLabelStyle = {
-  color = hoverTxtColor
-}.__update(fontSmall)
 
-let knobSize = [colPart(0.22), colPart(0.22)]
+let hoverLabelStyle = {
+  color = titleTxtColor
+}.__update(fontSmall)
 
 
 let function mkSlider(var, label, options = {}) {
@@ -36,15 +43,15 @@ let function mkSlider(var, label, options = {}) {
     group
     rendObj = ROBJ_VECTOR_CANVAS
     commands = [[ VECTOR_ELLIPSE, 0, 50, 50, 50 ]]
-    fillColor = calcKnobColor(sf, isEnabled)
-    color = sf & S_ACTIVE ? titleTxtColor : defBdColor
+    fillColor = !isEnabled ? darkTxtColor : accentColor
+    color = calcKnobFrameColor(sf, isEnabled)
   })
 
   let sliderText = @(text, sf) {
     rendObj = ROBJ_TEXT
     group
     text
-  }.__update(sf & S_HOVER ? hoverLabelStyle : defLabelStyle)
+  }.__update(isEnabled && (sf & S_HOVER) != 0 ? hoverLabelStyle : defLabelStyle)
 
 
   let function onChange(factor){
@@ -85,13 +92,12 @@ let function mkSlider(var, label, options = {}) {
             {
               flow = FLOW_HORIZONTAL
               size = [flex(), colPart(0.1)]
-
               children = [
                 {
                   group
                   rendObj = ROBJ_BOX
                   size = [flex(factor), flex()]
-                  fillColor =  calcFrameColor(sf)
+                  fillColor = isEnabled ? hoverPanelBgColor : accentColor
                   borderWidth = sf & S_HOVER ? hdpx(1) : hdpx(0)
                   borderRadius = factor < 100.0 ? [hdpx(2), 0, 0, hdpx(2)] : hdpx(2)
                   borderColor = accentColor
@@ -99,7 +105,7 @@ let function mkSlider(var, label, options = {}) {
                 {
                   group
                   rendObj = ROBJ_BOX
-                  fillColor = defBdColor
+                  fillColor = calcEmptyFrameColor(sf, isEnabled)
                   borderRadius = factor > 0.0 ? [0, hdpx(2), hdpx(2), 0] : hdpx(2)
                   size = [flex(1.0 - factor), flex()]
                 }

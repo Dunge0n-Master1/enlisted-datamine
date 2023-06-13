@@ -11,7 +11,6 @@ struct MeanPos
   pos : float3
   accumPos : float3
   amountOfPoints : int
-  noiseRadius : float2
 
 def random_circle_offset(min_max_radius : float2)
   let rndAngle  = rnd_float(0.0, TWOPI)
@@ -24,11 +23,16 @@ def random_circle_offset(min_max_radius : float2)
 [es(tag=server, after=human_phys_es)]
 def kmeans_enemy_pos(act : UpdateStageInfoAct)
   var posCache : array<MeanPos>
+  var noiseRadius = float2()
+  var noiseAmount = float3(0.0, 1.0, 1.0)
   query <| $ [es] (eid : EntityId;
                    mean_pos__pos : float3&;
                    mean_pos__team : int;
-                   mean_pos__noiseRadius : float2 = float2())
-    posCache |> emplace([[MeanPos eid=eid, team=mean_pos__team, pos=mean_pos__pos, noiseRadius=mean_pos__noiseRadius]])
+                   mean_pos__noiseRadius : float2 = float2();
+                   mean_pos__noiseAmount : float3 = float3(0.0, 1.0, 1.0))
+    noiseRadius = mean_pos__noiseRadius
+    noiseAmount = mean_pos__noiseAmount
+    posCache |> emplace([[MeanPos eid=eid, team=mean_pos__team, pos=mean_pos__pos]])
   if posCache |> empty()
     return
   var enemyPoints : array<tuple<team : int; offset : float3> >
@@ -51,9 +55,11 @@ def kmeans_enemy_pos(act : UpdateStageInfoAct)
       posCache[closest].amountOfPoints++
   for pos in posCache
     if pos.amountOfPoints > 0
-      var meanPos = pos.accumPos * safeinv(float(pos.amountOfPoints))
-      if pos.noiseRadius.y > 0.0
-        meanPos += random_circle_offset(pos.noiseRadius)
+      let amount = float(pos.amountOfPoints)
+      var meanPos = pos.accumPos * safeinv(amount)
+      if noiseRadius.y > 0.0
+        let noiseCoef = cvt(amount, noiseAmount.x, noiseAmount.y, 1.0, noiseAmount.z)
+        meanPos += random_circle_offset(noiseRadius * noiseCoef)
       query(pos.eid) <| $ [es] (var mean_pos__pos : float3&)
         mean_pos__pos = meanPos
     elif !(enemyPoints |> empty()) // assign to random point

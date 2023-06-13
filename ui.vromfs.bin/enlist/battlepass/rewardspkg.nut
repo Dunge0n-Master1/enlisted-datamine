@@ -4,7 +4,7 @@ let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { defTxtColor, activeTxtColor, accentTitleTxtColor, titleTxtColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { taskMinHeight, taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
+let { taskMinHeight, taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { rewardWidthToHeight, rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -40,8 +40,8 @@ let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   }.__update(override)
 }
 
-let function mkRewardImages(reward, sizeBg = defCardSize, override = {}) {
-  let { cardImage = null, cardImageParams = {}, bgImage = null } = reward
+let function mkRewardImages(reward, sizeBg = defCardSize, override = {}, hasStageCompleted = false) {
+  let { cardImage = null, cardImageParams = {}, bgImage = null, cardImageOpen = null } = reward
   if (cardImage == null)
     return null
 
@@ -55,7 +55,7 @@ let function mkRewardImages(reward, sizeBg = defCardSize, override = {}) {
       type(cardImage) == "function" ? cardImage(sizeBg)
       : {
           rendObj = ROBJ_IMAGE
-          image = Picture(cardImage)
+          image = Picture((hasStageCompleted && cardImageOpen) ? cardImageOpen : cardImage)
         }.__update(cardImageParams)
     ]
   }.__update(override)

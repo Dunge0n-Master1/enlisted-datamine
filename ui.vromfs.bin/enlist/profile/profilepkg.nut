@@ -3,8 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let JB = require("%ui/control/gui_buttons.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let {
-  defTxtColor, selectedTxtColor, defInsideBgColor, activeBgColor,
-  blurBgFillColor, titleTxtColor, disabledTxtColor,
+  activeBgColor,
+  blurBgFillColor, disabledTxtColor,
   bigPadding, smallPadding, smallOffset, activeTxtColor, rowBg
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
@@ -12,7 +12,7 @@ let { armies } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { playerStatsList, killsList } = require("profileState.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
-
+let { darkTxtColor, defTxtColor, hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let PROFILE_WIDTH = fsh(100)
 
@@ -28,17 +28,17 @@ let armyIconSize = hdpxi(28)
 
 let selectedCampaign = Watched(null)
 
-let txtColor = @(sf, isSelected = false) isSelected ? selectedTxtColor
-    : sf & S_HOVER ? titleTxtColor
-    : defTxtColor
+let txtColor = @(sf, isSelected = false) isSelected
+  ? Color(255,255,255)
+  : sf & S_HOVER ? darkTxtColor : defTxtColor
 
-let bgColor = @(sf, isSelected = false) isSelected ? activeBgColor
-  : sf & S_HOVER ? defInsideBgColor
-  : blurBgFillColor
+let bgColor = @(sf, isSelected = false) isSelected
+  ? Color(160,160,160)
+  : sf & S_HOVER ? hoverSlotBgColor : blurBgFillColor
 
-let borderColor = @(sf, isSelected = false) isSelected ? activeBgColor
-  : sf & S_HOVER ? activeBgColor
-  : disabledTxtColor
+let borderColor = @(sf, isSelected = false) isSelected
+  ? activeBgColor
+  : sf & S_HOVER ? activeBgColor : disabledTxtColor
 
 let mkFooterWithButtons = @(buttonsList, params = DEFAULT_FOOTER_PARAMS) {
   children = buttonsList
@@ -59,9 +59,10 @@ let mkText = @(text, customStyle = {}) {
 }.__update(sub_txt, customStyle)
 
 let campaignSlotStyle = {
-  rendObj = ROBJ_SOLID
+  rendObj = ROBJ_BOX
   size = [flex(), hdpx(50)]
   behavior = Behaviors.Button
+  borderColor = Color(255,255,255)
 }
 
 let statValueStyle = {
@@ -78,7 +79,8 @@ let mkCampaignInfoBtn = @(campaign, isSelected)
     onClick = isSelected ? null : @() selectedCampaign(campaign.id)
     padding = [0, smallOffset]
     valign = ALIGN_CENTER
-    color = bgColor(sf, isSelected)
+    fillColor = bgColor(sf, isSelected)
+    borderWidth = isSelected ? [0, 0, hdpx(4), 0] : 0
     children = mkText(loc(campaign.title), body_txt.__merge({
       color = txtColor(sf, isSelected)
     }))
@@ -90,8 +92,10 @@ let mkAllCampaignBtn = @(selCampaignWatch)
     return {
       onClick = @() selCampaignWatch(null)
       padding = [0, smallOffset]
+      watch = [selCampaignWatch]
       valign = ALIGN_CENTER
-      color = bgColor(sf, isSelected)
+      fillColor = bgColor(sf, isSelected)
+      borderWidth = isSelected ? [0, 0, hdpx(4), 0] : 0
       children = mkText(loc("menu/campaigns"), body_txt.__merge({
         color = txtColor(sf, isSelected)
       }))

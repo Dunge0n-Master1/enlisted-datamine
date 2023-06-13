@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { defTxtColor, titleTxtColor, disabledTxtColor, defBdColor, darkPanelBgColor, panelBgColor,
-  hoverPanelBgColor, fullTransparentBgColor, commonBtnHeight, midPadding, attentionTxtColor
+  hoverPanelBgColor, defSlotBgColor, fullTransparentBgColor, commonBtnHeight, midPadding,
+  attentionTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { fontLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 
@@ -16,13 +17,7 @@ let styles = freeze({
   notFoundHeader
   noteStyle
   rowHeight = commonBtnHeight
-  panelScreenOffset = [-hdpx(400), -hdpx(68)]
-
-  comboStyle = {
-    fillColor   = darkPanelBgColor
-    borderColor = defBdColor
-    color       = defTxtColor
-  }
+  panelScreenOffset = [hdpx(390), -hdpx(690)]
 
   textState = @(sf, isPrem) {
     padding = midPadding
@@ -43,10 +38,26 @@ let styles = freeze({
   }
 
   panelStyle = {
-    headerFillColor = panelBgColor
+    headerFillColor = defSlotBgColor
     headerTxtColor = defBdColor
     panelBgColor = fullTransparentBgColor
   }
+
+  defInputStyle = {
+    padding = [0, 0, 0, midPadding]
+    colors = {
+      textColor = defTxtColor
+      backGroundColor = defSlotBgColor
+    }
+  }.__update(fontLarge)
+
+  hoverInputStyle = {
+    padding = [0, 0, 0, midPadding]
+    colors = {
+      textColor = titleTxtColor,
+      backGroundColor = hoverPanelBgColor
+    }
+  }.__update(fontLarge)
 
 })
 

@@ -14,7 +14,7 @@ let textInput = require("%ui/components/textInput.nut")
 let spinnerList = require("%ui/components/spinnerList.nut")
 let { mkWindowHeader, txtColor } = require("eventModesPkg.nut")
 let textButton = require("%ui/components/textButton.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let spinner = require("%ui/components/spinner.nut")
 let { localGap, localPadding, rowHeight } = require("eventModeStyle.nut")
 let mkOptionRow = require("components/mkOptionRow.nut")
 let mkWindowTab = require("%enlist/components/mkWindowTab.nut")
@@ -61,6 +61,7 @@ let maxMissionsBlockWidth = maxWndWidth - campaignBlockWithPaddings
 let maxMissionsCardsPerRaw = ((maxMissionsBlockWidth + localGap) / (missionsCardWidth + localGap)).tointeger()
 let missionsBlockWidth = maxMissionsCardsPerRaw * (missionsCardWidth + localGap) - localGap
 let wndWidth = campaignBlockWithPaddings + missionsBlockWidth
+let waitingSpinner = spinner()
 
 let prevGenPlatform = isXboxOne ? "xbox"
   : isPS4 ? "sony"
@@ -665,8 +666,13 @@ let tabsData = {
 }
 
 let function switchTab(delta) {
-  let newIdx = curTabIdx.value + delta
-  if (newIdx >= 0 && newIdx < activeTabIds.value.len())
+  local newIdx = curTabIdx.value + delta
+  let len = activeTabIds.value.len()
+  if (newIdx > len-1)
+    newIdx = 0
+  else if (newIdx < 0)
+    newIdx = len-1
+  if (newIdx >= 0 && newIdx < len)
     curTabIdx(newIdx)
 }
 
@@ -710,7 +716,7 @@ let wndButtons= @() {
   vplace = ALIGN_BOTTOM
   valign = ALIGN_CENTER
   children = isEditInProgress.value
-    ? spinner
+    ? waitingSpinner
     : tabsData?[activeTabIds.value?[curTabIdx.value]].buttons
 }
 

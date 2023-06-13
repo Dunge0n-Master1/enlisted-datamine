@@ -64,6 +64,7 @@ def create_player(connid : int; name : das_string; uid : uint64; group_id : int6
     init |> set("userid", uid)
     init |> set("possessed", INVALID_ENTITY_ID)
     init |> set("groupId", group_id)
+    init |> set("wishGroupId", group_id)
     init |> set("origGroupId", orig_group_id)
     init |> set("platformUid", platform_uid)
     init |> set("platform", platform)

@@ -248,7 +248,7 @@ def enlisted_kill_award_es(evt : EventEntityDied;
       awardList |> add_vehicle_kill_awards(offender, victim_eid, crewForAssist, engineerForAssist)
       if !empty(vehicle_kill__stat)
         sendEvent(offender.player, [[OnScoringVehicleKillBySquadMember victim=victim_eid, offender=killerEid]])
-    else
+    elif isCountedAsKill
       awardList |> add_assists_for_kill(victim_eid, killerEid)
       if engineerForAssist.isValid
         awardList |> push_soldier_stat(engineerForAssist.player, engineerForAssist.guid, "builtGunKills")

@@ -1,6 +1,7 @@
 
 require FrameGraph
 require DagorShaders
+require DagorSystem
 require danetlibs/frame_graph_renderer/render/node_macro
 require danetlibs/renderer/includes/upscale_sampling
 require ecs
@@ -44,7 +45,7 @@ class UpscaleTexGenerationNode : FrameGraphNode
 struct OnRenderSettingsReady {}
 
 [es(on_event=OnRenderSettingsReady, track=render_settings__upscaleSamplingTex)]
-def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool)
+def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool; render_settings__bare_minimum : bool)
   if render_settings__upscaleSamplingTex
     createEntitySync("upscale_node")//we should create this entity sync, because framegraph requere to know about this node immediately
 
@@ -56,3 +57,5 @@ def init_upscale_node(evt : Event; render_settings__upscaleSamplingTex : bool)
     destroyEntity(getSingletonEntity("upscale_node"))
     // TODO: replace with FG-based shadervar tracking
     set_texture(upscale_sampling_texVarId, BAD_TEXTUREID)
+    if !render_settings__bare_minimum
+      logerr("upscale_node is mandatory for all presets except bare minimum")

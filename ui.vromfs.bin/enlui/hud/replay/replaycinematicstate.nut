@@ -140,7 +140,7 @@ ecs.register_es("ui_dof_track_es",
 ecs.register_es("ui_cinematic_mode_es",
   {
     [["onInit","onChange"]] = function(_eid, comp) {
-      motionBlur(comp.cinematic_mode__mb_scale)
+      motionBlur(comp.motion_blur__scale)
       bloomEffect(1.0 - comp.cinematic_mode__bloomThreshold)
       abberation(1.0 - comp.cinematic_mode__chromaticAberration.z)
       filmGrain(comp.cinematic_mode__filmGrain.x)
@@ -169,7 +169,7 @@ ecs.register_es("ui_cinematic_mode_es",
   {
     comps_track=[
       ["cinematic_mode__lenseFlareIntensity", ecs.TYPE_FLOAT],
-      ["cinematic_mode__mb_scale", ecs.TYPE_FLOAT],
+      ["motion_blur__scale", ecs.TYPE_FLOAT],
       ["cinematic_mode__bloomThreshold", ecs.TYPE_FLOAT],
       ["cinematic_mode__chromaticAberration", ecs.TYPE_POINT3],
       ["cinematic_mode__filmGrain", ecs.TYPE_POINT3],

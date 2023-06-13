@@ -320,6 +320,11 @@ repeat{
     treeName:t="sub.bombEscape"
   }
 
+  setIntVar{
+    to:t="coverAttack"
+    value:i=0
+  }
+
   orderedSelector{
     name:t="attack"
 
@@ -369,6 +374,10 @@ repeat{
             tag:t="human"
           }
 
+          getTime{
+            to:t="enemyNearTime"
+          }
+
           subTree{
             treeName:t="sub.oneShootAttack"
           }
@@ -395,24 +404,38 @@ repeat{
               resetable:b=yes
             }
 
-            sequencer{
+            success{
 
-              checkAtTime{
-                timeParam:t="rememberEnemyTime"
-                range:p2=0.0, 10.0
-              }
+              sequencer{
 
-              checkTarget{
-                targetUnitParam:t="rememberEnemy"
-              }
+                checkAtTime{
+                  timeParam:t="rememberEnemyTime"
+                  range:p2=0.0, 10.0
+                }
 
-              wanderLook{
-                posParam:t="rememberEnemyPos"
-                range:p2=0.2, 0.1
-                maxStanceParam:t="coverStance"
+                checkTarget{
+                  targetUnitParam:t="rememberEnemy"
+                }
+
+                wanderLook{
+                  posParam:t="rememberEnemyPos"
+                  range:p2=0.2, 0.1
+                  maxStanceParam:t="coverStance"
+                }
               }
             }
           }
+        }
+      }
+    }
+
+    failed{
+
+      sequencer{
+
+        decreaseDangerLevel{
+          paramName:t="dangerLevel"
+          decreaseCoef:r=0.5
         }
       }
     }

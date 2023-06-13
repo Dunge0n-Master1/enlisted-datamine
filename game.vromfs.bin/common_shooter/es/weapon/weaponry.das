@@ -504,6 +504,35 @@ def trace_scene_after_update_projectile_es(info : ParallelUpdateFrameDelayed;
       destroyEntity(eid)
       return
 
+
+[es(after=(trace_scene_after_update_projectile_es), REQUIRE_NOT=projectile__inactive)]
+def trace_scene_after_update_projectile_canopy_es(info : ParallelUpdateFrameDelayed;
+                                                  eid : EntityId;
+                                                  projectile__prevPos : float3;
+                                                  projectile_trace_info__dir : float3;
+                                                  projectile_trace_info__len : float;
+                                                  projectile__maxAllowedCanopyIntersectionsForFx : int;
+                                                  var projectile__canopyIntersectionCount : int&)
+  let canopyTraceThreshold = 0.01
+  if projectile__canopyIntersectionCount >= projectile__maxAllowedCanopyIntersectionsForFx || projectile_trace_info__len < canopyTraceThreshold
+    return
+
+  var t = projectile_trace_info__len
+  var transparency = 0.0
+  var pmid = -1
+  let res = traceTransparencyRayRIGenNormalized(projectile__prevPos, projectile_trace_info__dir, t, canopyTraceThreshold,
+    pmid, transparency, -1, /*trace_canopy*/true)
+
+  if res
+    projectile__canopyIntersectionCount += 1
+    //We send immediate event so that event handlers are executed in ParallelUpdateFrameDelayed
+    sendEventImmediate(eid,
+                       [[EventProjectileHitCanopy
+                         pos=projectile__prevPos + projectile_trace_info__dir * t,
+                         matId=pmid,
+                         norm=projectile_trace_info__dir]])
+
+
 def is_bullet_stoppable_by_water(launch_desc : LaunchDesc)
   var res = false
   shell_entity_get_props(int(launch_desc.shellId.shellId)) <| $(entProps : ShellEntityTypeProps)
@@ -527,6 +556,8 @@ def projectile_on_hit_scene(pos : float3;
                             ldesc : LaunchDesc;
                             ballistics_proj_props : ProjectileProps;
                             scene_hit_ricochet_stability : float;
+                            ricochet_angle_threshold : float;
+                            disable_ricochet_for_great_angles : bool;
                             var ballistics : ProjectileBallistics;
                             var proj_state : ProjectileState;
                             var vis_pos : float3&;
@@ -538,9 +569,7 @@ def projectile_on_hit_scene(pos : float3;
 
   phys_mat_damage_model_get_props(pmid) <| $(dmPhysProps : PhysMatDamageModelProps)
     let projectileSpeedThreshold = 10.0
-    let angleThreshold = 0.043619 //~2.5 degrees
     let derivationShift = 0.7 //0.5 - without derivation
-    let thresholdMass = 1.0
 
     var prevSpeed = length(ballistics.state.vel)
     let prevDir = ballistics.state.vel * safeinv(prevSpeed)
@@ -579,12 +608,9 @@ def projectile_on_hit_scene(pos : float3;
       let sinr = sini * (1.0 + (_frnd(seed) * angleMult))
       let newSpeed = (1.0 - sinr) * prevSpeed
 
-      var bulletBrokenProbability : float
-      if ballistics_proj_props.mass > thresholdMass && sini > angleThreshold
-        bulletBrokenProbability = 1.0
-      else
-        let speedToBroken = (sini < angleThreshold ? (prevSpeed - newSpeed) : newSpeed * angleMult)
-        bulletBrokenProbability = (speedToBroken / dmPhysProps.bulletBrokenThreshold)
+      let speedToBrokenForGreatAngles = (disable_ricochet_for_great_angles ? dmPhysProps.bulletBrokenThreshold : newSpeed * angleMult)
+      let speedToBroken = (sini < ricochet_angle_threshold ? prevSpeed - newSpeed : speedToBrokenForGreatAngles)
+      let bulletBrokenProbability = (speedToBroken / dmPhysProps.bulletBrokenThreshold)
 
       if (_frnd(seed) > bulletBrokenProbability
           && newSpeed > projectileSpeedThreshold
@@ -642,11 +668,14 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
                                    launch_desc : LaunchDesc;
                                    projectile_ballistics_props : ProjectileProps;
                                    projectile__prevPos : float3;
-                                   projectile__sceneHitRicochetStability : float = 0.0;
                                    var dm_projectile_state : ProjectileState;
                                    var projectile_ballistics : ProjectileBallistics;
                                    var projectile__visualPos : float3&;
-                                   var projectile__exploded : bool&)
+                                   var projectile__exploded : bool&;
+                                   projectile__ricochetAngleThreshold : float = 0.0872; //~5 degrees
+                                   projectile__sceneHitRicochetStability : float = 0.0;
+                                   disableRicochetForGreatAngles : Tag const?
+                                   )
     var damage = calc_kinetic_damage(int(launch_desc.shellId.shellId), projectile_dist)
     if damage < 1e-6
       let mass = projectile_ballistics_props.mass
@@ -675,7 +704,8 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
     let hitWater = water_len < len
     projectile_on_hit_scene(pos, pmid, norm, hitWater, launch_desc,
                             projectile_ballistics_props,
-                            projectile__sceneHitRicochetStability,
+                            projectile__sceneHitRicochetStability, projectile__ricochetAngleThreshold,
+                            disableRicochetForGreatAngles != null,
                             projectile_ballistics, dm_projectile_state,
                             projectile__visualPos, is_underwater, result)
 
@@ -691,7 +721,7 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
         projectile__exploded = true
       projectile_ballistics.state.pos = prev_pos + dir * water_len
 
-    let sceneIntersectionsExceeded = scene_intersections_count >= max_allowed_scene_intersections_for_fx
+    let sceneIntersectionsExceeded = scene_intersections_count > max_allowed_scene_intersections_for_fx
 
     sendEventImmediate(
       projectile_eid,
@@ -816,7 +846,7 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                                 dir, projectile_trace_info__waterLen,
                                                 info.curTime, projectile_trace_info__prevProjectileDistance,
                                                 sortedIntersectedList,
-                                                allowDetonation)
+                                                allowDetonation, true)
           if hitRes == ProjectileHitResult Ignore
             continue
           entitiesIntersected = true

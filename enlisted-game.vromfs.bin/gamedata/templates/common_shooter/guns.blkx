@@ -317,6 +317,25 @@ gun_anim{
   }
 }
 
+gun_reload{
+  gun_reload__isNextStateSelected:b=no
+  gun_reload__state:i=0
+  gun_reload__stateStartTime:r=-1.0
+  gun_reload__stateEndTime:r=-1.0
+
+  _group{
+    _replicate:b=yes
+    _track:b=yes
+    gun_reload__isReloading:b=no
+    gun_reload__shouldInterrupt:b=no
+  }
+
+  _group{
+    tags:t="gameClient"
+    gun_reload__stateAnimId:i=-1
+  }
+}
+
 stationary_gun{
   _extends:t="visual_gun_with_animchar_updatable"
   _extends:t="gun_sound_with_animchar"
@@ -403,6 +422,7 @@ equipable_gun{
   _extends:t="gun_overheat_speech_enable"
   _extends:t="gun_with_additional_head_angles"
   _extends:t="gun_anim"
+  _extends:t="gun_reload"
   weap__sprintLerpFactor:r=1.0
   weap__current_sight_preset:i=0
   _replicated:t="weap__current_sight_preset"
@@ -693,7 +713,7 @@ main_weap_slots{
 }
 
 gun_icon{
-  item__iconYaw:r=90.0
+  item__iconYaw:r=-90.0
 }
 
 melee_icon{
@@ -812,7 +832,7 @@ ramrod_grenade_launcher_gunmod{
 bayonet_gunmod{
   _extends:t="weapon_mod"
   melee_weapon__propsId:i=-1
-  item__iconYaw:r=90.0
+  item__iconYaw:r=-90.0
   item__iconRoll:r=-30.0
 
   "weaponMeleeMod:tag"{

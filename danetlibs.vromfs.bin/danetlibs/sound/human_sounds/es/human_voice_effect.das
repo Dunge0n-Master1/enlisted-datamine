@@ -8,18 +8,12 @@ require sound_utils.modules.sound_player_common
 require human_sounds.modules.human_voice_effect_common
 require human_sounds.modules.human_sounds_events
 require human_sounds_net.modules.human_sounds_net_events
+
 require strings
+require DagorSystem
 
 
-let MAX_NET_DELAY = 4.
-
-
-// have two oneshot descs("{name}Start", "{name}End") instead of one non-oneshot
-def is_combined_voice_effect(name : string; descs : Object)
-  return get_desc(descs, name) == null
-
-
-def get_human_voice_effect(active_effects : Object; all_ordered_effects : StringList) : string
+def get_effect(active_effects : Object; all_ordered_effects : StringList) : string
   for effect in all_ordered_effects
     if active_effects[string(effect)] ?? false
       return string(effect)
@@ -53,23 +47,47 @@ def human_voice_effect_on_change(evt : Event;
                                  [[shared_comp]] human_voice_sound__descs : Object;
                                  sound_tags : Object;
                                  transform : float3x4)
-  let effect = get_human_voice_effect(human_voice_effect__activeEffects, human_voice_effect__allOrderedEffects)
-  if effect != human_voice_effect__type
+
+  let newId = get_effect(human_voice_effect__activeEffects, human_voice_effect__allOrderedEffects)
+  let curId = string(human_voice_effect__type)
+
+  if newId != curId
     if !keyoff(human_voice_effect__event.handle)
       release(human_voice_effect__event.handle)
-    if empty(effect) && !empty(human_voice_effect__type) && is_combined_voice_effect(string(human_voice_effect__type), human_voice_sound__descs)
+
+    let curDesc = human_voice_sound__descs[curId] ?as Object
+    let newDesc = human_voice_sound__descs[newId] ?as Object
+    let curEndDesc = curDesc?.end ?as Object
+
+    if empty(newId) && curEndDesc != null
       if human_voice_effect__isInited
-        release(human_voice_effect__event.handle)
-        human_voice_effect__event.handle = play("{human_voice_effect__type}End", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
-    elif !empty(effect)
-      if is_combined_voice_effect(effect, human_voice_sound__descs)
-        if human_voice_effect__isInited
+        if newDesc?.abandoner != null
+          abandon(human_voice_effect__event.handle)
+        else
           release(human_voice_effect__event.handle)
-          human_voice_effect__event.handle = play("{effect}Start", human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
+        human_voice_effect__event.handle = play_desc(*curEndDesc, human_voice_sound__path, sound_tags, is_watched_sound, transform[3], false)
+    elif !empty(newId)
+      let newStartDesc = newDesc?.start ?as Object
+      if newStartDesc != null
+        if human_voice_effect__isInited
+          if newDesc?.abandoner != null
+            abandon(human_voice_effect__event.handle)
+          else
+            release(human_voice_effect__event.handle)
+          human_voice_effect__event.handle = play_desc(*newStartDesc, human_voice_sound__path, sound_tags, is_watched_sound, transform[3], false)
       else
-        release(human_voice_effect__event.handle)
-        human_voice_effect__event.handle = play(effect, human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
-    human_voice_effect__type := effect
+        if newDesc?.abandoner != null
+          abandon(human_voice_effect__event.handle)
+        else
+          release(human_voice_effect__event.handle)
+        if newDesc != null
+          human_voice_effect__event.handle = play_desc(*newDesc, human_voice_sound__path, sound_tags, is_watched_sound, transform[3], false)
+
+    let curToNew = newDesc?[curId] ?as Object
+    if curToNew != null
+      play_desc(*curToNew, human_voice_sound__path, sound_tags, is_watched_sound, transform[3])
+
+    human_voice_effect__type := newId
   human_voice_effect__isInited = true
   human_voice_effect__isActive = !empty(human_voice_effect__type) || human_voice_effect__event.handle != invalid_sound_event_handle()
 
@@ -99,7 +117,8 @@ def human_voice_effect_on_net_cmd(evt : CmdNetHumanVoiceEffect;
                                   is_watched_sound : bool = false;
                                   sound_tags : Object;
                                   transform : float3x4)
-  if !human_voice_effect__isActive && !human_speech__isSpeaking && get_sync_time() < evt.time + MAX_NET_DELAY
+  let maxDelay = 3.
+  if !human_voice_effect__isActive && !human_speech__isSpeaking && get_sync_time() < evt.time + maxDelay
     release(human_voice_effect__event.handle)
     human_voice_effect__event.handle = play(evt.phrase, human_voice_sound__path, human_voice_sound__descs, sound_tags, is_watched_sound, transform[3], false)
 

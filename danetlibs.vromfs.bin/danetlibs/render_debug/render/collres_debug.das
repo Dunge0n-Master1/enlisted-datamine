@@ -250,7 +250,7 @@ def draw_collres_node_debug(name : string; cam_itm, transform : float3x4; animch
   if geomCnt != 0
     "; geom_attached: {geomCnt}"
   add_debug_text_mark(markPos, name, -1, 0.0, E3DCOLOR(0xFF8FFF8F))
-  add_debug_text_mark(markPos, format("dist %.2fm; tm ", dist) + format_scale(transform), -1, 1.2, E3DCOLOR(0xFF8FFF8F))
+  add_debug_text_mark(markPos, format("dist %.2fm;", dist) + " node_mat: {node.physMatId} ({get_material_name(get_material(int(node.physMatId)))}); tm " + format_scale(transform), -1, 1.2, E3DCOLOR(0xFF8FFF8F))
   add_debug_text_mark(markPos, "Selected " + get_node_info(node), -1, 2.4, E3DCOLOR(0xFF8FFF8F))
   add_debug_text_mark(markPos, nodesText, -1, 3.6, E3DCOLOR(0xFF8FFF8F))
   if noteType != 0

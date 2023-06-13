@@ -1,8 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
-let { setCurSection, mainSectionId, jumpToArmyProgress
-} = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { soldiersBySquad, squadsByArmy, chosenSquadsByArmy, vehicleBySquad, limitsByArmy,
   armyLimitsDefault, curArmy, lockedSquadsByArmy
 } = require("state.nut")
@@ -20,7 +19,7 @@ let { addPopup } = require("%enlSqGlob/ui/popup/popupsState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
-let { curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
+let { curCampaignAccessItem, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 
 
 let justGainSquadId = Watched(null)
@@ -60,7 +59,8 @@ let curArmyLockedSquadsData = Computed(function() {
   let armyId = curArmy.value
   let unlocks = allArmyUnlocks.value ?? []
   let armyPremIcon = armiesPresentation?[armyId].premIcon
-  let campaignSquads = curCampaignAccessItem.value?.squads ?? []
+  let campaignSquads = (curCampaignAccessItem.value?.squads ?? [])
+    .reduce(@(tbl, s) tbl.rawset(s.id, true), {})
   let squads = (lockedSquadsByArmy.value?[armyId] ?? [])
     .map(function(squad) {
       let { squadId } = squad
@@ -69,7 +69,7 @@ let curArmyLockedSquadsData = Computed(function() {
       local { premIcon = null } = squadsPresentation?[armyId][squadId]
       if (isPremium)
         premIcon = premIcon ?? armyPremIcon
-      let isInCampaign = campaignSquads.findvalue(@(sq) sq.id == squadId) != null
+      let isInCampaign = squadId in campaignSquads
       let unlock = unlocks.findvalue(function(u) {
         if (u?.unlockId == squadId)
           return true
@@ -83,10 +83,11 @@ let curArmyLockedSquadsData = Computed(function() {
         shopItem = unlock
       }
     })
-    .filter(@(s) s?.shopItem != null || s.isInCampaign)
-    .sort(@(a, b) ( (b.isInCampaign <=> a.isInCampaign)
+    .filter(@(s) (!s.isInCampaign && s.shopItem != null)
+      || (s.isInCampaign && isCampaignBought.value))
+    .sort(@(a, b) (b.isInCampaign <=> a.isInCampaign)
       || (b.isPremium <=> a.isPremium)
-      ||  (a?.shopItem?.level ?? 0) <=> (b?.shopItem?.level ?? 0)))
+      || (a.shopItem?.level ?? 0) <=> (b.shopItem?.level ?? 0))
   return squads
 })
 
@@ -359,7 +360,6 @@ let function applyAndCloseImpl() {
   let ids = unlockedSquads.value.filter(@(s) s != null).map(@(s) s.squadId)
   markSeenSquads(armyId, ids)
   set_squad_order(armyId, guids)
-  setCurSection(mainSectionId)
   close()
 }
 

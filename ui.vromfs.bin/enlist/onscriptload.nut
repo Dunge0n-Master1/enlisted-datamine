@@ -8,7 +8,6 @@ require("currency/currenciesList.nut")
 require("sections.nut")
 require("scene/scene_control.nut")
 require("campaigns/selectCampaignArmyScene.nut")
-require("meta/profileServer.nut")
 require("meta/profileRefresh.nut")
 require("meta/dumpStats.nut")
 require("%enlist/soldiers/model/configArmiesDump.nut")
@@ -33,32 +32,13 @@ require("squad/myExtData.nut")
 require("soldiers/choosePerkWnd.nut")
 require("%enlist/currency/initPurchaseActions.nut")
 
-let { isNewDesign, setToggleDesign } = require("%enlSqGlob/designState.nut")
-if (isNewDesign.value) {
-  require("%enlist/soldiers/armyProgressScene.nut")
-  require("%enlist/squadmanagement/chooseSquadScene.nut")
-  require("soldiers/soldiersManagementScene.nut")
-  require("soldiers/itemsManagementScene.nut")
-}
-else {
-  require("%enlist/tutorial/tutorialWnd.nut")
-  require("soldiers/chooseSquadsScene.nut")
-  require("soldiers/chooseSoldiersScene.nut")
-  require("%enlist/tutorial/ordersTutorial.nut")
-  require("%enlist/tutorial/squadTutorialsMsg.nut")
-  require("%enlist/tutorial/newSquadByArmyLevelTutorial.nut")
-  require("soldiers/selectItemScene.nut")
-}
-
-
-// Set toggle design option at main menu by user permissions
-let { get_circuit } = require("app")
-let { DBGLEVEL } = require("dagor.system")
-let isDebug = DBGLEVEL > 0 || ["moon","sun","ganymede","yueliang"].contains(get_circuit())
-let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
-let permToggleDesign = hasClientPermission("debug_redesign")
-permToggleDesign.subscribe(@(v) setToggleDesign(v || isDebug))
-setToggleDesign(permToggleDesign.value || isDebug)
+require("%enlist/tutorial/tutorialWnd.nut")
+require("soldiers/chooseSquadsScene.nut")
+require("soldiers/chooseSoldiersScene.nut")
+require("%enlist/tutorial/ordersTutorial.nut")
+require("%enlist/tutorial/squadTutorialsMsg.nut")
+require("%enlist/tutorial/newSquadByArmyLevelTutorial.nut")
+require("soldiers/selectItemScene.nut")
 
 
 require("soldiers/notReadySquadsMsg.nut")
@@ -91,7 +71,7 @@ require("%enlist/tutorial/armyUnlocksVideoHint.nut")
 require("notifications/benchmarkNotification.nut")
 require("%enlist/preset/presetEquipUtils.nut")
 
-let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu_state.nut")
+let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
 let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
@@ -132,9 +112,7 @@ menuTabsOrder([
 require("%enlist/squad/squadState.nut").autoSquad(null)
 require("backgroundContentUpdater.nut")
 
-let quickMatchQueueInfoCmp = isNewDesign.value
-  ? require("queueWaitingBlock.nut")
-  : require("queueWaitingInfo.ui.nut")
+let quickMatchQueueInfoCmp = require("queueWaitingInfo.ui.nut")
 let {aboveUiLayer} = require("%enlist/uiLayers.nut")
 aboveUiLayer.add(quickMatchQueueInfoCmp, "quickMatchQueue")
 

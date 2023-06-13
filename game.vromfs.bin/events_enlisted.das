@@ -968,3 +968,18 @@ struct EventControlsMenuToggle
 
 [event(unicast)]
 struct CmdUpdateCameraByVehicleType {}
+
+[event(unicast)]
+struct CmdStartNextReloadState {}
+
+[event(broadcast)]
+struct CmdReplayRewind
+  time : int
+
+[event(broadcast)]
+struct CmdReplayRewindSaveState
+  state : ecs::Object const?
+
+[event(broadcast)]
+struct CmdReplayRewindLoadState
+  state : ecs::Object const?

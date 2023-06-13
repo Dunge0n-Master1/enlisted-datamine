@@ -3,9 +3,10 @@ from "%enlSqGlob/ui_library.nut" import *
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let {
-  mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage, mkPremiumSquadXpImage,
+  mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage,
   mkBoosterXpImage, mkFreemiumXpImage
 } = require("%enlist/debriefing/components/mkXpImage.nut")
+
 
 let multiplySign = "\u00D7"
 let awardPositiveColor = Color(252, 186, 3, 255)
@@ -53,6 +54,25 @@ let mkValueWithIcon = @(value, icon) {
 }
 
 
+let function mkPremSquadXpImage(size, override = {}) {
+  return function() {
+    let iSize = size
+    return {
+      size = [size, size]
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      children = [
+        {
+          rendObj = ROBJ_IMAGE
+          size = [iSize, iSize]
+          image = Picture($"!ui/skin#premium/prem_squad_debrif_icon.svg:{iSize}:{iSize}:K")
+        }
+      ]
+    }.__update(override)
+  }
+}
+
+
 let tooltipIconSize = hdpx(20)
 
 let function getSquadExpDetailed(info) {
@@ -67,7 +87,6 @@ let function getSquadExpDetailed(info) {
     premAccountBonus = 0,
     premSquadBonus = 0,
     freemMult = 1.0,
-    armyId = null,
     isDeserter = false
   } = info
 
@@ -110,7 +129,7 @@ let function getSquadExpDetailed(info) {
     ? null
     : mkValueWithIcon(
         $"+{premSquadBonus}",
-        mkPremiumSquadXpImage(tooltipIconSize, armyId))
+        mkPremSquadXpImage(tooltipIconSize))
   let playerCountMultIcon = playerCountMult == 1.0
     ? null
     : mkValueWithIcon(
@@ -216,4 +235,5 @@ return {
   mkArmyBaseExpTooltip
   mkArmyPremiumExpTooltip
   mkArmyResultExpTooltip
+  mkPremSquadXpImage
 }

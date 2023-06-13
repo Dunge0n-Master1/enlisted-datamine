@@ -15,12 +15,10 @@ let {DBGLEVEL} = require("dagor.system")
 let {sendNetEvent, RequestSuicide, CmdSwitchSquad, CmdGetDebriefingResult, CmdGetBattleResult} = require("dasevents")
 let {get_controlled_hero, find_local_player} = require("%dngscripts/common_queries.nut")
 let allowChangeSquad = require("%ui/hud/state/allow_squad_change.nut")
-let { btnResume, btnOptions, btnBindKeys, btnToggleDesign
-} = require("%ui/hud/menus/game_menu_items.nut")
+let { btnResume, btnOptions, btnBindKeys} = require("%ui/hud/menus/game_menu_items.nut")
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { canShowReplayHud } = require("%ui/hud/replay/replayState.nut")
 let { isCinemaRecording, setCinemaRecording } = require("%ui/hud/replay/replayCinematicState.nut")
-let { isNewDesign, hasToggleDesign } = require("%enlSqGlob/designState.nut")
 
 
 let showSuicideMenu = mkWatched(persist, "showSuicideMenu", false)
@@ -144,14 +142,12 @@ let function setEnlistedMenuItems() {
     (DBGLEVEL > 0 || is_sony) && !isReplay.value ? btnPlayersInSession : null,
     isReplay.value ? null : btnBriefing,
     needAddReplayHudBtn.value ? btnShowReplayHud : null,
-    hasToggleDesign.value ? btnToggleDesign : null,
     isReplay.value ? btnExitReplay : btnExitGame
   ])
 }
 
 setEnlistedMenuItems()
-foreach (option in [allowChangeSquad, isReplay, needAddReplayHudBtn, isCinemaRecording,
-    hasToggleDesign, isNewDesign])
+foreach (option in [allowChangeSquad, isReplay, needAddReplayHudBtn, isCinemaRecording])
   option.subscribe(@(_) setEnlistedMenuItems())
 
 

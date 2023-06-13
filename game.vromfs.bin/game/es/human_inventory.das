@@ -10,6 +10,7 @@ require DagorMathUtils
 require AnimV20
 require game.es.action_common
 require game.es.inventory_common
+require common_shooter.es.human_weap_common
 require game.es.events
 require game.events_game
 require common_shooter.events_common_shooter
@@ -86,3 +87,45 @@ def human_inventory_pickup_es(evt : CmdInventoryPickup; eid : EntityId)
     send_net_event(eid, [[CmdInventoryPickupGunMod item=itemEid]])
     return
   pickup_item_ex(eid, itemEid, evt.usefulOnly)
+
+
+[es(REQUIRE=(human_inventory, human_weap))]
+def human_inventory_drop_gun_es_event_handler(evt : CmdInventoryDropGun; eid : EntityId)
+  if evt.slotId < 0
+    return
+  drop_weap_from_slot2(eid, get_human_weapon_slot_name(evt.slotId))
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_drop_weap_request_es_event_handler(evt : HumanDropWeapRequest; eid : EntityId)
+  drop_weap_from_slot_impl2(eid, evt.slotId, true, false)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_pickup_weap_request_es_event_handler(evt : HumanPickupWeapRequest; eid : EntityId)
+  pickup_item_to_weap_slot_impl2(eid, evt.itemEid, evt.slotId)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_install_item_on_weap_request_es_event_handler(evt : HumanInstallItemOnWeapRequest; eid : EntityId)
+  install_item_on_weap_impl2(eid, evt.itemEid, evt.slotId, evt.slotName)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_pickup_and_install_item_on_weap_request_es_event_handler(evt : HumanPickupAndInstallItemOnWeapRequest; eid : EntityId)
+  pickup_and_install_item_on_weap_impl2(eid, evt.itemEid, evt.slotId, evt.slotName)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_remove_item_from_weap_request_es_event_handler(evt : HumanRemoveItemFromWeapRequest; eid : EntityId)
+  remove_item_from_weap_impl2(eid, evt.slotId, evt.slotName, evt.toGround)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_swap_weap_request_es_event_handler(evt : HumanSwapWeapRequest; eid : EntityId)
+  swap_weapons_in_slots2(eid, evt.fromSlotId, evt.toSlotId)
+
+
+[es(tag=server, REQUIRE=human_inventory)]
+def human_swap_weapon_mods_request_es_event_handler(evt : HumanSwapWeaponModsRequest; eid : EntityId)
+  swap_weapon_mods_impl2(eid, evt.fromSlotId, evt.fromWeapModSlot, evt.toSlotId, evt.toWeapModSlot)

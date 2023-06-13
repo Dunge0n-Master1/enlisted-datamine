@@ -63,10 +63,6 @@ def track_turret_input(evt : Event; vehicle__localControls : VehicleControlsStat
         if firstTurretInput != null
           removeSubTemplate(turretEid, "first_turret")
 
-[es(tag=input, on_appear)]
-def turret_init_zoom(evt : Event; turret_input__minZoom : float; var turret_input__zoom : float&)
-  turret_input__zoom = turret_input__minZoom
-
 [es(tag=input, REQUIRE=input__enabled)]
 def turret_update_turret_aim_point(info : ParallelUpdateFrameDelayed;
                                    turret_control__gunEids : EidList;
@@ -113,6 +109,7 @@ def turret_camera_look_dir_es(info : ParallelUpdateFrameDelayed;
 [es(tag=input, REQUIRE=heroVehicle, before=turret_aim_angles_to_look_dir_es)]
 def human_vehicle_lock_turrets_input_es(evt : ParallelUpdateFrameDelayed;
                                         turret_control__gunEids : EidList;
+                                        cockpit__eid : EntityId = INVALID_ENTITY_ID;
                                         vehicle_look__lockAllTurrentControll : bool = false;
                                         var turret_control__isInputLocked : bool&)
   query() <| $ [es(REQUIRE=hero)] (human_input__look : int;
@@ -120,10 +117,11 @@ def human_vehicle_lock_turrets_input_es(evt : ParallelUpdateFrameDelayed;
                                    human_vehicle__occupiedSeatEid : EntityId;
                                    human_vehicle__isShootingPassenger : bool)
     let asLook = get_analog_stick_action_state(uint16(human_input__look))
+    let isPeriscope = get_bool(cockpit__eid, "cockpit__isPeriscope") ?? false
     query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__availableHatchControls : VehicleControlsState;
                                                      seat__isHatchControlInversed : bool = false)
       let isInHatch = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ^^ seat__isHatchControlInversed
-      let isFreeLook = asLook.bActive && isInHatch
+      let isFreeLook = asLook.bActive && (isInHatch || isPeriscope)
       let isLocalControlLocked = isFreeLook || human_vehicle__isShootingPassenger
       let needLockAllTurrets = vehicle_look__lockAllTurrentControll || human_vehicle__isShootingPassenger
       if turret_control__isInputLocked == isLocalControlLocked
@@ -177,43 +175,6 @@ def turret_aim_angles_to_look_dir_es(info : ParallelUpdateFrameDelayed;
         ct |> human_control_state_set_wish_shoot_dir(wishDir)
         ct |> human_control_state_set_wish_look_dir(wishDir)
         return true
-
-[es(on_disappear, after=turret_zoom_es, tag=gameClient)]
-def turret_input_reset_magnification_es(evt : Event; turret_input__minZoom : float)
-  query() <| $ [es] (var camera__magnification : float&)
-    camera__magnification = turret_input__minZoom
-
-[es(tag=gameClient, REQUIRE=heroVehicle, before=shooter_cam_update_tm_es, after=human_optics_camera_es)]
-def turret_zoom_es(info : ParallelUpdateFrameDelayed;
-                   turret_control__gunEids : EidList;
-                   vehicleCameraType : int;
-                   cockpit__zoomOutFov : float const?;
-                   cockpit__zoomInFov : float const?)
-  let dt = info.dt
-  query() <| $ [es] (camera__target : EntityId)
-    query(camera__target) <| $ [es] (human_weap__currentGunEid : EntityId = INVALID_ENTITY_ID;
-                                     human_vehicle__isHoldingGunPassenger : bool = false;
-                                     var camera__magnification : float&;
-                                     var camera__zoomPos : float&)
-      for gunEid in turret_control__gunEids
-        query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret_input__minZoom : float;
-                                                                             turret_input__maxZoom : float;
-                                                                             turret_input__isZoom : bool;
-                                                                             var turret_input__zoom : float&)
-          let isZoom = turret_input__isZoom
-          let zoomOutFov = cockpit__zoomOutFov ?? turret_input__minZoom
-          let zoomInFov = cockpit__zoomInFov ?? turret_input__maxZoom
-          assume zoom = turret_input__zoom
-          let zoomPos = move_to(camera__zoomPos, isZoom ? 1.0 : 0.0, dt, 5.0)
-          zoom = (int(VehicleCameraType VEHICLE_CAMERA_GUNNER) == vehicleCameraType ?
-            lerp(zoomOutFov, zoomInFov, zoomPos) :
-            lerp(turret_input__minZoom, turret_input__maxZoom, zoomPos))
-
-          let human_gun_attached = get_bool(human_weap__currentGunEid, "human_gun_attached") ?? false
-          if !human_gun_attached && !human_vehicle__isHoldingGunPassenger
-            camera__magnification = zoom
-            camera__zoomPos = zoomPos
-
 
 def get_action_state_or(action : uint16; default_value : bool)
   let isTouchPressed = is_button_pressed(action)

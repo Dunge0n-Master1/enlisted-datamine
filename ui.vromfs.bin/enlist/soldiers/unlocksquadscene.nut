@@ -25,13 +25,14 @@ let { curArmySquadsUnlocks, curUnlockedSquadId, curArmyNextUnlockLevel,
 let colorize = require("%ui/components/colorize.nut")
 let { isTestDriveProfileInProgress, startSquadTestDrive
 } = require("%enlist/battleData/testDrive.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = btnSizeBig[1] })
+let spinner = require("%ui/components/spinner.nut")
 let { CAMPAIGN_NONE, isCampaignBought, disableArmyExp
 } = require("%enlist/campaigns/campaignConfig.nut")
 
 let viewData = Watched(null)
 let isUnlockSquadSceneVisible = Watched(false)
 let btnBlockHeight = hdpx(150)
+let waitingSpinner = spinner(btnSizeBig[1]/2)
 
 let open = kwarg(
   function (armyId, unlockInfo, squadCfg, squad = null, isNewSquad = false) {
@@ -91,7 +92,7 @@ let mkTestDriveButton = @(armyId, squadId) @() {
   watch = isTestDriveProfileInProgress
   size = btnSizeBig
   halign = ALIGN_CENTER
-  children = isTestDriveProfileInProgress.value ? spinner
+  children = isTestDriveProfileInProgress.value ? waitingSpinner
     : Bordered(loc("testDrive/squad"), @() startSquadTestDrive(armyId, squadId), {
         size = btnSizeBig
         margin = 0

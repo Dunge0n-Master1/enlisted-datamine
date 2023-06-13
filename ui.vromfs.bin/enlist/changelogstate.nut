@@ -7,12 +7,13 @@ let { mkVersionFromString, versionToInt } = require("%sqstd/version.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let eventbus = require("eventbus")
 let http = require("dagor.http")
-let json = require("json")
+let { parse_json } = require("json")
 let { exe_version } = require("%dngscripts/appInfo.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
 let { getPlatformId, getLanguageId } = require("httpPkg.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { maxVersionInt } = require("%enlSqGlob/client_version.nut")
+let { isStringInteger } = require("%sqstd/string.nut")
 
 let changelogDisabled = get_setting_by_blk_path("disableChangelog") ?? false
 
@@ -49,7 +50,8 @@ const PatchnoteIds = "PatchnoteIds"
 let lastSeenVersionIdState = Computed(function() {
   if (!onlineSettingUpdated.value)
     return -1
-  return settings.value?[SAVE_ID] ?? 0
+  let val = settings.value?[SAVE_ID]
+  return isStringInteger(val) ? val.tointeger() : 0
 })
 
 let chosenPatchnote = Watched(null)
@@ -136,14 +138,14 @@ let function filterVersions(vers){
 
 let function processPatchnotesList(response) {
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != http.HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("changelog_receive_errors", 1, { http_code, stage = "get_versions" })
     return
   }
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 
@@ -225,13 +227,13 @@ let function setPatchnoteResult(result){
 
 let function cachePatchnote(response) {
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != http.HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("changelog_receive_errors", 1, { http_code, stage = "get_patchnote" })
   }
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 

@@ -85,6 +85,8 @@ let seenUnlocks = Computed(function() {
 let hasUnopenedAchievements = Computed(@()
   (seenUnlocks.value?.unopenedAchievements ?? {}).len() > 0)
 
+let hasWeeklyTasks = Computed(@() weeklyTasks.value.len() > 0)
+
 let hasUnopenedWeeklyTasks = Computed(@()
   (seenUnlocks.value?.unopenedWeeklyTasks ?? {}).len() > 0)
 
@@ -116,6 +118,7 @@ return {
   markUnlockSeen
   markUnlocksOpened
   hasUnopenedAchievements
+  hasWeeklyTasks
   hasUnopenedWeeklyTasks
   hasUnseenWeeklyTasks
 }

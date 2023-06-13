@@ -8,16 +8,6 @@ let { slotBaseSize, smallPadding, bigPadding, blurBgColor, blurBgFillColor
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 
-let blockWithHeader = @(header, content, size) {
-  flow = FLOW_VERTICAL
-  gap = smallPadding
-  size = size
-  children = [
-    header ? note(header) : null
-    content
-  ]
-}
-
 let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
   canDeselect = true, addCardChild = null, isFreemiumMode = false, thresholdColor = 0,
   soldiersReadyWatch = Watched(null), defSoldierGuidWatch = Watched(null),
@@ -42,7 +32,6 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
     let chContent = {
       xmbNode = XmbNode()
       vplace = ALIGN_CENTER
-      padding = [smallPadding, 0]
       children = mkSoldierCard({
         soldierInfo = soldier
         expToLevel = expToLevelWatch.value
@@ -94,7 +83,6 @@ let function mkSoldiersBlock(params) {
       mkSoldierSlot(params.__merge({ soldier, idx, addCardChild }), KWARG_NON_STRICT))
 
     if (unitsInVehicle < soldiers.len()) {
-      children.append(note(loc("menu/soldier")))
       children.extend(soldiers.slice(unitsInVehicle).map(@(soldier, idx)
         mkSoldierSlot(params.__merge({ soldier, idx = idx + unitsInVehicle, addCardChild }),
           KWARG_NON_STRICT)))
@@ -105,6 +93,7 @@ let function mkSoldiersBlock(params) {
       size = [slotBaseSize[0], SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
+      gap = bigPadding
       onClick = function() {
         if (params?.canDeselect ?? false)
           curSoldierIdxWatch(null)
@@ -114,36 +103,35 @@ let function mkSoldiersBlock(params) {
   }
 }
 
-let function mkVehicleBlock(hasVehicleWatch, curVehicleUi) {
-  return function() {
-    let res = { watch = hasVehicleWatch }
-    if (!hasVehicleWatch.value)
-      return res
+let mkVehicleBlock = @(hasVehicleWatch, curVehicleUi) function() {
+  let res = { watch = hasVehicleWatch }
+  if (!hasVehicleWatch.value)
+    return res
 
-    return res.__update({
+  return res.__update({
+    size = [flex(), SIZE_TO_CONTENT]
+    margin = [0, 0, bigPadding, 0]
+    children = {
+      flow = FLOW_VERTICAL
+      gap = smallPadding
       size = [flex(), SIZE_TO_CONTENT]
-      margin = [0, 0, bigPadding, 0]
-      children = blockWithHeader(loc("menu/vehicle"), curVehicleUi, [flex(), SIZE_TO_CONTENT])
-    })
-  }
+      children = curVehicleUi
+    }
+  })
 }
 
-let soldiersListStyle = {
+let mkMainSoldiersBlock = @(params) {
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor
-  padding = bigPadding
   flow = FLOW_VERTICAL
-}
-
-let mkMainSoldiersBlock = @(params) soldiersListStyle.__merge({
-  size = [SIZE_TO_CONTENT, flex()]
+  size = [slotBaseSize[0], flex()]
   children = [
     params?.headerBlock
     "hasVehicleWatch" in params ? mkVehicleBlock(params.hasVehicleWatch, params.curVehicleUi) : null
     makeVertScroll(mkSoldiersBlock(params), { size = [SIZE_TO_CONTENT, flex()], styling = thinStyle })
     params?.bottomObj
   ]
-})
+}
 
 return mkMainSoldiersBlock

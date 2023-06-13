@@ -26,8 +26,6 @@ let { soundDefault } = require("%ui/components/textButton.nut")
 
 
 let unseenIcon = blinkUnseenIcon(0.7)
-let restSquadsCount = Computed(@()
-  max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
 
 let mkManageAlert = @(guid) mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
   needSoldiersManageBySquad.value?[guid] ?? false))
@@ -43,22 +41,6 @@ let mkUnseenAlert = @(guid) mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
 let mkPerksAlert = @(squadId) mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
   (notChoosenPerkSquads.value?[curArmy.value][squadId] ?? 0) > 0))
 
-let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
-  .map(@(squad) squad.__merge({
-    addChild = @() { //function need only to notcreate computed direct in computed. Maybe it will be allowed in future
-      flow = FLOW_HORIZONTAL
-      hplace = ALIGN_RIGHT
-      valign = ALIGN_CENTER
-      children = [
-        mkManageAlert(squad.guid)
-        mkUnseenAlert(squad.guid)
-        mkPerksAlert(squad.squadId)
-      ]
-    }
-    level = allSquadsLevels.value?[squad.squadId] ?? 0
-  })))
-
-
 let managementIcon = @(sf, sizeArr = [hdpx(40), hdpx(20)]) {
   rendObj = ROBJ_IMAGE
   size = sizeArr
@@ -67,7 +49,20 @@ let managementIcon = @(sf, sizeArr = [hdpx(40), hdpx(20)]) {
   color = txtColor(sf)
 }
 
-let unseeSquadsIcon = @() {
+let function mkSlotAlertsComponent(squad){
+  return @() {
+    flow = FLOW_HORIZONTAL
+    hplace = ALIGN_RIGHT
+    valign = ALIGN_CENTER
+    children = [
+      mkManageAlert(squad.guid)
+      mkUnseenAlert(squad.guid)
+      mkPerksAlert(squad.squadId)
+    ]
+  }
+}
+
+let unseenSquadsIcon = @() {
   watch = [unseenSquads, curArmy]
   hplace = ALIGN_RIGHT
   children = (unseenSquads.value?[curArmy.value] ?? {}).findindex(@(v) v)
@@ -75,55 +70,81 @@ let unseeSquadsIcon = @() {
     : null
 }
 
-let squadManageButtonStateFlags = Watched(0)
-let squadManageButton = watchElemState(function(sf) {
-  let rest = restSquadsCount.value
-  return {
-    watch = [restSquadsCount, armySlotDiscount]
-    rendObj = ROBJ_SOLID
-    size = [multySquadPanelSize[0], SIZE_TO_CONTENT]
-    minHeight = (multySquadPanelSize[1] * 0.5).tointeger()
-    margin = [bigGap, 0, 0, 0]
-    padding = smallPadding
-    gap = smallPadding
-    behavior = Behaviors.Button
-    xmbNode = XmbNode()
-    color = squadBgColor(sf, false)
-    onClick = @() openChooseSquadsWnd(curArmy.value, curSquadId.value)
-    onDetach = @() squadManageButtonStateFlags(0)
-    flow = FLOW_VERTICAL
-    halign = ALIGN_CENTER
-    valign = ALIGN_CENTER
-    sound = soundDefault
-    children = [
-      {
-        flow = FLOW_HORIZONTAL
-        halign = ALIGN_CENTER
-        valign = ALIGN_CENTER
-        children = [
-          {
-            flow = FLOW_HORIZONTAL
-            gap = hdpx(2)
-            children = managementIcon(sf, [hdpx(45), hdpx(30)])
-          }
-          rest < 1 ? null : {
-            rendObj = ROBJ_TEXT
-            color = txtColor(sf)
-            text = $"+{rest}"
-            padding = smallPadding
-          }.__update(body_txt)
-          unseeSquadsIcon
-        ]
-      }
-      armySlotDiscount.value <= 0 ? null : mkNotifierBlink(loc("shop/discount",
-        { percents = armySlotDiscount.value }), {}, { color = 0xffff313b })
-    ]
-  }
-}, {stateFlags = squadManageButtonStateFlags})
+let function mkSquadManagementBtn(restSquadsCount=null, size = null, margin = null ){
+  let squadManageButtonStateFlags = Watched(0)
 
-return mkCurSquadsList({
-  curSquadsList
-  curSquadId
-  setCurSquadId
-  addedObj = squadManageButton
-})
+  let squadManageButton = watchElemState(function(sf) {
+    let rest = restSquadsCount?.value ?? 0
+    return {
+      watch = [restSquadsCount, armySlotDiscount]
+      rendObj = ROBJ_SOLID
+      size = size ?? [multySquadPanelSize[0], SIZE_TO_CONTENT]
+      minHeight = (multySquadPanelSize[1] * 0.5).tointeger()
+      margin = margin ?? [bigGap, 0, 0, 0]
+      padding = smallPadding
+      gap = smallPadding
+      behavior = Behaviors.Button
+      xmbNode = XmbNode()
+      color = squadBgColor(sf, false)
+      onClick = @() openChooseSquadsWnd(curArmy.value, curSquadId.value)
+      onDetach = @() squadManageButtonStateFlags(0)
+      flow = FLOW_VERTICAL
+      halign = ALIGN_CENTER
+      valign = ALIGN_CENTER
+      sound = soundDefault
+      children = [
+        {
+          flow = FLOW_HORIZONTAL
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          children = [
+            {
+              flow = FLOW_HORIZONTAL
+              gap = hdpx(2)
+              children = managementIcon(sf, [hdpx(45), hdpx(30)])
+            }
+            rest < 1 ? null : {
+              rendObj = ROBJ_TEXT
+              color = txtColor(sf)
+              text = $"+{rest}"
+              padding = smallPadding
+            }.__update(body_txt)
+            unseenSquadsIcon
+          ]
+        }
+        armySlotDiscount.value <= 0 ? null : mkNotifierBlink(loc("shop/discount",
+          { percents = armySlotDiscount.value }), {}, { color = 0xffff313b })
+      ]
+    }
+  }, {stateFlags = squadManageButtonStateFlags})
+  return squadManageButton
+}
+
+let function mkSquadsList() {
+  let restSquadsCount = Computed(@()
+    max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
+
+  let squadManageButton = mkSquadManagementBtn(restSquadsCount)
+
+  let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
+    .map(@(squad) squad.__merge({
+      addChild = mkSlotAlertsComponent(squad)
+      level = allSquadsLevels.value?[squad.squadId] ?? 0
+    })))
+
+
+
+  return mkCurSquadsList({
+    curSquadsList
+    curSquadId
+    setCurSquadId
+    addedObj = squadManageButton
+  })
+}
+return {
+  mkSquadsList
+  mkSlotAlertsComponent
+  openChooseSquadsWnd
+  managementIcon
+  mkSquadManagementBtn = kwarg(mkSquadManagementBtn)
+}

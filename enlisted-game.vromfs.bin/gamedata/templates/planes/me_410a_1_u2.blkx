@@ -468,7 +468,7 @@ base_me_410a_1_u2_20mm_mg15120{
   gun__shotFreq:r=11.66
   gun__locName:t="cannonmg15120"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=350
+  gun__maxAmmo:i=300
 
   "gun__firingModes:array"{
 
@@ -482,7 +482,7 @@ base_me_410a_1_u2_20mm_mg15120{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=350
+    ammo:i=300
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -576,7 +576,7 @@ planegun_me_410a_1_u2_20mm_mg15120_01{
   _extends:t="base_me_410a_1_u2_20mm_mg15120"
   _extends:t="gunsound_20mm_mg15120_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=350
+  gun__maxAmmo:i=300
 }
 
 planegun_me_410a_1_u2_20mm_mg15120_02{
@@ -585,7 +585,7 @@ planegun_me_410a_1_u2_20mm_mg15120_02{
   _extends:t="base_me_410a_1_u2_20mm_mg15120"
   _extends:t="gunsound_20mm_mg15120_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=350
+  gun__maxAmmo:i=300
 }
 
 planegun_me_410a_1_u2_20mm_mg15120_03{
@@ -594,7 +594,7 @@ planegun_me_410a_1_u2_20mm_mg15120_03{
   _extends:t="base_me_410a_1_u2_20mm_mg15120"
   _extends:t="gunsound_20mm_mg15120_aircraft"
   gun__shootNodeName:t="flare7"
-  gun__maxAmmo:i=250
+  gun__maxAmmo:i=300
 }
 
 planegun_me_410a_1_u2_20mm_mg15120_04{
@@ -603,7 +603,7 @@ planegun_me_410a_1_u2_20mm_mg15120_04{
   _extends:t="base_me_410a_1_u2_20mm_mg15120"
   _extends:t="gunsound_20mm_mg15120_aircraft"
   gun__shootNodeName:t="flare8"
-  gun__maxAmmo:i=250
+  gun__maxAmmo:i=300
 }
 
 planegun_me_410a_1_u2_13mm_mg131_turret_01{

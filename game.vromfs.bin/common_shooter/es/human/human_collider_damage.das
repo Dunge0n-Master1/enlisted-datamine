@@ -1,8 +1,13 @@
 require ecs
 require game.es.events
 require game.events_game
+require enlisted.events_enlisted
 require DagorMath
 require DngHuman
+require HumanPhys
+require Grid
+require Dacoll
+
 
 [es(tag=server)]
 def human_collider_damage(evt : CmdPostPhysUpdate;

@@ -151,9 +151,7 @@ def simulate_shot(owner_eid : EntityId;
                         criticalDamageTesterState.testExplosion = false;
                         criticalDamageTesterState.volumetricShell = false;
 
-                        critical_damage_test(
-                          ObjectDescriptor(int(ObjectDescriptorType TYPE_COLLISION), int(uint(eid))),
-                          get_damage_model_params(), /*combine_expl_damage*/ false, criticalDamageTesterState)
+                        critical_damage_test(eid, get_damage_model_params(), /*combine_expl_damage*/ false, criticalDamageTesterState)
 
                         hitResult = int(criticalDamageTesterState.result)
                     quit = true

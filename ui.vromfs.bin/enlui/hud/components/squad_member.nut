@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { HIT_RES_KILLED, HIT_RES_DOWNED, HIT_RES_NORMAL } = require("dm")
+let { HitResult } = require("%enlSqGlob/dasenums.nut")
 let { HEAL_RES_COMMON, HEAL_RES_REVIVE, ATTACK_RES } = require("%ui/hud/state/squad_members.nut")
 let { DEFAULT_TEXT_COLOR, DEAD_TEXT_COLOR } = require("%ui/hud/style.nut")
 let { mkGrenadeIcon } = require("%ui/hud/huds/player_info/grenadeIcon.nut")
@@ -66,7 +66,7 @@ let function mkAiActionIcon(member, size) {
     image = mkAiImage(image, size)
     color = member.maxHp > 0 ? calcIconHpColor(member.hp / member.maxHp, 0xFFFFFFFF) : 0xFFFFFFFF
     animations = [
-      animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HIT_RES_NORMAL])
+      animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[HitResult.HIT_RES_NORMAL])
       animByTrigger(Color(200, 0, 0, 200), 1.0, member.hitTriggers[ATTACK_RES])
     ]
   }
@@ -82,9 +82,9 @@ let deaths = freeze({
 let mkStatusIcon = @(member, size, color=DEFAULT_TEXT_COLOR) {
   size = flex()
   animations = [
-    animByTrigger(Color(200, 0, 0, 200), 1.0, member?.hitTriggers[HIT_RES_NORMAL])
-    animByTrigger(Color(200, 100, 0, 200), 3.0, member?.hitTriggers[HIT_RES_DOWNED])
-    animByTrigger(Color(200, 0, 0, 200), 3.0, member?.hitTriggers[HIT_RES_KILLED])
+    animByTrigger(Color(200, 0, 0, 200), 1.0, member?.hitTriggers[HitResult.HIT_RES_NORMAL])
+    animByTrigger(Color(200, 100, 0, 200), 3.0, member?.hitTriggers[HitResult.HIT_RES_DOWNED])
+    animByTrigger(Color(200, 0, 0, 200), 3.0, member?.hitTriggers[HitResult.HIT_RES_KILLED])
     animByTrigger(Color(0, 200, 100, 200), 1.0, member?.hitTriggers[HEAL_RES_COMMON])
     animByTrigger(Color(0, 100, 200, 200), 3.0, member?.hitTriggers[HEAL_RES_REVIVE])
   ]

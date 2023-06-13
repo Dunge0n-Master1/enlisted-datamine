@@ -214,6 +214,7 @@ sov_soldier{
   _tracked:t="engineer__isMenuOpen"
   _extends:t="shooter_human"
   _extends:t="human_breath"
+  _extends:t="human_bush_collision_effects"
   _extends:t="human_sound"
   _extends:t="human_sound_paths"
   _extends:t="human_net_sound"
@@ -226,7 +227,6 @@ sov_soldier{
   _extends:t="base_human_actions"
   animchar__res:t="ussr_summer_5_char"
   collres__res:t="ussr_summer_5_collision"
-  human_net_phys__blk:t="content/enlisted/gamedata/units/walkers/sov_soldier.blk"
   beh_tree__blackboard__enemyRadius:r=90.0
   team:i=1
   beh_tree__enabled:b=no

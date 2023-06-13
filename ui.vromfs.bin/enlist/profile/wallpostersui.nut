@@ -2,12 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
-let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { wpCfgFiltered, wpIdSelected } = require("wallpostersState.nut")
 let { mkWallposter, makeBigWpImage } = require("wallpostersPkg.nut")
 let {
   seenWallposters, markSeenWallposter, markWallpostersOpened
 } = require("unseenProfileState.nut")
+let { bigPadding, smallPadding, panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let function mkWallposterBlock(wallposter, unseenList) {
@@ -32,18 +32,19 @@ let function mkWallposterBlock(wallposter, unseenList) {
 
 let wallpostersListUi = function() {
   let wpFiltered = wpCfgFiltered.value
-  let selectedId = wpIdSelected.value
   let { unseen = {}, unopened = {} } = seenWallposters.value
   return {
-    watch = [wpCfgFiltered, wpIdSelected, seenWallposters]
+    watch = [wpCfgFiltered, seenWallposters]
     rendObj = ROBJ_BOX
     size = flex()
-    flow = FLOW_VERTICAL
-    gap = bigPadding
     padding = smallPadding
     onDetach = @() markWallpostersOpened(unopened.keys())
-    children = selectedId == null
-      ? makeVertScroll({
+    children = [
+      {
+        size = flex()
+        flow = FLOW_VERTICAL
+        gap = bigPadding
+        children = makeVertScroll({
           xmbNode = XmbContainer({
             canFocus = @() false
             scrollSpeed = 5.0
@@ -56,7 +57,20 @@ let wallpostersListUi = function() {
         }, {
           styling = thinStyle
         })
-      : makeBigWpImage(wpFiltered.findvalue(@(wp) wp.id == selectedId), @() wpIdSelected(null))
+      }
+      @() {
+        watch = wpIdSelected
+        size = flex()
+        children = wpIdSelected.value == null ? null
+          : {
+              size = flex()
+              rendObj = ROBJ_SOLID
+              color = panelBgColor
+              children = makeBigWpImage(wpFiltered
+                .findvalue(@(wp) wp.id == wpIdSelected.value), @() wpIdSelected(null))
+            }
+      }
+    ]
   }
 }
 

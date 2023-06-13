@@ -246,3 +246,8 @@ panzerzug_bp_44_lokomotiv_rendinst{
   _extends:t="placeable_rendinst"
   ri_extra__name:t="panzerzug_bp_44_lokomotiv_rendinst"
 }
+
+normandy_bunker_a101_walls_rendinst{
+  _extends:t="placeable_rendinst"
+  ri_extra__name:t="normandy_bunker_a101_walls"
+}

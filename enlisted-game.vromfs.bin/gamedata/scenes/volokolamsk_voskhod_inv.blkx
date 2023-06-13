@@ -3665,7 +3665,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.386026, 0.0, -0.922488] [0.0, 1.0, 0.0] [0.922488, 0.0, 0.386026] [0.639014, 20.633, 1026.87]]
+  transform:m=[[0.0730394, 0.0, -0.997329] [0.0, 1.0, 0.0] [0.997329, -0.0, 0.0730394] [2.7904, 20.464, 1024.0]]
   groupName:t="sector_5_b"
   respawnBaseGroup:i=1
   active:b=no

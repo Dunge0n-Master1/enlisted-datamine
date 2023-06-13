@@ -3,6 +3,11 @@ default_billboard_decal{
   normalTex:t="decal_bullethole_stone_a_tex_n*"
 }
 
+brick_red_decal{
+  diffuseTex:t="decal_bullethole_brick_red_a_tex_d*"
+  normalTex:t="decal_bullethole_stone_a_tex_n*"
+}
+
 soil_bullet_hole{
   diffuseTex:t="decal_bullethole_soil_a_tex_d*"
   normalTex:t="decal_bullethole_soil_a_tex_n*"

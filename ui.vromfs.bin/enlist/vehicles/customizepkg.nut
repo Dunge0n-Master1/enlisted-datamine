@@ -135,11 +135,11 @@ let animFrame = {
   }]
 }
 
-let mkBlockHeader = @(txt) {
+let mkBlockHeader = @(text) {
   rendObj = ROBJ_TEXT
   color = activeTxtColor
   padding = [0, smallPadding]
-  text = txt
+  text
 }.__update(sub_txt)
 
 let mkCurrencyView = @(currencies, currencyId, price) mkCurrency({

@@ -4,6 +4,7 @@ require GridCollision
 require DngWeapon
 require DagorSystem
 require DagorMath
+require PhysMat
 require Grid
 require RendInst
 require CollRes
@@ -123,6 +124,19 @@ def soft_check_is_conflict_objects_in_building_box(tm : float3x4; box : BBox3)
                     is_conflict_with_other_buildings(tm, box) ||
                     is_conflict_with_objects_in_grid(tm, box))
   return isConflict
+
+def trace_ri_under_building(building_pos : float3; building_radius : float; rayMatId : int = PHYSMAT_INVALID)
+  var norm : float3
+  var len = building_radius
+  var riMatId = PHYSMAT_INVALID
+  var riDesc = RendInstDesc()
+  let traceDownDir = float3(0., -1., 0.)
+  let tracePos = building_pos - traceDownDir * (building_radius / 2.)
+  traceray_normalized(tracePos, traceDownDir, len, riMatId, norm, ETF_ALL, riDesc, rayMatId)
+  return riDesc.riExtraHandle
+
+def is_above_other_building(pos : float3; buildingRadius : float)
+  return find_ri_extra_eid(trace_ri_under_building(pos, buildingRadius)) |> has("building__destroyable")
 
 def is_human_respawn_selector_in_radius_for_team(pos; radius; for_team)
   if radius < 0.0

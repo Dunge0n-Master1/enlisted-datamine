@@ -65,7 +65,7 @@ local EventLogState = class {
     let event = clone eventExt
     local funcCollapseBy = null
     if (type(collapseBy)=="array"){
-      funcCollapseBy = @(lastev, event) getByPath(lastev,collapseBy) == getByPath(event,collapseBy)
+      funcCollapseBy = @(lastevt, evt) getByPath(lastevt,collapseBy) == getByPath(evt,collapseBy)
     }
     let funcToCheck = funcCollapseBy ?? this.checkCollapseByFunc
     this.events.mutate(function(_) {

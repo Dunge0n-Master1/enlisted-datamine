@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("json")
+let { parse_json } = require("json")
 let http = require("dagor.http")
 let ps4 = require("ps4")
 let {logerr} = require("dagor.debug")
@@ -42,7 +42,7 @@ let function request_auth_contacts(game, include_unknown, callback) {
         url = AUTH_FRIENDS_URL
         data = post_data
         callback = function(response) {
-          if (response.status != http.SUCCESS || !response?.body ||
+          if (response.status != http.HTTP_SUCCESS || !response?.body ||
               response.http_code < 200 || response.http_code >= 300) {
             statsd.send_counter("psn_auth_friends_request_error", 1, {http_code = response.http_code})
             log($"[AuthFriends]: request failed ({response.http_code}), body {response?.body}")
@@ -52,7 +52,7 @@ let function request_auth_contacts(game, include_unknown, callback) {
           let response_log_max_length = 1024 // First 1KB
           let response_log_length = response_body.len() > response_log_max_length ? response_log_max_length : response_body.len()
           log("[AuthFriends]: \n\n", response_body.slice(0, response_log_length))
-          let parsed = json.parse(response_body)
+          let parsed = parse_json(response_body)
           if (parsed?.status != "OK") {
             logerr("get_auth_friends failed")
             return

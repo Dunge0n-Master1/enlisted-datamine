@@ -47,12 +47,12 @@ def is_point_inside(pt : float2; ocean_sound__points : Point4List; var closest_p
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
 def ocean_sound_update(evt : Event;
-                       sound_bank_preset_state__isValid : bool;
+                       sound_banks_state__isPresetLoaded : bool;
                        var ocean_sound__event : SoundEvent&;
                        ocean_sound__path : string;
                        ocean_sound__points : Point4List;
                        ocean_sound__waterLevel : float)
-  if !sound_bank_preset_state__isValid
+  if !sound_banks_state__isPresetLoaded
     return
   if !ocean_sound__event.enabled
     ocean_sound__event.enabled = true
@@ -68,7 +68,7 @@ def ocean_sound_update(evt : Event;
     set_pos(ocean_sound__event.handle, pos)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid, REQUIRE=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded, REQUIRE=sound_banks_state__isPresetLoaded)]
 def ocean_sound_toggle(evt : Event;
                        var ocean_sound__event : SoundEvent&)
   release_immediate(ocean_sound__event.handle)

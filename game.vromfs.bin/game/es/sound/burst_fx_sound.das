@@ -1,6 +1,7 @@
 require ecs
 require soundEvent
 
+
 [es(tag=sound, before=burst_fx_player)]
 def burst_fx_sound(info : UpdateStageInfoAct;
                    burst_fx__soundPath : string;

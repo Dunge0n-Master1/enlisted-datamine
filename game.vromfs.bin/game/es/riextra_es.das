@@ -62,18 +62,20 @@ def rendinst_axis_state_es(evt : Event;
       removeSubTemplate(eid, "rotating_rendinst")
 
 
-[es(before=rendinst_move_es, after=riextra_create_es, on_appear)]
+[es(before=rendinst_move_es, after=riextra_create_es, on_appear, on_event=EventRendinstsLoaded)]
 def rendinst_axis_force_initial_rotation_es(evt : Event;
                                             rendinst_axis_rotation__targetAngle : float;
                                             rendinst_axis_rotation__axis : float3;
                                             initialTransform : float3x4;
+                                            ri_extra : RiExtraComponent;
                                             var transform : float3x4;
                                             var rendinst_axis_rotation__curAngle : float&)
   rendinst_axis_rotation__curAngle = rendinst_axis_rotation__targetAngle
   var tm : float3x4
   make_tm(rendinst_axis_rotation__axis, deg_to_rad(rendinst_axis_rotation__targetAngle), tm)
   transform = initialTransform * tm
-
+  if riex_isRiGenExtraValid(ri_extra.handle)
+    move_ri_extra_tm(ri_extra.handle, transform)
 
 [es(REQUIRE=rendinst_axis_rotation__enabled, after=animchar_es, before=rendinst_axis_rotation_applier_es)]
 def rendinst_axis_rotation_es(info : UpdateStageInfoAct;

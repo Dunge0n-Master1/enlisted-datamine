@@ -224,3 +224,20 @@ def on_ricochet_vehicle_fx_es(evt : EventOnRicochet; transform : float3x4)
     spawn_effect(projectile__hitEffectDescriptor, projectile__explEffectDescriptor,
                  launch_desc, dm_projectile_state, projectile_ballistics, norm, pos, get_material_id("steel"),
                  uint64(0U), projectile__isUnderwater, projectile__exploded, /*should_stop*/ false, /*ricochet*/ true)
+
+[es(tag=render)]
+def projectile_hit_canopy_es(evt : EventProjectileHitCanopy;
+                             eid : EntityId;
+                             projectile_ballistics_props : ProjectileProps)
+  sendEventImmediate(eid, [[CmdPlayProjectileHitSceneSound
+    pos=evt.pos,
+    pmid=evt.matId,
+    caliber=projectile_ballistics_props.caliber,
+    ricochet=0.,
+    exploded=true
+  ]])
+
+  find_query() <| $ [es] (global_hit_fx__canopyEffects : Object)
+    let fxName = global_hit_fx__canopyEffects[get_material_name(get_material(evt.matId))] ?? ""
+    spawn_effect_aux(evt.norm, evt.pos, fxName, /*is_paint_fx_on_hit*/ false)
+    return true

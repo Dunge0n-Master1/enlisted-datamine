@@ -7,7 +7,7 @@ let { logerr } = require("dagor.debug")
 let { system = null } = require_optional("system")
 let { get_game_name, get_circuit } = require("app")
 let { encodeString } = require("base64")
-let json = require("%sqstd/json.nut")
+let { json_to_string } = require("%sqstd/json.nut")
 let { deep_clone } = require("%sqstd/underscore.nut")
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -27,7 +27,7 @@ let {squadId} = require("%enlist/squad/squadState.nut")
 let eventbus = require("eventbus")
 let {MatchingRoomExtraParams} = require("dasevents")
 let { OK, error_string } = require("matching.errors")
-let { pushNotification, removeNotify, subscribeGroup
+let { pushNotification, removeNotify, subscribeGroup, InvitationsStyle, InvitationsTypes
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
@@ -327,12 +327,12 @@ let function startSessionWithLocalDedicated(user_cb, loadTimeout = 30.0) {
     return
   }
 
-  let cmdText = "@start win32/{game}-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -noeac -nonetenc"
+  let cmdText = "@start win32/{game}-ded-dev --listen -game:{game} -config:circuit:t={circuit} -config:scene:t={scene} -invite_data={inviteData} -config:timers/noPlayersExitTimeoutSec:r=120 -noeac -nonetenc"
     .subst({
       game = get_game_name()
       circuit = get_circuit()
       scene
-      inviteData = encodeString(json.to_string({ mode_info = room.value.public }, false))
+      inviteData = encodeString(json_to_string({ mode_info = room.value.public }, false))
     })
   log("Start local dedicated: ", cmdText)
   system(cmdText)
@@ -603,8 +603,10 @@ let function onRoomInvite(reqctx) {
     reqctx
     roomId
     inviterUid = request.invite_data.senderId
-    styleId = "toBattle"
-    text = loc("room/invite", {playername = request.invite_data.senderName})
+    nType = InvitationsTypes.TO_SQUAD
+    styleId = InvitationsStyle.TO_BATTLE
+    playerName = request.invite_data.senderName
+    text = loc("room/invite", { playername = remap_others(request.invite_data.senderName) })
     actionsGroup = INVITE_ACTION_ID
     needPopup = true
   })

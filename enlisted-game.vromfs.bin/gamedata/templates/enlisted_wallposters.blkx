@@ -100,7 +100,7 @@ agit_poster_german_a_preview{
   instantiateTemplate:t="agit_poster_german_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/german_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_german_a_tex_d*"
 }
 
 agit_poster_german_a{
@@ -114,7 +114,7 @@ agit_poster_ussr_a_preview{
   instantiateTemplate:t="agit_poster_ussr_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/ussr_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_ussr_a_tex_d*"
 }
 
 agit_poster_ussr_a{
@@ -128,7 +128,7 @@ agit_poster_veteran_ussr_a_preview{
   instantiateTemplate:t="agit_poster_veteran_ussr_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/ussr_veteran_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_veteran_ussr_a_tex_d*"
 }
 
 agit_poster_veteran_ussr_a{
@@ -142,7 +142,7 @@ agit_poster_normandy_axis_a_preview{
   instantiateTemplate:t="agit_poster_normandy_axis_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/normandy_axis_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_normandy_axis_a_tex_d*"
 }
 
 agit_poster_normandy_axis_a{
@@ -156,7 +156,7 @@ agit_poster_veteran_axis_a_preview{
   instantiateTemplate:t="agit_poster_veteran_axis_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/veteran_axis_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_veteran_axis_a_tex_d*"
 }
 
 agit_poster_veteran_axis_a{
@@ -170,7 +170,7 @@ agit_poster_normandy_usa_a_preview{
   instantiateTemplate:t="agit_poster_normandy_usa_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/normandy_usa_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_normandy_usa_a_tex_d*"
 }
 
 agit_poster_normandy_usa_a{
@@ -184,7 +184,7 @@ agit_poster_veteran_usa_a_preview{
   instantiateTemplate:t="agit_poster_veteran_usa_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/veteran_usa_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_veteran_usa_a_tex_d*"
 }
 
 agit_poster_veteran_usa_a{
@@ -198,7 +198,7 @@ wallposter_battlepass_season_2_preview{
   instantiateTemplate:t="agit_poster_battlepass_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_2"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_tex_d*"
 }
 
 agit_poster_battlepass_a{
@@ -212,7 +212,7 @@ wallposter_battlepass_season_4_preview{
   instantiateTemplate:t="agit_poster_battlepass_b"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_4"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_b_tex_d*"
 }
 
 agit_poster_battlepass_b{
@@ -226,7 +226,7 @@ wallposter_battlepass_season_5_preview{
   instantiateTemplate:t="agit_poster_battlepass_c"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_5"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_c_tex_d*"
 }
 
 agit_poster_battlepass_c{
@@ -240,7 +240,7 @@ wallposter_battlepass_season_6_preview{
   instantiateTemplate:t="agit_poster_battlepass_d"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_6"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_d_tex_d*"
 }
 
 agit_poster_battlepass_d{
@@ -254,7 +254,7 @@ wallposter_battlepass_season_7_preview{
   instantiateTemplate:t="agit_poster_battlepass_e"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_7"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_e_tex_d*"
 }
 
 agit_poster_battlepass_e{
@@ -268,7 +268,7 @@ wallposter_battlepass_season_8_preview{
   instantiateTemplate:t="agit_poster_battlepass_f"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_8"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_f_tex_d*"
 }
 
 agit_poster_battlepass_f{
@@ -282,7 +282,7 @@ wallposter_battlepass_season_9_preview{
   instantiateTemplate:t="agit_poster_battlepass_g"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/battlepass_season_9"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_enlisted_battlepass_g_tex_d*"
 }
 
 agit_poster_battlepass_g{
@@ -296,7 +296,7 @@ agit_poster_ny_ussr_a_preview{
   instantiateTemplate:t="agit_poster_ny_ussr_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/ny_ussr_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_ny_ussr_a_tex_d*"
 }
 
 agit_poster_ny_ussr_a{
@@ -310,7 +310,7 @@ agit_poster_ny_usa_a_preview{
   instantiateTemplate:t="agit_poster_ny_usa_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/ny_usa_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_ny_usa_a_tex_d*"
 }
 
 agit_poster_ny_usa_a{
@@ -324,7 +324,7 @@ agit_poster_ny_axis_a_preview{
   instantiateTemplate:t="agit_poster_ny_axis_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="agit_poster/ny_axis_a"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_ny_axis_a_tex_d*"
 }
 
 agit_poster_ny_axis_a{
@@ -338,7 +338,7 @@ agit_poster_china_a_preview{
   instantiateTemplate:t="agit_poster_china_a"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_a_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_a_tex_d*"
 }
 
 agit_poster_china_a{
@@ -352,7 +352,7 @@ agit_poster_china_b_preview{
   instantiateTemplate:t="agit_poster_china_b"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_b_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_b_tex_d*"
 }
 
 agit_poster_china_b{
@@ -366,7 +366,7 @@ agit_poster_china_c_preview{
   instantiateTemplate:t="agit_poster_china_c"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_c_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_c_tex_d*"
 }
 
 agit_poster_china_c{
@@ -380,7 +380,7 @@ agit_poster_china_d_preview{
   instantiateTemplate:t="agit_poster_china_d"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_d_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_d_tex_d*"
 }
 
 agit_poster_china_d{
@@ -394,7 +394,7 @@ agit_poster_china_e_preview{
   instantiateTemplate:t="agit_poster_china_e"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_e_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_e_tex_d*"
 }
 
 agit_poster_china_e{
@@ -408,7 +408,7 @@ agit_poster_china_f_preview{
   instantiateTemplate:t="agit_poster_china_f"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_f_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_f_tex_d*"
 }
 
 agit_poster_china_f{
@@ -422,7 +422,7 @@ agit_poster_china_g_preview{
   instantiateTemplate:t="agit_poster_china_g"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_g_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_g_tex_d*"
 }
 
 agit_poster_china_g{
@@ -436,7 +436,7 @@ agit_poster_china_h_preview{
   instantiateTemplate:t="agit_poster_china_h"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_h_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_h_tex_d*"
 }
 
 agit_poster_china_h{
@@ -450,7 +450,7 @@ agit_poster_china_i_preview{
   instantiateTemplate:t="agit_poster_china_i"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_i_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_i_tex_d*"
 }
 
 agit_poster_china_i{
@@ -464,7 +464,7 @@ agit_poster_china_j_preview{
   instantiateTemplate:t="agit_poster_china_j"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_j_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_j_tex_d*"
 }
 
 agit_poster_china_j{
@@ -478,7 +478,7 @@ agit_poster_china_k_preview{
   instantiateTemplate:t="agit_poster_china_k"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_k_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_k_tex_d*"
 }
 
 agit_poster_china_k{
@@ -492,7 +492,7 @@ agit_poster_china_l_preview{
   instantiateTemplate:t="agit_poster_china_l"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_l_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_l_tex_d*"
 }
 
 agit_poster_china_l{
@@ -506,7 +506,7 @@ agit_poster_china_m_preview{
   instantiateTemplate:t="agit_poster_china_m"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_china_m_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_china_m_tex_d*"
 }
 
 agit_poster_china_m{
@@ -520,7 +520,7 @@ agit_poster_combat_engineers_preview{
   instantiateTemplate:t="agit_poster_combat_engineers"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_combat_engineers_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_combat_engineers_tex_d*"
 }
 
 agit_poster_combat_engineers{
@@ -534,7 +534,7 @@ agit_poster_raaf_pilot_preview{
   instantiateTemplate:t="agit_poster_raaf_pilot"
   previewRotation:p3=-90.0, 0.0, -90.0
   wallposter_menu__text:t="wp/agit_poster_raaf_pilot_preview/name"
-  wallposter_menu__image:t="building_wall"
+  wallposter_menu__image:t="agit_poster_raaf_pilot_tex_d*"
 }
 
 agit_poster_raaf_pilot{

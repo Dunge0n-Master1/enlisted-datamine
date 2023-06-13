@@ -1,4 +1,5 @@
 require ecs
+require ecs.safe
 require strings
 require vehicle
 require math.base
@@ -18,10 +19,15 @@ let
 def private fov_to_deg(fov : float)
   return rad_to_deg(2.f * atan(safediv(1.f, fov)))
 
-def private calc_sight_position(cam_pos : float3)
+def private calc_sight_position(cam_pos : float3; use_gun_dir : bool)
   var vehicleSightPos : float3
-  find_query() <| $ [es(REQUIRE=vehicleWithWatched)] (turret_current_visual_shoot_tm : float3x4; turretAimPos : float3)
+  find_query() <| $ [es(REQUIRE=vehicleWithWatched)] (cockpit__cameraDir : float3;
+                                                      turret_current_visual_shoot_tm : float3x4;
+                                                      turretAimPos : float3)
     let dist = length(cam_pos - turretAimPos)
+    if !use_gun_dir
+      vehicleSightPos = cam_pos + cockpit__cameraDir * dist
+      return true
     vehicleSightPos = turret_current_visual_shoot_tm[3] + turret_current_visual_shoot_tm[0] * dist
     return true
 
@@ -65,102 +71,118 @@ def private draw_circle(center : float2; size : float2; segment : float2; line_w
     if !draw
       break
 
+def private draw_sight(eid : EntityId; persp_wk : float; persp_hk : float; opacity : float)
+  query(eid) <| $ [es] (vehicle_sight__drawLines : Point4List;
+                        vehicle_sight__drawLinesThousandth : BoolList;
+                        vehicle_sight__drawText : StringList;
+                        vehicle_sight__drawTextSize : FloatList;
+                        vehicle_sight__drawTextPos : Point2List;
+                        vehicle_sight__drawQuadTopLeft : Point2List;
+                        vehicle_sight__drawQuadTopRight : Point2List;
+                        vehicle_sight__drawQuadBottomLeft : Point2List;
+                        vehicle_sight__drawQuadBottomRight : Point2List;
+                        vehicle_sight__drawQuadThousandth : BoolList;
+                        vehicle_sight__drawCircleSegment : Point2List;
+                        vehicle_sight__drawCirclePos : Point2List;
+                        vehicle_sight__drawCircleDiameter : FloatList;
+                        vehicle_sight__drawCircleSize : FloatList;
+                        vehicle_sight__drawCircleThousandth : BoolList;
+                        vehicle_sight__useGunDir : bool = true;
+                        vehicle_sight__fontSizeMult : float = 1.3f;
+                        vehicle_sight__lineSizeMult : float = 1f;
+                        vehicle_sight__color = DEFAULT_SIGHT_COLOR)
+    find_query() <| $ [es(REQUIRE_NOT=free_cam)] (camera__active : bool;
+                                                  transform aka cam_transform : float3x4;
+                                                  fov : float;
+                                                  fovLimits : float2;
+                                                  isTpsView : bool = false)
+      if !camera__active || isTpsView
+        return false
+
+      var color4 = uint4(vehicle_sight__color)
+      color4[3] = uint(opacity * float(0xFF))
+      let color = E3DCOLOR(color4)
+      StdGuiRender_set_color(color)
+
+      var uiViewTm : float3x4
+      get_ui_view_tm(uiViewTm)
+
+      let screenSize = StdGuiRender_screen_size()
+      let halfScreen = screenSize * 0.5
+      let sp = uiViewTm * calc_sight_position(cam_transform[3], vehicle_sight__useGunDir)
+      let startPos = float2(safediv(sp.x, sp.z) * persp_wk * halfScreen.x, safediv(-sp.y, sp.z) * persp_hk * halfScreen.y) + halfScreen
+
+      let fovInThousandth = (fov_to_deg(persp_wk) / 360.0f) * THOUSANDTH_MULT
+      let oneThousandthSize = safediv(screenSize.x, fovInThousandth) * 2f
+
+      let sizeMult = safediv(fovLimits.x, fov) * vehicle_sight__fontSizeMult
+      let lineWidth = max(sizeMult, 1.35f) * 0.5f * vehicle_sight__lineSizeMult
+      StdGuiRender_set_font(0, 1, 0)
+
+      let prevBlendMode = StdGuiRender_get_alpha_blend()
+      StdGuiRender_set_alpha_blend(BlendMode PREMULTIPLIED)
+      let line_indent = float2(0, 0)
+      for drawLine, useThousandth in vehicle_sight__drawLines, vehicle_sight__drawLinesThousandth
+        let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
+        let from = startPos + dimMult * float2(drawLine[0], drawLine[1])
+        let to = startPos + dimMult * float2(drawLine[2], drawLine[3])
+        // Bug: for some reason if many line is draw by AA render part of UI is disappear
+        StdGuiRender_render_line_aa(from, to, /*is_closed*/false, lineWidth, line_indent, color)
+      StdGuiRender_set_alpha_blend(prevBlendMode)
+
+      for text, textPos, size in vehicle_sight__drawText, vehicle_sight__drawTextPos, vehicle_sight__drawTextSize
+        let dimMult = screenSize.y * sizeMult
+        let pos = startPos + dimMult * textPos
+        StdGuiRender_goto_xy(pos.x, pos.y)
+        StdGuiRender_draw_str_scaled(size * 1.5f, string(text), length(text))
+
+      let tc0 = float2(0, 0)
+      let tc1 = float2(0, 1)
+      let tc2 = float2(1, 1)
+      let tc3 = float2(1, 0)
+      assume quadTopLeft = vehicle_sight__drawQuadTopLeft
+      assume quadTopRight = vehicle_sight__drawQuadTopRight
+      assume quadBottomLeft = vehicle_sight__drawQuadBottomLeft
+      assume quadBottomRight = vehicle_sight__drawQuadBottomRight
+      assume quadThousandth = vehicle_sight__drawQuadThousandth
+      for tl, tr, bl, br, useThousandth in quadTopLeft, quadTopRight, quadBottomLeft, quadBottomRight, quadThousandth
+        let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
+
+        let p1 = startPos + bl * dimMult
+        let p2 = startPos + tl * dimMult
+        let p3 = startPos + tr * dimMult
+        let p4 = startPos + br * dimMult
+        StdGuiRender_render_quad(p1, p2, p3, p4, tc0, tc1, tc2, tc3)
+
+      assume circleSegment = vehicle_sight__drawCircleSegment
+      assume circlePos = vehicle_sight__drawCirclePos
+      assume circleDiameter = vehicle_sight__drawCircleDiameter
+      assume circleSize = vehicle_sight__drawCircleSize
+      assume circleThousandth = vehicle_sight__drawCircleThousandth
+      for segment, pos, diameter, size, useThousandth in circleSegment, circlePos, circleDiameter, circleSize, circleThousandth
+        let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
+        draw_circle(startPos + dimMult * pos, float2(diameter, diameter) * dimMult, segment, size * sizeMult)
+
+      return true
+
 [es(tag=ui)]
 def vehicle_sight_draw_es(evt : RenderEventUI;
+                          eid : EntityId;
                           cockpit__currentSlit : int;
                           cockpit__cameraTime : float;
-                          vehicle_sight__drawLines : Point4List;
-                          vehicle_sight__drawLinesThousandth : BoolList;
-                          vehicle_sight__drawText : StringList;
-                          vehicle_sight__drawTextSize : FloatList;
-                          vehicle_sight__drawTextPos : Point2List;
-                          vehicle_sight__drawQuadTopLeft : Point2List;
-                          vehicle_sight__drawQuadTopRight : Point2List;
-                          vehicle_sight__drawQuadBottomLeft : Point2List;
-                          vehicle_sight__drawQuadBottomRight : Point2List;
-                          vehicle_sight__drawQuadThousandth : BoolList;
-                          vehicle_sight__drawCircleSegment : Point2List;
-                          vehicle_sight__drawCirclePos : Point2List;
-                          vehicle_sight__drawCircleDiameter : FloatList;
-                          vehicle_sight__drawCircleSize : FloatList;
-                          vehicle_sight__drawCircleThousandth : BoolList;
-                          vehicle_sight__fontSizeMult : float = 1.3f;
-                          vehicle_sight__lineSizeMult : float = 1f;
-                          vehicle_sight__color = DEFAULT_SIGHT_COLOR;
+                          cockpit__forwardOffsetTime : float;
+                          cockpit__slitEids : EidList const?;
                           vehicle_sight__renderInSlit : int = 0)
-  if cockpit__currentSlit != vehicle_sight__renderInSlit || cockpit__cameraTime < 1f
+  if cockpit__cameraTime < 1. && cockpit__cameraTime > 0.
     return
-
-  find_query() <| $ [es(REQUIRE_NOT=free_cam)] (camera__active : bool;
-                                                transform aka cam_transform : float3x4;
-                                                fov : float;
-                                                fovLimits : float2;
-                                                isTpsView : bool = false)
-    if !camera__active || isTpsView
-      return false
-
-    StdGuiRender_set_color(vehicle_sight__color)
-
-    var uiViewTm : float3x4
-    get_ui_view_tm(uiViewTm)
-
-    let screenSize = StdGuiRender_screen_size()
-    let halfScreen = screenSize * 0.5
-    let sp = uiViewTm * calc_sight_position(cam_transform[3])
-    let startPos = float2(safediv(sp.x, sp.z) * evt.persp.wk * halfScreen.x, safediv(-sp.y, sp.z) * evt.persp.hk * halfScreen.y) + halfScreen
-
-    let fovInThousandth = (fov_to_deg(evt.persp.wk) / 360.0f) * THOUSANDTH_MULT
-    let oneThousandthSize = safediv(screenSize.x, fovInThousandth) * 2f
-
-    let sizeMult = safediv(fovLimits.x, fov) * vehicle_sight__fontSizeMult
-    let lineWidth = max(sizeMult, 1.35f) * 0.5f * vehicle_sight__lineSizeMult
-    StdGuiRender_set_font(0, 1, 0)
-
-    let prevBlendMode = StdGuiRender_get_alpha_blend()
-    StdGuiRender_set_alpha_blend(BlendMode PREMULTIPLIED)
-    let line_indent = float2(0, 0)
-    for drawLine, useThousandth in vehicle_sight__drawLines, vehicle_sight__drawLinesThousandth
-      let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
-      let from = startPos + dimMult * float2(drawLine[0], drawLine[1])
-      let to = startPos + dimMult * float2(drawLine[2], drawLine[3])
-      // Bug: for some reason if many line is draw by AA render part of UI is disappear
-      StdGuiRender_render_line_aa(from, to, /*is_closed*/false, lineWidth, line_indent, vehicle_sight__color)
-    StdGuiRender_set_alpha_blend(prevBlendMode)
-
-    for text, textPos, size in vehicle_sight__drawText, vehicle_sight__drawTextPos, vehicle_sight__drawTextSize
-      let dimMult = screenSize.y * sizeMult
-      let pos = startPos + dimMult * textPos
-      StdGuiRender_goto_xy(pos.x, pos.y)
-      StdGuiRender_draw_str_scaled(size * 1.5f, string(text), length(text))
-
-    let tc0 = float2(0, 0)
-    let tc1 = float2(0, 1)
-    let tc2 = float2(1, 1)
-    let tc3 = float2(1, 0)
-    assume quadTopLeft = vehicle_sight__drawQuadTopLeft
-    assume quadTopRight = vehicle_sight__drawQuadTopRight
-    assume quadBottomLeft = vehicle_sight__drawQuadBottomLeft
-    assume quadBottomRight = vehicle_sight__drawQuadBottomRight
-    assume quadThousandth = vehicle_sight__drawQuadThousandth
-    for tl, tr, bl, br, useThousandth in quadTopLeft, quadTopRight, quadBottomLeft, quadBottomRight, quadThousandth
-      let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
-
-      let p1 = startPos + bl * dimMult
-      let p2 = startPos + tl * dimMult
-      let p3 = startPos + tr * dimMult
-      let p4 = startPos + br * dimMult
-      StdGuiRender_render_quad(p1, p2, p3, p4, tc0, tc1, tc2, tc3)
-
-    assume circleSegment = vehicle_sight__drawCircleSegment
-    assume circlePos = vehicle_sight__drawCirclePos
-    assume circleDiameter = vehicle_sight__drawCircleDiameter
-    assume circleSize = vehicle_sight__drawCircleSize
-    assume circleThousandth = vehicle_sight__drawCircleThousandth
-    for segment, pos, diameter, size, useThousandth in circleSegment, circlePos, circleDiameter, circleSize, circleThousandth
-      let dimMult = useThousandth ? oneThousandthSize : screenSize.y * sizeMult
-      draw_circle(startPos + dimMult * pos, float2(diameter, diameter) * dimMult, segment, size * sizeMult)
-
-    return true
+  let opacity = cockpit__forwardOffsetTime
+  if cockpit__slitEids != null
+    let slitEid = (*cockpit__slitEids)?[cockpit__currentSlit] ?? INVALID_ENTITY_ID
+    if !!slitEid
+      draw_sight(slitEid, evt.persp.wk, evt.persp.hk, opacity)
+      return
+  if cockpit__currentSlit == vehicle_sight__renderInSlit
+    draw_sight(eid, evt.persp.wk, evt.persp.hk, opacity)
 
 [es(tag=ui, on_appear, before=vehicle_sight_draw_es)]
 def vehicle_sight_init_es(evt : Event;

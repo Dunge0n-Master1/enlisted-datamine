@@ -30,6 +30,7 @@ let headerTxtStyle = { color = defTxtColor }.__update(fontMedium)
 let disabledHeaderTxtStyle = { color = disabledTxtColor }.__update(fontMedium)
 let hoveredHeaderTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
 let smallGap = colPart(0.064)
+let waitingSpinner = spinner()
 
 
 let mkRerollText = @(leftRerolls, totalRerolls) {
@@ -64,8 +65,9 @@ let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
     buttons.append({
       text = loc("btn/rerollUnlock")
       action = @() askForRerollConfirm(unlockDesc)
+      isCurrent = true
     })
-  buttons.append({ text = loc("Ok"), isCurrent = true, isCancel = true })
+  buttons.append({ text = loc("Close"), isCancel = true })
 
   msgbox.showMessageWithContent({
     content = {
@@ -98,10 +100,11 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
           size = [flex(), SIZE_TO_CONTENT]
           flow = FLOW_VERTICAL
           gap = smallGap
-          children = tasks.map(function(task) {
+          children = tasks.reduce(function(acc, task) {
             let leftRerolls = getLeftRerolls(task, stats)
             let totalRerolls = getTotalRerolls(task, stats)
-            let onClick = !task.hasReward ? @() openTaskMsgbox(task, leftRerolls, totalRerolls)
+            let onClick = !task.hasReward
+              ? @() openTaskMsgbox(task, leftRerolls, totalRerolls)
               : canTakeReward
                 ? function() {
                     if (curTimeout != null)
@@ -113,17 +116,17 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
                       receiveTaskRewards(task)
                     })
                   }
-              : @() msgbox.show({
-                  text = loc("unlocks/dailyTasksLimitOnReward")
-                  buttons = [
-                    {
-                      text = loc("bp/buyBattlePass")
-                      action = eliteBattlePassWnd
-                    }
-                    { text = loc("Cancel"), isCancel = true}
-                  ]
-                })
-            return mkUnlockSlot({
+                : @() msgbox.show({
+                    text = loc("unlocks/dailyTasksLimitOnReward")
+                    buttons = [
+                      {
+                        text = loc("bp/buyBattlePass")
+                        action = eliteBattlePassWnd
+                      }
+                      { text = loc("Cancel"), isCancel = true}
+                    ]
+                  })
+            acc.append(mkUnlockSlot({
               task
               onClick
               hasWaitIcon = isRerollInProgress
@@ -133,8 +136,9 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
                 : { size = [taskLabelSize[0], flex()] }
               hasShowAnim = true
               canTakeReward
-            })
-          })
+            }))
+            return acc
+          }, [])
         }
       ).values()
     }
@@ -175,7 +179,7 @@ let function mkBtnBuyTask(task) {
     valign = ALIGN_CENTER
     halign = ALIGN_RIGHT
     children = hasBlockedByRequirement.value ? null
-      : purchaseInProgress.value?[task.name] ? spinner
+      : purchaseInProgress.value?[task.name] ? waitingSpinner
       : Purchase(loc("bp/Purchase"),
           @() buyUnlockMsg(task),
           {
@@ -194,7 +198,7 @@ let mkBtnReceiveReward = @(task) @() {
   size = [SIZE_TO_CONTENT, btnHeight]
   valign = ALIGN_CENTER
   halign = ALIGN_RIGHT
-  children = unlockRewardsInProgress.value?[task.name] ? spinner
+  children = unlockRewardsInProgress.value?[task.name] ? waitingSpinner
     : PrimaryFlat(loc("bp/getNextReward"),
         @() receiveTaskRewards(task),
         {

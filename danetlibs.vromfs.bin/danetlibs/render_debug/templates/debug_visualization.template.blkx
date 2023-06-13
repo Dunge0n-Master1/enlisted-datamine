@@ -1,0 +1,17 @@
+show_shadows{
+  _singleton:b=yes
+  _tags:t="render,dev"
+
+  "showShadowsNode:dabfg::NodeHandle"{
+    _tags:t="render"
+  }
+}
+
+show_gbuffer{
+  _singleton:b=yes
+  _tags:t="render,dev"
+
+  "showGbufferNode:dabfg::NodeHandle"{
+    _tags:t="render"
+  }
+}

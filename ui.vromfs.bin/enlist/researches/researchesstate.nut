@@ -6,6 +6,7 @@ let { do_research, change_research, buy_change_research, buy_squad_exp, add_army
 } = require("%enlist/meta/clientApi.nut")
 let servResearches = require("%enlist/meta/profile.nut").researches
 let { configs } = require("%enlist/meta/configs.nut")
+let { toIntegerSafe } = require("%sqstd/string.nut")
 let { curArmiesList, armySquadsById, curSquadId, curArmy, maxCampaignLevel, armyItemCountByTpl,
   curCampItems
 } = require("%enlist/soldiers/model/state.nut")
@@ -266,7 +267,7 @@ let function addArmySquadExp(armyId, exp, squadId) {
   add_army_squad_exp_by_id(armyId, exp, squadId)
 }
 
-let function research(researchId) {
+let function researchAction(researchId) {
   if (isResearchInProgress.value || researchStatuses.value?[researchId] != CAN_RESEARCH)
     return
   isResearchInProgress(true)
@@ -353,6 +354,167 @@ let function findAndSelectClosestTarget(...) {
     description = "researches/allResearchesResearchedDescription"
   })
 }
+
+
+let mkCurRequirements = @() Computed(function() {
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
+    let { research_id, requirements = [] } = research
+    if (requirements.len() > 0)
+      foreach (requirementId in requirements)
+        res[requirementId] <- (res?[requirementId] ?? []).append(research_id)
+  }
+  return res
+})
+
+let mkCurResearchChains = @(curRequirements) Computed(function() {
+  let allRequirements = curRequirements.value
+  let res = {}
+  foreach (research in tableStructure.value.researches) {
+    let { research_id } = research
+    local nextRes = research_id
+    res[research_id] <- []
+    while (nextRes != null) {
+      res[research_id].append(nextRes)
+      nextRes = allRequirements?[nextRes]?[0]
+    }
+  }
+  return res
+})
+
+let function isNamesSimilar(nameA, nameB) {
+  let nameArrA = nameA.split("_")
+  let nameArrB = nameB.split("_")
+  if (nameArrA.len() != nameArrB.len() || nameArrA.len() < 2)
+    return false
+  if (toIntegerSafe(nameArrA.top(), -1, false) < 0 || toIntegerSafe(nameArrB.top(), -1, false) < 0)
+    return false
+  nameArrA.resize(nameArrA.len() - 1)
+  nameArrB.resize(nameArrB.len() - 1)
+  return "_".join(nameArrA) == "_".join(nameArrB)
+}
+
+let validateMainResearch = @(curRes, mainRes, chainLen)
+  curRes == null ? null
+    : chainLen > 1 || (chainLen == 1 && isNamesSimilar(curRes, mainRes)) ? curRes
+    : null
+
+let function mkViewStructure() {
+  let curRequirements = mkCurRequirements()
+  let curResearchChaines = mkCurResearchChains(curRequirements)
+  return Computed(function() {
+    let { researches } = tableStructure.value
+    let allRequirements = curRequirements.value
+    let allChaines = curResearchChaines.value
+
+    let columns = []
+    local hasTemplatesLine = false
+    local mainRes = researches.findindex(@(r) (r?.requirements ?? []).len() == 0)
+    let templateCount = {}
+    while (mainRes != null) {
+      let research = researches[mainRes]
+      let followResearches = allRequirements?[mainRes] ?? []
+      let { gametemplate = null } = research
+      columns.append({
+        main = mainRes
+        children = []
+        template = gametemplate
+        tplCount = 0
+        toChildren = 0
+      })
+      if (gametemplate != null) {
+        hasTemplatesLine = true
+        templateCount[gametemplate] <- (templateCount?[gametemplate] ?? 0) + 1
+      }
+      let hasMultResearches = followResearches.findvalue(@(resId)
+        (researches?[resId].multiresearchGroup ?? 0) > 0) != null
+      mainRes = followResearches.len() > 1
+        ? followResearches.findvalue(function(resId) {
+            if ((researches?[resId].multiresearchGroup ?? 0) > 0)
+              return false
+            if ((allRequirements?[resId] ?? []).len() > 1)
+              return true
+            let currChain = allChaines?[resId] ?? []
+            return currChain.len() > 2
+              || (currChain.len() == 2 && (isNamesSimilar(mainRes, resId) || hasMultResearches))
+          })
+        : validateMainResearch(followResearches?[0], mainRes, (allChaines?[followResearches?[0]] ?? []).len())
+    }
+    foreach (idx, column in columns) {
+      let { main } = column
+      let nextMain = columns?[idx + 1].main
+      foreach (resId in allRequirements?[main] ?? []) {
+        if (resId == nextMain)
+          continue
+        let { multiresearchGroup = 0 } = researches[resId]
+        if (multiresearchGroup == 0)
+          column.children.append({
+            multiresearchGroup
+            children = allChaines?[resId] ?? []
+          })
+        else {
+          let cIdx = column.children
+            .findindex(@(r) (r?.multiresearchGroup ?? 0) == multiresearchGroup)
+          if (cIdx == null)
+            column.children.append({ multiresearchGroup, children = [resId] })
+          else
+            column.children[cIdx].children.append(resId)
+        }
+      }
+    }
+    let maxChildHeight = [0, 0]
+    let childCount = []
+    foreach (column in columns) {
+      let { template } = column
+      if (template != "" && template in templateCount) {
+        column.tplCount = templateCount[template]
+        delete templateCount[template]
+      }
+      if ("children" not in column) {
+        childCount.append(0, 0)
+        continue
+      }
+      let prevCountTop = childCount?[childCount.len() - 2] ?? 0
+      let prevCountBtm = childCount?[childCount.len() - 1] ?? 0
+      let childTop = column?.children[0]
+      let childBtm = column?.children[1]
+      let countTop = (childTop?.multiresearchGroup ?? 0) == 0
+        ? min((childTop?.children ?? []).len(), 1)
+        : childTop.children.len()
+      let countBtm = (childBtm?.multiresearchGroup ?? 0) == 0
+        ? min((childBtm ?? []).len(), 1)
+        : childBtm.children.len()
+      let heightTop = max(maxChildHeight[0],
+        (childTop?.multiresearchGroup ?? 0) == 0 ? (childTop?.children ?? []).len() : 1)
+      let heightBtm = max(maxChildHeight[1],
+        (childBtm?.multiresearchGroup ?? 0) == 0 ? (childBtm?.children ?? []).len() : 1)
+      if (prevCountTop + countTop < 5 && prevCountBtm + countBtm < 5) {
+        childCount.append(countTop, countBtm)
+        maxChildHeight[0] = heightTop
+        maxChildHeight[1] = heightBtm
+      }
+      else {
+        column.children.clear()
+        column.children.append(childBtm, childTop)
+        childCount.append(countBtm, countTop)
+        maxChildHeight[0] = heightBtm
+        maxChildHeight[1] = heightTop
+      }
+    }
+    local toChildren = 0
+    for (local i = columns.len() - 1; i >= 0 ; i--) {
+      let column = columns[i]
+      if (column.children.findvalue(@(ch) ch != null) != null)
+        toChildren = 0
+      else
+        toChildren++
+      column.toChildren = toChildren
+    }
+    return { columns, maxChildHeight, hasTemplatesLine }
+  })
+}
+
+
 researchStatuses.subscribe(findAndSelectClosestTarget)
 tableStructure.subscribe(findAndSelectClosestTarget)
 findAndSelectClosestTarget()
@@ -389,13 +551,15 @@ return {
   changeResearchBalance
   changeResearchGoldCost
 
-  research
+  researchAction
   changeResearch
   buyChangeResearch
   isResearchInProgress
   isBuyLevelInProgress
   addArmySquadExp
   buySquadLevel
+
+  mkViewStructure
 
   LOCKED
   DEPENDENT

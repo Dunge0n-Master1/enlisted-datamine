@@ -105,7 +105,8 @@ let function calcSoldiersStatuses(squadParams, chosen, reserve, invalidEquip, ki
 let soldiersStatuses = Computed(@() calcSoldiersStatuses(soldiersSquadParams.value,
   squadSoldiers.value, reserveSoldiers.value, invalidEquipSoldiers.value, squadKindResearches.value))
 
-let function updateSoldiersList() {
+
+let function updateSoldiersList(sort = false) {
   let all = (clone curSquadSoldiers.value).extend(curReserveSoldiers.value)
   if (all.len() == 0) {
     squadSoldiers.mutate(@(v) v.clear())
@@ -119,7 +120,7 @@ let function updateSoldiersList() {
   local reserve = reserveSoldiers.value.map(@(s) byGuid?[s.guid])
     .filter(@(s) s != null)
 
-  local needSort = false
+  local needSort = sort
   if (chosenCount == 0 && reserve.len() == 0) { //new list, or just opened window
     chosen = clone curSquadSoldiers.value
     reserve = clone curReserveSoldiers.value
@@ -162,7 +163,8 @@ let function updateSoldiersList() {
 }
 
 updateSoldiersList()
-let updateSoldiersListDebounced = debounce(updateSoldiersList, 0.01)
+let updateSoldiersListDebounced = debounce(@() updateSoldiersList(), 0.05)
+let updateSoldiersListAndSortDebounced = debounce(@() updateSoldiersList(true), 0.05)
 foreach (v in [curSquadSoldiers, curReserveSoldiers, maxSoldiersInBattle, objInfoByGuid])
   v.subscribe(@(_) updateSoldiersListDebounced())
 
@@ -277,22 +279,21 @@ let function changeSoldierOrderByIdx(idxFrom, idxTo) {
     sendSoldierActionToBQ("move_to_squad", reserveSoldier, soldiersSquadGuid.value)
     squadSoldiers.mutate(@(list) list[idxTo] = reserveSoldier)
     reserveSoldiers.mutate(function(list) {
-      if (prevSoldier != null) {
+      if (prevSoldier != null)
         list[idxFrom] = prevSoldier
-        if (reserveSoldier.equipSchemeId == prevSoldier.equipSchemeId)
-          msgbox.show({
-            text = loc("swapSoldiersEquipmentConfirm")
-            buttons = [
-              { text = loc("Yes"), action = function() {
-                swap_soldiers_equipment(reserveSoldier.guid, prevSoldier.guid)
-              }}
-              { text = loc("No"), isCancel = true}
-            ]
-          })
-        return
-      }
-      list.remove(idxFrom)
+      else
+        list.remove(idxFrom)
     })
+    if (reserveSoldier.equipSchemeId == prevSoldier?.equipSchemeId)
+      msgbox.show({
+        text = loc("swapSoldiersEquipmentConfirm")
+        buttons = [
+          { text = loc("Yes"), action = function() {
+            swap_soldiers_equipment(reserveSoldier.guid, prevSoldier.guid)
+          }}
+          { text = loc("No"), isCancel = true}
+        ]
+      })
     return
   }
 
@@ -513,6 +514,7 @@ return {
   }
   closeChooseSoldiersWnd = close
   applySoldierManage
+  updateSoldiersListAndSort = updateSoldiersListAndSortDebounced
 
   soldiersArmy
   soldiersSquad

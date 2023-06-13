@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let {
   bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
@@ -13,8 +12,6 @@ let { TextNormal, TextHover, textMargin
 } = require("%ui/components/textButton.style.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
-let soldierSlotsCount = require("model/soldierSlotsCount.nut")
-let { previewPreset } = require("%enlist/preset/presetEquipUi.nut")
 let { get_time_msec } = require("dagor.time")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { getObjectName, getItemDesc } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -47,10 +44,8 @@ let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
 let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
 let {
-  addToPresentList, curSuitableItemTypes, isItemsShopOpened
+  addToPresentList, curSuitableItemTypes
 } = require("%enlist/shop/armyShopState.nut")
-let { openSelectItem, autoSelectTemplate } = require("model/selectItemState.nut")
-let { curSoldierInfo } = require("model/curSoldiersState.nut")
 
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
@@ -400,48 +395,12 @@ let function soldierDismissBtn() {
 
 
 let function equipItemBtn() {
-  let res = { watch = [isNewDesign, curItem, curSuitableItemTypes] }
-  if (!isNewDesign.value)
-    return res
-
-  let item = curItem.value
-  let { basetpl = null, itemtype = null } = item
-  if (basetpl == null || itemtype == null)
-    return res
-
-  let soldier = curSoldierInfo.value
-  if (soldier == null)
-    return res
-
-  let { guid, equipScheme } = soldier
-  let slotType = equipScheme.findindex(@(scheme) scheme.itemTypes.indexof(itemtype) != null)
-  if (slotType == null)
-    return res
-
-  let { slotsIncrease = null } = previewPreset.value
-  let slotsCountWatch = soldierSlotsCount(guid, equipScheme, slotsIncrease)
-  let slotId = slotType in slotsCountWatch.value ? 0 : -1
-  return (curSuitableItemTypes.value?[itemtype] ?? false)
-    ? res.__update({ children = textButton(loc("equip/quickEquip"), function() {
-        tryMarkSeen()
-        isItemsShopOpened(false)
-        autoSelectTemplate(basetpl)
-        openSelectItem({
-          armyId = getLinkedArmyName(item)
-          ownerGuid = guid
-          slotType
-          slotId
-        })
-      }) })
-    : res
+  return { watch = [curItem, curSuitableItemTypes] }
 }
 
 
 let function upgradeItemBtn() {
-  let res = { watch = [isNewDesign, curItem] }
-  if (isNewDesign.value)
-    return res
-
+  let res = { watch = [curItem] }
   let justUpgradedItem = curItem.value
   let upgradeDataWatch = mkItemUpgradeData(justUpgradedItem)
   let upgradeData = upgradeDataWatch.value
@@ -474,6 +433,7 @@ let function upgradeItemBtn() {
             })
         }
       }, params, handler, group, sf)
+      hotkeys = [["^J:X"]]
     })
   })
   return res
@@ -506,8 +466,7 @@ let newItemsWnd = @() {
       children = wndCanBeClosed.value || isAnimFinished.value
         ? [
             @() {
-              watch = isNewDesign
-              children = textButton(loc(isNewDesign ? "shop/continueShopping" : "Ok"), tryMarkSeen,
+              children = textButton(loc("Ok"), tryMarkSeen,
                 { hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]] }
               )
             }

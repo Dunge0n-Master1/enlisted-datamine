@@ -17,7 +17,6 @@ def slot_attach_init_tms_impl(dt : float;
                               var animchar_render__root_pos : vec4f?;
                               animchar__visible : bool = true;
                               slot_attach__calcAnim : bool = true;
-                              slot_attach__rotOffset : float3?;
                               slot_attach__rotTm : float3x4 const?)
   let rotTm = slot_attach__rotTm ?? float3x4()
   if slot_attach__slotId < 0 || !slot_attach__attachedTo
@@ -27,8 +26,11 @@ def slot_attach_init_tms_impl(dt : float;
                                             animchar__actOnDemand : Tag const?;
                                             animchar__updatable : bool = true)
     if animchar__updatable || animchar__actOnDemand != null
-      if animchar_initAttachmentTmAndNodeWtm(animchar, slot_attach__slotId, tmpTm)
-        if (slot_attach__rotOffset != null)
+      let slotNodeWtm = animchar_getSlotNodeWtm(animchar, slot_attach__slotId)
+      let slotNodeTm = animchar_getAttachmentTm(animchar, slot_attach__slotId)
+      if slotNodeWtm != null && slotNodeTm != null
+        if slot_attach__rotTm != null
+          tmpTm = mat44f((float3x4(*slotNodeWtm) * *slot_attach__rotTm) * float3x4(*slotNodeTm))
           var attachTm : float3x4;
           attachTm[0] = float3(tmpTm.col0.x, tmpTm.col0.y, tmpTm.col0.z)
           attachTm[1] = float3(tmpTm.col1.x, tmpTm.col1.y, tmpTm.col1.z)
@@ -37,6 +39,8 @@ def slot_attach_init_tms_impl(dt : float;
           let pos = tmpTm.col3
           tmpTm = mat44f(attachTm)
           tmpTm.col3 = pos
+        else
+          tmpTm = mat44f(float3x4(*slotNodeWtm) * float3x4(*slotNodeTm))
 
       let wtmOfs = *animchar.nodeTree |> geomtree_getWtmOfs()
       animchar_setTmWithOfs(attachmentAnimChar, tmpTm, wtmOfs)
@@ -77,11 +81,10 @@ def slot_attach_first_priority_update_es(info : SlotAttachUpdateEvent;
                                          var animchar_render__root_pos : vec4f?;
                                          animchar__visible : bool = true;
                                          slot_attach__calcAnim : bool = true;
-                                         var slot_attach__rotOffset : float3?;
                                          slot_attach__rotTm : float3x4 const?)
   slot_attach_init_tms_impl(info.dt, slot_attach__slotId, slot_attach__attachedTo, animchar, disableUpdate,
                             animchar_node_wtm, animchar_render__root_pos, animchar__visible, slot_attach__calcAnim,
-                            slot_attach__rotOffset, slot_attach__rotTm);
+                            slot_attach__rotTm);
 
 
 [es(after=slot_attach_first_priority_update_es, REQUIRE_NOT=menuPoseTm, REQUIRE=(slot_attach, slot_attach__secondaryUpdate))]
@@ -94,8 +97,7 @@ def slot_attach_secondary_priority_update_es(info : SlotAttachUpdateEvent;
                                              var animchar_render__root_pos : vec4f?;
                                              animchar__visible : bool = true;
                                              slot_attach__calcAnim : bool = true;
-                                             var slot_attach__rotOffset : float3?;
                                              slot_attach__rotTm : float3x4 const?)
   slot_attach_init_tms_impl(info.dt, slot_attach__slotId, slot_attach__attachedTo, animchar, disableUpdate,
                             animchar_node_wtm, animchar_render__root_pos, animchar__visible, slot_attach__calcAnim,
-                            slot_attach__rotOffset, slot_attach__rotTm);
+                            slot_attach__rotTm);

@@ -5,7 +5,7 @@ let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%ui/components/msgbox.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let { mkShopItemPrice } = require("mkShopItemPrice.nut")
-let spinner = require("%ui/components/spinner.nut")({ opacity = 0.7 })
+let spinner = require("%ui/components/spinner.nut")
 let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let { getClassCfg, getKindCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -46,7 +46,7 @@ let mkPurchaseSpinner = @(shopItem, purchasingItem) @() {
   watch = purchasingItem
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
-  children = purchasingItem.value == shopItem ? spinner : null
+  children = purchasingItem.value == shopItem ? spinner(hdpx(40), 0.7) : null
 }
 
 let mkShopItemImg = @(img, override = {}) (img ?? "").len()  == 0 ? null
@@ -163,34 +163,41 @@ let mkItemUsageKind = @(sKind) {
 }
 
 let mkForVehicleSquad = @(squad, unlockLevel) {
-  size = [flex(), SIZE_TO_CONTENT]
+  size = [hdpx(300), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
+  hplace = ALIGN_CENTER
   gap = bigPadding
-  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
   children = [
-    unlockLevel == 0 ? null : {
-      flow = FLOW_HORIZONTAL
-      gap = bigPadding
+    mkSquadIcon(squad?.icon, { size = [hdpx(80), hdpx(80)], margin = smallPadding })
+    {
+      size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
+      halign = ALIGN_LEFT
+      flow = FLOW_VERTICAL
+      gap = bigPadding
       children = [
-        faComp("lock", { fontSize = hdpx(20), color = warningColor })
-        txt({
-          text = loc("level/short", { level = unlockLevel })
-          color = warningColor
-        }.__update(body_txt))
+        {
+          rendObj = ROBJ_TEXTAREA
+          size = [flex(), SIZE_TO_CONTENT]
+          behavior = Behaviors.TextArea
+          color = defTxtColor
+          text = loc(squad?.manageLocId ?? "")
+        }.__update(body_txt)
+        unlockLevel == 0 ? null : {
+          flow = FLOW_HORIZONTAL
+          gap = bigPadding
+          valign = ALIGN_BOTTOM
+          children = [
+            faComp("lock", { fontSize = sub_txt.fontSize, color = warningColor })
+            txt({
+              text = loc("level/short", { level = unlockLevel })
+              color = warningColor
+            }.__update(sub_txt))
+          ]
+        }
       ]
     }
-    mkSquadIcon(squad?.icon, { size = [hdpx(40), hdpx(40)], margin = smallPadding })
-    {
-      rendObj = ROBJ_TEXTAREA
-      size = [flex(), SIZE_TO_CONTENT]
-      maxWidth = SIZE_TO_CONTENT
-      behavior = Behaviors.TextArea
-      halign = ALIGN_CENTER
-      color = unlockLevel == 0 ? defTxtColor : warningColor
-      text = loc(squad?.manageLocId ?? "")
-    }.__update(body_txt)
   ]
 }
 
@@ -266,6 +273,7 @@ let function mkClassCanUse(itemtype, armyId, itemtmpl) {
         rendObj = ROBJ_TEXTAREA
         behavior = Behaviors.TextArea
         size = [flex(), SIZE_TO_CONTENT]
+        halign = ALIGN_CENTER
         text = loc("shop/anyCanUse")
       }.__update(body_txt)
     : {
@@ -313,7 +321,7 @@ let mkShopItemInfoBlock = @(crateContent) function() {
   })
 }
 
-let mkTitle = @(text, minAmount, maxAmount, idx, isBundle) {
+let mkTitle = @(text, minAmount, maxAmount, isBundle) {
   flow = FLOW_HORIZONTAL
   size = [flex(), SIZE_TO_CONTENT]
   valign = ALIGN_CENTER
@@ -324,13 +332,20 @@ let mkTitle = @(text, minAmount, maxAmount, idx, isBundle) {
       size = [flex(), SIZE_TO_CONTENT]
       behavior = Behaviors.TextArea
       text
-    }.__update(idx == 0 ? body_txt : tiny_txt )
-    idx > 0 || minAmount <= 1 || isBundle ? null : {
+    }.__update(body_txt)
+    minAmount <= 1 || isBundle ? null : {
       rendObj = ROBJ_TEXT
       text = minAmount == maxAmount ? $"×{minAmount}" : $"×{minAmount}-{maxAmount}" // TODO use localization for multipliers
     }.__update(body_txt)
   ]
 }
+
+let mkSubtitle = @(text) text == "" ? null : {
+  rendObj = ROBJ_TEXTAREA
+  size = [flex(), SIZE_TO_CONTENT]
+  behavior = Behaviors.TextArea
+  text
+}.__update(tiny_txt)
 
 let function getMaxCount(shopItem) {
   let { limit = 0, premiumDays = 0, squads = [] } = shopItem
@@ -363,7 +378,9 @@ let function mkShopItemTitle(
   if (soldierClasses.len() == 1)
     shopIcon = kindIcon(soldierClasses[0], hdpx(22))
 
-  let titleList = loc(shopItem?.nameLocId ?? "").split("\r\n")
+  let titleLoc = shopItem?.nameLocId ?? ""
+  let titleText = loc(titleLoc)
+  let subtitleText = loc($"{titleLoc}/subtitle", "")
   let itemMinAmount = content?.itemsAmount.x ?? 0
   let itemMaxAmount = content?.itemsAmount.y ?? 0
   let isBundle = (shopItem?.crates ?? []).len() > 1
@@ -391,8 +408,10 @@ let function mkShopItemTitle(
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
-            children = titleList.map(@(text, idx)
-              mkTitle(text, itemMinAmount, itemMaxAmount, idx, isBundle))
+            children = [
+              mkTitle(titleText, itemMinAmount, itemMaxAmount, isBundle)
+              mkSubtitle(subtitleText)
+            ]
           }
           maxCount <= 1 || countWatched == null ? null : mkCounter(maxCount, countWatched)
         ]
@@ -468,8 +487,8 @@ let mkShopItemView = kwarg(@(
         hplace = ALIGN_RIGHT
         flow = FLOW_HORIZONTAL
         children = [
-          mkTimeAvailable(shopItem)
           unseenSignalObj
+          mkTimeAvailable(shopItem)
         ]
       }
       onInfoCb != null ? mkInfoBtn(onInfoCb) : mkViewCrateBtn(crateContent, onCrateViewCb)

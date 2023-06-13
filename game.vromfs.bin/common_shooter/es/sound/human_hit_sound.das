@@ -10,6 +10,7 @@ require DngDm
 require DagorSystem
 require strings
 
+
 def is_armored(parts_armor : FloatList const?; node_id : int; sound_tags : Object)
   if parts_armor != null
     return node_id >= 0 && node_id < length(*parts_armor) && (*parts_armor)[node_id] != 0.
@@ -52,7 +53,7 @@ def human_hit_sound(evt : EventOnEntityHit; eid : EntityId;
   if empty(path)
     path = damage_type_to_sound_path(evt.damageType)
 
-  var pathObj = path != "" ? (human_hit_sound__paths[path] ?as Object) : null
+  var pathObj = !empty(path) ? (human_hit_sound__paths[path] ?as Object) : null
   if pathObj == null
     return
 

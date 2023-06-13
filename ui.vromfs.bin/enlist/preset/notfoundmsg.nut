@@ -8,9 +8,8 @@ let { HighlightFailure } = require("%ui/style/colors.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
 let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
 let { notFoundMsg, notFoundHeader, noteStyle
-} = require(isNewDesign.value ? "equipDesign.nut" : "equipDesignOld.nut")
+} = require("equipDesign.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 
 let { currenciesById, currenciesBalance } = require("%enlist/currency/currencies.nut")

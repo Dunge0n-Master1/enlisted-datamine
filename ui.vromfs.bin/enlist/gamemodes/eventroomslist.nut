@@ -7,7 +7,7 @@ let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { defTxtColor, rowBg, bigPadding, commonBtnHeight, titleTxtColor, activeTxtColor, isWide,
   accentTitleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let spinner = require("%ui/components/spinner.nut")
 let exclamation = require("%enlist/components/exclamation.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { txt, smallCampaignIcon, lockIcon, iconPreparingBattle, iconInBattle, iconMod
@@ -22,6 +22,7 @@ let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 
+let waitingSpinner = spinner()
 
 let rowHeight = hdpx(28)
 const IN_BATTLE = "launched"
@@ -34,7 +35,7 @@ let emptyRoomsInfo = @() {
   children = [
     exclamation(roomsListError.value != null ? loc($"error/{roomsListError.value}")
       : loc("noRoomsFound"))
-    isRequestInProgress.value ? spinner : { size = [0, hdpx(80)] }
+    isRequestInProgress.value ? waitingSpinner : { size = [0, hdpx(80)] }
   ]
   animations = [{ prop = AnimProp.opacity, from = 0, to = 1, easing = InCubic, duration = 0.5, play = true }]
 }
@@ -189,14 +190,14 @@ let headerTxt = @(column) watchElemState(@(sf) {
 })
 
 
-let eventRoomsListHeaderRow = @(columns){
+let eventRoomsListHeaderRow = @(cols){
   size = [flex(), commonBtnHeight]
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   padding = bigPadding
   color = Color(0,0,0)
   gap = isWide ? 0 : bigPadding
-  children = columns.map(@(column) headerTxt(columnsTable[column]))
+  children = cols.map(@(column) headerTxt(columnsTable[column]))
 }
 
 let scrollHandler = ScrollHandler()

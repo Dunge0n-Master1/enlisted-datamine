@@ -7,8 +7,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 import "%dngscripts/ecs.nut" as ecs
 
+from "dashboard" import override_dashboard_show, SM_SHOW
+override_dashboard_show(SM_SHOW)
+
 ecs.clear_vm_entity_systems()
 
+require("%dngscripts/globalState.nut").setUniqueNestKey("Enlist")
 require("%enlist/getAppIdsList.nut").setAppIdsList([1131, 1132, 1168, 1178])
 require("onScriptLoad.nut")
 
@@ -23,11 +27,10 @@ require("voiceChat/voiceStateHandlers.nut")
 require("%enlist/state/roomState.nut")
 require("debriefing/debriefing_dbg.nut")
 
+let { isInBattleState } = require("%enlSqGlob/inBattleState.nut")
+let {dbgSafeArea} = require("%ui/dbgSafeArea.nut")
 let friendlyErrorsBtn = require("friendly_logerr.ui.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let { hotkeysButtonsBar } = isNewDesign.value
-  ? require("%ui/hotkeysPanelBar.nut")
-  : require("%ui/hotkeysPanel.nut")
+let { hotkeysButtonsBar } = require("%ui/hotkeysPanel.nut")
 let platform = require("%dngscripts/platform.nut")
 let cursors = require("%ui/style/cursors.nut")
 let {msgboxGeneration, getCurMsgbox} = require("components/msgbox.nut")
@@ -134,19 +137,32 @@ let function curScreen(){
       log($"Enlist UI started")
     }
     watch = [isLoggedIn, showControlsMenu, showSettingsMenu]
-    children = children
+    children
   }
 }
 
+let inBattleUiChildren = freeze([
+  speakingList
+  dbgSafeArea
+])
+
+let outOfBattleChildren = freeze([
+  globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
+  msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
+  hotkeysButtonsBar
+])
+
+let showCursor = Computed(@() !isInBattleState.value)
+
 return function Root() {
   return {
-    cursor = cursors.normal
-    watch = [ gui_scene.isActive ]
-    children = !gui_scene.isActive.value ? null : [
-      globInput, fadeBlackUi, underUi, curScreen, version_info, aboveUi, modalWindowsComponent,
-      msgboxesUI, popupBlock, speakingList, logerrsUi, infoIcons, inspectorRoot, serviceInfo,
-      hotkeysButtonsBar
-    ]
+    cursor = showCursor.value ? cursors.normal : null
+    watch = [ showCursor, gui_scene.isActive, isInBattleState ]
+    children = !gui_scene.isActive.value
+      ? null
+      : isInBattleState.value
+          ? inBattleUiChildren
+          : outOfBattleChildren
   }
 }
 

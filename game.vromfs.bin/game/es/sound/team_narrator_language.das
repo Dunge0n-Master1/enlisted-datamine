@@ -17,15 +17,15 @@ def narrator_set_language(army : string; player_team : int)
       if empty(preset)
         find_query() <| $ [es] (team__id : int; team__lang : string)
           if player_team == team__id
-            if team__lang != ""
+            if !empty(team__lang)
               preset = "{narrator_settings__banksPresetStartsWith}{team__lang}"
             return true
           return false
 
-    if preset == "" || !sound_banks_is_preset_loaded(preset)
-      sound_banks_load_preset_starting_with(narrator_settings__banksPresetStartsWith, false)
-      if preset != ""
-        sound_banks_load_preset(preset, true)
+    if preset == "" || !sound_banks_is_preset_enabled(preset)
+      sound_banks_enable_preset_starting_with(narrator_settings__banksPresetStartsWith, false)
+      if !empty(preset)
+        sound_banks_enable_preset(preset, true)
 
 
 [es(tag=sound, on_appear, track=(team, is_local, army), REQUIRE=player)]

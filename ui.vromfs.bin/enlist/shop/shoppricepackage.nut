@@ -18,12 +18,12 @@ let realPriceLineColor = 0xFF334E80
 let goldPriceLineColor = 0xFF6E0F0F
 let mixPriceLineColor  = 0xFF797979
 
-let realPriceGradient = mkColoredGradientX(realPriceLineColor, transpLineColor)
-let goldPriceGradient = mkColoredGradientX(goldPriceLineColor, transpLineColor)
-let mixPriceGradient  = mkColoredGradientX(mixPriceLineColor, transpLineColor)
+let realPriceGradient = mkColoredGradientX({colorLeft=realPriceLineColor, colorRight=transpLineColor})
+let goldPriceGradient = mkColoredGradientX({colorLeft=goldPriceLineColor, colorRight=transpLineColor})
+let mixPriceGradient  = mkColoredGradientX({colorLeft=mixPriceLineColor, colorRight=transpLineColor})
 
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontMedium))
+let titleTxtStyle = freeze({ color = titleTxtColor }.__update(fontMedium))
 
 
 let priceSeparator = {

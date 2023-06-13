@@ -3,6 +3,18 @@ let { startsWith, endsWith } = require("%sqstd/string.nut")
 let {get_setting_by_blk_path} = require("settings")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
+
+let { isHarmonizationEnabled } = require("%enlSqGlob/harmonizationState.nut")
+let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
+let { nicknames } = isChineseVersion
+   ? require("%enlSqGlob/data/generated_nicknames_chinese.nut")
+   : require("%enlSqGlob/data/generated_nicknames_eng.nut")
+
+let harmonize = @(nickname, withHarmonize = false) is_pc && isHarmonizationEnabled.value
+  && withHarmonize
+    ? nicknames[nickname.hash() % nicknames.len()]
+    : nickname
+
 let needPlatformMorphemesReplacement = get_setting_by_blk_path("needPlatformMorphemesReplacement") ?? false
 
 let PC_ICON = "⋆"
@@ -26,27 +38,28 @@ let namePrefix = {
 
 let pcAddIcon = is_pc? "" : PC_ICON
 
-let addIcon = needPlatformMorphemesReplacement ? (@(name, icon) icon == "" ? name : $"{icon}{NBSP}{name}")
+let addIcon = needPlatformMorphemesReplacement
+  ? (@(name, icon) icon == "" ? name : $"{icon}{NBSP}{name}")
   : @(name, _icon) name
 
-let function remap_nick(name) {
+let function remap_nick(name, withHarmonize = false) {
   if (typeof name != "string" || name == "")
     return ""
 
   foreach (morpheme, icon in namePostfix)
     if (endsWith(name, morpheme))
-      return addIcon(name.slice(0, -morpheme.len()), icon)
+      return addIcon(harmonize(name.slice(0, -morpheme.len()), withHarmonize), icon)
 
   foreach (morpheme, icon in namePrefix)
     if (startsWith(name, morpheme))
-      return addIcon(name.slice(morpheme.len()), icon)
+      return addIcon(harmonize(name.slice(morpheme.len()), withHarmonize), icon)
 
-  return addIcon(name, pcAddIcon)
+  return addIcon(harmonize(name, withHarmonize), pcAddIcon)
 }
 
-let remap_others = @(name) name == userInfo.value?.name
+let remap_others = @(name, withHarmonize = false) name == userInfo.value?.name
   ? userInfo.value?.nameorig
-  : remap_nick(name)
+  : remap_nick(name, withHarmonize)
 
 return {
   remap_nick

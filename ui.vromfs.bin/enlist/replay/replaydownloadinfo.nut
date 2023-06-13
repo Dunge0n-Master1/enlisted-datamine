@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
+let spinner = require("%ui/components/spinner.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let { noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
@@ -15,6 +15,7 @@ let { replayPlay } = require("%enlist/replay/replaySettings.nut")
 let datacache = require("datacache")
 
 let WND_UID = "replayDownloadUi"
+let waitingSpinner = spinner()
 
 let btnStyle = {
   margin = 0
@@ -76,7 +77,7 @@ let infoContainer = @() {
           valign = ALIGN_CENTER
           flow = FLOW_VERTICAL
           children = [
-            spinner
+            waitingSpinner
             replayDownload.value.contentLen >= 0
               ? content(loc("replay/fileSizeMb", { size = replayDownload.value.contentLen >> 20 }))
               : null

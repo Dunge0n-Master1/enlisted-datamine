@@ -18,7 +18,7 @@ let { logerr } = require("dagor.debug")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { getObjectName, trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
-let { unseenTiers } = require("unseenWeaponry.nut")
+let { unseenTiers, unseenSoldiersWeaponry } = require("unseenWeaponry.nut")
 let { transfer_item } = require("%enlist/meta/clientApi.nut")
 let { lockedProgressCampaigns } = require("%enlist/meta/campaigns.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -26,7 +26,7 @@ let { room, roomIsLobby } = require("%enlist/state/roomState.nut")
 let { isObjGuidBelongToRentedSquad } = require("squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { itemToShopItem, getShopListForItem } = require("%enlist/soldiers/model/cratesContent.nut")
-let { curArmyItemsPrefiltered, itemsToPresent } = require("%enlist/shop/armyShopState.nut")
+let { curArmyItemsPrefiltered } = require("%enlist/shop/armyShopState.nut")
 
 
 let selectParamsList = mkWatched(persist, "selectParamsList", [])
@@ -35,6 +35,8 @@ let selectParamsArmyId = Computed(@() selectParams.value?.armyId)
 let selectParamsOwnerGuid = Computed(@() selectParams.value?.ownerGuid)
 let selectParamsSlotType = Computed(@() selectParams.value?.slotType)
 let selectParamsSlotId = Computed(@() selectParams.value?.slotId)
+
+let autoSelectTemplate = Watched(null)
 
 let curEquippedItem = Computed(function() {
   let { ownerGuid = null, slotType = null, slotId = null } = selectParams.value
@@ -321,13 +323,9 @@ let function selectItem(item, cb = null) {
 
 let unseenViewSlotTpls = Computed(function() {
   let armyId = selectParamsArmyId.value
-  let allUnseen = unseenTiers.value?[armyId].byTpl
-  if (allUnseen == null)
-    return {}
-
-  let { tier = -1 } = curEquippedItem.value
-  return allUnseen.filter(@(tplTier) tplTier > tier)
+  return unseenTiers.value?[armyId].byTpl ?? {}
 })
+
 
 let defaultSortOrder = {
   explosion_pack = 6
@@ -588,40 +586,8 @@ let closeNeeded = keepref(Computed(@() room.value != null && !roomIsLobby.value
 closeNeeded.subscribe(@(v) v ? itemClear() : null)
 
 
-let autoSelectTemplate = Watched(null)
-
-let function mkNewItemAlerts(soldier) {
-  return Computed(function() {
-    let armyId = curArmy.value
-    let templates = allItemTemplates.value?[armyId] ?? {}
-    let itemTypes = {}
-    foreach (itemTpl, count in itemsToPresent.value?[armyId] ?? {}) {
-      if (count <= 0)
-        continue
-
-      let { itemtype = null } = templates?[itemTpl]
-      if (itemtype != null)
-        itemTypes[itemtype] <- true
-    }
-
-    let { sClass = null, equipScheme = {} } = soldier.value
-    let lockedSlots = classSlotLocksByArmy.value?[armyId][sClass] ?? []
-    let curSlotId = selectParams.value?.slotType
-
-    let res = {}
-    foreach (slotId, scheme in equipScheme) {
-      if (slotId == curSlotId || lockedSlots.indexof(slotId) != null)
-        continue
-
-      foreach (itemType in scheme.itemTypes) {
-        if (itemTypes?[itemType] ?? false)
-          res[slotId] <- true
-      }
-    }
-
-    return res
-  })
-}
+let mkNewItemAlerts = @(soldierGuid)
+  Computed(@() unseenSoldiersWeaponry.value?[soldierGuid] ?? {})
 
 
 console_register_command(function(armyId) {

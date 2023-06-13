@@ -47,7 +47,6 @@ base_ussr_mbm_victor{
   xray_resource__modelName:t="ussr_mbm_victor"
   dmg_animchar__renderable:b=no
   _tracked:t="dmg_animchar__renderable"
-  hitmarks__showUserHits:b=no
   drowningHeight:r=2.0
   item__name:t="items/ussr_mbm_victor"
 

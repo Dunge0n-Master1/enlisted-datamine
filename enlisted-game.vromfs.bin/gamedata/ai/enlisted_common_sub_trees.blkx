@@ -1,7 +1,35 @@
 sequencer{
   name:t="sub.chooseMaxStance"
 
-  chooseMaxStance{
+  orderedSelector{
+
+    chooseMinMaxStancesForCoverAttack{
+    }
+
+    sequencer{
+
+      chooseMaxStance{
+      }
+
+      orderedSelector{
+
+        sequencer{
+
+          isAgentPlayerBot{
+          }
+
+          setIntVar{
+            to:t="minStance"
+            value:i=1
+          }
+        }
+
+        setIntVar{
+          to:t="minStance"
+          value:i=0
+        }
+      }
+    }
   }
 }
 
@@ -78,27 +106,54 @@ sequencer{
     posParam:t="regroupPosition"
   }
 
+  ifThenElse{
+
+    and{
+
+      isSquadLeaderMoving{
+      }
+
+      isAgressiveBehaviour{
+      }
+    }
+
+    setRealVar{
+      to:t="possibleAngle"
+      value:r=180.0
+    }
+
+    setRealVar{
+      to:t="possibleAngle"
+      value:r=80.0
+    }
+  }
+
   orderedSelector{
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
       radius:r=3.0
+      possibleAngleParam:t="possibleAngle"
       coverPosParam:t="coverPos"
       minDist:r=2.0
+      maxOccupied:i=3
       traceVisible:b=yes
     }
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
       radius:r=4.0
+      possibleAngleParam:t="possibleAngle"
       coverPosParam:t="coverPos"
       minDist:r=3.0
+      maxOccupied:i=2
       traceVisible:b=yes
     }
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
-      radius:r=2.0
+      radius:r=3.0
+      possibleAngle:r=180.0
       coverPosParam:t="coverPos"
       minDist:r=1.0
     }
@@ -117,28 +172,71 @@ sequencer{
     posParam:t="regroupPosition"
   }
 
+  getOrderPosition{
+    posParam:t="regroupPosition"
+    orderPosParam:t="spreadPos"
+    traceVisible:b=yes
+  }
+
+  ifThenElse{
+
+    and{
+
+      isSquadLeaderMoving{
+      }
+
+      isAgressiveBehaviour{
+      }
+    }
+
+    setRealVar{
+      to:t="possibleAngle"
+      value:r=180.0
+    }
+
+    setRealVar{
+      to:t="possibleAngle"
+      value:r=100.0
+    }
+  }
+
   orderedSelector{
 
     findCoverAroundPoint{
-      centerParam:t="regroupPosition"
-      radius:r=9.0
+      centerParam:t="spreadPos"
+      radius:r=5.0
+      possibleAngleParam:t="possibleAngle"
       coverPosParam:t="coverPos"
-      minDist:r=5.0
+      minDist:r=0.0
+      maxOccupied:i=1
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="spreadPos"
+      radius:r=3.0
+      possibleAngleParam:t="possibleAngle"
+      coverPosParam:t="coverPos"
+      minDist:r=0.0
+      maxOccupied:i=2
       traceVisible:b=yes
     }
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
       radius:r=5.0
+      possibleAngle:r=180.0
       coverPosParam:t="coverPos"
       minDist:r=3.0
+      traceVisible:b=yes
     }
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
       radius:r=3.0
+      possibleAngle:r=180.0
       coverPosParam:t="coverPos"
-      minDist:r=1.0
+      minDist:r=2.0
     }
   }
 
@@ -155,16 +253,35 @@ sequencer{
     posParam:t="regroupPosition"
   }
 
-  getRegroupDistance{
-    minDist:r=8.0
-    distParam:t="regroupDistance"
+  getOrderPosition{
+    posParam:t="regroupPosition"
+    orderPosParam:t="spreadPos"
   }
 
   orderedSelector{
 
     findCoverAroundPoint{
+      centerParam:t="spreadPos"
+      radius:r=7.0
+      coverPosParam:t="coverPos"
+      minDist:r=0.0
+      maxOccupied:i=1
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
+      centerParam:t="spreadPos"
+      radius:r=6.0
+      coverPosParam:t="coverPos"
+      minDist:r=0.0
+      maxOccupied:i=2
+      traceVisible:b=yes
+    }
+
+    findCoverAroundPoint{
       centerParam:t="regroupPosition"
-      radius:r=8.0
+      radius:r=5.0
+      possibleAngle:r=180.0
       coverPosParam:t="coverPos"
       minDist:r=2.0
       traceVisible:b=yes
@@ -172,25 +289,11 @@ sequencer{
 
     findCoverAroundPoint{
       centerParam:t="regroupPosition"
-      radius:r=4.0
+      radius:r=3.0
+      possibleAngle:r=180.0
       coverPosParam:t="coverPos"
-      minDist:r=0.0
-      traceVisible:b=yes
+      minDist:r=2.0
     }
-
-    findCoverAroundPoint{
-      centerParam:t="regroupPosition"
-      radius:r=4.0
-      coverPosParam:t="coverPos"
-      minDist:r=0.0
-    }
-  }
-
-  checkDistance{
-    posParam:t="regroupPosition"
-    otherPosParam:t="coverPos"
-    radiusParam:t="regroupDistance"
-    yRadius:r=2.5
   }
 
   copyPoint3Var{
@@ -352,6 +455,20 @@ sequencer{
     radiusParamName:t="enemyRadius"
     minDanger:r=0.1
     tag:t="human"
+  }
+
+  increaseDangerLevel{
+    paramName:t="dangerLevel"
+    targetParam:t="shootEnemy"
+  }
+
+  decideOnAttackTarget{
+    targetParam:t="shootEnemy"
+    targetSeeTimeParam:t="shootEnemyTime"
+    stillTimeOutParam:t="attackStillTime"
+    turnAngleOutParam:t="attackTurnAngle"
+    focusTimeOutParam:t="attackFocusTime"
+    checkOnly:b=yes
   }
 
   recalculateTree{
@@ -927,6 +1044,11 @@ sequencer{
     to:t="enemyNearTime"
   }
 
+  increaseDangerLevel{
+    paramName:t="dangerLevel"
+    targetParam:t="meleeEnemy"
+  }
+
   setCurrentAiAction{
     state:t="attack"
   }
@@ -1003,6 +1125,14 @@ sequencer{
 
     orderedSelector{
 
+      not{
+
+        isVarsIntEqual{
+          lhs:t="coverAttack"
+          rhs_value:i=0
+        }
+      }
+
       sequencer{
 
         findDanger{
@@ -1044,20 +1174,97 @@ sequencer{
 
   orderedSelector{
 
+    not{
+
+      isVarsIntEqual{
+        lhs:t="coverAttack"
+        rhs_value:i=0
+      }
+    }
+
+    checkAtTime{
+      timeParam:t="fastReactTime"
+      range:p2=0.0, 5.0
+    }
+
     decideOnAttackTarget{
       targetParam:t="shootEnemy"
       targetSeeTimeParam:t="shootEnemyTime"
       stillTimeOutParam:t="attackStillTime"
       turnAngleOutParam:t="attackTurnAngle"
       focusTimeOutParam:t="attackFocusTime"
-      gotoCoverOutParam:t="attackGotoCover"
     }
 
     failed{
 
       wait{
-        range:p2=0.5, 1.0
+        range:p2=0.3, 0.6
         resetable:b=yes
+      }
+    }
+  }
+
+  orderedSelector{
+
+    not{
+
+      isVarsIntEqual{
+        lhs:t="coverAttack"
+        rhs_value:i=0
+      }
+    }
+
+    checkAtTime{
+      timeParam:t="fastReactTime"
+      range:p2=0.0, 5.0
+    }
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        continue{
+        }
+      }
+
+      reaction{
+        event:t="onEnemyPlayerNear"
+
+        continue{
+        }
+      }
+
+      reaction{
+        event:t="onTraceableDanger"
+
+        continue{
+        }
+      }
+
+      wait{
+        timeParam:t="attackStillTime"
+        resetable:b=yes
+        aimSpeedCoef:r=0.01
+      }
+
+      sequencer{
+
+        reaction{
+          event:t="onBulletNearby"
+
+          continue{
+          }
+        }
+
+        rotateToPoint{
+          angleParam:t="attackTurnAngle"
+        }
+
+        wait{
+          timeParam:t="attackFocusTime"
+          resetable:b=yes
+        }
       }
     }
   }
@@ -1215,17 +1422,31 @@ sequencer{
                 from:t="shootEnemy"
               }
 
-              shootAtUnit{
-                targetUnitParam:t="shootEnemy"
-                minStanceParam:t="minStance"
-                shootCycles:i=1
-                tryToSaveCurrentStance:b=no
-                minStanceChance:r=1.5
-                shootTime:p2=0.2, 1.0
-                cooldownTime:p2=0.2, 0.9
-                minAimTime:p2=0.1, 0.4
-                maxStanceParam:t="maxStance"
-                alwaysAiming:b=yes
+              orderedSelector{
+
+                shootAtUnit{
+                  targetUnitParam:t="shootEnemy"
+                  minStanceParam:t="minStance"
+                  shootCycles:i=1
+                  tryToSaveCurrentStance:b=no
+                  minStanceChance:r=1.5
+                  shootTime:p2=0.2, 1.0
+                  cooldownTime:p2=0.2, 0.9
+                  minAimTime:p2=0.1, 0.4
+                  maxStanceParam:t="maxStance"
+                  alwaysAiming:b=yes
+                }
+
+                sequencer{
+
+                  setIntVar{
+                    to:t="coverAttack"
+                    value:i=0
+                  }
+
+                  break{
+                  }
+                }
               }
             }
           }
@@ -1248,52 +1469,29 @@ sequencer{
     }
   }
 
-  sequencer{
+  subTree{
+    treeName:t="sub.tryBeginCoverAttack"
+  }
 
-    reaction{
-      event:t="regularCheck"
+  subTree{
+    treeName:t="sub.performCoverAttackMoves"
+  }
 
-      continue{
-      }
-    }
+  increaseDangerLevel{
+    paramName:t="dangerLevel"
+    targetParam:t="shootEnemy"
+  }
 
-    reaction{
-      event:t="onEnemyPlayerNear"
+  decreaseDangerLevel{
+    paramName:t="dangerLevel"
+    decreaseCoef:r=0.9
+  }
 
-      continue{
-      }
-    }
+  not{
 
-    reaction{
-      event:t="onTraceableDanger"
-
-      continue{
-      }
-    }
-
-    wait{
-      timeParam:t="attackStillTime"
-      resetable:b=yes
-      aimSpeedCoef:r=0.01
-    }
-
-    sequencer{
-
-      reaction{
-        event:t="onBulletNearby"
-
-        continue{
-        }
-      }
-
-      rotateToPoint{
-        angleParam:t="attackTurnAngle"
-      }
-
-      wait{
-        timeParam:t="attackFocusTime"
-        resetable:b=yes
-      }
+    isVarsIntEqual{
+      lhs:t="coverAttack"
+      rhs_value:i=1
     }
   }
 
@@ -1398,6 +1596,11 @@ sequencer{
         }
       }
     }
+  }
+
+  increaseDangerLevel{
+    paramName:t="dangerLevel"
+    targetParam:t="shootEnemy"
   }
 
   setIntVar{
@@ -2145,18 +2348,35 @@ sequencer{
         }
       }
 
-      moveToPos{
-        posParam:t="wishPosition"
-        sprintTimerRange:p2=10.0, 20.0
-        minDistToSprint:r=1.5
-        lookVisc:r=0.1
-        tryClimbing:b=yes
-        maxStanceParam:t="maxStance"
-        stuckDirParam:t="stuckDir"
-        timeToStuck:r=0.9
-        incObstacles:b=yes
-        avoidAiObstacles:b=no
-        distThreshold:r=1.0
+      orderedSelector{
+
+        moveToPos{
+          posParam:t="wishPosition"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=1.5
+          lookVisc:r=0.1
+          tryClimbing:b=yes
+          maxStanceParam:t="maxStance"
+          stuckDirParam:t="stuckDir"
+          timeToStuck:r=0.9
+          incObstacles:b=yes
+          avoidAiObstacles:b=no
+          distThreshold:r=1.0
+        }
+
+        moveToPos{
+          posParam:t="wishPosition"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=1.5
+          lookVisc:r=0.1
+          tryClimbing:b=yes
+          maxStanceParam:t="maxStance"
+          stuckDirParam:t="stuckDir"
+          timeToStuck:r=0.9
+          incObstacles:b=no
+          avoidAiObstacles:b=no
+          distThreshold:r=0.1
+        }
       }
 
       setIntVar{
@@ -2204,18 +2424,35 @@ sequencer{
         }
       }
 
-      moveToPos{
-        posParam:t="wishPosition"
-        sprintTimerRange:p2=10.0, 20.0
-        minDistToSprint:r=1.5
-        lookVisc:r=0.1
-        tryClimbing:b=yes
-        maxStanceParam:t="maxStance"
-        stuckDirParam:t="stuckDir"
-        timeToStuck:r=2.5
-        incObstacles:b=no
-        avoidAiObstacles:b=no
-        distThreshold:r=1.0
+      orderedSelector{
+
+        moveToPos{
+          posParam:t="wishPosition"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=1.5
+          lookVisc:r=0.1
+          tryClimbing:b=yes
+          maxStanceParam:t="maxStance"
+          stuckDirParam:t="stuckDir"
+          timeToStuck:r=2.5
+          incObstacles:b=yes
+          avoidAiObstacles:b=no
+          distThreshold:r=1.0
+        }
+
+        moveToPos{
+          posParam:t="wishPosition"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=1.5
+          lookVisc:r=0.1
+          tryClimbing:b=yes
+          maxStanceParam:t="maxStance"
+          stuckDirParam:t="stuckDir"
+          timeToStuck:r=2.5
+          incObstacles:b=no
+          avoidAiObstacles:b=no
+          distThreshold:r=0.1
+        }
       }
 
       setIntVar{
@@ -2805,6 +3042,170 @@ sequencer{
   }
 }
 
+sequencer{
+  name:t="sub.popFromCoverAttackCover"
+
+  getTime{
+    to:t="fastReactTime"
+  }
+
+  getCoverPosAndDir{
+    coverIndexParam:t="coverAttackCover"
+    coverSlotParam:t="coverAttackCoverSlot"
+  }
+
+  rotateToPoint{
+    posParam:t="coverLookPos"
+  }
+
+  setIntVar{
+    to:t="coverAttack"
+    value:i=2
+  }
+
+  chooseMinMaxStancesForCoverAttack{
+  }
+
+  changeStanceForCoverAttack{
+    hide:b=no
+  }
+
+  orderedSelector{
+
+    sequencer{
+
+      isVarsIntEqual{
+        lhs:t="coverAttackType"
+        rhs_value:i=4
+      }
+
+      getCoverPosAndDir{
+        coverIndexParam:t="coverAttackCover"
+        coverSlotParam:t="coverAttackCoverSlot"
+        outLeftPosParam:t="coverWalkPos"
+      }
+
+      moveByDir{
+        endPos:t="coverWalkPos"
+        duration:r=2.5
+        distThresholsd:r=0.3
+      }
+
+      rotateToPoint{
+        posParam:t="coverLookPos"
+      }
+    }
+
+    sequencer{
+
+      isVarsIntEqual{
+        lhs:t="coverAttackType"
+        rhs_value:i=5
+      }
+
+      getCoverPosAndDir{
+        coverIndexParam:t="coverAttackCover"
+        coverSlotParam:t="coverAttackCoverSlot"
+        outRightPosParam:t="coverWalkPos"
+      }
+
+      moveByDir{
+        endPos:t="coverWalkPos"
+        duration:r=2.5
+        distThresholsd:r=0.3
+      }
+
+      rotateToPoint{
+        posParam:t="coverLookPos"
+      }
+    }
+
+    continue{
+    }
+  }
+
+  wait{
+    range:p2=0.1, 0.2
+    resetable:b=yes
+  }
+}
+
+sequencer{
+  name:t="sub.hideToCoverAttackCover"
+
+  setIntVar{
+    to:t="minStance"
+    value:i=2
+  }
+
+  setIntVar{
+    to:t="maxStance"
+    value:i=2
+  }
+
+  setIntVar{
+    to:t="coverAttack"
+    value:i=1
+  }
+
+  getTime{
+    to:t="fastReactTime"
+  }
+
+  changeStance{
+    stanceName:t="stand"
+    maxStanceParam:t="maxStance"
+  }
+
+  orderedSelector{
+
+    moveToPos{
+      posParam:t="coverPos"
+      sprintTimerRange:p2=10.0, 20.0
+      minDistToSprint:r=0.0
+      distThreshold:r=0.3
+      avoidAiObstacles:b=no
+      timeToStuck:r=0.3
+    }
+
+    moveByDir{
+      endPos:t="coverPos"
+      duration:r=1.5
+      distThreshold:r=0.3
+    }
+  }
+
+  rotateToPoint{
+    posParam:t="coverLookPos"
+  }
+
+  chooseMinMaxStancesForCoverAttack{
+  }
+
+  changeStanceForCoverAttack{
+    hide:b=yes
+  }
+
+  wait{
+    range:p2=0.5, 0.7
+    resetable:b=yes
+  }
+
+  wait{
+    range:p2=0.1, 0.2
+    resetable:b=yes
+  }
+
+  decreaseDangerLevel{
+    paramName:t="dangerLevel"
+    decreaseCoef:r=0.1
+  }
+}
+
+sequencer{
+  name:t="sub.retreatFromCoverAttackCover"
+}
+
 orderedSelector{
   name:t="sub.tryToOpenDoors"
 
@@ -2823,6 +3224,585 @@ orderedSelector{
   subTree{
     name:t=""
     refId:t="findCoverRef"
+  }
+}
+
+orderedSelector{
+  name:t="sub.checkEndCoverAttack"
+
+  isVarsIntEqual{
+    lhs:t="coverAttack"
+    rhs_value:i=0
+  }
+
+  sequencer{
+
+    checkCoverForCoverAttack{
+    }
+
+    checkAtTime{
+      timeParam:t="coverAttackEnemyTime"
+      range:p2=0.0, 5.0
+    }
+
+    success{
+
+      sequencer{
+
+        checkTargetTraceable{
+          targetParam:t="coverAttackEnemy"
+        }
+
+        getTime{
+          to:t="coverAttackEnemyTime"
+        }
+      }
+    }
+  }
+
+  sequencer{
+
+    success{
+
+      ignoreCover{
+        coverIndexParam:t="coverAttackCover"
+        coverSlotParam:t="coverAttackCoverSlot"
+        timeIgnore:p2=8.0, 16.0
+      }
+    }
+
+    setIntVar{
+      to:t="coverAttack"
+      value:i=0
+    }
+
+    setIntVar{
+      to:t="coverAttackType"
+      value:i=0
+    }
+
+    setIntVar{
+      to:t="coverAttackCover"
+      value:i=-1
+    }
+
+    setIntVar{
+      to:t="coverAttackCoverSlot"
+      value:i=0
+    }
+
+    setIntVar{
+      to:t="coverAttackEnemy"
+      value:i=0
+    }
+
+    setRealVar{
+      to:t="coverAttackEnemyTime"
+      value:r=0.0
+    }
+
+    wait{
+      range:p2=0.1, 0.2
+      resetable:b=yes
+    }
+  }
+}
+
+orderedSelector{
+  name:t="sub.tryBeginCoverAttack"
+
+  not{
+
+    isVarsIntEqual{
+      lhs:t="coverAttack"
+      rhs_value:i=0
+    }
+  }
+
+  not{
+
+    sequencer{
+
+      reaction{
+        event:t="regularCheck"
+
+        findObstaclesAlongsidePath{
+        }
+      }
+
+      reaction{
+        event:t="onEnemyPlayerNear"
+
+        orderedSelector{
+
+          sequencer{
+
+            findDanger{
+              paramName:t="meleeEnemy"
+              radiusParamName:t="enemyMeleeRadius"
+              minDanger:r=0.5
+              tag:t="human"
+            }
+
+            decreaseDangerLevel{
+              paramName:t="dangerLevel"
+              decreaseCoef:r=0.1
+            }
+
+            setIntVar{
+              to:t="coverAttack"
+              value:i=0
+            }
+
+            recalculateTree{
+            }
+          }
+
+          sequencer{
+
+            findDanger{
+              paramName:t="reactShootEnemy"
+              radiusParamName:t="enemyNearRadius"
+              minDanger:r=0.5
+              tag:t="human"
+            }
+
+            orderedSelector{
+
+              isVarsIntEqual{
+                lhs:t="reactShootEnemy"
+                rhs:t="shootEnemy"
+              }
+
+              sequencer{
+
+                decreaseDangerLevel{
+                  paramName:t="dangerLevel"
+                  decreaseCoef:r=0.1
+                }
+
+                setIntVar{
+                  to:t="coverAttack"
+                  value:i=0
+                }
+
+                recalculateTree{
+                }
+              }
+            }
+          }
+        }
+      }
+
+      reaction{
+        event:t="onTraceableDanger"
+
+        continue{
+        }
+      }
+
+      reaction{
+        event:t="onBulletNearby"
+
+        continue{
+        }
+      }
+
+      getRegroupPos{
+        posParam:t="regroupPosition"
+      }
+
+      findCoverForCoverAttack{
+        targetParam:t="shootEnemy"
+        approachPosParam:t="regroupPosition"
+      }
+
+      wait{
+        range:p2=0.1, 0.2
+        resetable:b=yes
+      }
+
+      wait{
+        range:p2=0.1, 0.2
+        resetable:b=yes
+      }
+
+      getCoverPosAndDir{
+        coverIndexParam:t="coverAttackCover"
+        coverSlotParam:t="coverAttackCoverSlot"
+        outPosParam:t="coverPos"
+      }
+
+      setIntVar{
+        to:t="minStance"
+        value:i=2
+      }
+
+      setIntVar{
+        to:t="maxStance"
+        value:i=2
+      }
+
+      setIntVar{
+        to:t="coverAttack"
+        value:i=1
+      }
+
+      setIntVar{
+        to:t="dangerNearbyBeware"
+        value:i=1
+      }
+
+      changeStance{
+        stanceName:t="stand"
+        maxStanceParam:t="maxStance"
+      }
+
+      orderedSelector{
+
+        moveToPos{
+          posParam:t="coverPos"
+          sprintTimerRange:p2=10.0, 20.0
+          minDistToSprint:r=0.0
+          distThreshold:r=0.3
+          avoidAiObstacles:b=no
+          timeToStuck:r=0.3
+        }
+
+        continue{
+        }
+      }
+
+      setPosFromEntity{
+        to:t="coverLookPos"
+        from:t="shootEnemy"
+      }
+
+      rotateToPoint{
+        posParam:t="coverLookPos"
+      }
+
+      copyIntVar{
+        to:t="coverAttackEnemy"
+        from:t="shootEnemy"
+      }
+
+      getTime{
+        to:t="coverAttackEnemyTime"
+      }
+
+      chooseMinMaxStancesForCoverAttack{
+      }
+
+      changeStanceForCoverAttack{
+        hide:b=yes
+      }
+
+      decreaseDangerLevel{
+        paramName:t="dangerLevel"
+        decreaseCoef:r=0.1
+      }
+    }
+  }
+
+  isVarsRealLess{
+    lhs:t="dangerLevel"
+    rhs_value:r=0.9
+  }
+}
+
+orderedSelector{
+  name:t="sub.performCoverAttackMoves"
+
+  sequencer{
+
+    isVarsIntEqual{
+      lhs:t="coverAttack"
+      rhs_value:i=1
+    }
+
+    wait{
+      range:p2=0.3, 0.5
+      resetable:b=yes
+    }
+
+    orderedSelector{
+
+      sequencer{
+
+        reaction{
+          event:t="regularCheck"
+
+          findObstaclesAlongsidePath{
+          }
+        }
+
+        reaction{
+          event:t="onEnemyPlayerNear"
+
+          continue{
+          }
+        }
+
+        reaction{
+          event:t="onTraceableDanger"
+
+          continue{
+          }
+        }
+
+        reaction{
+          event:t="onBulletNearby"
+
+          continue{
+          }
+        }
+
+        getCoverPosAndDir{
+          coverIndexParam:t="coverAttackCover"
+          coverSlotParam:t="coverAttackCoverSlot"
+          outPosParam:t="coverPos"
+        }
+
+        orderedSelector{
+
+          checkDistance{
+            posParam:t="coverPos"
+            radius:r=1.0
+            yRadius:r=1.0
+          }
+
+          subTree{
+            treeName:t="sub.hideToCoverAttackCover"
+          }
+        }
+
+        orderedSelector{
+
+          ignoreChance{
+            chance:r=0.3
+          }
+
+          wait{
+            range:p2=0.1, 0.5
+            resetable:b=yes
+          }
+        }
+
+        orderedSelector{
+
+          checkTargetTraceable{
+            targetParam:t="coverAttackEnemy"
+          }
+
+          ignoreChance{
+            chance:r=0.5
+          }
+
+          failed{
+
+            sequencer{
+
+              increaseDangerLevel{
+                paramName:t="dangerLevel"
+                targetParam:t="coverAttackEnemy"
+              }
+
+              increaseDangerLevel{
+                paramName:t="dangerLevel"
+                targetParam:t="coverAttackEnemy"
+              }
+            }
+          }
+        }
+
+        checkReloadWeapon{
+        }
+
+        wait{
+          range:p2=0.3, 0.5
+          resetable:b=yes
+        }
+
+        subTree{
+          treeName:t="sub.popFromCoverAttackCover"
+        }
+
+        ifThenElse{
+
+          checkTooManyEnemiesWatching{
+          }
+
+          sequencer{
+
+            increaseDangerLevel{
+              paramName:t="dangerLevel"
+              targetParam:t="coverAttackEnemy"
+            }
+
+            subTree{
+              treeName:t="sub.hideToCoverAttackCover"
+            }
+
+            wait{
+              range:p2=0.5, 1.0
+              resetable:b=yes
+            }
+
+            break{
+            }
+          }
+
+          continue{
+          }
+        }
+
+        checkTarget{
+          targetUnitParam:t="coverAttackEnemy"
+        }
+
+        setPosFromEntity{
+          to:t="coverLookPos"
+          from:t="coverAttackEnemy"
+        }
+
+        setIntVar{
+          to:t="coverAttack"
+          value:i=2
+        }
+
+        setIntVar{
+          to:t="dangerNearbyBeware"
+          value:i=1
+        }
+
+        getTime{
+          to:t="coverAttackEnemyTime"
+        }
+      }
+
+      sequencer{
+
+        ignoreCover{
+          coverIndexParam:t="coverAttackCover"
+          coverSlotParam:t="coverAttackCoverSlot"
+          timeIgnore:p2=8.0, 16.0
+        }
+
+        decreaseDangerLevel{
+          paramName:t="dangerLevel"
+          decreaseCoef:r=0.1
+        }
+
+        setIntVar{
+          to:t="dangerNearbyBeware"
+          value:i=1
+        }
+
+        setIntVar{
+          to:t="coverAttack"
+          value:i=0
+        }
+      }
+    }
+  }
+
+  sequencer{
+
+    isVarsIntEqual{
+      lhs:t="coverAttack"
+      rhs_value:i=2
+    }
+
+    orderedSelector{
+
+      checkTarget{
+        targetUnitParam:t="coverAttackEnemy"
+      }
+
+      not{
+
+        sequencer{
+
+          not{
+
+            ignoreChance{
+              chance:r=0.1
+            }
+          }
+
+          ignoreCover{
+            coverIndexParam:t="coverAttackCover"
+            coverSlotParam:t="coverAttackCoverSlot"
+            timeIgnore:p2=8.0, 16.0
+          }
+        }
+      }
+
+      failed{
+
+        sequencer{
+
+          setIntVar{
+            to:t="coverAttack"
+            value:i=0
+          }
+
+          decreaseDangerLevel{
+            paramName:t="dangerLevel"
+            decreaseCoef:r=0.1
+          }
+        }
+      }
+    }
+
+    orderedSelector{
+
+      not{
+
+        orderedSelector{
+
+          checkReloadWeapon{
+            checkOnly:b=yes
+          }
+
+          not{
+
+            isVarsRealLess{
+              lhs:t="dangerLevel"
+              rhs_value:r=0.9
+            }
+          }
+        }
+      }
+
+      sequencer{
+
+        subTree{
+          treeName:t="sub.hideToCoverAttackCover"
+        }
+
+        wait{
+          range:p2=0.1, 0.2
+          resetable:b=yes
+        }
+
+        break{
+        }
+      }
+    }
+
+    getTime{
+      to:t="coverAttackEnemyTime"
+    }
+
+    setIntVar{
+      to:t="dangerNearbyBeware"
+      value:i=1
+    }
+  }
+
+  continue{
   }
 }
 

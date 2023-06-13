@@ -9,97 +9,8 @@ let { scoreSquads, scoreAlone} = require("%enlSqGlob/expScoringValues.nut")
 let {server_send_net_sqevent} = require("ecs.netevent")
 let calcSoldierScore = require("%scripts/game/utils/calcSoldierScore.nut")
 
-let newStats = @() {
-  spawns = 0
-  killed = 0 //suicide does not count
-  kills = 0
-  attackKills = 0
-  defenseKills = 0
-  tankKills = 0
-  planeKills = 0
-  assists = 0
-  tankKillAssists = 0
-  planeKillAssists = 0
-  captures = 0.0 // float
-  crewKillAssists = 0.0 // float
-  crewTankKillAssists = 0.0 // float
-  crewPlaneKillAssists = 0.0 // float
-  tankKillAssistsAsCrew = 0.0 // float
-  planeKillAssistsAsCrew = 0.0 // float
-  builtStructures = 0
-  builtGunKills = 0
-  builtGunKillAssists = 0
-  builtGunTankKills = 0
-  builtGunTankKillAssists = 0
-  builtGunPlaneKills = 0
-  builtGunPlaneKillAssists = 0
-  builtBarbwireActivations = 0
-  builtCapzoneFortificationActivations = 0
-  builtAmmoBoxRefills = 0
-  builtMedBoxRefills = 0
-  builtRallyPointUses = 0
-  hostedOnSoldierSpawns = 0
-  vehicleRepairs = 0
-  vehicleExtinguishes = 0
-  landings = 0
-  reviveAssists = 0
-  healAssists = 0.0
-  barrageBalloonDestructions = 0
-  enemyBuiltFortificationDestructions = 0
-  enemyBuiltGunDestructions = 0
-  enemyBuiltUtilityDestructions = 0
-  friendlyHits = 0
-  friendlyKills = 0
-  friendlyKillsSamePlayer2Add = 0
-  friendlyKillsSamePlayer3Add = 0
-  friendlyKillsSamePlayer4Add = 0
-  friendlyKillsSamePlayer5AndMoreAdd = 0
-  friendlyTankHits = 0
-  friendlyTankKills = 0
-  friendlyPlaneHits = 0
-  friendlyPlaneKills = 0
-  meleeKills = 0
-  explosiveKills = 0
-  longRangeKills = 0
-  bestOneLifeInfantryKills = 0
-  bestOneLifeInfantryKillsWithCrew = 0
-  bestOneLifeVehicleKills = 0
-  bestOneLifeVehicleKillsWithCrew = 0
-  bestOneLifeParatrooperKills = 0
-  contributionToVictory = 0
-  gunGameLevelup = 0
-  time = 0.0 // float
-  spawnTime = -1.0 // float
-  score = 0
-  previousLifeScore = 0.0 // float
-  squadId = null
-}
-
 let soldierStatsQuery = ecs.SqQuery("soldierStatsQuery", { comps_rw = [["soldierStats", ecs.TYPE_OBJECT]] })
-
-let function getMemberData(playerEid, guid) {
-  let stats = soldierStatsQuery(playerEid, @(_, comp) comp.soldierStats)
-  if (stats == null)
-    return newStats()
-  if (!(guid in stats))
-    stats[guid] <- newStats()
-  return stats[guid]
-}
-
-
-let getSquadIdQuery = ecs.SqQuery("getSquadIdQuery", { comps_ro = [["squad__id", ecs.TYPE_INT]] })
-
-let function onMemberCreated(_evt, _eid, comp) {
-  let guid = comp["guid"]
-  if (!guid || !guid.len())
-    return
-
-  let data = getMemberData(comp["squad_member__playerEid"], guid)
-  data.spawns++
-  data.spawnTime = get_sync_time()
-  data.squadId = getSquadIdQuery(comp.squad_member__squad, @(_, c) c.squad__id)
-  logBR("onMemberCreated ", comp["squad_member__playerEid"], guid)
-}
+let getMemberData = @(playerEid, guid) soldierStatsQuery(playerEid, @(_, comp) comp.soldierStats)[guid]
 
 let getSoldierInfoQuery = ecs.SqQuery("getSoldierInfoQuery", { comps_ro = [["guid", ecs.TYPE_STRING], ["squad_member__playerEid", ecs.TYPE_EID]] })
 
@@ -109,7 +20,7 @@ let function onEntityDied(evt, _eid, _comp) {
   let victim = getSoldierInfoQuery(victimEid, @(_, comp) comp) ?? {}
   let victimGuid = victim?.guid ?? ""
   let victimOwnerPlayer = victim?["squad_member__playerEid"]
-  if (victimOwnerPlayer == null || victimGuid == "")
+  if (victimOwnerPlayer == null || victimGuid == "" || !ecs.g_entity_mgr.doesEntityExist(victimOwnerPlayer))
     return
 
   logBR("onMemberDied ", victimOwnerPlayer, victimGuid)
@@ -141,12 +52,15 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__kills", ecs.TYPE_INT],
     ["scoring_player__tankKills", ecs.TYPE_INT],
     ["scoring_player__planeKills", ecs.TYPE_INT],
+    ["scoring_player__aiPlaneKills", ecs.TYPE_INT],
     ["scoring_player__captures", ecs.TYPE_FLOAT],
     ["scoring_player__assists", ecs.TYPE_INT],
     ["scoring_player__tankKillAssists", ecs.TYPE_INT],
     ["scoring_player__planeKillAssists", ecs.TYPE_INT],
+    ["scoring_player__aiPlaneKillAssists", ecs.TYPE_INT],
     ["scoring_player__tankKillAssistsAsCrew", ecs.TYPE_FLOAT],
     ["scoring_player__planeKillAssistsAsCrew", ecs.TYPE_FLOAT],
+    ["scoring_player__aiPlaneKillAssistsAsCrew", ecs.TYPE_FLOAT],
     ["scoring_player__attackKills", ecs.TYPE_INT],
     ["scoring_player__defenseKills", ecs.TYPE_INT],
     ["scoring_player__builtBarbwireActivations", ecs.TYPE_INT],
@@ -156,7 +70,9 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__builtGunTankKills", ecs.TYPE_INT],
     ["scoring_player__builtGunTankKillAssists", ecs.TYPE_INT],
     ["scoring_player__builtGunPlaneKills", ecs.TYPE_INT],
+    ["scoring_player__builtGunAiPlaneKills", ecs.TYPE_INT],
     ["scoring_player__builtGunPlaneKillAssists", ecs.TYPE_INT],
+    ["scoring_player__builtGunAiPlaneKillAssists", ecs.TYPE_INT],
     ["scoring_player__builtCapzoneFortificationActivations", ecs.TYPE_INT],
     ["scoring_player__builtAmmoBoxRefills", ecs.TYPE_INT],
     ["scoring_player__builtMedBoxRefills", ecs.TYPE_INT],
@@ -170,6 +86,7 @@ let scoringPlayerAwardsQuery = ecs.SqQuery("scoringPlayerAwardsQuery", {
     ["scoring_player__crewKillAssists", ecs.TYPE_FLOAT],
     ["scoring_player__crewTankKillAssists", ecs.TYPE_FLOAT],
     ["scoring_player__crewPlaneKillAssists", ecs.TYPE_FLOAT],
+    ["scoring_player__crewAiPlaneKillAssists", ecs.TYPE_FLOAT],
     ["scoring_player__barrageBalloonDestructions", ecs.TYPE_INT],
     ["scoring_player__enemyBuiltFortificationDestructions", ecs.TYPE_INT],
     ["scoring_player__enemyBuiltGunDestructions", ecs.TYPE_INT],
@@ -200,7 +117,9 @@ let squadStatsFilter = {
   builtGunTankKills = true
   builtGunTankKillAssists = true
   builtGunPlaneKills = true
+  builtGunAiPlaneKills = true
   builtGunPlaneKillAssists = true
+  builtGunAiPlaneKillAssists = true
   builtBarbwireActivations = true
   builtAmmoBoxRefills = true
   builtMedBoxRefills = true
@@ -228,7 +147,7 @@ let function onSquadMembersStats(evt, _, __) {
       playerEid = soldier?["squad_member__playerEid"] ?? ecs.INVALID_ENTITY_ID
     }
 
-    if (playerEid == ecs.INVALID_ENTITY_ID || guid == "")
+    if (!ecs.g_entity_mgr.doesEntityExist(playerEid) || guid == "")
       continue
 
     let mData = getMemberData(playerEid, guid)
@@ -275,15 +194,6 @@ let function onSquadMembersStats(evt, _, __) {
       sendSquadStatsToPlayer(statsToSend, playerEid, playerComps.connid)
     }))
 }
-
-ecs.register_es("squad_stats_es",
-  { [ecs.EventEntityCreated] = onMemberCreated },
-  { comps_ro = [
-      ["squad_member__squad", ecs.TYPE_EID],
-      ["squad_member__playerEid", ecs.TYPE_EID],
-      ["guid", ecs.TYPE_STRING],
-    ]
-  }, {tags="server"})
 
 ecs.register_es("squad_stats_kills_es",
   {

@@ -10,6 +10,7 @@ require game.events_game
 require common_shooter.events_common_shooter
 require common_shooter.es.human_weap_common
 require common_shooter.es.human.human_reload_common
+require common_shooter.es.gun_anim_common
 require DngHuman
 require DngActor
 require DngWeapon
@@ -19,6 +20,7 @@ require DagorRandom
 require DaWeaponProps
 require Gun
 require HumanPhys
+require PhysVars
 require enlisted.events_enlisted
 
 
@@ -173,9 +175,16 @@ def human_weap_request_reload_es(evt : CmdRequestReload;
   let atTime = evt.atTime
   let gunEid = evt.gunEid
 
+  var shouldExit = false
+  query(gunEid) <| $ [es(REQUIRE=multiStateReloadSystem)] ()
+    shouldExit = true
+  if shouldExit
+    return
+
   if !human_weap_can_reload(eid, gunEid)
     return
 
+  // interrupt single reload on reload request during the reload
   if human_weap__reloadAtTime > atTime
     if human_weap__singleReload
       interrupt_single_reload(gunEid, atTime,

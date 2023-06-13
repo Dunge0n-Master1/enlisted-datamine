@@ -36,6 +36,9 @@ let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { openBPwindow, getRewardIdx } = require("%enlist/battlepass/bpWindowState.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
+let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { titleTxtColor, attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let faComp = require("%ui/components/faComp.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(sub_txt)
@@ -45,6 +48,7 @@ let failureTxtStyle = { color = HighlightFailure }.__update(body_txt)
 let boldFailureTxtStyle = { color = HighlightFailure }.__update(body_bold_txt)
 let highlightTxtStyle = { color = TextHighlight }.__update(body_txt)
 let largeDefTxtStyle = { color = defTxtColor }.__update(h2_txt)
+let alertTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 
 enum DISCOUNT_STATE {
   STARTED = 0
@@ -254,6 +258,21 @@ let function notEnoughMsg(itemTpl, missingOrders) {
 
 let titleLocalization = @(locId, shopItem) loc(locId, { purchase = loc(shopItem?.nameLocId) ?? "" })
 
+let warnIcon = faComp("exclamation-triangle", { fontSize = hdpx(16), color = attentionTxtColor })
+
+let mkAlertObject = @(alertText) {
+  flow = FLOW_HORIZONTAL
+  margin = smallPadding
+  gap = smallPadding
+  children = [
+    warnIcon
+    {
+      rendObj = ROBJ_TEXT
+      text = alertText
+    }.__update(alertTxtStyle)
+  ]
+}
+
 let function limitTextBlock(limit, guid) {
   if (limit <= 0)
     return null
@@ -270,8 +289,8 @@ let function limitTextBlock(limit, guid) {
     }
   }}
 
-let function buyItem(shopItem, productView = null, viewBtnCb = null,
-  activatePremiumBttn = null, description = null, pOfferGuid = null, countWatched = Watched(1)
+let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePremiumBttn = null,
+  description = null, pOfferGuid = null, countWatched = Watched(1), isNotSuitable = false
 ) {
   // no free space for soldier:
   let requiredInfo = getBuyRequirementError(shopItem)
@@ -368,6 +387,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null,
     local buyPriceView = null
     let msgBody = [
       limitTextBlock(limit, guid)
+      isNotSuitable ? mkAlertObject(loc("shop/unsuitableForSoldier")) : null
       productView ?? mkDescription(shopItem?.descLocId)
       typeof description == "string" ? mkItemDescription(description) : description
     ]

@@ -2,9 +2,9 @@ gunAttachable{
   slot:t="scope"
   slotTag:t="scope_zf_41"
   gunSlotName:t="scope"
-  template:t="scope_zf_41_gewehr_41"
+  template:t="scope_zf_41"
 }
 
 visual{
-  template:t="scope_zf_41_gewehr_41_item+item_in_world"
+  template:t="scope_zf_41_item+item_in_world"
 }

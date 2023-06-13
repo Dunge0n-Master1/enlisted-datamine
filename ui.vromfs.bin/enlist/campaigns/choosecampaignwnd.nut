@@ -1,11 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colPart, colFull, defTxtColor, titleTxtColor, midPadding, commonBorderRadius,
-  navHeight, sidePadding, defItemBlur, panelBgColor, darkTxtColor, accentColor
-} = require("%enlSqGlob/ui/designConst.nut")
-let { utf8ToUpper } = require("%sqstd/string.nut")
-let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
+let { body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
+let math = require("%sqstd/math.nut")
+let { titleTxtColor, panelBgColor, defItemBlur, defTxtColor, darkPanelBgColor, brightAccentColor, accentColor
+    , darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { blinkUnseen } = require("%ui/components/unseenComponents.nut")
+let { safeAreaBorders, safeAreaSize } = require("%enlist/options/safeAreaState.nut")
+let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
 let { selectedCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
@@ -14,65 +15,34 @@ let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { unlockedCampaigns, visibleCampaigns, lockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let { widgetUserName } = require("%enlist/components/userName.nut")
+let mkUnlockBtn = require("%enlist/campaigns/mkUnlockButton.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
-let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
-let JB = require("%ui/control/gui_buttons.nut")
-let { unseenPanel } = require("%ui/components/unseenComponents.nut")
-let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
-let { isGamepad } = require("%ui/control/active_controls.nut")
-let { shopItems } = require("%enlist/shop/shopItems.nut")
-let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 
+let isOpened = nestWatched("isOpened", false)
 
-let isOpened = nestWatched("isCampaignWndOpened", false)
+let selectedColor = mul_color(panelBgColor, 1.5)
+
 const SHAKE_TEXT_ID = "SHAKE_TEXT_ID"
-let cardSize = [colFull(4), colPart(7.516)]
-let nameBlockSize = [colFull(4), colPart(1.322)]
-let unseenPanelPos = [0, -colPart(0.709) - colPart(0.387)]
+const TOTAL_ROWS = 2
+let IMAGE_RATIO = 16.0 / 9.0
+let paddingInternal = hdpx(6)
+let paddingTitle = hdpx(12)
+let gapCards = hdpx(25)
+let selAnimOffset = hdpx(9)
+let campaignsFreeHeight = sh(75)
+let nameBlockHeight = hdpx(50)
+let btnOffset = nameBlockHeight + hdpx(12)
 
-let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
+let campPerRow = Computed(@()
+  max(1, math.ceil(visibleCampaigns.value.len().tofloat() / TOTAL_ROWS).tointeger()))
 
-let titleTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let hoverTxtStyle = { color = darkTxtColor }.__update(fontMedium)
-
-let tblScrollHandler = ScrollHandler()
-
-let selectedLine = {
-  size = [flex(), colPart(0.06)]
-  rendObj = ROBJ_BOX
-  borderWidth = 0
-  borderRadius = commonBorderRadius
-  fillColor = accentColor
-  vplace = ALIGN_BOTTOM
-  pos = [0, midPadding]
-}
-
-
-let wndHeader = {
-  minWidth = colFull(8)
-  hplace = ALIGN_CENTER
-  halign = ALIGN_CENTER
-  flow = FLOW_VERTICAL
-  gap = midPadding
-  margin = [colPart(1.61), 0 ,0,0 ]
-  children = [
-    {
-      size = [SIZE_TO_CONTENT, colPart(1.023)]
-      children = [
-        doubleSideBg({
-          rendObj = ROBJ_TEXT
-          text = utf8ToUpper(loc("campaign/selectNew"))
-        }.__update(titleTxtStyle))
-        doubleSideHighlightLine
-        doubleSideHighlightLine({ vplace = ALIGN_BOTTOM })]
-    }
-    {
-      rendObj = ROBJ_TEXT
-      text = loc("campaign/changeAvailable")
-    }.__update(defTxtStyle)
-  ]
+let function calcSize(safeAreaArr, campsPerRowCount) {
+  let height = min(
+    (min(safeAreaArr[1], campaignsFreeHeight) - (TOTAL_ROWS - 1) * gapCards) / TOTAL_ROWS,
+    ((safeAreaArr[0] - (campsPerRowCount - 1) * gapCards) / campsPerRowCount) / IMAGE_RATIO
+  ).tointeger()
+  let width = (height * IMAGE_RATIO).tointeger()
+  return [width, height]
 }
 
 local campaignSelectWnd = null
@@ -84,7 +54,7 @@ let function close() {
 
 let function open() {
   close()
-  sceneWithCameraAdd(campaignSelectWnd, "researches")
+  sceneWithCameraAdd(campaignSelectWnd, "armory")
   isOpened(true)
 }
 
@@ -93,162 +63,187 @@ let function selectCampaign(campaign) {
   close()
 }
 
+let closeBtn = closeBtnBase({ onClick = close }).__update({ pos = [0, fsh(4)] })
 
-let backBtn = Bordered(loc("gamemenu/btnBack"), close, { hotkeys = [[$"^{JB.B} | Esc"]] })
-
-
-let function mkAnimations(idx, len) {
-  let delay = idx * min(0.15, 0.9 / len)
-  return [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = delay, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, delay,
-      play = true, easing = InOutCubic }
-    { prop = AnimProp.translate, from = [sw(20), -fsh(5)], to = [0,0], duration = 0.4, delay,
-      play = true, easing = InOutCubic }
-    { prop = AnimProp.scale, from = [1.3, 1.3], to = [1,1], duration = 0.3, delay,
-      play = true, easing = InOutCubic }
+let selAnimDelay = 0.9
+let selAnimDuration = 0.8
+let mkSelectedFrame = @(size) {
+  size
+  vplace = ALIGN_CENTER
+  hplace = ALIGN_CENTER
+  opacity = 0
+  rendObj = ROBJ_FRAME
+  borderWidth = hdpx(4)
+  transform = {}
+  animations = [
+    { prop = AnimProp.opacity, from = 0, to = 0.5, easing = CosineFull,
+      delay = selAnimDelay, duration = selAnimDuration, play = true, loop = true }
+    { prop = AnimProp.scale, from = [1, 1], to = size.map(@(v) (v + selAnimOffset).tofloat() / v), easing = OutCubic,
+      delay = selAnimDelay, duration = selAnimDuration, play = true, loop = true }
   ]
 }
 
+let mkText = @(text, color = titleTxtColor) {
+  rendObj = ROBJ_TEXT
+  text
+  color
+}.__update(body_txt)
 
-let mkImage = @(image, isAvailable, sf) {
+let mkCampaignImg = @(campaign, isAvailable, sf) {
   size = flex()
   clipChildren = true
   children = {
     size = flex()
     rendObj = ROBJ_IMAGE
     keepAspect = KEEP_ASPECT_FILL
-    imageHalign = ALIGN_CENTER
-    imageValign = ALIGN_CENTER
-    image = Picture(image)
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    image = Picture($"ui/gameImage/{campaign}.avif")
   }.__update(isAvailable
     ? {
         transform = { scale = sf & S_HOVER ? [1.05, 1.05] : [1, 1] }
         transitions = [ { prop = AnimProp.scale, duration = 0.4, easing = OutQuintic } ]
       }
-    : { picSaturate = 0.3, tint = Color(0, 0, 0, 128) })
+    : { tint = Color(40, 40, 40, 120), picSaturate = 0.0 })
 }
 
-
-let nameBlock = @(name, sf, isSelected = false) {
-  rendObj = ROBJ_WORLD_BLUR
-  size = [flex(), nameBlockSize[1]]
-  fillColor = isSelected || (sf & S_ACTIVE) || (sf & S_HOVER) ? accentColor : panelBgColor
-  color = defItemBlur
-  valign = ALIGN_CENTER
+let mkCampaignName = @(name, sf, isSelected) {
+  rendObj = ROBJ_SOLID
+  size = [flex(), nameBlockHeight]
+  padding = paddingTitle
   vplace = ALIGN_BOTTOM
-  gap = midPadding
-  children = [
-    {
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      size = [flex(), SIZE_TO_CONTENT]
-      text = name
-      halign = ALIGN_CENTER
-    }.__update(isSelected || (sf & S_HOVER) != 0 ? hoverTxtStyle : defTxtStyle)
-  ]
-}
-
-
-let function unlockCampaign(campaign) {
-  let { reqPurchase = null } = campaign
-  if (reqPurchase == null)
-    return null
-  let sItem = shopItems.value?[reqPurchase.findvalue(@(id) id in shopItems.value)]
-  if (sItem == null)
-    return null
-  buyShopItem({ shopItem = sItem })
-}
-
-
-let mkCampaignCard = @(campaign, idx) watchElemState(function(sf) {
-  let isAvailable = unlockedCampaigns.value.contains(campaign)
-  let isUnseen = campaign in unseenCampaigns.value
-  let title = loc(gameProfile.value?.campaigns[campaign]?.title ?? campaign)
-  let campaignImg = $"ui/uiskin/campaign/{campaign}"
-  let isSelected = selectedCampaign.value == campaign
-  let animations = mkAnimations(idx, unlockedCampaigns.value.len())
-  let lockedCampaign = lockedCampaigns.value?[campaign]
-  return {
-    watch = [unlockedCampaigns, unseenCampaigns, gameProfile, lockedCampaigns,
-      selectedCampaign, isGamepad]
-    size = cardSize
-    xmbNode = XmbNode()
-    animations
-    key = idx
-    transform = {}
-    behavior = Behaviors.Button
-    onClick = @() isAvailable ? selectCampaign(campaign)
-      : lockedCampaign != null ? unlockCampaign(lockedCampaign)
-      : anim_start(SHAKE_TEXT_ID + campaign)
-    function onAttach(){
-      if (!isSelected)
-        return
-      if (isGamepad.value)
-        move_mouse_cursor(idx, false)
-    }
-    onHover = hoverHoldAction("unseenCampaign", campaign, markSeenCampaign)
-    children = [
-      isUnseen ? unseenPanel(loc("unseen/campaign"), { pos = unseenPanelPos})
-        : null
-      mkImage(campaignImg, isAvailable, sf)
-      nameBlock(utf8ToUpper(title), sf)
-      isSelected ? selectedLine : null
-    ]
-  }
-})
-
-
-let campaignSelect = @() {
-  watch = visibleCampaigns
-  size = flex()
-  xmbNode = XmbContainer({
-    canFocus = @() false
-    scrollSpeed = 10.0
-    isViewport = true
-  })
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  children = [
-    makeHorizScroll({
-      flow = FLOW_HORIZONTAL
-      gap = colPart(0.51)
-      vplace = ALIGN_CENTER
-      children = visibleCampaigns.value.map(@(val, idx) mkCampaignCard(val, idx))
-    }, {
-      size = flex()
-      scrollHandler = tblScrollHandler
-      styling = scrollStyle
-      rootBase = class {
-        key = "campaignWindowScroll"
-        behavior = Behaviors.Pannable
-        wheelStep = 0.82
+  color = sf & S_HOVER
+    ? accentColor
+    : isSelected ? selectedColor : panelBgColor
+  children = mkText(name, sf & S_HOVER
+    ? darkTxtColor
+    : isSelected ? accentColor : defTxtColor
+  )
+}
+
+let mkNotAvailableText = @(text, triggerId) {
+  hplace = ALIGN_CENTER
+  vplace = ALIGN_CENTER
+  transform = {}
+  animations = [{ trigger = triggerId, prop = AnimProp.translate,
+    from = [-hdpx(20), 0], to = [0, 0], play = false, duration = 1, easing = OutElastic }]
+  children = {
+    rendObj = ROBJ_TEXT
+    text
+    color = defTxtColor
+  }.__update(body_txt)
+}
+
+let function campaignBtn(campaign, cardSize) {
+  let isSelected = Computed(@() selectedCampaign.value == campaign)
+  let isAvailableWatched = Computed(@() unlockedCampaigns.value.contains(campaign))
+  let isUnseen = Computed(@() campaign in unseenCampaigns.value)
+
+  return watchElemState(function(sf) {
+    let isAvailable = isAvailableWatched.value
+    let lock = lockedCampaigns.value?[campaign]
+    let campaignName = loc(gameProfile.value?.campaigns[campaign]?.title ?? campaign)
+    return {
+      watch = [unseenCampaigns, isSelected, isAvailableWatched, gameProfile, safeAreaSize,
+        campPerRow, lockedCampaigns, isUnseen]
+      rendObj = ROBJ_BOX
+      size = cardSize
+      padding = paddingInternal
+      fillColor = panelBgColor
+      borderColor = sf & S_HOVER ? brightAccentColor : panelBgColor
+      borderWidth = (sf & S_HOVER) != 0 || isSelected.value ? hdpx(2) : 0
+      behavior = Behaviors.Button
+
+      onClick = @() isAvailable
+        ? selectCampaign(campaign)
+        : anim_start(SHAKE_TEXT_ID + campaign)
+      onHover = hoverHoldAction("unseenCampaign", campaign, @(c) markSeenCampaign(c))
+
+      children = [
+        mkCampaignImg(campaign, isAvailable, sf)
+        mkCampaignName(campaignName, sf, isSelected.value)
+        isAvailable ? null
+          : mkNotAvailableText(
+              lock == null ? loc("campaign/notAvailable")
+                : lock?.reqVersion != null ? loc("campaign/oldClientVersion")
+                : loc("campaign/locked"),
+              $"{SHAKE_TEXT_ID}{campaign}")
+        mkUnlockBtn(lock, { margin = [0, 0, btnOffset, 0] })
+        isSelected.value ? mkSelectedFrame(cardSize) : null
+        isUnseen.value ? blinkUnseen: null
+      ]
+
+      sound = {
+        hover = "ui/enlist/button_highlight"
+        click = "ui/enlist/button_click"
       }
+    }
     })
+}
+
+let mkRows = @(all, perRow, cardSize) array(min(all.len(), TOTAL_ROWS))
+  .map(function(_, rowIdx) {
+    let inRowList = all.slice(rowIdx * perRow, min((rowIdx + 1) * perRow, all.len()))
+    return {
+      flow = FLOW_HORIZONTAL
+      gap = gapCards
+      children = inRowList.map(@(v) campaignBtn(v, cardSize))
+    }
+  })
+
+let header = {
+  halign = ALIGN_CENTER
+  hplace = ALIGN_CENTER
+  flow = FLOW_VERTICAL
+  children = [
+    {
+      rendObj = ROBJ_TEXT
+      color = defTxtColor
+      text = loc("campaign/selectNew")
+    }.__update(body_txt)
+    {
+      rendObj = ROBJ_TEXT
+      color = defTxtColor
+      text = "({0})".subst(loc("campaign/changeAvailable"))
+    }.__update(sub_txt)
   ]
 }
 
+let function campaignSelect() {
+  let cardSize = calcSize(safeAreaSize.value, campPerRow.value)
+  return {
+    watch = [safeAreaSize, visibleCampaigns, campPerRow]
+    hplace = ALIGN_CENTER
+    vplace = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    halign = ALIGN_CENTER
+    gap = gapCards
+    children = [header].extend(mkRows(visibleCampaigns.value, campPerRow.value, cardSize))
 
-let topBlock = {
-  size = [flex(), navHeight]
-  valign = ALIGN_CENTER
-  children = backBtn
+    transform = {}
+    animations = [
+      { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = OutCubic }
+      { prop = AnimProp.translate, from =[hdpx(150), 0], play = true, to = [0, 0], duration = 0.2, easing = OutQuad }
+    ]
+  }
 }
 
-
 campaignSelectWnd = @() {
-  watch = safeAreaBorders
+  watch = [safeAreaBorders, selectedCampaign]
+  size = [sw(100), sh(100)]
+  padding = safeAreaBorders.value
   rendObj = ROBJ_WORLD_BLUR_PANEL
-  size = flex()
-  padding = [safeAreaBorders.value[0] , sidePadding + safeAreaBorders.value[1]]
+  color = defItemBlur
+  fillColor = darkPanelBgColor
+
   children = [
-    wndHeader
+    selectedCampaign.value != null ? closeBtn : null
     campaignSelect
-    topBlock
     widgetUserName
   ]
 }
-
 
 if (isOpened.value)
   open()

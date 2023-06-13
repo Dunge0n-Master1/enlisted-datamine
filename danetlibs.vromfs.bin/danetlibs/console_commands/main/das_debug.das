@@ -28,14 +28,14 @@ def das_stackwalk()
 [console_cmd(name="das.throw_exception")]
 def das_throw_exception()
   query() <| $ [es(REQUIRE=msg_sink)] (var unavailable_comp__ : ecs::EidList?)
-    debug("throw exception now")
+    print("throw exception now")
     *unavailable_comp__ |> clear()
 
 
 [console_cmd(name="das.throw_exception_no_aot"), no_aot]
 def das_throw_exception_no_aot()
   query() <| $ [es(REQUIRE=msg_sink)] (var unavailable_comp__ : ecs::EidList?)
-    debug("throw exception now")
+    print("throw exception now")
     *unavailable_comp__ |> clear()
 
 
@@ -48,10 +48,8 @@ def das_start_endless_exception()
   let tmpl = "endless_exception_template"
   let found = find_query() <| $ [es(REQUIRE=endless_exception)] (eid : EntityId)
     destroyEntity(eid)
-    debug(eid)
     console_print("stop endless exceptions")
     return true
-  debug(found)
   if !found
     createEntitySync(tmpl)
     console_print("start endless exceptions")
@@ -60,5 +58,5 @@ def das_start_endless_exception()
 [es(no_order)]
 def endless_exception_update(evt : UpdateStageInfoAct; var unavailable_comp__ : ecs::EidList?; endless_exception : bool)
   if (endless_exception)
-    debug("throw exception now")
+    print("throw exception now")
     *unavailable_comp__ |> clear()

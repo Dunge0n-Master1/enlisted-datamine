@@ -13,6 +13,7 @@ chosenPatchnoteTitle, chosenPatchnoteLoaded, versions, patchnotesReceived, extNe
 let spinner = require("%ui/components/spinner.nut")
 
 let gap = hdpx(10)
+let waitingSpinner = spinner()
 
 let scrollHandler = ScrollHandler()
 
@@ -80,12 +81,15 @@ let seeMoreUrl = {
 }
 
 let patchnoteLoading = freeze({
-  children = [formatText([{v = loc("Loading"), t = "h2", halign = ALIGN_CENTER}]), spinner]
   flow  = FLOW_VERTICAL
   halign = ALIGN_CENTER
   gap = hdpx(20)
   valign = ALIGN_CENTER size = [flex(), fsh(20)]
   padding = fsh(2)
+  children = [
+    formatText([{v = loc("Loading"), t = "h2", halign = ALIGN_CENTER}])
+    waitingSpinner
+  ]
 })
 
 let function currentPatchnote(){

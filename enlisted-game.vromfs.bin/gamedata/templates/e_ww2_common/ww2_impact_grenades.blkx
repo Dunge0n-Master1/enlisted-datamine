@@ -33,6 +33,9 @@ impact_grenade_phys_base{
     value:i=-1
     _tags:t="server"
   }
+
+  "shouldCreateShellCrater:tag"{
+  }
 }
 
 impact_grenade{

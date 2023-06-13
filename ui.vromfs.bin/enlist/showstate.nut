@@ -15,6 +15,7 @@ let {
 let { vehDecorators, campItemsByLink } = require("%enlist/meta/profile.nut")
 let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
+let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
 
 
 let curHoveredItem = mkWatched(persist, "curHoveredItem")
@@ -42,6 +43,17 @@ let itemInArmoryAttachments = Computed(function(){
         res.append(tpl)
     }
   return res
+})
+
+let typeWithNormalCameraAngle = {
+  medbox = true
+  building_tool = true
+}
+
+let needWeaponCameraAngle = Computed(function() {
+  let { itemtype = null } = viewItem.value ?? curSelectedItem.value
+  return itemtype in (itemTypesInSlots.value?.mainWeapon ?? {})
+    && itemtype not in typeWithNormalCameraAngle
 })
 
 let currentNewItem = Computed(@() curSelectedItem.value?.itemtype == "soldier" ? null : curSelectedItem.value?.gametemplate)
@@ -146,6 +158,7 @@ return {
   vehDataInVehiclesScene
   itemInArmory
   itemInArmoryAttachments
+  needWeaponCameraAngle
   soldierInSoldiers
   scene
   squadCampaignVehicleFilter

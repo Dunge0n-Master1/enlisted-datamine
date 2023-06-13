@@ -35,10 +35,9 @@ let { isInSquad, isSquadLeader, myExtSquadData, unsuitableCrossplayConditionMemb
 let { showSquadMembersCrossPlayRestrictionMsgBox, showSquadVersionRestrictionMsgBox,
   showNegativeBalanceRestrictionMsgBox } = require("%enlist/restrictionWarnings.nut")
 let { hasValidBalance } = require("%enlist/currency/currencies.nut")
-let squads_list = require("%enlist/soldiers/squads_list.ui.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
-let { selectedGameMode } = require("%enlist/gameModes/changeGameModeBtn.nut")
-let clustersUi = require("%enlist/clusters.nut")
+let { mkSquadsList } = require("%enlist/soldiers/squads_list.ui.nut")
+let { startBtnWidth } = require("%enlSqGlob/ui/designConst.nut")
+let { selectedGameMode } = require("%enlist/mainScene/changeGameModeButton.nut")
 let { curArmyData, selectArmy } = require("%enlist/soldiers/model/state.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let shortLbUi = require("%enlist/leaderboard/shortLb.ui.nut")
@@ -77,6 +76,7 @@ let { ceil } = require("%sqstd/math.nut")
 let customMissionOfferBlock = require("sandbox/customMissionOfferBlock.nut")
 let { FEATURED_MODS_TAB_ID, featuredModsRoomsList, isFeaturedAvailable
 } = require("sandbox/customMissionOfferState.nut")
+let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
 
 const CONTAINTERS_ANIM_DURATION = 0.3
 const CAMP_OVR_ID = "events_wnd"
@@ -498,19 +498,20 @@ let joinCustomRoomButton = @() {
   ]
 }
 
-let function ClusterAndRandTeamButtons() {
+let function clusterAndRandTeamButtons() {
   let { alwaysRandomSide = false } = selEvent.value
   return {
     watch = [selEvent, randTeamAvailable]
+    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     hplace = ALIGN_RIGHT
     vplace = ALIGN_BOTTOM
     gap = bigPadding
     children = [
-      clustersUi
       alwaysRandomSide ? mkRandTeamBlock(alwaysRandTeamSign)
         : randTeamAvailable.value ? mkRandTeamBlock(randTeamCheckbox)
         : null
+      serverClusterBtn
     ]
   }
 }
@@ -564,6 +565,7 @@ let function leftBlock(){
     eventCurArmyIdx(armyList.indexof(army) ?? 0)
   }
   let curArmyId = armyList[eventCurArmyIdx.value] ?? armyList[0]
+  let squads_list = mkSquadsList()
   return {
     watch = [eventsArmiesList, eventCustomSquads, eventCurArmyIdx]
     size = [armieChooseBlockWidth, flex()]
@@ -671,11 +673,10 @@ let rightBlock = @() {
           flow = FLOW_VERTICAL
           gap = bigPadding
           children = [
+            isCustomRoomsUi.value ? null : clusterAndRandTeamButtons
             isCustomRoomsUi.value ? joinCustomRoomButton
               : selEvent.value != null ? toEventBattleButton
               : null
-              isCustomRoomsUi.value ? null
-              : ClusterAndRandTeamButtons
           ]
         }
       ]

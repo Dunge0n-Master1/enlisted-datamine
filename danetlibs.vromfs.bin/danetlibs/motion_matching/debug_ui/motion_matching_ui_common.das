@@ -1,3 +1,4 @@
+options no_aot
 module motion_matching_ui_common shared
 
 require ecs
@@ -7,30 +8,16 @@ require imgui/imgui_boost
 require MotionMatching
 require daslib/safe_addr
 require daslib/strings_boost
-require daslib/static_let
 require DagorConsole
-require DagorTime
 //require stddlg
 require danetlibs/motion_matching/es/motion_matching_common
 require danetlibs/motion_matching/es/mm_events
-
-let TICKS_PER_SECOND = 30f
+require danetlibs/motion_matching/debug_ui_includes/mm_ui_imgui_helpers
+require danetlibs/motion_matching/debug_ui_includes/mm_ui_play_clips
 
 
 def index(tags : StringList; tag : string) : int
   return find_index_if(each(tags)) <| $(s) { return eq(s, tag); }
-
-def safe_slider(title : string; var value : float&; min_value, max_value : float)
-  var tmpValue = value
-  let result = imgui::SliderFloat(title, safe_addr(tmpValue), min_value, max_value)
-  value = tmpValue
-  return result
-
-def safe_checkbox(title : string; var value : bool&)
-  var tmpValue = value
-  let result = imgui::Checkbox(title, safe_addr(tmpValue))
-  value = tmpValue
-  return result
 
 def edit_weights(var weights : FeatureWeights; nodes_name : StringList; prediction_times : FloatList)
   let hash = unsafe(addr(weights))
@@ -55,6 +42,9 @@ def edit_preset(var preset : TagPreset)
   safe_slider("trajectoryInertionFactor##{hash}", preset.trajectoryInertionFactor, 0f, 1f)
   safe_slider("linearVelocityViscosity##{hash}", preset.linearVelocityViscosity, 0f, 1f)
   safe_slider("angularVelocityViscosity##{hash}", preset.angularVelocityViscosity, 0f, 1f)
+  safe_slider("metricaToleranceMin##{hash}", preset.metricaToleranceMin, 0f, 5f)
+  safe_slider("metricaToleranceMax##{hash}", preset.metricaToleranceMax, 0f, 5f)
+  safe_slider("metricaToleranceDecayTime##{hash}", preset.metricaToleranceDecayTime, 0f, 3f)
 
 def edit_value(text : string; var value : das_string&)
   let buf <- ImGuiInputTextBuffer("{value}", 256)
@@ -129,15 +119,35 @@ def edit_params(eid : EntityId)
       safe_slider("velocity viscosity", motion_matching__linearVelocityViscosity, 0f, 1f)
       safe_slider("rotation viscosity", motion_matching__angularVelocityViscosity, 0f, 1f)
       imgui::Text("weights preset index = {motion_matching__presetIdx}")
-      if imgui::Button("toggle debug nodes")
-        console_command("motion_matching.debug_nodes")
-      if imgui::Button("toggle debug trajectory")
-        console_command("motion_matching.debug_trajectory")
 
       edit_root_update_params(motion_matching__controller)
+      query() <| $ [es] (var foot_ik_locker_enabled : bool&)
+        safe_checkbox("Foot IK locker", foot_ik_locker_enabled)
 
       imgui::EndTabItem()
 
+def debug_visualization_tab(imgui_state_eid : EntityId)
+  if imgui::BeginTabItem("visualization")
+    query(imgui_state_eid) <| $ [es] (var mm_visualization_show_feature_nodes : bool&;
+                                      var mm_visualization_show_trajectory : bool&;
+                                      var mm_visualization_show_skeleton : bool&;
+                                      var mm_visualization_show_skeleton_original : bool&;
+                                      var mm_visualization_show_skeleton_node_labels : bool&;
+                                      var mm_visualization_show_foot_ik_locked_positions : bool&;
+                                      var mm_visualization_show_foot_ik_target_positions : bool&)
+      safe_checkbox("Show featured nodes", mm_visualization_show_feature_nodes)
+      safe_checkbox("Show trajectory", mm_visualization_show_trajectory)
+      safe_checkbox("Show skeleton", mm_visualization_show_skeleton)
+      if mm_visualization_show_skeleton
+        imgui::Indent();
+        safe_checkbox("Show original skeleton", mm_visualization_show_skeleton_original)
+        safe_checkbox("Show node labels", mm_visualization_show_skeleton_node_labels)
+        imgui::Unindent();
+      imgui::Separator()
+      imgui::Text("Foot IK locker")
+      safe_checkbox("Show locked position", mm_visualization_show_foot_ik_locked_positions)
+      safe_checkbox("Show IK target position", mm_visualization_show_foot_ik_target_positions)
+    imgui::EndTabItem()
 
 def edit_tags(eid : EntityId; dataBase : AnimationDataBase)
 
@@ -301,120 +311,6 @@ def edit_presets(dataBaseEid : EntityId)
 
       imgui::EndTabItem()
 
-def edit_clips(eid : EntityId; dataBaseEid : EntityId)
-
-  static_let <|
-    var time = get_time_msec()
-    var animationPlaySpeed = 1f
-
-  let newTime = get_time_msec()
-  let dt = float(newTime - time) * 0.001f // in seconds
-  time = newTime
-
-  query(eid) <| $ [es] (var motion_matching__clipProgress : FloatList;
-                        var motion_matching__history : IPoint2List;
-                        var motion_matching__controller : MotionMatchingController;
-                        var motion_matching__historyIndex : int2&)
-    assume dataBase = motion_matching__controller.dataBase
-    resize(motion_matching__clipProgress, length(dataBase.clips))
-    if imgui::BeginTabItem("clips")
-
-      safe_slider("animation play speed", animationPlaySpeed, 0f, 2f)
-
-      if !(motion_matching__controller |> empty())
-        let currentClip = motion_matching__controller |> getCurrentClip()
-        imgui::Text("Current clip: ")
-        imgui::SameLine()
-        var currentFrame = motion_matching__controller |> getCurrentFrame()
-        imgui::SliderInt("{dataBase.clips[currentClip].name}##display", safe_addr(currentFrame), 1, dataBase.clips[currentClip].tickDuration)
-        imgui::Separator()
-      let historyLen = length(motion_matching__history)
-      if historyLen > 0
-        imgui::Text("History: ")
-        imgui::SameLine()
-        let currentIndex = (motion_matching__historyIndex.x + historyLen + motion_matching__historyIndex.y) % historyLen
-        let clipId = motion_matching__history[currentIndex].x
-        let frameId = motion_matching__history[currentIndex].y
-        var v = motion_matching__historyIndex.x + 1
-        var playAnim = false
-        if imgui::Button("+##history") && v < historyLen
-          v++
-          playAnim = true
-        imgui::SameLine()
-        if imgui::Button("-##history") && v > 0
-          v--
-          playAnim = true
-        imgui::SameLine()
-        if imgui::SliderInt("##history", safe_addr(v), 1, historyLen)
-          playAnim = true
-        if playAnim
-          motion_matching__historyIndex.x = v - 1
-          let newIndex = (motion_matching__historyIndex.x + historyLen + motion_matching__historyIndex.y) % historyLen
-          let historyClipId = motion_matching__history[newIndex].x
-          let historyFrameId = motion_matching__history[newIndex].y
-          motion_matching__controller |> clearAnimations()
-          motion_matching__controller |> playAnimation(historyClipId, historyFrameId, 0.1)
-          query(dataBaseEid) <| $ [es] (var main_database__perFrameLimit : int&)
-            main_database__perFrameLimit = 0
-        imgui::SameLine()
-        imgui::Text("{dataBase.clips[clipId].name} frame={frameId}")
-        imgui::Separator()
-
-      for clip, clipIdx in dataBase.clips, iter_range(dataBase.clips)
-        var playAnim = false
-        if imgui::Button("+##{clipIdx}")
-          motion_matching__clipProgress[clipIdx]++
-          playAnim = true
-        imgui::SameLine()
-        if imgui::Button("-##{clipIdx}")
-          motion_matching__clipProgress[clipIdx]--
-          playAnim = true
-        imgui::SameLine()
-
-        imgui::Button("play##{clipIdx}")
-        if imgui::IsItemHovered() && imgui::IsMouseDown(ImGuiMouseButton Left)
-          motion_matching__clipProgress[clipIdx] += dt * TICKS_PER_SECOND * animationPlaySpeed;
-          playAnim = true
-        imgui::SameLine()
-        let duration = float(clip.tickDuration) - 1f
-        let progress = duration > 0f ? motion_matching__clipProgress[clipIdx] % duration : 0f;
-        //catch negative and overgrowth values
-        motion_matching__clipProgress[clipIdx] = progress < 0f ? progress + duration : progress
-
-        var v = int(motion_matching__clipProgress[clipIdx]) + 1
-
-
-        if imgui::SliderInt("{clip.name}", safe_addr(v), 1, clip.tickDuration)
-          motion_matching__clipProgress[clipIdx] = float(v - 1)
-          playAnim = true
-        if playAnim
-          motion_matching__controller |> clearAnimations()
-          motion_matching__controller |> playAnimation(clipIdx, v - 1, 0.1)
-          query(dataBaseEid) <| $ [es] (var main_database__perFrameLimit : int&)
-            main_database__perFrameLimit = 0
-      imgui::EndTabItem()
-    else
-      query(dataBaseEid) <| $ [es] (var main_database__perFrameLimit : int&)
-        main_database__perFrameLimit = -1
-    if !(motion_matching__controller |> empty())
-      query(dataBaseEid) <| $ [es] (main_database__perFrameLimit : int)
-        if main_database__perFrameLimit != 0
-          let maxHistorySize = 4096
-          var prevValue = int2(-1, -1)
-          let historyLen = length(motion_matching__history)
-          if historyLen > 0
-            prevValue = motion_matching__history[(motion_matching__historyIndex.y + historyLen - 1) % historyLen]
-          let value = int2(motion_matching__controller |> getCurrentClip(), motion_matching__controller |> getCurrentFrame())
-          if prevValue != value
-            if historyLen < maxHistorySize
-              motion_matching__history |> push(value)
-              motion_matching__historyIndex.y = 0
-            else
-              motion_matching__historyIndex.y = motion_matching__historyIndex.y % maxHistorySize
-              motion_matching__history[motion_matching__historyIndex.y] = value
-              motion_matching__historyIndex.y++
-
-
 def motion_matching_imgui(eid : EntityId)
 
   imgui::PushItemWidth(150f);
@@ -428,8 +324,13 @@ def motion_matching_imgui(eid : EntityId)
     if dataBase == null
       return
 
+    var imguiStateEid = getSingletonEntity("motion_matching_imgui_state")
+    if imguiStateEid == INVALID_ENTITY_ID
+      imguiStateEid = createEntity("motion_matching_imgui_state")
+
+    debug_visualization_tab(imguiStateEid)
     edit_tags(eid, *dataBase)
     edit_presets(motion_matching__dataBaseEid)
-    edit_clips(eid, motion_matching__dataBaseEid)
+    play_clips(eid, motion_matching__dataBaseEid, imguiStateEid)
 
   imgui::EndTabBar()

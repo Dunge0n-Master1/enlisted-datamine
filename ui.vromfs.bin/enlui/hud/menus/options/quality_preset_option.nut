@@ -116,11 +116,14 @@ foreach (o, q in mapOptionsByPreset){
   })
 }
 
-let function setOptionsByPreset(...){
-  let gp = graphicsPreset.value
+let function getOptionsByPreset(gp) {
   if (gp == CUSTOM || !optGraphicsQualityPreset.isAvailable())
-    return
+    return null
   let idx = presetsRequired.indexof(gp)
+  if (idx==null)
+    return null
+  let changedOptsVals = []
+  let presetOptsVals = []
   foreach (o, q in mapOptionsByPreset){
     let opt = o
     let qualities = q
@@ -129,8 +132,16 @@ let function setOptionsByPreset(...){
     if ("isDisabled" in opt && opt.isDisabled())
       continue
     let val = qualities[idx]
-    if (opt?.var.value ==  val)
-      continue
+    presetOptsVals.append({opt, val})
+    if (opt?.var.value != val)
+      changedOptsVals.append({opt, val})
+  }
+  return {presetOptsVals, changedOptsVals}
+}
+
+let function setOptionsByOptVals(changedOptsVals){
+  foreach (i in changedOptsVals) {
+    let {opt, val} = i
     if ("setValue" in opt)
       opt.setValue(val)
     else if ("var" in opt)
@@ -138,9 +149,11 @@ let function setOptionsByPreset(...){
   }
 }
 
-graphicsPreset.subscribe(setOptionsByPreset)
-setOptionsByPreset()
+graphicsPreset.subscribe(@(v) setOptionsByOptVals(getOptionsByPreset(v)?.changedOptsVals ?? []))
+setOptionsByOptVals(getOptionsByPreset(graphicsPreset.value)?.changedOptsVals ?? [])
 
 return {
   optGraphicsQualityPreset
+  getOptionsByPreset
+  setOptionsByOptVals
 }

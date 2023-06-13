@@ -6,6 +6,7 @@ let {room, roomIsLobby, leaveRoom} = require("state/roomState.nut")
 
 let textButton = require("%ui/components/textButton.nut")
 let progressText = require("components/progressText.nut")
+let {sound_play} = require("%dngscripts/sound_system.nut")
 
 const TIME_TO_ALLOW_CANCEL = 7.0
 
@@ -52,7 +53,11 @@ let function gameLaunchingMsg() {
   }
 }
 
-let open = @() navState.addScene(gameLaunchingMsg)
+let function open() {
+  navState.addScene(gameLaunchingMsg)
+  sound_play("ui/match_found")
+}
+
 if (isNeedMsg.value)
   open()
 

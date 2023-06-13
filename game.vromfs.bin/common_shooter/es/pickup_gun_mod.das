@@ -2,6 +2,8 @@ require ecs
 require ecs.common
 require game.es.events
 require inventory
+require game.es.inventory_common
+require common_shooter.es.human_weap_common
 require common_shooter.events_common_shooter
 
 
@@ -22,7 +24,7 @@ def get_gunMod_eid_by_slot(slot : int; slotName : string; gunMods : Array)
 def switch_weap_mod(eid : EntityId; itemEid : EntityId; curGunEid : EntityId; curSlot : int; slotName : string; gunMods : Array)
   if is_item_useful(eid, itemEid)
     return false
-  if !is_gunmod_allowed(curGunEid, itemEid)
+  if !is_gunmod_allowed2(curGunEid, itemEid)
     return false
   if get_gunMod_eid_by_slot(curSlot, slotName, gunMods) == INVALID_ENTITY_ID
     return false
@@ -44,8 +46,8 @@ def pickup_gun_mod_es(evt : CmdInventoryPickupGunMod;
   query(itemEid) <| $ [es] (gunAttachable__slotName : string)
     if switch_weap_mod(eid, itemEid, curGunEid, curSlot, gunAttachable__slotName, human_weap__gunMods)
       let toGround = !can_pickup_item_by_volume(itemEid, eid)
-      remove_item_from_weap_impl(eid, curSlot, gunAttachable__slotName, toGround)
-      pickup_and_install_item_on_weap_impl(eid, itemEid, curSlot, gunAttachable__slotName)
+      remove_item_from_weap_impl2(eid, curSlot, gunAttachable__slotName, toGround)
+      pickup_and_install_item_on_weap_impl2(eid, itemEid, curSlot, gunAttachable__slotName)
       return
 
     pickup_item(eid, itemEid)

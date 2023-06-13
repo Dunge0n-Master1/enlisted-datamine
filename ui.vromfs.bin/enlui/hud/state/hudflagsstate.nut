@@ -9,6 +9,7 @@ let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { minimalistHud, showSelfAwards, showTips, showGameModeHints, showPlayerUI } = require("%ui/hud/state/hudOptionsState.nut")
 let { showBigMap } = require("%ui/hud/menus/big_map.nut")
 let { canShowGameHudInReplay } = require("%ui/hud/replay/replayState.nut")
+let { tutorialPlaneShootEnable } = require("%ui/hud/state/tutorial_input_state_es.nut")
 
 const HUD_BIT_FULL = 1
 const HUD_BIT_MINIMAL = 2 // hardcore or minimalist
@@ -27,6 +28,7 @@ const HUD_BIT_NO_TUTORIAL = 14
 const HUD_BIT_SHOW_TIPS = 15
 const HUD_BIT_SHOW_GAME_MODE_HINTS = 16
 const HUD_BIT_PLAYER_UI = 17
+const HUD_BIT_VEHICLE_CROSSHAIR = 18
 
 let HUD_FLAGS = {
   FULL = 1 << HUD_BIT_FULL
@@ -46,6 +48,7 @@ let HUD_FLAGS = {
   SHOW_TIPS = 1 << HUD_BIT_SHOW_TIPS
   SHOW_GAME_MODE_HINTS = 1 << HUD_BIT_SHOW_GAME_MODE_HINTS
   PLAYER_UI = 1 << HUD_BIT_PLAYER_UI
+  VEHICLE_CROSSHAIR = 1 << HUD_BIT_VEHICLE_CROSSHAIR
 }
 
 let minHud = keepref(Computed(@() forcedMinimalHud.value || minimalistHud.value))
@@ -67,7 +70,8 @@ let hudFlags = Computed(@() (!minHud.value).tointeger() << HUD_BIT_FULL
   | (!isTutorial.value).tointeger() << HUD_BIT_NO_TUTORIAL
   | showTips.value.tointeger() << HUD_BIT_SHOW_TIPS
   | showGameModeHints.value.tointeger() << HUD_BIT_SHOW_GAME_MODE_HINTS
-  | showPlayerUI.value.tointeger() << HUD_BIT_PLAYER_UI)
+  | showPlayerUI.value.tointeger() << HUD_BIT_PLAYER_UI
+  | tutorialPlaneShootEnable.value.tointeger() << HUD_BIT_VEHICLE_CROSSHAIR)
 
 return {
   HUD_FLAGS

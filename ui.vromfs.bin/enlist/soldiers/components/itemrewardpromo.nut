@@ -180,6 +180,7 @@ let mkItemPromo = kwarg(function(armyId, itemTpl, presentation, unlockInfo) {
       rewardToScroll(unlockInfo.unlockUid)
       viewItemScene(itemToView)
     }
+    xmbNode = XmbNode()
     gap = bigPadding
     children = [
       mkBackWithImage(presentation?.image, unlockInfo != null)

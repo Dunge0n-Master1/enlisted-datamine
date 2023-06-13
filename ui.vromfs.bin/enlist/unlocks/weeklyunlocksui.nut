@@ -15,11 +15,13 @@ let { smallPadding, smallOffset, tinyOffset, defBgColor, defTxtColor,
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { taskMinHeight, taskSlotPadding, mkTaskEmblem, taskHeader, taskDescription,
   taskDescPadding, mkGetTaskRewardBtn, statusBlock
-} = require("%enlSqGlob/ui/taskPkg.nut")
+} = require("%enlSqGlob/ui/tasksPkg.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
-
+let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
+let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
+let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let finishedOpacity = 0.5
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
@@ -35,7 +37,7 @@ let mkTaskContent = @(task, sf) function() {
     gap = tinyOffset
     valign = ALIGN_CENTER
     children = [
-      mkTaskEmblem(task, progress)
+      mkTaskEmblem(task, progress, true, Watched(false), false, 0, seasonIndex, bpColors)
       {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
@@ -115,7 +117,7 @@ let function mkWeeklyTaskSlot(task, isUnseen) {
         gap = smallPadding
         padding = taskSlotPadding
         valign = ALIGN_CENTER
-        color = isFinished ? finishedBgColor : defBgColor
+        color = sf & S_HOVER ? hoverSlotBgColor : isFinished ? finishedBgColor : defBgColor
         xmbNode = XmbNode()
         behavior = Behaviors.Button
         onHover = function(on) {
@@ -157,6 +159,7 @@ return {
         canFocus = @() false
         scrollSpeed = 5
         isViewport = true
+        wrap = false
       })
       flow = FLOW_VERTICAL
       gap = smallPadding

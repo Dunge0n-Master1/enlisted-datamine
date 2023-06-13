@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let JB = require("%ui/control/gui_buttons.nut")
 let faComp = require("%ui/components/faComp.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(60) })
+let spinner = require("%ui/components/spinner.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let {addModalWindow, removeModalWindow} = require("%ui/components/modalWindows.nut")
 let { mkHeaderFlag, casualFlagStyle }= require("%enlSqGlob/ui/mkHeaderFlag.nut")
@@ -36,8 +36,8 @@ let { glareAnimation } = require("%enlSqGlob/ui/glareAnimation.nut")
 let { mkRewardImages, rewardWidthToHeight } = require("%enlist/battlepass/rewardsPkg.nut")
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { mkUnlockSlot } = require("mkUnlockSlot.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
+let { mkUnlockSlot } = require("mkUnlockSlots.nut")
+let { startBtnWidth } = require("%enlSqGlob/ui/designConst.nut")
 let { isBooster } = require("%enlist/soldiers/model/boosters.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
@@ -55,6 +55,7 @@ const HIDE_TASK_BOOST = "hide_task_boost"
 
 let hasRewardsAnim = Watched(false)
 
+let waitingSpinner = spinner(hdpx(30))
 let rewardWidth = hdpxi(160)
 let wndPadding = sh(1).tointeger()
 let wndWidth = REWARDS_IN_LINE * rewardWidth + wndPadding * 2
@@ -79,14 +80,15 @@ let mkImage = @(path, override = {}) {
   image = Picture(path)
 }.__update(override)
 
-let mkProgressText = @(progressText) {
+let mkProgressText = @(progressText, color = null) {
   rendObj = ROBJ_TEXT
   hplace = ALIGN_CENTER
   vplace = ALIGN_CENTER
   text = progressText
+  color
 }.__update(body_txt)
 
-let function mkStageCardView(rewardItems) {
+let function mkStageCardView(rewardItems, hasStageCompleted) {
   if (rewardItems.len() == 0)
     return null
 
@@ -99,7 +101,7 @@ let function mkStageCardView(rewardItems) {
       mkRewardImages(rewardItems[0], imageSize, {
         pos = [0, -smallPadding]
         size = imageSize
-      })
+      }, hasStageCompleted)
       moreNumber <= 0 ? null
         : txt({
             text = loc("plusMore", { number = moreNumber })
@@ -156,14 +158,17 @@ let function mkBoosterToolTip(bName, rewardsBoosters, rewardsItems, curArmyId) {
   })
 }
 
-let function mkProgressBar(idx, todayStage, pastDays, hasStageReward, hasStageCompleted) {
-  let progressObj = hasStageReward ? completedProgressLine(1, glareAnimation(3))
+let function mkProgressBar(idx, todayStage, pastDays, hasStageReward, hasStageCompleted, rewardData = null) {
+  let { progressConfig = null } = rewardData
+  let progressObj = (progressConfig?.background && idx >= todayStage)
+    ? progressConfig.background
+    : hasStageReward ? completedProgressLine(1, glareAnimation(3))
     : hasStageCompleted ? acquiredProgressLine(1)
     : null
   let progressText = idx == todayStage - 1 ? loc("today")
     : idx == todayStage ? loc("tomorrow")
     : loc("dayWithNumber", { number = pastDays + idx + 1 })
-  return dayProgressBar(progressObj, mkProgressText(progressText))
+  return dayProgressBar(progressObj, mkProgressText(progressText, progressConfig?.textColor))
 }
 
 let rewardBlinkAnim = [{
@@ -181,19 +186,23 @@ let emptyStageCard = {
   }
 }
 
-let mkStageCard = @(rewardsData, hasReward) {
+let mkStageCard = @(rewardsData, hasReward, hasStageCompleted) {
   size = [rewardWidth, rewardWidth]
+  clipChildren = true
   padding = wndPadding / 2
   skipDirPadNav = false
   children = {
-    rendObj = ROBJ_BOX
     size = flex()
-    borderWidth = hdpx(1)
-    clipChildren = true
-    borderColor = hasReward
-      ? wndParams.rewardColor
-      : wndParams.baseColor
     children = [
+      rewardsData[0]?.background
+      {
+        rendObj = ROBJ_BOX
+        size = flex()
+        borderWidth = hdpx(1)
+        borderColor = hasReward
+          ? wndParams.rewardColor
+          : wndParams.baseColor
+      }
       hasReward
         ? mkImage("ui/gameImage/enlisted_box_glow_small.avif", {
             keepAspect = KEEP_ASPECT_FIT
@@ -201,7 +210,7 @@ let mkStageCard = @(rewardsData, hasReward) {
             animations = rewardBlinkAnim
           })
         : null
-      mkStageCardView(rewardsData)
+      mkStageCardView(rewardsData, hasStageCompleted)
     ]
   }
 }
@@ -247,27 +256,33 @@ let function mkDailyRewardsContent() {
     clipChildren = true
     children = stages.slice(startStage, startStage + REWARDS_IN_LINE)
       .map(function(stageData, idx) {
+        local rewardData = null
         let hasStageReward = idx + startStage == rewardStage && hasReward
         let hasStageCompleted = hasReward
           ? idx + startStage < rewardStage
           : idx + startStage < activeStage
-        let progBar = mkProgressBar(idx + startStage, todayStage, pastDays,
-          hasStageReward, hasStageCompleted)
 
         local stageCard = emptyStageCard
         if (stageData?.rewards) {
           let rewardsCfg = calcRewardCfg(stageData, rewardsItems, cratesComp, curArmyId)
           let { rewardCrate, rewardsData } = rewardsCfg
-          stageCard = withTooltip(mkStageCard(rewardsData, hasStageReward),
+          stageCard = withTooltip(mkStageCard(rewardsData, hasStageReward, hasStageCompleted),
             @() mkToolTip(rewardCrate, rewardsData))
+
+          rewardData = rewardsData[0]
         }
         else if (stageData?.rewardsBoosters) {
           let uBoosterId = stageData.rewardsBoosters.keys()?[0]
           let uBoostersPres = rewardsItems?[uBoosterId]
           let bName = uBoostersPres?.name
-          stageCard = withTooltip(mkStageCard([uBoostersPres], hasStageReward),
+          stageCard = withTooltip(mkStageCard([uBoostersPres], hasStageReward, hasStageCompleted),
             @() mkBoosterToolTip(bName, stageData.rewardsBoosters, rewardsItems, curArmyId))
+
+          rewardData = uBoostersPres
         }
+
+        let progBar = mkProgressBar(idx + startStage, todayStage, pastDays,
+          hasStageReward, hasStageCompleted, rewardData)
 
         return mkDailyReward(idx, progBar, stageCard)
       })
@@ -315,7 +330,7 @@ let mkButton = @(receivedData) function() {
   let rData = receivedData.value
   local button = Bordered(loc("Close"), @() nextOrCloseCb(rData), btnParams)
   if (isReceiveDayRewardInProgress.value)
-    button = spinner
+    button = waitingSpinner
   else if (rData != null) {
     if (hasRewardsAnim.value)
       button = Bordered(loc("Skip"), skipRewardAnimCb, btnParams)
@@ -431,8 +446,8 @@ let function mkRewards(receivedRewards) {
   local animDelay = itemsTotal * SHOW_REWARD_DELAY
   local idx = 1
 
-  let res = itemsList.map(@(itemData, idx)
-    mkItemReward(itemData, idx, itemsTotal))
+  let res = itemsList.map(@(itemData, i)
+    mkItemReward(itemData, i, itemsTotal))
   foreach (itemTpl, itemData in crateItemsData) {
     let onEnter = idx == 1 ? @() hasRewardsAnim(true) : null
     let onFinish = idx >= cratesItemsTotal

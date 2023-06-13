@@ -2,6 +2,7 @@ require ecs
 require soundEvent
 require math.base
 require enlisted.events_enlisted
+require Gun
 require common_shooter.es.sound.gun_sound_common
 
 
@@ -36,3 +37,17 @@ def gun_reload_sound_end(info : ParallelUpdateFrameDelayed;
   elif gun_reload_sound__event.enabled
     release(gun_reload_sound__event.handle)
     gun_reload_sound__event.enabled = false
+
+
+[es(tag=sound)]
+def gun_ready_to_shoot_sound(info : ParallelUpdateFrameDelayed;
+                             gun : Gun;
+                             gun__owner : EntityId;
+                             gun__timeBetweenShots : float;
+                             gun_ready_to_shoot_sound__duration : float;
+                             gun_ready_to_shoot_sound__minTimeBetweenShots : float;
+                             gun_ready_to_shoot_sound__path : string)
+  if info.curTime + gun_ready_to_shoot_sound__duration >= gun.curState.nextShotAtTime && info.curTime + gun_ready_to_shoot_sound__duration - info.dt < gun.curState.nextShotAtTime && gun.curState.nextShotAtTime > 0.
+    if gun__timeBetweenShots >= gun_ready_to_shoot_sound__minTimeBetweenShots
+      if is_watched_gun_sound(gun__owner)
+        oneshot(gun_ready_to_shoot_sound__path)

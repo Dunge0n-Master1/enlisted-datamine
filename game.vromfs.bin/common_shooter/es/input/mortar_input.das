@@ -16,6 +16,7 @@ require Gun
 require DngWeapon
 require DaWeaponProps
 require DagorSystem
+require DagorMath
 require enlisted.events_enlisted
 
 def init(var mortar_input__cancel : int&; var mortar_input__switchShellType : int&)
@@ -88,6 +89,18 @@ def get_pitch_at_distance(src : float3; dir : float2; dist : float)
     let hdist = sqrt(square(endPoint.x - src.x) + square(endPoint.z - src.z))
     return atan2(vdist, hdist)
   return 0.
+
+[es(tag=gameClient, REQUIRE_NOT=human_input, REQUIRE=watchedByPlr, no_order)]
+def mortar_spectator_distance_es(info : UpdateStageInfoAct;
+                                 human_net_phys : HumanActor;
+                                 human_weap__currentGunEid : EntityId)
+  query(human_weap__currentGunEid) <| $ [es] (mortar__minTargetDistance : float;
+                                              mortar__distanceLimit : float;
+                                              var mortar__targetDistance : float&;
+                                              mortar__spectatorDistanceMinMaxAngle = float2(0.8297, 1.4720))
+    assume ct = human_net_phys.phys.appliedCT
+    assume minMaxAngle = mortar__spectatorDistanceMinMaxAngle
+    mortar__targetDistance = cvt(dir_to_angles(ct.wishShootDir).y, minMaxAngle.x, minMaxAngle.y, mortar__distanceLimit, mortar__minTargetDistance)
 
 [es(tag=input, after=human_input_es)]
 def mortar_input_controls_es(input : UpdateStageUpdateInput;

@@ -6,31 +6,7 @@ repeat{
     onceUntilReset{
     }
 
-    setIntVar{
-      to:t="isUnreachable"
-      value:i=0
-    }
-
-    setIntVar{
-      to:t="minStance"
-      value:i=0
-    }
-
     stopAim{
-    }
-
-    success{
-
-      sequencer{
-
-        isAgentPlayerBot{
-        }
-
-        setIntVar{
-          to:t="minStance"
-          value:i=1
-        }
-      }
     }
 
     success{

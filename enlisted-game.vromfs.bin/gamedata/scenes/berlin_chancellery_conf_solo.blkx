@@ -1824,7 +1824,7 @@ entity{
   capzone__decapTimeTeam1:r=20.0
   capzone__decapTimeTeam2:r=20.0
   capzone__capTeam:i=-1
-  transform:m=[[-11.4821, 0.0, 31.952] [0.0, 7.61342, 0.0] [-21.7402, 0.0, -7.81247] [494.181, 7.07508, -499.471]]
+  transform:m=[[-11.4821, 0.0, 31.952] [0.0, 7.15386, 0.0] [-21.7402, 0.0, -7.81247] [494.181, 6.64207, -499.471]]
   active:b=no
   ui_order:i=2
   capzone__icon:t="AAA"

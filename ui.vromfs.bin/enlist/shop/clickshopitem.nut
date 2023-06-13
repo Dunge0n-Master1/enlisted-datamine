@@ -14,7 +14,7 @@ let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 
-let function shopItemAction(shopItem, curLevel) {
+let function shopItemAction(shopItem, curLevel, isNotSuitable = false) {
   let { armyLevel = 0, campaignGroup = CAMPAIGN_NONE } = shopItem?.requirements
   let { guid = "" } = curArmyData.value
   let { squads = [] } = shopItem
@@ -49,6 +49,7 @@ let function shopItemAction(shopItem, curLevel) {
         description
         viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
         countWatched
+        isNotSuitable
       })
       checkLootRestriction(buyItemAction,
         {

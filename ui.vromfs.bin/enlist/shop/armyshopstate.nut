@@ -184,6 +184,7 @@ let getMinRequiredArmyLevel = @(goods) goods.reduce(function(res, sItem) {
     : min(level, res)
 }, 0)
 
+// TODO has duplicate factory at shopState.nut; should be used instead of continuous computations
 let curArmyItemsPrefiltered = Computed(function() {
   let armyId = curArmyData.value?.guid
   let itemCount = armyItemCountByTpl.value ?? {}
@@ -214,7 +215,7 @@ let curArmyShopInfo = Computed(function() {
     shopItems.value.filter(@(i) i?.armies.findvalue(@(a) armies.contains(a))))
   let hasTemporary = goods.findindex(@(i, id)
     isTemporaryVisible(id, i, itemCount, itemsByTime)) != null
-  goods = goods.values().sort(@(a, b) (b?.inLineProirity ?? 0) <=> (a?.inLineProirity ?? 0))
+  goods = goods.values()
   return { unlockLevel, goods, hasTemporary }
 })
 
@@ -251,10 +252,7 @@ let function trimTree(node, curFolder){
     return null
 
   if (res.len() == 1 && node?.id != curFolder?.id)
-    return res[0].__merge({
-      offerLine = node?.offerLine ?? 0
-      inLineProirity = node?.inLineProirity ?? 0
-    })
+    return res[0]
 
   node.childItems = res
   return node
@@ -312,19 +310,6 @@ let curArmyShopFolder = Computed(function(){
     }
   } while (curChild && depth < chainLen)
   return { path = chain.slice(0, depth), items = flatFolder(tree.childItems) }
-})
-
-let curArmyShopLines = Computed(function() {
-  local linesCount = 0
-  let curItems = curArmyShopFolder.value.items
-  foreach (item in curItems)
-    linesCount = max(linesCount, (item?.offerLine ?? 0) + 1)
-
-  let res = array(linesCount).map(@(_) [])
-  foreach (item in curItems)
-    res[item?.offerLine ?? 0].append(item)
-
-  return res
 })
 
 
@@ -627,33 +612,28 @@ let function shopItemContentCtor(shopItem) {
   return Computed(function() {
     let crate = shopItem.crates.findvalue(@(c) c.armyId == curArmy.value) ?? shopItem.crates[0]
     let { armyId, id } = crate
-    return {
-      id
-      armyId
-      content = requestedCratesContent.value?[armyId][id]
-    }
+    let content = requestedCratesContent.value?[armyId][id]
+    if (content)
+      return { id, armyId, content }
+    return null
   })
 }
 
-let function shopItemContentArrayCtor(shopItem) {
-  if ((shopItem?.crates.len() ?? 0) == 0)
-    return null
-  return Computed(function() {
+let function shopItemContentArrayCtor(shopItemW) {
+  return Computed(function(){
     let res = []
-    foreach (crate in shopItem.crates) {
+    foreach (crate in shopItemW.value?.crates ?? []) {
       let { armyId, id } = crate
-      res.append({
-        id
-        armyId
-        content = requestedCratesContent.value?[armyId][id]
-      })
+      let content = requestedCratesContent.value?[armyId][id]
+      if (content)
+        res.append({ id, armyId, content })
     }
     return res
   })
 }
 
-let isShopVisible = mkOnlinePersistentWatched("isShopVisible", Computed(@()
-  curArmyShopLines.value.len() > 0 && curArmyData.value.level >= curArmyShopInfo.value.unlockLevel))
+let isShopVisible = mkOnlinePersistentWatched("isShopVisible",
+  Computed(@() (curArmyData.value?.level ?? 0) >= curArmyShopInfo.value.unlockLevel))
 
 local function getShopItemPath(shopItem, allShopItems){
   let path = []
@@ -777,7 +757,6 @@ return {
   curArmyShowcase
   curArmyShopItems
   curArmyItemsPrefiltered
-  curArmyShopLines
   realCurrencies
   viewCurrencies
   viewArmyCurrency

@@ -9,7 +9,8 @@ let getPlayerNickAndFrameQuery = ecs.SqQuery("getPlayerNickAndFrame",
     ]
   })
 
-let getFramedNickByEid = @(playerEid) getPlayerNickAndFrameQuery.perform(playerEid,
-  @(_eid, comp) frameNick(remap_others(comp.name), comp["decorators__nickFrame"]))
+let getFramedNickByEid = @(playerEid, needHarmonize = false)
+  getPlayerNickAndFrameQuery.perform(playerEid,
+    @(_eid, comp) frameNick(remap_others(comp.name, needHarmonize), comp["decorators__nickFrame"]))
 
 return getFramedNickByEid

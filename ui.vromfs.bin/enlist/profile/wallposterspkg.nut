@@ -3,17 +3,20 @@ from "%enlSqGlob/ui_library.nut" import *
 let exclamation = require("%enlist/components/exclamation.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { borderColor } = require("profilePkg.nut")
+let { bgColor, txtColor, borderColor } = require("profilePkg.nut")
 let {
-  bigPadding, smallPadding, rowBg, disabledTxtColor, smallOffset, defTxtColor
+  bigPadding, smallPadding, disabledTxtColor, smallOffset, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { staticSeasonBPIcon } = require("%enlist/battlepass/battlePassPkg.nut")
+let { darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let wpSize = hdpxi(190)
 let wpHeaderWidth = hdpxi(150)
 let iconSize = hdpx(60)
+
+let weakTxtColor = @(sf) (sf & S_HOVER) ? darkTxtColor : disabledTxtColor
 
 let mkText = @(text, style) {
   rendObj = ROBJ_TEXT
@@ -21,35 +24,35 @@ let mkText = @(text, style) {
   text
 }.__update(style)
 
-let mkTextArea = @(text, style) {
+let mkTextArea = @(text, style, sf=0) {
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   size = [flex(), SIZE_TO_CONTENT]
-  color = defTxtColor
+  color = txtColor(sf)
   text
 }.__update(style)
 
-let mkTitleColumn = @(text) {
+let mkTitleColumn = @(text, sf) {
   size = [wpHeaderWidth, SIZE_TO_CONTENT]
   halign = ALIGN_RIGHT
-  children = mkText(text, { color = disabledTxtColor }.__update(sub_txt))
+  children = mkText(text, { color = weakTxtColor(sf) }.__update(sub_txt))
 }
 
-let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false)
+let mkWpRow = @(locId, rowTitleText, txtStyle, isEmptyHidden = false, sf = 0)
   doesLocTextExist(locId) || !isEmptyHidden
     ? {
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_HORIZONTAL
         gap = bigPadding
-        valign = ALIGN_BOTTOM
+        valign = ALIGN_CENTER
         children = [
-          mkTitleColumn(rowTitleText)
-          mkTextArea(loc(locId), txtStyle)
+          mkTitleColumn(rowTitleText, sf)
+          mkTextArea(loc(locId), txtStyle, sf)
         ]
       }
     : null
 
-let function mkWpBottomRow(wallposter) {
+let function mkWpBottomRow(wallposter, sf) {
   let { armyId, campaignTitle, bpSeason = null, icon = null } = wallposter
   return {
     size = [flex(), SIZE_TO_CONTENT]
@@ -77,8 +80,8 @@ let function mkWpBottomRow(wallposter) {
             size = [pw(50), hdpx(1)]
             color = borderColor(0)
           }
-          mkText(loc(armyId), { color = disabledTxtColor }.__update(body_txt))
-          mkText(loc(campaignTitle), { color = disabledTxtColor }.__update(sub_txt))
+          mkText(loc(armyId), { color = weakTxtColor(sf) }.__update(body_txt))
+          mkText(loc(campaignTitle), { color = weakTxtColor(sf) }.__update(sub_txt))
         ]
       }
     ]
@@ -110,18 +113,18 @@ let function mkWallposter(wallposter, sf = 0, isUnseen = false) {
         rendObj = ROBJ_SOLID
         size = flex()
         padding = bigPadding
-        color = rowBg(sf, 0)
+        color = bgColor(sf)
         children = [
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
             gap = bigPadding
             children = [
-              mkWpRow(nameLocId, loc("wp/name"), body_txt)
+              mkWpRow(nameLocId, loc("wp/name"), body_txt, false, sf)
               { size = [flex(), smallOffset] }
-              mkWpRow(descLocId, loc("wp/desc"), sub_txt, true)
-              mkWpRow(hintLocId, loc("wp/toToGet"), sub_txt, true)
-              mkWpBottomRow(wallposter)
+              mkWpRow(descLocId, loc("wp/desc"), sub_txt, true, sf)
+              mkWpRow(hintLocId, loc("wp/toToGet"), sub_txt, true, sf)
+              mkWpBottomRow(wallposter, sf)
             ]
           }
           isHidden ? exclamation().__update({ hplace = ALIGN_RIGHT }) : null
@@ -138,7 +141,7 @@ let function makeBigWpImage(wallposter, onClick) {
     size = flex()
     flow = FLOW_VERTICAL
     gap = bigPadding
-    padding = smallPadding
+    padding = bigPadding
     halign = ALIGN_CENTER
     behavior = Behaviors.Button
     onClick

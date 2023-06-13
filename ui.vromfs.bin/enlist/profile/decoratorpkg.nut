@@ -105,12 +105,12 @@ let mkPortraitFrame = @(children, onClick = null, onHover = null, addObject = nu
     }
   })
 
-let mkNickFrame = @(nCfg, color = defTxtColor, borderColor = idleBgColor) {
+let mkNickFrame = @(nCfg, color = defTxtColor, brdColor = idleBgColor) {
   rendObj = ROBJ_BOX
   borderWidth = hdpx(1)
   size = [NICKFRAME_SIZE, NICKFRAME_SIZE]
   fillColor = defBgColor
-  borderColor
+  borderColor = brdColor
   children = txt({
     text = nCfg?.framedNickName("") ?? ""
     hplace = ALIGN_CENTER

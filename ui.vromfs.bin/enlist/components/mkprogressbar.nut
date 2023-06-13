@@ -34,8 +34,6 @@ let function progressContainerCtor(mask, borderImg, size) {
   }
 }
 
-
-
 let solidProgressCtor = @(key = "progress_bar")
   @(progress, animations = [], color = pbColorCompleted, amimColor = null) {
     key
@@ -73,6 +71,7 @@ let gradientProgressLine = @(progress, image = "!ui/uiskin/progress_bar_gradient
     screenOffs = offs
   }
 }
+
 
 return {
   progressBarHeight

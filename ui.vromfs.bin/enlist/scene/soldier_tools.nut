@@ -83,8 +83,9 @@ let function reinitEquipment(eid, equipment) {
       let oldTemplateBase = templateArray?[0]
       if (oldTemplateBase && oldTemplateBase == equipment?[slotId].template)
         continue
-      else
-        ecs.g_entity_mgr.destroyEntity(slot.item)
+
+      ecs.g_entity_mgr.destroyEntity(slot.item)
+      slot.item = ecs.EntityId(ecs.INVALID_ENTITY_ID)
     }
     filteredEquipment[slotId] <- equipment?[slotId]
   }
@@ -253,6 +254,10 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
       slotTmpls[slotType] <- itemTemplate
   }
   foreach (slotType, templ in customizationOvr ?? {}) {
+    if (templ == "") {
+      slotTmpls[slotType] <- null
+      continue
+    }
     let itemTemplate = findItemTemplate(allItemTemplates, armyId, templ)
     if (itemTemplate != null)
       slotTmpls[slotType] <- itemTemplate
@@ -262,6 +267,10 @@ let function mkEquipment(soldier, scheme, soldiersLook, premiumItems, customizat
   local equipment = {}
   foreach (slotType, itemTemplate in slotTmpls) {
     let itemSlot = itemTemplate?.slot ?? slotType
+    if (itemTemplate == null) {
+      equipment[itemSlot] <- null
+      continue
+    }
     let { gametemplate } = itemTemplate
     let template = getTemplate(gametemplate)
     let data = { gametemplate, template }

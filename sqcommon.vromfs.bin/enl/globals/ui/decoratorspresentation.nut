@@ -399,6 +399,7 @@ local nickFrames = {
   nickFrame_mgun = @(n) $"┏{n}┏"
   nickFrame_preorder_mgun = @(n) $"┏{n}┏"
   nickFrame_preorder_paratrooper = @(n) $"┒{n}┒"
+  nickFrame_alfa_tester = @(n) $"┓{n}┓"
 }
 
 local decoratorsPresentation = {

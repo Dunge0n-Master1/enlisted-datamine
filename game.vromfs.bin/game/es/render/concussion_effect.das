@@ -24,8 +24,8 @@ def disable_concussion_vision_on_destroy(evt : Event)
 def track_concussion_vision(evt : Event;
                             hasConcussedVision : bool;
                             concussion__endTime : float;
-                            concussion__intensity : float)
+                            concussion__visionIntensity : float)
   if !hasConcussedVision
     disable_concussion_screen_effect()
   else
-    enable_concussion_screen_effect(concussion__endTime - get_sync_time(), concussion__intensity)
+    enable_concussion_screen_effect(concussion__endTime - get_sync_time(), concussion__visionIntensity)

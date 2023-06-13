@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let http = require("dagor.http")
-let json = require("json")
+let { parse_json } = require("json")
 let { get_setting_by_blk_path } = require("settings")
 let { encode_uri_component } = require("app")
 let { logerr } = require("dagor.debug")
@@ -19,14 +19,14 @@ let hasObsceneFilter = OBSCENE_FILTER_URL != ""
 
 let function processObsceneFilter(response, filterCb) {
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != http.HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter?("obscene_filter_receive_errors", 1, { http_code })
     filterCb(null)
     return
   }
   local result
   try {
-    result = json.parse(body?.as_string())?.data.replace_string
+    result = parse_json(body?.as_string())?.data.replace_string
   } catch(e) {
     logerr(e)
   }

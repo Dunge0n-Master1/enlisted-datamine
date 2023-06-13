@@ -15,4 +15,6 @@ render_settings{
   render_settings__forwardRendering:b=yes
   render_settings__upscaleSamplingTex:b=yes
   render_settings__anisotropy:i=-1
+  render_settings__effectsShadows:b=no
+  render_settings__effects__max_active_shadows:i=4
 }

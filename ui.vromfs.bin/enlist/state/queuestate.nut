@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { isInSquad, isSquadLeader, squadSharedData } = require("%enlist/squad/squadState.nut")
 let squadClusters = squadSharedData.clusters
 let squadAutoCluster = squadSharedData.isAutoCluster
-let { isAutoClusterSafe, selectedClusters } = require("%enlist/clusterState.nut")
+let { isAutoCluster, selectedClusters } = require("%enlist/clusterState.nut")
 let { matchingQueues } = require("%enlist/matchingQueues.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 
@@ -36,10 +36,10 @@ let function recalcSquadClusters(_) {
   if (!isSquadLeader.value)
     return
   squadClusters(clone selectedClusters.value)
-  squadAutoCluster(isAutoClusterSafe.value)
+  squadAutoCluster(isAutoCluster.value)
 }
 
-foreach (w in [isSquadLeader, selectedClusters, isAutoClusterSafe])
+foreach (w in [isSquadLeader, selectedClusters, isAutoCluster])
   w.subscribe(recalcSquadClusters)
 
 console_register_command(@() debugShowQueue(!debugShowQueue.value), "ui.showQueueInfo")

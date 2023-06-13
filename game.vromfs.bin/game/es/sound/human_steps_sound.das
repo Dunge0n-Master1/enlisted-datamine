@@ -246,9 +246,7 @@ def human_steps_sound_update(info : ParallelUpdateFrameDelayed)
 
         let speed = -min(human_net_phys.phys.currentState.velocity.y, human_net_phys.phys.previousState.velocity.y)
         if speed >= human_steps_sound__fallSpeedCollThreshold
-          var handle = play_path("collision", sound_paths, sound_tags, is_watched_sound, transform[3], false)
-          set_var_optional(handle, "force", 1.)
-          abandon(handle)
+          play_path("collision_fall", sound_paths, sound_tags, is_watched_sound, transform[3])
           return
 
         name = "land"

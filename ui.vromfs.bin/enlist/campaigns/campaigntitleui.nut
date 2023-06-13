@@ -1,11 +1,11 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { colFull, transpPanelBgColor, midPadding, smallPadding, accentColor, titleTxtColor,
-  darkPanelBgColor, colPart, defItemBlur, defTxtColor, miniPadding, briteAccentColor,
-  hoverPanelBgColor
+let { colFull, transpPanelBgColor, midPadding, smallPadding, accentColor,
+  darkPanelBgColor, colPart, defItemBlur, defTxtColor, brightAccentColor,
+  bigPadding, hoverSlotBgColor, darkTxtColor, highlightLineHgt
 } = require("%enlSqGlob/ui/designConst.nut")
-let { mkColoredGradientX, mkColoredGradientY } = require("%enlSqGlob/ui/gradients.nut")
+let { mkColoredGradientX, mkTwoSidesGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let campaignSelectWnd = require("%enlist/campaigns/chooseCampaignWnd.nut")
 let { gradientProgressBar } = require("%enlSqGlob/ui/defComponents.nut")
@@ -18,90 +18,107 @@ let { curArmyLevel, curArmyExp, curArmyLevels
 let { maxCampaignLevel } = require("%enlist/soldiers/model/state.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let colorize = require("%ui/components/colorize.nut")
+let { data } = require("%enlist/debriefing/debriefingStateInMenu.nut")
+let { dbgData } = require("%enlist/debriefing/debriefingDbgState.nut")
 
 
 const CAMPAIGN_CHANGE_UID = "cangeCampaignUid"
 
-let largeTxtStyle = { color = defTxtColor }.__update(fontLarge)
-let hoverLargeTxtStyle = { color = titleTxtColor }.__update(fontLarge)
+let campaignBlockHeight = colFull(1)
 
-let campaignBlockHeight = colPart(1.162)
-
-let needNotifier = Computed(@() maxCampaignLevel.value >= 4
-  && unseenCampaigns.value.len() > 0)
-
-let lineGradient = mkColoredGradientY(0x5AFFFFFF, 0x00FFFFFF, 12, false)
-let thinLineWidth = colPart(0.054)
-let wideLineWidth = colPart(0.084)
-
-let highlightLine = @(width) {
+let highlightLine = freeze({
   rendObj = ROBJ_IMAGE
-  size = [width, flex()]
-  image = lineGradient
+  size = [flex(), highlightLineHgt]
+  image = mkTwoSidesGradientX({centerColor = 0x5AFFFFFF, sideColor = 0x00FFFFFF, width=12, isAlphaPremultiplied=false})
+})
+
+let function mkCampaignButton(textObs, hasNotifierObs) {
+  let function onClick() {
+    if (canChangeCampaign.value)
+      campaignSelectWnd.open()
+    else
+      msgbox.show({ text = loc("quickMatch/squadLeaderParams") })
+  }
+  return watchElemState(@(sf){
+    rendObj = ROBJ_WORLD_BLUR_PANEL
+    behavior = Behaviors.Button
+    onClick
+    watch = [textObs, hasNotifierObs]
+    size = flex()
+    halign = ALIGN_CENTER
+  //  valign = ALIGN_BOTTOM
+    color = defItemBlur
+    fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
+    children = [
+      highlightLine
+      {
+        rendObj = ROBJ_TEXT
+        hplace = ALIGN_CENTER
+        vplace = ALIGN_CENTER
+        padding = [smallPadding, 0]
+        text = loc(textObs.value)
+        color = sf & S_HOVER ? darkTxtColor : defTxtColor
+      }.__update(fontLarge)
+      !hasNotifierObs.value ? null : blinkUnseen
+    ]
+  })
 }
 
-let leftLinesBlock = {
-  size = [SIZE_TO_CONTENT, flex()]
-  flow = FLOW_HORIZONTAL
-  gap = miniPadding
-  hplace = ALIGN_LEFT
-  children = [
-    highlightLine(wideLineWidth)
-    highlightLine(thinLineWidth)
-  ]
+let armyProgressToShow = {}
+let function updateProgressAnim(debriefing) {
+  let { armyExp = 0, armyWasExp = 0, armyWasLevel = 0, armyProgress = null } = debriefing
+  if (armyProgress == null)
+    return
+
+  let { expToArmyLevel = [] } = armyProgress
+
+  let expToNextLevel = expToArmyLevel?[armyWasLevel] ?? expToArmyLevel.top() ?? 0
+  let wasProgress = expToNextLevel > 0 ? armyWasExp.tofloat() / expToNextLevel : 1
+  let hasNewLevel = armyWasExp + armyExp >= expToNextLevel
+
+  armyProgressToShow.__update({ wasProgress, armyWasLevel, hasNewLevel })
 }
 
-
-let rightLinesBlock = {
-  size = [SIZE_TO_CONTENT, flex()]
-  flow = FLOW_HORIZONTAL
-  gap = miniPadding
-  hplace = ALIGN_RIGHT
-  children = [
-    highlightLine(thinLineWidth)
-    highlightLine(wideLineWidth)
-  ]
-}
+foreach (v in [data, dbgData])
+  v.subscribe(updateProgressAnim)
 
 
-let campaignButton = @(text, hasNotifier, sf) {
-  rendObj = ROBJ_WORLD_BLUR
-  size = flex()
-  halign = ALIGN_CENTER
-  valign = ALIGN_BOTTOM
-  color = defItemBlur
-  fillColor = sf & S_HOVER ? hoverPanelBgColor : transpPanelBgColor
-  children = [
-    leftLinesBlock
-    {
-      rendObj = ROBJ_TEXT
-      hplace = ALIGN_CENTER
-      vplace = ALIGN_BOTTOM
-      padding = [smallPadding, 0]
-      text = loc(text)
-    }.__update(sf & S_HOVER ? hoverLargeTxtStyle : largeTxtStyle)
-    !hasNotifier ? null : blinkUnseen
-    rightLinesBlock
-  ]
-}
+let progressBarBgImage = mkColoredGradientX({colorLeft=0xFFFC7A40, colorRight=brightAccentColor})
 
+let function mkCampaignBlock() {
+  let campaignName = Computed(function() {
+    let campaign = curCampaign.value
+    return gameProfile.value?.campaigns[campaign].title ?? campaign
+  })
+  let progress = Computed(function() {
+    let expToNextLevel = curArmyLevels.value?[curArmyLevel.value].expSize ?? 0
+    return expToNextLevel > 0
+      ? curArmyExp.value.tofloat() / expToNextLevel
+      : 1
+  })
 
-let progressBarBgImage = mkColoredGradientX(0xFFFC7A40, briteAccentColor)
-
-let campaignBlock = @(campaignName, progress, sf) @() {
-  watch = [needNotifier, campaignName, progress]
-  size = [colFull(4), campaignBlockHeight]
-  gap = midPadding
-  flow = FLOW_VERTICAL
-  hplace = ALIGN_CENTER
-  children = [
-    campaignButton(campaignName.value, needNotifier.value, sf)
-    gradientProgressBar(progress.value, {
+  let needNotifier = Computed(@() maxCampaignLevel.value >= 4
+    && unseenCampaigns.value.len() > 0)
+  let progressCmp = @() {
+    watch = progress
+    size = [flex(), SIZE_TO_CONTENT]
+    children = gradientProgressBar(progress.value, {
       vplace = ALIGN_BOTTOM
       bgImage = progressBarBgImage
       emptyColor = darkPanelBgColor
-    })
-  ]
+    }, armyProgressToShow)
+  }
+
+  return {
+    size = [colPart(5), campaignBlockHeight]
+    gap = midPadding
+    flow = FLOW_VERTICAL
+    hplace = ALIGN_CENTER
+    children = [
+      mkCampaignButton(campaignName, needNotifier)
+      progressCmp
+    ]
+  }
 }
 
 
@@ -119,40 +136,23 @@ let function levelBlock() {
       halign = ALIGN_CENTER
       size = [flex(), SIZE_TO_CONTENT]
       text = levelText
-    }.__update(largeTxtStyle)
+      color = defTxtColor
+    }.__update(fontLarge)
   }
 }
 
 
 let function campaignTitle() {
-  let campaignName = Computed(function() {
-    let campaign = curCampaign.value
-    return gameProfile.value?.campaigns[campaign].title ?? campaign
-  })
-  let progress = Computed(function() {
-    let expToNextLevel = curArmyLevels.value?[curArmyLevel.value].expSize ?? 0
-    return expToNextLevel > 0
-      ? curArmyExp.value.tofloat() / expToNextLevel
-      : 100
-  })
-
-
-  return watchElemState(@(sf) {
+  return {
     size = [colFull(4), SIZE_TO_CONTENT]
+    padding = [bigPadding, 0, 0, 0]
     gap = midPadding
     hplace = ALIGN_CENTER
-    behavior = Behaviors.Button
-    onClick = function() {
-      if (canChangeCampaign.value)
-        campaignSelectWnd.open()
-      else
-        msgbox.show({ text = loc("quickMatch/squadLeaderParams") })
-    }
     children = [
       levelBlock
-      campaignBlock(campaignName, progress, sf)
+      mkCampaignBlock()
     ]
-  })
+  }
 }
 
-return campaignTitle()
+return campaignTitle

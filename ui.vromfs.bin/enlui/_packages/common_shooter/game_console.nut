@@ -3,7 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {get_controlled_hero} = require("%dngscripts/common_queries.nut")
 let {drop_gear_from_slot} = require("humaninv")
-let {drop_weap_from_slot, remove_item_from_weap_to_inventory} = require("weaponinv")
+let { remove_item_from_weap_to_inventory } = require("das.human_weap")
+let { drop_weap_from_slot } = require("das.inventory")
 let {request_weapon_reload, choose_weapon, unload_weapon_ammo_to_inventory} = require("human_weap")
 
 console_register_command(function(weaponSlotName) {drop_weap_from_slot(weaponSlotName)},

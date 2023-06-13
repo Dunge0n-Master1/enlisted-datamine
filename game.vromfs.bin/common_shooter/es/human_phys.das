@@ -115,7 +115,8 @@ def keep_human_net_phys_cur_state_es(info : ParallelUpdateFrameDelayed;
                                      var human_net_phys__maxStamina : float&;
                                      var human_net_phys__maxStaminaMult : float&;
                                      var human_net_phys__staminaBoostMult : float&;
-                                     var human_net_phys__isZooming : bool&)
+                                     var human_net_phys__isZooming : bool&;
+                                     var human_net_phys__torsoContactMatId : int&)
   assume currentState = human_net_phys.phys.currentState
 
   human_net_phys__curMoveState = int(currentState.moveState)
@@ -139,6 +140,7 @@ def keep_human_net_phys_cur_state_es(info : ParallelUpdateFrameDelayed;
   human_net_phys__maxStaminaMult = human_net_phys.phys.currentState.maxStaminaMult
   human_net_phys__staminaBoostMult = human_net_phys.phys.currentState.staminaBoostMult
   human_net_phys__isZooming = human_net_phys.phys.currentState.isZooming
+  human_net_phys__torsoContactMatId = human_net_phys.phys.currentState.torsoContactMatId
 
 [es(after=before_net_phys_sync, before=after_net_phys_sync)]
 def human_phys_save_weap_state_es(info : ParallelUpdateFrameDelayed;

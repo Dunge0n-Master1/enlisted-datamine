@@ -128,8 +128,13 @@ def next_weapon_item_request_es(evt : Event;
                                 inventoryGunsItemsEids : ecs::EidList)
   if length(inventoryGunsItemsEids) > 0
     let forcedGunIdx = find_index(inventoryGunsItemsEids, forcedNextInventoryGunEid)
+    if currentInventoryGunIdx > -1
+      query(inventoryGunsItemsEids[currentInventoryGunIdx]) <| $ [es] (var slot_attach__weaponSlotIdx : int&)
+        slot_attach__weaponSlotIdx = -1
     if forcedGunIdx > -1
       currentInventoryGunIdx = forcedGunIdx
     else
       currentInventoryGunIdx = (currentInventoryGunIdx + 1) % length(inventoryGunsItemsEids)
+    query(inventoryGunsItemsEids[currentInventoryGunIdx]) <| $ [es] (var slot_attach__weaponSlotIdx : int&)
+      slot_attach__weaponSlotIdx = int(HUWeaponSlots EWS_SPECIAL)
     forcedNextInventoryGunEid = INVALID_ENTITY_ID

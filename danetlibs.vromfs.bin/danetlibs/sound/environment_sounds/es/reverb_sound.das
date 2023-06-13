@@ -7,6 +7,7 @@ require Dacoll
 require AnimV20
 require GeomNodeTree
 require DagorSystem
+require strings
 
 
 def advance(var values : float3&)
@@ -72,14 +73,14 @@ def reverb_sound_update(evt : Event;
   set_var(reverb_sound__event.handle, reverb_sound__roomSizeVar, roomSize)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def reverb_sound_toggle(evt : Event;
-                        sound_bank_preset_state__isValid : bool;
+                        sound_banks_state__isPresetLoaded : bool;
                         reverb_sound__path : string;
                         reverb_sound__intensityVar : string;
                         var reverb_sound__event : SoundEvent&)
   release_immediate(reverb_sound__event.handle)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     reverb_sound__event |> play(reverb_sound__path, get_reverb_3d_pos())
     set_var_global(reverb_sound__intensityVar, 0.)
 
@@ -97,7 +98,7 @@ def human_reverb_sound_init_node_id(evt : Event;
                                     animchar : AnimcharBaseComponent;
                                     human_animchar_sound__reverbNode : string;
                                     var human_reverb_sound__nodeId : int&)
-  if human_animchar_sound__reverbNode != ""
+  if !empty(human_animchar_sound__reverbNode)
     human_reverb_sound__nodeId = geomtree_findNodeIndex(*animchar.nodeTree, human_animchar_sound__reverbNode)
     if human_reverb_sound__nodeId == -1
       logerr("Reverb node '{human_animchar_sound__reverbNode}' not found")

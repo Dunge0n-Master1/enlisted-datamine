@@ -19,8 +19,12 @@ let getTopStatSoldier = getTop(@(a,b) a.stat <=> b.stat || a.soldier.score <=> b
 
 let statAwardConfig = {
   [BattleHeroesAward.TOP_VEHICLES_DESTROYED] = {
-    playerStat = @(player) (player.stats?["scoring_player__tankKills"] ?? 0) + (player.stats?["scoring_player__planeKills"] ?? 0)
-    soldierStat = @(soldier) (soldier.stats?["tankKills"] ?? 0) + (soldier.stats?["planeKills"] ?? 0)
+    playerStat = @(player) (player.stats?["scoring_player__tankKills"] ?? 0)
+                         + (player.stats?["scoring_player__planeKills"] ?? 0)
+                         + (player.stats?["scoring_player__aiPlaneKills"] ?? 0)
+    soldierStat = @(soldier) (soldier.stats?["tankKills"] ?? 0)
+                           + (soldier.stats?["planeKills"] ?? 0)
+                           + (soldier.stats?["aiPlaneKills"] ?? 0)
   },
   [BattleHeroesAward.TOP_MELEE_KILLS] = {
     playerStat = @(player) (player.stats?["scoring_player__meleeKills"] ?? 0)
@@ -166,9 +170,9 @@ let function getTacticianAward(players, awards) {
   if (awardedPlayerStatA == awardedPlayerStatB && awardedPlayerStatA != null) {
     awardedPlayer = awardedPlayerStatA
   } else {
-    if (awardedPlayerStatA != null && awards.findvalue(@(award) award.playerEid == awardedPlayerStatA.eid) != null)
+    if (awardedPlayerStatA != null && awards.findvalue(@(awrd) awrd.playerEid == awardedPlayerStatA.eid) != null)
       awardedPlayerStatA = null
-    if (awardedPlayerStatB != null && awards.findvalue(@(award) award.playerEid == awardedPlayerStatB.eid) != null)
+    if (awardedPlayerStatB != null && awards.findvalue(@(awrd) awrd.playerEid == awardedPlayerStatB.eid) != null)
       awardedPlayerStatB = null
     awardedPlayer = getTopScorePlayer([awardedPlayerStatA, awardedPlayerStatB])
   }

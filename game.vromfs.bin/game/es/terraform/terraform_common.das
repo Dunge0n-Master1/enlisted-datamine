@@ -92,7 +92,7 @@ def can_terraform_at_pos(terraform : TerraformComponent;
     return CanTerraformCheckResult NearByObjects
 
   var isTerraformingBlocked = false
-  find_entity_in_grid([[uint[] ecs_hash("humans"); ecs_hash("vehicles")]], BBox3(posWithOrigHeight, radius), GridEntCheck BOUNDING) <| $(eid : EntityId)
+  find_entity_in_grid([[uint[] ecs_hash("vehicles")]], BSphere3(posWithOrigHeight, radius), GridEntCheck BOUNDING) <| $(eid : EntityId)
     isTerraformingBlocked ||= has(eid, "blockTerraform")
     return isTerraformingBlocked
 

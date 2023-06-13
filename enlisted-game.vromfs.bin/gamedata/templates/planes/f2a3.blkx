@@ -194,7 +194,7 @@ base_f2a3_12_7mm_browning50_early{
   gun__shotFreq:r=12.5
   gun__locName:t="gunbrowning50_early"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=250
+  gun__maxAmmo:i=325
 
   "gun__firingModes:array"{
 
@@ -208,7 +208,7 @@ base_f2a3_12_7mm_browning50_early{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=250
+    ammo:i=325
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -266,7 +266,7 @@ planegun_f2a3_12_7mm_browning50_early_01{
   _extends:t="base_f2a3_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=250
+  gun__maxAmmo:i=325
 }
 
 planegun_f2a3_12_7mm_browning50_early_02{
@@ -275,7 +275,7 @@ planegun_f2a3_12_7mm_browning50_early_02{
   _extends:t="base_f2a3_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=250
+  gun__maxAmmo:i=325
 }
 
 planegun_f2a3_12_7mm_browning50_early_03{
@@ -284,7 +284,7 @@ planegun_f2a3_12_7mm_browning50_early_03{
   _extends:t="base_f2a3_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=400
+  gun__maxAmmo:i=325
 }
 
 planegun_f2a3_12_7mm_browning50_early_04{
@@ -293,7 +293,7 @@ planegun_f2a3_12_7mm_browning50_early_04{
   _extends:t="base_f2a3_12_7mm_browning50_early"
   _extends:t="gunsound_12_7mm_browning50_early_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=400
+  gun__maxAmmo:i=325
 }
 
 f2a3_driver_cockpit{

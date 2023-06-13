@@ -49,6 +49,7 @@ base_ship{
   lastGunPropsIdDamagedWith:i=-1
   driverFpsCamMaxAngle:p2=90.0, 50.0
   passengerFpsCamMaxAngle:p2=90.0, 50.0
+  hitmarks_victim__group:t="ship"
   pair_collision__tag:t="collidableToShip"
   grid_obj__gridType:t="vehicles"
   grid_obj__fixedTmScale:r=-1.0

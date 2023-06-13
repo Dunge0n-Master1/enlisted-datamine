@@ -392,7 +392,6 @@ let function onRoundResult(evt, _eid, _comp) {
     hero.expMult <- isBattleHeroMultApplied(hero.isFinished, realPlayerCount, realPlayerWithEnoughScoreCount) ? getArmyExpBattleHeroMult(hero.awards, hero) : 1.0
     hero.soldier.__update(getBattleHeroSoldierInfo(hero.soldier, getArmyData(hero.playerEid)))
     hero.playerRank <- getRank(hero.playerEid)
-    delete hero.playerEid
   }))
   let battleEndTime = get_sync_time()
   foreach (playerEid, playerData in playersStats) {

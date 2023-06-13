@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { gap, noteTxtColor, defTxtColor, disabledTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { gap, noteTxtColor, defTxtColor, disabledTxtColor, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { autoscrollText, txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
@@ -42,27 +42,25 @@ let classAmountHint = @(sClassLimits) @() {
 }
 
 let mkClassAmount = @(sKind, total, used) {
-  size = [flex(), hdpx(34)]
+  size = SIZE_TO_CONTENT
   flow = FLOW_VERTICAL
-  maxWidth = pw(20)
   halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
   children = [
     kindIcon(sKind, hdpx(24))
-    note({ text = $"{used}/{total}", color = noteTxtColor })
+    note({ text = $"{used}/{total}" })
   ]
 }
 
 let squadClassesUi = @(sClassLimits) @() {
   watch = sClassLimits
   size = [flex(), SIZE_TO_CONTENT]
-  margin = [gap, 0]
   flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
+  halign = ALIGN_RIGHT
   gap = {
     rendObj = ROBJ_SOLID
     size = [hdpx(1), flex()]
     color = disabledTxtColor
+    margin = [0, bigPadding]
   }
   children = sClassLimits.value
     .filter(@(c) c.total > 0)
@@ -88,18 +86,19 @@ let squadSizeUi = @(battleAmount, maxSquadSize) function() {
     return res
 
   return res.__update({
-    hplace = ALIGN_RIGHT
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
+    vplace = ALIGN_BOTTOM
     behavior = Behaviors.Button
+    gap
     onHover = @(on) setTooltip(!on ? null : tooltipBox(sizeHint(battleAmount, maxSquadSize)))
     skipDirPadNav = true
     children = [
-      txt({ text = $"{battleAmount.value}/{size}", color = noteTxtColor })
       faComp("user-o", {
         fontSize = hdpx(12)
         color = noteTxtColor
       })
+      txt({ text = $"{battleAmount.value}/{size}", color = noteTxtColor})
     ]
   })
 }
@@ -118,29 +117,38 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
 
     let group = ElemGroup()
     return res.__update({
-      group = group
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
+      group
+      gap
       onHover = @(on) setTooltip(on ? tooltipBox(classAmountHint(sClassLimits)) : null)
       skipDirPadNav = true
+      padding = [bigPadding]
       children = [
         {
           size = [flex(), hdpx(26)]
           flow = FLOW_HORIZONTAL
-          gap = gap
+          gap
           children = [
-            mkSquadSpecIcon(squad, { pos = [0, -hdpx(2)] })
+            mkSquadSpecIcon(squad)
             autoscrollText({
-              group = group
+              group
               text = loc(squad?.titleLocId)
               color = noteTxtColor
-              textParams = tiny_txt
+              textParams = sub_txt
+              vplace = ALIGN_CENTER
             })
-            squadSizeUi(battleAmount, maxSquadSize)
           ]
         }
-        squadClassesUi(sClassLimits)
+        {
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_HORIZONTAL
+          children = [
+            squadSizeUi(battleAmount, maxSquadSize)
+            squadClassesUi(sClassLimits)
+          ]
+        }
       ]
     })
   }

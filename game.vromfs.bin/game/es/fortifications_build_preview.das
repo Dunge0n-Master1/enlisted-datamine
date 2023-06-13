@@ -149,6 +149,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
   var heroTeam = TEAM_UNASSIGNED
   var squadEid = INVALID_ENTITY_ID
   var previewId = -1
+  var isAboveOtherBuilding = false
   ecs::find_query() <| $ [es(REQUIRE=hero)] (human__aimTm : float3x4;
                                              human_use_object__selectedBuilding : EntityId;
                                              human_weap__currentGunEid : EntityId;
@@ -184,10 +185,16 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
     var riMatId = PHYSMAT_INVALID
     var riDesc = RendInstDesc()
     traceray_normalized(tracePos, traceDir, len, riMatId, norm, ETF_ALL | ETF_RI_PHYS, riDesc, rayMatId)
+    if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__destroyable")
+      isAboveOtherBuilding = true
     build_position = tracePos + traceDir * len
     if length(norm) == 0.f
-      if !tracedown_normalized_with_mat_id(build_position + traceAdditionEps, height, norm, ETF_DEFAULT | ETF_RI_PHYS, rayMatId)
+      let traceDownDir = float3(0., -1., 0.)
+      let abovePos = build_position + traceAdditionEps
+      if !traceray_normalized(abovePos, traceDownDir, height, riMatId, norm, ETF_DEFAULT | ETF_RI_PHYS, riDesc, rayMatId)
         return true
+      if find_ri_extra_eid(riDesc.riExtraHandle) |> has("building__destroyable")
+        isAboveOtherBuilding = true
       build_position.y -= height - traceAdditionEps.y
 
     if dot(norm, traceDir) >= 0.f //In case if normal is inverted
@@ -219,6 +226,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
     let priceLimitReached = heroStock < buildingCost
     let allowRecreate = has(eid, "destroySimilarBuilding")
     let isValid = (isAngleValid &&
+                   !isAboveOtherBuilding &&
                    !priceLimitReached &&
                    (availableByCountLimit || allowRecreate) &&
                    is_required_unlocks_available(previewId, squadEid) &&
@@ -317,16 +325,6 @@ def init_available_buildings_es(evt : Event;
       for i in iter_range(buildingLimits)
         availableBuildings[i] = buildingLimits[i]
 
-def trace_ri_under_building(building_pos : float3; building_radius : float; rayMatId : int = PHYSMAT_INVALID)
-  var norm : float3
-  var len = building_radius
-  var riMatId = PHYSMAT_INVALID
-  var riDesc = RendInstDesc()
-  let traceDownDir = float3(0., -1., 0.)
-  let tracePos = building_pos - traceDownDir * (building_radius / 2.)
-  traceray_normalized(tracePos, traceDownDir, len, riMatId, norm, ETF_ALL, riDesc, rayMatId)
-  return riDesc.riExtraHandle
-
 [es(tag=server)]
 def build_fortification_es(evt : CmdBuildFortification;
                            eid : ecs::EntityId;
@@ -403,7 +401,7 @@ def next_building_type_es(evt : CmdNextBuildingType;
       currentPreviewId = verificateId
       return
 
-[es(tag=server, on_appear)]
+[es(tag=server, on_appear, after=engineer_get_building_tool)]
 def verificate_build_id_on_create_es(evt : Event;
                                      eid : EntityId;
                                      currentPreviewId : int;
@@ -496,13 +494,16 @@ def try_build_fortification_es(evt : Event;
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_by_angle", text="building_blocked_by_angle"]])
     return
   let baseCollres = get_building_collres(previewCollres, ri_preview__name)
-  if is_conflict_objects_in_building_box(transform, BBox3(buildingBoxMin, buildingBoxMax), previewCollobj, previewCollobjOffset, eid, baseCollres)
-    sendEvent(hero, [[CmdHeroLogEvent event="building_cannot_confirm_when_objects_in", text="building_cannot_confirm_when_objects_in"]])
-    return
   if is_not_attachable_gun(eid)
     sendEvent(hero, [[CmdHeroLogEvent event="building_gun_not_attachable", text="building_gun_not_attachable"]])
     return
   let buildingPos = transform[3]
+  let buildingRadius = length(buildingBoxMax - buildingBoxMin) * 0.5
+  let isConflictObjectsInBuildingBox = is_conflict_objects_in_building_box(transform, BBox3(buildingBoxMin, buildingBoxMax), previewCollobj, previewCollobjOffset, eid, baseCollres)
+  let isAboveOtherBuilding = is_above_other_building(buildingPos, buildingRadius)
+  if isConflictObjectsInBuildingBox || isAboveOtherBuilding
+    sendEvent(hero, [[CmdHeroLogEvent event="building_cannot_confirm_when_objects_in", text="building_cannot_confirm_when_objects_in"]])
+    return
   if !!is_human_respawn_selector_in_radius_for_team(buildingPos, building_builder__minDistanceToMissionRespawns, heroTeam)
     sendEvent(hero, [[CmdHeroLogEvent event="building_blocked_too_close_to_respawns", text="building_blocked_too_close_to_respawns"]])
     return

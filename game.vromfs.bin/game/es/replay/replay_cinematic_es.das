@@ -43,8 +43,8 @@ def set_cinematic_mode_enabled_es(evt : CmdSetCinematicModeEnabled; eid : Entity
     removeSubTemplate(eid, "cinematic_mode_manager")
 
 [es(tag=render)]
-def set_motion_blur_scale_es(evt : CmdSetMotionBlurScale; var cinematic_mode__mb_scale : float&)
-  cinematic_mode__mb_scale = evt.scale
+def set_motion_blur_scale_es(evt : CmdSetMotionBlurScale; var motion_blur__scale : float&)
+  motion_blur__scale = evt.scale
 
 [es(tag=render)]
 def set_bloom_threshold_es(evt : CmdSetBloomThreshold; var cinematic_mode__bloomThreshold : float&)

@@ -5,11 +5,12 @@ require math.base
 require soundEvent
 require soundSystem
 require Dacoll
+require DngCamera
 
 
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed)]
 def spline_sound_update(evt : Event;
-                        sound_bank_preset_state__isValid : bool;
+                        sound_banks_state__isPresetLoaded : bool;
                         var spline_sound__event : SoundEvent&;
                         spline_sound__path : string;
                         spline_sound__points : Point4List;
@@ -19,10 +20,10 @@ def spline_sound_update(evt : Event;
                         var spline_sound__isInside : bool&;
                         spline_sound__range : float;
                         spline_sound__floorOnWater : bool)
-  if !sound_bank_preset_state__isValid || length(spline_sound__points) < 2
+  if !sound_banks_state__isPresetLoaded || length(spline_sound__points) < 2
     return
 
-  let listener = get_listener_pos()
+  let listener = (get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM)[3]
   let numPointsToUpdate = clamp(length(spline_sound__points) / 8, 1, 16)
   let nextPoint = min(spline_sound__pointId + numPointsToUpdate, length(spline_sound__points) - 1)
 
@@ -84,22 +85,24 @@ def spline_sound_update(evt : Event;
       set_pos(spline_sound__event.handle, spline_sound__pos)
 
 
-[es(tag=sound, after=global_sound_listener_position_update)]
+// NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
+// (AFTER camera tm update && fmod listener setup) and (BEFORE fmod::update)
+[es(tag=sound, after=sound_listener_update_es)]
 def spline_sound_update_event_pos(info : UpdateStageInfoAct;
                                   spline_sound__isInside : bool;
                                   spline_sound__event : SoundEvent;
                                   spline_sound__pos : float3;
-                                  spline_sound__floorOnWater : bool;
-                                  global_sound_listener_position : float3)
+                                  spline_sound__floorOnWater : bool)
   if spline_sound__isInside && spline_sound__event.enabled
+    let listener = get_listener_pos()
     if spline_sound__floorOnWater
-      let pos = float3(global_sound_listener_position.x, spline_sound__pos.y, global_sound_listener_position.z)
+      let pos = float3(listener.x, spline_sound__pos.y, listener.z)
       set_pos(spline_sound__event.handle, pos)
     else
-      set_pos(spline_sound__event.handle, global_sound_listener_position)
+      set_pos(spline_sound__event.handle, listener)
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid, REQUIRE=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded, REQUIRE=sound_banks_state__isPresetLoaded)]
 def spline_sound_toggle(evt : Event;
                         var spline_sound__event : SoundEvent&;
                         var spline_sound__pointId : int&;

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { to_string } = require("json")
+let { json_to_string } = require("json")
 let { file } = require("io")
 let { dir_exists } = require("dagor.fs")
 let { gen_default_profile, gen_tutorial_profiles } = require("%enlist/meta/clientApi.nut")
@@ -41,7 +41,7 @@ let function saveProfileImpl(profile, fileName, folderName = "sq_globals", prett
   let output = file(filePath, "wt+")
   if (fileName.endswith(".nut"))
     output.writestring("return ");
-  output.writestring(to_string(profile, pretty))
+  output.writestring(json_to_string(profile, pretty))
   output.close()
   console_print($"Saved to {filePath}")
 }

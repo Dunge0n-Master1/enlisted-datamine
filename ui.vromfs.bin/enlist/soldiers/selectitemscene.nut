@@ -23,7 +23,7 @@ let { mkDetailsInfo, lockedInfo } = require("components/itemDetailsComp.nut")
 let { blur } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
 let { curUpgradeDiscount, campPresentation } = require("%enlist/campaigns/campaignConfig.nut")
 let { setTooltip, normalTooltipTop } = require("%ui/style/cursors.nut")
-let spinner = require("%ui/components/spinner.nut")({height = hdpx(50)})
+let spinner = require("%ui/components/spinner.nut")
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 
@@ -68,6 +68,7 @@ let clickShopItem = require("%enlist/shop/clickShopItem.nut")
 let armoryWndOpenFlag = mkOnlinePersistentFlag("armoryWndOpenFlag")
 let armoryWndHasBeenOpend = armoryWndOpenFlag.flag
 let markSeenArmoryTutorial = armoryWndOpenFlag.activate
+let waitingSpinner = spinner(hdpx(25))
 
 let getItemSelectKey = @(item) item?.isShopItem ? item?.basetpl : item?.guid
 let unseenIcon =  blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
@@ -617,7 +618,7 @@ let buttonsUi = @() {
   valign = ALIGN_BOTTOM
   children = [isGamepad.value ? null : backButton]
     .extend(isItemActionInProgress.value
-      ? [spinner]
+      ? [waitingSpinner]
       : [moveButtonUi, obtainButtonUi, upgradeBtnUi, disposeBtnUi, chooseButtonUi])
 }
 

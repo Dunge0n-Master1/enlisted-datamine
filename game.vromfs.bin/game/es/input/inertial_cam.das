@@ -9,12 +9,14 @@ require DagorMathUtils
 require DagorSystem
 require game.utils.hero
 require enlisted.events_enlisted
+require common_shooter.es.weapon.turret_common
 
 let
   LOCAL_ACCEL_IMMEDIATE = 0.1f
   LOCAL_W_FACTOR = -2.0f
   IMMEDIATE_VISCOSITY = 0.15f
   IMMEDIATE_TO_POS_VISC = 0.15f
+  MAX_PITCH = HALF_PI - 0.05
 
 [es(tag=input, on_appear, on_event=EventOnSeatOwnersChanged, REQUIRE=plane_input)]
 def plane_inertial_cam_update_head_pos(evt : Event;
@@ -27,16 +29,14 @@ def plane_inertial_cam_update_head_pos(evt : Event;
       if eid == seat__ownerEid
         plane_inertial_cam__headPos = seat__cameraPos
 
-def apply_cam_angles(vec : float3; angles : float2)
+def apply_cam_angles(vec : float3; angles : float2; transform : float3x4)
   var res = vec
-  query(get_cur_cam_entity()) <| $ [es] (transform : float3x4)
-    var rotTm : float3x4
-    let up = transform[1]
-    make_tm(up, angles.x, rotTm)
-    res = rotTm * vec
-    let side = transform[0]
-    make_tm(side, angles.y, rotTm)
-    res = rotTm * vec
+  let itm = inverse(transform)
+  let localAngles = dir_to_angles(rotate(itm, res))
+  var anglesAfter = localAngles + angles
+  anglesAfter.y = clamp(anglesAfter.y, -MAX_PITCH, MAX_PITCH)
+  let localDir = angles_to_dir(anglesAfter)
+  res = rotate(transform, localDir)
   return res
 
 [es(tag=input, before=before_camera_sync, REQUIRE=plane_input)]
@@ -126,7 +126,7 @@ def plane_inertial_cam_update(info : ParallelUpdateFrameDelayed;
   //logerr("headPos={plane_inertial_cam__headPos}, headAcc={plane_inertial_cam__headAccelRot.xy}, headMove={headMovePos}")
 
   if (info.dt > 0.f)
-    camera__lookDir = apply_cam_angles(camera__lookDir, plane_inertial_cam__headAccelRot.xy)
+    camera__lookDir = apply_cam_angles(camera__lookDir, plane_inertial_cam__headAccelRot.xy, transform)
   let pos = transform[3] + headMovePos
   camera__look_at.x = double(pos.x)
   camera__look_at.y = double(pos.y)
@@ -140,4 +140,4 @@ def plane_inertial_cam_update_aim_pos(info : ParallelUpdateFrameDelayed;
                                       var turretAimPos : float3&)
   if isTurretAimPosValid
     let dir = turretAimPos - transform[3]
-    turretAimPos = transform[3] + apply_cam_angles(dir, -plane_inertial_cam__headAccelRot.xy)
+    turretAimPos = transform[3] + apply_cam_angles(dir, -plane_inertial_cam__headAccelRot.xy, transform) * AIM_DISTANCE

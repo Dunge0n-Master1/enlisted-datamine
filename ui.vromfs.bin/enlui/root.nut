@@ -7,13 +7,8 @@ let {msgboxes} = require("%ui/msgboxes.nut")
 let {uiDisabled, levelLoaded} = require("%ui/hud/state/appState.nut")
 let {loadingUI, showLoading} = require("%ui/loading/loading.nut")
 let globInput = require("%ui/glob_input.nut")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
-let { hotkeysButtonsBar } = isNewDesign.value
-  ? require("%ui/hotkeysPanelBar.nut")
-  : require("%ui/hotkeysPanel.nut")
-let speakingList = require("%ui/speaking_list.nut")
+let { hotkeysButtonsBar } = require("%ui/hotkeysPanel.nut")
 let {modalWindowsComponent} = require("%ui/components/modalWindows.nut")
-let {dbgSafeArea} = require("%ui/dbgSafeArea.nut")
 let platform = require("%dngscripts/platform.nut")
 let {editor, showUIinEditor, editorIsActive} = require("%ui/editor.nut")
 let {extraPropPanelCtors = null} = require("%daeditor/state.nut")
@@ -58,11 +53,9 @@ let function root() {
         modalWindowsComponent
         msgboxes
         hotkeysButtonsBar
-        speakingList
-        dbgSafeArea
         globInput
       ]
-    : [ dbgSafeArea, content ]
+    : [ content ]
 
 
   if (editorIsActive.value && !showUIinEditor.value)

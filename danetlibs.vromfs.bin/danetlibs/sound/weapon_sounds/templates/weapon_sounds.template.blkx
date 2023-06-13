@@ -90,3 +90,12 @@ human_melee_action_sound_physmat{
   "humanMeleeActionSoundPhysmat:tag"{
   }
 }
+
+flash_grenade_explosion_sound{
+  _extends:t="on_appear_sound"
+
+  _group{
+    _tags:t="sound"
+    on_appear_sound__path:t="impact/grenade_flash"
+  }
+}

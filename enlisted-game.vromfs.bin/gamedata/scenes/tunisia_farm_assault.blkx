@@ -7,7 +7,7 @@ import{
 }
 
 entity{
-  _template:t="briefing_invasion"
+  _template:t="briefing_assault"
   mission_name:t="tunisia_farm_assault"
 
   "loading_images:list<t>"{

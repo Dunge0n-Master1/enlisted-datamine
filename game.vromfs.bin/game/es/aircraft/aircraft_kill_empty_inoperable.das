@@ -5,11 +5,11 @@ require game.es.vehicle.vehicle_seats_common
 
 [es(tag=server, REQUIRE=(airplane, deadIfNoCrewLeft),
     on_appear, on_event=EventOnSeatOwnersChanged,
-    track=(plane_landing__isLanded, aircraft__isCapableOfTakeOff))]
+    track=(plane_landing__isLanded, aircraft__isCapableOfTakeOffAndFly))]
 def destroy_empty_plane(evt : Event;
                         plane_landing__isLanded : bool;
                         plane_landing__landedTime : float;
-                        aircraft__isCapableOfTakeOff : bool;
+                        aircraft__isCapableOfTakeOffAndFly : bool;
                         vehicle_seats__seatEids : EidList;
                         var kill_empty_vehicle__hadCrewBefore : bool&;
                         var isAlive : bool&)
@@ -18,6 +18,6 @@ def destroy_empty_plane(evt : Event;
     kill_empty_vehicle__hadCrewBefore ||= hasAliveCrew
     return
   assume isLanding = plane_landing__landedTime > 0.
-  let isCrashLanded = !aircraft__isCapableOfTakeOff && plane_landing__isLanded
+  let isCrashLanded = !aircraft__isCapableOfTakeOffAndFly && plane_landing__isLanded
   if isAlive && !hasAliveCrew && (!isLanding || isCrashLanded)
     isAlive = false

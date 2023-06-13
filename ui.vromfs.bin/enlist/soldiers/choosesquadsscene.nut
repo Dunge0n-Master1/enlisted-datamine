@@ -52,7 +52,7 @@ let { tutorials } = require("%enlist/tutorial/squadTextTutorialPresentation.nut"
 let campaign = require("%enlist/campaigns/campaignConfig.nut")
 let { needFreemiumStatus, disableBuySquadSlot } = campaign
 let freemiumSquadsInBattle = campaign.maxSquadsInBattle
-let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let freemiumWnd = require("%enlist/currency/freemiumWnd.nut")
 let { mkFreemiumXpImage } = require("%enlist/debriefing/components/mkXpImage.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
@@ -725,17 +725,13 @@ let function getCurrencyIconById(currencyId, size = currencyIconSize){
 }
 
 let function onPremiumCb(data){
-  let {squad = null, shopItem = null, isInCampaign = false} = data
-  let armyId = squadsArmy.value
-  if (isInCampaign)
-    freemiumWnd()
-  else
-    buySquadWindow({
-      shopItem
-      productView = mkProductView(shopItem, allItemTemplates)
-      armyId
-      squadId = squad?.squadId
-    })
+  let { squad = null, shopItem = null } = data
+  buySquadWindow({
+    shopItem
+    productView = mkProductView(shopItem, allItemTemplates)
+    armyId = squadsArmy.value
+    squadId = squad?.squadId
+  })
   selectedSquadId(null)
 }
 

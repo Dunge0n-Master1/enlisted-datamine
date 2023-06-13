@@ -41,8 +41,10 @@ def remove_skeleton_attach(eid : EntityId;
 def skeleton_attach_clear_attach_es(evt : Event;
                                     eid : EntityId;
                                     skeleton_attach__attached : bool;
+                                    var animchar__usePrecalculatedData : bool&;
                                     var animchar : AnimcharBaseComponent&)
   if !skeleton_attach__attached
+    animchar__usePrecalculatedData = false
     remove_skeleton_attach(eid, animchar)
 
 
@@ -50,8 +52,10 @@ def skeleton_attach_clear_attach_es(evt : Event;
 def skeleton_attach_destroy_attach_es(evt : Event;
                                       eid : EntityId;
                                       skeleton_attach__attached : bool;
+                                      var animchar__usePrecalculatedData : bool&;
                                       var animchar : AnimcharBaseComponent&)
   if skeleton_attach__attached
+    animchar__usePrecalculatedData = false
     remove_skeleton_attach(eid, animchar)
 
 

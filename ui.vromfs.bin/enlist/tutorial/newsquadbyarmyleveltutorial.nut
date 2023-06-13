@@ -117,6 +117,8 @@ let function tryUnlockSquad() {
   return true
 }
 
+const CAMPAIGN_PROGRESS = "CAMPAIGN"
+
 let function startTutorial() {
   let chosenSquadsKeys = Computed(@() chosenSquads.value.map(getSquadKey))
   let reserveSquadsKeys = Computed(@() reserveSquads.value.map(
@@ -138,7 +140,7 @@ let function startTutorial() {
         nextStepAfter = isArmyUnlocksStateVisible
         text = loc("tutorial_open_rewards_window")
         objects = [{
-          keys = ["section_SQUADS", "section_unseen_SQUADS"]
+          keys = [CAMPAIGN_PROGRESS]
           sizeIncAdd = hdpx(5)
           onClick = jumpToArmyProgress
           needArrow = true

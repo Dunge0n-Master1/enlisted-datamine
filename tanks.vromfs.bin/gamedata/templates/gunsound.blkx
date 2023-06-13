@@ -162,6 +162,10 @@ gunsound_20mm_oerlikon{
   _extends:t="gunsound_20mm_tnsh"
 }
 
+gunsound_20mm_polsten{
+  _extends:t="gunsound_25mm_72k"
+}
+
 gunsound_20mm_breda_m35{
   _extends:t="gunsound_base_cannon"
 

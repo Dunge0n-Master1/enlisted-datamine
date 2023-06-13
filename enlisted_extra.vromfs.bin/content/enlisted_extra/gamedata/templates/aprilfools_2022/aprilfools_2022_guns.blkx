@@ -62,7 +62,7 @@ blaster_base{
 
 blaster_gun_base{
   _extends:t="space_blaster_muzzle_preset"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun__recoilAmount:r=0.0
   gun__visualRecoilMult:r=10000.0
   gun_shell_ejection__expireTime:r=0.0
@@ -174,7 +174,7 @@ blaster_usa_gun{
 blaster_pistol_base{
   _extends:t="gun_overheat"
   _extends:t="gun_overheat_visual"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun__overheatReduce:r=0.05
   gun__overheatReduceOnOverheat:r=0.5
   gun__overheatPerShot:r=0.1
@@ -515,7 +515,7 @@ railgun_base{
 railgun_gun_base{
   _extends:t="gun_delayed_shot_sound"
   _extends:t="space_sniper_muzzle_preset"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun_delayed_shot__holdTriggerDelay:r=1.0
   gun_delayed_shot__delayTime:r=-1.0
   gun_shell_ejection__expireTime:r=0.0
@@ -722,7 +722,7 @@ plasma_shell_phys{
 plasma_cannon_base{
   _extends:t="gun_overheat"
   _extends:t="gun_overheat_visual"
-  _extends:t="riffle_gun_aim_sound"
+  _extends:t="rifle_gun_aim_sound"
   gun__overheatReduce:r=0.0
   gun__overheatReduceOnOverheat:r=1.0
   gun__overheatPerShot:r=1.0

@@ -9,7 +9,6 @@ let textButton = require("%ui/components/textButton.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let settingsMenuCtor = require("%ui/components/settingsMenu.nut")
 let msgbox = require("%ui/components/msgbox.nut")
-let {getMenuOptions, menuOptionsGen, menuTabsOrder, showSettingsMenu} = require("settings_menu_state.nut")
 let { save_changed_settings, get_setting_by_blk_path, set_setting_by_blk_path,
   remove_setting_by_blk_path } = require("settings")
 let onlineSettingUpdated = require_optional("onlineStorage")
@@ -17,9 +16,15 @@ let onlineSettingUpdated = require_optional("onlineStorage")
 let { runBenchmarkBtn } = require("%enlSqGlob/ui/benchmarkWnd.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
 
+let showSettingsMenu = mkWatched(persist, "showSettingsMenu", false)
+
 let closeMenu = @() showSettingsMenu(false)
 
-//====internal state
+let menuOptionsGen = Watched(0)
+let menuOptionsContainer = {value = []}
+let getMenuOptions = @() menuOptionsContainer.value
+let menuTabsOrder = Watched([])
+
 let foundTabsByOptionsGen = Watched(0)
 let foundTabsByOptionsContainer = {value = []}
 let getFoundTabsByOptions = @(...) foundTabsByOptionsContainer.value
@@ -31,6 +36,7 @@ let function setFoundTabsByOptions(v){
 let resultOptionsGen = Watched(0)
 let resultOptionsContainer = {value = []}
 let getResultOptions = @(...) resultOptionsContainer.value
+
 let function resultOptions(v){
   resultOptionsContainer.value = v
   resultOptionsGen(resultOptionsGen.value+1)
@@ -41,7 +47,6 @@ let function setResultOptions(...){
   let tabsInOptions = {}
   let isAvailableTriggers = optionsValue.filter(@(opt) opt?.isAvailableWatched!=null).map(@(opt) opt.isAvailableWatched)
   optionsValue = optionsValue.filter(@(opt) isOption(opt) && ((opt?.isAvailable==null && opt?.isAvailableWatched==null) || opt?.isAvailable() || opt?.isAvailableWatched.value))
-
   let res = []
   local lastSeparator = null
   let optionsStack = []
@@ -203,8 +208,11 @@ if (onlineSettingUpdated)
     @(val) val ? defer(@() applyGameSettingsChanges(getResultOptions())) : null
   )
 
-resultOptionsGen.subscribe(@(_v) applyGameSettingsChanges(getResultOptions()))
-applyGameSettingsChanges(getResultOptions())
+let function setMenuOptions(options){
+  menuOptionsContainer.value = options
+  menuOptionsGen(menuOptionsGen.value+1)
+  applyGameSettingsChanges(getResultOptions())
+}
 
 let function mkSettingsMenuUi(menu_params) {
   let function close(){
@@ -247,7 +255,10 @@ let function mkSettingsMenuUi(menu_params) {
     }
   }
 }
+
 return {
+  setMenuOptions
   mkSettingsMenuUi
   showSettingsMenu
+  menuTabsOrder
 }

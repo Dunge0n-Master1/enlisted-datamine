@@ -8,15 +8,13 @@ let { matchingCall } = require("%enlist/matchingClient.nut")
 let connectHolder = require("%enlist/connectHolderR.nut")
 let { onlineSettingUpdated, settings } = require("%enlist/options/onlineSettings.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
-let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
+let { hasAutoCluster } = require("%enlist/featureFlags.nut")
 let logC = with_prefix("[CLUSTERS] ")
 
 const CLUSTERS_KEY = "selectedClusters"
 const AUTO_CLUSTER_KEY = "autoCluster"
 let availableClustersDef = ["EU", "RU", "US", "JP"]
 let debugClusters = dagor_sys.DBGLEVEL != 0 ? ["debug"] : []
-
-let hasAutoClusterOption = hasClientPermission("debug_server_data")
 
 let eventbus = require("eventbus")
 
@@ -89,15 +87,15 @@ let function validateClusters(clusters, available) {
 }
 
 let clusters = nestWatched("clusters", validateClusters({}, availableClusters.value))
-let isAutoCluster = nestWatched("autocluster", true)
-let isAutoClusterSafe = Computed(@() hasAutoClusterOption.value && isAutoCluster.value)
+let rawAutoCluster = nestWatched("autocluster", true)
+let isAutoCluster = Computed(@() hasAutoCluster.value && rawAutoCluster.value)
 
 onlineSettingUpdated.subscribe(function(v) {
   if (!v)
     return
   setOwnCluster()
   logC("onlineSettings auto:", settings.value?[AUTO_CLUSTER_KEY],"selectedClusters:", settings.value?[CLUSTERS_KEY])
-  isAutoCluster(settings.value?[AUTO_CLUSTER_KEY] ?? (clusters.value.len() <= 1))
+  rawAutoCluster(settings.value?[AUTO_CLUSTER_KEY] ?? (clusters.value.len() <= 1))
   clusters(validateClusters(settings.value?[CLUSTERS_KEY] ?? {}, availableClusters.value))
 })
 setOwnCluster()
@@ -140,14 +138,11 @@ isAutoCluster.subscribe(function(isAuto) {
 })
 
 return {
-  hasAutoClusterOption
-  ownCluster
   ownCountry
   availableClusters
   clusters
   selectedClusters
   isAutoCluster
-  isAutoClusterSafe
   oneOfSelectedClusters
   clusterLoc
   countryLoc

@@ -135,7 +135,7 @@ pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen{
   item__name:t="guns/flammenwerfer_anlagen"
   gun__locName:t="flammenwerfer_anlagen"
   turret__aimNodeName:t="bone_turret_01"
-  gun__shootNodeName:t="bone_gun_barrel_01"
+  gun__shootNodeName:t="emtr_gun_flame_01"
   turret__yawSpeed:r=16.0
   turret__pitchSpeed:r=4.0
   turret__limit:p4=-60.0, 120.0, -6.0, 22.0
@@ -148,7 +148,7 @@ pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen{
 pzkpfw_ii_flamm_turret_02_flammenwerfer_anlagen{
   _extends:t="pzkpfw_ii_flamm_turret_01_flammenwerfer_anlagen"
   turret__aimNodeName:t="bone_turret_02"
-  gun__shootNodeName:t="bone_gun_barrel_02"
+  gun__shootNodeName:t="emtr_gun_flame_02"
   turret__limit:p4=-120.0, 60.0, -6.0, 22.0
 }
 

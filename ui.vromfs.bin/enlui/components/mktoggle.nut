@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { activeBgColor, colPart, titleTxtColor, smallPadding, panelBgColor, defBdColor,
-  hoverTxtColor, hoverBdColor, disabledTxtColor, disabledBgColor
+let { accentColor, colPart, titleTxtColor, smallPadding, panelBgColor, defBdColor,
+  hoverTxtColor, hoverBdColor, disabledTxtColor, disabledBgColor, hoverPanelBgColor,
+  darkPanelBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 
@@ -25,18 +26,18 @@ let function mkToggleSwitch(curValue, isEnabled = true){
     rendObj = ROBJ_VECTOR_CANVAS
     commands = [[ VECTOR_ELLIPSE, 0, 50, 50, 50 ]]
     fillColor = !isEnabled ? disabledTxtColor
-      : sf & S_ACTIVE ? activeBgColor
-      : titleTxtColor
+      : sf & S_ACTIVE ? panelBgColor
+      : sf & S_HOVER ? accentColor
+      : hoverPanelBgColor
     color = !isEnabled ? disabledBgColor
       : sf & S_ACTIVE ? titleTxtColor
-      : sf & S_HOVER ? hoverTxtColor
-      : defBdColor
+      : hoverTxtColor
   })
 
   return watchElemState(@(sf) {
     watch = curValue
     rendObj = ROBJ_BOX
-    fillColor = curValue.value ? activeBgColor : panelBgColor
+    fillColor = curValue.value ? darkPanelBgColor : panelBgColor
     borderRadius = blockSize[0] * 0.5
     borderColor = sf & S_HOVER ? hoverBdColor : defBdColor
     borderWidth = hdpx(1)

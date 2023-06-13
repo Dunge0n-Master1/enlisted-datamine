@@ -7,12 +7,12 @@ require soundSystem
 require soundHash
 require sound_utils_net.modules.sound_utils_net_events
 require environment_sounds.modules.game_object_sound_common
+require DngCamera
 
 
 [es(tag=sound)]
 def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
-                                  sound_bank_preset_state__isValid : bool;
-                                  global_sound_listener_position : float3;
+                                  sound_banks_state__isPresetLoaded : bool;
                                   game_object_compound_sound__shapes : UInt32List;
                                   game_object_compound_sound__transforms : TMatrixList;
                                   compound_ambient_sound__extents_maxRadiusSq : Point4List;
@@ -27,10 +27,10 @@ def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                   var compound_ambient_sound__event : SoundEvent&)
 
   assume totalVolumes = length(game_object_compound_sound__transforms)
-  if !sound_bank_preset_state__isValid || totalVolumes <= 0 || length(compound_ambient_sound__extents_maxRadiusSq) != totalVolumes
+  if !sound_banks_state__isPresetLoaded || totalVolumes <= 0 || length(compound_ambient_sound__extents_maxRadiusSq) != totalVolumes
     return
 
-  assume listener = global_sound_listener_position
+  let listener = (get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM)[3]
   let maxSubSteps = 16
   var updateVolumes = max(1, totalVolumes / maxSubSteps)
 
@@ -68,13 +68,14 @@ def compound_ambient_sound_update(info : ParallelUpdateFrameDelayed;
         release(compound_ambient_sound__event.handle)
 
 
-[es(tag=sound, after=global_sound_listener_position_update)]
+// NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
+// (AFTER camera tm update && fmod listener setup) and (BEFORE fmod::update)
+[es(tag=sound, after=sound_listener_update_es)]
 def compound_ambient_sound_update_event_pos(info : UpdateStageInfoAct;
-                                            global_sound_listener_position : float3;
                                             compound_ambient_sound__closestDistSq : float;
                                             compound_ambient_sound__event : SoundEvent)
   if compound_ambient_sound__closestDistSq == 0.f && compound_ambient_sound__event.handle != invalid_sound_event_handle()
-    set_pos(compound_ambient_sound__event.handle, global_sound_listener_position) // accurate bring event to camera(important)
+    set_pos(compound_ambient_sound__event.handle, get_listener_pos())
 
 
 [es(tag=sound, on_appear)]
@@ -95,9 +96,9 @@ def compound_ambient_sound_appear(evt : Event;
     game_object_compound_sound__transforms[i][2] = normalize(game_object_compound_sound__transforms[i][2])
 
 
-[es(tag=sound, on_appear, track=sound_bank_preset_state__isValid, after=compound_ambient_sound_appear)]
+[es(tag=sound, on_appear, track=sound_banks_state__isPresetLoaded, after=compound_ambient_sound_appear)]
 def compound_ambient_sound_toggle(evt : Event;
-                                  sound_bank_preset_state__isValid : bool;
+                                  sound_banks_state__isPresetLoaded : bool;
                                   game_object_sound__path : string;
                                   game_object_sound__name : string;
                                   var compound_ambient_sound__range : float&;
@@ -107,7 +108,7 @@ def compound_ambient_sound_toggle(evt : Event;
                                   var compound_ambient_sound__extents_maxRadiusSq : Point4List&)
   release_immediate(compound_ambient_sound__event.handle)
   compound_ambient_sound__curVolIdx = 0
-  if sound_bank_preset_state__isValid && compound_ambient_sound__autoRange
+  if sound_banks_state__isPresetLoaded && compound_ambient_sound__autoRange
     compound_ambient_sound__range = get_max_distance("{game_object_sound__path}/{game_object_sound__name}")
     for i in range(0, length(compound_ambient_sound__extents_maxRadiusSq))
       compound_ambient_sound__extents_maxRadiusSq[i].w = square(length(compound_ambient_sound__extents_maxRadiusSq[i].xyz) + compound_ambient_sound__range)

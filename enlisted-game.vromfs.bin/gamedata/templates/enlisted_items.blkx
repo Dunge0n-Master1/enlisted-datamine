@@ -2,6 +2,7 @@ item_supply_ticket{
   animchar__res:t="supply_sign_char"
   collres__res:t="supply_sign_collision"
   item__iconYaw:r=30.0
+  item__viewYaw:r=-10.0
 }
 
 weapons_supply_ticket_bronze{

@@ -9,9 +9,9 @@ let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { mkCurrencyImage, mkCurrencyTooltip } = require("%enlist/shop/currencyComp.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { mkArmyBaseExpTooltip, mkArmyPremiumExpTooltip, mkArmyResultExpTooltip
+let { mkArmyBaseExpTooltip, mkArmyPremiumExpTooltip, mkArmyResultExpTooltip, mkPremSquadXpImage
 } = require("%enlist/debriefing/components/mkArmyExpTooltip.nut")
-let { mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage, mkPremiumSquadXpImage,
+let { mkWinXpImage, mkBattleHeroAwardXpImage, mkPremiumAccountXpImage,
   mkBoosterXpImage, mkFreemiumXpImage
 } = require("%enlist/debriefing/components/mkXpImage.nut")
 let { bigPadding, activeTxtColor, progressBorderColor, progressExpColor,
@@ -20,6 +20,7 @@ let { bigPadding, activeTxtColor, progressBorderColor, progressExpColor,
 let colorize = require("%ui/components/colorize.nut")
 let { mkXpBooster } = require("%enlist/components/mkXpBooster.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
+
 
 const trigger = "content_anim"
 const playerCountMultTooltipText = "debriefing/playerCountMultArmyExpTooltip"
@@ -63,20 +64,22 @@ let mkLevelTextBlock = @(lvl, lvlAlign, mkText = @(baseText) baseText) {
   ]
 }
 
-let premiumAccAndSquadIcon = @(size, armyId) {
+
+let premiumAccAndSquadIcon = @(size) {
   size = [size * 1.5, size]
   children = [
-    mkPremiumSquadXpImage(size, armyId).__update({pos=[size * 0.5, 0]})
+    mkPremSquadXpImage(size, { pos = [size * 0.5, 0] })
     mkPremiumAccountXpImage(size)
   ]
 }
-let function premiumIcon(size, armyId, isPremiumAccount, isPremiumSquad) {
+
+let function premiumIcon(size, isPremiumAccount, isPremiumSquad) {
   if (isPremiumAccount && isPremiumSquad)
-    return premiumAccAndSquadIcon(size, armyId)
+    return premiumAccAndSquadIcon(size)
   if (isPremiumAccount)
     return mkPremiumAccountXpImage(size)
   if (isPremiumSquad)
-    return mkPremiumSquadXpImage(size, armyId)
+    return mkPremSquadXpImage(size)
   return null
 }
 
@@ -162,7 +165,7 @@ let function mkArmyExpDetailed(result, details, armyAddExp, squads, armyId) {
     : horFlow([
         addingSign
         withTooltip(
-          mkValueWithIconArmyExp(premiumExp, premiumIcon(xpIconSize, armyId, hasPremiumAccount, hasPremiumSquad))
+          mkValueWithIconArmyExp(premiumExp, premiumIcon(xpIconSize, hasPremiumAccount, hasPremiumSquad))
           @() mkArmyPremiumExpTooltip(squads, premiumExp, details, armyId, hasPremiumAccount, hasPremiumSquad))
       ])
   let battleResultMultIcon = !hasBattleResultMult ? null

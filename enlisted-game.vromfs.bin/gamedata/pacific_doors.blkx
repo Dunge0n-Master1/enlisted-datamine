@@ -1,3 +1,6 @@
+yamazuki_gates_a_door:t="closed_l_door_90"
+yamazuki_gates_b_door:t="closed_l_door_90"
+yamazuki_gates_c_door:t="closed_l_door_90"
 barrack_door_wooden_2500x1300_a_l:t="closed_l_door_90"
 hangar_door_steel_2670x1500_a_r:t="fence_door_lr"
 is_hangar_door_steel_2700x1630_b_r:t="fence_door_lr"

@@ -106,8 +106,8 @@ let function calcVehicleStatus(vehicle, curSquadAllowedVehicles, armyRewards, ar
   return res
 }
 
-let vehicleSort = @(vehicles, curVehicle)
-  vehicles.sort(@(a, b) (b == curVehicle) <=> (a == curVehicle)
+let vehicleSort = @(vehicles, curVeh)
+  vehicles.sort(@(a, b) (b == curVeh) <=> (a == curVeh)
     || (a?.status.flags ?? 0) <=> (b?.status.flags ?? 0)
     || (a?.tier ?? 0) <=> (b?.tier ?? 0)
     || a.basetpl <=> b.basetpl)
@@ -170,7 +170,6 @@ if (viewVehicle.value != null) {
     : null
   viewVehicle(new ?? selectedVehicle.value)
 }
-selectedVehicle.subscribe(@(v) viewVehicle(v))
 
 let function selectVehicle(vehicle) {
   let { statusText = null } = vehicle?.status

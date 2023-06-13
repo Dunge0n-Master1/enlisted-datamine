@@ -4132,7 +4132,7 @@ entity{
   groupName:t="sector_5_c"
   capzone__capTime:r=40.0
   capzone__capTeam:i=-1
-  transform:m=[[14.0981, 0.0, -5.1819] [0.0, 10.2359, 0.0] [8.0851, 0.0, 21.9966] [123.934, 5.13516, -94.9645]]
+  transform:m=[[14.0981, 0.0, -5.1819] [0.0, 7.03757, 0.0] [8.0851, 0.0, 21.9966] [123.934, 4.48921, -94.9645]]
   active:b=no
   capzone__decapTime:r=6000.0
   ui_order:i=3

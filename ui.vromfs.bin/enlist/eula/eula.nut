@@ -8,14 +8,14 @@ let msgbox = require("%ui/components/msgbox.nut")
 let {makeVertScroll, thinStyle} = require("%ui/components/scrollbar.nut")
 let {safeAreaSize} = require("%enlist/options/safeAreaState.nut")
 let {read_text_from_file, file_exists} = require("dagor.fs")
-let json = require("%sqstd/json.nut")
+let { loadJson } = require("%sqstd/json.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let {hotkeysBarHeight} = require("%ui/hotkeysPanel.nut")
 
 const NO_VERSION = -1
 
-let json_load = @(file) json.load(file, { logger = eulaLog, load_text_file = read_text_from_file})
+let json_load = @(file) loadJson(file, { logger = eulaLog, load_text_file = read_text_from_file})
 
 let function loadConfig(fileName) {
   let config = file_exists(fileName) ? json_load(fileName) : null

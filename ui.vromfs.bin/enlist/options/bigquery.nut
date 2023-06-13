@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("json")
+let { json_to_string } = require("json")
 let { add_bigquery_record, send_to_server } = require("onlineStorage")
 let { startSendToSrvTimer, sendToServer } = require("onlineSettings.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -15,7 +15,7 @@ userInfo.subscribe(function(uInfo) {
     alreadySend.mutate(@(v) v.clear())
 })
 
-let wrapToString = @(val) typeof val == "string" ? val : json.to_string(val, false)
+let wrapToString = @(val) typeof val == "string" ? val : json_to_string(val, false)
 
 local function sendOncePerSession(event, params = null, uid = null) {
   uid = uid ?? event

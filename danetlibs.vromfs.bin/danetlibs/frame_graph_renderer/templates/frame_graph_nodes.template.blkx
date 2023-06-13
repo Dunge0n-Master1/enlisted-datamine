@@ -80,6 +80,9 @@ grenade_trajectory_node{
   "trajectory_start_gravity:ShaderVar"{
   }
 
+  "trajectory_gravity_dir:ShaderVar"{
+  }
+
   "trajectory_vel_time:ShaderVar"{
   }
 

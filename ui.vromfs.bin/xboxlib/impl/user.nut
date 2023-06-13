@@ -31,17 +31,6 @@ local function retrieve_auth_token(url, method, callback) {
 }
 
 
-local function retrieve_achievements_list(callback) {
-  let eventName = "xbox_user_retrieve_achievements_list"
-  subscribe_onehit(eventName, function(result) {
-    let success = result?.success
-    let achievements = result?.achievements
-    callback?(success, achievements)
-  })
-  user.get_achievements(eventName)
-}
-
-
 local function show_profile_card(xuid, callback) {
   let eventName = "xbox_user_show_profile_card"
   subscribe_onehit(eventName, function(result) {
@@ -60,7 +49,6 @@ local function register_for_user_change_event(callback) {
 
 
 return {
-  AchievementStatus = user.AchievementStatus
   EventType = user.EventType
 
   init_default_user
@@ -69,10 +57,8 @@ return {
   shutdown_user = user.shutdown_user
   register_for_user_change_event
 
-  retrieve_achievements_list
-  set_achievement_progress = user.set_achievement_progress
-
   show_profile_card
   get_xuid = user.get_xuid
+  get_gamertag = user.get_gamertag
   is_any_user_active = user.is_any_user_active
 }

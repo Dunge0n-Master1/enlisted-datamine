@@ -1,0 +1,818 @@
+Camera.Move{
+  dev:i=3
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.1
+  axisSnapAngK:r=0.01
+
+  xMinBtn{
+    dev:i=1
+    btn:i=203
+  }
+
+  xMaxBtn{
+    dev:i=1
+    btn:i=205
+  }
+
+  yMinBtn{
+    dev:i=1
+    btn:i=208
+  }
+
+  yMaxBtn{
+    dev:i=1
+    btn:i=200
+  }
+}
+
+Camera.Rotate{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  inverseY:b=no
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Camera.ZoomIn{
+  dev:i=3
+  btn:i=9
+}
+
+Camera.ZoomOut{
+  dev:i=3
+  btn:i=8
+}
+
+HUD.SetMark{
+  dev:i=3
+  btn:i=9
+  type:i=5
+}
+
+HUD.GameMenu{
+  dev:i=3
+  btn:i=4
+  type:i=1
+}
+
+HUD.ZoomIn{
+  dev:i=3
+  axis:i=5
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+HUD.ZoomOut{
+  dev:i=3
+  axis:i=4
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+HUD.Inventory{
+  dev:i=3
+  btn:i=4
+  type:i=5
+}
+
+HUD.Interactive{
+  dev:i=3
+  btn:i=15
+}
+
+HUD.CloseMenu{
+  dev:i=3
+  btn:i=13
+  type:i=4
+}
+
+Human.Jump{
+  dev:i=3
+  btn:i=12
+}
+
+Human.Sprint{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
+Human.Crawl{
+  dev:i=3
+  btn:i=13
+  type:i=1
+}
+
+Human.Crouch{
+  dev:i=3
+  btn:i=13
+  type:i=5
+}
+
+Human.Shoot{
+  dev:i=3
+  btn:i=17
+}
+
+Human.Move{
+  dev:i=3
+  xAxis:i=0
+  yAxis:i=1
+  dzone:r=0.0
+  axisSnapAngK:r=0.01
+  nonlin:r=0.0
+  maxVal:r=1.0
+  sensScale:r=2.5
+}
+
+Human.Aim{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=1.0
+  maxVal:r=1.0
+  sensScale:r=1.5
+}
+
+Human.LeanX{
+  dzone:r=0.35
+  nonlin:r=1.0
+  maxVal:r=1.0
+}
+
+Human.AimDelta{
+  dev:i=31
+}
+
+Human.Aim1{
+  dev:i=3
+  btn:i=16
+  type:i=5
+}
+
+Human.Aim2{
+  dev:i=3
+  btn:i=16
+  type:i=0
+}
+
+Human.Zoom{
+  dev:i=3
+  btn:i=16
+  type:i=0
+}
+
+Human.Melee{
+  dev:i=3
+  btn:i=7
+  type:i=5
+}
+
+Human.ThrowBack{
+  dev:i=3
+  btn:i=7
+  type:i=1
+}
+
+Human.GrenadeNext{
+  dev:i=3
+  btn:i=3
+}
+
+Human.Reload{
+  dev:i=3
+  btn:i=14
+  type:i=5
+}
+
+Human.WeapModToggle{
+  dev:i=3
+  btn:i=2
+  type:i=1
+}
+
+Human.HoldBreath{
+  dev:i=3
+  btn:i=7
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Human.Recover{
+  dev:i=3
+  btn:i=14
+}
+
+Human.Weapon3{
+  dev:i=3
+  btn:i=2
+  type:i=5
+}
+
+Human.Weapon4{
+  dev:i=3
+  btn:i=15
+  type:i=1
+}
+
+Human.WeaponNextMain{
+  dev:i=3
+  btn:i=15
+  type:i=5
+}
+
+Human.WeaponNextMain{
+  dev:i=3
+  btn:i=15
+  type:i=5
+}
+
+Human.SpecialItemSlot{
+  dev:i=3
+  btn:i=3
+  type:i=1
+}
+
+Human.FiringMode{
+  dev:i=3
+  btn:i=2
+  type:i=1
+}
+
+Human.SeatNext{
+  dev:i=3
+  btn:i=12
+  type:i=5
+}
+
+Human.DriverSeat{
+  dev:i=3
+  btn:i=12
+  type:i=1
+}
+
+Human.ToggleHatch{
+  dev:i=3
+  btn:i=13
+  type:i=5
+}
+
+Human.SquadNext{
+  dev:i=3
+  btn:i=8
+  type:i=5
+}
+
+Human.ToggleHoldGunMode{
+  dev:i=3
+  btn:i=7
+}
+
+Human.Use{
+  dev:i=3
+  btn:i=14
+  type:i=5
+}
+
+Human.PushObject{
+  dev:i=3
+  btn:i=6
+}
+
+Human.SupplyMenu{
+  dev:i=3
+  btn:i=9
+}
+
+Human.BuildingAction{
+  dev:i=3
+  btn:i=7
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Human.BipodToggle{
+  dev:i=3
+  btn:i=7
+  type:i=5
+
+  mod{
+    dev:i=3
+    btn:i=16
+  }
+}
+
+Inventory.Pickup{
+  dev:i=3
+  btn:i=14
+  type:i=5
+}
+
+Inventory.ForcedPickup{
+  dev:i=3
+  btn:i=14
+  type:i=1
+}
+
+Inventory.UseMedkit{
+  dev:i=3
+  btn:i=1
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Inventory.UseFlask{
+  dev:i=3
+  btn:i=0
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Spectator.Prev{
+  dev:i=3
+  btn:i=2
+  type:i=0
+}
+
+Spectator.Next{
+  dev:i=3
+  btn:i=3
+  type:i=0
+}
+
+Spectator.Aim{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Mech.Strafe{
+  dev:i=3
+  axis:i=0
+  inverse:b=yes
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+  relIncScale:r=0.0
+
+  mod{
+    dev:i=3
+    btn:i=12
+  }
+}
+
+Mech.ShootSecondary{
+  dev:i=1
+  btn:i=19
+}
+
+Mech.ShootSecondary{
+  dev:i=3
+  btn:i=15
+}
+
+Mech.ShootFlamethrower{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
+Mech.ShootFlamethrower{
+  dev:i=3
+  btn:i=6
+  stickyToggle:b=yes
+}
+
+Vehicle.Shoot{
+  dev:i=3
+  btn:i=17
+}
+
+Vehicle.Steer{
+  dev:i=3
+  axis:i=0
+  dzone:r=0.1
+  inverse:b=yes
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.Throttle{
+  dev:i=3
+  axis:i=1
+  dzone:r=0.1
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.Brake{
+  dev:i=3
+  axis:i=4
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.Brake{
+  dev:i=3
+  axis:i=1
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.Aim{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=1.0
+  maxVal:r=1.0
+  sensScale:r=0.2
+}
+
+Vehicle.NextCockpitView{
+  dev:i=3
+  btn:i=12
+}
+
+Vehicle.ShootGrenadeLauncher{
+  dev:i=3
+  btn:i=6
+}
+
+Vehicle.Horn{
+  dev:i=3
+  btn:i=13
+  type:i=1
+}
+
+Ship.Steer{
+  dev:i=3
+  axis:i=0
+  inverse:b=yes
+  dzone:r=0.1
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Ship.Throttle{
+  dev:i=3
+  axis:i=1
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Ship.Accel{
+  dev:i=3
+  axis:i=5
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Ship.Brake{
+  dev:i=3
+  axis:i=4
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.MouseAim{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.1
+  axisSnapAngK:r=0.01
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Aim{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.1
+  axisSnapAngK:r=0.01
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Look{
+  dev:i=3
+  xAxis:i=2
+  yAxis:i=3
+  dzone:r=0.0
+  axisSnapAngK:r=0.0
+  nonlin:r=1.0
+  maxVal:r=1.0
+
+  mod{
+    dev:i=3
+    btn:i=6
+  }
+}
+
+Plane.ZoomToggle{
+  dev:i=3
+  btn:i=16
+  type:i=0
+  stickyToggle:b=yes
+}
+
+Plane.Shoot{
+  dev:i=3
+  btn:i=17
+}
+
+Plane.ShootCannons{
+  dev:i=3
+  btn:i=17
+}
+
+Plane.ShootAdditionalGuns{
+  dev:i=3
+  btn:i=17
+}
+
+Plane.Bomb{
+  dev:i=3
+  btn:i=2
+}
+
+Plane.Throttle{
+  dev:i=3
+  axis:i=1
+  axisRelativeVal:b=yes
+  relIncScale:r=0.5
+  dzone:r=0.05
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Ailerons{
+  dev:i=3
+  axis:i=0
+  axisRelativeVal:b=yes
+  relIncScale:r=0.5
+  dzone:r=0.05
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Plane.Airbrakes{
+  dev:i=3
+  btn:i=13
+  type:i=1
+}
+
+Plane.Rocket{
+  dev:i=3
+  btn:i=8
+}
+
+Plane.ExtendFlaps{
+  dev:i=3
+  btn:i=1
+}
+
+Plane.RaiseFlaps{
+  dev:i=3
+  btn:i=0
+}
+
+Plane.ToggleGear{
+  dev:i=3
+  btn:i=3
+}
+
+Plane.ToggleGear{
+  dev:i=3
+  btn:i=3
+  type:i=5
+}
+
+Mortar.Cancel{
+  dev:i=3
+  btn:i=16
+  type:i=0
+}
+
+Mortar.SwitchShellType{
+  dev:i=3
+  btn:i=14
+}
+
+Replay.SpeedDown{
+  dev:i=3
+  btn:i=8
+}
+
+Replay.Pause{
+  dev:i=3
+  btn:i=14
+}
+
+Replay.SpeedUp{
+  dev:i=3
+  btn:i=9
+}
+
+Replay.ToggleCamera{
+  dev:i=3
+  btn:i=6
+}
+
+Replay.DisableGameHUD{
+  dev:i=3
+  btn:i=7
+}
+
+Replay.AdvancedSettings{
+  dev:i=3
+  btn:i=15
+  type:i=5
+}
+
+Replay.DisableHUD{
+  dev:i=3
+  btn:i=15
+  type:i=1
+}
+
+Replay.NextCamera{
+  dev:i=3
+  btn:i=17
+}
+
+Replay.PrevCamera{
+  dev:i=3
+  btn:i=16
+}
+
+Vehicle.Accel{
+  dev:i=3
+  axis:i=1
+  dzone:r=0.0
+  nonlin:r=0.0
+  maxVal:r=1.0
+}
+
+Vehicle.NextBulletType{
+  dev:i=3
+  btn:i=15
+}
+
+Vehicle.SecondaryNextBulletType{
+  dev:i=3
+  btn:i=15
+}
+
+Vehicle.ShootSecondary{
+  dev:i=3
+  btn:i=17
+}
+
+Vehicle.ShootMachinegun{
+  dev:i=3
+  btn:i=8
+}
+
+Vehicle.ShootTurret03{
+  dev:i=3
+  btn:i=8
+}
+
+Vehicle.ZoomToggle{
+  dev:i=3
+  btn:i=16
+  type:i=5
+  stickyToggle:b=yes
+}
+
+Vehicle.Zoom{
+  dev:i=3
+  btn:i=16
+}
+
+HUD.CommandsMenu{
+  dev:i=3
+  btn:i=9
+  type:i=1
+}
+
+Human.ContextCommand{
+  dev:i=3
+  btn:i=14
+  type:i=1
+}
+
+Human.VehicleMaintenance{
+  dev:i=3
+  btn:i=14
+  type:i=1
+  stickyToggle:b=yes
+}
+
+Human.LeaveVehicleAlone{
+  dev:i=3
+  btn:i=14
+  type:i=1
+}
+
+Human.ThrowDowned{
+  dev:i=3
+  btn:i=17
+}
+
+Human.UseBinocular{
+  dev:i=3
+  btn:i=0
+  type:i=1
+}
+
+HUD.BigMap{
+  dev:i=3
+  btn:i=5
+  type:i=5
+}
+
+HUD.Briefing{
+  dev:i=3
+  btn:i=5
+  type:i=1
+}
+
+HUD.Scores{
+  dev:i=3
+  btn:i=4
+  type:i=5
+}
+
+HUD.BuildingToolMenu{
+  dev:i=3
+  btn:i=16
+  type:i=1
+}
+
+HUD.SquadSoldiersMenu{
+  dev:i=3
+  btn:i=8
+  type:i=1
+}
+
+Human.Seat01{
+  dev:i=3
+  btn:i=0
+  type:i=5
+}
+
+Human.Seat02{
+  dev:i=3
+  btn:i=3
+  type:i=5
+}
+
+Human.Seat03{
+  dev:i=3
+  btn:i=1
+  type:i=5
+}
+
+Human.Seat04{
+  dev:i=3
+  btn:i=2
+  type:i=5
+}
+
+Wallposter.Place{
+  dev:i=3
+  btn:i=0
+  type:i=5
+}
+
+Wallposter.Cancel{
+  dev:i=3
+  btn:i=1
+  type:i=1
+}
+
+Artillery.ChangeShell{
+  dev:i=3
+  btn:i=15
+}

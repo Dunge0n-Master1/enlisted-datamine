@@ -62,7 +62,7 @@ def init(input_priority__actionsOrder : StringList;
       sort(conflictedActionDescs) <| $(lhs, rhs : ActionDesc)
         let lhsPrior = input_priority__actionsPriorities[lhs.index]
         let rhsPrior = input_priority__actionsPriorities[rhs.index]
-        return lhsPrior < rhsPrior
+        return lhsPrior != rhsPrior ? lhsPrior < rhsPrior : lhs.index < rhs.index
 
       var confictedActionsIndices : array<int>
       for actionDesc in conflictedActionDescs
@@ -140,28 +140,34 @@ def input_priority_update_enabled_actions(evt : Event;
   if empty(input_priority__conflictedActionsTable)
     return
 
-  let rows = input_priority__conflictedActionsTable[0]
-  var i = 1
-  for _row in range(0, rows)
-    let cols = input_priority__conflictedActionsTable[i]
-    i++
-
-    var isEnabledActionFound = false
-    var prevActionPriority = -1
-    for _col in range(0, cols)
-      let actionIndex = input_priority__conflictedActionsTable[i]
+  global_cls_drv_update_cs_lock() <| $()
+    let rows = input_priority__conflictedActionsTable[0]
+    var i = 1
+    for _row in range(0, rows)
+      let cols = input_priority__conflictedActionsTable[i]
       i++
 
-      let actionHandle = input_priority__actionsHandles[actionIndex]
-      let actionPriority = input_priority__actionsPriorities[actionIndex]
-      let isAvailable = input_priority__actionsAvailability[actionIndex]
-      let isActionPairedWithPrevAction = prevActionPriority > -1 && actionPriority == prevActionPriority
-      let isEnabled = isAvailable && (!isEnabledActionFound || isActionPairedWithPrevAction)
-      set_action_enabled(uint16(actionHandle), isEnabled)
-      if isAvailable
-        isEnabledActionFound = true
+      var isEnabledActionFound = false
+      var prevActionPriority = -1
+      for col in range(0, cols)
+        let actionIndex = input_priority__conflictedActionsTable[i]
+        i++
 
-      prevActionPriority = actionPriority
+        let nextActionIndex = col + 1 < cols ? input_priority__conflictedActionsTable[i] : -1
+        let nextActionPriority = input_priority__actionsPriorities?[nextActionIndex] ?? -1
+
+        let actionHandle = input_priority__actionsHandles[actionIndex]
+        let actionPriority = input_priority__actionsPriorities[actionIndex]
+        let isAvailable = input_priority__actionsAvailability[actionIndex]
+        let isActionPairedWithPrevAction = prevActionPriority > -1 && actionPriority == prevActionPriority
+        let isActionPairedWithNextAction = nextActionPriority > -1 && actionPriority == nextActionPriority
+        let isEnabled = isAvailable && (!isEnabledActionFound || isActionPairedWithPrevAction)
+        set_action_enabled(uint16(actionHandle), isEnabled)
+        set_action_mask_immediate(uint16(actionHandle), isEnabled && isActionPairedWithNextAction)
+        if isAvailable
+          isEnabledActionFound = true
+
+        prevActionPriority = actionPriority
 
 
 [es(tag=input)]
@@ -178,6 +184,7 @@ def input_priority_update(info : UpdateStageUpdateInput;
                                    human_input__vehicleMaintenance : int;
                                    human_input__pushObject : int;
                                    human_input__melee : int;
+                                   human_input__bipodToggle : int;
                                    human_input__buildingAction : int;
                                    human_inventory_input__pickup : int;
                                    human_inventory_input__forcedPickup : int;
@@ -191,7 +198,8 @@ def input_priority_update(info : UpdateStageUpdateInput;
                                    squad_member__squad : EntityId;
                                    maintenance__isExtinguishAvailable : bool;
                                    maintenance__isRepairAvailable : bool;
-                                   isInVehicle : bool)
+                                   isInVehicle : bool;
+                                   bipod__placeable : bool)
     let isHumanUseEnabled = !!human_use_object__selectedObject && !human_vehicle__isHoldingGunPassenger
     let isHumanExitVehicleAloneEnabled = isHumanUseEnabled && isInVehicle
     let isHumanMaintenanceEnabled = maintenance__isExtinguishAvailable || maintenance__isRepairAvailable || !!human_use_object__selectedBuilding
@@ -199,6 +207,7 @@ def input_priority_update(info : UpdateStageUpdateInput;
     let isHumanBuildingActionEnabled = !!human_use_object__selectedBuilding
     let isInventoryPickup = useActionAvailable == int(HumanAction ACTION_PICK_UP)
     let isInventoryForcedPickup = useActionAvailable == int(HumanAction ACTION_SWITCH_WEAPONS)
+    let isHumanBipodToggle = bipod__placeable
 
     var isHumanReloadEnabled = false
     var isHumanMeleeEnabled = false
@@ -233,5 +242,7 @@ def input_priority_update(info : UpdateStageUpdateInput;
         isActionAvailable = isInventoryPickup
       elif actionHandle == human_inventory_input__forcedPickup
         isActionAvailable = isInventoryForcedPickup
+      elif actionHandle == human_input__bipodToggle
+        isActionAvailable = isHumanBipodToggle
       elif actionHandle == human_context_command__aCancelContextCommand
         isActionAvailable = isHumanCancelContextCommandEnabled

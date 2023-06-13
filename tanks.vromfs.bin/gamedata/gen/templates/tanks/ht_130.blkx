@@ -103,7 +103,7 @@ ht_130_turret_01_ato_41{
   gun__reloadTime:r=-1.0
   gun__maxAmmo:i=360
   gun__locName:t="ato_41_flamethrower"
-  gun__shootNodeName:t="bone_gun_barrel"
+  gun__shootNodeName:t="emtr_gun_flame"
   turret__yawSpeed:r=16.0
   turret__pitchSpeed:r=4.0
   turret__aimNodeName:t="bone_turret"

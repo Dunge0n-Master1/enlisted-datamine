@@ -17,6 +17,18 @@ hit_effect_group_grenade_explosion{
       fx:t="explosion_grenades_dirt_effect"
     }
 
+    "roadmud:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
+    "roadSoil:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
+    "hard_soil:object"{
+      fx:t="explosion_grenades_dirt_effect"
+    }
+
     "concrete:object"{
       fx:t="explosion_grenades_stone_effect"
     }
@@ -85,6 +97,18 @@ hit_effect_group_explosion_packet_explosion{
       fx:t="explosion_packet_dirt_effect"
     }
 
+    "roadmud:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "roadSoil:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "hard_soil:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
     "concrete:object"{
       fx:t="explosion_packet_stone_effect"
     }
@@ -150,6 +174,18 @@ hit_effect_group_mortar_shell_explosion{
     }
 
     "mud:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "roadmud:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "roadSoil:object"{
+      fx:t="explosion_packet_dirt_effect"
+    }
+
+    "hard_soil:object"{
       fx:t="explosion_packet_dirt_effect"
     }
 

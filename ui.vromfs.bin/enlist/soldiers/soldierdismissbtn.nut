@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { ceil } = require("%sqstd/math.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(50) })
+let spinner = require("%ui/components/spinner.nut")
 let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -15,6 +15,7 @@ let { curArmyReserve, curArmyReserveCapacity } = require("model/reserve.nut")
 let { RETIRE_ORDER, retireReturn } = require("model/config/soldierRetireConfig.nut")
 let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
 
+let waitingSpinner = spinner(hdpx(25))
 
 let mkDismissWarning = @(armyId, guid, count, cb) showMessageWithContent({
   content = {
@@ -107,7 +108,7 @@ let function mkDismissBtn(soldier, ctor = SmallFlat, cb = @() null) {
       hplace = ALIGN_RIGHT
       children = [
         isDismissInProgress.value
-          ? spinner
+          ? waitingSpinner
           : ctor(loc("btn/removeSoldier"),
               @() getLinkedSquadGuid(soldier) != null
                 ? mkApplyChangesWarning(cb)

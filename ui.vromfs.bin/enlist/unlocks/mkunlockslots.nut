@@ -1,26 +1,25 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, titleTxtColor, colPart, defTxtColor, accentColor, defItemBlur,
-  transpPanelBgColor, darkTxtColor
+let { smallPadding, titleTxtColor, colPart, defTxtColor, defItemBlur,
+  transpPanelBgColor, darkTxtColor, hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
-let { statusBlock, taskDescription, taskHeader, taskDescPadding,
-  taskMinHeight, taskSlotPadding, mkTaskEmblem
+let { taskDescription, taskHeader, taskDescPadding, taskMinHeight, taskSlotPadding, mkTaskEmblem
 } = require("%enlSqGlob/ui/tasksPkg.nut")
+let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
+let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
+
 let { getOneReward, mkRewardIcon, prepareRewards } = require("%enlist/battlepass/rewardsPkg.nut")
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
 
-let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
-let hoverTxtColor = { color = darkTxtColor }.__update(fontSmall)
-let titleTxtStyle = { color = titleTxtColor }.__update(fontSmall)
 let btnOffset = colPart(0.36)
 let mkHideTrigger = @(task) $"hide_task_{task.name}"
 
 
-let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
+let mkTaskContent = @(unlockDesc, canTakeReward, hasWaitIcon, canReroll, sf = 0)
   function() {
     let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
     return {
@@ -33,11 +32,9 @@ let mkTaskContent = @(unlockDesc, canTakeReward, sf = 0)
         gap = colPart(0.17)
         valign = ALIGN_CENTER
         children = [
-          mkTaskEmblem(unlockDesc, progress, canTakeReward)
+          mkTaskEmblem(unlockDesc, progress, canTakeReward, hasWaitIcon, canReroll, sf, seasonIndex, bpColors)
           taskHeader(unlockDesc, progress, canTakeReward, sf,
-            { size = [flex(), SIZE_TO_CONTENT] }.__update(sf & S_HOVER
-              ? hoverTxtColor
-              : defTxtStyle ))
+            { size = [flex(), SIZE_TO_CONTENT] color = sf & S_HOVER ? darkTxtColor : defTxtColor}.__update(fontSmall))
         ]
       }
     }
@@ -59,7 +56,8 @@ let function mkRewardBlock(rewardData, isFinished = false) {
             fontFx = FFT_GLOW
             fontFxColor = 0xCC000000
             fontFxFactor = colPart(0.5)
-          }.__update(titleTxtStyle)
+            color = titleTxtColor
+          }.__update(fontSmall)
     ]
   }
 }
@@ -134,7 +132,7 @@ let mkUnlockSlot = kwarg(@(
     key = task.name
     rendObj = ROBJ_WORLD_BLUR
     size = [flex(), SIZE_TO_CONTENT]
-    fillColor = sf & S_HOVER ? accentColor : transpPanelBgColor
+    fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
     color = defItemBlur
     minHeight = taskMinHeight
     behavior = onClick == null ? null : Behaviors.Button
@@ -163,9 +161,8 @@ let mkUnlockSlot = kwarg(@(
             gap = smallPadding
             valign = ALIGN_CENTER
             children = [
-              mkTaskContent(task, canTakeReward, sf)
+              mkTaskContent(task, canTakeReward, hasWaitIcon, rerolls > 0, sf)
               mkTaskRewards(task, isAllRewardsVisible, rewardsAnim)
-              rightObject
             ]
           }
           hasDescription
@@ -183,9 +180,7 @@ let mkUnlockSlot = kwarg(@(
             : null
         ]
       }
-      sf & S_HOVER
-        ? statusBlock(task, hasWaitIcon, rerolls > 0)
-        : null
+      rightObject
     ]
   })
 )

@@ -3,23 +3,45 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { Point3, quat_to_matrix, euler_to_quat, degToRad} = require("%sqstd/math_ex.nut")
 
-let yprKeys = ["item__iconYaw", "item__iconPitch", "item__iconRoll"]
+let yprKeys = [
+  ["item__viewYaw",   "item__iconYaw"  ],
+  ["item__viewPitch", "item__iconPitch"],
+  ["item__viewRoll",  "item__iconRoll" ]
+]
 
-local function transformItem(transform, templateName){
+local function transformItemImpl(transform, templateName, placeRelative){
   if (templateName == null)
     return transform
   let template = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(templateName)
   if (template == null)
     return transform
 
-  let ypr = yprKeys.map(@(v) degToRad(template.getCompValNullable(v) ?? 0))
+  let ypr = yprKeys.map(@(angleList) degToRad(
+      template.getCompValNullable(angleList[0]) ??
+      template.getCompValNullable(angleList[1]) ?? 0
+    ))
+
   let pos = transform.getcol(3)
   let trYaw =   quat_to_matrix(euler_to_quat(Point3(-ypr[0], 0, 0))).inverse()
   let trPitch = quat_to_matrix(euler_to_quat(Point3(0, ypr[2], 0))).inverse()
   let trRoll =  quat_to_matrix(euler_to_quat(Point3(0, 0, ypr[1]))).inverse()
-  transform = trPitch * trRoll * trYaw
+
+  if (placeRelative)
+    transform = transform * trPitch * trRoll * trYaw
+  else
+    transform = trPitch * trRoll * trYaw
+
   transform.setcol(3, pos)
   return transform
 }
 
-return transformItem
+let transformItemRelative = @(transform, templateName)
+  transformItemImpl(transform, templateName, true)
+
+let transformItem = @(transform, templateName)
+  transformItemImpl(transform, templateName, false)
+
+return {
+  transformItem
+  transformItemRelative
+}

@@ -2,9 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  activeTxtColor, titleTxtColor, defTxtColor, tinyOffset, smallPadding,
-  bigPadding
+  activeTxtColor, tinyOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, bigPadding, defTxtColor,
+  hoverSlotBgColor, darkTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
+
 let { smallUnseenNoBlink, unseenByType } = require("%ui/components/unseenComps.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
 
@@ -17,10 +20,14 @@ let function mkUnseenSign(mark, isSelected) {
     : sign
 }
 
-let function txtColor (sf){
-  return sf & S_ACTIVE ? activeTxtColor
-    : sf & S_HOVER ? titleTxtColor
-    : defTxtColor
+let function txtColor(sf, isSelected=true){
+  return sf & S_ACTIVE
+    ? activeTxtColor
+    : sf & S_HOVER
+      ? darkTxtColor
+      : isSelected
+        ? activeTxtColor
+        : defTxtColor
 }
 
 let mkTabText = @(text, color) type(text) == "function" ? text(color)
@@ -37,12 +44,11 @@ let mkWindowTab = @(text, onClick, isSelected, override = {}, unseenMarkType = W
       watch = [unseenMarkType]
       rendObj = ROBJ_BOX
       borderWidth = isSelected ? [0, 0, smallPadding, 0] : 0
-      borderColor = txtColor(sf)
+      fillColor = sf & S_HOVER ? hoverSlotBgColor : 0
+      padding = tinyOffset
+      borderColor = Color(255,255,255)
       children = [
-        {
-          padding = [0, 0, tinyOffset, 0]
-          children = mkTabText(text, isSelected ? activeTxtColor : txtColor(sf))
-        }
+        mkTabText(text, txtColor(sf, isSelected))
         {
           pos = [tinyOffset, -bigPadding]
           hplace = ALIGN_RIGHT

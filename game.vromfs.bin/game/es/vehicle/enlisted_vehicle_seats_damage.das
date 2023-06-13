@@ -47,7 +47,7 @@ def check_damaged_vehicle_without_crew(evt : EventOnPartDamaged;
     let isLargeCaliber = ballisticsProps.caliber > destroy_without_crew__minCaliberToDestroyOnDamage
     let isExplosion = damage_model__explosionDamageType >= 0 && evt.damageTypeId == damage_model__explosionDamageType
     assume parts = damage_model.dmData.parts
-    let isInnerPart = uint(evt.partId) < uint(length(parts)) && (parts[evt.partId] |> damagePart_getProps).isInner
+    let isInnerPart = uint(evt.partId) < uint(length(parts)) && get_part_props(parts[evt.partId].propsId).isInner
 
     if isInnerPart && (isLargeCaliber || isExplosion)
       vehicle__isDestroyedWithoutCrew = true

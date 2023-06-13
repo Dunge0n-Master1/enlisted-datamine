@@ -2,6 +2,7 @@ require ecs
 require soundEvent
 require DagorMath
 
+
 [es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=(animchar_render_es, shell_fly_sound_with_transform, shell_fly_sound_with_ballistics))]
 def projectile_lifetime_sound(evt : Event;
                               projectile_lifetime_sound__path : string;

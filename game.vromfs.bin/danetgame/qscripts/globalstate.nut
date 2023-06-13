@@ -1,7 +1,8 @@
-let eventbus = require("eventbus")
+from "modules" import on_module_unload
+from "nestdb" import ndbRead, ndbWrite, ndbDelete, ndbExists
+import "eventbus"
 //let {logerr} = require("%sqstd/log.nut")()
 let { Watched } = require("frp")
-let { ndbWrite, ndbRead, ndbExists } = require("nestdb")
 const EVT_NEW_DATA = "GLOBAL_PERMANENT_STATE.newDataAvailable"
 let registered = {}
 
@@ -43,25 +44,72 @@ let function globalWatched(name, ctor=null) {
 
 eventbus.subscribe(EVT_NEW_DATA, readNewData)
 
-let usedKeys = {}
 
-let function nestWatched(key, def=null){
-  assert(key not in usedKeys, @() $"persistent {key} already registered")
-  let ndbKey = ["PERSIST_STATE", key]
+//beter call it 'super persist' or 'hardpersist' and move to separate module
+//however it works only in DNG because of event 'app.shutdown'
+local uniqueKey = null
+let function setUniqueNestKey(key){
+  assert(!ndbExists(key), $"key {key} is not unique")
+  assert(type(key)=="string", $"setUniqueNestKey failed: {key} is not string")
+  uniqueKey = key
+  ndbWrite(key, true)
+}
+
+local isExiting = false
+let mkPersistOnHardReloadKey = @(key) uniqueKey==null
+  ? $"PERSIST_ON_RELOAD_DATA__{key}"
+  : $"PERSIST_ON_RELOAD_DATA__{uniqueKey}__{key}"
+
+eventbus.subscribe("app.shutdown", @(_) isExiting = true)
+
+let persistOnHardReloadData = persist("PERSIST_ON_RELOAD_DATA", @() {})
+let usedKeysForPersist = {}
+
+on_module_unload(function(is_closing) {
+  if (isExiting) {
+    print("App exiting, not writing PersistentOnReload data")
+  }
+  else if (is_closing) {
+    print("Scripts unloading for hard reload, writing PersistentOnReload data")
+    foreach (key, val in persistOnHardReloadData)
+      ndbWrite(mkPersistOnHardReloadKey(key), val)
+  }
+  else {
+    print("Scripts unloading for hot reload")
+  }
+  if (uniqueKey != null) {
+    if (ndbExists(uniqueKey))
+      ndbDelete(uniqueKey)
+    uniqueKey = null
+  }
+})
+
+let function nestWatched(key, def=null) {
+  assert(key not in usedKeysForPersist, @() $"super persistent {key} already registered")
+  let ndbKey = mkPersistOnHardReloadKey(key)
+  usedKeysForPersist[key] <- null
   local val
-  if (ndbExists(ndbKey))
+  let isInNdb = ndbExists(ndbKey)
+  if (key in persistOnHardReloadData) {
+    val = persistOnHardReloadData[key]
+    if (isInNdb)
+      ndbDelete(ndbKey)
+  }
+  else if (isInNdb) { //on hard reload
     val = ndbRead(ndbKey)
+    ndbDelete(ndbKey)
+  }
   else {
     val = def
-    ndbWrite(ndbKey, val)
   }
+  persistOnHardReloadData[key] <- val
   let res = Watched(val)
-  res.subscribe(@(v) ndbWrite(ndbKey, v))
-  usedKeys[key] <- true
+  res.subscribe(@(v) persistOnHardReloadData[key] <- v)
   return res
 }
 
 return {
   globalWatched
   nestWatched
+  setUniqueNestKey
 }

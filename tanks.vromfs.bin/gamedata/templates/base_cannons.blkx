@@ -64,7 +64,6 @@ base_cannon_no_phys{
   net__physId:i=-1
   vehicle_acceleration__viscAcceleration:p3=0.0, 0.0, 0.0
   vehicle__turretControlComponents:t="cannon_turret_control_components"
-  hitmarks__showUserHits:b=yes
   camera__lookDir:p3=1.0, 0.0, 0.0
   camera__magnification:r=1.0
   camera__zoomPos:r=0.0

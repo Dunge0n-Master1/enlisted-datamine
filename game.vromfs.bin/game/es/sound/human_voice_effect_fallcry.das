@@ -2,7 +2,7 @@ require ecs
 require human_sounds.modules.human_voice_effect_common
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=human_sound_es, REQUIRE_NOT=human_spawn_sound__inSpawn)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=human_sound_es, REQUIRE_NOT=(hasParachute, human_spawn_sound__inSpawn))]
 def human_voice_effect_fallcry_update(evt : Event;
                                       human_net_phys__isUnderwater : bool;
                                       human_net_phys__deltaVelIgnoreAmount : float;
@@ -14,7 +14,7 @@ def human_voice_effect_fallcry_update(evt : Event;
                                            !human_net_phys__isUnderwater)
 
 
-[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=human_sound_es)]
+[es(tag=sound, on_event=ParallelUpdateFrameDelayed, after=human_sound_es, REQUIRE_NOT=hasParachute)]
 def human_voice_effect_fallcry_with_spawn_update(evt : Event;
                                                  human_net_phys__isUnderwater : bool;
                                                  human_net_phys__deltaVelIgnoreAmount : float;

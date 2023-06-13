@@ -23,12 +23,12 @@ let {
 } = require("decoratorState.nut")
 let {
   bigPadding, titleTxtColor, blurBgColor, bigOffset, tinyOffset, smallPadding,
-  defBgColor, bonusColor, smallOffset
+  defTxtColor, defBgColor, bonusColor, smallOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { basePortrait } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let {
-  mkFooterWithBackButton, borderColor, txtColor, PROFILE_WIDTH
+  mkFooterWithBackButton, borderColor, PROFILE_WIDTH
 } = require("profilePkg.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
@@ -42,6 +42,7 @@ let { is_pc } = require("%dngscripts/platform.nut")
 let { playerRank, hasRankUnseen } = require("%enlist/profile/rankState.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { smallUnseenNoBlink, smallUnseenBlink } = require("%ui/components/unseenComps.nut")
+let { showMsgbox } = require("%enlist/components/msgbox.nut")
 
 
 const PORTRAIT_WND_UID = "SelectPortraitWnd"
@@ -55,6 +56,7 @@ let CHANGE_NICK_URL = "https://store.gaijin.net/profile.php?view=change_nick"
 let portraitListWidth = (PORTRAIT_SIZE + bigPadding) * PORTRAIT_COLUMNS
 let nickFrameListWidth = (NICKFRAME_SIZE + bigPadding) * NICKFRAME_COLUMNS
 let hoverNickFrame = Watched("")
+let waitingSpinner = spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
 
 let mkCloseButtonCb = @(wndUid) @() removeModalWindow(wndUid)
 let mkIcon = @(text, color) txt({ text, color }).__merge(fontawesome)
@@ -108,7 +110,11 @@ let function onNickFrameClick(nickFrameCfg, isEnabled) {
       alwaysShowCancel = true
       srcComponent = "buy_decorator"
     })
+    return
   }
+
+  let locId = $"decorator/{nickFrameCfg.guid}/tip"
+  showMsgbox({ text = doesLocTextExist(locId) ? loc(locId) : loc("decorator/eventRewardTip") })
 }
 
 let function mkTooltip(decorator) {
@@ -258,7 +264,11 @@ let function onPortraitClick(portraitCfg, isEnabled) {
       alwaysShowCancel = true
       srcComponent = "buy_decorator"
     })
+    return
   }
+
+  let locId = $"decorator/{portraitCfg.guid}/tip"
+  showMsgbox({ text = doesLocTextExist(locId) ? loc(locId) : loc("decorator/eventRewardTip") })
 }
 
 let timerStyle = {
@@ -325,7 +335,7 @@ let function portraitListUi() {
             children = [
               mkPortraitFrame(children, onClick, onHover, iconCtor)
               curPurchase != guid ? null
-                : spinner().__update({ hplace = ALIGN_CENTER, vplace = ALIGN_CENTER })
+                : waitingSpinner
               !isUnseen ? null : smallUnseenNoBlink
             ]
           }
@@ -357,7 +367,7 @@ let mkChangeNickFrameBtn = @(hasUnseen, hasUnopened) watchElemState(@(sf) {
   children = [
     txt({
       text = loc("profile/changeNameDecorator")
-      color = txtColor(sf)
+      color = sf & S_HOVER ? titleTxtColor : defTxtColor
     }).__update(sub_txt)
     mkIcon(fa["pencil"], borderColor(sf))
     !hasUnseen ? null

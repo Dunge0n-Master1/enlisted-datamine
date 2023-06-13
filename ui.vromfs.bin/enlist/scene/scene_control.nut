@@ -5,7 +5,7 @@ let { DBGLEVEL } = require("dagor.system")
 let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
   vehTplInVehiclesScene, vehDataInVehiclesScene,
-  itemInArmory, itemInArmoryAttachments, soldierInSoldiers,
+  itemInArmory, itemInArmoryAttachments, needWeaponCameraAngle, soldierInSoldiers,
   currentNewItem, currentNewItemAttachments, scene,
   squadCampaignVehicleFilter, isVehicleSceneVisible
 } = require("%enlist/showState.nut")
@@ -19,7 +19,7 @@ let {EventLevelLoaded} = require("gameevents")
 let { soldierViewGen, createSoldier, appearanceToRender} = require("soldier_tools.nut")
 let { createVehicle } = require("vehicle_tools.nut")
 let { doFadeBlack, registerFadeBlackActions } = require("%enlist/fadeToBlack.nut")
-let transformItem = require("transformItem.nut")
+let { transformItem, transformItemRelative } = require("transformItem.nut")
 let { setDmViewerTarget } = require("%enlist/vehicles/dmViewer.nut")
 let { setDecalTarget } = require("%enlist/vehicles/decorViewer.nut")
 let { viewVehDecorators } = require("%enlist/vehicles/customizeState.nut")
@@ -29,6 +29,7 @@ let { allOutfitByArmy } = require("%enlist/soldiers/model/config/outfitConfig.nu
 let { viewTemplates } = require("%enlist/items/itemCollageState.nut")
 let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { enginObjectToPlace } = require("machinegun_tools.nut")
+let { setItemTransformFunc } = require("item_tools.nut")
 
 
 /*
@@ -273,6 +274,10 @@ let function makeShowScene(sceneDesc, name){
   return showScene
 }
 
+let transformByItemtype = @(transform, template) needWeaponCameraAngle.value
+  ? transformItem(transform, template)
+  : transformItemRelative(transform, template)
+
 let objectsToObserve = {
   soldiers = {
     compName = "menu_char_to_control",
@@ -348,14 +353,16 @@ let objectsToObserve = {
   },
   armory = {
     compName = "menu_weapon_to_control",
+    transformItemFunc = transformByItemtype
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
     watch = itemInArmory
     shouldResetCameraDirection = Watched(true)
-    slaveWatches = [itemInArmoryAttachments]
+    slaveWatches = [itemInArmoryAttachments, needWeaponCameraAngle]
   },
   items_inventory = {
-    compName = "menu_new_items_to_control",
+    compName = "menu_new_items_to_control"
+    transformItemFunc = setItemTransformFunc
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
     watch = itemInArmory
@@ -368,11 +375,13 @@ let objectsToObserve = {
     shouldResetCameraDirection = Watched(true)
   },
   new_items = {
-    compName = "menu_new_items_to_control",
+    compName = "menu_new_items_to_control"
+    transformItemFunc = transformByItemtype
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], currentNewItemAttachments.value)
     watch = currentNewItem
     shouldResetCameraDirection = Watched(true)
+    slaveWatches = [needWeaponCameraAngle]
   },
   battle_pass = {
     compName = "menu_battle_pass_to_control",
@@ -430,13 +439,21 @@ let function processScene(...) {
 foreach(v in [scene, cameraOffset])
   v.subscribe(processScene)
 
+let function posComparator(a, b) {
+  if (a.filter == b.filter)
+    return a.order <=> b.order
+  if (a.filter.len() < b.filter.len())
+    return 1
+  return -1
+}
+
 let gettransforms = @(query, posFilter) ecs.query_map(query, @(_eid, comp) {
     transform = comp["transform"]
     order = comp["priority_order"]
     filter = comp?.menuPosFilter ?? ""
   })
   .filter(@(pos) pos.filter == "" || pos.filter == posFilter)
-  .sort(@(a, b) a.order <=> b.order)
+  .sort(posComparator)
 
 let destroyEntityByQuery = @(query) query.perform(@(eid, _comp)
   ecs.g_entity_mgr.destroyEntity(eid))

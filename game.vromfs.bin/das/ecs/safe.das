@@ -52,6 +52,12 @@ def operator ?[] (t : Point3List; idx : int) : float3 const? const#
   unsafe
     return reinterpret<float3 const? const#> null
 
+def operator ?[] (t : Point4List; idx : int) : float4 const? const#
+  if uint(idx) < uint(length(t))
+    unsafe
+      return reinterpret<float4 const? const#> addr(t.[idx])
+  unsafe
+    return reinterpret<float4 const? const#> null
 
 def operator ?[] (t : Array const; idx : int) : ChildComponent const? const#
   if uint(idx) < uint(length(t))

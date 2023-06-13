@@ -57,6 +57,7 @@ let paratroopersSpawnPointInfo = {
   icon = @(isSelected) isSelected ? paratroopers_spawn_point : spawn_point
   size = @(isSelected) isSelected ? selectedSpawnIconSize : spawnIconSize
   color = @(isActive) isActive ? playerSpawnActiveColor : inactiveSpawnIconColor
+  offset = -0.25
 }
 
 let counterSpawnIconInfo = {
@@ -122,7 +123,7 @@ let mkRespawnPoint = @(eid, isSelected, spawnIconInfo, selectedGroup, isActive, 
       size = spawnIconInfo.size(isSelected)
       color = spawnIconInfo.color(isActive)
       image = spawnIconInfo.icon(isSelected)
-      pos = [0, -spawnIconInfo.size(isSelected)[0]*0.1]
+      pos = [0, spawnIconInfo.size(isSelected)[1]*(spawnIconInfo?.offset ?? -0.1)]
       behavior = isReplay.value ? null : Behaviors.Button
       onClick = @(event) iconType == "paratroopers" ? paratroopers_icon_click(event) : selectedRespawnGroupId.mutate(@(v) v[iconType] <- selectedGroup)
       onDoubleClick = @() respRequested(true)

@@ -324,7 +324,7 @@ entity{
 
 entity{
   _template:t="domination_sphere_capzone"
-  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-139.929, 20.5181, -126.788]]
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 0.379232, 0.0] [0.0, 0.0, 1.0] [-139.929, 20.5181, -126.788]]
   capzone__title:t="C"
   capzone__caption:t="capzone/farm_house"
   ui_order:i=3

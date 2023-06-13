@@ -60,7 +60,7 @@ def human_weap_zoom_reset_es(evt : Event; var human_net_phys : HumanActor; var c
 def downed_human_reset_zoom_es(evt : Event; var human_net_phys : HumanActor; var camera__magnification : float&)
   reset_human_aim_zoom(human_net_phys, camera__magnification)
 
-[es(on_appear, REQUIRE=attachedToParent, tag=gameClient)]
+[es(on_appear, REQUIRE=attachedToParent)]
 def init_human_weapon_len_es(evt : Event;
                              eid : EntityId;
                              gun__owner : EntityId;

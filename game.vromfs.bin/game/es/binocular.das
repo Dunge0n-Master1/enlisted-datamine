@@ -158,26 +158,28 @@ def binocular_on_aiming(info : ParallelUpdateFrameDelayed;
 
 [es(tag=gameClient)]
 def binocular_switch_cockpit(evt : CmdSwitchBinocularCockpit;
-                             eid : EntityId;
                              human_binocular__eid : EntityId;
                              var human_binocular__cockpitEid : EntityId&)
   query(human_binocular__eid) <| $ [es] (var cockpit__isHeroInCockpit : bool&)
     if evt.enabled
       cockpit__isHeroInCockpit = true
-      human_binocular__cockpitEid = createEntitySync("binocular_cockpit_base") <| $(var init : ComponentsInitializer)
-        set(init, "cockpit__attachNodeIndex", -1)
-        set(init, "cockpit__vehicleEid", eid)
-        set(init, "cockpit__seatNo", -1)
-        set(init, "cockpit__cameraTime", 1.f)
-        set(init, "cockpit__forwardOffsetTime", 0.f)
-        set(init, "cockpit__isAttached", true)
+      human_binocular__cockpitEid = createEntitySync("binocular_cockpit_base")
     else
       cockpit__isHeroInCockpit = false
       destroyEntity(human_binocular__cockpitEid)
       human_binocular__cockpitEid = INVALID_ENTITY_ID
 
+[es(tag=render, REQUIRE=cockpit__binocular, after=after_animchar_update_sync)]
+def binocular_cockpit_update_animchar(info : ParallelUpdateFrameDelayed;
+                                      transform : float3x4;
+                                      var animchar : AnimcharBaseComponent;
+                                      var animchar_node_wtm : AnimcharNodesMat44;
+                                      var animchar_render__root_pos : vec4f&)
+  animchar_set_tm(animchar, transform, true)
+  animchar_act(animchar, info.dt, true)
+  animchar_copy_nodes(animchar, animchar_node_wtm, animchar_render__root_pos)
 
-[es(tag=gameClient, REQUIRE=hero, after=slot_attach_init_tms_es, before=vehicle_cockpit_update_animchar)]
+[es(tag=gameClient, REQUIRE=hero, after=slot_attach_init_tms_es, before=binocular_cockpit_update_animchar)]
 def binocular_update_cockpit(info : ParallelUpdateFrameDelayed;
                              human_binocular__eid : EntityId;
                              human_binocular__cockpitEid : EntityId;

@@ -1,6 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { aboveUiLayer } = require("%enlist/uiLayers.nut")
+let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { WindowTransparent } = require("%ui/style/colors.nut")
 let cursors = require("%ui/style/cursors.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
@@ -63,18 +64,14 @@ let panelBlock = {
   stopHover = true
 }
 
-let mkPanel = function(posSizeWatch, isOpenWatch, content, params = {}) {
+let mkPanel = function(posSizeWatch, content, closeCb, params = {}) {
   let pos = posSizeWatch.value?.pos ?? [0, 0]
   let size = params?.size ?? defaultSize
   style.__update(params?.style ?? {})
 
-  if (!isOpenWatch.value) {
-    return { watch = isOpenWatch }
-  }
-
   return panelBlock.__update({
     fillColor = style.panelBgColor
-    watch = [posSizeWatch, isOpenWatch]
+    watch = posSizeWatch
     cursor = cursors.normal
     pos
     onMoveResize = function(dx, dy, _dw, _dh) {
@@ -87,12 +84,17 @@ let mkPanel = function(posSizeWatch, isOpenWatch, content, params = {}) {
     }
     children = insideBlock.__update({
       children = [
-        panelHeader(@() isOpenWatch(false))
+        panelHeader(closeCb)
         content
       ]
     })
   })
 }
+
+isLoggedIn.subscribe(function(val) {
+  if (!val)
+    aboveUiLayer.clear()
+})
 
 let Panel = function() {
   local panel = null
@@ -102,21 +104,26 @@ let Panel = function() {
     size = defaultSize
     pos = [0, 0]
   })
-  let isOpen = Watched(false)
+  local key = null
+
+  let close = function() {
+    aboveUiLayer.remove(key)
+  }
 
   let open = function(content, params) {
     posSizeWatch({
       size = defaultSize
       pos = panelPosition
     })
-    panel = @() mkPanel(posSizeWatch, isOpen, content, params)
-    aboveUiLayer.add(panel, params?.key ?? PANEL_DEFAULT_KEY)
-    isOpen(true)
+    key = params?.key ?? PANEL_DEFAULT_KEY
+    panel = @() mkPanel(posSizeWatch, content, close, params)
+    aboveUiLayer.add(panel, key)
   }
 
   return {
     open
-    close = @() isOpen(false)
+    close
+    isOpen = @() aboveUiLayer.isUidInList(key)
     setPosition
   }
 }

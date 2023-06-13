@@ -156,7 +156,7 @@ let mkItemDisposeData = function(item) {
 
     local disposeMult = 1.0 + (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
     disposeMult *= 1.0 - curUpgradeDiscount.value
-    let orderCount = ceil(count * disposeMult).tointeger()
+    let orderCount = disposeMult * count
     let orderTpl = disposes.itemTpl
     let guids = isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
       : item?.guids ?? [item?.guid]

@@ -65,16 +65,6 @@ def entity_acceleration_mult_applier_es(info : ParallelUpdateFrameDelayed;
   human_net_phys.phys.currentState.accelerationMult = entity_mods__accelerationMult
 
 [es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
-def entity_breath_perks_mult_applier_es(info : ParallelUpdateFrameDelayed;
-                                        entity_mods__breathAimMult : float;
-                                        entity_mods__longerHoldBreathMult : float;
-                                        entity_mods__oftenHoldBreathMult : float;
-                                        var human_net_phys : HumanActor&)
-  human_net_phys.phys.currentState.longerHoldBreathMultInv = safeinv(entity_mods__longerHoldBreathMult)
-  human_net_phys.phys.currentState.breathAimMult = entity_mods__breathAimMult
-  human_net_phys.phys.currentState.oftenHoldBreathMult = entity_mods__oftenHoldBreathMult
-
-[es(after=before_entity_mods_apply_sync_point, before=(human_phys_es, after_entity_mods_apply_sync_point))]
 def entity_faster_change_weapon_applier_es(info : ParallelUpdateFrameDelayed;
                                            entity_mods__fasterChangeWeaponMult : float;
                                            var human_net_phys : HumanActor&)

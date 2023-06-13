@@ -84,6 +84,8 @@ def update_bomb_ballistics(bomb_ballistics_props : ShellProps;
       shellEnv.flow = float3()
       shellEnv.extForce = bomb__extForce
       shellEnv.extMoment = bomb__extMoment
+      shellEnv.extCxk = 0.0
+      shellEnv.extArm = 0.0
       shellEnv.fins = float2(0.0, 0.0)
       shellEnv.lostMass = bomb__lostMass
       shellEnv.dispersion = 0.0

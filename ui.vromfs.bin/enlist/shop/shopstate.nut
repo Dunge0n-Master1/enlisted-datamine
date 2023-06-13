@@ -9,11 +9,9 @@ let { shopItems } = require("shopItems.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let { curUnseenAvailShopGuids, notOpenedShopItems } = require("armyShopState.nut")
-
+let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
-
-let shopConfig = Computed(@() configs.value?.shop_config ?? {})
 
 let curSwitchTime = Watched(0)
 
@@ -34,196 +32,287 @@ let function updateSwitchTime(...) {
   curSwitchTime(currentTs)
 }
 
-serverTime.subscribe(function(t) {
+let function onServerTime(t) {
   if (t <= 0)
     return
   serverTime.unsubscribe(callee())
   updateSwitchTime()
-})
-shopItems.subscribe(updateSwitchTime)
-
-let shownByTimestamp = Computed(function() {
-  let res = {}
-  let ts = curSwitchTime.value
-  foreach (id, item in shopItems.value) {
-    let { showIntervalTs = null } = item
-    if ((showIntervalTs?.len() ?? 0) == 0)
-      continue
-
-    let [from, to = 0] = showIntervalTs
-    if (from <= ts && (ts < to || to == 0))
-      res[id] <- true
-  }
-  return res
-})
-
-
-let function canBarterItem(item, armyItemCount) {
-  foreach (payItemTpl, cost in item.curItemCost)
-    if ((armyItemCount?[payItemTpl] ?? 0) < cost)
-      return false
-  return true
 }
 
-let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
-  ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
-    || itemId in itemsByTime
-
-let isAvailableBySquads = function(shopItem, squadsByArmyV) {
-  foreach (squadData in shopItem?.squads ?? []) {
-    let { id, squadId = null, armyId = null } = squadData
-    let squad = squadsByArmyV?[armyId][squadId ?? id]
-    if (squad != null && (squad?.expireTime ?? 0) == 0)
-      return false
-  }
-  return true
+let function onShopAttach(){
+  serverTime.subscribe(onServerTime)
+  shopItems.subscribe(updateSwitchTime)
 }
 
-let isAvailableByLimit = @(sItem, purchases)
-  (sItem?.limit ?? 0) <= 0 || sItem.limit > (purchases?[sItem?.id].amount ?? 0)
-
-let isAvailableByPermission = @(sItem, isDebugShow)
-  !(sItem?.isShowDebugOnly ?? false) || isDebugShow
-
-let curArmyItemsPrefiltered = Computed(function() {
-  let armyId = curArmy.value
-  let itemCount = armyItemCountByTpl.value ?? {}
-  let itemsByTime = shownByTimestamp.value
-  let squadsById = armySquadsById.value
-  let purchases = purchasesCount.value
-  let debugPermission = isDebugShowPermission.value
-  let shopItemsList = shopItems.value.filter(function(item, id) {
-    let { armies = [], offerContainer = "", isHidden = false, isHiddenOnChinese = false } = item
-    return (armies.contains(armyId) || armies.len() == 0)
-      && offerContainer == ""
-      && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
-      && !(isChineseVersion && isHiddenOnChinese)
-      && isAvailableBySquads(item, squadsById)
-      && isAvailableByLimit(item, purchases)
-      && isAvailableByPermission(item, debugPermission)
-  })
-  return shopItemsList
-})
-
-
-let baseOrders = {
-  weapon_order = true
-  soldier_order = true
-  weapon_order_silver = true
-  soldier_order_silver = true
+let function onShopDetach(){
+  serverTime.unsubscribe(onServerTime)
+  shopItems.unsubscribe(updateSwitchTime)
 }
-
-let function hasBaseOrderInPrice(shopItem) {
-  foreach (orderId, price in shopItem?.itemCost ?? {})
-    if (orderId in baseOrders && price > 0)
-      return true
-
-  return false
-}
-
-let function hasPriceContainsGold(shopItem) {
-  let { price = 0, currencyId = "" } = shopItem?.shopItemPrice
-  return currencyId == "EnlistedGold" && price > 0
-}
-
-let function hasPriceContainsOrders(shopItem) {
-  let { itemCost = {} } = shopItem
-  return itemCost.len() > 0
-}
-
-let function isExternalPurchase(shopItem) {
-  let { shop_price = 0, shop_price_curr = "", storeId = "", devStoreId = "" } = shopItem
-  return (shop_price_curr != "" && shop_price > 0) //PC type
-    || storeId != "" || devStoreId != ""//Consoles type
-}
-
-
-let armyGroups = [
-  {
-    id = "premium"
-    reqFeatured = true
-    filterFunc = @(shopItem) !hasPriceContainsOrders(shopItem)
-      && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem))
-  }
-  {
-    id = "battlepass"
-    filterFunc = @(shopItem)
-      hasPriceContainsOrders(shopItem) && !hasBaseOrderInPrice(shopItem)
-  }
-]
-
-
-let sortItemsFunc = @(a, b)
-  (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
-
-let sortFeaturedFunc = @(a, b)
-  (a?.featuredWeight ?? 0) <=> (b?.featuredWeight ?? 0)
-    || (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
 
 
 let curGroupIdx = Watched(0)
 let curFeaturedIdx = Watched(0)
+let chapterIdx = Watched(-1)
 
 
-let curItemsByGroup = Computed(function() {
-  let prefilteredItems = curArmyItemsPrefiltered.value
-  let res = {}
-  foreach (group in armyGroups)
-    res[group.id] <- prefilteredItems.filter(group.filterFunc).values().sort(sortItemsFunc)
+let function mkShopState() {
+  let shopConfig = Computed(@() configs.value?.shop_config ?? {})
 
-  return res
-})
+  let shownByTimestamp = Computed(function() {
+    let res = {}
+    let ts = curSwitchTime.value
+    foreach (id, item in shopItems.value) {
+      let { showIntervalTs = null } = item
+      if ((showIntervalTs?.len() ?? 0) == 0)
+        continue
 
-
-let curShopItemsByGroup = Computed(function() {
-  let items = curItemsByGroup.value
-  return armyGroups.map(@(group) {
-    id = group.id
-    goods = (items?[group.id] ?? []).filter(@(item) (item?.featuredWeight ?? 0) == 0)
-  })
-})
-
-
-let maxDiscountByGroup = Computed(@() curItemsByGroup.value
-  .map(@(group) group.reduce(@(r, v) max(r, v?.hideDiscount ? 0 : v?.discountInPercent ?? 0), 0)))
-
-let specialOfferByGroup = Computed(@() curItemsByGroup.value
-  .map(@(group) group
-    .findvalue(@(v) (v?.discountInPercent ?? 0) > 0 && v?.showSpecialOfferText) != null))
-
-let curFeaturedByGroup = Computed(@() curItemsByGroup.value
-  .map(@(group) group
-    .filter(@(item) (item?.featuredWeight ?? 0) > 0)
-    .sort(sortFeaturedFunc)
-  ))
-
-
-let curShopDataByGroup = Computed(function() {
-  let curUnseen = curUnseenAvailShopGuids.value
-  let curUnopened = {}
-  foreach (guid in notOpenedShopItems.value)
-    curUnopened[guid] <- true
-
-  let maxDiscounts = maxDiscountByGroup.value
-  let specialOffer = specialOfferByGroup.value
-  let res = {}
-  foreach (id, group in curItemsByGroup.value)
-    res[id] <- {
-      hasUnseen = group.findvalue(@(v) v.guid in curUnseen) != null
-      unopened = group.filter(@(v) v.guid in curUnopened).map(@(v) v.guid)
-      discount = maxDiscounts?[id] ?? 0
-      showSpecialOffer = specialOffer?[id] ?? false
+      let [from, to = 0] = showIntervalTs
+      if (from <= ts && (ts < to || to == 0))
+        res[id] <- true
     }
+    return res
+  })
 
-  return res
-})
 
+  let function canBarterItem(item, armyItemCount) {
+    foreach (payItemTpl, cost in item.curItemCost)
+      if ((armyItemCount?[payItemTpl] ?? 0) < cost)
+        return false
+    return true
+  }
+
+  let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
+    ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
+      || itemId in itemsByTime
+
+  let isAvailableBySquads = function(shopItem, squadsByArmyV) {
+    foreach (squadData in shopItem?.squads ?? []) {
+      let { id, squadId = null, armyId = null } = squadData
+      let squad = squadsByArmyV?[armyId][squadId ?? id]
+      if (squad != null && (squad?.expireTime ?? 0) == 0)
+        return false
+    }
+    return true
+  }
+
+  let isAvailableByLimit = @(sItem, purchases)
+    (sItem?.limit ?? 0) <= 0 || sItem.limit > (purchases?[sItem?.id].amount ?? 0)
+
+  let isAvailableByPermission = @(sItem, isDebugShow)
+    !(sItem?.isShowDebugOnly ?? false) || isDebugShow
+
+  let curArmyItemsPrefiltered = Computed(function() {
+    let armyId = curArmy.value
+    let itemCount = armyItemCountByTpl.value ?? {}
+    let itemsByTime = shownByTimestamp.value
+    let squadsById = armySquadsById.value
+    let purchases = purchasesCount.value
+    let notFreemium = isCampaignBought.value
+    let debugPermission = isDebugShowPermission.value
+    let shopItemsList = shopItems.value.filter(function(item, id) {
+      let { armies = [], isHidden = false, isHiddenOnChinese = false, requirements = {} } = item
+      let { campaignGroup = CAMPAIGN_NONE } = requirements
+      return (armies.contains(armyId) || armies.len() == 0)
+        && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
+        && !(isChineseVersion && isHiddenOnChinese)
+        && isAvailableBySquads(item, squadsById)
+        && isAvailableByLimit(item, purchases)
+        && isAvailableByPermission(item, debugPermission)
+        && (notFreemium || campaignGroup == CAMPAIGN_NONE)
+    })
+    return shopItemsList
+  })
+
+  let mainOrders = {
+    weapon_order = true
+    soldier_order = true
+    weapon_order_silver = true
+    soldier_order_silver = true
+    weapon_order_gold = true
+    soldier_order_gold = true
+    vehicle_with_skin_order_gold = true
+  }
+
+  let function hasPriceContainsGold(shopItem) {
+    let { price = 0, currencyId = "" } = shopItem?.shopItemPrice
+    return currencyId == "EnlistedGold" && price > 0
+  }
+
+  let function hasPriceContainsOrders(shopItem) {
+    let { itemCost = {} } = shopItem
+    return itemCost.len() > 0
+  }
+
+  let function hasPriceContainsSpecOrders(shopItem) {
+    foreach (orderId, price in shopItem?.itemCost ?? {})
+      if (orderId not in mainOrders && price > 0)
+        return true
+    return false
+  }
+
+  let function isExternalPurchase(shopItem) {
+    let { shop_price = 0, shop_price_curr = "", storeId = "", devStoreId = "" } = shopItem
+    return (shop_price_curr != "" && shop_price > 0) //PC type
+      || storeId != "" || devStoreId != ""//Consoles type
+  }
+
+
+  let bpGroupsChapters = {
+    weapon_battlepass_group = 0
+    soldier_battlepass_group = 1
+    vehicle_battlepass_group = 2
+  }
+
+  let itemsGroupsChapters = {
+    wpack_silver_pistol_group = 0
+    wpack_silver_rifle_group = 1
+    wpack_silver_submachine_gun_group = 2
+    wpack_silver_special_group = 3
+    wpack_group = 4
+    item_group = 5
+  }
+
+
+  let sortItemsFunc = @(a, b) (a?.viewOrder ?? 1000) <=> (b?.viewOrder ?? 1000)
+    || (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
+
+  let sortFeaturedFunc = @(a, b)
+    (a?.featuredWeight ?? 0) <=> (b?.featuredWeight ?? 0)
+      || (a?.requirements.armyLevel ?? 0) <=> (b?.requirements.armyLevel ?? 0)
+
+  let function getChapterItems(armyItems, chapterScheme) {
+    let chapters = chapterScheme.map(@(weigth) { container = null, goods = [], weigth })
+    foreach (sItem in armyItems) {
+      let { offerContainer = "", offerGroup = "" } = sItem
+      if (offerContainer in chapters)
+        chapters[offerContainer].container = sItem
+      if (offerGroup in chapters)
+        chapters[offerGroup].goods.append(sItem)
+    }
+    chapters.each(@(chapter) chapter.goods.sort(sortItemsFunc))
+    return chapters.values().sort(@(a, b) a.weigth <=> b.weigth)
+  }
+
+  let armyGroups = [
+    {
+      id = "premium"
+      reqFeatured = true
+      filterFunc = @(shopItem) hasPriceContainsSpecOrders(shopItem)
+        || (!hasPriceContainsOrders(shopItem)
+          && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem)))
+    }
+    {
+      id = "battlepass"
+      mkChapters = @(armyShopItems) getChapterItems(armyShopItems, bpGroupsChapters)
+    }
+    {
+      id = "items"
+      locId = "soldierWeaponry"
+      mkChapters = @(armyShopItems) getChapterItems(armyShopItems, itemsGroupsChapters)
+    }
+    {
+      id = "soldiers"
+      locId = "menu/soldier"
+      filterFunc = @(shopItem)
+        shopItem?.offerGroup == "soldier_silver_group"
+    }
+  ]
+
+
+  let curItemsByGroup = Computed(function() {
+    let prefilteredItems = curArmyItemsPrefiltered.value
+    let res = {}
+    foreach (group in armyGroups) {
+      let { filterFunc = null, mkChapters = null } = group
+      if (mkChapters != null) {
+        let groupRes = []
+        foreach (chapter in mkChapters(prefilteredItems))
+          foreach (sItem in chapter.goods)
+            groupRes.append(sItem)
+        res[group.id] <- groupRes
+      }
+      else if (filterFunc != null)
+        res[group.id] <- prefilteredItems
+          .reduce(function(r, val) {
+            if (filterFunc(val))
+              r.append(val)
+            return r
+          }, [])
+          .sort(sortItemsFunc)
+    }
+    return res
+  })
+
+
+  let curShopItemsByGroup = Computed(function() {
+    let items = curItemsByGroup.value
+    let armyItems = curArmyItemsPrefiltered.value
+    return armyGroups.map(function(group) {
+      let { mkChapters = null } = group
+      return {
+        id = group.id
+        locId = group?.locId
+        goods = (items?[group.id] ?? []).filter(@(item) (item?.featuredWeight ?? 0) == 0)
+        chapters = mkChapters?(armyItems)
+      }
+    })
+  })
+
+
+  let maxDiscountByGroup = Computed(@() curItemsByGroup.value
+    .map(@(group) group.reduce(@(r, v) max(r, v?.hideDiscount ? 0 : v?.discountInPercent ?? 0), 0)))
+
+  let specialOfferByGroup = Computed(@() curItemsByGroup.value
+    .map(@(group) group
+      .findvalue(@(v) (v?.discountInPercent ?? 0) > 0 && v?.showSpecialOfferText) != null))
+
+  let curFeaturedByGroup = Computed(@() curItemsByGroup.value
+    .map(@(group) group
+      .filter(@(item) (item?.featuredWeight ?? 0) > 0)
+      .sort(sortFeaturedFunc)
+    ))
+
+
+  let curShopDataByGroup = Computed(function() {
+    let curUnseen = curUnseenAvailShopGuids.value
+    let curUnopened = {}
+    foreach (guid in notOpenedShopItems.value)
+      curUnopened[guid] <- true
+
+    let maxDiscounts = maxDiscountByGroup.value
+    let specialOffer = specialOfferByGroup.value
+    let res = {}
+    foreach (id, group in curItemsByGroup.value)
+      res[id] <- {
+        hasUnseen = group.findvalue(@(v) v.guid in curUnseen) != null
+        unopened = group.filter(@(v) v.guid in curUnopened).map(@(v) v.guid)
+        discount = maxDiscounts?[id] ?? 0
+        showSpecialOffer = specialOffer?[id] ?? false
+      }
+
+    return res
+  })
+
+  let function switchGroup() {
+    let grCount = curShopItemsByGroup.value.len()
+    curGroupIdx((curGroupIdx.value + 1) % grCount)
+  }
+
+  return {
+    curShopItemsByGroup
+    curShopDataByGroup
+    curFeaturedByGroup
+    shopConfig
+    switchGroup
+  }
+}
 
 return {
-  curShopItemsByGroup
-  curShopDataByGroup
-  curFeaturedByGroup
+  mkShopState
+  onShopAttach
+  onShopDetach
   curGroupIdx
   curFeaturedIdx
-  shopConfig
+  chapterIdx
+  curSwitchTime
 }

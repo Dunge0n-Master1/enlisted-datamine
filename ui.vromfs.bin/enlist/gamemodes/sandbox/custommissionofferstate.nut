@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let http = require("dagor.http")
-let json = require("json")
+let { parse_json } = require("json")
 let { showWithCloseButton } = require("%enlist/components/msgbox.nut")
 let { noteTextArea, txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { requestModManifest } = require("customMissionState.nut")
@@ -19,7 +19,13 @@ let { is_pc } = require("%dngscripts/platform.nut")
 let featuredMods = Watched([])
 let featuredModsRoomsList = Watched([])
 let needOpenModsList = Watched(false)
-let urlData = "cdn_uris=true&clean_description=true&no_file=true&only_preview=true&charset=UTF-8&content-type=application/x-www-form-urlencoded"
+let urlData = {
+  cdn_uris=true
+  clean_description=true
+  no_file=true
+  only_preview=true
+  charset="UTF-8"
+}
 let isFeaturedAvailable = is_pc
 let isFeaturedRequestNeeded = keepref(Computed(@() isFeaturedAvailable && isEventModesOpened.value
   && featuredMods.value.len() == 0))
@@ -31,6 +37,9 @@ const MOD_URL = "https://sandbox.enlisted.net/post/{0}"
 
 let function getfeaturedModInfo(mod) {
   try{
+    let isInvalidData = mod.findvalue(@(v) v == null)
+    if (isInvalidData)
+      return null
     let { description, preview, title, author, id, version } = mod
     let imageToShow = preview.split("?")[0]
     let modUrl = MOD_URL.subst(id)
@@ -54,7 +63,7 @@ let function getfeaturedModInfo(mod) {
 
 let function requestCb(response) {
   try {
-    let mods = (json.parse(response.body?.as_string())?.data.list ?? [])
+    let mods = (parse_json(response.body?.as_string())?.data.list ?? [])
       .map(@(v) getfeaturedModInfo(v))
     featuredMods(mods)
   }
@@ -68,7 +77,7 @@ let function requestMods(data = urlData) {
     method = "POST"
     url = URL
     callback = @(response) requestCb(response)
-    data
+    data = data.__merge({content="gamemod"})
   })
 }
 

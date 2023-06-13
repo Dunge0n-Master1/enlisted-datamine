@@ -6,7 +6,6 @@ let {safeAreaAmount, safeAreaBlkPath, safeAreaList, safeAreaSetAmount,
   safeAreaCanChangeInOptions} = require("%enlSqGlob/safeArea.nut")
 let platform = require("%dngscripts/platform.nut")
 let {DBGLEVEL} = require("dagor.system")
-let { isNewDesign } = require("%enlSqGlob/designState.nut")
 
 let {loc_opt, defCmp, getOnlineSaveData, mkSliderWithText,
   optionPercentTextSliderCtor, optionCheckBox, optionCombo, optionSlider,
@@ -22,6 +21,9 @@ let { DLSS_BLK_PATH, DLSS_OFF, dlssAvailable, dlssValue, dlssToString,
 let { XESS_BLK_PATH, XESS_OFF, xessAvailable, xessValue, xessToString,
   xessSetValue, xessNotAllowLocId
 } = require("xess_state.nut")
+let { FSR2_BLK_PATH, FSR2_OFF, fsr2Supported, fsr2Available, fsr2Value, fsr2ToString,
+  fsr2SetValue
+} = require("fsr2_state.nut")
 let { LOW_LATENCY_BLK_PATH, LOW_LATENCY_OFF, LOW_LATENCY_NV_ON,
   LOW_LATENCY_NV_BOOST, lowLatencyAvailable, lowLatencyValue,
   lowLatencySetValue, lowLatencyToString, lowLatencySupported
@@ -66,7 +68,7 @@ let optSafeArea = optionCtor({
   available = safeAreaList
   valToString = @(s) $"{s*100}%"
   isEqual = defCmp
-  restart = isNewDesign.value
+  restart = false
 })
 
 const defVideoMode = "fullscreen"
@@ -393,7 +395,8 @@ let optAntiAliasingMode = optionCtor({
                 antiAliasingMode.TAA,
                 antiAliasingMode.TSR,
                 dlssNotAllowLocId.value == null ? antiAliasingMode.DLSS : null,
-                xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null ].filter(@(q) q != null))
+                xessNotAllowLocId.value == null && isPcDx12 ? antiAliasingMode.XESS : null,
+                fsr2Supported.value && isPcDx12 ? antiAliasingMode.FSR2 : null ].filter(@(q) q != null))
   valToString = @(v) loc(antiAliasingModeToString[v].optName, antiAliasingModeToString[v].defLocString)
 }.__update(renderSettingsTbl.antiAliasingModeChosen, { var = antiAliasingModeValue }))
 
@@ -436,6 +439,21 @@ let optXess = optionCtor({
   setValue = xessSetValue
   available = xessAvailable
   valToString = @(v) loc(xessToString[v])
+})
+
+let optFsr2 = optionCtor({
+  name = loc("options/fsr2Quality", "FSR2 Quality")
+  tab = "Graphics"
+  widgetCtor = mkDisableableCtor(
+    Computed(@() fsr2Supported.value ? null : "{0} ({1})".subst(loc("option/off"), loc("fsr2/notSupported"))),
+    optionSpinner)
+  isAvailableWatched = Computed(@() isOptAvailable() && antiAliasingModeValue.value == antiAliasingMode.FSR2)
+  blkPath = FSR2_BLK_PATH
+  defVal = FSR2_OFF
+  var = fsr2Value
+  setValue = fsr2SetValue
+  available = fsr2Available
+  valToString = @(v) loc(fsr2ToString[v])
 })
 
 let optTaaMipBias = optionCtor({
@@ -676,6 +694,7 @@ return {
   optUncompressedScreenshots
   optDlss
   optXess
+  optFsr2
   optTemporalUpsamplingRatio
   optStaticResolutionScale
   optStaticUplsamplingQuality
@@ -714,6 +733,7 @@ return {
     optFSR,
     optDlss,
     optXess,
+    optFsr2,
 
     // Shadows & lighting
     {name = loc("group/shadows_n_lighting", "Shadows & Lighting") isSeparator=true tab="Graphics"},

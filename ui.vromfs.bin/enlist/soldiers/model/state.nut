@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let json = require("%sqstd/json.nut")
+let { saveJson } = require("%sqstd/json.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let servProfile = require("%enlist/meta/servProfile.nut")
 let { endswith } = require("string")
@@ -21,10 +21,11 @@ let { getObjectsByLinkSorted, getObjectsTableByLinkType, getLinkedSquadGuid, get
 } = require("%enlSqGlob/ui/metalink.nut")
 let squadsParams = require("squadsParams.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
-let { onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { expiredRentedSquads } = require("rentedSquads.nut")
+let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
+let { weaponSlotsKeys, EWS_PRIMARY } = require("%enlSqGlob/weapon_slots.nut")
 
 
 let curArmiesStorage = mkOnlineSaveData("curArmies", @() {})
@@ -262,8 +263,6 @@ let curSquadId = Computed(function() {
 })
 
 let function setCurSquadId(squadId) {
-  if (!onlineSettingUpdated.value)
-    return
   let armyId = curArmy.value
   if (armyId && squadId != playerSelectedSquads.value?[armyId])
     setPlayerSelectedSquads(playerSelectedSquads.value.__merge({ [armyId] = squadId }))
@@ -375,7 +374,7 @@ let function dumpProfile() {
     return
 
   let path = $"enlisted_profile_{userId}.json"
-  json.save(path, servProfile.map(@(w) w.value), { logger = log_for_user })
+  saveJson(path, servProfile.map(@(w) w.value), { logger = log_for_user })
   console_print($"Current user profile saved to {path}")
 }
 
@@ -406,6 +405,12 @@ let function getDemandingSlotsInfo(ownerGuid, slotType) {
 }
 
 let maxCampaignLevel = Computed(@() armies.value.reduce(@(v,camp) max(v, camp?.level ?? 0), 0))
+
+let function canChangeEquipmentInSlot(soldierClass, weaponSlot) {
+  let { isPremium = false } = getClassCfg(soldierClass)
+  return !isPremium || weaponSlot != weaponSlotsKeys[EWS_PRIMARY]
+}
+
 
 console_register_command(function() {
   setCurCampaign(null)
@@ -560,4 +565,5 @@ return {
   addArmyExp
   setVehicleToSquad
   getEquippedItemGuid
+  canChangeEquipmentInSlot
 }

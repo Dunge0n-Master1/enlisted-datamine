@@ -7,6 +7,7 @@ require DagorSystem
 require DngDm
 require human_sounds_net.modules.human_sounds_net_events
 require common_shooter.events_common_shooter
+require common_shooter.es.hit_result_common
 
 
 def is_headshot(dm_parts__type : StringList&; coll_node_id : int)

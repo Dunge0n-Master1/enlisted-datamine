@@ -1,71 +1,71 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let colors = require("%ui/style/colors.nut")
+let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { defTxtColor, titleTxtColor, accentColor, smallPadding, colPart, midPadding,
+  bigPadding, brightAccentColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { FAButton } = require("%ui/components/txtButton.nut")
 let { buttonSound } = require("%ui/style/sounds.nut")
 let { squadMembers, isInvitedToSquad, enabledSquad, squadId
 } = require("%enlist/squad/squadState.nut")
 let { getContactNick } = require("contact.nut")
-let { defTxtColor, titleTxtColor, smallPadding, bigPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { friendsUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { mkContactOnlineStatus } = require("contactPresence.nut")
 let contactContextMenu = require("contactContextMenu.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let textButton = require("%ui/components/textButton.nut")
 let locByPlatform = require("%enlSqGlob/locByPlatform.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(30) })
+let spinner = require("%ui/components/spinner.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { curArmiesList } = require("%enlist/soldiers/model/state.nut")
 let { roomIsLobby } = require("%enlist/state/roomState.nut")
 
 
-let defNickStyle = { color = defTxtColor }.__update(sub_txt)
-let activeNickStyle = { color = titleTxtColor }.__update(sub_txt)
-let statusCommonStyle = sub_txt
-let iconHgt = hdpxi(32)
+let defNickStyle = { color = defTxtColor }.__update(fontLarge)
+let statusCommonStyle = fontMedium
+let iconHeight = colPart(0.5)
+let waitingSpinner = spinner(colPart(0.24))
 
 
 let playerStatusesIcons = freeze({
   online = {
     icon = "circle"
-    color = 0xFF22CF2B
+    color = 0xFF65FE7A
   }
   offline = {
     icon = "circle"
-    color = 0xFF960000
+    color = 0xFFD9281D
   }
   unknown = {
     icon = "circle-o"
-    color = 0xFF9E1D1D
+    color = defTxtColor
   }
 })
 
 let playerSquadStatuses = freeze({
   inBattle = {
     text = loc("contact/inBattle")
-    color = colors.ContactInBattle
+    color = titleTxtColor
     icon = "gamepad"
   }
   leader = {
     text = loc("squad/Chief")
-    color = colors.ContactLeader
+    color = accentColor
     icon = "star"
   }
   offlineInSquad = {
     text = loc("contact/Offline")
-    color = colors.ContactOffline
+    color = titleTxtColor
     icon = "times"
   }
   ready = {
     text = loc("contact/Ready")
-    color =  colors.ContactReady
+    color = brightAccentColor
     icon = "check"
   }
   unready = {
     text = loc("contact/notReady")
-    color = colors.ContactNotReady
+    color = 0xFFC0C0C0
     icon = "times"
   }
   invited = {
@@ -87,14 +87,13 @@ let playerSquadStatuses = freeze({
 })
 
 
-let userNickname = @(isPlayerOnline, contact) {
+let userNickname = @(contact, override) {
   size = [flex(), SIZE_TO_CONTENT]
   behavior = Behaviors.Marquee
   clipChildren = true
-  scrollOnHover = true
   rendObj = ROBJ_TEXT
   text = getContactNick(contact)
-}.__update(isPlayerOnline ? activeNickStyle : defNickStyle)
+}.__update(override)
 
 
 let function statusIcon(isPlayerOnline) {
@@ -102,7 +101,7 @@ let function statusIcon(isPlayerOnline) {
     : isPlayerOnline ? playerStatusesIcons.online
     : playerStatusesIcons.offline
   let { icon, color } = iconToShow
-  return faComp(icon, { fontSize = hdpx(12), color })
+  return faComp(icon, { fontSize = colPart(0.19), color })
 }
 
 
@@ -132,11 +131,12 @@ let statusBlock = @(isPlayerOnline, contact) function() {
   let { color, text, icon = null } = squadStatusText
   return {
     watch
+    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     valign = ALIGN_CENTER
     children = [
-      isInvited ? spinner
+      isInvited ? waitingSpinner
         : icon != null ? faComp(icon, {
           fontSize = statusCommonStyle.fontSize
           color
@@ -152,19 +152,16 @@ let statusBlock = @(isPlayerOnline, contact) function() {
 }
 
 
-let contactActionButton = @(action, group, userId) function() {
-  let isVisible = action.mkIsVisible(userId)
-  return {
-    watch = isVisible
-    group
-    margin = [0,0,hdpx(2), 0]
+let contactActionButton = @(action, userId) FAButton(action.icon, @() action.action(userId),
+  {
+    size = [colPart(0.6), colPart(0.6)]
+    key = userId
     skipDirPadNav = true
-    children = (isVisible.value && (S_HOVER != 0))
-      ? textButton.Small(locByPlatform(action.locId), @() action.action(userId),
-        { key = userId, skipDirPadNav = true })
-      : null
-  }
-}
+    hint = {
+      rendObj = ROBJ_TEXT
+      text = locByPlatform(action.locId)
+    }.__update(statusCommonStyle)
+  })
 
 
 let function onContactClick(event, contact, contextMenuActions) {
@@ -172,15 +169,15 @@ let function onContactClick(event, contact, contextMenuActions) {
     contactContextMenu.open(contact, event, contextMenuActions)
 }
 
-let diceIconSize = hdpxi(24)
+let diceIconSize = colPart(0.38)
 
 let diceIcon = {
   rendObj = ROBJ_IMAGE
-  size = array(2, diceIconSize)
+  size = [diceIconSize, diceIconSize]
   image = Picture("!ui/skin#dice_solid.svg:{0}:{0}:K".subst(diceIconSize))
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_CENTER
-  pos = [hdpx(1), hdpx(2)]
+  padding = [diceIconSize / 2, 0,0,0]
 }
 
 
@@ -196,81 +193,99 @@ let memberAvatarCtor = @(userId) function() {
     return res
   let randomTeam = squadLeader.state?.isTeamRandom ?? false
   let curArmy = squadLeader.state?.curArmy
-  local icon = null
   if (!randomTeam && curArmy)
-    icon = mkArmyIcon(curArmy, iconHgt * 4 / 3)
-  else
-    icon = curArmiesList.value.map(@(army, idx) {
-      pos = [iconHgt * 3.0 / 4 * (idx - 1 / 2.0), - iconHgt / 5]
-      children = mkArmyIcon(army, iconHgt)
+    return res.__update({
+      size = [iconHeight * 1.5, SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      children = mkArmyIcon(curArmy, iconHeight, {
+        margin = 0
+        padding = 0
+      })
     })
-      .reverse()
-      .append(diceIcon)
+
   return res.__update({
-    vplace = ALIGN_BOTTOM
-    children = icon
+    size = [iconHeight * 1.5, flex()]
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    children = curArmiesList.value.map(@(army, idx)
+      mkArmyIcon(army, iconHeight, {
+        padding = 0
+        margin = 0
+        pos = [iconHeight * 3.0 / 4 * (idx - 1 / 2.0), 0]
+      })
+    ).append(diceIcon)
   })
 }
 
-
-let function contactBlock(contact, contextMenuActions = [], inContactActions = []) {
+let gapFlex = freeze({ size = flex() })
+let mkContactBlock = @(contact, contextMenuActions = [], inContactActions = []) function() {
   let group = ElemGroup()
-  return watchElemState(function(sf) {
-    let { userId } = contact.value
-    let isPlayerOnline = mkContactOnlineStatus(userId)
-    let actionsButtons = {
+  let contactVal = contact.value
+  let { userId } = contactVal
+
+  let actionsButtons = inContactActions.map(function(action) {
+    let isVisible = action.mkIsVisible(userId)
+    return @() {
+      watch = isVisible
       flow = FLOW_HORIZONTAL
       hplace = ALIGN_RIGHT
-      vplace = ALIGN_BOTTOM
-      children = inContactActions.map(@(action) contactActionButton(action, group, userId))
+      vplace = ALIGN_CENTER
+      children = !isVisible.value ? null : contactActionButton(action, userId)
     }
+  })
 
-    return {
-    watch = [contact, isPlayerOnline]
+  let isPlayerOnline = mkContactOnlineStatus(userId)
+  let player = @() {
+    watch = isPlayerOnline
     size = flex()
-    rendObj = ROBJ_SOLID
-    color = sf & S_HOVER ? colors.BtnBgNormal : colors.statusIconBg
-    minHeight = hdpx(62)
-    padding = bigPadding
-    gap = bigPadding
-    flow = FLOW_HORIZONTAL
+    flow = FLOW_VERTICAL
+    gap = gapFlex
     valign = ALIGN_CENTER
-    behavior = Behaviors.Button
-    onClick = @(event) onContactClick(event, contact.value, contextMenuActions)
-    stopHover = true
-    group
-    sound = buttonSound
     children = [
-      memberAvatarCtor(userId.tointeger())
       {
-        size = flex()
-        flow = FLOW_VERTICAL
-        gap = hdpx(4)
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        gap = smallPadding
         valign = ALIGN_CENTER
         children = [
-          {
-            size = [flex(), SIZE_TO_CONTENT]
-            flow = FLOW_HORIZONTAL
-            gap = bigPadding
-            valign = ALIGN_CENTER
-            children = [
-              statusIcon(isPlayerOnline.value)
-              userNickname(isPlayerOnline.value, contact.value)
-            ]
-          }
-          @() {
-            watch = isGamepad
-            size = flex()
-            valign = ALIGN_BOTTOM
-            children = [
-              statusBlock(isPlayerOnline.value, contact.value)
-              !isGamepad.value && (sf & S_HOVER) != 0 ? actionsButtons : null
-            ]
-          }
+          statusIcon(isPlayerOnline.value)
+          userNickname(contactVal, defNickStyle)
         ]
       }
+      statusBlock(isPlayerOnline.value, contactVal)
     ]
-  }})
+  }
+
+  let avatar = memberAvatarCtor(userId.tointeger())
+  let onClick = @(event) onContactClick(event, contactVal, contextMenuActions)
+
+  return {
+    watch = contact
+    size = flex()
+    children = watchElemState(@(sf) {
+      watch = isGamepad
+      rendObj = ROBJ_WORLD_BLUR_PANEL
+      size = flex()
+      //color = sf & S_HOVER ? hoverPanelBgColor : panelBgColor
+      fillColor = sf & S_HOVER ? Color(120,120,120) : 0
+      padding = [midPadding, bigPadding]
+      gap = bigPadding
+      flow = FLOW_HORIZONTAL
+      valign = ALIGN_CENTER
+      behavior = Behaviors.Button
+      xmbNode = XmbNode({
+        canFocus = @() true
+        scrollToEdge = true
+        wrap = false
+      })
+      onClick
+      stopHover = true
+      group
+      sound = buttonSound
+      children = [ player, avatar ]
+        .extend(!isGamepad.value && (sf & S_HOVER) != 0 ? actionsButtons : [])
+    })
+  }
 }
 
-return contactBlock
+return mkContactBlock

@@ -6,18 +6,20 @@ require danetlibs/frame_graph_renderer/render/node_macro
 require ecs
 
 struct Trajectory
-  start, vel : float3
+  start, vel, gravity_dir : float3
   time, gravity, wideStart, wideEnd, colorGamma : float
   center, border : Color4
 
 def render_grenade_trajectory(t : Trajectory)
   let numSegments = clamp(int(4. + t.time * 24.), 2, 512)
   query() <| $ [es] (trajectory_start_gravity : ShaderVar;
+                     trajectory_gravity_dir : ShaderVar;
                      trajectory_vel_time : ShaderVar;
                      trajectory_center : ShaderVar;
                      trajectory_border : ShaderVar;
                      trajectory_total_thickness_gamma : ShaderVar)
     DagorShaders::set_color4(trajectory_start_gravity.varId, t.start, t.gravity)
+    DagorShaders::set_color4(trajectory_gravity_dir.varId, t.gravity_dir, 0.0)
     DagorShaders::set_color4(trajectory_vel_time.varId, t.vel, t.time)
     DagorShaders::set_color4(trajectory_center.varId, t.center)
     DagorShaders::set_color4(trajectory_border.varId, t.border)
@@ -35,7 +37,8 @@ def render_grenade_trajectories()
                      trajectory__wide_start : float = 0.3;
                      trajectory__wide_end : float = 0.2;
                      trajectory__color_gamma : float = 8.;
-                     trajectory__gravity : float = 9.81)
+                     trajectory__gravity : float = 9.81;
+                     trajectory__gravity_dir : float3 = float3(0.0, -1.0, 0.0))
     let centerColor = Color4(trajectory__center ?? E3DCOLOR(0xFFFFFFFF))
     let borderColor = Color4(trajectory__border ?? E3DCOLOR(0x7F7FFFFF))
     if (!trajectory__enabled || (borderColor.a == 0.0 && centerColor.a == 0.0))
@@ -50,6 +53,7 @@ def render_grenade_trajectories()
     render_grenade_trajectory([[Trajectory
                                 start=trajectory__start,
                                 vel=trajectory__vel,
+                                gravity_dir=trajectory__gravity_dir,
                                 time=trajectory__time,
                                 gravity=trajectory__gravity,
                                 wideStart=trajectory__wide_start,

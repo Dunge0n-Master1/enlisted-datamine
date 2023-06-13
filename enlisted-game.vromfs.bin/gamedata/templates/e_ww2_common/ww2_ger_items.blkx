@@ -1423,6 +1423,29 @@ attachable_wear_knochensack_m40_sumpftarn_br_w_parachute_item{
   }
 }
 
+attachable_wear_knochensack_m40_splinter_green_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_knochensack_m40_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_knochensack_m40_splinter_green_tunic_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_knochensack_m40_splinter_green_tunic_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_knochensack_m40_sumpftarn_tex_d*":t="ger_knochensack_m40_splinter_green_tex_d*"
+    "ger_knochensack_m40_sumpftarn_tex_n*":t="ger_knochensack_m40_splinter_green_tex_n*"
+  }
+}
+
+attachable_wear_knochensack_m40_olive_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_knochensack_m40_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_knochensack_m40_olive_tunic_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_knochensack_m40_olive_tunic_item"
+
+  "animchar__objTexReplace:object"{
+    "ger_knochensack_m40_sumpftarn_tex_d*":t="ger_knochensack_m40_olive_tex_d*"
+  }
+}
+
 attachable_wear_knochensack_m40_w_parachute_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_knochensack_m40_w_parachute_item"

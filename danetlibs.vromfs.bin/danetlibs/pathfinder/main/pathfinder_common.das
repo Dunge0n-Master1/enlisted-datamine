@@ -124,3 +124,36 @@ def trace_single_ri_against_path(ri_eid : EntityId;
         return
       start = end
   return result
+
+
+def iterate_over_polys_recursively(start : float3; depth : int; action : block<(poly : dtPolyRef) : bool>)
+  var visited : array<dtPolyRef>
+  var frontier : array<tuple<poly : dtPolyRef; depth : int>>
+
+  var ref : dtPolyRef
+  let extents = float3(0.1, 2.0, 0.1)
+  var p = start
+  if project_to_nearest_navmesh_point(p, extents, ref)
+    frontier |> emplace([[auto ref, depth]])
+    while (length(frontier) > 0)
+      advance_poly_frontier(frontier, visited)
+      if invoke(action, visited[length(visited) - 1])
+        break
+
+
+def private advance_poly_frontier(var frontier : array<tuple<poly : dtPolyRef; depth : int>>; var visited : array<dtPolyRef>)
+  let thisPoly = frontier[0].poly
+  var depth = frontier[0].depth
+  frontier |> erase(0)
+  visited |> push(thisPoly)
+  var polyFlags = uint16(0)
+  get_poly_flags(thisPoly, polyFlags)
+  if (int(polyFlags) & int(PolyFlag POLYFLAG_JUMP)) == 0
+    depth--
+  if depth > 0
+    for_each_linked_poly(thisPoly) <| $(linkedPolyRef)
+      let inFrontierIdx = find_index_if(frontier) <| $(item) { return item.poly == linkedPolyRef; }
+      if find_index(visited, linkedPolyRef) == -1 && inFrontierIdx == -1
+        frontier |> emplace([[auto linkedPolyRef, depth]])
+      elif inFrontierIdx != -1
+        frontier[inFrontierIdx].depth = max(frontier[inFrontierIdx].depth, depth)

@@ -24,8 +24,8 @@ ecs.register_es("on_event_dig_es",
   { comps_rq=["watchedByPlr"] }
 )
 
-let cannotDigAtPosTip = @(lastDigResult) tipCmp({
-  text = loc(lastDigResult == CanTerraformCheckResult.NearByObjects
+let cannotDigAtPosTip = @(last_dig_result) tipCmp({
+  text = loc(last_dig_result == CanTerraformCheckResult.NearByObjects
              ? "hint/cannotDigAtPosNearByObjects"
              : "hint/cannotDigAtPos")
 }.__update(body_txt))

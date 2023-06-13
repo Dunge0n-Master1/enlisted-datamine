@@ -4,7 +4,7 @@ let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
-let spinner = require("%ui/components/spinner.nut")({ opacity = 0.7 })
+let spinner = require("%ui/components/spinner.nut")
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { utf8ToLower } = require("%sqstd/string.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
@@ -21,6 +21,8 @@ let {
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { isLootBoxProhibited } = require("%enlist/meta/metaConfigUpdater.nut")
 
+
+let waitingSpinner = spinner(hdpx(40), 0.7)
 
 let mkTextArea = @(text) {
   rendObj = ROBJ_TEXTAREA
@@ -237,7 +239,7 @@ let function makeCrateToolTip(crateContent, headerTxt = "", size = SIZE_TO_CONTE
       watch = [crateContent, isLootBoxProhibited]
       gap = bigPadding
       flow = FLOW_VERTICAL
-      children = content == null ? spinner
+      children = content == null ? waitingSpinner
         : [
             header
             mkCrateItemsInfo(armyId, content, null, null, isLootBoxProhibited.value)

@@ -4,6 +4,7 @@ let { currencyBtn } = require("%enlist/currency/currenciesComp.nut")
 let { purchaseMsgBox } = require("%enlist/currency/purchaseMsgBox.nut")
 let { buyArmyLevel } = require("%enlist/soldiers/model/armyUnlocksState.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
+let { utf8ToUpper } = require("%sqstd/string.nut")
 
 let function mkBuyArmyLevel(lvlToBuy, price, priceFull = null) {
 
@@ -24,9 +25,9 @@ let function mkBuyArmyLevel(lvlToBuy, price, priceFull = null) {
   return {
     size = [flex(), SIZE_TO_CONTENT]
     children = currencyBtn({
-      btnText = loc("squads/buyLvl", {
-        item = loc("squads/lvlShort", { level = lvlToBuy + 1 })
-      })
+      btnText = utf8ToUpper(loc("squads/buyLvl", {
+        item = utf8ToUpper(loc("squads/lvlShort", { level = lvlToBuy + 1 }))
+      }))
       currencyId = "EnlistedGold"
       price
       priceFull

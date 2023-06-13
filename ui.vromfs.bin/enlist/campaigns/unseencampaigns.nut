@@ -47,16 +47,18 @@ let unseenCampaigns = Computed(function() {
   return res
 })
 
-let function markSeenCampaign(campaignId) {
-  let status = currentStatus.value?[campaignId] ?? UNSEEN
-
-  if ((seen.value?[campaignId] ?? UNSEEN) == status)
-    return
-
+let function markSeenCampaignArray(campaigns) {
   settings.mutate(function(set) {
-    set[SEEN_ID] <- (set?[SEEN_ID] ?? {}).__merge({ [campaignId] = status })
+    let stats = clone set?[SEEN_ID] ?? {}
+    foreach (campaignId in campaigns)
+      stats[campaignId] <- currentStatus.value?[campaignId] ?? UNSEEN
+    set[SEEN_ID] <- stats
   })
 }
+
+let markSeenAllCampaign = @() markSeenCampaignArray(unlockedCampaigns.value)
+
+let markSeenCampaign = @(campId) markSeenCampaignArray([campId])
 
 local prevCampaign = curCampaignStored.value
 curCampaignStored.subscribe(function(camp) {
@@ -77,4 +79,5 @@ console_register_command(function() {
 return {
   unseenCampaigns
   markSeenCampaign
+  markSeenAllCampaign
 }

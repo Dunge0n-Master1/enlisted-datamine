@@ -14,9 +14,9 @@ const FILE_REQUESTED = 0
 const FILE_ERROR = 1
 const FILE_TIMEOUT = 2
 let statusText = {
-  [http.SUCCESS] = "SUCCESS",
-  [http.FAILED] = "FAILED",
-  [http.ABORTED] = "ABORTED",
+  [http.HTTP_SUCCESS] = "SUCCESS",
+  [http.HTTP_FAILED] = "FAILED",
+  [http.HTTP_ABORTED] = "ABORTED",
 }
 
 let function checkModFileByHash(hash){
@@ -56,7 +56,7 @@ eventbus.subscribe(RECEIVE_FILE_MOD, function(response){
   }
 
   let { status, http_code } = response
-  if (status != http.SUCCESS) {
+  if (status != http.HTTP_SUCCESS) {
     log(ERROR_MSG, "request status =", status, statusText?[status])
     setHashError(hash)
     return

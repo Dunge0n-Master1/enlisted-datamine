@@ -2172,7 +2172,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[1.08986, 0.0, 0.00270413] [0.0, 1.05724, 0.0] [-0.00225866, 0.0, 0.607479] [803.913, 3.25259, 589.265]]
+  transform:m=[[1.08986, 0.0, 0.00270413] [0.0, 0.30324, 0.0] [-0.00225866, 0.0, 0.607479] [803.913, 3.25259, 589.265]]
   groupName:t="sector_2"
   capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=1
@@ -2201,7 +2201,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[-0.0488128, 0.0, 1.0991] [0.0, 1.00182, 0.0] [-0.739123, 0.0, -0.0415817] [784.139, 4.49538, 530.382]]
+  transform:m=[[-0.0488128, 0.0, 1.0991] [0.0, 0.374764, 0.0] [-0.739123, 0.0, -0.0415817] [784.139, 4.49538, 530.382]]
   groupName:t="sector_2_b"
   capzone__capRewardPartCap:r=1.125
   capzone__onlyTeamCanCapture:i=1

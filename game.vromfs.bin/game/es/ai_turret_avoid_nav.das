@@ -1,5 +1,6 @@
 require ecs
 require app
+require math.base
 require ecs.common
 require game.es.events
 require game.es.ai.walker_common
@@ -101,10 +102,11 @@ def turret_avoid_nav_update_es(info : ecs::UpdateStageInfoAct;
                          tm[2] * turret_avoid_nav__sideDist.x * (float(j) / float(numSteps)) +
                          tm[1] * turret_avoid_nav__sideDist.y * (float(i) / float(numSteps)))
               var len = length(dir)
-              let dirN = dir / len
-              var norm : float3
-              traceray_normalized(startPt, dirN, len, norm)
-              maxLen = max(maxLen, dot(dir, tm[0]))
+              if len > VERY_SMALL_NUMBER
+                let dirN = dir / len
+                var norm : float3
+                traceray_normalized(startPt, dirN, len, norm)
+                maxLen = max(maxLen, dot(dirN, tm[0]) * len)
 
       let oobb = BBox3(float3(-turret_avoid_nav__sideDist.x, -turret_avoid_nav__sideDist.y, turret_avoid_nav__forwardDist.x),
         float3(turret_avoid_nav__sideDist.x, turret_avoid_nav__sideDist.y, maxLen))

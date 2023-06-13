@@ -24,7 +24,8 @@ def explode_shell(eid : EntityId;
     var prevPos = float3(phys_obj_net_phys.phys.previousState.location.P)
     let contact = (use_contact_point ? phys_obj_net_phys.phys.currentState.contactPoint :
                                        float3(phys_obj_net_phys.phys.currentState.location.P));
-    let vel = phys_obj_net_phys.phys.currentState.velocity
+    // use previous state because current velocity might be already clipped
+    let vel = phys_obj_net_phys.phys.previousState.velocity
 
     // if prevPos and contact point are very close, we may have wrong direction prevPos -> contact
     if distance_sq(contact, prevPos) < square(shell__minPrevPosToContactDistance)

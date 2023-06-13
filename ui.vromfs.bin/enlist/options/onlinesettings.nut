@@ -3,18 +3,18 @@ from "%enlSqGlob/ui_library.nut" import *
 let shutdownHandler = require("%enlist/state/shutdownHandler.nut")
 let eventbus = require("eventbus")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let online_storage = require("onlineStorage")
+let { save_table_to_online_storage, get_table_from_online_storage, send_to_server, load_from_cloud } = require("onlineStorage")
 let { throttle } = require("%sqstd/timers.nut")
 let logOS = require("%enlSqGlob/library_logs.nut").with_prefix("[ONLINE_SETTINGS] ")
 
 let onlineSettingUpdated = mkWatched(persist, "onlineSettingUpdated", false)
 let onlineSettingsInited = mkWatched(persist, "onlineSettingsInited", false)
-let settings = mkWatched(persist, "onlineSettings", online_storage.get_table_from_online_storage("GBT_GENERAL_SETTINGS"))
+let settings = mkWatched(persist, "onlineSettings", get_table_from_online_storage("GBT_GENERAL_SETTINGS") ?? {})
 
 const SEND_PENDING_TIMEOUT_SEC = 600 //10 minutes should be ok
 
 let function onUpdateSettings(_userId) {
-  let fromOnline = online_storage.get_table_from_online_storage("GBT_GENERAL_SETTINGS")
+  let fromOnline = get_table_from_online_storage("GBT_GENERAL_SETTINGS") ?? {}
   settings.update(fromOnline)
   onlineSettingUpdated(true)
   onlineSettingsInited(true)
@@ -33,7 +33,7 @@ let function sendToServer() {
   logOS("Send to server")
   gui_scene.clearTimer(callee())
   isSendToSrvTimerStarted = false
-  online_storage.send_to_server()
+  send_to_server()
 }
 
 let function startSendToSrvTimer() {
@@ -56,7 +56,7 @@ userInfo.subscribe(function (new_val) {
 
 let function save() {
   logOS("Save settings")
-  online_storage.save_table_to_online_storage(settings.value, "GBT_GENERAL_SETTINGS")
+  save_table_to_online_storage(settings.value, "GBT_GENERAL_SETTINGS")
 }
 
 let lazySave = throttle(save, 10)
@@ -68,7 +68,7 @@ settings.subscribe(function(_new_val) {
 })
 
 let function loadFromCloud(userId, cb) {
-  online_storage.load_from_cloud(userId, cb)
+  load_from_cloud(userId, cb)
 }
 
 eventbus.subscribe("onlineSettings.sendToServer", @(_) sendToServer())
@@ -76,7 +76,7 @@ eventbus.subscribe("onlineSettings.sendToServer", @(_) sendToServer())
 shutdownHandler.add(function() {
   logOS("Save and send online settings on shutdown")
   save()
-  online_storage.send_to_server()
+  send_to_server()
 })
 
 return {

@@ -16,11 +16,31 @@ def sound_debug_draw(act : UpdateStageInfoRenderDebug;
                      is_watched_sound : bool = false;
                      sound_tags : Object;
                      human_voice_effect__activeEffects : Object const?;
+                     [[shared_comp]] human_voice_effect__allOrderedEffects : StringList const?;
                      transform : float3x4)
   if get_enable_debug_draw()
     var text = ""
-    if human_voice_effect__activeEffects != null && !empty(*human_voice_effect__activeEffects)
-      text = "active effects:{*human_voice_effect__activeEffects} "
+
+    if human_voice_effect__allOrderedEffects != null && human_voice_effect__activeEffects != null
+
+      var numEffects = 0
+      for id in *human_voice_effect__allOrderedEffects
+        if (*human_voice_effect__activeEffects)[string(id)] ?? false
+          if numEffects == 0
+            text += "voice effects: [{id}"
+          else
+            text += ", {id}"
+          ++numEffects
+      if numEffects > 0
+        text += "] "
+
+      for itFx in *human_voice_effect__activeEffects
+        var exist = false
+        for id in *human_voice_effect__allOrderedEffects
+          exist ||= itFx.key == id
+        if !exist
+          text += "-'{itFx.key}' is MISSING in human_voice_effect__allOrderedEffects-"
+
     if is_watched_sound || length(sound_tags) > 0
       text += "sound tags:{sound_tags} "
     if !empty(text)
@@ -45,9 +65,9 @@ def sound_debug_draw_watched(act : UpdateStageInfoRenderDebug;
       add_debug_text_mark(pos, text, -1, 0., color)
 
 
-[console_cmd(name="sndsys.preset_load")]
-def sound_debug_console_sndsys_preset_load(name : string; load : bool)
-  sound_banks_load_preset(name, load)
+[console_cmd(name="sndsys.preset_enable")]
+def sound_debug_console_sndsys_preset_enable(name : string; enable : bool)
+  sound_banks_enable_preset(name, enable)
 
 
 [console_cmd(name="sound.play")]

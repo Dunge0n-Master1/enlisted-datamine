@@ -32,7 +32,12 @@ let function mkMedalBlock(medal, isUnseen) {
       if (isUnseen)
         hoverHoldAction("merkSeenDecorator", id, @(v) markSeenMedal(v))(on)
     }
-    xmbNode = XmbNode()
+    xmbNode = XmbNode({
+      canFocus = @() true
+      wrap = false
+      isGridLine=true
+      scrollToEdge = [false, true]
+    })
     children = received.len() > 0
       ? mkMedalCard(bgImage, stackImages, mIconSize)
       : mkDisabledMedalCard(bgImage, stackImages, mIconSize)
@@ -45,7 +50,7 @@ let function mkCampaignMedals(campaignId, medalsByCamp, campCfg, unseen) {
     return null
 
   return {
-    size = [flex(), SIZE_TO_CONTENT]
+    size = [PROFILE_WIDTH, SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     children = [
       txt({
@@ -74,18 +79,18 @@ let function medalsListUi() {
   let campCfg = gameProfile.value?.campaigns
   let { unseen = {}, unopened = {} } = seenMedals.value
   return {
+    xmbNode = XmbContainer({
+      isGridLine = true
+      canFocus = @() false
+      wrap = false
+      scrollSpeed = [0, 2.0]
+    })
     watch = [medalsByCampaign, unlockedCampaigns, gameProfile, seenMedals]
-    rendObj = ROBJ_BOX
     size = flex()
     padding = smallPadding
     onDetach = @() markMedalsOpened(unopened.keys())
     children = makeVertScroll({
-      xmbNode = XmbContainer({
-        canFocus = @() false
-        scrollSpeed = 5.0
-        isViewport = true
-      })
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [PROFILE_WIDTH, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       gap = bigPadding
       children = unlockedCampaigns.value

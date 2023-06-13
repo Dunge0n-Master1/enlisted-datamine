@@ -20,6 +20,7 @@ let mkMenuScene = @(headerBar, content, bottomBar) function() {
     watch = [safeAreaBorders, safeAreaAmount]
     size = [sw(100), sh(100)]
     flow = FLOW_VERTICAL
+    hplace = ALIGN_CENTER
     behavior = Behaviors.MenuCameraControl
     children = [
       {

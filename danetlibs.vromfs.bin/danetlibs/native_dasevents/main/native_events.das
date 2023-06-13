@@ -152,3 +152,10 @@ struct CmdHeroLogEvent
 struct EventTickrateChanged
   oldTickrate : int
   newTickrate : int
+
+[cpp_event(broadcast, with_scheme)]
+struct EventKeyFrameSaved
+  time : int
+
+[cpp_event(broadcast, with_scheme)]
+struct RequestSaveKeyFrame {}

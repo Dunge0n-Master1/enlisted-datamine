@@ -302,3 +302,109 @@ def reload_impl(owner : EntityId;
         human_weap__reloadAtTime = atTime + single_reload__postTime
 
   return isOk
+
+// ===========================================
+// Reload System 2.0 systems
+// ===========================================
+
+struct AmmoHolderInfo
+  ammo : int = -1
+  holderId : int = INVALID_ITEM_ID
+  itemContainerId : int = -1
+
+
+def has_holder_with_enough_bullets(owner : EntityId;
+                                   wish_ammo_count : int;
+                                   wish_ammo_item_id : int;
+                                   allowed_ammo_holders : IntList;
+                                   gun_max_ammo : int)
+  var hasHolder = false
+  query(owner) <| $ [es] (itemContainer : EidList)
+    let holderInfo = find_smallest_holder_with_enough_bullets(itemContainer,
+                                                              wish_ammo_count,
+                                                              wish_ammo_item_id,
+                                                              allowed_ammo_holders,
+                                                              gun_max_ammo)
+    if holderInfo.itemContainerId >= 0
+      hasHolder = true
+
+  return hasHolder
+
+
+def find_smallest_holder_with_enough_bullets(item_container : EidList;
+                                             wish_ammo_count : int;
+                                             wish_ammo_item_id : int;
+                                             allowed_ammo_holders : IntList;
+                                             gun_max_ammo : int)
+  var holderInfo = AmmoHolderInfo()
+  for i, itemEid in iter_range(item_container), item_container
+    query(itemEid) <| $ [es] (item__id : int;
+                              ammo_holder__id : int = INVALID_ITEM_ID;
+                              ammo_holder__ammoCount : int = -1)
+      if wish_ammo_item_id != INVALID_ITEM_ID && item__id != wish_ammo_item_id
+        return
+
+      if ammo_holder__id != INVALID_ITEM_ID && is_ammo_for_gun(ammo_holder__id, allowed_ammo_holders)
+        let availableAmmoCount = ammo_holder__ammoCount >= 0 ? ammo_holder__ammoCount : gun_max_ammo
+
+        if availableAmmoCount >= wish_ammo_count && (availableAmmoCount < holderInfo.ammo || holderInfo.ammo == -1)
+          holderInfo.ammo = availableAmmoCount
+          holderInfo.itemContainerId = i
+          holderInfo.holderId = ammo_holder__id
+  return holderInfo
+
+
+def reload_with_bullets(owner : EntityId;
+                        var item_container : EidList&;
+                        gun_eid : EntityId;
+                        ammo_to_reload : int;
+                        mode : ReloadAmmoMode)
+  var reloaded = false
+  query(gun_eid) <| $ [es] (gun__shell_prop_ids : GunShellPropIds;
+                            gun__ammoHolderEid : EntityId;
+                            gun__ammoHolderIds : IntList;
+                            gun__ammo : int;
+                            gun__maxAmmo : int;
+                            gun__wishAmmoItemType : int;
+                            var shell_props aka gun_shell_props : ShellPropIds&;
+                            var gun__curShellId : ShellPropIds&)
+    let ammoHolderInfo = find_smallest_holder_with_enough_bullets(item_container,
+                                                                  ammo_to_reload,
+                                                                  gun__wishAmmoItemType,
+                                                                  gun__ammoHolderIds,
+                                                                  gun__maxAmmo)
+    if ammoHolderInfo.itemContainerId < 0
+      return
+
+    let itemEid = item_container[ammoHolderInfo.itemContainerId]
+
+    // we are loading in a new shell
+    // if item has none - use the first one of the weapon
+    gun_shell_props = length(gun__shell_prop_ids) > 0 ? gun__shell_prop_ids[0] : ShellPropIds()
+    query(itemEid) <| $ [es] (shell_props aka item_shell_props : ShellPropIds)
+      // if an item has one - use that
+      gun_shell_props = item_shell_props
+    gun__curShellId = shell_props
+
+    // save gun_ammo cause CmdLoadAmmo will change it
+    let newAmmoCount = gun__ammo + ammo_to_reload
+
+    sendEventImmediate(gun_eid, [[CmdLoadAmmo ammoNum=newAmmoCount]])
+
+    if is_server()
+      if ammoHolderInfo.holderId != INVALID_ITEM_ID
+        set_ammo_holder(gun_eid, itemEid)
+      if mode == ReloadAmmoMode CONSUME
+        item_container |> erase(ammoHolderInfo.itemContainerId)
+        destroyEntity(gun__ammoHolderEid)
+        let ammoLeftInHolder = ammoHolderInfo.ammo - ammo_to_reload
+        if ammoLeftInHolder > 0 && ammoHolderInfo.holderId != INVALID_ITEM_ID
+          put_ammo_to_container(ammoLeftInHolder, itemEid, owner)
+        elif ammoHolderInfo.holderId == INVALID_ITEM_ID
+          destroyEntity(itemEid)
+      elif itemEid != gun__ammoHolderEid
+        // We have infinite ammo holders and just changed ammo holder, destroy old one.
+        destroyEntity(gun__ammoHolderEid)
+
+    reloaded = true
+  return reloaded

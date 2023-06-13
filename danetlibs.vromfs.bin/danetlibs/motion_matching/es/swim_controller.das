@@ -21,15 +21,6 @@ def motion_matching_watch_swim(event : Event;
   set_tag(motion_matching__optionalTags, human_net_phys__isUnderwater, "swim_underwater")
 
 
-[es(tag=gameClient, before=motion_matching_job_es)]
-def update_mm_progress(act : ParallelUpdateFrameDelayed;
-                       var motion_matching__blendProgressToAnimtree : float&;
-                       motion_matching__blendTimeToAnimtree : float;
-                       motion_matching__enabled : bool)
-  let dt = motion_matching__enabled ? act.dt : -act.dt
-  motion_matching__blendProgressToAnimtree = saturate(motion_matching__blendProgressToAnimtree + dt / motion_matching__blendTimeToAnimtree)
-
-
 [es(tag=gameClient, before=mm_lod_selector)]
 def update_mm_trajectory(act : ParallelUpdateFrameDelayed;
                          animchar : AnimcharBaseComponent;

@@ -15,6 +15,14 @@ enum ContextCommand {  // context_command_common::ContextCommand
 }
 let ContextCommand_COUNT = 10
 
+enum HitResult {  // hit_result_common::HitResult
+  HIT_RES_NONE = 0
+  HIT_RES_NORMAL = 1
+  HIT_RES_DOWNED = 2
+  HIT_RES_KILLED = 3
+}
+let HitResult_COUNT = 4
+
 enum MedicHealState {  // medic_common::MedicHealState
   MHS_NONE = 0
   MHS_NEED_HEAL = 1
@@ -67,6 +75,8 @@ let CanTerraformCheckResult_COUNT = 4
 return {
   ContextCommand
   ContextCommand_COUNT
+  HitResult
+  HitResult_COUNT
   MedicHealState
   MedicHealState_COUNT
   SquadBehaviour

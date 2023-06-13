@@ -1,35 +1,39 @@
 from "%darg/ui_imports.nut" import *
+let { colPart } = require("%enlSqGlob/ui/designConst.nut")
 
-let tactical_font = freeze({ font = Fonts.tactical, fontSize = fsh(1.944) })
+let tactical_font = freeze({
+  font = Fonts.tactical
+  fontSize = colPart(0.354)//fsh(1.944) //21px
+})
 
 let tiny_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.203)
+  fontSize = colPart(0.193) //fsh(1.203) //13px
 })
 
 let sub_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(1.481)
+  fontSize = colPart(0.258) //fsh(1.481) //16px
 })
 let body_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.037)
+  fontSize = colPart(0.354) //fsh(2.037) //22px
 })
 let h2_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(2.407)
+  fontSize = colPart(0.42)//fsh(2.407) //26px
 })
 let h1_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(3.2)
+  fontSize = colPart(0.564)//fsh(3.2) //34.5px
 })
 let h0_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(4.6)
+  fontSize = colPart(0.806)//fsh(4.6) //49.68px
 })
 let giant_txt = freeze({
   font = Fonts.trebuchet
-  fontSize = fsh(5.7)
+  fontSize = colPart(1)//fsh(5.7) //61.56px
 })
 
 let body_bold_txt = freeze({
@@ -51,7 +55,7 @@ let tiny_bold_txt = freeze({
 
 let fontawesome = freeze({
   font = Fonts.fontawesome
-  fontSize = fsh(1.944)
+  fontSize = colPart(0.338)//fsh(1.944) //21px
 })
 
 return {

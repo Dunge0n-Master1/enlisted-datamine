@@ -2,10 +2,11 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { settings, onlineSettingUpdated } = require("%enlist/options/onlineSettings.nut")
 let { curArmiesList, itemsByArmies } = require("%enlist/meta/profile.nut")
-let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad } = require("state.nut")
+let { chosenSquadsByArmy, armoryByArmy, soldiersBySquad, canChangeEquipmentInSlot } = require("state.nut")
 let { equipSchemesByArmy } = require("all_items_templates.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
 let { debounce } = require("%sqstd/timers.nut")
+let { trimUpgradeSuffix } = require("%enlSqGlob/ui/itemsInfo.nut")
 
 const SEEN_ID = "seen/weaponry"
 let SLOTS = ["primary", "side"]
@@ -96,6 +97,20 @@ let slotsLinkTiers = Computed(function() {
   return res
 })
 
+let unseenUpgradesByWeapon = Computed(function() {
+  let res = {}
+  foreach (armyId, data in unseenTiers.value) {
+    res[armyId] <- {}
+    foreach (weaponTpl, _unseenTier in data.byTpl) {
+      let basicTpl = trimUpgradeSuffix(weaponTpl)
+      if (basicTpl not in res[armyId])
+        res[armyId][basicTpl] <- {}
+      res[armyId][basicTpl][weaponTpl] <- true
+    }
+  }
+  return res
+})
+
 let function recalcUnseen() {
   let unseenArmies = {}
   let unseenSquads = {}
@@ -115,7 +130,8 @@ let function recalcUnseen() {
         let unseenSoldier = {}
         foreach (slotId, tier in unseenSlots)
           if (tier > (armyLinkTiers?[soldier.guid][slotId] ?? -1)
-              && !(classLocks?[soldier?.sClass] ?? []).contains(slotId))
+              && !(classLocks?[soldier?.sClass] ?? []).contains(slotId)
+              && canChangeEquipmentInSlot(soldier?.sClass, slotId))
             unseenSoldier[slotId] <- true
         if (unseenSoldier.len() == 0)
           continue
@@ -192,6 +208,7 @@ return {
   unseenArmiesWeaponry
   unseenSquadsWeaponry
   unseenSoldiersWeaponry
+  unseenUpgradesByWeapon
 
   markWeaponrySeen
   markNotFreeWeaponryUnseen

@@ -10,6 +10,7 @@ let { customProfilePath } = require("%ui/hud/state/custom_profile.nut")
 let { get_setting_by_blk_path } = require("settings")
 let { has_network } = require("net")
 let { client_request_unicast_net_sqevent } = require("ecs.netevent")
+let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let logAd = require("%enlSqGlob/library_logs.nut").with_prefix("[ARMY_DATA] ")
 
 let { app_is_offline_mode } = require("app")
@@ -88,4 +89,4 @@ ecs.register_es("player_army_id_es",
 
 console_register_command(requestMySquadsDataFromDedicated, "debug.updateArmyDataFromDedicated")
 
-return Computed(@() armiesData.value?[armyId.value] ?? devArmiesData?[armyId.value] ?? {})
+return Computed(@() isReplay.value ? {} : armiesData.value?[armyId.value] ?? devArmiesData?[armyId.value] ?? {})

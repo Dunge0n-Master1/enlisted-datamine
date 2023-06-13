@@ -19,6 +19,7 @@ require game.es.respawn_camera_common
 require DagorMath
 require math.base
 require game.events_game
+require game.es.stat_bq_common
 
 [es(tag=server, no_order)]
 def kick_paratroopers(info : UpdateStageInfoAct;
@@ -160,6 +161,11 @@ def spawn_paratroopers_squad(evt : Event;
       memberId=paratroopers_aircraft__memberId,
       respawnGroupId=respawnGroupId, existedVehicleEid=eid
     ]])
+
+[es(tag=server, on_appear)]
+def delete_aircaft_spawn_point_after_appear(evt : Event; eid : EntityId; team : int)
+  query(get_team_eid(team)) <| $ [es] (var paratroopersAircraftSpawnPoints : Object&)
+    erase(paratroopersAircraftSpawnPoints, string(uint(eid)))
 
 
 [es(tag=gameClient)]

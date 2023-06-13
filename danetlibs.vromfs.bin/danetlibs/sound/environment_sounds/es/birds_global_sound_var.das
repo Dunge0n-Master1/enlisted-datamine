@@ -7,13 +7,13 @@ require sound_utils_net.modules.sound_utils_net_events
 require DagorMath
 
 
-[es(tag=sound, track=sound_bank_preset_state__isValid)]
+[es(tag=sound, track=sound_banks_state__isPresetLoaded)]
 def birds_sound_toggle(evt : Event;
-                       sound_bank_preset_state__isValid : bool;
+                       sound_banks_state__isPresetLoaded : bool;
                        birds_global_sound_var__name : string;
                        var birds_global_sound_var__id : SoundVarId&;
                        var birds_global_sound_var__value : float&)
-  if sound_bank_preset_state__isValid
+  if sound_banks_state__isPresetLoaded
     birds_global_sound_var__id = get_var_id_global(birds_global_sound_var__name)
     if !birds_global_sound_var__id
       sound_debug("birds \"{birds_global_sound_var__name}\" global var is missing: should remove template from scene")

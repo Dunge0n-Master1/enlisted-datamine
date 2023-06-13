@@ -6,13 +6,13 @@ let { bigPadding, smallPadding, blurBgFillColor, blurBgColor, multySquadPanelSiz
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 
-let defSquadCardCtor = @(squad, idx) mkSquadCard({idx = idx}.__update(squad), KWARG_NON_STRICT)
+let defSquadCardCtor = @(squad, idx) mkSquadCard({idx}.__update(squad), KWARG_NON_STRICT)
 
-let mkSquadsVert = kwarg(@(squads, ctor = defSquadCardCtor, addedObj = null) {
+let mkSquadsVert = @(squads) {
   flow = FLOW_VERTICAL
   gap = bigPadding
-  children = squads.map(ctor).append(addedObj)
-})
+  children = squads.map(defSquadCardCtor)
+}
 
 let mkSquadsList = kwarg(@(
   curSquadsList, curSquadId, setCurSquadId, addedObj = null, createHandlers = null, bgOverride = {}
@@ -30,7 +30,7 @@ let mkSquadsList = kwarg(@(
   createHandlers?(squadsList)
   local children = []
   if (squadsList.len() > 0) {
-    let listComp = mkSquadsVert({ squads = squadsList })
+    let listComp = mkSquadsVert(squadsList)
     let maxHeight = calc_comp_size(listComp)[1]
     children = [
       note(loc("squads/battle")).__update({ size = [multySquadPanelSize[0], SIZE_TO_CONTENT] })
@@ -53,6 +53,7 @@ let mkSquadsList = kwarg(@(
       canFocus = @() false
       scrollSpeed = 10.0
       isViewport = true
+      wrap = false
       scrollToEdge = true
     })
     children

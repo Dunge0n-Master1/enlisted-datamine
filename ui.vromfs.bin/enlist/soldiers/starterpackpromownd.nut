@@ -9,7 +9,7 @@ let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
 let { mkCurrencyImg } = require("%enlist/currency/currenciesComp.nut")
 let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
-let { utf8ToUpper, utf8ToLower } = require("%sqstd/string.nut")
+let { utf8ToUpper } = require("%sqstd/string.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let { kindIcon, className } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
@@ -40,19 +40,12 @@ let weaponBlockSize = [hdpx(330), hdpx(110)]
 
 
 let starterPack = Watched(null)
-let crateContent = Computed(function() {
-  let sPack = starterPack.value
-  if (sPack != null)
-    return shopItemContentArrayCtor(starterPack.value).value
-  return []
-})
+let crateContent = shopItemContentArrayCtor(starterPack)
 
 
-let headerTxtStyle = { color = titleTxtColor }.__update(h1_txt)
-let blockHeaderStyle = { color = accentTitleTxtColor }.__update(h2_txt)
-let defTxtStyle = { color = titleTxtColor }.__update(body_txt)
-let bottomGradient = mkColoredGradientY(0x00000000, 0xFF000000, 12)
-
+let blockHeaderStyle = freeze({ color = accentTitleTxtColor }.__update(h2_txt))
+let defTxtStyle = freeze({ color = titleTxtColor }.__update(body_txt))
+let bottomGradient = mkColoredGradientY({colorTop=0x00000000, colorBottom=0xFF000000})
 
 let mkTextArea = @(text, override = {}) {
   rendObj = ROBJ_TEXTAREA
@@ -62,8 +55,11 @@ let mkTextArea = @(text, override = {}) {
 }.__update(override)
 
 
-let closeButton = closeBtnBase({ onClick = @() starterPack(null), hplace = ALIGN_RIGHT,
-  vplace = ALIGN_TOP})
+let closeButton = closeBtnBase({
+  onClick = @() starterPack(null),
+  hplace = ALIGN_RIGHT,
+  vplace = ALIGN_TOP
+})
 
 let wndHeader = mkHeaderFlag(
   {
@@ -86,7 +82,7 @@ let headerWndBlock = {
       watch = starterPack
       rendObj = ROBJ_TEXT
       padding = bigPadding
-      text = loc(starterPack.value.nameLocId)
+      text = loc(starterPack.value?.nameLocId)
     }.__update(defTxtStyle)
   ]
 }
@@ -97,7 +93,7 @@ let blockHeader = @(text) mkTextArea(text, blockHeaderStyle)
 
 let currencyText = mkTextArea(loc("enlistedGold", {
   count = colorize(accentTitleTxtColor, ENLISTED_GOLD_BONUS)}), defTxtStyle)
-let premiumText = @(days) days <= 0 ? ""
+let premiumText = @(days) days <= 0 ? null
   : mkTextArea(loc("premium/days", { days = colorize(accentTitleTxtColor, days)}), defTxtStyle)
 
 
@@ -164,7 +160,7 @@ let function mkSoldierInfo(crate) {
     if (locId != "")
       res.append({
         sClass = sClass
-        sortLoc = utf8ToLower(loc(locId))
+        sortLoc = loc(locId)
       })
     return res
   }, [])
@@ -204,14 +200,11 @@ let mkItemRow = @(item) {
 }
 
 
-local itemsInfo = @(crate) function() {
-  if (crate == null)
-    return null
+let itemsInfo = @(crate) (crate == null || (crate?.content.items ?? {}).len() == 0) ? null
+  : function() {
   let { armyId = null, content = null } = crate
   let { items = {} } = content
-  if (items.len() <= 0)
-    return null
-  local children = items.keys().reduce(function(res, val) {
+  let children = items.keys().reduce(function(res, val) {
       let item = findItemTemplate(allItemTemplates, armyId, val)
       if (item != null && item?.tier == null)
         res.append(mkItemRow(item))
@@ -235,21 +228,26 @@ local itemsInfo = @(crate) function() {
   }
 }
 
+let featuresGap = {
+  size = [hdpx(1), flex()]
+  rendObj = ROBJ_SOLID
+  color = 0xCCFFFFFF
+}
 
 let featuresBlock = @() {
   watch = crateContent
   size = [flex(), hdpx(180)]
   flow = FLOW_HORIZONTAL
-  gap = {
-    size = [hdpx(1), flex()]
-    rendObj = ROBJ_SOLID
-    color = 0xCCFFFFFF
-  }
+  gap = featuresGap
   children = [accountFeatures]
     .extend(crateContent.value.map(mkSoldierInfo))
     .append(itemsInfo(crateContent.value?[0]))
 }
 
+let cratePlusSign = faComp("plus", {
+  color = defTxtStyle.color
+  fontSize = defTxtStyle.fontSize
+})
 
 let mkCrateWeapon = @(crate) function() {
   let { armyId = null, content = {} } = crate
@@ -267,64 +265,63 @@ let mkCrateWeapon = @(crate) function() {
     gap = {
       padding = bigPadding
       vplace = ALIGN_CENTER
-      children = faComp("plus", {
-        color = defTxtStyle.color
-        fontSize = defTxtStyle.fontSize
-      })
+      children = cratePlusSign
     }
-    children = weapons.map(@(w) {
-      size = [flex(), SIZE_TO_CONTENT]
-      flow = FLOW_VERTICAL
-      gap = bigPadding
-      halign = ALIGN_CENTER
-      children = [
-        watchElemState(@(sf){
-          rendObj = ROBJ_BOX
-          size = weaponBlockSize
-          behavior = Behaviors.Button
-          onClick = function() {
-            let itemToView = mkShopItem(w.itemId, w, armyId)
-            viewItemScene(itemToView)
-          }
-          borderWidth = hdpx(1)
-          halign = ALIGN_CENTER
-          valign = ALIGN_CENTER
-          fillColor = sf & S_HOVER ? 0x00333333 : 0xFF000000
-          borderColor = sf & S_HOVER ? titleTxtColor : defTxtColor
-          children = [
-            iconByGameTemplate(w.gametemplate, {
-              width = weaponBlockSize[0]/1.5
-              height = weaponBlockSize[1]
-            })
-            weapInfoBtn(sf)
-          ]
-        })
-        {
-          rendObj = ROBJ_TEXTAREA
-          behavior = Behaviors.TextArea
-          size = [flex(), SIZE_TO_CONTENT]
-          text = getItemName(w)
-          halign = ALIGN_CENTER
-        }.__update(defTxtStyle)
-      ]
+    children = weapons.map(function(w) {
+      let itemToView = mkShopItem(w.itemId, w, armyId)
+      let icon = iconByGameTemplate(w.gametemplate, {
+        width = weaponBlockSize[0]/1.5
+        height = weaponBlockSize[1]
+      })
+      return {
+        size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        gap = bigPadding
+        halign = ALIGN_CENTER
+        children = [
+          watchElemState(@(sf){
+            rendObj = ROBJ_BOX
+            size = weaponBlockSize
+            behavior = Behaviors.Button
+            onClick = function() {
+              viewItemScene(itemToView)
+            }
+            borderWidth = hdpx(1)
+            halign = ALIGN_CENTER
+            valign = ALIGN_CENTER
+            fillColor = sf & S_HOVER ? 0x00333333 : 0xFF000000
+            borderColor = sf & S_HOVER ? titleTxtColor : defTxtColor
+            children = [
+              icon
+              weapInfoBtn(sf)
+            ]
+          })
+          {
+            rendObj = ROBJ_TEXTAREA
+            behavior = Behaviors.TextArea
+            size = [flex(), SIZE_TO_CONTENT]
+            text = getItemName(w)
+            halign = ALIGN_CENTER
+          }.__update(defTxtStyle)
+        ]
+      }
     })
   }
 }
 
+let weaponsPlusSign = faComp("plus", {
+  color = accentTitleTxtColor
+  fontSize = h1_txt.fontSize
+  pos = [0, weaponBlockSize[1]/2 - h1_txt.fontSize / 2]
+  padding = [0, smallBlockPadding]
+})
 
 let function weaponsBlock() {
   let hasNoItem = crateContent.value.findvalue(@(v) (v?.content.items.len() ?? 0) > 0) == null
   return {
     watch = crateContent
     flow = FLOW_HORIZONTAL
-    gap = {
-      padding = [0, smallBlockPadding]
-      children = faComp("plus", {
-        color = accentTitleTxtColor
-        fontSize = headerTxtStyle.fontSize
-        pos = [0, weaponBlockSize[1]/2 - headerTxtStyle.fontSize / 2]
-      })
-    }
+    gap = weaponsPlusSign
     children = hasNoItem ? null : crateContent.value.map(mkCrateWeapon)
   }
 }
@@ -372,7 +369,7 @@ let wndContent = {
       watch = starterPack
       rendObj = ROBJ_IMAGE
       size = [wndContentWidth, flex()]
-      image = Picture(starterPack.value.image)
+      image = Picture(starterPack.value?.image ?? "ui/gameImage/premium_bg.avif")
       imageValign = ALIGN_TOP
       keepAspect = true
     }
@@ -383,9 +380,10 @@ let wndContent = {
       vplace = ALIGN_BOTTOM
     }
     @() {
-      watch = safeAreaVerPadding
+      watch = [safeAreaVerPadding, safeAreaHorPadding]
       size = flex()
       padding = [max(safeAreaVerPadding.value, fsh(2)), max(safeAreaHorPadding.value, fsh(2))]
+      margin = [0, 0, hdpx(40), 0]
       vplace = ALIGN_BOTTOM
       halign = ALIGN_CENTER
       children = [

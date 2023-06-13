@@ -36,6 +36,33 @@ attachable_wear_snif_pants_item{
   collres__res:t="snif_pants_collision"
 }
 
+attachable_wear_snif_pants_dgreen_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_dgreen_tex_d*"
+  }
+}
+
+attachable_wear_snif_pants_gray_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_gray_tex_d*"
+  }
+}
+
+attachable_wear_snif_pants_yellow_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_yellow_tex_d*"
+  }
+}
+
 attachable_wear_snif_pants_w_parachute_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_snif_pants_w_parachute_item"
@@ -43,6 +70,39 @@ attachable_wear_snif_pants_w_parachute_item{
   collres__res:t="snif_pants_w_parachute_collision"
   item__replaceOnParachuteOpen:t="attachable_wear_snif_pants_item"
   item__replaceOnSpawnOnGround:t="attachable_wear_snif_pants_item"
+}
+
+attachable_wear_snif_pants_dgreen_w_parachute_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_pants_dgreen_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_pants_dgreen_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_dgreen_tex_d*"
+  }
+}
+
+attachable_wear_snif_pants_gray_w_parachute_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_pants_gray_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_pants_gray_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_gray_tex_d*"
+  }
+}
+
+attachable_wear_snif_pants_yellow_w_parachute_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_snif_pants_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_pants_yellow_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_pants_yellow_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_pants_tex_d*":t="snlf_outfit_pants_yellow_tex_d*"
+  }
 }
 
 attachable_wear_jap_type98_trousers_w_boots_t98_tunic_item{
@@ -345,6 +405,33 @@ attachable_wear_snif_tunic_item{
   collres__res:t="snif_tunic_collision"
 }
 
+attachable_wear_snif_tunic_dgreen_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_dgreen_tex_d*"
+  }
+}
+
+attachable_wear_snif_tunic_gray_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_gray_tex_d*"
+  }
+}
+
+attachable_wear_snif_tunic_yellow_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_yellow_tex_d*"
+  }
+}
+
 attachable_wear_snif_tunic_w_parachute_item{
   _extends:t="attachable_tunic"
   item__uniqueName:t="attachable_wear_snif_tunic_w_parachute_item"
@@ -352,6 +439,39 @@ attachable_wear_snif_tunic_w_parachute_item{
   collres__res:t="snif_tunic_w_parachute_collision"
   item__replaceOnParachuteOpen:t="attachable_wear_snif_tunic_item"
   item__replaceOnSpawnOnGround:t="attachable_wear_snif_tunic_item"
+}
+
+attachable_wear_snif_tunic_dgreen_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_tunic_dgreen_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_tunic_dgreen_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_dgreen_tex_d*"
+  }
+}
+
+attachable_wear_snif_tunic_gray_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_tunic_gray_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_tunic_gray_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_gray_tex_d*"
+  }
+}
+
+attachable_wear_snif_tunic_yellow_w_parachute_item{
+  _extends:t="attachable_tunic"
+  _extends:t="attachable_wear_snif_tunic_w_parachute_item"
+  item__replaceOnParachuteOpen:t="attachable_wear_snif_tunic_yellow_item"
+  item__replaceOnSpawnOnGround:t="attachable_wear_snif_tunic_yellow_item"
+
+  "animchar__objTexReplace:object"{
+    "snlf_outfit_jacket_tex_d*":t="snlf_outfit_jacket_yellow_tex_d*"
+  }
 }
 
 attachable_wear_jap_half_sleeve_shirt_item{
@@ -400,6 +520,18 @@ attachable_wear_jap_type98_coat_item{
   animchar__res:t="jap_type98_coat_char"
   collres__res:t="jap_type98_coat_collision"
   animchar_fast_phys__res:t="jap_type98_coat_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_jap_jungle_camouflage_t98_tunic_item{
+  _extends:t="attachable_tunic"
+  item__uniqueName:t="attachable_wear_jap_jungle_camouflage_t98_tunic_item"
+  animchar__res:t="jap_jungle_camouflage_t98_tunic_char"
+  collres__res:t="jap_jungle_camouflage_t98_tunic_collision"
+  animchar_fast_phys__res:t="jap_jungle_camouflage_t98_tunic_fastphys"
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -484,6 +616,23 @@ attachable_wear_jap_type90_helmet_sniper_squad_item{
 
   animchar_fast_phys{
     _tags:t="gameClient"
+  }
+}
+
+attachable_wear_jap_t90_helmet_w_net_grass_camo_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="jap_t90_helmet_w_net_grass_camo_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_jap_t90_helmet_w_net_grass_camo_item"
+  animchar_fast_phys__res:t="jap_t90_helmet_w_net_grass_camo_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "skeleton_attach__remapParentSlots:list<t>"{
+    slot:t="head"
+    slot:t="face"
   }
 }
 

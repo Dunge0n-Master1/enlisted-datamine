@@ -1,17 +1,17 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { purchaseUserLogs, UserLogType } = require("userLogState.nut")
-let { mkUserLogHeader, mkRowText, rowStyle, userLogStyle, userLogRowStyle, borderColor
+let { mkUserLogHeader, mkRowText, rowStyle, userLogStyle, userLogRowStyle
 } = require("userLogPkg.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { bigPadding , accentTitleTxtColor, defTxtColor, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { accentTitleTxtColor} = require("%enlSqGlob/ui/viewConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { tierText } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-
+let { accentColor, smallPadding, defTxtColor, hoverSlotBgColor, panelBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 let selectedIdx = Watched(0)
 
@@ -76,7 +76,7 @@ let mkPurchaseLogRows = @(uLogRows, allTpl) {
   children = uLogRows.map(@(row) purchaseRowView?[row?.logType](row, allTpl))
 }.__update(userLogRowStyle)
 
-let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected) {
+let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected, sf) {
   let { nameLocId = "Undefined" } = shopItem
   let shortItemTitle = utf8ToUpper(loc(nameLocId).split("\r\n")?[0] ?? "")
   return {
@@ -84,11 +84,12 @@ let function mkPurchaseLog(uLog, shopItem, allTpl, isSelected) {
       mkUserLogHeader(isSelected, uLog.logTime,
         loc("userLog/purchase", {
           name = shortItemTitle
-        }))
+        }), sf)
       isSelected && uLog?.rows ? mkPurchaseLogRows(uLog.rows, allTpl) : null
     ]
   }.__update(userLogStyle)
 }
+let selectedColor = mul_color(panelBgColor, 1.5)
 let function mkLog(uLog, idx, sItems, allTpl) {
   let shopItem = sItems?[uLog.shopItemId]
   if (shopItem == null)
@@ -101,9 +102,13 @@ let function mkLog(uLog, idx, sItems, allTpl) {
     size = [flex(), SIZE_TO_CONTENT]
     behavior = Behaviors.Button
     onClick = @() selectedIdx(idx)
-    borderColor = borderColor(sf, isSelected.value)
-    borderWidth = hdpx(1)
-    children = mkPurchaseLog(uLog, shopItem, allTpl, isSelected.value)
+    xmbNode = XmbNode()
+    borderColor = accentColor
+    fillColor = sf & S_HOVER
+      ? hoverSlotBgColor
+      : isSelected.value ? selectedColor : panelBgColor
+    borderWidth = isSelected.value ? [0, 0, hdpx(2), 0] : 0
+    children = mkPurchaseLog(uLog, shopItem, allTpl, isSelected.value, sf)
   })
 }
 
@@ -114,7 +119,14 @@ return function() {
     watch = [purchaseUserLogs, shopItems, allItemTemplates]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = hdpx(2)
+    //gap = bigPadding
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      wrap = false
+      scrollSpeed = 10.0
+      isViewport = true
+    })
     children = purchaseUserLogs.value.map(@(uLog, idx) mkLog(uLog, idx, sItems, allTpl))
   }
 }

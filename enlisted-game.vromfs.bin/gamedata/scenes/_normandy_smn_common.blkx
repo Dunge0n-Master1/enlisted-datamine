@@ -48,7 +48,10 @@ entity{
 
 entity{
   _template:t="wind"
-  wind__strength:r=2.0
+  wind__strength:r=4.0
+  wind__noiseStrength:r=3.0
+  wind__noiseSpeed:r=1.0
+  wind__noiseScale:r=25.0
 }
 
 entity{

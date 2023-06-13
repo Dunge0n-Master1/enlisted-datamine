@@ -136,18 +136,20 @@ let mkSoldierName = @(soldier, isLocalPlayer) isLocalPlayer && (soldier?.callnam
 
 let mkBattleHeroArmyMult = @(mult) txt({text=$"x{mult}", color=awardMultTxtColor})
 
-let mkHeroes = @(heroes, isExpReceived) {
+let mkHeroes = @(heroes, isExpReceived, localPlayerGroupMembers) {
   flow = FLOW_HORIZONTAL
   size = SIZE_TO_CONTENT
   gap = hdpx(18)
   children = heroes.map(function(hero) {
     let {
-      isFinished = true, awards = [], playerName = "", nickFrame = "",
+      isFinished = true, awards = [], playerName = "", nickFrame = "", playerEid = null,
       portrait = "", isLocalPlayer = false, soldier = null, expMult = 1.0, playerRank = 0
     } = hero
-    let playerNameTxt = frameNick(isLocalPlayer? userInfo.value?.nameorig : remap_nick(playerName), nickFrame)
+    let name = isLocalPlayer
+      ? userInfo.value?.nameorig
+      : remap_nick(playerName, (playerEid ?? 0).tostring() not in localPlayerGroupMembers)
     let heroesObjects = [
-      mkBattleHeroPlayerNameText(playerNameTxt, isLocalPlayer)
+      mkBattleHeroPlayerNameText(frameNick(name, nickFrame), isLocalPlayer)
       portrait == ""
         ? mkBattleHeroPhoto(soldier, isFinished, playerRank)
         : mkBattleHeroPortrait(portrait, playerRank)

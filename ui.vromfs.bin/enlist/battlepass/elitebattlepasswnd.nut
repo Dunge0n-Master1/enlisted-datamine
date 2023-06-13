@@ -17,7 +17,7 @@ let { seasonIndex } = require("bpState.nut")
 let { elitePassItem, canBuyBattlePass, hasEliteBattlePass, isPurchaseBpInProgress
 } = require("eliteBattlePass.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -185,7 +185,7 @@ let bpPurchaseSpinner = {
   size = btnSize
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
-  children = spinner
+  children = spinner(hdpx(35))
 }
 
 let btnBlock = {
@@ -222,6 +222,7 @@ let eliteBattlePassWnd = @(){
   size = flex()
   watch = [safeAreaBorders, showingItem, isOpened]
   padding = [safeAreaBorders.value[0] + hdpx(30), safeAreaBorders.value[1] + hdpx(25)]
+  behavior = Behaviors.MenuCameraControl
   children = [
     {
       hplace = ALIGN_RIGHT

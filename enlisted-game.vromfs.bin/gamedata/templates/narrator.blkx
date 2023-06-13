@@ -419,6 +419,28 @@ team_narrator_assault_attack{
       cooldown:r=2.0
     }
 
+    "bombPlanting:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_installing_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_installing_enemy"
+      cooldown:r=5.0
+    }
+
+    "bombPlanted:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_installed_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_installed_enemy"
+    }
+
+    "bombDefusing:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_deactivating_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_deactivating_enemy"
+      cooldown:r=5.0
+    }
+
+    "bombDefused:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_deactivated_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_deactivated_enemy"
+    }
+
     "bombersComing:object"{
       enemy:t="vo/ui/enlisted/narrator/enemy_bombers_coming"
       cooldown:r=2.0
@@ -499,6 +521,28 @@ team_narrator_assault_defence{
     "leftBattleArea:object"{
       path:t="vo/ui/enlisted/narrator/leave_area_warn"
       cooldown:r=2.0
+    }
+
+    "bombPlanting:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_installing_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_installing_enemy"
+      cooldown:r=5.0
+    }
+
+    "bombPlanted:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_installed_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_installed_enemy"
+    }
+
+    "bombDefusing:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_deactivating_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_deactivating_enemy"
+      cooldown:r=5.0
+    }
+
+    "bombDefused:object"{
+      ally:t="vo/ui/enlisted/narrator/explosive_deactivated_ally"
+      enemy:t="vo/ui/enlisted/narrator/explosive_deactivated_enemy"
     }
 
     "bombersComing:object"{

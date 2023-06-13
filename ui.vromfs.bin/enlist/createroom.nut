@@ -5,7 +5,7 @@ from "modFiles.nut" import USER_MODS_FOLDER, MODS_EXT, BASE_URL, statusText, isS
 
 let { debounce } = require("%sqstd/timers.nut")
 let eventbus = require("eventbus")
-let json = require("json")
+let { parse_json } = require("json")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let {h2_txt, body_txt, sub_txt} = require("%enlSqGlob/ui/fonts_style.nut")
 let {checkMultiplayerPermissions} = require("permissions/permissions.nut")
@@ -28,7 +28,7 @@ let {scan_folder, file_exists} = require("dagor.fs")
 let {request_ugm_manifest} = require("game_load")
 let { logerr } = require("dagor.debug")
 let http = require("dagor.http")
-let spinner = require("%ui/components/spinner.nut")({height=hdpx(80)})
+let spinner = require("%ui/components/spinner.nut")
 let {getBaseFromManifestUrl, getHashesFromManifest, requestModFiles} = require("%enlSqGlob/game_mods.nut")
 let { send_counter } = require("statsd")
 let {nestWatched} = require("%dngscripts/globalState.nut")
@@ -41,6 +41,7 @@ let groupSizes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 let usePassword = nestWatched("usePassword", false)
 let password = nestWatched("password", "")
 let focusedField = Watched(null)
+let waitingSpinner = spinner()
 
 let function createRoomCb(response) {
   if (response.error != 0) {
@@ -91,13 +92,13 @@ let function requestManifest(url) {
 }
 eventbus.subscribe(MANIFEST_EVENT, tryCatch(function(response){
   let { status, http_code } = response
-  if (status != http.SUCCESS || http_code == null
+  if (status != http.HTTP_SUCCESS || http_code == null
       || http_code < 200 || 300 >= http_code) {
     send_counter("manifest_request_receive_errors", 1, { http_code })
     log("status = ", statusText?[status], "http_code = ", http_code)
     throw("haven't received manifest")
   }
-  let man = json.parse(response.body.as_string())
+  let man = parse_json(response.body.as_string())
   manifest(man)
 },function(e) {
   log(e)
@@ -173,7 +174,7 @@ eventbus.subscribe(FILE_EXISTS_ON_SERVER_EVENT, function(response){
     return
   try{
     let { status, http_code } = response
-    if (status != http.SUCCESS || http_code == null
+    if (status != http.HTTP_SUCCESS || http_code == null
       || http_code < 200 || 300 >= http_code) {
       send_counter("file_request_receive_errors", 1, { http_code })
       log($"couldn't get file '{hash}' data from live,  request status = ", statusText?[status], "http_code =", http_code)
@@ -208,7 +209,7 @@ let function jsonSafeParse(v){
   if (v=="")
     return null
   try{
-   return json.parse(v)
+   return parse_json(v)
   }
   catch(e) {
     logerr(e)
@@ -536,7 +537,7 @@ let function createRoomWnd() {
           children.append(createRoomBtn)
 
         if (curModHashesWaiting.value)
-          children.append(spinner)
+          children.append(waitingSpinner)
         else if (!curModHashesOk.value)
           children.append(txt(loc("modFilesAreNotAvailableOnline")))
 

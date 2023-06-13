@@ -3,6 +3,7 @@ require soundEvent
 require game.events_game
 require RendInst
 
+
 [es(tag=sound, REQUIRE=humanSound)]
 def rendinst_projectile_damage_sound(evt : CmdRendinstDamage)
   let riExtraEid = find_ri_extra_eid(evt.handle)

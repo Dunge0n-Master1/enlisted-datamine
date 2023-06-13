@@ -32,6 +32,7 @@ let PROMO_GAP = fsh(2)
 let DESC_WIDTH = fsh(120) - PROMO_WIDTH
 let DESC_PADDING = hdpx(20)
 let IMAGE_WIDTH = DESC_WIDTH - DESC_PADDING * 2
+let waitingSpinner = spinner()
 
 let header_txt = { font = Fonts.trebuchet, fontSize = fsh(2.78) }
 let text_txt = { font = Fonts.trebuchet, fontSize = fsh(1.76) }
@@ -154,7 +155,7 @@ let descriptionLoading = freeze({
       rendObj = ROBJ_TEXT
       text = loc("Loading")
     }.__update(h1_txt)
-    spinner
+    waitingSpinner
   ]
 })
 

@@ -35,6 +35,7 @@ let localGap = bigPadding * 2
 let wreathSize = hdpx(24)
 let headerImgHeight = hdpx(150)
 let iconHeaderSize = hdpxi(30)
+let waitingSpinner = spinner()
 
 
 let styleByCategory = {
@@ -226,7 +227,7 @@ let function lbContent() {
   local children = null
   local valign = ALIGN_CENTER
   if (curLbData.value == null)
-    children = spinner
+    children = waitingSpinner
   else if (curLbData.value.len() == 0)
     children = exclamation(
       loc(curLbErrName.value != null ? $"error/{curLbErrName.value}" : "leaderboard/noLbData"))

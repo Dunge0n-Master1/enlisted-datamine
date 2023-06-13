@@ -87,7 +87,8 @@ base_train{
   pair_collision__tag:t="collidableToPhysObj"
   havePairCollision:b=no
   collisionGridTraceable:b=yes
-  hitmarks_victim__showUserHits:b=no
+  hitmarks_victim__group:t="train"
+  hitmarks_victim__groupId:i=-1
 
   grid_obj{
   }

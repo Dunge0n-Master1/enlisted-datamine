@@ -37,8 +37,6 @@ import:t="#content/common/gamedata/templates/entities.blk"
 import:t="#content/common/gamedata/templates/ai.blk"
 import:t="#content/common/gamedata/templates/vehicles.blk"
 import:t="*.pkg.entities.blk"
-import:t="#content/dev/gamedata/templates/*.pkg.entities.blk"
-import:t="#content/enlisted_pkg_dev/gamedata/templates/*.blk"
 import:t="e_normandy.pkg.entities.blk"
 import:t="aircraft.blk"
 import:t="ww2_aircraft.blk"
@@ -67,6 +65,8 @@ import:t="%danetlibs/gpu_benchmark/templates/graphics_autodetect.blk"
 import:t="%danetlibs/assets_import/templates/assets_import.blk"
 import:t="%danetlibs/ground_holes/templates/ground_holes.template.blk"
 import:t="%danetlibs/node_collapser/templates/node_collapser.template.blk"
+import_optional:t="#content/dev/gamedata/templates/*.pkg.entities.blk"
+import_optional:t="#content/enlisted_pkg_dev/gamedata/templates/*.blk"
 
 terraform{
   _extends:t="replicating"
@@ -157,7 +157,7 @@ digging_config{
   }
 
   _group{
-    tags:t="server"
+    _tags:t="server"
     digging_config__traceHeight:r=0.5
     digging_config__queryRIHalfHeight:r=1.25
   }
@@ -471,7 +471,16 @@ plane_base{
   _extends:t="resupply_vehicle"
   _extends:t="enlisted_vehicle_seats_restrictions"
   _extends:t="vehicle_decals"
-  hitmarks__showUserHits:b=yes
+
+  "hitmarks__groups:list<t>"{
+    group:t="vehicle"
+    group:t="plane"
+    group:t="infantry"
+    group:t="ship"
+  }
+
+  "hitmarks__groupsIds:list<i>"{
+  }
 
   "turret_control__hasAiGunners:tag"{
   }
@@ -986,6 +995,10 @@ background_menu_soldier{
   }
 
   animchar_attaches_bbox{
+    _tags:t="render"
+  }
+
+  animchar_attaches_bbox_precalculated{
     _tags:t="render"
   }
 
@@ -1654,7 +1667,7 @@ paraptroopers_respawner{
   respawner__paratroopersAircraftStartPointOffset:r=1000.0
   respawner__paratroopersAircraftEndPointOffset:r=4500.0
   respawner__paratroopersAircraftHeight:r=450.0
-  respawner__paratroopersAircraftSpawnDist:r=20.0
+  respawner__paratroopersAircraftSpawnDist:r=30.0
   respawner__paratroopersAircraftHeightOffset:r=10.0
   respawner__paratroopersAircraftHeightToDistanceOffsetMult:r=2.0
   respawner__paratroopersAircraftTemplate:t="plane_spawn_in_air+ai_aircraft+client_ai_aircraft+paratroopers_aircraft+requested_aircraft"
@@ -2190,17 +2203,21 @@ enlisted_player{
     scoring_player__killsByPlayer:i=0
     scoring_player__tankKills:i=0
     scoring_player__planeKills:i=0
+    scoring_player__aiPlaneKills:i=0
     scoring_player__captures:r=0.0
     scoring_player__soldierDeaths:i=0
     scoring_player__squadDeaths:i=0
     scoring_player__assists:i=0
     scoring_player__tankKillAssists:i=0
     scoring_player__planeKillAssists:i=0
+    scoring_player__aiPlaneKillAssists:i=0
     scoring_player__tankKillAssistsAsCrew:r=0.0
     scoring_player__planeKillAssistsAsCrew:r=0.0
+    scoring_player__aiPlaneKillAssistsAsCrew:r=0.0
     scoring_player__crewKillAssists:r=0.0
     scoring_player__crewTankKillAssists:r=0.0
     scoring_player__crewPlaneKillAssists:r=0.0
+    scoring_player__crewAiPlaneKillAssists:r=0.0
     scoring_player__attackKills:i=0
     scoring_player__defenseKills:i=0
     scoring_player__builtStructures:i=0
@@ -2209,7 +2226,9 @@ enlisted_player{
     scoring_player__builtGunTankKills:i=0
     scoring_player__builtGunTankKillAssists:i=0
     scoring_player__builtGunPlaneKills:i=0
+    scoring_player__builtGunAiPlaneKills:i=0
     scoring_player__builtGunPlaneKillAssists:i=0
+    scoring_player__builtGunAiPlaneKillAssists:i=0
     scoring_player__builtBarbwireActivations:i=0
     scoring_player__builtCapzoneFortificationActivations:i=0
     scoring_player__builtAmmoBoxRefills:i=0
@@ -2810,7 +2829,6 @@ ai_aircraft_crew_soldier_base{
   _extends:t="dummy_enlisted_base_soldier"
   _extends:t="soldier_human_equipment"
   _extends:t="human_simple_vehicle_anim"
-  _extends:t="stats_count_as_kill"
   _extends:t="disable_update"
   _extends:t="ger_summer_2"
   killLogName:t=""
@@ -3387,11 +3405,66 @@ settings_override_settings{
 
     "settings_override__graphicsSettings:object"{
     }
+
+    "settings_override__graphicsSettings_pc:object"{
+    }
+
+    "settings_override__graphicsSettings_xboxone:object"{
+    }
+
+    "settings_override__graphicsSettings_scarlett:object"{
+    }
+
+    "settings_override__graphicsSettings_ps4:object"{
+    }
+
+    "settings_override__graphicsSettings_ps5:object"{
+    }
+
+    "settings_override__graphicsSettings_nswitch:object"{
+    }
+
+    "settings_override__graphicsSettings_android:object"{
+    }
+
+    "settings_override__graphicsSettings_ios:object"{
+    }
   }
+}
+
+motion_blur_manager{
+
+  _group{
+    _tags:t="render"
+
+    "motion_blur:MotionBlur"{
+    }
+  }
+}
+
+motion_blur_settings{
+  motion_blur__mode:i=2
+
+  _group{
+    _track:b=yes
+    motion_blur__scale:r=1.0
+    motion_blur__velocityMultiplier:r=0.005
+    motion_blur__maxVelocity:r=0.1
+    motion_blur__alphaMulOnApply:r=0.125
+    motion_blur__overscanMul:r=0.01
+    motion_blur__forwardBlur:r=0.0
+  }
+}
+
+motion_blur{
+  _extends:t="motion_blur_settings"
+  _extends:t="motion_blur_manager"
+  _singleton:b=yes
 }
 
 cinematic_mode_manager{
   _extends:t="settings_override_manager"
+  _extends:t="motion_blur_manager"
 
   "cinematic_mode_tag:tag"{
   }
@@ -3406,6 +3479,8 @@ cinematic_mode_manager{
 
 cinematic_mode_settings{
   _extends:t="settings_override_settings"
+  _extends:t="motion_blur_settings"
+  motion_blur__scale:r=0.0
   cinematic_mode__lenseCoveringTex:t="lense_dust"
   cinematic_mode__lenseRadialTex:t=""
 
@@ -3441,12 +3516,6 @@ cinematic_mode_settings{
     cinematic_mode__snow:b=no
     cinematic_mode__lightning:b=no
     cinematic_mode__dayTime:r=12.0
-    cinematic_mode__mb_scale:r=0.0
-    cinematic_mode__mb_velocityMultiplier:r=0.005
-    cinematic_mode__mb_maxVelocity:r=0.1
-    cinematic_mode__mb_alphaMulOnApply:r=0.125
-    cinematic_mode__mb_overscanMul:r=0.01
-    cinematic_mode__mb_forwardBlur:r=0.0
     cinematic_mode__colorGradingSelected:t=""
     cinematic_mode__enablePostBloom:b=yes
   }
@@ -3467,4 +3536,14 @@ cinematic_mode{
 
 pushable_object{
   push_object__energyScale:r=200.0
+}
+
+landmesh_hole_zone{
+  transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
+
+  "landmesh_hole_zone:tag"{
+  }
+
+  "box_zone:tag"{
+  }
 }

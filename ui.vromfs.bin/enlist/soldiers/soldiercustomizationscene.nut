@@ -26,13 +26,14 @@ let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let { addModalWindow } = require("%ui/components/modalWindows.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(70) })
+let spinner = require("%ui/components/spinner.nut")
 let { multyPurchaseAllowed } = require("%enlist/featureFlags.nut")
 
 let closeButton = closeBtnBase({ onClick = saveOutfit })
 let purchaseCloseBtn = closeBtnBase({ onClick = closePurchaseWnd })
 let verticalGap = bigPadding * 2
 let purchaseWndWidth = min(sw(40), maxContentWidth) - hdpx(75) * 2
+let waitingSpinner = spinner(hdpx(35))
 
 let leftBlockHeader = {
   rendObj = ROBJ_TEXT
@@ -149,7 +150,7 @@ let function purchaseBtnBlock(){
     valign = ALIGN_BOTTOM
     flow = FLOW_HORIZONTAL
     halign = ALIGN_CENTER
-    children = isPurchasing.value ? spinner : btnsBlock
+    children = isPurchasing.value ? waitingSpinner : btnsBlock
   }
 }
 

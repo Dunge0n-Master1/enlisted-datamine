@@ -298,7 +298,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           size = squadSlotHorSize
           onClick
           behavior = Behaviors.Button
-          onElemState = @(sf) stateFlagsUnfiltered(sf)
+          onElemState = @(s) stateFlagsUnfiltered(s)
           transform = {}
           children = chContent
         }

@@ -1323,7 +1323,7 @@ mig_3_series_1_15_za_partiu_battlepass_premium_driver_cockpit{
 }
 
 bf_109g_6_yellow18_premium{
-  _extends:t="bf_109g_6"
+  _extends:t="bf_109g_6_premium"
 
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_yellow18_c*"
@@ -1352,7 +1352,7 @@ bf_109g_10_driver_cockpit{
 }
 
 bf_109g_6_summer42_premium{
-  _extends:t="bf_109g_6"
+  _extends:t="bf_109g_6_premium"
 
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_summer42_a*"

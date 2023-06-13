@@ -121,26 +121,13 @@ let function mkSoldierPhoto(photoName, size, inner = null, style = {}) {
     }.__update(style)
 
   return {
-    children = [
-      {
-        size
-        rendObj = ROBJ_IMAGE
-        image = Picture("ui/soldiers/soldier_bg.avif")
-      }.__update(style)
-      {
+    children = {
         size
         rendObj = ROBJ_IMAGE
         image = Picture(photoName)
         clipChildren = true
         children = inner
       }.__update(style)
-      {
-        size = flex()
-        rendObj = ROBJ_FRAME
-        color = Color(85, 85, 85, 255)
-        borderWidth = hdpx(1)
-      }.__update(style)
-    ]
   }
 }
 

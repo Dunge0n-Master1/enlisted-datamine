@@ -31,13 +31,25 @@ thickness_materials{
 
   "material_with_thickness__names:list<t>"{
     material:t="wood_solid"
+    material:t="wood_snow_solid"
+    material:t="wood_fall_solid"
+    material:t="wood_dead_solid"
+    material:t="wood_palm_solid"
   }
 
   "material_with_thickness__thickness:list<r>"{
     material:r=60.0
+    material:r=60.0
+    material:r=60.0
+    material:r=60.0
+    material:r=60.0
   }
 
   "material_with_thickness__density:list<r>"{
+    density:r=12000.0
+    density:r=12000.0
+    density:r=12000.0
+    density:r=12000.0
     density:r=12000.0
   }
 
@@ -59,7 +71,9 @@ base_projectile{
   projectile__explosionDelayed:i=0
   projectile__prevPos:p3=0.0, 0.0, 0.0
   projectile__intersectionCount:i=0
-  projectile__maxAllowedSceneIntersectionsForFx:i=3
+  projectile__maxAllowedSceneIntersectionsForFx:i=2
+  projectile__canopyIntersectionCount:i=0
+  projectile__maxAllowedCanopyIntersectionsForFx:i=2
   projectile__traceRayMatId:i=-1
   projectile__isUnderwater:b=no
   projectile__ballisticsUpdated:b=yes
@@ -186,6 +200,7 @@ bullet_projectile{
   _extends:t="base_projectile"
   _extends:t="bullet_projectile_sound"
   projectile__destroyVel:r=70.0
+  projectile__ricochetAngleThreshold:r=0.0872
 
   "shell__concussionMaxRadius:r"{
     value:r=7.0
@@ -207,6 +222,14 @@ bullet_projectile{
   }
 
   "shouldCreateBulletCrater:tag"{
+  }
+}
+
+tankgun_projectile{
+  _extends:t="bullet_projectile"
+  projectile__ricochetAngleThreshold:r=0.0436
+
+  "disableRicochetForGreatAngles:tag"{
   }
 }
 

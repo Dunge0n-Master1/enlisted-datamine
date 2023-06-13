@@ -4,12 +4,12 @@ let { fontLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
 let { eventsData, eventsKeysSorted, allActiveOffers } = require("offersState.nut")
-let { taskSlotPadding } = require("%enlSqGlob/ui/taskPkg.nut")
+let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 let offersWindow = require("offersWindow.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
 let { defTxtColor, colPart, startBtnWidth, accentColor, bigPadding, miniPadding, midPadding,
-  darkTxtColor, smallPadding, defItemBlur, transpPanelBgColor, transpBgColor, highlightLine
+  darkTxtColor, smallPadding, defItemBlur, transpPanelBgColor, transpBgColor, highlightLineTop, highlightLineHgt, hoverSlotBgColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
@@ -25,13 +25,14 @@ let faComp = require("%ui/components/faComp.nut")
 let { curCampaignLocId } = require("%enlist/meta/curCampaign.nut")
 
 
+const MAX_WIDGETS = 4
 const DUR = 0.15
 
 let defSmallTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let smallDiscountTxtStyle = { color = darkTxtColor }.__update(fontSmall)
 let headerTxtStyle = @(sf) { color = sf & S_HOVER ?  darkTxtColor : defTxtColor }
   .__update(fontLarge)
-let smallWidgetHeight = colPart(1.29)
+let smallWidgetHeight = colPart(1.29) + highlightLineHgt
 let largeWidgetHeight = colPart(4.29)
 let widgetHeightDif = largeWidgetHeight - smallWidgetHeight
 let largeWidgetInfoHeight = colPart(1.35)
@@ -76,22 +77,23 @@ let function startSwitchTimer(_ = null) {
 }
 
 
-let mkOfferImage = @(image) {
+let anims = freeze([
+  { prop = AnimProp.scale, from = [0.301, 1], to = [1, 1], duration = DUR, play = true }
+])
+
+let mkOfferImage = @(image) freeze({
   size = flex()
-  key = $"offer_{image}"
+  key = image
   rendObj = ROBJ_IMAGE
   image = Picture(image)
   keepAspect = KEEP_ASPECT_FILL
   imageHalign = ALIGN_CENTER
   transform = { pivot = [0, 0] }
-  animations = [
-    { prop = AnimProp.scale, from = [0.301, 1], to = [1, 1], duration = DUR, play = true }
-  ]
-}
+  animations = anims
+})
 
 let mkSmallImage = @(image) {
-  size = [colPart(2.38), smallWidgetHeight]
-  key = $"offer_{image}"
+  size = [colPart(2.38), smallWidgetHeight-highlightLineHgt]
   rendObj = ROBJ_IMAGE
   image = Picture(image)
   keepAspect = KEEP_ASPECT_FILL
@@ -124,13 +126,12 @@ let timerStyle = {
   padding = taskSlotPadding
 }
 
-
 let mkInfo = @(nameTxt, sf, override = {}) {
   size = [flex(), largeWidgetInfoHeight]
   vplace = ALIGN_BOTTOM
   valign = ALIGN_CENTER
   children = [
-    highlightLine()
+    highlightLineTop
     {
       size = [flex(), SIZE_TO_CONTENT]
       rendObj = ROBJ_TEXTAREA
@@ -142,30 +143,28 @@ let mkInfo = @(nameTxt, sf, override = {}) {
 }.__update(override)
 
 
-let smallTimer = @(timestamp) timestamp <= 0 ? null : faComp("clock-o", {
+let faClock = freeze(faComp("clock-o", {
   fontSize = defSmallTxtStyle.fontSize
   color = accentColor
   padding = miniPadding
   hplace = ALIGN_RIGHT
-})
+}))
 
+let smallTimer = @(timestamp) timestamp <= 0 ? null : faClock
 
 let mkSmallInfo = @(nameTxt, override = {}) {
   rendObj = ROBJ_WORLD_BLUR
   size = flex()
   fillColor = transpPanelBgColor
   color = defItemBlur
-  children = [
-    highlightLine()
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      vplace = ALIGN_CENTER
-      margin = midPadding
-      text = nameTxt
-    }.__update(defSmallTxtStyle)
-  ]
+  children = {
+    size = [flex(), SIZE_TO_CONTENT]
+    rendObj = ROBJ_TEXTAREA
+    behavior = Behaviors.TextArea
+    vplace = ALIGN_CENTER
+    margin = midPadding
+    text = nameTxt
+  }.__update(defSmallTxtStyle)
 }.__update(override)
 
 
@@ -232,12 +231,12 @@ let timeBeforeEvent = @(timestamp) timestamp <= 0 ? null : mkCountdownTimer({
 })
 
 
-let contentAnim = {
+let contentAnim = freeze({
   animations = [
-    { prop = AnimProp.opacity, from = 0, to = 0, duration = DUR / 1.5, play = true }
-    { prop = AnimProp.opacity, from = 0, to = 1, delay = DUR / 1.5, duration = DUR / 1.5, play = true }
+    freeze({ prop = AnimProp.opacity, from = 0, to = 0, duration = DUR / 1.5, play = true })
+    freeze({ prop = AnimProp.opacity, from = 0, to = 1, delay = DUR / 1.5, duration = DUR / 1.5, play = true })
   ]
-}
+})
 
 
 let widgetData = freeze({
@@ -326,13 +325,6 @@ let widgetData = freeze({
 let widgetList = Computed(function() {
   let list = []
 
-  if (needFreemiumStatus.value)
-    list.append({
-      widgetType = WidgetType.FREEMIUM
-      data = curCampaignLocId.value
-      backImage = campPresentation.value?.widgetImage ?? defOfferImg
-    })
-
   list.extend(allActiveOffers.value.map(@(specOffer, idx) {
     widgetType = WidgetType.OFFER
     data = specOffer
@@ -361,9 +353,9 @@ let widgetList = Computed(function() {
     backImage = v?.image ?? defExtUrlImg
   }))
 
-  if (eventsKeysSorted.value.len() > 0) {
-    // keep only one most actual event
-    let eventId = eventsKeysSorted.value[0]
+  foreach (eventId in eventsKeysSorted.value) {
+    if (list.len() >= MAX_WIDGETS)
+      break
     let event = eventsData.value?[eventId]
     if (event != null) {
       let { id, imagepromo = defOfferImg } = event
@@ -375,6 +367,13 @@ let widgetList = Computed(function() {
       })
     }
   }
+
+  if (list.len() < MAX_WIDGETS && needFreemiumStatus.value)
+    list.insert(0, {
+      widgetType = WidgetType.FREEMIUM
+      data = curCampaignLocId.value
+      backImage = campPresentation.value?.widgetImage ?? defOfferImg
+    })
 
   return list
 })
@@ -433,35 +432,51 @@ let function mkSmallWidget(content, idx, oldIdx, curIdx) {
   let { widgetType, id = "", data = null, backImage = null } = content
   let offerData = widgetData[widgetType]
   let { ctor = null, onClick = null } = offerData
+  let smallImg = freeze({
+    size = [colPart(2.38), flex()]
+    clipChildren = true
+    valign = ALIGN_BOTTOM
+    children = mkSmallImage(backImage).__update(contImgAnim)
+  })
+
   let wContent = ctor?(data, true, hasContAnim)
   return watchElemState(@(sf) {
     size = [startBtnWidth, smallWidgetHeight]
-    key = $"{widgetType}_{id}_{animKey}_small"
+    key = id
     behavior = Behaviors.Button
     onClick = @() onClick?(data)
     onHover = function(_on) {
       oldLargeWidgetIdx = curLargeWidgetIdx.value
       curLargeWidgetIdx(idx)
     }
-    flow = FLOW_HORIZONTAL
+    flow = FLOW_VERTICAL
     clipChildren = true
+    rendObj = ROBJ_WORLD_BLUR
+    fillColor = transpPanelBgColor
+    color = defItemBlur
     children = [
+      highlightLineTop
       {
-        size = [colPart(2.38), flex()]
-        clipChildren = true
-        children = mkSmallImage(backImage).__update(contImgAnim)
-      }
-      {
-        rendObj = ROBJ_WORLD_BLUR
+        flow = FLOW_HORIZONTAL
         size = flex()
-        fillColor = transpPanelBgColor
-        color = defItemBlur
-        children = wContent?(sf)
+        children = [
+          smallImg
+          wContent?(sf)
+        ]
       }
     ]
   }.__update(animKey == null ? {} : animTable[animKey]))
 }
 
+
+let animations1 = freeze([{ prop = AnimProp.fillColor, from = transpPanelBgColor, to = hoverSlotBgColor,
+        duration = DUR, play = true, trigger = "hovered+asasd"}])
+let animations0 = freeze([
+  { prop = AnimProp.color, from = transpPanelBgColor, to = hoverSlotBgColor, duration = 1, play = true,
+    trigger = "hovered",}
+  { prop = AnimProp.opacity, from = 0.7, to = 1, duration = DUR, play = true}
+  { prop = AnimProp.scale, from = [1, 0.301], to = [1, 1], duration = DUR, play = true }
+])
 
 let function mkLargeWidget(content, idx, oldIdx) {
   if (content == null)
@@ -471,8 +486,17 @@ let function mkLargeWidget(content, idx, oldIdx) {
   let offerData = widgetData[widgetType]
   let { ctor = null, onClick = null } = offerData
   let wContent = ctor?(data)
+  let bgImage = freeze({
+    rendObj = ROBJ_WORLD_BLUR
+    size = [flex(), largeWidgetImgheight]
+    color = defItemBlur
+    fillColor = transpPanelBgColor
+    clipChildren = true
+    children = mkOfferImage(backImage)
+  })
+
   return watchElemState(@(sf) {
-    key = $"{widgetType}_{id}"
+    key = id
     size = [startBtnWidth, largeWidgetHeight]
     behavior = Behaviors.Button
     onClick = @() onClick?(data)
@@ -488,33 +512,20 @@ let function mkLargeWidget(content, idx, oldIdx) {
     }
     clipChildren = true
     children = [
-      {
-        rendObj = ROBJ_WORLD_BLUR
-        size = [flex(), largeWidgetImgheight]
-        color = defItemBlur
-        fillColor = transpPanelBgColor
-        clipChildren = true
-        children = mkOfferImage(backImage)
-      }
+      bgImage
       {
         rendObj = ROBJ_WORLD_BLUR
         size = [flex(), largeWidgetInfoHeight]
         vplace = ALIGN_BOTTOM
-        fillColor = sf & S_HOVER ? accentColor : transpPanelBgColor
+        fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
         color = defItemBlur
-        animations = [{ prop = AnimProp.fillColor, from = transpPanelBgColor, to = accentColor,
-          duration = DUR, play = true, trigger = "hovered+asasd"}]
+        animations = animations1
         transform = {}
         children = wContent?(sf)
       }
     ]
     transform = { pivot = [1, idx < oldIdx ? 0 : 1] }
-    animations = [
-      { prop = AnimProp.color, from = transpPanelBgColor, to = accentColor, duration = 1, play = true,
-        trigger = "hovered",}
-      { prop = AnimProp.opacity, from = 0.7, to = 1, duration = DUR, play = true}
-      { prop = AnimProp.scale, from = [1, 0.301], to = [1, 1], duration = DUR, play = true }
-    ]
+    animations = animations0
   })
 }
 

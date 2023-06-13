@@ -79,8 +79,8 @@ let mkAmmoIncreaseInfo = @(item) function() {
   return blur(mkInfoRow(loc("itemDetails/ammoIncrease"), $"+{perc}%"))
 }
 
-let itemTitle = @(item) {
-  maxWidth = inventoryItemDetailsWidth
+let itemTitle = @(item, maxWidth) {
+  maxWidth
   rendObj = ROBJ_TEXTAREA
   behavior = Behaviors.TextArea
   halign = ALIGN_RIGHT
@@ -107,9 +107,12 @@ let mkRow = @(children) {
   children = children
 }
 
-let function mkItemHeader(item) {
+let function mkItemHeader(item, isFull) {
   let isVehicle = item?.itemtype == "vehicle"
-  local  typeLoc = getItemTypeName(item)
+  let specialIcon = mkSpecialItemIcon(item, hdpx(30))
+  let titleWidth = inventoryItemDetailsWidth * (isFull ? 1 : 0.92) - ((specialIcon != null)
+    ? hdpx(57) : hdpx(27))
+  local typeLoc = getItemTypeName(item)
   typeLoc = typeLoc == "" ? null
     : {
       rendObj = ROBJ_TEXT
@@ -125,8 +128,8 @@ let function mkItemHeader(item) {
     children = [
       mkRow([
         itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
-        mkSpecialItemIcon(item, hdpx(30))
-        itemTitle(item)
+        specialIcon
+        itemTitle(item, titleWidth)
       ])
       mkRow([
         detailsStatusTier(item)
@@ -155,7 +158,7 @@ let mkDetailsInfo = @(viewItemWatch, isFullMode = Watched(true))
 
     let isVehicle = item?.itemtype == "vehicle"
     let isFull = isFullMode.value
-    let blockWidth = isFull ? inventoryItemDetailsWidth : inventoryItemDetailsWidth * 0.8
+    let blockWidth = isFull ? inventoryItemDetailsWidth : inventoryItemDetailsWidth * 0.92
 
     return res.__update(blur({
       flow = FLOW_VERTICAL
@@ -163,7 +166,7 @@ let mkDetailsInfo = @(viewItemWatch, isFullMode = Watched(true))
       gap = smallPadding
       size = [blockWidth, SIZE_TO_CONTENT]
       children = [
-        mkItemHeader(item)
+        mkItemHeader(item, isFull)
         isFull ? mkItemDescription(item) : null
         isVehicle ? null : mkSlotIncreaseInfo(item)
         isVehicle ? null : mkAmmoIncreaseInfo(item)

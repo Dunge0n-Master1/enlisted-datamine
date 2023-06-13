@@ -1,30 +1,23 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sectionsSorted, curSection, setCurSection } = require("sectionsState.nut")
+let {
+  sectionsSorted, curSection, trySwitchSection, tryBackSection
+} = require("sectionsState.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let profileInfoBlock = require("profileInfoBlock.nut")
 let { columnGap, midPadding, navHeight } = require("%enlSqGlob/ui/designConst.nut")
-let { mkTab, backgroundMarker, mkGamepadNav } = require("%enlist/components/mkTab.nut")
+let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
+let { mkTab, backgroundMarker } = require("%enlist/components/mkTab.nut")
 let campaignTitle = require("%enlist/campaigns/campaignTitleUi.nut")
-let { sound_play } = require("%dngscripts/sound_system.nut")
 
 
 let isFirstSection = Computed(@() curSection.value == sectionsSorted?[0].id)
 
-let function trySwitchSection(sectionId) {
-  let onExitCb = sectionsSorted
-    .findvalue(@(s) s?.id == curSection.value)?.onExitCb ?? @() true
-  if (onExitCb()) {
-    setCurSection(sectionId)
-    sound_play("ui/enlist/button_click")
-  }
-}
-
-
 let goToFirstSection = {
   key ="back"
   hotkeys = [[$"^{JB.B} | Esc", {
-    action = @() trySwitchSection(sectionsSorted?[0].id)
+    action = @() tryBackSection(sectionsSorted?[0].id)
     description = loc("BackBtn")
   }]]
 }
@@ -53,7 +46,6 @@ let maintabs = {
   halign = ALIGN_LEFT
   hplace = ALIGN_LEFT
   children = [
-    backgroundMarker
     {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_HORIZONTAL
@@ -61,24 +53,29 @@ let maintabs = {
       halign = ALIGN_LEFT
       valign = ALIGN_BOTTOM
       hplace = ALIGN_LEFT
-      children = sectionsSorted.map(function(s){
-        let action = s?.onClickCb ?? @() trySwitchSection(s.id)
-        let params = s.__merge({ action })
-        return mkTab(params, curSection)
+      children = sectionsSorted.map(function(section){
+        let action = section?.onClickCb ?? @() trySwitchSection(section.id)
+        return mkTab(section, action, curSection)
       })
     }
+    backgroundMarker
   ]
 }
 
-let sectionsUi = {
+let jbwrap = @(children) { children, padding = [hdpx(10),0,0,0]}
+let lb = jbwrap(mkHotkey("^J:LB", @() changeTab(-1)))
+let rb = jbwrap(mkHotkey("^J:RB", @() changeTab(1)))
+
+let sectionsUi = @() {
   size = flex()
+  watch = isGamepad
   valign = ALIGN_CENTER
   flow = FLOW_HORIZONTAL
   gap = columnGap
   children = [
+    isGamepad.value ? lb : null
     maintabs
-    mkGamepadNav("^J:LB | Q", @() changeTab(-1))
-    mkGamepadNav("^J:RB | E", @() changeTab(1))
+    isGamepad.value ? rb : null
     {
       hotkeys = [
         ["^Tab", @() changeTabWrap(1)],

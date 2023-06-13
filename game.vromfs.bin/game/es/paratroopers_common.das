@@ -9,6 +9,7 @@ require game.es.stat_bq_common
 require math.random
 require math.base
 require math.ang
+require ecs.safe
 
 def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberId : int)
   query(respawnerEid) <| $ [es] (respawner__paratroopersPointCoords : float3;
@@ -22,8 +23,10 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
                                  respawner__paratroopersAircraftTemplate : string;
                                  team aka player_team : int)
     let teamEid = get_team_eid(player_team)
-    query(teamEid) <| $ [es] (paratroopersAircraftCrewAndPlaneTemplate : string)
-      createEntity(add_sub_template_name(paratroopersAircraftCrewAndPlaneTemplate, respawner__paratroopersAircraftTemplate)) <| $(init)
+    query(teamEid) <| $ [es] (paratroopersAircraftCrewAndPlaneTemplate : string;
+                              var paratroopersAircraftSpawnPoints : Object&)
+      var startpoint : float3
+      let aircraftEid = createEntity(add_sub_template_name(paratroopersAircraftCrewAndPlaneTemplate, respawner__paratroopersAircraftTemplate)) <| $(init)
         var point = respawner__paratroopersPointCoords
         point[1] += respawner__paratroopersAircraftHeight
         var dir = calc_aircraft_request_dir(player_team)
@@ -45,14 +48,22 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
 
         let offset = float(team + dirAngelNo * 2) * respawner__paratroopersAircraftHeightOffset
         point[1] += offset
-        var startpoint = point - xAxis * (respawner__paratroopersAircraftStartPointOffset - offset * respawner__paratroopersAircraftHeightToDistanceOffsetMult)
+        startpoint = point - xAxis * (respawner__paratroopersAircraftStartPointOffset - offset * respawner__paratroopersAircraftHeightToDistanceOffsetMult)
         var isFriendAircraftObstacle = true
+        let distSquare = square(respawner__paratroopersAircraftSpawnDist)
+
         while isFriendAircraftObstacle
-          isFriendAircraftObstacle = find_query() <| $ [es(REQUIRE=paratroopersAircraft)] (transform : float3x4; team aka friend_team : int)
-            if player_team == friend_team && distance_sq(startpoint, transform[3]) < square(respawner__paratroopersAircraftSpawnDist)
-              startpoint -= xAxis * respawner__paratroopersAircraftSpawnDist
-              return true
-            return false
+          isFriendAircraftObstacle = false
+          for spawnPoint in paratroopersAircraftSpawnPoints
+            let pos = spawnPoint.value ?? float3()
+            if distance_sq(startpoint, pos) < distSquare
+              isFriendAircraftObstacle = true
+              break
+          isFriendAircraftObstacle ||= find_query() <| $ [es(REQUIRE=paratroopersAircraft)] (transform : float3x4; team aka friend_team : int)
+            return player_team == friend_team && distance_sq(startpoint, transform[3]) < distSquare
+          if isFriendAircraftObstacle
+            startpoint -= xAxis * respawner__paratroopersAircraftSpawnDist
+
         let endpoint = point + xAxis * respawner__paratroopersAircraftEndPointOffset
         init |> set("ai_aircraft__flyPos", endpoint)
         init |> set("ai_aircraft__endPos", endpoint)
@@ -68,3 +79,4 @@ def create_paratroopers_aircraft(respawnerEid : EntityId; squadId : int; memberI
         tm[3] = startpoint
 
         init |> set("transform", tm)
+      set(paratroopersAircraftSpawnPoints, string(uint(aircraftEid)), startpoint)

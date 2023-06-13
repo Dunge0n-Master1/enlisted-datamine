@@ -249,12 +249,30 @@ attachable_wear_pilot_pants_ita_tropic_item{
   collres__res:t="pilot_pants_ita_tropic_collision"
 }
 
+attachable_wear_pilot_pants_blue_ita_tropic_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pilot_pants_ita_tropic_item"
+
+  "animchar__objTexReplace:object"{
+    "ita_flight_pants_tex_d*":t="ita_flight_pants_blue_tex_d*"
+  }
+}
+
 attachable_wear_pilot_pants_boots_ita_tropic_item{
   _extends:t="attachable_pants"
   item__uniqueName:t="attachable_wear_pilot_pants_boots_ita_tropic_item"
   animchar__res:t="pilot_pants_boots_ita_tropic_char"
   collres__res:t="pilot_pants_boots_ita_tropic_collision"
   item__name:t="Italy Tropic Pilot Pants"
+}
+
+attachable_wear_pilot_pants_blue_boots_ita_tropic_item{
+  _extends:t="attachable_pants"
+  _extends:t="attachable_wear_pilot_pants_boots_ita_tropic_item"
+
+  "animchar__objTexReplace:object"{
+    "ita_flight_pants_tex_d*":t="ita_flight_pants_blue_tex_d*"
+  }
 }
 
 attachable_wear_luftwaffe_kanalhosen_boots_ita_pilot_item{
@@ -516,11 +534,67 @@ pilot_helmet_w_goggles_01_ita_summer_item{
   }
 }
 
+pilot_helmet_01_ita_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="pilot_helmet_01_ita_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="pilot_helmet_01_ita_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+pilot_helmet_w_goggles_up_01_ita_summer_item{
+  _extends:t="helmet_item"
+  animchar__res:t="pilot_helmet_w_goggles_up_01_ita_summer_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="pilot_helmet_w_goggles_up_01_ita_summer_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+attachable_wear_leather_pilot_helmet_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="leather_pilot_helmet_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_leather_pilot_helmet_item"
+}
+
+attachable_wear_leather_pilot_helmet_goggles_item{
+  _extends:t="attachable_skined_helmet"
+  animchar__res:t="leather_pilot_helmet_goggles_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="attachable_wear_leather_pilot_helmet_goggles_item"
+}
+
 tanker_helmet_01_ita_tropic_item{
   _extends:t="helmet_item"
   animchar__res:t="tanker_helmet_01_ita_tropic_char"
   collres__res:t="medkit_collision"
   item__uniqueName:t="tanker_helmet_01_ita_tropic_item"
+  item__armorAmount:r=0.1
+
+  "disabledFaceGenParams:shared:array"{
+    param:t="forehead_pos_y"
+    param:t="forehead_hor_scale"
+    param:t="forehead_scale"
+  }
+}
+
+tanker_helmet_goggles_01_ita_tropic_item{
+  _extends:t="helmet_item"
+  animchar__res:t="tanker_helmet_goggles_01_ita_tropic_char"
+  collres__res:t="medkit_collision"
+  item__uniqueName:t="tanker_helmet_goggles_01_ita_tropic_item"
   item__armorAmount:r=0.1
 
   "disabledFaceGenParams:shared:array"{
@@ -568,6 +642,18 @@ attachable_wear_m35_flask_samurai_vest_01_tropical_item{
   }
 }
 
+attachable_wear_m35_flask_tancer_coverall_item{
+  _extends:t="attachable_flask_r"
+  item__uniqueName:t="attachable_wear_m35_flask_tancer_coverall_item"
+  animchar__res:t="m35_flask_tancer_coverall_char"
+  collres__res:t="m35_flask_tancer_coverall_collision"
+  animchar_fast_phys__res:t="m35_flask_tancer_coverall_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_ita_pilot_jacket_parachute_item{
   _extends:t="attachable_backpack"
   item__uniqueName:t="attachable_wear_ita_pilot_jacket_parachute_item"
@@ -586,6 +672,59 @@ attachable_wear_ita_pilot_jacket_parachute_item{
   animchar_fast_phys{
     _tags:t="gameClient"
   }
+}
+
+attachable_wear_ita_parachute_01_tropical_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_ita_parachute_01_tropical_item"
+  animchar__res:t="ita_parachute_01_tropical_char"
+  collres__res:t="ita_parachute_01_tropical_collision"
+  animchar_fast_phys__res:t="ita_parachute_01_tropical_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
+  }
+}
+
+attachable_wear_ita_parachute_grigio_verde_item{
+  _extends:t="attachable_backpack"
+  item__uniqueName:t="attachable_wear_ita_parachute_grigio_verde_item"
+  animchar__res:t="ita_parachute_grigio_verde_char"
+  collres__res:t="ita_parachute_grigio_verde_collision"
+  animchar_fast_phys__res:t="ita_parachute_grigio_verde_fastphys"
+
+  _group{
+    _tags:t="server"
+    parachute_backpack__canopyTemplate:t="parachute_canopy_item"
+
+    "parachute_backpack__canopyEid:eid"{
+    }
+  }
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+
+  "item__unequipAfterParachuteLanding:tag"{
+  }
+}
+
+attachable_wear_belt_01_ita_tanker_coverall_item{
+  _extends:t="attachable_belt1"
+  item__uniqueName:t="attachable_wear_belt_01_ita_tanker_coverall_item"
+  animchar__res:t="belt_01_ita_tanker_coverall_char"
+  collres__res:t="belt_01_ita_tanker_coverall_collision"
 }
 
 attachable_wear_beretta_mab38_3pouch_tropical_1_item{
@@ -699,6 +838,30 @@ attachable_wear_mvsn_dagger_knife_onside_grigio_verde_item{
   }
 }
 
+attachable_wear_ita_map_case_tanker_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_ita_map_case_tanker_item"
+  animchar__res:t="ita_map_case_tanker_char"
+  collres__res:t="ita_map_case_tanker_collision"
+  animchar_fast_phys__res:t="ita_map_case_tanker_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ita_map_case_grigio_verde_item{
+  _extends:t="attachable_side_belt_l"
+  item__uniqueName:t="attachable_wear_ita_map_case_grigio_verde_item"
+  animchar__res:t="ita_map_case_grigio_verde_char"
+  collres__res:t="ita_map_case_grigio_verde_collision"
+  animchar_fast_phys__res:t="ita_map_case_grigio_verde_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
 attachable_wear_pouch_carcano_l_ita_01_summer_item{
   _extends:t="attachable_front_belt_l"
   item__uniqueName:t="attachable_wear_pouch_carcano_l_ita_01_summer_item"
@@ -770,6 +933,25 @@ attachable_wear_m33_gasmask_bag_w_flask_tropical_2_item{
   }
 }
 
+attachable_wear_ita_beretta_holster_tanker_coverall_item{
+  _extends:t="attachable_side_belt_r"
+  item__uniqueName:t="attachable_wear_ita_beretta_holster_tanker_coverall_item"
+  animchar__res:t="ita_beretta_holster_tanker_coverall_char"
+  collres__res:t="ita_beretta_holster_tanker_coverall_collision"
+  animchar_fast_phys__res:t="ita_beretta_holster_tanker_coverall_fastphys"
+
+  animchar_fast_phys{
+    _tags:t="gameClient"
+  }
+}
+
+attachable_wear_ita_beretta_holster_grigio_verde_item{
+  _extends:t="attachable_front_belt_r"
+  item__uniqueName:t="attachable_wear_ita_beretta_holster_grigio_verde_item"
+  animchar__res:t="ita_beretta_holster_grigio_verde_char"
+  collres__res:t="ita_beretta_holster_grigio_verde_collision"
+}
+
 attachable_wear_berreta_mab38_pouches_l_ita_tropic_02_item{
   _extends:t="attachable_front_belt_l"
   item__uniqueName:t="attachable_wear_berreta_mab38_pouches_l_ita_tropic_02_item"
@@ -816,6 +998,14 @@ attachable_wear_ita_tanker_bandoleer_item{
   item__uniqueName:t="attachable_wear_ita_tanker_bandoleer_item"
   animchar__res:t="ita_tanker_bandoleer_char"
   collres__res:t="ita_tanker_bandoleer_collision"
+}
+
+attachable_wear_ita_tanker_coverall_bandoleer_item{
+  _extends:t="attachable_chest"
+  _extends:t="bandolier_animation_blacklist"
+  item__uniqueName:t="attachable_wear_ita_tanker_coverall_bandoleer_item"
+  animchar__res:t="ita_tanker_coverall_bandoleer_char"
+  collres__res:t="ita_tanker_coverall_bandoleer_collision"
 }
 
 attachable_wear_samurai_vest_ita_tropic_02_item{

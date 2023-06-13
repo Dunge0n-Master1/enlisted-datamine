@@ -5,16 +5,20 @@ let { set_setting_by_blk_path, save_settings, get_setting_by_blk_path } = requir
 let { initGraphicsAutodetect, getGpuBenchmarkDuration, startGpuBenchmark,
   closeGraphicsAutodetect, getPresetFor60Fps, getPresetForMaxQuality,
   getPresetForMaxFPS } = require("gpuBenchmark")
+let JB = require("%ui/control/gui_buttons.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { graphicsPresetUpdate } = require("%ui/hud/menus/options/quality_preset_common.nut")
 let { get_time_msec } = require("dagor.time")
-let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let { bigPadding, defTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 const WND_UID = "benchmark"
 const BENCHMARK_FLAG_BLK = "graphics/benchmark"
+
+let defTxtStyle = { color = titleTxtColor }.__update(body_txt)
+let descTxtStyle = { color = defTxtColor }.__update(sub_txt)
 
 let { benchmarkWindowSeen, benchmarkWindowSeenUpdate } = globalWatched("benchmarkWindowSeen",
   @() get_setting_by_blk_path(BENCHMARK_FLAG_BLK))
@@ -69,43 +73,52 @@ let function applyQuality(quality){
 let function mkBMResult(){
   let res = gpuBenchmarkPresets.map(function(pres) {
     let quality = pres.getPresetFunc()
+    let description = $"benchmark/{pres.presetId}/desc"
     return {
-      flow = FLOW_HORIZONTAL
       size = [flex(), SIZE_TO_CONTENT]
-      valign = ALIGN_CENTER
+      flow = FLOW_VERTICAL
       children = [
         {
+          flow = FLOW_HORIZONTAL
           size = [flex(), SIZE_TO_CONTENT]
-          halign = ALIGN_RIGHT
-          children =
+          valign = ALIGN_CENTER
+          halign = ALIGN_CENTER
+          gap = { size = flex() }
+          children = [
             textButton(loc($"benchmark/{pres.presetId}"), @() applyQuality(quality))
+            {
+              rendObj = ROBJ_TEXT
+              hplace = ALIGN_RIGHT
+              halign = ALIGN_RIGHT
+              text = loc($"option/{quality}")
+            }.__update(defTxtStyle)
+          ]
         }
         {
-          size = [flex(), SIZE_TO_CONTENT]
-          halign = ALIGN_LEFT
-          children = {
-            rendObj = ROBJ_TEXT
-            text = loc($"option/{quality}")
-          }.__update(body_txt)
-        }
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          size = [sw(20), SIZE_TO_CONTENT]
+          text = loc(description)
+        }.__update(descTxtStyle)
       ]
     }
   })
   return {
+    size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
-    size = [SIZE_TO_CONTENT, flex()]
     children = [
       {
         rendObj = ROBJ_TEXT
         text = loc("benchmark/result")
-      }.__update(body_txt)
+      }.__update(defTxtStyle)
       {
+        size = [pw(60), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
         children = res
       }
-      textButton(loc("Cancel"), @() closeWindow())
+      textButton(loc("Cancel"), @() closeWindow(), { hotkeys = [[$"^{JB.B} | Esc"]] })
     ]
   }
 }
@@ -121,6 +134,7 @@ let function runBenchmark(){
 
 let textBlock = @() {
   watch = [runState, timeRem]
+  size = [flex(), SIZE_TO_CONTENT]
   children = runState.value == BMState.DONE ? mkBMResult()
     : {
         size = flex()
@@ -131,7 +145,7 @@ let textBlock = @() {
           rendObj = ROBJ_TEXT
           text = runState.value == BMState.WAIT ? loc("benchmark/runTitle")
             : loc("benchmark/timeRemain", { time = secondsToStringLoc(timeRem.value) })
-        }.__update(body_txt)
+        }.__update(defTxtStyle)
       }
 }
 
@@ -141,10 +155,11 @@ let buttonsBlock = @() {
   gap = bigPadding
   watch = [runState]
   children = runState.value == BMState.WAIT ? [
-      textButton(loc("Cancel"), @() closeWindow())
+      textButton(loc("Cancel"), @() closeWindow(), { hotkeys = [[$"^{JB.B} | Esc"]] })
       textButton(loc("benchmark/runBenchmarkBtn"), @() runBenchmark())
     ]
-  : runState.value == BMState.RUNNING ? textButton(loc("Cancel"), @() closeWindow())
+  : runState.value == BMState.RUNNING ? textButton(loc("Cancel"), @() closeWindow()
+    , { hotkeys = [[$"^{JB.B} | Esc"]] })
   : null
 }
 
@@ -152,7 +167,7 @@ let benchmarkWnd = {
   flow = FLOW_VERTICAL
   rendObj = ROBJ_WORLD_BLUR_PANEL
   fillColor = Color(0,0,0,220)
-  size = [sw(50), sh(35)]
+  size = [sw(50), sh(45)]
   valign = ALIGN_CENTER
   halign = ALIGN_CENTER
   gap = hdpx(30)

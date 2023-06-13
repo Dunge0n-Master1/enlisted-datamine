@@ -26,7 +26,7 @@ ecs.register_es("mortar_aiming_mode_es",
       ["human_weap__mortarMode", ecs.TYPE_BOOL],
       ["human_weap__currentGunEid", ecs.TYPE_EID, ecs.INVALID_ENTITY_ID]
     ]
-    comps_rq = ["hero","watchedByPlr"]
+    comps_rq = ["watchedByPlr"]
   })
 
 let function trackMortarDistance(eid, comp) {

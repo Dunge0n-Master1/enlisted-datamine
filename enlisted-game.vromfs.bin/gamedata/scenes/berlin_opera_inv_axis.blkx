@@ -1004,7 +1004,7 @@ entity{
 
 entity{
   _template:t="defend_zone_chained_sphere+defend_zone_respawnbase"
-  transform:m=[[2.70655, 0.0, 0.0] [0.0, 2.42812, 0.0] [0.0, 0.0, 2.04384] [-454.234, 6.14622, 140.341]]
+  transform:m=[[2.70655, 0.0, 0.0] [0.0, 1.35916, 0.0] [0.0, 0.0, 2.04384] [-454.234, 6.14622, 140.341]]
   capzone__onlyTeamCanCapture:i=2
   capzone__curTeamCapturingZone:i=-1
   groupName:t="sector_5"

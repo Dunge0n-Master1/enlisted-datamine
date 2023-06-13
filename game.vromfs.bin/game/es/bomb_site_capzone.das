@@ -4,18 +4,16 @@ require DagorSystem
 require enlisted.events_enlisted
 require game.utils.team
 
-[es(tag=server, on_appear)]
-def init_bomb_for_capzone(evt : Event;
-                          eid : EntityId;
-                          transform : float3x4;
-                          capzone__bombTemplate : string;
-                          capzone__bombTransformLocalPos : float3x4;
-                          capzone__plantingTeam : int;
-                          capzone__timeToPlant : float = -1.0;
-                          capzone__timeToResetPlant : float = -1.0;
-                          capzone__timeToDefuse : float = -1.0;
-                          capzone__timeToExplosion : float = -1.0;
-                          var capzone__bombSiteEid : EntityId&)
+def init_bomb_for_capzone_impl(eid : EntityId;
+                               transform : float3x4;
+                               capzone__bombTemplate : string;
+                               capzone__bombTransformLocalPos : float3x4;
+                               capzone__plantingTeam : int;
+                               capzone__timeToPlant : float = -1.0;
+                               capzone__timeToResetPlant : float = -1.0;
+                               capzone__timeToDefuse : float = -1.0;
+                               capzone__timeToExplosion : float = -1.0;
+                               var capzone__bombSiteEid : EntityId&)
   if capzone__bombTemplate == ""
     logerr("Bomb template is empty for capzone {eid}")
     return
@@ -41,6 +39,41 @@ def init_bomb_for_capzone(evt : Event;
       init |> set("bomb_site__timeToExplosion", capzone__timeToExplosion)
   if !capzone__bombSiteEid
     logerr("Cannot create bomb with template {capzone__bombTemplate} for capzone {eid}")
+
+[es(tag=server, track=active, before=capzone_control_bomb_site_active_status, on_appear)]
+def init_bomb_for_capzone(evt : Event;
+                          eid : EntityId;
+                          active : bool;
+                          transform : float3x4;
+                          capzone__bombTemplate : string;
+                          capzone__bombTransformLocalPos : float3x4;
+                          capzone__plantingTeam : int;
+                          capzone__timeToPlant : float = -1.0;
+                          capzone__timeToResetPlant : float = -1.0;
+                          capzone__timeToDefuse : float = -1.0;
+                          capzone__timeToExplosion : float = -1.0;
+                          var capzone__bombSiteEid : EntityId&)
+  if active && !capzone__bombSiteEid
+    init_bomb_for_capzone_impl(eid, transform, capzone__bombTemplate, capzone__bombTransformLocalPos, capzone__plantingTeam, capzone__timeToPlant,
+                               capzone__timeToResetPlant, capzone__timeToDefuse, capzone__timeToExplosion, capzone__bombSiteEid)
+
+[es(tag=server, track=capzone__activateAfterCap, before=capzone_control_bomb_site_active_status, on_appear)]
+def init_bomb_for_next_capzone(evt : Event;
+                               capzone__activateAfterCap : string)
+  query() <| $ [es] (eid : EntityId;
+                     groupName : string;
+                     transform : float3x4;
+                     capzone__bombTemplate : string;
+                     capzone__bombTransformLocalPos : float3x4;
+                     capzone__plantingTeam : int;
+                     capzone__timeToPlant : float = -1.0;
+                     capzone__timeToResetPlant : float = -1.0;
+                     capzone__timeToDefuse : float = -1.0;
+                     capzone__timeToExplosion : float = -1.0;
+                     var capzone__bombSiteEid : EntityId&)
+    if groupName == capzone__activateAfterCap && !capzone__bombSiteEid
+      init_bomb_for_capzone_impl(eid, transform, capzone__bombTemplate, capzone__bombTransformLocalPos, capzone__plantingTeam, capzone__timeToPlant,
+                                 capzone__timeToResetPlant, capzone__timeToDefuse, capzone__timeToExplosion, capzone__bombSiteEid)
 
 [es(tag=server, track=active)]
 def capzone_control_bomb_site_active_status(evt : Event; capzone__bombSiteEid : EntityId; active : bool)

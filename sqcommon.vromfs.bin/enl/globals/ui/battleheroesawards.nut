@@ -183,7 +183,9 @@ let awardScoreStats = {
     builtGunTankKills = true
     builtGunTankKillAssists = true
     builtGunPlaneKills = true
+    builtGunAiPlaneKills = true
     builtGunPlaneKillAssists = true
+    builtGunAiPlaneKillAssists = true
     builtBarbwireActivations = true
     builtCapzoneFortificationActivations = true
     builtAmmoBoxRefills = true
@@ -203,7 +205,9 @@ let tacticianStats = {
     "scoring_player__builtGunTankKills",
     "scoring_player__builtGunTankKillAssists",
     "scoring_player__builtGunPlaneKills",
+    "scoring_player__builtGunAiPlaneKills",
     "scoring_player__builtGunPlaneKillAssists",
+    "scoring_player__builtGunAiPlaneKillAssists",
     "scoring_player__builtBarbwireActivations",
     "scoring_player__builtCapzoneFortificationActivations",
     "scoring_player__builtAmmoBoxRefills",

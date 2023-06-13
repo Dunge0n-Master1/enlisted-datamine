@@ -16,6 +16,10 @@ def set_first_respawn_time_es(evt : Event)
       replay__isFirstHumanSpawned = true
       replay__firstHumanSpawnTime = get_sync_time()
 
+[es(tag=recordingReplay)]
+def replay_save_keyframe_es(evt : EventKeyFrameSaved; var replay__keyFrameTimes : IntList&)
+  push(replay__keyFrameTimes, evt.time)
+
 [es(tag=recordingReplay, on_event=EventLevelLoaded)]
 def replay_recording_create_meta(evt : Event)
   createEntity("replay_meta_record") <| $(var init)
@@ -37,12 +41,17 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
     query() <| $ [es] (mission__startTime : int64;
                        replay__firstHumanSpawnTime : float;
                        replay__isFinished : bool;
-                       replay__startAt : float)
+                       replay__startAt : float;
+                       replay__keyFrameTimes : IntList)
       item |> AddMember("start_timestamp", mission__startTime, obj)
       item |> AddMember("first_human_spawn_time", replay__firstHumanSpawnTime, obj)
       item |> AddMember("total_play_time", get_sync_time(), obj)
       item |> AddMember("replay__startAt", replay__startAt, obj)
       item |> AddMember("replay__isFinished", replay__isFinished, obj)
+      using(JsonType kArrayType) <| $(var keyFrames : JsonValue)
+        for time in replay__keyFrameTimes
+          keyFrames |> PushBack(time, obj)
+        item |> AddMember("keyFrames", keyFrames, obj)
     item |> AddMember("end_timestamp", int64(get_clock()), obj)
     item |> AddMember("session_id", get_session_id(), obj)
 

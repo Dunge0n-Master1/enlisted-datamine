@@ -22,6 +22,7 @@ let showExitAloneAction = Computed(@()
   && !isInHatch.value)
 
 let showToggleHoldGunMode = Computed(@() canHoldWeapon.value && !isHoldingGunPassenger.value)
+let showToggleHoldGunModeCancel = Computed(@() isHoldingGunPassenger.value)
 let showUseBinocular = Computed(@() canHoldWeapon.value && hasHeroBinocular.value && !isBinocularMode.value)
 
 let canHatch = Computed(function() {
@@ -95,6 +96,19 @@ let function toggleHoldGunMode() {
   })
 }
 
+let function toggleHoldGunModeCancel() {
+  let res = { watch = showToggleHoldGunModeCancel }
+  if (!showToggleHoldGunModeCancel.value)
+    return res
+  return res.__update({
+    children = tipCmp({
+      text = loc("hud/toggleHoldGunModeCancel")
+      inputId = "Human.ToggleHoldGunMode"
+      textColor = DEFAULT_TEXT_COLOR
+    })
+  })
+}
+
 let function useBinocular() {
   let res = { watch = showUseBinocular }
   if (!showUseBinocular.value)
@@ -113,5 +127,6 @@ return [
   getOutOfTheTankHatch
   nextView
   toggleHoldGunMode
+  toggleHoldGunModeCancel
   useBinocular
 ]

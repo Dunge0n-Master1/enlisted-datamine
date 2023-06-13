@@ -31,7 +31,7 @@ let userLogRows = Computed(@() userLogRowsDebug.value ?? userLogRowsRaw.value)
 
 let purchaseUserLogs = Computed(function() {
   let res = userLogs.value.values()
-    .filter(@(log) (log?.shopItemId ?? "") != "")
+    .filter(@(ulog) (ulog?.shopItemId ?? "") != "")
     .apply(function(uLog) {
       uLog.rows <- userLogRows.value?[uLog.guid]
       return uLog
@@ -42,7 +42,7 @@ let purchaseUserLogs = Computed(function() {
 
 let battlesUserLogs = Computed(function() {
   let res = userLogs.value.values()
-    .filter(@(log) (log?.missionId ?? "") != "")
+    .filter(@(ulog) (ulog?.missionId ?? "") != "")
     .apply(function(uLog) {
       uLog.rows <- userLogRows.value?[uLog.guid]
       return uLog

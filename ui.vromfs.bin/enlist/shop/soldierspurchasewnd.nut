@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { curArmyData } = require("%enlist/soldiers/model/state.nut")
+let { curArmyData, curSquadParams } = require("%enlist/soldiers/model/state.nut")
 let { shopItemContentCtor, curUnseenAvailShopGuids, purchaseInProgress
 } = require("%enlist/shop/armyShopState.nut")
 let { soldierShopItems, unseenSoldierShopItems, getSoldiersList, isSoldiersPurchasing
@@ -43,6 +43,7 @@ let { configs } = require("%enlist/meta/configs.nut")
 let {
   curSoldierKind, DEF_KIND
 } = require("%enlist/soldiers/model/soldiersState.nut")
+let { mkAlertObject } = require("%enlist/shop/shopPackage.nut")
 
 
 let curShopSoldierKind = Watched(DEF_KIND)
@@ -84,16 +85,14 @@ let getCrateContent = @(shopItems) Computed(function() {
   let res = []
   shopItems.value.each(function(shopItem) {
     let { armyId, id } = shopItem.crates[0]
-    let { inLineProirity, requirements, offerLine = 0} = shopItem
+    let { requirements } = shopItem
     res.append({
       shopItemId = shopItem.id
-      inLineProirity
-      offerLine
       reqLevel = requirements.armyLevel
       content = requestedCratesContent.value?[armyId][id]
     })
   })
-  return res.sort(@(a, b) a.offerLine <=> b.offerLine || b.inLineProirity <=> a.inLineProirity)
+  return res
 })
 
 
@@ -255,13 +254,14 @@ let function mkStatList(content, isLocked = false) {
 }
 
 
-let function mkShopItemCard(shopItem, armyData) {
+let function mkShopItemCard(shopItem, armyData, maxClasses) {
   let { guid = null, curItemCost = {}, discountInPercent = 0 } = shopItem
   let squad = shopItem?.squads[0]
   let armyId = armyData?.guid ?? ""
   let currentLevel = armyData?.level ?? 0
   let { armyLevel = 0, isFreemium = false } = shopItem?.requirements
   let crateContent = shopItemContentCtor(shopItem)
+  let isClassSuitable = (maxClasses?[shopItem?.soldierKind] ?? 0) > 0
 
   return watchElemState(function(sf) {
     let isLocked = armyLevel > currentLevel || (isFreemium && needFreemiumStatus.value)
@@ -283,6 +283,10 @@ let function mkShopItemCard(shopItem, armyData) {
       behavior = Behaviors.Button
       gap = smallPadding
       children = [
+        {
+          size = [flex(), hdpx(25)]
+          children = isClassSuitable ? null : mkAlertObject(loc("shop/unsuitableForSquad"))
+        }
         {
           guid
           behavior = Behaviors.Button
@@ -348,14 +352,15 @@ let function mkShopItemCard(shopItem, armyData) {
 }
 
 let mkSoldiersList = @(soldiersToShow) function() {
+  let { maxClasses = {} } = curSquadParams.value
   let soldiers = soldiersToShow.filter(@(s) s?.soldierKind == curShopSoldierKind.value)
   return {
-    watch = [curArmyData, curShopSoldierKind]
+    watch = [curArmyData, curSquadParams, curShopSoldierKind]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_HORIZONTAL
     gap = bigPadding
     halign = ALIGN_CENTER
-    children = soldiers.map(@(shopItem) mkShopItemCard(shopItem, curArmyData.value))
+    children = soldiers.map(@(shopItem) mkShopItemCard(shopItem, curArmyData.value, maxClasses))
   }
 }
 

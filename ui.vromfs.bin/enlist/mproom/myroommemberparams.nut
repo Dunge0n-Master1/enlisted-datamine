@@ -180,7 +180,9 @@ let canChangeTeam = Computed(function(){
   let doesTeamToJoinExists = teamToJoin in roomTeamArmies.value
   let members = roomMembers.value ?? []
   let playersInTeam = members.filter(@(player) player.public?.team == teamToJoin)
-  return doesTeamToJoinExists && playersInTeam.len() < maxPlayersByTeam && !hasPlayedCurSession.value
+  let isRoomCreating = lobbyStatus.value == LobbyStatus.WaitingBeforeLauch
+  return doesTeamToJoinExists && playersInTeam.len() < maxPlayersByTeam
+    && !hasPlayedCurSession.value && !isRoomCreating
 })
 
 let function teamSelectAfterEntrance(){

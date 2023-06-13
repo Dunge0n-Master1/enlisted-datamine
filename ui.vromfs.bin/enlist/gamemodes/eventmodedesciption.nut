@@ -6,7 +6,7 @@ let { isWide, bigPadding, accentTitleTxtColor, maxContentWidth, defTxtColor, sma
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { verticalGap, localPadding, localGap, armieChooseBlockWidth, eventBlockWidth
 } = require("eventModeStyle.nut")
-let { startBtnWidth } = require("%enlist/startBtn.nut")
+let { startBtnWidth } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { mkRewardImages, prepareRewards, mkRewardTooltip, rewardWidthToHeight, mkSeasonTime,
   mkRewardText

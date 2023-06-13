@@ -3,6 +3,7 @@ require app
 require common_shooter.events_common_shooter
 require soundEvent
 
+
 [es(tag=sound, REQUIRE=gunSound, after=human_gun_delayed_shot_update)]
 def gun_delayed_shot_sound(evt : CmdWeapPhysUpdate;
                            gun_delayed_shot__delayTime : float;

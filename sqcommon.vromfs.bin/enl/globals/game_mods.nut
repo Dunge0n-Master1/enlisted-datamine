@@ -11,9 +11,9 @@ log = log.with_prefix("[GAME LOAD] ")
 let {startswith} = require("string")
 
 //local statusText = {
-//  [http.SUCCESS] = "SUCCESS",
-//  [http.FAILED] = "FAILED",
-//  [http.ABORTED] = "ABORTED",
+//  [http.HTTP_SUCCESS] = "SUCCESS",
+//  [http.HTTP_FAILED] = "FAILED",
+//  [http.HTTP_ABORTED] = "ABORTED",
 //}
 
 //local function httpGet(url, callback){

@@ -119,7 +119,10 @@ def mine_zone_checker(info : UpdateStageInfoAct;
     query(objEid) <| $ [es(REQUIRE_NOT=deadEntity)] (eid : EntityId;
                                                      transform : float3x4;
                                                      zones_visitor__triggerTag : string;
-                                                     team : int)
+                                                     team : int;
+                                                     isInVehicle = false)
+      if isInVehicle
+        return
       let idx = find_index(mine_activation_zone__initEids, eid)
       if idx != -1
         return

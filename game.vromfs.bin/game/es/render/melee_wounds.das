@@ -13,6 +13,7 @@ require GridCollision
 require CollisionTraces
 require danetlibs.native_dasevents.main.native_events
 require common_shooter.events_common_shooter
+require common_shooter.es.hit_result_common
 require DngDm
 
 def apply_melee_wounds(owner : EntityId; attach_eid : EntityId; break_param : int)

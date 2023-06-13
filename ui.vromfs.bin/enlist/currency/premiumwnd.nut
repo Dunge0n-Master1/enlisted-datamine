@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { abs, round } = require("math")
 let { addModalWindow, removeModalWindow } = require("%ui/components/modalWindows.nut")
-let closeBtnBase = require("%ui/components/closeBtn.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
@@ -28,6 +27,8 @@ let colorize = require("%ui/components/colorize.nut")
 let { normal } = require("%ui/style/cursors.nut")
 let { premiumUrl = null } = require("app").get_circuit_conf()
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
+let { isGamepad } = require("%ui/control/active_controls.nut")
+let { wndHeader } = require("%enlist/navigation/commonWndParams.nut")
 
 
 const WND_UID = "premiumWindow"
@@ -260,11 +261,15 @@ let mkPremItem = kwarg(
       : discountInPercent > 0 ? mkDiscountBanner("shop/discountNotify", discountIntervalTs?[1] ?? 0)
       : null
 
-    return watchElemState(@(sf) {
+    return {
       flow = FLOW_VERTICAL
       children = [
-        {
+        watchElemState(@(sf) {
           behavior = Behaviors.Button
+          onHover = function(on) {
+            if (on && isGamepad.value)
+              curSelectedIdWatch(id)
+          }
           onClick = @() isSelected
             ? onPurchase(shopItem, mkPremItemView(true, cellSize, premiumDays, saveVal), offer)
             : curSelectedIdWatch(id)
@@ -308,12 +313,12 @@ let mkPremItem = kwarg(
               ]
             }
           ]
-        }
+        })
         !isSelected ? null :
           purchaseButton(@() onPurchase(shopItem,
             mkPremItemView(true, cellSize,  premiumDays, saveVal), offer))
       ]
-    }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5)))
+    }.__update(mkPremiumDescAnim(ANIM_DELAY * idx + 0.5))
   })
 
 let offersByPremItem = Computed(function() {
@@ -447,40 +452,34 @@ let function open() {
     stopHover = true
     cursor = normal
     children = @() {
+      watch = safeAreaBorders
       size = flex()
       maxHeight = fsh(100)
-      flow = FLOW_HORIZONTAL
-      watch = safeAreaBorders
       padding = safeAreaBorders.value
       children = [
         {
           size = flex()
-          children = {
-            size = [flex(), ph(75)]
-            maxWidth = hdpx(180)
-            hplace = ALIGN_RIGHT
-            children = mkImage("ui/gameImage/premium_decor_left.avif")
-          }
-        }
-        {
-          size = [WND_WIDTH, flex()]
-          children = premiumInfoBlock
-        }
-        {
-          size = flex()
+          flow = FLOW_HORIZONTAL
+          halign = ALIGN_CENTER
           children = [
+            {
+              size = [flex(), ph(75)]
+              maxWidth = hdpx(180)
+              hplace = ALIGN_RIGHT
+              children = mkImage("ui/gameImage/premium_decor_left.avif")
+            }
+            {
+              size = [WND_WIDTH, flex()]
+              children = premiumInfoBlock
+            }
             {
               size = [flex(), ph(75)]
               maxWidth = hdpx(180)
               children = mkImage("ui/gameImage/premium_decor_right.avif")
             }
-            closeBtnBase({
-              padding = fsh(1)
-              hplace = ALIGN_RIGHT
-              onClick = close
-            }).__update({ margin = fsh(1) })
           ]
         }
+        wndHeader(close)
       ]
     }
     onClick = @() null

@@ -4,9 +4,11 @@ ground_holes_updater{
   changed_ground_holes:b=no
   first_holes_update:b=yes
   should_render_ground_holes:b=no
-  gound_holes_temp_tex_size:i=1024
-  gound_holes_main_tex_size:i=2048
+  ground_holes_temp_tex_size:i=1024
+  ground_holes_main_tex_size:i=2048
   ground_holes_scale_offset:p4=-1.0, -1.0, -1.0, -1.0
+  hmap_holes_scale_size_offset_varId:i=-1
+  hmap_holes_temp_ofs_size_varId:i=-1
 
   _group{
     _track:b=yes
@@ -34,6 +36,9 @@ ground_holes_updater{
     }
 
     "holes:list<p4>"{
+    }
+
+    "invalidate_bboxes:list<p3>"{
     }
   }
 }

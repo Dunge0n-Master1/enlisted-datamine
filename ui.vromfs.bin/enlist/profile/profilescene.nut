@@ -11,7 +11,7 @@ let weeklyUnlocksUi = require("%enlist/unlocks/weeklyUnlocksUi.nut")
 let {
   achievementsList, hasAchievementsReward
 } = require("%enlist/unlocks/taskListState.nut")
-let { mkAchievementTitle } = require("%enlSqGlob/ui/taskPkg.nut")
+let { mkAchievementTitle } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let wallpostersUi = require("wallpostersUi.nut")
@@ -23,7 +23,7 @@ let { mkFooterWithButtons, PROFILE_WIDTH } = require("profilePkg.nut")
 let { Bordered } = require("%ui/components/textButton.nut")
 let { isWpHidden, wpIdSelected } = require("wallpostersState.nut")
 let {
-  defBgColor, blurBgColor, tinyOffset, bigOffset
+  defBgColor, blurBgColor, bigOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
 let {
   hasUnseenMedals, hasUnopenedMedals, hasUnseenDecorators, hasUnopenedDecorators,
@@ -111,9 +111,15 @@ let tabsList = [
 ]
 
 let function switchTab(newIdx){
+  if (newIdx > tabsList.len()-1)
+    newIdx = 0
+  else if (newIdx < 0)
+    newIdx = tabsList.len()-1
   if (tabsList?[newIdx] != null)
     curTabIdx(newIdx)
 }
+let nextTab = @() switchTab(curTabIdx.value + 1)
+let prevTab = @() switchTab(curTabIdx.value - 1)
 
 let tabsUi = @() {
   watch = [curTabIdx, isGamepad]
@@ -122,6 +128,7 @@ let tabsUi = @() {
   flow = FLOW_HORIZONTAL
   color = defBgColor
   halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
   children = tabsList.map(function(tab, idx) {
     let isHiddenWatch = tab?.hideWatch ?? Watched(false)
     return function() {
@@ -136,18 +143,19 @@ let tabsUi = @() {
         })
       return {
         watch = isHiddenWatch
+        hotkeys = [["Tab", nextTab], ["L.Shift Tab", prevTab]]
         children = isHidden ? null
           : mkWindowTab(
               tab?.mkTitleComponent ?? loc(tab?.locId ?? ""),
               @() curTabIdx(idx),
               idx == curTabIdx.value,
-              { margin = [0, tinyOffset] },
+              {skipDirPadNav=true},
               tab?.unseenMarkType ?? Watched(null)
             )
       }
     }
-  }).insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchTab(curTabIdx.value - 1)) : null)
-    .append(isGamepad.value ? mkHotkey("^J:RB", @() switchTab(curTabIdx.value + 1)) : null)
+  }).insert(0, isGamepad.value ? mkHotkey("^J:LB", prevTab) : null)
+    .append(isGamepad.value ? mkHotkey("^J:RB", nextTab) : null)
 }
 
 let tabsContentUi = @() {
@@ -159,14 +167,21 @@ let tabsContentUi = @() {
   children = tabsList[curTabIdx.value].content
 }
 
+let backAction = function() {
+  if (wpIdSelected.value != null)
+    return wpIdSelected(null)
+  isProfileOpened(false)
+}
+
 let profileWindow = @() {
   rendObj = ROBJ_WORLD_BLUR_PANEL
-  watch = safeAreaBorders
+  watch = [safeAreaBorders, isGamepad]
   size = flex()
   padding = safeAreaBorders.value
   halign = ALIGN_CENTER
   color = blurBgColor
   onAttach = saveFinishedWeeklyTasks
+  hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn"), action = backAction} ]]
   children = {
     size = [PROFILE_WIDTH, flex()]
     flow = FLOW_VERTICAL
@@ -174,17 +189,7 @@ let profileWindow = @() {
     children = [
       tabsUi
       tabsContentUi
-      mkFooterWithButtons([
-        Bordered(loc("BackBtn"), function() {
-          if (wpIdSelected.value != null)
-            return wpIdSelected(null)
-
-          isProfileOpened(false)
-        }, {
-          hotkeys = [[$"^{JB.B} | Esc", { description = loc("BackBtn") } ]]
-          margin = 0
-        })
-      ])
+      isGamepad.value ? null : mkFooterWithButtons([ Bordered(loc("BackBtn"), backAction, {margin = 0}) ])
     ]
   }
 }

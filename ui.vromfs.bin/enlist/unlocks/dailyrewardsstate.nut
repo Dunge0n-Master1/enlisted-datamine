@@ -134,12 +134,12 @@ let function getStageRewardsData(rewards, mappedItems, cratesComp, armyId) {
 }
 
 let boosterLogs = Computed(@() (unlockLogs.value ?? [])
-  .filter(@(log) log.type == "ADD_BOOSTER"))
+  .filter(@(blog) blog.type == "ADD_BOOSTER"))
 
 let curBoosteredDailyTask = Computed(function() {
   let tasks = dailyTasks.value ?? []
-  let logs = boosterLogs.value.filter(@(log)
-    tasks.findvalue(@(u) u.name == log.unlock) != null)
+  let logs = boosterLogs.value.filter(@(blog)
+    tasks.findvalue(@(u) u.name == blog.unlock) != null)
 
   if (logs.len() == 0)
     return null

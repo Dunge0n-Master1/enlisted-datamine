@@ -28,11 +28,11 @@ def aircraft_state_update(info : UpdateStageInfoAct;
                           fuelTanksLeaksRate : FloatList;
                           aircraft_state_engine__damagedTreshold : float;
                           aircraft_state_engine__destroyedTreshold : float;
-                          var aircraft__isCapableOfTakeOff : bool&;
+                          var aircraft__isCapableOfTakeOffAndFly : bool&;
                           var aircraftStateEngine : AircraftStateEngine_SOA&;
                           var aircraft_state__isFuelTankLeaks : BoolList&;
                           var plane_net_phys : PlaneActor&)
-  aircraft__isCapableOfTakeOff = plane_net_phys.phys.isCapableOfTakeOff
+  aircraft__isCapableOfTakeOffAndFly = plane_net_phys.phys.isCapableOfTaxi && !plane_net_phys.phys.isAnyInoperable
   for i, engineState in range(plane_net_phys.phys.EI.numEngines), aircraftStateEngine
     propulsion_get_engine(*plane_net_phys.phys.EI, i) <| $(engine)
       if engine.readyness < aircraft_state_engine__destroyedTreshold

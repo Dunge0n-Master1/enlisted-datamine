@@ -349,7 +349,8 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__forceLookMode : bool;
                    human_input__shoot : int = 0;
                    human_weap__currentGunEid : EntityId;
-                   human_input__lookDirClamp : float2 = float2(90.f, 90.f);
+                   human_input__currentLookDirClamp : float2;
+                   human_input__prevLookDirClamp : float2;
                    human_input__currentVertLookAngleLimit : float2;
                    human_input__prevVertLookAngleLimit : float2;
                    human_input__aimingSensMult : float = 1.0f;
@@ -470,14 +471,15 @@ def human_input_es(info : UpdateStageUpdateInput;
   let shouldUpdateLookDir = (is_action_active(uint16(human_input__aim)) ||
                             is_action_active(uint16(human_input__aimDelta)) ||
                             is_action_active(uint16(human_input__look)) ||
-                            human_input__currentVertLookAngleLimit != human_input__prevVertLookAngleLimit)
+                            human_input__currentVertLookAngleLimit != human_input__prevVertLookAngleLimit ||
+                            human_input__currentLookDirClamp != human_input__prevLookDirClamp)
   update_movement(info.dt, human_input__aim, human_input__aimDelta,
                   human_input__look, human_input__move,
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
                   human_input__aimAngleOffset, vehicleInputAim, isInVehicle,
-                  shouldUpdateLookDir, shouldUpdateWalkDir, human_input__lookDirClamp / 180.f,
+                  shouldUpdateLookDir, shouldUpdateWalkDir, human_input__currentLookDirClamp / 180.f,
                   deg_to_rad(human_input__currentVertLookAngleLimit), human_input__aimingSensMult,
                   human_input__resetSprintMovementThreshold,
                   human_input__resetSprintMoveThreshold,

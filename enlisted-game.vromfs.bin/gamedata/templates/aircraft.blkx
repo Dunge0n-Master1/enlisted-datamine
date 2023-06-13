@@ -74,6 +74,7 @@ plane_input{
   plane_input__shoot:i=0
   plane_input__shootCannons:i=0
   plane_input__shootAdditionalGuns:i=0
+  _tracked:t="plane_input__shoot"
 
   plane_input{
     _tags:t="input"
@@ -693,7 +694,7 @@ plane_base{
   vehicle_seats__enterTime:r=2.0
   vehicle_seats__restrictToTeam:i=-1
   zones_visitor__triggerTag:t="planeTriggerable"
-  hitmarks__showUserHits:b=no
+  hitmarks_victim__group:t="plane"
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   needsBlood:b=no
   material:t="steel"
@@ -788,6 +789,12 @@ plane_base{
     _tags:t="server"
   }
 
+  "hitmarks__groups:list<t>"{
+  }
+
+  "hitmarks__groupsIds:list<i>"{
+  }
+
   grid_obj{
   }
 
@@ -826,7 +833,7 @@ plane_base{
     aircraft_state_engine__damagedTreshold:r=0.8
     aircraft_state_engine__destroyedTreshold:r=0.3
 
-    "aircraft__isCapableOfTakeOff:b"{
+    "aircraft__isCapableOfTakeOffAndFly:b"{
       value:b=yes
       _track:b=yes
     }
@@ -1120,6 +1127,12 @@ common_machinegun{
 }
 
 ai_aircraft{
+  vehicle_kill_assist__stat:t="aiPlaneKillAssists"
+  vehicle_kill_assist__crewStat:t="aiPlaneKillAssistsAsCrew"
+  vehicle_kill_assist__engineerStat:t="builtGunAiPlaneKillAssists"
+  vehicle_kill__stat:t="aiPlaneKills"
+  vehicle_kill__crewStat:t="crewAiPlaneKillAssists"
+  vehicle_kill__engineerStat:t="builtGunAiPlaneKills"
 
   "forestall_target__maxDist:r"{
     value:r=2000.0

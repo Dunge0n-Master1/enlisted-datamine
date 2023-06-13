@@ -147,15 +147,7 @@ let selectedEquipList = function(presetList, slot) {
   }
 }
 
-
-let savePreset = @(presetTbl, slot) function(soldier, campItemsByLinkVal) {
-  if (soldier == null) {
-    return false
-  }
-
-  let { armyId, sKind } = soldier
-  let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLinkVal)
-
+let updateStorage = function(presetTbl, armyId, sKind, slot, newData) {
   local storage = clone presetTbl ?? {}
   let armyStorage = clone storage?[armyId] ?? {}
   storage[armyId] <- armyStorage
@@ -164,17 +156,29 @@ let savePreset = @(presetTbl, slot) function(soldier, campItemsByLinkVal) {
   if (kindStorage.len() <= slot)
     kindStorage.resize(SLOT_COUNT_MAX)
 
-  kindStorage[slot] = freeze({
-    name = loc("preset/equip/name",
+  let presetData = kindStorage[slot] ?? {}
+  kindStorage[slot] = freeze(presetData.__merge(newData))
+  setEquipmentPreset(storage)
+}
+
+let savePreset = @(presetTbl, slot) function(soldier, campItemsByLinkVal) {
+  if (soldier == null) {
+    return false
+  }
+
+  let { armyId, sKind } = soldier
+  let slotsItems = getSoldierItemSlots(soldier.guid, campItemsByLinkVal)
+  let presetData = {
+    name = presetTbl?[armyId][sKind][slot].name ?? loc("preset/equip/name",
       { order = getRomanNumeral(slot + 1), kind = loc(getKindCfg(sKind).locId) })
     items = slotsItems.apply(@(equippedItem) {
       slotType = equippedItem.slotType
       slotId = equippedItem.slotId
       itemTpl = trimUpgradeSuffix(equippedItem.item.basetpl)
     })
-  })
+  }
 
-  setEquipmentPreset(storage)
+  updateStorage(presetTbl, armyId, sKind, slot, presetData)
   return true
 }
 
@@ -192,6 +196,13 @@ let slotsIncrease = function(presetList, index) {
   return items.len() == 0 ? null : result
 }
 
+let renamePreset = function(presetTbl, presetList, slot) {
+  if (presetList?[slot] == null)
+    return null
+
+  return @(soldier, name)
+    updateStorage(presetTbl, soldier.armyId, soldier.sKind, slot, { name })
+}
 
 let autoPresets = [
   { locId = loc("autoEquip"), fnApply = bestEquipList }
@@ -202,6 +213,7 @@ let autoPresets = [
 let mkSlotDesc = @(presetTbl, presetList, i) {
   locId = presetSlotName(presetList?[i], i)
   fnApply = selectedEquipList(presetList, i)
+  fnRename = renamePreset(presetTbl, presetList, i)
   fnSave = savePreset(presetTbl, i)
   slotsIncrease = slotsIncrease(presetList, i)
 }

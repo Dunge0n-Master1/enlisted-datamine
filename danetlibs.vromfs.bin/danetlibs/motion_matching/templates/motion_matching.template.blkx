@@ -2,7 +2,6 @@ motion_matching_animchar_component{
   _tags:t="render"
   motion_matching__enabled:b=no
   motion_matching__blendTimeToAnimtree:r=0.45
-  motion_matching__blendProgressToAnimtree:r=0.0
   motion_matching__trajectoryInertionFactor:r=0.75
   motion_matching__linearVelocityViscosity:r=0.1
   motion_matching__angularVelocityViscosity:r=0.1
@@ -57,14 +56,37 @@ motion_matching_animchar_component{
 
   _group{
     _tags:t="tools"
-    motion_matching__historyIndex:ip2=-1, 0
     motion_matching__walkSpeed:r=1.8
     motion_matching__runSpeed:r=3.7
+  }
+}
 
-    "motion_matching__clipProgress:list<r>"{
+motion_matching_foot_ik_locker{
+  _tags:t="render"
+  foot_ik_locker_inited:b=no
+  foot_ik_locker_enabled:b=yes
+  foot_ik_locker_blendTime:r=0.2
+  foot_ik_locker_maxReachScale:r=0.99
+  foot_ik_locker_unlockByAnimRadius:r=0.2
+  foot_ik_locker_unlockWhenUnreachableRadius:r=0.05
+
+  "foot_ik_locker_nodes:FootIKLockerNodes"{
+  }
+
+  "foot_ik_locker_nodeNames:array"{
+
+    "leg:object"{
+      toeNodeName:t="Bip01 L Toe0"
+      heelNodeName:t="Bip01 L Foot"
+      kneeNodeName:t="Bip01 L Calf"
+      hipNodeName:t="Bip01 L Thigh"
     }
 
-    "motion_matching__history:list<ip2>"{
+    "leg:object"{
+      toeNodeName:t="Bip01 R Toe0"
+      heelNodeName:t="Bip01 R Foot"
+      kneeNodeName:t="Bip01 R Calf"
+      hipNodeName:t="Bip01 R Thigh"
     }
   }
 }
@@ -77,6 +99,8 @@ motion_matchign_animation_database{
   main_database__perFrameLimit:i=-1
   weightsPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_weights.blk"
   rootMotionPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_root_motion.blk"
+  main_database__nodeMasksPath:t="%danetlibs/motion_matching/animation_data_base/main_data_base_node_masks.blk"
+  _extends:t="motion_matching_foot_ik_locker"
   main_database__root_node:t=""
 
   "data_bases_paths:list<t>"{
@@ -100,51 +124,6 @@ motion_matchign_animation_database{
 
   "main_database__presetsTagsName:list<t>"{
   }
-
-  "main_database__masks:object"{
-
-    "full_body:object"{
-      Bip01:r=1.0
-      "Bip01 Pelvis":r=1.0
-      "Bip01 Spine":r=1.0
-      "Bip01 Spine1":r=1.0
-      "Bip01 Neck":r=1.0
-      "Bip01 Head":r=1.0
-      "Bip01 L Clavicle":r=1.0
-      "Bip01 L UpperArm":r=1.0
-      "Bip01 L Forearm":r=1.0
-      "Bip01 L Hand":r=1.0
-      "Bip01 R Clavicle":r=1.0
-      "Bip01 R UpperArm":r=1.0
-      "Bip01 R Forearm":r=1.0
-      "Bip01 R Hand":r=1.0
-      "Bip01 L Thigh":r=1.0
-      "Bip01 L Calf":r=1.0
-      "Bip01 L Foot":r=1.0
-      "Bip01 L Toe0":r=1.0
-      "Bip01 R Thigh":r=1.0
-      "Bip01 R Calf":r=1.0
-      "Bip01 R Foot":r=1.0
-      "Bip01 R Toe0":r=1.0
-    }
-
-    "no_hands:object"{
-      Bip01:r=1.0
-      "Bip01 Pelvis":r=1.0
-      "Bip01 Spine":r=1.0
-      "Bip01 Spine1":r=1.0
-      "Bip01 Neck":r=1.0
-      "Bip01 Head":r=1.0
-      "Bip01 L Thigh":r=1.0
-      "Bip01 L Calf":r=1.0
-      "Bip01 L Foot":r=1.0
-      "Bip01 L Toe0":r=1.0
-      "Bip01 R Thigh":r=1.0
-      "Bip01 R Calf":r=1.0
-      "Bip01 R Foot":r=1.0
-      "Bip01 R Toe0":r=1.0
-    }
-  }
 }
 
 motion_matchign_animation_database_extended{
@@ -154,8 +133,7 @@ motion_matchign_animation_database_extended{
 
   "data_bases_paths:list<t>"{
     path:t="%danetlibs/motion_matching/animation_data_base/legacy_locomotion.blk"
-    path:t="%danetlibs/motion_matching/animation_data_base/mocap_animations.blk"
-    path:t="%danetlibs/motion_matching/animation_data_base/swim_animations.blk"
+    path:t="%danetlibs/motion_matching/animation_data_base/demo_mocap_animations.blk"
   }
 }
 
@@ -182,8 +160,12 @@ animation_test_spawn_area{
 
 animation_test_target{
   test_target:p3=0.0, 0.0, 0.0
-  test_target_velocity:p3=0.0, 0.0, 0.0
-  test_target_center:p3=0.0, 0.0, 0.0
+  test_target_posOffset:p3=0.0, 0.0, 0.0
+  test_target_velocity:p3=0.0, 0.0, 2.0
+  test_target_origin:p3=0.0, 0.0, 0.0
+  test_target_mode:t="default"
+  test_target_time:r=0.0
+  test_target_timeToReset:r=0.0
 }
 
 animation_tester{
@@ -235,5 +217,26 @@ animation_test_pair{
   }
 
   "tester_list:list<eid>"{
+  }
+}
+
+motion_matching_imgui_state{
+  _singleton:b=yes
+  _tags:t="render"
+  mm_visualization_show_feature_nodes:b=no
+  mm_visualization_show_trajectory:b=no
+  mm_visualization_show_skeleton:b=no
+  mm_visualization_show_skeleton_original:b=no
+  mm_visualization_show_skeleton_node_labels:b=no
+  mm_visualization_show_foot_ik_locked_positions:b=no
+  mm_visualization_show_foot_ik_target_positions:b=no
+  mm_clips_historyIndex:ip2=-1, 0
+  mm_clips_animationPlaySpeed:r=1.0
+  mm_clips_animationPlayMode:i=0
+
+  "mm_clips_clipProgress:list<i>"{
+  }
+
+  "mm_clips_history:list<ip2>"{
   }
 }

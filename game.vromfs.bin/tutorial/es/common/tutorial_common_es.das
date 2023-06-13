@@ -256,6 +256,11 @@ def tutorial_on_hero_respawn_es(evt : Event)
   query() <| $ [es(REQUIRE=tutor_stage__onHeroRespawn)] (eid : EntityId)
     destroyEntity(eid)
 
+[es(on_appear, REQUIRE=heroVehicle)]
+def tutorial_on_hero_vehicle_respawn_es(evt : Event)
+  query() <| $ [es(REQUIRE=tutor_stage__onHeroVehicleRespawn)] (eid : EntityId)
+    destroyEntity(eid)
+
 [es(track=isAlive, REQUIRE=isAlive)]
 def tutorial_destroy_target_es(evt : Event; tutorial_target__targetId : string; tutorial_target__active : bool)
   if !tutorial_target__active

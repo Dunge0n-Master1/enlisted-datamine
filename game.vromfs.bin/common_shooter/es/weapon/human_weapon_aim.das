@@ -18,6 +18,7 @@ def human_weapon_aim(evt : CmdPostPhysUpdate;
                      human_weap__dyspneaMaxMultiplier : float = 3.0;
                      human_weap__crawlClampAngleRad : float = HALF_PI;
                      human_weap__clampAngleRad : float = PI;
+                     entity_mods__breathAimMult : float = 1.0;
                      var human_net_phys : HumanActor&)
   assume currentState = human_net_phys.phys.currentState
   assume appliedCT = human_net_phys.phys.appliedCT
@@ -45,7 +46,7 @@ def human_weapon_aim(evt : CmdPostPhysUpdate;
   let breathMagnitude = (currentState.isCrawl ? weapParams.crawlBreathShakeMagnitude
                        : currentState.isCrouch ? weapParams.crouchBreathShakeMagnitude
                        : weapParams.breathShakeMagnitude)
-  let shakeMagnitude = (breathMagnitude * currentState.breathShakeMult) * aimShakeMult * currentState.breathAmplitudeMult * currentState.breathAimMult
+  let shakeMagnitude = (breathMagnitude * currentState.breathShakeMult) * aimShakeMult * currentState.breathAmplitudeMult * entity_mods__breathAimMult
 
   let startHoldBreathTime = 1.
   let isHoldBreath = is_hold_breath(currentState)

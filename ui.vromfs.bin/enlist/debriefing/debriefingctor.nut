@@ -45,7 +45,7 @@ let { BattleHeroesAward, awardPriority, isSoldierAward, isTopSquadAward
 } = require("%enlSqGlob/ui/battleHeroesAwards.nut")
 let { debounce } = require("%sqstd/timers.nut")
 let { mkRankImage, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
-let { promoWidget } = require("%enlSqGlob/ui/mkPromoWidget.nut")
+let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { showAnoProfile } = require("%enlist/profile/anoProfileState.nut")
 let { INVITE_TO_FRIENDS, INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, REJECT_INVITE,
   REMOVE_FROM_FRIENDS, ADD_TO_BLACKLIST, REMOVE_FROM_BLACKLIST, REMOVE_FROM_BLACKLIST_XBOX,
@@ -113,22 +113,22 @@ let soldierStatsCfg = [
   { stat = "attackKills", locId = "debriefing/awards/attackKills", isVisible = @(_) true },
   { stat = "defenseKills", locId = "debriefing/awards/defenseKills", isVisible = @(_) true },
   { stat = "tankKills", locId = "debriefing/awards/tankKill", isVisible = @(_) true },
-  { stat = "planeKills", locId = "debriefing/awards/planeKill", isVisible = @(_) true },
+  { stats = ["planeKills", "aiPlaneKills"], locId = "debriefing/awards/planeKill", isVisible = @(_) true },
   { stat = "assists", locId = "debriefing/awards/assists", isVisible = @(_) true },
   { stat = "tankKillAssists", locId = "debriefing/awards/tankKillAssists" },
-  { stat = "planeKillAssists", locId = "debriefing/awards/planeKillAssists" },
+  { stats = ["planeKillAssists", "aiPlaneKillAssists"], locId = "debriefing/awards/planeKillAssists" },
   { stat = "crewKillAssists", locId = "debriefing/awards/crewKillAssists", toString = @(v) round_by_value(v, 0.01), },
   { stat = "crewTankKillAssists", locId = "debriefing/awards/crewTankKillAssists", toString = @(v) round_by_value(v, 0.01),},
-  { stat = "crewPlaneKillAssists", locId = "debriefing/awards/crewPlaneKillAssists", toString = @(v) round_by_value(v, 0.01), },
+  { stats = ["crewPlaneKillAssists", "crewAiPlaneKillAssists"], locId = "debriefing/awards/crewPlaneKillAssists", toString = @(v) round_by_value(v, 0.01), },
   { stat = "tankKillAssistsAsCrew", locId = "debriefing/awards/tankKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
-  { stat = "planeKillAssistsAsCrew", locId = "debriefing/awards/planeKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
+  { stats = ["planeKillAssistsAsCrew", "aiPlaneKillAssistsAsCrew"], locId = "debriefing/awards/planeKillAssistsAsCrew", toString = @(v) round_by_value(v, 0.01), },
   { stat = "builtStructures", locId = "debriefing/awards/builtStructures" },
   { stat = "builtGunKills", locId = "debriefing/awards/builtGunKills" },
   { stat = "builtGunKillAssists", locId = "debriefing/awards/builtGunKillAssists" },
   { stat = "builtGunTankKills", locId = "debriefing/awards/builtGunTankKills" },
   { stat = "builtGunTankKillAssists", locId = "debriefing/awards/builtGunTankKillAssists" },
-  { stat = "builtGunPlaneKills", locId = "debriefing/awards/builtGunPlaneKills" },
-  { stat = "builtGunPlaneKillAssists", locId = "debriefing/awards/builtGunPlaneKillAssists" },
+  { stats = ["builtGunPlaneKills", "builtGunAiPlaneKills"], locId = "debriefing/awards/builtGunPlaneKills" },
+  { stats = ["builtGunPlaneKillAssists", "builtGunAiPlaneKillAssists"], locId = "debriefing/awards/builtGunPlaneKillAssists" },
   { stat = "builtBarbwireActivations", locId = "debriefing/awards/builtBarbwireActivations" },
   { stat = "builtCapzoneFortificationActivations", locId = "debriefing/awards/builtCapzoneFortificationActivations" },
   { stat = "builtAmmoBoxRefills", locId = "debriefing/awards/builtAmmoBoxRefills" },
@@ -672,12 +672,12 @@ let function tasksBlock(debriefing) {
 }
 
 let function heroesBlock(debriefing) {
-  let { heroes = [], armyExp = 0 } = debriefing
+  let { heroes = [], armyExp = 0, localPlayerGroupMembers = {} } = debriefing
   if (heroes.len() == 0)
     return null
 
   skippedAnims.heroes <- false
-  let content = mkBattleHeroesBlock(heroes, armyExp > 0).__update({
+  let content = mkBattleHeroesBlock(heroes, armyExp > 0, localPlayerGroupMembers).__update({
     animations = mkAppearAnimations(FILL_BLOCK_DELAY, function() {
       sound_play("ui/debriefing/battle_result")
       gui_scene.setTimeout(0.5, @() continueAnim(debriefing))
@@ -752,7 +752,10 @@ let function awardsBlock(debriefing) {
 
 let function mkSoldierTooltipText(stats, result) {
   let textList = soldierStatsCfg.map(function(s) {
-    let value = stats?[s.stat] ?? s?.defaultValue ?? 0
+    local value = s?.defaultValue ?? 0
+    foreach (stat in s?.stats ?? [s.stat])
+      value += stats?[stat] ?? s?.defaultValue ?? 0
+
     return (s?.isVisible(value) ?? true)
       ? "".concat(loc(s.locId), colon, s.toString(value))
       : ""

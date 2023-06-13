@@ -737,7 +737,7 @@ entity{
 
 entity{
   _template:t="briefing_destruction"
-  mission_name:t="pacific_gavutu_bomb"
+  mission_name:t="pacific_gavutu_bomb_counter"
 
   "loading_images:list<t>"{
     item:t="ui/pacific_gavutu_inv_01.avif"
@@ -1135,7 +1135,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.992696, 0.0, 0.120641] [0.0, 1.0, -0.0] [-0.120641, 0.0, 0.992696] [381.454, 1.63879, -349.84]]
   groupName:t="sector_1"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=3
 }
 
@@ -1143,7 +1143,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[-0.173808, 0.0, -0.98478] [0.0, 1.0, 0.0] [0.98478, 0.0, -0.173808] [397.806, 1.38077, -328.713]]
   groupName:t="sector_1"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=3
 }
 
@@ -1151,7 +1151,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.543808, 0.0, -0.83921] [0.0, 1.0, 0.0] [0.83921, -0.0, 0.543808] [269.021, 2.39746, -267.933]]
   groupName:t="sector_2"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=5
 }
 
@@ -1159,7 +1159,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.884327, 0.0, -0.466869] [0.0, 1.0, 0.0] [0.466869, -0.0, 0.884327] [247.343, 2.00901, -274.098]]
   groupName:t="sector_2"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=5
   active:b=no
 }
@@ -1168,7 +1168,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.870466, 0.0, -0.492228] [0.0, 1.0, 0.0] [0.492228, -0.0, 0.870466] [199.636, 4.20214, -366.666]]
   groupName:t="sector_2"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=5
   active:b=no
 }
@@ -1177,7 +1177,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.999721, 0.0, -0.0236077] [0.0, 1.0, 0.0] [0.0236077, -0.0, 0.999721] [194.657, 3.76054, -394.336]]
   groupName:t="sector_2"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=5
   active:b=no
 }
@@ -1186,7 +1186,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.934435, 0.0, -0.356135] [0.0, 1.0, 0.0] [0.356135, -0.0, 0.934435] [57.3818, 3.74898, -311.74]]
   groupName:t="sector_3"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=7
   active:b=no
 }
@@ -1195,7 +1195,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[0.280547, 0.0, -0.959841] [0.0, 1.0, 0.0] [0.959841, -0.0, 0.280547] [81.1069, 3.35297, -291.361]]
   groupName:t="sector_3"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=7
   active:b=no
 }
@@ -1355,7 +1355,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[-0.972258, 0.0, -0.233912] [0.0, 1.0, 0.0] [0.233912, 0.0, -0.972258] [153.527, 4.79397, -182.196]]
   groupName:t="sector_3"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=7
   active:b=no
 }
@@ -1364,7 +1364,7 @@ entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
   transform:m=[[-0.972258, 0.0, -0.233912] [0.0, 1.0, 0.0] [0.233912, 0.0, -0.972258] [150.846, 4.91403, -165.53]]
   groupName:t="sector_3"
-  team:i=1
+  team:i=2
   respawnBaseGroup:i=7
   active:b=no
 }

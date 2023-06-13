@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let eventbus = require("eventbus")
 let http = require("dagor.http")
-let json = require("json")
+let { parse_json } = require("json")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { get_circuit } = require("app")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
@@ -95,22 +95,18 @@ let function recalcActiveOffers(_ = null) {
   let list = armyId == null ? []
     : allOffers.value
         .map(function(offer) {
-          let { shopItemGuid } = offer
+          let { shopItemGuid, scheme = null } = offer
           let shopItem = sItems?[shopItemGuid]
           if (shopItem == null)
-            return null
-
-          let { armies = [] } = shopItem
-          if (armies.len() > 0 && !armies.contains(armyId))
             return null
 
           return {
             endTime = offer.intervalTs[1]
             widgetTxt = loc(shopItem?.nameLocId ?? "")
-            widgetImg = offer.scheme?.baseWidgetImg
-            windowImg = offer.scheme?.basePromoImg
-            descLocId = offer.scheme?.baseDescLocId
-            lifeTime  = offer.scheme.lifeTime
+            widgetImg = scheme?.baseWidgetImg
+            windowImg = scheme?.basePromoImg
+            descLocId = scheme?.baseDescLocId
+            lifeTime  = scheme?.lifeTime ?? 0
             guid = offer.guid
             shopItemGuid
             discountInPercent = offer.discountInPercent
@@ -239,7 +235,7 @@ let eventsKeysSorted = Computed(@() eventsData.value
 let function processEventDesc(response) {
   let id = descRequestedId.value
   let { status = -1, http_code = 0, body = null } = response
-  if (status != http.SUCCESS || http_code < 200 || 300 <= http_code) {
+  if (status != http.HTTP_SUCCESS || http_code < 200 || 300 <= http_code) {
     send_counter("offer_receive_error", 1, { http_code })
     log($"current offers request error: {status}, {http_code}")
     descRequestedId(null)
@@ -249,7 +245,7 @@ let function processEventDesc(response) {
 
   local result
   try {
-    result = json.parse(body?.as_string())?.result
+    result = parse_json(body?.as_string())?.result
   } catch(e) {
   }
 

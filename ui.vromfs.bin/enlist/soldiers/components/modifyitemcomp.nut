@@ -262,7 +262,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
 
   if (isDisposable && guids.len() < batchSize) {
     msgbox.show({
-      text = loc("tip/notEnoughItemsDispose", { batchSize, count = orderCount })
+      text = loc("tip/notEnoughItemsDispose", { batchSize, count = orderCount.tointeger() })
     })
     return
   }
@@ -301,7 +301,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
                     {
                       ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                         currencyTpl = orderTpl
-                        count = orderCount * countWatched.value / batchSize
+                        count = (orderCount * countWatched.value / batchSize).tointeger()
                         textStyle = {
                           color = sf & S_HOVER ? TextHover : TextNormal
                         }.__update(body_txt)

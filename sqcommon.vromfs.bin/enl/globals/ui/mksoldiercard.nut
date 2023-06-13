@@ -30,11 +30,12 @@ let function listSquadColor(flags, selected, isFaded, hasAlertStyle, isDead) {
       : add + defBgColor
 }
 
-let sClassIconSize = hdpxi(22)
+let sClassIconSize = hdpxi(26)
 let makeClassIcon = @(soldier, color, isDead = false) isDead
   ? {
       rendObj = ROBJ_IMAGE
       size = [sClassIconSize, sClassIconSize]
+      padding = [0, gap]
       vplace = ALIGN_CENTER
       image = iconDead
       tint = color
@@ -44,6 +45,7 @@ let makeClassIcon = @(soldier, color, isDead = false) isDead
         vplace = ALIGN_CENTER
         halign = ALIGN_CENTER
         gap = gap
+        padding = [0, gap]
         flow = FLOW_VERTICAL
         children = [
           kindIcon(soldier?.sKind, sClassIconSize, soldier?.sClassRare)
@@ -179,57 +181,63 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
 
   return {
     key = $"{soldierInfo.guid}"
-    size = size
-    rendObj = ROBJ_SOLID
-    color = listSquadColor(sf, isSelected, isFaded, hasAlertStyle, isBlocked)
+    size
     clipChildren = true
-    group = group
+    rendObj = ROBJ_SOLID
+    group
+    color = defBgColor
     flow = FLOW_HORIZONTAL
-    gap = gap
-    padding = [0, 0, 0, gap]
 
     children = [
-      makeClassIcon(soldierInfo,
-        isClassRestricted
-          ? blockedTxtColor
-          : textColor(sf, isSelected),
-        isDead)
-      withTooltip({
-          children = [
-            mkSoldierPhoto(soldierInfo?.photo,
+      {
+        size = flex()
+        rendObj = ROBJ_SOLID
+        color = listSquadColor(sf, isSelected, isFaded, hasAlertStyle, isBlocked)
+        flow = FLOW_HORIZONTAL
+        gap
+        children = [
+          withTooltip({
+            children = [
+              mkSoldierPhoto(soldierInfo?.photo,
               [(0.7 * size[1]).tointeger(), size[1]], [],
               isFaded || isBlocked ? DISABLED_ITEM : {})
             tierText(tier).__update({ margin = [0, hdpx(2)] })
-          ]
-        },
-        @() rankingTooltip(tier))
-      {
-        size = flex()
-        children = [
-          squadInfo == null
-            ? mkSoldierInfoBlock(
-                soldierInfo,
-                nameColor(sf, isSelected),
-                weaponRow,
-                group,
-                isFreemiumMode,
-                thresholdColor,
-                expToLevel
-              )
-            : mkDropSoldierInfoBlock(
-                soldierInfo,
-                squadInfo,
-                nameColor(sf, isSelected),
-                textColor(sf, isSelected),
-                group
-              )
-          addChild == null ? null : {
+          ]},
+          @() rankingTooltip(tier))
+          {
             size = flex()
-            padding = hdpx(2)
-            children = addChild(soldierInfo, isSelected)
+            children = [
+              squadInfo == null
+                ? mkSoldierInfoBlock(
+                    soldierInfo,
+                    nameColor(sf, isSelected),
+                    weaponRow,
+                    group,
+                    isFreemiumMode,
+                    thresholdColor,
+                    expToLevel
+                  )
+                : mkDropSoldierInfoBlock(
+                    soldierInfo,
+                    squadInfo,
+                    nameColor(sf, isSelected),
+                    textColor(sf, isSelected),
+                    group
+                  )
+              addChild == null ? null : {
+                size = flex()
+                padding = hdpx(2)
+                children = addChild(soldierInfo, isSelected)
+              }
+            ]
           }
         ]
       }
+      makeClassIcon(soldierInfo,
+        isClassRestricted
+          ? blockedTxtColor
+          : textColor(0, false), //use only default color
+        isDead)
     ]
   }.__update(updStyle)
 }

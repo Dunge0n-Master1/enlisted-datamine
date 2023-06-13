@@ -130,6 +130,8 @@ b_34{
       paramYawSpeed:t="turret1_yaw_speed"
       paramMaxYawAngle:t="turret1_max_yaw_angle"
       aimActiveParamName:t="gun1_aim_active"
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       paramPitchSpeedMul:t="gun1_pitch_mul"
       paramYawAccel:t="turret1_yaw_accel"
       paramPitchAccel:t="gun1_pitch_accel"
@@ -142,6 +144,8 @@ b_34{
     }
 
     "vars:object"{
+      curWorldPitchParamName:t="gun1_world_pitch"
+      curWorldYawParamName:t="turret1_world_yaw"
       curYawParamName:t="turret1_yaw"
       curPitchParamName:t="gun1_pitch"
     }
@@ -153,6 +157,8 @@ b_34{
       paramYawSpeed:t="turret2_yaw_speed"
       paramMaxYawAngle:t="turret2_max_yaw_angle"
       aimActiveParamName:t="gun3_aim_active"
+      curWorldPitchParamName:t="gun3_world_pitch"
+      curWorldYawParamName:t="turret2_world_yaw"
       paramPitchSpeedMul:t="gun3_pitch_mul"
       paramYawAccel:t="turret2_yaw_accel"
       paramPitchAccel:t="gun3_pitch_accel"
@@ -165,6 +171,8 @@ b_34{
     }
 
     "vars:object"{
+      curWorldPitchParamName:t="gun3_world_pitch"
+      curWorldYawParamName:t="turret2_world_yaw"
       curYawParamName:t="turret2_yaw"
       curPitchParamName:t="gun3_pitch"
     }

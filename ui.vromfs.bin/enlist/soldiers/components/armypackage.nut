@@ -14,7 +14,7 @@ let mkIcon = @(sIcon, size, override) sIcon == null ? null : {
 }.__update(override)
 
 let mkArmyIcon = @(armyId, size = armyIconHeight, override = {})
-  mkIcon(armiesPresentation?[armyId].icon ?? armyId, size, override)
+  mkIcon(armiesPresentation?[armyId].smallColorIcon ?? armyId, size, override)
 
 let mkArmySimpleIcon = @(armyId, size = armyIconHeight, override = {})
   mkIcon(armiesPresentation?[armyId].smallIcon ?? armyId, size, override)

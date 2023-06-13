@@ -1,6 +1,7 @@
 require ecs
 require soundEvent
 require soundSystem
+require strings
 
 
 [es(tag=sound, on_appear)]
@@ -11,7 +12,7 @@ def game_effect_sound_appear(evt : Event;
                              game_effect__attachedTo : EntityId)
   abandon(game_effect_sound__event.handle)
   let sound = has(game_effect__attachedTo, "hero") ? game_effect_sound__hero : game_effect_sound__enemy
-  if sound != ""
+  if !empty(sound)
     ecs::query(game_effect__attachedTo) <| $ [es] (transform : float3x4)
       game_effect_sound__event |> play(sound, transform[3])
       game_effect_sound__event.abandonOnReset = true

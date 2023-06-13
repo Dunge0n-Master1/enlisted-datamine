@@ -75,11 +75,7 @@ let twoSideIdx = mkWatched(persist, "twoSideIdx", 0)
 const SLOTS_IN_ROW = 4
 
 let iconSpaceWidth = SLOTS_IN_ROW * slotSize[0] + (SLOTS_IN_ROW - 1) * bigPadding
-
-let purchSpinner = spinner({ height = hdpx(80) }).__update({
-  hplace = ALIGN_CENTER
-  vplace = ALIGN_CENTER
-})
+let waitingSpinner = spinner()
 
 let function mkCamouflage(cParams, gametemplate, camouflage, skinToBuy, currencies) {
   let id = skinToBuy?.id ?? camouflage?.id
@@ -602,8 +598,8 @@ let mkDecoratorsList = @(curCustType, curSlotIdx, onlyOwned) function() {
             }, 0)
 
           let limit = cfgLimits?[groupName] ?? 0
-          let count = vehLimits.reduce(@(res, id, slot)
-            id == groupName && slot != curSlotIdx ? res + 1 : res, 0)
+          let count = vehLimits.reduce(@(acc, id, slot)
+            id == groupName && slot != curSlotIdx ? acc + 1 : acc, 0)
           return mkCustomizeList(groupName, hasOpened, onGroupClick,
             availCount, limit, count, groupIcons)
         })
@@ -882,42 +878,40 @@ twoSideIdx.subscribe(function(v) {
     twoSideDecal(true, true)
 })
 
-let customizeScene = {
-  size = flex()
-  children = function() {
-    let mouseMoveCb = selectedDecorator.value != null
-      ? onDecalMouseMove
-      : null
-    let mouseWheelCb = selectedDecorator.value != null
-      ? onDecalMouseWheel
-      : null
-    let isDecoration = mouseMoveCb != null
-    return {
-      watch = [safeAreaBorders, selectedDecorator, isPurchasing]
-      size = flex()
-      padding = isDecoration ? null : safeAreaBorders.value
-      behavior = isDecoration
-        ? Behaviors.TrackMouse
-        : Behaviors.MenuCameraControl
-      onMouseMove = mouseMoveCb
-      onMouseWheel = mouseWheelCb
-      children = selectedDecorator.value == null
-        ? [
-            customizeSlotsUi
-            isPurchasing.value ? purchSpinner : null
-            customizeListUi
-          ]
-        : selectedDecorator.value.cType == "vehDecorator" ? mkUseDecorBlock(
-            applyUsingDecor,
-            stopUsingDecal,
-            safeAreaBorders.value
-          )
-        : mkUseDecalBlock(
-            applyUsingDecal,
-            stopUsingDecal,
-            safeAreaBorders.value
-          )
-    }
+let customizeScene = function() {
+  let mouseMoveCb = selectedDecorator.value != null
+    ? onDecalMouseMove
+    : null
+  let mouseWheelCb = selectedDecorator.value != null
+    ? onDecalMouseWheel
+    : null
+  let isDecoration = mouseMoveCb != null
+  return {
+    watch = [safeAreaBorders, selectedDecorator, isPurchasing]
+    size = flex()
+    padding = isDecoration ? null : safeAreaBorders.value
+    margin = [0, 0, smallOffset, 0]
+    behavior = isDecoration
+      ? Behaviors.TrackMouse
+      : Behaviors.MenuCameraControl
+    onMouseMove = mouseMoveCb
+    onMouseWheel = mouseWheelCb
+    children = selectedDecorator.value == null
+      ? [
+          customizeSlotsUi
+          isPurchasing.value ? waitingSpinner : null
+          customizeListUi
+        ]
+      : selectedDecorator.value.cType == "vehDecorator" ? mkUseDecorBlock(
+          applyUsingDecor,
+          stopUsingDecal,
+          safeAreaBorders.value
+        )
+      : mkUseDecalBlock(
+          applyUsingDecal,
+          stopUsingDecal,
+          safeAreaBorders.value
+        )
   }
 }
 

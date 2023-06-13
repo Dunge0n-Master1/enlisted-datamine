@@ -3,6 +3,7 @@ require math.base
 require HumanPhys
 require DngHuman
 require game.es.events
+require enlisted.events_enlisted
 
 require DagorConsole
 
@@ -33,3 +34,18 @@ def drain_stamina_on_breath_hold_es(evt : CmdPostPhysUpdate;
     if human_net_phys.phys.currentState.stamina <= 0.f
       set_is_hold_breath(human_net_phys.phys.currentState, false)
       human_net_phys.phys.currentState.breathShortness = 1.
+
+def breath_shortness_block_stamina_restoration(var human_net_phys : HumanActor&)
+  assume currentState = human_net_phys.phys.currentState
+  if currentState.breathShortness > 0.
+    currentState.restoreStaminaMult = 0.0
+
+[es(tag=netClient, REQUIRE=hero, after=entity_restore_stamina_mult_applier_es, before=before_net_phys_sync)]
+def breath_shortness_block_stamina_restoration_local(info : ParallelUpdateFrameDelayed;
+                                                     var human_net_phys : HumanActor&)
+  breath_shortness_block_stamina_restoration(human_net_phys)
+
+[es(tag=server, after=entity_restore_stamina_mult_applier_es, before=before_net_phys_sync)]
+def breath_shortness_block_stamina_restoration_server(info : ParallelUpdateFrameDelayed;
+                                                      var human_net_phys : HumanActor&)
+  breath_shortness_block_stamina_restoration(human_net_phys)

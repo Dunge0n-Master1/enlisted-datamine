@@ -95,6 +95,12 @@ struct EventProjectileHitScene
   vel : float3
   riexHandle : riex_handle_t
 
+[event(unicast)]
+struct EventProjectileHitCanopy
+  pos : float3
+  matId : int
+  norm : float3
+
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct EventEntityDowned
   offender : EntityId
@@ -394,6 +400,45 @@ struct HumanWeapRequestSwitchFiringMode
 [cpp_event(unicast)]
 struct CmdAutoequipGunMod
   slotId : int
+
+[cpp_event(unicast)]
+struct HumanPickupWeapRequest
+  itemEid : EntityId
+  slotId : int
+
+[cpp_event(unicast)]
+struct HumanDropWeapRequest
+  slotId : int
+
+[cpp_event(unicast)]
+struct HumanSwapWeapRequest
+  fromSlotId : int
+  toSlotId : int
+
+[cpp_event(unicast)]
+struct HumanInstallItemOnWeapRequest
+  itemEid : EntityId
+  slotId : int
+  slotName : string
+
+[cpp_event(unicast)]
+struct HumanPickupAndInstallItemOnWeapRequest
+  itemEid : EntityId
+  slotId : int
+  slotName : string
+
+[cpp_event(unicast)]
+struct HumanRemoveItemFromWeapRequest
+  slotId : int
+  slotName : string
+  toGround : bool
+
+[cpp_event(unicast)]
+struct HumanSwapWeaponModsRequest
+  fromSlotId : int
+  fromWeapModSlot : string
+  toSlotId : int
+  toWeapModSlot : string
 
 [cpp_event(unicast)]
 struct CmdInventoryDropGun

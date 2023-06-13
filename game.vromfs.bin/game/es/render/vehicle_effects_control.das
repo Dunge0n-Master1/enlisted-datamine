@@ -5,9 +5,9 @@ require game.utils.hero
 require DagorShaders
 require vehicle
 
-let cockpit_girth_radiusVarId = get_shader_variable_id("cokpitRadius", true)
+let cockpit_girth_radiusVarId = get_shader_variable_id("cockpit_radius", true)
 
-def set_cokpit_radius(radius)
+def set_cockpit_radius(radius)
   DagorShaders::set_real(cockpit_girth_radiusVarId, radius)
 
 [es(tag=render, on_appear, on_event=(EventOnSeatOwnersChanged),
@@ -28,7 +28,7 @@ def cockpit_inside_effects_control(evt : Event;
         currentRadius = (!hasHatch || isHatchClosed) ? currentRadius : 0f
 
   currentRadius = isInVehicle ? currentRadius : 0f;
-  set_cokpit_radius(currentRadius)
+  set_cockpit_radius(currentRadius)
 
 [es(tag=render, on_appear, track=(seats_hatch_nodes__openPos))]
 def cockpit_open_hatch_effects_control(evt : Event; seats_hatch_nodes__isValid : bool; seats_hatch_nodes__openPos : float; eid : EntityId)
@@ -38,14 +38,14 @@ def cockpit_open_hatch_effects_control(evt : Event; seats_hatch_nodes__isValid :
                                                   effectsCulling__cockpitRadius : float)
       let seatNo = find_seat_with_owner(heroId, vehicle_seats__seatEids)
       if seatNo < 0
-        set_cokpit_radius(0.0f)
+        set_cockpit_radius(0.0f)
         return
       if vehicle_seats__seatEids[seatNo] == eid
         let hasHatch = seats_hatch_nodes__isValid
         let isHatchClosed = hasHatch && seats_hatch_nodes__openPos <= 0.f
         let currentRadius = (!hasHatch || isHatchClosed) ? effectsCulling__cockpitRadius : 0f
-        set_cokpit_radius(currentRadius)
+        set_cockpit_radius(currentRadius)
 
 [es(on_disappear, tag=render, no_order, REQUIRE=hero)]
 def control_effects_on_exit_es(evt : Event)
-  set_cokpit_radius(0f)
+  set_cockpit_radius(0f)

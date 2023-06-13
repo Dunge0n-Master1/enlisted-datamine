@@ -53,6 +53,12 @@ def apply_dev_mode_first_spawn_delays(evt : EventApplyDevMode;
   squads__firstSpawnDelayByType |> set("aircraft_assault", 0.0)
 
 
+[es]
+def apply_dev_mode_resp_times(evt : EventApplyDevMode;
+                              var respTime : int&)
+  respTime = 0
+
+
 [console_cmd(name="sandbox.enable_devmode", hint="Removes different gameplay cooldowns and limitations for easier testing.")]
 def enable_devmode_cmd()
   broadcastEvent([[EventApplyDevMode]])

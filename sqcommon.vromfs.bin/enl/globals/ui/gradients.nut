@@ -2,7 +2,12 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { mkBitmapPicture } = require("%darg/helpers/bitmap.nut")
 let { lerpClamped } = require("%sqstd/math.nut")
+let { sqrt } = require("math")
 
+
+let gradCircCornerSize = 20
+let getDistance = @(x, y) sqrt(x * x + y * y)
+let mkWhite = @(part) part + (part << 8) + (part << 16) + (part << 24)
 
 let colorParts = @(color) {
   r = (color >> 16) & 0xFF
@@ -26,7 +31,7 @@ let function lerpColorParts(c1, c2, tmp, k) {
   return tmp
 }
 
-let mkColoredGradientY = @(colorTop, colorBottom, height = 12, isAlphaPremultiplied = true)
+let mkColoredGradientY = kwarg(@(colorTop, colorBottom, height = 12, isAlphaPremultiplied = true)
   mkBitmapPicture(4, height,
     function(params, bmp) {
       let { w, h } = params
@@ -39,8 +44,9 @@ let mkColoredGradientY = @(colorTop, colorBottom, height = 12, isAlphaPremultipl
           bmp.setPixel(x, y, color)
       }
     }, isAlphaPremultiplied ? "" : "!")
+)
 
-let mkColoredGradientX = @(colorLeft, colorRight, width = 12, isAlphaPremultiplied = true)
+let mkColoredGradientX = kwarg(@(colorLeft, colorRight, width = 12, isAlphaPremultiplied = true)
   mkBitmapPicture(width, 4,
     function(params, bmp) {
       let { w, h } = params
@@ -53,8 +59,9 @@ let mkColoredGradientX = @(colorLeft, colorRight, width = 12, isAlphaPremultipli
           bmp.setPixel(x, y, color)
       }
     }, isAlphaPremultiplied ? "" : "!")
+)
 
-let mkDiagonalColoredGradient = @(cTop, cBottom, fromTop = true, width = 12, height = 12)
+let mkDiagonalColoredGradient = kwarg(@(cTop, cBottom, fromTop = true, width = 12, height = 12)
   mkBitmapPicture(width, height,
     function(params, bmp) {
       let { w, h } = params
@@ -68,10 +75,10 @@ let mkDiagonalColoredGradient = @(cTop, cBottom, fromTop = true, width = 12, hei
           bmp.setPixel(x, y, color)
         }
     })
+)
 
-
-let mkTwoSidesGradientX = @(sideColor, centerColor, isAlphaPremultiplied = true)
-  mkBitmapPicture(12, 4,
+let mkTwoSidesGradientX = kwarg(@(sideColor, centerColor, width=12, isAlphaPremultiplied = true)
+  mkBitmapPicture(width, 4,
     function(params, bmp) {
       let { w, h } = params
       let c1 = colorParts(sideColor)
@@ -88,15 +95,15 @@ let mkTwoSidesGradientX = @(sideColor, centerColor, isAlphaPremultiplied = true)
           bmp.setPixel(x, y, color)
       }
     }, isAlphaPremultiplied ? "" : "!")
+)
 
-
-let mkHorScrollMask = @(imgWidth, offsetWidth)
+let mkHorScrollMask = @(imgWidth, offsets)
   mkBitmapPicture(imgWidth, 2,
     function(params, bmp) {
       let { w, h } = params
       for(local x = 0; x < w; x++) {
-        let rightGradPos = w - offsetWidth - 1
-        let aFactor = x < offsetWidth ? lerpClamped(0, offsetWidth, 0, 1.0, x)
+        let rightGradPos = w - offsets[1] - 1
+        let aFactor = x < offsets[0] ? lerpClamped(0, offsets[0], 0, 1.0, x)
           : x >= rightGradPos  ? lerpClamped(rightGradPos, w - 1, 1.0, 0, x)
           : 1
         let part = (0xFF * aFactor).tointeger()
@@ -108,10 +115,21 @@ let mkHorScrollMask = @(imgWidth, offsetWidth)
   )
 
 
+let gradRadial = mkBitmapPicture(gradCircCornerSize * 2, gradCircCornerSize * 2,
+  function(_, bmp) {
+    for (local y = 0; y < gradCircCornerSize * 2; y++)
+      for (local x = 0; x < gradCircCornerSize * 2; x++) {
+        let distance = getDistance(x - gradCircCornerSize, y - gradCircCornerSize)
+        bmp.setPixel(x, y, mkWhite((0xFF * max(0.0, 1.0 - ((distance + 1) / gradCircCornerSize))).tointeger()))
+      }
+  })
+
+
 return {
   mkColoredGradientX
   mkColoredGradientY
   mkTwoSidesGradientX
   mkDiagonalColoredGradient
   mkHorScrollMask
+  gradRadial
 }

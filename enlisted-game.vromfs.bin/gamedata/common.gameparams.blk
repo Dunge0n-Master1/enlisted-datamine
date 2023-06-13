@@ -3,6 +3,7 @@ maxRiExPerCell:i=81920
 rendinstPreloadDistance:r = 2500
 rendinstMaxLod0Dist:r = 1200
 nodeBasedShadersFolder:t="enlisted"
+glassShadowK:r = 0.7
 disableShadowImpostorForAllLod:b=yes
 
 physmatBlk:t="config/physmat.blk"
@@ -139,4 +140,11 @@ treeCrownTransmittance {
   falloffStart:r = 0.01; // default - 0.01
   falloffStop:r = 1.6; // default - 1.
   enabled:b = yes; // default - no
+}
+
+glassScratches {
+  texcoord_mul:r = 10.0;
+  alpha_mul:r = 0.0;
+  radius_pow:r = 45.0;
+  mul:r = 4;
 }

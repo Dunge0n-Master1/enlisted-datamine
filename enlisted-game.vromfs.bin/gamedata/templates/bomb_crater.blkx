@@ -146,7 +146,9 @@ bomb_crater_config{
 
   _group{
     _tags:t="render"
+    bomb_crater_config__minOuterRadiusForSoundEffect:r=1.2
     bomb_crater_config__smokeEffectTemplate:t="explosion_smoke_crater_effect"
+    bomb_crater_config__smokeEffectWithSoundTemplate:t="explosion_smoke_crater_effect_with_sound"
 
     "bomb_crater_config__decalNames:list<t>"{
       name:t="explosion"
@@ -155,6 +157,8 @@ bomb_crater_config{
       name:t="explosion_sand"
       name:t="explosion_sand"
       name:t="explosion_sand"
+      name:t="explosion_sand"
+      name:t="explosion_snow"
     }
 
     "bomb_crater_config__decalPhysmats:list<t>"{
@@ -162,8 +166,10 @@ bomb_crater_config{
       name:t="sand"
       name:t="sand_slope"
       name:t="roadSand"
+      name:t="roadSoil"
       name:t="quickSand"
       name:t="quarrySand"
+      name:t="snow"
     }
 
     "bomb_crater_config__decalIds:list<i>"{

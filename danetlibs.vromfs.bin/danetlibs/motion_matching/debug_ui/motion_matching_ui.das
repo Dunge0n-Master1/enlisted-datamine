@@ -1,3 +1,4 @@
+options no_aot
 require ecs
 require DagorImgui
 require danetlibs/motion_matching/debug_ui/motion_matching_ui_common

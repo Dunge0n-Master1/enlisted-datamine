@@ -43,8 +43,11 @@ currentItemPart.subscribe(@(v)
   curCustomizationItem(customizationToApply.value?[v]))
 
 let customizationItems = Computed(@()
-  customizationToApply.value.reduce(function(res, v) {res[v] <- true; return res;}, {})
-)
+  customizationToApply.value.reduce(function(res, v) {
+    if (v != null)
+      res[v] <- true
+    return res
+  }, {}))
 
 let closePurchaseWnd = function(){
   isMultiplePurchasing(false)
@@ -52,7 +55,7 @@ let closePurchaseWnd = function(){
 }
 isPurchasing.subscribe(@(v) v ? null : closePurchaseWnd())
 
-customizationToApply.subscribe(function(v){
+customizationToApply.subscribe(function(v) {
   if (customizedSoldierInfo.value == null || v.len() <= 0) {
     gui_scene.setTimeout(0.1, @() appearanceToRender(null))
     return
@@ -315,7 +318,7 @@ let itemsPerSlot = Computed(function(){
       let { itemsubtype = null } = findItemTemplate(allItemTemplates, armyId, val)
       let curItemPrice = itemTypes?[itemsubtype] ?? {}
       let isItemDefault = defaultItems.findvalue(@(v) v == val) != null
-      if (!isItemDefault && curItemPrice.len() <= 0)
+      if (val != "" && !isItemDefault && curItemPrice.len() <= 0)
         return false
       let isHidden = curItemPrice.findvalue(@(val) val?.isZeroHidden) != null
       if (!isHidden || val in freeItemsBySquad.value[guid])
@@ -426,14 +429,14 @@ let function closeCustomizationWnd(){
   isCustomizationWndOpened(false)
 }
 
-let function saveOutfit(){
+let function saveOutfit() {
   if (customizationToApply.value.len() <= 0) {
     closeCustomizationWnd()
     return
   }
 
   local hasChanges = false
-  foreach (item in customizationToApply.value){
+  foreach (item in customizationToApply.value) {
     if (oldSoldiersLook.value.findindex(@(v) v == item) == null){
       hasChanges = true
       break
@@ -466,10 +469,6 @@ let function saveOutfit(){
     return
   }
   foreach (slot, outfitTmpl  in customizationToApply.value) {
-    if (outfitTmpl == ""){
-      free[slot] <- outfitTmpl
-      continue
-    }
     let premList = curArmyOutfit.value ?? []
     let prems = premList.findvalue(@(val) val.basetpl == outfitTmpl) ?? {}
     if (prems.len() > 0)
@@ -543,18 +542,23 @@ let function removeItem(itemToDelete){
 }
 
 
-let function removeAndCloseWnd(itemToDelete){
+let function removeAndCloseWnd(itemToDelete) {
   removeItem(itemToDelete)
   curCustomizationItem(null)
   closePurchaseWnd()
 }
 
-local function blockOnClick(slotName){
+local function blockOnClick(slotName) {
   currentItemPart(slotName)
   isCustomizationWndOpened(true)
 }
 
-local function itemBlockOnClick(item){
+local function itemBlockOnClick(item) {
+  if (item == "") {
+    curCustomizationItem("")
+    customizationToApply.mutate(@(v) v[currentItemPart.value] <- "")
+    return
+  }
   curCustomizationItem(item)
   customizationToApply.mutate(@(v) v[currentItemPart.value] <- item)
   checkIfCanBuy(item)

@@ -3,6 +3,7 @@ require common_shooter.events_common_shooter
 require weapon_sounds.modules.weapon_sounds_events
 require BallisticsProps
 
+
 [es(tag=sound)]
 def projectile_hit_scene_sound(evt : EventProjectileHitScene;
                                eid : EntityId;

@@ -68,14 +68,12 @@ def blood_decals_prepare_render(stg : UpdateStageInfoBeforeRender;
 
     d3d_set_render_target(null, 0)
     d3d_set_depth(blood_decals_depth_atlas.getTex2D, false)
-    //ScopeResetShaderBlocks shaderBlockScope;
-    blood_decals_depth_shader |> setStates()
-    for atlasPos in blood_decals_traces_queue
-
-      d3d_setview(atlasPos.x, atlasPos.y, DEPTH_TEX_SIZE, DEPTH_TEX_SIZE, 0f, 1f)
-      blood_decals_depth_shader |> render()
-
-    d3d_resource_barrier(blood_decals_depth_atlas.getTex2D, RB_RO_SRV | RB_STAGE_PIXEL, 0u, 0u)
+    exec_with_shader_blocks_scope_reset() <| $()
+      blood_decals_depth_shader |> setStates()
+      for atlasPos in blood_decals_traces_queue
+        d3d_setview(atlasPos.x, atlasPos.y, DEPTH_TEX_SIZE, DEPTH_TEX_SIZE, 0f, 1f)
+        blood_decals_depth_shader |> render()
+      d3d_resource_barrier(blood_decals_depth_atlas.getTex2D, RB_RO_SRV | RB_STAGE_PIXEL, 0u, 0u)
 
   blood_decals_manager |> prepareRender(stg.mainCullingFrustum)
 

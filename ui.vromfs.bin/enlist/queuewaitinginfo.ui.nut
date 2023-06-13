@@ -3,8 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
-let spinner = require("%ui/components/spinner.nut")({ height = hdpx(80) })
-let { WindowTransparent } = require("%ui/style/colors.nut")
+let spinner = require("%ui/components/spinner.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { activeTitleTxtColor, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let {
@@ -24,6 +23,8 @@ let {
   eventsArmiesList, eventCurArmyIdx
 } = require("%enlist/gameModes/eventModesState.nut")
 
+let { colPart, transpPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
 
 const TIME_BEFORE_SHOW_QUEUE = 15
 const MIN_VISIBLE_PLAYERS_AMOUNT = 2
@@ -33,6 +34,8 @@ let defPosSize = {
   size = defaultSize
   pos = [ sw(50) - defaultSize[0] / 2, sh(80) - defaultSize[1] ]
 }
+let titleHeight = colPart(0.903)
+let waitingSpinner = spinner(colPart(1.1))
 
 let posSize = Watched(defPosSize)
 
@@ -41,7 +44,7 @@ let infoContainer = {
   halign = ALIGN_CENTER
   flow = FLOW_VERTICAL
   gap = hdpx(5)
-  padding = hdpx(20)
+  padding = 0
   transform = {}
   animations = [
     { prop=AnimProp.translate,  from=[0, sh(5)], to=[0,0], duration=0.5, play=true, easing=OutBack }
@@ -53,18 +56,28 @@ let infoContainer = {
 
 let function queueTitle() {
   return {
-    size = [flex(), SIZE_TO_CONTENT]
+    size = [flex(), titleHeight]
     flow = FLOW_VERTICAL
     watch = timeInQueue
-    children = noteTextArea({
-      text = loc("queue/searching", {
-        wait_time = secondsToStringLoc(timeInQueue.value  / 1000)
-      })
-      halign = ALIGN_CENTER
-      color = titleTxtColor
-    }).__update(body_txt)
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    vplace = ALIGN_TOP
+    children = [
+      doubleSideHighlightLine
+      doubleSideBg(
+        noteTextArea({
+          text = loc("queue/searching", {
+            wait_time = secondsToStringLoc(timeInQueue.value  / 1000)
+          })
+          halign = ALIGN_CENTER
+          color = titleTxtColor
+        }).__update(body_txt)
+      )
+      doubleSideHighlightLineBottom
+    ]
   }
 }
+
 let maxMinPlayersAmount = Computed(@() (currentGameMode.value?.queue.modes ?? [])
   .reduce(@(res, val) (val?.minPlayers ?? 1) > res ? val : res, 1))
 
@@ -129,6 +142,7 @@ let function mkRandomTeamContent() {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
+    margin = hdpx(20)
     children = [
       matchRandomTeam.value ? null : randomTeamHint
       isCurQueueReqRandomSide.value ? alwaysRandTeamSign : randTeamCheckbox
@@ -140,7 +154,8 @@ return function queueWaitingInfo() {
   let pos = posSize.value.pos
 
   return !isInQueue.value ? {watch=[isInQueue]} : {
-    fillColor = WindowTransparent
+    watch = [posSize, isInQueue]
+    fillColor = transpPanelBgColor
     borderRadius = hdpx(2)
     rendObj = ROBJ_WORLD_BLUR_PANEL
     moveResizeCursors = null
@@ -148,10 +163,9 @@ return function queueWaitingInfo() {
     behavior = Behaviors.MoveResize
     cursor = cursors.normal
     stopHover = true
-
-    watch = [ posSize, isInQueue]
+    valign = ALIGN_CENTER
     key = 1
-    pos = pos
+    pos
     onMoveResize = function(dx, dy, _dw, _dh) {
       let newPosSize = {size = defaultSize, pos = [
         clamp(pos[0] + dx, 0, sw(100) - defaultSize[0]),
@@ -162,15 +176,14 @@ return function queueWaitingInfo() {
     }
     children = infoContainer.__merge({
       size = defaultSize
-      gap = hdpx(20)
-      valign = ALIGN_CENTER
+      gap = hdpx(30)
+      valign = ALIGN_TOP
       children = [
         queueTitle
         {
-          size = flex()
-          halign = ALIGN_CENTER
-          valign = ALIGN_CENTER
-          children = spinner
+          hplace = ALIGN_CENTER
+          vplace = ALIGN_CENTER
+          children = waitingSpinner
         }
         crossplayHint
         queueContent

@@ -77,20 +77,24 @@ let function onReportKill(evt, _eid, _comp) {
     inMyGroup = victimInMyGroup
     isHero = heroEid != ecs.INVALID_ENTITY_ID && evt.victim == heroEid
     name = evt.isVictimVehicle ? loc(evt.victimName, "")
-      : !victimInMySquad && evt.victimPlayer != ecs.INVALID_ENTITY_ID ? getFramedNickByEid(evt.victimPlayer)
-      : remap_others(evt.victimName)
+      : !victimInMySquad && evt.victimPlayer != ecs.INVALID_ENTITY_ID
+        ? getFramedNickByEid(evt.victimPlayer, !victimInMyGroup)
+        : remap_others(evt.victimName, !victimInMyGroup)
     rank = evt.victimRank
   }
+  let killerInMyGroup = evt.killerPlayer != locPlayer
+    && evt.killerPlayer in localPlayerGroupMembers.value
   let killer = {
     eid = evt.killer
     player_eid = evt.killerPlayer
     vehicle = evt.isKillerVehicle
     inMyTeam = is_teams_friendly(myTeam, evt.killerTeam)
     inMySquad = evt.killerPlayer == locPlayer
-    inMyGroup = evt.killerPlayer != locPlayer && evt.killerPlayer in localPlayerGroupMembers.value
+    inMyGroup = killerInMyGroup
     isHero = heroEid != ecs.INVALID_ENTITY_ID && evt.killer == heroEid
-    name = evt.killerPlayer != ecs.INVALID_ENTITY_ID ? getFramedNickByEid(evt.killerPlayer)
-      :remap_others(evt.killerName)
+    name = evt.killerPlayer != ecs.INVALID_ENTITY_ID
+      ? getFramedNickByEid(evt.killerPlayer, !killerInMyGroup)
+      : remap_others(evt.killerName, !killerInMyGroup)
     rank = evt.killerRank
   }
 

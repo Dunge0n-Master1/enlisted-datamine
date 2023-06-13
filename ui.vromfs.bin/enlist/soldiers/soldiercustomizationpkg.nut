@@ -163,13 +163,23 @@ let defaultItemTitle = @(sf, isSelected){
   color = listTxtColor(sf, isSelected)
 }
 
+let emptySlotTitle = @(sf, isSelected){
+  rendObj = ROBJ_TEXT
+  text = loc("appearance/empty_slot")
+  hplace = ALIGN_RIGHT
+  color = listTxtColor(sf, isSelected)
+}
+
 
 let function selectingItemBlock(item, itemTemplate, guid, isSelected,
   iconAttachments, premiumItemsCount, itemPrice
 ){
   let group = ElemGroup()
   let isDefaultItem = soldiersLook.value[guid].items.findvalue(@(val) val == item) != null
-  let rightTopInfo = @(sf, isSelected) isDefaultItem
+  let isEmptySlot = itemTemplate == null
+  let rightTopInfo = @(sf, isSelected) isEmptySlot
+    ? emptySlotTitle(sf, isSelected)
+      : isDefaultItem
     ? defaultItemTitle(sf, isSelected)
       : item in premiumItemsCount && premiumItemsCount[item] > 1
     ? amountText(premiumItemsCount[item], sf, isSelected)
@@ -238,7 +248,7 @@ let purchasingItemBlock = @(item, itemTemplate, premiumItemsCount, removeAction,
 
 let itemBlock = @(item, itemsPrices, premiumItemsCount = [], removeAction = null) function(){
   let { guid } = curSoldierInfo.value
-  let { gametemplate, iconAttachments = [] } = itemsInfo.value[item]
+  let { gametemplate = null, iconAttachments = [] } = itemsInfo.value?[item]
   let isSelected = Computed(@() removeAction == null && item in customizationItems.value)
   let itemPrice = itemsPrices?[item] ?? {}
   return {

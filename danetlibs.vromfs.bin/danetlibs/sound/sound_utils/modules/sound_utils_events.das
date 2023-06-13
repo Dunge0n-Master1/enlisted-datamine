@@ -2,9 +2,9 @@ module sound_utils_events shared
 require ecs
 
 [cpp_event(broadcast)]
-struct EventOnSoundBanksValid
+struct EventOnSoundPresetLoaded
   hash : uint
-  isValid : bool
+  isLoaded : bool
 
 [event(unicast)]
 struct CmdPlaySound

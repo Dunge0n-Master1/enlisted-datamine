@@ -2,7 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let charClient = require("%enlSqGlob/charClient.nut")
 let { contactsLists, blockedUids, getCrossnetworkChatEnabled } = require("contactsWatchLists.nut")
-let { pushNotification, removeNotify, subscribeGroup, removeNotifyById
+let { pushNotification, removeNotify, subscribeGroup, removeNotifyById, InvitationsStyle,
+  InvitationsTypes
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let { Contact, validateNickNames, getContactNick } = require("contact.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
@@ -140,7 +141,9 @@ let function onNotifyListChanged(body, mailId) {
               id = getContactsInviteId(uid)
               mailId
               fromUid = uid
-              styleId = "primary"
+              playerName = nick
+              nType = InvitationsTypes.TO_FRIEND
+              styleId = InvitationsStyle.PRIMARY
               text = loc("contact/incomingInvitation", { user = nick })
               actionsGroup = REQUESTS_TO_ME_MAIL
             })
@@ -154,6 +157,8 @@ let function onNotifyListChanged(body, mailId) {
           mailId
           text = loc("contact/removedYouFromFriends", { user = getContactNick(contact.value) })
           isRead = true
+          nType = InvitationsTypes.FRIEND_REMOVE
+          playerName = getContactNick(contact.value)
           actionsGroup = APPROVED_MAIL
         }))
   }

@@ -41,11 +41,10 @@ def vehicle_cockpit_view_input_es(evt : EventDaInputActionTerminated;
   find_query <| $ [es] (cockpit__vehicleEid : EntityId;
                         cockpit__slitNodes : IntList;
                         cockpit__cameraTime : float;
-                        cockpit__isZoom : bool;
                         cockpit__currentSlit : int;
                         var cockpit__prevSlit : int&;
                         var cockpit__nextSlit : int&)
-    if eid != cockpit__vehicleEid || cockpit__cameraTime < 1.0 || cockpit__isZoom
+    if eid != cockpit__vehicleEid || cockpit__cameraTime < 1.0
       return false
     let viewsCount = length(cockpit__slitNodes)
     if viewsCount <= 0

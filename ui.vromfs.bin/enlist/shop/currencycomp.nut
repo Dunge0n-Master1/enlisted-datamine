@@ -142,7 +142,7 @@ let function mkCurrencyOverall(cardType, cardsTable = {}, onClick = null,
       : null)
     key = $"currency_{cardsTable}{keySuffix}"
     behavior = Behaviors.Button
-    skipDirPadNav = true
+    //skipDirPadNav = true
     transform = { pivot = [0.5, 0.5] }
     animations = [
       { prop = AnimProp.scale, easing = InOutCubic, trigger,

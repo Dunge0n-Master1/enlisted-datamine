@@ -35,7 +35,7 @@ def human_inventory_input_action_triggered_es(evt : EventDaInputActionTriggered;
   let isForcedPickup = (action == human_inventory_input__forcedPickup)
 
   if isForcedPickup || action == human_inventory_input__pickup
-    if !doesEntityExist(selectedItem) || has(selectedItem, "disableItemDrop")
+    if !doesEntityExist(selectedItem)
       return
 
     let isForcedOrFastPickup = isForcedPickup || is_fast_pickup_item(eid, selectedItem)

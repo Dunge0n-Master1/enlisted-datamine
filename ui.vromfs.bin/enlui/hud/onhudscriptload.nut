@@ -64,7 +64,7 @@ let network_error = require("%ui/hud/huds/tips/network_error.nut")
 let perfStats = require("%ui/hud/huds/perf_stats.nut")
 let menusUi = require("hud_menus.nut")
 
-let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu_state.nut")
+let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")
 let { harmonizationOption } = require("%ui/hud/menus/options/harmonization_options.nut")
 let planeContolOptions = require("%ui/hud/menus/options/plane_control_options.nut")
@@ -124,7 +124,9 @@ let HUD_ELEMENTS = [
   { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.FULL | HUD_FLAGS.PLAYER, comp = posHitMarks }
   { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.FULL | HUD_FLAGS.PLAYER, comp = turretCrosshair }
 
-  { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.PLAYER, comp = vehicleCrosshair }
+  { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.PLAYER | HUD_FLAGS.TUTORIAL | HUD_FLAGS.VEHICLE_CROSSHAIR, comp = vehicleCrosshair }
+
+  { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.PLAYER | HUD_FLAGS.NO_TUTORIAL, comp = vehicleCrosshair }
   { flags = HUD_FLAGS.GAME_HUD | HUD_FLAGS.NO_REPLAY, comp = respawn }
   { flags = HUD_FLAGS.REPLAY, comp = replayHudLayout }
 

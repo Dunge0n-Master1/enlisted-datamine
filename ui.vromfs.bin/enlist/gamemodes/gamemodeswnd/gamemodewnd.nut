@@ -2,8 +2,8 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXLarge, fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { colPart, colFull, bigPadding, defTxtColor, titleTxtColor, midPadding, commonBorderRadius,
-  accentColor, smallPadding, transpBgColor, navHeight, footerContentHeight, darkTxtColor,
-  panelBgColor, defItemBlur
+  accentColor, smallPadding, transpBgColor, footerContentHeight, darkTxtColor,
+  panelBgColor, defItemBlur, sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { doesLocTextExist } = require("dagor.localize")
@@ -31,16 +31,14 @@ let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { hasCustomRooms, openCustomGameMode, openEventsGameMode, activeEvents
 } = require("%enlist/gameModes/eventModesState.nut")
 let { actualizeRoomCfg } = require("%enlist/gameModes/createEventRoomCfg.nut")
-let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
-let { Bordered } = require("%ui/components/txtButton.nut")
+let { makeHorizScroll, styling } = require("%ui/components/scrollbar.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { isInSquad, isLeavingWillDisbandSquad, leaveSquad, leaveSquadSilent
 } = require("%enlist/squad/squadManager.nut")
-let JB = require("%ui/control/gui_buttons.nut")
 let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverClusterUi.nut")
-let { doubleSideHighlightLine, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
-let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
-
+let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
+let defSceneWrap = require("%enlist/defSceneWrap.nut")
+let { commonWndParams, wndHeader } = require("%enlist/navigation/commonWndParams.nut")
 
 let fbImageByCampaign = {
   berlin = "ui/loading_berlin_26.avif"
@@ -48,18 +46,19 @@ let fbImageByCampaign = {
   normandy = "ui/launcher_normandy_bg_2.avif"
 }
 
+let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
+
 
 let isTutorialsWndOpened = Watched(false)
 let hasCrossplayDesc = Watched(true)
 let isOpened = mkWatched(persist, "isOpened", false)
-let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value]
-  ?? "ui/volokolamsk_city_01.avif")
 let defCustomGameImage = "ui/game_mode_moscow_solo.avif"
 
-let titleTxtStyle = { color = titleTxtColor }.__update(fontXLarge)
-let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
-let activeTxtStyle = { color = darkTxtColor }.__update(fontMedium)
-let descTxtStyle = { color = titleTxtColor }.__update(fontSmall)
+let titleTxtStyle = freeze({ color = titleTxtColor }.__update(fontXLarge))
+let defTxtStyle = freeze({ color = defTxtColor }.__update(fontMedium))
+let activeTxtStyle = freeze({ color = darkTxtColor }.__update(fontMedium))
+let selectedTxtStyle = freeze({ color = accentColor }.__update(fontMedium))
+let descTxtStyle = freeze({ color = titleTxtColor }.__update(fontSmall))
 
 
 let gap = hdpx(32)
@@ -69,17 +68,6 @@ let unseenPanelPos = [0, -colPart(0.709) - colPart(0.387)]
 let cardDescritionHeight = cardSize[1] - nameBlockSize[1]
 
 
-let defTutorialParams = Computed(@() {
-  image = "ui/game_mode_tutorial_2.avif"
-  id = "tutorials"
-  title = loc("tutorials")
-  description = loc("tutorials/desc")
-  isAvailable = !isInSquad.value
-  needShowCrossplayIcon = false
-  isVersionCompatible = true
-})
-
-
 let function close(needToClose = true) {
   if (needToClose)
     isOpened(false)
@@ -87,37 +75,6 @@ let function close(needToClose = true) {
     isTutorialsWndOpened(false)
 }
 
-
-let backBtn = Bordered(loc("gamemenu/btnBack"), @() close(!isTutorialsWndOpened.value),
-  { hotkeys = [[$"^{JB.B} | Esc"]] })
-
-
-let topBlock = {
-  size = [flex(), navHeight]
-  valign = ALIGN_CENTER
-  children = backBtn
-}
-
-
-let customGameMode = Computed(function() {
-  if (!curBattleTutorial.value || !hasCustomRooms.value || isNewbie.value)
-    return null
-
-  let armyId = curArmy.value
-  return {
-    id = "customMatches"
-    image = armiesPresentation?[armyId].customGameImage ?? defCustomGameImage
-    title = loc("custom_matches")
-    description = loc("custom_matches/desc")
-    isAvailable = true
-    needShowCrossplayIcon = true
-    isVersionCompatible = true
-    onClick = function() {
-      openCustomGameMode()
-      close()
-    }
-  }
-})
 
 
 let mkEventGameMode = @(event) {
@@ -195,12 +152,14 @@ let descriptionBlock = @(text, sf) @() {
   }.__update(descTxtStyle)
 }
 
-
+let selectedColor = mul_color(panelBgColor, 1.5)
 let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @() {
   watch = crossnetworkPlay
   rendObj = ROBJ_WORLD_BLUR
   size = [flex(), nameBlockSize[1]]
-  fillColor = isSelected || sf != 0 ? accentColor : panelBgColor
+  fillColor = sf & S_HOVER
+    ? accentColor
+    : isSelected ? selectedColor : panelBgColor
   color = defItemBlur
   valign = ALIGN_CENTER
   padding = [0, smallPadding]
@@ -213,10 +172,17 @@ let nameBlock = @(name, sf, needShowCrossplayIcon = false, isSelected = false) @
       text = name
       halign = ALIGN_CENTER
       hplace = ALIGN_CENTER
-    }.__update(isSelected || (sf & S_HOVER) != 0 ? activeTxtStyle : defTxtStyle)
+    }.__update((sf & S_HOVER) != 0
+      ? activeTxtStyle
+      : isSelected ? selectedTxtStyle : defTxtStyle)
     needShowCrossnetworkPlayIcon && needShowCrossplayIcon
       && crossnetworkPlay.value != CrossplayState.OFF
-        ? crossplayIcon({ iconSize = colPart(0.5) })
+        ? crossplayIcon({
+            iconSize = colPart(0.5),
+            iconColor = (sf & S_HOVER) != 0
+              ? darkTxtColor
+              : isSelected ? accentColor : defTxtColor
+          })
         : null
   ]
 }
@@ -231,8 +197,10 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
     behavior = Behaviors.Button
     onClick
     function onHover(on) {
+      hasCrossplayDesc(on && needShowCrossnetworkPlayIcon
+        && needShowCrossplayIcon && crossnetworkPlay.value != CrossplayState.OFF)
       if (!hasSeen)
-        hoverHoldAction("unseenGamemode", id, @(id) markSeenGamemode(id))(on)
+        hoverHoldAction("unseenGamemode", id, @(id_) markSeenGamemode(id_))(on)
     }
     children = [
       mkImage(image, defCustomGameImage, true, sf)
@@ -264,7 +232,7 @@ let function mkAnimations(idx, len) {
   ]
 }
 
-let mkTutorialsButton = @(unseenSign) watchElemState(function(sf) {
+let mkTutorialsButton = @(unseenSign, defaultFbImage, defTutorialParams) watchElemState(function(sf) {
   let tutorialParams = defTutorialParams.value
   let { image, isAvailable, title, description } = tutorialParams
   return {
@@ -298,17 +266,18 @@ let mkTutorialsButton = @(unseenSign) watchElemState(function(sf) {
 let title = {
   size = [colFull(8), colPart(1.023)]
   hplace = ALIGN_CENTER
-  margin = [colPart(1.61), 0 ,0,0 ]
   children = [
     doubleSideBg({
       rendObj = ROBJ_TEXT
       text = utf8ToUpper(loc("change_mode"))
     }.__update(titleTxtStyle))
     doubleSideHighlightLine
-    doubleSideHighlightLine({ vplace = ALIGN_BOTTOM })
+    doubleSideHighlightLineBottom
   ]
 }
 
+
+const CAMPAIGN_PROGRESS = "CAMPAIGN"
 
 let showLockedMsgBox = @(level) msgbox.show({
   text = loc("obtainAtLevel", { level })
@@ -316,7 +285,7 @@ let showLockedMsgBox = @(level) msgbox.show({
     { text = loc("Ok"), isCancel = true}
     { text = loc("GoToCampaign"), action = function() {
       scrollToCampaignLvl(level)
-      setCurSection("SQUADS")
+      setCurSection(CAMPAIGN_PROGRESS)
     }}
   ]
 })
@@ -371,7 +340,7 @@ let selectedLine = {
 }
 
 
-let function mkGameModeButton(gameMode, idx, hasSeen) {
+let function mkGameModeButton(gameMode, idx, hasSeen, defaultFbImage) {
   let isSelectedW = Computed(@() gameMode == currentGameMode.value)
   let xmbNode = XmbNode()
 
@@ -392,14 +361,10 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
       watch = [isSelectedW, defaultFbImage, crossnetworkPlay, isTutorialsWndOpened,
         tutorialModes, mainModes]
       function onHover(on) {
-        if (on)
-          hasCrossplayDesc(needShowCrossnetworkPlayIcon
-            && needShowCrossplayIcon
-            && crossnetworkPlay.value != CrossplayState.OFF)
-        else
-          hasCrossplayDesc(false)
+        hasCrossplayDesc(on && needShowCrossnetworkPlayIcon && needShowCrossplayIcon
+          && crossnetworkPlay.value != CrossplayState.OFF)
         if (!hasSeen)
-          hoverHoldAction("unseenGamemode", id, @(id) markSeenGamemode(id))(on)
+          hoverHoldAction("unseenGamemode", id, @(id_) markSeenGamemode(id_))(on)
       }
       function onAttach(){
         if (!isSelected)
@@ -437,74 +402,91 @@ let function mkGameModeButton(gameMode, idx, hasSeen) {
 let tblScrollHandler = ScrollHandler()
 
 
-let function gameModesList() {
-  let seenGM = seenGamemodes.value?.seen
-  let openedGM = seenGamemodes.value?.opened
+let function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) {
+  let onDetach = @() isTutorialsWndOpened(false)
 
-  let hasUnseenTutorial = tutorialModes.value.findindex(@(m) m.id not in seenGM) != null
-  let hasUnopenedTutorial = tutorialModes.value.findindex(@(m) m.id not in openedGM) != null
-  let tutorialUnseen = !hasUnseenTutorial ? null
-    : hasUnopenedTutorial ? unblinkUnseen
-    : blinkUnseen
+  return function() {
+    let seenGM = seenGamemodes.value?.seen
+    let openedGM = seenGamemodes.value?.opened
 
-  let tutorialsToShow = tutorialModes.value
-    .map(@(mode, idx) mkGameModeButton(mode, idx, seenGM?[mode?.id] ?? false))
+    let hasUnseenTutorial = tutorialModes.value.findindex(@(m) m.id not in seenGM) != null
+    let hasUnopenedTutorial = tutorialModes.value.findindex(@(m) m.id not in openedGM) != null
+    let tutorialUnseen = !hasUnseenTutorial ? null
+      : hasUnopenedTutorial ? unblinkUnseen
+      : blinkUnseen
 
-  let tutorialsToMarkOpened = tutorialModes.value.map(@(m) m.id)
-  let modesToMarkOpened = mainModes.value.map(@(m) m.id)
-  let modes = mainModes.value
-    .map(@(mode, idx) mkGameModeButton(mode, idx + 1, seenGM?[mode?.id] ?? false))
-    .insert(0, mkTutorialsButton(tutorialUnseen))
+    let tutorialsToShow = tutorialModes.value
+      .map(@(mode, idx) mkGameModeButton(mode, idx, seenGM?[mode?.id] ?? false, defaultFbImage))
 
-  if (activeEvents.value.len() > 0) {
-    let events = mkEventGameMode(activeEvents.value[0])
-    modes.append(mkCustomGameButton(events,
-      seenGM?[events?.id] ?? false,
-      mkAnimations(modes.len(), modes.len() + 1)))
-    modesToMarkOpened.append(events?.id)
-  }
+    let tutorialsToMarkOpened = tutorialModes.value.map(@(m) m.id)
+    let modesToMarkOpened = mainModes.value.map(@(m) m.id)
+    let modes = mainModes.value
+      .map(@(mode, idx) mkGameModeButton(mode, idx + 1, seenGM?[mode?.id] ?? false, defaultFbImage))
+      .insert(0, mkTutorialsButton(tutorialUnseen, defaultFbImage, defTutorialParams))
 
-  let custGameMode = customGameMode.value
-  if (custGameMode != null) {
-    modes.append(mkCustomGameButton(custGameMode,
-      seenGM?[custGameMode?.id] ?? false,
-      mkAnimations(modes.len(), modes.len() + 1)))
-    modesToMarkOpened.append(custGameMode?.id)
-  }
+    if (activeEvents.value.len() > 0) {
+      let events = mkEventGameMode(activeEvents.value[0])
+      modes.append(mkCustomGameButton(events,
+        seenGM?[events?.id] ?? false,
+        mkAnimations(modes.len(), modes.len() + 1)))
+      modesToMarkOpened.append(events?.id)
+    }
 
-  let modesOnScreen = isTutorialsWndOpened.value ? tutorialsToShow : modes
-  let toMarkOpened = isTutorialsWndOpened.value
-    ? tutorialsToMarkOpened
-    : modesToMarkOpened
+    let custGameMode = customGameMode.value
+    if (custGameMode != null) {
+      modes.append(mkCustomGameButton(custGameMode,
+        seenGM?[custGameMode?.id] ?? false,
+        mkAnimations(modes.len(), modes.len() + 1)))
+      modesToMarkOpened.append(custGameMode?.id)
+    }
+    let modesOnScreen = isTutorialsWndOpened.value ? tutorialsToShow : modes
+    let toMarkOpened = isTutorialsWndOpened.value
+      ? tutorialsToMarkOpened
+      : modesToMarkOpened
 
-  gui_scene.setTimeout(0.1, @()
-    markOpenedGamemodes(toMarkOpened.filter(@(m) m not in seenGamemodes.value?.opened)))
-  return {
-    size = flex()
-    watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,
-      isTutorialsWndOpened, activeEvents]
-    xmbNode = XmbContainer({
-      canFocus = @() false
-      scrollSpeed = 10.0
-      isViewport = true
-    })
-    halign = ALIGN_CENTER
-    children = makeHorizScroll(
-      {
-        onDetach = @() isTutorialsWndOpened(false)
-        flow = FLOW_HORIZONTAL
-        gap
-        vplace = ALIGN_CENTER
-        children = modesOnScreen.map(@(children) { children })
-      }, {
-        size = [SIZE_TO_CONTENT, flex()]
-        scrollHandler = tblScrollHandler
-        rootBase = class {
-          key = "gameModesUnlocksRoot"
-          behavior = Behaviors.Pannable
-          wheelStep = 0.82
-        }
+    let onAttach = @() gui_scene.setTimeout(0.1, @()
+          markOpenedGamemodes(toMarkOpened.filter(@(m) m not in seenGamemodes.value?.opened)))
+    let modesCount = modesOnScreen.len()
+    let modesWidth = modesCount * cardSize[0] + modesCount * (gap - 1)
+    let needScroll = sw(100) - sidePadding * 2 < modesWidth
+
+    return {
+      size = flex()
+      onAttach
+      onDetach
+      watch = [seenGamemodes, customGameMode, mainModes, tutorialModes,
+        isTutorialsWndOpened, activeEvents]
+      xmbNode = XmbContainer({
+        canFocus = @() false
+        scrollSpeed = 10.0
+        isViewport = true
       })
+      halign = ALIGN_CENTER
+      children = needScroll
+        ? makeHorizScroll(
+          {
+            flow = FLOW_HORIZONTAL
+            gap
+            vplace = ALIGN_CENTER
+            children = modesOnScreen.map(@(children) { children })
+          }, {
+            size = flex()
+            scrollHandler = tblScrollHandler
+            styling = scrollStyle
+            rootBase = class {
+              key = "gameModesUnlocksRoot"
+              behavior = Behaviors.Pannable
+              wheelStep = 0.82
+            }
+          })
+        : {
+            hplace = ALIGN_CENTER
+            flow = FLOW_HORIZONTAL
+            gap
+            vplace = ALIGN_CENTER
+            children = modesOnScreen.map(@(children) { children })
+          }
+    }
   }
 }
 
@@ -514,7 +496,7 @@ let function crossplayDescBlock() {
   if (!hasCrossplayDesc.value)
     return res
   return res.__update({
-    size = [colFull(4), SIZE_TO_CONTENT]
+    size = [colFull(5), SIZE_TO_CONTENT]
     halign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     valign = ALIGN_CENTER
@@ -532,38 +514,76 @@ let function crossplayDescBlock() {
 }
 
 
-let serverBlock = {
-  size = [flex(), SIZE_TO_CONTENT]
-  minWidth = SIZE_TO_CONTENT
-  halign = ALIGN_CENTER
-  children = serverClusterBtn
-}
-
-let bottomBlock = {
-  size = [flex(), SIZE_TO_CONTENT]
+let bottomBlock = freeze({
+  size = [flex(), colPart(2)]
   padding = [0, 0, footerContentHeight, 0]
   vplace = ALIGN_BOTTOM
   children = [
     crossplayDescBlock
-    serverBlock
+    serverClusterBtn
   ]
-}
+})
 
 
-let changeGameModeWnd = @() {
-  watch = safeAreaBorders
-  size = flex()
-  hplace = ALIGN_CENTER
-  padding = safeAreaBorders.value
-  behavior = Behaviors.Button
-  onClick = @() null
-  children = [
-    topBlock
-    title
-    gameModesList
-    bottomBlock
-  ]
+let mkChangeGameModeBody = function() {
+  let defaultFbImage = Computed(@() fbImageByCampaign?[curCampaign.value]
+    ?? "ui/volokolamsk_city_01.avif")
+
+  let defTutorialParams = Computed(@() {
+    image = "ui/game_mode_tutorial_2.avif"
+    id = "tutorials"
+    title = loc("tutorials")
+    description = loc("tutorials/desc")
+    isAvailable = !isInSquad.value
+    needShowCrossplayIcon = false
+    isVersionCompatible = true
+  })
+
+  let customGameMode = Computed(function() {
+    if (!curBattleTutorial.value || !hasCustomRooms.value || isNewbie.value)
+      return null
+
+    let armyId = curArmy.value
+    return {
+      id = "customMatches"
+      image = armiesPresentation?[armyId].customGameImage ?? defCustomGameImage
+      title = loc("custom_matches")
+      description = loc("custom_matches/desc")
+      isAvailable = true
+      needShowCrossplayIcon = true
+      isVersionCompatible = true
+      onClick = function() {
+        openCustomGameMode()
+        close()
+      }
+    }
+  })
+
+
+  return {
+    size = flex()
+    behavior = Behaviors.Button
+    onClick = @() null
+    children = [
+      title
+      mkGameModesList(defaultFbImage, defTutorialParams, customGameMode)
+      bottomBlock
+    ]
+  }
 }
+
+let changeGameModeWnd = defSceneWrap(
+  @() {
+    children = [
+      wndHeader(@() close(!isTutorialsWndOpened.value))
+      mkChangeGameModeBody()
+    ]
+  }.__update(commonWndParams),
+  {
+    maxWidth = sw(100)
+  }
+)
+
 
 isLoggedIn.subscribe(function(v) {
   if (v)

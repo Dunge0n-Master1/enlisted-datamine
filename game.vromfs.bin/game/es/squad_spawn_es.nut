@@ -28,6 +28,7 @@ let teamSquadQuery = ecs.SqQuery("teamSquadQuery", {
     ["team__memberEids", ecs.TYPE_EID_LIST],
     ["team__firstSpawnCostMul", ecs.TYPE_FLOAT],
     ["team__eachSquadMaxSpawns", ecs.TYPE_INT],
+    ["team__vehicleSquadSpawnCost", ecs.TYPE_INT, null],
   ]
 })
 
@@ -47,11 +48,13 @@ let canSpawnTeamSquads = @(team, playerSpawnCount)
       playerSpawnCount < comp["team__eachSquadMaxSpawns"])
   )
 
-let updateTeamScore = @(team, playerSpawnCount, squadCostMult) teamSquadQueryPerform(team, function (_eid, comp) {
+let updateTeamScore = @(team, playerSpawnCount, squadCostMult, hasVehicle) teamSquadQueryPerform(team, function (_eid, comp) {
   let membersCount = comp["team__memberEids"].len().tofloat()
   if (membersCount <= 0)
     return
-  local spawnCost = ((squadCostMult ?? 1) * comp.team__squadSpawnCost) / membersCount
+
+  local spawnCost = hasVehicle ? (comp?.team__vehicleSquadSpawnCost ?? comp.team__squadSpawnCost) : comp.team__squadSpawnCost
+  spawnCost = ((squadCostMult ?? 1) * spawnCost) / membersCount
   if (playerSpawnCount == 0)
     spawnCost *= comp["team__firstSpawnCostMul"]
 
@@ -78,8 +81,8 @@ let function rejectSpawn(reason, team, playerEid, comp) {
   comp["respawner__canRespawnWaitNumber"] = -1
 }
 
-let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal) {
-  updateTeamScore(comp.team, comp.squads__spawnCount, spawnCostTeamMult)
+let function onSuccessfulSpawn(comp, spawnCostTeamMult, spawnCostPersonal, hasVehicle) {
+  updateTeamScore(comp.team, comp.squads__spawnCount, spawnCostTeamMult, hasVehicle)
   comp.respawner__spawnScore = comp.respawner__spawnScore - spawnCostPersonal
   comp["squads__spawnCount"]++
   comp["squads__squadsCanSpawn"] = canSpawnPlayerSquads(comp.team, comp["squads__spawnCount"])
@@ -410,10 +413,10 @@ local function spawnSquadImpl(eid, comp, team, squadId, memberId, respawnGroupId
       nextSpawnTimeBySquad = comp.respawner__nextSpawnOnVehicleTimeBySquad
     })
     if (trySpawnVehicleSquad(spawnCtx, comp))
-      onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore)
+      onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore, true/*hasVehicle*/)
   }
   else if (trySpawnSquad(spawnCtx, comp))
-    onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore)
+    onSuccessfulSpawn(comp, squadInfo?.spawnCostTeamScoreMult, spawnCostPersonalScore, false/*hasVehicle*/)
 }
 
 let comps = {

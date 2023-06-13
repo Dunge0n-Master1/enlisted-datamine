@@ -6,7 +6,8 @@ let {checkMultiplayerPermissions} = require("%enlist/permissions/permissions.nut
 let { debounce } = require("%sqstd/timers.nut")
 let {nestWatched} = require("%dngscripts/globalState.nut")
 let { fabs } = require("math")
-let { pushNotification, removeNotifyById, removeNotify, subscribeGroup
+let { pushNotification, removeNotifyById, removeNotify, subscribeGroup, InvitationsStyle,
+  InvitationsTypes
 } = require("%enlist/mainScene/invitationsLogState.nut")
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")    // CODE SMELLS: ui state in logic module!
 let { blockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
@@ -341,7 +342,9 @@ let function processSquadInvite(contact) {
   pushNotification({
     id = getSquadInviteUid(contact.value.uid)
     inviterUid = contact.value.uid
-    styleId = "toBattle"
+    nType = InvitationsTypes.TO_SQUAD
+    styleId = InvitationsStyle.TO_BATTLE
+    playerName = getContactNick(contact)
     text = loc("squad/invite", {playername=getContactNick(contact)})
     actionsGroup = INVITE_ACTION_ID
     needPopup = true
@@ -756,7 +759,11 @@ let msubscribes = {
     if (isSquadLeader.value) {
       let contact = Contact(params.invite.id.tostring())
       removeInvitedSquadmate(contact.value.uid)
-      pushNotification({ text = loc("squad/mail/reject", {playername = getContactNick(contact) })})
+      pushNotification({
+        text = loc("squad/mail/reject", {playername = getContactNick(contact) })
+        nType = InvitationsTypes.SQUAD_REMOVE
+        playerName = getContactNick(contact)
+      })
     }
   },
   ["msquad.notify_invite_expired"] = @(params) removeInvitedSquadmate(params.invite.id),

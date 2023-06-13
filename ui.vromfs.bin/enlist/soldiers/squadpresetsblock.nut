@@ -209,6 +209,7 @@ let mkPresetSlot = @(idx, presetInfo = null) @() {
             padding = [0, 0, 0, bigPadding]
             behavior = [Behaviors.Button, Behaviors.Marquee]
             onHover = @(on) switchPresetOnHover(on, presetInfo)
+            onDoubleClick = @() applySquadsPreset(squadsArmy.value, idx)
             sound = stateChangeSounds
             valign = ALIGN_CENTER
             rendObj = ROBJ_TEXT

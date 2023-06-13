@@ -8,12 +8,12 @@ require soundHash
 require sound_utils_net.modules.sound_utils_net_events
 require environment_sounds.modules.game_object_sound_common
 require DagorSystem
+require DngCamera
 
 
 [es(tag=sound)]
 def volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
-                                sound_bank_preset_state__isValid : bool;
-                                global_sound_listener_position : float3;
+                                sound_banks_state__isPresetLoaded : bool;
                                 game_object_sound__shape : uint;
                                 volume_ambient_sound__extent_maxRadiusSq : float4;
                                 game_object_sound__path : string;
@@ -22,11 +22,10 @@ def volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
                                 var volume_ambient_sound__event : SoundEvent&;
                                 transform : float3x4)
 
-  if !sound_bank_preset_state__isValid
+  if !sound_banks_state__isPresetLoaded
     return
 
-  assume listener = global_sound_listener_position
-
+  let listener = (get_cur_cam_entity() |> get_TMatrix("transform") ?? IDENT_TM)[3]
   let clampedPos = place_game_object_sound(listener, volume_ambient_sound__extent_maxRadiusSq, game_object_sound__shape, transform)
   let distSq = distance_sq(listener, clampedPos)
 
@@ -45,13 +44,14 @@ def volume_ambient_sound_update(info : ParallelUpdateFrameDelayed;
     release(volume_ambient_sound__event.handle)
 
 
-[es(tag=sound, after=global_sound_listener_position_update)]
+// NOT ParallelUpdateFrameDelayed because should accurate bring event to camera(important)
+// (AFTER camera tm update && fmod listener setup) and (BEFORE fmod::update)
+[es(tag=sound, after=sound_listener_update_es)]
 def volume_ambient_sound_update_event_pos(info : UpdateStageInfoAct;
-                                          global_sound_listener_position : float3;
                                           volume_ambient_sound__closestDistSq : float;
                                           volume_ambient_sound__event : SoundEvent)
   if volume_ambient_sound__closestDistSq == 0.f && volume_ambient_sound__event.handle != invalid_sound_event_handle()
-    set_pos(volume_ambient_sound__event.handle, global_sound_listener_position) // accurate bring event to camera(important)
+    set_pos(volume_ambient_sound__event.handle, get_listener_pos())
 
 
 [es(tag=sound, on_appear)]
@@ -69,9 +69,9 @@ def volume_ambient_sound_appear(evt : Event;
   transform[2] = normalize(transform[2])
 
 
-[es(tag=sound, on_appear, track=sound_bank_preset_state__isValid, after=volume_ambient_sound_appear)]
+[es(tag=sound, on_appear, track=sound_banks_state__isPresetLoaded, after=volume_ambient_sound_appear)]
 def volume_ambient_sound_toggle(evt : Event;
-                                sound_bank_preset_state__isValid : bool;
+                                sound_banks_state__isPresetLoaded : bool;
                                 game_object_sound__path : string;
                                 game_object_sound__name : string;
                                 var volume_ambient_sound__range : float&;
@@ -79,6 +79,6 @@ def volume_ambient_sound_toggle(evt : Event;
                                 var volume_ambient_sound__event : SoundEvent&;
                                 var volume_ambient_sound__extent_maxRadiusSq : float4&)
   release_immediate(volume_ambient_sound__event.handle)
-  if sound_bank_preset_state__isValid && volume_ambient_sound__autoRange
+  if sound_banks_state__isPresetLoaded && volume_ambient_sound__autoRange
     volume_ambient_sound__range = get_max_distance("{game_object_sound__path}/{game_object_sound__name}")
     volume_ambient_sound__extent_maxRadiusSq.w = square(length(volume_ambient_sound__extent_maxRadiusSq.xyz) + volume_ambient_sound__range)

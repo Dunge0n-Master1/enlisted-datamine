@@ -19,7 +19,7 @@ tutorial_respawn{
 tutorial_aircraft_begin{
   tutor_stage__next:t="tutorial_aircraft_intro"
 
-  "tutor_stage__onHeroRespawn:tag"{
+  "tutor_stage__onHeroVehicleRespawn:tag"{
   }
 
   "tutor_bq__sendOnBegin:tag"{

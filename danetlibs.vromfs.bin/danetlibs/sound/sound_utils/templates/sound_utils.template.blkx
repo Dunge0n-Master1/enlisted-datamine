@@ -27,13 +27,13 @@ sound_debug_draw_enable{
   }
 }
 
-sound_bank_preset_state{
-  _tracked:t="sound_bank_preset_state__isValid"
+sound_banks_state{
+  _tracked:t="sound_banks_state__isPresetLoaded"
 
   _group{
     _tags:t="sound"
-    sound_bank_preset_state__isValid:b=no
-    sound_bank_preset_state__name:t="master"
+    sound_banks_state__presetName:t="master"
+    sound_banks_state__isPresetLoaded:b=no
   }
 }
 
@@ -76,7 +76,7 @@ watched_entity_snapshot_3d{
 }
 
 sound_control{
-  _extends:t="sound_bank_preset_state"
+  _extends:t="sound_banks_state"
   _tracked:t="sound_control__shouldPlay"
 
   _group{
@@ -85,6 +85,14 @@ sound_control{
     sound_control__inRange:b=no
     sound_control__shouldPlay:b=no
     sound_control__enable:b=yes
+  }
+}
+
+disable_sound_control{
+
+  _group{
+    _tags:t="sound"
+    sound_control__enable:b=no
   }
 }
 
@@ -139,14 +147,6 @@ sound_player_components{
   _extends:t="sound_paths"
   _extends:t="sound_irqs"
   _extends:t="sound_tags"
-}
-
-global_sound_listener_position{
-
-  _group{
-    _tags:t="sound"
-    global_sound_listener_position:p3=0.0, 0.0, 0.0
-  }
 }
 
 base_game_object_sound{

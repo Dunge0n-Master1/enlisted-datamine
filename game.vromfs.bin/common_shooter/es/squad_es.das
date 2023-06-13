@@ -128,3 +128,8 @@ def squad_mate_init_beh_tree(evt : Event; transform : float3x4; beh_tree__enable
     wishPositionParam = add(beh_tree.blackBoard, wishPositionName, transform[3])
   if beh_tree__enabled && !beh_tree__blackboard__wishPositionSet
     set(beh_tree.blackBoard, wishPositionParam, transform[3])
+
+[es(tag=server, on_appear)]
+def team_init_vehicle_squad_spawn_cost(evt : Event; var team__vehicleSquadSpawnCost : int&; team__squadSpawnCost : int)
+  if team__vehicleSquadSpawnCost < 0
+    team__vehicleSquadSpawnCost = team__squadSpawnCost
