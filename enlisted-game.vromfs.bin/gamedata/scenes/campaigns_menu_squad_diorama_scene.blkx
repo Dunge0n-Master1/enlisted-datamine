@@ -548,6 +548,26 @@ entity{
 }
 
 entity{
+  _template:t="camera_scenic_place_dof"
+  scene:t="shop_items"
+  fov:r=60.0
+  transform:m=[[-0.877192, 0.00660876, 0.480093] [0.0904638, 0.984272, 0.15174] [-0.471539, 0.176536, -0.863994] [7.8678, 23.9679, 86.7269]]
+  menu_cam__limitYaw:p2=-180.0, 180.0
+  menu_cam__limitPitch:p2=-30.0, 30.0
+  menu_cam__shouldRotateTarget:b=yes
+  dof__on:b=no
+  dof__farDofAmountPercent:r=0.0
+  dof__farDofEnd:r=200.0
+  dof__farDofStart:r=2.0
+  dof__nearDofAmountPercent:r=0.0
+  dof__nearDofEnd:r=0.5
+  dof__nearDofStart:r=0.01
+  dof__minCheckDistance:r=0.05
+  dof__bokehShape_kernelSize:r=2.8
+  dof__bokehShape_bladesCount:r=9.0
+}
+
+entity{
   _template:t="menu_new_items"
   transform:m=[[0.637509, -0.196664, 0.74492] [0.0997916, 0.979805, 0.173273] [-0.763953, -0.0361265, 0.64426] [7.04563, 24.2275, 85.2036]]
 }

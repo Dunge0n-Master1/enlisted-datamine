@@ -805,9 +805,11 @@ let function mkResearchesTreeUi(researches) {
 
                 if (toChildren >= FOUR_TO_NEXT_BRANCH)
                   req4CustomNests = true
-                else if (!req4CustomNests && toChildren == THREE_TO_NEXT_BRANCH)
+                else if (!req4CustomNests && !hasLongBranches
+                    && toChildren == THREE_TO_NEXT_BRANCH)
                   req3CustomNests = true
-                else if (!req3CustomNests && !req4CustomNests && toChildren == TWO_TO_NEXT_BRANCH)
+                else if (!req3CustomNests && !hasLongBranches
+                    && !req4CustomNests && toChildren == TWO_TO_NEXT_BRANCH)
                   req2CustomNests = true
                 else if (toChildren == 0) {
                   needTopLine = req3CustomNests || req2CustomNests

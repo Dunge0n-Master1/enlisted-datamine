@@ -376,6 +376,14 @@ let objectsToObserve = {
   },
   new_items = {
     compName = "menu_new_items_to_control"
+    transformItemFunc = transformItemRelative
+    createEntityFunc = @(template, transform, callback=null)
+      createEntity(makeWeaponTemplate(template), transform, callback, [], currentNewItemAttachments.value)
+    watch = currentNewItem
+    shouldResetCameraDirection = Watched(true)
+  },
+  shop_items = {
+    compName = "menu_new_items_to_control"
     transformItemFunc = transformByItemtype
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], currentNewItemAttachments.value)

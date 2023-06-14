@@ -8,6 +8,7 @@ let {get_setting_by_blk_path } = require("settings")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { remove } = require("system")
 let datacache = require("datacache")
+let { mkVersionFromString } = require("%sqstd/version.nut")
 
 let allowProtoMismatch = get_setting_by_blk_path("replay/allowProtoMismatch") ?? false
 let storageLimitMB = get_setting_by_blk_path("replay/storageLimitMB") ?? 300
@@ -33,6 +34,7 @@ let isReplayTabHidden = Computed(@() !showReplayTabInProfile.value)
 let isReplayProtocolValid = @(meta)
   meta?.protocol_version == NET_PROTO_VERSION
     && meta?.dasevent_net_version == get_dasevent_net_version()
+    && (mkVersionFromString(meta?.exe_version)[1].tointeger() != 4 || mkVersionFromString(meta?.exe_version)[2].tointeger() >= 5) // temp fix to not allow old replays
 
 let function getFiles() {
   let recordFiles = datacache.get_all_entries("records").map(function(v) {

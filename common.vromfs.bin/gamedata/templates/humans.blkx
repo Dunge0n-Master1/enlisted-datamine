@@ -1341,11 +1341,6 @@ base_human_anim{
   human_anim{
   }
 
-  "human_anim__isIdling:b"{
-    value:b=no
-    _replicate:b=yes
-  }
-
   "human_anim__sprintVariationCount:i"{
     _tags:t="server"
     value:i=4

@@ -250,10 +250,10 @@ shopItem.subscribe(function(val) {
     sceneWithCameraRemove(shopItemsScene)
     return
   }
-  sceneWithCameraAdd(shopItemsScene, "new_items")
+  sceneWithCameraAdd(shopItemsScene, "shop_items")
 })
 
 if (shopItem.value != null)
-  sceneWithCameraAdd(shopItemsScene, "new_items")
+  sceneWithCameraAdd(shopItemsScene, "shop_items")
 
 return @(val) shopItem(val)
