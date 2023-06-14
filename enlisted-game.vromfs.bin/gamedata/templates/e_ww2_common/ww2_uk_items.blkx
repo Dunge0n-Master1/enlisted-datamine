@@ -1101,8 +1101,19 @@ attachable_wear_uk_m37_basic_pouches_shold_serge_dress_item{
   collres__res:t="uk_m37_basic_pouches_shold_serge_dress_collision"
 }
 
+vickers_k_pouches_animation_blacklist{
+
+  "animationBlacklistForMenu:list<t>"{
+    anim:t="enlisted_idle_101_weapon"
+    anim:t="enlisted_idle_103_weapon"
+    anim:t="enlisted_idle_104_weapon"
+    anim:t="enlisted_idle_109_weapon"
+  }
+}
+
 attachable_wear_uk_vickers_k_pouches_denison_smock_item{
   _extends:t="attachable_chest"
+  _extends:t="vickers_k_pouches_animation_blacklist"
   item__uniqueName:t="attachable_wear_uk_vickers_k_pouches_denison_smock_item"
   animchar__res:t="uk_vickers_k_pouches_denison_smock_char"
   collres__res:t="uk_vickers_k_pouches_denison_smock_collision"

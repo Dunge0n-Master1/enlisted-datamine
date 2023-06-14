@@ -43,9 +43,9 @@ let { mkPerksPoints } = require("%enlist/soldiers/soldierPerksPkg.nut")
 let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
 let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
-let {
-  addToPresentList, curSuitableItemTypes
-} = require("%enlist/shop/armyShopState.nut")
+let { isItemActionInProgress } = require("model/itemActions.nut")
+let { addToPresentList } = require("%enlist/shop/armyShopState.nut")
+let spinner = require("%ui/components/spinner.nut")
 
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
@@ -60,6 +60,8 @@ const STAR_DEF_DELAY = 0.2
 const STAR_DEF_DELAY_INCREASE = 0.1
 const STAR_NEXT_DELAY = 0.3
 
+let waitingSpinner = spinner(hdpx(25))
+
 let isAnimFinished = Watched(false)
 let wndCanBeClosed = Watched(true)
 
@@ -73,6 +75,13 @@ curItem.subscribe(function(v) {
     })
   else
     curSelectedItem(null)
+})
+newItemsToShow.subscribe(function(v) {
+  let { allItems = [] } = v
+  let { guid = null } = curItem.value
+  let item = allItems.findvalue(@(i) i.guid == guid) ?? allItems?[0]
+  curItem(item)
+  addToPresentList(allItems)
 })
 
 local animEndTime = -1
@@ -251,24 +260,25 @@ let function newIemsWndContent() {
     : soldiersCount > 1 ? "delivery/soldiers"
     : "delivery/soldier"
 
-  let animBlock = mkAnimatedItemsBlock({ items = allItems }, {
-    width = sw(80)
-    addChildren = []
-    hasAnim = !isAnimFinished.value
-    baseAnimDelay = SHOW_ITEM_DELAY
-    animTrigger = ANIM_TRIGGER
-    hasItemTypeTitle = false
-    selectedKey = curItem
-    onItemClick = @(item) curItem(item)
-    onVisibleCb = function() {
-      sound_play("ui/debriefing/new_equip")
-    }
-    isDisarmed = true
-    armyByGuid
-  })
+  let curItemValue = curItem.value
+  let animBlock = mkAnimatedItemsBlock({ items = allItems },
+    curItemValue?.basetpl,
+    {
+      width = sw(80)
+      addChildren = []
+      hasAnim = !isAnimFinished.value
+      baseAnimDelay = SHOW_ITEM_DELAY
+      animTrigger = ANIM_TRIGGER
+      hasItemTypeTitle = false
+      onItemClick = @(item) curItem(item)
+      onVisibleCb = function() {
+        sound_play("ui/debriefing/new_equip")
+      }
+      isDisarmed = true
+      armyByGuid
+    })
 
   animEndTime = get_time_msec() + 1000 * animBlock.totalTime
-  let curItemValue = curItem.value
   let specialUnlockHeader =
     activeUnlocks.value?[specialUnlock.value].meta.congratulationLangId ?? ""
 
@@ -393,14 +403,8 @@ let function soldierDismissBtn() {
   return res.__update({ children = dismissBtn(curItem.value, @() curItem(nextItemToShow)) })
 }
 
-
-let function equipItemBtn() {
-  return { watch = [curItem, curSuitableItemTypes] }
-}
-
-
 let function upgradeItemBtn() {
-  let res = { watch = [curItem] }
+  let res = { watch = [curItem, isItemActionInProgress] }
   let justUpgradedItem = curItem.value
   let upgradeDataWatch = mkItemUpgradeData(justUpgradedItem)
   let upgradeData = upgradeDataWatch.value
@@ -414,10 +418,10 @@ let function upgradeItemBtn() {
   local nextUpgrade = findItemTemplate(allItemTemplates, armyId, upgradeitem)
   nextUpgrade = justUpgradedItem.__merge(nextUpgrade)
 
-  res.__update({ children = textButton("",
+  res.__update({ children = isItemActionInProgress.value ? waitingSpinner : textButton("",
     function() {
-        tryMarkSeen()
-        openUpgradeItemMsg(justUpgradedItem, upgradeData)
+      tryMarkSeen()
+      openUpgradeItemMsg(justUpgradedItem, upgradeData)
     }, {
       textCtor = @(_textField, params, handler, group, sf) textButtonTextCtor({
         children = {
@@ -473,7 +477,6 @@ let newItemsWnd = @() {
             soldierDismissBtn
             vehicleSquadBtn
             upgradeItemBtn
-            equipItemBtn
           ]
         : null
     }
@@ -496,10 +499,6 @@ let function open() {
   playOpenSceneSound()
   anim_start(ANIM_TITLE_TRIGGER)
   sceneWithCameraAdd(newItemsWnd, "new_items")
-
-  let items = newItemsToShow.value?.allItems ?? []
-  curItem(items?[0])
-  addToPresentList(items)
 }
 
 if (needNewItemsWindow.value || specialUnlock.value != null)

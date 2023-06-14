@@ -3,7 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let {
-  bigPadding, unitSize, slotBaseSize, listCtors, smallPadding, warningColor
+  bigPadding, unitSize, slotBaseSize, listCtors, smallPadding, warningColor,
+  hoverBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { bgColor, txtColor } = listCtors
 let {gray} = require("%ui/components/std.nut")
@@ -161,7 +162,15 @@ let alertIconObject = {
   }
 }
 
-let function mkItemExt(item, params) {
+
+let selectedLine = {
+  size = [flex(), hdpx(2)]
+  vplace = ALIGN_BOTTOM
+  rendObj = ROBJ_SOLID
+  color = hoverBgColor
+}
+
+let function mkItemExt(item, selectedTpl, params) {
   let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
 
   let ctor = mkItemByTypeMap?[item?.itemtype]
@@ -178,7 +187,11 @@ let function mkItemExt(item, params) {
   animDelay += ITEM_DELAY
   return {
     key = item?.guid ?? item
-    children = [ itemObject, campObject ]
+    children = [
+      itemObject
+      campObject
+      item?.basetpl == selectedTpl ? selectedLine : null
+    ]
     transform = {}
     animations = hasAnim ? [
       { prop = AnimProp.opacity,                      from = 0, to = 0, duration = animDelay,
@@ -193,12 +206,12 @@ let function mkItemExt(item, params) {
   }
 }
 
-let function blockContent(items, columnsAmount, params) {
+let function blockContent(items, selectedTpl, columnsAmount, params) {
   let itemSize = getItemSize(items?[0].itemtype)
   let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * bigPadding
   return {
     flow = FLOW_HORIZONTAL
-    children = wrap(items.map(@(item) mkItemExt(item, params)), {
+    children = wrap(items.map(@(item) mkItemExt(item, selectedTpl, params)), {
       width = containerWidth
       hGap = bigPadding
       vGap = bigPadding
@@ -208,7 +221,7 @@ let function blockContent(items, columnsAmount, params) {
   }
 }
 
-let function itemsBlock(items, blockId, params) {
+let function itemsBlock(items, blockId, selectedTpl, params) {
   if (!items.len())
     return null
 
@@ -226,7 +239,7 @@ let function itemsBlock(items, blockId, params) {
     halign = ALIGN_CENTER
     gap = bigPadding
     children = (viewBlockId ? [blockTitle(viewBlockId, params)] : [])
-      .append(blockContent(items, columnsAmount, params))
+      .append(blockContent(items, selectedTpl, columnsAmount, params))
   }
 }
 
@@ -261,7 +274,7 @@ let ITEMS_REWARDS_PARAMS = {
   pauseTooltip = null
 }
 
-let function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
+let function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARDS_PARAMS) {
   params = ITEMS_REWARDS_PARAMS.__merge(params)
 
   let {
@@ -300,7 +313,7 @@ let function mkAnimatedItemsBlock(itemBlocks, params = ITEMS_REWARDS_PARAMS) {
     flow = FLOW_VERTICAL
     gap = bigPadding
     children = blocks.map(@(blockId)
-      itemsBlock(itemBlocks[blockId], blockId, params)
+      itemsBlock(itemBlocks[blockId], blockId, selectedTpl, params)
     )
   })
 
