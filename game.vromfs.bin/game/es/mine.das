@@ -35,9 +35,12 @@ def mine_exploder_by_hp_es(evt : Event;
                            transform : float3x4;
                            mineActivatorTemplate : string;
                            placeable_item__ownerEid : EntityId;
-                           var mine__activated : bool&)
+                           var mine__activated : bool&;
+                           mine_activator__offset : float3)
   if mine__activated
-    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, transform)
+    var tm = transform
+    tm[3] += mine_activator__offset
+    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, tm)
     mine__activated = false
 
 [es(on_appear, before=mine_zone_list_cleaner_es, tag=server, REQUIRE=engeneer_mine, REQUIRE_NOT=menuItemObject)]
@@ -92,6 +95,7 @@ def mine_zone_checker(info : UpdateStageInfoAct;
                       mineActivatorTemplate : string;
                       checkTriggerInterval : float;
                       mine_activation_zone__initEids : EidList;
+                      mine_activator__offset : float3;
                       var nextCheckTriggerAtTime : float&;
                       var mine__blockedToTime : float&;
                       var mine__activated : bool&;
@@ -131,7 +135,9 @@ def mine_zone_checker(info : UpdateStageInfoAct;
                      (length_sq(transform[3] - minePosition) < mineTriggerRadiusSq))
     return objectFound
   if objectFound && mine__blockedToTime < 0.f
-    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, transform, mine_activation__delay)
+    var tm = transform
+    tm[3] += mine_activator__offset
+    detonate_mine(eid, mineActivatorTemplate, placeable_item__ownerEid, tm, mine_activation__delay)
     mine__activated = false
 
 [es(tag=server, on_appear, REQUIRE=(engeneer_mine, itemInWorld))]

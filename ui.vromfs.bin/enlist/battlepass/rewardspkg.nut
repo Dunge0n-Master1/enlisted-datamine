@@ -16,12 +16,12 @@ let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
 
 let function prepareRewards(rewards, itemMapping = {}) {
   let list = []
-  foreach (key, count in rewards) {
-    let reward = itemMapping?[key.tostring()] ?? rewardsPresentation?[key.tostring()]
-    if (reward != null && count.tointeger() > 0)
-      list.append({ reward, count })
-  }
-  list.sort(@(a, b) (a?.worth ?? 0) <=> (b?.worth ?? 0))
+  foreach (key, count in rewards)
+    if (count.tointeger() > 0) {
+      let reward = itemMapping?[key.tostring()] ?? rewardsPresentation?[key.tostring()]
+      if (reward != null)
+        list.append({ reward, count })
+    }
   return list
 }
 
@@ -32,6 +32,7 @@ let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
   let { icon = null } = reward
   if (icon == null)
     return null
+
   return {
     rendObj = ROBJ_IMAGE
     size = [size, size]
@@ -41,22 +42,26 @@ let function mkRewardIcon(reward, size = hdpx(30), override = {}) {
 }
 
 let function mkRewardImages(reward, sizeBg = defCardSize, override = {}, hasStageCompleted = false) {
-  let { cardImage = null, cardImageParams = {}, bgImage = null, cardImageOpen = null } = reward
-  if (cardImage == null)
+  let { cardImage = null, cardImageParams = @(_) {}, bgImage = null, cardImageOpen = null,
+    mkImage = null } = reward
+  if (cardImage == null && mkImage == null)
     return null
 
+  let curImage = hasStageCompleted && cardImageOpen ? cardImageOpen : cardImage
   return {
+    size = sizeBg
     children = [
       bgImage == null ? null : {
         rendObj = ROBJ_IMAGE
         size = sizeBg
         image = Picture(bgImage)
       }
-      type(cardImage) == "function" ? cardImage(sizeBg)
-      : {
-          rendObj = ROBJ_IMAGE
-          image = Picture((hasStageCompleted && cardImageOpen) ? cardImageOpen : cardImage)
-        }.__update(cardImageParams)
+      mkImage != null
+        ? mkImage?(sizeBg, curImage)
+        : {
+            rendObj = ROBJ_IMAGE
+            image = Picture(curImage)
+          }.__update(cardImageParams?(sizeBg) ?? {})
     ]
   }.__update(override)
 }

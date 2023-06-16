@@ -7,6 +7,8 @@ def replay_save_state_on_rewind_es(evt : Event)
   using() <| $(var obj : Object)
     query() <| $ [es] (replay__speed : float)
       obj |> set("replay__speed", replay__speed)
+    query() <| $ [es(REQUIRE=localPlayer)] (eid : EntityId)
+      obj |> set("playerEid", eid)
     query() <| $ [es] (dof__on : bool;
                        dof__focalLength_mm : float;
                        dof__focusDistance : float;

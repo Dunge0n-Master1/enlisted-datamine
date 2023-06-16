@@ -58,8 +58,9 @@ def replay_read_meta_es(evt : Event;
         replay__keyFrameTimes |> push(json_value_or(frame, 0))
 
 [es(tag=playingReplay, after=replay_read_meta_es)]
-def replay_load_rewind_state_es(evt : CmdReplayRewindLoadState)
+def replay_load_rewind_state_es(evt : CmdReplayRewindLoadState; var replay__savedState : Object&)
   assume state = *evt.state
+  replay__savedState := state
   query() <| $ [es] (var battle_music__shouldStartIntro : bool&)
     battle_music__shouldStartIntro = false
 

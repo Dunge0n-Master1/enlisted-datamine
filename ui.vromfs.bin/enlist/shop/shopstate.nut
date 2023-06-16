@@ -296,6 +296,7 @@ let function mkShopState() {
   let function switchGroup() {
     let grCount = curShopItemsByGroup.value.len()
     curGroupIdx((curGroupIdx.value + 1) % grCount)
+    chapterIdx(-1)
   }
 
   return {

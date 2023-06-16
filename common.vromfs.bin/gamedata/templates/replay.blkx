@@ -48,6 +48,9 @@ replay_meta{
 
   "replay__curCam:eid"{
   }
+
+  "replay__savedState:object"{
+  }
 }
 
 replay_acceleration_to{

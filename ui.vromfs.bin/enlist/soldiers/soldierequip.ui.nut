@@ -150,18 +150,22 @@ let mkItemsChapter = kwarg(function mkItemsChapterImpl(
       let { slotType, isPrimary = false, isDisabled = false } = scheme
       let currentSlotsCount = slotsCount.value?[slotType] ?? 0
       let slotsList = collectSlots(slotType, currentSlotsCount, slotsItems, soldierGuid)
-      slotsList.each(@(s) s.__update({
-        item = objInfoByGuid.value?[s.item?.guid] ?? s.item
-        scheme = scheme
-        hasWarning = errorSlotTypes?[slotType] ?? false
-        isDisabled = isDisabled
-        isUnseen = Computed(function() {
-          let hasUnseenUpgradesMark = s?.item.basetpl in curUnseenAvailableUpgrades.value
-            && !(isUpgradeUsed.value ?? false)
-          return hasUnseenUpgradesMark
-            || (unseenSoldiersWeaponry.value?[soldierGuid][slotType] ?? false)
+      slotsList.each(function(s) {
+        let item = objInfoByGuid.value?[s.item?.guid] ?? s.item
+        let { basetpl = null } = item
+        s.__update({
+          item
+          scheme
+          hasWarning = errorSlotTypes?[slotType] ?? false
+          isDisabled = isDisabled
+          isUnseen = Computed(function() {
+            let hasUnseenUpgradesMark = basetpl in curUnseenAvailableUpgrades.value
+              && !(isUpgradeUsed.value ?? false)
+            return hasUnseenUpgradesMark
+              || (unseenSoldiersWeaponry.value?[soldierGuid][slotType] ?? false)
+          })
         })
-      }))
+      })
 
       if (!isPrimary && lastRow != null
         && lastRow.slots.len() < (equipGroup?.maxSlotTypesInRow ?? MAX_SLOT_TYPES_IN_ROW)) {

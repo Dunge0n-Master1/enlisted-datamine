@@ -261,8 +261,9 @@ let function newIemsWndContent() {
     : "delivery/soldier"
 
   let curItemValue = curItem.value
+  let { guid = null } = curItemValue
   let animBlock = mkAnimatedItemsBlock({ items = allItems },
-    curItemValue?.basetpl,
+    curItemValue?.basetpl, // TODO remove cascading and use curItem at final component
     {
       width = sw(80)
       addChildren = []
@@ -297,12 +298,12 @@ let function newIemsWndContent() {
         children = [
           title(specialUnlockHeader == "" ? header : specialUnlockHeader)
           underline
-          curItemName(curItemValue, armyByGuid?[curItemValue.guid])
+          curItemName(curItemValue, armyByGuid?[guid])
           soldiersCount <= 0 || curItemValue?.itemtype != "soldier" ? null
             : {
                 rendObj = ROBJ_SOLID
                 color = defBgColor
-                children = mkPerksPoints(curItemValue.guid)
+                children = mkPerksPoints(guid)
               }
           { size = flex() }
           curItemDescription(curItemValue)

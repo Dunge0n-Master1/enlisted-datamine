@@ -1105,9 +1105,11 @@ vickers_k_pouches_animation_blacklist{
 
   "animationBlacklistForMenu:list<t>"{
     anim:t="enlisted_idle_101_weapon"
+    anim:t="enlisted_idle_102_weapon"
     anim:t="enlisted_idle_103_weapon"
     anim:t="enlisted_idle_104_weapon"
     anim:t="enlisted_idle_109_weapon"
+    anim:t="enlisted_idle_110_weapon"
   }
 }
 

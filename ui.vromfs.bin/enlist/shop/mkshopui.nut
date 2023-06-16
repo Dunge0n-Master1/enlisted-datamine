@@ -8,7 +8,7 @@ let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 
 let { Bordered } = require("%ui/components/txtButton.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontMedium, fontLarge, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { makeVertScroll, styling } = require("%ui/components/scrollbar.nut")
 let { offersByShopItem } = require("%enlist/offers/offersState.nut")
@@ -263,7 +263,14 @@ let function buildShopUi() {
     let { id = "", goods = [], chapters = null } = curGroup
     let featured = curFeaturedByGroup.value?[id] ?? []
     if (goods.len() == 0 && chapters == null && featured.len() == 0)
-      return res
+      return res.__update({
+        rendObj = ROBJ_TEXT
+        halign = ALIGN_CENTER
+        valign = ALIGN_CENTER
+        color = defTxtColor
+        size = flex()
+        text = loc("shop/emptyTab")
+      }, fontXLarge)
 
     let offers = offersByShopItem.value
     let army = curArmyData.value

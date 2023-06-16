@@ -113,14 +113,10 @@ def set_human_as_replay_target_es(evt : SetReplayTarget; eid : EntityId)
     replay_player__catchPossessEntity = false
   sendEvent(eid, [[ReplayPossessEntity]])
 
-[es(tag=playingReplay)]
-def replay_on_possess_hero_msg(evt : PossessHero; eid : EntityId; squad_member__playerEid : EntityId)
-  if !evt.possess || get_local_player_eid() != squad_member__playerEid
-    return
-
-  query(squad_member__playerEid) <| $ [es] (replay_player__catchPossessEntity : bool)
-    if replay_player__catchPossessEntity
-      sendEvent(eid, [[ReplayPossessEntity]])
+[es(tag=playingReplay, track=possessed, on_appear)]
+def replay_on_possess_hero_msg(evt : Event; possessed : EntityId; replay_player__catchPossessEntity : bool)
+  if !!possessed && replay_player__catchPossessEntity
+    sendEvent(possessed, [[ReplayPossessEntity]])
 
 // Hack for fix broken fps view in replay mode
 // Real fix: we need update phys for observed soldier in replay mode

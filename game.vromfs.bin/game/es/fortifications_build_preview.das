@@ -211,7 +211,7 @@ def build_ability_update_transform_es(info : UpdateStageInfoAct;
   if isAngleValid
     transform[1] = norm
   transform[0] = normalize(cross(transform[1], aimTm[2]))
-  transform[0] = quat(norm, deg_to_rad(additionalYawRotation)) * transform[0]
+  transform[0] = quat(transform[1], deg_to_rad(additionalYawRotation)) * transform[0]
   transform[2] = normalize(cross(transform[0], transform[1]))
   transform[3] = build_position
   let syncTime = get_sync_time()

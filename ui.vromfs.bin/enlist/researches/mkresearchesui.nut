@@ -181,7 +181,7 @@ let mkResearchPageSlot = @(pageIdx, isSelected, isHover) {
 }
 
 let function gotoNextPage() {
-  let total = (tableStructure.value?.pages ?? []).len()
+  let total = tableStructure.value?.pages.len() ?? 0
   if (total > 0)
     selectedTable((selectedTable.value + 1) % total)
 }
@@ -656,6 +656,21 @@ let threeStepLength = {
   [3] = { size = [0, SIZE_TO_CONTENT] }
 }
 
+let attractResearch = keepref(Computed(@() isResearchesVisible.value
+  ? researchToShow.value ?? (needScrollClosest.value ? closestResearch.value : null)
+  : null))
+
+let function scrollToResearch(columns, curResearch) {
+  if (columns == null)
+    return
+
+  let column = columns.findindex(@(col) col.main == curResearch
+    || col.children.findvalue(@(branch) (branch?.children ?? [])
+        .indexof(curResearch) != null) != null)
+  if (column != null)
+    scrollHandler.scrollToX(columnPositions?[column] ?? 0)
+}
+
 let function mkResearchesTreeUi(researches) {
   let xmbContainer = XmbContainer({
     isGridLine = true
@@ -680,32 +695,18 @@ let function mkResearchesTreeUi(researches) {
       onResearch()
   }
 
-  let function scrollToResearch(curResearch) {
-    let { research_id } = curResearch
-    let { columns } = viewStructure.value
-    let column = columns.findindex(@(col) col.main == research_id
-      || col.children.findvalue(@(branch) (branch?.children ?? [])
-          .indexof(research_id) != null) != null)
-
-    if (column != null)
-      scrollHandler.scrollToX(columnPositions?[column] ?? 0)
-  }
-
-  let attractResearch = keepref(Computed(@()
-    isResearchesVisible.value
-      ? researchToShow.value ?? (needScrollClosest.value ? closestResearch.value : null)
-      : null))
-
-  attractResearch.subscribe(function(r) {
+  let attractorFunc = function(r) {
     if (r == null)
       return
 
-    scrollToResearch(r)
+    let { columns } = viewStructure.value
+    let { research_id } = r
+    scrollToResearch(columns, research_id)
     defer(function() {
       researchToShow(null)
       needScrollClosest(false)
     })
-  })
+  }
 
   let function mkResearchItem(column, isLast) {
     let { template = null, tplCount = 0 } = column
@@ -743,9 +744,14 @@ let function mkResearchesTreeUi(researches) {
     }
   }
 
-  let onAttach = function(){
+  let onAttach = function() {
+    attractResearch.subscribe(attractorFunc)
     isResearchesVisible(true)
     needScrollClosest(true)
+  }
+  let onDetach = function() {
+    attractResearch.unsubscribe(attractorFunc)
+    isResearchesVisible(false)
   }
 
   return function researchesTreeUi() {
@@ -783,7 +789,7 @@ let function mkResearchesTreeUi(researches) {
       gap = columnGap
       padding = [0, colPart(1)]
       onAttach
-      onDetach = @() isResearchesVisible(false)
+      onDetach
       children = [
         researchItemsRow
         {
@@ -879,7 +885,7 @@ let function mkResearchesTreeUi(researches) {
     })
 
     return {
-      watch = [ viewStructure, selectedResearch, hasScroll, researchStatuses, selectedTable]
+      watch = [viewStructure, selectedResearch, hasScroll, researchStatuses, selectedTable]
       size = flex()
       xmbNode = xmbContainer
       children = hasScroll.value
@@ -1189,7 +1195,7 @@ let function mkResearchesUi() {
         children = [
           mkHeaderUi()
           function() {
-            let researches = tableStructure.value?.researches ?? {}
+            let { researches = {} } = tableStructure.value
             let isBranchEmpty = researches.len() == 0
             let isCampaignLevelLow = selectedResearch.value?.isLockedByCampaignLvl ?? false
             return {

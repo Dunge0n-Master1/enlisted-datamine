@@ -2347,6 +2347,7 @@ antipersonnel_mine{
   _extends:t="base_ri_building"
   ri_extra__name:t="temporary_antitank_mine"
   mineActivatorTemplate:t="antipersonnel_mine_activator"
+  mine_activator__offset:p3=0.0, 0.15, 0.0
   activationRadius:r=1.5
   team:i=-1
   activated:b=no
@@ -2398,6 +2399,7 @@ antitank_mine{
   _extends:t="base_ri_building"
   ri_extra__name:t="temporary_antitank_mine"
   mineActivatorTemplate:t="antitank_mine_activator"
+  mine_activator__offset:p3=0.0, 0.15, 0.0
   activationRadius:r=3.0
   team:i=-1
   activated:b=no

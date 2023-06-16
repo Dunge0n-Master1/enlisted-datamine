@@ -125,6 +125,7 @@ base_mine_item_gun{
   _replicated:t="mine__activated"
   _replicated:t="mine__blockedToTime"
   mineActivatorTemplate:t="antipersonnel_mine_activator"
+  mine_activator__offset:p3=0.0, 0.15, 0.0
   activationRadius:r=1.5
   mine__installBlockTime:r=5.0
   mine__blockedToTime:r=-1.0
