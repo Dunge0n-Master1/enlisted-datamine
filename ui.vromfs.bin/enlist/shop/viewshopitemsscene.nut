@@ -111,6 +111,7 @@ let function purchaseBtnUi() {
   let btnCtor = armyLevel > level ? Flat : PrimaryFlat
   let crateContent = shopItemContentCtor(shopItemData)
   let countWatched = Watched(1)
+  let description = mkShopItemInfoBlock(crateContent)
   return {
     watch = [curArmyData, shopItem, purchaseIsPossible]
     rendObj = ROBJ_BOX
@@ -131,13 +132,14 @@ let function purchaseBtnUi() {
                 shopItem = shopItemData
                 activatePremiumBttn
                 productView = mkMsgBoxView(shopItemData, crateContent, countWatched)
-                description = mkShopItemInfoBlock(crateContent)
+                description
                 countWatched
               }),
               {
                 itemView = mkShopItemImg(shopItemData.image, {
                   size = [fsh(40), fsh(24)]
                 })
+                description
               },
               crateContent
             )

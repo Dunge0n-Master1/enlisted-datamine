@@ -32,7 +32,7 @@
 
 "@override:ps4"{
   "@delete:neo_garlic_size_mb":i=0
-  neo_garlic_size_mb:i=3076
+  neo_garlic_size_mb:i=3126
 }
 
 "@override:graphics"{

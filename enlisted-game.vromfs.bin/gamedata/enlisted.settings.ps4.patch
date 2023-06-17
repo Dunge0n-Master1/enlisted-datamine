@@ -32,7 +32,7 @@
 
 "@override:ps4"{
   "@delete:garlic_size_mb":i=0
-  garlic_size_mb:i=2584
+  garlic_size_mb:i=2634
 }
 
 "@override:graphics"{

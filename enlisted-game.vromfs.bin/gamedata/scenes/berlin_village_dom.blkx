@@ -565,12 +565,14 @@ entity{
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=1
+  respawnCameraLODMultiplier:r=0.75
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [576.488, 314.538, 1174.67]]
 }
 
 entity{
   _template:t="respawn_camera"
   respawnCameraForTeam:i=2
+  respawnCameraLODMultiplier:r=0.75
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [625.971, 310.226, 253.227]]
 }
 
