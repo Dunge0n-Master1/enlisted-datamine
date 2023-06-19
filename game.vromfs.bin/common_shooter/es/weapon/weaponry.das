@@ -52,6 +52,7 @@ require common_shooter.es.human.human_gun_common
 // Compensation should be caped by the maximum allowed ping (around 750 ms by the time of the change).
 [es(tag=server, tag=net, on_appear)]
 def compensate_shell_throw_lag_es(evt : Event;
+                                  eid : EntityId;
                                   shell__launchAtTime : float;
                                   shell__owner : EntityId;
                                   var phys_obj_net_phys : PhysObjActor)
@@ -71,6 +72,7 @@ def compensate_shell_throw_lag_es(evt : Event;
     while tickCompensation > 0 && !phys_obj_net_phys.phys.currentState.hadContact
       let atTime = shell__launchAtTime - float(tickCompensation) * dt
       phys_obj_net_phys.phys |> updatePhys(atTime, dt, true)
+      sendEventImmediate(eid, [[CmdPostPhysUpdate tick=phys_obj_net_phys.phys.currentState.atTick, dt=dt, isForReal=false]])
       --tickCompensation
 
 
