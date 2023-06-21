@@ -46,6 +46,7 @@ let function mkTab(section, action, curSection) {
     sound = soundActive
     minWidth = colPart(1.5)
     onClick = action
+    skipDirPadNav = true
     children = [
       {
         size = flex()

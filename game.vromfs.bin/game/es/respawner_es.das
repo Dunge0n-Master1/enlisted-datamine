@@ -336,13 +336,15 @@ def respawner_es(info : UpdateStageInfoAct;
       respawnForcedByQueue = true
 
   if respawner__respRequested || respawnForcedByQueue
-    respawner__respEndTime = (respawner__paratroopersSquad && !respawner__isFirstSpawn) ? 0. : respawner__canRespawnTime
+    if respawner__paratroopersSquad && !respawner__isFirstSpawn
+      respawner__canRespawnTime = respawner__respStartTime + squads__respawnPenaltyTime
+    respawner__respEndTime = respawner__canRespawnTime
   else
     let allowForceRespawn = respToBot ? respawner__allowBotForceRespawn : respawner__allowForceRespawn
     respawner__respEndTime = allowForceRespawn ? respawner__respStartTime + forceRespTime : -1.f
 
   if (respawner__paratroopersChooserOn && !respawner__isFirstSpawn) && !respawner__respRequested
-    respawner__respEndTime = info.curTime
+    respawner__respEndTime = respawner__respStartTime + squads__respawnPenaltyTime
     respawner__canRespawnTime = respawner__respEndTime
     return
 

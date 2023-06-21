@@ -113,14 +113,14 @@ def human_vehicle_lock_turrets_input_es(evt : ParallelUpdateFrameDelayed;
                                         vehicle_look__lockAllTurrentControll : bool = false;
                                         var turret_control__isInputLocked : bool&)
   query() <| $ [es(REQUIRE=hero)] (human_input__look : int;
-                                   human_input__standState : int;
                                    human_vehicle__occupiedSeatEid : EntityId;
                                    human_vehicle__isShootingPassenger : bool)
     let asLook = get_analog_stick_action_state(uint16(human_input__look))
     let isPeriscope = get_bool(cockpit__eid, "cockpit__isPeriscope") ?? false
     query(human_vehicle__occupiedSeatEid) <| $ [es] (seat__availableHatchControls : VehicleControlsState;
+                                                     seat__isInHatch : bool;
                                                      seat__isHatchControlInversed : bool = false)
-      let isInHatch = human_input__standState == int(HumanPhysControlType HCT_CROUCH) ^^ seat__isHatchControlInversed
+      let isInHatch = seat__isInHatch  ^^ seat__isHatchControlInversed
       let isFreeLook = asLook.bActive && (isInHatch || isPeriscope)
       let isLocalControlLocked = isFreeLook || human_vehicle__isShootingPassenger
       let needLockAllTurrets = vehicle_look__lockAllTurrentControll || human_vehicle__isShootingPassenger

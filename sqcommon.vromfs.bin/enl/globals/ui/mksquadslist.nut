@@ -46,16 +46,11 @@ let mkSquadsList = kwarg(@(
     halign = ALIGN_CENTER
     rendObj = ROBJ_WORLD_BLUR_PANEL
     color = blurBgColor
+    clipChildren = true
     fillColor = blurBgFillColor
     flow = FLOW_VERTICAL
     gap = smallPadding
-    xmbNode = XmbContainer({
-      canFocus = @() false
-      scrollSpeed = 10.0
-      isViewport = true
-      wrap = false
-      scrollToEdge = true
-    })
+    xmbNode = XmbContainer({ wrap = false })
     children
   }.__merge(bgOverride)
 })

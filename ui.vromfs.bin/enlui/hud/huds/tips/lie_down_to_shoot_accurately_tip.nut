@@ -4,7 +4,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {tipCmp} = require("%ui/hud/huds/tips/tipComponent.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
-let {curWeaponWeapType} = require("%ui/hud/state/hero_weapons.nut")
+let { curWeaponWeapType } = require("%ui/hud/state/hero_weapons.nut")
+let { inVehicle } = require("%ui/hud/state/vehicle_state.nut")
 
 let tipCountData = mkOnlineSaveData("ui/hud/lie_down_to_shoot", @() 0)
 let shownTipCount = tipCountData.watch
@@ -32,7 +33,8 @@ ecs.register_es("is_crawling_now",{
 
 let needShowTip = Computed(@() curWeaponWeapType.value == "submachine_gun"
                                 && !entityIsCrawling.value && shownTipCount.value < TIP_SHOW_COUNT
-                                && !hasShownCurGame.value)
+                                && !hasShownCurGame.value
+                                && !inVehicle.value)
 
 let function makeShowTipTrue() {
   if (!needShowTip.value)

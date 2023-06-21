@@ -150,6 +150,10 @@ let function mkRandomTeamContent() {
   })
 }
 
+local dxSum = 0.0
+local dySum = 0.0
+local canBeUpdated = false
+
 return function queueWaitingInfo() {
   let pos = posSize.value.pos
 
@@ -160,18 +164,29 @@ return function queueWaitingInfo() {
     rendObj = ROBJ_WORLD_BLUR_PANEL
     moveResizeCursors = null
     size = SIZE_TO_CONTENT
-    behavior = Behaviors.MoveResize
+    behavior = [Behaviors.MoveResize, Behaviors.RtPropUpdate]
+    update = function() {
+      canBeUpdated = true
+    }
     cursor = cursors.normal
     stopHover = true
     valign = ALIGN_CENTER
     key = 1
     pos
     onMoveResize = function(dx, dy, _dw, _dh) {
+      dxSum += dx
+      dySum += dy
+      if (!canBeUpdated)
+        return null
+
+      canBeUpdated = false
       let newPosSize = {size = defaultSize, pos = [
-        clamp(pos[0] + dx, 0, sw(100) - defaultSize[0]),
-        clamp(pos[1] + dy, 0, sh(100) - defaultSize[1])
+        clamp(pos[0] + dxSum, 0, sw(100) - defaultSize[0]),
+        clamp(pos[1] + dySum, 0, sh(100) - defaultSize[1])
       ]}
-      posSize.update(newPosSize)
+      posSize(newPosSize)
+      dxSum = 0.0
+      dySum = 0.0
       return newPosSize
     }
     children = infoContainer.__merge({

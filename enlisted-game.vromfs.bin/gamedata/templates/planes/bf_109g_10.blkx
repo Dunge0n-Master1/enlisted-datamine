@@ -12,11 +12,11 @@ bf_109g_10{
       seatOwnsEntityControl:b=yes
       attachNode:t="pilot1"
       ignoreAttachNodeRotation:b=yes
-      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.1, -0.1]]
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.13, -0.14]]
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-0.89, 0.788, -0.027
+      cameraOffset:p3=-1.05, 0.788, -0.033
       cockpitTemplate:t="bf_109g_10_driver_cockpit"
       roomSpace:i=0
 

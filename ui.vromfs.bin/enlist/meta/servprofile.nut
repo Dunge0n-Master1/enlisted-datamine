@@ -1,4 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
+let { app_is_offline_mode } = require("app")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 let { EVENT_SAVE_DISABLE_NETWORK_DATA } = require("configs.nut")
 let { disableNetwork } = require("%enlSqGlob/login_state.nut")
@@ -7,7 +8,7 @@ let eventbus = require("eventbus")
 
 const DISABLE_NETWORK_PROFILE = "disable_network_profile.json"
 
-let data = (disableNetwork ? loadJson(DISABLE_NETWORK_PROFILE) : {
+let data = ((disableNetwork && !app_is_offline_mode()) ? loadJson(DISABLE_NETWORK_PROFILE) : {
   items = {}
   wallposters = {}
   soldiers = {}

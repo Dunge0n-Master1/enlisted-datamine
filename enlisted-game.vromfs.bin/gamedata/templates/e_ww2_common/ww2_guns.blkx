@@ -35544,6 +35544,7 @@ stationary_browning_m1919a4_without_shell_ejection{
   gun_deviation__maxDeviation:r=2.0
   mounted_gun__horz_limits:p2=-30.0, 45.0
   mounted_gun__vert_limits:p2=-25.0, 12.0
+  stationary_gun__humanOffset:p3=0.15, -1.0, 0.9
 
   "dm_parts__parts:object"{
 
@@ -35626,6 +35627,7 @@ stationary_type_92_hmg_without_shell_ejection{
   gun_deviation__maxDeviation:r=2.0
   mounted_gun__horz_limits:p2=-30.0, 45.0
   mounted_gun__vert_limits:p2=-25.0, 12.0
+  stationary_gun__humanOffset:p3=0.15, -0.95, 1.1
 
   "dm_parts__parts:object"{
 
@@ -35722,6 +35724,7 @@ stationary_maxim_without_shell_ejection{
   gun_deviation__maxDeviation:r=2.0
   mounted_gun__horz_limits:p2=-50.0, 50.0
   mounted_gun__vert_limits:p2=-10.0, 15.0
+  stationary_gun__humanOffset:p3=0.14, -0.9, 0.9
 
   "dm_parts__parts:object"{
 

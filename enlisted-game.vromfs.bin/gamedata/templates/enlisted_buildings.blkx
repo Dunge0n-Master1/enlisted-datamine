@@ -814,7 +814,7 @@ sandbags_wall_maxim_no_shield_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_c_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=24.0
+  building_builder__maxTimeToBuild:r=15.0
   buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
@@ -854,7 +854,7 @@ sandbags_wall_maxim_no_shield{
 builded_stationary_maxim_no_shield_with_autodetach{
   _extends:t="stationary_maxim_no_shield_with_autodetach"
   _extends:t="fortification_builder_info"
-  mounted_gun__horz_limits:p2=-30.0, 30.0
+  mounted_gun__horz_limits:p2=-40.0, 40.0
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -915,7 +915,7 @@ sandbags_wall_mg_34_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_b_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=24.0
+  building_builder__maxTimeToBuild:r=15.0
   buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
@@ -955,6 +955,7 @@ sandbags_wall_mg_34{
 builded_stationary_mg_34_with_autodetach{
   _extends:t="stationary_mg_34_with_autodetach"
   _extends:t="fortification_builder_info"
+  mounted_gun__horz_limits:p2=-40.0, 40.0
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1015,7 +1016,7 @@ sandbags_wall_browning_m1919a4_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_d_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=24.0
+  building_builder__maxTimeToBuild:r=15.0
   buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
@@ -1055,7 +1056,7 @@ sandbags_wall_browning_m1919a4{
 builded_stationary_browning_m1919a4_with_autodetach{
   _extends:t="stationary_browning_m1919a4_with_autodetach"
   _extends:t="fortification_builder_info"
-  mounted_gun__horz_limits:p2=-30.0, 30.0
+  mounted_gun__horz_limits:p2=-40.0, 40.0
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1337,7 +1338,7 @@ sandbags_wall_type_92_hmg_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_d_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=24.0
+  building_builder__maxTimeToBuild:r=15.0
   buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"
@@ -1377,7 +1378,7 @@ sandbags_wall_type_92_hmg{
 builded_stationary_type_92_hmg_with_autodetach{
   _extends:t="stationary_type_92_hmg_with_autodetach"
   _extends:t="fortification_builder_info"
-  mounted_gun__horz_limits:p2=-30.0, 30.0
+  mounted_gun__horz_limits:p2=-40.0, 40.0
 
   "building__destructionAwardStat:t"{
     _tags:t="server"
@@ -1621,7 +1622,7 @@ sandbags_wall_mg_preview{
   ri_preview__name:t="sandbags_wall_medium_rounded_a_mission_object"
   avaliableAngles:p2=-15.0, 15.0
   buildingSoundTag:t="fortification"
-  building_builder__maxTimeToBuild:r=24.0
+  building_builder__maxTimeToBuild:r=15.0
   buildingCost:r=10.0
   building__requireUnlockId:i=3
   building_menu__text:t="building_tool/sandbags_with_mg42"

@@ -195,7 +195,6 @@ base_vehicle{
   }
 
   "hitmarks__groups:list<t>"{
-    group:t="vehicle"
     group:t="plane"
     group:t="infantry"
   }
