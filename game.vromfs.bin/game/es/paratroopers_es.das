@@ -71,7 +71,6 @@ def finalize_paratroopers_creation(evt : FinalizeSoldierCreation;
                                    var human_parachute_wind__deadZone : float&;
                                    var human_parachute_wind__paratroopers : bool&;
                                    var human_parachute_wind__landingPoint : float2&;
-                                   var human_freefall__gameEffect : EntityId&;
                                    var human_parachute_redeploy__altitude : float&)
   query(human_anim__vehicleSelected) <| $ [es] (paratroopers_aircraft__parachuteTemplate : string)
     human_parachute_redeploy__altitude = 0.
@@ -85,7 +84,6 @@ def finalize_paratroopers_creation(evt : FinalizeSoldierCreation;
     if squadLeader == eid
       addSubTemplate(eid, "human_vehicle_custom_exit_animator")
       human_freefall__animationTemplate := "human_freefall_animation_paratroopers"
-      human_freefall__gameEffect = createEntity(string(human_freefall__animationTemplate))
     else
       squad_member__canBeLeader = false
       send_net_event(eid, [[RequestPersonalSquadMateOrder
