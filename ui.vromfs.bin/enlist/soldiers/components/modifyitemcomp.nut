@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { ceil } = require("%sqstd/math.nut")
 let { sub_txt, body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
@@ -301,7 +302,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
                     {
                       ["{orders}"] = mkItemCurrency({ //warning disable: -forgot-subst
                         currencyTpl = orderTpl
-                        count = (orderCount * countWatched.value / batchSize).tointeger()
+                        count = ceil(orderCount * (countWatched.value / batchSize))
                         textStyle = {
                           color = sf & S_HOVER ? TextHover : TextNormal
                         }.__update(body_txt)

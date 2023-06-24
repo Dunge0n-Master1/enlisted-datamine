@@ -150,13 +150,16 @@ let mkItemDisposeData = function(item) {
 
     disposes = disposes.values()[0] // TODO suggest multiple selection instead of first price
 
-    let { isDestructible = false, count = 0, batchSize = 1 } = disposes
+    let { isDestructible = false, count = 0, batchSize = 1, isFixedPrice = false } = disposes
     if (!isDestructible && itemBaseTpl == basetpl)
       return res
 
-    local disposeMult = 1.0 + (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
-    disposeMult *= 1.0 - curUpgradeDiscount.value
-    let orderCount = disposeMult * count
+    local disposeMult = 1.0
+    if (!isFixedPrice) {
+      disposeMult += (disposeCountMultByArmy.value?[armyId][itemBaseTpl] ?? 0.0)
+      disposeMult *= 1.0 - curUpgradeDiscount.value
+    }
+    let orderCount = count * disposeMult
     let orderTpl = disposes.itemTpl
     let guids = isObjLinkedToAnyOfObjects(item, curCampSoldiers.value ?? {}) ? null
       : item?.guids ?? [item?.guid]
