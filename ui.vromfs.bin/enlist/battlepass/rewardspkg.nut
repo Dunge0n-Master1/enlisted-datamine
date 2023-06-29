@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let faComp = require("%ui/components/faComp.nut")
 let { defTxtColor, activeTxtColor, accentTitleTxtColor, titleTxtColor, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { taskMinHeight, taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
@@ -9,10 +8,12 @@ let { rewardWidthToHeight, rewardsPresentation } = require("%enlist/items/itemsP
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
+let { mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let defCardSize = [hdpx(170), hdpx(210)]
 let taskRewardSize = taskMinHeight - 2 * taskSlotPadding[0]
+let timerSize = hdpxi(13)
 
 let function prepareRewards(rewards, itemMapping = {}) {
   let list = []
@@ -88,10 +89,7 @@ let mkSeasonTime = @(timeLeft, override = {}) {
   valign = ALIGN_CENTER
   gap = hdpx(2)
   children = [
-    faComp("clock-o", {
-      fontSize = hdpx(13)
-      color = accentTitleTxtColor
-    }.__update(override))
+    mkTimerIcon(timerSize, { color = accentTitleTxtColor })
     {
       rendObj = ROBJ_TEXT
       text = secondsToHoursLoc(timeLeft)

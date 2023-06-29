@@ -186,7 +186,7 @@ let mkSClassRow = @(sClass, armyId) @() {
   children = [
     kindIcon(sClassesCfg.value?[sClass].kind ?? sClass, hdpx(22), 0)
     className(sClass)
-    classIcon(armyId, sClass, hdpx(22))
+    classIcon(armyId, sClass, hdpxi(22))
   ]
 }
 

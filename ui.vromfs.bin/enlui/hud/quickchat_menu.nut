@@ -1,4 +1,5 @@
 from "%enlSqGlob/ui_library.nut" import *
+let { zoneTitle, zoneCanBeAttacked, zoneCanBeDefended } = require("%ui/hud/state/look_at_zone.nut")
 
 let { sendQuickChatSoundMsg } = require("%ui/hud/huds/send_quick_chat_msg.nut")
 let { CmdRequestAmmoBoxMarker, CmdRequestRallyPointMarker, sendNetEvent } = require("dasevents")
@@ -26,10 +27,16 @@ let baseCommands = [
   { text = "quickchat/thanks", sound = "qm_thanks" },
   { text = "quickchat/goodJob", sound = "qm_well_done" },
   { text = "quickchat/sorry", sound = "qm_sorry" },
-  { text = "quickchat/defend" },
-  { text = "quickchat/attack" }
 ].map(getPieElementByCmd)
 
+let zoneCommands = [
+  {
+    text = Computed(@() loc(zoneCanBeAttacked.value ? "quickchat/attackPoint" : "quickchat/defendPoint", { zone = zoneTitle.value })),
+    available = Computed(@() zoneCanBeAttacked.value || zoneCanBeDefended.value),
+    action = @() sendQuickChatSoundMsg(zoneCanBeAttacked.value ? "quickchat/attackPoint" : "quickchat/defendPoint", { zone = zoneTitle.value }, null)
+  },
+]
+
 return {
-  quickChatCommands = [].extend(askCommands, baseCommands)
+  quickChatCommands = [].extend(askCommands, baseCommands, zoneCommands)
 }

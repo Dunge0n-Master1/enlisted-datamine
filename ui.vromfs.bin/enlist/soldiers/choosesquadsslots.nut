@@ -21,7 +21,7 @@ let { isGamepad } = require("%ui/control/active_controls.nut")
 let openSquadTextTutorial = require("%enlist/tutorial/squadTextTutorial.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 
-let squadIconSize = [hdpx(60), hdpx(60)]
+let squadIconSize = [hdpxi(60), hdpxi(60)]
 let squadTypeIconSize = hdpxi(20)
 let dragIconWidth = hdpxi(25)
 
@@ -298,6 +298,7 @@ let mkHorizontalSlot = kwarg(function (guid, squadId, idx, onClick, manageLocId,
           size = squadSlotHorSize
           onClick
           behavior = Behaviors.Button
+          xmbNode = XmbNode()
           onElemState = @(s) stateFlagsUnfiltered(s)
           transform = {}
           children = chContent

@@ -14,7 +14,7 @@ let { darkTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 
 let wpSize = hdpxi(190)
 let wpHeaderWidth = hdpxi(150)
-let iconSize = hdpx(60)
+let iconSize = hdpxi(60)
 
 let weakTxtColor = @(sf) (sf & S_HOVER) ? darkTxtColor : disabledTxtColor
 

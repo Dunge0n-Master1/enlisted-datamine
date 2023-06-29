@@ -275,7 +275,7 @@ let function roomsListComp() {
 
     children = scrollbar.makeVertScroll(listContent, {
       scrollHandler = scrollHandler
-      rootBase = class {
+      rootBase = {
         size = flex()
         margin = [2, 0]
       }

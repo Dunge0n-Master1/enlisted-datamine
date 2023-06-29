@@ -45,6 +45,11 @@ let mkShopGroup = function(group, isSelected, onClick) {
     size = [SIZE_TO_CONTENT, colPart(0.75)]
     behavior = Behaviors.Button
     onClick
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
     padding = [smallPadding, columnGap]
     maxWidth = colPart(12)
     minWidth = colPart(1)
@@ -93,7 +98,8 @@ let function buildShopUi() {
     curShopItemsByGroup,
     curShopDataByGroup,
     curFeaturedByGroup,
-    switchGroup
+    switchGroup,
+    autoSwitchNavigation
   } = mkShopState()
 
   let switchGroupKey = mkHotkey("X | J:X", switchGroup)
@@ -306,7 +312,7 @@ let function buildShopUi() {
         },
         {
           size = flex()
-          rootBase = class {
+          rootBase = {
             behavior = Behaviors.Pannable
             wheelStep = 1
           }
@@ -332,7 +338,10 @@ let function buildShopUi() {
       }
       {
         size = flex()
-        onAttach = onShopAttach
+        function onAttach() {
+          onShopAttach()
+          autoSwitchNavigation()
+        }
         onDetach = onShopDetach
         children = contentUi
       }

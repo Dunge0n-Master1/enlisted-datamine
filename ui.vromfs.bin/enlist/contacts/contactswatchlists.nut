@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { ndbTryRead, ndbWrite } = require("nestdb")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 let { isContactOnline, onlineStatus } = require("contactPresence.nut")
 let { canCrossnetworkChatWithAll,
   canCrossnetworkChatWithFriends } = require("%enlSqGlob/crossnetwork_state.nut")
@@ -12,14 +12,7 @@ let predefinedContactsList = ["approved", "myRequests", "requestsToMe", "rejecte
 let contactsLists = predefinedContactsList
   .reduce(function(res, name) {
     console_print($"registerList {name}")
-
-    let persistKey = $"contact_list_{name}"
-    let uids = Watched(ndbTryRead(persistKey) ?? {})
-    uids.subscribe(function(u) {
-      ndbWrite(persistKey, u)
-    })
-
-    res[name] <- uids
+    res[name] <- nestWatched($"contact_list_{name}", {})
     return res
   },
   {})

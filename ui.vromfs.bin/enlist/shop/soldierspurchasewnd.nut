@@ -36,8 +36,8 @@ let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
 let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
 let { perksStatsCfg } = require("%enlist/meta/perks/perksStats.nut")
-let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
-let { perkPointIcon, getStatDescList, flexTextArea
+let { pPointsBaseParams } = require("%enlist/meta/perks/perksPoints.nut")
+let { perkPointIcon, getStatDescList, flexTextArea, mkStatList
 } = require("%enlist/soldiers/components/perksPackage.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let {
@@ -200,56 +200,16 @@ let function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
     halign = ALIGN_LEFT
   }.__update(sub_txt))
 
+  let { icon, color } = pPointsBaseParams[perkStat]
   return {
     flow = FLOW_HORIZONTAL
     valign = ALIGN_TOP
     halign = ALIGN_LEFT
     gap = smallPadding
     children = [
-      perkPointIcon(pPointsBaseParams[perkStat]).__update(isLocked ? { color = defTxtColor } : {})
+      perkPointIcon(icon, isLocked ? defTxtColor : color)
       textarea
     ]
-  }
-}
-
-let statsRange = @(statsTable, stat, isLocked) {
-  flow = FLOW_HORIZONTAL
-  halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
-  children = [
-    perkPointIcon(pPointsBaseParams[stat])
-      .__merge(isLocked ? { color = defTxtColor } : {})
-    {
-      rendObj = ROBJ_TEXT
-      color = defTxtColor
-      text = $"{statsTable[stat].min}-{statsTable[stat].max}"
-    }
-  ]
-}
-
-let function mkStatList(content, isLocked = false) {
-  let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
-    soldierRareMin } = content
-  let { pointsByTiers = [], perkPointsModifications = []
-    } = sClassesCfg.value?[soldierClasses[0]] ?? {}
-
-  local stats = {}
-  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
-  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
-  foreach(name in pPointsList) {
-    stats[name] <- {
-      min = pointsByTiers[soldierTierMin][name].min +
-        (perkPointsModifications[max(soldierRareMin, 0)]?[name] ?? 0)
-      max = statsMax[name].max +
-        (perkPointsModifications[maxRareModifications]?[name] ?? 0)
-    }
-  }
-  return {
-    flow = FLOW_HORIZONTAL
-    halign = ALIGN_LEFT
-    size = [hdpx(260), hdpx(32)]
-    gap = bigPadding
-    children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
   }
 }
 
@@ -269,13 +229,13 @@ let function mkShopItemCard(shopItem, armyData, maxClasses) {
     let { perkSchemeId = "" } = soldierSchemes.value?[armyId][shopItem.soldierSpec]
     let perkScheme = perkSchemes.value?[perkSchemeId]
     let perkElement = mkStartPerk(perksList.value, perksStatsCfg.value, perkScheme, isLocked)
-    let statsList = mkStatList(crateContent.value?.content, isLocked)
+    let statsList = mkStatList(crateContent.value?.content, sClassesCfg.value, isLocked)
     let hasUnseenSignal = curUnseenAvailShopGuids.value?[shopItem.guid] ?? false
     let unseenSignalObj = !hasUnseenSignal ? null
       : shopItemNotifier
 
     return {
-      watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus,
+      watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus, sClassesCfg,
         perkSchemes, soldierSchemes, perksList, perksStatsCfg]
       size = [hdpx(295), hdpx(500)]
       flow = FLOW_VERTICAL

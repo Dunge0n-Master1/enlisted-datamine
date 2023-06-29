@@ -99,6 +99,7 @@ let mkPortraitFrame = @(children, onClick = null, onHover = null, addObject = nu
       fillColor = defBgColor
       borderColor = borderColor(sf)
       behavior = Behaviors.Button
+      xmbNode = XmbNode()
       onClick
       onHover
       children

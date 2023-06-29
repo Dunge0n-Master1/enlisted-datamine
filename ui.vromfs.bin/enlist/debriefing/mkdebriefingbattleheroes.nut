@@ -15,8 +15,7 @@ let { partition } = require("%sqstd/underscore.nut")
 let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let { getIdleAnimState } = require("%enlSqGlob/animation_utils.nut")
 let { mkSoldierPhotoName, mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
-let { mkRankIcon, rankIconSize, getRankConfig
-} = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, getRankConfig } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { mkPortraitIcon } = require("%enlist/profile/decoratorPkg.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 
@@ -75,7 +74,7 @@ let function rankBlock(playerRank) {
     image = Picture(imageBack)
     margin = hdpx(1)
     size = [hdpx(28), hdpx(28)]
-    children = mkRankIcon(playerRank, rankIconSize, {
+    children = mkRankIcon(playerRank, {
       vplace = ALIGN_CENTER
       hplace = ALIGN_CENTER
     })

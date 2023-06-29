@@ -42,9 +42,12 @@ let {
   isUiClickRumbleEnabled,
   setInBattleRumble,
   isInBattleRumbleEnabled,
+  setGyroOnlyInAimOrZoom,
+  isGyroOnlyInAimOrZoomEnabled,
   isAimAssistExists,
   isAimAssistEnabled,
   setAimAssist,
+  setAimAssistChangeManual,
   stick0_dz,
   set_stick0_dz,
   stick1_dz,
@@ -1144,12 +1147,17 @@ let controlsTypesMap = {
   [ControlsTypes.GAMEPAD] = loc("controls/type/pc/gamepad")
 }
 
+let setAimAssistForABTest = function(v) {
+  setAimAssist(v)
+  setAimAssistChangeManual(true)
+}
+
 let function options() {
   let onlyGamePad = controlsSettingOnlyForGamePad.value
   let toggleBg = makeBgToggle()
   let showGamepadOpts = wasGamepad.value
   let isGyroAvailable = availablePresets.value.findvalue(
-    @(v) (v?.name.indexof(loc("".concat("gyro~",platformId))) != null)
+    @(v) v?.preset.indexof($"gyro~{platformId}") != null
   )
 
   let bindingsArea = scrollbar.makeVertScroll({
@@ -1183,7 +1191,7 @@ let function options() {
       [showGamepadOpts && isAimAssistExists,
         loc("options/aimAssist"),
         checkbox(isAimAssistEnabled, null,
-          { setValue = setAimAssist, useHotkeys = true, override={size=flex() valign = ALIGN_CENTER xmbNode=XmbNode()}})
+          { setValue = setAimAssistForABTest, useHotkeys = true, override={size=flex() valign = ALIGN_CENTER xmbNode=XmbNode()}})
       ],
       [showGamepadOpts, loc("controls/uiClickRumble"),
         checkbox(isUiClickRumbleEnabled, null,
@@ -1191,6 +1199,9 @@ let function options() {
       [showGamepadOpts, loc("controls/inBattleRumble"),
         checkbox(isInBattleRumbleEnabled, null,
           { setValue = setInBattleRumble, override = { size = flex(), valign = ALIGN_CENTER } useHotkeys=true xmbNode=XmbNode()})],
+      [isGyroAvailable, loc("controls/gyroOnlyInAimOrZoom"),
+        checkbox(isGyroOnlyInAimOrZoomEnabled, null,
+          { setValue = setGyroOnlyInAimOrZoom, override = { size = flex(), valign = ALIGN_CENTER } useHotkeys=true xmbNode=XmbNode()})],
 
       [true, loc("controls/aimSmooth"), smoothMulSlider("Human.Aim")],
     ].map(@(v) v[0] ? optionRow.call(null, v[1],v[2], toggleBg()) : null)

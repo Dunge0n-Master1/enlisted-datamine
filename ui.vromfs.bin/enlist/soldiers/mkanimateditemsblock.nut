@@ -174,10 +174,11 @@ let function mkItemExt(item, selectedTpl, params) {
   let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
 
   let ctor = mkItemByTypeMap?[item?.itemtype]
+  let size = getItemSize(item?.itemtype)
   let itemObject = (ctor ?? mkItem)({
-    item = item
+    item
     onClickCb = onItemClick != null ? @(...) onItemClick(item) : null
-    itemSize = getItemSize(item?.itemtype)
+    itemSize = size
     canDrag = false
     isInteractive = onItemClick != null
     pauseTooltip = pauseTooltip ?? Watched(false)
@@ -187,6 +188,7 @@ let function mkItemExt(item, selectedTpl, params) {
   animDelay += ITEM_DELAY
   return {
     key = item?.guid ?? item
+    size
     children = [
       itemObject
       campObject

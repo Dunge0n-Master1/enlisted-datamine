@@ -1,6 +1,7 @@
 let { loc } = require("%dngscripts/localizations.nut")
 let { register_command, command } = require("console")
 let { defer } = require("dagor.workcycle")
+let darg_library = require("%darg/darg_library.nut")
 
 global enum Layers {
   Default
@@ -20,6 +21,26 @@ let export = {
 }
 let darg = require("daRg")
 let logs = require("library_logs.nut")
+
+local screenScale = 1.0
+
+let function screenScaleUpdate(safeAreaScale) {
+  screenScale = safeAreaScale
+}
+
+let getScreenScale = @() screenScale
+
+let hdpx = @(pixels) darg_library.hdpx(pixels) * screenScale
+let hdpxi = @(pixels) (hdpx(pixels) * screenScale).tointeger()
+let fsh = @(v) darg_library.fsh(v) * screenScale
+
+let enlistedLibrary = darg_library.__merge({
+  hdpx,
+  hdpxi,
+  fsh,
+  screenScaleUpdate,
+  getScreenScale
+})
 
 /*
 let Pic = darg.Picture
@@ -44,6 +65,6 @@ return export.__update(
   darg,
   require("frp"),
   logs,
-  require("%darg/darg_library.nut"),
+  enlistedLibrary,
   require("%sqstd/functools.nut")
 )

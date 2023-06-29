@@ -30,6 +30,11 @@ let buttonContent = watchElemState(@(sf) {
   color = defItemBlur
   behavior = Behaviors.Button
   onClick = @() profileScene("weeklyTasks")
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+    active = "ui/enlist/button_action"
+  }
   children = [
     {
       size = flex()

@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { isMsgboxInList, showMsgbox } = require("%enlist/components/msgbox.nut")
 let { isSquadLeader, allMembersState } = require("%enlist/squad/squadState.nut")
-let { Contact } = require("%enlist/contacts/contact.nut")
+let { getContactRealnick } = require("%enlist/contacts/contact.nut")
 let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -31,7 +31,7 @@ let function showWarningMsgbox(userId) {
   if (userId == null || isMsgboxInList(MSG_UID))
     return
 
-  let name = remap_nick(Contact(userId.tostring()).value.realnick)
+  let name = remap_nick(getContactRealnick(userId.tostring()))
   let campaign = curCampaign.value
   showMsgbox({
     uid = MSG_UID

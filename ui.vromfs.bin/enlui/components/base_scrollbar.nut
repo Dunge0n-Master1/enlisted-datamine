@@ -4,26 +4,26 @@ from "frp" import *
 let defStyling = {
   Bar = function(has_scroll) {
     if (has_scroll) {
-      return class {
+      return {
         rendObj = ROBJ_SOLID
         color = Color(40, 40, 40, 160)
         _width = sh(1)
         _height = sh(1)
       }
     }
-    else return class{
+    else return {
         _width = sh(1)
         _height = sh(1)
     }
   }
-  Knob = class {
+  Knob = {
     rendObj = ROBJ_SOLID
     colorCalc = @(sf) (sf & S_ACTIVE) ? Color(255,255,255)
                     : (sf & S_HOVER)  ? Color(110, 120, 140, 80)
                                       : Color(110, 120, 140, 160)
   }
 
-  ContentRoot = class {
+  ContentRoot = {
     size = flex()
   }
 }
@@ -55,12 +55,12 @@ let function scrollbar(scroll_handler, options={}) {
 
     if (!elem) {
       let cls = resolveBarClass(barClass, false)
-      return class extends cls {
+      return cls.__merge({
         key = scroll_handler
         behavior = Behaviors.Slider
         watch = scroll_handler
         size = (options?.needReservePlace ?? true) ? calcBarSize(cls, axis) : null
-      }
+      })
     }
 
     local contentSize, elemSize, scrollPos
@@ -76,12 +76,12 @@ let function scrollbar(scroll_handler, options={}) {
 
     if (contentSize <= elemSize) {
       let cls = resolveBarClass(barClass, false)
-      return class extends cls {
+      return cls.__merge({
         key = scroll_handler
         behavior = Behaviors.Slider
         watch = scroll_handler
         size = (options?.needReservePlace ?? true) ? calcBarSize(cls, axis) : null
-      }
+      })
     }
 
 
@@ -93,16 +93,16 @@ let function scrollbar(scroll_handler, options={}) {
       ? knobClass.colorCalc(stateFlags.value)
       : knobClass?.color
 
-    let knob = class extends knobClass {
+    let knob = knobClass.__merge({
       size = [flex(elemSize), flex(elemSize)]
       color = color
       key = "knob"
 
       children = "hoverChild" in knobClass ? knobClass.hoverChild(stateFlags.value) : null
-    }
+    })
 
     let cls = resolveBarClass(barClass, true)
-    return class extends cls {
+    return cls.__merge({
       key = scroll_handler
       behavior = Behaviors.Slider
 
@@ -134,7 +134,7 @@ let function scrollbar(scroll_handler, options={}) {
         : scroll_handler.scrollToY(val)
 
       onElemState = @(sf) stateFlags.update(sf)
-    }
+    })
   }
 }
 
@@ -167,7 +167,7 @@ let function makeSideScroll(content, options = DEF_SIDE_SCROLL_OPTIONS) {
       bhv = clone bhv
     bhv.append(Behaviors.WheelScroll, Behaviors.ScrollEvent)
 
-    return class extends rootBase {
+    return rootBase.__merge({
       size = options.size
       behavior = bhv
       scrollHandler = scrollHandler
@@ -177,7 +177,7 @@ let function makeSideScroll(content, options = DEF_SIDE_SCROLL_OPTIONS) {
       maxHeight = options.maxHeight
       maxWidth = options.maxWidth
       children = content
-    }
+    })
   }
 
   let childrenContent = scrollAlign == ALIGN_LEFT || scrollAlign == ALIGN_TOP
@@ -209,13 +209,13 @@ let function makeHVScrolls(content, options={}) {
       bhv = clone bhv
     bhv.append(Behaviors.WheelScroll, Behaviors.ScrollEvent)
 
-    return class extends rootBase {
+    return rootBase.__merge({
       behavior = bhv
       scrollHandler = scrollHandler
       joystickScroll = true
 
       children = content
-    }
+    })
   }
 
   return {

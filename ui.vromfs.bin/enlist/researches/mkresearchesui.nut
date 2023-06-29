@@ -13,6 +13,7 @@ let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { Bordered } = require("%ui/components/txtButton.nut")
+let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { mkGlyphsStyle } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { makeHorizScroll } = require("%ui/components/scrollbar.nut")
 let { fontSmall, fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
@@ -60,12 +61,19 @@ let smallUnseenIcon = blinkUnseenIcon(0.7)
 let pagesIcons = [ "upgrades_icon_squad", "upgrades_icon_personnel", "upgredes_icon_work_shop" ]
 let waitingSpinner = spinner(hdpx(35))
 
+let btnSound = freeze({
+  hover = "ui/enlist/button_highlight"
+  click = "ui/enlist/button_click"
+  active = "ui/enlist/button_action"
+})
+
 let iconSize = colPart(0.2)
 let squadLineWidth = colFull(2)
 let researchInfoWidth = colFull(5)
 let lineDashSize = hdpx(3)
 let priceIconSize = colPart(0.4)
 
+let headerHeight = colPart(2.7)
 let pageSize        = [colPart(2.5), colPart(1.2)]
 let pageIconSize    = [colPart(0.8), colPart(0.8)]
 let itemSlotArea    = [colPart(4.5), colPart(1.7)]
@@ -77,21 +85,15 @@ let vertLineSize    = [colPart(2),   colPart(1)]
 let itemSlotSize    = [colPart(3.5), colPart(1.2)]
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
+let priceTxtStyle = { color = titleTxtColor }.__update(fontMedium)
 let headerTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let hintTxtStyle = { color = weakTxtColor }.__update(fontSmall)
 let nameTxtStyle = { color = titleTxtColor }.__update(fontLarge)
 let attentionTxtStyle = { color = attentionTxtColor }.__update(fontLarge)
 
-let isResearchesVisible = Watched(false)
-let needScrollClosest = Watched(true)
 let progressBarBgImage = mkColoredGradientX({colorLeft=0xFFFC7A40, colorRight=brightAccentColor})
-let columnPositions = []
 
 let scrollHandler = ScrollHandler()
-
-let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
-let closestResearch = Computed(@() closestTargets.value?[selectedTable.value])
-closestResearch.subscribe(@(_) needScrollClosest(true))
 
 let iconSquadPoints = {
   rendObj = ROBJ_IMAGE
@@ -107,6 +109,12 @@ let priceIcon = {
 
 let researchedSign = faComp("check-circle-o", {
   fontSize = colPart(1)
+  color = completedTxtColor
+})
+let researchedPageSign = faComp("check-circle-o", {
+  vplace = ALIGN_BOTTOM
+  margin = [midPadding, columnGap]
+  fontSize = colPart(0.5)
   color = completedTxtColor
 })
 
@@ -194,41 +202,54 @@ let switchPageKey = @() {
   children = isGamepad.value ? mkHotkey("J:X", gotoNextPage) : null
 }
 
-let function pagesListUi() {
+let function calculateCount(researches) {
+  let existingResearches = {}
+  return researches.reduce(function(count, research) {
+    if (research?.isLocked ?? false)
+      return count
+    let { multiresearchGroup = 0 } = research
+    if (multiresearchGroup == 0)
+      return count + 1
+    if (multiresearchGroup in existingResearches)
+      return count
+    existingResearches[multiresearchGroup] <- true
+    return count + 1
+  }, 0)
+}
+
+let mkPagesListUi = @(pagesInfo) function() {
   let { pages = [] } = tableStructure.value
   return {
-    watch = [tableStructure, selectedTable]
-    halign = ALIGN_CENTER
-    size = [flex(), SIZE_TO_CONTENT]
-    children = {
-      flow = FLOW_HORIZONTAL
-      children = pages.map(function(_, pageIdx) {
-        let isSelected = Computed(@() selectedTable.value == pageIdx)
-        return watchElemState(@(sf) {
-          watch = isSelected
-          behavior = Behaviors.Button
-          onClick = @() selectedTable(pageIdx)
-          children = mkResearchPageSlot(pageIdx, isSelected.value, sf & S_HOVER)
-        })
+    watch = tableStructure
+    hplace = ALIGN_CENTER
+    flow = FLOW_HORIZONTAL
+    children = pages.map(function(_curPage, pageIdx) {
+      let isSelected = Computed(@() selectedTable.value == pageIdx)
+      let isCompleted = Computed(function() {
+        let { available = 0, completed = 0 } = pagesInfo.value?[pageIdx]
+        return available > 0 && completed >= available
       })
-      .append(switchPageKey)
-    }
+      return {
+        children = [
+          watchElemState(@(sf) {
+            watch = isSelected
+            behavior = Behaviors.Button
+            onClick = @() selectedTable(pageIdx)
+            sound = btnSound
+            children = mkResearchPageSlot(pageIdx, isSelected.value, sf & S_HOVER)
+          })
+          @() {
+            watch = isCompleted
+            children = isCompleted.value ? researchedPageSign : null
+          }
+        ]
+      }
+    })
+    .append(switchPageKey)
   }
 }
 
-let function mkPagesInfoUi() {
-  let function calculateCount(researches) {
-    let existingResearches = {}
-    return researches.reduce(function(count, research){
-      let { multiresearchGroup = 0 } = research
-      if (multiresearchGroup == 0 || multiresearchGroup not in existingResearches) {
-        existingResearches[multiresearchGroup] <- 0
-        return count + 1
-      }
-      return count
-    }, 0)
-  }
-
+let function mkPagesInfoUi(pagesInfo) {
   let mkResearchPageInfo = @(pageName, pageDesc, statusTxt) {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
@@ -236,9 +257,11 @@ let function mkPagesInfoUi() {
     children = [
       {
         size = [flex(), SIZE_TO_CONTENT]
+        flow = FLOW_HORIZONTAL
+        gap = { size = flex() }
         children = [
-          mkText(utf8ToUpper(loc(pageName)), headerTxtStyle)
-          mkText(loc(statusTxt), { hplace = ALIGN_RIGHT }.__update(headerTxtStyle))
+          pageName!= null ? mkText(utf8ToUpper(loc(pageName)), headerTxtStyle) : null
+          mkText(loc(statusTxt), headerTxtStyle)
         ]
       }
       {
@@ -251,39 +274,40 @@ let function mkPagesInfoUi() {
     ]
   }
 
-  let pInfo = Computed(function() {
-    let armyId = curArmy.value
-    let squadId = viewSquadId.value
-    let curPage = (tableStructure.value?.pages ?? [])?[selectedTable.value]
-    let { page_id = 0, name = null, description = null } = curPage
-    let researches = (armiesResearches.value?[armyId].researches ?? [])
-      .filter(@(p) p.squad_id == squadId && (p?.page_id ?? 0) == page_id)
-    let availCount = calculateCount(researches)
-    let statuses = researchStatuses.value
-    let completed = researches.reduce(@(res, val)
-      statuses?[val.research_id] == RESEARCHED ? res + 1 : res, 0)
-    let statusTxt = $"{completed}/{availCount}"
-    return { name, description, statusTxt }
-  })
-
+  let pInfo = Computed(@() pagesInfo.value?[selectedTable.value])
   return function() {
-    let { name, description, statusTxt} = pInfo.value
+    let { name = "", description = "", completed = 0, available = 0 } = pInfo.value
     return {
       watch = pInfo
       size = [flex(), SIZE_TO_CONTENT]
-      children = mkResearchPageInfo(name, description, statusTxt)
+      children = mkResearchPageInfo(name, description, $"{completed}/{available}")
     }
   }
 }
 
-let mkHeaderUi = @() {
-  size = [flex(), colPart(3.6)]
-  flow = FLOW_VERTICAL
-  gap = columnGap
-  children = [
-    pagesListUi
-    mkPagesInfoUi()
-  ]
+let function mkHeaderUi() {
+  let pagesInfo = Computed(function() {
+    let statuses = researchStatuses.value
+    let { pages = [] } = tableStructure.value
+    let res = pages.map(function(page) {
+      let { tables = {}, name = null, description = null } = page
+      let available = calculateCount(tables)
+      let completed = tables.reduce(@(res, val)
+        statuses?[val.research_id] == RESEARCHED ? res + 1 : res, 0)
+      return { name, description, available, completed }
+    })
+    return res
+  })
+  return {
+    size = [pageSize[0] * 3, headerHeight]
+    hplace = ALIGN_CENTER
+    flow = FLOW_VERTICAL
+    gap = columnGap
+    children = [
+      mkPagesListUi(pagesInfo)
+      mkPagesInfoUi(pagesInfo)
+    ]
+  }
 }
 
 
@@ -321,22 +345,37 @@ let customIcons = freeze({
   artillery_type_unlock_13_icon = "artillery_type_unlock_2_icon"
 })
 
+let blinkAnim = {
+  prop = AnimProp.opacity, from = 0.6, to = 1, easing = CosineFull,
+  duration = 2, play = true, loop = true
+}
+
 let function mkResearchIcon(
-  pageIdx, iconId, hasResearched, canResearch, isHover = false, isSelected = false
+  pageIdx, iconId, hasResearched, canResearch, isHover, isSelected, researchId
 ) {
+  let isActive = hasResearched || canResearch
   let bgName = pageIcons?[pageIdx]
   let disabledSuffix = hasResearched ?  "" : "_disabled"
   let bgImgPath = $"!ui/uiskin/research/icons/{bgName}{disabledSuffix}.avif?Ac"
+  let bgSaturate = isActive ? 1 : 0.3
 
   let isVeteran = iconId.endswith("_veteran")
   let iconName = isVeteran ? "common_veteran" : (customIcons?[iconId] ?? $"{iconId}")
   let iconPath = $"!ui/uiskin/research/icons/{pageIdx}_{iconName}.avif?Ac"
 
-  let isDisabled = !hasResearched && !canResearch
-  let iconColor = !isDisabled && !isVeteran ? commonIconColor
-    : isDisabled && !isVeteran ? iconColors["disabled"]
-    : !isDisabled && isVeteran ? iconColors["veteran"]
-    : iconColors["disabled_veteran"]
+  let iconColor = isVeteran
+    ? (isActive ? iconColors["veteran"] : iconColors["disabled_veteran"])
+    : (isActive ? commonIconColor : iconColors["disabled"])
+
+  let frameObj = canResearch
+    ? {
+        key = $"frame_{researchId}"
+        rendObj = ROBJ_IMAGE
+        size = flex()
+        image = Picture($"!ui/uiskin/research/icons/{bgName}_frame.avif?Ac")
+        animations = [ blinkAnim ]
+      }
+    : null
 
   return {
     size = flex()
@@ -349,7 +388,9 @@ let function mkResearchIcon(
         rendObj = ROBJ_IMAGE
         size = flex()
         image = Picture(bgImgPath)
+        picSaturate = bgSaturate
       }
+      frameObj
       {
         rendObj = ROBJ_IMAGE
         size = flex()
@@ -383,6 +424,7 @@ let function mkResearchSlot(pageIdx, research, selectedId, statuses, onClick, on
       size = slotSize
       behavior = Behaviors.Button
       onClick
+      sound = btnSound
       onDoubleClick
       xmbNode = XmbNode({
         canFocus = @() true
@@ -397,7 +439,8 @@ let function mkResearchSlot(pageIdx, research, selectedId, statuses, onClick, on
           size = slotSize
           image = null
           pivot = [0.5, 0.5]
-          children = mkResearchIcon(pageIdx, icon_id, hasResearched, canResearch, isHover, isSelected)
+          children = mkResearchIcon(pageIdx, icon_id, hasResearched,
+            canResearch, isHover, isSelected, research_id)
         })
         hasLockSign ? lockSign : null
       ]
@@ -414,6 +457,15 @@ let ORIENTATIONS = freeze({
 })
 
 let lineOffset = (columnGap / 2).tointeger()
+
+let baseLineStyle = {
+  color = 0xFF999999
+  lineWidth = hdpx(1)
+}
+let gainLineStyle = {
+  color = brightAccentColor
+  lineWidth = hdpx(2)
+}
 
 let vectorStyle = {
   size = flex()
@@ -432,108 +484,109 @@ let multResearchSelectHint = mkText(loc("multResearchSelectHint"), {
   vplace = ALIGN_CENTER
 }.__update(hintTxtStyle))
 
-let topMultVector = {
+let mkTopMultVector = @(override = {}) {
   commands = [
     [ VECTOR_LINE_DASHED, 50, 0, 50, 30, lineDashSize, lineDashSize ],
     [ VECTOR_LINE_DASHED, 50, 80, 50, 100, lineDashSize, lineDashSize ],
     [ VECTOR_LINE_DASHED, 5, 100, 95, 100, lineDashSize, lineDashSize ]
   ]
   children = multResearchSelectHint
-}
-let btmMultVector = {
+}.__update(override)
+
+let mkBtmMultVector = @(override = {}) {
   commands = [
     [ VECTOR_LINE_DASHED, 50, 100, 50, 80, lineDashSize, lineDashSize ],
     [ VECTOR_LINE_DASHED, 50, 30, 50, 0, lineDashSize, lineDashSize ],
     [ VECTOR_LINE_DASHED, 5, 0, 95, 0, lineDashSize, lineDashSize ]
   ]
   children = multResearchSelectHint
-}
+}.__update(override)
 
-let chainVertLine = {
+let mkChainVertLine = @(override = {}) {
   size = flex()
-  children = vectorStyle.__merge(topVector)
+  children = vectorStyle.__merge(topVector.__merge(override))
 }
 
-let chainBtmLeftLine = {
+let mkChainBtmLeftLine = @(override = {}) {
   size = flex()
-  children = vectorStyle.__merge(btmLeftVector)
+  children = vectorStyle.__merge(btmLeftVector.__merge(override))
 }
 
-let chainBtmRightLine = {
+let mkChainBtmRightLine = @(override = {}) {
   size = flex()
-  children = vectorStyle.__merge(btmRightVector)
+  children = vectorStyle.__merge(btmRightVector.__merge(override))
 }
 
-let gapLongHorLine = vectorStyle.__merge({
+let mkGapLongHorLine = @(override = {}) vectorStyle.__merge({
   size = slotGapSize
   margin = 0
   commands = [[ VECTOR_LINE, 0, 50, 100, 50 ]]
-})
+}, override)
 
-let gapVertTopLine = {
+let mkGapVertTopLine = @(override = {}) {
   size = slotMiniGapSize
   children = {
     size = vertLineSize
     pos = [slotMiniGapSize[0], -vertLineSize[1]]
-    children = chainVertLine
+    children = mkChainVertLine(override)
   }
 }
 
-let gapVertBtmLine = {
+let mkGapVertBtmLine = @(override = {}) {
   size = slotMiniGapSize
   children = {
     size = vertLineSize
     pos = [slotMiniGapSize[0], slotSize[1]]
-    children = chainVertLine
+    children = mkChainVertLine(override)
   }
 }
 
-let researcheMiniGap = vectorStyle.__merge({
+let mkResearcheMiniGap = @(override = {}) vectorStyle.__merge({
   size = slotMiniGapSize
   margin = 0
   commands = [[ VECTOR_LINE, 0, 50, 100, 50 ]]
-})
+}, override)
 
 let stepLengtGaps4 = {
-  [1] = gapVertBtmLine,
-  [2] = researcheMiniGap,
-  [3] = gapVertTopLine,
-  [4] = researcheMiniGap
+  [1] = mkGapVertBtmLine,
+  [2] = mkResearcheMiniGap,
+  [3] = mkGapVertTopLine,
+  [4] = mkResearcheMiniGap
 }
 let stepLengtGaps3 = {
-  [1] = researcheMiniGap,
-  [2] = gapVertBtmLine,
-  [3] = researcheMiniGap
+  [1] = mkResearcheMiniGap,
+  [2] = mkGapVertBtmLine,
+  [3] = mkResearcheMiniGap
 }
 let stepLengtGaps2 = {
-  [1] = researcheMiniGap,
-  [2] = {
+  [1] = mkResearcheMiniGap,
+  [2] = @(override = {}) {
     size = [colPart(1), colPart(3)]
     pos = [0, colPart(1)]
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     children = {
       size = slotSize
-      children = vectorStyle.__merge(diagonalVector)
+      children = vectorStyle.__merge(diagonalVector, override)
     }
   }
 }
 
-let vertTopGapWithoutOffset = {
+let mkVertTopGapWithoutOffset = @(override = {}) {
   size = [0, slotMiniGapSize[1]]
   children = {
     size = vertLineSize
     pos = [0, -vertLineSize[1]]
-    children = chainVertLine
+    children = mkChainVertLine(override)
   }
 }
 
-let vertBtmGapWithoutOffset = {
+let mkVertBtmGapWithoutOffset = @(override = {}) {
   size = [0, slotMiniGapSize[1]]
   children = {
     size = vertLineSize
     pos = [0, slotSize[1]]
-    children = chainVertLine
+    children = mkChainVertLine(override)
   }
 }
 
@@ -545,6 +598,12 @@ let function mkResearchMult(pageIdx, researches, selectedId, statuses, cbCtor, d
   }
   let isTop = orientation == ORIENTATIONS.TOP
   local yPos = isTop ? -childSlotSize[1] : slotSize[1]
+
+  let hasGained = researches.findindex(function(r) {
+    let status = statuses[r.research_id]
+    return status == RESEARCHED || status == CAN_RESEARCH
+  }) != null
+  let lineStyle = hasGained ? gainLineStyle : baseLineStyle
   return {
     pos = [0, yPos]
     size = childSlotSize
@@ -553,13 +612,13 @@ let function mkResearchMult(pageIdx, researches, selectedId, statuses, cbCtor, d
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_VERTICAL
       children = [
-        isTop ? null : vectorStyle.__merge(topMultVector)
+        isTop ? null : vectorStyle.__merge(mkTopMultVector(lineStyle))
         {
           flow = FLOW_HORIZONTAL
           children = researches.map(@(r)
             mkResearchSlot(pageIdx, r, selectedId, statuses, cbCtor(r), doubleCbCtor(r), multViewData))
         }
-        isTop ? vectorStyle.__merge(btmMultVector) : null
+        isTop ? vectorStyle.__merge(mkBtmMultVector(lineStyle)) : null
       ]
     }
   }
@@ -573,6 +632,9 @@ let function mkResearchChain(pageIdx, researches, selectedId, statuses, cbCtor, 
   local yPos = isBottom ? slotSize[1] : -childSlotSize[1]
   return {
     children = researches.map(function(r, idx) {
+      let status = statuses[r.research_id]
+      let hasGained = status == RESEARCHED || status == CAN_RESEARCH
+      let lineStyle = hasGained ? gainLineStyle : baseLineStyle
       yPos += childSlotSize[1] * idx * (isBottom ? 1 : -1)
       return {
         pos = [xPos, yPos]
@@ -580,12 +642,12 @@ let function mkResearchChain(pageIdx, researches, selectedId, statuses, cbCtor, 
         flow = FLOW_VERTICAL
         children = [
           orientation == ORIENTATIONS.TOP ? null
-            : orientation == ORIENTATIONS.BOTTOM || idx > 0 ? chainVertLine
-            : orientation == ORIENTATIONS.BOTTOM_LEFT ? chainBtmLeftLine
-            : orientation == ORIENTATIONS.BOTTOM_RIGHT ? chainBtmRightLine
+            : orientation == ORIENTATIONS.BOTTOM || idx > 0 ? mkChainVertLine(lineStyle)
+            : orientation == ORIENTATIONS.BOTTOM_LEFT ? mkChainBtmLeftLine(lineStyle)
+            : orientation == ORIENTATIONS.BOTTOM_RIGHT ? mkChainBtmRightLine(lineStyle)
             : null
           mkResearchSlot(pageIdx, r, selectedId, statuses, cbCtor(r), doubleCbCtor(r))
-          orientation == ORIENTATIONS.TOP ? chainVertLine : null
+          orientation == ORIENTATIONS.TOP ? mkChainVertLine(lineStyle) : null
         ]
       }
     })
@@ -606,16 +668,16 @@ let function mkResearchChildren(
 let function mkResearchColumn(pageIdx, idx, main, children, selectedId, statuses,
   hasLongBranches, cbCtor, doubleCbCtor, rGap
 ) {
-  let [ btmChildren = null, topChildren = null ] = children
+  let [ btmChildren = null, topChildren = null, addBtmChildren = null ] = children
   let { research_id } = main
 
   let hasMultiresearch = (topChildren?.multiresearchGroup ?? 0) > 0
     || (btmChildren?.multiresearchGroup ?? 0) > 0
   let reqOptimization = !hasMultiresearch && hasLongBranches
 
-  let btmOrientation = !reqOptimization || topChildren == null
-    ? ORIENTATIONS.BOTTOM
-    : ORIENTATIONS.BOTTOM_LEFT
+  let btmOrientation = addBtmChildren != null || (reqOptimization && topChildren != null)
+    ? ORIENTATIONS.BOTTOM_LEFT
+    : ORIENTATIONS.BOTTOM
 
   let topOrientation = !reqOptimization || btmChildren == null
     ? ORIENTATIONS.TOP
@@ -629,9 +691,14 @@ let function mkResearchColumn(pageIdx, idx, main, children, selectedId, statuses
         key = research_id
         size = slotSize
         children = [
-          mkResearchChildren(pageIdx, topChildren, selectedId, statuses, cbCtor, topOrientation, doubleCbCtor)
-          mkResearchSlot(pageIdx, main, selectedId, statuses, cbCtor(main), doubleCbCtor(main))
-          mkResearchChildren(pageIdx, btmChildren, selectedId, statuses, cbCtor, btmOrientation, doubleCbCtor)
+          mkResearchChildren(pageIdx, topChildren, selectedId, statuses, cbCtor,
+            topOrientation, doubleCbCtor)
+          mkResearchSlot(pageIdx, main, selectedId, statuses, cbCtor(main),
+            doubleCbCtor(main))
+          mkResearchChildren(pageIdx, btmChildren, selectedId, statuses, cbCtor,
+            btmOrientation, doubleCbCtor)
+          mkResearchChildren(pageIdx, addBtmChildren, selectedId, statuses, cbCtor,
+            ORIENTATIONS.BOTTOM_RIGHT, doubleCbCtor)
         ]
       }
     ]
@@ -656,30 +723,8 @@ let threeStepLength = {
   [3] = { size = [0, SIZE_TO_CONTENT] }
 }
 
-let attractResearch = keepref(Computed(@() isResearchesVisible.value
-  ? researchToShow.value ?? (needScrollClosest.value ? closestResearch.value : null)
-  : null))
 
-let function scrollToResearch(columns, curResearch) {
-  if (columns == null)
-    return
-
-  let column = columns.findindex(@(col) col.main == curResearch
-    || col.children.findvalue(@(branch) (branch?.children ?? [])
-        .indexof(curResearch) != null) != null)
-  if (column != null)
-    scrollHandler.scrollToX(columnPositions?[column] ?? 0)
-}
-
-let function mkResearchesTreeUi(researches) {
-  let xmbContainer = XmbContainer({
-    isGridLine = true
-    canFocus = @() false
-    wrap = false
-    scrollSpeed = [2.0, 0]
-  })
-
-  let viewStructure = mkViewStructure()
+let function mkResearchesTreeUi() {
   let researchCbCtor = @(research) @() selectedResearch(research)
   let researchDoubleCbCtor = @(research) function() {
     let statuses = researchStatuses.value
@@ -695,7 +740,150 @@ let function mkResearchesTreeUi(researches) {
       onResearch()
   }
 
-  let attractorFunc = function(r) {
+  let viewStructure = mkViewStructure()
+
+  let columnsInfo = Computed(function() {
+    let columnPositions = [0]
+    let { researches = {} } = tableStructure.value
+    let { research_id = null } = selectedResearch.value
+    let pageIdx = selectedTable.value
+    let rStatuses = researchStatuses.value
+    let { columns, maxChildHeight } = viewStructure.value
+    let hasResearchItem = columns.findindex(@(c)
+      (c?.template ?? "") != "" && (c?.tplCount ?? 0) > 0) != null
+    let needTopCurveSpace = columns.findindex(@(c)
+        (c?.toChildren ?? 0) >= FOUR_TO_NEXT_BRANCH) == null
+      && columns.findindex(@(c) (c?.toChildren ?? 0) >= TWO_TO_NEXT_BRANCH) != null
+
+    let hasLongBranches = (maxChildHeight?[0] ?? 0) + (maxChildHeight?[1] ?? 0) > 2
+    let offsetFactor = hasLongBranches || hasResearchItem ? 0
+      : needTopCurveSpace ? 35
+      : 100 * (maxChildHeight[1] + 1) / (maxChildHeight[0] + maxChildHeight[1] + 3)
+    let hasItemLink = columns.findindex(@(c) c?.template != null) != null
+
+    local req4CustomNests = false
+    local req3CustomNests = false
+    local req2CustomNests = false
+    local needTopLine = false
+
+    let researchColumns = columns.map(function(column, idx) {
+      let { main, children, toChildren } = column
+
+      let prevChildren = columns?[idx - 1].children ?? []
+      let hasChildren = children.findvalue(@(ch) ch != null) != null
+        && prevChildren.findvalue(@(ch) ch != null) != null
+      let hasMult = children.findvalue(@(ch) (ch?.multiresearchGroup ?? 0) > 0) != null
+        && req4CustomNests
+      let hasLongBranch = children.reduce(@(r, ch) r + (ch?.children ?? []).len(), 0) > 2
+
+      if (toChildren >= FOUR_TO_NEXT_BRANCH)
+        req4CustomNests = true
+      else if (!req4CustomNests && !hasLongBranches
+          && toChildren == THREE_TO_NEXT_BRANCH)
+        req3CustomNests = true
+      else if (!req3CustomNests && !hasLongBranches
+          && !req4CustomNests && toChildren == TWO_TO_NEXT_BRANCH)
+        req2CustomNests = true
+      else if (toChildren == 0) {
+        needTopLine = req3CustomNests || req2CustomNests
+        req4CustomNests = false
+        req3CustomNests = false
+        req2CustomNests = false
+      }
+
+      let chStyleId = hasItemLink || hasChildren || hasMult || hasLongBranch ? 0
+        : req4CustomNests || req3CustomNests || req2CustomNests ? toChildren
+        : FOUR_TO_NEXT_BRANCH
+
+      let rMain = researches[main]
+      let rMainId = rMain.research_id
+      let rChildren = children.map(@(child) child == null ? null
+        : {
+            multiresearchGroup = child.multiresearchGroup
+            researches = child.children.map(@(c) researches[c])
+          })
+
+      let nest = req4CustomNests ? (fourStepLength?[chStyleId] ?? {})
+        : req3CustomNests ? (threeStepLength?[chStyleId] ?? {})
+        : req2CustomNests ? (threeStepLength?[chStyleId] ?? {})
+        : {}
+
+      let hasGained = rStatuses[rMainId] == RESEARCHED || rStatuses[rMainId] == CAN_RESEARCH
+      let lineStyle = hasGained ? gainLineStyle : baseLineStyle
+      local researchGap = null
+      if (req4CustomNests)
+        researchGap = chStyleId == 3 && idx == 1
+          ? mkVertTopGapWithoutOffset(lineStyle)
+          : stepLengtGaps4?[min(chStyleId, stepLengtGaps4.len())](lineStyle)
+              ?? mkGapLongHorLine(lineStyle)
+      else if (req3CustomNests)
+        researchGap = chStyleId == 2 && idx == 1
+          ? mkVertBtmGapWithoutOffset(lineStyle)
+          : stepLengtGaps3?[min(chStyleId, stepLengtGaps3.len())](lineStyle)
+              ?? mkGapLongHorLine(lineStyle)
+      else if (req2CustomNests)
+        researchGap = chStyleId == 1 && idx == 1
+          ? mkResearcheMiniGap(lineStyle)
+          : stepLengtGaps2?[min(chStyleId, stepLengtGaps2.len())](lineStyle)
+              ?? mkGapLongHorLine(lineStyle)
+      else
+        researchGap = needTopLine
+          ? mkGapVertTopLine(lineStyle)
+          : stepLengtGaps4?[min(chStyleId, stepLengtGaps4.len())](lineStyle)
+              ?? mkGapLongHorLine(lineStyle)
+
+      needTopLine = false
+      let isNestSame = "size" in nest && nest.size[0] == 0
+      let prevPos = columnPositions[columnPositions.len() - 1]
+      columnPositions.append(isNestSame
+        ? prevPos
+        : prevPos + slotSize[0] + (researchGap?.size[0] ?? 0))
+
+      let rGap = researchGap.__merge(hasGained ? gainLineStyle : baseLineStyle)
+      let columnObject = mkResearchColumn(pageIdx, idx, rMain, rChildren, research_id, rStatuses,
+        hasLongBranches, researchCbCtor, researchDoubleCbCtor, rGap)
+      return { children = columnObject }.__update(nest)
+    })
+    return {offsetFactor, hasItemLink, hasLongBranches, researchColumns, columns, columnPositions}
+  })
+
+  let hasScroll = Computed(function() {
+    let {columnPositions} = columnsInfo.value
+    let contentWidth = (columnPositions.len()> 0 ? columnPositions.top() : 0)+ slotSize[0]
+    let saBorders = safeAreaBorders.value
+    let saSideOffset = saBorders[1] + saBorders[3]
+    let freeWidth = sw(100) - (saSideOffset + colPart(1) + researchInfoWidth + squadLineWidth)
+    return contentWidth > freeWidth
+  })
+
+
+  let needScrollClosest = Watched(false)
+  let closestResearch = Computed(@() closestTargets.value?[selectedTable.value])
+  closestResearch.subscribe(@(_) needScrollClosest(true))
+
+  let function scrollToResearch(columns, curResearch) {
+    if (columns == null)
+      return
+
+    let column = columns.findindex(@(col) col.main == curResearch
+      || col.children.findvalue(@(branch) (branch?.children ?? [])
+          .indexof(curResearch) != null) != null)
+    if (column != null)
+      scrollHandler.scrollToX(columnsInfo.value.columnPositions?[column] ?? 0)
+  }
+
+  let xmbContainer = XmbContainer({
+    isGridLine = true
+    canFocus = @() false
+    wrap = false
+    scrollSpeed = [2.0, 0]
+  })
+
+  let attractResearchWatchers = [researchToShow, needScrollClosest,
+    closestResearch, viewStructure]
+
+  let attractorFunc = function(_) {
+    let r = needScrollClosest.value ? closestResearch.value : researchToShow.value
     if (r == null)
       return
 
@@ -706,6 +894,14 @@ let function mkResearchesTreeUi(researches) {
       researchToShow(null)
       needScrollClosest(false)
     })
+  }
+  let onAttach = function() {
+    foreach (w in attractResearchWatchers)
+      w.subscribe(attractorFunc)
+  }
+  let onDetach = function() {
+    foreach (w in attractResearchWatchers)
+      w.unsubscribe(attractorFunc)
   }
 
   let function mkResearchItem(column, isLast) {
@@ -744,45 +940,18 @@ let function mkResearchesTreeUi(researches) {
     }
   }
 
-  let onAttach = function() {
-    attractResearch.subscribe(attractorFunc)
-    isResearchesVisible(true)
-    needScrollClosest(true)
-  }
-  let onDetach = function() {
-    attractResearch.unsubscribe(attractorFunc)
-    isResearchesVisible(false)
-  }
-
   return function researchesTreeUi() {
-    columnPositions.clear()
-    columnPositions.append(0)
+    let { columns, hasItemLink, offsetFactor, researchColumns } = columnsInfo.value
+    let researchTree = {
+      flow = FLOW_HORIZONTAL
+      children = researchColumns
+    }
 
-    let rStatuses = researchStatuses.value
-    let { research_id = null } = selectedResearch.value
-    let { columns, maxChildHeight } = viewStructure.value
+    let researchItemsRow = !hasItemLink ? null : {
+      flow = FLOW_HORIZONTAL
+      children = columns.map(@(column, idx) mkResearchItem(column, idx == columns.len() - 1))
+    }
 
-    let pageIdx = selectedTable.value
-    let hasLongBranches = (maxChildHeight?[0] ?? 0) + (maxChildHeight?[1] ?? 0) > 2
-    let hasResearchItem = columns.findindex(@(c)
-      (c?.template ?? "") != "" && (c?.tplCount ?? 0) > 0) != null
-    let needTopCurveSpace = columns.findindex(@(c)
-        (c?.toChildren ?? 0) >= FOUR_TO_NEXT_BRANCH) == null
-      && columns.findindex(@(c) (c?.toChildren ?? 0) >= TWO_TO_NEXT_BRANCH) != null
-    let offsetFactor = hasLongBranches || hasResearchItem ? 0
-      : needTopCurveSpace ? 35
-      : 100 * (maxChildHeight[1] + 1) / (maxChildHeight[0] + maxChildHeight[1] + 3)
-    let hasItemLink = columns.findindex(@(c) c?.template != null) != null
-    let researchItemsRow = !hasItemLink ? null
-      : {
-          flow = FLOW_HORIZONTAL
-          children = columns.map(@(column, idx) mkResearchItem(column, idx == columns.len() - 1))
-        }
-
-    local req4CustomNests = false
-    local req3CustomNests = false
-    local req2CustomNests = false
-    local needTopLine = false
     let treeObject = {
       size = [SIZE_TO_CONTENT, flex()]
       flow = FLOW_VERTICAL
@@ -797,109 +966,31 @@ let function mkResearchesTreeUi(researches) {
           flow = FLOW_VERTICAL
           children = [
             { size = [0, ph(offsetFactor)] }
-            {
-              flow = FLOW_HORIZONTAL
-              children = columns.map(function(column, idx) {
-                let { main, children, toChildren } = column
-
-                let prevChildren = columns?[idx - 1].children ?? []
-                let hasChildren = children.findvalue(@(ch) ch != null) != null
-                  && prevChildren.findvalue(@(ch) ch != null) != null
-                let hasMult = children.findvalue(@(ch) (ch?.multiresearchGroup ?? 0) > 0) != null
-                  && req4CustomNests
-                let hasLongBranch = children.reduce(@(r, ch) r + (ch?.children ?? []).len(), 0) > 2
-
-                if (toChildren >= FOUR_TO_NEXT_BRANCH)
-                  req4CustomNests = true
-                else if (!req4CustomNests && !hasLongBranches
-                    && toChildren == THREE_TO_NEXT_BRANCH)
-                  req3CustomNests = true
-                else if (!req3CustomNests && !hasLongBranches
-                    && !req4CustomNests && toChildren == TWO_TO_NEXT_BRANCH)
-                  req2CustomNests = true
-                else if (toChildren == 0) {
-                  needTopLine = req3CustomNests || req2CustomNests
-                  req4CustomNests = false
-                  req3CustomNests = false
-                  req2CustomNests = false
-                }
-
-                let chStyleId = hasItemLink || hasChildren || hasMult || hasLongBranch ? 0
-                  : req4CustomNests || req3CustomNests || req2CustomNests ? toChildren
-                  : FOUR_TO_NEXT_BRANCH
-
-                let rMain = researches[main]
-                let rChildren = children.map(@(child) child == null ? null
-                  : {
-                      multiresearchGroup = child.multiresearchGroup
-                      researches = child.children.map(@(c) researches[c])
-                    })
-
-                let nest = req4CustomNests ? (fourStepLength?[chStyleId] ?? {})
-                  : req3CustomNests ? (threeStepLength?[chStyleId] ?? {})
-                  : req2CustomNests ? (threeStepLength?[chStyleId] ?? {})
-                  : {}
-
-                local researchGap = null
-                if (req4CustomNests)
-                  researchGap = chStyleId == 3 && idx == 1
-                    ? vertTopGapWithoutOffset
-                    : stepLengtGaps4?[min(chStyleId, stepLengtGaps4.len())] ?? gapLongHorLine
-                else if (req3CustomNests)
-                  researchGap = chStyleId == 2 && idx == 1
-                    ? vertBtmGapWithoutOffset
-                    : stepLengtGaps3?[min(chStyleId, stepLengtGaps3.len())] ?? gapLongHorLine
-                else if (req2CustomNests)
-                  researchGap = chStyleId == 1 && idx == 1
-                    ? researcheMiniGap
-                    : stepLengtGaps2?[min(chStyleId, stepLengtGaps2.len())] ?? gapLongHorLine
-                else
-                  researchGap = needTopLine
-                    ? gapVertTopLine
-                    : stepLengtGaps4?[min(chStyleId, stepLengtGaps4.len())] ?? gapLongHorLine
-
-                needTopLine = false
-                let isNestSame = "size" in nest && nest.size[0] == 0
-                let prevPos = columnPositions[columnPositions.len() - 1]
-                columnPositions.append(isNestSame
-                  ? prevPos
-                  : prevPos + slotSize[0] + (researchGap?.size[0] ?? 0))
-
-                let columnObject = mkResearchColumn(pageIdx, idx, rMain, rChildren, research_id, rStatuses,
-                  hasLongBranches, researchCbCtor, researchDoubleCbCtor, researchGap)
-
-                return { children = columnObject }.__update(nest)
-              })
-            }
+            researchTree
           ]
         }
       ]
     }
-
-    let hasScroll = Computed(function() {
-      let contentWidth = columnPositions.top() + slotSize[0]
-      let saBorders = safeAreaBorders.value
-      let saSideOffset = saBorders[1] + saBorders[3]
-      let freeWidth = sw(100) - (saSideOffset + colPart(1) + researchInfoWidth + squadLineWidth)
-      return contentWidth > freeWidth
-    })
-
     return {
-      watch = [viewStructure, selectedResearch, hasScroll, researchStatuses, selectedTable]
+      watch = [columnsInfo, hasScroll]
       size = flex()
-      xmbNode = xmbContainer
       children = hasScroll.value
-        ? makeHorizScroll(treeObject, {
+        ? makeHorizScroll({
+            xmbNode = xmbContainer
+            children = treeObject
+            size = [SIZE_TO_CONTENT, flex()]
+          }, {
             size = flex()
             scrollHandler
-            rootBase = class {
+            rootBase = {
               behavior = Behaviors.Pannable
               wheelStep = 1
             }
           })
         : {
             size = flex()
-            valign = ALIGN_CENTER
+            valign = ALIGN_BOTTOM
+            vplace = ALIGN_BOTTOM
             children = treeObject
           }
     }
@@ -912,7 +1003,7 @@ let mkPointsInfo = @(level, points) {
   flow = FLOW_HORIZONTAL
   valign = ALIGN_CENTER
   children = [
-    mkText(loc("levelInfo", { level }), nameTxtStyle)
+    mkText(loc("levelInfo", { level = level + 1 }), nameTxtStyle)
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
@@ -934,7 +1025,7 @@ let function getProgressTooltip(curLvl, maxLvl, curExp, expToNextLvl, accColor){
   return $"{lvlBlock} {loc("research/squad_level")}\n{loc("research/squad_next_level")} {expBlock}"
 }
 
-let mkProgressUi = @() function() {
+let mkProgressUi = @(curSquadData) function() {
   let res = {
     watch = [curSquadData, curSquadProgress, curSquadPoints]
   }
@@ -1004,22 +1095,25 @@ let mkResearchUnlockedView = @(research_id) {
 let function mkResearchPrice(researchDef) {
   let { price = 0 } = researchDef
   return price == 0 ? null : {
-    size = [flex(), SIZE_TO_CONTENT]
     valign = ALIGN_CENTER
     flow = FLOW_HORIZONTAL
     gap = smallPadding
     children = [
-      mkText(loc("research/researchPrice", { price }), nameTxtStyle)
+      mkText(loc("research/researchPrice", { price = "" }), priceTxtStyle)
       priceIcon
+      mkText(price, headerTxtStyle)
     ]
   }
 }
 
-let mkResearchBtn = @(onResearch, researchText) @() {
+let mkResearchBtn = @(onResearch, researchText, canResearch) @() {
+  hplace = ALIGN_RIGHT
   watch = isResearchInProgress
   children = isResearchInProgress.value
     ? waitingSpinner
-    : Bordered(researchText, onResearch, {
+    : (canResearch ? PrimaryFlat : Bordered)(researchText, onResearch, {
+        margin = 0
+        txtParams = fontLarge
         hotkeys = [[ "^J:Y", { description = { skip = true }} ]]
       })
 }
@@ -1027,8 +1121,9 @@ let mkResearchBtn = @(onResearch, researchText) @() {
 let mkUnlockPrice = @(researchDef, specialPrice, onResearch) onResearch == null ? null
   : specialPrice ?? mkResearchPrice(researchDef)
 
-let mkUnlockButton = @(researchText, onResearch) onResearch == null ? null
-  : mkResearchBtn(onResearch, researchText ?? loc("research/researchBtnText"))
+let mkUnlockButton = @(researchText, onResearch, canResearch)
+  onResearch == null ? null
+    : mkResearchBtn(onResearch, researchText ?? loc("research/researchBtnText"), canResearch)
 
 let function buySquadLevelMsg() {
   let { levelCost = 0, level = 0 } = curSquadProgress.value
@@ -1067,7 +1162,7 @@ let mkBuyLevelButton = @(level) function() {
     hplace = ALIGN_RIGHT
     children = isBuyLevelInProgress.value
       ? waitingSpinner
-      : Bordered(btnText, buySquadLevelMsg)
+      : Purchase(btnText, buySquadLevelMsg, { margin = 0 })
   }
 }
 
@@ -1088,7 +1183,7 @@ let mkResearchBtnsUi = @() function() {
     return res.__update(mkResearchUnlockedView(research_id))
 
   let {
-    info = null, warning = null, onResearch = null, specialPrice = null, researchText = null
+    info = null, warning = null, onResearch = null, researchPrice = null, researchText = null
   } = cfg
   let { levelCost = 0, level = 0 } = curSquadProgress.value
   let canBuy = (status == CAN_RESEARCH || status == NOT_ENOUGH_EXP)
@@ -1104,11 +1199,9 @@ let mkResearchBtnsUi = @() function() {
       {
         size = [flex(), SIZE_TO_CONTENT]
         valign = ALIGN_CENTER
-        flow = FLOW_HORIZONTAL
-        gap = { size = flex() }
         children = [
-          mkUnlockPrice(researchDef, specialPrice, onResearch)
-          mkUnlockButton(researchText, onResearch)
+          mkUnlockPrice(researchDef, researchPrice, onResearch)
+          mkUnlockButton(researchText, onResearch, status == CAN_RESEARCH)
         ]
       }
       !canBuy ? null : {
@@ -1127,13 +1220,18 @@ let mkResearchBtnsUi = @() function() {
 
 
 let function mkResearchInfoUi() {
+  let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
   let nameLocId = Computed(function() {
     let res = armiesResearches.value?[curArmy.value].squads[viewSquadId.value].name ?? ""
     return res != "" ? res : (curSquadData.value?.manageLocId ?? "")
   })
+  let progressUi = mkProgressUi(curSquadData)
+  let btns = mkResearchBtnsUi()
+
   return @() {
-    watch = [selectedResearch, nameLocId]
+    watch = [selectedResearch, nameLocId] //FIXME
     size = [researchInfoWidth, flex()]
+    hplace = ALIGN_RIGHT
     flow = FLOW_VERTICAL
     gap = colPart(1)
     padding = columnGap
@@ -1147,11 +1245,11 @@ let function mkResearchInfoUi() {
         gap = columnGap
         children = [
           nameLocId.value == "" ? null : mkTextarea(loc(nameLocId.value), nameTxtStyle)
-          mkProgressUi()
+          progressUi
         ]
       }
       mkResearchInfo(selectedResearch.value)
-      mkResearchBtnsUi()
+      btns
     ]
   }
 }
@@ -1176,39 +1274,41 @@ let lowCampaignLevelText = {
   ]
 }
 
+let setCurSquadId = @(squadId) viewSquadId(squadId)
+
 let function mkResearchesUi() {
   let curUnseenState = mkCurUnseenResearchesBySquads()
   let researchesSquads = mkResearchesSquads(curUnseenState)
+  let isBranchEmpty = Computed(@() (tableStructure.value?.researches ?? {}).len() == 0)
+  let isCampaignLevelLow = Computed(@() selectedResearch.value?.isLockedByCampaignLvl ?? false)
   return {
     size = flex()
-    flow = FLOW_HORIZONTAL
-    gap = colPart(0.5)
     children = [
-      mkCurSquadsList({
-        curSquadsList = researchesSquads
-        curSquadId = viewSquadId
-        setCurSquadId = @(squadId) viewSquadId(squadId)
-      })
       {
         size = flex()
-        flow = FLOW_VERTICAL
+        flow = FLOW_HORIZONTAL
         children = [
-          mkHeaderUi()
+          mkCurSquadsList({
+            curSquadsList = researchesSquads
+            curSquadId = viewSquadId
+            setCurSquadId = setCurSquadId
+          })
           function() {
-            let { researches = {} } = tableStructure.value
-            let isBranchEmpty = researches.len() == 0
-            let isCampaignLevelLow = selectedResearch.value?.isLockedByCampaignLvl ?? false
             return {
-              watch = [tableStructure, selectedResearch]
+              watch = [isBranchEmpty, isCampaignLevelLow]
+              padding = [headerHeight, 0,0,0]
               size = flex()
-              children = isBranchEmpty ? emptyResearchesText
-                : isCampaignLevelLow ? lowCampaignLevelText
-                : mkResearchesTreeUi(researches)
+              children = isBranchEmpty.value
+                ? emptyResearchesText
+                  : isCampaignLevelLow.value
+                    ? lowCampaignLevelText
+                    : mkResearchesTreeUi()
             }
           }
+          mkResearchInfoUi()
         ]
       }
-      mkResearchInfoUi()
+      mkHeaderUi()
     ]
   }
 }

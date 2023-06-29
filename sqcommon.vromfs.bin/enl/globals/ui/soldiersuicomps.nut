@@ -5,7 +5,7 @@ let tooltipBox = require("%ui/style/tooltipBox.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { getRomanNumeral } = require("%sqstd/math.nut")
 let {
-  gap, bigGap, defTxtColor, soldierExpColor, soldierLvlColor, soldierGainLvlColor,
+  gap, bigGap, defTxtColor, soldierLvlColor, soldierGainLvlColor,
   soldierLockedLvlColor, msgHighlightedTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let colorize = require("%ui/components/colorize.nut")
@@ -36,7 +36,7 @@ let mkAlertIcon = @(icon, unseenWatch = Watched(true), hasBlink = false)
       : res.__update(blinkingIcon(icon), hasBlink ? {} : { animations = null })
   }
 
-let mkLevelIcon = @(fontSize = hdpx(10), color = soldierExpColor, fName = "star") {
+let mkLevelIcon = @(fontSize = hdpx(10), color = msgHighlightedTxtColor, fName = "star") {
   rendObj = ROBJ_INSCRIPTION
   validateStaticText = false
   text = fa[fName]
@@ -82,7 +82,7 @@ let function levelBlock(allParams) {
   local { curLevel, tier = 1, gainLevel = 0, leftLevel = 0, lockedLevel = 0, fontSize = hdpx(12),
     hasLeftLevelBlink = false, guid = "", isFreemiumMode = false, thresholdColor = 0
   } = allParams
-  local color = soldierExpColor
+  local color = msgHighlightedTxtColor
   local freemiumStars = 0
   if (isFreemiumMode && curLevel + leftLevel < MAX_LEVEL_SOLDIER) {
     lockedLevel = tier == MAX_LEVEL_SOLDIER ? 1 : 0

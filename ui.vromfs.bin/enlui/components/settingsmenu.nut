@@ -141,7 +141,7 @@ let function optionsPage(params) {
 
         children = optionControls
       },{
-        rootBase = class{
+        rootBase = {
           behavior = [Behaviors.Pannable]
           wheelStep = 0.82
         }

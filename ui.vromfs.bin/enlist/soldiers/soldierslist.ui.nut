@@ -8,6 +8,7 @@ let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
+let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
 
 
 let function mkSoldiersUi(){
@@ -29,9 +30,11 @@ let function mkSoldiersUi(){
           squads_list
           squad_info
           mkSoldierInfo({ soldierInfoWatch = curSoldierInfo, onResearchClickCb = gotoResearchUpgradeMsgBox})
+          mkPresetEquipBlock()
           {
             size = flex()
             halign = ALIGN_RIGHT
+            valign = ALIGN_BOTTOM
             children = promoWidget("soldier_equip", "soldier_inventory")
           }
         ]

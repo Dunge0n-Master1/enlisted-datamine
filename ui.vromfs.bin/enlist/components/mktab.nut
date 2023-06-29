@@ -20,11 +20,9 @@ let function requestMoveToElem(elem) {
 
 
 let tabTxtStyle = @(sf, isSelected) {
-  color = (sf & S_HOVER)
-    ? darkTxtColor
-    : (sf & S_ACTIVE) || isSelected
-      ? titleTxtColor
-      : defTxtColor
+  color = (sf & S_HOVER) ? darkTxtColor
+    : (sf & S_ACTIVE) || isSelected ? titleTxtColor
+    : defTxtColor
   fontFx = (sf & S_HOVER) ? null : FFT_GLOW
   fontFxFactor = min(24, hdpx(24))
   fontFxColor = 0xDD000000
@@ -35,7 +33,9 @@ let tabBottomPadding = midPadding * 2
 
 
 let function mkTab(section, action, curSection) {
-  let { id, locId, isUnseenWatch = Watched(false), addChild = null } = section
+  let {
+    id, locId, isUnseenWatch = Watched(false), addChild = null, mkChild = null
+  } = section
   let isSelected = Computed(@() curSection.value == id)
   local wasSelected = isSelected.value
   return watchElemState(@(sf) {
@@ -75,7 +75,10 @@ let function mkTab(section, action, curSection) {
         }.__update(tabTxtStyle(sf, isSelected.value))
       }
       isUnseenWatch.value ? blinkUnseen : null
-      {size = [flex(),SIZE_TO_CONTENT] children = addChild}
+      {
+        size = [flex(), SIZE_TO_CONTENT]
+        children = mkChild?(sf) ?? addChild
+      }
     ]
   })
 }

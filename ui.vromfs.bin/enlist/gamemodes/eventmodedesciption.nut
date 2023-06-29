@@ -6,7 +6,7 @@ let { isWide, bigPadding, accentTitleTxtColor, maxContentWidth, defTxtColor, sma
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { verticalGap, localPadding, localGap, armieChooseBlockWidth, eventBlockWidth
 } = require("eventModeStyle.nut")
-let { startBtnWidth } = require("%enlSqGlob/ui/designConst.nut")
+let { startBtnWidth, mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { mkRewardImages, prepareRewards, mkRewardTooltip, rewardWidthToHeight, mkSeasonTime,
   mkRewardText
@@ -137,10 +137,7 @@ let function temporarySign() {
     halign = ALIGN_CENTER
     valign = ALIGN_CENTER
     margin = smallPadding
-    children = faComp("clock-o", {
-      fontSize = size + hdpx(1)
-      color = accentTitleTxtColor
-    })
+    children = mkTimerIcon(size, { color = accentTitleTxtColor })
   }
 }
 

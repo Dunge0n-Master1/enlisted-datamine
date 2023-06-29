@@ -80,6 +80,11 @@ let changeGameModeBtn = watchElemState(function(sf) {
     group
     behavior = Behaviors.Button
     onClick = openChangeGameModeWnd
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
     key = canChangeQueueParams.value
     hotkeys = canChangeQueueParams.value ? [[ "^J:X | G" ]] : null
     children = [

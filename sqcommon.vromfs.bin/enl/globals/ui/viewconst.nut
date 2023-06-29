@@ -26,7 +26,7 @@ let researchListTabBorder = hdpx(4)
 let multySquadPanelSize = [(unitSize * 2.4).tointeger(), (unitSize * 2.4).tointeger()]
 let squadSlotHorSize = [hdpxi(660), hdpxi(72)]
 
-let soldierWndWidth = unitSize * 11
+let soldierWndWidth = unitSize * 10
 let squadPanelWidth = unitSize * 6
 let fadedTxtColor = Color(130,130,130,150)
 
@@ -47,7 +47,6 @@ let shadowStyle = {
 }
 
 let maxContentWidth = min(hdpx(1920), sw(100))
-
 return {
   isWide
   maxContentWidth
@@ -102,9 +101,6 @@ return {
   blinkingSignalsGreenNormal = Color(61, 182, 19)
   blinkingSignalsGreenDark = Color(32, 125, 0)
 
-  translucentBgColor = Color(0,0,0,75)
-  soldierExpBgColor = Color(0, 0, 0, 100)
-  soldierExpColor = Color(239, 219, 100)
   soldierLvlColor = Color(200, 180, 0, 150)
   soldierGainLvlColor = Color(255, 255, 150)
   soldierLockedLvlColor = Color(90, 90, 90)
@@ -163,17 +159,17 @@ return {
   shadowStyle
 
   listCtors = {
-    nameColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : titleTxtColor
+    nameColor = @(flags, _selected = false)
+      (flags & S_HOVER) ? selectedTxtColor : titleTxtColor
 
-    weaponColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : weaponTxtColor
+    weaponColor = @(flags, _selected = false)
+      (flags & S_HOVER) ? selectedTxtColor : weaponTxtColor
 
-    txtColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) || (flags & S_ACTIVE) ? selectedTxtColor : defTxtColor
+    txtColor = @(flags, _selected = false)
+      (flags & S_HOVER) || (flags & S_ACTIVE) ? selectedTxtColor : defTxtColor
 
-    txtDisabledColor = @(flags, selected = false)
-      selected || (flags & S_HOVER) ? selectedTxtColor : disabledTxtColor
+    txtDisabledColor = @(flags, _selected = false)
+      (flags & S_HOVER) ? selectedTxtColor : disabledTxtColor
 
     bgColor = @(flags, selected = false, idx = 0) selected ? activeBgColor
       : flags & S_HOVER ? hoverBgColor
@@ -186,37 +182,15 @@ return {
     : (idx % 2) ? Color(35, 35, 35, 25)
     : Color(25, 25, 25, 25)
 
-  listBtnAirStyle = function(isSelected, _idx) {
-    let res = {
-      margin = 0
-      textMargin = bigPadding
-      borderWidth = 0
-      borderRadius = 0
-      rendObj = ROBJ_BOX
-      style = {
-        BgNormal  = airBgColor
-        BgHover   = airHoverBgColor
-        BgActive  = airHoverBgColor
-        BgFocused = airHoverBgColor
-      }
-    }
-    if (isSelected)
-      return res.__update({
-        fillColor = airSelectedBgColor
-        textParams = { color = selectedTxtColor }
-      })
-    return res
-  }
-
   scrollbarParams = {
     size = [SIZE_TO_CONTENT, flex()]
     skipDirPadNav = true
-    barStyle = @(_has_scroll) class {
+    barStyle = @(_has_scroll) {
       _width = fsh(1)
       _height = fsh(1)
       skipDirPadNav = true
     }
-    knobStyle = class {
+    knobStyle = {
       skipDirPadNav = true
       hoverChild = @(sf) {
         rendObj = ROBJ_BOX

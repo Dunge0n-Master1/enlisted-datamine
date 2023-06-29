@@ -414,6 +414,17 @@ resupply_vehicle{
   resupplyStarted:b=no
   vehicle_resupply__type:t="air"
 
+  _group{
+    _tags:t="server"
+    resupplyPassengersAtTime:r=-1.0
+    resupplyPassengersStarted:b=no
+  }
+
+  _group{
+    _tags:t="gameClient"
+    resupply_vehicle__resupplyPassengersSound:t="player/walker/ww2_soldier/items/ammo/pick"
+  }
+
   "net_sound__descs:shared:object"{
 
     "resupplyStart:object"{
@@ -928,6 +939,18 @@ menu_new_items{
   _singleton:b=yes
 
   "menu_new_items_to_control:eid"{
+  }
+
+  "item_attaches:list<eid>"{
+  }
+}
+
+menu_shop_items{
+  _extends:t="menu_transform"
+  _track:b=yes
+  _singleton:b=yes
+
+  "menu_shop_items_to_control:eid"{
   }
 
   "item_attaches:list<eid>"{

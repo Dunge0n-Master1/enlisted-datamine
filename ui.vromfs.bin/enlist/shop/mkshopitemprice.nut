@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor, discountBgColor
+let { bigPadding, bonusColor, defTxtColor, activeTxtColor, titleTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
@@ -14,6 +14,7 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let { mkHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
+let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 let sidePadding = fsh(2)
@@ -202,7 +203,7 @@ let function mkDiscountInfo(discountData) {
     }, primeFlagStyle.__merge({
       size = SIZE_TO_CONTENT
       offset = 0
-      flagColor = discountBgColor
+      flagColor = brightAccentColor
     }))
   }
 }

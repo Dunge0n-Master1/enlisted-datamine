@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { currenciesList } = require("%enlist/currency/currencies.nut")
 let { curCampItemsCount } = require("%enlist/soldiers/model/state.nut")
 let { mkCurrency, mkCurrencyCount } = require("%enlist/currency/currenciesComp.nut")
@@ -22,8 +22,10 @@ let realPriceGradient = mkColoredGradientX({colorLeft=realPriceLineColor, colorR
 let goldPriceGradient = mkColoredGradientX({colorLeft=goldPriceLineColor, colorRight=transpLineColor})
 let mixPriceGradient  = mkColoredGradientX({colorLeft=mixPriceLineColor, colorRight=transpLineColor})
 
+
 let defTxtStyle = freeze({ color = defTxtColor }.__update(fontMedium))
-let titleTxtStyle = freeze({ color = titleTxtColor }.__update(fontMedium))
+let countTxtStyle = freeze({ color = titleTxtColor }.__update(fontLarge))
+let missTxtStyle = freeze({ color = defTxtColor }.__update(fontLarge))
 
 
 let priceSeparator = {
@@ -87,9 +89,7 @@ let function mkItemBarterInfo(guid, curItemCost, campItems) {
       currencyTpl = itemTpl
       count = $"{reqCount}"
       keySuffix = guid
-      textStyle = inStock >= reqCount
-        ? defTxtStyle
-        : titleTxtStyle
+      textStyle = inStock >= reqCount ? countTxtStyle : missTxtStyle
     }))
   }
   return children.len() == 0 ? null

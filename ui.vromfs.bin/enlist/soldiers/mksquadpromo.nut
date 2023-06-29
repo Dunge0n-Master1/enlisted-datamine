@@ -52,7 +52,7 @@ let newSquadBlock = @(armyId, sClassId){
       gap = smallPadding
       valign = ALIGN_CENTER
       children = [
-        classIcon(armyId, sClassId, hdpx(30), {
+        classIcon(armyId, sClassId, hdpxi(30), {
           vplace = ALIGN_BOTTOM, hplace = ALIGN_RIGHT })
         className(sClassId).__update({ color = Color(255, 255,255) }).__update(body_txt)
       ]

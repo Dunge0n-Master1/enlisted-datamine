@@ -16,9 +16,9 @@ let {
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { perksStatsCfg, classesConfig, fallBackImage } = require("%enlist/meta/perks/perksStats.nut")
 let perksList = require("%enlist/meta/perks/perksList.nut")
-let perksPoints = require("%enlist/meta/perks/perksPoints.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { perksData, getPerkPointsInfo } = require("%enlist/soldiers/model/soldierPerks.nut")
+let { pPointsBaseParams, pPointsList } = require("%enlist/meta/perks/perksPoints.nut")
 
 const MIN_ROLL_PERKS = 10
 const NEXT_ROLL_PERKS = 5
@@ -44,11 +44,11 @@ let flexTextArea = @(params) {
 }.__update(sub_txt, params)
 
 
-let perkPointIcon = @(pPointCfg, pPointSize = hdpxi(32)) {
+let perkPointIcon = @(icon, color = defTxtColor, pPointSize = hdpxi(32)) {
   rendObj = ROBJ_IMAGE
   size = [pPointSize, pPointSize]
-  image = Picture("{0}:{1}:{1}:K".subst(pPointCfg.icon, pPointSize))
-  color = pPointCfg.color
+  image = Picture("{0}:{1}:{1}:K".subst(icon, pPointSize))
+  color
 }
 
 let perkPointCostText = @(pPointCfg, cost) {
@@ -89,6 +89,8 @@ local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, change
     totalValue = usedValue
     leftValue = 0
   }
+
+  let { icon, color } = pPointCfg
   return {
     halign = ALIGN_RIGHT
     key = $"{pPointId}-{totalValue}-{changedValue}"
@@ -97,7 +99,7 @@ local function usedPerkPoints(pPointCfg, pPointId, usedValue, totalValue, change
         flow = FLOW_HORIZONTAL
         valign = ALIGN_CENTER
         children = [
-          perkPointIcon(pPointCfg).__update({
+          perkPointIcon(icon, color).__update({
             transform = {}
             animations = changedValue > 0 ? iconAnimations : null
           })
@@ -141,17 +143,17 @@ let function mkPerkCostChildren(perk, isUnavailable = false, showFreePerks = fal
   if (pPointsValue == null || (pPointsValue == 0 && !showFreePerks))
     return null
 
-  local pPointCfg = perksPoints.pPointsBaseParams[pPointType] ?? {}
+  local pPointCfg = pPointsBaseParams[pPointType] ?? {}
   if (isUnavailable)
     pPointCfg = pPointCfg.__merge({color = PERK_UNAVAILABLE_COLOR})
-
+  let { icon, color } = pPointCfg
   return {
     flow = FLOW_HORIZONTAL
     size = [flex(), SIZE_TO_CONTENT]
     halign = ALIGN_LEFT
     valign = ALIGN_CENTER
     children = [
-      perkPointIcon(pPointCfg)
+      perkPointIcon(icon, color)
       pPointsValue == 0 ? null : perkPointCostText(pPointCfg, pPointsValue)
     ]
   }
@@ -364,11 +366,11 @@ let function mkPerksPointsBlock(soldierGuid) {
       return res
 
     let children = []
-    foreach (pPointId in perksPoints.pPointsList) {
+    foreach (pPointId in pPointsList) {
       let pointsAmount = perkPointsInfo.total?[pPointId] ?? 0
       if (pointsAmount <= 0)
         continue
-      let pPointCfg = perksPoints.pPointsBaseParams?[pPointId]
+      let pPointCfg = pPointsBaseParams?[pPointId]
       if (pPointCfg == null)
         continue
 
@@ -391,6 +393,50 @@ let function mkPerksPointsBlock(soldierGuid) {
   }
 }
 
+let function statsRange(statsTable, stat, isLocked) {
+  let { icon, color } = pPointsBaseParams[stat]
+  return {
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
+    children = [
+      perkPointIcon(icon, isLocked ? defTxtColor : color)
+      {
+        rendObj = ROBJ_TEXT
+        color = defTxtColor
+        text = $"{statsTable[stat].min}-{statsTable[stat].max}"
+      }
+    ]
+  }
+}
+
+
+let function mkStatList(content, sClassesCfg, isLocked = false) {
+  let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
+    soldierRareMin } = content
+  let { pointsByTiers = [], perkPointsModifications = []
+    } = sClassesCfg?[soldierClasses[0]] ?? {}
+
+  local stats = {}
+  let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
+  let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
+  foreach(name in pPointsList) {
+    stats[name] <- {
+      min = pointsByTiers[soldierTierMin][name].min +
+        (perkPointsModifications[max(soldierRareMin, 0)]?[name] ?? 0)
+      max = statsMax[name].max +
+        (perkPointsModifications[maxRareModifications]?[name] ?? 0)
+    }
+  }
+  return {
+    flow = FLOW_HORIZONTAL
+    halign = ALIGN_LEFT
+    size = [hdpx(260), hdpx(32)]
+    gap = bigPadding
+    children = pPointsList.map(@(x) statsRange(stats, x, isLocked))
+  }
+}
+
 return {
   mkText
   perkIcon
@@ -409,4 +455,5 @@ return {
   thumbIconSize
   perkUi
   priceIconCtor
+  mkStatList
 }

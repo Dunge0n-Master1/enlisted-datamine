@@ -23,6 +23,12 @@ let function close(cb = null) {
   modalPopupWnd.remove(WND_UID)
 }
 
+let btnSound = freeze({
+  hover = "ui/enlist/button_highlight"
+  click = "ui/enlist/button_click"
+  active = "ui/enlist/button_action"
+})
+
 let hotkeyOnHover = freeze({
   size = [fontLarge.fontSize, SIZE_TO_CONTENT]
   children = mkImageCompByDargKey(JB.A, { height = fontLarge.fontSize })
@@ -39,6 +45,7 @@ let mkMenuButton = @(btn, needMoveCursor) (btn?.len() ?? 0) > 0
         size = [flex(), commonBtnHeight]
         minWidth = SIZE_TO_CONTENT
         behavior = Behaviors.Button
+        sound = btnSound
         flow = FLOW_HORIZONTAL
         gap = smallPadding
         onClick = @() close(btn.cb)
@@ -111,6 +118,7 @@ local function mkDropMenuBtn(buttons, watch) {
       watch = isGamepad
       behavior = Behaviors.Button
       onClick
+      sound = btnSound
       size = [defSize, defSize+bigPadding]
       padding = [bigPadding, 0, 0, 0]
       valign = ALIGN_BOTTOM

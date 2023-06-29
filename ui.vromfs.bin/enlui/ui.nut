@@ -19,6 +19,9 @@ set_nested_observable_debug(VAR_TRACE_ENABLED)
 
 ecs.clear_vm_entity_systems()
 
+let { safeAreaAmount } = require("%enlSqGlob/safeArea.nut")
+screenScaleUpdate(safeAreaAmount.value)
+
 let {inspectorToggle} = require("%darg/helpers/inspector.nut")
 
 console_register_command(@() inspectorToggle(), "ui.inspector_battle")

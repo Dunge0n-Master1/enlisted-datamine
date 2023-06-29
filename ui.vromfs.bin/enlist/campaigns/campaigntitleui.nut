@@ -40,13 +40,17 @@ let function mkCampaignButton(textObs, hasNotifierObs) {
       msgbox.show({ text = loc("quickMatch/squadLeaderParams") })
   }
   return watchElemState(@(sf){
+    watch = [textObs, hasNotifierObs]
+    size = flex()
     rendObj = ROBJ_WORLD_BLUR_PANEL
     behavior = Behaviors.Button
     onClick
-    watch = [textObs, hasNotifierObs]
-    size = flex()
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
     halign = ALIGN_CENTER
-  //  valign = ALIGN_BOTTOM
     color = defItemBlur
     fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
     children = [

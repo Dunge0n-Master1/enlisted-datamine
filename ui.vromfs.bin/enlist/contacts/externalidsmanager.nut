@@ -4,7 +4,7 @@ let { is_sony, is_xbox } = require("%dngscripts/platform.nut")
 let { isSteamRunning } = require("%enlSqGlob/login_state.nut")
 let { char_request = null } = require("%enlSqGlob/charClient.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { Contact } = require("%enlist/contacts/contact.nut")
+let { updateContact } = require("%enlist/contacts/contact.nut")
 let { updateUids } = require("%enlist/contacts/consoleUidsRemap.nut")
 
 let logExt = require("%enlSqGlob/library_logs.nut").with_prefix("[EXT IDS MANAGER] ")
@@ -59,7 +59,7 @@ let function searchContactByExternalId(extIdsArray, callback = null) {
 
       foreach (uidStr, data in result)
         if (uidStr != myUserIdStr && uidStr != "" && data?.nick != null)
-          Contact(uidStr, data.nick)
+          updateContact(uidStr, data.nick)
 
       callback?(result)
     }

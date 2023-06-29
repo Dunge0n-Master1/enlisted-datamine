@@ -9,7 +9,7 @@ let roomMemberStatuses = require("roomMemberStatuses.nut")
 let { mkArmySimpleIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let { memberName, mkStatusImg } = require("components/memberComps.nut")
 
-let PORTRAIT_SIZE = hdpx(140)
+let portraitSize = hdpxi(132)
 
 let mkText = @(text, color = defTxtColor) {
   rendObj = ROBJ_TEXT, color, text
@@ -29,18 +29,15 @@ let mkTextWithIcon = @(icon, text) {
 
 let function mkPortrait(portrait) {
   let { icon } = getPortrait(portrait)
-  if (icon == "")
-    return null
   return {
-    size = [PORTRAIT_SIZE, PORTRAIT_SIZE]
     padding = smallPadding
     rendObj = ROBJ_BOX
     borderColor = activeBgColor
     borderWidth = hdpx(1)
     children = {
-      size = flex()
+      size = [portraitSize, portraitSize]
       rendObj = ROBJ_IMAGE
-      image = Picture(icon)
+      image = Picture("!{0}:{1}:{1}:K".subst(icon, portraitSize))
     }
   }
 }

@@ -3,8 +3,8 @@ from "%enlSqGlob/ui_library.nut" import *
 let { logerr } = require("dagor.debug")
 let { landing_zones_GetWatched, landing_zones_Set } = require("%ui/hud/state/aircraft_respawn_landing_zones_state.nut")
 
-let markerSize = fsh(2)
-let iconSize = markerSize/1.5
+let markerSize = fsh(2).tointeger()
+let iconSize = (markerSize/1.5).tointeger()
 
 let getPicture = memoize(function getPicture(name) {
   if ((name ?? "") == "")
@@ -12,7 +12,7 @@ let getPicture = memoize(function getPicture(name) {
 
   local imagename = null
   if (name.indexof("/") != null) {
-    imagename = name.endswith(".svg") ? "{0}:{1}:{1}:K".subst(name, iconSize.tointeger()) : name
+    imagename = name.endswith(".svg") ? "{0}:{1}:{1}:K".subst(name, iconSize) : name
   }
 
   if (!imagename) {
@@ -24,13 +24,13 @@ let getPicture = memoize(function getPicture(name) {
 })
 
 let darkback = freeze({
-  size = [markerSize.tointeger(), markerSize.tointeger()]
+  size = [markerSize, markerSize]
   rendObj = ROBJ_IMAGE
-  image = Picture("ui/uiskin/white_circle.svg:{0}:{0}:K".subst(markerSize.tointeger()))
+  image = Picture("ui/uiskin/white_circle.svg:{0}:{0}:K".subst(markerSize))
   color = Color(0, 0, 0, 120)
 })
 
-let sizeIco = [iconSize.tointeger(), iconSize.tointeger()]
+let sizeIco = [iconSize, iconSize]
 
 let ico = memoize(@(iconWatch) @(){
   rendObj = ROBJ_IMAGE

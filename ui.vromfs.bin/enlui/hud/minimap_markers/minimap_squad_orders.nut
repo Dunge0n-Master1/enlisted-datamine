@@ -13,7 +13,7 @@ let animations = [
   { prop=AnimProp.opacity, from=0, to=1, duration=0.3, play=true}
 ]
 
-let size = [fsh(2.5), fsh(2.5)]
+let size = array(2, fsh(2.5).tointeger())
 let transform = { pivot = [0.5, 0.5] }
 
 let ctor = function(...) {

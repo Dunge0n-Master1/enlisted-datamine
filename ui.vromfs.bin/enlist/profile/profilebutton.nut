@@ -106,6 +106,11 @@ let profileButtonUi = watchElemState(@(sf) {
   behavior = Behaviors.Button
   onHover = @(on) setTooltip(on ? loc("btn/openProfile") : null)
   onClick = profileScene
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+    active = "ui/enlist/button_action"
+  }
   flow = FLOW_HORIZONTAL
   gap = midPadding
   valign = ALIGN_BOTTOM

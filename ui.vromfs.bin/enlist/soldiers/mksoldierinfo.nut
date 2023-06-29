@@ -1,9 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let {
-  gap, bigPadding, soldierWndWidth, blurBgColor, blurBgFillColor, listBtnAirStyle
+  bigPadding, smallPadding, soldierWndWidth, unitSize, hoverTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let textButton = require("%ui/components/textButton.nut")
 let { notChoosenPerkSoldiers } = require("model/soldierPerks.nut")
 let soldierEquipUi = require("soldierEquip.ui.nut")
 let soldierPerksUi = require("soldierPerks.ui.nut")
@@ -13,22 +12,33 @@ let {
   mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { unseenSoldiersWeaponry } = require("model/unseenWeaponry.nut")
-let { curUnseenUpgradesBySoldier, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
 let canSwitchSoldierLook = hasClientPermission("debug_soldier_look")
 let mkNameBlock = require("%enlist/components/mkNameBlock.nut")
+let { defTxtColor, titleTxtColor, accentColor, panelBgColor, hoverSlotBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let faComp = require("%ui/components/faComp.nut")
+let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
+
+let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
+let hoverTxtStyle = { color = hoverTxtColor }.__update(fontMedium)
+let activeTxtStyle = { color = titleTxtColor }.__update(fontMedium)
+
+let defIconStyle = { fontSize = hdpx(15), color = defTxtColor }
+let hoverIconStyle = { fontSize = hdpx(15), color = hoverTxtColor }
+let activeIconStyle = { fontSize = hdpx(15), color = titleTxtColor }
+
+let tabHeight = unitSize
 
 let tabsData = {
   weaponry = {
     locId = "soldierWeaponry"
     content = soldierEquipUi
     childCtor = @(soldier) soldier == null ? null
-      : mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
-          let weapCount = unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0
-          let upgrCount = (isUpgradeUsed.value ?? false) ? 0
-            : (curUnseenUpgradesBySoldier.value?[soldier?.guid] ?? 0)
-          return weapCount + upgrCount > 0
-        }))
+      : mkAlertIcon(ITEM_ALERT_SIGN, Computed(@()
+          (unseenSoldiersWeaponry.value?[soldier?.guid].len() ?? 0) > 0
+        ))
   }
   perks = {
     locId = "soldierPerks"
@@ -39,7 +49,7 @@ let tabsData = {
         ))
   }
   customize = {
-    iconId = "pencil"
+    locId = "soldierAppearance"
     content = mkSoldierCustomisationTab
   }
   look = {
@@ -58,11 +68,7 @@ let tabs = Computed(function() {
 let curTabId = mkWatched(persist, "soldierInfoTabId", tabs.value[0])
 let getTabById = @(tabId) tabsData?[tabId] ?? tabsData[tabs.value[0]]
 
-let hdrAnimations = [
-  { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic, trigger = "hdrAnim"}
-  { prop = AnimProp.translate, from =[-hdpx(70), 0], to = [0, 0], duration = 0.15, easing = OutQuad, trigger = "hdrAnim"}
-]
-
+curTabId.subscribe(@(_) closeEquipPresets())
 
 let mkAnimations = @(isMoveRight) [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.5, play = true, easing = OutCubic }
@@ -71,38 +77,65 @@ let mkAnimations = @(isMoveRight) [
   { prop = AnimProp.translate, from =[0, 0], playFadeOut = true, to = [hdpx(150) * (isMoveRight ? 1 : -1), 0], duration = 0.2, easing = OutQuad }
 ]
 
-let listBtnStyle = @(isSelected, idx)
-  listBtnAirStyle(isSelected, idx).__update({ size = [flex(), SIZE_TO_CONTENT] })
+let selectedColor = mul_color(panelBgColor, 1.5)
 
-let tabsList = @(soldier, availTabs) @() {
-  animations = hdrAnimations
-  transform = {}
+let tabsList = @(soldier, availTabs) @() availTabs.len() == 1 ? null : {
   watch = [tabs, curTabId, soldier]
   size = [flex(), SIZE_TO_CONTENT]
   valign = ALIGN_BOTTOM
   flow = FLOW_HORIZONTAL
-  gap = gap
+  clipChildren = true
+  gap = smallPadding
   children = tabs.value
     .filter(@(id) availTabs.len() == 0 || availTabs.contains(id))
-    .map(function(id, idx) {
+    .map(function(id) {
       let tab = tabsData[id]
-      let isCurrent = curTabId.value == id
-      return "locId" in tab ? {
-            size = [flex(), SIZE_TO_CONTENT]
-            children = [
-              textButton(loc(tab.locId), @() curTabId(id),
-                listBtnStyle(isCurrent, idx))
-              tab?.childCtor(soldier.value)
-            ]
+      let isSelected = Computed(@() curTabId.value == id)
+      let size = ["locId" in tab ? flex() : tabHeight, tabHeight]
+      return watchElemState(function(sf) {
+        let isSelectedVal = isSelected.value
+        let isHover = (sf & S_HOVER) != 0
+        let textStyle = isHover ? hoverTxtStyle
+          : isSelectedVal ? activeTxtStyle
+          : defTxtStyle
+        let iconStyle = isSelectedVal ? activeIconStyle
+            : isHover ? hoverIconStyle : defIconStyle
+        let tabTextObj = "locId" in tab ? {
+              rendObj = ROBJ_TEXT
+              text = loc(tab.locId)
+            }.__update(textStyle)
+          : "iconId" in tab ? faComp(tab.iconId, iconStyle)
+          : null
+        let fillColor = isHover ? hoverSlotBgColor
+          : isSelectedVal ? selectedColor
+          : panelBgColor
+
+        return {
+          size
+          watch = isSelected
+          rendObj = ROBJ_BOX
+          behavior = Behaviors.Button
+          onClick = @() curTabId(id)
+          sound = {
+            hover = "ui/enlist/button_highlight"
+            click = "ui/enlist/button_click"
+            active = "ui/enlist/button_action"
           }
-        : "iconId" in tab ? {
-            size = [ph(100), SIZE_TO_CONTENT]
-            children = [
-              textButton.FAButton(tab.iconId, @() curTabId(id),
-                listBtnStyle(isCurrent, idx).__update({padding = [hdpx(13), 0, 0, 0]}))
-            ]
-          }
-        : null
+          halign = ALIGN_CENTER
+          valign = ALIGN_CENTER
+          fillColor
+          borderColor = accentColor
+          borderWidth = isSelectedVal ? [0, 0, hdpx(4), 0] : 0
+          children = [
+            tabTextObj
+            {
+              hplace = ALIGN_RIGHT
+              vplace = ALIGN_TOP
+              children = tab?.childCtor(soldier.value)
+            }
+          ]
+        }
+      })
     })
 }
 
@@ -111,24 +144,17 @@ let content = kwarg(@(
   availTabs, onDoubleClickCb = null, onResearchClickCb = null,
   dropExceptionCb = null
 ) {
-  clipChildren = true
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = blurBgColor
-  fillColor = blurBgFillColor
   size = [soldierWndWidth, flex()]
-  animations = animations
-  transform = {}
   children = {
     size = [soldierWndWidth, flex()]
-    gap = bigPadding
     flow = FLOW_VERTICAL
-    padding = bigPadding
+    gap = bigPadding
+    animations
+    transform = {}
     children = [
       mkNameBlock(soldier)
       tabsList(soldier, availTabs)
       @() {
-        animations = hdrAnimations
-        transform = {}
         watch = curTabId
         size = flex()
         children = getTabById(curTabId.value).content({

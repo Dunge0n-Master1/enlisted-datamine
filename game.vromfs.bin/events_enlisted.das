@@ -270,6 +270,13 @@ struct CmdSwitchSquad {}
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResupplyVehicle {}
 
+[event(unicast)]
+struct CmdResupplyPassengers {}
+
+[event(unicast, routing=ROUTING_SERVER_TO_CLIENT, net_liable=ignore)]
+struct CmdResupplyPassengersFinished
+  vehicle : EntityId
+
 [event(unicast, routing=ROUTING_SERVER_TO_CLIENT)]
 struct CmdResetupVehicle
   setupOnWater : bool

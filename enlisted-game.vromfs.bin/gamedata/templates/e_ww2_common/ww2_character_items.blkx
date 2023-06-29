@@ -574,6 +574,7 @@ attachable_flask_r{
 
 attachable_backpack{
   _extends:t="attachable_wear"
+  item__iconYaw:r=120.0
   menu_item__rotationOffset:p3=-0.15, 0.1, 0.0
   attachable_backpack__capacity:i=0
 

@@ -40,9 +40,9 @@ let templateSize = {
   width = min(elemSize[0], (elemSize[1] - headerSize) * 3) - smallPadding * 2
   height = elemSize[1] - headerSize - smallPadding * 2
 }
-let typeBackSize = hdpx(16)
-let typeIconSize = hdpx(13)
-let squadIconSize = hdpx(50)
+let typeBackSize = hdpxi(16)
+let typeIconSize = hdpxi(13)
+let squadIconSize = hdpxi(50)
 
 let detailsTitleStyle = freeze({ color = titleTxtColor }.__update(fontSmall))
 let detailsDescStyle = freeze({ color = defTxtColor }.__update(fontXSmall))

@@ -12,7 +12,7 @@ let { pushNotification, removeNotifyById, removeNotify, subscribeGroup, Invitati
 let popupsState = require("%enlSqGlob/ui/popup/popupsState.nut")    // CODE SMELLS: ui state in logic module!
 let { blockedUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
-let { Contact, validateNickNames, getContactNick } = require("%enlist/contacts/contact.nut")
+let { getContactRealnick, getContact, validateNickNames, getContactNick, updateContact } = require("%enlist/contacts/contact.nut")
 let { onlineStatus, isContactOnline, updateSquadPresences } = require("%enlist/contacts/contactPresence.nut")
 let MSquadAPI = require("squadAPI.nut")
 let matching_api = require("matching.api")
@@ -41,7 +41,7 @@ const SQUAD_OVERDRAFT = 0
 let setOnlineBySquad = @(userId, online) updateSquadPresences({ [userId.tostring()] = online })
 
 let SquadMember = function(userId)  {
-  let realnick = Contact(userId.tostring()).value.realnick
+  let realnick = getContactRealnick(userId.tostring())
   return {
     userId
     isLeader = squadId.value == userId
@@ -87,7 +87,7 @@ let voiceChatId          = @(s) $"squad-channel-{s}"
 squadId.subscribe(function(_val) {
   isSquadDataInited(false)
 })
-squadMembers.subscribe(@(list) validateNickNames(list.map(@(m) Contact(m.userId.tostring()))))
+squadMembers.subscribe(@(list) validateNickNames(list.map(@(m) getContact(m.userId.tostring()))))
 
 let getSquadInviteUid = @(inviterSquadId) $"squad_invite_{inviterSquadId}"
 
@@ -193,7 +193,7 @@ let function addInvited(user_id) {
   if (user_id in isInvitedToSquad.value)
     return false
   isInvitedToSquad.mutate(@(value) value[user_id] <- true)
-  validateNickNames([Contact(user_id.tostring())])
+  validateNickNames([getContact(user_id.tostring())])
   return true
 }
 
@@ -248,7 +248,7 @@ let showSizePopup = @(text, isError = true)
     popupsState.addPopup({ id = "squadSizePopup", text = text, styleName = isError ? "error" : "" })
 
 
-let requestMemberData = @(uid, isMe,  isNewMember, cb = @(_res) null)
+let requestMemberData = @(uid, isMe, isNewMember, cb = @(_res) null)
   MSquadAPI.getMemberData(uid,
     { onSuccess = function(response) {
         let member = squadMembers.value?[uid]
@@ -283,12 +283,7 @@ let function updateSquadInfo(squad_info) {
       squadMembers.mutate(@(m) m[uid] <- sMember)
       removeInvitedSquadmate(uid)
       isNewMember = true
-      if (isMe) {
-        requestMemberData(uid, isMe, isNewMember)
-        continue
-      }
     }
-
     requestMemberData(uid, isMe, isNewMember)
   }
   squadMembers.trigger()
@@ -335,13 +330,13 @@ let function acceptSquadInvite(invSquadId) {
 
 let function processSquadInvite(contact) {
   // we are already in that squad. do nothing
-  if (isInSquad.value && squadId.value == contact.value.uid) {
+  if (isInSquad.value && squadId.value == contact.uid) {
     return
   }
 
   pushNotification({
-    id = getSquadInviteUid(contact.value.uid)
-    inviterUid = contact.value.uid
+    id = getSquadInviteUid(contact.uid)
+    inviterUid = contact.uid
     nType = InvitationsTypes.TO_SQUAD
     styleId = InvitationsStyle.TO_BATTLE
     playerName = getContactNick(contact)
@@ -359,23 +354,23 @@ let function onInviteRevoked(inviterSquadId, invitedMemberId) {
 }
 
 let function addInviteByContact(inviter) {
-  if (inviter.value.uid == selfUid.value) // skip self invite
+  if (inviter.uid == selfUid.value) // skip self invite
     return
 
-  if (inviter.value.userId in blockedUids.value) {
+  if (inviter.userId in blockedUids.value) {
     logSq("got squad invite from blacklisted user", inviter.value)
     MSquadAPI.rejectInvite(inviter.value.uid)
     return
   }
 
-  if (!canInterractCrossPlatformByCrossplay(inviter.value.realnick, crossnetworkPlay.value)) {
+  if (!canInterractCrossPlatformByCrossplay(inviter.realnick, crossnetworkPlay.value)) {
     logSq($"got squad invite from crossplatform user, is crosschat available: {crossnetworkChat.value}", inviter.value)
-    MSquadAPI.rejectInvite(inviter.value.uid)
+    MSquadAPI.rejectInvite(inviter.uid)
     return
   }
 
-  if (consoleCompare.xbox.isPlatform && consoleCompare.xbox.isFromPlatform(inviter.value.realnick)) {
-    logSq("got squad invite from xbox player. It will be silently accepted or hidden", inviter.value)
+  if (consoleCompare.xbox.isPlatform && consoleCompare.xbox.isFromPlatform(inviter.realnick)) {
+    logSq("got squad invite from xbox player. It will be silently accepted or hidden", inviter)
     return
   }
 
@@ -385,7 +380,7 @@ let function addInviteByContact(inviter) {
 let function onInviteNotify(invite_info) {
   if ("invite" in invite_info) {
     let uid = invite_info?.leader.id
-    let inviter = uid != null ? Contact(invite_info.leader.id.tostring(), invite_info?.leader.name) : null
+    let inviter = uid != null ? updateContact(invite_info.leader.id.tostring(), invite_info?.leader.name) : null
 
     if (invite_info.invite.id == selfUid.value) {
       if (inviter!=null)
@@ -398,7 +393,7 @@ let function onInviteNotify(invite_info) {
     onInviteRevoked(invite_info.replaces, selfUid.value)
     let uid = invite_info?.leader.id.tostring()
     if (uid != null)
-      addInviteByContact(Contact(uid))
+      addInviteByContact(getContact(uid))
   }
 }
 
@@ -421,7 +416,7 @@ fetchSquadInfo = function(cb = null) {
           cb(result)
       }
 
-      let validateList = (result?.invites ?? []).map(@(id) Contact(id.tostring()))
+      let validateList = (result?.invites ?? []).map(@(id) getContact(id.tostring()))
 
       validateNickNames(validateList, function() {
         foreach (sender in validateList)
@@ -448,7 +443,7 @@ let function addMember(member) {
   logSq("addMember", userId, member.name)
 
   let squadMember = SquadMember(member.userId)
-  let realnick = Contact(member.userId.tostring()).value.realnick
+  let realnick = getContactRealnick(member.userId.tostring())
   squadMember.realnick = realnick
   setOnlineBySquad(squadMember.userId, true)
   removeInvitedSquadmate(member.userId)
@@ -497,7 +492,7 @@ let function dismissSquadMember(user_id) {
   if (!member)
     return
   msgbox.show({
-    text = loc("squad/kickPlayerQst", { name = getContactNick(Contact(member.userId.tostring())) })
+    text = loc("squad/kickPlayerQst", { name = getContactNick(getContact(member.userId.tostring())) })
     buttons = [
       { text = loc("Yes"), action = @() MSquadAPI.dismissMember(user_id) }
       { text = loc("No"), isCancel = true, isCurrent = true }
@@ -727,7 +722,7 @@ let function onApplicationNotify(params) {
   let uid = applicant?.id
   let contactUid = uid?.tostring()
   if (uid) {
-    let newContact = Contact(contactUid)
+    let newContact = getContact(contactUid)
     validateNickNames([newContact], @() onAcceptMembership(newContact))
   }
   else
@@ -757,8 +752,8 @@ let msubscribes = {
   },
   ["msquad.notify_invite_rejected"] = function(params) {
     if (isSquadLeader.value) {
-      let contact = Contact(params.invite.id.tostring())
-      removeInvitedSquadmate(contact.value.uid)
+      let contact = getContact(params.invite.id.tostring())
+      removeInvitedSquadmate(contact.uid)
       pushNotification({
         text = loc("squad/mail/reject", {playername = getContactNick(contact) })
         nType = InvitationsTypes.SQUAD_REMOVE

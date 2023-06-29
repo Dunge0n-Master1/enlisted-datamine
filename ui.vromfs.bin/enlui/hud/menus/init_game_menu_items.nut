@@ -19,7 +19,7 @@ let { btnResume, btnOptions, btnBindKeys} = require("%ui/hud/menus/game_menu_ite
 let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { canShowReplayHud } = require("%ui/hud/replay/replayState.nut")
 let { isCinemaRecording, setCinemaRecording } = require("%ui/hud/replay/replayCinematicState.nut")
-
+let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
 
 let showSuicideMenu = mkWatched(persist, "showSuicideMenu", false)
 let showExitGameMenu = mkWatched(persist, "showExitGameMenu", false)
@@ -136,7 +136,7 @@ let function setEnlistedMenuItems() {
     btnResume,
     isCinemaRecording.value ? btnStopRecord : btnOptions,
     btnBindKeys,
-    isReplay.value ? null : btnSuicide,
+    isReplay.value || isTutorial.value ? null : btnSuicide,
     btnChangeSquad,
     btnShowScores,
     (DBGLEVEL > 0 || is_sony) && !isReplay.value ? btnPlayersInSession : null,
@@ -147,7 +147,7 @@ let function setEnlistedMenuItems() {
 }
 
 setEnlistedMenuItems()
-foreach (option in [allowChangeSquad, isReplay, needAddReplayHudBtn, isCinemaRecording])
+foreach (option in [allowChangeSquad, isReplay, isTutorial, needAddReplayHudBtn, isCinemaRecording])
   option.subscribe(@(_) setEnlistedMenuItems())
 
 

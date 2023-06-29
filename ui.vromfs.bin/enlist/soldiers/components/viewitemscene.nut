@@ -16,8 +16,13 @@ let {
   bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { mkClassCanUse } = require("%enlist/shop/shopPkg.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -10
+const ADD_CAMERA_FOV_MAX = 35
+
 
 let itemToShow = mkWatched(persist, "itemToShow", null)
 let selectedKey = Watched(null)
@@ -69,7 +74,10 @@ let function viewItemScene() {
     size = [sw(100), sh(100)]
     flow = FLOW_VERTICAL
     padding = safeAreaBorders.value
-    behavior = Behaviors.MenuCameraControl
+    behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+    onMouseWheel = function(mouseEvent) {
+      changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+    }
     children = [
       mkHeader({
         textLocId = "campaign/promoSquadWeapon"

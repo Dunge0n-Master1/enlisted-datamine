@@ -16,7 +16,7 @@ let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let statusCfg = require("researchStatuses.nut")
 
 
-let priceIconSize = hdpx(30)
+let priceIconSize = hdpxi(30)
 let waitingSpinner = spinner(hdpx(36))
 let mkActiveText = @(text) { rendObj = ROBJ_TEXT, text }.__update(body_txt)
 

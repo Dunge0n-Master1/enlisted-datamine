@@ -1174,6 +1174,13 @@ let rewardsPresentation = {
     cardImage = "!ui/skin#/currency/event_order.svg"
     mkImage = mkImageCtor([72, 100])
   },
+  ["448"] = {
+    name = loc("decals/summer_ops_girl_usa")
+    description = loc("decals/summer_ops_girl_usa/desc")
+    icon = "ui/uiskin/currency/decal_order_event.svg"
+    cardImage = "https://static-ggc.gaijin.net/chronicle/item_summer_ops_girl_usa.png"
+    mkImage = mkImageCtor([170, 170], [0, 17])
+  },
 
 
 

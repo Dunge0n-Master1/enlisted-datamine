@@ -23,7 +23,8 @@ let listTxtColor = listCtors.txtColor
 
 let blockHeight = hdpx(124)
 let blockWidth = (soldierWndWidth - bigPadding * 3) / 2
-let currencyIconSize = hdpx(30)
+let currencyIconSize = hdpxi(30)
+
 
 let itemParams = {
   width = blockWidth / 2
@@ -192,6 +193,11 @@ let function selectingItemBlock(item, itemTemplate, guid, isSelected,
     padding = bigPadding
     xmbNode = XmbNode()
     behavior = Behaviors.Button
+    sound = {
+      hover = "ui/enlist/button_highlight"
+      click = "ui/enlist/button_click"
+      active = "ui/enlist/button_action"
+    }
     halign = ALIGN_RIGHT
     color = listBgColor(sf, isSelected)
     onClick = @() itemBlockOnClick(item)

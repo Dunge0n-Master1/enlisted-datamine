@@ -610,7 +610,7 @@ let unlocksProgressBlock = @() {
     }, {
       size = [flex(), SIZE_TO_CONTENT]
       scrollHandler = tblScrollHandler
-      rootBase = class {
+      rootBase = {
         behavior = Behaviors.Pannable
         wheelStep = 1
       }

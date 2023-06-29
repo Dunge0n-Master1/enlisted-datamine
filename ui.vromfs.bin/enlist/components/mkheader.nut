@@ -5,7 +5,7 @@ let { windowsInterval } = require("%enlSqGlob/ui/viewConst.nut")
 let { sceneHeaderText } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 
-let mkHeader = @(textLocId, closeButton, armyId = null, addToRight = null) {
+let mkHeader = @(textLocId, closeButton = null, armyId = null, addToRight = null) {
   size = [flex(), navHeight]
   flow = FLOW_HORIZONTAL
   gap = fsh(1)

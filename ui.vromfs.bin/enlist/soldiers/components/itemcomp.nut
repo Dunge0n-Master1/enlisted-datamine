@@ -3,13 +3,14 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
-let { unitSize, gap, bigGap, bigPadding, smallPadding, soldierWndWidth, fadedTxtColor,
-  defBgColor, defTxtColor, blockedBgColor, listCtors
+let { unitSize, gap, bigGap, bigPadding, smallPadding, fadedTxtColor,
+  selectedTxtColor, defTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-let listTxtColor = listCtors.txtColor
-let listBgColor = listCtors.bgColor
-let { statusIconCtor, statusIconLocked, statusBadgeWarning
-} = require("%enlSqGlob/ui/itemPkg.nut")
+let { defLockedSlotBgColor, hoverLockedSlotBgColor, darkTxtColor,
+  defSlotBgColor, hoverSlotBgColor, defItemBlur, modsBgColor
+} = require("%enlSqGlob/ui/designConst.nut")
+let { mkLockedBlock, mkEmptyItemSlotImg } = require("%enlist/soldiers/components/itemSlotComp.nut")
+let { statusIconCtor, statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { mkItemDemands } = require("%enlist/soldiers/model/mkItemDemands.nut")
 let { objInfoByGuid, getItemOwnerGuid, getSoldierItemSlots, getItemIndex,
   getDemandingSlots, getDemandingSlotsInfo, getEquippedItemGuid
@@ -25,39 +26,23 @@ let { itemTypeIcon } = require("%enlist/soldiers/components/itemTypesData.nut")
 let cursors = require("%ui/style/cursors.nut")
 let { unequipItem } = require("%enlist/soldiers/unequipItem.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
-let { mkItemUpgradeData } = require("%enlist/soldiers/model/mkItemModifyData.nut")
-let { mkAmmoSlot } = require("mkAmmo.nut")
+let { mkAmmoInfo } = require("mkAmmo.nut")
 let { getWeaponData } = require("%enlist/soldiers/model/collectWeaponData.nut")
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let { mkAlertIcon, ITEM_ALERT_SIGN } = require("%enlSqGlob/ui/soldiersUiComps.nut")
-
+let { previewHighlightColor } = require("%enlist/preset/presetEquipUi.nut")
 
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 160), picSaturate = 0.0 }
+let baseItemSize = [7 * unitSize, 2 * unitSize] // 320px is max
+let MAX_ICON_SIZE = unitSize * 7
 
-let defItemSize = [soldierWndWidth - bigPadding * 2, unitSize * 2]
+let listTxtColor = @(flags, selected = false)
+  (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
 
 let itemDragData = Watched()
-
-let smallMainColorText = function(text, sf, selected) {
-  let res = {
-    rendObj = ROBJ_TEXT
-    vplace = ALIGN_BOTTOM
-    color = listTxtColor(sf, selected)
-    text
-  }.__update(sub_txt)
-  if (!(selected || (sf & S_HOVER)))
-    res.__update({
-      fontFx = FFT_SHADOW
-      fontFxColor = 0xFF000000
-      fontFxFactor = hdpx(16)
-      fontFxOffsX = hdpx(1)
-      fontFxOffsY = hdpx(1)
-    })
-  return res
-}
 
 let amountText = @(count, sf, selected) {
   rendObj = ROBJ_SOLID
@@ -71,68 +56,180 @@ let amountText = @(count, sf, selected) {
   }.__update(sub_txt)
 }
 
-let defSlotnameCtor = @(slotType, _itemSize, isSelected, flags, group) slotType == null ? null : {
-  rendObj = ROBJ_TEXT
-  group = group
-  margin = smallPadding
-  hplace = ALIGN_RIGHT
-  color = listTxtColor(flags, isSelected)
-  text = loc($"inventory/{slotType}", "")
-  opacity = 0.5
-}.__update(tiny_txt)
+let defSlotnameCtor = function(slotType, group, selected) {
+  if (slotType == null)
+    return null
+  let text = loc($"inventory/{slotType}", "")
+  return watchElemState(@(sf) {
+      rendObj = ROBJ_TEXT
+      group
+      watch = selected
+      margin = smallPadding
+      hplace = ALIGN_LEFT
+      color = listTxtColor(sf, selected.value)
+      text
+      opacity = 0.5
+    }.__update(tiny_txt))
+}
 
-let nameBlockCtor = @(item, sf, selected, group, ammoBox = null) {
-  size = [flex(), SIZE_TO_CONTENT]
-  vplace = ALIGN_BOTTOM
-  valign = ALIGN_BOTTOM
-  padding = bigPadding
-  gap = hdpx(2)
-  flow = FLOW_HORIZONTAL
-  children = [
-    itemTypeIcon(item?.itemtype, item?.itemsubtype, { tint = listTxtColor(sf, selected) })
-    mkSpecialItemIcon(item)
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      clipChildren = true
-      children = {
-        size = [flex(), SIZE_TO_CONTENT]
-        group = group
-        behavior = Behaviors.Marquee
-        scrollOnHover = true
-        children = smallMainColorText(getItemName(item), sf, selected)
+let function mkTypeIcon(itemtype, itemsubtype) {
+  if (itemtype == null)
+    return null
+
+  let children = itemTypeIcon(itemtype, itemsubtype)
+  return children == null ? null
+    : {
+        size = [hdpx(30), hdpx(30)]
+        margin = smallPadding
+        halign = ALIGN_CENTER
+        valign = ALIGN_CENTER
+        vplace = ALIGN_BOTTOM
+        rendObj = ROBJ_VECTOR_CANVAS
+        commands = [[ VECTOR_ELLIPSE, 50, 50, 50, 50 ]]
+        fillColor = 0xFF000000
+        color = 0xFF000000
+        children
       }
-    }
-    ammoBox
+}
+
+let mkSlotName = @(text, isSelected, group) watchElemState(@(sf) {
+  watch = isSelected
+  group
+  size = [flex(), SIZE_TO_CONTENT]
+  clipChildren = true
+  children = {
+    behavior = Behaviors.Marquee
+    group
+    scrollOnHover = true
+    size = [flex(), SIZE_TO_CONTENT]
+    children = {
+      rendObj = ROBJ_TEXT
+      vplace = ALIGN_BOTTOM
+      color = listTxtColor(sf, isSelected.value)
+      text
+    }.__update(sub_txt)
+  }
+})
+
+let mkNameBlock = @(item, slotName) {
+  size =  [flex(), SIZE_TO_CONTENT]
+  flow = FLOW_VERTICAL
+  vplace = ALIGN_BOTTOM
+  children = [
+    detailsStatusTier(item)
+    slotName
   ]
 }
 
-let defItemCtor = function(
-  item, _slotType, itemSize, isSelected, flags, group, isAvailable = false, ammoBox = null) {
-  let isWide = (itemSize?[0] ?? 1) / (itemSize?[1] ?? 1) < 2
-  let iconParams = {
-    hplace = ALIGN_CENTER
-    vplace = ALIGN_CENTER
-    width = isWide
-      ? itemSize[0] - 2 * smallPadding
-      : itemSize[1] * 3 - 2 * bigPadding
-    height = isWide
-      ? itemSize[1] - 2 * smallPadding
-      : itemSize[1] - 2 * bigPadding
-  }.__update(isAvailable ? {} : DISABLED_ITEM)
-  let itemName = nameBlockCtor(item, flags, isSelected, group, ammoBox)
-  let itemIcon = iconByItem(item, iconParams)
-  return {
-    size = flex()
-    children = [
-      itemIcon
-      itemName
-    ]
-  }
+let defItemCtor = @(item, itemSize) iconByItem(item, {
+  vplace = ALIGN_TOP
+  hplace = ALIGN_CENTER
+  width  = min(MAX_ICON_SIZE, itemSize[0]) - 2 * smallPadding
+  height = itemSize[1] - 2 * smallPadding
+  margin = smallPadding
+})
+
+let gunLayoutParams = {
+  hplace = ALIGN_LEFT
+  pos    = [bigPadding * 3, 0]
 }
 
-let defAmountCtor = @(item, sf, selected) (item?.count ?? 1) > 1
-  ? amountText(item.count, sf, selected)
-  : null
+let smallItemLayoutParams = {
+  vplace = ALIGN_CENTER
+}
+
+let mkItemCount = @(count) count > 1 ? {
+  rendObj = ROBJ_BOX
+  fillColor = modsBgColor
+  padding = [0, bigPadding]
+  children = {
+    rendObj = ROBJ_TEXT
+    defTxtColor
+    text = loc("common/amountShort", { count })
+  }.__update(sub_txt)
+ } : null
+
+let itemSlotCtor = function(item, itemSize, itemCtor, group, isSelected, isAvailable,
+  slotName, slotType, soldierGuid, mods, status, needGunLayout, unseenSign) {
+
+  let weapData = getWeaponData(item?.gametemplate ?? "")
+  let needShowAmmo = weapData?["caliber"] != null || weapData?["bullets"] != null
+
+  let needSmallItemLayout = (needShowAmmo && !needGunLayout)
+  // icon is downscaled for guns with mods (mods != null) and pistols (needShowAmmo && !needGunLayout)
+  // needGunLayout flag is set to true for primary and secondary weapons
+  let scaledItemSize = needGunLayout || needSmallItemLayout ? itemSize.map(@(v) v*0.7) : itemSize
+  let itemIcon = itemCtor(item, scaledItemSize)
+  if (itemIcon != null) {
+    if (!isAvailable)
+      itemIcon.__update(DISABLED_ITEM)
+    if (needGunLayout)
+      itemIcon.__update(gunLayoutParams)
+    if (needSmallItemLayout)
+      itemIcon.__update(smallItemLayoutParams)
+  }
+
+  return watchElemState(function(sf) {
+    let color = (sf & S_HOVER) || isSelected.value ? darkTxtColor : defTxtColor
+    let ammoBox = needShowAmmo
+      ? mkAmmoInfo(item, soldierGuid, weapData, slotType, {
+          color
+          hplace = ALIGN_RIGHT
+          vplace = ALIGN_CENTER
+          padding = [smallPadding, bigPadding]
+        })
+      : null
+
+    return {
+      size = flex()
+      group
+      watch = isSelected
+      children = [
+        mkSpecialItemIcon(item, hdpxi(32))
+        itemIcon
+        {
+          flow = FLOW_VERTICAL
+          hplace = ALIGN_RIGHT
+          vplace = ALIGN_TOP
+          halign = ALIGN_RIGHT
+          children = [
+            {
+              flow = FLOW_HORIZONTAL
+              children = [
+                unseenSign
+                ammoBox
+              ]
+            }
+            {
+              vplace = ALIGN_RIGHT
+              padding = [0, bigPadding]
+              children = mods
+            }
+          ]
+        }
+        {
+          size =  [flex(), SIZE_TO_CONTENT]
+          vplace = ALIGN_BOTTOM
+          valign = ALIGN_BOTTOM
+          flow = FLOW_HORIZONTAL
+          padding = [smallPadding, bigPadding]
+          gap = smallPadding
+          children = [
+            needGunLayout ? mkTypeIcon(item?.itemtype, item?.itemsubtype) : null
+            mkNameBlock(item, slotName)
+            mkItemCount(item?.count ?? 1)
+          ]
+        }
+        {
+          vplace = ALIGN_BOTTOM
+          hplace = ALIGN_RIGHT
+          margin = smallPadding
+          children = status
+        }
+      ]
+    }
+  })
+}
 
 let canEquip = @(item, scheme) item != null && !(item?.isShopItem ?? false)
   && (scheme == null
@@ -314,7 +411,12 @@ let function makeToolTip(item, canDrag, isEquipped, canChange) {
   })
 }
 
-let defBgStyle = @(sf, selected) { rendObj = ROBJ_SOLID, color = listBgColor(sf, selected) }
+let defBgStyle = @(sf, isSelected, bgColor) {
+  rendObj = ROBJ_WORLD_BLUR
+  fillColor = isSelected || (sf & S_HOVER) ? hoverSlotBgColor : bgColor
+  color = isSelected ? hoverSlotBgColor : defItemBlur
+}
+
 let function defIconCtor(item, soldierWatch) {
   let demandsWatch = mkItemDemands(item)
   return @() {
@@ -323,58 +425,54 @@ let function defIconCtor(item, soldierWatch) {
   }
 }
 
-let itemCountRarity = @(item, flags, isSelected) {
-  flow = FLOW_HORIZONTAL
-  hplace = ALIGN_RIGHT
-  vplace = ALIGN_TOP
-  valign = ALIGN_CENTER
-  children = [
-    detailsStatusTier(item)
-    defAmountCtor(item, flags, isSelected)
-  ]
-}
-
 let mkUnseenSign = @(hasUnseenSign) mkAlertIcon(ITEM_ALERT_SIGN, hasUnseenSign)
 
-let mkUpgradableSign = @(sf, selected) faComp("gear", {
-  size = [hdpx(20), hdpx(20)]
-  halign = ALIGN_CENTER
-  valign = ALIGN_CENTER
-  fontSize = hdpx(15)
-  color = listTxtColor(sf, selected)
-})
-
-let newSign = {
-  rendObj = ROBJ_TEXT
-  hplace = ALIGN_RIGHT
-  padding = [0, smallPadding]
-  color = Color(255,255,100)
-  text = loc("item/recentlyReceived")
-  animations = [{
-    prop = AnimProp.opacity, from = 0.5, to = 1, duration = 1,
-    play = true, loop = true, easing = Blink
-  }]
-}.__update(sub_txt)
-
-let mkSigns = @(upgradeData, sf, selected, isNew) @() {
-  watch = upgradeData
-  flow = FLOW_HORIZONTAL
-  hplace = ALIGN_RIGHT
-  size = [SIZE_TO_CONTENT, flex()]
+let defEmptyItemCtor = @(slotName, emptyItemImg, unseenSign) {
+  size = flex()
   children = [
-    upgradeData.value.isUpgradable ? mkUpgradableSign(sf, selected) : null
-    isNew ? newSign : null
+    slotName
+    emptyItemImg
+    unseenSign
   ]
 }
 
-local function mkItem(slotId = null, item = null, slotType = null, itemSize = defItemSize,
-  emptySlotChildren = defSlotnameCtor, scheme = null, itemCtor = defItemCtor,
+let lockedSlotCtor = @(children, group, isLocked, hasWarningSign) watchElemState(@(sf) {
+  size = flex()
+  group
+  children = [
+    mkLockedBlock(sf & S_HOVER ? hoverLockedSlotBgColor : defLockedSlotBgColor)
+    {
+      size = flex()
+      children = [
+        !isLocked ? null : {
+          rendObj = ROBJ_TEXT
+          vplace = ALIGN_BOTTOM
+          hplace = ALIGN_RIGHT
+          padding = smallPadding
+          color = listTxtColor(sf)
+          text = loc("slot/locked")
+          opacity = 0.5
+        }.__update(tiny_txt)
+        hasWarningSign ? statusBadgeWarning : null
+        {
+          flow = FLOW_HORIZONTAL
+          hplace = ALIGN_LEFT
+          children
+        }
+      ]
+    }
+  ]
+})
+
+local function mkItem(slotId = null, item = null, slotType = null, itemSize = baseItemSize,
+  emptySlotName = defSlotnameCtor, scheme = null, itemCtor = defItemCtor,
   onDropExceptionCb = null, statusCtor = defIconCtor, soldierGuid = null, isInteractive = true,
   isDisabled = false, canDrag = true, bgStyle = defBgStyle, selectedKey = Watched(null),
-  selectKey = null, isXmb = false, bgColor = defBgColor, pauseTooltip = Watched(false),
+  selectKey = null, isXmb = false, bgColor = defSlotBgColor, pauseTooltip = Watched(false),
   onClickCb = null, onHoverCb = null, isLocked = false, onDoubleClickCb = null,
-  onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isNew = false,
-  isAvailable = null, hideStatus = false, hasWarningSign = false
+  onResearchClickCb = null, mods = null, hasUnseenSign = Watched(false), isAvailable = null,
+  hideStatus = false, hasWarningSign = false, needItemName = true, needGunLayout = false,
+  slotImg = null, previewState = null
 ) {
   if (isDisabled)
     isInteractive = false
@@ -384,15 +482,11 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
     item = objInfoByGuid.value?[item]
   let itemDesc = { item, slotType, soldierGuid, slotId, scheme }
 
-  let weapData = getWeaponData(item?.gametemplate ?? "")
-  let needShowAmmo = weapData?["caliber"] != null || weapData?["bullets"] != null
-  let ammoBox = needShowAmmo ? mkAmmoSlot(item, soldierGuid, weapData, slotType) : null
-
   let stateFlags = Watched(0)
   selectKey = selectKey ?? (item != null
     ? (item?.isShopItem ? item?.basetpl : item?.guid)
     : "_".concat(soldierGuid, slotType ?? "", slotId ?? ""))
-  let group = ElemGroup()
+  let group = isInteractive ? ElemGroup() : null
   let dropData = { item, slotType, slotId, scheme }
   let isDraggable = item != null && canDrag
   let hasDropExceptionCb = onDropExceptionCb != null
@@ -408,85 +502,49 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
     return canEquipBothItems(data)
   }
   let canDropWithExceptionCB = @(data) canDrop(data) || (hasDropExceptionCb && data != null)
-  let { isShowDebugOnly = false } = item
+  let iconSize = (itemSize[1] * 0.5).tointeger()
 
-  return function() {
-    let flags = stateFlags.value
-    let isSelected = selectedKey.value == selectKey
-    let upgradeData = mkItemUpgradeData(item)
-    isAvailable = isAvailable ?? ((item?.guid ?? "") != "")
-    let children = isAvailable
-      ? [
-          itemCtor(item, slotType, itemSize, isSelected, flags, group, true, ammoBox)
-          {
-            flow = FLOW_HORIZONTAL
-            halign = ALIGN_RIGHT
-            size = flex()
-            children = [
-              mkSigns(upgradeData, flags, isSelected, isNew)
-              itemCountRarity(item, flags, isSelected)
-              hideStatus ? null : statusCtor(item, soldier)
-              mkUnseenSign(hasUnseenSign)
-            ]
-          }
-          mods
-          hasWarningSign ? statusBadgeWarning : null
-        ]
-      : item != null ? [
-          itemCtor(item, slotType, itemSize, isSelected, flags, group)
-          {
-            hplace = ALIGN_RIGHT
-            vplace = ALIGN_TOP
-            children = detailsStatusTier(item)
-          }
-          {
-            flow = FLOW_HORIZONTAL
-            children = [
-              hideStatus ? null : statusCtor(item, soldier)
-              mkUnseenSign(hasUnseenSign)
-            ]
-          }
-          hasWarningSign ? statusBadgeWarning : null
-        ]
-      : {
-          size = flex()
-          children = [
-            !isLocked ? null : statusIconLocked.__update({ margin = smallPadding })
-            !isLocked ? null : {
-              rendObj = ROBJ_TEXT
-              vplace = ALIGN_BOTTOM
-              padding = bigPadding
-              color = listTxtColor(flags, isSelected)
-              text = loc("slot/locked")
-              opacity = 0.5
-            }.__update(tiny_txt)
-            hasWarningSign ? statusBadgeWarning : null
-            {
-              flow = FLOW_HORIZONTAL
-              hplace = ALIGN_RIGHT
-              children = [
-                emptySlotChildren(slotType, itemSize, isSelected, flags, group)
-                mkUnseenSign(hasUnseenSign)
-              ]
-            }
-          ]
-        }
-    return {
-      watch = [stateFlags, selectedKey, itemDragData, objInfoByGuid]
+  let isSelected = Computed(@() selectedKey.value == selectKey)
+  isAvailable = isAvailable ?? ((item?.guid ?? "") != "")
+
+  let slotName = needItemName && item != null
+    ? mkSlotName(getItemName(item), isSelected, group)
+    : emptySlotName(slotType, group, isSelected)
+
+  let status = hideStatus ? null : statusCtor(item, soldier)
+  let unseenSign = mkUnseenSign(hasUnseenSign)
+
+  let itemObj = (isAvailable || item != null)
+  ? itemSlotCtor(item, itemSize, itemCtor, group, isSelected, isAvailable, slotName, slotType,
+      soldierGuid, mods, status, needGunLayout, unseenSign)
+  : isDisabled || isLocked
+    ? lockedSlotCtor(slotName, group, isLocked, hasWarningSign)
+    : defEmptyItemCtor(slotName, mkEmptyItemSlotImg(slotImg, iconSize, group, isSelected), unseenSign)
+
+  let override = {}
+  if (isXmb)
+    override.xmbNode <- XmbNode()
+  if (isDraggable)
+    override.cursor <- cursors.draggable
+
+  return @() {
+      watch = [stateFlags, isSelected, itemDragData, objInfoByGuid]
       stopMouse = true
-      size = SIZE_TO_CONTENT
-      rendObj = ROBJ_BOX
-      fillColor = isShowDebugOnly ? 0xFF003366
-        : isDisabled ? fadedTxtColor
-        : isLocked ? blockedBgColor
-        : bgColor
-      borderWidth = !isLocked && canDrop(itemDragData.value) ? 1 : 0
+      size = flex()
       children = {
-        size = itemSize
+        size = flex()
         eventPassThrough = isDraggable
         transform = {}
         behavior = isInteractive ? Behaviors.DragAndDrop : Behaviors.Button
-        group = group
+        group
+        children = {
+          rendObj = ROBJ_FRAME
+          size = flex()
+          borderWidth = previewState == null ? null : hdpx(2)
+          color = previewHighlightColor(previewState)
+          children = itemObj
+        }
+        clipChildren = true
         function onDragMode(on, data) {
           if (on)
             sound_play("ui/inventory_item_take")
@@ -526,18 +584,12 @@ local function mkItem(slotId = null, item = null, slotType = null, itemSize = de
         }
         dropData = isDraggable ? dropData : null
         canDrop = canDropWithExceptionCB
-        children = children
-        clipChildren = true
         onElemState = isInteractive ? (@(sf) stateFlags(sf)) : null
-      }.__update(bgStyle(flags, isSelected),
-        isXmb ? { xmbNode = XmbNode() } : {},
-        isDraggable ? { cursor = cursors.draggable } : {})
+      }.__update(bgStyle(stateFlags.value, isSelected.value, bgColor), override)
     }
-  }
 }
 
 return {
   mkItem = kwarg(mkItem)
   amountText
-  smallMainColorText
 }

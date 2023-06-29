@@ -56,7 +56,7 @@ let function mkItemCostInfo(price, fullPrice, currencyId) {
         currency
         price
         fullPrice
-        iconSize = hdpx(20)
+        iconSize = hdpxi(20)
       })
     ]
   }

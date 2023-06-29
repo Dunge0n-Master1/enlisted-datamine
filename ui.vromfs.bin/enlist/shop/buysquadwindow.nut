@@ -3,9 +3,9 @@ from "%enlSqGlob/ui_library.nut" import *
 let faComp = require("%ui/components/faComp.nut")
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  smallOffset, bigPadding, smallPadding, activeTxtColor, discountBgColor
+  smallOffset, bigPadding, smallPadding, activeTxtColor
 } = require("%enlSqGlob/ui/viewConst.nut")
-
+let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { addScene, removeScene } = require("%enlist/navState.nut")
 let { navHeight } = require("%enlist/mainMenu/mainmenu.style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
@@ -139,7 +139,7 @@ let function mkButtonsBlock(viewOptions, rentOptions) {
         ]
       }, primeFlagStyle.__merge({
         offset = 0
-        flagColor = discountBgColor
+        flagColor = brightAccentColor
       }))
 
   let summary = mkPrice({

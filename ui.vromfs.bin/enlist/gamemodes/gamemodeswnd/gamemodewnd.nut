@@ -46,6 +46,11 @@ let fbImageByCampaign = {
   normandy = "ui/launcher_normandy_bg_2.avif"
 }
 
+let btnSound = freeze({
+  hover = "ui/enlist/button_highlight"
+  click = "ui/enlist/button_click"
+  active = "ui/enlist/button_action"
+})
 let scrollStyle = styling.__merge({ Bar = styling.Bar(false) })
 
 
@@ -195,6 +200,7 @@ let function mkCustomGameButton(modeCfg, hasSeen, animations) {
     xmbNode = XmbNode()
     animations
     behavior = Behaviors.Button
+    sound = btnSound
     onClick
     function onHover(on) {
       hasCrossplayDesc(on && needShowCrossnetworkPlayIcon
@@ -241,6 +247,7 @@ let mkTutorialsButton = @(unseenSign, defaultFbImage, defTutorialParams) watchEl
     xmbNode = XmbNode()
     animations = mkAnimations(0, 1)
     behavior = Behaviors.Button
+    sound = btnSound
     onClick = @() isTutorialsWndOpened(true)
     children = [
       mkImage(image, defaultFbImage.value, isAvailable, sf)
@@ -373,6 +380,7 @@ let function mkGameModeButton(gameMode, idx, hasSeen, defaultFbImage) {
           move_mouse_cursor(id, false)
       }
       behavior = Behaviors.Button
+      sound = btnSound
       onClick = @() gameModeOnClickAction(gameMode)
       xmbNode
       key = id
@@ -473,7 +481,7 @@ let function mkGameModesList(defaultFbImage, defTutorialParams, customGameMode) 
             size = flex()
             scrollHandler = tblScrollHandler
             styling = scrollStyle
-            rootBase = class {
+            rootBase = {
               key = "gameModesUnlocksRoot"
               behavior = Behaviors.Pannable
               wheelStep = 0.82
@@ -563,6 +571,7 @@ let mkChangeGameModeBody = function() {
   return {
     size = flex()
     behavior = Behaviors.Button
+    sound = btnSound
     onClick = @() null
     children = [
       title

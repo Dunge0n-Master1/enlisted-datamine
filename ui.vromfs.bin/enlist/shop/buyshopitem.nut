@@ -39,6 +39,9 @@ let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { titleTxtColor, attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
 let faComp = require("%ui/components/faComp.nut")
+let { mkStatList } = require("%enlist/soldiers/components/perksPackage.nut")
+let sClassesCfg = require("%enlist/soldiers/model/config/sClassesConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(sub_txt)
@@ -354,7 +357,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
     && discountState.value == DISCOUNT_STATE.ENDED)
 
   let hasSquads = (shopItem?.squads.len() ?? 0) > 0
-  let isSoldier = (shopItemContentCtor(shopItem)?.value.content.soldierClasses.len() ?? 0) > 0
+  let contentCtor = shopItemContentCtor(shopItem)
+  let shopItemContent = contentCtor?.value?.content
+  let isSoldier = (shopItemContent?.soldierClasses.len() ?? 0) > 0
   local title = isSoldier ? titleLocalization("shop/wantPurchaseSoldier", shopItem)
     : !hasSquads ? titleLocalization("shop/wantPurchaseMsg", shopItem)
     : shopItem?.nameLocId ? loc(shopItem.nameLocId)
@@ -382,13 +387,15 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         sound_play("ui/purchase_additional_squad")
     }
 
-  let msgBoxContent = function(){
+  let msgBoxContent = function() {
     local barterPriceView = null
     local buyPriceView = null
+    let statsList = !isSoldier ? null : mkStatList(shopItemContent, sClassesCfg.value)
     let msgBody = [
       limitTextBlock(limit, guid)
       isNotSuitable ? mkAlertObject(loc("shop/unsuitableForSoldier")) : null
       productView ?? mkDescription(shopItem?.descLocId)
+      statsList == null ? null : statsList
       typeof description == "string" ? mkItemDescription(description) : description
     ]
 
@@ -425,7 +432,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         currency
         price = price.value
         fullPrice = fullPrice.value
-        iconSize = hdpx(20)
+        iconSize = hdpxi(20)
       })
       if ((currenciesBalance.value?[currencyId] ?? 0) < price.value)
         notEnoughCurrencyInfo = notEnoughMoneyInfo(price.value, currencyId)
@@ -433,9 +440,10 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
 
     msgBody.append(mkAllPricesView(barterPriceView, buyPriceView), notEnoughCurrencyInfo,
       mkDiscountInfo(discountState.value))
-
+    let watch = [price, fullPrice, currenciesBalance, barterInfo, hasBuy,
+      discountState, contentCtor]
     return {
-      watch = [ price, fullPrice, currenciesBalance, barterInfo, hasBuy, discountState ]
+      watch
       size = [fsh(80), SIZE_TO_CONTENT]
       margin = [defGap, 0, 0, 0]
       flow = FLOW_VERTICAL
@@ -512,6 +520,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         btns.append({
           text = loc("btn/gotoReferralLink")
           action = @() openUrl(referralLink, false, true)
+          customStyle = { hotkeys = [[ "^J:Y | Enter | Space" ]] }
         })
       }
     if (hasBuy.value && !hasOfferExpired.value) {
@@ -536,9 +545,10 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
                 sf,
                 countVal,
                 shopItemPriceInc)
-              params = h2_txt
+              params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
+            hotkeys = [[ "^J:X" ]]
           }.__update(purchaseButtonStyle)
         })
       else
@@ -546,9 +556,10 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
               textComp = buyCurrencyText(currency, sf)
-              params = h2_txt
+              params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
+            hotkeys = [[ "^J:X" ]]
           },
           action = function() {
             purchaseCurrency()
@@ -564,11 +575,15 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         btns.append({
           text = loc("btn/gotoBattlepass")
           action = @() openBPwindow(rewardIdx)
+          customStyle = { hotkeys = [[ "^J:X" ]] }
         })
       }
     }
 
-    btns.append({ text = loc("Cancel") })
+    btns.append({
+      text = loc("Cancel")
+      customStyle = { hotkeys = [[$"^{JB.B}" ]] }
+    })
 
     if (viewBtnCb)
       btns.append({

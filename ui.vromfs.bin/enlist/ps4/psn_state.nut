@@ -1,19 +1,24 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let {globalWatched} = require("%dngscripts/globalState.nut")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
-let {psnUids, psnUidsUpdate} = globalWatched("psnUids", @() {
+let psnUids = nestWatched("psnUids", {
   uid2psn = {}
   psn2uid = {}
 })
-
+let psnUidsUpdate = @(v) psnUids.update(v)
 let uid2psn = Computed(@() psnUids.value.uid2psn)
 let psn2uid = Computed(@() psnUids.value.psn2uid)
-let {psn_friends, psn_friendsUpdate} = globalWatched("psn_friends", @() [])
-let {psn_blocked_users, psn_blocked_usersUpdate} = globalWatched("psn_blocked_users", @() [])
-let {psn_invitation_data, psn_invitation_dataUpdate} = globalWatched("psn_invitation_data", @() null)
-let {psn_was_logged_out, psn_was_logged_outUpdate} = globalWatched("psn_was_logged_out", @() false)
-let {psn_game_intent, psn_game_intentUpdate} = globalWatched("psn_game_intent", @() null)
+let psn_friends = nestWatched("psn_friends", [])
+let psn_friendsUpdate = @(v) psn_friends.update(v)
+let psn_blocked_users = nestWatched("psn_blocked_users", [])
+let psn_blocked_usersUpdate = @(v) psn_blocked_users.update(v)
+let psn_invitation_data = nestWatched("psn_invitation_data",  null)
+let psn_invitation_dataUpdate = @(v) psn_invitation_data(v)
+let psn_was_logged_out = nestWatched("psn_was_logged_out", false)
+let psn_was_logged_outUpdate = @(v) psn_was_logged_out(v)
+let psn_game_intent = nestWatched("psn_game_intent", null)
+let psn_game_intentUpdate = @(v) psn_game_intent(v)
 
 return {
   psn_friends

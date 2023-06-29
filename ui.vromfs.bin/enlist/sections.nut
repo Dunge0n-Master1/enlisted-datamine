@@ -7,7 +7,6 @@ let { buildResearchesUi } = require("researches/mkResearchesUi.nut")
 let { mkMainSceneContent } = require("%enlist/mainScene/mainScene.nut")
 
 let armyProgressScene = require("%enlist/soldiers/armyProgressScene.nut")
-let { mkNotifierBlink, mkNotifierNoBlink } = require("%enlist/components/mkNotifier.nut")
 let {
   setSectionsSorted, curSection, mainSectionId
 } = require("%enlist/mainMenu/sectionsState.nut")
@@ -16,7 +15,7 @@ let {
 } = require("researches/unseenResearches.nut")
 let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let {
-  curUnseenAvailShopGuids, hasUnseenCurrencies, isShopVisible, hasShopSection,
+  curUnseenAvailShopGuids, isShopVisible, hasShopSection,
   curArmyShopItems, notOpenedShopItems
 } = require("shop/armyShopState.nut")
 let { nextTutorialUnlock, showGetUnlockTutorial
@@ -32,39 +31,29 @@ let { markShopItemOpened } = require("%enlist/shop/unseenShopItems.nut")
 let { seenArmyProgress, markOpened } = require("%enlist/soldiers/model/unseenArmyProgress.nut")
 let { mkDiscountBar } = require("%enlist/shop/shopPackage.nut")
 let { chapterIdx } = require("%enlist/shop/shopState.nut")
-let { titleTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { titleTxtColor, darkTxtColor, brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
+let { unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 
-let primeColor = Color(146, 10, 1)
 
-
-let defTxtStyle = { color = titleTxtColor }.__update(fontXSmall)
-
-let notifierStyle = {
-  size = [flex(), SIZE_TO_CONTENT]
+let alertSign = {
+  pos = [hdpx(10), -hdpx(2)]
+  children = unblinkUnseen
 }
 
-let notifierTextStyle = {
-  size = [flex(), SIZE_TO_CONTENT]
-  behavior = Behaviors.Marquee
-  rendObj = ROBJ_TEXT
-}.__update(defTxtStyle)
 
 let function researchesAlertUi() {
-  let { hasUnseen = false, hasUnopened = false } = curUnseenResearches.value
-  let mkNotifier = hasUnopened ? mkNotifierBlink : mkNotifierNoBlink
+  let { hasUnseen = false } = curUnseenResearches.value
   return {
     watch = curUnseenResearches
     size = [flex(), SIZE_TO_CONTENT]
     pos = [0, hdpx(5)]
-    hplace = ALIGN_CENTER
-    vplace = ALIGN_TOP
-    children = !hasUnseen ? null
-      : mkNotifier(loc("hint/newResearchesAvailable"), notifierStyle, {}, notifierTextStyle)
+    margin = hdpx(11)
+    halign = ALIGN_RIGHT
+    children = hasUnseen ? alertSign : null
   }
 }
 
-let hasUnseenShopItems = Computed(@() hasUnseenCurrencies.value
-  || curUnseenAvailShopGuids.value.len() > 0)
+let hasUnseenShopItems = Computed(@() curUnseenAvailShopGuids.value.len() > 0)
 
 let maxCurArmyDiscount = Computed(function() {
   let lvl = curArmyData.value?.level ?? 0
@@ -86,40 +75,26 @@ let hasShopAlert = Computed(@() hasShopSection.value
   && (maxCurArmyDiscount.value > 0 || hasUnseenShopItems.value))
 
 let isShopOpen = Computed(@() curSection.value == "SHOP")
-
-
-let discountBg = { color = primeColor }
-
 let watchShopAlert = freeze([isShopOpen, hasShopAlert, maxCurArmyDiscount, haveSpecialOfferArmy])
 
-let function shopAlertUi() {
+let mkShopAlertUi = @(sf) function() {
   if (!hasShopAlert.value)
     return { watch = watchShopAlert }
 
   let percents = maxCurArmyDiscount.value
-  if (percents > 0)
-    return {
-      children = mkDiscountBar({
-        rendObj = ROBJ_TEXT
-        text = $"-{percents}%"
-        color = Color(0,0,0)
-      })
-      watch = watchShopAlert
-      hplace = ALIGN_RIGHT
-      vplace = ALIGN_BOTTOM
-      pos = [0, hdpx(5)]
-    }
-
-  let ctor = isShopOpen.value ? mkNotifierNoBlink : mkNotifierBlink
   return {
     watch = watchShopAlert
     size = [flex(), SIZE_TO_CONTENT]
     pos = [0, hdpx(5)]
-    hplace = ALIGN_CENTER
-    vplace = ALIGN_TOP
-    children = haveSpecialOfferArmy.value
-      ? ctor(loc("specialOfferShort"), notifierStyle, discountBg, notifierTextStyle)
-      : ctor(loc("hint/newShopItemsAvailable"), notifierStyle, {}, notifierTextStyle)
+    margin = hdpx(11)
+    halign = ALIGN_RIGHT
+    children = percents > 0
+        ? mkDiscountBar({
+            rendObj = ROBJ_TEXT
+            text = $"-{percents}%"
+            color = sf & S_HOVER ? titleTxtColor : darkTxtColor
+          }.__update(fontXSmall), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+      : alertSign
   }
 }
 
@@ -135,28 +110,49 @@ let hasUnopenedArmyProgress = Computed(@() hasCampaignSection.value
 
 
 const CAMPAIGN_PROGRESS = "CAMPAIGN"
-let campaignWatched = [curSection, hasLevelDiscount, curLevelDiscount,
-        hasUnseenArmyProgress, hasUnopenedArmyProgress]
+let campaignWatched = [
+  curSection, hasLevelDiscount, curLevelDiscount, hasUnseenArmyProgress, hasUnopenedArmyProgress
+]
+
+let notifierSize = [hdpx(29).tointeger(), hdpx(17).tointeger()]
+
+let campaignNotifier = {
+  size = notifierSize
+  hplace = ALIGN_RIGHT
+  rendObj = ROBJ_IMAGE
+  image = Picture("ui/skin#info/progress_notifier.svg:{0}:{1}:K"
+    .subst(notifierSize[0], notifierSize[1]))
+}
+let blinkCampaignNotifier = {
+  animations = [{ prop = AnimProp.opacity, from = 0.5, to = 1, duration = 1,
+    play = true, loop = true, easing = Blink }]
+}.__update(campaignNotifier)
+
 let campaignTabData = {
   locId = "menu/progress"
   descId = "menu/campaignRewardsDesc"
-  content = armyProgressScene
+  getContent = @() armyProgressScene
   id = CAMPAIGN_PROGRESS
   camera = "researches"
-  addChild = function() {
-    let mkNotifier = curSection.value != CAMPAIGN_PROGRESS && hasUnopenedArmyProgress.value
-      ? mkNotifierBlink
-      : mkNotifierNoBlink
+  mkChild = @(sf) function() {
+    let notifier = curSection.value != CAMPAIGN_PROGRESS && hasUnopenedArmyProgress.value
+      ? blinkCampaignNotifier
+      : campaignNotifier
     return {
       watch = campaignWatched
       size = [flex(), SIZE_TO_CONTENT]
       pos = [0, hdpx(5)]
-      hplace = ALIGN_CENTER
-      vplace = ALIGN_TOP
+      margin = hdpx(11)
+      halign = ALIGN_RIGHT
       children = hasLevelDiscount.value
-          ? mkNotifier(loc("shop/discount", { percents = curLevelDiscount.value }), {}, discountBg)
-        : hasUnseenArmyProgress.value
-          ? mkNotifier(loc("hint/takeReward"), notifierStyle, {}, notifierTextStyle)
+          ? mkDiscountBar({
+              rendObj = ROBJ_TEXT
+              text = $"-{curLevelDiscount.value}%"
+              color = sf & S_HOVER ? titleTxtColor : darkTxtColor
+            }.__update(fontXSmall), true, sf & S_HOVER ? darkTxtColor : brightAccentColor)
+        : hasUnseenArmyProgress.value ? notifier.__merge({
+            color = sf & S_HOVER ? darkTxtColor : brightAccentColor
+          })
         : null
     }
   }
@@ -178,7 +174,6 @@ let campaignTabData = {
     return true
   }
 }
-
 
 
 let sections = [
@@ -219,7 +214,7 @@ let sections = [
     getContent = buildShopUi
     id = "SHOP"
     camera = "researches"
-    addChild = shopAlertUi
+    mkChild = mkShopAlertUi
     onBackCb = function() {
       if (chapterIdx.value >= 0) {
         chapterIdx(-1)

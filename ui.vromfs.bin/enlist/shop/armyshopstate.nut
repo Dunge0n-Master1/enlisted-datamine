@@ -366,34 +366,6 @@ let viewArmyCurrency = Computed(function() {
     || !(allItemTemplates.value?[armyId][tpl].isZeroHidden ?? true))
 })
 
-let lastShopCurrencies = mkWatched(persist, "lastCurrencyCount", {})
-
-let function updateLastCurrencies(campaignId, curValues, forceUpdate = false) {
-  if (campaignId == null)
-    return
-  local isUpdated = false
-  let allLastCur = lastShopCurrencies.value
-  let campCur = allLastCur?[campaignId] ?? {}
-  foreach (curTpl, curCount in curValues)
-    if (curTpl not in campCur || forceUpdate) {
-      isUpdated = true
-      campCur[curTpl] <- curCount
-    }
-  if (isUpdated) {
-    allLastCur[campaignId] <- campCur
-    lastShopCurrencies(allLastCur)
-  }
-}
-
-viewArmyCurrency.subscribe(@(curValues) updateLastCurrencies(curCampaign.value, curValues))
-updateLastCurrencies(curCampaign.value, viewArmyCurrency.value)
-
-let hasUnseenCurrencies = Computed(function() {
-  let curList = lastShopCurrencies.value?[curCampaign.value] ?? {}
-  return curList.findvalue(@(count, tpl) count < (viewArmyCurrency.value?[tpl] ?? 0)) != null
-})
-
-let seenCurrencies = @() updateLastCurrencies(curCampaign.value, viewArmyCurrency.value, true)
 
 let function getBuyRequirementError(shopItem) {
   let requirements = shopItem?.requirements
@@ -478,7 +450,6 @@ let function barterShopItem(shopItem, payData, count = 1) {
     purchaseInProgress(null)
     removeCrateContent(shopItem?.crates ?? [])
     shopOrdersUsedActivate()
-    seenCurrencies()
   })
 }
 
@@ -776,7 +747,6 @@ return {
   isAvailableByLimit
   curUnseenAvailShopGuids
   premiumProducts
-  hasUnseenCurrencies
   shopItemContentCtor
   shopItemContentArrayCtor
   isShopVisible

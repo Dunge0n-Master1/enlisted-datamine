@@ -2,10 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt, fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
-let { smallPadding, activeBgColor, defBgColor, selectedTxtColor,
-  defTxtColor, spawnNotReadyColor, multySquadPanelSize, blinkingSignalsGreenDark
+let {
+  spawnNotReadyColor, multySquadPanelSize, blinkingSignalsGreenDark
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { smallPadding, darkTxtColor, defTxtColor, hoverSlotBgColor, panelBgColor, accentColor } = require("%enlSqGlob/ui/designConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { soldierKinds } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
@@ -13,10 +13,10 @@ let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 
 
-let txtColor = @(flags, selected = false)
-  selected || (flags & S_HOVER) ? selectedTxtColor : defTxtColor
+let txtColor = @(flags, _selected=false)
+  (flags & S_HOVER) ? darkTxtColor : defTxtColor
 
-const ICON_SCALE = 0.85
+const ICON_SCALE = 0.67
 const defaultSquadIcon = "!ui/uiskin/squad_default.svg"
 
 let squadTypeIconSize = hdpxi(30)
@@ -97,43 +97,37 @@ local function mkSquadIcon(img, override = {}) {
   }.__update(override)
 }
 
+let selectedColor = mul_color(panelBgColor, 1.5)
 let squadBgColor = @(sf, selected, hasAlertStyle = false)
-  selected
-    ? activeBgColor
-    : sf & S_HOVER
-      ? hoverSlotBgColor
-      : hasAlertStyle ? Color(30,0,0,150) : defBgColor
+  sf & S_HOVER
+    ? hoverSlotBgColor
+    : selected
+      ? selectedColor
+      : hasAlertStyle ? Color(30,0,0,150) : panelBgColor
 
 
-let blockActiveBgColor = mul_color(activeBgColor, 0.5)
-let squadBlockBgColor = @(sf, isSelected)
-  isSelected
-    ? blockActiveBgColor
-    : sf & S_HOVER
-      ? hoverSlotBgColor
-      : defBgColor
-
-let mkCardText = @(t, sf, selected) txt({
+let mkCardText = @(t, sf, _selected=false) txt({
   text = t
-  color = txtColor(sf, selected)
+  color = txtColor(sf)
 })
 
-let mkSquadTypeIcon = @(squadType, sf, selected, iconSize = squadTypeIconSize) {
+let squadTypeIcon = @(squadType, iconSize = squadTypeIconSize, override = {}) {
+  size = [iconSize, iconSize]
+  rendObj = ROBJ_IMAGE
+  image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
+  keepAspect = KEEP_ASPECT_FIT
+}.__update(override)
+
+let mkSquadTypeIcon = @(squadType, sf, _selected, iconSize = squadTypeIconSize) {
   padding = [0, smallPadding]
-  children = {
-    size = [iconSize, iconSize]
-    rendObj = ROBJ_IMAGE
-    image = Picture("{0}:{1}:{1}:K".subst(getSquadTypeIcon(squadType), iconSize))
-    keepAspect = KEEP_ASPECT_FIT
-    color = txtColor(sf, selected)
-  }
+  children = squadTypeIcon(squadType, iconSize, { color = txtColor(sf) })
 }
 
-let mkActiveBlock = @(sf, selected, content) {
-  rendObj = ROBJ_SOLID
+let mkActiveBlock = @(_sf, _selected, content) {
+//  rendObj = ROBJ_SOLID
   size = SIZE_TO_CONTENT
   flow = FLOW_HORIZONTAL
-  color = squadBlockBgColor(sf, selected)
+//  color = squadBlockBgColor(sf, selected)
   children = content
 }
 
@@ -149,8 +143,8 @@ let mkSquadUnits = @(amount, squadType, sf, selected, addedRightObj, mkChild = n
       })
     mkActiveBlock(sf, selected,
       [
-        mkCardText(amount, sf, selected)
-        mkCardText(fa["user-o"], sf, selected).__update({
+        mkCardText(amount, sf)
+        mkCardText(fa["user-o"], sf).__update({
           rendObj = ROBJ_INSCRIPTION
           font = fontawesome.font
           fontSize = hdpx(12)
@@ -167,7 +161,7 @@ let mkSquadUnits = @(amount, squadType, sf, selected, addedRightObj, mkChild = n
 
 let mkSquadLevel = @(level, sf, selected) level == null ? null
   : mkActiveBlock(sf, selected,
-      mkCardText(loc("level/short", { level = level + 1 }), sf, selected)
+      mkCardText(loc("level/short", { level = level + 1 }), sf)
         .__update({ margin = smallPadding }))
 
 let function mkSquadPremIcon(premIcon, override = null) {
@@ -210,17 +204,18 @@ let squadTimer = {
   color = blinkingSignalsGreenDark
 }
 
+let selMarker = freeze({size = [flex(),hdpx(2)], rendObj = ROBJ_SOLID, color = accentColor, vplace = ALIGN_BOTTOM, pos = [0, hdpx(2)]})
+
 let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
   squadType = null, squadSize = null, level = null, isFaded = false,
   premIcon = null, onClick = null, addedRightObj = null, mkChild = null,
   expireTime = 0, onDoubleClick = null, onHover=null
 ) {
   let stateFlags = Watched(0)
-  let selected = isSelected.value
   icon = (icon ?? "").len() > 0 ? icon : defaultSquadIcon
-
   return function() {
     let sf = stateFlags.value
+    let selected = isSelected.value
     let topRightChilds = expireTime == 0 ? addChild
       : {
           flow = FLOW_HORIZONTAL
@@ -232,18 +227,25 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
         }
 
     return {
-      rendObj = ROBJ_SOLID
+      rendObj = ROBJ_BOX
       size = multySquadPanelSize
-      color = squadBgColor(sf, selected)
+      fillColor = squadBgColor(sf, selected)
+      borderWidth = selected ? hdpx(2) : 0
+      borderColor = accentColor
       key = idx
       behavior = Behaviors.Button
+      sound = {
+        hover = "ui/enlist/button_highlight"
+        click = "ui/enlist/button_click"
+        active = "ui/enlist/button_action"
+      }
       onHover
       xmbNode = XmbNode()
       opacity = isFaded ? 0.7 : 1.0
       onElemState = @(nsf) stateFlags(nsf)
       onClick
       onDoubleClick
-      watch = stateFlags
+      watch = [stateFlags, isSelected]
       children = [
         mkSquadIcon(icon, {
           size = multySquadPanelSize.map(@(val) val * ICON_SCALE)
@@ -254,7 +256,7 @@ let mkSquadCard = kwarg(function (idx, isSelected, addChild = null, icon = "",
         premIcon != null
           ? mkSquadPremIcon(premIcon, { margin = [0, hdpx(6)] })
           : mkSquadLevel(level, sf, selected)
-      ].append(topRightChilds)
+      ].append(topRightChilds, selected ? selMarker : null)
     }
   }
 })

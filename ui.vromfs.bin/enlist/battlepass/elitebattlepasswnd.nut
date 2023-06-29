@@ -227,7 +227,7 @@ let eliteBattlePassWnd = @(){
     {
       hplace = ALIGN_RIGHT
       margin = [hdpx(150), hdpx(100)]
-      children = dynamicSeasonBPIcon(hdpx(220))
+      children = dynamicSeasonBPIcon(hdpxi(220))
     }
     {
       size = flex()

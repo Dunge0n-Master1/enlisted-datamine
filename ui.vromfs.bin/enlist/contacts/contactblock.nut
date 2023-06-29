@@ -8,7 +8,7 @@ let { FAButton } = require("%ui/components/txtButton.nut")
 let { buttonSound } = require("%ui/style/sounds.nut")
 let { squadMembers, isInvitedToSquad, enabledSquad, squadId
 } = require("%enlist/squad/squadState.nut")
-let { getContactNick } = require("contact.nut")
+let { getContactNick, contacts } = require("contact.nut")
 let { friendsUids } = require("%enlist/contacts/contactsWatchLists.nut")
 let { mkContactOnlineStatus } = require("contactPresence.nut")
 let contactContextMenu = require("contactContextMenu.nut")
@@ -220,8 +220,7 @@ let memberAvatarCtor = @(userId) function() {
 let gapFlex = freeze({ size = flex() })
 let mkContactBlock = @(contact, contextMenuActions = [], inContactActions = []) function() {
   let group = ElemGroup()
-  let contactVal = contact.value
-  let { userId } = contactVal
+  let { userId } = contact
 
   let actionsButtons = inContactActions.map(function(action) {
     let isVisible = action.mkIsVisible(userId)
@@ -249,18 +248,18 @@ let mkContactBlock = @(contact, contextMenuActions = [], inContactActions = []) 
         valign = ALIGN_CENTER
         children = [
           statusIcon(isPlayerOnline.value)
-          userNickname(contactVal, defNickStyle)
+          userNickname(contact, defNickStyle)
         ]
       }
-      statusBlock(isPlayerOnline.value, contactVal)
+      statusBlock(isPlayerOnline.value, contact)
     ]
   }
 
   let avatar = memberAvatarCtor(userId.tointeger())
-  let onClick = @(event) onContactClick(event, contactVal, contextMenuActions)
+  let onClick = @(event) onContactClick(event, contact, contextMenuActions)
 
   return {
-    watch = contact
+    watch = contacts
     size = flex()
     children = watchElemState(@(sf) {
       watch = isGamepad

@@ -13,7 +13,7 @@ let {get_setting_by_blk_path} = require("settings")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { crossnetworkPlay, CrossplayState } = require("%enlSqGlob/crossnetwork_state.nut")
 let { featuredMods, featuredModsRoomsList } = require("sandbox/customMissionOfferState.nut")
-let { nestWatched, globalWatched } = require("%dngscripts/globalState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 
 let matchingGameName = get_setting_by_blk_path("matchingGameName")
@@ -23,7 +23,7 @@ const REFRESH_PERIOD = 5.0
 let isDebugMode = mkWatched(persist, "isDebugMode", false)
 let isRequestInProgress = Watched(false)
 let isRefreshEnabled = mkWatched(persist, "isRefreshEnabled", false)
-let { lastResult, lastResultUpdate } = globalWatched("lastResult", @() {})
+let lastResult = nestWatched("lastResult", {})
 let roomsListError = Computed(@()
   lastResult.value?.error ? error_string(lastResult.value.error) : null)
 let hideFullRooms = optFullRooms.curValue
@@ -154,7 +154,7 @@ let function updateListRooms() {
   matchingCall("mrooms.fetch_rooms_digest2",
     function(response) {
       isRequestInProgress(false)
-      lastResultUpdate(isDebugMode.value
+      lastResult(isDebugMode.value
         ? { digest = mkDebugRooms(math.rand() % 100) }
         : response)
     },

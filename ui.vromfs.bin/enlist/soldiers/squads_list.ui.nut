@@ -16,7 +16,6 @@ let { openChooseSquadsWnd } = require("model/chooseSquadsState.nut")
 let { squadBgColor } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { needSoldiersManageBySquad } = require("model/reserve.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
-let { curUnseenUpgradesBySquad, isUpgradeUsed } = require("model/unseenUpgrades.nut")
 let { armySlotDiscount } = require("%enlist/shop/armySlotDiscount.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 let {
@@ -30,18 +29,15 @@ let unseenIcon = blinkUnseenIcon(0.7)
 let mkManageAlert = @(guid) mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
   needSoldiersManageBySquad.value?[guid] ?? false))
 
-let mkUnseenAlert = @(guid) mkAlertIcon(ITEM_ALERT_SIGN, Computed(function() {
-  let count = (unseenSquadsWeaponry.value?[guid] ?? 0)
-    + (unseenSquadsVehicle.value?[guid].len() ? 1 : 0)
-    + ((isUpgradeUsed.value ?? false) ? 0
-      : (curUnseenUpgradesBySquad.value?[guid] ?? 0))
-  return count > 0
-}))
+let mkUnseenAlert = @(guid) mkAlertIcon(ITEM_ALERT_SIGN, Computed(@()
+  (unseenSquadsWeaponry.value?[guid] ?? 0) > 0
+    || (unseenSquadsVehicle.value?[guid].len() ?? 0) > 0
+))
 
 let mkPerksAlert = @(squadId) mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
   (notChoosenPerkSquads.value?[curArmy.value][squadId] ?? 0) > 0))
 
-let managementIcon = @(sf, sizeArr = [hdpx(40), hdpx(20)]) {
+let managementIcon = @(sf, sizeArr = [hdpxi(40), hdpxi(20)]) {
   rendObj = ROBJ_IMAGE
   size = sizeArr
   keepAspect = KEEP_ASPECT_FIT
@@ -101,7 +97,7 @@ let function mkSquadManagementBtn(restSquadsCount=null, size = null, margin = nu
             {
               flow = FLOW_HORIZONTAL
               gap = hdpx(2)
-              children = managementIcon(sf, [hdpx(45), hdpx(30)])
+              children = managementIcon(sf, [hdpxi(45), hdpxi(30)])
             }
             rest < 1 ? null : {
               rendObj = ROBJ_TEXT

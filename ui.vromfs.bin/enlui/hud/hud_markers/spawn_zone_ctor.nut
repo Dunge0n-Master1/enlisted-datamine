@@ -14,14 +14,18 @@ let spawnIconColor = Color(86,131,212,250)
 let inactiveSpawnIconColor = Color(160,160,160,150)
 let playerSpawnActiveColor = Color(57, 99, 255)
 
+let mkIconSize = @(size) array(2, size.tointeger())
+
 //Temporarily same icons as spawn points icons for soldiers
-let spawnIconSize = [fsh(9), fsh(9)]
-let selectedSpawnIconSize = [fsh(12), fsh(12)]
-let customSpawnSize = [fsh(6), fsh(6)]
-let selectedCustomSpawnSize = [fsh(9), fsh(9)]
-let playerSpawnSize = [fsh(6), fsh(6)]
-let selectedPlayerSpawnSize = [fsh(8), fsh(8)]
-let counterSpawnSize = [fsh(3), fsh(3)]
+let spawnIconSize = mkIconSize(fsh(9))
+let selectedSpawnIconSize = mkIconSize(fsh(12))
+let customSpawnSize = mkIconSize(fsh(6))
+let selectedCustomSpawnSize = mkIconSize(fsh(9))
+let playerSpawnSize = mkIconSize(fsh(6))
+let selectedPlayerSpawnSize = mkIconSize(fsh(8))
+let counterSpawnSize =mkIconSize(fsh(3))
+
+
 
 let spawn_point = Picture($"!ui/skin#spawn_point.svg:{spawnIconSize[0]}:{spawnIconSize[1]}:K")
 let selected_spawn_point = Picture($"!ui/skin#spawn_point_active.svg:{selectedSpawnIconSize[0]}:{selectedSpawnIconSize[1]}:K")

@@ -9,7 +9,8 @@ let offersWindow = require("offersWindow.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let offersPromoWndOpen = require("offersPromoWindow.nut")
 let { defTxtColor, colPart, startBtnWidth, accentColor, bigPadding, miniPadding, midPadding,
-  darkTxtColor, smallPadding, defItemBlur, transpPanelBgColor, transpBgColor, highlightLineTop, highlightLineHgt, hoverSlotBgColor
+  mkTimerIcon, darkTxtColor, smallPadding, defItemBlur, transpPanelBgColor, transpBgColor,
+  highlightLineTop, highlightLineHgt, hoverSlotBgColor, brightAccentColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { hasBaseEvent, openEventModes, promotedEvent, eventStartTime, timeUntilStart
 } = require("%enlist/gameModes/eventModesState.nut")
@@ -21,7 +22,6 @@ let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let { eventForcedUrl } = require("%enlist/unlocks/eventsTaskState.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let premiumWnd = require("%enlist/currency/premiumWnd.nut")
-let faComp = require("%ui/components/faComp.nut")
 let { curCampaignLocId } = require("%enlist/meta/curCampaign.nut")
 
 
@@ -40,6 +40,7 @@ let largeWidgetImgheight = largeWidgetHeight - largeWidgetInfoHeight
 
 let curLargeWidgetIdx = Watched(0)
 local oldLargeWidgetIdx = 0
+let timerSize = defSmallTxtStyle.fontSize
 
 
 enum WidgetType {
@@ -143,14 +144,14 @@ let mkInfo = @(nameTxt, sf, override = {}) {
 }.__update(override)
 
 
-let faClock = freeze(faComp("clock-o", {
-  fontSize = defSmallTxtStyle.fontSize
-  color = accentColor
-  padding = miniPadding
+let timer = mkTimerIcon(timerSize, {
+  color = brightAccentColor
+  margin = [miniPadding, smallPadding]
   hplace = ALIGN_RIGHT
-}))
+})
 
-let smallTimer = @(timestamp) timestamp <= 0 ? null : faClock
+
+let smallTimer = @(timestamp) timestamp <= 0 ? null : timer
 
 let mkSmallInfo = @(nameTxt, override = {}) {
   rendObj = ROBJ_WORLD_BLUR
@@ -226,7 +227,7 @@ let timeBeforeEvent = @(timestamp) timestamp <= 0 ? null : mkCountdownTimer({
   timestamp = timestamp
   override = timerStyle
   prefixLocId = loc("events/comingIn")
-  prefixColor = accentColor
+  prefixColor = brightAccentColor
   expiredLocId = ""
 })
 
@@ -291,7 +292,7 @@ let widgetData = freeze({
           infoContent
           {
             size = flex()
-            pos = [0, isBig ? smallPadding - widgetHeightDif : 0]
+            pos = [0, isBig ? -widgetHeightDif : 0]
             children = timerCtor(eventStartTime.value?[eventData.queueId] ?? 0)
           }.__update(anim)
         ]

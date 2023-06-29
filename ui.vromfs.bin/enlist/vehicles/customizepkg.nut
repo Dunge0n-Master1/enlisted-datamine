@@ -23,6 +23,7 @@ let { cropSkinName } = require("customizeState.nut")
 let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { decal_preprocess_tex_name } = require("vehicle_decals")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let SKIN_ICON_SIZE = hdpx(40)
@@ -145,7 +146,7 @@ let mkBlockHeader = @(text) {
 let mkCurrencyView = @(currencies, currencyId, price) mkCurrency({
   currency = currencies.findvalue(@(c) c.id == currencyId)
   price
-  iconSize = hdpx(20)
+  iconSize = hdpxi(20)
 })
 
 let mkLockedIcon = @(sf, isSelected, fontSize = TXT_SMALL_SIZE)
@@ -168,8 +169,8 @@ let mkSlotBox = @(sf, isSelected = false) {
 let showNeedPremiumBox = @() showMsgbox({
   text = loc("reqPremiumToUseDecorSlot")
   buttons = [
-    { text = loc("Ok") }
-    { text = loc("btn/buy"), action = premiumWnd }
+    { text = loc("Close"), customStyle = { hotkeys = [[$"^{JB.B}" ]] } }
+    { text = loc("btn/buy"), action = premiumWnd, customStyle = { hotkeys = [["^J:Y"]] } }
   ]
 })
 

@@ -1,8 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { insideBorderColor, defInsideBgColor, smallPadding, unitSize, bigPadding,
-  soldierWndWidth, activeBgColor, hoverBgColor
+let { smallPadding, unitSize, bigPadding, soldierWndWidth, hoverBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { fullTransparentBgColor, modsBgColor } = require("%enlSqGlob/ui/designConst.nut")
+
 let { getModSlots, objInfoByGuid, curArmy } = require("model/state.nut")
 let { mkItem } = require("components/itemComp.nut")
 let { iconByItem } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -23,25 +24,22 @@ let MAKE_PARAMS = { //+all params of itemComp
   onHoverCb = null
   selectedKey = Watched(null)
   isXmb = false
+  needGunLayout = false
   hasUnseenSign = Watched(false)
-  hasModsUnseenSign = Watched(false)
 }
 
-let modItemCtor = @(
-  item, _slotType, itemSize, _selected, _flags, _group, _isAvailable = false, _ammo = null
-)
-  iconByItem(item, {
-    width = itemSize[0] - 2 * smallPadding
-    height = itemSize[1] - 2 * smallPadding
-  })
+let modItemCtor = @(item, itemSize) iconByItem(item, {
+  width = itemSize[0] - 2 * smallPadding
+  height = itemSize[1] - 2 * smallPadding
+})
 
-let modBgStyle = @(sf, isSelected) {
-  rendObj = ROBJ_BOX
-  fillColor = isSelected ? activeBgColor
-    : sf & S_HOVER ? hoverBgColor
-    : defInsideBgColor
-  borderColor = insideBorderColor
-  borderWidth = hdpx(1)
+let modsColor = mul_color(modsBgColor, 0.6)
+
+let modBgStyle = @(sf, _isSelected, _bgColor) {
+  rendObj = ROBJ_WORLD_BLUR
+  color = fullTransparentBgColor
+  fillColor = sf & S_HOVER ? hoverBgColor
+    : modsColor
 }
 
 let function getModData(mainItem, slot) {
@@ -57,13 +55,12 @@ let function mkItemMods(p) {
   if (slots.len() == 0)
     return null
 
-  let modHeight = 0.5 * p.itemSize[1]
-  let modSize = [2 * modHeight, modHeight]
+  let modHeight = 0.45 * p.itemSize[1]
+  let modSize = [1.8 * modHeight, modHeight]
   return {
-    size = SIZE_TO_CONTENT
+    size = modSize
     vplace = ALIGN_TOP
     hplace = ALIGN_LEFT
-    margin = smallPadding
     flow = FLOW_HORIZONTAL
     stopHover = true
     children = slots.map(@(slot) mkItem({
@@ -75,7 +72,6 @@ let function mkItemMods(p) {
       slotType = slot.slotType
       bgStyle = modBgStyle
       isInteractive = p.isInteractive
-      hasUnseenSign = p.hasModsUnseenSign
       isDisabled = p.isDisabled
       canDrag = p.canDrag
       onClickCb = p.onClickCb
@@ -84,7 +80,8 @@ let function mkItemMods(p) {
       selectedKey = p.selectedKey
 
       itemCtor = modItemCtor
-      emptySlotChildren = @(...) null
+      needItemName = false
+      emptySlotName = @(...) null
     }))
   }
 }
@@ -96,7 +93,7 @@ local function mkItemWithMods(p = MAKE_PARAMS) {
     p.__update({ mods })
 
   return {
-    size = SIZE_TO_CONTENT
+    size = p.itemSize
     children = mkItem(p, KWARG_NON_STRICT)
   }
 }

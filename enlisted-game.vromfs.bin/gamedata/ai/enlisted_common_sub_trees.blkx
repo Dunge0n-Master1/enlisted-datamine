@@ -314,6 +314,10 @@ sequencer{
     coverPosParam:t="coverPos"
   }
 
+  checkAllowedPosition{
+    posParam:t="coverPos"
+  }
+
   getRegroupPos{
     posParam:t="regroupPosition"
   }
@@ -353,6 +357,10 @@ sequencer{
 
   getCoverPosition{
     coverPosParam:t="coverPos"
+  }
+
+  checkAllowedPosition{
+    posParam:t="coverPos"
   }
 
   getRegroupPos{

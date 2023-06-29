@@ -21,7 +21,7 @@ let {selfHealMedkits} = require("%ui/hud/state/total_medkits.nut")
 let { defTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 
 let hasMedkit = Computed(@() selfHealMedkits.value > 0)
-let medkitIco = mkMedkitIcon(hdpx(25), defTxtColor)
+let medkitIco = mkMedkitIcon(hdpxi(25), defTxtColor)
 let playerMedkits = @() {
   watch = hasMedkit
   children = hasMedkit.value ? medkitIco : null

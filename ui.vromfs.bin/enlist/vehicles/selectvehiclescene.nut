@@ -22,6 +22,11 @@ let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { freemiumWidget } = require("%enlist/components/mkPromoWidget.nut")
+let { changeCameraFov } = require("%enlist/showState.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -25
+const ADD_CAMERA_FOV_MAX = 45
 
 
 let showNotAvailable = Watched(false)
@@ -170,8 +175,14 @@ let selectVehicleScene = @() {
   size = [sw(100), sh(100)]
   flow = FLOW_VERTICAL
   padding = safeAreaBorders.value
-  behavior = isDmViewerEnabled.value ? Behaviors.TrackMouse : null
-  onMouseMove = isDmViewerEnabled.value ? onDmViewerMouseMove : null
+  behavior = Behaviors.TrackMouse
+  onMouseMove = function(mouseEvent) {
+    if (isDmViewerEnabled.value)
+      onDmViewerMouseMove(mouseEvent)
+  }
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]
@@ -189,6 +200,8 @@ let selectVehicleScene = @() {
     }
   ]
 }
+
+viewVehicle.subscribe(@(_v) changeCameraFov(0))
 
 let function open() {
   viewVehicle(selectedVehicle.value)

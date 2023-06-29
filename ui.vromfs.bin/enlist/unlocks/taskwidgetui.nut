@@ -21,6 +21,7 @@ let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
 let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -51,8 +52,10 @@ let function askForRerollConfirm(unlockDesc) {
   msgbox.show({
     text = loc("unlocks/reroll/askForConfirm")
     buttons = [
-      { text = loc("Ok"), action = @() doRerollUnlock(unlockDesc) }
-      { text = loc("Cancel"), isCurrent = true, isCancel = true }
+      { text = loc("Ok"), action = @() doRerollUnlock(unlockDesc),
+        customStyle = { hotkeys = [["^J:X"]] } }
+      { text = loc("Cancel"), isCurrent = true, isCancel = true,
+        customStyle = { hotkeys = [[$"^{JB.B}"]] } }
     ]
   })
 }
@@ -66,8 +69,9 @@ let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
       text = loc("btn/rerollUnlock")
       action = @() askForRerollConfirm(unlockDesc)
       isCurrent = true
+      customStyle = { hotkeys = [["^J:X"]] }
     })
-  buttons.append({ text = loc("Close"), isCancel = true })
+  buttons.append({ text = loc("Close"), isCancel = true, customStyle = {hotkeys = [[$"^{JB.B}"]]} })
 
   msgbox.showMessageWithContent({
     content = {

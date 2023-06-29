@@ -40,7 +40,7 @@ let function artilleryOrder() {
   }
 }
 
-let artilleryIconHgt = calc_comp_size(artilleryOrder)[1]
+let artilleryIconHgt = calc_comp_size(artilleryOrder)[1].tointeger()
 let artilleryIcon = Picture("ui/skin#artillery_strike.svg:{0}:{0}:K".subst(artilleryIconHgt))
 let artilleryIconComp = @() { watch = artilleryIsReady }
   .__update(!artilleryIsReady.value ? {}

@@ -84,6 +84,15 @@ let appearanceAnim = @(delay, toLeft = true, trigger = null) {
     .extend(trigger != null ? mkAnimationList(delay, toLeft, trigger) : [])
 }
 
+let defTxtColor = 0xFFB3BDC1
+
+let mkTimerIcon = @(size = hdpxi(22), override = {}) {
+  rendObj = ROBJ_IMAGE
+  size = [size, size]
+  image = Picture("ui/skin#/battlepass/boost_time.svg:{0}:{0}:K".subst(size))
+  color =  defTxtColor
+}.__update(override)
+
 return {
   colFull
   columnWidth
@@ -142,6 +151,7 @@ return {
   accentColor
   brightAccentColor = 0xFFFCB11D
   discountBgColor = 0xFFF8BD41
+  modsBgColor = 0xFF13181F
 
   //BdColor
   defBdColor    = 0xFFB3BDC1
@@ -151,13 +161,14 @@ return {
   // TxtColor
   disabledTxtColor = 0xFF4B575D
   weakTxtColor  = 0xFFA4A4A4
-  defTxtColor   = 0xFFB3BDC1
+  defTxtColor
   hoverTxtColor = 0xFFD4D4D4
   titleTxtColor = 0xFFFAFAFA
   hoverSlotTxtColor = 0xFF404040
   darkTxtColor = 0xFF313841
   attentionTxtColor = 0xFFFFBE30
   negativeTxtColor = 0xFFEE5656
+  positiveTxtColor = 0xFF8FEE56
   completedTxtColor = 0xFF2968E9
   deadTxtColor = 0xAA101010
 
@@ -174,4 +185,6 @@ return {
   leftAppearanceAnim = @(delay = DEF_APPEARANCE_TIME, trigger = null)
     appearanceAnim(delay, true, trigger)
   DEF_APPEARANCE_TIME
+
+  mkTimerIcon
 }

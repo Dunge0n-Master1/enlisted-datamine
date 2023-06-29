@@ -69,7 +69,9 @@ let optSafeArea = optionCtor({
   valToString = @(s) $"{s*100}%"
   isEqual = defCmp
   restart = false
+  reload = true
 })
+
 
 const defVideoMode = "fullscreen"
 let originalValVideoMode = get_setting_by_blk_path("video/mode") ?? defVideoMode

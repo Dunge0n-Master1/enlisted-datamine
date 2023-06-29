@@ -1,9 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { rowHeight, panelStyle, defInputStyle, hoverInputStyle,
-  textState, bgState, panelScreenOffset, innerBtnStyle = {}
+let { rowHeight, defInputStyle, hoverInputStyle, textState, bgState, innerBtnStyle, closeBtnStyle
 } = require("equipDesign.nut")
-let panel = require("%enlist/components/panel.nut")
+let { leftAppearanceAnim, defSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
+
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { FAButton } = require("%ui/components/txtButton.nut")
 let { premiumImage } = require("%enlist/currency/premiumComp.nut")
@@ -16,7 +16,11 @@ let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { presetEquipList, notFoundPresetItems, applyEquipmentPreset, saveEquipmentPreset,
   renameEquipmentPreset, PreviewState, PresetTarget
 } = require("%enlist/preset/presetEquipUtils.nut")
+let fa = require("%ui/components/fontawesome.map.nut")
+let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
+let { isGamepad } = require("%ui/control/active_controls.nut")
 let textInput = require("%ui/components/textInput.nut")
 let MAX_NAME_LEN = 20
 
@@ -103,7 +107,6 @@ let mkRenameSlot = function(presetCfg, textWatch) {
     renameEquipmentPreset(presetCfg, textWatch.value)
     stopRenameAction()
   }
-  let xmbNode = XmbNode()
   return watchElemState(@(sf) {
     size = [flex(), rowHeight]
     flow = FLOW_HORIZONTAL
@@ -129,7 +132,6 @@ let mkRenameSlot = function(presetCfg, textWatch) {
             return
           applyRename()
         }
-        xmbNode
       }.__update(sf & S_HOVER ? hoverInputStyle : defInputStyle))
       actionBtn("check", applyRename, loc("squads/presets/apply"))
     ]
@@ -137,12 +139,12 @@ let mkRenameSlot = function(presetCfg, textWatch) {
 }
 
 let function mkPresetSlot(presetCfg, presetTarget, idx) {
-  let xmbNode = XmbNode()
   return watchElemState(@(sf) {
     size = [flex(), rowHeight]
     flow = FLOW_HORIZONTAL
     rendObj = ROBJ_BOX
     behavior = Behaviors.Button
+    key = $"equipPreset{idx}"
     children = [
       {
         size = [flex(), rowHeight]
@@ -151,7 +153,6 @@ let function mkPresetSlot(presetCfg, presetTarget, idx) {
         onClick = @() presetAction(presetCfg, presetTarget)
         sound = stateChangeSounds
         flow = FLOW_HORIZONTAL
-        xmbNode
         children = [
           {
             rendObj = ROBJ_TEXT
@@ -187,47 +188,55 @@ let makePresetList = function(presetCfgList, soldier, presetTarget) {
   return presetList
 }
 
-let presetEquipButtons = @(presetCmpList, soldier, presetTarget) {
+let presetEquipOpened = Watched(false)
+
+let closeBtn = {
+  rendObj = ROBJ_TEXT
+  vplace = ALIGN_TOP
+  hplace = ALIGN_RIGHT
+  behavior = Behaviors.Button
+  text = fa["close"]
+  font = fontawesome.font
+  hotkeys = [[ $"^{JB.B} | Esc" ]]
+  onClick = @() presetEquipOpened(false)
+}.__update(closeBtnStyle)
+
+let presetEquipButtons = @() {
   rendObj = ROBJ_BOX
   flow = FLOW_VERTICAL
   halign = ALIGN_CENTER
-  size = [flex(), SIZE_TO_CONTENT]
-  xmbNode = XmbContainer()
-  children = makePresetList(presetCmpList, soldier, presetTarget)
-}
-
-
-let content = @() {
   watch = [presetEquipList, curSoldierInfo, applyPresetTarget]
-  size = [hdpx(385), SIZE_TO_CONTENT]
-  children = presetEquipButtons(presetEquipList.value, curSoldierInfo.value,
-    applyPresetTarget.value)
-}
-
-const WND_UID = "equipPresetView"
-let presetEquipPanel = panel()
-let { setPosition, isOpen, open, close } = presetEquipPanel
-
-let mkPresetEquipBlock = function(event) {
-  if (isOpen()) {
-    close()
-    return null
+  size = [flex(), SIZE_TO_CONTENT]
+  children = [closeBtn].extend(
+    makePresetList(presetEquipList.value, curSoldierInfo.value, applyPresetTarget.value)
+  )
+  onAttach = function() {
+    if (isGamepad.value)
+      move_mouse_cursor("equipPreset0")
   }
-
-  let offset = panelScreenOffset
-  let x = event.targetRect.l + offset[0]
-  let y = event.targetRect.t + offset[1]
-  setPosition([x, y])
-  open(content, {
-    key = WND_UID
-    style = panelStyle
-  })
-
-  return WND_UID
 }
+
+let presetBlock = @() {
+  watch = [presetEquipOpened, curSoldierInfo]
+  children = curSoldierInfo.value != null && presetEquipOpened.value ? {
+    rendObj = ROBJ_BOX
+    fillColor = defSlotBgColor
+    size = [hdpx(385), SIZE_TO_CONTENT]
+    children = presetEquipButtons
+    key = "__anim_preset"
+  }.__update(leftAppearanceAnim(0)) : null
+}
+
+let mkPresetEquipBlock = function() {
+  defer(@() presetEquipOpened(false))
+  return presetBlock
+}
+
+let togglePresetEquipBlock = @() presetEquipOpened(!presetEquipOpened.value)
 
 return {
-  closeEquipPresets = @() close()
+  closeEquipPresets = @() presetEquipOpened(false)
+  togglePresetEquipBlock
   mkPresetEquipBlock
   previewPreset
   previewHighlightColor

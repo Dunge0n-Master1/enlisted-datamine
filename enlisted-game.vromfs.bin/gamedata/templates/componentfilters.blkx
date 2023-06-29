@@ -25,6 +25,7 @@ _componentFilters{
   aircraft_identification__peripheryHalfAngleDeg:t="filter_possessed_and_spectated"
   aircraft_identification__focusHalfAngleDeg:t="filter_possessed_and_spectated"
   respawner__enabled:t="filter_same_player"
+  ab_test__isAimAssistTestEnabled:t="filter_same_player"
   respawner__squad:t="filter_same_player"
   respawner__spectatorEnabled:t="filter_same_player"
   respawner__respRequested:t="filter_same_player"

@@ -8,7 +8,7 @@ let { psn_friendsUpdate, psn_blocked_users, psn_blocked_usersUpdate
 } = require("%enlist/ps4/psn_state.nut")
 let { isLoggedIn } = require("%enlSqGlob/login_state.nut")
 let { updatePresences, presences } = require("%enlist/contacts/contactPresence.nut")
-let { Contact, isValidContactNick } = require("%enlist/contacts/contact.nut")
+let { updateContact, isValidContactNick } = require("%enlist/contacts/contact.nut")
 let eventbus = require("eventbus")
 let voiceApi = require("voiceApi")
 let profile = require("%enlist/ps4/profile.nut")
@@ -37,7 +37,7 @@ let function psnConstructFriendsList(psn_friends, contacts) {
         continue
       }
 
-      Contact(currentUid, $"{friend.nick}@psn")
+      updateContact(currentUid, $"{friend.nick}@psn")
       result.append(currentUid)
       updPresences[currentUid] <- { online = friend.online }
       psn2uid[friend.accountId] <- currentUid
@@ -94,7 +94,7 @@ let function onGetBlockedUsers(users) {
   let contactsList = []
   foreach (user in users) {
     let u = user
-    let c = Contact(u.userId)
+    let c = updateContact(u.userId)
     if (!isValidContactNick(c)) {
       contactsList.append(c)
       unknownPsnUids.append(u.accountId)

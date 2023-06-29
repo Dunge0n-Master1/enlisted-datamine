@@ -2887,6 +2887,7 @@ attachable_wear_aframe_bag_01_ger_summer_item{
   collres__res:t="aframe_bag_01_ger_summer_collision"
   menu_item__rotationOffset:p3=-0.2, -0.05, 0.0
   animchar_fast_phys__res:t="aframe_bag_01_ger_summer_fastphys"
+  item__iconYaw:r=-150.0
 
   animchar_fast_phys{
     _tags:t="gameClient"
@@ -3772,6 +3773,7 @@ attachable_wear_bag_01_ger_summer_item{
   animchar__res:t="bag_01_ger_summer_char"
   collres__res:t="bag_01_ger_summer_collision"
   menu_item__rotationOffset:p3=-0.16, -0.08, -0.05
+  item__iconYaw:r=-150.0
   animchar_fast_phys__res:t="bag_01_ger_summer_fastphys"
   attachable_backpack__capacity:i=1
 

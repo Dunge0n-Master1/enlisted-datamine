@@ -11,6 +11,7 @@ let {
 let { getTutorial } = require("squadTextTutorialPresentation.nut")
 let faComp = require("%ui/components/faComp.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const WND_UID = "SQUAD_TEXT_TUTORIAL"
 
@@ -106,10 +107,11 @@ let centralBlock = @(neededTutorial, totalPagesCount) function() {
   }
 }
 
-let okBtn = Flat(loc("Ok"), close, {
+let okBtn = Flat(loc("Close"), close, {
     hplace = ALIGN_RIGHT
     vplace = ALIGN_BOTTOM
     margin = 0
+    hotkeys = [[$"^{JB.B}"]]
 })
 
 let function prevPageArrow() {

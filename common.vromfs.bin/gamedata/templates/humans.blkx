@@ -678,6 +678,17 @@ base_human_hero_components{
     _hide:b=yes
   }
 
+  "human_input__isGyroOnlyInAimOrZoom:b"{
+    value:b=no
+    _hide:b=yes
+    _track:b=yes
+  }
+
+  "human_input__isGyroAimEnabled:b"{
+    value:b=no
+    _hide:b=yes
+  }
+
   _group{
     _tags:t="ui"
     _track:b=yes
@@ -1146,6 +1157,7 @@ base_human_net_phys{
   _tracked:t="human_net_phys__states"
   _tracked:t="human_net_phys__standState"
   _tracked:t="human_net_phys__isInAir"
+  _tracked:t="human_net_phys__isZooming"
   _tracked:t="human_net_phys__isHctAim"
   _tracked:t="human_net_phys__isHctShoot"
   _tracked:t="human_net_phys__isHoldGunModeBit"

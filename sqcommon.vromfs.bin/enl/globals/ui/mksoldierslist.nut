@@ -64,6 +64,11 @@ let mkSoldierSlot = kwarg(function(soldier, idx, curSoldierIdxWatch,
           curSoldierIdxWatch(canDeselect && idx == curSoldierIdxWatch.value ? null : idx)
         }
       }
+      sound = {
+        hover = "ui/enlist/button_highlight"
+        click = "ui/enlist/button_click"
+        active = "ui/enlist/button_action"
+      }
       children = [
         seatInfo ? note(loc(seatInfo.locName)) : null
         chContent

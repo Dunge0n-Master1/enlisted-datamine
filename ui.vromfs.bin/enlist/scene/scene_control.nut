@@ -4,7 +4,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { DBGLEVEL } = require("dagor.system")
 let { Point2, Point3, TMatrix } = require("dagor.math")
 let {
-  vehTplInVehiclesScene, vehDataInVehiclesScene,
+  vehTplInVehiclesScene, vehDataInVehiclesScene, cameraFovDelta,
   itemInArmory, itemInArmoryAttachments, needWeaponCameraAngle, soldierInSoldiers,
   currentNewItem, currentNewItemAttachments, scene,
   squadCampaignVehicleFilter, isVehicleSceneVisible
@@ -132,6 +132,7 @@ console_register_command(function(x, y, z) {
   cameraOffset([x, y, z])
 }, "setCameraOffset")
 
+
 let function mkOffsetTMatrix(tm, offset) {
   local newTm = TMatrix(tm)
   newTm[3] = Point3(
@@ -142,6 +143,8 @@ let function mkOffsetTMatrix(tm, offset) {
   return newTm
 }
 
+local curCameraFov = 0
+
 let function setCamera(cameraComps) {
   let camOffset = cameraOffset.value
   setCameraQuery.perform(function(_eid, comp){
@@ -149,6 +152,8 @@ let function setCamera(cameraComps) {
       if (k in comp) {
         if (k == "transform")
           comp[k] = mkOffsetTMatrix(v, camOffset)
+        else if (k == "fov")
+          comp[k] = curCameraFov + cameraFovDelta.value
         else
           comp[k] = v
       }
@@ -210,6 +215,8 @@ let function setDecalTargetInScene(targetEid){
 let function resetCameraDirection(){
   setCamera({["menu_cam__dirInited"] = false})
 }
+
+cameraFovDelta.subscribe(@(v) setCamera({ ["fov"] = v }))
 
 let cameraTarget = mkWatched(persist, "cameraTarget", ecs.INVALID_ENTITY_ID)
 let isFadeDone = mkWatched(persist, "isFadeDone", false)
@@ -361,7 +368,7 @@ let objectsToObserve = {
     slaveWatches = [itemInArmoryAttachments, needWeaponCameraAngle]
   },
   items_inventory = {
-    compName = "menu_new_items_to_control"
+    compName = "menu_shop_items_to_control"
     transformItemFunc = setItemTransformFunc
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], itemInArmoryAttachments.value)
@@ -383,7 +390,7 @@ let objectsToObserve = {
     shouldResetCameraDirection = Watched(true)
   },
   shop_items = {
-    compName = "menu_new_items_to_control"
+    compName = "menu_shop_items_to_control"
     transformItemFunc = transformByItemtype
     createEntityFunc = @(template, transform, callback=null)
       createEntity(makeWeaponTemplate(template), transform, callback, [], currentNewItemAttachments.value)
@@ -414,6 +421,9 @@ foreach (v in [cameraTarget, isFadeDone, scene])
 
 registerFadeBlackActions({
   change_camera = kwarg(function(cameraComps, curScene) {
+    curCameraFov = cameraComps?["fov"] ?? 0
+    cameraFovDelta(0)
+
     setCamera(cameraComps)
     updateSceneObjects()
     visibleScene(curScene)

@@ -9,7 +9,7 @@ let { settings, onlineSettingUpdated
 } = require("%enlist/options/onlineSettings.nut")
 let { nestWatched } = require("%dngscripts/globalState.nut")
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
-
+let JB = require("%ui/control/gui_buttons.nut")
 
 const SEEN_ID = "seen/orderTutorials"
 
@@ -70,13 +70,19 @@ let function startTutorialDelayed() {
 
     canRunTutorial(false)
     mkLogisticsPromoMsgbox(currencyList,
-      [{
-        text = loc("btn/gotoLogistics")
-        action = function() {
-          markSeen(tutorialId)
-          setCurSection("SHOP")
+      [
+        {
+          text = loc("btn/gotoLogistics")
+          action = function() {
+            markSeen(tutorialId)
+            setCurSection("SHOP")
+          }
+          customStyle = { hotkeys = [["^J:X"]] }
         }
-      }])
+        { text = loc("Close"), isCancel = true, action = @() markSeen(tutorialId),
+          customStyle = { hotkeys = [[$"^{JB.B}" ]] }
+        }
+      ])
   })
 }
 

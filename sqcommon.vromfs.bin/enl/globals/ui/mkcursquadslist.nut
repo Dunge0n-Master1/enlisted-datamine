@@ -49,7 +49,7 @@ let mkCurSquadsList = kwarg(@(curSquadsList, curSquadId, setCurSquadId, preChild
         children = makeHorizScroll(listComp, {
           size = SIZE_TO_CONTENT
           maxWidth
-          rootBase = class {
+          rootBase = {
             key = "squadList"
             behavior = Behaviors.Pannable
             wheelStep = 0.2

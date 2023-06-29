@@ -143,6 +143,11 @@ let function nickFrameListUi() {
     gap = smallOffset
     margin = [0,0,bigOffset,0]
     onAttach = @() hoverNickFrame(chosen?.framedNickName(userName) ?? userName)
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      scrollSpeed = 5.0
+      isViewport = true
+    })
     children = [
       txt({
         text = loc("selectNickFrameTitle")
@@ -176,6 +181,7 @@ let function nickFrameListUi() {
                 let iconColor = isSelected ? bonusColor : borderColor(sf, isEnabled)
                 return {
                   behavior = Behaviors.Button
+                  xmbNode = XmbNode()
                   onClick = @() onNickFrameClick(nickFrameCfg, isEnabled)
                   onHover = function(on) {
                     hoverNickFrame((on ? nickFrameCfg : chosen)?.framedNickName(userName) ?? userName)
@@ -288,6 +294,11 @@ let function portraitListUi() {
     flow = FLOW_VERTICAL
     gap = bigOffset
     margin = [0,0,bigOffset,0]
+    xmbNode = XmbContainer({
+      canFocus = @() false
+      scrollSpeed = 5.0
+      isViewport = true
+    })
     children = [
       txt({
         text = loc("selectPortraitTitle")

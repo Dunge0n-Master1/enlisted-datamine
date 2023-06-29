@@ -2,7 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let {fortificationPreviewForwardArrowsGetWatched, fortificationPreviewForwardArrowsSet} = require("%ui/hud/state/fortification_preview_forward_marker.nut")
 
-let arrowPicSize = [fsh(12), fsh(12)]
+let arrowPicSize = array(2, fsh(12).tointeger())
 let arrow = freeze({
   rendObj = ROBJ_IMAGE
   color = Color(255, 255, 255, 128)

@@ -1,12 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
+
+let { fontMedium, fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { TextHover, TextNormal } = require("%ui/components/textButton.style.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
-let {
-  gap, bonusColor, defTxtColor, activeTxtColor
-} = require("%enlSqGlob/ui/viewConst.nut")
 let { currenciesExpiring, currenciesById } = require("%enlist/currency/currencies.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -15,14 +13,16 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let {
   mkCurrencyTooltipContainer, mkDefaultTooltipText
 } = require("%enlist/shop/currencyComp.nut")
-let { midPadding } = require("%enlSqGlob/ui/designConst.nut")
+let {
+  smallPadding, midPadding, defTxtColor, titleTxtColor, positiveTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
 let CURENCY_PARAMS = {
-  iconSize = hdpx(16)
-  txtStyle = { color = activeTxtColor }
-  dimStyle = { color = defTxtColor }.__update(sub_txt)
-  discountStyle = { color = bonusColor }
+  iconSize = hdpxi(16)
+  txtStyle = { color = titleTxtColor }
+  dimStyle = { color = defTxtColor }.__update(fontMedium)
+  discountStyle = { color = positiveTxtColor }
 }
 
 
@@ -44,7 +44,7 @@ let mkCurrencyImg = @(currency, iconSize) {
 let mkCurrencyCount = @(count, txtStyle = null) {
   rendObj = ROBJ_TEXT
   text = count
-}.__update(body_txt, txtStyle ?? CURENCY_PARAMS.txtStyle)
+}.__update(fontLarge, txtStyle ?? CURENCY_PARAMS.txtStyle)
 
 let mkCurrencyStroke = @(count, txtStyle = null) {
   children = [
@@ -70,7 +70,7 @@ let mkCurrency = kwarg(
         {
           flow = FLOW_HORIZONTAL
           valign = ALIGN_CENTER
-          gap = gap
+          gap = smallPadding
           children = [
             mkCurrencyImg(currency, iconSize ?? CURENCY_PARAMS.iconSize)
             hasPrice
@@ -98,13 +98,13 @@ let function currencyBtn(
       flow = FLOW_HORIZONTAL
       valign = ALIGN_CENTER
       margin = textField?.margin
-      gap = gap
+      gap = smallPadding
       children = [
         textField.__merge({
           margin = [0, hdpx(10), 0, 0]
           color = sf & S_HOVER ? txtHoverColor : txtColor
         })
-        mkCurrencyImg(curencyById(currencyId), hdpx(30))
+        mkCurrencyImg(curencyById(currencyId), hdpxi(30))
         hasPrice
           ? mkCurrencyCount(price, hasPriceFull
               ? discountStyle ?? CURENCY_PARAMS.discountStyle
@@ -127,7 +127,7 @@ let function mkExpireRow(expData, currency) {
 
   let replaceList = {
     ["{amount}"] = [ //warning disable: -forgot-subst
-      mkCurrencyImg(currency, hdpx(20))
+      mkCurrencyImg(currency, hdpxi(20))
       mkDefaultTooltipText(amount)
     ],
     ["{time}"] = @() mkDefaultTooltipText(timeText.value).__update({watch = timeText}) //warning disable: -forgot-subst

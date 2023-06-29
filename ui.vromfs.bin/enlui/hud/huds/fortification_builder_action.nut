@@ -16,7 +16,7 @@ let commands = [
 ]
 let sector = commands[1]
 
-let progressIconSize = hdpx(50)
+let progressIconSize = hdpxi(50)
 
 let destroyingProgress = {
   halign = ALIGN_CENTER

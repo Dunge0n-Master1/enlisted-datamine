@@ -15,6 +15,7 @@ let onlineSettingUpdated = require_optional("onlineStorage")
   ? require("%enlist/options/onlineSettings.nut").onlineSettingUpdated : null
 let { runBenchmarkBtn } = require("%enlSqGlob/ui/benchmarkWnd.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
+let { reload_ui_scripts, reload_overlay_ui_scripts } = require("app")
 
 let showSettingsMenu = mkWatched(persist, "showSettingsMenu", false)
 
@@ -138,7 +139,10 @@ let convertForBlkByType = {
   bool = @(v) !!v
 }
 let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide ui and state logic in this file
-  local needRestart = false
+  local onCloseActions = {
+    needRestart = false
+    needReload = false
+  }
   let changedFields = []
   foreach (opt in optionsValue) {
     let { blkPath = null } = opt
@@ -181,7 +185,9 @@ let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide
         }
       }
       if (hasChanges && opt?.restart)
-        needRestart = true
+        onCloseActions.needRestart = true
+      if (hasChanges && opt?.reload)
+        onCloseActions.needReload = true
     }
   }
   if (changedFields.len() != 0) {
@@ -190,16 +196,22 @@ let function applyGameSettingsChanges(optionsValue) { //FIX ME: should to divide
     apply_video_settings(changedFields)
     apply_audio_settings(changedFields)
   }
-  return needRestart
+  return onCloseActions
 }
 
 let saveAndApply = @(onMenuClose, options) function() {
-  let needRestart = applyGameSettingsChanges(options)
+  let onCloseActions = applyGameSettingsChanges(options)
   onMenuClose()
   eventbus.send("onlineSettings.sendToServer", null)
 
-  if (needRestart) {
+  if (onCloseActions.needRestart) {
     msgbox.show({text=loc("settings/restart_needed")})
+  }
+  if (onCloseActions.needReload) {
+    defer(function() {
+      reload_overlay_ui_scripts()
+      reload_ui_scripts()
+    })
   }
 }
 

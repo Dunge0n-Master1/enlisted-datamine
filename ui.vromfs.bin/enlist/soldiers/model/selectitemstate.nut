@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { equipGroups } = require("config/equipGroups.nut")
+let { equipSlotTbl } = require("config/equipGroups.nut")
 let { getEquippedItemGuid, objInfoByGuid, armoryByArmy,
   getScheme, getItemOwnerSoldier, curCampItems, getSoldierItemSlots, getDemandingSlots,
   armies, curArmy, allAvailableArmies
@@ -8,10 +8,9 @@ let { getEquippedItemGuid, objInfoByGuid, armoryByArmy,
 let { campItemsByLink, soldiersByArmies, curCampSoldiers } = require("%enlist/meta/profile.nut")
 let { equipItem } = require("%enlist/soldiers/model/itemActions.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
-let { allItemTemplates, findItemTemplate
+let { allItemTemplates, findItemTemplate, itemTypesInSlots
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { prepareItems, addShopItems, itemsSort } = require("%enlist/soldiers/model/items_list_lib.nut")
-let { itemTypesInSlots } = require("all_items_templates.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let soldierSlotsCount = require("soldierSlotsCount.nut")
 let { logerr } = require("dagor.debug")
@@ -50,6 +49,7 @@ let curInventoryItem = Watched(null)
 curCampItems.subscribe(@(_) curInventoryItem(null))
 
 let viewItem = Computed(@() curInventoryItem.value ?? curEquippedItem.value) // last selected or current item
+let isWeaponFixed = Computed(@() curEquippedItem.value?.isFixed ?? false)
 
 let function excludeItems(item, curArmyShopItemsPrefV, curArmyV, allItemTemplatesV, itemToShopItemV){
   if (item.guid != "" || item?.isShowDebugOnly)
@@ -59,12 +59,8 @@ let function excludeItems(item, curArmyShopItemsPrefV, curArmyV, allItemTemplate
   return (shopItemIds.len() >= 1 && shopItemIds[0] in curArmyShopItemsPrefV)
 }
 
-let function calcItems(params, objInfoByGuidV, armoryByArmyV, curItemV, curArmyShopItemsPrefV,
+let function calcItems(params, objInfoByGuidV, armoryByArmyV, curArmyShopItemsPrefV,
   itemToShopItemV, allItemTemplatesV) {
-
-  if (curItemV?.isFixed ?? false)
-    return []
-
   let { armyId = null, filterFunc = @(_tplId, _tpl) true } = params
   if (!armyId)
     return []
@@ -80,10 +76,7 @@ let function calcItems(params, objInfoByGuidV, armoryByArmyV, curItemV, curArmyS
   return itemsList.sort(itemsSort)
 }
 
-let function calcOther(params, armoryByArmyV, itemTypesInSlotsV, curItemV) {
-  if (curItemV?.isFixed ?? false)
-    return []
-
+let function calcOther(params, armoryByArmyV, itemTypesInSlotsV) {
   let { slotType = null, armyId = null, filterFunc = @(_tplId, _tpl) true } = params
   if (!armyId)
     return []
@@ -101,9 +94,9 @@ let function calcOther(params, armoryByArmyV, itemTypesInSlotsV, curItemV) {
   return otherList
 }
 
-let slotItems = Computed(@()
-  calcItems(selectParams.value, objInfoByGuid.value, armoryByArmy.value, viewItem.value,
-    curArmyItemsPrefiltered.value, itemToShopItem.value, allItemTemplates.value))
+let slotItems = Computed(@() isWeaponFixed.value ? []
+  : calcItems(selectParams.value, objInfoByGuid.value, armoryByArmy.value,
+      curArmyItemsPrefiltered.value, itemToShopItem.value, allItemTemplates.value))
 
 let inventoryItems = Computed(function() {
   let res = {}
@@ -113,8 +106,8 @@ let inventoryItems = Computed(function() {
   return res
 })
 
-let otherSlotItems = Computed(@()
-  calcOther(selectParams.value, armoryByArmy.value, itemTypesInSlots.value, viewItem.value))
+let otherSlotItems = Computed(@() isWeaponFixed.value ? []
+  : calcOther(selectParams.value, armoryByArmy.value, itemTypesInSlots.value))
 
 let mkDefaultFilterFunc = function(showItemTypes = [], showItems = []) {
   let isFilterTypes = (showItemTypes?.len() ?? 0) != 0
@@ -147,7 +140,7 @@ let paramsForPrevItems = Computed(function() {
 })
 
 let prevItems = Computed(@()
-  calcItems(paramsForPrevItems.value, objInfoByGuid.value, armoryByArmy.value, viewItem.value,
+  calcItems(paramsForPrevItems.value, objInfoByGuid.value, armoryByArmy.value,
     curArmyItemsPrefiltered.value, itemToShopItem.value, allItemTemplates.value)
     .filter(@(item) "guid" in item))
 
@@ -214,12 +207,16 @@ let function selectSlot(dir) {
     return
 
   local { slotType } = params
-  let { equipScheme = {} } = viewSoldierInfo.value
+  let { equipScheme = {}, sClass = "unknown" } = viewSoldierInfo.value
+  let { armyId, ownerGuid } = params
+  let lockedSlotList = classSlotLocksByArmy.value?[armyId][sClass] ?? []
 
-  let availableSlotTypes = equipGroups
-    .map(@(g) g.slots.filter(@(s) (s in equipScheme) && !equipScheme[s]?.isDisabled))
-    .map(@(v) v.sort(@(a, b) (equipScheme[a]?.uiOrder ?? 0) <=> (equipScheme[b]?.uiOrder ?? 0)))
-    .reduce(@(a, val) a.extend(val), [])
+  let availableSlotTypes = equipSlotTbl
+    .keys()
+    .filter(@(sType) sType in equipScheme
+      && !equipScheme[sType]?.isDisabled && !lockedSlotList.contains(sType))
+    .sort(@(a, b)
+      (equipScheme[a]?.uiOrder ?? 0) <=> (equipScheme[b]?.uiOrder ?? 0)) //warning disable: -unwanted-modification
 
   local slotIdx = availableSlotTypes.indexof(slotType)
   if (slotIdx == null)
@@ -235,7 +232,6 @@ let function selectSlot(dir) {
     : dir < 0 ? subslotsCount - 1
     : 0
 
-  let { armyId, ownerGuid } = params
   openSelectItem(armyId, ownerGuid, slotType, slotId)
 }
 
@@ -542,7 +538,7 @@ let trimArmyHead = @(armyId) armyId.split("_").top()
 
 let viewItemMoveVariants = Computed(function() {
   let item = viewItem.value
-  if (item == null || item.guid == "" || item?.isFixed)
+  if (item == null || (item?.guid ?? "") == "" || isWeaponFixed.value)
     return []
 
   let curArmyId = getLinkedArmyName(item)

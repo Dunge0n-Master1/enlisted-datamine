@@ -214,11 +214,17 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
     return
 
   var isShootingPassenger = false
+  var isGyroAimEnabled = false
   var humanInputAim = int(BAD_ACTION_HANDLE)
+  var humanInputAimDelta = int(BAD_ACTION_HANDLE)
   query() <| $ [es(REQUIRE=hero)] (human_vehicle__isShootingPassenger : bool;
-                                   human_input__aim : int)
+                                   human_input__isGyroAimEnabled : bool;
+                                   human_input__aim : int;
+                                   human_input__aimDelta : int)
     isShootingPassenger = human_vehicle__isShootingPassenger
+    isGyroAimEnabled = human_input__isGyroAimEnabled
     humanInputAim = human_input__aim
+    humanInputAimDelta = human_input__aimDelta
 
   for gunEid in turret_control__gunEids
     query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (turret__triggerGroup : int;
@@ -238,6 +244,13 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
   assume sens_scale = get_sens_scale()
   aAim.x *= isShootingPassenger ? sens_scale.humanFpsCam : sens_scale.vehicleCam
   aAim.y *= isShootingPassenger ? sens_scale.humanFpsCam : sens_scale.vehicleCam
+
+  if isShootingPassenger && isGyroAimEnabled
+    let asAimDelta = get_analog_stick_action_state(uint16(humanInputAimDelta))
+    if asAimDelta.bActive
+      aAim.x += asAimDelta.x
+      aAim.y += asAimDelta.y
+
   apply_turret_input(turret_control__gunEids,
                      aAim,
                      get_digital_action_state(uint16(vehicle_input__zoomToggle)),

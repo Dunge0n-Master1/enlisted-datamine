@@ -11,7 +11,6 @@ let { bigPadding, defBgColor, blurBgColor, blurBgFillColor,
 let mkHeader = require("%enlist/components/mkHeader.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
-let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { openUnlockSquadScene } = require("unlockSquadScene.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove
@@ -64,6 +63,7 @@ let buySquadWindow = require("%enlist/shop/buySquadWindow.nut")
 let { mkCurrencyImg } = require("%enlist/currency/currenciesComp.nut")
 let { currenciesById } = require("%enlist/currency/currencies.nut")
 let presetsBlock = require("%enlist/soldiers/squadPresetsBlock.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let commonBtnWidth = hdpx(250)
 
@@ -148,6 +148,7 @@ let buttonClose = textButton.Flat(loc("Close"), applyAndClose,
   { key = "closeSquadsManage" //used in tutorial
     margin = 0
     size = [commonBtnWidth, commonBtnHeight]
+    hotkeys = [[$"^{JB.B} | Esc"]]
   })
 
 let emptySquadToBuy = @(children){
@@ -514,7 +515,7 @@ let mkBuyPremBtn = @(onClick)
       keepAspect = KEEP_ASPECT_FIT
       rendObj = ROBJ_IMAGE
       size = [hdpx(30), hdpx(30)]
-      image = Picture("!ui/squads/plus.svg:{0}:{1}:K".subst(hdpx(30), hdpx(30)))
+      image = Picture("!ui/squads/plus.svg:{0}:{0}:K".subst(hdpxi(30)))
       color = sf & S_HOVER ? selectedTxtColor : activeTxtColor
     }
   })
@@ -718,10 +719,11 @@ let function dropToReserveContainer() {
 
 let scrollHandlerRightPanel = ScrollHandler()
 
-let currencyIconSize = hdpx(30)
-let function getCurrencyIconById(currencyId, size = currencyIconSize){
+let currencyIconSize = hdpxi(30)
+let function getCurrencyIconById(currencyId){
   let currency = currenciesById.value?[currencyId]
-  return currency ? mkCurrencyImg(currency, size).__update({ margin = bigPadding }) : null
+  return currency == null ? null
+    : mkCurrencyImg(currency, currencyIconSize).__update({ margin = bigPadding })
 }
 
 let function onPremiumCb(data){
@@ -782,6 +784,11 @@ let function rightPanel() {
     children = [
       {
         size = [SIZE_TO_CONTENT, flex()]
+        xmbNode = XmbContainer({
+          canFocus = @() false
+          scrollSpeed = 5.0
+          isViewport = true
+        })
         children = makeVertScroll({
           flow = FLOW_VERTICAL
           gap = bigPadding
@@ -843,7 +850,6 @@ let function chooseSquadsScene(){
       mkHeader({
         armyId = squadsArmy.value
         textLocId = "squads/manageTitle"
-        closeButton = closeBtnBase({ onClick = applyAndClose })
         addToRight = currenciesWidgetUi
       })
       {

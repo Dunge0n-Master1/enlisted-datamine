@@ -48,7 +48,7 @@ let function mkCustomizeButton(curVehicle) {
     : Flat(loc("customizeVehicle"),
         @() selectVehParams.mutate(@(v) v.isCustomMode = true),
         {
-          hotkeys = [[ "^J:X" ]]
+          hotkeys = [[ "^J:Start" ]]
           padding = [0, sh(9)]
           margin = 0
         })

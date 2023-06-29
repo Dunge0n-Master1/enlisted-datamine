@@ -3,8 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let isChineseVersion = require("%enlSqGlob/isChineseVersion.nut")
 let { configs } = require("%enlist/meta/configs.nut")
-let { curArmy, armySquadsById, armyItemCountByTpl
-} = require("%enlist/soldiers/model/state.nut")
+let { curArmy, armySquadsById, armyItemCountByTpl } = require("%enlist/soldiers/model/state.nut")
 let { shopItems } = require("shopItems.nut")
 let { purchasesCount } = require("%enlist/meta/profile.nut")
 let { hasClientPermission } = require("%enlSqGlob/client_user_rights.nut")
@@ -39,6 +38,7 @@ let function onServerTime(t) {
   updateSwitchTime()
 }
 
+
 let function onShopAttach(){
   serverTime.subscribe(onServerTime)
   shopItems.subscribe(updateSwitchTime)
@@ -53,7 +53,7 @@ let function onShopDetach(){
 let curGroupIdx = Watched(0)
 let curFeaturedIdx = Watched(0)
 let chapterIdx = Watched(-1)
-
+let curSelectionShop = Watched(null)
 
 let function mkShopState() {
   let shopConfig = Computed(@() configs.value?.shop_config ?? {})
@@ -206,12 +206,12 @@ let function mkShopState() {
       mkChapters = @(armyShopItems) getChapterItems(armyShopItems, bpGroupsChapters)
     }
     {
-      id = "items"
+      id = "weapon"
       locId = "soldierWeaponry"
       mkChapters = @(armyShopItems) getChapterItems(armyShopItems, itemsGroupsChapters)
     }
     {
-      id = "soldiers"
+      id = "soldier"
       locId = "menu/soldier"
       filterFunc = @(shopItem)
         shopItem?.offerGroup == "soldier_silver_group"
@@ -299,12 +299,40 @@ let function mkShopState() {
     chapterIdx(-1)
   }
 
+  let function autoSwitchNavigation() {
+    let groups = curShopItemsByGroup.value
+    let { group = null, chapter = null } = curSelectionShop.value
+    local groupIndex, chapterIndex
+
+    curSelectionShop(null)
+
+    if (chapter)
+      foreach (k,v in groups) {
+        chapterIndex = v.chapters?.findindex(@(g) g.container?.offerContainer == chapter)
+        if (chapterIndex != null) {
+          groupIndex = k
+          break
+        }
+      }
+
+    if (group) {
+      groupIndex = groups.findindex(@(g) g.id == group)
+    }
+
+    if (groupIndex != null)
+      curGroupIdx(groupIndex)
+    if (chapterIndex != null)
+      chapterIdx(chapterIndex)
+    // TODO: need add function open item shop
+  }
+
   return {
     curShopItemsByGroup
     curShopDataByGroup
     curFeaturedByGroup
     shopConfig
     switchGroup
+    autoSwitchNavigation
   }
 }
 
@@ -316,4 +344,6 @@ return {
   curFeaturedIdx
   chapterIdx
   curSwitchTime
+  setAutoGroup = @(group) curSelectionShop({group})
+  setAutoChapter = @(chapter) curSelectionShop({chapter})
 }

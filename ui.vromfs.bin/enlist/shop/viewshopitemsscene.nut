@@ -13,7 +13,8 @@ let {
   mkShopItemInfoBlock, mkMsgBoxView
 } = require("shopPkg.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
-let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { allItemTemplates, itemTypesInSlots
+} = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { shopItemContentCtor, purchaseIsPossible } = require("armyShopState.nut")
@@ -26,12 +27,17 @@ let {
   bigPadding, smallPadding, blurBgColor, blurBgFillColor, unitSize, detailsHeaderColor,
   inventoryItemDetailsWidth
 } = require("%enlSqGlob/ui/viewConst.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { makeCrateToolTip } = require("%enlist/items/crateInfo.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let shopItemFreemiumMsgBox = require("%enlist/shop/shopItemFreemiumMsgBox.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -20
+const ADD_CAMERA_FOV_MAX = 5
+
 
 let shopItem = mkWatched(persist, "shopItem", null)
 let selectedKey = Computed(@() curSelectedItem.value?.basetpl)
@@ -55,7 +61,7 @@ let function mkShopItemContent(sItem) {
           .filter(@(item) item != null)
           .sort(@(a,b) (a?.tier ?? 0) <=> (b?.tier ?? 0))
 
-        let res = { watch = [crateContentWatch, allItemTemplates] }
+        let res = { watch = [crateContentWatch, allItemTemplates, itemTypesInSlots] }
         if (crateItems.len() == 0)
           return res
 
@@ -78,9 +84,10 @@ let function mkShopItemContent(sItem) {
                 item
                 selectedKey
                 selectKey = item?.basetpl
+                needGunLayout = item?.itemtype in itemTypesInSlots.value.mainWeapon
                 isXmb = true
                 canDrag = false
-                itemSize = [shopItemWidth, 2.0 * unitSize]
+                itemSize = [shopItemWidth, 2.2 * unitSize]
                 onClickCb = @(_) curSelectedItem(item)
                 hideStatus = true
                 isAvailable = true
@@ -194,7 +201,10 @@ let shopItemsScene = @() {
   size = [sw(100), sh(100)]
   flow = FLOW_VERTICAL
   padding = safeAreaBorders.value
-  behavior = Behaviors.MenuCameraControl
+  behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     mkHeader({
       // FIXME: Need to add some parameter to shop item to determine starter pack

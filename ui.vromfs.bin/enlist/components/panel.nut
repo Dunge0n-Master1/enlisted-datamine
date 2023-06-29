@@ -6,6 +6,7 @@ let { WindowTransparent } = require("%ui/style/colors.nut")
 let cursors = require("%ui/style/cursors.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { fontawesome } = require("%enlSqGlob/ui/fonts_style.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const PANEL_DEFAULT_KEY = "panel"
 let defaultSize = [hdpx(480), hdpx(360)]
@@ -52,6 +53,7 @@ let panelHeader = @(onClick) {
     padding = style.headerPadding
     size = style.headerCloseBtnSize
     color = style.headerTxtColor
+    hotkeys = [[ $"^{JB.B} | Esc" ]]
   }
 }
 

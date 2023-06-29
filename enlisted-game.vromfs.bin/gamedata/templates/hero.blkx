@@ -112,7 +112,17 @@ human_context_command{
 
 human_look_at_zone{
   _tracked:t="human__lookAtZone"
+  _tracked:t="human__lookAtZoneQuickchat"
+  _tracked:t="human__lookAtZoneQuickchatCanBeAttacked"
+  _tracked:t="human__lookAtZoneQuickchatCanBeDefended"
+  human__lookAtZoneTitle:t=""
+  human__lookAtZoneQuickchatTitle:t=""
+  human__lookAtZoneQuickchatCanBeAttacked:b=no
+  human__lookAtZoneQuickchatCanBeDefended:b=no
 
   "human__lookAtZone:eid"{
+  }
+
+  "human__lookAtZoneQuickchat:eid"{
   }
 }

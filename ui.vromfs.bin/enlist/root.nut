@@ -12,6 +12,9 @@ override_dashboard_show(SM_SHOW)
 
 ecs.clear_vm_entity_systems()
 
+let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
+screenScaleUpdate(safeAreaAmount.value)
+
 require("%dngscripts/globalState.nut").setUniqueNestKey("Enlist")
 require("%enlist/getAppIdsList.nut").setAppIdsList([1131, 1132, 1168, 1178])
 require("onScriptLoad.nut")
@@ -44,7 +47,6 @@ require("daRg.debug").requireFontSizeSlot(DBGLEVEL>0 && VAR_TRACE_ENABLED) //war
 let {popupBlock} = require("%enlist/popup/popupBlock.nut")
 let registerScriptProfiler = require("%sqstd/regScriptProfiler.nut")
 let {underUiLayer, aboveUiLayer} = require("%enlist/uiLayers.nut")
-let {safeAreaAmount,safeAreaVerPadding, safeAreaHorPadding} = require("%enlSqGlob/safeArea.nut")
 let { fadeBlackUi } = require("fadeToBlack.nut")
 let {getCurrentLoginUi, loginUiVersion} = require("login/currentLoginUi.nut")
 let version_info = require("components/versionInfo.nut")

@@ -968,6 +968,8 @@ mortar_base{
   item__id:i=0
   item__locDetails:t=""
   item__weapType:t="mortar"
+  item__iconYaw:r=-90.0
+  item__iconPitch:r=90.0
 
   "item__weapSlots:array"{
     slot:t="secondary"
@@ -9741,8 +9743,7 @@ ptr_sholokhov_gun{
 mortar_rm_40{
   _extends:t="mortar_base"
   animchar__res:t="mortar_rm_40_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
+  item__iconRoll:r=180.0
   item__weight:r=12.0
   gun__locName:t="RM-40"
   gun__blk:t="content/enlisted/gamedata/weapons/mortar_rm_40.blk"
@@ -9846,8 +9847,7 @@ mine_o822_mp_smoke_phys{
 rm_38{
   _extends:t="mortar_base"
   animchar__res:t="rm_38_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
+  item__iconRoll:r=180.0
   item__weight:r=12.0
   gun__locName:t="RM-40"
   gun__blk:t="content/enlisted/gamedata/weapons/rm_38.blk"
@@ -9903,8 +9903,6 @@ rm_38_gun{
 bm_41_mortar{
   _extends:t="mortar_base"
   animchar__res:t="mortar_bm_41_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   item__weight:r=52.0
   gun__locName:t="82-mm Batalion Mortar M41"
   gun__blk:t="content/enlisted/gamedata/weapons/bm_41_mortar.blk"
@@ -19705,8 +19703,6 @@ piat_shell_phys{
 m2_mortar{
   _extends:t="mortar_base"
   animchar__res:t="m2_mortar_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   gun__locName:t="m2_mortar"
   gun__blk:t="content/enlisted/gamedata/weapons/m2_mortar.blk"
   item__template:t="m2_mortar_gun_item"
@@ -19809,8 +19805,6 @@ m49a2_smoke_phys{
 two_inch_mortar{
   _extends:t="mortar_base"
   animchar__res:t="two_inch_mortar_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   gun_spread__maxDeltaAngle:r=5.7
   gun__locName:t="two_inch_mortar"
   gun__blk:t="content/enlisted/gamedata/weapons/two_inch_mortar.blk"
@@ -19914,8 +19908,6 @@ two_inch_smoke_shell_phys{
 type_89_mortar{
   _extends:t="mortar_base"
   animchar__res:t="type_89_knee_mortar_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   gun_spread__maxDeltaAngle:r=5.7
   gun__locName:t="type_89_mortar"
   gun__blk:t="content/enlisted/gamedata/weapons/type_89_mortar.blk"
@@ -34708,8 +34700,6 @@ panzerwurfkorper_42_phys{
 granatwerfer_34{
   _extends:t="mortar_base"
   animchar__res:t="granatwerfer_34_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   item__weight:r=26.0
   gun__locName:t="8 cm Granatwerfer 34"
   gun__blk:t="content/enlisted/gamedata/weapons/granatwerfer_34.blk"
@@ -34769,6 +34759,7 @@ granatwerfer_36{
   item__iconScale:r=1.55
   item__iconOffset:p2=0.0, -0.18
   item__iconYaw:r=180.0
+  item__iconPitch:r=180.0
   item__iconRoll:r=-90.0
   gun__locName:t="granatwerfer_36"
   gun__blk:t="content/enlisted/gamedata/weapons/granatwerfer_36.blk"
@@ -34872,8 +34863,6 @@ wrg_36_smoke_phys{
 granatwerfer_42{
   _extends:t="mortar_base"
   animchar__res:t="granatwerfer_42_char"
-  item__iconYaw:r=-90.0
-  item__iconPitch:r=90.0
   item__weight:r=26.0
   gun__locName:t="Kurzer 8 cm Granatwerfer 42"
   gun__blk:t="content/enlisted/gamedata/weapons/granatwerfer_42.blk"

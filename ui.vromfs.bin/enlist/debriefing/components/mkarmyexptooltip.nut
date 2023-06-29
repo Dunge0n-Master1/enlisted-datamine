@@ -54,26 +54,20 @@ let mkValueWithIcon = @(value, icon) {
 }
 
 
-let function mkPremSquadXpImage(size, override = {}) {
-  return function() {
-    let iSize = size
-    return {
+let mkPremSquadXpImage = @(size, override = {}) {
+  halign = ALIGN_CENTER
+  valign = ALIGN_CENTER
+  children = [
+    {
+      rendObj = ROBJ_IMAGE
       size = [size, size]
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      children = [
-        {
-          rendObj = ROBJ_IMAGE
-          size = [iSize, iSize]
-          image = Picture($"!ui/skin#premium/prem_squad_debrif_icon.svg:{iSize}:{iSize}:K")
-        }
-      ]
-    }.__update(override)
-  }
-}
+      image = Picture($"!ui/skin#premium/prem_squad_debrif_icon.svg:{size}:{size}:K")
+    }
+  ]
+}.__update(override)
 
 
-let tooltipIconSize = hdpx(20)
+let tooltipIconSize = hdpxi(20)
 
 let function getSquadExpDetailed(info) {
   let {

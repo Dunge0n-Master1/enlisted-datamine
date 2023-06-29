@@ -20,7 +20,7 @@ let ZONE_BG_COLOR = Color(60, 60, 60, 60)
 let ZONE_LOCK_COLOR = Color(160, 160, 160, 160)
 let ZONE_LOCK_ENEMY_PRESENT_COLOR = Color(160, 160, 160, 160)
 
-let zoneLockIconSize = [hdpx(21), hdpx(21)]
+let zoneLockIconSize = array(2, hdpxi(21))
 
 let baseZoneAppearAnims = [
   { prop=AnimProp.scale, from=[2.5,2.5], to=[1,1], duration=0.4, play=true}

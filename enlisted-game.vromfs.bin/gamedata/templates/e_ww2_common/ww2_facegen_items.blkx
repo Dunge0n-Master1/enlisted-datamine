@@ -379,7 +379,7 @@ eye_shader_vars{
   eye_iris_color_b_to:p4=0.45, 0.25, 0.1, 0.0
   eye_iris_radius:r=0.03
   eye_parallax:r=0.2
-  eye_reflectance:r=0.95
+  eye_reflectance:r=0.65
   eye_sclera_color_from:p4=0.62, 0.58, 0.58, 0.0
   eye_sclera_color_to:p4=0.44, 0.29, 0.29, 0.0
   eye_smoothness:r=0.97

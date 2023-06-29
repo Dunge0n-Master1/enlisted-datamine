@@ -22,7 +22,7 @@ let { curCampaign } = require("%enlist/meta/curCampaign.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
-let { Contact } = require("%enlist/contacts/contact.nut")
+let { contacts } = require("%enlist/contacts/contact.nut")
 let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
 let mkActiveBoostersMark = require("%enlist/mainMenu/mkActiveBoostersMark.nut")
 let { showSquadMembersCrossPlayRestrictionMsgBox,
@@ -149,7 +149,7 @@ let function checkPlayAvailability() {
           loc(gameProfile.value?.campaigns[campaign].title ?? campaign))
         membersList = colorize(MsgMarkedText,
           ", ".join(lockedUserIds.map(@(userId)
-            remap_nick(Contact(userId.tostring()).value.realnick))))
+            remap_nick(contacts.value[userId.tostring()]?.realnick))))
       })
     })
     return

@@ -3,17 +3,13 @@ require ecs.safe
 require ecs.common
 require game.es.events
 require game.es.inventory_common
+require game.es.weapon_refill_ammo_common
 require game.utils.team
 require math.base
 require DagorMath
 require HumanPhys
 require DagorSystem
 require danetlibs.native_dasevents.main.native_events
-
-
-struct MagazinesCount
-  current : int
-  partial : int
 
 
 struct ResupplyGunPrice
@@ -38,39 +34,6 @@ enum RefillAmmoStatus
 struct RefillAmmoResult
   boxUses : int
   status : RefillAmmoStatus
-
-
-def is_ammo_for_gun(ammo_template; ammo_holders_templates)
-  for ammo_holder_template in ammo_holders_templates
-    let holder = get_string(ammo_holder_template, "")
-    if holder != "" && ammo_template == holder
-      return true
-  return false
-
-
-def refill_ammo(requester; count; ammoTemplate)
-  for _i in range(0, count)
-    push_item_in_cont(requester, ammoTemplate)
-  return count > 0
-
-def private get_magazines_count(ammo_in_gun : int;
-                                max_ammo_in_magazine : int;
-                                item_container : EidList;
-                                is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
-  var magazines = [[MagazinesCount
-    current=(ammo_in_gun <= 0 ? 0 : 1),
-    partial=0
-  ]]
-
-  for itemEid in item_container
-    query(itemEid) <| $ [es] (item__template : string; ammo_holder__ammoCount : int)
-      if !invoke(is_suitable_ammo_cb, item__template)
-        return
-      magazines.current++
-      if ammo_holder__ammoCount < max_ammo_in_magazine
-        magazines.partial++
-
-  return magazines
 
 
 def private calculate_resupply_gun_price(max_magazines : int;
@@ -120,61 +83,6 @@ def resupply_gun_check(box_use_count : int;
   ]]
 
 
-def resupply_gun(resupply_result : ResupplyGunResult;
-                 requester : EntityId;
-                 holder_ammo_count : int;
-                 reserve_ammo_template : string |#;
-                 var item_container : EidList&;
-                 is_suitable_ammo_cb : block<(itemTemplate : string) : bool>)
-  let magazinesRefilled = resupply_result.emptyMagazinesRefilled + resupply_result.partialMagazinesRefilled
-  if magazinesRefilled <= 0
-    return
-
-  refill_ammo(requester, magazinesRefilled, reserve_ammo_template)
-
-  // remove partial magazines from inventory which were replaced by full magazines from the box
-  var i = length(item_container) - 1
-  var numPartialMagsToBeRemoved = resupply_result.partialMagazinesRefilled
-
-  while i >= 0
-    if numPartialMagsToBeRemoved <= 0
-      break
-    query(item_container[i]) <| $ [es] (item__template : string; ammo_holder__ammoCount : int)
-      if !invoke(is_suitable_ammo_cb, item__template) || ammo_holder__ammoCount >= holder_ammo_count
-        return
-      destroyEntity(item_container[i])
-      item_container |> erase(i)
-      --numPartialMagsToBeRemoved
-    --i
-
-
-def has_grenade(itemContainer)
-  for item in itemContainer
-    if has(item, "item__grenadeType")
-      return true
-  return false
-
-
-def try_to_refill_grenades(requester, grenadeTemplate)
-  if grenadeTemplate == ""
-    return false
-  var isAmmoRefilled = true
-  ecs::query(requester) <| $ [es] (itemContainer : EidList)
-    isAmmoRefilled &&= !has_grenade(itemContainer)
-    isAmmoRefilled &&= refill_ammo(requester, 1, grenadeTemplate)
-  return isAmmoRefilled
-
-
-def has_ammo_holder(gun_eid; item_template)
-  var hasHolder = false
-  query(gun_eid) <| $ [es] (gun__ammoHolders : Array)
-    if is_ammo_for_gun(item_template, gun__ammoHolders) // item id and ammo holder is same
-      hasHolder = true
-      return
-
-  return hasHolder
-
-
 def try_refill_ammoholder_for_gun(requester_eid : EntityId;
                                   gun_eid : EntityId;
                                   gun_ammo : int;
@@ -204,8 +112,8 @@ def try_refill_ammoholder_for_gun(requester_eid : EntityId;
                                           is_suitable_ammo_cb)
 
   new_box_use_count -= resupplyResult.boxUses
-
-  resupply_gun(resupplyResult,
+  resupply_gun(resupplyResult.emptyMagazinesRefilled,
+               resupplyResult.partialMagazinesRefilled,
                requester_eid,
                holderAmmoCount,
                ammo_template,

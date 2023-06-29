@@ -8,7 +8,7 @@ let { squadLen, squadMembers, isInvitedToSquad, enabledSquad, canInviteToSquad,
   leaveSquad, squadSelfMember, myExtSquadData, isSquadLeader
 } = require("%enlist/squad/squadManager.nut")
 let { currentGameMode } = require("%enlist/gameModes/gameModeState.nut")
-let { Contact } = require("%enlist/contacts/contact.nut")
+let { getContact } = require("%enlist/contacts/contact.nut")
 let mkContactBlock = require("%enlist/contacts/contactBlock.nut")
 let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut")
 let {
@@ -90,12 +90,12 @@ let function squadMembersUi() {
   let squadList = []
   foreach (member in squadMembers.value)
     if (member.isLeader)
-      squadList.insert(0, horizontalContact(Contact(member.userId.tostring())))
+      squadList.insert(0, horizontalContact(getContact(member.userId.tostring())))
     else
-      squadList.append(horizontalContact(Contact(member.userId.tostring())))
+      squadList.append(horizontalContact(getContact(member.userId.tostring())))
 
   foreach (uid, _ in isInvitedToSquad.value)
-    squadList.append(horizontalContact(Contact(uid.tostring())))
+    squadList.append(horizontalContact(getContact(uid.tostring())))
 
   if (maxMembers.value > 1 && canInviteToSquad.value)
     for(local i = squadList.len(); i < maxMembers.value; i++)

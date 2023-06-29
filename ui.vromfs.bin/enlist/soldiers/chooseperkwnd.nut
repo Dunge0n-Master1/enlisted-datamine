@@ -103,7 +103,11 @@ let possiblePerksBtn = @(_soldier) @() {
     ? null
     : textButton.SmallFlat(loc("possible_perks_list"),
         @(_event) openAvailablePerks(perksList.value, curArmy.value, sPerks.value),
-        { margin = 0,  padding = [bigPadding, 2 * bigPadding] })
+        {
+          margin = 0,
+          padding = [bigPadding, 2 * bigPadding]
+          hotkeys = [["^J:X"]]
+        })
   }
 
 let wndHeader = {

@@ -2,19 +2,19 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let matchingNotifications = require("%enlSqGlob/notifications/matchingNotifications.nut")
-let { globalWatched } = require("%dngscripts/globalState.nut")
+let { nestWatched } = require("%dngscripts/globalState.nut")
 
 let currenciesList = mkWatched(persist, "currenciesList", [])
 
-let { currenciesBalance, currenciesBalanceUpdate } = globalWatched("currenciesBalance", @() {})
-let { currenciesExpiring, currenciesExpiringUpdate } = globalWatched("currenciesExpiring", @() {})
-let { currenciesPurchases, currenciesPurchasesUpdate } = globalWatched("currenciesPurchases", @() {})
+let currenciesBalance = nestWatched("currenciesBalance", {})
+let currenciesExpiring = nestWatched("currenciesExpiring", {})
+let currenciesPurchases = nestWatched("currenciesPurchases", {})
 
 userInfo.subscribe(function(v) {
   if (v)
     return
-  currenciesBalanceUpdate({})
-  currenciesPurchasesUpdate({})
+  currenciesBalance({})
+  currenciesPurchases({})
 })
 
 let function mkCurrency(config){
@@ -52,15 +52,15 @@ let notifications = {
       newExpiring[k] <- v?.expiring
     }
     if (!isEqual(newBalance, currenciesBalance.value))
-      currenciesBalanceUpdate(newBalance)
+      currenciesBalance(newBalance)
     if (!isEqual(newExpiring, currenciesExpiring.value))
-      currenciesExpiringUpdate(newExpiring)
+      currenciesExpiring(newExpiring)
   }
 
   update_purchasable_list = function(ev) {
     let newPurch = ev?.purchases ?? {}
     if (!isEqual(newPurch, currenciesPurchases.value))
-      currenciesPurchasesUpdate(newPurch)
+      currenciesPurchases(newPurch)
   }
 }
 
@@ -79,7 +79,7 @@ console_register_command(@() console_print(currenciesBalance.value), "currencies
 console_register_command(function(key, val) {
   let balance = clone currenciesBalance.value
   balance[key] <- val
-  currenciesBalanceUpdate(balance)
+  currenciesBalance(balance)
 }, "currencies.set")
 
 let hasValidBalance = Computed(@() currenciesBalance.value.findindex(@(val) val < 0) == null)

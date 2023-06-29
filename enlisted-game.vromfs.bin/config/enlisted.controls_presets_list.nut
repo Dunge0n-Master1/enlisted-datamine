@@ -7,7 +7,7 @@ return {
   ps5 = [
     "content/enlisted/config/enlisted.default~ps5"
     "content/enlisted/config/enlisted.updated~ps5"
-    "content/enlisted/config/enlisted.gyro~ps4"
+    "content/enlisted/config/enlisted.gyro~ps5"
   ]
   win32 = [
     "content/enlisted/config/enlisted.default"

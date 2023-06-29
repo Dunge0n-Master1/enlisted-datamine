@@ -42,6 +42,7 @@ require common_shooter.events_common_shooter
 require enlisted.game.es.bomb_site_common
 require enlisted.game.es.enlisted_squad_common
 require enlisted.game.es.ai.ai_covers_common
+require enlisted.game.es.fortifications_build_common
 require walkerai
 require game.es.squad_order_common
 require math.linear
@@ -2592,6 +2593,8 @@ class FindCoverAroundPoint : BehNodeAdapter
   maxOccupied  : int = -1
   traceVisible : bool = false
 
+  avoidBuilderEid : EntityId = INVALID_ENTITY_ID
+
   def override loadFromBlk(var data : DataBlock) : void
     radius = datablock_getReal(data, "radius", 5.)
     minDist = datablock_getReal(data, "minDist", 0.0)
@@ -2616,6 +2619,9 @@ class FindCoverAroundPoint : BehNodeAdapter
   def override init()
     if possibleAngleParam >= 0
       possibleCosAngle = cos(deg_to_rad(datablock_getReal(owner.blackBoard, possibleAngleParam)))
+
+    let agentEid = beh_tree_eid(owner)
+    avoidBuilderEid = get_squad_leader_builder(agentEid)
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
@@ -2678,7 +2684,10 @@ class FindCoverAroundPoint : BehNodeAdapter
             let score = eval_cover_score_stay(cover, coverDesc, i) + (isPrevCoverSlot ? 1 : 0)
             if score < slotBestScore
               continue
-            let coverSlotPos = get_cover_slot_pos(cover, coverDesc, i) + traceHeightUp
+            let coverSlotPosBase = get_cover_slot_pos(cover, coverDesc, i)
+            if !!avoidBuilderEid && is_conflict_with_builder_building_action(avoidBuilderEid, coverSlotPosBase)
+              continue
+            let coverSlotPos = coverSlotPosBase + traceHeightUp
             let coverSlotOfs = coverSlotPos - traceStartPos
             let cosAngle = dot(cover.dir, normalize(float3(coverSlotOfs.x, 0.0, coverSlotOfs.z)))
             if cosAngle < possibleCosAngle

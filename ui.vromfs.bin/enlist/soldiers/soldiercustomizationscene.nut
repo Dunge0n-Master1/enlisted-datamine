@@ -5,6 +5,7 @@ let { body_txt, h2_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { defTxtColor, soldierWndWidth, bigPadding, titleTxtColor, smallPadding,
   blurBgColor, blurBgFillColor, maxContentWidth, slotBaseSize, commonBtnHeight
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { horGap, emptyGap } = require("%enlist/components/commonComps.nut")
 let { curArmyData, curCampItemsCount } = require("model/state.nut")
 let { sceneWithCameraAdd, sceneWithCameraRemove } = require("%enlist/sceneWithCamera.nut")
@@ -36,12 +37,17 @@ let purchaseWndWidth = min(sw(40), maxContentWidth) - hdpx(75) * 2
 let waitingSpinner = spinner(hdpx(35))
 
 let leftBlockHeader = {
-  rendObj = ROBJ_TEXT
-  hplace = ALIGN_CENTER
-  text = loc("appearance/title")
-  color = defTxtColor
-}.__update(body_txt)
-
+  rendObj = ROBJ_BOX
+  fillColor = panelBgColor
+  size = [flex(), hdpx(48)]
+  valign = ALIGN_CENTER
+  children = {
+    rendObj = ROBJ_TEXT
+    hplace = ALIGN_CENTER
+    text = loc("appearance/title")
+    color = defTxtColor
+  }.__update(body_txt)
+}
 
 let customizationCurrency = @() {
   watch = curCampItemsCount
@@ -140,6 +146,7 @@ let function purchaseBtnBlock(){
         ? Purchase(loc("mainmenu/purchaseNow"), buyItemsWithCurrency)
         : PrimaryFlat(loc("mainmenu/purchaseNow"), buyItemsWithTickets, {
             isEnabled = (curCampItemsCount.value?[APPEARANCE_ORDER_TPL] ?? 0) >= v.cost
+            hotkeys = [["^J:X"]]
           })
     ]
   }))
@@ -228,13 +235,14 @@ let multyBuyBtn = @(items) Bordered(loc("appearance/multy_buy_apply"),
     openPurchaseWnd(items)
   },
   {
-    size = [flex(), commonBtnHeight]
+    size = [flex(), commonBtnHeight],
+    hotkeys = [["^J:X"]]
   }
 )
 
 let multyApplyBtn = Bordered(loc("appearance/multy_apply"),
   multipleApplyOutfit,
-  { size = [flex(), commonBtnHeight] }
+  { size = [flex(), commonBtnHeight], hotkeys = [["^J:X"]] }
 )
 
 
@@ -248,7 +256,7 @@ let function leftCustomisationBlock(){
     color = blurBgColor
     fillColor = blurBgFillColor
     flow = FLOW_VERTICAL
-    gap = verticalGap
+    gap = bigPadding
     padding = bigPadding
     children = [
       mkNameBlock(curSoldierInfo)
@@ -268,7 +276,7 @@ let rightBtnBlock = {
   valign = ALIGN_BOTTOM
   gap = verticalGap
   children = [
-    Bordered(loc("BackBtn"), saveOutfit, { margin = 0 })
+    Bordered(loc("BackBtn"), saveOutfit, { margin = 0, hotkeys = [[$"^{JB.B}"]] })
     @(){
       watch = itemsToBuy
       flow = FLOW_VERTICAL
@@ -280,11 +288,11 @@ let rightBtnBlock = {
             : loc("appearance/itemsInCart", { count = itemsToBuy.value.len() })
         }.__update(h2_txt)
         Bordered(loc("appearance/purchase"), function(){
-          openPurchaseWnd()
+            openPurchaseWnd()
           },{
             margin = 0
             isEnabled = itemsToBuy.value.len() > 0
-            hotkeys = [["^J:Y", { action = @() openPurchaseWnd() }]]
+            hotkeys = [["^J:Y"]]
           })
       ]
     }

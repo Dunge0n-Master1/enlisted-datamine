@@ -33,6 +33,7 @@ let { mkIconBar } = require("%enlSqGlob/ui/itemTier.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkRightHeaderFlag, primeFlagStyle } = require("%enlSqGlob/ui/mkHeaderFlag.nut")
 let { mkBpIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
+let { mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
 
 const MAX_CLASSES_USAGE = 5
 let PRICE_HEIGHT = hdpx(48)
@@ -41,6 +42,7 @@ const DISCOUNT_WARN_TIME = 600
 
 let cardPreviewSize = [fsh(45), fsh(30)]
 let cardSquadPreviewSize = [fsh(60), fsh(30)]
+let timerSize = body_txt.fontSize
 
 let mkPurchaseSpinner = @(shopItem, purchasingItem) @() {
   watch = purchasingItem
@@ -433,24 +435,23 @@ let function mkTimeAvailable(shopItem) {
       return res
 
     return res.__update({
-      children = mkRightHeaderFlag({
-        flow = FLOW_HORIZONTAL
-        valign = ALIGN_BOTTOM
-        gap = hdpx(2)
-        padding = bigPadding
-        children = [
-        faComp("clock-o", {
-          fontSize = body_txt.fontSize
-          color = TextNormal
-        })
+      children = mkRightHeaderFlag(
         {
-          rendObj = ROBJ_TEXT
-          text = secondsToHoursLoc(timeLeft)
-          color = TextNormal
-        }.__update(body_txt)
-      ]}, primeFlagStyle.__merge({
-        offset = 0
-      }))
+          flow = FLOW_HORIZONTAL
+          valign = ALIGN_BOTTOM
+          gap = hdpx(2)
+          padding = bigPadding
+          children = [
+            mkTimerIcon(timerSize, { color = TextNormal })
+            {
+              rendObj = ROBJ_TEXT
+              text = secondsToHoursLoc(timeLeft)
+              color = TextNormal
+            }.__update(body_txt)
+          ]
+        },
+        primeFlagStyle.__merge({ offset = 0 })
+      )
     })
   }
 }

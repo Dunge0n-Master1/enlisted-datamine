@@ -26,6 +26,18 @@ repeat{
         }
       }
     }
+
+    success{
+
+      sequencer{
+
+        isGrenadeSelected{
+        }
+
+        chooseBestWeapon{
+        }
+      }
+    }
   }
 
   subTree{

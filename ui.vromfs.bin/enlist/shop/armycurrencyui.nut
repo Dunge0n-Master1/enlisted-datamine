@@ -10,9 +10,9 @@ let {
 let {
   currencyPresentation, ticketGroups, getCurrencyPresentation
 } = require("currencyPresentation.nut")
+let { setAutoGroup } = require("%enlist/shop/shopState.nut")
 
 
-let openShop = @() setCurSection("SHOP")
 let isInShop = Computed(@() curSection.value == "SHOP" || isItemsShopOpened.value)
 
 let ADDING_ORDER_SIZE = [hdpx(20), hdpx(20)]
@@ -114,12 +114,17 @@ let function mkCurrenciesDiffAnim(realCurr, sectionCurr, viewCurrWatch) {
 }
 
 let mkArmyCurrency = @(armyCurrency, isShop)
-  getSortedCards(armyCurrency).map(@(value)
-    mkCurrencyOverall(value.type,
+  getSortedCards(armyCurrency).map(function(value) {
+    let function openShop() {
+      setAutoGroup(value.type)
+      setCurSection("SHOP")
+    }
+    return mkCurrencyOverall(value.type,
       value.cards,
       value.isInteractive && !isShop ? openShop : null,
       value,
-      isShop))
+      isShop)
+  })
 
 let sectionCurrency = Computed(function() {
   let currencies = viewCurrencies.value

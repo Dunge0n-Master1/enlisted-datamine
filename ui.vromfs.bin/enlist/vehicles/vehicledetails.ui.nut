@@ -40,6 +40,7 @@ let { getShopItemsCmp, curArmyShopItems, openAndHighlightItems
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { isDmViewerEnabled } = require("%enlist/vehicles/dmViewer.nut")
 let { detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let unseenIcon = blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 let waitingSpinner = spinner(hdpx(25))
@@ -69,7 +70,7 @@ let vehicleNameRow = @(item) item == null ? null
       vplace = ALIGN_BOTTOM
       valign = ALIGN_CENTER
       children = [
-        mkSpecialItemIcon(item, hdpx(30))
+        mkSpecialItemIcon(item, hdpxi(30))
         defcomps.txt({
           color = detailsHeaderColor
           text = getItemName(item)
@@ -108,8 +109,9 @@ let openResearchUpgradeMsgbox = function(item, armyId) {
             focusResearch(research)
           }
           isCurrent = true
+          customStyle = { hotkeys = [["^J:X" ]] }
         }
-        { text = loc("Ok"), isCancel = true }
+        { text = loc("Close"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B}" ]] } }
       ]
     })
 }
@@ -134,6 +136,7 @@ let function mkUpgradeBtn(item) {
           margin = 0
           cursor = normalTooltipTop
           onHover = @(on) setTooltip(on ? loc("tip/btnUpgradeVehicle") : null)
+          hotkeys = [["^J:X"]]
         })
       })
 
@@ -165,6 +168,7 @@ let function mkUpgradeBtn(item) {
                       @(tpl) markSeenUpgrades(selectVehParams.value?.armyId, [tpl]))(on)
                   setTooltip(on ? loc("tip/btnUpgrade") : null)
                 }
+                hotkeys = [["^J:X"]]
               })
             !isUpgradeUsed.value && item?.basetpl in curUnseenAvailableUpgrades.value
               ? unseenIcon
@@ -227,6 +231,15 @@ let function mkChooseButton(curVehicle, selVehicle) {
         hotkeys = [[ "^J:Y" ]]
       })
 
+  if (flags & CAN_PURCHASE) {
+    let { basetpl } = curVehicle
+    let shopItemsCmp = getShopItemsCmp(basetpl)
+    return Flat(loc("GoToShop"),
+      @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value),
+      { margin = [0, bigPadding, 0, 0], hotkeys = [[ "^J:Y" ]] }
+    )
+  }
+
   if (flags & LOCKED)
     return !(flags & (CAN_RECEIVE_BY_ARMY_LEVEL | AVAILABLE_AT_CAMPAIGN)) ? null
       : Flat(loc("GoToArmyLeveling"),
@@ -234,23 +247,9 @@ let function mkChooseButton(curVehicle, selVehicle) {
             scrollToCampaignLvl(status?.levelLimit)
             jumpToArmyProgress()
           },
-          { margin = [0, bigPadding, 0, 0] })
+          { margin = [0, bigPadding, 0, 0], hotkeys = [[ "^J:Y" ]] })
 
   return null
-}
-
-let function goShopBtn(vehicle) {
-  if (vehicle == null)
-    return null
-  let { status, basetpl } = vehicle
-  let { flags } = status
-  if (!(flags & CAN_PURCHASE))
-    return null
-  let shopItemsCmp = getShopItemsCmp(basetpl)
-  return Flat(loc("GoToShop"),
-    @() openAndHighlightItems(shopItemsCmp.value, curArmyShopItems.value),
-    { margin = [0, bigPadding, 0, 0] }
-  )
 }
 
 let animations = [
@@ -274,7 +273,6 @@ let manageButtons = @() {
     children = isItemActionInProgress.value
       ? [waitingSpinner]
       : [
-          goShopBtn(viewVehicle.value)
           mkUpgradeBtn(viewVehicle.value)
           mkDisposeBtn(viewVehicle.value)
           mkChooseButton(viewVehicle.value, selectedVehicle.value)

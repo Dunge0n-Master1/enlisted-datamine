@@ -33,6 +33,11 @@ let premiumWidget = watchElemState(@(sf) {
   onHover = @(on) cursors.setTooltip(on
     ? tooltipBox(premiumActiveInfo())
     : null)
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+    active = "ui/enlist/button_action"
+  }
   animations = hasPremium.value ? null
     : [{prop = AnimProp.color, from = panelBgColor, to = 0xFF302438, duration = 3,
         loop = true, play = true, easing = CosineFull }]

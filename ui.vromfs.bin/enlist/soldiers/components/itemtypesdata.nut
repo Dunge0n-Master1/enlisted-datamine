@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let iconSize = hdpx(22)
+let iconSize = hdpxi(22)
 
 let itemTypesData = {
   boltaction_noscope = {

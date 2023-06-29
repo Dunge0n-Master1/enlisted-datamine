@@ -2,6 +2,7 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { curCamera } = require("%enlist/sceneWithCamera.nut")
+let { curSection, mainSectionId } = require("%enlist/mainMenu/sectionsState.nut")
 let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { curVehicle, objInfoByGuid, getSoldierItemSlots } = require("%enlist/soldiers/model/state.nut")
 let { viewVehicle, selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
@@ -22,6 +23,11 @@ let curHoveredItem = mkWatched(persist, "curHoveredItem")
 let curHoveredSoldier = mkWatched(persist,"curHoveredSoldier")
 let curSelectedItem = mkWatched(persist,"curSelectedItem")
 let cameraScenes = mkWatched(persist, "cameraScenes", [])
+
+let cameraFovDelta = Watched(0)
+let function changeCameraFov(delta, minDelta = 0, maxDelta = 0) {
+  cameraFovDelta(clamp(cameraFovDelta.value + delta, minDelta, maxDelta))
+}
 
 let isVehicleSceneVisible = Computed(function() {
   let { armyId = null, squadId = null } = selectVehParams.value
@@ -101,25 +107,31 @@ let vehDataInVehiclesScene = Computed(function() {
 
 let function getAircraftInfo(template) {
   if (template == null)
-    return { isAircraft = false isFloating = false }
+    return { isAircraft = false, isFloating = false, isBike = false }
+
   let templ = ecs.g_entity_mgr.getTemplateDB().getTemplateByName(template)
   return {
     isAircraft = templ?.getCompValNullable("airplane") != null
     isFloating = templ?.getCompValNullable("floating_aircraft") != null
+    isBike = templ?.getCompValNullable("bike") != null
   }
 }
 
 let squadCampaignVehicleFilter = Computed(function() {
-  let { isAircraft, isFloating } = getAircraftInfo(vehTplInVehiclesScene.value)
+  let { isAircraft, isFloating, isBike } = getAircraftInfo(vehTplInVehiclesScene.value)
   // plane scene is the same for all campaigns and differs only for floating/non floating planes for now
-  return !isAircraft ? selectedCampaign.value : isFloating ? "plane_floating" : "plane"
+  return isBike ? "bike"
+    : isFloating ? "plane_floating"
+    : isAircraft ? "plane"
+    : selectedCampaign.value
 })
 
 let sceneCameraSquadFilter = Computed(function() {
-  let sceneName = $"squad_{squadCampaignVehicleFilter.value}"
+  let prefix = curSection.value == mainSectionId ? "main_menu" : "squad"
+  let sceneName = $"{prefix}_{squadCampaignVehicleFilter.value}"
   // to support old spawns with no difference betwee campaigns
   // we can remove system below and cameraScenes watched after old menu is no longer used
-  return cameraScenes.value.contains(sceneName) ? sceneName : "squad"
+  return cameraScenes.value.contains(sceneName) ? sceneName : prefix
 })
 
 ecs.register_es("add_scene_camera_es", {
@@ -164,4 +176,6 @@ return {
   squadCampaignVehicleFilter
   vehicleInVehiclesScene
   isVehicleSceneVisible
+  cameraFovDelta
+  changeCameraFov
 }

@@ -18,7 +18,7 @@ let { txt, noteTextArea } = require("%enlSqGlob/ui/defcomps.nut")
 let { premiumActiveInfo, premiumImage } = require("premiumComp.nut")
 let { bigPadding, accentTitleTxtColor, commonBtnHeight, titleTxtColor,
   selectedTxtColor, activeTxtColor, smallPadding, bgPremiumColor,
-  basePremiumColor, discountBgColor
+  basePremiumColor
 } = require("%enlSqGlob/ui/viewConst.nut")
 let { Purchase } = require("%ui/components/textButton.nut")
 let openUrl = require("%ui/components/openUrl.nut")
@@ -29,6 +29,7 @@ let { premiumUrl = null } = require("app").get_circuit_conf()
 let { allActiveOffers } = require("%enlist/offers/offersState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { wndHeader } = require("%enlist/navigation/commonWndParams.nut")
+let { brightAccentColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
 const WND_UID = "premiumWindow"
@@ -195,7 +196,7 @@ let mkDiscountBanner = @(locId, endTime) {
   }, primeFlagStyle.__merge({
     size = flex()
     offset = 0
-    flagColor = discountBgColor
+    flagColor = brightAccentColor
   }))
 }
 
@@ -373,6 +374,7 @@ let premiumInfo = {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   padding = fsh(2)
+  margin = [0,0,fsh(18),0]
   children = [
     premiumImage(hdpx(80))
     {
@@ -396,25 +398,20 @@ let premiumInfo = {
 
 let premiumBlockContent = @() {
   size = flex()
-  gap = fsh(9)
+  flow = FLOW_VERTICAL
+  gap = bigPadding
   children = [
     premiumInfo
-    {
-      pos = [0, sh(35)]
-      children = mkHeaderFlag(
-        {
-          padding = [fsh(2), fsh(3)]
-          rendObj = ROBJ_TEXT
-          text = utf8ToUpper(loc("premium/title"))
-        }.__update(h1_txt),
-        primeFlagStyle
-      )
-    }
+    mkHeaderFlag({
+      padding = [fsh(2), fsh(3)]
+      rendObj = ROBJ_TEXT
+      text = utf8ToUpper(loc("premium/title"))
+    }.__update(h1_txt), primeFlagStyle)
     {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       vplace = ALIGN_BOTTOM
-      gap = hdpx(30)
+      gap = bigPadding
       children = [
         premiumDescBlock
         premiumUrl != null ? premiumBuyBlockBtn : premiumBuyBlockUi

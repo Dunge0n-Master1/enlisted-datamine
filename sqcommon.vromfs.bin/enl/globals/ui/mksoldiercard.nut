@@ -1,9 +1,10 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { gap, activeBgColor, hoverBgColor, defBgColor, slotBaseSize, disabledTxtColor,
+let { gap, slotBaseSize, disabledTxtColor,
   blockedTxtColor, deadTxtColor, listCtors
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { hoverSlotBgColor, panelBgColor, accentColor }  = require("%enlSqGlob/ui/designConst.nut")
 let { statusIconWarning } = require("%enlSqGlob/ui/itemPkg.nut")
 let { autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
@@ -16,19 +17,17 @@ let { mkSoldierPhoto } = require("%enlSqGlob/ui/soldierPhoto.nut")
 let DISABLED_ITEM = { tint = Color(40, 40, 40, 120), picSaturate = 0.0 }
 
 let iconDead = Picture("ui/skin#lb_deaths.avif")
+let selectedColor = mul_color(panelBgColor, 1.5)
+let panelBgAlertColor = panelBgColor + Color(30,0,0,0)
+let panelBgDeadColor = Color(40,10,10,180)
 
-let function listSquadColor(flags, selected, isFaded, hasAlertStyle, isDead) {
-  if (isDead)
-    return Color(40,10,10,180)
+let listSquadColor = @(flags, selected, hasAlertStyle, isDead)
+  isDead ? panelBgDeadColor
+    : flags & S_HOVER ? hoverSlotBgColor
+    : selected ? selectedColor
+    : hasAlertStyle ? panelBgAlertColor
+    : panelBgColor
 
-  let add = hasAlertStyle ? Color(30,0,0,0)
-    : isFaded ? Color(30,30,30,30)
-    : 0
-  return selected ? activeBgColor
-    : flags & S_HOVER
-      ? hoverBgColor
-      : add + defBgColor
-}
 
 let sClassIconSize = hdpxi(26)
 let makeClassIcon = @(soldier, color, isDead = false) isDead
@@ -44,12 +43,12 @@ let makeClassIcon = @(soldier, color, isDead = false) isDead
       {
         vplace = ALIGN_CENTER
         halign = ALIGN_CENTER
-        gap = gap
+        gap
         padding = [0, gap]
         flow = FLOW_VERTICAL
         children = [
           kindIcon(soldier?.sKind, sClassIconSize, soldier?.sClassRare)
-            .__update({ color = color, vplace = ALIGN_CENTER })
+            .__update({ color, vplace = ALIGN_CENTER })
           classIcon(soldier?.armyId, soldier?.sClass, sClassIconSize)
         ]
       },
@@ -152,6 +151,8 @@ let mkSoldierInfoBlock = function(soldierInfo, nameColor, weaponRow, group, isFr
   }
 }
 
+let selMarker = freeze({size = [flex(), hdpx(4)] pos = [0, hdpx(2)] rendObj = ROBJ_SOLID, vplace = ALIGN_BOTTOM, color = accentColor})
+
 let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   isFaded = false, isDead = false, size = slotBaseSize, isClassRestricted = false,
   hasAlertStyle = false, hasWeaponWarning = false, addChild = null, squadInfo = null, updStyle = {},
@@ -180,66 +181,68 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
   let tier = soldierInfo?.tier ?? 1
 
   return {
-    key = $"{soldierInfo.guid}"
+    key = soldierInfo.guid
     size
-    clipChildren = true
-    rendObj = ROBJ_SOLID
-    group
-    color = defBgColor
-    flow = FLOW_HORIZONTAL
+    children = [{
+      size
+      clipChildren = true
+      group
+      flow = FLOW_HORIZONTAL
+      rendObj = ROBJ_BOX
+      fillColor = listSquadColor(sf, isSelected, hasAlertStyle, isBlocked)
+      borderWidth = 0
 
-    children = [
-      {
-        size = flex()
-        rendObj = ROBJ_SOLID
-        color = listSquadColor(sf, isSelected, isFaded, hasAlertStyle, isBlocked)
-        flow = FLOW_HORIZONTAL
-        gap
-        children = [
-          withTooltip({
-            children = [
-              mkSoldierPhoto(soldierInfo?.photo,
-              [(0.7 * size[1]).tointeger(), size[1]], [],
-              isFaded || isBlocked ? DISABLED_ITEM : {})
-            tierText(tier).__update({ margin = [0, hdpx(2)] })
-          ]},
-          @() rankingTooltip(tier))
-          {
-            size = flex()
-            children = [
-              squadInfo == null
-                ? mkSoldierInfoBlock(
-                    soldierInfo,
-                    nameColor(sf, isSelected),
-                    weaponRow,
-                    group,
-                    isFreemiumMode,
-                    thresholdColor,
-                    expToLevel
-                  )
-                : mkDropSoldierInfoBlock(
-                    soldierInfo,
-                    squadInfo,
-                    nameColor(sf, isSelected),
-                    textColor(sf, isSelected),
-                    group
-                  )
-              addChild == null ? null : {
-                size = flex()
-                padding = hdpx(2)
-                children = addChild(soldierInfo, isSelected)
-              }
-            ]
-          }
-        ]
-      }
-      makeClassIcon(soldierInfo,
-        isClassRestricted
-          ? blockedTxtColor
-          : textColor(0, false), //use only default color
-        isDead)
-    ]
-  }.__update(updStyle)
+      children = [
+        {
+          size = flex()
+          flow = FLOW_HORIZONTAL
+          gap
+          children = [
+            withTooltip({
+              children = [
+                mkSoldierPhoto(soldierInfo?.photo,
+                [(0.7 * size[1]).tointeger(), size[1]], [],
+                isFaded || isBlocked ? DISABLED_ITEM : {})
+              tierText(tier).__update({ margin = [0, hdpx(2)] })
+            ]},
+            @() rankingTooltip(tier))
+            {
+              size = flex()
+              children = [
+                squadInfo == null
+                  ? mkSoldierInfoBlock(
+                      soldierInfo,
+                      nameColor(sf, isSelected),
+                      weaponRow,
+                      group,
+                      isFreemiumMode,
+                      thresholdColor,
+                      expToLevel
+                    )
+                  : mkDropSoldierInfoBlock(
+                      soldierInfo,
+                      squadInfo,
+                      nameColor(sf, isSelected),
+                      textColor(sf, isSelected),
+                      group
+                    )
+                addChild == null ? null : {
+                  size = flex()
+                  padding = hdpx(2)
+                  children = addChild(soldierInfo, isSelected)
+                }
+              ]
+            }
+          ]
+        }
+        makeClassIcon(soldierInfo,
+          isClassRestricted
+            ? blockedTxtColor
+            : textColor(sf, false), //use only default color
+          isDead)
+      ]
+    }.__update(updStyle),
+    isSelected ? selMarker : null ]}
 }
 
 return kwarg(soldierCard)

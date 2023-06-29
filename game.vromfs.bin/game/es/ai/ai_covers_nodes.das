@@ -20,6 +20,7 @@ require DagorDataBlock
 require game.utils.team
 require enlisted.game.es.ai.ai_covers_common
 require enlisted.game.es.enlisted_covers_common
+require enlisted.game.es.fortifications_build_common
 require common_shooter.es.ai.common_shooter_walker_nodes_common
 require DagorSystem
 
@@ -359,6 +360,8 @@ class FindCoverForCoverAttack : BehNodeAdapter
   IGNORE_COVER_TIME = 10.0
   MAX_SLOW_PER_UPDATE = 1
 
+  avoidBuilderEid : EntityId = INVALID_ENTITY_ID
+
   def override loadFromBlk(data : DataBlock) : void
     targetParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetParam", ""), 0)
 
@@ -443,6 +446,8 @@ class FindCoverForCoverAttack : BehNodeAdapter
     coverIter = 0
     coverIterSlot = 0
 
+    avoidBuilderEid = get_squad_leader_builder(agentEid)
+
   def override update(dt : float) : EBehResult
     if coverIter < 0
       return EBehResult ER_FAILED
@@ -513,6 +518,8 @@ class FindCoverForCoverAttack : BehNodeAdapter
               continue
 
             let coverSlotPos = get_cover_slot_pos(cover, coverDesc, i)
+            if !!avoidBuilderEid && is_conflict_with_builder_building_action(avoidBuilderEid, coverSlotPos)
+              continue
             let coverSlotOfs = targetPos - coverSlotPos
             let cosAngle = dot(cover.dir, normalize(float3(coverSlotOfs.x, 0.0, coverSlotOfs.z)))
             if cosAngle < attackCosAngle
@@ -816,3 +823,24 @@ class MakeSideStepPos : BehNodeAdapter
 
     owner.blackBoard |> set(outPosParam, pos)
     return EBehResult ER_SUCCESS
+
+[beh_node(name="checkAllowedPosition")]
+class CheckAllowedPosition : BehNodeAdapter
+  posParam = -1
+
+  def override loadFromBlk(data : DataBlock) : void
+    posParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "posParam", ""), float3())
+
+  def override update(dt : float) : EBehResult
+    var agent = beh_tree_entity_agent(*owner)
+    if agent == null
+      return EBehResult ER_FAILED
+
+    let builderEid = get_squad_leader_builder(agent.eid)
+    if !!builderEid
+      let pos = owner.blackBoard |> datablock_getPoint3(posParam)
+      if is_conflict_with_builder_building_action(builderEid, pos)
+        return EBehResult ER_FAILED
+
+    return EBehResult ER_SUCCESS
+

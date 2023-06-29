@@ -62,6 +62,11 @@ let campaignSlotStyle = {
   rendObj = ROBJ_BOX
   size = [flex(), hdpx(50)]
   behavior = Behaviors.Button
+  sound = {
+    hover = "ui/enlist/button_highlight"
+    click = "ui/enlist/button_click"
+    active = "ui/enlist/button_action"
+  }
   borderColor = Color(255,255,255)
 }
 

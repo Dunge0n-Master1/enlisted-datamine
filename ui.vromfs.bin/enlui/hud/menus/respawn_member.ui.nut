@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { logerr } = require("dagor.debug")
-let JB = require("%ui/control/gui_buttons.nut")
 let armyData = require("%ui/hud/state/armyData.nut")
 let soldiersData = require("%ui/hud/state/soldiersData.nut")
 let { localPlayerSquadMembers } = require("%ui/hud/state/squad_members.nut")
@@ -161,7 +160,7 @@ let memberRespawn = @() panel(
     hotkeys = [
       ["^Right | J:D.Right", @() changeRespawn(-1)],
       ["^Left | J:D.Left",  @() changeRespawn(1)],
-      [$"^Enter| {JB.A}", @() forceRespawn()]
+      [$"^Enter| J:Y", @() forceRespawn()]
     ].extend(array(10).map(@(_, n)
       [$"^{n}", @() selectAndForceRespawn((10 + n - 1) % 10)]
     ))

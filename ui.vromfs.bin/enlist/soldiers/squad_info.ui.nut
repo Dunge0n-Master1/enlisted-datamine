@@ -24,7 +24,7 @@ let squadHeader = require("components/squadHeader.nut")
 let {
   hasSquadVehicle, selectVehParams
 } = require("%enlist/vehicles/vehiclesListState.nut")
-let { openChooseSoldiersWnd, isPurchaseWndOpend } = require("model/chooseSoldiersState.nut")
+let { openChooseSoldiersWnd } = require("model/chooseSoldiersState.nut")
 let { disabledSectionsData } = require("%enlist/mainMenu/disabledSections.nut")
 let sClassesConfig = require("model/config/sClassesConfig.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
@@ -37,11 +37,6 @@ let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { mkAlertInfo } = require("model/soldiersState.nut")
 let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
-let { scene } = require("%enlist/showState.nut")
-let { closeEquipPresets } = require("%enlist/preset/presetEquipUi.nut")
-
-foreach(w in [curSection, scene, isPurchaseWndOpend])
-  w.subscribe(@(_) closeEquipPresets())
 
 let prevSoldier = mkWatched(persist, "prevSoldier", null)
 let function mkSquadInfo() {

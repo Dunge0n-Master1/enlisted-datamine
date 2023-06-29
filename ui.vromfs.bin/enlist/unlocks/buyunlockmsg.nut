@@ -44,7 +44,7 @@ let function mkRewardsView(task) {
     }.__update(sub_txt))
 
   let { lastRewardedStage, stages } = task
-  local { rewards = null } = stages?[lastRewardedStage]
+  let { rewards = null } = stages?[lastRewardedStage]
 
   if (rewards == null)
     return null
@@ -52,9 +52,9 @@ let function mkRewardsView(task) {
   return function() {
     let countAll = rewards.len()
     let possibleArmies = ["", curArmy.value, commonArmy.value]
-    rewards = prepareRewards(rewards, rewardsItemsMapping.value)
+    let viewRewards = prepareRewards(rewards, rewardsItemsMapping.value)
       .filter(@(r) r != null)
-    local rewardsForArmy = rewards
+    let rewardsForArmy = viewRewards
       .filter(@(r) possibleArmies.contains(r?.reward.armyId ?? "") )
 
     local otherArmy = false
@@ -62,7 +62,7 @@ let function mkRewardsView(task) {
     if (countForArmy == 0) {
       otherArmy = true
       countForArmy = 1
-      rewardsForArmy.append(rewards[0])
+      rewardsForArmy.append(viewRewards[0])
     }
 
     let otherArmiesTxt = countForArmy == countAll ? null : {
@@ -100,7 +100,7 @@ let function mkRewardsView(task) {
     }
 
     return {
-      watch = [rewardsItemsMapping, curArmy]
+      watch = [rewardsItemsMapping, curArmy, commonArmy]
       size = [flex(), SIZE_TO_CONTENT]
       halign = ALIGN_CENTER
       flow = FLOW_VERTICAL

@@ -82,6 +82,7 @@ def update_movement(dt : float;
                     human_input__perspWk : float;
                     human_input__forceLookMode : bool;
                     human_input__blockLookModeCounter : int;
+                    human_input__isGyroAimEnabled : bool;
                     aim_offset : float2&;
                     vehicle_input__aim : int const?;
                     isInVehicle : bool;
@@ -126,7 +127,7 @@ def update_movement(dt : float;
 
     // Aim delta
     let asAimDelta = get_analog_stick_action_state(uint16(human_input__aimDelta))
-    if asAimDelta.bActive
+    if asAimDelta.bActive && human_input__isGyroAimEnabled
       ax += double(asAimDelta.x)
       ay += double(asAimDelta.y)
 
@@ -211,6 +212,7 @@ def fix_changed_hero_input(dt : float;
                            human_input__perspWk : float;
                            human_input__forceLookMode : bool;
                            human_input__blockLookModeCounter : int;
+                           human_input__isGyroAimEnabled : bool;
                            human_vehicle__isShootingPassenger : bool;
                            aim_offset : float2&;
                            vehicle_input__aim : int const?;
@@ -237,6 +239,7 @@ def fix_changed_hero_input(dt : float;
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
+                  human_input__isGyroAimEnabled,
                   aim_offset, vehicle_input__aim, isInVehicle,
                   true, true, float2(0.5, 0.5),
                   DEFAULT_VERT_LOOK_ANGLE_LIMIT_RAD, 1.0,
@@ -366,6 +369,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                    human_input__forceAim : bool = false;
                    human_input__blockLeaningCounter : int = 0;
                    human_input__blockLookModeCounter : int = 0;
+                   human_input__isGyroAimEnabled : bool = false;
                    human_vehicle__isShootingPassenger : bool = false;
                    human_melee_charge__targetFound : bool = false;
                    human_melee_charge__longPressTime : float = 0.2;
@@ -430,6 +434,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                            human_input__sprint, human_input__perspWk,
                            human_input__forceLookMode,
                            human_input__blockLookModeCounter,
+                           human_input__isGyroAimEnabled,
                            human_vehicle__isShootingPassenger,
                            human_input__aimAngleOffset,
                            vehicleInputAim, isInVehicle,
@@ -478,6 +483,7 @@ def human_input_es(info : UpdateStageUpdateInput;
                   human_input__sprint, human_input__perspWk,
                   human_input__forceLookMode,
                   human_input__blockLookModeCounter,
+                  human_input__isGyroAimEnabled,
                   human_input__aimAngleOffset, vehicleInputAim, isInVehicle,
                   shouldUpdateLookDir, shouldUpdateWalkDir, human_input__currentLookDirClamp / 180.f,
                   deg_to_rad(human_input__currentVertLookAngleLimit), human_input__aimingSensMult,

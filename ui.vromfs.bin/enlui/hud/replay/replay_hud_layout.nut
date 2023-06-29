@@ -64,6 +64,7 @@ let {
   showSelfAwards, showTeammateName, showTeammateMarkers, showCrosshairHints,
   showTips, showGameModeHints, showPlayerUI
 } = require("%ui/hud/state/hudOptionsState.nut")
+let { safeAreaVerPadding, safeAreaHorPadding } = require("%enlSqGlob/safeArea.nut")
 
 let timeSpeedVariants = [0, 0.1, 0.25, 0.5, 1, 1.5, 2, 3, 4]
 let isAdvancedSettingsActive = Watched(false)
@@ -900,7 +901,7 @@ let advancedSettingsWnd = {
     }, {
       size = [colFull(6), SIZE_TO_CONTENT],
       maxHeight = sh(70)
-      rootBase = class {
+      rootBase = {
         behavior = Behaviors.Pannable
         wheelStep = 1
       }
@@ -1014,9 +1015,10 @@ return function() {
     wndEventHandlers[bindedKey] <- bindedAction
   })
   return {
-    watch = [needShowCursor, isFreeInput, showGameMenu, isGamepad]
+    watch = [needShowCursor, isFreeInput, showGameMenu, isGamepad, safeAreaHorPadding, safeAreaVerPadding]
     size = flex()
     maxWidth = maxContentWidth
+    padding = [safeAreaVerPadding.value, safeAreaHorPadding.value]
     flow = FLOW_VERTICAL
     key = "ReplayHud"
     eventHandlers = wndEventHandlers

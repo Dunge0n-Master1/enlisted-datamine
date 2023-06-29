@@ -215,16 +215,38 @@ let curAvailCamouflages = Computed(function() {
         || startswith(skinData.id, tplWithoutCountry))
 })
 
-let backBtn = Bordered(loc("BackBtn"),
-  @() selectVehParams.mutate(@(v) v.isCustomMode = false),
+let function clearNotPurchased() {
+  notPurchased.mutate(function(cust) { cust.clear() })
+}
+
+let function actionsOnClose() {
+  selectVehParams.mutate(@(v) v.isCustomMode = false)
+  clearNotPurchased()
+  selectedCamouflage(null)
+}
+
+let function close() {
+  if (notPurchased.value.len() > 0) {
+    showMsgbox({
+      text = loc("msg/leaveCustomizationConfirm")
+      buttons = [
+        { text = loc("Yes"),
+          action = actionsOnClose,
+          isCurrent = true }
+        { text = loc("Cancel"), isCancel = true }
+      ]
+    })
+    return
+  }
+  actionsOnClose()
+}
+
+let backBtn = Bordered(loc("BackBtn"), close,
   {
     margin = bigPadding
     hotkeys = [[ $"^{JB.B} | Esc", { description = loc("BackBtn") }]]
   })
 
-let function clearNotPurchased() {
-  notPurchased.mutate(function(cust) { cust.clear() })
-}
 
 let function removeNotPurchasedCamouflage() {
   if ("vehCamouflage" in notPurchased.value)
@@ -1045,11 +1067,6 @@ let function open() {
   sceneWithCameraAdd(customizeScene, "vehicles")
 }
 
-let function close() {
-  clearNotPurchased()
-  sceneWithCameraRemove(customizeScene)
-  selectedCamouflage(null)
-}
 
 if (selectVehParams.value?.isCustomMode ?? false)
   open()
@@ -1058,5 +1075,5 @@ selectVehParams.subscribe(function(v) {
   if (v?.isCustomMode ?? false)
     open()
   else
-    close()
+    sceneWithCameraRemove(customizeScene)
 })

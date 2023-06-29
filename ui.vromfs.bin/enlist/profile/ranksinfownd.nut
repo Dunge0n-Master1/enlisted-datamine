@@ -18,7 +18,7 @@ const RANK_WND_UID = "RankToolTip"
 const MAX_RANKS_IN_COLUMN = 10
 
 let rankRowHeight = hdpx(40)
-let rankRewardIconSize = hdpx(12)
+let rankRewardIconSize = hdpxi(12)
 let columnRankHeigth = (rankRowHeight + smallPadding) * MAX_RANKS_IN_COLUMN
 
 let wrapParams = {

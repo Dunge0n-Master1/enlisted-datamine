@@ -36,7 +36,7 @@ let lvlWidth = sw(20)
 let lineHeight = hdpx(30)
 let slotHeight = hdpx(70)
 let ticketHeight = hdpx(40)
-let xpIconSize = hdpx(50)
+let xpIconSize = hdpxi(50)
 
 let mkSign = @(text) txt({ text, padding = hdpx(5) })
 let multiplySign = mkSign("\u00D7")

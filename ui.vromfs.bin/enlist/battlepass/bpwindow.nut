@@ -192,7 +192,7 @@ let bpUnlocksList = @() {
     size = SIZE_TO_CONTENT
     maxWidth = safeAreaSize.value[0]
     scrollHandler = tblScrollHandler
-    rootBase = class {
+    rootBase = {
       key = "battlepassUnlocksRoot"
       behavior = Behaviors.Pannable
       wheelStep = 0.82
@@ -383,7 +383,7 @@ let bpRightBlock = {
       halign = ALIGN_CENTER
       children = [
         premiumPassHeader
-        dynamicSeasonBPIcon(hdpx(220))
+        dynamicSeasonBPIcon(hdpxi(220))
       ]
     }
     buttonsBlock

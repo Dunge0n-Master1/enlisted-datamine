@@ -18,7 +18,7 @@ let { INVITE_TO_PSN_FRIENDS, CANCEL_INVITE, APPROVE_INVITE, ADD_TO_BLACKLIST, IN
   REMOVE_FROM_BLACKLIST_PSN, REMOVE_FROM_BLACKLIST_XBOX
 } = require("contactActions.nut")
 let mkContactBlock = require("contactBlock.nut")
-let { Contact, getContactNick } = require("contact.nut")
+let { getContact, getContactNick } = require("contact.nut")
 let { approvedUids, psnApprovedUids, xboxApprovedUids, friendsOnlineUids, requestsToMeUids,
   myRequestsUids, rejectedByMeUids, blockedUids, isInternalContactsAllowed
 } = require("%enlist/contacts/contactsWatchLists.nut")
@@ -235,10 +235,8 @@ let invitesKeys = [
 let nickToLower = memoize(@(v) getContactNick(v).tolower(), null,
   persist("stringsLowerCache", @() {}))
 let sortContacts = @(contactsArr, onlineStatusVal) contactsArr.sort(@(a, b)
-  isContactOnline(b.value.userId, onlineStatusVal)
-    <=> isContactOnline(a.value.userId, onlineStatusVal)
-  || nickToLower(a) <=> nickToLower(b)
-)
+  isContactOnline(b.userId, onlineStatusVal) <=> isContactOnline(a.userId, onlineStatusVal)
+  || nickToLower(a) <=> nickToLower(b))
 
 let mkContactsGroupContent = @(groupKeys) function() {
   let children = []
@@ -250,11 +248,11 @@ let mkContactsGroupContent = @(groupKeys) function() {
 
     local contactsArr = []
     foreach (w in watchesList)
-      contactsArr.extend(w.value.keys().map(@(userId) Contact(userId)))
+      contactsArr.extend(w.value.keys().map(@(userId) getContact(userId)))
 
     if (searchPlayerVal != "")
       contactsArr = contactsArr.filter(@(c)
-        c.value.realnick.tolower().indexof(searchPlayerVal) != null)
+        c.realnick.tolower().indexof(searchPlayerVal) != null)
 
     contactsArr = sortContacts(contactsArr, onlineStatus.value)
       .map(@(contact) {

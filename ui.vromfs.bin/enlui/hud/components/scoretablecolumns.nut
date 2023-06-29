@@ -15,8 +15,7 @@ let mkAwardsTooltip = require("%ui/hud/components/mkAwardsTooltip.nut")
 let complain = require("%ui/complaints/complainWnd.nut")
 let forgive = require("%ui/requestForgiveFriendlyFire.nut")
 let { frameNick } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
-let { mkRankIcon, getRankConfig, rankIconSize
-} = require("%enlSqGlob/ui/rankPresentation.nut")
+let { mkRankIcon, getRankConfig, rankIconSize } = require("%enlSqGlob/ui/rankPresentation.nut")
 let { SetReplayTarget } = require("dasevents")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
@@ -68,16 +67,15 @@ let function playerColor(playerData, sf = 0) {
   )
 }
 
-let rowText = @(txt, w, playerData, sf = 0) {
-  size = [w, LINE_H]
+let rowText = @(text, width, playerData, sf = 0, override = {}) {
+  size = [width, LINE_H]
   halign = ALIGN_CENTER
   valign = ALIGN_CENTER
   children = {
-      vplace = ALIGN_CENTER
       rendObj = ROBJ_TEXT
-      text = txt
+      text
       color = playerColor(playerData, sf)
-    }.__update(sub_txt)
+    }.__update(sub_txt, override)
 }
 
 let mkHeaderIcon = memoize(function(image) {
@@ -165,7 +163,7 @@ let function mkArmiesIcons(armies) {
 let function mkPlayerRank(playerData, isInteractive) {
   let { player_info__military_rank = 0 } = playerData?.player
   return player_info__military_rank <= 0 ? null
-    : mkRankIcon(player_info__military_rank, rankIconSize, {
+    : mkRankIcon(player_info__military_rank, {
         hplace = ALIGN_RIGHT
         vplace = ALIGN_CENTER
         margin = [0, bigGap]
@@ -334,16 +332,17 @@ let countCapzoneKills = @(data)
   ( (data?["scoring_player__attackKills"] ?? 0)
   + (data?["scoring_player__defenseKills"] ?? 0) )
 
-let mkPlayerName = @(playerData, stateFlags) {
-  children = [
-    rowText(
-      getFramedNick(playerData.player, playerData.isGroupmate),
-      SIZE_TO_CONTENT,
-      playerData,
-      stateFlags
-    ).__update({ padding = [0, smallPadding], halign = ALIGN_LEFT })
-  ]
-}
+let mkPlayerName = @(playerData, sf) rowText(
+  getFramedNick(playerData.player, playerData.isGroupmate),
+  flex(),
+  playerData,
+  sf,
+  {
+    size = [flex(), SIZE_TO_CONTENT]
+    hplace = ALIGN_LEFT
+    padding = [0, smallPadding]
+    behavior = sf & S_HOVER ? Behaviors.Marquee : null
+  })
 
 let function selectDisplayedAward(isBattleHero, awards) {
   if (isBattleHero)

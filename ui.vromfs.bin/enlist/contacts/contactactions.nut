@@ -17,7 +17,7 @@ let { approvedUids, myRequestsUids, requestsToMeUids, rejectedByMeUids,
 let { execContactsCharAction, getContactsInviteId } = require("contactsState.nut")
 let { canInterractCrossPlatform, consoleCompare, canInterractCrossPlatformByCrossplay
 } = require("%enlSqGlob/platformUtils.nut")
-let { Contact } = require("contact.nut")
+let { getContactRealnick } = require("contact.nut")
 let {get_circuit} = require("app")
 let { get_setting_by_blk_path } = require("settings")
 
@@ -48,7 +48,7 @@ let actions = {
       && availableSquadMaxMembers.value > 1
       && !isInvitedToSquad.value?[userId.tointeger()]
       && canInterractCrossPlatformByCrossplay(
-        Contact(userId).value.realnick,
+        getContactRealnick(userId),
         crossnetworkPlay.value
       )
       && userId not in meInBlacklistUids.value
@@ -64,7 +64,7 @@ let actions = {
       && userId.tointeger() not in playersWaitingResponseFor.value
       && !isInMyRoom(userId.tointeger())
       && canInterractCrossPlatformByCrossplay(
-        Contact(userId).value.realnick,
+        getContactRealnick(userId),
         crossnetworkPlay.value
       ))
     action = @(userId) inviteToRoom(userId.tointeger())
@@ -82,7 +82,7 @@ let actions = {
       && userId not in requestsToMeUids.value
     )
     function action(userId) {
-      if (platform.is_xbox && canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick))
+      if (platform.is_xbox && canShowUserInfo(userId.tointeger(), getContactRealnick(userId)))
         showUserInfo(userId) //On xbox no functionality to show friend window, so just show profile
       else
         execContactsCharAction(userId, "contacts_request_for_contact")
@@ -93,7 +93,7 @@ let actions = {
     locId = "contacts/psn/friends/request"
     icon = "user-plus"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
-      && (platform.is_sony && consoleCompare.psn.isFromPlatform(Contact(userId).value.realnick))
+      && (platform.is_sony && consoleCompare.psn.isFromPlatform(getContactRealnick(userId)))
       && userId not in psnApprovedUids.value
       && userId not in blockedUids.value
       && userId not in meInBlacklistUids.value
@@ -119,7 +119,7 @@ let actions = {
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && (userId in requestsToMeUids.value || userId in rejectedByMeUids.value)
       && canInterractCrossPlatformByCrossplay(
-        Contact(userId).value.realnick,
+        getContactRealnick(userId),
         crossnetworkPlay.value
       )
     )
@@ -145,7 +145,7 @@ let actions = {
     icon = "remove"
     mkIsVisible = @(userId) Computed(@()
       canInterractCrossPlatform(
-        Contact(userId).value.realnick,
+        getContactRealnick(userId),
         canCrossnetworkChatWithFriends.value
       )
       && userId != myUserId.value
@@ -153,7 +153,7 @@ let actions = {
       && userId not in psnApprovedUids //don't show it at all
     )
     function action(userId) {
-      if (platform.is_xbox && canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick))
+      if (platform.is_xbox && canShowUserInfo(userId.tointeger(), getContactRealnick(userId)))
         showUserInfo(userId) //On xbox no functionality to show friend window, so just show profile
       else
         execContactsCharAction(userId, "contacts_break_approval_request")
@@ -165,7 +165,7 @@ let actions = {
     icon = "remove"
     mkIsVisible = @(userId) Computed(@()
       canInterractCrossPlatform(
-        Contact(userId).value.realnick,
+        getContactRealnick(userId),
         userId in friendsUids.value
           ? canCrossnetworkChatWithFriends.value
           : canCrossnetworkChatWithAll.value
@@ -174,14 +174,14 @@ let actions = {
       && userId not in blockedUids.value
       && userId not in approvedUids.value)
     function action(userId) {
-      if (platform.is_sony && consoleCompare.psn.isFromPlatform(Contact(userId).value.realnick))
+      if (platform.is_sony && consoleCompare.psn.isFromPlatform(getContactRealnick(userId)))
         open_player_profile(
           (uid2console.value?[userId] ?? "-1").tointeger(),
           PlayerAction?.BLOCK_PLAYER,
           "PlayerProfileDialogClosed",
           {}
         )
-      else if (platform.is_xbox && canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick))
+      else if (platform.is_xbox && canShowUserInfo(userId.tointeger(), getContactRealnick(userId)))
         showUserInfo(userId) //On xbox no functionality to show friend invite window, so just show profile
       else
         execContactsCharAction(userId, "contacts_add_to_blacklist")
@@ -201,7 +201,7 @@ let actions = {
     icon = "remove"
     mkIsVisible = @(userId) Computed(@() userId != myUserId.value
       && userId in xboxBlockedUids.value
-      && canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick)
+      && canShowUserInfo(userId.tointeger(), getContactRealnick(userId))
     )
     action      = showUserInfo
   }
@@ -256,15 +256,15 @@ let actions = {
     action      = @(userId)
       openUrl(
         ["moon"].contains(get_circuit())
-          ? achievementTestUrl.subst(appId.value, Contact(userId).value.realnick)
-          : achievementUrl.subst(appId.value, Contact(userId).value.realnick)
+          ? achievementTestUrl.subst(appId.value, getContactRealnick(userId))
+          : achievementUrl.subst(appId.value, getContactRealnick(userId))
       )
   }
 
   SHOW_USER_LIVE_PROFILE = {
     locId = "show_user_live_profile"
     icon = "id-card"
-    mkIsVisible = @(userId) Computed(@() canShowUserInfo(userId.tointeger(), Contact(userId).value.realnick))
+    mkIsVisible = @(userId) Computed(@() canShowUserInfo(userId.tointeger(), getContactRealnick(userId)))
     action      = showUserInfo
   }
 }

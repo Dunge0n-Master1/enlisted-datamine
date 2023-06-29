@@ -1,5 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
+let { fontLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
@@ -12,6 +13,7 @@ let textButtonTextCtor = require("%ui/components/textButtonTextCtor.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let cursors = require("%ui/style/cursors.nut")
 let colorize = require("%ui/components/colorize.nut")
+
 
 let mkDefaultTooltipText = @(text) {
   rendObj = ROBJ_TEXT
@@ -60,7 +62,7 @@ let iconTextRow = @(icon, text, sizeArr = [hdpx(10), hdpx(10)], textStyle = {}){
       padding = [0, hdpx(3)]
       rendObj = ROBJ_TEXT
       text
-    }.__update(sub_txt, textStyle)
+    }.__update(fontLarge, textStyle)
   ]
 }
 

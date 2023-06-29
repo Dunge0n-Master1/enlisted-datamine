@@ -19,7 +19,7 @@ let closeBtnBase = require("%ui/components/closeBtn.nut")
 let {
   sceneWithCameraAdd, sceneWithCameraRemove
 } = require("%enlist/sceneWithCamera.nut")
-let { curSelectedItem } = require("%enlist/showState.nut")
+let { curSelectedItem, changeCameraFov } = require("%enlist/showState.nut")
 let mkAnimatedItemsBlock = require("%enlist/soldiers/mkAnimatedItemsBlock.nut")
 let { mkSoldierMedalIcon } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
@@ -46,6 +46,10 @@ let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
 let { addToPresentList } = require("%enlist/shop/armyShopState.nut")
 let spinner = require("%ui/components/spinner.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -20
+const ADD_CAMERA_FOV_MAX = 5
 
 
 const SHOW_ITEM_DELAY = 1.0 //wait for fadeout
@@ -450,8 +454,11 @@ let newItemsWnd = @() {
   size = flex()
   padding = safeAreaBorders.value
   halign = ALIGN_CENTER
-  behavior = Behaviors.MenuCameraControl
+  behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
   flow = FLOW_VERTICAL
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     {
       margin = [bigPadding * 4, 0, 0, 0]

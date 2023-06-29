@@ -27,6 +27,7 @@ let { mkCounter } = require("%enlist/shop/mkCounter.nut")
 let { mkGuidsCountTbl } = require("%enlist/items/itemModify.nut")
 let { HighlightFailure } = require("%ui/style/colors.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let mkFaComp = @(text) faComp(text, {
   size = [SIZE_TO_CONTENT, 2.0 * unitSize]
@@ -140,6 +141,7 @@ let mkUpgradeItemButtons = function(guids, priceOptions, count) {
     action = @() upgradeItem(mkGuidsCountTbl(guids, count),
       order.ordersGuids, @(_) markUpgradesUsed())
     customStyle = {
+      hotkeys = [["^J:X"]]
       textCtor = @(_textField, params, handler, group, sf)
         textButtonTextCtor({
           children = {
@@ -162,7 +164,7 @@ let mkUpgradeItemButtons = function(guids, priceOptions, count) {
           }
         }, params, handler, group, sf)
     }.__update(primaryFlatButtonStyle)
-  }).append({ text = loc("Cancel"), isCancel = true })
+  }).append({ text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B}" ]] } })
 
   return payData.len() > 0 ? buttons : [{ text = loc("notEnoughOrders") }]
 }

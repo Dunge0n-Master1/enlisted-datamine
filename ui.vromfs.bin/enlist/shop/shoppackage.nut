@@ -6,7 +6,7 @@ let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let mkGlare = require("%enlist/components/mkGlareAnim.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { fontXSmall, fontSmall, fontMedium, fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { defTxtColor, titleTxtColor, panelBgColor, midPadding, discountBgColor, darkTxtColor,
+let { defTxtColor, titleTxtColor, panelBgColor, midPadding, brightAccentColor, darkTxtColor,
   colFull, colPart, columnGap, leftAppearanceAnim, defItemBlur, defSlotBgColor, hoverSlotBgColor,
   attentionTxtColor, accentColor, smallPadding, highlightLineBottom
 } = require("%enlSqGlob/ui/designConst.nut")
@@ -23,6 +23,11 @@ let itemIconSize = colPart(0.5)
 let lowerSlotSize = [colFull(5), colFull(4.2)]
 let baseSlotSize = [colFull(5), colFull(5)]
 let promoSlotSize = [colFull(10), colFull(5)]
+let btnSound = freeze({
+  hover = "ui/enlist/button_highlight"
+  click = "ui/enlist/button_click"
+  active = "ui/enlist/button_action"
+})
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontMedium)
@@ -65,47 +70,47 @@ let mkShopItemImg = @(img, sf, override = {}) (img ?? "") == "" ? null
     }.__update(override)
 
 
-let discountRightTail = {
+let mkDiscountRightTail = @(color) {
   size = [midPadding, flex()]
   rendObj = ROBJ_VECTOR_CANVAS
-  fillColor = discountBgColor
+  fillColor = color
   commands = [
-    [VECTOR_COLOR, discountBgColor],
+    [VECTOR_COLOR, color],
     [VECTOR_POLY, 0, 0, 100, 100, 0, 100]
   ]
 }
 
-let discountLeftTail = {
+let mkDiscountLeftTail = @(color) {
   size = [midPadding, flex()]
   rendObj = ROBJ_VECTOR_CANVAS
-  fillColor = discountBgColor
+  fillColor = color
   commands = [
-    [VECTOR_COLOR, discountBgColor],
+    [VECTOR_COLOR, color],
     [VECTOR_POLY, 100, 0, 100, 100, 0, 100]
   ]
 }
 
 
-let discountPolyCmds = [
-  [VECTOR_COLOR, discountBgColor],
+let mkDiscountPolyCmds = @(color) [
+  [VECTOR_COLOR, color],
   [VECTOR_POLY, 0,0, 100,0, 100, 100, 0, 100]
 ]
 
-let mkDiscountBar = @(children, isTailOnLeft = true) {
+let mkDiscountBar = @(children, isTailOnLeft = true, color = brightAccentColor) {
   flow = FLOW_HORIZONTAL
   children = [
-    isTailOnLeft ? discountLeftTail : null
+    isTailOnLeft ? mkDiscountLeftTail(color) : null
     {
       flow = FLOW_HORIZONTAL
       gap = midPadding
       padding = [0, midPadding]
       valign = ALIGN_CENTER
       rendObj = ROBJ_VECTOR_CANVAS
-      fillColor = discountBgColor
-      commands = discountPolyCmds
+      fillColor = color
+      commands = mkDiscountPolyCmds(color)
       children
     }
-    isTailOnLeft ? null : discountRightTail
+    isTailOnLeft ? null : mkDiscountRightTail(color)
   ]
 }
 
@@ -355,6 +360,7 @@ let mkInfoBtn = @(onClick) onClick == null ? null : watchElemState(function(sf) 
     hplace = ALIGN_RIGHT
     margin = fsh(1)
     behavior = Behaviors.Button
+    sound = btnSound
     onClick
     children = sf & S_HOVER ? infoIconHover : infoIcon
   }
@@ -367,6 +373,7 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
   let alertObject = alertText == null ? null : mkAlertObject(alertText)
   let xmbNode = onClick == null ? null : XmbNode()
   let behavior = onClick == null ? null : Behaviors.Button
+  let sound = onClick == null ? null : btnSound
   return watchElemState(@(sf) {
     key = sItem.guid
     size = slotSize
@@ -376,6 +383,10 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
     behavior
     xmbNode
     onClick
+    sound
+    hotkeys = (sf & S_HOVER) != 0 && infoCb != null
+      ? [["^J:Y", { description = loc("info"), action = infoCb }]]
+      : null
     onHover
     children = {
       size = flex()
@@ -406,6 +417,7 @@ let function mkShopFeatured(armyId, sItem, offer, content, templates,
   let icon = mkShopIcon(armyId, content, templates)
   let xmbNode = onClick == null ? null : XmbNode()
   let behavior = onClick == null ? null : Behaviors.Button
+  let sound = onClick == null ? null : btnSound
   return watchElemState(@(sf) {
     key = $"featured_{sItem.guid}"
     size = promoSlotSize
@@ -415,7 +427,11 @@ let function mkShopFeatured(armyId, sItem, offer, content, templates,
     behavior
     xmbNode
     onClick
+    sound
     onHover
+    hotkeys = (sf & S_HOVER) != 0 && infoCb != null
+      ? [["^J:Y", { description = loc("info"), action = infoCb }]]
+      : null
     children = {
       size = flex()
       children = [

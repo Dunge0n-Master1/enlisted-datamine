@@ -815,7 +815,13 @@ def after_update_projectile_es(info : ParallelUpdateFrameDelayed;
                                var scene_hit_place__matId : int&;
                                var scene_hit_place__collType : int&;
                                var projectile__intersectionCount : int&)
-  if projectile__stopped || projectile_trace_info__len < FLT_EPSILON || !projectile__ballisticsUpdated
+  if projectile_trace_info__len < FLT_EPSILON
+    let moveEps = 0.1
+    let newPos = projectile__prevPos + (projectile_trace_info__dir * moveEps)
+    projectile_ballistics.state.pos = newPos
+    return
+
+  if projectile__stopped || !projectile__ballisticsUpdated
     return
 
   let allowDetonation = (projectile__lifeTime > projectile__minLifeTime)

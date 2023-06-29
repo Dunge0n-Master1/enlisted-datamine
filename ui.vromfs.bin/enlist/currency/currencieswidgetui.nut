@@ -24,7 +24,7 @@ let function currencyBalance(currency) {
       currency
       price = currenciesBalance.value?[currency.id]
       txtStyle = { color = btnTranspTextColor(stateFlags.value, false, TextActive) }
-      iconSize = hdpx(30)
+      iconSize = hdpxi(30)
     })
   }
 }

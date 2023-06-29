@@ -37,7 +37,6 @@ let { mkRewardImages, rewardWidthToHeight } = require("%enlist/battlepass/reward
 let { commonArmy } = require("%enlist/meta/profile.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { mkUnlockSlot } = require("mkUnlockSlots.nut")
-let { startBtnWidth } = require("%enlSqGlob/ui/designConst.nut")
 let { isBooster } = require("%enlist/soldiers/model/boosters.nut")
 let { getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 
@@ -506,16 +505,10 @@ let mkBoosterRewards = @(receivedRewards) {
           hplace = ALIGN_CENTER
           color = titleTxtColor
         }).__update(sub_txt)
-        {
-          rendObj = ROBJ_SOLID
-          size = [startBtnWidth, SIZE_TO_CONTENT]
-          padding = [bigPadding, 0]
-          color = defBgColor
-          children = mkUnlockSlot({
-            task = receivedRewards.boosteredTask
-            rewardsAnim = mkAppearAnimations()
-          })
-        }
+        mkUnlockSlot({
+          task = receivedRewards.boosteredTask
+          rewardsAnim = mkAppearAnimations()
+        })
       ]
     }
   ]

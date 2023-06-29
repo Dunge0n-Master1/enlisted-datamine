@@ -1,14 +1,13 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall, fontFontawesome } = require("%enlSqGlob/ui/fontsStyle.nut")
-let faComp = require("%ui/components/faComp.nut")
-let { accentColor, colPart } = require("%enlSqGlob/ui/designConst.nut")
+let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { accentColor, colPart, mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
 
 
 let accentTxtStyle = { color = accentColor }.__update(fontSmall)
-let accentFacompStyle = { color = accentColor }.__update(fontFontawesome)
+let timerSize = colPart(0.22)
 
 
 let rewardIconWidth = colPart(0.68)
@@ -46,7 +45,7 @@ let mkSeasonTime = @(timeLeft, override = {}) {
   valign = ALIGN_BOTTOM
   gap = colPart(0.033)
   children = [
-    faComp("clock-o", accentFacompStyle.__update({ fontSize = colPart(0.22) }, override))
+    mkTimerIcon(timerSize, { color = accentColor })
     {
       rendObj = ROBJ_TEXT
       text = secondsToHoursLoc(timeLeft)

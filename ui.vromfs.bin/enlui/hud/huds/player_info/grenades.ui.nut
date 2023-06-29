@@ -8,7 +8,7 @@ let { grenadeIcon } = require("grenadeIcon.nut")
 
 let getGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, iconSize[1]))
 
-let curGrenadeSize = [fsh(2.5), fsh(2.5)]
+let curGrenadeSize = [fsh(2.5), fsh(2.5)].map(@(v) v.tointeger())
 let getCurGrenadeIcon = memoize(@(gtype) grenadeIcon(gtype, curGrenadeSize[1]))
 
 let small_count = @(count, color) {

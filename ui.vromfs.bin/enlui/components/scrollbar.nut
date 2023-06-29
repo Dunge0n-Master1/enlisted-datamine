@@ -4,7 +4,7 @@ let baseScrollbar = require("%ui/components/base_scrollbar.nut")
 let {Interactive, Active, HoverItemBg} = require("%ui/style/colors.nut")
 
 let styling = freeze({
-  Knob = class {
+  Knob = {
     rendObj = ROBJ_SOLID
     colorCalc = @(sf) (sf & S_ACTIVE) ? Active
                     : ((sf & S_HOVER) ? HoverItemBg
@@ -14,7 +14,7 @@ let styling = freeze({
 
   Bar = function(has_scroll) {
     if (has_scroll) {
-      return class {
+      return {
         rendObj = ROBJ_SOLID
         color = Color(40, 40, 40, 160)
         _width = fsh(1)
@@ -23,7 +23,7 @@ let styling = freeze({
         skipDirPadNav = true
       }
     } else {
-      return class {
+      return {
         rendObj = null
         _width = sh(0)
         _height = sh(0)
@@ -32,14 +32,14 @@ let styling = freeze({
     }
   }
 
-  ContentRoot = class {
+  ContentRoot = {
     size = flex()
     skipDirPadNav = true
   }
 })
 
 let thinStyle = freeze({
-  Knob = class {
+  Knob = {
     rendObj = ROBJ_SOLID
     colorCalc = @(_sf) Color(0, 0, 0, 0)
     hoverChild = @(sf){
@@ -53,12 +53,12 @@ let thinStyle = freeze({
   }
   Bar = function(has_scroll) {
     if (!has_scroll)
-      return class {
+      return {
         _width = 0
         _height = 0
         skipDirPadNav = true
       }
-    return class {
+    return {
       rendObj = ROBJ_SOLID
       color = Color(0, 0, 0, 60)
       _width = hdpx(4)
@@ -67,7 +67,7 @@ let thinStyle = freeze({
     }
   }
 
-  ContentRoot = class {
+  ContentRoot = {
     size = flex()
     skipDirPadNav = true
   }

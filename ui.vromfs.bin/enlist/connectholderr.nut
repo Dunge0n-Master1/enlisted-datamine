@@ -6,11 +6,9 @@ let matching_api = require("matching.api")
 let matching_errors = require("matching.errors")
 let logM = require("%enlSqGlob/library_logs.nut").with_prefix("[MATCHING] ")
 let eventbus = require("eventbus")
-let { ndbWrite, ndbRead, ndbExists } = require("nestdb")
+let {nestWatched} = require("%dngscripts/globalState.nut")
 
-const MatchingConnectStateId = "matchingConnectState"
-if (!ndbExists(MatchingConnectStateId)) {
-  ndbWrite(MatchingConnectStateId, {
+let matchingConnectState = nestWatched("matchingConnectState", {
     connecting = false
     stopped = false
     isLoggedIn = false
@@ -18,16 +16,13 @@ if (!ndbExists(MatchingConnectStateId)) {
     reconnectAfterDisconnect = false
     disconnectReason = null
     lastLoginInfo = null
-  })
-}
+})
 
-let _state = ndbRead(MatchingConnectStateId)
-let getState = @() _state
+let getState = @() freeze(matchingConnectState.value)
 
 let setState = function(key, value) {
-  assert(key in _state, @() $"unknown {key}")
-  ndbWrite([MatchingConnectStateId, key], value)
-  _state[key] <- value
+  assert(key in matchingConnectState.value, @() $"unknown {key}")
+  matchingConnectState.mutate(@(v) v[key] <- value)
 }
 
 let serverResponseError = mkWatched(persist, "serverResponseError", false)

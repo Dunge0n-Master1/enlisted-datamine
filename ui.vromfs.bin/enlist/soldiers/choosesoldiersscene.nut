@@ -45,6 +45,7 @@ let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { smallDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
 
 const NO_SOLDIER_SLOT_IDX = -1
 let unseenIcon = blinkUnseenIcon(0.9, msgHighlightedTxtColor, "th-large")
@@ -260,6 +261,11 @@ let function chooseSoldiersScene() {
         size = slotWithPadding
         key = $"slot{soldier?.guid}{idx}"
         onDrop = onDrop
+        sound = {
+          hover = "ui/enlist/button_highlight"
+          click = "ui/enlist/button_click"
+          active = "ui/enlist/button_action"
+        }
         onClick = @() selectedSoldierGuid(soldier.guid == selectedSoldierGuid.value ? null : soldier.guid)
         onHover = function(on) {
           hoverHoldAction("markSeenSoldier",
@@ -356,8 +362,10 @@ let function chooseSoldiersScene() {
 
   let function manageBlock() {
     let { canUp, canDown, canTake, canRemove, takeAvailable } = moveParams.value
+    let needShowUpButton = canUp && !isPurchaseWndOpend.value
+    let needShowDownButton = canDown && !isPurchaseWndOpend.value
     return {
-      watch = moveParams
+      watch = [moveParams, isPurchaseWndOpend]
       size = [flex(), SIZE_TO_CONTENT]
       valign = ALIGN_CENTER
       halign = ALIGN_RIGHT
@@ -366,13 +374,15 @@ let function chooseSoldiersScene() {
       children = [
         FAButton("arrow-up", @() moveCurSoldier(-1), faBtnParams.__merge({
           key = $"moveUp_{canUp}"
-          isEnabled = canUp
-          hotkeys = canUp ? [["^J:Y", { description = loc("Move Up") }]] : null
+          isEnabled = needShowUpButton
+          hotkeys = needShowUpButton ? [["^J:Y", { description = loc("Move Up") }]]
+            : null
         })),
         FAButton("arrow-down", @() moveCurSoldier(1), faBtnParams.__merge({
           key = $"moveDown_{canDown}"
-          isEnabled = canDown
-          hotkeys = canDown ? [["^J:X", { description = loc("Move Down") }]] : null
+          isEnabled = needShowDownButton
+          hotkeys = needShowDownButton ? [["^J:X", { description = loc("Move Down") }]]
+            : null
         })),
         canTake
           ? FAButton("arrow-left", curSoldierToSquad,
@@ -531,6 +541,7 @@ let function chooseSoldiersScene() {
             mkDismissBtn = smallDismissBtn
             onResearchClickCb = gotoResearchUpgradeMsgBox
           })
+          mkPresetEquipBlock()
         ]
       }
       @() {

@@ -6,9 +6,10 @@ let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
-let { defTxtColor, textBgBlurColor, activeTxtColor, blurBgColor, blockedBgColor,
+let { defTxtColor, textBgBlurColor, activeTxtColor, blurBgColor,
   blurBgFillColor, unitSize, bigPadding, smallPadding, tinyOffset
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { defLockedSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 let { show } = msgbox
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
@@ -36,7 +37,7 @@ let { getSoldierItemSlots, getEquippedItemGuid, curArmyData
 let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
-let { curHoveredItem } = require("%enlist/showState.nut")
+let { curHoveredItem, changeCameraFov } = require("%enlist/showState.nut")
 let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
 } = require("%enlist/researches/researchesFocus.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
@@ -63,6 +64,11 @@ local { isDetailsFull, detailsModeCheckbox } = require("%enlist/items/detailsMod
 let { isObjGuidBelongToRentedSquad } = require("%enlist/soldiers/model/squadInfoState.nut")
 let { showRentedSquadLimitsBox } = require("%enlist/soldiers/components/squadsComps.nut")
 let clickShopItem = require("%enlist/shop/clickShopItem.nut")
+let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
+
+
+const ADD_CAMERA_FOV_MIN = -15
+const ADD_CAMERA_FOV_MAX = 15
 
 
 let armoryWndOpenFlag = mkOnlinePersistentFlag("armoryWndOpenFlag")
@@ -74,7 +80,10 @@ let getItemSelectKey = @(item) item?.isShopItem ? item?.basetpl : item?.guid
 let unseenIcon =  blinkUnseenIcon(0.8).__update({ hplace = ALIGN_RIGHT })
 
 let selectedKey = Watched(null)
-viewItem.subscribe(function(item) { selectedKey(getItemSelectKey(item)) })
+viewItem.subscribe(function(item) {
+  selectedKey(getItemSelectKey(item))
+  changeCameraFov(0)
+})
 
 let selectedSlot = Computed(function() {
   let { ownerGuid = null, slotType = null, slotId = null } = selectParams.value
@@ -104,7 +113,7 @@ let activeItemParams = {
 }
 
 let blockedItemParams = {
-  bgColor = blockedBgColor
+  bgColor = defLockedSlotBgColor
   statusCtor = defStatusCtor
   canEquip = false
   onDoubleClickCb = null
@@ -172,13 +181,14 @@ let dropExceptionCb = function(dropItem) {
     processItemDrop(dropItem, checkDropItem)
 }
 
-let mkStdCtorData = @(size) {
-  size = size
+let mkStdCtorData = @(itemSize, needGunLayout = false) {
+  size = itemSize
   itemsInRow = 1
   ctor = @(item, override) mkItemWithMods({
     isXmb = true
     item = item
-    itemSize = size
+    itemSize
+    needGunLayout
     canDrag = !!item?.basetpl
     selectedKey = selectedKey
     selectKey = getItemSelectKey(item)
@@ -205,8 +215,9 @@ let mkStdCtorData = @(size) {
   }.__update(override))
 }
 
-let defaultCtorData = mkStdCtorData([3.25 * unitSize, 2.0 * unitSize]).__update({ itemsInRow = 2 })
-let mainWeaponCtorData = mkStdCtorData([7.0 * unitSize, 2.0 * unitSize])
+let defaultCtorData = mkStdCtorData([3.8 * unitSize, 2.2 * unitSize], false).__update({ itemsInRow = 2 })
+
+let mainWeaponCtorData = mkStdCtorData([9.0 * unitSize, 2.2 * unitSize], true)
 
 let getCtorData = @(typesInSlots, itemType)
   itemType in typesInSlots.mainWeapon ? mainWeaponCtorData : defaultCtorData
@@ -276,8 +287,7 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
       let itemsList = groupedItems[demand].map(function(item) {
           let ctor = (getCtorData(itemTypesInSlots.value, item?.itemtype) ?? ctorData).ctor
           let { basetpl = "" } = item
-          let isUnseen = Computed(@() basetpl in unseenViewSlotTpls.value
-            || (!isUpgradeUsed.value && basetpl in curUnseenAvailableUpgrades.value))
+          let isUnseen = Computed(@() basetpl in unseenViewSlotTpls.value)
           return ctor(item,
             overrideParams.__merge({
               isNew = onlyNew
@@ -342,7 +352,7 @@ let chooseButtonUi = function() {
 
 
 let function mkObtainButton(item) {
-  if (item == null)
+  if (item == null || item?.basetpl == null)
     return null
 
   let demands = mkItemDemands(item)
@@ -401,7 +411,7 @@ let function otherItemsBlock() {
 
 let mkItemsListBlock = @(children) {
   size = [SIZE_TO_CONTENT, flex()]
-  padding = [bigPadding, bigPadding]
+  padding = [bigPadding, smallPadding]
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = blurBgColor
   fillColor = blurBgFillColor
@@ -745,7 +755,14 @@ let itemsContent = [
         size = flex()
         valign = ALIGN_BOTTOM
         halign = ALIGN_RIGHT
-        children = infoBlock
+        children = [
+          infoBlock
+          {
+            vplace = ALIGN_TOP
+            hplace = ALIGN_LEFT
+            children = mkPresetEquipBlock()
+          }
+        ]
         behavior = Behaviors.DragAndDrop
         onDrop = @(data) unequipItem(data)
         canDrop = @(data) data?.slotType != null
@@ -772,7 +789,10 @@ let selectItemScene = @() {
     }
   }
   padding = safeAreaBorders.value
-  behavior = Behaviors.MenuCameraControl
+  behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+  onMouseWheel = function(mouseEvent) {
+    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+  }
   children = [
     @() {
       size = [flex(), SIZE_TO_CONTENT]

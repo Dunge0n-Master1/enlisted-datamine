@@ -98,7 +98,7 @@ let function unequipBySlot(slotData, cb = null) {
 
 let function unequipItem(data, cb = null) {
   let { item = null, slotType = null, slotId = null, soldierGuid = null } = data
-  if (item == null || slotType == null)
+  if (item == null || slotType == null || item?.guid == null)
     return
   let ownerGuid = soldierGuid ?? getLinksByType(item, slotType)?[0]
   if (!ownerGuid)

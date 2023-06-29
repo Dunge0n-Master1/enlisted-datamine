@@ -190,6 +190,9 @@ base_bike_common{
     driver:t="bike_seat_driver"
     commander:t="vehicle_seat_commander"
   }
+
+  "bike:tag"{
+  }
 }
 
 bike_camera_setup{

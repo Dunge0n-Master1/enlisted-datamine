@@ -35,7 +35,7 @@ let function mkSquadName(params) {
     valign = ALIGN_CENTER
     children = [
       sClass == null
-        ? itemTypeIcon(itemType, itemSubType, { size = [hdpx(55), hdpx(55)] })
+        ? itemTypeIcon(itemType, itemSubType, { size = [hdpxi(55), hdpxi(55)] })
         : kindIcon(sClassesCfg.value?[sClass].kind ?? sClass, hdpx(55), null, titleTxtColor)
       {
         flow = FLOW_VERTICAL

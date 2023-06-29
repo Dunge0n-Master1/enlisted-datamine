@@ -41,7 +41,7 @@ let function makeShowTipTrue() {
     return
   showTip(true)
   tipCountData.setValue(shownTipCount.value + 1)
-  gui_scene.setTimeout(TIP_SHOW_TIME, @() hasShownCurGame(true))
+  gui_scene.resetTimeout(TIP_SHOW_TIME, @() hasShownCurGame(true))
 }
 
  needShowTip.subscribe(function(tip) {

@@ -105,7 +105,9 @@ def apply_zone(at_time : float;
                zone_subtype : string;
                vehicle_subtype : string;
                var resupplyAtTime : float&;
-               var resupplyStarted : bool&)
+               var resupplyStarted : bool&;
+               var resupplyPassengersAtTime : float&;
+               var resupplyPassengersStarted : bool&)
   if !is_applied_for_zone(zone_pos, zone_radius_sq, zone_team, visitor_pos, visitor_team, zone_subtype, vehicle_subtype)
     return
   if resupplyFuel
@@ -115,6 +117,9 @@ def apply_zone(at_time : float;
     sendEvent(visitor_eid, [[CmdRequestPlayNetSoundPos name="resupplyStart", pos=visitor_pos]])
     resupplyAtTime = at_time + resupply_zone__duration
     resupplyStarted = true
+  if !resupplyPassengersStarted && at_time > cooldownEndTime
+    resupplyPassengersAtTime = at_time + resupply_zone__duration
+    resupplyPassengersStarted = true
 
 
 [es(no_order, tag=server, REQUIRE=planeResupply)]
@@ -139,9 +144,12 @@ def resupply_in_air_zone_timer(info : UpdateStageInfoAct;
                                                                            turret_control__gunEids : EidList;
                                                                            vehicle_resupply__type : string = "";
                                                                            var resupplyAtTime : float&;
-                                                                           var resupplyStarted : bool&)
+                                                                           var resupplyStarted : bool&;
+                                                                           var resupplyPassengersAtTime : float&;
+                                                                           var resupplyPassengersStarted : bool&)
     apply_zone(info.curTime, zonePos, zoneRadiusSq, resupply_zone__team, resupply_zone__cooldown, resupply_zone__duration, eid, transform[3],
-               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type, resupplyAtTime, resupplyStarted)
+               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type,
+               resupplyAtTime, resupplyStarted, resupplyPassengersAtTime, resupplyPassengersStarted)
 
 [es(no_order, tag=server, REQUIRE=groundVehicleResupply)]
 def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
@@ -166,18 +174,26 @@ def resupply_on_ground_zone_timer(info : UpdateStageInfoAct;
                                                                                       resupply__cooldownOverride : float = -1.f;
                                                                                       vehicle_resupply__type : string = "";
                                                                                       var resupplyAtTime : float&;
-                                                                                      var resupplyStarted : bool&)
+                                                                                      var resupplyStarted : bool&;
+                                                                                      var resupplyPassengersAtTime : float&;
+                                                                                      var resupplyPassengersStarted : bool&)
     let coolDownTime = resupply__cooldownOverride > 0.f ? resupply__cooldownOverride : resupply_zone__cooldown
     apply_zone(info.curTime, zonePos, zoneRadiusSq, resupply_zone__team, coolDownTime, resupply_zone__duration, eid, transform[3],
-               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type, resupplyAtTime, resupplyStarted)
+               team, turret_control__gunEids, resupply_zone__resupplyFuel, resupply_zone__type, vehicle_resupply__type,
+               resupplyAtTime, resupplyStarted, resupplyPassengersAtTime, resupplyPassengersStarted)
 
 [es(no_order, tag=server)]
 def resupply_vehicle_timer(info : UpdateStageInfoAct;
                            eid : EntityId;
                            transform : float3x4;
                            resupplyAtTime : float;
-                           var resupplyStarted : bool&)
+                           resupplyPassengersAtTime : float;
+                           var resupplyStarted : bool&;
+                           var resupplyPassengersStarted : bool&)
   if resupplyStarted && info.curTime > resupplyAtTime
     resupplyStarted = false
     send_net_event(eid, [[CmdResupplyVehicle]])
     sendEvent(eid, [[CmdRequestPlayNetSoundPos name="resupplyEnd", pos=transform[3]]])
+  if resupplyPassengersStarted && info.curTime > resupplyPassengersAtTime
+    resupplyPassengersStarted = false
+    sendEvent(eid, [[CmdResupplyPassengers]])

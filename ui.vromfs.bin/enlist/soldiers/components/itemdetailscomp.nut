@@ -109,7 +109,7 @@ let mkRow = @(children) {
 
 let function mkItemHeader(item, isFull) {
   let isVehicle = item?.itemtype == "vehicle"
-  let specialIcon = mkSpecialItemIcon(item, hdpx(30))
+  let specialIcon = mkSpecialItemIcon(item, hdpxi(30))
   let titleWidth = inventoryItemDetailsWidth * (isFull ? 1 : 0.92) - ((specialIcon != null)
     ? hdpx(57) : hdpx(27))
   local typeLoc = getItemTypeName(item)
@@ -127,7 +127,7 @@ let function mkItemHeader(item, isFull) {
     gap = smallPadding
     children = [
       mkRow([
-        itemTypeIcon(itemType, null, { size = [hdpx(27), hdpx(27)] })
+        itemTypeIcon(itemType, null, { size = [hdpxi(27), hdpxi(27)] })
         specialIcon
         itemTitle(item, titleWidth)
       ])

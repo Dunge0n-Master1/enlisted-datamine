@@ -11,12 +11,12 @@ let {
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { mkItemTier } = require("%enlSqGlob/ui/itemTier.nut")
 
-let iconSize = hdpx(11)
+let iconSize = hdpx(15)
 let badgeSize = hdpx(40)
 
 let mkStatusIcon = @(icon, color) faComp(icon, {
   margin = smallPadding
-  fontSize = hdpx(15)
+  fontSize = iconSize
   color
 })
 
@@ -35,13 +35,11 @@ let mkBackBlock = @(children) {
   children = children
 }
 
-let iconLocked = mkBackBlock( faComp("lock", {
-  size = [flex(), SIZE_TO_CONTENT]
-  halign = ALIGN_CENTER
+let iconLocked = faComp("lock", {
+  size = array(2, hdpx(19))
   fontSize = iconSize
-  color = hoverTxtColor
-  pos = [hdpx(1), hdpx(1)]
-}))
+  color = statusIconLocked
+})
 
 let mkIconWarning = @(size) faComp("warning", {
   vplace = ALIGN_CENTER
