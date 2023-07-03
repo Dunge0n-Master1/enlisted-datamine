@@ -11,6 +11,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { premiumProducts } = require("%enlist/shop/armyShopState.nut")
 let { mkNotifierBlink } = require("%enlist/components/mkNotifier.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
+let mkGlare = require("%enlist/components/mkGlareAnim.nut")
 
 
 let IMAGE_WIDTH = colFull(1) - midPadding * 2
@@ -20,6 +21,13 @@ let btnWidth = colFull(1)
 let hasDiscount = Computed(@() premiumProducts.value.findindex(@(i)
   (i?.discountInPercent ?? 0) > 0) != null)
 
+let glareAnim = mkGlare({
+  nestWidth = btnWidth
+  glareWidth = btnWidth / 3
+  glareDuration = 0.7
+  glareOpacity = 0.5
+  glareDelay = 5
+})
 
 let premiumWidget = watchElemState(@(sf) {
   watch = [hasDiscount, hasPremium]
@@ -61,6 +69,7 @@ let premiumWidget = watchElemState(@(sf) {
             size = SIZE_TO_CONTENT,
             vplace = ALIGN_BOTTOM
           }, {}, fontXXSmall)
+      hasPremium.value ? null : glareAnim
     ]
   }
 })

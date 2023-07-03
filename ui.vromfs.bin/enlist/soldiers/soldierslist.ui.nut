@@ -21,7 +21,15 @@ let function mkSoldiersUi(){
     margin = [contentOffset,0,0,0]
     gap = bigPadding
     children = [
-      armySelectUi
+      {
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding
+        valign = ALIGN_BOTTOM
+        children = [
+          armySelectUi
+          promoWidget("soldier_equip", "soldier_inventory")
+        ]
+      }
       {
         size = flex()
         flow = FLOW_HORIZONTAL
@@ -31,12 +39,6 @@ let function mkSoldiersUi(){
           squad_info
           mkSoldierInfo({ soldierInfoWatch = curSoldierInfo, onResearchClickCb = gotoResearchUpgradeMsgBox})
           mkPresetEquipBlock()
-          {
-            size = flex()
-            halign = ALIGN_RIGHT
-            valign = ALIGN_BOTTOM
-            children = promoWidget("soldier_equip", "soldier_inventory")
-          }
         ]
       }
     ]

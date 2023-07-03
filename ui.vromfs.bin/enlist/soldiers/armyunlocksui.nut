@@ -570,19 +570,15 @@ let function scrollByArrow(dir) {
   updateArrowButtons(elem)
 }
 
-let monetizationBlock = @(isVisible) !isVisible ? null
-  : promoWidget("army_unlocks")
 
 let function topBlock() {
   let unlockList = lockedProgressCampaigns.value?[curCampaign.value]
   return {
-    watch = [curCampaign, lockedProgressCampaigns, hasArmyUnlocks]
+    watch = [curCampaign, lockedProgressCampaigns]
     size = flex()
     pos = unlockList == null ? [0, -colPart(0.65)] : null
     halign = ALIGN_RIGHT
-    children = unlockList == null
-      ? monetizationBlock(hasArmyUnlocks.value != null)
-      : mkUnlockCampaignBlock(unlockList)
+    children = unlockList == null ? null : mkUnlockCampaignBlock(unlockList)
   }
 }
 
@@ -645,7 +641,15 @@ let campaignBlock = @() {
   margin = [contentOffset,0,0,0]
   gap = bigPadding
   children = [
-    armySelectUi
+    {
+      flow = FLOW_HORIZONTAL
+      gap = bigPadding
+      valign = ALIGN_BOTTOM
+      children = [
+        armySelectUi
+        hasArmyUnlocks.value == null ? null : promoWidget("army_unlocks")
+      ]
+    }
     hasArmyUnlocks.value == null ? noArmyUnlocks : unlocksProgressBlock
   ]
 }

@@ -18,13 +18,14 @@ let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkDiscountWidget } = require("%enlist/shop/currencyComp.nut")
 let {
-  colPart, smallPadding, midPadding, titleTxtColor, attentionTxtColor
+  colPart, smallPadding, midPadding, titleTxtColor, attentionTxtColor, bigPadding
 } = require("%enlSqGlob/ui/designConst.nut")
+let { slotBaseSize } = require("%enlSqGlob/ui/viewConst.nut")
 
 
 let freemiumBlockStyle = @(config) {
   borderColor = config?.color
-  iconSize = hdpx(42)
+  iconSize = hdpxi(42)
   iconPath = config?.widgetIcon ?? ""
 }
 
@@ -45,12 +46,13 @@ let freemiumBlockText = @(config) {
 
 let premiumBlockStyle = @(_config) {
   borderColor = attentionTxtColor
-  iconSize = hdpx(36)
+  iconSize = hdpxi(36)
   iconPath = "!ui/uiskin/currency/enlisted_prem.svg:{0}:{0}:K"
 }
 
 let premiumBlockText = @(_config) {
   rendObj = ROBJ_TEXTAREA
+  size = [flex(), SIZE_TO_CONTENT]
   parSpacing = smallPadding
   behavior = Behaviors.TextArea
   text = loc("premium/widget")
@@ -83,23 +85,33 @@ let mkPromoWidget = function(fnStyle, fnText, openWnd) {
       children = [
         {
           rendObj = ROBJ_BOX
-          padding = midPadding
+          padding = [midPadding, bigPadding]
           valign = ALIGN_CENTER
-          borderWidth = [hdpx(1), 0]
+          size = [slotBaseSize[0], SIZE_TO_CONTENT]
+          borderWidth = [0, 0, hdpx(1), 0]
           borderColor
           flow = FLOW_HORIZONTAL
           gap = colPart(0.1)
           children = [
             {
-              rendObj = ROBJ_IMAGE
-              size = [iconSize, iconSize]
-              image = Picture(iconPath.subst(iconSize.tointeger()))
-              vplace = ALIGN_CENTER
+              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_HORIZONTAL
+              gap = bigPadding
+              children = [
+                {
+                  rendObj = ROBJ_IMAGE
+                  size = [iconSize, iconSize]
+                  hplace = ALIGN_LEFT
+                  image = Picture(iconPath.subst(iconSize))
+                  vplace = ALIGN_CENTER
+                }
+                fnText(campPresentation.value)
+              ]
             }
-            fnText(campPresentation.value)
             faComp("chevron-right", {
               fontSize = colPart(0.5)
               vplace = ALIGN_CENTER
+              hplace = ALIGN_RIGHT
             })
           ]
         }

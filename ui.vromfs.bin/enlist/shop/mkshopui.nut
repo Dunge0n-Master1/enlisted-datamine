@@ -2,7 +2,6 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let shopItemClick = require("shopItemClick.nut")
 let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
-let viewShopItemsScene = require("viewShopItemsScene.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let mkDotPaginator = require("%enlist/components/mkDotPaginator.nut")
 
@@ -145,19 +144,7 @@ let function buildShopUi() {
     }
   }
 
-  let function shopItemAction(sItem, armyId, content) {
-    let { squads = [] } = sItem
-    if (squads.filter(@(s) s.armyId == armyId)?[0] != null) {
-      shopItemClick(sItem)
-      return
-    }
-
-    let { items = {} } = content
-    if (items.len() > 0 && !sItem?.isStarterPack) {
-      viewShopItemsScene(sItem)
-      return
-    }
-
+  let function shopItemAction(sItem) {
     shopItemClick(sItem)
   }
 
@@ -191,7 +178,7 @@ let function buildShopUi() {
 
     return function() {
       let content = crateContent == null ? null : crateContent.value?.content
-      let clickCb = @() cb(sItem, guid, content)
+      let clickCb = @() cb(sItem)
       let templates = allItemTemplates.value
       let reqFreemium = campaignGroup != CAMPAIGN_NONE && needFreemiumStatus.value
       let lockTxt = armyLevel > level ? loc("levelInfo", { level = armyLevel })

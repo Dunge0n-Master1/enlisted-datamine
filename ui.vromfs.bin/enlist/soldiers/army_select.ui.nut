@@ -29,8 +29,8 @@ let function armyBtn(armyId) {
       : hoverSlotBgColor
 
     return {
-      rendObj = ROBJ_BOX
       watch = [isSelected, showNameArmy]
+      rendObj = ROBJ_BOX
       borderWidth = isSelected.value ? [0, 0, hdpx(2), 0] : 0
       borderColor = accentColor
       fillColor = (sf & S_HOVER)
@@ -43,7 +43,7 @@ let function armyBtn(armyId) {
       children = {
         flow = FLOW_HORIZONTAL
         gap = bigPadding
-        padding = showNameArmy.value ? [hdpx(6), hdpx(14)] : [hdpx(6), hdpx(22)]
+        padding = showNameArmy.value ? [hdpx(8), hdpx(14)] : [hdpx(8), hdpx(23)]
         vplace = ALIGN_BOTTOM
         children = isSelected.value
           ? icon

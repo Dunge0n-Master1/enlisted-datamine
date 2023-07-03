@@ -101,7 +101,6 @@ let mkItemByTypeMap = {
         soldierInfo = soldierInfo
         squadInfo = squadsCfgById.value?[soldierInfo?.armyId ?? ""][soldierInfo?.squadId ?? ""]
         expToLevel = perkLevelsGrid.value?.expToLevel
-        size = itemSizeLong
         group = group
         sf = stateFlags.value
         isDisarmed = p?.isDisarmed

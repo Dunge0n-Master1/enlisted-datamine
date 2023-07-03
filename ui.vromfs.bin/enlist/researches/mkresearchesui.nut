@@ -1322,7 +1322,15 @@ let function buildResearchesUi() {
     margin = [contentOffset,0,0,0]
     gap = bigPadding
     children = [
-      armySelectUi
+      {
+        flow = FLOW_HORIZONTAL
+        gap = bigPadding
+        valign = ALIGN_BOTTOM
+        children = [
+          armySelectUi
+          promoWidget("research_section", null)
+        ]
+      }
       hasResearchesSection.value ? mkResearchesUi() : disabledSection
     ]
   })

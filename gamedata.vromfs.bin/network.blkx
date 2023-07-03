@@ -488,6 +488,82 @@ enceladus{
   }
 }
 
+callisto{
+  environment:t="staging"
+  chanceOfFatalOnLogerrOnExit:i=0
+  disableVromsAutoUpdate:b=no
+  alwaysReloadDataOnUpdate:b=yes
+  marketplaceURL:t="https://trade-dev.gaijin.net/"
+  shopUrl:t="https://store.gaijin.net/storefront.php?category=CuisineRoyale"
+  shopGuidUrl:t="https://store.gaijin.net/yuplay/show_item.php?guid={guid}"
+  shopCategoryUrl:t="https://store.gaijin.net/catalog.php?category={category}"
+  psnFriendsUrl:t="https://auth-psn-dev.gaijinent.com/psn_friends.php"
+
+  contentUpdater{
+    shouldPatchVromsWithRemoteVersion:b=yes
+    disableFastVersionCheck:b=yes
+  }
+
+  matching{
+    server:t="mgate-callisto-01.enlisted.net:7853"
+    server:t="mgate-callisto-02.enlisted.net:7853"
+  }
+
+  eventLog{
+    host:t="client-logs.gaijin.net"
+  }
+
+  char{
+
+    servers{
+      url:t="https://contacts-dev-01.gaijin.net:9443/json"
+      url:t="https://contacts-dev-02.gaijin.net:9443/json"
+      url:t="https://contacts-dev-03.gaijin.net:9443/json"
+    }
+  }
+
+  inventory{
+
+    servers{
+      url:t="https://inventory-common-dev-01.gaijin.net:8443/char"
+      url:t="https://inventory-common-dev-02.gaijin.net:8443/char"
+      url:t="https://inventory-common-dev-03.gaijin.net:8443/char"
+    }
+  }
+
+  userstats{
+
+    servers{
+      url:t="https://userstat-dev-01.gaijin.net:11443/char"
+      url:t="https://userstat-dev-02.gaijin.net:11443/char"
+      url:t="https://userstat-dev-03.gaijin.net:11443/char"
+    }
+  }
+
+  onlineStorage{
+
+    servers{
+      url:t="https://cloud-dev-01.gaijin.net:13443/char"
+      url:t="https://cloud-dev-02.gaijin.net:13443/char"
+      url:t="https://cloud-dev-03.gaijin.net:13443/char"
+    }
+  }
+
+  profile_server{
+
+    servers{
+      url:t="https://profile-dev-01.gaijin.net:10443/json-rpc"
+      url:t="https://profile-dev-02.gaijin.net:10443/json-rpc"
+      url:t="https://profile-dev-03.gaijin.net:10443/json-rpc"
+    }
+  }
+
+  message_queue{
+    port:i=11300
+    host:t="127.0.0.1"
+  }
+}
+
 naiad{
   disableVromsAutoUpdate:b=no
   environment:t="staging"
