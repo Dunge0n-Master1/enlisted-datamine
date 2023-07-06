@@ -20,8 +20,6 @@ let mkHeader = require("%enlist/components/mkHeader.nut")
 let mkToggleHeader = require("%enlist/components/mkToggleHeader.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { isDmViewerEnabled, onDmViewerMouseMove, dmViewerPanelUi } = require("%enlist/vehicles/dmViewer.nut")
-let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let { freemiumWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { changeCameraFov } = require("%enlist/showState.nut")
 
 
@@ -157,13 +155,7 @@ let selectVehicleContent = {
         {
           size = [SIZE_TO_CONTENT, flex()]
           halign = ALIGN_RIGHT
-          children = [
-            @() {
-              watch = needFreemiumStatus
-              children = !needFreemiumStatus.value ? null : freemiumWidget("select_vehicle")
-            }
-            vehicleDetails
-          ]
+          children = vehicleDetails
         }
       ]
     }

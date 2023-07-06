@@ -12,9 +12,10 @@ let { mkAchievementTitle, mkTaskEmblem, taskHeader, taskDescription, taskDescPad
 let { mkTaskRewards } = require("mkUnlockSlots.nut")
 let scrollbar = require("%ui/components/scrollbar.nut")
 let { seenUnlocks, markUnlocksOpened } = require("%enlist/unlocks/unseenUnlocksState.nut")
+let { hoverSlotBgColor } = require("%enlSqGlob/ui/designConst.nut")
 
 
-let mkTaskContent = @(task)
+let mkTaskContent = @(task, sf)
   function() {
     let progress = getUnlockProgress(task, unlockProgress.value)
     return {
@@ -33,8 +34,8 @@ let mkTaskContent = @(task)
             flow = FLOW_VERTICAL
             gap = taskDescPadding
             children = [
-              taskHeader(task, progress)
-              taskDescription(task.localization.description)
+              taskHeader(task, progress, true, sf)
+              taskDescription(task.localization.description, sf)
             ]
           }
         ]
@@ -43,30 +44,35 @@ let mkTaskContent = @(task)
   }
 
 let finishedOpacity = 0.5
+let finishedHoveredOpacity = 0.75
 let finishedBgColor = mul_color(defBgColor, 1.0 / finishedOpacity)
 let mkAchievementSlot = @(task) {
   size = [flex(), SIZE_TO_CONTENT]
   children = [
-    {
+    watchElemState(@(sf) {
       size = [flex(), SIZE_TO_CONTENT]
       minHeight = taskMinHeight
       rendObj = ROBJ_SOLID
       xmbNode = XmbNode()
       behavior = Behaviors.Button
-      color = task.isFinished ? finishedBgColor : defBgColor
-      opacity = task.isFinished ? finishedOpacity : 1.0
+      color = sf & S_HOVER ? hoverSlotBgColor
+        : task.isFinished ? finishedBgColor
+        : defBgColor
+      opacity = !task.isFinished ? 1.0
+        : sf & S_HOVER ? finishedHoveredOpacity
+        : finishedOpacity
       flow = FLOW_HORIZONTAL
       padding = taskSlotPadding
       gap = smallPadding
       valign = ALIGN_CENTER
       children = [
-        mkTaskContent(task)
+        mkTaskContent(task, sf)
         task.hasReward
           ? mkGetTaskRewardBtn(task, receiveTaskRewards, unlockRewardsInProgress)
           : null
         mkTaskRewards(task, true)
       ]
-    }
+    })
     statusBlock(task)
   ]
 }

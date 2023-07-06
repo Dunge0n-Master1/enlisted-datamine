@@ -590,7 +590,7 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         text = loc("btn/view")
         action = viewBtnCb
         customStyle = viewShopInfoBtnStyle.__update({
-          hotkeys = [[ "^J:X", { description = {skip = true}} ]]
+          hotkeys = [[ "^J:Y", { description = {skip = true}} ]]
         })
       })
 

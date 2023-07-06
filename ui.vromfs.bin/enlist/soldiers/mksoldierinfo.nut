@@ -154,22 +154,32 @@ let content = kwarg(@(
     children = [
       mkNameBlock(soldier)
       tabsList(soldier, availTabs)
-      @() {
-        watch = curTabId
+      {
         size = flex()
-        children = getTabById(curTabId.value).content({
-          soldier
-          canManage
-          selectedKeyWatch
-          onDoubleClickCb
-          dropExceptionCb
-          onResearchClickCb
-        }, KWARG_NON_STRICT)
-      }
-      @() {
-        watch = soldier
-        size = [flex(), SIZE_TO_CONTENT]
-        children = mkDismissBtn(soldier.value)
+        flow = FLOW_VERTICAL
+        children = [
+          @() {
+            watch = curTabId
+            size = flex()
+            children = getTabById(curTabId.value).content({
+              soldier
+              canManage
+              selectedKeyWatch
+              onDoubleClickCb
+              dropExceptionCb
+              onResearchClickCb
+            }, KWARG_NON_STRICT)
+          }
+          function() {
+            let children = mkDismissBtn(soldier.value)
+            return {
+              watch = soldier
+              size = [flex(), SIZE_TO_CONTENT]
+              margin = children == null ? null : [bigPadding,0,0,0]
+              children
+            }
+          }
+        ]
       }
     ]
   }

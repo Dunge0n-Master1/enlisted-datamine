@@ -56,7 +56,7 @@ def binocular_input_action_triggered(evt : EventDaInputActionTriggered;
   elif human_binocular__mode && isSwitchingWeapSlotByScrolling
     sendEvent(eid, [[RequestSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode ChooseFirstWeapWithAmmo]])
   elif human_binocular__mode && isSwitchingWeapSlotAction
-    sendEvent(eid, [[RequestSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode None]])
+    sendEvent(eid, [[RequestSwitchBinocular choosePrevGunSlot=BinocularChooseWeapSlotMode ChooseFirstWeapWithAmmo]])
 
 [es(tag=input)]
 def binocular_switch_request(evt : RequestSwitchBinocular; eid : EntityId)

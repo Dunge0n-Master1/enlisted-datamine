@@ -4,6 +4,7 @@ let { body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let mkCurSquadsList = require("%enlSqGlob/ui/mkSquadsList.nut")
 let { multySquadPanelSize, listCtors, bigGap, smallPadding
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { commonBtnHeight } = require("%enlSqGlob/ui/designConst.nut")
 let { txtColor } = listCtors
 let { curArmy, curSquadId, setCurSquadId, curChoosenSquads, curUnlockedSquads
 } = require("model/state.nut")
@@ -75,7 +76,7 @@ let function mkSquadManagementBtn(restSquadsCount=null, size = null, margin = nu
       watch = [restSquadsCount, armySlotDiscount]
       rendObj = ROBJ_SOLID
       size = size ?? [multySquadPanelSize[0], SIZE_TO_CONTENT]
-      minHeight = (multySquadPanelSize[1] * 0.5).tointeger()
+      minHeight = commonBtnHeight//(multySquadPanelSize[1] * 0.5).tointeger()
       margin = margin ?? [bigGap, 0, 0, 0]
       padding = smallPadding
       gap = smallPadding
@@ -121,7 +122,6 @@ let function mkSquadsList() {
     max(curUnlockedSquads.value.len() - curChoosenSquads.value.len(), 0))
 
   let squadManageButton = mkSquadManagementBtn(restSquadsCount)
-
   let curSquadsList = Computed(@() (curChoosenSquads.value ?? [])
     .map(@(squad) squad.__merge({
       addChild = mkSlotAlertsComponent(squad)

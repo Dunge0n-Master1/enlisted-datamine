@@ -38,7 +38,7 @@ let categoriesBase = {
     field = "name"
     dataType = lbDataType.NICKNAME
     locId = "lb/name"
-    relWidth = 3.5
+    relWidth = 4.5
   }
 
   VICTORIES_PERCENT = {

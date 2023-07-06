@@ -227,7 +227,7 @@ base_i_16_type_24_7_62mm_shkas{
   gun__shotFreq:r=30.0
   gun__locName:t="gunshkas"
   gun__shootNodeName:t="bone_mg_gun_twin"
-  gun__maxAmmo:i=650
+  gun__maxAmmo:i=775
 
   "gun__firingModes:array"{
 
@@ -241,7 +241,7 @@ base_i_16_type_24_7_62mm_shkas{
   }
 
   "gun__shellsAmmo:array"{
-    ammo:i=650
+    ammo:i=775
   }
 
   "gun__ammoSetsInfo:shared:array"{
@@ -377,7 +377,7 @@ planegun_i_16_type_24_7_62mm_shkas_01{
   _extends:t="base_i_16_type_24_7_62mm_shkas"
   _extends:t="gunsound_7_62mm_shkas_aircraft"
   gun__shootNodeName:t="flare1"
-  gun__maxAmmo:i=650
+  gun__maxAmmo:i=775
 }
 
 planegun_i_16_type_24_7_62mm_shkas_02{
@@ -386,7 +386,7 @@ planegun_i_16_type_24_7_62mm_shkas_02{
   _extends:t="base_i_16_type_24_7_62mm_shkas"
   _extends:t="gunsound_7_62mm_shkas_aircraft"
   gun__shootNodeName:t="flare2"
-  gun__maxAmmo:i=650
+  gun__maxAmmo:i=775
 }
 
 planegun_i_16_type_24_7_62mm_shkas_03{
@@ -395,7 +395,7 @@ planegun_i_16_type_24_7_62mm_shkas_03{
   _extends:t="base_i_16_type_24_7_62mm_shkas"
   _extends:t="gunsound_7_62mm_shkas_aircraft"
   gun__shootNodeName:t="flare3"
-  gun__maxAmmo:i=900
+  gun__maxAmmo:i=775
 }
 
 planegun_i_16_type_24_7_62mm_shkas_04{
@@ -404,7 +404,7 @@ planegun_i_16_type_24_7_62mm_shkas_04{
   _extends:t="base_i_16_type_24_7_62mm_shkas"
   _extends:t="gunsound_7_62mm_shkas_aircraft"
   gun__shootNodeName:t="flare4"
-  gun__maxAmmo:i=900
+  gun__maxAmmo:i=775
 }
 
 i_16_type_24_driver_cockpit{

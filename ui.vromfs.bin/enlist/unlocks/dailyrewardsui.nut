@@ -310,7 +310,6 @@ let dailyRewardsHeader = {
 
 let btnParams = {
   size = btnSize
-  hotkeys = [[$"^{JB.A} | Enter | Space | Esc", { description = { skip = true }} ]]
   margin = 0
 }
 
@@ -325,19 +324,22 @@ let function nextOrCloseCb(receivedData) {
   gotoNextStageOrClose(receivedData, @() isOpened(false))
 }
 
+let hotkeyB = { hotkeys = [[$"^{JB.B} | Esc", { description = { skip = true } }]] }
+
 let mkButton = @(receivedData) function() {
   let rData = receivedData.value
-  local button = Bordered(loc("Close"), @() nextOrCloseCb(rData), btnParams)
+  local button = Bordered(loc("Close"), @() nextOrCloseCb(rData), btnParams.__update(hotkeyB))
   if (isReceiveDayRewardInProgress.value)
     button = waitingSpinner
   else if (rData != null) {
     if (hasRewardsAnim.value)
-      button = Bordered(loc("Skip"), skipRewardAnimCb, btnParams)
+      button = Bordered(loc("Skip"), skipRewardAnimCb, btnParams.__update(hotkeyB))
     else
-      button = Bordered(loc("Ok"), @() nextOrCloseCb(rData), btnParams)
+      button = Bordered(loc("Close"), @() nextOrCloseCb(rData), btnParams.__update(hotkeyB))
   }
   else if (dailyRewardsUnlock.value?.hasReward)
-    button = PrimaryFlat(loc("bp/getNextReward"), receiveDayReward, btnParams)
+    button = PrimaryFlat(loc("bp/getNextReward"), receiveDayReward,
+      btnParams.__update({ hotkeys = [[$"^{JB.A} | Esc | Enter | Space"]] }))
 
   return {
     watch = [isReceiveDayRewardInProgress, receivedData, dailyRewardsUnlock, hasRewardsAnim]

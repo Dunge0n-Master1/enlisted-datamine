@@ -8,7 +8,7 @@ let {
 } = require("%enlSqGlob/ui/decoratorsPresentation.nut")
 let {
   add_decorator, add_all_decorators, choose_decorator,
-  buy_decorator
+  buy_decorator, remove_decorator
 } = require("%enlist/meta/clientApi.nut")
 
 
@@ -122,6 +122,7 @@ let function buyDecorator(guid, cost) {
 
 console_register_command(@(guid) add_decorator(guid), "meta.addDecorator")
 console_register_command(@() add_all_decorators(), "meta.addAllDecorators")
+console_register_command(@(guid) remove_decorator(guid), "meta.removeDecorator")
 
 return {
   decoratorsCfgByType

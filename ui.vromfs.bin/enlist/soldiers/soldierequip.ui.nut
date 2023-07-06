@@ -277,7 +277,7 @@ let soldierEquip = @(soldier, canManage = true, selectedKeyWatch = Watched(null)
       gap = bigPadding
       children = [
         {
-          size = [flex(), SIZE_TO_CONTENT]
+          size = flex()
           gap = bigPadding * 2
           flow = FLOW_VERTICAL
           children

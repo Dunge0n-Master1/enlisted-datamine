@@ -18,7 +18,7 @@ let function logoutMsgBox(){
     text = loc("msgboxtext/logout")
     buttons = [
       { text = loc("Cancel"), isCurrent = true }
-      { text = loc("Signout"), action = function() {
+      { text = loc("Signout"), customStyle = { hotkeys = [["^J:X"]] }, action = function() {
         login.logOut()
       }}
     ]

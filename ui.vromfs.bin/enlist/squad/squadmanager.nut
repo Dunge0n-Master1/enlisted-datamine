@@ -706,7 +706,7 @@ let function requestJoinSquad(userId) {
 }
 
 let function onAcceptMembership(newContact) {
-  let { realnick, uid } = newContact.value
+  let { realnick, uid } = newContact
   logSq($"Squad application notification from {uid}/{realnick}")
   if ((consoleCompare.xbox.isFromPlatform(realnick)
       || consoleCompare.psn.isFromPlatform(realnick)) && isSquadLeader.value) {

@@ -1,6 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { h2_txt, sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
 let { perksData } = require("%enlist/soldiers/model/soldierPerks.nut")
 let armyEffects = require("%enlist/soldiers/model/armyEffects.nut")
@@ -16,6 +16,8 @@ let { getObjectName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { mkSoldiersData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
+let { getClassCfg } = require("%enlSqGlob/ui/soldierClasses.nut")
+
 
 let hdrAnimations = [
   { prop = AnimProp.opacity, from = 0, to = 1, duration = 0.3, easing = OutCubic, trigger = "hdrAnim"}
@@ -28,8 +30,6 @@ let mkClassBonus = @(classBonusWatch) function() {
   if (bonus == 0)
     return res
   return withTooltip(res.__update({
-      hplace = ALIGN_RIGHT
-      vplace = ALIGN_TOP
       rendObj = ROBJ_TEXT
       color = msgHighlightedTxtColor
       text = loc("bonusExp/short", { value = $"+{bonus}" })
@@ -45,15 +45,15 @@ let callnameBlock = @(callname) {
   rendObj = ROBJ_TEXT
   text = callname
   color = noteTxtColor
-}.__update(h2_txt)
+}.__update(body_txt)
 
-let nameField = function(soldierWatch){
+let nameField = function(soldierWatch) {
   return function(){
     let { callname = "" } = soldierWatch.value
     return {
       flow = FLOW_HORIZONTAL
       watch = soldierWatch
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [flex(2), SIZE_TO_CONTENT]
       gap
       children = [
         callname != "" ? callnameBlock(callname)
@@ -63,7 +63,7 @@ let nameField = function(soldierWatch){
             rendObj = ROBJ_TEXT
             text = getObjectName(soldierWatch.value)
             color = noteTxtColor
-          }.__update(h2_txt)
+          }.__update(body_txt)
       ]
     }
   }
@@ -119,7 +119,11 @@ let mkSoldierNameSmall = @(soldier)
     text = getObjectName(soldier)
     color = defTxtColor
     padding = [0, smallPadding * 2]
-  }.__update(body_txt)
+  }.__update(sub_txt)
+
+
+let iconSize = hdpx(26)
+let medalSize = hdpx(24)
 
 let function mkNameBlock(soldier) {
   let soldierWatch = mkSoldiersData(soldier)
@@ -132,54 +136,77 @@ let function mkNameBlock(soldier) {
   })
   return function() {
     let {armyId = null, sClass = null, sKind = null, sClassRare = 0, tier = 1} = soldierWatch.value
-    let medal = mkSoldierMedalIcon(soldierWatch.value, hdpx(24))
+    let medal = mkSoldierMedalIcon(soldierWatch.value, medalSize)
+    let isPremium = getClassCfg(sClass)?.isPremium ?? false
 
     let classTooltipCb = @() classTooltip(armyId, sClass, sKind)
     return {
       watch = [soldierWatch, campPresentation, needFreemiumStatus]
       size = [flex(), hdpx(70)]
-      flow = FLOW_VERTICAL
       animations = hdrAnimations
       transform = {}
       rendObj = ROBJ_SOLID
       color = panelBgColor
-      padding = bigPadding
       children = [
+        isPremium ? classIcon(armyId, sClass, iconSize) : null
         {
-          size = [flex(), SIZE_TO_CONTENT]
+          size = flex()
+          flow = FLOW_HORIZONTAL
+          padding = [0, bigPadding]
           children = [
-            mkClassBonus(classBonusWatch)
             {
-              size = [flex(), SIZE_TO_CONTENT]
-              flow = FLOW_HORIZONTAL
-              valign = ALIGN_CENTER
-              gap
+              size = flex()
+              flow = FLOW_VERTICAL
               children = [
-                withTooltip(kindIcon(sKind, hdpx(30), sClassRare), classTooltipCb)
-                withTooltip(classNameColored(sClass, sKind, sClassRare), classTooltipCb)
-                withTooltip(tierText(tier).__update({ color = defTxtColor }),
-                  @() rankingTooltip(tier))
-                mkSoldierNameSmall(soldierWatch.value)
+                {
+                  size = [flex(), ph(40)]
+                  flow = FLOW_HORIZONTAL
+                  gap
+                  padding = [0, 0, 0, isPremium ? iconSize : 0]
+                  valign = ALIGN_CENTER
+                  children = [
+                    withTooltip(kindIcon(sKind, medalSize, sClassRare), classTooltipCb)
+                    withTooltip(classNameColored(sClass, sKind, sClassRare), classTooltipCb)
+                    withTooltip(tierText(tier).__update({ color = defTxtColor }, sub_txt),
+                      @() rankingTooltip(tier))
+                    mkSoldierNameSmall(soldierWatch.value)
+                  ]
+                }
+                {
+                  size = flex()
+                  flow = FLOW_HORIZONTAL
+                  gap
+                  valign = ALIGN_CENTER
+                  children = [
+                    isPremium ? null : classIcon(armyId, sClass, hdpx(30))
+                    nameField(soldierWatch)
+                    medal == null ? null : withTooltip(medal, @() loc("hero/medal"))
+                  ]
+                }
               ]
             }
-          ]
-        }
-        {
-          size = [flex(), SIZE_TO_CONTENT]
-          flow = FLOW_HORIZONTAL
-          valign = ALIGN_TOP
-          gap
-          children = [
-            classIcon(armyId, sClass, hdpxi(30))
-            nameField(soldierWatch)
-            medal == null ? null : withTooltip(medal, @() loc("hero/medal"))
-            levelBlockWithProgress(
-              soldierWatch,
-              perksWatch,
-              needFreemiumStatus.value,
-              campPresentation.value?.color,
-              {padding = [hdpx(4), 0, 0, 0]}
-            )
+            {
+              size = [SIZE_TO_CONTENT, flex()]
+              flow = FLOW_VERTICAL
+              halign = ALIGN_RIGHT
+              children = [
+                {
+                  size = [SIZE_TO_CONTENT, ph(40)]
+                  valign = ALIGN_CENTER
+                  children = mkClassBonus(classBonusWatch)
+                }
+                {
+                  size = [SIZE_TO_CONTENT, flex()]
+                  valign = ALIGN_CENTER
+                  children = levelBlockWithProgress(
+                    soldierWatch,
+                    perksWatch,
+                    needFreemiumStatus.value,
+                    campPresentation.value?.color
+                  )
+                }
+              ]
+            }
           ]
         }
       ]

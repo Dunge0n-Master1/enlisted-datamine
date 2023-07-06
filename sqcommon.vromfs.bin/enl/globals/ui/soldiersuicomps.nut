@@ -162,7 +162,7 @@ let className = @(sClass, count = 0) defcomps.note({
   color = defTxtColor
 })
 
-let classNameColored = @(sClass, sKind, sClassRare) defcomps.note({
+let classNameColored = @(sClass, sKind, sClassRare) defcomps.txt({
   text = loc(getClassCfg(sClass).locId)
   vplace = ALIGN_CENTER
   color = getKindCfg(sKind)?.colorsByRare[sClassRare] ?? defTxtColor

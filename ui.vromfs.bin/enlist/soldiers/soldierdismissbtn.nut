@@ -7,7 +7,7 @@ let { showMessageWithContent, showMsgbox } = require("%enlist/components/msgbox.
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { txt } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
-let { SmallFlat, Bordered } = require("%ui/components/textButton.nut")
+let { Bordered } = require("%ui/components/txtButton.nut")
 let { reserveSoldiers, applySoldierManage, dismissSoldier, isDismissInProgress
 } = require("model/chooseSoldiersState.nut")
 let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.nut")
@@ -80,7 +80,7 @@ let mkApplyChangesWarning = @(cb) showMsgbox({
 })
 
 
-let function mkDismissBtn(soldier, ctor = SmallFlat, cb = @() null) {
+let function mkDismissBtn(soldier, override = {}, btnOverride = {}, cb = @() null) {
   if (soldier == null)
     return null
 
@@ -109,24 +109,23 @@ let function mkDismissBtn(soldier, ctor = SmallFlat, cb = @() null) {
       children = [
         isDismissInProgress.value
           ? waitingSpinner
-          : ctor(loc("btn/removeSoldier"),
+          : Bordered(loc("btn/removeSoldier"),
               @() getLinkedSquadGuid(soldier) != null
                 ? mkApplyChangesWarning(cb)
                 : mkDismissWarning(armyId, guid, retireCount, cb),
-              {
-                margin = 0
-                padding = [bigPadding, 2 * bigPadding]
-              })
+              { margin = 0 }.__update(btnOverride))
       ]
-    })
+    }, override)
   }
 }
 
 
-let smallDismissBtn = @(soldier) mkDismissBtn(soldier)
-let dismissBtn = @(soldier, cb = @() null) mkDismissBtn(soldier, Bordered, cb)
+let bigDismissBtn = @(soldier) mkDismissBtn(soldier,
+  { size = [flex(), SIZE_TO_CONTENT] }, { btnWidth = flex() })
+
+let dismissBtn = @(soldier, cb = @() null) mkDismissBtn(soldier, {}, {}, cb)
 
 return {
-  smallDismissBtn
+  bigDismissBtn
   dismissBtn
 }

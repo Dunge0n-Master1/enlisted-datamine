@@ -3,7 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 #explicit-this
 
 let {format} = require("string")
-let { remap_nick } = require("%enlSqGlob/remap_nick.nut")
+let { remap_others } = require("%enlSqGlob/remap_nick.nut")
 let { secondsToStringLoc, secondsToHoursLoc, locTable } = require("%ui/helpers/time.nut")
 
 let function makeType(id, params) {
@@ -35,7 +35,7 @@ let types = {
 
   NICKNAME = {
     getNotAvailableText = @(value) value ? null : "-"
-    getTextImpl = @(value) remap_nick(value.tostring())
+    getTextImpl = @(value) remap_others(value.tostring())
   }
 
   RATIO = {

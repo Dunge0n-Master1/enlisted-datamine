@@ -213,7 +213,6 @@ let function mkStartPerk(perksListVal, perksStatsCfgVal, perkScheme, isLocked) {
   }
 }
 
-
 let function mkShopItemCard(shopItem, armyData, maxClasses) {
   let { guid = null, curItemCost = {}, discountInPercent = 0 } = shopItem
   let squad = shopItem?.squads[0]
@@ -237,21 +236,21 @@ let function mkShopItemCard(shopItem, armyData, maxClasses) {
     return {
       watch = [curUnseenAvailShopGuids, crateContent, needFreemiumStatus, sClassesCfg,
         perkSchemes, soldierSchemes, perksList, perksStatsCfg]
-      size = [hdpx(295), hdpx(500)]
+      size = [hdpx(305), hdpx(500)]
       flow = FLOW_VERTICAL
       halign = ALIGN_CENTER
       behavior = Behaviors.Button
       gap = smallPadding
       children = [
         {
-          size = [flex(), hdpx(25)]
+          size = [flex(), SIZE_TO_CONTENT]
           children = isClassSuitable ? null : mkAlertObject(loc("shop/unsuitableForSquad"))
         }
         {
           guid
           behavior = Behaviors.Button
           rendObj = ROBJ_SOLID
-          size = [hdpx(295), hdpx(370)]
+          size = [hdpx(305), hdpx(370)]
           maxWidth = CARD_MAX_WIDTH
           halign = ALIGN_CENTER
           color = darkBgColor

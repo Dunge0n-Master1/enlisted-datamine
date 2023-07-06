@@ -15,7 +15,8 @@ let mkSquadsVert = @(squads) {
 }
 
 let mkSquadsList = kwarg(@(
-  curSquadsList, curSquadId, setCurSquadId, addedObj = null, createHandlers = null, bgOverride = {}
+  curSquadsList, curSquadId, setCurSquadId, addedObj = null,
+  createHandlers = null, hasOffset = true, bgOverride = {}
 ) function() {
   let squadsList = curSquadsList.value ?? []
   let function defCreateHandlers(squads){
@@ -31,7 +32,7 @@ let mkSquadsList = kwarg(@(
   local children = []
   if (squadsList.len() > 0) {
     let listComp = mkSquadsVert(squadsList)
-    let maxHeight = calc_comp_size(listComp)[1]
+    let maxHeight = hasOffset ? null : calc_comp_size(listComp)[1]
     children = [
       note(loc("squads/battle")).__update({ size = [multySquadPanelSize[0], SIZE_TO_CONTENT] })
       makeVertScroll(listComp,
@@ -42,7 +43,7 @@ let mkSquadsList = kwarg(@(
   return {
     watch = [curSquadsList, curSquadId]
     size = [multySquadPanelSize[0] + 2 * bigPadding, flex()]
-    padding = [bigPadding, 0]
+    padding = [bigPadding, 0, 0, 0]
     halign = ALIGN_CENTER
     rendObj = ROBJ_WORLD_BLUR_PANEL
     color = blurBgColor
@@ -52,7 +53,7 @@ let mkSquadsList = kwarg(@(
     gap = smallPadding
     xmbNode = XmbContainer({ wrap = false })
     children
-  }.__merge(bgOverride)
+  }.__update(bgOverride)
 })
 
 return mkSquadsList

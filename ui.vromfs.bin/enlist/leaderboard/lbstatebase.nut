@@ -107,8 +107,10 @@ lbHandlers["cln_get_leaderboard_json"] <- function(result, requestData) {
       continue
     data.name <- name
     newLbData.append(data)
-    if (data?._id == userInfo.value?.userId)
+    if (data?._id == userInfo.value?.userId) {
       selfRow = data
+      selfRow.name <- userInfo.value?.name ?? ""
+    }
   }
   newLbData.sort(@(a, b)
     (b?.idx ?? -1) >= 0 <=> (a?.idx ?? -1) >= 0 || (a?.idx ?? -1) <=> (b?.idx ?? -1))

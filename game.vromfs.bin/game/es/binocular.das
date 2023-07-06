@@ -52,7 +52,8 @@ def binocular_on_switch_event(evt : CmdSwitchBinocular;
       using() <| $(var gunEids : EidList)
         gunEids := human_weap__gunEids
         gunEids[int(binocularSlot)] = human_binocular__prevGunInBinocSlotEid
-        switch_to_first_weap_with_ammo(gunEids, human_net_phys.phys)
+        if !switch_to_first_weap_with_ammo(gunEids, human_net_phys.phys)
+          human_net_phys.phys.producedCT |> set_chosen_weapon(HUWeaponSlots EWS_MELEE)
     human_binocular__prevGunSlot = -1
   else
     human_binocular__prevGunSlot = int(curWeapState.curSlot)

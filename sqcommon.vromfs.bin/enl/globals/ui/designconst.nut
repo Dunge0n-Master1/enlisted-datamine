@@ -153,6 +153,11 @@ return {
   discountBgColor = 0xFFF8BD41
   modsBgColor = 0xFF13181F
 
+  squadSlotBgIdleColor = 0x99303841
+  squadSlotBgHoverColor = 0xFFA0A2A3
+  squadSlotBgActiveColor = 0xFF4A5A68
+  squadSlotBgAlertColor = 0x77330000
+
   //BdColor
   defBdColor    = 0xFFB3BDC1
   disabledBdColor = 0xFF4B575D

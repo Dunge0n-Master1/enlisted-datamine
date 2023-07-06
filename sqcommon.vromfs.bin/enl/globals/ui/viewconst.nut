@@ -150,7 +150,7 @@ return {
 
   discountBgColor = Color(0, 120, 0)
 
-  slotBaseSize = [(6 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
+  slotBaseSize = [(7 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
   slotMediumSize = [(4 * unitSize).tointeger(), (1.5 * unitSize).tointeger()]
 
   commonBtnHeight

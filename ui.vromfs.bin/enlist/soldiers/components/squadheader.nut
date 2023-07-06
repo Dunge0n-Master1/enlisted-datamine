@@ -2,7 +2,9 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let faComp = require("%ui/components/faComp.nut")
-let { gap, noteTxtColor, defTxtColor, disabledTxtColor, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let {
+  gap, noteTxtColor, defTxtColor, disabledTxtColor, smallPadding, bigPadding
+} = require("%enlSqGlob/ui/viewConst.nut")
 let { autoscrollText, txt, note } = require("%enlSqGlob/ui/defcomps.nut")
 let tooltipBox = require("%ui/style/tooltipBox.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
@@ -10,6 +12,8 @@ let { READY } = require("%enlSqGlob/readyStatus.nut")
 let { mkSquadSpecIcon } = require("%enlSqGlob/ui/squadsUiComps.nut")
 let { kindIcon, kindName } = require("%enlSqGlob/ui/soldiersUiComps.nut")
 let mkSClassLimitsComp = require("%enlist/soldiers/model/squadClassLimits.nut")
+let { panelBgColor } = require("%enlSqGlob/ui/designConst.nut")
+let { utf8ToUpper } = require("%sqstd/string.nut")
 
 
 let mkMaxSquadSizeComp = @(curSquadParams, vehicleCapacity) Computed(function() {
@@ -55,6 +59,7 @@ let squadClassesUi = @(sClassLimits) @() {
   watch = sClassLimits
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
+  margin = [0, bigPadding]
   halign = ALIGN_RIGHT
   gap = {
     rendObj = ROBJ_SOLID
@@ -87,6 +92,7 @@ let squadSizeUi = @(battleAmount, maxSquadSize) function() {
 
   return res.__update({
     flow = FLOW_HORIZONTAL
+    margin = [smallPadding, bigPadding]
     valign = ALIGN_CENTER
     vplace = ALIGN_BOTTOM
     behavior = Behaviors.Button
@@ -117,14 +123,14 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
 
     let group = ElemGroup()
     return res.__update({
-      size = [flex(), SIZE_TO_CONTENT]
+      size = [flex(), hdpx(70)]
       flow = FLOW_VERTICAL
       behavior = Behaviors.Button
       group
-      gap
       onHover = @(on) setTooltip(on ? tooltipBox(classAmountHint(sClassLimits)) : null)
       skipDirPadNav = true
-      padding = [bigPadding]
+      rendObj = ROBJ_SOLID
+      color = panelBgColor
       children = [
         {
           size = [flex(), hdpx(26)]
@@ -132,17 +138,21 @@ let function squadHeader(curSquad, curSquadParams, soldiersList, vehicleCapacity
           gap
           children = [
             mkSquadSpecIcon(squad)
-            autoscrollText({
-              group
-              text = loc(squad?.titleLocId)
-              color = noteTxtColor
-              textParams = sub_txt
-              vplace = ALIGN_CENTER
-            })
+            {
+              size = [flex(), SIZE_TO_CONTENT]
+              margin = [smallPadding, bigPadding]
+              children = autoscrollText({
+                vplace = ALIGN_CENTER
+                group
+                text = utf8ToUpper(loc(squad?.titleLocId))
+                color = noteTxtColor
+                textParams = sub_txt
+              })
+            }
           ]
         }
         {
-          size = [flex(), SIZE_TO_CONTENT]
+          size = flex()
           flow = FLOW_HORIZONTAL
           children = [
             squadSizeUi(battleAmount, maxSquadSize)

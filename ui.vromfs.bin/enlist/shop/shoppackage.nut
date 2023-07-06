@@ -328,14 +328,18 @@ let function mkShopIcon(armyId, content, templates) {
 
 
 let mkAlertObject = @(alertText) {
+  size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   margin = smallPadding
   gap = smallPadding
   children = [
     warnIcon
     {
-      rendObj = ROBJ_TEXT
+      rendObj = ROBJ_TEXTAREA
+      size = [flex(), SIZE_TO_CONTENT]
       text = alertText
+      behavior = Behaviors.TextArea
+      valign = ALIGN_BOTTOM
     }.__update(alertTxtStyle)
   ]
 }

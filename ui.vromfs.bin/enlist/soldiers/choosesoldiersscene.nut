@@ -36,19 +36,18 @@ let { unseenSoldiers, markSoldierSeen } = require("model/unseenSoldiers.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { curCanUnequipSoldiersList } = require("model/selectItemState.nut")
 let { debounce } = require("%sqstd/timers.nut")
-let { freemiumWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 let soldiersPurchaseWnd = require("%enlist/shop/soldiersPurchaseWnd.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
-let { smallDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
+let { bigDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
 
 const NO_SOLDIER_SLOT_IDX = -1
-let unseenIcon = blinkUnseenIcon(0.9, msgHighlightedTxtColor, "th-large")
+let unseenIcon = blinkUnseenIcon(0.7, msgHighlightedTxtColor, "th-large")
 let smallUnseenIcon = blinkUnseenIcon(0.7)
 
 let slotWithPadding = [slotBaseSize[0], slotBaseSize[1] + bigPadding]
@@ -234,7 +233,6 @@ let function chooseSoldiersScene() {
 
   let unseenMark = @(soldierGuid) @() {
     watch = unseenSoldiers
-    hplace = ALIGN_RIGHT
     children = (unseenSoldiers.value?[soldierGuid] ?? false) ? smallUnseenIcon : null
   }
 
@@ -291,13 +289,9 @@ let function chooseSoldiersScene() {
               hasAlertStyle = status & NOT_FIT_CUR_SQUAD
               hasWeaponWarning = (status & NOT_READY_BY_EQUIP) != 0
               isFreemiumMode = needFreemiumStatus.value
+              addChild = @(...) addObjects
             })
             needHighlight.value ? highlightBorder : null
-            {
-              hplace = ALIGN_RIGHT
-              flow = FLOW_HORIZONTAL
-              children = addObjects
-            }
           ]
         }
       }
@@ -538,15 +532,11 @@ let function chooseSoldiersScene() {
           reserveList
           mkSoldierInfo({
             soldierInfoWatch = selectedSoldier
-            mkDismissBtn = smallDismissBtn
+            mkDismissBtn = bigDismissBtn
             onResearchClickCb = gotoResearchUpgradeMsgBox
           })
           mkPresetEquipBlock()
         ]
-      }
-      @() {
-        watch = needFreemiumStatus
-        children = !needFreemiumStatus.value ? null : freemiumWidget("soldiers_manage")
       }
     ]
   }

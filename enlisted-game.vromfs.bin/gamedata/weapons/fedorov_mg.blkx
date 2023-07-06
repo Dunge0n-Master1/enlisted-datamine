@@ -1,4 +1,4 @@
-stat_name:t="submachine_gun"
+stat_name:t="machine_gun"
 selWeaponVar:t="fedorov_lewis_type_model_1921"
 
 ownerAnimVars{

@@ -194,6 +194,7 @@ let function changeSquad(dir) {
 let squadShortcuts = @() {
   watch = [isGamepad, changeSquadParams]
   flow = FLOW_HORIZONTAL
+  hplace = ALIGN_CENTER
   children = !isGamepad.value ? null
     : [
         mkHotkey("^J:LB", @() changeSquad(-1), { opacity = changeSquadParams.value.canPrev ? 1.0 : 0.5 })
@@ -212,6 +213,7 @@ let squadsListUI = mkCurSquadsList({
   setCurSquadId = @(squadId) spawnSquadId(squadId)
   bgOverride = { rendObj = null, padding = 0 }
   addedObj = squadShortcuts
+  hasOffset = false
 })
 
 let squadSpawnList = {

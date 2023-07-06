@@ -1,10 +1,9 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { bigPadding, activeTxtColor, noteTxtColor, slotBaseSize, smallPadding
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { Bordered } = require("%ui/components/txtButton.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { bigPadding, smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
-let colorize = require("%ui/components/colorize.nut")
 let blinkingIcon = require("%enlSqGlob/ui/blinkingIcon.nut")
 let { curArmy, curSquadId, curSquad, curSquadParams, curVehicle, objInfoByGuid
 } = require("model/state.nut")
@@ -30,7 +29,6 @@ let sClassesConfig = require("model/config/sClassesConfig.nut")
 let mkVehicleSeats = require("%enlSqGlob/squad_vehicle_seats.nut")
 let { vehDecorators } = require("%enlist/meta/profile.nut")
 let { campPresentation, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
-let { Flat } = require("%ui/components/textButton.nut")
 let { setTooltip } = require("%ui/style/cursors.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
@@ -76,22 +74,6 @@ let function mkSquadInfo() {
     }, 0)
   })
 
-  let function reserveAvailableBlock() {
-    let res = { watch = allowedReserve }
-    let count = allowedReserve.value
-    if (count <= 0)
-      return res
-    return res.__update({
-      hplace = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      flow = FLOW_HORIZONTAL
-      margin = [bigPadding * 2, 0,]
-      rendObj = ROBJ_TEXTAREA
-      behavior = Behaviors.TextArea
-      text = loc("squad/reserveAvailable", { count, countColored = colorize(activeTxtColor, count) })
-      color = noteTxtColor
-    }.__update(tiny_txt))
-  }
 
   let function manageSoldiersBtn() {
     let squad = curSquad.value
@@ -99,12 +81,20 @@ let function mkSquadInfo() {
     let armyId = getLinkedArmyName(squad)
     let needSoldiersManage = needSoldiersManageBySquad.value?[guid] ?? false
     let hasUnseesSoldiers = unseenSoldierShopItems.value.len() > 0
-    let res = { watch = [needSoldiersManageBySquad, curSquad,
-      disabledSectionsData, unseenSoldierShopItems] }
+    let res = {
+      watch = [
+        needSoldiersManageBySquad, curSquad, disabledSectionsData,
+        unseenSoldierShopItems, allowedReserve
+      ]
+    }
+    let count = allowedReserve.value
+    let countText = count == 0
+      ? loc("soldier/manageButton")
+      : loc("soldier/manageButtonWithCount", { count })
     return disabledSectionsData.value?.SOLDIERS_MANAGING ?? false ? res
       : res.__update({
         size = [flex(), SIZE_TO_CONTENT]
-        children = Flat(loc("soldier/manageButton"),
+        children = Bordered(countText,
           function() {
             if (isSquadRented(squad)) {
               buyRentedSquad({ armyId, squadId, hasMsgBox = true })
@@ -117,6 +107,7 @@ let function mkSquadInfo() {
               hplace = ALIGN_RIGHT
               vplace = ALIGN_TOP
               gap = smallPadding
+              padding = smallPadding
               children = [
                 needSoldiersManage ? mkAlertIcon(REQ_MANAGE_SIGN, Computed(@() true)) : null
                 hasUnseesSoldiers
@@ -126,11 +117,7 @@ let function mkSquadInfo() {
             }
             hotkeys = [["^J:X"]]
             onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
-            size = [flex(), SIZE_TO_CONTENT]
-            fontSize = sub_txt.fontSize
-            maxWidth = slotBaseSize[0]
-            hplace = ALIGN_CENTER
-            margin = 0
+            btnWidth = flex()
           }
         )
       })
@@ -174,7 +161,7 @@ let function mkSquadInfo() {
       size = [SIZE_TO_CONTENT, flex()]
       onDetach = function() {
         prevSoldier({squadId = curSquadId.value, soldier = curSoldierIdx.value})
-        if (curSection.value!="SQUAD_SOLDIERS")
+        if (curSection.value != "SQUAD_SOLDIERS")
           curSoldierIdx(null)
       }
       onAttach = function() {
@@ -207,14 +194,13 @@ let function mkSquadInfo() {
           vehicleCapacity = vehicleCapacity
           soldiersStatuses = curSquadSoldiersStatus
         })
-        bottomObj = @() {
+        bottomObj = {
           size = [flex(), SIZE_TO_CONTENT]
           margin = vehicleInfo.value != null ? null : [bigPadding, 0, 0, 0]
           flow = FLOW_VERTICAL
           gap = smallPadding
           children = [
             freeSeatsBlock(freeSeatsInVehicle.value)
-            reserveAvailableBlock
             manageSoldiersBtn
           ]
         }
@@ -222,4 +208,5 @@ let function mkSquadInfo() {
     })
   }
 }
+
 return {mkSquadInfo}

@@ -549,6 +549,11 @@ return {
     method = "add_all_decorators"
   })
 
+  remove_decorator = @(guid) request({
+    method = "remove_decorator"
+    params = { guid }
+  })
+
   add_veh_decorators = @(cType, id) request({
     method = "add_veh_decorators"
     params = { cType, id }

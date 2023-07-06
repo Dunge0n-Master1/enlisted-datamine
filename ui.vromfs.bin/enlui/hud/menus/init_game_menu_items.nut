@@ -20,6 +20,9 @@ let { isReplay } = require("%ui/hud/state/replay_state.nut")
 let { canShowReplayHud } = require("%ui/hud/replay/replayState.nut")
 let { isCinemaRecording, setCinemaRecording } = require("%ui/hud/replay/replayCinematicState.nut")
 let { isTutorial } = require("%ui/hud/tutorial/state/tutorial_state.nut")
+let { attentionTxtColor } = require("%enlSqGlob/ui/designConst.nut")
+let { h1_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let showSuicideMenu = mkWatched(persist, "showSuicideMenu", false)
 let showExitGameMenu = mkWatched(persist, "showExitGameMenu", false)
@@ -62,32 +65,65 @@ let btnPlayersInSession = {
   isAvailable = has_network
 }
 
-let function exitMsgBox(text) {
+let exitAction = function() {
+  let playerEid = localPlayerEid.value
+  if (playerEid == ecs.INVALID_ENTITY_ID) {
+    switch_to_menu_scene()
+    return
+  }
+  ecs.g_entity_mgr.sendEvent(playerEid, CmdGetDebriefingResult())
+  if (has_network()) {
+    sendNetEvent(playerEid, CmdGetBattleResult())
+    gui_scene.resetTimeout(2.0, switch_to_menu_scene)
+  } else
+    switch_to_menu_scene()
+}
+
+let function msgExitReplay() {
   showExitGameMenu(true)
   return msgbox.show({
-    text = text
+    text = loc("exit_replay_confirmation")
     buttons = [
-      { text = loc("Yes"),
-        action = function() {
-          let playerEid = localPlayerEid.value
-          if (playerEid == ecs.INVALID_ENTITY_ID) {
-            switch_to_menu_scene()
-            return
-          }
-          ecs.g_entity_mgr.sendEvent(playerEid, CmdGetDebriefingResult())
-          if (has_network()) {
-            sendNetEvent(playerEid, CmdGetBattleResult())
-            gui_scene.resetTimeout(2.0, switch_to_menu_scene)
-          } else
-            switch_to_menu_scene()
-        }
-      }
-      { text = loc("No"), isCurrent = true}
+      { text = loc("Yes"), action = exitAction }
+      { text = loc("No"), isCurrent = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
     onClose = @() showExitGameMenu(false)
   })
 }
 
+let function msgDesertBattle() {
+  showExitGameMenu(true)
+  return msgbox.showMessageWithContent({
+    content = {
+      flow = FLOW_VERTICAL
+      size = [flex(), SIZE_TO_CONTENT]
+      halign = ALIGN_CENTER
+      gap = hdpx(40)
+      children = [
+        {
+          size = [sw(35), SIZE_TO_CONTENT]
+          halign = ALIGN_CENTER
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          color = attentionTxtColor
+          text = loc("userLog/battleRes/deserter")
+        }.__update(h1_txt)
+        {
+          size = [sw(50), SIZE_TO_CONTENT]
+          halign = ALIGN_CENTER
+          rendObj = ROBJ_TEXTAREA
+          behavior = Behaviors.TextArea
+          text = loc("exit_game_confirmation")
+        }.__update(body_txt)
+      ]
+    }
+    buttons = [
+      { text = loc("btn/desert"), action = exitAction }
+      { text = loc("No"), isCurrent = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
+    ]
+    onClose = @() showExitGameMenu(false)
+  })
+}
 
 let btnExitGame = {
   text = !isSandboxEditor() ? loc("gamemenu/btnExitGame")
@@ -97,13 +133,13 @@ let btnExitGame = {
       quitSandboxEditor()
       return
     }
-    exitMsgBox(loc("exit_game_confirmation"))
+    msgDesertBattle()
   }
 }
 
 let btnExitReplay = {
   text = loc("replay/exitReplay")
-  action = @() exitMsgBox(loc("exit_replay_confirmation"))
+  action = msgExitReplay
 }
 
 let btnShowReplayHud = {

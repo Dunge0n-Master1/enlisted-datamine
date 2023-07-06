@@ -3,8 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let cursors = require("%ui/style/cursors.nut")
 let { makeVertScroll, thinStyle } = require("%ui/components/scrollbar.nut")
 let STATUS = require("%enlSqGlob/readyStatus.nut")
-let { slotBaseSize, smallPadding, bigPadding, blurBgColor, blurBgFillColor
-} = require("%enlSqGlob/ui/viewConst.nut")
+let { slotBaseSize, smallPadding, bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { note } = require("%enlSqGlob/ui/defcomps.nut")
 let mkSoldierCard = require("%enlSqGlob/ui/mkSoldierCard.nut")
 
@@ -126,15 +125,22 @@ let mkVehicleBlock = @(hasVehicleWatch, curVehicleUi) function() {
 }
 
 let mkMainSoldiersBlock = @(params) {
-  rendObj = ROBJ_WORLD_BLUR_PANEL
-  color = blurBgColor
-  fillColor = blurBgFillColor
-  flow = FLOW_VERTICAL
   size = [slotBaseSize[0], flex()]
+  flow = FLOW_VERTICAL
+  gap = bigPadding
   children = [
     params?.headerBlock
-    "hasVehicleWatch" in params ? mkVehicleBlock(params.hasVehicleWatch, params.curVehicleUi) : null
-    makeVertScroll(mkSoldiersBlock(params), { size = [SIZE_TO_CONTENT, flex()], styling = thinStyle })
+    {
+      size = flex()
+      flow = FLOW_VERTICAL
+      children = [
+        "hasVehicleWatch" not in params ? null
+          : mkVehicleBlock(params.hasVehicleWatch, params.curVehicleUi)
+        makeVertScroll(mkSoldiersBlock(params), {
+          size = [SIZE_TO_CONTENT, flex()], styling = thinStyle
+        })
+      ]
+    }
     params?.bottomObj
   ]
 }

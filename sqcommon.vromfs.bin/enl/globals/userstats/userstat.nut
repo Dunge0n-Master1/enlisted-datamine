@@ -318,7 +318,7 @@ let function receiveRewards(unlockName, stage, context = null) {
 }
 
 handlers["GrantRewards"] <- function(result, context) {
-  let { unlockName  = null } = context
+  let { unlockName = null } = context
   if (unlockName in unlockRewardsInProgress.value)
     unlockRewardsInProgress.mutate(@(v) delete v[unlockName])
   logUs("GrantRewards result:", result)
@@ -328,6 +328,39 @@ handlers["GrantRewards"] <- function(result, context) {
   statsUpdatable.forceRefresh()
 }
 
+let function receiveRewardsAll(unlocksToRewards, context = null) {
+  let idsTbl = {}
+  let data = []
+  foreach (task in unlocksToRewards) {
+    let { name, stage } = task
+    if (name not in unlockRewardsInProgress.value) {
+      data.append({ unlock = name, stage })
+      idsTbl[name] <- true
+    }
+  }
+  if (data.len() == 0)
+    return
+  let idsTblKeys = idsTbl.keys()
+  logUs($"receiveRewardsAll: {", ".join(idsTblKeys)}")
+  unlockRewardsInProgress.mutate(@(u) u.__update(idsTbl))
+  clientUserStats.request("BatchGrantRewards",
+    {data = {unlocksToReward = data}},
+    (context ?? {}).__merge({ unlocksKeys = idsTblKeys }))
+}
+
+handlers["BatchGrantRewards"] <- function(result, context) {
+  let { unlocksKeys = [] } = context
+  unlockRewardsInProgress.mutate(function(u) {
+    foreach (key in unlocksKeys)
+      if (key in u)
+        delete u[key]
+  })
+  logUs("BatchGrantRewards result:", result)
+  if ("error" in result)
+    return
+  unlocksUpdatable.forceRefresh()
+  statsUpdatable.forceRefresh()
+}
 
 let function resetPersonalUnlockProgress(unlockName, context = null) {
   adminUserStats.request("AdmResetPersonalUnlockProgress", {
@@ -620,6 +653,7 @@ return {
   setLastSeenUnlocks = setLastSeen
   getUserstatsSum = getStatsSum
   receiveUnlockRewards = receiveRewards
+  receiveUnlockRewardsAll = receiveRewardsAll
   setUserstat = clnSetStat
   sendPsPlusStatusToUserstatServer = sendPsPlus
   selectUnlockRewards = selectUnlockRewards

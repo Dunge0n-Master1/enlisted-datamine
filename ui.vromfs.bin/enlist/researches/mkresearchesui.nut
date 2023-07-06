@@ -40,7 +40,7 @@ let {
   curArmySquadsProgress, allSquadsPoints, viewSquadId, armiesResearches,
   viewArmy, researchStatuses, selectedResearch, curSquadProgress, curSquadPoints,
   isBuyLevelInProgress, isResearchInProgress, closestTargets, buySquadLevel,
-  RESEARCHED, CAN_RESEARCH, NOT_ENOUGH_EXP
+  RESEARCHED, CAN_RESEARCH
 } = require("researchesState.nut")
 let {
   contentOffset, columnGap, colPart, colFull, smallPadding, midPadding, accentColor,
@@ -1153,27 +1153,42 @@ let mkBuyLevelPrice = @(levelCost) function() {
   }
 }
 
-let mkBuyLevelButton = @(level) function() {
-  let btnText = loc("squads/buyLvl", {
-    item = loc("squads/lvlShort", { level = level + 1 })
-  })
-  return {
-    watch = isBuyLevelInProgress
-    hplace = ALIGN_RIGHT
-    children = isBuyLevelInProgress.value
-      ? waitingSpinner
-      : Purchase(btnText, buySquadLevelMsg, { margin = 0 })
-  }
+let buyLevelButton = @() {
+  watch = isBuyLevelInProgress
+  hplace = ALIGN_RIGHT
+  children = isBuyLevelInProgress.value
+    ? waitingSpinner
+    : Purchase(loc("btn/buy"), buySquadLevelMsg, { margin = 0 })
 }
 
-let mkResearchBtnsUi = @() function() {
+let mkLevelBuyPanel = @() function() {
   let res = { watch = [selectedResearch, researchStatuses, disableSquadExp, curSquadProgress] }
   let researchDef = selectedResearch.value
-  if (!researchDef)
+  let statuses = researchStatuses.value
+  if (researchDef == null || statuses == null || disableSquadExp.value)
     return res
 
+  let { levelCost = 0 } = curSquadProgress.value
+  if (levelCost <= 0)
+    return res
+
+  return res.__update({
+    size = [flex(), SIZE_TO_CONTENT]
+    valign = ALIGN_CENTER
+    flow = FLOW_HORIZONTAL
+    gap = { size = flex() }
+    children = [
+      mkBuyLevelPrice(levelCost)
+      buyLevelButton
+    ]
+  }.__update(leftAppearanceAnim(0.1)))
+}
+
+let mkResearchPanel = @() function() {
+  let res = { watch = [selectedResearch, researchStatuses] }
+  let researchDef = selectedResearch.value
   let statuses = researchStatuses.value
-  if (statuses == null)
+  if (researchDef == null || statuses == null)
     return res
 
   let { research_id } = researchDef
@@ -1185,9 +1200,6 @@ let mkResearchBtnsUi = @() function() {
   let {
     info = null, warning = null, onResearch = null, researchPrice = null, researchText = null
   } = cfg
-  let { levelCost = 0, level = 0 } = curSquadProgress.value
-  let canBuy = (status == CAN_RESEARCH || status == NOT_ENOUGH_EXP)
-    && levelCost > 0 && !disableSquadExp.value
   return res.__update({
     key = $"research_footer_{research_id}"
     size = [flex(), SIZE_TO_CONTENT]
@@ -1204,20 +1216,9 @@ let mkResearchBtnsUi = @() function() {
           mkUnlockButton(researchText, onResearch, status == CAN_RESEARCH)
         ]
       }
-      !canBuy ? null : {
-        size = [flex(), SIZE_TO_CONTENT]
-        valign = ALIGN_CENTER
-        flow = FLOW_HORIZONTAL
-        gap = { size = flex() }
-        children = [
-          mkBuyLevelPrice(levelCost)
-          mkBuyLevelButton(level)
-        ]
-      }
     ]
   }.__update(leftAppearanceAnim(0.1)))
 }
-
 
 let function mkResearchInfoUi() {
   let curSquadData = Computed(@() armySquadsById.value?[viewArmy.value][viewSquadId.value])
@@ -1226,30 +1227,49 @@ let function mkResearchInfoUi() {
     return res != "" ? res : (curSquadData.value?.manageLocId ?? "")
   })
   let progressUi = mkProgressUi(curSquadData)
-  let btns = mkResearchBtnsUi()
+  let levelBuyBtn = mkLevelBuyPanel()
+  let researchBtn = mkResearchPanel()
 
-  return @() {
-    watch = [selectedResearch, nameLocId] //FIXME
-    size = [researchInfoWidth, flex()]
-    hplace = ALIGN_RIGHT
+  return {
+    size = [SIZE_TO_CONTENT, flex()]
     flow = FLOW_VERTICAL
     gap = colPart(1)
-    padding = columnGap
-    rendObj = ROBJ_SOLID
-    color = darkPanelBgColor
     children = [
-      promoWidget("research_section", null, { margin = [columnGap, 0] })
-      {
-        size = [flex(), SIZE_TO_CONTENT]
+      @() {
+        watch = nameLocId
+        rendObj = ROBJ_SOLID
+        size = [researchInfoWidth, SIZE_TO_CONTENT]
+        hplace = ALIGN_RIGHT
         flow = FLOW_VERTICAL
         gap = columnGap
+        padding = columnGap
+        color = darkPanelBgColor
         children = [
-          nameLocId.value == "" ? null : mkTextarea(loc(nameLocId.value), nameTxtStyle)
-          progressUi
+          {
+            size = [flex(), SIZE_TO_CONTENT]
+            flow = FLOW_VERTICAL
+            gap = bigPadding
+            children = [
+              nameLocId.value == "" ? null : mkTextarea(loc(nameLocId.value), nameTxtStyle)
+              progressUi
+            ]
+          }
+          levelBuyBtn
         ]
       }
-      mkResearchInfo(selectedResearch.value)
-      btns
+      @() {
+        watch = selectedResearch
+        rendObj = ROBJ_SOLID
+        size = [researchInfoWidth, flex()]
+        flow = FLOW_VERTICAL
+        gap = bigPadding
+        padding = bigPadding
+        color = darkPanelBgColor
+        children = [
+          mkResearchInfo(selectedResearch.value)
+          researchBtn
+        ]
+      }
     ]
   }
 }
@@ -1293,17 +1313,13 @@ let function mkResearchesUi() {
             curSquadId = viewSquadId
             setCurSquadId = setCurSquadId
           })
-          function() {
-            return {
-              watch = [isBranchEmpty, isCampaignLevelLow]
-              padding = [headerHeight, 0,0,0]
-              size = flex()
-              children = isBranchEmpty.value
-                ? emptyResearchesText
-                  : isCampaignLevelLow.value
-                    ? lowCampaignLevelText
-                    : mkResearchesTreeUi()
-            }
+          @() {
+            watch = [isBranchEmpty, isCampaignLevelLow]
+            padding = [headerHeight, 0,0,0]
+            size = flex()
+            children = isBranchEmpty.value ? emptyResearchesText
+              : isCampaignLevelLow.value ? lowCampaignLevelText
+              : mkResearchesTreeUi()
           }
           mkResearchInfoUi()
         ]

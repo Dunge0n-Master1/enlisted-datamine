@@ -23,7 +23,14 @@ let { nextTutorialUnlock, showGetUnlockTutorial
 let { hasCampaignSection } = require("soldiers/model/armyUnlocksState.nut")
 let { hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
-let { curArmyData } = require("%enlist/soldiers/model/state.nut")
+let { curArmy, curArmyData } = require("%enlist/soldiers/model/state.nut")
+let {
+  mkAlertIcon, PERK_ALERT_SIGN, ITEM_ALERT_SIGN, REQ_MANAGE_SIGN
+} = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { needSoldiersManageBySquad } = require("%enlist/soldiers/model/reserve.nut")
+let { notChoosenPerkArmies } = require("%enlist/soldiers/model/soldierPerks.nut")
+let { unseenArmiesWeaponry } = require("%enlist/soldiers/model/unseenWeaponry.nut")
+let { unseenArmiesVehicle } = require("%enlist/vehicles/unseenVehicles.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { getStoreUrl, getEventUrl} = require("%ui/networkedUrls.nut")
 let { isEventUnseen, markEventSeen } = require("gameModes/eventUnseenSignState.nut")
@@ -97,6 +104,18 @@ let mkShopAlertUi = @(sf) function() {
       : alertSign
   }
 }
+
+
+let mkManageAlert = mkAlertIcon(REQ_MANAGE_SIGN, Computed(@()
+  needSoldiersManageBySquad.value.len() > 0))
+
+let mkUnseenAlert = mkAlertIcon(ITEM_ALERT_SIGN, Computed(@()
+  (unseenArmiesWeaponry.value?[curArmy.value] ?? 0) > 0
+    || (unseenArmiesVehicle.value?[curArmy.value].len() ?? 0) > 0
+))
+
+let mkPerksAlert = mkAlertIcon(PERK_ALERT_SIGN, Computed(@()
+  (notChoosenPerkArmies.value?[curArmy.value] ?? 0) > 0))
 
 
 let hasUnseenArmyProgress = Computed(@() hasCampaignSection.value
@@ -189,6 +208,17 @@ let sections = [
     getContent = mkSoldiersUi
     id = "SQUAD_SOLDIERS"
     camera = "soldiers"
+    addChild = {
+      pos = [0, hdpx(16)]
+      flow = FLOW_HORIZONTAL
+      hplace = ALIGN_RIGHT
+      valign = ALIGN_CENTER
+      children = [
+        mkManageAlert
+        mkUnseenAlert
+        mkPerksAlert
+      ]
+    }
   }
 
   campaignTabData

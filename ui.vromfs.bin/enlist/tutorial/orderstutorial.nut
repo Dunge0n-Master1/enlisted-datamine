@@ -1,6 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { viewArmyCurrency } = require("%enlist/shop/armyShopState.nut")
+let { setAutoGroup } = require("%enlist/shop/shopState.nut")
+
 let { mkLogisticsPromoMsgbox } = require("%enlist/shop/currencyComp.nut")
 let { needNewItemsWindow } = require("%enlist/soldiers/model/newItemsToShow.nut")
 let { getCurrencyPresentation } = require("%enlist/shop/currencyPresentation.nut")
@@ -75,6 +77,7 @@ let function startTutorialDelayed() {
           text = loc("btn/gotoLogistics")
           action = function() {
             markSeen(tutorialId)
+            setAutoGroup(tutorialId)
             setCurSection("SHOP")
           }
           customStyle = { hotkeys = [["^J:X"]] }

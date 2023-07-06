@@ -1,15 +1,22 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { smallPadding, bigPadding, vehicleListCardSize, listCtors } = require("%enlSqGlob/ui/viewConst.nut")
-let { txtColor, bgColor } = listCtors
+let {
+  smallPadding, bigPadding, vehicleListCardSize, listCtors
+} = require("%enlSqGlob/ui/viewConst.nut")
+let { txtColor } = listCtors
 let { iconByGameTemplate, getItemName } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { statusTier, statusBadgeWarning } = require("%enlSqGlob/ui/itemPkg.nut")
-let { txt, note, autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
+let { txt, autoscrollText } = require("%enlSqGlob/ui/defcomps.nut")
 let { mkSpecialItemIcon } = require("%enlSqGlob/ui/mkSpecialItemIcon.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
+let {
+  squadSlotBgIdleColor, squadSlotBgHoverColor, disabledTxtColor
+} = require("%enlSqGlob/ui/designConst.nut")
 
 
-let hoverAddColor = Color(30,30,30,30)
+let bgColor = @(sf, isAvailable) sf & S_HOVER ? squadSlotBgHoverColor
+  : isAvailable ? squadSlotBgIdleColor
+  : disabledTxtColor
 
 let function mkVehicleImage(gametemplate, skinId) {
   let override = {
@@ -27,31 +34,28 @@ let function mkVehicleImage(gametemplate, skinId) {
 }
 
 let mkVehicleInfo = @(vehicleInfo, soldiersInSquad, sf) {
-  vplace = ALIGN_TOP
-  size = [flex(), SIZE_TO_CONTENT]
+  size = flex()
   flow = FLOW_VERTICAL
-  gap = smallPadding
   children = [
     {
-      size = [flex(), SIZE_TO_CONTENT]
+      size = flex()
       flow = FLOW_HORIZONTAL
       gap = smallPadding
       children = [
-        mkSpecialItemIcon(vehicleInfo)
         autoscrollText({
+          vplace = ALIGN_BOTTOM
           text = getItemName(vehicleInfo)
           textParams = { color = txtColor(sf) }
         })
         {
           hplace = ALIGN_RIGHT
-          vplace = ALIGN_TOP
           children = statusTier(vehicleInfo)
         }
       ]
     }
-    0 == (vehicleInfo?.crew ?? 0)
-      ? null
-      : note({
+    0 == (vehicleInfo?.crew ?? 0) ? null
+      : txt({
+          vplace = ALIGN_BOTTOM
           text = " ".join([loc("vehicleDetails/crew"), $"{soldiersInSquad}/{vehicleInfo.crew}"])
           color = txtColor(sf)
         })
@@ -79,18 +83,17 @@ let mkCurVehicle = @(
     behavior = Behaviors.Button
     onClick = openChooseVehicle
     rendObj = ROBJ_SOLID
-    color = canSpawnOnVehicle.value
-      ? bgColor(sf)
-      : bgColor(sf) + hoverAddColor
-    padding = bigPadding
+    color = bgColor(sf, canSpawnOnVehicle.value)
     children = (vehicleInfo.value?.gametemplate ?? "") == ""
       ? mkNoVehicle(sf)
       : [
           mkVehicleImage(vehicleInfo.value.gametemplate, vehicleInfo.value?.skin.id)
+          mkSpecialItemIcon(vehicleInfo.value, hdpxi(26), { margin = 0 })
           {
-            halign = ALIGN_RIGHT
-            flow = FLOW_HORIZONTAL
             size = flex()
+            flow = FLOW_HORIZONTAL
+            padding = bigPadding
+            halign = ALIGN_RIGHT
             children = [
               mkVehicleInfo(vehicleInfo.value, soldiersList.value.len(), sf)
               topRightChild

@@ -10,7 +10,49 @@ bf_109g_6_grey_3_battlepass_premium{
 
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_grey_camo_a*"
-    "bf_109g_6_a_dmg*":t="bf_109g_6_grey_camo_a_dmg*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.13, -0.14]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.05, 0.788, -0.033
+      cockpitTemplate:t="bf_109g_6_grey_3_battlepass_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+bf_109g_6_grey_3_battlepass_premium_driver_cockpit{
+  _extends:t="bf_109g_6_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_6_a*":t="bf_109g_6_grey_camo_a*"
   }
 }
 
@@ -33,15 +75,6 @@ bf_109g_14_driver_cockpit{
     node:t="pylon_bomb2"
     node:t="210mm_tube_l"
     node:t="210mm_tube_r"
-  }
-}
-
-bf_109g_6_grey_3_driver_cockpit{
-  _extends:t="bf_109g_6_driver_cockpit"
-
-  "animchar__objTexReplace:object"{
-    "bf_109g_6_a*":t="bf_109g_6_grey_camo_a*"
-    "bf_109g_6_a_dmg*":t="bf_109g_6_grey_camo_a_dmg*"
   }
 }
 
@@ -1327,9 +1360,51 @@ bf_109g_6_yellow18_premium{
 
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_yellow18_c*"
-    "bf_109g_6_a_dmg*":t="bf_109g_6_yellow18_c_dmg*"
     "bf_109g_6_n*":t="bf_109g_6_yellow18_n*"
-    "bf_109g_6_n_dmg*":t="bf_109g_6_yellow18_n_dmg*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.13, -0.14]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.05, 0.788, -0.033
+      cockpitTemplate:t="bf_109g_6_yellow18_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+bf_109g_6_yellow18_premium_driver_cockpit{
+  _extends:t="bf_109g_6_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_6_a*":t="bf_109g_6_yellow18_c*"
+    "bf_109g_6_n*":t="bf_109g_6_yellow18_n*"
   }
 }
 
@@ -1356,7 +1431,49 @@ bf_109g_6_summer42_premium{
 
   "animchar__objTexReplace:object"{
     "bf_109g_6_a*":t="bf_109g_6_summer42_a*"
-    "bf_109g_6_a_dmg*":t="bf_109g_6_summer42_a_dmg*"
+  }
+
+  "vehicle_seats__seats:shared:array"{
+
+    "seats:object"{
+      name:t="driver"
+      locName:t="vehicle_seats/pilot"
+      seatOwnsEntityControl:b=yes
+      attachNode:t="pilot1"
+      ignoreAttachNodeRotation:b=yes
+      attachTm:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [-0.05, 0.13, -0.14]]
+      seatComponent:t="isDriver"
+      receiveDamageFromDMPart:t="pilot_dm"
+      cameraNodeName:t=""
+      cameraOffset:p3=-1.05, 0.788, -0.033
+      cockpitTemplate:t="bf_109g_6_summer42_premium_driver_cockpit"
+      roomSpace:i=0
+
+      "turretNames:array"{
+        turret:t="turret_01"
+        turret:t="turret_02"
+        turret:t="turret_03"
+        turret:t="turret_04"
+        turret:t="turret_05"
+        turret:t="turret_06"
+        turret:t="turret_07"
+      }
+
+      "cockpitEffectors:object"{
+        r.hand:t="stick_rhand_1"
+        l.hand:t="throttle_lhand_1"
+        r.foot:t="pedal_rfoot_1"
+        l.foot:t="pedal_lfoot_1"
+      }
+    }
+  }
+}
+
+bf_109g_6_summer42_premium_driver_cockpit{
+  _extends:t="bf_109g_6_driver_cockpit"
+
+  "animchar__objTexReplace:object"{
+    "bf_109g_6_a*":t="bf_109g_6_summer42_a*"
   }
 }
 

@@ -40,7 +40,7 @@ let waitingSpinner = spinner()
 
 let styleByCategory = {
   [RANK] = { halign = ALIGN_LEFT },
-  [NAME] = { halign = ALIGN_LEFT, size = [hdpx(220), SIZE_TO_CONTENT] },
+  [NAME] = { halign = ALIGN_LEFT, size = [hdpx(240), SIZE_TO_CONTENT] },
 }
 
 let close = @() isLbWndOpened(false)

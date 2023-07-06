@@ -243,6 +243,7 @@ me_410b_1{
     part:t="zfr_4a"
     part:t="210mm_tube_l"
     part:t="210mm_tube_r"
+    part:t="cannon5_dm"
   }
 }
 
