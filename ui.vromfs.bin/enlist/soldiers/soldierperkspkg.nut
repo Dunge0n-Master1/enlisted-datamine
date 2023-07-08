@@ -38,6 +38,7 @@ let { focusResearch, findResearchTrainClass, hasResearchSquad
 } = require("%enlist/researches/researchesFocus.nut")
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
+let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 
 local slotNumber = 0
 let waitingSpinner = spinner(hdpx(20))
@@ -305,12 +306,14 @@ let mkPerksListBtn = @(sGuid) @() {
   hplace = ALIGN_RIGHT
   children = textButton.SmallFlat(loc("possible_perks_list"),
     @() openAvailablePerks(perksList.value, curArmy.value, perksData.value?[sGuid]),
-    { margin = 0, padding = [bigPadding, 2 * bigPadding] })
+    { margin = 0, padding = [bigPadding, smallPadding] })
   }
 
 let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
-  if ((perks?.tiers[tierIdx].slots[slotIdx] ?? "") == "")
+  if ((perks?.tiers[tierIdx].slots[slotIdx] ?? "") == "") {
+    markNotifierSeen(Notifiers.PERK)
     return showPerksChoice(soldierGuid, tierIdx, slotIdx)
+  }
 
   let isDrop = perks.availPerks == 0
   msgbox.showMessageWithContent({
@@ -504,8 +507,8 @@ let mkPerksPoints = @(soldierGuid) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_HORIZONTAL
   gap = bigPadding
-  margin = [0, 0, smallPadding, 0]
   valign = ALIGN_CENTER
+  vplace = ALIGN_CENTER
   halign = ALIGN_CENTER
   children = mkPerksPointsBlock(soldierGuid)
 }

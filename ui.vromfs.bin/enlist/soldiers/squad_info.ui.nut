@@ -19,6 +19,7 @@ let mkCurVehicle = require("%enlSqGlob/ui/mkCurVehicle.nut")
 let {
   mkAlertIcon, REQ_MANAGE_SIGN
 } = require("%enlSqGlob/ui/soldiersUiComps.nut")
+let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let squadHeader = require("components/squadHeader.nut")
 let {
   hasSquadVehicle, selectVehParams
@@ -100,6 +101,7 @@ let function mkSquadInfo() {
               buyRentedSquad({ armyId, squadId, hasMsgBox = true })
               return
             }
+            markNotifierSeen(Notifiers.SOLDIER)
             openChooseSoldiersWnd(curSquad.value?.guid, curSoldierInfo.value?.guid)
           }, {
             fgChild = {
@@ -165,9 +167,14 @@ let function mkSquadInfo() {
           curSoldierIdx(null)
       }
       onAttach = function() {
-        if (curSoldierIdx.value == null && curSquadId.value == prevSoldier.value?.squadId) {
-          curSoldierIdx(prevSoldier.value.soldier)
-          prevSoldier(null)
+        if (curSoldierIdx.value == null) {
+          let { squadId = null, soldier = 0 } = prevSoldier.value
+          if (curSquadId.value == squadId) {
+            curSoldierIdx(soldier ?? 0)
+            prevSoldier(null)
+          } else {
+            curSoldierIdx(0)
+          }
         }
       }
       children = mkMainSoldiersBlock({

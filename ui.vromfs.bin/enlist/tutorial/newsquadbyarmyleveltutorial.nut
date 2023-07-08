@@ -34,14 +34,13 @@ let { seenArmyProgress } = require("%enlist/soldiers/model/unseenArmyProgress.nu
 
 const LEVEL_TO_SHOW = 2
 
-let needTutorial = Computed(function() {
-  let hasOtherArmyLevel = null != armies.value.findvalue(@(armyData, armyId) armyId != curArmy.value
-    && (armyData?.level ?? 0) >= LEVEL_TO_SHOW)
-  return !hasOtherArmyLevel
-    && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW
-    && readyToUnlockSquadId.value != null
-    && !isInSquad.value
-})
+let hasOtherArmyLevel = Computed(@() armies.value.findvalue(@(armyData, armyId)
+  armyId != curArmy.value && (armyData?.level ?? 0) >= LEVEL_TO_SHOW) != null)
+
+let needTutorial = Computed(@() !hasOtherArmyLevel.value
+  && curArmyNextUnlockLevel.value == LEVEL_TO_SHOW
+  && readyToUnlockSquadId.value != null
+  && !isInSquad.value)
 
 let canShowTutorialFromMainMenu = Computed(@() canDisplayOffers.value
   && hasCampaignSection.value
@@ -127,6 +126,14 @@ let function startTutorial() {
   let newReceivedKeyInReserve = Computed(@() reserveSquadsKeys.value?[newReceivedIdxInReserve.value])
   let newSquadIdx = Watched(-1)
   let newSquadKey = Computed(@() newSquadIdx.value < 0 ? null : getSquadKey(chosenSquads.value?[newSquadIdx.value], newSquadIdx.value))
+
+  logAT("startTutorial")
+  // TODO remove logs after fixing bug with unnecessary tutorial within debriefing
+  logAT($"hasOtherArmyLevel: {hasOtherArmyLevel.value}, isArmyUnlocksStateVisible: {isArmyUnlocksStateVisible.value}")
+  logAT($"needTutorial: {needTutorial.value} of")
+  logAT($"  curArmyNextUnlockLevel: {curArmyNextUnlockLevel.value}, readyToUnlockSquadId: {readyToUnlockSquadId.value}, isInSquad: {isInSquad.value}")
+  logAT($"canShowTutorialFromMainMenu: {canShowTutorialFromMainMenu.value} of")
+  logAT($"  canDisplayOffers: {canDisplayOffers.value}, hasCampaignSection: {hasCampaignSection.value}, isCurCampaignProgressUnlocked: {isCurCampaignProgressUnlocked.value}, unseen: {curArmy.value in seenArmyProgress.value?.unseen}")
 
   setTutorialConfig({
     id = "newSquadByArmyLevel"
@@ -365,11 +372,13 @@ let function startTutorial() {
 }
 
 //wait for switch scene animation
-let startTutorialDelayed = @()
-  gui_scene.resetTimeout(0.3, function() {
-    if (showTutorial.value && !isTutorialActive.value)
-      startTutorial()
-  })
+let restartTutorial = function() {
+  logAT($"restartTutorial : {showTutorial.value} {isTutorialActive.value}")
+  if (showTutorial.value && !isTutorialActive.value)
+    startTutorial()
+}
+
+let startTutorialDelayed = @() gui_scene.resetTimeout(0.3, restartTutorial)
 
 startTutorialDelayed()
 showTutorial.subscribe(@(v) v ? startTutorialDelayed() : null)

@@ -9,7 +9,7 @@ let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { promoWidget } = require("%enlist/components/mkPromoWidget.nut")
 let { bigPadding, contentOffset } = require("%enlSqGlob/ui/designConst.nut")
 let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
-
+let { notifierHint } = require("%enlist/tutorial/notifierTutorial.nut")
 
 let function mkSoldiersUi(){
   let squad_info = mkSquadInfo()
@@ -28,6 +28,7 @@ let function mkSoldiersUi(){
         children = [
           armySelectUi
           promoWidget("soldier_equip", "soldier_inventory")
+          notifierHint
         ]
       }
       {

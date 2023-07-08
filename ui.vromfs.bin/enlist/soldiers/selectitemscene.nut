@@ -3,6 +3,7 @@ from "%enlSqGlob/ui_library.nut" import *
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {round_by_value} = require("%sqstd/math.nut")
 let { blinkUnseenIcon } = require("%ui/components/unseenSignal.nut")
+let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { markSeenUpgrades, curUnseenAvailableUpgrades, isUpgradeUsed
 } = require("model/unseenUpgrades.nut")
@@ -295,8 +296,10 @@ let mkItemsGroupedList = kwarg(@(listWatch, overrideParams, newWatch, onlyNew = 
               onHoverCb = hoverHoldAction("unseenSoldierItem", basetpl,
                 function(tpl) {
                   let armyId = selectParamsArmyId.value
-                  if (isUnseen.value && armyId != null)
+                  if (isUnseen.value && armyId != null) {
+                    markNotifierSeen(Notifiers.ITEM)
                     markWeaponrySeen(armyId, tpl)
+                  }
                 })
             }))
         })

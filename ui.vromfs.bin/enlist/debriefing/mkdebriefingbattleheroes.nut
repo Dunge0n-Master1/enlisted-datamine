@@ -24,10 +24,10 @@ let awardMultTxtColor = Color(252, 186, 3, 255)
 let battleHeroNameColor = Color(120,120,120, 50)
 let localBattleHeroNameColor = Color(252, 186, 3, 255)
 
-let PORTRAIT_SIZE = hdpx(140)
+let PORTRAIT_SIZE = hdpxi(140)
 let maxNameBlockWidth = hdpx(184)
-let awardIconSize = [hdpx(70), hdpx(70)]
-let photoSize = [hdpx(92), hdpx(136)]
+let awardIconSize = [hdpxi(70), hdpxi(70)]
+let photoSize = [hdpxi(92), hdpxi(136)]
 
 let notActiveStyle = {
   tint = Color(40, 40, 40, 120)

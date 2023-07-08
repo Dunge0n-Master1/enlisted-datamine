@@ -18,7 +18,7 @@ let soldierExpColor = Color(239, 219, 100)
 let activeBgColor = Color(180,180,180,255)
 let defBgColor = Color(0,0,0,120)
 
-let soldierCardSize = [hdpx(92), hdpx(136)]
+let soldierCardSize = [hdpxi(92), hdpxi(136)]
 
 let smallPadding = hdpx(4)
 

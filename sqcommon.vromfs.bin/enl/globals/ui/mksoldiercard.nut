@@ -43,7 +43,7 @@ let deadIcon = {
   tint = 0xCC990000
 }
 
-let mkPhotoSize = @(h) [(0.82 * h).tointeger(), (1.2 * h).tointeger()]
+let mkPhotoSize = @(h) [h * 2 / 3, h]
 
 let function mkClassBlock(soldier, isClassRestricted, isPremium, isDead) {
   let { sKind = null, sClass = null, sClassRare = null, armyId = null } = soldier
@@ -211,7 +211,7 @@ let function soldierCard(soldierInfo, group = null, sf = 0, isSelected = false,
               withTooltip({
                 halign = ALIGN_RIGHT
                 children = [
-                  mkSoldierPhoto(photo, mkPhotoSize(size[1]), [], photoStyle)
+                  mkSoldierPhoto(photo, mkPhotoSize(size[1]), null, photoStyle)
                   tierText(tier).__update({ margin = [0, hdpx(2)] })
                 ]}, @() rankingTooltip(tier))
               {
