@@ -26,7 +26,7 @@ let cameraScenes = mkWatched(persist, "cameraScenes", [])
 
 let cameraFovDelta = Watched(0)
 let function changeCameraFov(delta, minDelta = 0, maxDelta = 0) {
-  cameraFovDelta(clamp(cameraFovDelta.value + delta, minDelta, maxDelta))
+  cameraFovDelta(clamp(cameraFovDelta.value - delta, minDelta, maxDelta))
 }
 
 let isVehicleSceneVisible = Computed(function() {

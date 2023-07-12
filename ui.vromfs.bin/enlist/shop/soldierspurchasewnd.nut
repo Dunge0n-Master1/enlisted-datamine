@@ -105,7 +105,7 @@ let soldiersList = Computed(@() squadSoldiers.value.filter(@(s) s != null))
 let currentLimits = mkSClassLimitsComp(soldiersSquad, soldiersSquadParams,
   soldiersList, soldiersStatuses)
 
-let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
+let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenKinds)
   watchElemState(function(sf) {
     let { soldierKind, reqLvl } = soldier
     let curArmyLvl = armyData?.level ?? 0
@@ -133,7 +133,7 @@ let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
           halign = ALIGN_CENTER
           children = [
             kindIcon(soldierKind, hdpx(26), null, specializationIconColor(sf, isSelected, isAvailable))
-            soldierKind in unseenSpecs
+            soldierKind in unseenKinds
               ? smallUnseenNoBlink.__update({ hplace = ALIGN_RIGHT, vplace = ALIGN_TOP })
               : null
           ]
@@ -149,7 +149,7 @@ let mkSpecializationBtn = @(soldier, soldierSpec, armyData, unseenSpecs)
   })
 
 
-let specializationsBlock = @(kindsToShow, unseenSpecs) @() {
+let specializationsBlock = @(kindsToShow, unseenKinds) @() {
   watch = [curArmyData, curShopSoldierKind, isGamepad]
   flow = FLOW_VERTICAL
   size = [flex(), SIZE_TO_CONTENT]
@@ -164,7 +164,7 @@ let specializationsBlock = @(kindsToShow, unseenSpecs) @() {
       flow = FLOW_HORIZONTAL
       valign = ALIGN_TOP
       children = kindsToShow
-        .map(@(v) mkSpecializationBtn(v, curShopSoldierKind.value, curArmyData.value, unseenSpecs))
+        .map(@(v) mkSpecializationBtn(v, curShopSoldierKind.value, curArmyData.value, unseenKinds))
         .insert(0, isGamepad.value ? mkHotkey("^J:LB", @() switchKind(kindsToShow, -1)) : null)
         .append(isGamepad.value ? mkHotkey("^J:RB", @() switchKind(kindsToShow, 1)) : null)
     }
@@ -327,13 +327,17 @@ let mkSoldiersList = @(soldiersToShow) function() {
 let function wndContent(onCloseCb) {
   let crateContent = getCrateContent(soldierShopItems)
   return function() {
-    let unseenSpecializations = {}
-    crateContent.value.each(function(val) {
-      if (val.shopItemId in unseenSoldierShopItems.value && val?.content.soldierClasses[0] != null)
-        unseenSpecializations[val.content.soldierClasses[0]] <- true
-    })
     let contentToShow = getSoldiersList(crateContent.value, soldierShopItems.value)
     let { kindsToShow, soldiersToShow } = contentToShow
+    let unseenKinds = {}
+    crateContent.value.each(function(val) {
+      let soldierSpec = val?.content.soldierClasses[0]
+      if (val.shopItemId in unseenSoldierShopItems.value && soldierSpec != null) {
+        let soldier = soldiersToShow.findvalue(@(v) v?.soldierSpec == soldierSpec)
+        if (soldier != null)
+          unseenKinds[soldier.soldierKind] <- true
+      }
+    })
     return {
       watch = [crateContent, unseenSoldierShopItems, soldierShopItems]
       rendObj = ROBJ_BOX
@@ -349,7 +353,7 @@ let function wndContent(onCloseCb) {
           flow = FLOW_VERTICAL
           gap = hdpx(40)
           children = [
-            specializationsBlock(kindsToShow, unseenSpecializations)
+            specializationsBlock(kindsToShow, unseenKinds)
             mkSoldiersList(soldiersToShow)
           ]
         }

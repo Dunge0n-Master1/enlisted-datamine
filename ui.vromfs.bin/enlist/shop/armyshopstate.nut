@@ -53,6 +53,7 @@ let shopOrdersUsed = mkOnlinePersistentFlag("hasShopOrdersUsed")
 let hasShopOrdersUsed = shopOrdersUsed.flag
 let shopOrdersUsedActivate = shopOrdersUsed.activate
 
+let needGoToManagementBtn = Watched(false)
 let isDebugShowPermission = hasClientPermission("debug_shop_show")
 
 let marketIdList = keepref(Computed(@() shopItemsBase.value.values()
@@ -767,4 +768,5 @@ return {
   addToPresentList
   curSuitableItemTypes
   curSuitableShopItems
+  needGoToManagementBtn
 }

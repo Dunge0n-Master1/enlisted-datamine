@@ -197,6 +197,7 @@ let function mkShopState() {
     {
       id = "premium"
       reqFeatured = true
+      autoseenDelay = true
       filterFunc = @(shopItem) hasPriceContainsSpecOrders(shopItem)
         || (!hasPriceContainsOrders(shopItem)
           && (hasPriceContainsGold(shopItem) || isExternalPurchase(shopItem)))
@@ -252,6 +253,7 @@ let function mkShopState() {
       return {
         id = group.id
         locId = group?.locId
+        autoseenDelay = group?.autoseenDelay ?? false
         goods = (items?[group.id] ?? []).filter(@(item) (item?.featuredWeight ?? 0) == 0)
         chapters = mkChapters?(armyItems)
       }

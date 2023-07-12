@@ -10,7 +10,8 @@ let checkLootRestriction = require("hasLootRestriction.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
 let { CAMPAIGN_NONE, needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
-let { shopItemContentCtor, purchaseIsPossible } = require("armyShopState.nut")
+let { shopItemContentCtor, purchaseIsPossible, needGoToManagementBtn
+} = require("armyShopState.nut")
 let {
   shopItemLockedMsgBox, mkMsgBoxView, mkShopItemInfoBlock, mkProductView
 } = require("shopPkg.nut")
@@ -55,6 +56,7 @@ let function shopItemClick(shopItem) {
     description
     viewBtnCb = hasItemContent ? @() viewShopItemsScene(shopItem) : null
     countWatched
+    purchaseCb = @() needGoToManagementBtn(true)
   })
   let itemView = mkProductView(shopItem, allItemTemplates, crateContent)
   checkLootRestriction(buyItemActionCb, { itemView, description }, crateContent)

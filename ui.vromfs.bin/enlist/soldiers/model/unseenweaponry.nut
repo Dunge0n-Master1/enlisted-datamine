@@ -169,6 +169,23 @@ let function markWeaponrySeen(armyId, basetpl) {
   })
 }
 
+let function markWeaponryListSeen(armyId, basetpls) {
+  if (!onlineSettingUpdated.value)
+    return
+
+  let armySaved = clone settings.value?[SEEN_ID][armyId] ?? {}
+  let lastCount = armySaved.len()
+  basetpls.each(@(tpl) armySaved[tpl] <- true)
+  if (lastCount == armySaved.len())
+    return
+
+  settings.mutate(function(set) {
+    let saved = clone (set?[SEEN_ID] ?? {})
+    saved[armyId] <- armySaved
+    set[SEEN_ID] <- saved
+  })
+}
+
 let function markNotFreeWeaponryUnseen() {
   let seenData = seen.value ?? {}
   if (seenData.len() == 0)
@@ -211,5 +228,6 @@ return {
   unseenUpgradesByWeapon
 
   markWeaponrySeen
+  markWeaponryListSeen
   markNotFreeWeaponryUnseen
 }

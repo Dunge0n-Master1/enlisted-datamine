@@ -8,7 +8,7 @@ let { isCurCampaignProgressUnlocked } = require("%enlist/meta/curCampaign.nut")
 let { campPresentation, curCampaignAccessItem } = require("%enlist/campaigns/campaignConfig.nut")
 let { hasPremium } = require("%enlist/currency/premium.nut")
 let { unlockCampaignPromo } = require("%enlist/soldiers/lockCampaignPkg.nut")
-let { sub_txt, tiny_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { mkColoredGradientX } = require("%enlSqGlob/ui/gradients.nut")
 let mkCountdownTimer = require("%enlSqGlob/ui/mkCountdownTimer.nut")
 let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
@@ -31,7 +31,7 @@ let premiumBlockText = @(_config, txtColor) {
   parSpacing = smallPadding
   behavior = Behaviors.TextArea
   text = loc("premium/widget")
-}.__update(tiny_txt, txtColor)
+}.__update(sub_txt, txtColor)
 
 let greenGradient = mkColoredGradientX({colorLeft=0xFF007800, colorRight=0xFF145014})
 let hoverGradient = mkColoredGradientX({colorLeft=0xFF009000, colorRight=0xFF007800})

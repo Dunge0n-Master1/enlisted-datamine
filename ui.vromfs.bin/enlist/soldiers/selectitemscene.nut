@@ -47,7 +47,7 @@ let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId,
   openSelectItem, trySelectNext, curInventoryItem, checkSelectItem, selectItem, itemClear,
   selectNextSlot, selectPreviousSlot, unseenViewSlotTpls, viewItemMoveVariants, ItemCheckResult
 } = require("model/selectItemState.nut")
-let { markWeaponrySeen } = require("model/unseenWeaponry.nut")
+let { markWeaponrySeen, markWeaponryListSeen } = require("model/unseenWeaponry.nut")
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg } = require("components/modifyItemComp.nut")
 let itemTransferMsg = require("%enlist/items/itemTransferMsg.nut")
@@ -84,6 +84,28 @@ let selectedKey = Watched(null)
 viewItem.subscribe(function(item) {
   selectedKey(getItemSelectKey(item))
   changeCameraFov(0)
+})
+
+let unseenWeaponTpls = {}
+
+let function updateUnseenWeapon() {
+  let armyId = selectParamsArmyId.value
+  if (armyId == null)
+    return
+
+  markWeaponryListSeen(armyId, unseenWeaponTpls.keys())
+  unseenWeaponTpls.clear()
+
+  foreach (item in slotItems.value) {
+    let { basetpl = null } = item
+    if (basetpl in unseenViewSlotTpls.value) {
+      unseenWeaponTpls[basetpl] <- true
+    }
+  }
+}
+
+slotItems.subscribe(function(_) {
+  updateUnseenWeapon()
 })
 
 let selectedSlot = Computed(function() {
@@ -336,7 +358,12 @@ let otherListNewOnly = mkItemsGroupedList({
 
 let prevArmory = mkItemsList(prevItems, prevItemParams)
 
-let backButton = Flat(loc("mainmenu/btnBack"), itemClear,
+let function onBackAction() {
+  updateUnseenWeapon()
+  itemClear()
+}
+
+let backButton = Flat(loc("mainmenu/btnBack"), onBackAction,
   { margin = [0, bigPadding, 0, 0] })
 
 let chooseButtonUi = function() {
@@ -803,7 +830,7 @@ let selectItemScene = @() {
       children = mkHeader({
         armyId = selectParamsArmyId.value
         textLocId = "Choose item"
-        closeButton = closeBtnBase({ onClick = itemClear })
+        closeButton = closeBtnBase({ onClick = onBackAction })
       })
     }
     {

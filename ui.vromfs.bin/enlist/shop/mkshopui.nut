@@ -31,6 +31,7 @@ let {
 let buySquadWindow = require("%enlist/shop/buySquadWindow.nut")
 let { mkProductView } = require("%enlist/shop/shopPkg.nut")
 let starterPack = require("%enlist/soldiers/starterPackPromoWnd.nut")
+let serverTime = require("%enlSqGlob/userstats/serverTime.nut")
 
 
 let mkShopGroup = function(group, isSelected, onClick) {
@@ -80,6 +81,20 @@ let featuredPaginator = mkDotPaginator({
   switchTime = paginatorTimer
 })
 
+let itemsToMarkSeen = {}
+local openedTs = -1
+local currentTabHasDelay = false
+const VIEWED_SECONDS = 5
+
+let markItemsSeen = function(hasDelay) {
+  if (!hasDelay || (serverTime.value - openedTs > VIEWED_SECONDS)) {
+    itemsToMarkSeen.each(function(itemList, armyId) {
+      defer(@() markShopItemSeen(armyId, itemList))
+    })
+  }
+  itemsToMarkSeen.clear()
+  openedTs = serverTime.value
+}
 
 let locSpecialOffer = loc("specialOfferShort")
 
@@ -91,6 +106,16 @@ let mkDiscount = @(discount) mkDiscountBar({
   vplace = ALIGN_BOTTOM
   pos = [0, shopGroupTxtHgt]
 })
+
+let unseenGuids = function(goods, unseenVal) {
+  let res = []
+  foreach (item in goods) {
+    let { guid } = item
+    if (guid in unseenVal)
+      res.append(guid)
+  }
+  return res
+}
 
 let function buildShopUi() {
   let {
@@ -168,10 +193,6 @@ let function buildShopUi() {
         hoverHoldAction("markSeenShopItem", { guid, itemGuid },
           @(v) markShopItemSeen(v.guid, v.itemGuid))(on)
     }
-    let function onDetach() {
-      if (hasNotifier.value)
-        markShopItemSeen(guid, itemGuid)
-    }
     let unseenComp = @() {
       watch = hasNotifier children = hasNotifier.value ? unblinkUnseen : null
     }
@@ -206,7 +227,6 @@ let function buildShopUi() {
           itemView
           unseenComp
         ]
-        onDetach
       }
     }
   }
@@ -238,6 +258,15 @@ let function buildShopUi() {
     })
   })
 
+  let unseenItemsForGroup = function(group) {
+    let { goods, chapters } = group
+    return {
+      unseenList = unseenGuids(goods, curUnseenAvailShopGuids.value)
+      chapters = chapters == null ? null
+        : chapters.map(@(chapter) unseenGuids(chapter.goods, curUnseenAvailShopGuids.value))
+    }
+  }
+
   let watch = freeze([
     curShopItemsByGroup, curFeaturedByGroup, curGroupIdx, chapterIdx,
     offersByShopItem, curArmyData
@@ -253,7 +282,8 @@ let function buildShopUi() {
       })
     }
     let curGroup = curShopItemsByGroup.value?[curGroupIdx.value]
-    let { id = "", goods = [], chapters = null } = curGroup
+    let { id = "", goods = [], chapters = null, autoseenDelay = false } = curGroup
+
     let featured = curFeaturedByGroup.value?[id] ?? []
     if (goods.len() == 0 && chapters == null && featured.len() == 0)
       return res.__update({
@@ -285,6 +315,14 @@ let function buildShopUi() {
         .extend(chapters[chapterIdx.value].goods.map(@(sItem, idx)
           mkShopItemCard(sItem, idx, offers, army, shopItemAction, false, true)))
 
+    markItemsSeen(currentTabHasDelay)
+    currentTabHasDelay = autoseenDelay
+    if (curGroup != null && (chapters == null || chapterIdx.value >= 0)) {
+      let unseenForGroup = unseenItemsForGroup(curGroup)
+      let unseenList = unseenForGroup?.chapters[chapterIdx.value] ?? unseenForGroup?.unseenList
+      itemsToMarkSeen[army.guid] <- clone unseenList
+    }
+
     return res.__update({
       hplace = ALIGN_CENTER
       size = [contentWidth, flex()]
@@ -306,6 +344,7 @@ let function buildShopUi() {
           styling = scrollStyle
         }
       )
+      onDetach = @() markItemsSeen(currentTabHasDelay)
     })
   }
 

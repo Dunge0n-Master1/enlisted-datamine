@@ -144,6 +144,7 @@ return {
   padding = [fsh(2),0,0,0]
   onAttach = saveFinishedWeeklyTasks
   onDetach = function() {
+    markUnlockSeen((seenUnlocks.value?.unseenWeeklyTasks ?? {}).keys())
     triggerBPStarsAnim()
     markUnlocksOpened((seenUnlocks.value?.unopenedWeeklyTasks ?? {}).keys())
   }

@@ -44,9 +44,13 @@ let { dismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { mkItemUpgradeData } = require("model/mkItemModifyData.nut")
 let { openUpgradeItemMsg } = require("components/modifyItemComp.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
-let { addToPresentList } = require("%enlist/shop/armyShopState.nut")
+let { addToPresentList, needGoToManagementBtn } = require("%enlist/shop/armyShopState.nut")
 let spinner = require("%ui/components/spinner.nut")
-
+let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
+let { setCurSection, curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { purchasesCount } = require("%enlist/meta/servProfile.nut")
+let { startswith } = require("string")
+let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
 
 const ADD_CAMERA_FOV_MIN = -20
 const ADD_CAMERA_FOV_MAX = 5
@@ -64,10 +68,15 @@ const STAR_DEF_DELAY = 0.2
 const STAR_DEF_DELAY_INCREASE = 0.1
 const STAR_NEXT_DELAY = 0.3
 
+const SQUAD_SECTION = "SQUAD_SOLDIERS"
+
 let waitingSpinner = spinner(hdpx(25))
 
 let isAnimFinished = Watched(false)
 let wndCanBeClosed = Watched(true)
+
+let firstPurchases = mkOnlineSaveData("hasFirstPurchases", @() null)
+let firstPurchasesStored = firstPurchases.watch
 
 let curItem = Watched(null)
 curItem.subscribe(function(v) {
@@ -80,12 +89,68 @@ curItem.subscribe(function(v) {
   else
     curSelectedItem(null)
 })
+
+let needShowManagementBtn = Computed(@() curSection.value != SQUAD_SECTION
+  && needGoToManagementBtn.value)
+
+let needShowFirstPurchaseBtn = Computed(@() needShowManagementBtn.value &&
+  ((curItem.value?.ammotemplate != null && !(firstPurchasesStored.value?.weapon ?? true))
+    || (curItem.value?.itemtype == "soldier" && !(firstPurchasesStored.value?.soldier ?? true))))
+
+
+let function updateFirstPurchases(purchases) {
+  let joined = clone firstPurchasesStored.value ?? {}
+  purchases.each(@(val, key) joined[key] <- val || (joined?[key] ?? false))
+  firstPurchases.setValue(joined)
+}
+
+let function checkIsFirstPurchase() {
+  if (firstPurchasesStored.value != null)
+    return
+
+  local soldiersPurchased = 0
+  local weaponsPurchased = 0
+  let soldier = {}
+  let weapon = {}
+
+  foreach (shopItemsByArmy in itemToShopItem.value) {
+    shopItemsByArmy.each(function(shopItems, id) {
+      shopItems.each(function(shopItem) {
+        if (startswith(id, "soldier:"))
+          soldier[shopItem] <- true
+        else
+          foreach (itemsByArmy in allItemTemplates.value) {
+            if (itemsByArmy?[id].ammotemplate != null) {
+              weapon[shopItem] <- true
+              break
+            }
+          }
+      })
+    })
+  }
+
+  foreach (key, val in purchasesCount.value) {
+    if (soldiersPurchased > 1 && weaponsPurchased > 1)
+      break
+
+    if (key in soldier)
+      soldiersPurchased += val.amount
+    if (key in weapon)
+      weaponsPurchased += val.amount
+  }
+
+  updateFirstPurchases({
+    soldier = soldiersPurchased > 1
+    weapon = weaponsPurchased > 1
+  })
+}
 newItemsToShow.subscribe(function(v) {
   let { allItems = [] } = v
   let { guid = null } = curItem.value
   let item = allItems.findvalue(@(i) i.guid == guid) ?? allItems?[0]
   curItem(item)
   addToPresentList(allItems)
+  checkIsFirstPurchase()
 })
 
 local animEndTime = -1
@@ -98,6 +163,7 @@ let function tryMarkSeen() {
     return
   }
   markNewItemsSeen()
+  needGoToManagementBtn(false)
 }
 
 let textAnimations = @(trigger = null) [
@@ -249,7 +315,7 @@ let function animatedStars(item){
   }
 }
 
-let function newIemsWndContent() {
+let function newItemsWndContent() {
   let itemsToShow = newItemsToShow.value
   if (itemsToShow == null)
     return null
@@ -448,47 +514,64 @@ let function upgradeItemBtn() {
   return res
 }
 
-let newItemsWnd = @() {
-  watch = [safeAreaBorders, wndCanBeClosed, isAnimFinished]
-  key = $"newItemsWindow"
-  size = flex()
-  padding = safeAreaBorders.value
-  halign = ALIGN_CENTER
-  behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
-  flow = FLOW_VERTICAL
-  onMouseWheel = function(mouseEvent) {
-    changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+let function markFirstPurchases() {
+  updateFirstPurchases({
+    soldier = curItem.value?.itemtype == "soldier"
+    weapon = curItem.value?.ammotemplate != null
+  })
+}
+
+let function goToManagement() {
+  markFirstPurchases()
+  tryMarkSeen()
+  setCurSection(SQUAD_SECTION)
+}
+
+let toManagementBtn = textButton.PrimaryFlat(loc("btn/goToManagement"), goToManagement,
+  { hotkeys = [["^J:X"]] })
+
+let closeBtn = textButton(loc("Close"), tryMarkSeen,
+  { hotkeys = [[$"^{JB.B} | Esc | Space | Enter"]] })
+
+let function newItemsWnd (){
+  let buttonsBlock = []
+  if (needShowFirstPurchaseBtn.value || needShowManagementBtn.value)
+    buttonsBlock.append(toManagementBtn)
+  if (!needShowFirstPurchaseBtn.value)
+    buttonsBlock.append(closeBtn)
+  return {
+    watch = [safeAreaBorders, wndCanBeClosed, isAnimFinished, needShowFirstPurchaseBtn,
+      needShowManagementBtn]
+    key = $"newItemsWindow"
+    size = flex()
+    padding = safeAreaBorders.value
+    halign = ALIGN_CENTER
+    behavior = [Behaviors.MenuCameraControl, Behaviors.TrackMouse]
+    flow = FLOW_VERTICAL
+    onMouseWheel = function(mouseEvent) {
+      changeCameraFov(mouseEvent.button * 5, ADD_CAMERA_FOV_MIN, ADD_CAMERA_FOV_MAX)
+    }
+    children = [
+      {
+        margin = [bigPadding * 4, 0, 0, 0]
+        hplace = ALIGN_RIGHT
+        size = [flex(), fsh(2)]
+        children = !needShowFirstPurchaseBtn.value && (wndCanBeClosed.value || isAnimFinished.value)
+          ? closeBtnBase({ onClick = tryMarkSeen })
+          : null
+      }
+      newItemsWndContent
+      !wndCanBeClosed.value && !isAnimFinished.value ? null
+        : {
+            size = [flex(), SIZE_TO_CONTENT]
+            halign = ALIGN_CENTER
+            valign = ALIGN_CENTER
+            flow = FLOW_HORIZONTAL
+            gap = smallPadding
+            children = buttonsBlock.append(soldierDismissBtn, vehicleSquadBtn, upgradeItemBtn)
+          }
+    ]
   }
-  children = [
-    {
-      margin = [bigPadding * 4, 0, 0, 0]
-      hplace = ALIGN_RIGHT
-      size = [flex(), fsh(2)]
-      children = wndCanBeClosed.value || isAnimFinished.value
-        ? closeBtnBase({ onClick = tryMarkSeen })
-        : null
-    }
-    newIemsWndContent
-    {
-      size = [flex(), SIZE_TO_CONTENT]
-      halign = ALIGN_CENTER
-      valign = ALIGN_CENTER
-      flow = FLOW_HORIZONTAL
-      gap = smallPadding
-      children = wndCanBeClosed.value || isAnimFinished.value
-        ? [
-            @() {
-              children = textButton(loc("Ok"), tryMarkSeen,
-                { hotkeys = [[$"^{JB.B} | Esc | Space | Enter", { description = loc("Close") }]] }
-              )
-            }
-            soldierDismissBtn
-            vehicleSquadBtn
-            upgradeItemBtn
-          ]
-        : null
-    }
-  ]
 }
 
 let function playOpenSceneSound() {

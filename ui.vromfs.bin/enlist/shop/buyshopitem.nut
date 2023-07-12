@@ -62,6 +62,9 @@ enum DISCOUNT_STATE {
 let defGap = fsh(3)
 let currencySize = hdpx(29)
 
+let hotkeyY = freeze({ hotkeys = [[ "^J:Y | Enter | Space", { description = {skip = true}} ]] })
+let hotkeyX = freeze({ hotkeys = [[ "^J:X", { description = {skip = true}} ]] })
+
 let mkDescription = @(descLocId) descLocId == null ? null
   : noteTextArea(loc(descLocId)).__update(defTxtStyle, {
       halign = ALIGN_CENTER
@@ -293,7 +296,8 @@ let function limitTextBlock(limit, guid) {
   }}
 
 let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePremiumBttn = null,
-  description = null, pOfferGuid = null, countWatched = Watched(1), isNotSuitable = false
+  description = null, pOfferGuid = null, countWatched = Watched(1), isNotSuitable = false,
+  purchaseCb = null
 ) {
   // no free space for soldier:
   let requiredInfo = getBuyRequirementError(shopItem)
@@ -482,6 +486,8 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
   }
 
   let buttons = Computed(function(){
+    local isUsedX = false
+    local isUsedY = false
     let btns = []
     let countVal = countWatched.value
     let priceVal = price.value
@@ -497,8 +503,10 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
             let deltaOrders = priceBarter * countVal - (realCurrenciesVal?[itemTpl] ?? 0)
             if (deltaOrders > 0)
               notEnoughMsg(itemTpl, deltaOrders)
-            else
+            else {
               barterShopItem(shopItem, buyInfo, countVal)
+              purchaseCb?()
+            }
           }
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
@@ -512,25 +520,27 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
               params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-            hotkeys = [[ "^J:Y | Enter | Space" ]]
-          }.__update(primaryFlatButtonStyle)
+          }.__update(primaryFlatButtonStyle, hotkeyY)
         })
+        isUsedY = true
       }
       else if (referralLink != "") {
         btns.append({
           text = loc("btn/gotoReferralLink")
           action = @() openUrl(referralLink, false, true)
-          customStyle = { hotkeys = [[ "^J:Y | Enter | Space" ]] }
+          customStyle = hotkeyY
         })
+        isUsedY = true
       }
     if (hasBuy.value && !hasOfferExpired.value) {
       let currencyBalance = currenciesBalance.value?[currencyId] ?? 0
-      if (currencyBalance >= priceVal * countVal)
+      if (currencyBalance >= priceVal * countVal) {
         btns.append({
           action = function() {
             if (pOfferGuid == null) {
               buyShopItem(shopItem, currencyId, priceVal, buyCb, countVal)
               sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
+              purchaseCb?()
             } else {
               buyShopOffer(shopItem, currencyId, priceVal, buyCb, pOfferGuid)
               sendBigQueryUIEvent("action_buy_currency", null, srcComponent)
@@ -548,10 +558,11 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
               params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-            hotkeys = [[ "^J:X" ]]
-          }.__update(purchaseButtonStyle)
+          }.__update(purchaseButtonStyle, hotkeyX)
         })
-      else
+        isUsedX = true
+      }
+      else {
         btns.append({
           customStyle = {
             textCtor = function(textComp, params, handler, group, sf) {
@@ -559,13 +570,14 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
               params = params.__merge(h2_txt)
               return textButtonTextCtor(textComp, params, handler, group, sf)
             }
-            hotkeys = [[ "^J:X" ]]
-          },
+          }.__update(hotkeyX),
           action = function() {
             purchaseCurrency()
             sendBigQueryUIEvent("event_low_currency", null, srcComponent)
           }
         })
+        isUsedX = true
+      }
     }
 
     // No gold price and not enough items for barter:
@@ -575,8 +587,13 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
         btns.append({
           text = loc("btn/gotoBattlepass")
           action = @() openBPwindow(rewardIdx)
-          customStyle = { hotkeys = [[ "^J:X" ]] }
-        })
+        }.__update(!isUsedX ? hotkeyX
+          : !isUsedY ? hotkeyY
+          : {}))
+        if (!isUsedX)
+          isUsedX = true
+        else if (!isUsedY)
+          isUsedY = true
       }
     }
 
@@ -589,9 +606,9 @@ let function buyItem(shopItem, productView = null, viewBtnCb = null, activatePre
       btns.append({
         text = loc("btn/view")
         action = viewBtnCb
-        customStyle = viewShopInfoBtnStyle.__update({
-          hotkeys = [[ "^J:Y", { description = {skip = true}} ]]
-        })
+        customStyle = viewShopInfoBtnStyle.__merge(!isUsedY ? hotkeyY
+          : !isUsedX ? hotkeyX
+          : {})
       })
 
     return btns

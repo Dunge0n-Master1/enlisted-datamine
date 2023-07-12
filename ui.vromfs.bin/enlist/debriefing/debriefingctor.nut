@@ -27,9 +27,9 @@ let { mkSoldierExpTooltipText } = require("%enlist/debriefing/components/mkExpTo
 let mkSoldierCard = require("mkDebriefingSoldierCard.nut")
 let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
-let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
-let { selectArmy } = require("%enlist/soldiers/model/state.nut")
+let { selectArmy, setCurSquadId } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
 let { setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
@@ -57,6 +57,7 @@ let userActions = [
   REMOVE_FROM_BLACKLIST_PSN, SHOW_USER_LIVE_PROFILE
 ]
 let { showUserProfile } = require("%enlist/featureFlags.nut")
+let { curSoldierIdx } = require("%enlist/soldiers/model/curSoldiersState.nut")
 
 
 const ANIM_TRIGGER = "new_items_wnd_anim"
@@ -85,6 +86,7 @@ let maxAwardsRows = 3
 let awardsInRow = (leftBlockWidth / (awardIconSize + awardIconSpacing)).tointeger()
 
 local hasAnim = true
+local newLevelSoldier = null
 local skippedAnims = {}
 let canQuitByEsc = Watched(false)
 let usedSkipAnim = Watched(false)
@@ -559,6 +561,15 @@ let function switchContext(debriefing) {
   selectArmy(debriefing.armyId)
 }
 
+
+let function openNewLevelSoldier() {
+  if (newLevelSoldier == null)
+    return
+  setCurSection("SQUAD_SOLDIERS")
+  setCurSquadId(newLevelSoldier.squadId)
+  curSoldierIdx(newLevelSoldier.soldierIdx)
+}
+
 let function skipAnimOrClose(doClose, debriefing) {
   if (isWaitAnim.value) {
     usedSkipAnim(true)
@@ -570,6 +581,10 @@ let function skipAnimOrClose(doClose, debriefing) {
   switchContext(debriefing)
   if (hasNewArmyLevel(debriefing))
     jumpToArmyProgress()
+  else if (newLevelSoldier != null) {
+    openNewLevelSoldier()
+    newLevelSoldier = null
+  }
 }
 
 let mkCloseBtn = @(doClose, debriefing) closeBtnBase({
@@ -594,6 +609,11 @@ let mkSkipOrCloseBtn = @(doClose, debriefing) function() {
   else if (hasNewLevel)
     btnClose = PrimaryFlat(loc("newArmyLevel"), doStopAndClose, btnCloseStyle.__merge({
       hotkeys = [[hotkeysStr, {description = loc("newArmyLevel")}]],
+      size = [SIZE_TO_CONTENT, commonBtnHeight]
+    }))
+  else if (newLevelSoldier != null)
+    btnClose = PrimaryFlat(loc("soldiers/levelUp"), doStopAndClose, btnCloseStyle.__merge({
+      hotkeys = [[hotkeysStr, {description = loc("soldiers/levelUp")}]],
       size = [SIZE_TO_CONTENT, commonBtnHeight]
     }))
   else
@@ -772,6 +792,20 @@ let collectSoldierAwards = @(guid, awards)
 let collectSquadAwards = @(squadId, awards)
   awards.filter(@(award) (isSoldierAward(award.award) || isTopSquadAward(award.award)) && award.soldier.squadId == squadId)
 
+let function checkNewLevelSoldier(soldierStat, soldierData, soldierIdx) {
+  if (soldierStat == null || soldierData == null)
+    return
+
+  let { squadId, maxLevel = 1 } = soldierData
+  let wasLevel = min(soldierStat?.wasExp.level ?? 0, maxLevel)
+  let newLevel = min(soldierStat?.newExp.level ?? 0, maxLevel)
+  if (newLevel > wasLevel)
+    newLevelSoldier = {
+      squadId
+      soldierIdx
+    }
+}
+
 let function squadsAndSoldiersExpBlock(debriefing) {
   let {
     squads = {}, isBattleHero = false, battleHeroSoldier = null,
@@ -815,12 +849,15 @@ let function squadsAndSoldiersExpBlock(debriefing) {
     children.append(squadCard.content)
 
     local soldierAnimDelay = 0
-    foreach (soldierStat in soldiers) {
+    foreach (soldierIdx, soldierStat in soldiers) {
       let soldierData = debriefing?.soldiers.items[soldierStat.soldierId]
       if (!soldierData)
         continue
       if (squads?[soldierData.squadId] != squad)
         continue
+
+      if (newLevelSoldier == null)
+        checkNewLevelSoldier(soldierStat, soldierData, soldierIdx)
 
       let soldierAwards = collectSoldierAwards(soldierData.guid, squadSoldiersAwards)
       if (battleHeroSoldier != null && battleHeroSoldier == soldierData.guid)
