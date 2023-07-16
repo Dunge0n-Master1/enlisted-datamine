@@ -14,6 +14,7 @@ let { getLinkedArmyName, getLinkedSquadGuid } = require("%enlSqGlob/ui/metalink.
 let { curArmyReserve, curArmyReserveCapacity } = require("model/reserve.nut")
 let { RETIRE_ORDER, retireReturn } = require("model/config/soldierRetireConfig.nut")
 let { curUpgradeDiscount } = require("%enlist/campaigns/campaignConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let waitingSpinner = spinner(hdpx(25))
 
@@ -58,7 +59,8 @@ let mkDismissWarning = @(armyId, guid, count, cb) showMessageWithContent({
       isCurrent = true
     }
     {
-      text = loc("Cancel"), isCancel = true
+      text = loc("Cancel"), isCancel = true,
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
     }
   ]
 })
@@ -75,6 +77,7 @@ let mkApplyChangesWarning = @(cb) showMsgbox({
     }
     { text = loc("Cancel")
       isCancel = true
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
     }
   ]
 })

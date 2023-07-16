@@ -2,6 +2,7 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let msgbox = require("%enlist/components/msgbox.nut")
 let {leaveQueue, isInQueue} = require("%enlist/quickMatchQueue.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const MSG_UID = "leave_queue_msgbox"
 
@@ -23,6 +24,7 @@ local function leaveQueueNotification(watch, setValue = null, askLeave = @() tru
         { text = loc("Cancel")
           action = @() setValue(last)
           isCancel = true
+          customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
         }
       ]
     })

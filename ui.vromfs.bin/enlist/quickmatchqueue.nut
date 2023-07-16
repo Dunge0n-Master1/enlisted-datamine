@@ -17,6 +17,7 @@ let { get_time_msec } = require("dagor.time")
 let { get_app_id } = require("app")
 let { checkMultiplayerPermissions } = require("permissions/permissions.nut")
 let { EventUserMMQueueJoined } = require("gameevents")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let { crossnetworkPlay } = require("%enlSqGlob/crossnetwork_state.nut")
 let eventbus = require("eventbus")
@@ -152,7 +153,7 @@ let function joinQueue(queue, queue_params = {}) {
             joinImpl(queue, queue_params)
           }
         }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
   }

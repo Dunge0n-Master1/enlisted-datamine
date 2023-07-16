@@ -188,7 +188,10 @@ let mkCustomize = kwarg(
                           text = loc("Yes"), isCurrent = true,
                           action = @() applyDecorator("", vehGuid, cType, "", slotIdx)
                         }
-                        { text = loc("Cancel"), isCancel = true }
+                        {
+                          text = loc("Cancel"), isCancel = true,
+                          customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
+                        }
                       ]
                     })
                   }
@@ -233,7 +236,7 @@ let function close() {
         { text = loc("Yes"),
           action = actionsOnClose,
           isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
     return

@@ -20,6 +20,7 @@ let {squadId} = require("%enlist/squad/squadState.nut")
 let { gameLanguage } = require("%enlSqGlob/clientState.nut")
 let { soundActive } = textButton
 let { remap_others } = require("%enlSqGlob/remap_nick.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let selectedRoom = Watched(null)
 let { strip } = require("string")
@@ -50,8 +51,8 @@ let function mkFindSomeMatch(cb) {
       msgbox.show({
         text = loc("Cannot find existing game. Create one?")
         buttons = [
-          { text = loc("Yes"), action = @() showCreateRoom.update(true) }
-          { text = loc("No")}
+          { text = loc("Yes"), action = @() showCreateRoom.update(true), isCurrent = true }
+          { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }}
         ]
       })
     }
@@ -148,7 +149,7 @@ let function doJoin() {
       children = passwordInput
       buttons = [
         { text = loc("Proceed"), action = function() {tryToJoin(roomInfo, joinCb, roomPassword.value)} }
-        { text = loc("Cancel") }
+        { text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
   }

@@ -165,8 +165,8 @@ return {
     weaponColor = @(flags, _selected = false)
       (flags & S_HOVER) ? selectedTxtColor : weaponTxtColor
 
-    txtColor = @(flags, _selected = false)
-      (flags & S_HOVER) || (flags & S_ACTIVE) ? selectedTxtColor : defTxtColor
+    txtColor = @(flags, selected = false)
+      (flags & S_HOVER) || (flags & S_ACTIVE) || selected ? selectedTxtColor : defTxtColor
 
     txtDisabledColor = @(flags, _selected = false)
       (flags & S_HOVER) ? selectedTxtColor : disabledTxtColor

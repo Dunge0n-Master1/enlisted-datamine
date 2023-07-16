@@ -125,8 +125,8 @@ let markUnlockSeen = @(names) changeStatus(SeenMarks.SEEN, names)
 let markUnlocksOpened = @(names) changeStatus(SeenMarks.OPENED, names)
 
 let hasNewbieUnlocksData = keepref(Computed(function() {
-  let hasUserstatData = userstatUnlocks.value?.unlocks["not_a_new_player_unlock"] != null
-  let isNewbieUnlock = unlockProgress.value?.unlocks["not_a_new_player_unlock"].isCompleted
+  let hasUserstatData = userstatUnlocks.value?.unlocks != null
+  let isNewbieUnlock = unlockProgress.value?["not_a_new_player_unlock"].isCompleted
   return onlineSettingUpdated.value && hasUserstatData && isNewbieUnlock != null
     && !isNewbieUnlock && weeklyTasks.value != null
 }))

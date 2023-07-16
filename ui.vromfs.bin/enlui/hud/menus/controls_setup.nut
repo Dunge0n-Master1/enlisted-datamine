@@ -457,7 +457,7 @@ let function applyPreset(text, target=null) {
     }), {margin = hdpx(50)})
     buttons = [
       { text = loc("Yes"), action = doReset }
-      { text = loc("No") }
+      { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
   })
 }
@@ -648,7 +648,7 @@ let function onDiscardChanges() {
     text = loc("settings/onCancelChangingConfirmation")
     buttons = [
       { text=loc("Yes"), action = discardChanges }
-      { text=loc("No") }
+      { text=loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
   })
 }
@@ -676,7 +676,7 @@ let function mkWindowButtons(width) {
             onClose()
           }
         }
-        { text = loc("Cancel"), action = @() null }
+        { text = loc("Cancel"), action = @() null, customStyle = {hotkeys = [[$"^{JB.B} | Esc"]]} }
       ]
     })
   }

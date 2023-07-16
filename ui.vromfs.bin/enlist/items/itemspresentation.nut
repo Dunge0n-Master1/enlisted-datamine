@@ -1181,6 +1181,14 @@ let rewardsPresentation = {
     cardImage = "https://static-ggc.gaijin.net/chronicle/item_summer_ops_girl_usa.png"
     mkImage = mkImageCtor([170, 170], [0, 17])
   },
+  ["449"] = {
+    name = loc("items/stalingrad_2023_event_order")
+    description = loc("items/stalingrad_2023_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
 
 
 

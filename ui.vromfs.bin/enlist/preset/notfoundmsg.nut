@@ -23,6 +23,7 @@ let getPayItemsData = require("%enlist/soldiers/model/getPayItemsData.nut")
 let { getShopItemsList, buyShopItemList, barterShopItemList
 } = require("%enlist/shop/armyShopState.nut")
 let { shopItemByTemplateData } = require("%enlist/preset/presetEquipUtils.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let mkCostInfo = @(price, fullPrice, currencyId) currencyId == null ? null
   : {
@@ -276,7 +277,8 @@ let missingItemsPriceView = function(notFoundItemsList, unavailableItems,
       openShopByCurrencyId?[currency]()
     }))
   }
-  buttons.append({ text = loc("Cancel"), isCancel = true })
+  buttons.append({ text = loc("Cancel"), isCancel = true,
+    customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
 
   return {
     buttons

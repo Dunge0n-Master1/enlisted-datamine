@@ -17,7 +17,8 @@ let { allItemTemplates, itemTypesInSlots
 } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { safeAreaBorders } = require("%enlist/options/safeAreaState.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
-let { shopItemContentCtor, purchaseIsPossible } = require("armyShopState.nut")
+let { shopItemContentCtor, purchaseIsPossible, needGoToManagementBtn
+} = require("armyShopState.nut")
 let { mkShopItem } = require("%enlist/soldiers/model/items_list_lib.nut")
 let { mkDetailsInfo, detailsStatusTier } = require("%enlist/soldiers/components/itemDetailsComp.nut")
 let { blur, mkVehicleDetails, mkUpgrades } = require("%enlist/soldiers/components/itemDetailsPkg.nut")
@@ -141,6 +142,7 @@ let function purchaseBtnUi() {
                 productView = mkMsgBoxView(shopItemData, crateContent, countWatched)
                 description
                 countWatched
+                purchaseCb = @() needGoToManagementBtn(true)
               }),
               {
                 itemView = mkShopItemImg(shopItemData.image, {

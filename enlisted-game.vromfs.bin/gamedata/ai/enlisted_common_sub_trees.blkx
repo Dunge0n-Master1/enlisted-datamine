@@ -2708,6 +2708,22 @@ sequencer{
 
   orderedSelector{
 
+    not{
+
+      passedTimeSinceControlledByPlayer{
+        time:r=30.0
+      }
+    }
+
+    checkReloadWeapon{
+      waitReloadFinish:b=no
+      enoughAmmoRatio:r=0.9
+      skipEnemyNearRadius:r=10.0
+    }
+  }
+
+  orderedSelector{
+
     sequencer{
 
       ignoreChance{
@@ -2728,6 +2744,10 @@ sequencer{
         from:t="rememberEnemyPos"
       }
 
+      fixLookDirPos{
+        posParam:t="potentialEnemyPos"
+      }
+
       parallel{
 
         wait{
@@ -2736,7 +2756,7 @@ sequencer{
         }
 
         wanderLook{
-          posParam:t="rememberEnemyPos"
+          posParam:t="potentialEnemyPos"
           range:p2=0.2, 0.1
           maxStanceParam:t="coverStance"
         }
@@ -2746,6 +2766,10 @@ sequencer{
     sequencer{
 
       findPotentialEnemyDirectionEntryPoint{
+        posParam:t="potentialEnemyPos"
+      }
+
+      fixLookDirPos{
         posParam:t="potentialEnemyPos"
       }
 
@@ -2771,6 +2795,14 @@ sequencer{
 
   setCurrentAiAction{
     state:t="stand"
+  }
+
+  fixLookDirPos{
+    posParam:t="potentialEnemyPos"
+  }
+
+  fixLookDirPos{
+    posParam:t="potentialEnemyPos"
   }
 
   parallel{
@@ -2880,6 +2912,22 @@ sequencer{
 
   orderedSelector{
 
+    not{
+
+      passedTimeSinceControlledByPlayer{
+        time:r=30.0
+      }
+    }
+
+    checkReloadWeapon{
+      waitReloadFinish:b=no
+      enoughAmmoRatio:r=0.8
+      skipEnemyNearRadius:r=10.0
+    }
+  }
+
+  orderedSelector{
+
     sequencer{
 
       ignoreChance{
@@ -2900,6 +2948,10 @@ sequencer{
         from:t="rememberEnemyPos"
       }
 
+      fixLookDirPos{
+        posParam:t="potentialEnemyPos"
+      }
+
       parallel{
 
         wait{
@@ -2908,30 +2960,37 @@ sequencer{
         }
 
         wanderLook{
-          posParam:t="rememberEnemyPos"
+          posParam:t="potentialEnemyPos"
           range:p2=0.2, 0.1
           maxStanceParam:t="coverStance"
         }
       }
     }
 
-    parallel{
+    sequencer{
 
-      wait{
-        range:p2=5.0, 15.0
-        resetable:b=yes
+      findPotentialEnemyDirectionEntryPoint{
+        posParam:t="potentialEnemyPos"
       }
 
-      wanderLook{
+      fixLookDirPos{
         posParam:t="potentialEnemyPos"
-        range:p2=0.2, 0.1
-        maxStanceParam:t="maxStance"
+      }
+
+      parallel{
+
+        wait{
+          range:p2=5.0, 15.0
+          resetable:b=yes
+        }
+
+        wanderLook{
+          posParam:t="potentialEnemyPos"
+          range:p2=0.2, 0.1
+          maxStanceParam:t="maxStance"
+        }
       }
     }
-  }
-
-  findPotentialEnemyDirectionEntryPoint{
-    posParam:t="potentialEnemyPos"
   }
 
   sequencer{
@@ -3097,6 +3156,7 @@ sequencer{
         endPos:t="coverWalkPos"
         duration:r=2.5
         distThresholsd:r=0.3
+        lookPosParam:t="coverLookPos"
       }
 
       rotateToPoint{
@@ -3121,6 +3181,7 @@ sequencer{
         endPos:t="coverWalkPos"
         duration:r=2.5
         distThresholsd:r=0.3
+        lookPosParam:t="coverLookPos"
       }
 
       rotateToPoint{
@@ -3208,10 +3269,6 @@ sequencer{
     paramName:t="dangerLevel"
     decreaseCoef:r=0.1
   }
-}
-
-sequencer{
-  name:t="sub.retreatFromCoverAttackCover"
 }
 
 orderedSelector{
@@ -3464,6 +3521,20 @@ orderedSelector{
       changeStance{
         stanceName:t="stand"
         maxStanceParam:t="maxStance"
+      }
+
+      orderedSelector{
+
+        not{
+
+          passedTimeSinceControlledByPlayer{
+            time:r=15.0
+          }
+        }
+
+        checkReloadWeapon{
+          waitReloadFinish:b=no
+        }
       }
 
       orderedSelector{

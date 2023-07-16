@@ -14,6 +14,7 @@ let { titleTxtColor, accentTitleTxtColor } = require("%enlSqGlob/ui/viewConst.nu
 let colorize = require("%ui/components/colorize.nut")
 let openUrl = require("%ui/components/openUrl.nut")
 let { is_pc } = require("%dngscripts/platform.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let featuredMods = Watched([])
@@ -103,7 +104,7 @@ let function offersModMsgbox(mod) {
           openCustomMissionWnd()
         }
       }
-      { text = loc("Cancel") }
+      { text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
     if (curTab.value != FEATURED_MODS_TAB_ID && featuredModsRoomsList.value.len() > 0)
       res.insert(0, {

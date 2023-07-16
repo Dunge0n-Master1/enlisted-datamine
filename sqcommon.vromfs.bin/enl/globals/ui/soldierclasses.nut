@@ -510,6 +510,12 @@ let soldierClasses = freeze({
     rank = 10
     kind = "assault"
   }.__update(premiumCfg)
+  assault_premium_1_engineer_ch = {
+    locId = "soldierClass/engineer"
+    getGlyph = @(_) null
+    rank = 10
+    kind = "engineer"
+  }.__update(premiumCfg)
   assault_premium_2 = {
     locId = "soldierClass/assault"
     getGlyph = @(_) null

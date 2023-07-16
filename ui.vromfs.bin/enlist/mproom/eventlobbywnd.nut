@@ -475,7 +475,8 @@ let readyButton = mkBattleButton(loc("contact/Ready"), function(){
 
 let waitingMsgbox = @() showMsgbox({
     text = loc("msg/waitingInProgress")
-    buttons = [{ text = loc("Ok"), isCancel = true }]
+    buttons = [{ text = loc("Close"), isCancel = true,
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }]
   })
 
 let notReadyButton = @(isWaitLauch) mkInactiveBattleButton(loc("contact/notReady"),
@@ -492,7 +493,7 @@ let function leaveRoomConfirm() {
           leaveRoom()
         },
         isCurrent = true }
-      { text = loc("Cancel"), isCancel = true }
+      { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
     ]
   })
 }
@@ -531,7 +532,7 @@ let function startSessionWithMsg() {
       text = loc("msg/notAllPlayersReady")
       buttons = [
         { text = loc("Yes"), action = startSession, isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }

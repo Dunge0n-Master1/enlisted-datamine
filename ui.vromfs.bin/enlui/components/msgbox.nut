@@ -96,7 +96,8 @@ let styling = {
 }
 
 let addDefOkButton = @(p) ("buttons" in p) ? p : p.__merge({
-  buttons = [{ text = loc("Ok"), isCancel = true }]
+  buttons = [{ text = loc("Close"), isCancel = true,
+    customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }]
 })
 
 local function showMessageWithStyle(p, msgStyle) {

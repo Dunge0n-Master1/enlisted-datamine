@@ -85,10 +85,9 @@ let getCrateContent = @(shopItems) Computed(function() {
   let res = []
   shopItems.value.each(function(shopItem) {
     let { armyId, id } = shopItem.crates[0]
-    let { requirements } = shopItem
     res.append({
       shopItemId = shopItem.id
-      reqLevel = requirements.armyLevel
+      reqLevel = shopItem?.requirements.armyLevel ?? 0
       content = requestedCratesContent.value?[armyId][id]
     })
   })

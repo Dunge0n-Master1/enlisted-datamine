@@ -16,6 +16,7 @@ let mkTextRow = require("%darg/helpers/mkTextRow.nut")
 let { mkItemCurrency } = require("%enlist/shop/currencyComp.nut")
 let { primaryButtonStyle } = require("%ui/components/textButton.nut")
 let { disableChangeResearch } = require("%enlist/campaigns/campaignConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let textarea = @(text, color) {
   size = [flex(), SIZE_TO_CONTENT]
@@ -98,7 +99,8 @@ let function changeResearchMsgbox(newResearch) {
     if (changeResearchBalance.value > 0 || isCurrencyAvailable)
       res.append({ text = loc("research/applyChangeResearch"), customStyle = primaryButtonStyle,
         action = @() doChangeResearch(curResearch.research_id, research_id) })
-    res.append({ text = loc("Cancel"), isCancel = true })
+    res.append({ text = loc("Cancel"), isCancel = true,
+      customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     return res
   })
 

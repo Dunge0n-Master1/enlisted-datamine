@@ -7,6 +7,7 @@ let { showMessageWithContent } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let checkbox = require("%ui/components/checkbox.nut")
 let { settings } = require("%enlist/options/onlineSettings.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const SAVE_ID = "seen/multiresearchWarning"
 
@@ -69,6 +70,7 @@ let function multiresearchWarningMsgbox(research, pageResearches, unlockAction) 
       }
       { text = loc("Cancel")
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

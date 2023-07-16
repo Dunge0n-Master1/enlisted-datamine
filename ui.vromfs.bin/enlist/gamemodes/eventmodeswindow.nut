@@ -67,7 +67,6 @@ let { horGap, emptyGap } = require("%enlist/components/commonComps.nut")
 let premiumWidgetUi = require("%enlist/currency/premiumWidgetUi.nut")
 let currenciesWidgetUi = require("%enlist/currency/currenciesWidgetUi.nut")
 let armyCurrencyUi = require("%enlist/shop/armyCurrencyUi.nut")
-let closeBtnBase = require("%ui/components/closeBtn.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let { mkHotkey } = require("%ui/components/uiHotkeysHint.nut")
 let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
@@ -261,8 +260,8 @@ let function eventsList() {
   }
 }
 
-let closeBtn = closeBtnBase({ onClick = @() isEventModesOpened(false) })
-let backBtn = Bordered(loc("BACK"), @() isEventModesOpened(false), { margin = 0 })
+let backBtn = Bordered(loc("BACK"), @() isEventModesOpened(false), { margin = 0,
+  hotkeys = [[$"^{JB.B} | Esc"]] })
 
 let events = @(){
   watch = selEvent
@@ -551,7 +550,6 @@ let topBar = {
         emptyGap
         armyCurrencyUi
         emptyGap
-        closeBtn
       ]
     }
   ]

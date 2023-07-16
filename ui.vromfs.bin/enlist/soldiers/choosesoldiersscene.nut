@@ -123,7 +123,7 @@ let function chooseSoldiersScene() {
     })
   }
 
-  let buttonOk = Flat(loc("Ok"), @() applySoldierManage(closeChooseSoldiersWnd),
+  let buttonOk = Flat(loc("Close"), @() applySoldierManage(closeChooseSoldiersWnd),
     { margin = 0, hplace = ALIGN_RIGHT, hotkeys = [[$"^{JB.B} | Esc"]] })
 
   let getMoveDirSameList = @(idx, dropIdx, targetIdx)

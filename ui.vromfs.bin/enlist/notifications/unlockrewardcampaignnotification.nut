@@ -9,6 +9,7 @@ let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { curCampaign, setCurCampaign } = require("%enlist/meta/curCampaign.nut")
 let { showMsgbox } = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let waitForUnlockReward = Watched({})
@@ -50,6 +51,7 @@ let function showUnlockRewardMsgBox(id, lastRewardedStage) {
       }
       { text = loc("Cancel")
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

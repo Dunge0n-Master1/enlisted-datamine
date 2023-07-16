@@ -39,6 +39,7 @@ let { focusResearch, findResearchTrainClass, hasResearchSquad
 let { soldierClasses } = require("%enlSqGlob/ui/soldierClasses.nut")
 let { curUpgradeDiscount, disablePerkReroll } = require("%enlist/campaigns/campaignConfig.nut")
 let { Notifiers, markNotifierSeen } = require("%enlist/tutorial/notifierTutorial.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 local slotNumber = 0
 let waitingSpinner = spinner(hdpx(20))
@@ -340,6 +341,7 @@ let function onPerksChoice(soldierGuid, perks, tierIdx, slotIdx) {
       { text = loc("Cancel")
         isCurrent = isDrop
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

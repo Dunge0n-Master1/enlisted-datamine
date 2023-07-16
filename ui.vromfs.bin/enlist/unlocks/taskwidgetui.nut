@@ -127,7 +127,10 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
                         text = loc("bp/buyBattlePass")
                         action = eliteBattlePassWnd
                       }
-                      { text = loc("Cancel"), isCancel = true}
+                      {
+                        text = loc("Cancel"), isCancel = true,
+                        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
+                      }
                     ]
                   })
             acc.append(mkUnlockSlot({

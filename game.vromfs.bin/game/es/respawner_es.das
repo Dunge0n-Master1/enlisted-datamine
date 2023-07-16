@@ -336,7 +336,7 @@ def respawner_es(info : UpdateStageInfoAct;
       respawnForcedByQueue = true
 
   if respawner__respRequested || respawnForcedByQueue
-    if respawner__paratroopersSquad && !respawner__isFirstSpawn
+    if respawner__paratroopersChooserOn && !respawner__isFirstSpawn
       respawner__canRespawnTime = respawner__respStartTime + squads__respawnPenaltyTime
     respawner__respEndTime = respawner__canRespawnTime
   else

@@ -44,7 +44,7 @@ let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
-
+let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
 const SHOP_SECTION = "SHOP"
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
@@ -380,8 +380,10 @@ let function getBuyRequirementError(shopItem) {
 
 let curAvailableShopItems = Computed(function() {
   let { level = 0 } = curArmyData.value
+  let isMeNewbie = isNewbie.value
   return curArmyShopItems.value.filter(@(item) (item?.offerContainer ?? "") == ""
-    && item?.itemCost
+    && (((item?.curItemCost ?? {}).len() > 0)
+      || (isMeNewbie && (item?.curShopItemPrice.price ?? 0) > 0))
     && (item?.requirements.armyLevel ?? 0) <= level
   )
 })
@@ -760,7 +762,6 @@ return {
   getAllChildItems
   hasGoldValue
   findSquadShopItem
-  curAvailableShopItems
   notOpenedShopItems
   requestedCratesContent
   isItemsShopOpened

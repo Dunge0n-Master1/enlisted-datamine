@@ -18,6 +18,7 @@ let { getClosestResearch, focusResearch } = require("%enlist/researches/research
 let { armiesResearches, allResearchStatus, RESEARCHED, GROUP_RESEARCHED
 } = require("%enlist/researches/researchesState.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let curSquadSoldierIdx = Watched(null)
@@ -487,7 +488,7 @@ let function applySoldierManage(cb = @() null) {
       text = msg
       buttons = [
         { text = loc("Ok"), action = @() applySoldierManageImpl(cb), isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }

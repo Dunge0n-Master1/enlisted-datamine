@@ -19,6 +19,7 @@ let { curCampItems, curSquadSoldiersInfo } = require("%enlist/soldiers/model/sta
 let { isLinkedTo } = require("%enlSqGlob/ui/metalink.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let { logerr } = require("dagor.debug")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let isCustomizationWndOpened = Watched(false)
 let isPurchasing = Watched(false)
@@ -463,7 +464,7 @@ let function saveOutfit() {
             self()
           },
           isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
     return

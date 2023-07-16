@@ -10,6 +10,7 @@ let { unlockedCampaigns } = require("%enlist/meta/campaigns.nut")
 let textInput = require("%ui/components/textInput.nut")
 let userInfo = require("%enlSqGlob/userInfo.nut")
 let { bigPadding } = require("%enlSqGlob/ui/viewConst.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 local roomParams = Watched({})
 let passwordMsgBoxUid = "room-password"
@@ -88,6 +89,7 @@ let function showPasswordMsgbox(params){
       }
       {
         text = loc("Cancel")
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

@@ -10,6 +10,7 @@ let { curUnfinishedBattleTutorial } = require("%enlist/tutorial/battleTutorial.n
 let canDisplayOffers = require("%enlist/canDisplayOffers.nut")
 let gameLauncher = require("%enlist/gameLauncher.nut")
 let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 const WND_UID = "tutorial_available_window"
 
@@ -86,6 +87,7 @@ let function show(tutorial) {
         text = loc("Cancel")
         action = @() storeShown(tutorial)
         isCancel = true
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }
       }
     ]
   })

@@ -16,14 +16,10 @@ require math
 require math.random
 require DagorMathUtils
 require DagorMath
-require DagorRandom
 require BehNodes
 require Grid
-require GridCollision
 require pathfinder
 require Dacoll
-require RendInst
-require SmokeOccluder
 require DngWalkerai
 require enlisted.events_enlisted
 require HumanPhys
@@ -45,7 +41,6 @@ require enlisted.game.es.ai.ai_covers_common
 require enlisted.game.es.fortifications_build_common
 require walkerai
 require game.es.squad_order_common
-require math.linear
 
 
 [beh_node(name="isInConcussion")]
@@ -1569,20 +1564,6 @@ class IsSquadLeaderMoving : BehNodeAdapter
             res = EBehResult ER_SUCCESS
     return res
 
-[beh_node(name="isAgressiveBehaviour")]
-class IsAgressiveBehaviour : BehNodeAdapter
-  def override update(dt : float) : EBehResult
-    var res = EBehResult ER_FAILED
-
-    let agentEid = beh_tree_eid(owner)
-
-    query(agentEid) <| $ [es] (squad_member__squad : EntityId)
-      query(squad_member__squad) <| $ [es] (squad__squadBehaviour : int)
-        if squad__squadBehaviour == int(SquadBehaviour ESB_AGRESSIVE)
-          res = EBehResult ER_SUCCESS
-
-    return res
-
 [beh_node(name="wasAttackedRecently")]
 class WasAttackedRecently : BehNodeAdapter
   targetEidParam : int = -1
@@ -2066,9 +2047,9 @@ class MoveByDir : BehNodeAdapter
   curTime : float = 0.
 
   endPosParam : int = -1
+  lookPosParam : int = -1
 
   distThresholdSq : float = 0.25
-  rotateToMoveDir : bool = true
 
   def override loadFromBlk(var data : DataBlock) : void
     duration = data |> datablock_getReal("duration", duration)
@@ -2076,9 +2057,10 @@ class MoveByDir : BehNodeAdapter
     let distThreshold = data |> datablock_getReal("distThreshold", 0.5)
     distThresholdSq = distThreshold * distThreshold
 
-    rotateToMoveDir = data |> datablock_getBool("rotateToMoveDir", rotateToMoveDir)
+    endPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPos", ""), float3())
 
-    endPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "endPos", ""), float3(0., 0., 0.))
+    if datablock_find_param(data, "lookPosParam") >= 0
+      lookPosParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lookPosParam", ""), float3())
 
   def override init()
     curTime = get_sync_time()
@@ -2089,23 +2071,27 @@ class MoveByDir : BehNodeAdapter
                                           transform : float3x4)
       assume phys = human_net_phys.phys
 
-      let startPos = transform[3]
+      let curPos = transform[3]
       let endPos = owner.blackBoard |> datablock_getPoint3(endPosParam)
 
-      if length_sq(endPos - startPos) < distThresholdSq
+      let deltaPos = endPos - curPos
+      if length_sq(deltaPos) < distThresholdSq
         phys.producedCT |> human_control_state_set_walk_speed(0.)
         phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, false)
-
         res = EBehResult ER_SUCCESS
         return
 
-      let dir = normalize(endPos - startPos)
+      let dir = normalize(deltaPos)
 
-      if rotateToMoveDir
-        phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(dir.x, 0., dir.z)))
-        phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(dir.x, 0., dir.z)))
+      var lookDir = dir
+      if lookPosParam >= 0
+        let lookPos = owner.blackBoard |> datablock_getPoint3(lookPosParam)
+        lookDir = normalize(lookPos - curPos)
 
-      phys.producedCT |> human_control_state_set_world_walk_dir(dir.xz, dir.xz)
+      phys.producedCT |> human_control_state_set_wish_shoot_dir(normalize(float3(lookDir.x, 0., lookDir.z)))
+      phys.producedCT |> human_control_state_set_wish_look_dir(normalize(float3(lookDir.x, 0., lookDir.z)))
+
+      phys.producedCT |> human_control_state_set_world_walk_dir(dir.xz, lookDir.xz)
       phys.producedCT |> human_control_state_set_walk_speed(1.)
 
       phys.producedCT |> human_control_state_set_control_bit(HumanPhysControlType HCT_SPRINT, true)
@@ -2753,51 +2739,6 @@ class OnceUntilResetNode : BehNodeAdapter
     isDone = true
     return EBehResult ER_SUCCESS
 
-[beh_node(name="startAim")]
-class StartAim : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    query(beh_tree_eid(owner)) <| $ [es] (var human_net_phys : HumanActor&)
-      assume ct = human_net_phys.phys.producedCT
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, true)
-    return EBehResult ER_SUCCESS
-
-[beh_node(name="stopAim")]
-class StopAim : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    query(beh_tree_eid(owner)) <| $ [es] (var human_net_phys : HumanActor&)
-      assume ct = human_net_phys.phys.producedCT
-      ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_AIM, false)
-    return EBehResult ER_SUCCESS
-
-[beh_node(name="canHoldWeaponInVehicle")]
-class CanHoldWeaponInVehicle : BehNodeAdapter
-
-  def override update(dt : float) : EBehResult
-    return (get_bool(beh_tree_eid(owner), "human_vehicle__canHoldWeapon") ?? false) ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
-
-[beh_node(name="checkReloadWeapon")]
-class CheckReloadWeapon : BehNodeAdapter
-  checkOnly : bool = false
-
-  def override loadFromBlk(var data : DataBlock) : void
-    checkOnly = data |> datablock_getBool("checkOnly", checkOnly)
-
-  def override update(dt : float) : EBehResult
-    let ownerEid = beh_tree_eid(owner)
-    let reload = check_human_reload(ownerEid)
-    if checkOnly
-      return reload != 0 ? EBehResult ER_SUCCESS : EBehResult ER_FAILED
-    if reload > 0
-      return EBehResult ER_RUNNING
-    if reload < 0
-      query(ownerEid) <| $ [es] (human_weap__currentGunEid : EntityId)
-        let atTime = get_sync_time()
-        sendEventImmediate(ownerEid, [[CmdRequestReload atTime=atTime, gunEid=human_weap__currentGunEid]])
-      return EBehResult ER_RUNNING
-    return EBehResult ER_SUCCESS
-
 [beh_node(name="findDangerousBomb")]
 class FindDangerousBomb : BehNodeAdapter
   bombDangerousRadius : float = 15.
@@ -2970,229 +2911,3 @@ class IsOnNavmesh : BehNodeAdapter
     if project_to_nearest_navmesh_point(pos, extents) && abs(pos.y - agent.pos.y) < 0.5
       return EBehResult ER_SUCCESS
     return EBehResult ER_FAILED
-
-[beh_node(name="decideOnAttackTarget")]
-class DecideOnAttackTarget : BehNodeAdapter
-  checkOnly : bool = false
-
-  targetEidParam = -1
-  targetSeeTimeParam = -1
-  targetAcceptTime : float = 0.3
-
-  lastTargetEidParam = -1
-  lastTargetSeenParam = -1
-  lastTargetTimeParam = -1
-  forgetTargetTime : float = 7.5
-
-  hunchLevelParam = -1
-  prevHunchTimeParam = -1
-  hunchTimeForDist1 = float3(3.5, 5.0, 60.)
-  hunchTimeForDist2 = float3(1.0, 3.5, 25.)
-  hunchTimeForDist3 = float3(0.5, 1.0, 2.)
-  hunchDistDiv12 : float = 0.0
-  hunchDistDiv23 : float = 0.0
-
-  stillBackTimeRange = float2(0.5, 1.5)
-  stillSideTimeRange = float2(0.5, 1.0)
-  turnExactBackChance = 0.5
-  turnExactSideChance = 0.8
-
-  followTurnAngleRange = float2(50.0, 70.0)
-  sideTurnAngleRange = float2(70.0, 110.0)
-  backTurnAngleRange = float2(110.0, 150.0)
-  deviateExactAngle : float = 10.0
-  backAngle : float = 135.0
-
-  focusBackTimeRange = float2(0.3, 0.5)
-  focusSideTimeRange = float2(0.25, 0.4)
-  focusAheadTimeRange = float2(0.2, 0.3)
-  focusProneAddTimeRange = float2(0.2, 0.5)
-  refocusTimeRange = float2(0.1, 0.2)
-
-  stillTimeOutParam = -1
-  turnAngleOutParam = -1
-  focusTimeOutParam = -1
-
-  def override loadFromBlk(data : DataBlock) : void
-    checkOnly = datablock_getBool(data, "checkOnly", checkOnly)
-
-    targetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetParam", ""), 0)
-    targetSeeTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetSeeTimeParam", ""), -1.0)
-
-    lastTargetEidParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetEidParam", "lastTargetEid"), 0)
-    lastTargetSeenParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetSeenParam", "lastTargetSeen"), false)
-    lastTargetTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "lastTargetTimeParam", "lastTargetTime"), 0.0)
-
-    hunchLevelParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "hunchLevelParam", "hunchLevel"), 0.0)
-    prevHunchTimeParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "prevHunchTimeParam", "prevHunchTime"), -1.0)
-    hunchDistDiv12 = safeinv(hunchTimeForDist1.z - hunchTimeForDist2.z)
-    hunchDistDiv23 = safeinv(hunchTimeForDist2.z - hunchTimeForDist3.z)
-
-    followTurnAngleRange *= DEG_TO_RAD
-    sideTurnAngleRange *= DEG_TO_RAD
-    backTurnAngleRange *= DEG_TO_RAD
-    deviateExactAngle *= DEG_TO_RAD
-    backAngle *= DEG_TO_RAD
-
-    stillTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "stillTimeOutParam", ""), 0.0)
-    turnAngleOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "turnAngleOutParam", ""), 0.0)
-    focusTimeOutParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "focusTimeOutParam", ""), 0.0)
-
-  def override update(dt : float) : EBehResult
-    var agent = beh_tree_entity_agent(*owner)
-
-    let targetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(targetEidParam)))
-    if targetEid == INVALID_ENTITY_ID
-      return EBehResult ER_FAILED
-
-    var lastTargetEid = EntityId(uint(owner.blackBoard |> datablock_getInt(lastTargetEidParam)))
-    var lastTargetSeen = owner.blackBoard |> datablock_getBool(lastTargetSeenParam)
-    let lastTargetTime = owner.blackBoard |> datablock_getReal(lastTargetTimeParam)
-
-    let curTime = get_sync_time()
-    if curTime - lastTargetTime  > forgetTargetTime
-      lastTargetEid = INVALID_ENTITY_ID
-      lastTargetSeen = false
-
-    let targetSeeTime = owner.blackBoard |> datablock_getReal(targetSeeTimeParam)
-    if targetSeeTime >= 0.0 && curTime - targetSeeTime >= targetAcceptTime
-      var focusTime = 0.0
-      if targetEid != lastTargetEid
-        owner.blackBoard |> set(lastTargetEidParam, int(uint(targetEid)))
-        focusTime = rnd_float(focusAheadTimeRange.x, focusAheadTimeRange.y)
-      elif !lastTargetSeen
-        focusTime = rnd_float(refocusTimeRange.x, refocusTimeRange.y)
-
-      query(targetEid) <| $ [es] (human_net_phys : HumanActor)
-        if human_net_phys.phys.currentState.isCrawl
-          focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
-
-      if !checkOnly
-        owner.blackBoard |> set(lastTargetSeenParam, true)
-        owner.blackBoard |> set(lastTargetTimeParam, curTime)
-
-        owner.blackBoard |> set(prevHunchTimeParam, -1.0)
-        owner.blackBoard |> set(hunchLevelParam, 0.0)
-
-        owner.blackBoard |> set(stillTimeOutParam, 0.0)
-        owner.blackBoard |> set(turnAngleOutParam, 0.0)
-        owner.blackBoard |> set(focusTimeOutParam, focusTime)
-      return EBehResult ER_SUCCESS
-
-    if !checkOnly
-      owner.blackBoard |> set(lastTargetSeenParam, false)
-
-    var hasTargetPos = false
-    var targetPos = float3()
-    query(targetEid) <| $ [es] (transform : float3x4)
-      hasTargetPos = true
-      targetPos = transform[3]
-
-    var targetCrawl = false
-    query(targetEid) <| $ [es] (human_net_phys : HumanActor)
-      targetCrawl = human_net_phys.phys.currentState.isCrawl
-
-    if targetEid == lastTargetEid
-      var turnAngle = 0.0
-      if hasTargetPos && lastTargetSeen
-        let delta = targetPos - agent.pos
-        let angleTo = atan2(delta.z, delta.x)
-        let angleDir = atan2(agent.shootDir.z, agent.shootDir.x)
-        turnAngle = rnd_float(followTurnAngleRange.x, followTurnAngleRange.y)
-        if angle_diff(angleDir, angleTo) < 0.0
-          turnAngle = -turnAngle
-      else
-        turnAngle = rnd_float(-PI, PI)
-
-      var focusTime = rnd_float(refocusTimeRange.x, refocusTimeRange.y)
-      if targetCrawl
-        focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
-
-      if !checkOnly
-        owner.blackBoard |> set(stillTimeOutParam, 0.0)
-        owner.blackBoard |> set(turnAngleOutParam, turnAngle)
-        owner.blackBoard |> set(focusTimeOutParam, focusTime)
-      return EBehResult ER_SUCCESS
-
-    let dist = hasTargetPos ? distance(targetPos, agent.pos) : 0.0
-    var time = 0.0
-    if dist > hunchTimeForDist1.z
-      time = rnd_float(hunchTimeForDist1.x, hunchTimeForDist1.y)
-    elif dist > hunchTimeForDist2.z
-      let ratio = (dist - hunchTimeForDist2.z) * hunchDistDiv12
-      let time1 = rnd_float(hunchTimeForDist1.x, hunchTimeForDist1.y)
-      let time2 = rnd_float(hunchTimeForDist2.x, hunchTimeForDist2.y)
-      time = lerp(time2, time1, ratio)
-    elif dist > hunchTimeForDist3.z
-      let ratio = (dist - hunchTimeForDist3.z) * hunchDistDiv23
-      let time2 = rnd_float(hunchTimeForDist2.x, hunchTimeForDist2.y)
-      let time3 = rnd_float(hunchTimeForDist3.x, hunchTimeForDist3.y)
-      time = lerp(time3, time2, ratio)
-    else
-      time = rnd_float(hunchTimeForDist3.x, hunchTimeForDist3.y)
-
-    let prevHunchTime = owner.blackBoard |> datablock_getReal(prevHunchTimeParam)
-    let deltaTime = (prevHunchTime >= 0.0) ? (curTime - prevHunchTime) : 0.0
-    let hunchAdd = time > 0.0 ? (deltaTime / time) : 1.0
-    let wasHunchLevel = owner.blackBoard |> datablock_getReal(hunchLevelParam)
-    var newHunchLevel = min(1.0, wasHunchLevel + hunchAdd)
-    if newHunchLevel != wasHunchLevel && !checkOnly
-      owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
-    if prevHunchTime != curTime && !checkOnly
-      owner.blackBoard |> set(prevHunchTimeParam, curTime)
-
-    if newHunchLevel < 1.0
-      return EBehResult ER_FAILED // ignore target until hunchLevel >= 1.0
-
-    var stillTime = 0.0
-    var turnAngle = 0.0
-    var focusTime = 0.0
-
-    if hasTargetPos
-      let delta = targetPos - agent.pos
-      let angleTo = atan2(delta.z, delta.x)
-      let angleDir = atan2(agent.shootDir.z, agent.shootDir.x)
-
-      let angleDiff = angle_diff(angleDir, angleTo)
-      if abs(angleDiff) > backAngle
-        stillTime = rnd_float(stillBackTimeRange.x, stillBackTimeRange.y)
-        focusTime = rnd_float(focusBackTimeRange.x, focusBackTimeRange.y)
-        if rnd_float(0.0, 1.0) < turnExactBackChance
-          turnAngle = angleDiff + rnd_float(-deviateExactAngle, deviateExactAngle)
-        else
-          turnAngle = rnd_float(backTurnAngleRange.x, backTurnAngleRange.y)
-          if angleDiff < 0.0
-            turnAngle = -turnAngle
-          if rnd_float(0.0, 1.0) < 0.5
-            turnAngle = -turnAngle
-      else
-        stillTime = rnd_float(stillSideTimeRange.x, stillSideTimeRange.y)
-        focusTime = rnd_float(focusSideTimeRange.x, focusSideTimeRange.y)
-        if rnd_float(0.0, 1.0) < turnExactSideChance
-          turnAngle = angleDiff + rnd_float(-deviateExactAngle, deviateExactAngle)
-        else
-          turnAngle = rnd_float(sideTurnAngleRange.x, sideTurnAngleRange.y)
-          if angleDiff < 0.0
-            turnAngle = -turnAngle
-          if rnd_float(0.0, 1.0) < 0.5
-            turnAngle = -turnAngle
-    else
-      // fallback (target with no transform?)
-      stillTime = 0.0
-      turnAngle = rnd_float(-PI, PI)
-      focusTime = rnd_float(focusBackTimeRange.x, focusBackTimeRange.y)
-
-    if focusTime > 0.0 && targetCrawl
-      focusTime += rnd_float(focusProneAddTimeRange.x, focusProneAddTimeRange.y)
-
-    if lastTargetEid != INVALID_ENTITY_ID
-      owner.blackBoard |> set(lastTargetEidParam, int(uint(INVALID_ENTITY_ID))) // hunch searching, not target yet
-
-    if !checkOnly
-      newHunchLevel = 0.5
-      owner.blackBoard |> set(hunchLevelParam, newHunchLevel)
-
-      owner.blackBoard |> set(stillTimeOutParam, stillTime)
-      owner.blackBoard |> set(turnAngleOutParam, turnAngle)
-      owner.blackBoard |> set(focusTimeOutParam, focusTime)
-    return EBehResult ER_SUCCESS

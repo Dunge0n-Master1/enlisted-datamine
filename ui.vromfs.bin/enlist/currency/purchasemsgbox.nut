@@ -14,6 +14,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let { smallPadding } = require("%enlSqGlob/ui/viewConst.nut")
 let { purchaseButtonStyle } = require("%enlSqGlob/ui//buttonsStyle.nut")
 let { mkCurrency } = require("currenciesComp.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let defGap = fsh(3)
@@ -139,7 +140,8 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
           hotkeys = [[ "^J:Y | Enter", { description = {skip = true}} ]]
         }.__update(purchaseButtonStyle)
       }]
-      .extend(alwaysShowCancel ? [{ text = loc("Cancel") }] : [])
+      .extend(alwaysShowCancel ? [{ text = loc("Cancel"),
+        customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }] : [])
       .extend(additionalButtons)
 
     let res = []
@@ -159,7 +161,7 @@ local function show(price, currencyId, purchase, fullPrice = null, title = "", p
       })
     res.extend(additionalButtons)
     if (alwaysShowCancel || purchaseCurrency == null)
-      res.append({ text = loc("Cancel") })
+      res.append({ text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     return res
   })
 

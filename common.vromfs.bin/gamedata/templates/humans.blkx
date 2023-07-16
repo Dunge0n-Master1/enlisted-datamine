@@ -2404,6 +2404,11 @@ base_human_weap{
     value:b=no
   }
 
+  "human_weap__lastTimeInfiniteAmmoEnabled:r"{
+    _tags:t="server"
+    value:r=0.0
+  }
+
   "human_weap__weapTemplates:object"{
     primary:t=""
     secondary:t=""

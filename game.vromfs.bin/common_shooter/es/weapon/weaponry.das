@@ -686,7 +686,6 @@ def on_projectile_hit_scene(projectile_eid : EntityId;
     damage *= get_float(gunEid, "gun__kineticDamageMult") ?? 1.0
 
     let pos = prev_pos + dir * water_len
-    assert(!is_nan(pos))
     let riHandle = ri_desc.riExtraHandle
     if ri_desc.isValid
       let ownerTeam = get_int(ownerEid, "team") ?? TEAM_UNASSIGNED

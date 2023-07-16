@@ -5,6 +5,7 @@ let msgbox = require("%enlist/components/msgbox.nut")
 let colorize = require("%ui/components/colorize.nut")
 let { MsgMarkedText } = require("%ui/style/colors.nut")
 let { primaryFlatButtonStyle } = require("%enlSqGlob/ui/buttonsStyle.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let defGap = fsh(3)
 
@@ -44,7 +45,7 @@ let function show(
         hotkeys = [[ "^J:Y | Enter | Space", { description = {skip = true}} ]]
       }.__merge(primaryFlatButtonStyle)
     }]
-    .append({ text = loc("Cancel") })
+    .append({ text = loc("Cancel"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } })
     .extend(additionalButtons)
   }
   msgbox.showWithCloseButton(params)

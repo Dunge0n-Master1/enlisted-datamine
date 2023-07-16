@@ -39,6 +39,7 @@ let { serverClusterBtn } = require("%enlist/gameModes/gameModesWnd/serverCluster
 let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
 let defSceneWrap = require("%enlist/defSceneWrap.nut")
 let { commonWndParams, wndHeader } = require("%enlist/navigation/commonWndParams.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 let fbImageByCampaign = {
   berlin = "ui/loading_berlin_26.avif"
@@ -313,7 +314,7 @@ gameModeOnClickAction = function(gameMode) {
               ? leaveSquadSilent(@() gameModeOnClickAction(gameMode))
               : leaveSquad(@() gameModeOnClickAction(gameMode))
           }
-          { text = loc("Cancel"), isCancel = true}
+          { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }}
         ]
       })
     return

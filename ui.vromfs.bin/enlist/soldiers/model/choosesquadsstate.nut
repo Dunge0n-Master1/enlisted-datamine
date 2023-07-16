@@ -20,6 +20,7 @@ let { sendBigQueryUIEvent } = require("%enlist/bigQueryEvents.nut")
 let armiesPresentation = require("%enlSqGlob/ui/armiesPresentation.nut")
 let squadsPresentation = require("%enlSqGlob/ui/squadsPresentation.nut")
 let { curCampaignAccessItem, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
+let JB = require("%ui/control/gui_buttons.nut")
 
 
 let justGainSquadId = Watched(null)
@@ -372,7 +373,7 @@ let function applyAndClose() {
       text = loc("msg/notFullSquadsAtApply")
       buttons = [
         { text = loc("Ok"), action = applyAndCloseImpl, isCurrent = true }
-        { text = loc("Cancel"), isCancel = true }
+        { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
       ]
     })
 }

@@ -316,7 +316,7 @@ let function openDisposeItemMsg(currentItem, disposeData) {
             hotkeys = [[ "^J:Y | Enter | Space" ]]
           }.__update(primaryFlatButtonStyle)
         }
-    { text = loc("Cancel"), isCancel = true }
+    { text = loc("Cancel"), isCancel = true, customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
   ]
 
   local children = mkItemWithMods({

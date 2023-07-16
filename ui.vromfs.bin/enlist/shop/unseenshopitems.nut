@@ -11,13 +11,15 @@ enum SeenMarks {
   SEEN = 2
 }
 
+let seenData = Computed(@() settings.value?[SEEN_ID] ?? {})
+
 let function applyCompatibility() {
   if (OLD_SEEN_ID not in settings.value)
     return
 
-  let seenData = settings.value[OLD_SEEN_ID]
+  let seenOld = settings.value[OLD_SEEN_ID]
   let res = {}
-  foreach (armyId, armySeenData in seenData) {
+  foreach (armyId, armySeenData in seenOld) {
     if (type(armySeenData) != "table")
       continue
 
@@ -45,45 +47,44 @@ settings.subscribe(function(v) {
 let getSeenStatus = @(val) val == null ? SeenMarks.NOT_SEEN : val
 
 let seenShopItems = Computed(function() {
-  let res = { opened = {}, seen = {} }
-  foreach(armyId, armySeen in settings.value?[SEEN_ID] ?? {})
-    foreach(key, seenData in armySeen) {
-      if (getSeenStatus(seenData) != SeenMarks.NOT_SEEN) {
-        if (armyId not in res.opened)
-          res.opened[armyId] <- {}
-        res.opened[armyId][key] <- true
+  let opened = {}
+  let seen = {}
+  foreach(armyId, armySeen in seenData.value)
+    foreach(key, status in armySeen) {
+      if (status != SeenMarks.NOT_SEEN) {
+        if (armyId not in opened)
+          opened[armyId] <- {}
+        opened[armyId][key] <- true
       }
-      if (getSeenStatus(seenData) == SeenMarks.SEEN) {
-        if (armyId not in res.seen)
-          res.seen[armyId] <- {}
-        res.seen[armyId][key] <- true
+      if (status == SeenMarks.SEEN) {
+        if (armyId not in seen)
+          seen[armyId] <- {}
+        seen[armyId][key] <- true
       }
     }
-  return res
+  return { opened, seen }
 })
 
-let function markShopItemSeen(armyId, shopItem) {
-  if (getSeenStatus(seenShopItems.value.seen?[armyId][shopItem]) != SeenMarks.SEEN)
-    settings.mutate(function(set) {
-      let saved = clone (set?[SEEN_ID] ?? {})
-      let armySaved = clone (saved?[armyId] ?? {})
-      armySaved[shopItem] <- SeenMarks.SEEN
-      saved[armyId] <- armySaved
-      set[SEEN_ID] <- saved
-    })
+let function changeStatus(status, armyId, itemGuids) {
+  let update = {}
+  foreach (guid in typeof itemGuids == "array" ? itemGuids : [itemGuids])
+    if (getSeenStatus(seenData.value?[armyId][guid]) != status)
+      update[guid] <- status
+  if (update.len() == 0)
+    return
+
+  settings.mutate(function(set) {
+    let saved = clone set?[SEEN_ID] ?? {}
+    let armySaved = clone saved?[armyId] ?? {}
+    armySaved.__update(update)
+    saved[armyId] <- armySaved
+    set[SEEN_ID] <- saved
+  })
 }
 
-let function markShopItemOpened(armyId, itemGuids) {
-  if (itemGuids.len() > 0)
-    settings.mutate(function(set) {
-      let saved = clone (set?[SEEN_ID] ?? {})
-      let armySaved = clone (saved?[armyId] ?? {})
-      foreach(guid in itemGuids)
-        armySaved[guid] <- SeenMarks.OPENED
-      saved[armyId] <- armySaved
-      set[SEEN_ID] <- saved
-    })
-}
+let markShopItemSeen = @(armyId, itemGuids) changeStatus(SeenMarks.SEEN, armyId, itemGuids)
+
+let markShopItemOpened = @(armyId, itemGuids) changeStatus(SeenMarks.OPENED, armyId, itemGuids)
 
 let function excludeShopItemSeen(armyId, excludeList) {
   settings.mutate(function(set) {

@@ -114,7 +114,7 @@ let mkItemByTypeMap = {
     let stateFlags = Watched(0)
     return function() {
       let sf = stateFlags.value
-      let textColor = txtColor(sf, false)
+      let textColor = txtColor(sf)
       let { count = 1 } = item
       return {
         watch = stateFlags
