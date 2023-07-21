@@ -193,7 +193,7 @@ entity{
 entity{
   _template:t="camera_scenic_place_dof"
   fov:r=35.0
-  transform:m=[[-0.45126, 0.0, 0.892393] [0.0645641, 0.997379, 0.0326484] [-0.890054, 0.0723495, -0.450077] [-490.353, 0.633665, 94.8325]]
+  transform:m=[[-0.398938, 0.0, 0.916978] [-0.0184884, 0.999797, -0.00804351] [-0.916791, -0.0201623, -0.398857] [-489.3, 1.22488, 94.6]]
   scene:t="squad"
   dof__on:b=yes
   dof__farDofAmountPercent:r=0.002
@@ -268,8 +268,8 @@ entity{
 
 entity{
   _template:t="camera_scenic_place_dof"
-  fov:r=55.0
-  transform:m=[[-0.634233, 0.0, 0.773142] [0.0468973, 0.998159, 0.0384713] [-0.771719, 0.060658, -0.633065] [-173.723, 0.657711, -371.875]]
+  fov:r=65.0
+  transform:m=[[-0.593051, 0.0, 0.805165] [-0.0201828, 0.999686, -0.0148658] [-0.804912, -0.0250667, -0.592865] [-173.546, 1.03203, -371.99]]
   scene:t="squad_plane"
   dof__on:b=no
   dof__farDofAmountPercent:r=0.0011
@@ -329,7 +329,7 @@ entity{
 entity{
   _template:t="camera_scenic_place_dof"
   fov:r=35.0
-  transform:m=[[-0.474428, 0.0, 0.880294] [0.0405035, 0.998941, 0.0218291] [-0.879362, 0.0460114, -0.473926] [-490.115, 0.793549, 95.0028]]
+  transform:m=[[-0.427295, 0.0, 0.904112] [-0.018229, 0.999797, -0.00861524] [-0.903929, -0.0201623, -0.427208] [-489.901, 1.21149, 95.1376]]
   scene:t="squad_bike"
   dof__on:b=yes
   dof__farDofAmountPercent:r=0.002
@@ -384,7 +384,7 @@ entity{
 entity{
   _template:t="camera_scenic_place_dof"
   fov:r=45.0
-  transform:m=[[-0.565178, 0.0, 0.824969] [0.025336, 0.999528, 0.0173574] [-0.82458, 0.0307115, -0.564911] [-172.903, -2.93599, 248.26]]
+  transform:m=[[-0.544892, 0.0, 0.838506] [-0.00567318, 0.999977, -0.00368664] [-0.838487, -0.00676581, -0.544879] [-172.313, -2.71304, 248.572]]
   scene:t="squad_plane_floating"
   dof__on:b=no
   dof__farDofAmountPercent:r=0.0
@@ -400,9 +400,9 @@ entity{
 entity{
   _template:t="camera_scenic_place_dof"
   scene:t="soldiers"
-  fov:r=45.0
+  fov:r=55.0
   transform:m=[[0.576518, 0.0, 0.817084] [-0.00137021, 0.999999, 0.000966795] [-0.817083, -0.00167696, 0.576517] [-186.526, 0.913543, -219.212]]
-  menu_cam__offset:p3=-0.75, 0.9207, -4.3
+  menu_cam__offset:p3=-0.65, 0.9207, -4.3
   menu_cam__offsetMult:p3=1.0, 1.0, 1.0
   menu_cam__limitYaw:p2=-180.0, 180.0
   menu_cam__limitPitch:p2=0.0, 0.0
@@ -421,16 +421,16 @@ entity{
 entity{
   _template:t="camera_scenic_place_dof"
   scene:t="soldiers_quarters"
-  fov:r=45.0
-  transform:m=[[0.715543, 0.0, 0.698568] [-0.0380084, 0.998519, 0.0389319] [-0.697534, -0.0544089, 0.714483] [-186.826, 1.3588, -219.3]]
-  menu_cam__offset:p3=-0.0, 1.07, -3.75
+  fov:r=55.0
+  transform:m=[[0.576518, 0.0, 0.817084] [-0.00137021, 0.999999, 0.000966795] [-0.817083, -0.00167696, 0.576517] [-186.526, 0.913543, -219.212]]
+  menu_cam__offset:p3=-1.1, 0.9207, -4.3
   menu_cam__offsetMult:p3=1.0, 1.0, 1.0
   menu_cam__limitYaw:p2=-180.0, 180.0
   menu_cam__limitPitch:p2=0.0, 0.0
   menu_cam__shouldRotateTarget:b=no
   dof__on:b=yes
-  dof__farDofAmountPercent:r=0.001
-  dof__farDofStart:r=8.0
+  dof__farDofAmountPercent:r=0.1
+  dof__farDofStart:r=9.0
   dof__farDofEnd:r=300.0
   dof__bokehShape_kernelSize:r=2.8
   dof__bokehShape_bladesCount:r=9.0

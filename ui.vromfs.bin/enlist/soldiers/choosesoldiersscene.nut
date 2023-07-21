@@ -45,6 +45,8 @@ let { bigDismissBtn } = require("%enlist/soldiers/soldierDismissBtn.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
+let { deselectSoldier } = require("model/squadInfoState.nut")
+
 
 const NO_SOLDIER_SLOT_IDX = -1
 let unseenIcon = blinkUnseenIcon(0.7, msgHighlightedTxtColor, "th-large")
@@ -581,8 +583,8 @@ let isOpened = keepref(Computed(@() soldiersSquad.value != null))
 
 let open = function() {
   curSquadSoldierIdx(curSoldierIdx.value)
-  curSoldierIdx(-1)
-  sceneWithCameraAdd(chooseSoldiersScene, "soldiers")
+  deselectSoldier()
+  sceneWithCameraAdd(chooseSoldiersScene, "soldiers_quarters")
 }
 
 if (isOpened.value)

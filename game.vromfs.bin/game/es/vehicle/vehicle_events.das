@@ -123,6 +123,14 @@ struct CmdStopExtinguisher
   eid : EntityId
 
 [cpp_event(unicast)]
+struct EventOnStartBurn
+  fireId : int
+  paramsId : int
+  nodeId : int
+  offset : float3
+  center : float3
+
+[cpp_event(unicast)]
 struct CmdStopBurn {}
 
 [event(unicast, routing=ROUTING_CLIENT_TO_SERVER)]

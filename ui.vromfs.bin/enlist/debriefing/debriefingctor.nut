@@ -27,7 +27,8 @@ let { mkSoldierExpTooltipText } = require("%enlist/debriefing/components/mkExpTo
 let mkSoldierCard = require("mkDebriefingSoldierCard.nut")
 let mkBattleHeroesBlock = require("mkDebriefingBattleHeroes.nut")
 let mkScoresStatistics = require("%ui/hud/components/mkScoresStatistics.nut")
-let { jumpToArmyProgress, setCurSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { jumpToArmyProgress, setCurSection, mainSectionId
+} = require("%enlist/mainMenu/sectionsState.nut")
 let { gameProfile } = require("%enlist/soldiers/model/config/gameProfile.nut")
 let { selectArmy, setCurSquadId } = require("%enlist/soldiers/model/state.nut")
 let { collectSoldierPhoto } = require("%enlist/soldiers/model/collectSoldierData.nut")
@@ -565,7 +566,7 @@ let function switchContext(debriefing) {
 let function openNewLevelSoldier() {
   if (newLevelSoldier == null)
     return
-  setCurSection("SQUAD_SOLDIERS")
+  setCurSection(mainSectionId)
   setCurSquadId(newLevelSoldier.squadId)
   curSoldierIdx(newLevelSoldier.soldierIdx)
 }

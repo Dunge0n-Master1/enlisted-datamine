@@ -5,8 +5,7 @@ let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { PrimaryFlat } = require("%ui/components/textButton.nut")
 let { commonBtnHeight, taskProgressColor, activeTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { defTxtColor, titleTxtColor, smallPadding, midPadding, bigPadding, accentColor, colPart,
-  darkTxtColor
-} = require("%enlSqGlob/ui/designConst.nut")
+  darkTxtColor, miniPadding } = require("%enlSqGlob/ui/designConst.nut")
 let { getDescription } = require("unlocksText.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let { mkCountdownTimerPerSec } = require("%ui/helpers/timers.nut")
@@ -26,7 +25,7 @@ let waitingSpinner = spinner(colPart(0.4))
 let starSize = colPart(0.35)
 let taskMinHeight = colPart(0.91)
 let statusWidth = colPart(0.4)
-let taskSlotPadding = [smallPadding, bigPadding, smallPadding, bigPadding]
+let taskSlotPadding = [miniPadding, midPadding]
 let taskDescPadding = [midPadding, smallPadding, bigPadding,
   colPart(0.39) + statusWidth + midPadding * 2]
 
@@ -134,10 +133,9 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
     if (isDailyTask(unlockDesc) && isCompleted) {
       let locId = isCompleted && !canTakeReward ? "finishedTaskText" : "completeTaskText"
       return mkTaskTextArea(utf8ToUpper(loc(locId)), sf,
-      { animations = hasReward && canTakeReward ? blinkAnimation.animations : []}.__update(
-        sf & S_HOVER ? hoveredTxtStyle : hasReward && canTakeReward ? titleTxtStyle : defTxtStyle))
+        { animations = hasReward && canTakeReward ? blinkAnimation.animations : []}.__update(
+          sf & S_HOVER ? hoveredTxtStyle : hasReward && canTakeReward ? titleTxtStyle : defTxtStyle))
     }
-
     local { required, current } = progress
     let descProgressDiv = getProgressDiv(unlockDesc)
     if (descProgressDiv > 0 && required != null && current != null) {
@@ -155,6 +153,7 @@ let taskHeader = @(unlockDesc, progress, canTakeReward = true, sf = 0, textStyle
       let curStage = min(lastRewardedStage + 1, stages.len())
       addTexts.append($"{loc("stageText")} {curStage}/{stages.len()}")
     }
+
 
     let unlockLimit = getUnlockLimit(unlockDesc)
     local { stage = 0 } = progress
@@ -225,6 +224,19 @@ let mkEmblemImg = @(img, iSize, hasAnim = false, sf = 0, seasonIndex=null, bpCol
       hasAnim ? rewardAnimBg : null
     ]
   }
+}
+
+let mkEmblemImgReward = @(img, iSize, color) {
+  size = [iSize, iSize]
+  children = [
+    {
+      rendObj = ROBJ_IMAGE
+      size = [iSize, iSize]
+      color
+      image = Picture("{0}.svg:{1}:{1}:K".subst(img, iSize))
+    }
+    rewardAnimBg
+  ]
 }
 
 
@@ -324,9 +336,14 @@ return {
   taskDescription
   taskDescPadding
   taskMinHeight
+  mkEmblemImg
+  mkEmblemImgReward
   taskSlotPadding
   mkTaskEmblem
   mkAchievementTitle
   statusBlock
   mkGetTaskRewardBtn
+  getTaskEmblemImg
+  completedUnlockIcon
+  mkTaskTextArea
 }

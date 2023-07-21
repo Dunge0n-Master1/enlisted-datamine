@@ -186,7 +186,7 @@ let function mkShopPremIcon(sItem) {
   return mkPremiumSquadXpImage(colPart(0.7), armyId)
 }
 
-let function mkShopItemInfo(sItem, offer, sf, icon, lockObject) {
+let function mkShopItemInfo(sItem, offer, sf, icon, lockObject, unseenIcon = null) {
   let { nameLocId = "", showIntervalTs = [], isPriceHidden = false, offerContainer = "" } = sItem
   let isContainer = offerContainer != ""
   return {
@@ -213,6 +213,7 @@ let function mkShopItemInfo(sItem, offer, sf, icon, lockObject) {
         size = [flex(), SIZE_TO_CONTENT]
         children = [
           mkShopItemName(nameLocId, sf, icon, showIntervalTs)
+          unseenIcon
           highlightLineBottom
         ]
       }
@@ -371,7 +372,7 @@ let mkInfoBtn = @(onClick) onClick == null ? null : watchElemState(function(sf) 
 })
 
 let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templates,
-    lockTxt, onClick, onHover, alertText, infoCb) {
+    lockTxt, onClick, onHover, alertText, infoCb, unseenIcon = null) {
   let picSaturate = lockTxt == "" ? 1 : 0.1
   let icon = mkShopIcon(armyId, content, templates)
   let alertObject = alertText == null ? null : mkAlertObject(alertText)
@@ -403,7 +404,7 @@ let mkShopItem = @(slotSize) function(idx, armyId, sItem, offer, content, templa
             mkBgParticles([slotSize[0], slotSize[1] - colPart(1.4)])
           ]
         }
-        mkShopItemInfo(sItem, offer, sf, icon, mkLockInfo(lockTxt))
+        mkShopItemInfo(sItem, offer, sf, icon, mkLockInfo(lockTxt), unseenIcon)
         mkShopPremIcon(sItem)
         alertObject
         mkInfoBtn(infoCb)

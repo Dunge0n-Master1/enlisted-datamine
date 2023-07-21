@@ -110,6 +110,7 @@ return {
   // Gaps
   columnGap
   sidePadding
+  largePadding = colPart(0.25)
   bigPadding = colPart(0.194) // 12px
   midPadding = colPart(0.13) // 8px
   smallPadding = colPart(0.065) //4px
@@ -122,7 +123,7 @@ return {
   smallBtnHeight = colPart(0.485)
   maxContentWidth = hdpx(1920)
   commonBorderRadius = hdpx(2)
-  startBtnWidth = colFull(5)
+  startBtnWidth = colPart(6.01)
   navHeight = colPart(1.2)
   contentOffset = colPart(0.4)
   mainContentOffset = colPart(1.2)

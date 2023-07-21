@@ -10,7 +10,7 @@ let activatePremiumBttn = require("activatePremiumBtn.nut")
 let { PrimaryFlat, Flat } = require("%ui/components/textButton.nut")
 let {
   mkShopItemView, shopItemLockedMsgBox, mkShopItemImg, mkLevelLockLine, mkShopItemPriceLine,
-  mkShopItemInfoBlock, mkMsgBoxView
+  mkShopItemInfoBlock, mkClassCanUseCenter, mkMsgBoxView
 } = require("shopPkg.nut")
 let { makeVertScroll } = require("%ui/components/scrollbar.nut")
 let { allItemTemplates, itemTypesInSlots
@@ -119,7 +119,7 @@ let function purchaseBtnUi() {
   let btnCtor = armyLevel > level ? Flat : PrimaryFlat
   let crateContent = shopItemContentCtor(shopItemData)
   let countWatched = Watched(1)
-  let description = mkShopItemInfoBlock(crateContent)
+  let description = mkClassCanUseCenter(crateContent)
   return {
     watch = [curArmyData, shopItem, purchaseIsPossible]
     rendObj = ROBJ_BOX

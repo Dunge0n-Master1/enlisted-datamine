@@ -61,7 +61,7 @@ let { joinSelEventRoom } = require("joinEventRoom.nut")
 let { selRoom } = require("eventRoomsListState.nut")
 let { isEditEventRoomOpened } = require("createEventRoomState.nut")
 let mkWindowTab = require("%enlist/components/mkWindowTab.nut")
-let { openEventFiltersPopup, isRoomFilterOpened } = require("eventRoomsListFiltersPopup.nut")
+let { toggleEventFiltersPopup, isRoomFilterOpened } = require("eventRoomsListFiltersPopup.nut")
 let { selectArmyBlock, footer, mkPanel } = require("eventModesPkg.nut")
 let { horGap, emptyGap } = require("%enlist/components/commonComps.nut")
 let premiumWidgetUi = require("%enlist/currency/premiumWidgetUi.nut")
@@ -137,14 +137,14 @@ let function txtColor(sf, isInactive = false) {
     : isInactive ? disabledTxtColor : defTxtColor
 }
 
-let filterBtnCommonStyle = {
+let filterBtnCommonStyle = freeze({
   margin = 0
-}
+  hotkeys = [["^J:LT"]]
+})
 
-let filterBtnOpenedStyle = {
-  margin = 0
+let filterBtnOpenedStyle = freeze(filterBtnCommonStyle.__merge({
   BgNormal = 0xFF40404040
-}
+}))
 
 let defQuickMatchBtnParams = {
   size = [pw(100), hdpx(80)]
@@ -592,7 +592,7 @@ let buttonsBlock = @() {
     backBtn
     Bordered(
       utf8ToUpper(loc("showFilters")),
-      openEventFiltersPopup,
+      toggleEventFiltersPopup,
       isRoomFilterOpened.value ? filterBtnOpenedStyle : filterBtnCommonStyle
     )
     createRoomBtn

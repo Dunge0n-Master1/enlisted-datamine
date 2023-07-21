@@ -13,7 +13,7 @@ let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.n
 let { shopItemContentCtor, purchaseIsPossible, needGoToManagementBtn
 } = require("armyShopState.nut")
 let {
-  shopItemLockedMsgBox, mkMsgBoxView, mkShopItemInfoBlock, mkProductView
+  shopItemLockedMsgBox, mkMsgBoxView, mkClassCanUseCenter, mkProductView
 } = require("shopPkg.nut")
 
 
@@ -35,7 +35,6 @@ let function shopItemClick(shopItem) {
     : (crateContent.value?.content.items ?? {}).len() > 0
 
   let productView = mkMsgBoxView(shopItem, crateContent, countWatched)
-
   let isBuyingWithGold = curShopItemPrice?.currencyId == "EnlistedGold"
   let squad = squads.findvalue(@(s) s.armyId == guid) ?? squads?[0]
   if (squad != null && isBuyingWithGold) {
@@ -48,7 +47,7 @@ let function shopItemClick(shopItem) {
     return
   }
 
-  let description = mkShopItemInfoBlock(crateContent)
+  let description = mkClassCanUseCenter(crateContent)
   let buyItemActionCb = @() buyShopItem({
     shopItem
     activatePremiumBttn

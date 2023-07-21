@@ -12,6 +12,7 @@
   antiAliasingMode:i=2
   temporalUpsamplingRatio:r=100.0
   ps5FpsLimit:i=90
+  enableHdr:b=yes
 }
 
 "@override:texStreaming"{

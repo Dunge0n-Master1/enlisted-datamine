@@ -70,6 +70,7 @@ require("%enlist/shop/rentedSquadDialog.nut")
 require("%enlist/tutorial/armyUnlocksVideoHint.nut")
 require("notifications/benchmarkNotification.nut")
 require("%enlist/preset/presetEquipUtils.nut")
+require("%enlist/shop/updateSeenBundles.nut")
 
 let { setMenuOptions, menuTabsOrder } = require("%ui/hud/menus/settings_menu.nut")
 let { violenceOptions } = require("%ui/hud/menus/options/violence_options.nut")

@@ -32,11 +32,12 @@ let defSmallTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let smallDiscountTxtStyle = { color = darkTxtColor }.__update(fontSmall)
 let headerTxtStyle = @(sf) { color = sf & S_HOVER ?  darkTxtColor : defTxtColor }
   .__update(fontLarge)
-let smallWidgetHeight = colPart(1.29) + highlightLineHgt
-let largeWidgetHeight = colPart(4.29)
+let smallWidgetHeight = colPart(1.27) + highlightLineHgt
+let largeWidgetHeight = colPart(4)
 let widgetHeightDif = largeWidgetHeight - smallWidgetHeight
 let largeWidgetInfoHeight = colPart(1.35)
 let largeWidgetImgheight = largeWidgetHeight - largeWidgetInfoHeight
+let smallImgWidth = colPart(2.3)
 
 let curLargeWidgetIdx = Watched(0)
 local oldLargeWidgetIdx = 0
@@ -94,7 +95,7 @@ let mkOfferImage = @(image) freeze({
 })
 
 let mkSmallImage = @(image) {
-  size = [colPart(2.38), smallWidgetHeight-highlightLineHgt]
+  size = [smallImgWidth, smallWidgetHeight-highlightLineHgt]
   rendObj = ROBJ_IMAGE
   image = Picture(image)
   keepAspect = KEEP_ASPECT_FILL
@@ -112,7 +113,7 @@ let smallDiscountIconStyle = {
   size = [colPart(0.8), colPart(0.4)]
   vplace = ALIGN_BOTTOM
   hplace = ALIGN_LEFT
-  pos = [-colPart(2.4), 0]
+  pos = [-smallImgWidth, 0]
   textStyle = smallDiscountTxtStyle
 }
 
@@ -196,12 +197,13 @@ let function mkSmallOfferInfo(offer, anim) {
 let function mkOfferInfo(offer, sf, anim) {
   let { endTime = 0, widgetTxt = "", discountInPercent = 0, shopItemGuid = "" } = offer
   let timerObject = {
-    pos = [0, smallPadding - widgetHeightDif]
+    pos = [0, -widgetHeightDif]
     hplace = ALIGN_RIGHT
     children = mkCountdownTimer({
       timestamp = endTime
       override = timerStyle
       color = accentColor
+      isSmall = true
     })
   }
 
@@ -550,7 +552,7 @@ let function offersPromoWidget() {
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = smallPadding
     halign = ALIGN_RIGHT
     children = widgets.map(@(w, idx) curLargeWidgetIdx.value == idx
       ? mkLargeWidget(w, idx, oldLargeWidgetIdx)

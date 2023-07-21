@@ -3,14 +3,15 @@ from "%enlSqGlob/ui_library.nut" import *
 let { fontSmall, fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let msgbox = require("%enlist/components/msgbox.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
-let { smallPadding, bigPadding, defTxtColor, disabledTxtColor, hoverTxtColor, startBtnWidth, colPart
+let { smallPadding, bigPadding, defTxtColor, disabledTxtColor, hoverTxtColor, startBtnWidth,
+  largePadding, colPart
 } = require("%enlSqGlob/ui/designConst.nut")
 let { dailyTasksByDifficulty, receiveTaskRewards, getTotalRerolls, getLeftRerolls,
-  isRerollInProgress, canTakeDailyTaskReward, doRerollUnlock
+  isRerollInProgress, canTakeDailyTaskReward, doRerollUnlock, rewardDailyTask
 } = require("taskListState.nut")
 let { taskDescription, taskDescPadding, mkTaskLabel, taskLabelSize, taskHeader
 } = require("%enlSqGlob/ui/tasksPkg.nut")
-let { mkUnlockSlot, mkHideTrigger } = require("mkUnlockSlots.nut")
+let { mkUnlockSlot, mkUnlockSlotReward, mkHideTrigger } = require("mkUnlockSlots.nut")
 let { userstatStats, unlockRewardsInProgress } = require("%enlSqGlob/userstats/userstat.nut")
 let eliteBattlePassWnd = require("%enlist/battlepass/eliteBattlePassWnd.nut")
 let { specialEvents, showNotActiveTaskMsgbox } = require("eventsTaskState.nut")
@@ -18,10 +19,11 @@ let buyUnlockMsg = require("buyUnlockMsg.nut")
 let { isUnlockAvailable, getUnlockProgress, unlockProgress
 } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { PrimaryFlat, Purchase } = require("%ui/components/textButton.nut")
-let { unlockPrices, purchaseInProgress } = require("taskRewardsState.nut")
+let { unlockPrices, purchaseInProgress, hasBattlePass } = require("taskRewardsState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let JB = require("%ui/control/gui_buttons.nut")
+let battlepassWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
 
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -152,6 +154,12 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
   }
 
 
+let dailyTasksHeader = {
+  rendObj = ROBJ_TEXT
+  text = loc("dailyTasks")
+}.__update(headerTxtStyle)
+
+
 let function dailyTasksUi() {
   let res = {
     watch = [dailyTasksByDifficulty, canTakeDailyTaskReward, userstatStats]
@@ -163,10 +171,32 @@ let function dailyTasksUi() {
   let canTakeReward = canTakeDailyTaskReward.value
   let stats = userstatStats.value?.stats
   return res.__update({
-    size = [startBtnWidth, SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = bigPadding
-    children = mkDailyTasksBlock(dailyTasksByDifficulty, stats, canTakeReward)
+    gap = largePadding
+    children = [
+      dailyTasksHeader
+      {
+        size = [startBtnWidth, SIZE_TO_CONTENT]
+        flow = FLOW_VERTICAL
+        gap = bigPadding
+        children = mkDailyTasksBlock(dailyTasksByDifficulty, stats, canTakeReward)
+      }
+    ]
+  })
+}
+
+let function dailyTasksUiReward() {
+  let res = {
+    watch = [rewardDailyTask, hasBattlePass, canTakeDailyTaskReward]
+  }
+
+  if (!hasBattlePass.value)
+    return res
+
+  return res.__update({
+    size = [startBtnWidth, SIZE_TO_CONTENT]
+    children = canTakeDailyTaskReward.value && rewardDailyTask.value
+      ? mkUnlockSlotReward(rewardDailyTask.value) : battlepassWidgetOpen
   })
 }
 
@@ -300,6 +330,7 @@ let eventTasksUi = @(eventId) function() {
 
 
 return {
+  dailyTasksUiReward
   dailyTasksUi
   eventTasksUi
 }

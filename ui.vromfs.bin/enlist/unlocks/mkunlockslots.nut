@@ -1,10 +1,12 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, titleTxtColor, colPart, defTxtColor, defItemBlur,
-  transpPanelBgColor, darkTxtColor, hoverSlotBgColor
+let { fontSmall, fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { smallPadding, titleTxtColor, colPart, defTxtColor, defItemBlur, transpPanelBgColor, darkTxtColor,
+  hoverSlotBgColor, midPadding
 } = require("%enlSqGlob/ui/designConst.nut")
-let { taskDescription, taskHeader, taskDescPadding, taskMinHeight, taskSlotPadding, mkTaskEmblem
+let { taskDescription, taskHeader, taskDescPadding, taskMinHeight,
+  taskSlotPadding, mkTaskEmblem, completedUnlockIcon,
+  getTaskEmblemImg, mkEmblemImgReward, mkTaskTextArea
 } = require("%enlSqGlob/ui/tasksPkg.nut")
 let { bpColors } = require("%enlist/battlepass/battlePassPkg.nut")
 let { seasonIndex } = require("%enlist/battlepass/bpState.nut")
@@ -13,9 +15,13 @@ let { getOneReward, mkRewardIcon, prepareRewards } = require("%enlist/battlepass
 let { getUnlockProgress, unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let { rewardIconWidth } = require("%enlist/battlepass/rewardPkg.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
-
+let { sound_play } = require("%dngscripts/sound_system.nut")
+let { receiveTaskRewards } = require("taskListState.nut")
+let { getDescription } = require("%enlSqGlob/ui/unlocksText.nut")
 
 let btnOffset = colPart(0.36)
+let starSizeReward = hdpxi(17)
+let minHeight = hdpx(65)
 let mkHideTrigger = @(task) $"hide_task_{task.name}"
 
 
@@ -39,7 +45,6 @@ let mkTaskContent = @(unlockDesc, canTakeReward, hasWaitIcon, canReroll, sf = 0)
       }
     }
   }
-
 
 let function mkRewardBlock(rewardData, isFinished = false) {
   let { reward = null, count = 1 } = rewardData
@@ -185,8 +190,83 @@ let mkUnlockSlot = kwarg(@(
   })
 )
 
+let mkTaskContentReward = @(unlockDesc, sf = 0)
+  function() {
+    let progress = getUnlockProgress(unlockDesc, unlockProgress.value)
+    let colorIdx = (seasonIndex != null && bpColors!=null) ? (seasonIndex.value % bpColors.len()) : null
+    let bpColor = bpColors?[colorIdx]
+    let emblemImg = getTaskEmblemImg(unlockDesc, true)
+    let iconReward = sf & S_HOVER ? completedUnlockIcon
+      : mkEmblemImgReward(emblemImg, starSizeReward, bpColor)
+
+    return {
+      watch = [unlockProgress, seasonIndex]
+      size = [flex(), SIZE_TO_CONTENT]
+      clipChildren = true
+      minHeight
+      flow = FLOW_HORIZONTAL
+      children = [
+        {
+          size = [hdpx(220), SIZE_TO_CONTENT]
+          flow = FLOW_VERTICAL
+          children = [
+            {
+              rendObj = ROBJ_BOX
+              size = [flex(), SIZE_TO_CONTENT]
+              flow = FLOW_HORIZONTAL
+              gap = smallPadding
+              valign = ALIGN_CENTER
+              children = [
+                {
+                  rendObj = ROBJ_TEXT
+                  halign = ALIGN_CENTER
+                  color = sf & S_HOVER ? darkTxtColor : titleTxtColor
+                  text = loc("completeTaskTitle")
+                }.__update(fontSmall)
+                iconReward
+              ]
+            }
+            mkTaskTextArea(getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {}), sf)
+          ]
+        }
+        {
+          size = flex()
+          halign = ALIGN_RIGHT
+          children = [
+            mkTaskRewards(unlockDesc)
+            {
+              rendObj = ROBJ_TEXT
+              vplace = ALIGN_BOTTOM
+              color = bpColor
+              text = loc("completeTaskReward")
+            }.__update(fontXSmall)
+          ]
+        }
+      ]
+    }
+  }
+
+
+let mkUnlockSlotReward = @(task)
+  watchElemState(@(sf) {
+    key = task.name
+    rendObj = ROBJ_SOLID
+    size = [flex(), SIZE_TO_CONTENT]
+    color = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
+    padding = midPadding
+    flow = FLOW_HORIZONTAL
+    behavior = Behaviors.Button
+    sound = soundDefault
+    onClick = function() {
+      sound_play("ui/reward_receive")
+      receiveTaskRewards(task)
+    }
+    children = mkTaskContentReward(task, sf)
+  })
+
 return {
   mkUnlockSlot
+  mkUnlockSlotReward
   mkTaskRewards
   mkHideTrigger
 }

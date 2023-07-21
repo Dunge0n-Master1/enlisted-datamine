@@ -63,6 +63,17 @@ pistol_ww2_fireready_deviation{
   gun__deviationInFireReady:r=2.5
 }
 
+shotgun_deviation_preset{
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=3.0, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=10.0
+}
+
 camera_shake_on_shooting{
   gun__cameraShakeTrauma:r=0.15
   gun__cameraShakeMaxTrauma:r=0.2
@@ -6231,6 +6242,7 @@ toz_b{
   _extends:t="main_weap_slots"
   _extends:t="reload_not_empty_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   reload__singleReloadMaxAmmo:i=1
   single_reload__prepareTime:r=1.0
   single_reload__loopTime:r=1.0
@@ -6252,15 +6264,7 @@ toz_b{
   gun__shotFreq:r=4.0
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
-  gun__chokeSpread:r=1.45
+  gun__chokeSpread:r=1.25
   gun__reloadTime:r=3.87
 
   "gun__ammoHolders:array"{
@@ -14302,6 +14306,7 @@ browning_auto_5{
   _extends:t="main_weap_slots"
   _extends:t="reload_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   single_reload__prepareTime:r=0.6
   single_reload__loopTime:r=0.6
   single_reload__postTime:r=1.2
@@ -14321,14 +14326,6 @@ browning_auto_5{
   gun__shotFreq:r=4.0
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
   gun__chokeSpread:r=1.5
   gun__reloadTime:r=3.5
 
@@ -14413,6 +14410,7 @@ ithaca_37{
   _extends:t="main_weap_slots"
   _extends:t="reload_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   single_reload__prepareTime:r=0.7
   single_reload__loopTime:r=0.5
   single_reload__postTime:r=1.2
@@ -14432,14 +14430,6 @@ ithaca_37{
   gun__shotFreq:r=2.27
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
   gun__chokeSpread:r=1.55
   gun__reloadTime:r=3.5
 
@@ -14524,6 +14514,7 @@ winchester_model_1912{
   _extends:t="main_weap_slots"
   _extends:t="reload_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   single_reload__prepareTime:r=0.38
   single_reload__loopTime:r=0.5
   single_reload__postTime:r=1.2
@@ -14543,14 +14534,6 @@ winchester_model_1912{
   gun__shotFreq:r=2.27
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
   gun__chokeSpread:r=1.55
   gun__reloadTime:r=3.5
 
@@ -14635,6 +14618,7 @@ winchester_model_1912_trench{
   _extends:t="main_weap_slots"
   _extends:t="reload_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   single_reload__prepareTime:r=0.5
   single_reload__loopTime:r=0.5
   single_reload__postTime:r=1.2
@@ -14654,14 +14638,6 @@ winchester_model_1912_trench{
   gun__shotFreq:r=2.27
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
   gun__chokeSpread:r=1.55
   gun__reloadTime:r=3.5
 
@@ -15065,6 +15041,11 @@ lanchester_50_round_gun{
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.74
   meleeSoundType:t="mgun"
+  gun__recoilControlMult:r=0.4
+  gun__recoilOffsMult:r=0.3
+  gun_anim_var__fpsGunOffsetAlong:r=0.13
+  gun_anim_var__fpsGunOffsetAcross:r=0.045
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   _group{
     _tags:t="sound"
@@ -26235,6 +26216,7 @@ m30_luftwaffe_drilling{
   _extends:t="main_weap_slots"
   _extends:t="reload_not_empty_single_bullet"
   _extends:t="ironsights_open_shotgun"
+  _extends:t="shotgun_deviation_preset"
   reload__singleReloadMaxAmmo:i=1
   single_reload__prepareTime:r=0.9
   single_reload__loopTime:r=0.9
@@ -26256,15 +26238,7 @@ m30_luftwaffe_drilling{
   gun__shotFreq:r=4.0
   gun__automaticReload:b=no
   gun_spread__maxDeltaAngle:r=0.9
-  gun_deviation__omegaRange:p2=30.0, 90.0
-  gun_deviation__omegaDevInc:p2=0.1, 0.6
-  gun_deviation__movementRange:p2=2.1, 4.0
-  gun_deviation__movementDevInc:p2=0.0, 15.0
-  gun_deviation__onShotDeviationChange:r=0.0
-  gun_deviation__shotTau:r=0.1
-  gun_deviation__extraDeviationTau:r=0.3
-  gun_deviation__maxDeviation:r=30.0
-  gun__chokeSpread:r=1.45
+  gun__chokeSpread:r=1.25
   gun__reloadTime:r=3.4
 
   "gun__ammoHolders:array"{
@@ -28820,6 +28794,11 @@ ppsh_41_german_gun{
   gun__visualRecoilMult:r=1.0
   gun__adsSpeedMult:r=0.72
   meleeSoundType:t="mgun"
+  gun__recoilControlMult:r=0.5
+  gun__recoilOffsMult:r=0.3
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.025
+  gun_anim_var__fpsGunOffsetUp:r=0.055
 
   _group{
     _tags:t="sound"
@@ -29050,8 +29029,8 @@ danuvia_43m_gun{
   gun__standOffset:p3=0.2, 0.05, 0.15
   gun__crouchOffset:p3=0.2, -0.07, 0.25
   gun__length:r=0.4
-  gun__recoilAmount:r=0.064
-  gun__recoilDirAmount:r=0.62
+  gun__recoilAmount:r=0.055
+  gun__recoilDirAmount:r=0.68
   gun__recoilDir:r=0.6
   gun__visualRecoilMult:r=1.6
   meleeSoundType:t="mgun"

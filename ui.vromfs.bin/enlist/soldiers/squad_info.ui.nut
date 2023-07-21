@@ -35,7 +35,7 @@ let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { unseenSoldierShopItems } = require("%enlist/shop/soldiersPurchaseState.nut")
 let { smallUnseenNoBlink } = require("%ui/components/unseenComps.nut")
 let { mkAlertInfo } = require("model/soldiersState.nut")
-let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { curSection, mainSectionId } = require("%enlist/mainMenu/sectionsState.nut")
 
 let prevSoldier = mkWatched(persist, "prevSoldier", null)
 let function mkSquadInfo() {
@@ -117,7 +117,7 @@ let function mkSquadInfo() {
                   : null
               ]
             }
-            hotkeys = [["^J:X"]]
+            hotkeys = [["^J:LS.Tilted"]]
             onHover = @(on) setTooltip(on && needSoldiersManage ? loc("msg/canAddSoldierToSquad") : null)
             btnWidth = flex()
           }
@@ -163,19 +163,8 @@ let function mkSquadInfo() {
       size = [SIZE_TO_CONTENT, flex()]
       onDetach = function() {
         prevSoldier({squadId = curSquadId.value, soldier = curSoldierIdx.value})
-        if (curSection.value != "SQUAD_SOLDIERS")
+        if (curSection.value != mainSectionId)
           curSoldierIdx(null)
-      }
-      onAttach = function() {
-        if (curSoldierIdx.value == null) {
-          let { squadId = null, soldier = 0 } = prevSoldier.value
-          if (curSquadId.value == squadId) {
-            curSoldierIdx(soldier ?? 0)
-            prevSoldier(null)
-          } else {
-            curSoldierIdx(0)
-          }
-        }
       }
       children = mkMainSoldiersBlock({
         soldiersListWatch = curSoldiersDataList

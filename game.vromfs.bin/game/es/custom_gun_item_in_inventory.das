@@ -46,6 +46,13 @@ def custom_inventory_slot_init(evt : Event;
     else
       human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] = inventoryGunsItemsEids[currentInventoryGunIdx]
 
+[es(tag=server, REQUIRE=specialWeapItem, track=gun__owner)]
+def set_special_weapon_to_inventory_on_owner_appear(evt : Event;
+                                                    eid : EntityId;
+                                                    gun__owner : EntityId)
+  query(gun__owner) <| $ [es] (var human_weap__gunEids : EidList)
+    human_weap__gunEids[int(HUWeaponSlots EWS_SPECIAL)] = eid
+
 [es(tag=gameClient, track=inventoryGunsItemsEids)]
 def custom_inventory_slot_empty_es(evt : Event;
                                    human_input__weaponSlotCount : int;

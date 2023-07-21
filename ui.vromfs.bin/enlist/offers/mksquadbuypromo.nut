@@ -4,7 +4,7 @@ let { BtnBdNormal, borderColor } = require("%ui/style/colors.nut")
 let { unitSize } = require("%enlSqGlob/ui/viewConst.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { curArmyShopItems, shopItemContentCtor } = require("%enlist/shop/armyShopState.nut")
-let { mkShopItemView, mkShopItemPriceLine, mkShopItemInfoBlock
+let { mkShopItemView, mkShopItemPriceLine, mkClassCanUseCenter
 } = require("%enlist/shop/shopPkg.nut")
 let buyShopItem = require("%enlist/shop/buyShopItem.nut")
 let buySquadWindow = require("%enlist/shop/buySquadWindow.nut")
@@ -48,7 +48,7 @@ let function onSquadBuy(shopItem) {
       squadId = squad?.id
     })
   } else {
-    let description = mkShopItemInfoBlock(crateContent)
+    let description = mkClassCanUseCenter(crateContent)
     buyShopItem({
       shopItem
       productView

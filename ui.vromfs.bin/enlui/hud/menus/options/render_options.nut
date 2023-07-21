@@ -153,25 +153,27 @@ const MAX_PAPER_WHITE_NITS = 1000
 const PAPER_WHITE_NITS_STEP = 10
 const DEF_PAPER_WHITE_NITS = 200
 
-let optionPaperWhiteNitsSliderCtor = mkSliderWithText
-
-let originalValPaperWhiteNits = get_setting_by_blk_path("video/paperWhiteNits") ?? DEF_PAPER_WHITE_NITS
-let paperWhiteNitsVar = Watched(originalValPaperWhiteNits)
-
-paperWhiteNitsVar.subscribe(change_paper_white_nits)
+let paperWhiteBlkPath = "video/paperWhiteNits"
+let paperWhiteOptData = getOnlineSaveData(paperWhiteBlkPath,
+  @() get_setting_by_blk_path(paperWhiteBlkPath) ?? DEF_PAPER_WHITE_NITS,
+  @(p) clamp(p.tointeger(), MIN_PAPER_WHITE_NITS, MAX_PAPER_WHITE_NITS))
 
 let optPaperWhiteNits = optionCtor({
   name = loc("options/paperWhiteNits", "Paper White Nits")
   tab = "Graphics"
-  blkPath = "video/paperWhiteNits"
   isAvailable = is_hdr_enabled
-  widgetCtor = optionPaperWhiteNitsSliderCtor
-  var = paperWhiteNitsVar
+  widgetCtor = mkSliderWithText
+  var = paperWhiteOptData.watch
+  setValue = function(val) {
+    paperWhiteOptData.setValue(val)
+    change_paper_white_nits(val)
+  }
+  blkPath = paperWhiteBlkPath
+  defVal = DEF_PAPER_WHITE_NITS
   min = MIN_PAPER_WHITE_NITS
   max = MAX_PAPER_WHITE_NITS
+  step = PAPER_WHITE_NITS_STEP
   pageScroll = PAPER_WHITE_NITS_STEP
-  step = PAPER_WHITE_NITS_STEP.tofloat()
-  convertForBlk = @(v) (v < MIN_PAPER_WHITE_NITS || v > MAX_PAPER_WHITE_NITS) ? DEF_PAPER_WHITE_NITS : (v).tointeger()
 })
 
 let optVsync = optionCtor({

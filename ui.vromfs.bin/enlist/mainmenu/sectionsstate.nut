@@ -4,7 +4,6 @@ let { doesSceneExist, scenesListGeneration } = require("%enlist/navState.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 
 let mainSectionId = "SOLDIERS"
-let squadsSectionIs = "SQUAD_SOLDIERS"
 
 let isArmyProgressOpened = mkWatched(persist, "isArmyProgressOpened", false)
 let isResearchesOpened = mkWatched(persist, "isResearchesOpened", false)
@@ -63,7 +62,6 @@ let hasArmyProgressOpened = Computed(@() curSection.value == CAMPAIGN_PROGRESS)
 let hasResearchesOpened = Computed(@() curSection.value == "RESEARCHES")
 
 let hasMainSectionOpened = Computed(@() curSection.value == mainSectionId)
-let hasSquadsSectionOpened = Computed(@() curSection.value == squadsSectionIs)
 
 let function trySwitchSection(sectionId) {
   let { onExitCb = @() true } = sectionsSorted.findvalue(@(s) s?.id == curSection.value)
@@ -96,7 +94,6 @@ return {
   jumpToResearches
 
   hasMainSectionOpened
-  hasSquadsSectionOpened
   hasArmyProgressOpened
   hasResearchesOpened
   trySwitchSection

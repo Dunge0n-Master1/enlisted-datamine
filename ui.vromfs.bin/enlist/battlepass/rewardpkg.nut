@@ -1,15 +1,15 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { accentColor, colPart, mkTimerIcon } = require("%enlSqGlob/ui/designConst.nut")
+let { accentColor, mkTimerIcon, colPart, transpBgColor, defItemBlur
+} = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
 let { rewardsPresentation } = require("%enlist/items/itemsPresentation.nut")
+let { taskSlotPadding } = require("%enlSqGlob/ui/tasksPkg.nut")
 
 
 let accentTxtStyle = { color = accentColor }.__update(fontSmall)
 let timerSize = colPart(0.22)
-
-
 let rewardIconWidth = colPart(0.68)
 
 
@@ -40,10 +40,13 @@ let function mkRewardIcon(reward, size = colPart(0.49), override = {}) {
 }
 
 let mkSeasonTime = @(timeLeft, override = {}) {
-  size = SIZE_TO_CONTENT
+  rendObj = ROBJ_WORLD_BLUR_PANEL
+  fillColor = transpBgColor
+  color = defItemBlur
+  padding = taskSlotPadding
   flow = FLOW_HORIZONTAL
-  valign = ALIGN_BOTTOM
-  gap = colPart(0.033)
+  valign = ALIGN_CENTER
+  gap = hdpx(2)
   children = [
     mkTimerIcon(timerSize, { color = accentColor })
     {

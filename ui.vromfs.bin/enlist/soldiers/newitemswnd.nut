@@ -47,7 +47,8 @@ let { isItemActionInProgress } = require("model/itemActions.nut")
 let { addToPresentList, needGoToManagementBtn } = require("%enlist/shop/armyShopState.nut")
 let spinner = require("%ui/components/spinner.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
-let { setCurSection, curSection } = require("%enlist/mainMenu/sectionsState.nut")
+let { setCurSection, curSection, mainSectionId
+} = require("%enlist/mainMenu/sectionsState.nut")
 let { purchasesCount } = require("%enlist/meta/servProfile.nut")
 let { startswith } = require("string")
 let { itemToShopItem } = require("%enlist/soldiers/model/cratesContent.nut")
@@ -67,8 +68,6 @@ const STAR_BLICK_DURATION = 0.4
 const STAR_DEF_DELAY = 0.2
 const STAR_DEF_DELAY_INCREASE = 0.1
 const STAR_NEXT_DELAY = 0.3
-
-const SQUAD_SECTION = "SQUAD_SOLDIERS"
 
 let waitingSpinner = spinner(hdpx(25))
 
@@ -90,7 +89,7 @@ curItem.subscribe(function(v) {
     curSelectedItem(null)
 })
 
-let needShowManagementBtn = Computed(@() curSection.value != SQUAD_SECTION
+let needShowManagementBtn = Computed(@() curSection.value != mainSectionId
   && needGoToManagementBtn.value)
 
 let needShowFirstPurchaseBtn = Computed(@() needShowManagementBtn.value &&
@@ -524,7 +523,7 @@ let function markFirstPurchases() {
 let function goToManagement() {
   markFirstPurchases()
   tryMarkSeen()
-  setCurSection(SQUAD_SECTION)
+  setCurSection(mainSectionId)
 }
 
 let toManagementBtn = textButton.PrimaryFlat(loc("btn/goToManagement"), goToManagement,

@@ -28,6 +28,7 @@
   "@delete:vsync":b=no
   vsync:b=yes
   upscaleInPostfx:b=yes
+  enableHdr:b=yes
 }
 
 "@override:ps4"{

@@ -580,8 +580,10 @@ let allValuesButton = @(option) function() {
     gap = localGap
     flow = FLOW_HORIZONTAL
     children = [
-      hasUnselected ? textButton(loc("SelectAll"), @() option.setValue(values)) : null
-      hasSelected ? textButton(loc("DeselectAll"), @() option.setValue([])) : null
+      !hasUnselected ? null
+        : textButton(loc("SelectAll"), @() option.setValue(values), { hotkeys = [["^J:LT"]] })
+      !hasSelected ? null
+        : textButton(loc("DeselectAll"), @() option.setValue([]), { hotkeys = [["^J:RT"]] })
     ]
   })
 }
@@ -591,9 +593,9 @@ let lobbyPresetsButtons = @() {
   flow = FLOW_HORIZONTAL
   gap = localGap
   children = modPath.value != "" ? null : [
-    textButton(loc("Save settings"), openSaveWindow),
-    (lobbyPresets.value ?? {}).len() == 0 ? null
-      : textButton(loc("Choose settings"), openChooseWindow)
+    textButton(loc("Save settings"), openSaveWindow, { hotkeys = [["^J:LT"]] }),
+    (lobbyPresets.value?.len() ?? 0) == 0 ? null
+      : textButton(loc("Choose settings"), openChooseWindow, { hotkeys = [["^J:RT"]] })
   ]
 }
 

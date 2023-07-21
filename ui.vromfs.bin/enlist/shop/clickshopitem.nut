@@ -7,7 +7,7 @@ let viewShopItemsScene = require("viewShopItemsScene.nut")
 let { allItemTemplates } = require("%enlist/soldiers/model/all_items_templates.nut")
 let { shopItemContentCtor, curArmyShopFolder, purchaseIsPossible, setCurArmyShopPath
 } = require("armyShopState.nut")
-let { shopItemLockedMsgBox, mkShopItemInfoBlock, mkMsgBoxView, mkProductView
+let { shopItemLockedMsgBox, mkMsgBoxView, mkProductView, mkClassCanUseCenter
 } = require("shopPkg.nut")
 let checkLootRestriction = require("hasLootRestriction.nut")
 let { curArmyData } = require("%enlist/soldiers/model/state.nut")
@@ -32,7 +32,7 @@ let function shopItemAction(shopItem, curLevel, isNotSuitable = false) {
   else if (armyLevel > curLevel)
     shopItemLockedMsgBox(armyLevel)
   else if (purchaseIsPossible.value) {
-    let description = mkShopItemInfoBlock(crateContent)
+    let description = mkClassCanUseCenter(crateContent)
     let productView = mkMsgBoxView(shopItem, crateContent, countWatched)
     if (squad != null && isBuyingWithGold)
       buySquadWindow({

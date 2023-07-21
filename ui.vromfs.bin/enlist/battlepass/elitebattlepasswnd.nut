@@ -233,7 +233,6 @@ let eliteBattlePassWnd = @(){
       size = flex()
       flow = FLOW_VERTICAL
       hplace = ALIGN_CENTER
-      valign = ALIGN_BOTTOM
       children = [
         bpHeader(showingItem.value, closeButton, !isOpened.value)
         {
@@ -244,6 +243,9 @@ let eliteBattlePassWnd = @(){
             bpTitle(true, hdpx(100))
             mkDescription(loc("bp/description"))
           ]
+        }
+        {
+          size = flex()
         }
         cardsBlock
         btnBlock

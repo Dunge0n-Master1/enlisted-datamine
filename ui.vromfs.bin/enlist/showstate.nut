@@ -2,7 +2,6 @@ import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
 let { curCamera } = require("%enlist/sceneWithCamera.nut")
-let { curSection, mainSectionId } = require("%enlist/mainMenu/sectionsState.nut")
 let { curSoldierGuid } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { curVehicle, objInfoByGuid, getSoldierItemSlots } = require("%enlist/soldiers/model/state.nut")
 let { viewVehicle, selectVehParams } = require("%enlist/vehicles/vehiclesListState.nut")
@@ -17,6 +16,7 @@ let { vehDecorators, campItemsByLink } = require("%enlist/meta/profile.nut")
 let { selectedCampaign } = require("%enlist/meta/curCampaign.nut")
 let { getVehSkins } = require("%enlSqGlob/vehDecorUtils.nut")
 let { itemTypesInSlots } = require("%enlist/soldiers/model/all_items_templates.nut")
+let { soldiersSquad } = require("%enlist/soldiers/model/chooseSoldiersState.nut")
 
 
 let curHoveredItem = mkWatched(persist, "curHoveredItem")
@@ -127,7 +127,7 @@ let squadCampaignVehicleFilter = Computed(function() {
 })
 
 let sceneCameraSquadFilter = Computed(function() {
-  let prefix = curSection.value == mainSectionId ? "main_menu" : "squad"
+  let prefix = soldiersSquad.value == null ? "main_menu" : "squad"
   let sceneName = $"{prefix}_{squadCampaignVehicleFilter.value}"
   // to support old spawns with no difference betwee campaigns
   // we can remove system below and cameraScenes watched after old menu is no longer used
@@ -154,7 +154,9 @@ let scene = Computed(function() {
       : aircraftInfo.isFloating ? "aircrafts_floating"
       : "aircrafts"
   }
-  return (curCameraValue == "soldiers" && !curSoldierGuid.value) || selectedSquadSoldiers.value ? sceneCameraSquadFilter.value
+  let reqViewSquad = (curCameraValue == "soldiers" || curCameraValue == "soldiers_quarters")
+    && !curSoldierGuid.value
+  return reqViewSquad || selectedSquadSoldiers.value ? sceneCameraSquadFilter.value
     : isCustomizationWndOpened.value ? "soldier_customization"
     : curCameraValue == "new_items" && currentNewSoldierGuid.value ? "soldier_in_middle"
     : curCameraValue

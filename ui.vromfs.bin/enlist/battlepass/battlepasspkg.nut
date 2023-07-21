@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { bigPadding, titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
+let { titleTxtColor } = require("%enlSqGlob/ui/viewConst.nut")
 let { timeLeft, seasonIndex } = require("bpState.nut")
 let { mkSeasonTime } = require("%enlist/battlepass/rewardPkg.nut")
 
@@ -39,24 +39,16 @@ let dynamicSeasonBpBg = @(size, opacity) function() {
 let dynamicSeasonBPIcon = @(size) @()
   staticSeasonBPIcon(seasonIndex.value, size).__update({ watch = seasonIndex })
 
-let timeTracker = @(params = {}) @() {
+let timeTracker = @() {
   watch = timeLeft
-  gap = bigPadding
-  flow = FLOW_HORIZONTAL
-  valign = ALIGN_CENTER
+  hplace = ALIGN_RIGHT
   children = timeLeft.value > 0
-    ? [
-        {
-          rendObj = ROBJ_TEXT
-          text = loc("bp/timeLeft")
-        }.__update(defTxtStyle)
-        mkSeasonTime(timeLeft.value)
-      ]
+    ? mkSeasonTime(timeLeft.value)
     : {
         rendObj = ROBJ_TEXT
         text = loc("bp/timeExpired")
       }.__update(defTxtStyle)
-}.__update(params)
+}
 
 
 return {

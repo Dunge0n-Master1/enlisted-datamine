@@ -44,7 +44,6 @@ let { PSNAllowShowQRCodeStore } = require("%enlist/featureFlags.nut")
 let { getLinkedArmyName } = require("%enlSqGlob/ui/metalink.nut")
 let { curSoldierInfo } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { classSlotLocksByArmy } = require("%enlist/researches/researchesSummary.nut")
-let isNewbie = require("%enlist/unlocks/isNewbie.nut")
 
 const SHOP_SECTION = "SHOP"
 let hasShopSection = Computed(@() !(disabledSectionsData.value?.LOGISTICS ?? false))
@@ -380,10 +379,7 @@ let function getBuyRequirementError(shopItem) {
 
 let curAvailableShopItems = Computed(function() {
   let { level = 0 } = curArmyData.value
-  let isMeNewbie = isNewbie.value
   return curArmyShopItems.value.filter(@(item) (item?.offerContainer ?? "") == ""
-    && (((item?.curItemCost ?? {}).len() > 0)
-      || (isMeNewbie && (item?.curShopItemPrice.price ?? 0) > 0))
     && (item?.requirements.armyLevel ?? 0) <= level
   )
 })
@@ -411,7 +407,8 @@ let function getUnseenGuids(tree, res, seen, avail) {
 let curUnseenAvailShopGuids = Computed(function() {
   let avail = {}
   foreach (item in curAvailableShopItems.value)
-    avail[item.guid] <- true
+    if ((item?.featuredWeight ?? 0) == 0)
+      avail[item.guid] <- true
   let seen = seenShopItems.value.seen?[curArmy.value] ?? {}
   let fullTree = curFullTree.value
 
@@ -420,15 +417,16 @@ let curUnseenAvailShopGuids = Computed(function() {
 
 curAvailableShopItems.subscribe(function(items) {
   let armyId = curArmy.value
-  let seen = seenShopItems.value.seen?[armyId] ?? {}
-  if (seen.len() == 0)
-    return
 
-  let excludeList = seen
-    .filter(@(_, guid) items.findindex(@(i) i.guid == guid) == null)
-    .keys()
-  if (excludeList.len() != 0)
-    gui_scene.resetTimeout(0.1, @() excludeShopItemSeen(armyId, excludeList))
+  let seen = seenShopItems.value.seen?[armyId] ?? {}
+  if (seen.len() != 0) {
+    let excludeList = seen
+      .filter(@(_, guid) items.findindex(@(i) i.guid == guid) == null)
+      .keys()
+
+    if (excludeList.len() != 0)
+      gui_scene.resetTimeout(0.1, @() excludeShopItemSeen(armyId, excludeList))
+  }
 })
 
 let premiumProducts = Computed(@()
@@ -722,7 +720,6 @@ let curSuitableShopItems = Computed(function() {
   return res
 })
 
-
 return {
   SHOP_SECTION
   hasShopSection
@@ -770,4 +767,5 @@ return {
   curSuitableItemTypes
   curSuitableShopItems
   needGoToManagementBtn
+  curAvailableShopItems
 }

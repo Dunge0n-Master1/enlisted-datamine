@@ -23,7 +23,7 @@ let {
 let { utf8ToUpper } = require("%sqstd/string.nut")
 let {
   defTxtColor, colFull, colPart, columnGap, smallPadding, midPadding, darkTxtColor,
-  contentOffset, titleTxtColor, hoverSlotBgColor, bigPadding
+  contentOffset, titleTxtColor, hoverSlotBgColor, largePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let {
   mkBaseShopItem, mkLowerShopItem, lowerSlotSize, mkShopFeatured, mkDiscountBar
@@ -132,8 +132,7 @@ let function buildShopUi() {
     let dataByGroup = curShopDataByGroup.value
     return {
       watch = [curShopItemsByGroup, curShopDataByGroup, curGroupIdx, isGamepad]
-      size = flex()
-      pos = [0, bigPadding]
+      size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_HORIZONTAL
       halign = ALIGN_CENTER
       valign = ALIGN_CENTER
@@ -194,7 +193,10 @@ let function buildShopUi() {
           @(v) markShopItemSeen(v.guid, v.itemGuid))(on)
     }
     let unseenComp = @() {
-      watch = hasNotifier children = hasNotifier.value ? unblinkUnseen : null
+      watch = hasNotifier
+      hplace = ALIGN_RIGHT
+      vplace = ALIGN_TOP
+      children = hasNotifier.value ? unblinkUnseen : null
     }
 
     return function() {
@@ -219,14 +221,11 @@ let function buildShopUi() {
       let itemView = isFeatured
         ? mkShopFeatured(guid, sItem, offer, content, templates, lockTxt, clickCb, hoverCb, infoCb)
         : itemCtor(idx, guid, sItem, offer, content, templates,
-            lockTxt, clickCb, hoverCb, null, infoCb)
+            lockTxt, clickCb, hoverCb, null, infoCb, unseenComp)
       return {
         key = itemGuid
         watch = [crateContent, needFreemiumStatus, allItemTemplates]
-        children = [
-          itemView
-          unseenComp
-        ]
+        children = itemView
       }
     }
   }
@@ -355,13 +354,7 @@ let function buildShopUi() {
     margin = [contentOffset,0,0,0]
     gap = columnGap * 2
     children = [
-      {
-        size = [flex(), SIZE_TO_CONTENT]
-        children = [
-          armySelectUi
-          shopNavigationUi
-        ]
-      }
+      armySelectUi
       {
         size = flex()
         function onAttach() {
@@ -369,7 +362,12 @@ let function buildShopUi() {
           autoSwitchNavigation()
         }
         onDetach = onShopDetach
-        children = contentUi
+        flow = FLOW_VERTICAL
+        gap = largePadding
+        children = [
+          shopNavigationUi
+          contentUi
+        ]
       }
     ]
   }

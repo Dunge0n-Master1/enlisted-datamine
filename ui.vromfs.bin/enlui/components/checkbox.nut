@@ -8,6 +8,8 @@ let { stateChangeSounds } = require("%ui/style/sounds.nut")
 let fa = require("%ui/components/fontawesome.map.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { isGamepad } = require("%ui/control/active_controls.nut")
+let { mkImageCompByDargKey } = require("%ui/components/gamepadImgByKey.nut")
+let getGamepadHotkeys = require("%ui/components/getGamepadHotkeys.nut")
 
 let checkFontSize = hdpx(12)
 let boxSize = hdpx(20)
@@ -104,18 +106,27 @@ return function (state, label_text_params=null, params = {}) {
     setValue(!state.value)
     sound_play(state.value ? "ui/enlist/flag_set" : "ui/enlist/flag_unset")
   }
-  let hotkeysElem = params?.useHotkeys ? {
-    key = "hotkeys"
-    hotkeys = [
-      ["Left | J:D.Left", hotkeyLoc, onClick],
-      ["Right | J:D.Right", hotkeyLoc, onClick],
-    ]
-  } : null
+
+  let { hotkeys = null } = params
+  let hotkeyName = getGamepadHotkeys(hotkeys)
+  let image = hotkeyName != "" ? mkImageCompByDargKey(hotkeyName) : null
+  let hotkeysElem = hotkeys ? {
+        key = "hotkeys"
+        hotkeys = hotkeys.map(@(hotkey) hotkey.append(onClick))
+      }
+    : params?.useHotkeys ? {
+        key = "hotkeys"
+        hotkeys = [
+          ["Left | J:D.Left | Right | J:D.Right", hotkeyLoc, onClick]
+        ]
+      }
+    : null
   return function(){
     let children = [
+      isGamepad.value ? image : null
       isGamepad.value ? switchbox(stateFlags, state, group) : box(stateFlags, state)
       label(stateFlags, label_text_params, group, onClick)
-      stateFlags.value & S_HOVER ? hotkeysElem : null
+      hotkeys || (stateFlags.value & S_HOVER) ? hotkeysElem : null
     ]
     if (params?.textOnTheLeft)
       children.reverse()

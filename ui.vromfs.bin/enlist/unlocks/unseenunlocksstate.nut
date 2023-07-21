@@ -153,4 +153,5 @@ return {
   hasWeeklyTasks
   hasUnopenedWeeklyTasks
   hasUnseenWeeklyTasks
+  hasNewbieUnlocksData
 }

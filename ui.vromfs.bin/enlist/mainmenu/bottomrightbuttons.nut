@@ -10,7 +10,7 @@ let showContactsListWnd = require("%enlist/contacts/contactsListWnd.nut")
 let mkContactsButton = require("%enlist/contacts/mkContactsButton.nut")
 let { enabledSquad } = require("%enlist/squad/squadState.nut")
 let squadWidget = require("%enlist/squad/squadWidget.ui.nut")
-let { hasMainSectionOpened, hasSquadsSectionOpened } = require("%enlist/mainMenu/sectionsState.nut")
+let { hasMainSectionOpened } = require("%enlist/mainMenu/sectionsState.nut")
 let userLogButton = require("%enlist/userLog/userLogButton.nut")
 let usermailButton = require("%enlist/usermail/usermailButton.nut")
 
@@ -32,9 +32,9 @@ let buttonsBlock = freeze({
 })
 
 let function bottomBar() {
-  let res = { watch = [hasMainSectionOpened, hasSquadsSectionOpened, enabledSquad] }
+  let res = { watch = [hasMainSectionOpened, enabledSquad] }
   let children = []
-  if (hasMainSectionOpened.value || hasSquadsSectionOpened.value) {
+  if (hasMainSectionOpened.value) {
     if (enabledSquad.value)
       children.append(squadWidget)
     if (buttons.len() > 0)

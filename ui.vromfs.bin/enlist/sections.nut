@@ -1,7 +1,6 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { fontXSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { mkSoldiersUi } = require("soldiers/soldiersList.ui.nut")
 let { buildShopUi } = require("shop/mkShopUi.nut")
 let { buildResearchesUi } = require("researches/mkResearchesUi.nut")
 let { mkMainSceneContent } = require("%enlist/mainScene/mainScene.nut")
@@ -200,13 +199,6 @@ let sections = [
     locId = "menu/battles"
     getContent = mkMainSceneContent
     id = mainSectionId
-    camera = "soldiers"
-  }
-
-  {
-    locId = "menu/squads"
-    getContent = mkSoldiersUi
-    id = "SQUAD_SOLDIERS"
     camera = "soldiers"
     addChild = {
       pos = [0, hdpx(16)]

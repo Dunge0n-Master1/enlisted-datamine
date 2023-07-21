@@ -1,6 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
+let { colPart, transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding
+} = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
 let spinner = require("%ui/components/spinner.nut")
@@ -22,20 +24,21 @@ let {
 let {
   eventsArmiesList, eventCurArmyIdx
 } = require("%enlist/gameModes/eventModesState.nut")
-
-let { colPart, transpPanelBgColor } = require("%enlSqGlob/ui/designConst.nut")
-let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg } = require("%enlSqGlob/ui/defComponents.nut")
+let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg
+} = require("%enlSqGlob/ui/defComponents.nut")
+let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 
 const TIME_BEFORE_SHOW_QUEUE = 15
 const MIN_VISIBLE_PLAYERS_AMOUNT = 2
 
-let defaultSize = [hdpx(480), hdpx(360)]
+let defaultSize = [fsh(45), fsh(53)]
 let defPosSize = {
   size = defaultSize
   pos = [ sw(50) - defaultSize[0] / 2, sh(80) - defaultSize[1] ]
 }
-let titleHeight = colPart(0.903)
-let waitingSpinner = spinner(colPart(1.1))
+let titleHeight = colPart(1)
+let spinnerHeight = colPart(1.1)
+let waitingSpinner = spinner(spinnerHeight)
 
 let posSize = Watched(defPosSize)
 
@@ -81,29 +84,36 @@ let function queueTitle() {
 let maxMinPlayersAmount = Computed(@() (currentGameMode.value?.queue.modes ?? [])
   .reduce(@(res, val) (val?.minPlayers ?? 1) > res ? val : res, 1))
 
+let armiesGap = {
+  rendObj = ROBJ_TEXT
+  text = loc("mainmenu/versus_short")
+  vplace = ALIGN_CENTER
+  margin = hdpx(20)
+  color = activeTitleTxtColor
+}
+
 let queueContent = @() {
-    watch = [queueInfo, timeInQueue]
-    size = [flex(), SIZE_TO_CONTENT]
-    children = (timeInQueue.value > TIME_BEFORE_SHOW_QUEUE && (queueInfo.value?.matched ?? 0) > 0)
-      ? function(){
-          local armyList = curArmiesList.value
-          local armyId = curArmy.value
-          if (eventsArmiesList.value.len() > 0) {
-            armyList = eventsArmiesList.value
-            armyId = eventsArmiesList.value[eventCurArmyIdx.value]
-          }
-          return {
+  watch = [queueInfo, timeInQueue]
+  size = [flex(), hdpx(160)]
+  children = (timeInQueue.value > TIME_BEFORE_SHOW_QUEUE && (queueInfo.value?.matched ?? 0) > 0)
+    ? function(){
+        local armyList = curArmiesList.value
+        local armyId = curArmy.value
+        if (eventsArmiesList.value.len() > 0) {
+          armyList = eventsArmiesList.value
+          armyId = eventsArmiesList.value[eventCurArmyIdx.value]
+        }
+        return {
+          watch = [curArmiesList, curArmy, eventsArmiesList, eventCurArmyIdx, allArmiesInfo,
+            matchRandomTeam, maxMinPlayersAmount]
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_VERTICAL
+          gap = bigPadding
+          children = [
+            {
               size = [flex(), SIZE_TO_CONTENT]
               flow = FLOW_HORIZONTAL
-              watch = [curArmiesList, curArmy, eventsArmiesList, eventCurArmyIdx, allArmiesInfo,
-                matchRandomTeam, maxMinPlayersAmount]
-              gap = {
-                rendObj = ROBJ_TEXT
-                text = loc("mainmenu/versus_short")
-                vplace = ALIGN_CENTER
-                margin = hdpx(20)
-                color = activeTitleTxtColor
-              }
+              gap = armiesGap
               halign = ALIGN_CENTER
               children = armyList.map(@(army, idx) {
                 rendObj = ROBJ_BOX
@@ -123,8 +133,11 @@ let queueContent = @() {
                       }).__update(body_txt)
                 ]
               })
-          }}
-      : null
+            }
+            waitingSpinner
+          ]
+        }}
+    : null
 }
 
 let randomTeamHint = noteTextArea({
@@ -142,12 +155,22 @@ let function mkRandomTeamContent() {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
-    margin = hdpx(20)
     children = [
       matchRandomTeam.value ? null : randomTeamHint
       isCurQueueReqRandomSide.value ? alwaysRandTeamSign : randTeamCheckbox
     ]
   })
+}
+
+let tasksBlock = {
+  rendObj = ROBJ_WORLD_BLUR
+  fillColor = panelBgColor
+  color = defItemBlur
+  size = [flex(), SIZE_TO_CONTENT]
+  padding = hdpx(30)
+  halign = ALIGN_CENTER
+  gap = hdpx(30)
+  children = dailyTasksUi
 }
 
 local dxSum = 0.0
@@ -190,19 +213,16 @@ return function queueWaitingInfo() {
       return newPosSize
     }
     children = infoContainer.__merge({
-      size = defaultSize
-      gap = hdpx(30)
+      size = [SIZE_TO_CONTENT, defaultSize[1]]
+      minWidth = defaultSize[0]
+      gap = largePadding
       valign = ALIGN_TOP
       children = [
         queueTitle
-        {
-          hplace = ALIGN_CENTER
-          vplace = ALIGN_CENTER
-          children = waitingSpinner
-        }
         crossplayHint
         queueContent
         mkRandomTeamContent
+        tasksBlock
       ]
     })
   }

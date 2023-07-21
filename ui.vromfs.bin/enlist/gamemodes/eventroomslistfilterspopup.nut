@@ -205,8 +205,18 @@ let openEventFiltersPopup = @(event)
     onDetach = @() isRoomFilterOpened(false)
   })
 
+let closeEventFiltersPopup = @() modalPopupWnd.remove(WND_UID)
+
+let function toggleEventFiltersPopup(event) {
+  if (isRoomFilterOpened.value)
+    closeEventFiltersPopup()
+  else
+    openEventFiltersPopup(event)
+}
+
 return {
   openEventFiltersPopup
-  closeEventFiltersPopup = @() modalPopupWnd.remove(WND_UID)
+  closeEventFiltersPopup
+  toggleEventFiltersPopup
   isRoomFilterOpened
 }

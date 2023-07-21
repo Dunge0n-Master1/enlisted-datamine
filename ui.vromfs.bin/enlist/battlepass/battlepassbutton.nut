@@ -1,8 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontXLarge, fontSmall } = require("%enlSqGlob/ui/fontsStyle.nut")
-let { smallPadding, bigPadding, defTxtColor, startBtnWidth, colPart, transpPanelBgColor, midPadding,
-  defItemBlur, highlightLineTop, highlightLineBottom, hoverSlotBgColor, darkTxtColor
+let { fontXLarge } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { smallPadding, bigPadding, defTxtColor, startBtnWidth, colPart, transpPanelBgColor, defItemBlur,
+  highlightLineTop, hoverSlotBgColor, darkTxtColor
 } = require("%enlSqGlob/ui/designConst.nut")
 let { BP_INTERVAL_STARS } = require("%enlSqGlob/bpConst.nut")
 let { hasReward, currentProgress, nextUnlock, seasonIndex } = require("%enlist/battlepass/bpState.nut")
@@ -11,11 +11,10 @@ let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
 let { timeTracker, dynamicSeasonBPIcon, bpColors, dynamicSeasonBpBg
 } = require("%enlist/battlepass/battlePassPkg.nut")
 let { rewardAnimBg, taskLabelSize } = require("%enlSqGlob/ui/tasksPkg.nut")
-let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
-let { hasEliteBattlePass } = require("%enlist/battlepass/eliteBattlePass.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let { bpStarsAnimGen } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 let { soundDefault } = require("%ui/components/textButton.nut")
+let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
 
 
 let starSize = colPart(0.33)
@@ -91,22 +90,6 @@ let function rewardProgress() {
 }
 
 
-let function taskLimitMessage() {
-  let res = { watch = canTakeDailyTaskReward, hasEliteBattlePass}
-  if (canTakeDailyTaskReward.value && !hasEliteBattlePass.value)
-    return res
-  return res.__update({
-    rendObj = ROBJ_TEXTAREA
-    behavior = Behaviors.TextArea
-    size = [flex(), SIZE_TO_CONTENT]
-    padding = [0, bigPadding]
-    margin = [smallPadding, 0]
-    color = defTxtColor
-    text = loc("unlocks/dailyTasksLimit")
-  }.__update(fontSmall))
-}
-
-
 let titleBpBlock = @(sf) {
   size = [flex(), SIZE_TO_CONTENT]
   flow = FLOW_VERTICAL
@@ -118,7 +101,6 @@ let titleBpBlock = @(sf) {
       color = sf & S_HOVER ? darkTxtColor : defTxtColor
     }.__update(fontXLarge)
     rewardProgress
-    taskLimitMessage
   ]
 }
 
@@ -167,28 +149,25 @@ let mkWidgetInfo = @(sf) {
   ]
 }
 
-
-let bpWidgetOpen = {
+let bpWidgetOpen = @() {
+  watch = hasBattlePass
   size = [startBtnWidth, SIZE_TO_CONTENT]
-  children = [
-    timeTracker({ pos = [0, -(fontSmall.fontSize + midPadding)] })
-    watchElemState(@(sf) {
-      rendObj = ROBJ_WORLD_BLUR
-      size = [flex(), SIZE_TO_CONTENT]
-      minHeight = bpButtonHeight
-      color = defItemBlur
-      fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
-      behavior = Behaviors.Button
-      sound = soundDefault
-      onClick = openBPwindow
-      children = [
-        dynamicSeasonBpBg([colPart(6.03), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
-        mkWidgetInfo(sf)
-        highlightLineTop
-        highlightLineBottom
-      ]
-    })
-  ]
+  children = !hasBattlePass.value ? null : watchElemState(@(sf) {
+    rendObj = ROBJ_WORLD_BLUR
+    size = [flex(), SIZE_TO_CONTENT]
+    minHeight = bpButtonHeight
+    color = defItemBlur
+    fillColor = sf & S_HOVER ? hoverSlotBgColor : transpPanelBgColor
+    behavior = Behaviors.Button
+    sound = soundDefault
+    onClick = openBPwindow
+    children = [
+      timeTracker
+      dynamicSeasonBpBg([colPart(6), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
+      mkWidgetInfo(sf)
+      highlightLineTop
+    ]
+  })
 }
 
 console_register_command(@() openBPwindow(), "ui.battlepassWindow")

@@ -81,6 +81,7 @@ let randTeamBoxStyle = {
 let randTeamCheckbox = checkbox(matchRandomTeam, randTeamBoxStyle, {
   setValue = setRandTeamValue
   textOnTheLeft = true
+  hotkeys = [["^J:RS.Tilted"]]
 })
 
 let alwaysRandTeamSign = checkbox(Watched(true), randTeamBoxStyle, {

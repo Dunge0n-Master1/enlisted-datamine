@@ -456,8 +456,8 @@ let function applyPreset(text, target=null) {
       preset = target?.name ?? selectedPreset.value.name
     }), {margin = hdpx(50)})
     buttons = [
-      { text = loc("Yes"), action = doReset }
-      { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] } }
+      { text = loc("Yes"), action = doReset, isCurrent = true }
+      { text = loc("No"), customStyle = { hotkeys = [[$"^{JB.B} | Esc"]] }, isCancel = true }
     ]
   })
 }

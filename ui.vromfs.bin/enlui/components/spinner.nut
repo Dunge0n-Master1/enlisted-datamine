@@ -15,6 +15,8 @@ return function(height = colPart(0.64), opacity = 0.3, color = 0x03202020) {
     size = [height, height]
     hplace = ALIGN_CENTER
     vplace = ALIGN_CENTER
+    halign = ALIGN_CENTER
+    valign = ALIGN_CENTER
     opacity
     children = [
       {

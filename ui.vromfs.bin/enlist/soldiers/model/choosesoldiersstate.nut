@@ -1,7 +1,7 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { curCampSquads, soldiersBySquad, squadsByArmy, objInfoByGuid } = require("state.nut")
-let { curSoldierIdx, defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
+let { defSoldierGuid, collectSoldierData } = require("%enlist/soldiers/model/curSoldiersState.nut")
 let { manage_squad_soldiers, dismiss_reserve_soldier, update_profile,
   lastRequests, swap_soldiers_equipment } = require("%enlist/meta/clientApi.nut")
 let { allReserveSoldiers } = require("reserve.nut")
@@ -398,7 +398,6 @@ let function curSoldierToSquad() {
 
 let close = function() {
   selectedSoldierGuid(null)
-  curSoldierIdx(curSquadSoldierIdx.value)
   soldiersSquadGuid(null)
   isPurchaseWndOpend(false)
 }

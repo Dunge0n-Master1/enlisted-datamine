@@ -66,6 +66,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
                                      beh_tree__data__vehicleBeh : string;
                                      beh_tree__isInTrainBeh : bool;
                                      beh_tree__shouldUseVehicle : bool;
+                                     var beh_tree__isInVehicleResetTrigger : bool&;
                                      var beh_tree__shouldUseVehicleResetTrigger : bool&;
                                      var beh_tree__orderIsInVehicle : bool&;
                                      var beh_tree__orderShouldUseVehicle : bool&;
@@ -106,6 +107,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
           else
             beh_tree__orderIsInVehicle     = true
             beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+            beh_tree__isInVehicleResetTrigger = true
 
           DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
           if beh_tree__latencyLoadBlackBoard != null
@@ -115,6 +117,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
         elif isInVehicle && !beh_tree__orderIsInVehicle
           beh_tree__orderIsInVehicle     = true
           beh_tree__refs__behaviour := beh_tree__data__vehicleBeh
+          beh_tree__isInVehicleResetTrigger = true
 
           DngBehTree::load_beh_tree_from_ecs(squadMemberEid)
 
@@ -128,7 +131,7 @@ def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
         if isInVehicle
           query(human_anim__vehicleSelected) <| $ [es] (vehicle_seats__seatEids : EidList)
             kick_from_vehicle(squadMemberEid, human_anim__vehicleSelected, vehicle_seats__seatEids)
-require DagorSystem
+
 [es(tag=server, no_order)]
 def on_squad_leader_in_vehicle_es(act : UpdateStageInfoAct;
                                   squad__leader : EntityId;

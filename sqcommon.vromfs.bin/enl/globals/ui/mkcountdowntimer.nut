@@ -9,7 +9,7 @@ let {
 
 
 let timerIcon = "ui/skin#/battlepass/boost_time.svg"
-let defTimerSize = hdpxi(18)
+let defTimerSize = hdpxi(13)
 let smallTimerSize = hdpxi(12)
 
 let function mkTimer(timestamp, prefixLocId = "", expiredLocId = "timeExpired",

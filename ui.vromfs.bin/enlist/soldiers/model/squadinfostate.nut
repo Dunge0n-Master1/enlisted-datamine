@@ -4,10 +4,9 @@ let { curArmy, curSquadId, curVehicle, objInfoByGuid } = require("state.nut")
 let { curSoldierIdx, defSoldierGuid } = require("curSoldiersState.nut")
 let { items, soldiers, squads } = require("%enlist/meta/servProfile.nut")
 let { getLinkedSquadGuid, getFirstLinkedObjectGuid } = require("%enlSqGlob/ui/metalink.nut")
-let { curSection } = require("%enlist/mainMenu/sectionsState.nut")
 
 let function deselectSoldier() {
-  curSoldierIdx(curSection.value == "SQUAD_SOLDIERS" ? 0 : null)
+  curSoldierIdx(null)
   defSoldierGuid(null)
 }
 curArmy.subscribe(@(_) deselectSoldier())
@@ -45,4 +44,5 @@ return {
   isSquadRented
   isObjGuidBelongToRentedSquad
   buyRentedSquad
+  deselectSoldier
 }
