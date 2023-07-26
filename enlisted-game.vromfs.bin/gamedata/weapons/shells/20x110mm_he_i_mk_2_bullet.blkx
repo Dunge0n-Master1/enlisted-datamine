@@ -12,16 +12,22 @@ stabilityThreshold:r=0.05
 explosiveMass:r=0.0064
 stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
-hitPowerMult:r=1.5
-stabilityReductionAfterPenetration:r=0.15
-onHitChanceMultFire:r=2.5
+hitPowerMult:r=5.0
+stabilityReductionAfterPenetration:r=0.1
+onHitChanceMultFire:r=5.0
 slopeEffectPreset:t="ap"
 effectiveDistance:r=700.0
 fresnel:p3=0.23, 0.1, 2.0
 relativeVelHitShift:p2=300.0, 1000.0
+shellAnimation:t="video/shells_animations/he_i_shell.ivf"
 relativeVelArmorShift:p2=200.0, 1000.0
-explodeTreshold:r=0.1
+explodeTreshold:r=0.2
 fuseDelayDist:r=0.1
+selfDestructionFx:t="explosion_air_selfexplosion_small"
+explosionEffect:t="hit_19_27mm_metal_he"
+groundCollisionEffect:t="hit_19_27mm_dirt_he"
+ricochetEffect:t="hit_19_27mm_metal_ap"
+waterCollisionEffect:t="hit_19_27mm_water"
 
 stabilityRicochetModifier{
   mod1:p2=0.0, 0.05
@@ -35,39 +41,19 @@ pressureDamage{
 }
 
 hitpower{
-  HitPower10m:p2=1.0, 10.0
-  HitPower1000m:p2=0.85, 1000.0
-  HitPower1500m:p2=0.75, 1500.0
-  HitPower2000m:p2=0.3, 2000.0
+  HitPower10m:p2=1.25, 10.0
+  HitPower1000m:p2=1.0, 1000.0
+  HitPower1500m:p2=0.95, 1500.0
+  HitPower2000m:p2=0.45, 2000.0
 }
 
 armorpower{
-  ArmorPower0m:p2=2.0, 10.0
-  ArmorPower100m:p2=2.0, 100.0
-  ArmorPower500m:p2=1.5, 500.0
-  ArmorPower1000m:p2=1.0, 1000.0
-  ArmorPower1450m:p2=0.5, 1450.0
-  ArmorPower1500m:p2=0.0, 1500.0
-}
-
-damage{
-
-  shatter{
-    useRealShatters:b=yes
-    countPortion:r=0.3
-
-    segment{
-      radiusScale:r=1.0
-      penetrationScale:r=1.0
-      damageScale:r=1.0
-      angles:p2=0.0, 180.0
-      countPortion:r=1.0
-    }
-  }
-}
-
-shatterDamage{
-  breachConeAngle:r=45.0
+  ArmorPower0m:p2=6.0, 10.0
+  ArmorPower100m:p2=6.0, 100.0
+  ArmorPower500m:p2=5.5, 500.0
+  ArmorPower1000m:p2=4.0, 1000.0
+  ArmorPower1450m:p2=2.5, 1450.0
+  ArmorPower1500m:p2=1.5, 1500.0
 }
 
 visual{

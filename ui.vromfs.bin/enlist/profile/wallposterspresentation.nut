@@ -50,6 +50,10 @@ let wpPresentation = freeze({
     img = "agit_poster_enlisted_battlepass_g_tex_d*"
     bpSeason = 10
   }
+  wallposter_battlepass_season_10_preview = {
+    img = "agit_poster_enlisted_battlepass_h_tex_d*"
+    bpSeason = 11
+  }
   agit_poster_ussr_a_preview = {
     img = "agit_poster_ussr_a_tex_d*"
   }

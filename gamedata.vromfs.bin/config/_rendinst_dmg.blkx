@@ -51983,6 +51983,13 @@ riExtra{
     fxScale:r=1.0
   }
 
+  agit_poster_battlepass_h{
+    hp:r=20.0
+    material:t="small_decor"
+    fxTemplate:t="envir_destr_paper_med_effect"
+    fxScale:r=1.0
+  }
+
   agit_poster_ny_ussr_a{
     hp:r=20.0
     material:t="small_decor"

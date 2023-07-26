@@ -192,9 +192,9 @@ base_tempest_mkv_20mm_hispanomkv{
       }
 
       "shell:object"{
-        blk:t="gamedata/weapons/shells/20x110mm_ball_mk1_bullet.blk"
+        blk:t="gamedata/weapons/shells/20x110mm_m75_ap_t_bullet.blk"
         name:t="mk1"
-        type:t="ball_shell"
+        type:t="ap_t"
       }
 
       "shell:object"{

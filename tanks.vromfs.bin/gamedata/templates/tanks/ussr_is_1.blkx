@@ -235,3 +235,14 @@ is_1_skins{
     }
   }
 }
+
+ussr_is_1_13th_guardian_berlin_battlepass_premium_skin{
+  _extends:t="ussr_is_1_common"
+
+  "animchar__objTexSet:object"{
+
+    "is_1_turret_c*:object"{
+      "is_1_13th_guardian_turret_c*":t="camo_skin_tex"
+    }
+  }
+}

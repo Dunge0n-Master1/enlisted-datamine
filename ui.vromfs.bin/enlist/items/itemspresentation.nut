@@ -184,19 +184,19 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/gold_weapons.avif"
     cardImageParams = mkImageParams([144, 170], [0, 17])
     specialRewards = {
-      [10] = {
-        normandy_allies = "winchester_automatic_rifle"
-        normandy_axis = "fn_model_1930"
-        berlin_allies = "svd_38"
-        berlin_axis = "lahti_saloranta_m26"
-        moscow_allies = "svd_38"
-        moscow_axis = "lahti_saloranta_m26"
-        tunisia_allies = "lanchester_model_1"
-        tunisia_axis = "scotti_model_x"
-        stalingrad_allies = "svd_38"
-        stalingrad_axis = "lahti_saloranta_m26"
-        pacific_allies = "winchester_automatic_rifle"
-        pacific_axis = "fn_model_1930"
+      [11] = {
+        normandy_allies = "farquhar_hill_1918"
+        normandy_axis = "mondragon_m1908"
+        berlin_allies = "svt_40_with_drum"
+        berlin_axis = "mondragon_m1908"
+        moscow_allies = "svt_40_with_drum"
+        moscow_axis = "mondragon_m1908"
+        tunisia_allies = "farquhar_hill_1918"
+        tunisia_axis = "mondragon_m1908"
+        stalingrad_allies = "svt_40_with_drum"
+        stalingrad_axis = "mondragon_m1908"
+        pacific_allies = "farquhar_hill_1918"
+        pacific_axis = "nambu_type_a_sword_pistol"
       }
     }
   },
@@ -1188,6 +1188,15 @@ let rewardsPresentation = {
     bgImage = "ui/skin#/battlepass/bg_gold.avif"
     cardImage = "!ui/skin#/currency/event_order.svg"
     mkImage = mkImageCtor([72, 100])
+  },
+  ["450"] = {
+    name = loc("items/wallposter_battlepass_order")
+    description = loc("items/wallposter_battlepass_order/desc")
+    gametemplate = "poster_ticket_10"
+    worth = 2
+    bgImage = "ui/skin#/battlepass/bg_poster.avif"
+    cardImage = "ui/skin#/battlepass/posters.avif"
+    cardImageParams = mkImageParams([154, 174], [0, 13])
   },
 
 

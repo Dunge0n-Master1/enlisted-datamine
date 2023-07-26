@@ -158,7 +158,7 @@ local weaponToAnimState = freeze({
   stl_mg_13_gun =              [i(16), i(12)]
   mg_13_saddle_drum_gun =      [i(16), i(12)]
   berthier_1892_m16_gun =      [i(9), i(12), i(13), i(14), i(18)]
-  lewis_lmg_gun =              [i(6)]
+  lewis_lmg_gun =              [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
   type_97_antitank_canon_scaled_gun = [i(16)]
   kar98k_wartime_production_gun = [i(9), i(12), i(13), i(16)]
   akm_47_gun =                 [i(9), i(12), i(16), i(18)]
@@ -205,6 +205,10 @@ local weaponToAnimState = freeze({
   lahti_saloranta_m26_gun =    [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
   winchester_automatic_rifle_gun = [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
   fn_model_1930_gun =          [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
+  svt_40_with_drum_gun =       [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
+  mondragon_m1908_gun =        [i(101), i(102), i(103), i(104), i(105), i(106), i(107), i(108), i(109)]
+  nambu_type_a_sword_pistol_gun = [i(107), i(108)]
+  farquhar_hill_1918_gun =     [i(101), i(102), i(103), i(105), i(106), i(107), i(108), i(109), i(110), i(111)]
 
   beretta_m38_gun =            [i(9), i(11), i(12), i(15), i(16)]
   beretta_m38_42_gun =         [i(11), i(13), i(15)]
@@ -334,10 +338,14 @@ local weaponToSittingAnimState = freeze({
   krieghoff_fg_gun =            [i(112), i(113), i(114)]
   lahti_saloranta_m26_gun =     [i(112), i(113), i(114)]
   type_4_rifle_gun =            [i(112), i(113), i(114)]
+  lewis_lmg_gun =               [i(112), i(113), i(114)]
   fg_42_with_grenade_launcher_gun = [i(112), i(113), i(114)]
   winchester_automatic_rifle_gun = [i(112), i(113), i(114)]
   fn_model_1930_gun = [i(112), i(113), i(114)]
   vickers_mk1_no2_gun =         [i(112), i(113), i(114)]
+  svt_40_with_drum_gun =        [i(112), i(114)]
+  mondragon_m1908_gun =         [i(112), i(114)]
+  farquhar_hill_1918_gun =      [i(112), i(113), i(114)]
 })
 
 let getMentionedAnimStates = @(weaponToAnimStates) weaponToAnimStates.reduce(function(tbl, val) {

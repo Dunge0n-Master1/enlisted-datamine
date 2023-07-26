@@ -5243,16 +5243,16 @@ svt_40_gun{
       path:t="/weapon/rifle/svt40/reload1/change_ammo"
     }
 
-    "reload2:object"{
-      path:t="/weapon/rifle/svt40/reload2/change_ammo"
-    }
-
-    "reload3:object"{
-      path:t="/weapon/rifle/svt40/reload3/change_ammo"
-    }
-
     "reload4:object"{
       path:t="/weapon/rifle/svt40/reload4/change_ammo"
+    }
+
+    "reload5:object"{
+      path:t="/weapon/rifle/svt40/reload5/change_ammo"
+    }
+
+    "reload6:object"{
+      path:t="/weapon/rifle/svt40/reload6/change_ammo"
     }
 
     "boltAction:object"{
@@ -5281,6 +5281,27 @@ svt_40_gun{
       offset:p3=0.24, -0.04, 0.0
     }
   }
+}
+
+svt_40_with_drum{
+  _extends:t="svt_40"
+  animchar__res:t="svt_40_with_bubnov_magazine_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/svt_40_with_drum.blk"
+  item__proto:t="content/enlisted/gamedata/weapons/svt_40_with_drum.blk"
+  item__template:t="svt_40_with_drum_gun_item"
+  item__weapTemplate:t="svt_40_with_drum_gun"
+  item__name:t="items/svt_40_with_drum"
+  gun__reloadTime:r=3.3
+  gun__altReloadTime:r=3.2
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="svt_drum_magazine"
+  }
+}
+
+svt_40_with_drum_gun{
+  _extends:t="svt_40_gun"
+  _extends:t="svt_40_with_drum"
 }
 
 akt_40{
@@ -13128,6 +13149,116 @@ pedersen_rifle_gun{
       type:t="rest"
       recoil:r=0.65
       offset:p3=0.72, 0.01, 0.007
+    }
+  }
+}
+
+farquhar_hill_1918{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="farquhar_hill_1918_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/farquhar_hill_1918.blk"
+  item__template:t="farquhar_hill_1918_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/farquhar_hill_1918.blk"
+  item__locDetails:t=".303 British;"
+  item__id:i=0
+  item__weapTemplate:t="farquhar_hill_1918_gun"
+  item__name:t="items/farquhar_hill_1918"
+  item__weapType:t="semiauto"
+  item__weight:r=6.6
+  gun__locName:t="Turner SMLE"
+  gun__statName:t="semiauto"
+  gun__shotFreq:r=5.333
+  gun__boltFreq:r=6.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.25
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.2
+  gun_deviation__maxDeviation:r=20.0
+  gun__reloadTime:r=4.33
+  gun__altReloadTime:r=3.6
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="farquhar_hill_1918_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/303_british_mk7.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+farquhar_hill_1918_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="farquhar_hill_1918"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_8_12mm"
+  _extends:t="rifle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.11
+  gun__recoilDirAmount:r=0.73
+  gun__recoilDir:r=0.35
+  gun__visualRecoilMult:r=0.8
+  gun_attach__slot:t="weapon"
+  gun__adsSpeedMult:r=0.8
+  meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.05
+  gun_anim_var__fpsGunOffsetAcross:r=0.0
+  gun_anim_var__fpsGunOffsetUp:r=0.03
+  gun__rotationSpringMult:p3=1.0, 3.7, 3.7
+  gun__rotInertia:p3=0.1, 2.0, 2.0
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    hero:t="player/weapon/rifle/turner"
+    enemy:t="enemy/weapon/rifle/lee_enfield"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/farquhar_hill_1918/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/farquhar_hill_1918/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.81, -0.01, -0.02
+    }
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.595, -0.02, -0.02
     }
   }
 }
@@ -25605,6 +25736,107 @@ zh_29_jp_gun{
   }
 }
 
+mondragon_m1908{
+  _extends:t="main_weap_slots"
+  _extends:t="ironsights_open_semiauto"
+  animchar__res:t="mondragon_m1908_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/mondragon_m1908.blk"
+  item__template:t="mondragon_m1908_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/mondragon_m1908.blk"
+  item__locDetails:t="7.92x57mm;"
+  item__id:i=0
+  item__weapTemplate:t="mondragon_m1908_gun"
+  item__name:t="items/mondragon_m1908"
+  item__weapType:t="semiauto"
+  item__weight:r=4.2
+  gun__locName:t="Gewehr 43"
+  gun__statName:t="semiauto"
+  gun__shotFreq:r=5.333
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.29
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.6
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.3
+  gun_deviation__maxDeviation:r=30.0
+  gun__reloadTime:r=4.0
+  gun__altReloadTime:r=3.1
+  gun__boltFreq:r=7.0
+  gun__kineticDamageMult:r=1.06
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="mondragon_m1908_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/7.92x57_mauser_semiauto.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+mondragon_m1908_gun{
+  _extends:t="equipable_gun"
+  _extends:t="semiauto_ww2_preset"
+  _extends:t="mondragon_m1908"
+  _extends:t="rifle_muzzle_preset"
+  _extends:t="hit_effect_group_12_14mm"
+  _extends:t="rifle_gun_aim_sound"
+  gun_shell_ejection__timeMult:r=0.35
+  gun__standOffset:p3=0.2, 0.05, 0.15
+  gun__crouchOffset:p3=0.2, -0.07, 0.25
+  gun__length:r=0.4
+  gun__recoilAmount:r=0.124
+  gun__recoilDirAmount:r=0.78
+  gun__recoilDir:r=0.25
+  gun__visualRecoilMult:r=1.1
+  gun_attach__slot:t="weapon"
+  gun__disableToggleAim:b=no
+  meleeSoundType:t="rifle"
+  gun_anim_var__fpsGunOffsetAlong:r=0.1
+  gun_anim_var__fpsGunOffsetAcross:r=0.02
+  gun_anim_var__fpsGunOffsetUp:r=0.03
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/rifle/mondragon"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload:object"{
+      path:t="/weapon/rifle/mondragon/reload"
+    }
+
+    "reload_alt:object"{
+      path:t="/weapon/rifle/mondragon/reload_alt"
+    }
+  }
+
+  "gun__mountPoints:shared:array"{
+
+    "point:object"{
+      type:t="rest"
+      recoil:r=0.65
+      offset:p3=0.63, -0.015, 0.0
+    }
+  }
+}
+
 wz_38m{
   _extends:t="main_weap_slots"
   _extends:t="ironsights_open_semiauto"
@@ -36619,6 +36851,102 @@ nambu_type_14_engraved{
 nambu_type_14_engraved_gun{
   _extends:t="nambu_type_14_gun"
   _extends:t="nambu_type_14_engraved"
+}
+
+nambu_type_a_sword_pistol{
+  _extends:t="pistol_weap_slots"
+  _extends:t="ironsights_open_pistol"
+  animchar__res:t="nambu_type_a_sword_pistol_char"
+  gun__blk:t="content/enlisted/gamedata/weapons/nambu_type_a_sword_pistol.blk"
+  item__template:t="nambu_type_a_sword_pistol_gun_item"
+  item__proto:t="content/enlisted/gamedata/weapons/nambu_type_a_sword_pistol.blk"
+  item__locDetails:t="8x22mm Nambu"
+  item__id:i=0
+  item__weapTemplate:t="nambu_type_a_sword_pistol_gun"
+  item__name:t="items/nambu_type_a_sword_pistol"
+  item__weapType:t="pistol"
+  item__weight:r=2.0
+  gun__locName:t="Nambu Type A Sword-pistol"
+  gun__statName:t="pistol"
+  gun__shotFreq:r=6.0
+  gun__automaticReload:b=no
+  gun_spread__maxDeltaAngle:r=0.86
+  gun_deviation__omegaRange:p2=30.0, 90.0
+  gun_deviation__omegaDevInc:p2=0.1, 0.7
+  gun_deviation__movementRange:p2=2.1, 4.0
+  gun_deviation__movementDevInc:p2=0.0, 15.0
+  gun_deviation__onShotDeviationChange:r=0.0
+  gun_deviation__shotTau:r=0.1
+  gun_deviation__extraDeviationTau:r=0.15
+  gun_deviation__maxDeviation:r=15.0
+  gun__reloadTime:r=3.2
+  gun__altReloadTime:r=2.9
+  gun__integratedBayonet:b=yes
+  melee_weapon__blk:t="content/enlisted/gamedata/weapons/type_95_shin_gunto.blk"
+  melee_weapon__attackTime:r=0.6
+  melee_weapon__attackAt:r=0.45
+
+  "meleeChargeWeapon:tag"{
+  }
+
+  "gun__ammoHolders:array"{
+    ammoHolders:t="nambu_type_a_magazine"
+  }
+
+  "gun__shells:array"{
+    shells:t="content/enlisted/gamedata/weapons/bullets/8x22_nambu_pistol.blk"
+  }
+
+  "gun__firingModes:array"{
+
+    "mode:object"{
+      modeType:t="burst"
+      burstSize:i=1
+    }
+  }
+
+  "gun__firingModeNames:array"{
+    mode:t="semi_auto"
+  }
+}
+
+nambu_type_a_sword_pistol_gun{
+  _extends:t="equipable_gun"
+  _extends:t="pistol_ww2_preset"
+  _extends:t="nambu_type_a_sword_pistol"
+  _extends:t="pistol_muzzle_preset"
+  _extends:t="hit_effect_group_6_8mm"
+  gun__recoilAmount:r=0.041
+  gun__recoilDirAmount:r=0.45
+  gun__recoilDir:r=0.0
+  gun__visualRecoilMult:r=1.0
+  meleeSoundType:t="sword"
+  meleeSoundName:t="sword/whoosh"
+  meleeActionSoundPath:t="impact/japan_katana"
+  gun__rotationSpringMult:p3=0.3, 1.0, 0.3
+  gun__rotInertia:p3=0.4, 1.0, 0.4
+  gun__adsSpeedMult:r=0.7
+
+  "gun_sound__shotPath:shared:object"{
+    _tags:t="sound"
+    path:t="/weapon/pistol/nambu_type_14"
+  }
+
+  "sound_irqs:shared:object"{
+    _tags:t="sound"
+
+    "reload1:object"{
+      path:t="/weapon/pistol/p08/reload1/change_ammo"
+    }
+
+    "reload2:object"{
+      path:t="/weapon/pistol/p08/reload2/change_ammo"
+    }
+
+    "reload3:object"{
+      path:t="/weapon/pistol/p08/reload3/change_ammo"
+    }
+  }
 }
 
 hamada_type_1{

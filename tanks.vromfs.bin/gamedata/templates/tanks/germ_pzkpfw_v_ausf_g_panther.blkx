@@ -303,7 +303,7 @@ germ_pzkpfw_V_ausf_g_panther_kurmark_pzrgt_premium_skin{
   }
 }
 
-germ_pzkpfw_V_ausf_g_panther_sparanstrich_premium_skin{
+germ_pzkpfw_V_ausf_g_panther_sparanstrich_berlin_battlepass_premium_skin{
   _extends:t="germ_pzkpfw_V_ausf_g_panther"
 
   "animchar__objTexSet:object"{

@@ -3095,6 +3095,26 @@ zh_29_jp_magazine{
   collres__res:t="zh_29_ammo_collision"
 }
 
+mondragon_m1908_gun_item{
+  _extends:t="item_gun"
+  _extends:t="mondragon_m1908"
+  collres__res:t="mondragon_m1908_collision"
+}
+
+mondragon_m1908_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="mg_42_handheld_ammo_char"
+  item__template:t="mondragon_m1908_magazine"
+  item__proto:t="mondragon_m1908_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="mondragon_m1908_magazine"
+  ammo_holder__ammoCount:i=30
+  item__weight:r=1.5
+  item__volume:r=1.0
+  item__name:t="items/mondragon_m1908_magazine"
+  collres__res:t="mg_42_handheld_ammo_collision"
+}
+
 m1_carbine_gun_item{
   _extends:t="item_gun"
   _extends:t="m1_carbine"
@@ -3262,6 +3282,26 @@ pedersen_rifle_magazine{
   item__weight:r=0.3
   item__volume:r=0.1
   item__name:t="items/pedersen_rifle_magazine"
+  collres__res:t="m1_garand_ammo_collision"
+}
+
+farquhar_hill_1918_gun_item{
+  _extends:t="item_gun"
+  _extends:t="farquhar_hill_1918"
+  collres__res:t="farquhar_hill_1918_collision"
+}
+
+farquhar_hill_1918_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="m1_garand_ammo_char"
+  item__template:t="farquhar_hill_1918_magazine"
+  item__proto:t="farquhar_hill_1918_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="farquhar_hill_1918_magazine"
+  ammo_holder__ammoCount:i=19
+  item__weight:r=0.8
+  item__volume:r=0.4
+  item__name:t="items/farquhar_hill_1918_magazine"
   collres__res:t="m1_garand_ammo_collision"
 }
 
@@ -3833,6 +3873,26 @@ svt_40_magazine{
   item__weight:r=0.3
   item__volume:r=0.2
   item__name:t="items/svt_40_magazine"
+  collres__res:t="avs_36_ammo_collision"
+}
+
+svt_40_with_drum_gun_item{
+  _extends:t="item_gun"
+  _extends:t="svt_40_with_drum"
+  collres__res:t="svt_40_collision"
+}
+
+svt_drum_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="avs_36_ammo_char"
+  item__template:t="svt_drum_magazine"
+  item__proto:t="svt_drum_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="svt_drum_magazine"
+  ammo_holder__ammoCount:i=20
+  item__weight:r=0.8
+  item__volume:r=0.6
+  item__name:t="items/svt_drum_magazine"
   collres__res:t="avs_36_ammo_collision"
 }
 
@@ -7162,6 +7222,26 @@ nambu_type_14_magazine{
   item__weight:r=0.2
   item__volume:r=0.1
   item__name:t="items/nambu_type_14_magazine"
+  collres__res:t="p08_luger_ammo_collision"
+}
+
+nambu_type_a_sword_pistol_gun_item{
+  _extends:t="item_gun"
+  _extends:t="nambu_type_a_sword_pistol"
+  collres__res:t="nambu_type_a_sword_pistol_collision"
+}
+
+nambu_type_a_magazine{
+  _extends:t="item_magazine"
+  animchar__res:t="p08_luger_ammo_char"
+  item__template:t="nambu_type_a_magazine"
+  item__proto:t="nambu_type_a_magazine"
+  item__locDetails:t=""
+  ammo_holder__templateName:t="nambu_type_a_magazine"
+  ammo_holder__ammoCount:i=8
+  item__weight:r=0.2
+  item__volume:r=0.1
+  item__name:t="items/nambu_type_a_magazine"
   collres__res:t="p08_luger_ammo_collision"
 }
 

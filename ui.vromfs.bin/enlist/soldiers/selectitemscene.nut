@@ -39,7 +39,7 @@ let { campItemsByLink } = require("%enlist/meta/profile.nut")
 let { isItemActionInProgress } = require("model/itemActions.nut")
 let { jumpToArmyProgress } = require("%enlist/mainMenu/sectionsState.nut")
 let { curHoveredItem, changeCameraFov } = require("%enlist/showState.nut")
-let { focusResearch, findResearchUpgradeUnlock, findResearchSlotUnlock
+let { focusResearch, findResearchUpgradeUnlock, findSlotUnlockRequirement
 } = require("%enlist/researches/researchesFocus.nut")
 let { unequipItem, unequipBySlot } = require("%enlist/soldiers/unequipItem.nut")
 let { slotItems, otherSlotItems, prevItems, selectParams, selectParamsArmyId,
@@ -51,7 +51,7 @@ let { markWeaponrySeen, markWeaponryListSeen } = require("model/unseenWeaponry.n
 let hoverHoldAction = require("%darg/helpers/hoverHoldAction.nut")
 let { openUpgradeItemMsg, openDisposeItemMsg } = require("components/modifyItemComp.nut")
 let itemTransferMsg = require("%enlist/items/itemTransferMsg.nut")
-let { scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
+let { curArmySquadsUnlocks, scrollToCampaignLvl } = require("model/armyUnlocksState.nut")
 let { mkItemUpgradeData, mkItemDisposeData } = require("model/mkItemModifyData.nut")
 let gotoResearchUpgradeMsgBox = require("researchUpgradeMsgBox.nut")
 let { justPurchasedItems } = require("model/newItemsToShow.nut")
@@ -166,14 +166,29 @@ let function processItemDrop(item, checkInfo) {
   let { result, soldier = null, slotType = null, soldierClass = null, level = null } = checkInfo
   let buttons = [{ text = loc("Ok"), isCancel = true }]
   local text = ""
-  if (result == ItemCheckResult.NEED_RESEARCH){
-    text = loc("slotClassResearch", { soldierClass })
-    buttons.append({
-      text = loc("GoToResearch")
-      action = function() {
-        focusResearch(findResearchSlotUnlock(soldier, slotType))
+  if (result == ItemCheckResult.NEED_RESEARCH) {
+    let { research = null, squadId = null } = findSlotUnlockRequirement(soldier, slotType)
+    if (research != null) {
+      text = loc("slotClassResearch", { soldierClass })
+      buttons.append({
+        text = loc("GoToResearch")
+        action = @() focusResearch(research)
+        isCurrent = true })
+    }
+    else if (squadId != null) {
+      let unlock = curArmySquadsUnlocks.value
+        .findvalue(@(u) u.unlockType == "squad" && u.unlockId == squadId)
+      if (unlock != null) {
+        text = loc("obtainAtLevel", { level = unlock.level })
+        buttons.append({
+          text = loc("GoToArmyLeveling")
+          action = function() {
+            scrollToCampaignLvl(unlock.level)
+            jumpToArmyProgress()
+          }
+          isCurrent = true })
       }
-      isCurrent = true })
+    }
 
   } else if (result == ItemCheckResult.WRONG_CLASS){
     text = loc("Not available for class", { soldierClass })

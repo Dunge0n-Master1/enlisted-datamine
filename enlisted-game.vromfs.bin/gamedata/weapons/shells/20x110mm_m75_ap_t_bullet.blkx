@@ -2,11 +2,13 @@ mass:r=0.167
 caliber:r=0.02
 speed:r=899.0
 maxDistance:r=2000.0
+stabilityCaliberToArmorThreshold:r=5.0
+stabilityCaliberToArmorThreshold:r=5.0
+hitPowerMult:r=7.0
 normalizationPreset:t="ap"
 ricochetPreset:t="ap"
 secondaryShattersPreset:t="ap"
 stabilityThreshold:r=0.05
-stabilityCaliberToArmorThreshold:r=5.0
 stabilityReductionAfterRicochet:r=0.5
 stabilityReductionAfterPenetration:r=0.15
 bulletType:t="ap_t"
@@ -24,8 +26,8 @@ stabilityRicochetModifier{
 }
 
 hitpower{
-  HitPower0m:p2=1.0, 0.0
-  HitPower1000m:p2=0.9, 0.0
+  HitPower0m:p2=1.45, 0.0
+  HitPower1000m:p2=1.0, 0.0
   HitPower10000m:p2=0.8, 10000.0
 }
 
@@ -33,7 +35,7 @@ damage{
 
   kinetic{
     damageType:t="generic"
-    demarrePenetrationK:r=0.9
+    demarrePenetrationK:r=1.25
     demarreSpeedPow:r=1.43
     demarreMassPow:r=0.71
     demarreCaliberPow:r=1.07
