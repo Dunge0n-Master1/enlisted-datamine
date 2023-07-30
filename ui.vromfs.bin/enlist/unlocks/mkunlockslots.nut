@@ -204,44 +204,46 @@ let mkTaskContentReward = @(unlockDesc, sf = 0)
       size = [flex(), SIZE_TO_CONTENT]
       clipChildren = true
       minHeight
-      flow = FLOW_HORIZONTAL
+      flow = FLOW_VERTICAL
+      gap = smallPadding
       children = [
         {
-          size = [hdpx(220), SIZE_TO_CONTENT]
-          flow = FLOW_VERTICAL
+          size = [flex(), SIZE_TO_CONTENT]
+          flow = FLOW_HORIZONTAL
           children = [
             {
-              rendObj = ROBJ_BOX
               size = [flex(), SIZE_TO_CONTENT]
-              flow = FLOW_HORIZONTAL
+              flow = FLOW_VERTICAL
               gap = smallPadding
-              valign = ALIGN_CENTER
               children = [
                 {
-                  rendObj = ROBJ_TEXT
-                  halign = ALIGN_CENTER
-                  color = sf & S_HOVER ? darkTxtColor : titleTxtColor
-                  text = loc("completeTaskTitle")
-                }.__update(fontSmall)
-                iconReward
+                  size = [flex(), SIZE_TO_CONTENT]
+                  flow = FLOW_HORIZONTAL
+                  gap = smallPadding
+                  valign = ALIGN_CENTER
+                  children = [
+                    {
+                      rendObj = ROBJ_TEXT
+                      halign = ALIGN_CENTER
+                      color = sf & S_HOVER ? darkTxtColor : titleTxtColor
+                      text = loc("completeTaskTitle")
+                    }.__update(fontSmall)
+                    iconReward
+                  ]
+                }
+                mkTaskTextArea(getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {}), sf, {size = [pw(100), SIZE_TO_CONTENT]})
               ]
             }
-            mkTaskTextArea(getDescription(unlockDesc, progress, unlockDesc?.locParams ?? {}), sf)
+            mkTaskRewards(unlockDesc)
           ]
         }
         {
-          size = flex()
+          rendObj = ROBJ_TEXT
+          size = [flex(), SIZE_TO_CONTENT]
           halign = ALIGN_RIGHT
-          children = [
-            mkTaskRewards(unlockDesc)
-            {
-              rendObj = ROBJ_TEXT
-              vplace = ALIGN_BOTTOM
-              color = bpColor
-              text = loc("completeTaskReward")
-            }.__update(fontXSmall)
-          ]
-        }
+          color = bpColor
+          text = loc("completeTaskReward")
+        }.__update(fontXSmall)
       ]
     }
   }

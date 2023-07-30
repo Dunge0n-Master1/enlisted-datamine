@@ -2860,9 +2860,9 @@ nagant_m1895{
   item__weight:r=0.88
   gun__locName:t="Nagant 1895"
   gun__statName:t="pistol"
-  gun__shotFreq:r=1.5
+  gun__shotFreq:r=3.0
   gun__automaticReload:b=no
-  gun_spread__maxDeltaAngle:r=0.7
+  gun_spread__maxDeltaAngle:r=0.4
   gun_deviation__omegaRange:p2=30.0, 90.0
   gun_deviation__omegaDevInc:p2=0.1, 0.7
   gun_deviation__movementRange:p2=2.1, 4.0
@@ -25173,13 +25173,13 @@ gewehr_43_gun{
   gun__recoilAmount:r=0.138
   gun__recoilDirAmount:r=0.8
   gun__recoilDir:r=0.35
-  gun__visualRecoilMult:r=1.3
+  gun__visualRecoilMult:r=1.0
   gun_attach__slot:t="weapon"
   gun__disableToggleAim:b=no
   meleeSoundType:t="rifle"
-  gun_anim_var__fpsGunOffsetAlong:r=0.125
-  gun_anim_var__fpsGunOffsetAcross:r=0.02
-  gun_anim_var__fpsGunOffsetUp:r=0.055
+  gun_anim_var__fpsGunOffsetAlong:r=0.07
+  gun_anim_var__fpsGunOffsetAcross:r=0.04
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   "gun_mods__slots:object"{
 
@@ -25241,9 +25241,6 @@ sniper_gewehr_43_gun{
   item__weapTemplate:t="sniper_gewehr_43_gun"
   gun__adsSpeedMult:r=0.76
   gun_spread__maxDeltaAngle:r=0.03
-  gun_anim_var__fpsGunOffsetAlong:r=0.125
-  gun_anim_var__fpsGunOffsetAcross:r=0.02
-  gun_anim_var__fpsGunOffsetUp:r=0.055
 
   "gun_mods__slots:object"{
 
@@ -25333,9 +25330,9 @@ gewehr_43_kurz_gun{
   gun__recoilControlMult:r=0.3
   gun__recoilOffsMult:r=0.3
   gun__rotationSpringMult:p3=0.75, 0.9, 0.9
-  gun_anim_var__fpsGunOffsetAlong:r=0.19
-  gun_anim_var__fpsGunOffsetAcross:r=0.023
-  gun_anim_var__fpsGunOffsetUp:r=0.055
+  gun_anim_var__fpsGunOffsetAlong:r=0.08
+  gun_anim_var__fpsGunOffsetAcross:r=0.043
+  gun_anim_var__fpsGunOffsetUp:r=0.045
 
   "gun_sound__shotPath:shared:object"{
     _tags:t="sound"

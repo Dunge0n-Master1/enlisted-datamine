@@ -25,6 +25,9 @@ let weeklyTasks = Computed(function() {
   return unlocks
 })
 
+let rewardWeeklyTask = Computed(@() weeklyTasks.value
+  .findvalue(@(task) task.hasReward))
+
 let getFinishedWeeklyTasksCount = @()
   weeklyTasks.value.filter(@(u) u?.isFinished ?? false).len()
 
@@ -42,6 +45,7 @@ let function triggerBPStarsAnim() {
 
 return {
   weeklyTasks
+  rewardWeeklyTask
   saveFinishedWeeklyTasks
   triggerBPStarsAnim
   needWeeklyTasksAnim

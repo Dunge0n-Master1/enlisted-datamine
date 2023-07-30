@@ -7,6 +7,7 @@ require CurrentCircuit
 require rapidjson
 require game.events_game
 require enlisted.events_enlisted
+require matching // INVALID_USER_ID
 
 [es(tag=recordingReplay, on_appear, REQUIRE=human)]
 def set_first_respawn_time_es(evt : Event)
@@ -85,8 +86,8 @@ def replay_write_meta_es(var evt : EventOnWriteReplayMetaInfo&)
           player |> AddMember("team", team, obj)
           // replace white spaces for hide bot player names from output
           player |> AddMember("name", replace(name, " ", ""), obj)
-          if playerIsBot == null // do not send bot userid to meta
-            player |> AddMember("userid", userid, obj)
+          if playerIsBot == null && userid != INVALID_USER_ID // do not send bot userid to meta
+            player |> AddMember("userid", int64(userid), obj) // convert to signed for backend
           players |> PushBack(player, obj)
       item |> AddMember("players", players, obj)
 

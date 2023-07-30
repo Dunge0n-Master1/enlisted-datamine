@@ -37,9 +37,6 @@ let dailyTasksByDifficulty = Computed(function() {
   return res
 })
 
-let rewardDailyTask = Computed(@() dailyTasks.value
-  .findvalue(@(task) task.hasReward))
-
 let bpDailyTask = Computed(@() activeUnlocks.value
   .findvalue(@(unlock) unlock?.name == BP_DAILY_POINTS))
 
@@ -109,6 +106,10 @@ let function doRerollUnlock(unlockDesc) {
     isRerollInProgress(false)
   })
 }
+
+let rewardDailyTask = Computed(@() canTakeDailyTaskReward.value
+  ? dailyTasks.value.findvalue(@(task) task.hasReward)
+  : null)
 
 return {
   dailyTasks

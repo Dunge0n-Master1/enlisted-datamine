@@ -12,6 +12,7 @@ def enlisted_human_weap_phys_es(info : ParallelUpdateFrameDelayed;
                                 human_phys__afterJumpDelay : float = -1.;
                                 human_phys__aimPoseHeightVelThreshold : float;
                                 human_phys__aimPoseHeightThreshold : float;
+                                action__running : bool;
                                 var human_net_phys : HumanActor&)
   assume ct = human_net_phys.phys.currentState
   let isChangingCrawlTransition = ct.height < human_phys__aimPoseHeightThreshold && abs(ct.heightCurVel) > human_phys__aimPoseHeightVelThreshold
@@ -20,8 +21,8 @@ def enlisted_human_weap_phys_es(info : ParallelUpdateFrameDelayed;
     || (uint(ct.states) & uint(StateFlag ST_JUMP)) != 0u
     || ct.jumpStartTime > 0.
     || info.curTime - human_phys__jumpEndTime < human_phys__afterJumpDelay))
-  human_phys_state_set_can_aim(ct, human_phys_state_can_aim(ct) && !isJumpState && !isChangingCrawlTransition)
-  human_phys_state_set_can_zoom(ct, human_phys_state_can_zoom(ct) && !isJumpState && !isChangingCrawlTransition)
+  human_phys_state_set_can_aim(ct, human_phys_state_can_aim(ct) && !isJumpState && !isChangingCrawlTransition && !action__running)
+  human_phys_state_set_can_zoom(ct, human_phys_state_can_zoom(ct) && !isJumpState && !isChangingCrawlTransition && !action__running)
 
 [es(on_event=CmdPostPhysUpdate)]
 def enlisted_human_weap_phys_reduce_to_walk_when_shoot(evt : Event;

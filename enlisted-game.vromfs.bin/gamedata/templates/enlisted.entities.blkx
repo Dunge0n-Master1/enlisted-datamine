@@ -1848,7 +1848,7 @@ paratroopers_supply_box{
   _extends:t="replicating"
   _extends:t="supply_box_parachute"
   building_destroy__lastDamageAtTime:r=-1.0
-  building_destroy__timeToResetDestructionTimer:r=5.0
+  building_destroy__timeToResetDestructionTimer:r=15.0
   building_destroy__distanceVerifyThreshold:r=1.5
   building_destroy__timeToDestroy:r=0.0
   building_destroy__maxTimeToDestroy:r=9.0

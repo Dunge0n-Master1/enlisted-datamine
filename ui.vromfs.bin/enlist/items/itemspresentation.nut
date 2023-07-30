@@ -1198,6 +1198,28 @@ let rewardsPresentation = {
     cardImage = "ui/skin#/battlepass/posters.avif"
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
+  ["451"] = {
+    name = loc("items/armory2_bonus_portrait_ussr")
+    description = loc("items/armory2_bonus_portrait_ussr/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory2_bonus_portrait_ussr.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["452"] = {
+    name = loc("items/armory2_bonus_portrait_ger")
+    description = loc("items/armory2_bonus_portrait_ger/desc")
+    icon = "ui/portraits/default_portrait.svg"
+    cardImage = "!ui/portraits/event/armory2_bonus_portrait_ger.avif"
+    mkImage = mkImageCtor([150, 150])
+  },
+  ["453"] = {
+    name = loc("items/armory2_event_order")
+    description = loc("items/armory2_event_order/desc")
+    icon = "ui/skin#/currency/event_order.svg"
+    bgImage = "ui/skin#/battlepass/bg_gold.avif"
+    cardImage = "!ui/skin#/currency/event_order.svg"
+    mkImage = mkImageCtor([72, 100])
+  },
 
 
 

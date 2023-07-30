@@ -246,7 +246,12 @@ local portraits = {
   berlin_operation_medic_portrait = {
     icon = "ui/portraits/event/berlin_operation_medic_portrait.avif"
   }
-
+  armory2_bonus_portrait_ussr = {
+    icon = "ui/portraits/event/armory2_bonus_portrait_ussr.avif"
+  }
+  armory2_bonus_portrait_ger = {
+    icon = "ui/portraits/event/armory2_bonus_portrait_ger.avif"
+  }
 
 
   common_china_portrait_1 = {

@@ -1,7 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
 let { body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
-let { colPart, transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding
+let { colPart, transpPanelBgColor, panelBgColor, defItemBlur, bigPadding, largePadding, defTxtColor,
+  sidePadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let { secondsToStringLoc } = require("%ui/helpers/time.nut")
 let { mkArmyIcon } = require("%enlist/soldiers/components/armyPackage.nut")
@@ -27,6 +28,7 @@ let {
 let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg
 } = require("%enlSqGlob/ui/defComponents.nut")
 let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let headerTxtStyle = { color = defTxtColor }.__update(body_txt)
 
 const TIME_BEFORE_SHOW_QUEUE = 15
 const MIN_VISIBLE_PLAYERS_AMOUNT = 2
@@ -162,15 +164,27 @@ let function mkRandomTeamContent() {
   })
 }
 
+let dailyTasksHeader = {
+  rendObj = ROBJ_TEXT
+  size = [flex(), SIZE_TO_CONTENT]
+  halign = ALIGN_LEFT
+  padding = [0, 0, 0, bigPadding * 2]
+  text = loc("dailyTasks")
+}.__update(headerTxtStyle)
+
 let tasksBlock = {
   rendObj = ROBJ_WORLD_BLUR
+  flow = FLOW_VERTICAL
   fillColor = panelBgColor
   color = defItemBlur
   size = [flex(), SIZE_TO_CONTENT]
-  padding = hdpx(30)
+  padding = sidePadding
   halign = ALIGN_CENTER
-  gap = hdpx(30)
-  children = dailyTasksUi
+  gap = bigPadding
+  children = [
+    dailyTasksHeader
+    dailyTasksUi
+  ]
 }
 
 local dxSum = 0.0

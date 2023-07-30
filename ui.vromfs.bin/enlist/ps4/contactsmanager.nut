@@ -159,8 +159,8 @@ ecs.register_es("playstation_update_friend_list", {
     if (comp.menu_level == null) // mean user in battle
       eventbus.unsubscribe("ps4.presence_update", onPresenceUpdate)
     else if (isLoggedIn.value) {
-      request_psn_contacts()
       eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
+      request_psn_contacts()
     }
   }
 },
@@ -170,10 +170,10 @@ ecs.register_es("playstation_update_friend_list", {
 })
 
 let function initHandlers() {
-  request_psn_contacts()
   eventbus.subscribe("ps4.presence_update", onPresenceUpdate)
   eventbus.subscribe("ps4.friends_list_update", onFriendsUpdate)
   eventbus.subscribe("ps4.blocklist_update", onBlocklistUpdate)
+  request_psn_contacts()
 }
 
 let function disposeHandlers() {
@@ -182,6 +182,13 @@ let function disposeHandlers() {
   eventbus.unsubscribe("ps4.blocklist_update", onBlocklistUpdate)
   pswa.unsubscribe_from_push_events()
 }
+
+ecs.register_es("playstation_init_subscribers", {
+  [ecs.EventScriptReloaded] = function(_evt, _eid, _comp) {
+    if (isLoggedIn.value)
+      initHandlers()
+  }
+})
 
 if (isLoggedIn.value)
   initHandlers()

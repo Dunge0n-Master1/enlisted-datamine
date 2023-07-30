@@ -24,6 +24,8 @@ let { doesLocTextExist } = require("dagor.localize")
 let gameLauncher = require("%enlist/gameLauncher.nut")
 let { isReplayTabHidden } = require("%enlist/replay/replaySettings.nut")
 let profileScene = require("%enlist/profile/profileScene.nut")
+let { hasBattlePass } = require("%enlist/unlocks/taskRewardsState.nut")
+let { openBPwindow } = require("%enlist/battlepass/bpWindowState.nut")
 
 let noSandboxEditorInMenu = true
 let function startSandBoxEditor() {
@@ -37,6 +39,12 @@ let btnChangeCampaign = {
   id = "ChangeCamppaign"
   name = loc("btn/changeCampaign")
   cb = @() campaignSelectWnd.open()
+}
+
+let btnBattlePass = {
+  id = "BattlePass"
+  name = loc("bp/battlePass")
+  cb = openBPwindow
 }
 
 let btnCustomGames = {
@@ -118,6 +126,8 @@ let function buttons(){
     res.append(SEPARATOR)
   if (hasCampaignSelection.value)
     res.append(btnChangeCampaign)
+  if (hasBattlePass.value)
+    res.append(btnBattlePass)
   res.append(btnOptions, btnControls, btnSupport, btnForum, btnFeedback, btnGSS, btnCBR)
   if (is_xbox){
     res.append(btnLogout)
@@ -128,6 +138,7 @@ let function buttons(){
     res.append(SEPARATOR, btnDebugProfile, btnDebugConfigs)
   return res.filter(@(v) v!=null)
 }
-let watch = [needCustomGames, hasCampaignSelection, canDebugProfile, isReplayTabHidden]
+let watch = [needCustomGames, hasCampaignSelection, canDebugProfile,
+  isReplayTabHidden, hasBattlePass]
 
 return mkDropMenuBtn(buttons, watch)

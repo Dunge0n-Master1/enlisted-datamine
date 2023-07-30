@@ -41,7 +41,7 @@ base_fortification_build{
   building_destroy__maxTimeToDestroy:r=5.0
   building_destroy__timeToDestroy:r=0.0
   building_destroy__lastDamageAtTime:r=-1.0
-  building_destroy__timeToResetDestructionTimer:r=5.0
+  building_destroy__timeToResetDestructionTimer:r=15.0
   building_destroy__distanceVerifyThreshold:r=1.5
   building_destroy__disassembleSound:t="env_effects/building/destroy_action"
 

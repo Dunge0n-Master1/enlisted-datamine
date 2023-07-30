@@ -111,6 +111,7 @@ player{
 }
 
 local_player{
+  local_player_lastHumanInputStandState:i=0
 
   "localPlayer:tag"{
   }

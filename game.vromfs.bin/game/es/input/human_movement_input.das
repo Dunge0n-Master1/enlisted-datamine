@@ -201,6 +201,7 @@ def apply_human_input_tm(human_input__perspWk : float;
 def fix_changed_hero_input(dt : float;
                            var human_input__hasValidState : bool&;
                            var human_net_phys : HumanActor&;
+                           var human_input__standState : int&;
                            var aim_angle : float2&;
                            var human_input__lookAngle : float2&;
                            human_input__lookAngleTau : float;
@@ -229,10 +230,18 @@ def fix_changed_hero_input(dt : float;
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_THROW_BACK, false)
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_MELEE, false)
 
-  let isCrouch = phys.previousState.isCrouch
-  let isCrawl = phys.previousState.isCrawl
+  var prevStandState = 0
+  query(get_local_player_eid()) <| $ [es] (local_player_lastHumanInputStandState : int)
+    prevStandState = local_player_lastHumanInputStandState
+  let prevCrawl = prevStandState == int(HumanPhysControlType HCT_CRAWL)
+  let prevCrouch = prevStandState == int(HumanPhysControlType HCT_CROUCH)
+
+  let isCrouch = phys.previousState.isCrouch && (prevCrouch || prevCrawl)
+  let isCrawl = phys.previousState.isCrawl && prevCrawl
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CROUCH, isCrouch)
   ct |> human_control_state_set_control_bit(HumanPhysControlType HCT_CRAWL, isCrawl)
+
+  human_input__standState = isCrawl ? int(HumanPhysControlType HCT_CRAWL) : isCrouch ? int(HumanPhysControlType HCT_CROUCH) : 0
 
   update_movement(dt, human_input__aim, human_input__aimDelta,
                   human_input__look, human_input__move,
@@ -427,6 +436,7 @@ def human_input_es(info : UpdateStageUpdateInput;
     fix_changed_hero_input(info.dt,
                            human_input__hasValidState,
                            human_net_phys,
+                           human_input__standState,
                            human_input__aimAngle, human_input__lookAngle,
                            human_input__lookAngleTau,
                            human_input__aim, human_input__aimDelta,
@@ -578,6 +588,9 @@ def human_input_es(info : UpdateStageUpdateInput;
 
   if phys.currentState |> human_phys_state_stoppedSprint()
     reset_digital_action_sticky_toggle(uint16(human_input__sprint))
+
+  query(get_local_player_eid()) <| $ [es] (var local_player_lastHumanInputStandState : int&)
+    local_player_lastHumanInputStandState = human_input__standState
 
 
 [es(tag=input, on_appear, on_event=EventOnEntityReset)]

@@ -24,7 +24,7 @@ let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let battlepassWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
-
+let { rewardWeeklyTask } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
 let disabledTxtStyle = { color = disabledTxtColor }.__update(fontSmall)
@@ -153,13 +153,6 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
     }
   }
 
-
-let dailyTasksHeader = {
-  rendObj = ROBJ_TEXT
-  text = loc("dailyTasks")
-}.__update(headerTxtStyle)
-
-
 let function dailyTasksUi() {
   let res = {
     watch = [dailyTasksByDifficulty, canTakeDailyTaskReward, userstatStats]
@@ -174,7 +167,6 @@ let function dailyTasksUi() {
     flow = FLOW_VERTICAL
     gap = largePadding
     children = [
-      dailyTasksHeader
       {
         size = [startBtnWidth, SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
@@ -187,16 +179,18 @@ let function dailyTasksUi() {
 
 let function dailyTasksUiReward() {
   let res = {
-    watch = [rewardDailyTask, hasBattlePass, canTakeDailyTaskReward]
+    watch = [rewardDailyTask, rewardWeeklyTask, hasBattlePass]
   }
 
-  if (!hasBattlePass.value)
+  let task = rewardDailyTask.value ?? rewardWeeklyTask.value
+
+  if (!hasBattlePass.value && !task)
     return res
 
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]
-    children = canTakeDailyTaskReward.value && rewardDailyTask.value
-      ? mkUnlockSlotReward(rewardDailyTask.value) : battlepassWidgetOpen
+    children = task
+      ? mkUnlockSlotReward(task) : battlepassWidgetOpen
   })
 }
 
