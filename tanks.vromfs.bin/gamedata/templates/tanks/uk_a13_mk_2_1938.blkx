@@ -99,10 +99,8 @@ uk_a13_mk_2_1938_driver_cockpit{
 }
 
 uk_a13_mk_2_1938_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.2
   cockpit__offset:p3=-0.6, -0.063, -0.092
 
   "cockpit__attachNodeNames:list<t>"{
@@ -121,18 +119,38 @@ uk_a13_mk_2_1938_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.2
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="uk_no_33_mkii_s"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
 uk_a13_mk_2_1938_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
-  cockpit__offset:p3=-0.5, 0.8, 0.25
+  cockpit__offset:p3=-0.3, 0.8, 0.25
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
@@ -140,7 +158,7 @@ uk_a13_mk_2_1938_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.15
+    slit:r=0.165
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -149,6 +167,17 @@ uk_a13_mk_2_1938_commander_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
   }
 }
 

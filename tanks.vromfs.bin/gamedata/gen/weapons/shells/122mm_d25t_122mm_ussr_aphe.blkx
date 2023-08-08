@@ -34,28 +34,6 @@ damage{
     demarreCaliberPow:r=1.07
     correctionPenetrationByRelativeVelocity:p2=200.0, 1000.0
     correctionDamageByRelativeVelocity:p2=300.0, 1000.0
-
-    energyToDamage{
-      p0:p2=3000.0, 5.0
-      p1:p2=15000.0, 10.0
-      p2:p2=30000.0, 15.0
-      p3:p2=60000.0, 25.0
-      p4:p2=80000.0, 40.0
-      p5:p2=110000.0, 60.0
-      p6:p2=300000.0, 70.0
-      p7:p2=400000.0, 75.0
-      p8:p2=500000.0, 80.0
-      p9:p2=650000.0, 110.0
-      p10:p2=1100000.0, 150.0
-      p11:p2=1300000.0, 200.0
-      p12:p2=1800000.0, 230.0
-      p13:p2=2200000.0, 240.0
-      p14:p2=3000000.0, 300.0
-      p15:p2=4000000.0, 320.0
-      p16:p2=5000000.0, 350.0
-      p17:p2=8000000.0, 370.0
-      p18:p2=12000000.0, 900.0
-    }
   }
 
   secondaryShatter{
@@ -103,15 +81,6 @@ damage{
         onHitChanceMultFire:r=1.0
       }
     }
-  }
-
-  explosive{
-    type:t="a_ix_2"
-    mass:r=0.16
-    fuseDelayDist:r=1.2
-    fuseArmorTreshold:r=19.0
-    strengthEquivalent:r=1.7
-    brisanceEquivalent:r=1.4
   }
 }
 

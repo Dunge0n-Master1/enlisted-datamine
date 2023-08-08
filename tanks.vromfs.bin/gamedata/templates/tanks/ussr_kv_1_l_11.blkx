@@ -14,6 +14,8 @@ ussr_kv_1_L_11_common{
   _extends:t="base_kv_1_l_11"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -135,7 +137,7 @@ ussr_kv_1_L_11_commander_cockpit{
   cockpit__offset:p3=-0.0, 0.0, 0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.0819642, 0.893508, -0.418043
+    slit:p3=0.1, 1.0, -0.418043
     slit:p3=-0.172518, 0.43175, -0.530115
   }
 
@@ -158,22 +160,54 @@ ussr_kv_1_L_11_commander_cockpit{
     slit:t="cam_front"
     slit:t="cam_right"
   }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-45.0, 45.0, -8.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 ussr_kv_1_L_11_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tod_6.blk"
   _extends:t="base_gunner_cockpit"
-  animchar__res:t="kv_1_gunner_char"
+  animchar__res:t="t_26_1940_gunner_char"
   cockpit__minForwardOffset:r=-0.27
-  cockpit__offset:p3=-0.159611, -0.0103727, -0.00561043
+  cockpit__offset:p3=0.0, 0.0, 0.0
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"
     node:t="bone_turret"
   }
 
-  "cockpit__slitCameraOffsets:list<p3>"{
-    slit:p3=0.0, 0.0, 0.0
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    slit:p3=-0.5, -0.07, 0.2
+    slit:p3=0.2, 1.0, 0.45
   }
 
   "cockpit__attachNodeIndices:list<i>"{
@@ -185,15 +219,52 @@ ussr_kv_1_L_11_gunner_cockpit{
   }
 
   "cockpit__slitNodeNames:list<t>"{
+    slit:t="cam_front_right"
     slit:t="cam_front"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.05
+    slit:r=0.22
+    slit:r=0.19
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=yes
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-45.0, 45.0, -8.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="ussr_tod_6"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

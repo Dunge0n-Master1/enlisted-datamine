@@ -8,6 +8,8 @@ us_lvt_a_1_common{
   _extends:t="tank_light_vehicle_tracks_sound"
   _extends:t="floatable_vehicle"
   item__iconScale:r=0.8
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seatsProvideOrder:tag"{
   }
@@ -143,19 +145,43 @@ us_lvt_a_1_driver_cockpit{
   cockpit__offset:p3=-0.4, -0.25, 0.18
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=-0.03
+    slit:r=-0.05
   }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
   }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-45.0, 45.0, -0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
+  }
 }
 
 us_lvt_a_1_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m56.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="ba_11_gunner_char"
-  cockpit__offset:p3=-0.35, -0.01, 0.22
+  cockpit__offset:p3=0.0, 0.0, 0.0
+
+  "cockpit__cockpitOffsetBySlit:list<p3>"{
+    item:p3=-0.35, -0.01, 0.22
+    item:p3=-0.413889, 0.694356, 0.394395
+    item:p3=-0.201835, 0.511775, 0.440301
+  }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
@@ -180,21 +206,70 @@ us_lvt_a_1_gunner_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front_right"
+    slit:t="cam_front"
+    slit:t="cam_left"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.2
+    slit:r=0.21
+    slit:r=0.15
+    slit:r=0.0
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=yes
+    slit:b=no
   }
 
-  "cockpit__cockpit__attachNodeNames:list<t>"{
+  "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"
+    node:t="bone_turret"
+    node:t="bone_turret"
   }
 
-  "cockpit__cockpit__attachNodeIndices:list<i>"{
+  "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="us_m56"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-0.0, 0.0, -8.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
   }
 }
 
@@ -260,11 +335,11 @@ us_lvt_a_1_commander_cockpit{
   cockpit__offset:p3=0.0, 0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    item:p3=-0.231268, 0.647708, -0.316906
+    item:p3=-0.6, 0.8, -0.1
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.17
+    slit:r=0.165
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -276,6 +351,12 @@ us_lvt_a_1_commander_cockpit{
   }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
+    node:t="hatch_l_03"
+    node:t="hatch_l_04"
+    node:t="hatch_r_02"
+    node:t="hatch_r_03"
+    node:t="bone_turret"
+    node:t="bone_gun"
     node:t="gun_barrel"
     node:t="root"
     node:t="hatch_r_01"
@@ -294,6 +375,25 @@ us_lvt_a_1_commander_cockpit{
     node:t="bone_mg_h_02"
     node:t="bone_mg_v_02"
     node:t="ex_decor_r_02"
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-90.0, 90.0, -5.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
   }
 }
 

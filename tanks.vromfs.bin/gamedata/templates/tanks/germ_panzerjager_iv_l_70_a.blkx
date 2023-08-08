@@ -9,6 +9,8 @@ germ_panzerjager_IV_L_70_A{
 germ_panzerjager_IV_L_70_A_common{
   _extends:t="base_panzerjager_iv_l_70_a"
   _extends:t="tank_panzer3_engine_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
   gunnerFpsCamMaxAngle:p2=5.0, 3.0
   item__iconOffset:p2=0.0, 0.2
 
@@ -91,9 +93,10 @@ germ_panzerjager_IV_L_70_A_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
   cockpit__offset:p3=-0.0, 0.0, 0.0
+  cockpit__minForwardOffset:r=-0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-2.7, 0.95, 0.1
+    slit:p3=-2.7, 1.1, 0.1
   }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
@@ -102,6 +105,7 @@ germ_panzerjager_IV_L_70_A_commander_cockpit{
     node:t="bone_gun"
     node:t="bone_turret"
     node:t="hatch_02"
+    node:t="hatch_03"
   }
 
   "cockpit__cockpit__attachNodeNames:list<t>"{
@@ -109,7 +113,7 @@ germ_panzerjager_IV_L_70_A_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.15
+    slit:r=0.165
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -119,13 +123,30 @@ germ_panzerjager_IV_L_70_A_commander_cockpit{
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
   }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-90.0, 90.0, -5.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
+  }
 }
 
 germ_panzerjager_IV_L_70_A_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_sfl_zf_1a.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, 0.0, 0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -148,11 +169,29 @@ germ_panzerjager_IV_L_70_A_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.09
+    slit:r=0.15
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=5.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_sfl_zf_1a"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -167,7 +206,7 @@ germ_panzerjager_IV_L_70_A_driver_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.07
+    slit:r=0.1
   }
 }
 

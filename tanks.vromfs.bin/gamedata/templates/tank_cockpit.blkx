@@ -1,6 +1,7 @@
 base_driver_cockpit{
   _extends:t="base_driver_cockpit_no_slits"
   animchar__res:t="t_26_1940_driver_char"
+  cockpit__forwardOffsetDuration:r=0.2
 
   "cockpit__slitForwardOffset:list<r>"{
     slit:r=0.0
@@ -15,11 +16,21 @@ base_driver_cockpit{
   }
 }
 
+base_driver_cockpit_no_slits{
+  _extends:t="base_cockpit"
+  cockpit__minForwardOffset:r=-0.27
+
+  "animchar_render__nodeVisibleStgFilters:list<u8>"{
+    _tags:t="render"
+  }
+}
+
 base_gunner_cockpit{
   _extends:t="base_vehicle_sight"
   _extends:t="base_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.1
+  cockpit__minForwardOffset:r=-0.05
+  cockpit__slitTransitionDuration:r=0.0
   cockpit__offset:p3=-0.35, -0.01, 0.22
 
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
@@ -67,7 +78,15 @@ base_commander_cockpit{
 base_commander_tower_cockit_no_slits{
   _extends:t="base_commander_cockpit_no_slits"
   cockpit__forwardOffsetDuration:r=0.5
-  cockpit__slitTransitionDuration:r=0.33
+  cockpit__slitTransitionDuration:r=0.2
+}
+
+base_commander_cockpit_no_slits{
+  _extends:t="base_cockpit"
+
+  "animchar_render__nodeVisibleStgFilters:list<u8>"{
+    _tags:t="render"
+  }
 }
 
 cockpit_slit_setter{

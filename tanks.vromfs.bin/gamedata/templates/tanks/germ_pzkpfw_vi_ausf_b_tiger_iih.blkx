@@ -6,6 +6,8 @@ germ_pzkpfw_vi_ausf_b_tiger_iih_common{
   _extends:t="base_pzkpfw_vi_ausf_b_tiger_iih"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_tiger_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -154,6 +156,25 @@ germ_pzkpfw_vi_ausf_b_tiger_iih_gunner_cockpit{
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
   }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=2.5
+      zoom:r=5.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_tzf_9b"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 germ_pzkpfw_vi_ausf_b_tiger_iih_commander_cockpit{
@@ -189,6 +210,37 @@ germ_pzkpfw_vi_ausf_b_tiger_iih_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

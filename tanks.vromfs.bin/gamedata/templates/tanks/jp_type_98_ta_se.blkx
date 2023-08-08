@@ -12,6 +12,8 @@ jp_type_98_ta_se_common{
   vehicle_seats__exitTime:r=1.0
   cockpit__zoomOutFov:r=1.5
   cockpit__zoomInFov:r=2.0
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
   vehicle_commander_cam__attachToVehicle:b=yes
 
   _group{
@@ -88,7 +90,6 @@ jp_type_98_ta_se_common{
 }
 
 jp_type_98_ta_se_gunner_cockpit{
-  vehicle_sight__blk:t="gamedata/sight/jp_ring.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="ba_11_gunner_char"
   cockpit__offset:p3=-0.407955, 0.260143, 0.384339
@@ -117,6 +118,25 @@ jp_type_98_ta_se_gunner_cockpit{
   }
 
   "cockpit__attachNodeIndices:list<i>"{
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+      zoom:r=2.5
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="jp_ring"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

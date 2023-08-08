@@ -8,6 +8,8 @@ it_m14_41{
 
 it_m14_41_common{
   _extends:t="base_m14_41"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -97,13 +99,15 @@ it_m14_41_driver_cockpit{
     node:t="ex_decor_l_01"
     node:t="ex_decor_r_01"
   }
+
+  "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.1
+  }
 }
 
 it_m14_41_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/it_se_75_18.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, -0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -117,7 +121,6 @@ it_m14_41_gunner_cockpit{
   }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
-    node:t="gun_barrel"
   }
 
   "cockpit__slitNodeNames:list<t>"{
@@ -126,7 +129,7 @@ it_m14_41_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.18
+    slit:r=0.22
     slit:r=0.2
   }
 
@@ -134,16 +137,50 @@ it_m14_41_gunner_cockpit{
     slit:b=yes
     slit:b=no
   }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-45.0, 45.0, -5.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="it_se_75_18"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
 }
 
 it_m14_41_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
-  cockpit__minForwardOffset:r=-0.05
+  cockpit__minForwardOffset:r=-0.0
   cockpit__offset:p3=-0.0, 0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.5, 0.66, -0.45
+    slit:p3=-0.7, 0.75, -0.45
   }
 
   "cockpit__slitForwardOffset:list<r>"{
@@ -161,5 +198,29 @@ it_m14_41_commander_cockpit{
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
     node:t="bone_gun_01"
+    node:t="bone_turret_01"
+    node:t="hatch_01"
+    node:t="hatch_02"
+    node:t="mg_aa"
+    node:t="mg_aa_mount_h"
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-35.0, 90.0, -4.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
   }
 }

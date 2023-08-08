@@ -124,24 +124,28 @@ let markUnlockSeen = @(names) changeStatus(SeenMarks.SEEN, names)
 
 let markUnlocksOpened = @(names) changeStatus(SeenMarks.OPENED, names)
 
-let hasNewbieUnlocksData = keepref(Computed(function() {
+let hasNecessaryData = keepref(Computed(function() {
   let hasUserstatData = userstatUnlocks.value?.unlocks != null
-  let isNewbieUnlock = unlockProgress.value?["not_a_new_player_unlock"].isCompleted
-  return onlineSettingUpdated.value && hasUserstatData && isNewbieUnlock != null
-    && !isNewbieUnlock && weeklyTasks.value != null
+  let hasNewbieUnlock = "not_a_new_player_unlock" in unlockProgress.value
+  return onlineSettingUpdated.value && hasUserstatData && hasNewbieUnlock
+    && weeklyTasks.value != null
 }))
 
 
-hasNewbieUnlocksData.subscribe(function(v) {
+hasNecessaryData.subscribe(function(hasData) {
+  if (!hasData || !isNewbie.value)
+    return
   let sessions = sessionsCountStored.value
-  if (v && sessions == 0) {
+  if (sessions == 0) {
     let unlocksToMarkUnseen = (weeklyTasks.value.reduce(@(res, v) res.append(v.name), []))
     markUnlockSeen(unlocksToMarkUnseen)
     sessionsCount.setValue(1)
   }
-  else if (isNewbie.value)
+  else
     sessionsCount.setValue(sessions + 1)
 })
+
+let hasNewbieUnlocksData = Computed(@() hasNecessaryData.value && isNewbie.value)
 
 console_register_command(@() settings.mutate(@(v) delete v[SEEN_ID]), "meta.resetSeenUnlocks")
 

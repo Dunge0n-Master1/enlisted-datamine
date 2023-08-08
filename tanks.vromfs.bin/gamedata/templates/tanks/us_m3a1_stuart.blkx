@@ -33,6 +33,8 @@ us_m3a1_stuart_common{
   _extends:t="base_m3a1_stuart"
   _extends:t="tank_light_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.0
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -129,7 +131,7 @@ us_m3a1_stuart_driver_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.07
+    slit:r=0.1
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -149,7 +151,6 @@ us_m3a1_stuart_driver_cockpit{
 }
 
 us_m3a1_stuart_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70d.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="ba_11_gunner_char"
   cockpit__offset:p3=0.0, 0.0, 0.0
@@ -180,15 +181,56 @@ us_m3a1_stuart_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.2
-    slit:r=0.15
+    slit:r=0.21
+    slit:r=0.16
     slit:r=0.0
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=yes
     slit:b=no
-    slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="us_m70d"
+  }
+
+  "cockpit__slitEids:list<eid>"{
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-0.0, 0.0, -8.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
   }
 }
 
@@ -198,7 +240,7 @@ us_m3a1_stuart_commander_cockpit{
   cockpit__offset:p3=-0.0, 0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    item:p3=-0.282226, 0.811918, -0.341195
+    item:p3=-0.0, 0.9, -0.341195
     item:p3=-0.0988984, 0.463066, -0.367904
   }
 
@@ -207,7 +249,7 @@ us_m3a1_stuart_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.17
+    slit:r=0.16
     slit:r=0.0
   }
 
@@ -219,5 +261,26 @@ us_m3a1_stuart_commander_cockpit{
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
     slit:t="cam_right"
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-45.0, 45.0, -8.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 }

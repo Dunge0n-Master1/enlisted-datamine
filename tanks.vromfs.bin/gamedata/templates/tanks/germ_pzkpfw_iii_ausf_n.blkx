@@ -68,6 +68,8 @@ germ_pzkpfw_III_ausf_N_common{
   _extends:t="tank_panzer3_engine_sound"
   item__iconOffset:p2=0.0, 0.2
   item__iconScale:r=1.1
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "turrets__initAmmoDistribution:array"{
 
@@ -204,11 +206,9 @@ germ_pzkpfw_III_ausf_N_driver_cockpit{
 }
 
 germ_pzkpfw_III_ausf_N_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5b.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__offset:p3=-0.9, 0.03, 0.12
-  cockpit__minForwardOffset:r=-0.4
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"
@@ -247,7 +247,7 @@ germ_pzkpfw_III_ausf_N_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.13
+    slit:r=0.19
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -256,6 +256,25 @@ germ_pzkpfw_III_ausf_N_gunner_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_tzf5b"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -298,6 +317,29 @@ germ_pzkpfw_III_ausf_N_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

@@ -4,6 +4,8 @@ ussr_bm_8_24_moscow_premium{
 
 ussr_bm_8_24_common{
   _extends:t="base_bm_8_24"
+  item__iconOffset:p2=0.0, -0.05
+  item__iconScale:r=1.11
 
   "vehicle_seats__seats:shared:array"{
 

@@ -169,6 +169,37 @@ germ_pzkpfw_V_ausf_f_panther_commander_cockpit{
     slit:b=no
   }
 
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
     slit:t="cam_front_left"

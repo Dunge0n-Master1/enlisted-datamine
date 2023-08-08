@@ -1,0 +1,505 @@
+ussr_top_1{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_top_1.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_tod_6{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tod_6.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_tmfd_7{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tmfd_7.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_tmfp_1{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tmfp_1.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_tsh_15{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_15.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=4.0
+  }
+}
+
+ussr_tsh_16{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_16.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=4.0
+  }
+}
+
+ussr_tsh_17{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_17.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=4.0
+  }
+}
+
+ussr_tsh_19{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tsh_19.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=4.0
+  }
+}
+
+ussr_10t_17{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_10t_17.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=4.0
+  }
+}
+
+ussr_op_2{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_op_2.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_ring{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_ring.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+    zoom:r=2.5
+  }
+}
+
+us_m71d{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m71d.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=5.0
+  }
+}
+
+uk_no_33_mkii_s{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+uk_no_33_mkii_s{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/uk_no_33_mkii_s.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m21a1{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m21a1.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m55{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m55.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m70d{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70d.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m56{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m56.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m70f{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70f.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m71g{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m71g.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m70g{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70g.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m83f{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m83f.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+us_m55_calliope{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m55_calliope.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf4{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf4.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5a{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5a.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5b{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5b.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5d{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5d.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5e{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5e.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5f{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5f.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_zf_3x8_flakpanzer{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_zf_3x8_flakpanzer.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+    zoom:r=2.5
+  }
+}
+
+germ_tzf_38t{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf_38t.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_sfl_zf_1a{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_sfl_zf_1a.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf5f_2{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5f_2.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf_9b{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf_9b.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=2.5
+    zoom:r=5.0
+  }
+}
+
+germ_tzf_9b{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf_9b.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=2.5
+    zoom:r=5.0
+  }
+}
+
+germ_panzerwerfer{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_panzerwerfer.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+germ_tzf12a{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf12a.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=2.5
+    zoom:r=5.0
+  }
+}
+
+it_se_75_18{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/it_se_75_18.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+jp_ring{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_ring.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+    zoom:r=2.5
+  }
+}
+
+jp_37mm_94{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_37mm_94.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+jp_75mm{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_75mm.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+jp_120mm{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_120mm.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+jp_47mm_1_1{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_47mm_1_1.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+jp_57mm{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="gamedata/sight/jp_57mm.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
+ussr_pt_1{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
+  vehicle_sight__useAimDir:b=no
+  vehicle_sight__useGunDir:b=no
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+  }
+}
+
+cross{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/default.blk"
+  vehicle_sight__useAimDir:b=no
+  vehicle_sight__useGunDir:b=no
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.44
+  }
+}

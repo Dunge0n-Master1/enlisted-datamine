@@ -14,7 +14,7 @@ explodeOnRendinst:b=yes
 useEffectiveArmorThicknessForShatter:b=yes
 bulletName:t="122mm_of_471"
 explodeTreshold:r=0.1
-fuseDelayDist:r=0.0
+fuseDelayDist:r=0.3
 explosionPatchRadius:r=3.5
 modelName:t="tank_bullet_he"
 secondaryShattersPreset:t="ap"
@@ -31,15 +31,18 @@ hitpower{
 
 damage{
 
+  kinetic{
+    damageType:t="generic"
+    demarrePenetrationK:r=0.15
+    demarreSpeedPow:r=1.43
+    demarreMassPow:r=0.71
+    demarreCaliberPow:r=1.07
+    damage:r=40.0
+  }
+
   explosive{
     radius:r=0.3
     offset:r=0.2
-    type:t="tnt"
-    mass:r=3.6
-    fuseDelayDist:r=0.0
-    fuseArmorTreshold:r=0.1
-    strengthEquivalent:r=1.0
-    brisanceEquivalent:r=1.0
   }
 
   shatter{
@@ -48,9 +51,9 @@ damage{
     damageType:t="shatter"
 
     segment{
-      radiusScale:r=0.15
-      penetrationScale:r=3.5
-      damageScale:r=1.0
+      radiusScale:r=0.3
+      penetrationScale:r=6.0
+      damageScale:r=2.0
       angles:p2=0.0, 29.0
       countPortion:r=0.045
       onHitChanceMultFire:r=10.0
@@ -58,7 +61,7 @@ damage{
 
     segment{
       radiusScale:r=1.0
-      penetrationScale:r=1.0
+      penetrationScale:r=2.75
       damageScale:r=1.0
       angles:p2=30.0, 69.0
       countPortion:r=0.23
@@ -66,7 +69,7 @@ damage{
 
     segment{
       radiusScale:r=0.35
-      penetrationScale:r=1.75
+      penetrationScale:r=2.75
       damageScale:r=1.5
       angles:p2=70.0, 110.0
       countPortion:r=0.075
@@ -75,7 +78,7 @@ damage{
 
     segment{
       radiusScale:r=1.0
-      penetrationScale:r=1.0
+      penetrationScale:r=2.75
       damageScale:r=1.0
       angles:p2=111.0, 180.0
       countPortion:r=0.15
@@ -83,7 +86,7 @@ damage{
 
     segment{
       radiusScale:r=1.0
-      penetrationScale:r=1.0
+      penetrationScale:r=2.75
       damageScale:r=1.0
       angles:p2=181.0, 249.0
       countPortion:r=0.15
@@ -91,7 +94,7 @@ damage{
 
     segment{
       radiusScale:r=0.35
-      penetrationScale:r=1.75
+      penetrationScale:r=2.75
       damageScale:r=1.5
       angles:p2=250.0, 290.0
       countPortion:r=0.075
@@ -100,7 +103,7 @@ damage{
 
     segment{
       radiusScale:r=1.0
-      penetrationScale:r=1.0
+      penetrationScale:r=2.0
       damageScale:r=1.0
       angles:p2=291.0, 329.0
       countPortion:r=0.23
@@ -108,38 +111,11 @@ damage{
 
     segment{
       radiusScale:r=0.15
-      penetrationScale:r=3.5
+      penetrationScale:r=4.5
       damageScale:r=1.0
       angles:p2=330.0, 359.0
       countPortion:r=0.045
       onHitChanceMultFire:r=10.0
-    }
-  }
-
-  kinetic{
-    damage:r=40.0
-    damageType:t="generic"
-
-    energyToDamage{
-      p0:p2=3000.0, 5.0
-      p1:p2=15000.0, 10.0
-      p2:p2=30000.0, 15.0
-      p3:p2=60000.0, 25.0
-      p4:p2=80000.0, 40.0
-      p5:p2=110000.0, 60.0
-      p6:p2=300000.0, 70.0
-      p7:p2=400000.0, 75.0
-      p8:p2=500000.0, 80.0
-      p9:p2=650000.0, 110.0
-      p10:p2=1100000.0, 150.0
-      p11:p2=1300000.0, 200.0
-      p12:p2=1800000.0, 230.0
-      p13:p2=2200000.0, 240.0
-      p14:p2=3000000.0, 300.0
-      p15:p2=4000000.0, 320.0
-      p16:p2=5000000.0, 350.0
-      p17:p2=8000000.0, 370.0
-      p18:p2=12000000.0, 900.0
     }
   }
 
@@ -214,12 +190,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 49.54
         slopeEffect15deg:p2=15.0, 28.94
         slopeEffect20deg:p2=20.0, 17.36
-        slopeEffect25deg:p2=25.0, 11.84
-        slopeEffect30deg:p2=30.0, 7.17
-        slopeEffect35deg:p2=35.0, 5.21
-        slopeEffect40deg:p2=40.0, 3.93
-        slopeEffect45deg:p2=45.0, 2.53
-        slopeEffect50deg:p2=50.0, 1.95
+        slopeEffect25deg:p2=25.0, 3.59
+        slopeEffect30deg:p2=30.0, 2.96
+        slopeEffect35deg:p2=35.0, 2.37
+        slopeEffect40deg:p2=40.0, 2.16
+        slopeEffect45deg:p2=45.0, 1.94
+        slopeEffect50deg:p2=50.0, 1.73
         slopeEffect55deg:p2=55.0, 1.6
         slopeEffect60deg:p2=60.0, 1.39
         slopeEffect65deg:p2=65.0, 1.24
@@ -237,12 +213,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 21.8
         slopeEffect15deg:p2=15.0, 13.75
         slopeEffect20deg:p2=20.0, 8.64
-        slopeEffect25deg:p2=25.0, 6.26
-        slopeEffect30deg:p2=30.0, 4.0
-        slopeEffect35deg:p2=35.0, 3.23
-        slopeEffect40deg:p2=40.0, 2.64
-        slopeEffect45deg:p2=45.0, 2.0
-        slopeEffect50deg:p2=50.0, 1.62
+        slopeEffect25deg:p2=25.0, 3.25
+        slopeEffect30deg:p2=30.0, 2.69
+        slopeEffect35deg:p2=35.0, 2.17
+        slopeEffect40deg:p2=40.0, 1.98
+        slopeEffect45deg:p2=45.0, 1.79
+        slopeEffect50deg:p2=50.0, 1.6
         slopeEffect55deg:p2=55.0, 1.37
         slopeEffect60deg:p2=60.0, 1.21
         slopeEffect65deg:p2=65.0, 1.11
@@ -260,12 +236,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 15.57
         slopeEffect15deg:p2=15.0, 10.09
         slopeEffect20deg:p2=20.0, 6.47
-        slopeEffect25deg:p2=25.0, 4.8
-        slopeEffect30deg:p2=30.0, 3.21
-        slopeEffect35deg:p2=35.0, 2.64
-        slopeEffect40deg:p2=40.0, 2.24
-        slopeEffect45deg:p2=45.0, 1.81
-        slopeEffect50deg:p2=50.0, 1.5
+        slopeEffect25deg:p2=25.0, 3.15
+        slopeEffect30deg:p2=30.0, 2.61
+        slopeEffect35deg:p2=35.0, 2.1
+        slopeEffect40deg:p2=40.0, 1.92
+        slopeEffect45deg:p2=45.0, 1.74
+        slopeEffect50deg:p2=50.0, 1.56
         slopeEffect55deg:p2=55.0, 1.29
         slopeEffect60deg:p2=60.0, 1.15
         slopeEffect65deg:p2=65.0, 1.06
@@ -283,12 +259,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 13.63
         slopeEffect15deg:p2=15.0, 8.94
         slopeEffect20deg:p2=20.0, 5.78
-        slopeEffect25deg:p2=25.0, 4.33
-        slopeEffect30deg:p2=30.0, 2.93
-        slopeEffect35deg:p2=35.0, 2.45
-        slopeEffect40deg:p2=40.0, 2.1
-        slopeEffect45deg:p2=45.0, 1.74
-        slopeEffect50deg:p2=50.0, 1.46
+        slopeEffect25deg:p2=25.0, 3.06
+        slopeEffect30deg:p2=30.0, 2.54
+        slopeEffect35deg:p2=35.0, 2.05
+        slopeEffect40deg:p2=40.0, 1.87
+        slopeEffect45deg:p2=45.0, 1.7
+        slopeEffect50deg:p2=50.0, 1.52
         slopeEffect55deg:p2=55.0, 1.25
         slopeEffect60deg:p2=60.0, 1.12
         slopeEffect65deg:p2=65.0, 1.04
@@ -306,12 +282,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 9.65
         slopeEffect15deg:p2=15.0, 6.53
         slopeEffect20deg:p2=20.0, 4.3
-        slopeEffect25deg:p2=25.0, 3.31
-        slopeEffect30deg:p2=30.0, 2.3
-        slopeEffect35deg:p2=35.0, 2.0
-        slopeEffect40deg:p2=40.0, 1.77
-        slopeEffect45deg:p2=45.0, 1.58
-        slopeEffect50deg:p2=50.0, 1.35
+        slopeEffect25deg:p2=25.0, 2.95
+        slopeEffect30deg:p2=30.0, 2.45
+        slopeEffect35deg:p2=35.0, 1.98
+        slopeEffect40deg:p2=40.0, 1.81
+        slopeEffect45deg:p2=45.0, 1.65
+        slopeEffect50deg:p2=50.0, 1.48
         slopeEffect55deg:p2=55.0, 1.17
         slopeEffect60deg:p2=60.0, 1.06
         slopeEffect65deg:p2=65.0, 1.0
@@ -329,12 +305,12 @@ ballistics{
         slopeEffect10deg:p2=10.0, 7.42
         slopeEffect15deg:p2=15.0, 5.13
         slopeEffect20deg:p2=20.0, 3.44
-        slopeEffect25deg:p2=25.0, 2.69
-        slopeEffect30deg:p2=30.0, 1.92
-        slopeEffect35deg:p2=35.0, 1.71
-        slopeEffect40deg:p2=40.0, 1.56
-        slopeEffect45deg:p2=45.0, 1.46
-        slopeEffect50deg:p2=50.0, 1.27
+        slopeEffect25deg:p2=25.0, 2.8
+        slopeEffect30deg:p2=30.0, 2.33
+        slopeEffect35deg:p2=35.0, 1.89
+        slopeEffect40deg:p2=40.0, 1.73
+        slopeEffect45deg:p2=45.0, 1.58
+        slopeEffect50deg:p2=50.0, 1.42
         slopeEffect55deg:p2=55.0, 1.12
         slopeEffect60deg:p2=60.0, 1.01
         slopeEffect65deg:p2=65.0, 1.0

@@ -2,6 +2,8 @@ germ_pzkpfw_V_ausf_g_panther{
   _extends:t="base_pzkpfw_v_ausf_g_panther"
   _extends:t="tank_panzer3_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "animchar__objTexReplace:object"{
     "ger_camo_dunkelgelb*":t="ger_camo_dunkelgelb_green_braun_blots*"
@@ -119,10 +121,8 @@ germ_pzkpfw_V_ausf_g_panther_driver_cockpit{
 }
 
 germ_pzkpfw_V_ausf_g_panther_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf12a.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, -0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
@@ -145,11 +145,30 @@ germ_pzkpfw_V_ausf_g_panther_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.18
+    slit:r=0.205
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=2.5
+      zoom:r=5.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_tzf12a"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -169,13 +188,13 @@ germ_pzkpfw_V_ausf_g_panther_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=-0.06
-    slit:r=-0.06
-    slit:r=-0.06
-    slit:r=-0.065
-    slit:r=-0.06
-    slit:r=-0.06
-    slit:r=-0.06
+    slit:r=-0.07
+    slit:r=-0.07
+    slit:r=-0.07
+    slit:r=-0.07
+    slit:r=-0.07
+    slit:r=-0.07
+    slit:r=-0.07
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -186,6 +205,37 @@ germ_pzkpfw_V_ausf_g_panther_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

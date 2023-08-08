@@ -119,7 +119,6 @@ germ_pzkpfw_III_ausf_F_driver_cockpit{
 }
 
 germ_pzkpfw_III_ausf_F_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_tzf5d.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=-0.9, 0.03, 0.12
@@ -144,7 +143,7 @@ germ_pzkpfw_III_ausf_F_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.27
+    slit:r=0.29
     slit:r=0.0
     slit:r=0.0
   }
@@ -159,6 +158,35 @@ germ_pzkpfw_III_ausf_F_gunner_cockpit{
     slit:t="cam_front"
     slit:t="cam_left_front"
     slit:t="cam_left_rear"
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_tzf5d"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -193,6 +221,29 @@ germ_pzkpfw_III_ausf_F_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

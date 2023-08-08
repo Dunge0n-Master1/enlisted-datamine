@@ -1,5 +1,7 @@
 ussr_ht_130{
   _extends:t="base_ht_130"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -70,13 +72,11 @@ ussr_ht_130_gunner_cockpit{
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     slit:p3=0.0, 0.0, 0.0
-    slit:p3=0.12, 0.81, 0.063
     slit:p3=0.22, 0.4, 0.07
   }
 
   "cockpit__attachNodeNames:list<t>"{
     node:t="bone_camera_gunner"
-    node:t="bone_turret"
     node:t="bone_turret"
   }
 
@@ -98,19 +98,16 @@ ussr_ht_130_gunner_cockpit{
 
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front_right"
-    slit:t="cam_front"
     slit:t="cam_left"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.23
-    slit:r=0.23
+    slit:r=0.225
     slit:r=0.0
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
-    slit:b=no
     slit:b=no
   }
 }

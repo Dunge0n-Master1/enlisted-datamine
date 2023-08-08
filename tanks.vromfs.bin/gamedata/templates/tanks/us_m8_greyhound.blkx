@@ -66,6 +66,8 @@ us_m8_greyhound_common{
   _extends:t="tank_with_wheels_vehicle_tracks_sound"
   item__iconOffset:p2=0.0, 0.2
   destroyIfNoCrewLeft:b=no
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -214,10 +216,8 @@ us_m8_greyhound_driver_cockpit{
 }
 
 us_m8_greyhound_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/us_m70d.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.4, -0.05, 0.2
 
   "cockpit__attachNodeNames:list<t>"{
@@ -241,11 +241,30 @@ us_m8_greyhound_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.18
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="us_m70d"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -259,7 +278,7 @@ us_m8_greyhound_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.16
+    slit:r=0.17
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -279,5 +298,24 @@ us_m8_greyhound_commander_cockpit{
     node:t="hatch_06"
     node:t="ex_armor_r_05"
     node:t="ex_armor_l_05"
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-45.0, 45.0, -0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
   }
 }

@@ -2,6 +2,8 @@ ussr_t_50{
   _extends:t="base_t_50"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_light_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "animchar__objTexReplace:object"{
     "ussr_camo_green*":t="ussr_camo_winter_white_full*"
@@ -85,7 +87,7 @@ ussr_t_50_driver_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.0
+    slit:r=0.08
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -98,15 +100,13 @@ ussr_t_50_driver_cockpit{
 }
 
 ussr_t_50_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.0, -0.0, 0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.3, -0.024, 0.19
-    slit:p3=0.04, 0.61, 0.355
+    slit:p3=-0.1, -0.024, 0.19
+    slit:p3=0.2, 0.7, 0.355
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -119,6 +119,7 @@ ussr_t_50_gunner_cockpit{
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
+    node:t="bone_gun"
   }
 
   "cockpit__slitNodeNames:list<t>"{
@@ -127,22 +128,56 @@ ussr_t_50_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.2
-    slit:r=0.2
+    slit:r=0.22
+    slit:r=0.195
     slit:r=0.0
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=yes
     slit:b=no
-    slit:b=no
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-35.0, 35.0, -5.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="ussr_top_1"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
 ussr_t_50_commander_cockpit{
   _extends:t="base_commander_tower_cockit_no_slits"
   animchar__res:t="pzkpfw_iii_b_commander_char"
-  cockpit__offset:p3=-0.34, 0.45, -0.12
+  cockpit__offset:p3=-0.34, 0.5, -0.12
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
@@ -180,6 +215,41 @@ ussr_t_50_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

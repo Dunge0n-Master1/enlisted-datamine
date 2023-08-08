@@ -34,15 +34,6 @@ let mkRewardName = function(reward, otherArmy) {
 }
 
 let function mkRewardsView(task) {
-  let children = []
-  let { name = "" } = task?.localization
-  if (name != "")
-    children.append({
-      rendObj = ROBJ_TEXT
-      text = name
-      color = defTxtColor
-    }.__update(sub_txt))
-
   let { lastRewardedStage, stages } = task
   let { rewards = null } = stages?[lastRewardedStage]
 
@@ -72,6 +63,15 @@ let function mkRewardsView(task) {
       text = loc("unlocks/eventMoreRewards", { count = countAll - countForArmy })
       color = activeTxtColor
     }.__update(body_txt)
+
+    let children = []
+    let { name = "" } = task?.localization
+    if (name != "")
+      children.append({
+        rendObj = ROBJ_TEXT
+        text = name
+        color = defTxtColor
+      }.__update(sub_txt))
 
     let cards = mkRewardsCards(rewardsForArmy)
     children.append(cards)

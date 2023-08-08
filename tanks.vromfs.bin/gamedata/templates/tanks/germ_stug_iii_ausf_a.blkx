@@ -23,6 +23,8 @@ germ_stug_iii_ausf_a_moscow_premium{
 germ_stug_III_ausf_A{
   _extends:t="base_stug_iii_ausf_a"
   _extends:t="tank_panzer3_engine_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "turrets__initAmmoDistribution:array"{
 
@@ -127,7 +129,7 @@ germ_stug_iii_ausf_a_commander_cockpit{
   cockpit__offset:p3=-0.468794, 2.21173, 0.501026
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.18
+    slit:r=0.16
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -144,6 +146,24 @@ germ_stug_iii_ausf_a_commander_cockpit{
     node:t="@root"
     node:t="hatch_13"
     node:t="hatch_16"
+    node:t="hatch_15"
+    node:t="hatch_14"
+    node:t="hatch_04"
+    node:t="hatch_03"
+    node:t="hatch_02"
+    node:t="hatch_01"
+    node:t="ex_decor_l_12"
+    node:t="ex_decor_l_06"
+    node:t="ex_decor_l_08"
+    node:t="ex_decor_l_09"
+    node:t="ex_decor_r_07"
+    node:t="ex_decor_l_07"
+    node:t="ex_smoke_01"
+    node:t="ex_decor_r_07"
+    node:t="ex_decor_r_06"
+    node:t="ex_decor_r_10"
+    node:t="hatch_06"
+    node:t="hatch_05"
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -152,10 +172,24 @@ germ_stug_iii_ausf_a_commander_cockpit{
 
   "cockpit__attachNodeIndices:list<i>"{
   }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-180.0, 180.0, -8.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
 }
 
 germ_stug_iii_ausf_a_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_sfl_zf_1a.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="pzkpfw_iii_e_gunner_char"
   cockpit__offset:p3=-0.724572, 0.296057, 0.544658
@@ -169,7 +203,7 @@ germ_stug_iii_ausf_a_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.16
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -184,6 +218,34 @@ germ_stug_iii_ausf_a_gunner_cockpit{
     node:t="gun_barrel"
     node:t="@root"
     node:t="bone_gun"
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=4.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="germ_sfl_zf_1a"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 

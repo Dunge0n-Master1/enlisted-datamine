@@ -9,6 +9,8 @@ ussr_t_28{
 ussr_t_28_common{
   _extends:t="base_t_28"
   _extends:t="tank_t34_engine_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "bullet_holes__movingCollisionNodes:array"{
     _tags:t="render"
@@ -131,10 +133,19 @@ ussr_t_28_driver_cockpit{
     node:t="track_r"
     node:t="@root"
     node:t="gun_barrel"
+    node:t="hatch_08"
+    node:t="ex_armor_01"
+    node:t="body_alpha"
+    node:t="ex_decor_r_09"
+    node:t="ex_decor_r_11"
+    node:t="ex_armor_l_01"
+    node:t="ex_armor_l_02"
+    node:t="ex_decor_l_02"
+    node:t="ex_decor_r_02"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.0
+    slit:r=0.1
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -147,15 +158,13 @@ ussr_t_28_driver_cockpit{
 }
 
 ussr_t_28_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__minForwardOffset:r=-0.27
   cockpit__offset:p3=-0.35, -0.01, 0.22
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     slit:p3=0.0, 0.0, 0.0
-    slit:p3=0.8, 1.0, 0.3
+    slit:p3=0.8, 1.2, 0.3
     slit:p3=0.5, 0.5, 0.4
   }
 
@@ -172,6 +181,14 @@ ussr_t_28_gunner_cockpit{
     node:t="track_l"
     node:t="track_r"
     node:t="@root"
+    node:t="hatch_08"
+    node:t="ex_armor_01"
+    node:t="ex_decor_r_09"
+    node:t="ex_decor_r_11"
+    node:t="ex_armor_l_01"
+    node:t="ex_armor_l_02"
+    node:t="ex_decor_l_02"
+    node:t="ex_decor_r_02"
     node:t="gun_barrel"
   }
 
@@ -182,15 +199,56 @@ ussr_t_28_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
+    slit:r=0.22
     slit:r=0.2
-    slit:r=0.2
-    slit:r=0.0
+    slit:r=0.02
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+    slit:b=yes
     slit:b=no
-    slit:b=no
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-35.0, 35.0, -5.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="ussr_top_1"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -200,18 +258,28 @@ ussr_t_28_commander_cockpit{
   cockpit__offset:p3=-0.0, 0.0, -0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    slit:p3=-0.04, 0.93, -0.425
+    slit:p3=0.2, 1.2, -0.425
     slit:p3=0.06, 0.479, -0.6
   }
 
   "cockpit__visibleVehicleNodeNames:list<t>"{
     node:t="gun_barrel"
     node:t="bone_gun_01"
+    node:t="@root"
+    node:t="hatch_08"
+    node:t="ex_armor_01"
+    node:t="body_alpha"
+    node:t="ex_decor_r_09"
+    node:t="ex_decor_r_11"
+    node:t="ex_armor_l_01"
+    node:t="ex_armor_l_02"
+    node:t="ex_decor_l_02"
+    node:t="ex_decor_r_02"
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.15
-    slit:r=0.0
+    slit:r=0.16
+    slit:r=0.05
   }
 
   "cockpit__slitIsGun:list<b>"{
@@ -222,6 +290,32 @@ ussr_t_28_commander_cockpit{
   "cockpit__slitNodeNames:list<t>"{
     slit:t="cam_front"
     slit:t="cam_right"
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-180.0, 180.0, -5.0, 25.0
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=35.0, 35.0
+    slit:p2=-1.0, -1.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.0
+    slit:r=0.0
   }
 }
 
@@ -293,14 +387,4 @@ t_28_skins{
       }
     }
   }
-}
-
-t_28_turret_02_7_62mm_dt{
-  _override:b=yes
-  turret__limit:p4=-155.0, 33.0, -5.0, 28.0
-}
-
-t_28_turret_03_7_62mm_dt{
-  _override:b=yes
-  turret__limit:p4=-5.0, 145.0, -5.0, 28.0
 }

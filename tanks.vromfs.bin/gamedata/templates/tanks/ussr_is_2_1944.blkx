@@ -18,6 +18,8 @@ ussr_is_2_1944_common{
   _extends:t="base_is_2_1944"
   _extends:t="tank_t34_engine_sound"
   _extends:t="tank_heavy_vehicle_tracks_sound"
+  commanderCockpitFpsCamMaxAngle:p2=40.0, 5.0
+  gunner_cam_limit__useCockpitDir:b=yes
 
   "vehicle_seats__seats:shared:array"{
 
@@ -115,7 +117,6 @@ ussr_is_2_1944_driver_cockpit{
 }
 
 ussr_is_2_1944_gunner_cockpit{
-  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_pt_1.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
   cockpit__minForwardOffset:r=-0.27
@@ -123,7 +124,7 @@ ussr_is_2_1944_gunner_cockpit{
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     item:p3=0.00491715, -0.0407845, 0.682348
-    item:p3=-0.21, 0.93964, 0.500114
+    item:p3=-0.2, 1.2, 0.535
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -144,13 +145,47 @@ ussr_is_2_1944_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.11
-    slit:r=0.2
+    slit:r=0.22
+    slit:r=0.19
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
     slit:b=no
+  }
+
+  "cockpit__periscopeLimits:list<p4>"{
+    slit:p4=-0.0, 0.0, 0.0, 0.0
+    slit:p4=-90.0, 55.0, -0.0, 25.0
+  }
+
+  "cockpit__periscopeSpeed:list<p2>"{
+    slit:p2=-1.0, -1.0
+    slit:p2=35.0, 35.0
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=4.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+  }
+
+  "cockpit__slitZoomTime:list<r>"{
+    slit:r=0.05
+    slit:r=0.0
+  }
+
+  "cockpit__slitTemplates:list<t>"{
+    slit:t="ussr_tsh_17"
+  }
+
+  "cockpit__slitEids:list<eid>"{
   }
 }
 
@@ -189,6 +224,33 @@ ussr_is_2_1944_commander_cockpit{
     slit:b=no
     slit:b=no
     slit:b=no
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.44
+    }
   }
 
   "cockpit__slitNodeNames:list<t>"{

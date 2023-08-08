@@ -2021,3 +2021,39 @@ DamageEffects{
     }
   }
 }
+
+MetaParts{
+
+  closed_fightning_compartment{
+    part:t="driver"
+    part:t="loader"
+    part:t="gunner"
+    part:t="commander"
+    part:t="machine_gunner"
+    part:t="machine_gunner_01"
+    part:t="machine_gunner_02"
+    part:t="gunner_01"
+    part:t="gunner_02"
+    part:t="loader_01"
+    part:t="loader_02"
+    part:t="radio_station"
+    part:t="drive_turret_v"
+    part:t="drive_turret_v_01"
+    part:t="drive_turret_h_01"
+    part:t="drive_turret_v_02"
+    part:t="drive_turret_h_02"
+    part:t="transmission"
+
+    effect{
+      conditionDamageType:t="explosion"
+      conditionDamage:r=1.0
+      pressure:b=yes
+    }
+
+    effect{
+      conditionDamageType:t="shatter"
+      conditionDamage:r=1.0
+      pressure:b=yes
+    }
+  }
+}

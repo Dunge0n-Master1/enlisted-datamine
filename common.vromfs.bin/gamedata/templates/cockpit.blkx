@@ -74,20 +74,3 @@ base_cockpit{
   "cockpit__slitZoomTime:list<r>"{
   }
 }
-
-base_driver_cockpit_no_slits{
-  _extends:t="base_cockpit"
-  cockpit__minForwardOffset:r=-0.27
-
-  "animchar_render__nodeVisibleStgFilters:list<u8>"{
-    _tags:t="render"
-  }
-}
-
-base_commander_cockpit_no_slits{
-  _extends:t="base_cockpit"
-
-  "animchar_render__nodeVisibleStgFilters:list<u8>"{
-    _tags:t="render"
-  }
-}

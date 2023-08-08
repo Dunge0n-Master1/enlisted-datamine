@@ -166,24 +166,19 @@ ballistics{
 
       t1{
         caliberToArmor:r=1.0
-        slopeEffect0deg:p2=0.0, 50.0
-        slopeEffect5deg:p2=5.0, 30.0
-        slopeEffect10deg:p2=10.0, 10.36
-        slopeEffect15deg:p2=15.0, 6.13
-        slopeEffect20deg:p2=20.0, 4.48
-        slopeEffect25deg:p2=25.0, 3.32
-        slopeEffect30deg:p2=30.0, 2.62
-        slopeEffect35deg:p2=35.0, 2.1
-        slopeEffect40deg:p2=40.0, 1.64
-        slopeEffect45deg:p2=45.0, 1.31
-        slopeEffect50deg:p2=50.0, 1.18
-        slopeEffect55deg:p2=55.0, 1.12
-        slopeEffect60deg:p2=60.0, 1.09
-        slopeEffect65deg:p2=65.0, 1.06
-        slopeEffect70deg:p2=70.0, 1.05
-        slopeEffect75deg:p2=75.0, 1.03
+        slopeEffect0deg:p2=0.0, 20.0
+        slopeEffect5deg:p2=5.0, 17.0
+        slopeEffect10deg:p2=10.0, 15.0
+        slopeEffect15deg:p2=15.0, 8.76
+        slopeEffect20deg:p2=20.0, 6.08
+        slopeEffect25deg:p2=25.0, 4.64
+        slopeEffect30deg:p2=30.0, 3.58
+        slopeEffect35deg:p2=35.0, 2.89
+        slopeEffect40deg:p2=40.0, 2.37
+        slopeEffect50deg:p2=50.0, 1.58
+        slopeEffect60deg:p2=60.0, 1.24
+        slopeEffect70deg:p2=70.0, 1.09
         slopeEffect80deg:p2=80.0, 1.02
-        slopeEffect85deg:p2=85.0, 1.01
         slopeEffect90deg:p2=90.0, 1.0
       }
     }
