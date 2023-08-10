@@ -32,6 +32,7 @@ base_gunner_cockpit{
   cockpit__minForwardOffset:r=-0.05
   cockpit__slitTransitionDuration:r=0.0
   cockpit__offset:p3=-0.35, -0.01, 0.22
+  cockpit__simplifiedRender:b=yes
 
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
     _tags:t="render"

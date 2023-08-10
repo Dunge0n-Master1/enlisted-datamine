@@ -926,6 +926,7 @@ base_human{
   agent_dangers__tag:t="human"
   underground_teleporter__timeToCheck:r=0.5
   underground_teleporter__timeBetweenChecks:r=0.5
+  underground_teleporter__enabled:b=yes
   bodyCleanupTime:r=60.0
   isTpsView:b=no
   human_weap__curGunSlot:i=0

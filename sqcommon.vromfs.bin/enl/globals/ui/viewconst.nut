@@ -103,7 +103,7 @@ return {
 
   soldierLvlColor = Color(200, 180, 0, 150)
   soldierGainLvlColor = Color(255, 255, 150)
-  soldierLockedLvlColor = Color(90, 90, 90)
+  soldierLockedLvlColor = Color(179, 189, 193)
 
   spawnReadyColor = Color(50, 150, 50)
   spawnNotReadyColor = Color(180, 70, 70)

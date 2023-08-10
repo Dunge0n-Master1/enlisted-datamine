@@ -204,17 +204,13 @@ def drop_weap_from_slot_impl2(eid : EntityId; slot_id : int; reset_weap, can_dro
 
   query(eid) <| $ [es] (transform : float3x4;
                         human_inventory__dropsLoot : bool = true;
-                        human_inventory__lootCleanupTime : float = -1.f;
-                        allowOnlyPrimaryWeaponDrop, human_inventory__keepModsInInventory : Tag const?)
-    if allowOnlyPrimaryWeaponDrop != null && HUWeaponSlots(slot_id) != HUWeaponSlots EWS_PRIMARY
+                        human_inventory__lootCleanupTime : float = -1.f)
+    if HUWeaponSlots(slot_id) != HUWeaponSlots EWS_PRIMARY && HUWeaponSlots(slot_id) != HUWeaponSlots EWS_SECONDARY
       return
-    let keepModsInInventory = (human_inventory__keepModsInInventory != null)
+
     if human_inventory__dropsLoot
       drop_gun2(eid, slot_id, transform) <| $(loot_desc)
-        if keepModsInInventory && loot_desc.keepInInventory && can_pickup_item_by_volume(loot_desc.eid, eid)
-          remove_item_from_weap_impl2(eid, slot_id, string(loot_desc.slotName), false)
-        else
-          drop_item(loot_desc, human_inventory__lootCleanupTime, true, INVALID_ENTITY_ID)
+        drop_item(loot_desc, human_inventory__lootCleanupTime, true, INVALID_ENTITY_ID)
 
     if reset_weap
       human_weap_set_item_to_slot(eid, "", "", slot_id, null); // set nothing in there

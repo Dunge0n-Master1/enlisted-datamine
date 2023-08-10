@@ -2316,7 +2316,7 @@ attachable_wear_lp1_parachute_female_pilot_ussr_item{
 }
 
 attachable_wear_lp1_parachute_pilot_ussr_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
   item__uniqueName:t="attachable_wear_lp1_parachute_pilot_ussr_item"
   animchar__res:t="lp1_parachute_pilot_ussr_char"
   collres__res:t="lp1_parachute_pilot_ussr_collision"

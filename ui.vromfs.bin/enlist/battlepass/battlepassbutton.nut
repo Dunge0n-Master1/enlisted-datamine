@@ -149,7 +149,7 @@ let mkWidgetInfo = @(sf) {
   ]
 }
 
-let bpWidgetOpen = @() {
+let mkBpWidgetOpen = @(onHover = null) @() {
   watch = hasBattlePass
   size = [startBtnWidth, SIZE_TO_CONTENT]
   children = !hasBattlePass.value ? null : watchElemState(@(sf) {
@@ -161,6 +161,7 @@ let bpWidgetOpen = @() {
     behavior = Behaviors.Button
     sound = soundDefault
     onClick = openBPwindow
+    onHover
     children = [
       timeTracker
       dynamicSeasonBpBg([colPart(6), colPart(1.58)], (sf & S_HOVER) != 0 ? 1 : 0.7)
@@ -172,4 +173,4 @@ let bpWidgetOpen = @() {
 
 console_register_command(@() openBPwindow(), "ui.battlepassWindow")
 
-return bpWidgetOpen
+return mkBpWidgetOpen

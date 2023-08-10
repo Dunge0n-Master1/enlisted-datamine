@@ -2760,6 +2760,10 @@ sequencer{
           range:p2=0.2, 0.1
           maxStanceParam:t="coverStance"
         }
+
+        subTree{
+          treeName:t="sub.cycleCheckAllowedPos"
+        }
       }
     }
 
@@ -2784,6 +2788,10 @@ sequencer{
           posParam:t="potentialEnemyPos"
           range:p2=0.2, 0.1
           maxStanceParam:t="coverStance"
+        }
+
+        subTree{
+          treeName:t="sub.cycleCheckAllowedPos"
         }
       }
     }
@@ -2815,6 +2823,10 @@ sequencer{
       range:p2=0.2, 0.1
       maxStanceParam:t="maxStance"
     }
+
+    subTree{
+      treeName:t="sub.cycleCheckAllowedPos"
+    }
   }
 
   parallel{
@@ -2826,6 +2838,10 @@ sequencer{
       posParam:t="potentialEnemyPos"
       range:p2=0.2, 0.1
       maxStanceParam:t="maxStance"
+    }
+
+    subTree{
+      treeName:t="sub.cycleCheckAllowedPos"
     }
   }
 
@@ -2840,6 +2856,10 @@ sequencer{
       posParam:t="potentialEnemyPos"
       range:p2=0.2, 0.1
       maxStanceParam:t="maxStance"
+    }
+
+    subTree{
+      treeName:t="sub.cycleCheckAllowedPos"
     }
   }
 
@@ -2964,6 +2984,10 @@ sequencer{
           range:p2=0.2, 0.1
           maxStanceParam:t="coverStance"
         }
+
+        subTree{
+          treeName:t="sub.cycleCheckAllowedPos"
+        }
       }
     }
 
@@ -2988,6 +3012,10 @@ sequencer{
           posParam:t="potentialEnemyPos"
           range:p2=0.2, 0.1
           maxStanceParam:t="maxStance"
+        }
+
+        subTree{
+          treeName:t="sub.cycleCheckAllowedPos"
         }
       }
     }
@@ -3925,6 +3953,49 @@ repeatUntilFail{
 
     interactWithBuildingTarget{
       targetUnitParam:t="buildTarget"
+    }
+  }
+}
+
+cycle{
+  name:t="sub.cycleCheckAllowedPos"
+
+  orderedSelector{
+
+    sequencer{
+
+      getAgentAIPos{
+        outPosParam:t="checkPos"
+      }
+
+      checkAllowedPosition{
+        posParam:t="checkPos"
+      }
+    }
+
+    sequencer{
+
+      changeStance{
+        stanceName:t="crouch"
+      }
+
+      orderedSelector{
+
+        checkAtTime{
+          timeParam:t="avoidLeaderSightTime"
+          range:p2=0.0, 5.0
+        }
+
+        sequencer{
+
+          getTime{
+            to:t="avoidLeaderSightTime"
+          }
+
+          break{
+          }
+        }
+      }
     }
   }
 }

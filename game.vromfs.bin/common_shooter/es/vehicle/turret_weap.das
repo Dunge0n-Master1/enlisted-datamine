@@ -185,6 +185,17 @@ def turret_get_angles_client_es(evt : Event;
   anim_phys_update(anim_phys, animchar, phys_vars) // To get the most actual vars
   turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
 
+[es(on_appear, REQUIRE=heroVehicle, before=turret_update_on_hero_enter_es)]
+def turret_get_angles_on_hero_enter_es(evt : Event;
+                                       transform : float3x4;
+                                       turret_control__gunEids : EidList;
+                                       net_phys__timeStep : float;
+                                       var animchar : AnimcharBaseComponent;
+                                       var anim_phys : AnimatedPhys;
+                                       var phys_vars : PhysVars)
+  anim_phys_update(anim_phys, animchar, phys_vars) // To get the most actual vars
+  turret_get_angles(transform, turret_control__gunEids, net_phys__timeStep, phys_vars)
+
 def send_turrets_update_event(eid, tick, dt)
   sendEventImmediate(eid, [[CmdTurretsUpdate tick=tick, dt=dt]])
 

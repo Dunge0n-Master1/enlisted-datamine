@@ -756,7 +756,8 @@ let function mkResearchesTreeUi() {
       && columns.findindex(@(c) (c?.toChildren ?? 0) >= TWO_TO_NEXT_BRANCH) != null
 
     let hasLongBranches = (maxChildHeight?[0] ?? 0) + (maxChildHeight?[1] ?? 0) > 2
-    let offsetFactor = hasLongBranches || hasResearchItem ? 0
+    let offsetFactor = hasResearchItem ? 0
+      : hasLongBranches ? 12
       : needTopCurveSpace ? 35
       : 100 * (maxChildHeight[1] + 1) / (maxChildHeight[0] + maxChildHeight[1] + 3)
     let hasItemLink = columns.findindex(@(c) c?.template != null) != null

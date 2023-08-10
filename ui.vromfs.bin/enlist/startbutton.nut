@@ -30,7 +30,6 @@ let { showSquadMembersCrossPlayRestrictionMsgBox,
 } = require("%enlist/restrictionWarnings.nut")
 let { Flat } = require("%ui/components/txtButton.nut")
 let mkGlare = require("%enlist/components/mkGlareAnim.nut")
-let { multySquadPanelSize } = require("%enlSqGlob/ui/viewConst.nut")
 
 
 let defStartTxtStyle = {
@@ -77,13 +76,13 @@ let blinkAnimation = [{prop = AnimProp.color, from = 0x00F27272 , to = 0x44AA727
   loop = true, play = true, easing = CosineFull }]
 
 
-
+let btnHeight = hdpxi(94)
 let function btnCtor(txt, action, params = {}) {
   let { defTextColor, hoverTextColor, activeTextColor, txtParams = fontXLarge } = params.txtStyle
   let { bgStyle, hotkeys = null } = params
   return Flat(txt, action, {
     btnWidth = startBtnWidth
-    btnHeight = multySquadPanelSize[1]
+    btnHeight
     hotkeys
     style = {
       defTxtColor = defTextColor

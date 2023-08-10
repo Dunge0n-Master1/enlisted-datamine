@@ -16,7 +16,7 @@ bf_109g_14{
       seatComponent:t="isDriver"
       receiveDamageFromDMPart:t="pilot_dm"
       cameraNodeName:t=""
-      cameraOffset:p3=-1.05, 0.788, -0.033
+      cameraOffset:p3=-1.05, 0.788, -0.055
       cockpitTemplate:t="bf_109g_14_driver_cockpit"
       roomSpace:i=0
 

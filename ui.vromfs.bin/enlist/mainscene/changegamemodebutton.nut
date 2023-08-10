@@ -1,9 +1,8 @@
 from "%enlSqGlob/ui_library.nut" import *
 
-let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
+let { sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { accentColor, defTxtColor, midPadding, transpPanelBgColor, colPart, disabledTxtColor,
-  darkTxtColor, defItemBlur, smallPadding, startBtnWidth
-  ,titleTxtColor, hoverSlotBgColor, highlightLineTop
+  darkTxtColor, defItemBlur, startBtnWidth, titleTxtColor, hoverSlotBgColor, highlightLineTop
 } = require("%enlSqGlob/ui/designConst.nut")
 let { blinkUnseen, unblinkUnseen } = require("%ui/components/unseenComponents.nut")
 let crossplayIcon = require("%enlist/components/crossplayIcon.nut")
@@ -98,26 +97,16 @@ let changeGameModeBtn = watchElemState(function(sf) {
           {
             size = [flex(), SIZE_TO_CONTENT]
             flow = FLOW_VERTICAL
-            gap = smallPadding
             children = [
               {
-                size = [flex(), SIZE_TO_CONTENT]
-                flow = FLOW_HORIZONTAL
+                rendObj = ROBJ_TEXT
+                size = [pw(90), SIZE_TO_CONTENT]
+                behavior = Behaviors.Marquee
+                hplace = ALIGN_CENTER
                 halign = ALIGN_CENTER
-                gap = smallPadding
-                children = [
-                  {
-                    rendObj = ROBJ_TEXT
-                    text = loc("change_mode")
-                    color = mkTxtColor(sf, !isVersionCompatible)
-                  }.__update(fontMedium)
-                  {
-                    rendObj = ROBJ_TEXT
-                    text = gameMode
-                    color = mkTxtColor(sf, !isVersionCompatible)
-                  }.__update(fontMedium)
-                ]
-              }
+                text = loc("changeGameMode/Mode", { gameMode })
+                color = mkTxtColor(sf, !isVersionCompatible)
+              }.__update(sub_txt)
               serversComp
             ]
           }

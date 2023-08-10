@@ -2447,7 +2447,7 @@ enlisted_bot_player{
     botPlayer__throwAntiTankGrenadeDelay:p2=10.0, 15.0
     botPlayer__throwAntiTankGrenadeDist:p2=11.0, 21.0
     botPlayer__customSpawnMinDistanceAround:r=0.3
-    botPlayer__customSpawnsBetterDistance:r=20.0
+    botPlayer__customSpawnsBetterDistance:r=35.0
     botPlayer__customSpawnSearchAroundDistance:r=15.0
     botPlayer__customSpawnSightCheckHeight:r=1.6
     botPlayer__customSpawnSightCheckDistance:r=10.0

@@ -333,37 +333,3 @@ def count_available_buildings_by_type(player_eid : EntityId; currentPreviewId : 
       if currentPreviewId < length(availableBuildings)
         buildingsByType = availableBuildings[currentPreviewId]
   return buildingsByType
-
-
-def get_squad_leader_builder(agent_eid : EntityId)
-  var builderEid = INVALID_ENTITY_ID
-  query(agent_eid) <| $ [es] (squad_member__squad : EntityId)
-    query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
-      if !!squad__leader && squad__leader != agent_eid
-        query(squad__leader) <| $ [es] (building_action__target : EntityId;
-                                        building_action__lastActionAtTime : float)
-          if !!building_action__target && building_action__lastActionAtTime >= 0.0
-            builderEid = squad__leader
-  return builderEid
-
-def is_conflict_with_builder_building_action(builder_eid : EntityId; pos : float3)
-  let radius = 1.0
-  let height = 2.0
-  var isConflict = false
-  query(builder_eid) <| $ [es] (building_action__target : EntityId;
-                                building_action__lastActionAtTime : float)
-    if !!building_action__target && building_action__lastActionAtTime >= 0.0
-      query(building_action__target) <| $ [es] (transform : float3x4;
-                                                buildingBoxMin : float3;
-                                                buildingBoxMax : float3)
-        var tm = float3x4()
-        tm[0] = float3(1.0, 0.0, 0.0)
-        tm[1] = float3(0.0, 1.0, 0.0)
-        tm[2] = float3(0.0, 0.0, 1.0)
-        tm[3] = pos
-        let ptMin = float3(-radius, 0.0f, -radius)
-        let ptMax = float3(radius, height, radius)
-        let box = BBox3(ptMin, ptMax)
-        if check_bbox3_intersection(box, tm, BBox3(buildingBoxMin, buildingBoxMax), transform)
-          isConflict = true
-  return isConflict

@@ -23,7 +23,7 @@ let { unlockPrices, purchaseInProgress, hasBattlePass } = require("taskRewardsSt
 let spinner = require("%ui/components/spinner.nut")
 let { sound_play } = require("%dngscripts/sound_system.nut")
 let JB = require("%ui/control/gui_buttons.nut")
-let battlepassWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
+let mkBpWidgetOpen = require("%enlist/battlepass/battlePassButton.nut")
 let { rewardWeeklyTask } = require("%enlist/unlocks/weeklyUnlocksState.nut")
 
 let defTxtStyle = { color = defTxtColor }.__update(fontSmall)
@@ -96,7 +96,7 @@ let function openTaskMsgbox(unlockDesc, leftRerolls = 0, totalRerolls = 0) {
 
 
 local curTimeout = null
-let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
+let function mkDailyTasksBlock(tasksList, stats, canTakeReward, onHover) {
   return {
       size = [flex(), SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
@@ -138,12 +138,12 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
             acc.append(mkUnlockSlot({
               task
               onClick
+              onHover
               hasWaitIcon = isRerollInProgress
               rerolls = leftRerolls
               rightObject = taskStype == "hardTasks"
                 ? mkTaskLabel("main_task_lable")
                 : { size = [taskLabelSize[0], flex()] }
-              hasShowAnim = true
               canTakeReward
             }))
             return acc
@@ -153,7 +153,7 @@ let function mkDailyTasksBlock(tasksList, stats, canTakeReward){
     }
   }
 
-let function dailyTasksUi() {
+let mkDailyTasksUi = @(onHover = null) function() {
   let res = {
     watch = [dailyTasksByDifficulty, canTakeDailyTaskReward, userstatStats]
   }
@@ -171,13 +171,13 @@ let function dailyTasksUi() {
         size = [startBtnWidth, SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
         gap = bigPadding
-        children = mkDailyTasksBlock(dailyTasksByDifficulty, stats, canTakeReward)
+        children = mkDailyTasksBlock(dailyTasksByDifficulty, stats, canTakeReward, onHover)
       }
     ]
   })
 }
 
-let function dailyTasksUiReward() {
+let mkDailyTasksUiReward = @(onHover = null) function() {
   let res = {
     watch = [rewardDailyTask, rewardWeeklyTask, hasBattlePass]
   }
@@ -190,7 +190,7 @@ let function dailyTasksUiReward() {
   return res.__update({
     size = [startBtnWidth, SIZE_TO_CONTENT]
     children = task
-      ? mkUnlockSlotReward(task) : battlepassWidgetOpen
+      ? mkUnlockSlotReward(task) : mkBpWidgetOpen(onHover)
   })
 }
 
@@ -324,7 +324,7 @@ let eventTasksUi = @(eventId) function() {
 
 
 return {
-  dailyTasksUiReward
-  dailyTasksUi
+  mkDailyTasksUiReward
+  mkDailyTasksUi
   eventTasksUi
 }

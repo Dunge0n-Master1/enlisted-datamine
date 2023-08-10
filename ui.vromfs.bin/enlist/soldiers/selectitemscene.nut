@@ -378,9 +378,6 @@ let function onBackAction() {
   itemClear()
 }
 
-let backButton = Flat(loc("mainmenu/btnBack"), onBackAction,
-  { margin = [0, bigPadding, 0, 0] })
-
 let chooseButtonUi = function() {
   let res = { watch = [viewItem, curEquippedItem] }
   let item = viewItem.value
@@ -665,16 +662,15 @@ let function moveButtonUi() {
 }
 
 let buttonsUi = @() {
-  watch = [isItemActionInProgress, isGamepad]
+  watch = isItemActionInProgress
   rendObj = ROBJ_WORLD_BLUR_PANEL
   color = textBgBlurColor
   flow = FLOW_HORIZONTAL
   padding = [bigPadding, 0, bigPadding, bigPadding]
   valign = ALIGN_BOTTOM
-  children = [isGamepad.value ? null : backButton]
-    .extend(isItemActionInProgress.value
+  children = isItemActionInProgress.value
       ? [waitingSpinner]
-      : [moveButtonUi, obtainButtonUi, upgradeBtnUi, disposeBtnUi, chooseButtonUi])
+      : [moveButtonUi, obtainButtonUi, upgradeBtnUi, disposeBtnUi, chooseButtonUi]
 }
 
 let function mkDemandsInfo(item) {

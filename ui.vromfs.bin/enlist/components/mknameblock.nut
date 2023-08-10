@@ -93,7 +93,7 @@ let levelBlockWithProgress = @(
           lockedLevel = max(maxLevel - perksLevel, 0)
           hasLeftLevelBlink = true
           guid = guid
-          fontSize = isMaxed ? hdpx(16) : hdpx(12)
+          fontSize = isMaxed ? hdpx(16) : hdpx(14)
           isFreemiumMode = isFreemiumMode
           thresholdColor
           tier = tier

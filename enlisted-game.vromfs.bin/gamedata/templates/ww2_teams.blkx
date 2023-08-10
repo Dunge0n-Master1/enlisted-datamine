@@ -89,7 +89,7 @@ team_generic_capture{
 
   _group{
     _tags:t="server"
-    team_bots__maxCustomSpawns:i=1
+    team_bots__maxCustomSpawns:i=3
     team_bots__customSpawnsDestroyedAvoidRadius:r=20.0
     team_bots__customSpawnsDestroyedMaxAmount:i=2
     team_bots__buildWaitForTime:r=0.0

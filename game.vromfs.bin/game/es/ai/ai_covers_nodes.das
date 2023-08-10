@@ -360,7 +360,7 @@ class FindCoverForCoverAttack : BehNodeAdapter
   IGNORE_COVER_TIME = 10.0
   MAX_SLOW_PER_UPDATE = 1
 
-  avoidBuilderEid : EntityId = INVALID_ENTITY_ID
+  avoidLeaderActing : LeaderActingInfo
 
   def override loadFromBlk(data : DataBlock) : void
     targetParam = owner.blackBoard |> get_or_create(datablock_getStr(data, "targetParam", ""), 0)
@@ -446,7 +446,7 @@ class FindCoverForCoverAttack : BehNodeAdapter
     coverIter = 0
     coverIterSlot = 0
 
-    avoidBuilderEid = get_squad_leader_builder(agentEid)
+    avoidLeaderActing = get_squad_leader_acting_for_agent(agentEid)
 
   def override update(dt : float) : EBehResult
     if coverIter < 0
@@ -518,7 +518,7 @@ class FindCoverForCoverAttack : BehNodeAdapter
               continue
 
             let coverSlotPos = get_cover_slot_pos(cover, coverDesc, i)
-            if !!avoidBuilderEid && is_conflict_with_builder_building_action(avoidBuilderEid, coverSlotPos)
+            if is_conflict_with_squad_leader_acting(avoidLeaderActing, coverSlotPos, agentEid)
               continue
             let coverSlotOfs = targetPos - coverSlotPos
             let cosAngle = dot(cover.dir, normalize(float3(coverSlotOfs.x, 0.0, coverSlotOfs.z)))
@@ -836,10 +836,10 @@ class CheckAllowedPosition : BehNodeAdapter
     if agent == null
       return EBehResult ER_FAILED
 
-    let builderEid = get_squad_leader_builder(agent.eid)
-    if !!builderEid
+    let avoidLeaderActing = get_squad_leader_acting_for_agent(agent.eid)
+    if avoidLeaderActing.actingFlags != 0
       let pos = owner.blackBoard |> datablock_getPoint3(posParam)
-      if is_conflict_with_builder_building_action(builderEid, pos)
+      if is_conflict_with_squad_leader_acting(avoidLeaderActing, pos, agent.eid)
         return EBehResult ER_FAILED
 
     return EBehResult ER_SUCCESS

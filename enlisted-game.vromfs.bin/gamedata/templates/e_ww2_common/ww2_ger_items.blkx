@@ -2498,7 +2498,8 @@ attachable_wear_luftwaffe_tunic_parachute_item{
 }
 
 attachable_wear_fliegerkombi_parachute_ger_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
+  menu_item__rotationOffset:p3=-0.15, 0.3, 0.0
   item__uniqueName:t="attachable_wear_fliegerkombi_parachute_ger_item"
   animchar__res:t="fliegerkombi_parachute_ger_char"
   collres__res:t="fliegerkombi_parachute_ger_collision"
@@ -2538,7 +2539,7 @@ attachable_wear_flight_tunic_parachute_ger_item{
 }
 
 attachable_wear_rz20_parachute_knochensack_m40_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
   item__uniqueName:t="attachable_wear_rz20_parachute_knochensack_m40_item"
   animchar__res:t="rz20_parachute_knochensack_m40_char"
   collres__res:t="rz20_parachute_knochensack_m40_collision"

@@ -486,6 +486,21 @@ def turret_weap_updater_es(evt : CmdTurretsUpdate;
         turret_weap_update(gunEid, float(vehicleTick) * dt)
 
 
+//We need this system so that prevState wasn't empty upon entering
+[es(on_appear, REQUIRE=heroVehicle)]
+def turret_update_on_hero_enter_es(evt : Event;
+                                   turret_control__gunEids : EidList;
+                                   animchar : AnimcharBaseComponent;
+                                   net_phys__currentStateVelocity : float3;
+                                   isAlive : bool = true)
+  turret_shoot_tm_save(animchar, isAlive, turret_control__gunEids, net_phys__currentStateVelocity)
+  let curTime = get_sync_time()
+  for gunEid in turret_control__gunEids
+    query(gunEid) <| $ [es(REQUIRE=resolvedTurret)] (var gun : Gun&)
+      turret_weap_update(gunEid, curTime)
+      gun.prevState = gun.curState
+
+
 [es(tag=gameClient, after=after_collision_sync, REQUIRE=vehicleWithWatched)]
 def turret_update_visual_shoot_tm_es(evt : ParallelUpdateFrameDelayed;
                                      turret_control__gunEids : EidList;

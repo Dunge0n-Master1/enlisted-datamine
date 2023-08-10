@@ -55,6 +55,45 @@ let curFeaturedIdx = Watched(0)
 let chapterIdx = Watched(-1)
 let curSelectionShop = Watched(null)
 
+
+let isAvailableBySquads = function(shopItem, squadsByArmyV) {
+  foreach (squadData in shopItem?.squads ?? []) {
+    let { id, squadId = null, armyId = null } = squadData
+    let squad = squadsByArmyV?[armyId][squadId ?? id]
+    if (squad != null && (squad?.expireTime ?? 0) == 0)
+      return false
+  }
+  return true
+}
+
+let isAvailableByLimit = @(sItem, purchases)
+  (sItem?.limit ?? 0) <= 0 || sItem.limit > (purchases?[sItem?.id].amount ?? 0)
+
+let isAvailableByPermission = @(sItem, isDebugShow)
+  !(sItem?.isShowDebugOnly ?? false) || isDebugShow
+
+let function canBarterItem(item, armyItemCount) {
+  foreach (payItemTpl, cost in item.curItemCost)
+    if ((armyItemCount?[payItemTpl] ?? 0) < cost)
+      return false
+  return true
+}
+
+let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
+  ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
+    || itemId in itemsByTime
+
+
+let function isShopItemAvailable(shopItem, squads, purchases, permissions, notFreemium) {
+  let { isHiddenOnChinese = false, requirements = {} } = shopItem
+  let { campaignGroup = CAMPAIGN_NONE } = requirements
+  return !(isChineseVersion && isHiddenOnChinese)
+    && isAvailableBySquads(shopItem, squads)
+    && isAvailableByLimit(shopItem, purchases)
+    && isAvailableByPermission(shopItem, permissions)
+    && (notFreemium || campaignGroup == CAMPAIGN_NONE)
+}
+
 let function mkShopState() {
   let shopConfig = Computed(@() configs.value?.shop_config ?? {})
 
@@ -74,33 +113,6 @@ let function mkShopState() {
   })
 
 
-  let function canBarterItem(item, armyItemCount) {
-    foreach (payItemTpl, cost in item.curItemCost)
-      if ((armyItemCount?[payItemTpl] ?? 0) < cost)
-        return false
-    return true
-  }
-
-  let isTemporaryVisible = @(itemId, shopItem, itemCount, itemsByTime)
-    ((shopItem?.isVisibleIfCanBarter ?? false) && canBarterItem(shopItem, itemCount))
-      || itemId in itemsByTime
-
-  let isAvailableBySquads = function(shopItem, squadsByArmyV) {
-    foreach (squadData in shopItem?.squads ?? []) {
-      let { id, squadId = null, armyId = null } = squadData
-      let squad = squadsByArmyV?[armyId][squadId ?? id]
-      if (squad != null && (squad?.expireTime ?? 0) == 0)
-        return false
-    }
-    return true
-  }
-
-  let isAvailableByLimit = @(sItem, purchases)
-    (sItem?.limit ?? 0) <= 0 || sItem.limit > (purchases?[sItem?.id].amount ?? 0)
-
-  let isAvailableByPermission = @(sItem, isDebugShow)
-    !(sItem?.isShowDebugOnly ?? false) || isDebugShow
-
   let curArmyItemsPrefiltered = Computed(function() {
     let armyId = curArmy.value
     let itemCount = armyItemCountByTpl.value ?? {}
@@ -110,15 +122,10 @@ let function mkShopState() {
     let notFreemium = isCampaignBought.value
     let debugPermission = isDebugShowPermission.value
     let shopItemsList = shopItems.value.filter(function(item, id) {
-      let { armies = [], isHidden = false, isHiddenOnChinese = false, requirements = {} } = item
-      let { campaignGroup = CAMPAIGN_NONE } = requirements
+      let { armies = [], isHidden = false } = item
       return (armies.contains(armyId) || armies.len() == 0)
         && (!isHidden || isTemporaryVisible(id, item, itemCount, itemsByTime))
-        && !(isChineseVersion && isHiddenOnChinese)
-        && isAvailableBySquads(item, squadsById)
-        && isAvailableByLimit(item, purchases)
-        && isAvailableByPermission(item, debugPermission)
-        && (notFreemium || campaignGroup == CAMPAIGN_NONE)
+        && isShopItemAvailable(item, squadsById, purchases, debugPermission, notFreemium)
     })
     return shopItemsList
   })
@@ -335,6 +342,7 @@ let function mkShopState() {
     shopConfig
     switchGroup
     autoSwitchNavigation
+    shownByTimestamp
   }
 }
 
@@ -348,4 +356,7 @@ return {
   curSwitchTime
   setAutoGroup = @(group) curSelectionShop({group})
   setAutoChapter = @(chapter) curSelectionShop({chapter})
+
+  isShopItemAvailable
+  isTemporaryVisible
 }

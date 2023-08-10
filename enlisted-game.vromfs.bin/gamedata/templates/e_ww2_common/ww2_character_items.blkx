@@ -583,6 +583,11 @@ attachable_backpack{
   }
 }
 
+attachable_parachute{
+  _extends:t="attachable_backpack"
+  item__scale:r=0.8
+}
+
 attachable_parachute_canopy{
   _extends:t="attachable_wear"
 

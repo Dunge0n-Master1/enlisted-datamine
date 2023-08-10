@@ -42,7 +42,7 @@ let { isOpened, curItem, RewardState, unlockToShow, combinedRewards, curItemUpda
 let { scenesListGeneration, getTopScene } = require("%enlist/navState.nut")
 let { dynamicSeasonBPIcon } = require("battlePassPkg.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
-let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 let weeklyTasksUi = require("%enlist/unlocks/weeklyTasksBtn.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
 let { canTakeDailyTaskReward } = require("%enlist/unlocks/taskListState.nut")
@@ -372,7 +372,7 @@ let bpTasksBlock = @() {
   children = serviceNotificationsList.value.len() > 0
     ? mkServiceNotification(serviceNotificationsList.value, { hplace = ALIGN_RIGHT })
     : [
-        dailyTasksUi
+        mkDailyTasksUi()
         weeklyTasksUi
       ]
 }

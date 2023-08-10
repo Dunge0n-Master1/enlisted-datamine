@@ -6,8 +6,13 @@ require math
 require math.base
 require math.random
 require pathfinder
+require DagorMath
 require Dacoll
 require enlisted.game.es.ai.walker_common
+require enlisted.game.es.squad_order_common
+require game.utils.team
+require DngHuman
+require walkerai
 
 
 struct FilterCoversInfo
@@ -209,3 +214,92 @@ def eval_cover_score_stay(cover, desc, slot)
   if !isHalfCover // CRAWL
     return 1
   return freeEnough ? 4 : 3
+
+
+enum LeaderActing
+  LEADER_BUILDING = 1
+  LEADER_AIMSHOOT = 2
+
+struct LeaderActingInfo
+  leaderEid : EntityId
+  actingFlags : int
+
+def get_squad_leader_acting(squad_leader_eid : EntityId) : LeaderActingInfo
+  var leaderEid = INVALID_ENTITY_ID
+  var actingFlags = 0
+  if !!squad_leader_eid
+    leaderEid = squad_leader_eid
+    query(squad_leader_eid) <| $ [es] (human_net_phys : HumanActor;
+                                       squad_member__playerEid : EntityId;
+                                       building_action__target : EntityId;
+                                       building_action__lastActionAtTime : float)
+      if !!building_action__target && building_action__lastActionAtTime >= 0.0
+        actingFlags |= int(LeaderActing LEADER_BUILDING)
+      else
+        let aim = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_AIM)
+        let shoot = human_net_phys.phys.appliedCT |> is_control_bit_set(HumanPhysControlType HCT_SHOOT)
+        if (aim || shoot) && !has(squad_member__playerEid, "playerIsBot")
+          actingFlags |= int(LeaderActing LEADER_AIMSHOOT)
+  if actingFlags == 0
+    leaderEid = INVALID_ENTITY_ID
+  return [[LeaderActingInfo leaderEid=leaderEid, actingFlags=actingFlags]]
+
+def get_squad_leader_acting_for_agent(agent_eid : EntityId) : LeaderActingInfo
+  var leaderEid = INVALID_ENTITY_ID
+  query(agent_eid) <| $ [es] (squad_member__squad : EntityId)
+    query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
+      if !!squad__leader && squad__leader != agent_eid
+        leaderEid = squad__leader
+  return get_squad_leader_acting(leaderEid)
+
+def is_conflict_with_squad_leader_acting(leader_acting_info : LeaderActingInfo; pos : float3; agent_eid : EntityId)
+  var isConflict = false
+
+  if (leader_acting_info.actingFlags & int(LeaderActing LEADER_AIMSHOOT)) != 0
+    let minDist = 0.5
+    let maxDist = 15.0
+    let checkHeight = 2.0
+    let maxSideAtOneMeter = 0.1
+    query(leader_acting_info.leaderEid) <| $ [es] (transform : float3x4)
+      let leaderY = transform[3].y
+      if pos.y > leaderY + checkHeight || pos.y + checkHeight < leaderY
+        return
+      var vpos = transform[3]
+      vpos.y = pos.y
+      if distance_sq(vpos, pos) < square(minDist)
+        isConflict = true
+        return
+      let dx = pos.x - vpos.x
+      let dz = pos.z - vpos.z
+      let ahead = transform[0].x * dx + transform[0].z * dz
+      if ahead < minDist || ahead > maxDist
+        return
+      let side = (-transform[0].z) * dx + transform[0].x * dz
+      let sideByDist = side / ahead
+      if abs(sideByDist) < maxSideAtOneMeter
+        isConflict = true
+
+  if (leader_acting_info.actingFlags & int(LeaderActing LEADER_BUILDING)) != 0
+    let awayRadius = 1.0
+    let awayHeight = 2.0
+    query(leader_acting_info.leaderEid) <| $ [es] (building_action__target : EntityId)
+      query(building_action__target) <| $ [es] (transform : float3x4;
+                                                buildingBoxMin : float3;
+                                                buildingBoxMax : float3)
+        var tm = float3x4()
+        tm[0] = float3(1.0, 0.0, 0.0)
+        tm[1] = float3(0.0, 1.0, 0.0)
+        tm[2] = float3(0.0, 0.0, 1.0)
+        tm[3] = pos
+        let ptMin = float3(-awayRadius, 0.0f, -awayRadius)
+        let ptMax = float3(awayRadius, awayHeight, awayRadius)
+        let box = BBox3(ptMin, ptMax)
+        if check_bbox3_intersection(box, tm, BBox3(buildingBoxMin, buildingBoxMax), transform)
+          var blocking = true
+          query(agent_eid) <| $ [es] (squad_member__orderType : int)
+            if squad_member__orderType == int(SquadMateOrder ESMO_BUILD)
+              blocking = false
+          if blocking
+            isConflict = true
+
+  return isConflict

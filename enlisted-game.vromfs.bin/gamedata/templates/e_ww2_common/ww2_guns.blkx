@@ -38832,6 +38832,7 @@ ni_05_lunge_mine{
   item__iconRoll:r=70.0
   item__iconYaw:r=65.0
   item__iconPitch:r=60.0
+  item__scale:r=0.5
   meleeSoundType:t="lungeMine"
   meleeActionSoundPath:t="impact/aspen_stake"
   gun__blk:t="content/enlisted/gamedata/weapons/ni_05_lunge_mine.blk"

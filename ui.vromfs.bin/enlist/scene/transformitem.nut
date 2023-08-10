@@ -1,7 +1,9 @@
 import "%dngscripts/ecs.nut" as ecs
 from "%enlSqGlob/ui_library.nut" import *
 
-let { Point3, quat_to_matrix, euler_to_quat, degToRad} = require("%sqstd/math_ex.nut")
+let {
+  Point3, TMatrix, quat_to_matrix, euler_to_quat, degToRad
+} = require("%sqstd/math_ex.nut")
 
 let yprKeys = [
   ["item__viewYaw",   "item__iconYaw"  ],
@@ -32,6 +34,16 @@ local function transformItemImpl(transform, templateName, placeRelative){
     transform = trPitch * trRoll * trYaw
 
   transform.setcol(3, pos)
+
+  let scale = template.getCompValNullable("item__scale")
+  if (scale != null) {
+    let tScale = TMatrix()
+    tScale.setcol(0, Point3(scale,0,0))
+    tScale.setcol(1, Point3(0,scale,0))
+    tScale.setcol(2, Point3(0,0,scale))
+    transform = transform * tScale
+  }
+
   return transform
 }
 

@@ -2579,7 +2579,7 @@ class FindCoverAroundPoint : BehNodeAdapter
   maxOccupied  : int = -1
   traceVisible : bool = false
 
-  avoidBuilderEid : EntityId = INVALID_ENTITY_ID
+  avoidLeaderActing : LeaderActingInfo
 
   def override loadFromBlk(var data : DataBlock) : void
     radius = datablock_getReal(data, "radius", 5.)
@@ -2607,16 +2607,17 @@ class FindCoverAroundPoint : BehNodeAdapter
       possibleCosAngle = cos(deg_to_rad(datablock_getReal(owner.blackBoard, possibleAngleParam)))
 
     let agentEid = beh_tree_eid(owner)
-    avoidBuilderEid = get_squad_leader_builder(agentEid)
+    avoidLeaderActing = get_squad_leader_acting_for_agent(agentEid)
 
   def override update(dt : float) : EBehResult
     var res = EBehResult ER_FAILED
     let visibleMap = get_global_visible_covers_map()
 
+    let agentEid = beh_tree_eid(owner)
     query() <| $ [es] (var covers : CoversComponent&)
-      query(beh_tree_eid(owner)) <| $ [es] (walker_agent : EntityAgent;
-                                            team : int = TEAM_UNASSIGNED;
-                                            var cover_updater__heldCovers : ecs::IPoint2List&)
+      query(agentEid) <| $ [es] (walker_agent : EntityAgent;
+                                 team : int = TEAM_UNASSIGNED;
+                                 var cover_updater__heldCovers : ecs::IPoint2List&)
         var prevCoverId = int2(-1, 0)
         if length(cover_updater__heldCovers) > 0
           prevCoverId = cover_updater__heldCovers[0]
@@ -2671,7 +2672,7 @@ class FindCoverAroundPoint : BehNodeAdapter
             if score < slotBestScore
               continue
             let coverSlotPosBase = get_cover_slot_pos(cover, coverDesc, i)
-            if !!avoidBuilderEid && is_conflict_with_builder_building_action(avoidBuilderEid, coverSlotPosBase)
+            if is_conflict_with_squad_leader_acting(avoidLeaderActing, coverSlotPosBase, agentEid)
               continue
             let coverSlotPos = coverSlotPosBase + traceHeightUp
             let coverSlotOfs = coverSlotPos - traceStartPos

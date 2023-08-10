@@ -1052,7 +1052,8 @@ attachable_wear_jap_sheath_h_sleeve_tunic_item{
 }
 
 attachable_wear_jap_pilot_coverall_parachute_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
+  menu_item__rotationOffset:p3=-0.15, 0.3, 0.0
   item__uniqueName:t="attachable_wear_jap_pilot_coverall_parachute_item"
   animchar__res:t="jap_pilot_coverall_parachute_char"
   collres__res:t="jap_pilot_coverall_parachute_collision"
@@ -1106,7 +1107,7 @@ type3_parachute_animation_blacklist{
 }
 
 attachable_wear_type3_parachute_snif_tunic_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
   _extends:t="type3_parachute_animation_blacklist"
   item__uniqueName:t="attachable_wear_type3_parachute_snif_tunic_item"
   animchar__res:t="type3_parachute_snif_tunic_char"

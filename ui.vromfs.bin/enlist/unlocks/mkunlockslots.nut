@@ -128,7 +128,7 @@ let function needShowAnim(task) {
 
 
 let mkUnlockSlot = kwarg(@(
-  task, onClick = null, hasWaitIcon = Watched(false), rerolls = 0,
+  task, onClick = null, onHover = null, hasWaitIcon = Watched(false), rerolls = 0,
   isAllRewardsVisible = false, rightObject = null,
   hasDescription = false, bottomBtn = null, hasShowAnim = false,
   customDescription = null, canTakeReward = true, rewardsAnim = null
@@ -143,6 +143,7 @@ let mkUnlockSlot = kwarg(@(
     behavior = onClick == null ? null : Behaviors.Button
     sound = soundDefault
     onClick
+    onHover
     margin = bottomBtn != null ? [0,0, btnOffset,0] : 0
     transform = {}
     animations = (hasShowAnim && needShowAnim(task)

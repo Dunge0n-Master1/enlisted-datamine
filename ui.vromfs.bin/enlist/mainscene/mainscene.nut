@@ -3,14 +3,14 @@ from "%enlSqGlob/ui_library.nut" import *
 let { fontMedium } = require("%enlSqGlob/ui/fontsStyle.nut")
 let { mainContentOffset, bigPadding, startBtnWidth, midPadding, contentOffset, commonBtnHeight,
   defItemBlur, darkTxtColor, transpPanelBgColor, hoverSlotBgColor, titleTxtColor, defTxtColor,
-  accentColor
+  accentColor, smallPadding
 } = require("%enlSqGlob/ui/designConst.nut")
 let armySelectUi = require("%enlist/soldiers/army_select.ui.nut")
 let startBtn = require("%enlist/startButton.nut")
 let { changeGameModeBtn, selectedGameMode } = require("%enlist/mainScene/changeGameModeButton.nut")
 let { randTeamAvailable, randTeamCheckbox } = require("%enlist/quickMatch.nut")
-let { dailyTasksUiReward } = require("%enlist/unlocks/taskWidgetUi.nut")
-let offersPanel = require("%enlist/offers/offersPanel.nut")
+let { mkDailyTasksUiReward, mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let mkOffersPanel = require("%enlist/offers/offersPanel.nut")
 let { isMainMenuVisible } = require("%enlist/mainMenu/sectionsState.nut")
 let { serviceNotificationsList } = require("%enlSqGlob/serviceNotificationsList.nut")
 let mkServiceNotification = require("%enlSqGlob/notifications/mkServiceNotification.nut")
@@ -25,6 +25,9 @@ let { mkPresetEquipBlock } = require("%enlist/preset/presetEquipUi.nut")
 let { notifierHint } = require("%enlist/tutorial/notifierTutorial.nut")
 let { hasBaseEvent, openCustomGameMode } = require("%enlist/gameModes/eventModesState.nut")
 let { utf8ToUpper } = require("%sqstd/string.nut")
+
+
+let isOfferExpandLocked = Watched(false)
 
 let function mkMainSceneContent() {
   let function mkSoldiersUi(){
@@ -98,7 +101,7 @@ let function mkMainSceneContent() {
     watch = [selectedGameMode, randTeamAvailable]
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
-    gap = midPadding
+    gap = smallPadding
     halign = ALIGN_RIGHT
     children = [
       selectedGameMode.value?.isLocal || !randTeamAvailable.value ? null : randTeamCheckbox
@@ -113,10 +116,35 @@ let function mkMainSceneContent() {
       size = [quickMatchButtonWidth, SIZE_TO_CONTENT]
       flow = FLOW_VERTICAL
       halign = ALIGN_RIGHT
-      gap = bigPadding
+      gap = smallPadding
       children = [
         armyGameModeBlock
         startBtn
+      ]
+    }
+  }
+
+  let bpBlockUi = @() {
+    watch = isOfferExpandLocked
+    behavior = Behaviors.Button
+    onHover = @(on) isOfferExpandLocked(on)
+    skipDirPadNav = true
+    children = {
+      flow = FLOW_VERTICAL
+      gap = smallPadding
+      children = [
+        mkDailyTasksUiReward(@(on) isOfferExpandLocked(on))
+        !isOfferExpandLocked.value ? null
+          : {
+              clipChildren = true
+              children = {
+                key = isOfferExpandLocked.value
+                children = mkDailyTasksUi(@(on) isOfferExpandLocked(on))
+                transform = {}
+                animations = [{ prop = AnimProp.translate, from = [0, -hdpxi(180)],
+                  to = [0, 0], duration = 0.3, easing = OutQuintic, play = true }]
+              }
+            }
       ]
     }
   }
@@ -125,7 +153,6 @@ let function mkMainSceneContent() {
     size = [startBtnWidth, flex()]
     margin = [mainContentOffset,0,0,0]
     hplace = ALIGN_RIGHT
-    valign = ALIGN_BOTTOM
     flow = FLOW_VERTICAL
     gap = { size = flex() }
     children = [
@@ -133,12 +160,12 @@ let function mkMainSceneContent() {
         watch = serviceNotificationsList
         size = [flex(), SIZE_TO_CONTENT]
         flow = FLOW_VERTICAL
-        gap = bigPadding
+        gap = midPadding
         children = serviceNotificationsList.value.len() > 0
           ? mkServiceNotification(serviceNotificationsList.value, { hplace = ALIGN_RIGHT })
           : [
-              dailyTasksUiReward
-              offersPanel
+              bpBlockUi
+              mkOffersPanel(isOfferExpandLocked)
               customMatchesBtn
             ]
       }

@@ -27,7 +27,7 @@ let {
 } = require("%enlist/gameModes/eventModesState.nut")
 let { doubleSideHighlightLine, doubleSideHighlightLineBottom, doubleSideBg
 } = require("%enlSqGlob/ui/defComponents.nut")
-let { dailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
+let { mkDailyTasksUi } = require("%enlist/unlocks/taskWidgetUi.nut")
 let headerTxtStyle = { color = defTxtColor }.__update(body_txt)
 
 const TIME_BEFORE_SHOW_QUEUE = 15
@@ -183,7 +183,7 @@ let tasksBlock = {
   gap = bigPadding
   children = [
     dailyTasksHeader
-    dailyTasksUi
+    mkDailyTasksUi()
   ]
 }
 

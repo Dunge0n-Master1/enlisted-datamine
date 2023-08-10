@@ -1382,7 +1382,7 @@ t5_parachute_animation_blacklist{
 }
 
 attachable_wear_t5_airborne_parachute_airborn_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
   _extends:t="t5_parachute_animation_blacklist"
   item__uniqueName:t="attachable_wear_t5_airborne_parachute_airborn_item"
   animchar__res:t="t5_airborne_parachute_airborn_char"
@@ -1428,8 +1428,9 @@ attachable_wear_t5_airborne_parachute_opened_airborn_item{
 }
 
 attachable_wear_t5_airborne_parachute_jump_smock_item{
-  _extends:t="attachable_backpack"
+  _extends:t="attachable_parachute"
   _extends:t="t5_parachute_animation_blacklist"
+  menu_item__rotationOffset:p3=-0.15, 0.3, 0.0
   item__uniqueName:t="attachable_wear_t5_airborne_parachute_jump_smock_item"
   animchar__res:t="t5_airborne_parachute_jump_smock_char"
   collres__res:t="t5_airborne_parachute_jump_smock_collision"

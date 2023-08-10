@@ -18,7 +18,9 @@ let function optionLabel(opt, _group) {
       onElemState = @(sf) stateFlags.update(sf)
       clipChildren = true
       rendObj = ROBJ_TEXT //do not made this stext as it can eat all atlas
-
+      behavior = Behaviors.Marquee
+      delay = [3, 1]
+      speed = 50
       //stopMouse = true
       text
       color
