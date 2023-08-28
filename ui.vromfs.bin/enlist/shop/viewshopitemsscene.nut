@@ -49,7 +49,7 @@ let shopItemHeight = 6.0 * unitSize
 
 let function mkShopItemContent(sItem) {
   let crateContentWatch = shopItemContentCtor(sItem)
-  return crateContentWatch == null ? null
+  return crateContentWatch.value == null ? null
     : function() {
         let { armyId, content } = crateContentWatch.value
         let templates = allItemTemplates.value?[armyId]

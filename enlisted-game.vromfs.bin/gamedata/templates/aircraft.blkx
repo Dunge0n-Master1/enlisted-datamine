@@ -76,8 +76,12 @@ plane_input{
   plane_input__shootAdditionalGuns:i=0
   _tracked:t="plane_input__shoot"
 
-  plane_input{
+  _group{
     _tags:t="input"
+    vehicle_input__isZoom:b=no
+
+    plane_input{
+    }
   }
 }
 
@@ -738,6 +742,7 @@ plane_base{
   camera__lookLimitAngles:p4=-160.0, 160.0, -35.0, 85.0
   camera__lookAroundOffsetRange:p2=0.12, 0.12
   camera__isStabilized:b=no
+  vehicle_free_look__zoomIn:r=2.0
   camName:t="plane_tps_cam"
   disableTurretCam:b=yes
   vehicleCameraType:i=0

@@ -555,6 +555,7 @@ moving_car_artillerie_flak_wagen_flak38_cannon{
   _extends:t="cannon_germ_20mm_flak38_flakvierling_green_camo"
   damage_model__blk:t="content/enlisted/gamedata/units/cannons/train_germ_20mm_flak38_flakvierling.blk"
   buildingRadius:r=1.5
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   buildingCost:r=8.0
   fortification_repair__costPercent:r=0.5
   building_menu__text:t="building_tool/aaa_cannon_flak38_flakvierling"

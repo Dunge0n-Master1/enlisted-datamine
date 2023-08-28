@@ -10,8 +10,7 @@ let { armyLevelsData, armiesUnlocks, hasLevelDiscount, curLevelDiscount
 } = require("%enlist/campaigns/armiesConfig.nut")
 let { curArmyShowcase } = require("%enlist/shop/armyShopState.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
-let { CAMPAIGN_NONE, isCampaignBought, needFreemiumStatus
-} = require("%enlist/campaigns/campaignConfig.nut")
+let { CAMPAIGN_NONE, isCampaignBought } = require("%enlist/campaigns/campaignConfig.nut")
 let { isSquadRented } = require("%enlist/soldiers/model/squadInfoState.nut")
 
 
@@ -237,7 +236,7 @@ let researchSquads = Computed(function() {
 })
 
 let reachedArmyUnlocks = Computed(function() {
-  let needFreemium = needFreemiumStatus.value
+  let haveFreemium = isCampaignBought.value
   let received = receivedUnlocks.value
   let lvls = armies.value.map(@(a) a.level)
   let exps = armies.value.map(@(a) a.exp)
@@ -251,7 +250,7 @@ let reachedArmyUnlocks = Computed(function() {
   let res = {}
   foreach(u in armiesUnlocks.value) {
     let { campaignGroup = CAMPAIGN_NONE } = u
-    if (campaignGroup != CAMPAIGN_NONE && needFreemium)
+    if (campaignGroup != CAMPAIGN_NONE && !haveFreemium)
       continue
 
     if (u.unlockType == "level_reward" && u.unlockGuid in received)

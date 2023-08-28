@@ -97,6 +97,8 @@ let function makeUpdatable(persistName, request, watches, defValue) {
       logUs(result)
       return
     }
+
+    logUs($"Updated {persistName}")
     lastSuccessTime(get_time_msec())
     dataUpdate(result?.response ?? defValue)
 
@@ -253,6 +255,7 @@ statsUpdatable.data.subscribe(function(stats) {
 let lastMassiveRequestQueued = mkWatched(persist, "lastMassiveRequestQueued", 0)
 if (lastMassiveRequestQueued.value > lastMassiveRequestTime.value)
   massiveRefresh(lastMassiveRequestQueued.value) //if reload script while wait for the debounce
+
 let function queueMassiveUpdate() {
   logUs("Queue massive update")
   lastMassiveRequestQueued(nextMassiveUpdateTime.value)
@@ -262,8 +265,7 @@ let function queueMassiveUpdate() {
 let function startMassiveUpdateTimer() {
   if (nextMassiveUpdateTime.value <= lastMassiveRequestTime.value)
     return
-  gui_scene.clearTimer(queueMassiveUpdate)
-  gui_scene.setTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
+  gui_scene.resetTimeout(nextMassiveUpdateTime.value - time.value, queueMassiveUpdate)
 }
 startMassiveUpdateTimer()
 nextMassiveUpdateTime.subscribe(@(_) startMassiveUpdateTimer())

@@ -160,3 +160,10 @@ def building_fortification_building_object(info : UpdateStageInfoAct;
 [es(on_appear, tag=gameClient, REQUIRE=buildByPlayer)]
 def builded_turret_visual_shoot_tm_es(evt : Event; transform : float3x4; var turret_current_visual_shoot_tm : float3x4)
   turret_current_visual_shoot_tm = transform
+
+
+[es(on_appear)]
+def fortification_override_building_radius_on_appear(evt : Event;
+                                                     buildingRadiusOverride : float;
+                                                     var buildingRadius : float&)
+  buildingRadius = buildingRadiusOverride

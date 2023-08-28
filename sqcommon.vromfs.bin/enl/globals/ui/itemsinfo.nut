@@ -6,8 +6,8 @@ let utf8 = require("utf8")
 let { CASE_PAIR_LOWER, CASE_PAIR_UPPER } = require("%sqstd/string.nut")
 let iconByGameTemplate = require("%enlSqGlob/ui/icon3dByGameTemplate.nut")
 let itemsPresentation = require("%enlSqGlob/ui/itemsPresentation.nut")
-let { secondsToHoursLoc } = require("%ui/helpers/time.nut")
-
+let { secondsToTime } = require("%sqstd/time.nut")
+let { abs } = require("math")
 
 const UPGRADE_TEMPLATE_SUFFIX = "_upgrade_"
 
@@ -115,26 +115,34 @@ let function trimUpgradeSuffix(tmpl) {
 
 let itemDescByType = {
   function booster(item) {
-    let { lifeTime = 0, battles = 0 } = item
-    let limitsList = []
-    if (lifeTime > 0)
-      limitsList.append(secondsToHoursLoc(lifeTime))
-    if (battles > 0)
-      limitsList.append(loc("boostName/battlesLimit", { battles }))
+    let { battles = 0, expMul = 0.0, lifeTime = 0 } = item
+    let percent = abs(expMul * 100).tointeger()
+    let boosterType = (expMul < 0) ? "penalty" : "booster"
 
-    return limitsList.len() == 0 ? ""
-      : loc("boostName/limit", { limits = " / ".join(limitsList) })
+    local descLimit = ""
+    if (lifeTime > 0) {
+      local { days = 0, hours = 0 } = secondsToTime(lifeTime)
+      let limit = days == 7 ? loc($"items/booster/limit/week")
+        : days > 0 ? loc($"items/booster/limit/days", { lifetime = days })
+        : loc($"items/booster/limit/hours", { lifetime = hours })
+      descLimit = loc("items/booster/desc/lifetime", { lifetime = limit })
+    }
+
+    let descExp = battles > 0
+      ? loc($"items/{boosterType}/desc/battles", { percent, battles, limit = descLimit })
+      : loc($"items/{boosterType}/desc/exp", { percent, limit = descLimit })
+
+    return descExp
   }
 }
 
 let itemNameByType = {
   function booster(item) {
     let { expMul = 0.0 } = item
+    let percent = abs(expMul * 100).tointeger()
+    let boosterType = expMul < 0 ? "penalty" : "booster"
 
-    let percent = 100 * expMul
-    let limits = itemDescByType.booster(item)
-
-    return loc("startBtn/boosterRow", { percent, limits })
+    return loc($"items/{boosterType}/name", { percent })
   }
 }
 

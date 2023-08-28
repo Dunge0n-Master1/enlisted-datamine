@@ -33,13 +33,6 @@ def on_personal_squadmate_use_vehicle_order(evt : RequestPersonalSquadMateOrder;
       sendEvent(eid, [[CmdRequestHumanSpeech phrase="confirmResponseDelayed"]])
       send_squad_member_accept_order_bq(squad__leader, "{SquadMateOrder ESMO_USE_VEHICLE}", transform[3], true)
 
-[es(tag=server)]
-def squad_use_vehicle_order_speech(evt : RequestPersonalSquadMateOrder; eid, squad_member__squad : EntityId)
-  if evt.orderType == int(SquadMateOrder ESMO_USE_VEHICLE)
-    query(squad_member__squad) <| $ [es] (squad__leader : EntityId)
-      sendEvent(squad__leader, [[CmdRequestHumanSpeech phrase="squadUseVehicle"]])
-      request_squad_member_response(eid, "confirm")
-
 [es(tag=server, no_order)]
 def on_squad_leader_out_vehicle_es(act : UpdateStageInfoAct;
                                    squad__leader : EntityId;

@@ -381,12 +381,10 @@ germ_20mm_flak38_flakvierling_gunner_cockpit{
   vehicle_sight__blk:t="content/tanks/gamedata/sight/germ_zf_3x8_flak.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__offset:p3=0.0, 0.0, 0.0
   cockpit__forwardOffsetDuration:r=0.33
-  cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
-    item:p3=-0.9, 0.56, 0.26
+    item:p3=-0.7, 0.56, 0.26
   }
 
   "cockpit__attachNodeNames:list<t>"{
@@ -408,10 +406,18 @@ germ_20mm_flak38_flakvierling_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.19
+    slit:r=0.22
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.44
+      zoom:r=3.0
+    }
   }
 }

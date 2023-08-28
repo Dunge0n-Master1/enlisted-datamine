@@ -130,6 +130,10 @@ ussr_t_60_1941_gunner_cockpit{
       zoom:r=1.9
       zoom:r=3.5
     }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
   }
 
   "cockpit__slitZoomTime:list<r>"{

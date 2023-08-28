@@ -30,6 +30,7 @@ geschutz_wagen_artillerie_turret{
   fortification_repair__costPercent:r=0.0
   fortification_repair__cost:r=0.0
   buildingRadius:r=5.0
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   fortification_repair__text:t="hud/repair_turret"
   building_menu__text:t="vehicle/turret"
   object__useDist:r=5.0

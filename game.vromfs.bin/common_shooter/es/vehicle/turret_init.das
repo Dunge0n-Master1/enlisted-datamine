@@ -199,12 +199,3 @@ def turret_dm_part_es(evt : Event;
     turret_dm_part__breechDm         = find_dm_part_id(turretObj, "breechDm", damage_model)
     turret_drive_dm_part__horDriveDm = find_dm_part_id(turretObj, "horDriveDm", damage_model)
     turret_drive_dm_part__verDriveDm = find_dm_part_id(turretObj, "verDriveDm", damage_model)
-
-[es(tag=gameClient, on_appear, REQUIRE=resolvedTurret)]
-def turret_can_zoom_init_es(evt : Event;
-                            turret__owner : EntityId;
-                            turret__id : int;
-                            var turret__canZoom : bool&)
-  query(turret__owner) <| $ [es] ([[shared_comp]] turret_control__turretInfo : Array)
-    let turretObj = get_ecs_object(turret_control__turretInfo, turret__id)
-    turret__canZoom = get_bool(turretObj, "canZoom") ?? true

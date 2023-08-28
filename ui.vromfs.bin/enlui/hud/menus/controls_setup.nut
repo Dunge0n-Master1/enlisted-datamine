@@ -716,6 +716,9 @@ let function bindingTextFunc(text) {
 let function mkActionRowLabel(name, group=null){
   return {
     rendObj = ROBJ_TEXT
+    behavior = Behaviors.Marquee
+    delay = [3, 1]
+    speed = 50
     color = DEFAULT_TEXT_COLOR
     text = locActionName(name)
     margin = [0, fsh(1), 0, 0]

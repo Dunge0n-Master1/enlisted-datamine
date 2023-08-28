@@ -126,12 +126,27 @@ def plane_input_gunner_es(info : ParallelUpdateFrameDelayed;
       if shootAction != int(BAD_ACTION_HANDLE) && get_digital_action_state(uint16(shootAction)).bActive
         turret_input__shootFlag = get_digital_action_state(uint16(shootAction)).bState
 
+[es(tag=input)]
+def plane_input_zoom_triggered(evt : EventDaInputActionTriggered;
+                               input__enabled : bool;
+                               plane_input__zoomToggle : int;
+                               var vehicle_input__isZoom : bool&)
+  if input__enabled && int(evt.action) == plane_input__zoomToggle
+    vehicle_input__isZoom = true
+
+[es(tag=input)]
+def plane_input_zoom_terminated(evt : EventDaInputActionTerminated;
+                                input__enabled : bool;
+                                plane_input__zoomToggle : int;
+                                var vehicle_input__isZoom : bool&)
+  if input__enabled && int(evt.action) == plane_input__zoomToggle
+    vehicle_input__isZoom = false
+
 [es(tag=input, after=plane_input_gunner_es)]
 def plane_input_gunner_aim(info : ParallelUpdateFrameDelayed;
                            input__enabled : bool;
                            turret_control__gunEids : EidList;
                            plane_input__aim : int;
-                           plane_input__zoomToggle : int;
                            var disableTurretCam : bool&)
   if !input__enabled
     return
@@ -142,8 +157,7 @@ def plane_input_gunner_aim(info : ParallelUpdateFrameDelayed;
 
   disableTurretCam = !aAim.bActive;
 
-  let zoomToggle = get_digital_action_state(uint16(plane_input__zoomToggle))
-  apply_turret_input(turret_control__gunEids, aAim, zoomToggle, zoomToggle)
+  apply_turret_input(turret_control__gunEids, aAim)
 
 [es(tag=input)]
 def plane_input_bomb_input_triggered(evt : EventDaInputActionTriggered;

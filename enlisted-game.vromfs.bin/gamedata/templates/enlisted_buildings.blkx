@@ -2110,6 +2110,7 @@ jp_rallypoint{
 
 ammunition_box_a_preview{
   _extends:t="base_animchar_builder_preview"
+  _extends:t="ammunition_box_building_base"
   instantiateTemplate:t="ammunition_box_a"
   ai_ri_preview_name:t="ammunition_box_a"
   animchar__res:t="ammunition_supply_a_char"
@@ -2199,9 +2200,15 @@ useful_box_base{
   }
 }
 
+ammunition_box_building_base{
+  buildingRadiusOverride:r=0.8
+  buildingCenterOffset:p3=0.0, 0.5, 0.0
+}
+
 ammunition_box_base{
   _extends:t="base_ri_building"
   _extends:t="useful_box_base"
+  _extends:t="ammunition_box_building_base"
   useful_box__hintEmpty:t="resupply/ammo_crate_empty"
   useful_box__hintFull:t="resupply/ammo_refill"
   useful_box__hintEnemy:t="resupply/enemy_crate"
@@ -2267,6 +2274,7 @@ medik_box_base{
   collres__res:t="sanitary_box_collision"
   object__useDist:r=2.0
   buildingRadius:r=1.5
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   team:i=-1
   _tracked:t="builder_info__team"
   builder_info__team:i=-1

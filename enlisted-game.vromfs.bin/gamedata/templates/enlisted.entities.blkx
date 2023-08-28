@@ -1857,6 +1857,7 @@ paratroopers_supply_box{
   transform:m=[[1.0, 0.0, 0.0] [0.0, 1.0, 0.0] [0.0, 0.0, 1.0] [0.0, 0.0, 0.0]]
   _tracked:t="attaches_list"
   buildingRadius:r=1.5
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   object__useDist:r=3.0
   supply_box__maxUseDistSq:r=16.0
   supply_box__useSound:t="player/walker/ww2_soldier/items/healing/pick"

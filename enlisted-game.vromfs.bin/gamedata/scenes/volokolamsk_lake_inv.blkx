@@ -1598,7 +1598,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.946831, 0.0, 0.321732] [0.0, 1.0, 0.0] [-0.321732, 0.0, 0.946831] [-1195.06, 2.31473, -1001.19]]
+  transform:m=[[0.946831, 0.0, 0.321732] [0.0, 1.0, 0.0] [-0.321732, 0.0, 0.946831] [-1194.35, 2.79353, -1001.06]]
   groupName:t="sector_4"
   respawnBaseGroup:i=1
   active:b=no
@@ -1660,7 +1660,7 @@ entity{
 
 entity{
   _template:t="respawnChooser+respTeam2"
-  transform:m=[[0.951119, 0.0, 0.308825] [0.0, 1.0, 0.0] [-0.308825, 0.0, 0.951119] [-1195.03, 2.36874, -1001.17]]
+  transform:m=[[0.951119, 0.0, 0.308825] [0.0, 1.0, 0.0] [-0.308825, 0.0, 0.951119] [-1194.32, 2.84754, -1001.04]]
   groupName:t="sector_4_b"
   respawnBaseGroup:i=1
   active:b=no
@@ -1855,7 +1855,7 @@ entity{
 
 entity{
   _template:t="respawnBaseWithGroupOnCapturePoint"
-  transform:m=[[0.307135, 0.0, -0.951666] [0.0, 1.0, 0.0] [0.951666, 0.0, 0.307135] [-1190.01, 2.34262, -998.58]]
+  transform:m=[[0.307135, 0.0, -0.951666] [0.0, 1.0, 0.0] [0.951666, 0.0, 0.307135] [-1190.01, 2.735, -998.58]]
   groupName:t="sector_3"
   respawnBaseGroup:i=5
   active:b=no

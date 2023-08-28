@@ -70,8 +70,9 @@ def human_paratroopers_find_supply_box_on_update(info : ParallelUpdateFrameDelay
     find_query() <| $ [es(REQUIRE=supply_box__isActive)] (eid : EntityId;
                                                           transform : float3x4;
                                                           buildingRadius : float;
+                                                          buildingCenterOffset : float3;
                                                           object__useDist : float)
-      human_paratroopers_supply_box__selectedEid = find_fortification_object_impl(eid, false, transform[3], buildingRadius, traceBegin, traceEnd, object__useDist)
+      human_paratroopers_supply_box__selectedEid = find_fortification_object_impl(eid, false, transform[3], buildingCenterOffset, buildingRadius, traceBegin, traceEnd, object__useDist)
       return !!human_paratroopers_supply_box__selectedEid
 
 

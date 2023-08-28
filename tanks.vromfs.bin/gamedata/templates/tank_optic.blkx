@@ -9,6 +9,17 @@ ussr_top_1{
   }
 }
 
+ussr_top_1_bm{
+  _extends:t="base_vehicle_sight"
+  vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_top_1_bm.blk"
+  vehicle_sight__useGunDir:b=yes
+
+  "vehicle_sight__slitZoom:list<r>"{
+    zoom:r=1.9
+    zoom:r=3.5
+  }
+}
+
 ussr_tod_6{
   _extends:t="base_vehicle_sight"
   vehicle_sight__blk:t="content/tanks/gamedata/sight/ussr_tod_6.blk"

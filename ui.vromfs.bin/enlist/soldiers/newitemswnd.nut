@@ -2,8 +2,10 @@ from "%enlSqGlob/ui_library.nut" import *
 
 let { h2_txt, body_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let {
-  bigPadding, soldierLvlColor, activeTxtColor, smallPadding, defBgColor, warningColor
+  soldierLvlColor, activeTxtColor, defBgColor, warningColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, bigPadding
+} = require("%enlSqGlob/ui/designConst.nut")
 let JB = require("%ui/control/gui_buttons.nut")
 let textButton = require("%ui/components/textButton.nut")
 let { withTooltip } = require("%ui/style/cursors.nut")
@@ -202,7 +204,7 @@ let function soldierMedal(soldier) {
     : withTooltip(medal, @() loc("hero/medal"))
 }
 
-let curItemName = function(item, armyInfoId) {
+let function curItemName(item, armyInfoId) {
   let belongingObject = (armyInfoId ?? "") == "" ? null
     : {
         rendObj = ROBJ_TEXT
@@ -215,9 +217,9 @@ let curItemName = function(item, armyInfoId) {
     children = [
       {
         flow = FLOW_HORIZONTAL
-        gap = bigPadding
+        gap = midPadding
         valign = ALIGN_CENTER
-        padding = [bigPadding, 0]
+        padding = [midPadding, 0]
         children = [
           {
             rendObj = ROBJ_TEXT
@@ -308,7 +310,7 @@ let function animatedStars(item){
           : tier <= 3
             ? casualStarAnim(delay, tier)
           : advancedStarAnim(delay, tier, idx + 1)
-        padding = bigPadding
+        padding = midPadding
       })
     })
   }
@@ -363,7 +365,7 @@ let function newItemsWndContent() {
         size = flex()
         flow = FLOW_VERTICAL
         halign = ALIGN_CENTER
-        gap = bigPadding
+        gap = midPadding
         children = [
           title(specialUnlockHeader == "" ? header : specialUnlockHeader)
           underline
@@ -382,7 +384,7 @@ let function newItemsWndContent() {
       underline
       title(subtitle)
       {
-        margin = [hdpx(50), 0, 0, 0]
+        margin = [bigPadding, 0]
         size = [pw(100), SIZE_TO_CONTENT]
         children =  makeVertScroll(animBlock.component,
           {
@@ -552,7 +554,7 @@ let function newItemsWnd (){
     }
     children = [
       {
-        margin = [bigPadding * 4, 0, 0, 0]
+        margin = [midPadding * 4, 0, 0, 0]
         hplace = ALIGN_RIGHT
         size = [flex(), fsh(2)]
         children = !needShowFirstPurchaseBtn.value && (wndCanBeClosed.value || isAnimFinished.value)

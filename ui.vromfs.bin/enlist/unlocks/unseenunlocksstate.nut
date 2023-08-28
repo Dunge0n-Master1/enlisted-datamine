@@ -6,7 +6,6 @@ let { weeklyTasks } = require("weeklyUnlocksState.nut")
 let { mkOnlineSaveData } = require("%enlSqGlob/mkOnlineSaveData.nut")
 let { unlockProgress } = require("%enlSqGlob/userstats/unlocksState.nut")
 let isNewbie = require("%enlist/unlocks/isNewbie.nut")
-let { userstatUnlocks } = require("%enlSqGlob/userstats/userstat.nut")
 
 
 enum SeenMarks {
@@ -124,12 +123,9 @@ let markUnlockSeen = @(names) changeStatus(SeenMarks.SEEN, names)
 
 let markUnlocksOpened = @(names) changeStatus(SeenMarks.OPENED, names)
 
-let hasNecessaryData = keepref(Computed(function() {
-  let hasUserstatData = userstatUnlocks.value?.unlocks != null
-  let hasNewbieUnlock = "not_a_new_player_unlock" in unlockProgress.value
-  return onlineSettingUpdated.value && hasUserstatData && hasNewbieUnlock
-    && weeklyTasks.value != null
-}))
+let hasNecessaryData = keepref(Computed(@() onlineSettingUpdated.value
+  && "not_a_new_player_unlock" in unlockProgress.value
+  && weeklyTasks.value != null))
 
 
 hasNecessaryData.subscribe(function(hasData) {

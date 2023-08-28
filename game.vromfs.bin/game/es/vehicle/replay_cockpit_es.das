@@ -41,8 +41,8 @@ def replay_sync_cockpit_on_appear_es(evt : Event;
     let viewsCount = length(cockpit__slitNodes)
     if viewsCount <= 0
       return true
-    cockpit__prevSlit = cockpit__nextSlit
-    cockpit__nextSlit = human_cockpit__nextSlit
+    cockpit__prevSlit = cockpit__nextSlit % viewsCount
+    cockpit__nextSlit = human_cockpit__nextSlit % viewsCount
     return true
 
 [es(tag=playingReplay, on_appear, after=vehicle_cockpit_slits_init, track=cockpit__isAttached, REQUIRE=cockpit__isAttached)]

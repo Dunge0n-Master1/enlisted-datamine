@@ -15,22 +15,16 @@ def calc_aim_pos(aim_angles : float2)
   return camPos + angles_to_dir(aim_angles) * AIM_DISTANCE
 
 def apply_turret_input(turret_control__gunEids : EidList;
-                       aim : AnalogStickAction;
-                       zoomToggle : DigitalAction;
-                       zoom : DigitalAction)
+                       aim : AnalogStickAction)
   var isFirstAimPosVaild = false
   var firstAimPos = float3()
 
   for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret__canZoom : bool;
-                                                                         var turret_input__aimAngles : float2&;
+    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (var turret_input__aimAngles : float2&;
                                                                          var turret_input__aimPos : float3&;
-                                                                         var turret_input__firstUpdate : bool&;
-                                                                         var turret_input__isZoom : bool&)
+                                                                         var turret_input__firstUpdate : bool&)
       assume aimAngles = turret_input__aimAngles
       assume aimPos = turret_input__aimPos
-
-      turret_input__isZoom = turret__canZoom && (zoomToggle.bActive && zoomToggle.bState || zoom.bActive && zoom.bState)
 
       if aim.bActive && !turret_input__firstUpdate
         let dx = aim.x * PI

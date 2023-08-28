@@ -205,8 +205,6 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
                             input__enabled : bool;
                             turret_control__gunEids : EidList;
                             vehicle_input__aim : int;
-                            vehicle_input__zoomToggle : int;
-                            vehicle_input__zoom : int;
                             vehicle_input__shoot : int;
                             vehicle_input__shootSecondary : int;
                             vehicle_input__shootMachinegun : int)
@@ -251,10 +249,7 @@ def vehicle_input_gunner_es(info : ParallelUpdateFrameDelayed;
       aAim.x += asAimDelta.x
       aAim.y += asAimDelta.y
 
-  apply_turret_input(turret_control__gunEids,
-                     aAim,
-                     get_digital_action_state(uint16(vehicle_input__zoomToggle)),
-                     get_digital_action_state(uint16(vehicle_input__zoom)))
+  apply_turret_input(turret_control__gunEids, aAim)
 
 [es(tag=(server, input))]
 def turret_input_local_es(info : UpdateStageUpdateInput;

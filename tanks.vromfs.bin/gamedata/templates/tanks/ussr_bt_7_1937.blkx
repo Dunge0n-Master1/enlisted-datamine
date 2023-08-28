@@ -216,7 +216,7 @@ ussr_bt_7_1937_commander_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.0
+    slit:r=0.08
   }
 
   "cockpit__slitIsGun:list<b>"{

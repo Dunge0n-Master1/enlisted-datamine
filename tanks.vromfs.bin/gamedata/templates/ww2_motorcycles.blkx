@@ -109,6 +109,7 @@ base_bike_common{
   vehicle_seats_switch_time__totalSwitchTime:r=0.5
   vehicle_seats__enterTime:r=0.5
   vehicle_seats__exitTime:r=0.5
+  vehicle_free_look__zoomIn:r=1.5
   item__iconOffset:p2=0.0, -0.2
   item__iconScale:r=1.15
   item__iconYaw:r=25.0

@@ -8,19 +8,19 @@ let DEFAULT_ZOOM_TIME = 0.2
 
 def set_cockpit_zoom(cockpit__eid : EntityId;
                      dt : float;
+                     is_zoom : bool;
                      var camera__magnification : float&;
                      var camera__zoomPos : float&)
   var isFound = false
   query(cockpit__eid) <| $ [es] (cockpit__slitZoom : Array;
                                  cockpit__slitZoomTime : FloatList;
-                                 cockpit__currentSlit : int;
-                                 cockpit__isZoom : bool)
+                                 cockpit__currentSlit : int)
     let slitZoom = cockpit__slitZoom?[cockpit__currentSlit]
     let time = cockpit__slitZoomTime?[cockpit__currentSlit] ?? DEFAULT_ZOOM_TIME
     if slitZoom != null
       let zoomLevels = get_ecs_FloatList(*slitZoom)
       if zoomLevels != null && !empty(*zoomLevels)
-        let zoomTargetPos = cockpit__isZoom ? 1.0 : 0.0
+        let zoomTargetPos = is_zoom ? 1.0 : 0.0
         if time > VERY_SMALL_NUMBER
           camera__zoomPos = move_to(camera__zoomPos, zoomTargetPos, dt, 1.0 / time)
         else
@@ -32,34 +32,40 @@ def set_cockpit_zoom(cockpit__eid : EntityId;
         return
   return isFound
 
-def set_turret_zoom(turret_control__gunEids : EidList;
-                    dt : float;
+def set_zoom(dt : float;
+             is_zoom : bool;
+             zoom_out : float;
+             zoom_in : float;
+             zoom_speed : float;
+             var camera__magnification : float&;
+             var camera__zoomPos : float&)
+  camera__zoomPos = move_to(camera__zoomPos, is_zoom ? 1.0 : 0.0, dt, zoom_speed)
+  camera__magnification = lerp(zoom_out, zoom_in, camera__zoomPos)
+
+def set_gunner_zoom(dt : float;
+                    is_zoom : bool;
                     camera_type : int;
-                    cockpit__zoomOutFov : float const?;
-                    cockpit__zoomInFov : float const?;
+                    cockpit__zoomOutFov : float;
+                    cockpit__zoomInFov : float;
+                    cockpit__zoomSpeed : float;
                     var camera__magnification : float&;
                     var camera__zoomPos : float&)
-  for gunEid in turret_control__gunEids
-    query(gunEid) <| $ [es(REQUIRE=(resolvedTurret, firstTurretInput))] (turret_input__minZoom : float;
-                                                                         turret_input__maxZoom : float;
-                                                                         turret_input__isZoom : bool)
-      let isZoom = turret_input__isZoom
-      let zoomOutFov = cockpit__zoomOutFov ?? turret_input__minZoom
-      let zoomInFov = cockpit__zoomInFov ?? turret_input__maxZoom
-      let zoomPos = move_to(camera__zoomPos, isZoom ? 1.0 : 0.0, dt, 5.0)
-      let zoom = (int(VehicleCameraType VEHICLE_CAMERA_GUNNER) == camera_type ?
-        lerp(zoomOutFov, zoomInFov, zoomPos) :
-        lerp(turret_input__minZoom, turret_input__maxZoom, zoomPos))
-      camera__magnification = zoom
-      camera__zoomPos = zoomPos
+  if int(VehicleCameraType VEHICLE_CAMERA_GUNNER) == camera_type
+    set_zoom(dt, is_zoom, cockpit__zoomOutFov, cockpit__zoomInFov, cockpit__zoomSpeed, camera__magnification, camera__zoomPos)
+    return true
+  return false
 
 [es(tag=gameClient, REQUIRE=heroVehicle, before=shooter_cam_update_tm_es, after=human_optics_camera_es)]
-def turret_zoom_es(info : ParallelUpdateFrameDelayed;
-                   turret_control__gunEids : EidList;
-                   vehicleCameraType : int;
-                   cockpit__eid : EntityId;
-                   cockpit__zoomOutFov : float const?;
-                   cockpit__zoomInFov : float const?)
+def vehicle_zoom(info : ParallelUpdateFrameDelayed;
+                 vehicleCameraType : int;
+                 vehicle_input__isZoom : bool;
+                 cockpit__eid : EntityId;
+                 vehicle_free_look__zoomSpeed : float = 5.;
+                 vehicle_free_look__zoomOut : float = 1.;
+                 vehicle_free_look__zoomIn : float = 1.3;
+                 cockpit__zoomSpeed : float = 5.;
+                 cockpit__zoomOutFov : float = 1.;
+                 cockpit__zoomInFov : float = 2.)
   let dt = info.dt
   query() <| $ [es] (camera__target : EntityId)
     query(camera__target) <| $ [es] (human_vehicle__isInHatch : bool = false;
@@ -69,11 +75,15 @@ def turret_zoom_es(info : ParallelUpdateFrameDelayed;
                                      var camera__zoomPos : float&)
       var isSet = false
       if !human_vehicle__isInHatch
-        isSet = set_cockpit_zoom(cockpit__eid, dt, camera__magnification, camera__zoomPos)
+        isSet = set_cockpit_zoom(cockpit__eid, dt, vehicle_input__isZoom, camera__magnification, camera__zoomPos)
+      if !isSet
+        isSet = set_gunner_zoom(dt, vehicle_input__isZoom, vehicleCameraType, cockpit__zoomOutFov, cockpit__zoomInFov, cockpit__zoomSpeed,
+                                camera__magnification, camera__zoomPos)
       if !isSet
         let human_gun_attached = get_bool(human_weap__currentGunEid, "human_gun_attached") ?? false
         if !human_gun_attached && !human_vehicle__isHoldingGunPassenger
-          set_turret_zoom(turret_control__gunEids, dt, vehicleCameraType, cockpit__zoomOutFov, cockpit__zoomInFov, camera__magnification, camera__zoomPos)
+          set_zoom(dt, vehicle_input__isZoom, vehicle_free_look__zoomOut, vehicle_free_look__zoomIn, vehicle_free_look__zoomSpeed,
+                   camera__magnification, camera__zoomPos)
       query(cockpit__eid) <| $ [es] (cockpit__forwardOffsetTime : float; cockpit__cameraTime : float)
         if cockpit__cameraTime < 1. && cockpit__cameraTime > 0.
           camera__magnification = 1.0

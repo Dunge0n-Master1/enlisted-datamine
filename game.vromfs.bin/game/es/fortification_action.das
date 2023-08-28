@@ -61,12 +61,13 @@ def find_server_preview(is_engineer, trace_from, trace_to, trace_max_len)
   find_query() <| $ [es(REQUIRE_NOT=builder_additive_preview, REQUIRE=builder_server_preview)] (eid : EntityId;
                                                                                                 transform : float3x4;
                                                                                                 buildingRadius : float;
+                                                                                                buildingCenterOffset : float3;
                                                                                                 object__useDist : float const?;
                                                                                                 additionalHeight : float = 0.f;
                                                                                                 engineer_building__validationHeight : float = 0.5)
     let posOffset = float3(0f, max(-additionalHeight + engineer_building__validationHeight, 0f), 0f)
     let fortificationPos = transform[3] + posOffset
-    previewEid = find_fortification_object_impl(eid, is_engineer, fortificationPos, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
+    previewEid = find_fortification_object_impl(eid, is_engineer, fortificationPos, buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
     if !!previewEid && !validate_fortification_action_object_pos(fortificationPos, trace_from)
       previewEid = INVALID_ENTITY_ID
     return !!previewEid
@@ -77,8 +78,9 @@ def find_usable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
   find_query() <| $ [es(REQUIRE=(engineer_building__isUsable), REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : EntityId;
                                                                                                                                  transform : float3x4;
                                                                                                                                  buildingRadius : float;
+                                                                                                                                 buildingCenterOffset : float3;
                                                                                                                                  object__useDist : float const?)
-    buildingEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
+    buildingEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
     return !!buildingEid
   return buildingEid
 
@@ -87,8 +89,9 @@ def find_destroyable_buildings(is_engineer, trace_from, trace_to, trace_max_len)
   find_query() <| $ [es(REQUIRE=building__destroyable, REQUIRE_NOT=(builder_additive_preview, builder_server_preview))] (eid : EntityId;
                                                                                                                          transform : float3x4;
                                                                                                                          buildingRadius : float;
+                                                                                                                         buildingCenterOffset : float3;
                                                                                                                          object__useDist : float const?)
-    previewEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
+    previewEid = find_fortification_object_impl(eid, is_engineer, transform[3], buildingCenterOffset, buildingRadius, trace_from, trace_to, object__useDist ?? trace_max_len)
     return !!previewEid
   return previewEid
 

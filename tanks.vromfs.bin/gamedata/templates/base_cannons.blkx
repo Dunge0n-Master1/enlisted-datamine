@@ -398,6 +398,7 @@ base_movable_cannon{
 anti_tank_cannon_common{
   _extends:t="turret_controls_hit_result_info"
   vehicle__mapIcon:t="map_icon_cannon_at"
+  vehicle_free_look__zoomIn:r=1.0
 }
 
 anti_aircraft_cannon_common{

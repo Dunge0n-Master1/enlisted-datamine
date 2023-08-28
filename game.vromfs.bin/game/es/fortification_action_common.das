@@ -49,15 +49,17 @@ def test_segment_sphere_intersection_nonblocking(p0 : float3;
 def find_fortification_object_impl(eid : EntityId;
                                    is_engineer : bool;
                                    center : float3;
+                                   center_offset : float3;
                                    radius : float;
                                    trace_from : float3;
                                    trace_to : float3;
                                    trace_max_len : float)
-  if (length_sq(trace_from - center) > square(trace_max_len))
+  let pos = center + center_offset
+  if (length_sq(trace_from - pos) > square(trace_max_len))
     return INVALID_ENTITY_ID
   let onlyForEngineer = has(eid, "onlyForEngineer")
   var isPreviewFound  = !onlyForEngineer || is_engineer
   if isPreviewFound
-    let isOnLineOfSight = test_segment_sphere_intersection_nonblocking(trace_from, trace_to, center, square(radius))
+    let isOnLineOfSight = test_segment_sphere_intersection_nonblocking(trace_from, trace_to, pos, square(radius))
     isPreviewFound &&= isOnLineOfSight
   return isPreviewFound ? eid : INVALID_ENTITY_ID

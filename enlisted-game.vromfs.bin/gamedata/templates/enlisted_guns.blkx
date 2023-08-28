@@ -34,6 +34,7 @@ base_fortification_build{
   costReturnedOnDestructionMul:r=0.5
   buildTypeId:i=0
   buildingRadius:r=0.0
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   buildingCostructedAtTime:r=0.0
   buildingSoundTag:t="fortification"
   actionTimerColor:p3=255.0, 0.0, 0.0
@@ -88,6 +89,7 @@ network_fortification_preview{
   actionTimerColor:p3=0.0, 255.0, 0.0
   _replicated:t="building_builder__timeToBuild"
   buildingRadius:r=0.0
+  buildingCenterOffset:p3=0.0, 0.0, 0.0
   buildTypeId:i=0
   buildingCostructedAtTime:r=0.0
   destroyByInactiveShredderAtTime:r=-1.0

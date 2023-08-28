@@ -340,20 +340,14 @@ let rewardsPresentation = {
     name = loc("smallTrophyTitle_1")
   }),
   ["49"] = {
-    name = loc("items/battlepass_buster_1")
-    description = loc("items/battlepass_buster_1/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["50"] = {
-    name = loc("items/battlepass_buster_3")
-    description = loc("items/battlepass_buster_3/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_3_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -461,10 +455,7 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["210"] = {
-    name = loc("items/battlepass_buster_50_3")
-    description = loc("items/battlepass_buster_50_3/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_50_3_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -480,10 +471,7 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["212"] = {
-    name = loc("items/booster_30_battle_1")
-    description = loc("items/booster_30_battle_1/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -546,10 +534,7 @@ let rewardsPresentation = {
     mkImage = mkImageCtor([350, 200], [0, 0])
   },
   ["241"] = {
-    name = loc("items/booster_global_300_battle_2")
-    description = loc("items/booster_global_300_battle_2/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -574,20 +559,14 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([162, 178])
   },
   ["244"] = {
-    name = loc("items/booster_global_battlepass_50_battle_12")
-    description = loc("items/booster_global_battlepass_50_battle_12/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_50_battle_12_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["245"] = {
-    name = loc("items/booster_global_battlepass_100_battle_12")
-    description = loc("items/booster_global_battlepass_100_battle_12/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_12_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -603,20 +582,14 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["247"] = {
-    name = loc("items/booster_global_battlepass_100_battle_6")
-    description = loc("items/booster_global_battlepass_100_battle_6/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_6_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },
   ["248"] = {
-    name = loc("items/booster_global_battlepass_100_battle_24")
-    description = loc("items/booster_global_battlepass_100_battle_24/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "booster_global_battlepass_100_battle_24_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -688,10 +661,7 @@ let rewardsPresentation = {
     mkImage = mkImageCtor([72, 100])
   },
   ["257"] = {
-    name = loc("items/booster_global_100_battle_2")
-    description = loc("items/booster_global_100_battle_2/desc")
     icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
     worth = 2
     bgImage = "ui/skin#/battlepass/bg_boost.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
@@ -1011,12 +981,9 @@ let rewardsPresentation = {
     cardImageParams = mkImageParams([154, 174], [0, 13])
   },
   ["414"] = {
-    name = loc("items/battlepass_buster_1")
-    description = loc("items/battlepass_buster_1/desc")
-    icon = "ui/skin#/battlepass/base_booster_icon.svg"
-    gametemplate = "battlepass_buster_1_template"
+    icon = "ui/skin#/battlepass/deserter_penalty_icon.svg"
     worth = 2
-    bgImage = "ui/skin#/battlepass/bg_boost.avif"
+    bgImage = "ui/skin#/battlepass/bg_penalty.avif"
     cardImage = "ui/skin#/battlepass/boost_global.avif"
     cardImageParams = mkImageParams([154, 144], [0, 15])
   },

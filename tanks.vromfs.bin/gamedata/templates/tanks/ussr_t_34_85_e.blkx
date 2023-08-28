@@ -180,7 +180,7 @@ ussr_t_34_85_e_gunner_cockpit{
 ussr_t_34_85_e_commander_cockpit{
   _extends:t="base_commander_cockpit_no_slits"
   animchar__res:t="t_26_1940_commander_char"
-  cockpit__offset:p3=-0.6, 1.03, 0.4
+  cockpit__offset:p3=-0.3, 0.95, 0.4
   cockpit__minForwardOffset:r=-0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{

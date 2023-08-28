@@ -232,9 +232,7 @@ ussr_25mm_72k_gunner_cockpit{
   vehicle_sight__blk:t="gamedata/sight/jp_ring.blk"
   _extends:t="base_gunner_cockpit"
   animchar__res:t="t_26_1940_gunner_char"
-  cockpit__offset:p3=0.0, 0.0, 0.0
   cockpit__forwardOffsetDuration:r=0.33
-  cockpit__minForwardOffset:r=0.0
 
   "cockpit__cockpitOffsetBySlit:list<p3>"{
     item:p3=-0.8, 0.35, -0.45
@@ -256,11 +254,19 @@ ussr_25mm_72k_gunner_cockpit{
   }
 
   "cockpit__slitForwardOffset:list<r>"{
-    slit:r=0.21
+    slit:r=0.215
   }
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.9
+      zoom:r=3.5
+    }
   }
 }
 

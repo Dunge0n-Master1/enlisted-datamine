@@ -395,6 +395,7 @@ let function mkPerksPointsBlock(soldierGuid) {
 
 let function statsRange(statsTable, stat, isLocked) {
   let { icon, color } = pPointsBaseParams[stat]
+  let { minVal, maxVal } = statsTable[stat]
   return {
     flow = FLOW_HORIZONTAL
     halign = ALIGN_CENTER
@@ -404,7 +405,7 @@ let function statsRange(statsTable, stat, isLocked) {
       {
         rendObj = ROBJ_TEXT
         color = defTxtColor
-        text = $"{statsTable[stat].min}-{statsTable[stat].max}"
+        text = minVal == maxVal ? maxVal : $"{minVal}-{maxVal}"
       }
     ]
   }
@@ -413,19 +414,21 @@ let function statsRange(statsTable, stat, isLocked) {
 
 let function mkStatList(content, sClassesCfg, isLocked = false) {
   let { soldierClasses, soldierTierMax, soldierTierMin, soldierRareMax,
-    soldierRareMin } = content
+    soldierRareMin, soldierHasMaxStats } = content
   let { pointsByTiers = [], perkPointsModifications = []
     } = sClassesCfg?[soldierClasses[0]] ?? {}
 
   local stats = {}
   let statsMax = pointsByTiers[min(soldierTierMax, pointsByTiers.len() - 1)]
   let maxRareModifications = min(soldierRareMax, perkPointsModifications.len() - 1)
-  foreach(name in pPointsList) {
-    stats[name] <- {
-      min = pointsByTiers[soldierTierMin][name].min +
-        (perkPointsModifications[max(soldierRareMin, 0)]?[name] ?? 0)
-      max = statsMax[name].max +
-        (perkPointsModifications[maxRareModifications]?[name] ?? 0)
+  foreach (statId in pPointsList) {
+    let maxVal = statsMax[statId].max
+      + (perkPointsModifications[maxRareModifications]?[statId] ?? 0)
+    stats[statId] <- {
+      maxVal
+      minVal = soldierHasMaxStats ? maxVal
+        : pointsByTiers[soldierTierMin][statId].min +
+          (perkPointsModifications[max(soldierRareMin, 0)]?[statId] ?? 0)
     }
   }
   return {

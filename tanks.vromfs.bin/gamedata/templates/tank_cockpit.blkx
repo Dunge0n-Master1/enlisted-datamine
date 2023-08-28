@@ -23,6 +23,25 @@ base_driver_cockpit_no_slits{
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
     _tags:t="render"
   }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+  }
 }
 
 base_gunner_cockpit{
@@ -52,6 +71,21 @@ base_gunner_cockpit{
 
   "cockpit__slitIsGun:list<b>"{
     slit:b=yes
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
   }
 }
 
@@ -87,6 +121,13 @@ base_commander_cockpit_no_slits{
 
   "animchar_render__nodeVisibleStgFilters:list<u8>"{
     _tags:t="render"
+  }
+
+  "cockpit__slitZoom:array"{
+
+    "slit:list<r>"{
+      zoom:r=1.0
+    }
   }
 }
 

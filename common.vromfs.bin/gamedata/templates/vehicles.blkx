@@ -163,7 +163,7 @@ first_turret{
     _tags:t="input"
     turret_input__isZoom:b=no
     turret_input__minZoom:r=1.0
-    turret_input__maxZoom:r=2.0
+    turret_input__maxZoom:r=1.3
   }
 }
 

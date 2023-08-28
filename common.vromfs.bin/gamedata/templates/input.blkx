@@ -74,6 +74,7 @@ vehicle_input{
   vehicle_input__nextCockpitView:i=0
   vehicle_input__zoom:i=0
   vehicle_input__zoomToggle:i=0
+  vehicle_input__isZoom:b=no
 }
 
 ship_input{

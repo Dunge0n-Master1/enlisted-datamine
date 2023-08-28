@@ -252,6 +252,9 @@ local portraits = {
   armory2_bonus_portrait_ger = {
     icon = "ui/portraits/event/armory2_bonus_portrait_ger.avif"
   }
+  portrait_preorder_sniper = {
+    icon = "ui/portraits/event/portrait_preorder_sniper.avif"
+  }
 
 
   common_china_portrait_1 = {
@@ -405,6 +408,7 @@ local nickFrames = {
   nickFrame_preorder_mgun = @(n) $"┏{n}┏"
   nickFrame_preorder_paratrooper = @(n) $"┒{n}┒"
   nickFrame_alfa_tester = @(n) $"┓{n}┓"
+  nickFrame_preorder_sniper = @(n) $"└{n}└"
 }
 
 local decoratorsPresentation = {

@@ -3,9 +3,10 @@ from "%enlSqGlob/ui_library.nut" import *
 let { h2_txt, body_txt, sub_txt } = require("%enlSqGlob/ui/fonts_style.nut")
 let { squadsCfgById } = require("%enlist/soldiers/model/config/squadsConfig.nut")
 let {
-  bigPadding, unitSize, slotBaseSize, listCtors, smallPadding, warningColor,
-  hoverBgColor
+  unitSize, slotBaseSize, listCtors, warningColor, hoverBgColor
 } = require("%enlSqGlob/ui/viewConst.nut")
+let { smallPadding, midPadding, largePadding, bigPadding
+} = require("%enlSqGlob/ui/designConst.nut")
 let { bgColor, txtColor } = listCtors
 let {gray} = require("%ui/components/std.nut")
 let dtxt = require("%ui/components/text.nut").dtext
@@ -19,9 +20,9 @@ let { needFreemiumStatus } = require("%enlist/campaigns/campaignConfig.nut")
 let { perkLevelsGrid } = require("%enlist/meta/perks/perksExp.nut")
 
 
-let itemSizeShort = [3.4 * unitSize, 1.8 * unitSize]
-let itemSizeLong = [6.0 * unitSize, 1.8 * unitSize]
-let boosterHeight = (rewardBgSizePx[1] * 0.7).tointeger()
+let itemSizeShort = [3.4 * unitSize, 2.5 * unitSize]
+let itemSizeLong = [6.0 * unitSize, 2.5 * unitSize]
+let boosterHeight = (rewardBgSizePx[1] * 0.9).tointeger()
 let itemSizeBooster = [(boosterWidthToHeight * boosterHeight).tointeger(), boosterHeight]
 let itemSizeByTypeMap = {
   soldier = slotBaseSize
@@ -34,6 +35,13 @@ let itemSizeByTypeMap = {
   melee = itemSizeShort
   booster = itemSizeBooster
 }
+
+let extraHeightByTypeMap = {
+  ticket = bigPadding * 2
+  vehicle = largePadding
+  currency = bigPadding * 2
+}
+let getExtraHeight = @(itemType) extraHeightByTypeMap?[itemType] ?? 0
 
 local animDelay = 0
 local trigger = ""
@@ -48,7 +56,7 @@ let SKIP_ANIM_POSTFIX = "_skip"
 
 let dropTitle = @(titleText) {
   size = SIZE_TO_CONTENT
-  margin = [bigPadding, 0]
+  margin = [midPadding, 0]
   transform = {}
   animations = [
     { prop = AnimProp.opacity,   from = 0, to = 1, duration = 0.8, play = true, easing = InOutCubic}
@@ -172,12 +180,15 @@ let selectedLine = {
 let function mkItemExt(item, selectedTpl, params) {
   let { hasAnim, onVisibleCb, armyByGuid, isDisarmed, onItemClick, pauseTooltip } = params
 
+  let extraHeight = getExtraHeight(item?.itemtype)
+
   let ctor = mkItemByTypeMap?[item?.itemtype]
   let size = getItemSize(item?.itemtype)
+  let itemSize = [size[0], size[1] - extraHeight]
   let itemObject = (ctor ?? mkItem)({
     item
     onClickCb = onItemClick != null ? @(...) onItemClick(item) : null
-    itemSize = size
+    itemSize
     canDrag = false
     isInteractive = onItemClick != null
     pauseTooltip = pauseTooltip ?? Watched(false)
@@ -209,13 +220,13 @@ let function mkItemExt(item, selectedTpl, params) {
 
 let function blockContent(items, selectedTpl, columnsAmount, params) {
   let itemSize = getItemSize(items?[0].itemtype)
-  let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * bigPadding
+  let containerWidth = columnsAmount * itemSize[0] + (columnsAmount - 1) * midPadding
   return {
     flow = FLOW_HORIZONTAL
     children = wrap(items.map(@(item) mkItemExt(item, selectedTpl, params)), {
       width = containerWidth
-      hGap = bigPadding
-      vGap = bigPadding
+      hGap = midPadding
+      vGap = midPadding
       hplace = ALIGN_CENTER
       halign = ALIGN_CENTER
     })
@@ -231,14 +242,14 @@ let function itemsBlock(items, blockId, selectedTpl, params) {
 
   let itemSize = getItemSize(items?[0].itemtype)
   let columnsAmount = width != null
-    ? ((width - (width / itemSize[0] - 1).tointeger() * bigPadding) / itemSize[0]).tointeger()
+    ? ((width - (width / itemSize[0] - 1).tointeger() * midPadding) / itemSize[0]).tointeger()
     : max(minColumns, calc_golden_ratio_columns(items.len(), itemSize[0] / itemSize[1]))
 
   return {
     size = [flex(), SIZE_TO_CONTENT]
     flow = FLOW_VERTICAL
     halign = ALIGN_CENTER
-    gap = bigPadding
+    gap = midPadding
     children = (viewBlockId ? [blockTitle(viewBlockId, params)] : [])
       .append(blockContent(items, selectedTpl, columnsAmount, params))
   }
@@ -287,7 +298,7 @@ let function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARD
   let underline = {
     rendObj = ROBJ_FRAME
     size = [pw(80), 1]
-    margin = bigPadding
+    margin = midPadding
     borderWidth = [0, 0, 1, 0]
     color = Color(100, 100, 100, 50)
     transform = {}
@@ -312,7 +323,7 @@ let function mkAnimatedItemsBlock(itemBlocks, selectedTpl, params = ITEMS_REWARD
 
   children.append({
     flow = FLOW_VERTICAL
-    gap = bigPadding
+    gap = midPadding
     children = blocks.map(@(blockId)
       itemsBlock(itemBlocks[blockId], blockId, selectedTpl, params)
     )

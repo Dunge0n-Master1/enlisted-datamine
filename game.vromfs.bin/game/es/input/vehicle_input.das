@@ -5,7 +5,7 @@ require game.es.events
 require game.es.input.input_events
 require DagorInput
 require TouchInput
-
+require enlisted.events_enlisted
 
 def init(var vehicle_input__steer : int&;
          var vehicle_input__throttle : int&;
@@ -129,3 +129,22 @@ def vehicle_hand_brake_input_terminated(evt : EventDaInputActionTerminated;
                                         var vehicle_input_axes : FloatList&)
   if input__enabled && int(evt.action) == vehicle_input__handBrake
     vehicle_input_axes[int(EGroundControlAxis GCA_HAND_BRAKE)] = 0.0
+
+[es(tag=input, no_order)]
+def vehicle_input_zoom(info : ParallelUpdateFrameDelayed;
+                       input__enabled : bool;
+                       vehicle_input__zoom : int;
+                       vehicle_input__zoomToggle : int;
+                       cockpit__eid : EntityId = INVALID_ENTITY_ID;
+                       var vehicle_input__isZoom : bool&)
+  if !input__enabled
+    return
+
+  let zoomToggleState = get_digital_action_state(uint16(vehicle_input__zoomToggle))
+  let zoomState = get_digital_action_state(uint16(vehicle_input__zoom))
+  let zoomToggle = zoomToggleState.bActive && zoomToggleState.bState
+  let zoom = zoomState.bActive && zoomState.bState
+  vehicle_input__isZoom = zoomToggle || zoom
+
+  query(cockpit__eid) <| $ [es] (cockpit__cameraTime : float)
+    vehicle_input__isZoom &&= cockpit__cameraTime >= 1.0

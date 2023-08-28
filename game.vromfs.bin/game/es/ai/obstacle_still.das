@@ -40,7 +40,7 @@ def still_obstacles_from_grid(cur_time : float; obstacle_template : string)
       removeSubTemplate(eid, obstacle_template)
 
 def still_obstacles_from_riextra(cur_time : float; obstacle_template : string)
-  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, ri_extra__handle, moveable_obstacle, gameRendInstTag, unbakedRendInstTag))] (eid : EntityId; transform : float3x4; ri_extra : RiExtraComponent)
+  ecs::query() <| $ [es(REQUIRE_NOT=(obstacle__still, obstacle__handle, ri_extra__handle, moveable_obstacle, rallypoint, gameRendInstTag, unbakedRendInstTag))] (eid : EntityId; transform : float3x4; ri_extra : RiExtraComponent)
     let riType = handle_to_ri_type(ri_extra.handle)
     if get_ri_gen_extra_collres(int(riType)) != null
       add_obstacle_template(eid, transform, cur_time, obstacle_template)

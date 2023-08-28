@@ -3,7 +3,6 @@ from "%enlSqGlob/ui_library.nut" import *
 let armyEffects = require("armyEffects.nut")
 let { curArmy } = require("%enlist/soldiers/model/state.nut")
 let { get_crates_content } = require("%enlist/meta/clientApi.nut")
-let { metaGen } = require("%enlist/meta/metaConfigUpdater.nut")
 let { configs } = require("%enlist/meta/configs.nut")
 let { trimUpgradeSuffix, templateLevel } = require("%enlSqGlob/ui/itemsInfo.nut")
 let { shopItems } = require("%enlist/shop/shopItems.nut")
@@ -45,7 +44,6 @@ armyEffects.subscribe(function(effects) {
   if (armyId != null && curCrates.len() > 0)
     requestCratesContent(armyId, curCrates.keys())
 })
-metaGen.subscribe(@(_) requestedCratesContent({}))
 
 let function getCrateContentComp(armyId, crateId) {
   requestCratesContent(armyId, [crateId])
